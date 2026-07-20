@@ -19,6 +19,7 @@ export interface RouteBasisIdentity {
   readonly job: { readonly id: string };
   readonly runtimeIdentity: { readonly resolvedRuntimeRef: string };
   readonly resolvedPolicy: { readonly resolvedPolicyBundleRef: string };
+  readonly startAdmissionWitnessDigest: string | null;
 }
 
 export function reconstructRouteBasisFromReplay(
@@ -50,6 +51,7 @@ export function reconstructRouteBasisFromReplay(
     }),
     resolvedPolicy: Object.freeze({
       resolvedPolicyBundleRef: decisive.resolvedPolicyBundleRef
-    })
+    }),
+    startAdmissionWitnessDigest: decisive.startAdmissionWitnessDigest
   });
 }

@@ -10,6 +10,7 @@ import {
   type ResolvedTenantCapabilityClaim,
   type ResolvedTenantPublicContractClaim,
   type TenantCapabilityClaim,
+  type TenantCapabilityDefinitionGraphBasis,
   type TenantConformanceEnforcementClaim,
   type TenantConformanceManifest,
   type TenantEffectCapabilityBinding,
@@ -33,6 +34,12 @@ import type {
   PublicContractCatalog,
   PublicContractRow
 } from "../public_sdk/carriers.js";
+import type {
+  Ds1CapabilityDefinitionGraph
+} from "../public_contracts/foundation.js";
+
+export const TENANT_CONFORMANCE_MANIFEST_RELATIVE_PATH =
+  "contracts/tenant-conformance-manifest.json" as const;
 
 function catalogDigestBasis(
   catalog: PublicContractCatalog
@@ -71,6 +78,31 @@ function catalogBasis(
     catalogDigest: digest(
       requiredField(value, "catalogDigest", label),
       `${label}.catalogDigest`
+    )
+  });
+}
+
+function capabilityDefinitionGraphBasis(
+  input: unknown,
+  label: string
+): TenantCapabilityDefinitionGraphBasis {
+  const value = closedObject(
+    input,
+    ["graphId", "graphVersion", "graphDigest"],
+    label
+  );
+  return Object.freeze({
+    graphId: nonEmptyString(
+      requiredField(value, "graphId", label),
+      `${label}.graphId`
+    ),
+    graphVersion: exactSemVer(
+      requiredField(value, "graphVersion", label),
+      `${label}.graphVersion`
+    ),
+    graphDigest: digest(
+      requiredField(value, "graphDigest", label),
+      `${label}.graphDigest`
     )
   });
 }
@@ -211,6 +243,7 @@ function admitManifest(input: unknown): TenantConformanceManifest {
       "manifestDigest",
       "engineId",
       "engineVersion",
+      "capabilityDefinitionGraph",
       "publicContractCatalog",
       "publicContractClaims",
       "capabilityClaims",
@@ -254,6 +287,10 @@ function admitManifest(input: unknown): TenantConformanceManifest {
     engineVersion: exactSemVer(
       requiredField(value, "engineVersion", label),
       `${label}.engineVersion`
+    ),
+    capabilityDefinitionGraph: capabilityDefinitionGraphBasis(
+      requiredField(value, "capabilityDefinitionGraph", label),
+      `${label}.capabilityDefinitionGraph`
     ),
     publicContractCatalog: catalogBasis(
       requiredField(value, "publicContractCatalog", label),
@@ -485,6 +522,220 @@ function assertEnforcementClaims(input: {
       }
     }
   }
+}
+
+function compareText(left: string, right: string): number {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function exactCatalogContractRow(input: {
+  readonly catalog: PublicContractCatalog;
+  readonly contractId: string;
+}): PublicContractRow {
+  const matches = input.catalog.rows.filter(
+    (row) => row.contractId === input.contractId
+  );
+  const row = matches[0];
+  if (matches.length !== 1 || row === undefined) {
+    throw new TypeError(
+      `ABG tenant-conformance projection requires one exact catalog row for ${input.contractId}`
+    );
+  }
+  return row;
+}
+
+function tenantContractClaim(row: PublicContractRow): TenantPublicContractClaim {
+  return Object.freeze({
+    claimRef: `claim://abg/tenant-conformance/${row.contractId}`,
+    contractId: row.contractId,
+    contractVersion: row.version,
+    contractDigest: row.digest
+  });
+}
+
+function assertDefinitionGraphDigest(
+  graph: Ds1CapabilityDefinitionGraph
+): void {
+  const basis = Object.freeze({
+    kind: graph.kind,
+    graphId: graph.graphId,
+    graphVersion: graph.graphVersion,
+    definitions: Object.freeze(graph.definitions.map((definition) =>
+      Object.freeze({
+        capabilityId: definition.capabilityId,
+        requiredContractIds: definition.requiredContractIds,
+        dependentCapabilityIds: definition.dependentCapabilityIds,
+        effectRefs: definition.effectRefs
+      })
+    ))
+  });
+  const actual = stableSha256Digest(basis);
+  if (graph.graphDigest !== actual) {
+    throw new TypeError(
+      "DS1 capability-definition graph digest does not match canonical graph content"
+    );
+  }
+}
+
+export function projectAbgTenantConformanceManifest(input: {
+  readonly manifestId: string;
+  readonly manifestVersion: string;
+  readonly engineId: string;
+  readonly engineVersion: string;
+  readonly capabilityDefinitionGraph: Ds1CapabilityDefinitionGraph;
+  readonly publicContractCatalog: PublicContractCatalog;
+}): TenantConformanceManifest {
+  const catalog = admitPublicContractCatalog(
+    input.publicContractCatalog,
+    "ABG tenant-conformance projection public catalog"
+  );
+  assertDefinitionGraphDigest(input.capabilityDefinitionGraph);
+  if (input.capabilityDefinitionGraph.definitions.length === 0) {
+    throw new TypeError(
+      "ABG tenant-conformance projection requires realized capability rows"
+    );
+  }
+
+  const capabilityIds = new Set<string>();
+  const effectRefs = new Set<string>();
+  const contractProofRefs = new Map<string, Set<string>>();
+  const contractIds = new Set<string>([TENANT_CONFORMANCE_MANIFEST_SCHEMA_ID]);
+  const definitions = [...input.capabilityDefinitionGraph.definitions].sort(
+    (left, right) => compareText(left.capabilityId, right.capabilityId)
+  );
+  for (const definition of definitions) {
+    if (capabilityIds.has(definition.capabilityId)) {
+      throw new TypeError(
+        `DS1 capability-definition graph duplicates ${definition.capabilityId}`
+      );
+    }
+    if (definition.boundedProofRefs.length === 0) {
+      throw new TypeError(
+        `DS1 capability ${definition.capabilityId} has no owning bounded-proof ref`
+      );
+    }
+    capabilityIds.add(definition.capabilityId);
+    contractIds.add(definition.capabilityId);
+    const relatedContracts = [
+      definition.capabilityId,
+      ...definition.requiredContractIds
+    ];
+    for (const contractId of relatedContracts) {
+      contractIds.add(contractId);
+      const proofRefs = contractProofRefs.get(contractId) ?? new Set<string>();
+      definition.boundedProofRefs.forEach((proofRef) => proofRefs.add(proofRef));
+      contractProofRefs.set(contractId, proofRefs);
+    }
+    for (const effectRef of definition.effectRefs) {
+      if (effectRefs.has(effectRef)) {
+        throw new TypeError(
+          `DS1 capability-definition graph duplicates effect ${effectRef}`
+        );
+      }
+      effectRefs.add(effectRef);
+    }
+  }
+  for (const definition of definitions) {
+    for (const dependencyId of definition.dependentCapabilityIds) {
+      if (!capabilityIds.has(dependencyId)) {
+        throw new TypeError(
+          `DS1 capability ${definition.capabilityId} has unresolved dependency ${dependencyId}`
+        );
+      }
+    }
+  }
+
+  const rows = [...contractIds]
+    .sort(compareText)
+    .map((contractId) => exactCatalogContractRow({ catalog, contractId }));
+  const claims = Object.freeze(rows.map(tenantContractClaim));
+  const claimByContractId = new Map(
+    claims.map((claim) => [claim.contractId, claim] as const)
+  );
+  const manifestProofRefs = Object.freeze(
+    [...new Set(definitions.flatMap((definition) => definition.boundedProofRefs))]
+      .sort(compareText)
+  );
+  const capabilityClaims = Object.freeze(definitions.map((definition) => {
+    const owningClaim = claimByContractId.get(definition.capabilityId);
+    const row = exactCatalogContractRow({
+      catalog,
+      contractId: definition.capabilityId
+    });
+    if (
+      owningClaim === undefined ||
+      row.contractKind !== "capability" ||
+      row.capabilityRefs.length !== 1 ||
+      row.capabilityRefs[0] !== definition.capabilityId
+    ) {
+      throw new TypeError(
+        `DS1 capability ${definition.capabilityId} lacks its exact catalog capability row`
+      );
+    }
+    return Object.freeze({
+      capabilityId: definition.capabilityId,
+      owningContractClaimRef: owningClaim.claimRef,
+      supportedDisposition: "supported" as const,
+      dependentCapabilityIds: Object.freeze([
+        ...definition.dependentCapabilityIds
+      ].sort(compareText))
+    });
+  }));
+  const effectBindings = Object.freeze(definitions.flatMap((definition) =>
+    definition.effectRefs.map((effectRef) => Object.freeze({
+      effectRef,
+      capabilityId: definition.capabilityId
+    }))
+  ).sort((left, right) => compareText(left.effectRef, right.effectRef)));
+  const enforcementClaims = Object.freeze(claims.map((claim) => {
+    const proofRefs = claim.contractId === TENANT_CONFORMANCE_MANIFEST_SCHEMA_ID
+      ? manifestProofRefs
+      : Object.freeze(
+          [...(contractProofRefs.get(claim.contractId) ?? [])].sort(compareText)
+        );
+    if (proofRefs.length === 0) {
+      throw new TypeError(
+        `Tenant contract claim ${claim.contractId} has no owning bounded-proof ref`
+      );
+    }
+    return Object.freeze({
+      contractClaimRef: claim.claimRef,
+      carrierClassification: "declaration" as const,
+      applicableRuleIds: Object.freeze([
+        "REQ-M-GTL3-CAPABILITY-014",
+        "REQ-M-GTL3-CAPABILITY-015"
+      ]),
+      causalPredecessorClaimRefs: Object.freeze([]),
+      boundedProofRefs: proofRefs
+    });
+  }));
+  const basis = Object.freeze({
+    kind: "abg_tenant_conformance_manifest" as const,
+    schemaId: TENANT_CONFORMANCE_MANIFEST_SCHEMA_ID,
+    schemaVersion: TENANT_CONFORMANCE_MANIFEST_SCHEMA_VERSION,
+    manifestId: nonEmptyString(input.manifestId, "manifestId"),
+    manifestVersion: exactSemVer(input.manifestVersion, "manifestVersion"),
+    engineId: nonEmptyString(input.engineId, "engineId"),
+    engineVersion: exactSemVer(input.engineVersion, "engineVersion"),
+    capabilityDefinitionGraph: Object.freeze({
+      graphId: input.capabilityDefinitionGraph.graphId,
+      graphVersion: input.capabilityDefinitionGraph.graphVersion,
+      graphDigest: input.capabilityDefinitionGraph.graphDigest
+    }),
+    publicContractCatalog: Object.freeze({
+      catalogId: catalog.catalogId,
+      catalogVersion: catalog.catalogVersion,
+      catalogDigest: catalog.catalogDigest
+    }),
+    publicContractClaims: claims,
+    capabilityClaims,
+    effectBindings,
+    enforcementClaims
+  });
+  return Object.freeze({
+    ...basis,
+    manifestDigest: stableSha256Digest(basis)
+  });
 }
 
 export function tenantConformanceManifestDigest(

@@ -34,6 +34,12 @@ export interface TenantPublicContractCatalogBasis {
   readonly catalogDigest: TenantConformanceDigest;
 }
 
+export interface TenantCapabilityDefinitionGraphBasis {
+  readonly graphId: string;
+  readonly graphVersion: string;
+  readonly graphDigest: TenantConformanceDigest;
+}
+
 export interface TenantPublicContractClaim {
   readonly claimRef: string;
   readonly contractId: string;
@@ -70,6 +76,7 @@ export interface TenantConformanceManifest {
   readonly manifestDigest: TenantConformanceDigest;
   readonly engineId: string;
   readonly engineVersion: string;
+  readonly capabilityDefinitionGraph: TenantCapabilityDefinitionGraphBasis;
   readonly publicContractCatalog: TenantPublicContractCatalogBasis;
   readonly publicContractClaims: readonly TenantPublicContractClaim[];
   readonly capabilityClaims: readonly TenantCapabilityClaim[];

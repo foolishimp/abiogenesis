@@ -5,7 +5,8 @@
 import {
   materializeGraphFunction,
   type GraphFunction,
-  type GraphVector
+  type GraphVector,
+  type Operator
 } from "../../../gtl/m01/contracts/carriers.js";
 import { loadGtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/target_carrier_contract.js";
 import type { AdmittedTenantConformanceManifest } from "../../../shared/abg_library/tenant_conformance_manifest.js";
@@ -17,11 +18,10 @@ import {
   compileDeclaredExecutionContextContract,
   type CompiledExecutionContextContract
 } from "./declared_execution_context.js";
-import type {
-  CompiledCWorkflowLift
-} from "./complete_c_program.js";
 import {
-  compiledCInvokingLociInDeclaredOrder
+  compiledCInvokingLociInDeclaredOrder,
+  type CompiledCStageLeaf,
+  type CompiledCWorkflowLift
 } from "./complete_c_program.js";
 import {
   compileGraphVectorExecutionHandoff,
@@ -31,15 +31,20 @@ import {
 import { compileHofFanOutBinding } from "./hof_batch.js";
 import {
   compileHofRelation,
+  graphFunctionHasHofApplicationDeclarationKey,
   type CompiledHofFanOutRelation
 } from "./hof_relation_compiler.js";
 import { projectFpResultLocusContract } from "./fp_result_contract_admission.js";
-import { pluginSelectionFromDeclarationAttrs } from "./plugin_selection.js";
+import {
+  pluginSelectionFromDeclarationAttrs,
+  type StandardCatalogRow
+} from "./plugin_selection.js";
 import {
   assertAdmittedRuntimeCatalogBasis,
   type AdmittedRuntimeCatalogBasis,
   type CatalogExecutionBinding
 } from "./runtime_catalog.js";
+import type { RuntimeSchemaRequirement } from "./runtime_schema_admission.js";
 import { typecheckGtlProgram } from "./gtl_program_conformance.js";
 import {
   admitDeclaredTraversalStageResultAuthority,
@@ -49,7 +54,8 @@ import {
   type AdmittedTraversalStageResultAuthority,
   type CompiledTraversalExecutionContracts,
   type ProjectTraversalContractSourceInput,
-  type TraversalContractSourceBasis
+  type TraversalContractSourceBasis,
+  type TraversalContractWorkStage
 } from "./traversal_execution_contract.js";
 import { admitTraversalExecutionAgainstCheckedReport } from "./traversal_execution_admission_internal.js";
 
@@ -143,6 +149,88 @@ export interface CompiledTraversalExecutionFamily {
   readonly subjects: readonly TraversalExecutionFamilySubject[];
   readonly conformanceEvidence: TraversalExecutionFamilyConformanceEvidence;
   readonly effectsPermitted: false;
+}
+
+export interface TraversalExecutionFamilyOperatorProjection {
+  readonly kind: "traversal_execution_family_operator_projection";
+  readonly graphVectorRef: string;
+  readonly operatorOrdinal: number;
+  readonly operatorName: Operator["name"];
+  readonly regime: Operator["regime"];
+  readonly binding: Operator["binding"];
+  readonly tags: Operator["tags"];
+  readonly operatorDigest: `sha256:${string}`;
+}
+
+export interface TraversalExecutionFamilyRuntimeLocusProjection {
+  readonly compact: TraversalExecutionFamilyLocus;
+  readonly stage: TraversalContractWorkStage;
+  readonly node: CompiledCStageLeaf | CompiledCWorkflowLift;
+  readonly compiledExecutionContext: CompiledExecutionContextContract | null;
+  readonly resultAuthority: AdmittedTraversalStageResultAuthority;
+  readonly operator: TraversalExecutionFamilyOperatorProjection | null;
+}
+
+export interface TraversalExecutionFamilyRuntimeVectorProjection {
+  readonly compact: TraversalExecutionFamilyVector;
+  readonly graphVector: GraphVector;
+  readonly sourceInput: ProjectTraversalContractSourceInput;
+  readonly source: TraversalContractSourceBasis;
+  readonly loci: readonly TraversalExecutionFamilyRuntimeLocusProjection[];
+}
+
+export interface TraversalExecutionFamilyRuntimeProjection {
+  readonly kind: "traversal_execution_family_runtime_projection";
+  readonly compactFamily: CompiledTraversalExecutionFamily;
+  readonly vectors: readonly TraversalExecutionFamilyRuntimeVectorProjection[];
+  readonly requiredSchemas: readonly RuntimeSchemaRequirement[];
+  readonly projectionDigest: `sha256:${string}`;
+  readonly effectsPermitted: false;
+}
+
+function traversalExecutionFamilyRuntimeProjectionDigest(input: {
+  readonly family: CompiledTraversalExecutionFamily;
+  readonly vectors: readonly TraversalExecutionFamilyRuntimeVectorProjection[];
+  readonly requiredSchemas: readonly RuntimeSchemaRequirement[];
+}): `sha256:${string}` {
+  return stableSha256Digest({
+    compactFamilyDigest: input.family.familyDigest,
+    vectors: input.vectors.map((vector) => Object.freeze({
+      graphVectorRef: vector.compact.graphVectorRef,
+      graphVectorDigest: vector.compact.graphVectorDigest,
+      programPlanRef: vector.compact.programPlanRef,
+      programPlanDigest: vector.compact.programPlanDigest,
+      loci: vector.loci.map((locus) => Object.freeze({
+        programLocusRef: locus.compact.programLocusRef,
+        programLocusDigest: locus.compact.programLocusDigest,
+        nodeRef: locus.node.nodeRef,
+        nodeDigest: locus.node.nodeDigest,
+        operatorDigest: locus.operator?.operatorDigest ?? null
+      }))
+    })),
+    requiredSchemas: input.requiredSchemas
+  });
+}
+
+/** @internal */
+export function assertTraversalExecutionFamilyRuntimeProjection(
+  projection: TraversalExecutionFamilyRuntimeProjection
+): void {
+  assertCompiledTraversalExecutionFamily(projection.compactFamily);
+  if (
+    projection.kind !== "traversal_execution_family_runtime_projection" ||
+    projection.effectsPermitted !== false ||
+    projection.projectionDigest !==
+      traversalExecutionFamilyRuntimeProjectionDigest({
+        family: projection.compactFamily,
+        vectors: projection.vectors,
+        requiredSchemas: projection.requiredSchemas
+      })
+  ) {
+    throw new TypeError(
+      "traversal execution family runtime projection seal differs"
+    );
+  }
 }
 
 export type TraversalExecutionFamilyCompileErrorCode =
@@ -336,6 +424,23 @@ function compileSubjectDrafts(input: {
           input.admittedTenantConformanceManifest
       });
       if (outcome.status === "structural_only") {
+        if (
+          !graphFunctionHasHofApplicationDeclarationKey(
+            input.executionSubjectGraphFunction
+          )
+        ) {
+          throw new TraversalExecutionFamilyCompileError({
+            code: "program_invalid",
+            message:
+              `selector-free ordinary GraphFunction ${JSON.stringify(input.executionSubjectGraphFunction.id)} ` +
+              `cannot enter runtime at vector ${JSON.stringify(graphVector.id)}; declare one exact vector C-program selector`,
+            diagnosticRefs: Object.freeze([
+              input.executionSubjectGraphFunction.id,
+              graphVector.id,
+              "abg.hog_program_ref"
+            ])
+          });
+        }
         const relationCompilation = compileHofRelation({
           graphFunction: input.executionSubjectGraphFunction,
           graphFunctions: input.executionBinding.module.graphFunctions
@@ -654,12 +759,20 @@ function sealFamily(
   });
 }
 
-/** @internal */
-export function compileTraversalExecutionFamily(input: {
+interface TraversalExecutionFamilyCompilerCoreResult {
+  readonly family: CompiledTraversalExecutionFamily;
+  readonly subjectDrafts: readonly Readonly<{
+    readonly graphFunction: GraphFunction;
+    readonly drafts: readonly TraversalExecutionFamilyVectorDraft[];
+  }>[];
+}
+
+function compileTraversalExecutionFamilyCore(input: {
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly executionBinding: CatalogExecutionBinding;
   readonly admittedTenantConformanceManifest: AdmittedTenantConformanceManifest;
-}): CompiledTraversalExecutionFamily {
+  readonly pluginCatalog?: Readonly<Record<string, StandardCatalogRow>> | undefined;
+}): TraversalExecutionFamilyCompilerCoreResult {
   assertAdmittedRuntimeCatalogBasis(input.catalogBasis);
   const bindingMatches = input.catalogBasis.executionBindings.filter(
     (binding) =>
@@ -813,7 +926,9 @@ export function compileTraversalExecutionFamily(input: {
       allDrafts.map((draft) => draft.bundle.traversalBindConservation)
     )
   });
-  const conformanceReport = typecheckGtlProgram(conformanceInput);
+  const conformanceReport = typecheckGtlProgram(conformanceInput, {
+    pluginCatalog: input.pluginCatalog
+  });
   const conformanceEvidence = Object.freeze({
     kind: "traversal_execution_family_conformance_evidence" as const,
     subjectRef: conformanceReport.subjectRef,
@@ -903,7 +1018,7 @@ export function compileTraversalExecutionFamily(input: {
     }))
   }));
 
-  return sealFamily({
+  const family = sealFamily({
     kind: "compiled_traversal_execution_family",
     catalogBasisRef: input.catalogBasis.basisRef,
     selectedCatalogEntryRef: executionBinding.entryRef,
@@ -915,6 +1030,234 @@ export function compileTraversalExecutionFamily(input: {
     conformanceEvidence,
     effectsPermitted: false
   });
+  return Object.freeze({
+    family,
+    subjectDrafts: Object.freeze([...subjectDrafts])
+  });
+}
+
+/** @internal */
+export function compileTraversalExecutionFamily(input: {
+  readonly catalogBasis: AdmittedRuntimeCatalogBasis;
+  readonly executionBinding: CatalogExecutionBinding;
+  readonly admittedTenantConformanceManifest: AdmittedTenantConformanceManifest;
+}): CompiledTraversalExecutionFamily {
+  return compileTraversalExecutionFamilyCore(input).family;
+}
+
+function projectRuntimeOperator(input: {
+  readonly graphVector: GraphVector;
+  readonly stage: TraversalContractWorkStage;
+}): TraversalExecutionFamilyOperatorProjection {
+  const matches = input.graphVector.operators.flatMap((operator, ordinal) =>
+    operator.regime === input.stage.regime
+      ? [Object.freeze({ operator, ordinal })]
+      : []
+  );
+  const match = matches[0];
+  if (matches.length !== 1 || match === undefined) {
+    throw new TraversalExecutionFamilyCompileError({
+      code: "program_invalid",
+      message:
+        `runtime locus ${JSON.stringify(input.stage.programLocusRef)} requires exactly one ${input.stage.regime} GraphVector Operator; got ${String(matches.length)}`,
+      diagnosticRefs: Object.freeze([input.stage.programLocusRef])
+    });
+  }
+  return Object.freeze({
+    kind: "traversal_execution_family_operator_projection",
+    graphVectorRef: input.graphVector.id,
+    operatorOrdinal: match.ordinal,
+    operatorName: match.operator.name,
+    regime: match.operator.regime,
+    binding: match.operator.binding,
+    tags: Object.freeze([...match.operator.tags]),
+    operatorDigest: stableSha256Digest(match.operator)
+  });
+}
+
+function projectRuntimeSchemas(
+  subjectDrafts: TraversalExecutionFamilyCompilerCoreResult["subjectDrafts"]
+): readonly RuntimeSchemaRequirement[] {
+  const requirements = new Map<string, RuntimeSchemaRequirement>();
+  for (const subject of subjectDrafts) {
+    const graph = materializeGraphFunction(subject.graphFunction);
+    const nodes = [
+      ...subject.graphFunction.inputs,
+      ...subject.graphFunction.outputs,
+      ...subject.graphFunction.environment.requires,
+      ...subject.graphFunction.environment.provides,
+      ...subject.graphFunction.environment.carries,
+      ...graph.nodes
+    ];
+    for (const node of nodes) {
+      const requirement = Object.freeze({
+        graphFunctionId: subject.graphFunction.id,
+        nodeRef: node.id,
+        symbolicSchemaRef: node.schema.ref
+      });
+      const key =
+        `${requirement.graphFunctionId}\u0000${requirement.nodeRef}\u0000${requirement.symbolicSchemaRef}`;
+      requirements.set(key, requirement);
+    }
+  }
+  return Object.freeze(
+    [...requirements.entries()]
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([, requirement]) => requirement)
+  );
+}
+
+function projectRuntimeVector(input: {
+  readonly compact: TraversalExecutionFamilyVector;
+  readonly draft: TraversalExecutionFamilyVectorDraft;
+}): TraversalExecutionFamilyRuntimeVectorProjection {
+  if (
+    input.compact.graphVectorRef !== input.draft.graphVector.id ||
+    input.compact.graphVectorDigest !==
+      stableSha256Digest(input.draft.graphVector) ||
+    input.compact.programPlanRef !==
+      input.draft.source.completeProgramPlan.planRef ||
+    input.compact.programPlanDigest !==
+      input.draft.source.completeProgramPlan.planDigest ||
+    input.compact.loci.length !== input.draft.loci.length
+  ) {
+    throw new TraversalExecutionFamilyCompileError({
+      code: "program_invalid",
+      message: "runtime projection differs from its compact compiler result",
+      diagnosticRefs: Object.freeze([input.compact.graphVectorRef])
+    });
+  }
+  const invokingLoci = compiledCInvokingLociInDeclaredOrder(
+    input.draft.source.completeProgramPlan
+  );
+  const mappedOperatorOrdinals = new Set<number>();
+  if (
+    input.draft.source.sourceKind === "structural_hof_fan_out" &&
+    input.draft.graphVector.operators.length !== 0
+  ) {
+    throw new TraversalExecutionFamilyCompileError({
+      code: "program_invalid",
+      message: "structural HOF wrapper must not declare an Operator",
+      diagnosticRefs: Object.freeze([input.draft.graphVector.id])
+    });
+  }
+  const loci = input.draft.loci.map((draftLocus, ordinal) => {
+    const compact = input.compact.loci[ordinal];
+    const stageMatches = input.draft.source.workStages.filter(
+      (stage) =>
+        stage.ordinal === draftLocus.stageOrdinal &&
+        stage.programLocusRef === draftLocus.programLocusRef &&
+        stage.programLocusDigest === draftLocus.programLocusDigest
+    );
+    const stage = stageMatches[0];
+    const nodeMatches = invokingLoci.filter(
+      (row) =>
+        row.node.nodeRef === draftLocus.programLocusRef &&
+        row.node.nodeDigest === draftLocus.programLocusDigest
+    );
+    const node = nodeMatches[0]?.node;
+    if (
+      compact === undefined ||
+      stageMatches.length !== 1 ||
+      stage === undefined ||
+      nodeMatches.length !== 1 ||
+      node === undefined ||
+      (node.kind !== "compiled_c_stage_leaf" &&
+        node.kind !== "compiled_c_workflow_lift")
+    ) {
+      throw new TraversalExecutionFamilyCompileError({
+        code: "program_invalid",
+        message:
+          `runtime locus ${JSON.stringify(draftLocus.programLocusRef)} is not exact in the compiled plan`,
+        diagnosticRefs: Object.freeze([draftLocus.programLocusRef])
+      });
+    }
+    const operator = input.draft.source.sourceKind === "structural_hof_fan_out"
+      ? null
+      : projectRuntimeOperator({
+          graphVector: input.draft.graphVector,
+          stage
+        });
+    if (operator !== null) mappedOperatorOrdinals.add(operator.operatorOrdinal);
+    return Object.freeze({
+      compact,
+      stage,
+      node,
+      compiledExecutionContext: draftLocus.compiledExecutionContext,
+      resultAuthority: draftLocus.resultAuthority,
+      operator
+    });
+  });
+  if (
+    input.draft.source.sourceKind !== "structural_hof_fan_out" &&
+    mappedOperatorOrdinals.size !== input.draft.graphVector.operators.length
+  ) {
+    throw new TraversalExecutionFamilyCompileError({
+      code: "program_invalid",
+      message: "every authored GraphVector Operator must map to a runtime locus",
+      diagnosticRefs: Object.freeze([input.draft.graphVector.id])
+    });
+  }
+  return Object.freeze({
+    compact: input.compact,
+    graphVector: input.draft.graphVector,
+    sourceInput: input.draft.sourceInput,
+    source: input.draft.source,
+    loci: Object.freeze(loci)
+  });
+}
+
+/** @internal */
+export function compileTraversalExecutionFamilyForRuntime(input: {
+  readonly catalogBasis: AdmittedRuntimeCatalogBasis;
+  readonly executionBinding: CatalogExecutionBinding;
+  readonly admittedTenantConformanceManifest: AdmittedTenantConformanceManifest;
+  readonly pluginCatalog?: Readonly<Record<string, StandardCatalogRow>> | undefined;
+}): Readonly<{
+  readonly family: CompiledTraversalExecutionFamily;
+  readonly runtimeProjection: TraversalExecutionFamilyRuntimeProjection;
+}> {
+  const core = compileTraversalExecutionFamilyCore(input);
+  const vectors = core.subjectDrafts.flatMap((subjectDraft, subjectIndex) => {
+    const compactSubject = core.family.subjects[subjectIndex];
+    if (
+      compactSubject === undefined ||
+      compactSubject.graphFunctionRef !== subjectDraft.graphFunction.id ||
+      compactSubject.graphFunctionDigest !==
+        stableSha256Digest(subjectDraft.graphFunction) ||
+      compactSubject.vectors.length !== subjectDraft.drafts.length
+    ) {
+      throw new TraversalExecutionFamilyCompileError({
+        code: "program_invalid",
+        message: "runtime subject differs from its compact compiler result"
+      });
+    }
+    return subjectDraft.drafts.map((draft, vectorIndex) => {
+      const compact = compactSubject.vectors[vectorIndex];
+      if (compact === undefined) {
+        throw new TraversalExecutionFamilyCompileError({
+          code: "program_invalid",
+          message: "runtime vector is absent from its compact compiler result"
+        });
+      }
+      return projectRuntimeVector({ compact, draft });
+    });
+  });
+  const requiredSchemas = projectRuntimeSchemas(core.subjectDrafts);
+  const projectionDigest = traversalExecutionFamilyRuntimeProjectionDigest({
+    family: core.family,
+    vectors,
+    requiredSchemas
+  });
+  const runtimeProjection = Object.freeze({
+    kind: "traversal_execution_family_runtime_projection" as const,
+    compactFamily: core.family,
+    vectors: Object.freeze(vectors),
+    requiredSchemas,
+    projectionDigest,
+    effectsPermitted: false as const
+  });
+  return Object.freeze({ family: core.family, runtimeProjection });
 }
 
 /** @internal */

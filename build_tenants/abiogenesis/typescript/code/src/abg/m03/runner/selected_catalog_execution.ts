@@ -3,9 +3,17 @@
 
 import type {
   AdmittedRuntimeCatalogBasis,
-  CatalogExecutionBinding
+  CatalogExecutionBinding,
+  RegistrySessionGraphFunctionEntry,
+  RegistrySessionView
 } from "../contracts/runtime_catalog.js";
-import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import {
+  deriveRegistrySessionView
+} from "../contracts/runtime_catalog.js";
+import {
+  stableJsonEquals,
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
 
 export function resolveSelectedCatalogExecutionBinding(input: {
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
@@ -54,6 +62,60 @@ export function resolveSelectedCatalogExecutionBinding(input: {
   ) {
     throw new TypeError(
       `${input.label} selected GraphFunction is not exact within its Module`
+    );
+  }
+  return selected;
+}
+
+export function resolveSelectedCatalogExecutionFromSessionView(input: {
+  readonly catalogBasis: AdmittedRuntimeCatalogBasis;
+  readonly sessionView: RegistrySessionView;
+  readonly selectedGraphFunctionRef: string;
+  readonly label: string;
+}): CatalogExecutionBinding {
+  const derived = deriveRegistrySessionView({
+    basis: input.catalogBasis,
+    allowedEntryRefs: input.sessionView.allowedEntryRefs
+  });
+  if (
+    !derived.accepted ||
+    derived.view === null ||
+    !stableJsonEquals(derived.view, input.sessionView)
+  ) {
+    throw new TypeError(
+      `${input.label} session view is not the exact narrowing of the admitted catalog basis`
+    );
+  }
+  const matches = derived.view.entries.filter(
+    (candidate): candidate is RegistrySessionGraphFunctionEntry =>
+      candidate.entryKind === "graph_function" &&
+      candidate.callable &&
+      candidate.ready &&
+      candidate.graphFunctionRef === input.selectedGraphFunctionRef
+  );
+  const entry = matches[0];
+  if (matches.length !== 1 || entry === undefined) {
+    throw new TypeError(
+      `${input.label} selected GraphFunction must identify one ready callable session entry; got ${String(matches.length)}`
+    );
+  }
+  const selected = resolveSelectedCatalogExecutionBinding({
+    catalogBasis: input.catalogBasis,
+    selectedCatalogEntryRef: entry.entryRef,
+    label: input.label
+  });
+  if (
+    selected.entryRef !== entry.entryRef ||
+    selected.declarationRef !== entry.declarationRef ||
+    selected.namespace !== entry.namespace ||
+    selected.ownerRef !== entry.ownerRef ||
+    selected.version !== entry.version ||
+    selected.graphFunctionHandle !== entry.graphFunctionRef ||
+    selected.graphFunction.id !== selected.graphFunctionId ||
+    selected.graphFunctionDigest !== stableSha256Digest(selected.graphFunction)
+  ) {
+    throw new TypeError(
+      `${input.label} selected session entry and execution binding are not exact`
     );
   }
   return selected;

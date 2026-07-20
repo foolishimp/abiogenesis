@@ -20,6 +20,9 @@ import {
   constructReviewerRolePayload,
   constructRuntimeIdentityPayload
 } from "../../../build/semantic/code/src/shared/abg_library/index.js";
+import {
+  stableSha256Digest
+} from "../../../build/semantic/code/src/shared/runtime_identity.js";
 
 const PUBLIC_RUNTIME_PROFILE = constructProofFixtureProfile({
   kind: "m04_public_runtime_profile",
@@ -105,6 +108,9 @@ export function resultArtifactPayload(dispatchRequest, overrides = {}) {
     ? dispatchRequest.expectedAssessmentIds
     : ["code_complete"];
   return {
+    ...(dispatchRequest.selectedResultContractRef === null
+      ? {}
+      : { result_contract_ref: dispatchRequest.selectedResultContractRef }),
     edge: dispatchRequest.expectedEdge ?? "design→code",
     actor: "codex",
     fulfillment_assessments: assessmentIds.map((assessmentId) => ({
@@ -125,6 +131,12 @@ export function resultArtifactPayload(dispatchRequest, overrides = {}) {
 }
 
 export function resultAssessmentPayload(dispatchRequest, overrides = {}) {
+  const assessment_contract = {
+    ref: "contract://abg/result-assessment/fp@5",
+    digest: stableSha256Digest({
+      ref: "contract://abg/result-assessment/fp@5"
+    })
+  };
   const manifest_provenance = {
     spec_hash: "spec://typescript-dev",
     manifest_id: "manifest://m04-result-profile",
@@ -146,6 +158,8 @@ export function resultAssessmentPayload(dispatchRequest, overrides = {}) {
     kind: "fp_assessed",
     dispatch_request: dispatchRequest,
     result_artifact: resultArtifactPayload(dispatchRequest),
+    assessment_contract:
+      overrides.assessment_contract ?? assessment_contract,
     manifest_provenance:
       overrides.manifest_provenance ?? manifest_provenance,
     published_ledger_ref:

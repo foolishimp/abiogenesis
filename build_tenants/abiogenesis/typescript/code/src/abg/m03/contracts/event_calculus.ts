@@ -7,6 +7,7 @@ import type {
   RuntimeEvent
 } from "./carriers.js";
 import { RUNTIME_EVENT_KIND_VALUES } from "./carriers.js";
+import { deriveResultAssessmentRuntimeSubjectRelation } from "./result_assessment_relation.js";
 import { assertBasisEvent, vectorEdge } from "./runtime_support.js";
 
 type RuntimeEventKind = RuntimeEvent["kind"];
@@ -20,7 +21,8 @@ export const RUNTIME_FLUENT_SCOPE_VALUES = Object.freeze([
   "continuation",
   "temporal",
   "construction",
-  "liveness"
+  "liveness",
+  "public_operation"
 ] as const);
 
 export type RuntimeFluentScope =
@@ -65,7 +67,9 @@ export const RUNTIME_FLUENT_NAME_VALUES = Object.freeze([
   "runtime_invocation_active",
   "runtime_externally_interrupted",
   "runtime_invocation_blocked",
-  "runtime_invocation_continued"
+  "runtime_invocation_continued",
+  "result_assessment_admitted",
+  "public_operation_artifact_available"
 ] as const);
 
 export type RuntimeFluentName =
@@ -629,6 +633,42 @@ function basisAdmittedAxiom(
       })
     ]
   });
+}
+
+function publicOperationAdmittedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "public_operation_admitted");
+  return completeEffect({});
+}
+
+function publicOperationArtifactAdmittedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "public_operation_artifact_admitted");
+  return completeEffect({
+    initiates: [
+      constructRuntimeFluent({
+        name: "public_operation_artifact_available",
+        scope: "public_operation",
+        constraintRef: event.scopeRef,
+        ref: event.artifactRef
+      })
+    ]
+  });
+}
+
+function assessedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "assessed");
+  return completeEffect({});
 }
 
 function graphCallOpenedAxiom(
@@ -1398,7 +1438,75 @@ export const CONSTRUCTION_PROGRESS_DERIVED_FLUENT_RULE = Object.freeze({
   }
 } satisfies RuntimeDerivedFluentRule);
 
+export const RESULT_ASSESSMENT_DERIVED_FLUENT_RULE = Object.freeze({
+  kind: "derived_fluent_rule",
+  ruleRef:
+    "runtime-derived-fluent-rule://abg/result-assessment-from-exact-replay",
+  derive: (input: {
+    readonly holds: readonly RuntimeFluent[];
+    readonly effectRows: readonly RuntimeEventCalculusEffectRow[];
+  }) => {
+    const events = input.effectRows.map((row) => row.sourceEvent);
+    const firstAssessedByRef = new Map<
+      string,
+      Extract<RuntimeEvent, { readonly kind: "assessed" }>
+    >();
+    for (const event of events) {
+      if (event.kind === "assessed" && !firstAssessedByRef.has(event.assessmentRef)) {
+        firstAssessedByRef.set(event.assessmentRef, event);
+      }
+    }
+    const derived: RuntimeFluent[] = [];
+    for (const assessed of firstAssessedByRef.values()) {
+      try {
+        const relation = deriveResultAssessmentRuntimeSubjectRelation({
+          events,
+          assessmentRef: assessed.assessmentRef,
+          runtimeSubject: {
+            basisId: assessed.basisId,
+            graphCallId: assessed.graphCallId,
+            frameId: assessed.frameId,
+            vectorIndex: assessed.vectorIndex,
+            runtimeResult: {
+              ref: assessed.runtimeResultRef,
+              digest: assessed.runtimeResultDigest
+            }
+          }
+        });
+        derived.push(
+          constructRuntimeFluent({
+            name: "result_assessment_admitted",
+            scope: "vector",
+            basisId: relation.runtimeSubject.basisId,
+            graphCallId: relation.runtimeSubject.graphCallId,
+            frameId: relation.runtimeSubject.frameId,
+            runId: assessed.runId,
+            workKey: assessed.workKey,
+            vectorIndex: relation.runtimeSubject.vectorIndex,
+            edge: assessed.edge,
+            constraintRef: relation.runtimeSubject.runtimeResult.ref,
+            ref: relation.assessment.ref
+          })
+        );
+      } catch {
+        // An admitted row alone is not enough; incomplete replay derives no fluent.
+      }
+    }
+    return Object.freeze(derived);
+  }
+} satisfies RuntimeDerivedFluentRule);
+
 export const RUNTIME_EVENT_CALCULUS_AXIOMS = Object.freeze([
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "public_operation_admitted",
+    deriveEffects: publicOperationAdmittedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "public_operation_artifact_admitted",
+    deriveEffects: publicOperationArtifactAdmittedAxiom
+  }),
   Object.freeze({
     kind: "event_calculus_axiom",
     eventKind: "basis_admitted",
@@ -1592,6 +1700,11 @@ export const RUNTIME_EVENT_CALCULUS_AXIOMS = Object.freeze([
     kind: "event_calculus_axiom",
     eventKind: "evidence_admitted",
     deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "assessed",
+    deriveEffects: assessedAxiom
   }),
   Object.freeze({
     kind: "event_calculus_axiom",

@@ -3,6 +3,10 @@
 
 import * as v from "valibot";
 
+import {
+  stableJsonEquals,
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import {
   POSITIVE_INTEGER_ACTION,
@@ -18,6 +22,8 @@ import { ownerNativeDefinitionContractSource } from "../../../shared/validation/
 const MODULE_PATH =
   "code/src/app/m04/public_contracts/project_read_operation_contracts.js" as const;
 const EXPORT_NAME = "PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES";
+const CHECK_REGISTRY_EXPORT_NAME =
+  "PROJECT_READ_OPERATION_NATIVE_CHECK_REGISTRY";
 const PROJECT_READ_SEMANTIC_OWNER = freezeNativeValue({
   product: "abiogenesis",
   module: "app.m04",
@@ -65,6 +71,123 @@ const canonicalCatalogHandleSchema = v.pipe(
   refTextSchema,
   v.brand("CanonicalCatalogHandle")
 );
+
+type ProjectReadDefinitionKey<CaseKey extends string = string> = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: CaseKey;
+}>;
+
+type ProjectReadSource = Readonly<{
+  kind: string;
+  sourceRef: string;
+  sourceDigest: string;
+}>;
+
+export interface ProjectReadProjectionBasis<CaseKey extends string = string> {
+  readonly kind: "project_read_projection_basis";
+  readonly definitionKey: ProjectReadDefinitionKey<CaseKey>;
+  readonly source: ProjectReadSource;
+  readonly selector: unknown;
+}
+
+export interface ProjectReadProjectionBasisCoordinate {
+  readonly ref: string;
+  readonly digest: `sha256:${string}`;
+}
+
+function hasExactOwnKeys(input: object, expected: readonly string[]): boolean {
+  const actual = Reflect.ownKeys(input);
+  return (
+    actual.length === expected.length &&
+    expected.every((key) => actual.includes(key))
+  );
+}
+
+/** @internal */
+export function deriveProjectReadProjectionBasis<
+  const CaseKey extends string
+>(
+  input: ProjectReadProjectionBasis<CaseKey>
+): ProjectReadProjectionBasisCoordinate {
+  if (
+    !hasExactOwnKeys(input, ["kind", "definitionKey", "source", "selector"]) ||
+    input.kind !== "project_read_projection_basis" ||
+    !hasExactOwnKeys(input.definitionKey, [
+      "operationId",
+      "memberKind",
+      "caseKey"
+    ]) ||
+    input.definitionKey.operationId !== "abg.operation.project.read" ||
+    input.definitionKey.memberKind !== "project_read_case" ||
+    input.definitionKey.caseKey.length === 0 ||
+    !hasExactOwnKeys(input.source, ["kind", "sourceRef", "sourceDigest"]) ||
+    input.source.kind.length === 0 ||
+    input.source.sourceRef.length === 0 ||
+    !/^sha256:[0-9a-f]{64}$/u.test(input.source.sourceDigest)
+  ) {
+    throw new TypeError("project.read projection basis: malformed authority input");
+  }
+  const digest = stableSha256Digest(input);
+  return freezeNativeValue({
+    ref: `project-read-basis:${digest}`,
+    digest
+  });
+}
+
+function projectReadDefinitionKey(caseKey: string): ProjectReadDefinitionKey {
+  return freezeNativeValue({
+    operationId: "abg.operation.project.read",
+    memberKind: "project_read_case",
+    caseKey
+  });
+}
+
+function projectionBasisMatchesRequest(input: unknown): boolean {
+  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+    return false;
+  }
+  const caseKey: unknown = Reflect.get(input, "caseKey");
+  const sourceInput: unknown = Reflect.get(input, "source");
+  const projectionBasis: unknown = Reflect.get(input, "projectionBasis");
+  if (
+    typeof caseKey !== "string" ||
+    typeof sourceInput !== "object" ||
+    sourceInput === null ||
+    Array.isArray(sourceInput)
+  ) {
+    return false;
+  }
+  const kind: unknown = Reflect.get(sourceInput, "kind");
+  const sourceRef: unknown = Reflect.get(sourceInput, "sourceRef");
+  const sourceDigest: unknown = Reflect.get(sourceInput, "sourceDigest");
+  if (
+    typeof kind !== "string" ||
+    typeof sourceRef !== "string" ||
+    typeof sourceDigest !== "string"
+  ) {
+    return false;
+  }
+  try {
+    return stableJsonEquals(
+      projectionBasis,
+      deriveProjectReadProjectionBasis({
+        kind: "project_read_projection_basis",
+        definitionKey: projectReadDefinitionKey(caseKey),
+        source: { kind, sourceRef, sourceDigest },
+        selector: Reflect.get(input, "selector")
+      })
+    );
+  } catch {
+    return false;
+  }
+}
+
+const PROJECT_READ_PROJECTION_BASIS_CHECKS: {
+  checkId: string;
+  action: object;
+  relationRef: "REQ-R-ABG3-PROJECTION-023";
+}[] = [];
 
 const emptySelectorSchema = v.pipe(
   v.strictObject({}),
@@ -177,14 +300,26 @@ function projectReadContractSet<
     }),
     v.readonly()
   );
+  const requestBaseSchema = v.strictObject({
+    kind: v.literal("project_read_request"),
+    caseKey: v.literal(input.caseKey),
+    source: sourceSchema,
+    projectionBasis: refDigestSchema,
+    selector: input.selectorSchema
+  });
+  const projectionBasisAction = Object.freeze(v.check(
+    (request: v.InferOutput<typeof requestBaseSchema>) =>
+      projectionBasisMatchesRequest(request),
+    "project.read projection basis must match its exact definition, source, and selector"
+  ));
+  PROJECT_READ_PROJECTION_BASIS_CHECKS.push({
+    checkId: `projection-basis-authority-${input.caseKey}`,
+    action: projectionBasisAction,
+    relationRef: "REQ-R-ABG3-PROJECTION-023"
+  });
   const requestSchema = v.pipe(
-    v.strictObject({
-      kind: v.literal("project_read_request"),
-      caseKey: v.literal(input.caseKey),
-      source: sourceSchema,
-      projectionBasis: refDigestSchema,
-      selector: input.selectorSchema
-    }),
+    requestBaseSchema,
+    projectionBasisAction,
     v.readonly()
   );
   const refusalSchema = v.pipe(
@@ -218,7 +353,11 @@ function projectReadContractSet<
       modulePath: MODULE_PATH,
       exportName: EXPORT_NAME,
       memberPath: [input.caseKey, "request"],
-      namedChecks: { kind: "none" },
+      namedChecks: {
+        kind: "family_registry",
+        exportName: CHECK_REGISTRY_EXPORT_NAME,
+        memberPath: []
+      },
       schema: requestSchema
     }),
     refusal: ownerNativeDefinitionContractSource({
@@ -419,6 +558,12 @@ export const PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES =
       extraRefusalReasons: noExtraRefusalReasons
     })
   });
+
+/** @internal */
+export const PROJECT_READ_OPERATION_NATIVE_CHECK_REGISTRY = freezeNativeValue({
+  familyRef: "contract-family://abg/operation/project-read@5",
+  checks: PROJECT_READ_PROJECTION_BASIS_CHECKS
+});
 
 export type ProjectReadCase =
   keyof typeof PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES;

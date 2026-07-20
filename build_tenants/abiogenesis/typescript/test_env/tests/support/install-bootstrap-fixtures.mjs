@@ -12,9 +12,7 @@ export function runtimePackageContractPayload(overrides = {}) {
       ".",
       "./app/m04",
       "./app/m04/control",
-      "./app/m04/event-ingress",
-      "./app/m04/result-assessment",
-      "./app/m04/live-status"
+      "./app/m04/event-ingress"
     ]),
     ...overrides
   };

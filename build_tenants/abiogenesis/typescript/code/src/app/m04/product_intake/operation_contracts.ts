@@ -5,7 +5,12 @@ import * as v from "valibot";
 
 import { createInstalledProductEvidenceProjectionNativeContract } from "../../../abg/m03/contracts/runtime_projection_operation_contracts.js";
 import {
+  stableJsonEquals,
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
+import {
   absolutePosixPathSchema,
+  canonicalIJsonSchema,
   nonEmptyTextSchema,
   refSchema,
   semanticVersionSchema,
@@ -21,6 +26,11 @@ import {
   type OwnerProjectionRelationAction,
   type OwnerProjectionRelationResult
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  admitResolvedProductLock,
+  admitVerifiedProductArtifact
+} from "../public_sdk/carrier_admission.js";
+import { assertResolvedProductLockCoherence } from "./resolve.js";
 
 const MODULE_PATH =
   "code/src/app/m04/product_intake/operation_contracts.js";
@@ -146,6 +156,125 @@ const UNIQUE_SELECTED_PRODUCT_ACTION = Object.freeze(v.check(
   "duplicate selected product identity"
 ));
 
+const selectedProductListSchema = v.pipe(
+  v.array(resolvedProductSelectionSchema),
+  v.minLength(1, "expected at least one selected product"),
+  UNIQUE_SELECTED_PRODUCT_ACTION,
+  v.readonly()
+);
+
+const RESOLVED_PRODUCT_LOCK_COHERENCE_ACTION = Object.freeze(v.check(
+  (value: v.InferOutput<typeof canonicalIJsonSchema>) => {
+    try {
+      assertResolvedProductLockCoherence(admitResolvedProductLock(value));
+      return true;
+    } catch {
+      return false;
+    }
+  },
+  "expected one coherent resolved product lock"
+));
+
+const VERIFIED_PRODUCT_ARTIFACT_ADMISSION_ACTION = Object.freeze(v.check(
+  (value: v.InferOutput<typeof canonicalIJsonSchema>) => {
+    try {
+      admitVerifiedProductArtifact(value);
+      return true;
+    } catch {
+      return false;
+    }
+  },
+  "expected one admitted verified product artifact"
+));
+
+const resolvedProductLockCarrierSchema = v.pipe(
+  canonicalIJsonSchema,
+  RESOLVED_PRODUCT_LOCK_COHERENCE_ACTION
+);
+
+const verifiedProductArtifactCarrierSchema = v.pipe(
+  canonicalIJsonSchema,
+  VERIFIED_PRODUCT_ARTIFACT_ADMISSION_ACTION
+);
+
+const productVerifyResultBaseSchema = v.strictObject({
+  verifiedArtifactRef: refSchema,
+  verifiedArtifactDigest: sha256DigestSchema,
+  verifiedArtifact: verifiedProductArtifactCarrierSchema,
+  productContentDigest: sha256DigestSchema,
+  descriptorRef: refSchema,
+  descriptorDigest: sha256DigestSchema,
+  contributionManifestRef: refSchema,
+  contributionManifestDigest: sha256DigestSchema,
+  resolvedLockRef: refSchema,
+  resolvedLockDigest: sha256DigestSchema,
+  checkedContractRefs: refListSchema,
+  verificationDisposition: v.picklist(["verified", "installed_unbound"]),
+  residualRefs: refListSchema,
+  provenanceRefs: refListSchema
+});
+
+const VERIFY_RESULT_CARRIER_RELATION_ACTION = Object.freeze(v.check(
+  (value: v.InferOutput<typeof productVerifyResultBaseSchema>) => {
+    const verified = admitVerifiedProductArtifact(value.verifiedArtifact);
+    return value.verifiedArtifactRef === verified.artifact.artifactPath &&
+      value.verifiedArtifactDigest === stableSha256Digest(verified) &&
+      value.productContentDigest ===
+        verified.artifact.expectedProductContentDigest &&
+      value.descriptorRef === verified.descriptor.descriptorId &&
+      value.descriptorDigest === verified.descriptor.descriptorDigest &&
+      value.contributionManifestRef ===
+        verified.contributionManifest.contributionId &&
+      value.contributionManifestDigest ===
+        verified.contributionManifest.contributionDigest &&
+      value.resolvedLockRef === verified.resolvedLock.lockId &&
+      value.resolvedLockDigest === verified.resolvedLock.lockDigest &&
+      stableJsonEquals(
+        [...value.checkedContractRefs].sort(),
+        [...verified.descriptor.contractRefs].sort()
+      );
+  },
+  "verified artifact projection must match its exact owner carrier"
+));
+
+const productVerifyResultSchema = v.pipe(
+  productVerifyResultBaseSchema,
+  VERIFY_RESULT_CARRIER_RELATION_ACTION
+);
+
+const productResolveResultBaseSchema = v.strictObject({
+  resolvedLockRef: refSchema,
+  resolvedLockDigest: sha256DigestSchema,
+  resolvedLock: resolvedProductLockCarrierSchema,
+  selectedProducts: selectedProductListSchema,
+  selectedDependencyGraph: selectedDependencyGraphSchema,
+  residualRefs: refListSchema,
+  provenanceRefs: refListSchema
+});
+
+const RESOLVE_RESULT_CARRIER_RELATION_ACTION = Object.freeze(v.check(
+  (value: v.InferOutput<typeof productResolveResultBaseSchema>) => {
+    const lock = assertResolvedProductLockCoherence(
+      admitResolvedProductLock(value.resolvedLock)
+    );
+    return value.resolvedLockRef === lock.lockId &&
+      value.resolvedLockDigest === lock.lockDigest &&
+      stableJsonEquals(value.selectedDependencyGraph, lock.dependencyEdges) &&
+      stableJsonEquals(
+        [...value.selectedProducts]
+          .map((selection) => selection.productIdentity)
+          .sort(),
+        [...lock.products].map((selection) => selection.productId).sort()
+      );
+  },
+  "resolved lock projection must match its exact owner carrier"
+));
+
+const productResolveResultSchema = v.pipe(
+  productResolveResultBaseSchema,
+  RESOLVE_RESULT_CARRIER_RELATION_ACTION
+);
+
 export const PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY = freezeNativeValue({
   familyRef: "contract-family://abg/operation/product-intake@5",
   checks: [
@@ -173,6 +302,26 @@ export const PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY = freezeNativeValue({
       checkId: "selection-identity-match",
       action: SELECTION_IDENTITY_MATCH_ACTION,
       relationRef: "relation://abg/product-intake/selection-identity-match"
+    },
+    {
+      checkId: "resolved-product-lock-coherence",
+      action: RESOLVED_PRODUCT_LOCK_COHERENCE_ACTION,
+      relationRef: "REQ-P-CATALOG-010..013"
+    },
+    {
+      checkId: "verified-product-artifact-admission",
+      action: VERIFIED_PRODUCT_ARTIFACT_ADMISSION_ACTION,
+      relationRef: "REQ-P-INSTALL-043..045"
+    },
+    {
+      checkId: "verify-result-carrier-relation",
+      action: VERIFY_RESULT_CARRIER_RELATION_ACTION,
+      relationRef: "REQ-P-INSTALL-043..045"
+    },
+    {
+      checkId: "resolve-result-carrier-relation",
+      action: RESOLVE_RESULT_CARRIER_RELATION_ACTION,
+      relationRef: "REQ-P-CATALOG-010..013"
     },
     {
       checkId: "install-evidence-subject-relation",
@@ -213,13 +362,6 @@ const candidateCoordinateListSchema = v.pipe(
   v.readonly()
 );
 
-const selectedProductListSchema = v.pipe(
-  v.array(resolvedProductSelectionSchema),
-  v.minLength(1, "expected at least one selected product"),
-  UNIQUE_SELECTED_PRODUCT_ACTION,
-  v.readonly()
-);
-
 const refusal = <const Codes extends readonly [string, ...string[]]>(
   codes: Codes
 ) => v.strictObject({
@@ -256,21 +398,7 @@ const verifyResult = ownerNativeOperationContractSource({
   slot: "result",
   semanticOwnerBasis: VERIFY_SEMANTIC_OWNER_BASIS,
   memberPath: ["product_verify", "verify", "result"],
-  schema: v.strictObject({
-    verifiedArtifactRef: refSchema,
-    verifiedArtifactDigest: sha256DigestSchema,
-    productContentDigest: sha256DigestSchema,
-    descriptorRef: refSchema,
-    descriptorDigest: sha256DigestSchema,
-    contributionManifestRef: refSchema,
-    contributionManifestDigest: sha256DigestSchema,
-    resolvedLockRef: refSchema,
-    resolvedLockDigest: sha256DigestSchema,
-    checkedContractRefs: refListSchema,
-    verificationDisposition: v.picklist(["verified", "installed_unbound"]),
-    residualRefs: refListSchema,
-    provenanceRefs: refListSchema
-  })
+  schema: productVerifyResultSchema
 });
 
 const verifyRefusal = ownerNativeOperationContractSource({
@@ -315,14 +443,7 @@ const resolveResult = ownerNativeOperationContractSource({
   slot: "result",
   semanticOwnerBasis: RESOLVE_SEMANTIC_OWNER_BASIS,
   memberPath: ["product_resolve", "resolve", "result"],
-  schema: v.strictObject({
-    resolvedLockRef: refSchema,
-    resolvedLockDigest: sha256DigestSchema,
-    selectedProducts: selectedProductListSchema,
-    selectedDependencyGraph: selectedDependencyGraphSchema,
-    residualRefs: refListSchema,
-    provenanceRefs: refListSchema
-  })
+  schema: productResolveResultSchema
 });
 
 const resolveRefusal = ownerNativeOperationContractSource({

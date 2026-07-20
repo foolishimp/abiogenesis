@@ -86,6 +86,8 @@ family enumeration below is a normative map into that roster, not a substitute.
 
 **REQ-R-ABG3-EVENTS-031**: Public-operation admission events shall attest typed ingress, actor attribution, operation variant, invocation authority, and exact binding requirement only. They shall not record public ingress as the owner of model synthesis, gap evaluation, next-action evaluation, action evaluation, program ordering, retry, continuation, or closure; those authorities remain with the admitted GTL program and ABG runtime boundaries.
 
+**REQ-R-ABG3-EVENTS-032**: Every effectful public operation shall cross into ABG runtime truth by exactly one of two routes: its semantic owner emits admitted runtime events whose Event Calculus effects are declared, or its semantic owner produces an immutable authoritative artifact and ABG admits one `public_operation_artifact_admitted` boundary event before any runtime consumer uses that artifact. The generic boundary event shall preserve the operation identity, structural definition key and definition digest, stable authority-scope ref and canonical scope digest, invocation ref and digest, owner-admitted disposition, immutable artifact ref and digest, causation refs, and correlation id. Its definition-key operation identity shall equal the event operation identity. It shall initiate only the replay-derived `public_operation_artifact_available` fluent, keyed by the stable authority-scope ref rather than the invocation ref. Shared-store artifact projections shall admit one exact scope ref and digest and shall fail closed when the same scope ref appears under another digest. It shall not own or infer result meaning, assessment, closure, retry, continuation, next action, or ticket mutation. Per-operation boundary event kinds and runner-local artifact truth are forbidden.
+
 ## Canonical Runtime Event-Kind Census
 
 The runtime event union decomposes into these families. Example kinds are
@@ -109,4 +111,4 @@ published `RUNTIME_EVENT_KIND_VALUES` roster owns the complete set.
 - timer: `timer_intent_admitted`, `deadline_breach_admitted`, `scheduled_continuation_reopened`
 - construction: `construction_episode_started`, `construction_intent_selected`, `construction_delta_observed`
 - registry/projection: `registry_entry_admitted`, `graph_function_selected`, `node_type_satisfaction_projected`
-- public-operation attribution: `public_operation_admitted`
+- public-operation attribution: `public_operation_admitted`, `public_operation_artifact_admitted`

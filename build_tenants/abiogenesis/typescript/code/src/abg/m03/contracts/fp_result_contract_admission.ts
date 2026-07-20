@@ -6,12 +6,16 @@ import {
   admitIJsonValue,
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
+import type {
+  IJsonObject,
+  IJsonValue
+} from "../../../shared/runtime_identity.js";
 import { isPlainObject } from "../../../shared/validation/primitives.js";
 import type { AbgFnComputeStageRole } from "./fn_composition.js";
 import type { PluginSelectionSeam } from "./plugin_selection.js";
 
 export const FP_RESULT_WIRE_PROFILE_VALUES = Object.freeze([
-  "attached_result_artifact",
+  "attached_transform_result",
   "standard_live_review"
 ] as const);
 
@@ -38,7 +42,7 @@ const FP_RESULT_LOCUS_CONTRACT_DEFINITIONS: Readonly<
   transform: Object.freeze({
     compositionStageRole: "transform",
     requiredPluginSeam: "fpDispatch",
-    wireProfile: "attached_result_artifact"
+    wireProfile: "attached_transform_result"
   }),
   evaluate: Object.freeze({
     compositionStageRole: "evaluate",
@@ -101,13 +105,29 @@ export const FP_RESULT_CONTRACT_FAILURE_CLASS_VALUES = Object.freeze([
 export type FpResultContractFailureClass =
   (typeof FP_RESULT_CONTRACT_FAILURE_CLASS_VALUES)[number];
 
-export interface AdmittedFpResultContractEnvelope {
+interface AdmittedFpResultContractEnvelopeBase {
   readonly kind: "admitted_fp_result_contract_envelope";
   readonly profile: FpResultWireProfile;
   readonly resultContractRef: string;
   readonly payloadDigest: `sha256:${string}`;
-  readonly payload: Readonly<Record<string, unknown>>;
 }
+
+export interface AdmittedFpTransformResultContractEnvelope
+  extends AdmittedFpResultContractEnvelopeBase {
+  readonly profile: "attached_transform_result";
+  readonly resultArtifactCandidate: Readonly<IJsonObject>;
+  readonly targetValueCandidate: IJsonValue;
+}
+
+export interface AdmittedFpReviewResultContractEnvelope
+  extends AdmittedFpResultContractEnvelopeBase {
+  readonly profile: "standard_live_review";
+  readonly reviewCandidate: Readonly<IJsonObject>;
+}
+
+export type AdmittedFpResultContractEnvelope =
+  | AdmittedFpTransformResultContractEnvelope
+  | AdmittedFpReviewResultContractEnvelope;
 
 export interface FpResultContractAdmissionAccepted {
   readonly kind: "fp_result_contract_admission_accepted";
@@ -142,11 +162,12 @@ interface FpResultWireProfileDefinition {
   readonly requiredFields: readonly string[];
 }
 
-const ATTACHED_RESULT_ARTIFACT_FIELDS = Object.freeze([
+const ATTACHED_TRANSFORM_RESULT_FIELDS = Object.freeze([
   "result_contract_ref",
   "edge",
   "actor",
-  "fulfillment_assessments"
+  "fulfillment_assessments",
+  "target_value"
 ]);
 
 const STANDARD_LIVE_REVIEW_FIELDS = Object.freeze([
@@ -160,10 +181,10 @@ const STANDARD_LIVE_REVIEW_FIELDS = Object.freeze([
 const PROFILE_DEFINITIONS: Readonly<
   Record<FpResultWireProfile, FpResultWireProfileDefinition>
 > = Object.freeze({
-  attached_result_artifact: Object.freeze({
+  attached_transform_result: Object.freeze({
     contractRefField: "result_contract_ref",
-    allowedFields: ATTACHED_RESULT_ARTIFACT_FIELDS,
-    requiredFields: ATTACHED_RESULT_ARTIFACT_FIELDS
+    allowedFields: ATTACHED_TRANSFORM_RESULT_FIELDS,
+    requiredFields: ATTACHED_TRANSFORM_RESULT_FIELDS
   }),
   standard_live_review: Object.freeze({
     contractRefField: "resultContractRef",
@@ -206,6 +227,19 @@ function nonEmptyString(value: unknown): string | null {
     value.trim() === value
     ? value
     : null;
+}
+
+function requiredPayloadField(
+  payload: Readonly<IJsonObject>,
+  field: string
+): IJsonValue {
+  const value = payload[field];
+  if (value === undefined) {
+    throw new TypeError(
+      `admitted F_P result lost required field ${JSON.stringify(field)}`
+    );
+  }
+  return value;
 }
 
 export function admitFpResultContractEnvelope(input: {
@@ -283,7 +317,7 @@ export function admitFpResultContractEnvelope(input: {
     });
   }
 
-  let payload: Readonly<Record<string, unknown>>;
+  let payload: Readonly<IJsonObject>;
   let payloadDigest: `sha256:${string}`;
   try {
     const admittedPayload = admitIJsonValue(rawResult, "FpResultContractPayload");
@@ -303,16 +337,38 @@ export function admitFpResultContractEnvelope(input: {
       submittedResultContractRef
     });
   }
+  const envelope: AdmittedFpResultContractEnvelope =
+    input.profile === "attached_transform_result"
+      ? Object.freeze({
+          kind: "admitted_fp_result_contract_envelope",
+          profile: "attached_transform_result",
+          resultContractRef: selectedResultContractRef,
+          payloadDigest,
+          resultArtifactCandidate: Object.freeze({
+            result_contract_ref: requiredPayloadField(
+              payload,
+              "result_contract_ref"
+            ),
+            edge: requiredPayloadField(payload, "edge"),
+            actor: requiredPayloadField(payload, "actor"),
+            fulfillment_assessments: requiredPayloadField(
+              payload,
+              "fulfillment_assessments"
+            )
+          }),
+          targetValueCandidate: requiredPayloadField(payload, "target_value")
+        })
+      : Object.freeze({
+          kind: "admitted_fp_result_contract_envelope",
+          profile: "standard_live_review",
+          resultContractRef: selectedResultContractRef,
+          payloadDigest,
+          reviewCandidate: payload
+        });
   return Object.freeze({
     kind: "fp_result_contract_admission_accepted",
     accepted: true,
-    envelope: Object.freeze({
-      kind: "admitted_fp_result_contract_envelope",
-      profile: input.profile,
-      resultContractRef: selectedResultContractRef,
-      payloadDigest,
-      payload
-    }),
+    envelope,
     failure: null
   });
 }

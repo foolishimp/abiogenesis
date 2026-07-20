@@ -65,7 +65,7 @@ test("T-270 derives each real Hello World F_P locus from its own declared seam",
       {
         compositionStageRole: "transform",
         requiredPluginSeam: "fpDispatch",
-        wireProfile: "attached_result_artifact",
+        wireProfile: "attached_transform_result",
         pluginRef: "plugin://abg/fp-dispatch-live"
       },
       {

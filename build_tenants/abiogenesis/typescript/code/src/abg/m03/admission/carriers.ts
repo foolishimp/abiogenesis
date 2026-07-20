@@ -547,6 +547,17 @@ function normalizeOptionalString(
   return value;
 }
 
+function normalizeOptionalSha256Digest(
+  value: string | null | undefined,
+  label: string
+): string | null {
+  const normalized = normalizeOptionalString(value, label);
+  if (normalized !== null && !/^sha256:[0-9a-f]{64}$/u.test(normalized)) {
+    throw new TypeError(`${label} must be a sha256:<64-hex> digest`);
+  }
+  return normalized;
+}
+
 export interface ExecutionBasisAdmissionInput
   extends Omit<
     ExecutionBasisInit,
@@ -556,12 +567,14 @@ export interface ExecutionBasisAdmissionInput
     | "workKey"
     | "frameId"
     | "frameLineageId"
+    | "startAdmissionWitnessDigest"
   > {
   readonly lookupAuthority?: ModuleLookupAuthority;
   readonly runId?: string | null;
   readonly workKey?: string | null;
   readonly frameId?: string | null;
   readonly frameLineageId?: string | null;
+  readonly startAdmissionWitnessDigest?: string | null;
 }
 
 export function admitExecutionBasis(
@@ -582,6 +595,10 @@ export function admitExecutionBasis(
     input.frameLineageId,
     "ExecutionBasis.frameLineageId"
   );
+  const startAdmissionWitnessDigest = normalizeOptionalSha256Digest(
+    input.startAdmissionWitnessDigest,
+    "ExecutionBasis.startAdmissionWitnessDigest"
+  );
   return constructExecutionBasis({
     basisId: deriveIdentity("execution_basis", {
       moduleName: input.module.name,
@@ -591,7 +608,8 @@ export function admitExecutionBasis(
       runId,
       workKey,
       frameId,
-      frameLineageId
+      frameLineageId,
+      startAdmissionWitnessDigest
     }),
     startIntent: input.startIntent,
     module,
@@ -601,6 +619,7 @@ export function admitExecutionBasis(
     runId,
     workKey,
     frameId,
-    frameLineageId
+    frameLineageId,
+    startAdmissionWitnessDigest
   });
 }

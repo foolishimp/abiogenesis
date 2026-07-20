@@ -341,7 +341,7 @@ function runtimeEvidenceFixture(basis) {
     vectorIndex: 0,
     evidenceRef: "evidence://t164/runtime-execution",
     payloadRef: "payload://t164/runtime-execution",
-    authorityRef: "authority://t164/runtime",
+    authorityRef: "authority-snapshot://t164/runtime",
     authorityDigest: "sha256:t164-authority",
     inputDigest: "sha256:t164-input",
     providerRefs: ["provider://t164/runtime"],
@@ -372,6 +372,7 @@ function assuranceClosureDecisionFixture(basis, runtimeEvidenceEvent) {
     vectorIndex: 0
   });
   const authoritySnapshot = publicM03.constructAssuranceAuthoritySnapshot({
+    authoritySnapshotRef: "authority-snapshot://t164/runtime",
     scope,
     authorityRefs: ["authority://t164/runtime"],
     inputRefs: ["input://t164/runtime"],

@@ -13,6 +13,7 @@ import {
   constructGtlLibraryEntryDeclaration,
   constructNextActionBasis,
   constructObservationPressureRow,
+  constructOneSurfaceProgramMemberProjection,
   deriveConstructionPriorityProjection,
   deriveNextActionProjection,
   deriveObservationToActionBindingProjection,
@@ -199,10 +200,21 @@ function worldForAction({
   program
 }) {
   const episodeId = `episode://t280/action-variants/${String(ordinal)}`;
+  const programMembers = constructOneSurfaceProgramMemberProjection({
+    admittedProgramRef: program.admittedProgramRef,
+    admittedProgramDigest: program.admittedProgramDigest,
+    graphFunctions: fixture.aggregateModule.graphFunctions.map(
+      (graphFunction) => Object.freeze({
+        graphFunctionRef: graphFunction.id,
+        graphFunctionDigest: stableSha256Digest(graphFunction)
+      })
+    )
+  });
   const actionCatalog = deriveProgramActionCatalog({
     episodeId,
     allowedCatalog: program.stages[2].allowedConsequenceCatalog,
-    catalogView: catalog.view
+    catalogView: catalog.view,
+    programMembers
   });
   assert.equal(actionCatalog.kind, "construction_action_catalog_projection");
   const action = actionKind === null
@@ -260,7 +272,7 @@ function worldForAction({
   const obligationRefs = action === null
     ? Object.freeze([])
     : Object.freeze([`obligation://t280/action-variants/${String(ordinal)}`]);
-  const requiredEvidenceRefs = action === null
+  const requiredEvidenceAuthorityRefs = action === null
     ? Object.freeze([])
     : Object.freeze([`evidence://t280/action-variants/required/${String(ordinal)}`]);
   const exactCandidate =
@@ -311,7 +323,7 @@ function worldForAction({
     : Object.freeze([Object.freeze({
         targetOutcomeRef: action.targetOutcomeRef,
         obligationRefs,
-        requiredEvidenceRefs
+        requiredEvidenceAuthorityRefs
       })]);
   const currentObservation = currentObservationFixture({
     observation,
@@ -325,6 +337,7 @@ function worldForAction({
   const evaluateNextInput = Object.freeze({
     nextBasis,
     application: program,
+    programMembers,
     invocationAuthority: INVOCATION_AUTHORITY,
     catalogBasis: catalog.basis,
     allowedEntryRefs: catalog.entryRefs,

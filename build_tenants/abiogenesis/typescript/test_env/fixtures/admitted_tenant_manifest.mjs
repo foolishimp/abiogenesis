@@ -77,6 +77,17 @@ export function admittedTenantManifestFixture(input) {
     contractVersion: rows[1].version,
     contractDigest: rows[1].digest
   });
+  const capabilityDefinitionGraphBasis = Object.freeze({
+    kind: "abg_capability_definition_graph",
+    graphId: `capability-definition-graph://${input.fixtureId}`,
+    graphVersion: "1.0.0",
+    definitions: Object.freeze([Object.freeze({
+      capabilityId: input.capabilityId,
+      requiredContractIds: Object.freeze([input.capabilityContractId]),
+      dependentCapabilityIds: Object.freeze([]),
+      effectRefs: Object.freeze([...effectRefs])
+    })])
+  });
   const basis = Object.freeze({
     kind: "abg_tenant_conformance_manifest",
     schemaId: "abg.schema.tenant-conformance-manifest",
@@ -85,6 +96,11 @@ export function admittedTenantManifestFixture(input) {
     manifestVersion: "1.0.0",
     engineId: `abg.engine.${input.fixtureId}`,
     engineVersion: input.engineVersion ?? "5.0.0",
+    capabilityDefinitionGraph: Object.freeze({
+      graphId: capabilityDefinitionGraphBasis.graphId,
+      graphVersion: capabilityDefinitionGraphBasis.graphVersion,
+      graphDigest: stableSha256Digest(capabilityDefinitionGraphBasis)
+    }),
     publicContractCatalog: Object.freeze({
       catalogId: catalog.catalogId,
       catalogVersion: catalog.catalogVersion,

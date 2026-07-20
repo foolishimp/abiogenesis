@@ -75,7 +75,10 @@ import type {
 import type {
   InstructionCausalContextProjection
 } from "./payload_ledger.js";
-import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import {
+  admitIJsonValue,
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
 import {
   FD_AUTHORITY_SEVERITY_CLASS_VALUES,
   FD_PRESSURE_ROUTING_DECISION_VALUES,
@@ -252,7 +255,8 @@ export function constructBasisAdmittedEvent(
     resolvedRuntimeRef: basis.runtimeIdentity.resolvedRuntimeRef,
     resolvedPolicyBundleRef: basis.resolvedPolicy.resolvedPolicyBundleRef,
     runId: basis.runId,
-    workKey: basis.workKey
+    workKey: basis.workKey,
+    startAdmissionWitnessDigest: basis.startAdmissionWitnessDigest
   });
 }
 
@@ -294,20 +298,24 @@ export function constructActorResultArtifactObservedEvent(input: {
   readonly artifactRef: string;
   readonly artifactPayload?: unknown;
 }): ActorResultArtifactObservedEvent {
-  const artifactDigestBasis = input.artifactPayload === undefined
-    ? undefined
-    : actorResultArtifactDigestBasis(input.artifactPayload);
-  const artifactContent = input.artifactPayload === undefined
+  const artifactPayload = input.artifactPayload === undefined
     ? null
-    : stableJson(artifactDigestBasis);
-  const artifactExcerpt = input.artifactPayload === undefined
+    : admitIJsonValue(
+        actorResultArtifactDigestBasis(input.artifactPayload),
+        "ActorResultArtifactObservedEvent.artifactPayload"
+      );
+  const artifactContent = artifactPayload === null
     ? null
-    : artifactContentExcerptFor(input.artifactPayload, artifactContent);
+    : stableJson(artifactPayload);
+  const artifactExcerpt = artifactPayload === null
+    ? null
+    : artifactContentExcerptFor(artifactPayload, artifactContent);
   return Object.freeze({
     kind: "actor_result_artifact_observed",
     ...actorRuntimeScope(input.invocation),
     resultRef: input.invocation.resultRef,
     artifactRef: input.artifactRef,
+    artifactPayload,
     artifactContentDigest:
       artifactContent === null ? null : sha256DigestForText(artifactContent),
     artifactContentExcerpt: artifactExcerpt

@@ -71,6 +71,7 @@ export interface AssuranceScopeRef {
 
 export interface AssuranceAuthoritySnapshot {
   readonly kind: "assurance_authority_snapshot";
+  readonly authoritySnapshotRef: string;
   readonly scope: AssuranceScopeRef;
   readonly authorityRefs: readonly string[];
   readonly inputRefs: readonly string[];
@@ -286,13 +287,13 @@ function isCurrentFulfillmentEvidence(
 
 function evidenceCarriesCurrentOrPreservedAuthority(input: {
   readonly evidence: AssuranceEvidenceRow;
-  readonly authorityRefs: ReadonlySet<string>;
+  readonly authoritySnapshotRef: string;
 }): boolean {
   if (input.evidence.authorityRef === null) {
     return false;
   }
   return (
-    input.authorityRefs.has(input.evidence.authorityRef) ||
+    input.evidence.authorityRef === input.authoritySnapshotRef ||
     input.evidence.lifecycle !== "active"
   );
 }
@@ -354,6 +355,7 @@ export function deriveAssuranceScopeRef(input: {
 }
 
 export function constructAssuranceAuthoritySnapshot(input: {
+  readonly authoritySnapshotRef: string;
   readonly scope: AssuranceScopeRef;
   readonly authorityRefs: readonly string[];
   readonly inputRefs?: readonly string[];
@@ -366,12 +368,17 @@ export function constructAssuranceAuthoritySnapshot(input: {
   readonly policyRefs?: readonly string[];
 }): AssuranceAuthoritySnapshot {
   assertNonEmptyString(
+    input.authoritySnapshotRef,
+    "AssuranceAuthoritySnapshot.authoritySnapshotRef"
+  );
+  assertNonEmptyString(
     input.authorityDigest,
     "AssuranceAuthoritySnapshot.authorityDigest"
   );
   assertNonEmptyString(input.inputDigest, "AssuranceAuthoritySnapshot.inputDigest");
   return Object.freeze({
     kind: "assurance_authority_snapshot",
+    authoritySnapshotRef: input.authoritySnapshotRef,
     scope: input.scope,
     authorityRefs: freezeNonEmptyStrings(
       input.authorityRefs,
@@ -466,6 +473,7 @@ export function assuranceProjectionRef(
     projection.scope.graphCallId,
     projection.scope.frameId,
     String(projection.scope.vectorIndex),
+    projection.authoritySnapshot.authoritySnapshotRef,
     projection.authoritySnapshot.authorityDigest,
     projection.authoritySnapshot.inputDigest,
     projection.ambiguityRows.map((row) => row.status).join(",")
@@ -490,7 +498,6 @@ export function deriveAssuranceProjection(input: {
     throw new TypeError("AssuranceProjection requires scope for the same basis");
   }
   const evidenceRows = Object.freeze([...(input.evidenceRows ?? Object.freeze([]))]);
-  const authorityRefs = new Set(input.authoritySnapshot.authorityRefs);
   const deferredRefs = new Set(input.authoritySnapshot.deferredAuthorityRefs);
   const rows: AssuranceAmbiguityRow[] = [];
   const snapshot = input.authoritySnapshot;
@@ -577,7 +584,7 @@ export function deriveAssuranceProjection(input: {
       !sameScope(evidence.scope, scope) ||
       !evidenceCarriesCurrentOrPreservedAuthority({
         evidence,
-        authorityRefs
+        authoritySnapshotRef: snapshot.authoritySnapshotRef
       })
     ) {
       rows.push(
@@ -603,7 +610,7 @@ export function deriveAssuranceProjection(input: {
       (evidence) =>
         evidence.boundToScope &&
         sameScope(evidence.scope, scope) &&
-        evidence.authorityRef === authorityRef
+        evidence.authorityRef === snapshot.authoritySnapshotRef
     );
     if (deferredRefs.has(authorityRef)) {
       rows.push(

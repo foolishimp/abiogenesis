@@ -14,6 +14,7 @@ import {
   constructGtlLibraryEntryDeclaration,
   constructNextActionBasis,
   constructObservationPressureRow,
+  constructOneSurfaceProgramMemberProjection,
   constructTargetObligationBinding,
   deriveConstructionPriorityProjection,
   deriveNextActionProjection,
@@ -155,6 +156,16 @@ async function semanticChainFixture() {
   assert.equal(compilation.status, "semantic_not_realized");
   assert.notEqual(compilation.authorityProgram, null);
   const program = compilation.authorityProgram;
+  const programMembers = constructOneSurfaceProgramMemberProjection({
+    admittedProgramRef: program.admittedProgramRef,
+    admittedProgramDigest: program.admittedProgramDigest,
+    graphFunctions: source.aggregateModule.graphFunctions.map(
+      (graphFunction) => Object.freeze({
+        graphFunctionRef: graphFunction.id,
+        graphFunctionDigest: stableSha256Digest(graphFunction)
+      })
+    )
+  });
   const catalog = admitScenario09Catalog(source);
   const episodeId = "episode://t280/scenario09";
   const workspaceBinding = Object.freeze({
@@ -169,7 +180,8 @@ async function semanticChainFixture() {
   const actionCatalog = deriveProgramActionCatalog({
     episodeId,
     allowedCatalog: program.stages[2].allowedConsequenceCatalog,
-    catalogView: catalog.session
+    catalogView: catalog.session,
+    programMembers
   });
   assert.equal(actionCatalog.kind, "construction_action_catalog_projection");
   assert.equal(actionCatalog.rows.length, 1);
@@ -306,7 +318,7 @@ async function semanticChainFixture() {
     obligationRefs: Object.freeze([
       "obligation://t280/scenario09/normalize"
     ]),
-    requiredEvidenceRefs: Object.freeze([
+    requiredEvidenceAuthorityRefs: Object.freeze([
       "evidence://t280/scenario09/normalized"
     ])
   })]);
@@ -348,6 +360,7 @@ async function semanticChainFixture() {
   const evaluateNextInput = Object.freeze({
     nextBasis,
     application: program,
+    programMembers,
     invocationAuthority,
     catalogBasis: catalog.basis,
     allowedEntryRefs: Object.freeze([CATALOG_ENTRY_REF]),
@@ -357,14 +370,54 @@ async function semanticChainFixture() {
     targetObligations
   });
   const evaluateNextBasis = oneSurfaceEvaluateNextInputBasis(evaluateNextInput);
+  const targetBindings = Object.freeze([
+    constructTargetObligationBinding({
+      snapshotRef: observation.observationId,
+      snapshotDigest: observation.snapshotDigest,
+      sourceBindingRef: selectedBinding.bindingRef,
+      pressureRef: selectedBinding.pressureRef,
+      actionRef: selectedBinding.actionRef,
+      targetOutcomeRef: selectedBinding.targetOutcomeRef,
+      obligationRefs: targetObligations[0].obligationRefs,
+      requiredEvidenceAuthorityRefs:
+        targetObligations[0].requiredEvidenceAuthorityRefs
+    })
+  ]);
+  const evaluateNextProjectionValue = Object.freeze({
+    nextBasis,
+    admittedProgram: Object.freeze({
+      ref: program.admittedProgramRef,
+      digest: program.admittedProgramDigest
+    }),
+    catalogView: Object.freeze({
+      ref: catalog.session.sessionViewRef,
+      digest: stableSha256Digest(catalog.session)
+    }),
+    observationRef: observation.observationId,
+    currentObservationRef: currentObservation.projectionRef,
+    currentObservationDigest: currentObservation.projectionDigest,
+    actionCatalogRef: actionCatalog.catalogRef,
+    bindingProjectionRef: bindingProjection.projectionRef,
+    priorityProjectionRef: priorityProjection.projectionRef,
+    selectedBindingRef: selectedBinding.bindingRef,
+    selectedOutcomeRef: selectedBinding.targetOutcomeRef,
+    intentCandidate: candidate,
+    disposition: Object.freeze({
+      variant: "callable_member_action",
+      actionKind: "invoke_graph_function",
+      actionRef: action.actionRef,
+      targetRef: action.graphFunctionRef
+    })
+  });
   const evaluateNextResult = admittedAuthorityResult({
     source,
     program,
     stageIndex: 2,
     inputBasis: evaluateNextBasis,
     decodedValue: Object.freeze({
-      selectedActionRef: action.actionRef,
-      intentCandidate: candidate
+      targetBindings,
+      priorityProjection,
+      nextActionProjection: evaluateNextProjectionValue
     })
   });
   const nextAction = deriveNextActionProjection({
@@ -404,17 +457,20 @@ async function semanticChainFixture() {
     catalog,
     currentObservation,
     evaluateNextInput,
+    evaluateNextProjectionValue,
     evaluateNextResult,
     intentAdmission,
     intentAdmissionInput,
     invocationAuthority,
     nextAction,
     observation,
+    priorityProjection,
     priorityScheme,
     program,
     selectedBinding,
     source,
     targetObligations,
+    targetBindings,
     workspaceBinding
   });
 }
@@ -449,6 +505,89 @@ test("T-280 admits the real Scenario09 AF-11 through AF-14 semantic chain", asyn
     ref: value.nextAction.projectionRef,
     digest: value.nextAction.projectionDigest
   });
+});
+
+test("T-280 AF-13 admits evaluator-owned total truth only after exact-input corroboration", async () => {
+  const value = await chain;
+  assert.deepEqual(
+    value.evaluateNextResult.decodedValue.targetBindings,
+    value.targetBindings
+  );
+  assert.deepEqual(
+    value.evaluateNextResult.decodedValue.priorityProjection,
+    value.priorityProjection
+  );
+  assert.deepEqual(
+    value.evaluateNextResult.decodedValue.nextActionProjection,
+    value.evaluateNextProjectionValue
+  );
+
+  const changedBinding = constructTargetObligationBinding({
+    ...value.targetBindings[0],
+    requiredEvidenceAuthorityRefs: Object.freeze([
+      "authority://t280/scenario09/foreign"
+    ])
+  });
+  const changedBindingResult = admittedAuthorityResult({
+    source: value.source,
+    program: value.program,
+    stageIndex: 2,
+    inputBasis: oneSurfaceEvaluateNextInputBasis(value.evaluateNextInput),
+    decodedValue: Object.freeze({
+      ...value.evaluateNextResult.decodedValue,
+      targetBindings: Object.freeze([changedBinding])
+    })
+  });
+  assertEvaluateNextRefusal(
+    deriveNextActionProjection({
+      ...value.evaluateNextInput,
+      authorityResult: changedBindingResult
+    }),
+    "evaluate_next_target_bindings_differ_from_exact_inputs"
+  );
+
+  const changedPriorityResult = admittedAuthorityResult({
+    source: value.source,
+    program: value.program,
+    stageIndex: 2,
+    inputBasis: oneSurfaceEvaluateNextInputBasis(value.evaluateNextInput),
+    decodedValue: Object.freeze({
+      ...value.evaluateNextResult.decodedValue,
+      priorityProjection: Object.freeze({
+        ...value.priorityProjection,
+        prioritySchemeRef: "priority-scheme://t280/scenario09/foreign"
+      })
+    })
+  });
+  assertEvaluateNextRefusal(
+    deriveNextActionProjection({
+      ...value.evaluateNextInput,
+      authorityResult: changedPriorityResult
+    }),
+    "evaluate_next_priority_differs_from_exact_inputs"
+  );
+
+  const changedProjectionResult = admittedAuthorityResult({
+    source: value.source,
+    program: value.program,
+    stageIndex: 2,
+    inputBasis: oneSurfaceEvaluateNextInputBasis(value.evaluateNextInput),
+    decodedValue: Object.freeze({
+      ...value.evaluateNextResult.decodedValue,
+      nextActionProjection: Object.freeze({
+        ...value.evaluateNextProjectionValue,
+        currentObservationRef:
+          "current-observation://t280/scenario09/foreign"
+      })
+    })
+  });
+  assertEvaluateNextRefusal(
+    deriveNextActionProjection({
+      ...value.evaluateNextInput,
+      authorityResult: changedProjectionResult
+    }),
+    "evaluate_next_projection_differs_from_exact_inputs"
+  );
 });
 
 function assertEvaluateNextRefusal(value, reasonRef) {
@@ -553,7 +692,7 @@ test("T-280 AF-13 refuses changed selector authority and duplicate outcomes", as
               obligationRefs: Object.freeze([
                 "obligation://t280/scenario09/unbound"
               ]),
-              requiredEvidenceRefs: Object.freeze([
+              requiredEvidenceAuthorityRefs: Object.freeze([
                 "evidence://t280/scenario09/unbound"
               ])
             })
@@ -568,7 +707,7 @@ test("T-280 AF-13 refuses changed selector authority and duplicate outcomes", as
           obligationRefs: Object.freeze([
             "obligation://t280/scenario09/unbound"
           ]),
-          requiredEvidenceRefs: Object.freeze([
+          requiredEvidenceAuthorityRefs: Object.freeze([
             "evidence://t280/scenario09/unbound"
           ])
         })
@@ -615,7 +754,7 @@ test("T-280 AF-13 canonicalizes unordered target-obligation sets", async () => {
       "obligation://t280/scenario09/z",
       "obligation://t280/scenario09/a"
     ]),
-    requiredEvidenceRefs: Object.freeze([
+    requiredEvidenceAuthorityRefs: Object.freeze([
       "evidence://t280/scenario09/z",
       "evidence://t280/scenario09/a"
     ])
@@ -623,7 +762,9 @@ test("T-280 AF-13 canonicalizes unordered target-obligation sets", async () => {
   const second = Object.freeze({
     targetOutcomeRef: "outcome://t280/scenario09/second",
     obligationRefs: Object.freeze(["obligation://t280/scenario09/second"]),
-    requiredEvidenceRefs: Object.freeze(["evidence://t280/scenario09/second"])
+    requiredEvidenceAuthorityRefs: Object.freeze([
+      "evidence-authority://t280/scenario09/second"
+    ])
   });
   const forward = oneSurfaceEvaluateNextInputBasis({
     ...value.evaluateNextInput,
@@ -636,8 +777,8 @@ test("T-280 AF-13 canonicalizes unordered target-obligation sets", async () => {
       Object.freeze({
         ...first,
         obligationRefs: Object.freeze([...first.obligationRefs].reverse()),
-        requiredEvidenceRefs: Object.freeze(
-          [...first.requiredEvidenceRefs].reverse()
+        requiredEvidenceAuthorityRefs: Object.freeze(
+          [...first.requiredEvidenceAuthorityRefs].reverse()
         )
       })
     ])
@@ -669,7 +810,8 @@ test("T-280 AF-14 returns typed refusal for changed workspace and source-binding
     actionRef: originalTarget.actionRef,
     targetOutcomeRef: originalTarget.targetOutcomeRef,
     obligationRefs: originalTarget.obligationRefs,
-    requiredEvidenceRefs: originalTarget.requiredEvidenceRefs
+    requiredEvidenceAuthorityRefs:
+      originalTarget.requiredEvidenceAuthorityRefs
   });
   const changedBinding = admitOneSurfaceConstructionIntent({
       ...value.intentAdmissionInput,

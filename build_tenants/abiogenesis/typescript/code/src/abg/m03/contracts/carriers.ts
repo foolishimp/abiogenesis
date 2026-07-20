@@ -12,6 +12,9 @@ import type {
 import type { Job } from "../../../gtl/m02/contracts/carriers.js";
 import type { CompiledExecutionDeclarations } from "./execution_declaration_compiler.js";
 import type { IJsonValue } from "../../../shared/runtime_identity.js";
+import type {
+  OwnerNativeDefinitionKey
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 export type RuntimeRegime = "F_D" | "F_P" | "F_H";
 
@@ -383,6 +386,7 @@ export interface ExecutionBasis {
   readonly workKey: string | null;
   readonly frameId: string | null;
   readonly frameLineageId: string | null;
+  readonly startAdmissionWitnessDigest: string | null;
 }
 
 export type TerminalKind =
@@ -481,6 +485,7 @@ export interface BasisAdmittedEvent {
   readonly resolvedPolicyBundleRef: string;
   readonly runId: string | null;
   readonly workKey: string | null;
+  readonly startAdmissionWitnessDigest: string | null;
 }
 
 export type LeverOverrideResolutionSource =
@@ -550,6 +555,12 @@ export interface ActorResultArtifactObservedEvent extends ActorRuntimeScope {
   readonly kind: "actor_result_artifact_observed";
   readonly resultRef: string;
   readonly artifactRef: string;
+  /**
+   * Exact normalized I-JSON candidate admitted at result ingress. Historical
+   * events predate full-body replay and therefore omit this field; current
+   * result-assessment law requires a non-null body.
+   */
+  readonly artifactPayload?: IJsonValue;
   readonly artifactContentDigest: string | null;
   readonly artifactContentExcerpt: string | null;
 }
@@ -1745,8 +1756,18 @@ export interface ResetRuntimeEvent {
 export interface AssessedRuntimeEvent {
   readonly kind: "assessed";
   readonly assessmentKind: "fp";
+  readonly assessmentRef: string;
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly runtimeResultRef: string;
+  readonly runtimeResultDigest: `sha256:${string}`;
+  readonly assessmentContractRef: string;
+  readonly assessmentContractDigest: `sha256:${string}`;
   readonly edge: string;
   readonly obligationId: string;
+  readonly evidenceEventRefs: readonly string[];
   readonly publishedLedgerRef: string;
   readonly actor: string;
   readonly specHash: string;
@@ -3209,8 +3230,41 @@ export interface LegacyPublicOperationAdmittedRuntimeEvent {
   readonly correlationId: string;
 }
 
-export type PublicOperationAdmittedRuntimeEvent =
-  LegacyPublicOperationAdmittedRuntimeEvent;
+export interface PublicOperationAdmittedRuntimeEvent {
+  readonly kind: "public_operation_admitted";
+  readonly definitionKey: OwnerNativeDefinitionKey;
+  readonly definitionDigest: string;
+  readonly invocationRef: string;
+  readonly invocationDigest: string;
+  readonly invocationAuthorityRef: string;
+  readonly invocationAuthorityDigest: string;
+  readonly authorityBasisRef: string;
+  readonly authorityBasisDigest: string;
+  readonly actorRef: string | null;
+  readonly actorAttributionRef: string | null;
+  readonly actorAttributionDigest: string | null;
+  readonly workspaceBindingRequirement: "forbidden" | "exactly_one";
+  readonly scopeRef: string | null;
+  readonly scopeDigest: string | null;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface PublicOperationArtifactAdmittedRuntimeEvent {
+  readonly kind: "public_operation_artifact_admitted";
+  readonly operationId: string;
+  readonly definitionKey: OwnerNativeDefinitionKey;
+  readonly definitionDigest: string;
+  readonly scopeRef: string;
+  readonly scopeDigest: string;
+  readonly invocationRef: string;
+  readonly invocationDigest: string;
+  readonly disposition: string;
+  readonly artifactRef: string;
+  readonly artifactDigest: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
 
 export type RuntimeEvent =
   | BasisAdmittedEvent
@@ -3350,7 +3404,9 @@ export type RuntimeEvent =
   | RegistryPluginAdviceRejectedRuntimeEvent
   | GraphFunctionSelectedRuntimeEvent
   | GraphFunctionSelectionRejectedRuntimeEvent
+  | LegacyPublicOperationAdmittedRuntimeEvent
   | PublicOperationAdmittedRuntimeEvent
+  | PublicOperationArtifactAdmittedRuntimeEvent
   | WorkspaceInstallationAdmittedRuntimeEvent;
 
 export interface CanonicalRuntimeEventEnvelope {
@@ -3508,6 +3564,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "graph_function_selected",
   "graph_function_selection_rejected",
   "public_operation_admitted",
+  "public_operation_artifact_admitted",
   "workspace_installation_admitted"
 ] as const satisfies readonly RuntimeEvent["kind"][]);
 

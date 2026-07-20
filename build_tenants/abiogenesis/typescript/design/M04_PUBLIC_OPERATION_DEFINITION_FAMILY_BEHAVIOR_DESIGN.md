@@ -919,7 +919,10 @@ EffectClass =
   | "tuning_lifecycle_admission" | "conformance_evaluation_admission"
   | "product_filesystem" | "immutable_release_publication"
 
-EventAdmission = "none" | "owning_semantic_authority"
+EventAdmission =
+  | "none"
+  | "owning_semantic_authority"
+  | "immutable_artifact_boundary"
 
 SemanticAuthorityRef =
   | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-01>
@@ -957,16 +960,16 @@ SEMANTIC_AUTHORITY_DIGESTS = {
 } as const
 
 METADATA_BASIS_BY_OPERATION = {
-  "abg.operation.workspace.create":     ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-01", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "workspace_filesystem",              "none"],
+  "abg.operation.workspace.create":     ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-01", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "workspace_filesystem",              "immutable_artifact_boundary"],
   "abg.operation.workspace.open":       ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-02", SEMANTIC_AUTHORITY_DIGESTS.ontology, "read",        "workspace_read_admission",          "none"],
   "abg.operation.project.read":         ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-03", SEMANTIC_AUTHORITY_DIGESTS.ontology, "read",        "pure_projection",                   "none"],
   "abg.operation.product.verify":       ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-04", SEMANTIC_AUTHORITY_DIGESTS.ontology, "attestation", "deterministic_evaluation",          "none"],
   "abg.operation.product.resolve":      ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-05", SEMANTIC_AUTHORITY_DIGESTS.ontology, "pure",        "deterministic_evaluation",          "none"],
-  "abg.operation.product.install":      ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-06", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "immutable_install_filesystem",      "none"],
-  "abg.operation.workspace.bind":       ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-07", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "workspace_binding_persistence",     "none"],
+  "abg.operation.product.install":      ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-06", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "immutable_install_filesystem",      "immutable_artifact_boundary"],
+  "abg.operation.workspace.bind":       ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-07", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "workspace_binding_persistence",     "immutable_artifact_boundary"],
   "abg.operation.catalog.admit":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-08", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "catalog_event_admission",           "owning_semantic_authority"],
   "abg.operation.catalog.view":         ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-09", SEMANTIC_AUTHORITY_DIGESTS.ontology, "pure",        "deterministic_narrowing",            "none"],
-  "abg.operation.catalog.apply":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-10", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "declaration_application_admission",  "none"],
+  "abg.operation.catalog.apply":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-10", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "declaration_application_admission",  "immutable_artifact_boundary"],
   "abg.operation.run.invoke":           ["build_tenants/abiogenesis/typescript/design/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md", SEMANTIC_AUTHORITY_DIGESTS.runInvoke, "write", "abg_traversal", "owning_semantic_authority"],
   "abg.operation.run.continue":         ["build_tenants/abiogenesis/typescript/design/M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md", SEMANTIC_AUTHORITY_DIGESTS.runContinue, "write", "abg_continuation", "owning_semantic_authority"],
   "abg.operation.interaction.respond":  ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-18", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "fh_response_admission",             "owning_semantic_authority"],
@@ -974,8 +977,8 @@ METADATA_BASIS_BY_OPERATION = {
   "abg.operation.witness.admit":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-20", SEMANTIC_AUTHORITY_DIGESTS.ontology, "attestation", "witnessed_act_admission",           "owning_semantic_authority"],
   "abg.operation.tuning.transition":    ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-21", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "tuning_lifecycle_admission",        "owning_semantic_authority"],
   "abg.operation.conformance.evaluate": ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-22", SEMANTIC_AUTHORITY_DIGESTS.ontology, "attestation", "conformance_evaluation_admission",  "none"],
-  "abg.operation.product.materialize":  ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-23", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "product_filesystem",                "none"],
-  "abg.operation.release.snapshot":     ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-25", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "immutable_release_publication",     "none"]
+  "abg.operation.product.materialize":  ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-23", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "product_filesystem",                "immutable_artifact_boundary"],
+  "abg.operation.release.snapshot":     ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-25", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "immutable_release_publication",     "immutable_artifact_boundary"]
 } as const satisfies ExactOperationMetadataBasis<PublicOperationIdentity>
 
 MetadataBasisOf<K extends DefinitionKey> =
@@ -994,11 +997,19 @@ DefinitionMetadataProjectionOf<K extends DefinitionKey> =
 The table contains the exact repo-relative Ontology fragment or accepted design
 ref and its exact accepted source digest; shorthand never enters the family. An
 exact-own-key guard requires precisely the 19 operation identities and rejects
-missing or extra rows. `eventAdmission` states only whether the existing
-semantic owner must perform its admitted event action. It does not select an
-event kind, emitter, handler, or event family. Manifest, provenance, and result
-facts remain in owner contract truth. In particular, `catalog.apply` retains
-typed declaration-application admission without inventing an event requirement.
+missing or extra rows. `eventAdmission` states how an effect enters runtime
+truth. An `owning_semantic_authority` operation performs its existing admitted
+event action. An `immutable_artifact_boundary` operation first produces its
+owner-authoritative artifact and then uses the one generic
+`public_operation_artifact_admitted` boundary event before ABG consumes that
+artifact. The boundary does not select a handler or acquire result, closure,
+retry, continuation, or next-action authority. `workspace.create`,
+`product.install`, `workspace.bind`, `catalog.apply`, `product.materialize`,
+and `release.snapshot` are the complete Rule-B operation set. `workspace.bind`
+is its first implemented steel-thread consumer. Manifest, provenance, and
+result facts remain in owner contract truth. In particular, `catalog.apply`
+retains typed declaration-application admission without inventing a
+per-operation event.
 
 All other exact values derive from the existing accepted tables above. The
 metadata basis is the one authored constructor input; those prose tables become
@@ -2045,10 +2056,17 @@ classDiagram
     +exactSemanticAuthorityRef
     +closedAuthorityClass
     +closedEffectClass
-    +noneOrOwningEventAdmission
+    +closedEventAdmission
     +eightClosedAuthoritySlots
     +capabilitiesDefaultsDispositions
     +adapterAndDerivedCoordinates
+  }
+  class RuleBArtifactBoundaryPolicy {
+    <<derived metadata only>>
+    +oneGenericBoundaryEvent
+    +structuralDefinitionKeyEquality
+    +artifactAvailabilityFluentOnly
+    +noSemanticOutcomeAuthority
   }
   class ResolvedOwnerNativeContractSource {
     <<opaque derived carrier>>
@@ -2162,6 +2180,7 @@ classDiagram
   IndexedOutcomeAdmissionK --> ResolvedOwnerProjectionRelation : executes only for project read result
   IndexedOutcomeAdmissionK --> OutcomeAdmissionFailureK : malformed cross-key or relation mismatch
   WrappedProjectReadResultContract --> OwnerContractResolutionK : supplies final project read result slot
+  DefinitionMetadataProjection --> RuleBArtifactBoundaryPolicy : derives only for immutable artifact operations
   DefinitionMetadataProjection --> OwnerContractResolutionK : closes exact metadata or gap
   OwnerContractResolutionK "1" *-- "3..4" ContractSlotResolution : preserves per slot owner
   OwnerContractResolutionK --> ResolvedOwnerContract : resolved branch
@@ -2188,6 +2207,7 @@ sequenceDiagram
   participant Shared as SharedCanonicalProjector
   participant Compiler as M03PrivateCompiler
   participant Owners as ExistingSemanticOwners
+  participant Boundary as RuleBArtifactBoundaryPolicy
   participant Family as PrivateDefinitionFamilyAdmission
   participant Outcome as IndexedOutcomeAdmission
   participant Projector as PrivateDeterministicProjector
@@ -2246,6 +2266,9 @@ sequenceDiagram
     Resolver->>Resolver: derive exact metadata projection for K from accepted literal tables
     alt metadata missing divergent or selector-indexed catalog scope mismatches request
       Resolver->>Resolver: append definition_metadata_not_realized gap
+    else immutable artifact boundary metadata
+      Resolver->>Boundary: bind operation identity structural key and definition digest
+      Boundary-->>Resolver: generic boundary policy with no handler or result authority
     end
   end
   alt one or more typed gaps
@@ -2311,7 +2334,10 @@ stateDiagram-v2
   OwnerResolutionPending --> OwnerGapObserved: one or more slots unresolved
   OwnerResolutionPending --> MetadataResolutionPending: all distributed keys and final same-key slots exact
   MetadataResolutionPending --> OwnerGapObserved: metadata missing divergent or selector-indexed catalog scope relation invalid
-  MetadataResolutionPending --> ExactOwnerSetResolved: exact literal metadata and eight slot requirements admit
+  MetadataResolutionPending --> RuleBPolicyPending: immutable artifact boundary selected
+  RuleBPolicyPending --> OwnerGapObserved: structural key operation identity or definition digest diverges
+  RuleBPolicyPending --> ExactOwnerSetResolved: generic boundary policy admits without handler authority
+  MetadataResolutionPending --> ExactOwnerSetResolved: none or owning event metadata and eight slot requirements admit
   ExactOwnerSetResolved --> RawDefinitionFamily: construct sole private family and canonical digest projections
   RawDefinitionFamily --> DefinitionRefused: admission rejects key coordinate digest or authority
   RawDefinitionFamily --> DefinitionAdmitted: exact family and per-definition digest admission passes

@@ -421,6 +421,8 @@ function assuranceTruthRefForLiveReview({ result, evidenceRef }) {
   });
   const authorityRef = "requirement://abiogenesis/T-162/live-project-scope";
   const authoritySnapshot = constructAssuranceAuthoritySnapshot({
+    authoritySnapshotRef:
+      "authority-snapshot://t162/live-project-scope",
     scope,
     authorityRefs: [authorityRef],
     inputRefs: [result.subjectRef],
@@ -432,7 +434,7 @@ function assuranceTruthRefForLiveReview({ result, evidenceRef }) {
   const evidenceRow = constructAssuranceEvidenceRow({
     scope,
     evidenceRef,
-    authorityRef,
+    authorityRef: authoritySnapshot.authoritySnapshotRef,
     authorityDigest: result.deterministicReportDigest,
     inputDigest: result.sourcePackageDigest,
     eventRefs: [result.targetArtifactRef],

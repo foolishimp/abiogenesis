@@ -6,7 +6,6 @@ export * from "./control/index.js";
 export * from "./event_ingress/index.js";
 export * from "./gaps/index.js";
 export * from "./install_bootstrap/index.js";
-export * from "./live_status/index.js";
 export {
   constructLiveCapabilityBinding,
   liveCapabilityDigest,
@@ -20,7 +19,6 @@ export * from "./public_sdk/index.js";
 export { DS1_PUBLIC_OPERATION_IDS } from "./public_contracts/operations.js";
 export * from "./public_cli/index.js";
 export * from "./product_intake/index.js";
-export * from "./result_assessment/index.js";
 export * from "./toolchain_binding/index.js";
 export * from "./workspace/index.js";
 export {

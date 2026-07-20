@@ -11,7 +11,9 @@ import {
 } from "../public_sdk/admission_primitives.js";
 import {
   admitProductToolchainManifest,
-  admitPublicContractCatalog
+  admitPublicContractCatalog,
+  publicContractCatalogAddressableContractRefs,
+  publicContractCatalogDigest
 } from "../public_sdk/carrier_admission.js";
 import {
   admitIJsonText,
@@ -41,7 +43,8 @@ import {
   DS1_CAPABILITY_CONTRACT_REGISTER,
   DS1_NATIVE_CONTRACT_REGISTER
 } from "../public_contracts/foundation.js";
-import { DS1_PUBLIC_OPERATION_DEFINITION_REGISTER } from "../public_contracts/operations.js";
+import { METADATA_BASIS_BY_OPERATION } from
+  "../public_contracts/public_operation_definition_family.js";
 import { accepted, refused } from "./outcomes.js";
 import {
   assertResolvedProductLockCoherence,
@@ -52,29 +55,29 @@ const PRODUCT_MANIFEST_PATH = "product-toolchain-manifest.json";
 const ABG_PRODUCT_ID = "abiogenesis";
 const ABG_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
 
-export const DS1_NATIVE_CONTRACT_IDS: readonly string[] = Object.freeze(
+export { publicContractCatalogDigest };
+
+const ABG_RELEASE_NATIVE_CONTRACT_IDS: readonly string[] = Object.freeze(
   DS1_NATIVE_CONTRACT_REGISTER.map((definition) => definition.contractId)
 );
 
-export const DS1_SCHEMA_CONTRACT_IDS: readonly string[] = Object.freeze(
+const ABG_RELEASE_SCHEMA_CONTRACT_IDS: readonly string[] = Object.freeze(
   DS1_BASELINE_SCHEMA_ASSET_REGISTER.map((definition) => definition.contractId)
 );
 
-export const DS1_OPERATION_IDS: readonly string[] = Object.freeze(
-  DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.map(
-    (definition) => definition.operationId
-  )
+const ABG_RELEASE_OPERATION_IDS: readonly string[] = Object.freeze(
+  Object.keys(METADATA_BASIS_BY_OPERATION).sort()
 );
 
-export const DS1_CAPABILITY_IDS: readonly string[] = Object.freeze(
+const ABG_RELEASE_CAPABILITY_IDS: readonly string[] = Object.freeze(
   DS1_CAPABILITY_CONTRACT_REGISTER.map((definition) => definition.capabilityId)
 );
 
-export const DS1_VOCABULARY_IDS = Object.freeze([
+const ABG_RELEASE_VOCABULARY_IDS = Object.freeze([
   "abg.vocabulary.runtime-event-kind"
 ]);
 
-const DS1_NATIVE_EXPORTS: Readonly<Record<string, string>> = Object.freeze(
+const ABG_RELEASE_NATIVE_EXPORTS: Readonly<Record<string, string>> = Object.freeze(
   Object.fromEntries(
     DS1_NATIVE_CONTRACT_REGISTER.map((definition) => [
       definition.contractId,
@@ -83,7 +86,7 @@ const DS1_NATIVE_EXPORTS: Readonly<Record<string, string>> = Object.freeze(
   )
 );
 
-const DS1_REQUIRED_NATIVE_SYMBOLS: Readonly<
+const ABG_RELEASE_REQUIRED_NATIVE_SYMBOLS: Readonly<
   Record<string, readonly string[]>
 > = Object.freeze(
   Object.fromEntries(
@@ -94,35 +97,10 @@ const DS1_REQUIRED_NATIVE_SYMBOLS: Readonly<
   )
 );
 
-const DS1_OPERATION_NATIVE_SYMBOLS: Readonly<
-  Record<string, readonly string[]>
-> = Object.freeze(
-  Object.fromEntries(
-    DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.map((definition) => [
-      definition.operationId,
-      Object.freeze([
-        definition.handlerSymbol,
-        definition.requestSymbol,
-        definition.resultSymbol,
-        definition.refusalSymbol,
-        "PublicOperationInvocationEnvelope",
-        ...(definition.operationId === "abg.operation.catalog.invoke"
-          ? ["HostInvocationDescriptor"]
-          : [])
-      ])
-    ])
-  )
-);
-
-const DS1_CAPABILITY_REQUIRED_ROWS: Readonly<Record<string, readonly string[]>> =
-  Object.freeze(
-    Object.fromEntries(
-      DS1_CAPABILITY_CONTRACT_REGISTER.map((definition) => [
-        definition.capabilityId,
-        definition.requiredContractIds
-      ])
-    )
-  );
+const ABG_RELEASE_OPERATION_NATIVE_SYMBOLS = Object.freeze([
+  "PublishedPublicOperationContractMetadata",
+  "PublishedPublicOperationDefinitionMember"
+]);
 
 type VerificationFailureCode = CatalogVerifyRefusal["code"];
 
@@ -170,23 +148,6 @@ export function contributionManifestDigest(
   return digest(
     digestCanonicalIJson(contributionDigestBasis(contribution)),
     "CatalogContributionManifest.contributionDigest"
-  );
-}
-
-function catalogDigestBasis(
-  catalog: PublicContractCatalog
-): Omit<PublicContractCatalog, "catalogDigest"> {
-  const { catalogDigest, ...basis } = catalog;
-  void catalogDigest;
-  return basis;
-}
-
-export function publicContractCatalogDigest(
-  catalog: PublicContractCatalog
-): Sha256Digest {
-  return digest(
-    digestCanonicalIJson(catalogDigestBasis(catalog)),
-    "PublicContractCatalog.catalogDigest"
   );
 }
 
@@ -637,7 +598,9 @@ function assertCatalogContracts(input: {
     );
   }
 
-  const availableContracts = new Set(catalog.rows.map((row) => row.contractId));
+  const addressableContractRefs =
+    publicContractCatalogAddressableContractRefs(catalog);
+  const availableContracts = new Set(addressableContractRefs);
   const availableCapabilities = new Set(
     catalog.rows.flatMap((row) => [
       ...(row.contractKind === "capability" ? [row.contractId] : []),
@@ -824,10 +787,7 @@ function assertCatalogContracts(input: {
       );
     }
   }
-  const catalogContractSummary = catalog.rows
-    .filter((row) => row.contractKind !== "capability")
-    .map((row) => row.contractId)
-    .sort((left, right) => (left < right ? -1 : left > right ? 1 : 0));
+  const catalogContractSummary = addressableContractRefs;
   const descriptorContractSummary = [...input.descriptor.contractRefs].sort(
     (left, right) => (left < right ? -1 : left > right ? 1 : 0)
   );
@@ -885,7 +845,7 @@ export function assertProductProfileMatrix(
     );
   }
   if (isAbgProduct) {
-    assertDs1ContractRoster(manifest.publicContractCatalog);
+    assertAbgReleaseContractCatalog(manifest.publicContractCatalog);
   } else if (
     manifest.runtimeSystemProfile !== null ||
     manifest.publicContractCatalog.profile !== "catalog-product-v1"
@@ -898,13 +858,14 @@ export function assertProductProfileMatrix(
   } else {
     const reservedRows = manifest.publicContractCatalog.rows.filter(
       (row) =>
-        DS1_NATIVE_CONTRACT_IDS.includes(row.contractId) ||
-        DS1_OPERATION_IDS.includes(row.contractId)
+        ABG_RELEASE_NATIVE_CONTRACT_IDS.includes(row.contractId) ||
+        row.contractKind === "operation" ||
+        row.contractId.startsWith("abg.operation.")
     );
     if (reservedRows.length > 0) {
       throw new VerificationFailure(
         "unsupported_contract",
-        "catalog-product-v1 cannot claim the ABIogenesis native or operation roster",
+        "catalog-product-v1 cannot claim ABIogenesis native or operation authority",
         reservedRows.map((row) => row.contractId)
       );
     }
@@ -940,16 +901,18 @@ function assertExactRoster(input: {
   ) {
     throw new VerificationFailure(
       "unsupported_contract",
-      `ABIogenesis DS-1 ${input.kind} roster mismatch`,
+      `ABIogenesis 5.0 ${input.kind} roster mismatch`,
       [...missing, ...unexpected]
     );
   }
 }
 
-function assertDs1NativeAndCapabilityMap(catalog: PublicContractCatalog): void {
-  for (const contractId of DS1_NATIVE_CONTRACT_IDS) {
+function assertAbgReleaseNativeAndOperationMap(
+  catalog: PublicContractCatalog
+): void {
+  for (const contractId of ABG_RELEASE_NATIVE_CONTRACT_IDS) {
     const row = catalog.rows.find((candidate) => candidate.contractId === contractId);
-    const expectedExport = DS1_NATIVE_EXPORTS[contractId];
+    const expectedExport = ABG_RELEASE_NATIVE_EXPORTS[contractId];
     if (
       row?.nativeLocator === null ||
       row?.nativeLocator === undefined ||
@@ -963,7 +926,7 @@ function assertDs1NativeAndCapabilityMap(catalog: PublicContractCatalog): void {
         [contractId]
       );
     }
-    const missingSymbols = (DS1_REQUIRED_NATIVE_SYMBOLS[contractId] ?? []).filter(
+    const missingSymbols = (ABG_RELEASE_REQUIRED_NATIVE_SYMBOLS[contractId] ?? []).filter(
       (symbol) => !row.nativeLocator?.symbols.includes(symbol)
     );
     if (missingSymbols.length > 0) {
@@ -975,99 +938,89 @@ function assertDs1NativeAndCapabilityMap(catalog: PublicContractCatalog): void {
     }
   }
 
-  for (const operationId of DS1_OPERATION_IDS) {
+  for (const operationId of ABG_RELEASE_OPERATION_IDS) {
     const row = catalog.rows.find((candidate) => candidate.contractId === operationId);
-    const expectedSymbols = DS1_OPERATION_NATIVE_SYMBOLS[operationId];
     if (
       row?.nativeLocator === null ||
       row?.nativeLocator === undefined ||
-      expectedSymbols === undefined ||
+      row.operationContract?.kind !== "abg_public_operation_definition_family" ||
+      row.operationContract.operationId !== operationId ||
       row.nativeLocator.packageName !== ABG_PACKAGE_NAME ||
       row.nativeLocator.packageExport !== `${ABG_PACKAGE_NAME}/app/m04` ||
-      expectedSymbols.some((symbol) => !row.nativeLocator?.symbols.includes(symbol))
+      ABG_RELEASE_OPERATION_NATIVE_SYMBOLS.some(
+        (symbol) => !row.nativeLocator?.symbols.includes(symbol)
+      )
     ) {
       throw new VerificationFailure(
         "unsupported_contract",
-        `ABIogenesis operation ${operationId} has no exact native symbol locator`,
+        `ABIogenesis 5.0 operation ${operationId} has no exact published-family locator`,
         [operationId]
-      );
-    }
-  }
-
-  for (const capabilityId of DS1_CAPABILITY_IDS) {
-    const requiredRows = DS1_CAPABILITY_REQUIRED_ROWS[capabilityId];
-    if (requiredRows === undefined) {
-      throw new VerificationFailure(
-        "unsupported_contract",
-        `ABIogenesis capability ${capabilityId} has no contract map`,
-        [capabilityId]
-      );
-    }
-    const missingRows = requiredRows.filter((contractId) => {
-      const row = catalog.rows.find((candidate) => candidate.contractId === contractId);
-      return row === undefined || !row.capabilityRefs.includes(capabilityId);
-    });
-    if (missingRows.length > 0) {
-      throw new VerificationFailure(
-        "unsupported_contract",
-        `ABIogenesis capability ${capabilityId} is not bound to its required contracts`,
-        [capabilityId, ...missingRows]
       );
     }
   }
 }
 
-export function assertDs1ContractRoster(
+export function assertAbgReleaseContractCatalog(
   catalog: PublicContractCatalog
 ): PublicContractCatalog {
-  if (catalog.profile !== "abg-5-ds1") {
+  let admitted: PublicContractCatalog;
+  try {
+    admitted = admitPublicContractCatalog(
+      catalog,
+      "ABIogenesis 5.0 public contract catalog"
+    );
+  } catch (error) {
     throw new VerificationFailure(
       "unsupported_contract",
-      "T-223 requires the abg-5-ds1 contract profile",
+      error instanceof Error ? error.message : "public contract catalog admission failed",
       [catalog.catalogId]
     );
   }
-  const corpusRows = catalog.rows.filter(
-    (row) => row.contractKind === "corpus_asset"
-  );
-  if (corpusRows.length > 0) {
+  if (admitted.profile !== "abg-5-release") {
     throw new VerificationFailure(
       "unsupported_contract",
-      "T-223 DS-1 cannot claim a deferred conformance corpus",
-      corpusRows.map((row) => row.contractId)
+      "ABIogenesis 5.0 requires the singular abg-5-release contract profile",
+      [catalog.catalogId]
+    );
+  }
+  if (catalog.catalogDigest !== publicContractCatalogDigest(catalog)) {
+    throw new VerificationFailure(
+      "unsupported_contract",
+      "ABIogenesis 5.0 public contract catalog digest mismatch",
+      [catalog.catalogId]
     );
   }
   assertExactRoster({
-    catalog,
+    catalog: admitted,
     kind: "native_contract",
-    requiredIds: DS1_NATIVE_CONTRACT_IDS,
+    requiredIds: ABG_RELEASE_NATIVE_CONTRACT_IDS,
     exact: true
   });
   assertExactRoster({
-    catalog,
+    catalog: admitted,
     kind: "schema_asset",
-    requiredIds: DS1_SCHEMA_CONTRACT_IDS,
+    requiredIds: ABG_RELEASE_SCHEMA_CONTRACT_IDS,
     exact: true
   });
   assertExactRoster({
-    catalog,
+    catalog: admitted,
     kind: "vocabulary_asset",
-    requiredIds: DS1_VOCABULARY_IDS,
+    requiredIds: ABG_RELEASE_VOCABULARY_IDS,
     exact: true
   });
   assertExactRoster({
-    catalog,
+    catalog: admitted,
     kind: "operation",
-    requiredIds: DS1_OPERATION_IDS,
+    requiredIds: ABG_RELEASE_OPERATION_IDS,
     exact: true
   });
   assertExactRoster({
-    catalog,
+    catalog: admitted,
     kind: "capability",
-    requiredIds: DS1_CAPABILITY_IDS,
+    requiredIds: ABG_RELEASE_CAPABILITY_IDS,
     exact: true
   });
-  assertDs1NativeAndCapabilityMap(catalog);
+  assertAbgReleaseNativeAndOperationMap(admitted);
   return catalog;
 }
 

@@ -29,7 +29,12 @@ import {
   canonicalStringList,
   deriveRegistrySessionViewRef
 } from "../../../shared/runtime_identity.js";
-import { digestCanonicalIJson } from "./canonical.js";
+import {
+  admitIJsonValue,
+  digestCanonicalIJson,
+  type IJsonObject,
+  type IJsonValue
+} from "./canonical.js";
 import type {
   AbgResolvedPolicyIdentity,
   AbgRuntimeIdentity,
@@ -56,6 +61,14 @@ import type {
   PublicContractCatalog,
   PublicContractKind,
   PublicContractRow,
+  LegacyPublicContractRow,
+  LegacyPublicOperationContractMetadata,
+  PublishedPublicOperationAuthorityRequirements,
+  PublishedPublicOperationContractMetadata,
+  PublishedPublicOperationDefault,
+  PublishedPublicOperationDefinitionKey,
+  PublishedPublicOperationDefinitionMember,
+  PublishedPublicOperationSchemaCoordinate,
   PublicOperationContractMetadata,
   PublicOperationDefault,
   PublicOperationEffectClass,
@@ -280,10 +293,10 @@ function admitPublicOperationValueDomain(
   });
 }
 
-function admitPublicOperationContractMetadata(
+function admitLegacyPublicOperationContractMetadata(
   input: unknown,
   label: string
-): PublicOperationContractMetadata {
+): LegacyPublicOperationContractMetadata {
   const value = closedObject(
     input,
     [
@@ -630,6 +643,329 @@ function admitCanonicalAssetLocator(
   });
 }
 
+function isIJsonObject(input: unknown): input is IJsonObject {
+  return typeof input === "object" && input !== null && !Array.isArray(input);
+}
+
+function hasExactKeys(input: IJsonObject, keys: readonly string[]): boolean {
+  const actual = Object.keys(input);
+  return actual.length === keys.length && keys.every((key) => Object.hasOwn(input, key));
+}
+
+function isNonEmptyText(input: unknown): input is string {
+  return typeof input === "string" && input.trim().length > 0;
+}
+
+function isDigestText(input: unknown): input is `sha256:${string}` {
+  return typeof input === "string" && /^sha256:[0-9a-f]{64}$/u.test(input);
+}
+
+function isStringList(input: unknown): input is readonly string[] {
+  return Array.isArray(input) && input.every((entry) => typeof entry === "string");
+}
+
+function isPublishedDefinitionKey(
+  input: unknown
+): input is PublishedPublicOperationDefinitionKey {
+  if (!isIJsonObject(input) || !isNonEmptyText(input["operationId"])) {
+    return false;
+  }
+  return input["memberKind"] === "variant"
+    ? hasExactKeys(input, ["operationId", "memberKind", "variant"]) &&
+        isNonEmptyText(input["variant"])
+    : input["memberKind"] === "project_read_case" &&
+        input["operationId"] === "abg.operation.project.read" &&
+        hasExactKeys(input, ["operationId", "memberKind", "caseKey"]) &&
+        isNonEmptyText(input["caseKey"]);
+}
+
+function isPublishedSchemaCoordinate(
+  input: unknown
+): input is PublishedPublicOperationSchemaCoordinate {
+  if (
+    !isIJsonObject(input) ||
+    !hasExactKeys(input, [
+      "contractId", "contractVersion", "contractDigest", "schemaId",
+      "schemaVersion", "schemaDigest", "assetLocator"
+    ]) ||
+    !isNonEmptyText(input["contractId"]) ||
+    input["contractVersion"] !== "5.0.0" ||
+    !isDigestText(input["contractDigest"]) ||
+    !isNonEmptyText(input["schemaId"]) ||
+    input["schemaVersion"] !== "5.0.0" ||
+    !isDigestText(input["schemaDigest"]) ||
+    !isIJsonObject(input["assetLocator"])
+  ) {
+    return false;
+  }
+  const locator = input["assetLocator"];
+  return hasExactKeys(locator, [
+    "kind", "relativePath", "schemaId", "schemaVersion", "mediaType", "digest"
+  ]) && locator["kind"] === "asset" &&
+    isNonEmptyText(locator["relativePath"]) &&
+    locator["schemaId"] === input["schemaId"] &&
+    locator["schemaVersion"] === "5.0.0" &&
+    locator["mediaType"] === "application/schema+json" &&
+    locator["digest"] === input["schemaDigest"] &&
+    input["contractDigest"] === input["schemaDigest"];
+}
+
+function isPublishedAuthorityRequirements(
+  input: unknown
+): input is PublishedPublicOperationAuthorityRequirements {
+  if (!isIJsonObject(input) || !hasExactKeys(input, [
+    "actor", "workspace", "productSet", "dependencyLock", "catalogScope",
+    "executionProgram", "invocationPolicy", "transportSteering"
+  ])) {
+    return false;
+  }
+  const presence = (value: IJsonValue | undefined) =>
+    value === "forbidden" || value === "exactly_one";
+  const scope = input["catalogScope"];
+  const validScope = isIJsonObject(scope) && (
+    (hasExactKeys(scope, ["kind", "requirement"]) && scope["kind"] === "fixed" &&
+      presence(scope["requirement"])) ||
+    (hasExactKeys(scope, ["kind", "workspace_catalog", "session_view"]) &&
+      scope["kind"] === "by_visibility_basis" &&
+      scope["workspace_catalog"] === "forbidden" &&
+      scope["session_view"] === "exactly_one_matching_selector")
+  );
+  return (input["actor"] === "forbidden" || input["actor"] === "required") &&
+    presence(input["workspace"]) && presence(input["productSet"]) &&
+    presence(input["dependencyLock"]) && validScope &&
+    presence(input["executionProgram"]) && presence(input["invocationPolicy"]) &&
+    presence(input["transportSteering"]);
+}
+
+function isPublishedDefault(input: unknown): input is PublishedPublicOperationDefault {
+  if (!isIJsonObject(input) || !hasExactKeys(input, ["field", "policy"]) ||
+      !isNonEmptyText(input["field"]) || !isIJsonObject(input["policy"])) {
+    return false;
+  }
+  const policy = input["policy"];
+  return hasExactKeys(policy, ["kind", "value"]) && policy["kind"] === "literal" &&
+    isNonEmptyText(policy["value"]);
+}
+
+export function publishedPublicOperationDefinitionDigest(
+  basis: unknown
+): `sha256:${string}` {
+  const value = admitIJsonValue(
+    basis,
+    "PublishedPublicOperationDefinitionMember digest basis"
+  );
+  if (!isIJsonObject(value)) {
+    throw new TypeError(
+      "PublishedPublicOperationDefinitionMember digest basis: expected object"
+    );
+  }
+  const projection: Record<string, IJsonValue> = {};
+  for (const key of Object.keys(value)) {
+    if (key !== "definitionDigest") {
+      const member = value[key];
+      if (member !== undefined) {
+        projection[key] = member;
+      }
+    }
+  }
+  return digestCanonicalIJson(projection);
+}
+
+export interface PublishedPublicOperationFamilyDigestRow {
+  readonly operationId: string;
+  readonly definitions: readonly PublishedPublicOperationDefinitionMember[];
+}
+
+function publishedDefinitionMemberIdentity(
+  definition: PublishedPublicOperationDefinitionMember
+): string {
+  return definition.definitionKey.memberKind === "variant"
+    ? definition.definitionKey.variant
+    : definition.definitionKey.caseKey;
+}
+
+export function publishedPublicOperationFamilyDigest(
+  rows: readonly PublishedPublicOperationFamilyDigestRow[]
+): `sha256:${string}` {
+  const projection: Record<string, Record<string, string>> = {};
+  for (const row of [...rows].sort((left, right) =>
+    left.operationId < right.operationId ? -1 : left.operationId > right.operationId ? 1 : 0
+  )) {
+    if (Object.hasOwn(projection, row.operationId)) {
+      throw new TypeError(
+        `public operation family digest: duplicate operation ${row.operationId}`
+      );
+    }
+    const members: Record<string, string> = {};
+    projection[row.operationId] = members;
+    for (const definition of row.definitions) {
+      if (definition.definitionKey.operationId !== row.operationId) {
+        throw new TypeError(
+          `public operation family digest: definition escapes ${row.operationId}`
+        );
+      }
+      const member = publishedDefinitionMemberIdentity(definition);
+      if (Object.hasOwn(members, member)) {
+        throw new TypeError(
+          `public operation family digest: duplicate member ${row.operationId}.${member}`
+        );
+      }
+      members[member] = definition.definitionDigest;
+    }
+  }
+  return digestCanonicalIJson(projection);
+}
+
+function isPublishedDefinitionMember(
+  input: unknown
+): input is PublishedPublicOperationDefinitionMember {
+  if (!isIJsonObject(input) || !hasExactKeys(input, [
+    "definitionKey", "definitionDigest", "version", "semanticAuthorityRef",
+    "semanticAuthorityDigest", "authorityClass", "effectClass", "eventAdmission",
+    "authoritySlotRequirements", "capabilityRefs", "workspaceBindingRequirement",
+    "defaults", "schemaCoordinates", "sdkCoordinate", "cliCoordinate", "adapterExitMap"
+  ])) {
+    return false;
+  }
+  const schemas = input["schemaCoordinates"];
+  const exits = input["adapterExitMap"];
+  const nonterminal = isIJsonObject(schemas) ? schemas["nonterminal"] : undefined;
+  const effectClasses: readonly PublishedPublicOperationDefinitionMember["effectClass"][] = [
+    "workspace_filesystem", "workspace_read_admission", "pure_projection",
+    "deterministic_evaluation", "immutable_install_filesystem",
+    "workspace_binding_persistence", "catalog_event_admission",
+    "deterministic_narrowing", "declaration_application_admission", "abg_traversal",
+    "abg_continuation", "fh_response_admission", "result_assessment_admission",
+    "witnessed_act_admission", "tuning_lifecycle_admission",
+    "conformance_evaluation_admission", "product_filesystem",
+    "immutable_release_publication"
+  ];
+  return isPublishedDefinitionKey(input["definitionKey"]) &&
+    isDigestText(input["definitionDigest"]) && input["version"] === "5.0.0" &&
+    isNonEmptyText(input["semanticAuthorityRef"]) &&
+    isDigestText(input["semanticAuthorityDigest"]) &&
+    ["pure", "read", "write", "attestation"].includes(String(input["authorityClass"])) &&
+    effectClasses.some((effectClass) => effectClass === input["effectClass"]) &&
+    ["none", "owning_semantic_authority", "immutable_artifact_boundary"].includes(
+      String(input["eventAdmission"])
+    ) && isPublishedAuthorityRequirements(input["authoritySlotRequirements"]) &&
+    isStringList(input["capabilityRefs"]) &&
+    new Set(input["capabilityRefs"]).size === input["capabilityRefs"].length &&
+    (input["workspaceBindingRequirement"] === "forbidden" ||
+      input["workspaceBindingRequirement"] === "exactly_one") &&
+    Array.isArray(input["defaults"]) && input["defaults"].every(isPublishedDefault) &&
+    isIJsonObject(schemas) && hasExactKeys(schemas, [
+      "request", "result", "refusal", "nonterminal"
+    ]) && isPublishedSchemaCoordinate(schemas["request"]) &&
+    isPublishedSchemaCoordinate(schemas["result"]) &&
+    isPublishedSchemaCoordinate(schemas["refusal"]) &&
+    (nonterminal === null || isPublishedSchemaCoordinate(nonterminal)) &&
+    isNonEmptyText(input["sdkCoordinate"]) && isNonEmptyText(input["cliCoordinate"]) &&
+    isIJsonObject(exits) && hasExactKeys(exits, [
+      "acceptedTerminal", "refused", "invalidInvocation", "acceptedNonTerminal",
+      "adapterFailure"
+    ]) && exits["acceptedTerminal"] === 0 && exits["refused"] === 1 &&
+    exits["invalidInvocation"] === 2 && exits["adapterFailure"] === 70 &&
+    (exits["acceptedNonTerminal"] === null || exits["acceptedNonTerminal"] === 3) &&
+    ((nonterminal === null) === (exits["acceptedNonTerminal"] === null));
+}
+
+export function admitPublishedPublicOperationDefinitionMember(
+  input: unknown,
+  label: string
+): PublishedPublicOperationDefinitionMember {
+  const value = iJson(input, label);
+  if (!isPublishedDefinitionMember(value)) {
+    throw new TypeError(`${label}: malformed published operation definition`);
+  }
+  const definition = value;
+  if (
+    definition.definitionDigest !==
+      publishedPublicOperationDefinitionDigest(definition)
+  ) {
+    throw new TypeError(`${label}.definitionDigest: semantic projection differs`);
+  }
+  return definition;
+}
+
+function admitPublishedPublicOperationContractMetadata(
+  input: unknown,
+  label: string
+): PublishedPublicOperationContractMetadata {
+  const value = closedObject(
+    input,
+    [
+      "kind",
+      "operationId",
+      "operationVersion",
+      "operationDigest",
+      "familyDigest",
+      "definitions"
+    ],
+    label
+  );
+  const operationId = nonEmptyString(
+    requiredField(value, "operationId", label),
+    `${label}.operationId`
+  );
+  const definitions = arrayOf(
+    requiredField(value, "definitions", label),
+    `${label}.definitions`,
+    admitPublishedPublicOperationDefinitionMember
+  );
+  const [firstDefinition, ...remainingDefinitions] = definitions;
+  if (firstDefinition === undefined) {
+    throw new TypeError(`${label}.definitions: expected non-empty family`);
+  }
+  const nonEmptyDefinitions: PublishedPublicOperationContractMetadata["definitions"] =
+    Object.freeze([firstDefinition, ...remainingDefinitions]);
+  const memberIds = definitions.map((definition) =>
+    definition.definitionKey.memberKind === "variant"
+      ? `variant:${definition.definitionKey.variant}`
+      : `project_read_case:${definition.definitionKey.caseKey}`
+  );
+  if (
+    definitions.some((definition) => definition.definitionKey.operationId !== operationId) ||
+    new Set(memberIds).size !== memberIds.length
+  ) {
+    throw new TypeError(`${label}.definitions: operation containment mismatch`);
+  }
+  return Object.freeze({
+    kind: literal(
+      requiredField(value, "kind", label),
+      "abg_public_operation_definition_family",
+      `${label}.kind`
+    ),
+    operationId,
+    operationVersion: literal(
+      requiredField(value, "operationVersion", label),
+      "5.0.0",
+      `${label}.operationVersion`
+    ),
+    operationDigest: digest(
+      requiredField(value, "operationDigest", label),
+      `${label}.operationDigest`
+    ),
+    familyDigest: digest(
+      requiredField(value, "familyDigest", label),
+      `${label}.familyDigest`
+    ),
+    definitions: nonEmptyDefinitions
+  });
+}
+
+function admitPublicOperationContractMetadata(
+  input: unknown,
+  label: string
+): PublicOperationContractMetadata {
+  const kind = isIJsonObject(input)
+    ? input["kind"]
+    : undefined;
+  return kind === "abg_public_operation_definition_family"
+    ? admitPublishedPublicOperationContractMetadata(input, label)
+    : admitLegacyPublicOperationContractMetadata(input, label);
+}
+
 export function admitPublicContractRow(
   input: unknown,
   label = "PublicContractRow"
@@ -731,6 +1067,123 @@ export function admitPublicContractRow(
   });
 }
 
+function assertPublishedOperationFamilyCatalog(
+  rows: readonly PublicContractRow[],
+  label: string
+): void {
+  const operationRows = rows.filter((row) => row.contractKind === "operation");
+  if (operationRows.length !== 19) {
+    throw new TypeError(`${label}.rows: expected exact 19-operation family`);
+  }
+  const metadata = operationRows.map((row) => row.operationContract);
+  const isPublishedFamily = (
+    entry: PublicOperationContractMetadata | null
+  ): entry is PublishedPublicOperationContractMetadata =>
+    entry?.kind === "abg_public_operation_definition_family";
+  if (!metadata.every(isPublishedFamily)) {
+    throw new TypeError(`${label}.rows: legacy or partial operation metadata is forbidden`);
+  }
+  const familyRows = metadata;
+  const operationIds = familyRows.map((row) => row.operationId);
+  if (new Set(operationIds).size !== 19) {
+    throw new TypeError(`${label}.rows: duplicate operation identity`);
+  }
+  const familyDigests = new Set(familyRows.map((row) => row.familyDigest));
+  if (familyDigests.size !== 1) {
+    throw new TypeError(`${label}.rows: operation family digest differs`);
+  }
+  let definitionCount = 0;
+  let schemaCount = 0;
+  let absentNonterminalCount = 0;
+  const schemaIdentities = new Set<string>();
+  for (const row of [...familyRows].sort((left, right) =>
+    left.operationId < right.operationId ? -1 : left.operationId > right.operationId ? 1 : 0
+  )) {
+    const expectedCapabilities = new Set<string>();
+    for (const definition of row.definitions) {
+      definitionCount += 1;
+      for (const capabilityRef of definition.capabilityRefs) {
+        expectedCapabilities.add(capabilityRef);
+      }
+      for (const coordinate of [
+        definition.schemaCoordinates.request,
+        definition.schemaCoordinates.result,
+        definition.schemaCoordinates.refusal,
+        definition.schemaCoordinates.nonterminal
+      ]) {
+        if (coordinate === null) {
+          absentNonterminalCount += 1;
+          continue;
+        }
+        schemaCount += 1;
+        const identity = `${coordinate.schemaId}@${coordinate.schemaVersion}`;
+        if (schemaIdentities.has(identity)) {
+          throw new TypeError(`${label}.rows: duplicate operation schema ${identity}`);
+        }
+        schemaIdentities.add(identity);
+      }
+    }
+    const sourceRow = operationRows.find(
+      (candidate) => candidate.contractId === row.operationId
+    );
+    if (
+      sourceRow === undefined ||
+      [...expectedCapabilities].sort().join("\u0000") !==
+        [...sourceRow.capabilityRefs].sort().join("\u0000")
+    ) {
+      throw new TypeError(
+        `${label}.rows: operation capability projection differs for ${row.operationId}`
+      );
+    }
+  }
+  if (
+    definitionCount !== 62 ||
+    schemaCount !== 196 ||
+    absentNonterminalCount !== 52
+  ) {
+    throw new TypeError(
+      `${label}.rows: expected 62 definitions, 196 schemas, and 52 absent nonterminals`
+    );
+  }
+  const familyDigest = familyRows[0]?.familyDigest;
+  if (
+    familyDigest === undefined ||
+    familyDigest !== publishedPublicOperationFamilyDigest(familyRows)
+  ) {
+    throw new TypeError(`${label}.rows: family digest does not match definitions`);
+  }
+}
+
+export function publicContractCatalogDigest(
+  catalog: PublicContractCatalog
+): `sha256:${string}` {
+  const { catalogDigest, ...basis } = catalog;
+  void catalogDigest;
+  return digestCanonicalIJson(basis);
+}
+
+export function publicContractCatalogAddressableContractRefs(
+  catalog: PublicContractCatalog
+): readonly string[] {
+  const refs = catalog.rows.flatMap((row) => {
+    if (row.contractKind === "capability") {
+      return [];
+    }
+    const operationContractRefs =
+      row.operationContract === null ||
+        row.operationContract.kind !== "abg_public_operation_definition_family"
+      ? []
+      : row.operationContract.definitions.flatMap((definition) =>
+          Object.values(definition.schemaCoordinates)
+            .flatMap((coordinate) =>
+              coordinate === null ? [] : [coordinate.contractId]
+            )
+        );
+    return [row.contractId, ...operationContractRefs];
+  });
+  return Object.freeze([...new Set(refs)].sort());
+}
+
 export function admitPublicContractCatalog(
   input: unknown,
   label = "PublicContractCatalog"
@@ -798,7 +1251,10 @@ export function admitPublicContractCatalog(
   ) {
     throw new TypeError(`${label}.rows: ABG profile rows require exact ABG ownership`);
   }
-  return Object.freeze({
+  if (profile === "abg-5-release") {
+    assertPublishedOperationFamilyCatalog(rows, label);
+  }
+  const catalog = Object.freeze({
     kind: literal(
       requiredField(value, "kind", label),
       "abg_public_contract_catalog",
@@ -832,6 +1288,10 @@ export function admitPublicContractCatalog(
     profile,
     rows
   });
+  if (catalog.catalogDigest !== publicContractCatalogDigest(catalog)) {
+    throw new TypeError(`${label}.catalogDigest: canonical catalog projection differs`);
+  }
+  return catalog;
 }
 
 export class ResolvedPublicOperationContract {
@@ -841,7 +1301,7 @@ export class ResolvedPublicOperationContract {
     readonly catalogId: string;
     readonly catalogVersion: string;
     readonly catalogDigest: PublicContractCatalog["catalogDigest"];
-    readonly row: PublicContractRow;
+    readonly row: LegacyPublicContractRow;
   }) {
     this.__resolvedPublicOperationContractBrand = true;
     this.catalogId = input.catalogId;
@@ -854,7 +1314,7 @@ export class ResolvedPublicOperationContract {
   public readonly catalogId: string;
   public readonly catalogVersion: string;
   public readonly catalogDigest: PublicContractCatalog["catalogDigest"];
-  public readonly row: PublicContractRow;
+  public readonly row: LegacyPublicContractRow;
 
   public static isResolved(input: unknown): input is ResolvedPublicOperationContract {
     return (
@@ -873,9 +1333,11 @@ export class ResolvedPublicOperationContract {
       throw new TypeError(`${label}: operation contracts require an ABG catalog profile`);
     }
     const rows = catalog.rows.filter(
-      (row) =>
+      (row): row is LegacyPublicContractRow =>
         row.contractKind === "operation" &&
-        row.operationContract?.operationId === operationId
+        row.operationContract !== null &&
+        row.operationContract.kind !== "abg_public_operation_definition_family" &&
+        row.operationContract.operationId === operationId
     );
     const row = rows[0];
     if (row === undefined || rows.length !== 1) {

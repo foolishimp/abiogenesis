@@ -144,6 +144,7 @@ function workspaceStatusProjection() {
     authorityMode: "imported",
     readiness: "ready",
     boundProductRefs: ["product:abiogenesis"],
+    artifactAvailability: [],
     configurations: [coordinate("configuration:primary", "c")],
     catalog: coordinate("catalog:workspace", "2"),
     residualRefs: [],

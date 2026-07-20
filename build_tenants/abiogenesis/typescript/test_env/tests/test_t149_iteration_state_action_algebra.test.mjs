@@ -205,6 +205,8 @@ function assuranceBase() {
 
 function authoritySnapshot(scope, authorityRefs) {
   return constructAssuranceAuthoritySnapshot({
+    authoritySnapshotRef:
+      `authority-snapshot://t149/${scope.vectorIndex}`,
     scope,
     authorityRefs,
     inputRefs: ["input://t149/current"],

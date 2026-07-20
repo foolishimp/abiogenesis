@@ -305,8 +305,114 @@ export type GapPressureRow = ObservationPressureRow;
 export type ActionCatalog = ConstructionActionCatalogProjection;
 export type PriorityProjection = ConstructionPriorityProjection;
 
+export interface OneSurfaceProgramGraphFunctionMember {
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: `sha256:${string}`;
+}
+
+export interface OneSurfaceProgramMemberProjection {
+  readonly kind: "one_surface_program_member_projection";
+  readonly projectionRef: string;
+  readonly projectionDigest: `sha256:${string}`;
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly graphFunctions: readonly OneSurfaceProgramGraphFunctionMember[];
+}
+
+function oneSurfaceProgramMemberProjectionBasis(input: {
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly graphFunctions: readonly OneSurfaceProgramGraphFunctionMember[];
+}) {
+  return Object.freeze({
+    admittedProgramRef: input.admittedProgramRef,
+    admittedProgramDigest: input.admittedProgramDigest,
+    graphFunctions: input.graphFunctions
+  });
+}
+
+export function constructOneSurfaceProgramMemberProjection(input: {
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly graphFunctions: readonly OneSurfaceProgramGraphFunctionMember[];
+}): OneSurfaceProgramMemberProjection {
+  assertNonEmptyString(input.admittedProgramRef, "program member admittedProgramRef");
+  assertNonEmptyString(
+    input.admittedProgramDigest,
+    "program member admittedProgramDigest"
+  );
+  if (!/^sha256:[0-9a-f]{64}$/u.test(input.admittedProgramDigest)) {
+    throw new TypeError("program member admittedProgramDigest must be sha256");
+  }
+  const refs = uniqueNonEmpty(
+    input.graphFunctions.map((row) => row.graphFunctionRef),
+    "program member graphFunctionRefs"
+  );
+  if (refs.length === 0) {
+    throw new TypeError("program member projection requires one GraphFunction");
+  }
+  const byRef = new Map(
+    input.graphFunctions.map((row) => [row.graphFunctionRef, row])
+  );
+  const graphFunctions = Object.freeze(refs.map((graphFunctionRef) => {
+    const row = byRef.get(graphFunctionRef)!;
+    assertNonEmptyString(
+      row.graphFunctionDigest,
+      `program member ${graphFunctionRef} digest`
+    );
+    if (!/^sha256:[0-9a-f]{64}$/u.test(row.graphFunctionDigest)) {
+      throw new TypeError(
+        `program member ${graphFunctionRef} digest must be sha256`
+      );
+    }
+    return Object.freeze({
+      graphFunctionRef,
+      graphFunctionDigest: row.graphFunctionDigest
+    });
+  }));
+  const basis = oneSurfaceProgramMemberProjectionBasis({
+    admittedProgramRef: input.admittedProgramRef,
+    admittedProgramDigest: input.admittedProgramDigest,
+    graphFunctions
+  });
+  const projectionDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    kind: "one_surface_program_member_projection",
+    projectionRef:
+      `abg://one-surface/program-members/${projectionDigest.slice("sha256:".length)}`,
+    projectionDigest,
+    ...basis
+  });
+}
+
+export function assertOneSurfaceProgramMemberProjection(
+  projection: OneSurfaceProgramMemberProjection
+): void {
+  const reconstructed = constructOneSurfaceProgramMemberProjection({
+    admittedProgramRef: projection.admittedProgramRef,
+    admittedProgramDigest: projection.admittedProgramDigest,
+    graphFunctions: projection.graphFunctions
+  });
+  if (
+    projection.kind !== reconstructed.kind ||
+    projection.projectionRef !== reconstructed.projectionRef ||
+    projection.projectionDigest !== reconstructed.projectionDigest
+  ) {
+    throw new TypeError("One Surface program member projection seal differs");
+  }
+}
+
+export function deriveOneSurfaceTargetOutcomeRef(input: {
+  readonly allowedRowRef: string;
+  readonly actionKind: ConstructionActionKind;
+}): string {
+  assertNonEmptyString(input.allowedRowRef, "One Surface allowed row ref");
+  return `abg://one-surface/outcome/${input.allowedRowRef}/${input.actionKind}`;
+}
+
 function actionRowsForAllowedConsequence(
-  row: AllowedConsequenceTraversalRow
+  row: AllowedConsequenceTraversalRow,
+  programMembers: OneSurfaceProgramMemberProjection
 ): readonly ConstructionActionRow[] | null {
   const rows: ConstructionActionRow[] = [];
   for (const actionKind of row.allowedActionKinds) {
@@ -317,9 +423,13 @@ function actionRowsForAllowedConsequence(
         actionKind === "continue_graph_call" ||
         actionKind === "repair_same_edge" ||
         actionKind === "reenter_graph_span"
-      ? row.allowedGraphFunctionRefs.length === 0
-        ? [row.graphFunctionRef]
-        : row.allowedGraphFunctionRefs
+      ? (row.allowedGraphFunctionRefs.length === 0
+          ? programMembers.graphFunctions.map((member) => member.graphFunctionRef)
+          : row.allowedGraphFunctionRefs.filter((graphFunctionRef) =>
+              programMembers.graphFunctions.some(
+                (member) => member.graphFunctionRef === graphFunctionRef
+              )
+            ))
       : actionKind === "invoke_prior_vector" ||
           actionKind === "invoke_later_vector"
         ? [row.graphFunctionRef]
@@ -357,12 +467,17 @@ function actionRowsForAllowedConsequence(
               ? row.graphVectorRef
               : null,
           publishedTraversalTargetRef: traversalTargetRef,
-          targetOutcomeRef: `abg://one-surface/outcome/${row.rowRef}/${actionKind}`,
+          targetOutcomeRef: deriveOneSurfaceTargetOutcomeRef({
+            allowedRowRef: row.rowRef,
+            actionKind
+          }),
           inputAssetRefs: row.inputAssetRefs,
           expectedOutputAssetRefs: row.expectedOutputAssetRefs,
           requiredAuthorityRefs: [
             ...row.requiredAuthorityRefs,
-            ...row.declarationSourceRefs
+            ...row.declarationSourceRefs,
+            programMembers.projectionRef,
+            programMembers.projectionDigest
           ],
           eligibleReasonRefs: [row.rowRef],
           hookSourceRefs: row.declarationSourceRefs,
@@ -378,10 +493,15 @@ export function deriveProgramActionCatalog(input: {
   readonly episodeId: string;
   readonly allowedCatalog: AllowedConsequenceTraversalCatalog;
   readonly catalogView: RegistrySessionView;
+  readonly programMembers: OneSurfaceProgramMemberProjection;
 }): ConstructionActionCatalogProjection | OneSurfaceTypedRefusal<"evaluate_next"> {
+  assertOneSurfaceProgramMemberProjection(input.programMembers);
   const rows: ConstructionActionRow[] = [];
   for (const allowedRow of input.allowedCatalog.rows) {
-    const projected = actionRowsForAllowedConsequence(allowedRow);
+    const projected = actionRowsForAllowedConsequence(
+      allowedRow,
+      input.programMembers
+    );
     if (projected === null) {
       return constructOneSurfaceTypedRefusal({
         functionKind: "evaluate_next",
@@ -409,10 +529,14 @@ export function deriveProgramActionCatalog(input: {
   )].sort();
   const catalogConfigDigest = stableSha256Digest({
     allowedCatalogRef: input.allowedCatalog.catalogRef,
+    programMemberProjectionRef: input.programMembers.projectionRef,
+    programMemberProjectionDigest: input.programMembers.projectionDigest,
     defaultPolicyRefs
   });
   const catalogDigest = stableSha256Digest({
     allowedCatalogRef: input.allowedCatalog.catalogRef,
+    programMemberProjectionRef: input.programMembers.projectionRef,
+    programMemberProjectionDigest: input.programMembers.projectionDigest,
     catalogViewRef: input.catalogView.sessionViewRef,
     catalogProjectionRef: input.catalogView.catalogProjectionRef,
     actionRefs: visibleRows.map((row) => row.actionRef)
@@ -438,7 +562,7 @@ export interface TargetObligationBinding {
   readonly actionRef: string;
   readonly targetOutcomeRef: string;
   readonly obligationRefs: readonly string[];
-  readonly requiredEvidenceRefs: readonly string[];
+  readonly requiredEvidenceAuthorityRefs: readonly string[];
 }
 
 function targetObligationBindingBasis(input: Omit<
@@ -453,7 +577,7 @@ function targetObligationBindingBasis(input: Omit<
     actionRef: input.actionRef,
     targetOutcomeRef: input.targetOutcomeRef,
     obligationRefs: input.obligationRefs,
-    requiredEvidenceRefs: input.requiredEvidenceRefs
+    requiredEvidenceAuthorityRefs: input.requiredEvidenceAuthorityRefs
   });
 }
 
@@ -465,7 +589,7 @@ export function constructTargetObligationBinding(input: {
   readonly actionRef: string;
   readonly targetOutcomeRef: string;
   readonly obligationRefs: readonly string[];
-  readonly requiredEvidenceRefs: readonly string[];
+  readonly requiredEvidenceAuthorityRefs: readonly string[];
 }): TargetObligationBinding {
   const basis = targetObligationBindingBasis({
     snapshotRef: input.snapshotRef,
@@ -475,9 +599,9 @@ export function constructTargetObligationBinding(input: {
     actionRef: input.actionRef,
     targetOutcomeRef: input.targetOutcomeRef,
     obligationRefs: uniqueNonEmpty(input.obligationRefs, "obligationRefs"),
-    requiredEvidenceRefs: uniqueNonEmpty(
-      input.requiredEvidenceRefs,
-      "requiredEvidenceRefs"
+    requiredEvidenceAuthorityRefs: uniqueNonEmpty(
+      input.requiredEvidenceAuthorityRefs,
+      "requiredEvidenceAuthorityRefs"
     )
   });
   assertNonEmptyString(basis.snapshotRef, "snapshotRef");
@@ -486,7 +610,10 @@ export function constructTargetObligationBinding(input: {
   assertNonEmptyString(basis.pressureRef, "pressureRef");
   assertNonEmptyString(basis.actionRef, "actionRef");
   assertNonEmptyString(basis.targetOutcomeRef, "targetOutcomeRef");
-  if (basis.obligationRefs.length === 0 || basis.requiredEvidenceRefs.length === 0) {
+  if (
+    basis.obligationRefs.length === 0 ||
+    basis.requiredEvidenceAuthorityRefs.length === 0
+  ) {
     throw new TypeError("target obligation binding is incomplete");
   }
   const bindingDigest = stableSha256Digest(basis);
@@ -720,7 +847,7 @@ export function assertNextActionProjection(
 export interface OneSurfaceTargetObligationInput {
   readonly targetOutcomeRef: string;
   readonly obligationRefs: readonly string[];
-  readonly requiredEvidenceRefs: readonly string[];
+  readonly requiredEvidenceAuthorityRefs: readonly string[];
 }
 
 interface NormalizedEvaluateNextInputs {
@@ -756,9 +883,9 @@ function normalizeEvaluateNextInputs(input: {
         row.obligationRefs,
         `evaluate_next.targetObligations.${row.targetOutcomeRef}.obligationRefs`
       ),
-      requiredEvidenceRefs: uniqueNonEmpty(
-        row.requiredEvidenceRefs,
-        `evaluate_next.targetObligations.${row.targetOutcomeRef}.requiredEvidenceRefs`
+      requiredEvidenceAuthorityRefs: uniqueNonEmpty(
+        row.requiredEvidenceAuthorityRefs,
+        `evaluate_next.targetObligations.${row.targetOutcomeRef}.requiredEvidenceAuthorityRefs`
       )
     }))
     .sort((left, right) =>
@@ -794,6 +921,7 @@ function assertEvaluateNextCurrentObservation(input: {
 export function oneSurfaceEvaluateNextInputBasis(input: {
   readonly nextBasis: NextActionBasis;
   readonly application: OneSurfaceAuthorityProgramBinding;
+  readonly programMembers: OneSurfaceProgramMemberProjection;
   readonly invocationAuthority: OneSurfaceRefDigest;
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly allowedEntryRefs?: readonly string[];
@@ -806,6 +934,15 @@ export function oneSurfaceEvaluateNextInputBasis(input: {
 }): OneSurfaceAuthorityInputBasis<"evaluate_next"> {
   assertNextActionBasis(input.nextBasis);
   assertOneSurfaceAuthorityProgramBinding(input.application);
+  assertOneSurfaceProgramMemberProjection(input.programMembers);
+  if (
+    input.programMembers.admittedProgramRef !==
+      input.application.admittedProgramRef ||
+    input.programMembers.admittedProgramDigest !==
+      input.application.admittedProgramDigest
+  ) {
+    throw new TypeError("evaluate_next program member authority differs");
+  }
   assertEvaluateNextCurrentObservation(input);
   const {
     allowedEntryRefs,
@@ -818,6 +955,8 @@ export function oneSurfaceEvaluateNextInputBasis(input: {
     inputRefs: [
       input.application.bindingRef,
       input.application.bindingDigest,
+      input.programMembers.projectionRef,
+      input.programMembers.projectionDigest,
       input.nextBasis.basisDigest,
       input.invocationAuthority.ref,
       input.invocationAuthority.digest,
@@ -837,11 +976,12 @@ export function oneSurfaceEvaluateNextInputBasis(input: {
       ...targetObligations.flatMap((row) => [
         row.targetOutcomeRef,
         ...row.obligationRefs,
-        ...row.requiredEvidenceRefs
+        ...row.requiredEvidenceAuthorityRefs
       ])
     ],
     inputValue: Object.freeze({
       nextBasis: input.nextBasis,
+      programMembers: input.programMembers,
       invocationAuthority: input.invocationAuthority,
       catalogBasis: Object.freeze({
         basisRef: input.catalogBasis.basisRef,
@@ -869,6 +1009,7 @@ export function oneSurfaceEvaluateNextInputBasis(input: {
 export function deriveNextActionProjection(input: {
   readonly nextBasis: NextActionBasis;
   readonly application: OneSurfaceAuthorityProgramBinding;
+  readonly programMembers: OneSurfaceProgramMemberProjection;
   readonly authorityResult: AdmittedOneSurfaceAuthorityResult<"evaluate_next">;
   readonly invocationAuthority: OneSurfaceRefDigest;
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
@@ -884,6 +1025,15 @@ export function deriveNextActionProjection(input: {
   let decoded: OneSurfaceResultValueByKind["evaluate_next"];
   try {
     assertOneSurfaceAuthorityProgramBinding(input.application);
+    assertOneSurfaceProgramMemberProjection(input.programMembers);
+    if (
+      input.programMembers.admittedProgramRef !==
+        input.application.admittedProgramRef ||
+      input.programMembers.admittedProgramDigest !==
+        input.application.admittedProgramDigest
+    ) {
+      throw new TypeError("evaluate_next program member authority differs");
+    }
     stage = input.application.stages[2];
     assertNextActionBasis(input.nextBasis);
     assertAdmittedOneSurfaceAuthorityResult(input.authorityResult);
@@ -931,6 +1081,7 @@ export function deriveNextActionProjection(input: {
   const inputBasis = oneSurfaceEvaluateNextInputBasis({
     nextBasis: input.nextBasis,
     application: input.application,
+    programMembers: input.programMembers,
     invocationAuthority: input.invocationAuthority,
     catalogBasis: input.catalogBasis,
     ...(normalized.allowedEntryRefs === undefined
@@ -947,7 +1098,8 @@ export function deriveNextActionProjection(input: {
       : { affectPolicies: normalized.affectPolicies }),
     targetObligations: normalized.targetObligations
   });
-  const selectedActionRef = decoded.selectedActionRef;
+  const selectedActionRef =
+    decoded.nextActionProjection.disposition.actionRef;
   if (
     input.authorityResult.stageAuthorityRef !== stage.authorityRef ||
     input.authorityResult.stageAuthorityDigest !== stage.authorityDigest ||
@@ -988,7 +1140,8 @@ export function deriveNextActionProjection(input: {
   const actionCatalog = deriveProgramActionCatalog({
     episodeId: input.observation.episodeId,
     allowedCatalog: stage.allowedConsequenceCatalog,
-    catalogView: viewResult.view
+    catalogView: viewResult.view,
+    programMembers: input.programMembers
   });
   if (actionCatalog.kind === "one_surface_typed_refusal") {
     return actionCatalog;
@@ -1031,7 +1184,7 @@ export function deriveNextActionProjection(input: {
       actionRef: binding.actionRef,
       targetOutcomeRef: binding.targetOutcomeRef,
       obligationRefs: obligation.obligationRefs,
-      requiredEvidenceRefs: obligation.requiredEvidenceRefs
+      requiredEvidenceAuthorityRefs: obligation.requiredEvidenceAuthorityRefs
     }));
   }
   const boundOutcomeRefs = [...new Set(
@@ -1048,6 +1201,18 @@ export function deriveNextActionProjection(input: {
       reasonRefs: ["target_obligation_set_mismatch"]
     });
   }
+  // These derivations are an admission oracle only. The admitted evaluator
+  // result remains the semantic selection authority.
+  if (
+    stableSha256Digest(decoded.targetBindings) !==
+      stableSha256Digest(targetBindings)
+  ) {
+    return constructOneSurfaceTypedRefusal({
+      functionKind: "evaluate_next",
+      judgment: "blocked",
+      reasonRefs: ["evaluate_next_target_bindings_differ_from_exact_inputs"]
+    });
+  }
   const priorityProjection = deriveConstructionPriorityProjection({
     observation: input.observation,
     actionCatalog,
@@ -1057,6 +1222,16 @@ export function deriveNextActionProjection(input: {
       ? {}
       : { affectPolicies: normalized.affectPolicies })
   });
+  if (
+    stableSha256Digest(decoded.priorityProjection) !==
+      stableSha256Digest(priorityProjection)
+  ) {
+    return constructOneSurfaceTypedRefusal({
+      functionKind: "evaluate_next",
+      judgment: "blocked",
+      reasonRefs: ["evaluate_next_priority_differs_from_exact_inputs"]
+    });
+  }
   const bindingByRef = new Map(
     bindingProjection.rows.map((row) => [row.bindingRef, row])
   );
@@ -1085,7 +1260,7 @@ export function deriveNextActionProjection(input: {
     ? null
     : bindingByRef.get(selectedPriority.bindingRef) ?? null;
   const disposition = actionDisposition(selectedAction);
-  const intentCandidate = decoded.intentCandidate;
+  const intentCandidate = decoded.nextActionProjection.intentCandidate;
   const effectIntentSelected =
     disposition.variant === "callable_member_action" ||
     disposition.variant === "internal_vector_action" ||
@@ -1137,14 +1312,9 @@ export function deriveNextActionProjection(input: {
     ref: input.application.admittedProgramRef,
     digest: input.application.admittedProgramDigest
   });
-  const authorityResult = Object.freeze({
-    ref: input.authorityResult.resultRef,
-    digest: input.authorityResult.resultDigest
-  });
-  const basis = nextActionProjectionBasis({
+  const expectedProjectionValue = Object.freeze({
     nextBasis: input.nextBasis,
     admittedProgram,
-    authorityResult,
     catalogView,
     observationRef: input.observation.observationId,
     currentObservationRef: input.currentObservation.projectionRef,
@@ -1155,8 +1325,41 @@ export function deriveNextActionProjection(input: {
     selectedBindingRef: selectedPriority?.bindingRef ?? null,
     selectedOutcomeRef: selectedPriority?.targetOutcomeRef ?? null,
     intentCandidate,
-    targetBindingDigests: targetBindings.map((row) => row.bindingDigest),
     disposition
+  });
+  if (
+    stableSha256Digest(decoded.nextActionProjection) !==
+      stableSha256Digest(expectedProjectionValue)
+  ) {
+    return constructOneSurfaceTypedRefusal({
+      functionKind: "evaluate_next",
+      judgment: "blocked",
+      reasonRefs: ["evaluate_next_projection_differs_from_exact_inputs"]
+    });
+  }
+  const authorityResult = Object.freeze({
+    ref: input.authorityResult.resultRef,
+    digest: input.authorityResult.resultDigest
+  });
+  const basis = nextActionProjectionBasis({
+    nextBasis: input.nextBasis,
+    admittedProgram: decoded.nextActionProjection.admittedProgram,
+    authorityResult,
+    catalogView: decoded.nextActionProjection.catalogView,
+    observationRef: decoded.nextActionProjection.observationRef,
+    currentObservationRef: decoded.nextActionProjection.currentObservationRef,
+    currentObservationDigest: input.currentObservation.projectionDigest,
+    actionCatalogRef: decoded.nextActionProjection.actionCatalogRef,
+    bindingProjectionRef: decoded.nextActionProjection.bindingProjectionRef,
+    priorityProjectionRef:
+      decoded.nextActionProjection.priorityProjectionRef,
+    selectedBindingRef: decoded.nextActionProjection.selectedBindingRef,
+    selectedOutcomeRef: decoded.nextActionProjection.selectedOutcomeRef,
+    intentCandidate: decoded.nextActionProjection.intentCandidate,
+    targetBindingDigests: targetBindings.map(
+      (row) => row.bindingDigest
+    ),
+    disposition: decoded.nextActionProjection.disposition
   });
   const projectionDigest = stableSha256Digest(basis);
   return Object.freeze({
@@ -1165,20 +1368,21 @@ export function deriveNextActionProjection(input: {
       `abg://one-surface/next/${projectionDigest.slice("sha256:".length)}`,
     projectionDigest,
     nextBasis: input.nextBasis,
-    admittedProgram,
+    admittedProgram: decoded.nextActionProjection.admittedProgram,
     authorityResult,
-    catalogView,
-    observationRef: input.observation.observationId,
-    currentObservationRef: input.currentObservation.projectionRef,
+    catalogView: decoded.nextActionProjection.catalogView,
+    observationRef: decoded.nextActionProjection.observationRef,
+    currentObservationRef: decoded.nextActionProjection.currentObservationRef,
     currentObservationDigest: input.currentObservation.projectionDigest,
-    actionCatalogRef: actionCatalog.catalogRef,
-    bindingProjectionRef: bindingProjection.projectionRef,
-    priorityProjectionRef: priorityProjection.projectionRef,
-    selectedBindingRef: selectedPriority?.bindingRef ?? null,
-    selectedOutcomeRef: selectedPriority?.targetOutcomeRef ?? null,
-    intentCandidate,
+    actionCatalogRef: decoded.nextActionProjection.actionCatalogRef,
+    bindingProjectionRef: decoded.nextActionProjection.bindingProjectionRef,
+    priorityProjectionRef:
+      decoded.nextActionProjection.priorityProjectionRef,
+    selectedBindingRef: decoded.nextActionProjection.selectedBindingRef,
+    selectedOutcomeRef: decoded.nextActionProjection.selectedOutcomeRef,
+    intentCandidate: decoded.nextActionProjection.intentCandidate,
     targetBindings: Object.freeze(targetBindings),
-    disposition
+    disposition: decoded.nextActionProjection.disposition
   });
 }
 

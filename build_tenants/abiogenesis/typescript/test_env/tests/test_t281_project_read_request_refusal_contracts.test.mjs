@@ -3,7 +3,11 @@ import test from "node:test";
 
 import * as v from "valibot";
 
-import { PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES } from "../../build/semantic/code/src/app/m04/public_contracts/project_read_operation_contracts.js";
+import {
+  deriveProjectReadProjectionBasis,
+  PROJECT_READ_OPERATION_NATIVE_CHECK_REGISTRY,
+  PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES
+} from "../../build/semantic/code/src/app/m04/public_contracts/project_read_operation_contracts.js";
 import { projectCanonicalNativeJsonSchema } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
 const PROJECT_READ_CASES = Object.freeze([
@@ -132,16 +136,27 @@ function selectorFor(caseKey) {
 }
 
 function requestFor(caseKey) {
+  const source = {
+    kind: SOURCE_KIND_BY_CASE[caseKey],
+    sourceRef: `urn:abg:test:source:${caseKey}`,
+    sourceDigest: digest("c")
+  };
+  const selector = selectorFor(caseKey);
   return {
     kind: "project_read_request",
     caseKey,
-    source: {
-      kind: SOURCE_KIND_BY_CASE[caseKey],
-      sourceRef: `urn:abg:test:source:${caseKey}`,
-      sourceDigest: digest("c")
-    },
-    projectionBasis: refDigest(`projection-basis:${caseKey}`, "d"),
-    selector: selectorFor(caseKey)
+    source,
+    projectionBasis: deriveProjectReadProjectionBasis({
+      kind: "project_read_projection_basis",
+      definitionKey: {
+        operationId: "abg.operation.project.read",
+        memberKind: "project_read_case",
+        caseKey
+      },
+      source,
+      selector
+    }),
+    selector
   };
 }
 
@@ -220,7 +235,9 @@ test("T-281 all 54 owner inputs project through shared canonical actions", () =>
     PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES
   )) {
     for (const source of Object.values(contractSet)) {
-      const projected = projectCanonicalNativeJsonSchema(source.schema);
+      const projected = projectCanonicalNativeJsonSchema(source.schema, {
+        namedCheckRegistry: PROJECT_READ_OPERATION_NATIVE_CHECK_REGISTRY
+      });
       assert.equal(
         projected.$schema,
         "https://json-schema.org/draft/2020-12/schema"

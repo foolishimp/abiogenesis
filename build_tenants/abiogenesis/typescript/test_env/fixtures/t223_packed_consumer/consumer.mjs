@@ -251,13 +251,18 @@ function projectionCoherence(invoke, result, replay) {
 function workerAndAssuranceSemantics(events, expectPackedFake) {
   const artifact = singleEvent(events, "actor_result_artifact_observed");
   if (
-    typeof artifact.artifactContentExcerpt !== "string" ||
-    artifact.artifactContentExcerpt.length === 0 ||
-    typeof artifact.artifactContentDigest !== "string"
+    artifact.artifactPayload === null ||
+    typeof artifact.artifactPayload !== "object" ||
+    Array.isArray(artifact.artifactPayload) ||
+    typeof artifact.artifactContentDigest !== "string" ||
+    digestCanonicalIJson(artifact.artifactPayload) !==
+      artifact.artifactContentDigest
   ) {
-    throw new TypeError("worker result artifact has no admitted content");
+    throw new TypeError(
+      "worker result artifact has no exact replay-admitted body"
+    );
   }
-  const workerResponse = JSON.parse(artifact.artifactContentExcerpt);
+  const workerResponse = artifact.artifactPayload;
   const selectedResultContractRef = workerResponse.result_contract_ref;
   if (
     typeof selectedResultContractRef !== "string" ||

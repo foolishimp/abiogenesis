@@ -15,7 +15,7 @@ import {
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
 
-test("M05 installed sandbox: one composed three-stage GTL graph function can be targeted and replayed through all materialized vectors", async () => {
+test("M05 installed sandbox: composed graph stops at the first assessment lacking replay evidence", async () => {
   const { targetRoot } = await provisionInstalledRoot();
   await installPackedTenantPackage(targetRoot);
 
@@ -28,9 +28,10 @@ test("M05 installed sandbox: one composed three-stage GTL graph function can be 
   const payload = JSON.parse(run.stdout);
 
   assert.equal(payload.target, "graph_function:capture_requirements;synthesize_design;implement_code");
-  assert.equal(payload.passed, true);
+  assert.equal(payload.passed, false);
+  assert.equal(payload.assessmentBoundaryObserved, true);
   assert.equal(payload.sandboxTraversalMode, "replay_derived_core_iteration");
-  assert.equal(payload.coreProgressionClaimed, true);
+  assert.equal(payload.coreProgressionClaimed, false);
   assert.equal(payload.selectedGraphFunctionId, payload.executiveGraphFunctionId);
   assert.equal(payload.stageCount, 3);
   assert.equal(payload.graphFunctionVectorCount, 3);
@@ -39,23 +40,19 @@ test("M05 installed sandbox: one composed three-stage GTL graph function can be 
     "requirements→design",
     "design→code"
   ]);
-  assert.deepStrictEqual(payload.observedEdges, payload.materializedVectorNames);
   assert.equal(payload.publicStartEdge, "input_set→requirements");
   assert.equal(payload.stopPredicate, "dispatch_required");
   assert.equal(payload.allStageDispatchesShareGraphFunctionId, true);
-  assert.equal(payload.assessmentCount, 3);
-  assert.deepStrictEqual(payload.assessmentKinds, [
-    "accepted",
-    "accepted",
-    "accepted"
-  ]);
-  assert.equal(payload.finalRunStatus, "assessed");
+  assert.equal(payload.assessmentCount, 1);
+  assert.deepStrictEqual(payload.assessmentKinds, ["rejected"]);
+  assert.equal(payload.finalRunStatus, "blocked");
   assert.deepStrictEqual(payload.environmentCarries, [
     "input_set",
     "requirements",
     "design",
     "code"
   ]);
+  assert.deepStrictEqual(payload.observedEdges, ["input_set→requirements"]);
   assert.deepStrictEqual(payload.eventKinds, [
     "lever_resolution_admitted",
     "basis_admitted",
@@ -75,20 +72,6 @@ test("M05 installed sandbox: one composed three-stage GTL graph function can be 
     "c_call_evidenced",
     "c_call_result_admitted",
     "c_call_judged",
-    "authority_snapshot_admitted",
-    "payload_observed",
-    "payload_validated",
-    "evidence_admitted",
-    "assessed",
-    "authority_snapshot_admitted",
-    "payload_observed",
-    "payload_validated",
-    "evidence_admitted",
-    "assessed",
-    "authority_snapshot_admitted",
-    "payload_observed",
-    "payload_validated",
-    "evidence_admitted",
-    "assessed"
+    "public_operation_admitted"
   ]);
 });

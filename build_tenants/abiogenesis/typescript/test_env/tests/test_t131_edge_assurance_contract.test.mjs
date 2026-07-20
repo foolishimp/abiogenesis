@@ -12,8 +12,10 @@ import assert from "node:assert/strict";
 import {
   EDGE_ASSURANCE_CONTRACT_DECLARATION_KEY,
   EDGE_ASSURANCE_FH_ABSENTIA_ACTION_REFS,
+  EDGE_ASSURANCE_SELECTED_INTENT_TARGET_PLACEHOLDER_REF,
   admitFpEdgeAssuranceEvalFinding,
   assertFpEdgeAssuranceEvalFindingMatchesHookAction,
+  bindEdgeAssuranceContractSelectionToSelectedIntentTarget,
   constructEdgeAssuranceContract,
   constructEnginePluginContract,
   constructEnginePluginInput,
@@ -74,13 +76,17 @@ function hookEntryWithConfig(key, hookRef, config) {
   });
 }
 
-function edgeContractAttrs(label) {
+function edgeContractAttrs(
+  label,
+  targetObligationBindingRefs = [`obligation://t131/${label}`]
+) {
   return attrs([
     scalarEntry("target_outcome_ref", `outcome://t131/${label}`),
     stringListEntry("authority_surface_refs", [`authority://t131/${label}`]),
-    stringListEntry("target_obligation_binding_refs", [
-      `obligation://t131/${label}`
-    ]),
+    stringListEntry(
+      "target_obligation_binding_refs",
+      targetObligationBindingRefs
+    ),
     scalarEntry("transform_fp_contract_ref", `contract://t131/${label}/transform`),
     scalarEntry("eval_fp_contract_ref", `contract://t131/${label}/eval`),
     scalarEntry(
@@ -149,12 +155,15 @@ function basisParts() {
   };
 }
 
-function defaultContract(label = "default") {
+function defaultContract(
+  label = "default",
+  targetObligationBindingRefs = [`obligation://t131/${label}`]
+) {
   return constructEdgeAssuranceContract({
     hookRef: `hook://t131/${label}`,
     targetOutcomeRef: `outcome://t131/${label}`,
     authoritySurfaceRefs: [`authority://t131/${label}`],
-    targetObligationBindingRefs: [`obligation://t131/${label}`],
+    targetObligationBindingRefs,
     transformFpContractRef: `contract://t131/${label}/transform`,
     evalFpContractRef: `contract://t131/${label}/eval`,
     evalPromptInputContractRef: `contract://t131/${label}/eval-input`,
@@ -311,6 +320,7 @@ function assuranceForFinding(input = {}) {
     vectorIndex: 0
   });
   const authoritySnapshot = constructAssuranceAuthoritySnapshot({
+    authoritySnapshotRef: "authority-snapshot://t131/vector",
     scope,
     authorityRefs: ["authority://t131/vector"],
     deferredAuthorityRefs: input.deferred
@@ -326,7 +336,7 @@ function assuranceForFinding(input = {}) {
     constructAssuranceEvidenceRow({
       scope,
       evidenceRef: "evidence://t131/edge",
-      authorityRef: "authority://t131/vector",
+      authorityRef: authoritySnapshot.authoritySnapshotRef,
       authorityDigest: authoritySnapshot.authorityDigest,
       inputDigest: authoritySnapshot.inputDigest,
       eventRefs: ["event://t131/evidence"],
@@ -525,6 +535,156 @@ test("T-131 contract identity is stable across reordered config attrs", () => {
   assert.equal(reordered.kind, "edge_assurance_contract_selection");
   assert.equal(original.selectionRef, reordered.selectionRef);
   assert.equal(original.contract.configDigest, reordered.contract.configDigest);
+});
+
+test("T-131 declaration template binds the exact selected-intent target coordinate", () => {
+  const template = resolveWith({
+    vectorDeclarations: attrs([
+      hookEntryWithConfig(
+        EDGE_ASSURANCE_CONTRACT_DECLARATION_KEY,
+        "hook://t131/selected-intent-template",
+        edgeContractAttrs("selected-intent-template", [
+          EDGE_ASSURANCE_SELECTED_INTENT_TARGET_PLACEHOLDER_REF
+        ])
+      )
+    ])
+  });
+  assert.equal(template.kind, "edge_assurance_contract_selection");
+
+  const firstRef = "abg://one-surface/target-binding/first";
+  const secondRef = "abg://one-surface/target-binding/second";
+  const first = bindEdgeAssuranceContractSelectionToSelectedIntentTarget({
+    templateSelection: template,
+    targetObligationBindingRef: firstRef
+  });
+  const firstAgain = bindEdgeAssuranceContractSelectionToSelectedIntentTarget({
+    templateSelection: template,
+    targetObligationBindingRef: firstRef
+  });
+  const second = bindEdgeAssuranceContractSelectionToSelectedIntentTarget({
+    templateSelection: template,
+    targetObligationBindingRef: secondRef
+  });
+
+  assert.equal(first.kind, "edge_assurance_contract_selection");
+  assert.equal(first.templateSelectionRef, template.selectionRef);
+  assert.equal(first.selectedIntentTargetBindingRef, firstRef);
+  assert.deepEqual(first.contract.targetObligationBindingRefs, [firstRef]);
+  assert.equal(first.source, template.source);
+  assert.equal(first.sourceRef, template.sourceRef);
+  assert.equal(first.attrKey, template.attrKey);
+  assert.equal(first.defaultKey, null);
+  assert.equal(first.selectionRef, firstAgain.selectionRef);
+  assert.equal(first.bindingDigest, firstAgain.bindingDigest);
+  assert.equal(first.contract.configDigest, firstAgain.contract.configDigest);
+  assert.notEqual(first.selectionRef, template.selectionRef);
+  assert.notEqual(first.selectionRef, second.selectionRef);
+  assert.notEqual(first.bindingDigest, second.bindingDigest);
+  assert.notEqual(first.contract.configDigest, second.contract.configDigest);
+  assert.match(first.bindingDigest, /^sha256:[0-9a-f]{64}$/);
+  assert.match(first.contract.configDigest, /^sha256:[0-9a-f]{64}$/);
+  assert.ok(Object.isFrozen(first));
+  assert.ok(Object.isFrozen(first.contract));
+
+  for (const key of Object.keys(template.contract)) {
+    if (key === "targetObligationBindingRefs" || key === "configDigest") {
+      continue;
+    }
+    assert.deepEqual(first.contract[key], template.contract[key]);
+  }
+});
+
+test("T-131 selected-intent binding rejects non-template, forged, empty, and rebound inputs", () => {
+  const template = resolveWith({
+    vectorDeclarations: attrs([
+      hookEntryWithConfig(
+        EDGE_ASSURANCE_CONTRACT_DECLARATION_KEY,
+        "hook://t131/selected-intent-negative",
+        edgeContractAttrs("selected-intent-negative", [
+          EDGE_ASSURANCE_SELECTED_INTENT_TARGET_PLACEHOLDER_REF
+        ])
+      )
+    ])
+  });
+  assert.equal(template.kind, "edge_assurance_contract_selection");
+  const exactInput = {
+    templateSelection: template,
+    targetObligationBindingRef:
+      "abg://one-surface/target-binding/selected-intent-negative"
+  };
+  const bound = bindEdgeAssuranceContractSelectionToSelectedIntentTarget(
+    exactInput
+  );
+
+  assert.throws(
+    () =>
+      bindEdgeAssuranceContractSelectionToSelectedIntentTarget({
+        templateSelection: selectedEdgeAssurance(),
+        targetObligationBindingRef: exactInput.targetObligationBindingRef
+      }),
+    /selected-intent target placeholder/i
+  );
+
+  const defaultTemplate = resolveWith({
+    defaults: {
+      sourceRef: "abg-defaults://t131/selected-intent-template",
+      contract: defaultContract("selected-intent-template", [
+        EDGE_ASSURANCE_SELECTED_INTENT_TARGET_PLACEHOLDER_REF
+      ]),
+      defaultKey: "edgeAssuranceContract"
+    }
+  });
+  assert.equal(defaultTemplate.kind, "edge_assurance_contract_selection");
+  assert.throws(
+    () =>
+      bindEdgeAssuranceContractSelectionToSelectedIntentTarget({
+        templateSelection: defaultTemplate,
+        targetObligationBindingRef: exactInput.targetObligationBindingRef
+      }),
+    /declaration-owned template selection/i
+  );
+
+  assert.throws(
+    () =>
+      bindEdgeAssuranceContractSelectionToSelectedIntentTarget({
+        templateSelection: { ...template },
+        targetObligationBindingRef: exactInput.targetObligationBindingRef
+      }),
+    /declaration-owned template selection/i
+  );
+  assert.throws(
+    () =>
+      bindEdgeAssuranceContractSelectionToSelectedIntentTarget({
+        templateSelection: template,
+        targetObligationBindingRef: ""
+      }),
+    /non-empty/i
+  );
+  assert.throws(
+    () =>
+      bindEdgeAssuranceContractSelectionToSelectedIntentTarget({
+        templateSelection: template,
+        targetObligationBindingRef: "  "
+      }),
+    /non-empty/i
+  );
+  assert.throws(
+    () =>
+      bindEdgeAssuranceContractSelectionToSelectedIntentTarget({
+        templateSelection: bound,
+        targetObligationBindingRef:
+          "abg://one-surface/target-binding/rebound"
+      }),
+    /declaration-owned template selection/i
+  );
+  assert.throws(
+    () =>
+      bindEdgeAssuranceContractSelectionToSelectedIntentTarget({
+        ...exactInput,
+        contract: { targetOutcomeRef: "outcome://caller-authored" }
+      }),
+    /expected exact templateSelection\/targetObligationBindingRef fields/i
+  );
 });
 
 test("T-131 F_P eval findings are admitted findings tied to hook action and selected contract", () => {

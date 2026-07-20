@@ -36,6 +36,7 @@ function basisAdmitted(basisId, overrides = {}) {
     resolvedPolicyBundleRef: "policy://t217/s5/p1",
     runId: SPINE.runId,
     workKey: SPINE.workKey,
+    startAdmissionWitnessDigest: null,
     ...overrides
   };
 }

@@ -7,6 +7,7 @@ import type {
   AmbiguityObservationAdmittedRuntimeEvent,
   ActorResultArtifactObservedEvent,
   AuthoritySnapshotAdmittedRuntimeEvent,
+  CCallOpenedEvent,
   ClosureInputPublishedRuntimeEvent,
   EvidenceAdmittedRuntimeEvent,
   ExecutionBasis,
@@ -238,12 +239,38 @@ function matchesScope(
   event: PayloadLedgerSourceEvent,
   scope: PayloadLedgerScope
 ): boolean {
+  return matchesScopeCoordinates(event, scope) && event.edge === scope.edge;
+}
+
+function matchesScopeCoordinates(
+  event: Readonly<{
+    readonly basisId: string;
+    readonly graphCallId: string | null;
+    readonly frameId: string | null;
+    readonly vectorIndex: number | null;
+  }>,
+  scope: PayloadLedgerScope
+): boolean {
   return (
     event.basisId === scope.basisId &&
     event.graphCallId === scope.graphCallId &&
     event.frameId === scope.frameId &&
-    event.vectorIndex === scope.vectorIndex &&
-    event.edge === scope.edge
+    event.vectorIndex === scope.vectorIndex
+  );
+}
+
+function admittedProgramLocusEdges(input: {
+  readonly events: readonly RuntimeEvent[];
+  readonly scope: PayloadLedgerScope;
+}): ReadonlySet<string> {
+  return new Set(
+    input.events
+      .filter(
+        (event): event is CCallOpenedEvent =>
+          event.kind === "c_call_opened" &&
+          matchesScopeCoordinates(event, input.scope)
+      )
+      .map((event) => event.edge)
   );
 }
 
@@ -594,9 +621,18 @@ export function derivePayloadLedgerProjection(input: {
     vector,
     defaults: input.targetCarrierDefaults
   });
+  const admittedLocusEdges = admittedProgramLocusEdges({
+    events: input.events,
+    scope
+  });
   const sourceEvents = input.events
     .filter(isPayloadLedgerSourceEvent)
-    .filter((event) => matchesScope(event, scope));
+    .filter(
+      (event) =>
+        matchesScope(event, scope) ||
+        (matchesScopeCoordinates(event, scope) &&
+          admittedLocusEdges.has(event.edge))
+    );
 
   const partial = Object.freeze({
     kind: "payload_ledger_projection" as const,
@@ -1425,6 +1461,7 @@ export function deriveAssuranceAuthoritySnapshotFromPayloadLedger(input: {
     throw new TypeError("Payload ledger has no admitted authority snapshot");
   }
   return constructAssuranceAuthoritySnapshot({
+    authoritySnapshotRef: snapshot.authoritySnapshotRef,
     scope: input.assuranceScope,
     authorityRefs: snapshot.authorityRefs,
     inputRefs: snapshot.inputRefs,

@@ -688,6 +688,8 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
 import {
   admitHandlerRegistry,
   constructCCallHandler,
+  constructCCallValueHandler,
+  executeValueHandlerAsync,
   resolveHandlerForSelection,
   executeHandler
 } from "../../build/semantic/code/src/abg/m03/index.js";
@@ -760,6 +762,137 @@ test("T-205 B3: handler registry — admission, fail-closed resolution, regime m
   assert.equal(blocked.outcomeStatus, "blocked");
   assert.match(blocked.failureReason, /spawn ENOENT.*\(contract_failure\)/);
   assert.equal(blocked.evidenceRefs[0], "handler-error:handler://t205/throwing");
+});
+
+test("T-205 B3: value handler is an ordinary registry handler and admits only I-JSON target candidates", async () => {
+  const binding = {
+    programRef: "gtl://t205/value",
+    stageRole: "synthesizeModel",
+    armId: "arm://t205/value/synthesize",
+    regime: "F_D",
+    handlerRef: "handler://t205/value/synthesize",
+    handlerClass: "pipeline",
+    handlerConfigRef: null
+  };
+  const stage = {
+    stageRole: binding.stageRole,
+    defaultRegime: binding.regime,
+    armId: binding.armId,
+    resultBearing: true
+  };
+  const handlerInput = {
+    stage,
+    binding,
+    declaredConfig: null,
+    workProjection: { subjectRef: "subject://t205/value" }
+  };
+  const candidate = {
+    modelRef: "model://t205/value",
+    observations: [1, true, null]
+  };
+  const valueHandler = constructCCallValueHandler({
+    driverRequirement: "sync_compatible",
+    execute: () => ({
+      kind: "c_call_value_handler_interior",
+      outcomeStatus: "executed",
+      evidenceRefs: ["evidence://t205/value"],
+      payloadRef: null,
+      responseContractRef: null,
+      failureReason: null,
+      targetValueCandidate: candidate
+    })
+  });
+  const registry = {
+    bindings: [binding],
+    handlers: new Map([[binding.handlerRef, valueHandler]])
+  };
+
+  assert.equal(
+    admitHandlerRegistry(registry).accepted,
+    true,
+    "the value subtype uses the existing handler registry"
+  );
+  const selected = resolveHandlerForSelection(registry, {
+    programRef: binding.programRef,
+    stageRole: binding.stageRole,
+    armId: binding.armId,
+    regime: binding.regime
+  });
+  const admitted = await executeValueHandlerAsync(selected.handler, handlerInput);
+  assert.equal(admitted.kind, "c_call_value_handler_interior");
+  assert.equal(admitted.outcomeStatus, "executed");
+  assert.deepEqual({ ...admitted.targetValueCandidate }, candidate);
+  assert.equal(Object.isFrozen(admitted.targetValueCandidate), true);
+  assert.equal(Object.isFrozen(admitted.targetValueCandidate.observations), true);
+
+  const missingCandidate = await executeValueHandlerAsync(
+    syncCCallHandler(() => ({
+      kind: "c_call_value_handler_interior",
+      outcomeStatus: "executed",
+      evidenceRefs: [],
+      payloadRef: null,
+      responseContractRef: null,
+      failureReason: null
+    })),
+    handlerInput
+  );
+  assert.equal(missingCandidate.kind, "c_call_value_handler_contract_failure");
+  assert.equal(missingCandidate.outcomeStatus, "blocked");
+  assert.equal(Object.hasOwn(missingCandidate, "targetValueCandidate"), false);
+  assert.match(missingCandidate.failureReason, /requires targetValueCandidate.*contract_failure/u);
+
+  const malformedCandidate = await executeValueHandlerAsync(
+    constructCCallValueHandler({
+      driverRequirement: "sync_compatible",
+      execute: () => ({
+        kind: "c_call_value_handler_interior",
+        outcomeStatus: "executed",
+        evidenceRefs: ["evidence://t205/malformed"],
+        payloadRef: null,
+        responseContractRef: null,
+        failureReason: null,
+        targetValueCandidate: Number.NaN
+      })
+    }),
+    handlerInput
+  );
+  assert.equal(malformedCandidate.kind, "c_call_value_handler_contract_failure");
+  assert.equal(malformedCandidate.outcomeStatus, "blocked");
+  assert.equal(Object.hasOwn(malformedCandidate, "targetValueCandidate"), false);
+  assert.match(malformedCandidate.failureReason, /non-finite numbers.*contract_failure/u);
+  assert.equal(
+    malformedCandidate.evidenceRefs.at(-1),
+    `handler-value-contract-failure:${binding.handlerRef}`
+  );
+
+  for (const invalidInterior of [
+    {
+      kind: "c_call_value_handler_interior",
+      outcomeStatus: "completed",
+      evidenceRefs: [],
+      payloadRef: null,
+      responseContractRef: null,
+      failureReason: null,
+      targetValueCandidate: candidate
+    },
+    {
+      kind: "c_call_value_handler_interior",
+      outcomeStatus: "executed",
+      evidenceRefs: [],
+      payloadRef: "payload://side-channel",
+      responseContractRef: null,
+      failureReason: null,
+      targetValueCandidate: candidate
+    }
+  ]) {
+    const refused = await executeValueHandlerAsync(
+      syncCCallHandler(() => invalidInterior),
+      handlerInput
+    );
+    assert.equal(refused.kind, "c_call_value_handler_contract_failure");
+    assert.equal(Object.hasOwn(refused, "targetValueCandidate"), false);
+    assert.match(refused.failureReason, /requires executed candidate-only output.*contract_failure/u);
+  }
 });
 
 // ─── T-205 B3 (2/3): the standard F_D handlers — declared config, injected effects ───

@@ -127,6 +127,7 @@ export type {
   PluginTraversalKind,
   PluginTraversalObserverBindingSource,
   PluginTraversalPromptMaterializedEvent,
+  PublicOperationArtifactAdmittedRuntimeEvent,
   RetryAttemptEscalatedEvent,
   RetryAttemptOpenedEvent,
   RetryAttemptStoppedEvent,
@@ -183,6 +184,23 @@ export type {
   ScheduledSliceAssessedRuntimeEvent,
   ScheduledSliceDispatchedRuntimeEvent
 } from "./carriers.js";
+export {
+  assertPublicOperationArtifactAvailableInReplay,
+  constructPublicOperationArtifactAdmittedEvent,
+  derivePublicOperationArtifactReplayProjection
+} from "./public_operation_artifact_boundary.js";
+export type {
+  PublicOperationArtifactBoundaryInput
+} from "./public_operation_artifact_boundary.js";
+export {
+  deriveReplayAdmittedRuntimeResultRelation,
+  ReplayAdmittedRuntimeResultRelationError
+} from "./replay_admitted_runtime_result.js";
+export type {
+  ReplayAdmittedRuntimeResultRelation,
+  ReplayAdmittedRuntimeResultRelationFailureCode,
+  ReplayAdmittedRuntimeResultSubject
+} from "./replay_admitted_runtime_result.js";
 export { admitPluginResultEnvelope } from "./plugin_result_envelope.js";
 export type {
   AdmittedPluginResultEnvelope
@@ -310,7 +328,9 @@ export {
   requireFpResultContractEnvelope
 } from "./fp_result_contract_admission.js";
 export type {
+  AdmittedFpReviewResultContractEnvelope,
   AdmittedFpResultContractEnvelope,
+  AdmittedFpTransformResultContractEnvelope,
   FpResultContractAdmissionAccepted,
   FpResultContractAdmissionOutcome,
   FpResultContractAdmissionRejected,
@@ -359,8 +379,10 @@ export {
   EDGE_ASSURANCE_CLOSE_DISPOSITION_VALUES,
   EDGE_ASSURANCE_CONTRACT_DECLARATION_KEY,
   EDGE_ASSURANCE_FH_ABSENTIA_ACTION_REFS,
+  EDGE_ASSURANCE_SELECTED_INTENT_TARGET_PLACEHOLDER_REF,
   admitFpEdgeAssuranceEvalFinding,
   assertFpEdgeAssuranceEvalFindingMatchesHookAction,
+  bindEdgeAssuranceContractSelectionToSelectedIntentTarget,
   constructEdgeAssuranceContract,
   constructFpEdgeAssuranceEvalFinding,
   deriveEdgeAssuranceEvaluationProjection,
@@ -369,6 +391,7 @@ export {
   tryResolveEdgeAssuranceContract
 } from "./edge_assurance_contract.js";
 export type {
+  BoundEdgeAssuranceContractSelection,
   EdgeAssuranceAbsentiaResolution,
   EdgeAssuranceCloseDisposition,
   EdgeAssuranceContract,
@@ -509,6 +532,7 @@ export {
 } from "./overlay_frame.js";
 export {
   CONSTRUCTION_PROGRESS_DERIVED_FLUENT_RULE,
+  RESULT_ASSESSMENT_DERIVED_FLUENT_RULE,
   RUNTIME_EVENT_CALCULUS_AXIOMS,
   RUNTIME_FLUENT_NAME_VALUES,
   RUNTIME_FLUENT_SCOPE_VALUES,
@@ -1319,6 +1343,8 @@ export type {
   EvaluationRulePlugin,
   FdEvaluationOutcome,
   FdEvaluatorPlugin,
+  FpDispatchBlockedOutcome,
+  FpDispatchDispatchedOutcome,
   FpEvaluationCloseDisposition,
   FpEvaluationFinding,
   FpEvaluationOutcome,
@@ -1956,6 +1982,7 @@ export type {
 } from "./carriers.js";
 
 export * from "./runtime_catalog.js";
+export * from "./result_assessment_relation.js";
 export {
   EXECUTION_CONTEXT_PROJECTION_RULE_KIND,
   INSTRUCTION_PROTOCOL_RULE_KIND,

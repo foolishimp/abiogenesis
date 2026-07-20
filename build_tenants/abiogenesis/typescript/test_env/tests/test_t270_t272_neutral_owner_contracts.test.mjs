@@ -146,8 +146,10 @@ function resultFixture(operationId, variant) {
       disposition: "completed",
       phase: "post_effect",
       runRef: "run:one",
+      runDigest: DIGEST,
       graphCallRef: "graph-call:one",
       resultRef: "result:one",
+      resultDigest: DIGEST,
       stopRef: null,
       failureRef: null,
       evidenceRefs: ["evidence:run"],
@@ -232,6 +234,7 @@ function nonterminalFixture(operationId, variant) {
       disposition: "held",
       phase: "post_effect",
       runRef: "run:one",
+      runDigest: DIGEST,
       graphCallRef: "graph-call:one",
       interactionRef: "interaction:one",
       gapProjectionRef: null,
@@ -526,6 +529,7 @@ test("T-270 invoke outcomes exclude nullable loci and ambiguous runtime failure 
     ...completed,
     disposition: "blocked",
     resultRef: null,
+    resultDigest: null,
     stopRef: "stop:blocked",
     failureRef: null
   };
@@ -537,6 +541,7 @@ test("T-270 invoke outcomes exclude nullable loci and ambiguous runtime failure 
     ...completed,
     disposition: "runtime_failed",
     resultRef: null,
+    resultDigest: null,
     stopRef: null,
     failureRef: "failure:runtime"
   };
@@ -563,6 +568,7 @@ test("T-270 start and nonterminal outcomes admit only typed stop/locus combinati
     phase: "pre_invocation_stop",
     graphCallRef: null,
     resultRef: null,
+    resultDigest: null,
     stopRef: "stop:before-graph-call",
     failureRef: null
   };

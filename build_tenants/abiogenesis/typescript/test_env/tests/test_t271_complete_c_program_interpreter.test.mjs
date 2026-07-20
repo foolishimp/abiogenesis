@@ -50,8 +50,12 @@ import {
   compileGraphVectorExecutionHandoff
 } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_execution_handoff.js";
 import {
+  constructRuntimeActivityProbeObservedEvent,
   mintCCallRef
 } from "../../build/semantic/code/src/abg/m03/contracts/event_factories.js";
+import {
+  constructAdmittedInvocationCarrier
+} from "../../build/semantic/code/src/abg/m03/contracts/declared_execution_context.js";
 import {
   admitBoundWorkspaceCatalog
 } from "../../build/semantic/code/src/abg/m03/contracts/runtime_catalog.js";
@@ -480,8 +484,18 @@ function admittedCatalog(value) {
   return admission.basis;
 }
 
+function fixtureGraphEdge(request) {
+  const prefix = "graph-vector://t271/";
+  assert.equal(
+    request.graphVectorRef.startsWith(prefix),
+    true,
+    "the T-271 fixture request keeps its declared GraphVector identity"
+  );
+  return `t271.${request.graphVectorRef.slice(prefix.length)}`;
+}
+
 function completedAtom(request, suffix = "completed") {
-  return Object.freeze({
+  const result = Object.freeze({
     kind: "c_program_atom_result",
     planRef: request.planRef,
     nodeRef: request.nodeRef,
@@ -497,10 +511,125 @@ function completedAtom(request, suffix = "completed") {
     cCallRef: request.cCallRef,
     sourceEventRefs: [`event://t271/${suffix}/${request.sourcePath}`]
   });
+  const admittedTargetCarrier = constructAdmittedInvocationCarrier({
+    sourceNodeRef: request.nodeRef,
+    schemaRef: request.outputCarrierRef,
+    carrierRef: result.outputPayloadRef,
+    admissionRef: result.outputLineageRef,
+    value: Object.freeze({
+      kind: "t271_admitted_target",
+      sourcePath: request.sourcePath,
+      suffix
+    })
+  });
+  const authoritySnapshotRef =
+    `authority-snapshot://t271/${suffix}/${request.sourcePath}`;
+  const authorityDigest = stableSha256Digest({
+    nodeRef: request.nodeRef,
+    planRef: request.planRef
+  });
+  const inputDigest = stableSha256Digest({
+    payloadRef: request.inputPayloadRef,
+    lineageRef: request.inputLineageRef
+  });
+  const validationRef = `validation://t271/${suffix}/${request.sourcePath}`;
+  const evidenceRef = `evidence://t271/admitted/${suffix}/${request.sourcePath}`;
+  const targetPayloadIdentityDigest =
+    `digest:target-identity:${stableSha256Digest({
+      cCallRef: request.cCallRef,
+      carrierRef: admittedTargetCarrier.carrierRef,
+      contractRef: result.responseContractRef
+    })}`;
+  const eventScope = Object.freeze({
+    basisId: request.parentBasisId,
+    graphCallId: request.parentGraphCallId,
+    frameId: request.parentFrameId,
+    vectorIndex: request.vectorIndex,
+    edge: fixtureGraphEdge(request)
+  });
+  const evidenceEvents = Object.freeze([
+    Object.freeze({
+      kind: "authority_snapshot_admitted",
+      ...eventScope,
+      authoritySnapshotRef,
+      authorityRefs: Object.freeze([request.nodeRef]),
+      inputRefs: Object.freeze([request.inputPayloadRef]),
+      authorityDigest,
+      inputDigest,
+      closureCapable: true,
+      contradictoryAuthority: false,
+      deferredAuthorityRefs: Object.freeze([]),
+      providerRefs: Object.freeze([request.executionGraphFunctionRef]),
+      policyRefs: Object.freeze([])
+    }),
+    Object.freeze({
+      kind: "payload_observed",
+      ...eventScope,
+      payloadRef: admittedTargetCarrier.carrierRef,
+      payloadClass: "t271_test_target",
+      schemaRef: admittedTargetCarrier.schemaRef,
+      contractRef: result.responseContractRef,
+      digest: targetPayloadIdentityDigest,
+      producerRef: request.nodeRef,
+      sourceEventRef: request.cCallRef,
+      actorInvocationId: null,
+      authorityRef: authoritySnapshotRef,
+      inputDigest,
+      policyRefs: Object.freeze([])
+    }),
+    Object.freeze({
+      kind: "payload_validated",
+      ...eventScope,
+      payloadRef: admittedTargetCarrier.carrierRef,
+      schemaRef: admittedTargetCarrier.schemaRef,
+      contractRef: result.responseContractRef,
+      contractDigest: stableSha256Digest(result.responseContractRef),
+      digest: targetPayloadIdentityDigest,
+      validationRef,
+      evidenceRef,
+      policyRefs: Object.freeze([])
+    }),
+    Object.freeze({
+      kind: "evidence_admitted",
+      ...eventScope,
+      evidenceRef,
+      payloadRef: admittedTargetCarrier.carrierRef,
+      authorityRef: authoritySnapshotRef,
+      authorityDigest,
+      inputDigest,
+      providerRefs: Object.freeze([request.executionGraphFunctionRef]),
+      policyRefs: Object.freeze([]),
+      complete: true,
+      shallow: false,
+      contradictsAuthority: false,
+      deferred: false
+    })
+  ]);
+  return Object.freeze({
+    kind: "c_program_atom_invocation_submission",
+    result,
+    admittedTargetCarrier,
+    interiorEvents: Object.freeze([]),
+    evidenceEvents,
+    closeBasis: Object.freeze({
+      kind: "c_program_atom_close_basis",
+      evidenceClass: request.kind === "c_program_workflow_atom_request"
+        ? request.evidenceClass
+        : "t271_test_target",
+      evidenceRefs: Object.freeze([
+        authoritySnapshotRef,
+        validationRef,
+        evidenceRef
+      ]),
+      resultContractRef: result.responseContractRef
+    })
+  });
 }
 
 function runtimeFailure(request, attempt) {
   return Object.freeze({
+    kind: "c_program_atom_invocation_submission",
+    result: Object.freeze({
     kind: "c_program_atom_result",
     planRef: request.planRef,
     nodeRef: request.nodeRef,
@@ -515,6 +644,53 @@ function runtimeFailure(request, attempt) {
     evidenceRefs: [`evidence://t271/failure/${String(attempt)}`],
     cCallRef: request.cCallRef,
     sourceEventRefs: [`event://t271/failure/${String(attempt)}`]
+    }),
+    admittedTargetCarrier: null,
+    interiorEvents: Object.freeze([]),
+    evidenceEvents: Object.freeze([]),
+    closeBasis: null
+  });
+}
+
+function withRuntimeProbe(request, submission) {
+  return Object.freeze({
+    ...submission,
+    interiorEvents: Object.freeze([
+      constructRuntimeActivityProbeObservedEvent({
+        basisId: request.parentBasisId,
+        graphFunctionId: request.executionGraphFunctionRef,
+        runId: null,
+        workKey: null,
+        graphCallId: request.parentGraphCallId,
+        frameId: request.parentFrameId,
+        vectorIndex: request.vectorIndex,
+        edge: fixtureGraphEdge(request),
+        actorInvocationId: null,
+        workerId: null,
+        backendId: null,
+        systemRef: "system://t271/interpreter",
+        probeRef: `probe://t271/${request.cursorRef}`,
+        probeSource: "graph_call_frame",
+        activityRef: request.cCallRef,
+        elapsedMs: 0,
+        observedAtMs: 0,
+        evidenceRefs: [request.cCallRef],
+        detail: null,
+        causationEventRefs: [request.cCallRef],
+        correlationId: `correlation://t271/${request.cursorRef}`
+      })
+    ])
+  });
+}
+
+function withEvidenceAuthority(submission, authorityRef) {
+  return Object.freeze({
+    ...submission,
+    evidenceEvents: Object.freeze(submission.evidenceEvents.map((event) =>
+      event.kind === "payload_observed" || event.kind === "evidence_admitted"
+        ? Object.freeze({ ...event, authorityRef })
+        : event
+    ))
   });
 }
 
@@ -821,9 +997,13 @@ test("T-271 nested batch preserves distinct task paths and all-or-block", async 
     invokeAdmittedAtom: async (request) => {
       calls += 1;
       if (request.taskOrdinal === 0 && request.kind === "c_program_stage_atom_request") {
+        const failed = runtimeFailure(request, 1);
         return {
-          ...runtimeFailure(request, 1),
-          failureClass: "capability_missing"
+          ...failed,
+          result: {
+            ...failed.result,
+            failureClass: "capability_missing"
+          }
         };
       }
       return completedAtom(request);
@@ -1327,6 +1507,246 @@ test("T-271 rejects resealed stale replay coordinates and plan authority before 
     /selected GraphVector authority/u
   );
   assert.equal(planEffects, 0);
+});
+
+test("T-271 owns atom target admission and fails closed on a detached completed result", async () => {
+  const value = fixture("mixed");
+  let calls = 0;
+  const outcome = await interpretCompleteCProgram(invocation(value, {
+    invokeAdmittedAtom: async (request) => {
+      calls += 1;
+      const submission = completedAtom(request);
+      return {
+        ...submission,
+        admittedTargetCarrier: null
+      };
+    }
+  }));
+  assert.equal(calls, 1);
+  assert.equal(outcome.status, "runtime_failed");
+  assert.equal(outcome.failureClass, "contract_failure");
+  assert.equal(outcome.outputPayloadRef, null);
+  assert.equal(
+    outcome.runtimeEvents.some((event) =>
+      event.kind === "c_call_judged" && event.judgment === "blocked"),
+    true
+  );
+});
+
+test("T-271 completed atom requires exact evidence and conserves close refs", async () => {
+  const value = fixture("mixed");
+  for (const mutate of [
+    (submission) => ({
+      ...submission,
+      evidenceEvents: []
+    }),
+    (submission) => ({
+      ...submission,
+      admittedTargetCarrier: {
+        ...submission.admittedTargetCarrier,
+        carrierDigest: `sha256:${"0".repeat(64)}`
+      }
+    }),
+    (submission) => ({
+      ...submission,
+      closeBasis: {
+        ...submission.closeBasis,
+        evidenceRefs: [
+          ...submission.closeBasis.evidenceRefs,
+          "evidence://t271/substituted"
+        ]
+      }
+    })
+  ]) {
+    let calls = 0;
+    const outcome = await interpretCompleteCProgram(invocation(value, {
+      invokeAdmittedAtom: async (request) => {
+        calls += 1;
+        return mutate(completedAtom(request));
+      }
+    }));
+    assert.equal(calls, 1);
+    assert.equal(outcome.status, "runtime_failed");
+    assert.equal(outcome.failureClass, "contract_failure");
+    assert.equal(outcome.outputPayloadRef, null);
+  }
+});
+
+test("T-271 seals target content and payload identity as distinct digest subjects", async () => {
+  const value = fixture("mixed");
+  const submittedCarrierDigests = [];
+  const outcome = await interpretCompleteCProgram(invocation(value, {
+    invokeAdmittedAtom: async (request) => {
+      const submission = completedAtom(request);
+      submittedCarrierDigests.push(
+        submission.admittedTargetCarrier.carrierDigest
+      );
+      return submission;
+    }
+  }));
+  assert.equal(outcome.status, "completed");
+  const atomReceipts = outcome.replayReceipts.filter(
+    (receipt) => receipt.kind === "c_program_atom_receipt"
+  );
+  assert.deepEqual(
+    atomReceipts.map((receipt) => receipt.targetCarrierContentDigest),
+    submittedCarrierDigests
+  );
+  for (const receipt of atomReceipts) {
+    assert.notEqual(
+      receipt.targetCarrierContentDigest,
+      receipt.targetPayloadIdentityDigest
+    );
+  }
+});
+
+test("T-271 accepts one snapshot-admitted semantic authority and rejects a foreign ref", async () => {
+  const value = fixture("mixed");
+  const admitted = await interpretCompleteCProgram(invocation(value, {
+    invokeAdmittedAtom: async (request) => withEvidenceAuthority(
+      completedAtom(request),
+      request.nodeRef
+    )
+  }));
+  assert.equal(admitted.status, "completed");
+
+  let calls = 0;
+  const rejected = await interpretCompleteCProgram(invocation(value, {
+    invokeAdmittedAtom: async (request) => {
+      calls += 1;
+      return withEvidenceAuthority(
+        completedAtom(request),
+        "authority://t271/foreign"
+      );
+    }
+  }));
+  assert.equal(calls, 1);
+  assert.equal(rejected.status, "runtime_failed");
+  assert.equal(rejected.failureClass, "contract_failure");
+});
+
+test("T-271 encloses admitted atom interior before target evidence and close", async () => {
+  const value = fixture("mixed");
+  const first = await interpretCompleteCProgram(invocation(value, {
+    invokeAdmittedAtom: async (request) => withRuntimeProbe(
+      request,
+      completedAtom(request)
+    )
+  }));
+  assert.equal(first.status, "completed");
+  for (const receipt of first.replayReceipts.filter(
+    (candidate) => candidate.kind === "c_program_atom_receipt"
+  )) {
+    const kinds = receipt.runtimeEvents.map((event) => event.kind);
+    assert.ok(
+      kinds.indexOf("c_call_fibre_selected") <
+        kinds.indexOf("runtime_activity_probe_observed")
+    );
+    assert.ok(
+      kinds.indexOf("runtime_activity_probe_observed") <
+        kinds.indexOf("authority_snapshot_admitted")
+    );
+    assert.ok(
+      kinds.indexOf("evidence_admitted") < kinds.indexOf("c_call_evidenced")
+    );
+  }
+  let repeated = 0;
+  const replayed = await interpretCompleteCProgram(invocation(value, {
+    replayReceipts: first.replayReceipts,
+    invokeAdmittedAtom: async () => {
+      repeated += 1;
+      throw new Error("enclosed replay repeated an effect");
+    }
+  }));
+  assert.equal(replayed.status, "completed");
+  assert.equal(repeated, 0);
+});
+
+test("T-271 replay seal rejects injected interior and reordered close events before effects", async () => {
+  const value = fixture("mixed");
+  const first = await interpretCompleteCProgram(invocation(value));
+  const receipt = first.replayReceipts.find(
+    (candidate) => candidate.kind === "c_program_atom_receipt"
+  );
+  assert.notEqual(receipt, undefined);
+  const opened = receipt.runtimeEvents.find(
+    (event) => event.kind === "c_call_opened"
+  );
+  assert.notEqual(opened, undefined);
+  const injected = resealReceipt(receipt, {
+    runtimeEvents: [
+      ...receipt.runtimeEvents.slice(0, 2),
+      {
+        kind: "fd_advance_ready",
+        basisId: opened.basisId,
+        graphFunctionId: opened.graphFunctionId,
+        status: "ready"
+      },
+      ...receipt.runtimeEvents.slice(2)
+    ]
+  });
+  const reordered = resealReceipt(receipt, {
+    runtimeEvents: [
+      ...receipt.runtimeEvents.slice(0, -3),
+      receipt.runtimeEvents.at(-2),
+      receipt.runtimeEvents.at(-3),
+      receipt.runtimeEvents.at(-1)
+    ]
+  });
+  const evidenceKinds = new Set([
+    "authority_snapshot_admitted",
+    "payload_observed",
+    "payload_validated",
+    "evidence_admitted"
+  ]);
+  const strippedEvidence = resealReceipt(receipt, {
+    runtimeEvents: receipt.runtimeEvents.filter(
+      (event) => !evidenceKinds.has(event.kind)
+    )
+  });
+  const substitutedCloseRef = resealReceipt(receipt, {
+    runtimeEvents: receipt.runtimeEvents.map((event) =>
+      event.kind === "c_call_evidenced"
+        ? {
+            ...event,
+            evidenceRefs: [
+              ...event.evidenceRefs,
+              "evidence://t271/replay-substituted"
+            ]
+          }
+        : event)
+  });
+  const substitutedIdentityDigest = resealReceipt(receipt, {
+    runtimeEvents: receipt.runtimeEvents.map((event) =>
+      event.kind === "payload_observed" || event.kind === "payload_validated"
+        ? { ...event, digest: "digest:target-identity:substituted" }
+        : event)
+  });
+  const substitutedCarrierContentDigest = {
+    ...receipt,
+    targetCarrierContentDigest: `sha256:${"f".repeat(64)}`
+  };
+  for (const [forged, reason] of [
+    [injected, /non-enclosed runtime event/u],
+    [reordered, /enclosure order differs/u],
+    [strippedEvidence, /lacks its exact admitted evidence chain/u],
+    [substitutedCloseRef, /close evidence differs/u],
+    [substitutedIdentityDigest, /lacks its exact admitted evidence chain/u],
+    [substitutedCarrierContentDigest, /receipt seal differs/u]
+  ]) {
+    let effects = 0;
+    await assert.rejects(
+      () => interpretCompleteCProgram(invocation(value, {
+        replayReceipts: [forged],
+        invokeAdmittedAtom: async (request) => {
+          effects += 1;
+          return completedAtom(request);
+        }
+      })),
+      reason
+    );
+    assert.equal(effects, 0);
+  }
 });
 
 test("T-271 rejects self workflow as a typed semantic gap before effects", () => {

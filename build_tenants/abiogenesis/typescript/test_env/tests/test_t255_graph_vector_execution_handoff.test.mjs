@@ -135,6 +135,31 @@ function admittedManifest(options = {}) {
     contractVersion: "1.0.0",
     contractDigest: catalog.rows[1].digest
   });
+  const capabilityDefinitionGraphBasis = Object.freeze({
+    kind: "abg_capability_definition_graph",
+    graphId: "capability-definition-graph://t255/generic",
+    graphVersion: "1.0.0",
+    definitions: Object.freeze([
+      Object.freeze({
+        capabilityId: "capability://t255/decision",
+        requiredContractIds: Object.freeze(["abg.contract.t255-decision"]),
+        dependentCapabilityIds: Object.freeze(
+          options.includeDependency === true
+            ? ["capability://t255/dependency"]
+            : []
+        ),
+        effectRefs: Object.freeze(["effect://t255/decision"])
+      }),
+      ...(options.includeDependency === true
+        ? [Object.freeze({
+            capabilityId: "capability://t255/dependency",
+            requiredContractIds: Object.freeze(["abg.contract.t255-decision"]),
+            dependentCapabilityIds: Object.freeze([]),
+            effectRefs: Object.freeze([])
+          })]
+        : [])
+    ])
+  });
   const basis = Object.freeze({
     kind: "abg_tenant_conformance_manifest",
     schemaId: "abg.schema.tenant-conformance-manifest",
@@ -143,6 +168,11 @@ function admittedManifest(options = {}) {
     manifestVersion: "1.0.0",
     engineId: "abg.engine.t255-generic",
     engineVersion: "5.0.0",
+    capabilityDefinitionGraph: Object.freeze({
+      graphId: capabilityDefinitionGraphBasis.graphId,
+      graphVersion: capabilityDefinitionGraphBasis.graphVersion,
+      graphDigest: stableSha256Digest(capabilityDefinitionGraphBasis)
+    }),
     publicContractCatalog: Object.freeze({
       catalogId: catalog.catalogId,
       catalogVersion: catalog.catalogVersion,

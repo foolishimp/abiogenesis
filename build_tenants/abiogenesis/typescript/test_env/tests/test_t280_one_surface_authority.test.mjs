@@ -30,10 +30,8 @@ const T280_ACTION_AUTHORITY_DIGEST = stableSha256Digest({
   authority: "t280-action"
 });
 const T280_ACTION_INPUT_DIGEST = stableSha256Digest({ input: "t280-action" });
-const T280_ACTION_EVIDENCE_REFS = Object.freeze([
-  "evidence://t280/action/0",
-  "evidence://t280/action/1"
-]);
+const T280_ACTION_AUTHORITY_SNAPSHOT_REF =
+  "authority-snapshot://t280/action/evidence";
 
 function candidate(selectedActionRef = "action://t280/normalize") {
   return Object.freeze({
@@ -64,6 +62,91 @@ function candidate(selectedActionRef = "action://t280/normalize") {
     hiddenConfigRefs: Object.freeze([]),
     runtimeEventPayloadRefs: Object.freeze([]),
     fdSemanticCanonicalizationRequired: false
+  });
+}
+
+function nativeEvaluateNextResult({
+  actionRef = null,
+  actionVariant = "no_action",
+  intentCandidate = null
+} = {}) {
+  const nextBasisValue = Object.freeze({
+    basisKind: "initial_selection",
+    causalRefs: Object.freeze(["authority://t280/native-next"])
+  });
+  const nextBasis = Object.freeze({
+    kind: "next_action_basis",
+    ...nextBasisValue,
+    basisDigest: stableSha256Digest(nextBasisValue)
+  });
+  const priorityProjection = Object.freeze({
+    kind: "construction_priority_projection",
+    projectionRef: "priority://t280/native-next",
+    episodeId: "episode://t280",
+    bindingProjectionRef: "binding-projection://t280/native-next",
+    prioritySchemeRef: "priority-scheme://t280/native-next",
+    affectPolicyRefs: Object.freeze([]),
+    affectAdjustments: Object.freeze([]),
+    rows: Object.freeze([])
+  });
+  const selected = actionRef === null
+    ? null
+    : constructTargetObligationBinding({
+      snapshotRef: "observation://t280/native-next",
+      snapshotDigest: stableSha256Digest({ observation: "t280/native-next" }),
+      sourceBindingRef: "binding://t280/normalize",
+      pressureRef: "pressure://t280/native-next",
+      actionRef,
+      targetOutcomeRef: "outcome://t280/normalized",
+      obligationRefs: ["obligation://t280/normalize"],
+      requiredEvidenceAuthorityRefs: ["authority://t280/normalize"]
+    });
+  const disposition = actionRef === null
+    ? Object.freeze({
+      variant: "no_action",
+      actionKind: null,
+      actionRef: null,
+      targetRef: null
+    })
+    : actionVariant === "fh_outcome"
+      ? Object.freeze({
+        variant: "fh_outcome",
+        actionKind: "open_fh_gate",
+        actionRef,
+        targetRef: null
+      })
+      : Object.freeze({
+        variant: "callable_member_action",
+        actionKind: "invoke_graph_function",
+        actionRef,
+        targetRef: "graph-function://t280/normalize"
+      });
+  return Object.freeze({
+    targetBindings: Object.freeze(selected === null ? [] : [selected]),
+    priorityProjection,
+    nextActionProjection: Object.freeze({
+      nextBasis,
+      admittedProgram: Object.freeze({
+        ref: "gtl-program://t280/native-next",
+        digest: stableSha256Digest({ program: "t280/native-next" })
+      }),
+      catalogView: Object.freeze({
+        ref: "catalog-view://t280/native-next",
+        digest: stableSha256Digest({ catalog: "t280/native-next" })
+      }),
+      observationRef: "observation://t280/native-next",
+      currentObservationRef: "current-observation://t280/native-next",
+      currentObservationDigest: stableSha256Digest({
+        currentObservation: "t280/native-next"
+      }),
+      actionCatalogRef: "action-catalog://t280/native-next",
+      bindingProjectionRef: priorityProjection.bindingProjectionRef,
+      priorityProjectionRef: priorityProjection.projectionRef,
+      selectedBindingRef: selected?.sourceBindingRef ?? null,
+      selectedOutcomeRef: selected?.targetOutcomeRef ?? null,
+      intentCandidate,
+      disposition
+    })
   });
 }
 
@@ -147,43 +230,50 @@ test("T-280 authority input bases reject duplicate coordinates", () => {
 });
 
 test("T-280 evaluate-next native admission preserves the three constitutional shapes", () => {
+  const noAction = nativeEvaluateNextResult();
   assert.deepEqual(
-    admitOneSurfaceResultValue("evaluate_next", {
-      selectedActionRef: null,
-      intentCandidate: null
-    }),
-    { selectedActionRef: null, intentCandidate: null }
+    admitOneSurfaceResultValue("evaluate_next", noAction),
+    noAction
   );
+  const fhAction = nativeEvaluateNextResult({
+    actionRef: "action://t280/open-fh",
+    actionVariant: "fh_outcome"
+  });
   assert.deepEqual(
-    admitOneSurfaceResultValue("evaluate_next", {
-      selectedActionRef: "action://t280/open-fh",
-      intentCandidate: null
-    }),
-    {
-      selectedActionRef: "action://t280/open-fh",
-      intentCandidate: null
-    }
+    admitOneSurfaceResultValue("evaluate_next", fhAction),
+    fhAction
   );
+  const effectAction = nativeEvaluateNextResult({
+    actionRef: "action://t280/normalize",
+    intentCandidate: candidate()
+  });
   assert.deepEqual(
-    admitOneSurfaceResultValue("evaluate_next", {
-      selectedActionRef: "action://t280/normalize",
-      intentCandidate: candidate()
-    }).intentCandidate,
+    admitOneSurfaceResultValue("evaluate_next", effectAction)
+      .nextActionProjection.intentCandidate,
     candidate()
   );
   assert.throws(
-    () => admitOneSurfaceResultValue("evaluate_next", {
-      selectedActionRef: "action://t280/other",
-      intentCandidate: candidate()
-    }),
-    /intentCandidate must identify selectedActionRef/u
+    () => admitOneSurfaceResultValue("evaluate_next", Object.freeze({
+      ...effectAction,
+      nextActionProjection: Object.freeze({
+        ...effectAction.nextActionProjection,
+        disposition: Object.freeze({
+          ...effectAction.nextActionProjection.disposition,
+          actionRef: "action://t280/other"
+        })
+      })
+    })),
+    /intentCandidate must identify the selected disposition action/u
   );
   assert.throws(
-    () => admitOneSurfaceResultValue("evaluate_next", {
-      selectedActionRef: null,
-      intentCandidate: candidate()
-    }),
-    /intentCandidate must identify selectedActionRef/u
+    () => admitOneSurfaceResultValue("evaluate_next", Object.freeze({
+      ...noAction,
+      nextActionProjection: Object.freeze({
+        ...noAction.nextActionProjection,
+        intentCandidate: candidate()
+      })
+    })),
+    /intentCandidate must identify the selected disposition action/u
   );
 });
 
@@ -336,7 +426,9 @@ function sealedIntentAdmission(program) {
     actionRef: intent.selectedActionRef,
     targetOutcomeRef: intent.selectedOutcomeRef,
     obligationRefs: intent.obligationRefs,
-    requiredEvidenceRefs: T280_ACTION_EVIDENCE_REFS
+    requiredEvidenceAuthorityRefs: Object.freeze([
+      "authority://t280/action"
+    ])
   });
   const basis = Object.freeze({
     program: Object.freeze({
@@ -391,7 +483,7 @@ function admittedEvidence(scope, stage, index) {
     payloadContractRef: stage.targetCarrierContract.targetCarrierContractRef,
     producerRef: "producer://t280/scenario09",
     sourceEventRef: `event://t280/action/${String(index)}`,
-    authorityRef: "authority://t280/action",
+    authorityRef: T280_ACTION_AUTHORITY_SNAPSHOT_REF,
     inputDigest: T280_ACTION_INPUT_DIGEST,
     validationRefs: Object.freeze([`validation://t280/action/${String(index)}`]),
     evidenceRefs: Object.freeze([evidenceRef]),
@@ -442,7 +534,7 @@ async function af16Fixture() {
     kind: "assurance_evidence_row",
     evidenceRef: row.evidenceRefs[0],
     scope: assuranceScope,
-    authorityRef: "authority://t280/action",
+    authorityRef: T280_ACTION_AUTHORITY_SNAPSHOT_REF,
     authorityDigest,
     inputDigest,
     eventRefs: Object.freeze([row.sourceEventRef]),
@@ -460,6 +552,7 @@ async function af16Fixture() {
     scope: assuranceScope,
     authoritySnapshot: Object.freeze({
       kind: "assurance_authority_snapshot",
+      authoritySnapshotRef: T280_ACTION_AUTHORITY_SNAPSHOT_REF,
       scope: assuranceScope,
       authorityRefs: Object.freeze(["authority://t280/action"]),
       inputRefs: Object.freeze([intentRows.intent.intentId]),
@@ -472,22 +565,24 @@ async function af16Fixture() {
       policyRefs
     }),
     evidenceRows: assuranceEvidenceRows,
-    ambiguityRows: Object.freeze(assuranceEvidenceRows.map((row, index) =>
-      Object.freeze({
-        kind: "assurance_ambiguity_row",
-        rowId: `assurance-row://t280/action/${String(index)}`,
-        status: "fulfilled",
-        scope: assuranceScope,
-        authorityRef: row.authorityRef,
-        evidenceRefs: Object.freeze([row.evidenceRef]),
-        authorityDigest,
-        inputDigest,
-        eventRefs: row.eventRefs,
-        providerRefs: row.providerRefs,
-        policyRefs,
-        reason: "evidence_fulfills_current_authority"
-      })
-    )),
+    ambiguityRows: Object.freeze([Object.freeze({
+      kind: "assurance_ambiguity_row",
+      rowId: "assurance-row://t280/action/authority",
+      status: "fulfilled",
+      scope: assuranceScope,
+      authorityRef: "authority://t280/action",
+      evidenceRefs: Object.freeze(
+        assuranceEvidenceRows.map((row) => row.evidenceRef)
+      ),
+      authorityDigest,
+      inputDigest,
+      eventRefs: Object.freeze(
+        assuranceEvidenceRows.flatMap((row) => row.eventRefs)
+      ),
+      providerRefs: Object.freeze(["provider://t280/scenario09"]),
+      policyRefs,
+      reason: "evidence_fulfills_current_authority"
+    })]),
     sourceProjectionRef: "projection://t280/action/source",
     projectionRef: "assurance-projection://t280/action"
   });
@@ -714,6 +809,39 @@ test("T-280 AF-16 refuses incomplete, duplicate, cross-basis, stale-policy, and 
       }
     },
     {
+      label: "foreign-snapshot-same-digests",
+      expectedReason: "evaluate_action_evidence_authority_mismatch",
+      input: {
+        ...fixture.input,
+        assuranceProjection: {
+          ...fixture.assuranceProjection,
+          authoritySnapshot: {
+            ...fixture.assuranceProjection.authoritySnapshot,
+            authoritySnapshotRef:
+              "authority-snapshot://t280/action/foreign-same-digests"
+          },
+          projectionRef:
+            "assurance-projection://t280/action/foreign-same-digests"
+        }
+      }
+    },
+    {
+      label: "missing-required-member",
+      expectedReason: "evaluate_action_evidence_incomplete",
+      input: {
+        ...fixture.input,
+        assuranceProjection: {
+          ...fixture.assuranceProjection,
+          authoritySnapshot: {
+            ...fixture.assuranceProjection.authoritySnapshot,
+            authorityRefs: Object.freeze(["authority://t280/other"])
+          },
+          projectionRef:
+            "assurance-projection://t280/action/missing-required-member"
+        }
+      }
+    },
+    {
       label: "cross-assurance-digest",
       input: {
         ...fixture.input,
@@ -778,6 +906,12 @@ test("T-280 AF-16 refuses incomplete, duplicate, cross-basis, stale-policy, and 
       "one_surface_typed_refusal",
       `${row.label} must not create closure truth`
     );
+    if (row.expectedReason !== undefined) {
+      assert(
+        evaluation.reasonRefs.includes(row.expectedReason),
+        `${row.label} must refuse through ${row.expectedReason}`
+      );
+    }
   }
   const first = admitEvaluateActionResult(fixture.input);
   assert.equal(first.kind, "one_surface_action_evaluation");

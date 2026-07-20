@@ -818,6 +818,7 @@ export function deriveRuntimeAggregateProjection(
       case "graph_function_selected":
       case "graph_function_selection_rejected":
       case "public_operation_admitted":
+      case "public_operation_artifact_admitted":
       case "workspace_installation_admitted":
       case "observed_state_admitted":
       case "overlay_frame_declared":

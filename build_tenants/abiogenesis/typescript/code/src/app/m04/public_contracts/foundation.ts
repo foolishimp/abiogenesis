@@ -52,6 +52,8 @@ export type PublishedNativeContractInventory =
 
 export interface PublishedCapabilityContract {
   readonly capabilityId: string;
+  readonly dependentCapabilityIds: readonly string[];
+  readonly effectRefs: readonly string[];
   readonly kind: "abg_capability_contract";
   readonly requiredContractIds: readonly string[];
   readonly schemaVersion: 1;
@@ -94,9 +96,20 @@ interface SchemaContractDefinition {
   readonly capabilityRefs: readonly string[];
 }
 
-interface CapabilityContractDefinition {
+export interface CapabilityContractDefinition {
   readonly capabilityId: string;
   readonly requiredContractIds: readonly string[];
+  readonly dependentCapabilityIds: readonly string[];
+  readonly effectRefs: readonly string[];
+  readonly boundedProofRefs: readonly string[];
+}
+
+export interface Ds1CapabilityDefinitionGraph {
+  readonly kind: "abg_capability_definition_graph";
+  readonly graphId: string;
+  readonly graphVersion: string;
+  readonly graphDigest: Sha256Digest;
+  readonly definitions: readonly CapabilityContractDefinition[];
 }
 
 const NATIVE_CONTRACTS = Object.freeze([
@@ -195,7 +208,7 @@ const NATIVE_CONTRACTS = Object.freeze([
     capabilityRefs: Object.freeze([
       "abg.capability.catalog.contribute@5",
       "abg.capability.catalog.invoke-graph-function@5",
-      "abg.capability.fh.interact@5"
+      "abg.capability.runtime.execute-seven-term-c@5"
     ])
   },
   {
@@ -229,8 +242,7 @@ const NATIVE_CONTRACTS = Object.freeze([
     capabilityRefs: Object.freeze([
       "abg.capability.catalog.contribute@5",
       "abg.capability.catalog.invoke-graph-function@5",
-      "abg.capability.install.bind-products@5",
-      "abg.capability.fh.interact@5"
+      "abg.capability.install.bind-products@5"
     ])
   },
   {
@@ -270,7 +282,8 @@ const SCHEMA_CONTRACT_ROWS = Object.freeze([
   ["abg.schema.runtime-event", "runtime-event.schema.json", "CanonicalRuntimeEvent"],
   ["abg.schema.runtime-result", "runtime-result.schema.json", "PublicResultProjection"],
   ["abg.schema.runtime-replay", "runtime-replay.schema.json", "PublicReplayProjection"],
-  ["abg.schema.fh-interaction", "fh-interaction.schema.json", "PublicFhInteractionProjection"]
+  ["abg.schema.fh-interaction", "fh-interaction.schema.json", "PublicFhInteractionProjection"],
+  ["abg.schema.tenant-conformance-manifest", "tenant-conformance-manifest.schema.json", "TenantConformanceManifest"]
 ] satisfies readonly (readonly [string, string, string])[]);
 
 const SCHEMA_CONTRACTS: readonly SchemaContractDefinition[] = Object.freeze(
@@ -293,9 +306,7 @@ const SCHEMA_CONTRACTS: readonly SchemaContractDefinition[] = Object.freeze(
           ? ["abg.capability.catalog.contribute@5"]
           : contractId === "abg.schema.host-invocation"
             ? ["abg.capability.catalog.invoke-graph-function@5"]
-            : contractId === "abg.schema.fh-interaction"
-              ? ["abg.capability.fh.interact@5"]
-              : contractId === "abg.schema.resolved-product-lock" ||
+            : contractId === "abg.schema.resolved-product-lock" ||
                   contractId === "abg.schema.workspace-binding" ||
                   contractId === "abg.schema.install-manifest"
                 ? ["abg.capability.install.bind-products@5"]
@@ -310,27 +321,49 @@ const CAPABILITY_CONTRACTS = Object.freeze([
     requiredContractIds: Object.freeze([
       "abg.contract.gtl.m01",
       "abg.schema.gtl-graph-function"
-    ])
+    ]),
+    dependentCapabilityIds: Object.freeze([]),
+    effectRefs: Object.freeze([]),
+    boundedProofRefs: Object.freeze(["proof://t220/declaration-law"])
   },
   {
     capabilityId: "abg.capability.gtl.admit@5",
     requiredContractIds: Object.freeze([
       "abg.contract.gtl.m01",
       "abg.schema.gtl-graph-function"
-    ])
+    ]),
+    dependentCapabilityIds: Object.freeze([
+      "abg.capability.gtl.declare@5"
+    ]),
+    effectRefs: Object.freeze([]),
+    boundedProofRefs: Object.freeze(["proof://t220/declaration-law"])
   },
   {
     capabilityId: "abg.capability.gtl.serialize@5",
     requiredContractIds: Object.freeze([
       "abg.contract.gtl.m01",
       "abg.schema.gtl-graph-function"
-    ])
+    ]),
+    dependentCapabilityIds: Object.freeze([
+      "abg.capability.gtl.declare@5",
+      "abg.capability.gtl.admit@5"
+    ]),
+    effectRefs: Object.freeze([]),
+    boundedProofRefs: Object.freeze(["proof://t220/declaration-law"])
   },
   {
     capabilityId: "abg.capability.module.publish@5",
     requiredContractIds: Object.freeze([
       "abg.contract.gtl.m02",
       "abg.schema.gtl-module"
+    ]),
+    dependentCapabilityIds: Object.freeze([
+      "abg.capability.gtl.admit@5",
+      "abg.capability.gtl.serialize@5"
+    ]),
+    effectRefs: Object.freeze([]),
+    boundedProofRefs: Object.freeze([
+      "proof://t263/strict-raw-module-admission"
     ])
   },
   {
@@ -339,47 +372,75 @@ const CAPABILITY_CONTRACTS = Object.freeze([
       "abg.schema.catalog-product-descriptor",
       "abg.schema.catalog-contribution-manifest",
       "abg.schema.catalog-admission",
-      "abg.operation.catalog.admit",
-      "abg.operation.catalog.list",
-      "abg.operation.catalog.describe"
+      "abg.operation.catalog.admit"
+    ]),
+    dependentCapabilityIds: Object.freeze([]),
+    effectRefs: Object.freeze([]),
+    boundedProofRefs: Object.freeze([
+      "proof://t223/public-contract-publication"
     ])
   },
   {
     capabilityId: "abg.capability.catalog.invoke-graph-function@5",
     requiredContractIds: Object.freeze([
-      "abg.operation.catalog.allow",
-      "abg.operation.catalog.invoke",
+      "abg.operation.catalog.view",
+      "abg.operation.run.invoke",
       "abg.schema.host-invocation",
       "abg.contract.abg.m03"
+    ]),
+    dependentCapabilityIds: Object.freeze([
+      "abg.capability.gtl.admit@5",
+      "abg.capability.module.publish@5"
+    ]),
+    effectRefs: Object.freeze([]),
+    boundedProofRefs: Object.freeze([
+      "proof://t270/direct-fd-sunny-execution"
     ])
   },
   {
     capabilityId: "abg.capability.install.bind-products@5",
     requiredContractIds: Object.freeze([
-      "abg.operation.catalog.resolve",
-      "abg.operation.catalog.verify",
-      "abg.operation.install.install",
-      "abg.operation.catalog.bind",
+      "abg.operation.product.resolve",
+      "abg.operation.product.verify",
+      "abg.operation.product.install",
+      "abg.operation.workspace.bind",
       "abg.schema.resolved-product-lock",
       "abg.schema.install-manifest",
       "abg.schema.workspace-binding"
+    ]),
+    dependentCapabilityIds: Object.freeze([]),
+    effectRefs: Object.freeze([]),
+    boundedProofRefs: Object.freeze([
+      "proof://t223/product-intake",
+      "proof://t281/prebinding-owner-handlers"
     ])
   },
   {
-    capabilityId: "abg.capability.fh.interact@5",
+    capabilityId: "abg.capability.runtime.execute-seven-term-c@5",
     requiredContractIds: Object.freeze([
       "abg.contract.abg.m03",
-      "abg.contract.app.m04",
-      "abg.schema.fh-interaction",
-      "abg.operation.fh.select",
-      "abg.operation.fh.approve",
-      "abg.operation.fh.reject",
-      "abg.operation.fh.assess",
-      "abg.operation.fh.answer-escalation",
-      "abg.operation.run.resume"
+      "abg.operation.run.invoke",
+      "abg.schema.runtime-event",
+      "abg.schema.runtime-result",
+      "abg.schema.runtime-replay"
+    ]),
+    dependentCapabilityIds: Object.freeze([
+      "abg.capability.gtl.admit@5",
+      "abg.capability.catalog.invoke-graph-function@5"
+    ]),
+    // Engine interpretation support is not a GraphFunction-declared effect.
+    // A graph contributes effect bindings only when its own effects[] says so.
+    effectRefs: Object.freeze([]),
+    boundedProofRefs: Object.freeze([
+      "proof://t271/complete-c-program-interpreter",
+      "proof://t270/direct-fd-sunny-execution"
     ])
   }
 ] as const satisfies readonly CapabilityContractDefinition[]);
+
+const CAPABILITY_DEFINITION_GRAPH_ID =
+  "capability-definition-graph://abiogenesis/abg-5";
+const CAPABILITY_DEFINITION_GRAPH_VERSION = "5.0.0";
 
 const RUNTIME_EVENT_VOCABULARY_ID = "abg.vocabulary.runtime-event-kind";
 const RUNTIME_EVENT_VOCABULARY_PATH =
@@ -405,6 +466,63 @@ function assertUnique(values: readonly string[], label: string): void {
     }
     seen.add(value);
   }
+}
+
+function ds1CapabilityDefinitionGraph(): Ds1CapabilityDefinitionGraph {
+  assertUnique(
+    CAPABILITY_CONTRACTS.map((definition) => definition.capabilityId),
+    "DS1 capability definition graph identities"
+  );
+  const capabilityIds = new Set<string>(
+    CAPABILITY_CONTRACTS.map((definition) => definition.capabilityId)
+  );
+  const effectRefs: string[] = [];
+  for (const definition of CAPABILITY_CONTRACTS) {
+    assertUnique(
+      definition.requiredContractIds,
+      `${definition.capabilityId}.requiredContractIds`
+    );
+    assertUnique(
+      definition.dependentCapabilityIds,
+      `${definition.capabilityId}.dependentCapabilityIds`
+    );
+    assertUnique(definition.effectRefs, `${definition.capabilityId}.effectRefs`);
+    assertUnique(
+      definition.boundedProofRefs,
+      `${definition.capabilityId}.boundedProofRefs`
+    );
+    for (const dependencyId of definition.dependentCapabilityIds) {
+      if (!capabilityIds.has(dependencyId)) {
+        throw new TypeError(
+          `${definition.capabilityId}: unknown dependent capability ${dependencyId}`
+        );
+      }
+    }
+    effectRefs.push(...definition.effectRefs);
+  }
+  assertUnique(effectRefs, "DS1 capability definition graph effect refs");
+  const definitions = Object.freeze([...CAPABILITY_CONTRACTS]);
+  const semanticDefinitions = Object.freeze(definitions.map((definition) =>
+    Object.freeze({
+      capabilityId: definition.capabilityId,
+      requiredContractIds: definition.requiredContractIds,
+      dependentCapabilityIds: definition.dependentCapabilityIds,
+      effectRefs: definition.effectRefs
+    })
+  ));
+  const basis = Object.freeze({
+    kind: "abg_capability_definition_graph" as const,
+    graphId: CAPABILITY_DEFINITION_GRAPH_ID,
+    graphVersion: CAPABILITY_DEFINITION_GRAPH_VERSION,
+    definitions: semanticDefinitions
+  });
+  return Object.freeze({
+    kind: basis.kind,
+    graphId: basis.graphId,
+    graphVersion: basis.graphVersion,
+    definitions,
+    graphDigest: sha256Bytes(canonicalBytes(basis))
+  });
 }
 
 function isIJsonArray(value: IJsonValue): value is IJsonArray {
@@ -667,6 +785,8 @@ function capabilityAsset(
 ): PublishedContractAsset {
   const contract: PublishedCapabilityContract = Object.freeze({
     capabilityId: definition.capabilityId,
+    dependentCapabilityIds: definition.dependentCapabilityIds,
+    effectRefs: definition.effectRefs,
     kind: "abg_capability_contract",
     requiredContractIds: definition.requiredContractIds,
     schemaVersion: 1
@@ -774,6 +894,8 @@ export const DS1_BASELINE_SCHEMA_ASSET_REGISTER = Object.freeze(
 
 export const DS1_NATIVE_CONTRACT_REGISTER = NATIVE_CONTRACTS;
 export const DS1_CAPABILITY_CONTRACT_REGISTER = CAPABILITY_CONTRACTS;
+export const DS1_CAPABILITY_DEFINITION_GRAPH =
+  ds1CapabilityDefinitionGraph();
 
 export function buildDs1PublicationFoundation(input: {
   readonly staticAssets: readonly Ds1StaticContractAssetDefinition[];

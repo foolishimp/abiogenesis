@@ -1307,6 +1307,43 @@ function extendAdmittedRuntimeValueEnvironment(input: {
   readonly admittedOutput: Readonly<AdmittedInvocationCarrier>;
 }): Readonly<AdmittedRuntimeValueEnvironmentProjection>;
 
+type CProgramAtomInteriorEvent = Extract<RuntimeEvent, {
+  readonly kind:
+    | "instruction_prompt_manifest_projected"
+    | "fp_dispatch_requested"
+    | "instruction_causal_context_bound"
+    | "plugin_traversal_prompt_materialized"
+    | "actor_invocation_started"
+    | "actor_process_started"
+    | "actor_process_start_failed"
+    | "actor_process_stream_observed"
+    | "actor_process_heartbeat"
+    | "actor_process_timeout"
+    | "actor_process_signal_sent"
+    | "actor_process_exited"
+    | "runtime_activity_probe_observed"
+    | "runtime_external_interruption_observed"
+    | "actor_result_artifact_observed"
+    | "instruction_response_contract_admitted"
+    | "actor_invocation_closed";
+}>;
+
+interface CProgramAtomInvocationSubmission {
+  readonly kind: "c_program_atom_invocation_submission";
+  readonly result: CProgramAtomResult;
+  readonly admittedTargetCarrier: AdmittedInvocationCarrier | null;
+  readonly interiorEvents: readonly CProgramAtomInteriorEvent[];
+  readonly evidenceEvents: readonly CProgramAtomEvidenceEvent[];
+  readonly closeBasis: CProgramAtomCloseBasis | null;
+}
+
+interface CProgramInterpreterInvocation {
+  readonly invokeAdmittedAtom: (
+    request: CProgramAtomRequest
+  ) => Promise<CProgramAtomInvocationSubmission>;
+  // No projectAtomRuntimeEvents side channel remains.
+}
+
 // Resolution filters by binding ref, then requires exactly one full match on
 // programRef, stageRole, fibre, armId, and ordered carrier/schema interfaces.
 
@@ -1338,13 +1375,15 @@ const invokeAdmittedAtom:
     // Match request.kind before fibre. A workflow request recursively routes
     // the child and never invokes its parent Operator.binding. An ordinary
     // stage validates exact locus/operator/value/schema/result authority,
-    // invokes one existing interior, and returns CProgramAtomResult.
+    // invokes one existing interior, and returns one closed submission. T271
+    // alone admits and orders open -> interior -> evidence -> close.
   };
 ```
 
 TypeScript can enforce the closed route authority/outcome/fold unions, closed
-atom request/result union, immutable environment, F_D-only implementation
-signature, exact callback signature, and exhaustive structural narrowing. The
+atom request/result/submission unions, immutable environment, F_D-only
+implementation signature, exact breaking callback signature, and exhaustive
+structural narrowing. The
 semantic compiler proves nonlocal GraphVector-to-locus operator cardinality,
 program membership, plan/locus ownership, carrier continuity, and child
 authority. M04 installed-product admission proves the outer public input row,
@@ -1868,8 +1907,12 @@ complete plan, context, and result authority needed to derive the private
 runtime projection without recompilation. Current `sourceKind`,
 `applicationKind`, atom-request kinds, and the four actual runtime result types
 supply discriminants for exhaustive TypeScript narrowing.
-`CProgramInterpreterInvocation.invokeAdmittedAtom` supplies the exact leaf
-callback boundary. The closed `Operator` type, compiler-derived ordinal/digest
+`CProgramInterpreterInvocation.invokeAdmittedAtom` supplies one breaking,
+Prime-neutral submission containing the exact result, optional existing
+`AdmittedInvocationCarrier`, bounded existing interior events, evidence events,
+and close basis. It replaces the prior `projectAtomRuntimeEvents` side channel;
+T-271 alone validates and orders the submission inside its C-call. The closed
+`Operator` type, compiler-derived ordinal/digest
 projection, and a private F_D-only function interface make full
 C-ALGEBRA-010 implementation admission natively expressible.
 Existing plugin, F_H, complete-C, structural HOF fan-out, fan-in, and
@@ -2012,6 +2055,24 @@ classDiagram
     <<prime>>
     +viewRef
     +viewDigest
+  }
+  class OverlayDeclaration {
+    <<existing GTL declaration>>
+    +declarationRef
+    +declarationDigest
+    +graphFunctionRefs
+  }
+  class DeclarationApplication {
+    <<prime AF10 relation>>
+    +applicationRef
+    +applicationDigest
+    +targetRef
+    +targetDigest
+  }
+  class ProgramMemberProjection {
+    <<subordinate>>
+    +graphFunctionRefs
+    +graphFunctionDigests
   }
   class RegistrySessionGraphFunctionEntry {
     <<existing admitted view member>>
@@ -2315,6 +2376,14 @@ classDiagram
     +inputLineageRef
     +cCallRef
   }
+  class CProgramAtomInvocationSubmission {
+    <<subordinate Prime neutral join>>
+    +result
+    +optionalAdmittedTargetCarrier
+    +interiorEvents
+    +evidenceEvents
+    +optionalCloseBasis
+  }
   class AdmittedAtomLeafExecutor {
     <<effect-edge>>
     -invokeAdmittedAtom
@@ -2342,6 +2411,32 @@ classDiagram
   class FpResultEnvelopeAdmission {
     <<existing admission>>
     -admitFpResultContractEnvelope
+  }
+  class FpResultArtifact {
+    <<subordinate evidence>>
+    +resultRef
+    +artifactPayload
+    +evidenceRefs
+  }
+  class FpTargetValueCandidate {
+    <<subordinate candidate>>
+    +targetValue IJsonValue
+  }
+  class FpEvaluationOutcome {
+    <<subordinate candidate and evidence>>
+    +status evaluated or blocked
+    +findings
+    +resultContractRef
+  }
+  class LiveCapabilityBinding {
+    <<subordinate process local>>
+    -pluginCapabilities
+    -noIdentity
+    -noDigest
+  }
+  class CProgramAtomInteriorEvents {
+    <<subordinate event projection>>
+    +orderedExistingRuntimeEvents
   }
   class DeclaredTargetValueAdmission {
     <<existing authority join>>
@@ -2419,6 +2514,11 @@ classDiagram
   PreparedRunInvokeExecution --> WorkspaceBinding : preserves exact
   PreparedRunInvokeExecution --> AdmittedGtlProgram : preserves exact
   PreparedRunInvokeExecution --> CatalogView : preserves exact
+  CatalogView --> DeclarationApplication : exact AF10 basis only
+  OverlayDeclaration --> DeclarationApplication : applied without invocation
+  DeclarationApplication --> AdmittedGtlProgram : targets exact effective program
+  AdmittedGtlProgram --> ProgramMemberProjection : derives exact membership
+  ProgramMemberProjection --> NextActionProjection : constrains AF13 candidates
   FinalizedRunInvokeExecution *-- AdmittedRunInvokeExecutionIngress : seals after AF14
   FinalizedRunInvokeExecution --> SelectedCatalogExecutionBinding : returns existing authority
   FinalizedRunInvokeExecution *-- RuntimeSchemaAdmissionEngineInput : returns identity free parameter
@@ -2501,7 +2601,7 @@ classDiagram
   StructureDerivedProgramRouter --> FanInRuntime : fan in
   StructureDerivedProgramRouter --> RecurseRuntime : typed recurse
   StructureDerivedProgramRouter --> StructureDerivedProgramRouter : exact child recursively
-  T271Interpreter --> AdmittedAtomLeafExecutor : invokes existing callback inside C call
+  T271Interpreter --> AdmittedAtomLeafExecutor : invokes breaking submission callback inside C call
   AdmittedAtomLeafExecutor --> AdmittedRuntimeValueEnvironmentProjection : reads exact locus
   AdmittedInvocationCarrier --> AdmittedRuntimeValueEnvironmentProjection : root or admitted output source
   AdmittedRuntimeValueEnvironmentProjection --> DeclaredExecutionRequest : projects ordered admitted carrier set
@@ -2511,9 +2611,21 @@ classDiagram
   FdOperatorImplementationResolver --> FdOperatorImplementationBinding : exact one
   FdOperatorImplementationBinding --> DeclaredTargetValueAdmission : returns IJSON body
   RuntimeSchemaAdmissionCapability --> DeclaredTargetValueAdmission : bounded neutral admission
-  AdmittedAtomLeafExecutor --> ExistingFPPlugin : F_P interior
+  AdmittedAtomLeafExecutor --> LiveCapabilityBinding : joins admitted steering ref and digest after AF14
+  LiveCapabilityBinding --> ExistingFPPlugin : F_P process local capability only
+  AdmittedAtomLeafExecutor --> ExistingFPPlugin : compiler derived F_P interior
   ExistingFPPlugin --> FpResultEnvelopeAdmission : raw result
-  FpResultEnvelopeAdmission --> DeclaredTargetValueAdmission : admitted body only
+  FpResultEnvelopeAdmission --> FpResultArtifact : admits evidence and attribution
+  FpResultEnvelopeAdmission --> FpTargetValueCandidate : projects distinct constructive target candidate
+  FpResultEnvelopeAdmission --> FpEvaluationOutcome : normalizes evaluator projection
+  FpTargetValueCandidate --> DeclaredTargetValueAdmission : candidate B only
+  FpEvaluationOutcome --> DeclaredTargetValueAdmission : evaluated candidate B only
+  ExistingFPPlugin --> CProgramAtomInteriorEvents : supplies process evidence for ABG admission
+  CProgramAtomInteriorEvents --> CProgramAtomInvocationSubmission : exact bounded existing events
+  FpResultArtifact --> CProgramAtomInvocationSubmission : evidence coordinate only
+  AdmittedInvocationCarrier --> CProgramAtomInvocationSubmission : optional exact target B
+  CProgramAtomInvocationSubmission --> T271Interpreter : T271 validates and orders inside C call
+  FpResultArtifact --> CProgramAtomReceipt : evidence refs only
   DeclaredTargetValueAdmission --> AdmittedInvocationCarrier : constructs target carrier
   DeclaredTargetValueAdmission --> AdmittedRuntimeValueEnvironmentProjection : derives next immutable version
   AdmittedAtomLeafExecutor --> T271Interpreter : returns F_H held atom truth
@@ -2557,6 +2669,8 @@ sequenceDiagram
   participant Prepared as PreparedRunInvokeExecution
   participant Constraint as AF13RequestConstraintProjection
   participant View as AdmittedCatalogView
+  participant Apply as AF10CatalogApply
+  participant Application as ImmutableDeclarationApplication
   participant BindingResolver as ExistingSelectedEntryResolver
   participant Finalizer as PostAF14IngressFinalizer
   participant PublicSchema as InstalledPublicSchemaAuthoritySet
@@ -2587,8 +2701,12 @@ sequenceDiagram
   participant Checkpoint as FhHeldExecutionCheckpointBasis
   participant Leaf as AdmittedAtomLeafExecutor
   participant FD as FdOperatorImplementationResolver
+  participant LiveBinding as ProcessLocalLiveCapabilityBinding
   participant FP as ExistingFPPlugin
   participant FPAdmission as FpResultEnvelopeAdmission
+  participant FPArtifact as FpResultArtifact
+  participant TargetCandidate as FpTargetValueCandidate
+  participant Interior as CProgramAtomInteriorEvents
   participant TargetAdmission as DeclaredTargetValueAdmission
   participant FH as ExistingFHInteraction
   participant Action as AF16EvaluateAction
@@ -2599,7 +2717,13 @@ sequenceDiagram
   opt non feature specific constructability proof
     Fixture->>Ingress: invoke Scenario 09 mixed or nested admitted program
   end
-  Caller->>Ingress: propose run.invoke invoke or start
+  Caller->>View: catalog.view exact allowlist
+  View-->>Caller: view ref digest handles and residuals only
+  Caller->>Apply: catalog.apply exact overlay view target and basis
+  Apply->>Application: write one immutable application artifact
+  Apply->>Events: admit one generic Rule-B availability event
+  Apply-->>Caller: application ref and target program ref digest
+  Caller->>Ingress: propose run.invoke invoke or start against target program
   Ingress->>Context: preparePrivateRunInvokeExecution
   Context->>Context: read and admit every exact bound product manifest
   opt invoke variant
@@ -2747,19 +2871,42 @@ sequenceDiagram
               Leaf->>TargetAdmission: admit output against exact target Node schema and result authority
               TargetAdmission->>Values: derive next immutable environment with target carrier
             else F_P locus
-              Leaf->>FP: resolve capable declared plugin and invoke T256 request
-              FP-->>Leaf: raw worker result
+              Leaf->>LiveBinding: verify admitted steering ref and digest after AF14
+              LiveBinding-->>Leaf: identity free plugin capabilities or typed refusal
+              Leaf->>FP: resolve compiler selected capable plugin and invoke T256 request
+              FP-->>Leaf: raw worker result and bounded process evidence
+              Leaf->>Interior: project existing actor process instruction and result facts
               Leaf->>FPAdmission: admit exact selected wire envelope
-              FPAdmission-->>Leaf: admitted actual body or typed blocked result
-              Leaf->>SchemaCapability: call exact bounded admit IJSON function
-              SchemaCapability->>TargetAdmission: canonical admitted IJSON body
-              Leaf->>TargetAdmission: admit body against exact target Node schema and result authority
-              TargetAdmission->>Values: derive next immutable environment with target carrier
+              alt malformed wrong contract or incomplete response
+                FPAdmission-->>Leaf: typed blocked or retryable result
+              else transform response admitted
+                FPAdmission->>FPArtifact: admit attribution and assessment evidence
+                FPAdmission->>TargetCandidate: project distinct target_value candidate B
+                alt target_value absent or malformed
+                  TargetCandidate-->>Leaf: typed blocked or retryable target pressure
+                else one canonical transform target candidate
+                  Leaf->>SchemaCapability: call exact target Node admit IJSON function with B only
+                  SchemaCapability->>TargetAdmission: canonical admitted target B
+                  Leaf->>TargetAdmission: admit B against exact result authority
+                  TargetAdmission->>Values: derive next immutable environment with target carrier
+                end
+              else evaluator response admitted
+                FPAdmission-->>Leaf: normalized FpEvaluationOutcome and attributed findings
+                alt evaluator outcome blocked
+                  Leaf-->>Runtime: typed blocked or retryable pressure with no target B
+                else evaluator outcome evaluated
+                  Leaf->>SchemaCapability: admit normalized FpEvaluationOutcome as evaluator target B
+                  SchemaCapability->>TargetAdmission: canonical admitted evaluator B
+                  Leaf->>TargetAdmission: admit B against exact result authority
+                  TargetAdmission->>Values: derive next immutable environment with target carrier
+                end
+              end
             else F_H locus
               Leaf-->>Runtime: truthful held atom truth only and no output carrier
             end
             Leaf-->>Runtime: existing CProgramAtomResult
-            Runtime->>Events: append sole atom C-call close and receipt
+            Interior-->>Runtime: bounded existing events for this exact call locus
+            Runtime->>Events: append C-call open then interior then payload evidence then sole close and receipt
           end
         else graph level structural HOF fan out
           Router->>FanOut: resolveCBatch under existing relation and basis
@@ -2836,7 +2983,12 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
-  [*] --> Proposed
+  [*] --> CatalogViewNarrowed
+  CatalogViewNarrowed --> ApplicationRefused: overlay row view target or digest mismatch
+  CatalogViewNarrowed --> ApplicationWritten: AF10 exact overlay application
+  ApplicationWritten --> ApplicationBoundaryAdmitted: one Rule-B event
+  ApplicationBoundaryAdmitted --> Proposed: run.invoke cites exact applied program
+  ApplicationRefused --> [*]
   Proposed --> InstalledPublicInputSchemaPreparing: invoke loads request constrained candidate public input schema
   Proposed --> OperationPrepared: start has no public root schema or value
   InstalledPublicInputSchemaPreparing --> InvocationRefused: manifest public schema row path or digest rejects
@@ -2897,15 +3049,24 @@ stateDiagram-v2
   AtomDispatching --> FdImplementationResolving: F_D stage uses compiler derived Operator projection
   FdImplementationResolving --> LocusRequestBlocked: missing duplicate or full C implementation mismatch
   FdImplementationResolving --> TargetValueAdmitting: total function returns canonical IJSON
-  AtomDispatching --> FpExecuting: F_P uses exact capable plugin
-  FpExecuting --> RuntimeOutcomeProduced: wire envelope or assessment blocks
-  FpExecuting --> RuntimeOutcomeProduced: transport or plugin failure
-  FpExecuting --> TargetValueAdmitting: wire body admitted for target validation
-  AtomDispatching --> RuntimeOutcomeProduced: F_H returns held atom truth without output carrier
+  AtomDispatching --> FpCapabilityJoining: F_P uses admitted steering ref and digest
+  FpCapabilityJoining --> LocusRequestBlocked: process local capability absent or mismatched
+  FpCapabilityJoining --> FpExecuting: exact compiler selected capable plugin
+  FpExecuting --> FpWireRefused: transport plugin or wire admission fails
+  FpExecuting --> FpArtifactAdmitted: evidence and attribution admitted separately
+  FpExecuting --> FpEvaluationAdmitted: evaluator response normalized
+  FpArtifactAdmitted --> FpTargetMissing: constructive response has no target_value
+  FpArtifactAdmitted --> TargetValueAdmitting: one distinct target candidate B
+  FpEvaluationAdmitted --> FpWireRefused: blocked evaluator has no target B
+  FpEvaluationAdmitted --> TargetValueAdmitting: normalized evaluated outcome is candidate B
+  FpWireRefused --> AtomInteriorEnclosing: typed blocked or retryable pressure
+  FpTargetMissing --> AtomInteriorEnclosing: typed blocked or retryable pressure
+  AtomDispatching --> AtomInteriorEnclosing: F_H returns held atom truth without output carrier
   TargetValueAdmitting --> LocusRequestBlocked: target schema result authority or body rejects
   TargetValueAdmitting --> ValueEnvironmentExtending: output carrier admitted
   ValueEnvironmentExtending --> CompleteCInterpreting: next locus uses new immutable environment
-  ValueEnvironmentExtending --> RuntimeOutcomeProduced: selected runtime completes with admitted evidence
+  ValueEnvironmentExtending --> AtomInteriorEnclosing: selected runtime has admitted target and evidence
+  AtomInteriorEnclosing --> RuntimeOutcomeProduced: T271 orders open interior evidence and sole close
   HofFanOutInterpreting --> StructureRouting: exact task child
   HofFanOutInterpreting --> RuntimeOutcomeProduced: structural runtime returns
   FanInInterpreting --> StructureRouting: exact reducer child
@@ -2980,14 +3141,14 @@ delta without reopening unchanged accepted rows above.
 | C1 actual admitted payload value exists before a locus effect | AF-15 runtime-value environment function | inherits exact admitted carrier and basis; creates none | subordinate immutable environment owns existing carriers | ordered environment projection precedes T-256 join and atom dispatch | LocusValuesProjecting precedes AtomDispatching | readonly private interface over `AdmittedInvocationCarrier` | schema, carrier digest, source admission, result authority, plan, and locus match | pass | T-270 realization |
 | C2 compiler structure alone selects runtime | AF-15 structural composition | admitted program/compiler basis; router grants none | one subordinate router associated with existing runtimes | exhaustive complete-C/HOF/fan-in/recurse alternatives | StructureRouting has no feature branch | discriminated-union narrowing and `never` exhaustion | T-255/T-267 structure and child identity admission | pass | T-270 realization |
 | C3 T-271 owns all seven complete-C constructors | existing seven-C algebra | T-271 accepted runtime authority | T271Interpreter distinct from structural runtimes | complete-C including C.batch/C.retry enters only T-271 | CompleteCInterpreting is one state | existing `CompiledCProgramPlan` and interpreter API | plan kind/digest and replay receipts | pass | none |
-| C4 one locus has one C-call spine | existing runtime C-call law | current interpreter/runtime owner only | router and leaf own no C-call | T-271 opens/closes around callback; structural runtimes retain their accepted calls | no adapter-call state exists | callback type returns existing atom result only | event/replay C-call identity and count negatives | pass | T-270 proof |
+| C4 one locus has one C-call spine | existing runtime C-call law | current interpreter/runtime owner only | router and leaf own no C-call; one subordinate submission contracts result and event projections | T-271 opens, invokes one submission callback, then admits bounded interior/evidence and closes; structural runtimes retain their accepted calls | no adapter-call state exists | callback returns one closed `CProgramAtomInvocationSubmission`; prior projection hook removed | closed event-kind roster plus basis/graph-call/frame/vector/edge/C-call/order and replay count negatives | pass | T-271 bounded extension and T-270 proof |
 | C5 F_D/F_P/F_H interiors remain distinct and admitted | existing fibre and Operator laws | Operator implementation/plugin/interaction owners; AF-15 owns execution envelope | three distinct interior relations, one generic adapter | explicit fibre alternatives and strict result admission; F_H receipt/checkpoint then existing interaction admission | FdImplementationResolving, FpExecuting, HeldEnvironmentCheckpointing, and HumanHeld are distinct | closed request/result unions and checkpoint type | exact Operator binding, plugin capability and F_P envelope, F_H request/receipt/locus/checkpoint admission | pass | T-270 realization |
 | C6 AF-16 and T-272 ownership is preserved | parent One Surface AF-16 and held-continuation law | AF-16 evaluates evidence; T-272 responds/continues | action evaluation and continuation remain downstream | router returns evidence or held truth only; AF-15 checkpoints but never responds/continues | RuntimeCompleted/Blocked/Failed enter ActionEvaluated; HumanHeld enters only admitted run.continue reconstruction | closed outcome variants | owner-specific admission and no auto-response | pass | T-270/T-272 boundary |
 | C7 genericity is proved outside the motivating product function | PRODUCT atom criterion | fixture owns no runtime authority | Scenario09LabProgram uses same admitted program/router | fixture enters same public ingress and structural route | same lifecycle states | no feature-specific generic type or branch | source/name scan plus mixed/nested fixture | pass | T-270 proof |
 | C8 unrealized substrate is reported honestly | Goedel boundary and semantic gap law | no self-produced witness may admit itself | named gaps, no phantom carrier or inferred multi-source mapping | post-selection input mapping, unsupported general rehydration, or unrecognized/unrealized route stops before effect | InputMappingUnrealized, ValueEnvironmentUnrealized, StructureUnrealized, and LocusRequestBlocked are terminal here | exhaustive native default cannot fabricate support | semantic compiler/runtime emits named `semantic_not_realized` | pass | T-270 realization |
 | C9 defense is proportional to trusted desktop risk | proportionality law | no speculative authority added | no lock/signature/archive/store carrier | malformed/stale inputs refuse; hostile-process hardening absent | refusal states cover likely faults | native shape/digest checks | strict F_P admission and compiler/global joins | pass | separate demand for hostile hardening |
 | C10 F_D execution resolves only the exact declared Operator binding | OPERATOR-004 and C-ALGEBRA-010 | admitted GTL Operator owns the primary binding ref; delivery row owns none | declared Operator prime plus subordinate implementation binding | binding lookup precedes full program/stage/fibre/arm/carrier/schema admission, total function, and target admission | FdImplementationResolving precedes TargetValueAdmitting | F_D-only total I-JSON function type and immutable delivery set | exact operator identity, selected program, stage role, fibre, arm, ordered input/output carriers, and ordered schemas; zero-or-many complete matches refuse | pass | T-270 generic resolver; T-275 motivating rows |
-| C11 F_P output becomes a value only after both wire and target admission | existing F_P/result and target-carrier law | plugin cannot admit its own result | wire envelope, target admission, carrier, and environment remain distinct | plugin result enters envelope admission then target-schema admission then environment | FpExecuting precedes TargetValueAdmitting and ValueEnvironmentExtending | closed envelope union and readonly admitted carrier | selected contract, capability, assessments, target schema, result authority, and digest checks | pass | T-270 integration; owning domain family supplies decoder |
+| C11 F_P output becomes a value only after both wire and target admission | existing F_P/result and target-carrier law | plugin cannot admit its own result | evidence-only ResultArtifact, distinct target candidate B, target admission, existing carrier, and environment remain distinct | attached transform result admits artifact evidence, then bare `target_value` enters exact target-schema admission, then environment | FpExecuting, FpArtifactAdmitted, TargetValueAdmitting, and ValueEnvironmentExtending are distinct | hard-break `attached_transform_result` union plus readonly admitted carrier; evaluator profile forbids target value | selected result contract, compiler locus/profile, target capability, target schema, result authority, and digest checks | pass | T-270 integration; owning domain family supplies decoder |
 | C12 admitted bodies cross an F_H hold only through the exact neutral checkpoint | replay/continuation and Goedel law | environment owns no replay authority; existing opened event owns replay truth and the sole digest | dependency-leaf checkpoint is subordinate event content with no identity/digest; general rehydration gap remains distinct | held receipt and cursor precede neutral basis and interaction open; run.continue verifies exact opened event/body before same-locus reconstruction | HeldEnvironmentCheckpointing and HeldEnvironmentReconstructing are distinct from unsupported ValueEnvironmentRehydrating | readonly primitive/I-JSON contracts type; adapters above contracts prove owner equality; no ref-to-value cast or ambient callback | interaction-basis digest plus invocation/basis/graph-call/frame/plan/receipt/cursor ref-digest/input payload-lineage/locus and ordered body equality; absent/mutated basis refuses, other absent bodies emit the named gap | pass | T-270 checkpoint basis; T-272 consumption |
 | C13 public and graph-private schema authorities remain distinct and total | installed-product, admitted-module, and native-contract law | M04 bound public manifest owns outer input body; Module metadata names only flat contract keys; opaque NativeContractDefinition owns full graph-private schema meaning; AF-15 owns neither | one optional process-local candidate public input set and canonical admitted inline P1 value without source mapping, one selected-binding-derived root carrier set, one complete T-252/M03 public/private/vector schema-key/source family, one flat metadata row family, one exact source-definition origin relation retained opaquely, one total M04 metadata/native projector, ordered sealed capability bases in final admitted ingress, and one identity-free process-local AF-15 envelope carrying neutral branded callables outside every stable hash; no schema store or registry | pre-AF-13 preparation admits only the inline value and projects request constraints; AF-13/AF-14 derive the exact GraphFunction; one admitted view entry and the existing resolver derive the selected catalog binding; the finalizer derives the exact single source Node and constructs the existing carrier set before ingress; T-274B packages the exact Module and derives/delivers definitions; `projectM04RuntimeSchemaAdmission` verifies every Module tuple against the exact-identity union of GraphFunction inputs, outputs, environment requires/provides/carries, and inline-graph nodes, admits one exact source-definition relation per distinct full symbolic-ref/id/version key all-or-nothing, and only then projects selected-GraphFunction bases and engine input; identical full keys reuse one relation, divergent symbolic refs require distinct relations, and equal id/version coordinates conserve the same definition carrier under current law; post-AF-14 M03 asserts every neutral brand, exact-matches capabilities one-to-one to admitted bases and reachable symbolic refs, then invokes | InstalledPublicInputSchemaPreparing and InvokeInputAdmitting precede AF-13 without source mapping; SelectedCatalogEntryDeriving, SelectedCatalogBindingResolving, InvokeRootCarrierConstructing, M04SchemaCapabilitiesProjecting, and FinalIngressAdmitting follow AF-14 and precede SchemaCapabilitiesMatching, ReachableSchemaValidating, and ExecutionAuthorityAdmitted | M04 alone imports SerializedAttrs/native/public-coordinate/Valibot types; the T-270 neutral path exposes only primitive/I-JSON basis, neutral constructor/assertion, engine envelope, and `IJsonValue -> IJsonValue`; unrelated lawful M03 Valibot imports remain outside this gate | exact five-field metadata shape and total contained-Node coverage; all Module relation keys admitted before selected projection; product-root public row/body/digest equality; exact selected-entry/binding and selected source-Node equality; exact source-definition object relation; exact catalog binding, contract key, full coordinate/witness basis digest, neutral WeakSet brand, exact one-to-one admitted-basis/capability match, and zero/many/extra/mismatch/reforged refusal; zero-source invoke and undeclared multi-source mapping stop before ingress; cloned/relabelled source rows, relation reuse across divergent symbolic refs, and full coordinate/locator/witness/callable metadata fields refuse, and callable remains excluded from every seal | pass | T-270 total M04 projector and neutral M03/shared basis/capability/envelope; T-252/T-274B and Scenario-09 inputs |
 | C14 Operator conservation is compiler-derived, not runtime selection | OPERATOR-003..005 and C-ALGEBRA-010 | authored GraphVector owns Operator truth; compiler projects it; runtime authors none | non-null ordinal/digest projection per ordinary/workflow executable locus; structural HOF wrapper locus has null exactly | compiler rejects zero/multiple same-regime matches, unmapped authored Operators, null ordinary/workflow projections, and non-null structural projections; workflow/F_P/F_H conserve evidence without using it as a selector | OperatorConserving precedes basis and fibre dispatch | readonly nullable projection whose discriminant relation is compiler-proven | ordinal/content digest equality, ordinary/workflow cardinality, all-authored coverage, structural-wrapper zero/null, and workflow non-invocation | pass | T-270 shared compiler core |
@@ -3135,3 +3296,513 @@ This amendment changes only when the existing invoke root carrier set may be
 constructed: after the selected binding supplies its exact source Node, never
 during pre-AF-13 preparation. It leaves the 17-to-17 authority-source count, 20-member IACS,
 public identities, operations, and downstream gaps unchanged.
+
+## 2026-07-18 F_P Target-Value Conformance Amendment
+
+### Re-entry and parent Ontology
+
+This bounded `design_reframe` corrects one realization projection under the
+accepted public-control-plane Ontology. It does not add an Ontology function,
+public operation, event kind, fluent, C constructor, traversal owner, or
+semantic authority. It preserves these parent relations:
+
+- `AF-15` invokes one compiler-selected C-call interior;
+- `AF-16` evaluates only admitted action evidence;
+- `AF-19` admits an attributed result assessment separately from traversal
+  result admission;
+- `REQ-R-ABG3-PAYLOAD-019`, `-024`, and `-028` require the selected target
+  contract to admit the actual target value before traversal can advance; and
+- `REQ-R-ABG3-EVENTS-001`, `-012`, and `-032` leave runtime-event ownership
+  with ABG.
+
+The conformance audit found that the existing attached F_P transform path
+treated `ResultArtifact.artifactPayload` as the graph target value. That
+payload is assessment and provenance evidence, not the declared target `B`.
+The repair restores the already-required entity boundary.
+
+### Boundary Ontology slice and Prime result
+
+| Entity or function | Cardinality | Authority | Disposition |
+|---|---:|---|---|
+| `RawFpTransformResponse` | one per completed transport attempt | external effect-edge only | retained |
+| `FpResultArtifact` | exactly one admitted or typed-refused artifact per dispatched result | T-257 wire admission; evidence and attribution only | retained |
+| `FpTargetValueCandidate<B>` | exactly one for a returned constructive transform; absent on transport/contract failure | subordinate candidate under the selected result contract | derived as a distinct coordinate |
+| `FpEvaluationOutcome` | one normalized evaluated candidate or one blocked disposition per evaluator response | subordinate evaluator target candidate plus attributed finding evidence; blocked carries no `B` | retained |
+| `RuntimeSchemaAdmissionCapability<B>` | exactly one for the compiler-selected target Node/schema | M04-projected, M03-matched admission authority | retained |
+| `AdmittedInvocationCarrier<B>` | zero or one; exactly one is required for a completed constructive atom | existing target-schema admission carrier and invocation-local value authority | retained and reused |
+| `CProgramAtomInteriorEvents` | zero or one ordered batch per atom invocation | ABG-owned actor/process/instruction/result events inside the C-call | derived subordinate carrier |
+| `CProgramAtomInvocationSubmission` | exactly one per invoked atom | Prime-neutral join of result, optional admitted target carrier, interior events, evidence events, and close basis | derived by contraction; replaces the prior projection side channel |
+| `CProgramAtomResult` | exactly one admitted result or typed stop | existing T-271 atom result authority | retained |
+| `CProgramAtomReceipt` | exactly one for a non-replayed atom invocation | T-271 C-call/replay authority | retained |
+| `LiveCapabilityBinding` | zero or one process-local value join for a live F_P locus | identity-free effect dependency; never semantic authority | derived subordinate carrier |
+
+Whole-family Prime contraction yields one wire admission family with two
+projections, not two parsers. The misleading
+`attached_result_artifact` profile is hard-replaced by
+`attached_transform_result`; no alias remains:
+
+```text
+attached_transform_result
+  -> ResultArtifact evidence + targetValue candidate B
+
+standard_live_review
+  -> normalized FpEvaluationOutcome candidate B + attributed finding evidence
+```
+
+`targetValue` is required only by the attached constructive-transform
+projection. It is not inserted into `artifactPayload`, cannot be inferred from
+fulfillment assessments, and does not apply to the review projection. A graph
+may lawfully declare `ResultArtifact` itself as `B`; only then will the exact
+target schema admit that artifact value as the target. The review projection
+forbids `targetValue`: its normalized evaluated `FpEvaluationOutcome` is the
+evaluator-locus candidate `B`, while a blocked outcome carries no target.
+
+No second selector is introduced. The compiler-derived locus selects the
+profile, plugin seam, target Node, target schema capability, instruction
+contract, and result contract. The process-local steering body joins its
+already-admitted ref and digest after `AF-14`; it does not enter GTL, ingress,
+the execution-basis digest, replay, or public truth.
+
+M04 resolves that process-local body from one invocation-scoped factory map
+keyed only by the admitted `transportSteering.steeringRef`. The returned live
+projection must repeat the exact admitted steering ref and digest, its
+execution-contract digest must already occur in steering provenance, both
+standard F_P plugin refs must occur in the selected runtime profile, and the
+invocation grants must cover catalog invocation plus seven-term-C execution.
+The T-270 path never consults the legacy capability-id factory map and has no
+fallback. A missing factory remains an absent process-local dependency; a
+compiler-selected live locus then fails before its external effect.
+
+### Domain model
+
+The accepted domain model above now includes the following bounded projection:
+
+```text
+classDiagram
+  direction LR
+
+  class CompiledFpLocus {
+    <<prime>>
+    <<authoritative>>
+    +nodeRef
+    +targetSchemaRef
+    +pluginRef
+    +wireProfile
+  }
+  class RawFpTransformResponse {
+    <<effect-edge>>
+    +result_contract_ref
+    +artifact fields
+    +target_value
+  }
+  class FpResultArtifact {
+    <<subordinate>>
+    +resultRef
+    +artifactPayload
+    +evidenceRefs
+  }
+  class FpTargetValueCandidate {
+    <<subordinate>>
+    +value IJsonValue
+  }
+  class RuntimeSchemaAdmissionCapability {
+    <<prime>>
+    <<authoritative>>
+    +graphFunctionId
+    +nodeRef
+    +symbolicSchemaRef
+  }
+  class AdmittedInvocationCarrier {
+    <<subordinate>>
+    +payloadRef
+    +payloadDigest
+    +contractRef
+    +value IJsonValue
+  }
+  class LiveCapabilityBinding {
+    <<subordinate>>
+    -pluginCapabilities
+  }
+  class CProgramAtomInteriorEvents {
+    <<subordinate>>
+    +ordered RuntimeEvent rows
+  }
+  class CProgramAtomResult {
+    <<prime>>
+    +status
+    +outputPayloadRef
+    +responseContractRef
+  }
+  class CProgramAtomInvocationSubmission {
+    <<subordinate>>
+    +result
+    +optionalAdmittedTargetCarrier
+    +interiorEvents
+    +evidenceEvents
+    +optionalCloseBasis
+  }
+  class CProgramAtomReceipt {
+    <<authoritative>>
+    +cCallRef
+    +runtimeEvents
+  }
+  class CompleteAdmittedEvidenceView {
+    <<downstream>>
+  }
+
+  CompiledFpLocus --> RuntimeSchemaAdmissionCapability : selects exactly one
+  CompiledFpLocus --> LiveCapabilityBinding : joins process locally
+  RawFpTransformResponse *-- FpResultArtifact : wire admission projects evidence
+  RawFpTransformResponse *-- FpTargetValueCandidate : wire admission projects B
+  RuntimeSchemaAdmissionCapability --> FpTargetValueCandidate : admits exact B
+  FpTargetValueCandidate --> AdmittedInvocationCarrier : admitted or refused
+  AdmittedInvocationCarrier --> CProgramAtomInvocationSubmission : exact completed target only
+  CProgramAtomResult --> CProgramAtomInvocationSubmission : exact result
+  LiveCapabilityBinding --> CProgramAtomInteriorEvents : effect produces facts
+  CProgramAtomInteriorEvents --> CProgramAtomInvocationSubmission : exact bounded facts
+  CProgramAtomInvocationSubmission --> CProgramAtomReceipt : T271 admits and encloses
+  CProgramAtomReceipt --> CompleteAdmittedEvidenceView : replay projects
+```
+
+### Execution sequence
+
+The accepted execution sequence above now includes the following bounded projection:
+
+```text
+sequenceDiagram
+  participant Caller as Public Caller
+  participant Program as Admitted GTL Program
+  participant Compiler as T267 Compiler Projection
+  participant M04 as M04 Post-AF14 Join
+  participant T271 as T271 Complete-C Interpreter
+  participant FpAtom as Compiler-Derived F_P Atom
+  participant Plugin as Selected Standard Plugin
+  participant Wire as T257 Wire Admission
+  participant Schema as Exact Target Schema Capability
+  participant Events as ABG Event Admission
+  participant Replay as Replay and AF16 Projection
+
+  Caller->>Program: admitted run.invoke input
+  Program->>Compiler: selected GraphFunction and C locus
+  Compiler-->>M04: exact locus, target Node/schema, plugin and wire profile
+  M04->>M04: verify steering ref/digest and join process-local capability body
+  M04->>T271: one ExecutionBasis and admitted atom dependencies
+  T271->>Events: buffer C-call open
+  T271->>FpAtom: invoke exact admitted F_P atom
+  FpAtom->>Plugin: declared instruction and process-local capability
+  Plugin-->>FpAtom: raw response plus process evidence
+  FpAtom->>Wire: admit exact selected transform wire contract
+  alt malformed response, artifact, or missing target_value
+    Wire-->>FpAtom: typed contract failure
+    FpAtom-->>T271: blocked or retryable result plus interior events
+  else wire admitted
+    Wire-->>FpAtom: ResultArtifact plus targetValue candidate
+    FpAtom->>Schema: admit targetValue under compiler-selected target schema
+    alt target schema rejects
+      Schema-->>FpAtom: typed payload rejection
+      FpAtom-->>T271: blocked or retryable result plus interior events
+    else target schema admits
+      Schema-->>FpAtom: admitted target B ref, digest, contract and value
+      FpAtom-->>T271: completed atom result plus interior events
+    end
+  end
+  T271->>Events: admit C-call open then bounded interior then payload evidence then C-call close
+  Events-->>T271: exact ordered admitted event family
+  T271-->>Replay: receipt with one C-call and admitted output or truthful stop
+  Replay-->>Program: AF16 evidence and next lawful state
+  Program-->>Caller: public projection
+```
+
+### Lifecycle state model
+
+The accepted lifecycle model above now includes the following bounded projection:
+
+```text
+stateDiagram-v2
+  [*] --> LocusCompiled : compiler owns exact F_P locus
+  LocusCompiled --> CapabilityBlocked : M04 join rejects steering ref digest or plugin capability
+  LocusCompiled --> AtomAdmitted : execution basis and dependencies exact
+  AtomAdmitted --> CCallOpened : T271 owns C-call open
+  CCallOpened --> FpExecuting : selected plugin owns effect interior only
+  FpExecuting --> WireRefused : T257 rejects malformed wrong-contract or incomplete response
+  FpExecuting --> ArtifactAdmitted : T257 admits ResultArtifact evidence
+  ArtifactAdmitted --> TargetMissing : constructive transform has no target_value
+  ArtifactAdmitted --> TargetAdmitting : one targetValue candidate exists
+  TargetAdmitting --> TargetRejected : exact target schema rejects B
+  TargetAdmitting --> TargetAdmitted : exact target schema admits B
+  TargetAdmitted --> AtomCompleted : admitted B supplies output payload and contract
+  WireRefused --> AtomBlocked : typed contract pressure
+  TargetMissing --> AtomBlocked : typed missing-target pressure
+  TargetRejected --> AtomBlocked : typed payload pressure
+  AtomBlocked --> RetryOrStop : existing retry law owns disposition
+  AtomCompleted --> EventsEnclosing : T271 orders open interior evidence close
+  RetryOrStop --> EventsEnclosing : T271 orders open interior evidence close
+  EventsEnclosing --> ReceiptAdmitted : one C-call receipt
+  ReceiptAdmitted --> ReplayProjected : replay owns resulting truth
+  CapabilityBlocked --> [*]
+  ReplayProjected --> [*]
+```
+
+### Cross-view conformance
+
+| Axiom | Ontology evidence | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
+|---|---|---|---|---|---|---|---|---|---|
+| Result artifact is not target `B` | PAYLOAD-019/-024 | artifact admission owns evidence; target capability owns B | distinct entities and relation | separate Wire then Schema calls | ArtifactAdmitted precedes TargetAdmitting | distinct fields and nominal carriers | exact target schema admits only candidate B | pass | T-270 realization |
+| Evaluator result remains a target-typed traversal value | C-ALGEBRA-002/-018; PAYLOAD-024 | normalized outcome supplies evaluator `B`; finding evidence supplies no closure | evaluated candidate and blocked disposition remain distinct | evaluated outcome crosses target admission; blocked outcome cannot | EvaluationAdmitted reaches target or non-close refusal | same generic target carrier as every other locus | exact compiler-selected target schema and binding | pass | T-270 realization |
+| Malformed F_P output cannot advance | PAYLOAD-006/-012/-028 | ABG admission | raw response is effect-edge only | refusal returns before completed atom | refusal reaches AtomBlocked only | closed wire/result unions | T257 vocabulary plus target-schema validation | pass | T-270 realization |
+| One traversal monad remains | ODD constructive-carrier law; CCALL | admitted GTL program and T271 | no router/controller carrier added | same compiler-derived T271 call | no alternate execution state | existing interpreter callback and closed runtime result | GTL authority guard and call-locus equality | pass | none |
+| T271 solely owns C-call enclosure | CCALL-001..017 | T271 | interior events are subordinate | open, interior, evidence, close | one CCallOpened and one ReceiptAdmitted | bounded interior-event union | exact basis/graph-call/frame/vector/edge/C-call checks | pass | T-271 bounded extension |
+| Plugins own interiors only | ODD A5; EVENTS-001/-012 | ABG owns events and replay | plugin has no lifecycle authority | plugin returns raw output and evidence | plugin cannot transition past FpExecuting | no event sink or continuation authority in plugin contract | T271/ABG admits ordered facts | pass | T-270 realization |
+| Steering body grants no semantic authority | accepted InvocationAuthority law | M04 process-local join | identity-free subordinate carrier | exact steering-key lookup occurs after AF14 before effect; no legacy fallback | failure stops at CapabilityBlocked | value excluded from stable carriers | ref/digest/provenance equality plus grant and runtime-profile coverage | pass | T-270 realization |
+| Assessment remains separate | AF-19 | result-assessment owner | no assessment field becomes B | assessment occurs only after replay result evidence | no assessment transition in target admission | separate public contract family | replay-derived result identity required | pass | T-275/result.assess integration |
+| Prime and public surface are conserved | accepted 27/7/19 Ontology | parent Ontology | zero new prime authority or public identity | one existing AF15 path | no new product lifecycle | one parameterized wire family | whole-family source count conserved | pass | none |
+| Trusted-desktop defense is proportional | proportionality law | exact external boundary admission | no tamper/hostile-process carrier | validate malformed external output and authority joins only | no speculative failure states | closed fields and native types | schema, digest, and locus checks | pass | none |
+
+### Amendment verdict
+
+`fh_accepted_for_implementation` under the user's delegated F_H authority.
+Implementation is limited to the existing T-257 wire family, the exact
+compiler-derived T-270 F_P atom, one bounded T-271 interior-event projection,
+the existing payload/event/replay chain, and replay-derived public assessment.
+Any SDK-selected F_P branch, `runEngineStartAsync` call, raw declaration read,
+new event kind/fluent/operation, inferred target value, or second C-call is a
+hard stop.
+
+## 2026-07-19 AF-10 Applied-Program Membership Amendment
+
+### Re-entry and finding
+
+This bounded `design_reframe` corrects the installed-program authority join
+discovered by the T-276 source-blind steel thread. The thread admitted the
+catalog and narrowed one session, then passed the static SYSTEM control-program
+coordinate returned by `catalog.view` directly to `run.invoke`. The selected
+downstream GraphFunction was visible in the view but was not a member of that
+program, so AF-13 correctly derived zero lawful actions.
+
+The defect is not a missing traversal, HOF, or Event Calculus atom. AF-10
+`DeclarationApplication`, multi-Module `GtlProgram`, AF-13, AF-14, AF-15, and
+the T-271 interpreter already exist. The missing realization is the exact join:
+
+```text
+admitted catalog row + narrowed view + overlay declaration + base control program
+  -> AF-10 immutable DeclarationApplication
+  -> one exact applied multi-Module GTL program coordinate
+  -> program-member projection intersected with the same view
+  -> AF-13 selection -> AF-14 intent -> existing AF-15/T-271 execution
+```
+
+`catalog.view` is a pure narrowing relation. It returns its view identity,
+effective handles, residuals, and zero or more sealed AF-10 application
+candidate coordinates. Each candidate is derived from the exact admitted row,
+view, declaration, target GraphFunction, and catalog basis by the same helper
+that `catalog.apply` reuses; the caller passes that coordinate unchanged. A
+candidate is published only when its derived application view is exactly the
+returned view. It is not an execution-program coordinate and the view does not
+apply, copy, select, or invoke a program. `catalog.apply(overlay)` owns the
+non-callable composition relation. Its Prime public projection uses the
+existing `targetRef + targetDigest` pair for the resulting effective
+`GtlProgram`; `DeclarationApplication.applicationRef` remains a distinct
+application identity and shall not be relabeled as the program.
+
+### Authority and Prime boundary
+
+| Carrier | Classification | Owner | Constraint |
+|---|---|---|---|
+| admitted catalog row | existing prime | catalog admission | exact overlay row, declaration digest, owner, product and lock |
+| `CatalogView` | existing prime | AF-09 | narrows visibility only; cannot author program membership |
+| `DeclarationApplication` | existing prime relation | AF-10 | immutable overlay-to-program application; non-callable and effect-free |
+| applied `GtlProgram` coordinate | existing prime | GTL program admission | content-derived from exact base program, exact installed target Module, exact overlay and compiler rows |
+| program-member projection | subordinate | GTL program admission | exact GraphFunction refs/digests from the applied program; no registry or selector |
+| `ActionCatalog` | existing subordinate projection | AF-13 input projection | intersection of program membership and the same admitted view |
+| compiled target execution family | existing subordinate compiler result | T-267 | compiled once for the selected exact target and reused by AF-15 |
+
+Prime contraction is one application artifact, one applied-program identity,
+one compiler result, and one ActionCatalog projection. No nested
+`effectiveProgram` field, parallel program register, copied SYSTEM module,
+catalog-visibility inference, or second selection authority is admitted.
+The accepted public `catalog.apply` result regains the already-designed
+`targetDigest` and provenance fields; that is contract conformance, not public
+surface growth.
+
+AF-10 uses the existing Rule-B boundary. The owner writes the immutable
+application artifact, computes its content digest, and emits exactly one
+causally linked `public_operation_artifact_admitted` event. Existing Event
+Calculus initiates only `public_operation_artifact_available`. No catalog-
+specific event, fluent, GraphCall, C-call, worker invocation, retry, or
+traversal is introduced.
+
+The public request may cite only already-admitted authority. For the bounded
+sunny overlay slice it therefore carries the exact overlay row and declaration,
+the exact narrowed view, one exact already-admitted target GraphFunction, and
+the public catalog-admission basis. AF-10 privately joins those coordinates to
+the installed base control program. Its result, not the caller, publishes the
+new content-derived effective `GtlProgram` coordinate. An overlay declaring
+zero or multiple target GraphFunctions returns typed `target_invalid` until a
+separately proven generic multi-target application relation exists. The
+source-blind caller shall not preview, reproduce, or guess the target-program
+identity.
+
+For the exact `invoke` steel thread, preparation may compile and validate the
+single caller-constrained applied-program member before AF-13. This is a
+constraint proof, not selection: AF-13 remains the only authority that can
+select it. The resulting compiler projection is retained process-locally and
+reused after AF-14; it is not compiled a second time. A visible but unapplied
+member, an applied member outside the view, or an invalid program fails before
+construction intent and before every runtime effect.
+
+### Domain model
+
+```text
+classDiagram
+  direction LR
+  class AdmittedCatalog {
+    <<prime>>
+    +catalogRef
+    +catalogDigest
+  }
+  class CatalogView {
+    <<prime narrowing>>
+    +viewRef
+    +viewDigest
+    +effectiveHandles
+  }
+  class OverlayDeclaration {
+    <<existing GTL declaration>>
+    +declarationRef
+    +declarationDigest
+    +graphFunctionRefs
+  }
+  class BaseControlProgram {
+    <<existing admitted GTL program>>
+    +programRef
+    +programDigest
+  }
+  class DeclarationApplication {
+    <<prime AF10 relation>>
+    +applicationRef
+    +applicationDigest
+    +targetRef
+    +targetDigest
+  }
+  class AppliedGtlProgram {
+    <<existing prime>>
+    +programRef
+    +programDigest
+  }
+  class ProgramMemberProjection {
+    <<subordinate>>
+    +graphFunctionRefs
+    +graphFunctionDigests
+  }
+  class ActionCatalog {
+    <<subordinate AF13 input>>
+    +actionRows
+  }
+  class NextActionProjection {
+    <<authoritative AF13 result>>
+  }
+  class ConstructionIntent {
+    <<authoritative AF14 admission>>
+  }
+  class T271CompleteCInterpreter {
+    <<existing sole traversal owner>>
+  }
+
+  AdmittedCatalog --> CatalogView : narrows
+  AdmittedCatalog --> OverlayDeclaration : admits exact row
+  BaseControlProgram --> DeclarationApplication : composition base
+  OverlayDeclaration --> DeclarationApplication : applied by AF10
+  CatalogView --> DeclarationApplication : exact application basis
+  DeclarationApplication *-- AppliedGtlProgram : targets
+  AppliedGtlProgram --> ProgramMemberProjection : projects exact membership
+  ProgramMemberProjection --> ActionCatalog : intersects with view
+  CatalogView --> ActionCatalog : narrows only
+  ActionCatalog --> NextActionProjection : AF13 selects zero or one
+  NextActionProjection --> ConstructionIntent : AF14 admits
+  ConstructionIntent --> T271CompleteCInterpreter : AF15 invokes once
+```
+
+### Execution sequence
+
+```text
+sequenceDiagram
+  participant Caller as Packed public caller
+  participant View as catalog.view AF09
+  participant Apply as catalog.apply AF10
+  participant Store as Immutable application artifact
+  participant Events as ABG event admission
+  participant Prepare as T270 preparation
+  participant Compiler as Existing T267 compiler
+  participant Program as Applied GTL program
+  participant Next as AF13 evaluateNext
+  participant Intent as AF14 intent admission
+  participant T271 as T271 complete-C interpreter
+  participant Replay as Replay and project.read
+
+  Caller->>View: exact allowlist
+  View-->>Caller: view ref digest handles residuals and sealed application candidate
+  Caller->>Apply: unchanged exact application candidate
+  Apply->>Apply: verify row kind owner digest view and target
+  Apply->>Store: write one immutable DeclarationApplication
+  Apply->>Events: admit one generic Rule-B boundary event
+  Apply-->>Caller: application ref plus target program ref digest
+  Caller->>Prepare: run.invoke exact target member and applied program
+  Prepare->>Events: prove application artifact available in replay
+  Prepare->>Compiler: compile exact constrained target once
+  Compiler-->>Prepare: compiler rows and runtime projection
+  Prepare->>Program: admit exact multi-Module composition
+  Program-->>Next: program members intersected with exact view
+  Next-->>Intent: one selected member or no action
+  Intent-->>Prepare: exact admitted ConstructionIntent
+  Prepare->>T271: reuse compiled target under one ExecutionBasis
+  T271->>Events: one GraphCall Frame Vector and C-call enclosure
+  Events-->>Replay: admitted result and evidence
+  Replay-->>Caller: typed outcome and replay-derived projection
+```
+
+### Lifecycle state model
+
+```text
+stateDiagram-v2
+  [*] --> CatalogAdmitted
+  CatalogAdmitted --> ViewNarrowed : AF09 exact allowlist
+  ViewNarrowed --> ApplyRefused : row kind view target or digest mismatch
+  ViewNarrowed --> ApplicationWritten : AF10 verifies exact overlay application
+  ApplicationWritten --> BoundaryAdmitted : one Rule-B event
+  BoundaryAdmitted --> ProgramPreparing : run.invoke cites exact target program
+  ProgramPreparing --> ProgramRefused : artifact unavailable or program member invalid
+  ProgramPreparing --> ProgramAdmitted : compiler and composition conformance green
+  ProgramAdmitted --> NoLawfulAction : view contains no applied callable member
+  ProgramAdmitted --> ActionProjected : member and view intersect
+  ActionProjected --> IntentAdmitted : AF13 then AF14
+  IntentAdmitted --> Traversing : AF15 enters T271 once
+  Traversing --> ResultAdmitted : existing events and replay
+  ApplyRefused --> [*]
+  ProgramRefused --> [*]
+  NoLawfulAction --> [*]
+  ResultAdmitted --> [*]
+```
+
+### Cross-view conformance
+
+| Axiom | Domain evidence | Sequence evidence | State evidence | Verdict |
+|---|---|---|---|---|
+| GTL program owns composition | application targets one multi-Module program | AF-10 precedes AF-13 and AF-15 | ProgramAdmitted gates ActionProjected | pass |
+| view does not author program truth | `CatalogView` has no program relation | view returns no program coordinate | ViewNarrowed cannot reach traversal directly | pass |
+| AF-13 is sole selector | ActionCatalog is input; NextAction is authority | compiler proves constraint, AF-13 selects | only ActionProjected reaches IntentAdmitted | pass |
+| one traversal monad remains | only T271 owns traversal | AF-15 calls T271 once | one Traversing state | pass |
+| Event Calculus boundary is proportional | generic Rule-B event only | artifact write precedes one boundary event | BoundaryAdmitted only establishes availability | pass |
+| Prime is conserved | one application, program and compiler projection | no parallel registry or runner | no duplicate authority state | pass |
+| malformed external and authored truth fails closed | exact closed contracts and digests | refusal precedes effects | refusal states terminate | pass |
+| caller constructability | request cites only admitted row view target GF and catalog basis | AF10 alone derives the effective program | multi-target or guessed target refuses | pass |
+
+### Amendment verdict
+
+`fh_accepted_for_implementation` under the user's delegated F_H authority after
+independent architecture review. Implementation is restricted to removing
+program authority from `catalog.view`, realizing the existing AF-10 overlay
+application and Rule-B artifact boundary, deriving the exact applied program
+membership, reusing one compiler result, and advancing the existing T-276
+packed thread. A new operation, atom, event, fluent, HOF, controller, program
+registry, module mutation, visibility-as-membership inference, or second T-271
+call is a hard stop.

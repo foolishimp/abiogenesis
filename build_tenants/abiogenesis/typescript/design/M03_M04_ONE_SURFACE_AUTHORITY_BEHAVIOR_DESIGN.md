@@ -12,6 +12,13 @@
 
 **Prime authority**: [ADR-044](./adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md)
 
+**2026-07-18 F_H increment**: the existing `assessed` event now binds one
+stable result-assessment identity to its exact runtime subject and declared
+assessment contract. Replay derives the assessment relation and
+`result_assessment_admitted` fluent before AF-16 consumes the evidence. This
+bounded increment does not change T-280's four semantic authorities, public
+operation count, C-call carrier shapes, or reviewed AF-15/T-272 boundaries.
+
 ## Boundary
 
 This design realizes the four missing One Surface semantic authorities and the
@@ -69,6 +76,8 @@ function.
 - `REQ-R-ABG3-CCALL-001..006`;
 - `REQ-R-ABG3-PAYLOAD-001..009`;
 - `REQ-R-ABG3-EVENTS-021` and `030`;
+- `REQ-R-ABG3-EVENTS-018` and `REQ-P-POLICY-034` for exact assessed-result
+  event/replay truth;
 - `REQ-L-GTL3-CONTRACT-LAW-API` One Surface and ownership rows;
 - `REQ-P-POLICY-054` and `REQ-P-SCENARIOS-003`, `012`;
 - PRODUCT `Outcome Compute Contract` and One Surface; and
@@ -870,6 +879,39 @@ classDiagram
     +subjectRef
     +basisDigest
   }
+  class RuntimeResultAssessmentSubject {
+    <<subordinate exact subject>>
+    +basisId
+    +graphCallId
+    +frameId
+    +vectorIndex
+    +runtimeResultRef
+    +runtimeResultDigest
+  }
+  class AssessedRuntimeEvent {
+    <<existing admitted event>>
+    +assessmentRef
+    +runtimeResultRef
+    +runtimeResultDigest
+    +assessmentContractRef
+    +assessmentContractDigest
+  }
+  class ResultAssessmentRuntimeSubjectRelation {
+    <<subordinate replay relation>>
+    +assessmentRef
+    +assessmentDigest
+    +runtimeSubject
+    +assessmentContract
+    +obligationIds
+    +replayDigest
+  }
+  class ResultAssessmentAdmittedFluent {
+    <<derived runtime fluent>>
+    +name_result_assessment_admitted
+    +scope_vector
+    +constraintRef_runtimeResultRef
+    +ref_assessmentRef
+  }
   class CompleteAdmittedEvidenceView {
     <<subordinate exact view>>
     +intentRef
@@ -1078,6 +1120,11 @@ classDiagram
   ConstructionIntent ..> T272Continuation : current intent only after hold
   ConstructionIntent --> CompleteAdmittedEvidenceView : scopes exact subject
   AdmittedEvidence --> CompleteAdmittedEvidenceView : derives ordered complete input
+  RuntimeResultAssessmentSubject --> ResultAssessmentRuntimeSubjectRelation : exact result subject
+  AuthoritySnapshotAdmittedEvent --> ResultAssessmentRuntimeSubjectRelation : precedes every obligation
+  EvidenceAdmittedEvent --> ResultAssessmentRuntimeSubjectRelation : exact obligation evidence
+  AssessedRuntimeEvent --> ResultAssessmentRuntimeSubjectRelation : admits result contract and subject identity
+  ResultAssessmentRuntimeSubjectRelation --> CompleteAdmittedEvidenceView : supplies exact assessed evidence relation
   CompleteAdmittedEvidenceView --> EdgeFulfillmentLedger : AF16 complete fold
   EdgeFulfillmentLedger --> EdgeClosureDecision : AF16 closed decision
   EdgeClosureDecision --> ExactNextActionBasis : derives exact cause
@@ -1104,6 +1151,7 @@ classDiagram
   RuntimeEventCalculusAxiom --> CCallEvidencedEvent : empty replay aid
   RuntimeEventCalculusAxiom --> CCallResultAdmittedEvent : empty replay aid
   RuntimeEventCalculusAxiom --> CCallJudgedEvent : empty replay aid
+  RuntimeEventCalculusAxiom --> AssessedRuntimeEvent : empty replay aid
   CCallOpenedEvent --> RuntimeEventCalculusEffectRow : source event
   CCallFibreSelectedEvent --> RuntimeEventCalculusEffectRow : source event
   AuthoritySnapshotAdmittedEvent --> RuntimeEventCalculusEffectRow : source event
@@ -1113,12 +1161,16 @@ classDiagram
   CCallEvidencedEvent --> RuntimeEventCalculusEffectRow : source event
   CCallResultAdmittedEvent --> RuntimeEventCalculusEffectRow : source event
   CCallJudgedEvent --> RuntimeEventCalculusEffectRow : source event
+  AssessedRuntimeEvent --> RuntimeEventCalculusEffectRow : source event
   OneSurfaceAuthorityDefinition --> OneSurfaceAuthorityResultBinding : exact owner
   OneSurfaceProgramApplicationBinding --> OneSurfaceAuthorityResultBinding : exact application
   ABGFnCompositionContract --> OneSurfaceAuthorityResultBinding : exact selection
   RuntimeDerivedFluentRule --> RuntimeEventCalculusEffectRow : reads admitted source events
   RuntimeDerivedFluentRule --> OneSurfaceAuthorityResultBinding : derives exact relation
+  RuntimeDerivedFluentRule --> ResultAssessmentRuntimeSubjectRelation : derives exact assessed subject relation
   RuntimeDerivedFluentRule --> RuntimeFluent : emits closed outcome name with binding ref only
+  RuntimeFluent <|-- ResultAssessmentAdmittedFluent
+  ResultAssessmentRuntimeSubjectRelation --> ResultAssessmentAdmittedFluent : exact vector-scoped identity
   RuntimeFluent --> ProductAssetModel : AF11 success binding derives read model
   RuntimeFluent --> ObservationSnapshot : AF12 success binding owns result
   RuntimeFluent --> NextActionProjection : AF13 success binding derives read model
@@ -1152,6 +1204,7 @@ sequenceDiagram
   participant T270 as T270AF15Boundary
   participant T272 as T272ContinuationBoundary
   participant Result as T257ResultAdmission
+  participant Assessment as ResultAssessmentAdmission
   participant Action as AF16EvaluateAction
   participant Recurse as T262TypedRecurseFoldback
   participant Projection as PublicReadProjection
@@ -1258,8 +1311,17 @@ sequenceDiagram
                   Result->>Events: admit typed contract failure only
                   Events-->>Action: complete nonfulfillment evidence basis
                 else result contract admitted
-                  Result->>Events: admit result and assessment evidence
-                  Events-->>Action: exact complete evidence view
+                  Result->>Events: admit result and evidence truth
+                  Result->>Assessment: exact basis graph call frame vector result digest and assessment contract
+                  alt assessment subject digest contract or replay lineage mismatched
+                    Assessment-->>ABG: typed refusal with no assessment fluent
+                    ABG-->>Projection: truthful assessment refusal
+                  else exact assessment admitted
+                    Assessment->>Events: snapshot observed validated evidence then assessed event
+                    Events->>Calculus: assessed event enters an empty-effect replay row
+                    Calculus->>Rule: exact result subject contract obligation and ordered replay rows
+                    Rule-->>Action: stable assessment relation fluent and complete evidence view
+                  end
                 end
               else deterministic or already admitted F_H evidence returned
                 Events-->>Action: exact complete evidence view
@@ -1332,8 +1394,11 @@ stateDiagram-v2
   HeldForFH --> T272OwnedContinuation: response and AF17 are externally owned
   T272OwnedContinuation --> HeldForFH: causally linked second hold remains nonterminal
   T272OwnedContinuation --> EvidenceAdmitted: later exact evidence returns
+  EvidencePending --> AssessmentPending: F_P result and assessment contract admitted
+  AssessmentPending --> EvidenceRefused: assessment subject digest contract or replay lineage mismatched
+  AssessmentPending --> EvidenceAdmitted: exact assessed event relation derives assessment fluent
   EvidencePending --> EvidenceRefused: raw or assessed evidence malformed or incomplete
-  EvidencePending --> EvidenceAdmitted: exact intent-bound complete evidence set
+  EvidencePending --> EvidenceAdmitted: deterministic or F_H evidence set is already admitted
   EvidenceRefused --> ActionEvaluating: admitted failure basis is complete
   EvidenceRefused --> FunctionRefused: no complete admitted failure basis
   EvidenceAdmitted --> ActionEvaluating: T271 enters selected AF16 interior
@@ -1384,6 +1449,7 @@ T-272 integration and T-276 installed proof close.
 | A18 host and composition authority are program-visible | FPC-013; FN-COMP-003/011 | definition binds closed host kind, membership, selected composition, hook and policy | compiler resolves only visible precedence | host mismatch cannot reach ProgramAdmitted | closed host union and exact refs/digests | hidden config, wrong host and stale selection reject | pass | none |
 | A19 existing events preserve One Surface ownership | EVENTS-021; CCALL-001..006; PAYLOAD-001..008; FPC-017 | locus-only C-call, authority, payload, evidence, result, and judgment facts remain distinct; one total projection and application-bound rule derive outcome truth | each result-bearing function locus emits the canonical existing sequence; construction events keep their roles | exact advancing relations reach success; exact non-advance refusal relations remain typed; invalid relations yield gaps | existing closed events plus derived result binding, RuntimeDerivedFluentRule, and RuntimeFluent | empty replay-aid registrations add no effects; order/identity/regime/arm/contract/judgment mismatches yield no outcome fluent and a typed diagnostic | pass | none |
 | A20 pressure and target binding remain Prime | ADR-044; FPC-003/005 | both have independent identity, admission and history | AF12 admits pressure; AF13 admits target binding | later states reference exact rows | nominal refs and digests | promotion, cross-basis and duplicate-authority tests | pass | none |
+| A21 assessed F_P truth remains bound to one exact runtime subject | POLICY-034; EVENTS-018 | existing `assessed` event carries stable assessment, result, contract, and vector-locus identities; one derived relation joins them | result admission precedes assessment; snapshot and obligation evidence precede each assessed event | only an exact replay relation reaches EvidenceAdmitted and AF16 | required typed event fields plus one derived relation and vector-scoped fluent | wrong subject, result digest, assessment contract, authority, evidence, or replay order yields no relation/fluent | pass | none |
 
 ## Proof Contract
 
@@ -1456,13 +1522,19 @@ T-272 integration and T-276 installed proof close.
 17. Event Calculus tests prove every existing source kind in the exact replay
     relation has an empty-effect replay-aid registration, the one total
     projection plus application-bound `RuntimeDerivedFluentRule` is the only
-    outcome-fluent derivation source, `RUNTIME_FLUENT_NAME_VALUES` grows by
-    exactly `one_surface_authority_outcome`, and the emitted existing-shape
-    fluent uses `scope: graph_call` plus `ref: resultBindingRef` without new
-    carrier fields;
+    One Surface outcome-fluent derivation source, and the emitted
+    `one_surface_authority_outcome` fluent uses `scope: graph_call` plus
+    `ref: resultBindingRef` without changing the C-call carrier fields;
     `construction_evaluator_invoked` remains invocation/awaiting truth only,
     and construction observation/catalog/intent/action/delta/terminal events
     retain their existing roles. No new runtime event kind appears.
+18. Result-assessment tests prove the existing `assessed` event binds one
+    stable assessment identity to the exact basis, graph call, frame, vector,
+    runtime-result ref/digest, and assessment-contract ref/digest. Exact
+    snapshot/evidence/assessed replay derives one
+    `result_assessment_admitted` vector fluent. Wrong-subject, wrong-digest,
+    missing-authority, and unordered-replay mutations derive no relation or
+    fluent. This adds no public operation or runtime event kind.
 
 ## Gap And Exclusion Register
 
@@ -1470,6 +1542,7 @@ T-272 integration and T-276 installed proof close.
 |---|---|---|---|
 | AF-15 execution admission | T-280 must not manufacture execution basis or invoke work | T-270 | accepted T-280 AF-14 carrier and compiler outputs available |
 | F_H response/current-intent continuation | separate public invocations and continuation authority | T-272 | T-270 execution and T-280 AF-16 truth integrated |
+| `project.read(assessment_evidence)` owner projection | the generic evidence-row contract requires authoritative evidence-contract and stable-basis digests that the current assessed-event chain does not carry; hashing refs would author a second authority | T-281 project-read owner | an admitted carrier supplies those exact digests or the projection contract is lawfully repriced |
 | end-to-end installed operator loop | requires public operation parity, T-270, T-272, schemas, manifests, and install proof | T-276 | DS-4 chain complete |
 | product-specific semantic policies | downstream product owns domain model/gap/selection/evaluation meaning | program/profile owners | admitted declarations bind exact generic function family |
 | arbitrary hostile local tamper defense | low-probability and outside trusted-desktop product boundary | not in 5.0 | explicit threat-model/product reprice |

@@ -29,11 +29,16 @@ export interface PrivatePublicOperationIngressAdmissionWitness<
   readonly kind: "private_public_operation_ingress_admitted";
   readonly definitionKey: K;
   readonly definitionDigest: string;
-  readonly eventAdmission: "owning_semantic_authority";
+  readonly eventAdmission:
+    | "none"
+    | "owning_semantic_authority"
+    | "immutable_artifact_boundary";
   readonly invocationRef: string;
   readonly invocationDigest: string;
   readonly invocationAuthorityRef: string;
   readonly invocationAuthorityDigest: string;
+  readonly authorityBasisRef: string;
+  readonly authorityBasisDigest: string;
   readonly actorAttribution: PrivatePublicOperationActorAttributionWitness;
   readonly workspaceBindingRequirement: "forbidden" | "exactly_one";
   readonly workspaceBindingWitness:
@@ -169,6 +174,8 @@ export function assertPrivatePublicOperationIngressAdmissionWitness(
       "invocationDigest",
       "invocationAuthorityRef",
       "invocationAuthorityDigest",
+      "authorityBasisRef",
+      "authorityBasisDigest",
       "actorAttribution",
       "workspaceBindingRequirement",
       "workspaceBindingWitness",
@@ -180,14 +187,19 @@ export function assertPrivatePublicOperationIngressAdmissionWitness(
   if (witness["kind"] !== "private_public_operation_ingress_admitted") {
     throw new TypeError(`${label}.kind is invalid`);
   }
-  if (witness["eventAdmission"] !== "owning_semantic_authority") {
-    throw new TypeError(`${label}.eventAdmission is not eligible`);
+  if (
+    witness["eventAdmission"] !== "none" &&
+    witness["eventAdmission"] !== "owning_semantic_authority" &&
+    witness["eventAdmission"] !== "immutable_artifact_boundary"
+  ) {
+    throw new TypeError(`${label}.eventAdmission is invalid`);
   }
   assertDefinitionKey(witness["definitionKey"], `${label}.definitionKey`);
   for (const field of [
     "definitionDigest",
     "invocationDigest",
-    "invocationAuthorityDigest"
+    "invocationAuthorityDigest",
+    "authorityBasisDigest"
   ]) {
     assertSha256Digest(witness[field], `${label}.${field}`);
   }
@@ -195,6 +207,10 @@ export function assertPrivatePublicOperationIngressAdmissionWitness(
   assertNonEmptyString(
     witness["invocationAuthorityRef"],
     `${label}.invocationAuthorityRef`
+  );
+  assertNonEmptyString(
+    witness["authorityBasisRef"],
+    `${label}.authorityBasisRef`
   );
   assertActorAttribution(
     witness["actorAttribution"],

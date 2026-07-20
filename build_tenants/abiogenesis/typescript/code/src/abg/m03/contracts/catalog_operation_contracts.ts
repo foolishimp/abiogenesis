@@ -467,12 +467,36 @@ const catalogViewResidualSchema = v.pipe(
   v.readonly()
 );
 
+const catalogApplicationCoordinateSchema = v.pipe(
+  v.strictObject({
+    catalogRowRef: refSchema,
+    catalogRowDigest: sha256DigestSchema,
+    catalogViewRef: refSchema,
+    catalogViewDigest: sha256DigestSchema,
+    declarationRef: refSchema,
+    declarationDigest: sha256DigestSchema,
+    targetRef: refSchema,
+    targetDigest: sha256DigestSchema,
+    applicationBasisRef: refSchema,
+    applicationBasisDigest: sha256DigestSchema
+  }),
+  v.readonly()
+);
+
+export type CatalogApplicationCoordinate = v.InferInput<
+  typeof catalogApplicationCoordinateSchema
+>;
+
 const catalogViewResultSchema = v.pipe(
   v.strictObject({
     catalogViewRef: refSchema,
     catalogViewDigest: sha256DigestSchema,
     effectiveHandles: refListSchema,
-    residuals: v.pipe(v.array(catalogViewResidualSchema), v.readonly())
+    residuals: v.pipe(v.array(catalogViewResidualSchema), v.readonly()),
+    applicationCandidates: v.pipe(
+      v.array(catalogApplicationCoordinateSchema),
+      v.readonly()
+    )
   }),
   v.readonly()
 );
@@ -493,16 +517,7 @@ const catalogViewRefusalSchema = v.pipe(
   v.readonly()
 );
 
-const catalogApplyRequestSchema = v.pipe(
-  v.strictObject({
-    declarationRef: refSchema,
-    declarationDigest: sha256DigestSchema,
-    targetRef: refSchema,
-    applicationBasisRef: refSchema,
-    applicationBasisDigest: sha256DigestSchema
-  }),
-  v.readonly()
-);
+const catalogApplyRequestSchema = catalogApplicationCoordinateSchema;
 
 function catalogApplyResultSchema<const Kind extends "node_type" | "overlay">(
   declarationKind: Kind
@@ -513,7 +528,9 @@ function catalogApplyResultSchema<const Kind extends "node_type" | "overlay">(
       applicationKind: v.literal(declarationKind),
       declarationRef: refSchema,
       targetRef: refSchema,
-      evidenceRefs: refListSchema
+      targetDigest: sha256DigestSchema,
+      evidenceRefs: refListSchema,
+      provenanceRefs: refListSchema
     }),
     v.readonly()
   );

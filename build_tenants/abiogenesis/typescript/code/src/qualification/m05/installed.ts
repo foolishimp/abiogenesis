@@ -20,9 +20,8 @@ import type {
 const REQUIRED_BOOTSTRAP_EXPORTS: readonly string[] = Object.freeze([
   "deliverBootloader",
   "installBootstrap",
-  "projectLiveStatus",
   "publicStart",
-  "resultAssessment"
+  "abiogenesisPublicSdk"
 ]);
 
 const REQUIRED_ARCHIVE_KINDS: readonly RunArchiveFileKind[] = Object.freeze([

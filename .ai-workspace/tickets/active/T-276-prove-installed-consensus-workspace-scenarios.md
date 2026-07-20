@@ -87,6 +87,7 @@ packed candidate
   -> catalog.admit
   -> project.read(catalog_list/catalog_describe) resolves Consensus
   -> catalog.view(allowlist)
+  -> catalog.apply(overlay) admits one immutable program-composition artifact
   -> run.invoke(invoke) through installed abg.cli
   -> admitted result and replay
   -> project.read(ticket_consensus)
@@ -112,6 +113,44 @@ is not a second harness. Application-specific installed-fixture provisioning
 produces one uniform `InstalledWorkspaceApplication`; existing, alternate, and
 temporary applications then follow the same Consensus driver before T-276
 closes.
+
+### Event Calculus delivery rule
+
+The steel thread measures semantic delivery rather than catalog presence. A
+public command is not an Event Calculus event. Its effect becomes runtime truth
+only when the semantic owner emits its declared events or when an immutable
+owner-authoritative artifact is followed by the single generic
+`public_operation_artifact_admitted` boundary event. The latter event carries
+operation, structural definition-key, invocation, disposition, and artifact
+identity and initiates only `public_operation_artifact_available`; it never
+owns the operation result or traversal control.
+
+`workspace.create`, `product.install`, `workspace.bind`, `catalog.apply`,
+`product.materialize`, and `release.snapshot` are classified as Rule-B
+operations. `workspace.bind` is the first implemented consumer. Its sunny-day
+checkpoint is earned only when the binding artifact is written, the boundary
+event is
+admitted, replay produces the expected availability fluent, and
+`project.read` exposes that replay-derived state identically on a second
+replay. Pure `project.read` and `catalog.view` emit no event. `run.invoke` and
+`result.assess` retain their owning runtime event families. No per-operation
+artifact event, fixture-authored event, or filesystem-only success satisfies
+this gate.
+
+The installed governor treats `catalog.view` as pure narrowing and AF-10
+`catalog.apply(overlay)` as the only program-composition boundary. The view
+shall not carry an execution-program coordinate. The application result's
+existing `targetRef + targetDigest` identifies the effective admitted GTL
+program while its distinct `applicationRef` identifies the immutable
+DeclarationApplication artifact. `run.invoke` may proceed only when replay
+proves that exact artifact boundary and the selected GraphFunction is both a
+member of the target program and retained by the same view.
+
+For the bounded sunny overlay proof, the apply request cites one exact admitted
+target GraphFunction and the public catalog-admission basis. AF-10 alone derives
+the resulting program coordinate. The installed driver shall not import or
+reimplement that derivation; an overlay with zero or multiple target functions
+stops at typed `target_invalid` in this slice.
 
 ## Prime Contraction Input
 

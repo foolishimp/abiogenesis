@@ -1,6 +1,7 @@
 // Implements: T-271; REQ-L-GTL3-C-ALGEBRA-001..-017;
 // REQ-R-ABG3-CCALL-001..-017. This is a structural fold over a sealed plan,
-// not a graph traversal loop. Effectful leaves remain owned by runtime atoms.
+// not a graph traversal loop. T-271 owns each invoking-locus C-call enclosure;
+// callbacks own only their bounded effect interior.
 
 import {
   detachRowSnapshot,
@@ -27,8 +28,16 @@ import type {
   CatalogExecutionBinding
 } from "../contracts/runtime_catalog.js";
 import {
-  assertRuntimeEvent,
+  assertRuntimeEvent
 } from "../contracts/event_admission.js";
+import {
+  constructAdmittedInvocationCarrier,
+  type AdmittedInvocationCarrier
+} from "../contracts/declared_execution_context.js";
+import {
+  isCProgramAtomInteriorEvent,
+  type CProgramAtomInteriorEventKind
+} from "../contracts/c_call_enclosure.js";
 import {
   RUNTIME_FAILURE_CLASS_VALUES,
   type CCallJudgment,
@@ -141,6 +150,8 @@ export interface CProgramAtomReceipt
   readonly cursorDigest: `sha256:${string}`;
   readonly inputPayloadRef: string;
   readonly inputLineageRef: string;
+  readonly targetCarrierContentDigest: string | null;
+  readonly targetPayloadIdentityDigest: string | null;
   readonly taskOrdinal: number | null;
   readonly retryAttempt: number;
   readonly retryPath: readonly number[];
@@ -215,6 +226,34 @@ export type CProgramReplayReceipt =
   | CProgramAtomReceipt
   | CProgramBatchProjectionReceipt;
 
+export type CProgramAtomEvidenceEvent = Extract<RuntimeEvent, {
+  readonly kind:
+    | "authority_snapshot_admitted"
+    | "payload_observed"
+    | "payload_validated"
+    | "evidence_admitted";
+}>;
+
+export type CProgramAtomInteriorEvent = Extract<RuntimeEvent, {
+  readonly kind: CProgramAtomInteriorEventKind;
+}>;
+
+export interface CProgramAtomCloseBasis {
+  readonly kind: "c_program_atom_close_basis";
+  readonly evidenceClass: string;
+  readonly evidenceRefs: readonly string[];
+  readonly resultContractRef: string;
+}
+
+export interface CProgramAtomInvocationSubmission {
+  readonly kind: "c_program_atom_invocation_submission";
+  readonly result: CProgramAtomResult;
+  readonly admittedTargetCarrier: AdmittedInvocationCarrier | null;
+  readonly interiorEvents: readonly CProgramAtomInteriorEvent[];
+  readonly evidenceEvents: readonly CProgramAtomEvidenceEvent[];
+  readonly closeBasis: CProgramAtomCloseBasis | null;
+}
+
 export interface CProgramInterpreterInvocation {
   readonly kind: "c_program_interpreter_invocation";
   readonly plan: CompiledCProgramPlan;
@@ -229,7 +268,7 @@ export interface CProgramInterpreterInvocation {
   readonly replayReceipts: readonly CProgramReplayReceipt[];
   readonly invokeAdmittedAtom: (
     request: CProgramAtomRequest
-  ) => Promise<CProgramAtomResult>;
+  ) => Promise<CProgramAtomInvocationSubmission>;
 }
 
 interface CProgramExecutionOutcomeBasis {
@@ -293,6 +332,9 @@ interface PendingAtomFailure {
   readonly request: CProgramAtomRequest;
   readonly result: CProgramAtomResult;
   readonly openEvents: readonly RuntimeEvent[];
+  readonly interiorEvents: readonly CProgramAtomInteriorEvent[];
+  readonly evidenceEvents: readonly CProgramAtomEvidenceEvent[];
+  readonly closeBasis: CProgramAtomCloseBasis | null;
   readonly coordinated: CRetryCoordinatedAttempt | null;
   readonly retryOwnerNodeRef: string | null;
 }
@@ -300,6 +342,7 @@ interface PendingAtomFailure {
 interface ExecutionContext {
   readonly invocation: CProgramInterpreterInvocation;
   readonly selected: CatalogExecutionBinding;
+  readonly graphEdge: string;
   readonly replay: readonly CProgramReplayReceipt[];
   readonly admitted: CProgramReplayReceipt[];
   readonly consumedReplayRefs: Set<string>;
@@ -461,6 +504,32 @@ const ATOM_RESULT_KEYS = Object.freeze([
   "sourceEventRefs"
 ]);
 
+const ATOM_SUBMISSION_KEYS = Object.freeze([
+  "kind",
+  "result",
+  "admittedTargetCarrier",
+  "interiorEvents",
+  "evidenceEvents",
+  "closeBasis"
+]);
+
+const ADMITTED_TARGET_CARRIER_KEYS = Object.freeze([
+  "kind",
+  "sourceNodeRef",
+  "schemaRef",
+  "carrierRef",
+  "carrierDigest",
+  "admissionRef",
+  "value"
+]);
+
+const ATOM_CLOSE_BASIS_KEYS = Object.freeze([
+  "kind",
+  "evidenceClass",
+  "evidenceRefs",
+  "resultContractRef"
+]);
+
 const ATOM_RECEIPT_KEYS = Object.freeze([
   ...ATOM_RESULT_KEYS.filter((key) => key !== "kind"),
   "kind",
@@ -471,6 +540,8 @@ const ATOM_RECEIPT_KEYS = Object.freeze([
   "cursorDigest",
   "inputPayloadRef",
   "inputLineageRef",
+  "targetCarrierContentDigest",
+  "targetPayloadIdentityDigest",
   "taskOrdinal",
   "retryAttempt",
   "retryPath",
@@ -673,6 +744,14 @@ function assertReceiptSeal(receipt: CProgramAtomReceipt): void {
     receipt.retryOwnerNodeRef,
     "receipt.retryOwnerNodeRef"
   );
+  const targetCarrierContentDigest = nullableString(
+    receipt.targetCarrierContentDigest,
+    "receipt.targetCarrierContentDigest"
+  );
+  const targetPayloadIdentityDigest = nullableString(
+    receipt.targetPayloadIdentityDigest,
+    "receipt.targetPayloadIdentityDigest"
+  );
   if ((admittedPolicyRef === null) !== (admittedPolicyDigest === null)) {
     throw new TypeError("C-program retry policy receipt fields differ");
   }
@@ -696,6 +775,8 @@ function assertReceiptSeal(receipt: CProgramAtomReceipt): void {
       receipt.outputPayloadRef === null ||
       receipt.responseContractRef !== receipt.outputCarrierRef ||
       receipt.outputLineageRef === null ||
+      targetCarrierContentDigest === null ||
+      targetPayloadIdentityDigest === null ||
       receipt.reasonRef !== null ||
       admittedFailureClass !== null ||
       judgment !== "advance"
@@ -706,6 +787,8 @@ function assertReceiptSeal(receipt: CProgramAtomReceipt): void {
     receipt.outputPayloadRef !== null ||
     receipt.responseContractRef !== null ||
     receipt.outputLineageRef !== null ||
+    targetCarrierContentDigest !== null ||
+    targetPayloadIdentityDigest !== null ||
     receipt.reasonRef === null ||
     (status === "runtime_failed") !== (admittedFailureClass !== null) ||
     status === "held" && judgment !== "pending" ||
@@ -741,6 +824,35 @@ function assertReceiptSeal(receipt: CProgramAtomReceipt): void {
   const judged = runtimeEvents.filter(
     (event) => event.kind === "c_call_judged"
   );
+  const observedPayloads = runtimeEvents.filter(
+    (event) => event.kind === "payload_observed"
+  );
+  const validatedPayloads = runtimeEvents.filter(
+    (event) => event.kind === "payload_validated"
+  );
+  const evidenceResultContractRef =
+    opened.length === 1 &&
+    observedPayloads.length === 1 &&
+    validatedPayloads.length === 1 &&
+    observedPayloads[0]!.basisId === opened[0]!.basisId &&
+    observedPayloads[0]!.graphCallId === opened[0]!.graphCallId &&
+    observedPayloads[0]!.frameId === opened[0]!.frameId &&
+    observedPayloads[0]!.vectorIndex === opened[0]!.vectorIndex &&
+    observedPayloads[0]!.edge === opened[0]!.edge &&
+    observedPayloads[0]!.sourceEventRef === receipt.cCallRef &&
+    validatedPayloads[0]!.basisId === opened[0]!.basisId &&
+    validatedPayloads[0]!.graphCallId === opened[0]!.graphCallId &&
+    validatedPayloads[0]!.frameId === opened[0]!.frameId &&
+    validatedPayloads[0]!.vectorIndex === opened[0]!.vectorIndex &&
+    validatedPayloads[0]!.edge === opened[0]!.edge &&
+    observedPayloads[0]!.payloadRef === receipt.outputPayloadRef &&
+    validatedPayloads[0]!.payloadRef === receipt.outputPayloadRef &&
+    observedPayloads[0]!.digest === validatedPayloads[0]!.digest &&
+    observedPayloads[0]!.contractRef !== null &&
+    observedPayloads[0]!.contractRef === validatedPayloads[0]!.contractRef &&
+    observedPayloads[0]!.digest === targetPayloadIdentityDigest
+      ? observedPayloads[0]!.contractRef
+      : null;
   if (
     opened.length !== 1 ||
     selected.length !== 1 ||
@@ -751,6 +863,10 @@ function assertReceiptSeal(receipt: CProgramAtomReceipt): void {
       (event) =>
         "cCallRef" in event && event.cCallRef !== receipt.cCallRef
     ) ||
+    selected[0]!.basisId !== opened[0]!.basisId ||
+    evidenced[0]!.basisId !== opened[0]!.basisId ||
+    results[0]!.basisId !== opened[0]!.basisId ||
+    judged[0]!.basisId !== opened[0]!.basisId ||
     opened[0]!.programLocusRef !== receipt.nodeRef ||
     !stableJsonEquals(opened[0]!.retryPath, receipt.retryPath) ||
     opened[0]!.attempt !== receipt.retryAttempt ||
@@ -759,9 +875,85 @@ function assertReceiptSeal(receipt: CProgramAtomReceipt): void {
     results[0]!.outcomeStatus !==
       (receipt.failureClass ?? receipt.status) ||
     results[0]!.payloadRef !== receipt.outputPayloadRef ||
-    results[0]!.responseContractRef !== receipt.responseContractRef
+    (results[0]!.responseContractRef !== receipt.responseContractRef &&
+      results[0]!.responseContractRef !== evidenceResultContractRef)
   ) {
     throw new TypeError("C-program replay receipt C-call spine differs");
+  }
+  const openIndex = runtimeEvents.indexOf(opened[0]!);
+  const selectedIndex = runtimeEvents.indexOf(selected[0]!);
+  const evidencedIndex = runtimeEvents.indexOf(evidenced[0]!);
+  const resultIndex = runtimeEvents.indexOf(results[0]!);
+  const judgedIndex = runtimeEvents.indexOf(judged[0]!);
+  if (
+    openIndex !== 0 ||
+    selectedIndex !== 1 ||
+    evidencedIndex !== runtimeEvents.length - 3 ||
+    resultIndex !== runtimeEvents.length - 2 ||
+    judgedIndex !== runtimeEvents.length - 1
+  ) {
+    throw new TypeError("C-program replay receipt enclosure order differs");
+  }
+  const scope: CProgramAtomEventScope = Object.freeze({
+    basisId: opened[0]!.basisId,
+    graphFunctionId: opened[0]!.graphFunctionId,
+    graphCallId: opened[0]!.graphCallId,
+    frameId: opened[0]!.frameId,
+    vectorIndex: opened[0]!.vectorIndex,
+    edge: opened[0]!.edge
+  });
+  const interiorEvents: CProgramAtomInteriorEvent[] = [];
+  const evidenceEvents: CProgramAtomEvidenceEvent[] = [];
+  let evidenceStarted = false;
+  for (const event of runtimeEvents.slice(2, -3)) {
+    assertAtomEventScope(event, scope);
+    if (isCProgramAtomInteriorEvent(event)) {
+      if (evidenceStarted) {
+        throw new TypeError(
+          "C-program replay receipt interior follows evidence"
+        );
+      }
+      interiorEvents.push(event);
+      continue;
+    }
+    if (isCProgramAtomEvidenceEvent(event)) {
+      evidenceStarted = true;
+      if (
+        event.kind === "payload_observed" &&
+        event.sourceEventRef !== receipt.cCallRef
+      ) {
+        throw new TypeError(
+          "C-program replay payload observation differs from its C-call"
+        );
+      }
+      evidenceEvents.push(event);
+      continue;
+    }
+    throw new TypeError(
+      "C-program replay receipt contains a non-enclosed runtime event"
+    );
+  }
+  assertAtomInteriorCausality({
+    events: interiorEvents,
+    requireFpLifecycle:
+      status === "completed" &&
+      selected[0]!.regime === "F_P" &&
+      evidenced[0]!.evidenceClass !== "sub_traversal"
+  });
+  assertAtomEvidenceOrder(evidenceEvents);
+  if (status === "completed") {
+    assertCompletedEvidenceChain({
+      label: "completed C-program replay receipt",
+      payloadRef: receipt.outputPayloadRef!,
+      schemaRef: null,
+      resultContractRef: evidenceResultContractRef,
+      closeEvidenceRefs: evidenced[0]!.evidenceRefs,
+      supplementaryCloseRefs: Object.freeze([
+        ...receipt.evidenceRefs,
+        ...receipt.sourceEventRefs
+      ]),
+      evidenceEvents
+    });
   }
   if (
     admittedPolicyRef !== null &&
@@ -783,6 +975,98 @@ function assertReceiptSeal(receipt: CProgramAtomReceipt): void {
     receiptRef !== `abg://c-program-receipt/${expected.slice("sha256:".length)}`
   ) {
     throw new TypeError("C-program replay receipt seal differs");
+  }
+}
+
+function assertCompletedEvidenceChain(input: {
+  readonly label: string;
+  readonly payloadRef: string;
+  readonly schemaRef: string | null;
+  readonly resultContractRef: string | null;
+  readonly closeEvidenceRefs: readonly string[];
+  readonly supplementaryCloseRefs: readonly string[];
+  readonly evidenceEvents: readonly CProgramAtomEvidenceEvent[];
+}): void {
+  const authorities = input.evidenceEvents.filter(
+    (event) => event.kind === "authority_snapshot_admitted"
+  );
+  const observed = input.evidenceEvents.filter(
+    (event) => event.kind === "payload_observed"
+  );
+  const validated = input.evidenceEvents.filter(
+    (event) => event.kind === "payload_validated"
+  );
+  const evidence = input.evidenceEvents.filter(
+    (event) => event.kind === "evidence_admitted"
+  );
+  const authority = authorities[0];
+  const observation = observed[0];
+  const validation = validated[0];
+  const admittedAuthorityRefs = new Set(
+    authority === undefined
+      ? []
+      : [authority.authoritySnapshotRef, ...authority.authorityRefs]
+  );
+  const evidenceAuthorityRef = observation?.authorityRef ?? null;
+  if (
+    authorities.length !== 1 ||
+    observed.length !== 1 ||
+    validated.length !== 1 ||
+    evidence.length === 0 ||
+    authority === undefined ||
+    observation === undefined ||
+    validation === undefined ||
+    observation.payloadRef !== input.payloadRef ||
+    validation.payloadRef !== input.payloadRef ||
+    observation.schemaRef === null ||
+    observation.schemaRef !== validation.schemaRef ||
+    (input.schemaRef !== null && observation.schemaRef !== input.schemaRef) ||
+    observation.contractRef === null ||
+    observation.contractRef !== validation.contractRef ||
+    observation.contractRef !== input.resultContractRef ||
+    observation.digest !== validation.digest ||
+    evidenceAuthorityRef === null ||
+    !admittedAuthorityRefs.has(evidenceAuthorityRef) ||
+    observation.inputDigest !== authority.inputDigest ||
+    validation.evidenceRef === null ||
+    !evidence.some((event) => event.evidenceRef === validation.evidenceRef) ||
+    authority.closureCapable !== true ||
+    authority.contradictoryAuthority !== false ||
+    authority.deferredAuthorityRefs.length !== 0 ||
+    evidence.some(
+      (event) =>
+        event.payloadRef !== input.payloadRef ||
+        event.authorityRef !== evidenceAuthorityRef ||
+        event.authorityDigest !== authority.authorityDigest ||
+        event.inputDigest !== authority.inputDigest ||
+        event.complete !== true ||
+        event.shallow !== false ||
+        event.contradictsAuthority !== false ||
+        event.deferred !== false
+    )
+  ) {
+    throw new TypeError(
+      `${input.label} lacks its exact admitted evidence chain`
+    );
+  }
+  const allowedCloseRefs = new Set([
+    authority.authoritySnapshotRef,
+    validation.validationRef,
+    validation.evidenceRef,
+    ...evidence.map((event) => event.evidenceRef),
+    ...input.supplementaryCloseRefs
+  ]);
+  if (
+    !input.closeEvidenceRefs.includes(authority.authoritySnapshotRef) ||
+    !input.closeEvidenceRefs.includes(validation.validationRef) ||
+    evidence.some(
+      (event) => !input.closeEvidenceRefs.includes(event.evidenceRef)
+    ) ||
+    input.closeEvidenceRefs.some((ref) => !allowedCloseRefs.has(ref))
+  ) {
+    throw new TypeError(
+      `${input.label} close evidence differs from its enclosed chain`
+    );
   }
 }
 
@@ -824,7 +1108,10 @@ function assertBatchProjectionReceiptSeal(
 
 function validateInvocation(
   input: CProgramInterpreterInvocation
-): CatalogExecutionBinding {
+): Readonly<{
+  selected: CatalogExecutionBinding;
+  graphEdge: string;
+}> {
   if (input.kind !== "c_program_interpreter_invocation") {
     throw new TypeError("C-program interpreter invocation kind is invalid");
   }
@@ -960,7 +1247,10 @@ function validateInvocation(
     }
     receiptIdentities.add(identity);
   }
-  return selected;
+  return Object.freeze({
+    selected,
+    graphEdge: vector.name
+  });
 }
 
 function requestBasis(input: {
@@ -1126,6 +1416,408 @@ function admitAtomResult(input: {
   return result;
 }
 
+interface CProgramAtomEventScope {
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+}
+
+function requestEventScope(
+  request: CProgramAtomRequest,
+  graphEdge: string
+): CProgramAtomEventScope {
+  return Object.freeze({
+    basisId: request.parentBasisId,
+    graphFunctionId: request.executionGraphFunctionRef,
+    graphCallId: request.parentGraphCallId,
+    frameId: request.parentFrameId,
+    vectorIndex: request.vectorIndex,
+    edge: graphEdge
+  });
+}
+
+function assertAtomEventScope(
+  event: RuntimeEvent,
+  scope: CProgramAtomEventScope
+): void {
+  const row: Readonly<Record<string, unknown>> = { ...event };
+  const exact = (key: keyof CProgramAtomEventScope): void => {
+    if (key in row && row[key] !== scope[key]) {
+      throw new TypeError(
+        `C-program atom event ${String(key)} differs from its call locus`
+      );
+    }
+  };
+  exact("basisId");
+  exact("graphFunctionId");
+  exact("graphCallId");
+  exact("frameId");
+  exact("vectorIndex");
+  exact("edge");
+}
+
+function admitTargetCarrier(raw: unknown): AdmittedInvocationCarrier | null {
+  if (raw === null) return null;
+  const detached = detachRowSnapshot(raw);
+  if (
+    !isPlainRecord(detached) ||
+    !stableJsonEquals(
+      Object.keys(detached).sort(),
+      [...ADMITTED_TARGET_CARRIER_KEYS].sort()
+    ) ||
+    detached["kind"] !== "admitted_invocation_carrier"
+  ) {
+    throw new TypeError(
+      "C-program atom target must be one canonical admitted invocation carrier"
+    );
+  }
+  const admitted = constructAdmittedInvocationCarrier({
+    sourceNodeRef: nonEmpty(detached["sourceNodeRef"], "sourceNodeRef"),
+    schemaRef: nonEmpty(detached["schemaRef"], "schemaRef"),
+    carrierRef: nonEmpty(detached["carrierRef"], "carrierRef"),
+    admissionRef: nonEmpty(detached["admissionRef"], "admissionRef"),
+    value: detached["value"]
+  });
+  if (admitted.carrierDigest !== detached["carrierDigest"]) {
+    throw new TypeError("C-program atom target carrier digest differs");
+  }
+  return admitted;
+}
+
+function admitAtomCloseBasis(raw: unknown): CProgramAtomCloseBasis | null {
+  if (raw === null) return null;
+  const detached = detachRowSnapshot(raw);
+  if (
+    !isPlainRecord(detached) ||
+    !stableJsonEquals(
+      Object.keys(detached).sort(),
+      [...ATOM_CLOSE_BASIS_KEYS].sort()
+    ) ||
+    detached["kind"] !== "c_program_atom_close_basis"
+  ) {
+    throw new TypeError("C-program atom close basis is not canonical");
+  }
+  const evidenceRefs = stringArray(
+    detached["evidenceRefs"],
+    "closeBasis.evidenceRefs"
+  );
+  if (new Set(evidenceRefs).size !== evidenceRefs.length) {
+    throw new TypeError("C-program atom close basis evidence is duplicated");
+  }
+  return Object.freeze({
+    kind: "c_program_atom_close_basis" as const,
+    evidenceClass: nonEmpty(
+      detached["evidenceClass"],
+      "closeBasis.evidenceClass"
+    ),
+    evidenceRefs,
+    resultContractRef: nonEmpty(
+      detached["resultContractRef"],
+      "closeBasis.resultContractRef"
+    )
+  });
+}
+
+function assertAtomInteriorCausality(input: {
+  readonly events: readonly CProgramAtomInteriorEvent[];
+  readonly requireFpLifecycle: boolean;
+}): void {
+  const indices = (kind: CProgramAtomInteriorEvent["kind"]): number[] =>
+    input.events.flatMap(
+      (event, index) => event.kind === kind ? [index] : []
+    );
+  const dispatch = indices("fp_dispatch_requested");
+  const started = indices("actor_invocation_started");
+  const closed = indices("actor_invocation_closed");
+  if (dispatch.length > 1 || started.length > 1 || closed.length > 1) {
+    throw new TypeError("C-program atom interior lifecycle is duplicated");
+  }
+  if ((started.length === 0) !== (closed.length === 0)) {
+    throw new TypeError("C-program atom actor lifecycle is incomplete");
+  }
+  if (
+    started[0] !== undefined &&
+    (closed[0]! <= started[0] ||
+      dispatch[0] !== undefined && dispatch[0] >= started[0])
+  ) {
+    throw new TypeError("C-program atom actor lifecycle is out of order");
+  }
+  if (
+    input.requireFpLifecycle &&
+    (dispatch.length !== 1 || started.length !== 1 || closed.length !== 1)
+  ) {
+    throw new TypeError(
+      "C-program F_P stage requires one dispatch, actor start, and actor close"
+    );
+  }
+  const actorIds = new Set(
+    input.events.flatMap((event) => {
+      const actorInvocationId = (
+        { ...event } as Readonly<Record<string, unknown>>
+      )["actorInvocationId"];
+      return typeof actorInvocationId === "string" ? [actorInvocationId] : [];
+    })
+  );
+  if (actorIds.size > 1) {
+    throw new TypeError("C-program atom interior actor identity differs");
+  }
+  if (dispatch[0] !== undefined && started[0] !== undefined) {
+    const dispatchEvent = input.events[dispatch[0]];
+    const startedEvent = input.events[started[0]];
+    if (
+      dispatchEvent?.kind !== "fp_dispatch_requested" ||
+      startedEvent?.kind !== "actor_invocation_started" ||
+      dispatchEvent.dispatchRef !== startedEvent.dispatchRef
+    ) {
+      throw new TypeError("C-program atom dispatch identity differs");
+    }
+  }
+  if (started[0] !== undefined && closed[0] !== undefined) {
+    const actorWindowKinds = new Set<CProgramAtomInteriorEvent["kind"]>([
+      "actor_process_started",
+      "actor_process_start_failed",
+      "actor_process_stream_observed",
+      "actor_process_heartbeat",
+      "actor_process_timeout",
+      "actor_process_signal_sent",
+      "actor_process_exited",
+      "actor_result_artifact_observed",
+      "instruction_response_contract_admitted"
+    ]);
+    input.events.forEach((event, index) => {
+      if (
+        actorWindowKinds.has(event.kind) &&
+        (index <= started[0]! || index >= closed[0]!)
+      ) {
+        throw new TypeError(
+          "C-program atom process or result event is outside the actor window"
+        );
+      }
+    });
+  }
+}
+
+function admitAtomInteriorEvents(input: {
+  readonly raw: unknown;
+  readonly request: CProgramAtomRequest;
+  readonly graphEdge: string;
+}): readonly CProgramAtomInteriorEvent[] {
+  if (!Array.isArray(input.raw)) {
+    throw new TypeError("C-program atom interior events must be an array");
+  }
+  const events = input.raw.map((raw): CProgramAtomInteriorEvent => {
+    const event = detachRowSnapshot(raw);
+    assertRuntimeEvent(event);
+    if (!isCProgramAtomInteriorEvent(event)) {
+      throw new TypeError("C-program atom interior event kind is not admitted");
+    }
+    assertAtomEventScope(
+      event,
+      requestEventScope(input.request, input.graphEdge)
+    );
+    return event;
+  });
+  assertAtomInteriorCausality({
+    events,
+    requireFpLifecycle: false
+  });
+  return Object.freeze(events);
+}
+
+function isCProgramAtomEvidenceEvent(
+  event: RuntimeEvent
+): event is CProgramAtomEvidenceEvent {
+  return event.kind === "authority_snapshot_admitted" ||
+    event.kind === "payload_observed" ||
+    event.kind === "payload_validated" ||
+    event.kind === "evidence_admitted";
+}
+
+function assertAtomEvidenceOrder(
+  events: readonly CProgramAtomEvidenceEvent[]
+): void {
+  const indices = (kind: CProgramAtomEvidenceEvent["kind"]): number[] =>
+    events.flatMap((event, index) => event.kind === kind ? [index] : []);
+  const authority = indices("authority_snapshot_admitted");
+  const observed = indices("payload_observed");
+  const validated = indices("payload_validated");
+  const evidence = indices("evidence_admitted");
+  if (authority.length > 1 || observed.length > 1 || validated.length > 1) {
+    throw new TypeError("C-program atom evidence authority is duplicated");
+  }
+  const evidenceRefs = events.flatMap((event) =>
+    event.kind === "evidence_admitted" ? [event.evidenceRef] : []
+  );
+  if (new Set(evidenceRefs).size !== evidenceRefs.length) {
+    throw new TypeError("C-program atom admitted evidence is duplicated");
+  }
+  if ((observed.length === 0) !== (validated.length === 0)) {
+    throw new TypeError("C-program atom payload evidence is incomplete");
+  }
+  if (
+    observed[0] !== undefined &&
+    (observed[0] >= validated[0]! ||
+      authority[0] !== undefined && authority[0] >= observed[0] ||
+      evidence.some((index) => index <= validated[0]!))
+  ) {
+    throw new TypeError("C-program atom evidence is out of order");
+  }
+}
+
+function admitAtomEvidenceEvents(input: {
+  readonly raw: unknown;
+  readonly request: CProgramAtomRequest;
+  readonly graphEdge: string;
+}): readonly CProgramAtomEvidenceEvent[] {
+  if (!Array.isArray(input.raw)) {
+    throw new TypeError("C-program atom evidence events must be an array");
+  }
+  const events = input.raw.map((raw): CProgramAtomEvidenceEvent => {
+    const event = detachRowSnapshot(raw);
+    assertRuntimeEvent(event);
+    if (!isCProgramAtomEvidenceEvent(event)) {
+      throw new TypeError("C-program atom evidence event kind is not admitted");
+    }
+    assertAtomEventScope(
+      event,
+      requestEventScope(input.request, input.graphEdge)
+    );
+    if (
+      event.kind === "payload_observed" &&
+      event.sourceEventRef !== input.request.cCallRef
+    ) {
+      throw new TypeError(
+        "C-program atom payload observation differs from its C-call"
+      );
+    }
+    return event;
+  });
+  assertAtomEvidenceOrder(events);
+  return Object.freeze(events);
+}
+
+function assertSubmissionEvidence(input: {
+  readonly request: CProgramAtomRequest;
+  readonly result: CProgramAtomResult;
+  readonly target: AdmittedInvocationCarrier | null;
+  readonly evidenceEvents: readonly CProgramAtomEvidenceEvent[];
+  readonly closeBasis: CProgramAtomCloseBasis | null;
+}): void {
+  const observed = input.evidenceEvents.filter(
+    (event) => event.kind === "payload_observed"
+  );
+  const validated = input.evidenceEvents.filter(
+    (event) => event.kind === "payload_validated"
+  );
+  if (input.result.status === "completed") {
+    if (input.target === null || input.closeBasis === null) {
+      throw new TypeError(
+        "completed C-program atom requires one target and close basis"
+      );
+    }
+    assertCompletedEvidenceChain({
+      label: "completed C-program atom",
+      payloadRef: input.target.carrierRef,
+      schemaRef: input.target.schemaRef,
+      resultContractRef: input.closeBasis.resultContractRef,
+      closeEvidenceRefs: input.closeBasis.evidenceRefs,
+      supplementaryCloseRefs: Object.freeze([
+        ...input.result.evidenceRefs,
+        ...input.result.sourceEventRefs
+      ]),
+      evidenceEvents: input.evidenceEvents
+    });
+    return;
+  }
+  if (observed.length > 0 || validated.length > 0) {
+    throw new TypeError(
+      "non-completed C-program atom cannot carry target evidence"
+    );
+  }
+  if (input.closeBasis !== null) {
+    throw new TypeError(
+      "non-completed C-program atom cannot carry a target close basis"
+    );
+  }
+}
+
+function admitAtomSubmission(input: {
+  readonly request: CProgramAtomRequest;
+  readonly graphEdge: string;
+  readonly raw: unknown;
+}): CProgramAtomInvocationSubmission {
+  const detached = detachRowSnapshot(input.raw);
+  if (
+    !isPlainRecord(detached) ||
+    !stableJsonEquals(
+      Object.keys(detached).sort(),
+      [...ATOM_SUBMISSION_KEYS].sort()
+    ) ||
+    detached["kind"] !== "c_program_atom_invocation_submission"
+  ) {
+    throw new TypeError("C-program atom submission is not canonical");
+  }
+  const result = admitAtomResult({
+    request: input.request,
+    raw: detached["result"]
+  });
+  const admittedTargetCarrier = admitTargetCarrier(
+    detached["admittedTargetCarrier"]
+  );
+  const interiorEvents = admitAtomInteriorEvents({
+    request: input.request,
+    graphEdge: input.graphEdge,
+    raw: detached["interiorEvents"]
+  });
+  const evidenceEvents = admitAtomEvidenceEvents({
+    request: input.request,
+    graphEdge: input.graphEdge,
+    raw: detached["evidenceEvents"]
+  });
+  const closeBasis = admitAtomCloseBasis(detached["closeBasis"]);
+  assertAtomInteriorCausality({
+    events: interiorEvents,
+    requireFpLifecycle:
+      result.status === "completed" &&
+      input.request.kind === "c_program_stage_atom_request" &&
+      input.request.fibre === "F_P"
+  });
+  if (result.status === "completed") {
+    if (
+      admittedTargetCarrier === null ||
+      closeBasis === null ||
+      admittedTargetCarrier.carrierRef !== result.outputPayloadRef ||
+      admittedTargetCarrier.admissionRef !== result.outputLineageRef
+    ) {
+      throw new TypeError(
+        "completed C-program atom submission lacks its exact target carrier"
+      );
+    }
+  } else if (admittedTargetCarrier !== null) {
+    throw new TypeError(
+      "non-completed C-program atom submission cannot carry a target"
+    );
+  }
+  assertSubmissionEvidence({
+    request: input.request,
+    result,
+    target: admittedTargetCarrier,
+    evidenceEvents,
+    closeBasis
+  });
+  return Object.freeze({
+    kind: "c_program_atom_invocation_submission" as const,
+    result,
+    admittedTargetCarrier,
+    interiorEvents,
+    evidenceEvents,
+    closeBasis
+  });
+}
+
 function synthesizedAtomFailure(input: {
   readonly request: CProgramAtomRequest;
   readonly error: unknown;
@@ -1160,6 +1852,7 @@ function sealAtomReceipt(input: {
   readonly context: ExecutionContext;
   readonly request: CProgramAtomRequest;
   readonly result: CProgramAtomResult;
+  readonly targetCarrierContentDigest: string | null;
   readonly judgment: CCallJudgment;
   readonly retryPolicyRef: string | null;
   readonly retryPolicyDigest: `sha256:${string}` | null;
@@ -1167,6 +1860,13 @@ function sealAtomReceipt(input: {
   readonly runtimeEvents: readonly RuntimeEvent[];
 }): CProgramAtomReceipt {
   input.runtimeEvents.forEach(assertRuntimeEvent);
+  const observedTargetIdentityDigests = input.runtimeEvents.flatMap((event) =>
+    event.kind === "payload_observed" ? [event.digest] : []
+  );
+  const targetPayloadIdentityDigest = input.result.status === "completed" &&
+      observedTargetIdentityDigests.length === 1
+    ? observedTargetIdentityDigests[0]!
+    : null;
   const basis = Object.freeze({
     ...input.result,
     kind: "c_program_atom_receipt" as const,
@@ -1175,6 +1875,8 @@ function sealAtomReceipt(input: {
     cursorDigest: input.request.cursorDigest,
     inputPayloadRef: input.request.inputPayloadRef,
     inputLineageRef: input.request.inputLineageRef,
+    targetCarrierContentDigest: input.targetCarrierContentDigest,
+    targetPayloadIdentityDigest,
     taskOrdinal: input.request.taskOrdinal,
     retryAttempt: input.request.retryAttempt,
     retryPath: input.request.retryPath,
@@ -1282,7 +1984,7 @@ function leafSpine(input: {
     graphFunctionId: plan.executionGraphFunctionRef,
     graphCallId: input.context.invocation.parentGraphCallId,
     frameId: input.context.invocation.parentFrameId,
-    edge: input.node.sourcePath,
+    edge: input.context.graphEdge,
     vectorIndex: input.context.invocation.vectorIndex,
     stageRole,
     taskOrdinal: input.taskOrdinal,
@@ -1303,20 +2005,36 @@ function closeLeaf(input: {
   readonly request: CProgramAtomRequest;
   readonly result: CProgramAtomResult;
   readonly judgment: CCallJudgment;
+  readonly closeBasis: CProgramAtomCloseBasis | null;
 }): readonly RuntimeEvent[] {
+  const closeBasis = input.closeBasis;
+  if (
+    closeBasis !== null &&
+    (closeBasis.kind !== "c_program_atom_close_basis" ||
+      closeBasis.evidenceClass.length === 0 ||
+      closeBasis.evidenceRefs.length === 0 ||
+      closeBasis.evidenceRefs.some((ref) => ref.length === 0) ||
+      new Set(closeBasis.evidenceRefs).size !== closeBasis.evidenceRefs.length ||
+      closeBasis.resultContractRef.length === 0)
+  ) {
+    throw new TypeError("C-program atom close basis differs from admitted result");
+  }
   return buildCCallSpineClose({
     cCallRef: input.request.cCallRef,
     basisId: input.request.parentBasisId,
-    evidenceClass: input.request.kind === "c_program_workflow_atom_request"
-      ? "sub_traversal"
-      : "c_program_atom",
-    evidenceRefs: Object.freeze([
-      ...input.result.evidenceRefs,
-      ...input.result.sourceEventRefs
-    ]),
+    evidenceClass: closeBasis?.evidenceClass ?? (
+      input.request.kind === "c_program_workflow_atom_request"
+        ? "sub_traversal"
+        : "c_program_atom"
+    ),
+    evidenceRefs: closeBasis?.evidenceRefs ?? Object.freeze([
+        ...input.result.evidenceRefs,
+        ...input.result.sourceEventRefs
+      ]),
     outcomeStatus: input.result.failureClass ?? input.result.status,
     payloadRef: input.result.outputPayloadRef,
-    responseContractRef: input.result.responseContractRef,
+    responseContractRef:
+      closeBasis?.resultContractRef ?? input.result.responseContractRef,
     judgment: input.judgment,
     reasonRef: input.result.reasonRef
   });
@@ -1331,18 +2049,22 @@ function finalizePendingFailure(input: {
   const closeEvents = coordinated?.closeEvents ?? closeLeaf({
     request: input.pending.request,
     result: input.pending.result,
-    judgment
+    judgment,
+    closeBasis: input.pending.closeBasis
   });
   const receipt = sealAtomReceipt({
     context: input.context,
     request: input.pending.request,
     result: input.pending.result,
+    targetCarrierContentDigest: null,
     judgment,
     retryPolicyRef: coordinated?.policyRef ?? null,
     retryPolicyDigest: coordinated?.policyDigest ?? null,
     retryOwnerNodeRef: input.pending.retryOwnerNodeRef,
     runtimeEvents: Object.freeze([
       ...input.pending.openEvents,
+      ...input.pending.interiorEvents,
+      ...input.pending.evidenceEvents,
       ...closeEvents
     ])
   });
@@ -1394,15 +2116,24 @@ async function invokeLeaf(input: {
       "C-program replay is not a contiguous execution prefix"
     );
   }
-  let result: CProgramAtomResult;
+  let submission: CProgramAtomInvocationSubmission;
   try {
-    result = admitAtomResult({
+    submission = admitAtomSubmission({
       request,
+      graphEdge: input.context.graphEdge,
       raw: await input.context.invocation.invokeAdmittedAtom(request)
     });
-  } catch (error: unknown) {
-    result = synthesizedAtomFailure({ request, error });
+    } catch (error: unknown) {
+    submission = Object.freeze({
+      kind: "c_program_atom_invocation_submission" as const,
+      result: synthesizedAtomFailure({ request, error }),
+      admittedTargetCarrier: null,
+      interiorEvents: Object.freeze([]),
+      evidenceEvents: Object.freeze([]),
+      closeBasis: null
+    });
   }
+  const result = submission.result;
   if (result.status === "runtime_failed") {
     return Object.freeze({
       status: result.status,
@@ -1421,6 +2152,9 @@ async function invokeLeaf(input: {
         request,
         result,
         openEvents: spine.events,
+        interiorEvents: submission.interiorEvents,
+        evidenceEvents: submission.evidenceEvents,
+        closeBasis: submission.closeBasis,
         coordinated: null,
         retryOwnerNodeRef: null
       })
@@ -1431,17 +2165,27 @@ async function invokeLeaf(input: {
     : result.status === "held"
       ? "pending"
       : "blocked";
+  const closeEvents = closeLeaf({
+    request,
+    result,
+    judgment,
+    closeBasis: submission.closeBasis
+  });
   const receipt = sealAtomReceipt({
     context: input.context,
     request,
     result,
+    targetCarrierContentDigest:
+      submission.admittedTargetCarrier?.carrierDigest ?? null,
     judgment,
     retryPolicyRef: null,
     retryPolicyDigest: null,
     retryOwnerNodeRef: null,
     runtimeEvents: Object.freeze([
       ...spine.events,
-      ...closeLeaf({ request, result, judgment })
+      ...submission.interiorEvents,
+      ...submission.evidenceEvents,
+      ...closeEvents
     ])
   });
   return resolutionFromReceipt({ node: input.node, receipt });
@@ -1921,11 +2665,12 @@ async function executeNode(input: {
 export async function interpretCompleteCProgram(
   input: CProgramInterpreterInvocation
 ): Promise<CProgramExecutionOutcome> {
-  const selected = validateInvocation(input);
+  const validated = validateInvocation(input);
   const admitted: CProgramReplayReceipt[] = [];
   const context: ExecutionContext = Object.freeze({
     invocation: input,
-    selected,
+    selected: validated.selected,
+    graphEdge: validated.graphEdge,
     replay: Object.freeze([...input.replayReceipts]),
     admitted,
     consumedReplayRefs: new Set<string>()

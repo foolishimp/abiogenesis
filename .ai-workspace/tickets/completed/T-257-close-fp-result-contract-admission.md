@@ -82,3 +82,31 @@ tenant-conformance ownership.
 - Mermaid design gate: 27 diagrams across 9 files; mutation proofs 5/5
 - public-contract schemas: 63 verified
 - generated publication assets: 33 verified from 1,044 immutable payload files
+
+## 2026-07-19 Conformance Re-entry
+
+The T-270/T-271 steel-thread conformance audit found one category error beyond
+the original T-257 closure boundary: the attached transform response admitted a
+`ResultArtifact` evidence proposal but did not carry the graph target `B` as a
+distinct candidate. Assessment-shaped artifact content must not be promoted to
+target truth.
+
+The accepted bounded correction is:
+
+- hard-replace `attached_result_artifact` with
+  `attached_transform_result`; no alias or compatibility branch survives;
+- keep one generic F_P result-admission family with two closed projections;
+- require `target_value` on the transform projection and forbid it on the
+  evaluator projection;
+- project transform output into an evidence-only `ResultArtifact` candidate and
+  a distinct target-value candidate;
+- treat a normalized evaluated `FpEvaluationOutcome` as the evaluator-locus
+  target candidate while a blocked evaluator outcome carries no target;
+- leave exact target-schema, target-binding, and generic target-carrier
+  admission to T-270 over the accepted T-255/T-256 execution handoff.
+
+This entry does not rewrite the 2026-07-13 closure evidence. That evidence
+remains the historical proof of the narrower standard wire-admission slice.
+The hard-break profile correction and target-admission integration are current
+T-270 realization work; they must earn new focused, packed, and steel-thread
+proof before product closure.

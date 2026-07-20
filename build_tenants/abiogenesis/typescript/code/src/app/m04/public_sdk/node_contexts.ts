@@ -1,7 +1,15 @@
 // Implements: T-223 DS-1 Node effect contexts for the source-blind public SDK
 
-import { accessSync, constants } from "node:fs";
-import { delimiter, dirname, isAbsolute, join, resolve } from "node:path";
+import { accessSync, constants, writeFileSync } from "node:fs";
+import {
+  delimiter,
+  dirname,
+  isAbsolute,
+  join,
+  relative,
+  resolve,
+  sep
+} from "node:path";
 import {
   mkdir,
   readFile,
@@ -30,6 +38,7 @@ import {
   type IJsonValue
 } from "./canonical.js";
 import type {
+  AdmittedSteeringCapabilityFactory,
   BoundWorkspaceContext,
   InstalledProductRecord,
   OperatorCapabilityFactory,
@@ -70,6 +79,27 @@ async function readBytesOrNull(path: string): Promise<Uint8Array | null> {
     }
     throw error;
   }
+}
+
+function runtimeRecordPath(runtimeRoot: string, relativePath: string): string {
+  if (
+    relativePath.length === 0 ||
+    isAbsolute(relativePath) ||
+    relativePath.includes("\\")
+  ) {
+    throw new TypeError("runtime record path must be product-relative");
+  }
+  const target = resolve(runtimeRoot, relativePath);
+  const fromRoot = relative(runtimeRoot, target);
+  if (
+    fromRoot.length === 0 ||
+    fromRoot === ".." ||
+    fromRoot.startsWith(`..${sep}`) ||
+    isAbsolute(fromRoot)
+  ) {
+    throw new TypeError("runtime record path escapes the runtime root");
+  }
+  return target;
 }
 
 export async function readNodeCanonicalJsonFile(
@@ -319,6 +349,9 @@ export async function createNodeBoundWorkspaceContext(input: {
   readonly operatorCapabilityFactories?: Readonly<
     Record<string, OperatorCapabilityFactory>
   >;
+  readonly operatorCapabilityFactoriesBySteeringRef?: Readonly<
+    Record<string, AdmittedSteeringCapabilityFactory>
+  >;
 }): Promise<BoundWorkspaceContext> {
   const workspaceRoot = absolutePath(input.workspaceRoot, "workspace root");
   const workspaceManifest = await readWorkspaceManifest(workspaceRoot);
@@ -329,6 +362,10 @@ export async function createNodeBoundWorkspaceContext(input: {
     )
   );
   const eventLogPath = binding.mutableStateRoots.eventLogPath;
+  const runtimeRoot = absolutePath(
+    binding.mutableStateRoots.runtimeRoot,
+    "bound workspace runtime root"
+  );
   const operatorCapabilityFactories = Object.freeze({
     [ABG_CATALOG_INVOKE_GRAPH_FUNCTION_CAPABILITY_REF]:
       createNodeStandardLiveCapabilityFactory(),
@@ -366,13 +403,37 @@ export async function createNodeBoundWorkspaceContext(input: {
           throw error;
         }
       },
+      async writeImmutableRuntimeRecord(
+        relativePath: string,
+        value: IJsonValue
+      ) {
+        const target = runtimeRecordPath(runtimeRoot, relativePath);
+        const content = canonicalizeIJson(value);
+        await mkdir(dirname(target), { recursive: true });
+        try {
+          writeFileSync(target, content, { encoding: "utf8", flag: "wx" });
+        } catch (error: unknown) {
+          if (!hasErrorCode(error, "EEXIST")) {
+            throw error;
+          }
+          const existing = await readFile(target, "utf8");
+          if (existing !== content) {
+            throw new TypeError(
+              "immutable runtime record already exists with different content"
+            );
+          }
+        }
+      },
       async readRuntimeEventBytes() {
         return (await readBytesOrNull(eventLogPath)) ?? new Uint8Array();
       },
       createRuntimeEventSink() {
         return createRuntimeEventLogSink(eventLogPath).sink;
       },
-      operatorCapabilityFactories
+      operatorCapabilityFactories,
+      operatorCapabilityFactoriesBySteeringRef: Object.freeze({
+        ...(input.operatorCapabilityFactoriesBySteeringRef ?? {})
+      })
     })
   });
 }

@@ -294,6 +294,7 @@ export function standardLiveFpDispatchPlugin(
       if (input.cCallRef === null) {
         return constructFpDispatchOutcome({
           status: "blocked",
+          failureClass: "contract_failure",
           reason:
             "live fp dispatch requires a canonical cCallRef before effects (contract_failure)",
           evidenceRefs: [input.sourceProjectionRef]
@@ -302,6 +303,7 @@ export function standardLiveFpDispatchPlugin(
       if (input.instructionPromptManifest === null) {
         return constructFpDispatchOutcome({
           status: "blocked",
+          failureClass: "contract_failure",
           reason:
             "live fp dispatch requires the ABG instruction prompt manifest (contract_failure)",
           evidenceRefs: [input.sourceProjectionRef]
@@ -315,8 +317,19 @@ export function standardLiveFpDispatchPlugin(
       ) {
         return constructFpDispatchOutcome({
           status: "blocked",
+          failureClass: "contract_failure",
           reason:
             "live fp dispatch requires one selected result contract before effects (contract_failure)",
+          evidenceRefs: [input.sourceProjectionRef]
+        });
+      }
+      const selectedResultRef = input.actorInvocationRef?.resultRef ?? null;
+      if (selectedResultRef === null) {
+        return constructFpDispatchOutcome({
+          status: "blocked",
+          failureClass: "contract_failure",
+          reason:
+            "live fp dispatch requires the admitted actor result identity (contract_failure)",
           evidenceRefs: [input.sourceProjectionRef]
         });
       }
@@ -332,6 +345,7 @@ export function standardLiveFpDispatchPlugin(
       } catch (error) {
         return constructFpDispatchOutcome({
           status: "blocked",
+          failureClass: "contract_failure",
           reason: `live fp dispatch archive refused: ${archiveErrorText(error)} (contract_failure)`,
           evidenceRefs: archiveErrorEvidence(error, input.sourceProjectionRef)
         });
@@ -349,28 +363,48 @@ export function standardLiveFpDispatchPlugin(
         if (outcome === null) {
           return constructFpDispatchOutcome({
             status: "blocked",
+            failureClass: "contract_failure",
             reason:
               "live fp dispatch archive completion carries the wrong outcome kind (contract_failure)",
             evidenceRefs: [input.sourceProjectionRef]
           });
         }
         if (outcome.status === "dispatched") {
+          if (outcome.resultRef !== selectedResultRef) {
+            return constructFpDispatchOutcome({
+              status: "blocked",
+              failureClass: "contract_failure",
+              reason:
+                "live fp dispatch archive completion carries the wrong actor result identity (contract_failure)",
+              evidenceRefs: [input.sourceProjectionRef]
+            });
+          }
           try {
             const envelope = requireFpResultContractEnvelope({
-              profile: "attached_result_artifact",
+              profile: "attached_transform_result",
               selectedResultContractRef,
-              rawResult: outcome.attachedResultArtifact,
+              rawResult: {
+                ...outcome.resultArtifactCandidate,
+                target_value: outcome.targetValueCandidate
+              },
               label: "live fp dispatch cached result"
             });
+            if (envelope.profile !== "attached_transform_result") {
+              throw new TypeError(
+                "live fp dispatch cached result admitted under the wrong profile"
+              );
+            }
             outcome = constructFpDispatchOutcome({
               status: "dispatched",
               resultRef: outcome.resultRef,
-              attachedResultArtifact: envelope.payload,
+              resultArtifactCandidate: envelope.resultArtifactCandidate,
+              targetValueCandidate: envelope.targetValueCandidate,
               evidenceRefs: outcome.evidenceRefs
             });
           } catch {
             return constructFpDispatchOutcome({
               status: "blocked",
+              failureClass: "contract_failure",
               reason:
                 "live fp dispatch archive completion carries the wrong result contract (contract_failure)",
               evidenceRefs: [input.sourceProjectionRef]
@@ -379,12 +413,12 @@ export function standardLiveFpDispatchPlugin(
         }
         return outcome;
       }
-      const label = archive.label;
       try {
         writePrelaunchArtifacts(archive, input);
       } catch (error) {
         return constructFpDispatchOutcome({
           status: "blocked",
+          failureClass: "contract_failure",
           reason: `live fp dispatch archive preparation failed: ${archiveErrorText(error)} (contract_failure)`,
           evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });
@@ -403,12 +437,8 @@ export function standardLiveFpDispatchPlugin(
       } catch (transportError) {
         const outcome = constructFpDispatchOutcome({
           status: "blocked",
+          failureClass: "contract_failure",
           reason: `live fp dispatch transport threw after launch: ${archiveErrorText(transportError)} (contract_failure)`,
-          attachedResultArtifact: {
-            kind: "live_fp_transport_exception",
-            message: archiveErrorText(transportError),
-            label
-          },
           evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });
         try {
@@ -422,48 +452,42 @@ export function standardLiveFpDispatchPlugin(
       if (transport.status !== 0 || transport.failureClass !== null) {
         outcome = constructFpDispatchOutcome({
           status: "blocked",
+          failureClass: transport.failureClass ?? "transport_failure",
           reason: [
             "live fp dispatch transport failed",
             `status=${String(transport.status)}`,
             `failureClass=${transport.failureClass ?? "transport_failure"}`,
             `toolCallCount=${String(transport.toolCallCount)}`
           ].join(" "),
-          attachedResultArtifact: {
-            kind: "live_fp_transport_failure",
-            failureClass: transport.failureClass ?? "transport_failure",
-            status: transport.status,
-            toolCallCount: transport.toolCallCount,
-            outputPath: transport.outputPath,
-            label
-          },
           evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });
       } else {
         try {
           const rawArtifact = extractJsonObjectText(transport.text);
-          const artifact = requireFpResultContractEnvelope({
-            profile: "attached_result_artifact",
+          const envelope = requireFpResultContractEnvelope({
+            profile: "attached_transform_result",
             selectedResultContractRef,
             rawResult: rawArtifact,
             label: "live fp dispatch result"
-          }).payload;
+          });
+          if (envelope.profile !== "attached_transform_result") {
+            throw new TypeError(
+              "live fp dispatch result admitted under the wrong profile"
+            );
+          }
           outcome = constructFpDispatchOutcome({
             status: "dispatched",
-            resultRef: `result:live_fp_dispatch:${label}`,
-            attachedResultArtifact: artifact,
+            resultRef: selectedResultRef,
+            resultArtifactCandidate: envelope.resultArtifactCandidate,
+            targetValueCandidate: envelope.targetValueCandidate,
             evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
           });
         } catch (error) {
           const message = archiveErrorText(error).slice(0, 160);
           outcome = constructFpDispatchOutcome({
             status: "blocked",
+            failureClass: "contract_failure",
             reason: `live fp dispatch worker output unparsable: ${message} (contract_failure)`,
-            attachedResultArtifact: {
-              kind: "live_fp_output_unparsable",
-              textExcerpt: transport.text.slice(0, 400),
-              outputPath: transport.outputPath,
-              label
-            },
             evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
           });
         }
@@ -474,6 +498,7 @@ export function standardLiveFpDispatchPlugin(
       } catch (error) {
         return constructFpDispatchOutcome({
           status: "blocked",
+          failureClass: "contract_failure",
           reason: `live fp dispatch archive finalization failed after launch: ${archiveErrorText(error)} (contract_failure)`,
           evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });
@@ -558,7 +583,10 @@ function admitStandardLiveReview(
     rawResult: rawArtifact,
     label: "live fp evaluation review"
   });
-  const artifact = envelope.payload;
+  if (envelope.profile !== "standard_live_review") {
+    throw new TypeError("live fp evaluation review admitted under the wrong profile");
+  }
+  const artifact = envelope.reviewCandidate;
   const accepted = artifact["accepted"];
   if (typeof accepted !== "boolean") {
     throw new TypeError("review.accepted must be a boolean");

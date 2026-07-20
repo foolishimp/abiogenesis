@@ -21,7 +21,7 @@
     program locus identity, then the M03 C-program interpreter boundary
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-14
+- updated_at: 2026-07-19
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-259
@@ -45,6 +45,14 @@
 - closure_decision_ref: >-
     .ai-workspace/comments/codex/
     20260714T082119Z_DECISION_fh_accept_and_close_t271_remediation.md
+- conformance_reentry_status: accepted_design_runtime_reconciliation_pending
+- conformance_reentry_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T210352Z_CONFORMANCE_AUDIT_t270_t271_fp_result_steel_thread.md
+- conformance_reentry_decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T214229Z_DECISION_accept_t257_t270_t271_conformance_correction.md
+- conformance_design_digest: 94d816dd05301e865d70a7ab45ebc9b7e6aa752e1df6de0fc0e759d705b69828
 - closed_at: 2026-07-14
 - priority: critical
 - dependencies:
@@ -140,3 +148,49 @@ GTL tests; packed API `1/1`; exact T-252 body/census check with two remaining
 gap families; and green lint, publication, schema, governance, Mermaid, pack,
 and diff checks. Explicit F_H acceptance closes T-271. T-267 remains a
 separate design and implementation gate.
+
+## 2026-07-19 C-Call Enclosure Conformance Re-Entry
+
+The T-270/T-271 conformance audit found one ownership contradiction that the
+historical closure evidence did not test. The accepted T-271 design said that
+runtime atoms owned and admitted C-call events, while the retained traversal
+monad requires the complete-program interpreter to own every invoking leaf or
+workflow C-call enclosure.
+
+The corrected boundary is:
+
+```text
+T-271 opens exact C-call and fibre
+  -> effect-interior callback returns one CProgramAtomInvocationSubmission
+  -> T-271 validates interior, evidence, target, close basis, and scope
+  -> T-271 admits interior, evidence, result, and judgment in order
+  -> replay derives the next cursor or truthful stop
+```
+
+The callback owns only the bounded external effect interior. It cannot open,
+evidence, admit, judge, or close a C-call and cannot write replay. The single
+submission replaces `invokeAdmittedAtom -> CProgramAtomResult` plus the
+separate `projectAtomRuntimeEvents` callback. Batch remains a grouping law,
+retry remains a replay/budget law, and T-271 owns each child C-call rather than
+opening a synthetic wrapper call.
+
+This is a `design_reframe` of the existing seam. It introduces no event kind,
+event authority, controller, C constructor, traversal loop, or public
+operation. The historical commits and proof remain valid for compilation,
+structural interpretation, replay coordinates, batch projection, and retry
+identity. They do not prove the corrected callback/enclosure boundary.
+
+Conformance closure now additionally requires:
+
+1. one neutral `CProgramAtomInvocationSubmission` return per callback;
+2. removal of `projectAtomRuntimeEvents` as a second projection authority;
+3. a closed existing-event allowlist for effect interior and evidence;
+4. exact scope, basis, graph-call, frame, vector, edge, C-call, causal-order,
+   cardinality, target, evidence, and close-basis validation;
+5. replay that never reinvokes the callback and rejects missing, duplicate,
+   injected, or reordered enclosure rows; and
+6. independent review of the repaired runtime seam before T-270 or an
+   installed steel thread may use the historical T-271 closure as evidence.
+
+The completed ticket location preserves the 2026-07-14 closure record. The
+new `conformance_reentry_status` is the current truth for this bounded seam.

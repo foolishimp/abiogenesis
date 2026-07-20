@@ -22,6 +22,10 @@ import {
   C_CALL_HANDLER_CLASS_VALUES,
   type CCallHandlerBinding
 } from "../contracts/hog_handler_bindings.js";
+import {
+  admitIJsonValue,
+  type IJsonValue
+} from "../../../shared/runtime_identity.js";
 
 export { C_CALL_HANDLER_CLASS_VALUES } from "../contracts/hog_handler_bindings.js";
 export type {
@@ -37,6 +41,31 @@ export interface CCallHandlerInterior {
   readonly responseContractRef: string | null;
   readonly failureReason: string | null;
 }
+
+// Value-producing F_D handlers remain ordinary C-call handlers. The subtype
+// carries only the candidate value; ABG still owns its later result admission
+// and every closure-bearing event.
+export interface CCallValueHandlerInterior extends CCallHandlerInterior {
+  readonly kind: "c_call_value_handler_interior";
+  readonly outcomeStatus: "executed";
+  readonly payloadRef: null;
+  readonly responseContractRef: null;
+  readonly failureReason: null;
+  readonly targetValueCandidate: IJsonValue;
+}
+
+export interface CCallValueHandlerContractFailureInterior
+  extends CCallHandlerInterior {
+  readonly kind: "c_call_value_handler_contract_failure";
+  readonly outcomeStatus: "blocked";
+  readonly payloadRef: null;
+  readonly responseContractRef: null;
+  readonly failureReason: string;
+}
+
+export type CCallValueHandlerExecutionInterior =
+  | CCallValueHandlerInterior
+  | CCallValueHandlerContractFailureInterior;
 
 export interface CCallHandlerInput {
   readonly stage: HogProgramStage;
@@ -80,6 +109,36 @@ export function constructCCallHandler<
     { driverRequirement: input.driverRequirement }
   );
   return Object.freeze(handler);
+}
+
+export type CCallValueHandlerResultForDriver<
+  D extends CCallHandlerDriverRequirement
+> = D extends "sync_compatible"
+  ? CCallValueHandlerInterior
+  : Promise<CCallValueHandlerInterior>;
+
+// Structural subtype of CCallHandler: the existing registry and exact
+// (program x stage x arm) selector can store and resolve it without a second
+// implementation authority.
+export type CCallValueHandler<
+  D extends CCallHandlerDriverRequirement = CCallHandlerDriverRequirement
+> = {
+  readonly driverRequirement: D;
+  (input: CCallHandlerInput): CCallValueHandlerResultForDriver<D>;
+};
+
+export function constructCCallValueHandler<
+  const D extends CCallHandlerDriverRequirement
+>(input: {
+  readonly driverRequirement: D;
+  readonly execute: (
+    handlerInput: CCallHandlerInput
+  ) => CCallValueHandlerResultForDriver<D>;
+}): CCallValueHandler<D> {
+  return constructCCallHandler({
+    driverRequirement: input.driverRequirement,
+    execute: input.execute
+  }) as CCallValueHandler<D>;
 }
 
 export interface CCallHandlerRegistry {
@@ -276,5 +335,87 @@ export async function executeHandlerAsync(
       responseContractRef: null,
       failureReason: `${message} (contract_failure)`
     });
+  }
+}
+
+function valueHandlerContractFailure(
+  input: CCallHandlerInput,
+  evidenceRefs: readonly string[],
+  reason: string
+): CCallValueHandlerContractFailureInterior {
+  const failureReason = reason.endsWith("(contract_failure)")
+    ? reason
+    : `${reason} (contract_failure)`;
+  return Object.freeze({
+    kind: "c_call_value_handler_contract_failure",
+    outcomeStatus: "blocked",
+    evidenceRefs: Object.freeze([
+      ...evidenceRefs,
+      `handler-value-contract-failure:${input.binding.handlerRef}`
+    ]),
+    payloadRef: null,
+    responseContractRef: null,
+    failureReason
+  });
+}
+
+// Value admission is an executor concern, not handler authority. The ordinary
+// async wrapper first converts throws and driver defects; this boundary then
+// admits the structural subtype and its I-JSON candidate. Invalid output is a
+// typed blocked interior and never exposes a partial target value.
+export async function executeValueHandlerAsync(
+  handler: CCallHandler,
+  input: CCallHandlerInput
+): Promise<CCallValueHandlerExecutionInterior> {
+  const interior = await executeHandlerAsync(handler, input);
+  if (interior.outcomeStatus === "blocked" || interior.failureReason !== null) {
+    return valueHandlerContractFailure(
+      input,
+      interior.evidenceRefs,
+      interior.failureReason ?? "handler value execution blocked"
+    );
+  }
+
+  const candidateInterior = interior as CCallHandlerInterior & {
+    readonly kind?: unknown;
+    readonly targetValueCandidate?: unknown;
+  };
+  if (
+    candidateInterior.kind !== "c_call_value_handler_interior" ||
+    candidateInterior.outcomeStatus !== "executed" ||
+    candidateInterior.payloadRef !== null ||
+    candidateInterior.responseContractRef !== null ||
+    candidateInterior.failureReason !== null
+  ) {
+    return valueHandlerContractFailure(
+      input,
+      interior.evidenceRefs,
+      "handler value interior requires executed candidate-only output"
+    );
+  }
+  if (!Object.hasOwn(candidateInterior, "targetValueCandidate")) {
+    return valueHandlerContractFailure(
+      input,
+      interior.evidenceRefs,
+      "handler value interior requires targetValueCandidate"
+    );
+  }
+
+  try {
+    return Object.freeze({
+      kind: "c_call_value_handler_interior" as const,
+      outcomeStatus: "executed" as const,
+      evidenceRefs: Object.freeze([...interior.evidenceRefs]),
+      payloadRef: null,
+      responseContractRef: null,
+      failureReason: null,
+      targetValueCandidate: admitIJsonValue(
+        candidateInterior.targetValueCandidate,
+        "CCallValueHandlerInterior.targetValueCandidate"
+      )
+    });
+  } catch (error) {
+    const message = (error instanceof Error ? error.message : String(error)).slice(0, 200);
+    return valueHandlerContractFailure(input, interior.evidenceRefs, message);
   }
 }

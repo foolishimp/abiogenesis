@@ -14,6 +14,14 @@ import {
 import {
   requirementProofCoverageStatusFromTruthRef
 } from "./requirement_proof_carry_through.js";
+import {
+  REQUIREMENT_EVENT_PAYLOAD_KIND_VALUES
+} from "./requirement_event_payload_kinds.js";
+
+export {
+  REQUIREMENT_EVENT_PAYLOAD_KIND_VALUES,
+  type RequirementEventPayloadKind
+} from "./requirement_event_payload_kinds.js";
 
 export const REQUIREMENT_STAGE_VALUES = Object.freeze([
   "homeostatic_gap",
@@ -158,22 +166,6 @@ export const REQUIREMENT_FD_OUTCOME_VALUES = Object.freeze([
 ] as const);
 
 export type RequirementFdOutcome = (typeof REQUIREMENT_FD_OUTCOME_VALUES)[number];
-
-export const REQUIREMENT_EVENT_PAYLOAD_KIND_VALUES = Object.freeze([
-  "requirement_term_admitted",
-  "requirement_relation_admitted",
-  "traversal_span_admitted",
-  "authority_context_fragment_admitted",
-  "destination_topology_admitted",
-  "requirement_test_relation_admitted",
-  "requirement_projection_admitted",
-  "requirement_evidence_bound",
-  "requirement_fold_projected",
-  "requirement_residual_projected"
-] as const);
-
-export type RequirementEventPayloadKind =
-  (typeof REQUIREMENT_EVENT_PAYLOAD_KIND_VALUES)[number];
 
 export interface RequirementTerm {
   readonly kind: "requirement_term";

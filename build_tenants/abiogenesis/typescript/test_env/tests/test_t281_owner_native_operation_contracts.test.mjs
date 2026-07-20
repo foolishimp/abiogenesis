@@ -476,9 +476,14 @@ test("catalog requests are strict and variant-indexed", () => {
   });
   for (const variant of ["node_type", "overlay"]) {
     parseRequest("abg.operation.catalog.apply", variant, {
+      catalogRowRef: `catalog-row:${variant}`,
+      catalogRowDigest: DIGEST,
+      catalogViewRef: "catalog-view:1",
+      catalogViewDigest: DIGEST,
       declarationRef: `declaration:${variant}`,
       declarationDigest: DIGEST,
       targetRef: "target:1",
+      targetDigest: DIGEST,
       applicationBasisRef: "application-basis:1",
       applicationBasisDigest: DIGEST
     });

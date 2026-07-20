@@ -9,6 +9,10 @@ import {
   CONSTRUCTION_PRESSURE_KIND_VALUES,
   CONSTRUCTION_REPAIR_SURFACE_DISPOSITION_VALUES
 } from "./construction_observation.js";
+import {
+  AFFECT_PRIORITY_ADJUSTMENT_VALUES,
+  CONSTRUCTION_TERMINAL_DISPOSITION_VALUES
+} from "./construction_priority.js";
 import { GRAPH_REENTRY_POINT_VALUES } from "./carriers.js";
 import type { OneSurfaceAuthorityFunctionKind } from "./one_surface_authority.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
@@ -77,6 +81,10 @@ const uniqueStrings = v.pipe(
   v.array(nonEmptyString),
   UNIQUE_STRING_VALUES_ACTION,
   v.readonly()
+);
+const requiredUniqueStrings = v.pipe(
+  uniqueStrings,
+  v.minLength(1, "expected at least one string")
 );
 const nonNegativeInteger = v.pipe(v.number(), v.integer(), v.minValue(0));
 const nonNegativeNumber = v.pipe(v.number(), v.minValue(0));
@@ -271,19 +279,211 @@ const constructionIntentCandidate = exactObject({
   fdSemanticCanonicalizationRequired: v.boolean()
 });
 
+const targetObligationBinding = exactObject({
+  kind: v.literal("target_obligation_binding"),
+  bindingRef: nonEmptyString,
+  bindingDigest: sha256DigestSchema,
+  snapshotRef: nonEmptyString,
+  snapshotDigest: sha256DigestSchema,
+  sourceBindingRef: nonEmptyString,
+  pressureRef: nonEmptyString,
+  actionRef: nonEmptyString,
+  targetOutcomeRef: nonEmptyString,
+  obligationRefs: requiredUniqueStrings,
+  requiredEvidenceAuthorityRefs: requiredUniqueStrings
+});
+
+const affectPriorityAdjustment = exactObject({
+  kind: v.literal("affect_priority_adjustment"),
+  affectRef: nonEmptyString,
+  bindingRef: nonEmptyString,
+  signalKind: v.picklist(CONSTRUCTION_AFFECT_SIGNAL_KIND_VALUES),
+  sourceRef: nonEmptyString,
+  targetOutcomeRefs: uniqueStrings,
+  affectedActionRefs: uniqueStrings,
+  intensity: nonNegativeNumber,
+  adjustment: v.picklist(AFFECT_PRIORITY_ADJUSTMENT_VALUES),
+  weightDelta: v.number(),
+  policyRef: nonEmptyString,
+  reviewReasonRefs: uniqueStrings,
+  terminalRouteRef: v.nullable(nonEmptyString),
+  escalationRequired: v.boolean(),
+  evidenceRefs: uniqueStrings
+});
+
+const constructionPriorityRow = exactObject({
+  kind: v.literal("construction_priority_row"),
+  rankInputRef: nonEmptyString,
+  bindingRef: nonEmptyString,
+  pressureRef: nonEmptyString,
+  actionRef: nonEmptyString,
+  targetOutcomeRef: nonEmptyString,
+  sourcePolicyRef: nonEmptyString,
+  rankOrdinal: nonNegativeInteger,
+  baseScore: v.number(),
+  priorityScore: v.number(),
+  affectAdjustmentRefs: uniqueStrings,
+  finalScore: v.number(),
+  rankReasonRefs: uniqueStrings,
+  forcedReview: v.boolean(),
+  fhInputRequired: v.boolean(),
+  escalationRequired: v.boolean(),
+  terminalRouteRef: v.nullable(nonEmptyString),
+  reviewReasonRefs: uniqueStrings,
+  terminalDisposition: v.picklist(CONSTRUCTION_TERMINAL_DISPOSITION_VALUES),
+  tieBreakKey: nonEmptyString
+});
+
+const constructionPriorityProjection = exactObject({
+  kind: v.literal("construction_priority_projection"),
+  projectionRef: nonEmptyString,
+  episodeId: nonEmptyString,
+  bindingProjectionRef: nonEmptyString,
+  prioritySchemeRef: nonEmptyString,
+  affectPolicyRefs: uniqueStrings,
+  affectAdjustments: v.pipe(v.array(affectPriorityAdjustment), v.readonly()),
+  rows: v.pipe(v.array(constructionPriorityRow), v.readonly())
+});
+
+const nextActionBasis = exactObject({
+  kind: v.literal("next_action_basis"),
+  basisKind: v.picklist([
+    "initial_selection",
+    "post_yield_resume",
+    "post_close_graph_continuation",
+    "post_retry",
+    "post_repair",
+    "post_reenter",
+    "post_reprice",
+    "post_block"
+  ]),
+  causalRefs: requiredUniqueStrings,
+  basisDigest: sha256DigestSchema
+});
+
+const refDigest = exactObject({
+  ref: nonEmptyString,
+  digest: nonEmptyString
+});
+
+const nextActionDisposition = v.union([
+  exactObject({
+    variant: v.literal("callable_member_action"),
+    actionKind: v.literal("invoke_graph_function"),
+    actionRef: nonEmptyString,
+    targetRef: nonEmptyString
+  }),
+  exactObject({
+    variant: v.literal("internal_vector_action"),
+    actionKind: v.picklist(["invoke_prior_vector", "invoke_later_vector"]),
+    actionRef: nonEmptyString,
+    targetRef: nonEmptyString
+  }),
+  exactObject({
+    variant: v.literal("refinement_reentry_action"),
+    actionKind: v.literal("reenter_graph_span"),
+    actionRef: nonEmptyString,
+    targetRef: nonEmptyString
+  }),
+  exactObject({
+    variant: v.literal("repair_action"),
+    actionKind: v.literal("repair_same_edge"),
+    actionRef: nonEmptyString,
+    targetRef: v.null()
+  }),
+  exactObject({
+    variant: v.literal("continue_current_intent"),
+    actionKind: v.literal("continue_graph_call"),
+    actionRef: nonEmptyString,
+    targetRef: v.null()
+  }),
+  exactObject({
+    variant: v.literal("fh_outcome"),
+    actionKind: v.literal("open_fh_gate"),
+    actionRef: nonEmptyString,
+    targetRef: v.null()
+  }),
+  exactObject({
+    variant: v.literal("ticket_outcome"),
+    actionKind: v.literal("create_ticket"),
+    actionRef: nonEmptyString,
+    targetRef: v.null()
+  }),
+  exactObject({
+    variant: v.literal("reprice_outcome"),
+    actionKind: v.literal("propose_reprice"),
+    actionRef: nonEmptyString,
+    targetRef: v.null()
+  }),
+  exactObject({
+    variant: v.literal("terminal_outcome"),
+    actionKind: v.picklist(["yield_progress", "close_episode", "block_episode"]),
+    actionRef: nonEmptyString,
+    targetRef: v.null()
+  }),
+  exactObject({
+    variant: v.literal("no_action"),
+    actionKind: v.null(),
+    actionRef: v.null(),
+    targetRef: v.null()
+  })
+]);
+
+const nextActionProjectionValue = exactObject({
+  nextBasis: nextActionBasis,
+  admittedProgram: refDigest,
+  catalogView: refDigest,
+  observationRef: nonEmptyString,
+  currentObservationRef: nonEmptyString,
+  currentObservationDigest: sha256DigestSchema,
+  actionCatalogRef: nonEmptyString,
+  bindingProjectionRef: nonEmptyString,
+  priorityProjectionRef: nonEmptyString,
+  selectedBindingRef: v.nullable(nonEmptyString),
+  selectedOutcomeRef: v.nullable(nonEmptyString),
+  intentCandidate: v.nullable(constructionIntentCandidate),
+  disposition: nextActionDisposition
+});
+
+// The evaluator owns this semantic value. ABG adds only its admitted-result
+// reference and projection seal after exact-input corroboration.
 const evaluateNextCarrier = exactObject({
-  selectedActionRef: v.nullable(nonEmptyString),
-  intentCandidate: v.nullable(constructionIntentCandidate)
+  targetBindings: v.pipe(v.array(targetObligationBinding), v.readonly()),
+  priorityProjection: constructionPriorityProjection,
+  nextActionProjection: nextActionProjectionValue
 });
 const EVALUATE_NEXT_CANDIDATE_MATCH_ACTION = Object.freeze(v.check(
   (value: v.InferOutput<typeof evaluateNextCarrier>) =>
-    value.intentCandidate === null ||
-      value.selectedActionRef === value.intentCandidate.selectedActionRef,
-  "intentCandidate must identify selectedActionRef"
+    value.nextActionProjection.intentCandidate === null ||
+      value.nextActionProjection.disposition.actionRef ===
+        value.nextActionProjection.intentCandidate.selectedActionRef,
+  "intentCandidate must identify the selected disposition action"
+));
+const EVALUATE_NEXT_TOTALITY_ACTION = Object.freeze(v.check(
+  (value: v.InferOutput<typeof evaluateNextCarrier>) => {
+    const projection = value.nextActionProjection;
+    const noSelection = projection.selectedBindingRef === null;
+    return projection.priorityProjectionRef ===
+        value.priorityProjection.projectionRef &&
+      noSelection === (projection.selectedOutcomeRef === null) &&
+      noSelection === (projection.disposition.actionRef === null) &&
+      (projection.intentCandidate === null ||
+        (projection.selectedBindingRef ===
+          projection.intentCandidate.selectedBindingRef &&
+          projection.selectedOutcomeRef ===
+            projection.intentCandidate.selectedOutcomeRef)) &&
+      (projection.selectedBindingRef === null ||
+        value.targetBindings.filter(
+          (binding) =>
+            binding.sourceBindingRef === projection.selectedBindingRef
+        ).length === 1);
+  },
+  "nextActionProjection must be total over its binding and priority truth"
 ));
 const evaluateNextResult = v.pipe(
   evaluateNextCarrier,
-  EVALUATE_NEXT_CANDIDATE_MATCH_ACTION
+  EVALUATE_NEXT_CANDIDATE_MATCH_ACTION,
+  EVALUATE_NEXT_TOTALITY_ACTION
 );
 
 const evaluateActionResult = exactObject({
@@ -337,6 +537,11 @@ export const ONE_SURFACE_NATIVE_CHECK_REGISTRY = Object.freeze({
     Object.freeze({
       checkId: "evaluate_next_candidate_match",
       action: EVALUATE_NEXT_CANDIDATE_MATCH_ACTION,
+      relationRef: "REQ-R-ABG3-FP-CONSCIOUSNESS-005"
+    }),
+    Object.freeze({
+      checkId: "evaluate_next_totality",
+      action: EVALUATE_NEXT_TOTALITY_ACTION,
       relationRef: "REQ-R-ABG3-FP-CONSCIOUSNESS-005"
     }),
     Object.freeze({

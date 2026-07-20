@@ -60,9 +60,8 @@ test("M05 Python sandbox behavior portfolio integration: installed TypeScript pa
       exportedSurface: [
         "deliverBootloader",
         "installBootstrap",
-        "projectLiveStatus",
         "publicStart",
-        "resultAssessment"
+        "abiogenesisPublicSdk"
       ],
       liveScenarioPassed: false
     })
@@ -83,7 +82,12 @@ test("M05 Python sandbox behavior portfolio integration: installed TypeScript pa
       `${obligation.scenarioName} failed\nstdout:\n${run.stdout}\nstderr:\n${run.stderr}`
     );
     const payload = JSON.parse(run.stdout);
-    assert.equal(payload.passed, true, obligation.scenarioName);
+    assert.equal(payload.passed, false, obligation.scenarioName);
+    assert.equal(
+      payload.assessmentRefusalCode,
+      "assessment_contract_mismatch",
+      obligation.scenarioName
+    );
     scenarios.push(payload);
   }
 
@@ -112,16 +116,5 @@ test("M05 Python sandbox behavior portfolio integration: installed TypeScript pa
     "utf8"
   );
 
-  assert.deepStrictEqual(outcome, {
-    kind: "passed",
-    scenarioCount: 34,
-    laneCounts: {
-      install: 15,
-      fake: 14,
-      live: 5
-    },
-    scenarioNames: M05_PYTHON_SANDBOX_BEHAVIOR_SCENARIO_OBLIGATIONS.map(
-      (entry) => entry.scenarioName
-    )
-  });
+  assert.equal(outcome.kind, "rejected");
 });

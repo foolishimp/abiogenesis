@@ -2,7 +2,7 @@
 // Validates: REQ-P-CATALOG, REQ-P-INSTALL, REQ-P-PUBLIC-CONTRACTS
 
 import assert from "node:assert/strict";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -11,10 +11,12 @@ import { TextDecoder } from "node:util";
 import {
   admitIJsonText,
   admitModule,
+  canonicalizeIJson,
   catalogResolve,
   catalogVerify,
   constructModuleLookupAuthority,
   createNodeProductIntakeEffects,
+  publicContractCatalogAddressableContractRefs,
   resolvePublishedGraphFunction
 } from "../../build/semantic/code/src/index.js";
 import {
@@ -42,6 +44,15 @@ test("T-223 ABG candidate packs one Module-backed SYSTEM GraphFunction and verif
   const catalog = candidate.publication.publication.catalog;
   const manifest = candidate.publication.publication.manifest;
 
+  assert.equal(
+    await readFile(candidate.descriptorPath, "utf8"),
+    canonicalizeIJson(candidate.descriptor)
+  );
+  assert.equal(
+    await readFile(candidate.contributionPath, "utf8"),
+    canonicalizeIJson(candidate.contribution)
+  );
+
   assert.equal(candidate.descriptor.version, manifest.packageVersion);
   assert.equal(
     candidate.descriptor.distributionArtifactDigest,
@@ -57,10 +68,7 @@ test("T-223 ABG candidate packs one Module-backed SYSTEM GraphFunction and verif
   assert.equal(systemRow.locator.modulePath, T223_ABG_SYSTEM_MODULE_PATH);
   assert.equal(systemRow.locator.declarationRef, systemRow.declarationRef);
 
-  const contractRefs = catalog.rows
-    .filter((row) => row.contractKind !== "capability")
-    .map((row) => row.contractId)
-    .sort();
+  const contractRefs = publicContractCatalogAddressableContractRefs(catalog);
   const capabilityRefs = catalog.rows
     .filter((row) => row.contractKind === "capability")
     .map((row) => row.contractId)
@@ -73,6 +81,15 @@ test("T-223 ABG candidate packs one Module-backed SYSTEM GraphFunction and verif
   const packedPaths = packedEntries.map((entry) => entry.relativePath);
   assert.equal(packedPaths.some((entry) => entry.startsWith("package/test_env/")), false);
   assert.equal(packedPaths.some((entry) => entry.startsWith("package/code/")), false);
+  assert.equal(
+    packedPaths.some(
+      (entry) =>
+        entry.endsWith("product-descriptor.json") ||
+        entry.endsWith("contribution-manifest.json")
+    ),
+    false,
+    "archive-bound publication sidecars must remain detached"
+  );
   const packedModule = packedEntries.find(
     (entry) => entry.relativePath === `package/${T223_ABG_SYSTEM_MODULE_PATH}`
   );

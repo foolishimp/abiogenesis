@@ -157,7 +157,10 @@ export const RUN_INDEPENDENT_EVENT_SCOPE_CLASSES = Object.freeze({
   registry_plugin_advice_rejected: "workspace",
   graph_function_selected: "workspace",
   graph_function_selection_rejected: "workspace",
-  public_operation_admitted: "workspace",
+  // public ingress/artifact truth is scoped by its admitted authority basis;
+  // pre-binding operations deliberately carry no fabricated workspace scope
+  public_operation_admitted: "authority",
+  public_operation_artifact_admitted: "authority",
   node_type_satisfaction_projected: "workspace",
   workspace_installation_admitted: "workspace",
   lever_resolution_admitted: "workspace",

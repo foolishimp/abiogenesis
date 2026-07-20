@@ -32,7 +32,7 @@ test("M05 installed graph-function target integration: packaged sandbox start se
   assert.equal(payload.selectedGraphFunctionId, payload.codeGraphFunctionId);
   assert.notEqual(payload.selectedGraphFunctionId, payload.reviewGraphFunctionId);
   assert.deepStrictEqual(payload.dispatchedEdges, ["design→code"]);
-  assert.deepStrictEqual(payload.assessedEdges, ["design→code"]);
+  assert.deepStrictEqual(payload.assessedEdges, []);
   assert.equal(payload.dispatchedEdges.includes("design→review"), false);
   assert.equal(payload.assessedEdges.includes("design→review"), false);
   assert.deepStrictEqual(payload.eventKinds, [
@@ -54,11 +54,8 @@ test("M05 installed graph-function target integration: packaged sandbox start se
     "c_call_evidenced",
     "c_call_result_admitted",
     "c_call_judged",
-    "authority_snapshot_admitted",
-    "payload_observed",
-    "payload_validated",
-    "evidence_admitted",
-    "assessed"
+    "public_operation_admitted"
   ]);
-  assert.equal(payload.assessmentKind, "accepted");
+  assert.equal(payload.assessmentKind, "rejected");
+  assert.equal(payload.assessmentRefusalCode, "assessment_contract_mismatch");
 });

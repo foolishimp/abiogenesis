@@ -16,6 +16,8 @@ export {
   C_CALL_HANDLER_CLASS_VALUES,
   admitHandlerRegistry,
   constructCCallHandler,
+  constructCCallValueHandler,
+  executeValueHandlerAsync,
   resolveHandlerForSelection,
   executeHandler
 } from "./runner/c_call_handlers.js";
@@ -26,7 +28,12 @@ export type {
   CCallHandlerDriverRequirement,
   CCallHandlerInput,
   CCallHandlerInterior,
-  CCallHandlerRegistry
+  CCallHandlerRegistry,
+  CCallValueHandler,
+  CCallValueHandlerContractFailureInterior,
+  CCallValueHandlerExecutionInterior,
+  CCallValueHandlerInterior,
+  CCallValueHandlerResultForDriver
 } from "./runner/c_call_handlers.js";
 
 export {

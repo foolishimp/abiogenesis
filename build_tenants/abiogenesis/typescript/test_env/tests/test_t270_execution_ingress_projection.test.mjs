@@ -9,10 +9,8 @@ import {
   deriveRegistrySessionView
 } from "../../build/semantic/code/src/index.js";
 import {
-  assertAdmittedRunInvokeExecutionIngress,
-  T270_ROOT_PAYLOAD_BODY_GAP,
-  T270_RUNTIME_COMPATIBILITY_GAP
-} from "../../build/semantic/code/src/abg/m03/contracts/one_surface_execution_ingress.js";
+  resolveSelectedCatalogExecutionFromSessionView
+} from "../../build/semantic/code/src/abg/m03/runner/selected_catalog_execution.js";
 import {
   constructCapabilityGrant,
   constructInvocationAuthority,
@@ -22,11 +20,16 @@ import {
   publicContractCatalogCoordinate
 } from "../../build/semantic/code/src/app/m04/public_contracts/native_contract_phase_a.js";
 import {
-  admitPrivateRunInvokeExecutionIngress
+  admitPrivateP1PublicOperationPacket,
+  preparePrivateRunInvokeExecution,
+  preparePrivateRunInvokeExecutionFromPacket
 } from "../../build/semantic/code/src/app/m04/public_contracts/private_public_operation_ingress.js";
 import {
   buildPrivatePublicOperationDefinitionFamily
 } from "../../build/semantic/code/src/app/m04/public_contracts/public_operation_definition_family.js";
+import {
+  projectPublishedPublicOperationDefinitionFromPrivate
+} from "../../build/semantic/code/src/app/m04/public_contracts/operation_publication.js";
 import {
   constructToolchainWorkspaceBindingV3
 } from "../../build/semantic/code/src/app/m04/toolchain_binding/bind.js";
@@ -408,9 +411,22 @@ async function installedAuthorities() {
     publicContractCatalogVersion: contractCatalog.catalogVersion,
     publicContractCatalogDigest: contractCatalog.catalogDigest
   });
-  const binding = constructToolchainWorkspaceBindingV3({
+  const workspaceManifest = Object.freeze({
+    kind: "abg_workspace_manifest",
+    schemaVersion: 1,
     workspaceId: "workspace:t270",
-    workspaceManifestDigest: DIGEST,
+    root: WORKSPACE_ROOT,
+    authorityMode: "clean_no_project_authority",
+    scaffoldState: "none",
+    bindingRef: ".abiogenesis/toolchain-binding.json",
+    configurationRefs: Object.freeze([]),
+    createdAt: "2026-07-18T00:00:00.000Z",
+    actorRef: "actor:t270",
+    provenanceRefs: Object.freeze(["provenance:t270"])
+  });
+  const binding = constructToolchainWorkspaceBindingV3({
+    workspaceId: workspaceManifest.workspaceId,
+    workspaceManifestDigest: stableSha256Digest(workspaceManifest),
     targetRoot: WORKSPACE_ROOT,
     toolchainRoot: "/tmp/abg-t270-toolchain",
     resolvedLockId: "lock:t270",
@@ -429,8 +445,27 @@ async function installedAuthorities() {
     provenanceRefs: Object.freeze(["fixture:t270"])
   });
   const runtimeCatalog = runtimeCatalogFor({ binding, world, inputContract });
+  const records = new Map([
+    [abgProduct.manifestPath, abgManifest],
+    [catalogProduct.manifestPath, catalogManifest],
+    [`${catalogProduct.productRoot}/contracts/schemas/t270-root-input.schema.json`, ROOT_INPUT_SCHEMA]
+  ]);
+  const context = Object.freeze({
+    kind: "bound_workspace",
+    workspaceManifest,
+    binding,
+    publicContractCatalog: abgContractCatalog,
+    effects: Object.freeze({
+      readRecord: async (absolutePath) => records.get(absolutePath) ?? null,
+      readInputAsset: async () => null,
+      readRuntimeEventBytes: async () => new Uint8Array(),
+      createRuntimeEventSink: () => () => {},
+      operatorCapabilityFactories: Object.freeze({})
+    })
+  });
   return Object.freeze({
     binding,
+    context,
     manifests: Object.freeze([abgManifest, catalogManifest]),
     runtimeCatalog,
     world,
@@ -489,6 +524,8 @@ function invocationFixture(input) {
   const requirements = definition.authoritySlotRequirements;
   const selectedExecutionProgram =
     request.variant === "invoke" || input.forceSelectedExecutionProgram === true;
+  const publishedDefinition =
+    projectPublishedPublicOperationDefinitionFromPrivate(definition);
   const slots = {
     actor: exactSlot(requirements.actor, {
       state: "admitted_actor",
@@ -554,7 +591,7 @@ function invocationFixture(input) {
   };
   const expectedAuthority = {
     definitionKey: definition.definitionKey,
-    definitionDigest: definition.definitionDigest,
+    definitionDigest: publishedDefinition.definitionDigest,
     contractCatalog,
     requiredGrantCapabilityIds: definition.capabilityRefs,
     slotStates: Object.fromEntries(
@@ -568,7 +605,7 @@ function invocationFixture(input) {
       authorityBasisRef,
       authorityBasisDigest,
       definitionKey: definition.definitionKey,
-      definitionDigest: definition.definitionDigest,
+      definitionDigest: publishedDefinition.definitionDigest,
       contractCatalog,
       capabilityGrants,
       ...slots
@@ -579,7 +616,7 @@ function invocationFixture(input) {
     requestSchema: definition.requestContract.contract.schema,
     expected: {
       definitionKey: definition.definitionKey,
-      definitionDigest: definition.definitionDigest,
+      definitionDigest: publishedDefinition.definitionDigest,
       contractCatalog,
       requestContract: definition.requestContract.contract.schemaCoordinate,
       resultContract: definition.resultContract.contract.schemaCoordinate,
@@ -592,7 +629,7 @@ function invocationFixture(input) {
       kind: "public_invocation",
       invocationRef: `public-invocation:t270:${request.variant}`,
       definitionKey: definition.definitionKey,
-      definitionDigest: definition.definitionDigest,
+      definitionDigest: publishedDefinition.definitionDigest,
       contractCatalog,
       authority,
       requestContract: definition.requestContract.contract.schemaCoordinate,
@@ -681,405 +718,206 @@ async function fixture(variant, options = {}) {
   return { admitted, definition, authorities, request, invocation };
 }
 
-function admitFixture(
+function prepareFixture(
   value,
-  runtimeCatalogBasis = value.authorities.runtimeCatalog.basis,
-  productToolchainManifests = value.authorities.manifests
+  context = value.authorities.context,
+  runtimeCatalogBasis = value.authorities.runtimeCatalog.basis
 ) {
-  return admitPrivateRunInvokeExecutionIngress({
+  return preparePrivateRunInvokeExecution({
     family: value.admitted.family,
     definition: value.definition,
     rawInvocation: value.invocation,
     causationEventRefs: [],
     priorEvents: [],
-    workspaceBinding: value.authorities.binding,
-    productToolchainManifests,
+    context,
     runtimeCatalogBasis,
     authorityProgram: value.authorities.world.authorityProgram
   });
 }
 
-test("run.invoke derives the exact member and keeps serialized contract identity separate from GTL schema identity", async () => {
+test("selected session view resolves the one exact ready callable GraphFunction", async () => {
+  const authorities = await installedAuthorities();
+  const { basis, sessionView, executionBinding } = authorities.runtimeCatalog;
+  const selected = resolveSelectedCatalogExecutionFromSessionView({
+    catalogBasis: basis,
+    sessionView,
+    selectedGraphFunctionRef: executionBinding.graphFunctionHandle,
+    label: "T-270 selected session view"
+  });
+  assert.equal(selected, executionBinding);
+
+  const companionEntry = sessionView.entries.find(
+    (entry) => entry.entryRef === CATALOG_COMPANION_ENTRY_REF
+  );
+  assert.notEqual(companionEntry, undefined);
+  assert.equal(companionEntry.entryKind, "graph_function");
+  const companionBinding = basis.executionBindings.find(
+    (binding) => binding.entryRef === CATALOG_COMPANION_ENTRY_REF
+  );
+  assert.notEqual(companionBinding, undefined);
+  const companion = resolveSelectedCatalogExecutionFromSessionView({
+    catalogBasis: basis,
+    sessionView,
+    selectedGraphFunctionRef: companionEntry.graphFunctionRef,
+    label: "T-270 companion session view"
+  });
+  assert.equal(companion, companionBinding);
+});
+
+test("selected session view refuses stale view truth and absent GraphFunction refs", async () => {
+  const authorities = await installedAuthorities();
+  const { basis, sessionView } = authorities.runtimeCatalog;
+  const staleView = Object.freeze({
+    ...sessionView,
+    entries: Object.freeze([...sessionView.entries].reverse())
+  });
+  assert.throws(
+    () => resolveSelectedCatalogExecutionFromSessionView({
+      catalogBasis: basis,
+      sessionView: staleView,
+      selectedGraphFunctionRef: sessionView.entries[0].graphFunctionRef,
+      label: "T-270 stale session view"
+    }),
+    /not the exact narrowing/u
+  );
+  assert.throws(
+    () => resolveSelectedCatalogExecutionFromSessionView({
+      catalogBasis: basis,
+      sessionView,
+      selectedGraphFunctionRef: "graph-function:\/\/t270\/absent",
+      label: "T-270 absent GraphFunction"
+    }),
+    /must identify one ready callable session entry; got 0/u
+  );
+});
+
+test("run.invoke preparation admits installed input truth without selecting execution authority", async () => {
   const value = await fixture("invoke");
-  const ingress = admitFixture(value);
-  assertAdmittedRunInvokeExecutionIngress(ingress);
-  assert.equal(ingress.authorityClass, "subordinate_rejoin_only");
-  assert.equal(ingress.variant, "invoke");
+  const prepared = await prepareFixture(value);
+  assert.equal(prepared.kind, "prepared_run_invoke_execution");
+  assert.equal(prepared.variant, "invoke");
+  assert.equal(prepared.af13Constraint.kind, "invoke_exact_member_constraint");
   assert.equal(
-    ingress.program.ref,
-    value.authorities.world.authorityProgram.admittedProgramRef
-  );
-  assert.equal(
-    ingress.catalog.viewRef,
-    value.authorities.runtimeCatalog.sessionView.sessionViewRef
-  );
-  assert.equal(ingress.constraint.kind, "exact_graph_function_constraint");
-  assert.equal(
-    ingress.constraint.selectedEntryRef,
+    prepared.af13Constraint.candidateEntryRef,
     value.authorities.runtimeCatalog.executionBinding.entryRef
   );
   assert.equal(
-    ingress.constraint.inputContract.contractId,
+    prepared.af13Constraint.inputContract.contractId,
     value.authorities.inputContract.contractId
   );
   assert.equal(
-    ingress.constraint.graphFunctionRef,
-    value.authorities.runtimeCatalog.executionBinding.graphFunctionId
+    Object.hasOwn(prepared.af13Constraint, "selectedExecutionBinding"),
+    false
   );
   assert.equal(
-    ingress.constraint.graphFunctionDigest,
-    value.authorities.runtimeCatalog.executionBinding.graphFunctionDigest
+    stableSha256Digest(prepared.admittedInvokeValue),
+    stableSha256Digest(value.request.input)
   );
+  assert.equal(prepared.installedPublicSchemaAuthoritySet.schemas.length, 1);
   assert.deepEqual(
-    ingress.constraint.inputContract.sourceInterface,
-    value.authorities.runtimeCatalog.executionBinding.graphFunction.inputs.map(
-      (node) => ({ nodeRef: node.id, schemaRef: node.schema.ref })
-    )
+    prepared.installedPublicSchemaAuthoritySet.schemas[0].schema,
+    ROOT_INPUT_SCHEMA
   );
-  assert.notEqual(
-    ingress.constraint.inputContract.contractId,
-    ingress.constraint.inputContract.sourceInterface[0].schemaRef
-  );
-  assert.notEqual(
-    ingress.constraint.selectedEntryRef,
-    ingress.constraint.graphFunctionRef
-  );
-  assert.notEqual(
-    ingress.constraint.selectedEntryRef,
-    value.authorities.runtimeCatalog.executionBinding.declarationRef
-  );
+
+  const packet = admitPrivateP1PublicOperationPacket({
+    family: value.admitted.family,
+    definition: value.definition,
+    rawInvocation: value.invocation,
+    causationEventRefs: [],
+    priorEvents: []
+  });
+  const fromPacket = await preparePrivateRunInvokeExecutionFromPacket({
+    definition: value.definition,
+    packet,
+    context: value.authorities.context,
+    runtimeCatalogBasis: value.authorities.runtimeCatalog.basis,
+    authorityProgram: value.authorities.world.authorityProgram
+  });
   assert.equal(
-    ingress.constraint.inputContract.owningProductId,
-    CATALOG_PRODUCT_ID
-  );
-  assert.equal(
-    ingress.constraint.inputContract.asset.relativePath,
-    "contracts/schemas/t270-root-input.schema.json"
-  );
-  assert.equal(ingress.constraint.payloadAdmissionState, "pending_af14_rejoin");
-  assert.equal(ingress.constraint.payloadAdmissionGapRef, T270_ROOT_PAYLOAD_BODY_GAP);
-  assert.equal(Object.hasOwn(ingress.constraint, "body"), false);
-  assert.equal(Object.hasOwn(ingress.constraint, "input"), false);
-  assert.equal(JSON.stringify(ingress).includes("ticket:T-270"), false);
-  assert.equal(
-    ingress.invocationAuthority.compatibilityState,
-    "pending_af15_rejoin"
-  );
-  assert.equal(
-    ingress.invocationAuthority.compatibilityGapRef,
-    T270_RUNTIME_COMPATIBILITY_GAP
-  );
-  assert.deepEqual(
-    ingress.invocationAuthority.capabilityGrants.map((grant) => grant.grantRef),
-    value.invocation.authority.capabilityGrants.map((grant) => grant.grantRef)
+    fromPacket.packet,
+    packet,
+    "catalog preparation must continue from the one admitted packet authority"
   );
 });
 
-test("run.invoke canonicalizes a lawful unique allowlist without making request order authoritative", async () => {
-  const value = await fixture("invoke", { reverseAllowlist: true });
-  assert.notDeepEqual(
-    value.request.allowlist,
-    value.authorities.runtimeCatalog.sessionView.allowedEntryRefs
-  );
-  const ingress = admitFixture(value);
+test("run.invoke preparation derives canonical view order and retains start constraints", async () => {
+  const invoke = await fixture("invoke", { reverseAllowlist: true });
+  const preparedInvoke = await prepareFixture(invoke);
   assert.deepEqual(
-    ingress.catalog.allowedEntryRefs,
-    value.authorities.runtimeCatalog.sessionView.allowedEntryRefs
+    preparedInvoke.sessionView.allowedEntryRefs,
+    invoke.authorities.runtimeCatalog.sessionView.allowedEntryRefs
   );
-});
 
-test("run.invoke start carries only AF-13/AF-14 constraints for every target kind", async () => {
-  const targets = [
+  for (const row of [
     { target: { kind: "next" }, expectedHandle: null },
     {
-      target: { kind: "graph_function", handle: "gtl://constraint/selected-later" },
-      expectedHandle: "gtl://constraint/selected-later"
-    },
-    {
-      target: { kind: "asset", handle: "asset://constraint/selected-later" },
-      expectedHandle: "asset://constraint/selected-later"
+      target: {
+        kind: "graph_function",
+        handle: invoke.authorities.runtimeCatalog.executionBinding.entryRef
+      },
+      expectedHandle: invoke.authorities.runtimeCatalog.executionBinding.entryRef
     }
-  ];
-  for (const row of targets) {
+  ]) {
     const value = await fixture("start", { target: row.target });
-    const ingress = admitFixture(value);
-    assertAdmittedRunInvokeExecutionIngress(ingress);
-    assert.equal(ingress.constraint.kind, "start_constraints");
-    assert.equal(ingress.constraint.targetKind, row.target.kind);
-    assert.equal(ingress.constraint.targetHandle, row.expectedHandle);
-    assert.equal(Object.hasOwn(ingress.constraint, "selectedEntryRef"), false);
-    assert.equal(Object.hasOwn(ingress.constraint, "graphFunctionRef"), false);
-    assert.equal(Object.hasOwn(ingress.constraint, "inputContract"), false);
-    assert.equal(Object.hasOwn(ingress.constraint, "inputPayloadRef"), false);
+    const prepared = await prepareFixture(value);
+    assert.equal(prepared.variant, "start");
+    assert.equal(prepared.af13Constraint.kind, "start_constraints");
+    assert.equal(prepared.af13Constraint.targetKind, row.target.kind);
+    assert.equal(prepared.af13Constraint.targetHandle, row.expectedHandle);
+    assert.equal(prepared.installedPublicSchemaAuthoritySet, null);
+    assert.equal(prepared.admittedInvokeValue, null);
   }
 });
 
-test("run.invoke start preserves an empty admitted view for truthful AF-13 no-action", async () => {
-  const base = await fixture("start");
-  const empty = deriveRegistrySessionView({
-    basis: base.authorities.runtimeCatalog.basis,
-    allowedEntryRefs: []
+test("run.invoke preparation refuses unsupported asset ownership and missing installed truth", async () => {
+  const asset = await fixture("start", {
+    target: { kind: "asset", handle: "asset://t270/unowned" }
   });
-  assert.equal(empty.accepted, true);
-  assert.notEqual(empty.view, null);
-  assert.deepEqual(empty.view.entries, []);
-  const value = await fixture("start", {
-    allowlist: [],
-    catalogViewRef: empty.view.sessionViewRef,
-    catalogViewDigest: stableSha256Digest(empty.view),
-    target: { kind: "next" }
+  await assert.rejects(
+    () => prepareFixture(asset),
+    /semantic_not_realized:gap:\/\/abg\/t270\/start-asset-ownership-projection/u
+  );
+
+  const value = await fixture("invoke");
+  const missingManifestContext = Object.freeze({
+    ...value.authorities.context,
+    effects: Object.freeze({
+      ...value.authorities.context.effects,
+      readRecord: async (absolutePath) =>
+        absolutePath === value.authorities.binding.products[1].manifestPath
+          ? null
+          : value.authorities.context.effects.readRecord(absolutePath)
+    })
   });
-  const ingress = admitFixture(value);
-  assertAdmittedRunInvokeExecutionIngress(ingress);
-  assert.deepEqual(ingress.catalog.allowedEntryRefs, []);
-  assert.equal(ingress.constraint.kind, "start_constraints");
-  assert.equal(ingress.constraint.targetKind, "next");
+  await assert.rejects(
+    () => prepareFixture(value, missingManifestContext),
+    /bound manifest is missing/u
+  );
 });
 
-test("run.invoke refuses stale program, view, member, contract, and grant scope before effects", async () => {
+test("run.invoke preparation refuses stale program, catalog view, and input contract", async () => {
   const wrongProgram = await fixture("invoke", {
     programRef: "program://other",
     programDigest: stableSha256Digest({ program: "other" })
   });
-  assert.throws(
-    () => admitFixture(wrongProgram),
+  await assert.rejects(
+    () => prepareFixture(wrongProgram),
     /request and authority join differs/u
   );
 
   const staleView = await fixture("invoke", {
     catalogViewDigest: stableSha256Digest({ view: "stale" })
   });
-  assert.throws(
-    () => admitFixture(staleView),
+  await assert.rejects(
+    () => prepareFixture(staleView),
     /exact admitted catalog narrowing/u
-  );
-
-  const outsideView = await fixture("invoke", {
-    allowlist: ["catalog-entry://t270/not-admitted"]
-  });
-  assert.throws(
-    () => admitFixture(outsideView),
-    /exact admitted catalog narrowing/u
-  );
-
-  const nonmember = await fixture("invoke", {
-    canonicalHandle: "catalog-entry://t270/not-admitted"
-  });
-  assert.throws(
-    () => admitFixture(nonmember),
-    /not one exact callable ready catalog member/u
   );
 
   const requestEnvelopeAsInput = await fixture("invoke", {
     useRequestEnvelopeContract: true
   });
-  assert.throws(
-    () => admitFixture(requestEnvelopeAsInput),
-    /invoke payload authority differs/u
-  );
-
-  const staleStartView = await fixture("start", {
-    catalogViewDigest: stableSha256Digest({ view: "stale-start" })
-  });
-  assert.throws(
-    () => admitFixture(staleStartView),
-    /exact admitted catalog narrowing/u
-  );
-
-  const wrongGrantScope = await fixture("invoke", {
-    grantScopeRef: "binding://other",
-    grantScopeDigest: stableSha256Digest({ binding: "other" })
-  });
-  assert.throws(
-    () => admitFixture(wrongGrantScope),
-    /invocation authority rejoin projection differs/u
-  );
-});
-
-test("run.invoke refuses missing installed product manifests and hidden start selection", async () => {
-  const value = await fixture("invoke");
-  assert.throws(
-    () => admitFixture(value, value.authorities.runtimeCatalog.basis, [
-      value.authorities.manifests[0]
-    ]),
-    /installed product manifest set differs/u
-  );
-
-  const driftedCatalogManifest = {
-    ...value.authorities.manifests[1],
-    publicContractCatalog: {
-      ...value.authorities.manifests[1].publicContractCatalog,
-      rows: value.authorities.manifests[1].publicContractCatalog.rows.map(
-        (row) => ({ ...row, authorityRefs: [...row.authorityRefs, "drift:unsealed"] })
-      )
-    }
-  };
-  assert.throws(
-    () => admitFixture(value, value.authorities.runtimeCatalog.basis, [
-      value.authorities.manifests[0],
-      driftedCatalogManifest
-    ]),
-    /contract catalog digest differs from canonical content/u
-  );
-
   await assert.rejects(
-    () => fixture("start", { forceSelectedExecutionProgram: true }),
-    /execution-program state differs from operation variant/u
-  );
-});
-
-test("run.invoke refuses an unready projection derived from an admitted catalog", async () => {
-  const value = await fixture("invoke");
-  const basis = value.authorities.runtimeCatalog.basis;
-  const [entry] = basis.projection.runtimeRegistryProjection.entries;
-  const unreadyBasis = Object.freeze({
-    ...basis,
-    executionBindings: Object.freeze(
-      basis.executionBindings.map((binding) => Object.freeze({
-        ...binding,
-        readinessRefs: Object.freeze([])
-      }))
-    ),
-    projection: Object.freeze({
-      ...basis.projection,
-      runtimeRegistryProjection: Object.freeze({
-        ...basis.projection.runtimeRegistryProjection,
-        entries: Object.freeze([Object.freeze({
-          ...entry,
-          readinessRefs: Object.freeze([])
-        })])
-      })
-    })
-  });
-  assert.throws(
-    () => admitFixture(value, unreadyBasis),
-    /runtime registry projection content differs from its projectionRef/u
-  );
-});
-
-test("run.invoke refuses a runtime catalog basis with any broken canonical identity seal", async () => {
-  const value = await fixture("invoke");
-  const basis = value.authorities.runtimeCatalog.basis;
-  const [selectedBinding] = basis.executionBindings;
-  const [registryEntry] =
-    basis.projection.runtimeRegistryProjection.entries;
-  assert.notEqual(selectedBinding, undefined);
-  assert.notEqual(registryEntry, undefined);
-  const mutations = [
-    Object.freeze({
-      basis: Object.freeze({
-        ...basis,
-        basisRef: "admitted-runtime-catalog-basis:sha256:forged"
-      }),
-      expected: /basisRef does not match canonical basis identity/u
-    }),
-    Object.freeze({
-      basis: Object.freeze({
-        ...basis,
-        descriptorRefs: Object.freeze([
-          ...basis.descriptorRefs,
-          "descriptor://t270/forged"
-        ])
-      }),
-      expected: /basisRef does not match canonical basis identity/u
-    }),
-    Object.freeze({
-      basis: Object.freeze({
-        ...basis,
-        executionBindings: Object.freeze(
-          basis.executionBindings.map((binding) =>
-            binding.entryRef === selectedBinding.entryRef
-              ? Object.freeze({
-                  ...binding,
-                  sourceEventRefs: Object.freeze([
-                    ...binding.sourceEventRefs,
-                    "event://t270/forged-binding-source"
-                  ])
-                })
-              : binding
-          )
-        )
-      }),
-      expected: /basisRef does not match canonical basis identity/u
-    })
-  ];
-  for (const mutation of mutations) {
-    assert.throws(
-      () => admitFixture(value, mutation.basis),
-      mutation.expected
-    );
-  }
-
-  const mutatedRegistryProjection = Object.freeze({
-    ...basis,
-    projection: Object.freeze({
-      ...basis.projection,
-      runtimeRegistryProjection: Object.freeze({
-        ...basis.projection.runtimeRegistryProjection,
-        entries: Object.freeze([
-          Object.freeze({
-            ...registryEntry,
-            namespace: "t270-forged-registry-namespace"
-          })
-        ])
-      })
-    })
-  });
-  assert.throws(
-    () => admitFixture(value, mutatedRegistryProjection),
-    /runtime registry projection content differs from its projectionRef/u
-  );
-
-  const mutatedOpaqueProjection = Object.freeze({
-    ...basis,
-    projection: Object.freeze({
-      ...basis.projection,
-      opaqueAssetEntries: Object.freeze([Object.freeze({
-        kind: "opaque_catalog_asset_projection",
-        workspaceId: basis.workspaceId,
-        bindingId: basis.bindingId,
-        catalogId: basis.catalogId,
-        entryRef: "catalog-entry://t270/forged-overlay",
-        declarationRef: "declaration://t270/forged-overlay",
-        declarationDigest: DIGEST,
-        libraryScope: "product",
-        assetKind: "overlay",
-        namespace: CATALOG_PRODUCT_ID,
-        ownerRef: "fixture",
-        version: CATALOG_PRODUCT_VERSION,
-        descriptorRef: CATALOG_DESCRIPTOR_REF,
-        contributionManifestRef: CATALOG_CONTRIBUTION_REF,
-        resolvedLockRef: basis.resolvedLockRef,
-        assetPath: "overlays/forged.json",
-        schemaId: "schema://t270/forged-overlay",
-        schemaVersion: "1.0.0",
-        schemaDigest: DIGEST,
-        assetDigest: DIGEST,
-        authorityRefs: Object.freeze([]),
-        provenanceRefs: Object.freeze([]),
-        readinessRefs: Object.freeze(["readiness://t270/forged-overlay"]),
-        proofRefs: Object.freeze([]),
-        policyRefs: Object.freeze([]),
-        refinementOfEntryRef: null,
-        overrideOfEntryRef: null,
-        sourceEventRefs: Object.freeze(["event://t270/forged-overlay"])
-      })])
-    })
-  });
-  assert.throws(
-    () => admitFixture(value, mutatedOpaqueProjection),
-    /runtime catalog projection content differs from its projectionRef/u
-  );
-});
-
-test("run.invoke ingress seal detects post-admission mutation", async () => {
-  const value = await fixture("invoke");
-  const ingress = admitFixture(value);
-  assert.throws(
-    () => assertAdmittedRunInvokeExecutionIngress({
-      ...ingress,
-      workspace: { ...ingress.workspace, workspaceId: "workspace:other" }
-    }),
-    /seal differs/u
+    () => prepareFixture(requestEnvelopeAsInput),
+    /invoke payload authority differs/u
   );
 });

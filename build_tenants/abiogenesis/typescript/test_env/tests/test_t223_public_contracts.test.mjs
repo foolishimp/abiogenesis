@@ -31,6 +31,7 @@ import {
   digestCanonicalIJson,
   parsePublicOperationInvocationEnvelope,
   parsePublicOperationInvocationText,
+  publicContractCatalogDigest,
   resolvePublicOperationContract
 } from "../../build/semantic/code/src/app/m04/index.js";
 import {
@@ -43,7 +44,6 @@ function sha(character) {
 }
 
 const CONTRACT_DIGEST = sha("a");
-const CATALOG_DIGEST = sha("b");
 const CATALOG_SCHEMA_DIGEST = sha("c");
 const ARTIFACT_DIGEST = sha("d");
 const CONTRIBUTION_DIGEST = sha("f");
@@ -57,6 +57,7 @@ const BINDING_DIGEST = sha("7");
 const HANDLE = "graph-function://example/hello";
 const PRODUCT_ID = "example.hello";
 const PRODUCT_VERSION = "1.0.0";
+const CATALOG_DIGEST = publicContractCatalog().catalogDigest;
 const WORKSPACE_ID = "workspace:t223";
 const CATALOG_ID = "catalog:t223";
 const BINDING_ID = "binding:t223";
@@ -107,16 +108,20 @@ function publicContractRow() {
 }
 
 function publicContractCatalog() {
-  return {
+  const candidate = {
     kind: "abg_public_contract_catalog",
     schemaVersion: 1,
     catalogId: "abg.public-contracts.ds1",
     catalogVersion: PRODUCT_VERSION,
-    catalogDigest: CATALOG_DIGEST,
+    catalogDigest: sha("0"),
     catalogSchemaPath: "contracts/schemas/public-contract-catalog.schema.json",
     catalogSchemaDigest: CATALOG_SCHEMA_DIGEST,
     profile: "catalog-product-v1",
     rows: [publicContractRow()]
+  };
+  return {
+    ...candidate,
+    catalogDigest: publicContractCatalogDigest(candidate)
   };
 }
 

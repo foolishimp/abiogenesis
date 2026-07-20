@@ -2,89 +2,67 @@
 // Implements: REQ-P-SCENARIOS
 
 import {
-  emit,
-  ingestResultArtifact,
-  type ResultIngestOutcome,
-  type RuntimeEventSink
+  type AssessedRuntimeEvent,
+  type CanonicalRuntimeEvent
 } from "../../../abg/m03/index.js";
-import { admitPublicResultAssessmentRequest } from "./admission.js";
 import {
   constructPublicResultAssessmentOutcome,
-  constructRejectedPublicResultAssessmentOutcome,
   constructRuntimeEventsForResultAssessment
 } from "./constructors.js";
 import type {
   PublicResultAssessmentOutcome,
-  PublicResultAssessmentRequest
+  ReplayBoundPublicResultAssessmentRequest
 } from "./carriers.js";
+import type {
+  ReplayAdmittedResultAssessmentEvidenceAuthority
+} from "./evidence_authority.js";
 
-interface AssessmentIngressRouteBinding {
-  readonly request: PublicResultAssessmentRequest;
-  readonly ingestOutcome: ResultIngestOutcome;
-}
+export type CanonicalAssessedRuntimeEvent =
+  CanonicalRuntimeEvent & AssessedRuntimeEvent;
 
-function assertRuntimeEventSink(
-  eventSink: RuntimeEventSink | undefined
-): RuntimeEventSink {
-  if (typeof eventSink !== "function") {
+export type ResultAssessmentRuntimeEventEmitter = (
+  events: readonly AssessedRuntimeEvent[]
+) => readonly CanonicalAssessedRuntimeEvent[];
+
+function assessResultWithEventWriter(
+  request: ReplayBoundPublicResultAssessmentRequest,
+  evidenceAuthority: ReplayAdmittedResultAssessmentEvidenceAuthority,
+  emitEvents: ResultAssessmentRuntimeEventEmitter
+): PublicResultAssessmentOutcome {
+  const events = constructRuntimeEventsForResultAssessment(
+    request,
+    evidenceAuthority
+  );
+  const emitted = emitEvents(events);
+  if (
+    emitted.length !== events.length ||
+    emitted.some((event) => event.kind !== "assessed")
+  ) {
     throw new TypeError(
-      "resultAssessment.eventSink must be provided explicitly to preserve runtime observability"
+      "result assessment event writer must return assessed events only"
     );
   }
-  return eventSink;
-}
-
-function bindAssessmentIngress(
-  request: PublicResultAssessmentRequest
-): AssessmentIngressRouteBinding {
-  return Object.freeze({
+  return constructPublicResultAssessmentOutcome({
     request,
-    ingestOutcome: ingestResultArtifact(request.dispatchRequest, request.artifact)
+    evidenceAuthority,
+    emitted
   });
 }
 
-export function resultAssessmentFromRequest(
-  request: PublicResultAssessmentRequest,
-  eventSink: RuntimeEventSink
+/** @internal */
+export function resultAssessmentFromReplayEvidenceWithEventWriter(
+  request: ReplayBoundPublicResultAssessmentRequest,
+  evidenceAuthority: ReplayAdmittedResultAssessmentEvidenceAuthority,
+  emitEvents: ResultAssessmentRuntimeEventEmitter
 ): PublicResultAssessmentOutcome {
-  const sink = assertRuntimeEventSink(eventSink);
-  const binding = bindAssessmentIngress(request);
-
-  switch (binding.ingestOutcome.kind) {
-    case "accepted": {
-      const emitted = emit(
-        constructRuntimeEventsForResultAssessment(binding.request),
-        sink
-      );
-      return constructPublicResultAssessmentOutcome({
-        request: binding.request,
-        emitted
-      });
-    }
-    case "rejected":
-      return constructRejectedPublicResultAssessmentOutcome({
-        ingestKind: "rejected",
-        reason: binding.ingestOutcome.detail
-      });
-    case "runtime_failure":
-      return constructRejectedPublicResultAssessmentOutcome({
-        ingestKind: "runtime_failure",
-        failureClass: binding.ingestOutcome.failureClass,
-        reason: binding.ingestOutcome.detail
-      });
-    default: {
-      const exhaustive: never = binding.ingestOutcome;
-      throw new TypeError(
-        `Unsupported result-assessment ingest outcome ${JSON.stringify(exhaustive)}`
-      );
-    }
+  if (typeof emitEvents !== "function") {
+    throw new TypeError(
+      "resultAssessment.emitEvents must be provided explicitly"
+    );
   }
-}
-
-export function resultAssessment(
-  input: unknown,
-  eventSink: RuntimeEventSink
-): PublicResultAssessmentOutcome {
-  const request = admitPublicResultAssessmentRequest(input);
-  return resultAssessmentFromRequest(request, eventSink);
+  return assessResultWithEventWriter(
+    request,
+    evidenceAuthority,
+    emitEvents
+  );
 }

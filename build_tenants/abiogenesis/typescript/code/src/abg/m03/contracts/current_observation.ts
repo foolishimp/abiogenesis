@@ -88,7 +88,6 @@ export function constructCurrentObservationMaterializedEvent(input: {
   );
   if (
     input.scope.episodeId !== input.observation.episodeId ||
-    input.scope.basisId !== input.workspaceBinding.ref ||
     input.scope.graphFunctionId !== input.admittedProgram.ref ||
     input.scope.basisProjectionRef !== input.observation.basisProjectionRef ||
     input.scope.iterationOrdinal !== input.observation.iterationOrdinal ||
@@ -217,7 +216,6 @@ export function deriveCurrentObservationBasisProjection(input: {
   if (
     decisiveEvent.observationId !== input.observation.observationId ||
     decisiveEvent.snapshotDigest !== input.observation.snapshotDigest ||
-    decisiveEvent.basisId !== input.workspaceBinding.ref ||
     decisiveEvent.graphFunctionId !== input.admittedProgram.ref ||
     decisiveEvent.currentProjectionRef !==
       input.observation.currentProjectionRef ||
