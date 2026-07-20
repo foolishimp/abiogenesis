@@ -1,6 +1,6 @@
 # REQ-R-ABG3-CONVERGENCE — Evaluation, Proof, Closure, And Fallback
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
 **Date**: 2026-04-05
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)

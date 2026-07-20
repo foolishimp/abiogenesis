@@ -1,6 +1,6 @@
 # REQ-P-INSTALL — Installed Substrate Contract
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
 **Date**: 2026-04-27
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md)

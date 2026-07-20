@@ -15,10 +15,10 @@
 
 ## Current Project Gate
 
-T-283 is the only executable work owner. ABIogenesis 5.0 is under an upstream
-Intent reprice. Design, code, tests, proof promotion, and release work are held
-until one exact constitutional and retirement cut passes independent review
-and a separate F_H closure decision.
+T-284 is the only executable work owner. The ABIogenesis 5.0 constitutional
+destination is accepted. Design, code, tests, proof promotion, and release work
+remain held while M2 freezes X and derives the correction vector and until M3
+accepts replacement direct-GTL realization design.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -33,7 +33,7 @@ Read:
 3. `specification/PRODUCT.md`
 4. `specification/requirements/`
 5. accepted current-basis design, when one exists
-6. `.ai-workspace/tickets/active/T-283-reify-abiogenesis-5-product-definition.md`
+6. `.ai-workspace/tickets/active/T-284-freeze-x-and-derive-5-correction-vector.md`
 
 Comments and posts are inputs and evidence, not constitutional truth.
 
@@ -58,7 +58,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: T-283 constitutional candidate; non-operative until F_H closure
+**Status**: accepted ABIogenesis 5.0 constitutional Product; realization held
 
 This block is a thin read model. It does not duplicate the full Product.
 
@@ -83,6 +83,6 @@ This block is a thin read model. It does not duplicate the full Product.
 - The selected delivery governor is `ABI5-ROOT-001`; its exact path and
   `R1..R10` obligations live in `PRODUCT.md`.
 
-Current implementation remains held. Do not infer implementation authority
-from this bootstrap.
+Current implementation remains unclassified X evidence. Do not infer
+implementation authority from this bootstrap.
 <!-- GTL_BOOTLOADER_END -->

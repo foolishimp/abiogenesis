@@ -1,6 +1,6 @@
 # REQ-P-SELF-CONFORMANCE - ABIogenesis Product Self-Conformance
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Constraint / Verification
 **Date**: 2026-07-16
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001,

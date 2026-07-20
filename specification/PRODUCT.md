@@ -3,9 +3,11 @@
 **Product ID**: PROD-001
 **Version target**: 5.0.0
 **Updated**: 2026-07-20
-**Status**: T-283 constitutional candidate
+**Status**: Active - accepted by T-283 F_H closure
 **Derives from**: INT-001 through INT-007
 **Change authority**: T-283 `intent_reprice`
+**Acceptance receipt**:
+`.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
 
 ---
 

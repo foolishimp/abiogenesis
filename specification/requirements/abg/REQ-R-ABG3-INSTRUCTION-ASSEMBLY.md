@@ -1,6 +1,6 @@
 # REQ-R-ABG3-INSTRUCTION-ASSEMBLY — Instruction Assembly And Dispatch Assurance
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
 **Date**: 2026-07-01
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-CONTRACT-LAW-API.md](../gtl/REQ-L-GTL3-CONTRACT-LAW-API.md), [REQ-L-GTL3-NODE.md](../gtl/REQ-L-GTL3-NODE.md), [REQ-L-GTL3-ASSET-SURFACE.md](../gtl/REQ-L-GTL3-ASSET-SURFACE.md), [REQ-L-GTL3-COMPUTE-NOTATION.md](../gtl/REQ-L-GTL3-COMPUTE-NOTATION.md), [REQ-R-ABG3-BINDING.md](REQ-R-ABG3-BINDING.md), [REQ-R-ABG3-TRANSPORT.md](REQ-R-ABG3-TRANSPORT.md), [REQ-R-ABG3-PAYLOAD.md](REQ-R-ABG3-PAYLOAD.md), [REQ-R-ABG3-FN-COMPOSITION.md](REQ-R-ABG3-FN-COMPOSITION.md), [REQ-R-ABG3-INTERPRET.md](REQ-R-ABG3-INTERPRET.md), [REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md](REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md), [REQ-R-ABG3-SAGA-FRONTIER.md](REQ-R-ABG3-SAGA-FRONTIER.md)

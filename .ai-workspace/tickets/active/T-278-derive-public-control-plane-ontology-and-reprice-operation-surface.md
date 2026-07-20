@@ -1,6 +1,6 @@
 # T-278 - Derive Public Control-Plane Ontology And Reprice Operation Surface
 
-> **T-283 current disposition (2026-07-20):** `held_pending_X_vector`.
+> **T-284 current disposition (2026-07-20):** `held_pending_X_vector`.
 > Every acceptance, phase, dependency, count, design, and delivery statement
 > below records the prior X-path basis only. It does not authorize current
 > implementation, define 5.0 Product scope, or project Product progress. The
@@ -13,7 +13,7 @@
 - ticket_category: ordinary
 - status: active
 - implementation_hold: active
-- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_ref: T-284 correction vector and M3 design gate
 - implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
 - phase_status: superseded_by_t283_intent_reprice_pending_x_vector
 - review_status: prior_basis_review_only_invalidated_for_implementation

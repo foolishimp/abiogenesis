@@ -1,6 +1,6 @@
 # REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT - Zoom, Foldback, And Type Wiring
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability / Constraint
 **Date**: 2026-07-11
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-CONTRACT-LAW-API.md](./REQ-L-GTL3-CONTRACT-LAW-API.md), [REQ-L-GTL3-RECURSE.md](./REQ-L-GTL3-RECURSE.md), [REQ-L-GTL3-NODE.md](./REQ-L-GTL3-NODE.md)

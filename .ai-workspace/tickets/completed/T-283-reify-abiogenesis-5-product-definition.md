@@ -4,10 +4,10 @@
 - title: Reify the accepted ABIogenesis 5.0 destination into one constitutional truth
 - type: reprice
 - ticket_category: constitutional_reprice
-- status: active
-- phase_status: constitutional_candidate_reviewed_for_final_fh
-- review_status: independent_exact_cut_accepted
-- proof_status: definition_coverage_gates_passed_behavioral_proof_pending
+- status: completed
+- phase_status: constitutional_destination_closed
+- review_status: final_fh_accepted
+- proof_status: definition_coverage_closed_behavioral_proof_deferred_to_realization
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - priority: critical
 - change_class: intent_reprice
@@ -25,7 +25,10 @@
 - direct_fh_decision_ref: >-
     .ai-workspace/comments/codex/
     20260719T180430Z_DECISION_fh_accept_abiogenesis_5_destination_and_authorize_t283.md
-- final_fh_closure: pending_separate_exact_cut_decision
+- final_fh_closure: accepted
+- final_fh_decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md
 - independent_review_ref: >-
     .ai-workspace/comments/claude/
     20260720T013846Z_REVIEW_t283_refrozen_constitutional_candidate.md
@@ -33,7 +36,7 @@
 - operator_digest_confirmation_ref: >-
     .ai-workspace/comments/codex/
     20260720T013846Z_PROOF_t283_refrozen_digest_and_final_gate.md
-- implementation_hold: active
+- implementation_hold: transferred_to_t284_and_m3_gate
 
 ## Intake Triage
 
@@ -208,3 +211,11 @@ It confirms definition coverage, requirement-ID conservation, ticket and
 design holds, root and scenario counts, link integrity, YAML validity, and the
 absence of runtime changes. It is not independent evidence and does not satisfy
 the final closure gate.
+
+## Closure
+
+Direct F_H accepted candidate
+`afb35def08b2259046830f87c18b45c95c84001c` and constitutional aggregate
+`c85ca7ae34352b91d579fcfae035ca3aa3d9a27428b584ac81c425b0d837d260`.
+M0 and M1 are complete. T-284 owns M2. Runtime remains held pending the
+correction vector and accepted M3 replacement design.

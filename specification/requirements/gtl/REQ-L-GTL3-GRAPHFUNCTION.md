@@ -1,6 +1,6 @@
 # REQ-L-GTL3-GRAPHFUNCTION — Reusable Workflow Library Functions
 
-**Status**: T-283 constitutional candidate
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
 **Date**: 2026-07-20
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)

@@ -1,6 +1,6 @@
 # A5 Completed-Code Design Stage Register
 
-**Status**: Historical and current-state evidence under T-283; not implementation authority
+**Status**: Historical and current-state evidence under T-284; not implementation authority
 **F_H mandate**: 2026-07-12 three-view Mermaid design before coding
 **Shared method authority**: `specification_methodology` commit `b3e5e4a`
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)

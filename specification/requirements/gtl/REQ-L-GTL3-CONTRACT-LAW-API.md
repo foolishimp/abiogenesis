@@ -1,6 +1,6 @@
 # REQ-L-GTL3-CONTRACT-LAW-API - Contract-Law Reload Surface
 
-**Status**: T-283 constitutional candidate
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability / Constraint
 **Date**: 2026-07-20
 **Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md)

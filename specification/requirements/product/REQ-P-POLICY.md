@@ -1,6 +1,6 @@
 # REQ-P-POLICY — Product and Runtime Policy
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Governance
 **Date**: 2026-04-19
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001 and INT-005,

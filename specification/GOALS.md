@@ -10,20 +10,23 @@ truth.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - T-283 constitutional transaction; implementation held |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M2 correction vector under T-284; implementation held |
 
 ## Current Constitutional Basis
 
-The current work is an `intent_reprice` owned by `T-283`.
+The ABIogenesis 5.0 constitutional destination is accepted. The current work
+is the bounded M2 correction-vector stage owned by `T-284`.
 
 | Basis | Current truth |
 |---|---|
 | semantic destination input | `.ai-workspace/comments/codex/20260719T152242Z_STRATEGY_abiogenesis_5_0_product_destination.md` |
 | destination input digest | `a97c070bfef704c1e7666271aad40393587269fb2e34097457b2ddd2417c0fcd` |
 | Phase-1 F_H decision | `.ai-workspace/comments/codex/20260719T180430Z_DECISION_fh_accept_abiogenesis_5_destination_and_authorize_t283.md` |
-| constitutional carrier | `T-283` |
-| final constitutional closure | pending a separate direct or lawfully proxied F_H decision over the exact reviewed cut |
-| implementation state | held; existing realization is evidence only and is neither accepted nor reverted by T-283 |
+| accepted constitutional candidate | `afb35def08b2259046830f87c18b45c95c84001c` |
+| accepted constitutional aggregate | `c85ca7ae34352b91d579fcfae035ca3aa3d9a27428b584ac81c425b0d837d260` |
+| final constitutional closure | `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md` |
+| current work carrier | `T-284` |
+| implementation state | held; existing realization is X evidence only and remains unclassified |
 
 The constitutional authoring order is one unpromoted transaction:
 
@@ -37,8 +40,8 @@ INTENT
   -> F_H closure
 ```
 
-No intermediate file state is current Product truth. `PRODUCT.md` is the sole
-complete Product-definition surface for ABIogenesis 5.0.
+The transaction is closed. `PRODUCT.md` is the sole complete
+Product-definition surface for ABIogenesis 5.0.
 
 ## Delivery Governor
 
@@ -81,9 +84,9 @@ evidence remain pending until implementation and qualification.
 
 | Order | Milestone | Exit condition | Current state |
 |---:|---|---|---|
-| `M0` | Reify 5.0 constitution | One aligned Intent, Product, requirements, scenarios, Goal, root selection, and rival-authority disposition pass exact-cut review. | In progress under T-283 |
-| `M1` | Close constitutional destination | Method-decorrelated review accepts the exact candidate and a separate F_H receipt admits it. | Pending; hard gate |
-| `M2` | Freeze X and derive correction vector | Freeze commit, dirty-patch digest, and untracked inventory; classify every relevant 4.6 semantic obligation, target-coverage state, and X carrier action. | Blocked by M1 |
+| `M0` | Reify 5.0 constitution | One aligned Intent, Product, requirements, scenarios, Goal, root selection, and rival-authority disposition pass exact-cut review. | Completed by T-283 |
+| `M1` | Close constitutional destination | Method-decorrelated review accepts the exact candidate and a separate F_H receipt admits it. | Completed by T-283 |
+| `M2` | Freeze X and derive correction vector | Freeze commit, dirty-patch digest, and untracked inventory; classify every relevant 4.6 semantic obligation, target-coverage state, and X carrier action. | Active under T-284 |
 | `M3` | Accept direct-GTL realization design | Design proves GTL -> validator -> HoG -> ABG, positive intended authority, and real-path absence of compiled-plan and controller rivals. | Blocked by M2 |
 | `M4` | Establish installed root | Exact `ABI5-ROOT-001` runs green through packed bytes, clean install, direct HoG traversal, ABG replay twice, and typed CLI result. | Blocked by M3 |
 | `M5` | Complete pre-qualification behavior | `ABG5-S02`, `S03`, `S05`, and `S06`, all forty traversal rows, the fibre differential, and required negatives pass on the same candidate line. | Blocked by M4 |
@@ -96,21 +99,22 @@ do not gate ABIogenesis 5.0.
 
 ## Active Ticket Disposition
 
-`T-283` is the only executable work owner during `M0` and `M1`. The existing
-active tickets `T-268`, `T-270`, `T-272`, `T-274`, `T-275`, `T-276`, `T-278`,
-`T-281`, and `T-282` are held as evidence and candidate carriers. None retains
-an implementation sequence, accepted design, operation count, compiled-plan
-authority, or closure projection across the Intent reprice.
+`T-283` is complete. `T-284` is the sole executable work owner during M2.
+The existing active tickets `T-268`, `T-270`, `T-272`, `T-274`, `T-275`,
+`T-276`, `T-278`, `T-281`, and `T-282` remain held as evidence and candidate
+carriers. None retains an implementation sequence, accepted design, operation
+count, compiled-plan authority, or closure projection.
 
-After `M1`, the X-to-5 vector shall disposition those tickets in place where
-possible. Ticket shape follows the accepted correction vector; it does not
-define Product scope.
+The X-to-5 vector shall disposition those tickets in place where possible.
+Ticket shape follows the accepted correction vector; it does not define
+Product scope.
 
 ## Progress Reporting
 
-Until `M1` closes, progress may report constitutional coverage and review
-state only. It shall not report implementation percentage, feature completion,
-scenario completion, root advancement, qualification, or release readiness.
+Until M3 accepts replacement design, progress may report X-freeze,
+correction-vector, and design coverage only. It shall not report implementation
+percentage, feature completion, scenario completion, root advancement,
+qualification, or release readiness.
 
 After implementation resumes, every status report shall distinguish:
 

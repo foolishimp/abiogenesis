@@ -5,7 +5,7 @@
 > `ABG5-S01` through `ABG5-S07` in `PRODUCT.md` and
 > `REQ-P-SCENARIOS.md`. Reuse requires post-closure re-derivation.
 
-**Status**: Prior evidence; held under T-283
+**Status**: Prior evidence; held under T-284 pending vector classification
 **Date**: 2026-04-26
 **Derives from**: [REQ-P-SCENARIOS.md](../requirements/product/REQ-P-SCENARIOS.md), [REQ-P-POLICY.md](../requirements/product/REQ-P-POLICY.md), [REQ-L-GTL3-HOF.md](../requirements/gtl/REQ-L-GTL3-HOF.md), [REQ-R-ABG3-INTERPRET.md](../requirements/abg/REQ-R-ABG3-INTERPRET.md)
 

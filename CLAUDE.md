@@ -2,10 +2,9 @@
 
 ## Current State
 
-ABIogenesis 5.0 is in the T-283 constitutional transaction. Runtime
-implementation is held. The current task is to close one exact Intent,
-Product, requirements, scenarios, Goal, root-selection, and rival-authority
-disposition cut for independent review and a separate F_H decision.
+The ABIogenesis 5.0 constitutional destination is accepted. Runtime
+implementation is held. T-284 owns the current task: freeze X and derive the
+three-axis correction vector before replacement design or code resumes.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.
@@ -17,7 +16,7 @@ specification/GOALS.md
 specification/INTENT.md
 specification/PRODUCT.md
 specification/requirements/
-.ai-workspace/tickets/active/T-283-reify-abiogenesis-5-product-definition.md
+.ai-workspace/tickets/active/T-284-freeze-x-and-derive-5-correction-vector.md
 ```
 
 `PRODUCT.md` is the sole complete ABIogenesis 5.0 Product-definition surface.
@@ -39,7 +38,7 @@ build_tenants/abiogenesis/typescript/test_env/ held proof lanes
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: T-283 constitutional candidate; non-operative until F_H closure
+**Status**: accepted ABIogenesis 5.0 constitutional Product; realization held
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
@@ -57,7 +56,7 @@ build_tenants/abiogenesis/typescript/test_env/ held proof lanes
 - The exact installed governor is `ABI5-ROOT-001`, defined in `PRODUCT.md`.
 
 Existing implementation and design are evidence only until the X-to-5 vector
-classifies them after constitutional closure.
+classifies them and M3 accepts replacement design.
 <!-- GTL_BOOTLOADER_END -->
 
 <!-- SDLC_BOOTLOADER_START -->

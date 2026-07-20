@@ -1,6 +1,6 @@
 # REQ-M-GTL3-PROGRAM-TRAVERSAL - GTL, HoG, And ABG Mapping
 
-**Status**: T-283 constitutional candidate
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
 **Date**: 2026-07-20
 **Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-GRAPHFUNCTION.md](../gtl/REQ-L-GTL3-GRAPHFUNCTION.md), [REQ-R-ABG3-INTERPRET.md](../abg/REQ-R-ABG3-INTERPRET.md)

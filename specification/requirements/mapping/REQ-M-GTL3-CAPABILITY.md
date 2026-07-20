@@ -1,6 +1,6 @@
 # REQ-M-GTL3-CAPABILITY — Engine Capability Profiles
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
 **Date**: 2026-04-05
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001 and INT-006,

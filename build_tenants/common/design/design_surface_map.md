@@ -1,6 +1,6 @@
 # Abiogenesis Common Design Surface Map
 
-**Status**: Prior-basis evidence; held under T-283
+**Status**: Prior-basis evidence; held under T-284 pending vector classification
 **Date**: 2026-03-31
 **Derived from**: [INTENT.md](../../../specification/INTENT.md), [PRODUCT.md](../../../specification/PRODUCT.md), [specification/requirements/](../../../specification/requirements/), [build_tenants/common/design/module_decomp.md](./module_decomp.md)
 

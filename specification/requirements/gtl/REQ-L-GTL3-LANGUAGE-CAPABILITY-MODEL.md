@@ -1,6 +1,6 @@
 # REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL - GTL Language Capability Model
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability / Vocabulary / Constraint
 **Date**: 2026-06-30
 **Derives from**: `REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-CONTRACT-LAW-API`, `REQ-M-GTL3-MAPPING`, `REQ-M-GTL3-PROVENANCE`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-FN-COMPOSITION`

@@ -1,6 +1,6 @@
 # REQ-R-ABG3-HANDLERS - Effect Handlers And Execution Binding
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability / Constraint
 **Date**: 2026-07-20
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-CCALL.md](REQ-R-ABG3-CCALL.md), [REQ-R-ABG3-INTERPRET.md](REQ-R-ABG3-INTERPRET.md)

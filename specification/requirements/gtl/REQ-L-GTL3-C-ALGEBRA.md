@@ -1,6 +1,6 @@
 # REQ-L-GTL3-C-ALGEBRA - Typed Compute Algebra And LLM Authoring Boundary
 
-**Status**: T-283 constitutional candidate
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability / Constraint / Guarantee
 **Date**: 2026-07-11
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-LAWS.md](REQ-L-GTL3-LAWS.md), [REQ-L-GTL3-CONTRACT-LAW-API.md](REQ-L-GTL3-CONTRACT-LAW-API.md), [REQ-R-ABG3-CCALL.md](../abg/REQ-R-ABG3-CCALL.md), [REQ-R-ABG3-PLUGIN-SEAMS.md](../abg/REQ-R-ABG3-PLUGIN-SEAMS.md), [REQ-R-ABG3-PAYLOAD.md](../abg/REQ-R-ABG3-PAYLOAD.md)

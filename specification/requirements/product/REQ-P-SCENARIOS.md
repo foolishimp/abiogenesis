@@ -1,6 +1,6 @@
 # REQ-P-SCENARIOS - ABIogenesis 5.0 Product Scenarios
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Verification
 **Date**: 2026-07-20
 **Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md)

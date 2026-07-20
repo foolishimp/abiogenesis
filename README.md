@@ -12,10 +12,10 @@ successor to the immutable 4.6 RC5 Product origin.
 
 | Surface | State |
 |---|---|
-| current work owner | `T-283` Intent reprice |
-| Product definition | candidate aggregate cut in `specification/PRODUCT.md` |
+| current work owner | `T-284` M2 correction vector |
+| Product definition | accepted in `specification/PRODUCT.md` |
 | implementation | held; existing code is X-path evidence only |
-| replacement design | pending constitutional closure and X-to-5 census |
+| replacement design | blocked pending M2 X-to-5 correction vector |
 | delivery governor | `ABI5-ROOT-001`, currently unproved |
 | qualification method | tapped STDO 2.0 required before self-conformance and release |
 
@@ -63,7 +63,7 @@ Read in this order:
 5. [ABG requirements](specification/requirements/abg/)
 6. [mapping requirements](specification/requirements/mapping/)
 7. [Product requirements](specification/requirements/product/)
-8. [T-283](.ai-workspace/tickets/active/T-283-reify-abiogenesis-5-product-definition.md)
+8. [T-284](.ai-workspace/tickets/active/T-284-freeze-x-and-derive-5-correction-vector.md)
 
 `PRODUCT.md` is the one complete 5.0 Product-definition surface. Requirements
 decompose it. Goals select the current wave and exact root. Design and code do
@@ -84,11 +84,9 @@ build_tenants/abiogenesis/python/            withdrawn historical reference
 
 ## Current Work Rule
 
-Do not implement against the T-283 candidate. First close the exact
-constitutional cut, run independent review, and obtain the separate F_H
-closure decision. Then freeze X, derive the three-axis correction vector,
-accept a direct-GTL replacement design, and establish `ABI5-ROOT-001` before
-horizontal feature work.
+Do not implement against unclassified X. First freeze X and derive the
+three-axis correction vector under T-284, then accept a direct-GTL replacement
+design and establish `ABI5-ROOT-001` before horizontal feature work.
 
 Existing tests and commands remain current-state probes only. They are not
 5.0 Product evidence until the accepted design maps them onto the exact root,

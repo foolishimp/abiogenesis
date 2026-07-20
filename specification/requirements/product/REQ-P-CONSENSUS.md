@@ -1,6 +1,6 @@
 # REQ-P-CONSENSUS - Agent-Invocable Consensus GraphFunction
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability / Constraint / Verification
 **Date**: 2026-07-12
 **Derives from**: [PRODUCT.md](../../PRODUCT.md),

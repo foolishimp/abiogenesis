@@ -1,6 +1,6 @@
 # REQ-R-ABG3-INTERPRET - HoG Traversal And ABG Runtime Admission
 
-**Status**: T-283 constitutional candidate
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
 **Date**: 2026-07-20
 **Historical family identity**: `REQ-R-ABG3-INTERPRET`

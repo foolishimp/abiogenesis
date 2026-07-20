@@ -5,11 +5,11 @@
 - type: migration
 - ticket_category: design_and_realization_migration
 - status: active
-- phase_status: held_pending_t283_closure_and_x_vector
+- phase_status: held_pending_t284_vector_and_m3_design
 - review_status: repriced_under_t283_candidate
 - proof_status: pending
 - implementation_hold: active
-- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_ref: T-284 correction vector and M3 design gate
 - implementation_hold_effect: preserve existing artifacts; no design, code, test, proof, publication, or closure promotion
 - goal: GOAL-035 milestones M3, M4, and M6
 - priority: critical
@@ -28,7 +28,7 @@
 
 ## Current Disposition
 
-T-282 remains held evidence during T-283. Its original concerns are valid:
+T-282 remains held evidence during T-284. Its original concerns are valid:
 
 - installer-generated runtime files currently author private program,
   GraphFunction, policy, and execution-basis truth;

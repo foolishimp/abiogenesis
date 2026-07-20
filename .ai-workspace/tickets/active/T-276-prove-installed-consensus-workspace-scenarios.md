@@ -1,6 +1,6 @@
 # T-276 - Prove Installed Consensus Workspace Scenarios
 
-> **T-283 current disposition (2026-07-20):** `held_pending_X_vector`.
+> **T-284 current disposition (2026-07-20):** `held_pending_X_vector`.
 > Every acceptance, phase, dependency, count, design, and delivery statement
 > below records the prior X-path basis only. It does not authorize current
 > implementation, define 5.0 Product scope, or project Product progress. The
@@ -13,9 +13,9 @@
 - ticket_category: ordinary
 - status: active
 - implementation_hold: active
-- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_ref: T-284 correction vector and M3 design gate
 - implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: held_pending_t283_closure_and_x_vector
+- phase_status: held_pending_t284_vector_and_m3_design
 - review_status: prior_basis_review_only_invalidated_for_implementation
 - proof_status: historical_evidence_only_root_not_established
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline

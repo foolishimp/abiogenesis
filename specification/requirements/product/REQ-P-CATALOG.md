@@ -1,6 +1,6 @@
 # REQ-P-CATALOG - Catalog Product And Public Catalog Contract
 
-**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
 **Date**: 2026-07-11
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [REQ-P-INSTALL.md](REQ-P-INSTALL.md), [REQ-P-POLICY.md](REQ-P-POLICY.md)
