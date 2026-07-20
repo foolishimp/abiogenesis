@@ -5,9 +5,9 @@
 - type: design
 - ticket_category: ordinary
 - status: active
-- phase_status: m3_design_candidate_ready_for_freeze
-- review_status: self_review_in_progress
-- proof_status: mermaid_and_design_gates_green
+- phase_status: m3_design_candidate_frozen_independent_review_pending
+- review_status: independent_exact_design_review_pending
+- proof_status: self_review_and_mechanical_gates_green
 - goal: GOAL-035 M3
 - priority: critical
 - change_intent: >-
@@ -36,6 +36,17 @@
     M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
 - design_subject_boundary: immutable_design_file_only
 - design_index_ref: build_tenants/abiogenesis/typescript/design/README.md
+- design_candidate_commit: c832515cadbd41c6089cc248dc65f38f15cb748f
+- design_candidate_tree: 5876805a25009768acb28bd416e81c71a3c69a3b
+- design_subject_blob: 7a3679d7f29c474635c57c318934803044db4a5c
+- design_subject_sha256: d845c58952ba15d564467680f4e01649b8439a2dc2b1bacd7f5500328717b9e4
+- design_subject_lines: 826
+- design_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T101336Z_SELF_REVIEW_t285_direct_gtl_design_candidate.md
+- design_manifest_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T101336Z_CHECKPOINT_t285_direct_gtl_design_candidate_manifest.md
 - implementation_hold: active_until_m3_design_acceptance
 - implementation_hold_effect: no mergeable successor implementation or donor carry-forward
 
