@@ -156,6 +156,10 @@ export function assertHogProgramPlanExecutable(
       reachable.set(resolved.program.programRef, resolved.program);
       break;
     }
+    case "catalog_unselected":
+      throw new TypeError(
+        "vector_program_selection_required: an unselected GraphFunction catalog must enter through an exact GraphVector program binding"
+      );
     case "ladder":
       for (const rung of plan.rungs) {
         const program = plan.programs.find(
@@ -234,6 +238,10 @@ export function resolveHogProgram(
       }
       return Object.freeze({ program, source: "declared_catalog" as const });
     }
+    case "catalog_unselected":
+      throw new TypeError(
+        "vector_program_selection_required: an unselected GraphFunction catalog cannot be resolved without an exact GraphVector program binding"
+      );
     case "ladder": {
       const rung = ladderRungForAttempt(plan.rungs, attempt);
       const program = plan.programs.find(

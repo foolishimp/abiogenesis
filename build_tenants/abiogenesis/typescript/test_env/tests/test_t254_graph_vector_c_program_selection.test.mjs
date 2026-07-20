@@ -39,7 +39,8 @@ import {
   graphVectorDeclarations
 } from "../../build/semantic/code/src/gtl/m01/contracts/declaration_law.js";
 import {
-  hogProgramRefDeclarationEntry
+  hogProgramRefDeclarationEntry,
+  pluginSelectionDeclarationEntry
 } from "../../build/semantic/code/src/gtl/m01/contracts/execution_declaration_builders.js";
 import {
   interfaceContract,
@@ -52,6 +53,10 @@ import {
 import {
   compileExecutionDeclarations
 } from "../../build/semantic/code/src/abg/m03/contracts/execution_declaration_compiler.js";
+import {
+  assertHogProgramPlanExecutable,
+  resolveHogProgram
+} from "../../build/semantic/code/src/abg/m03/runner/hog_program_resolution.js";
 import {
   typecheckGtlProgram
 } from "../../build/semantic/code/src/abg/m03/contracts/gtl_program_conformance.js";
@@ -468,6 +473,168 @@ test("T-254 no local selector preserves the existing GraphFunction plan", () => 
   assert.equal(
     authoritativeContained.binding?.selectedProgramRef,
     selectedFixture.normalize.programRef
+  );
+});
+
+test("T-254 vector-owned selection leaves no GraphFunction selector authority", () => {
+  const fixture = scenarioFixture({ name: "vector_owned" });
+  const entries = fixture.host.declarations.entries.filter(
+    (row) => row.key !== "abg.hog_program_ref"
+  );
+  const vectorOwned = graphFunction({
+    name: "vector_owned",
+    inputs: [fixture.observation],
+    outputs: [fixture.finding],
+    nodes: [fixture.observation, fixture.normalized, fixture.finding],
+    vectors: [fixture.normalizeVector, fixture.synthesizeVector],
+    declarations: graphFunctionDeclarations(entries)
+  });
+
+  const compiled = compileExecutionDeclarations(vectorOwned);
+  assert.equal(compiled.hogProgramPlan.mode, "catalog_unselected");
+  assert.throws(
+    () => resolveHogProgram(compiled.hogProgramPlan),
+    /vector_program_selection_required/u
+  );
+  assert.throws(
+    () => assertHogProgramPlanExecutable(compiled.hogProgramPlan, null),
+    /vector_program_selection_required/u
+  );
+  assert.equal(
+    compileGraphVectorCProgramSelection({
+      graphFunction: vectorOwned,
+      graphVector: fixture.normalizeVector
+    }).binding?.selectedProgramRef,
+    fixture.normalize.programRef
+  );
+  assert.equal(
+    compileGraphVectorCProgramSelection({
+      graphFunction: vectorOwned,
+      graphVector: fixture.synthesizeVector
+    }).binding?.selectedProgramRef,
+    fixture.synthesize.programRef
+  );
+
+  const noLocal = scenarioFixture({
+    localSelectors: false,
+    name: "unselected_catalog"
+  });
+  const noAuthority = graphFunction({
+    name: "unselected_catalog",
+    inputs: [noLocal.observation],
+    outputs: [noLocal.finding],
+    nodes: [noLocal.observation, noLocal.normalized, noLocal.finding],
+    vectors: [noLocal.normalizeVector, noLocal.synthesizeVector],
+    declarations: graphFunctionDeclarations(
+      noLocal.host.declarations.entries.filter(
+        (row) => row.key !== "abg.hog_program_ref"
+      )
+    )
+  });
+  assert.throws(
+    () => compileExecutionDeclarations(noAuthority),
+    /one exact vector-owned selection/u
+  );
+  const partiallyBound = graphFunction({
+    name: "partially_bound_catalog",
+    inputs: [fixture.observation],
+    outputs: [fixture.finding],
+    nodes: [fixture.observation, fixture.normalized, fixture.finding],
+    vectors: [fixture.normalizeVector, noLocal.synthesizeVector],
+    declarations: graphFunctionDeclarations(
+      noLocal.host.declarations.entries.filter(
+        (row) => row.key !== "abg.hog_program_ref"
+      )
+    )
+  });
+  assert.throws(
+    () => compileExecutionDeclarations(partiallyBound),
+    /one exact vector-owned selection/u
+  );
+});
+
+test("T-254 plugin exactness uses only vector-reachable catalog programs", () => {
+  const fixture = scenarioFixture({ name: "reachable_plugins" });
+  const unselectedHumanProgram = declareCProgram({
+    programRef: "program://scenario-09/unselected-human",
+    term: C.of({
+      input: interfaceCarrier([fixture.observation]),
+      output: interfaceCarrier([fixture.normalized]),
+      stageRole: "approve",
+      fibre: "F_H",
+      armId: "program://scenario-09/unselected-human/approve",
+      resultBearing: true
+    }),
+    proportionalityClass: "P1"
+  });
+  const host = graphFunction({
+    name: "reachable_plugins",
+    inputs: [fixture.observation],
+    outputs: [fixture.finding],
+    nodes: [fixture.observation, fixture.normalized, fixture.finding],
+    vectors: [fixture.normalizeVector, fixture.synthesizeVector],
+    declarations: graphFunctionDeclarations([
+      cProgramCatalogDeclarationEntry([
+        fixture.normalize,
+        fixture.synthesize,
+        unselectedHumanProgram
+      ]),
+      pluginSelectionDeclarationEntry({
+        fdEvaluator: "plugin://abg/fd-evaluator",
+        fpDispatch: "plugin://abg/fp-dispatch"
+      })
+    ])
+  });
+  const report = typecheckGtlProgram({
+    subjectRef: "program://scenario-09/reachable-plugins",
+    abiPackageVersion: "5.0.0-dev.0",
+    scopeKind: "submitted_structure",
+    graphFunctions: [host]
+  });
+  assert.equal(
+    report.issues.some(
+      (issue) =>
+        issue.ruleRef ===
+        "abg://gtl-program/declaration-inventory/plugin-selection-exact"
+    ),
+    false,
+    JSON.stringify(
+      report.issues.filter((issue) =>
+        issue.ruleRef ===
+        "abg://gtl-program/declaration-inventory/plugin-selection-exact"
+      ),
+      null,
+      2
+    )
+  );
+
+  const humanVector = vector({
+    name: "normalize_with_human",
+    source: [fixture.observation],
+    target: fixture.normalized,
+    programRef: unselectedHumanProgram.programRef
+  });
+  const humanSelected = graphFunction({
+    name: "human_selected",
+    inputs: [fixture.observation],
+    outputs: [fixture.finding],
+    nodes: [fixture.observation, fixture.normalized, fixture.finding],
+    vectors: [humanVector, fixture.synthesizeVector],
+    declarations: host.declarations
+  });
+  const humanReport = typecheckGtlProgram({
+    subjectRef: "program://scenario-09/human-selected",
+    abiPackageVersion: "5.0.0-dev.0",
+    scopeKind: "submitted_structure",
+    graphFunctions: [humanSelected]
+  });
+  assert(
+    humanReport.issues.some(
+      (issue) =>
+        issue.ruleRef ===
+          "abg://gtl-program/declaration-inventory/plugin-selection-exact" &&
+        issue.message.includes("missing fhAdmission")
+    )
   );
 });
 

@@ -2,7 +2,10 @@
 // Authored GraphFunction declarations compile once at ExecutionBasis admission.
 // The runner selects from this carrier; it never reparses declaration data.
 
-import type { GraphFunction } from "../../../gtl/m01/contracts/carriers.js";
+import {
+  materializeGraphFunction,
+  type GraphFunction
+} from "../../../gtl/m01/contracts/carriers.js";
 import {
   HOG_HANDLER_BINDINGS_DECLARATION_KEY,
   HOG_HANDLER_CONFIGS_DECLARATION_KEY,
@@ -30,6 +33,7 @@ import {
   pluginSelectionFromDeclarationAttrs,
   type PluginSelectionSeam
 } from "./plugin_selection.js";
+import { compileGraphVectorCProgramSelection } from "./graph_vector_c_program_compiler.js";
 
 export type CompiledHogProgramPlan =
   | {
@@ -43,6 +47,10 @@ export type CompiledHogProgramPlan =
       readonly mode: "catalog";
       readonly programs: readonly HogProgramDeclaration[];
       readonly selectionRef: string;
+    }
+  | {
+      readonly mode: "catalog_unselected";
+      readonly programs: readonly HogProgramDeclaration[];
     }
   | {
       readonly mode: "ladder";
@@ -89,6 +97,21 @@ function programIn(
   programRef: string
 ): boolean {
   return programs.some((program) => program.programRef === programRef);
+}
+
+function compileMaterializedVectorSelections(
+  graphFunction: GraphFunction
+): readonly ReturnType<typeof compileGraphVectorCProgramSelection>[] | null {
+  try {
+    const graph = materializeGraphFunction(graphFunction);
+    return Object.freeze(
+      graph.vectors.map((graphVector) =>
+        compileGraphVectorCProgramSelection({ graphFunction, graphVector })
+      )
+    );
+  } catch {
+    return null;
+  }
 }
 
 function compileHogProgramPlan(
@@ -145,6 +168,19 @@ function compileHogProgramPlan(
     const programs = declaredPrograms(
       effectiveHogProgramCatalog(catalog.catalog).programs
     );
+    const vectorSelections = compileMaterializedVectorSelections(graphFunction);
+    const invalidLocalSelection = vectorSelections?.find(
+      (selection) =>
+        selection.observed &&
+        (!selection.accepted || selection.binding === null)
+    );
+    if (invalidLocalSelection !== undefined) {
+      throw new TypeError(
+        `vector-owned ${HOG_PROGRAM_SELECTION_KEY} on ${sourceRef} failed admission: ${invalidLocalSelection.diagnostics
+          .map((row) => `${row.diagnosticId}: ${row.actualRelation}`)
+          .join("; ") || "no exact vector/program binding"}`
+      );
+    }
     if (hasLadder && ladder?.rungs !== null && ladder?.rungs !== undefined) {
       for (const rung of ladder.rungs) {
         if (!programIn(programs, rung.programRef)) {
@@ -160,9 +196,25 @@ function compileHogProgramPlan(
       });
     }
     if (selectedRef === null) {
-      throw new TypeError(
-        `${HOG_PROGRAM_CATALOG_DECLARATION_KEY} on ${sourceRef} requires ${HOG_PROGRAM_SELECTION_KEY} to select a program`
-      );
+      const unbound = vectorSelections?.filter(
+        (selection) =>
+          !selection.observed ||
+          !selection.accepted ||
+          selection.binding === null
+      ) ?? Object.freeze([]);
+      if (
+        vectorSelections === null ||
+        vectorSelections.length === 0 ||
+        unbound.length > 0
+      ) {
+        throw new TypeError(
+          `${HOG_PROGRAM_CATALOG_DECLARATION_KEY} on ${sourceRef} requires either ${HOG_PROGRAM_SELECTION_KEY} on the GraphFunction or one exact vector-owned selection on every materialized GraphVector`
+        );
+      }
+      return Object.freeze({
+        mode: "catalog_unselected" as const,
+        programs
+      });
     }
     if (!programIn(programs, selectedRef)) {
       throw new TypeError(
@@ -197,6 +249,7 @@ function programsInPlan(
     case "single":
       return Object.freeze([plan.program]);
     case "catalog":
+    case "catalog_unselected":
     case "ladder":
       return plan.programs;
   }

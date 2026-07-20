@@ -74,6 +74,10 @@ import {
 import { compileCAlgebraToHog } from "./c_algebra_hog_compiler.js";
 import { compileExecutionDeclarations } from "./execution_declaration_compiler.js";
 import {
+  resolveAbgFnCompositionSelection,
+  type AbgFnCompositionSelection
+} from "./fn_composition.js";
+import {
   compileHofRelation,
   graphFunctionDeclaresHofApplication,
   type HofRelationDiagnostic
@@ -2486,6 +2490,12 @@ function checkCompiledExecutionDeclarations(input: {
       residualAdmissionIssues === null
         ? errorMessage(error)
         : residualAdmissionIssues.join("; ");
+    if (message.startsWith(`vector-owned ${HOG_PROGRAM_SELECTION_KEY}`)) {
+      // The dedicated vector compiler already emitted the exact typed
+      // diagnostic at the declaration locus. Do not duplicate it as a
+      // GraphFunction-level execution-declaration failure.
+      return;
+    }
     const semanticNotRealized = message.startsWith("semantic_not_realized:");
     if (
       semanticNotRealized &&
@@ -15859,6 +15869,120 @@ function uniquePluginSelectionSeams(
   );
 }
 
+function fallbackProgramRefsForPlan(
+  graphFunction: GraphFunction,
+  programs: readonly AdmittedProgramInventoryRow[]
+): readonly string[] {
+  try {
+    const plan = compileExecutionDeclarations(graphFunction).hogProgramPlan;
+    switch (plan.mode) {
+      case "default":
+      case "catalog_unselected":
+        return Object.freeze([]);
+      case "single":
+        return Object.freeze([plan.program.programRef]);
+      case "catalog":
+        return Object.freeze([plan.selectionRef]);
+      case "ladder":
+        return Object.freeze([
+          ...new Set(plan.rungs.map((rung) => rung.programRef))
+        ]);
+    }
+  } catch {
+    // The execution-declaration diagnostic owns invalid plans. Keep the seam
+    // check conservative so invalid structure cannot erase a requirement.
+    return Object.freeze(programs.map((row) => row.program.programRef));
+  }
+}
+
+function pluginSeamsForComposition(
+  selection: AbgFnCompositionSelection
+): readonly PluginSelectionSeam[] {
+  return uniquePluginSelectionSeams(
+    selection.contract.regimes.map((binding) =>
+      binding.regime === "F_D"
+        ? "fdEvaluator"
+        : binding.regime === "F_H"
+          ? "fhAdmission"
+          : binding.stageRole === "evaluate"
+            ? "fpEvaluator"
+            : "fpDispatch"
+    )
+  );
+}
+
+function requiredPluginSeamsForGraphFunction(input: {
+  readonly graphFunction: GraphFunction;
+  readonly programs: readonly AdmittedProgramInventoryRow[];
+}): readonly PluginSelectionSeam[] {
+  if (input.programs.length === 0) return Object.freeze([]);
+
+  let graph: Graph;
+  try {
+    graph = materializeGraphFunction(input.graphFunction);
+  } catch {
+    return uniquePluginSelectionSeams(
+      input.programs.flatMap((row) => pluginSeamsForTerm(row.program.term))
+    );
+  }
+  const fallbackRefs = fallbackProgramRefsForPlan(
+    input.graphFunction,
+    input.programs
+  );
+  const programByRef = new Map(
+    input.programs.map((row) => [row.program.programRef, row.program] as const)
+  );
+  const requiredSeams: PluginSelectionSeam[] = [];
+  for (const graphVector of graph.vectors) {
+    const selection = compileGraphVectorCProgramSelection({
+      graphFunction: input.graphFunction,
+      graphVector
+    });
+    let reachableRefs: readonly string[];
+    if (
+      selection.observed &&
+      selection.accepted &&
+      selection.binding !== null
+    ) {
+      reachableRefs = Object.freeze([selection.binding.selectedProgramRef]);
+    } else if (selection.observed && !selection.accepted) {
+      return uniquePluginSelectionSeams(
+        input.programs.flatMap((row) => pluginSeamsForTerm(row.program.term))
+      );
+    } else {
+      reachableRefs = fallbackRefs;
+    }
+
+    try {
+      const composition = resolveAbgFnCompositionSelection({
+        vector: graphVector,
+        graphFunction: input.graphFunction
+      });
+      requiredSeams.push(...pluginSeamsForComposition(composition));
+      continue;
+    } catch {
+      // Older declaration families without an admitted composition retain the
+      // conservative C-term seam projection. Composition conformance owns the
+      // missing or malformed composition diagnostic.
+    }
+    for (const programRef of reachableRefs) {
+      const program = programByRef.get(programRef);
+      if (program !== undefined) {
+        requiredSeams.push(...pluginSeamsForTerm(program.term));
+      }
+    }
+  }
+  if (graph.vectors.length === 0) {
+    for (const programRef of fallbackRefs) {
+      const program = programByRef.get(programRef);
+      if (program !== undefined) {
+        requiredSeams.push(...pluginSeamsForTerm(program.term));
+      }
+    }
+  }
+  return uniquePluginSelectionSeams(requiredSeams);
+}
+
 interface CProgramLeaf {
   readonly stageRole: string;
   readonly regime: Regime;
@@ -16068,7 +16192,10 @@ function deriveConformanceInventory(input: {
       }
     }
     const requiredSeams = new Set<PluginSelectionSeam>(
-      programs.flatMap((row) => pluginSeamsForTerm(row.program.term))
+      requiredPluginSeamsForGraphFunction({
+      graphFunction,
+      programs
+      })
     );
     const selectedSeams = new Set<PluginSelectionSeam>(
       selection === null
