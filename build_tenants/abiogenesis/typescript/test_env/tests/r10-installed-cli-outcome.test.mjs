@@ -11,6 +11,7 @@ import {
   runInstalledCli,
   setupInstalledCliHarness,
 } from "../support/root-cli-environment.mjs";
+import { evaluateAbi5Root } from "../support/root-governor.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -99,9 +100,53 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
 
   const rawEventLog = await readFile(scenario.eventLogPath);
   const eventLogDigest = `sha256:${createHash("sha256").update(rawEventLog).digest("hex")}`;
+  const governor = await evaluateAbi5Root({
+    candidateBasis: harness.candidateBasis,
+    artifactPath: harness.artifactPath,
+    transcript,
+    outcomes: run.outcomes,
+    eventLogPath: scenario.eventLogPath,
+  });
+  assert.equal(governor.disposition, "root_satisfied", JSON.stringify(governor));
   const proofDirectory = join(root, "test_env/proof");
   await mkdir(proofDirectory, { recursive: true });
   await writeFile(join(proofDirectory, "abi5-root-r10.events.jsonl"), rawEventLog);
+  const proofTranscript = transcript.map((request) => ({
+    operationId: request.operationId,
+    variant: request.variant,
+    invocationRef: request.invocationRef,
+    payload: request.operationId === "abg.operation.product.verify"
+      ? {
+        expectedArtifactDigest: request.payload.expectedArtifactDigest,
+        expectedProductContentDigest: request.payload.expectedProductContentDigest,
+        expectedManifestDigest: request.payload.expectedManifestDigest,
+        expectedProductId: request.payload.expectedProductId,
+        expectedPackageName: request.payload.expectedPackageName,
+        expectedPackageVersion: request.payload.expectedPackageVersion,
+      }
+      : request.operationId === "abg.operation.run.invoke"
+        ? {
+          programRef: request.payload.programRef,
+          graphFunctionRef: request.payload.graphFunctionRef,
+        }
+        : {},
+  }));
+  const proofOutcomes = run.outcomes;
+  await writeFile(
+    join(proofDirectory, "abi5-root-r10.transcript.json"),
+    `${JSON.stringify(proofTranscript, null, 2)}\n`,
+    "utf8",
+  );
+  await writeFile(
+    join(proofDirectory, "abi5-root-r10.outcomes.json"),
+    `${JSON.stringify(proofOutcomes, null, 2)}\n`,
+    "utf8",
+  );
+  await writeFile(
+    join(proofDirectory, "abi5-root-governor.json"),
+    `${JSON.stringify(governor, null, 2)}\n`,
+    "utf8",
+  );
   await writeFile(
     join(proofDirectory, "abi5-root-r10.json"),
     `${JSON.stringify({
@@ -132,6 +177,9 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
       })),
       replayAgreement: firstOutcome.replayAgreement && outcome.replayAgreement,
       replayScopesDistinct: firstOutcome.runId !== outcome.runId,
+      rootGovernorId: governor.governorId,
+      rootGovernorDigest: governor.governorDigest,
+      rootGovernorDisposition: governor.disposition,
       durableEventCount: persistedEvents.length,
       durableEventLogLocator: "test_env/proof/abi5-root-r10.events.jsonl",
       durableEventLogDigest: eventLogDigest,

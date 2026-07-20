@@ -11,6 +11,7 @@ export const RAW_SUBJECT_KIND_VALUES = [
   "implementation_binding",
   "closure_contract",
   "invocation_input",
+  "public_operation_request",
 ] as const;
 
 export type RawSubjectKind = (typeof RAW_SUBJECT_KIND_VALUES)[number];
@@ -64,6 +65,8 @@ function hasExpectedKind(
       );
     case "invocation_input":
       return typeof value.kind === "string" && value.kind.length !== 0;
+    case "public_operation_request":
+      return value.kind === "public_invocation";
     default:
       return value.kind === expectedKind;
   }

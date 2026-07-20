@@ -42,7 +42,7 @@ test("R1 verifies exact packed bytes without a source import", async (context) =
   const request = {
     artifactPath,
     artifactRef: basename(artifactPath),
-    ...expectedVerificationIdentity(packageJson, candidateBasis),
+    ...expectedVerificationIdentity(candidateBasis),
   };
   const verified = await product.verifyProduct(request);
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));

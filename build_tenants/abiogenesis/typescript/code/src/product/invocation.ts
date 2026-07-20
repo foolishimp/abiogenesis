@@ -1,5 +1,8 @@
 import type { GraphFunction, GtlProgram } from "../gtl/contracts.js";
-import type { RawAdmittedValue } from "../validator/raw_admission.js";
+import {
+  isRawAdmittedValue,
+  type RawAdmittedValue,
+} from "../validator/raw_admission.js";
 import type { JsonValue } from "./canonical_json.js";
 import type { CatalogView } from "./catalog.js";
 import { sha256Canonical, type Sha256Digest } from "./digests.js";
@@ -66,6 +69,9 @@ export interface PublicInvocationCandidate {
   readonly outputContractRef: string;
   readonly rawInputAdmissionRef: string;
   readonly rawInputDigest: Sha256Digest;
+  readonly publicRequestAdmissionRef: string;
+  readonly publicRequestDigest: Sha256Digest;
+  readonly publicRequestInvocationRef: string;
   readonly sessionPolicyRef: string;
   readonly sessionPolicyDigest: Sha256Digest;
   readonly capabilityGrantRefs: readonly string[];
@@ -106,6 +112,10 @@ export function isPublicInvocationCandidate(value: object): boolean {
 
 function identity(prefix: string, digest: Sha256Digest): string {
   return `${prefix}/${digest.slice("sha256:".length)}`;
+}
+
+function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function refusal(
@@ -201,6 +211,7 @@ export function constructDirectInvocation(
   catalogView: CatalogView,
   program: Readonly<GtlProgram>,
   graphFunction: Readonly<GraphFunction>,
+  rawRequest: RawAdmittedValue<unknown>,
   rawInput: RawAdmittedValue<unknown>,
   policy: InvocationPolicyBasis,
   capabilityGrants: readonly CapabilityGrant[],
@@ -235,6 +246,22 @@ export function constructDirectInvocation(
   ) {
     return refusal("contract_mismatch", "direct root invocation requires one exact input and output contract");
   }
+  const request = rawRequest.value;
+  if (
+    !isRawAdmittedValue(rawRequest) ||
+    rawRequest.subjectKind !== "public_operation_request" ||
+    rawRequest.contractRef !== "contract://abiogenesis/public/run-invoke-request@5" ||
+    !isRecord(request) ||
+    request.operationId !== "abg.operation.run.invoke" ||
+    request.variant !== "direct" ||
+    typeof request.invocationRef !== "string" ||
+    request.invocationRef.length === 0
+  ) {
+    return refusal(
+      "authority_mismatch",
+      "direct invocation requires one exact raw public request admission",
+    );
+  }
   const publicFunctionDefinition = {
     operationId: "abg.operation.run.invoke",
     variant: "direct",
@@ -258,6 +285,9 @@ export function constructDirectInvocation(
     outputContractRef,
     rawInputAdmissionRef: rawInput.admissionRef,
     rawInputDigest: rawInput.subjectDigest,
+    publicRequestAdmissionRef: rawRequest.admissionRef,
+    publicRequestDigest: rawRequest.subjectDigest,
+    publicRequestInvocationRef: request.invocationRef as string,
     sessionPolicyRef: policy.policyRef,
     sessionPolicyDigest: policy.policyDigest,
     capabilityGrantRefs: capabilityGrants.map((grant) => grant.grantRef),

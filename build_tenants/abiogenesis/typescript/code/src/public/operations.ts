@@ -19,41 +19,9 @@ import type {
 } from "./contracts.js";
 import { projectOutcome } from "./outcome.js";
 
-interface VerifiedState {
-  readonly verified: product.VerifiedProductArtifact;
-}
-
-interface InstallState {
-  readonly candidate: product.ProductInstallCandidate;
-  readonly install: product.ProductInstall;
-}
-
-interface WorkspaceState {
-  readonly lock: product.ResolvedProductLock;
-  readonly productSet: product.ProductSet;
-  readonly binding: product.WorkspaceBinding;
-}
-
-interface CatalogState {
-  readonly publication: Readonly<ModulePublication>;
-  readonly publicationValidation: validator.PublicationValidation;
-  readonly programValidation: validator.ProgramValidation;
-  readonly catalog: product.AdmittedCatalog;
-}
-
-interface CatalogViewState {
-  readonly catalogState: CatalogState;
-  readonly view: product.CatalogView;
-}
-
 export interface RootOperationContext {
   readonly store: abg.AbgEventStore;
-  readonly seenInvocations: Set<string>;
-  readonly verified: Map<string, VerifiedState>;
-  readonly installs: Map<string, InstallState>;
-  readonly workspaces: Map<string, WorkspaceState>;
-  readonly catalogs: Map<string, CatalogState>;
-  readonly catalogViews: Map<string, CatalogViewState>;
+  readonly productState: product.RootOperationState;
 }
 
 class ApplicationRefusal extends Error {
@@ -72,12 +40,7 @@ class ApplicationRefusal extends Error {
 export function createRootOperationContext(): RootOperationContext {
   return {
     store: new abg.AbgEventStore(),
-    seenInvocations: new Set<string>(),
-    verified: new Map<string, VerifiedState>(),
-    installs: new Map<string, InstallState>(),
-    workspaces: new Map<string, WorkspaceState>(),
-    catalogs: new Map<string, CatalogState>(),
-    catalogViews: new Map<string, CatalogViewState>(),
+    productState: new product.RootOperationState(),
   };
 }
 
@@ -129,9 +92,8 @@ function requireExactPayloadKeys(
   }
 }
 
-function required<T>(map: Map<string, T>, ref: string, kind: string): T {
-  const value = map.get(ref);
-  if (value === undefined) {
+function required<T>(value: T | null, ref: string, kind: string): T {
+  if (value === null) {
     throw new ApplicationRefusal("missing_prerequisite", `${kind} invocation ${ref} is not admitted in this transcript`);
   }
   return value;
@@ -237,6 +199,8 @@ function successOutcome(
     replayAgreement: null,
     eventLogPath: null,
     eventLogDigest: null,
+    eventLogByteLength: null,
+    durableEventCount: null,
   };
   return deepFreeze({
     kind: "public_outcome" as const,
@@ -279,6 +243,8 @@ function refusalOutcome(
     replayAgreement: null,
     eventLogPath: null,
     eventLogDigest: null,
+    eventLogByteLength: null,
+    durableEventCount: null,
   };
   return deepFreeze({
     kind: "public_outcome" as const,
@@ -318,7 +284,7 @@ async function applyVerify(
   if (verified.disposition !== "verified") {
     throw new ApplicationRefusal("owner_refusal", `Product verification refused: ${verified.code}`);
   }
-  context.verified.set(invocation.invocationRef, { verified });
+  context.productState.rememberVerified(invocation.invocationRef, { verified });
   return successOutcome(invocation, {
     kind: verified.kind,
     disposition: verified.disposition,
@@ -337,7 +303,7 @@ async function applyInstall(
     throw new ApplicationRefusal("invalid_request", "product.install requires variant verified_artifact");
   }
   const verifiedState = required(
-    context.verified,
+    context.productState.verified(stringField(invocation.payload, "verifiedInvocationRef")),
     stringField(invocation.payload, "verifiedInvocationRef"),
     "verified Product",
   );
@@ -362,7 +328,7 @@ async function applyInstall(
   if (install.kind !== "product_install") {
     throw new ApplicationRefusal("owner_refusal", `ProductInstall admission refused: ${install.message}`);
   }
-  context.installs.set(invocation.invocationRef, { candidate, install });
+  context.productState.rememberInstall(invocation.invocationRef, { candidate, install });
   return successOutcome(invocation, {
     kind: install.kind,
     disposition: install.disposition,
@@ -381,7 +347,7 @@ async function applyWorkspaceBind(
     throw new ApplicationRefusal("invalid_request", "workspace.bind requires variant exact_product_set");
   }
   const installState = required(
-    context.installs,
+    context.productState.install(stringField(invocation.payload, "installInvocationRef")),
     stringField(invocation.payload, "installInvocationRef"),
     "ProductInstall",
   );
@@ -434,7 +400,7 @@ async function applyWorkspaceBind(
   if (binding.kind !== "workspace_binding") {
     throw new ApplicationRefusal("owner_refusal", `Workspace binding admission refused: ${binding.message}`);
   }
-  context.workspaces.set(invocation.invocationRef, { lock, productSet, binding });
+  context.productState.rememberWorkspace(invocation.invocationRef, { lock, productSet, binding });
   return successOutcome(invocation, {
     kind: binding.kind,
     bindingId: binding.bindingId,
@@ -452,12 +418,12 @@ async function applyCatalogAdmit(
     throw new ApplicationRefusal("invalid_request", "catalog.admit requires variant module_publication");
   }
   const verifiedState = required(
-    context.verified,
+    context.productState.verified(stringField(invocation.payload, "verifiedInvocationRef")),
     stringField(invocation.payload, "verifiedInvocationRef"),
     "verified Product",
   );
   const workspaceState = required(
-    context.workspaces,
+    context.productState.workspace(stringField(invocation.payload, "workspaceBindingInvocationRef")),
     stringField(invocation.payload, "workspaceBindingInvocationRef"),
     "WorkspaceBinding",
   );
@@ -513,7 +479,7 @@ async function applyCatalogAdmit(
   if (catalog.kind !== "admitted_catalog") {
     throw new ApplicationRefusal("owner_refusal", `Catalog admission refused: ${catalog.message}`);
   }
-  context.catalogs.set(invocation.invocationRef, {
+  context.productState.rememberCatalog(invocation.invocationRef, {
     publication,
     publicationValidation,
     programValidation,
@@ -536,7 +502,7 @@ async function applyCatalogView(
     throw new ApplicationRefusal("invalid_request", "catalog.view requires variant allowlist");
   }
   const catalogState = required(
-    context.catalogs,
+    context.productState.catalog(stringField(invocation.payload, "catalogInvocationRef")),
     stringField(invocation.payload, "catalogInvocationRef"),
     "AdmittedCatalog",
   );
@@ -561,7 +527,7 @@ async function applyCatalogView(
   if (view.kind !== "catalog_view") {
     throw new ApplicationRefusal("owner_refusal", `Catalog view admission refused: ${view.message}`);
   }
-  context.catalogViews.set(invocation.invocationRef, { catalogState, view });
+  context.productState.rememberCatalogView(invocation.invocationRef, { catalogState, view });
   return successOutcome(invocation, {
     kind: view.kind,
     viewId: view.viewId,
@@ -574,6 +540,7 @@ async function applyCatalogView(
 async function applyRunInvoke(
   context: RootOperationContext,
   invocation: RootPublicInvocation,
+  rawRequest: validator.RawAdmittedValue<RootPublicInvocation>,
 ): Promise<PublicOutcome> {
   if (invocation.variant !== "direct") {
     throw new ApplicationRefusal("invalid_request", "run.invoke requires variant direct");
@@ -589,17 +556,17 @@ async function applyRunInvoke(
     "workspaceBindingInvocationRef",
   ], "run.invoke");
   const installState = required(
-    context.installs,
+    context.productState.install(stringField(invocation.payload, "installInvocationRef")),
     stringField(invocation.payload, "installInvocationRef"),
     "ProductInstall",
   );
   const workspaceState = required(
-    context.workspaces,
+    context.productState.workspace(stringField(invocation.payload, "workspaceBindingInvocationRef")),
     stringField(invocation.payload, "workspaceBindingInvocationRef"),
     "WorkspaceBinding",
   );
   const viewState = required(
-    context.catalogViews,
+    context.productState.catalogView(stringField(invocation.payload, "catalogViewInvocationRef")),
     stringField(invocation.payload, "catalogViewInvocationRef"),
     "CatalogView",
   );
@@ -664,6 +631,7 @@ async function applyRunInvoke(
     viewState.view,
     programValue,
     graphFunction,
+    rawRequest,
     rawInput,
     policy,
     [grant],
@@ -678,6 +646,7 @@ async function applyRunInvoke(
     context.store,
     {
       invocation: candidate,
+      rawRequest,
       rawInput,
       modulePublication: viewState.catalogState.publication,
       program: programValue,
@@ -717,55 +686,6 @@ async function applyRunInvoke(
       durableEventLogPath,
     );
   }
-  const resolutionCandidate = product.resolveImplementation(
-    viewState.view,
-    viewState.catalogState.publication,
-    viewState.catalogState.programValidation,
-    graphFunction.name,
-    node.nodeRef,
-  );
-  if (resolutionCandidate.kind !== "implementation_resolution_candidate") {
-    abg.admitInvocationRefusal(
-      context.store,
-      invocationAdmission,
-      "implementation_resolution",
-      product.sha256Canonical(resolutionCandidate as unknown as product.JsonValue),
-      [`diagnostic://abiogenesis/implementation-resolution/${resolutionCandidate.code}@5`],
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution`, causationEventRefs: [] },
-    );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-    );
-  }
-  const descriptor = product.rootPackagedImplementationDescriptor();
-  const resolutionValidation = validator.validateImplementationResolution(
-    resolutionCandidate,
-    viewState.catalogState.publication,
-    viewState.catalogState.programValidation,
-    graphFunction,
-    descriptor,
-  );
-  if (resolutionValidation.kind !== "implementation_resolution_validation") {
-    abg.admitInvocationRefusal(
-      context.store,
-      invocationAdmission,
-      "implementation_resolution",
-      resolutionValidation.subjectDigest,
-      resolutionValidation.diagnostics.map((row) => `diagnostic://abiogenesis/validator/${row.code}@5`),
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution-validation`, causationEventRefs: [] },
-    );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-    );
-  }
   const graph = gtl.materializeGraph(graphFunction, {
     invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
     admittedInputRef: rawInput.admissionRef,
@@ -789,6 +709,135 @@ async function applyRunInvoke(
       graphValidation.subjectDigest,
       graphValidation.diagnostics.map((row) => `diagnostic://abiogenesis/validator/${row.code}@5`),
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/graph-validation`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+    );
+  }
+  const matchingBindings = viewState.catalogState.publication.implementationBindings.filter(
+    (binding) => binding.bindingRef === node.implementationBindingRef,
+  );
+  const implementationModules = new Map<string, Record<string, unknown>>();
+  const packagedImplementations: product.PackagedLeafImplementationDescriptor[] = [];
+  for (const binding of matchingBindings) {
+    if (implementationModules.has(binding.modulePath)) continue;
+    const modulePath = resolve(installState.candidate.installedRoot, binding.modulePath);
+    const moduleRelation = relative(installState.candidate.installedRoot, modulePath);
+    let implementationModule: Record<string, unknown> | null = null;
+    if (!moduleRelation.startsWith("..") && !isAbsolute(moduleRelation) && moduleRelation.length > 0) {
+      try {
+        implementationModule = await import(pathToFileURL(modulePath).href) as Record<string, unknown>;
+      } catch {
+        implementationModule = null;
+      }
+    }
+    if (implementationModule === null) {
+      abg.admitInvocationRefusal(
+        context.store,
+        invocationAdmission,
+        "implementation_resolution",
+        product.sha256Canonical(binding as unknown as product.JsonValue),
+        ["diagnostic://abiogenesis/implementation-resolution/module-load-failed@5"],
+        { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-load`, causationEventRefs: [] },
+      );
+      return projectCurrentOutcome(
+        context,
+        invocation,
+        graphFunction.outputs[0] ?? "",
+        candidate.invocationRef,
+        durableEventLogPath,
+      );
+    }
+    implementationModules.set(binding.modulePath, implementationModule);
+    packagedImplementations.push(
+      ...Object.values(implementationModule).filter(product.isPackagedLeafImplementationDescriptor),
+    );
+  }
+  const resolutionCandidate = product.resolveImplementation(
+    viewState.view,
+    viewState.catalogState.publication,
+    viewState.catalogState.programValidation,
+    graphValidation,
+    graphFunction.name,
+    node.nodeRef,
+    packagedImplementations,
+  );
+  if (resolutionCandidate.kind !== "implementation_resolution_candidate") {
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      "implementation_resolution",
+      product.sha256Canonical(resolutionCandidate as unknown as product.JsonValue),
+      [`diagnostic://abiogenesis/implementation-resolution/${resolutionCandidate.code}@5`],
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+    );
+  }
+  const selectedDescriptor = packagedImplementations.find(
+    (descriptor) => descriptor.descriptorDigest === resolutionCandidate.implementationDescriptorDigest,
+  );
+  if (selectedDescriptor === undefined) {
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      "implementation_resolution",
+      resolutionCandidate.resolutionCandidateDigest,
+      ["diagnostic://abiogenesis/implementation-resolution/descriptor-selection-failed@5"],
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/descriptor-selection`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+    );
+  }
+  const resolutionValidation = validator.validateImplementationResolution(
+    resolutionCandidate,
+    viewState.catalogState.publication,
+    viewState.catalogState.programValidation,
+    graphValidation,
+    graphFunction,
+    selectedDescriptor,
+  );
+  if (resolutionValidation.kind !== "implementation_resolution_validation") {
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      "implementation_resolution",
+      resolutionValidation.subjectDigest,
+      resolutionValidation.diagnostics.map((row) => `diagnostic://abiogenesis/validator/${row.code}@5`),
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution-validation`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+    );
+  }
+  const implementationModule = implementationModules.get(resolutionCandidate.modulePath);
+  const leaf = implementationModule?.[resolutionCandidate.namedSymbol] as unknown;
+  if (typeof leaf !== "function") {
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      "implementation_resolution",
+      resolutionCandidate.resolutionCandidateDigest,
+      ["diagnostic://abiogenesis/implementation-resolution/symbol-not-callable@5"],
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-symbol`, causationEventRefs: [] },
     );
     return projectCurrentOutcome(
       context,
@@ -909,52 +958,6 @@ async function applyRunInvoke(
       opened.scope.runId,
     );
   }
-  const moduleUrl = pathToFileURL(resolve(
-    installState.candidate.installedRoot,
-    executionAdmission.implementationResolution.modulePath,
-  )).href;
-  let implementationModule: Record<string, unknown>;
-  try {
-    implementationModule = await import(moduleUrl) as Record<string, unknown>;
-  } catch {
-    abg.admitRuntimeFailure(
-      context.store,
-      executionAdmission.executionBasis,
-      opened.scope,
-      "implementation_load",
-      { modulePath: executionAdmission.implementationResolution.modulePath },
-      "diagnostic://abiogenesis/implementation/module-load-failed@5",
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-load`, causationEventRefs: [] },
-    );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-      opened.scope.runId,
-    );
-  }
-  const leaf = implementationModule[executionAdmission.implementationResolution.namedSymbol] as unknown;
-  if (typeof leaf !== "function") {
-    abg.admitRuntimeFailure(
-      context.store,
-      executionAdmission.executionBasis,
-      opened.scope,
-      "implementation_load",
-      { namedSymbol: executionAdmission.implementationResolution.namedSymbol },
-      "diagnostic://abiogenesis/implementation/symbol-not-callable@5",
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-symbol`, causationEventRefs: [] },
-    );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-      opened.scope.runId,
-    );
-  }
   const outputDeclaration = viewState.catalogState.publication.contracts.find(
     (value) => value.contractRef === graphFunction.outputs[0] && value.contractKind === "output",
   );
@@ -998,6 +1001,7 @@ async function applyRunInvoke(
       inputDigest: rawInput.subjectDigest,
       failureValueKind: failureDeclaration.valueKind,
       resultValueKind: outputDeclaration.valueKind,
+      validateSuccessResult: gtl.isHelloWorldOutput,
       closureContract,
       judgmentRelation: {
         predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
@@ -1077,10 +1081,16 @@ export async function applyRootPublicInvocation(
   context: RootOperationContext,
   invocation: RootPublicInvocation,
 ): Promise<PublicOutcome> {
-  if (context.seenInvocations.has(invocation.invocationRef)) {
+  if (!context.productState.claimInvocation(invocation.invocationRef)) {
     return refusalOutcome(invocation, "duplicate_invocation", "invocationRef already appeared in this transcript");
   }
-  context.seenInvocations.add(invocation.invocationRef);
+  const rawRequest = rawAdmission<RootPublicInvocation>(
+    invocation,
+    "public_operation_request",
+    invocation.operationId === "abg.operation.run.invoke"
+      ? "contract://abiogenesis/public/run-invoke-request@5"
+      : `contract://abiogenesis/public/${invocation.operationId}@5`,
+  );
   try {
     switch (invocation.operationId) {
       case "abg.operation.product.verify":
@@ -1094,7 +1104,7 @@ export async function applyRootPublicInvocation(
       case "abg.operation.catalog.view":
         return await applyCatalogView(context, invocation);
       case "abg.operation.run.invoke":
-        return await applyRunInvoke(context, invocation);
+        return await applyRunInvoke(context, invocation, rawRequest);
     }
   } catch (error) {
     if (error instanceof ApplicationRefusal) {

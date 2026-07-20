@@ -68,6 +68,10 @@ export interface RuntimeEventScope {
   readonly runId?: string;
 }
 
+export type RuntimeEventCandidateFactory = (
+  admittedInBatch: readonly RuntimeEvent[],
+) => RuntimeEventCandidate;
+
 interface EventStoreState {
   readonly events: RuntimeEvent[];
   durableLogPath: string | null;
@@ -88,6 +92,7 @@ export function selectRuntimeEvents(
   scope?: RuntimeEventScope,
 ): readonly RuntimeEvent[] {
   if (scope === undefined) return Object.freeze([...events]);
+  const byId = new Map(events.map((event) => [event.eventId, event]));
   const selected = new Set<string>();
   for (const event of events) {
     if (
@@ -104,9 +109,20 @@ export function selectRuntimeEvents(
     changed = false;
     for (const event of events) {
       if (!selected.has(event.eventId)) continue;
-      for (const cause of event.causationEventRefs) {
-        if (!selected.has(cause)) {
-          selected.add(cause);
+      for (const causeRef of event.causationEventRefs) {
+        const cause = byId.get(causeRef);
+        if (cause === undefined) {
+          throw new TypeError("scoped replay encountered an unknown causation event");
+        }
+        if (
+          event.runId !== undefined &&
+          cause.runId !== undefined &&
+          cause.runId !== event.runId
+        ) {
+          throw new TypeError("scoped replay cannot cross a run causation boundary");
+        }
+        if (!selected.has(causeRef)) {
+          selected.add(causeRef);
           changed = true;
         }
       }
@@ -116,13 +132,62 @@ export function selectRuntimeEvents(
 }
 
 function appendDurably(path: string, event: RuntimeEvent): void {
+  appendDurablyBatch(path, [event]);
+}
+
+function appendDurablyBatch(path: string, events: readonly RuntimeEvent[]): void {
   const descriptor = openSync(path, "a");
   try {
-    appendFileSync(descriptor, `${canonicalJson(event as unknown as JsonValue)}\n`, "utf8");
+    appendFileSync(
+      descriptor,
+      events.map((event) => `${canonicalJson(event as unknown as JsonValue)}\n`).join(""),
+      "utf8",
+    );
     fsyncSync(descriptor);
   } finally {
     closeSync(descriptor);
   }
+}
+
+function constructRuntimeEvent(
+  events: readonly RuntimeEvent[],
+  candidate: RuntimeEventCandidate,
+): RuntimeEvent {
+  if (
+    new Set(candidate.causationEventRefs).size !== candidate.causationEventRefs.length ||
+    candidate.causationEventRefs.some(
+      (eventRef) => !events.some((event) => event.eventId === eventRef),
+    )
+  ) {
+    throw new TypeError("runtime event causation refs must be unique admitted events in this store");
+  }
+  const causeEvents = candidate.causationEventRefs.map((eventRef) =>
+    events.find((event) => event.eventId === eventRef)!,
+  );
+  if (
+    causeEvents.some((cause) =>
+      candidate.runId === undefined
+        ? cause.runId !== undefined
+        : cause.runId !== undefined && cause.runId !== candidate.runId)
+  ) {
+    throw new TypeError("runtime event causation cannot cross a run scope");
+  }
+  const immutableCandidate = deepFreeze(
+    JSON.parse(canonicalJson(candidate as unknown as JsonValue)) as RuntimeEventCandidate,
+  );
+  const admissionOrdinal = events.length + 1;
+  const payloadDigest = sha256Canonical(immutableCandidate.payload);
+  const eventId = `event://abiogenesis/${sha256Canonical({
+    ...immutableCandidate,
+    payloadDigest,
+    admissionOrdinal,
+  }).slice("sha256:".length)}`;
+  return deepFreeze({
+    ...immutableCandidate,
+    eventId,
+    admissionOrdinal,
+    payloadDigest,
+  }) as RuntimeEvent;
 }
 
 export class AbgEventStore {
@@ -173,31 +238,30 @@ export function admitRuntimeEvent(
     throw new TypeError("event store was not constructed by this ABG module");
   }
   const events = state.events;
-  if (
-    new Set(candidate.causationEventRefs).size !== candidate.causationEventRefs.length ||
-    candidate.causationEventRefs.some(
-      (eventRef) => !events.some((event) => event.eventId === eventRef),
-    )
-  ) {
-    throw new TypeError("runtime event causation refs must be unique admitted events in this store");
-  }
-  const immutableCandidate = deepFreeze(
-    JSON.parse(canonicalJson(candidate as unknown as JsonValue)) as RuntimeEventCandidate,
-  );
-  const admissionOrdinal = events.length + 1;
-  const payloadDigest = sha256Canonical(immutableCandidate.payload);
-  const eventId = `event://abiogenesis/${sha256Canonical({
-    ...immutableCandidate,
-    payloadDigest,
-    admissionOrdinal,
-  }).slice("sha256:".length)}`;
-  const event = deepFreeze({
-    ...immutableCandidate,
-    eventId,
-    admissionOrdinal,
-    payloadDigest,
-  }) as RuntimeEvent;
+  const event = constructRuntimeEvent(events, candidate);
   if (state.durableLogPath !== null) appendDurably(state.durableLogPath, event);
   events.push(event);
   return event;
+}
+
+export function admitRuntimeEventBatch(
+  store: AbgEventStore,
+  factories: readonly RuntimeEventCandidateFactory[],
+): readonly RuntimeEvent[] {
+  const state = eventState.get(store);
+  if (state === undefined) {
+    throw new TypeError("event store was not constructed by this ABG module");
+  }
+  if (factories.length === 0) return Object.freeze([]);
+  const staged = [...state.events];
+  const admitted: RuntimeEvent[] = [];
+  for (const factory of factories) {
+    const candidate = factory(Object.freeze([...admitted]));
+    const event = constructRuntimeEvent(staged, candidate);
+    staged.push(event);
+    admitted.push(event);
+  }
+  if (state.durableLogPath !== null) appendDurablyBatch(state.durableLogPath, admitted);
+  state.events.push(...admitted);
+  return Object.freeze(admitted);
 }

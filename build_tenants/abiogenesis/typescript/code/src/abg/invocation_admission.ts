@@ -41,6 +41,7 @@ import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 
 export interface InvocationAdmissionInput {
   readonly invocation: PublicInvocationCandidate;
+  readonly rawRequest: RawAdmittedValue<unknown>;
   readonly rawInput: RawAdmittedValue<unknown>;
   readonly modulePublication: Readonly<ModulePublication>;
   readonly program: Readonly<GtlProgram>;
@@ -63,6 +64,9 @@ export interface InvocationAdmission {
   readonly invocationDigest: Sha256Digest;
   readonly rawInputAdmissionRef: string;
   readonly rawInputDigest: Sha256Digest;
+  readonly publicRequestAdmissionRef: string;
+  readonly publicRequestDigest: Sha256Digest;
+  readonly publicRequestInvocationRef: string;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
   readonly catalogViewId: string;
@@ -132,6 +136,9 @@ export function hasAdmittedInvocation(
     invocationDigest: admission.invocationDigest,
     rawInputAdmissionRef: admission.rawInputAdmissionRef,
     rawInputDigest: admission.rawInputDigest,
+    publicRequestAdmissionRef: admission.publicRequestAdmissionRef,
+    publicRequestDigest: admission.publicRequestDigest,
+    publicRequestInvocationRef: admission.publicRequestInvocationRef,
     workspaceBindingId: admission.workspaceBindingId,
     workspaceBindingDigest: admission.workspaceBindingDigest,
     catalogViewId: admission.catalogViewId,
@@ -238,6 +245,29 @@ export function admitInvocation(
   ) {
     return refusal("contract_mismatch", "raw input or declared input/output contract differs from invocation");
   }
+  const request = input.rawRequest.value;
+  const requestPayload = isRecord(request) && isRecord(request.payload)
+    ? request.payload
+    : null;
+  if (
+    !isRawAdmittedValue(input.rawRequest) ||
+    input.rawRequest.subjectKind !== "public_operation_request" ||
+    input.rawRequest.contractRef !== "contract://abiogenesis/public/run-invoke-request@5" ||
+    input.rawRequest.admissionRef !== input.invocation.publicRequestAdmissionRef ||
+    input.rawRequest.subjectDigest !== input.invocation.publicRequestDigest ||
+    !isRecord(request) ||
+    request.operationId !== "abg.operation.run.invoke" ||
+    request.variant !== "direct" ||
+    request.invocationRef !== input.invocation.publicRequestInvocationRef ||
+    requestPayload === null ||
+    requestPayload.programRef !== input.invocation.programRef ||
+    requestPayload.graphFunctionRef !== input.invocation.graphFunctionRef
+  ) {
+    return refusal(
+      "authority_mismatch",
+      "invocation target lacks exact raw caller-request admission",
+    );
+  }
   if (
     !isInvocationPolicyBasis(input.policy) ||
     input.policy.policyRef !== input.invocation.sessionPolicyRef ||
@@ -281,6 +311,9 @@ export function admitInvocation(
     invocationDigest: input.invocation.invocationDigest,
     rawInputAdmissionRef: input.rawInput.admissionRef,
     rawInputDigest: input.rawInput.subjectDigest,
+    publicRequestAdmissionRef: input.rawRequest.admissionRef,
+    publicRequestDigest: input.rawRequest.subjectDigest,
+    publicRequestInvocationRef: input.invocation.publicRequestInvocationRef,
     workspaceBindingId: input.workspaceBinding.bindingId,
     workspaceBindingDigest: input.workspaceBinding.bindingDigest,
     catalogViewId: input.catalogView.viewId,

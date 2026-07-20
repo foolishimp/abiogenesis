@@ -84,6 +84,7 @@ export interface CompleteDeterministicTraversalInput<
   readonly inputDigest: `sha256:${string}`;
   readonly failureValueKind: string;
   readonly resultValueKind: string;
+  readonly validateSuccessResult: (value: unknown) => value is Readonly<Output>;
   readonly closureContract: Readonly<ClosureContract>;
   readonly judgmentRelation: DeclaredJudgmentRelation<Input, Output>;
   readonly realize: (input: Readonly<Input>) => unknown;
@@ -142,16 +143,25 @@ function isEvidenceCandidate(value: unknown): value is DeterministicEvidenceCand
     typeof value.outputDigest === "string" && /^sha256:[a-f0-9]{64}$/u.test(value.outputDigest);
 }
 
-function isLeafCandidate<Output>(value: unknown): value is DeterministicLeafCandidate<Output> {
-  return isRecord(value) &&
-    value.kind === "leaf_realization_candidate" &&
+function isLeafCandidate<Output>(
+  value: unknown,
+  validateSuccessResult: (candidate: unknown) => candidate is Readonly<Output>,
+  failureValueKind: string,
+): value is DeterministicLeafCandidate<Output> {
+  if (!isRecord(value) || !Array.isArray(value.evidenceCandidates)) return false;
+  const evidence = Array.from(value.evidenceCandidates);
+  return value.kind === "leaf_realization_candidate" &&
     value.schemaVersion === "5.0.0" &&
     (value.disposition === "success" || value.disposition === "failure") &&
-    Array.isArray(value.evidenceCandidates) &&
-    value.evidenceCandidates.every(isEvidenceCandidate) &&
+    evidence.length > 0 &&
+    evidence.every(isEvidenceCandidate) &&
     isRecord(value.resultCandidate) &&
     value.resultCandidate.schemaVersion === "5.0.0" &&
-    (value.disposition === "success" || typeof value.diagnosticRef === "string");
+    (value.disposition === "success"
+      ? validateSuccessResult(value.resultCandidate)
+      : value.resultCandidate.kind === failureValueKind &&
+        typeof value.diagnosticRef === "string" &&
+        value.resultCandidate.diagnosticRef === value.diagnosticRef);
 }
 
 function totalizedFailureCandidate<Input, Output>(
@@ -217,10 +227,11 @@ export function completeDeterministicTraversal<
   let leaf: DeterministicLeafCandidate<Output>;
   try {
     realized = input.realize(input.input);
-    leaf = isLeafCandidate<Output>(realized) &&
-      (realized.disposition === "success" ||
-        (realized.resultCandidate.kind === input.failureValueKind &&
-          realized.resultCandidate.diagnosticRef === realized.diagnosticRef))
+    leaf = isLeafCandidate<Output>(
+      realized,
+      input.validateSuccessResult,
+      input.failureValueKind,
+    )
       ? realized
       : totalizedFailureCandidate(input, "malformed_return");
   } catch {

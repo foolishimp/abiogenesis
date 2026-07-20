@@ -6,13 +6,13 @@ import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import test from "node:test";
 
-import { setupInstalledRootInvocation } from "../support/root-installed-environment.mjs";
+import { setupInstalledRootResolution } from "../support/root-installed-environment.mjs";
 
 const execFileAsync = promisify(execFile);
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 test("R6 resolves one exact packaged leaf and all declared contracts", async (context) => {
-  const environment = await setupInstalledRootInvocation(context, root);
+  const environment = await setupInstalledRootResolution(context, root);
   const {
     product,
     validator,
@@ -22,30 +22,20 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
     publication,
     programValidation,
     graphFunction,
+    graphValidation,
     catalogView,
+    implementationDescriptor,
+    resolutionCandidate: resolution,
+    resolutionValidation: validation,
   } = environment;
   const node = graphFunction.template.nodes[0];
   const eventCountBeforeResolution = store.readAll().length;
-  const resolution = product.resolveImplementation(
-    catalogView,
-    publication,
-    programValidation,
-    graphFunction.name,
-    node.nodeRef,
-  );
   assert.equal(resolution.kind, "implementation_resolution_candidate", JSON.stringify(resolution));
-  const descriptor = product.rootPackagedImplementationDescriptor();
-  const validation = validator.validateImplementationResolution(
-    resolution,
-    publication,
-    programValidation,
-    graphFunction,
-    descriptor,
-  );
+  const binding = publication.implementationBindings[0];
   assert.equal(validation.kind, "implementation_resolution_validation", JSON.stringify(validation));
   assert.equal(resolution.computeRegime, "F_D");
   assert.equal(resolution.implementationBindingRef, node.implementationBindingRef);
-  assert.equal(resolution.implementationRef, descriptor.implementationRef);
+  assert.equal(resolution.implementationRef, binding.implementationRef);
   assert.equal(resolution.packageName, verified.packageName);
   assert.equal(resolution.packageVersion, verified.packageVersion);
   assert.equal(resolution.inputContractRef, graphFunction.inputs[0]);
@@ -89,17 +79,32 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
     catalogView,
     publication,
     programValidation,
+    graphValidation,
     graphFunction.name,
     "node://abiogenesis/conformance/missing@5",
+    [implementationDescriptor],
   );
   assert.equal(absentNode.code, "implementation_absent");
+
+  const absentPackageImplementation = product.resolveImplementation(
+    catalogView,
+    publication,
+    programValidation,
+    graphValidation,
+    graphFunction.name,
+    node.nodeRef,
+    [],
+  );
+  assert.equal(absentPackageImplementation.code, "implementation_absent");
 
   const changedView = product.resolveImplementation(
     { ...catalogView, selectedRows: [] },
     publication,
     programValidation,
+    graphValidation,
     graphFunction.name,
     node.nodeRef,
+    [implementationDescriptor],
   );
   assert.equal(changedView.code, "selection_mismatch");
 
@@ -109,8 +114,10 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
     catalogView,
     alteredPublication,
     programValidation,
+    graphValidation,
     graphFunction.name,
     node.nodeRef,
+    [implementationDescriptor],
   );
   assert.equal(alteredBinding.code, "invalid_program_validation");
 
@@ -118,20 +125,25 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
     structuredClone(resolution),
     publication,
     programValidation,
+    graphValidation,
     graphFunction,
-    descriptor,
+    implementationDescriptor,
   );
   assert.equal(forgedResolution.kind, "static_validation_refusal");
   assert.equal(forgedResolution.diagnostics[0].code, "raw_subject_mismatch");
-  const changedDescriptorValidation = validator.validateImplementationResolution(
+  const changedBindingPublication = structuredClone(publication);
+  changedBindingPublication.implementationBindings[0].modulePath =
+    "build/code/src/implementation/other.js";
+  const changedBindingValidation = validator.validateImplementationResolution(
     resolution,
-    publication,
+    changedBindingPublication,
     programValidation,
+    graphValidation,
     graphFunction,
-    { ...descriptor, modulePath: "build/code/src/implementation/other.js" },
+    implementationDescriptor,
   );
-  assert.equal(changedDescriptorValidation.kind, "static_validation_refusal");
-  assert.equal(changedDescriptorValidation.diagnostics[0].code, "invalid_reference");
+  assert.equal(changedBindingValidation.kind, "static_validation_refusal");
+  assert.equal(changedBindingValidation.diagnostics[0].code, "invalid_reference");
   assert.equal(store.readAll().length, eventCountBeforeResolution);
 
   const evidenceDirectory = join(root, "test_env/evidence");
@@ -148,11 +160,14 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
       artifactDigest: verified.artifactDigest,
       catalogViewId: catalogView.viewId,
       programValidationRef: programValidation.validationRef,
+      graphValidationRef: graphValidation.validationRef,
+      graphValidationDigest: graphValidation.validationDigest,
       graphFunctionRef: resolution.graphFunctionRef,
       graphFunctionDigest: resolution.graphFunctionDigest,
       nodeRef: resolution.nodeRef,
       implementationBindingRef: resolution.implementationBindingRef,
       implementationRef: resolution.implementationRef,
+      implementationBindingDigest: resolution.implementationBindingDigest,
       implementationDescriptorDigest: resolution.implementationDescriptorDigest,
       packageName: resolution.packageName,
       packageVersion: resolution.packageVersion,
@@ -170,10 +185,11 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
       eventCountUnchanged: store.readAll().length === eventCountBeforeResolution,
       mutation: {
         missingNodeRefusal: absentNode.code,
+        missingPackagedImplementationRefusal: absentPackageImplementation.code,
         changedCatalogViewRefusal: changedView.code,
         changedBindingRefusal: alteredBinding.code,
         forgedCandidateRefusal: forgedResolution.diagnostics[0].code,
-        changedDescriptorRefusal: changedDescriptorValidation.diagnostics[0].code,
+        changedBindingValidationRefusal: changedBindingValidation.diagnostics[0].code,
       },
       authorityBoundary: {
         implementationPubliclyCallable: false,

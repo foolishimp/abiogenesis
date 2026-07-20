@@ -57,7 +57,12 @@ function refuseClosure(
   subjectDigest: Sha256Digest,
   basis: RuntimeAdmissionBasis,
 ): ClosureAdmissionRefusal {
-  if (!hasOpenedCCall(store, cCall)) {
+  if (
+    !hasOpenedCCall(store, cCall) ||
+    store.readAll().some((event) =>
+      event.runId === cCall.runId &&
+      (event.kind === "run_closed" || event.kind === "runtime_failure_observed"))
+  ) {
     return {
       kind: "closure_admission_refusal",
       schemaVersion: "5.0.0",

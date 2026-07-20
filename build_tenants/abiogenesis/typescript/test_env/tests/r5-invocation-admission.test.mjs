@@ -35,6 +35,24 @@ test("R5 selects and admits the exact validated direct invocation target", async
     "invocation_input",
     gtl.HELLO_WORLD_IDS.inputContractRef,
   );
+  const rawRequest = requireRawAdmission(
+    validator,
+    {
+      kind: "public_invocation",
+      schemaVersion: "5.0.0",
+      operationId: "abg.operation.run.invoke",
+      variant: "direct",
+      invocationRef: "invocation://t286/r5/run-invoke",
+      eventTime: "2026-07-21T00:00:00.000Z",
+      correlationId: "correlation://t286/r5/run-invoke",
+      payload: {
+        programRef: program.programRef,
+        graphFunctionRef: graphFunction.name,
+      },
+    },
+    "public_operation_request",
+    "contract://abiogenesis/public/run-invoke-request@5",
+  );
   const policy = product.constructRootInvocationPolicy();
   const actorRef = "actor://abiogenesis/t286/trusted-developer";
   const capabilityGrant = product.constructCapabilityGrant(actorRef);
@@ -52,6 +70,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
     catalogView,
     program,
     graphFunction,
+    rawRequest,
     rawInput,
     policy,
     [capabilityGrant],
@@ -60,6 +79,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
   assert.equal(invocation.kind, "public_invocation_candidate", JSON.stringify(invocation));
   const admissionInput = {
     invocation,
+    rawRequest,
     rawInput,
     modulePublication: publication,
     program,

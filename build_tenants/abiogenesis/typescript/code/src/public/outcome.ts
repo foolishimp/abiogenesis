@@ -89,6 +89,8 @@ export function projectOutcome(
     replayAgreement,
     eventLogPath: eventLog.eventLogPath,
     eventLogDigest: eventLog.eventLogDigest,
+    eventLogByteLength: eventLog.durableByteLength,
+    durableEventCount: eventLog.durableEventCount,
   };
   const outcomeDigest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({

@@ -82,7 +82,7 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
   const verified = await bootstrapProduct.verifyProduct({
     artifactPath,
     artifactRef: basename(artifactPath),
-    ...expectedVerificationIdentity(packageJson, candidateBasis),
+    ...expectedVerificationIdentity(candidateBasis),
   });
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
 

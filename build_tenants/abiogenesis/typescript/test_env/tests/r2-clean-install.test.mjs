@@ -41,7 +41,7 @@ test("R2 installs the verified artifact into an empty source-blind consumer", as
   const verificationRequest = {
     artifactPath,
     artifactRef: basename(artifactPath),
-    ...expectedVerificationIdentity(packageJson, candidateBasis),
+    ...expectedVerificationIdentity(candidateBasis),
   };
   const verified = await product.verifyProduct(verificationRequest);
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));

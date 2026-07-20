@@ -46,6 +46,8 @@ export interface PublicOutcome {
   readonly replayAgreement: boolean | null;
   readonly eventLogPath: string | null;
   readonly eventLogDigest: Sha256Digest | null;
+  readonly eventLogByteLength: number | null;
+  readonly durableEventCount: number | null;
 }
 
 export interface PublicInvocationRefusal {

@@ -120,7 +120,7 @@ export async function buildRootCliScenario(
     invocation("abg.operation.product.verify", "artifact", refs.verify, {
       artifactPath: harness.artifactPath,
       artifactRef: harness.artifactRef,
-      ...expectedVerificationIdentity(harness.packageJson, harness.candidateBasis),
+      ...expectedVerificationIdentity(harness.candidateBasis),
     }),
     invocation("abg.operation.product.install", "verified_artifact", refs.install, {
       verifiedInvocationRef: refs.verify,

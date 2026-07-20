@@ -9,7 +9,11 @@ import {
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
-import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+import {
+  AbgEventStore,
+  admitRuntimeEvent,
+  admitRuntimeEventBatch,
+} from "./event_store.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
   hasOpenedTraversalScope,
@@ -379,25 +383,6 @@ export function openCCall(
     programLocusRef: stop.programLocusRef,
     retryPath: stop.retryPath,
   };
-  const openedEvent = admitRuntimeEvent(store, {
-    kind: "c_call_opened",
-    eventTime: basis.eventTime,
-    aggregateType: "c_call",
-    aggregateId: cCallRef,
-    parentAggregateId: scope.frameId,
-    causationEventRefs: [scope.frameOpenEventRef, ...basis.causationEventRefs],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: executionBasis.basisRef,
-    runId: scope.runId,
-    graphFunctionRef: executionBasis.graphFunctionRef,
-    materializationRef: executionBasis.graphRef,
-    graphCallId: scope.graphCallId,
-    frameId: scope.frameId,
-    frameLineageId: scope.frameLineageId,
-    payload: locusBody,
-  });
   const fibreBody = {
     cCallRef,
     regime: stop.computeRegime,
@@ -407,25 +392,48 @@ export function openCCall(
     implementationBindingRef: resolution.implementationBindingRef,
     implementationRef: resolution.implementationRef,
   };
-  const fibreEvent = admitRuntimeEvent(store, {
-    kind: "c_call_fibre_selected",
-    eventTime: basis.eventTime,
-    aggregateType: "c_call",
-    aggregateId: cCallRef,
-    parentAggregateId: scope.frameId,
-    causationEventRefs: [openedEvent.eventId],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: executionBasis.basisRef,
-    runId: scope.runId,
-    graphFunctionRef: executionBasis.graphFunctionRef,
-    materializationRef: executionBasis.graphRef,
-    graphCallId: scope.graphCallId,
-    frameId: scope.frameId,
-    frameLineageId: scope.frameLineageId,
-    payload: fibreBody,
-  });
+  const openingEvents = admitRuntimeEventBatch(store, [
+    () => ({
+      kind: "c_call_opened",
+      eventTime: basis.eventTime,
+      aggregateType: "c_call",
+      aggregateId: cCallRef,
+      parentAggregateId: scope.frameId,
+      causationEventRefs: [scope.frameOpenEventRef, ...basis.causationEventRefs],
+      correlationId: basis.correlationId,
+      workflowVersion: "5.0.0",
+      scopeClass: "run",
+      basisId: executionBasis.basisRef,
+      runId: scope.runId,
+      graphFunctionRef: executionBasis.graphFunctionRef,
+      materializationRef: executionBasis.graphRef,
+      graphCallId: scope.graphCallId,
+      frameId: scope.frameId,
+      frameLineageId: scope.frameLineageId,
+      payload: locusBody,
+    }),
+    (admitted) => ({
+      kind: "c_call_fibre_selected",
+      eventTime: basis.eventTime,
+      aggregateType: "c_call",
+      aggregateId: cCallRef,
+      parentAggregateId: scope.frameId,
+      causationEventRefs: [admitted[0]!.eventId],
+      correlationId: basis.correlationId,
+      workflowVersion: "5.0.0",
+      scopeClass: "run",
+      basisId: executionBasis.basisRef,
+      runId: scope.runId,
+      graphFunctionRef: executionBasis.graphFunctionRef,
+      materializationRef: executionBasis.graphRef,
+      graphCallId: scope.graphCallId,
+      frameId: scope.frameId,
+      frameLineageId: scope.frameLineageId,
+      payload: fibreBody,
+    }),
+  ]);
+  const openedEvent = openingEvents[0]!;
+  const fibreEvent = openingEvents[1]!;
   const cCall = deepFreeze({
     kind: "c_call" as const,
     schemaVersion: "5.0.0" as const,

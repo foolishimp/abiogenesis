@@ -7,9 +7,9 @@ import { sha256Canonical } from "../product/digests.js";
 import { deepFreeze } from "../product/immutable.js";
 import type {
   HelloWorldLeafRealizationCandidate,
-  PackagedLeafImplementationDescriptor,
 } from "./contracts.js";
 import type { HelloWorldInput } from "../gtl/contracts.js";
+import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
 
 const descriptorBody = {
   implementationRef: HELLO_WORLD_IDS.implementationRef,

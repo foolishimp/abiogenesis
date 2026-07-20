@@ -86,7 +86,7 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
   const verified = await bootstrapProduct.verifyProduct({
     artifactPath,
     artifactRef: basename(artifactPath),
-    ...expectedVerificationIdentity(packageJson, candidateBasis),
+    ...expectedVerificationIdentity(candidateBasis),
   });
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
   const consumerRoot = join(scratch, "consumer");
@@ -260,6 +260,24 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
     "invocation_input",
     gtl.HELLO_WORLD_IDS.inputContractRef,
   );
+  const rawRequest = requireRawAdmission(
+    validator,
+    {
+      kind: "public_invocation",
+      schemaVersion: "5.0.0",
+      operationId: "abg.operation.run.invoke",
+      variant: "direct",
+      invocationRef: "invocation://t286/support/run-invoke",
+      eventTime: "2026-07-21T00:00:00.000Z",
+      correlationId: "correlation://t286/support/run-invoke",
+      payload: {
+        programRef: program.programRef,
+        graphFunctionRef: graphFunction.name,
+      },
+    },
+    "public_operation_request",
+    "contract://abiogenesis/public/run-invoke-request@5",
+  );
   const policy = product.constructRootInvocationPolicy();
   const actorRef = "actor://abiogenesis/t286/trusted-developer";
   const capabilityGrant = product.constructCapabilityGrant(actorRef);
@@ -276,6 +294,7 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
     catalogView,
     program,
     graphFunction,
+    rawRequest,
     rawInput,
     policy,
     [capabilityGrant],
@@ -285,6 +304,7 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
     store,
     {
       invocation,
+      rawRequest,
       rawInput,
       modulePublication: publication,
       program,
@@ -312,6 +332,7 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
     graphFunction,
     input,
     rawInput,
+    rawRequest,
     policy,
     actorRef,
     capabilityGrant,
@@ -325,55 +346,17 @@ export async function setupInstalledRootResolution(context, packageRoot) {
   const environment = await setupInstalledRootInvocation(context, packageRoot);
   const {
     product,
-    validator,
-    publication,
-    programValidation,
-    graphFunction,
-    catalogView,
-  } = environment;
-  const node = graphFunction.template.nodes[0];
-  const resolutionCandidate = product.resolveImplementation(
-    catalogView,
-    publication,
-    programValidation,
-    graphFunction.name,
-    node.nodeRef,
-  );
-  const implementationDescriptor = product.rootPackagedImplementationDescriptor();
-  const resolutionValidation = validator.validateImplementationResolution(
-    resolutionCandidate,
-    publication,
-    programValidation,
-    graphFunction,
-    implementationDescriptor,
-  );
-  assert.equal(resolutionCandidate.kind, "implementation_resolution_candidate", JSON.stringify(resolutionCandidate));
-  assert.equal(resolutionValidation.kind, "implementation_resolution_validation", JSON.stringify(resolutionValidation));
-  return {
-    ...environment,
-    node,
-    resolutionCandidate,
-    implementationDescriptor,
-    resolutionValidation,
-  };
-}
-
-export async function setupInstalledRootExecutionBasis(context, packageRoot) {
-  const environment = await setupInstalledRootResolution(context, packageRoot);
-  const {
     gtl,
     validator,
-    abg,
-    store,
-    program,
-    graphFunction,
-    rawInput,
-    invocationAdmission,
+    installedRoot,
     publication,
     programValidation,
-    resolutionCandidate,
-    resolutionValidation,
+    graphFunction,
+    catalogView,
+    rawInput,
+    invocationAdmission,
   } = environment;
+  const node = graphFunction.template.nodes[0];
   const graph = gtl.materializeGraph(graphFunction, {
     invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
     admittedInputRef: rawInput.admissionRef,
@@ -389,6 +372,60 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
       admittedInputDigest: rawInput.subjectDigest,
     },
   );
+  assert.equal(graphValidation.kind, "graph_validation", JSON.stringify(graphValidation));
+  const implementationModule = await import(
+    `${pathToFileURL(join(installedRoot, publication.implementationBindings[0].modulePath)).href}?resolution=${Date.now()}`
+  );
+  const packagedImplementations = Object.values(implementationModule).filter(
+    product.isPackagedLeafImplementationDescriptor,
+  );
+  const resolutionCandidate = product.resolveImplementation(
+    catalogView,
+    publication,
+    programValidation,
+    graphValidation,
+    graphFunction.name,
+    node.nodeRef,
+    packagedImplementations,
+  );
+  assert.equal(resolutionCandidate.kind, "implementation_resolution_candidate", JSON.stringify(resolutionCandidate));
+  const implementationDescriptor = packagedImplementations.find(
+    (descriptor) => descriptor.descriptorDigest === resolutionCandidate.implementationDescriptorDigest,
+  );
+  assert.notEqual(implementationDescriptor, undefined);
+  const resolutionValidation = validator.validateImplementationResolution(
+    resolutionCandidate,
+    publication,
+    programValidation,
+    graphValidation,
+    graphFunction,
+    implementationDescriptor,
+  );
+  assert.equal(resolutionValidation.kind, "implementation_resolution_validation", JSON.stringify(resolutionValidation));
+  return {
+    ...environment,
+    node,
+    graph,
+    graphValidation,
+    implementationDescriptor,
+    resolutionCandidate,
+    resolutionValidation,
+  };
+}
+
+export async function setupInstalledRootExecutionBasis(context, packageRoot) {
+  const environment = await setupInstalledRootResolution(context, packageRoot);
+  const {
+    abg,
+    store,
+    program,
+    invocationAdmission,
+    publication,
+    graph,
+    graphValidation,
+    resolutionCandidate,
+    resolutionValidation,
+  } = environment;
   const closureContract = publication.closureContracts.find(
     (value) => value.closureContractRef === program.closureContractRef,
   );
@@ -409,7 +446,6 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
       causationEventRefs: [],
     },
   );
-  assert.equal(graphValidation.kind, "graph_validation", JSON.stringify(graphValidation));
   assert.equal(executionBasisAdmission.kind, "execution_basis_admission", JSON.stringify(executionBasisAdmission));
   return {
     ...environment,

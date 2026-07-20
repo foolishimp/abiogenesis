@@ -1,0 +1,57 @@
+[
+  {
+    "operationId": "abg.operation.product.verify",
+    "variant": "artifact",
+    "invocationRef": "invocation://t286/r10/product-verify",
+    "payload": {
+      "expectedArtifactDigest": "sha256:928d2dd779ff6e6116b5d0fa11bf7f41b87eb3ef381ce353530148cff90fc7c6",
+      "expectedProductContentDigest": "sha256:e640c935b19a3734efd654c8de9f1390542d50d5ff5d4e835dbdda5a77c2068d",
+      "expectedManifestDigest": "sha256:1193a290d437b7b1c8c4cc56e89124e7416e73ec4ae8f2435a7116a85a481970",
+      "expectedProductId": "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
+      "expectedPackageName": "@abiogenesis/typescript-tenant",
+      "expectedPackageVersion": "5.0.0-dev.286"
+    }
+  },
+  {
+    "operationId": "abg.operation.product.install",
+    "variant": "verified_artifact",
+    "invocationRef": "invocation://t286/r10/product-install",
+    "payload": {}
+  },
+  {
+    "operationId": "abg.operation.workspace.bind",
+    "variant": "exact_product_set",
+    "invocationRef": "invocation://t286/r10/workspace-bind",
+    "payload": {}
+  },
+  {
+    "operationId": "abg.operation.catalog.admit",
+    "variant": "module_publication",
+    "invocationRef": "invocation://t286/r10/catalog-admit",
+    "payload": {}
+  },
+  {
+    "operationId": "abg.operation.catalog.view",
+    "variant": "allowlist",
+    "invocationRef": "invocation://t286/r10/catalog-view",
+    "payload": {}
+  },
+  {
+    "operationId": "abg.operation.run.invoke",
+    "variant": "direct",
+    "invocationRef": "invocation://t286/r10/run-invoke",
+    "payload": {
+      "programRef": "program://abiogenesis/conformance/hello-world@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5"
+    }
+  },
+  {
+    "operationId": "abg.operation.run.invoke",
+    "variant": "direct",
+    "invocationRef": "invocation://t286/r10/run-invoke-second",
+    "payload": {
+      "programRef": "program://abiogenesis/conformance/hello-world@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5"
+    }
+  }
+]

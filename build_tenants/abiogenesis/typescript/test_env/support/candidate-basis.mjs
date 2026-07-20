@@ -14,16 +14,21 @@ export async function readCandidateBasis(packageRoot) {
       throw new TypeError(`candidate basis ${key} is not one exact SHA-256 digest`);
     }
   }
+  for (const key of ["productId", "packageName", "packageVersion"]) {
+    if (typeof value[key] !== "string" || value[key].length === 0) {
+      throw new TypeError(`candidate basis ${key} is not one exact non-empty identity`);
+    }
+  }
   return value;
 }
 
-export function expectedVerificationIdentity(packageJson, basis) {
+export function expectedVerificationIdentity(basis) {
   return {
     expectedArtifactDigest: basis.artifactDigest,
     expectedProductContentDigest: basis.productContentDigest,
     expectedManifestDigest: basis.manifestDigest,
-    expectedProductId: `product://abiogenesis/typescript-tenant@${packageJson.version}`,
-    expectedPackageName: packageJson.name,
-    expectedPackageVersion: packageJson.version,
+    expectedProductId: basis.productId,
+    expectedPackageName: basis.packageName,
+    expectedPackageVersion: basis.packageVersion,
   };
 }

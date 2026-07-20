@@ -173,6 +173,22 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
   assert.equal(finalReplay.cCalls[0].resultRef, result.resultRef);
   assert.equal(finalReplay.cCalls[0].judgment, "advance");
 
+  const closedEventCount = store.readAll().length;
+  const duplicateClosure = abg.admitClosure(
+    store,
+    cCall,
+    result,
+    judgment,
+    transition,
+    transitionReplay,
+    closureContract,
+    runtimeBasis("correlation://t286/r9/duplicate-closure"),
+  );
+  assert.equal(duplicateClosure.kind, "closure_admission_refusal");
+  assert.equal(duplicateClosure.failureEventRef, null);
+  assert.equal(store.readAll().length, closedEventCount);
+  assert.equal(abg.replay(store, replayScope).runtimeStatus, "closed");
+
   const events = store.readAll();
   const cCallEvents = events.filter((event) => event.aggregateId === cCall.cCallRef);
   assert.deepEqual(cCallEvents.map((event) => event.kind), [
@@ -433,6 +449,7 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
     inputDigest: rawInput.subjectDigest,
     failureValueKind: failureContract.valueKind,
     resultValueKind: outputContract.valueKind,
+    validateSuccessResult: gtl.isHelloWorldOutput,
     closureContract,
     judgmentRelation: {
       predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,

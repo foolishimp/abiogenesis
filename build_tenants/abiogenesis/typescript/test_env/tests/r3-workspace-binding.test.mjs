@@ -55,7 +55,7 @@ test("R3 admits one immutable WorkspaceBinding over the exact ProductSet", async
   const verified = await bootstrapProduct.verifyProduct({
     artifactPath,
     artifactRef: basename(artifactPath),
-    ...expectedVerificationIdentity(packageJson, candidateBasis),
+    ...expectedVerificationIdentity(candidateBasis),
   });
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
 

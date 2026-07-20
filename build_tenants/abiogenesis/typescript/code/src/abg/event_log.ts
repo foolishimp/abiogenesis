@@ -20,6 +20,7 @@ export interface PersistedEventLog {
   readonly schemaVersion: "5.0.0";
   readonly eventLogPath: string;
   readonly eventLogDigest: Sha256Digest;
+  readonly durableByteLength: number;
   readonly eventCount: number;
   readonly durableEventCount: number;
   readonly events: readonly RuntimeEvent[];
@@ -51,6 +52,7 @@ export async function persistEventLog(
     schemaVersion: "5.0.0" as const,
     eventLogPath,
     eventLogDigest,
+    durableByteLength: encoded.byteLength,
     eventCount: events.length,
     durableEventCount: durableEvents.length,
     events,

@@ -1,12 +1,17 @@
-import type { PackagedLeafImplementationDescriptor } from "../implementation/contracts.js";
 import type { GraphFunction, ModulePublication } from "../gtl/contracts.js";
 import {
   isImplementationResolutionCandidate,
+  isPackagedLeafImplementationDescriptor,
   type ImplementationResolutionCandidate,
+  type PackagedLeafImplementationDescriptor,
 } from "../product/implementation_resolution.js";
 import type { JsonValue } from "../product/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../product/digests.js";
 import { deepFreeze } from "../product/immutable.js";
+import {
+  isGraphValidation,
+  type GraphValidation,
+} from "./graph.js";
 import {
   isProgramValidation,
   type ProgramValidation,
@@ -23,6 +28,7 @@ export interface ImplementationResolutionValidation {
   readonly resolutionCandidateRef: string;
   readonly resolutionCandidateDigest: Sha256Digest;
   readonly programValidationRef: string;
+  readonly graphValidationRef: string;
   readonly graphFunctionRef: string;
   readonly implementationBindingRef: string;
   readonly implementationRef: string;
@@ -57,8 +63,9 @@ export function validateImplementationResolution(
   candidate: ImplementationResolutionCandidate,
   publication: Readonly<ModulePublication>,
   programValidation: ProgramValidation,
+  graphValidation: GraphValidation,
   graphFunction: Readonly<GraphFunction>,
-  descriptor: PackagedLeafImplementationDescriptor,
+  descriptor: Readonly<PackagedLeafImplementationDescriptor>,
 ): ImplementationResolutionValidationResult {
   if (!isImplementationResolutionCandidate(candidate)) {
     return invalid(candidate.resolutionCandidateDigest, {
@@ -76,6 +83,8 @@ export function validateImplementationResolution(
     catalogViewDigest: candidate.catalogViewDigest,
     publicationDigest: candidate.publicationDigest,
     programValidationRef: candidate.programValidationRef,
+    graphValidationRef: candidate.graphValidationRef,
+    graphValidationDigest: candidate.graphValidationDigest,
     graphFunctionRef: candidate.graphFunctionRef,
     graphFunctionDigest: candidate.graphFunctionDigest,
     nodeRef: candidate.nodeRef,
@@ -90,18 +99,36 @@ export function validateImplementationResolution(
     outputContractRef: candidate.outputContractRef,
     failureContractRef: candidate.failureContractRef,
     refusalContractRef: candidate.refusalContractRef,
+    implementationBindingDigest: candidate.implementationBindingDigest,
     implementationDescriptorDigest: candidate.implementationDescriptorDigest,
   };
   if (
     !isProgramValidation(programValidation) ||
+    !isGraphValidation(graphValidation) ||
+    !isPackagedLeafImplementationDescriptor(descriptor) ||
     candidate.resolutionCandidateDigest !== sha256Canonical(candidateBody as unknown as JsonValue) ||
     candidate.publicationDigest !== sha256Canonical(publication as unknown as JsonValue) ||
     candidate.programValidationRef !== programValidation.validationRef ||
+    candidate.graphValidationRef !== graphValidation.validationRef ||
+    candidate.graphValidationDigest !== graphValidation.validationDigest ||
     candidate.graphFunctionRef !== graphFunction.name ||
     candidate.graphFunctionDigest !== sha256Canonical(graphFunction as unknown as JsonValue) ||
+    graphValidation.graphFunctionRef !== graphFunction.name ||
+    graphValidation.graphFunctionDigest !== candidate.graphFunctionDigest ||
     binding === undefined ||
     node?.implementationBindingRef !== binding.bindingRef ||
     binding.implementationRef !== candidate.implementationRef ||
+    candidate.implementationBindingDigest !== sha256Canonical(binding as unknown as JsonValue) ||
+    binding.implementationRef !== candidate.implementationRef ||
+    binding.packageName !== candidate.packageName ||
+    binding.packageVersion !== candidate.packageVersion ||
+    binding.modulePath !== candidate.modulePath ||
+    binding.namedSymbol !== candidate.namedSymbol ||
+    binding.computeRegime !== candidate.computeRegime ||
+    binding.inputContractRef !== candidate.inputContractRef ||
+    binding.outputContractRef !== candidate.outputContractRef ||
+    binding.failureContractRef !== candidate.failureContractRef ||
+    binding.refusalContractRef !== candidate.refusalContractRef ||
     descriptor.descriptorDigest !== candidate.implementationDescriptorDigest ||
     descriptor.implementationRef !== candidate.implementationRef ||
     descriptor.packageName !== candidate.packageName ||
@@ -112,12 +139,7 @@ export function validateImplementationResolution(
     descriptor.inputContractRef !== candidate.inputContractRef ||
     descriptor.outputContractRef !== candidate.outputContractRef ||
     descriptor.failureContractRef !== candidate.failureContractRef ||
-    descriptor.refusalContractRef !== candidate.refusalContractRef ||
-    binding.computeRegime !== candidate.computeRegime ||
-    binding.inputContractRef !== candidate.inputContractRef ||
-    binding.outputContractRef !== candidate.outputContractRef ||
-    binding.failureContractRef !== candidate.failureContractRef ||
-    binding.refusalContractRef !== candidate.refusalContractRef
+    descriptor.refusalContractRef !== candidate.refusalContractRef
   ) {
     return invalid(candidate.resolutionCandidateDigest, {
       code: "invalid_reference",
@@ -129,6 +151,7 @@ export function validateImplementationResolution(
     resolutionCandidateRef: candidate.resolutionCandidateRef,
     resolutionCandidateDigest: candidate.resolutionCandidateDigest,
     programValidationRef: programValidation.validationRef,
+    graphValidationRef: graphValidation.validationRef,
     graphFunctionRef: graphFunction.name,
     implementationBindingRef: candidate.implementationBindingRef,
     implementationRef: candidate.implementationRef,

@@ -3,5 +3,5 @@ export type {
   DeterministicEvidenceCandidate,
   HelloWorldLeafImplementation,
   HelloWorldLeafRealizationCandidate,
-  PackagedLeafImplementationDescriptor,
 } from "./contracts.js";
+export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";

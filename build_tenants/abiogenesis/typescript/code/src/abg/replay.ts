@@ -161,10 +161,10 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
     runClosedEventRef: runClosed?.eventId ?? null,
     invocationRefusalEventRef: invocationRefused?.eventId ?? null,
     runtimeFailureEventRef: runtimeFailure?.eventId ?? null,
-    runtimeStatus: runClosed !== undefined
-      ? "closed" as const
-      : runtimeFailure !== undefined
-        ? "failed" as const
+    runtimeStatus: runtimeFailure !== undefined
+      ? "failed" as const
+      : runClosed !== undefined
+        ? "closed" as const
         : blocked
           ? "blocked" as const
           : invocationRefused !== undefined

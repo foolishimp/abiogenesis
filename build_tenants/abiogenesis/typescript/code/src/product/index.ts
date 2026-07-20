@@ -72,9 +72,18 @@ export {
   type PublicInvocationCandidate,
 } from "./invocation.js";
 export {
+  isPackagedLeafImplementationDescriptor,
   resolveImplementation,
-  rootPackagedImplementationDescriptor,
   type ImplementationResolutionCandidate,
   type ImplementationResolutionRefusal,
   type ImplementationResolutionResult,
+  type PackagedLeafImplementationDescriptor,
 } from "./implementation_resolution.js";
+export {
+  RootOperationState,
+  type CatalogOperationState,
+  type CatalogViewOperationState,
+  type InstallOperationState,
+  type VerifiedOperationState,
+  type WorkspaceOperationState,
+} from "./root_operation_state.js";

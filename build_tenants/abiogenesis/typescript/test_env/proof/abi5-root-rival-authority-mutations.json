@@ -15,11 +15,12 @@
     },
     {
       "mutation": "missing_explicit_target",
-      "boundary": "public_ingress",
+      "boundary": "abg_invocation_admission",
       "disposition": "refused",
-      "refusalCode": "invalid_request",
-      "hiddenDefaultActivated": false,
-      "durableEventLogAbsent": true
+      "refusalCode": "owner_refusal",
+      "hiddenDefaultActivated": true,
+      "invocationAdmissionAbsent": true,
+      "runOpenAbsent": true
     },
     {
       "mutation": "disabled_hog_with_callable_rival",
@@ -28,14 +29,15 @@
       "runtimeFailureAdmitted": true,
       "cCallAbsent": true,
       "rivalResultAbsent": true,
-      "falseClosureAbsent": true
+      "falseClosureAbsent": true,
+      "rootGovernorDisposition": "root_red"
     },
     {
       "mutation": "renamed_controller_forged_output",
       "boundary": "public_projection",
       "projectedDisposition": "succeeded",
       "matchingOutputForged": true,
-      "durableAbgTruthAbsent": true,
+      "arbitraryFileCannotSubstituteForAbgTruth": true,
       "installedRootSatisfied": false
     },
     {
@@ -53,7 +55,8 @@
       "admittedFailureContract": "contract://abiogenesis/conformance/hello-failure@5",
       "cCallSpineComplete": true,
       "directRuntimeFailureAbsent": true,
-      "falseRootClosureAbsent": true
+      "falseRootClosureAbsent": true,
+      "rootGovernorDisposition": "root_red"
     },
     {
       "mutation": "leaf_malformed",
@@ -63,7 +66,30 @@
       "admittedFailureContract": "contract://abiogenesis/conformance/hello-failure@5",
       "cCallSpineComplete": true,
       "directRuntimeFailureAbsent": true,
-      "falseRootClosureAbsent": true
+      "falseRootClosureAbsent": true,
+      "rootGovernorDisposition": "root_red"
+    },
+    {
+      "mutation": "leaf_sparse-evidence",
+      "boundary": "leaf_realization",
+      "disposition": "blocked",
+      "failureClass": "malformed_return",
+      "admittedFailureContract": "contract://abiogenesis/conformance/hello-failure@5",
+      "cCallSpineComplete": true,
+      "directRuntimeFailureAbsent": true,
+      "falseRootClosureAbsent": true,
+      "rootGovernorDisposition": "root_red"
+    },
+    {
+      "mutation": "leaf_missing-message",
+      "boundary": "leaf_realization",
+      "disposition": "blocked",
+      "failureClass": "malformed_return",
+      "admittedFailureContract": "contract://abiogenesis/conformance/hello-failure@5",
+      "cCallSpineComplete": true,
+      "directRuntimeFailureAbsent": true,
+      "falseRootClosureAbsent": true,
+      "rootGovernorDisposition": "root_red"
     }
   ],
   "installedAbsence": {

@@ -42,6 +42,15 @@ export function evaluateHelloWorldResult(
     output.message === `Hello ${input.subject}`;
 }
 
+export function isHelloWorldOutput(value: unknown): value is Readonly<HelloWorldOutput> {
+  return typeof value === "object" &&
+    value !== null &&
+    !Array.isArray(value) &&
+    (value as Readonly<Record<string, unknown>>).kind === "hello_world_output" &&
+    (value as Readonly<Record<string, unknown>>).schemaVersion === "5.0.0" &&
+    typeof (value as Readonly<Record<string, unknown>>).message === "string";
+}
+
 export function constructHelloWorldInput(subject: string): Readonly<HelloWorldInput> {
   if (subject.length === 0) {
     throw new TypeError("Hello World input requires one non-empty subject");

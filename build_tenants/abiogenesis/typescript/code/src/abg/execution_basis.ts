@@ -58,11 +58,14 @@ export interface AdmittedImplementationResolution {
   readonly catalogViewDigest: Sha256Digest;
   readonly publicationDigest: Sha256Digest;
   readonly programValidationRef: string;
+  readonly graphValidationRef: string;
+  readonly graphValidationDigest: Sha256Digest;
   readonly graphFunctionRef: string;
   readonly graphFunctionDigest: Sha256Digest;
   readonly nodeRef: string;
   readonly implementationBindingRef: string;
   readonly implementationRef: string;
+  readonly implementationBindingDigest: Sha256Digest;
   readonly implementationDescriptorDigest: Sha256Digest;
   readonly packageName: string;
   readonly packageVersion: string;
@@ -285,6 +288,9 @@ export function admitExecutionBasis(
     !isImplementationResolutionValidation(input.resolutionValidation) ||
     input.resolutionValidation.resolutionCandidateRef !== input.resolutionCandidate.resolutionCandidateRef ||
     input.resolutionValidation.resolutionCandidateDigest !== input.resolutionCandidate.resolutionCandidateDigest ||
+    input.resolutionValidation.graphValidationRef !== input.graphValidation.validationRef ||
+    input.resolutionCandidate.graphValidationRef !== input.graphValidation.validationRef ||
+    input.resolutionCandidate.graphValidationDigest !== input.graphValidation.validationDigest ||
     input.resolutionCandidate.graphFunctionRef !== input.invocationAdmission.graphFunctionRef ||
     input.resolutionCandidate.catalogViewId !== input.invocationAdmission.catalogViewId ||
     input.resolutionCandidate.inputContractRef !== input.invocationAdmission.inputContractRef ||
@@ -310,11 +316,14 @@ export function admitExecutionBasis(
     catalogViewDigest: input.resolutionCandidate.catalogViewDigest,
     publicationDigest: input.resolutionCandidate.publicationDigest,
     programValidationRef: input.resolutionCandidate.programValidationRef,
+    graphValidationRef: input.resolutionCandidate.graphValidationRef,
+    graphValidationDigest: input.resolutionCandidate.graphValidationDigest,
     graphFunctionRef: input.resolutionCandidate.graphFunctionRef,
     graphFunctionDigest: input.resolutionCandidate.graphFunctionDigest,
     nodeRef: input.resolutionCandidate.nodeRef,
     implementationBindingRef: input.resolutionCandidate.implementationBindingRef,
     implementationRef: input.resolutionCandidate.implementationRef,
+    implementationBindingDigest: input.resolutionCandidate.implementationBindingDigest,
     implementationDescriptorDigest: input.resolutionCandidate.implementationDescriptorDigest,
     packageName: input.resolutionCandidate.packageName,
     packageVersion: input.resolutionCandidate.packageVersion,

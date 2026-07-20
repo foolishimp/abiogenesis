@@ -1,0 +1,38 @@
+{
+  "kind": "abi5_root_governor_result",
+  "schemaVersion": "5.0.0",
+  "disposition": "root_satisfied",
+  "governorDigest": "sha256:a12058f5f59b191382137526c4a16ebc4839843f4e82d110f0bf461efa2b1068",
+  "bindingId": "ABI5-ROOT-001",
+  "governorId": "abg5.root.s01.hello_world@5",
+  "candidateBasis": {
+    "kind": "abi5_root_candidate_basis",
+    "schemaVersion": "5.0.0",
+    "artifactDigest": "sha256:928d2dd779ff6e6116b5d0fa11bf7f41b87eb3ef381ce353530148cff90fc7c6",
+    "productContentDigest": "sha256:e640c935b19a3734efd654c8de9f1390542d50d5ff5d4e835dbdda5a77c2068d",
+    "manifestDigest": "sha256:1193a290d437b7b1c8c4cc56e89124e7416e73ec4ae8f2435a7116a85a481970",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-dev.286"
+  },
+  "obligationResults": {
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true,
+    "R6": true,
+    "R7": true,
+    "R8": true,
+    "R9": true,
+    "R10": true
+  },
+  "firstFrontier": null,
+  "eventLogDigest": "sha256:3ba091c28f9312fb9b9bdc74fa56d3cb32a2521fb1c7bbc0556b98d19b6ab0d9",
+  "eventCount": 39,
+  "runIds": [
+    "run://abiogenesis/696442e178628a7833020901a2492d6e684c8db1c5796810f4c59f75dd26f786",
+    "run://abiogenesis/d54ffc5d8f671607223ce8b39041ea817d1fb02b1d6a0d4d1490f29671900f18"
+  ],
+  "failures": []
+}
