@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: ordinary
 - status: active
-- phase_status: bounded_independent_review_repairs_in_progress
-- review_status: independent_exact_cut_review_request_changes
-- proof_status: replacement_candidate_rejected_vector_repairs_in_progress
+- phase_status: second_replacement_candidate_frozen_independent_review_pending
+- review_status: independent_exact_cut_review_pending
+- proof_status: exact_subject_and_bounded_repairs_verified
 - goal: GOAL-035 M2
 - priority: critical
 - change_intent: >-
@@ -41,7 +41,7 @@
 - correction_vector_ref: >-
     .ai-workspace/comments/codex/
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
-- correction_vector_sha256: 1aee805fa502ec233c71ca05b1e26c7c88efa070484942764504d7a59b75946c
+- correction_vector_sha256: 26cf209f269b86ab7dda924af2dfedeb5edf36bd7fb74cac2b183f092b0ab8e9
 - superseded_candidate_commit: 4ac6617c6450234cfb1c20112a89c286f4e6e7ce
 - superseded_candidate_tree: 8921125d947428066618b93f140eb306e286a62c
 - superseded_constitutional_subject_files: 85
@@ -64,12 +64,24 @@
 - replacement_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T060225Z_SELF_REVIEW_t284_replacement_candidate.md
+- replacement_candidate_disposition: rejected_by_independent_exact_cut_review
+- second_replacement_candidate_commit: c6ff2e37cd1b0aab27dbca16419b175e0161cf7b
+- second_replacement_candidate_tree: 862f58a204397bda2f709bfca1535fb60d38b8bb
+- second_replacement_candidate_manifest_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T070100Z_CHECKPOINT_t284_second_replacement_candidate_manifest.md
+- second_replacement_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T070026Z_SELF_REVIEW_t284_second_replacement_candidate.md
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
 - constitutional_refreeze: frozen_independent_review_pending
 - x_carrier_membership_ref: >-
     .ai-workspace/comments/codex/
     20260720T055423Z_EVIDENCE_t284_x_carrier_membership.md
+- x_carrier_families: 49
+- x_carrier_membership_sha256: 9516301aa51dc0a41f832847d17268106c046d93a8a9f4a78c56991ba5b929f1
+- x_carrier_evidence_sha256: bdb13c81868032ca55fae0d8d7ec4caa46a43aa66a8d95aaf38bb30d98ee7133
 - rejected_replacement_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T065243Z_REVIEW_t284_replacement_candidate_independent_agent.md
