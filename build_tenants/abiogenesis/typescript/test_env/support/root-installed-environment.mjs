@@ -97,6 +97,7 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
   const product = await import(`${pathToFileURL(join(installedRoot, "build/code/src/product/index.js")).href}?env=${nonce}`);
   const abg = await import(`${pathToFileURL(join(installedRoot, "build/code/src/abg/index.js")).href}?env=${nonce}`);
   const gtl = await import(`${pathToFileURL(join(installedRoot, "build/code/src/gtl/index.js")).href}?env=${nonce}`);
+  const hog = await import(`${pathToFileURL(join(installedRoot, "build/code/src/hog/index.js")).href}?env=${nonce}`);
   const validator = await import(`${pathToFileURL(join(installedRoot, "build/code/src/validator/index.js")).href}?env=${nonce}`);
   const store = new abg.AbgEventStore();
   const admittedInstall = abg.admitProductInstall(
@@ -215,6 +216,7 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     product,
     abg,
     gtl,
+    hog,
     validator,
     store,
     verified,
@@ -349,5 +351,69 @@ export async function setupInstalledRootResolution(context, packageRoot) {
     resolutionCandidate,
     implementationDescriptor,
     resolutionValidation,
+  };
+}
+
+export async function setupInstalledRootExecutionBasis(context, packageRoot) {
+  const environment = await setupInstalledRootResolution(context, packageRoot);
+  const {
+    gtl,
+    validator,
+    abg,
+    store,
+    program,
+    graphFunction,
+    rawInput,
+    invocationAdmission,
+    publication,
+    programValidation,
+    resolutionCandidate,
+    resolutionValidation,
+  } = environment;
+  const graph = gtl.materializeGraph(graphFunction, {
+    invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
+    admittedInputRef: rawInput.admissionRef,
+    admittedInputDigest: rawInput.subjectDigest,
+  });
+  const graphValidation = validator.validateGraph(
+    graph,
+    programValidation,
+    graphFunction,
+    {
+      invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
+      admittedInputRef: rawInput.admissionRef,
+      admittedInputDigest: rawInput.subjectDigest,
+    },
+  );
+  const closureContract = publication.closureContracts.find(
+    (value) => value.closureContractRef === program.closureContractRef,
+  );
+  const executionBasisAdmission = abg.admitExecutionBasis(
+    store,
+    {
+      invocationAdmission,
+      program,
+      graph,
+      graphValidation,
+      resolutionCandidate,
+      resolutionValidation,
+      closureContract,
+    },
+    {
+      eventTime: "2026-07-21T00:00:00.000Z",
+      correlationId: "correlation://t286/root/execution-basis",
+      causationEventRefs: [],
+    },
+  );
+  assert.equal(graphValidation.kind, "graph_validation", JSON.stringify(graphValidation));
+  assert.equal(executionBasisAdmission.kind, "execution_basis_admission", JSON.stringify(executionBasisAdmission));
+  return {
+    ...environment,
+    graph,
+    graphValidation,
+    closureContract,
+    executionBasisAdmission,
+    implementationResolution: executionBasisAdmission.implementationResolution,
+    executionBasis: executionBasisAdmission.executionBasis,
   };
 }

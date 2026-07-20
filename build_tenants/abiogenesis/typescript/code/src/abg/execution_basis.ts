@@ -72,6 +72,19 @@ export interface ExecutionBasis {
   readonly basisRef: string;
   readonly basisDigest: Sha256Digest;
   readonly invocationAdmissionRef: string;
+  readonly invocationRef: string;
+  readonly invocationDigest: Sha256Digest;
+  readonly rawInputAdmissionRef: string;
+  readonly rawInputDigest: Sha256Digest;
+  readonly workspaceBindingId: string;
+  readonly workspaceBindingDigest: Sha256Digest;
+  readonly catalogViewId: string;
+  readonly catalogViewDigest: Sha256Digest;
+  readonly programRef: string;
+  readonly programDigest: Sha256Digest;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: Sha256Digest;
+  readonly actorRef: string;
   readonly programValidationRef: string;
   readonly graphValidationRef: string;
   readonly graphRef: string;
@@ -101,6 +114,44 @@ export interface ExecutionBasisInput {
 }
 
 export type ExecutionBasisAdmissionResult = ExecutionBasisAdmission | InvocationRefusalAdmission;
+
+const executionBases = new WeakSet<object>();
+
+function isJsonRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+export function isExecutionBasis(value: object): boolean {
+  return executionBases.has(value);
+}
+
+export function hasAdmittedExecutionBasis(
+  store: AbgEventStore,
+  basis: ExecutionBasis,
+): boolean {
+  if (!isExecutionBasis(basis)) return false;
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    basisRef: _basisRef,
+    basisDigest: _basisDigest,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = basis;
+  const event = store.readAll().find((candidate) => candidate.eventId === basis.admissionEventRef);
+  return (
+    sha256Canonical(body as unknown as JsonValue) === basis.basisDigest &&
+    basis.basisRef === `execution-basis://abiogenesis/${basis.basisDigest.slice("sha256:".length)}` &&
+    event?.kind === "basis_admitted" &&
+    event.basisId === basis.basisRef &&
+    isJsonRecord(event.payload) &&
+    event.payload.basisRef === basis.basisRef &&
+    event.payload.basisDigest === basis.basisDigest &&
+    event.payload.invocationAdmissionRef === basis.invocationAdmissionRef &&
+    event.payload.implementationResolutionRef === basis.implementationResolutionRef
+  );
+}
 
 export function admitInvocationRefusal(
   store: AbgEventStore,
@@ -240,6 +291,19 @@ export function admitExecutionBasis(
   const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
   const executionBody = {
     invocationAdmissionRef: input.invocationAdmission.invocationAdmissionRef,
+    invocationRef: input.invocationAdmission.invocationRef,
+    invocationDigest: input.invocationAdmission.invocationDigest,
+    rawInputAdmissionRef: input.invocationAdmission.rawInputAdmissionRef,
+    rawInputDigest: input.invocationAdmission.rawInputDigest,
+    workspaceBindingId: input.invocationAdmission.workspaceBindingId,
+    workspaceBindingDigest: input.invocationAdmission.workspaceBindingDigest,
+    catalogViewId: input.invocationAdmission.catalogViewId,
+    catalogViewDigest: input.invocationAdmission.catalogViewDigest,
+    programRef: input.invocationAdmission.programRef,
+    programDigest: input.invocationAdmission.programDigest,
+    graphFunctionRef: input.invocationAdmission.graphFunctionRef,
+    graphFunctionDigest: input.invocationAdmission.graphFunctionDigest,
+    actorRef: input.invocationAdmission.actorRef,
     programValidationRef: input.invocationAdmission.programValidationRef,
     graphValidationRef: input.graphValidation.validationRef,
     graphRef: input.graph.materializationRef,
@@ -272,6 +336,7 @@ export function admitExecutionBasis(
     ...executionBody,
     admissionEventRef: basisEvent.eventId,
   }) as ExecutionBasis;
+  executionBases.add(executionBasis);
   return deepFreeze({
     kind: "execution_basis_admission" as const,
     schemaVersion: "5.0.0" as const,

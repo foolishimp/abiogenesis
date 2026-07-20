@@ -94,6 +94,14 @@ const validatorNativeInventory = [
     declarationDigest: await sha256File(join(root, validatorDeclarationPath)),
   },
 ];
+const hogDeclarationPath = "build/code/src/hog/index.d.ts";
+const hogNativeInventory = [
+  {
+    packageExportPath: "./hog",
+    declarationPath: hogDeclarationPath,
+    declarationDigest: await sha256File(join(root, hogDeclarationPath)),
+  },
+];
 
 const rows = [
   {
@@ -257,6 +265,42 @@ const rows = [
       packageExportPath: "./abg",
       namedSymbol: "admitExecutionBasis",
       declarationPath: abgDeclarationPath,
+    },
+  },
+  {
+    contractId: "abg.contract.abg.open-call-root",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-004",
+      "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-010",
+    ],
+    capabilityIdentities: ["abg.capability.runtime.open-root-call@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./abg",
+      namedSymbol: "openCall",
+      declarationPath: abgDeclarationPath,
+    },
+  },
+  {
+    contractId: "abg.contract.hog.traversal-root",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(hogNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-005",
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-006",
+    ],
+    capabilityIdentities: ["abg.capability.hog.traverse-root@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./hog",
+      namedSymbol: "traverse",
+      declarationPath: hogDeclarationPath,
     },
   },
   {

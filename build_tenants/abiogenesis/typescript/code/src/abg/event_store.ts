@@ -9,6 +9,9 @@ export const ROOT_EVENT_KIND_VALUES = [
   "invocation_refused",
   "implementation_admitted",
   "basis_admitted",
+  "run_segment_opened",
+  "graph_call_opened",
+  "frame_opened",
 ] as const;
 
 export type RootEventKind = (typeof ROOT_EVENT_KIND_VALUES)[number];
@@ -16,14 +19,20 @@ export type RootEventKind = (typeof ROOT_EVENT_KIND_VALUES)[number];
 export interface RuntimeEventCandidate {
   readonly kind: RootEventKind;
   readonly eventTime: string;
-  readonly aggregateType: "workspace";
+  readonly aggregateType: "frame" | "graph_call" | "run" | "workspace";
   readonly aggregateId: string;
   readonly parentAggregateId: string | null;
   readonly causationEventRefs: readonly string[];
   readonly correlationId: string;
   readonly workflowVersion: "5.0.0";
-  readonly scopeClass: "workspace";
+  readonly scopeClass: "run" | "workspace";
   readonly basisId: string;
+  readonly runId?: string;
+  readonly graphFunctionRef?: string;
+  readonly materializationRef?: string;
+  readonly graphCallId?: string;
+  readonly frameId?: string;
+  readonly frameLineageId?: string;
   readonly payload: JsonValue;
 }
 

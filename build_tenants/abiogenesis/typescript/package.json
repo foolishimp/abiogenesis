@@ -24,6 +24,10 @@
       "types": "./build/code/src/gtl/index.d.ts",
       "import": "./build/code/src/gtl/index.js"
     },
+    "./hog": {
+      "types": "./build/code/src/hog/index.d.ts",
+      "import": "./build/code/src/hog/index.js"
+    },
     "./validator": {
       "types": "./build/code/src/validator/index.d.ts",
       "import": "./build/code/src/validator/index.js"
@@ -44,7 +48,8 @@
     "test:r4": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs",
     "test:r5": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs",
     "test:r6": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs",
-    "test:r7": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs"
+    "test:r7": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs",
+    "test:r8": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs"
   },
   "devDependencies": {
     "@types/node": "24.3.0",

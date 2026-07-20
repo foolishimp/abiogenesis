@@ -29,6 +29,8 @@ export {
 export {
   admitExecutionBasis,
   admitInvocationRefusal,
+  hasAdmittedExecutionBasis,
+  isExecutionBasis,
   type AdmittedImplementationResolution,
   type ExecutionBasis,
   type ExecutionBasisAdmission,
@@ -37,3 +39,15 @@ export {
   type InvocationRefusalAdmission,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
+export {
+  hasOpenedTraversalScope,
+  isOpenedTraversalScope,
+  openCall,
+  type OpenCallAdmission,
+  type OpenCallRefusal,
+  type OpenCallResult,
+  type OpenedFrame,
+  type OpenedGraphCall,
+  type OpenedRun,
+  type OpenedTraversalScope,
+} from "./open_call.js";
