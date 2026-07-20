@@ -5,8 +5,8 @@
 - type: reprice
 - ticket_category: constitutional_reprice
 - status: active
-- phase_status: constitutional_candidate_frozen_for_external_gate
-- review_status: governed_by_external_exact_cut_receipt
+- phase_status: constitutional_candidate_reviewed_for_final_fh
+- review_status: independent_exact_cut_accepted
 - proof_status: definition_coverage_gates_passed_behavioral_proof_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - priority: critical
@@ -26,6 +26,13 @@
     .ai-workspace/comments/codex/
     20260719T180430Z_DECISION_fh_accept_abiogenesis_5_destination_and_authorize_t283.md
 - final_fh_closure: pending_separate_exact_cut_decision
+- independent_review_ref: >-
+    .ai-workspace/comments/claude/
+    20260720T013846Z_REVIEW_t283_refrozen_constitutional_candidate.md
+- independent_review_verdict: acceptable_for_final_fh_review
+- operator_digest_confirmation_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T013846Z_PROOF_t283_refrozen_digest_and_final_gate.md
 - implementation_hold: active
 
 ## Intake Triage
