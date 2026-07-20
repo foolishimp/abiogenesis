@@ -6,6 +6,9 @@ export const ROOT_EVENT_KIND_VALUES = [
   "public_operation_admitted",
   "registry_entry_admitted",
   "invocation_admitted",
+  "invocation_refused",
+  "implementation_admitted",
+  "basis_admitted",
 ] as const;
 
 export type RootEventKind = (typeof ROOT_EVENT_KIND_VALUES)[number];

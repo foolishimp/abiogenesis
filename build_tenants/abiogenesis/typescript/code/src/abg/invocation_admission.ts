@@ -123,6 +123,55 @@ function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+export function hasAdmittedInvocation(
+  store: AbgEventStore,
+  admission: InvocationAdmission,
+): boolean {
+  const body = {
+    invocationRef: admission.invocationRef,
+    invocationDigest: admission.invocationDigest,
+    rawInputAdmissionRef: admission.rawInputAdmissionRef,
+    rawInputDigest: admission.rawInputDigest,
+    workspaceBindingId: admission.workspaceBindingId,
+    workspaceBindingDigest: admission.workspaceBindingDigest,
+    catalogViewId: admission.catalogViewId,
+    catalogViewDigest: admission.catalogViewDigest,
+    programRef: admission.programRef,
+    programDigest: admission.programDigest,
+    graphFunctionRef: admission.graphFunctionRef,
+    graphFunctionDigest: admission.graphFunctionDigest,
+    inputContractRef: admission.inputContractRef,
+    outputContractRef: admission.outputContractRef,
+    programValidationRef: admission.programValidationRef,
+    programValidationDigest: admission.programValidationDigest,
+    policyRef: admission.policyRef,
+    policyDigest: admission.policyDigest,
+    capabilityGrantRefs: admission.capabilityGrantRefs,
+    authorityRef: admission.authorityRef,
+    authorityDigest: admission.authorityDigest,
+    actorRef: admission.actorRef,
+  };
+  const event = store.readAll().find((candidate) => candidate.eventId === admission.admissionEventRef);
+  const publicEvent = store.readAll().find(
+    (candidate) => candidate.eventId === admission.publicOperationEventRef,
+  );
+  return (
+    sha256Canonical(body as unknown as JsonValue) === admission.invocationAdmissionDigest &&
+    admission.invocationAdmissionRef === `invocation-admission://abiogenesis/${admission.invocationAdmissionDigest.slice("sha256:".length)}` &&
+    publicEvent?.kind === "public_operation_admitted" &&
+    isRecord(publicEvent.payload) &&
+    publicEvent.payload.operationId === "abg.operation.run.invoke" &&
+    publicEvent.payload.invocationRef === admission.invocationRef &&
+    publicEvent.payload.invocationDigest === admission.invocationDigest &&
+    publicEvent.payload.authorityRef === admission.authorityRef &&
+    event?.kind === "invocation_admitted" &&
+    isRecord(event.payload) &&
+    event.payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
+    event.payload.invocationAdmissionDigest === admission.invocationAdmissionDigest &&
+    event.causationEventRefs.includes(admission.publicOperationEventRef)
+  );
+}
+
 export function admitInvocation(
   store: AbgEventStore,
   input: InvocationAdmissionInput,

@@ -51,6 +51,25 @@ export interface GraphTemplate {
   readonly edges: readonly GtlEdge[];
 }
 
+export interface GraphMaterializationBasis {
+  readonly invocationAdmissionRef: string;
+  readonly admittedInputRef: string;
+  readonly admittedInputDigest: Sha256Digest;
+}
+
+export interface GtlGraph {
+  readonly kind: "gtl_graph";
+  readonly schemaVersion: "5.0.0";
+  readonly materializationRef: string;
+  readonly materializationDigest: Sha256Digest;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: Sha256Digest;
+  readonly invocationAdmissionRef: string;
+  readonly admittedInputRef: string;
+  readonly admittedInputDigest: Sha256Digest;
+  readonly template: GraphTemplate;
+}
+
 export interface GraphFunction {
   readonly kind: "graph_function";
   readonly name: string;

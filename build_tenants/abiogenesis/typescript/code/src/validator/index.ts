@@ -25,3 +25,9 @@ export {
   type ImplementationResolutionValidation,
   type ImplementationResolutionValidationResult,
 } from "./implementation_resolution.js";
+export {
+  validateGraph,
+  type GraphValidation,
+  type GraphValidationBasis,
+  type GraphValidationResult,
+} from "./graph.js";

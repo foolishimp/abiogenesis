@@ -26,3 +26,14 @@ export {
   type InvocationAdmissionRefusal,
   type InvocationAdmissionResult,
 } from "./invocation_admission.js";
+export {
+  admitExecutionBasis,
+  admitInvocationRefusal,
+  type AdmittedImplementationResolution,
+  type ExecutionBasis,
+  type ExecutionBasisAdmission,
+  type ExecutionBasisAdmissionResult,
+  type ExecutionBasisInput,
+  type InvocationRefusalAdmission,
+  type RuntimeAdmissionBasis,
+} from "./execution_basis.js";

@@ -314,3 +314,40 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
     invocationAdmission,
   };
 }
+
+export async function setupInstalledRootResolution(context, packageRoot) {
+  const environment = await setupInstalledRootInvocation(context, packageRoot);
+  const {
+    product,
+    validator,
+    publication,
+    programValidation,
+    graphFunction,
+    catalogView,
+  } = environment;
+  const node = graphFunction.template.nodes[0];
+  const resolutionCandidate = product.resolveImplementation(
+    catalogView,
+    publication,
+    programValidation,
+    graphFunction.name,
+    node.nodeRef,
+  );
+  const implementationDescriptor = product.rootPackagedImplementationDescriptor();
+  const resolutionValidation = validator.validateImplementationResolution(
+    resolutionCandidate,
+    publication,
+    programValidation,
+    graphFunction,
+    implementationDescriptor,
+  );
+  assert.equal(resolutionCandidate.kind, "implementation_resolution_candidate", JSON.stringify(resolutionCandidate));
+  assert.equal(resolutionValidation.kind, "implementation_resolution_validation", JSON.stringify(resolutionValidation));
+  return {
+    ...environment,
+    node,
+    resolutionCandidate,
+    implementationDescriptor,
+    resolutionValidation,
+  };
+}

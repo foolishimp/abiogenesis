@@ -10,9 +10,11 @@ export type {
   ComputeRegime,
   ContractDeclaration,
   GraphFunction,
+  GraphMaterializationBasis,
   GraphTemplate,
   GtlEdge,
   GtlEnvironment,
+  GtlGraph,
   GtlNode,
   GtlProgram,
   HelloWorldInput,
@@ -22,3 +24,4 @@ export type {
   ProgramStart,
   RootModuleArtifactBasis,
 } from "./contracts.js";
+export { materializeGraph } from "./materialize.js";

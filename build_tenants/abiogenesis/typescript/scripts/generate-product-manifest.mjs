@@ -224,6 +224,42 @@ const rows = [
     },
   },
   {
+    contractId: "abg.contract.gtl.materialization-root",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(gtlNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-003",
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-006",
+    ],
+    capabilityIdentities: ["abg.capability.gtl.materialize-root@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./gtl",
+      namedSymbol: "materializeGraph",
+      declarationPath: gtlDeclarationPath,
+    },
+  },
+  {
+    contractId: "abg.contract.abg.execution-basis-root",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-004",
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-010",
+    ],
+    capabilityIdentities: ["abg.capability.runtime.admit-root-basis@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./abg",
+      namedSymbol: "admitExecutionBasis",
+      declarationPath: abgDeclarationPath,
+    },
+  },
+  {
     contractId: "abg.contract.gtl.validation-root",
     contractVersion: "5.0.0",
     contractDigest: sha256Canonical(validatorNativeInventory),
