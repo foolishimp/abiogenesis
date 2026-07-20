@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: ordinary
 - status: active
-- phase_status: third_replacement_candidate_frozen_independent_review_pending
-- review_status: independent_exact_cut_review_pending
-- proof_status: exact_count_claim_repaired_and_locally_verified
+- phase_status: independent_review_accepted_final_fh_decision_pending
+- review_status: independent_exact_cut_review_accepted
+- proof_status: exact_subject_and_independent_review_green
 - goal: GOAL-035 M2
 - priority: critical
 - change_intent: >-
@@ -85,6 +85,10 @@
 - third_replacement_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T071156Z_SELF_REVIEW_t284_third_replacement_candidate.md
+- third_replacement_independent_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T071657Z_REVIEW_t284_third_replacement_independent_acceptance.md
+- third_replacement_independent_review_verdict: accept
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
 - constitutional_refreeze: frozen_independent_review_pending
