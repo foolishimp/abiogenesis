@@ -69,6 +69,15 @@ const nativeInventory = [
     declarationDigest: productDeclarationDigest,
   },
 ];
+const abgDeclarationPath = "build/code/src/abg/index.d.ts";
+const abgDeclarationDigest = await sha256File(join(root, abgDeclarationPath));
+const abgNativeInventory = [
+  {
+    packageExportPath: "./abg",
+    declarationPath: abgDeclarationPath,
+    declarationDigest: abgDeclarationDigest,
+  },
+];
 
 const rows = [
   {
@@ -87,6 +96,24 @@ const rows = [
       packageExportPath: "./product",
       namedSymbol: "verifyProduct",
       declarationPath: productDeclarationPath,
+    },
+  },
+  {
+    contractId: "abg.contract.abg.environment-admission",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-032",
+      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-005",
+    ],
+    capabilityIdentities: ["abg.capability.runtime.admit-artifact@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./abg",
+      namedSymbol: "AbgEventStore",
+      declarationPath: abgDeclarationPath,
     },
   },
   {

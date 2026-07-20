@@ -15,6 +15,10 @@
     "./product": {
       "types": "./build/code/src/product/index.d.ts",
       "import": "./build/code/src/product/index.js"
+    },
+    "./abg": {
+      "types": "./build/code/src/abg/index.d.ts",
+      "import": "./build/code/src/abg/index.js"
     }
   },
   "files": [
@@ -27,7 +31,8 @@
     "build": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",
     "prepack": "npm run build",
     "test:r1": "npm run build && node --test test_env/tests/r1-packed-artifact.test.mjs",
-    "test:r2": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs"
+    "test:r2": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs",
+    "test:r3": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs"
   },
   "devDependencies": {
     "@types/node": "24.3.0",

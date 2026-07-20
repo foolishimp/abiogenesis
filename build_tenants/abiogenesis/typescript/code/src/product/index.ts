@@ -25,5 +25,23 @@ export {
   type PayloadInventoryRow,
   type Sha256Digest,
 } from "./digests.js";
+export {
+  ENVIRONMENT_REFUSAL_CODES,
+  constructProductSet,
+  constructResolvedProductLock,
+  constructWorkspaceAuthorityBasis,
+  constructWorkspaceBinding,
+  type EnvironmentRefusal,
+  type EnvironmentRefusalCode,
+  type ProductInstall,
+  type ProductSet,
+  type ResolvedProductLock,
+  type ResolvedProductLockRow,
+  type WorkspaceAuthorityBasis,
+  type WorkspaceAuthorityBasisInput,
+  type WorkspaceBinding,
+  type WorkspaceBindingCandidate,
+  type WorkspaceDeclaredRoots,
+} from "./environment.js";
 export { installProduct } from "./install_product.js";
 export { verifyProduct } from "./verify_product.js";
