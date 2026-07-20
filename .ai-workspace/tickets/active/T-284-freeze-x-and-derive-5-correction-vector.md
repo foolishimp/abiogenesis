@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: ordinary
 - status: active
-- phase_status: bounded_authority_repair_in_progress
-- review_status: post_acceptance_review_request_changes
-- proof_status: prior_candidate_invalidated_confirmed_authority_repairs_in_progress
+- phase_status: fourth_replacement_candidate_frozen_independent_review_pending
+- review_status: independent_exact_cut_review_pending
+- proof_status: bounded_authority_repairs_locally_verified
 - goal: GOAL-035 M2
 - priority: critical
 - change_intent: >-
@@ -56,8 +56,8 @@
 - replacement_candidate_commit: 7f69aa83e295f0c391616a3a3a2acfafb8f20156
 - replacement_candidate_tree: da12ce31f7ad5dce29d53d0d67750b011ab25f35
 - constitutional_subject_files: 86
-- constitutional_subject_sha256: 5f1fb2cfcd3223b94a591757dc38a3f5dd7036befc40629e8e5b1b3e8cae7b69
-- requirement_amendment_sha256: d7f88193122d015cb0cfbeb8e9d556c4e0c36a85ffdbf9dfe78054283f3163cf
+- constitutional_subject_sha256: f2a4c6970f6240ef52bdb04693a38b8430fe29027a2f8f10ed5c9f70ba32b72a
+- requirement_amendment_sha256: c0dcdc264db854f5a4d4f429a35a96e8bd8b4f9481a05cdf532cdfee60722473
 - replacement_candidate_manifest_ref: >-
     .ai-workspace/comments/codex/
     20260720T060344Z_CHECKPOINT_t284_replacement_candidate_manifest.md
@@ -93,9 +93,17 @@
 - post_acceptance_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T090706Z_REVIEW_t284_post_acceptance_authority_defects.md
+- fourth_replacement_candidate_commit: 6f2d3415cf1b453ad37d098e5be66fdd658ffc00
+- fourth_replacement_candidate_tree: e0fcb69f6efcbaffb1593fd735ec2b14725128f4
+- fourth_replacement_candidate_manifest_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T091330Z_CHECKPOINT_t284_fourth_replacement_candidate_manifest.md
+- fourth_replacement_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T091300Z_SELF_REVIEW_t284_fourth_replacement_candidate.md
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
-- constitutional_refreeze: invalidated_bounded_requirement_refreeze_required
+- constitutional_refreeze: frozen_independent_review_pending
 - x_carrier_membership_ref: >-
     .ai-workspace/comments/codex/
     20260720T055423Z_EVIDENCE_t284_x_carrier_membership.md
