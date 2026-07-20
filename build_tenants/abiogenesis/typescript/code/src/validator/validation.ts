@@ -277,6 +277,19 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     }
     for (const node of graphFunction.template.nodes) {
       const binding = bindingByRef.get(node.implementationBindingRef);
+      if (
+        node.stageRole.length === 0 ||
+        node.armId.length === 0 ||
+        node.judgmentPredicateRef.length === 0 ||
+        !Number.isSafeInteger(node.vectorIndex) ||
+        node.vectorIndex < 0
+      ) {
+        diagnostics.push({
+          code: "invalid_reference",
+          path: `$.graphFunctions[${graphFunction.name}].template.nodes[${node.nodeRef}]`,
+          message: "C locus requires declared stage, arm, judgment predicate, and non-negative vector index",
+        });
+      }
       if (binding === undefined) {
         diagnostics.push({ code: "missing_binding", path: `$.graphFunctions[${graphFunction.name}].template.nodes[${node.nodeRef}]`, message: `missing implementation binding ${node.implementationBindingRef}` });
       } else if (
@@ -290,6 +303,44 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   }
   if (!closureContracts.some((contract) => contract.closureContractRef === program.closureContractRef)) {
     diagnostics.push({ code: "missing_contract", path: "$.program.closureContractRef", message: "Program closure contract is absent" });
+  }
+  for (const closureContract of closureContracts) {
+    const requiredContractRefs = [
+      closureContract.evidenceContractRef,
+      closureContract.resultContractRef,
+      closureContract.refusalContractRef,
+      closureContract.judgmentContractRef,
+      closureContract.rejectionContractRef,
+      closureContract.transitionContractRef,
+    ];
+    if (requiredContractRefs.some((contractRef) => !contractRefs.has(contractRef))) {
+      diagnostics.push({
+        code: "missing_contract",
+        path: `$.closureContracts[${closureContract.closureContractRef}]`,
+        message: "ClosureContract references an unpublished evidence, result, refusal, judgment, rejection, or transition contract",
+      });
+    }
+    if (
+      closureContract.predicateRef.length === 0 ||
+      closureContract.refusalValueKind.length === 0 ||
+      closureContract.replayProjectionRef.length === 0
+    ) {
+      diagnostics.push({
+        code: "invalid_reference",
+        path: `$.closureContracts[${closureContract.closureContractRef}]`,
+        message: "ClosureContract requires terminal predicate, refusal value kind, and replay projection",
+      });
+    }
+    if (
+      closureContract.eventKindRefs.join("\0") !==
+      ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"].join("\0")
+    ) {
+      diagnostics.push({
+        code: "invalid_reference",
+        path: `$.closureContracts[${closureContract.closureContractRef}].eventKindRefs`,
+        message: "ClosureContract must declare the exact ordered root closure event family",
+      });
+    }
   }
   const expectedRawValues: readonly [readonly unknown[], readonly unknown[], string][] = [
     [publication.contracts, contracts, "contracts"],

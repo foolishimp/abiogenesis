@@ -55,8 +55,11 @@ function hasExpectedKind(
         typeof value.contractRef === "string" &&
         (value.contractKind === "input" ||
           value.contractKind === "output" ||
+          value.contractKind === "evidence" ||
           value.contractKind === "failure" ||
           value.contractKind === "refusal" ||
+          value.contractKind === "judgment" ||
+          value.contractKind === "transition" ||
           value.contractKind === "closure")
       );
     case "invocation_input":

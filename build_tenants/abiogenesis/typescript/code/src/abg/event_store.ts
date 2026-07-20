@@ -12,6 +12,17 @@ export const ROOT_EVENT_KIND_VALUES = [
   "run_segment_opened",
   "graph_call_opened",
   "frame_opened",
+  "c_call_opened",
+  "c_call_fibre_selected",
+  "c_call_evidenced",
+  "c_call_result_admitted",
+  "c_call_judged",
+  "fd_advance_ready",
+  "runtime_failure_observed",
+  "terminal_reached",
+  "frame_closed",
+  "graph_call_closed",
+  "run_closed",
 ] as const;
 
 export type RootEventKind = (typeof ROOT_EVENT_KIND_VALUES)[number];
@@ -19,7 +30,7 @@ export type RootEventKind = (typeof ROOT_EVENT_KIND_VALUES)[number];
 export interface RuntimeEventCandidate {
   readonly kind: RootEventKind;
   readonly eventTime: string;
-  readonly aggregateType: "frame" | "graph_call" | "run" | "workspace";
+  readonly aggregateType: "c_call" | "frame" | "graph_call" | "run" | "workspace";
   readonly aggregateId: string;
   readonly parentAggregateId: string | null;
   readonly causationEventRefs: readonly string[];
@@ -65,6 +76,14 @@ export function admitRuntimeEvent(
   const events = eventState.get(store);
   if (events === undefined) {
     throw new TypeError("event store was not constructed by this ABG module");
+  }
+  if (
+    new Set(candidate.causationEventRefs).size !== candidate.causationEventRefs.length ||
+    candidate.causationEventRefs.some(
+      (eventRef) => !events.some((event) => event.eventId === eventRef),
+    )
+  ) {
+    throw new TypeError("runtime event causation refs must be unique admitted events in this store");
   }
   const immutableCandidate = deepFreeze(
     JSON.parse(canonicalJson(candidate as unknown as JsonValue)) as RuntimeEventCandidate,

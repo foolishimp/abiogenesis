@@ -8,6 +8,7 @@ import type {
   ModulePublication,
   RootModuleArtifactBasis,
   HelloWorldInput,
+  HelloWorldOutput,
 } from "./contracts.js";
 import { deepFreeze } from "../product/immutable.js";
 
@@ -21,11 +22,25 @@ export const HELLO_WORLD_IDS = Object.freeze({
   outputContractRef: "contract://abiogenesis/conformance/hello-output@5",
   failureContractRef: "contract://abiogenesis/conformance/hello-failure@5",
   refusalContractRef: "contract://abiogenesis/conformance/hello-refusal@5",
+  evidenceContractRef: "contract://abiogenesis/conformance/hello-evidence@5",
+  judgmentContractRef: "contract://abiogenesis/conformance/hello-judgment@5",
+  transitionContractRef: "contract://abiogenesis/conformance/hello-transition@5",
   closureContractRef: "contract://abiogenesis/conformance/hello-closure@5",
   implementationBindingRef:
     "implementation-binding://abiogenesis/conformance/hello-world-fd@5",
   implementationRef: "implementation://abiogenesis/conformance/hello-world-fd@5",
+  armId: "arm://abiogenesis/conformance/hello-world/fd@5",
+  judgmentPredicateRef: "predicate://abiogenesis/conformance/hello-world-result@5",
 });
+
+export function evaluateHelloWorldResult(
+  input: Readonly<HelloWorldInput>,
+  output: Readonly<HelloWorldOutput>,
+): boolean {
+  return output.kind === "hello_world_output" &&
+    output.schemaVersion === "5.0.0" &&
+    output.message === `Hello ${input.subject}`;
+}
 
 export function constructHelloWorldInput(subject: string): Readonly<HelloWorldInput> {
   if (subject.length === 0) {
@@ -46,6 +61,9 @@ export function constructHelloWorldModulePublication(
     { contractRef: HELLO_WORLD_IDS.outputContractRef, contractVersion: "5.0.0", contractKind: "output", valueKind: "hello_world_output" },
     { contractRef: HELLO_WORLD_IDS.failureContractRef, contractVersion: "5.0.0", contractKind: "failure", valueKind: "hello_world_failure" },
     { contractRef: HELLO_WORLD_IDS.refusalContractRef, contractVersion: "5.0.0", contractKind: "refusal", valueKind: "hello_world_refusal" },
+    { contractRef: HELLO_WORLD_IDS.evidenceContractRef, contractVersion: "5.0.0", contractKind: "evidence", valueKind: "deterministic_evidence_candidate" },
+    { contractRef: HELLO_WORLD_IDS.judgmentContractRef, contractVersion: "5.0.0", contractKind: "judgment", valueKind: "hello_world_judgment" },
+    { contractRef: HELLO_WORLD_IDS.transitionContractRef, contractVersion: "5.0.0", contractKind: "transition", valueKind: "hello_world_transition" },
     { contractRef: HELLO_WORLD_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "hello_world_closure" },
   ];
   const implementationBinding: ImplementationBinding = {
@@ -66,8 +84,15 @@ export function constructHelloWorldModulePublication(
     kind: "closure_contract",
     closureContractRef: HELLO_WORLD_IDS.closureContractRef,
     predicateRef: "predicate://abiogenesis/conformance/hello-world-terminal@5",
+    evidenceContractRef: HELLO_WORLD_IDS.evidenceContractRef,
     resultContractRef: HELLO_WORLD_IDS.outputContractRef,
     refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+    refusalValueKind: "hello_world_refusal",
+    judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+    rejectionContractRef: HELLO_WORLD_IDS.refusalContractRef,
+    transitionContractRef: HELLO_WORLD_IDS.transitionContractRef,
+    replayProjectionRef: "projection://abiogenesis/conformance/hello-world-replay@5",
+    terminalKind: "completed",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
   const graphFunction: GraphFunction = {
@@ -91,6 +116,11 @@ export function constructHelloWorldModulePublication(
           nodeRef: HELLO_WORLD_IDS.nodeRef,
           nodeKind: "c_locus",
           computeRegime: "F_D",
+          stageRole: "result",
+          armId: HELLO_WORLD_IDS.armId,
+          compositionRef: null,
+          vectorIndex: 0,
+          judgmentPredicateRef: HELLO_WORLD_IDS.judgmentPredicateRef,
           implementationBindingRef: HELLO_WORLD_IDS.implementationBindingRef,
           inputContractRef: HELLO_WORLD_IDS.inputContractRef,
           outputContractRef: HELLO_WORLD_IDS.outputContractRef,
@@ -102,6 +132,10 @@ export function constructHelloWorldModulePublication(
     declarations: {
       "abg.compute_regime": "F_D",
       "abg.closure_contract": HELLO_WORLD_IDS.closureContractRef,
+      "abg.evidence_contract": HELLO_WORLD_IDS.evidenceContractRef,
+      "abg.judgment_contract": HELLO_WORLD_IDS.judgmentContractRef,
+      "abg.judgment_predicate": HELLO_WORLD_IDS.judgmentPredicateRef,
+      "abg.transition_contract": HELLO_WORLD_IDS.transitionContractRef,
     },
     tags: ["abiogenesis", "conformance", "hello-world", "all-fd"],
   };

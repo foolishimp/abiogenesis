@@ -1,5 +1,4 @@
 import type { ClosureContract, GtlGraph, GtlProgram } from "../gtl/contracts.js";
-import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import {
   type ImplementationResolutionCandidate,
   type JsonValue,
@@ -51,6 +50,13 @@ export interface AdmittedImplementationResolution {
   readonly resolutionCandidateDigest: Sha256Digest;
   readonly resolutionValidationRef: string;
   readonly resolutionValidationDigest: Sha256Digest;
+  readonly catalogViewId: string;
+  readonly catalogViewDigest: Sha256Digest;
+  readonly publicationDigest: Sha256Digest;
+  readonly programValidationRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: Sha256Digest;
+  readonly nodeRef: string;
   readonly implementationBindingRef: string;
   readonly implementationRef: string;
   readonly implementationDescriptorDigest: Sha256Digest;
@@ -58,6 +64,7 @@ export interface AdmittedImplementationResolution {
   readonly packageVersion: string;
   readonly modulePath: string;
   readonly namedSymbol: string;
+  readonly computeRegime: "F_D" | "F_H" | "F_P";
   readonly inputContractRef: string;
   readonly outputContractRef: string;
   readonly failureContractRef: string;
@@ -92,6 +99,16 @@ export interface ExecutionBasis {
   readonly implementationResolutionRef: string;
   readonly closureContractRef: string;
   readonly closureContractDigest: Sha256Digest;
+  readonly terminalPredicateRef: string;
+  readonly evidenceContractRef: string;
+  readonly resultContractRef: string;
+  readonly refusalContractRef: string;
+  readonly refusalValueKind: string;
+  readonly judgmentContractRef: string;
+  readonly rejectionContractRef: string;
+  readonly transitionContractRef: string;
+  readonly replayProjectionRef: string;
+  readonly terminalKind: "completed";
   readonly admissionEventRef: string;
 }
 
@@ -116,6 +133,7 @@ export interface ExecutionBasisInput {
 export type ExecutionBasisAdmissionResult = ExecutionBasisAdmission | InvocationRefusalAdmission;
 
 const executionBases = new WeakSet<object>();
+const implementationResolutions = new WeakSet<object>();
 
 function isJsonRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -123,6 +141,39 @@ function isJsonRecord(value: JsonValue): value is Readonly<Record<string, JsonVa
 
 export function isExecutionBasis(value: object): boolean {
   return executionBases.has(value);
+}
+
+export function isAdmittedImplementationResolution(value: object): boolean {
+  return implementationResolutions.has(value);
+}
+
+export function hasAdmittedImplementationResolution(
+  store: AbgEventStore,
+  resolution: AdmittedImplementationResolution,
+): boolean {
+  if (!isAdmittedImplementationResolution(resolution)) return false;
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    resolutionRef: _resolutionRef,
+    resolutionDigest: _resolutionDigest,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = resolution;
+  const event = store.readAll().find(
+    (candidate) => candidate.eventId === resolution.admissionEventRef,
+  );
+  return (
+    sha256Canonical(body as unknown as JsonValue) === resolution.resolutionDigest &&
+    resolution.resolutionRef ===
+      `implementation-resolution://abiogenesis/${resolution.resolutionDigest.slice("sha256:".length)}` &&
+    event?.kind === "implementation_admitted" &&
+    isJsonRecord(event.payload) &&
+    event.payload.resolutionRef === resolution.resolutionRef &&
+    event.payload.resolutionDigest === resolution.resolutionDigest &&
+    event.payload.resolutionValidationRef === resolution.resolutionValidationRef
+  );
 }
 
 export function hasAdmittedExecutionBasis(
@@ -217,7 +268,6 @@ export function admitExecutionBasis(
     throw new TypeError("ExecutionBasis requires one exact admitted invocation");
   }
   if (
-    !isMaterializedGtlGraph(input.graph) ||
     !isGraphValidation(input.graphValidation) ||
     input.graphValidation.graphRef !== input.graph.materializationRef ||
     input.graphValidation.graphDigest !== input.graph.materializationDigest ||
@@ -252,6 +302,13 @@ export function admitExecutionBasis(
     resolutionCandidateDigest: input.resolutionCandidate.resolutionCandidateDigest,
     resolutionValidationRef: input.resolutionValidation.validationRef,
     resolutionValidationDigest: input.resolutionValidation.validationDigest,
+    catalogViewId: input.resolutionCandidate.catalogViewId,
+    catalogViewDigest: input.resolutionCandidate.catalogViewDigest,
+    publicationDigest: input.resolutionCandidate.publicationDigest,
+    programValidationRef: input.resolutionCandidate.programValidationRef,
+    graphFunctionRef: input.resolutionCandidate.graphFunctionRef,
+    graphFunctionDigest: input.resolutionCandidate.graphFunctionDigest,
+    nodeRef: input.resolutionCandidate.nodeRef,
     implementationBindingRef: input.resolutionCandidate.implementationBindingRef,
     implementationRef: input.resolutionCandidate.implementationRef,
     implementationDescriptorDigest: input.resolutionCandidate.implementationDescriptorDigest,
@@ -259,6 +316,7 @@ export function admitExecutionBasis(
     packageVersion: input.resolutionCandidate.packageVersion,
     modulePath: input.resolutionCandidate.modulePath,
     namedSymbol: input.resolutionCandidate.namedSymbol,
+    computeRegime: input.resolutionCandidate.computeRegime,
     inputContractRef: input.resolutionCandidate.inputContractRef,
     outputContractRef: input.resolutionCandidate.outputContractRef,
     failureContractRef: input.resolutionCandidate.failureContractRef,
@@ -288,6 +346,7 @@ export function admitExecutionBasis(
     ...resolutionBody,
     admissionEventRef: resolutionEvent.eventId,
   }) as AdmittedImplementationResolution;
+  implementationResolutions.add(implementationResolution);
   const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
   const executionBody = {
     invocationAdmissionRef: input.invocationAdmission.invocationAdmissionRef,
@@ -311,6 +370,16 @@ export function admitExecutionBasis(
     implementationResolutionRef: implementationResolution.resolutionRef,
     closureContractRef: input.closureContract.closureContractRef,
     closureContractDigest,
+    terminalPredicateRef: input.closureContract.predicateRef,
+    evidenceContractRef: input.closureContract.evidenceContractRef,
+    resultContractRef: input.closureContract.resultContractRef,
+    refusalContractRef: input.closureContract.refusalContractRef,
+    refusalValueKind: input.closureContract.refusalValueKind,
+    judgmentContractRef: input.closureContract.judgmentContractRef,
+    rejectionContractRef: input.closureContract.rejectionContractRef,
+    transitionContractRef: input.closureContract.transitionContractRef,
+    replayProjectionRef: input.closureContract.replayProjectionRef,
+    terminalKind: input.closureContract.terminalKind,
   };
   const basisDigest = sha256Canonical(executionBody as unknown as JsonValue);
   const basisRef = `execution-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`;

@@ -39,7 +39,17 @@ export interface TraversalStopRef {
   readonly graphCallId: string;
   readonly frameId: string;
   readonly nodeRef: string;
+  readonly programLocusRef: string;
+  readonly edgeRef: string;
+  readonly vectorIndex: number;
+  readonly judgmentPredicateRef: string;
+  readonly stageRole: string;
+  readonly taskOrdinal: null;
+  readonly attempt: 1;
+  readonly retryPath: readonly [];
   readonly computeRegime: ComputeRegime;
+  readonly armId: string;
+  readonly compositionRef: string | null;
   readonly implementationBindingRef: string;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
@@ -67,6 +77,12 @@ export interface TraverseInput {
 }
 
 export type TraverseResult = TraversalStopRef | TraversalRefusal;
+
+const traversalStops = new WeakSet<object>();
+
+export function isTraversalStopRef(value: object): boolean {
+  return traversalStops.has(value);
+}
 
 function refusal(
   code: TraversalRefusal["code"],
@@ -104,6 +120,12 @@ export function traverse(input: TraverseInput): TraverseResult {
     !input.program.callableMembership.includes(input.executionBasis.graphFunctionRef)
   ) {
     return refusal("program_mismatch", "HoG Program differs from the admitted execution basis");
+  }
+  const programStart = input.program.starts.find(
+    (start) => start.graphFunctionRef === input.executionBasis.graphFunctionRef,
+  );
+  if (programStart === undefined) {
+    return refusal("program_mismatch", "HoG Program has no declared start for the admitted GraphFunction");
   }
   if (
     !isMaterializedGtlGraph(input.graph) ||
@@ -155,13 +177,23 @@ export function traverse(input: TraverseInput): TraverseResult {
     graphCallId: input.openedTraversalScope.graphCallId,
     frameId: input.openedTraversalScope.frameId,
     nodeRef: node.nodeRef,
+    programLocusRef: node.nodeRef,
+    edgeRef: programStart.startRef,
+    vectorIndex: node.vectorIndex,
+    judgmentPredicateRef: node.judgmentPredicateRef,
+    stageRole: node.stageRole,
+    taskOrdinal: null,
+    attempt: 1 as const,
+    retryPath: [] as const,
     computeRegime: node.computeRegime,
+    armId: node.armId,
+    compositionRef: node.compositionRef,
     implementationBindingRef: node.implementationBindingRef,
     inputContractRef: node.inputContractRef,
     outputContractRef: node.outputContractRef,
   };
   const stopDigest = sha256Canonical(stopBody as unknown as JsonValue);
-  return deepFreeze({
+  const stop = deepFreeze({
     kind: "traversal_stop_ref" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "at_compute_locus" as const,
@@ -169,4 +201,6 @@ export function traverse(input: TraverseInput): TraverseResult {
     stopDigest,
     ...stopBody,
   }) as TraversalStopRef;
+  traversalStops.add(stop);
+  return stop;
 }

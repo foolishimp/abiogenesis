@@ -2,6 +2,7 @@ export {
   HELLO_WORLD_IDS,
   constructHelloWorldInput,
   constructHelloWorldModulePublication,
+  evaluateHelloWorldResult,
 } from "./hello_world.js";
 export type {
   CatalogContribution,

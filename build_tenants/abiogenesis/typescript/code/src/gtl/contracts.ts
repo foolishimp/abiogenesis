@@ -5,7 +5,15 @@ export type ComputeRegime = "F_D" | "F_H" | "F_P";
 export interface ContractDeclaration {
   readonly contractRef: string;
   readonly contractVersion: "5.0.0";
-  readonly contractKind: "input" | "output" | "failure" | "refusal" | "closure";
+  readonly contractKind:
+    | "closure"
+    | "evidence"
+    | "failure"
+    | "input"
+    | "judgment"
+    | "output"
+    | "refusal"
+    | "transition";
   readonly valueKind: string;
 }
 
@@ -31,6 +39,11 @@ export interface GtlNode {
   readonly nodeRef: string;
   readonly nodeKind: "c_locus";
   readonly computeRegime: ComputeRegime;
+  readonly stageRole: string;
+  readonly armId: string;
+  readonly compositionRef: string | null;
+  readonly vectorIndex: number;
+  readonly judgmentPredicateRef: string;
   readonly implementationBindingRef: string;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
@@ -102,8 +115,15 @@ export interface ClosureContract {
   readonly kind: "closure_contract";
   readonly closureContractRef: string;
   readonly predicateRef: string;
+  readonly evidenceContractRef: string;
   readonly resultContractRef: string;
   readonly refusalContractRef: string;
+  readonly refusalValueKind: string;
+  readonly judgmentContractRef: string;
+  readonly rejectionContractRef: string;
+  readonly transitionContractRef: string;
+  readonly replayProjectionRef: string;
+  readonly terminalKind: "completed";
   readonly eventKindRefs: readonly [
     "terminal_reached",
     "frame_closed",
