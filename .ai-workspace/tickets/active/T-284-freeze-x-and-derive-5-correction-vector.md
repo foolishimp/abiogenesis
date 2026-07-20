@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: ordinary
 - status: active
-- phase_status: replacement_candidate_frozen_independent_review_pending
-- review_status: independent_exact_cut_review_pending
-- proof_status: exact_subject_and_local_consistency_verified
+- phase_status: bounded_independent_review_repairs_in_progress
+- review_status: independent_exact_cut_review_request_changes
+- proof_status: replacement_candidate_rejected_vector_repairs_in_progress
 - goal: GOAL-035 M2
 - priority: critical
 - change_intent: >-
@@ -70,6 +70,10 @@
 - x_carrier_membership_ref: >-
     .ai-workspace/comments/codex/
     20260720T055423Z_EVIDENCE_t284_x_carrier_membership.md
+- rejected_replacement_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T065243Z_REVIEW_t284_replacement_candidate_independent_agent.md
+- rejected_replacement_review_verdict: request_changes
 
 ## Purpose
 
@@ -142,7 +146,8 @@ under the accepted owner split.
    accepted target authority, current X evidence, all three dimensions,
    rationale, confidence, and unresolved decision;
 4. one carrier census at semantic module/capability altitude plus an exact
-   first-match membership partition over every frozen X tenant path;
+   first-match membership partition over every frozen X tenant path, with no
+   generic fallback that can imply an archive disposition;
 5. bounded requirement amendments restoring the Product owner split;
 6. one disposition for each held active ticket;
 7. one explicit deletion set limited to carriers with no retained semantic or
@@ -160,8 +165,9 @@ T-284 may close only when:
   silence or conflation;
 - every RC5 implementation family and relevant X/final-integration carrier has
   one explicit method class, action, destination, admission order, and proof;
-- the X first-match predicates classify every frozen tenant path and reproduce
-  the recorded path count, per-family counts, and membership digest;
+- the X first-match predicates classify every frozen tenant path into an
+  explicit reviewed family without a generic fallback and reproduce the
+  recorded path count, per-family counts, and membership digest;
 - contradictions and unresolved semantic decisions are visible;
 - direct invocation and saga-frontier requirements agree with Product's
   GTL/HoG/ABG/catalog authority split;

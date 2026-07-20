@@ -12,10 +12,9 @@ reproducible first-match partition of every path under
 `build_tenants/abiogenesis/typescript/` at frozen X snapshot
 `676766a648066eaa69dce05f636d5ec98fb40dec`.
 
-The scope contains 1,935 paths. Every path has exactly one membership row. A
-path that matches no earlier semantic family enters `XC41`; that row is an
-archive/refusal boundary and cannot be used as successor donor authority
-without reviewed T-284 re-entry.
+The scope contains 1,935 paths. Every path has exactly one membership row.
+There is no catch-all family: a path that matches no declared semantic,
+support, export, package, or historical-artifact family fails reproduction.
 
 ## Reproduction
 
@@ -41,7 +40,7 @@ const rules = [
   ["XC05", /(^|\/)gtl_program_conformance\.ts$/],
   ["XC06", /(^|\/)(graph_function_application_compiler|hof_relation_compiler)\.ts$/],
   ["XC07", /(^|\/)(hog_program|hog_program_syntax|hog_program_resolution|runtime_program_catalog)\.ts$/],
-  ["XC08", /(^|\/)c_algebra_hog_compiler\.ts$/],
+  ["XC08", /(^|\/)(c_algebra_hog_compiler|execution_declaration_compiler)\.ts$/],
   ["XC09", /(^|\/)(graph_vector_c_program_compiler|graph_vector_execution_handoff)\.ts$/],
   ["XC10", /(^|\/)complete_c_program\.ts$/],
   ["XC11", /(^|\/)complete_c_program_runtime\.ts$/],
@@ -74,7 +73,15 @@ const rules = [
   ["XC38", /^test_env\//],
   ["XC39", /^design\//],
   ["XC40", /(^|\/)saga_frontier(_runner)?\.ts$/],
-  ["XC41", /.*/],
+  ["XC41", /^code\/src\/abg\/m03\/(admission\/carriers|contracts\/(admission_hygiene|artifact_schemas|carriers|constructors|leaf_task|m03_owner_contract_set|output_allocation|result_assessment_relation|route_basis|runtime_schema_admission|runtime_support|traversal_execution_admission_internal|traversal_execution_contract|traversal_execution_family))\.ts$/],
+  ["XC42", /^code\/src\/abg\/m03\/(contracts\/(allowed_consequence_traversal_catalog|composed_stage_set|consequence_traversal_action|fn_composition|fp_stages|hog_handler_bindings|hook_actions|iteration_state_action|node_type_satisfaction|regime_resolution|retry_frontier|temporal_algebra|temporal_properties|temporal_property_gates|temporal_property_runtime|traversal_modulation|workspace_zoom_foldback)|runner\/(standard_handler_runtime|standard_handlers))\.ts$/],
+  ["XC43", /^code\/src\/abg\/m03\/contracts\/(assurance|assurance_register|current_observation|depth_proof_map|edge_assurance_contract|eval_suite|evaluation_set|mutation_outcomes|observed_state|overlay_frame|proof_strength_admission|runtime_liveness|test_report_verification|traversal_structure_probe)\.ts$/],
+  ["XC44", /^code\/src\/abg\/m03\/contracts\/(declaration_reprice|default_instruction_startup|defect_intake|halt_diagnosis|instruction_assembly|requirement_event_payload_kinds|requirement_proof_carry_through|requirement_proof_carry_through_producer|requirements_algebra|requirements_route|run_segments|workspace_hygiene)\.ts$/],
+  ["XC45", /^code\/src\/abg\/m03\/(contracts\/(catalog_operation_contracts|gtl_conformance_operation_contracts|one_surface_contract_family|one_surface_operation_contracts|private_public_operation_ingress|public_operation_artifact_boundary|runtime_authoring_operation_contracts|runtime_projection_operation_contracts)|runner\/(assurance_gate|construction_runner|public_operation_admission|public_runtime_projections|runtime_authoring_routes))\.ts$/],
+  ["XC46", /^code\/src\/shared\/(abg_config\/load|abg_delivery_library\/(carriers|constructors|injection|materialization)|abg_library\/(carriers|expectations|proof|tenant_conformance_manifest)|engine_authority_fields|lever_registry\/(overrides|registry)|runtime_identity|validation\/(canonical_native_schema_projector|governed_enums|immutable_native_value|native_contract_primitives|native_named_check_registry|owner_native_operation_contract_source|primitives))\.ts$/],
+  ["XC47", /^code\/src\/(abg\/(executive|m03\/(admission|contracts|runner)|requirements)\/index|abg\/m03\/index|app\/m04\/admission\/index|gtl\/requirements\/index|shared\/(abg_delivery_library|abg_library|lever_registry)\/index|index)\.ts$|^code\/src\/node_shims\.d\.ts$/],
+  ["XC48", /^(\.gitignore|README\.md|code\/README\.md|config\/(abg\.config\.json|publication-runtime-profile\.json)|eslint\.config\.mjs|package-lock\.json|package\.json|tsconfig\.semantic-strict\.json)$/],
+  ["XC49", /^(abiogenesis-typescript-tenant-.*\.tgz|node_modules)$/],
 ];
 
 const counts = Object.fromEntries(rules.map(([id]) => [id, 0]));
@@ -101,27 +108,30 @@ console.log(JSON.stringify({
 
 ```text
 total: 1935
-membership SHA-256: 614610e79c37983cb37aaa3fc105f320c1429065766f98a9c36083ff9ccabccd
+membership SHA-256: 9516301aa51dc0a41f832847d17268106c046d93a8a9f4a78c56991ba5b929f1
 ```
 
 | Family | Paths | Family | Paths | Family | Paths |
 |---|---:|---|---:|---|---:|
-| XC01 | 14 | XC15 | 14 | XC29 | 3 |
-| XC02 | 3 | XC16 | 8 | XC30 | 11 |
-| XC03 | 4 | XC17 | 1 | XC31 | 1 |
-| XC04 | 12 | XC18 | 2 | XC32 | 1 |
-| XC05 | 1 | XC19 | 5 | XC33 | 14 |
-| XC06 | 2 | XC20 | 1 | XC34 | 59 |
-| XC07 | 3 | XC21 | 11 | XC35 | 30 |
-| XC08 | 1 | XC22 | 1 | XC36 | 9 |
-| XC09 | 2 | XC23 | 6 | XC37 | 8 |
-| XC10 | 1 | XC24 | 12 | XC38 | 976 |
-| XC11 | 1 | XC25 | 6 | XC39 | 278 |
-| XC12 | 11 | XC26 | 6 | XC40 | 2 |
-| XC13 | 1 | XC27 | 279 | XC41 | 120 |
-| XC14 | 6 | XC28 | 9 | total | 1,935 |
+| XC01 | 14 | XC18 | 2 | XC35 | 30 |
+| XC02 | 3 | XC19 | 5 | XC36 | 9 |
+| XC03 | 4 | XC20 | 1 | XC37 | 8 |
+| XC04 | 12 | XC21 | 11 | XC38 | 976 |
+| XC05 | 1 | XC22 | 1 | XC39 | 278 |
+| XC06 | 2 | XC23 | 6 | XC40 | 2 |
+| XC07 | 3 | XC24 | 12 | XC41 | 15 |
+| XC08 | 2 | XC25 | 6 | XC42 | 19 |
+| XC09 | 2 | XC26 | 6 | XC43 | 14 |
+| XC10 | 1 | XC27 | 279 | XC44 | 12 |
+| XC11 | 1 | XC28 | 9 | XC45 | 13 |
+| XC12 | 11 | XC29 | 3 | XC46 | 20 |
+| XC13 | 1 | XC30 | 11 | XC47 | 13 |
+| XC14 | 6 | XC31 | 1 | XC48 | 9 |
+| XC15 | 14 | XC32 | 1 | XC49 | 4 |
+| XC16 | 8 | XC33 | 14 | total | 1,935 |
+| XC17 | 1 | XC34 | 59 |  |  |
 
-`XC40` contains exactly the frozen saga-frontier contract and runner. `XC41`
-contains no admitted donor by implication. If M3 needs one of its 120 paths,
-the correction vector must be amended with an exact Product obligation,
-destination, accepted loss, admission order, and owning proof before extraction.
+`XC40` contains exactly the frozen saga-frontier contract and runner. The 120
+paths formerly assigned to a generic catch-all now occupy `XC08` and
+`XC41`-`XC49`. The executable partition has no fallback rule; an unmatched path
+is a reproduction failure rather than an implicit archive decision.

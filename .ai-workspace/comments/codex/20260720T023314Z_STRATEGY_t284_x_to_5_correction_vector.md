@@ -255,7 +255,7 @@ falls into `RCI-12`; there is no unclassified inherited default.
 | `RCI-06` | `code/src/shared/**` not matched by `RCI-01` | `rewrite` | Re-adopt only small validation, process, identity, configuration, or evidence primitives with an accepted 5.0 owner | Immediately before the consuming admitted carrier; never as a shared-library wave | proof of the consuming feature plus no rival shared authority |
 | `RCI-07` | remaining `code/**` | `rewrite` | Recreate only required package exports, implementation bindings, and shims from accepted design | With the first consuming D1-D5 carrier, not before it | installed typecheck, package export, and `ABI5-ROOT-001` proof |
 | `RCI-08` | `test_env/tests/**`, `test_env/live/**`, `test_env/sandbox/**`, `test_env/type_tests/**`, `test_env/gates/**`, and test support/corpus not matched by `RCI-01` | `rewrite` | Port tests only with the re-adopted behavior; old engine/compiler expectations remain predecessor evidence | After or transactionally with the exact behavior under proof | owning Product scenario and mutation-negative proof |
-| `RCI-09` | `test_env/downstream/**` | `redundant` | Archive the frozen odd_sdlc fixture; create the smaller independent flavored-catalog fixture required by F17 | D6 only; no predecessor fixture admission | `ABG5-S06` |
+| `RCI-09` | `test_env/downstream/**` | `redundant` | Archive the frozen odd_sdlc fixture; create the smaller independent flavored-catalog fixture required by F17 | D5 after the public path is stable and before STDO-dependent qualification; no predecessor fixture admission | `ABG5-S06` |
 | `RCI-10` | `design/**` and design ADRs | `redundant` | Preserve as historical evidence only; M3 derives a new direct-GTL design | No successor admission; review as M3 negative precedent | M3 independent design review |
 | `RCI-11` | `package.json`, lockfile, TypeScript/ESLint config, current README files, `.gitignore`, and `config/**` | `rewrite` | Build a minimal 5.0 package/install surface from Product and accepted design; no predecessor script is ambient authority | D1, before any successor carrier can be promoted | source-independent pack/install and `ABI5-ROOT-001` |
 | `RCI-12` | legacy packed `.tgz` files and every remaining RC5 tenant path | `redundant` | Preserve only in the immutable RC5 source/package snapshot; do not copy into the successor | No successor admission | installed package inventory absence proof |
@@ -362,7 +362,7 @@ delta.
 | `A5-F14` packed Hello World and live F_P | B19/B22/B23/B24/B26 conserved; exact all-F_D root and later F_P path are distinct 5.0 subjects | contradictory | replace | Packed fixtures use old runtime bindings/compiler path and do not satisfy `ABI5-ROOT-001`. |
 | `A5-F15` exact-candidate qualification | B18/B22/B23/B25/B26 conserved; the pre-RC/RC/final-tap chain extends them | partial | refactor | M05 carriers exist; the exact 5.0 subject chain is not realized. |
 | `A5-F16` immutable RC and stable 5.0 | B22/B23/B25/B26 release integrity conserved; 5.0 RC, final tap, stable tag, and post-publication proof are new subjects | missing | create | No 5.0 release subject exists. |
-| `A5-F17` downstream portability | B23 source-blind consumption conserved; the independent flavored-catalog fixture is a 5.0 addition | missing | create | Historical/downstream fixtures are not the accepted proof. |
+| `A5-F17` downstream portability | B23 source-blind consumption conserved; the independent flavored-catalog fixture is a 5.0 addition | missing | create | Historical/downstream fixtures are not the accepted proof; create and prove the replacement in D5 before the STDO 2.0 tap. |
 
 ## 7. Scenario And Root Coverage
 
@@ -373,7 +373,7 @@ delta.
 | `ABG5-S03` | B02/B03/B05 and F_H behavior conserved; One Surface continuation program is new | contradictory | refactor | Components exist behind rival ordering/controller paths. |
 | `ABG5-S04` | B18/B22/B23/B25/B26 conserved; tapped-STDO self-conformance is new | missing | create | Requires tapped STDO 2.0 and exact-candidate self-conformance. |
 | `ABG5-S05` | B02/B04/B15/B16/B17 conserved; SYSTEM Consensus and three-workspace proof are new | contradictory | refactor | Consensus assets exist; ordinary direct execution and complete evidence do not. |
-| `ABG5-S06` | B06/B23 conserved; bounded host parity and independent flavored catalog are new | partial | refactor | Native surfaces exist; no-copy parity and independent fixture are incomplete. |
+| `ABG5-S06` | B06/B23 conserved; bounded host parity and independent flavored catalog are new | partial | refactor | Native surfaces exist; complete no-copy parity and the independent fixture in D5 before STDO-bound qualification begins. |
 | `ABG5-S07` | B18/B22/B23/B25/B26 conserved; exact 5.0 release-subject chain extends them | missing | create | Qualification and release chain has not begun. |
 
 `ABI5-ROOT-001` remains red:
@@ -401,8 +401,9 @@ the root in rank order and reruns the governor at every promoted checkpoint.
 Donor admission stages classify extraction order without pre-deciding M3 module
 shape: `D1` package/binding/catalog foundation; `D2` GTL authoring and
 validation; `D3` all-`F_D` direct HoG/ABG root; `D4` remaining traversal,
-`F_P`, and `F_H`; `D5` Product constructions and public projections; `D6`
-qualification and release. A row may move only after its owning proof is
+`F_P`, and `F_H`; and `D5` Product constructions, public projections, and
+pre-qualification downstream portability. `D6` owns STDO-bound conformance,
+qualification, and release. A row may move only after its owning proof is
 available. `D4` B-001 proof precedes the first `F_P` transport admission but is
 not part of `D3` root closure.
 
@@ -412,8 +413,8 @@ not part of `D3` root closure.
 | `D2` | GTL.TypeScript declarations, serialization, raw admission, and non-lowering static validation for that target. |
 | `D3` | One all-`F_D` direct HoG traversal with ABG event, result, replay, and typed public outcome satisfying `ABI5-ROOT-001`. |
 | `D4` | Remaining C relations and declared `F_P`/`F_H` seams; B-001 is proved before the first `F_P` transport admission. |
-| `D5` | Standard Product constructions, Consensus, One Surface, observer/tuner, and thin public SDK/CLI projections over the same D3/D4 path. |
-| `D6` | Exact-candidate conformance, qualification, release, downstream portability, and post-publication proof under tapped STDO 2.0. |
+| `D5` | Standard Product constructions, Consensus, One Surface, observer/tuner, thin public SDK/CLI projections, and the independent flavored-catalog portability proof over the same D3/D4 path. This stage closes `ABG5-S06` before the STDO 2.0 tap. |
+| `D6` | Exact-candidate self-conformance, qualification, release, and post-publication proof under tapped STDO 2.0. This stage owns `ABG5-S04` and `ABG5-S07`, not pre-tap portability. |
 
 | ID | Carrier family | 4.6 disposition | Coverage / action | Successor owner; admission stage; owning proof |
 |---|---|---|---|---|
@@ -424,7 +425,7 @@ not part of `D3` root closure.
 | `XC05` | whole-program validator: `gtl_program_conformance.ts` | conserved | diagnostics mixed with lowering/count authority; `replace` | non-lowering GTL validator; D2; valid/invalid whole-program corpus |
 | `XC06` | helpers named compiler: `graph_function_application_compiler.ts`, `hof_relation_compiler.ts` | not_applicable | total checks may survive; `refactor` | GTL materialization/validation; D2-D3; S01/S02 and no-plan mutation |
 | `XC07` | HoG runtime-program syntax/catalog | not_applicable | rival program/default/selector; `delete` | none; D3 retirement; installed absence proof |
-| `XC08` | C-to-HoG lowering: `c_algebra_hog_compiler.ts` | superseded | compiled handoff; `delete` | none; D3 retirement; direct-path plus lowering absence proof |
+| `XC08` | C-to-HoG and execution-declaration lowering: `c_algebra_hog_compiler.ts`, `execution_declaration_compiler.ts` | superseded | compiled plans and executable handoff; `delete` | none; D3 retirement; direct-path plus lowering absence proof |
 | `XC09` | GraphVector compiler/handoff | superseded | checks around executable authority; `replace` | HoG traversal boundary; D3; S01 direct entry and no-handoff mutation |
 | `XC10` | Complete C plan/compiler | not_applicable | useful locus checks, prohibited plan; `replace` | HoG traversal validation; D3; S02 and `CompiledCProgramPlan` absence |
 | `XC11` | Complete C runtime | not_applicable | useful receipts/fold, plan executor; `refactor` | generic HoG traversal plus ABG admission; D3-D4; S01/S02 |
@@ -457,15 +458,24 @@ not part of `D3` root closure.
 | `XC38` | public/event/transport tests | conserved | reusable after rebinding; `refactor` | owning successor proof lanes; D1-D6; each consuming feature |
 | `XC39` | accepted compiled-plan designs | not_applicable | invalidated decision evidence; `archive` | none; archive at X; M3 replacement review |
 | `XC40` | saga-frontier contract and runner: `saga_frontier.ts`, `saga_frontier_runner.ts` | conserved | useful replay/frontier and idempotency semantics mixed with scheduler/admission authority; `refactor` | GTL topology plus declared transition relation, HoG traversal, selected implementation leaf effects, and ABG admission/replay; D4; serial/parallel equivalence and no-scheduler mutations |
-| `XC41` | every X path not matched by `XC01`-`XC40` | not_applicable | no admitted target relation; `archive` | none; immutable X archive only; any later donor request must amend this census and pass review before extraction |
+| `XC41` | ABG core carriers, schemas, admission, execution-family, and result-assessment contracts not matched above | conserved | useful typed runtime boundaries mixed with X-era owner assumptions; `refactor` | ABG runtime-truth substrate and selected implementation interfaces; D3-D4; R8-R10 causal/result proof plus no carrier-authored topology |
+| `XC42` | direct-relation, consequence, handler, retry-frontier, temporal, and traversal-modulation contracts not matched above | conserved | reusable relation semantics mixed with compiler and scheduler assumptions; `refactor` | GTL declares topology, HoG traverses, implementations propose effects, ABG admits transitions; D2-D4; 40-row matrix plus scheduler/topology mutations |
+| `XC43` | assurance, evaluation, observation, proof-strength, liveness, and structure-probe contracts | conserved | useful evidence and judgment relations with stale subject/authority coupling; `refactor` | Product evaluators and ABG replay/evidence projections; D3-D5; replay-grounded positive proof and forged-evidence negatives |
+| `XC44` | requirement algebra, witness, instruction, diagnosis, reprice, and workspace-hygiene contracts | conserved | useful governed-context and gap semantics mixed with predecessor workflow identity; `refactor` | Product GraphFunctions over admitted workspace and ABG evidence; D4-D5; requirement-route, re-entry, and no-silent-reprice proofs |
+| `XC45` | public-operation contract families, ingress/admission, artifact projection, construction runner, and runtime authoring/projection routes | conserved | public contract and replay interiors mixed with private ingress and special runners; `refactor` | one Product-owned public contract authority, thin public projection, and ordinary HoG traversal; D3-D5; public-path parity plus private-ingress/controller absence |
+| `XC46` | shared ABG delivery, identity, policy, conformance, and validation primitives | conserved | reusable total helpers and negative authority guards without standalone Product authority; `refactor` | consuming admitted D1-D6 carrier only; proof of the consuming feature plus no shared controller, scheduler, or truth register |
+| `XC47` | TypeScript barrels, requirement exports, root indexes, and node shims | not_applicable | X export topology is not successor authority; `replace` | minimal exports derived with each consuming D1-D5 carrier; installed typecheck and package-export proof |
+| `XC48` | package/configuration files and current README surfaces not matched above | not_applicable | useful build inputs mixed with X scripts and descriptions; `replace` | minimal D1 package/install/configuration surface; source-independent pack/install and root proof |
+| `XC49` | legacy packed tarballs and tracked `node_modules` marker | not_applicable | historical or generated residue; `archive` | no successor admission; immutable X archive and successor package-absence proof |
 
 The ordered first-match predicates, complete 1,935-path membership count,
 per-family counts, and membership digest are fixed in
 `.ai-workspace/comments/codex/20260720T055423Z_EVIDENCE_t284_x_carrier_membership.md`.
 That evidence is part of the T-284 review subject. A representative path in
 this semantic table does not determine membership; only the frozen predicate
-order does. `XC41` is therefore a reproducible refusal boundary, not an ambient
-catch-all that M3 may mine without re-entry.
+order does. There is no catch-all predicate: any unmatched frozen path fails
+the reproduction. `XC41` through `XC49` explicitly dispose of all 120 paths
+previously hidden by the generic refusal row.
 
 The census deliberately avoids treating 129 contract files or 19 public
 operations as the engine ontology. The target Prime is the accepted language,
