@@ -16,7 +16,7 @@ does not accept M4 or close T-286.
 - accepted design:
   `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`
 - accepted design SHA-256:
-  `9faeb41d98ac17a9036f631d74b44319939f626c5213ee5b06f1387e9f7b92f0`
+  `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`
 - changed files: `30`
 
 The subject changes runtime, public-boundary, installed-path test, and retained
