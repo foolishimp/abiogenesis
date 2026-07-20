@@ -20,7 +20,7 @@ import {
 
 type JsonRecord = { readonly [key: string]: JsonValue };
 
-interface ProductManifestView {
+export interface ProductManifestView {
   readonly kind: "abg_product_toolchain_manifest";
   readonly schemaVersion: "5.0.0";
   readonly productId: string;
@@ -74,7 +74,7 @@ function isSafeProductPath(value: string): boolean {
   return normalized === value && normalized !== ".." && !normalized.startsWith("../");
 }
 
-function parseManifest(value: unknown): ProductManifestView | null {
+export function parseProductManifest(value: unknown): ProductManifestView | null {
   if (!isRecord(value) || !isRecord(value.publicContractCatalog)) {
     return null;
   }
@@ -224,7 +224,7 @@ export async function verifyProduct(
     return refusal(request, "manifest_unreadable", String(error));
   }
 
-  const manifest = parseManifest(manifestUnknown);
+  const manifest = parseProductManifest(manifestUnknown);
   if (manifest === null) {
     return refusal(request, "manifest_malformed", "product manifest shape is invalid");
   }

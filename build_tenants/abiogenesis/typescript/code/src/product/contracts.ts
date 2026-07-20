@@ -57,3 +57,45 @@ export interface ProductVerificationRefusal {
 export type ProductVerificationResult =
   | ProductVerificationRefusal
   | VerifiedProductArtifact;
+
+export interface InstallProductRequest {
+  readonly artifactPath: string;
+  readonly targetRoot: string;
+  readonly verifiedArtifact: VerifiedProductArtifact;
+}
+
+export interface ProductInstallCandidate {
+  readonly kind: "product_install_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "materialized";
+  readonly installId: string;
+  readonly installedRoot: string;
+  readonly productId: string;
+  readonly packageName: string;
+  readonly packageVersion: string;
+  readonly artifactDigest: Sha256Digest;
+  readonly productContentDigest: Sha256Digest;
+  readonly manifestDigest: Sha256Digest;
+}
+
+export const PRODUCT_INSTALL_REFUSAL_CODES = [
+  "target_not_empty",
+  "artifact_mismatch",
+  "install_failed",
+  "installed_identity_mismatch",
+  "installed_manifest_mismatch",
+  "unexpected_source_surface",
+] as const;
+
+export type ProductInstallRefusalCode =
+  (typeof PRODUCT_INSTALL_REFUSAL_CODES)[number];
+
+export interface ProductInstallRefusal {
+  readonly kind: "product_install_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: ProductInstallRefusalCode;
+  readonly message: string;
+}
+
+export type ProductInstallResult = ProductInstallCandidate | ProductInstallRefusal;
