@@ -388,11 +388,15 @@ residuals without widening or changing workspace catalog truth.
 admitted GraphFunction handle published by that program, its declared input,
 one immutable workspace binding, and declared session policy and capability
 inputs. The explicit function handle is the invocation target; ABG shall
-validate its program membership, catalog eligibility, contracts, binding, and
-authority before beginning one GraphCall. The `invoke` variant shall neither
-accept nor require `root_mode`, `until`, or any other `start`-only traversal
-grammar. That direct path does not require or synthesize `evaluateNext`, One
-Surface, or a `ConstructionIntent`.
+consume a typed non-lowering GTL-validator result that validates the handle's
+declared program membership and GraphFunction contract relations. ABG shall
+then admit the concrete input against those declared contracts, current catalog
+eligibility, immutable workspace binding, session policy and capability, and
+invocation authority before beginning one GraphCall. ABG shall not reinterpret
+or recompute the validator's static GTL judgment. The `invoke` variant shall
+neither accept nor require `root_mode`, `until`, or any other `start`-only
+traversal grammar. That direct path does not require or synthesize
+`evaluateNext`, One Surface, or a `ConstructionIntent`.
 
 When the invocation instead realizes an action selected by `evaluateNext`
 inside the admitted One Surface program, the exact function shall narrow the

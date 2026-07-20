@@ -13,15 +13,17 @@ Define the ABG substrate law for the admitted GTL One Surface construction
 composition: an event-sourced tail-recursive episode that keeps product-model
 synthesis, gap evaluation, next-action evaluation, and action-result evaluation
 as distinct authorities while ABG admits intent, invokes published
-GraphFunctions, records evidence, continues, and projects.
+GraphFunctions, admits evidence and action-evaluation results, continues, and
+projects.
 
 ## Acceptance Criteria
 
 **REQ-R-ABG3-FPC-001**: An admitted GTL program shall declare the One Surface
 construction episode as tail recursion over `synthesizeModel -> evalGap ->
 evaluateNext -> admitConstructionIntent -> invokeGraphFunction |
-continueExecution -> admit evidence -> evaluateAction -> exact next basis ->
-refresh model -> fresh evalGap -> evaluateNext -> projection`. HoG shall
+continueExecution -> emit candidate evidence -> admit evidence ->
+evaluateAction -> admit action evaluation and closure result -> exact next
+basis -> refresh model -> fresh evalGap -> evaluateNext -> projection`. HoG shall
 traverse that admitted composition and ABG shall admit its runtime facts;
 public ingress, an adapter, a plugin, or an ABG helper shall not own or reorder
 it.
@@ -60,23 +62,23 @@ it.
 
 **REQ-R-ABG3-FPC-007**: `evaluateNext` shall select at most one lawful action; ABG shall admit at most one corresponding new construction intent. If no action or intent is admitted, the total next-action result shall be typed block, F_H input request, ticket/reprice proposal, escalation, or another declared no-action disposition rather than silent same-edge retry.
 
-**REQ-R-ABG3-FPC-008**: A new admitted construction intent shall invoke work only through ABG-owned program-membership, graph-call, frame, event, lineage, and execution mechanics. Continuation of the current intent shall instead consume its replay-derived `Continuation` through `continueExecution`. CLI surfaces, harnesses, downstream adapters, worker prompts, and projectors shall not own either path or the construction composition.
+**REQ-R-ABG3-FPC-008**: A new admitted construction intent shall invoke work only through ABG admission of GTL-declared program membership and ABG-owned graph-call, frame, event, lineage, and execution mechanics. Continuation of the current intent shall instead consume its replay-derived `Continuation` through `continueExecution`. CLI surfaces, harnesses, downstream adapters, worker prompts, and projectors shall not own either path or the construction composition.
 
-**REQ-R-ABG3-FPC-009**: Every construction iteration shall append or derive replay-visible truth sufficient to reconstruct the exact admitted program and workspace binding, model synthesis, observation snapshot and gap evaluation, action-catalog basis, target binding, next-action evaluation, intent admission or current-intent continuation, selected graph invocation, evidence admission, action evaluation, output delta, exact next-action basis, refreshed model/gap/selection, progress classification, and terminal projection without private mutable controller state.
+**REQ-R-ABG3-FPC-009**: Every construction iteration shall append or derive replay-visible truth sufficient to reconstruct the exact admitted program and workspace binding, model synthesis, observation snapshot and gap evaluation, action-catalog basis, target binding, next-action evaluation, intent admission or current-intent continuation, selected graph invocation, evidence admission, candidate action evaluation, action-evaluation and closure admission, output delta, exact next-action basis, refreshed model/gap/selection, progress classification, and terminal projection without private mutable controller state.
 
 **REQ-R-ABG3-FPC-010**: ABG shall derive a `ConstructionProgressLedger` that distinguishes progress from stagnation. A new artifact digest, newly admitted progress row, narrowed blocker, fulfilled obligation row, accepted F_H decision, or lawful reentry movement may count as progress. The same blocker with the same material artifact digest shall not count as progress. The ledger is admitted evidence and gap/selection input; it shall not select or close an action by itself.
 
-**REQ-R-ABG3-FPC-011**: F_D evidence shall remain mechanical or domain-owned optimization truth. When source authority does not disambiguate product meaning, F_D shall not force canonical semantic output or fail the construction episode. It shall admit ambiguity evidence that `evalGap` may project as pressure and `evaluateNext` may consume; it shall not select or close an action directly.
+**REQ-R-ABG3-FPC-011**: F_D evidence shall remain mechanical or domain-owned optimization truth. When source authority does not disambiguate product meaning, F_D shall not force canonical semantic output or fail the construction episode. It shall emit candidate ambiguity evidence for ABG admission. Only ABG-admitted ambiguity evidence may enter the observation snapshot that `evalGap` projects as candidate pressure and `evaluateNext` consumes after its own result admission; F_D shall not admit evidence, select, or close an action directly.
 
-**REQ-R-ABG3-FPC-011A**: F_D outcomes shall carry admitted authority-placement severity when they do not accept. The closed severity classes are `protocol_invalid`, `construction_context_invalid`, `diagnostic_shape_invalid`, and `content_unproven`.
+**REQ-R-ABG3-FPC-011A**: Candidate F_D outcomes shall carry a proposed authority-placement severity when they do not accept. The closed severity classes are `protocol_invalid`, `construction_context_invalid`, `diagnostic_shape_invalid`, and `content_unproven`. ABG shall admit or reject the candidate outcome and severity before either becomes routing input or runtime truth.
 
-**REQ-R-ABG3-FPC-011B**: ABG shall derive F_D pressure routing from severity plus evaluator-declared `consumedFieldRefs`. `protocol_invalid` and `construction_context_invalid` block. `diagnostic_shape_invalid` blocks only when the malformed field is consumed by downstream routing, execution construction, pressure projection, or closure; otherwise it preserves pressure and allows lawful construction to continue. `content_unproven` routes to F_P/content pressure rather than deterministic closure.
+**REQ-R-ABG3-FPC-011B**: ABG shall derive F_D pressure routing from admitted severity plus evaluator-declared `consumedFieldRefs`. `protocol_invalid` and `construction_context_invalid` block. `diagnostic_shape_invalid` blocks only when the malformed field is consumed by downstream routing, execution construction, pressure projection, or closure; otherwise it preserves pressure and allows lawful construction to continue. `content_unproven` routes to F_P/content pressure rather than deterministic closure.
 
-**REQ-R-ABG3-FPC-011C**: F_D authority-placement decisions shall be replay-visible runtime truth. The event spine shall preserve status, severity class, routing decision, affected field refs, consumed field refs, pressure refs, diagnostics, and evidence refs sufficient to replay the runner's block, continue, pressure-preserve, or F_P-route behavior.
+**REQ-R-ABG3-FPC-011C**: ABG-admitted F_D severity and ABG-derived authority-placement routing shall be replay-visible runtime truth. The event spine shall preserve status, severity class, routing decision, affected field refs, consumed field refs, pressure refs, diagnostics, and evidence refs sufficient to replay the runner's block, continue, pressure-preserve, or F_P-route behavior.
 
 **REQ-R-ABG3-FPC-011D**: Plugins may report deterministic evidence and affected fields, but they shall not own pressure-routing authority. If a plugin supplies a routing decision, ABG shall admit it only when it matches the routing derived from admitted severity and consumed-field truth.
 
-**REQ-R-ABG3-FPC-011E**: `evaluateAction` shall consume one admitted construction intent, that action's complete admitted evidence set, the immutable workspace binding, and declared closure policy and shall emit one immutable `EdgeFulfillmentLedger` plus one closed `EdgeClosureDecision`. Only this complete governed F_D fold may create `close | yield | retry | repair | re-enter | reprice | block` action truth. F_P output, F_H response, process success, liveness, or any single evidence row shall not close work directly.
+**REQ-R-ABG3-FPC-011E**: `evaluateAction` shall consume one admitted construction intent, that action's complete admitted evidence set, the immutable workspace binding, and declared closure policy and shall emit one immutable candidate `EdgeFulfillmentLedger` plus one candidate `EdgeClosureDecision`. ABG shall admit or reject those evaluator outputs against the admitted intent, complete evidence set, binding, declared GTL result and closure contracts, and closure policy before either becomes runtime or closure truth. Only an ABG-admitted result of this complete governed F_D fold may establish `close | yield | retry | repair | re-enter | reprice | block` action truth. `evaluateAction`, F_P output, F_H response, process success, liveness, or any single evidence row shall not close work directly.
 
 **REQ-R-ABG3-FPC-012**: The public construction read shall expose the one admitted `NextActionProjection` and terminal/action-evaluation truth without recomputation. Minimum rendered states are `construction_closed`, `construction_progressing_yield`, `construction_blocked`, `construction_stalled`, `construction_review_required`, `construction_escalated`, `fh_input_required`, `ticket_created`, and `reprice_required`.
 
