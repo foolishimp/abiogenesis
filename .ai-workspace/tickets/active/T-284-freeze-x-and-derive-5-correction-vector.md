@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: realization_correction
 - status: active
-- phase_status: x_frozen_vector_derivation_pending
-- review_status: pending
-- proof_status: x_freeze_reproduced
+- phase_status: x_frozen_vector_self_review_complete_independent_review_pending
+- review_status: self_review_complete_independent_review_pending
+- proof_status: x_freeze_and_vector_integrity_verified
 - goal: GOAL-035 M2
 - priority: critical
 - change_class: design_reframe
@@ -26,6 +26,15 @@
 - x_source_commit: 1b8b2b0a22ad5dc484e3db5c19fd562cd7935ff8
 - x_snapshot_commit: 676766a648066eaa69dce05f636d5ec98fb40dec
 - x_snapshot_ref: archive/t284-x-freeze-20260720T022230Z
+- correction_strategy: clean_rc5_successor_with_selective_x_donor_admission
+- migration_strategy: fundamental_re_adoption_from_exact_rc5
+- correction_vector_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
+- correction_vector_sha256: 76864793039238e28bc5386704f92972e8c4964cfe283847d2d08d5c3d96539f
+- self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T025354Z_SELF_REVIEW_t284_correction_vector.md
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
 
@@ -37,6 +46,12 @@ semantic origin through X to the accepted ABIogenesis 5.0 Product.
 
 This ticket performs classification. It does not accept X, design the
 replacement, or implement a correction.
+
+The classified construction base is the exact clean RC5 source commit. X is an
+immutable donor and evidence line, not the successor merge base. No X commit or
+active-ticket queue may be migrated wholesale. Each retained X behavior must
+cross a target-obligation and authority admission before entering the clean
+successor.
 
 ## Inputs
 
