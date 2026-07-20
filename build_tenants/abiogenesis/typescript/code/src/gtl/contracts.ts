@@ -1,0 +1,130 @@
+import type { Sha256Digest, VerifiedProductArtifact } from "../product/index.js";
+
+export type ComputeRegime = "F_D" | "F_H" | "F_P";
+
+export interface ContractDeclaration {
+  readonly contractRef: string;
+  readonly contractVersion: "5.0.0";
+  readonly contractKind: "input" | "output" | "failure" | "refusal" | "closure";
+}
+
+export interface GtlEnvironment {
+  readonly requires: readonly string[];
+  readonly provides: readonly string[];
+  readonly carries: readonly string[];
+}
+
+export interface GtlNode {
+  readonly nodeRef: string;
+  readonly nodeKind: "c_locus";
+  readonly computeRegime: ComputeRegime;
+  readonly implementationBindingRef: string;
+  readonly inputContractRef: string;
+  readonly outputContractRef: string;
+}
+
+export interface GtlEdge {
+  readonly edgeRef: string;
+  readonly fromNodeRef: string;
+  readonly toNodeRef: string;
+}
+
+export interface GraphTemplate {
+  readonly kind: "inline_graph";
+  readonly graphRef: string;
+  readonly startNodeRef: string;
+  readonly terminalNodeRefs: readonly string[];
+  readonly nodes: readonly GtlNode[];
+  readonly edges: readonly GtlEdge[];
+}
+
+export interface GraphFunction {
+  readonly kind: "graph_function";
+  readonly name: string;
+  readonly version: "5.0.0";
+  readonly environment: GtlEnvironment;
+  readonly inputs: readonly string[];
+  readonly outputs: readonly string[];
+  readonly template: GraphTemplate;
+  readonly effects: readonly string[];
+  readonly declarations: Readonly<Record<string, string>>;
+  readonly tags: readonly string[];
+}
+
+export interface ImplementationBinding {
+  readonly kind: "implementation_binding";
+  readonly bindingRef: string;
+  readonly implementationRef: string;
+  readonly computeRegime: ComputeRegime;
+  readonly inputContractRef: string;
+  readonly outputContractRef: string;
+  readonly failureContractRef: string;
+  readonly refusalContractRef: string;
+}
+
+export interface ClosureContract {
+  readonly kind: "closure_contract";
+  readonly closureContractRef: string;
+  readonly predicateRef: string;
+  readonly resultContractRef: string;
+  readonly refusalContractRef: string;
+  readonly eventKindRefs: readonly [
+    "terminal_reached",
+    "frame_closed",
+    "graph_call_closed",
+    "run_closed",
+  ];
+}
+
+export interface ProgramStart {
+  readonly startRef: string;
+  readonly graphFunctionRef: string;
+}
+
+export interface GtlProgram {
+  readonly kind: "gtl_program";
+  readonly programRef: string;
+  readonly version: "5.0.0";
+  readonly moduleRef: string;
+  readonly starts: readonly ProgramStart[];
+  readonly callableMembership: readonly string[];
+  readonly closureContractRef: string;
+  readonly policies: Readonly<Record<string, string>>;
+}
+
+export type CatalogContributionKind = "graph_function" | "node_type" | "overlay";
+
+export interface CatalogContribution {
+  readonly handle: string;
+  readonly kind: CatalogContributionKind;
+  readonly declarationOrContractRef: string;
+  readonly owningProductId: string;
+  readonly programMembershipRefs: readonly string[];
+  readonly compatibilityRefs: readonly string[];
+  readonly provenanceRefs: readonly string[];
+}
+
+export interface ModulePublication {
+  readonly kind: "module_publication";
+  readonly moduleRef: string;
+  readonly moduleVersion: "5.0.0";
+  readonly owningProductId: string;
+  readonly artifactDigest: Sha256Digest;
+  readonly productContentDigest: Sha256Digest;
+  readonly productManifestDigest: Sha256Digest;
+  readonly descriptorRef: string;
+  readonly contributionManifestRef: string;
+  readonly contracts: readonly ContractDeclaration[];
+  readonly implementationBindings: readonly ImplementationBinding[];
+  readonly closureContracts: readonly ClosureContract[];
+  readonly programs: readonly GtlProgram[];
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly contributions: readonly CatalogContribution[];
+}
+
+export interface RootModuleArtifactBasis {
+  readonly productId: VerifiedProductArtifact["productId"];
+  readonly artifactDigest: VerifiedProductArtifact["artifactDigest"];
+  readonly productContentDigest: VerifiedProductArtifact["productContentDigest"];
+  readonly productManifestDigest: VerifiedProductArtifact["manifestDigest"];
+}

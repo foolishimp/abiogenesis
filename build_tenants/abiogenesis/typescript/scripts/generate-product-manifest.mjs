@@ -78,6 +78,22 @@ const abgNativeInventory = [
     declarationDigest: abgDeclarationDigest,
   },
 ];
+const gtlDeclarationPath = "build/code/src/gtl/index.d.ts";
+const gtlNativeInventory = [
+  {
+    packageExportPath: "./gtl",
+    declarationPath: gtlDeclarationPath,
+    declarationDigest: await sha256File(join(root, gtlDeclarationPath)),
+  },
+];
+const validatorDeclarationPath = "build/code/src/validator/index.d.ts";
+const validatorNativeInventory = [
+  {
+    packageExportPath: "./validator",
+    declarationPath: validatorDeclarationPath,
+    declarationDigest: await sha256File(join(root, validatorDeclarationPath)),
+  },
+];
 
 const rows = [
   {
@@ -114,6 +130,61 @@ const rows = [
       packageExportPath: "./abg",
       namedSymbol: "AbgEventStore",
       declarationPath: abgDeclarationPath,
+    },
+  },
+  {
+    contractId: "abg.contract.gtl.root-declaration",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(gtlNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-029",
+    ],
+    capabilityIdentities: ["abg.capability.gtl.author@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./gtl",
+      namedSymbol: "constructHelloWorldModulePublication",
+      declarationPath: gtlDeclarationPath,
+    },
+  },
+  {
+    contractId: "abg.contract.abg.catalog-root-admission",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-029",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-051A",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-053",
+    ],
+    capabilityIdentities: ["abg.capability.catalog.admit-root@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./abg",
+      namedSymbol: "admitCatalog",
+      declarationPath: abgDeclarationPath,
+    },
+  },
+  {
+    contractId: "abg.contract.gtl.validation-root",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(validatorNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/PRODUCT.md#validation-contract",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
+    ],
+    capabilityIdentities: ["abg.capability.gtl.validate@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./validator",
+      namedSymbol: "rawAdmitValue",
+      declarationPath: validatorDeclarationPath,
     },
   },
   {

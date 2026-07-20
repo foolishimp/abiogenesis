@@ -19,6 +19,14 @@
     "./abg": {
       "types": "./build/code/src/abg/index.d.ts",
       "import": "./build/code/src/abg/index.js"
+    },
+    "./gtl": {
+      "types": "./build/code/src/gtl/index.d.ts",
+      "import": "./build/code/src/gtl/index.js"
+    },
+    "./validator": {
+      "types": "./build/code/src/validator/index.d.ts",
+      "import": "./build/code/src/validator/index.js"
     }
   },
   "files": [
@@ -32,7 +40,8 @@
     "prepack": "npm run build",
     "test:r1": "npm run build && node --test test_env/tests/r1-packed-artifact.test.mjs",
     "test:r2": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs",
-    "test:r3": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs"
+    "test:r3": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs",
+    "test:r4": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs"
   },
   "devDependencies": {
     "@types/node": "24.3.0",

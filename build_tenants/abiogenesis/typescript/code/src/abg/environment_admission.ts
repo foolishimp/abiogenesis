@@ -10,7 +10,9 @@ import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 export interface ArtifactAdmissionBasis {
   readonly operationId:
     | "abg.operation.product.install"
-    | "abg.operation.workspace.bind";
+    | "abg.operation.workspace.bind"
+    | "abg.operation.catalog.admit"
+    | "abg.operation.catalog.view";
   readonly definitionKey: string;
   readonly definitionDigest: Sha256Digest;
   readonly authorityScopeRef: string;
@@ -43,7 +45,7 @@ function refusal(
   };
 }
 
-function admitArtifact(
+export function admitArtifact(
   store: AbgEventStore,
   basis: ArtifactAdmissionBasis,
   expectedOperation: ArtifactAdmissionBasis["operationId"],

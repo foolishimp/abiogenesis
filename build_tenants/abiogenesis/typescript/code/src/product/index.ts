@@ -45,3 +45,17 @@ export {
 } from "./environment.js";
 export { installProduct } from "./install_product.js";
 export { verifyProduct } from "./verify_product.js";
+export {
+  constructCatalogAdmissionCandidate,
+  constructCatalogViewCandidate,
+  type AdmittedCatalog,
+  type CatalogAdmissionCandidate,
+  type CatalogAdmissionCandidateResult,
+  type CatalogConstructionRefusal,
+  type CatalogRowCandidate,
+  type CatalogRowDisposition,
+  type CatalogRowDispositionKind,
+  type CatalogView,
+  type CatalogViewCandidate,
+  type CatalogViewCandidateResult,
+} from "./catalog.js";

@@ -1,7 +1,9 @@
-import { sha256Canonical, type JsonValue, type Sha256Digest } from "../product/index.js";
+import { canonicalJson, sha256Canonical, type JsonValue, type Sha256Digest } from "../product/index.js";
+import { deepFreeze } from "../product/immutable.js";
 
 export const ENVIRONMENT_EVENT_KIND_VALUES = [
   "public_operation_artifact_admitted",
+  "registry_entry_admitted",
 ] as const;
 
 export type EnvironmentEventKind = (typeof ENVIRONMENT_EVENT_KIND_VALUES)[number];
@@ -50,19 +52,22 @@ export function admitRuntimeEvent(
   if (events === undefined) {
     throw new TypeError("event store was not constructed by this ABG module");
   }
+  const immutableCandidate = deepFreeze(
+    JSON.parse(canonicalJson(candidate as unknown as JsonValue)) as RuntimeEventCandidate,
+  );
   const admissionOrdinal = events.length + 1;
-  const payloadDigest = sha256Canonical(candidate.payload);
+  const payloadDigest = sha256Canonical(immutableCandidate.payload);
   const eventId = `event://abiogenesis/${sha256Canonical({
-    ...candidate,
+    ...immutableCandidate,
     payloadDigest,
     admissionOrdinal,
   }).slice("sha256:".length)}`;
-  const event = Object.freeze({
-    ...candidate,
+  const event = deepFreeze({
+    ...immutableCandidate,
     eventId,
     admissionOrdinal,
     payloadDigest,
-  });
+  }) as RuntimeEvent;
   events.push(event);
   return event;
 }

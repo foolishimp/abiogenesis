@@ -10,3 +10,10 @@ export {
   type AbgAdmissionRefusal,
   type ArtifactAdmissionBasis,
 } from "./environment_admission.js";
+export {
+  admitCatalog,
+  narrowCatalogView,
+  type CatalogAdmissionRefusal,
+  type CatalogAdmissionResult,
+  type CatalogViewAdmissionResult,
+} from "./catalog_admission.js";
