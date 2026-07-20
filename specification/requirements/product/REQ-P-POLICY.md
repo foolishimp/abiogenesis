@@ -154,13 +154,20 @@ capability inputs such as control modes and catalog view. It shall resolve only
 public target identities inside one admitted GTL program and shall return a
 typed run and GraphCall identity, current disposition, stop or terminal
 classification, and relevant result, gap, interaction, evidence, and replay
-references. Public ingress admits and transports the request. The admitted
-program owns One Surface semantic ordering and available action topology;
-Product-owned GraphFunctions own synthesis and evaluation contracts; HoG
-traverses the admitted program and selected GraphFunctions; and ABG admits the
-selected-action identity plus invocation, result, evidence, continuation, and
-closure truth. Neither the program nor HoG may mint runtime truth, and ABG
-shall not reorder the program's semantic authorities or become a scheduler.
+references. Public ingress admits and transports the request. GTL owns the
+selected program's topology and available routes, the validator checks its
+static relations, HoG traverses it, selected implementation bindings realize
+declared leaf effects, and ABG admits target selection, invocation, result,
+evidence, continuation, and closure truth.
+
+When `root_mode = direct`, `start` selects one admitted entry traversal without
+requiring One Surface, `evaluateNext`, or a `ConstructionIntent`. When
+`root_mode = supervised`, it selects the admitted standard system program and
+that program owns One Surface semantic ordering and action topology;
+Product-owned GraphFunctions own the four synthesis and evaluation contracts,
+and ABG separately admits selected-action and construction-intent truth. Neither
+the program nor HoG may mint runtime truth, and ABG shall not reorder semantic
+authorities, select traversal topology, or become a scheduler.
 
 **REQ-P-POLICY-024**: `abg.operation.run.continue` shall identify an existing
 admitted run or continuation boundary, the acting operator, and any declared

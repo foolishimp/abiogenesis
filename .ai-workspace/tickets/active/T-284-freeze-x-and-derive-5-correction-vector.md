@@ -3,13 +3,17 @@
 - id: T-284
 - title: Freeze donor lines and derive the complete 4.6-to-5.0 correction vector
 - type: analysis
-- ticket_category: realization_correction
+- ticket_category: ordinary
 - status: active
-- phase_status: repaired_candidate_frozen_independent_review_pending
-- review_status: independent_rereview_pending
-- proof_status: exact_subject_and_local_consistency_verified
+- phase_status: bounded_review_repairs_in_progress
+- review_status: changes_requested
+- proof_status: prior_candidate_reproduced_replacement_pending
 - goal: GOAL-035 M2
 - priority: critical
+- change_intent: >-
+    freeze every current donor line, reconcile retained 4.6 semantics and
+    accepted 5.0 authority, and establish a no-silence selective-admission
+    boundary before replacement design
 - change_class: requirement_reprice
 - re_entry_point: specification/requirements
 - created_at: 2026-07-20
@@ -32,25 +36,29 @@
 - final_integration_snapshot_commit: 3c2d86d43d851fda0ce4a08a124beac2d3770f2d
 - final_integration_snapshot_ref: archive/t284-final-integration-freeze-20260720T032908Z
 - correction_strategy: fresh_zero_inherited_5_successor_with_selective_donor_admission
-- migration_strategy: fundamental_re_adoption_with_rc5_x_and_final_integration_sideways
+- selected_migration_strategy: fundamental_re_adoption
+- donor_basis: rc5_x_and_final_integration_sideways
 - correction_vector_ref: >-
     .ai-workspace/comments/codex/
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
-- correction_vector_sha256: 28b5987f014bf42bdaf3e6028f380545e16143b1679b5a723a1a5db33066fe8f
-- repaired_candidate_commit: 4ac6617c6450234cfb1c20112a89c286f4e6e7ce
-- repaired_candidate_tree: 8921125d947428066618b93f140eb306e286a62c
-- constitutional_subject_files: 85
-- constitutional_subject_sha256: bc7db5d0d8a172e2ddaf6469853336109b6960742d3cef30380e41a15c475b00
-- requirement_amendment_sha256: e532304300acfcd127632304bc9373d3d64937428b3ae562e0f9b4ed19ab55a4
-- candidate_manifest_ref: >-
+- correction_vector_sha256: pending_replacement_freeze
+- superseded_candidate_commit: 4ac6617c6450234cfb1c20112a89c286f4e6e7ce
+- superseded_candidate_tree: 8921125d947428066618b93f140eb306e286a62c
+- superseded_constitutional_subject_files: 85
+- superseded_constitutional_subject_sha256: bc7db5d0d8a172e2ddaf6469853336109b6960742d3cef30380e41a15c475b00
+- superseded_requirement_amendment_sha256: e532304300acfcd127632304bc9373d3d64937428b3ae562e0f9b4ed19ab55a4
+- superseded_candidate_manifest_ref: >-
     .ai-workspace/comments/codex/
     20260720T051507Z_CHECKPOINT_t284_repaired_candidate_manifest.md
-- self_review_ref: >-
+- superseded_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T051041Z_SELF_REVIEW_t284_repaired_candidate.md
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
-- constitutional_refreeze: frozen_independent_review_pending
+- constitutional_refreeze: prior_freeze_invalidated_replacement_pending
+- x_carrier_membership_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T055423Z_EVIDENCE_t284_x_carrier_membership.md
 
 ## Purpose
 
@@ -61,6 +69,13 @@ ABIogenesis 5.0 Product.
 
 This ticket performs classification. It does not accept X, design the
 replacement, or implement a correction.
+
+Its ticket category is `ordinary` because T-284 changes requirements and
+selects the successor migration strategy but moves no implementation. The
+later realization carrier must declare `ticket_category:
+implementation_migration`, `migration_strategy: fundamental_re_adoption`, and
+the complete ticket-method migration contract. The selected strategy and donor
+basis above are T-284 outputs, not a locally invented migration-strategy value.
 
 The successor realization begins with no inherited TypeScript implementation.
 RC5, X, and final-integration are immutable donor and evidence lines, not
@@ -86,8 +101,8 @@ repair exposes a contradiction that cannot be resolved at requirement level.
 5. the exact RC5 implementation inventory;
 6. the exact X commit, dirty patch, staged state, untracked inventory, and
    current held tickets and designs;
-7. the exact final-integration commit, dirty snapshot, and rejected-stash
-   archive; and
+7. the exact final-integration planning and transport commits, dirty snapshot,
+   and rejected-stash archive; and
 8. predecessor release claims and practical repairs that must not disappear by
    silence.
 
@@ -115,8 +130,8 @@ under the accepted owner split.
 3. one no-silence correction vector binding every row to source evidence,
    accepted target authority, current X evidence, all three dimensions,
    rationale, confidence, and unresolved decision;
-4. one carrier census at semantic module/capability altitude rather than a
-   file-count ontology;
+4. one carrier census at semantic module/capability altitude plus an exact
+   first-match membership partition over every frozen X tenant path;
 5. bounded requirement amendments restoring the Product owner split;
 6. one disposition for each held active ticket;
 7. one explicit deletion set limited to carriers with no retained semantic or
@@ -134,6 +149,8 @@ T-284 may close only when:
   silence or conflation;
 - every RC5 implementation family and relevant X/final-integration carrier has
   one explicit method class, action, destination, admission order, and proof;
+- the X first-match predicates classify every frozen tenant path and reproduce
+  the recorded path count, per-family counts, and membership digest;
 - contradictions and unresolved semantic decisions are visible;
 - direct invocation and saga-frontier requirements agree with Product's
   GTL/HoG/ABG/catalog authority split;

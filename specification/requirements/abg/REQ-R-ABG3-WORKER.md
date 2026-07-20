@@ -17,7 +17,7 @@ ABG for execution, supervision, or approval.
 
 **REQ-R-ABG3-WORKER-001**: `Worker` shall remain distinct from GTL `Role`, GTL `Job`, ABG `Run`, `GraphCall`, `Frame`, and `Continuation`.
 
-**REQ-R-ABG3-WORKER-002**: GTL shall declare role requirements. Product or implementation-binding resolution may propose a matching worker; ABG shall admit or reject that binding before HoG and the host realize the declared work.
+**REQ-R-ABG3-WORKER-002**: GTL shall declare role requirements. Product or implementation-binding resolution may propose a matching worker; ABG shall admit or reject that binding before HoG traverses the declared work and the selected implementation binding realizes its leaf effects.
 
 **REQ-R-ABG3-WORKER-003**: ABG shall accept worker identity as externally resolved input. ABG does not implement authentication.
 
@@ -25,8 +25,8 @@ ABG for execution, supervision, or approval.
 
 **REQ-R-ABG3-WORKER-005**: Reporting metadata such as `build` or `build_id` shall not be treated as a substitute for worker identity.
 
-**REQ-R-ABG3-WORKER-006**: Worker execution capability shall expose write territory explicitly enough for ABG to admit or reject a concurrency safety basis and for HoG and the host to realize the admitted branch disposition.
+**REQ-R-ABG3-WORKER-006**: Worker execution capability shall expose write territory explicitly enough for the declared policy relation to produce a concurrency proposal, for ABG to admit or reject its safety basis, for HoG to apply an admitted traversal disposition, and for the selected implementation binding to realize its leaf effects.
 
-**REQ-R-ABG3-WORKER-007**: HoG and the host may realize declared workers or executable jobs in parallel only after ABG admits a safety basis proving their write territories disjoint.
+**REQ-R-ABG3-WORKER-007**: HoG may traverse GTL-declared branches targeting workers or executable jobs in parallel only after ABG admits a safety basis proving their write territories disjoint. The selected implementation bindings may realize only those admitted leaf effects.
 
-**REQ-R-ABG3-WORKER-008**: Overlapping write territories shall produce an admitted serial disposition that HoG and the host apply. Read overlap alone shall not be treated as a parallelism conflict.
+**REQ-R-ABG3-WORKER-008**: Overlapping write territories shall produce a serial proposal under declared policy. ABG shall admit or reject that proposal, HoG shall apply only an admitted disposition, and selected implementation bindings shall realize only the resulting leaf effects. Read overlap alone shall not be treated as a parallelism conflict.

@@ -22,13 +22,13 @@ aggregates.
 
 **REQ-R-ABG3-BINDING-003**: Execution-scoped binding surfaces shall preserve at minimum admitted program identity and digest, one immutable `WorkspaceBinding` identity and digest, selected graph-function identity and program-membership evidence, semantic job identity when present, runtime run identity, worker identity, role identity, execution basis, and invocation-authority reference.
 
-**REQ-R-ABG3-BINDING-004**: When HoG and the host realize work over a published GraphFunction, ABG binding truth shall preserve the admitted-program identity, exact selected action or current-intent basis, GraphFunction identity and program-membership evidence, workspace binding, graph-call identity, execution basis, and materialization identity associated with execution.
+**REQ-R-ABG3-BINDING-004**: When HoG traverses a published GraphFunction and a selected implementation binding realizes its declared leaf effects, ABG binding truth shall preserve the admitted-program identity, exact selected action or current-intent basis, GraphFunction identity and program-membership evidence, workspace binding, graph-call identity, execution basis, implementation-binding identity, and materialization identity associated with execution.
 
 **REQ-R-ABG3-BINDING-005**: Binding conformance shall be validated against the admitted GTL program, exact workspace binding, published graph-function membership, resolved runtime policy, and exact invocation authority before execution or approval.
 
 **REQ-R-ABG3-BINDING-006**: Authentication and authority resolution remain external. ABG consumes and records resolved identity/authority inputs; it does not implement those systems.
 
-**REQ-R-ABG3-BINDING-007**: Before HoG realizes a public GraphFunction carrier, Module publication shall expose the live internal vectors of that carrier through `Module.graphs` so ABG selection admission and HoG traversal validation can resolve those vectors lawfully.
+**REQ-R-ABG3-BINDING-007**: Before HoG traverses a public GraphFunction carrier, Module publication shall expose the live internal vectors of that carrier through `Module.graphs` so the GTL validator can check publication and membership, ABG can admit selection and binding truth, and HoG can resolve the declared traversal lawfully.
 
 **REQ-R-ABG3-BINDING-008**: Every live internal vector reachable from a public graph-function carrier shall publish a lawful traversal target through an explicit `RefinementBoundary` or `CandidateFamily`. Missing traversal publication shall fail closed.
 

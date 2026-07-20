@@ -16,8 +16,8 @@ Define bounded sub-work as a lawful GTL 3 declaration capability.
 
 **REQ-L-GTL3-SUBWORK-001**: GTL shall be able to express that a graph vector or graph function supports bounded sub-work dispatch.
 
-**REQ-L-GTL3-SUBWORK-002**: The sub-work declaration is a language capability. HoG traverses the admitted declaration, the host realizes its effect, and ABG admits and replays its runtime facts.
+**REQ-L-GTL3-SUBWORK-002**: The sub-work declaration is a language capability. The GTL validator checks its static relations, HoG traverses the admitted declaration, a selected implementation binding realizes its leaf effect, and ABG admits and replays its runtime facts.
 
-**REQ-L-GTL3-SUBWORK-003**: The sub-work declaration shall express boundedness and schema validity. HoG owns traversal scope, the host owns native effect realization, and ABG owns lifecycle, transport-contract admission, and replay truth.
+**REQ-L-GTL3-SUBWORK-003**: The sub-work declaration shall express topology, traversal scope, boundedness, and schema validity. GTL owns that declared scope, the validator checks it, HoG traverses it, the selected implementation binding owns native leaf-effect realization, and ABG owns lifecycle, transport-contract admission, and replay truth.
 
 **REQ-L-GTL3-SUBWORK-004**: Bounded sub-work declaration shall not require product-local shadow runtime logic as part of the GTL language.
