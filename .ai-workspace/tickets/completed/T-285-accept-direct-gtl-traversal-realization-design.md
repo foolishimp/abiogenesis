@@ -4,10 +4,10 @@
 - title: Accept the bounded direct-GTL traversal realization design
 - type: design
 - ticket_category: ordinary
-- status: active
-- phase_status: m3_fourth_design_candidate_frozen_independent_review_pending
-- review_status: independent_exact_design_review_pending
-- proof_status: exact_identity_and_design_gates_green
+- status: completed
+- phase_status: m3_exact_design_accepted_m4_authorized
+- review_status: direct_human_exact_subject_acceptance
+- proof_status: exact_identity_design_gates_and_acceptance_green
 - goal: GOAL-035 M3
 - priority: critical
 - change_intent: >-
@@ -17,7 +17,7 @@
 - re_entry_point: build_tenants/abiogenesis/typescript/design
 - created_at: 2026-07-20
 - triaged_at: 2026-07-20
-- updated_at: 2026-07-20
+- updated_at: 2026-07-21
 - owner: abiogenesis
 - pen_holder: codex
 - predecessor: T-284
@@ -91,8 +91,16 @@
 - design_manifest_ref: >-
     .ai-workspace/comments/codex/
     20260720T140330Z_CHECKPOINT_t285_fourth_direct_gtl_design_candidate_manifest.md
-- implementation_hold: active_until_m3_design_acceptance
-- implementation_hold_effect: no mergeable successor implementation or donor carry-forward
+- independent_exact_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T141106Z_DECISION_fh_accept_t285_and_authorize_m4.md
+- design_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T141106Z_DECISION_fh_accept_t285_and_authorize_m4.md
+- final_fh_decision: accept_exact_design_and_authorize_m4
+- successor_ticket: T-286
+- implementation_hold: released_by_exact_design_acceptance
+- implementation_hold_effect: exact_abi5_root_only_under_t286
 
 ## Purpose
 
@@ -181,3 +189,10 @@ T-285 may close only when:
 
 The first implementation ticket must establish `ABI5-ROOT-001` before any
 horizontal feature wave.
+
+## Closure Outcome
+
+The exact design subject at SHA-256
+`9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`
+was accepted by direct human F_H on 2026-07-21. T-286 is the sole successor
+execution carrier and may implement only exact `ABI5-ROOT-001` until M4 closes.

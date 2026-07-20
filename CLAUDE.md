@@ -2,9 +2,9 @@
 
 ## Current State
 
-The ABIogenesis 5.0 Product destination and M2 correction vector are accepted.
-Runtime implementation is held only through M3 design acceptance. T-285 owns
-the bounded direct-GTL realization design.
+The ABIogenesis 5.0 Product destination, M2 correction vector, and M3 direct-GTL
+realization design are accepted. T-286 owns the bounded installed
+`ABI5-ROOT-001` implementation.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.
@@ -16,7 +16,8 @@ specification/GOALS.md
 specification/INTENT.md
 specification/PRODUCT.md
 specification/requirements/
-.ai-workspace/tickets/active/T-285-accept-direct-gtl-traversal-realization-design.md
+build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
+.ai-workspace/tickets/active/T-286-establish-installed-abi5-root.md
 ```
 
 `PRODUCT.md` is the sole complete ABIogenesis 5.0 Product-definition surface.
@@ -29,8 +30,8 @@ override it.
 specification/                               constitutional WHAT
 build_tenants/common/design/                 prior shared HOW; held for re-derivation
 build_tenants/abiogenesis/typescript/design/ prior TypeScript design evidence
-build_tenants/abiogenesis/typescript/code/   held TypeScript realization
-build_tenants/abiogenesis/typescript/test_env/ held proof lanes
+build_tenants/abiogenesis/typescript/code/   M4 successor realization boundary
+build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lanes
 .ai-workspace/tickets/                       durable work ownership
 .ai-workspace/comments/                      commentary and review evidence
 ```
@@ -38,7 +39,7 @@ build_tenants/abiogenesis/typescript/test_env/ held proof lanes
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: accepted ABIogenesis 5.0 constitutional Product; realization held
+**Status**: accepted ABIogenesis 5.0 Product and direct-GTL design; M4 root realization active
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
@@ -55,8 +56,8 @@ build_tenants/abiogenesis/typescript/test_env/ held proof lanes
   closure.
 - The exact installed governor is `ABI5-ROOT-001`, defined in `PRODUCT.md`.
 
-All existing implementation and design lines remain sideways evidence until
-M3 accepts replacement design.
+RC5, X, and final-integration remain sideways donor evidence. T-286 may admit
+only the D1-D3 root claims named by the accepted correction vector and design.
 <!-- GTL_BOOTLOADER_END -->
 
 <!-- SDLC_BOOTLOADER_START -->
@@ -69,5 +70,5 @@ and release. It is not a prerequisite for establishing the first installed
 root.
 
 No substantive change skips intake triage or the smallest lawful re-entry.
-No code resumes before accepted replacement direct-GTL design.
+No work outside exact `ABI5-ROOT-001` resumes before M4 closes.
 <!-- SDLC_BOOTLOADER_END -->

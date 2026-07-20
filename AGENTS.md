@@ -10,15 +10,16 @@
   `build_tenants/abiogenesis/codex/` are allowed when method-compliant.
 - Changes elsewhere require express user approval. The user supplied that
   approval for the T-283 constitutional transaction and its required
-  authority/read-model dispositions.
+  authority/read-model dispositions, and for T-286 realization of exact
+  `ABI5-ROOT-001` under the accepted M3 design.
 - More specific `AGENTS.md` files may further restrict their subtree.
 
 ## Current Project Gate
 
-T-285 is the only executable work owner. The ABIogenesis 5.0 Product and M2
-correction vector are accepted. Code, tests, proof promotion, and release work
-remain held only until M3 accepts the replacement direct-GTL realization
-design.
+T-286 is the only executable work owner. The ABIogenesis 5.0 Product, M2
+correction vector, and M3 direct-GTL realization design are accepted. Code and
+tests may now advance only exact `ABI5-ROOT-001`; horizontal feature,
+qualification, and release work remain held.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -32,8 +33,8 @@ Read:
 2. `specification/INTENT.md`
 3. `specification/PRODUCT.md`
 4. `specification/requirements/`
-5. accepted current-basis design, when one exists
-6. `.ai-workspace/tickets/active/T-285-accept-direct-gtl-traversal-realization-design.md`
+5. `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`
+6. `.ai-workspace/tickets/active/T-286-establish-installed-abi5-root.md`
 
 Comments and posts are inputs and evidence, not constitutional truth.
 
@@ -58,7 +59,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: accepted ABIogenesis 5.0 constitutional Product; realization held
+**Status**: accepted ABIogenesis 5.0 Product and direct-GTL design; M4 root realization active
 
 This block is a thin read model. It does not duplicate the full Product.
 

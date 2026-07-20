@@ -12,11 +12,11 @@ successor to the immutable 4.6 RC5 Product origin.
 
 | Surface | State |
 |---|---|
-| current work owner | `T-285` M3 direct-GTL realization design |
+| current work owner | `T-286` M4 installed direct-GTL root |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | held until M3 design acceptance; RC5, X, and final-integration remain sideways donor evidence |
-| replacement design | active under T-285 |
-| delivery governor | `ABI5-ROOT-001`, currently unproved |
+| implementation | active only for exact `ABI5-ROOT-001`; RC5, X, and final-integration remain sideways donor evidence |
+| replacement design | accepted under T-285 at SHA-256 `9faeb41d...92f0` |
+| delivery governor | `ABI5-ROOT-001`, red at frontier `R1` |
 | qualification method | tapped STDO 2.0 required before self-conformance and release |
 
 The source branch history and the semantic Product origin are distinct. The
@@ -63,7 +63,8 @@ Read in this order:
 5. [ABG requirements](specification/requirements/abg/)
 6. [mapping requirements](specification/requirements/mapping/)
 7. [Product requirements](specification/requirements/product/)
-8. [T-285](.ai-workspace/tickets/active/T-285-accept-direct-gtl-traversal-realization-design.md)
+8. [accepted direct-GTL design](build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md)
+9. [T-286](.ai-workspace/tickets/active/T-286-establish-installed-abi5-root.md)
 
 `PRODUCT.md` is the one complete 5.0 Product-definition surface. Requirements
 decompose it. Goals select the current wave and exact root. Design and code do
@@ -84,9 +85,8 @@ build_tenants/abiogenesis/python/            withdrawn historical reference
 
 ## Current Work Rule
 
-Do not implement against a donor line. Accept the bounded direct-GTL
-replacement design under T-285, then establish `ABI5-ROOT-001` before
-horizontal feature work.
+Do not implement against a donor line. Establish `ABI5-ROOT-001` under T-286
+from the accepted direct-GTL design before horizontal feature work.
 
 Existing tests and commands remain current-state probes only. They are not
 5.0 Product evidence until the accepted design maps them onto the exact root,

@@ -2,16 +2,17 @@
 
 ## Current Boundary
 
-The ABIogenesis 5.0 Product and M2 correction vector are accepted. Existing
-design files are historical donor evidence and none is operative ABIogenesis
-5.0 realization authority.
+The ABIogenesis 5.0 Product, M2 correction vector, and direct-GTL M3 design are
+accepted. Existing design files other than the exact accepted design remain
+historical donor evidence and are not ABIogenesis 5.0 realization authority.
 
-The sole active candidate is:
+The sole accepted current design is:
 
 - [M03 Direct GTL Traversal Behavior Design](./M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md)
 
-It remains non-operative until independent exact-design review and direct F_H
-acceptance under T-285.
+Its exact SHA-256 is
+`9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`.
+Direct human F_H accepted it under T-285; T-286 consumes it for M4.
 
 ## Governing Truth
 
@@ -21,10 +22,10 @@ Read in this order:
 2. specification/INTENT.md
 3. specification/PRODUCT.md
 4. specification/requirements/
-5. .ai-workspace/tickets/active/T-285-accept-direct-gtl-traversal-realization-design.md
-6. the active candidate above
+5. the accepted design above
+6. .ai-workspace/tickets/active/T-286-establish-installed-abi5-root.md
 
-Specification defines WHAT. The accepted design will define HOW.
+Specification defines WHAT. The accepted design defines the M4 HOW.
 
 ## Historical Evidence
 
@@ -38,15 +39,11 @@ or implementation authority. A maintained historical file list is
 intentionally omitted because it would create a second stale design-status
 projection; Git and the T-284 correction vector preserve that inventory.
 
-## Implementation Hold
+## Implementation Gate
 
-No donor code, test, package export, generated manifest, or runtime path may be
-promoted until the active design passes:
+The M3 hold is released. T-286 may promote only work that advances exact
+`ABI5-ROOT-001` under the accepted design. Donor code, tests, package exports,
+generated manifests, and runtime paths remain inadmissible unless T-286 names
+their T-284 disposition and proof.
 
-1. mechanical consistency;
-2. native constructability;
-3. independent exact-design review; and
-4. direct F_H acceptance.
-
-After acceptance, the first implementation work is exact ABI5-ROOT-001. No
-horizontal feature work precedes that installed steel thread.
+No horizontal feature work precedes that installed steel thread.
