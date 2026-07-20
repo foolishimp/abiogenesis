@@ -1,1 +1,0 @@
-{"capabilityId":"abg.capability.module.publish@5","dependentCapabilityIds":["abg.capability.gtl.admit@5","abg.capability.gtl.serialize@5"],"effectRefs":[],"kind":"abg_capability_contract","requiredContractIds":["abg.contract.gtl.m02","abg.schema.gtl-module"],"schemaVersion":1}

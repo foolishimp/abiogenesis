@@ -1,1 +1,0 @@
-{"capabilityId":"abg.capability.gtl.declare@5","dependentCapabilityIds":[],"effectRefs":[],"kind":"abg_capability_contract","requiredContractIds":["abg.contract.gtl.m01","abg.schema.gtl-graph-function"],"schemaVersion":1}
