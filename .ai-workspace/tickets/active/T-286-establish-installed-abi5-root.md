@@ -10,9 +10,9 @@
     this is the first realization of the accepted direct-GTL boundary; RC5, X,
     and final-integration are sideways donors rather than reusable authority
 - status: active
-- phase_status: m4_r8_direct_hog_entry_in_progress
+- phase_status: m4_r9_causal_result_and_closure_in_progress
 - review_status: implementation_review_pending
-- proof_status: root_red_at_r8
+- proof_status: root_red_at_r9
 - goal: GOAL-035 M4
 - priority: critical
 - change_intent: >-
@@ -42,7 +42,7 @@
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
 - root_binding: ABI5-ROOT-001
 - root_governor: abg5.root.s01.hello_world@5
-- current_frontier: R8_hog_execution_entered_through_public_invocation
+- current_frontier: R9_abg_admitted_causal_result_and_closure_events
 - implementation_branch: codex/t286-abi5-root
 - implementation_worktree: /Users/jim/src/apps/abiogenesis-5-root-build
 - clean_successor_commit: 9d442b4c8390c0c1e767c1bd46bd7bde282ebd99
@@ -77,6 +77,10 @@
 - r7_evidence: >-
     .ai-workspace/comments/codex/
     20260720T155820Z_CHECKPOINT_t286_r7_execution_basis_complete.md
+- r8_implementation_commit: 68aa3b10af3e1662cb3ea3706efce35bfdccd203
+- r8_evidence: >-
+    .ai-workspace/comments/codex/
+    20260720T161155Z_CHECKPOINT_t286_r8_direct_hog_entry_complete.md
 
 ## Purpose
 
@@ -160,7 +164,7 @@ No final-integration `Y` row enters this all-F_D root.
 | `B2` | `R2` clean install complete | empty temporary consumer installs only the packed artifact | `[x] complete at 6bc4fb11 - offline script-free install and installed export proof` |
 | `B3` | `R3-R4` workspace and catalog admitted | immutable ProductSet/WorkspaceBinding plus publication validation, per-row catalog dispositions, and narrowed root view | `[x] complete - R3 at e7908cde; R4 at abcdca70` |
 | `B4` | `R5-R7` exact GTL target admitted | raw admission, Program/Graph validation, GraphFunction materialization, implementation resolution, and ExecutionBasis all bind the same identities | `[x] complete - R5 at 3d5ee716; R6 at 2cf92015; R7 at 9a5b1fbf` |
-| `B5` | `R8` direct HoG execution entered | installed public invocation opens Run/GraphCall/Frame and reaches the declared all-F_D C locus with no compiled plan or controller | `[ ] pending` |
+| `B5` | `R8` direct HoG execution entered | installed public invocation opens Run/GraphCall/Frame and reaches the declared all-F_D C locus with no compiled plan or controller | `[x] complete at 68aa3b10 - explicit scope and direct C-locus entry` |
 | `B6` | `R9` causal result and closure admitted | uniform C-call spine plus `terminal_reached -> frame_closed -> graph_call_closed -> run_closed` in one ABG ledger | `[ ] pending` |
 | `B7` | `R10` replay and CLI agree | two independent replay folds equal the thin installed CLI typed outcome | `[ ] pending` |
 | `B8` | rival paths cannot satisfy the root | real-path mutations for compiled plan, hidden/default program, controller, private ExecutionBasis, event bypass, and fixture-authored result | `[ ] pending` |
