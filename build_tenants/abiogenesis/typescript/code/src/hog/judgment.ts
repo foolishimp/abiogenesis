@@ -23,13 +23,20 @@ export function proposeJudgment<Input, Output>(
   relation: DeclaredJudgmentRelation<Input, Output>,
   contractRef: string,
 ): JudgmentCandidate {
-  const accepted = relation.evaluate(input, result.value as unknown as Readonly<Output>);
+  let accepted = false;
+  let reasonRef = relation.rejectionReasonRef;
+  try {
+    accepted = relation.evaluate(input, result.value as unknown as Readonly<Output>);
+    reasonRef = accepted ? relation.advanceReasonRef : relation.rejectionReasonRef;
+  } catch {
+    reasonRef = "diagnostic://abiogenesis/hog/judgment-evaluation-exception@5";
+  }
   const body = {
     cCallRef: cCall.cCallRef,
     resultRef: result.resultRef,
     resultDigest: result.resultDigest,
     judgment: accepted ? "advance" as const : "blocked" as const,
-    reasonRef: accepted ? relation.advanceReasonRef : relation.rejectionReasonRef,
+    reasonRef,
     contractRef,
     predicateRef: relation.predicateRef,
     replayStateDigest: replayState.replayDigest,

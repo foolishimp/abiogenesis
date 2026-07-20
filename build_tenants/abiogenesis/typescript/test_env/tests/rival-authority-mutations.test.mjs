@@ -143,6 +143,38 @@ test("B8 explicit invocation schema refuses an injected compiled-plan carrier", 
   });
 });
 
+test("B8 setup operations reject undeclared payload fields", async (context) => {
+  const cases = [
+    { label: "install", index: 1, mutate: (payload) => { payload.undeclaredInstall = true; } },
+    { label: "workspace", index: 2, mutate: (payload) => { payload.undeclaredWorkspace = true; } },
+    { label: "workspace-roots", index: 2, mutate: (payload) => { payload.roots.undeclaredRoot = true; } },
+    { label: "catalog", index: 3, mutate: (payload) => { payload.undeclaredCatalog = true; } },
+    { label: "view", index: 4, mutate: (payload) => { payload.undeclaredView = true; } },
+  ];
+  for (const row of cases) {
+    const harness = await setupInstalledCliHarness(context, root);
+    const scenario = await buildRootCliScenario(harness, `b8-undeclared-${row.label}`);
+    row.mutate(scenario.transcript[row.index].payload);
+    await writeFile(
+      scenario.transcriptPath,
+      `${scenario.transcript.map((value) => JSON.stringify(value)).join("\n")}\n`,
+      "utf8",
+    );
+    const run = await runInstalledCli(harness, scenario);
+    assert.equal(run.exitCode, 2, run.stdout);
+    const outcome = run.outcomes[row.index];
+    assert.equal(outcome.disposition, "refused");
+    assert.equal(outcome.result.code, "invalid_request");
+    assert.match(outcome.result.message, /undeclared fields/u);
+  }
+  mutationEvidence.push({
+    mutation: "setup_undeclared_payload_fields",
+    boundary: "public_ingress",
+    cases: cases.map((row) => row.label),
+    allRefused: true,
+  });
+});
+
 test("B8 disabled HoG cannot fall through to a callable compiled-plan rival", async (context) => {
   const harness = await setupInstalledCliHarness(context, root);
   const packageRoot = installedCliPackageRoot(harness);
@@ -316,6 +348,68 @@ test("B8 post-admission exceptions become replayable ABG refusal truth", async (
   });
 });
 
+test("B8 post-open judgment exceptions complete the admitted CCall spine", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const scenario = await buildRootCliScenario(harness, "b8-post-open-judgment-exception");
+  const judgmentPath = join(
+    installedCliPackageRoot(harness),
+    "build/code/src/gtl/hello_world.js",
+  );
+  const judgmentSource = await readFile(judgmentPath, "utf8");
+  const marker = "export function evaluateHelloWorldResult(input, output) {";
+  assert.equal(judgmentSource.includes(marker), true);
+  await writeFile(
+    judgmentPath,
+    judgmentSource.replace(
+      marker,
+      `${marker}\n    throw new Error("post-open judgment mutation");`,
+    ),
+    "utf8",
+  );
+  const { operationContext, outcomes, publicApi } = await applyInstalledTranscriptPrefix(
+    harness,
+    scenario,
+  );
+  const outcome = await publicApi.applyRootPublicInvocation(
+    operationContext,
+    scenario.transcript.at(-1),
+  );
+  assert.equal(outcome.disposition, "blocked", JSON.stringify(outcome));
+  assert.deepEqual(outcome.result, {
+    kind: "hello_world_output",
+    message: "Hello World",
+    schemaVersion: "5.0.0",
+  });
+  assert.equal(outcome.cCallRef?.startsWith("c-call:sha256:"), true);
+  assert.equal(outcome.resultRef?.startsWith("result://abiogenesis/"), true);
+  assert.equal(outcome.judgmentRef?.startsWith("judgment://abiogenesis/"), true);
+  const events = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+  const cCallEvents = events.filter((event) => event.aggregateId === outcome.cCallRef);
+  assert.deepEqual(cCallEvents.map((event) => event.kind), [
+    "c_call_opened",
+    "c_call_fibre_selected",
+    "c_call_evidenced",
+    "c_call_result_admitted",
+    "c_call_judged",
+  ]);
+  assert.equal(
+    cCallEvents.at(-1).payload.reasonRef,
+    "diagnostic://abiogenesis/hog/judgment-evaluation-exception@5",
+  );
+  assert.equal(events.some((event) => event.kind === "runtime_failure_observed"), false);
+  const governor = await rootVerdict(harness, scenario, [...outcomes, outcome]);
+  assert.equal(governor.disposition, "root_red");
+  mutationEvidence.push({
+    mutation: "post_open_judgment_exception",
+    boundary: "judgment_relation",
+    disposition: outcome.disposition,
+    cCallSpineComplete: cCallEvents.length === 5,
+    directRuntimeFailureAbsent: true,
+    rootGovernorDisposition: governor.disposition,
+  });
+});
+
 test("B8 installed leaf exceptions and malformed returns complete the failure spine", async (context) => {
   const cases = [
     {
@@ -411,10 +505,12 @@ test("B8 installed leaf exceptions and malformed returns complete the failure sp
   assert.deepEqual(mutationEvidence.map((row) => row.mutation), [
     "undeclared_compiled_plan",
     "missing_explicit_target",
+    "setup_undeclared_payload_fields",
     "disabled_hog_with_callable_rival",
     "renamed_controller_forged_output",
     "copied_private_execution_basis",
     "post_admission_validator_exception",
+    "post_open_judgment_exception",
     "leaf_exception",
     "leaf_malformed",
     "leaf_sparse-evidence",

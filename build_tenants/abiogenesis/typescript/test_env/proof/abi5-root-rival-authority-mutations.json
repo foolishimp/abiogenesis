@@ -23,6 +23,18 @@
       "runOpenAbsent": true
     },
     {
+      "mutation": "setup_undeclared_payload_fields",
+      "boundary": "public_ingress",
+      "cases": [
+        "install",
+        "workspace",
+        "workspace-roots",
+        "catalog",
+        "view"
+      ],
+      "allRefused": true
+    },
+    {
       "mutation": "disabled_hog_with_callable_rival",
       "boundary": "executor",
       "disposition": "failed",
@@ -54,6 +66,14 @@
       "invocationAdmitted": true,
       "refusalAdmitted": true,
       "runOpenAbsent": true,
+      "rootGovernorDisposition": "root_red"
+    },
+    {
+      "mutation": "post_open_judgment_exception",
+      "boundary": "judgment_relation",
+      "disposition": "blocked",
+      "cCallSpineComplete": true,
+      "directRuntimeFailureAbsent": true,
       "rootGovernorDisposition": "root_red"
     },
     {

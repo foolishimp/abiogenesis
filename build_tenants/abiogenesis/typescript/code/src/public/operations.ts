@@ -305,6 +305,11 @@ async function applyInstall(
   if (invocation.variant !== "verified_artifact") {
     throw new ApplicationRefusal("invalid_request", "product.install requires variant verified_artifact");
   }
+  requireExactPayloadKeys(invocation.payload, [
+    "artifactPath",
+    "targetRoot",
+    "verifiedInvocationRef",
+  ], "product.install");
   const verifiedState = required(
     context.productState.verified(stringField(invocation.payload, "verifiedInvocationRef")),
     stringField(invocation.payload, "verifiedInvocationRef"),
@@ -349,6 +354,13 @@ async function applyWorkspaceBind(
   if (invocation.variant !== "exact_product_set") {
     throw new ApplicationRefusal("invalid_request", "workspace.bind requires variant exact_product_set");
   }
+  requireExactPayloadKeys(invocation.payload, [
+    "authorityManifestRef",
+    "canonicalRoot",
+    "installInvocationRef",
+    "roots",
+    "workspaceId",
+  ], "workspace.bind");
   const installState = required(
     context.productState.install(stringField(invocation.payload, "installInvocationRef")),
     stringField(invocation.payload, "installInvocationRef"),
@@ -378,6 +390,14 @@ async function applyWorkspaceBind(
     throw new ApplicationRefusal("owner_refusal", `Workspace authority refused: ${authority.message}`);
   }
   const rootsValue = recordField(invocation.payload, "roots");
+  requireExactPayloadKeys(rootsValue, [
+    "archiveRoot",
+    "eventLogRoot",
+    "productRoot",
+    "projectionRoot",
+    "runtimeStateRoot",
+    "toolchainRoot",
+  ], "workspace.bind roots");
   const roots: product.WorkspaceDeclaredRoots = {
     toolchainRoot: stringField(rootsValue, "toolchainRoot"),
     productRoot: stringField(rootsValue, "productRoot"),
@@ -420,6 +440,10 @@ async function applyCatalogAdmit(
   if (invocation.variant !== "module_publication") {
     throw new ApplicationRefusal("invalid_request", "catalog.admit requires variant module_publication");
   }
+  requireExactPayloadKeys(invocation.payload, [
+    "verifiedInvocationRef",
+    "workspaceBindingInvocationRef",
+  ], "catalog.admit");
   const verifiedState = required(
     context.productState.verified(stringField(invocation.payload, "verifiedInvocationRef")),
     stringField(invocation.payload, "verifiedInvocationRef"),
@@ -504,6 +528,10 @@ async function applyCatalogView(
   if (invocation.variant !== "allowlist") {
     throw new ApplicationRefusal("invalid_request", "catalog.view requires variant allowlist");
   }
+  requireExactPayloadKeys(invocation.payload, [
+    "allowlist",
+    "catalogInvocationRef",
+  ], "catalog.view");
   const catalogState = required(
     context.productState.catalog(stringField(invocation.payload, "catalogInvocationRef")),
     stringField(invocation.payload, "catalogInvocationRef"),
