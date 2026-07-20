@@ -200,6 +200,64 @@ test("T-277 rejects an accepted design without an acceptance record", async (t) 
   );
 });
 
+test("T-277 accepts an immutable candidate only through an external acceptance receipt", async (t) => {
+  const root = await mkdtemp(path.join(tmpdir(), "abg-t277-prime-receipt-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const activeRoot = path.join(root, ".ai-workspace/tickets/active");
+  const completedRoot = path.join(root, ".ai-workspace/tickets/completed");
+  const commentsRoot = path.join(root, ".ai-workspace/comments/codex");
+  const designRoot = path.join(root, "build_tenants/abiogenesis/typescript/design");
+  const adrRoot = path.join(designRoot, "adrs");
+  await mkdir(activeRoot, { recursive: true });
+  await mkdir(completedRoot, { recursive: true });
+  await mkdir(commentsRoot, { recursive: true });
+  await mkdir(adrRoot, { recursive: true });
+  await writeFile(
+    path.join(designRoot, "A5_PRIME_CONTRACTION_CENSUS.md"),
+    "# Census\n\n### PC-001 - Fixture\n",
+    "utf8"
+  );
+  await writeFile(
+    path.join(adrRoot, "ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md"),
+    "# Governing ADR\n",
+    "utf8"
+  );
+  await writeFile(
+    path.join(designRoot, "FIXTURE_DESIGN.md"),
+    designSource(
+      validReview(),
+      "Immutable acceptance candidate; authority exists only through an exact-subject F_H receipt"
+    ),
+    "utf8"
+  );
+  await writeFile(
+    path.join(commentsRoot, "accept.md"),
+    "# Exact-subject F_H acceptance\n",
+    "utf8"
+  );
+  await writeFile(
+    path.join(activeRoot, "T-900-fixture.md"),
+    `# Fixture
+
+- id: T-900
+- status: active
+- governing_prime_design_ref: build_tenants/abiogenesis/typescript/design/adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
+- prime_contraction_refs:
+  - PC-001
+- design_ref: build_tenants/abiogenesis/typescript/design/FIXTURE_DESIGN.md
+- design_acceptance_ref: .ai-workspace/comments/codex/accept.md
+
+## Boundary
+`,
+    "utf8"
+  );
+
+  const result = inspectPrimeContractionGovernance({ projectRoot: root });
+  assert.equal(result.status, "passed", result.failures.join("\n"));
+  assert.equal(result.acceptedDesigns, 1);
+  assert.equal(result.pendingDesigns, 0);
+});
+
 test("T-277 inspects every accepted design_refs entry", async (t) => {
   const root = await mkdtemp(path.join(tmpdir(), "abg-t277-prime-multi-"));
   t.after(() => rm(root, { recursive: true, force: true }));

@@ -66,6 +66,10 @@ const CONTRACTING_DISPOSITIONS = new Set([
   "retire_duplicate",
   "migrate_authority"
 ]);
+const INLINE_ACCEPTED_STATUS =
+  /^\*\*Status\*\*:\s*(?:Accepted|F_H-authorized)/mu;
+const IMMUTABLE_ACCEPTANCE_CANDIDATE_STATUS =
+  /^\*\*Status\*\*:\s*Immutable acceptance candidate;\s*authority exists only through an exact-subject F_H receipt\s*$/mu;
 
 function toPosix(value) {
   return value.split(path.sep).join("/");
@@ -417,7 +421,7 @@ export function inspectPrimeContractionGovernance({
       pendingDesigns += 1;
       for (const designRef of designRefs) {
         const designPath = localPath(projectRoot, designRef, label, failures);
-        if (designPath !== null && /^\*\*Status\*\*:\s*(?:Accepted|F_H-authorized)/mu.test(
+        if (designPath !== null && INLINE_ACCEPTED_STATUS.test(
           readFileSync(designPath, "utf8")
         )) {
           failures.push(`${label}: accepted design has no acceptance reference`);
@@ -435,9 +439,10 @@ export function inspectPrimeContractionGovernance({
       const designPath = localPath(projectRoot, designRef, label, failures);
       if (designPath === null) continue;
       const designSource = readFileSync(designPath, "utf8");
-      if (!/^\*\*Status\*\*:\s*(?:Accepted|F_H-authorized)/mu.test(designSource)) {
+      if (!INLINE_ACCEPTED_STATUS.test(designSource) &&
+          !IMMUTABLE_ACCEPTANCE_CANDIDATE_STATUS.test(designSource)) {
         failures.push(
-          `${toPosix(path.relative(projectRoot, designPath))}: accepted ticket names a non-accepted design`
+          `${toPosix(path.relative(projectRoot, designPath))}: accepted ticket names neither an inline-accepted design nor an immutable exact-receipt candidate`
         );
       }
       const review = inspectPrimeContractionReview({
