@@ -10,9 +10,9 @@
     this is the first realization of the accepted direct-GTL boundary; RC5, X,
     and final-integration are sideways donors rather than reusable authority
 - status: active
-- phase_status: m4_r2_clean_install_in_progress
+- phase_status: m4_r3_workspace_binding_in_progress
 - review_status: implementation_review_pending
-- proof_status: root_red_at_r2
+- proof_status: root_red_at_r3
 - goal: GOAL-035 M4
 - priority: critical
 - change_intent: >-
@@ -42,7 +42,7 @@
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
 - root_binding: ABI5-ROOT-001
 - root_governor: abg5.root.s01.hello_world@5
-- current_frontier: R2_clean_install_complete
+- current_frontier: R3_workspace_bound_to_exact_product_set
 - implementation_branch: codex/t286-abi5-root
 - implementation_worktree: /Users/jim/src/apps/abiogenesis-5-root-build
 - clean_successor_commit: 9d442b4c8390c0c1e767c1bd46bd7bde282ebd99
@@ -53,6 +53,10 @@
 - r1_evidence: >-
     .ai-workspace/comments/codex/
     20260720T144250Z_CHECKPOINT_t286_r1_exact_artifact_verified.md
+- r2_implementation_commit: 6bc4fb118be4a67009c6c9eddb610e2d2d9dd17b
+- r2_evidence: >-
+    .ai-workspace/comments/codex/
+    20260720T144908Z_CHECKPOINT_t286_r2_clean_install_complete.md
 
 ## Purpose
 
@@ -133,7 +137,7 @@ No final-integration `Y` row enters this all-F_D root.
 | `A0` | M3 design accepted and M4 authorized | exact F_H receipt binds design SHA-256 `9faeb41d...92f0` | `[x] complete` |
 | `A1` | clean successor construction boundary | isolated branch/worktree; canonical donor implementation and tests absent before new source enters | `[x] complete at 9d442b4c - 1,657 inherited product files removed before new source` |
 | `B1` | `R1` exact artifacts verified | minimal package builds packed bytes; manifest and content digests verify without source imports | `[x] complete at 95eef983 - deterministic packed bytes and real payload mutation refusal` |
-| `B2` | `R2` clean install complete | empty temporary consumer installs only the packed artifact | `[ ] pending` |
+| `B2` | `R2` clean install complete | empty temporary consumer installs only the packed artifact | `[x] complete at 6bc4fb11 - offline script-free install and installed export proof` |
 | `B3` | `R3-R4` workspace and catalog admitted | immutable ProductSet/WorkspaceBinding plus publication validation, per-row catalog dispositions, and narrowed root view | `[ ] pending` |
 | `B4` | `R5-R7` exact GTL target admitted | raw admission, Program/Graph validation, GraphFunction materialization, implementation resolution, and ExecutionBasis all bind the same identities | `[ ] pending` |
 | `B5` | `R8` direct HoG execution entered | installed public invocation opens Run/GraphCall/Frame and reaches the declared all-F_D C locus with no compiled plan or controller | `[ ] pending` |
