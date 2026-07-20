@@ -1,15 +1,17 @@
 import { canonicalJson, sha256Canonical, type JsonValue, type Sha256Digest } from "../product/index.js";
 import { deepFreeze } from "../product/immutable.js";
 
-export const ENVIRONMENT_EVENT_KIND_VALUES = [
+export const ROOT_EVENT_KIND_VALUES = [
   "public_operation_artifact_admitted",
+  "public_operation_admitted",
   "registry_entry_admitted",
+  "invocation_admitted",
 ] as const;
 
-export type EnvironmentEventKind = (typeof ENVIRONMENT_EVENT_KIND_VALUES)[number];
+export type RootEventKind = (typeof ROOT_EVENT_KIND_VALUES)[number];
 
 export interface RuntimeEventCandidate {
-  readonly kind: EnvironmentEventKind;
+  readonly kind: RootEventKind;
   readonly eventTime: string;
   readonly aggregateType: "workspace";
   readonly aggregateId: string;

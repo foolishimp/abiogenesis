@@ -6,6 +6,19 @@ export interface ContractDeclaration {
   readonly contractRef: string;
   readonly contractVersion: "5.0.0";
   readonly contractKind: "input" | "output" | "failure" | "refusal" | "closure";
+  readonly valueKind: string;
+}
+
+export interface HelloWorldInput {
+  readonly kind: "hello_world_input";
+  readonly schemaVersion: "5.0.0";
+  readonly subject: string;
+}
+
+export interface HelloWorldOutput {
+  readonly kind: "hello_world_output";
+  readonly schemaVersion: "5.0.0";
+  readonly message: string;
 }
 
 export interface GtlEnvironment {

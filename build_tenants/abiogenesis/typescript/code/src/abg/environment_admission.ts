@@ -7,12 +7,15 @@ import type {
 import { sha256Canonical, type JsonValue, type Sha256Digest } from "../product/index.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 
-export interface ArtifactAdmissionBasis {
-  readonly operationId:
-    | "abg.operation.product.install"
-    | "abg.operation.workspace.bind"
-    | "abg.operation.catalog.admit"
-    | "abg.operation.catalog.view";
+export type PublicOperationId =
+  | "abg.operation.product.install"
+  | "abg.operation.workspace.bind"
+  | "abg.operation.catalog.admit"
+  | "abg.operation.catalog.view"
+  | "abg.operation.run.invoke";
+
+export interface PublicOperationAdmissionBasis {
+  readonly operationId: PublicOperationId;
   readonly definitionKey: string;
   readonly definitionDigest: Sha256Digest;
   readonly authorityScopeRef: string;
@@ -23,6 +26,8 @@ export interface ArtifactAdmissionBasis {
   readonly eventTime: string;
   readonly causationEventRefs: readonly string[];
 }
+
+export type ArtifactAdmissionBasis = PublicOperationAdmissionBasis;
 
 export interface AbgAdmissionRefusal {
   readonly kind: "abg_admission_refusal";
@@ -45,13 +50,14 @@ function refusal(
   };
 }
 
-export function admitArtifact(
-  store: AbgEventStore,
-  basis: ArtifactAdmissionBasis,
-  expectedOperation: ArtifactAdmissionBasis["operationId"],
-  artifactRef: string,
-  artifactDigest: Sha256Digest,
-): AbgAdmissionRefusal | string {
+function isJsonRecord(value: JsonValue | undefined): value is { readonly [key: string]: JsonValue } {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+export function validatePublicOperationBasis(
+  basis: PublicOperationAdmissionBasis,
+  expectedOperation: PublicOperationId,
+): AbgAdmissionRefusal | null {
   if (basis.operationId !== expectedOperation || basis.definitionKey !== expectedOperation) {
     return refusal("operation_mismatch", "operation identity and definition key must agree");
   }
@@ -70,6 +76,18 @@ export function admitArtifact(
   ) {
     return refusal("operation_mismatch", "operation definition, invocation, or event-time basis is invalid");
   }
+  return null;
+}
+
+export function admitArtifact(
+  store: AbgEventStore,
+  basis: PublicOperationAdmissionBasis,
+  expectedOperation: PublicOperationId,
+  artifactRef: string,
+  artifactDigest: Sha256Digest,
+): AbgAdmissionRefusal | string {
+  const invalidBasis = validatePublicOperationBasis(basis, expectedOperation);
+  if (invalidBasis !== null) return invalidBasis;
   const event = admitRuntimeEvent(store, {
     kind: "public_operation_artifact_admitted",
     eventTime: basis.eventTime,
@@ -97,6 +115,31 @@ export function admitArtifact(
     },
   });
   return event.eventId;
+}
+
+export function hasAdmittedWorkspaceBinding(
+  store: AbgEventStore,
+  binding: WorkspaceBinding,
+): boolean {
+  const event = store.readAll().find((candidate) => candidate.eventId === binding.admissionEventRef);
+  const payload = event?.payload;
+  const bindingDigest = sha256Canonical({
+    authorityBasisId: binding.authorityBasisId,
+    authorityBasisDigest: binding.authorityBasisDigest,
+    productSetId: binding.productSetId,
+    productSetDigest: binding.productSetDigest,
+    lockId: binding.lockId,
+    lockDigest: binding.lockDigest,
+    roots: binding.roots,
+  } as unknown as JsonValue);
+  return (
+    bindingDigest === binding.bindingDigest &&
+    event?.kind === "public_operation_artifact_admitted" &&
+    isJsonRecord(payload) &&
+    payload.operationId === "abg.operation.workspace.bind" &&
+    payload.artifactRef === binding.bindingId &&
+    payload.artifactDigest === binding.bindingDigest
+  );
 }
 
 export function admitProductInstall(

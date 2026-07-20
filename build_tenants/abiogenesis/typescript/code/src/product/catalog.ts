@@ -91,6 +91,7 @@ export interface CatalogView extends Omit<CatalogViewCandidate, "kind" | "dispos
   readonly disposition: "admitted";
   readonly viewId: string;
   readonly viewDigest: Sha256Digest;
+  readonly admissionCandidateRef: string;
   readonly admissionEventRef: string;
 }
 

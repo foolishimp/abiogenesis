@@ -1,7 +1,7 @@
 export {
   AbgEventStore,
-  ENVIRONMENT_EVENT_KIND_VALUES,
-  type EnvironmentEventKind,
+  ROOT_EVENT_KIND_VALUES,
+  type RootEventKind,
   type RuntimeEvent,
 } from "./event_store.js";
 export {
@@ -9,6 +9,8 @@ export {
   admitWorkspaceBinding,
   type AbgAdmissionRefusal,
   type ArtifactAdmissionBasis,
+  type PublicOperationAdmissionBasis,
+  type PublicOperationId,
 } from "./environment_admission.js";
 export {
   admitCatalog,
@@ -17,3 +19,10 @@ export {
   type CatalogAdmissionResult,
   type CatalogViewAdmissionResult,
 } from "./catalog_admission.js";
+export {
+  admitInvocation,
+  type InvocationAdmission,
+  type InvocationAdmissionInput,
+  type InvocationAdmissionRefusal,
+  type InvocationAdmissionResult,
+} from "./invocation_admission.js";

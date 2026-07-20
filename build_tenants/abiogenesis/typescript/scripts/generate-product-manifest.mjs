@@ -170,6 +170,42 @@ const rows = [
     },
   },
   {
+    contractId: "abg.contract.product.invocation-root",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(nativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-062",
+    ],
+    capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./product",
+      namedSymbol: "constructDirectInvocation",
+      declarationPath: productDeclarationPath,
+    },
+  },
+  {
+    contractId: "abg.contract.abg.invocation-root-admission",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(abgNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-002",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
+    ],
+    capabilityIdentities: ["abg.capability.runtime.admit-root-invocation@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./abg",
+      namedSymbol: "admitInvocation",
+      declarationPath: abgDeclarationPath,
+    },
+  },
+  {
     contractId: "abg.contract.gtl.validation-root",
     contractVersion: "5.0.0",
     contractDigest: sha256Canonical(validatorNativeInventory),

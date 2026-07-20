@@ -59,3 +59,15 @@ export {
   type CatalogViewCandidate,
   type CatalogViewCandidateResult,
 } from "./catalog.js";
+export {
+  DIRECT_INVOKE_CAPABILITY,
+  constructCapabilityGrant,
+  constructDirectInvocation,
+  constructInvocationAuthority,
+  constructRootInvocationPolicy,
+  type CapabilityGrant,
+  type InvocationAuthority,
+  type InvocationConstructionRefusal,
+  type InvocationPolicyBasis,
+  type PublicInvocationCandidate,
+} from "./invocation.js";

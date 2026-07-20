@@ -147,14 +147,6 @@ export function narrowCatalogView(
   candidate: CatalogViewCandidate,
   basis: ArtifactAdmissionBasis,
 ): CatalogViewAdmissionResult {
-  const catalogAdmission = store.readAll().find((event) => event.eventId === catalog.admissionEventRef);
-  const catalogAdmissionPayload = catalogAdmission?.payload;
-  const sourceCatalogIsAdmitted =
-    catalogAdmission?.kind === "public_operation_artifact_admitted" &&
-    isJsonRecord(catalogAdmissionPayload) &&
-    catalogAdmissionPayload.operationId === "abg.operation.catalog.admit" &&
-    catalogAdmissionPayload.artifactRef === catalog.admissionCandidateRef &&
-    catalogAdmissionPayload.artifactDigest === catalog.catalogDigest;
   if (!isCatalogViewCandidate(candidate)) {
     return refusal("candidate_not_constructed", "catalog view candidate was not constructed by the Product boundary");
   }
@@ -162,7 +154,7 @@ export function narrowCatalogView(
     return refusal("candidate_digest_mismatch", "catalog view candidate content differs from its digest");
   }
   if (
-    !sourceCatalogIsAdmitted ||
+    !hasAdmittedCatalog(store, catalog) ||
     candidate.catalogId !== catalog.catalogId ||
     candidate.catalogDigest !== catalog.catalogDigest ||
     basis.authorityScopeRef !== catalog.catalogId ||
@@ -191,6 +183,83 @@ export function narrowCatalogView(
     ...body,
     viewId: `catalog-view://abiogenesis/${candidate.viewCandidateDigest.slice("sha256:".length)}`,
     viewDigest: candidate.viewCandidateDigest,
+    admissionCandidateRef: candidate.viewCandidateId,
     admissionEventRef,
   }) as CatalogView;
+}
+
+export function hasAdmittedCatalog(
+  store: AbgEventStore,
+  catalog: AdmittedCatalog,
+): boolean {
+  const admission = store.readAll().find((event) => event.eventId === catalog.admissionEventRef);
+  const payload = admission?.payload;
+  const candidateRows = catalog.rows.map((row) => {
+    const { disposition: _disposition, admissionEventRef: _admissionEventRef, ...candidate } = row;
+    return candidate;
+  });
+  const candidateDigest = sha256Canonical({
+    workspaceBindingId: catalog.workspaceBindingId,
+    workspaceBindingDigest: catalog.workspaceBindingDigest,
+    lockId: catalog.lockId,
+    lockDigest: catalog.lockDigest,
+    publicationDigest: catalog.publicationDigest,
+    publicationValidationRef: catalog.publicationValidationRef,
+    programValidationRefs: catalog.programValidationRefs,
+    modulePublication: catalog.modulePublication,
+    programValidations: catalog.programValidations,
+    rows: candidateRows,
+  } as unknown as JsonValue);
+  const rowsAdmitted = catalog.rows.every((row) => {
+    const event = store.readAll().find((candidate) => candidate.eventId === row.admissionEventRef);
+    return (
+      event?.kind === "registry_entry_admitted" &&
+      isJsonRecord(event.payload) &&
+      event.payload.catalogId === catalog.catalogId &&
+      event.payload.handle === row.handle &&
+      event.payload.rowDigest === row.rowDigest &&
+      event.payload.rowDisposition === row.disposition
+    );
+  });
+  return (
+    candidateDigest === catalog.catalogDigest &&
+    admission?.kind === "public_operation_artifact_admitted" &&
+    isJsonRecord(payload) &&
+    payload.operationId === "abg.operation.catalog.admit" &&
+    payload.artifactRef === catalog.admissionCandidateRef &&
+    payload.artifactDigest === catalog.catalogDigest &&
+    rowsAdmitted
+  );
+}
+
+export function hasAdmittedCatalogView(
+  store: AbgEventStore,
+  view: CatalogView,
+): boolean {
+  const event = store.readAll().find((candidate) => candidate.eventId === view.admissionEventRef);
+  const payload = event?.payload;
+  const catalogCauseIsAdmitted = event?.causationEventRefs.some((eventRef) => {
+    const cause = store.readAll().find((candidate) => candidate.eventId === eventRef);
+    return (
+      cause?.kind === "public_operation_artifact_admitted" &&
+      isJsonRecord(cause.payload) &&
+      cause.payload.operationId === "abg.operation.catalog.admit" &&
+      cause.payload.artifactDigest === view.catalogDigest
+    );
+  }) === true;
+  const viewDigest = sha256Canonical({
+    catalogId: view.catalogId,
+    catalogDigest: view.catalogDigest,
+    allowlist: view.allowlist,
+    selectedRows: view.selectedRows,
+  } as unknown as JsonValue);
+  return (
+    viewDigest === view.viewDigest &&
+    event?.kind === "public_operation_artifact_admitted" &&
+    isJsonRecord(payload) &&
+    payload.operationId === "abg.operation.catalog.view" &&
+    payload.artifactRef === view.admissionCandidateRef &&
+    payload.artifactDigest === view.viewDigest &&
+    catalogCauseIsAdmitted
+  );
 }

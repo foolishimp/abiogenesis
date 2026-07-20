@@ -10,6 +10,7 @@ export const RAW_SUBJECT_KIND_VALUES = [
   "contract_declaration",
   "implementation_binding",
   "closure_contract",
+  "invocation_input",
 ] as const;
 
 export type RawSubjectKind = (typeof RAW_SUBJECT_KIND_VALUES)[number];
@@ -58,6 +59,8 @@ function hasExpectedKind(
           value.contractKind === "refusal" ||
           value.contractKind === "closure")
       );
+    case "invocation_input":
+      return typeof value.kind === "string" && value.kind.length !== 0;
     default:
       return value.kind === expectedKind;
   }

@@ -1,5 +1,6 @@
 export {
   HELLO_WORLD_IDS,
+  constructHelloWorldInput,
   constructHelloWorldModulePublication,
 } from "./hello_world.js";
 export type {
@@ -14,6 +15,8 @@ export type {
   GtlEnvironment,
   GtlNode,
   GtlProgram,
+  HelloWorldInput,
+  HelloWorldOutput,
   ImplementationBinding,
   ModulePublication,
   ProgramStart,

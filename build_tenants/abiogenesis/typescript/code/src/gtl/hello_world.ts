@@ -7,6 +7,7 @@ import type {
   ImplementationBinding,
   ModulePublication,
   RootModuleArtifactBasis,
+  HelloWorldInput,
 } from "./contracts.js";
 import { deepFreeze } from "../product/immutable.js";
 
@@ -26,15 +27,26 @@ export const HELLO_WORLD_IDS = Object.freeze({
   implementationRef: "implementation://abiogenesis/conformance/hello-world-fd@5",
 });
 
+export function constructHelloWorldInput(subject: string): Readonly<HelloWorldInput> {
+  if (subject.length === 0) {
+    throw new TypeError("Hello World input requires one non-empty subject");
+  }
+  return deepFreeze({
+    kind: "hello_world_input",
+    schemaVersion: "5.0.0",
+    subject,
+  });
+}
+
 export function constructHelloWorldModulePublication(
   artifact: RootModuleArtifactBasis,
 ): Readonly<ModulePublication> {
   const contracts: readonly ContractDeclaration[] = [
-    { contractRef: HELLO_WORLD_IDS.inputContractRef, contractVersion: "5.0.0", contractKind: "input" },
-    { contractRef: HELLO_WORLD_IDS.outputContractRef, contractVersion: "5.0.0", contractKind: "output" },
-    { contractRef: HELLO_WORLD_IDS.failureContractRef, contractVersion: "5.0.0", contractKind: "failure" },
-    { contractRef: HELLO_WORLD_IDS.refusalContractRef, contractVersion: "5.0.0", contractKind: "refusal" },
-    { contractRef: HELLO_WORLD_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure" },
+    { contractRef: HELLO_WORLD_IDS.inputContractRef, contractVersion: "5.0.0", contractKind: "input", valueKind: "hello_world_input" },
+    { contractRef: HELLO_WORLD_IDS.outputContractRef, contractVersion: "5.0.0", contractKind: "output", valueKind: "hello_world_output" },
+    { contractRef: HELLO_WORLD_IDS.failureContractRef, contractVersion: "5.0.0", contractKind: "failure", valueKind: "hello_world_failure" },
+    { contractRef: HELLO_WORLD_IDS.refusalContractRef, contractVersion: "5.0.0", contractKind: "refusal", valueKind: "hello_world_refusal" },
+    { contractRef: HELLO_WORLD_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "hello_world_closure" },
   ];
   const implementationBinding: ImplementationBinding = {
     kind: "implementation_binding",
