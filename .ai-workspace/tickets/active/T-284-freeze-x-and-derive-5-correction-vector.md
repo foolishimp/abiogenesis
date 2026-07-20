@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: ordinary
 - status: active
-- phase_status: fourth_replacement_candidate_frozen_independent_review_pending
-- review_status: independent_exact_cut_review_pending
-- proof_status: bounded_authority_repairs_locally_verified
+- phase_status: fourth_replacement_candidate_independently_accepted_fh_decision_pending
+- review_status: independent_exact_cut_review_accepted
+- proof_status: exact_cut_and_authority_boundaries_independently_reproduced
 - goal: GOAL-035 M2
 - priority: critical
 - change_intent: >-
@@ -101,9 +101,13 @@
 - fourth_replacement_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T091300Z_SELF_REVIEW_t284_fourth_replacement_candidate.md
+- fourth_replacement_independent_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T093312Z_REVIEW_t284_fourth_replacement_independent_acceptance.md
+- fourth_replacement_independent_review_verdict: accept
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
-- constitutional_refreeze: frozen_independent_review_pending
+- constitutional_refreeze: independently_accepted_fh_decision_pending
 - x_carrier_membership_ref: >-
     .ai-workspace/comments/codex/
     20260720T055423Z_EVIDENCE_t284_x_carrier_membership.md
