@@ -474,8 +474,9 @@ per-family counts, and membership digest are fixed in
 That evidence is part of the T-284 review subject. A representative path in
 this semantic table does not determine membership; only the frozen predicate
 order does. There is no catch-all predicate: any unmatched frozen path fails
-the reproduction. `XC41` through `XC49` explicitly dispose of all 120 paths
-previously hidden by the generic refusal row.
+the reproduction. `XC08` and `XC41` through `XC49` explicitly dispose of all
+120 paths previously hidden by the generic refusal row: one lowering carrier
+enters `XC08`, and the other 119 paths enter `XC41` through `XC49`.
 
 The census deliberately avoids treating 129 contract files or 19 public
 operations as the engine ontology. The target Prime is the accepted language,

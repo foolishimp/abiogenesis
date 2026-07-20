@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: ordinary
 - status: active
-- phase_status: second_replacement_candidate_frozen_independent_review_pending
-- review_status: independent_exact_cut_review_pending
-- proof_status: exact_subject_and_bounded_repairs_verified
+- phase_status: exact_count_correction_in_progress
+- review_status: second_replacement_independent_review_request_changes
+- proof_status: substantive_repairs_verified_exact_count_claim_repairing
 - goal: GOAL-035 M2
 - priority: critical
 - change_intent: >-
@@ -73,6 +73,10 @@
 - second_replacement_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T070026Z_SELF_REVIEW_t284_second_replacement_candidate.md
+- second_replacement_candidate_disposition: rejected_for_false_exact_count_sentence
+- second_replacement_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T071048Z_REVIEW_t284_second_replacement_independent_agent.md
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
 - constitutional_refreeze: frozen_independent_review_pending
