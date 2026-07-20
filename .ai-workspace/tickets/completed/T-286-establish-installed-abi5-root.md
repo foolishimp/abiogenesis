@@ -9,10 +9,10 @@
 - library_rationale: >-
     this is the first realization of the accepted direct-GTL boundary; RC5, X,
     and final-integration are sideways donors rather than reusable authority
-- status: active
-- phase_status: m4_exact_candidate_repair_in_progress
-- review_status: implementation_review_pending
-- proof_status: exact_candidate_review_failed_repair_required
+- status: completed
+- phase_status: m4_exact_root_complete_m5_held
+- review_status: exact_subject_two_decorrelated_reviews_accepted
+- proof_status: exact_candidate_root_satisfied_deterministic
 - goal: GOAL-035 M4
 - priority: critical
 - change_intent: >-
@@ -42,7 +42,7 @@
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
 - root_binding: ABI5-ROOT-001
 - root_governor: abg5.root.s01.hello_world@5
-- current_frontier: artifact_and_runtime_truth_repair
+- current_frontier: root_satisfied
 - implementation_branch: codex/t286-abi5-root
 - implementation_worktree: /Users/jim/src/apps/abiogenesis-5-root-build
 - clean_successor_commit: 9d442b4c8390c0c1e767c1bd46bd7bde282ebd99
@@ -93,9 +93,21 @@
 - b8_evidence: >-
     .ai-workspace/comments/codex/
     20260720T172611Z_CHECKPOINT_t286_b8_rival_authority_refusal_complete.md
-- exact_candidate_review: >-
+- superseded_exact_candidate_review: >-
     .ai-workspace/comments/codex/
     20260720T174114Z_REVIEW_t286_exact_candidate_changes_requested.md
+- exact_candidate_implementation_commit: ffba4e71456cf19168fa2bbf2981b463e018a0cf
+- exact_candidate_implementation_tree: 5c0b9ea7e4e93dbdaf79a7cf9527c4aafcda7aa3
+- exact_candidate_manifest_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T204540Z_CHECKPOINT_t286_review_repaired_exact_candidate_manifest.md
+- exact_candidate_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T205201Z_REVIEW_t286_review_repaired_exact_candidate_accepted.md
+- closure_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T205201Z_CLOSURE_t286_m4_installed_root_complete.md
+- successor_state: m5_ready_not_opened
 
 ## Purpose
 
@@ -182,8 +194,8 @@ No final-integration `Y` row enters this all-F_D root.
 | `B5` | `R8` direct HoG execution entered | installed public invocation opens Run/GraphCall/Frame and reaches the declared all-F_D C locus with no compiled plan or controller | `[x] complete at 68aa3b10 - explicit scope and direct C-locus entry` |
 | `B6` | `R9` causal result and closure admitted | uniform C-call spine plus `terminal_reached -> frame_closed -> graph_call_closed -> run_closed` in one ABG ledger | `[x] complete at 79f0e00b - Event Calculus, replay-derived judgment, admitted transition, exact closure, and same-spine rejection` |
 | `B7` | `R10` replay and CLI agree | two independent replay folds equal the thin installed CLI typed outcome | `[x] complete at 39a0b6bc - installed abg.cli, caller-authored operation order, durable ABG log, two equal replay folds, typed Hello World outcome` |
-| `B8` | rival paths cannot satisfy the root | real-path mutations for compiled plan, hidden/default program, controller, private ExecutionBasis, event bypass, and fixture-authored result | `[ ] schema-refusal evidence at 16bca623 retained; real-path proof invalidated by exact review` |
-| `B9` | M4 exact candidate accepted | clean full root rerun, focused code review, exact evidence receipt, and T-286 closure | `[ ] pending` |
+| `B8` | rival paths cannot satisfy the root | real-path mutations for compiled plan, hidden/default program, controller, private ExecutionBasis, event bypass, and fixture-authored result | `[x] complete at ffba4e71 - twelve installed mutations exercise ingress, executor, basis, judgment, leaf, replay, and projection boundaries` |
+| `B9` | M4 exact candidate accepted | clean full root rerun, focused code review, exact evidence receipt, and T-286 closure | `[x] complete - 25/25 twice, deterministic proof, two decorrelated exact-subject reviews, and closure receipt` |
 
 Only strict advancement of the current typed frontier changes Product progress.
 Prerequisite work may be reported as local readiness but does not check off the
@@ -226,13 +238,23 @@ unresolved.
 - [x] consumer set for the new truth is listed
 - [x] projection/read-model surfaces are listed
 - [x] clean successor boundary makes donor authority absent by default
-- [ ] admitted donor interiors carry target claim, destination, stripped authority, and proof
-- [ ] old truth path is removed from installed execution
-- [ ] mixed-state behavior is no longer accepted as closure evidence
-- [ ] stale tests are removed, archived, or repriced against the new path
-- [ ] recurring realization patterns are rechecked before local duplication
+- [x] admitted donor interiors carry target claim, destination, stripped authority, and proof
+- [x] old truth path is removed from installed execution
+- [x] mixed-state behavior is no longer accepted as closure evidence
+- [x] stale tests are removed, archived, or repriced against the new path
+- [x] recurring realization patterns are rechecked before local duplication
 - [x] library usage and first-realization rationale are declared
-- [ ] ticket, Product wording, design, implementation, and proof claims agree at closure
+- [x] ticket, Product wording, design, implementation, and proof claims agree at closure
+
+## Closure
+
+T-286 closes over exact implementation commit
+`ffba4e71456cf19168fa2bbf2981b463e018a0cf`. The exact installed root satisfies
+`R1` through `R10`; its retained evidence is deterministic; twelve real-path
+mutations fail closed; and two decorrelated re-reviews report no implementation
+or proof findings.
+
+M5 remains outside this ticket and is ready but unopened.
 
 ## Non-Closure Conditions
 
