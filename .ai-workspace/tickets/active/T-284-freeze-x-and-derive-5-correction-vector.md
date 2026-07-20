@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: ordinary
 - status: active
-- phase_status: bounded_review_repairs_in_progress
-- review_status: changes_requested
-- proof_status: prior_candidate_reproduced_replacement_pending
+- phase_status: replacement_candidate_frozen_independent_review_pending
+- review_status: independent_exact_cut_review_pending
+- proof_status: exact_subject_and_local_consistency_verified
 - goal: GOAL-035 M2
 - priority: critical
 - change_intent: >-
@@ -41,7 +41,7 @@
 - correction_vector_ref: >-
     .ai-workspace/comments/codex/
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
-- correction_vector_sha256: pending_replacement_freeze
+- correction_vector_sha256: 1aee805fa502ec233c71ca05b1e26c7c88efa070484942764504d7a59b75946c
 - superseded_candidate_commit: 4ac6617c6450234cfb1c20112a89c286f4e6e7ce
 - superseded_candidate_tree: 8921125d947428066618b93f140eb306e286a62c
 - superseded_constitutional_subject_files: 85
@@ -53,9 +53,20 @@
 - superseded_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T051041Z_SELF_REVIEW_t284_repaired_candidate.md
+- replacement_candidate_commit: 7f69aa83e295f0c391616a3a3a2acfafb8f20156
+- replacement_candidate_tree: da12ce31f7ad5dce29d53d0d67750b011ab25f35
+- constitutional_subject_files: 86
+- constitutional_subject_sha256: 5f1fb2cfcd3223b94a591757dc38a3f5dd7036befc40629e8e5b1b3e8cae7b69
+- requirement_amendment_sha256: d7f88193122d015cb0cfbeb8e9d556c4e0c36a85ffdbf9dfe78054283f3163cf
+- replacement_candidate_manifest_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T060344Z_CHECKPOINT_t284_replacement_candidate_manifest.md
+- replacement_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T060225Z_SELF_REVIEW_t284_replacement_candidate.md
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
-- constitutional_refreeze: prior_freeze_invalidated_replacement_pending
+- constitutional_refreeze: frozen_independent_review_pending
 - x_carrier_membership_ref: >-
     .ai-workspace/comments/codex/
     20260720T055423Z_EVIDENCE_t284_x_carrier_membership.md
