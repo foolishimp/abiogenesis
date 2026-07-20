@@ -47,7 +47,7 @@ GTL ontology contains the authored language carriers:
 - `Job`
 - `Module`
 
-ABG runtime ontology contains interpreter-owned runtime truth, including:
+ABG runtime ontology contains ABG-admitted runtime truth, including:
 
 - selected `abg.fn_composition`
 - runtime events

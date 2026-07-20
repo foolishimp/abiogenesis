@@ -87,13 +87,15 @@ probabilistic or human judgment own closure or runtime selection authority.
 bundles, traversal spans, lifecycle compositions, and proof-role declarations
 as authoring surfaces for ABG requirements algebra.
 
-**program validation**: GTL shall be validatable through ABG-owned admission
-or compiler surfaces that report typed conformance, traversal-unit shape,
-capability coverage, publication inventory, and proof/readiness issues.
+**program validation**: GTL shall be validated by the non-lowering GTL
+validator before runtime admission. The validator shall report typed
+conformance, traversal-unit shape, capability coverage, publication inventory,
+and proof/readiness issues without producing an executable plan.
 
-**mapping to runtime**: GTL shall provide enough language signal for ABG to
-interpret, admit, execute, project, and replay graph programs while preserving
-the GTL/ABG owner split.
+**mapping to runtime**: GTL shall provide enough language signal for HoG to
+traverse admitted graph programs directly and for ABG to admit, project, and
+replay the resulting runtime facts while preserving the GTL/HoG/ABG owner
+split.
 
 ## Subordinate Vocabulary
 
@@ -328,13 +330,12 @@ type refs, composing node types, checking type satisfaction, and composing
 graph functions by endpoint type satisfaction.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-027**: A node type shall be published
-through the GTL library path as a non-callable identity graph-function
-declaration or a ratified equivalent that uses the same `GraphFunction`
-carrier, the same non-callable identity realization, the same `node_type`
-registry kind, and no parallel type publication path.
+through the GTL library path as a non-callable node-type declaration with its
+own typed identity and the `node_type` registry kind. It shall not mint or use
+a `GraphFunction` identity, and no parallel type publication path is lawful.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-028**: A `node_type` library entry may
-be admitted, projected, imported, queried, and used by compiler/conformance
+be admitted, projected, imported, queried, and used by validator/conformance
 surfaces. It shall not become runtime traversal work, public-start authority,
 graph-call authority, or `graph_function_selected` truth.
 

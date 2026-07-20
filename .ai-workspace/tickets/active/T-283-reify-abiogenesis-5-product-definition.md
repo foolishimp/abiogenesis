@@ -5,14 +5,15 @@
 - type: reprice
 - ticket_category: constitutional_reprice
 - status: active
-- phase_status: constitutional_candidate_ready_for_freeze
-- review_status: self_review_passed_independent_review_pending
+- phase_status: constitutional_candidate_frozen_for_external_gate
+- review_status: governed_by_external_exact_cut_receipt
 - proof_status: definition_coverage_gates_passed_behavioral_proof_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - priority: critical
 - change_class: intent_reprice
 - re_entry_point: specification/INTENT.md
 - created_at: 2026-07-20
+- triaged_at: 2026-07-20
 - updated_at: 2026-07-20
 - owner: abiogenesis
 - pen_holder: codex
@@ -150,6 +151,26 @@ projections may be conserved if they do not become executable program
 authority. Historical evidence is retained.
 
 ## Review And Closure
+
+### Review Subject Boundary
+
+The exact constitutional review subject comprises the changed active
+specification, root read models, and authority-retirement design surfaces
+identified by the candidate manifest. Mutable workflow carriers under
+`.ai-workspace/tickets/` and immutable evidence or decision receipts under
+`.ai-workspace/comments/` are outside that constitutional aggregate.
+
+The candidate manifest shall record the exact T-283 ticket blob separately as
+its workflow basis. After freeze, T-283 may add only review, proof, decision,
+and closure state or receipt references without invalidating the constitutional
+subject. A change to ticket scope, authority, hold, re-entry class, completion
+contract, or subject definition invalidates the candidate and requires a new
+freeze and review.
+
+Independent review and F_H receipts shall bind the exact constitutional
+aggregate. They update workflow state around that subject; they do not amend
+its constitutional bytes. This separation prevents mutable review status from
+creating a recursive refreeze requirement.
 
 The exact candidate must pass:
 

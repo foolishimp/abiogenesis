@@ -39,10 +39,10 @@ declaration data unless admitted by an owning requirement.
 
 **REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT-004**: Typed GraphFunction composition
 shall name a left provided/carry node, a right required node, and one published
-node-type GraphFunction reference for every wiring. Both nodes shall satisfy
-that same node type without weakening schema, Markov, or asset-surface law.
-Missing nodes, unknown or non-node-type references, incompatible contracts, or
-an empty wiring set shall fail before composition.
+node-type declaration reference for every wiring. Both nodes shall satisfy that
+same node type without weakening schema, Markov, or asset-surface law. Missing
+nodes, unknown or non-node-type declaration references, incompatible
+contracts, or an empty wiring set shall fail before composition.
 
 **REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT-005**: Successful typed wiring shall
 produce ordinary GraphFunction composition after replacing only the declared

@@ -79,7 +79,15 @@ runtime admission transitions as authored program membership.
 
 **REQ-R-ABG3-FN-COMP-018**: The plugin traversal observer and hook/action category surfaces shall use `evaluate` for the evaluation stage. ABG shall reject malformed or legacy stage-category names on the admitted category surfaces rather than silently mapping them to current authority.
 
-**REQ-R-ABG3-FN-COMP-019**: ABG shall own evaluation-set planning, stable rule scheduling, evaluation rule admission, evaluation ledger writes, and evaluation-set projection. Product plugins may compute rule outcomes inside selected composition boundaries, but they shall not own the evaluation loop, replay order, ledger writes, assurance fold, traversal transition, or closure.
+**REQ-R-ABG3-FN-COMP-019**: The admitted GTL composition shall declare
+evaluation-set membership, dependencies, and stable ordered or parallel rule
+batches, and HoG shall traverse that declared evaluation structure. ABG shall
+admit rule invocations and outcomes and derive evaluation ledgers, replay
+order, assurance fold, and evaluation-set projections from admitted events.
+ABG shall not plan or schedule evaluation work, synthesize an evaluation loop,
+or reorder declared GTL. Product plugins may compute rule outcomes inside
+selected composition boundaries, but they shall not write ledgers, select
+traversal, transition, or close the boundary.
 
 **REQ-R-ABG3-FN-COMP-020**: Required evaluation rules shall fail closed when absent, stale, malformed, contradictory, rejected, or admitted under a mismatched selected composition ref/digest or selected regime-binding contribution ref.
 

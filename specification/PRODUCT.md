@@ -854,11 +854,12 @@ deeper GLC dogfooding begin there and cannot retroactively qualify 5.0.
 
 ## Governance And Release Boundary
 
-There is one lawful STDO identity. ABIogenesis 5.0 qualification and release
-must select one complete tapped STDO version, with version `2.0.0` as the target
-constitutional basis. The current 2.0 amendment candidate is not an installed
-method release and cannot be represented as one before its own qualification
-and tap.
+There is one lawful STDO identity. ABIogenesis 5.0 self-conformance,
+qualification, and release must bind the exact tapped and installed STDO
+version `2.0.0` as their constitutional basis. Another STDO version cannot
+substitute for that basis without lawful Product re-entry and an F_H
+disposition. The current 2.0 amendment candidate is not an installed method
+release and cannot be represented as one before its own qualification and tap.
 
 This definition applies the intended STDO version 2.0 disciplines without
 turning them into product features:
@@ -906,8 +907,8 @@ satisfies all of the following:
 11. No rival compiler, executable program representation, controller, registry,
     event stream, or closure path remains public or reachable.
 12. Every qualification subject passes self-conformance and its owning gates
-    under one complete tapped STDO basis with no mixed subject or substituted
-    property.
+    under the exact tapped and installed STDO `2.0.0` basis with no mixed
+    subject or substituted property.
 13. Any delta between immutable RC and final-tap candidate is limited to the
     admitted `FinalTapDelta`; every affected gate is rerun before final
     authorization.

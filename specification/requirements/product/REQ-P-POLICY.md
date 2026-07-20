@@ -375,12 +375,19 @@ residuals without widening or changing workspace catalog truth.
 `abg.operation.run.invoke` shall accept one admitted GTL program, one canonical
 admitted GraphFunction handle published by that program, its declared input,
 one immutable workspace binding, and declared session policy and capability
-inputs. The exact function constraint narrows the program-published
-`ActionCatalog`; it shall not bypass `evaluateNext` or treat the function as the
-whole program. ABG shall begin one GraphCall only after One Surface admits the
-selected construction intent and shall return the call, run, result or stop,
-evidence, and replay references required by the GraphFunction contract. It
-shall not invoke any non-GraphFunction catalog kind.
+inputs. Under `root_mode = direct`, the explicit function handle is the
+invocation target; ABG shall validate its program membership, catalog
+eligibility, contracts, binding, and authority before beginning one GraphCall.
+That direct path does not require or synthesize `evaluateNext`, One Surface, or
+a `ConstructionIntent`.
+
+When the invocation instead realizes an action selected by `evaluateNext`
+inside the admitted One Surface program, the exact function shall narrow the
+program-published `ActionCatalog` and bind the admitted selected construction
+intent. That governed path shall not bypass `evaluateNext`. Both paths shall
+return the call, run, result or stop, evidence, and replay references required
+by the GraphFunction contract, shall not treat the function as the whole
+program, and shall not invoke any non-GraphFunction catalog kind.
 
 **REQ-P-POLICY-055**: The evidence variant of
 `abg.operation.project.read` shall be a read-only projection for a supported
