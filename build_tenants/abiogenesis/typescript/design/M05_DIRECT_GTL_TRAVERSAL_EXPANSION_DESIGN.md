@@ -86,6 +86,9 @@ Their domain programs are not.
 | executable versus F_H leaf identity | `REQ-L-GTL3-C-ALGEBRA-010`; `REQ-R-ABG3-CCALL-003` |
 | authoritative durable continuation | `REQ-R-ABG3-CONTINUATION-001..014`; `REQ-P-POLICY-024`, `-031..033` |
 | ordered batch and fan-out | `REQ-L-GTL3-C-ALGEBRA-007`; `REQ-L-GTL3-HOF-009..012` |
+| durable append-context reopening | `REQ-R-ABG3-EVENTS-024`, `-027`, `-028` |
+| fan-out completion and partial stop | `REQ-L-GTL3-HOF-010`; `REQ-R-ABG3-EVENTS-002`, `-011` |
+| continuation ingress authority | `REQ-P-POLICY-024`; `REQ-R-ABG3-EVENTS-031` |
 | child module topology | accepted M3 design Section 8 dependency law and Section 9.2 operation composition |
 | event and replay closure | `REQ-R-ABG3-EVENTS-002`, `-004`, `-011`, `-018`, `-024`, `-029` |
 
@@ -115,8 +118,10 @@ does not add a peer authority.
 | `HumanInteractionBoundary` | external actor, outside the IACS | direct or lawfully proxied F_H | Receives an attributed request and returns a response candidate; it is not an implementation binding or executable port. |
 | `RouteCandidate` | `TraversalAggregateFamily` | declared implementation or HoG proposal | Candidate consequence constrained to GTL-declared routes. |
 | `AdmittedRoute` | `RuntimeEventFamily` | ABG | Canonical event truth accepting one route on current replay and authority basis. |
+| `FanOutCompletion` | `RuntimeEventFamily` | ABG | Frame-local authoritative completion truth with disjoint `complete_vector` and `partial_stop` variants; Vector is never an aggregate. |
 | `Continuation` | `TraversalAggregateFamily` | ABG | Authoritative run-local open obligation with open, resolved, superseded, and abandoned lifecycle truth. |
 | `ContinuationBasis` | `ReplayProjectionFamily` | ABG replay | Downstream held cursor, response contract, authority, and event-log identity derived from admitted events. |
+| `ReopenedEventStoreContext` | `RuntimeEventFamily` | ABG event-store boundary | One exclusive live append context seeded from a verified existing durable log without restamping historical events. |
 | `ReplayState` | `ReplayProjectionFamily` | downstream | Complete state derived only from admitted events. |
 
 ### 3.2 Invariants And Cardinality
@@ -169,6 +174,16 @@ does not add a peer authority.
     completed pending attempt.
 14. Public outcome is replay projection. A worker, test, CLI, or implementation
     cannot author result, continuation, or closure truth.
+15. Durable reopening preserves every historical canonical envelope byte,
+    `eventId`, payload digest, and admission ordinal. Historical ordinals are the
+    unique gap-free sequence `1..n`; the reopened live context owns the same
+    sink and stamps its first new event at `maxOrdinal + 1`. Reopening never
+    truncates, rewrites, reorders, or re-admits historical truth.
+16. Fan-out completion is exactly one discriminated ABG admission. A complete
+    variant contains every task exactly once in input ordinal order and one
+    contract-valid output vector. A partial-stop variant partitions the input
+    tasks into completed rows, exactly one stopping task/ordinal, and exact
+    unstarted rows, and contains no output vector.
 
 ### 3.3 Lifecycle Completeness
 
@@ -180,7 +195,9 @@ does not add a peer authority.
 | traversal | opened | at term, at leaf, child, retry, next node, held | blocked, failed, closed |
 | C call | atomically opened and fibre selected | evidenced, result admitted, judged | judged success, failure, refusal, pending, blocked, or escalation; never stranded |
 | child traversal | opened | traversing, folded back | blocked, held, failed, closed |
+| fan-out completion | declared ordered tasks | task truth accumulating | complete vector admitted or partial stop admitted |
 | continuation | opened from admitted hold | open, responded, resume admitted | resolved, superseded, or abandoned |
+| durable event store | absent or verified historical log | exclusive append context open | append context closed or reopen refused |
 | run | active | active, held, blocked, failed | closed or stopped with an admitted terminal disposition |
 
 The affected entity closure is explicit below. Immutable declaration and
@@ -204,8 +221,10 @@ judgment carriers retire by supersession or invocation completion, not mutation.
 | `HumanInteractionBoundary` | GTL declares callout and ABG admits hold | public projection renders pending interaction | attributed external actor returns candidate | response admitted, rejected, abandoned, or superseded |
 | `RouteCandidate` | HoG or declared implementation proposes within GTL route set | ABG evaluates against replay | never applies itself | admitted, refused, or superseded |
 | `AdmittedRoute` | ABG admits canonical route event | replay projects route truth | HoG deterministically applies exact admitted route | next admitted route or terminal event supersedes it |
+| `FanOutCompletion` | ABG admits one closed completion variant | replay projects ordered vector or partial-stop facts | only a later declared route may consume it | owning frame or run terminal |
 | `Continuation` | ABG admits an opening lifecycle event | replay projects exactly one run-local member | only separate response and continuation operations may advance it | resolved, superseded, or explicitly abandoned before run termination |
 | `ContinuationBasis` | replay derives open obligation | public read and `run.continue` consume exact basis | never invokes HoG itself | resolved, superseded, abandoned, or run terminal |
+| `ReopenedEventStoreContext` | ABG validates an existing log and acquires exclusive append ownership | replay and event admission read the exact seeded prefix | new events append at the next ordinal only | context closes; historical log remains immutable truth |
 | `ReplayState` | pure fold of admitted event log | HoG and public projections read | never writes events or executes work | superseded by a longer valid prefix |
 
 ### 3.4 Authority Matrix
@@ -221,9 +240,11 @@ judgment carriers retire by supersession or invocation completion, not mutation.
 | request or answer human work | HoG proposes declared hold; attributed human answers | declared interaction and response contracts | F_H authority and replay basis | external human only | continuation and public interaction views | ABG | resolved, rejected, abandoned, or superseded continuation |
 | choose consequence candidate | declared implementation or HoG from declared relation | GTL route set | ABG current replay | none | route diagnostic | ABG | admission, refusal, or newer replay |
 | apply transition | admitted route | GTL cursor relation | replay | HoG | replay cursor | ABG event is prior truth | next cursor or terminal event |
+| admit fan-out completion | HoG submits task-result census | declared vector and task contracts | ABG checks exact ordinal partition and current replay | none | ordered vector or partial-stop projection | ABG | owning frame or run terminal |
 | totalize post-open rejection | actual contract rejection | refusal and rejection contracts | current C-call spine | ABG appends only missing suffix | replayed rejected C-call | ABG | judged rejection |
 | respond to hold | attributed F_H actor | declared response and capability contracts | ABG verifies open continuation and replay basis | `interaction.respond` only admits response truth | responded interaction view | ABG | response consumed, rejected, or continuation terminal |
-| continue held run | caller names an existing run and continuation | declared continuation contract | ABG rehydrates and verifies exact durable scope | `run.continue` explicitly re-enters HoG after resume admission | continuation and replay views | ABG | resolved, superseded, abandoned, or run terminal |
+| reopen durable truth | caller supplies existing sink and expected digest | canonical log grammar and event union | ABG validates immutable stamps, ordinal order, causation, scope, and exclusive append ownership | event store seeds one live context without emitting | replay prefix and next ordinal | ABG event-store boundary | context closes or reopen refuses |
+| continue held run | admitted `run.continue` ingress names existing run/continuation, actor, capability, and input | declared continuation contract | ABG uses the reopened context to verify exact durable scope and public authority | `run.continue` explicitly re-enters HoG after resume admission | continuation and replay views | ABG | resolved, superseded, abandoned, or run terminal |
 | close | HoG submits current judged terminal | closure predicate | replay and exact contracts | ABG appends closure transaction | replay and PublicOutcome | ABG | immutable terminal run |
 
 ## 4. Function And Composition Derivation
@@ -241,17 +262,19 @@ judgment carriers retire by supersession or invocation completion, not mutation.
 | `admitImplementationSet` | candidate set plus invocation basis -> admitted set or refusal | ABG |
 | `admitInteractionSet` | validated reachable F_H contract rows plus invocation basis -> admitted non-executable set or refusal | ABG |
 | `prepareChildTraversal` | GTL-declared child ref, admitted child input, parent scope, root executable set, and root interaction set -> prepared child with original Graph, validation, exact admitted subsets, ExecutionBasis, and opened scope, or typed refusal | stateless operation-bound port over GTL, validator, and ABG owner functions |
+| `reopenEventStore` | existing durable log path, expected log digest, and immutable event-contract basis -> exclusive `ReopenedEventStoreContext` seeded with exact historical envelopes and next ordinal, or typed refusal | ABG |
 | `deriveTraversalStep` | GTL plus scope plus replay -> structural step | HoG |
 | `invokeLeafPort` | admitted F_D/F_P leaf input -> evidence and result candidates | implementation seam |
 | `admitHumanHold` | declared F_H locus plus replay -> admitted hold event and continuation projection | ABG |
 | `admitInteractionResponse` | public `interaction.respond` candidate plus open continuation -> actor-attributed response truth or refusal; never invokes HoG | ABG |
-| `rehydrateContinuation` | durable event log plus immutable Product/workspace/catalog/declaration basis and continuation identity -> owner-validated replay, ExecutionBasis, opened scope, cursor, and input, or typed basis-fork/refusal | ABG |
-| `continueExecution` | public `run.continue` plus rehydrated scope and admitted response/current input -> resume admission and explicit HoG re-entry | public operation over ABG and HoG ports |
+| `rehydrateContinuation` | reopened event-store context plus immutable Product/workspace/catalog/declaration basis and continuation identity -> owner-validated replay, ExecutionBasis, opened scope, cursor, and input, or typed basis-fork/refusal | ABG |
+| `continueExecution` | admitted public `run.continue` operation, acting operator/capability, declared input, rehydrated scope, and admitted response when required -> resume admission and explicit HoG re-entry | public operation over ABG and HoG ports |
 | `admitLeafTruth` | candidates plus contracts -> admitted C-call truth or rejection | ABG |
+| `admitFanOutCompletion` | declared fan-out application, ordered task census, current replay, and candidate complete vector or partial stop -> authoritative discriminated completion event or typed refusal | ABG |
 | `completeRejectedCCall` | opened C call plus current spine position plus actual admission rejection -> only the missing suffix: rejection evidence and typed refusal result before result admission, then rejection judgment; judgment only after result admission | ABG |
 | `admitRoute` | route candidate plus current replay -> admitted route or refusal | ABG |
 | `applyRoute` | admitted route plus GTL cursor -> next cursor | HoG |
-| `rehydrateReplay` | durable admitted event log -> replay state | ABG |
+| `rehydrateReplay` | reopened event-store context with verified historical prefix -> replay state | ABG |
 
 ### 4.2 Higher-order composition
 
@@ -299,8 +322,10 @@ Prime family.
 | `LeafExecutionPort` | `LeafRealizationBoundary` | `<<effect-edge>>` | `src/implementation` | Bound F_D or F_P leaf effect interior. |
 | `HumanInteractionBoundary` | external actor, not IACS | `<<effect-edge>>` | external plus `src/abg` admission | F_H request and attributed response candidate; never an implementation port. |
 | `AdmittedRoute` | `RuntimeEventFamily` | `<<authoritative>>` | `src/abg` | Accepted runtime transition event. |
+| `FanOutCompletion` | `RuntimeEventFamily` | `<<subordinate>> <<authoritative>>` | `src/abg` | Frame-local complete-vector or partial-stop truth; never a Vector aggregate. |
 | `Continuation` | `TraversalAggregateFamily` | `<<authoritative>>` | `src/abg` | Run-local open obligation and exact terminal lifecycle truth. |
 | `ContinuationBasis` | `ReplayProjectionFamily` | `<<downstream>>` | `src/abg` | Events-only hold and resume projection. |
+| `ReopenedEventStoreContext` | `RuntimeEventFamily` | `<<effect-edge>>` | `src/abg` | Exclusive append context over one verified durable event prefix; no new authority family. |
 | `ReplayState` | `ReplayProjectionFamily` | `<<downstream>>` | `src/abg` | Events-only runtime projection. |
 
 Canonical JSON, digest, immutable-value, and opaque-ref utilities move to
@@ -366,7 +391,7 @@ declared relation; it does not infer or reconstruct the operation.
 | `compose` | one application relation and materialized composed graph with exact interface wiring | traverse declared left then right child relation |
 | `substitute` | outer graph with one exact vector replaced by visible interface-compatible inner graph | traverse the resulting graph; provenance retains outer vector and inner graph refs |
 | `recurse` | callable relation with termination, foldback, and positive bound | open child graph calls until admitted termination; foldback rebinds and re-evaluates parent |
-| `fan_out` | element GraphFunction plus explicit ordered input/output vector relation | pure GTL materialization projects one `C.batch` task per admitted input member before child HoG entry; each task retains ordinal, member lineage, child GraphFunction, contracts, and enclosing C authority |
+| `fan_out` | element GraphFunction plus explicit ordered input/output vector relation | pure GTL materialization projects one `C.batch` task per admitted input member before child HoG entry; each task retains ordinal, member lineage, child GraphFunction, contracts, and enclosing C authority; ABG admits exactly one complete-vector or partial-stop event after task traversal |
 | `fan_in` | reducer GraphFunction plus complete vector contract | invoke one child reducer only after complete vector admission |
 | `gate` | target, rule, and evaluator refs | admit block or advance from evaluator truth; never select a candidate |
 | `promote` | explicit representation-boundary relation | apply the declared typed relation without changing semantic identity |
@@ -377,8 +402,8 @@ resolved by typed construction and validation into the materialized original
 GTL value. Recursion, fan-out, fan-in, and gate retain explicit runtime-visible
 application declarations because they govern child traversal or admission.
 Every child GraphFunction reachable through those declarations is included in
-whole-root validation and the transitive implementation-set census before the
-root HoG entry. Dynamic selection may choose only among that statically admitted
+whole-root validation and the transitive executable and interaction censuses
+before root HoG entry. Dynamic selection may choose only among that statically admitted
 reachable set. A selected child is materialized and its exact call/frame basis
 is admitted before child HoG entry; the root set is not a substitute for that
 child invocation-local admission.
@@ -412,6 +437,15 @@ input, parent scope, and admitted root sets. It receives one
 or validator, Product never re-resolves the admitted root set during traversal,
 and the port cannot select a child or author topology.
 
+For fan-out, the ordered task declarations are fixed before the first task
+enters HoG. After traversal, `admitFanOutCompletion` compares the declared input
+cardinality against the full replayed task census. The `complete_vector` variant
+requires one judged task row and one contract-valid output member at every
+ordinal and admits the canonical ordered output vector. The `partial_stop`
+variant requires exact completed, stopping, and unstarted partitions and
+forbids an output-vector field. Either admission precedes any fan-in or graph
+success route; only `complete_vector` can make those routes applicable.
+
 ### 6.2 Preserved M3 admission staging
 
 M5 widens cardinality without collapsing the accepted M3 stages:
@@ -439,32 +473,76 @@ to `Blocked` or `Failed` without `result_admitted -> judged` is prohibited.
 ### 6.3 Durable continuation reconstruction
 
 Durability belongs to the admitted event log and immutable declaration basis,
-not to process-local brands, closures, weak sets, or object identity. A
-`run.continue` request supplies the continuation identity, expected run, acting
-operator, selected immutable Product/install/workspace/catalog basis, and any
-declared continuation input. `rehydrateContinuation` then:
+not to process-local brands, closures, weak sets, or object identity. Reopening
+first constructs the event append context; continuation carriers are rebuilt
+only inside that context.
 
-1. verifies the durable log bytes and canonical admission-ordinal order;
-2. replays exactly one run-local open `Continuation` with no resolved,
+`reopenEventStore` consumes an existing durable path, the expected complete-log
+digest projected by the current `ContinuationBasis`, and the immutable
+event-contract basis. A caller may echo that digest but cannot select another
+one. The function:
+
+1. opens the existing sink without create or truncate and acquires exclusive
+   append ownership for the context lifetime;
+2. reads the complete canonical JSON-lines prefix, requiring a terminal newline
+   and rejecting a partial or non-canonical record;
+3. validates every preserved envelope against the selected event union,
+   recomputes its payload digest and event id using its preserved ordinal, and
+   requires unique event ids plus the exact gap-free ordinal sequence `1..n`;
+4. validates every historical causation ref against an earlier event in the
+   same prefix and re-applies the canonical scope and cross-run rules;
+5. compares the canonical prefix digest and file identity/length with the
+   requested basis, then seeds one `ReopenedEventStoreContext` with those exact
+   frozen historical envelopes and the same durable path; and
+6. sets the live admission cursor to `maxOrdinal` (`0` for an empty existing
+   log). The next candidate is store-stamped at `maxOrdinal + 1`, appended with
+   append-only semantics, durably synchronized, and only then made visible to
+   replay. Each append rechecks the owned file identity and expected prior
+   length so a second writer or replaced sink fails closed.
+
+No historical event passes through live admission, receives another stamp, or
+is written again. Reopening itself emits no runtime event. It changes no fluent;
+it validates and resumes the one canonical emitter context required to append
+new truth. The context is operation-scoped and closes after its atomic admission
+batch; a later public operation lawfully reopens the same verified prefix rather
+than sharing ambient process state.
+
+Initial invocation and later reopening are disjoint operations. Initial
+invocation may create one absent sink with exclusive-create semantics. A
+response or continuation operation must call `reopenEventStore` on that existing
+sink and is forbidden from invoking the create-empty path.
+
+An admitted `run.continue` public operation then supplies that reopened context,
+the public-operation admission ref, continuation identity, expected run, acting
+operator and capability, selected immutable Product/install/workspace/catalog
+basis, and any declared continuation input. `rehydrateContinuation`:
+
+1. replays exactly one run-local open `Continuation` with no resolved,
    superseded, or abandoned terminal event;
-3. verifies its Product, workspace binding, catalog view, Program,
+2. verifies its Product, workspace binding, catalog view, Program,
    GraphFunction, materialization, validation, executable-set,
    interaction-set, ExecutionBasis, Run, GraphCall, Frame, C-call, cursor,
    input, request, and response-contract refs and digests against the selected
    immutable declarations;
-4. requires exactly one matching admitted response when the continuation kind
+3. requires exactly one matching admitted response when the continuation kind
    requires F_H input;
+4. verifies the `run.continue` public-operation event, acting operator,
+   capability, continuation identity, and declared input against the open
+   member and policy;
 5. reconstructs fresh owner-issued `ExecutionBasis`, `OpenedTraversalScope`,
    cursor, and input carriers only after canonical body and digest equality;
    process-local branding is renewed evidence, never durable authority; and
-6. admits `fh_interaction_resume_admitted` for F_H or
+6. appends `fh_interaction_resume_admitted` for F_H or
    `continuation_resume_admitted` for another declared continuation kind before
    `run.continue` explicitly re-enters HoG.
 
-Missing bodies, digest drift, stale or multiple open members, wrong actor or
-response contract, cross-run identity, changed workspace/product/catalog
-authority, or another basis fork refuses before HoG. `interaction.respond`
-only emits actor-attributed response truth; it cannot perform steps 1-6.
+Missing bodies, log replacement, ordinal or stamp drift, stale or multiple open
+members, wrong public operation, actor, capability, response contract, cross-run
+identity, changed workspace/product/catalog authority, or another basis fork
+refuses before HoG and appends no resume event. The `interaction.respond`
+operation may obtain its own reopened append context, but its semantic admission
+only appends actor-attributed response truth; it cannot reconstruct execution
+carriers or perform continuation steps 1-6.
 
 ## 7. Three-View Projection
 
@@ -602,6 +680,13 @@ classDiagram
     +sourceCursor
     +targetCursor
   }
+  class FanOutCompletion {
+    <<subordinate>>
+    <<authoritative>>
+    +completionKind
+    +orderedTaskRefs
+    +outputVectorOrStop
+  }
   class RouteCandidate {
     <<subordinate>>
     <<effect-edge>>
@@ -620,6 +705,12 @@ classDiagram
     +continuationKind
     +runId
     +causedByEventRef
+  }
+  class ReopenedEventStoreContext {
+    <<effect-edge>>
+    -durablePath
+    -verifiedPrefixDigest
+    -lastAdmissionOrdinal
   }
   class ReplayProjectionFamily {
     <<prime>>
@@ -664,11 +755,15 @@ classDiagram
   TraversalCursor --> LeafExecutionPort : invokeLeafPort
   TraversalCursor --> HumanInteractionBoundary : emits declared F_H hold
   RuntimeEventFamily *-- AdmittedRoute
+  RuntimeEventFamily *-- FanOutCompletion
+  RuntimeEventFamily *-- ReopenedEventStoreContext
   RuntimeEventFamily --> Continuation : records lifecycle
   TraversalAggregateFamily *-- RouteCandidate
   RouteCandidate --> AdmittedRoute : admitRoute
   ContinuationBasis --> TraversalCursor : preserves held position
   Continuation --> ContinuationBasis : replay projects
+  ReopenedEventStoreContext --> ReplayState : seeds exact historical prefix
+  FanOutCompletion --> AdmittedRoute : enables declared route
   ReplayProjectionFamily *-- ContinuationBasis
   ReplayProjectionFamily *-- ReplayState
   ReplayState --> RuntimeEventFamily : rehydrateReplay
@@ -733,6 +828,8 @@ sequenceDiagram
         Public->>ABG: open Run, GraphCall, and Frame
         ABG-->>Public: OpenedTraversalScope
         Public->>HoG: traverse original GTL with admitted ports
+        HoG->>ABG: admit initial traversal_cursor_entered from original GTL and scope
+        ABG-->>HoG: replay-derived active initial locus
         loop direct fold over GTL and current replay
         HoG->>HoG: derive TraversalStep from term and cursor
         alt F_D or F_P C.of
@@ -742,16 +839,25 @@ sequenceDiagram
           HoG->>ABG: admit evidence, result, and judgment
           ABG-->>HoG: replay-derived CCall truth or totalized missing suffix
         else F_H C.of
-          HoG->>ABG: open exact CCall, admit pending result and judgment, and open Continuation
+          HoG->>ABG: open exact CCall and submit pending suffix, GTL hold route, and Continuation
+          ABG->>ABG: atomically append judgment, hold route, then caused continuation opening
           ABG-->>HoG: replay-derived held truth
           HoG-->>Public: typed held traversal stop
           Public-->>Caller: typed held outcome, current operation stops
           Human->>Public: later interaction.respond with attributed response candidate
+          Public->>ABG: reopen existing durable sink without restamping
+          ABG-->>Public: ReopenedEventStoreContext or typed refusal
+          Public->>ABG: admit interaction.respond ingress with actor and capability
+          ABG-->>Public: public-operation admission event
           Public->>ABG: admit response against exact open Continuation
           ABG-->>Public: actor-attributed response truth only
           Public-->>Human: typed response-admitted outcome
-          Caller->>Public: later run.continue naming run and Continuation
-          Public->>ABG: rehydrate durable replay and exact immutable authority basis
+          Caller->>Public: later run.continue naming run, Continuation, actor, capability, and input
+          Public->>ABG: reopen existing durable sink and preserve exact historical prefix
+          ABG-->>Public: ReopenedEventStoreContext or typed refusal
+          Public->>ABG: admit run.continue ingress with actor, capability, and input
+          ABG-->>Public: public-operation admission event
+          Public->>ABG: rehydrate replay and exact immutable authority basis in reopened context
           ABG->>ABG: reconstruct owner-issued basis, scope, cursor, and input and admit resume
           ABG-->>Public: RehydratedContinuationScope or typed basis-fork refusal
           Public->>HoG: explicitly re-enter exact cursor with admitted continued input
@@ -776,17 +882,24 @@ sequenceDiagram
           HoG->>Prep: prepare exact GTL-declared child application
           Prep-->>HoG: PreparedChildTraversal or typed refusal
           alt child preparation refused
-            HoG->>ABG: admit typed child refusal under parent scope
+            Prep->>ABG: admit child_preparation_refused under parent frame
+            ABG-->>HoG: replay-derived refusal available to declared route evaluation
           else child prepared
             HoG->>HoG: traverse named child GTL or projected fan-out C.batch
             HoG->>ABG: admit child foldback candidate
+            opt fan_out application completed or stopped
+              HoG->>ABG: submit exact ordered task census and completion variant
+              ABG-->>HoG: fan_out_completion_admitted or typed refusal
+            end
           end
         else batch or retry
           HoG->>HoG: derive task or attempt cursor from declared term
         end
-        HoG->>ABG: propose declared consequence route when current replay permits
-        ABG-->>HoG: admitted route or typed refusal
-        HoG->>HoG: apply admitted route
+        opt branch has not already consumed an admitted hold or terminal route
+          HoG->>ABG: propose declared consequence route when current replay permits
+          ABG-->>HoG: admitted route or typed refusal
+          HoG->>HoG: apply admitted route
+        end
         end
         alt terminal
           HoG->>ABG: submit current closure candidate
@@ -813,18 +926,35 @@ stateDiagram-v2
   GraphValidated --> InvocationRefused: ABG admits resolution or basis gap
   GraphValidated --> BasisAdmitted: ABG admits executable set, interaction set, and ExecutionBasis
   BasisAdmitted --> Opened: ABG opens Run, GraphCall, and Frame
-  Opened --> AtTerm: HoG derives cursor from GTL plus replay
-  AtTerm --> AtTerm: HoG applies admitted identity, compose, edge, batch, or retry route
+  Opened --> AtTerm: HoG derives and ABG admits initial cursor from GTL plus replay
+  AtTerm --> AtTerm: HoG applies admitted identity, compose, edge, or advance route
+  AtTerm --> RetryAttemptActive: ABG opens declared retry attempt
+  RetryAttemptActive --> RetryProgressAvailable: ABG records judged attempt and terminates active attempt
+  RetryProgressAvailable --> AtTerm: admitted retry or advance route consumes progress
+  RetryProgressAvailable --> HoldRouteAdmitted: admitted hold route consumes progress
+  RetryProgressAvailable --> Blocked: admitted blocked route consumes progress and run stops
+  RetryProgressAvailable --> Failed: admitted failed route consumes progress and run stops
   AtTerm --> WorkflowParentOpen: ABG opens transparent workflow CCall
   WorkflowParentOpen --> ChildPreparing: HoG invokes admitted preparation port
   AtTerm --> ChildPreparing: HoG derives recurse, fan-out, or fan-in child request
   ChildPreparing --> ParentRejectedBeforeResult: workflow child preparation refuses after parent open
-  ChildPreparing --> Blocked: non-workflow child preparation refuses
+  ChildPreparing --> ChildPreparationRefused: ABG admits non-workflow preparation refusal
+  ChildPreparationRefused --> HoldRouteAdmitted: declared hold route admitted
+  ChildPreparationRefused --> Blocked: declared blocked route admitted and run stops
+  ChildPreparationRefused --> Failed: declared failed route admitted and run stops
   ChildPreparing --> ChildBasisAdmitted: port returns exact child subsets, basis, and scope
   ChildBasisAdmitted --> ChildActive: ABG opens child GraphCall and Frame
   ChildActive --> WorkflowParentResult: workflow child reaches terminal, held, blocked, failed, or refused truth
   WorkflowParentResult --> CCallJudged: ABG admits sub-traversal evidence, parent result, and judgment
-  ChildActive --> AtTerm: non-workflow foldback is admitted and HoG applies it
+  ChildActive --> ChildFoldbackAvailable: ABG admits non-workflow foldback truth
+  ChildFoldbackAvailable --> AtTerm: admitted route consumes foldback and HoG applies it
+  ChildActive --> FanOutCompletionPending: fan-out task family completes or stops
+  FanOutCompletionPending --> FanOutVectorAdmitted: ABG admits exact ordered output vector
+  FanOutCompletionPending --> FanOutPartialStopped: ABG admits completed, stopping, and unstarted partition
+  FanOutVectorAdmitted --> AtTerm: declared graph-success route consumes vector
+  FanOutPartialStopped --> HoldRouteAdmitted: declared hold route consumes partial stop
+  FanOutPartialStopped --> Blocked: declared blocked route consumes partial stop and run stops
+  FanOutPartialStopped --> Failed: declared failed route consumes partial stop and run stops
   ParentRejectedBeforeResult --> ResultAdmitted: ABG admits rejection evidence and typed refusal result
   AtTerm --> CCallOpen: ABG atomically opens and selects fibre
   CCallOpen --> EvidenceAdmitted: ABG admits evidence
@@ -837,16 +967,17 @@ stateDiagram-v2
   ResultAdmitted --> CCallJudged: ABG admits judgment
   ResultAdmitted --> JudgmentRejected: judgment candidate rejects
   JudgmentRejected --> CCallJudged: ABG admits rejection judgment only
-  CCallJudged --> AtTerm: ABG admits route and HoG applies it
-  CCallJudged --> Held: pending F_H, child, or yield truth opens Continuation
-  CCallJudged --> Blocked: admitted blocked judgment and route
+  CCallJudged --> AtTerm: ABG admits advance route and HoG applies it
+  CCallJudged --> HoldRouteAdmitted: ABG admits hold route from pending F_H, child, or yield truth
+  HoldRouteAdmitted --> Held: ABG opens Continuation and consumes hold-route availability
+  CCallJudged --> Blocked: admitted blocked route and run stop
   Held --> ResponseAdmitted: separate interaction.respond admits attributed F_H response
   Held --> ReplayRehydrated: run.continue rehydrates a non-F_H current input
   ResponseAdmitted --> ReplayRehydrated: later run.continue rehydrates exact durable scope
   ReplayRehydrated --> ResumeAdmitted: ABG admits resume and resolves Continuation
   ResumeAdmitted --> AtTerm: public operation explicitly re-enters HoG
   AtTerm --> Closed: ABG admits terminal predicate and closure events
-  Opened --> Failed: pre-call or closure runtime failure and run stop admitted
+  Opened --> Failed: pre-call or closure runtime_failure_observed admitted
   Closed --> [*]
   Invalid --> [*]
   InvocationRefused --> [*]
@@ -864,8 +995,8 @@ stateDiagram-v2
   Responded --> Resolved: fh_interaction_resume_admitted
   Open --> Superseded: continuation_superseded
   Responded --> Superseded: continuation_superseded
-  Open --> Abandoned: continuation_abandoned or terminal run stop
-  Responded --> Abandoned: continuation_abandoned or terminal run stop
+  Open --> Abandoned: continuation_abandoned before terminal run stop
+  Responded --> Abandoned: continuation_abandoned before terminal run stop
   Resolved --> [*]
   Superseded --> [*]
   Abandoned --> [*]
@@ -885,19 +1016,22 @@ stateDiagram-v2
 | uniform C-call spine | lifecycle matrix | ABG | traversal aggregate | leaf admission | open to judged | shared CCall API | replay-order checks | pass | none |
 | workflow.C has one transparent parent spine | workflow invariant and lifecycle | ABG | parent CCall plus child scope | parent opens before preparation and completes after child outcome | WorkflowParentOpen through CCallJudged | parent attempt identity | sub_traversal evidence and exactly one parent result/judgment | pass | none |
 | post-open rejection adds only missing suffix | rejection lifecycle and authority row | ABG | rejection candidate under C call | stage-sensitive totalizer | rejected-before-result or judgment-rejected to judged | spine-position union | exactly one result and judgment | pass | none |
-| batch and fan-out preserve task cardinality | C.batch and fan-out laws | GTL, HoG, ABG | ordered task declarations | GTL projects batch and HoG traverses tasks | one task spine each | stable ordinal task union | no synthetic aggregate result and no output vector on partial failure | pass | none |
+| batch and fan-out preserve task cardinality | C.batch and fan-out laws | GTL, HoG, ABG | ordered task declarations plus `FanOutCompletion` | GTL projects batch, HoG traverses tasks, ABG admits complete or partial census | one task spine each then one completion variant | stable ordinal task union | exact complete-vector or completed/stopping/unstarted partition; no vector on partial stop | pass | none |
 | fibre substitution preserves shape | fibre invariant | GTL declaration | same term topology | same fold | same lifecycle | generic leaf variant | differential proof | pass | T-270 proof |
 | worker cannot mint truth | authority matrix | ABG | effect-edge port | candidates returned | no direct closed edge | port lacks event methods | candidate admission | pass | none |
 | F_H is not an implementation or ABG callback | disjoint key sets and authority matrices | human, separate public operations, and ABG | interaction requirement plus Continuation | invoke stops, interaction.respond admits only response, run.continue rehydrates and re-enters HoG | Held through Responded, ReplayRehydrated, and ResumeAdmitted | no F_H implementation port and no ABG-to-HoG call | attributed response and resume admissions | pass | T-272 behavior |
 | child traversal is transparent | relationship inventory | HoG plus ABG | child lineage | child scope and foldback | ChildActive | typed child relation | child basis and replay | pass | T-270 implementation |
-| continuation is authoritative and replay-constructible | Continuation aggregate and basis relation | ABG | open obligation plus downstream basis | exact durable reconstruction and separate response/continue operations | open to resolved, superseded, or abandoned | owner constructors renew brands only after equality | durable log, immutable authority basis, and basis-fork refusal | pass | T-272 behavior |
-| every new runtime fact has one event/effect law | RuntimeEventFamily delta | ABG | fixed event kinds and payloads | append precedes downstream effect | replay lifecycle is total | closed event union | declared Event Calculus effect table | pass | none |
+| continuation is authoritative and replay-constructible | Continuation aggregate, reopened store, and basis relation | ABG | open obligation plus downstream basis and exact historical prefix | reopen without restamp, verify public ingress, reconstruct, then separate resume and HoG re-entry | open to resolved, superseded, or abandoned | preserved ordinals and owner constructors renewed only after equality | existing sink, max-plus-one append, immutable authority basis, and basis-fork refusal | pass | T-272 behavior |
+| continuation resume is actor-authorized | public-operation and continuation relations | public ingress plus ABG | `run.continue` admission, actor, capability, and input | public admission precedes same-run resume event | reopened through ResumeAdmitted | typed operation and capability refs | exact ingress event is causal input to resume | pass | T-272 behavior |
+| every new runtime fact has one event/effect law | RuntimeEventFamily delta | ABG | fixed event kinds and closed payload variants | append precedes downstream effect | every initiated active fluent has an explicit terminal consumer | closed event union | declared Event Calculus effect table and mutation proof | pass | none |
 | public layer is not controller | unchanged M3 law | Product/ABG/HoG | no public Prime | one invoke call | no public private state | stateless operation types | public-controller mutation | pass | T-281 breadth |
 
 ## 9. Runtime Event And Replay Delta
 
-M5 extends the published `RUNTIME_EVENT_KIND_VALUES` union with the exact kinds
-below. It does not create another envelope or event family. Every row carries
+M5 retains the accepted opening and closure kinds and extends the published
+`RUNTIME_EVENT_KIND_VALUES` union with the new exact kinds below. The table
+repeats existing opening kinds where their fluent effects participate in the
+expanded lifecycle. It does not create another envelope or event family. Every row carries
 the canonical envelope, a store-assigned admission ordinal, `basisId`, `runId`,
 `graphFunctionRef`, `materializationRef`, `graphCallId`, `frameId`,
 `frameLineageId`, unique admitted `causationEventRefs`, and `correlationId`
@@ -906,18 +1040,29 @@ before the next effectful step observes it.
 
 | Event kind | Aggregate and required closed payload | Required causal basis | Declared Event Calculus effects |
 |---|---|---|---|
-| `traversal_route_admitted` | `frame`; route ref/digest, closed route kind, declaration ref/digest, source and target cursor refs/digests, applicable CCall and judgment refs | current opened scope plus the judgment, child result, gate result, or structural declaration that permits the route | initiates `route_admitted(routeRef)` and `locus_active(targetCursorRef)`; terminates `locus_active(sourceCursorRef)`; retry, hold, blocked, and failed variants additionally initiate their same-named frame fluent |
-| `child_foldback_admitted` | parent `frame`; parent and child basis/GraphCall/Frame refs, child terminal disposition, child result/judgment/closure refs, parent workflow CCall ref when present, foldback contract, source and target cursor refs/digests | child close or stop event plus parent waiting or parent CCall-open event | initiates `child_foldback_available(childGraphCallId)` and `locus_active(targetCursorRef)`; terminates `parent_waiting_on_child(childGraphCallId)` |
+| `run_segment_opened` | existing `run` payload plus exact ExecutionBasis and opening public-operation refs | admitted basis and invocation | initiates `run_active(runId)` |
+| `graph_call_opened` | existing `graph_call` payload plus child relation, parent frame, and parent cursor refs when this is a child | active run plus admitted GraphFunction/materialization basis | initiates `graph_call_active(graphCallId)`; the child variant also initiates `parent_waiting_on_child(childGraphCallId)` |
+| `frame_opened` | existing `frame` payload plus exact GraphCall and frame-lineage refs | active GraphCall | initiates `frame_active(frameId)` |
+| `traversal_cursor_entered` | `frame`; initial cursor ref/digest, original GTL declaration and materialization refs/digests, term path, input ref/digest, and opened scope refs | active frame plus validated original GTL | initiates `locus_active(cursorRef)` |
+| `traversal_route_admitted` | `frame`; route ref/digest, route kind from `advance`, `retry`, `hold`, `blocked`, `failed`, or `terminal`, declaration ref/digest, source and optional target cursor refs/digests, applicable CCall/judgment and consumed-availability refs | current opened scope plus the judgment, child refusal/foldback, fan-out completion, gate result, retry progress, or structural declaration that permits the route | every variant terminates `locus_active(sourceCursorRef)` and any named consumed-availability fluent; `advance` and `retry` initiate `locus_active(targetCursorRef)`; `hold` terminates `frame_active` and initiates `hold_route_admitted(routeRef)`; `blocked` and `failed` terminate `frame_active` plus exact active retry/hold fluents and initiate `frame_blocked(frameId)` or `frame_failed(frameId)`; `terminal` initiates `terminal_route_available(routeRef)` |
+| `child_preparation_refused` | parent `frame`; application and child GraphFunction refs/digests, admitted child input ref/digest, preparation stage, exact validation gap or ABG refusal, source cursor ref/digest, and parent workflow CCall ref when present | active parent frame plus the exact preparation candidate and owner-produced gap/refusal | the non-workflow variant initiates `child_preparation_refusal_available(applicationRef)` for a later declared route; the workflow-parent variant initiates no free availability and instead becomes the direct cause of rejection evidence that totalizes the already-open parent CCall |
+| `child_foldback_admitted` | parent `frame`; parent and child basis/GraphCall/Frame refs, closed child lifecycle disposition, child result/judgment/closure-or-stop refs, parent workflow CCall ref when present, foldback contract, source and candidate target cursor refs/digests | child close or stop event plus `parent_waiting_on_child` or parent CCall-open truth | terminates `parent_waiting_on_child(childGraphCallId)`; the non-workflow variant initiates `child_foldback_available(childGraphCallId)` for a later route or fan-out completion, while the workflow-parent variant becomes the direct cause of `sub_traversal` CCall evidence and initiates no free availability; the `stopped` variant also terminates still-active child GraphCall/Frame fluents, while the `closed` variant requires canonical close events already terminated them |
 | `retry_attempt_opened` | `frame`; term path, task ordinal, positive attempt, retry path, declared budget and allowlist, prior judgment/route refs when present | initial term entry or admitted retry route | initiates `retry_attempt_active(attemptRef)` |
-| `retry_progress_recorded` | `frame`; attempt ref, admitted result/judgment refs, retryability class, completed-attempt set, remaining budget | judged CCall for the exact attempt | initiates `retry_progress_available(attemptRef)`; the subsequent declared `traversal_route_admitted` event alone advances, retries, blocks, or fails |
-| `continuation_opened` | `continuation`; continuation id, closed kind of `child_traversal`, `yield`, `retry`, or `external_input`, caused-by event, held cursor ref/digest, remaining schedule or child refs, continuation-input contract, and the complete durable reconstruction basis required by Section 6.3 | admitted hold route or pending child/retry judgment | initiates `continuation_open(continuationId,runId)` and `frame_held(frameId)` |
-| `fh_interaction_opened` | `continuation`; continuation id, kind `fh_interaction`, caused-by event, request and response contract refs, actor-capability ref, held cursor ref/digest, input ref/digest/body, executable and interaction set refs/digests, ExecutionBasis, Run, GraphCall, Frame, CCall, Program, GraphFunction, materialization, validation, Product, install, workspace, and catalog refs/digests | pending CCall judgment plus admitted hold route | initiates `continuation_open(continuationId,runId)`, `interaction_pending(continuationId)`, and `frame_held(frameId)` |
-| `fh_interaction_responded` | `continuation`; actor and capability refs, response contract, response ref/digest and canonical admitted value, public-operation admission ref | exact open interaction plus admitted `interaction.respond` ingress | initiates `continuation_response_available(continuationId)`; changes no traversal or terminal fluent |
-| `continuation_resume_admitted` | `continuation`; durable replay digest, opened-event ref, verified reconstructed scope refs/digests, successor cursor and input refs/digests | exact open non-F_H member, valid current basis, and declared current input | terminates `continuation_open` and `frame_held`; initiates `continuation_terminated(continuationId,resolved)`, `frame_active(frameId)`, and `locus_active(successorCursorRef)` |
-| `fh_interaction_resume_admitted` | `continuation`; durable replay digest, opened-event ref, responded-event ref, verified reconstructed scope refs/digests, successor cursor and input refs/digests | exact open member, valid current basis, and required response truth | terminates `continuation_open`, `interaction_pending`, `continuation_response_available`, and `frame_held`; initiates `continuation_terminated(continuationId,resolved)`, `frame_active(frameId)`, and `locus_active(successorCursorRef)` |
-| `continuation_superseded` | `continuation`; old member, replacement run/continuation when present, accepted correction or reprice ref, reason ref | exact open member plus admitted authority change | terminates `continuation_open`, `interaction_pending`, and `continuation_response_available`; initiates `continuation_terminated(continuationId,superseded)` |
-| `continuation_abandoned` | `continuation`; member, abandoning actor or run-stop ref, reason ref | exact open member plus admitted abandon or terminal-stop cause | terminates `continuation_open`, `interaction_pending`, and `continuation_response_available`; initiates `continuation_terminated(continuationId,abandoned)` |
-| `run_stopped` | `run`; closed disposition of `blocked`, `failed`, `operator_abort`, or `campaign_close`, exact open aggregate refs, terminal CCall/judgment/route or runtime-failure ref, and reason ref | admitted blocked/failed route, runtime failure, or attributed operator stop | terminates `run_active`, `graph_call_active`, and `frame_active`; initiates `run_terminal(runId,disposition)` |
+| `retry_progress_recorded` | `frame`; attempt ref, admitted result/judgment refs, retryability class, completed-attempt set, remaining budget | judged CCall for the exact attempt | terminates `retry_attempt_active(attemptRef)` and initiates `retry_progress_available(attemptRef)`; the next declared route consumes that fluent |
+| `fan_out_completion_admitted` | parent `frame`; application, batch, input vector, contract and task refs; closed `completionKind`; `complete_vector` carries every ordered task CCall/result/judgment/output row plus canonical output vector ref/digest/body; `partial_stop` carries exact completed rows, one stopping ordinal/task/disposition/event, exact unstarted rows, and no output vector | all cited task judgments/foldbacks under the exact declared fan-out application and current replay | terminates every cited task `child_foldback_available` fluent; `complete_vector` initiates `fan_out_vector_available(applicationRef)`; `partial_stop` initiates `fan_out_partial_stop_available(applicationRef)`; a later declared route consumes the exact completion fluent, and no partial variant initiates vector truth |
+| `continuation_opened` | `continuation`; continuation id, closed kind of `child_traversal`, `yield`, `retry`, or `external_input`, caused-by event, admitted hold-route ref, optional workspace reentry-link ref, held cursor ref/digest, remaining schedule or child refs, continuation-input contract, and complete Section 6.3 reconstruction basis | admitted hold route plus pending child/retry/yield truth in the same run; a replacement-run opening also cites the admitted workspace link | terminates `hold_route_admitted(routeRef)` and the cited `continuation_reentry_link_available` fluent when present; initiates `continuation_open(continuationId,runId)` and `frame_held(frameId)` |
+| `fh_interaction_opened` | `continuation`; continuation id, kind `fh_interaction`, caused-by event, admitted hold-route ref, request and response contract refs, actor-capability ref, held cursor ref/digest, input ref/digest/body, executable and interaction set refs/digests, ExecutionBasis, Run, GraphCall, Frame, CCall, Program, GraphFunction, materialization, validation, Product, install, workspace, and catalog refs/digests | pending CCall judgment plus admitted hold route in the same run | terminates `hold_route_admitted(routeRef)`; initiates `continuation_open(continuationId,runId)`, `interaction_pending(continuationId)`, and `frame_held(frameId)` |
+| `fh_interaction_responded` | `continuation`; actor and capability refs, response contract, response ref/digest and canonical admitted value, `interaction.respond` public-operation admission ref | exact open interaction plus admitted `interaction.respond` ingress in the same reopened store | initiates `continuation_response_available(continuationId)`; changes no traversal or terminal fluent |
+| `continuation_resume_admitted` | `continuation`; durable prefix/replay digests, opened-event ref, `run.continue` public-operation admission ref, acting operator and capability refs, declared input ref/digest/body, verified reconstructed scope refs/digests, successor cursor and input refs/digests | exact open non-F_H member, admitted same-run `run.continue` ingress, valid current basis, and declared current input | terminates `continuation_open` and `frame_held`; initiates `continuation_terminated(continuationId,resolved)`, `frame_active(frameId)`, and `locus_active(successorCursorRef)` |
+| `fh_interaction_resume_admitted` | `continuation`; durable prefix/replay digests, opened/responded-event refs, `run.continue` public-operation admission ref, acting operator and capability refs, declared input ref/digest/body, verified reconstructed scope refs/digests, successor cursor and input refs/digests | exact open member, admitted same-run `run.continue` ingress, valid current basis, and required admitted response truth | terminates `continuation_open`, `interaction_pending`, `continuation_response_available`, and `frame_held`; initiates `continuation_terminated(continuationId,resolved)`, `frame_active(frameId)`, and `locus_active(successorCursorRef)` |
+| `continuation_superseded` | `continuation`; old member, response-state discriminant, accepted correction or reprice ref, and reason ref | exact open member plus admitted same-run authority change | terminates `continuation_open` and `frame_held`; the F_H variant also terminates `interaction_pending` and, only when the discriminant is `responded`, `continuation_response_available`; initiates `continuation_terminated(continuationId,superseded)` |
+| `continuation_abandoned` | `continuation`; member, response-state discriminant, abandoning actor when present, prior terminal-cause event ref, and reason ref | exact open member plus admitted same-run blocked/failed route, operator-stop ingress, or other terminal cause that precedes `run_stopped` | terminates `continuation_open` and `frame_held`; the F_H variant also terminates `interaction_pending` and, only when the discriminant is `responded`, `continuation_response_available`; initiates `continuation_terminated(continuationId,abandoned)` |
+| `continuation_reentry_link_admitted` | run-independent `workspace`; old run/continuation and supersession-event refs/digests, replacement run/basis/open refs/digests, accepted correction/reprice ref, and new continuation contract | ABG verifies all payload refs against the old terminal member and replacement run, but supplies no cross-run `causationEventRefs` | initiates `continuation_reentry_link_available(linkRef)`; a new-run continuation may cite this workspace-scoped link plus same-run opening events, then consumes the link |
+| `run_stopped` | `run`; closed disposition of `blocked`, `failed`, `operator_abort`, or `campaign_close`, exact still-open aggregate, cursor, retry, hold, parent-wait, availability, continuation-terminal, frame-state, CCall/judgment/route refs, and reason ref | admitted blocked/failed route or attributed operator stop in the same run; `runtime_failure_observed` remains its own accepted terminal path | terminates `run_active`, `graph_call_active`, every listed `frame_active`, `frame_held`, `frame_blocked`, `frame_failed`, `locus_active`, `retry_attempt_active`, `retry_progress_available`, `hold_route_admitted`, `parent_waiting_on_child`, child-refusal/foldback, and fan-out availability fluent; initiates `run_terminal(runId,disposition)` |
+| `terminal_reached` | existing `frame` payload plus terminal-route ref and exact terminal predicate evidence | admitted `terminal` route under current replay | terminates `terminal_route_available(routeRef)` and initiates `terminal_admitted(frameId)` |
+| `frame_closed` | existing `frame` closure payload | `terminal_reached` | terminates `frame_active(frameId)` and initiates `frame_closed(frameId)` |
+| `graph_call_closed` | existing `graph_call` closure payload | final frame close | terminates `graph_call_active(graphCallId)` and initiates `graph_call_closed(graphCallId)` |
+| `run_closed` | existing `run` closure payload | final GraphCall close | terminates `run_active(runId)` and initiates `run_closed(runId)` |
 
 The effect declaration is a total function of the event kind and its closed
 payload variant. Payload values parameterize fluent identities; they do not
@@ -925,18 +1070,33 @@ select an undeclared effect family. Unknown kinds, unknown route or stop
 variants, missing scope, missing causal predecessors, or an effect row absent
 from this table refuse at event admission.
 
+The pending C-call judgment, hold `traversal_route_admitted`, and matching
+continuation-open event are one ordered atomic admission batch. The hold route
+is constructed first and is therefore a valid cause of the continuation event;
+neither becomes replay-visible unless the full batch is durably accepted. The
+same rule applies to an admitted blocked/failed route, all required
+continuation-abandon events, and the following `run_stopped`, in that order.
+This removes intermediate unowned hold or terminal states.
+
 Child preparation reuses `basis_admitted`, `graph_call_opened`, and
 `frame_opened` with the child refs and both exact child-set digests. Parent and
 child leaf work reuses the canonical C-call spine. Successful aggregate closure
 reuses `terminal_reached`, `frame_closed`, `graph_call_closed`, and
-`run_closed`. A blocked or failed run emits `run_stopped`; before that event,
-ABG emits one `continuation_abandoned` for every still-open continuation in the
-run. No terminal state is inferred from missing close events.
+`run_closed`; their accepted M4 effects terminate their matching active
+fluents. A blocked or failed run emits `run_stopped`; before that event, ABG
+emits one `continuation_abandoned` for every still-open continuation in the run.
+No terminal state is inferred from missing close events.
 
-When superseded work remains relevant in a replacement run,
-`continuation_superseded` is followed by a new `continuation_opened` whose
-causation includes the supersession event and whose identity belongs to the
-replacement run. An old continuation identity never crosses runs.
+Cross-run relation is payload linkage, not forbidden cross-run event causation.
+When superseded work remains relevant, the old run first emits
+`continuation_superseded`. After the replacement run and basis exist, ABG admits
+one workspace-scoped `continuation_reentry_link_admitted` that verifies both
+sides by payload reference and carries no run-scoped cause. The new run may then
+open a new continuation caused by that run's own opening events plus the
+workspace-scoped link. Link admission and new-continuation opening are one
+ordered atomic batch, so no unconsumed link becomes visible. The new event
+consumes the link, gets a new identity, and never names the old run event in
+`causationEventRefs`.
 
 Replay validates the complete event union, canonical envelope, admission
 ordinal, scope, causation, and declared effect relation before folding. It then
@@ -961,12 +1121,13 @@ Implementation proceeds as one current-line evolution, not a donor merge:
 6. bind `ChildTraversalPreparationPort` and replace root-only traversal with
    the exhaustive direct fold while retaining the M4 root as an ordinary
    one-leaf case;
-7. extend the canonical ABG event union, Event Calculus, and replay with the
-   exact Section 9 delta;
+7. extend the canonical ABG event union, Event Calculus, replay, fan-out
+   completion admission, and existing-log append context with the exact Section
+   9 delta;
 8. add data-driven installed traversal and fibre-substitution proofs;
 9. add live F_P only after RC5 B-001 transport behavior is re-adopted; and
-10. expose separate response, durable reopen, and continuation ports for T-272
-    without implementing One Surface inside T-270.
+10. expose separate response, operation-scoped durable reopen, and continuation
+    ports for T-272 without implementing One Surface inside T-270.
 
 Implementation may refine private function decomposition and TypeScript
 generic spelling. It may not change the entities, authority, lifecycle,
@@ -985,12 +1146,17 @@ This design delta is acceptable when review confirms:
    and graph transitions preserve exact lineage and ABG truth;
 4. child preparation preserves M3 module topology and never re-resolves the
    admitted Product set during traversal;
-5. the authoritative Continuation lifecycle is replay-constructible and
-   `interaction.respond` remains separate from `run.continue`;
-6. every added runtime fact has one canonical event, causal payload, and Event
-   Calculus effect relation;
-7. shared primitives carry no semantic authority;
-8. the three views project the same Ontology delta;
-9. the M3 Prime family is contracted rather than expanded; and
-10. no compiled plan, generated program, feature controller, or rival event
+5. an existing durable sink reopens without truncation or restamping, preserves
+   historical ordinals, and stamps the next event at `maxOrdinal + 1`;
+6. the authoritative Continuation lifecycle is replay-constructible,
+   `interaction.respond` remains separate from `run.continue`, and every resume
+   binds admitted public ingress, actor, capability, and declared input;
+7. fan-out admits either one exact ordered output vector or one exact
+   completed/stopping/unstarted partition and never projects partial success;
+8. every added runtime fact has one canonical event, causal payload, and Event
+   Calculus effect relation with no unconsumed active fluent;
+9. shared primitives carry no semantic authority;
+10. the three views project the same Ontology delta;
+11. the M3 Prime family is contracted rather than expanded; and
+12. no compiled plan, generated program, feature controller, or rival event
    path is constructible.
