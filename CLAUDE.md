@@ -2,10 +2,11 @@
 
 ## Current State
 
-The ABIogenesis 5.0 Product destination, M2 correction vector, and M3 direct-GTL
-realization design are accepted. T-286 completed the bounded installed
-`ABI5-ROOT-001` implementation. T-270 now owns M5 planning and the affected
-generic-traversal design delta; M5 runtime work remains held until acceptance.
+The ABIogenesis 5.0 Product destination, M2 correction vector, M3 direct-GTL
+realization design, and bounded M5 design delta are accepted. T-286 completed
+the installed `ABI5-ROOT-001` implementation. T-270 owns active M5 realization;
+its accepted F_P authority checkpoint is `0b26230c`, and its next typed frontier
+is transparent `workflow.C`.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.
@@ -74,7 +75,7 @@ The operative local projection is `.genesis/docs/standards/`. Mutable
 law. Qualification and release record this same selected basis.
 
 No substantive change skips intake triage or the smallest lawful re-entry.
-No M5 runtime work starts before T-270's exact affected design delta is
-accepted. No new ticket is required where missing detail belongs to an
-existing owner.
+M5 runtime work stays inside T-270's accepted design delta and preserves
+`ABI5-ROOT-001` at every promoted checkpoint. No new ticket is required where
+missing detail belongs to an existing owner.
 <!-- SDLC_BOOTLOADER_END -->

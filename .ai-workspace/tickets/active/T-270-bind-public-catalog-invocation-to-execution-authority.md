@@ -11,7 +11,7 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: design_delta_direct_fh_accepted_d6da4269
+- review_status: fp_execution_authority_direct_fh_accepted_0b26230c
 - proof_status: m4_root_retained_fp_execution_authority_bound_s02_open
 - goal: GOAL-035 M5
 - priority: critical
@@ -178,6 +178,11 @@ Fresh serialized verification is `test:m5` `28/28` and retained `test:m4`
 subprocess-backed deterministic fixture rather than a live probabilistic
 model. The installed path now also proves the B-001 `worker_executes` lane,
 post-install code substitution refusal, and observed bounded termination.
+
+Direct `F_H` accepted this bounded checkpoint on 2026-07-23 at
+`0b26230c01bfc86e3d93f57a963f4630d904010e`. The decision receipt is
+`.ai-workspace/comments/codex/20260722T230559Z_DECISION_fh_accept_t270_fp_authority_checkpoint.md`.
+The next typed frontier is transparent `workflow.C`; `ABG5-S02` remains open.
 `workflow.C`, the forty-row traversal matrix, and fibre substitution remain
 unopened.
 
