@@ -41,6 +41,10 @@ export const COMPOSED_HELLO_IDS = Object.freeze({
   graphRef: "graph://abiogenesis/conformance/hello-compose@5",
   nodeRef: "node://abiogenesis/conformance/hello-compose@5",
   normalizeLocusRef: "locus://abiogenesis/conformance/hello-compose/normalize@5",
+  edgeTransformLocusRef:
+    "locus://abiogenesis/conformance/hello-compose/edge-transform@5",
+  edgeEvaluateLocusRef:
+    "locus://abiogenesis/conformance/hello-compose/edge-evaluate@5",
   renderLocusRef: "locus://abiogenesis/conformance/hello-compose/render@5",
   normalizedInputContractRef:
     "contract://abiogenesis/conformance/normalized-hello-input@5",
@@ -48,15 +52,23 @@ export const COMPOSED_HELLO_IDS = Object.freeze({
     "implementation-binding://abiogenesis/conformance/hello-normalize-fd@5",
   normalizeImplementationRef:
     "implementation://abiogenesis/conformance/hello-normalize-fd@5",
+  passNormalizedImplementationBindingRef:
+    "implementation-binding://abiogenesis/conformance/hello-normalized-pass-fd@5",
+  passNormalizedImplementationRef:
+    "implementation://abiogenesis/conformance/hello-normalized-pass-fd@5",
   renderImplementationBindingRef:
     "implementation-binding://abiogenesis/conformance/hello-render-fd@5",
   renderImplementationRef:
     "implementation://abiogenesis/conformance/hello-render-fd@5",
   normalizeArmId: "arm://abiogenesis/conformance/hello-compose/normalize-fd@5",
+  passNormalizedArmId:
+    "arm://abiogenesis/conformance/hello-compose/normalized-pass-fd@5",
   renderArmId: "arm://abiogenesis/conformance/hello-compose/render-fd@5",
   compositionRef: "composition://abiogenesis/conformance/hello-compose@5",
   normalizeJudgmentPredicateRef:
     "predicate://abiogenesis/conformance/hello-normalized@5",
+  normalizedIdentityJudgmentPredicateRef:
+    "predicate://abiogenesis/conformance/hello-normalized-identity@5",
   renderJudgmentPredicateRef:
     "predicate://abiogenesis/conformance/hello-compose-result@5",
 });
@@ -116,6 +128,15 @@ export function evaluateComposedHelloResult(
     output.message === `Hello ${input.subject}`;
 }
 
+export function evaluateNormalizedIdentityResult(
+  input: Readonly<NormalizedHelloInput>,
+  output: Readonly<NormalizedHelloInput>,
+): boolean {
+  return output.kind === "normalized_hello_input" &&
+    output.schemaVersion === "5.0.0" &&
+    output.subject === input.subject;
+}
+
 export function resolveConformanceJudgmentRelation(
   predicateRef: string,
 ): Readonly<ConformanceJudgmentRelation> | null {
@@ -149,6 +170,17 @@ export function resolveConformanceJudgmentRelation(
           isNormalizedHelloInput(input) &&
           isHelloWorldOutput(output) &&
           evaluateComposedHelloResult(input, output),
+      });
+    case COMPOSED_HELLO_IDS.normalizedIdentityJudgmentPredicateRef:
+      return Object.freeze({
+        predicateRef,
+        advanceReasonRef: "reason://abiogenesis/conformance/hello-normalized-preserved@5",
+        rejectionReasonRef:
+          "reason://abiogenesis/conformance/hello-normalized-identity-rejected@5",
+        evaluate: (input: unknown, output: unknown) =>
+          isNormalizedHelloInput(input) &&
+          isNormalizedHelloInput(output) &&
+          evaluateNormalizedIdentityResult(input, output),
       });
     default:
       return null;
@@ -218,6 +250,20 @@ export function constructHelloWorldModulePublication(
     namedSymbol: "normalizeHelloInput",
     computeRegime: "F_D",
     inputContractRef: HELLO_WORLD_IDS.inputContractRef,
+    outputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+    failureContractRef: HELLO_WORLD_IDS.failureContractRef,
+    refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+  };
+  const passNormalizedImplementationBinding: ImplementationBinding = {
+    kind: "implementation_binding",
+    bindingRef: COMPOSED_HELLO_IDS.passNormalizedImplementationBindingRef,
+    implementationRef: COMPOSED_HELLO_IDS.passNormalizedImplementationRef,
+    packageName: artifact.packageName,
+    packageVersion: artifact.packageVersion,
+    modulePath: "build/code/src/implementation/hello_compose.js",
+    namedSymbol: "passNormalizedHello",
+    computeRegime: "F_D",
+    inputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
     outputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
     failureContractRef: HELLO_WORLD_IDS.failureContractRef,
     refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
@@ -374,28 +420,78 @@ export function constructHelloWorldModulePublication(
               judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
             },
           }),
-          C.of({
-            input: normalizedInputCarrier,
-            output: outputCarrier,
-            programLocusRef: COMPOSED_HELLO_IDS.renderLocusRef,
-            stageRole: "result",
-            fibre: "F_D",
-            armId: COMPOSED_HELLO_IDS.renderArmId,
-            compositionRef: COMPOSED_HELLO_IDS.compositionRef,
-            vectorIndex: 1,
-            judgmentPredicateRef: COMPOSED_HELLO_IDS.renderJudgmentPredicateRef,
-            resultBearing: true,
-            requirement: {
-              kind: "executable_leaf_requirement",
-              implementationBindingRef:
-                COMPOSED_HELLO_IDS.renderImplementationBindingRef,
-              inputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
-              outputContractRef: HELLO_WORLD_IDS.outputContractRef,
-              evidenceContractRef: HELLO_WORLD_IDS.evidenceContractRef,
-              failureContractRef: HELLO_WORLD_IDS.failureContractRef,
-              refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
-              judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
-            },
+          C.edge({
+            transform: C.of({
+              input: normalizedInputCarrier,
+              output: normalizedInputCarrier,
+              programLocusRef: COMPOSED_HELLO_IDS.edgeTransformLocusRef,
+              stageRole: "transform",
+              fibre: "F_D",
+              armId: COMPOSED_HELLO_IDS.passNormalizedArmId,
+              compositionRef: COMPOSED_HELLO_IDS.compositionRef,
+              vectorIndex: 1,
+              judgmentPredicateRef:
+                COMPOSED_HELLO_IDS.normalizedIdentityJudgmentPredicateRef,
+              resultBearing: false,
+              requirement: {
+                kind: "executable_leaf_requirement",
+                implementationBindingRef:
+                  COMPOSED_HELLO_IDS.passNormalizedImplementationBindingRef,
+                inputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+                outputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+                evidenceContractRef: HELLO_WORLD_IDS.evidenceContractRef,
+                failureContractRef: HELLO_WORLD_IDS.failureContractRef,
+                refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+                judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+              },
+            }),
+            evaluate: C.of({
+              input: normalizedInputCarrier,
+              output: normalizedInputCarrier,
+              programLocusRef: COMPOSED_HELLO_IDS.edgeEvaluateLocusRef,
+              stageRole: "evaluate",
+              fibre: "F_D",
+              armId: COMPOSED_HELLO_IDS.passNormalizedArmId,
+              compositionRef: COMPOSED_HELLO_IDS.compositionRef,
+              vectorIndex: 2,
+              judgmentPredicateRef:
+                COMPOSED_HELLO_IDS.normalizedIdentityJudgmentPredicateRef,
+              resultBearing: false,
+              requirement: {
+                kind: "executable_leaf_requirement",
+                implementationBindingRef:
+                  COMPOSED_HELLO_IDS.passNormalizedImplementationBindingRef,
+                inputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+                outputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+                evidenceContractRef: HELLO_WORLD_IDS.evidenceContractRef,
+                failureContractRef: HELLO_WORLD_IDS.failureContractRef,
+                refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+                judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+              },
+            }),
+            consequence: C.of({
+              input: normalizedInputCarrier,
+              output: outputCarrier,
+              programLocusRef: COMPOSED_HELLO_IDS.renderLocusRef,
+              stageRole: "consequence",
+              fibre: "F_D",
+              armId: COMPOSED_HELLO_IDS.renderArmId,
+              compositionRef: COMPOSED_HELLO_IDS.compositionRef,
+              vectorIndex: 3,
+              judgmentPredicateRef: COMPOSED_HELLO_IDS.renderJudgmentPredicateRef,
+              resultBearing: true,
+              requirement: {
+                kind: "executable_leaf_requirement",
+                implementationBindingRef:
+                  COMPOSED_HELLO_IDS.renderImplementationBindingRef,
+                inputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+                outputContractRef: HELLO_WORLD_IDS.outputContractRef,
+                evidenceContractRef: HELLO_WORLD_IDS.evidenceContractRef,
+                failureContractRef: HELLO_WORLD_IDS.failureContractRef,
+                refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+                judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+              },
+            }),
           }),
         ),
       }],
@@ -462,6 +558,7 @@ export function constructHelloWorldModulePublication(
     implementationBindings: [
       implementationBinding,
       normalizeImplementationBinding,
+      passNormalizedImplementationBinding,
       renderImplementationBinding,
     ],
     closureContracts: [closureContract],

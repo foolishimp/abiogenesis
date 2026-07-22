@@ -19,7 +19,7 @@ const NORMALIZED_CONTRACT_REF =
 const OUTPUT_CONTRACT_REF =
   "contract://abiogenesis/conformance/hello-output@5";
 
-test("M5 installed CLI traverses two composed GTL leaves through one ABG runtime", async (context) => {
+test("M5 installed CLI traverses nested C.compose and C.edge through one ABG runtime", async (context) => {
   const harness = await setupInstalledCliHarness(context, root);
   const scenario = await buildRootCliScenario(
     harness,
@@ -59,10 +59,13 @@ test("M5 installed CLI traverses two composed GTL leaves through one ABG runtime
   const judgmentEvents = events.filter((event) => event.kind === "c_call_judged");
   const routes = events.filter((event) => event.kind === "traversal_route_admitted");
 
-  assert.equal(cCallOpened.length, 2);
-  assert.equal(resultEvents.length, 2);
-  assert.equal(judgmentEvents.length, 2);
+  assert.equal(cCallOpened.length, 4);
+  assert.equal(resultEvents.length, 4);
+  assert.equal(judgmentEvents.length, 4);
   assert.deepEqual(routes.map((event) => event.payload.routeKind), [
+    "advance",
+    "advance",
+    "advance",
     "advance",
     "advance",
     "terminal",
@@ -73,12 +76,16 @@ test("M5 installed CLI traverses two composed GTL leaves through one ABG runtime
     schemaVersion: "5.0.0",
     subject: "World",
   });
-  assert.equal(resultEvents[1].payload.contractRef, OUTPUT_CONTRACT_REF);
+  assert.equal(resultEvents[1].payload.contractRef, NORMALIZED_CONTRACT_REF);
+  assert.equal(resultEvents[2].payload.contractRef, NORMALIZED_CONTRACT_REF);
+  assert.equal(resultEvents[3].payload.contractRef, OUTPUT_CONTRACT_REF);
   assert.equal(resultEvents[0].aggregateId, cCallOpened[0].aggregateId);
   assert.equal(routes[1].payload.cCallRef, cCallOpened[0].aggregateId);
   assert.equal(routes[1].payload.judgmentRef, judgmentEvents[0].payload.judgmentRef);
+  assert.equal(routes[3].payload.cCallRef, cCallOpened[1].aggregateId);
+  assert.equal(routes[4].payload.cCallRef, cCallOpened[2].aggregateId);
   assert.equal(
-    cCallOpened[1].causationEventRefs.includes(routes[1].eventId),
+    cCallOpened[3].causationEventRefs.includes(routes[4].eventId),
     true,
   );
   assert.equal(events.filter((event) => event.kind === "run_closed").length, 1);

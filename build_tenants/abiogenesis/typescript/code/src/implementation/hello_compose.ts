@@ -49,6 +49,19 @@ export const RENDER_NORMALIZED_HELLO_IMPLEMENTATION_DESCRIPTOR = descriptor({
   refusalContractRef: "contract://abiogenesis/conformance/hello-refusal@5",
 });
 
+export const PASS_NORMALIZED_HELLO_IMPLEMENTATION_DESCRIPTOR = descriptor({
+  implementationRef: COMPOSED_HELLO_IDS.passNormalizedImplementationRef,
+  packageName: ABI5_PACKAGE_NAME,
+  packageVersion: ABI5_PACKAGE_VERSION,
+  modulePath: "build/code/src/implementation/hello_compose.js",
+  namedSymbol: "passNormalizedHello",
+  computeRegime: "F_D",
+  inputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+  outputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+  failureContractRef: "contract://abiogenesis/conformance/hello-failure@5",
+  refusalContractRef: "contract://abiogenesis/conformance/hello-refusal@5",
+});
+
 export function normalizeHelloInput(input: Readonly<HelloWorldInput>) {
   const resultCandidate = deepFreeze({
     kind: "normalized_hello_input" as const,
@@ -84,6 +97,23 @@ export function renderNormalizedHello(input: Readonly<NormalizedHelloInput>) {
       kind: "deterministic_evidence_candidate" as const,
       schemaVersion: "5.0.0" as const,
       implementationRef: COMPOSED_HELLO_IDS.renderImplementationRef,
+      inputDigest: sha256Canonical(input),
+      outputDigest: sha256Canonical(resultCandidate),
+    }] as const,
+    resultCandidate,
+  });
+}
+
+export function passNormalizedHello(input: Readonly<NormalizedHelloInput>) {
+  const resultCandidate = deepFreeze({ ...input }) satisfies Readonly<NormalizedHelloInput>;
+  return deepFreeze({
+    kind: "leaf_realization_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "success" as const,
+    evidenceCandidates: [{
+      kind: "deterministic_evidence_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      implementationRef: COMPOSED_HELLO_IDS.passNormalizedImplementationRef,
       inputDigest: sha256Canonical(input),
       outputDigest: sha256Canonical(resultCandidate),
     }] as const,

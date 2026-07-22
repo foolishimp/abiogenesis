@@ -35,6 +35,7 @@ export {
   constructHelloWorldModulePublication,
   evaluateComposedHelloResult,
   evaluateHelloWorldResult,
+  evaluateNormalizedIdentityResult,
   evaluateNormalizedHelloResult,
   isHelloWorldInput,
   isHelloWorldOutput,
