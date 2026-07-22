@@ -292,7 +292,7 @@ export function completeDeterministicTraversal<
       input.store,
       cCall,
       candidate,
-      input.closureContract.evidenceContractRef,
+      cCall.evidenceContractRef,
       input.inputDigest,
       basis(input.clock, "evidence"),
     );
@@ -318,7 +318,7 @@ export function completeDeterministicTraversal<
     leaf.resultCandidate as unknown as JsonValue,
     leaf.disposition,
     leaf.disposition === "success"
-      ? input.closureContract.resultContractRef
+      ? cCall.outputContractRef
       : cCall.failureContractRef,
     leaf.disposition === "success"
       ? input.resultValueKind
@@ -348,14 +348,14 @@ export function completeDeterministicTraversal<
       resultReplay,
       input.input,
       input.judgmentRelation,
-      input.closureContract.judgmentContractRef,
+      cCall.judgmentContractRef,
     )
     : proposeFailureJudgment(
       cCall,
       result,
       resultReplay,
       leaf.diagnosticRef,
-      input.closureContract.judgmentContractRef,
+      cCall.judgmentContractRef,
     );
   const judgment = admitJudgment(
     input.store,

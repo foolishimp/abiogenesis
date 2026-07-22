@@ -29,11 +29,18 @@ export {
   type InteractionLeafRequirement,
 } from "./c_algebra.js";
 export {
+  COMPOSED_HELLO_IDS,
   HELLO_WORLD_IDS,
   constructHelloWorldInput,
   constructHelloWorldModulePublication,
+  evaluateComposedHelloResult,
   evaluateHelloWorldResult,
+  evaluateNormalizedHelloResult,
+  isHelloWorldInput,
   isHelloWorldOutput,
+  isNormalizedHelloInput,
+  resolveConformanceJudgmentRelation,
+  type ConformanceJudgmentRelation,
 } from "./hello_world.js";
 export type {
   CatalogContribution,
@@ -59,6 +66,7 @@ export type {
   ImplementationBinding,
   IdentityApplication,
   ModulePublication,
+  NormalizedHelloInput,
   PromoteApplication,
   ProgramStart,
   RecurseApplication,

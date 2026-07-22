@@ -8,8 +8,8 @@ import * as product from "../product/index.js";
 import * as validator from "../validator/index.js";
 import type {
   CatalogContribution,
+  GtlProgram,
   HelloWorldInput,
-  HelloWorldOutput,
   ModulePublication,
 } from "../gtl/contracts.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -75,6 +75,20 @@ function recordField(
     throw new ApplicationRefusal("invalid_request", `payload.${key} must be an explicit object`);
   }
   return value as Readonly<Record<string, product.JsonValue>>;
+}
+
+function isDeclaredOutputValue(
+  value: unknown,
+  valueKind: string,
+): value is Readonly<Record<string, product.JsonValue>> {
+  switch (valueKind) {
+    case "hello_world_output":
+      return gtl.isHelloWorldOutput(value);
+    case "normalized_hello_input":
+      return gtl.isNormalizedHelloInput(value);
+    default:
+      return false;
+  }
 }
 
 function requireExactPayloadKeys(
@@ -145,20 +159,23 @@ function rawAdmission<S>(
 
 function rawProgramInput(
   publicationAdmission: validator.RawAdmittedValue<ModulePublication>,
+  program: Readonly<GtlProgram>,
 ): validator.ProgramValidationInput {
   const publication = publicationAdmission.value;
   return {
     publication: publicationAdmission,
     program: rawAdmission(
-      publication.programs[0],
+      program,
       "gtl_program",
       "contract://abiogenesis/gtl/program@5",
     ),
-    graphFunctions: publication.graphFunctions.map((value) => rawAdmission(
-      value,
-      "graph_function",
-      "contract://abiogenesis/gtl/graph-function@5",
-    )),
+    graphFunctions: publication.graphFunctions
+      .filter((value) => program.callableMembership.includes(value.name))
+      .map((value) => rawAdmission(
+        value,
+        "graph_function",
+        "contract://abiogenesis/gtl/graph-function@5",
+      )),
     contracts: publication.contracts.map((value) => rawAdmission(
       value,
       "contract_declaration",
@@ -479,16 +496,20 @@ async function applyCatalogAdmit(
   if (publicationValidation.kind !== "publication_validation") {
     throw new ApplicationRefusal("owner_refusal", `Publication validation refused: ${JSON.stringify(publicationValidation)}`);
   }
-  const programValidation = validator.validateProgram(rawProgramInput(publicationAdmission));
-  if (programValidation.kind !== "program_validation") {
-    throw new ApplicationRefusal("owner_refusal", `Program validation refused: ${JSON.stringify(programValidation)}`);
+  const programValidations = publication.programs.map((program) =>
+    validator.validateProgram(rawProgramInput(publicationAdmission, program)));
+  const invalidProgram = programValidations.find(
+    (programValidation) => programValidation.kind !== "program_validation",
+  );
+  if (invalidProgram !== undefined) {
+    throw new ApplicationRefusal("owner_refusal", `Program validation refused: ${JSON.stringify(invalidProgram)}`);
   }
   const candidate = product.constructCatalogAdmissionCandidate(
     workspaceState.binding,
     workspaceState.lock,
     publication,
     publicationValidation,
-    [programValidation],
+    programValidations as readonly validator.ProgramValidation[],
   );
   if (candidate.kind !== "catalog_admission_candidate") {
     throw new ApplicationRefusal("owner_refusal", `Catalog construction refused: ${candidate.message}`);
@@ -509,7 +530,7 @@ async function applyCatalogAdmit(
   context.productState.rememberCatalog(invocation.invocationRef, {
     publication,
     publicationValidation,
-    programValidation,
+    programValidations: programValidations as readonly validator.ProgramValidation[],
     catalog,
   });
   return successOutcome(invocation, {
@@ -614,12 +635,6 @@ async function applyRunInvoke(
   }
   const programRef = stringField(invocation.payload, "programRef");
   const graphFunctionRef = stringField(invocation.payload, "graphFunctionRef");
-  if (
-    programRef !== gtl.HELLO_WORLD_IDS.programRef ||
-    graphFunctionRef !== gtl.HELLO_WORLD_IDS.graphFunctionRef
-  ) {
-    throw new ApplicationRefusal("target_mismatch", "run.invoke target must be the explicit admitted root Program and GraphFunction");
-  }
   const programValue = viewState.catalogState.publication.programs.find(
     (value) => value.programRef === programRef,
   );
@@ -629,12 +644,37 @@ async function applyRunInvoke(
   if (programValue === undefined || graphFunction === undefined) {
     throw new ApplicationRefusal("target_mismatch", "run.invoke target is absent from the admitted publication");
   }
+  const selectedRow = viewState.view.selectedRows.find(
+    (row) =>
+      row.handle === graphFunctionRef &&
+      row.disposition === "admitted" &&
+      row.callability === "callable" &&
+      row.programMembershipRefs.includes(programRef),
+  );
+  const programValidation = viewState.catalogState.programValidations.find(
+    (value) => value.programRef === programRef,
+  );
+  if (
+    selectedRow === undefined ||
+    !programValue.callableMembership.includes(graphFunctionRef) ||
+    programValidation === undefined
+  ) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke target must be callable under the exact admitted CatalogView and Program validation",
+    );
+  }
   const inputValue = recordField(invocation.payload, "input");
   if (
+    graphFunction.inputs.length !== 1 ||
+    graphFunction.inputs[0] !== gtl.HELLO_WORLD_IDS.inputContractRef ||
     inputValue.kind !== "hello_world_input" ||
     inputValue.schemaVersion !== "5.0.0"
   ) {
-    throw new ApplicationRefusal("target_mismatch", "run.invoke input must carry the exact declared Hello World input kind and schema");
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke input must satisfy the selected GraphFunction's exact admitted input contract",
+    );
   }
   const subject = stringField(inputValue, "subject");
   const helloInput = gtl.constructHelloWorldInput(subject);
@@ -682,7 +722,7 @@ async function applyRunInvoke(
       modulePublication: viewState.catalogState.publication,
       program: programValue,
       graphFunction,
-      programValidation: viewState.catalogState.programValidation,
+      programValidation,
       workspaceBinding: workspaceState.binding,
       catalogView: viewState.view,
       policy,
@@ -728,7 +768,7 @@ async function applyRunInvoke(
   });
   const graphValidation = validator.validateGraph(
     graph,
-    viewState.catalogState.programValidation,
+    programValidation,
     graphFunction,
     {
       invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
@@ -794,7 +834,7 @@ async function applyRunInvoke(
   const resolutionSetCandidate = product.resolveImplementationSet(
     viewState.view,
     viewState.catalogState.publication,
-    viewState.catalogState.programValidation,
+    programValidation,
     packagedImplementations,
   );
   if (resolutionSetCandidate.kind !== "implementation_resolution_set_candidate") {
@@ -818,7 +858,7 @@ async function applyRunInvoke(
     resolutionSetCandidate,
     viewState.view,
     viewState.catalogState.publication,
-    viewState.catalogState.programValidation,
+    programValidation,
     packagedImplementations,
   );
   if (resolutionSetValidation.kind !== "implementation_resolution_set_validation") {
@@ -865,7 +905,7 @@ async function applyRunInvoke(
     {
       invocationAdmission,
       program: programValue,
-      programValidation: viewState.catalogState.programValidation,
+      programValidation,
       graph,
       graphValidation,
       resolutionSetCandidate,
@@ -1029,112 +1069,130 @@ async function applyRunInvoke(
       opened.scope.runId,
     );
   }
-  const implementationResolution = abg.selectAdmittedImplementationResolution(
-    implementationSet,
-    {
-      graphFunctionRef: graph.graphFunctionRef,
-      nodeRef: stop.nodeRef,
-      programLocusRef: stop.programLocusRef,
-      implementationBindingRef: stop.implementationBindingRef,
-    },
-  );
-  if (implementationResolution === null) {
-    abg.admitRuntimeFailure(
-      context.store,
-      executionAdmission.executionBasis,
-      opened.scope,
-      "implementation_load",
+  let currentInput = helloInput as unknown as Readonly<Record<string, product.JsonValue>>;
+  let traversalCompletion: hog.DeterministicTraversalCompletion | null = null;
+  let leafOrdinal = 0;
+  while (stop.kind === "traversal_stop_ref") {
+    const implementationResolution = abg.selectAdmittedImplementationResolution(
+      implementationSet,
       {
+        graphFunctionRef: graph.graphFunctionRef,
         nodeRef: stop.nodeRef,
         programLocusRef: stop.programLocusRef,
         implementationBindingRef: stop.implementationBindingRef,
       },
-      "diagnostic://abiogenesis/implementation-resolution/admitted-row-absent@5",
-      {
-        eventTime: invocation.eventTime,
-        correlationId: `${invocation.correlationId}/implementation-row`,
-        causationEventRefs: [],
-      },
     );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-      opened.scope.runId,
+    if (implementationResolution === null) {
+      abg.admitRuntimeFailure(
+        context.store,
+        executionAdmission.executionBasis,
+        opened.scope,
+        "implementation_load",
+        {
+          nodeRef: stop.nodeRef,
+          programLocusRef: stop.programLocusRef,
+          implementationBindingRef: stop.implementationBindingRef,
+        },
+        "diagnostic://abiogenesis/implementation-resolution/admitted-row-absent@5",
+        {
+          eventTime: invocation.eventTime,
+          correlationId: `${invocation.correlationId}/implementation-row/${leafOrdinal}`,
+          causationEventRefs: [],
+        },
+      );
+      return projectCurrentOutcome(
+        context,
+        invocation,
+        graphFunction.outputs[0] ?? "",
+        candidate.invocationRef,
+        durableEventLogPath,
+        opened.scope.runId,
+      );
+    }
+    const implementationModule = implementationModules.get(
+      implementationResolution.modulePath,
     );
-  }
-  const implementationModule = implementationModules.get(
-    implementationResolution.modulePath,
-  );
-  const leaf = implementationModule?.[implementationResolution.namedSymbol] as unknown;
-  if (typeof leaf !== "function") {
-    abg.admitRuntimeFailure(
-      context.store,
-      executionAdmission.executionBasis,
-      opened.scope,
-      "implementation_load",
-      {
-        implementationRequirementKey: implementationResolution.requirementKey,
-        modulePath: implementationResolution.modulePath,
-        namedSymbol: implementationResolution.namedSymbol,
-      },
-      "diagnostic://abiogenesis/implementation-resolution/symbol-not-callable@5",
-      {
-        eventTime: invocation.eventTime,
-        correlationId: `${invocation.correlationId}/implementation-symbol`,
-        causationEventRefs: [],
-      },
+    const leaf = implementationModule?.[implementationResolution.namedSymbol] as unknown;
+    if (typeof leaf !== "function") {
+      abg.admitRuntimeFailure(
+        context.store,
+        executionAdmission.executionBasis,
+        opened.scope,
+        "implementation_load",
+        {
+          implementationRequirementKey: implementationResolution.requirementKey,
+          modulePath: implementationResolution.modulePath,
+          namedSymbol: implementationResolution.namedSymbol,
+        },
+        "diagnostic://abiogenesis/implementation-resolution/symbol-not-callable@5",
+        {
+          eventTime: invocation.eventTime,
+          correlationId: `${invocation.correlationId}/implementation-symbol/${leafOrdinal}`,
+          causationEventRefs: [],
+        },
+      );
+      return projectCurrentOutcome(
+        context,
+        invocation,
+        graphFunction.outputs[0] ?? "",
+        candidate.invocationRef,
+        durableEventLogPath,
+        opened.scope.runId,
+      );
+    }
+    const leafOutputContractRef = stop.outputContractRef;
+    const leafFailureContractRef = stop.failureContractRef;
+    const outputDeclaration = viewState.catalogState.publication.contracts.find(
+      (value) =>
+        value.contractRef === leafOutputContractRef &&
+        value.contractKind === "output",
     );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-      opened.scope.runId,
+    const failureDeclaration = viewState.catalogState.publication.contracts.find(
+      (value) =>
+        value.contractRef === leafFailureContractRef &&
+        value.contractKind === "failure",
     );
-  }
-  const outputDeclaration = viewState.catalogState.publication.contracts.find(
-    (value) => value.contractRef === graphFunction.outputs[0] && value.contractKind === "output",
-  );
-  const failureDeclaration = viewState.catalogState.publication.contracts.find(
-    (value) =>
-      value.contractRef === implementationResolution.failureContractRef &&
-      value.contractKind === "failure",
-  );
-  if (outputDeclaration === undefined || failureDeclaration === undefined) {
-    abg.admitRuntimeFailure(
-      context.store,
-      executionAdmission.executionBasis,
-      opened.scope,
-      "output_contract",
-      {
-        failureContractRef: implementationResolution.failureContractRef,
-        outputContractRef: graphFunction.outputs[0] ?? null,
-      },
-      "diagnostic://abiogenesis/implementation/result-contract-absent@5",
-      {
-        eventTime: invocation.eventTime,
-        correlationId: `${invocation.correlationId}/output-contract`,
-        causationEventRefs: [
-          abg.traversalCursorAdmissionEventRef(context.store, stop.cursor) ??
-            cursorAdmission.admissionEventRef,
-        ],
-      },
+    const judgmentRelation = gtl.resolveConformanceJudgmentRelation(
+      stop.judgmentPredicateRef,
     );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-      opened.scope.runId,
-    );
-  }
-  const traversalCompletion = hog.completeDeterministicTraversal<HelloWorldInput, HelloWorldOutput>(
-    {
+    if (
+      outputDeclaration === undefined ||
+      failureDeclaration === undefined ||
+      judgmentRelation === null
+    ) {
+      abg.admitRuntimeFailure(
+        context.store,
+        executionAdmission.executionBasis,
+        opened.scope,
+        "output_contract",
+        {
+          failureContractRef: stop.failureContractRef,
+          judgmentPredicateRef: stop.judgmentPredicateRef,
+          outputContractRef: stop.outputContractRef,
+        },
+        "diagnostic://abiogenesis/implementation/result-contract-absent@5",
+        {
+          eventTime: invocation.eventTime,
+          correlationId: `${invocation.correlationId}/output-contract/${leafOrdinal}`,
+          causationEventRefs: [
+            abg.traversalCursorAdmissionEventRef(context.store, stop.cursor) ??
+              cursorAdmission.admissionEventRef,
+          ],
+        },
+      );
+      return projectCurrentOutcome(
+        context,
+        invocation,
+        graphFunction.outputs[0] ?? "",
+        candidate.invocationRef,
+        durableEventLogPath,
+        opened.scope.runId,
+      );
+    }
+    traversalCompletion = hog.completeDeterministicTraversal<
+      Readonly<Record<string, product.JsonValue>>,
+      Readonly<Record<string, product.JsonValue>>
+    >({
       store: context.store,
       executionBasis: executionAdmission.executionBasis,
       openedTraversalScope: opened.scope,
@@ -1143,25 +1201,97 @@ async function applyRunInvoke(
       traversalStop: stop,
       implementationSet,
       implementationResolution,
-      input: helloInput,
-      inputDigest: rawInput.subjectDigest,
+      input: currentInput,
+      inputDigest: stop.cursor.inputDigest,
       failureValueKind: failureDeclaration.valueKind,
       resultValueKind: outputDeclaration.valueKind,
-      validateSuccessResult: gtl.isHelloWorldOutput,
+      validateSuccessResult: (value): value is Readonly<Record<string, product.JsonValue>> =>
+        isDeclaredOutputValue(value, outputDeclaration.valueKind),
       closureContract,
       judgmentRelation: {
-        predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
-        advanceReasonRef: "reason://abiogenesis/conformance/hello-world-satisfied@5",
-        rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
-        evaluate: gtl.evaluateHelloWorldResult,
+        predicateRef: judgmentRelation.predicateRef,
+        advanceReasonRef: judgmentRelation.advanceReasonRef,
+        rejectionReasonRef: judgmentRelation.rejectionReasonRef,
+        evaluate: (input, output) => judgmentRelation.evaluate(input, output),
       },
-      realize: leaf as (value: Readonly<HelloWorldInput>) => unknown,
+      realize: leaf as (
+        value: Readonly<Record<string, product.JsonValue>>,
+      ) => unknown,
       clock: {
         eventTime: invocation.eventTime,
-        correlationId: `${invocation.correlationId}/hog`,
+        correlationId: `${invocation.correlationId}/hog/${leafOrdinal}`,
       },
-    },
-  );
+    });
+    if (traversalCompletion.disposition !== "advanced") break;
+    if (
+      traversalCompletion.nextCursor === null ||
+      !isDeclaredOutputValue(
+        traversalCompletion.resultValue,
+        outputDeclaration.valueKind,
+      )
+    ) {
+      abg.admitRuntimeFailure(
+        context.store,
+        executionAdmission.executionBasis,
+        opened.scope,
+        "hog_traversal",
+        { leafOrdinal, completionDisposition: traversalCompletion.disposition },
+        "diagnostic://abiogenesis/hog/advanced-result-basis-absent@5",
+        {
+          eventTime: invocation.eventTime,
+          correlationId: `${invocation.correlationId}/advanced-result/${leafOrdinal}`,
+          causationEventRefs: [],
+        },
+      );
+      break;
+    }
+    currentInput = traversalCompletion.resultValue;
+    stop = hog.traverseFromCursor(
+      {
+        program: programValue,
+        graph,
+        graphValidation,
+        executionBasis: executionAdmission.executionBasis,
+        openedTraversalScope: opened.scope,
+      },
+      traversalCompletion.nextCursor,
+    );
+    if (stop.kind === "traversal_step") {
+      stop = hog.advanceStructuralTraversal({
+        store: context.store,
+        program: programValue,
+        graph,
+        graphValidation,
+        executionBasis: executionAdmission.executionBasis,
+        openedTraversalScope: opened.scope,
+        initial: stop,
+        clock: {
+          eventTime: invocation.eventTime,
+          correlationId: `${invocation.correlationId}/hog/structural/${leafOrdinal + 1}`,
+        },
+      });
+    }
+    if (stop.kind !== "traversal_stop_ref") {
+      abg.admitRuntimeFailure(
+        context.store,
+        executionAdmission.executionBasis,
+        opened.scope,
+        "hog_traversal",
+        stop as unknown as product.JsonValue,
+        "diagnostic://abiogenesis/hog/continuation-not-executable@5",
+        {
+          eventTime: invocation.eventTime,
+          correlationId: `${invocation.correlationId}/continuation/${leafOrdinal}`,
+          causationEventRefs: [],
+        },
+      );
+      break;
+    }
+    leafOrdinal += 1;
+  }
+  if (traversalCompletion === null) {
+    throw new ApplicationRefusal("owner_refusal", "HoG traversal produced no executable completion");
+  }
   const replayScope = {
     invocationRef: candidate.invocationRef,
     runId: opened.scope.runId,
@@ -1180,7 +1310,7 @@ async function applyRunInvoke(
     invocation,
     firstReplay,
     secondReplay,
-    outputDeclaration.contractRef,
+    graphFunction.outputs[0] ?? "",
     candidate.invocationRef,
     persisted,
   );

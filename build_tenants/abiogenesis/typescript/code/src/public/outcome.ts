@@ -43,7 +43,9 @@ export function projectOutcome(
     firstReplay.eventStoreDigest === secondReplay.eventStoreDigest;
   const closed =
     replayAgreement &&
-    firstReplay.cCalls.length === 1 &&
+    firstReplay.cCalls.length > 0 &&
+    firstReplay.cCalls.every((cCall) =>
+      cCall.status === "judged" && cCall.judgment === "advance") &&
     firstReplay.runtimeStatus === "closed" &&
     latestCall?.judgment === "advance" &&
     latestCall.resultContractRef === outputContractRef &&

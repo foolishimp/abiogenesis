@@ -80,6 +80,7 @@ export async function buildRootCliScenario(
   harness,
   label,
   transformRunPayload = (payload) => payload,
+  options = {},
 ) {
   const scenarioRoot = join(harness.scratch, label);
   const productConsumer = join(scenarioRoot, "product-consumer");
@@ -102,17 +103,21 @@ export async function buildRootCliScenario(
     "@abiogenesis",
     "typescript-tenant",
   );
+  const programRef = options.programRef ??
+    "program://abiogenesis/conformance/hello-world@5";
+  const graphFunctionRef = options.graphFunctionRef ??
+    "graph-function://abiogenesis/conformance/hello-world@5";
   const runPayload = transformRunPayload({
     installInvocationRef: refs.install,
     workspaceBindingInvocationRef: refs.bind,
     catalogViewInvocationRef: refs.view,
-    programRef: "program://abiogenesis/conformance/hello-world@5",
-    graphFunctionRef: "graph-function://abiogenesis/conformance/hello-world@5",
+    programRef,
+    graphFunctionRef,
     actorRef: "actor://abiogenesis/t286/trusted-developer",
     input: {
       kind: "hello_world_input",
       schemaVersion: "5.0.0",
-      subject: "World",
+      subject: options.subject ?? "World",
     },
     eventLogPath,
   });
@@ -147,7 +152,7 @@ export async function buildRootCliScenario(
     }),
     invocation("abg.operation.catalog.view", "allowlist", refs.view, {
       catalogInvocationRef: refs.catalog,
-      allowlist: ["graph-function://abiogenesis/conformance/hello-world@5"],
+      allowlist: options.allowlist ?? [graphFunctionRef],
     }),
     invocation("abg.operation.run.invoke", "direct", refs.run, runPayload),
   ];

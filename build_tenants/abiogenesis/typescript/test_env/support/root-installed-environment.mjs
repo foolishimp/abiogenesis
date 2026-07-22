@@ -47,18 +47,20 @@ export function requireRawAdmission(validator, value, subjectKind, contractRef) 
   return admitted;
 }
 
-export function rawProgramInput(validator, publicationAdmission) {
+export function rawProgramInput(validator, publicationAdmission, program = publicationAdmission.value.programs[0]) {
   const publication = publicationAdmission.value;
   return {
     publication: publicationAdmission,
     program: requireRawAdmission(
       validator,
-      publication.programs[0],
+      program,
       "gtl_program",
       "contract://abiogenesis/gtl/program@5",
     ),
-    graphFunctions: publication.graphFunctions.map((value) =>
-      requireRawAdmission(validator, value, "graph_function", "contract://abiogenesis/gtl/graph-function@5")),
+    graphFunctions: publication.graphFunctions
+      .filter((value) => program.callableMembership.includes(value.name))
+      .map((value) =>
+        requireRawAdmission(validator, value, "graph_function", "contract://abiogenesis/gtl/graph-function@5")),
     contracts: publication.contracts.map((value) =>
       requireRawAdmission(validator, value, "contract_declaration", "contract://abiogenesis/gtl/contract-declaration@5")),
     implementationBindings: publication.implementationBindings.map((value) =>
@@ -177,15 +179,20 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
   const contributionAdmissions = publication.contributions.map((value) =>
     requireRawAdmission(validator, value, "catalog_contribution", "contract://abiogenesis/gtl/catalog-contribution@5"));
   const publicationValidation = validator.validatePublication(publicationAdmission, contributionAdmissions);
-  const programValidation = validator.validateProgram(rawProgramInput(validator, publicationAdmission));
+  const programValidations = publication.programs.map((program) =>
+    validator.validateProgram(rawProgramInput(validator, publicationAdmission, program)));
+  const programValidation = programValidations.find(
+    (value) => value.programRef === gtl.HELLO_WORLD_IDS.programRef,
+  );
   assert.equal(publicationValidation.kind, "publication_validation", JSON.stringify(publicationValidation));
   assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
+  assert.equal(programValidations.every((value) => value.kind === "program_validation"), true);
   const catalogCandidate = product.constructCatalogAdmissionCandidate(
     workspaceBinding,
     lock,
     publicationAdmission.value,
     publicationValidation,
-    [programValidation],
+    programValidations,
   );
   const catalog = abg.admitCatalog(
     store,
@@ -239,6 +246,7 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     publicationAdmission,
     publicationValidation,
     programValidation,
+    programValidations,
     catalog,
     catalogView,
   };

@@ -61,10 +61,13 @@ function raw(value, kind) {
 }
 
 function validatePublishedProgram(publication) {
+  const program = publication.programs[0];
   const result = validator.validateProgram({
     publication: raw(publication, "module_publication"),
-    program: raw(publication.programs[0], "gtl_program"),
-    graphFunctions: publication.graphFunctions.map((value) => raw(value, "graph_function")),
+    program: raw(program, "gtl_program"),
+    graphFunctions: publication.graphFunctions
+      .filter((value) => program.callableMembership.includes(value.name))
+      .map((value) => raw(value, "graph_function")),
     contracts: publication.contracts.map((value) => raw(value, "contract_declaration")),
     implementationBindings: publication.implementationBindings.map((value) =>
       raw(value, "implementation_binding")),

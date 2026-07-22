@@ -61,7 +61,8 @@
     "test:r10": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs test_env/tests/r10-installed-cli-outcome.test.mjs",
     "test:m4": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs test_env/tests/r10-installed-cli-outcome.test.mjs test_env/tests/rival-authority-mutations.test.mjs test_env/tests/runtime-scope-regressions.test.mjs test_env/tests/root-governor.test.mjs",
     "test:m5:gtl": "npm run build && node --test test_env/tests/m5-c-algebra-validation.test.mjs",
-    "test:m5:hog": "npm run build && node --test test_env/tests/m5-direct-hog-fold.test.mjs"
+    "test:m5:hog": "npm run build && node --test test_env/tests/m5-direct-hog-fold.test.mjs",
+    "test:m5:compose": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-compose.test.mjs"
   },
   "devDependencies": {
     "@types/node": "24.3.0",

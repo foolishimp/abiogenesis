@@ -42,18 +42,20 @@ function requireRawAdmission(validator, value, subjectKind, contractRef) {
   return admitted;
 }
 
-function rawProgramInput(validator, publicationAdmission) {
+function rawProgramInput(validator, publicationAdmission, program = publicationAdmission.value.programs[0]) {
   const publication = publicationAdmission.value;
   return {
     publication: publicationAdmission,
     program: requireRawAdmission(
       validator,
-      publication.programs[0],
+      program,
       "gtl_program",
       "contract://abiogenesis/gtl/program@5",
     ),
-    graphFunctions: publication.graphFunctions.map((value) =>
-      requireRawAdmission(validator, value, "graph_function", "contract://abiogenesis/gtl/graph-function@5")),
+    graphFunctions: publication.graphFunctions
+      .filter((value) => program.callableMembership.includes(value.name))
+      .map((value) =>
+        requireRawAdmission(validator, value, "graph_function", "contract://abiogenesis/gtl/graph-function@5")),
     contracts: publication.contracts.map((value) =>
       requireRawAdmission(validator, value, "contract_declaration", "contract://abiogenesis/gtl/contract-declaration@5")),
     implementationBindings: publication.implementationBindings.map((value) =>
@@ -176,10 +178,13 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     contributionAdmissions,
   );
   assert.equal(publicationValidation.kind, "publication_validation", JSON.stringify(publicationValidation));
-  const programValidation = validator.validateProgram(
-    rawProgramInput(validator, publicationAdmission),
+  const programValidations = publication.programs.map((program) =>
+    validator.validateProgram(rawProgramInput(validator, publicationAdmission, program)));
+  const programValidation = programValidations.find(
+    (value) => value.programRef === gtl.HELLO_WORLD_IDS.programRef,
   );
   assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
+  assert.equal(programValidations.every((value) => value.kind === "program_validation"), true);
   assert.equal("compiledPlan" in programValidation, false);
   assert.equal("executionDeclaration" in programValidation, false);
 
@@ -188,7 +193,7 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     lock,
     publicationAdmission.value,
     publicationValidation,
-    [programValidation],
+    programValidations,
   );
   assert.equal(catalogCandidate.kind, "catalog_admission_candidate", JSON.stringify(catalogCandidate));
   assert.equal(Object.isFrozen(catalogCandidate), true);
@@ -205,7 +210,7 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     ),
   );
   assert.equal(catalog.kind, "admitted_catalog", JSON.stringify(catalog));
-  assert.equal(catalog.rows.length, 1);
+  assert.equal(catalog.rows.length, 2);
   assert.equal(catalog.rows[0].handle, gtl.HELLO_WORLD_IDS.graphFunctionRef);
   assert.equal(catalog.rows[0].kind, "graph_function");
   assert.equal(catalog.rows[0].disposition, "admitted");
@@ -285,15 +290,14 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     unboundPublication.contributions.map((value) =>
       requireRawAdmission(validator, value, "catalog_contribution", "contract://abiogenesis/gtl/catalog-contribution@5")),
   );
-  const unboundProgramValidation = validator.validateProgram(
-    rawProgramInput(validator, unboundAdmission),
-  );
+  const unboundProgramValidations = unboundPublication.programs.map((program) =>
+    validator.validateProgram(rawProgramInput(validator, unboundAdmission, program)));
   const unboundCatalogCandidate = product.constructCatalogAdmissionCandidate(
     workspaceBinding,
     lock,
     unboundAdmission.value,
     unboundPublicationValidation,
-    [unboundProgramValidation],
+    unboundProgramValidations,
   );
   assert.equal(unboundCatalogCandidate.code, "publication_not_bound");
 
@@ -340,11 +344,12 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
   assert.equal(typeof store.admit, "undefined");
 
   const events = store.readAll();
-  assert.deepEqual(events.map((event) => event.admissionOrdinal), [1, 2, 3, 4, 5]);
+  assert.deepEqual(events.map((event) => event.admissionOrdinal), [1, 2, 3, 4, 5, 6]);
   assert.deepEqual(events.map((event) => event.kind), [
     "public_operation_artifact_admitted",
     "public_operation_artifact_admitted",
     "public_operation_artifact_admitted",
+    "registry_entry_admitted",
     "registry_entry_admitted",
     "public_operation_artifact_admitted",
   ]);

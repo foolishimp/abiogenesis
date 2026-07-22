@@ -46,14 +46,6 @@ const RUN_EVENT_KINDS = Object.freeze([
   "run_closed",
 ]);
 
-const SETUP_EVENT_ROWS = Object.freeze([
-  ["public_operation_artifact_admitted", "abg.operation.product.install", 1],
-  ["public_operation_artifact_admitted", "abg.operation.workspace.bind", 2],
-  ["public_operation_artifact_admitted", "abg.operation.catalog.admit", 3],
-  ["registry_entry_admitted", "abg.operation.catalog.admit", null],
-  ["public_operation_artifact_admitted", "abg.operation.catalog.view", 4],
-]);
-
 function canonicalJson(value) {
   if (value === null || typeof value === "boolean" || typeof value === "string") {
     return JSON.stringify(value);
@@ -302,7 +294,8 @@ export async function evaluateAbi5Root({
       `workspace-binding://abiogenesis/${outcomes[2]?.result?.bindingDigest?.slice("sha256:".length)}`;
   obligationResults.R4 = obligationResults.R3 &&
     outcomes[3]?.result?.kind === "admitted_catalog" &&
-    outcomes[3]?.result?.admittedRows === 1 &&
+    Number.isSafeInteger(outcomes[3]?.result?.admittedRows) &&
+    outcomes[3]?.result?.admittedRows >= 1 &&
     outcomes[3]?.result?.catalogId ===
       `catalog://abiogenesis/${outcomes[3]?.result?.catalogDigest?.slice("sha256:".length)}` &&
     outcomes[4]?.result?.kind === "catalog_view" &&
@@ -321,12 +314,26 @@ export async function evaluateAbi5Root({
     failures.push("durable ABG event log is absent or malformed");
   }
 
-  const setupEvents = events.slice(0, SETUP_EVENT_ROWS.length);
+  const admittedCatalogRows = Number.isSafeInteger(outcomes[3]?.result?.admittedRows)
+    ? outcomes[3].result.admittedRows
+    : 0;
+  const expectedSetupRows = [
+    ["public_operation_artifact_admitted", "abg.operation.product.install", 1],
+    ["public_operation_artifact_admitted", "abg.operation.workspace.bind", 2],
+    ["public_operation_artifact_admitted", "abg.operation.catalog.admit", 3],
+    ...Array.from(
+      { length: admittedCatalogRows },
+      () => ["registry_entry_admitted", "abg.operation.catalog.admit", null],
+    ),
+    ["public_operation_artifact_admitted", "abg.operation.catalog.view", 4],
+  ];
+  const setupEventCount = expectedSetupRows.length;
+  const setupEvents = events.slice(0, setupEventCount);
   const installEvent = setupEvents[0];
   const workspaceEvent = setupEvents[1];
   const catalogArtifactEvent = setupEvents[2];
-  const catalogRegistryEvent = setupEvents[3];
-  const catalogViewEvent = setupEvents[4];
+  const catalogRegistryEvents = setupEvents.slice(3, 3 + admittedCatalogRows);
+  const catalogViewEvent = setupEvents[3 + admittedCatalogRows];
   const installOutcome = outcomes[1];
   const workspaceOutcome = outcomes[2];
   const catalogOutcome = outcomes[3];
@@ -337,8 +344,10 @@ export async function evaluateAbi5Root({
   const catalogViewCandidateRef = typeof catalogViewOutcome?.result?.viewDigest === "string"
     ? `catalog-view-candidate://abiogenesis/${catalogViewOutcome.result.viewDigest.slice("sha256:".length)}`
     : null;
-  const setupEventsValid = setupEvents.length === SETUP_EVENT_ROWS.length &&
-    SETUP_EVENT_ROWS.every(([kind, operationId, requestIndex], index) =>
+  const registryHandles = catalogRegistryEvents.map((event) => event.payload?.handle);
+  const setupEventsValid = admittedCatalogRows >= 1 &&
+    setupEvents.length === setupEventCount &&
+    expectedSetupRows.every(([kind, operationId, requestIndex], index) =>
       setupEvents[index]?.kind === kind &&
       setupEvents[index]?.payload?.operationId === operationId &&
       (requestIndex === null || (
@@ -370,13 +379,14 @@ export async function evaluateAbi5Root({
     catalogArtifactEvent?.payload?.artifactRef === catalogCandidateRef &&
     catalogArtifactEvent?.payload?.invocationRef === transcript[3]?.invocationRef &&
     equalJson(catalogArtifactEvent?.causationEventRefs, [workspaceEvent?.eventId]) &&
-    catalogRegistryEvent?.parentAggregateId === catalogOutcome?.result?.catalogId &&
-    catalogRegistryEvent?.basisId === catalogCandidateRef &&
-    catalogRegistryEvent?.payload?.candidateId === catalogCandidateRef &&
-    catalogRegistryEvent?.payload?.catalogId === catalogOutcome?.result?.catalogId &&
-    catalogRegistryEvent?.payload?.handle ===
-      "graph-function://abiogenesis/conformance/hello-world@5" &&
-    equalJson(catalogRegistryEvent?.causationEventRefs, [catalogArtifactEvent?.eventId]) &&
+    new Set(registryHandles).size === admittedCatalogRows &&
+    registryHandles.includes("graph-function://abiogenesis/conformance/hello-world@5") &&
+    catalogRegistryEvents.every((event) =>
+      event.parentAggregateId === catalogOutcome?.result?.catalogId &&
+      event.basisId === catalogCandidateRef &&
+      event.payload?.candidateId === catalogCandidateRef &&
+      event.payload?.catalogId === catalogOutcome?.result?.catalogId &&
+      equalJson(event.causationEventRefs, [catalogArtifactEvent?.eventId])) &&
     catalogViewEvent?.eventId === catalogViewOutcome?.result?.admissionEventRef &&
     catalogViewEvent?.aggregateId === catalogOutcome?.result?.catalogId &&
     catalogViewEvent?.basisId === catalogOutcome?.result?.catalogId &&
@@ -484,7 +494,7 @@ export async function evaluateAbi5Root({
     ...episodeResults.flatMap((result) => result.eventIds),
   ]);
   const eventAccountingValid =
-    events.length === SETUP_EVENT_ROWS.length + (runOutcomes.length * RUN_EVENT_KINDS.length) &&
+    events.length === setupEventCount + (runOutcomes.length * RUN_EVENT_KINDS.length) &&
     accountedEventIds.size === events.length &&
     events.every((event) => accountedEventIds.has(event.eventId));
   if (!eventAccountingValid) {
@@ -496,7 +506,7 @@ export async function evaluateAbi5Root({
 
   const outputContract = "contract://abiogenesis/conformance/hello-output@5";
   const prefixChecks = eventBytes !== null && runOutcomes.every((outcome, index) => {
-    const expectedEventCount = SETUP_EVENT_ROWS.length +
+    const expectedEventCount = setupEventCount +
       ((index + 1) * RUN_EVENT_KINDS.length);
     const expectedPrefix = Buffer.from(
       `${events.slice(0, expectedEventCount).map(canonicalJson).join("\n")}\n`,

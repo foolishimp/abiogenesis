@@ -30,6 +30,12 @@ export interface HelloWorldOutput {
   readonly message: string;
 }
 
+export interface NormalizedHelloInput {
+  readonly kind: "normalized_hello_input";
+  readonly schemaVersion: "5.0.0";
+  readonly subject: string;
+}
+
 export interface GtlEnvironment {
   readonly requires: readonly string[];
   readonly provides: readonly string[];

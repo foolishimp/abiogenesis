@@ -31,7 +31,7 @@ export interface WorkspaceOperationState {
 export interface CatalogOperationState {
   readonly publication: Readonly<ModulePublication>;
   readonly publicationValidation: PublicationValidation;
-  readonly programValidation: ProgramValidation;
+  readonly programValidations: readonly ProgramValidation[];
   readonly catalog: AdmittedCatalog;
 }
 

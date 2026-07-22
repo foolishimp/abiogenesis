@@ -225,7 +225,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
     "public_operation_admitted",
     "invocation_admitted",
   ]);
-  assert.deepEqual(events.map((event) => event.admissionOrdinal), [1, 2, 3, 4, 5, 6, 7]);
+  assert.deepEqual(events.map((event) => event.admissionOrdinal), [1, 2, 3, 4, 5, 6, 7, 8]);
   assert.equal(events.at(-1).causationEventRefs[0], events.at(-2).eventId);
 
   const evidenceDirectory = join(root, "test_env/evidence");
