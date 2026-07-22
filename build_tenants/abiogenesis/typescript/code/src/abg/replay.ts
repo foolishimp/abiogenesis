@@ -112,7 +112,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
 
   const activeFluents = new Set<string>();
   for (const event of events) {
-    const effect = eventCalculusEffect(event.kind);
+    const effect = eventCalculusEffect(event);
     for (const fluent of effect.terminates) activeFluents.delete(fluent);
     for (const fluent of effect.initiates) activeFluents.add(fluent);
   }

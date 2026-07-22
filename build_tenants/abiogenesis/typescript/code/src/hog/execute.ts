@@ -10,7 +10,8 @@ import {
   replay,
   traversalCursorAdmissionEventRef,
   type AbgEventStore,
-  type AdmittedImplementationResolution,
+  type AdmittedImplementationResolutionRow,
+  type AdmittedImplementationSet,
   type ExecutionBasis,
   type OpenedTraversalScope,
   type ReplayState,
@@ -81,7 +82,8 @@ export interface CompleteDeterministicTraversalInput<
   readonly program: Readonly<GtlProgram>;
   readonly graph: Readonly<GtlGraph>;
   readonly traversalStop: TraversalStopRef;
-  readonly implementationResolution: AdmittedImplementationResolution;
+  readonly implementationSet: AdmittedImplementationSet;
+  readonly implementationResolution: AdmittedImplementationResolutionRow;
   readonly input: Readonly<Input>;
   readonly inputDigest: `sha256:${string}`;
   readonly failureValueKind: string;
@@ -240,6 +242,7 @@ export function completeDeterministicTraversal<
     input.program,
     input.graph,
     input.traversalStop,
+    input.implementationSet,
     input.implementationResolution,
     basis(input.clock, "c-call-open"),
   );
@@ -404,13 +407,14 @@ export function completeDeterministicTraversal<
   }
   const route = admitRoute(
     input.store,
+    input.executionBasis,
     input.graph,
     input.traversalStop.cursor,
-    cCall,
-    judgment,
+    null,
     judgedReplay,
     proposal,
     basis(input.clock, "route"),
+    { cCall, judgment },
   );
   if (route.kind !== "admitted_traversal_route") {
     admitRuntimeFailure(

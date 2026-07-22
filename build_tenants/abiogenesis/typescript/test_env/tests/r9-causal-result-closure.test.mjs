@@ -44,6 +44,8 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     graphValidation,
     input,
     rawInput,
+    implementationSet,
+    implementationRow,
     implementationResolution,
     executionBasis,
     closureContract,
@@ -108,7 +110,8 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     program,
     graph,
     traversalStop,
-    implementationResolution,
+    implementationSet,
+    implementationRow,
     runtimeBasis("correlation://t286/r9/c-call-open"),
   );
   assert.equal(cCallAdmission.kind, "c_call_admission", JSON.stringify(cCallAdmission));
@@ -202,29 +205,31 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   const preRouteEventCount = store.readAll().length;
   const forgedRoute = abg.admitRoute(
     store,
+    executionBasis,
     graph,
     traversalStop.cursor,
-    cCall,
-    judgment,
+    null,
     judgedReplay,
     {
       ...routeCandidate,
       sourceCursorDigest: `sha256:${"0".repeat(64)}`,
     },
     runtimeBasis("correlation://t286/r9/forged-route"),
+    { cCall, judgment },
   );
   assert.equal(forgedRoute.kind, "traversal_route_admission_refusal");
   assert.equal(forgedRoute.code, "cursor_mismatch");
   assert.equal(store.readAll().length, preRouteEventCount);
   const route = abg.admitRoute(
     store,
+    executionBasis,
     graph,
     traversalStop.cursor,
-    cCall,
-    judgment,
+    null,
     judgedReplay,
     routeCandidate,
     runtimeBasis("correlation://t286/r9/route"),
+    { cCall, judgment },
   );
   assert.equal(route.kind, "admitted_traversal_route", JSON.stringify(route));
 
@@ -365,6 +370,8 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
     graphValidation,
     input,
     rawInput,
+    implementationSet,
+    implementationRow,
     implementationResolution,
     executionBasis,
     closureContract,
@@ -396,7 +403,8 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
     program,
     graph,
     traversalStop,
-    implementationResolution,
+    implementationSet,
+    implementationRow,
     runtimeBasis("correlation://t286/r9-rejection/c-call-open"),
   );
   assert.equal(cCallAdmission.kind, "c_call_admission", JSON.stringify(cCallAdmission));
@@ -505,6 +513,8 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
     graphValidation,
     input,
     rawInput,
+    implementationSet,
+    implementationRow,
     implementationResolution,
     executionBasis,
     closureContract,
@@ -547,7 +557,8 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
     program,
     graph,
     traversalStop: alteredStop,
-    implementationResolution,
+    implementationSet,
+    implementationResolution: implementationRow,
     input,
     inputDigest: rawInput.subjectDigest,
     failureValueKind: failureContract.valueKind,
@@ -597,6 +608,8 @@ test("R9 refuses a leaf input that differs from the admitted input digest", asyn
     graphValidation,
     input,
     rawInput,
+    implementationSet,
+    implementationRow,
     implementationResolution,
     executionBasis,
     closureContract,
@@ -632,7 +645,8 @@ test("R9 refuses a leaf input that differs from the admitted input digest", asyn
     program,
     graph,
     traversalStop,
-    implementationResolution,
+    implementationSet,
+    implementationResolution: implementationRow,
     input: alteredInput,
     inputDigest: rawInput.subjectDigest,
     failureValueKind: failureContract.valueKind,

@@ -486,12 +486,24 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
   );
   assert.equal(executionBasisAdmission.kind, "execution_basis_admission", JSON.stringify(executionBasisAdmission));
   assert.notEqual(executionBasisAdmission.implementationResolution, null);
+  const implementationRow = abg.selectAdmittedImplementationResolution(
+    executionBasisAdmission.implementationSet,
+    {
+      graphFunctionRef: graph.graphFunctionRef,
+      nodeRef: graph.template.startNodeRef,
+      programLocusRef: graph.template.nodes[0].term.programLocusRef,
+      implementationBindingRef: graph.template.nodes[0].term.requirement.implementationBindingRef,
+    },
+  );
+  assert.notEqual(implementationRow, null);
   return {
     ...environment,
     graph,
     graphValidation,
     closureContract,
     executionBasisAdmission,
+    implementationSet: executionBasisAdmission.implementationSet,
+    implementationRow,
     implementationResolution: executionBasisAdmission.implementationResolution,
     executionBasis: executionBasisAdmission.executionBasis,
   };

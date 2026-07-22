@@ -2,17 +2,78 @@ import type { AdmittedCCallJudgment, CCall } from "../abg/c_call.js";
 import type { ReplayState } from "../abg/replay.js";
 import type { RouteCandidate } from "../abg/traversal_route.js";
 import type { GtlGraph } from "../gtl/contracts.js";
+import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type { TraversalStopRef } from "./traversal.js";
+import {
+  isTraversalStep,
+  type TraversalStep,
+  type TraversalStopRef,
+} from "./traversal.js";
 
 export interface RouteProposalRefusal {
   readonly kind: "traversal_route_proposal_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
-  readonly code: "judgment_not_advance" | "terminal_not_declared";
+  readonly code:
+    | "judgment_not_advance"
+    | "structural_step_missing"
+    | "terminal_not_declared";
   readonly message: string;
+}
+
+export function proposeStructuralRoute(
+  graph: Readonly<GtlGraph>,
+  step: TraversalStep,
+  replayState: ReplayState,
+): RouteCandidate | RouteProposalRefusal {
+  const targetCursor = step.targetCursor;
+  const routeKind = step.directStep.stepKind === "retry"
+    ? "retry" as const
+    : step.directStep.stepKind === "enter_term" ||
+        step.directStep.stepKind === "start_task"
+      ? "advance" as const
+      : null;
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !isTraversalStep(step) ||
+    routeKind === null ||
+    targetCursor === null ||
+    step.sourceCursor.graphRef !== graph.materializationRef ||
+    targetCursor.graphRef !== graph.materializationRef
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "structural_step_missing",
+      message: "structural route requires one HoG-derived target under the original GTL Graph",
+    };
+  }
+  const body = {
+    routeKind,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: step.sourceCursor.cursorRef,
+    sourceCursorDigest: step.sourceCursor.cursorDigest,
+    targetCursorRef: targetCursor.cursorRef,
+    targetCursorDigest: targetCursor.cursorDigest,
+    cCallRef: null,
+    judgmentRef: null,
+    consumedAvailabilityRefs: [] as const,
+    contractRef: null,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
 }
 
 export function proposeTerminalRoute(

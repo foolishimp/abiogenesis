@@ -3,9 +3,15 @@ import type {
   CTermKind,
 } from "../gtl/c_algebra.js";
 import type { GraphTemplate } from "../gtl/contracts.js";
+import {
+  resolveCProgramTermAtSourcePath,
+  rootCSourcePath,
+  type CSourcePath,
+} from "../gtl/source_path.js";
 import { deepFreeze } from "../shared/immutable.js";
 
-export type CSourcePath = readonly string[];
+export { rootCSourcePath };
+export type { CSourcePath };
 
 export interface CTraversalCoordinate {
   readonly nodeRef: string;
@@ -137,10 +143,6 @@ function refusal(
   });
 }
 
-export function rootCSourcePath(nodeRef: string): CSourcePath {
-  return deepFreeze(["node", nodeRef, "c"]);
-}
-
 export function rootCTraversalCoordinate(
   nodeRef: string,
 ): CTraversalCoordinate {
@@ -151,12 +153,6 @@ export function rootCTraversalCoordinate(
     attempt: 1,
     retryPath: [],
   });
-}
-
-function safeOrdinal(value: string | undefined): number | null {
-  if (value === undefined || !/^(0|[1-9][0-9]*)$/.test(value)) return null;
-  const ordinal = Number(value);
-  return Number.isSafeInteger(ordinal) ? ordinal : null;
 }
 
 export function resolveCProgramTermAtPath(
@@ -183,76 +179,14 @@ export function resolveCProgramTermAtPath(
     );
   }
 
-  const node = template.nodes.find(
-    (candidate) => candidate.nodeRef === coordinate.nodeRef,
+  const term = resolveCProgramTermAtSourcePath(
+    template,
+    coordinate.nodeRef,
+    coordinate.termPath,
   );
-  if (node === undefined) {
-    return refusal(
-      "term_path_missing",
-      `GTL node ${coordinate.nodeRef} is absent from the original Graph`,
-    );
-  }
-
-  let term: CProgramNode = node.term;
-  let offset = 3;
-  while (offset < coordinate.termPath.length) {
-    const segment = coordinate.termPath[offset];
-    switch (term.kind) {
-      case "c_compose": {
-        if (segment !== "terms") {
-          return refusal("term_path_missing", "C.compose path requires a terms segment");
-        }
-        const ordinal = safeOrdinal(coordinate.termPath[offset + 1]);
-        const child = ordinal === null ? undefined : term.terms[ordinal];
-        if (child === undefined) {
-          return refusal("term_path_missing", "C.compose term ordinal is absent");
-        }
-        term = child;
-        offset += 2;
-        break;
-      }
-      case "c_edge": {
-        if (
-          segment !== "transform" &&
-          segment !== "evaluate" &&
-          segment !== "consequence"
-        ) {
-          return refusal("term_path_missing", "C.edge path requires a declared role segment");
-        }
-        term = term[segment];
-        offset += 1;
-        break;
-      }
-      case "c_batch": {
-        if (segment !== "tasks") {
-          return refusal("term_path_missing", "C.batch path requires a tasks segment");
-        }
-        const ordinal = safeOrdinal(coordinate.termPath[offset + 1]);
-        const child = ordinal === null ? undefined : term.tasks[ordinal];
-        if (child === undefined) {
-          return refusal("term_path_missing", "C.batch task ordinal is absent");
-        }
-        term = child;
-        offset += 2;
-        break;
-      }
-      case "c_retry":
-        if (segment !== "term") {
-          return refusal("term_path_missing", "C.retry path requires its term segment");
-        }
-        term = term.term;
-        offset += 1;
-        break;
-      case "c_of":
-      case "c_identity":
-      case "c_workflow":
-        return refusal(
-          "term_path_missing",
-          `${term.kind} has no nested GTL term at the requested source path`,
-        );
-    }
-  }
-  return term;
+  return term.kind === "c_source_path_refusal"
+    ? refusal("term_path_missing", term.message)
+    : term;
 }
 
 export function deriveDirectCStep(

@@ -3,6 +3,10 @@ import {
   isOpenedTraversalScope,
   type OpenedTraversalScope,
 } from "../abg/open_call.js";
+import {
+  isAdmittedRoute,
+  type AdmittedRoute,
+} from "../abg/traversal_route.js";
 import type { ComputeRegime, GtlGraph, GtlProgram } from "../gtl/contracts.js";
 import { isExecutableCLeaf } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
@@ -13,6 +17,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
 import {
   deriveDirectCStepFromGraph,
+  resolveCProgramTermAtPath,
   rootCTraversalCoordinate,
   type CTraversalCoordinate,
   type DirectCTraversalStep,
@@ -67,15 +72,19 @@ export interface TraversalStopRef {
   readonly vectorIndex: number;
   readonly judgmentPredicateRef: string;
   readonly stageRole: string;
-  readonly taskOrdinal: null;
-  readonly attempt: 1;
-  readonly retryPath: readonly [];
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+  readonly retryPath: readonly number[];
   readonly computeRegime: ComputeRegime;
   readonly armId: string;
   readonly compositionRef: string | null;
   readonly implementationBindingRef: string;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
+  readonly evidenceContractRef: string;
+  readonly failureContractRef: string;
+  readonly refusalContractRef: string;
+  readonly judgmentContractRef: string;
 }
 
 export interface TraversalRefusal {
@@ -87,6 +96,7 @@ export interface TraversalRefusal {
     | "graph_mismatch"
     | "locus_missing"
     | "program_mismatch"
+    | "route_mismatch"
     | "scope_not_admitted"
     | "traversal_cursor_mismatch";
   readonly message: string;
@@ -237,7 +247,7 @@ export function deriveTraversalStep(
   return step;
 }
 
-export function traverse(input: TraverseInput): TraverseResult {
+function validateTraverseInput(input: TraverseInput): TraversalRefusal | null {
   if (!isExecutionBasis(input.executionBasis)) {
     return refusal("execution_basis_mismatch", "HoG requires the exact ABG-constructed ExecutionBasis");
   }
@@ -284,13 +294,142 @@ export function traverse(input: TraverseInput): TraverseResult {
     return refusal("graph_mismatch", "HoG Graph or GraphValidation differs from the admitted execution basis");
   }
 
+  return null;
+}
+
+function traversalResultAtCursor(
+  input: TraverseInput,
+  cursor: TraversalCursor,
+): TraverseResult {
+  if (
+    !traversalCursors.has(cursor) ||
+    cursor.programRef !== input.executionBasis.programRef ||
+    cursor.executionBasisRef !== input.executionBasis.basisRef ||
+    cursor.traversalScopeRef !== input.openedTraversalScope.scopeRef ||
+    cursor.runId !== input.openedTraversalScope.runId ||
+    cursor.graphCallId !== input.openedTraversalScope.graphCallId ||
+    cursor.frameId !== input.openedTraversalScope.frameId ||
+    cursor.graphRef !== input.graph.materializationRef ||
+    cursor.position !== "at_term"
+  ) {
+    return refusal(
+      "traversal_cursor_mismatch",
+      "HoG cursor differs from the admitted Program, Graph, basis, or opened scope",
+    );
+  }
+
+  const term = resolveCProgramTermAtPath(input.graph.template, {
+    nodeRef: cursor.currentNodeRef,
+    termPath: cursor.termPath,
+    taskOrdinal: cursor.taskOrdinal,
+    attempt: cursor.attempt,
+    retryPath: cursor.retryPath,
+  });
+  if (term.kind === "direct_c_traversal_refusal") {
+    return refusal("locus_missing", term.message);
+  }
+  const derivedStep = deriveTraversalStep(input.graph, cursor);
+  if (derivedStep.kind === "traversal_refusal") return derivedStep;
+  if (!isExecutableCLeaf(term) || derivedStep.directStep.stepKind !== "open_leaf") {
+    return derivedStep;
+  }
+  const programStart = input.program.starts.find(
+    (start) => start.graphFunctionRef === input.executionBasis.graphFunctionRef,
+  );
+  if (programStart === undefined) {
+    return refusal(
+      "program_mismatch",
+      "HoG Program has no declared start for the admitted GraphFunction",
+    );
+  }
+  const stopBody = {
+    stopKind: "compute_locus" as const,
+    cursor,
+    traversalScopeRef: input.openedTraversalScope.scopeRef,
+    runId: input.openedTraversalScope.runId,
+    graphCallId: input.openedTraversalScope.graphCallId,
+    frameId: input.openedTraversalScope.frameId,
+    nodeRef: cursor.currentNodeRef,
+    programLocusRef: term.programLocusRef,
+    edgeRef: programStart.startRef,
+    vectorIndex: term.vectorIndex,
+    judgmentPredicateRef: term.judgmentPredicateRef,
+    stageRole: term.stageRole,
+    taskOrdinal: cursor.taskOrdinal,
+    attempt: cursor.attempt,
+    retryPath: [...cursor.retryPath],
+    computeRegime: term.fibre,
+    armId: term.armId,
+    compositionRef: term.compositionRef,
+    implementationBindingRef: term.requirement.implementationBindingRef,
+    inputContractRef: term.requirement.inputContractRef,
+    outputContractRef: term.requirement.outputContractRef,
+    evidenceContractRef: term.requirement.evidenceContractRef,
+    failureContractRef: term.requirement.failureContractRef,
+    refusalContractRef: term.requirement.refusalContractRef,
+    judgmentContractRef: term.requirement.judgmentContractRef,
+  };
+  const stopDigest = sha256Canonical(stopBody as unknown as JsonValue);
+  const stop = deepFreeze({
+    kind: "traversal_stop_ref" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "at_compute_locus" as const,
+    stopRef: `traversal-stop://abiogenesis/${stopDigest.slice("sha256:".length)}`,
+    stopDigest,
+    ...stopBody,
+  }) as TraversalStopRef;
+  traversalStops.add(stop);
+  return stop;
+}
+
+export function traverseFromCursor(
+  input: TraverseInput,
+  cursor: TraversalCursor,
+): TraverseResult {
+  const invalid = validateTraverseInput(input);
+  return invalid ?? traversalResultAtCursor(input, cursor);
+}
+
+export function applyRoute(
+  step: TraversalStep,
+  route: AdmittedRoute,
+): TraversalCursor | TraversalRefusal {
+  const targetCursor = step.targetCursor;
+  const expectedKind = step.directStep.stepKind === "retry"
+    ? "retry"
+    : step.directStep.stepKind === "enter_term" ||
+        step.directStep.stepKind === "start_task"
+      ? "advance"
+      : null;
+  if (
+    !traversalSteps.has(step) ||
+    !isAdmittedRoute(route) ||
+    targetCursor === null ||
+    expectedKind === null ||
+    route.routeKind !== expectedKind ||
+    route.sourceCursorRef !== step.sourceCursor.cursorRef ||
+    route.sourceCursorDigest !== step.sourceCursor.cursorDigest ||
+    route.targetCursorRef !== targetCursor.cursorRef ||
+    route.targetCursorDigest !== targetCursor.cursorDigest
+  ) {
+    return refusal(
+      "route_mismatch",
+      "HoG applies only the exact admitted route for its current structural step",
+    );
+  }
+  return targetCursor;
+}
+
+export function traverse(input: TraverseInput): TraverseResult {
+  const invalid = validateTraverseInput(input);
+  if (invalid !== null) return invalid;
+
   const node = input.graph.template.nodes.find(
     (candidate) => candidate.nodeRef === input.graph.template.startNodeRef,
   );
   if (node === undefined) {
     return refusal("locus_missing", "admitted GTL start node does not resolve to a compute locus");
   }
-  const term = node.term;
   const lineage = {
     programRef: input.program.programRef,
     executionBasisRef: input.executionBasis.basisRef,
@@ -305,43 +444,5 @@ export function traverse(input: TraverseInput): TraverseResult {
     rootCTraversalCoordinate(node.nodeRef),
     "at_term",
   );
-  const derivedStep = deriveTraversalStep(input.graph, sourceCursor);
-  if (derivedStep.kind === "traversal_refusal") return derivedStep;
-  if (!isExecutableCLeaf(term) || derivedStep.directStep.stepKind !== "open_leaf") {
-    return derivedStep;
-  }
-  const stopBody = {
-    stopKind: "compute_locus" as const,
-    cursor: sourceCursor,
-    traversalScopeRef: input.openedTraversalScope.scopeRef,
-    runId: input.openedTraversalScope.runId,
-    graphCallId: input.openedTraversalScope.graphCallId,
-    frameId: input.openedTraversalScope.frameId,
-    nodeRef: node.nodeRef,
-    programLocusRef: term.programLocusRef,
-    edgeRef: programStart.startRef,
-    vectorIndex: term.vectorIndex,
-    judgmentPredicateRef: term.judgmentPredicateRef,
-    stageRole: term.stageRole,
-    taskOrdinal: null,
-    attempt: 1 as const,
-    retryPath: [] as const,
-    computeRegime: term.fibre,
-    armId: term.armId,
-    compositionRef: term.compositionRef,
-    implementationBindingRef: term.requirement.implementationBindingRef,
-    inputContractRef: term.requirement.inputContractRef,
-    outputContractRef: term.requirement.outputContractRef,
-  };
-  const stopDigest = sha256Canonical(stopBody as unknown as JsonValue);
-  const stop = deepFreeze({
-    kind: "traversal_stop_ref" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "at_compute_locus" as const,
-    stopRef: `traversal-stop://abiogenesis/${stopDigest.slice("sha256:".length)}`,
-    stopDigest,
-    ...stopBody,
-  }) as TraversalStopRef;
-  traversalStops.add(stop);
-  return stop;
+  return traversalResultAtCursor(input, sourceCursor);
 }

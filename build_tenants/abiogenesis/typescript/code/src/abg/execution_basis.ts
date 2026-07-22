@@ -271,6 +271,28 @@ export function hasAdmittedImplementationSet(
   );
 }
 
+export interface ImplementationResolutionSelection {
+  readonly graphFunctionRef: string;
+  readonly nodeRef: string;
+  readonly programLocusRef: string;
+  readonly implementationBindingRef: string;
+}
+
+export function selectAdmittedImplementationResolution(
+  set: AdmittedImplementationSet,
+  selection: ImplementationResolutionSelection,
+): AdmittedImplementationResolutionRow | null {
+  if (!isAdmittedImplementationSet(set)) return null;
+  const matches = set.rows.filter(
+    (row) =>
+      row.graphFunctionRef === selection.graphFunctionRef &&
+      row.nodeRef === selection.nodeRef &&
+      row.programLocusRef === selection.programLocusRef &&
+      row.implementationBindingRef === selection.implementationBindingRef,
+  );
+  return matches.length === 1 ? matches[0] ?? null : null;
+}
+
 export function hasAdmittedInteractionSet(
   store: AbgEventStore,
   set: AdmittedInteractionSet,

@@ -1,4 +1,5 @@
-import type { RootEventKind } from "./event_store.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import type { RootEventKind, RuntimeEvent } from "./event_store.js";
 
 export interface EventCalculusEffect {
   readonly initiates: readonly string[];
@@ -73,8 +74,8 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     terminates: ["c_call_active"], clips: [], declips: [],
   },
   traversal_route_admitted: {
-    initiates: ["terminal_route_available"],
-    terminates: ["locus_active", "c_call_judgment_available"], clips: [], declips: [],
+    initiates: [],
+    terminates: ["locus_active"], clips: [], declips: [],
   },
   runtime_failure_observed: {
     initiates: ["runtime_failure"],
@@ -98,6 +99,60 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
 } as const satisfies Readonly<Record<RootEventKind, EventCalculusEffect>>);
 
-export function eventCalculusEffect(kind: RootEventKind): EventCalculusEffect {
-  return ROOT_EVENT_CALCULUS[kind];
+function isRecord(
+  value: JsonValue,
+): value is Readonly<Record<string, JsonValue>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+export function eventCalculusEffect(
+  eventOrKind: RootEventKind | Pick<RuntimeEvent, "kind" | "payload">,
+): EventCalculusEffect {
+  if (typeof eventOrKind === "string") return ROOT_EVENT_CALCULUS[eventOrKind];
+  if (eventOrKind.kind !== "traversal_route_admitted") {
+    return ROOT_EVENT_CALCULUS[eventOrKind.kind];
+  }
+  if (!isRecord(eventOrKind.payload)) {
+    throw new TypeError("traversal route event requires a closed payload");
+  }
+  switch (eventOrKind.payload.routeKind) {
+    case "advance":
+    case "retry":
+      return {
+        initiates: ["locus_active"],
+        terminates: ["locus_active"],
+        clips: [],
+        declips: [],
+      };
+    case "terminal":
+      return {
+        initiates: ["terminal_route_available"],
+        terminates: ["locus_active", "c_call_judgment_available"],
+        clips: [],
+        declips: [],
+      };
+    case "hold":
+      return {
+        initiates: ["hold_route_admitted"],
+        terminates: ["locus_active", "frame_active"],
+        clips: [],
+        declips: [],
+      };
+    case "blocked":
+      return {
+        initiates: ["frame_blocked"],
+        terminates: ["locus_active", "frame_active"],
+        clips: [],
+        declips: [],
+      };
+    case "failed":
+      return {
+        initiates: ["frame_failed"],
+        terminates: ["locus_active", "frame_active"],
+        clips: [],
+        declips: [],
+      };
+    default:
+      throw new TypeError("traversal route event carries an unknown route kind");
+  }
 }

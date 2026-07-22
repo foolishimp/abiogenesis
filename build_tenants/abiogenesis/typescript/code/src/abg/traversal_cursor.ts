@@ -107,23 +107,36 @@ export function traversalCursorAdmissionEventRef(
   store: AbgEventStore,
   cursor: TraversalCursorCandidate,
 ): string | null {
-  const expectedDigest = sha256Canonical(cursorBody(cursor));
-  if (
-    cursor.cursorDigest !== expectedDigest ||
-    cursor.cursorRef !==
-      `traversal-cursor://abiogenesis/${expectedDigest.slice("sha256:".length)}`
-  ) {
-    return null;
-  }
+  if (!isTraversalCursorCandidate(cursor)) return null;
   const event = store.readAll().find((candidate) =>
-    candidate.kind === "traversal_cursor_entered" &&
     candidate.aggregateType === "frame" &&
     candidate.aggregateId === cursor.frameId &&
     isJsonRecord(candidate.payload) &&
-    candidate.payload.cursorRef === cursor.cursorRef &&
-    candidate.payload.cursorDigest === cursor.cursorDigest
+    (
+      (
+        candidate.kind === "traversal_cursor_entered" &&
+        candidate.payload.cursorRef === cursor.cursorRef &&
+        candidate.payload.cursorDigest === cursor.cursorDigest
+      ) ||
+      (
+        candidate.kind === "traversal_route_admitted" &&
+        candidate.payload.targetCursorRef === cursor.cursorRef &&
+        candidate.payload.targetCursorDigest === cursor.cursorDigest
+      )
+    )
   );
   return event?.eventId ?? null;
+}
+
+export function isTraversalCursorCandidate(
+  cursor: TraversalCursorCandidate,
+): boolean {
+  const expectedDigest = sha256Canonical(cursorBody(cursor));
+  return cursor.kind === "traversal_cursor" &&
+    cursor.schemaVersion === "5.0.0" &&
+    cursor.cursorDigest === expectedDigest &&
+    cursor.cursorRef ===
+      `traversal-cursor://abiogenesis/${expectedDigest.slice("sha256:".length)}`;
 }
 
 export function hasAdmittedTraversalCursor(

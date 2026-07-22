@@ -408,32 +408,46 @@ export async function evaluateAbi5Root({
     invocationEvents.length === runOutcomes.length;
 
   const implementationEvents = events.filter((event) => event.kind === "implementation_admitted");
+  const implementationRows = implementationEvents.map(
+    (event) => event.payload?.implementationSet?.rows?.[0],
+  );
   obligationResults.R6 = obligationResults.R5 &&
     implementationEvents.length === runOutcomes.length &&
-    new Set(implementationEvents.map((event) => event.payload?.implementationBindingDigest)).size === 1 &&
-    new Set(implementationEvents.map((event) => event.payload?.implementationDescriptorDigest)).size === 1 &&
-    implementationEvents.every((event) =>
-      event.payload?.implementationBindingRef ===
+    new Set(implementationRows.map((row) => row?.implementationBindingDigest)).size === 1 &&
+    new Set(implementationRows.map((row) => row?.implementationDescriptorDigest)).size === 1 &&
+    implementationEvents.every((event, index) => {
+      const row = implementationRows[index];
+      return event.payload?.implementationSetRef ===
+        event.payload?.implementationSet?.implementationSetRef &&
+      event.payload?.implementationSetDigest ===
+        event.payload?.implementationSet?.implementationSetDigest &&
+      event.payload?.interactionSetRef ===
+        event.payload?.interactionSet?.interactionSetRef &&
+      event.payload?.interactionSetDigest ===
+        event.payload?.interactionSet?.interactionSetDigest &&
+      event.payload?.implementationSet?.rows?.length === 1 &&
+      event.payload?.implementationSet?.executableLeafKeys?.length === 1 &&
+      row?.requirementKey === event.payload?.implementationSet?.executableLeafKeys?.[0] &&
+      event.payload?.interactionSet?.rows?.length === 0 &&
+      event.payload?.interactionSet?.interactionLeafKeys?.length === 0 &&
+      row?.implementationBindingRef ===
         "implementation-binding://abiogenesis/conformance/hello-world-fd@5" &&
-      event.payload?.implementationRef ===
+      row?.implementationRef ===
         "implementation://abiogenesis/conformance/hello-world-fd@5" &&
-      event.payload?.computeRegime === "F_D" &&
+      row?.computeRegime === "F_D" &&
       typeof event.payload?.implementationSetRef === "string" &&
       typeof event.payload?.implementationSetDigest === "string" &&
       typeof event.payload?.interactionSetRef === "string" &&
       typeof event.payload?.interactionSetDigest === "string" &&
-      event.payload?.implementationSet?.rows?.length === 1 &&
-      event.payload?.implementationSet?.executableLeafKeys?.length === 1 &&
-      event.payload?.interactionSet?.rows?.length === 0 &&
-      event.payload?.interactionSet?.interactionLeafKeys?.length === 0 &&
-      event.payload?.packageName === candidateBasis.packageName &&
-      event.payload?.packageVersion === candidateBasis.packageVersion &&
-      event.payload?.inputContractRef ===
+      row?.packageName === candidateBasis.packageName &&
+      row?.packageVersion === candidateBasis.packageVersion &&
+      row?.inputContractRef ===
         "contract://abiogenesis/conformance/hello-input@5" &&
-      event.payload?.outputContractRef ===
+      row?.outputContractRef ===
         "contract://abiogenesis/conformance/hello-output@5" &&
-      typeof event.payload?.implementationBindingDigest === "string" &&
-      typeof event.payload?.implementationDescriptorDigest === "string");
+      typeof row?.implementationBindingDigest === "string" &&
+      typeof row?.implementationDescriptorDigest === "string";
+    });
 
   const basisEvents = events.filter((event) => event.kind === "basis_admitted");
   obligationResults.R7 = obligationResults.R6 &&

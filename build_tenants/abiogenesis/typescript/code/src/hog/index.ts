@@ -1,8 +1,10 @@
 export {
+  applyRoute,
   deriveTraversalStep,
   isTraversalStep,
   isTraversalStopRef,
   traverse,
+  traverseFromCursor,
   type TraversalCursor,
   type TraversalRefusal,
   type TraversalStep,
@@ -33,6 +35,7 @@ export {
   type DeclaredJudgmentRelation,
 } from "./judgment.js";
 export {
+  proposeStructuralRoute,
   proposeTerminalRoute,
   type RouteProposalRefusal,
 } from "./traversal_route.js";
@@ -43,3 +46,9 @@ export {
   type DeterministicTraversalClock,
   type DeterministicTraversalCompletion,
 } from "./execute.js";
+export {
+  advanceStructuralTraversal,
+  type AdvanceStructuralTraversalInput,
+  type StructuralTraversalClock,
+  type StructuralTraversalResult,
+} from "./structural_execute.js";

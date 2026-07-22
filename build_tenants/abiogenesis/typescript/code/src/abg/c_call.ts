@@ -1,12 +1,14 @@
 import type { GtlGraph, GtlProgram } from "../gtl/contracts.js";
 import { isExecutableCLeaf } from "../gtl/c_algebra.js";
+import { resolveCProgramTermAtSourcePath } from "../gtl/source_path.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   hasAdmittedExecutionBasis,
-  hasAdmittedImplementationResolution,
-  type AdmittedImplementationResolution,
+  hasAdmittedImplementationSet,
+  type AdmittedImplementationResolutionRow,
+  type AdmittedImplementationSet,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
@@ -39,14 +41,15 @@ export interface CCall {
   readonly edgeRef: string;
   readonly vectorIndex: number;
   readonly stageRole: string;
-  readonly taskOrdinal: null;
-  readonly attempt: 1;
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
   readonly programLocusRef: string;
-  readonly retryPath: readonly [];
+  readonly retryPath: readonly number[];
   readonly regime: "F_D" | "F_H" | "F_P";
   readonly armId: string;
   readonly compositionRef: string | null;
-  readonly implementationResolutionRef: string;
+  readonly implementationSetRef: string;
+  readonly implementationRequirementKey: string;
   readonly implementationBindingRef: string;
   readonly implementationRef: string;
   readonly inputContractRef: string;
@@ -89,15 +92,19 @@ export interface CCallLocusProposal {
   readonly vectorIndex: number;
   readonly judgmentPredicateRef: string;
   readonly stageRole: string;
-  readonly taskOrdinal: null;
-  readonly attempt: 1;
-  readonly retryPath: readonly [];
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+  readonly retryPath: readonly number[];
   readonly computeRegime: "F_D" | "F_H" | "F_P";
   readonly armId: string;
   readonly compositionRef: string | null;
   readonly implementationBindingRef: string;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
+  readonly evidenceContractRef: string;
+  readonly failureContractRef: string;
+  readonly refusalContractRef: string;
+  readonly judgmentContractRef: string;
 }
 
 export interface CCallOpenRefusal {
@@ -308,7 +315,8 @@ export function openCCall(
   program: Readonly<GtlProgram>,
   graph: Readonly<GtlGraph>,
   stop: CCallLocusProposal,
-  resolution: AdmittedImplementationResolution,
+  implementationSet: AdmittedImplementationSet,
+  resolution: AdmittedImplementationResolutionRow,
   basis: RuntimeAdmissionBasis,
 ): CCallAdmission | CCallOpenRefusal {
   if (!hasAdmittedExecutionBasis(store, executionBasis)) {
@@ -322,7 +330,13 @@ export function openCCall(
     return openRefusal("scope_mismatch", "CCall scope differs from the admitted execution basis");
   }
   const declaredNode = graph.template.nodes.find((node) => node.nodeRef === stop.nodeRef);
-  const declaredTerm = declaredNode?.term;
+  const declaredTerm = declaredNode === undefined
+    ? undefined
+    : resolveCProgramTermAtSourcePath(
+        graph.template,
+        stop.cursor.currentNodeRef,
+        stop.cursor.termPath,
+      );
   const declaredStart = program.starts.find(
     (start) => start.graphFunctionRef === executionBasis.graphFunctionRef,
   );
@@ -341,9 +355,9 @@ export function openCCall(
     graph.materializationRef !== executionBasis.graphRef ||
     declaredNode === undefined ||
     declaredTerm === undefined ||
+    declaredTerm.kind === "c_source_path_refusal" ||
     !isExecutableCLeaf(declaredTerm) ||
     declaredStart === undefined ||
-    graph.template.startNodeRef !== declaredNode.nodeRef ||
     stop.programLocusRef !== declaredTerm.programLocusRef ||
     stop.edgeRef !== declaredStart.startRef ||
     stop.vectorIndex !== declaredTerm.vectorIndex ||
@@ -354,15 +368,22 @@ export function openCCall(
     stop.compositionRef !== declaredTerm.compositionRef ||
     stop.implementationBindingRef !== declaredTerm.requirement.implementationBindingRef ||
     stop.inputContractRef !== declaredTerm.requirement.inputContractRef ||
-    stop.outputContractRef !== declaredTerm.requirement.outputContractRef
+    stop.outputContractRef !== declaredTerm.requirement.outputContractRef ||
+    stop.evidenceContractRef !== declaredTerm.requirement.evidenceContractRef ||
+    stop.failureContractRef !== declaredTerm.requirement.failureContractRef ||
+    stop.refusalContractRef !== declaredTerm.requirement.refusalContractRef ||
+    stop.judgmentContractRef !== declaredTerm.requirement.judgmentContractRef
   ) {
     return openRefusal("locus_mismatch", "CCall requires the exact HoG stop at this scope's C locus");
   }
   if (
-    !hasAdmittedImplementationResolution(store, resolution) ||
-    executionBasis.implementationResolutionRef !== resolution.resolutionRef ||
+    !hasAdmittedImplementationSet(store, implementationSet) ||
+    executionBasis.implementationSetRef !== implementationSet.implementationSetRef ||
+    executionBasis.implementationSetDigest !== implementationSet.implementationSetDigest ||
+    !implementationSet.rows.includes(resolution) ||
     resolution.graphFunctionRef !== executionBasis.graphFunctionRef ||
     resolution.nodeRef !== stop.nodeRef ||
+    resolution.programLocusRef !== stop.programLocusRef ||
     resolution.implementationBindingRef !== stop.implementationBindingRef ||
     resolution.computeRegime !== stop.computeRegime ||
     resolution.inputContractRef !== stop.inputContractRef ||
@@ -407,7 +428,8 @@ export function openCCall(
     regime: stop.computeRegime,
     armId: stop.armId,
     compositionRef: stop.compositionRef,
-    implementationResolutionRef: resolution.resolutionRef,
+    implementationSetRef: implementationSet.implementationSetRef,
+    implementationRequirementKey: resolution.requirementKey,
     implementationBindingRef: resolution.implementationBindingRef,
     implementationRef: resolution.implementationRef,
   };
@@ -473,7 +495,8 @@ export function openCCall(
     regime: stop.computeRegime,
     armId: stop.armId,
     compositionRef: stop.compositionRef,
-    implementationResolutionRef: resolution.resolutionRef,
+    implementationSetRef: implementationSet.implementationSetRef,
+    implementationRequirementKey: resolution.requirementKey,
     implementationBindingRef: resolution.implementationBindingRef,
     implementationRef: resolution.implementationRef,
     inputContractRef: resolution.inputContractRef,
@@ -481,9 +504,9 @@ export function openCCall(
     failureContractRef: resolution.failureContractRef,
     refusalContractRef: resolution.refusalContractRef,
     refusalValueKind: executionBasis.refusalValueKind,
-    evidenceContractRef: executionBasis.evidenceContractRef,
-    judgmentContractRef: executionBasis.judgmentContractRef,
-    rejectionContractRef: executionBasis.rejectionContractRef,
+    evidenceContractRef: stop.evidenceContractRef,
+    judgmentContractRef: stop.judgmentContractRef,
+    rejectionContractRef: stop.refusalContractRef,
     transitionContractRef: executionBasis.transitionContractRef,
     closureContractRef: executionBasis.closureContractRef,
     closureContractDigest: executionBasis.closureContractDigest,

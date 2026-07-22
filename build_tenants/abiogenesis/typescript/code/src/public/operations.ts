@@ -704,8 +704,7 @@ async function applyRunInvoke(
   let failureScope: abg.OpenedTraversalScope | null = null;
   try {
   const node = graphFunction.template.nodes[0];
-  const term = node?.term;
-  if (node === undefined || term === undefined || !gtl.isExecutableCLeaf(term)) {
+  if (node === undefined) {
     abg.admitInvocationRefusal(
       context.store,
       invocationAdmission,
@@ -840,96 +839,6 @@ async function applyRunInvoke(
       durableEventLogPath,
     );
   }
-  const resolutionCandidate = product.resolveImplementation(
-    viewState.view,
-    viewState.catalogState.publication,
-    viewState.catalogState.programValidation,
-    graphValidation,
-    graphFunction.name,
-    node.nodeRef,
-    packagedImplementations,
-  );
-  if (resolutionCandidate.kind !== "implementation_resolution_candidate") {
-    abg.admitInvocationRefusal(
-      context.store,
-      invocationAdmission,
-      "implementation_resolution",
-      product.sha256Canonical(resolutionCandidate as unknown as product.JsonValue),
-      [`diagnostic://abiogenesis/implementation-resolution/${resolutionCandidate.code}@5`],
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution`, causationEventRefs: [] },
-    );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-    );
-  }
-  const selectedDescriptor = packagedImplementations.find(
-    (descriptor) => descriptor.descriptorDigest === resolutionCandidate.implementationDescriptorDigest,
-  );
-  if (selectedDescriptor === undefined) {
-    abg.admitInvocationRefusal(
-      context.store,
-      invocationAdmission,
-      "implementation_resolution",
-      resolutionCandidate.resolutionCandidateDigest,
-      ["diagnostic://abiogenesis/implementation-resolution/descriptor-selection-failed@5"],
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/descriptor-selection`, causationEventRefs: [] },
-    );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-    );
-  }
-  const resolutionValidation = validator.validateImplementationResolution(
-    resolutionCandidate,
-    viewState.catalogState.publication,
-    viewState.catalogState.programValidation,
-    graphValidation,
-    graphFunction,
-    selectedDescriptor,
-  );
-  if (resolutionValidation.kind !== "implementation_resolution_validation") {
-    abg.admitInvocationRefusal(
-      context.store,
-      invocationAdmission,
-      "implementation_resolution",
-      resolutionValidation.subjectDigest,
-      resolutionValidation.diagnostics.map((row) => `diagnostic://abiogenesis/validator/${row.code}@5`),
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution-validation`, causationEventRefs: [] },
-    );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-    );
-  }
-  const implementationModule = implementationModules.get(resolutionCandidate.modulePath);
-  const leaf = implementationModule?.[resolutionCandidate.namedSymbol] as unknown;
-  if (typeof leaf !== "function") {
-    abg.admitInvocationRefusal(
-      context.store,
-      invocationAdmission,
-      "implementation_resolution",
-      resolutionCandidate.resolutionCandidateDigest,
-      ["diagnostic://abiogenesis/implementation-resolution/symbol-not-callable@5"],
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-symbol`, causationEventRefs: [] },
-    );
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-    );
-  }
   const closureContract = viewState.catalogState.publication.closureContracts.find(
     (value) => value.closureContractRef === programValue.closureContractRef,
   );
@@ -961,8 +870,6 @@ async function applyRunInvoke(
       graphValidation,
       resolutionSetCandidate,
       resolutionSetValidation,
-      resolutionCandidate,
-      resolutionValidation,
       closureContract,
     },
     { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/execution-basis`, causationEventRefs: [] },
@@ -977,10 +884,7 @@ async function applyRunInvoke(
     );
   }
   failureExecutionBasis = executionAdmission.executionBasis;
-  const implementationResolution = executionAdmission.implementationResolution;
-  if (implementationResolution === null) {
-    throw new TypeError("single-leaf M4 invocation requires its derived resolution projection");
-  }
+  const implementationSet = executionAdmission.implementationSet;
   activeRefusalStage = "open_call";
   const opened = abg.openCall(
     context.store,
@@ -1005,7 +909,7 @@ async function applyRunInvoke(
     );
   }
   failureScope = opened.scope;
-  let stop: ReturnType<typeof hog.traverse>;
+  let stop: hog.StructuralTraversalResult;
   try {
     stop = hog.traverse({
       program: programValue,
@@ -1087,6 +991,21 @@ async function applyRunInvoke(
       opened.scope.runId,
     );
   }
+  if (stop.kind === "traversal_step") {
+    stop = hog.advanceStructuralTraversal({
+      store: context.store,
+      program: programValue,
+      graph,
+      graphValidation,
+      executionBasis: executionAdmission.executionBasis,
+      openedTraversalScope: opened.scope,
+      initial: stop,
+      clock: {
+        eventTime: invocation.eventTime,
+        correlationId: `${invocation.correlationId}/hog/structural`,
+      },
+    });
+  }
   if (stop.kind !== "traversal_stop_ref") {
     abg.admitRuntimeFailure(
       context.store,
@@ -1098,7 +1017,74 @@ async function applyRunInvoke(
       {
         eventTime: invocation.eventTime,
         correlationId: `${invocation.correlationId}/structural-step`,
-        causationEventRefs: [cursorAdmission.admissionEventRef],
+        causationEventRefs: [],
+      },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+      opened.scope.runId,
+    );
+  }
+  const implementationResolution = abg.selectAdmittedImplementationResolution(
+    implementationSet,
+    {
+      graphFunctionRef: graph.graphFunctionRef,
+      nodeRef: stop.nodeRef,
+      programLocusRef: stop.programLocusRef,
+      implementationBindingRef: stop.implementationBindingRef,
+    },
+  );
+  if (implementationResolution === null) {
+    abg.admitRuntimeFailure(
+      context.store,
+      executionAdmission.executionBasis,
+      opened.scope,
+      "implementation_load",
+      {
+        nodeRef: stop.nodeRef,
+        programLocusRef: stop.programLocusRef,
+        implementationBindingRef: stop.implementationBindingRef,
+      },
+      "diagnostic://abiogenesis/implementation-resolution/admitted-row-absent@5",
+      {
+        eventTime: invocation.eventTime,
+        correlationId: `${invocation.correlationId}/implementation-row`,
+        causationEventRefs: [],
+      },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+      opened.scope.runId,
+    );
+  }
+  const implementationModule = implementationModules.get(
+    implementationResolution.modulePath,
+  );
+  const leaf = implementationModule?.[implementationResolution.namedSymbol] as unknown;
+  if (typeof leaf !== "function") {
+    abg.admitRuntimeFailure(
+      context.store,
+      executionAdmission.executionBasis,
+      opened.scope,
+      "implementation_load",
+      {
+        implementationRequirementKey: implementationResolution.requirementKey,
+        modulePath: implementationResolution.modulePath,
+        namedSymbol: implementationResolution.namedSymbol,
+      },
+      "diagnostic://abiogenesis/implementation-resolution/symbol-not-callable@5",
+      {
+        eventTime: invocation.eventTime,
+        correlationId: `${invocation.correlationId}/implementation-symbol`,
+        causationEventRefs: [],
       },
     );
     return projectCurrentOutcome(
@@ -1132,7 +1118,10 @@ async function applyRunInvoke(
       {
         eventTime: invocation.eventTime,
         correlationId: `${invocation.correlationId}/output-contract`,
-        causationEventRefs: [cursorAdmission.admissionEventRef],
+        causationEventRefs: [
+          abg.traversalCursorAdmissionEventRef(context.store, stop.cursor) ??
+            cursorAdmission.admissionEventRef,
+        ],
       },
     );
     return projectCurrentOutcome(
@@ -1152,6 +1141,7 @@ async function applyRunInvoke(
       program: programValue,
       graph,
       traversalStop: stop,
+      implementationSet,
       implementationResolution,
       input: helloInput,
       inputDigest: rawInput.subjectDigest,

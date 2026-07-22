@@ -67,3 +67,9 @@ export type {
   SubstituteApplication,
 } from "./contracts.js";
 export { materializeGraph } from "./materialize.js";
+export {
+  resolveCProgramTermAtSourcePath,
+  rootCSourcePath,
+  type CSourcePath,
+  type CSourcePathRefusal,
+} from "./source_path.js";

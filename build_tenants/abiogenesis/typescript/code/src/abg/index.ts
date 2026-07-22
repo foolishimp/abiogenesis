@@ -38,6 +38,7 @@ export {
   isAdmittedImplementationResolution,
   isAdmittedInteractionSet,
   isExecutionBasis,
+  selectAdmittedImplementationResolution,
   type AdmittedImplementationResolutionRow,
   type AdmittedImplementationResolution,
   type AdmittedImplementationSet,
@@ -48,6 +49,7 @@ export {
   type ExecutionBasisAdmissionResult,
   type ExecutionBasisInput,
   type InvocationRefusalAdmission,
+  type ImplementationResolutionSelection,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
 export {
@@ -65,6 +67,7 @@ export {
 export {
   admitInitialTraversalCursor,
   hasAdmittedTraversalCursor,
+  isTraversalCursorCandidate,
   isTraversalCursorAdmission,
   traversalCursorAdmissionEventRef,
   type TraversalCursorAdmission,
@@ -117,6 +120,7 @@ export {
   admitRoute,
   isAdmittedRoute,
   type AdmittedRoute,
+  type RouteAdmissionEvidence,
   type RouteAdmissionRefusal,
   type RouteAdmissionResult,
   type RouteCandidate,
