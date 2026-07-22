@@ -1,4 +1,3 @@
-import type { ProbabilisticTransportEvidenceCandidate } from "../abg/c_call.js";
 import {
   FP_HELLO_IDS,
   isFpHelloInstruction,
@@ -12,22 +11,13 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
-import { constructKnownWorkerTransportContract } from "./transport_contracts.js";
-import { runWorkerTransport } from "./worker_transport.js";
-
-export interface FpLeafRuntimeContext {
-  readonly cwd: string;
-  readonly archiveRoot: string;
-  readonly label: string;
-  readonly environment: Readonly<Record<string, string | undefined>>;
-  readonly timeoutMs: number;
-}
+import type { ProbabilisticLeafEffectPort } from "./contracts.js";
 
 interface FpHelloLeafCandidate {
   readonly kind: "leaf_realization_candidate";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "failure" | "success";
-  readonly evidenceCandidates: readonly [ProbabilisticTransportEvidenceCandidate];
+  readonly evidenceCandidates: readonly [Readonly<Record<string, JsonValue>>];
   readonly resultCandidate: Readonly<Record<string, JsonValue>>;
   readonly diagnosticRef?: string;
 }
@@ -97,37 +87,23 @@ function parseCandidate(output: string): Readonly<Record<string, JsonValue>> {
 
 export async function realizeFpHello(
   input: Readonly<FpHelloInstruction>,
-  context: Readonly<FpLeafRuntimeContext>,
+  effects: Readonly<ProbabilisticLeafEffectPort>,
 ): Promise<Readonly<FpHelloLeafCandidate>> {
   if (!isFpHelloInstruction(input)) {
     throw new TypeError("F_P Hello implementation requires the exact admitted instruction envelope");
   }
   const prompt = renderInstruction(input);
   const inputDigest = sha256Canonical(input);
-  const promptDigest = sha256Canonical(prompt);
-  const actorInvocationRef = `actor-invocation://abiogenesis/${sha256Canonical({
+  const transport = await effects.invokeWorker({
+    actorRef: input.workerActorRef,
     implementationRef: FP_HELLO_IDS.implementationRef,
     inputDigest,
-    promptDigest,
-    label: context.label,
-  }).slice("sha256:".length)}`;
-  const command = context.environment.ABG_TS_CLAUDE_COMMAND;
-  if (command !== undefined && command.length === 0) {
-    throw new TypeError("ABG_TS_CLAUDE_COMMAND must be a non-empty command");
-  }
-  const transport = await runWorkerTransport({
-    contract: constructKnownWorkerTransportContract("claude", {
-      command: command ?? "claude",
-      environment: context.environment,
-    }),
+    materializationPlanRef: input.materializationPlanRef,
+    rendererRef: input.rendererRef,
+    instructionContractRef: input.instructionContractRef,
+    resultContractRef: input.resultContractRef,
     prompt,
-    lane: "closed_prompt_proof",
-    cwd: context.cwd,
-    archiveRoot: context.archiveRoot,
-    label: context.label,
-    timeoutMs: context.timeoutMs,
     responseJsonSchema: responseSchema(),
-    environment: context.environment,
   });
   const diagnosticRef = transport.failureClass === null
     ? null
@@ -147,30 +123,24 @@ export async function realizeFpHello(
     implementationRef: FP_HELLO_IDS.implementationRef,
     inputDigest,
     outputDigest,
-    actorInvocationRef,
+    actorInvocationRef: transport.actorInvocationRef,
     actorRef: input.workerActorRef,
     materializationPlanRef: input.materializationPlanRef,
     rendererRef: input.rendererRef,
     instructionContractRef: input.instructionContractRef,
     resultContractRef: input.resultContractRef,
-    promptDigest,
-    transportDigest: transport.artifacts.transport.digest,
-    transportLane: transport.lane,
+    promptDigest: transport.promptDigest,
+    transportDigest: transport.transportDigest,
+    transportLane: transport.transportLane,
     transportDisposition: transport.disposition,
     transportFailureClass: transport.failureClass,
-    processStatus: transport.status,
-    processSignal: transport.signal,
+    processStatus: transport.processStatus,
+    processSignal: transport.processSignal,
     timedOut: transport.timedOut,
     progressEventCount: transport.progressEventCount,
     toolCallCount: transport.toolCallCount,
-    artifactDigests: {
-      output: transport.artifacts.output.digest,
-      prompt: transport.artifacts.prompt.digest,
-      stderr: transport.artifacts.stderr.digest,
-      stdout: transport.artifacts.stdout.digest,
-      transport: transport.artifacts.transport.digest,
-    },
-  }) as ProbabilisticTransportEvidenceCandidate;
+    artifactDigests: transport.artifactDigests,
+  }) as Readonly<Record<string, JsonValue>>;
   return deepFreeze({
     kind: "leaf_realization_candidate" as const,
     schemaVersion: "5.0.0" as const,

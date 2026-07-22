@@ -51,15 +51,20 @@ async function installWorkerFixture(harness) {
     "  const subjectLine = prompt.split(/\\r?\\n/).find((line) => line.startsWith('Subject: '));",
     "  const subject = subjectLine === undefined ? 'Unknown' : JSON.parse(subjectLine.slice('Subject: '.length));",
     "  const responseMode = process.env.ABG_FP_TEST_RESPONSE;",
-    "  const unattributed = responseMode === 'unattributed';",
+    "  const misattributed = responseMode === 'misattributed';",
+    "  const missingAttribution = responseMode === 'missing_attribution';",
     "  const invalidJson = responseMode === 'invalid_json';",
+    "  const contradictory = responseMode === 'contradictory';",
+    "  const extraField = responseMode === 'extra_field';",
     "  const result = {",
     "    kind: 'fp_hello_output',",
     "    schemaVersion: '5.0.0',",
     `    resultContractRef: '${OUTPUT_CONTRACT_REF}',`,
-    `    actorRef: unattributed ? 'actor://forged/wrong' : '${ACTOR_REF}',`,
-    "    message: `Hello ${subject}` ,",
+    `    actorRef: misattributed ? 'actor://forged/wrong' : '${ACTOR_REF}',`,
+    "    message: contradictory ? `Goodbye ${subject}` : `Hello ${subject}` ,",
     "  };",
+    "  if (missingAttribution) delete result.actorRef;",
+    "  if (extraField) result.undeclared = true;",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
     "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: 'candidate ready' }] } }));",
     "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: invalidJson ? '{not-json' : JSON.stringify(result) }));",
@@ -77,7 +82,7 @@ async function readEvents(path) {
     .map((line) => JSON.parse(line));
 }
 
-test("M5 installed CLI admits one live F_P leaf through ordinary GTL, HoG, and ABG", async (context) => {
+test("M5 installed CLI admits one subprocess-backed F_P leaf through ordinary GTL, HoG, and ABG", async (context) => {
   const harness = await setupInstalledCliHarness(context, root);
   const command = await installWorkerFixture(harness);
   const scenario = await buildRootCliScenario(
@@ -112,6 +117,10 @@ test("M5 installed CLI admits one live F_P leaf through ordinary GTL, HoG, and A
 
   const events = await readEvents(scenario.eventLogPath);
   const fibre = events.find((event) => event.kind === "c_call_fibre_selected");
+  const actorOpened = events.find((event) => event.kind === "actor_invocation_started");
+  const processStarted = events.find((event) => event.kind === "actor_process_started");
+  const processExited = events.find((event) => event.kind === "actor_process_exited");
+  const actorClosed = events.find((event) => event.kind === "actor_invocation_closed");
   const evidence = events.find((event) =>
     event.kind === "c_call_evidenced" &&
     event.payload.evidenceClass === "probabilistic_transport");
@@ -119,6 +128,10 @@ test("M5 installed CLI admits one live F_P leaf through ordinary GTL, HoG, and A
     event.kind === "c_call_result_admitted" &&
     event.payload.contractRef === OUTPUT_CONTRACT_REF);
   assert.equal(fibre.payload.regime, "F_P");
+  assert.equal(actorOpened.payload.cCallRef, fibre.payload.cCallRef);
+  assert.equal(processStarted.payload.actorInvocationRef, actorOpened.payload.actorInvocationRef);
+  assert.equal(processExited.payload.processRef, processStarted.payload.processRef);
+  assert.equal(actorClosed.payload.disposition, "success");
   assert.equal(evidence.payload.actorRef, ACTOR_REF);
   assert.equal(evidence.payload.materializationPlanRef, PLAN_REF);
   assert.equal(evidence.payload.rendererRef, RENDERER_REF);
@@ -131,12 +144,12 @@ test("M5 installed CLI admits one live F_P leaf through ordinary GTL, HoG, and A
   assert.equal(events.filter((event) => event.kind === "run_closed").length, 1);
 });
 
-test("M5 rejects unattributed F_P output before success-result admission or closure", async (context) => {
+test("M5 rejects misattributed F_P output before success-result admission or closure", async (context) => {
   const harness = await setupInstalledCliHarness(context, root);
   const command = await installWorkerFixture(harness);
   const scenario = await buildRootCliScenario(
     harness,
-    "m5-fp-unattributed",
+    "m5-fp-misattributed",
     (payload) => payload,
     {
       programRef: PROGRAM_REF,
@@ -147,7 +160,7 @@ test("M5 rejects unattributed F_P output before success-result admission or clos
   const run = await runInstalledCli(harness, scenario, {
     environment: {
       ABG_TS_CLAUDE_COMMAND: command,
-      ABG_FP_TEST_RESPONSE: "unattributed",
+      ABG_FP_TEST_RESPONSE: "misattributed",
     },
   });
 
@@ -169,8 +182,8 @@ test("M5 rejects unattributed F_P output before success-result admission or clos
     event.payload.contractRef === REFUSAL_CONTRACT_REF);
   assert.equal(refusal.payload.resultClass, "refusal");
   assert.equal(refusal.payload.value.rejectedStage, "result");
-  assert.equal(events.at(-1).kind, "c_call_judged");
-  assert.equal(events.at(-1).payload.judgment, "blocked");
+  assert.equal(events.at(-1).kind, "run_stopped");
+  assert.equal(events.at(-1).payload.disposition, "blocked");
 });
 
 test("M5 rejects syntactically malformed F_P output before success-result admission or closure", async (context) => {
@@ -214,6 +227,43 @@ test("M5 rejects syntactically malformed F_P output before success-result admiss
     event.kind === "c_call_result_admitted" &&
     event.payload.contractRef === REFUSAL_CONTRACT_REF);
   assert.equal(refusal.payload.value.rejectedStage, "result");
-  assert.equal(events.at(-1).kind, "c_call_judged");
-  assert.equal(events.at(-1).payload.judgment, "blocked");
+  assert.equal(events.at(-1).kind, "run_stopped");
+  assert.equal(events.at(-1).payload.disposition, "blocked");
 });
+
+for (const [responseMode, scenarioLabel] of [
+  ["missing_attribution", "missing-attribution"],
+  ["contradictory", "contradictory-result"],
+  ["extra_field", "undeclared-result-field"],
+]) {
+  test(`M5 rejects ${scenarioLabel} before success-result admission`, async (context) => {
+    const harness = await setupInstalledCliHarness(context, root);
+    const command = await installWorkerFixture(harness);
+    const scenario = await buildRootCliScenario(
+      harness,
+      `m5-fp-${scenarioLabel}`,
+      (payload) => payload,
+      {
+        programRef: PROGRAM_REF,
+        graphFunctionRef: GRAPH_FUNCTION_REF,
+        input: fpInput("World"),
+      },
+    );
+    const run = await runInstalledCli(harness, scenario, {
+      environment: {
+        ABG_TS_CLAUDE_COMMAND: command,
+        ABG_FP_TEST_RESPONSE: responseMode,
+      },
+    });
+
+    assert.equal(run.exitCode, 2, run.stdout);
+    assert.equal(run.outcomes[5].disposition, "blocked");
+    assert.equal(run.outcomes[5].admittedResultContractRef, REFUSAL_CONTRACT_REF);
+    const events = await readEvents(scenario.eventLogPath);
+    assert.equal(events.some((event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.payload.contractRef === OUTPUT_CONTRACT_REF), false);
+    assert.equal(events.at(-1).kind, "run_stopped");
+    assert.equal(events.at(-1).payload.disposition, "blocked");
+  });
+}

@@ -10,9 +10,9 @@
     "payload": {
       "artifactPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/artifacts/abiogenesis-typescript-tenant-5.0.0-dev.286.tgz",
       "artifactRef": "abiogenesis-typescript-tenant-5.0.0-dev.286.tgz",
-      "expectedArtifactDigest": "sha256:2efcd5d99897a5d0a6bb99f95b74fe5ed022e3bbd3bc7c63edfe1d1a60404ab0",
-      "expectedProductContentDigest": "sha256:8a18e0326323616b4ada90c39f7801dc635b2f241ed21c87a5b985a66397a05f",
-      "expectedManifestDigest": "sha256:6e3fea34bd924a72cd1b075ef1683fc03164d1903ef8313feee0f801cedb225a",
+      "expectedArtifactDigest": "sha256:521d422d63c67662d6313782f4fe98e5737d58251486c4465ed589d0e1408a7b",
+      "expectedProductContentDigest": "sha256:2d6708b50012f036b7f0dfd31744744ddb17a64ded9c9d6f0f61eb23b77a3ffe",
+      "expectedManifestDigest": "sha256:1164e61ef466bec667e635badce1689f5d291d3cf012b5dafc979028c5c9119c",
       "expectedProductId": "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
       "expectedPackageName": "@abiogenesis/typescript-tenant",
       "expectedPackageVersion": "5.0.0-dev.286"

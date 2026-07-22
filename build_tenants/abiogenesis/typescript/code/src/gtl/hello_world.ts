@@ -14,6 +14,7 @@ import type {
   NormalizedHelloInput,
 } from "./contracts.js";
 import { C, cCarrier } from "./c_algebra.js";
+import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 
 export const HELLO_WORLD_IDS = Object.freeze({
@@ -256,11 +257,29 @@ export function isFpHelloInstruction(
 export function isFpHelloOutput(value: unknown): value is Readonly<FpHelloOutput> {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
   const record = value as Readonly<Record<string, unknown>>;
-  return record.kind === "fp_hello_output" &&
+  return Object.keys(record).sort().join("\0") ===
+      ["actorRef", "kind", "message", "resultContractRef", "schemaVersion"].join("\0") &&
+    record.kind === "fp_hello_output" &&
     record.schemaVersion === "5.0.0" &&
     record.resultContractRef === FP_HELLO_IDS.outputContractRef &&
     record.actorRef === FP_HELLO_IDS.workerActorRef &&
     typeof record.message === "string" && record.message.length > 0;
+}
+
+export function isDeclaredConformanceValue(
+  value: unknown,
+  valueKind: string,
+): value is Readonly<Record<string, JsonValue>> {
+  switch (valueKind) {
+    case "hello_world_output":
+      return isHelloWorldOutput(value);
+    case "normalized_hello_input":
+      return isNormalizedHelloInput(value);
+    case "fp_hello_output":
+      return isFpHelloOutput(value);
+    default:
+      return false;
+  }
 }
 
 export function evaluateFpHelloResult(

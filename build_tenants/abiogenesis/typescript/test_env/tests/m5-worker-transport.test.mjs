@@ -10,7 +10,7 @@ import {
   composeWorkerTransportArgs,
   constructKnownWorkerTransportContract,
   runWorkerTransport,
-} from "../../build/code/src/implementation/index.js";
+} from "../../build/code/src/abg/index.js";
 
 function assertClaudeProtocol(args) {
   for (const [flag, value] of [
@@ -188,4 +188,36 @@ test("M5 B-001 rejects tool activity only in the closed-prompt lane", async (con
   assert.equal(result.toolCallCount, 1);
   assert.equal(result.args.includes("--safe-mode"), true);
   assert.equal(result.args[result.args.indexOf("--tools") + 1], "");
+});
+
+test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-bounded-timeout-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const workerPath = join(scratch, "resistant-worker.mjs");
+  await writeFile(workerPath, [
+    "#!/usr/bin/env node",
+    "process.on('SIGTERM', () => {});",
+    "setInterval(() => process.stdout.write('still-running\\n'), 20);",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(workerPath, 0o755);
+  const startedAt = Date.now();
+  const result = await runWorkerTransport({
+    contract: constructKnownWorkerTransportContract("generic", {
+      command: process.execPath,
+      prefixArgs: [workerPath],
+      environment: {},
+    }),
+    prompt: "bounded",
+    lane: "worker_executes",
+    cwd: scratch,
+    archiveRoot: join(scratch, "archive"),
+    label: "resistant-worker",
+    timeoutMs: 75,
+    terminationGraceMs: 75,
+    environment: {},
+  });
+  assert.equal(result.disposition, "failure");
+  assert.equal(result.timedOut, true);
+  assert.equal(Date.now() - startedAt < 2_000, true);
 });

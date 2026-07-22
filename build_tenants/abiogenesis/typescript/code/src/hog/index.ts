@@ -39,6 +39,7 @@ export {
   type DeclaredJudgmentRelation,
 } from "./judgment.js";
 export {
+  proposeBlockedRoute,
   proposeJudgedRoute,
   proposeStructuralRoute,
   proposeTerminalRoute,
@@ -61,3 +62,7 @@ export {
   type StructuralTraversalClock,
   type StructuralTraversalResult,
 } from "./structural_execute.js";
+export {
+  executeGraphTraversal,
+  type ExecuteGraphTraversalInput,
+} from "./graph_execute.js";

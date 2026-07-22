@@ -31,9 +31,24 @@ export interface WorkerTransportRequest {
   readonly archiveRoot: string;
   readonly label: string;
   readonly timeoutMs: number;
+  readonly terminationGraceMs?: number;
   readonly responseJsonSchema?: unknown;
   readonly environment?: Readonly<Record<string, string | undefined>>;
   readonly explicitAppendArgs?: readonly string[];
+  readonly observer?: WorkerProcessObserver;
+}
+
+export interface WorkerProcessObserver {
+  readonly onProcessStarted?: (pid: number) => void;
+  readonly onStdoutObserved?: (chunk: string) => void;
+  readonly onStderrObserved?: (chunk: string) => void;
+  readonly onTimeoutObserved?: () => void;
+  readonly onSignalRequested?: (signal: NodeJS.Signals) => void;
+  readonly onProcessExited?: (
+    status: number | null,
+    signal: NodeJS.Signals | null,
+  ) => void;
+  readonly onSpawnFailed?: (message: string) => void;
 }
 
 export interface WorkerTransportResult {
@@ -148,6 +163,8 @@ function runProcess(input: {
   readonly env: NodeJS.ProcessEnv;
   readonly stdin: string | null;
   readonly timeoutMs: number;
+  readonly terminationGraceMs: number;
+  readonly observer?: WorkerProcessObserver;
 }): Promise<ProcessObservation> {
   return new Promise((resolveProcess) => {
     let stdout = "";
@@ -155,38 +172,53 @@ function runProcess(input: {
     let timedOut = false;
     let launchError: string | null = null;
     let settled = false;
+    let forceTimer: ReturnType<typeof setTimeout> | null = null;
     const child = spawn(input.command, input.args, {
       cwd: input.cwd,
       env: input.env,
       stdio: ["pipe", "pipe", "pipe"],
     });
+    const settle = (status: number | null, signal: NodeJS.Signals | null): void => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeout);
+      if (forceTimer !== null) clearTimeout(forceTimer);
+      input.observer?.onProcessExited?.(status, signal);
+      resolveProcess({ status, signal, timedOut, launchError, stdout, stderr });
+    };
     const timeout = setTimeout(() => {
       timedOut = true;
+      input.observer?.onTimeoutObserved?.();
+      input.observer?.onSignalRequested?.("SIGTERM");
       child.kill("SIGTERM");
+      forceTimer = setTimeout(() => {
+        input.observer?.onSignalRequested?.("SIGKILL");
+        child.kill("SIGKILL");
+        child.stdout.destroy();
+        child.stderr.destroy();
+        child.stdin.destroy();
+        settle(child.exitCode, child.signalCode ?? "SIGKILL");
+      }, input.terminationGraceMs);
     }, input.timeoutMs);
+    child.once("spawn", () => {
+      if (child.pid !== undefined) input.observer?.onProcessStarted?.(child.pid);
+    });
     child.stdout.setEncoding("utf8");
     child.stderr.setEncoding("utf8");
     child.stdout.on("data", (chunk: string) => {
       stdout += chunk;
+      input.observer?.onStdoutObserved?.(chunk);
     });
     child.stderr.on("data", (chunk: string) => {
       stderr += chunk;
+      input.observer?.onStderrObserved?.(chunk);
     });
     child.once("error", (error) => {
       launchError = error.message;
+      input.observer?.onSpawnFailed?.(error.message);
     });
     child.once("close", (status, signal) => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timeout);
-      resolveProcess({
-        status,
-        signal,
-        timedOut,
-        launchError,
-        stdout,
-        stderr,
-      });
+      settle(status, signal);
     });
     if (input.stdin === null) {
       child.stdin.end();
@@ -226,6 +258,10 @@ export async function runWorkerTransport(
   if (!Number.isSafeInteger(input.timeoutMs) || input.timeoutMs < 1) {
     throw new TypeError("worker transport timeout must be one positive safe integer");
   }
+  const terminationGraceMs = input.terminationGraceMs ?? 1_000;
+  if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
+    throw new TypeError("worker transport termination grace must be one positive safe integer");
+  }
   await mkdir(input.archiveRoot, { recursive: true });
   const archiveRoot = await realpath(input.archiveRoot);
   const paths = {
@@ -256,6 +292,8 @@ export async function runWorkerTransport(
     env: sanitizeWorkerTransportEnvironment(input.contract, environment) ?? {},
     stdin: input.contract.promptTransport === "stdin" ? input.prompt : null,
     timeoutMs: input.timeoutMs,
+    terminationGraceMs,
+    ...(input.observer === undefined ? {} : { observer: input.observer }),
   });
   const observation = input.contract.parser === "claude_stream_json"
     ? observeStructuredOutput(processObservation.stdout)

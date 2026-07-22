@@ -110,6 +110,7 @@ export {
 } from "./c_call.js";
 export {
   replay,
+  type ReplayActorProcessState,
   type ReplayCCallState,
   type ReplayRouteState,
   type ReplayState,
@@ -122,6 +123,7 @@ export {
   admitRoute,
   isAdmittedRoute,
   type AdmittedRoute,
+  type BlockedRouteAdmissionEvidence,
   type RouteAdmissionEvidence,
   type RouteAdmissionRefusal,
   type RouteAdmissionResult,
@@ -138,3 +140,32 @@ export {
   admitRuntimeFailure,
   type RuntimeFailureAdmission,
 } from "./runtime_failure.js";
+export {
+  invokeActorProcess,
+  type ActorProcessObservation,
+  type ActorProcessRequest,
+  type ActorRuntimeBinding,
+} from "./actor_process.js";
+export {
+  TRANSPORT_PROTOCOL_OWNED_FLAGS,
+  admitTransportAppendArgs,
+  admitWorkerSandboxDeclaration,
+  composeWorkerTransportArgs,
+  constructKnownWorkerTransportContract,
+  sanitizeWorkerTransportEnvironment,
+  transportAppendArgsEnvVar,
+  withTransportAppendArgs,
+  type KnownTransportAgentKey,
+  type TransportCapabilityLane,
+  type WorkerSandboxDeclaration,
+  type WorkerTransportContract,
+  type WorkerTransportContractOptions,
+} from "./transport_contracts.js";
+export {
+  runWorkerTransport,
+  type WorkerProcessObserver,
+  type WorkerTransportArtifact,
+  type WorkerTransportFailureClass,
+  type WorkerTransportRequest,
+  type WorkerTransportResult,
+} from "./worker_transport.js";

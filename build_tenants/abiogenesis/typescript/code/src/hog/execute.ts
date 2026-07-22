@@ -10,14 +10,18 @@ import {
   replay,
   traversalCursorAdmissionEventRef,
   type AbgEventStore,
+  type ActorRuntimeBinding,
   type AdmittedImplementationResolutionRow,
   type AdmittedImplementationSet,
   type CCallEvidenceCandidate,
+  type CCall,
   type ExecutionBasis,
   type OpenedTraversalScope,
   type ReplayState,
   type RuntimeAdmissionBasis,
+  invokeActorProcess,
 } from "../abg/index.js";
+import type { ProbabilisticLeafEffectPort } from "../implementation/contracts.js";
 import type {
   ClosureContract,
   GtlGraph,
@@ -35,7 +39,7 @@ import {
   proposeJudgment,
   type DeclaredJudgmentRelation,
 } from "./judgment.js";
-import { proposeJudgedRoute } from "./traversal_route.js";
+import { proposeBlockedRoute, proposeJudgedRoute } from "./traversal_route.js";
 import {
   applyRoute,
   deriveCompletedTraversalStep,
@@ -120,10 +124,15 @@ export interface CompleteExecutableTraversalInput<
   readonly inputDigest: `sha256:${string}`;
   readonly failureValueKind: string;
   readonly resultValueKind: string;
+  readonly validateSuccessCandidate?: (value: unknown) => value is Readonly<Output>;
   readonly validateSuccessResult: (value: unknown) => value is Readonly<Output>;
   readonly closureContract: Readonly<ClosureContract>;
   readonly judgmentRelation: DeclaredJudgmentRelation<Input, Output>;
-  readonly realize: (input: Readonly<Input>) => unknown | Promise<unknown>;
+  readonly realize: (
+    input: Readonly<Input>,
+    effects: ProbabilisticLeafEffectPort | null,
+  ) => unknown | Promise<unknown>;
+  readonly actorRuntimeBinding?: ActorRuntimeBinding;
   readonly clock: ExecutableTraversalClock;
 }
 
@@ -187,6 +196,93 @@ function completion(
 
 function replayRun(input: Pick<CompleteExecutableTraversalInput<unknown, unknown>, "store" | "openedTraversalScope">): ReplayState {
   return replay(input.store, { runId: input.openedTraversalScope.runId });
+}
+
+function completeBlockedTraversal<Input, Output>(
+  input: CompleteExecutableTraversalInput<Input, Output>,
+  cCall: CCall,
+  values: {
+    readonly judgmentRef: string;
+    readonly judgmentEventRef: string;
+    readonly reasonRef: string;
+    readonly resultRef: string;
+  },
+): ExecutableTraversalCompletion {
+  const currentReplay = replayRun(input);
+  const proposal = proposeBlockedRoute(
+    input.graph,
+    input.traversalStop,
+    cCall,
+    values.judgmentRef,
+    currentReplay,
+    cCall.transitionContractRef,
+  );
+  if (proposal.kind !== "traversal_route_candidate") {
+    const diagnosticRef = `diagnostic://abiogenesis/hog/${proposal.code}@5`;
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "route",
+      proposal as unknown as JsonValue,
+      diagnosticRef,
+      {
+        ...basis(input.clock, "blocked-route-proposal-refusal"),
+        causationEventRefs: [values.judgmentEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: values.resultRef,
+      judgmentRef: values.judgmentRef,
+      diagnosticRef,
+    });
+  }
+  const route = admitRoute(
+    input.store,
+    input.executionBasis,
+    input.graph,
+    input.traversalStop.cursor,
+    null,
+    currentReplay,
+    proposal,
+    basis(input.clock, "blocked-route"),
+    {
+      cCall,
+      judgmentRef: values.judgmentRef,
+      judgmentEventRef: values.judgmentEventRef,
+      reasonRef: values.reasonRef,
+    },
+  );
+  if (route.kind !== "admitted_traversal_route" || route.runStoppedEventRef === null) {
+    const diagnosticRef = route.kind === "admitted_traversal_route"
+      ? "diagnostic://abiogenesis/hog/run-stop-absent@5"
+      : `diagnostic://abiogenesis/hog/${route.code}@5`;
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "route",
+      route as unknown as JsonValue,
+      diagnosticRef,
+      {
+        ...basis(input.clock, "blocked-route-admission-refusal"),
+        causationEventRefs: [values.judgmentEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: values.resultRef,
+      judgmentRef: values.judgmentRef,
+      diagnosticRef,
+    });
+  }
+  return completion("blocked", replayRun(input), {
+    cCallRef: cCall.cCallRef,
+    resultRef: values.resultRef,
+    judgmentRef: values.judgmentRef,
+    diagnosticRef: values.reasonRef,
+  });
 }
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
@@ -324,14 +420,33 @@ export async function completeExecutableTraversal<
     });
   }
   const cCall = opened.cCall;
+  const probabilisticEffects: ProbabilisticLeafEffectPort | null = computeRegime === "F_P"
+    ? input.actorRuntimeBinding === undefined
+      ? null
+      : {
+          invokeWorker: (request) => invokeActorProcess({
+            store: input.store,
+            executionBasis: input.executionBasis,
+            scope: input.openedTraversalScope,
+            cCall,
+            expectedInputDigest: input.inputDigest,
+            runtime: input.actorRuntimeBinding!,
+            request,
+            basis: basis(input.clock, "actor-process"),
+          }),
+        }
+    : null;
   let realized: unknown;
   let leaf: ExecutableLeafCandidate<Output>;
   try {
-    realized = await input.realize(input.input);
+    if (computeRegime === "F_P" && probabilisticEffects === null) {
+      throw new TypeError("F_P traversal requires an ABG-owned actor runtime binding");
+    }
+    realized = await input.realize(input.input, probabilisticEffects);
     leaf = isLeafCandidate<Output>(
       realized,
       computeRegime,
-      input.validateSuccessResult,
+      input.validateSuccessCandidate ?? input.validateSuccessResult,
       input.failureValueKind,
     )
       ? realized
@@ -356,11 +471,11 @@ export async function completeExecutableTraversal<
         admitted,
         basis(input.clock, "evidence-rejection"),
       );
-      return completion("blocked", replayRun(input), {
-        cCallRef: cCall.cCallRef,
+      return completeBlockedTraversal(input, cCall, {
         resultRef: rejected.refusalResultRef,
         judgmentRef: rejected.rejectionJudgmentRef,
-        diagnosticRef: admitted.diagnosticRef,
+        judgmentEventRef: rejected.judgmentEventRef,
+        reasonRef: admitted.diagnosticRef,
       });
     }
     evidence.push(admitted);
@@ -392,11 +507,11 @@ export async function completeExecutableTraversal<
       result,
       basis(input.clock, "result-rejection"),
     );
-    return completion("blocked", replayRun(input), {
-      cCallRef: cCall.cCallRef,
+    return completeBlockedTraversal(input, cCall, {
       resultRef: rejected.refusalResultRef,
       judgmentRef: rejected.rejectionJudgmentRef,
-      diagnosticRef: result.diagnosticRef,
+      judgmentEventRef: rejected.judgmentEventRef,
+      reasonRef: result.diagnosticRef,
     });
   }
   const resultReplay = replayRun(input);
@@ -431,19 +546,19 @@ export async function completeExecutableTraversal<
       judgment,
       basis(input.clock, "judgment-rejection"),
     );
-    return completion("blocked", replayRun(input), {
-      cCallRef: cCall.cCallRef,
+    return completeBlockedTraversal(input, cCall, {
       resultRef: rejected.refusalResultRef,
       judgmentRef: rejected.rejectionJudgmentRef,
-      diagnosticRef: judgment.diagnosticRef,
+      judgmentEventRef: rejected.judgmentEventRef,
+      reasonRef: judgment.diagnosticRef,
     });
   }
   if (judgment.judgment !== "advance") {
-    return completion("blocked", replayRun(input), {
-      cCallRef: cCall.cCallRef,
+    return completeBlockedTraversal(input, cCall, {
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
-      diagnosticRef: judgment.reasonRef,
+      judgmentEventRef: judgment.admissionEventRef,
+      reasonRef: judgment.reasonRef,
     });
   }
   const judgedReplay = replayRun(input);

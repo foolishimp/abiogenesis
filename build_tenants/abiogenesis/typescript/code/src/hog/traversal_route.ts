@@ -210,3 +210,50 @@ export function proposeJudgedRoute(
     ...body,
   }) as RouteCandidate;
 }
+
+export function proposeBlockedRoute(
+  graph: Readonly<GtlGraph>,
+  stop: TraversalStopRef,
+  cCall: CCall,
+  judgmentRef: string,
+  replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    stop.cursor.graphRef !== graph.materializationRef ||
+    stop.cursor.frameId !== cCall.frameId ||
+    stop.programLocusRef !== cCall.programLocusRef
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "structural_step_missing",
+      message: "blocked route requires the exact open CCall and source cursor",
+    };
+  }
+  const body = {
+    routeKind: "blocked" as const,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: stop.cursor.cursorRef,
+    sourceCursorDigest: stop.cursor.cursorDigest,
+    targetCursorRef: null,
+    targetCursorDigest: null,
+    cCallRef: cCall.cCallRef,
+    judgmentRef,
+    consumedAvailabilityRefs: [judgmentRef] as const,
+    contractRef,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}

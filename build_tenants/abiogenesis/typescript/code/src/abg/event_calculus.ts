@@ -61,6 +61,50 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: ["c_call_fibre_admitted"],
     terminates: [], clips: [], declips: [],
   },
+  actor_invocation_started: {
+    initiates: ["actor_invocation_active"],
+    terminates: [], clips: [], declips: [],
+  },
+  actor_process_started: {
+    initiates: ["actor_process_active", "actor_process_live"],
+    terminates: [], clips: [], declips: [],
+  },
+  actor_process_spawn_failed: {
+    initiates: ["actor_process_spawn_failed"],
+    terminates: ["actor_process_active", "actor_process_live"], clips: [], declips: [],
+  },
+  actor_process_stdout_observed: {
+    initiates: ["actor_process_live", "actor_stdout_available"],
+    terminates: [], clips: [], declips: [],
+  },
+  actor_process_stderr_observed: {
+    initiates: ["actor_process_live", "actor_stderr_available"],
+    terminates: [], clips: [], declips: [],
+  },
+  actor_process_timeout_observed: {
+    initiates: ["actor_process_timed_out"],
+    terminates: ["actor_process_live"], clips: [], declips: [],
+  },
+  actor_process_signal_requested: {
+    initiates: ["actor_process_signal_requested"],
+    terminates: [], clips: [], declips: [],
+  },
+  actor_process_exited: {
+    initiates: ["actor_process_exited"],
+    terminates: ["actor_process_active", "actor_process_live"], clips: [], declips: [],
+  },
+  actor_result_artifact_observed: {
+    initiates: ["actor_result_artifact_available"],
+    terminates: [], clips: [], declips: [],
+  },
+  actor_invocation_closed: {
+    initiates: ["actor_invocation_closed"],
+    terminates: ["actor_invocation_active"], clips: [], declips: [],
+  },
+  actor_invocation_failed: {
+    initiates: ["actor_invocation_failed"],
+    terminates: ["actor_invocation_active", "actor_process_active", "actor_process_live"], clips: [], declips: [],
+  },
   c_call_evidenced: {
     initiates: ["c_call_evidence_available"],
     terminates: [], clips: [], declips: [],
@@ -80,6 +124,17 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   runtime_failure_observed: {
     initiates: ["runtime_failure"],
     terminates: ["locus_active", "frame_active", "graph_call_active", "run_active"], clips: [], declips: [],
+  },
+  run_stopped: {
+    initiates: ["run_terminal"],
+    terminates: [
+      "locus_active",
+      "frame_active",
+      "frame_blocked",
+      "frame_failed",
+      "graph_call_active",
+      "run_active",
+    ], clips: [], declips: [],
   },
   terminal_reached: {
     initiates: ["terminal_admitted"],

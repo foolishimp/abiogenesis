@@ -26,11 +26,23 @@ export const ROOT_EVENT_KIND_VALUES = [
   "traversal_cursor_entered",
   "c_call_opened",
   "c_call_fibre_selected",
+  "actor_invocation_started",
+  "actor_process_started",
+  "actor_process_spawn_failed",
+  "actor_process_stdout_observed",
+  "actor_process_stderr_observed",
+  "actor_process_timeout_observed",
+  "actor_process_signal_requested",
+  "actor_process_exited",
+  "actor_result_artifact_observed",
+  "actor_invocation_closed",
+  "actor_invocation_failed",
   "c_call_evidenced",
   "c_call_result_admitted",
   "c_call_judged",
   "traversal_route_admitted",
   "runtime_failure_observed",
+  "run_stopped",
   "terminal_reached",
   "frame_closed",
   "graph_call_closed",
@@ -42,7 +54,14 @@ export type RootEventKind = (typeof ROOT_EVENT_KIND_VALUES)[number];
 export interface RuntimeEventCandidate {
   readonly kind: RootEventKind;
   readonly eventTime: string;
-  readonly aggregateType: "c_call" | "frame" | "graph_call" | "run" | "workspace";
+  readonly aggregateType:
+    | "actor_invocation"
+    | "c_call"
+    | "frame"
+    | "graph_call"
+    | "process"
+    | "run"
+    | "workspace";
   readonly aggregateId: string;
   readonly parentAggregateId: string | null;
   readonly causationEventRefs: readonly string[];

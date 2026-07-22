@@ -46,6 +46,19 @@ export interface ReplayRouteState {
   readonly admissionEventRef: string;
 }
 
+export interface ReplayActorProcessState {
+  readonly actorInvocationRef: string;
+  readonly actorRef: string | null;
+  readonly processRef: string | null;
+  readonly streamEventRefs: readonly string[];
+  readonly timedOut: boolean;
+  readonly signalSequence: readonly string[];
+  readonly exitStatus: number | null;
+  readonly exitSignal: string | null;
+  readonly transportDigest: Sha256Digest | null;
+  readonly status: "active" | "closed" | "failed";
+}
+
 export interface ReplayState {
   readonly kind: "replay_state";
   readonly schemaVersion: "5.0.0";
@@ -62,11 +75,13 @@ export interface ReplayState {
   readonly traversalCursorEventRef: string | null;
   readonly cCalls: readonly ReplayCCallState[];
   readonly routes: readonly ReplayRouteState[];
+  readonly actorProcesses: readonly ReplayActorProcessState[];
   readonly activeFluents: readonly string[];
   readonly terminalReachedEventRef: string | null;
   readonly frameClosedEventRef: string | null;
   readonly graphCallClosedEventRef: string | null;
   readonly runClosedEventRef: string | null;
+  readonly runStoppedEventRef: string | null;
   readonly invocationRefusalEventRef: string | null;
   readonly runtimeFailureEventRef: string | null;
   readonly runtimeStatus:
@@ -266,6 +281,58 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       };
     });
 
+  const actorInvocationIds = [...new Set(
+    events
+      .filter((event) => event.aggregateType === "actor_invocation")
+      .map((event) => event.aggregateId),
+  )];
+  const actorProcesses = actorInvocationIds.map(
+    (actorInvocationRef): ReplayActorProcessState => {
+      const actorRows = events.filter(
+        (event) => event.aggregateId === actorInvocationRef ||
+          event.parentAggregateId === actorInvocationRef,
+      );
+      const opened = actorRows.find((event) => event.kind === "actor_invocation_started");
+      const processStarted = actorRows.find((event) => event.kind === "actor_process_started");
+      const processExited = actorRows.find((event) => event.kind === "actor_process_exited");
+      const artifact = actorRows.find(
+        (event) => event.kind === "actor_result_artifact_observed",
+      );
+      const closed = actorRows.find((event) => event.kind === "actor_invocation_closed");
+      const failed = actorRows.find((event) => event.kind === "actor_invocation_failed");
+      const exitStatus = processExited === undefined || !isRecord(processExited.payload)
+        ? null
+        : processExited.payload.status;
+      return {
+        actorInvocationRef,
+        actorRef: opened === undefined ? null : stringField(opened, "actorRef"),
+        processRef: processStarted === undefined
+          ? actorRows.find((event) => event.aggregateType === "process")?.aggregateId ?? null
+          : stringField(processStarted, "processRef"),
+        streamEventRefs: actorRows
+          .filter((event) =>
+            event.kind === "actor_process_stdout_observed" ||
+            event.kind === "actor_process_stderr_observed")
+          .map((event) => event.eventId),
+        timedOut: actorRows.some((event) => event.kind === "actor_process_timeout_observed"),
+        signalSequence: actorRows
+          .filter((event) => event.kind === "actor_process_signal_requested")
+          .map((event) => stringField(event, "signal"))
+          .filter((value): value is string => value !== null),
+        exitStatus: Number.isSafeInteger(exitStatus) ? exitStatus as number : null,
+        exitSignal: processExited === undefined ? null : stringField(processExited, "signal"),
+        transportDigest: artifact === undefined
+          ? null
+          : stringField(artifact, "transportDigest") as Sha256Digest | null,
+        status: failed !== undefined
+          ? "failed"
+          : closed !== undefined
+            ? "closed"
+            : "active",
+      };
+    },
+  );
+
   const runOpen = events.find((event) => event.kind === "run_segment_opened");
   const graphCallOpen = events.find((event) => event.kind === "graph_call_opened");
   const frameOpen = events.find((event) => event.kind === "frame_opened");
@@ -276,9 +343,9 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
   const frameClosed = events.find((event) => event.kind === "frame_closed");
   const graphCallClosed = events.find((event) => event.kind === "graph_call_closed");
   const runClosed = events.find((event) => event.kind === "run_closed");
+  const runStopped = events.find((event) => event.kind === "run_stopped");
   const invocationRefused = events.find((event) => event.kind === "invocation_refused");
   const runtimeFailure = events.find((event) => event.kind === "runtime_failure_observed");
-  const blocked = cCalls.some((cCall) => cCall.judgment === "blocked");
   const eventStoreDigest = store.digest(scope);
   const body = {
     eventStoreDigest,
@@ -296,18 +363,20 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
     traversalCursorEventRef: traversalCursor?.eventId ?? null,
     cCalls,
     routes,
+    actorProcesses,
     activeFluents: [...activeFluents].sort(),
     terminalReachedEventRef: terminal?.eventId ?? null,
     frameClosedEventRef: frameClosed?.eventId ?? null,
     graphCallClosedEventRef: graphCallClosed?.eventId ?? null,
     runClosedEventRef: runClosed?.eventId ?? null,
+    runStoppedEventRef: runStopped?.eventId ?? null,
     invocationRefusalEventRef: invocationRefused?.eventId ?? null,
     runtimeFailureEventRef: runtimeFailure?.eventId ?? null,
     runtimeStatus: runtimeFailure !== undefined
       ? "failed" as const
       : runClosed !== undefined
         ? "closed" as const
-        : blocked
+        : runStopped !== undefined
           ? "blocked" as const
           : invocationRefused !== undefined
             ? "refused" as const

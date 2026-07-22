@@ -1,6 +1,5 @@
 export { HELLO_WORLD_IMPLEMENTATION_DESCRIPTOR, realizeHelloWorld } from "./hello_world.js";
 export { FP_HELLO_IMPLEMENTATION_DESCRIPTOR, realizeFpHello } from "./fp_hello.js";
-export type { FpLeafRuntimeContext } from "./fp_hello.js";
 export {
   NORMALIZE_HELLO_IMPLEMENTATION_DESCRIPTOR,
   PASS_NORMALIZED_HELLO_IMPLEMENTATION_DESCRIPTOR,
@@ -13,29 +12,11 @@ export type {
   DeterministicEvidenceCandidate,
   HelloWorldLeafImplementation,
   HelloWorldLeafRealizationCandidate,
+  LeafInvocationPort,
+  LeafInvocationResolution,
+  ProbabilisticLeafEffectPort,
+  ProbabilisticWorkerObservation,
+  ProbabilisticWorkerRequest,
 } from "./contracts.js";
+export { constructLeafInvocationPort } from "./invocation_port.js";
 export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
-export {
-  TRANSPORT_PROTOCOL_OWNED_FLAGS,
-  admitTransportAppendArgs,
-  admitWorkerSandboxDeclaration,
-  composeWorkerTransportArgs,
-  constructKnownWorkerTransportContract,
-  sanitizeWorkerTransportEnvironment,
-  transportAppendArgsEnvVar,
-  withTransportAppendArgs,
-} from "./transport_contracts.js";
-export type {
-  KnownTransportAgentKey,
-  TransportCapabilityLane,
-  WorkerSandboxDeclaration,
-  WorkerTransportContract,
-  WorkerTransportContractOptions,
-} from "./transport_contracts.js";
-export { runWorkerTransport } from "./worker_transport.js";
-export type {
-  WorkerTransportArtifact,
-  WorkerTransportFailureClass,
-  WorkerTransportRequest,
-  WorkerTransportResult,
-} from "./worker_transport.js";

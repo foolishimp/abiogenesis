@@ -353,6 +353,42 @@ function eventsFor(store: AbgEventStore, cCallRef: string) {
   );
 }
 
+function hasAdmittedActorEvidence(
+  store: AbgEventStore,
+  cCall: CCall,
+  candidate: ProbabilisticTransportEvidenceCandidate,
+): boolean {
+  const actorRows = store.readAll().filter(
+    (event) => event.aggregateId === candidate.actorInvocationRef,
+  );
+  const opened = actorRows.find((event) => event.kind === "actor_invocation_started");
+  const artifact = actorRows.find(
+    (event) => event.kind === "actor_result_artifact_observed",
+  );
+  const terminal = actorRows.find(
+    (event) => event.kind === "actor_invocation_closed" ||
+      event.kind === "actor_invocation_failed",
+  );
+  return opened !== undefined &&
+    artifact !== undefined &&
+    terminal !== undefined &&
+    opened.runId === cCall.runId &&
+    opened.parentAggregateId === cCall.cCallRef &&
+    isJsonRecord(opened.payload) &&
+    opened.payload.actorRef === candidate.actorRef &&
+    opened.payload.cCallRef === cCall.cCallRef &&
+    artifact.parentAggregateId === cCall.cCallRef &&
+    isJsonRecord(artifact.payload) &&
+    artifact.payload.cCallRef === cCall.cCallRef &&
+    artifact.payload.outputDigest === candidate.artifactDigests.output &&
+    artifact.payload.transportDigest === candidate.transportDigest &&
+    terminal.causationEventRefs.includes(artifact.eventId) &&
+    ((candidate.transportDisposition === "success" &&
+      terminal.kind === "actor_invocation_closed") ||
+      (candidate.transportDisposition === "failure" &&
+        terminal.kind === "actor_invocation_failed"));
+}
+
 export function hasOpenedCCall(store: AbgEventStore, cCall: CCall): boolean {
   if (!isCCall(cCall)) return false;
   const events = eventsFor(store, cCall.cCallRef);
@@ -637,7 +673,8 @@ export function admitEvidence(
     typeof candidate.timedOut === "boolean" &&
     Number.isSafeInteger(candidate.progressEventCount) && candidate.progressEventCount >= 0 &&
     Number.isSafeInteger(candidate.toolCallCount) && candidate.toolCallCount >= 0 &&
-    (candidate.transportLane !== "closed_prompt_proof" || candidate.toolCallCount === 0);
+    (candidate.transportLane !== "closed_prompt_proof" || candidate.toolCallCount === 0) &&
+    hasAdmittedActorEvidence(store, cCall, candidate);
   if (
     !hasOpenedCCall(store, cCall) ||
     !commonValid ||

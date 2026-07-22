@@ -21,7 +21,11 @@ import {
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
-import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+import {
+  AbgEventStore,
+  admitRuntimeEvent,
+  admitRuntimeEventBatch,
+} from "./event_store.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
   hasAdmittedTraversalCursor,
@@ -76,6 +80,7 @@ export interface AdmittedRoute {
   readonly contractRef: string | null;
   readonly replayStateDigest: Sha256Digest;
   readonly admissionEventRef: string;
+  readonly runStoppedEventRef: string | null;
 }
 
 export interface RouteAdmissionRefusal {
@@ -100,6 +105,13 @@ export interface RouteAdmissionEvidence {
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
+}
+
+export interface BlockedRouteAdmissionEvidence {
+  readonly cCall: CCall;
+  readonly judgmentRef: string;
+  readonly judgmentEventRef: string;
+  readonly reasonRef: string;
 }
 
 const admittedRoutes = new WeakSet<object>();
@@ -261,6 +273,38 @@ function hasJudgedRouteEvidence(
     candidate.contractRef === cCall.transitionContractRef;
 }
 
+function hasBlockedRouteEvidence(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  sourceCursor: TraversalCursorCandidate,
+  candidate: RouteCandidate,
+  evidence: BlockedRouteAdmissionEvidence | null,
+): evidence is BlockedRouteAdmissionEvidence {
+  if (
+    evidence === null ||
+    !hasOpenedCCall(store, evidence.cCall) ||
+    evidence.cCall.basisId !== executionBasis.basisRef ||
+    evidence.cCall.frameId !== sourceCursor.frameId ||
+    evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
+    candidate.cCallRef !== evidence.cCall.cCallRef ||
+    candidate.judgmentRef !== evidence.judgmentRef ||
+    candidate.targetCursorRef !== null ||
+    candidate.targetCursorDigest !== null ||
+    candidate.consumedAvailabilityRefs.length !== 1 ||
+    candidate.consumedAvailabilityRefs[0] !== evidence.judgmentRef ||
+    candidate.contractRef !== evidence.cCall.transitionContractRef
+  ) return false;
+  const judgmentEvent = store.readAll().find(
+    (event) => event.eventId === evidence.judgmentEventRef,
+  );
+  return judgmentEvent?.kind === "c_call_judged" &&
+    judgmentEvent.aggregateId === evidence.cCall.cCallRef &&
+    isJsonRecord(judgmentEvent.payload) &&
+    judgmentEvent.payload.judgmentRef === evidence.judgmentRef &&
+    judgmentEvent.payload.judgment === "blocked" &&
+    judgmentEvent.payload.reasonRef === evidence.reasonRef;
+}
+
 function isDeclaredJudgedTarget(
   graph: Readonly<GtlGraph>,
   source: TraversalCursorCandidate,
@@ -320,7 +364,7 @@ export function admitRoute(
   replayState: ReplayState,
   candidate: RouteCandidate,
   basis: RuntimeAdmissionBasis,
-  evidence: RouteAdmissionEvidence | null = null,
+  evidence: RouteAdmissionEvidence | BlockedRouteAdmissionEvidence | null = null,
 ): RouteAdmissionResult {
   if (
     !hasAdmittedExecutionBasis(store, executionBasis) ||
@@ -393,13 +437,14 @@ export function admitRoute(
 
   let causationEventRef = traversalCursorAdmissionEventRef(store, sourceCursor);
   if (candidate.routeKind === "terminal") {
+    const judgedEvidence = evidence !== null && "result" in evidence ? evidence : null;
     if (!hasJudgedRouteEvidence(
       store,
       executionBasis,
       graph,
       sourceCursor,
       candidate,
-      evidence,
+      judgedEvidence,
     )) {
       return refusal(
         "judgment_mismatch",
@@ -417,7 +462,7 @@ export function admitRoute(
         "terminal route differs from the exact GTL declaration or carries a target cursor",
       );
     }
-    causationEventRef = evidence.judgment.admissionEventRef;
+    causationEventRef = judgedEvidence.judgment.admissionEventRef;
   } else if (candidate.routeKind === "advance" || candidate.routeKind === "retry") {
     if (
       targetCursor === null ||
@@ -449,7 +494,7 @@ export function admitRoute(
           "structural route is not the exact next cursor declared by the original GTL term",
         );
       }
-    } else {
+    } else if ("result" in evidence) {
       if (
         candidate.routeKind !== "advance" ||
         !hasJudgedRouteEvidence(
@@ -468,11 +513,33 @@ export function admitRoute(
         );
       }
       causationEventRef = evidence.judgment.admissionEventRef;
+    } else {
+      return refusal(
+        "judgment_mismatch",
+        "advance route requires admitted result and judgment evidence",
+      );
     }
+  } else if (candidate.routeKind === "blocked") {
+    const blockedEvidence = evidence !== null && "judgmentEventRef" in evidence
+      ? evidence
+      : null;
+    if (!hasBlockedRouteEvidence(
+      store,
+      executionBasis,
+      sourceCursor,
+      candidate,
+      blockedEvidence,
+    )) {
+      return refusal(
+        "judgment_mismatch",
+        "blocked route requires this cursor's admitted blocked CCall judgment",
+      );
+    }
+    causationEventRef = blockedEvidence.judgmentEventRef;
   } else {
     return refusal(
       "route_kind_not_supported",
-      "hold, blocked, and failed routes require their declared runtime evidence",
+      "hold and failed routes require their declared runtime evidence",
     );
   }
   if (causationEventRef === null) {
@@ -485,7 +552,7 @@ export function admitRoute(
   const routeDigest = sha256Canonical(body);
   const routeRef =
     `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}`;
-  const event = admitRuntimeEvent(store, {
+  const routeEventCandidate = {
     kind: "traversal_route_admitted",
     eventTime: basis.eventTime,
     aggregateType: "frame",
@@ -502,7 +569,39 @@ export function admitRoute(
     graphCallId: sourceCursor.graphCallId,
     frameId: sourceCursor.frameId,
     payload: { routeRef, routeDigest, ...body },
-  });
+  } as const;
+  const admittedEvents = candidate.routeKind === "blocked"
+    ? admitRuntimeEventBatch(store, [
+        () => routeEventCandidate,
+        (batch) => ({
+          kind: "run_stopped",
+          eventTime: basis.eventTime,
+          aggregateType: "run",
+          aggregateId: sourceCursor.runId,
+          parentAggregateId: null,
+          causationEventRefs: [batch[0]!.eventId],
+          correlationId: `${basis.correlationId}/run-stopped`,
+          workflowVersion: "5.0.0",
+          scopeClass: "run",
+          basisId: executionBasis.basisRef,
+          runId: sourceCursor.runId,
+          graphFunctionRef: executionBasis.graphFunctionRef,
+          materializationRef: graph.materializationRef,
+          graphCallId: sourceCursor.graphCallId,
+          frameId: sourceCursor.frameId,
+          payload: {
+            disposition: "blocked",
+            routeRef,
+            cCallRef: candidate.cCallRef,
+            judgmentRef: candidate.judgmentRef,
+            reasonRef: evidence !== null && "reasonRef" in evidence
+              ? evidence.reasonRef
+              : "reason://abiogenesis/blocked@5",
+          },
+        }),
+      ])
+    : [admitRuntimeEvent(store, routeEventCandidate)];
+  const event = admittedEvents[0]!;
   const admitted = deepFreeze({
     kind: "admitted_traversal_route" as const,
     schemaVersion: "5.0.0" as const,
@@ -511,6 +610,7 @@ export function admitRoute(
     routeDigest,
     ...body,
     admissionEventRef: event.eventId,
+    runStoppedEventRef: admittedEvents[1]?.eventId ?? null,
   }) as AdmittedRoute;
   admittedRoutes.add(admitted);
   return admitted;
