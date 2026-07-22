@@ -12,7 +12,7 @@
 - status: active
 - phase_status: m5_parent_implementation_active
 - review_status: design_delta_direct_fh_accepted_d6da4269
-- proof_status: m4_root_retained_m5_pending
+- proof_status: m4_root_retained_fp_authority_repaired_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -153,6 +153,27 @@ working installed slice and scales to the changed authority and risk boundary.
 
 No subordinate ticket can weaken the root, define Product scope, or project
 M5 closure independently.
+
+## Current M5 Checkpoint
+
+Implementation commit `fef14403dad104277bf0bc06269c16d326db6db6`
+repairs the first F_P slice after review:
+
+- Public performs fixed invocation preparation and calls HoG once;
+- HoG owns the direct graph fold, exact implementation addressing, leaf
+  invocation, and cursor advancement;
+- ABG owns actor/process identity, transport supervision truth, evidence
+  verification, blocked-route admission, and `run_stopped` truth;
+- F_P success-result admission rejects missing or wrong attribution,
+  contradictory output, malformed JSON, and undeclared fields; and
+- worker timeout handling escalates from `SIGTERM` to bounded `SIGKILL` and
+  forced stream settlement.
+
+Fresh serialized verification is `test:m5` `26/26` and retained `test:m4`
+`25/25`. This checkpoint does not close `ABG5-S02`: its worker is a
+subprocess-backed deterministic fixture rather than a live probabilistic
+model, and `workflow.C`, the forty-row traversal matrix, and fibre
+substitution remain unopened.
 
 ## 4.6 Conservation
 
