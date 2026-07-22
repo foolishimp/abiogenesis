@@ -50,17 +50,19 @@ async function installWorkerFixture(harness) {
     "process.stdin.on('end', () => {",
     "  const subjectLine = prompt.split(/\\r?\\n/).find((line) => line.startsWith('Subject: '));",
     "  const subject = subjectLine === undefined ? 'Unknown' : JSON.parse(subjectLine.slice('Subject: '.length));",
-    "  const malformed = process.env.ABG_FP_TEST_RESPONSE === 'malformed';",
+    "  const responseMode = process.env.ABG_FP_TEST_RESPONSE;",
+    "  const unattributed = responseMode === 'unattributed';",
+    "  const invalidJson = responseMode === 'invalid_json';",
     "  const result = {",
     "    kind: 'fp_hello_output',",
     "    schemaVersion: '5.0.0',",
     `    resultContractRef: '${OUTPUT_CONTRACT_REF}',`,
-    `    actorRef: malformed ? 'actor://forged/wrong' : '${ACTOR_REF}',`,
+    `    actorRef: unattributed ? 'actor://forged/wrong' : '${ACTOR_REF}',`,
     "    message: `Hello ${subject}` ,",
     "  };",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
     "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: 'candidate ready' }] } }));",
-    "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: JSON.stringify(result) }));",
+    "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: invalidJson ? '{not-json' : JSON.stringify(result) }));",
     "});",
     "",
   ].join("\n"), "utf8");
@@ -145,7 +147,7 @@ test("M5 rejects unattributed F_P output before success-result admission or clos
   const run = await runInstalledCli(harness, scenario, {
     environment: {
       ABG_TS_CLAUDE_COMMAND: command,
-      ABG_FP_TEST_RESPONSE: "malformed",
+      ABG_FP_TEST_RESPONSE: "unattributed",
     },
   });
 
@@ -166,6 +168,51 @@ test("M5 rejects unattributed F_P output before success-result admission or clos
     event.kind === "c_call_result_admitted" &&
     event.payload.contractRef === REFUSAL_CONTRACT_REF);
   assert.equal(refusal.payload.resultClass, "refusal");
+  assert.equal(refusal.payload.value.rejectedStage, "result");
+  assert.equal(events.at(-1).kind, "c_call_judged");
+  assert.equal(events.at(-1).payload.judgment, "blocked");
+});
+
+test("M5 rejects syntactically malformed F_P output before success-result admission or closure", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const command = await installWorkerFixture(harness);
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-fp-invalid-json",
+    (payload) => payload,
+    {
+      programRef: PROGRAM_REF,
+      graphFunctionRef: GRAPH_FUNCTION_REF,
+      input: fpInput("World"),
+    },
+  );
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_FP_TEST_RESPONSE: "invalid_json",
+    },
+  });
+
+  assert.equal(run.exitCode, 2, run.stdout);
+  assert.equal(run.outcomes.slice(0, 5).every((outcome) => outcome.disposition === "succeeded"), true);
+  const outcome = run.outcomes[5];
+  assert.equal(outcome.disposition, "blocked");
+  assert.equal(outcome.admittedResultContractRef, REFUSAL_CONTRACT_REF);
+  assert.match(outcome.diagnosticRef, /result-contract-mismatch/u);
+
+  const events = await readEvents(scenario.eventLogPath);
+  assert.equal(events.some((event) =>
+    event.kind === "c_call_result_admitted" &&
+    event.payload.contractRef === OUTPUT_CONTRACT_REF), false);
+  assert.equal(events.some((event) => event.kind === "terminal_reached"), false);
+  assert.equal(events.some((event) => event.kind === "run_closed"), false);
+  const evidence = events.find((event) =>
+    event.kind === "c_call_evidenced" &&
+    event.payload.evidenceClass === "probabilistic_transport");
+  assert.equal(evidence.payload.transportDisposition, "success");
+  const refusal = events.find((event) =>
+    event.kind === "c_call_result_admitted" &&
+    event.payload.contractRef === REFUSAL_CONTRACT_REF);
   assert.equal(refusal.payload.value.rejectedStage, "result");
   assert.equal(events.at(-1).kind, "c_call_judged");
   assert.equal(events.at(-1).payload.judgment, "blocked");
