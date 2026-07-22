@@ -20,6 +20,11 @@ import {
   hasOpenedTraversalScope,
   type OpenedTraversalScope,
 } from "./open_call.js";
+import {
+  hasAdmittedTraversalCursor,
+  traversalCursorAdmissionEventRef,
+  type TraversalCursorCandidate,
+} from "./traversal_cursor.js";
 
 export interface CCall {
   readonly kind: "c_call";
@@ -73,6 +78,7 @@ export interface CCallAdmission {
 export interface CCallLocusProposal {
   readonly kind: "traversal_stop_ref";
   readonly disposition: "at_compute_locus";
+  readonly cursor: TraversalCursorCandidate;
   readonly traversalScopeRef: string;
   readonly runId: string;
   readonly graphCallId: string;
@@ -322,6 +328,11 @@ export function openCCall(
   );
   if (
     stop.traversalScopeRef !== scope.scopeRef ||
+    !hasAdmittedTraversalCursor(store, stop.cursor) ||
+    stop.cursor.traversalScopeRef !== scope.scopeRef ||
+    stop.cursor.executionBasisRef !== executionBasis.basisRef ||
+    stop.cursor.frameId !== scope.frameId ||
+    stop.cursor.currentNodeRef !== stop.nodeRef ||
     stop.runId !== scope.runId ||
     stop.graphCallId !== scope.graphCallId ||
     stop.frameId !== scope.frameId ||
@@ -370,6 +381,10 @@ export function openCCall(
     programLocusRef: stop.programLocusRef,
     retryPath: stop.retryPath,
   };
+  const cursorAdmissionEventRef = traversalCursorAdmissionEventRef(store, stop.cursor);
+  if (cursorAdmissionEventRef === null) {
+    return openRefusal("scope_mismatch", "CCall requires one admitted traversal cursor");
+  }
   const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
   const cCallRef = `c-call:${cCallDigest}`;
   const locusBody = {
@@ -403,7 +418,7 @@ export function openCCall(
       aggregateType: "c_call",
       aggregateId: cCallRef,
       parentAggregateId: scope.frameId,
-      causationEventRefs: [scope.frameOpenEventRef, ...basis.causationEventRefs],
+      causationEventRefs: [cursorAdmissionEventRef, ...basis.causationEventRefs],
       correlationId: basis.correlationId,
       workflowVersion: "5.0.0",
       scopeClass: "run",

@@ -36,6 +36,9 @@ export interface ReplayState {
   readonly runId: string | null;
   readonly graphCallId: string | null;
   readonly frameId: string | null;
+  readonly traversalCursorRef: string | null;
+  readonly traversalCursorDigest: Sha256Digest | null;
+  readonly traversalCursorEventRef: string | null;
   readonly cCalls: readonly ReplayCCallState[];
   readonly activeFluents: readonly string[];
   readonly terminalReachedEventRef: string | null;
@@ -139,6 +142,9 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
   const runOpen = events.find((event) => event.kind === "run_segment_opened");
   const graphCallOpen = events.find((event) => event.kind === "graph_call_opened");
   const frameOpen = events.find((event) => event.kind === "frame_opened");
+  const traversalCursor = events.find(
+    (event) => event.kind === "traversal_cursor_entered",
+  );
   const terminal = events.find((event) => event.kind === "terminal_reached");
   const frameClosed = events.find((event) => event.kind === "frame_closed");
   const graphCallClosed = events.find((event) => event.kind === "graph_call_closed");
@@ -154,6 +160,13 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
     runId: runOpen?.runId ?? null,
     graphCallId: graphCallOpen?.graphCallId ?? null,
     frameId: frameOpen?.frameId ?? null,
+    traversalCursorRef: traversalCursor === undefined
+      ? null
+      : stringField(traversalCursor, "cursorRef"),
+    traversalCursorDigest: traversalCursor === undefined
+      ? null
+      : stringField(traversalCursor, "cursorDigest") as Sha256Digest | null,
+    traversalCursorEventRef: traversalCursor?.eventId ?? null,
     cCalls,
     activeFluents: [...activeFluents].sort(),
     terminalReachedEventRef: terminal?.eventId ?? null,

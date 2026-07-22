@@ -8,6 +8,7 @@ import {
   completeRejectedCCall,
   openCCall,
   replay,
+  traversalCursorAdmissionEventRef,
   type AbgEventStore,
   type AdmittedImplementationResolution,
   type ExecutionBasis,
@@ -100,6 +101,20 @@ function basis(
     eventTime: clock.eventTime,
     correlationId: `${clock.correlationId}/${stage}`,
     causationEventRefs: [],
+  };
+}
+
+function cursorBasis<Input, Output>(
+  input: CompleteDeterministicTraversalInput<Input, Output>,
+  stage: string,
+): RuntimeAdmissionBasis {
+  const eventRef = traversalCursorAdmissionEventRef(
+    input.store,
+    input.traversalStop.cursor,
+  );
+  return {
+    ...basis(input.clock, stage),
+    causationEventRefs: eventRef === null ? [] : [eventRef],
   };
 }
 
@@ -214,7 +229,7 @@ export function completeDeterministicTraversal<
         suppliedInputDigest: input.inputDigest,
       },
       diagnosticRef,
-      basis(input.clock, "input-basis-refusal"),
+      cursorBasis(input, "input-basis-refusal"),
     );
     return completion("failed", replayRun(input), { diagnosticRef });
   }
@@ -236,7 +251,7 @@ export function completeDeterministicTraversal<
       "c_call_open",
       opened as unknown as JsonValue,
       `diagnostic://abiogenesis/hog/${opened.code}@5`,
-      basis(input.clock, "c-call-open-refusal"),
+      cursorBasis(input, "c-call-open-refusal"),
     );
     return completion("failed", replayRun(input), {
       diagnosticRef: `diagnostic://abiogenesis/hog/${opened.code}@5`,

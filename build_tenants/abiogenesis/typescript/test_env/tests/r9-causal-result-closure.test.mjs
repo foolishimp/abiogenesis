@@ -16,6 +16,20 @@ function runtimeBasis(correlationId) {
   };
 }
 
+function admitInitialCursor(environment, opened, traversalStop, correlationId) {
+  const admission = environment.abg.admitInitialTraversalCursor(
+    environment.store,
+    environment.executionBasis,
+    opened.scope,
+    environment.graph,
+    environment.graphValidation,
+    traversalStop.cursor,
+    runtimeBasis(correlationId),
+  );
+  assert.equal(admission.kind, "traversal_cursor_admission", JSON.stringify(admission));
+  return admission;
+}
+
 test("R9 admits the uniform CCall spine, terminal transition, and exact closure chain", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const {
@@ -48,6 +62,44 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
     openedTraversalScope: opened.scope,
   });
   assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
+  const cursorAdmission = admitInitialCursor(
+    environment,
+    opened,
+    traversalStop,
+    "correlation://t286/r9/cursor",
+  );
+  assert.equal(abg.hasAdmittedTraversalCursor(store, traversalStop.cursor), true);
+  const cursorReplay = abg.replay(store, { runId: opened.scope.runId });
+  assert.equal(cursorReplay.traversalCursorRef, traversalStop.cursor.cursorRef);
+  assert.equal(cursorReplay.traversalCursorDigest, traversalStop.cursor.cursorDigest);
+  assert.equal(cursorReplay.traversalCursorEventRef, cursorAdmission.admissionEventRef);
+  const eventCountAtCursor = store.readAll().length;
+  const forgedCursor = structuredClone(traversalStop.cursor);
+  forgedCursor.termPath = ["node", graph.template.startNodeRef, "c", "terms", "0"];
+  assert.equal(abg.hasAdmittedTraversalCursor(store, forgedCursor), false);
+  const forgedCursorAdmission = abg.admitInitialTraversalCursor(
+    store,
+    executionBasis,
+    opened.scope,
+    graph,
+    graphValidation,
+    forgedCursor,
+    runtimeBasis("correlation://t286/r9/forged-cursor"),
+  );
+  assert.equal(forgedCursorAdmission.kind, "traversal_cursor_admission_refusal");
+  assert.equal(forgedCursorAdmission.code, "cursor_mismatch");
+  const duplicateCursorAdmission = abg.admitInitialTraversalCursor(
+    store,
+    executionBasis,
+    opened.scope,
+    graph,
+    graphValidation,
+    structuredClone(traversalStop.cursor),
+    runtimeBasis("correlation://t286/r9/duplicate-cursor"),
+  );
+  assert.equal(duplicateCursorAdmission.kind, "traversal_cursor_admission_refusal");
+  assert.equal(duplicateCursorAdmission.code, "cursor_repeated");
+  assert.equal(store.readAll().length, eventCountAtCursor);
 
   const cCallAdmission = abg.openCCall(
     store,
@@ -66,6 +118,11 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
   assert.equal(cCall.programLocusRef, traversalStop.nodeRef);
   assert.deepEqual(cCall.retryPath, []);
   assert.equal(abg.hasOpenedCCall(store, cCall), true);
+  assert.equal(
+    store.readAll().find((event) => event.kind === "c_call_opened")
+      .causationEventRefs[0],
+    cursorAdmission.admissionEventRef,
+  );
 
   const implementationModuleUrl = pathToFileURL(
     join(installedRoot, implementationResolution.modulePath),
@@ -292,6 +349,12 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
     openedTraversalScope: opened.scope,
   });
   assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
+  admitInitialCursor(
+    environment,
+    opened,
+    traversalStop,
+    "correlation://t286/r9-rejection/cursor",
+  );
   const cCallAdmission = abg.openCCall(
     store,
     executionBasis,
@@ -433,6 +496,12 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
     openedTraversalScope: opened.scope,
   });
   assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
+  const cursorAdmission = admitInitialCursor(
+    environment,
+    opened,
+    traversalStop,
+    "correlation://t286/r9-post-open/cursor",
+  );
   const alteredStop = structuredClone(traversalStop);
   alteredStop.frameId = "frame://mutation/wrong-lineage";
   const outputContract = publication.contracts.find((value) => value.contractKind === "output");
@@ -474,7 +543,7 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
   const failure = events.at(-1);
   assert.equal(failure.kind, "runtime_failure_observed");
   assert.equal(failure.payload.stage, "c_call_open");
-  assert.equal(failure.causationEventRefs[0], opened.scope.frameOpenEventRef);
+  assert.equal(failure.causationEventRefs[0], cursorAdmission.admissionEventRef);
   const durableEvents = (await readFile(durablePath, "utf8"))
     .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
   assert.equal(durableEvents.length, events.length);
@@ -513,6 +582,12 @@ test("R9 refuses a leaf input that differs from the admitted input digest", asyn
     openedTraversalScope: opened.scope,
   });
   assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
+  const cursorAdmission = admitInitialCursor(
+    environment,
+    opened,
+    traversalStop,
+    "correlation://t286/r9-input-basis/cursor",
+  );
   const outputContract = publication.contracts.find((value) => value.contractKind === "output");
   const failureContract = publication.contracts.find((value) => value.contractKind === "failure");
   const alteredInput = { ...input, subject: "Not the admitted subject" };
@@ -553,4 +628,5 @@ test("R9 refuses a leaf input that differs from the admitted input digest", asyn
   assert.equal(events.some((event) => event.kind === "c_call_opened"), false);
   assert.equal(events.at(-1).kind, "runtime_failure_observed");
   assert.equal(events.at(-1).payload.stage, "c_call_open");
+  assert.equal(events.at(-1).causationEventRefs[0], cursorAdmission.admissionEventRef);
 });

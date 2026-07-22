@@ -23,6 +23,7 @@ export const ROOT_EVENT_KIND_VALUES = [
   "run_segment_opened",
   "graph_call_opened",
   "frame_opened",
+  "traversal_cursor_entered",
   "c_call_opened",
   "c_call_fibre_selected",
   "c_call_evidenced",

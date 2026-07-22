@@ -310,14 +310,9 @@ export function traverse(input: TraverseInput): TraverseResult {
   if (!isExecutableCLeaf(term) || derivedStep.directStep.stepKind !== "open_leaf") {
     return derivedStep;
   }
-  const cursor = createCursor(
-    lineage,
-    derivedStep.directStep.source,
-    "at_compute_locus",
-  );
   const stopBody = {
     stopKind: "compute_locus" as const,
-    cursor,
+    cursor: sourceCursor,
     traversalScopeRef: input.openedTraversalScope.scopeRef,
     runId: input.openedTraversalScope.runId,
     graphCallId: input.openedTraversalScope.graphCallId,

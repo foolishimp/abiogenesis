@@ -1033,18 +1033,73 @@ async function applyRunInvoke(
       opened.scope.runId,
     );
   }
-  if (stop.kind !== "traversal_stop_ref") {
-    const diagnosticCode = stop.kind === "traversal_refusal"
-      ? stop.code
-      : "structural_step_not_yet_executable";
+  if (stop.kind === "traversal_refusal") {
     abg.admitRuntimeFailure(
       context.store,
       executionAdmission.executionBasis,
       opened.scope,
       "hog_traversal",
       stop as unknown as product.JsonValue,
-      `diagnostic://abiogenesis/hog/${diagnosticCode}@5`,
+      `diagnostic://abiogenesis/hog/${stop.code}@5`,
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/traversal-refusal`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+      opened.scope.runId,
+    );
+  }
+  const traversalCursor = stop.kind === "traversal_stop_ref"
+    ? stop.cursor
+    : stop.sourceCursor;
+  const cursorAdmission = abg.admitInitialTraversalCursor(
+    context.store,
+    executionAdmission.executionBasis,
+    opened.scope,
+    graph,
+    graphValidation,
+    traversalCursor,
+    {
+      eventTime: invocation.eventTime,
+      correlationId: `${invocation.correlationId}/cursor`,
+      causationEventRefs: [],
+    },
+  );
+  if (cursorAdmission.kind !== "traversal_cursor_admission") {
+    abg.admitRuntimeFailure(
+      context.store,
+      executionAdmission.executionBasis,
+      opened.scope,
+      "hog_traversal",
+      cursorAdmission as unknown as product.JsonValue,
+      `diagnostic://abiogenesis/hog/${cursorAdmission.code}@5`,
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/cursor-refusal`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+      opened.scope.runId,
+    );
+  }
+  if (stop.kind !== "traversal_stop_ref") {
+    abg.admitRuntimeFailure(
+      context.store,
+      executionAdmission.executionBasis,
+      opened.scope,
+      "hog_traversal",
+      stop as unknown as product.JsonValue,
+      "diagnostic://abiogenesis/hog/structural-step-not-yet-executable@5",
+      {
+        eventTime: invocation.eventTime,
+        correlationId: `${invocation.correlationId}/structural-step`,
+        causationEventRefs: [cursorAdmission.admissionEventRef],
+      },
     );
     return projectCurrentOutcome(
       context,
@@ -1074,7 +1129,11 @@ async function applyRunInvoke(
         outputContractRef: graphFunction.outputs[0] ?? null,
       },
       "diagnostic://abiogenesis/implementation/result-contract-absent@5",
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/output-contract`, causationEventRefs: [] },
+      {
+        eventTime: invocation.eventTime,
+        correlationId: `${invocation.correlationId}/output-contract`,
+        causationEventRefs: [cursorAdmission.admissionEventRef],
+      },
     );
     return projectCurrentOutcome(
       context,

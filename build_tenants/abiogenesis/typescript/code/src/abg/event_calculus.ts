@@ -48,6 +48,10 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: ["frame_active"],
     terminates: [], clips: [], declips: [],
   },
+  traversal_cursor_entered: {
+    initiates: ["locus_active"],
+    terminates: [], clips: [], declips: [],
+  },
   c_call_opened: {
     initiates: ["c_call_active"],
     terminates: [], clips: [], declips: [],
@@ -74,7 +78,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   runtime_failure_observed: {
     initiates: ["runtime_failure"],
-    terminates: ["frame_active", "graph_call_active", "run_active"], clips: [], declips: [],
+    terminates: ["locus_active", "frame_active", "graph_call_active", "run_active"], clips: [], declips: [],
   },
   terminal_reached: {
     initiates: ["terminal_admitted"],
@@ -90,7 +94,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   run_closed: {
     initiates: ["run_closed"],
-    terminates: ["run_active"], clips: [], declips: [],
+    terminates: ["locus_active", "run_active"], clips: [], declips: [],
   },
 } as const satisfies Readonly<Record<RootEventKind, EventCalculusEffect>>);
 

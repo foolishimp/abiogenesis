@@ -33,6 +33,7 @@ const RUN_EVENT_KINDS = Object.freeze([
   "run_segment_opened",
   "graph_call_opened",
   "frame_opened",
+  "traversal_cursor_entered",
   "c_call_opened",
   "c_call_fibre_selected",
   "c_call_evidenced",
@@ -145,6 +146,9 @@ function runEpisode(events, outcome, request) {
   const runEvent = selected.find((event) => event.kind === "run_segment_opened");
   const graphCallEvent = selected.find((event) => event.kind === "graph_call_opened");
   const frameEvent = selected.find((event) => event.kind === "frame_opened");
+  const cursorEvent = selected.find(
+    (event) => event.kind === "traversal_cursor_entered",
+  );
   const cCallEvent = selected.find((event) => event.kind === "c_call_opened");
   const failures = [];
   const input = request?.payload?.input;
@@ -185,10 +189,19 @@ function runEpisode(events, outcome, request) {
     graphCallEvent?.payload?.graphCallId !== outcome.graphCallId ||
     frameEvent?.aggregateId !== outcome.frameId ||
     frameEvent?.payload?.frameId !== outcome.frameId ||
+    cursorEvent?.aggregateId !== outcome.frameId ||
+    cursorEvent?.payload?.termPath?.join("\0") !==
+      ["node", cCallEvent?.payload?.programLocusRef, "c"].join("\0") ||
     cCallEvent?.aggregateId !== outcome.cCallRef ||
     cCallEvent?.payload?.cCallRef !== outcome.cCallRef
   ) {
     failures.push(`run ${outcome.runId} scope identities differ from its public outcome`);
+  }
+  if (
+    cursorEvent?.causationEventRefs?.[0] !== frameEvent?.eventId ||
+    cCallEvent?.causationEventRefs?.[0] !== cursorEvent?.eventId
+  ) {
+    failures.push(`run ${outcome.runId} cursor and CCall causation are not contiguous`);
   }
   if (!equalJson(kinds, RUN_EVENT_KINDS)) {
     failures.push(`run ${outcome.runId} event order differs from the exact admitted spine`);

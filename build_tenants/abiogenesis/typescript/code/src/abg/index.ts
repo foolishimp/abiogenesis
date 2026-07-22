@@ -63,6 +63,16 @@ export {
   type OpenedTraversalScope,
 } from "./open_call.js";
 export {
+  admitInitialTraversalCursor,
+  hasAdmittedTraversalCursor,
+  isTraversalCursorAdmission,
+  traversalCursorAdmissionEventRef,
+  type TraversalCursorAdmission,
+  type TraversalCursorAdmissionRefusal,
+  type TraversalCursorAdmissionResult,
+  type TraversalCursorCandidate,
+} from "./traversal_cursor.js";
+export {
   eventCalculusEffect,
   ROOT_EVENT_CALCULUS,
   type EventCalculusEffect,
