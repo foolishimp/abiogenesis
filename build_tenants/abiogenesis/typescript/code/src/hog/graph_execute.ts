@@ -17,9 +17,9 @@ import type {
   ClosureContract,
   GtlGraph,
   GtlProgram,
-  ModulePublication,
 } from "../gtl/contracts.js";
-import { constructLeafInvocationPort } from "../implementation/invocation_port.js";
+import { isAdmittedLeafInvocationPort } from "../implementation/invocation_port.js";
+import type { LeafInvocationPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { GraphValidation } from "../validator/graph.js";
 import { completeExecutableTraversal, type ExecutableTraversalCompletion } from "./execute.js";
@@ -37,9 +37,8 @@ export interface ExecuteGraphTraversalInput {
   readonly graph: Readonly<GtlGraph>;
   readonly graphValidation: GraphValidation;
   readonly implementationSet: AdmittedImplementationSet;
-  readonly publication: Readonly<ModulePublication>;
+  readonly leafPort: LeafInvocationPort;
   readonly closureContract: Readonly<ClosureContract>;
-  readonly installedRoot: string;
   readonly actorRuntimeBinding: ActorRuntimeBinding;
   readonly input: Readonly<Record<string, JsonValue>>;
   readonly inputDigest: `sha256:${string}`;
@@ -93,6 +92,18 @@ function advanceStructural(
 export async function executeGraphTraversal(
   input: ExecuteGraphTraversalInput,
 ): Promise<ExecutableTraversalCompletion> {
+  if (
+    !isAdmittedLeafInvocationPort(input.leafPort) ||
+    input.leafPort.implementationSetRef !== input.implementationSet.implementationSetRef ||
+    input.leafPort.implementationSetDigest !== input.implementationSet.implementationSetDigest
+  ) {
+    return fail(
+      input,
+      "leaf-port",
+      "diagnostic://abiogenesis/implementation/admitted-leaf-port-mismatch@5",
+      { implementationSetRef: input.implementationSet.implementationSetRef },
+    );
+  }
   let stop: StructuralTraversalResult;
   try {
     stop = traverse({
@@ -151,7 +162,6 @@ export async function executeGraphTraversal(
     );
   }
 
-  const leafPort = constructLeafInvocationPort(input.installedRoot);
   let currentInput = input.input;
   let completion: ExecutableTraversalCompletion | null = null;
   let leafOrdinal = 0;
@@ -178,16 +188,18 @@ export async function executeGraphTraversal(
         },
       );
     }
-    const outputDeclaration = input.publication.contracts.find(
-      (value) => value.contractRef === exactStop.outputContractRef && value.contractKind === "output",
+    const outputValueKind = input.leafPort.contractValueKind(
+      exactStop.outputContractRef,
+      "output",
     );
-    const failureDeclaration = input.publication.contracts.find(
-      (value) => value.contractRef === exactStop.failureContractRef && value.contractKind === "failure",
+    const failureValueKind = input.leafPort.contractValueKind(
+      exactStop.failureContractRef,
+      "failure",
     );
     const judgmentRelation = resolveConformanceJudgmentRelation(exactStop.judgmentPredicateRef);
     if (
-      outputDeclaration === undefined ||
-      failureDeclaration === undefined ||
+      outputValueKind === null ||
+      failureValueKind === null ||
       judgmentRelation === null
     ) {
       return fail(
@@ -212,12 +224,12 @@ export async function executeGraphTraversal(
       implementationResolution: resolution,
       input: currentInput,
       inputDigest: exactStop.cursor.inputDigest,
-      failureValueKind: failureDeclaration.valueKind,
-      resultValueKind: outputDeclaration.valueKind,
+      failureValueKind,
+      resultValueKind: outputValueKind,
       validateSuccessCandidate: (value): value is Readonly<Record<string, JsonValue>> =>
-        isDeclaredConformanceValue(value, outputDeclaration.valueKind),
+        isDeclaredConformanceValue(value, outputValueKind),
       validateSuccessResult: (value): value is Readonly<Record<string, JsonValue>> =>
-        isDeclaredConformanceValue(value, outputDeclaration.valueKind) &&
+        isDeclaredConformanceValue(value, outputValueKind) &&
         (exactStop.computeRegime !== "F_P" || judgmentRelation.evaluate(currentInput, value)),
       closureContract: input.closureContract,
       judgmentRelation: {
@@ -226,7 +238,7 @@ export async function executeGraphTraversal(
         rejectionReasonRef: judgmentRelation.rejectionReasonRef,
         evaluate: (source, output) => judgmentRelation.evaluate(source, output),
       },
-      realize: (value, effects) => leafPort.invoke(resolution, value, effects),
+      realize: (value, effects) => input.leafPort.invoke(resolution, value, effects),
       actorRuntimeBinding: input.actorRuntimeBinding,
       clock: {
         eventTime: input.eventTime,
@@ -236,7 +248,7 @@ export async function executeGraphTraversal(
     if (completion.disposition !== "advanced") break;
     if (
       completion.nextCursor === null ||
-      !isDeclaredConformanceValue(completion.resultValue, outputDeclaration.valueKind)
+      !isDeclaredConformanceValue(completion.resultValue, outputValueKind)
     ) {
       return fail(
         input,

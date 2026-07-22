@@ -6,6 +6,7 @@ import type {
 } from "../product/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 
 export type PublicOperationId =
@@ -54,6 +55,34 @@ function refusal(
 
 function isJsonRecord(value: JsonValue | undefined): value is { readonly [key: string]: JsonValue } {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+const admittedProductInstalls = new WeakSet<object>();
+
+export function hasAdmittedProductInstall(
+  store: AbgEventStore,
+  install: ProductInstall,
+): boolean {
+  if (!admittedProductInstalls.has(install)) return false;
+  const {
+    kind: _kind,
+    disposition: _disposition,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = install;
+  const candidate = {
+    kind: "product_install_candidate" as const,
+    disposition: "materialized" as const,
+    ...body,
+  };
+  const event = store.readAll().find(
+    (row) => row.eventId === install.admissionEventRef,
+  );
+  return event?.kind === "public_operation_artifact_admitted" &&
+    isJsonRecord(event.payload) &&
+    event.payload.operationId === "abg.operation.product.install" &&
+    event.payload.artifactRef === install.installId &&
+    event.payload.artifactDigest === sha256Canonical(candidate as unknown as JsonValue);
 }
 
 export function validatePublicOperationBasis(
@@ -169,12 +198,14 @@ export function admitProductInstall(
     return admissionEventRef;
   }
   const { kind: _kind, disposition: _disposition, ...body } = candidate;
-  return {
+  const install = deepFreeze({
     kind: "product_install",
     disposition: "admitted",
     ...body,
     admissionEventRef,
-  };
+  }) as ProductInstall;
+  admittedProductInstalls.add(install);
+  return install;
 }
 
 export function admitWorkspaceBinding(

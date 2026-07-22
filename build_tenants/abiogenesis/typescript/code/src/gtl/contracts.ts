@@ -44,6 +44,7 @@ export interface FpHelloInstruction {
   readonly instructionContractRef: string;
   readonly resultContractRef: string;
   readonly workerActorRef: string;
+  readonly workerBindingRef: string;
   readonly subject: string;
   readonly instruction: string;
 }

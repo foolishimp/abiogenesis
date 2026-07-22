@@ -49,12 +49,15 @@ export interface ReplayRouteState {
 export interface ReplayActorProcessState {
   readonly actorInvocationRef: string;
   readonly actorRef: string | null;
+  readonly transportBindingRef: string | null;
+  readonly transportBindingDigest: Sha256Digest | null;
   readonly processRef: string | null;
   readonly streamEventRefs: readonly string[];
   readonly timedOut: boolean;
   readonly signalSequence: readonly string[];
   readonly exitStatus: number | null;
   readonly exitSignal: string | null;
+  readonly terminationConfirmed: boolean;
   readonly transportDigest: Sha256Digest | null;
   readonly status: "active" | "closed" | "failed";
 }
@@ -306,6 +309,12 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       return {
         actorInvocationRef,
         actorRef: opened === undefined ? null : stringField(opened, "actorRef"),
+        transportBindingRef: opened === undefined
+          ? null
+          : stringField(opened, "transportBindingRef"),
+        transportBindingDigest: opened === undefined
+          ? null
+          : stringField(opened, "transportBindingDigest") as Sha256Digest | null,
         processRef: processStarted === undefined
           ? actorRows.find((event) => event.aggregateType === "process")?.aggregateId ?? null
           : stringField(processStarted, "processRef"),
@@ -321,6 +330,11 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
           .filter((value): value is string => value !== null),
         exitStatus: Number.isSafeInteger(exitStatus) ? exitStatus as number : null,
         exitSignal: processExited === undefined ? null : stringField(processExited, "signal"),
+        terminationConfirmed:
+          processExited !== undefined &&
+          !actorRows.some(
+            (event) => event.kind === "actor_process_termination_unconfirmed",
+          ),
         transportDigest: artifact === undefined
           ? null
           : stringField(artifact, "transportDigest") as Sha256Digest | null,

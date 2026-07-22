@@ -24,6 +24,7 @@ export type HelloWorldLeafImplementation = (
 
 export interface ProbabilisticWorkerRequest {
   readonly actorRef: string;
+  readonly workerBindingRef: string;
   readonly implementationRef: string;
   readonly inputDigest: Sha256Digest;
   readonly materializationPlanRef: string;
@@ -36,6 +37,8 @@ export interface ProbabilisticWorkerRequest {
 
 export interface ProbabilisticWorkerObservation {
   readonly actorInvocationRef: string;
+  readonly transportBindingRef: string;
+  readonly transportBindingDigest: Sha256Digest;
   readonly disposition: "failure" | "success";
   readonly failureClass: string | null;
   readonly finalOutput: string;
@@ -45,6 +48,8 @@ export interface ProbabilisticWorkerObservation {
   readonly processStatus: number | null;
   readonly processSignal: string | null;
   readonly timedOut: boolean;
+  readonly exitObserved: boolean;
+  readonly terminationConfirmed: boolean;
   readonly progressEventCount: number;
   readonly toolCallCount: number;
   readonly artifactDigests: Readonly<{
@@ -70,6 +75,15 @@ export interface LeafInvocationResolution {
 }
 
 export interface LeafInvocationPort {
+  readonly kind: "admitted_leaf_invocation_port";
+  readonly installId: string;
+  readonly implementationSetRef: string;
+  readonly implementationSetDigest: Sha256Digest;
+  readonly publicationDigest: Sha256Digest;
+  readonly contractValueKind: (
+    contractRef: string,
+    contractKind: "failure" | "output",
+  ) => string | null;
   readonly invoke: (
     resolution: Readonly<LeafInvocationResolution>,
     input: Readonly<Record<string, JsonValue>>,

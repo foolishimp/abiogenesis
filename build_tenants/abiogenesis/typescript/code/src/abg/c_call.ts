@@ -30,6 +30,10 @@ import {
   traversalCursorAdmissionEventRef,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
+import {
+  isActorProcessObservation,
+  type ActorProcessObservation,
+} from "./actor_process.js";
 
 export interface CCall {
   readonly kind: "c_call";
@@ -140,6 +144,10 @@ export interface ProbabilisticTransportEvidenceCandidate {
   readonly outputDigest: Sha256Digest;
   readonly actorInvocationRef: string;
   readonly actorRef: string;
+  readonly workerBindingRef: string;
+  readonly processRef: string;
+  readonly transportBindingRef: string;
+  readonly transportBindingDigest: Sha256Digest;
   readonly materializationPlanRef: string;
   readonly rendererRef: string;
   readonly instructionContractRef: string;
@@ -152,8 +160,15 @@ export interface ProbabilisticTransportEvidenceCandidate {
   readonly processStatus: number | null;
   readonly processSignal: string | null;
   readonly timedOut: boolean;
+  readonly exitObserved: boolean;
+  readonly terminationConfirmed: boolean;
+  readonly signalSequence: readonly string[];
+  readonly structuredEventCount: number;
   readonly progressEventCount: number;
   readonly toolCallCount: number;
+  readonly apiRetryCount: number;
+  readonly stdoutByteLength: number;
+  readonly stderrByteLength: number;
   readonly artifactDigests: Readonly<{
     output: Sha256Digest;
     prompt: Sha256Digest;
@@ -181,6 +196,10 @@ export interface AdmittedCCallEvidence {
   readonly outputDigest: Sha256Digest;
   readonly actorInvocationRef?: string;
   readonly actorRef?: string;
+  readonly workerBindingRef?: string;
+  readonly processRef?: string;
+  readonly transportBindingRef?: string;
+  readonly transportBindingDigest?: Sha256Digest;
   readonly materializationPlanRef?: string;
   readonly rendererRef?: string;
   readonly instructionContractRef?: string;
@@ -193,8 +212,15 @@ export interface AdmittedCCallEvidence {
   readonly processStatus?: number | null;
   readonly processSignal?: string | null;
   readonly timedOut?: boolean;
+  readonly exitObserved?: boolean;
+  readonly terminationConfirmed?: boolean;
+  readonly signalSequence?: readonly string[];
+  readonly structuredEventCount?: number;
   readonly progressEventCount?: number;
   readonly toolCallCount?: number;
+  readonly apiRetryCount?: number;
+  readonly stdoutByteLength?: number;
+  readonly stderrByteLength?: number;
   readonly artifactDigests?: ProbabilisticTransportEvidenceCandidate["artifactDigests"];
   readonly admissionEventRef: string;
 }
@@ -294,6 +320,7 @@ const admittedEvidence = new WeakSet<object>();
 const admittedResults = new WeakSet<object>();
 const admittedJudgments = new WeakSet<object>();
 const admissionRejections = new WeakSet<object>();
+const derivedProbabilisticEvidence = new WeakSet<object>();
 
 function isJsonRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -358,10 +385,18 @@ function hasAdmittedActorEvidence(
   cCall: CCall,
   candidate: ProbabilisticTransportEvidenceCandidate,
 ): boolean {
+  const binding = store.readAll().find(
+    (event) => event.aggregateId === candidate.transportBindingRef,
+  );
   const actorRows = store.readAll().filter(
-    (event) => event.aggregateId === candidate.actorInvocationRef,
+    (event) =>
+      event.aggregateId === candidate.actorInvocationRef ||
+      event.parentAggregateId === candidate.actorInvocationRef,
   );
   const opened = actorRows.find((event) => event.kind === "actor_invocation_started");
+  const processStarted = actorRows.find(
+    (event) => event.kind === "actor_process_started",
+  );
   const artifact = actorRows.find(
     (event) => event.kind === "actor_result_artifact_observed",
   );
@@ -369,24 +404,176 @@ function hasAdmittedActorEvidence(
     (event) => event.kind === "actor_invocation_closed" ||
       event.kind === "actor_invocation_failed",
   );
-  return opened !== undefined &&
+  const processExit = actorRows.find((event) => event.kind === "actor_process_exited");
+  const terminationUnconfirmed = actorRows.find(
+    (event) => event.kind === "actor_process_termination_unconfirmed",
+  );
+  const timeout = actorRows.some(
+    (event) => event.kind === "actor_process_timeout_observed",
+  );
+  const signals = actorRows
+    .filter((event) => event.kind === "actor_process_signal_requested")
+    .map((event) => isJsonRecord(event.payload) ? event.payload.signal : null);
+  let stdoutByteLength = 0;
+  let stderrByteLength = 0;
+  for (const event of actorRows) {
+    if (!isJsonRecord(event.payload) || typeof event.payload.byteLength !== "number") {
+      continue;
+    }
+    if (event.kind === "actor_process_stdout_observed") {
+      stdoutByteLength += event.payload.byteLength;
+    } else if (event.kind === "actor_process_stderr_observed") {
+      stderrByteLength += event.payload.byteLength;
+    }
+  }
+  const bindingDigestValid = binding !== undefined && isJsonRecord(binding.payload)
+    ? (() => {
+        const {
+          transportBindingRef: _transportBindingRef,
+          transportBindingDigest: _transportBindingDigest,
+          ...body
+        } = binding.payload;
+        return sha256Canonical(body as unknown as JsonValue) ===
+            candidate.transportBindingDigest &&
+          candidate.transportBindingRef ===
+            `transport-binding://abiogenesis/${candidate.transportBindingDigest.slice("sha256:".length)}`;
+      })()
+    : false;
+  return derivedProbabilisticEvidence.has(candidate) &&
+    bindingDigestValid &&
+    binding?.kind === "actor_transport_binding_admitted" &&
+    binding.parentAggregateId === cCall.cCallRef &&
+    isJsonRecord(binding.payload) &&
+    binding.payload.transportBindingRef === candidate.transportBindingRef &&
+    binding.payload.transportBindingDigest === candidate.transportBindingDigest &&
+    binding.payload.workerBindingRef === candidate.workerBindingRef &&
+    binding.payload.implementationBindingRef === cCall.implementationBindingRef &&
+    binding.payload.implementationRef === candidate.implementationRef &&
+    opened !== undefined &&
     artifact !== undefined &&
     terminal !== undefined &&
     opened.runId === cCall.runId &&
     opened.parentAggregateId === cCall.cCallRef &&
+    opened.causationEventRefs.includes(binding.eventId) &&
     isJsonRecord(opened.payload) &&
     opened.payload.actorRef === candidate.actorRef &&
+    opened.payload.workerBindingRef === candidate.workerBindingRef &&
+    opened.payload.transportBindingRef === candidate.transportBindingRef &&
+    opened.payload.transportBindingDigest === candidate.transportBindingDigest &&
     opened.payload.cCallRef === cCall.cCallRef &&
+    opened.payload.implementationRef === candidate.implementationRef &&
+    opened.payload.inputDigest === candidate.inputDigest &&
+    opened.payload.promptDigest === candidate.promptDigest &&
+    processStarted !== undefined &&
+    isJsonRecord(processStarted.payload) &&
+    processStarted.payload.actorInvocationRef === candidate.actorInvocationRef &&
+    processStarted.payload.processRef === candidate.processRef &&
     artifact.parentAggregateId === cCall.cCallRef &&
     isJsonRecord(artifact.payload) &&
     artifact.payload.cCallRef === cCall.cCallRef &&
-    artifact.payload.outputDigest === candidate.artifactDigests.output &&
+    artifact.payload.actorRef === candidate.actorRef &&
+    artifact.payload.workerBindingRef === candidate.workerBindingRef &&
+    artifact.payload.implementationRef === candidate.implementationRef &&
+    artifact.payload.inputDigest === candidate.inputDigest &&
+    artifact.payload.materializationPlanRef === candidate.materializationPlanRef &&
+    artifact.payload.rendererRef === candidate.rendererRef &&
+    artifact.payload.instructionContractRef === candidate.instructionContractRef &&
+    artifact.payload.resultContractRef === candidate.resultContractRef &&
+    artifact.payload.transportBindingRef === candidate.transportBindingRef &&
+    artifact.payload.transportBindingDigest === candidate.transportBindingDigest &&
+    artifact.payload.observedOutputDigest === candidate.outputDigest &&
     artifact.payload.transportDigest === candidate.transportDigest &&
+    artifact.payload.processRef === candidate.processRef &&
+    artifact.payload.promptDigest === candidate.promptDigest &&
+    artifact.payload.transportLane === candidate.transportLane &&
+    artifact.payload.disposition === candidate.transportDisposition &&
+    artifact.payload.failureClass === candidate.transportFailureClass &&
+    artifact.payload.processStatus === candidate.processStatus &&
+    artifact.payload.processSignal === candidate.processSignal &&
+    artifact.payload.timedOut === candidate.timedOut &&
+    artifact.payload.exitObserved === candidate.exitObserved &&
+    artifact.payload.terminationConfirmed === candidate.terminationConfirmed &&
+    artifact.payload.structuredEventCount === candidate.structuredEventCount &&
+    artifact.payload.progressEventCount === candidate.progressEventCount &&
+    artifact.payload.toolCallCount === candidate.toolCallCount &&
+    artifact.payload.apiRetryCount === candidate.apiRetryCount &&
+    artifact.payload.stdoutByteLength === candidate.stdoutByteLength &&
+    artifact.payload.stderrByteLength === candidate.stderrByteLength &&
+    artifact.payload.signalSequence !== undefined &&
+    sha256Canonical(artifact.payload.signalSequence) ===
+      sha256Canonical(candidate.signalSequence as unknown as JsonValue) &&
+    artifact.payload.artifactDigests !== undefined &&
+    sha256Canonical(artifact.payload.artifactDigests) ===
+      sha256Canonical(candidate.artifactDigests as unknown as JsonValue) &&
+    candidate.timedOut === timeout &&
+    sha256Canonical(signals as unknown as JsonValue) ===
+      sha256Canonical(candidate.signalSequence as unknown as JsonValue) &&
+    stdoutByteLength === candidate.stdoutByteLength &&
+    stderrByteLength === candidate.stderrByteLength &&
+    (candidate.exitObserved
+      ? processExit !== undefined &&
+        isJsonRecord(processExit.payload) &&
+        processExit.payload.status === candidate.processStatus &&
+        processExit.payload.signal === candidate.processSignal &&
+        terminationUnconfirmed === undefined
+      : processExit === undefined && terminationUnconfirmed !== undefined) &&
     terminal.causationEventRefs.includes(artifact.eventId) &&
     ((candidate.transportDisposition === "success" &&
       terminal.kind === "actor_invocation_closed") ||
       (candidate.transportDisposition === "failure" &&
         terminal.kind === "actor_invocation_failed"));
+}
+
+export function deriveProbabilisticTransportEvidence(
+  cCall: CCall,
+  observation: ActorProcessObservation,
+): ProbabilisticTransportEvidenceCandidate {
+  if (
+    !isActorProcessObservation(observation) ||
+    observation.implementationRef !== cCall.implementationRef ||
+    observation.inputDigest.length === 0 ||
+    observation.instructionContractRef !== cCall.inputContractRef ||
+    observation.resultContractRef !== cCall.outputContractRef
+  ) {
+    throw new TypeError("probabilistic evidence requires one authentic ABG actor observation");
+  }
+  const candidate = deepFreeze({
+    kind: "probabilistic_transport_evidence_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    implementationRef: observation.implementationRef,
+    inputDigest: observation.inputDigest,
+    outputDigest: observation.observedOutputDigest,
+    actorInvocationRef: observation.actorInvocationRef,
+    actorRef: observation.actorRef,
+    workerBindingRef: observation.workerBindingRef,
+    processRef: observation.processRef,
+    transportBindingRef: observation.transportBindingRef,
+    transportBindingDigest: observation.transportBindingDigest,
+    materializationPlanRef: observation.materializationPlanRef,
+    rendererRef: observation.rendererRef,
+    instructionContractRef: observation.instructionContractRef,
+    resultContractRef: observation.resultContractRef,
+    promptDigest: observation.promptDigest,
+    transportDigest: observation.transportDigest,
+    transportLane: observation.transportLane,
+    transportDisposition: observation.disposition,
+    transportFailureClass: observation.failureClass,
+    processStatus: observation.processStatus,
+    processSignal: observation.processSignal,
+    timedOut: observation.timedOut,
+    exitObserved: observation.exitObserved,
+    terminationConfirmed: observation.terminationConfirmed,
+    signalSequence: observation.signalSequence,
+    structuredEventCount: observation.structuredEventCount,
+    progressEventCount: observation.progressEventCount,
+    toolCallCount: observation.toolCallCount,
+    apiRetryCount: observation.apiRetryCount,
+    stdoutByteLength: observation.stdoutByteLength,
+    stderrByteLength: observation.stderrByteLength,
+    artifactDigests: observation.artifactDigests,
+  }) as ProbabilisticTransportEvidenceCandidate;
+  derivedProbabilisticEvidence.add(candidate);
+  return candidate;
 }
 
 export function hasOpenedCCall(store: AbgEventStore, cCall: CCall): boolean {
@@ -649,8 +836,13 @@ export function admitEvidence(
     cCall.regime === "F_D";
   const probabilisticValid = candidate.kind === "probabilistic_transport_evidence_candidate" &&
     cCall.regime === "F_P" &&
+    derivedProbabilisticEvidence.has(candidate) &&
     typeof candidate.actorInvocationRef === "string" && candidate.actorInvocationRef.length > 0 &&
     typeof candidate.actorRef === "string" && candidate.actorRef.length > 0 &&
+    typeof candidate.workerBindingRef === "string" && candidate.workerBindingRef.length > 0 &&
+    typeof candidate.processRef === "string" && candidate.processRef.length > 0 &&
+    typeof candidate.transportBindingRef === "string" && candidate.transportBindingRef.length > 0 &&
+    typeof candidate.transportBindingDigest === "string" && digestPattern.test(candidate.transportBindingDigest) &&
     typeof candidate.materializationPlanRef === "string" && candidate.materializationPlanRef.length > 0 &&
     typeof candidate.rendererRef === "string" && candidate.rendererRef.length > 0 &&
     candidate.instructionContractRef === cCall.inputContractRef &&
@@ -671,8 +863,17 @@ export function admitEvidence(
     (candidate.processSignal === null ||
       (typeof candidate.processSignal === "string" && candidate.processSignal.length > 0)) &&
     typeof candidate.timedOut === "boolean" &&
+    typeof candidate.exitObserved === "boolean" &&
+    typeof candidate.terminationConfirmed === "boolean" &&
+    candidate.exitObserved === candidate.terminationConfirmed &&
+    Array.isArray(candidate.signalSequence) &&
+    candidate.signalSequence.every((signal) => typeof signal === "string" && signal.length > 0) &&
+    Number.isSafeInteger(candidate.structuredEventCount) && candidate.structuredEventCount >= 0 &&
     Number.isSafeInteger(candidate.progressEventCount) && candidate.progressEventCount >= 0 &&
     Number.isSafeInteger(candidate.toolCallCount) && candidate.toolCallCount >= 0 &&
+    Number.isSafeInteger(candidate.apiRetryCount) && candidate.apiRetryCount >= 0 &&
+    Number.isSafeInteger(candidate.stdoutByteLength) && candidate.stdoutByteLength >= 0 &&
+    Number.isSafeInteger(candidate.stderrByteLength) && candidate.stderrByteLength >= 0 &&
     (candidate.transportLane !== "closed_prompt_proof" || candidate.toolCallCount === 0) &&
     hasAdmittedActorEvidence(store, cCall, candidate);
   if (
@@ -706,6 +907,10 @@ export function admitEvidence(
     outputDigest: candidate.outputDigest,
     actorInvocationRef: candidate.actorInvocationRef,
     actorRef: candidate.actorRef,
+    workerBindingRef: candidate.workerBindingRef,
+    processRef: candidate.processRef,
+    transportBindingRef: candidate.transportBindingRef,
+    transportBindingDigest: candidate.transportBindingDigest,
     materializationPlanRef: candidate.materializationPlanRef,
     rendererRef: candidate.rendererRef,
     instructionContractRef: candidate.instructionContractRef,
@@ -718,8 +923,15 @@ export function admitEvidence(
     processStatus: candidate.processStatus,
     processSignal: candidate.processSignal,
     timedOut: candidate.timedOut,
+    exitObserved: candidate.exitObserved,
+    terminationConfirmed: candidate.terminationConfirmed,
+    signalSequence: candidate.signalSequence,
+    structuredEventCount: candidate.structuredEventCount,
     progressEventCount: candidate.progressEventCount,
     toolCallCount: candidate.toolCallCount,
+    apiRetryCount: candidate.apiRetryCount,
+    stdoutByteLength: candidate.stdoutByteLength,
+    stderrByteLength: candidate.stderrByteLength,
     artifactDigests: candidate.artifactDigests,
   };
   const evidenceDigest = sha256Canonical(body as unknown as JsonValue);

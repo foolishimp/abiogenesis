@@ -5,10 +5,12 @@ import { join, relative, resolve, sep } from "node:path";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type {
   InstallProductRequest,
+  ProductInstallCandidate,
   ProductInstallRefusal,
   ProductInstallRefusalCode,
   ProductInstallResult,
 } from "./contracts.js";
+import type { ProductInstall } from "./environment.js";
 import {
   payloadInventoryDigest,
   sha256Canonical,
@@ -86,6 +88,51 @@ async function listInstalledPayloadFiles(installedRoot: string): Promise<readonl
   await visit(join(installedRoot, "build"));
   await visit(join(installedRoot, "contracts"));
   return files.sort();
+}
+
+export async function installedProductContentMatches(
+  install: ProductInstallCandidate | ProductInstall,
+): Promise<boolean> {
+  try {
+    const installedPackage = JSON.parse(
+      await readFile(join(install.installedRoot, "package.json"), "utf8"),
+    ) as unknown;
+    const installedManifest = parseProductManifest(JSON.parse(
+      await readFile(
+        join(install.installedRoot, "product-toolchain-manifest.json"),
+        "utf8",
+      ),
+    ));
+    if (
+      typeof installedPackage !== "object" ||
+      installedPackage === null ||
+      !("name" in installedPackage) ||
+      !("version" in installedPackage) ||
+      installedPackage.name !== install.packageName ||
+      installedPackage.version !== install.packageVersion ||
+      installedManifest === null ||
+      installedManifest.productId !== install.productId ||
+      installedManifest.packageName !== install.packageName ||
+      installedManifest.packageVersion !== install.packageVersion ||
+      installedManifest.productContentDigest !== install.productContentDigest ||
+      sha256Canonical(installedManifest as unknown as JsonValue) !== install.manifestDigest
+    ) {
+      return false;
+    }
+    const actualFiles = await listInstalledPayloadFiles(install.installedRoot);
+    const expectedFiles = [...installedManifest.productRelativeLocators].sort();
+    if (canonicalJson(actualFiles) !== canonicalJson(expectedFiles)) return false;
+    const inventory: PayloadInventoryRow[] = [];
+    for (const path of expectedFiles) {
+      inventory.push({
+        path,
+        sha256: await sha256File(join(install.installedRoot, path)),
+      });
+    }
+    return payloadInventoryDigest(inventory) === install.productContentDigest;
+  } catch {
+    return false;
+  }
 }
 
 export async function installProduct(

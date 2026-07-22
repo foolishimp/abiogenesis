@@ -44,7 +44,7 @@ export {
   type WorkspaceBindingCandidate,
   type WorkspaceDeclaredRoots,
 } from "./environment.js";
-export { installProduct } from "./install_product.js";
+export { installProduct, installedProductContentMatches } from "./install_product.js";
 export { verifyProduct } from "./verify_product.js";
 export {
   constructCatalogAdmissionCandidate,
@@ -76,6 +76,7 @@ export {
   isImplementationResolutionSetCandidate,
   isLeafImplementationResolutionCandidate,
   isPackagedLeafImplementationDescriptor,
+  loadInstalledImplementationDescriptors,
   resolveImplementation,
   resolveImplementationSet,
   type ImplementationResolutionCandidate,

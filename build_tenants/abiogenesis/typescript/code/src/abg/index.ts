@@ -8,6 +8,8 @@ export {
 export {
   admitProductInstall,
   admitWorkspaceBinding,
+  hasAdmittedProductInstall,
+  hasAdmittedWorkspaceBinding,
   type AbgAdmissionRefusal,
   type ArtifactAdmissionBasis,
   type PublicOperationAdmissionBasis,
@@ -85,6 +87,7 @@ export {
   admitJudgment,
   admitResult,
   completeRejectedCCall,
+  deriveProbabilisticTransportEvidence,
   hasOpenedCCall,
   isAdmittedCCallJudgment,
   isAdmittedCCallResult,
@@ -141,6 +144,7 @@ export {
   type RuntimeFailureAdmission,
 } from "./runtime_failure.js";
 export {
+  isActorProcessObservation,
   invokeActorProcess,
   type ActorProcessObservation,
   type ActorProcessRequest,
@@ -162,7 +166,10 @@ export {
   type WorkerTransportContractOptions,
 } from "./transport_contracts.js";
 export {
+  prepareWorkerTransport,
+  runPreparedWorkerTransport,
   runWorkerTransport,
+  type PreparedWorkerTransport,
   type WorkerProcessObserver,
   type WorkerTransportArtifact,
   type WorkerTransportFailureClass,

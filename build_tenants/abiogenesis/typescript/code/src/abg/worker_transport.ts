@@ -1,9 +1,14 @@
 import { spawn } from "node:child_process";
-import { mkdir, readFile, realpath, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { constants } from "node:fs";
+import { access, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
+import { delimiter, isAbsolute, resolve } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { sha256Bytes, type Sha256Digest } from "../shared/digests.js";
+import {
+  sha256Bytes,
+  sha256Canonical,
+  type Sha256Digest,
+} from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   composeWorkerTransportArgs,
@@ -48,6 +53,7 @@ export interface WorkerProcessObserver {
     status: number | null,
     signal: NodeJS.Signals | null,
   ) => void;
+  readonly onTerminationUnconfirmed?: () => void;
   readonly onSpawnFailed?: (message: string) => void;
 }
 
@@ -62,6 +68,8 @@ export interface WorkerTransportResult {
   readonly status: number | null;
   readonly signal: NodeJS.Signals | null;
   readonly timedOut: boolean;
+  readonly exitObserved: boolean;
+  readonly terminationConfirmed: boolean;
   readonly failureClass: WorkerTransportFailureClass | null;
   readonly structuredEventCount: number;
   readonly progressEventCount: number;
@@ -83,6 +91,8 @@ interface ProcessObservation {
   readonly status: number | null;
   readonly signal: NodeJS.Signals | null;
   readonly timedOut: boolean;
+  readonly exitObserved: boolean;
+  readonly terminationConfirmed: boolean;
   readonly launchError: string | null;
   readonly stdout: string;
   readonly stderr: string;
@@ -173,18 +183,39 @@ function runProcess(input: {
     let launchError: string | null = null;
     let settled = false;
     let forceTimer: ReturnType<typeof setTimeout> | null = null;
+    let confirmationTimer: ReturnType<typeof setTimeout> | null = null;
+    let drainTimer: ReturnType<typeof setTimeout> | null = null;
+    let observedExit: {
+      readonly status: number | null;
+      readonly signal: NodeJS.Signals | null;
+    } | null = null;
     const child = spawn(input.command, input.args, {
       cwd: input.cwd,
       env: input.env,
       stdio: ["pipe", "pipe", "pipe"],
     });
-    const settle = (status: number | null, signal: NodeJS.Signals | null): void => {
+    const settle = (
+      status: number | null,
+      signal: NodeJS.Signals | null,
+      exitObserved: boolean,
+      terminationConfirmed: boolean,
+    ): void => {
       if (settled) return;
       settled = true;
       clearTimeout(timeout);
       if (forceTimer !== null) clearTimeout(forceTimer);
-      input.observer?.onProcessExited?.(status, signal);
-      resolveProcess({ status, signal, timedOut, launchError, stdout, stderr });
+      if (confirmationTimer !== null) clearTimeout(confirmationTimer);
+      if (drainTimer !== null) clearTimeout(drainTimer);
+      resolveProcess({
+        status,
+        signal,
+        timedOut,
+        exitObserved,
+        terminationConfirmed,
+        launchError,
+        stdout,
+        stderr,
+      });
     };
     const timeout = setTimeout(() => {
       timedOut = true;
@@ -194,10 +225,13 @@ function runProcess(input: {
       forceTimer = setTimeout(() => {
         input.observer?.onSignalRequested?.("SIGKILL");
         child.kill("SIGKILL");
-        child.stdout.destroy();
-        child.stderr.destroy();
-        child.stdin.destroy();
-        settle(child.exitCode, child.signalCode ?? "SIGKILL");
+        confirmationTimer = setTimeout(() => {
+          input.observer?.onTerminationUnconfirmed?.();
+          child.stdout.destroy();
+          child.stderr.destroy();
+          child.stdin.destroy();
+          settle(null, null, false, false);
+        }, input.terminationGraceMs);
       }, input.terminationGraceMs);
     }, input.timeoutMs);
     child.once("spawn", () => {
@@ -217,8 +251,24 @@ function runProcess(input: {
       launchError = error.message;
       input.observer?.onSpawnFailed?.(error.message);
     });
+    child.once("exit", (status, signal) => {
+      observedExit = { status, signal };
+      input.observer?.onProcessExited?.(status, signal);
+      if (forceTimer !== null) clearTimeout(forceTimer);
+      if (confirmationTimer !== null) clearTimeout(confirmationTimer);
+      drainTimer = setTimeout(() => {
+        child.stdout.destroy();
+        child.stderr.destroy();
+        child.stdin.destroy();
+        settle(status, signal, true, true);
+      }, Math.min(input.terminationGraceMs, 250));
+    });
     child.once("close", (status, signal) => {
-      settle(status, signal);
+      if (observedExit !== null) {
+        settle(observedExit.status, observedExit.signal, true, true);
+        return;
+      }
+      settle(status, signal, false, false);
     });
     if (input.stdin === null) {
       child.stdin.end();
@@ -237,6 +287,7 @@ function classifyFailure(input: {
 }): WorkerTransportFailureClass | null {
   if (
     input.process.timedOut ||
+    !input.process.terminationConfirmed ||
     input.process.launchError !== null ||
     input.process.status !== 0 ||
     input.observation.apiRetryCount > 0 ||
@@ -251,7 +302,7 @@ function classifyFailure(input: {
   return input.finalOutput.trim().length === 0 ? "no_output" : null;
 }
 
-export async function runWorkerTransport(
+async function executeWorkerTransport(
   input: WorkerTransportRequest,
 ): Promise<WorkerTransportResult> {
   assertLabel(input.label);
@@ -333,6 +384,8 @@ export async function runWorkerTransport(
     status: processObservation.status,
     signal: processObservation.signal,
     timedOut: processObservation.timedOut,
+    exitObserved: processObservation.exitObserved,
+    terminationConfirmed: processObservation.terminationConfirmed,
     failureClass,
     structuredEventCount: observation.structuredEventCount,
     progressEventCount: observation.progressEventCount,
@@ -362,4 +415,184 @@ export async function runWorkerTransport(
     throw new TypeError("worker transport artifact changed after persistence");
   }
   return result;
+}
+
+export interface PreparedWorkerTransport {
+  readonly kind: "prepared_worker_transport";
+  readonly schemaVersion: "5.0.0";
+  readonly planDigest: Sha256Digest;
+  readonly agentKey: WorkerTransportContract["agentKey"];
+  readonly lane: TransportCapabilityLane;
+  readonly command: string;
+  readonly args: readonly string[];
+  readonly cwd: string;
+  readonly archiveRoot: string;
+  readonly label: string;
+  readonly timeoutMs: number;
+  readonly terminationGraceMs: number;
+  readonly promptDigest: Sha256Digest;
+  readonly responseJsonSchemaDigest: Sha256Digest | null;
+  readonly environmentPolicyDigest: Sha256Digest;
+  readonly environmentDigest: Sha256Digest;
+  readonly paths: Readonly<{
+    prompt: string;
+    output: string;
+    stdout: string;
+    stderr: string;
+    transport: string;
+  }>;
+}
+
+const preparedTransportState = new WeakMap<
+  PreparedWorkerTransport,
+  Omit<WorkerTransportRequest, "observer">
+>();
+
+async function resolveExecutable(
+  command: string,
+  cwd: string,
+  environment: Readonly<Record<string, string | undefined>>,
+): Promise<string> {
+  const candidates = command.includes("/")
+    ? [isAbsolute(command) ? command : resolve(cwd, command)]
+    : (environment.PATH ?? "")
+      .split(delimiter)
+      .filter((entry) => entry.length > 0)
+      .map((entry) => resolve(entry, command));
+  for (const candidate of candidates) {
+    try {
+      await access(candidate, constants.X_OK);
+      return await realpath(candidate);
+    } catch {
+      continue;
+    }
+  }
+  throw new TypeError(`worker transport command is not executable: ${command}`);
+}
+
+function exactEnvironment(
+  environment: Readonly<Record<string, string | undefined>>,
+): Readonly<Record<string, string>> {
+  return Object.freeze(Object.fromEntries(
+    Object.entries(environment)
+      .filter((entry): entry is [string, string] => entry[1] !== undefined)
+      .sort(([left], [right]) => left.localeCompare(right)),
+  ));
+}
+
+export async function prepareWorkerTransport(
+  input: WorkerTransportRequest,
+): Promise<PreparedWorkerTransport> {
+  assertLabel(input.label);
+  if (!Number.isSafeInteger(input.timeoutMs) || input.timeoutMs < 1) {
+    throw new TypeError("worker transport timeout must be one positive safe integer");
+  }
+  const terminationGraceMs = input.terminationGraceMs ?? 1_000;
+  if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
+    throw new TypeError("worker transport termination grace must be one positive safe integer");
+  }
+  await mkdir(input.archiveRoot, { recursive: true });
+  const archiveRoot = await realpath(input.archiveRoot);
+  const cwd = await realpath(input.cwd);
+  const sourceEnvironment = exactEnvironment(input.environment ?? process.env);
+  const command = await resolveExecutable(input.contract.command, cwd, sourceEnvironment);
+  const contract = deepFreeze({ ...input.contract, command }) as WorkerTransportContract;
+  const paths = deepFreeze({
+    prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
+    output: resolve(archiveRoot, `${input.label}-output.txt`),
+    stdout: resolve(archiveRoot, `${input.label}-stdout.log`),
+    stderr: resolve(archiveRoot, `${input.label}-stderr.log`),
+    transport: resolve(archiveRoot, `${input.label}-transport.json`),
+  });
+  const args = composeWorkerTransportArgs({
+    contract,
+    prompt: input.prompt,
+    outputPath: paths.output,
+    lane: input.lane,
+    environment: sourceEnvironment,
+    ...(input.responseJsonSchema === undefined
+      ? {}
+      : { responseJsonSchema: input.responseJsonSchema }),
+    ...(input.explicitAppendArgs === undefined
+      ? {}
+      : { explicitAppendArgs: input.explicitAppendArgs }),
+  });
+  const sanitizedEnvironment = exactEnvironment(
+    sanitizeWorkerTransportEnvironment(contract, sourceEnvironment) ?? {},
+  );
+  const body = {
+    agentKey: contract.agentKey,
+    lane: input.lane,
+    command,
+    args,
+    cwd,
+    archiveRoot,
+    label: input.label,
+    timeoutMs: input.timeoutMs,
+    terminationGraceMs,
+    promptDigest: sha256Canonical(input.prompt),
+    responseJsonSchemaDigest: input.responseJsonSchema === undefined
+      ? null
+      : sha256Canonical(input.responseJsonSchema as JsonValue),
+    environmentPolicyDigest: sha256Canonical({
+      agentKey: contract.agentKey,
+      sanitizedEnvironmentPrefixes: contract.sanitizedEnvironmentPrefixes,
+    }),
+    environmentDigest: sha256Canonical(sanitizedEnvironment as unknown as JsonValue),
+    paths,
+  };
+  const plan = deepFreeze({
+    kind: "prepared_worker_transport" as const,
+    schemaVersion: "5.0.0" as const,
+    planDigest: sha256Canonical(body as unknown as JsonValue),
+    ...body,
+  }) as PreparedWorkerTransport;
+  const request: Omit<WorkerTransportRequest, "observer"> = {
+    contract,
+    prompt: input.prompt,
+    lane: input.lane,
+    cwd,
+    archiveRoot,
+    label: input.label,
+    timeoutMs: input.timeoutMs,
+    terminationGraceMs,
+    ...(input.responseJsonSchema === undefined
+      ? {}
+      : { responseJsonSchema: input.responseJsonSchema }),
+    environment: sourceEnvironment,
+    ...(input.explicitAppendArgs === undefined
+      ? {}
+      : { explicitAppendArgs: input.explicitAppendArgs }),
+  };
+  preparedTransportState.set(plan, request);
+  return plan;
+}
+
+export async function runPreparedWorkerTransport(
+  plan: PreparedWorkerTransport,
+  observer?: WorkerProcessObserver,
+): Promise<WorkerTransportResult> {
+  const request = preparedTransportState.get(plan);
+  if (request === undefined) {
+    throw new TypeError("worker transport plan was not prepared by this ABG module");
+  }
+  const result = await executeWorkerTransport({
+    ...request,
+    ...(observer === undefined ? {} : { observer }),
+  });
+  if (
+    result.command !== plan.command ||
+    canonicalJson(result.args as unknown as JsonValue) !==
+      canonicalJson(plan.args as unknown as JsonValue)
+  ) {
+    throw new TypeError("executed worker transport differs from the prepared binding");
+  }
+  return result;
+}
+
+export async function runWorkerTransport(
+  input: WorkerTransportRequest,
+): Promise<WorkerTransportResult> {
+  const plan = await prepareWorkerTransport(input);
+  return runPreparedWorkerTransport(plan, input.observer);
 }

@@ -410,72 +410,134 @@ test("B8 post-open judgment exceptions complete the admitted CCall spine", async
   });
 });
 
-test("B8 installed leaf exceptions and malformed returns complete the failure spine", async (context) => {
+test("B8 HoG totalizes leaf exceptions and malformed returns after CCall admission", async (context) => {
   const cases = [
     {
       label: "exception",
       failureClass: "implementation_exception",
-      source: "export function realizeHelloWorld() { throw new Error('leaf mutation'); }\n",
+      realize: () => { throw new Error("leaf mutation"); },
     },
     {
       label: "malformed",
       failureClass: "malformed_return",
-      source: "export function realizeHelloWorld() { return { kind: 'malformed_leaf_candidate' }; }\n",
+      realize: () => ({ kind: "malformed_leaf_candidate" }),
     },
     {
       label: "sparse-evidence",
       failureClass: "malformed_return",
-      source: "export function realizeHelloWorld() { return { kind: 'leaf_realization_candidate', schemaVersion: '5.0.0', disposition: 'success', evidenceCandidates: Array(1), resultCandidate: { kind: 'hello_world_output', schemaVersion: '5.0.0', message: 'Hello World' } }; }\n",
+      realize: () => ({
+        kind: "leaf_realization_candidate",
+        schemaVersion: "5.0.0",
+        disposition: "success",
+        evidenceCandidates: Array(1),
+        resultCandidate: {
+          kind: "hello_world_output",
+          schemaVersion: "5.0.0",
+          message: "Hello World",
+        },
+      }),
     },
     {
       label: "missing-message",
       failureClass: "malformed_return",
-      source: `export function realizeHelloWorld() { return { kind: 'leaf_realization_candidate', schemaVersion: '5.0.0', disposition: 'success', evidenceCandidates: [{ kind: 'deterministic_evidence_candidate', schemaVersion: '5.0.0', implementationRef: 'implementation://abiogenesis/conformance/hello-world-fd@5', inputDigest: 'sha256:${"0".repeat(64)}', outputDigest: 'sha256:${"1".repeat(64)}' }], resultCandidate: { kind: 'hello_world_output', schemaVersion: '5.0.0' } }; }\n`,
+      realize: () => ({
+        kind: "leaf_realization_candidate",
+        schemaVersion: "5.0.0",
+        disposition: "success",
+        evidenceCandidates: [{
+          kind: "deterministic_evidence_candidate",
+          schemaVersion: "5.0.0",
+          implementationRef: "implementation://abiogenesis/conformance/hello-world-fd@5",
+          inputDigest: `sha256:${"0".repeat(64)}`,
+          outputDigest: `sha256:${"1".repeat(64)}`,
+        }],
+        resultCandidate: { kind: "hello_world_output", schemaVersion: "5.0.0" },
+      }),
     },
   ];
   for (const row of cases) {
-    const harness = await setupInstalledCliHarness(context, root);
-    const scenario = await buildRootCliScenario(harness, `b8-leaf-${row.label}`);
-    const { operationContext, outcomes, publicApi } = await applyInstalledTranscriptPrefix(
-      harness,
-      scenario,
+    const environment = await setupInstalledRootExecutionBasis(context, root);
+    const {
+      abg,
+      gtl,
+      hog,
+      store,
+      program,
+      graph,
+      graphValidation,
+      input,
+      rawInput,
+      implementationSet,
+      implementationRow,
+      executionBasis,
+      closureContract,
+      publication,
+    } = environment;
+    const runtimeBasis = (stage) => ({
+      eventTime: "2026-07-21T00:00:00.000Z",
+      correlationId: `correlation://t286/b8/leaf-${row.label}/${stage}`,
+      causationEventRefs: [],
+    });
+    const opened = abg.openCall(store, executionBasis, runtimeBasis("open"));
+    assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+    const traversalStop = hog.traverse({
+      program,
+      graph,
+      graphValidation,
+      executionBasis,
+      openedTraversalScope: opened.scope,
+    });
+    assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
+    const cursor = abg.admitInitialTraversalCursor(
+      store,
+      executionBasis,
+      opened.scope,
+      graph,
+      graphValidation,
+      traversalStop.cursor,
+      runtimeBasis("cursor"),
     );
-    assert.deepEqual(outcomes.map((outcome) => outcome.disposition), [
-      "succeeded", "succeeded", "succeeded", "succeeded", "succeeded",
-    ]);
-    const implementationPath = join(
-      scenario.installedRoot,
-      "build/code/src/implementation/hello_world.js",
-    );
-    const originalImplementation = await readFile(implementationPath, "utf8");
-    const functionStart = originalImplementation.indexOf("export function realizeHelloWorld");
-    assert.notEqual(functionStart, -1);
-    await writeFile(
-      implementationPath,
-      `${originalImplementation.slice(0, functionStart)}${row.source}`,
-      "utf8",
-    );
-    const outcome = await publicApi.applyRootPublicInvocation(
-      operationContext,
-      scenario.transcript.at(-1),
-    );
-    assert.equal(outcome.disposition, "blocked", JSON.stringify(outcome));
-    assert.equal(outcome.result.kind, "hello_world_failure");
-    assert.equal(outcome.result.failureClass, row.failureClass);
+    assert.equal(cursor.kind, "traversal_cursor_admission", JSON.stringify(cursor));
+    const outputContract = publication.contracts.find((value) => value.contractKind === "output");
+    const failureContract = publication.contracts.find((value) => value.contractKind === "failure");
+    const completion = await hog.completeExecutableTraversal({
+      store,
+      executionBasis,
+      openedTraversalScope: opened.scope,
+      program,
+      graph,
+      traversalStop,
+      implementationSet,
+      implementationResolution: implementationRow,
+      input,
+      inputDigest: rawInput.subjectDigest,
+      failureValueKind: failureContract.valueKind,
+      resultValueKind: outputContract.valueKind,
+      validateSuccessResult: gtl.isHelloWorldOutput,
+      closureContract,
+      judgmentRelation: {
+        predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
+        advanceReasonRef: "reason://abiogenesis/conformance/hello-world-satisfied@5",
+        rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
+        evaluate: gtl.evaluateHelloWorldResult,
+      },
+      realize: row.realize,
+      clock: {
+        eventTime: "2026-07-21T00:00:00.000Z",
+        correlationId: `correlation://t286/b8/leaf-${row.label}/hog`,
+      },
+    });
+    assert.equal(completion.disposition, "blocked", JSON.stringify(completion));
+    assert.equal(completion.resultValue, null);
     assert.equal(
-      outcome.admittedResultContractRef,
-      "contract://abiogenesis/conformance/hello-failure@5",
+      completion.diagnosticRef,
+      `diagnostic://abiogenesis/implementation/${row.failureClass.replaceAll("_", "-")}@5`,
     );
-    assert.equal(outcome.cCallRef?.startsWith("c-call:sha256:"), true);
-    assert.equal(outcome.resultRef?.startsWith("result://abiogenesis/"), true);
-    assert.equal(outcome.judgmentRef?.startsWith("judgment://abiogenesis/"), true);
-    assert.equal(outcome.replayAgreement, true);
-    const governor = await rootVerdict(harness, scenario, [...outcomes, outcome]);
-    assert.equal(governor.disposition, "root_red");
-
-    const events = (await readFile(scenario.eventLogPath, "utf8"))
-      .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
-    const cCallEvents = events.filter((event) => event.aggregateId === outcome.cCallRef);
+    assert.equal(completion.cCallRef?.startsWith("c-call:sha256:"), true);
+    assert.equal(completion.resultRef?.startsWith("result://abiogenesis/"), true);
+    assert.equal(completion.judgmentRef?.startsWith("judgment://abiogenesis/"), true);
+    const events = store.readAll();
+    const cCallEvents = events.filter((event) => event.aggregateId === completion.cCallRef);
     assert.deepEqual(cCallEvents.map((event) => event.kind), [
       "c_call_opened",
       "c_call_fibre_selected",
@@ -486,21 +548,71 @@ test("B8 installed leaf exceptions and malformed returns complete the failure sp
     assert.equal(cCallEvents.at(-2).payload.resultClass, "failure");
     assert.equal(cCallEvents.at(-1).payload.judgment, "blocked");
     assert.equal(events.some((event) => event.kind === "runtime_failure_observed"), false);
-    assert.equal(events.some((event) => event.kind === "run_closed"), false);
-    const evidence = {
+    assert.equal(events.some((event) => event.kind === "run_stopped"), true);
+    mutationEvidence.push({
       mutation: `leaf_${row.label}`,
       boundary: "leaf_realization",
-      disposition: outcome.disposition,
-      failureClass: outcome.result.failureClass,
-      admittedFailureContract: outcome.admittedResultContractRef,
+      disposition: completion.disposition,
+      failureClass: row.failureClass,
       cCallSpineComplete: cCallEvents.length === 5,
       directRuntimeFailureAbsent: true,
-      falseRootClosureAbsent: true,
-      rootGovernorDisposition: governor.disposition,
-    };
-    mutationEvidence.push(evidence);
+      runStopped: true,
+    });
   }
+});
 
+test("B8 post-install implementation substitution is refused before execution", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const scenario = await buildRootCliScenario(harness, "b8-post-install-substitution");
+  const { operationContext, outcomes, publicApi } = await applyInstalledTranscriptPrefix(
+    harness,
+    scenario,
+  );
+  assert.deepEqual(outcomes.map((outcome) => outcome.disposition), [
+    "succeeded", "succeeded", "succeeded", "succeeded", "succeeded",
+  ]);
+  const implementationPath = join(
+    scenario.installedRoot,
+    "build/code/src/implementation/hello_world.js",
+  );
+  const originalImplementation = await readFile(implementationPath, "utf8");
+  const functionStart = originalImplementation.indexOf("export function realizeHelloWorld");
+  assert.notEqual(functionStart, -1);
+  await writeFile(
+    implementationPath,
+    `${originalImplementation.slice(0, functionStart)}export function realizeHelloWorld() { throw new Error('substituted leaf'); }\n`,
+    "utf8",
+  );
+  const outcome = await publicApi.applyRootPublicInvocation(
+    operationContext,
+    scenario.transcript.at(-1),
+  );
+  assert.equal(outcome.disposition, "refused", JSON.stringify(outcome));
+  assert.equal(outcome.result, null);
+  assert.equal(
+    outcome.diagnosticRef,
+    "diagnostic://abiogenesis/implementation-resolution/implementation_absent@5",
+  );
+  assert.equal(outcome.runId, null);
+  assert.equal(outcome.cCallRef, null);
+  assert.equal(outcome.resultRef, null);
+  assert.equal(outcome.judgmentRef, null);
+  assert.equal(outcome.replayAgreement, true);
+  const events = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+  assert.equal(events.some((event) => event.kind === "run_segment_opened"), false);
+  assert.equal(events.some((event) => event.kind === "c_call_opened"), false);
+  assert.equal(events.some((event) => event.kind === "actor_invocation_started"), false);
+  const governor = await rootVerdict(harness, scenario, [...outcomes, outcome]);
+  assert.equal(governor.disposition, "root_red");
+  mutationEvidence.push({
+    mutation: "post_install_implementation_substitution",
+    boundary: "installed_product_content",
+    disposition: outcome.disposition,
+    diagnosticRef: outcome.diagnosticRef,
+    runtimeExecutionAbsent: true,
+    rootGovernorDisposition: governor.disposition,
+  });
   assert.notEqual(installedAbsenceEvidence, null);
   assert.deepEqual(mutationEvidence.map((row) => row.mutation), [
     "undeclared_compiled_plan",
@@ -515,6 +627,7 @@ test("B8 installed leaf exceptions and malformed returns complete the failure sp
     "leaf_malformed",
     "leaf_sparse-evidence",
     "leaf_missing-message",
+    "post_install_implementation_substitution",
   ]);
   const proofDirectory = join(root, "test_env/proof");
   await mkdir(proofDirectory, { recursive: true });

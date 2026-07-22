@@ -81,43 +81,43 @@
       "boundary": "leaf_realization",
       "disposition": "blocked",
       "failureClass": "implementation_exception",
-      "admittedFailureContract": "contract://abiogenesis/conformance/hello-failure@5",
       "cCallSpineComplete": true,
       "directRuntimeFailureAbsent": true,
-      "falseRootClosureAbsent": true,
-      "rootGovernorDisposition": "root_red"
+      "runStopped": true
     },
     {
       "mutation": "leaf_malformed",
       "boundary": "leaf_realization",
       "disposition": "blocked",
       "failureClass": "malformed_return",
-      "admittedFailureContract": "contract://abiogenesis/conformance/hello-failure@5",
       "cCallSpineComplete": true,
       "directRuntimeFailureAbsent": true,
-      "falseRootClosureAbsent": true,
-      "rootGovernorDisposition": "root_red"
+      "runStopped": true
     },
     {
       "mutation": "leaf_sparse-evidence",
       "boundary": "leaf_realization",
       "disposition": "blocked",
       "failureClass": "malformed_return",
-      "admittedFailureContract": "contract://abiogenesis/conformance/hello-failure@5",
       "cCallSpineComplete": true,
       "directRuntimeFailureAbsent": true,
-      "falseRootClosureAbsent": true,
-      "rootGovernorDisposition": "root_red"
+      "runStopped": true
     },
     {
       "mutation": "leaf_missing-message",
       "boundary": "leaf_realization",
       "disposition": "blocked",
       "failureClass": "malformed_return",
-      "admittedFailureContract": "contract://abiogenesis/conformance/hello-failure@5",
       "cCallSpineComplete": true,
       "directRuntimeFailureAbsent": true,
-      "falseRootClosureAbsent": true,
+      "runStopped": true
+    },
+    {
+      "mutation": "post_install_implementation_substitution",
+      "boundary": "installed_product_content",
+      "disposition": "refused",
+      "diagnosticRef": "diagnostic://abiogenesis/implementation-resolution/implementation_absent@5",
+      "runtimeExecutionAbsent": true,
       "rootGovernorDisposition": "root_red"
     }
   ],

@@ -201,6 +201,9 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
     "",
   ].join("\n"), "utf8");
   await chmod(workerPath, 0o755);
+  let processId = null;
+  const observedExits = [];
+  let unconfirmedTerminations = 0;
   const startedAt = Date.now();
   const result = await runWorkerTransport({
     contract: constructKnownWorkerTransportContract("generic", {
@@ -216,8 +219,22 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
     timeoutMs: 75,
     terminationGraceMs: 75,
     environment: {},
+    observer: {
+      onProcessStarted: (pid) => { processId = pid; },
+      onProcessExited: (status, signal) => observedExits.push({ status, signal }),
+      onTerminationUnconfirmed: () => { unconfirmedTerminations += 1; },
+    },
   });
   assert.equal(result.disposition, "failure");
   assert.equal(result.timedOut, true);
+  assert.equal(result.exitObserved, true);
+  assert.equal(result.terminationConfirmed, true);
+  assert.deepEqual(observedExits, [{ status: null, signal: "SIGKILL" }]);
+  assert.equal(unconfirmedTerminations, 0);
+  assert.notEqual(processId, null);
+  assert.throws(
+    () => process.kill(processId, 0),
+    (error) => error?.code === "ESRCH",
+  );
   assert.equal(Date.now() - startedAt < 2_000, true);
 });

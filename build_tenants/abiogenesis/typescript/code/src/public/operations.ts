@@ -1,9 +1,9 @@
-import { pathToFileURL } from "node:url";
 import { isAbsolute, relative, resolve } from "node:path";
 
 import * as abg from "../abg/index.js";
 import * as gtl from "../gtl/index.js";
 import * as hog from "../hog/index.js";
+import * as implementation from "../implementation/index.js";
 import * as product from "../product/index.js";
 import * as validator from "../validator/index.js";
 import type {
@@ -801,41 +801,26 @@ async function applyRunInvoke(
     );
   }
   activeRefusalStage = "implementation_resolution";
-  const matchingBindings = viewState.catalogState.publication.implementationBindings;
-  const implementationModules = new Map<string, Record<string, unknown>>();
-  const packagedImplementations: product.PackagedLeafImplementationDescriptor[] = [];
-  for (const binding of matchingBindings) {
-    if (implementationModules.has(binding.modulePath)) continue;
-    const modulePath = resolve(installState.candidate.installedRoot, binding.modulePath);
-    const moduleRelation = relative(installState.candidate.installedRoot, modulePath);
-    let implementationModule: Record<string, unknown> | null = null;
-    if (!moduleRelation.startsWith("..") && !isAbsolute(moduleRelation) && moduleRelation.length > 0) {
-      try {
-        implementationModule = await import(pathToFileURL(modulePath).href) as Record<string, unknown>;
-      } catch {
-        implementationModule = null;
-      }
-    }
-    if (implementationModule === null) {
-      abg.admitInvocationRefusal(
-        context.store,
-        invocationAdmission,
-        "implementation_resolution",
-        product.sha256Canonical(binding as unknown as product.JsonValue),
-        ["diagnostic://abiogenesis/implementation-resolution/module-load-failed@5"],
-        { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-load`, causationEventRefs: [] },
-      );
-      return projectCurrentOutcome(
-        context,
-        invocation,
-        graphFunction.outputs[0] ?? "",
-        candidate.invocationRef,
-        durableEventLogPath,
-      );
-    }
-    implementationModules.set(binding.modulePath, implementationModule);
-    packagedImplementations.push(
-      ...Object.values(implementationModule).filter(product.isPackagedLeafImplementationDescriptor),
+  const packagedImplementations = await product.loadInstalledImplementationDescriptors(
+    installState.install,
+    viewState.catalogState.publication,
+  );
+  if (!Array.isArray(packagedImplementations)) {
+    const descriptorRefusal = packagedImplementations as product.ImplementationResolutionSetRefusal;
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      "implementation_resolution",
+      product.sha256Canonical(descriptorRefusal as unknown as product.JsonValue),
+      [`diagnostic://abiogenesis/implementation-resolution/${descriptorRefusal.code}@5`],
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-load`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
     );
   }
   const resolutionSetCandidate = product.resolveImplementationSet(
@@ -956,6 +941,12 @@ async function applyRunInvoke(
     );
   }
   failureScope = opened.scope;
+  const leafPort = await implementation.constructAdmittedLeafInvocationPort({
+    store: context.store,
+    install: installState.install,
+    implementationSet,
+    publication: viewState.catalogState.publication,
+  });
   const traversalCompletion = await hog.executeGraphTraversal({
     store: context.store,
     executionBasis: executionAdmission.executionBasis,
@@ -964,11 +955,10 @@ async function applyRunInvoke(
     graph,
     graphValidation,
     implementationSet,
-    publication: viewState.catalogState.publication,
+    leafPort,
     closureContract,
-    installedRoot: installState.candidate.installedRoot,
     actorRuntimeBinding: {
-      archiveRoot: workspaceState.binding.roots.archiveRoot,
+      workspaceBinding: workspaceState.binding,
     },
     input: admittedInput as unknown as Readonly<Record<string, product.JsonValue>>,
     inputDigest: rawInput.subjectDigest,

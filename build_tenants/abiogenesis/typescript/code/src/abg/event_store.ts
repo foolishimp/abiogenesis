@@ -26,6 +26,7 @@ export const ROOT_EVENT_KIND_VALUES = [
   "traversal_cursor_entered",
   "c_call_opened",
   "c_call_fibre_selected",
+  "actor_transport_binding_admitted",
   "actor_invocation_started",
   "actor_process_started",
   "actor_process_spawn_failed",
@@ -34,6 +35,7 @@ export const ROOT_EVENT_KIND_VALUES = [
   "actor_process_timeout_observed",
   "actor_process_signal_requested",
   "actor_process_exited",
+  "actor_process_termination_unconfirmed",
   "actor_result_artifact_observed",
   "actor_invocation_closed",
   "actor_invocation_failed",
@@ -61,6 +63,7 @@ export interface RuntimeEventCandidate {
     | "graph_call"
     | "process"
     | "run"
+    | "transport_binding"
     | "workspace";
   readonly aggregateId: string;
   readonly parentAggregateId: string | null;

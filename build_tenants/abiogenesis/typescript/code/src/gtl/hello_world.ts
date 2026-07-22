@@ -103,6 +103,7 @@ export const FP_HELLO_IDS = Object.freeze({
     "prompt-plan://abiogenesis/conformance/fp-hello@5",
   rendererRef: "renderer://abiogenesis/conformance/fp-hello@5",
   workerActorRef: "actor://abiogenesis/conformance/claude-worker@5",
+  workerBindingRef: "worker-binding://abiogenesis/conformance/claude-worker@5",
 });
 
 export interface ConformanceJudgmentRelation {
@@ -250,6 +251,7 @@ export function isFpHelloInstruction(
     record.instructionContractRef === FP_HELLO_IDS.inputContractRef &&
     record.resultContractRef === FP_HELLO_IDS.outputContractRef &&
     record.workerActorRef === FP_HELLO_IDS.workerActorRef &&
+    record.workerBindingRef === FP_HELLO_IDS.workerBindingRef &&
     typeof record.subject === "string" && record.subject.length > 0 &&
     typeof record.instruction === "string" && record.instruction.length > 0;
 }
@@ -317,6 +319,7 @@ export function constructFpHelloInstruction(
     instructionContractRef: FP_HELLO_IDS.inputContractRef,
     resultContractRef: FP_HELLO_IDS.outputContractRef,
     workerActorRef: FP_HELLO_IDS.workerActorRef,
+    workerBindingRef: FP_HELLO_IDS.workerBindingRef,
     subject,
     instruction,
   });

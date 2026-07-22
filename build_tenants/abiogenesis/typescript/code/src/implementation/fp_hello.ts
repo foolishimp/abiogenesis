@@ -17,7 +17,7 @@ interface FpHelloLeafCandidate {
   readonly kind: "leaf_realization_candidate";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "failure" | "success";
-  readonly evidenceCandidates: readonly [Readonly<Record<string, JsonValue>>];
+  readonly evidenceCandidates: readonly [];
   readonly resultCandidate: Readonly<Record<string, JsonValue>>;
   readonly diagnosticRef?: string;
 }
@@ -96,6 +96,7 @@ export async function realizeFpHello(
   const inputDigest = sha256Canonical(input);
   const transport = await effects.invokeWorker({
     actorRef: input.workerActorRef,
+    workerBindingRef: input.workerBindingRef,
     implementationRef: FP_HELLO_IDS.implementationRef,
     inputDigest,
     materializationPlanRef: input.materializationPlanRef,
@@ -116,36 +117,11 @@ export async function realizeFpHello(
       failureClass: transport.failureClass ?? "transport_failure",
       diagnosticRef: diagnosticRef ?? "diagnostic://abiogenesis/transport/failure@5",
     });
-  const outputDigest = sha256Canonical(resultCandidate as unknown as JsonValue);
-  const evidence = deepFreeze({
-    kind: "probabilistic_transport_evidence_candidate" as const,
-    schemaVersion: "5.0.0" as const,
-    implementationRef: FP_HELLO_IDS.implementationRef,
-    inputDigest,
-    outputDigest,
-    actorInvocationRef: transport.actorInvocationRef,
-    actorRef: input.workerActorRef,
-    materializationPlanRef: input.materializationPlanRef,
-    rendererRef: input.rendererRef,
-    instructionContractRef: input.instructionContractRef,
-    resultContractRef: input.resultContractRef,
-    promptDigest: transport.promptDigest,
-    transportDigest: transport.transportDigest,
-    transportLane: transport.transportLane,
-    transportDisposition: transport.disposition,
-    transportFailureClass: transport.failureClass,
-    processStatus: transport.processStatus,
-    processSignal: transport.processSignal,
-    timedOut: transport.timedOut,
-    progressEventCount: transport.progressEventCount,
-    toolCallCount: transport.toolCallCount,
-    artifactDigests: transport.artifactDigests,
-  }) as Readonly<Record<string, JsonValue>>;
   return deepFreeze({
     kind: "leaf_realization_candidate" as const,
     schemaVersion: "5.0.0" as const,
     disposition: transport.disposition,
-    evidenceCandidates: [evidence] as const,
+    evidenceCandidates: [] as const,
     resultCandidate,
     ...(diagnosticRef === null ? {} : { diagnosticRef }),
   }) as Readonly<FpHelloLeafCandidate>;

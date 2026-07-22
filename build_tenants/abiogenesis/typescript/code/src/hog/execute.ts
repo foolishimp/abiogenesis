@@ -6,11 +6,13 @@ import {
   admitRuntimeFailure,
   admitRoute,
   completeRejectedCCall,
+  deriveProbabilisticTransportEvidence,
   openCCall,
   replay,
   traversalCursorAdmissionEventRef,
   type AbgEventStore,
   type ActorRuntimeBinding,
+  type ActorProcessObservation,
   type AdmittedImplementationResolutionRow,
   type AdmittedImplementationSet,
   type CCallEvidenceCandidate,
@@ -316,7 +318,7 @@ function isLeafCandidate<Output>(
   return value.kind === "leaf_realization_candidate" &&
     value.schemaVersion === "5.0.0" &&
     (value.disposition === "success" || value.disposition === "failure") &&
-    evidence.length > 0 &&
+    (regime === "F_D" ? evidence.length > 0 : evidence.length === 0) &&
     evidence.every((candidate) => isEvidenceCandidate(candidate, regime)) &&
     isRecord(value.resultCandidate) &&
     value.resultCandidate.schemaVersion === "5.0.0" &&
@@ -420,20 +422,25 @@ export async function completeExecutableTraversal<
     });
   }
   const cCall = opened.cCall;
+  let actorObservation: ActorProcessObservation | null = null;
   const probabilisticEffects: ProbabilisticLeafEffectPort | null = computeRegime === "F_P"
     ? input.actorRuntimeBinding === undefined
       ? null
       : {
-          invokeWorker: (request) => invokeActorProcess({
-            store: input.store,
-            executionBasis: input.executionBasis,
-            scope: input.openedTraversalScope,
-            cCall,
-            expectedInputDigest: input.inputDigest,
-            runtime: input.actorRuntimeBinding!,
-            request,
-            basis: basis(input.clock, "actor-process"),
-          }),
+          invokeWorker: async (request) => {
+            const observation = await invokeActorProcess({
+              store: input.store,
+              executionBasis: input.executionBasis,
+              scope: input.openedTraversalScope,
+              cCall,
+              expectedInputDigest: input.inputDigest,
+              runtime: input.actorRuntimeBinding!,
+              request,
+              basis: basis(input.clock, "actor-process"),
+            });
+            actorObservation = observation;
+            return observation;
+          },
         }
     : null;
   let realized: unknown;
@@ -454,8 +461,13 @@ export async function completeExecutableTraversal<
   } catch {
     leaf = totalizedFailureCandidate(input, "implementation_exception");
   }
+  const evidenceCandidates: readonly CCallEvidenceCandidate[] = computeRegime === "F_P"
+    ? actorObservation === null
+      ? []
+      : [deriveProbabilisticTransportEvidence(cCall, actorObservation)]
+    : leaf.evidenceCandidates;
   const evidence = [];
-  for (const candidate of leaf.evidenceCandidates) {
+  for (const candidate of evidenceCandidates) {
     const admitted = admitEvidence(
       input.store,
       cCall,

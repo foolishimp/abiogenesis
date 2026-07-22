@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
-import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
+import { appendFile, chmod, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
+  applyInstalledTranscriptPrefix,
   buildRootCliScenario,
   runInstalledCli,
   setupInstalledCliHarness,
@@ -21,6 +22,8 @@ const OUTPUT_CONTRACT_REF =
 const REFUSAL_CONTRACT_REF =
   "contract://abiogenesis/conformance/fp-hello-refusal@5";
 const ACTOR_REF = "actor://abiogenesis/conformance/claude-worker@5";
+const WORKER_BINDING_REF =
+  "worker-binding://abiogenesis/conformance/claude-worker@5";
 const PLAN_REF = "prompt-plan://abiogenesis/conformance/fp-hello@5";
 const RENDERER_REF = "renderer://abiogenesis/conformance/fp-hello@5";
 
@@ -33,6 +36,7 @@ function fpInput(subject) {
     instructionContractRef: INPUT_CONTRACT_REF,
     resultContractRef: OUTPUT_CONTRACT_REF,
     workerActorRef: ACTOR_REF,
+    workerBindingRef: WORKER_BINDING_REF,
     subject,
     instruction: "Produce one concise greeting for the declared subject.",
   };
@@ -66,6 +70,7 @@ async function installWorkerFixture(harness) {
     "  if (missingAttribution) delete result.actorRef;",
     "  if (extraField) result.undeclared = true;",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
+    "  if (process.env.ABG_FP_TEST_TOOL_EVENT === '1') console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'tool_use', name: 'Write', input: { path: 'artifact.txt' } }] } }));",
     "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: 'candidate ready' }] } }));",
     "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: invalidJson ? '{not-json' : JSON.stringify(result) }));",
     "});",
@@ -117,10 +122,16 @@ test("M5 installed CLI admits one subprocess-backed F_P leaf through ordinary GT
 
   const events = await readEvents(scenario.eventLogPath);
   const fibre = events.find((event) => event.kind === "c_call_fibre_selected");
+  const transportBinding = events.find(
+    (event) => event.kind === "actor_transport_binding_admitted",
+  );
   const actorOpened = events.find((event) => event.kind === "actor_invocation_started");
   const processStarted = events.find((event) => event.kind === "actor_process_started");
   const processExited = events.find((event) => event.kind === "actor_process_exited");
   const actorClosed = events.find((event) => event.kind === "actor_invocation_closed");
+  const artifactObserved = events.find(
+    (event) => event.kind === "actor_result_artifact_observed",
+  );
   const evidence = events.find((event) =>
     event.kind === "c_call_evidenced" &&
     event.payload.evidenceClass === "probabilistic_transport");
@@ -128,20 +139,145 @@ test("M5 installed CLI admits one subprocess-backed F_P leaf through ordinary GT
     event.kind === "c_call_result_admitted" &&
     event.payload.contractRef === OUTPUT_CONTRACT_REF);
   assert.equal(fibre.payload.regime, "F_P");
+  assert.equal(transportBinding.payload.workerBindingRef, WORKER_BINDING_REF);
+  assert.equal(transportBinding.payload.implementationBindingRef,
+    "implementation-binding://abiogenesis/conformance/fp-hello@5");
+  assert.equal(transportBinding.payload.lane, "closed_prompt_proof");
+  assert.match(transportBinding.payload.transportBindingDigest, /^sha256:[a-f0-9]{64}$/u);
+  assert.equal(actorOpened.causationEventRefs.includes(transportBinding.eventId), true);
   assert.equal(actorOpened.payload.cCallRef, fibre.payload.cCallRef);
   assert.equal(processStarted.payload.actorInvocationRef, actorOpened.payload.actorInvocationRef);
   assert.equal(processExited.payload.processRef, processStarted.payload.processRef);
   assert.equal(actorClosed.payload.disposition, "success");
   assert.equal(evidence.payload.actorRef, ACTOR_REF);
+  assert.equal(evidence.payload.workerBindingRef, WORKER_BINDING_REF);
+  assert.equal(evidence.payload.transportBindingRef,
+    transportBinding.payload.transportBindingRef);
+  assert.equal(evidence.payload.transportBindingDigest,
+    transportBinding.payload.transportBindingDigest);
   assert.equal(evidence.payload.materializationPlanRef, PLAN_REF);
   assert.equal(evidence.payload.rendererRef, RENDERER_REF);
   assert.equal(evidence.payload.resultContractRef, OUTPUT_CONTRACT_REF);
   assert.equal(evidence.payload.transportDisposition, "success");
   assert.equal(evidence.payload.toolCallCount, 0);
+  assert.equal(evidence.payload.exitObserved, true);
+  assert.equal(evidence.payload.terminationConfirmed, true);
+  for (const field of [
+    "actorRef",
+    "workerBindingRef",
+    "processRef",
+    "transportBindingRef",
+    "transportBindingDigest",
+    "materializationPlanRef",
+    "rendererRef",
+    "instructionContractRef",
+    "resultContractRef",
+    "promptDigest",
+    "transportDigest",
+    "transportLane",
+    "disposition",
+    "failureClass",
+    "processStatus",
+    "processSignal",
+    "timedOut",
+    "exitObserved",
+    "terminationConfirmed",
+    "structuredEventCount",
+    "progressEventCount",
+    "toolCallCount",
+    "apiRetryCount",
+    "stdoutByteLength",
+    "stderrByteLength",
+  ]) {
+    const evidenceField = field === "disposition"
+      ? "transportDisposition"
+      : field === "failureClass"
+        ? "transportFailureClass"
+        : field;
+    assert.deepEqual(evidence.payload[evidenceField], artifactObserved.payload[field]);
+  }
+  assert.deepEqual(evidence.payload.signalSequence, artifactObserved.payload.signalSequence);
+  assert.deepEqual(evidence.payload.artifactDigests, artifactObserved.payload.artifactDigests);
   assert.match(evidence.payload.promptDigest, /^sha256:[a-f0-9]{64}$/u);
   assert.match(evidence.payload.transportDigest, /^sha256:[a-f0-9]{64}$/u);
   assert.equal(result.payload.value.actorRef, ACTOR_REF);
   assert.equal(events.filter((event) => event.kind === "run_closed").length, 1);
+  const installedLeaf = await readFile(
+    join(scenario.installedRoot, "build/code/src/implementation/fp_hello.js"),
+    "utf8",
+  );
+  assert.equal(installedLeaf.includes("probabilistic_transport_evidence_candidate"), false);
+});
+
+test("M5 installed worker_executes lane preserves B-001 capability through ABG admission", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const command = await installWorkerFixture(harness);
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-fp-worker-executes",
+    (payload) => payload,
+    {
+      programRef: PROGRAM_REF,
+      graphFunctionRef: GRAPH_FUNCTION_REF,
+      input: fpInput("World"),
+    },
+  );
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_TS_FP_TRANSPORT_LANE: "worker_executes",
+      ABG_FP_TEST_TOOL_EVENT: "1",
+    },
+  });
+
+  assert.equal(run.exitCode, 0, run.stdout);
+  const events = await readEvents(scenario.eventLogPath);
+  const binding = events.find(
+    (event) => event.kind === "actor_transport_binding_admitted",
+  );
+  const evidence = events.find(
+    (event) => event.kind === "c_call_evidenced" &&
+      event.payload.evidenceClass === "probabilistic_transport",
+  );
+  assert.equal(binding.payload.lane, "worker_executes");
+  assert.equal(binding.payload.args.includes("--safe-mode"), false);
+  assert.equal(binding.payload.args.includes("--tools"), false);
+  assert.equal(evidence.payload.transportLane, "worker_executes");
+  assert.equal(evidence.payload.toolCallCount, 1);
+  assert.equal(events.at(-1).kind, "run_closed");
+});
+
+test("M5 refuses post-install implementation substitution before HoG execution", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-fp-install-tamper",
+    (payload) => payload,
+    {
+      programRef: PROGRAM_REF,
+      graphFunctionRef: GRAPH_FUNCTION_REF,
+      input: fpInput("World"),
+    },
+  );
+  const prefix = await applyInstalledTranscriptPrefix(harness, scenario, 5);
+  assert.equal(prefix.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
+  await appendFile(
+    join(scenario.installedRoot, "build/code/src/implementation/fp_hello.js"),
+    "\n// post-install mutation\n",
+    "utf8",
+  );
+
+  const outcome = await prefix.publicApi.applyRootPublicInvocation(
+    prefix.operationContext,
+    scenario.transcript[5],
+  );
+  assert.notEqual(outcome.disposition, "succeeded");
+  assert.equal(
+    prefix.operationContext.store.readAll().some(
+      (event) => event.kind === "actor_invocation_started",
+    ),
+    false,
+  );
 });
 
 test("M5 rejects misattributed F_P output before success-result admission or closure", async (context) => {

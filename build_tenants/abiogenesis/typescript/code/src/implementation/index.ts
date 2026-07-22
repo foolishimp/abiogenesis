@@ -18,5 +18,8 @@ export type {
   ProbabilisticWorkerObservation,
   ProbabilisticWorkerRequest,
 } from "./contracts.js";
-export { constructLeafInvocationPort } from "./invocation_port.js";
+export {
+  constructAdmittedLeafInvocationPort,
+  isAdmittedLeafInvocationPort,
+} from "./invocation_port.js";
 export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";

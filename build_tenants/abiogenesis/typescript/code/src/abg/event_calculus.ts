@@ -61,6 +61,10 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: ["c_call_fibre_admitted"],
     terminates: [], clips: [], declips: [],
   },
+  actor_transport_binding_admitted: {
+    initiates: ["actor_transport_binding_admitted"],
+    terminates: [], clips: [], declips: [],
+  },
   actor_invocation_started: {
     initiates: ["actor_invocation_active"],
     terminates: [], clips: [], declips: [],
@@ -92,6 +96,10 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   actor_process_exited: {
     initiates: ["actor_process_exited"],
     terminates: ["actor_process_active", "actor_process_live"], clips: [], declips: [],
+  },
+  actor_process_termination_unconfirmed: {
+    initiates: ["actor_process_termination_unconfirmed"],
+    terminates: ["actor_process_live"], clips: [], declips: [],
   },
   actor_result_artifact_observed: {
     initiates: ["actor_result_artifact_available"],

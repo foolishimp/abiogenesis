@@ -1,3 +1,6 @@
+import { isAbsolute, relative, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+
 import type { ComputeRegime, ModulePublication } from "../gtl/contracts.js";
 import {
   isGraphValidation,
@@ -12,6 +15,8 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { catalogViewContentDigest, type CatalogView } from "./catalog.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import type { ProductInstall } from "./environment.js";
+import { installedProductContentMatches } from "./install_product.js";
 
 export interface PackagedLeafImplementationDescriptor {
   readonly kind: "packaged_leaf_implementation_descriptor";
@@ -133,6 +138,57 @@ export type ImplementationResolutionSetResult =
 export type ImplementationResolutionResult =
   | ImplementationResolutionCandidate
   | ImplementationResolutionRefusal;
+
+export async function loadInstalledImplementationDescriptors(
+  install: ProductInstall,
+  publication: Readonly<ModulePublication>,
+): Promise<
+  | readonly Readonly<PackagedLeafImplementationDescriptor>[]
+  | ImplementationResolutionSetRefusal
+> {
+  if (
+    publication.implementationBindings.some(
+      (binding) =>
+        binding.packageName !== install.packageName ||
+        binding.packageVersion !== install.packageVersion,
+    ) ||
+    !(await installedProductContentMatches(install))
+  ) {
+    return setRefusal(
+      "implementation_absent",
+      null,
+      "published implementation bindings are not carried by the exact admitted Product install",
+    );
+  }
+  const descriptors: PackagedLeafImplementationDescriptor[] = [];
+  for (const modulePath of new Set(
+    publication.implementationBindings.map((binding) => binding.modulePath),
+  )) {
+    const exactPath = resolve(install.installedRoot, modulePath);
+    const relation = relative(install.installedRoot, exactPath);
+    if (relation.length === 0 || relation.startsWith("..") || isAbsolute(relation)) {
+      return setRefusal(
+        "implementation_absent",
+        null,
+        "published implementation module escapes the admitted Product install",
+      );
+    }
+    let loaded: Record<string, unknown>;
+    try {
+      loaded = await import(pathToFileURL(exactPath).href) as Record<string, unknown>;
+    } catch {
+      return setRefusal(
+        "implementation_absent",
+        null,
+        "published implementation module cannot be loaded from the admitted Product install",
+      );
+    }
+    descriptors.push(
+      ...Object.values(loaded).filter(isPackagedLeafImplementationDescriptor),
+    );
+  }
+  return Object.freeze(descriptors);
+}
 
 const candidates = new WeakSet<object>();
 const setCandidates = new WeakSet<object>();
