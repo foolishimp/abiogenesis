@@ -34,7 +34,10 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
   const binding = publication.implementationBindings[0];
   assert.equal(validation.kind, "implementation_resolution_validation", JSON.stringify(validation));
   assert.equal(resolution.computeRegime, "F_D");
-  assert.equal(resolution.implementationBindingRef, node.implementationBindingRef);
+  assert.equal(
+    resolution.implementationBindingRef,
+    node.term.requirement.implementationBindingRef,
+  );
   assert.equal(resolution.implementationRef, binding.implementationRef);
   assert.equal(resolution.packageName, verified.packageName);
   assert.equal(resolution.packageVersion, verified.packageVersion);

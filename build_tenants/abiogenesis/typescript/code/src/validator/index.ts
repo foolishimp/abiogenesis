@@ -1,4 +1,9 @@
 export {
+  inspectCProgramTerm,
+  type CProgramTermInspection,
+  type CProgramValidationContext,
+} from "./c_algebra.js";
+export {
   RAW_SUBJECT_KIND_VALUES,
   rawAdmitValue,
   type RawAdmissionRefusal,

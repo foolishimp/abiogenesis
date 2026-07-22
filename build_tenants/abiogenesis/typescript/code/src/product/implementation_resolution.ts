@@ -1,4 +1,5 @@
 import type { ComputeRegime, GraphFunction, ModulePublication } from "../gtl/contracts.js";
+import { isExecutableCLeaf } from "../gtl/c_algebra.js";
 import {
   isGraphValidation,
   type GraphValidation,
@@ -21,7 +22,7 @@ export interface PackagedLeafImplementationDescriptor {
   readonly packageVersion: string;
   readonly modulePath: string;
   readonly namedSymbol: string;
-  readonly computeRegime: ComputeRegime;
+  readonly computeRegime: Exclude<ComputeRegime, "F_H">;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
   readonly failureContractRef: string;
@@ -49,7 +50,7 @@ export interface ImplementationResolutionCandidate {
   readonly packageVersion: string;
   readonly modulePath: string;
   readonly namedSymbol: string;
-  readonly computeRegime: "F_D" | "F_H" | "F_P";
+  readonly computeRegime: "F_D" | "F_P";
   readonly inputContractRef: string;
   readonly outputContractRef: string;
   readonly failureContractRef: string;
@@ -102,7 +103,7 @@ export function isPackagedLeafImplementationDescriptor(
     typeof value.descriptorDigest === "string" &&
     /^sha256:[a-f0-9]{64}$/u.test(value.descriptorDigest) &&
     Object.values(body).every((field) => typeof field === "string" && field.length > 0) &&
-    (value.computeRegime === "F_D" || value.computeRegime === "F_H" || value.computeRegime === "F_P") &&
+    (value.computeRegime === "F_D" || value.computeRegime === "F_P") &&
     value.descriptorDigest === sha256Canonical(body as unknown as JsonValue);
 }
 
@@ -155,8 +156,12 @@ export function resolveImplementation(
     return refusal("selection_mismatch", "GraphFunction is not selected under the exact validated catalog basis");
   }
   const node = graphFunction.template.nodes.find((value) => value.nodeRef === nodeRef);
+  const term = node?.term;
+  if (term === undefined || !isExecutableCLeaf(term)) {
+    return refusal("implementation_absent", "declared graph node is not one executable C.of leaf");
+  }
   const bindings = publication.implementationBindings.filter(
-    (value) => value.bindingRef === node?.implementationBindingRef,
+    (value) => value.bindingRef === term.requirement.implementationBindingRef,
   );
   if (node === undefined || bindings.length === 0) {
     return refusal("implementation_absent", "declared graph node lacks one ImplementationBinding");
@@ -187,8 +192,8 @@ export function resolveImplementation(
   const implementationBindingDigest = sha256Canonical(binding as unknown as JsonValue);
   const contractRefs = new Set(publication.contracts.map((contract) => contract.contractRef));
   if (
-    node.inputContractRef !== binding.inputContractRef ||
-    node.outputContractRef !== binding.outputContractRef ||
+    term.requirement.inputContractRef !== binding.inputContractRef ||
+    term.requirement.outputContractRef !== binding.outputContractRef ||
     [
       binding.inputContractRef,
       binding.outputContractRef,

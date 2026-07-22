@@ -10,6 +10,7 @@ import type {
   HelloWorldInput,
   HelloWorldOutput,
 } from "./contracts.js";
+import { C, cCarrier } from "./c_algebra.js";
 import { deepFreeze } from "../shared/immutable.js";
 
 export const HELLO_WORLD_IDS = Object.freeze({
@@ -65,6 +66,8 @@ export function constructHelloWorldInput(subject: string): Readonly<HelloWorldIn
 export function constructHelloWorldModulePublication(
   artifact: RootModuleArtifactBasis,
 ): Readonly<ModulePublication> {
+  const inputCarrier = cCarrier<HelloWorldInput>(HELLO_WORLD_IDS.inputContractRef);
+  const outputCarrier = cCarrier<HelloWorldOutput>(HELLO_WORLD_IDS.outputContractRef);
   const contracts: readonly ContractDeclaration[] = [
     { contractRef: HELLO_WORLD_IDS.inputContractRef, contractVersion: "5.0.0", contractKind: "input", valueKind: "hello_world_input" },
     { contractRef: HELLO_WORLD_IDS.outputContractRef, contractVersion: "5.0.0", contractKind: "output", valueKind: "hello_world_output" },
@@ -124,18 +127,32 @@ export function constructHelloWorldModulePublication(
         {
           nodeRef: HELLO_WORLD_IDS.nodeRef,
           nodeKind: "c_locus",
-          computeRegime: "F_D",
-          stageRole: "result",
-          armId: HELLO_WORLD_IDS.armId,
-          compositionRef: null,
-          vectorIndex: 0,
-          judgmentPredicateRef: HELLO_WORLD_IDS.judgmentPredicateRef,
-          implementationBindingRef: HELLO_WORLD_IDS.implementationBindingRef,
-          inputContractRef: HELLO_WORLD_IDS.inputContractRef,
-          outputContractRef: HELLO_WORLD_IDS.outputContractRef,
+          term: C.of({
+            input: inputCarrier,
+            output: outputCarrier,
+            programLocusRef: HELLO_WORLD_IDS.nodeRef,
+            stageRole: "result",
+            fibre: "F_D",
+            armId: HELLO_WORLD_IDS.armId,
+            compositionRef: null,
+            vectorIndex: 0,
+            judgmentPredicateRef: HELLO_WORLD_IDS.judgmentPredicateRef,
+            resultBearing: true,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef: HELLO_WORLD_IDS.implementationBindingRef,
+              inputContractRef: HELLO_WORLD_IDS.inputContractRef,
+              outputContractRef: HELLO_WORLD_IDS.outputContractRef,
+              evidenceContractRef: HELLO_WORLD_IDS.evidenceContractRef,
+              failureContractRef: HELLO_WORLD_IDS.failureContractRef,
+              refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+              judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+            },
+          }),
         },
       ],
       edges: [],
+      applications: [],
     },
     effects: ["effect://abiogenesis/conformance/emit-hello-output@5"],
     declarations: {

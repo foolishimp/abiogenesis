@@ -1,12 +1,15 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { C_TERM_KIND_VALUES } from "../gtl/c_algebra.js";
 
 export const RAW_SUBJECT_KIND_VALUES = [
   "module_publication",
   "catalog_contribution",
   "gtl_program",
   "graph_function",
+  "gtl_graph",
+  "c_program_term",
   "contract_declaration",
   "implementation_binding",
   "closure_contract",
@@ -63,6 +66,8 @@ function hasExpectedKind(
           value.contractKind === "transition" ||
           value.contractKind === "closure")
       );
+    case "c_program_term":
+      return C_TERM_KIND_VALUES.some((kind) => kind === value.kind);
     case "invocation_input":
       return typeof value.kind === "string" && value.kind.length !== 0;
     case "public_operation_request":

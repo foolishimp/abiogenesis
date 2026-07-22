@@ -1,6 +1,7 @@
 import type { Sha256Digest } from "../shared/digests.js";
+import type { CProgramNode, ComputeRegime } from "./c_algebra.js";
 
-export type ComputeRegime = "F_D" | "F_H" | "F_P";
+export type { ComputeRegime } from "./c_algebra.js";
 
 export interface ContractDeclaration {
   readonly contractRef: string;
@@ -38,15 +39,7 @@ export interface GtlEnvironment {
 export interface GtlNode {
   readonly nodeRef: string;
   readonly nodeKind: "c_locus";
-  readonly computeRegime: ComputeRegime;
-  readonly stageRole: string;
-  readonly armId: string;
-  readonly compositionRef: string | null;
-  readonly vectorIndex: number;
-  readonly judgmentPredicateRef: string;
-  readonly implementationBindingRef: string;
-  readonly inputContractRef: string;
-  readonly outputContractRef: string;
+  readonly term: CProgramNode;
 }
 
 export interface GtlEdge {
@@ -55,6 +48,85 @@ export interface GtlEdge {
   readonly toNodeRef: string;
 }
 
+interface GraphFunctionApplicationBase {
+  readonly kind: "graph_function_application";
+  readonly applicationRef: string;
+  readonly inputContractRef: string;
+  readonly outputContractRef: string;
+}
+
+export interface ComposeApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "compose";
+  readonly leftGraphFunctionRef: string;
+  readonly rightGraphFunctionRef: string;
+}
+
+export interface SubstituteApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "substitute";
+  readonly outerGraphFunctionRef: string;
+  readonly targetVectorRef: string;
+  readonly innerGraphFunctionRef: string;
+}
+
+export interface RecurseApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "recurse";
+  readonly graphFunctionRef: string;
+  readonly terminationRuleRef: string;
+  readonly foldbackRef: string;
+  readonly bound: number;
+}
+
+export interface FanOutApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "fan_out";
+  readonly elementGraphFunctionRef: string;
+  readonly inputVectorRef: string;
+  readonly outputVectorRef: string;
+  readonly inputMemberContractRef: string;
+  readonly outputMemberContractRef: string;
+}
+
+export interface FanInApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "fan_in";
+  readonly reducerGraphFunctionRef: string;
+  readonly inputVectorRef: string;
+}
+
+export interface GateApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "gate";
+  readonly targetRef: string;
+  readonly ruleRef: string;
+  readonly evaluatorRefs: readonly string[];
+}
+
+export interface PromoteApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "promote";
+  readonly sourceRef: string;
+  readonly targetRef: string;
+}
+
+export interface IdentityApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "identity";
+  readonly targetRef: string;
+}
+
+export interface SameObjectApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "same_object";
+  readonly leftRef: string;
+  readonly rightRef: string;
+  readonly witnessRef: string;
+}
+
+export type GraphFunctionApplication =
+  | ComposeApplication
+  | SubstituteApplication
+  | RecurseApplication
+  | FanOutApplication
+  | FanInApplication
+  | GateApplication
+  | PromoteApplication
+  | IdentityApplication
+  | SameObjectApplication;
+
 export interface GraphTemplate {
   readonly kind: "inline_graph";
   readonly graphRef: string;
@@ -62,6 +134,7 @@ export interface GraphTemplate {
   readonly terminalNodeRefs: readonly string[];
   readonly nodes: readonly GtlNode[];
   readonly edges: readonly GtlEdge[];
+  readonly applications: readonly GraphFunctionApplication[];
 }
 
 export interface GraphMaterializationBasis {
@@ -104,7 +177,7 @@ export interface ImplementationBinding {
   readonly packageVersion: string;
   readonly modulePath: string;
   readonly namedSymbol: string;
-  readonly computeRegime: ComputeRegime;
+  readonly computeRegime: Exclude<ComputeRegime, "F_H">;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
   readonly failureContractRef: string;

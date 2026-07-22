@@ -704,7 +704,8 @@ async function applyRunInvoke(
   let failureScope: abg.OpenedTraversalScope | null = null;
   try {
   const node = graphFunction.template.nodes[0];
-  if (node === undefined) {
+  const term = node?.term;
+  if (node === undefined || term === undefined || !gtl.isExecutableCLeaf(term)) {
     abg.admitInvocationRefusal(
       context.store,
       invocationAdmission,
@@ -755,7 +756,7 @@ async function applyRunInvoke(
   }
   activeRefusalStage = "implementation_resolution";
   const matchingBindings = viewState.catalogState.publication.implementationBindings.filter(
-    (binding) => binding.bindingRef === node.implementationBindingRef,
+    (binding) => binding.bindingRef === term.requirement.implementationBindingRef,
   );
   const implementationModules = new Map<string, Record<string, unknown>>();
   const packagedImplementations: product.PackagedLeafImplementationDescriptor[] = [];

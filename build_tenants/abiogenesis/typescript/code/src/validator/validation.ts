@@ -10,13 +10,21 @@ import type {
   ImplementationBinding,
   ModulePublication,
 } from "../gtl/index.js";
+import { cLeafTerms } from "../gtl/c_algebra.js";
 import { isRawAdmittedValue, type RawAdmittedValue } from "./raw_admission.js";
+import { inspectCProgramTerm } from "./c_algebra.js";
 
 export const STATIC_DIAGNOSTIC_CODE_VALUES = [
   "duplicate_identity",
+  "carrier_mismatch",
   "identity_mismatch",
+  "invalid_application",
+  "invalid_constructor",
   "invalid_contribution",
+  "invalid_fibre",
+  "invalid_leaf_requirement",
   "invalid_reference",
+  "invalid_result_cardinality",
   "missing_binding",
   "missing_contract",
   "missing_membership",
@@ -264,6 +272,9 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   }
   const contractRefs = new Set(contracts.map((contract) => contract.contractRef));
   const bindingByRef = new Map(bindings.map((binding) => [binding.bindingRef, binding]));
+  const availableGraphFunctionRefs = new Set(graphFunctions.map((value) => value.name));
+  const callableGraphFunctionRefs = new Set(program.callableMembership);
+  const programLocusRefs: string[] = [];
   for (const graphFunction of graphFunctions) {
     const nodes = new Map(graphFunction.template.nodes.map((node) => [node.nodeRef, node]));
     if (!nodes.has(graphFunction.template.startNodeRef) || graphFunction.template.terminalNodeRefs.some((ref) => !nodes.has(ref))) {
@@ -276,30 +287,75 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       if (!contractRefs.has(contractRef)) diagnostics.push({ code: "missing_contract", path: `$.graphFunctions[${graphFunction.name}]`, message: `missing contract ${contractRef}` });
     }
     for (const node of graphFunction.template.nodes) {
-      const binding = bindingByRef.get(node.implementationBindingRef);
-      if (
-        node.stageRole.length === 0 ||
-        node.armId.length === 0 ||
-        node.judgmentPredicateRef.length === 0 ||
-        !Number.isSafeInteger(node.vectorIndex) ||
-        node.vectorIndex < 0
-      ) {
+      if (node.nodeRef.length === 0 || node.nodeKind !== "c_locus") {
         diagnostics.push({
           code: "invalid_reference",
-          path: `$.graphFunctions[${graphFunction.name}].template.nodes[${node.nodeRef}]`,
-          message: "C locus requires declared stage, arm, judgment predicate, and non-negative vector index",
+          path: `$.graphFunctions[${graphFunction.name}].template.nodes`,
+          message: "Graph node requires one non-empty c_locus identity",
         });
       }
-      if (binding === undefined) {
-        diagnostics.push({ code: "missing_binding", path: `$.graphFunctions[${graphFunction.name}].template.nodes[${node.nodeRef}]`, message: `missing implementation binding ${node.implementationBindingRef}` });
-      } else if (
-        binding.computeRegime !== node.computeRegime ||
-        binding.inputContractRef !== node.inputContractRef ||
-        binding.outputContractRef !== node.outputContractRef
-      ) {
-        diagnostics.push({ code: "invalid_reference", path: `$.graphFunctions[${graphFunction.name}].template.nodes[${node.nodeRef}]`, message: "node and implementation binding contracts disagree" });
+      const inspection = inspectCProgramTerm(node.term, {
+        path: `$.graphFunctions[${graphFunction.name}].template.nodes[${node.nodeRef}].term`,
+        availableGraphFunctionRefs,
+        callableGraphFunctionRefs,
+        contractRefs,
+        bindingByRef,
+      });
+      diagnostics.push(...inspection.diagnostics);
+      if (inspection.term !== null) {
+        programLocusRefs.push(...cLeafTerms(inspection.term).map((leaf) => leaf.programLocusRef));
       }
     }
+    for (const applicationRef of duplicates(
+      graphFunction.template.applications.map((application) => application.applicationRef),
+    )) {
+      diagnostics.push({
+        code: "duplicate_identity",
+        path: `$.graphFunctions[${graphFunction.name}].template.applications`,
+        message: `duplicate GraphFunction application ${applicationRef}`,
+      });
+    }
+    for (const application of graphFunction.template.applications) {
+      const refs = Object.entries(application)
+        .filter(([key]) => key.endsWith("Ref") || key.endsWith("Refs"))
+        .flatMap(([, value]) => Array.isArray(value) ? value : [value]);
+      if (
+        application.applicationRef.length === 0 ||
+        application.inputContractRef.length === 0 ||
+        application.outputContractRef.length === 0 ||
+        refs.some((ref) => typeof ref !== "string" || ref.length === 0) ||
+        !contractRefs.has(application.inputContractRef) ||
+        !contractRefs.has(application.outputContractRef)
+      ) {
+        diagnostics.push({
+          code: "invalid_application",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          message: "GraphFunction application has an empty reference or unpublished outer contract",
+        });
+      }
+      if (application.relationKind === "recurse" &&
+        (!Number.isSafeInteger(application.bound) || application.bound < 1)) {
+        diagnostics.push({
+          code: "invalid_application",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].bound`,
+          message: "recurse application requires one positive safe bound",
+        });
+      }
+      if (application.relationKind === "gate" && application.evaluatorRefs.length === 0) {
+        diagnostics.push({
+          code: "invalid_application",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].evaluatorRefs`,
+          message: "gate application requires at least one declared evaluator",
+        });
+      }
+    }
+  }
+  for (const programLocusRef of duplicates(programLocusRefs)) {
+    diagnostics.push({
+      code: "duplicate_identity",
+      path: "$.graphFunctions[*].template.nodes[*].term",
+      message: `duplicate C leaf program locus ${programLocusRef}`,
+    });
   }
   if (!closureContracts.some((contract) => contract.closureContractRef === program.closureContractRef)) {
     diagnostics.push({ code: "missing_contract", path: "$.program.closureContractRef", message: "Program closure contract is absent" });

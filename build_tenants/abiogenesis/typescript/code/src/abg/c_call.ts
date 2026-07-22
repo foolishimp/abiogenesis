@@ -1,4 +1,5 @@
 import type { GtlGraph, GtlProgram } from "../gtl/contracts.js";
+import { isExecutableCLeaf } from "../gtl/c_algebra.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -315,6 +316,7 @@ export function openCCall(
     return openRefusal("scope_mismatch", "CCall scope differs from the admitted execution basis");
   }
   const declaredNode = graph.template.nodes.find((node) => node.nodeRef === stop.nodeRef);
+  const declaredTerm = declaredNode?.term;
   const declaredStart = program.starts.find(
     (start) => start.graphFunctionRef === executionBasis.graphFunctionRef,
   );
@@ -327,19 +329,21 @@ export function openCCall(
     program.programRef !== executionBasis.programRef ||
     graph.materializationRef !== executionBasis.graphRef ||
     declaredNode === undefined ||
+    declaredTerm === undefined ||
+    !isExecutableCLeaf(declaredTerm) ||
     declaredStart === undefined ||
     graph.template.startNodeRef !== declaredNode.nodeRef ||
-    stop.programLocusRef !== declaredNode.nodeRef ||
+    stop.programLocusRef !== declaredTerm.programLocusRef ||
     stop.edgeRef !== declaredStart.startRef ||
-    stop.vectorIndex !== declaredNode.vectorIndex ||
-    stop.judgmentPredicateRef !== declaredNode.judgmentPredicateRef ||
-    stop.stageRole !== declaredNode.stageRole ||
-    stop.computeRegime !== declaredNode.computeRegime ||
-    stop.armId !== declaredNode.armId ||
-    stop.compositionRef !== declaredNode.compositionRef ||
-    stop.implementationBindingRef !== declaredNode.implementationBindingRef ||
-    stop.inputContractRef !== declaredNode.inputContractRef ||
-    stop.outputContractRef !== declaredNode.outputContractRef
+    stop.vectorIndex !== declaredTerm.vectorIndex ||
+    stop.judgmentPredicateRef !== declaredTerm.judgmentPredicateRef ||
+    stop.stageRole !== declaredTerm.stageRole ||
+    stop.computeRegime !== declaredTerm.fibre ||
+    stop.armId !== declaredTerm.armId ||
+    stop.compositionRef !== declaredTerm.compositionRef ||
+    stop.implementationBindingRef !== declaredTerm.requirement.implementationBindingRef ||
+    stop.inputContractRef !== declaredTerm.requirement.inputContractRef ||
+    stop.outputContractRef !== declaredTerm.requirement.outputContractRef
   ) {
     return openRefusal("locus_mismatch", "CCall requires the exact HoG stop at this scope's C locus");
   }

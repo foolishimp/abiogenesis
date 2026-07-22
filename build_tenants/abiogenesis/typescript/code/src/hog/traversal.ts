@@ -4,6 +4,7 @@ import {
   type OpenedTraversalScope,
 } from "../abg/open_call.js";
 import type { ComputeRegime, GtlGraph, GtlProgram } from "../gtl/contracts.js";
+import { isExecutableCLeaf } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
@@ -151,6 +152,10 @@ export function traverse(input: TraverseInput): TraverseResult {
   if (node === undefined) {
     return refusal("locus_missing", "admitted GTL start node does not resolve to a compute locus");
   }
+  const term = node.term;
+  if (!isExecutableCLeaf(term)) {
+    return refusal("locus_missing", "current M4 entry requires one admitted executable C.of locus");
+  }
   const cursorBody = {
     programRef: input.program.programRef,
     executionBasisRef: input.executionBasis.basisRef,
@@ -178,20 +183,20 @@ export function traverse(input: TraverseInput): TraverseResult {
     graphCallId: input.openedTraversalScope.graphCallId,
     frameId: input.openedTraversalScope.frameId,
     nodeRef: node.nodeRef,
-    programLocusRef: node.nodeRef,
+    programLocusRef: term.programLocusRef,
     edgeRef: programStart.startRef,
-    vectorIndex: node.vectorIndex,
-    judgmentPredicateRef: node.judgmentPredicateRef,
-    stageRole: node.stageRole,
+    vectorIndex: term.vectorIndex,
+    judgmentPredicateRef: term.judgmentPredicateRef,
+    stageRole: term.stageRole,
     taskOrdinal: null,
     attempt: 1 as const,
     retryPath: [] as const,
-    computeRegime: node.computeRegime,
-    armId: node.armId,
-    compositionRef: node.compositionRef,
-    implementationBindingRef: node.implementationBindingRef,
-    inputContractRef: node.inputContractRef,
-    outputContractRef: node.outputContractRef,
+    computeRegime: term.fibre,
+    armId: term.armId,
+    compositionRef: term.compositionRef,
+    implementationBindingRef: term.requirement.implementationBindingRef,
+    inputContractRef: term.requirement.inputContractRef,
+    outputContractRef: term.requirement.outputContractRef,
   };
   const stopDigest = sha256Canonical(stopBody as unknown as JsonValue);
   const stop = deepFreeze({

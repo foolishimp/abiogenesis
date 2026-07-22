@@ -1,4 +1,5 @@
 import type { GraphFunction, ModulePublication } from "../gtl/contracts.js";
+import { isExecutableCLeaf } from "../gtl/c_algebra.js";
 import {
   isImplementationResolutionCandidate,
   isPackagedLeafImplementationDescriptor,
@@ -78,6 +79,7 @@ export function validateImplementationResolution(
     (value) => value.bindingRef === candidate.implementationBindingRef,
   );
   const node = graphFunction.template.nodes.find((value) => value.nodeRef === candidate.nodeRef);
+  const term = node?.term;
   const candidateBody = {
     catalogViewId: candidate.catalogViewId,
     catalogViewDigest: candidate.catalogViewDigest,
@@ -116,7 +118,9 @@ export function validateImplementationResolution(
     graphValidation.graphFunctionRef !== graphFunction.name ||
     graphValidation.graphFunctionDigest !== candidate.graphFunctionDigest ||
     binding === undefined ||
-    node?.implementationBindingRef !== binding.bindingRef ||
+    term === undefined ||
+    !isExecutableCLeaf(term) ||
+    term.requirement.implementationBindingRef !== binding.bindingRef ||
     binding.implementationRef !== candidate.implementationRef ||
     candidate.implementationBindingDigest !== sha256Canonical(binding as unknown as JsonValue) ||
     binding.implementationRef !== candidate.implementationRef ||
