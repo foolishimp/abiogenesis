@@ -10,6 +10,7 @@ import {
 import type { ComputeRegime, GtlGraph, GtlProgram } from "../gtl/contracts.js";
 import { isExecutableCLeaf } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
+import { resolveEnclosingCBatchRef } from "../gtl/source_path.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
@@ -75,6 +76,7 @@ export interface TraversalStopRef {
   readonly vectorIndex: number;
   readonly judgmentPredicateRef: string;
   readonly stageRole: string;
+  readonly batchRef: string | null;
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly retryPath: readonly number[];
@@ -384,6 +386,14 @@ function traversalResultAtCursor(
   if (term.kind === "direct_c_traversal_refusal") {
     return refusal("locus_missing", term.message);
   }
+  const batchRef = resolveEnclosingCBatchRef(
+    input.graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  if (typeof batchRef === "object" && batchRef?.kind === "c_source_path_refusal") {
+    return refusal("locus_missing", batchRef.message);
+  }
   const derivedStep = deriveTraversalStep(input.graph, cursor);
   if (derivedStep.kind === "traversal_refusal") return derivedStep;
   if (!isExecutableCLeaf(term) || derivedStep.directStep.stepKind !== "open_leaf") {
@@ -411,6 +421,7 @@ function traversalResultAtCursor(
     vectorIndex: term.vectorIndex,
     judgmentPredicateRef: term.judgmentPredicateRef,
     stageRole: term.stageRole,
+    batchRef,
     taskOrdinal: cursor.taskOrdinal,
     attempt: cursor.attempt,
     retryPath: [...cursor.retryPath],

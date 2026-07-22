@@ -79,6 +79,7 @@ export { materializeGraph } from "./materialize.js";
 export {
   deriveCSourceContinuation,
   resolveCProgramTermAtSourcePath,
+  resolveEnclosingCBatchRef,
   rootCSourcePath,
   type CSourceContinuation,
   type CSourcePath,

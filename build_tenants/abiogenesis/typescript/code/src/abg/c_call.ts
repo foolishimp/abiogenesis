@@ -1,6 +1,9 @@
 import type { GtlGraph, GtlProgram } from "../gtl/contracts.js";
 import { isExecutableCLeaf } from "../gtl/c_algebra.js";
-import { resolveCProgramTermAtSourcePath } from "../gtl/source_path.js";
+import {
+  resolveCProgramTermAtSourcePath,
+  resolveEnclosingCBatchRef,
+} from "../gtl/source_path.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -41,6 +44,7 @@ export interface CCall {
   readonly edgeRef: string;
   readonly vectorIndex: number;
   readonly stageRole: string;
+  readonly batchRef: string | null;
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly programLocusRef: string;
@@ -92,6 +96,7 @@ export interface CCallLocusProposal {
   readonly vectorIndex: number;
   readonly judgmentPredicateRef: string;
   readonly stageRole: string;
+  readonly batchRef: string | null;
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly retryPath: readonly number[];
@@ -337,6 +342,13 @@ export function openCCall(
         stop.cursor.currentNodeRef,
         stop.cursor.termPath,
       );
+  const declaredBatchRef = declaredNode === undefined
+    ? undefined
+    : resolveEnclosingCBatchRef(
+        graph.template,
+        stop.cursor.currentNodeRef,
+        stop.cursor.termPath,
+      );
   const declaredStart = program.starts.find(
     (start) => start.graphFunctionRef === executionBasis.graphFunctionRef,
   );
@@ -356,6 +368,8 @@ export function openCCall(
     declaredNode === undefined ||
     declaredTerm === undefined ||
     declaredTerm.kind === "c_source_path_refusal" ||
+    declaredBatchRef === undefined ||
+    (declaredBatchRef !== null && typeof declaredBatchRef !== "string") ||
     !isExecutableCLeaf(declaredTerm) ||
     declaredStart === undefined ||
     stop.programLocusRef !== declaredTerm.programLocusRef ||
@@ -363,6 +377,7 @@ export function openCCall(
     stop.vectorIndex !== declaredTerm.vectorIndex ||
     stop.judgmentPredicateRef !== declaredTerm.judgmentPredicateRef ||
     stop.stageRole !== declaredTerm.stageRole ||
+    stop.batchRef !== declaredBatchRef ||
     stop.computeRegime !== declaredTerm.fibre ||
     stop.armId !== declaredTerm.armId ||
     stop.compositionRef !== declaredTerm.compositionRef ||
@@ -418,6 +433,7 @@ export function openCCall(
     edgeRef: stop.edgeRef,
     vectorIndex: stop.vectorIndex,
     stageRole: stop.stageRole,
+    batchRef: stop.batchRef,
     taskOrdinal: stop.taskOrdinal,
     attempt: stop.attempt,
     programLocusRef: stop.programLocusRef,
@@ -488,6 +504,7 @@ export function openCCall(
     edgeRef: stop.edgeRef,
     vectorIndex: stop.vectorIndex,
     stageRole: stop.stageRole,
+    batchRef: stop.batchRef,
     taskOrdinal: stop.taskOrdinal,
     attempt: stop.attempt,
     programLocusRef: stop.programLocusRef,

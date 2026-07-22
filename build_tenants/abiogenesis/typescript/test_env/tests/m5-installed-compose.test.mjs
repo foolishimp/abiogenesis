@@ -19,7 +19,7 @@ const NORMALIZED_CONTRACT_REF =
 const OUTPUT_CONTRACT_REF =
   "contract://abiogenesis/conformance/hello-output@5";
 
-test("M5 installed CLI traverses C.compose, successful C.retry, and C.edge through one ABG runtime", async (context) => {
+test("M5 installed CLI traverses ordered C.batch, successful C.retry, and C.edge through one ABG runtime", async (context) => {
   const harness = await setupInstalledCliHarness(context, root);
   const scenario = await buildRootCliScenario(
     harness,
@@ -59,10 +59,13 @@ test("M5 installed CLI traverses C.compose, successful C.retry, and C.edge throu
   const judgmentEvents = events.filter((event) => event.kind === "c_call_judged");
   const routes = events.filter((event) => event.kind === "traversal_route_admitted");
 
-  assert.equal(cCallOpened.length, 4);
-  assert.equal(resultEvents.length, 4);
-  assert.equal(judgmentEvents.length, 4);
+  assert.equal(cCallOpened.length, 6);
+  assert.equal(resultEvents.length, 6);
+  assert.equal(judgmentEvents.length, 6);
   assert.deepEqual(routes.map((event) => event.payload.routeKind), [
+    "advance",
+    "advance",
+    "advance",
     "advance",
     "advance",
     "retry",
@@ -79,18 +82,32 @@ test("M5 installed CLI traverses C.compose, successful C.retry, and C.edge throu
   });
   assert.equal(resultEvents[1].payload.contractRef, NORMALIZED_CONTRACT_REF);
   assert.equal(resultEvents[2].payload.contractRef, NORMALIZED_CONTRACT_REF);
-  assert.equal(resultEvents[3].payload.contractRef, OUTPUT_CONTRACT_REF);
+  assert.equal(resultEvents[3].payload.contractRef, NORMALIZED_CONTRACT_REF);
+  assert.equal(resultEvents[4].payload.contractRef, NORMALIZED_CONTRACT_REF);
+  assert.equal(resultEvents[5].payload.contractRef, OUTPUT_CONTRACT_REF);
   assert.equal(resultEvents[0].aggregateId, cCallOpened[0].aggregateId);
   assert.equal(routes[1].payload.cCallRef, cCallOpened[0].aggregateId);
   assert.equal(routes[1].payload.judgmentRef, judgmentEvents[0].payload.judgmentRef);
-  assert.equal(routes[4].payload.cCallRef, cCallOpened[1].aggregateId);
-  assert.equal(routes[5].payload.cCallRef, cCallOpened[2].aggregateId);
-  for (const opened of cCallOpened.slice(1)) {
+  assert.deepEqual(
+    cCallOpened.slice(1, 3).map((event) => ({
+      batchRef: event.payload.batchRef,
+      taskOrdinal: event.payload.taskOrdinal,
+    })),
+    [
+      { batchRef: "batch://abiogenesis/conformance/hello-compose/checks@5", taskOrdinal: 0 },
+      { batchRef: "batch://abiogenesis/conformance/hello-compose/checks@5", taskOrdinal: 1 },
+    ],
+  );
+  assert.equal(routes[3].payload.cCallRef, cCallOpened[1].aggregateId);
+  assert.equal(routes[4].payload.cCallRef, cCallOpened[2].aggregateId);
+  for (const opened of cCallOpened.slice(3)) {
     assert.equal(opened.payload.attempt, 1);
     assert.deepEqual(opened.payload.retryPath, [1]);
   }
+  assert.equal(routes[7].payload.cCallRef, cCallOpened[3].aggregateId);
+  assert.equal(routes[8].payload.cCallRef, cCallOpened[4].aggregateId);
   assert.equal(
-    cCallOpened[3].causationEventRefs.includes(routes[5].eventId),
+    cCallOpened[5].causationEventRefs.includes(routes[8].eventId),
     true,
   );
   assert.equal(events.filter((event) => event.kind === "run_closed").length, 1);

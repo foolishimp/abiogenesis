@@ -13,6 +13,11 @@ import type { TraversalRouteKind } from "./traversal_route.js";
 
 export interface ReplayCCallState {
   readonly cCallRef: string;
+  readonly batchRef: string | null;
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+  readonly programLocusRef: string;
+  readonly retryPath: readonly number[];
   readonly eventKinds: readonly RootEventKind[];
   readonly evidenceRefs: readonly string[];
   readonly resultRef: string | null;
@@ -83,6 +88,31 @@ function stringField(event: RuntimeEvent, name: string): string | null {
   return typeof value === "string" ? value : null;
 }
 
+function nonNegativeIntegerField(event: RuntimeEvent, name: string): number | null {
+  if (!isRecord(event.payload)) return null;
+  const value = event.payload[name];
+  return Number.isSafeInteger(value) && (value as number) >= 0
+    ? value as number
+    : null;
+}
+
+function positiveIntegerField(event: RuntimeEvent, name: string): number | null {
+  const value = nonNegativeIntegerField(event, name);
+  return value !== null && value > 0 ? value : null;
+}
+
+function positiveIntegerArrayField(
+  event: RuntimeEvent,
+  name: string,
+): readonly number[] | null {
+  if (!isRecord(event.payload)) return null;
+  const value = event.payload[name];
+  return Array.isArray(value) &&
+      value.every((row) => Number.isSafeInteger(row) && (row as number) > 0)
+    ? value as readonly number[]
+    : null;
+}
+
 function validateCCallOrder(events: readonly RuntimeEvent[]): void {
   const ranks: Readonly<Record<string, number>> = {
     c_call_opened: 0,
@@ -128,14 +158,48 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
     );
     validateCCallOrder(rows);
     const evidenceRows = rows.filter((event) => event.kind === "c_call_evidenced");
+    const openedEvent = rows.find((event) => event.kind === "c_call_opened");
     const resultEvent = rows.find((event) => event.kind === "c_call_result_admitted");
     const judgmentEvent = rows.find((event) => event.kind === "c_call_judged");
+    const attempt = openedEvent === undefined
+      ? null
+      : positiveIntegerField(openedEvent, "attempt");
+    const openedPayload = openedEvent === undefined || !isRecord(openedEvent.payload)
+      ? null
+      : openedEvent.payload;
+    const batchRef = openedPayload?.batchRef;
+    const taskOrdinal = openedPayload?.taskOrdinal;
+    const programLocusRef = openedEvent === undefined
+      ? null
+      : stringField(openedEvent, "programLocusRef");
+    const retryPath = openedEvent === undefined
+      ? null
+      : positiveIntegerArrayField(openedEvent, "retryPath");
+    if (
+      openedEvent === undefined ||
+      openedPayload === null ||
+      !Object.hasOwn(openedPayload, "batchRef") ||
+      !Object.hasOwn(openedPayload, "taskOrdinal") ||
+      (batchRef !== null && typeof batchRef !== "string") ||
+      (taskOrdinal !== null &&
+        (!Number.isSafeInteger(taskOrdinal) || (taskOrdinal as number) < 0)) ||
+      attempt === null ||
+      programLocusRef === null ||
+      retryPath === null
+    ) {
+      throw new TypeError(`incomplete CCall identity payload at ${cCallRef}`);
+    }
     let status: ReplayCCallState["status"] = "opened";
     if (rows.some((event) => event.kind === "c_call_fibre_selected")) status = "fibre_selected";
     if (resultEvent !== undefined) status = "result_admitted";
     if (judgmentEvent !== undefined) status = "judged";
     return {
       cCallRef,
+      batchRef: batchRef as string | null,
+      taskOrdinal: taskOrdinal as number | null,
+      attempt,
+      programLocusRef,
+      retryPath,
       eventKinds: rows.map((event) => event.kind),
       evidenceRefs: evidenceRows
         .map((event) => stringField(event, "evidenceRef"))

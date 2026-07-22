@@ -264,6 +264,22 @@ test("M5 HoG derives post-term continuation from the original GTL tree", () => {
   assert.deepEqual(batchFirst.target.termPath, [
     "node", batchGraph.startNodeRef, "c", "tasks", "1",
   ]);
+  assert.equal(
+    gtl.resolveEnclosingCBatchRef(
+      batchGraph,
+      batchGraph.startNodeRef,
+      batchFirst.target.termPath,
+    ),
+    "batch://m5/continue",
+  );
+  assert.equal(
+    gtl.resolveEnclosingCBatchRef(
+      edgeGraph,
+      edgeGraph.startNodeRef,
+      edgeEvaluate.target.termPath,
+    ),
+    null,
+  );
 
   const retryGraph = template(gtl.C.retry(consequence, 2));
   const retrySuccess = hog.deriveDirectCContinuationStepFromGraph(retryGraph, {

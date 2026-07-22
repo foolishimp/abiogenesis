@@ -178,6 +178,42 @@ export function resolveCProgramTermAtSourcePath(
   return term;
 }
 
+export function resolveEnclosingCBatchRef(
+  template: Readonly<GraphTemplate>,
+  nodeRef: string,
+  sourcePath: CSourcePath,
+): string | null | CSourcePathRefusal {
+  const source = resolveCProgramTermAtSourcePath(template, nodeRef, sourcePath);
+  if (source.kind === "c_source_path_refusal") return source;
+
+  let currentPath = [...sourcePath];
+  while (currentPath.length > 3) {
+    const last = currentPath.at(-1);
+    const penultimate = currentPath.at(-2);
+    let parentPath: string[];
+    if (penultimate === "terms" || penultimate === "tasks") {
+      if (safeOrdinal(last) === null) {
+        return refusal("invalid_source_path", "ordered C child path has an invalid ordinal");
+      }
+      parentPath = currentPath.slice(0, -2);
+    } else if (
+      last === "transform" ||
+      last === "evaluate" ||
+      last === "consequence" ||
+      last === "term"
+    ) {
+      parentPath = currentPath.slice(0, -1);
+    } else {
+      return refusal("invalid_source_path", "C term has no declared parent relation");
+    }
+    const parent = resolveCProgramTermAtSourcePath(template, nodeRef, parentPath);
+    if (parent.kind === "c_source_path_refusal") return parent;
+    if (parent.kind === "c_batch") return parent.batchRef;
+    currentPath = parentPath;
+  }
+  return null;
+}
+
 export function deriveCSourceContinuation(
   template: Readonly<GraphTemplate>,
   nodeRef: string,
