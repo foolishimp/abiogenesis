@@ -1,34 +1,39 @@
-# T-282 - Restore Installed GTL Authority And Adopt Released STDO Context
+# T-282 - Materialize Released STDO Context
 
 - id: T-282
-- title: Restore installed GTL authority and adopt released STDO context
+- title: Materialize the selected released STDO context for qualification
 - type: migration
 - ticket_category: design_and_realization_migration
 - status: active
-- phase_status: held_pending_t284_vector_and_m3_design
-- review_status: repriced_under_t283_candidate
+- phase_status: held_for_m6_after_t270_m5
+- review_status: aligned_to_released_stdo_and_accepted_product
 - proof_status: pending
 - implementation_hold: active
-- implementation_hold_ref: T-284 correction vector and M3 design gate
+- implementation_hold_ref: T-270 owns M5; T-282 resumes for M6 after one exact M5 candidate exists
 - implementation_hold_effect: preserve existing artifacts; no design, code, test, proof, publication, or closure promotion
-- goal: GOAL-035 milestones M3, M4, and M6
+- goal: GOAL-035 M6
 - priority: critical
-- change_class: design_reframe_after_T283; final carrier disposition pending X vector
-- re_entry_point: accepted direct-GTL realization design
+- change_class: realization_refactor plus qualification_basis_materialization
+- re_entry_point: accepted Product context and qualification boundary
 - created_at: 2026-07-19
-- updated_at: 2026-07-20
+- updated_at: 2026-07-22
 - owner: abiogenesis
 - build_tenant: typescript
-- dependencies:
+- completed_dependencies:
   - T-283 exact constitutional closure
-  - accepted X-to-5 correction vector
-  - accepted direct-GTL traversal and installed-authority design
-- phase_b_dependency:
-  - exact tapped and installed STDO 2.0 release and compression
+  - T-284 accepted X-to-5 correction vector
+  - T-285 accepted direct-GTL traversal and installed-authority design
+  - T-286 installed root closure
+- remaining_dependency:
+  - T-270 M5 closure over one exact candidate
+- selected_method_basis:
+  - STDO v2.0.0 at 94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a
+  - 41-member digest 284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0
 
 ## Current Disposition
 
-T-282 remains held evidence during T-284. Its original concerns are valid:
+T-282 remains held until M6. Milestone A was realized by T-286 and is retained
+as exact installed-root evidence. Its remaining concerns are:
 
 - installer-generated runtime files currently author private program,
   GraphFunction, policy, and execution-basis truth;
@@ -44,14 +49,14 @@ Product manifest supplies an implicit default program. The accepted 5.0
 Product makes programs named GTL declarations, GraphFunctions their callable
 members, HoG the direct executor, and ABG the runtime truth substrate.
 
-The ticket may resume only after T-283 closes, X is frozen and classified, and
-the replacement direct-GTL design is accepted.
+The ticket resumes only after T-270 closes M5 over one exact candidate. It does
+not reopen the accepted direct-GTL architecture or repeat T-286.
 
 ## Two Milestones
 
-### Milestone A - Restore Installed Direct-GTL Authority
+### Milestone A - Retained Installed Direct-GTL Authority
 
-Milestone A is required for `ABI5-ROOT-001` and does not wait for STDO 2.0.
+Milestone A is complete through T-286 and remains the mandatory root governor.
 
 It shall establish this installed chain:
 
@@ -72,24 +77,27 @@ verify exact packaged Product
 types or overlays. It shall not create a program, callable, topology, selector,
 execution basis, or default.
 
-### Milestone B - Adopt Tapped STDO 2.0
+### Milestone B - Materialize Selected STDO 2.0
 
-Milestone B begins only after STDO 2.0 is tapped as one immutable release.
-ABIogenesis shall verify and bind:
+Released STDO `v2.0.0` already governs ABIogenesis development. Milestone B
+materializes that selected basis into Product-owned context and qualification
+evidence by verifying and binding:
 
-- the exact released method manifest and full release inventory;
+- release tag `v2.0.0`, commit
+  `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a`, and the complete 41-member
+  standards inventory;
 - the exact compression identity, version, and digest;
 - every source reference declared by the compression against the released
   file and digest; and
 - the selected released method and compression identities in the installed
   Product context and `QualificationLawBasis`.
 
-Milestone B does not block `ABI5-ROOT-001` or behavior development for
-`ABG5-S02`, `S03`, `S05`, and `S06`. It is mandatory before `ABG5-S04`, exact
-pre-RC qualification, `ABG5-S07`, or stable 5.0 release.
+Milestone B does not block M5 behavior. Its Product-context and qualification
+binding is mandatory before `ABG5-S04`, exact pre-RC qualification,
+`ABG5-S07`, or stable 5.0 release.
 
-ABIogenesis verifies the tapped STDO release state. It does not independently
-re-adjudicate STDO's F_H release decision.
+ABIogenesis verifies the selected STDO release identity. It does not
+independently re-adjudicate STDO's F_H release decision.
 
 ## Authority Model
 
@@ -169,7 +177,7 @@ refactor, replace, create, delete, or archive under the accepted X vector.
 
 ## Acceptance
 
-Milestone A closes only when:
+Milestone A remains closed only while:
 
 - `ABI5-ROOT-001` runs through the source-blind installed public path;
 - the exact original GTL value remains traversal authority;
@@ -181,11 +189,12 @@ Milestone A closes only when:
 
 Milestone B closes only when:
 
-- tapped STDO 2.0 and its compression verify by exact identity and digest;
+- selected STDO `v2.0.0`, its 41-member distribution, and its compression
+  verify by exact identity and digest;
 - context materialization records their exact released basis;
 - stale or mismatched method/context inputs refuse typed;
 - `ABG5-S04` and qualification bind the same `QualificationLawBasis`; and
 - no mutable candidate or local copy is represented as released method truth.
 
-T-282 cannot close during T-283 and carries no current implementation-complete
-claim.
+T-282 cannot close before M6 qualification materializes the selected method
+basis and carries no current M5 implementation claim.

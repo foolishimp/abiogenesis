@@ -10,16 +10,17 @@
   `build_tenants/abiogenesis/codex/` are allowed when method-compliant.
 - Changes elsewhere require express user approval. The user supplied that
   approval for the T-283 constitutional transaction and its required
-  authority/read-model dispositions, and for T-286 realization of exact
-  `ABI5-ROOT-001` under the accepted M3 design.
+  authority/read-model dispositions, T-286 realization of exact
+  `ABI5-ROOT-001`, and T-270's bounded M5 planning and design reframe.
 - More specific `AGENTS.md` files may further restrict their subtree.
 
 ## Current Project Gate
 
-T-286 is the only executable work owner. The ABIogenesis 5.0 Product, M2
-correction vector, and M3 direct-GTL realization design are accepted. Code and
-tests may now advance only exact `ABI5-ROOT-001`; horizontal feature,
-qualification, and release work remain held.
+T-286 completed exact `ABI5-ROOT-001`. T-270 is the sole M5 parent owner and
+may reconcile authority plus produce the bounded generic-traversal and
+dependency-law design delta. Runtime implementation remains held until that
+exact delta is accepted. Every later implementation checkpoint must preserve
+and rerun `ABI5-ROOT-001`.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -34,19 +35,25 @@ Read:
 3. `specification/PRODUCT.md`
 4. `specification/requirements/`
 5. `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`
-6. `.ai-workspace/tickets/active/T-286-establish-installed-abi5-root.md`
+6. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
+7. `.ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md`
 
 Comments and posts are inputs and evidence, not constitutional truth.
 
 <!-- SDLC_BOOTLOADER_START -->
 ## Method Bootstrap
 
-The shared method source is
-`/Users/jim/src/apps/specification_methodology/specification/standards/`.
-One lawful STDO identity exists; consumers select an immutable released
-version. ABIogenesis 5.0 must adopt tapped STDO 2.0 before self-conformance,
-qualification, or release, but that tap does not block initial installed root
-or pre-qualification behavior work.
+ABIogenesis 5.0 development is governed by the selected immutable STDO release:
+
+- version and tag: `2.0.0` / `v2.0.0`;
+- release commit: `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a`;
+- standards member-set digest:
+  `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0`;
+- operative local projection: `.genesis/docs/standards/`.
+
+Mutable `specification_methodology` source authors a future candidate only. It
+does not govern this consumer. Qualification and release record the same
+selected STDO identity; they do not adopt it for the first time.
 
 Authority flows:
 
@@ -59,7 +66,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: accepted ABIogenesis 5.0 Product and direct-GTL design; M4 root realization active
+**Status**: M4 root complete; bounded M5 design reframe active under T-270
 
 This block is a thin read model. It does not duplicate the full Product.
 
@@ -86,4 +93,6 @@ This block is a thin read model. It does not duplicate the full Product.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.
+No new M5 ticket hierarchy is authorized. Existing tickets are repriced in
+place when their T-270 boundary becomes active.
 <!-- GTL_BOOTLOADER_END -->

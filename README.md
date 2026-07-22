@@ -12,16 +12,16 @@ successor to the immutable 4.6 RC5 Product origin.
 
 | Surface | State |
 |---|---|
-| current work owner | `T-286` M4 installed direct-GTL root |
+| current work owner | `T-270` M5 parent; bounded design reframe active, implementation held |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | active only for exact `ABI5-ROOT-001`; RC5, X, and final-integration remain sideways donor evidence |
+| implementation | M4 exact `ABI5-ROOT-001` complete at `ffba4e71`; M5 implementation not started |
 | replacement design | accepted under T-285 at SHA-256 `9faeb41d...92f0` |
-| delivery governor | `ABI5-ROOT-001`, red at frontier `R1` |
-| qualification method | tapped STDO 2.0 required before self-conformance and release |
+| delivery governor | `ABI5-ROOT-001`, green and mandatory at every promoted checkpoint |
+| method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
 
 The source branch history and the semantic Product origin are distinct. The
-future correction vector must reconcile every practical RC5 behavior even
-where Git ancestry branched below RC5.
+accepted correction vector requires every practical RC5 behavior to be
+reconciled even where Git ancestry branched below RC5.
 
 ## Product Architecture
 
@@ -64,7 +64,8 @@ Read in this order:
 6. [mapping requirements](specification/requirements/mapping/)
 7. [Product requirements](specification/requirements/product/)
 8. [accepted direct-GTL design](build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md)
-9. [T-286](.ai-workspace/tickets/active/T-286-establish-installed-abi5-root.md)
+9. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
+10. [completed T-286](.ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md)
 
 `PRODUCT.md` is the one complete 5.0 Product-definition surface. Requirements
 decompose it. Goals select the current wave and exact root. Design and code do
@@ -85,8 +86,11 @@ build_tenants/abiogenesis/python/            withdrawn historical reference
 
 ## Current Work Rule
 
-Do not implement against a donor line. Establish `ABI5-ROOT-001` under T-286
-from the accepted direct-GTL design before horizontal feature work.
+Do not implement against a donor line. Preserve the completed
+`ABI5-ROOT-001` while T-270 extends the same accepted direct-GTL architecture.
+No M5 runtime change starts before the bounded generic-traversal design delta
+is accepted. Missing detail is added to existing tickets; it does not create a
+new ticket hierarchy.
 
 Existing tests and commands remain current-state probes only. They are not
 5.0 Product evidence until the accepted design maps them onto the exact root,

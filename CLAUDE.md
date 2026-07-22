@@ -3,8 +3,9 @@
 ## Current State
 
 The ABIogenesis 5.0 Product destination, M2 correction vector, and M3 direct-GTL
-realization design are accepted. T-286 owns the bounded installed
-`ABI5-ROOT-001` implementation.
+realization design are accepted. T-286 completed the bounded installed
+`ABI5-ROOT-001` implementation. T-270 now owns M5 planning and the affected
+generic-traversal design delta; M5 runtime work remains held until acceptance.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.
@@ -17,7 +18,8 @@ specification/INTENT.md
 specification/PRODUCT.md
 specification/requirements/
 build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
-.ai-workspace/tickets/active/T-286-establish-installed-abi5-root.md
+.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
+.ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md
 ```
 
 `PRODUCT.md` is the sole complete ABIogenesis 5.0 Product-definition surface.
@@ -39,7 +41,7 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: accepted ABIogenesis 5.0 Product and direct-GTL design; M4 root realization active
+**Status**: M4 root complete; bounded M5 design reframe active under T-270
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
@@ -56,19 +58,23 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
   closure.
 - The exact installed governor is `ABI5-ROOT-001`, defined in `PRODUCT.md`.
 
-RC5, X, and final-integration remain sideways donor evidence. T-286 may admit
-only the D1-D3 root claims named by the accepted correction vector and design.
+RC5, X, and final-integration remain sideways donor evidence. T-270 may admit
+only claims explicitly conserved by the accepted correction vector and current
+Product. Existing X tickets do not resume without in-place reprice.
 <!-- GTL_BOOTLOADER_END -->
 
 <!-- SDLC_BOOTLOADER_START -->
 ## Method Bootstrap
 
-Use the released STDO selected by the Product. Shared source lives at
-`/Users/jim/src/apps/specification_methodology/specification/standards/`.
-ABIogenesis 5.0 requires tapped STDO 2.0 for self-conformance, qualification,
-and release. It is not a prerequisite for establishing the first installed
-root.
+ABIogenesis 5.0 development is governed by released STDO `v2.0.0`, commit
+`94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a`, with standards member-set digest
+`284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0`.
+The operative local projection is `.genesis/docs/standards/`. Mutable
+`specification_methodology` source is future-candidate authoring, not consumer
+law. Qualification and release record this same selected basis.
 
 No substantive change skips intake triage or the smallest lawful re-entry.
-No work outside exact `ABI5-ROOT-001` resumes before M4 closes.
+No M5 runtime work starts before T-270's exact affected design delta is
+accepted. No new ticket is required where missing detail belongs to an
+existing owner.
 <!-- SDLC_BOOTLOADER_END -->

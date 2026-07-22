@@ -10,14 +10,15 @@ truth.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M4 completed by T-286 at `ffba4e71`; M5 is ready but not opened |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M4 completed by T-286 at `ffba4e71`; M5 design reframe opened under T-270 |
 
 ## Current Constitutional Basis
 
 The ABIogenesis 5.0 Product destination, M2 correction vector, and M3 direct-GTL
 realization design are accepted. T-286 has completed the bounded installed root.
-Intent, Product, requirements, and accepted design remain stable; M5 has not
-been opened.
+Intent, Product, and requirements remain stable. T-270 owns the bounded M5
+design delta and integrated pre-qualification outcome. Runtime implementation
+remains held until that exact affected-boundary delta is accepted.
 
 | Basis | Current truth |
 |---|---|
@@ -33,8 +34,11 @@ been opened.
 | accepted M3 design | `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`, SHA-256 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0` |
 | M3 F_H decision | `.ai-workspace/comments/codex/20260720T141106Z_DECISION_fh_accept_t285_and_authorize_m4.md` |
 | completed work carrier | `T-286` implementation migration at `ffba4e71` |
+| selected method release | STDO `v2.0.0`, commit `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a` |
+| selected method member set | 41 members, digest `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0` |
+| current work carrier | `T-270` M5 parent at `design_reframe`; implementation held pending accepted delta |
 | current constitutional state | accepted Product, requirements, correction vector, and direct-GTL design |
-| implementation state | exact `ABI5-ROOT-001` complete; M5 ready but unopened; RC5, X, and final-integration remain sideways donor evidence |
+| implementation state | exact `ABI5-ROOT-001` complete; M5 implementation not started; RC5, X, and final-integration remain sideways donor evidence |
 
 The constitutional authoring order is one unpromoted transaction:
 
@@ -49,9 +53,9 @@ INTENT
 ```
 
 The T-283 Product transaction is closed. `PRODUCT.md` remains the sole complete
-Product-definition surface for ABIogenesis 5.0. T-284 may repair requirements
-to agree with that Product; it may not change Product semantics without a new
-Product re-entry and F_H ruling.
+Product-definition surface for ABIogenesis 5.0. T-284 repaired the affected
+requirements without changing Product semantics. Any later Product-semantic
+change requires lawful Product re-entry and an F_H ruling.
 
 ## Delivery Governor
 
@@ -100,26 +104,46 @@ coverage stays pending for M5 and qualification.
 | `M2` | Freeze donors and derive correction vector | Freeze X and final-integration; classify every RC5 semantic and implementation family plus X/final-integration carrier; repair Product/requirement authority contradictions; refreeze and independently review the exact subject. | Completed by T-284 |
 | `M3` | Accept direct-GTL realization design | Design proves GTL -> validator -> HoG -> ABG, positive intended authority, and real-path absence of compiled-plan and controller rivals. | Completed by T-285 |
 | `M4` | Establish installed root | Exact `ABI5-ROOT-001` runs green through packed bytes, clean install, direct HoG traversal, ABG replay twice, and typed CLI result. | Completed by T-286 at `ffba4e71`; 25/25 twice, deterministic retained proof, twelve installed mutations, and two clean exact-subject re-reviews |
-| `M5` | Complete pre-qualification behavior | `ABG5-S02`, `S03`, `S05`, and `S06`, all forty traversal rows, the fibre differential, and required negatives pass on the same candidate line. | Ready; not opened |
-| `M6` | Adopt STDO 2.0 and qualify | Tap and install STDO 2.0; bind its exact identity in `QualificationLawBasis`; close `ABG5-S04` and pre-RC qualification. | Blocked by M5 and STDO 2.0 tap |
+| `M5` | Complete pre-qualification behavior | `ABG5-S02`, `S03`, `S05`, and `S06`, all forty traversal rows, the fibre differential, observer/tuner realization, the 17-family no-silence disposition, and required negatives pass on the same candidate line. | Design reframe active under T-270; implementation held pending accepted delta |
+| `M6` | Materialize method basis and qualify | Bind the already-selected STDO `v2.0.0` identity in Product context and `QualificationLawBasis`; close `ABG5-S04` and pre-RC qualification. | Blocked by M5 |
 | `M7` | Release 5.0.0 | `ABG5-S07` preserves the pre-RC, RC, installed-RC, final-tap, released-Product, and post-publication-install subjects and taps stable 5.0.0. | Blocked by M6 |
 
-STDO 2.0 does not block `M4` or the behavior work in `M5`. It is mandatory for
-`M6`, `M7`, and release. odd_glc and 5.0.1 self-use remain successor work and
-do not gate ABIogenesis 5.0.
+Released STDO `v2.0.0` governs M5 and all subsequent development. M6 binds
+that already-selected basis into Product-owned qualification evidence; it does
+not adopt the method for the first time. odd_glc and 5.0.1 self-use remain
+successor work and do not gate ABIogenesis 5.0.
 
 ## Active Ticket Disposition
 
-`T-283`, `T-284`, `T-285`, and `T-286` are complete. No M5 implementation
-owner has been opened.
-The existing active tickets `T-268`, `T-270`, `T-272`, `T-274`, `T-275`,
-`T-276`, `T-278`, `T-281`, and `T-282` remain held as evidence and candidate
-carriers. None retains an implementation sequence, accepted design, operation
-count, compiled-plan authority, or closure projection.
+`T-283`, `T-284`, `T-285`, and `T-286` are complete. T-270 is the sole M5
+parent owner and is active only for the bounded design delta until that delta
+is accepted.
 
-The X-to-5 vector shall disposition those tickets in place where possible.
-Ticket shape follows the accepted correction vector; it does not define
-Product scope.
+The active tickets `T-268`, `T-272`, `T-274`, `T-275`, `T-276`, `T-278`,
+`T-281`, and `T-282` remain held donor or successor carriers. Each is repriced
+in place only when its T-270 sequence boundary becomes active. None currently
+retains an implementation sequence, fixed operation count, compiled-plan
+authority, or independent closure projection. T-247 and T-248 remain backlog
+carriers for M6 and M7. No new ticket hierarchy is authorized.
+
+## M5 Work Ownership
+
+`GOALS.md` owns ordering; T-270 owns integrated M5 closure. Existing tickets
+own subordinate boundaries after in-place reprice:
+
+| Order | Existing owner | Product boundary |
+|---:|---|---|
+| `1` | `T-270` | Reconcile post-M4 authority, accept the generic traversal and shared-primitive design delta, then preserve the root. |
+| `2` | `T-270` | Complete direct graph/C traversal, the forty-row matrix, fibre substitution, B-001, live F_P, and `ABG5-S02`. |
+| `3` | `T-272` | Durable replay reopening, F_H continuation, One Surface, and `ABG5-S03`. |
+| `4` | `T-274`, `T-275`, `T-276` | Ordinary-path Consensus and `ABG5-S05`. |
+| `5` | `T-281`, `T-268` | Observer/tuner realization, public and host projections, downstream portability, `ABG5-S06`, and S04 readiness. |
+| `6` | `T-270` | Re-evaluate the derived 17-family ledger and freeze one exact M5 candidate for T-247. |
+
+The feature ledger prevents silence over known obligations but cannot certify
+completeness. Installed scenarios, mutation negatives, independent consumers,
+and review remain the falsification surfaces. Missing detail is added to its
+existing owner unless Product meaning or a material semantic boundary changes.
 
 ## Progress Reporting
 
