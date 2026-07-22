@@ -11,6 +11,12 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
+import {
+  deriveDirectCStepFromGraph,
+  rootCTraversalCoordinate,
+  type CTraversalCoordinate,
+  type DirectCTraversalStep,
+} from "./direct_fold.js";
 
 export interface TraversalCursor {
   readonly kind: "traversal_cursor";
@@ -25,7 +31,22 @@ export interface TraversalCursor {
   readonly frameId: string;
   readonly graphRef: string;
   readonly currentNodeRef: string;
-  readonly position: "at_compute_locus";
+  readonly position: "at_compute_locus" | "at_term";
+  readonly termPath: readonly string[];
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+  readonly retryPath: readonly number[];
+}
+
+export interface TraversalStep {
+  readonly kind: "traversal_step";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "derived";
+  readonly stepRef: string;
+  readonly stepDigest: Sha256Digest;
+  readonly sourceCursor: TraversalCursor;
+  readonly targetCursor: TraversalCursor | null;
+  readonly directStep: DirectCTraversalStep;
 }
 
 export interface TraversalStopRef {
@@ -66,7 +87,8 @@ export interface TraversalRefusal {
     | "graph_mismatch"
     | "locus_missing"
     | "program_mismatch"
-    | "scope_not_admitted";
+    | "scope_not_admitted"
+    | "traversal_cursor_mismatch";
   readonly message: string;
 }
 
@@ -78,12 +100,18 @@ export interface TraverseInput {
   readonly openedTraversalScope: OpenedTraversalScope;
 }
 
-export type TraverseResult = TraversalStopRef | TraversalRefusal;
+export type TraverseResult = TraversalStep | TraversalStopRef | TraversalRefusal;
 
 const traversalStops = new WeakSet<object>();
+const traversalCursors = new WeakSet<object>();
+const traversalSteps = new WeakSet<object>();
 
 export function isTraversalStopRef(value: object): boolean {
   return traversalStops.has(value);
+}
+
+export function isTraversalStep(value: object): boolean {
+  return traversalSteps.has(value);
 }
 
 function refusal(
@@ -97,6 +125,116 @@ function refusal(
     code,
     message,
   };
+}
+
+interface CursorLineage {
+  readonly programRef: string;
+  readonly executionBasisRef: string;
+  readonly traversalScopeRef: string;
+  readonly runId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly graphRef: string;
+}
+
+function createCursor(
+  lineage: CursorLineage,
+  coordinate: CTraversalCoordinate,
+  position: TraversalCursor["position"],
+): TraversalCursor {
+  const cursorBody = {
+    ...lineage,
+    currentNodeRef: coordinate.nodeRef,
+    position,
+    termPath: [...coordinate.termPath],
+    taskOrdinal: coordinate.taskOrdinal,
+    attempt: coordinate.attempt,
+    retryPath: [...coordinate.retryPath],
+  };
+  const cursorDigest = sha256Canonical(cursorBody as unknown as JsonValue);
+  const cursor = deepFreeze({
+    kind: "traversal_cursor" as const,
+    schemaVersion: "5.0.0" as const,
+    cursorRef: `traversal-cursor://abiogenesis/${cursorDigest.slice("sha256:".length)}`,
+    cursorDigest,
+    ...cursorBody,
+  }) as TraversalCursor;
+  traversalCursors.add(cursor);
+  return cursor;
+}
+
+function cursorLineage(cursor: TraversalCursor): CursorLineage {
+  return {
+    programRef: cursor.programRef,
+    executionBasisRef: cursor.executionBasisRef,
+    traversalScopeRef: cursor.traversalScopeRef,
+    runId: cursor.runId,
+    graphCallId: cursor.graphCallId,
+    frameId: cursor.frameId,
+    graphRef: cursor.graphRef,
+  };
+}
+
+function targetCoordinate(
+  step: DirectCTraversalStep,
+): CTraversalCoordinate | null {
+  switch (step.stepKind) {
+    case "enter_term":
+    case "retry":
+    case "start_task":
+      return step.target;
+    case "enter_child":
+    case "open_leaf":
+    case "pass_identity":
+      return null;
+  }
+}
+
+export function deriveTraversalStep(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+): TraversalStep | TraversalRefusal {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !traversalCursors.has(sourceCursor) ||
+    sourceCursor.graphRef !== graph.materializationRef ||
+    sourceCursor.position !== "at_term"
+  ) {
+    return refusal(
+      "traversal_cursor_mismatch",
+      "HoG derives a step only from its exact materialized Graph and owner-issued term cursor",
+    );
+  }
+  const directStep = deriveDirectCStepFromGraph(graph.template, {
+    nodeRef: sourceCursor.currentNodeRef,
+    termPath: sourceCursor.termPath,
+    taskOrdinal: sourceCursor.taskOrdinal,
+    attempt: sourceCursor.attempt,
+    retryPath: sourceCursor.retryPath,
+  });
+  if (directStep.kind === "direct_c_traversal_refusal") {
+    return refusal("locus_missing", directStep.message);
+  }
+  const target = targetCoordinate(directStep);
+  const targetCursor = target === null
+    ? null
+    : createCursor(cursorLineage(sourceCursor), target, "at_term");
+  const stepBody = {
+    sourceCursor,
+    targetCursor,
+    directStep,
+  };
+  const stepDigest = sha256Canonical(stepBody as unknown as JsonValue);
+  const step = deepFreeze({
+    kind: "traversal_step" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "derived" as const,
+    stepRef: `traversal-step://abiogenesis/${stepDigest.slice("sha256:".length)}`,
+    stepDigest,
+    ...stepBody,
+  }) as TraversalStep;
+  traversalSteps.add(step);
+  return step;
 }
 
 export function traverse(input: TraverseInput): TraverseResult {
@@ -153,10 +291,7 @@ export function traverse(input: TraverseInput): TraverseResult {
     return refusal("locus_missing", "admitted GTL start node does not resolve to a compute locus");
   }
   const term = node.term;
-  if (!isExecutableCLeaf(term)) {
-    return refusal("locus_missing", "current M4 entry requires one admitted executable C.of locus");
-  }
-  const cursorBody = {
+  const lineage = {
     programRef: input.program.programRef,
     executionBasisRef: input.executionBasis.basisRef,
     traversalScopeRef: input.openedTraversalScope.scopeRef,
@@ -164,17 +299,22 @@ export function traverse(input: TraverseInput): TraverseResult {
     graphCallId: input.openedTraversalScope.graphCallId,
     frameId: input.openedTraversalScope.frameId,
     graphRef: input.graph.materializationRef,
-    currentNodeRef: node.nodeRef,
-    position: "at_compute_locus" as const,
   };
-  const cursorDigest = sha256Canonical(cursorBody as unknown as JsonValue);
-  const cursor = deepFreeze({
-    kind: "traversal_cursor" as const,
-    schemaVersion: "5.0.0" as const,
-    cursorRef: `traversal-cursor://abiogenesis/${cursorDigest.slice("sha256:".length)}`,
-    cursorDigest,
-    ...cursorBody,
-  }) as TraversalCursor;
+  const sourceCursor = createCursor(
+    lineage,
+    rootCTraversalCoordinate(node.nodeRef),
+    "at_term",
+  );
+  const derivedStep = deriveTraversalStep(input.graph, sourceCursor);
+  if (derivedStep.kind === "traversal_refusal") return derivedStep;
+  if (!isExecutableCLeaf(term) || derivedStep.directStep.stepKind !== "open_leaf") {
+    return derivedStep;
+  }
+  const cursor = createCursor(
+    lineage,
+    derivedStep.directStep.source,
+    "at_compute_locus",
+  );
   const stopBody = {
     stopKind: "compute_locus" as const,
     cursor,

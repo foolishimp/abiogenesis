@@ -1034,13 +1034,16 @@ async function applyRunInvoke(
     );
   }
   if (stop.kind !== "traversal_stop_ref") {
+    const diagnosticCode = stop.kind === "traversal_refusal"
+      ? stop.code
+      : "structural_step_not_yet_executable";
     abg.admitRuntimeFailure(
       context.store,
       executionAdmission.executionBasis,
       opened.scope,
       "hog_traversal",
       stop as unknown as product.JsonValue,
-      `diagnostic://abiogenesis/hog/${stop.code}@5`,
+      `diagnostic://abiogenesis/hog/${diagnosticCode}@5`,
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/traversal-refusal`, causationEventRefs: [] },
     );
     return projectCurrentOutcome(
