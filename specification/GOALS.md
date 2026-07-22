@@ -10,15 +10,15 @@ truth.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M4 completed by T-286 at `ffba4e71`; M5 design reframe opened under T-270 |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M4 completed by T-286 at `ffba4e71`; accepted M5 implementation active under T-270 |
 
 ## Current Constitutional Basis
 
 The ABIogenesis 5.0 Product destination, M2 correction vector, and M3 direct-GTL
 realization design are accepted. T-286 has completed the bounded installed root.
 Intent, Product, and requirements remain stable. T-270 owns the bounded M5
-design delta and integrated pre-qualification outcome. Runtime implementation
-remains held until that exact affected-boundary delta is accepted.
+design delta and integrated pre-qualification outcome. Direct F_H accepted the
+exact affected-boundary delta at `d6da4269`; runtime implementation is active.
 
 | Basis | Current truth |
 |---|---|
@@ -34,11 +34,13 @@ remains held until that exact affected-boundary delta is accepted.
 | accepted M3 design | `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`, SHA-256 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0` |
 | M3 F_H decision | `.ai-workspace/comments/codex/20260720T141106Z_DECISION_fh_accept_t285_and_authorize_m4.md` |
 | completed work carrier | `T-286` implementation migration at `ffba4e71` |
+| accepted M5 design | `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` at `d6da4269`, SHA-256 `80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3` |
+| M5 F_H decision | direct F_H ruling on 2026-07-22: accepted and continue under T-270 |
 | selected method release | STDO `v2.0.0`, commit `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a` |
 | selected method member set | 41 members, digest `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0` |
-| current work carrier | `T-270` M5 parent at `design_reframe`; implementation held pending accepted delta |
+| current work carrier | `T-270` M5 parent implementing the accepted M5 design delta |
 | current constitutional state | accepted Product, requirements, correction vector, and direct-GTL design |
-| implementation state | exact `ABI5-ROOT-001` complete; M5 implementation not started; RC5, X, and final-integration remain sideways donor evidence |
+| implementation state | exact `ABI5-ROOT-001` complete; M5 implementation active; RC5, X, and final-integration remain sideways donor evidence |
 
 The constitutional authoring order is one unpromoted transaction:
 
@@ -104,7 +106,7 @@ coverage stays pending for M5 and qualification.
 | `M2` | Freeze donors and derive correction vector | Freeze X and final-integration; classify every RC5 semantic and implementation family plus X/final-integration carrier; repair Product/requirement authority contradictions; refreeze and independently review the exact subject. | Completed by T-284 |
 | `M3` | Accept direct-GTL realization design | Design proves GTL -> validator -> HoG -> ABG, positive intended authority, and real-path absence of compiled-plan and controller rivals. | Completed by T-285 |
 | `M4` | Establish installed root | Exact `ABI5-ROOT-001` runs green through packed bytes, clean install, direct HoG traversal, ABG replay twice, and typed CLI result. | Completed by T-286 at `ffba4e71`; 25/25 twice, deterministic retained proof, twelve installed mutations, and two clean exact-subject re-reviews |
-| `M5` | Complete pre-qualification behavior | `ABG5-S02`, `S03`, `S05`, and `S06`, all forty traversal rows, the fibre differential, observer/tuner realization, the 17-family no-silence disposition, and required negatives pass on the same candidate line. | Design reframe active under T-270; implementation held pending accepted delta |
+| `M5` | Complete pre-qualification behavior | `ABG5-S02`, `S03`, `S05`, and `S06`, all forty traversal rows, the fibre differential, observer/tuner realization, the 17-family no-silence disposition, and required negatives pass on the same candidate line. | Accepted design implementation active under T-270 |
 | `M6` | Materialize method basis and qualify | Bind the already-selected STDO `v2.0.0` identity in Product context and `QualificationLawBasis`; close `ABG5-S04` and pre-RC qualification. | Blocked by M5 |
 | `M7` | Release 5.0.0 | `ABG5-S07` preserves the pre-RC, RC, installed-RC, final-tap, released-Product, and post-publication-install subjects and taps stable 5.0.0. | Blocked by M6 |
 
@@ -116,8 +118,7 @@ successor work and do not gate ABIogenesis 5.0.
 ## Active Ticket Disposition
 
 `T-283`, `T-284`, `T-285`, and `T-286` are complete. T-270 is the sole M5
-parent owner and is active only for the bounded design delta until that delta
-is accepted.
+parent owner and is implementing the accepted bounded design delta.
 
 The active tickets `T-268`, `T-272`, `T-274`, `T-275`, `T-276`, `T-278`,
 `T-281`, and `T-282` remain held donor or successor carriers. Each is repriced

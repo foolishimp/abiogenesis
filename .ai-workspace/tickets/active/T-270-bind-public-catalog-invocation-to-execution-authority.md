@@ -10,8 +10,8 @@
     build_tenants/abiogenesis/typescript/code/src direct-GTL realization across
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
-- phase_status: m5_parent_design_reframe_active_implementation_held
-- review_status: plan_accepted_design_delta_pending
+- phase_status: m5_parent_implementation_active
+- review_status: design_delta_direct_fh_accepted_d6da4269
 - proof_status: m4_root_retained_m5_pending
 - goal: GOAL-035 M5
 - priority: critical
@@ -29,10 +29,12 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- implementation_hold: active
+- implementation_hold: released
 - implementation_hold_effect: >-
-    T-270 may reconcile authority and produce the bounded M5 design delta;
-    runtime implementation starts only after that exact delta is accepted
+    Direct F_H accepted the exact M5 design at d6da4269 on 2026-07-22;
+    runtime implementation is authorized only inside that accepted boundary
+- accepted_m5_design_commit: d6da426947e1b7e18e7ed5bd1c0f945dcde9c73f
+- accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
 - root_binding: ABI5-ROOT-001
 - retained_implementation_subject: ffba4e71456cf19168fa2bbf2981b463e018a0cf
 - current_branch_head_at_intake: e0575b824773d2105110918cf71257deca8b0f3a
@@ -102,6 +104,11 @@ Its historical body, count, dependency chain, design, or closure claim is not
 current authority.
 
 ## Bounded M5 Design Delta
+
+Direct F_H accepted the exact repaired design at commit `d6da4269`, SHA-256
+`80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3`, on
+2026-07-22 and authorized continued T-270 implementation. The implementation
+hold is discharged only for that boundary.
 
 The accepted M3 Ontology, authority split, module architecture, and lifecycle
 remain the governing design. Before implementation resumes, T-270 shall add

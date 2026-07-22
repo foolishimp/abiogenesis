@@ -17,10 +17,10 @@
 ## Current Project Gate
 
 T-286 completed exact `ABI5-ROOT-001`. T-270 is the sole M5 parent owner and
-may reconcile authority plus produce the bounded generic-traversal and
-dependency-law design delta. Runtime implementation remains held until that
-exact delta is accepted. Every later implementation checkpoint must preserve
-and rerun `ABI5-ROOT-001`.
+owns implementation of the accepted generic-traversal and dependency-law design
+delta at commit `d6da4269`. Runtime implementation is authorized under that
+exact boundary. Every implementation checkpoint must preserve and rerun
+`ABI5-ROOT-001`.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -66,7 +66,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: M4 root complete; bounded M5 design reframe active under T-270
+**Status**: M4 root complete; accepted M5 implementation active under T-270
 
 This block is a thin read model. It does not duplicate the full Product.
 
