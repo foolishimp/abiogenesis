@@ -33,6 +33,8 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     invocationAdmission,
     publication,
     programValidation,
+    resolutionSetCandidate,
+    resolutionSetValidation,
     resolutionCandidate,
     resolutionValidation,
   } = environment;
@@ -66,8 +68,11 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     {
       invocationAdmission,
       program,
+      programValidation,
       graph,
       graphValidation,
+      resolutionSetCandidate,
+      resolutionSetValidation,
       resolutionCandidate,
       resolutionValidation,
       closureContract,
@@ -75,6 +80,19 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     runtimeBasis("correlation://t286/r7/positive"),
   );
   assert.equal(basisAdmission.kind, "execution_basis_admission", JSON.stringify(basisAdmission));
+  assert.equal(basisAdmission.implementationSet.disposition, "admitted");
+  assert.equal(basisAdmission.interactionSet.disposition, "admitted");
+  assert.deepEqual(
+    basisAdmission.implementationSet.executableLeafKeys,
+    programValidation.transitiveReachableExecutableLeafKeys,
+  );
+  assert.deepEqual(
+    basisAdmission.interactionSet.interactionLeafKeys,
+    programValidation.transitiveReachableInteractionLeafKeys,
+  );
+  assert.equal(abg.hasAdmittedImplementationSet(store, basisAdmission.implementationSet), true);
+  assert.equal(abg.hasAdmittedInteractionSet(store, basisAdmission.interactionSet), true);
+  assert.notEqual(basisAdmission.implementationResolution, null);
   assert.equal(basisAdmission.implementationResolution.disposition, "admitted");
   assert.equal(
     basisAdmission.implementationResolution.resolutionCandidateDigest,
@@ -97,6 +115,14 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
   assert.equal(basisAdmission.executionBasis.graphRef, graph.materializationRef);
   assert.equal(basisAdmission.executionBasis.graphDigest, graph.materializationDigest);
   assert.equal(basisAdmission.executionBasis.graphValidationRef, graphValidation.validationRef);
+  assert.equal(
+    basisAdmission.executionBasis.implementationSetRef,
+    basisAdmission.implementationSet.implementationSetRef,
+  );
+  assert.equal(
+    basisAdmission.executionBasis.interactionSetRef,
+    basisAdmission.interactionSet.interactionSetRef,
+  );
   assert.equal(basisAdmission.executionBasis.implementationResolutionRef, basisAdmission.implementationResolution.resolutionRef);
   assert.equal(basisAdmission.executionBasis.closureContractRef, closureContract.closureContractRef);
   assert.equal(Object.isFrozen(basisAdmission.executionBasis), true);
@@ -109,6 +135,51 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     "basis_admitted",
   ]);
   assert.equal(events.at(-1).causationEventRefs[0], events.at(-2).eventId);
+
+  const setOnlyEnvironment = await setupInstalledRootResolution(context, root);
+  const setOnlyGraph = setOnlyEnvironment.gtl.materializeGraph(
+    setOnlyEnvironment.graphFunction,
+    {
+      invocationAdmissionRef: setOnlyEnvironment.invocationAdmission.invocationAdmissionRef,
+      admittedInputRef: setOnlyEnvironment.rawInput.admissionRef,
+      admittedInputDigest: setOnlyEnvironment.rawInput.subjectDigest,
+    },
+  );
+  const setOnlyGraphValidation = setOnlyEnvironment.validator.validateGraph(
+    setOnlyGraph,
+    setOnlyEnvironment.programValidation,
+    setOnlyEnvironment.graphFunction,
+    {
+      invocationAdmissionRef: setOnlyEnvironment.invocationAdmission.invocationAdmissionRef,
+      admittedInputRef: setOnlyEnvironment.rawInput.admissionRef,
+      admittedInputDigest: setOnlyEnvironment.rawInput.subjectDigest,
+    },
+  );
+  assert.equal(setOnlyGraphValidation.kind, "graph_validation");
+  const setOnlyClosureContract = setOnlyEnvironment.publication.closureContracts.find(
+    (value) => value.closureContractRef === setOnlyEnvironment.program.closureContractRef,
+  );
+  const setOnlyAdmission = setOnlyEnvironment.abg.admitExecutionBasis(
+    setOnlyEnvironment.store,
+    {
+      invocationAdmission: setOnlyEnvironment.invocationAdmission,
+      program: setOnlyEnvironment.program,
+      programValidation: setOnlyEnvironment.programValidation,
+      graph: setOnlyGraph,
+      graphValidation: setOnlyGraphValidation,
+      resolutionSetCandidate: setOnlyEnvironment.resolutionSetCandidate,
+      resolutionSetValidation: setOnlyEnvironment.resolutionSetValidation,
+      closureContract: setOnlyClosureContract,
+    },
+    runtimeBasis("correlation://t286/r7/set-only"),
+  );
+  assert.equal(setOnlyAdmission.kind, "execution_basis_admission", JSON.stringify(setOnlyAdmission));
+  assert.equal(setOnlyAdmission.implementationResolution, null);
+  assert.equal(setOnlyAdmission.executionBasis.implementationResolutionRef, null);
+  assert.equal(
+    "resolutionRef" in setOnlyEnvironment.store.readAll().at(-2).payload,
+    false,
+  );
 
   const rejectedEnvironment = await setupInstalledRootInvocation(context, root);
   const alteredGraphFunction = structuredClone(rejectedEnvironment.graphFunction);
@@ -169,16 +240,21 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
   const forgedClosureContract = forgedBasisEnvironment.publication.closureContracts.find(
     (value) => value.closureContractRef === forgedBasisEnvironment.program.closureContractRef,
   );
-  const forgedResolutionValidation = structuredClone(forgedBasisEnvironment.resolutionValidation);
+  const forgedResolutionSetValidation = structuredClone(
+    forgedBasisEnvironment.resolutionSetValidation,
+  );
   const forgedBasisAdmission = forgedBasisEnvironment.abg.admitExecutionBasis(
     forgedBasisEnvironment.store,
     {
       invocationAdmission: forgedBasisEnvironment.invocationAdmission,
       program: forgedBasisEnvironment.program,
+      programValidation: forgedBasisEnvironment.programValidation,
       graph: forgedGraph,
       graphValidation: forgedGraphValidation,
+      resolutionSetCandidate: forgedBasisEnvironment.resolutionSetCandidate,
+      resolutionSetValidation: forgedResolutionSetValidation,
       resolutionCandidate: forgedBasisEnvironment.resolutionCandidate,
-      resolutionValidation: forgedResolutionValidation,
+      resolutionValidation: forgedBasisEnvironment.resolutionValidation,
       closureContract: forgedClosureContract,
     },
     runtimeBasis("correlation://t286/r7/forged-basis"),
@@ -208,6 +284,10 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
       graphFunctionDigest: graph.graphFunctionDigest,
       graphValidationRef: graphValidation.validationRef,
       graphValidationDigest: graphValidation.validationDigest,
+      implementationSetRef: basisAdmission.implementationSet.implementationSetRef,
+      implementationSetDigest: basisAdmission.implementationSet.implementationSetDigest,
+      interactionSetRef: basisAdmission.interactionSet.interactionSetRef,
+      interactionSetDigest: basisAdmission.interactionSet.interactionSetDigest,
       implementationResolutionRef: basisAdmission.implementationResolution.resolutionRef,
       implementationResolutionDigest: basisAdmission.implementationResolution.resolutionDigest,
       implementationResolutionValidationRef: basisAdmission.implementationResolution.resolutionValidationRef,
@@ -221,7 +301,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
         changedGraphValidation: alteredGraphValidation.diagnostics.map((diagnostic) => diagnostic.code),
         admittedRefusalRef: refusal.refusalRef,
         admittedRefusalEventRef: refusal.admissionEventRef,
-        forgedResolutionValidationRefused: forgedBasisAdmission.kind === "invocation_refusal_admission",
+        forgedResolutionSetValidationRefused: forgedBasisAdmission.kind === "invocation_refusal_admission",
         implementationNotAdmitted: true,
         basisNotAdmitted: true,
       },

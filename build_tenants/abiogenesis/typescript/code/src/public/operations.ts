@@ -755,9 +755,7 @@ async function applyRunInvoke(
     );
   }
   activeRefusalStage = "implementation_resolution";
-  const matchingBindings = viewState.catalogState.publication.implementationBindings.filter(
-    (binding) => binding.bindingRef === term.requirement.implementationBindingRef,
-  );
+  const matchingBindings = viewState.catalogState.publication.implementationBindings;
   const implementationModules = new Map<string, Record<string, unknown>>();
   const packagedImplementations: product.PackagedLeafImplementationDescriptor[] = [];
   for (const binding of matchingBindings) {
@@ -792,6 +790,54 @@ async function applyRunInvoke(
     implementationModules.set(binding.modulePath, implementationModule);
     packagedImplementations.push(
       ...Object.values(implementationModule).filter(product.isPackagedLeafImplementationDescriptor),
+    );
+  }
+  const resolutionSetCandidate = product.resolveImplementationSet(
+    viewState.view,
+    viewState.catalogState.publication,
+    viewState.catalogState.programValidation,
+    packagedImplementations,
+  );
+  if (resolutionSetCandidate.kind !== "implementation_resolution_set_candidate") {
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      "implementation_resolution",
+      product.sha256Canonical(resolutionSetCandidate as unknown as product.JsonValue),
+      [`diagnostic://abiogenesis/implementation-resolution/${resolutionSetCandidate.code}@5`],
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution-set`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+    );
+  }
+  const resolutionSetValidation = validator.validateImplementationResolutionSet(
+    resolutionSetCandidate,
+    viewState.view,
+    viewState.catalogState.publication,
+    viewState.catalogState.programValidation,
+    packagedImplementations,
+  );
+  if (resolutionSetValidation.kind !== "implementation_resolution_set_validation") {
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      "implementation_resolution",
+      resolutionSetValidation.subjectDigest,
+      resolutionSetValidation.diagnostics.map((row) =>
+        `diagnostic://abiogenesis/validator/${row.code}@5`),
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution-set-validation`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
     );
   }
   const resolutionCandidate = product.resolveImplementation(
@@ -910,8 +956,11 @@ async function applyRunInvoke(
     {
       invocationAdmission,
       program: programValue,
+      programValidation: viewState.catalogState.programValidation,
       graph,
       graphValidation,
+      resolutionSetCandidate,
+      resolutionSetValidation,
       resolutionCandidate,
       resolutionValidation,
       closureContract,
@@ -928,6 +977,10 @@ async function applyRunInvoke(
     );
   }
   failureExecutionBasis = executionAdmission.executionBasis;
+  const implementationResolution = executionAdmission.implementationResolution;
+  if (implementationResolution === null) {
+    throw new TypeError("single-leaf M4 invocation requires its derived resolution projection");
+  }
   activeRefusalStage = "open_call";
   const opened = abg.openCall(
     context.store,
@@ -1004,7 +1057,7 @@ async function applyRunInvoke(
   );
   const failureDeclaration = viewState.catalogState.publication.contracts.find(
     (value) =>
-      value.contractRef === executionAdmission.implementationResolution.failureContractRef &&
+      value.contractRef === implementationResolution.failureContractRef &&
       value.contractKind === "failure",
   );
   if (outputDeclaration === undefined || failureDeclaration === undefined) {
@@ -1014,7 +1067,7 @@ async function applyRunInvoke(
       opened.scope,
       "output_contract",
       {
-        failureContractRef: executionAdmission.implementationResolution.failureContractRef,
+        failureContractRef: implementationResolution.failureContractRef,
         outputContractRef: graphFunction.outputs[0] ?? null,
       },
       "diagnostic://abiogenesis/implementation/result-contract-absent@5",
@@ -1037,7 +1090,7 @@ async function applyRunInvoke(
       program: programValue,
       graph,
       traversalStop: stop,
-      implementationResolution: executionAdmission.implementationResolution,
+      implementationResolution,
       input: helloInput,
       inputDigest: rawInput.subjectDigest,
       failureValueKind: failureDeclaration.valueKind,

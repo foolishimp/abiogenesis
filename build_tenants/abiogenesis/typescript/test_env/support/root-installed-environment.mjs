@@ -385,6 +385,29 @@ export async function setupInstalledRootResolution(context, packageRoot) {
   const packagedImplementations = Object.values(implementationModule).filter(
     product.isPackagedLeafImplementationDescriptor,
   );
+  const resolutionSetCandidate = product.resolveImplementationSet(
+    catalogView,
+    publication,
+    programValidation,
+    packagedImplementations,
+  );
+  assert.equal(
+    resolutionSetCandidate.kind,
+    "implementation_resolution_set_candidate",
+    JSON.stringify(resolutionSetCandidate),
+  );
+  const resolutionSetValidation = validator.validateImplementationResolutionSet(
+    resolutionSetCandidate,
+    catalogView,
+    publication,
+    programValidation,
+    packagedImplementations,
+  );
+  assert.equal(
+    resolutionSetValidation.kind,
+    "implementation_resolution_set_validation",
+    JSON.stringify(resolutionSetValidation),
+  );
   const resolutionCandidate = product.resolveImplementation(
     catalogView,
     publication,
@@ -414,6 +437,9 @@ export async function setupInstalledRootResolution(context, packageRoot) {
     graph,
     graphValidation,
     implementationDescriptor,
+    packagedImplementations,
+    resolutionSetCandidate,
+    resolutionSetValidation,
     resolutionCandidate,
     resolutionValidation,
   };
@@ -425,10 +451,13 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     abg,
     store,
     program,
+    programValidation,
     invocationAdmission,
     publication,
     graph,
     graphValidation,
+    resolutionSetCandidate,
+    resolutionSetValidation,
     resolutionCandidate,
     resolutionValidation,
   } = environment;
@@ -440,8 +469,11 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     {
       invocationAdmission,
       program,
+      programValidation,
       graph,
       graphValidation,
+      resolutionSetCandidate,
+      resolutionSetValidation,
       resolutionCandidate,
       resolutionValidation,
       closureContract,
@@ -453,6 +485,7 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     },
   );
   assert.equal(executionBasisAdmission.kind, "execution_basis_admission", JSON.stringify(executionBasisAdmission));
+  assert.notEqual(executionBasisAdmission.implementationResolution, null);
   return {
     ...environment,
     graph,

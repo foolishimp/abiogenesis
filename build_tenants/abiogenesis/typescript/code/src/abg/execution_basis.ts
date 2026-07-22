@@ -1,8 +1,13 @@
 import type { ClosureContract, GtlGraph, GtlProgram } from "../gtl/contracts.js";
 import {
   type ImplementationResolutionCandidate,
+  type ImplementationResolutionSetCandidate,
+  type LeafImplementationResolutionCandidate,
 } from "../product/index.js";
-import { isImplementationResolutionCandidate } from "../product/implementation_resolution.js";
+import {
+  isImplementationResolutionCandidate,
+  isImplementationResolutionSetCandidate,
+} from "../product/implementation_resolution.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
@@ -13,8 +18,15 @@ import {
 } from "../validator/graph.js";
 import {
   isImplementationResolutionValidation,
+  isImplementationResolutionSetValidation,
   type ImplementationResolutionValidation,
+  type ImplementationResolutionSetValidation,
 } from "../validator/implementation_resolution.js";
+import {
+  isProgramValidation,
+  type ProgramValidation,
+  type ValidatedInteractionLeaf,
+} from "../validator/validation.js";
 import {
   hasAdmittedInvocation,
   type InvocationAdmission,
@@ -41,6 +53,59 @@ export interface InvocationRefusalAdmission {
     | "open_call";
   readonly subjectDigest: Sha256Digest;
   readonly contractOrDiagnosticRefs: readonly string[];
+  readonly admissionEventRef: string;
+}
+
+export interface AdmittedImplementationResolutionRow
+  extends Omit<
+    LeafImplementationResolutionCandidate,
+    "disposition" | "kind" | "schemaVersion"
+  > {
+  readonly kind: "admitted_implementation_resolution_row";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+}
+
+export interface AdmittedInteractionContractRow
+  extends Omit<ValidatedInteractionLeaf, "kind"> {
+  readonly kind: "admitted_interaction_contract_row";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+}
+
+export interface AdmittedImplementationSet {
+  readonly kind: "admitted_implementation_set";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+  readonly implementationSetRef: string;
+  readonly implementationSetDigest: Sha256Digest;
+  readonly invocationAdmissionRef: string;
+  readonly invocationRef: string;
+  readonly resolutionSetCandidateRef: string;
+  readonly resolutionSetCandidateDigest: Sha256Digest;
+  readonly resolutionSetValidationRef: string;
+  readonly resolutionSetValidationDigest: Sha256Digest;
+  readonly catalogViewId: string;
+  readonly catalogViewDigest: Sha256Digest;
+  readonly publicationDigest: Sha256Digest;
+  readonly programValidationRef: string;
+  readonly executableLeafKeys: readonly string[];
+  readonly rows: readonly AdmittedImplementationResolutionRow[];
+  readonly admissionEventRef: string;
+}
+
+export interface AdmittedInteractionSet {
+  readonly kind: "admitted_interaction_set";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+  readonly interactionSetRef: string;
+  readonly interactionSetDigest: Sha256Digest;
+  readonly invocationAdmissionRef: string;
+  readonly invocationRef: string;
+  readonly programValidationRef: string;
+  readonly programValidationSourceDigest: Sha256Digest;
+  readonly interactionLeafKeys: readonly string[];
+  readonly rows: readonly AdmittedInteractionContractRow[];
   readonly admissionEventRef: string;
 }
 
@@ -71,7 +136,7 @@ export interface AdmittedImplementationResolution {
   readonly packageVersion: string;
   readonly modulePath: string;
   readonly namedSymbol: string;
-  readonly computeRegime: "F_D" | "F_H" | "F_P";
+  readonly computeRegime: "F_D" | "F_P";
   readonly inputContractRef: string;
   readonly outputContractRef: string;
   readonly failureContractRef: string;
@@ -103,7 +168,11 @@ export interface ExecutionBasis {
   readonly graphValidationRef: string;
   readonly graphRef: string;
   readonly graphDigest: Sha256Digest;
-  readonly implementationResolutionRef: string;
+  readonly implementationSetRef: string;
+  readonly implementationSetDigest: Sha256Digest;
+  readonly interactionSetRef: string;
+  readonly interactionSetDigest: Sha256Digest;
+  readonly implementationResolutionRef: string | null;
   readonly closureContractRef: string;
   readonly closureContractDigest: Sha256Digest;
   readonly terminalPredicateRef: string;
@@ -123,17 +192,22 @@ export interface ExecutionBasisAdmission {
   readonly kind: "execution_basis_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
-  readonly implementationResolution: AdmittedImplementationResolution;
+  readonly implementationSet: AdmittedImplementationSet;
+  readonly interactionSet: AdmittedInteractionSet;
+  readonly implementationResolution: AdmittedImplementationResolution | null;
   readonly executionBasis: ExecutionBasis;
 }
 
 export interface ExecutionBasisInput {
   readonly invocationAdmission: InvocationAdmission;
   readonly program: Readonly<GtlProgram>;
+  readonly programValidation: ProgramValidation;
   readonly graph: Readonly<GtlGraph>;
   readonly graphValidation: GraphValidation;
-  readonly resolutionCandidate: ImplementationResolutionCandidate;
-  readonly resolutionValidation: ImplementationResolutionValidation;
+  readonly resolutionSetCandidate: ImplementationResolutionSetCandidate;
+  readonly resolutionSetValidation: ImplementationResolutionSetValidation;
+  readonly resolutionCandidate?: ImplementationResolutionCandidate;
+  readonly resolutionValidation?: ImplementationResolutionValidation;
   readonly closureContract: Readonly<ClosureContract>;
 }
 
@@ -141,6 +215,8 @@ export type ExecutionBasisAdmissionResult = ExecutionBasisAdmission | Invocation
 
 const executionBases = new WeakSet<object>();
 const implementationResolutions = new WeakSet<object>();
+const implementationSets = new WeakSet<object>();
+const interactionSets = new WeakSet<object>();
 
 function isJsonRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -152,6 +228,80 @@ export function isExecutionBasis(value: object): boolean {
 
 export function isAdmittedImplementationResolution(value: object): boolean {
   return implementationResolutions.has(value);
+}
+
+export function isAdmittedImplementationSet(value: object): boolean {
+  return implementationSets.has(value);
+}
+
+export function isAdmittedInteractionSet(value: object): boolean {
+  return interactionSets.has(value);
+}
+
+export function hasAdmittedImplementationSet(
+  store: AbgEventStore,
+  set: AdmittedImplementationSet,
+): boolean {
+  if (!isAdmittedImplementationSet(set)) return false;
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    implementationSetRef: _implementationSetRef,
+    implementationSetDigest: _implementationSetDigest,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = set;
+  const event = store.readAll().find((candidate) => candidate.eventId === set.admissionEventRef);
+  return (
+    sha256Canonical(body as unknown as JsonValue) === set.implementationSetDigest &&
+    set.implementationSetRef ===
+      `implementation-set://abiogenesis/${set.implementationSetDigest.slice("sha256:".length)}` &&
+    event?.kind === "implementation_admitted" &&
+    isJsonRecord(event.payload) &&
+    event.payload.implementationSetRef === set.implementationSetRef &&
+    event.payload.implementationSetDigest === set.implementationSetDigest &&
+    event.payload.implementationSet !== undefined &&
+    isJsonRecord(event.payload.implementationSet) &&
+    sha256Canonical(event.payload.implementationSet) === sha256Canonical({
+      implementationSetRef: set.implementationSetRef,
+      implementationSetDigest: set.implementationSetDigest,
+      ...body,
+    } as unknown as JsonValue)
+  );
+}
+
+export function hasAdmittedInteractionSet(
+  store: AbgEventStore,
+  set: AdmittedInteractionSet,
+): boolean {
+  if (!isAdmittedInteractionSet(set)) return false;
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    interactionSetRef: _interactionSetRef,
+    interactionSetDigest: _interactionSetDigest,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = set;
+  const event = store.readAll().find((candidate) => candidate.eventId === set.admissionEventRef);
+  return (
+    sha256Canonical(body as unknown as JsonValue) === set.interactionSetDigest &&
+    set.interactionSetRef ===
+      `interaction-set://abiogenesis/${set.interactionSetDigest.slice("sha256:".length)}` &&
+    event?.kind === "implementation_admitted" &&
+    isJsonRecord(event.payload) &&
+    event.payload.interactionSetRef === set.interactionSetRef &&
+    event.payload.interactionSetDigest === set.interactionSetDigest &&
+    event.payload.interactionSet !== undefined &&
+    isJsonRecord(event.payload.interactionSet) &&
+    sha256Canonical(event.payload.interactionSet) === sha256Canonical({
+      interactionSetRef: set.interactionSetRef,
+      interactionSetDigest: set.interactionSetDigest,
+      ...body,
+    } as unknown as JsonValue)
+  );
 }
 
 export function hasAdmittedImplementationResolution(
@@ -207,6 +357,10 @@ export function hasAdmittedExecutionBasis(
     event.payload.basisRef === basis.basisRef &&
     event.payload.basisDigest === basis.basisDigest &&
     event.payload.invocationAdmissionRef === basis.invocationAdmissionRef &&
+    event.payload.implementationSetRef === basis.implementationSetRef &&
+    event.payload.implementationSetDigest === basis.implementationSetDigest &&
+    event.payload.interactionSetRef === basis.interactionSetRef &&
+    event.payload.interactionSetDigest === basis.interactionSetDigest &&
     event.payload.implementationResolutionRef === basis.implementationResolutionRef
   );
 }
@@ -284,60 +438,166 @@ export function admitExecutionBasis(
     return reject(input.graph.materializationDigest, "diagnostic://abiogenesis/execution-basis/graph-mismatch@5");
   }
   if (
-    !isImplementationResolutionCandidate(input.resolutionCandidate) ||
-    !isImplementationResolutionValidation(input.resolutionValidation) ||
-    input.resolutionValidation.resolutionCandidateRef !== input.resolutionCandidate.resolutionCandidateRef ||
-    input.resolutionValidation.resolutionCandidateDigest !== input.resolutionCandidate.resolutionCandidateDigest ||
-    input.resolutionValidation.graphValidationRef !== input.graphValidation.validationRef ||
-    input.resolutionCandidate.graphValidationRef !== input.graphValidation.validationRef ||
-    input.resolutionCandidate.graphValidationDigest !== input.graphValidation.validationDigest ||
-    input.resolutionCandidate.graphFunctionRef !== input.invocationAdmission.graphFunctionRef ||
-    input.resolutionCandidate.catalogViewId !== input.invocationAdmission.catalogViewId ||
-    input.resolutionCandidate.inputContractRef !== input.invocationAdmission.inputContractRef ||
-    input.resolutionCandidate.outputContractRef !== input.invocationAdmission.outputContractRef
+    !isProgramValidation(input.programValidation) ||
+    input.programValidation.validationRef !== input.invocationAdmission.programValidationRef ||
+    input.programValidation.programRef !== input.invocationAdmission.programRef ||
+    !isImplementationResolutionSetCandidate(input.resolutionSetCandidate) ||
+    !isImplementationResolutionSetValidation(input.resolutionSetValidation) ||
+    input.resolutionSetCandidate.programValidationRef !== input.programValidation.validationRef ||
+    input.resolutionSetCandidate.catalogViewId !== input.invocationAdmission.catalogViewId ||
+    input.resolutionSetCandidate.catalogViewDigest !== input.invocationAdmission.catalogViewDigest ||
+    input.resolutionSetValidation.setCandidateRef !== input.resolutionSetCandidate.setCandidateRef ||
+    input.resolutionSetValidation.setCandidateDigest !== input.resolutionSetCandidate.setCandidateDigest ||
+    input.resolutionSetValidation.programValidationRef !== input.programValidation.validationRef ||
+    sha256Canonical(input.resolutionSetCandidate.executableLeafKeys as unknown as JsonValue) !==
+      sha256Canonical(input.programValidation.transitiveReachableExecutableLeafKeys as unknown as JsonValue) ||
+    sha256Canonical(input.resolutionSetValidation.executableLeafKeys as unknown as JsonValue) !==
+      sha256Canonical(input.programValidation.transitiveReachableExecutableLeafKeys as unknown as JsonValue) ||
+    input.resolutionSetCandidate.rows.length !== input.programValidation.executableLeafRows.length ||
+    new Set([
+      ...input.programValidation.transitiveReachableExecutableLeafKeys,
+      ...input.programValidation.transitiveReachableInteractionLeafKeys,
+    ]).size !==
+      input.programValidation.transitiveReachableExecutableLeafKeys.length +
+        input.programValidation.transitiveReachableInteractionLeafKeys.length
   ) {
-    return reject(input.resolutionCandidate.resolutionCandidateDigest, "diagnostic://abiogenesis/execution-basis/resolution-mismatch@5");
+    return reject(
+      input.resolutionSetCandidate.setCandidateDigest,
+      "diagnostic://abiogenesis/execution-basis/resolution-set-mismatch@5",
+    );
+  }
+  const legacyCandidate = input.resolutionCandidate;
+  const legacyValidation = input.resolutionValidation;
+  if ((legacyCandidate === undefined) !== (legacyValidation === undefined)) {
+    return reject(
+      input.resolutionSetCandidate.setCandidateDigest,
+      "diagnostic://abiogenesis/execution-basis/legacy-projection-incomplete@5",
+    );
+  }
+  if (
+    legacyCandidate !== undefined &&
+    legacyValidation !== undefined &&
+    (
+      !isImplementationResolutionCandidate(legacyCandidate) ||
+      !isImplementationResolutionValidation(legacyValidation) ||
+      legacyValidation.resolutionCandidateRef !== legacyCandidate.resolutionCandidateRef ||
+      legacyValidation.resolutionCandidateDigest !== legacyCandidate.resolutionCandidateDigest ||
+      legacyValidation.graphValidationRef !== input.graphValidation.validationRef ||
+      legacyCandidate.graphValidationRef !== input.graphValidation.validationRef ||
+      legacyCandidate.graphValidationDigest !== input.graphValidation.validationDigest ||
+      legacyCandidate.graphFunctionRef !== input.invocationAdmission.graphFunctionRef ||
+      legacyCandidate.catalogViewId !== input.invocationAdmission.catalogViewId ||
+      legacyCandidate.inputContractRef !== input.invocationAdmission.inputContractRef ||
+      legacyCandidate.outputContractRef !== input.invocationAdmission.outputContractRef ||
+      input.resolutionSetCandidate.rows.filter((row) =>
+        row.graphFunctionRef === legacyCandidate.graphFunctionRef &&
+        row.nodeRef === legacyCandidate.nodeRef &&
+        row.implementationBindingRef === legacyCandidate.implementationBindingRef &&
+        row.implementationDescriptorDigest === legacyCandidate.implementationDescriptorDigest
+      ).length !== 1
+    )
+  ) {
+    return reject(
+      legacyCandidate.resolutionCandidateDigest,
+      "diagnostic://abiogenesis/execution-basis/resolution-mismatch@5",
+    );
   }
   if (
     input.program.programRef !== input.invocationAdmission.programRef ||
     sha256Canonical(input.program as unknown as JsonValue) !== input.invocationAdmission.programDigest ||
     input.program.closureContractRef !== input.closureContract.closureContractRef ||
-    input.closureContract.resultContractRef !== input.invocationAdmission.outputContractRef ||
-    input.closureContract.refusalContractRef !== input.resolutionCandidate.refusalContractRef
+    input.closureContract.resultContractRef !== input.invocationAdmission.outputContractRef
   ) {
     return reject(sha256Canonical(input.closureContract as unknown as JsonValue), "diagnostic://abiogenesis/execution-basis/closure-mismatch@5");
   }
-  const resolutionBody = {
-    resolutionCandidateRef: input.resolutionCandidate.resolutionCandidateRef,
-    resolutionCandidateDigest: input.resolutionCandidate.resolutionCandidateDigest,
-    resolutionValidationRef: input.resolutionValidation.validationRef,
-    resolutionValidationDigest: input.resolutionValidation.validationDigest,
-    catalogViewId: input.resolutionCandidate.catalogViewId,
-    catalogViewDigest: input.resolutionCandidate.catalogViewDigest,
-    publicationDigest: input.resolutionCandidate.publicationDigest,
-    programValidationRef: input.resolutionCandidate.programValidationRef,
-    graphValidationRef: input.resolutionCandidate.graphValidationRef,
-    graphValidationDigest: input.resolutionCandidate.graphValidationDigest,
-    graphFunctionRef: input.resolutionCandidate.graphFunctionRef,
-    graphFunctionDigest: input.resolutionCandidate.graphFunctionDigest,
-    nodeRef: input.resolutionCandidate.nodeRef,
-    implementationBindingRef: input.resolutionCandidate.implementationBindingRef,
-    implementationRef: input.resolutionCandidate.implementationRef,
-    implementationBindingDigest: input.resolutionCandidate.implementationBindingDigest,
-    implementationDescriptorDigest: input.resolutionCandidate.implementationDescriptorDigest,
-    packageName: input.resolutionCandidate.packageName,
-    packageVersion: input.resolutionCandidate.packageVersion,
-    modulePath: input.resolutionCandidate.modulePath,
-    namedSymbol: input.resolutionCandidate.namedSymbol,
-    computeRegime: input.resolutionCandidate.computeRegime,
-    inputContractRef: input.resolutionCandidate.inputContractRef,
-    outputContractRef: input.resolutionCandidate.outputContractRef,
-    failureContractRef: input.resolutionCandidate.failureContractRef,
-    refusalContractRef: input.resolutionCandidate.refusalContractRef,
+  const implementationRows = input.resolutionSetCandidate.rows.map((row) => {
+    const {
+      kind: _kind,
+      schemaVersion: _schemaVersion,
+      disposition: _disposition,
+      ...body
+    } = row;
+    return deepFreeze({
+      kind: "admitted_implementation_resolution_row" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      ...body,
+    }) as AdmittedImplementationResolutionRow;
+  });
+  const implementationSetBody = {
+    invocationAdmissionRef: input.invocationAdmission.invocationAdmissionRef,
+    invocationRef: input.invocationAdmission.invocationRef,
+    resolutionSetCandidateRef: input.resolutionSetCandidate.setCandidateRef,
+    resolutionSetCandidateDigest: input.resolutionSetCandidate.setCandidateDigest,
+    resolutionSetValidationRef: input.resolutionSetValidation.validationRef,
+    resolutionSetValidationDigest: input.resolutionSetValidation.validationDigest,
+    catalogViewId: input.resolutionSetCandidate.catalogViewId,
+    catalogViewDigest: input.resolutionSetCandidate.catalogViewDigest,
+    publicationDigest: input.resolutionSetCandidate.publicationDigest,
+    programValidationRef: input.programValidation.validationRef,
+    executableLeafKeys: input.programValidation.transitiveReachableExecutableLeafKeys,
+    rows: implementationRows,
   };
-  const resolutionDigest = sha256Canonical(resolutionBody as unknown as JsonValue);
-  const resolutionRef = `implementation-resolution://abiogenesis/${resolutionDigest.slice("sha256:".length)}`;
-  const resolutionEvent = admitRuntimeEvent(store, {
+  const implementationSetDigest = sha256Canonical(implementationSetBody as unknown as JsonValue);
+  const implementationSetRef =
+    `implementation-set://abiogenesis/${implementationSetDigest.slice("sha256:".length)}`;
+  const interactionRows = input.programValidation.interactionLeafRows.map((row) => {
+    const { kind: _kind, ...body } = row;
+    return deepFreeze({
+      kind: "admitted_interaction_contract_row" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      ...body,
+    }) as AdmittedInteractionContractRow;
+  });
+  const interactionSetBody = {
+    invocationAdmissionRef: input.invocationAdmission.invocationAdmissionRef,
+    invocationRef: input.invocationAdmission.invocationRef,
+    programValidationRef: input.programValidation.validationRef,
+    programValidationSourceDigest: input.programValidation.sourceDigest,
+    interactionLeafKeys: input.programValidation.transitiveReachableInteractionLeafKeys,
+    rows: interactionRows,
+  };
+  const interactionSetDigest = sha256Canonical(interactionSetBody as unknown as JsonValue);
+  const interactionSetRef =
+    `interaction-set://abiogenesis/${interactionSetDigest.slice("sha256:".length)}`;
+  const resolutionBody = legacyCandidate === undefined || legacyValidation === undefined
+    ? null
+    : {
+      resolutionCandidateRef: legacyCandidate.resolutionCandidateRef,
+      resolutionCandidateDigest: legacyCandidate.resolutionCandidateDigest,
+      resolutionValidationRef: legacyValidation.validationRef,
+      resolutionValidationDigest: legacyValidation.validationDigest,
+      catalogViewId: legacyCandidate.catalogViewId,
+      catalogViewDigest: legacyCandidate.catalogViewDigest,
+      publicationDigest: legacyCandidate.publicationDigest,
+      programValidationRef: legacyCandidate.programValidationRef,
+      graphValidationRef: legacyCandidate.graphValidationRef,
+      graphValidationDigest: legacyCandidate.graphValidationDigest,
+      graphFunctionRef: legacyCandidate.graphFunctionRef,
+      graphFunctionDigest: legacyCandidate.graphFunctionDigest,
+      nodeRef: legacyCandidate.nodeRef,
+      implementationBindingRef: legacyCandidate.implementationBindingRef,
+      implementationRef: legacyCandidate.implementationRef,
+      implementationBindingDigest: legacyCandidate.implementationBindingDigest,
+      implementationDescriptorDigest: legacyCandidate.implementationDescriptorDigest,
+      packageName: legacyCandidate.packageName,
+      packageVersion: legacyCandidate.packageVersion,
+      modulePath: legacyCandidate.modulePath,
+      namedSymbol: legacyCandidate.namedSymbol,
+      computeRegime: legacyCandidate.computeRegime,
+      inputContractRef: legacyCandidate.inputContractRef,
+      outputContractRef: legacyCandidate.outputContractRef,
+      failureContractRef: legacyCandidate.failureContractRef,
+      refusalContractRef: legacyCandidate.refusalContractRef,
+    };
+  const resolutionDigest = resolutionBody === null
+    ? null
+    : sha256Canonical(resolutionBody as unknown as JsonValue);
+  const resolutionRef = resolutionDigest === null
+    ? null
+    : `implementation-resolution://abiogenesis/${resolutionDigest.slice("sha256:".length)}`;
+  const setEvent = admitRuntimeEvent(store, {
     kind: "implementation_admitted",
     eventTime: basis.eventTime,
     aggregateType: "workspace",
@@ -348,18 +608,56 @@ export function admitExecutionBasis(
     workflowVersion: "5.0.0",
     scopeClass: "workspace",
     basisId: input.invocationAdmission.invocationAdmissionRef,
-    payload: { resolutionRef, resolutionDigest, ...resolutionBody },
+    payload: {
+      implementationSetRef,
+      implementationSetDigest,
+      interactionSetRef,
+      interactionSetDigest,
+      implementationSet: {
+        implementationSetRef,
+        implementationSetDigest,
+        ...implementationSetBody,
+      },
+      interactionSet: {
+        interactionSetRef,
+        interactionSetDigest,
+        ...interactionSetBody,
+      },
+      ...(resolutionBody === null ? {} : { resolutionRef, resolutionDigest, ...resolutionBody }),
+    } as unknown as JsonValue,
   });
-  const implementationResolution = deepFreeze({
-    kind: "admitted_implementation_resolution" as const,
+  const implementationSet = deepFreeze({
+    kind: "admitted_implementation_set" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
-    resolutionRef,
-    resolutionDigest,
-    ...resolutionBody,
-    admissionEventRef: resolutionEvent.eventId,
-  }) as AdmittedImplementationResolution;
-  implementationResolutions.add(implementationResolution);
+    implementationSetRef,
+    implementationSetDigest,
+    ...implementationSetBody,
+    admissionEventRef: setEvent.eventId,
+  }) as AdmittedImplementationSet;
+  implementationSets.add(implementationSet);
+  const interactionSet = deepFreeze({
+    kind: "admitted_interaction_set" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    interactionSetRef,
+    interactionSetDigest,
+    ...interactionSetBody,
+    admissionEventRef: setEvent.eventId,
+  }) as AdmittedInteractionSet;
+  interactionSets.add(interactionSet);
+  const implementationResolution = resolutionBody === null || resolutionRef === null || resolutionDigest === null
+    ? null
+    : deepFreeze({
+      kind: "admitted_implementation_resolution" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      resolutionRef,
+      resolutionDigest,
+      ...resolutionBody,
+      admissionEventRef: setEvent.eventId,
+    }) as AdmittedImplementationResolution;
+  if (implementationResolution !== null) implementationResolutions.add(implementationResolution);
   const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
   const executionBody = {
     invocationAdmissionRef: input.invocationAdmission.invocationAdmissionRef,
@@ -380,7 +678,11 @@ export function admitExecutionBasis(
     graphValidationRef: input.graphValidation.validationRef,
     graphRef: input.graph.materializationRef,
     graphDigest: input.graph.materializationDigest,
-    implementationResolutionRef: implementationResolution.resolutionRef,
+    implementationSetRef: implementationSet.implementationSetRef,
+    implementationSetDigest: implementationSet.implementationSetDigest,
+    interactionSetRef: interactionSet.interactionSetRef,
+    interactionSetDigest: interactionSet.interactionSetDigest,
+    implementationResolutionRef: implementationResolution?.resolutionRef ?? null,
     closureContractRef: input.closureContract.closureContractRef,
     closureContractDigest,
     terminalPredicateRef: input.closureContract.predicateRef,
@@ -402,7 +704,7 @@ export function admitExecutionBasis(
     aggregateType: "workspace",
     aggregateId: input.invocationAdmission.workspaceBindingId,
     parentAggregateId: input.invocationAdmission.invocationRef,
-    causationEventRefs: [resolutionEvent.eventId],
+    causationEventRefs: [setEvent.eventId],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "workspace",
@@ -423,6 +725,8 @@ export function admitExecutionBasis(
     kind: "execution_basis_admission" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
+    implementationSet,
+    interactionSet,
     implementationResolution,
     executionBasis,
   }) as ExecutionBasisAdmission;

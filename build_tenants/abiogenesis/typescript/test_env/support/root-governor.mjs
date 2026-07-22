@@ -405,6 +405,14 @@ export async function evaluateAbi5Root({
       event.payload?.implementationRef ===
         "implementation://abiogenesis/conformance/hello-world-fd@5" &&
       event.payload?.computeRegime === "F_D" &&
+      typeof event.payload?.implementationSetRef === "string" &&
+      typeof event.payload?.implementationSetDigest === "string" &&
+      typeof event.payload?.interactionSetRef === "string" &&
+      typeof event.payload?.interactionSetDigest === "string" &&
+      event.payload?.implementationSet?.rows?.length === 1 &&
+      event.payload?.implementationSet?.executableLeafKeys?.length === 1 &&
+      event.payload?.interactionSet?.rows?.length === 0 &&
+      event.payload?.interactionSet?.interactionLeafKeys?.length === 0 &&
       event.payload?.packageName === candidateBasis.packageName &&
       event.payload?.packageVersion === candidateBasis.packageVersion &&
       event.payload?.inputContractRef ===
@@ -427,6 +435,10 @@ export async function evaluateAbi5Root({
       event.payload?.catalogViewDigest === outcomes[4]?.result?.viewDigest &&
       event.payload?.programRef === "program://abiogenesis/conformance/hello-world@5" &&
       event.payload?.graphFunctionRef === "graph-function://abiogenesis/conformance/hello-world@5" &&
+      typeof event.payload?.implementationSetRef === "string" &&
+      typeof event.payload?.implementationSetDigest === "string" &&
+      typeof event.payload?.interactionSetRef === "string" &&
+      typeof event.payload?.interactionSetDigest === "string" &&
       event.payload?.graphRef ===
         `graph-materialization://abiogenesis/${event.payload?.graphDigest?.slice("sha256:".length)}` &&
       event.payload?.basisRef ===
