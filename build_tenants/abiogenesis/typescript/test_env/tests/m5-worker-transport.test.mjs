@@ -1,0 +1,191 @@
+import assert from "node:assert/strict";
+import { chmod, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import process from "node:process";
+import test from "node:test";
+
+import {
+  admitTransportAppendArgs,
+  composeWorkerTransportArgs,
+  constructKnownWorkerTransportContract,
+  runWorkerTransport,
+} from "../../build/code/src/implementation/index.js";
+
+function assertClaudeProtocol(args) {
+  for (const [flag, value] of [
+    ["--output-format", "stream-json"],
+    ["--permission-mode", "bypassPermissions"],
+  ]) {
+    const index = args.indexOf(flag);
+    assert.notEqual(index, -1, `missing ${flag}`);
+    assert.equal(args[index + 1], value);
+  }
+  for (const flag of ["-p", "--disable-slash-commands", "--no-session-persistence", "--verbose"]) {
+    assert.equal(args.includes(flag), true, `missing ${flag}`);
+  }
+}
+
+test("M5 B-001 preserves lane-owned Claude execution posture", () => {
+  const contract = constructKnownWorkerTransportContract("claude", { environment: {} });
+  const closed = composeWorkerTransportArgs({
+    contract,
+    prompt: "prove",
+    outputPath: "/tmp/closed-output",
+    lane: "closed_prompt_proof",
+    environment: {},
+  });
+  const worker = composeWorkerTransportArgs({
+    contract,
+    prompt: "execute",
+    outputPath: "/tmp/worker-output",
+    lane: "worker_executes",
+    environment: {},
+  });
+
+  assertClaudeProtocol(closed);
+  assertClaudeProtocol(worker);
+  assert.equal(closed.includes("--safe-mode"), true);
+  assert.equal(closed[closed.indexOf("--tools") + 1], "");
+  assert.equal(worker.includes("--safe-mode"), false);
+  assert.equal(worker.includes("--tools"), false);
+  assert.equal(closed.includes("prove"), false);
+  assert.equal(worker.includes("execute"), false);
+});
+
+test("M5 B-001 bounds append arguments for all four transport contracts", () => {
+  for (const agentKey of ["claude", "codex", "gemini", "generic"]) {
+    const environmentKey = `ABG_TS_${agentKey.toUpperCase()}_APPEND_ARGS`;
+    assert.deepEqual(
+      admitTransportAppendArgs({
+        agentKey,
+        environment: { [environmentKey]: JSON.stringify(["--localized", agentKey]) },
+      }),
+      ["--localized", agentKey],
+    );
+  }
+  assert.throws(
+    () => admitTransportAppendArgs({
+      agentKey: "claude",
+      environment: { ABG_TS_CLAUDE_APPEND_ARGS: JSON.stringify(["--tools", "Bash"]) },
+    }),
+    /protocol-owned flag --tools/u,
+  );
+  assert.throws(
+    () => admitTransportAppendArgs({
+      agentKey: "codex",
+      environment: { ABG_TS_CODEX_APPEND_ARGS: JSON.stringify(["{prompt}"]) },
+    }),
+    /template placeholders/u,
+  );
+});
+
+test("M5 B-001 gives agent-specific sandbox binding precedence", () => {
+  const external = constructKnownWorkerTransportContract("codex", {
+    environment: { ABG_TS_WORKER_SANDBOX: "external" },
+  });
+  assert.deepEqual(
+    external.argsTemplate.slice(external.argsTemplate.indexOf("--sandbox"), external.argsTemplate.indexOf("--sandbox") + 2),
+    ["--sandbox", "danger-full-access"],
+  );
+  const specific = constructKnownWorkerTransportContract("codex", {
+    environment: {
+      ABG_TS_WORKER_SANDBOX: "external",
+      ABG_TS_CODEX_SANDBOX: "workspace-write",
+    },
+  });
+  assert.equal(specific.argsTemplate.includes("workspace-write"), true);
+  assert.equal(specific.argsTemplate.includes("danger-full-access"), false);
+  assert.throws(
+    () => constructKnownWorkerTransportContract("codex", {
+      environment: { ABG_TS_WORKER_SANDBOX: "off" },
+    }),
+    /agent_default.*external/u,
+  );
+});
+
+test("M5 B-001 crosses a real worker process, parser, tool event, and archive", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-b001-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const workerPath = join(scratch, "claude-worker-fixture.mjs");
+  await writeFile(workerPath, [
+    "#!/usr/bin/env node",
+    "process.stdin.resume();",
+    "process.stdin.on('end', () => {",
+    "  console.log(JSON.stringify({type:'system', subtype:'init'}));",
+    "  console.log(JSON.stringify({type:'assistant', message:{content:[{type:'tool_use', name:'Write', input:{path:'artifact.txt'}},{type:'tool_use', name:'Read', input:{path:'artifact.txt'}}]}}));",
+    "  console.log(JSON.stringify({type:'user', message:{content:[{type:'tool_result', content:'artifact written'}]}}));",
+    "  console.log(JSON.stringify({type:'result', subtype:'success', result:JSON.stringify({kind:'fp_worker_output',schemaVersion:'5.0.0',message:'worker execution observed'})}));",
+    "});",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(workerPath, 0o755);
+  const contract = constructKnownWorkerTransportContract("claude", {
+    command: process.execPath,
+    prefixArgs: [workerPath],
+    environment: {},
+  });
+  const result = await runWorkerTransport({
+    contract,
+    prompt: "run the declared command",
+    lane: "worker_executes",
+    cwd: scratch,
+    archiveRoot: join(scratch, "archive"),
+    label: "worker-executes",
+    timeoutMs: 10_000,
+    environment: {},
+  });
+
+  assert.equal(result.disposition, "success");
+  assert.equal(result.failureClass, null);
+  assert.equal(result.status, 0);
+  assert.equal(result.structuredEventCount, 4);
+  assert.equal(result.progressEventCount, 3);
+  assert.equal(result.toolCallCount, 2);
+  assert.equal(result.args.includes("--safe-mode"), false);
+  assert.equal(result.args.includes("--tools"), false);
+  assert.deepEqual(JSON.parse(result.finalOutput), {
+    kind: "fp_worker_output",
+    schemaVersion: "5.0.0",
+    message: "worker execution observed",
+  });
+  for (const row of Object.values(result.artifacts)) {
+    assert.match(row.digest, /^sha256:[a-f0-9]{64}$/u);
+    assert.equal((await readFile(row.path)).byteLength, row.byteLength);
+  }
+});
+
+test("M5 B-001 rejects tool activity only in the closed-prompt lane", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-b001-closed-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const workerPath = join(scratch, "claude-closed-fixture.mjs");
+  await writeFile(workerPath, [
+    "#!/usr/bin/env node",
+    "process.stdin.resume();",
+    "process.stdin.on('end', () => {",
+    "  console.log(JSON.stringify({type:'assistant', message:{content:[{type:'tool_use', name:'Write'}]}}));",
+    "  console.log(JSON.stringify({type:'result', result:'not admissible'}));",
+    "});",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(workerPath, 0o755);
+  const result = await runWorkerTransport({
+    contract: constructKnownWorkerTransportContract("claude", {
+      command: process.execPath,
+      prefixArgs: [workerPath],
+      environment: {},
+    }),
+    prompt: "prove without tools",
+    lane: "closed_prompt_proof",
+    cwd: scratch,
+    archiveRoot: join(scratch, "archive"),
+    label: "closed-prompt",
+    timeoutMs: 10_000,
+    environment: {},
+  });
+  assert.equal(result.disposition, "failure");
+  assert.equal(result.failureClass, "contract_failure");
+  assert.equal(result.toolCallCount, 1);
+  assert.equal(result.args.includes("--safe-mode"), true);
+  assert.equal(result.args[result.args.indexOf("--tools") + 1], "");
+});

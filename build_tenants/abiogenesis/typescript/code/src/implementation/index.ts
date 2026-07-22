@@ -13,3 +13,27 @@ export type {
   HelloWorldLeafRealizationCandidate,
 } from "./contracts.js";
 export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
+export {
+  TRANSPORT_PROTOCOL_OWNED_FLAGS,
+  admitTransportAppendArgs,
+  admitWorkerSandboxDeclaration,
+  composeWorkerTransportArgs,
+  constructKnownWorkerTransportContract,
+  sanitizeWorkerTransportEnvironment,
+  transportAppendArgsEnvVar,
+  withTransportAppendArgs,
+} from "./transport_contracts.js";
+export type {
+  KnownTransportAgentKey,
+  TransportCapabilityLane,
+  WorkerSandboxDeclaration,
+  WorkerTransportContract,
+  WorkerTransportContractOptions,
+} from "./transport_contracts.js";
+export { runWorkerTransport } from "./worker_transport.js";
+export type {
+  WorkerTransportArtifact,
+  WorkerTransportFailureClass,
+  WorkerTransportRequest,
+  WorkerTransportResult,
+} from "./worker_transport.js";
