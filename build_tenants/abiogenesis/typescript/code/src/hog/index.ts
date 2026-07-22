@@ -45,11 +45,15 @@ export {
   type RouteProposalRefusal,
 } from "./traversal_route.js";
 export {
-  completeDeterministicTraversal,
+  completeExecutableTraversal,
+  type CompleteExecutableTraversalInput,
   type CompleteDeterministicTraversalInput,
   type DeterministicLeafCandidate,
   type DeterministicTraversalClock,
   type DeterministicTraversalCompletion,
+  type ExecutableLeafCandidate,
+  type ExecutableTraversalClock,
+  type ExecutableTraversalCompletion,
 } from "./execute.js";
 export {
   advanceStructuralTraversal,

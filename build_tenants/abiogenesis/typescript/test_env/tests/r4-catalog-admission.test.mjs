@@ -210,11 +210,13 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     ),
   );
   assert.equal(catalog.kind, "admitted_catalog", JSON.stringify(catalog));
-  assert.equal(catalog.rows.length, 2);
-  assert.equal(catalog.rows[0].handle, gtl.HELLO_WORLD_IDS.graphFunctionRef);
-  assert.equal(catalog.rows[0].kind, "graph_function");
-  assert.equal(catalog.rows[0].disposition, "admitted");
-  assert.deepEqual(catalog.rows[0].programMembershipRefs, [gtl.HELLO_WORLD_IDS.programRef]);
+  assert.equal(catalog.rows.length, 3);
+  const helloRow = catalog.rows.find(
+    (row) => row.handle === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  assert.equal(helloRow.kind, "graph_function");
+  assert.equal(helloRow.disposition, "admitted");
+  assert.deepEqual(helloRow.programMembershipRefs, [gtl.HELLO_WORLD_IDS.programRef]);
   assert.equal(Object.isFrozen(catalog), true);
 
   const emptyViewCandidate = product.constructCatalogViewCandidate(catalog, []);
@@ -344,11 +346,15 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
   assert.equal(typeof store.admit, "undefined");
 
   const events = store.readAll();
-  assert.deepEqual(events.map((event) => event.admissionOrdinal), [1, 2, 3, 4, 5, 6]);
+  assert.deepEqual(
+    events.map((event) => event.admissionOrdinal),
+    Array.from({ length: events.length }, (_, index) => index + 1),
+  );
   assert.deepEqual(events.map((event) => event.kind), [
     "public_operation_artifact_admitted",
     "public_operation_artifact_admitted",
     "public_operation_artifact_admitted",
+    "registry_entry_admitted",
     "registry_entry_admitted",
     "registry_entry_admitted",
     "public_operation_artifact_admitted",

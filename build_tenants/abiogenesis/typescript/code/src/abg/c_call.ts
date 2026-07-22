@@ -132,6 +132,41 @@ export interface DeterministicEvidenceCandidate {
   readonly outputDigest: Sha256Digest;
 }
 
+export interface ProbabilisticTransportEvidenceCandidate {
+  readonly kind: "probabilistic_transport_evidence_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly implementationRef: string;
+  readonly inputDigest: Sha256Digest;
+  readonly outputDigest: Sha256Digest;
+  readonly actorInvocationRef: string;
+  readonly actorRef: string;
+  readonly materializationPlanRef: string;
+  readonly rendererRef: string;
+  readonly instructionContractRef: string;
+  readonly resultContractRef: string;
+  readonly promptDigest: Sha256Digest;
+  readonly transportDigest: Sha256Digest;
+  readonly transportLane: "closed_prompt_proof" | "worker_executes";
+  readonly transportDisposition: "failure" | "success";
+  readonly transportFailureClass: string | null;
+  readonly processStatus: number | null;
+  readonly processSignal: string | null;
+  readonly timedOut: boolean;
+  readonly progressEventCount: number;
+  readonly toolCallCount: number;
+  readonly artifactDigests: Readonly<{
+    output: Sha256Digest;
+    prompt: Sha256Digest;
+    stderr: Sha256Digest;
+    stdout: Sha256Digest;
+    transport: Sha256Digest;
+  }>;
+}
+
+export type CCallEvidenceCandidate =
+  | DeterministicEvidenceCandidate
+  | ProbabilisticTransportEvidenceCandidate;
+
 export interface AdmittedCCallEvidence {
   readonly kind: "admitted_c_call_evidence";
   readonly schemaVersion: "5.0.0";
@@ -139,11 +174,28 @@ export interface AdmittedCCallEvidence {
   readonly evidenceRef: string;
   readonly evidenceDigest: Sha256Digest;
   readonly cCallRef: string;
-  readonly evidenceClass: "deterministic";
+  readonly evidenceClass: "deterministic" | "probabilistic_transport";
   readonly contractRef: string;
   readonly implementationRef: string;
   readonly inputDigest: Sha256Digest;
   readonly outputDigest: Sha256Digest;
+  readonly actorInvocationRef?: string;
+  readonly actorRef?: string;
+  readonly materializationPlanRef?: string;
+  readonly rendererRef?: string;
+  readonly instructionContractRef?: string;
+  readonly resultContractRef?: string;
+  readonly promptDigest?: Sha256Digest;
+  readonly transportDigest?: Sha256Digest;
+  readonly transportLane?: "closed_prompt_proof" | "worker_executes";
+  readonly transportDisposition?: "failure" | "success";
+  readonly transportFailureClass?: string | null;
+  readonly processStatus?: number | null;
+  readonly processSignal?: string | null;
+  readonly timedOut?: boolean;
+  readonly progressEventCount?: number;
+  readonly toolCallCount?: number;
+  readonly artifactDigests?: ProbabilisticTransportEvidenceCandidate["artifactDigests"];
   readonly admissionEventRef: string;
 }
 
@@ -546,19 +598,50 @@ export function openCCall(
 export function admitEvidence(
   store: AbgEventStore,
   cCall: CCall,
-  candidate: DeterministicEvidenceCandidate,
+  candidate: CCallEvidenceCandidate,
   contractRef: string,
   expectedInputDigest: Sha256Digest,
   basis: RuntimeAdmissionBasis,
 ): CCallEvidenceAdmissionResult {
   const candidateValue = candidate as unknown as JsonValue;
+  const digestPattern = /^sha256:[a-f0-9]{64}$/u;
+  const commonValid = candidate.schemaVersion === "5.0.0" &&
+    candidate.implementationRef === cCall.implementationRef &&
+    candidate.inputDigest === expectedInputDigest &&
+    digestPattern.test(candidate.outputDigest);
+  const deterministicValid = candidate.kind === "deterministic_evidence_candidate" &&
+    cCall.regime === "F_D";
+  const probabilisticValid = candidate.kind === "probabilistic_transport_evidence_candidate" &&
+    cCall.regime === "F_P" &&
+    typeof candidate.actorInvocationRef === "string" && candidate.actorInvocationRef.length > 0 &&
+    typeof candidate.actorRef === "string" && candidate.actorRef.length > 0 &&
+    typeof candidate.materializationPlanRef === "string" && candidate.materializationPlanRef.length > 0 &&
+    typeof candidate.rendererRef === "string" && candidate.rendererRef.length > 0 &&
+    candidate.instructionContractRef === cCall.inputContractRef &&
+    candidate.resultContractRef === cCall.outputContractRef &&
+    typeof candidate.promptDigest === "string" && digestPattern.test(candidate.promptDigest) &&
+    typeof candidate.transportDigest === "string" && digestPattern.test(candidate.transportDigest) &&
+    isJsonRecord(candidate.artifactDigests as unknown as JsonValue) &&
+    candidate.transportDigest === candidate.artifactDigests.transport &&
+    Object.values(candidate.artifactDigests).every(
+      (digest) => typeof digest === "string" && digestPattern.test(digest),
+    ) &&
+    (candidate.transportLane === "closed_prompt_proof" || candidate.transportLane === "worker_executes") &&
+    (candidate.transportDisposition === "failure" || candidate.transportDisposition === "success") &&
+    (candidate.transportDisposition === "success"
+      ? candidate.transportFailureClass === null
+      : typeof candidate.transportFailureClass === "string" && candidate.transportFailureClass.length > 0) &&
+    (candidate.processStatus === null || Number.isSafeInteger(candidate.processStatus)) &&
+    (candidate.processSignal === null ||
+      (typeof candidate.processSignal === "string" && candidate.processSignal.length > 0)) &&
+    typeof candidate.timedOut === "boolean" &&
+    Number.isSafeInteger(candidate.progressEventCount) && candidate.progressEventCount >= 0 &&
+    Number.isSafeInteger(candidate.toolCallCount) && candidate.toolCallCount >= 0 &&
+    (candidate.transportLane !== "closed_prompt_proof" || candidate.toolCallCount === 0);
   if (
     !hasOpenedCCall(store, cCall) ||
-    candidate.kind !== "deterministic_evidence_candidate" ||
-    candidate.schemaVersion !== "5.0.0" ||
-    candidate.implementationRef !== cCall.implementationRef ||
-    candidate.inputDigest !== expectedInputDigest ||
-    !candidate.outputDigest.startsWith("sha256:") ||
+    !commonValid ||
+    (!deterministicValid && !probabilisticValid) ||
     contractRef !== cCall.evidenceContractRef ||
     eventsFor(store, cCall.cCallRef).some((event) => event.kind === "c_call_result_admitted")
   ) {
@@ -570,13 +653,37 @@ export function admitEvidence(
       "diagnostic://abiogenesis/c-call/evidence-contract-mismatch@5",
     );
   }
-  const body = {
+  const body = candidate.kind === "deterministic_evidence_candidate" ? {
     cCallRef: cCall.cCallRef,
     evidenceClass: "deterministic" as const,
     contractRef,
     implementationRef: candidate.implementationRef,
     inputDigest: candidate.inputDigest,
     outputDigest: candidate.outputDigest,
+  } : {
+    cCallRef: cCall.cCallRef,
+    evidenceClass: "probabilistic_transport" as const,
+    contractRef,
+    implementationRef: candidate.implementationRef,
+    inputDigest: candidate.inputDigest,
+    outputDigest: candidate.outputDigest,
+    actorInvocationRef: candidate.actorInvocationRef,
+    actorRef: candidate.actorRef,
+    materializationPlanRef: candidate.materializationPlanRef,
+    rendererRef: candidate.rendererRef,
+    instructionContractRef: candidate.instructionContractRef,
+    resultContractRef: candidate.resultContractRef,
+    promptDigest: candidate.promptDigest,
+    transportDigest: candidate.transportDigest,
+    transportLane: candidate.transportLane,
+    transportDisposition: candidate.transportDisposition,
+    transportFailureClass: candidate.transportFailureClass,
+    processStatus: candidate.processStatus,
+    processSignal: candidate.processSignal,
+    timedOut: candidate.timedOut,
+    progressEventCount: candidate.progressEventCount,
+    toolCallCount: candidate.toolCallCount,
+    artifactDigests: candidate.artifactDigests,
   };
   const evidenceDigest = sha256Canonical(body as unknown as JsonValue);
   const evidenceRef = `evidence://abiogenesis/${evidenceDigest.slice("sha256:".length)}`;
@@ -618,6 +725,7 @@ export function admitResult(
   resultClass: AdmittedCCallResult["resultClass"],
   contractRef: string,
   valueKind: string,
+  validateValue: (value: unknown) => boolean,
   evidence: readonly AdmittedCCallEvidence[],
   basis: RuntimeAdmissionBasis,
 ): CCallResultAdmissionResult {
@@ -634,6 +742,7 @@ export function admitResult(
     !isJsonRecord(candidate) ||
     candidate.kind !== valueKind ||
     candidate.schemaVersion !== "5.0.0" ||
+    !validateValue(candidate) ||
     contractRef !== expectedContractRef ||
     evidence.length === 0 ||
     evidence.length !== evidenceEvents.length ||

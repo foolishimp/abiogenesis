@@ -12,6 +12,7 @@ import {
   type AbgEventStore,
   type AdmittedImplementationResolutionRow,
   type AdmittedImplementationSet,
+  type CCallEvidenceCandidate,
   type ExecutionBasis,
   type OpenedTraversalScope,
   type ReplayState,
@@ -22,7 +23,10 @@ import type {
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
-import type { DeterministicEvidenceCandidate } from "../abg/c_call.js";
+import type {
+  DeterministicEvidenceCandidate,
+  ProbabilisticTransportEvidenceCandidate,
+} from "../abg/c_call.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -60,13 +64,34 @@ export type DeterministicLeafCandidate<Output> =
   | DeterministicLeafFailureCandidate
   | DeterministicLeafSuccessCandidate<Output>;
 
-export interface DeterministicTraversalClock {
+export interface ExecutableLeafSuccessCandidate<Output> {
+  readonly kind: "leaf_realization_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "success";
+  readonly evidenceCandidates: readonly CCallEvidenceCandidate[];
+  readonly resultCandidate: Output;
+}
+
+export interface ExecutableLeafFailureCandidate {
+  readonly kind: "leaf_realization_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "failure";
+  readonly evidenceCandidates: readonly CCallEvidenceCandidate[];
+  readonly resultCandidate: Readonly<Record<string, JsonValue>>;
+  readonly diagnosticRef: string;
+}
+
+export type ExecutableLeafCandidate<Output> =
+  | ExecutableLeafFailureCandidate
+  | ExecutableLeafSuccessCandidate<Output>;
+
+export interface ExecutableTraversalClock {
   readonly eventTime: string;
   readonly correlationId: string;
 }
 
-export interface DeterministicTraversalCompletion {
-  readonly kind: "deterministic_traversal_completion";
+export interface ExecutableTraversalCompletion {
+  readonly kind: "executable_traversal_completion";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "advanced" | "blocked" | "closed" | "failed" | "refused";
   readonly cCallRef: string | null;
@@ -79,7 +104,7 @@ export interface DeterministicTraversalCompletion {
   readonly diagnosticRef: string | null;
 }
 
-export interface CompleteDeterministicTraversalInput<
+export interface CompleteExecutableTraversalInput<
   Input,
   Output,
 > {
@@ -98,12 +123,17 @@ export interface CompleteDeterministicTraversalInput<
   readonly validateSuccessResult: (value: unknown) => value is Readonly<Output>;
   readonly closureContract: Readonly<ClosureContract>;
   readonly judgmentRelation: DeclaredJudgmentRelation<Input, Output>;
-  readonly realize: (input: Readonly<Input>) => unknown;
-  readonly clock: DeterministicTraversalClock;
+  readonly realize: (input: Readonly<Input>) => unknown | Promise<unknown>;
+  readonly clock: ExecutableTraversalClock;
 }
 
+export type DeterministicTraversalClock = ExecutableTraversalClock;
+export type DeterministicTraversalCompletion = ExecutableTraversalCompletion;
+export type CompleteDeterministicTraversalInput<Input, Output> =
+  CompleteExecutableTraversalInput<Input, Output>;
+
 function basis(
-  clock: DeterministicTraversalClock,
+  clock: ExecutableTraversalClock,
   stage: string,
 ): RuntimeAdmissionBasis {
   return {
@@ -114,7 +144,7 @@ function basis(
 }
 
 function cursorBasis<Input, Output>(
-  input: CompleteDeterministicTraversalInput<Input, Output>,
+  input: CompleteExecutableTraversalInput<Input, Output>,
   stage: string,
 ): RuntimeAdmissionBasis {
   const eventRef = traversalCursorAdmissionEventRef(
@@ -128,7 +158,7 @@ function cursorBasis<Input, Output>(
 }
 
 function completion(
-  disposition: DeterministicTraversalCompletion["disposition"],
+  disposition: ExecutableTraversalCompletion["disposition"],
   replayState: ReplayState,
   values: {
     readonly cCallRef?: string;
@@ -139,9 +169,9 @@ function completion(
     readonly resultValue?: JsonValue;
     readonly diagnosticRef?: string;
   } = {},
-): DeterministicTraversalCompletion {
+): ExecutableTraversalCompletion {
   return deepFreeze({
-    kind: "deterministic_traversal_completion" as const,
+    kind: "executable_traversal_completion" as const,
     schemaVersion: "5.0.0" as const,
     disposition,
     cCallRef: values.cCallRef ?? null,
@@ -152,10 +182,10 @@ function completion(
     resultValue: values.resultValue ?? null,
     replayState,
     diagnosticRef: values.diagnosticRef ?? null,
-  }) as DeterministicTraversalCompletion;
+  }) as ExecutableTraversalCompletion;
 }
 
-function replayRun(input: Pick<CompleteDeterministicTraversalInput<unknown, unknown>, "store" | "openedTraversalScope">): ReplayState {
+function replayRun(input: Pick<CompleteExecutableTraversalInput<unknown, unknown>, "store" | "openedTraversalScope">): ReplayState {
   return replay(input.store, { runId: input.openedTraversalScope.runId });
 }
 
@@ -163,38 +193,46 @@ function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function isEvidenceCandidate(value: unknown): value is DeterministicEvidenceCandidate {
-  return isRecord(value) &&
-    value.kind === "deterministic_evidence_candidate" &&
-    value.schemaVersion === "5.0.0" &&
-    typeof value.implementationRef === "string" && value.implementationRef.length !== 0 &&
-    typeof value.inputDigest === "string" && /^sha256:[a-f0-9]{64}$/u.test(value.inputDigest) &&
-    typeof value.outputDigest === "string" && /^sha256:[a-f0-9]{64}$/u.test(value.outputDigest);
+function isEvidenceCandidate(
+  value: unknown,
+  regime: "F_D" | "F_P",
+): value is DeterministicEvidenceCandidate | ProbabilisticTransportEvidenceCandidate {
+  if (!isRecord(value) ||
+    value.schemaVersion !== "5.0.0" ||
+    typeof value.implementationRef !== "string" || value.implementationRef.length === 0 ||
+    typeof value.inputDigest !== "string" || !/^sha256:[a-f0-9]{64}$/u.test(value.inputDigest) ||
+    typeof value.outputDigest !== "string" || !/^sha256:[a-f0-9]{64}$/u.test(value.outputDigest)) {
+    return false;
+  }
+  return regime === "F_D"
+    ? value.kind === "deterministic_evidence_candidate"
+    : value.kind === "probabilistic_transport_evidence_candidate";
 }
 
 function isLeafCandidate<Output>(
   value: unknown,
+  regime: "F_D" | "F_P",
   validateSuccessResult: (candidate: unknown) => candidate is Readonly<Output>,
   failureValueKind: string,
-): value is DeterministicLeafCandidate<Output> {
+): value is ExecutableLeafCandidate<Output> {
   if (!isRecord(value) || !Array.isArray(value.evidenceCandidates)) return false;
   const evidence = Array.from(value.evidenceCandidates);
   return value.kind === "leaf_realization_candidate" &&
     value.schemaVersion === "5.0.0" &&
     (value.disposition === "success" || value.disposition === "failure") &&
     evidence.length > 0 &&
-    evidence.every(isEvidenceCandidate) &&
+    evidence.every((candidate) => isEvidenceCandidate(candidate, regime)) &&
     isRecord(value.resultCandidate) &&
     value.resultCandidate.schemaVersion === "5.0.0" &&
     (value.disposition === "success"
-      ? validateSuccessResult(value.resultCandidate)
+      ? regime === "F_P" || validateSuccessResult(value.resultCandidate)
       : value.resultCandidate.kind === failureValueKind &&
         typeof value.diagnosticRef === "string" &&
         value.resultCandidate.diagnosticRef === value.diagnosticRef);
 }
 
 function totalizedFailureCandidate<Input, Output>(
-  input: CompleteDeterministicTraversalInput<Input, Output>,
+  input: CompleteExecutableTraversalInput<Input, Output>,
   failureClass: "implementation_exception" | "malformed_return",
 ): DeterministicLeafFailureCandidate {
   const diagnosticRef = `diagnostic://abiogenesis/implementation/${failureClass.replaceAll("_", "-")}@5`;
@@ -221,12 +259,26 @@ function totalizedFailureCandidate<Input, Output>(
   }) as DeterministicLeafFailureCandidate;
 }
 
-export function completeDeterministicTraversal<
+export async function completeExecutableTraversal<
   Input,
   Output,
 >(
-  input: CompleteDeterministicTraversalInput<Input, Output>,
-): DeterministicTraversalCompletion {
+  input: CompleteExecutableTraversalInput<Input, Output>,
+): Promise<ExecutableTraversalCompletion> {
+  const computeRegime = input.traversalStop.computeRegime;
+  if (computeRegime === "F_H") {
+    const diagnosticRef = "diagnostic://abiogenesis/hog/interaction-leaf-requires-continuation@5";
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "c_call_open",
+      { computeRegime },
+      diagnosticRef,
+      cursorBasis(input, "interaction-leaf-refusal"),
+    );
+    return completion("failed", replayRun(input), { diagnosticRef });
+  }
   if (
     sha256Canonical(input.input as unknown as JsonValue) !== input.inputDigest ||
     input.inputDigest !== input.traversalStop.cursor.inputDigest
@@ -273,11 +325,12 @@ export function completeDeterministicTraversal<
   }
   const cCall = opened.cCall;
   let realized: unknown;
-  let leaf: DeterministicLeafCandidate<Output>;
+  let leaf: ExecutableLeafCandidate<Output>;
   try {
-    realized = input.realize(input.input);
+    realized = await input.realize(input.input);
     leaf = isLeafCandidate<Output>(
       realized,
+      computeRegime,
       input.validateSuccessResult,
       input.failureValueKind,
     )
@@ -323,6 +376,12 @@ export function completeDeterministicTraversal<
     leaf.disposition === "success"
       ? input.resultValueKind
       : input.failureValueKind,
+    leaf.disposition === "success"
+      ? input.validateSuccessResult
+      : (value) => isRecord(value) &&
+        value.kind === input.failureValueKind &&
+        value.schemaVersion === "5.0.0" &&
+        value.diagnosticRef === leaf.diagnosticRef,
     evidence,
     basis(input.clock, "result"),
   );

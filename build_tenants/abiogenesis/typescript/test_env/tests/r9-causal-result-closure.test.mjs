@@ -156,6 +156,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     "success",
     closureContract.resultContractRef,
     "hello_world_output",
+    (value) => value?.kind === "hello_world_output" && value?.schemaVersion === "5.0.0",
     [evidence],
     runtimeBasis("correlation://t286/r9/result"),
   );
@@ -432,6 +433,7 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
     "success",
     closureContract.resultContractRef,
     "hello_world_output",
+    (value) => value?.kind === "hello_world_output" && value?.schemaVersion === "5.0.0",
     [evidence],
     runtimeBasis("correlation://t286/r9-rejection/result"),
   );
@@ -550,7 +552,7 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
   alteredStop.frameId = "frame://mutation/wrong-lineage";
   const outputContract = publication.contracts.find((value) => value.contractKind === "output");
   const failureContract = publication.contracts.find((value) => value.contractKind === "failure");
-  const completion = hog.completeDeterministicTraversal({
+  const completion = await hog.completeExecutableTraversal({
     store,
     executionBasis,
     openedTraversalScope: opened.scope,
@@ -638,7 +640,7 @@ test("R9 refuses a leaf input that differs from the admitted input digest", asyn
   const outputContract = publication.contracts.find((value) => value.contractKind === "output");
   const failureContract = publication.contracts.find((value) => value.contractKind === "failure");
   const alteredInput = { ...input, subject: "Not the admitted subject" };
-  const completion = hog.completeDeterministicTraversal({
+  const completion = await hog.completeExecutableTraversal({
     store,
     executionBasis,
     openedTraversalScope: opened.scope,

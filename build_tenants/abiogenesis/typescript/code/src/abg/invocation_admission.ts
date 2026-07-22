@@ -127,6 +127,16 @@ function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function validatedComputeRegimes(
+  validation: ProgramValidation,
+): readonly ("F_D" | "F_H" | "F_P")[] {
+  const declared = new Set<"F_D" | "F_H" | "F_P">([
+    ...validation.executableLeafRows.map((row) => row.fibre),
+    ...validation.interactionLeafRows.map((row) => row.fibre),
+  ]);
+  return (["F_D", "F_P", "F_H"] as const).filter((regime) => declared.has(regime));
+}
+
 export function hasAdmittedInvocation(
   store: AbgEventStore,
   admission: InvocationAdmission,
@@ -268,15 +278,15 @@ export function admitInvocation(
       "invocation target lacks exact raw caller-request admission",
     );
   }
+  const exactComputeRegimes = validatedComputeRegimes(input.programValidation);
   if (
     !isInvocationPolicyBasis(input.policy) ||
     input.policy.policyRef !== input.invocation.sessionPolicyRef ||
     input.policy.policyDigest !== input.invocation.sessionPolicyDigest ||
-    input.policy.allowedComputeRegimes.length !== 1 ||
-    input.policy.allowedComputeRegimes[0] !== "F_D" ||
+    input.policy.allowedComputeRegimes.join("\0") !== exactComputeRegimes.join("\0") ||
     input.policy.graphMaterialization !== "after_invocation_admission"
   ) {
-    return refusal("capability_mismatch", "root invocation requires the exact all-F_D policy basis");
+    return refusal("capability_mismatch", "root invocation policy differs from the exact validated compute fibres");
   }
   if (
     input.capabilityGrants.length === 0 ||

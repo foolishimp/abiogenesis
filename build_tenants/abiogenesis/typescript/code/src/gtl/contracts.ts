@@ -36,6 +36,26 @@ export interface NormalizedHelloInput {
   readonly subject: string;
 }
 
+export interface FpHelloInstruction {
+  readonly kind: "fp_hello_instruction";
+  readonly schemaVersion: "5.0.0";
+  readonly materializationPlanRef: string;
+  readonly rendererRef: string;
+  readonly instructionContractRef: string;
+  readonly resultContractRef: string;
+  readonly workerActorRef: string;
+  readonly subject: string;
+  readonly instruction: string;
+}
+
+export interface FpHelloOutput {
+  readonly kind: "fp_hello_output";
+  readonly schemaVersion: "5.0.0";
+  readonly resultContractRef: string;
+  readonly actorRef: string;
+  readonly message: string;
+}
+
 export interface GtlEnvironment {
   readonly requires: readonly string[];
   readonly provides: readonly string[];

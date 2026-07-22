@@ -96,6 +96,7 @@ export {
   type CCall,
   type CCallAdmission,
   type CCallAdmissionRejection,
+  type CCallEvidenceCandidate,
   type CCallEvidenceAdmissionResult,
   type CCallJudgment,
   type CCallJudgmentAdmissionResult,
@@ -103,6 +104,7 @@ export {
   type CCallOpenRefusal,
   type CCallResultAdmissionResult,
   type DeterministicEvidenceCandidate,
+  type ProbabilisticTransportEvidenceCandidate,
   type JudgmentCandidate,
   type RejectedCCallCompletion,
 } from "./c_call.js";

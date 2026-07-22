@@ -1,4 +1,8 @@
-import type { GraphFunction, GtlProgram } from "../gtl/contracts.js";
+import type {
+  ComputeRegime,
+  GraphFunction,
+  GtlProgram,
+} from "../gtl/contracts.js";
 import {
   isRawAdmittedValue,
   type RawAdmittedValue,
@@ -17,7 +21,7 @@ export interface InvocationPolicyBasis {
   readonly schemaVersion: "5.0.0";
   readonly policyRef: string;
   readonly policyDigest: Sha256Digest;
-  readonly allowedComputeRegimes: readonly ["F_D"];
+  readonly allowedComputeRegimes: readonly ComputeRegime[];
   readonly graphMaterialization: "after_invocation_admission";
 }
 
@@ -131,9 +135,22 @@ function refusal(
   };
 }
 
-export function constructRootInvocationPolicy(): InvocationPolicyBasis {
+export function constructRootInvocationPolicy(
+  allowedComputeRegimes: readonly ComputeRegime[] = ["F_D"],
+): InvocationPolicyBasis {
+  const canonicalOrder: readonly ComputeRegime[] = ["F_D", "F_P", "F_H"];
+  const canonicalRegimes = canonicalOrder.filter((regime) =>
+    allowedComputeRegimes.includes(regime)
+  );
+  if (
+    canonicalRegimes.length === 0 ||
+    canonicalRegimes.length !== allowedComputeRegimes.length ||
+    canonicalRegimes.some((regime, index) => regime !== allowedComputeRegimes[index])
+  ) {
+    throw new TypeError("invocation policy requires one canonical, unique compute-regime set");
+  }
   const body = {
-    allowedComputeRegimes: ["F_D"] as const,
+    allowedComputeRegimes: canonicalRegimes,
     graphMaterialization: "after_invocation_admission" as const,
   };
   const policyDigest = sha256Canonical(body as unknown as JsonValue);

@@ -8,6 +8,7 @@ import * as product from "../product/index.js";
 import * as validator from "../validator/index.js";
 import type {
   CatalogContribution,
+  FpHelloInstruction,
   GtlProgram,
   HelloWorldInput,
   ModulePublication,
@@ -86,6 +87,8 @@ function isDeclaredOutputValue(
       return gtl.isHelloWorldOutput(value);
     case "normalized_hello_input":
       return gtl.isNormalizedHelloInput(value);
+    case "fp_hello_output":
+      return gtl.isFpHelloOutput(value);
     default:
       return false;
   }
@@ -665,25 +668,45 @@ async function applyRunInvoke(
     );
   }
   const inputValue = recordField(invocation.payload, "input");
-  if (
-    graphFunction.inputs.length !== 1 ||
-    graphFunction.inputs[0] !== gtl.HELLO_WORLD_IDS.inputContractRef ||
-    inputValue.kind !== "hello_world_input" ||
-    inputValue.schemaVersion !== "5.0.0"
-  ) {
+  if (graphFunction.inputs.length !== 1) {
     throw new ApplicationRefusal(
       "target_mismatch",
       "run.invoke input must satisfy the selected GraphFunction's exact admitted input contract",
     );
   }
-  const subject = stringField(inputValue, "subject");
-  const helloInput = gtl.constructHelloWorldInput(subject);
-  const rawInput = rawAdmission<HelloWorldInput>(
-    helloInput,
+  const inputContractRef = graphFunction.inputs[0]!;
+  let admittedInput: Readonly<HelloWorldInput | FpHelloInstruction>;
+  if (inputContractRef === gtl.HELLO_WORLD_IDS.inputContractRef) {
+    if (!gtl.isHelloWorldInput(inputValue)) {
+      throw new ApplicationRefusal("target_mismatch", "run.invoke Hello input is contract-invalid");
+    }
+    admittedInput = gtl.constructHelloWorldInput(stringField(inputValue, "subject"));
+  } else if (inputContractRef === gtl.FP_HELLO_IDS.inputContractRef) {
+    if (!gtl.isFpHelloInstruction(inputValue)) {
+      throw new ApplicationRefusal("target_mismatch", "run.invoke F_P instruction is contract-invalid");
+    }
+    admittedInput = gtl.constructFpHelloInstruction(
+      stringField(inputValue, "subject"),
+      stringField(inputValue, "instruction"),
+    );
+  } else {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke selected GraphFunction input contract has no Product-owned admission function",
+    );
+  }
+  const rawInput = rawAdmission<HelloWorldInput | FpHelloInstruction>(
+    admittedInput,
     "invocation_input",
-    gtl.HELLO_WORLD_IDS.inputContractRef,
+    inputContractRef,
   );
-  const policy = product.constructRootInvocationPolicy();
+  const declaredRegimes = new Set<gtl.ComputeRegime>([
+    ...programValidation.executableLeafRows.map((row) => row.fibre),
+    ...programValidation.interactionLeafRows.map((row) => row.fibre),
+  ]);
+  const policy = product.constructRootInvocationPolicy(
+    (["F_D", "F_P", "F_H"] as const).filter((regime) => declaredRegimes.has(regime)),
+  );
   const actorRef = stringField(invocation.payload, "actorRef");
   const grant = product.constructCapabilityGrant(actorRef);
   const authority = product.constructInvocationAuthority(
@@ -1069,8 +1092,8 @@ async function applyRunInvoke(
       opened.scope.runId,
     );
   }
-  let currentInput = helloInput as unknown as Readonly<Record<string, product.JsonValue>>;
-  let traversalCompletion: hog.DeterministicTraversalCompletion | null = null;
+  let currentInput = admittedInput as unknown as Readonly<Record<string, product.JsonValue>>;
+  let traversalCompletion: hog.ExecutableTraversalCompletion | null = null;
   let leafOrdinal = 0;
   while (stop.kind === "traversal_stop_ref") {
     const implementationResolution = abg.selectAdmittedImplementationResolution(
@@ -1189,7 +1212,7 @@ async function applyRunInvoke(
         opened.scope.runId,
       );
     }
-    traversalCompletion = hog.completeDeterministicTraversal<
+    traversalCompletion = await hog.completeExecutableTraversal<
       Readonly<Record<string, product.JsonValue>>,
       Readonly<Record<string, product.JsonValue>>
     >({
@@ -1214,9 +1237,22 @@ async function applyRunInvoke(
         rejectionReasonRef: judgmentRelation.rejectionReasonRef,
         evaluate: (input, output) => judgmentRelation.evaluate(input, output),
       },
-      realize: leaf as (
-        value: Readonly<Record<string, product.JsonValue>>,
-      ) => unknown,
+      realize: (value) => (leaf as (
+        leafInput: Readonly<Record<string, product.JsonValue>>,
+        runtimeContext: Readonly<{
+          cwd: string;
+          archiveRoot: string;
+          label: string;
+          environment: Readonly<Record<string, string | undefined>>;
+          timeoutMs: number;
+        }>,
+      ) => unknown)(value, {
+        cwd: resolve(workspaceState.binding.roots.archiveRoot, "..", ".."),
+        archiveRoot: workspaceState.binding.roots.archiveRoot,
+        label: `fp-${leafOrdinal}-${candidate.invocationDigest.slice("sha256:".length, "sha256:".length + 12)}`,
+        environment: process.env,
+        timeoutMs: 60_000,
+      }),
       clock: {
         eventTime: invocation.eventTime,
         correlationId: `${invocation.correlationId}/hog/${leafOrdinal}`,

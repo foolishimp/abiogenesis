@@ -37,7 +37,7 @@ test("M5 installed CLI traverses ordered C.batch, successful C.retry, and C.edge
   assert.equal(run.stderr, "");
   assert.equal(run.outcomes.length, 6, run.stdout);
   assert.equal(run.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
-  assert.equal(run.outcomes[3].result.admittedRows, 2);
+  assert.equal(run.outcomes[3].result.admittedRows, 3);
   assert.deepEqual(run.outcomes[4].result.allowlist, [GRAPH_FUNCTION_REF]);
 
   const outcome = run.outcomes[5];

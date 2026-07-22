@@ -114,7 +114,7 @@ export async function buildRootCliScenario(
     programRef,
     graphFunctionRef,
     actorRef: "actor://abiogenesis/t286/trusted-developer",
-    input: {
+    input: options.input ?? {
       kind: "hello_world_input",
       schemaVersion: "5.0.0",
       subject: options.subject ?? "World",
@@ -175,14 +175,14 @@ export async function buildRootCliScenario(
   };
 }
 
-export function runInstalledCli(harness, scenario) {
+export function runInstalledCli(harness, scenario, options = {}) {
   return new Promise((resolveRun) => {
     execFile(
       harness.cliPath,
       ["--jsonl", scenario.transcriptPath],
       {
         cwd: harness.cliHost,
-        env: { ...process.env, NODE_OPTIONS: "" },
+        env: { ...process.env, ...options.environment, NODE_OPTIONS: "" },
         encoding: "utf8",
         maxBuffer: 20 * 1024 * 1024,
       },
