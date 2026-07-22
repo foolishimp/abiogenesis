@@ -420,7 +420,7 @@ export function constructHelloWorldModulePublication(
               judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
             },
           }),
-          C.edge({
+          C.retry(C.edge({
             transform: C.of({
               input: normalizedInputCarrier,
               output: normalizedInputCarrier,
@@ -492,7 +492,7 @@ export function constructHelloWorldModulePublication(
                 judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
               },
             }),
-          }),
+          }), 2),
         ),
       }],
       edges: [],
