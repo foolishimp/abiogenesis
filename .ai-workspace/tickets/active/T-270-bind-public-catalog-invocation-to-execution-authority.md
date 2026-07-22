@@ -12,7 +12,7 @@
 - status: active
 - phase_status: m5_parent_implementation_active
 - review_status: design_delta_direct_fh_accepted_d6da4269
-- proof_status: m4_root_retained_fp_authority_repaired_s02_open
+- proof_status: m4_root_retained_fp_execution_authority_bound_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -25,7 +25,7 @@
     M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md affected M5 boundary
 - triaged_at: 2026-07-22
 - created_at: 2026-07-14
-- updated_at: 2026-07-22
+- updated_at: 2026-07-23
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
@@ -156,24 +156,30 @@ M5 closure independently.
 
 ## Current M5 Checkpoint
 
-Implementation commit `fef14403dad104277bf0bc06269c16d326db6db6`
-repairs the first F_P slice after review:
+Implementation commit `d7cabbec374133687ebc286699e20504d06a4564`
+repairs the first F_P slice after the second authority review:
 
-- Public performs fixed invocation preparation and calls HoG once;
-- HoG owns the direct graph fold, exact implementation addressing, leaf
-  invocation, and cursor advancement;
-- ABG owns actor/process identity, transport supervision truth, evidence
-  verification, blocked-route admission, and `run_stopped` truth;
+- Product verifies the exact installed payload and resolves packaged
+  implementation descriptors; Public performs fixed preparation and calls HoG
+  once without loading concrete implementation symbols;
+- HoG owns the direct graph fold and invokes one opaque install-bound admitted
+  leaf port; the port binds Product, publication, implementation-set, and
+  implementation-row identity and rechecks installed bytes before execution;
+- ABG admits exact worker configuration before actor identity, owns truthful
+  process supervision events, and derives rather than trusts probabilistic
+  evidence;
 - F_P success-result admission rejects missing or wrong attribution,
   contradictory output, malformed JSON, and undeclared fields; and
-- worker timeout handling escalates from `SIGTERM` to bounded `SIGKILL` and
-  forced stream settlement.
+- worker timeout handling escalates from `SIGTERM` to bounded `SIGKILL`, records
+  exit only when observed, and fails closed with an explicit unconfirmed state.
 
-Fresh serialized verification is `test:m5` `26/26` and retained `test:m4`
-`25/25`. This checkpoint does not close `ABG5-S02`: its worker is a
+Fresh serialized verification is `test:m5` `28/28` and retained `test:m4`
+`26/26`. This checkpoint does not close `ABG5-S02`: its model worker is a
 subprocess-backed deterministic fixture rather than a live probabilistic
-model, and `workflow.C`, the forty-row traversal matrix, and fibre
-substitution remain unopened.
+model. The installed path now also proves the B-001 `worker_executes` lane,
+post-install code substitution refusal, and observed bounded termination.
+`workflow.C`, the forty-row traversal matrix, and fibre substitution remain
+unopened.
 
 ## 4.6 Conservation
 
