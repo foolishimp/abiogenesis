@@ -1,6 +1,6 @@
-import type { JsonValue } from "../product/canonical_json.js";
-import { sha256Canonical } from "../product/digests.js";
-import { deepFreeze } from "../product/immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import type {
   GraphFunction,
   GraphMaterializationBasis,

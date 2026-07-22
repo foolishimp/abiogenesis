@@ -4,7 +4,8 @@ import type {
   WorkspaceBinding,
   WorkspaceBindingCandidate,
 } from "../product/index.js";
-import { sha256Canonical, type JsonValue, type Sha256Digest } from "../product/index.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 
 export type PublicOperationId =

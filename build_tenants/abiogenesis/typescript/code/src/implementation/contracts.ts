@@ -1,5 +1,5 @@
 import type { HelloWorldInput, HelloWorldOutput } from "../gtl/contracts.js";
-import type { Sha256Digest } from "../product/digests.js";
+import type { Sha256Digest } from "../shared/digests.js";
 
 export interface DeterministicEvidenceCandidate {
   readonly kind: "deterministic_evidence_candidate";

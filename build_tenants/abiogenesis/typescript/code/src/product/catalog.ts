@@ -7,9 +7,9 @@ import {
   isProgramValidation,
   isPublicationValidation,
 } from "../validator/validation.js";
-import type { JsonValue } from "./canonical_json.js";
-import { sha256Canonical, type Sha256Digest } from "./digests.js";
-import { deepFreeze } from "./immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import type {
   ResolvedProductLock,
   WorkspaceBinding,

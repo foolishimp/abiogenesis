@@ -1,4 +1,4 @@
-import type { Sha256Digest } from "./digests.js";
+import type { Sha256Digest } from "../shared/digests.js";
 
 export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-dev.286";
 export const ABI5_PACKAGE_NAME = "@abiogenesis/typescript-tenant";

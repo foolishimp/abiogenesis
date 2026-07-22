@@ -1,7 +1,8 @@
 import type { ClosureContract } from "../gtl/contracts.js";
-import type { JsonValue, Sha256Digest } from "../product/index.js";
-import { sha256Canonical } from "../product/digests.js";
-import { deepFreeze } from "../product/immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
+import type { Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import {
   hasOpenedCCall,
   isAdmittedCCallJudgment,

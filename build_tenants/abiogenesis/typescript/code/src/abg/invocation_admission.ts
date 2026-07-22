@@ -9,9 +9,7 @@ import {
   type CatalogView,
   type InvocationAuthority,
   type InvocationPolicyBasis,
-  type JsonValue,
   type PublicInvocationCandidate,
-  type Sha256Digest,
   type WorkspaceBinding,
 } from "../product/index.js";
 import {
@@ -20,8 +18,10 @@ import {
   isInvocationPolicyBasis,
   isPublicInvocationCandidate,
 } from "../product/invocation.js";
-import { sha256Canonical } from "../product/digests.js";
-import { deepFreeze } from "../product/immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
+import type { Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import {
   isProgramValidation,
   type ProgramValidation,

@@ -1,13 +1,9 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import {
-  canonicalJson,
-  sha256Bytes,
-  type JsonValue,
-  type Sha256Digest,
-} from "../product/index.js";
-import { deepFreeze } from "../product/immutable.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { sha256Bytes, type Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import {
   selectRuntimeEvents,
   type AbgEventStore,

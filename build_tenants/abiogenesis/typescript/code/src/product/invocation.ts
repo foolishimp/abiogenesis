@@ -3,11 +3,11 @@ import {
   isRawAdmittedValue,
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
-import type { JsonValue } from "./canonical_json.js";
+import type { JsonValue } from "../shared/canonical_json.js";
 import type { CatalogView } from "./catalog.js";
-import { sha256Canonical, type Sha256Digest } from "./digests.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { WorkspaceBinding } from "./environment.js";
-import { deepFreeze } from "./immutable.js";
+import { deepFreeze } from "../shared/immutable.js";
 
 export const DIRECT_INVOKE_CAPABILITY =
   "abg.capability.catalog.invoke-graph-function@5";

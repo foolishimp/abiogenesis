@@ -7,10 +7,10 @@ import {
   isProgramValidation,
   type ProgramValidation,
 } from "../validator/validation.js";
-import type { JsonValue } from "./canonical_json.js";
+import type { JsonValue } from "../shared/canonical_json.js";
 import { catalogViewContentDigest, type CatalogView } from "./catalog.js";
-import { sha256Canonical, type Sha256Digest } from "./digests.js";
-import { deepFreeze } from "./immutable.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 
 export interface PackagedLeafImplementationDescriptor {
   readonly kind: "packaged_leaf_implementation_descriptor";

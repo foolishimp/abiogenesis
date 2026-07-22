@@ -15,7 +15,8 @@ export {
   type VerifiedProductArtifact,
   type VerifyProductRequest,
 } from "./contracts.js";
-export { canonicalJson, type JsonValue } from "./canonical_json.js";
+// Compatibility projection: shared primitives are not Product-owned.
+export { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 export {
   isSha256Digest,
   payloadInventoryDigest,
@@ -24,7 +25,7 @@ export {
   sha256File,
   type PayloadInventoryRow,
   type Sha256Digest,
-} from "./digests.js";
+} from "../shared/digests.js";
 export {
   ENVIRONMENT_REFUSAL_CODES,
   constructProductSet,

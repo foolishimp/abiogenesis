@@ -1,12 +1,12 @@
 import type { ClosureContract, GtlGraph, GtlProgram } from "../gtl/contracts.js";
 import {
   type ImplementationResolutionCandidate,
-  type JsonValue,
-  type Sha256Digest,
 } from "../product/index.js";
 import { isImplementationResolutionCandidate } from "../product/implementation_resolution.js";
-import { sha256Canonical } from "../product/digests.js";
-import { deepFreeze } from "../product/immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
+import type { Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import {
   isGraphValidation,
   type GraphValidation,

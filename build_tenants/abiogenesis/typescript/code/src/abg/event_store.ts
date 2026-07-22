@@ -8,8 +8,9 @@ import {
 } from "node:fs";
 import { dirname, resolve } from "node:path";
 
-import { canonicalJson, sha256Canonical, type JsonValue, type Sha256Digest } from "../product/index.js";
-import { deepFreeze } from "../product/immutable.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 
 export const ROOT_EVENT_KIND_VALUES = [
   "public_operation_artifact_admitted",

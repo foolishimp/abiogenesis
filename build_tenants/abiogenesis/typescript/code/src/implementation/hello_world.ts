@@ -3,8 +3,8 @@ import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
 } from "../product/contracts.js";
-import { sha256Canonical } from "../product/digests.js";
-import { deepFreeze } from "../product/immutable.js";
+import { sha256Canonical } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import type {
   HelloWorldLeafRealizationCandidate,
 } from "./contracts.js";

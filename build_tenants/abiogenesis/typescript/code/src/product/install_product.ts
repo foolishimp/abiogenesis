@@ -2,7 +2,7 @@ import { execFile } from "node:child_process";
 import { access, lstat, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { join, relative, resolve, sep } from "node:path";
 
-import { canonicalJson, type JsonValue } from "./canonical_json.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type {
   InstallProductRequest,
   ProductInstallRefusal,
@@ -14,7 +14,7 @@ import {
   sha256Canonical,
   sha256File,
   type PayloadInventoryRow,
-} from "./digests.js";
+} from "../shared/digests.js";
 import { parseProductManifest } from "./verify_product.js";
 
 function refusal(

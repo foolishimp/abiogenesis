@@ -5,9 +5,9 @@ import {
   type ImplementationResolutionCandidate,
   type PackagedLeafImplementationDescriptor,
 } from "../product/implementation_resolution.js";
-import type { JsonValue } from "../product/canonical_json.js";
-import { sha256Canonical, type Sha256Digest } from "../product/digests.js";
-import { deepFreeze } from "../product/immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import {
   isGraphValidation,
   type GraphValidation,

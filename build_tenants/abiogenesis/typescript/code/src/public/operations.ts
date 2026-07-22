@@ -12,7 +12,7 @@ import type {
   HelloWorldOutput,
   ModulePublication,
 } from "../gtl/contracts.js";
-import { deepFreeze } from "../product/immutable.js";
+import { deepFreeze } from "../shared/immutable.js";
 import type {
   PublicOutcome,
   RootPublicInvocation,

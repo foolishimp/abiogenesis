@@ -1,9 +1,10 @@
 import type { AdmittedCCallJudgment, CCall } from "../abg/c_call.js";
 import type { ReplayState } from "../abg/replay.js";
 import type { GtlGraph } from "../gtl/contracts.js";
-import type { JsonValue, Sha256Digest } from "../product/index.js";
-import { sha256Canonical } from "../product/digests.js";
-import { deepFreeze } from "../product/immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
+import type { Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import type { TraversalStopRef } from "./traversal.js";
 
 export interface TransitionProposal {

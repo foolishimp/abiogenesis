@@ -1,18 +1,18 @@
 import {
-  sha256Canonical,
   type AdmittedCatalog,
   type CatalogAdmissionCandidate,
   type CatalogRowDisposition,
   type CatalogView,
   type CatalogViewCandidate,
-  type JsonValue,
 } from "../product/index.js";
 import {
   catalogViewContentDigest,
   isCatalogAdmissionCandidate,
   isCatalogViewCandidate,
 } from "../product/catalog.js";
-import { deepFreeze } from "../product/immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import { admitArtifact, type AbgAdmissionRefusal, type ArtifactAdmissionBasis } from "./environment_admission.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 

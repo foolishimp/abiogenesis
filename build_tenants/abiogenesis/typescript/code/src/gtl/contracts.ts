@@ -1,4 +1,4 @@
-import type { Sha256Digest, VerifiedProductArtifact } from "../product/index.js";
+import type { Sha256Digest } from "../shared/digests.js";
 
 export type ComputeRegime = "F_D" | "F_H" | "F_P";
 
@@ -179,10 +179,10 @@ export interface ModulePublication {
 }
 
 export interface RootModuleArtifactBasis {
-  readonly productId: VerifiedProductArtifact["productId"];
-  readonly artifactDigest: VerifiedProductArtifact["artifactDigest"];
-  readonly productContentDigest: VerifiedProductArtifact["productContentDigest"];
-  readonly productManifestDigest: VerifiedProductArtifact["manifestDigest"];
-  readonly packageName: VerifiedProductArtifact["packageName"];
-  readonly packageVersion: VerifiedProductArtifact["packageVersion"];
+  readonly productId: string;
+  readonly artifactDigest: Sha256Digest;
+  readonly productContentDigest: Sha256Digest;
+  readonly productManifestDigest: Sha256Digest;
+  readonly packageName: string;
+  readonly packageVersion: string;
 }

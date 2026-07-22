@@ -3,7 +3,7 @@ import {
   sha256Canonical,
   type JsonValue,
 } from "../product/index.js";
-import { deepFreeze } from "../product/immutable.js";
+import { deepFreeze } from "../shared/immutable.js";
 import type {
   PublicOutcome,
   RootPublicInvocation,

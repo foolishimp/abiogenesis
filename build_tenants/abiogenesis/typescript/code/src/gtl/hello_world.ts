@@ -10,7 +10,7 @@ import type {
   HelloWorldInput,
   HelloWorldOutput,
 } from "./contracts.js";
-import { deepFreeze } from "../product/immutable.js";
+import { deepFreeze } from "../shared/immutable.js";
 
 export const HELLO_WORLD_IDS = Object.freeze({
   moduleRef: "module://abiogenesis/conformance/hello-world@5",

@@ -2,7 +2,7 @@ import { execFile } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { isAbsolute, posix } from "node:path";
 
-import { canonicalJson, type JsonValue } from "./canonical_json.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type {
   ProductVerificationRefusal,
   ProductVerificationRefusalCode,
@@ -16,7 +16,7 @@ import {
   sha256Canonical,
   type PayloadInventoryRow,
   type Sha256Digest,
-} from "./digests.js";
+} from "../shared/digests.js";
 
 type JsonRecord = { readonly [key: string]: JsonValue };
 

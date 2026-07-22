@@ -20,9 +20,10 @@ import type {
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
-import { sha256Canonical, type JsonValue } from "../product/index.js";
 import type { DeterministicEvidenceCandidate } from "../abg/c_call.js";
-import { deepFreeze } from "../product/immutable.js";
+import { sha256Canonical } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
 import {
   proposeFailureJudgment,
   proposeJudgment,

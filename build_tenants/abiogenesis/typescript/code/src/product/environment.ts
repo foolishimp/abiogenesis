@@ -1,8 +1,8 @@
 import { isAbsolute } from "node:path";
 
-import { canonicalJson, type JsonValue } from "./canonical_json.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type { ProductInstallCandidate } from "./contracts.js";
-import { sha256Canonical, type Sha256Digest } from "./digests.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 
 export interface ProductInstall extends Omit<ProductInstallCandidate, "kind" | "disposition"> {
   readonly kind: "product_install";

@@ -1,7 +1,7 @@
 import type { GtlGraph, GtlProgram } from "../gtl/contracts.js";
-import { canonicalJson, type JsonValue } from "../product/canonical_json.js";
-import { sha256Canonical, type Sha256Digest } from "../product/digests.js";
-import { deepFreeze } from "../product/immutable.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import {
   hasAdmittedExecutionBasis,
   hasAdmittedImplementationResolution,
