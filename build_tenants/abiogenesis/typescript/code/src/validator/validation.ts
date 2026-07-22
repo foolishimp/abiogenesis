@@ -10,7 +10,13 @@ import type {
   ImplementationBinding,
   ModulePublication,
 } from "../gtl/index.js";
-import { cLeafTerms } from "../gtl/c_algebra.js";
+import {
+  cLeafTerms,
+  isExecutableCLeaf,
+  isInteractionCLeaf,
+  type ExecutableLeafRequirement,
+  type InteractionLeafRequirement,
+} from "../gtl/c_algebra.js";
 import { isRawAdmittedValue, type RawAdmittedValue } from "./raw_admission.js";
 import { inspectCProgramTerm } from "./c_algebra.js";
 
@@ -81,7 +87,39 @@ export interface ProgramValidation {
   readonly contractDigests: readonly Sha256Digest[];
   readonly implementationBindingDigests: readonly Sha256Digest[];
   readonly closureContractDigests: readonly Sha256Digest[];
+  readonly executableLeafRows: readonly ValidatedExecutableLeaf[];
+  readonly interactionLeafRows: readonly ValidatedInteractionLeaf[];
+  readonly transitiveReachableExecutableLeafKeys: readonly string[];
+  readonly transitiveReachableInteractionLeafKeys: readonly string[];
   readonly diagnostics: readonly [];
+}
+
+interface ValidatedLeafBase {
+  readonly requirementKey: string;
+  readonly requirementKeyDigest: Sha256Digest;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: Sha256Digest;
+  readonly nodeRef: string;
+  readonly programLocusRef: string;
+  readonly stageRole: string;
+  readonly armId: string;
+  readonly compositionRef: string | null;
+  readonly vectorIndex: number;
+  readonly judgmentPredicateRef: string;
+  readonly inputCarrierRef: string;
+  readonly outputCarrierRef: string;
+}
+
+export interface ValidatedExecutableLeaf extends ValidatedLeafBase {
+  readonly kind: "validated_executable_leaf";
+  readonly fibre: "F_D" | "F_P";
+  readonly requirement: ExecutableLeafRequirement;
+}
+
+export interface ValidatedInteractionLeaf extends ValidatedLeafBase {
+  readonly kind: "validated_interaction_leaf";
+  readonly fibre: "F_H";
+  readonly requirement: InteractionLeafRequirement;
 }
 
 export interface ProgramValidationInput {
@@ -262,6 +300,16 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       diagnostics.push({ code: "missing_membership", path: "$.program.callableMembership", message: `missing exact GraphFunction ${graphFunctionRef}` });
     }
   }
+  if (
+    graphFunctions.length !== program.callableMembership.length ||
+    graphFunctions.some((graphFunction) => !program.callableMembership.includes(graphFunction.name))
+  ) {
+    diagnostics.push({
+      code: "missing_membership",
+      path: "$.graphFunctions",
+      message: "raw GraphFunction set must equal the complete Program callable membership",
+    });
+  }
   for (const start of program.starts) {
     if (!program.callableMembership.includes(start.graphFunctionRef)) {
       diagnostics.push({ code: "missing_membership", path: `$.program.starts[${start.startRef}]`, message: "Program start is not in callable membership" });
@@ -275,7 +323,10 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const availableGraphFunctionRefs = new Set(graphFunctions.map((value) => value.name));
   const callableGraphFunctionRefs = new Set(program.callableMembership);
   const programLocusRefs: string[] = [];
+  const executableLeafRows: ValidatedExecutableLeaf[] = [];
+  const interactionLeafRows: ValidatedInteractionLeaf[] = [];
   for (const graphFunction of graphFunctions) {
+    const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
     const nodes = new Map(graphFunction.template.nodes.map((node) => [node.nodeRef, node]));
     if (!nodes.has(graphFunction.template.startNodeRef) || graphFunction.template.terminalNodeRefs.some((ref) => !nodes.has(ref))) {
       diagnostics.push({ code: "topology_mismatch", path: `$.graphFunctions[${graphFunction.name}].template`, message: "start and terminal nodes must belong to the original graph template" });
@@ -303,7 +354,75 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       });
       diagnostics.push(...inspection.diagnostics);
       if (inspection.term !== null) {
-        programLocusRefs.push(...cLeafTerms(inspection.term).map((leaf) => leaf.programLocusRef));
+        for (const leaf of cLeafTerms(inspection.term)) {
+          programLocusRefs.push(leaf.programLocusRef);
+          const commonKeyBody = {
+            programRef: program.programRef,
+            graphFunctionRef: graphFunction.name,
+            graphFunctionDigest,
+            programLocusRef: leaf.programLocusRef,
+            stageRole: leaf.stageRole,
+            fibre: leaf.fibre,
+            armId: leaf.armId,
+          };
+          if (isExecutableCLeaf(leaf)) {
+            const requirementKeyDigest = sha256Canonical({
+              ...commonKeyBody,
+              implementationBindingRef: leaf.requirement.implementationBindingRef,
+              inputContractRef: leaf.requirement.inputContractRef,
+              outputContractRef: leaf.requirement.outputContractRef,
+              evidenceContractRef: leaf.requirement.evidenceContractRef,
+              failureContractRef: leaf.requirement.failureContractRef,
+              refusalContractRef: leaf.requirement.refusalContractRef,
+              judgmentContractRef: leaf.requirement.judgmentContractRef,
+            } as unknown as JsonValue);
+            executableLeafRows.push({
+              kind: "validated_executable_leaf",
+              requirementKey: `executable-leaf://abiogenesis/${requirementKeyDigest.slice("sha256:".length)}`,
+              requirementKeyDigest,
+              graphFunctionRef: graphFunction.name,
+              graphFunctionDigest,
+              nodeRef: node.nodeRef,
+              programLocusRef: leaf.programLocusRef,
+              stageRole: leaf.stageRole,
+              fibre: leaf.fibre,
+              armId: leaf.armId,
+              compositionRef: leaf.compositionRef,
+              vectorIndex: leaf.vectorIndex,
+              judgmentPredicateRef: leaf.judgmentPredicateRef,
+              inputCarrierRef: leaf.inputCarrierRef,
+              outputCarrierRef: leaf.outputCarrierRef,
+              requirement: leaf.requirement,
+            });
+          } else if (isInteractionCLeaf(leaf)) {
+            const requirementKeyDigest = sha256Canonical({
+              ...commonKeyBody,
+              interactionKind: leaf.requirement.interactionKind,
+              actorCapabilityRef: leaf.requirement.actorCapabilityRef,
+              requestContractRef: leaf.requirement.requestContractRef,
+              responseContractRef: leaf.requirement.responseContractRef,
+              continuationContractRef: leaf.requirement.continuationContractRef,
+            } as unknown as JsonValue);
+            interactionLeafRows.push({
+              kind: "validated_interaction_leaf",
+              requirementKey: `interaction-leaf://abiogenesis/${requirementKeyDigest.slice("sha256:".length)}`,
+              requirementKeyDigest,
+              graphFunctionRef: graphFunction.name,
+              graphFunctionDigest,
+              nodeRef: node.nodeRef,
+              programLocusRef: leaf.programLocusRef,
+              stageRole: leaf.stageRole,
+              fibre: "F_H",
+              armId: leaf.armId,
+              compositionRef: leaf.compositionRef,
+              vectorIndex: leaf.vectorIndex,
+              judgmentPredicateRef: leaf.judgmentPredicateRef,
+              inputCarrierRef: leaf.inputCarrierRef,
+              outputCarrierRef: leaf.outputCarrierRef,
+              requirement: leaf.requirement,
+            });
+          }
+        }
       }
     }
     for (const applicationRef of duplicates(
@@ -355,6 +474,16 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       code: "duplicate_identity",
       path: "$.graphFunctions[*].template.nodes[*].term",
       message: `duplicate C leaf program locus ${programLocusRef}`,
+    });
+  }
+  for (const requirementKey of duplicates([
+    ...executableLeafRows.map((row) => row.requirementKey),
+    ...interactionLeafRows.map((row) => row.requirementKey),
+  ])) {
+    diagnostics.push({
+      code: "duplicate_identity",
+      path: "$.graphFunctions[*].template.nodes[*].term",
+      message: `duplicate validated leaf requirement ${requirementKey}`,
     });
   }
   if (!closureContracts.some((contract) => contract.closureContractRef === program.closureContractRef)) {
@@ -414,6 +543,10 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const contractDigests = input.contracts.map((value) => value.subjectDigest);
   const implementationBindingDigests = input.implementationBindings.map((value) => value.subjectDigest);
   const closureContractDigests = input.closureContracts.map((value) => value.subjectDigest);
+  executableLeafRows.sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+  interactionLeafRows.sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+  const transitiveReachableExecutableLeafKeys = executableLeafRows.map((row) => row.requirementKey);
+  const transitiveReachableInteractionLeafKeys = interactionLeafRows.map((row) => row.requirementKey);
   const sourceDigest = sha256Canonical({
     publicationDigest: input.publication.subjectDigest,
     programDigest: input.program.subjectDigest,
@@ -421,6 +554,8 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     contractDigests,
     implementationBindingDigests,
     closureContractDigests,
+    executableLeafRows,
+    interactionLeafRows,
   } as unknown as JsonValue);
   const validation = deepFreeze({
     kind: "program_validation",
@@ -435,6 +570,10 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     contractDigests,
     implementationBindingDigests,
     closureContractDigests,
+    executableLeafRows,
+    interactionLeafRows,
+    transitiveReachableExecutableLeafKeys,
+    transitiveReachableInteractionLeafKeys,
     diagnostics: [],
   }) as ProgramValidation;
   programValidations.add(validation);

@@ -24,11 +24,17 @@ export {
   type StaticDiagnostic,
   type StaticDiagnosticCode,
   type StaticValidationRefusal,
+  type ValidatedExecutableLeaf,
+  type ValidatedInteractionLeaf,
 } from "./validation.js";
 export {
+  isImplementationResolutionSetValidation,
   validateImplementationResolution,
+  validateImplementationResolutionSet,
   type ImplementationResolutionValidation,
   type ImplementationResolutionValidationResult,
+  type ImplementationResolutionSetValidation,
+  type ImplementationResolutionSetValidationResult,
 } from "./implementation_resolution.js";
 export {
   validateGraph,

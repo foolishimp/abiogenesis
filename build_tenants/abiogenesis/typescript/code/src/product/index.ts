@@ -73,11 +73,18 @@ export {
   type PublicInvocationCandidate,
 } from "./invocation.js";
 export {
+  isImplementationResolutionSetCandidate,
+  isLeafImplementationResolutionCandidate,
   isPackagedLeafImplementationDescriptor,
   resolveImplementation,
+  resolveImplementationSet,
   type ImplementationResolutionCandidate,
   type ImplementationResolutionRefusal,
   type ImplementationResolutionResult,
+  type ImplementationResolutionSetCandidate,
+  type ImplementationResolutionSetRefusal,
+  type ImplementationResolutionSetResult,
+  type LeafImplementationResolutionCandidate,
   type PackagedLeafImplementationDescriptor,
 } from "./implementation_resolution.js";
 export {
