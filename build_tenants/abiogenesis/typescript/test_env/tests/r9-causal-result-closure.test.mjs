@@ -30,7 +30,7 @@ function admitInitialCursor(environment, opened, traversalStop, correlationId) {
   return admission;
 }
 
-test("R9 admits the uniform CCall spine, terminal transition, and exact closure chain", async (context) => {
+test("R9 admits the uniform CCall spine, terminal route, and exact closure chain", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const {
     abg,
@@ -190,7 +190,7 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
   assert.equal(judgment.judgment, "advance");
 
   const judgedReplay = abg.replay(store, replayScope);
-  const transitionCandidate = hog.proposeTerminalTransition(
+  const routeCandidate = hog.proposeTerminalRoute(
     graph,
     traversalStop,
     cCall,
@@ -198,26 +198,59 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
     judgedReplay,
     closureContract.transitionContractRef,
   );
-  assert.equal(transitionCandidate.kind, "transition_proposal", JSON.stringify(transitionCandidate));
-  const transition = abg.admitTransition(
+  assert.equal(routeCandidate.kind, "traversal_route_candidate", JSON.stringify(routeCandidate));
+  const preRouteEventCount = store.readAll().length;
+  const forgedRoute = abg.admitRoute(
     store,
     graph,
+    traversalStop.cursor,
     cCall,
     judgment,
     judgedReplay,
-    transitionCandidate,
-    runtimeBasis("correlation://t286/r9/transition"),
+    {
+      ...routeCandidate,
+      sourceCursorDigest: `sha256:${"0".repeat(64)}`,
+    },
+    runtimeBasis("correlation://t286/r9/forged-route"),
   );
-  assert.equal(transition.kind, "admitted_transition", JSON.stringify(transition));
+  assert.equal(forgedRoute.kind, "traversal_route_admission_refusal");
+  assert.equal(forgedRoute.code, "cursor_mismatch");
+  assert.equal(store.readAll().length, preRouteEventCount);
+  const route = abg.admitRoute(
+    store,
+    graph,
+    traversalStop.cursor,
+    cCall,
+    judgment,
+    judgedReplay,
+    routeCandidate,
+    runtimeBasis("correlation://t286/r9/route"),
+  );
+  assert.equal(route.kind, "admitted_traversal_route", JSON.stringify(route));
 
-  const transitionReplay = abg.replay(store, replayScope);
+  const routeReplay = abg.replay(store, replayScope);
+  assert.equal(routeReplay.routes.length, 1);
+  assert.deepEqual(routeReplay.routes[0], {
+    routeRef: route.routeRef,
+    routeDigest: route.routeDigest,
+    routeKind: "terminal",
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: traversalStop.cursor.cursorRef,
+    sourceCursorDigest: traversalStop.cursor.cursorDigest,
+    targetCursorRef: null,
+    targetCursorDigest: null,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: judgment.judgmentRef,
+    admissionEventRef: route.admissionEventRef,
+  });
   const closure = abg.admitClosure(
     store,
     cCall,
     result,
     judgment,
-    transition,
-    transitionReplay,
+    route,
+    routeReplay,
     closureContract,
     runtimeBasis("correlation://t286/r9/closure"),
   );
@@ -236,8 +269,8 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
     cCall,
     result,
     judgment,
-    transition,
-    transitionReplay,
+    route,
+    routeReplay,
     closureContract,
     runtimeBasis("correlation://t286/r9/duplicate-closure"),
   );
@@ -258,8 +291,9 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
   assert.equal("regime" in cCallEvents[0].payload, false);
   assert.equal("implementationRef" in cCallEvents[0].payload, false);
   assert.equal(cCallEvents[1].payload.regime, "F_D");
+  assert.equal(events.some((event) => event.kind === "fd_advance_ready"), false);
   assert.deepEqual(events.slice(-5).map((event) => event.kind), [
-    "fd_advance_ready",
+    "traversal_route_admitted",
     "terminal_reached",
     "frame_closed",
     "graph_call_closed",
@@ -297,7 +331,7 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
       evidenceRef: evidence.evidenceRef,
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
-      transitionRef: transition.transitionRef,
+      routeRef: route.routeRef,
       closureRef: closure.closureRef,
       replayDigest: finalReplay.replayDigest,
       replayStatus: finalReplay.runtimeStatus,

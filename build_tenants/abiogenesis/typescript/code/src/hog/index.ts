@@ -33,10 +33,9 @@ export {
   type DeclaredJudgmentRelation,
 } from "./judgment.js";
 export {
-  proposeTerminalTransition,
-  type TransitionProposal,
-  type TransitionProposalRefusal,
-} from "./transition.js";
+  proposeTerminalRoute,
+  type RouteProposalRefusal,
+} from "./traversal_route.js";
 export {
   completeDeterministicTraversal,
   type CompleteDeterministicTraversalInput,

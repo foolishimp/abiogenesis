@@ -4,7 +4,7 @@ import {
   admitJudgment,
   admitResult,
   admitRuntimeFailure,
-  admitTransition,
+  admitRoute,
   completeRejectedCCall,
   openCCall,
   replay,
@@ -30,7 +30,7 @@ import {
   proposeJudgment,
   type DeclaredJudgmentRelation,
 } from "./judgment.js";
-import { proposeTerminalTransition } from "./transition.js";
+import { proposeTerminalRoute } from "./traversal_route.js";
 import type { TraversalStopRef } from "./traversal.js";
 
 export interface DeterministicLeafSuccessCandidate<Output> {
@@ -374,7 +374,7 @@ export function completeDeterministicTraversal<
     });
   }
   const judgedReplay = replayRun(input);
-  const proposal = proposeTerminalTransition(
+  const proposal = proposeTerminalRoute(
     input.graph,
     input.traversalStop,
     cCall,
@@ -382,16 +382,16 @@ export function completeDeterministicTraversal<
     judgedReplay,
     input.closureContract.transitionContractRef,
   );
-  if (proposal.kind !== "transition_proposal") {
+  if (proposal.kind !== "traversal_route_candidate") {
     admitRuntimeFailure(
       input.store,
       input.executionBasis,
       input.openedTraversalScope,
-      "transition",
+      "route",
       proposal as unknown as JsonValue,
       `diagnostic://abiogenesis/hog/${proposal.code}@5`,
       {
-        ...basis(input.clock, "transition-proposal-refusal"),
+        ...basis(input.clock, "route-proposal-refusal"),
         causationEventRefs: [judgment.admissionEventRef],
       },
     );
@@ -402,25 +402,26 @@ export function completeDeterministicTraversal<
       diagnosticRef: `diagnostic://abiogenesis/hog/${proposal.code}@5`,
     });
   }
-  const transition = admitTransition(
+  const route = admitRoute(
     input.store,
     input.graph,
+    input.traversalStop.cursor,
     cCall,
     judgment,
     judgedReplay,
     proposal,
-    basis(input.clock, "transition"),
+    basis(input.clock, "route"),
   );
-  if (transition.kind !== "admitted_transition") {
+  if (route.kind !== "admitted_traversal_route") {
     admitRuntimeFailure(
       input.store,
       input.executionBasis,
       input.openedTraversalScope,
-      "transition",
-      transition as unknown as JsonValue,
-      `diagnostic://abiogenesis/hog/${transition.code}@5`,
+      "route",
+      route as unknown as JsonValue,
+      `diagnostic://abiogenesis/hog/${route.code}@5`,
       {
-        ...basis(input.clock, "transition-admission-refusal"),
+        ...basis(input.clock, "route-admission-refusal"),
         causationEventRefs: [judgment.admissionEventRef],
       },
     );
@@ -428,17 +429,17 @@ export function completeDeterministicTraversal<
       cCallRef: cCall.cCallRef,
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
-      diagnosticRef: `diagnostic://abiogenesis/hog/${transition.code}@5`,
+      diagnosticRef: `diagnostic://abiogenesis/hog/${route.code}@5`,
     });
   }
-  const transitionReplay = replayRun(input);
+  const routeReplay = replayRun(input);
   const closure = admitClosure(
     input.store,
     cCall,
     result,
     judgment,
-    transition,
-    transitionReplay,
+    route,
+    routeReplay,
     input.closureContract,
     basis(input.clock, "closure"),
   );

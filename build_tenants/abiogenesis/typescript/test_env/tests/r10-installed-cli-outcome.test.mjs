@@ -83,7 +83,7 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
     "c_call_evidenced",
     "c_call_result_admitted",
     "c_call_judged",
-    "fd_advance_ready",
+    "traversal_route_admitted",
     "terminal_reached",
     "frame_closed",
     "graph_call_closed",

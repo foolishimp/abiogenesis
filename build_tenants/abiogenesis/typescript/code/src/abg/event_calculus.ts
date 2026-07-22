@@ -72,9 +72,9 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: ["c_call_judgment_available"],
     terminates: ["c_call_active"], clips: [], declips: [],
   },
-  fd_advance_ready: {
-    initiates: ["terminal_locus_eligible"],
-    terminates: ["prior_locus_active"], clips: [], declips: [],
+  traversal_route_admitted: {
+    initiates: ["terminal_route_available"],
+    terminates: ["locus_active", "c_call_judgment_available"], clips: [], declips: [],
   },
   runtime_failure_observed: {
     initiates: ["runtime_failure"],
@@ -82,7 +82,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   terminal_reached: {
     initiates: ["terminal_admitted"],
-    terminates: [], clips: [], declips: [],
+    terminates: ["terminal_route_available"], clips: [], declips: [],
   },
   frame_closed: {
     initiates: ["frame_closed"],

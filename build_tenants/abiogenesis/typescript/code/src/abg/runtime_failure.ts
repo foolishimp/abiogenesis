@@ -29,7 +29,7 @@ export interface RuntimeFailureAdmission {
     | "implementation_load"
     | "operation_application"
     | "output_contract"
-    | "transition";
+    | "route";
   readonly subjectDigest: Sha256Digest;
   readonly diagnosticRef: string;
   readonly admissionEventRef: string;

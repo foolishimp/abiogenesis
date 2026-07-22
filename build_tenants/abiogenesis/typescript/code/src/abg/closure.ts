@@ -15,9 +15,9 @@ import type { RuntimeAdmissionBasis } from "./execution_basis.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
-  isAdmittedTransition,
-  type AdmittedTransition,
-} from "./transition.js";
+  isAdmittedRoute,
+  type AdmittedRoute,
+} from "./traversal_route.js";
 
 export interface ClosureAdmission {
   readonly kind: "closure_admission";
@@ -28,7 +28,7 @@ export interface ClosureAdmission {
   readonly cCallRef: string;
   readonly resultRef: string;
   readonly judgmentRef: string;
-  readonly transitionRef: string;
+  readonly routeRef: string;
   readonly closureContractRef: string;
   readonly terminalReachedEventRef: string;
   readonly frameClosedEventRef: string;
@@ -111,7 +111,7 @@ export function admitClosure(
   cCall: CCall,
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
-  transition: AdmittedTransition,
+  route: AdmittedRoute,
   replayState: ReplayState,
   closureContract: Readonly<ClosureContract>,
   basis: RuntimeAdmissionBasis,
@@ -121,28 +121,31 @@ export function admitClosure(
     !hasOpenedCCall(store, cCall) ||
     !isAdmittedCCallResult(result) ||
     !isAdmittedCCallJudgment(judgment) ||
-    !isAdmittedTransition(transition) ||
+    !isAdmittedRoute(route) ||
     result.cCallRef !== cCall.cCallRef ||
     judgment.cCallRef !== cCall.cCallRef ||
-    transition.cCallRef !== cCall.cCallRef ||
+    route.cCallRef !== cCall.cCallRef ||
     judgment.resultRef !== result.resultRef ||
-    transition.judgmentRef !== judgment.judgmentRef ||
+    route.judgmentRef !== judgment.judgmentRef ||
     judgment.judgment !== "advance" ||
-    transition.transitionKind !== "terminal"
+    route.routeKind !== "terminal"
   ) {
     return refuseClosure(
       store,
       cCall,
       "runtime_basis_mismatch",
-      "closure requires one exact judged CCall and admitted terminal transition",
+      "closure requires one exact judged CCall and admitted terminal route",
       closureContractDigest,
       basis,
     );
   }
   const currentReplay = replay(store, { runId: cCall.runId });
+  const currentRoute = currentReplay.routes.at(-1);
   if (
     currentReplay.replayDigest !== replayState.replayDigest ||
-    store.readAll().at(-1)?.eventId !== transition.admissionEventRef
+    currentRoute?.routeRef !== route.routeRef ||
+    currentRoute?.admissionEventRef !== route.admissionEventRef ||
+    store.readAll().at(-1)?.eventId !== route.admissionEventRef
   ) {
     return refuseClosure(
       store,
@@ -163,7 +166,7 @@ export function admitClosure(
     closureContract.resultContractRef !== result.contractRef ||
     closureContract.refusalContractRef !== cCall.refusalContractRef ||
     closureContract.judgmentContractRef !== judgment.contractRef ||
-    closureContract.transitionContractRef !== transition.contractRef ||
+    closureContract.transitionContractRef !== route.contractRef ||
     closureContract.terminalKind !== "completed" ||
     closureContract.eventKindRefs.join("\0") !==
       ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"].join("\0") ||
@@ -175,7 +178,7 @@ export function admitClosure(
       store,
       cCall,
       "closure_contract_mismatch",
-      "closure contract, result, judgment, transition, or uniqueness check failed",
+      "closure contract, result, judgment, route, or uniqueness check failed",
       closureContractDigest,
       basis,
     );
@@ -185,7 +188,7 @@ export function admitClosure(
     cCallRef: cCall.cCallRef,
     resultRef: result.resultRef,
     judgmentRef: judgment.judgmentRef,
-    transitionRef: transition.transitionRef,
+    routeRef: route.routeRef,
     closureContractRef: closureContract.closureContractRef,
     closureContractDigest,
     terminalKind: closureContract.terminalKind,
@@ -198,7 +201,7 @@ export function admitClosure(
     aggregateType: "frame",
     aggregateId: cCall.frameId,
     parentAggregateId: cCall.graphCallId,
-    causationEventRefs: [transition.admissionEventRef, ...basis.causationEventRefs],
+    causationEventRefs: [route.admissionEventRef, ...basis.causationEventRefs],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -279,7 +282,7 @@ export function admitClosure(
     cCallRef: cCall.cCallRef,
     resultRef: result.resultRef,
     judgmentRef: judgment.judgmentRef,
-    transitionRef: transition.transitionRef,
+    routeRef: route.routeRef,
     closureContractRef: closureContract.closureContractRef,
     terminalReachedEventRef: terminalEvent.eventId,
     frameClosedEventRef: frameEvent.eventId,

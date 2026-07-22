@@ -106,6 +106,7 @@ export {
 export {
   replay,
   type ReplayCCallState,
+  type ReplayRouteState,
   type ReplayState,
 } from "./replay.js";
 export {
@@ -113,13 +114,14 @@ export {
   type PersistedEventLog,
 } from "./event_log.js";
 export {
-  admitTransition,
-  isAdmittedTransition,
-  type AdmittedTransition,
-  type TransitionAdmissionRefusal,
-  type TransitionAdmissionResult,
-  type TransitionCandidate,
-} from "./transition.js";
+  admitRoute,
+  isAdmittedRoute,
+  type AdmittedRoute,
+  type RouteAdmissionRefusal,
+  type RouteAdmissionResult,
+  type RouteCandidate,
+  type TraversalRouteKind,
+} from "./traversal_route.js";
 export {
   admitClosure,
   type ClosureAdmission,

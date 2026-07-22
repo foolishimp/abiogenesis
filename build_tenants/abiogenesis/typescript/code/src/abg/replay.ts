@@ -9,6 +9,7 @@ import type {
   RuntimeEvent,
   RuntimeEventScope,
 } from "./event_store.js";
+import type { TraversalRouteKind } from "./traversal_route.js";
 
 export interface ReplayCCallState {
   readonly cCallRef: string;
@@ -23,6 +24,21 @@ export interface ReplayCCallState {
   readonly judgmentRef: string | null;
   readonly judgment: string | null;
   readonly status: "fibre_selected" | "judged" | "opened" | "result_admitted";
+}
+
+export interface ReplayRouteState {
+  readonly routeRef: string;
+  readonly routeDigest: Sha256Digest;
+  readonly routeKind: TraversalRouteKind;
+  readonly declarationRef: string;
+  readonly declarationDigest: Sha256Digest;
+  readonly sourceCursorRef: string;
+  readonly sourceCursorDigest: Sha256Digest;
+  readonly targetCursorRef: string | null;
+  readonly targetCursorDigest: Sha256Digest | null;
+  readonly cCallRef: string | null;
+  readonly judgmentRef: string | null;
+  readonly admissionEventRef: string;
 }
 
 export interface ReplayState {
@@ -40,6 +56,7 @@ export interface ReplayState {
   readonly traversalCursorDigest: Sha256Digest | null;
   readonly traversalCursorEventRef: string | null;
   readonly cCalls: readonly ReplayCCallState[];
+  readonly routes: readonly ReplayRouteState[];
   readonly activeFluents: readonly string[];
   readonly terminalReachedEventRef: string | null;
   readonly frameClosedEventRef: string | null;
@@ -139,6 +156,52 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
     };
   });
 
+  const routes = events
+    .filter((event) => event.kind === "traversal_route_admitted")
+    .map((event): ReplayRouteState => {
+      const routeKind = stringField(event, "routeKind");
+      if (
+        routeKind !== "advance" &&
+        routeKind !== "retry" &&
+        routeKind !== "hold" &&
+        routeKind !== "blocked" &&
+        routeKind !== "failed" &&
+        routeKind !== "terminal"
+      ) {
+        throw new TypeError(`invalid traversal route kind at ${event.eventId}`);
+      }
+      const routeRef = stringField(event, "routeRef");
+      const routeDigest = stringField(event, "routeDigest");
+      const declarationRef = stringField(event, "declarationRef");
+      const declarationDigest = stringField(event, "declarationDigest");
+      const sourceCursorRef = stringField(event, "sourceCursorRef");
+      const sourceCursorDigest = stringField(event, "sourceCursorDigest");
+      if (
+        routeRef === null ||
+        routeDigest === null ||
+        declarationRef === null ||
+        declarationDigest === null ||
+        sourceCursorRef === null ||
+        sourceCursorDigest === null
+      ) {
+        throw new TypeError(`incomplete traversal route payload at ${event.eventId}`);
+      }
+      return {
+        routeRef,
+        routeDigest: routeDigest as Sha256Digest,
+        routeKind,
+        declarationRef,
+        declarationDigest: declarationDigest as Sha256Digest,
+        sourceCursorRef,
+        sourceCursorDigest: sourceCursorDigest as Sha256Digest,
+        targetCursorRef: stringField(event, "targetCursorRef"),
+        targetCursorDigest: stringField(event, "targetCursorDigest") as Sha256Digest | null,
+        cCallRef: stringField(event, "cCallRef"),
+        judgmentRef: stringField(event, "judgmentRef"),
+        admissionEventRef: event.eventId,
+      };
+    });
+
   const runOpen = events.find((event) => event.kind === "run_segment_opened");
   const graphCallOpen = events.find((event) => event.kind === "graph_call_opened");
   const frameOpen = events.find((event) => event.kind === "frame_opened");
@@ -168,6 +231,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       : stringField(traversalCursor, "cursorDigest") as Sha256Digest | null,
     traversalCursorEventRef: traversalCursor?.eventId ?? null,
     cCalls,
+    routes,
     activeFluents: [...activeFluents].sort(),
     terminalReachedEventRef: terminal?.eventId ?? null,
     frameClosedEventRef: frameClosed?.eventId ?? null,

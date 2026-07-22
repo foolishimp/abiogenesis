@@ -29,7 +29,7 @@ export const ROOT_EVENT_KIND_VALUES = [
   "c_call_evidenced",
   "c_call_result_admitted",
   "c_call_judged",
-  "fd_advance_ready",
+  "traversal_route_admitted",
   "runtime_failure_observed",
   "terminal_reached",
   "frame_closed",
