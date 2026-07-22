@@ -1,5 +1,6 @@
 export {
   applyRoute,
+  deriveCompletedTraversalStep,
   deriveTraversalStep,
   isTraversalStep,
   isTraversalStopRef,
@@ -14,12 +15,15 @@ export {
 } from "./traversal.js";
 export {
   deriveDirectCStep,
+  deriveDirectCContinuationStepFromGraph,
   deriveDirectCStepFromGraph,
   resolveCProgramTermAtPath,
   rootCSourcePath,
   rootCTraversalCoordinate,
   type CSourcePath,
   type CTraversalCoordinate,
+  type CompleteTermStep,
+  type ContinueTermStep,
   type DirectCTraversalRefusal,
   type DirectCTraversalResult,
   type DirectCTraversalStep,
@@ -35,6 +39,7 @@ export {
   type DeclaredJudgmentRelation,
 } from "./judgment.js";
 export {
+  proposeJudgedRoute,
   proposeStructuralRoute,
   proposeTerminalRoute,
   type RouteProposalRefusal,

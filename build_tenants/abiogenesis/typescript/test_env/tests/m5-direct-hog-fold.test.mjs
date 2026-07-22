@@ -199,3 +199,78 @@ test("M5 HoG keeps F_H as a non-executable interaction leaf", () => {
   assert.equal(step.fibre, "F_H");
   assert.equal("implementationBindingRef" in step, false);
 });
+
+test("M5 HoG derives post-term continuation from the original GTL tree", () => {
+  const request = gtl.cCarrier("contract://m5/continue-request");
+  const candidate = gtl.cCarrier("contract://m5/continue-candidate");
+  const assessment = gtl.cCarrier("contract://m5/continue-assessment");
+  const result = gtl.cCarrier("contract://m5/continue-result");
+  const transform = leaf({
+    input: request,
+    output: candidate,
+    role: "transform",
+    locus: "locus://m5/continue-transform",
+  });
+  const evaluate = leaf({
+    input: candidate,
+    output: assessment,
+    role: "evaluate",
+    locus: "locus://m5/continue-evaluate",
+  });
+  const consequence = leaf({
+    input: assessment,
+    output: result,
+    role: "consequence",
+    locus: "locus://m5/continue-consequence",
+  });
+
+  const composeGraph = template(gtl.C.compose(transform, evaluate, consequence));
+  const composeFirst = hog.deriveDirectCContinuationStepFromGraph(composeGraph, {
+    ...hog.rootCTraversalCoordinate(composeGraph.startNodeRef),
+    termPath: ["node", composeGraph.startNodeRef, "c", "terms", "0"],
+  });
+  assert.equal(composeFirst.stepKind, "continue_term");
+  assert.equal(composeFirst.relation, "compose_next");
+  assert.deepEqual(composeFirst.target.termPath, [
+    "node", composeGraph.startNodeRef, "c", "terms", "1",
+  ]);
+  const composeLast = hog.deriveDirectCContinuationStepFromGraph(composeGraph, {
+    ...hog.rootCTraversalCoordinate(composeGraph.startNodeRef),
+    termPath: ["node", composeGraph.startNodeRef, "c", "terms", "1"],
+  });
+  assert.equal(composeLast.stepKind, "complete_term");
+  assert.equal(composeLast.relation, "root_complete");
+
+  const edgeGraph = template(gtl.C.edge({ transform, evaluate, consequence }));
+  const edgeEvaluate = hog.deriveDirectCContinuationStepFromGraph(edgeGraph, {
+    ...hog.rootCTraversalCoordinate(edgeGraph.startNodeRef),
+    termPath: ["node", edgeGraph.startNodeRef, "c", "evaluate"],
+  });
+  assert.equal(edgeEvaluate.stepKind, "continue_term");
+  assert.equal(edgeEvaluate.relation, "edge_next");
+  assert.deepEqual(edgeEvaluate.target.termPath, [
+    "node", edgeGraph.startNodeRef, "c", "consequence",
+  ]);
+
+  const batchGraph = template(gtl.C.batch([consequence, consequence], "batch://m5/continue"));
+  const batchFirst = hog.deriveDirectCContinuationStepFromGraph(batchGraph, {
+    ...hog.rootCTraversalCoordinate(batchGraph.startNodeRef),
+    termPath: ["node", batchGraph.startNodeRef, "c", "tasks", "0"],
+    taskOrdinal: 0,
+  });
+  assert.equal(batchFirst.stepKind, "continue_term");
+  assert.equal(batchFirst.relation, "batch_next");
+  assert.equal(batchFirst.target.taskOrdinal, 1);
+  assert.deepEqual(batchFirst.target.termPath, [
+    "node", batchGraph.startNodeRef, "c", "tasks", "1",
+  ]);
+
+  const retryGraph = template(gtl.C.retry(consequence, 2));
+  const retrySuccess = hog.deriveDirectCContinuationStepFromGraph(retryGraph, {
+    ...hog.rootCTraversalCoordinate(retryGraph.startNodeRef),
+    termPath: ["node", retryGraph.startNodeRef, "c", "term"],
+    retryPath: [1],
+  });
+  assert.equal(retrySuccess.stepKind, "complete_term");
+  assert.equal(retrySuccess.relation, "root_complete");
+});

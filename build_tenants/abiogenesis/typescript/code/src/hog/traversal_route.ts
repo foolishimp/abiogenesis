@@ -1,8 +1,13 @@
-import type { AdmittedCCallJudgment, CCall } from "../abg/c_call.js";
+import type {
+  AdmittedCCallJudgment,
+  AdmittedCCallResult,
+  CCall,
+} from "../abg/c_call.js";
 import type { ReplayState } from "../abg/replay.js";
 import type { RouteCandidate } from "../abg/traversal_route.js";
 import type { GtlGraph } from "../gtl/contracts.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
+import { deriveCSourceContinuation } from "../gtl/source_path.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -93,9 +98,16 @@ export function proposeTerminalRoute(
       message: "terminal route requires an admitted advance judgment",
     };
   }
+  const continuation = deriveCSourceContinuation(
+    graph.template,
+    stop.cursor.currentNodeRef,
+    stop.cursor.termPath,
+  );
   if (
-    stop.nodeRef !== cCall.programLocusRef ||
-    !graph.template.terminalNodeRefs.includes(stop.nodeRef)
+    stop.programLocusRef !== cCall.programLocusRef ||
+    !graph.template.terminalNodeRefs.includes(stop.nodeRef) ||
+    continuation.kind === "c_source_path_refusal" ||
+    continuation.disposition !== "terminal"
   ) {
     return {
       kind: "traversal_route_proposal_refusal",
@@ -116,6 +128,75 @@ export function proposeTerminalRoute(
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: [judgment.judgmentRef],
+    contractRef,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}
+
+export function proposeJudgedRoute(
+  graph: Readonly<GtlGraph>,
+  step: TraversalStep,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal {
+  if (judgment.judgment !== "advance") {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "judgment_not_advance",
+      message: "post-judgment route requires an admitted advance judgment",
+    };
+  }
+  const targetCursor = step.targetCursor;
+  const routeKind = step.directStep.stepKind === "continue_term"
+    ? "advance" as const
+    : step.directStep.stepKind === "complete_term"
+      ? "terminal" as const
+      : null;
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !isTraversalStep(step) ||
+    routeKind === null ||
+    (routeKind === "advance" && targetCursor === null) ||
+    (routeKind === "terminal" && targetCursor !== null) ||
+    step.sourceCursor.graphRef !== graph.materializationRef ||
+    step.sourceCursor.frameId !== cCall.frameId ||
+    result.cCallRef !== cCall.cCallRef ||
+    judgment.resultRef !== result.resultRef ||
+    judgment.cCallRef !== cCall.cCallRef
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "structural_step_missing",
+      message: "judged route requires HoG's exact declared continuation step",
+    };
+  }
+  const body = {
+    routeKind,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: step.sourceCursor.cursorRef,
+    sourceCursorDigest: step.sourceCursor.cursorDigest,
+    targetCursorRef: targetCursor?.cursorRef ?? null,
+    targetCursorDigest: targetCursor?.cursorDigest ?? null,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: judgment.judgmentRef,
+    consumedAvailabilityRefs: [judgment.judgmentRef] as const,
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };

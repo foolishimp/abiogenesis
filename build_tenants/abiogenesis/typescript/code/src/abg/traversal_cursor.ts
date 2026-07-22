@@ -27,6 +27,8 @@ export interface TraversalCursorCandidate {
   readonly graphCallId: string;
   readonly frameId: string;
   readonly graphRef: string;
+  readonly inputRef: string;
+  readonly inputDigest: Sha256Digest;
   readonly currentNodeRef: string;
   readonly position: "at_compute_locus" | "at_term";
   readonly termPath: readonly string[];
@@ -94,6 +96,8 @@ function cursorBody(cursor: TraversalCursorCandidate): JsonValue {
     graphCallId: cursor.graphCallId,
     frameId: cursor.frameId,
     graphRef: cursor.graphRef,
+    inputRef: cursor.inputRef,
+    inputDigest: cursor.inputDigest,
     currentNodeRef: cursor.currentNodeRef,
     position: cursor.position,
     termPath: cursor.termPath,
@@ -192,7 +196,9 @@ export function admitInitialTraversalCursor(
     cursor.runId !== scope.runId ||
     cursor.graphCallId !== scope.graphCallId ||
     cursor.frameId !== scope.frameId ||
-    cursor.graphRef !== graph.materializationRef
+    cursor.graphRef !== graph.materializationRef ||
+    cursor.inputRef !== executionBasis.rawInputAdmissionRef ||
+    cursor.inputDigest !== executionBasis.rawInputDigest
   ) {
     return refusal("cursor_mismatch", "cursor identity or opened lineage differs from the admitted basis");
   }
@@ -248,8 +254,8 @@ export function admitInitialTraversalCursor(
       taskOrdinal: cursor.taskOrdinal,
       attempt: cursor.attempt,
       retryPath: cursor.retryPath,
-      inputRef: executionBasis.rawInputAdmissionRef,
-      inputDigest: executionBasis.rawInputDigest,
+      inputRef: cursor.inputRef,
+      inputDigest: cursor.inputDigest,
       traversalScopeRef: scope.scopeRef,
       traversalScopeDigest: scope.scopeDigest,
       executionBasisRef: executionBasis.basisRef,

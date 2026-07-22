@@ -31,8 +31,13 @@ import {
   proposeJudgment,
   type DeclaredJudgmentRelation,
 } from "./judgment.js";
-import { proposeTerminalRoute } from "./traversal_route.js";
-import type { TraversalStopRef } from "./traversal.js";
+import { proposeJudgedRoute } from "./traversal_route.js";
+import {
+  applyRoute,
+  deriveCompletedTraversalStep,
+  type TraversalCursor,
+  type TraversalStopRef,
+} from "./traversal.js";
 
 export interface DeterministicLeafSuccessCandidate<Output> {
   readonly kind: "leaf_realization_candidate";
@@ -63,11 +68,13 @@ export interface DeterministicTraversalClock {
 export interface DeterministicTraversalCompletion {
   readonly kind: "deterministic_traversal_completion";
   readonly schemaVersion: "5.0.0";
-  readonly disposition: "blocked" | "closed" | "failed" | "refused";
+  readonly disposition: "advanced" | "blocked" | "closed" | "failed" | "refused";
   readonly cCallRef: string | null;
   readonly resultRef: string | null;
   readonly judgmentRef: string | null;
   readonly closureRef: string | null;
+  readonly nextCursor: TraversalCursor | null;
+  readonly resultValue: JsonValue | null;
   readonly replayState: ReplayState;
   readonly diagnosticRef: string | null;
 }
@@ -128,6 +135,8 @@ function completion(
     readonly resultRef?: string;
     readonly judgmentRef?: string;
     readonly closureRef?: string;
+    readonly nextCursor?: TraversalCursor;
+    readonly resultValue?: JsonValue;
     readonly diagnosticRef?: string;
   } = {},
 ): DeterministicTraversalCompletion {
@@ -139,6 +148,8 @@ function completion(
     resultRef: values.resultRef ?? null,
     judgmentRef: values.judgmentRef ?? null,
     closureRef: values.closureRef ?? null,
+    nextCursor: values.nextCursor ?? null,
+    resultValue: values.resultValue ?? null,
     replayState,
     diagnosticRef: values.diagnosticRef ?? null,
   }) as DeterministicTraversalCompletion;
@@ -218,7 +229,7 @@ export function completeDeterministicTraversal<
 ): DeterministicTraversalCompletion {
   if (
     sha256Canonical(input.input as unknown as JsonValue) !== input.inputDigest ||
-    input.inputDigest !== input.executionBasis.rawInputDigest
+    input.inputDigest !== input.traversalStop.cursor.inputDigest
   ) {
     const diagnosticRef = "diagnostic://abiogenesis/hog/input-basis-mismatch@5";
     admitRuntimeFailure(
@@ -227,7 +238,7 @@ export function completeDeterministicTraversal<
       input.openedTraversalScope,
       "c_call_open",
       {
-        admittedInputDigest: input.executionBasis.rawInputDigest,
+        admittedInputDigest: input.traversalStop.cursor.inputDigest,
         suppliedInputDigest: input.inputDigest,
       },
       diagnosticRef,
@@ -377,10 +388,40 @@ export function completeDeterministicTraversal<
     });
   }
   const judgedReplay = replayRun(input);
-  const proposal = proposeTerminalRoute(
+  const continuationStep = deriveCompletedTraversalStep(
     input.graph,
-    input.traversalStop,
+    input.traversalStop.cursor,
+    {
+      inputRef: result.resultRef,
+      inputDigest: result.valueDigest,
+    },
+  );
+  if (continuationStep.kind !== "traversal_step") {
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "route",
+      continuationStep as unknown as JsonValue,
+      `diagnostic://abiogenesis/hog/${continuationStep.code}@5`,
+      {
+        ...basis(input.clock, "continuation-refusal"),
+        causationEventRefs: [judgment.admissionEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      resultValue: result.value,
+      diagnosticRef: `diagnostic://abiogenesis/hog/${continuationStep.code}@5`,
+    });
+  }
+  const proposal = proposeJudgedRoute(
+    input.graph,
+    continuationStep,
     cCall,
+    result,
     judgment,
     judgedReplay,
     input.closureContract.transitionContractRef,
@@ -410,11 +451,11 @@ export function completeDeterministicTraversal<
     input.executionBasis,
     input.graph,
     input.traversalStop.cursor,
-    null,
+    continuationStep.targetCursor,
     judgedReplay,
     proposal,
     basis(input.clock, "route"),
-    { cCall, judgment },
+    { cCall, result, judgment },
   );
   if (route.kind !== "admitted_traversal_route") {
     admitRuntimeFailure(
@@ -434,6 +475,46 @@ export function completeDeterministicTraversal<
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
       diagnosticRef: `diagnostic://abiogenesis/hog/${route.code}@5`,
+    });
+  }
+  if (route.routeKind === "advance") {
+    const nextCursor = applyRoute(continuationStep, route);
+    if (nextCursor.kind === "traversal_refusal") {
+      admitRuntimeFailure(
+        input.store,
+        input.executionBasis,
+        input.openedTraversalScope,
+        "route",
+        nextCursor as unknown as JsonValue,
+        `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
+        {
+          ...basis(input.clock, "route-application-refusal"),
+          causationEventRefs: [route.admissionEventRef],
+        },
+      );
+      return completion("failed", replayRun(input), {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        resultValue: result.value,
+        diagnosticRef: `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
+      });
+    }
+    return completion("advanced", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      nextCursor,
+      resultValue: result.value,
+    });
+  }
+  if (route.routeKind !== "terminal") {
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      resultValue: result.value,
+      diagnosticRef: "diagnostic://abiogenesis/hog/unexpected-judged-route@5",
     });
   }
   const routeReplay = replayRun(input);
@@ -460,5 +541,6 @@ export function completeDeterministicTraversal<
     resultRef: result.resultRef,
     judgmentRef: judgment.judgmentRef,
     closureRef: closure.closureRef,
+    resultValue: result.value,
   });
 }

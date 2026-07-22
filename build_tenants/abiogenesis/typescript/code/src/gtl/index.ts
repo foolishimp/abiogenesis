@@ -68,8 +68,10 @@ export type {
 } from "./contracts.js";
 export { materializeGraph } from "./materialize.js";
 export {
+  deriveCSourceContinuation,
   resolveCProgramTermAtSourcePath,
   rootCSourcePath,
+  type CSourceContinuation,
   type CSourcePath,
   type CSourcePathRefusal,
 } from "./source_path.js";

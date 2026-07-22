@@ -16,6 +16,7 @@ import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
 import {
+  deriveDirectCContinuationStepFromGraph,
   deriveDirectCStepFromGraph,
   resolveCProgramTermAtPath,
   rootCTraversalCoordinate,
@@ -35,6 +36,8 @@ export interface TraversalCursor {
   readonly graphCallId: string;
   readonly frameId: string;
   readonly graphRef: string;
+  readonly inputRef: string;
+  readonly inputDigest: Sha256Digest;
   readonly currentNodeRef: string;
   readonly position: "at_compute_locus" | "at_term";
   readonly termPath: readonly string[];
@@ -147,13 +150,21 @@ interface CursorLineage {
   readonly graphRef: string;
 }
 
+export interface TraversalInputBasis {
+  readonly inputRef: string;
+  readonly inputDigest: Sha256Digest;
+}
+
 function createCursor(
   lineage: CursorLineage,
   coordinate: CTraversalCoordinate,
   position: TraversalCursor["position"],
+  input: TraversalInputBasis,
 ): TraversalCursor {
   const cursorBody = {
     ...lineage,
+    inputRef: input.inputRef,
+    inputDigest: input.inputDigest,
     currentNodeRef: coordinate.nodeRef,
     position,
     termPath: [...coordinate.termPath],
@@ -189,15 +200,44 @@ function targetCoordinate(
   step: DirectCTraversalStep,
 ): CTraversalCoordinate | null {
   switch (step.stepKind) {
+    case "continue_term":
     case "enter_term":
     case "retry":
     case "start_task":
       return step.target;
+    case "complete_term":
     case "enter_child":
     case "open_leaf":
     case "pass_identity":
       return null;
   }
+}
+
+function createTraversalStep(
+  sourceCursor: TraversalCursor,
+  directStep: DirectCTraversalStep,
+  targetInput: TraversalInputBasis = sourceCursor,
+): TraversalStep {
+  const target = targetCoordinate(directStep);
+  const targetCursor = target === null
+    ? null
+    : createCursor(cursorLineage(sourceCursor), target, "at_term", targetInput);
+  const stepBody = {
+    sourceCursor,
+    targetCursor,
+    directStep,
+  };
+  const stepDigest = sha256Canonical(stepBody as unknown as JsonValue);
+  const step = deepFreeze({
+    kind: "traversal_step" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "derived" as const,
+    stepRef: `traversal-step://abiogenesis/${stepDigest.slice("sha256:".length)}`,
+    stepDigest,
+    ...stepBody,
+  }) as TraversalStep;
+  traversalSteps.add(step);
+  return step;
 }
 
 export function deriveTraversalStep(
@@ -225,26 +265,40 @@ export function deriveTraversalStep(
   if (directStep.kind === "direct_c_traversal_refusal") {
     return refusal("locus_missing", directStep.message);
   }
-  const target = targetCoordinate(directStep);
-  const targetCursor = target === null
-    ? null
-    : createCursor(cursorLineage(sourceCursor), target, "at_term");
-  const stepBody = {
-    sourceCursor,
-    targetCursor,
-    directStep,
-  };
-  const stepDigest = sha256Canonical(stepBody as unknown as JsonValue);
-  const step = deepFreeze({
-    kind: "traversal_step" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "derived" as const,
-    stepRef: `traversal-step://abiogenesis/${stepDigest.slice("sha256:".length)}`,
-    stepDigest,
-    ...stepBody,
-  }) as TraversalStep;
-  traversalSteps.add(step);
-  return step;
+  return createTraversalStep(sourceCursor, directStep);
+}
+
+export function deriveCompletedTraversalStep(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  completedInput: TraversalInputBasis,
+): TraversalStep | TraversalRefusal {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !traversalCursors.has(sourceCursor) ||
+    sourceCursor.graphRef !== graph.materializationRef ||
+    sourceCursor.position !== "at_term"
+  ) {
+    return refusal(
+      "traversal_cursor_mismatch",
+      "HoG derives continuation only from its exact original GTL cursor",
+    );
+  }
+  const directStep = deriveDirectCContinuationStepFromGraph(graph.template, {
+    nodeRef: sourceCursor.currentNodeRef,
+    termPath: sourceCursor.termPath,
+    taskOrdinal: sourceCursor.taskOrdinal,
+    attempt: sourceCursor.attempt,
+    retryPath: sourceCursor.retryPath,
+  });
+  if (directStep.kind === "direct_c_traversal_refusal") {
+    return refusal("locus_missing", directStep.message);
+  }
+  const targetInput = directStep.stepKind === "continue_term" &&
+      directStep.relation === "batch_next"
+    ? sourceCursor
+    : completedInput;
+  return createTraversalStep(sourceCursor, directStep, targetInput);
 }
 
 function validateTraverseInput(input: TraverseInput): TraversalRefusal | null {
@@ -310,6 +364,8 @@ function traversalResultAtCursor(
     cursor.graphCallId !== input.openedTraversalScope.graphCallId ||
     cursor.frameId !== input.openedTraversalScope.frameId ||
     cursor.graphRef !== input.graph.materializationRef ||
+    cursor.inputRef.length === 0 ||
+    !cursor.inputDigest.startsWith("sha256:") ||
     cursor.position !== "at_term"
   ) {
     return refusal(
@@ -397,7 +453,8 @@ export function applyRoute(
   const targetCursor = step.targetCursor;
   const expectedKind = step.directStep.stepKind === "retry"
     ? "retry"
-    : step.directStep.stepKind === "enter_term" ||
+    : step.directStep.stepKind === "continue_term" ||
+        step.directStep.stepKind === "enter_term" ||
         step.directStep.stepKind === "start_task"
       ? "advance"
       : null;
@@ -443,6 +500,10 @@ export function traverse(input: TraverseInput): TraverseResult {
     lineage,
     rootCTraversalCoordinate(node.nodeRef),
     "at_term",
+    {
+      inputRef: input.executionBasis.rawInputAdmissionRef,
+      inputDigest: input.executionBasis.rawInputDigest,
+    },
   );
   return traversalResultAtCursor(input, sourceCursor);
 }

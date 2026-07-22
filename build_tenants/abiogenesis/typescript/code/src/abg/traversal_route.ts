@@ -1,5 +1,8 @@
 import type { GtlGraph } from "../gtl/contracts.js";
-import { resolveCProgramTermAtSourcePath } from "../gtl/source_path.js";
+import {
+  deriveCSourceContinuation,
+  resolveCProgramTermAtSourcePath,
+} from "../gtl/source_path.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
@@ -8,7 +11,9 @@ import { deepFreeze } from "../shared/immutable.js";
 import {
   hasOpenedCCall,
   isAdmittedCCallJudgment,
+  isAdmittedCCallResult,
   type AdmittedCCallJudgment,
+  type AdmittedCCallResult,
   type CCall,
 } from "./c_call.js";
 import {
@@ -93,6 +98,7 @@ export type RouteAdmissionResult = AdmittedRoute | RouteAdmissionRefusal;
 
 export interface RouteAdmissionEvidence {
   readonly cCall: CCall;
+  readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
 }
 
@@ -168,7 +174,11 @@ function isDeclaredStructuralTarget(
   target: TraversalCursorCandidate,
   routeKind: TraversalRouteKind,
 ): boolean {
-  if (!hasSameCursorLineage(source, target)) return false;
+  if (
+    !hasSameCursorLineage(source, target) ||
+    target.inputRef !== source.inputRef ||
+    target.inputDigest !== source.inputDigest
+  ) return false;
   const term = resolveCProgramTermAtSourcePath(
     graph.template,
     source.currentNodeRef,
@@ -207,6 +217,98 @@ function isDeclaredStructuralTarget(
     case "c_workflow":
       return false;
   }
+}
+
+function hasJudgedRouteEvidence(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  candidate: RouteCandidate,
+  evidence: RouteAdmissionEvidence | null,
+): evidence is RouteAdmissionEvidence {
+  const cCall = evidence?.cCall;
+  const result = evidence?.result;
+  const judgment = evidence?.judgment;
+  const term = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  return cCall !== undefined &&
+    result !== undefined &&
+    judgment !== undefined &&
+    term.kind === "c_of" &&
+    hasOpenedCCall(store, cCall) &&
+    isAdmittedCCallResult(result) &&
+    isAdmittedCCallJudgment(judgment) &&
+    result.cCallRef === cCall.cCallRef &&
+    judgment.cCallRef === cCall.cCallRef &&
+    judgment.resultRef === result.resultRef &&
+    judgment.resultDigest === result.resultDigest &&
+    judgment.judgment === "advance" &&
+    cCall.basisId === executionBasis.basisRef &&
+    cCall.frameId === sourceCursor.frameId &&
+    cCall.graphCallId === sourceCursor.graphCallId &&
+    cCall.programLocusRef === term.programLocusRef &&
+    cCall.taskOrdinal === sourceCursor.taskOrdinal &&
+    cCall.attempt === sourceCursor.attempt &&
+    sameValues(cCall.retryPath.map(String), sourceCursor.retryPath.map(String)) &&
+    candidate.cCallRef === cCall.cCallRef &&
+    candidate.judgmentRef === judgment.judgmentRef &&
+    candidate.consumedAvailabilityRefs.length === 1 &&
+    candidate.consumedAvailabilityRefs[0] === judgment.judgmentRef &&
+    candidate.contractRef === cCall.transitionContractRef;
+}
+
+function isDeclaredJudgedTarget(
+  graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate,
+  target: TraversalCursorCandidate,
+  result: AdmittedCCallResult,
+): boolean {
+  if (!hasSameCursorLineage(source, target)) return false;
+  const continuation = deriveCSourceContinuation(
+    graph.template,
+    source.currentNodeRef,
+    source.termPath,
+  );
+  if (
+    continuation.kind === "c_source_path_refusal" ||
+    continuation.disposition !== "advance" ||
+    continuation.targetPath === null ||
+    continuation.targetRetryDepth > source.retryPath.length
+  ) {
+    return false;
+  }
+  const retryPath = source.retryPath.slice(0, continuation.targetRetryDepth);
+  const inputRef = continuation.relation === "batch_next"
+    ? source.inputRef
+    : result.resultRef;
+  const inputDigest = continuation.relation === "batch_next"
+    ? source.inputDigest
+    : result.valueDigest;
+  return sameValues(target.termPath, continuation.targetPath) &&
+    target.inputRef === inputRef &&
+    target.inputDigest === inputDigest &&
+    target.taskOrdinal === continuation.targetTaskOrdinal &&
+    target.attempt === (retryPath.at(-1) ?? 1) &&
+    sameValues(target.retryPath.map(String), retryPath.map(String));
+}
+
+function isDeclaredTerminalSource(
+  graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate,
+): boolean {
+  const continuation = deriveCSourceContinuation(
+    graph.template,
+    source.currentNodeRef,
+    source.termPath,
+  );
+  return continuation.kind === "c_source_continuation" &&
+    continuation.disposition === "terminal" &&
+    continuation.targetPath === null &&
+    graph.template.terminalNodeRefs.includes(source.currentNodeRef);
 }
 
 export function admitRoute(
@@ -291,21 +393,14 @@ export function admitRoute(
 
   let causationEventRef = traversalCursorAdmissionEventRef(store, sourceCursor);
   if (candidate.routeKind === "terminal") {
-    const cCall = evidence?.cCall;
-    const judgment = evidence?.judgment;
-    if (
-      cCall === undefined ||
-      judgment === undefined ||
-      !hasOpenedCCall(store, cCall) ||
-      !isAdmittedCCallJudgment(judgment) ||
-      judgment.cCallRef !== cCall.cCallRef ||
-      judgment.judgment !== "advance" ||
-      cCall.basisId !== executionBasis.basisRef ||
-      cCall.frameId !== sourceCursor.frameId ||
-      cCall.programLocusRef !== sourceCursor.currentNodeRef ||
-      candidate.cCallRef !== cCall.cCallRef ||
-      candidate.judgmentRef !== judgment.judgmentRef
-    ) {
+    if (!hasJudgedRouteEvidence(
+      store,
+      executionBasis,
+      graph,
+      sourceCursor,
+      candidate,
+      evidence,
+    )) {
       return refusal(
         "judgment_mismatch",
         "terminal route requires this cursor's admitted CCall advance judgment",
@@ -315,40 +410,64 @@ export function admitRoute(
       targetCursor !== null ||
       candidate.targetCursorRef !== null ||
       candidate.targetCursorDigest !== null ||
-      candidate.consumedAvailabilityRefs.length !== 1 ||
-      candidate.consumedAvailabilityRefs[0] !== judgment.judgmentRef ||
-      candidate.contractRef !== cCall.transitionContractRef ||
-      !graph.template.terminalNodeRefs.includes(sourceCursor.currentNodeRef)
+      !isDeclaredTerminalSource(graph, sourceCursor)
     ) {
       return refusal(
         "terminal_not_declared",
         "terminal route differs from the exact GTL declaration or carries a target cursor",
       );
     }
-    causationEventRef = judgment.admissionEventRef;
+    causationEventRef = evidence.judgment.admissionEventRef;
   } else if (candidate.routeKind === "advance" || candidate.routeKind === "retry") {
     if (
-      evidence !== null ||
       targetCursor === null ||
       !isTraversalCursorCandidate(targetCursor) ||
       hasAdmittedTraversalCursor(store, targetCursor) ||
       candidate.targetCursorRef !== targetCursor.cursorRef ||
-      candidate.targetCursorDigest !== targetCursor.cursorDigest ||
-      candidate.cCallRef !== null ||
-      candidate.judgmentRef !== null ||
-      candidate.consumedAvailabilityRefs.length !== 0 ||
-      candidate.contractRef !== null ||
-      !isDeclaredStructuralTarget(
-        graph,
-        sourceCursor,
-        targetCursor,
-        candidate.routeKind,
-      )
+      candidate.targetCursorDigest !== targetCursor.cursorDigest
     ) {
       return refusal(
         "candidate_mismatch",
-        "structural route is not the exact next cursor declared by the original GTL term",
+        "route target is not one exact new cursor under the admitted GTL Graph",
       );
+    }
+    if (evidence === null) {
+      if (
+        candidate.cCallRef !== null ||
+        candidate.judgmentRef !== null ||
+        candidate.consumedAvailabilityRefs.length !== 0 ||
+        candidate.contractRef !== null ||
+        !isDeclaredStructuralTarget(
+          graph,
+          sourceCursor,
+          targetCursor,
+          candidate.routeKind,
+        )
+      ) {
+        return refusal(
+          "candidate_mismatch",
+          "structural route is not the exact next cursor declared by the original GTL term",
+        );
+      }
+    } else {
+      if (
+        candidate.routeKind !== "advance" ||
+        !hasJudgedRouteEvidence(
+          store,
+          executionBasis,
+          graph,
+          sourceCursor,
+          candidate,
+          evidence,
+        ) ||
+        !isDeclaredJudgedTarget(graph, sourceCursor, targetCursor, evidence.result)
+      ) {
+        return refusal(
+          "judgment_mismatch",
+          "post-judgment route is not the exact declared GTL continuation",
+        );
+      }
+      causationEventRef = evidence.judgment.admissionEventRef;
     }
   } else {
     return refusal(

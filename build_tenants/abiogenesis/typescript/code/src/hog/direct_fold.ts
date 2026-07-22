@@ -4,6 +4,7 @@ import type {
 } from "../gtl/c_algebra.js";
 import type { GraphTemplate } from "../gtl/contracts.js";
 import {
+  deriveCSourceContinuation,
   resolveCProgramTermAtSourcePath,
   rootCSourcePath,
   type CSourcePath,
@@ -80,7 +81,20 @@ export interface EnterRetryStep extends DirectCTraversalStepBase {
   readonly target: CTraversalCoordinate;
 }
 
+export interface ContinueTermStep extends DirectCTraversalStepBase {
+  readonly stepKind: "continue_term";
+  readonly relation: "batch_next" | "compose_next" | "edge_next";
+  readonly target: CTraversalCoordinate;
+}
+
+export interface CompleteTermStep extends DirectCTraversalStepBase {
+  readonly stepKind: "complete_term";
+  readonly relation: "root_complete";
+}
+
 export type DirectCTraversalStep =
+  | CompleteTermStep
+  | ContinueTermStep
   | OpenLeafStep
   | PassIdentityStep
   | EnterTermStep
@@ -289,4 +303,60 @@ export function deriveDirectCStepFromGraph(
   return term.kind === "direct_c_traversal_refusal"
     ? term
     : deriveDirectCStep(term, coordinate);
+}
+
+export function deriveDirectCContinuationStepFromGraph(
+  template: Readonly<GraphTemplate>,
+  sourceInput: CTraversalCoordinate,
+): DirectCTraversalResult {
+  const sourceTerm = resolveCProgramTermAtPath(template, sourceInput);
+  if (sourceTerm.kind === "direct_c_traversal_refusal") return sourceTerm;
+  const source = freezeCoordinate(sourceInput);
+  const continuation = deriveCSourceContinuation(
+    template,
+    source.nodeRef,
+    source.termPath,
+  );
+  if (continuation.kind === "c_source_path_refusal") {
+    return refusal("term_path_missing", continuation.message);
+  }
+  if (continuation.disposition === "terminal" || continuation.targetPath === null) {
+    return deepFreeze({
+      kind: "direct_c_traversal_step" as const,
+      schemaVersion: "5.0.0" as const,
+      stepKind: "complete_term" as const,
+      source,
+      termKind: sourceTerm.kind,
+      relation: "root_complete" as const,
+    });
+  }
+  if (continuation.targetRetryDepth > source.retryPath.length) {
+    return refusal(
+      "invalid_coordinate",
+      "GTL continuation cannot invent a retry coordinate outside the source path",
+    );
+  }
+  if (continuation.relation === "root_complete") {
+    return refusal(
+      "invalid_coordinate",
+      "root completion cannot carry a continuation target",
+    );
+  }
+  const retryPath = source.retryPath.slice(0, continuation.targetRetryDepth);
+  const target = freezeCoordinate({
+    nodeRef: source.nodeRef,
+    termPath: continuation.targetPath,
+    taskOrdinal: continuation.targetTaskOrdinal,
+    attempt: retryPath.at(-1) ?? 1,
+    retryPath,
+  });
+  return deepFreeze({
+    kind: "direct_c_traversal_step" as const,
+    schemaVersion: "5.0.0" as const,
+    stepKind: "continue_term" as const,
+    source,
+    termKind: sourceTerm.kind,
+    relation: continuation.relation,
+    target,
+  });
 }

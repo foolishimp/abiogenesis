@@ -215,7 +215,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
       sourceCursorDigest: `sha256:${"0".repeat(64)}`,
     },
     runtimeBasis("correlation://t286/r9/forged-route"),
-    { cCall, judgment },
+    { cCall, result, judgment },
   );
   assert.equal(forgedRoute.kind, "traversal_route_admission_refusal");
   assert.equal(forgedRoute.code, "cursor_mismatch");
@@ -229,7 +229,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     judgedReplay,
     routeCandidate,
     runtimeBasis("correlation://t286/r9/route"),
-    { cCall, judgment },
+    { cCall, result, judgment },
   );
   assert.equal(route.kind, "admitted_traversal_route", JSON.stringify(route));
 
