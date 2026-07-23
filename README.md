@@ -12,10 +12,10 @@ successor to the immutable 4.6 RC5 Product origin.
 
 | Surface | State |
 |---|---|
-| current work owner | `T-270` M5 parent; bounded design reframe active, implementation held |
+| current work owner | `T-270` M5 parent; accepted design implementation active |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 exact `ABI5-ROOT-001` complete at `ffba4e71`; M5 implementation not started |
-| replacement design | accepted under T-285 at SHA-256 `9faeb41d...92f0` |
+| implementation | M4 root retained at `21166b11`; M5 `70/70`, conservation `21/40`; fan-out/fan-in and exact durable event-history reopening complete; S02 and F_H continuation open |
+| replacement design | M3 accepted under T-285; M5 delta accepted at `d6da4269`, SHA-256 `80269e73...c0f3` |
 | delivery governor | `ABI5-ROOT-001`, green and mandatory at every promoted checkpoint |
 | method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
 
@@ -88,9 +88,9 @@ build_tenants/abiogenesis/python/            withdrawn historical reference
 
 Do not implement against a donor line. Preserve the completed
 `ABI5-ROOT-001` while T-270 extends the same accepted direct-GTL architecture.
-No M5 runtime change starts before the bounded generic-traversal design delta
-is accepted. Missing detail is added to existing tickets; it does not create a
-new ticket hierarchy.
+The bounded generic-traversal design delta is accepted and M5 implementation is
+active. Missing detail is added to existing tickets; it does not create a new
+ticket hierarchy.
 
 Existing tests and commands remain current-state probes only. They are not
 5.0 Product evidence until the accepted design maps them onto the exact root,

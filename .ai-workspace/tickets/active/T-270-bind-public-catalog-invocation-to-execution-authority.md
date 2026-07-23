@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: fanout_fanin_repair_checkpoint_ready_for_bounded_rereview
-- proof_status: m4_26_green_m5_63_green_conservation_20_accepted_plus_1_provisional_s02_open
+- review_status: durable_event_reopen_boundary_independently_reviewed
+- proof_status: m4_26_green_m5_70_green_conservation_21_accepted_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -644,6 +644,46 @@ The runner's `graph_span_reentry` row remains provisional pending bounded
 re-review; the durable status is therefore twenty accepted rows plus one
 repaired provisional row. `ABG5-S02` remains open.
 
+The subsequent bounded review accepted repaired `graph_span_reentry` as the
+twenty-first installed conservation row. No new conservation row is claimed by
+the event-history work below.
+
+## Durable Event-History Reopen Checkpoint
+
+Implementation commit `21166b11` completes the direct prerequisite named by
+the accepted M5 design without starting F_H response or continuation:
+
+- `EventStoreReopenAuthority` binds one exact durable path, file identity,
+  byte length, log digest, and event-contract digest and survives a
+  serialization boundary;
+- reopening validates the complete historical prefix without restamping,
+  preserves its admission ordinals and causation, and admits the next event at
+  `maxOrdinal + 1`;
+- live admission and historical reconstruction share one closed 41-kind event
+  contract, including coupled root/child and run/frame variants;
+- one atomic, fully written exclusive append lock prevents two contexts from
+  owning the same sink; an active or abandoned lock fails closed and is never
+  stolen by a competing process;
+- append verifies exact sink identity and position, fsyncs admitted bytes, and
+  rolls back an unadmitted suffix on failure; and
+- the CLI retains one context across its complete JSONL transcript and
+  releases durable ownership only after that transcript ends.
+
+The focused reopen lane is `7/7`. Fresh serialized verification is `test:m5`
+`70/70`, retained `test:m4` `26/26`, and conservation `21/40` with `19`
+explicit gaps. Two independent packs reproduce artifact SHA-256
+`f541bfa7480d0413bd3b189f3e8ba35026c23d1a6fa83635c9507dc2ca0fe180`,
+Product content digest
+`sha256:eeaf0b43b2e989fec85158c51bffc1cab43247e14c3490c2c5604b32e55836c1`,
+and manifest digest
+`sha256:d8fddae5cf0562aacc2f058ba91974ea700abb53bab9f7b62e7a3555a42f7607`.
+
+An independent boundary re-review confirmed that atomic lock publication
+closes the earlier split-ownership race and partial-lock defect. This
+checkpoint does not close `ABG5-S02`, reprice T-272, admit a human response, or
+claim durable continuation. Its next consumer is T-272's exact
+interaction-response and continuation slice.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -677,7 +717,7 @@ not a proof that the Product is complete.
 | `A5-F07` complete One Surface loop | absent | `T-272` / S03 |
 | `A5-F08` Consensus free construction | absent | `T-274`, `T-275`, `T-276` / S05 |
 | `A5-F09` catalog semantics | admit, view, and invoke subset proven | `T-270`, `T-281` / S02 and S06 |
-| `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, and terminal subsets proven; durable F_H reopening open | `T-270`, `T-272` / S02 and S03 |
+| `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, terminal, and exact durable-history reopen subsets proven; F_H hold, response, and continuation open | `T-270`, `T-272` / S02 and S03 |
 | `A5-F11` self-conformance | absent | realization readiness in `T-268`; qualification in `T-247` / S04 |
 | `A5-F12` observer and tuner | absent | realization in `T-268`; qualification in `T-247` / S04 |
 | `A5-F13` native and bounded host projection | absent | `T-281` / S06 |
