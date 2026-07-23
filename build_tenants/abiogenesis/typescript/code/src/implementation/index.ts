@@ -2,8 +2,10 @@ export { HELLO_WORLD_IMPLEMENTATION_DESCRIPTOR, realizeHelloWorld } from "./hell
 export {
   DETERMINISTIC_FP_HELLO_IMPLEMENTATION_DESCRIPTOR,
   FP_HELLO_IMPLEMENTATION_DESCRIPTOR,
+  FP_FD_OUTPUT_PASS_IMPLEMENTATION_DESCRIPTOR,
   realizeDeterministicFpHello,
   realizeFpHello,
+  realizeFpOutputPass,
 } from "./fp_hello.js";
 export {
   NORMALIZE_HELLO_IMPLEMENTATION_DESCRIPTOR,

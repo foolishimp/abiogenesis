@@ -1,10 +1,11 @@
 import {
   FIBRE_SUBSTITUTION_HELLO_IDS,
   FP_HELLO_IDS,
+  FP_FD_COMPOSED_HELLO_IDS,
   isFpHelloInstruction,
   isFpHelloOutput,
 } from "../gtl/hello_world.js";
-import type { FpHelloInstruction } from "../gtl/contracts.js";
+import type { FpHelloInstruction, FpHelloOutput } from "../gtl/contracts.js";
 import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
@@ -62,6 +63,26 @@ export const DETERMINISTIC_FP_HELLO_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
   schemaVersion: "5.0.0" as const,
   descriptorDigest: sha256Canonical(deterministicDescriptorBody),
   ...deterministicDescriptorBody,
+}) as PackagedLeafImplementationDescriptor;
+
+const fpFdPassDescriptorBody = {
+  implementationRef: FP_FD_COMPOSED_HELLO_IDS.passImplementationRef,
+  packageName: ABI5_PACKAGE_NAME,
+  packageVersion: ABI5_PACKAGE_VERSION,
+  modulePath: "build/code/src/implementation/fp_hello.js",
+  namedSymbol: "realizeFpOutputPass",
+  computeRegime: "F_D" as const,
+  inputContractRef: FP_HELLO_IDS.outputContractRef,
+  outputContractRef: FP_HELLO_IDS.outputContractRef,
+  failureContractRef: FP_HELLO_IDS.failureContractRef,
+  refusalContractRef: FP_HELLO_IDS.refusalContractRef,
+};
+
+export const FP_FD_OUTPUT_PASS_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
+  kind: "packaged_leaf_implementation_descriptor" as const,
+  schemaVersion: "5.0.0" as const,
+  descriptorDigest: sha256Canonical(fpFdPassDescriptorBody),
+  ...fpFdPassDescriptorBody,
 }) as PackagedLeafImplementationDescriptor;
 
 function renderInstruction(input: Readonly<FpHelloInstruction>): string {
@@ -183,6 +204,30 @@ export function realizeDeterministicFpHello(
       kind: "deterministic_evidence_candidate" as const,
       schemaVersion: "5.0.0" as const,
       implementationRef: FIBRE_SUBSTITUTION_HELLO_IDS.implementationRef,
+      inputDigest: sha256Canonical(input),
+      outputDigest: sha256Canonical(resultCandidate),
+    }] as const,
+    resultCandidate,
+  });
+}
+
+export function realizeFpOutputPass(
+  input: Readonly<FpHelloOutput>,
+) {
+  if (!isFpHelloOutput(input)) {
+    throw new TypeError(
+      "F_P-to-F_D output pass requires one exact admitted F_P result",
+    );
+  }
+  const resultCandidate = deepFreeze({ ...input });
+  return deepFreeze({
+    kind: "leaf_realization_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "success" as const,
+    evidenceCandidates: [{
+      kind: "deterministic_evidence_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      implementationRef: FP_FD_COMPOSED_HELLO_IDS.passImplementationRef,
       inputDigest: sha256Canonical(input),
       outputDigest: sha256Canonical(resultCandidate),
     }] as const,

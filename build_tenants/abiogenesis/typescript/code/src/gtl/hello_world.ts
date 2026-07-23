@@ -183,6 +183,26 @@ export const FIBRE_SUBSTITUTION_HELLO_IDS = Object.freeze({
   armId: "arm://abiogenesis/conformance/fd-fp-hello@5",
 });
 
+export const FP_FD_COMPOSED_HELLO_IDS = Object.freeze({
+  programRef: "program://abiogenesis/conformance/fp-fd-compose@5",
+  graphFunctionRef:
+    "graph-function://abiogenesis/conformance/fp-fd-compose@5",
+  passGraphFunctionRef:
+    "graph-function://abiogenesis/conformance/fp-output-pass@5",
+  passGraphRef: "graph://abiogenesis/conformance/fp-output-pass@5",
+  passNodeRef: "node://abiogenesis/conformance/fp-output-pass@5",
+  passLocusRef: "locus://abiogenesis/conformance/fp-output-pass@5",
+  passImplementationBindingRef:
+    "implementation-binding://abiogenesis/conformance/fp-output-pass-fd@5",
+  passImplementationRef:
+    "implementation://abiogenesis/conformance/fp-output-pass-fd@5",
+  passArmId: "arm://abiogenesis/conformance/fp-output-pass-fd@5",
+  passJudgmentPredicateRef:
+    "predicate://abiogenesis/conformance/fp-output-preserved@5",
+  closureContractRef:
+    "contract://abiogenesis/conformance/fp-fd-compose-closure@5",
+});
+
 export interface ConformanceJudgmentRelation {
   readonly predicateRef: string;
   readonly advanceReasonRef: string;
@@ -301,6 +321,20 @@ export function resolveConformanceJudgmentRelation(
           isFpHelloInstruction(input) &&
           isFpHelloOutput(output) &&
           evaluateFpHelloResult(input, output),
+      });
+    case FP_FD_COMPOSED_HELLO_IDS.passJudgmentPredicateRef:
+      return Object.freeze({
+        predicateRef,
+        advanceReasonRef:
+          "reason://abiogenesis/conformance/fp-output-preserved@5",
+        rejectionReasonRef:
+          "reason://abiogenesis/conformance/fp-output-changed@5",
+        evaluate: (input: unknown, output: unknown) =>
+          isFpHelloOutput(input) &&
+          isFpHelloOutput(output) &&
+          input.resultContractRef === output.resultContractRef &&
+          input.actorRef === output.actorRef &&
+          input.message === output.message,
       });
     default:
       return null;
@@ -438,6 +472,7 @@ export function constructHelloWorldModulePublication(
     { contractRef: FP_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "fp_hello_closure" },
     { contractRef: FIBRE_SUBSTITUTION_HELLO_IDS.evidenceContractRef, contractVersion: "5.0.0", contractKind: "evidence", valueKind: "deterministic_evidence_candidate" },
     { contractRef: FIBRE_SUBSTITUTION_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "fp_hello_closure" },
+    { contractRef: FP_FD_COMPOSED_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "fp_hello_closure" },
   ];
   const implementationBinding: ImplementationBinding = {
     kind: "implementation_binding",
@@ -523,6 +558,20 @@ export function constructHelloWorldModulePublication(
     failureContractRef: FP_HELLO_IDS.failureContractRef,
     refusalContractRef: FP_HELLO_IDS.refusalContractRef,
   };
+  const fpFdPassImplementationBinding: ImplementationBinding = {
+    kind: "implementation_binding",
+    bindingRef: FP_FD_COMPOSED_HELLO_IDS.passImplementationBindingRef,
+    implementationRef: FP_FD_COMPOSED_HELLO_IDS.passImplementationRef,
+    packageName: artifact.packageName,
+    packageVersion: artifact.packageVersion,
+    modulePath: "build/code/src/implementation/fp_hello.js",
+    namedSymbol: "realizeFpOutputPass",
+    computeRegime: "F_D",
+    inputContractRef: FP_HELLO_IDS.outputContractRef,
+    outputContractRef: FP_HELLO_IDS.outputContractRef,
+    failureContractRef: FP_HELLO_IDS.failureContractRef,
+    refusalContractRef: FP_HELLO_IDS.refusalContractRef,
+  };
   const closureContract: ClosureContract = {
     kind: "closure_contract",
     closureContractRef: HELLO_WORLD_IDS.closureContractRef,
@@ -566,6 +615,22 @@ export function constructHelloWorldModulePublication(
     transitionContractRef: FP_HELLO_IDS.transitionContractRef,
     replayProjectionRef:
       "projection://abiogenesis/conformance/fd-fp-hello-replay@5",
+    terminalKind: "completed",
+    eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
+  };
+  const fpFdClosureContract: ClosureContract = {
+    kind: "closure_contract",
+    closureContractRef: FP_FD_COMPOSED_HELLO_IDS.closureContractRef,
+    predicateRef: "predicate://abiogenesis/conformance/fp-fd-compose-terminal@5",
+    evidenceContractRef: FIBRE_SUBSTITUTION_HELLO_IDS.evidenceContractRef,
+    resultContractRef: FP_HELLO_IDS.outputContractRef,
+    refusalContractRef: FP_HELLO_IDS.refusalContractRef,
+    refusalValueKind: "fp_hello_refusal",
+    judgmentContractRef: FP_HELLO_IDS.judgmentContractRef,
+    rejectionContractRef: FP_HELLO_IDS.refusalContractRef,
+    transitionContractRef: FP_HELLO_IDS.transitionContractRef,
+    replayProjectionRef:
+      "projection://abiogenesis/conformance/fp-fd-compose-replay@5",
     terminalKind: "completed",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
@@ -1344,6 +1409,79 @@ export function constructHelloWorldModulePublication(
       "abg.compute_regime": "F_D",
     },
   };
+  const fpFdPassGraphFunction: GraphFunction = {
+    kind: "graph_function",
+    name: FP_FD_COMPOSED_HELLO_IDS.passGraphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [FP_HELLO_IDS.outputContractRef],
+      provides: [FP_HELLO_IDS.outputContractRef],
+      carries: [FP_HELLO_IDS.outputContractRef],
+    },
+    inputs: [FP_HELLO_IDS.outputContractRef],
+    outputs: [FP_HELLO_IDS.outputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: FP_FD_COMPOSED_HELLO_IDS.passGraphRef,
+      startNodeRef: FP_FD_COMPOSED_HELLO_IDS.passNodeRef,
+      terminalNodeRefs: [FP_FD_COMPOSED_HELLO_IDS.passNodeRef],
+      nodes: [{
+        nodeRef: FP_FD_COMPOSED_HELLO_IDS.passNodeRef,
+        nodeKind: "c_locus",
+        term: C.of({
+          input: fpOutputCarrier,
+          output: fpOutputCarrier,
+          programLocusRef: FP_FD_COMPOSED_HELLO_IDS.passLocusRef,
+          stageRole: "consequence",
+          fibre: "F_D",
+          armId: FP_FD_COMPOSED_HELLO_IDS.passArmId,
+          compositionRef: null,
+          vectorIndex: 0,
+          judgmentPredicateRef:
+            FP_FD_COMPOSED_HELLO_IDS.passJudgmentPredicateRef,
+          resultBearing: true,
+          requirement: {
+            kind: "executable_leaf_requirement",
+            implementationBindingRef:
+              FP_FD_COMPOSED_HELLO_IDS.passImplementationBindingRef,
+            inputContractRef: FP_HELLO_IDS.outputContractRef,
+            outputContractRef: FP_HELLO_IDS.outputContractRef,
+            evidenceContractRef:
+              FIBRE_SUBSTITUTION_HELLO_IDS.evidenceContractRef,
+            failureContractRef: FP_HELLO_IDS.failureContractRef,
+            refusalContractRef: FP_HELLO_IDS.refusalContractRef,
+            judgmentContractRef: FP_HELLO_IDS.judgmentContractRef,
+          },
+        }),
+      }],
+      edges: [],
+      applications: [],
+    },
+    effects: [],
+    declarations: { "abg.compute_regime": "F_D" },
+    tags: ["abiogenesis", "conformance", "fp-output-pass", "fd"],
+  };
+  const fpFdComposedGraphFunction = composeGraphFunctions({
+    name: FP_FD_COMPOSED_HELLO_IDS.graphFunctionRef,
+    left: fpGraphFunction,
+    right: fpFdPassGraphFunction,
+  });
+  const fpFdComposedProgram: GtlProgram = {
+    kind: "gtl_program",
+    programRef: FP_FD_COMPOSED_HELLO_IDS.programRef,
+    version: "5.0.0",
+    moduleRef: HELLO_WORLD_IDS.moduleRef,
+    starts: [{
+      startRef: "start://abiogenesis/conformance/fp-fd-compose@5",
+      graphFunctionRef: FP_FD_COMPOSED_HELLO_IDS.graphFunctionRef,
+    }],
+    callableMembership: [FP_FD_COMPOSED_HELLO_IDS.graphFunctionRef],
+    closureContractRef: FP_FD_COMPOSED_HELLO_IDS.closureContractRef,
+    policies: {
+      "abg.root_mode": "direct",
+      "abg.compute_regime": "mixed",
+    },
+  };
   const contribution: CatalogContribution = {
     handle: HELLO_WORLD_IDS.graphFunctionRef,
     kind: "graph_function",
@@ -1438,6 +1576,15 @@ export function constructHelloWorldModulePublication(
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
+  const fpFdComposedContribution: CatalogContribution = {
+    handle: FP_FD_COMPOSED_HELLO_IDS.graphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef: FP_FD_COMPOSED_HELLO_IDS.graphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [FP_FD_COMPOSED_HELLO_IDS.programRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  };
   const publicationBody = {
     kind: "module_publication" as const,
     moduleRef: HELLO_WORLD_IDS.moduleRef,
@@ -1458,6 +1605,7 @@ export function constructHelloWorldModulePublication(
       renderImplementationBinding,
       fpImplementationBinding,
       deterministicFpImplementationBinding,
+      fpFdPassImplementationBinding,
     ],
     closureContracts: [
       closureContract,
@@ -1465,6 +1613,7 @@ export function constructHelloWorldModulePublication(
       normalizedHelloClosureContract,
       fpClosureContract,
       deterministicFpClosureContract,
+      fpFdClosureContract,
     ],
     programs: [
       program,
@@ -1477,6 +1626,7 @@ export function constructHelloWorldModulePublication(
       graphSubstituteProgram,
       fpProgram,
       deterministicFpProgram,
+      fpFdComposedProgram,
     ],
     graphFunctions: [
       graphFunction,
@@ -1489,6 +1639,8 @@ export function constructHelloWorldModulePublication(
       graphSubstituteGraphFunction,
       fpGraphFunction,
       deterministicFpGraphFunction,
+      fpFdPassGraphFunction,
+      fpFdComposedGraphFunction,
     ],
     contributions: [
       contribution,
@@ -1501,6 +1653,7 @@ export function constructHelloWorldModulePublication(
       graphSubstituteContribution,
       fpContribution,
       deterministicFpContribution,
+      fpFdComposedContribution,
     ],
   };
   return deepFreeze(publicationBody) as Readonly<ModulePublication>;

@@ -63,6 +63,14 @@ function mergeDeclarations(
   const merged: Record<string, string> = { ...left };
   for (const [key, value] of Object.entries(right)) {
     if (merged[key] !== undefined && merged[key] !== value) {
+      if (
+        key === "abg.compute_regime" &&
+        ["F_D", "F_P", "F_H", "mixed"].includes(merged[key]!) &&
+        ["F_D", "F_P", "F_H", "mixed"].includes(value)
+      ) {
+        merged[key] = "mixed";
+        continue;
+      }
       throw new TypeError(`${relation} GraphFunction declaration conflict at ${key}`);
     }
     merged[key] = value;

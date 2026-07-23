@@ -856,12 +856,22 @@ test("M5 native GraphFunction composition materializes source GTL without a seco
     }),
     /exact left-output to right-input contract join/u,
   );
+  const mixedRight = structuredClone(right);
+  mixedRight.declarations["abg.compute_regime"] = "F_P";
+  const mixed = gtl.composeGraphFunctions({
+    name: "graph-function://m5/mixed-compose",
+    left,
+    right: mixedRight,
+  });
+  assert.equal(mixed.declarations["abg.compute_regime"], "mixed");
+  const conflictingLeft = structuredClone(left);
   const conflictingRight = structuredClone(right);
-  conflictingRight.declarations["abg.compute_regime"] = "F_P";
+  conflictingLeft.declarations["abg.semantic_policy"] = "left";
+  conflictingRight.declarations["abg.semantic_policy"] = "right";
   assert.throws(
     () => gtl.composeGraphFunctions({
       name: "graph-function://m5/conflicting-compose",
-      left,
+      left: conflictingLeft,
       right: conflictingRight,
     }),
     /declaration conflict/u,
