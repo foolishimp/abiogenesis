@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: workflow_c_checkpoint_ready_for_review_898f7bd5
-- proof_status: m4_root_retained_workflow_c_and_fp_authority_green_s02_open
+- review_status: fibre_substitution_checkpoint_ready_for_review_3149a9b2
+- proof_status: m4_root_retained_m5_fibre_differential_green_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -203,6 +203,27 @@ Fresh serialized verification is `test:m5` `34/34` and retained `test:m4`
 `26/26`. `ABG5-S02` remains open. The next typed frontier is the complete
 forty-row traversal matrix and shape-preserving fibre-substitution differential,
 followed by a genuinely live F_P proof.
+
+Implementation commit `3149a9b2b96d9cd08c27ffd02fb87f1434e2d8cc`
+completes the shape-preserving fibre-substitution differential without claiming
+the forty-row matrix or `ABG5-S02`:
+
+- one additional direct GTL Program and GraphFunction use the same input and
+  output contracts and the same C-call locus as the existing F_P leaf while
+  selecting an F_D implementation and deterministic evidence contract;
+- source-blind installed CLI execution proves both fibres produce the same
+  five-event C-call spine, terminal route shape, result contract, public result,
+  and replayable closure while preserving distinct fibre and evidence truth;
+- the F_D execution admits no actor event while the subprocess-backed F_P
+  execution admits actor truth through ABG; and
+- a cross-wired Program and GraphFunction with otherwise equivalent contracts
+  is refused before a Run or event log exists.
+
+Fresh serialized verification is `test:m5` `36/36` and retained `test:m4`
+`26/26`. No parser, lowering, compiled carrier, public traversal controller, or
+second runtime path was added. `ABG5-S02` remains open: the residual T-270
+frontier is the uncovered forty-row inventory followed by a genuinely live F_P
+proof.
 
 ## 4.6 Conservation
 
