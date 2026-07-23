@@ -13,7 +13,7 @@ import type {
   HelloWorldOutput,
   NormalizedHelloInput,
 } from "./contracts.js";
-import { C, cCarrier } from "./c_algebra.js";
+import { C, cCarrier, cGraphFunctionRef, workflow } from "./c_algebra.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 
@@ -79,6 +79,19 @@ export const COMPOSED_HELLO_IDS = Object.freeze({
     "predicate://abiogenesis/conformance/hello-normalized-identity@5",
   renderJudgmentPredicateRef:
     "predicate://abiogenesis/conformance/hello-compose-result@5",
+});
+
+export const WORKFLOW_HELLO_IDS = Object.freeze({
+  programRef: "program://abiogenesis/conformance/hello-workflow@5",
+  graphFunctionRef: "graph-function://abiogenesis/conformance/hello-workflow@5",
+  graphRef: "graph://abiogenesis/conformance/hello-workflow@5",
+  nodeRef: "node://abiogenesis/conformance/hello-workflow@5",
+  evidenceContractRef:
+    "contract://abiogenesis/conformance/hello-sub-traversal-evidence@5",
+  closureContractRef:
+    "contract://abiogenesis/conformance/hello-workflow-closure@5",
+  judgmentPredicateRef:
+    "predicate://abiogenesis/conformance/hello-world-result@5",
 });
 
 export const FP_HELLO_IDS = Object.freeze({
@@ -252,6 +265,8 @@ export function isFpHelloInstruction(
     record.resultContractRef === FP_HELLO_IDS.outputContractRef &&
     record.workerActorRef === FP_HELLO_IDS.workerActorRef &&
     record.workerBindingRef === FP_HELLO_IDS.workerBindingRef &&
+    (record.transportLane === "closed_prompt_proof" ||
+      record.transportLane === "worker_executes") &&
     typeof record.subject === "string" && record.subject.length > 0 &&
     typeof record.instruction === "string" && record.instruction.length > 0;
 }
@@ -307,6 +322,7 @@ export function constructHelloWorldInput(subject: string): Readonly<HelloWorldIn
 export function constructFpHelloInstruction(
   subject: string,
   instruction: string,
+  transportLane: FpHelloInstruction["transportLane"] = "closed_prompt_proof",
 ): Readonly<FpHelloInstruction> {
   if (subject.length === 0 || instruction.length === 0) {
     throw new TypeError("F_P Hello input requires one subject and instruction");
@@ -320,6 +336,7 @@ export function constructFpHelloInstruction(
     resultContractRef: FP_HELLO_IDS.outputContractRef,
     workerActorRef: FP_HELLO_IDS.workerActorRef,
     workerBindingRef: FP_HELLO_IDS.workerBindingRef,
+    transportLane,
     subject,
     instruction,
   });
@@ -344,6 +361,8 @@ export function constructHelloWorldModulePublication(
     { contractRef: HELLO_WORLD_IDS.judgmentContractRef, contractVersion: "5.0.0", contractKind: "judgment", valueKind: "hello_world_judgment" },
     { contractRef: HELLO_WORLD_IDS.transitionContractRef, contractVersion: "5.0.0", contractKind: "transition", valueKind: "hello_world_transition" },
     { contractRef: HELLO_WORLD_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "hello_world_closure" },
+    { contractRef: WORKFLOW_HELLO_IDS.evidenceContractRef, contractVersion: "5.0.0", contractKind: "evidence", valueKind: "sub_traversal_evidence_candidate" },
+    { contractRef: WORKFLOW_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "hello_workflow_closure" },
     { contractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef, contractVersion: "5.0.0", contractKind: "output", valueKind: "normalized_hello_input" },
     { contractRef: FP_HELLO_IDS.inputContractRef, contractVersion: "5.0.0", contractKind: "input", valueKind: "fp_hello_instruction" },
     { contractRef: FP_HELLO_IDS.outputContractRef, contractVersion: "5.0.0", contractKind: "output", valueKind: "fp_hello_output" },
@@ -454,6 +473,21 @@ export function constructHelloWorldModulePublication(
     terminalKind: "completed",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
+  const workflowClosureContract: ClosureContract = {
+    kind: "closure_contract",
+    closureContractRef: WORKFLOW_HELLO_IDS.closureContractRef,
+    predicateRef: "predicate://abiogenesis/conformance/hello-world-terminal@5",
+    evidenceContractRef: WORKFLOW_HELLO_IDS.evidenceContractRef,
+    resultContractRef: HELLO_WORLD_IDS.outputContractRef,
+    refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+    refusalValueKind: "hello_world_refusal",
+    judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+    rejectionContractRef: HELLO_WORLD_IDS.refusalContractRef,
+    transitionContractRef: HELLO_WORLD_IDS.transitionContractRef,
+    replayProjectionRef: "projection://abiogenesis/conformance/hello-workflow-replay@5",
+    terminalKind: "completed",
+    eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
+  };
   const graphFunction: GraphFunction = {
     kind: "graph_function",
     name: HELLO_WORLD_IDS.graphFunctionRef,
@@ -525,6 +559,64 @@ export function constructHelloWorldModulePublication(
     ],
     callableMembership: [HELLO_WORLD_IDS.graphFunctionRef],
     closureContractRef: HELLO_WORLD_IDS.closureContractRef,
+    policies: {
+      "abg.root_mode": "direct",
+      "abg.compute_regime": "F_D",
+    },
+  };
+  const workflowGraphFunction: GraphFunction = {
+    kind: "graph_function",
+    name: WORKFLOW_HELLO_IDS.graphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [HELLO_WORLD_IDS.inputContractRef],
+      provides: [HELLO_WORLD_IDS.outputContractRef],
+      carries: [HELLO_WORLD_IDS.inputContractRef, HELLO_WORLD_IDS.outputContractRef],
+    },
+    inputs: [HELLO_WORLD_IDS.inputContractRef],
+    outputs: [HELLO_WORLD_IDS.outputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: WORKFLOW_HELLO_IDS.graphRef,
+      startNodeRef: WORKFLOW_HELLO_IDS.nodeRef,
+      terminalNodeRefs: [WORKFLOW_HELLO_IDS.nodeRef],
+      nodes: [{
+        nodeRef: WORKFLOW_HELLO_IDS.nodeRef,
+        nodeKind: "c_locus",
+        term: workflow.C(cGraphFunctionRef({
+          graphFunctionRef: HELLO_WORLD_IDS.graphFunctionRef,
+          input: inputCarrier,
+          output: outputCarrier,
+        })),
+      }],
+      edges: [],
+      applications: [],
+    },
+    effects: [],
+    declarations: {
+      "abg.compute_regime": "F_D",
+      "abg.closure_contract": WORKFLOW_HELLO_IDS.closureContractRef,
+      "abg.evidence_contract": WORKFLOW_HELLO_IDS.evidenceContractRef,
+      "abg.judgment_contract": HELLO_WORLD_IDS.judgmentContractRef,
+      "abg.judgment_predicate": WORKFLOW_HELLO_IDS.judgmentPredicateRef,
+      "abg.transition_contract": HELLO_WORLD_IDS.transitionContractRef,
+    },
+    tags: ["abiogenesis", "conformance", "hello-world", "workflow"],
+  };
+  const workflowProgram: GtlProgram = {
+    kind: "gtl_program",
+    programRef: WORKFLOW_HELLO_IDS.programRef,
+    version: "5.0.0",
+    moduleRef: HELLO_WORLD_IDS.moduleRef,
+    starts: [{
+      startRef: "start://abiogenesis/conformance/hello-workflow@5",
+      graphFunctionRef: WORKFLOW_HELLO_IDS.graphFunctionRef,
+    }],
+    callableMembership: [
+      WORKFLOW_HELLO_IDS.graphFunctionRef,
+      HELLO_WORLD_IDS.graphFunctionRef,
+    ],
+    closureContractRef: WORKFLOW_HELLO_IDS.closureContractRef,
     policies: {
       "abg.root_mode": "direct",
       "abg.compute_regime": "F_D",
@@ -818,7 +910,19 @@ export function constructHelloWorldModulePublication(
     kind: "graph_function",
     declarationOrContractRef: HELLO_WORLD_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
-    programMembershipRefs: [HELLO_WORLD_IDS.programRef],
+    programMembershipRefs: [
+      HELLO_WORLD_IDS.programRef,
+      WORKFLOW_HELLO_IDS.programRef,
+    ],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  };
+  const workflowContribution: CatalogContribution = {
+    handle: WORKFLOW_HELLO_IDS.graphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef: WORKFLOW_HELLO_IDS.graphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [WORKFLOW_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -858,10 +962,20 @@ export function constructHelloWorldModulePublication(
       renderImplementationBinding,
       fpImplementationBinding,
     ],
-    closureContracts: [closureContract, fpClosureContract],
-    programs: [program, composedProgram, fpProgram],
-    graphFunctions: [graphFunction, composedGraphFunction, fpGraphFunction],
-    contributions: [contribution, composedContribution, fpContribution],
+    closureContracts: [closureContract, workflowClosureContract, fpClosureContract],
+    programs: [program, workflowProgram, composedProgram, fpProgram],
+    graphFunctions: [
+      graphFunction,
+      workflowGraphFunction,
+      composedGraphFunction,
+      fpGraphFunction,
+    ],
+    contributions: [
+      contribution,
+      workflowContribution,
+      composedContribution,
+      fpContribution,
+    ],
   };
   return deepFreeze(publicationBody) as Readonly<ModulePublication>;
 }

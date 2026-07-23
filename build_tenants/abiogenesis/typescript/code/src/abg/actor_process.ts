@@ -32,6 +32,7 @@ export interface ActorProcessRequest {
   readonly rendererRef: string;
   readonly instructionContractRef: string;
   readonly resultContractRef: string;
+  readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly prompt: string;
   readonly responseJsonSchema: Readonly<Record<string, JsonValue>>;
 }
@@ -85,6 +86,7 @@ interface ActorProcessInvocationInput {
   readonly expectedInputDigest: Sha256Digest;
   readonly runtime: ActorRuntimeBinding;
   readonly request: Readonly<ActorProcessRequest>;
+  readonly dispatchOrdinal: number;
   readonly basis: RuntimeAdmissionBasis;
 }
 
@@ -98,18 +100,6 @@ function positiveInteger(
   const value = Number(raw);
   if (!Number.isSafeInteger(value) || value < 1) {
     throw new TypeError(`${key} must be one positive safe integer`);
-  }
-  return value;
-}
-
-function transportLane(
-  environment: Readonly<Record<string, string | undefined>>,
-): "closed_prompt_proof" | "worker_executes" {
-  const value = environment.ABG_TS_FP_TRANSPORT_LANE ?? "closed_prompt_proof";
-  if (value !== "closed_prompt_proof" && value !== "worker_executes") {
-    throw new TypeError(
-      "ABG_TS_FP_TRANSPORT_LANE must be closed_prompt_proof or worker_executes",
-    );
   }
   return value;
 }
@@ -134,6 +124,10 @@ export async function invokeActorProcess(
     input.request.inputDigest !== input.expectedInputDigest ||
     input.request.instructionContractRef !== input.cCall.inputContractRef ||
     input.request.resultContractRef !== input.cCall.outputContractRef ||
+    (input.request.transportLane !== "closed_prompt_proof" &&
+      input.request.transportLane !== "worker_executes") ||
+    !Number.isSafeInteger(input.dispatchOrdinal) ||
+    input.dispatchOrdinal < 1 ||
     input.request.workerBindingRef.length === 0 ||
     !hasAdmittedWorkspaceBinding(input.store, input.runtime.workspaceBinding) ||
     input.runtime.workspaceBinding.bindingId !== input.executionBasis.workspaceBindingId ||
@@ -150,6 +144,7 @@ export async function invokeActorProcess(
     basisRef: input.executionBasis.basisRef,
     cCallRef: input.cCall.cCallRef,
     attempt: input.cCall.attempt,
+    dispatchOrdinal: input.dispatchOrdinal,
     actorRef: input.request.actorRef,
     workerBindingRef: input.request.workerBindingRef,
     implementationBindingRef: input.cCall.implementationBindingRef,
@@ -167,7 +162,7 @@ export async function invokeActorProcess(
       environment,
     }),
     prompt: input.request.prompt,
-    lane: transportLane(environment),
+    lane: input.request.transportLane,
     cwd: resolve(input.runtime.workspaceBinding.roots.archiveRoot, "..", ".."),
     archiveRoot: input.runtime.workspaceBinding.roots.archiveRoot,
     label: `fp-${attemptDigest.slice("sha256:".length, "sha256:".length + 16)}`,
@@ -192,8 +187,12 @@ export async function invokeActorProcess(
     implementationRef: input.request.implementationRef,
     inputDigest: input.request.inputDigest,
     transportPlanDigest: plan.planDigest,
+    transportContractDigest: plan.contractDigest,
     agentKey: plan.agentKey,
+    parser: plan.parser,
+    promptTransport: plan.promptTransport,
     lane: plan.lane,
+    dispatchOrdinal: input.dispatchOrdinal,
     command: plan.command,
     args: plan.args,
     cwd: plan.cwd,
@@ -282,6 +281,7 @@ export async function invokeActorProcess(
       implementationRef: input.request.implementationRef,
       inputDigest: input.request.inputDigest,
       promptDigest,
+      dispatchOrdinal: input.dispatchOrdinal,
       transportBindingRef,
       transportBindingDigest,
     },

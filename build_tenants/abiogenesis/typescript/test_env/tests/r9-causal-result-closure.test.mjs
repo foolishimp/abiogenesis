@@ -507,8 +507,8 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const {
     abg,
-    gtl,
     hog,
+    hogExecute,
     store,
     program,
     graph,
@@ -517,10 +517,9 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
     rawInput,
     implementationSet,
     implementationRow,
-    implementationResolution,
+    leafPort,
     executionBasis,
     closureContract,
-    publication,
     workspaceBinding,
   } = environment;
   const durablePath = join(
@@ -550,9 +549,7 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
   );
   const alteredStop = structuredClone(traversalStop);
   alteredStop.frameId = "frame://mutation/wrong-lineage";
-  const outputContract = publication.contracts.find((value) => value.contractKind === "output");
-  const failureContract = publication.contracts.find((value) => value.contractKind === "failure");
-  const completion = await hog.completeExecutableTraversal({
+  const completion = await hogExecute.completeExecutableTraversal({
     store,
     executionBasis,
     openedTraversalScope: opened.scope,
@@ -561,21 +558,10 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
     traversalStop: alteredStop,
     implementationSet,
     implementationResolution: implementationRow,
+    leafPort,
     input,
     inputDigest: rawInput.subjectDigest,
-    failureValueKind: failureContract.valueKind,
-    resultValueKind: outputContract.valueKind,
-    validateSuccessResult: gtl.isHelloWorldOutput,
     closureContract,
-    judgmentRelation: {
-      predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
-      advanceReasonRef: "reason://abiogenesis/conformance/hello-world-satisfied@5",
-      rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
-      evaluate: gtl.evaluateHelloWorldResult,
-    },
-    realize: () => {
-      throw new Error("unreachable leaf");
-    },
     clock: {
       eventTime: "2026-07-21T00:00:00.000Z",
       correlationId: "correlation://t286/r9-post-open/hog",
@@ -602,8 +588,8 @@ test("R9 refuses a leaf input that differs from the admitted input digest", asyn
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const {
     abg,
-    gtl,
     hog,
+    hogExecute,
     store,
     program,
     graph,
@@ -612,10 +598,9 @@ test("R9 refuses a leaf input that differs from the admitted input digest", asyn
     rawInput,
     implementationSet,
     implementationRow,
-    implementationResolution,
+    leafPort,
     executionBasis,
     closureContract,
-    publication,
   } = environment;
   const opened = abg.openCall(
     store,
@@ -637,10 +622,8 @@ test("R9 refuses a leaf input that differs from the admitted input digest", asyn
     traversalStop,
     "correlation://t286/r9-input-basis/cursor",
   );
-  const outputContract = publication.contracts.find((value) => value.contractKind === "output");
-  const failureContract = publication.contracts.find((value) => value.contractKind === "failure");
   const alteredInput = { ...input, subject: "Not the admitted subject" };
-  const completion = await hog.completeExecutableTraversal({
+  const completion = await hogExecute.completeExecutableTraversal({
     store,
     executionBasis,
     openedTraversalScope: opened.scope,
@@ -649,21 +632,10 @@ test("R9 refuses a leaf input that differs from the admitted input digest", asyn
     traversalStop,
     implementationSet,
     implementationResolution: implementationRow,
+    leafPort,
     input: alteredInput,
     inputDigest: rawInput.subjectDigest,
-    failureValueKind: failureContract.valueKind,
-    resultValueKind: outputContract.valueKind,
-    validateSuccessResult: gtl.isHelloWorldOutput,
     closureContract,
-    judgmentRelation: {
-      predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
-      advanceReasonRef: "reason://abiogenesis/conformance/hello-world-satisfied@5",
-      rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
-      evaluate: gtl.evaluateHelloWorldResult,
-    },
-    realize: () => {
-      throw new Error("input mismatch must stop before leaf realization");
-    },
     clock: {
       eventTime: "2026-07-21T00:00:00.000Z",
       correlationId: "correlation://t286/r9-input-basis/hog",

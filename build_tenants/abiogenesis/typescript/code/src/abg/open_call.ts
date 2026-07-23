@@ -41,8 +41,8 @@ export interface OpenedFrame {
   readonly frameId: string;
   readonly frameDigest: Sha256Digest;
   readonly frameLineageId: string;
-  readonly attempt: 1;
-  readonly parentFrameId: null;
+  readonly attempt: number;
+  readonly parentFrameId: string | null;
   readonly runId: string;
   readonly graphCallId: string;
   readonly executionBasisRef: string;
@@ -95,6 +95,30 @@ export interface OpenCallRefusal {
 }
 
 export type OpenCallResult = OpenCallAdmission | OpenCallRefusal;
+
+export interface OpenChildCallAdmission {
+  readonly kind: "open_child_call_admission";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "opened";
+  readonly graphCall: OpenedGraphCall;
+  readonly frame: OpenedFrame;
+  readonly scope: OpenedTraversalScope;
+}
+
+export interface OpenChildCallRefusal {
+  readonly kind: "open_child_call_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code:
+    | "child_basis_already_opened"
+    | "child_basis_not_admitted"
+    | "parent_scope_mismatch";
+  readonly message: string;
+}
+
+export type OpenChildCallResult =
+  | OpenChildCallAdmission
+  | OpenChildCallRefusal;
 
 const openedScopes = new WeakSet<object>();
 
@@ -327,4 +351,177 @@ export function openCall(
     frame,
     scope,
   }) as OpenCallAdmission;
+}
+
+export function openChildCall(
+  store: AbgEventStore,
+  parentScope: OpenedTraversalScope,
+  executionBasis: ExecutionBasis,
+  basis: RuntimeAdmissionBasis,
+): OpenChildCallResult {
+  if (
+    !hasAdmittedExecutionBasis(store, executionBasis) ||
+    executionBasis.basisClass !== "child"
+  ) {
+    return {
+      kind: "open_child_call_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "child_basis_not_admitted",
+      message: "child call requires one exact ABG-admitted child ExecutionBasis",
+    };
+  }
+  if (
+    !hasOpenedTraversalScope(store, parentScope) ||
+    executionBasis.parentExecutionBasisRef !== parentScope.executionBasisRef ||
+    executionBasis.parentTraversalScopeRef !== parentScope.scopeRef ||
+    executionBasis.invocationAdmissionRef !== parentScope.invocationAdmissionRef ||
+    executionBasis.programRef !== parentScope.programRef
+  ) {
+    return {
+      kind: "open_child_call_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "parent_scope_mismatch",
+      message: "child call basis does not descend from the exact parent traversal scope",
+    };
+  }
+  if (
+    store.readAll().some(
+      (event) => event.kind === "graph_call_opened" && event.basisId === executionBasis.basisRef,
+    )
+  ) {
+    return {
+      kind: "open_child_call_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "child_basis_already_opened",
+      message: "one child ExecutionBasis cannot open a second GraphCall",
+    };
+  }
+
+  const graphCallBody = {
+    runId: parentScope.runId,
+    executionBasisRef: executionBasis.basisRef,
+    invocationRef: executionBasis.invocationRef,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    graphFunctionDigest: executionBasis.graphFunctionDigest,
+    graphRef: executionBasis.graphRef,
+    graphDigest: executionBasis.graphDigest,
+    parentFrameId: parentScope.frameId,
+  };
+  const graphCallDigest = sha256Canonical(graphCallBody as unknown as JsonValue);
+  const graphCallId = `graph-call://abiogenesis/${graphCallDigest.slice("sha256:".length)}`;
+  const graphCallEvent = admitRuntimeEvent(store, {
+    kind: "graph_call_opened",
+    eventTime: basis.eventTime,
+    aggregateType: "graph_call",
+    aggregateId: graphCallId,
+    parentAggregateId: parentScope.runId,
+    causationEventRefs: [
+      parentScope.runOpenEventRef,
+      parentScope.frameOpenEventRef,
+      executionBasis.admissionEventRef,
+      ...basis.causationEventRefs,
+    ],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: executionBasis.basisRef,
+    runId: parentScope.runId,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    materializationRef: executionBasis.graphRef,
+    graphCallId,
+    payload: { graphCallId, graphCallDigest, ...graphCallBody },
+  });
+  const graphCall = deepFreeze({
+    graphCallId,
+    graphCallDigest,
+    ...graphCallBody,
+    openEventRef: graphCallEvent.eventId,
+  }) as OpenedGraphCall;
+
+  const frameLineageDigest = sha256Canonical({
+    runId: parentScope.runId,
+    graphCallId,
+    invocationRef: executionBasis.invocationRef,
+    parentFrameId: parentScope.frameId,
+  });
+  const frameLineageId =
+    `frame-lineage://abiogenesis/${frameLineageDigest.slice("sha256:".length)}`;
+  const frameBody = {
+    frameLineageId,
+    attempt: 1,
+    parentFrameId: parentScope.frameId,
+    runId: parentScope.runId,
+    graphCallId,
+    executionBasisRef: executionBasis.basisRef,
+    invocationRef: executionBasis.invocationRef,
+    admittedInputRef: executionBasis.rawInputAdmissionRef,
+    admittedInputDigest: executionBasis.rawInputDigest,
+  };
+  const frameDigest = sha256Canonical(frameBody as unknown as JsonValue);
+  const frameId = `frame://abiogenesis/${frameDigest.slice("sha256:".length)}`;
+  const frameEvent = admitRuntimeEvent(store, {
+    kind: "frame_opened",
+    eventTime: basis.eventTime,
+    aggregateType: "frame",
+    aggregateId: frameId,
+    parentAggregateId: graphCallId,
+    causationEventRefs: [graphCallEvent.eventId],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: executionBasis.basisRef,
+    runId: parentScope.runId,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    materializationRef: executionBasis.graphRef,
+    graphCallId,
+    frameId,
+    frameLineageId,
+    payload: { frameId, frameDigest, ...frameBody },
+  });
+  const frame = deepFreeze({
+    frameId,
+    frameDigest,
+    ...frameBody,
+    openEventRef: frameEvent.eventId,
+  }) as OpenedFrame;
+
+  const scopeBody = {
+    executionBasisRef: executionBasis.basisRef,
+    executionBasisDigest: executionBasis.basisDigest,
+    invocationAdmissionRef: executionBasis.invocationAdmissionRef,
+    invocationRef: executionBasis.invocationRef,
+    programRef: executionBasis.programRef,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    graphRef: executionBasis.graphRef,
+    runId: parentScope.runId,
+    runDigest: parentScope.runDigest,
+    runOpenEventRef: parentScope.runOpenEventRef,
+    graphCallId,
+    graphCallDigest,
+    graphCallOpenEventRef: graphCallEvent.eventId,
+    frameId,
+    frameDigest,
+    frameLineageId,
+    frameOpenEventRef: frameEvent.eventId,
+  };
+  const scopeDigest = sha256Canonical(scopeBody as unknown as JsonValue);
+  const scope = deepFreeze({
+    kind: "opened_traversal_scope" as const,
+    schemaVersion: "5.0.0" as const,
+    scopeRef: `traversal-scope://abiogenesis/${scopeDigest.slice("sha256:".length)}`,
+    scopeDigest,
+    ...scopeBody,
+  }) as OpenedTraversalScope;
+  openedScopes.add(scope);
+  return deepFreeze({
+    kind: "open_child_call_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "opened" as const,
+    graphCall,
+    frame,
+    scope,
+  }) as OpenChildCallAdmission;
 }

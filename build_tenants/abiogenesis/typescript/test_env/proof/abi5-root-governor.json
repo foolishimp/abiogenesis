@@ -2,15 +2,15 @@
   "kind": "abi5_root_governor_result",
   "schemaVersion": "5.0.0",
   "disposition": "root_satisfied",
-  "governorDigest": "sha256:6de8857a751a4e2ca2027ba86b29f15e11ef274fa21d747fdddc1e09cb5d1fd4",
+  "governorDigest": "sha256:548f35ef49b4f6fb1126b879e79444ee92dc8fe3905df8087c348e8ed2bb1d27",
   "bindingId": "ABI5-ROOT-001",
   "governorId": "abg5.root.s01.hello_world@5",
   "candidateBasis": {
     "kind": "abi5_root_candidate_basis",
     "schemaVersion": "5.0.0",
-    "artifactDigest": "sha256:8b4e09fa3d070710d126d99e8970bd86fdf063a0e95becb7884c1e5bd88dcdbe",
-    "productContentDigest": "sha256:9982837f47d3d935d88790d15d54f9576b132787cf6def9c41216c315bbf8558",
-    "manifestDigest": "sha256:4aa8caee14a8b786f25b0f28ef538a6cd6216b3fc2e58fdb215160c86e588037",
+    "artifactDigest": "sha256:c55823ad7c3ae6e77d2cba8ab9546760a20bf9646308af0d58e4a45fbe2827d8",
+    "productContentDigest": "sha256:fbee11f6225a6462c5de97420b9d39278f225a5ea79f9ff41fd433307f5985ba",
+    "manifestDigest": "sha256:e65139b6f993f6fc556a884be2bb27abd307220e0c0c448acbf5e66bf76a015b",
     "productId": "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
     "packageName": "@abiogenesis/typescript-tenant",
     "packageVersion": "5.0.0-dev.286"
@@ -28,11 +28,11 @@
     "R10": true
   },
   "firstFrontier": null,
-  "eventLogDigest": "sha256:b1037e118b93a4ae2aaed7362863f17aa83fcd974a03db4d37ad9ee3edeea4e0",
-  "eventCount": 43,
+  "eventLogDigest": "sha256:ae0aebcb6d76b8ec31063a7defa721267631e8368e3ea3d355d4982886a1b8bd",
+  "eventCount": 44,
   "runIds": [
-    "run://abiogenesis/b00e448697d102b701064d0aed938b0502c560d31b72a576dfc7d46e86c8e208",
-    "run://abiogenesis/9853375cc1cc8d24c6d5ffe834897a8f5ae72fd30f7ccba3529dcd0b9d14d2dc"
+    "run://abiogenesis/33c1f42b3bbed204a76c3ffaa6b5b971cd7c70845cb23373b2c903c9493b6ac8",
+    "run://abiogenesis/998da64a839a689a26f736589c1997098a22686454201b76f711d8dea55f399c"
   ],
   "failures": []
 }

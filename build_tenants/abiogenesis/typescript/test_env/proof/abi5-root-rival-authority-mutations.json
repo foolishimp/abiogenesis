@@ -77,40 +77,11 @@
       "rootGovernorDisposition": "root_red"
     },
     {
-      "mutation": "leaf_exception",
-      "boundary": "leaf_realization",
-      "disposition": "blocked",
-      "failureClass": "implementation_exception",
-      "cCallSpineComplete": true,
-      "directRuntimeFailureAbsent": true,
-      "runStopped": true
-    },
-    {
-      "mutation": "leaf_malformed",
-      "boundary": "leaf_realization",
-      "disposition": "blocked",
-      "failureClass": "malformed_return",
-      "cCallSpineComplete": true,
-      "directRuntimeFailureAbsent": true,
-      "runStopped": true
-    },
-    {
-      "mutation": "leaf_sparse-evidence",
-      "boundary": "leaf_realization",
-      "disposition": "blocked",
-      "failureClass": "malformed_return",
-      "cCallSpineComplete": true,
-      "directRuntimeFailureAbsent": true,
-      "runStopped": true
-    },
-    {
-      "mutation": "leaf_missing-message",
-      "boundary": "leaf_realization",
-      "disposition": "blocked",
-      "failureClass": "malformed_return",
-      "cCallSpineComplete": true,
-      "directRuntimeFailureAbsent": true,
-      "runStopped": true
+      "mutation": "forged_leaf_execution_port",
+      "boundary": "leaf_execution_port",
+      "disposition": "failed",
+      "packageExportAbsent": true,
+      "cCallAbsent": true
     },
     {
       "mutation": "post_install_implementation_substitution",

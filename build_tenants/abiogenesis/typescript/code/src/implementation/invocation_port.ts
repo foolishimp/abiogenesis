@@ -8,6 +8,10 @@ import {
 } from "../abg/execution_basis.js";
 import type { AbgEventStore } from "../abg/event_store.js";
 import type { ModulePublication } from "../gtl/contracts.js";
+import {
+  isDeclaredConformanceValue,
+  resolveConformanceJudgmentRelation,
+} from "../gtl/hello_world.js";
 import type { ProductInstall } from "../product/environment.js";
 import { installedProductContentMatches } from "../product/install_product.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -77,6 +81,21 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           contract.contractRef === contractRef &&
           contract.contractKind === contractKind,
       )?.valueKind ?? null;
+    },
+    validateContractValue(
+      contractRef: string,
+      contractKind: "failure" | "output",
+      value: unknown,
+    ): value is Readonly<Record<string, JsonValue>> {
+      const valueKind = authority.publication.contracts.find(
+        (contract) =>
+          contract.contractRef === contractRef &&
+          contract.contractKind === contractKind,
+      )?.valueKind;
+      return valueKind !== undefined && isDeclaredConformanceValue(value, valueKind);
+    },
+    resolveJudgmentRelation(predicateRef: string) {
+      return resolveConformanceJudgmentRelation(predicateRef);
     },
     async invoke(
       resolution: Readonly<LeafInvocationResolution>,

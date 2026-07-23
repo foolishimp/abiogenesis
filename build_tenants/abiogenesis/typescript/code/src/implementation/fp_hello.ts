@@ -1,6 +1,7 @@
 import {
   FP_HELLO_IDS,
   isFpHelloInstruction,
+  isFpHelloOutput,
 } from "../gtl/hello_world.js";
 import type { FpHelloInstruction } from "../gtl/contracts.js";
 import {
@@ -103,14 +104,22 @@ export async function realizeFpHello(
     rendererRef: input.rendererRef,
     instructionContractRef: input.instructionContractRef,
     resultContractRef: input.resultContractRef,
+    transportLane: input.transportLane,
     prompt,
     responseJsonSchema: responseSchema(),
   });
-  const diagnosticRef = transport.failureClass === null
+  const parsedCandidate = parseCandidate(transport.finalOutput);
+  const salvaged = transport.disposition === "failure" &&
+    transport.failureClass === "transport_failure" &&
+    isFpHelloOutput(parsedCandidate);
+  const disposition = transport.disposition === "success" || salvaged
+    ? "success" as const
+    : "failure" as const;
+  const diagnosticRef = disposition === "success" || transport.failureClass === null
     ? null
     : `diagnostic://abiogenesis/transport/${transport.failureClass.replaceAll("_", "-")}@5`;
-  const resultCandidate = transport.disposition === "success"
-    ? parseCandidate(transport.finalOutput)
+  const resultCandidate = disposition === "success"
+    ? parsedCandidate
     : deepFreeze({
       kind: "fp_hello_failure",
       schemaVersion: "5.0.0",
@@ -120,7 +129,7 @@ export async function realizeFpHello(
   return deepFreeze({
     kind: "leaf_realization_candidate" as const,
     schemaVersion: "5.0.0" as const,
-    disposition: transport.disposition,
+    disposition,
     evidenceCandidates: [] as const,
     resultCandidate,
     ...(diagnosticRef === null ? {} : { diagnosticRef }),

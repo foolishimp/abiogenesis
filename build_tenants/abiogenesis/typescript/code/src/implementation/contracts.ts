@@ -31,6 +31,7 @@ export interface ProbabilisticWorkerRequest {
   readonly rendererRef: string;
   readonly instructionContractRef: string;
   readonly resultContractRef: string;
+  readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly prompt: string;
   readonly responseJsonSchema: Readonly<Record<string, JsonValue>>;
 }
@@ -84,6 +85,19 @@ export interface LeafInvocationPort {
     contractRef: string,
     contractKind: "failure" | "output",
   ) => string | null;
+  readonly validateContractValue: (
+    contractRef: string,
+    contractKind: "failure" | "output",
+    value: unknown,
+  ) => value is Readonly<Record<string, JsonValue>>;
+  readonly resolveJudgmentRelation: (
+    predicateRef: string,
+  ) => Readonly<{
+    readonly predicateRef: string;
+    readonly advanceReasonRef: string;
+    readonly rejectionReasonRef: string;
+    readonly evaluate: (input: unknown, output: unknown) => boolean;
+  }> | null;
   readonly invoke: (
     resolution: Readonly<LeafInvocationResolution>,
     input: Readonly<Record<string, JsonValue>>,

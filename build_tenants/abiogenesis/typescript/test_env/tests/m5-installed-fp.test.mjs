@@ -27,7 +27,7 @@ const WORKER_BINDING_REF =
 const PLAN_REF = "prompt-plan://abiogenesis/conformance/fp-hello@5";
 const RENDERER_REF = "renderer://abiogenesis/conformance/fp-hello@5";
 
-function fpInput(subject) {
+function fpInput(subject, transportLane = "closed_prompt_proof") {
   return {
     kind: "fp_hello_instruction",
     schemaVersion: "5.0.0",
@@ -37,6 +37,7 @@ function fpInput(subject) {
     resultContractRef: OUTPUT_CONTRACT_REF,
     workerActorRef: ACTOR_REF,
     workerBindingRef: WORKER_BINDING_REF,
+    transportLane,
     subject,
     instruction: "Produce one concise greeting for the declared subject.",
   };
@@ -73,6 +74,7 @@ async function installWorkerFixture(harness) {
     "  if (process.env.ABG_FP_TEST_TOOL_EVENT === '1') console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'tool_use', name: 'Write', input: { path: 'artifact.txt' } }] } }));",
     "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: 'candidate ready' }] } }));",
     "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: invalidJson ? '{not-json' : JSON.stringify(result) }));",
+    "  if (process.env.ABG_FP_TEST_EXIT_NONZERO === '1') process.exitCode = 7;",
     "});",
     "",
   ].join("\n"), "utf8");
@@ -143,6 +145,9 @@ test("M5 installed CLI admits one subprocess-backed F_P leaf through ordinary GT
   assert.equal(transportBinding.payload.implementationBindingRef,
     "implementation-binding://abiogenesis/conformance/fp-hello@5");
   assert.equal(transportBinding.payload.lane, "closed_prompt_proof");
+  assert.equal(transportBinding.payload.parser, "claude_stream_json");
+  assert.equal(transportBinding.payload.promptTransport, "stdin");
+  assert.match(transportBinding.payload.transportContractDigest, /^sha256:[a-f0-9]{64}$/u);
   assert.match(transportBinding.payload.transportBindingDigest, /^sha256:[a-f0-9]{64}$/u);
   assert.equal(actorOpened.causationEventRefs.includes(transportBinding.eventId), true);
   assert.equal(actorOpened.payload.cCallRef, fibre.payload.cCallRef);
@@ -219,13 +224,12 @@ test("M5 installed worker_executes lane preserves B-001 capability through ABG a
     {
       programRef: PROGRAM_REF,
       graphFunctionRef: GRAPH_FUNCTION_REF,
-      input: fpInput("World"),
+      input: fpInput("World", "worker_executes"),
     },
   );
   const run = await runInstalledCli(harness, scenario, {
     environment: {
       ABG_TS_CLAUDE_COMMAND: command,
-      ABG_TS_FP_TRANSPORT_LANE: "worker_executes",
       ABG_FP_TEST_TOOL_EVENT: "1",
     },
   });
@@ -245,6 +249,106 @@ test("M5 installed worker_executes lane preserves B-001 capability through ABG a
   assert.equal(evidence.payload.transportLane, "worker_executes");
   assert.equal(evidence.payload.toolCallCount, 1);
   assert.equal(events.at(-1).kind, "run_closed");
+});
+
+test("M5 admitted GTL lane overrides ambient process lane selection", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const command = await installWorkerFixture(harness);
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-fp-admitted-lane",
+    (payload) => payload,
+    {
+      programRef: PROGRAM_REF,
+      graphFunctionRef: GRAPH_FUNCTION_REF,
+      input: fpInput("World", "closed_prompt_proof"),
+    },
+  );
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_TS_FP_TRANSPORT_LANE: "worker_executes",
+      ABG_FP_TEST_TOOL_EVENT: "1",
+    },
+  });
+
+  assert.equal(run.exitCode, 2, run.stdout);
+  assert.equal(run.outcomes[5].disposition, "blocked");
+  const events = await readEvents(scenario.eventLogPath);
+  const binding = events.find(
+    (event) => event.kind === "actor_transport_binding_admitted",
+  );
+  const artifact = events.find(
+    (event) => event.kind === "actor_result_artifact_observed",
+  );
+  assert.equal(binding.payload.lane, "closed_prompt_proof");
+  assert.equal(binding.payload.args.includes("--safe-mode"), true);
+  assert.equal(artifact.payload.failureClass, "contract_failure");
+  assert.equal(events.some((event) =>
+    event.kind === "c_call_evidenced" &&
+      event.payload.evidenceClass === "probabilistic_transport"), false);
+  assert.equal(events.at(-1).kind, "run_stopped");
+});
+
+test("M5 deterministically salvages a valid result produced before nonzero exit", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const command = await installWorkerFixture(harness);
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-fp-nonzero-salvage",
+    (payload) => payload,
+    {
+      programRef: PROGRAM_REF,
+      graphFunctionRef: GRAPH_FUNCTION_REF,
+      input: fpInput("World"),
+    },
+  );
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_FP_TEST_EXIT_NONZERO: "1",
+    },
+  });
+
+  assert.equal(run.exitCode, 0, run.stdout);
+  assert.equal(run.outcomes[5].disposition, "succeeded");
+  const events = await readEvents(scenario.eventLogPath);
+  const evidence = events.find((event) =>
+    event.kind === "c_call_evidenced" &&
+      event.payload.evidenceClass === "probabilistic_transport");
+  assert.equal(evidence.payload.transportDisposition, "failure");
+  assert.equal(evidence.payload.transportFailureClass, "transport_failure");
+  assert.equal(evidence.payload.processStatus, 7);
+  assert.equal(events.some((event) =>
+    event.kind === "c_call_result_admitted" &&
+      event.payload.contractRef === OUTPUT_CONTRACT_REF), true);
+  assert.equal(events.at(-1).kind, "run_closed");
+});
+
+test("M5 records unavailable worker commands as typed process failure", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-fp-command-unavailable",
+    (payload) => payload,
+    {
+      programRef: PROGRAM_REF,
+      graphFunctionRef: GRAPH_FUNCTION_REF,
+      input: fpInput("World"),
+    },
+  );
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: join(harness.scratch, "absent-claude-command"),
+    },
+  });
+
+  assert.equal(run.exitCode, 2, run.stdout);
+  assert.equal(run.outcomes[5].disposition, "blocked");
+  const events = await readEvents(scenario.eventLogPath);
+  assert.equal(events.some((event) => event.kind === "actor_process_spawn_failed"), true);
+  assert.equal(events.some((event) => event.kind === "actor_invocation_failed"), true);
+  assert.equal(events.at(-1).kind, "run_stopped");
 });
 
 test("M5 refuses post-install implementation substitution before HoG execution", async (context) => {

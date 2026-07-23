@@ -9,6 +9,7 @@ import {
   admitTransportAppendArgs,
   composeWorkerTransportArgs,
   constructKnownWorkerTransportContract,
+  prepareWorkerTransport,
   runWorkerTransport,
 } from "../../build/code/src/abg/index.js";
 
@@ -102,6 +103,39 @@ test("M5 B-001 gives agent-specific sandbox binding precedence", () => {
     }),
     /agent_default.*external/u,
   );
+});
+
+test("M5 transport identity changes with parser and prompt-delivery semantics", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-transport-identity-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const archiveRoot = join(scratch, "archive");
+  const base = constructKnownWorkerTransportContract("generic", {
+    command: process.execPath,
+    environment: {},
+  });
+  const request = {
+    prompt: "identity",
+    lane: "worker_executes",
+    cwd: scratch,
+    archiveRoot,
+    label: "identity",
+    timeoutMs: 1_000,
+    environment: {},
+  };
+  const baseline = await prepareWorkerTransport({ contract: base, ...request });
+  const parserChanged = await prepareWorkerTransport({
+    contract: { ...base, parser: "claude_stream_json" },
+    ...request,
+  });
+  const promptTransportChanged = await prepareWorkerTransport({
+    contract: { ...base, promptTransport: "stdin" },
+    ...request,
+  });
+
+  assert.notEqual(baseline.contractDigest, parserChanged.contractDigest);
+  assert.notEqual(baseline.planDigest, parserChanged.planDigest);
+  assert.notEqual(baseline.contractDigest, promptTransportChanged.contractDigest);
+  assert.notEqual(baseline.planDigest, promptTransportChanged.planDigest);
 });
 
 test("M5 B-001 crosses a real worker process, parser, tool event, and archive", async (context) => {

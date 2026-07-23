@@ -114,6 +114,10 @@ export interface BlockedRouteAdmissionEvidence {
   readonly reasonRef: string;
 }
 
+export interface RouteAdmissionOptions {
+  readonly terminalizeRun?: boolean;
+}
+
 const admittedRoutes = new WeakSet<object>();
 
 export function isAdmittedRoute(value: object): boolean {
@@ -247,10 +251,18 @@ function hasJudgedRouteEvidence(
     sourceCursor.currentNodeRef,
     sourceCursor.termPath,
   );
+  const locusMatches = term.kind === "c_of"
+    ? cCall?.callClass === "leaf" && cCall.programLocusRef === term.programLocusRef
+    : term.kind === "c_workflow"
+      ? cCall?.callClass === "workflow" &&
+        cCall.childGraphFunctionRef === term.graphFunctionRef &&
+        cCall.inputContractRef === term.inputCarrierRef &&
+        cCall.outputContractRef === term.outputCarrierRef
+      : false;
   return cCall !== undefined &&
     result !== undefined &&
     judgment !== undefined &&
-    term.kind === "c_of" &&
+    locusMatches &&
     hasOpenedCCall(store, cCall) &&
     isAdmittedCCallResult(result) &&
     isAdmittedCCallJudgment(judgment) &&
@@ -262,7 +274,6 @@ function hasJudgedRouteEvidence(
     cCall.basisId === executionBasis.basisRef &&
     cCall.frameId === sourceCursor.frameId &&
     cCall.graphCallId === sourceCursor.graphCallId &&
-    cCall.programLocusRef === term.programLocusRef &&
     cCall.taskOrdinal === sourceCursor.taskOrdinal &&
     cCall.attempt === sourceCursor.attempt &&
     sameValues(cCall.retryPath.map(String), sourceCursor.retryPath.map(String)) &&
@@ -365,6 +376,7 @@ export function admitRoute(
   candidate: RouteCandidate,
   basis: RuntimeAdmissionBasis,
   evidence: RouteAdmissionEvidence | BlockedRouteAdmissionEvidence | null = null,
+  options: RouteAdmissionOptions = {},
 ): RouteAdmissionResult {
   if (
     !hasAdmittedExecutionBasis(store, executionBasis) ||
@@ -391,10 +403,21 @@ export function admitRoute(
     );
   }
   const currentReplay = replay(store, { runId: sourceCursor.runId });
-  const latestRoute = currentReplay.routes.at(-1);
-  const currentCursorRef = latestRoute === undefined
-    ? currentReplay.traversalCursorRef
-    : latestRoute.targetCursorRef;
+  const frameEvents = store.readAll().filter(
+    (event) => event.runId === sourceCursor.runId && event.frameId === sourceCursor.frameId,
+  );
+  const latestRouteEvent = frameEvents.slice().reverse().find(
+    (event) => event.kind === "traversal_route_admitted",
+  );
+  const initialCursorEvent = frameEvents.slice().reverse().find(
+    (event) => event.kind === "traversal_cursor_entered",
+  );
+  const currentCursorRef = latestRouteEvent !== undefined &&
+      isJsonRecord(latestRouteEvent.payload)
+    ? latestRouteEvent.payload.targetCursorRef
+    : initialCursorEvent !== undefined && isJsonRecord(initialCursorEvent.payload)
+      ? initialCursorEvent.payload.cursorRef
+      : null;
   if (
     currentReplay.replayDigest !== replayState.replayDigest ||
     candidate.replayStateDigest !== replayState.replayDigest ||
@@ -570,7 +593,7 @@ export function admitRoute(
     frameId: sourceCursor.frameId,
     payload: { routeRef, routeDigest, ...body },
   } as const;
-  const admittedEvents = candidate.routeKind === "blocked"
+  const admittedEvents = candidate.routeKind === "blocked" && options.terminalizeRun !== false
     ? admitRuntimeEventBatch(store, [
         () => routeEventCandidate,
         (batch) => ({

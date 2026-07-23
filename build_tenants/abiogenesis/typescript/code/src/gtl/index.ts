@@ -32,6 +32,7 @@ export {
   COMPOSED_HELLO_IDS,
   FP_HELLO_IDS,
   HELLO_WORLD_IDS,
+  WORKFLOW_HELLO_IDS,
   constructFpHelloInstruction,
   constructHelloWorldInput,
   constructHelloWorldModulePublication,

@@ -125,6 +125,14 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: ["c_call_judgment_available"],
     terminates: ["c_call_active"], clips: [], declips: [],
   },
+  child_foldback_admitted: {
+    initiates: ["child_foldback_available"],
+    terminates: ["parent_waiting_on_child"], clips: [], declips: [],
+  },
+  child_preparation_refused: {
+    initiates: ["child_preparation_refused"],
+    terminates: ["parent_waiting_on_child"], clips: [], declips: [],
+  },
   traversal_route_admitted: {
     initiates: [],
     terminates: ["locus_active"], clips: [], declips: [],

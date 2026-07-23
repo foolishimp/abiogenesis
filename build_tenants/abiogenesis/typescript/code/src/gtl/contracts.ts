@@ -45,6 +45,7 @@ export interface FpHelloInstruction {
   readonly resultContractRef: string;
   readonly workerActorRef: string;
   readonly workerBindingRef: string;
+  readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly subject: string;
   readonly instruction: string;
 }

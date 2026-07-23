@@ -40,14 +40,17 @@ export {
 } from "./judgment.js";
 export {
   proposeBlockedRoute,
+  proposeWorkflowBlockedRoute,
   proposeJudgedRoute,
   proposeStructuralRoute,
   proposeTerminalRoute,
   type RouteProposalRefusal,
 } from "./traversal_route.js";
 export {
-  completeExecutableTraversal,
-  type CompleteExecutableTraversalInput,
+  completeWorkflowPreparationRefusal,
+  completeWorkflowTraversal,
+  type CompleteWorkflowPreparationRefusalInput,
+  type CompleteWorkflowTraversalInput,
   type CompleteDeterministicTraversalInput,
   type DeterministicLeafCandidate,
   type DeterministicTraversalClock,
@@ -66,3 +69,10 @@ export {
   executeGraphTraversal,
   type ExecuteGraphTraversalInput,
 } from "./graph_execute.js";
+export {
+  type ChildTraversalPreparationPort,
+  type ChildTraversalPreparationRefusal,
+  type ChildTraversalPreparationRequest,
+  type ChildTraversalPreparationResult,
+  type PreparedChildTraversal,
+} from "./child_traversal.js";

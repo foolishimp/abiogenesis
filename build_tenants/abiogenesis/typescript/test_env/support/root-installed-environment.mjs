@@ -110,6 +110,12 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
   const abg = await import(`${pathToFileURL(join(installedRoot, "build/code/src/abg/index.js")).href}?env=${nonce}`);
   const gtl = await import(`${pathToFileURL(join(installedRoot, "build/code/src/gtl/index.js")).href}?env=${nonce}`);
   const hog = await import(`${pathToFileURL(join(installedRoot, "build/code/src/hog/index.js")).href}?env=${nonce}`);
+  const hogExecute = await import(
+    `${pathToFileURL(join(installedRoot, "build/code/src/hog/execute.js")).href}?env=${nonce}`
+  );
+  const implementation = await import(
+    `${pathToFileURL(join(installedRoot, "build/code/src/implementation/index.js")).href}?env=${nonce}`
+  );
   const validator = await import(`${pathToFileURL(join(installedRoot, "build/code/src/validator/index.js")).href}?env=${nonce}`);
   const store = new abg.AbgEventStore();
   const admittedInstall = abg.admitProductInstall(
@@ -234,6 +240,8 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     abg,
     gtl,
     hog,
+    hogExecute,
+    implementation,
     validator,
     store,
     verified,
@@ -504,6 +512,12 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     },
   );
   assert.notEqual(implementationRow, null);
+  const leafPort = await environment.implementation.constructAdmittedLeafInvocationPort({
+    store,
+    install: environment.admittedInstall,
+    implementationSet: executionBasisAdmission.implementationSet,
+    publication,
+  });
   return {
     ...environment,
     graph,
@@ -512,6 +526,7 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     executionBasisAdmission,
     implementationSet: executionBasisAdmission.implementationSet,
     implementationRow,
+    leafPort,
     implementationResolution: executionBasisAdmission.implementationResolution,
     executionBasis: executionBasisAdmission.executionBasis,
   };

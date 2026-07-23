@@ -1,4 +1,4 @@
-import type { GtlGraph, GtlProgram } from "../gtl/contracts.js";
+import type { GraphFunction, GtlGraph, GtlProgram } from "../gtl/contracts.js";
 import { isExecutableCLeaf } from "../gtl/c_algebra.js";
 import {
   resolveCProgramTermAtSourcePath,
@@ -40,6 +40,7 @@ export interface CCall {
   readonly schemaVersion: "5.0.0";
   readonly cCallRef: string;
   readonly cCallDigest: Sha256Digest;
+  readonly callClass: "leaf" | "workflow";
   readonly basisId: string;
   readonly runId: string;
   readonly graphFunctionRef: string;
@@ -57,9 +58,10 @@ export interface CCall {
   readonly armId: string;
   readonly compositionRef: string | null;
   readonly implementationSetRef: string;
-  readonly implementationRequirementKey: string;
-  readonly implementationBindingRef: string;
-  readonly implementationRef: string;
+  readonly implementationRequirementKey: string | null;
+  readonly implementationBindingRef: string | null;
+  readonly implementationRef: string | null;
+  readonly childGraphFunctionRef: string | null;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
   readonly failureContractRef: string;
@@ -116,6 +118,20 @@ export interface CCallLocusProposal {
   readonly judgmentContractRef: string;
 }
 
+export interface WorkflowCCallProposal {
+  readonly kind: "workflow_c_call_proposal";
+  readonly schemaVersion: "5.0.0";
+  readonly cursor: TraversalCursorCandidate;
+  readonly traversalScopeRef: string;
+  readonly runId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly childGraphFunctionRef: string;
+  readonly inputContractRef: string;
+  readonly outputContractRef: string;
+  readonly judgmentPredicateRef: string;
+}
+
 export interface CCallOpenRefusal {
   readonly kind: "c_call_open_refusal";
   readonly schemaVersion: "5.0.0";
@@ -134,6 +150,25 @@ export interface DeterministicEvidenceCandidate {
   readonly implementationRef: string;
   readonly inputDigest: Sha256Digest;
   readonly outputDigest: Sha256Digest;
+}
+
+export interface SubTraversalEvidenceCandidate {
+  readonly kind: "sub_traversal_evidence_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly inputDigest: Sha256Digest;
+  readonly outputDigest: Sha256Digest;
+  readonly foldbackRef: string;
+  readonly foldbackDigest: Sha256Digest;
+  readonly foldbackEventRef: string;
+  readonly childExecutionBasisRef: string;
+  readonly childExecutionBasisDigest: Sha256Digest;
+  readonly childGraphCallId: string;
+  readonly childFrameId: string;
+  readonly childDisposition: "blocked" | "closed" | "failed" | "held" | "refused";
+  readonly childResultRef: string;
+  readonly childResultDigest: Sha256Digest;
+  readonly childJudgmentRef: string;
+  readonly childTerminalEventRef: string;
 }
 
 export interface ProbabilisticTransportEvidenceCandidate {
@@ -180,7 +215,8 @@ export interface ProbabilisticTransportEvidenceCandidate {
 
 export type CCallEvidenceCandidate =
   | DeterministicEvidenceCandidate
-  | ProbabilisticTransportEvidenceCandidate;
+  | ProbabilisticTransportEvidenceCandidate
+  | SubTraversalEvidenceCandidate;
 
 export interface AdmittedCCallEvidence {
   readonly kind: "admitted_c_call_evidence";
@@ -189,9 +225,9 @@ export interface AdmittedCCallEvidence {
   readonly evidenceRef: string;
   readonly evidenceDigest: Sha256Digest;
   readonly cCallRef: string;
-  readonly evidenceClass: "deterministic" | "probabilistic_transport";
+  readonly evidenceClass: "deterministic" | "probabilistic_transport" | "sub_traversal";
   readonly contractRef: string;
-  readonly implementationRef: string;
+  readonly implementationRef: string | null;
   readonly inputDigest: Sha256Digest;
   readonly outputDigest: Sha256Digest;
   readonly actorInvocationRef?: string;
@@ -222,6 +258,18 @@ export interface AdmittedCCallEvidence {
   readonly stdoutByteLength?: number;
   readonly stderrByteLength?: number;
   readonly artifactDigests?: ProbabilisticTransportEvidenceCandidate["artifactDigests"];
+  readonly foldbackRef?: string;
+  readonly foldbackDigest?: Sha256Digest;
+  readonly foldbackEventRef?: string;
+  readonly childExecutionBasisRef?: string;
+  readonly childExecutionBasisDigest?: Sha256Digest;
+  readonly childGraphCallId?: string;
+  readonly childFrameId?: string;
+  readonly childDisposition?: SubTraversalEvidenceCandidate["childDisposition"];
+  readonly childResultRef?: string;
+  readonly childResultDigest?: Sha256Digest;
+  readonly childJudgmentRef?: string;
+  readonly childTerminalEventRef?: string;
   readonly admissionEventRef: string;
 }
 
@@ -305,6 +353,66 @@ export interface RejectedCCallCompletion {
   readonly judgmentEventRef: string;
 }
 
+export interface ChildFoldbackAdmission {
+  readonly kind: "child_foldback_admission";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+  readonly foldbackRef: string;
+  readonly foldbackDigest: Sha256Digest;
+  readonly parentCCallRef: string;
+  readonly childExecutionBasisRef: string;
+  readonly childExecutionBasisDigest: Sha256Digest;
+  readonly childGraphCallId: string;
+  readonly childFrameId: string;
+  readonly childDisposition: SubTraversalEvidenceCandidate["childDisposition"];
+  readonly childResultRef: string;
+  readonly childResultDigest: Sha256Digest;
+  readonly childJudgmentRef: string;
+  readonly childTerminalEventRef: string;
+  readonly outputDigest: Sha256Digest;
+  readonly admissionEventRef: string;
+}
+
+export interface ChildFoldbackRefusal {
+  readonly kind: "child_foldback_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: "child_truth_mismatch" | "parent_call_mismatch";
+  readonly message: string;
+}
+
+export interface ChildPreparationRefusalCandidate {
+  readonly kind: "child_preparation_refusal_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly childGraphFunctionRef: string;
+  readonly inputRef: string;
+  readonly inputDigest: Sha256Digest;
+  readonly stage:
+    | "basis_admission"
+    | "graph_materialization"
+    | "graph_validation"
+    | "membership"
+    | "scope_open";
+  readonly diagnosticRef: string;
+  readonly message: string;
+}
+
+export interface ChildPreparationRefusalAdmission {
+  readonly kind: "child_preparation_refusal_admission";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+  readonly admissionRejection: CCallAdmissionRejection;
+  readonly admissionEventRef: string;
+}
+
+export interface ChildPreparationRefusalRefusal {
+  readonly kind: "child_preparation_refusal_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: "candidate_mismatch" | "parent_call_mismatch";
+  readonly message: string;
+}
+
 export type CCallEvidenceAdmissionResult =
   | AdmittedCCallEvidence
   | CCallAdmissionRejection;
@@ -321,6 +429,8 @@ const admittedResults = new WeakSet<object>();
 const admittedJudgments = new WeakSet<object>();
 const admissionRejections = new WeakSet<object>();
 const derivedProbabilisticEvidence = new WeakSet<object>();
+const admittedChildFoldbacks = new WeakSet<object>();
+const derivedSubTraversalEvidence = new WeakSet<object>();
 
 function isJsonRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -530,6 +640,8 @@ export function deriveProbabilisticTransportEvidence(
 ): ProbabilisticTransportEvidenceCandidate {
   if (
     !isActorProcessObservation(observation) ||
+    cCall.callClass !== "leaf" ||
+    cCall.implementationRef === null ||
     observation.implementationRef !== cCall.implementationRef ||
     observation.inputDigest.length === 0 ||
     observation.instructionContractRef !== cCall.inputContractRef ||
@@ -573,6 +685,273 @@ export function deriveProbabilisticTransportEvidence(
     artifactDigests: observation.artifactDigests,
   }) as ProbabilisticTransportEvidenceCandidate;
   derivedProbabilisticEvidence.add(candidate);
+  return candidate;
+}
+
+export function admitChildPreparationRefusal(
+  store: AbgEventStore,
+  parentCCall: CCall,
+  candidate: ChildPreparationRefusalCandidate,
+  basis: RuntimeAdmissionBasis,
+): ChildPreparationRefusalAdmission | ChildPreparationRefusalRefusal {
+  if (
+    !isCCall(parentCCall) ||
+    parentCCall.callClass !== "workflow" ||
+    !hasOpenedCCall(store, parentCCall) ||
+    eventsFor(store, parentCCall.cCallRef).some(
+      (event) => event.kind === "c_call_result_admitted" || event.kind === "c_call_judged",
+    )
+  ) {
+    return {
+      kind: "child_preparation_refusal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "parent_call_mismatch",
+      message: "child preparation refusal requires one open transparent parent workflow CCall",
+    };
+  }
+  if (
+    candidate.kind !== "child_preparation_refusal_candidate" ||
+    candidate.schemaVersion !== "5.0.0" ||
+    candidate.childGraphFunctionRef !== parentCCall.childGraphFunctionRef ||
+    candidate.inputRef.length === 0 ||
+    !/^sha256:[a-f0-9]{64}$/u.test(candidate.inputDigest) ||
+    ![
+      "basis_admission",
+      "graph_materialization",
+      "graph_validation",
+      "membership",
+      "scope_open",
+    ].includes(candidate.stage) ||
+    !candidate.diagnosticRef.startsWith("diagnostic://abiogenesis/") ||
+    candidate.message.length === 0
+  ) {
+    return {
+      kind: "child_preparation_refusal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "candidate_mismatch",
+      message: "child preparation refusal candidate differs from the declared workflow child",
+    };
+  }
+  const candidateDigest = sha256Canonical(candidate as unknown as JsonValue);
+  const event = admitRuntimeEvent(store, {
+    kind: "child_preparation_refused",
+    eventTime: basis.eventTime,
+    aggregateType: "c_call",
+    aggregateId: parentCCall.cCallRef,
+    parentAggregateId: parentCCall.frameId,
+    causationEventRefs: [parentCCall.fibreSelectedEventRef, ...basis.causationEventRefs],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: parentCCall.basisId,
+    runId: parentCCall.runId,
+    graphFunctionRef: parentCCall.graphFunctionRef,
+    graphCallId: parentCCall.graphCallId,
+    frameId: parentCCall.frameId,
+    payload: {
+      parentCCallRef: parentCCall.cCallRef,
+      candidateDigest,
+      ...candidate,
+    },
+  });
+  const admissionRejection = rejection(
+    parentCCall,
+    "evidence",
+    candidate as unknown as JsonValue,
+    parentCCall.evidenceContractRef,
+    candidate.diagnosticRef,
+  );
+  return deepFreeze({
+    kind: "child_preparation_refusal_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    admissionRejection,
+    admissionEventRef: event.eventId,
+  }) as ChildPreparationRefusalAdmission;
+}
+
+export function admitChildFoldback(
+  store: AbgEventStore,
+  parentCCall: CCall,
+  childExecutionBasis: ExecutionBasis,
+  childScope: OpenedTraversalScope,
+  input: {
+    readonly childResultRef: string;
+    readonly childJudgmentRef: string;
+  },
+  basis: RuntimeAdmissionBasis,
+): ChildFoldbackAdmission | ChildFoldbackRefusal {
+  if (
+    !isCCall(parentCCall) ||
+    parentCCall.callClass !== "workflow" ||
+    !hasOpenedCCall(store, parentCCall) ||
+    parentCCall.childGraphFunctionRef !== childExecutionBasis.graphFunctionRef ||
+    parentCCall.runId !== childScope.runId ||
+    childExecutionBasis.parentExecutionBasisRef !== parentCCall.basisId
+  ) {
+    return {
+      kind: "child_foldback_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "parent_call_mismatch",
+      message: "child foldback requires one open transparent parent workflow CCall",
+    };
+  }
+  if (
+    !hasAdmittedExecutionBasis(store, childExecutionBasis) ||
+    childExecutionBasis.basisClass !== "child" ||
+    !hasOpenedTraversalScope(store, childScope) ||
+    childScope.executionBasisRef !== childExecutionBasis.basisRef ||
+    childScope.graphFunctionRef !== parentCCall.childGraphFunctionRef
+  ) {
+    return {
+      kind: "child_foldback_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "child_truth_mismatch",
+      message: "child foldback requires the exact admitted child basis and scope",
+    };
+  }
+  const events = store.readAll();
+  const resultEvent = events.find(
+    (event) => event.kind === "c_call_result_admitted" &&
+      event.runId === childScope.runId &&
+      event.frameId === childScope.frameId &&
+      isJsonRecord(event.payload) &&
+      event.payload.resultRef === input.childResultRef,
+  );
+  const judgmentEvent = events.find(
+    (event) => event.kind === "c_call_judged" &&
+      event.runId === childScope.runId &&
+      event.frameId === childScope.frameId &&
+      isJsonRecord(event.payload) &&
+      event.payload.judgmentRef === input.childJudgmentRef &&
+      event.payload.resultRef === input.childResultRef,
+  );
+  const terminalEvent = events.slice().reverse().find(
+    (event) => event.kind === "traversal_route_admitted" &&
+      event.runId === childScope.runId &&
+      event.frameId === childScope.frameId &&
+      isJsonRecord(event.payload) &&
+      event.payload.judgmentRef === input.childJudgmentRef &&
+      (event.payload.routeKind === "terminal" || event.payload.routeKind === "blocked"),
+  );
+  if (
+    resultEvent === undefined ||
+    judgmentEvent === undefined ||
+    terminalEvent === undefined ||
+    !judgmentEvent.causationEventRefs.includes(resultEvent.eventId) ||
+    !terminalEvent.causationEventRefs.includes(judgmentEvent.eventId)
+  ) {
+    return {
+      kind: "child_foldback_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "child_truth_mismatch",
+      message: "child foldback references incomplete or non-causal child result truth",
+    };
+  }
+  const resultPayload = isJsonRecord(resultEvent.payload) ? resultEvent.payload : null;
+  const terminalPayload = isJsonRecord(terminalEvent.payload) ? terminalEvent.payload : null;
+  const resultDigest = resultPayload?.resultDigest;
+  const outputDigest = resultPayload?.valueDigest;
+  const routeKind = terminalPayload?.routeKind;
+  if (
+    typeof resultDigest !== "string" ||
+    !/^sha256:[a-f0-9]{64}$/u.test(resultDigest) ||
+    typeof outputDigest !== "string" ||
+    !/^sha256:[a-f0-9]{64}$/u.test(outputDigest) ||
+    (routeKind !== "terminal" && routeKind !== "blocked")
+  ) {
+    return {
+      kind: "child_foldback_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "child_truth_mismatch",
+      message: "child foldback result or route payload is incomplete",
+    };
+  }
+  const childDisposition = routeKind === "terminal" ? "closed" as const : "blocked" as const;
+  const body = {
+    parentCCallRef: parentCCall.cCallRef,
+    childExecutionBasisRef: childExecutionBasis.basisRef,
+    childExecutionBasisDigest: childExecutionBasis.basisDigest,
+    childGraphCallId: childScope.graphCallId,
+    childFrameId: childScope.frameId,
+    childDisposition,
+    childResultRef: input.childResultRef,
+    childResultDigest: resultDigest as Sha256Digest,
+    childJudgmentRef: input.childJudgmentRef,
+    childTerminalEventRef: terminalEvent.eventId,
+    outputDigest: outputDigest as Sha256Digest,
+  };
+  const foldbackDigest = sha256Canonical(body as unknown as JsonValue);
+  const foldbackRef =
+    `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}`;
+  const event = admitRuntimeEvent(store, {
+    kind: "child_foldback_admitted",
+    eventTime: basis.eventTime,
+    aggregateType: "frame",
+    aggregateId: parentCCall.frameId,
+    parentAggregateId: parentCCall.graphCallId,
+    causationEventRefs: [terminalEvent.eventId, parentCCall.fibreSelectedEventRef, ...basis.causationEventRefs],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: parentCCall.basisId,
+    runId: parentCCall.runId,
+    graphFunctionRef: parentCCall.graphFunctionRef,
+    graphCallId: parentCCall.graphCallId,
+    frameId: parentCCall.frameId,
+    payload: { foldbackRef, foldbackDigest, ...body },
+  });
+  const admitted = deepFreeze({
+    kind: "child_foldback_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    foldbackRef,
+    foldbackDigest,
+    ...body,
+    admissionEventRef: event.eventId,
+  }) as ChildFoldbackAdmission;
+  admittedChildFoldbacks.add(admitted);
+  return admitted;
+}
+
+export function deriveSubTraversalEvidence(
+  parentCCall: CCall,
+  foldback: ChildFoldbackAdmission,
+  inputDigest: Sha256Digest,
+): SubTraversalEvidenceCandidate {
+  if (
+    !isCCall(parentCCall) ||
+    parentCCall.callClass !== "workflow" ||
+    !admittedChildFoldbacks.has(foldback) ||
+    foldback.parentCCallRef !== parentCCall.cCallRef
+  ) {
+    throw new TypeError("sub-traversal evidence requires one authentic admitted child foldback");
+  }
+  const candidate = deepFreeze({
+    kind: "sub_traversal_evidence_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    inputDigest,
+    outputDigest: foldback.outputDigest,
+    foldbackRef: foldback.foldbackRef,
+    foldbackDigest: foldback.foldbackDigest,
+    foldbackEventRef: foldback.admissionEventRef,
+    childExecutionBasisRef: foldback.childExecutionBasisRef,
+    childExecutionBasisDigest: foldback.childExecutionBasisDigest,
+    childGraphCallId: foldback.childGraphCallId,
+    childFrameId: foldback.childFrameId,
+    childDisposition: foldback.childDisposition,
+    childResultRef: foldback.childResultRef,
+    childResultDigest: foldback.childResultDigest,
+    childJudgmentRef: foldback.childJudgmentRef,
+    childTerminalEventRef: foldback.childTerminalEventRef,
+  }) as SubTraversalEvidenceCandidate;
+  derivedSubTraversalEvidence.add(candidate);
   return candidate;
 }
 
@@ -624,9 +1003,6 @@ export function openCCall(
         stop.cursor.currentNodeRef,
         stop.cursor.termPath,
       );
-  const declaredStart = program.starts.find(
-    (start) => start.graphFunctionRef === executionBasis.graphFunctionRef,
-  );
   if (
     stop.traversalScopeRef !== scope.scopeRef ||
     !hasAdmittedTraversalCursor(store, stop.cursor) ||
@@ -646,9 +1022,9 @@ export function openCCall(
     declaredBatchRef === undefined ||
     (declaredBatchRef !== null && typeof declaredBatchRef !== "string") ||
     !isExecutableCLeaf(declaredTerm) ||
-    declaredStart === undefined ||
+    !program.callableMembership.includes(executionBasis.graphFunctionRef) ||
     stop.programLocusRef !== declaredTerm.programLocusRef ||
-    stop.edgeRef !== declaredStart.startRef ||
+    stop.edgeRef !== executionBasis.entryRef ||
     stop.vectorIndex !== declaredTerm.vectorIndex ||
     stop.judgmentPredicateRef !== declaredTerm.judgmentPredicateRef ||
     stop.stageRole !== declaredTerm.stageRole ||
@@ -701,6 +1077,7 @@ export function openCCall(
   const locusBody = {
     cCallRef,
     cCallDigest,
+    callClass: "leaf" as const,
     basisId: executionBasis.basisRef,
     graphFunctionRef: executionBasis.graphFunctionRef,
     graphCallId: scope.graphCallId,
@@ -716,6 +1093,7 @@ export function openCCall(
   };
   const fibreBody = {
     cCallRef,
+    callClass: "leaf" as const,
     regime: stop.computeRegime,
     armId: stop.armId,
     compositionRef: stop.compositionRef,
@@ -771,6 +1149,7 @@ export function openCCall(
     schemaVersion: "5.0.0" as const,
     cCallRef,
     cCallDigest,
+    callClass: "leaf" as const,
     basisId: executionBasis.basisRef,
     runId: scope.runId,
     graphFunctionRef: executionBasis.graphFunctionRef,
@@ -791,6 +1170,7 @@ export function openCCall(
     implementationRequirementKey: resolution.requirementKey,
     implementationBindingRef: resolution.implementationBindingRef,
     implementationRef: resolution.implementationRef,
+    childGraphFunctionRef: null,
     inputContractRef: resolution.inputContractRef,
     outputContractRef: resolution.outputContractRef,
     failureContractRef: resolution.failureContractRef,
@@ -818,6 +1198,216 @@ export function openCCall(
   }) as CCallAdmission;
 }
 
+export function openWorkflowCCall(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  scope: OpenedTraversalScope,
+  program: Readonly<GtlProgram>,
+  graphFunction: Readonly<GraphFunction>,
+  graph: Readonly<GtlGraph>,
+  proposal: WorkflowCCallProposal,
+  basis: RuntimeAdmissionBasis,
+): CCallAdmission | CCallOpenRefusal {
+  if (!hasAdmittedExecutionBasis(store, executionBasis)) {
+    return openRefusal("basis_mismatch", "workflow CCall requires one admitted ExecutionBasis");
+  }
+  if (
+    !hasOpenedTraversalScope(store, scope) ||
+    scope.executionBasisRef !== executionBasis.basisRef ||
+    scope.graphFunctionRef !== executionBasis.graphFunctionRef
+  ) {
+    return openRefusal("scope_mismatch", "workflow CCall scope differs from its execution basis");
+  }
+  const cursor = proposal.cursor;
+  const declaredTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  const declaredBatchRef = resolveEnclosingCBatchRef(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  if (
+    proposal.kind !== "workflow_c_call_proposal" ||
+    proposal.schemaVersion !== "5.0.0" ||
+    proposal.traversalScopeRef !== scope.scopeRef ||
+    proposal.runId !== scope.runId ||
+    proposal.graphCallId !== scope.graphCallId ||
+    proposal.frameId !== scope.frameId ||
+    !hasAdmittedTraversalCursor(store, cursor) ||
+    cursor.executionBasisRef !== executionBasis.basisRef ||
+    cursor.traversalScopeRef !== scope.scopeRef ||
+    cursor.graphRef !== graph.materializationRef ||
+    graphFunction.name !== graph.graphFunctionRef ||
+    sha256Canonical(graphFunction as unknown as JsonValue) !== graph.graphFunctionDigest ||
+    program.programRef !== executionBasis.programRef ||
+    !program.callableMembership.includes(proposal.childGraphFunctionRef) ||
+    declaredTerm.kind === "c_source_path_refusal" ||
+    declaredTerm.kind !== "c_workflow" ||
+    declaredTerm.graphFunctionRef !== proposal.childGraphFunctionRef ||
+    declaredTerm.inputCarrierRef !== proposal.inputContractRef ||
+    declaredTerm.outputCarrierRef !== proposal.outputContractRef ||
+    graphFunction.declarations["abg.judgment_predicate"] !==
+      proposal.judgmentPredicateRef ||
+    (declaredBatchRef !== null && typeof declaredBatchRef !== "string")
+  ) {
+    return openRefusal(
+      "locus_mismatch",
+      "workflow CCall requires the exact admitted workflow.C term and child declaration",
+    );
+  }
+  const cursorAdmissionEventRef = traversalCursorAdmissionEventRef(store, cursor);
+  if (cursorAdmissionEventRef === null) {
+    return openRefusal("scope_mismatch", "workflow CCall requires one admitted parent cursor");
+  }
+  const programLocusDigest = sha256Canonical({
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    nodeRef: cursor.currentNodeRef,
+    termPath: cursor.termPath,
+    childGraphFunctionRef: proposal.childGraphFunctionRef,
+  } as unknown as JsonValue);
+  const programLocusRef =
+    `workflow-locus://abiogenesis/${programLocusDigest.slice("sha256:".length)}`;
+  const identity = {
+    basisId: executionBasis.basisRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    vectorIndex: 0,
+    stageRole: "workflow",
+    taskOrdinal: cursor.taskOrdinal,
+    attempt: cursor.attempt,
+    programLocusRef,
+    retryPath: cursor.retryPath,
+    childGraphFunctionRef: proposal.childGraphFunctionRef,
+  };
+  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallRef = `c-call:${cCallDigest}`;
+  const locusBody = {
+    cCallRef,
+    cCallDigest,
+    callClass: "workflow" as const,
+    basisId: executionBasis.basisRef,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    edgeRef: executionBasis.entryRef,
+    vectorIndex: 0,
+    stageRole: "workflow",
+    batchRef: declaredBatchRef,
+    taskOrdinal: cursor.taskOrdinal,
+    attempt: cursor.attempt,
+    programLocusRef,
+    retryPath: cursor.retryPath,
+    childGraphFunctionRef: proposal.childGraphFunctionRef,
+  };
+  const fibreBody = {
+    cCallRef,
+    callClass: "workflow" as const,
+    regime: "F_D" as const,
+    armId: "arm://abiogenesis/workflow.C@5",
+    compositionRef: null,
+    implementationSetRef: executionBasis.rootImplementationSetRef,
+    implementationRequirementKey: null,
+    implementationBindingRef: null,
+    implementationRef: null,
+    childGraphFunctionRef: proposal.childGraphFunctionRef,
+  };
+  const openingEvents = admitRuntimeEventBatch(store, [
+    () => ({
+      kind: "c_call_opened",
+      eventTime: basis.eventTime,
+      aggregateType: "c_call",
+      aggregateId: cCallRef,
+      parentAggregateId: scope.frameId,
+      causationEventRefs: [cursorAdmissionEventRef, ...basis.causationEventRefs],
+      correlationId: basis.correlationId,
+      workflowVersion: "5.0.0",
+      scopeClass: "run",
+      basisId: executionBasis.basisRef,
+      runId: scope.runId,
+      graphFunctionRef: executionBasis.graphFunctionRef,
+      materializationRef: executionBasis.graphRef,
+      graphCallId: scope.graphCallId,
+      frameId: scope.frameId,
+      frameLineageId: scope.frameLineageId,
+      payload: locusBody,
+    }),
+    (admitted) => ({
+      kind: "c_call_fibre_selected",
+      eventTime: basis.eventTime,
+      aggregateType: "c_call",
+      aggregateId: cCallRef,
+      parentAggregateId: scope.frameId,
+      causationEventRefs: [admitted[0]!.eventId],
+      correlationId: basis.correlationId,
+      workflowVersion: "5.0.0",
+      scopeClass: "run",
+      basisId: executionBasis.basisRef,
+      runId: scope.runId,
+      graphFunctionRef: executionBasis.graphFunctionRef,
+      materializationRef: executionBasis.graphRef,
+      graphCallId: scope.graphCallId,
+      frameId: scope.frameId,
+      frameLineageId: scope.frameLineageId,
+      payload: fibreBody,
+    }),
+  ]);
+  const cCall = deepFreeze({
+    kind: "c_call" as const,
+    schemaVersion: "5.0.0" as const,
+    cCallRef,
+    cCallDigest,
+    callClass: "workflow" as const,
+    basisId: executionBasis.basisRef,
+    runId: scope.runId,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    edgeRef: executionBasis.entryRef,
+    vectorIndex: 0,
+    stageRole: "workflow",
+    batchRef: declaredBatchRef,
+    taskOrdinal: cursor.taskOrdinal,
+    attempt: cursor.attempt,
+    programLocusRef,
+    retryPath: cursor.retryPath,
+    regime: "F_D" as const,
+    armId: "arm://abiogenesis/workflow.C@5",
+    compositionRef: null,
+    implementationSetRef: executionBasis.rootImplementationSetRef,
+    implementationRequirementKey: null,
+    implementationBindingRef: null,
+    implementationRef: null,
+    childGraphFunctionRef: proposal.childGraphFunctionRef,
+    inputContractRef: proposal.inputContractRef,
+    outputContractRef: proposal.outputContractRef,
+    failureContractRef: executionBasis.refusalContractRef,
+    refusalContractRef: executionBasis.refusalContractRef,
+    refusalValueKind: executionBasis.refusalValueKind,
+    evidenceContractRef: executionBasis.evidenceContractRef,
+    judgmentContractRef: executionBasis.judgmentContractRef,
+    rejectionContractRef: executionBasis.rejectionContractRef,
+    transitionContractRef: executionBasis.transitionContractRef,
+    closureContractRef: executionBasis.closureContractRef,
+    closureContractDigest: executionBasis.closureContractDigest,
+    judgmentPredicateRef: proposal.judgmentPredicateRef,
+    terminalPredicateRef: executionBasis.terminalPredicateRef,
+    replayProjectionRef: executionBasis.replayProjectionRef,
+    terminalKind: executionBasis.terminalKind,
+    openedEventRef: openingEvents[0]!.eventId,
+    fibreSelectedEventRef: openingEvents[1]!.eventId,
+  }) as CCall;
+  cCalls.add(cCall);
+  return deepFreeze({
+    kind: "c_call_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "opened" as const,
+    cCall,
+  }) as CCallAdmission;
+}
+
 export function admitEvidence(
   store: AbgEventStore,
   cCall: CCall,
@@ -829,13 +1419,16 @@ export function admitEvidence(
   const candidateValue = candidate as unknown as JsonValue;
   const digestPattern = /^sha256:[a-f0-9]{64}$/u;
   const commonValid = candidate.schemaVersion === "5.0.0" &&
-    candidate.implementationRef === cCall.implementationRef &&
     candidate.inputDigest === expectedInputDigest &&
     digestPattern.test(candidate.outputDigest);
   const deterministicValid = candidate.kind === "deterministic_evidence_candidate" &&
-    cCall.regime === "F_D";
+    cCall.callClass === "leaf" &&
+    cCall.regime === "F_D" &&
+    candidate.implementationRef === cCall.implementationRef;
   const probabilisticValid = candidate.kind === "probabilistic_transport_evidence_candidate" &&
+    cCall.callClass === "leaf" &&
     cCall.regime === "F_P" &&
+    candidate.implementationRef === cCall.implementationRef &&
     derivedProbabilisticEvidence.has(candidate) &&
     typeof candidate.actorInvocationRef === "string" && candidate.actorInvocationRef.length > 0 &&
     typeof candidate.actorRef === "string" && candidate.actorRef.length > 0 &&
@@ -876,10 +1469,24 @@ export function admitEvidence(
     Number.isSafeInteger(candidate.stderrByteLength) && candidate.stderrByteLength >= 0 &&
     (candidate.transportLane !== "closed_prompt_proof" || candidate.toolCallCount === 0) &&
     hasAdmittedActorEvidence(store, cCall, candidate);
+  const foldbackEvent = candidate.kind === "sub_traversal_evidence_candidate"
+    ? store.readAll().find((event) => event.eventId === candidate.foldbackEventRef)
+    : undefined;
+  const subTraversalValid = candidate.kind === "sub_traversal_evidence_candidate" &&
+    cCall.callClass === "workflow" &&
+    derivedSubTraversalEvidence.has(candidate) &&
+    foldbackEvent?.kind === "child_foldback_admitted" &&
+    foldbackEvent.runId === cCall.runId &&
+    foldbackEvent.frameId === cCall.frameId &&
+    isJsonRecord(foldbackEvent.payload) &&
+    foldbackEvent.payload.parentCCallRef === cCall.cCallRef &&
+    foldbackEvent.payload.foldbackRef === candidate.foldbackRef &&
+    foldbackEvent.payload.foldbackDigest === candidate.foldbackDigest &&
+    foldbackEvent.payload.outputDigest === candidate.outputDigest;
   if (
     !hasOpenedCCall(store, cCall) ||
     !commonValid ||
-    (!deterministicValid && !probabilisticValid) ||
+    (!deterministicValid && !probabilisticValid && !subTraversalValid) ||
     contractRef !== cCall.evidenceContractRef ||
     eventsFor(store, cCall.cCallRef).some((event) => event.kind === "c_call_result_admitted")
   ) {
@@ -898,7 +1505,7 @@ export function admitEvidence(
     implementationRef: candidate.implementationRef,
     inputDigest: candidate.inputDigest,
     outputDigest: candidate.outputDigest,
-  } : {
+  } : candidate.kind === "probabilistic_transport_evidence_candidate" ? {
     cCallRef: cCall.cCallRef,
     evidenceClass: "probabilistic_transport" as const,
     contractRef,
@@ -933,6 +1540,25 @@ export function admitEvidence(
     stdoutByteLength: candidate.stdoutByteLength,
     stderrByteLength: candidate.stderrByteLength,
     artifactDigests: candidate.artifactDigests,
+  } : {
+    cCallRef: cCall.cCallRef,
+    evidenceClass: "sub_traversal" as const,
+    contractRef,
+    implementationRef: null,
+    inputDigest: candidate.inputDigest,
+    outputDigest: candidate.outputDigest,
+    foldbackRef: candidate.foldbackRef,
+    foldbackDigest: candidate.foldbackDigest,
+    foldbackEventRef: candidate.foldbackEventRef,
+    childExecutionBasisRef: candidate.childExecutionBasisRef,
+    childExecutionBasisDigest: candidate.childExecutionBasisDigest,
+    childGraphCallId: candidate.childGraphCallId,
+    childFrameId: candidate.childFrameId,
+    childDisposition: candidate.childDisposition,
+    childResultRef: candidate.childResultRef,
+    childResultDigest: candidate.childResultDigest,
+    childJudgmentRef: candidate.childJudgmentRef,
+    childTerminalEventRef: candidate.childTerminalEventRef,
   };
   const evidenceDigest = sha256Canonical(body as unknown as JsonValue);
   const evidenceRef = `evidence://abiogenesis/${evidenceDigest.slice("sha256:".length)}`;
@@ -943,7 +1569,13 @@ export function admitEvidence(
     aggregateType: "c_call",
     aggregateId: cCall.cCallRef,
     parentAggregateId: cCall.frameId,
-    causationEventRefs: [prior.eventId, ...basis.causationEventRefs],
+    causationEventRefs: [
+      prior.eventId,
+      ...(candidate.kind === "sub_traversal_evidence_candidate"
+        ? [candidate.foldbackEventRef]
+        : []),
+      ...basis.causationEventRefs,
+    ],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",

@@ -18,6 +18,7 @@ import type {
   PublicOutcome,
   RootPublicInvocation,
 } from "./contracts.js";
+import { bindChildTraversalPreparationPort } from "./child_traversal_port.js";
 import { projectOutcome } from "./outcome.js";
 
 export interface RootOperationContext {
@@ -672,6 +673,7 @@ async function applyRunInvoke(
     admittedInput = gtl.constructFpHelloInstruction(
       stringField(inputValue, "subject"),
       stringField(inputValue, "instruction"),
+      inputValue.transportLane as FpHelloInstruction["transportLane"],
     );
   } else {
     throw new ApplicationRefusal(
@@ -947,15 +949,26 @@ async function applyRunInvoke(
     implementationSet,
     publication: viewState.catalogState.publication,
   });
+  const childTraversalPreparationPort = bindChildTraversalPreparationPort({
+    store: context.store,
+    publication: viewState.catalogState.publication,
+    program: programValue,
+    programValidation,
+    rootImplementationSet: implementationSet,
+    rootInteractionSet: executionAdmission.interactionSet,
+  });
   const traversalCompletion = await hog.executeGraphTraversal({
     store: context.store,
     executionBasis: executionAdmission.executionBasis,
     openedTraversalScope: opened.scope,
     program: programValue,
+    graphFunction,
     graph,
     graphValidation,
     implementationSet,
+    interactionSet: executionAdmission.interactionSet,
     leafPort,
+    childTraversalPreparationPort,
     closureContract,
     actorRuntimeBinding: {
       workspaceBinding: workspaceState.binding,

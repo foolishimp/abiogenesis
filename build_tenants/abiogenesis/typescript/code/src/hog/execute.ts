@@ -1,4 +1,6 @@
 import {
+  admitChildFoldback,
+  admitChildPreparationRefusal,
   admitClosure,
   admitEvidence,
   admitJudgment,
@@ -7,6 +9,7 @@ import {
   admitRoute,
   completeRejectedCCall,
   deriveProbabilisticTransportEvidence,
+  deriveSubTraversalEvidence,
   openCCall,
   replay,
   traversalCursorAdmissionEventRef,
@@ -23,7 +26,11 @@ import {
   type RuntimeAdmissionBasis,
   invokeActorProcess,
 } from "../abg/index.js";
-import type { ProbabilisticLeafEffectPort } from "../implementation/contracts.js";
+import type {
+  LeafInvocationPort,
+  ProbabilisticLeafEffectPort,
+} from "../implementation/contracts.js";
+import { isAdmittedLeafInvocationPort } from "../implementation/invocation_port.js";
 import type {
   ClosureContract,
   GtlGraph,
@@ -41,11 +48,16 @@ import {
   proposeJudgment,
   type DeclaredJudgmentRelation,
 } from "./judgment.js";
-import { proposeBlockedRoute, proposeJudgedRoute } from "./traversal_route.js";
+import {
+  proposeBlockedRoute,
+  proposeJudgedRoute,
+  proposeWorkflowBlockedRoute,
+} from "./traversal_route.js";
 import {
   applyRoute,
   deriveCompletedTraversalStep,
   type TraversalCursor,
+  type TraversalStep,
   type TraversalStopRef,
 } from "./traversal.js";
 
@@ -122,20 +134,60 @@ export interface CompleteExecutableTraversalInput<
   readonly traversalStop: TraversalStopRef;
   readonly implementationSet: AdmittedImplementationSet;
   readonly implementationResolution: AdmittedImplementationResolutionRow;
+  readonly leafPort: LeafInvocationPort;
   readonly input: Readonly<Input>;
   readonly inputDigest: `sha256:${string}`;
-  readonly failureValueKind: string;
-  readonly resultValueKind: string;
-  readonly validateSuccessCandidate?: (value: unknown) => value is Readonly<Output>;
-  readonly validateSuccessResult: (value: unknown) => value is Readonly<Output>;
   readonly closureContract: Readonly<ClosureContract>;
-  readonly judgmentRelation: DeclaredJudgmentRelation<Input, Output>;
-  readonly realize: (
-    input: Readonly<Input>,
-    effects: ProbabilisticLeafEffectPort | null,
-  ) => unknown | Promise<unknown>;
   readonly actorRuntimeBinding?: ActorRuntimeBinding;
+  readonly terminalMode?: "close_run" | "return_to_parent";
   readonly clock: ExecutableTraversalClock;
+}
+
+interface WorkflowParentTraversalInput {
+  readonly store: AbgEventStore;
+  readonly executionBasis: ExecutionBasis;
+  readonly openedTraversalScope: OpenedTraversalScope;
+  readonly graph: Readonly<GtlGraph>;
+  readonly workflowStep: TraversalStep;
+  readonly parentCCall: CCall;
+  readonly clock: ExecutableTraversalClock;
+}
+
+export interface CompleteWorkflowPreparationRefusalInput
+  extends WorkflowParentTraversalInput {
+  readonly preparationRefusal: {
+    readonly kind: "child_traversal_preparation_refusal";
+    readonly schemaVersion: "5.0.0";
+    readonly disposition: "refused";
+    readonly stage:
+      | "basis_admission"
+      | "graph_materialization"
+      | "graph_validation"
+      | "membership"
+      | "scope_open";
+    readonly diagnosticRef: string;
+    readonly message: string;
+  };
+}
+
+export interface CompleteWorkflowTraversalInput
+  extends WorkflowParentTraversalInput {
+  readonly program: Readonly<GtlProgram>;
+  readonly childExecutionBasis: ExecutionBasis;
+  readonly childTraversalScope: OpenedTraversalScope;
+  readonly childCompletion: ExecutableTraversalCompletion;
+  readonly input: Readonly<Record<string, JsonValue>>;
+  readonly inputDigest: `sha256:${string}`;
+  readonly resultValueKind: string;
+  readonly failureValueKind: string;
+  readonly validateSuccessResult: (
+    value: unknown,
+  ) => value is Readonly<Record<string, JsonValue>>;
+  readonly closureContract: Readonly<ClosureContract>;
+  readonly judgmentRelation: DeclaredJudgmentRelation<
+    Readonly<Record<string, JsonValue>>,
+    Readonly<Record<string, JsonValue>>
+  >;
 }
 
 export type DeterministicTraversalClock = ExecutableTraversalClock;
@@ -255,8 +307,12 @@ function completeBlockedTraversal<Input, Output>(
       judgmentEventRef: values.judgmentEventRef,
       reasonRef: values.reasonRef,
     },
+    { terminalizeRun: input.terminalMode !== "return_to_parent" },
   );
-  if (route.kind !== "admitted_traversal_route" || route.runStoppedEventRef === null) {
+  if (
+    route.kind !== "admitted_traversal_route" ||
+    (input.terminalMode !== "return_to_parent" && route.runStoppedEventRef === null)
+  ) {
     const diagnosticRef = route.kind === "admitted_traversal_route"
       ? "diagnostic://abiogenesis/hog/run-stop-absent@5"
       : `diagnostic://abiogenesis/hog/${route.code}@5`;
@@ -332,10 +388,11 @@ function isLeafCandidate<Output>(
 function totalizedFailureCandidate<Input, Output>(
   input: CompleteExecutableTraversalInput<Input, Output>,
   failureClass: "implementation_exception" | "malformed_return",
+  failureValueKind: string,
 ): DeterministicLeafFailureCandidate {
   const diagnosticRef = `diagnostic://abiogenesis/implementation/${failureClass.replaceAll("_", "-")}@5`;
   const resultCandidate = deepFreeze({
-    kind: input.failureValueKind,
+    kind: failureValueKind,
     schemaVersion: "5.0.0" as const,
     failureClass,
     diagnosticRef,
@@ -377,6 +434,67 @@ export async function completeExecutableTraversal<
     );
     return completion("failed", replayRun(input), { diagnosticRef });
   }
+  if (
+    !isAdmittedLeafInvocationPort(input.leafPort) ||
+    input.leafPort.implementationSetRef !== input.implementationSet.implementationSetRef ||
+    input.leafPort.implementationSetDigest !== input.implementationSet.implementationSetDigest ||
+    input.leafPort.publicationDigest !== input.implementationSet.publicationDigest
+  ) {
+    const diagnosticRef =
+      "diagnostic://abiogenesis/implementation/admitted-leaf-port-mismatch@5";
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "c_call_open",
+      { implementationSetRef: input.implementationSet.implementationSetRef },
+      diagnosticRef,
+      cursorBasis(input, "leaf-port-refusal"),
+    );
+    return completion("failed", replayRun(input), { diagnosticRef });
+  }
+  const failureValueKind = input.leafPort.contractValueKind(
+    input.traversalStop.failureContractRef,
+    "failure",
+  );
+  const resultValueKind = input.leafPort.contractValueKind(
+    input.traversalStop.outputContractRef,
+    "output",
+  );
+  const judgmentRelation = input.leafPort.resolveJudgmentRelation(
+    input.traversalStop.judgmentPredicateRef,
+  );
+  if (
+    failureValueKind === null ||
+    resultValueKind === null ||
+    judgmentRelation === null
+  ) {
+    const diagnosticRef =
+      "diagnostic://abiogenesis/implementation/result-contract-absent@5";
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "c_call_open",
+      {
+        failureContractRef: input.traversalStop.failureContractRef,
+        judgmentPredicateRef: input.traversalStop.judgmentPredicateRef,
+        outputContractRef: input.traversalStop.outputContractRef,
+      },
+      diagnosticRef,
+      cursorBasis(input, "leaf-contract-refusal"),
+    );
+    return completion("failed", replayRun(input), { diagnosticRef });
+  }
+  const validateSuccessCandidate = (value: unknown): value is Readonly<Output> =>
+    input.leafPort.validateContractValue(
+      input.traversalStop.outputContractRef,
+      "output",
+      value,
+    );
+  const validateSuccessResult = (value: unknown): value is Readonly<Output> =>
+    validateSuccessCandidate(value) &&
+    (computeRegime !== "F_P" || judgmentRelation.evaluate(input.input, value));
   if (
     sha256Canonical(input.input as unknown as JsonValue) !== input.inputDigest ||
     input.inputDigest !== input.traversalStop.cursor.inputDigest
@@ -423,11 +541,16 @@ export async function completeExecutableTraversal<
   }
   const cCall = opened.cCall;
   let actorObservation: ActorProcessObservation | null = null;
+  let dispatchCount = 0;
   const probabilisticEffects: ProbabilisticLeafEffectPort | null = computeRegime === "F_P"
     ? input.actorRuntimeBinding === undefined
       ? null
       : {
           invokeWorker: async (request) => {
+            if (dispatchCount !== 0) {
+              throw new TypeError("one F_P C-call may dispatch exactly one actor invocation");
+            }
+            dispatchCount += 1;
             const observation = await invokeActorProcess({
               store: input.store,
               executionBasis: input.executionBasis,
@@ -436,6 +559,7 @@ export async function completeExecutableTraversal<
               expectedInputDigest: input.inputDigest,
               runtime: input.actorRuntimeBinding!,
               request,
+              dispatchOrdinal: dispatchCount,
               basis: basis(input.clock, "actor-process"),
             });
             actorObservation = observation;
@@ -449,17 +573,21 @@ export async function completeExecutableTraversal<
     if (computeRegime === "F_P" && probabilisticEffects === null) {
       throw new TypeError("F_P traversal requires an ABG-owned actor runtime binding");
     }
-    realized = await input.realize(input.input, probabilisticEffects);
+    realized = await input.leafPort.invoke(
+      input.implementationResolution,
+      input.input as Readonly<Record<string, JsonValue>>,
+      probabilisticEffects,
+    );
     leaf = isLeafCandidate<Output>(
       realized,
       computeRegime,
-      input.validateSuccessCandidate ?? input.validateSuccessResult,
-      input.failureValueKind,
+      validateSuccessCandidate,
+      failureValueKind,
     )
       ? realized
-      : totalizedFailureCandidate(input, "malformed_return");
+      : totalizedFailureCandidate(input, "malformed_return", failureValueKind);
   } catch {
-    leaf = totalizedFailureCandidate(input, "implementation_exception");
+    leaf = totalizedFailureCandidate(input, "implementation_exception", failureValueKind);
   }
   const evidenceCandidates: readonly CCallEvidenceCandidate[] = computeRegime === "F_P"
     ? actorObservation === null
@@ -501,12 +629,12 @@ export async function completeExecutableTraversal<
       ? cCall.outputContractRef
       : cCall.failureContractRef,
     leaf.disposition === "success"
-      ? input.resultValueKind
-      : input.failureValueKind,
+      ? resultValueKind
+      : failureValueKind,
     leaf.disposition === "success"
-      ? input.validateSuccessResult
+      ? validateSuccessResult
       : (value) => isRecord(value) &&
-        value.kind === input.failureValueKind &&
+        value.kind === failureValueKind &&
         value.schemaVersion === "5.0.0" &&
         value.diagnosticRef === leaf.diagnosticRef,
     evidence,
@@ -533,7 +661,7 @@ export async function completeExecutableTraversal<
       result,
       resultReplay,
       input.input,
-      input.judgmentRelation,
+      judgmentRelation,
       cCall.judgmentContractRef,
     )
     : proposeFailureJudgment(
@@ -703,6 +831,14 @@ export async function completeExecutableTraversal<
       diagnosticRef: "diagnostic://abiogenesis/hog/unexpected-judged-route@5",
     });
   }
+  if (input.terminalMode === "return_to_parent") {
+    return completion("closed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      resultValue: result.value,
+    });
+  }
   const routeReplay = replayRun(input);
   const closure = admitClosure(
     input.store,
@@ -724,6 +860,394 @@ export async function completeExecutableTraversal<
   }
   return completion("closed", replayRun(input), {
     cCallRef: cCall.cCallRef,
+    resultRef: result.resultRef,
+    judgmentRef: judgment.judgmentRef,
+    closureRef: closure.closureRef,
+    resultValue: result.value,
+  });
+}
+
+function failWorkflowTraversal(
+  input: WorkflowParentTraversalInput,
+  stage: string,
+  diagnosticRef: string,
+  candidate: JsonValue,
+): ExecutableTraversalCompletion {
+  admitRuntimeFailure(
+    input.store,
+    input.executionBasis,
+    input.openedTraversalScope,
+    "hog_traversal",
+    { stage, candidate },
+    diagnosticRef,
+    {
+      eventTime: input.clock.eventTime,
+      correlationId: `${input.clock.correlationId}/${stage}`,
+      causationEventRefs: [],
+    },
+  );
+  return completion("failed", replay(input.store, {
+    runId: input.openedTraversalScope.runId,
+  }), { cCallRef: input.parentCCall.cCallRef, diagnosticRef });
+}
+
+function completeBlockedWorkflowTraversal(
+  input: WorkflowParentTraversalInput,
+  resultRef: string,
+  judgmentRef: string,
+  judgmentEventRef: string,
+  reasonRef: string,
+): ExecutableTraversalCompletion {
+  const currentReplay = replay(input.store, { runId: input.openedTraversalScope.runId });
+  const proposal = proposeWorkflowBlockedRoute(
+    input.graph,
+    input.workflowStep,
+    input.parentCCall,
+    judgmentRef,
+    currentReplay,
+    input.parentCCall.transitionContractRef,
+  );
+  if (proposal.kind !== "traversal_route_candidate") {
+    return failWorkflowTraversal(
+      input,
+      "workflow-blocked-route-proposal",
+      `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+      proposal as unknown as JsonValue,
+    );
+  }
+  const route = admitRoute(
+    input.store,
+    input.executionBasis,
+    input.graph,
+    input.workflowStep.sourceCursor,
+    null,
+    currentReplay,
+    proposal,
+    basis(input.clock, "workflow-blocked-route"),
+    {
+      cCall: input.parentCCall,
+      judgmentRef,
+      judgmentEventRef,
+      reasonRef,
+    },
+  );
+  if (route.kind !== "admitted_traversal_route" || route.runStoppedEventRef === null) {
+    return failWorkflowTraversal(
+      input,
+      "workflow-blocked-route-admission",
+      route.kind === "admitted_traversal_route"
+        ? "diagnostic://abiogenesis/hog/run-stop-absent@5"
+        : `diagnostic://abiogenesis/hog/${route.code}@5`,
+      route as unknown as JsonValue,
+    );
+  }
+  return completion("blocked", replay(input.store, {
+    runId: input.openedTraversalScope.runId,
+  }), {
+    cCallRef: input.parentCCall.cCallRef,
+    resultRef,
+    judgmentRef,
+    diagnosticRef: reasonRef,
+  });
+}
+
+export function completeWorkflowPreparationRefusal(
+  input: CompleteWorkflowPreparationRefusalInput,
+): ExecutableTraversalCompletion {
+  if (input.workflowStep.directStep.stepKind !== "enter_child") {
+    return failWorkflowTraversal(
+      input,
+      "workflow-preparation-refusal-step",
+      "diagnostic://abiogenesis/hog/workflow-step-mismatch@5",
+      input.workflowStep as unknown as JsonValue,
+    );
+  }
+  const admitted = admitChildPreparationRefusal(
+    input.store,
+    input.parentCCall,
+    {
+      kind: "child_preparation_refusal_candidate",
+      schemaVersion: "5.0.0",
+      childGraphFunctionRef: input.workflowStep.directStep.graphFunctionRef,
+      inputRef: input.workflowStep.sourceCursor.inputRef,
+      inputDigest: input.workflowStep.sourceCursor.inputDigest,
+      stage: input.preparationRefusal.stage,
+      diagnosticRef: input.preparationRefusal.diagnosticRef,
+      message: input.preparationRefusal.message,
+    },
+    basis(input.clock, "child-preparation-refusal"),
+  );
+  if (admitted.kind !== "child_preparation_refusal_admission") {
+    return failWorkflowTraversal(
+      input,
+      "workflow-preparation-refusal-admission",
+      `diagnostic://abiogenesis/hog/${admitted.code}@5`,
+      admitted as unknown as JsonValue,
+    );
+  }
+  const rejected = completeRejectedCCall(
+    input.store,
+    input.parentCCall,
+    admitted.admissionRejection,
+    {
+      ...basis(input.clock, "child-preparation-rejection"),
+      causationEventRefs: [admitted.admissionEventRef],
+    },
+  );
+  return completeBlockedWorkflowTraversal(
+    input,
+    rejected.refusalResultRef,
+    rejected.rejectionJudgmentRef,
+    rejected.judgmentEventRef,
+    input.preparationRefusal.diagnosticRef,
+  );
+}
+
+export function completeWorkflowTraversal(
+  input: CompleteWorkflowTraversalInput,
+): ExecutableTraversalCompletion {
+  if (
+    input.parentCCall.callClass !== "workflow" ||
+    input.workflowStep.directStep.stepKind !== "enter_child" ||
+    input.childCompletion.resultRef === null ||
+    input.childCompletion.judgmentRef === null ||
+    input.childCompletion.resultValue === null ||
+    (input.childCompletion.disposition !== "closed" &&
+      input.childCompletion.disposition !== "blocked")
+  ) {
+    return failWorkflowTraversal(
+      input,
+      "workflow-child-completion",
+      "diagnostic://abiogenesis/hog/child-completion-incomplete@5",
+      input.childCompletion as unknown as JsonValue,
+    );
+  }
+  const foldback = admitChildFoldback(
+    input.store,
+    input.parentCCall,
+    input.childExecutionBasis,
+    input.childTraversalScope,
+    {
+      childResultRef: input.childCompletion.resultRef,
+      childJudgmentRef: input.childCompletion.judgmentRef,
+    },
+    basis(input.clock, "child-foldback"),
+  );
+  if (foldback.kind !== "child_foldback_admission") {
+    return failWorkflowTraversal(
+      input,
+      "workflow-child-foldback",
+      `diagnostic://abiogenesis/hog/${foldback.code}@5`,
+      foldback as unknown as JsonValue,
+    );
+  }
+  const evidence = admitEvidence(
+    input.store,
+    input.parentCCall,
+    deriveSubTraversalEvidence(input.parentCCall, foldback, input.inputDigest),
+    input.parentCCall.evidenceContractRef,
+    input.inputDigest,
+    basis(input.clock, "sub-traversal-evidence"),
+  );
+  if (evidence.kind === "c_call_admission_rejection") {
+    const rejected = completeRejectedCCall(
+      input.store,
+      input.parentCCall,
+      evidence,
+      basis(input.clock, "sub-traversal-evidence-rejection"),
+    );
+    return completeBlockedWorkflowTraversal(
+      input,
+      rejected.refusalResultRef,
+      rejected.rejectionJudgmentRef,
+      rejected.judgmentEventRef,
+      evidence.diagnosticRef,
+    );
+  }
+  const childSucceeded = input.childCompletion.disposition === "closed";
+  const childValue = input.childCompletion.resultValue;
+  const result = admitResult(
+    input.store,
+    input.parentCCall,
+    childValue,
+    childSucceeded ? "success" : "failure",
+    childSucceeded
+      ? input.parentCCall.outputContractRef
+      : input.parentCCall.failureContractRef,
+    childSucceeded ? input.resultValueKind : input.failureValueKind,
+    childSucceeded
+      ? input.validateSuccessResult
+      : (value) => isRecord(value) &&
+        value.kind === input.failureValueKind &&
+        value.schemaVersion === "5.0.0",
+    [evidence],
+    basis(input.clock, "workflow-result"),
+  );
+  if (result.kind === "c_call_admission_rejection") {
+    const rejected = completeRejectedCCall(
+      input.store,
+      input.parentCCall,
+      result,
+      basis(input.clock, "workflow-result-rejection"),
+    );
+    return completeBlockedWorkflowTraversal(
+      input,
+      rejected.refusalResultRef,
+      rejected.rejectionJudgmentRef,
+      rejected.judgmentEventRef,
+      result.diagnosticRef,
+    );
+  }
+  const resultReplay = replay(input.store, { runId: input.openedTraversalScope.runId });
+  const judgmentCandidate = childSucceeded
+    ? proposeJudgment(
+        input.parentCCall,
+        result,
+        resultReplay,
+        input.input,
+        input.judgmentRelation,
+        input.parentCCall.judgmentContractRef,
+      )
+    : proposeFailureJudgment(
+        input.parentCCall,
+        result,
+        resultReplay,
+        input.childCompletion.diagnosticRef ??
+          "diagnostic://abiogenesis/hog/child-traversal-blocked@5",
+        input.parentCCall.judgmentContractRef,
+      );
+  const judgment = admitJudgment(
+    input.store,
+    input.parentCCall,
+    result,
+    judgmentCandidate,
+    resultReplay,
+    basis(input.clock, "workflow-judgment"),
+  );
+  if (judgment.kind === "c_call_admission_rejection") {
+    const rejected = completeRejectedCCall(
+      input.store,
+      input.parentCCall,
+      judgment,
+      basis(input.clock, "workflow-judgment-rejection"),
+    );
+    return completeBlockedWorkflowTraversal(
+      input,
+      rejected.refusalResultRef,
+      rejected.rejectionJudgmentRef,
+      rejected.judgmentEventRef,
+      judgment.diagnosticRef,
+    );
+  }
+  if (judgment.judgment !== "advance") {
+    return completeBlockedWorkflowTraversal(
+      input,
+      result.resultRef,
+      judgment.judgmentRef,
+      judgment.admissionEventRef,
+      judgment.reasonRef,
+    );
+  }
+  const continuationStep = deriveCompletedTraversalStep(
+    input.graph,
+    input.workflowStep.sourceCursor,
+    { inputRef: result.resultRef, inputDigest: result.valueDigest },
+  );
+  if (continuationStep.kind !== "traversal_step") {
+    return failWorkflowTraversal(
+      input,
+      "workflow-continuation",
+      `diagnostic://abiogenesis/hog/${continuationStep.code}@5`,
+      continuationStep as unknown as JsonValue,
+    );
+  }
+  const judgedReplay = replay(input.store, { runId: input.openedTraversalScope.runId });
+  const routeCandidate = proposeJudgedRoute(
+    input.graph,
+    continuationStep,
+    input.parentCCall,
+    result,
+    judgment,
+    judgedReplay,
+    input.closureContract.transitionContractRef,
+  );
+  if (routeCandidate.kind !== "traversal_route_candidate") {
+    return failWorkflowTraversal(
+      input,
+      "workflow-route-proposal",
+      `diagnostic://abiogenesis/hog/${routeCandidate.code}@5`,
+      routeCandidate as unknown as JsonValue,
+    );
+  }
+  const route = admitRoute(
+    input.store,
+    input.executionBasis,
+    input.graph,
+    input.workflowStep.sourceCursor,
+    continuationStep.targetCursor,
+    judgedReplay,
+    routeCandidate,
+    basis(input.clock, "workflow-route"),
+    { cCall: input.parentCCall, result, judgment },
+  );
+  if (route.kind !== "admitted_traversal_route") {
+    return failWorkflowTraversal(
+      input,
+      "workflow-route-admission",
+      `diagnostic://abiogenesis/hog/${route.code}@5`,
+      route as unknown as JsonValue,
+    );
+  }
+  if (route.routeKind === "advance") {
+    const nextCursor = applyRoute(continuationStep, route);
+    if (nextCursor.kind === "traversal_refusal") {
+      return failWorkflowTraversal(
+        input,
+        "workflow-route-application",
+        `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
+        nextCursor as unknown as JsonValue,
+      );
+    }
+    return completion("advanced", replay(input.store, {
+      runId: input.openedTraversalScope.runId,
+    }), {
+      cCallRef: input.parentCCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      nextCursor,
+      resultValue: result.value,
+    });
+  }
+  if (route.routeKind !== "terminal") {
+    return failWorkflowTraversal(
+      input,
+      "workflow-route-kind",
+      "diagnostic://abiogenesis/hog/unexpected-workflow-route@5",
+      route as unknown as JsonValue,
+    );
+  }
+  const closure = admitClosure(
+    input.store,
+    input.parentCCall,
+    result,
+    judgment,
+    route,
+    replay(input.store, { runId: input.openedTraversalScope.runId }),
+    input.closureContract,
+    basis(input.clock, "workflow-closure"),
+  );
+  if (closure.kind !== "closure_admission") {
+    return failWorkflowTraversal(
+      input,
+      "workflow-closure",
+      `diagnostic://abiogenesis/hog/${closure.code}@5`,
+      closure as unknown as JsonValue,
+    );
+  }
+  return completion("closed", replay(input.store, {
+    runId: input.openedTraversalScope.runId,
+  }), {
+    cCallRef: input.parentCCall.cCallRef,
     resultRef: result.resultRef,
     judgmentRef: judgment.judgmentRef,
     closureRef: closure.closureRef,

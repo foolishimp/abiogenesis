@@ -410,155 +410,83 @@ test("B8 post-open judgment exceptions complete the admitted CCall spine", async
   });
 });
 
-test("B8 HoG totalizes leaf exceptions and malformed returns after CCall admission", async (context) => {
-  const cases = [
-    {
-      label: "exception",
-      failureClass: "implementation_exception",
-      realize: () => { throw new Error("leaf mutation"); },
-    },
-    {
-      label: "malformed",
-      failureClass: "malformed_return",
-      realize: () => ({ kind: "malformed_leaf_candidate" }),
-    },
-    {
-      label: "sparse-evidence",
-      failureClass: "malformed_return",
-      realize: () => ({
-        kind: "leaf_realization_candidate",
-        schemaVersion: "5.0.0",
-        disposition: "success",
-        evidenceCandidates: Array(1),
-        resultCandidate: {
-          kind: "hello_world_output",
-          schemaVersion: "5.0.0",
-          message: "Hello World",
-        },
-      }),
-    },
-    {
-      label: "missing-message",
-      failureClass: "malformed_return",
-      realize: () => ({
-        kind: "leaf_realization_candidate",
-        schemaVersion: "5.0.0",
-        disposition: "success",
-        evidenceCandidates: [{
-          kind: "deterministic_evidence_candidate",
-          schemaVersion: "5.0.0",
-          implementationRef: "implementation://abiogenesis/conformance/hello-world-fd@5",
-          inputDigest: `sha256:${"0".repeat(64)}`,
-          outputDigest: `sha256:${"1".repeat(64)}`,
-        }],
-        resultCandidate: { kind: "hello_world_output", schemaVersion: "5.0.0" },
-      }),
-    },
-  ];
-  for (const row of cases) {
-    const environment = await setupInstalledRootExecutionBasis(context, root);
-    const {
-      abg,
-      gtl,
-      hog,
-      store,
-      program,
-      graph,
-      graphValidation,
-      input,
-      rawInput,
-      implementationSet,
-      implementationRow,
-      executionBasis,
-      closureContract,
-      publication,
-    } = environment;
-    const runtimeBasis = (stage) => ({
+test("B8 HoG hides low-level completion and rejects a forged leaf port", async (context) => {
+  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const {
+    abg,
+    hog,
+    hogExecute,
+    store,
+    program,
+    graph,
+    graphValidation,
+    input,
+    rawInput,
+    implementationSet,
+    implementationRow,
+    leafPort,
+    executionBasis,
+    closureContract,
+  } = environment;
+  assert.equal("completeExecutableTraversal" in hog, false);
+  assert.equal("constructChildTraversalPreparationPort" in hog, false);
+  assert.equal("isChildTraversalPreparationPort" in hog, false);
+  const runtimeBasis = (stage) => ({
+    eventTime: "2026-07-21T00:00:00.000Z",
+    correlationId: `correlation://t286/b8/forged-leaf-port/${stage}`,
+    causationEventRefs: [],
+  });
+  const opened = abg.openCall(store, executionBasis, runtimeBasis("open"));
+  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  const traversalStop = hog.traverse({
+    program,
+    graph,
+    graphValidation,
+    executionBasis,
+    openedTraversalScope: opened.scope,
+  });
+  assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
+  const cursor = abg.admitInitialTraversalCursor(
+    store,
+    executionBasis,
+    opened.scope,
+    graph,
+    graphValidation,
+    traversalStop.cursor,
+    runtimeBasis("cursor"),
+  );
+  assert.equal(cursor.kind, "traversal_cursor_admission", JSON.stringify(cursor));
+  const completion = await hogExecute.completeExecutableTraversal({
+    store,
+    executionBasis,
+    openedTraversalScope: opened.scope,
+    program,
+    graph,
+    traversalStop,
+    implementationSet,
+    implementationResolution: implementationRow,
+    leafPort: { ...leafPort },
+    input,
+    inputDigest: rawInput.subjectDigest,
+    closureContract,
+    clock: {
       eventTime: "2026-07-21T00:00:00.000Z",
-      correlationId: `correlation://t286/b8/leaf-${row.label}/${stage}`,
-      causationEventRefs: [],
-    });
-    const opened = abg.openCall(store, executionBasis, runtimeBasis("open"));
-    assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
-    const traversalStop = hog.traverse({
-      program,
-      graph,
-      graphValidation,
-      executionBasis,
-      openedTraversalScope: opened.scope,
-    });
-    assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
-    const cursor = abg.admitInitialTraversalCursor(
-      store,
-      executionBasis,
-      opened.scope,
-      graph,
-      graphValidation,
-      traversalStop.cursor,
-      runtimeBasis("cursor"),
-    );
-    assert.equal(cursor.kind, "traversal_cursor_admission", JSON.stringify(cursor));
-    const outputContract = publication.contracts.find((value) => value.contractKind === "output");
-    const failureContract = publication.contracts.find((value) => value.contractKind === "failure");
-    const completion = await hog.completeExecutableTraversal({
-      store,
-      executionBasis,
-      openedTraversalScope: opened.scope,
-      program,
-      graph,
-      traversalStop,
-      implementationSet,
-      implementationResolution: implementationRow,
-      input,
-      inputDigest: rawInput.subjectDigest,
-      failureValueKind: failureContract.valueKind,
-      resultValueKind: outputContract.valueKind,
-      validateSuccessResult: gtl.isHelloWorldOutput,
-      closureContract,
-      judgmentRelation: {
-        predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
-        advanceReasonRef: "reason://abiogenesis/conformance/hello-world-satisfied@5",
-        rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
-        evaluate: gtl.evaluateHelloWorldResult,
-      },
-      realize: row.realize,
-      clock: {
-        eventTime: "2026-07-21T00:00:00.000Z",
-        correlationId: `correlation://t286/b8/leaf-${row.label}/hog`,
-      },
-    });
-    assert.equal(completion.disposition, "blocked", JSON.stringify(completion));
-    assert.equal(completion.resultValue, null);
-    assert.equal(
-      completion.diagnosticRef,
-      `diagnostic://abiogenesis/implementation/${row.failureClass.replaceAll("_", "-")}@5`,
-    );
-    assert.equal(completion.cCallRef?.startsWith("c-call:sha256:"), true);
-    assert.equal(completion.resultRef?.startsWith("result://abiogenesis/"), true);
-    assert.equal(completion.judgmentRef?.startsWith("judgment://abiogenesis/"), true);
-    const events = store.readAll();
-    const cCallEvents = events.filter((event) => event.aggregateId === completion.cCallRef);
-    assert.deepEqual(cCallEvents.map((event) => event.kind), [
-      "c_call_opened",
-      "c_call_fibre_selected",
-      "c_call_evidenced",
-      "c_call_result_admitted",
-      "c_call_judged",
-    ]);
-    assert.equal(cCallEvents.at(-2).payload.resultClass, "failure");
-    assert.equal(cCallEvents.at(-1).payload.judgment, "blocked");
-    assert.equal(events.some((event) => event.kind === "runtime_failure_observed"), false);
-    assert.equal(events.some((event) => event.kind === "run_stopped"), true);
-    mutationEvidence.push({
-      mutation: `leaf_${row.label}`,
-      boundary: "leaf_realization",
-      disposition: completion.disposition,
-      failureClass: row.failureClass,
-      cCallSpineComplete: cCallEvents.length === 5,
-      directRuntimeFailureAbsent: true,
-      runStopped: true,
-    });
-  }
+      correlationId: "correlation://t286/b8/forged-leaf-port/hog",
+    },
+  });
+  assert.equal(completion.disposition, "failed", JSON.stringify(completion));
+  assert.equal(
+    completion.diagnosticRef,
+    "diagnostic://abiogenesis/implementation/admitted-leaf-port-mismatch@5",
+  );
+  assert.equal(store.readAll().some((event) => event.kind === "c_call_opened"), false);
+  mutationEvidence.push({
+    mutation: "forged_leaf_execution_port",
+    boundary: "leaf_execution_port",
+    disposition: completion.disposition,
+    packageExportAbsent: true,
+    cCallAbsent: true,
+  });
 });
 
 test("B8 post-install implementation substitution is refused before execution", async (context) => {
@@ -623,10 +551,7 @@ test("B8 post-install implementation substitution is refused before execution", 
     "copied_private_execution_basis",
     "post_admission_validator_exception",
     "post_open_judgment_exception",
-    "leaf_exception",
-    "leaf_malformed",
-    "leaf_sparse-evidence",
-    "leaf_missing-message",
+    "forged_leaf_execution_port",
     "post_install_implementation_substitution",
   ]);
   const proofDirectory = join(root, "test_env/proof");

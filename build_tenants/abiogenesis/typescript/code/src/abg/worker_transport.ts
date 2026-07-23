@@ -1,7 +1,6 @@
 import { spawn } from "node:child_process";
-import { constants } from "node:fs";
-import { access, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
-import { delimiter, isAbsolute, resolve } from "node:path";
+import { mkdir, readFile, realpath, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
@@ -421,7 +420,10 @@ export interface PreparedWorkerTransport {
   readonly kind: "prepared_worker_transport";
   readonly schemaVersion: "5.0.0";
   readonly planDigest: Sha256Digest;
+  readonly contractDigest: Sha256Digest;
   readonly agentKey: WorkerTransportContract["agentKey"];
+  readonly parser: WorkerTransportContract["parser"];
+  readonly promptTransport: WorkerTransportContract["promptTransport"];
   readonly lane: TransportCapabilityLane;
   readonly command: string;
   readonly args: readonly string[];
@@ -448,28 +450,6 @@ const preparedTransportState = new WeakMap<
   Omit<WorkerTransportRequest, "observer">
 >();
 
-async function resolveExecutable(
-  command: string,
-  cwd: string,
-  environment: Readonly<Record<string, string | undefined>>,
-): Promise<string> {
-  const candidates = command.includes("/")
-    ? [isAbsolute(command) ? command : resolve(cwd, command)]
-    : (environment.PATH ?? "")
-      .split(delimiter)
-      .filter((entry) => entry.length > 0)
-      .map((entry) => resolve(entry, command));
-  for (const candidate of candidates) {
-    try {
-      await access(candidate, constants.X_OK);
-      return await realpath(candidate);
-    } catch {
-      continue;
-    }
-  }
-  throw new TypeError(`worker transport command is not executable: ${command}`);
-}
-
 function exactEnvironment(
   environment: Readonly<Record<string, string | undefined>>,
 ): Readonly<Record<string, string>> {
@@ -495,8 +475,7 @@ export async function prepareWorkerTransport(
   const archiveRoot = await realpath(input.archiveRoot);
   const cwd = await realpath(input.cwd);
   const sourceEnvironment = exactEnvironment(input.environment ?? process.env);
-  const command = await resolveExecutable(input.contract.command, cwd, sourceEnvironment);
-  const contract = deepFreeze({ ...input.contract, command }) as WorkerTransportContract;
+  const contract = input.contract;
   const paths = deepFreeze({
     prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
     output: resolve(archiveRoot, `${input.label}-output.txt`),
@@ -521,9 +500,12 @@ export async function prepareWorkerTransport(
     sanitizeWorkerTransportEnvironment(contract, sourceEnvironment) ?? {},
   );
   const body = {
+    contractDigest: sha256Canonical(contract as unknown as JsonValue),
     agentKey: contract.agentKey,
+    parser: contract.parser,
+    promptTransport: contract.promptTransport,
     lane: input.lane,
-    command,
+    command: contract.command,
     args,
     cwd,
     archiveRoot,

@@ -1,4 +1,9 @@
-import type { ClosureContract, GtlGraph, GtlProgram } from "../gtl/contracts.js";
+import type {
+  ClosureContract,
+  GraphFunction,
+  GtlGraph,
+  GtlProgram,
+} from "../gtl/contracts.js";
 import {
   type ImplementationResolutionCandidate,
   type ImplementationResolutionSetCandidate,
@@ -32,6 +37,7 @@ import {
   type InvocationAdmission,
 } from "./invocation_admission.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+import type { OpenedTraversalScope } from "./open_call.js";
 
 export interface RuntimeAdmissionBasis {
   readonly eventTime: string;
@@ -148,6 +154,7 @@ export interface ExecutionBasis {
   readonly kind: "execution_basis";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
+  readonly basisClass: "child" | "root";
   readonly basisRef: string;
   readonly basisDigest: Sha256Digest;
   readonly invocationAdmissionRef: string;
@@ -164,6 +171,9 @@ export interface ExecutionBasis {
   readonly graphFunctionRef: string;
   readonly graphFunctionDigest: Sha256Digest;
   readonly actorRef: string;
+  readonly parentExecutionBasisRef: string | null;
+  readonly parentTraversalScopeRef: string | null;
+  readonly entryRef: string;
   readonly programValidationRef: string;
   readonly graphValidationRef: string;
   readonly graphRef: string;
@@ -172,6 +182,14 @@ export interface ExecutionBasis {
   readonly implementationSetDigest: Sha256Digest;
   readonly interactionSetRef: string;
   readonly interactionSetDigest: Sha256Digest;
+  readonly rootImplementationSetRef: string;
+  readonly rootImplementationSetDigest: Sha256Digest;
+  readonly rootInteractionSetRef: string;
+  readonly rootInteractionSetDigest: Sha256Digest;
+  readonly localExecutableLeafKeys: readonly string[];
+  readonly localImplementationSubsetDigest: Sha256Digest;
+  readonly localInteractionLeafKeys: readonly string[];
+  readonly localInteractionSubsetDigest: Sha256Digest;
   readonly implementationResolutionRef: string | null;
   readonly closureContractRef: string;
   readonly closureContractDigest: Sha256Digest;
@@ -212,6 +230,45 @@ export interface ExecutionBasisInput {
 }
 
 export type ExecutionBasisAdmissionResult = ExecutionBasisAdmission | InvocationRefusalAdmission;
+
+export interface ChildExecutionBasisInput {
+  readonly parentExecutionBasis: ExecutionBasis;
+  readonly parentTraversalScope: OpenedTraversalScope;
+  readonly program: Readonly<GtlProgram>;
+  readonly programValidation: ProgramValidation;
+  readonly graphFunction: Readonly<GraphFunction>;
+  readonly graph: Readonly<GtlGraph>;
+  readonly graphValidation: GraphValidation;
+  readonly rootImplementationSet: AdmittedImplementationSet;
+  readonly rootInteractionSet: AdmittedInteractionSet;
+  readonly closureContract: Readonly<ClosureContract>;
+  readonly admittedInputRef: string;
+  readonly admittedInputDigest: Sha256Digest;
+}
+
+export interface ChildExecutionBasisAdmission {
+  readonly kind: "child_execution_basis_admission";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+  readonly executionBasis: ExecutionBasis;
+}
+
+export interface ChildExecutionBasisRefusal {
+  readonly kind: "child_execution_basis_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code:
+    | "child_graph_mismatch"
+    | "child_input_mismatch"
+    | "child_membership_mismatch"
+    | "child_subset_mismatch"
+    | "parent_basis_mismatch";
+  readonly message: string;
+}
+
+export type ChildExecutionBasisResult =
+  | ChildExecutionBasisAdmission
+  | ChildExecutionBasisRefusal;
 
 const executionBases = new WeakSet<object>();
 const implementationResolutions = new WeakSet<object>();
@@ -681,7 +738,29 @@ export function admitExecutionBasis(
     }) as AdmittedImplementationResolution;
   if (implementationResolution !== null) implementationResolutions.add(implementationResolution);
   const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
+  const entry = input.program.starts.find(
+    (candidate) => candidate.graphFunctionRef === input.invocationAdmission.graphFunctionRef,
+  );
+  if (entry === undefined) {
+    return reject(
+      input.programValidation.sourceDigest,
+      "diagnostic://abiogenesis/execution-basis/program-start-absent@5",
+    );
+  }
+  const localImplementationSubsetDigest = sha256Canonical({
+    rootImplementationSetRef: implementationSet.implementationSetRef,
+    rootImplementationSetDigest: implementationSet.implementationSetDigest,
+    executableLeafKeys: implementationSet.executableLeafKeys,
+    rows: implementationSet.rows,
+  } as unknown as JsonValue);
+  const localInteractionSubsetDigest = sha256Canonical({
+    rootInteractionSetRef: interactionSet.interactionSetRef,
+    rootInteractionSetDigest: interactionSet.interactionSetDigest,
+    interactionLeafKeys: interactionSet.interactionLeafKeys,
+    rows: interactionSet.rows,
+  } as unknown as JsonValue);
   const executionBody = {
+    basisClass: "root" as const,
     invocationAdmissionRef: input.invocationAdmission.invocationAdmissionRef,
     invocationRef: input.invocationAdmission.invocationRef,
     invocationDigest: input.invocationAdmission.invocationDigest,
@@ -696,6 +775,9 @@ export function admitExecutionBasis(
     graphFunctionRef: input.invocationAdmission.graphFunctionRef,
     graphFunctionDigest: input.invocationAdmission.graphFunctionDigest,
     actorRef: input.invocationAdmission.actorRef,
+    parentExecutionBasisRef: null,
+    parentTraversalScopeRef: null,
+    entryRef: entry.startRef,
     programValidationRef: input.invocationAdmission.programValidationRef,
     graphValidationRef: input.graphValidation.validationRef,
     graphRef: input.graph.materializationRef,
@@ -704,6 +786,14 @@ export function admitExecutionBasis(
     implementationSetDigest: implementationSet.implementationSetDigest,
     interactionSetRef: interactionSet.interactionSetRef,
     interactionSetDigest: interactionSet.interactionSetDigest,
+    rootImplementationSetRef: implementationSet.implementationSetRef,
+    rootImplementationSetDigest: implementationSet.implementationSetDigest,
+    rootInteractionSetRef: interactionSet.interactionSetRef,
+    rootInteractionSetDigest: interactionSet.interactionSetDigest,
+    localExecutableLeafKeys: implementationSet.executableLeafKeys,
+    localImplementationSubsetDigest,
+    localInteractionLeafKeys: interactionSet.interactionLeafKeys,
+    localInteractionSubsetDigest,
     implementationResolutionRef: implementationResolution?.resolutionRef ?? null,
     closureContractRef: input.closureContract.closureContractRef,
     closureContractDigest,
@@ -752,4 +842,235 @@ export function admitExecutionBasis(
     implementationResolution,
     executionBasis,
   }) as ExecutionBasisAdmission;
+}
+
+function childRefusal(
+  code: ChildExecutionBasisRefusal["code"],
+  message: string,
+): ChildExecutionBasisRefusal {
+  return {
+    kind: "child_execution_basis_refusal",
+    schemaVersion: "5.0.0",
+    disposition: "refused",
+    code,
+    message,
+  };
+}
+
+function sameOrderedValues(left: readonly string[], right: readonly string[]): boolean {
+  return left.join("\0") === right.join("\0");
+}
+
+export function admitChildExecutionBasis(
+  store: AbgEventStore,
+  input: ChildExecutionBasisInput,
+  basis: RuntimeAdmissionBasis,
+): ChildExecutionBasisResult {
+  const parent = input.parentExecutionBasis;
+  const parentScope = input.parentTraversalScope;
+  if (
+    !hasAdmittedExecutionBasis(store, parent) ||
+    parentScope.executionBasisRef !== parent.basisRef ||
+    parentScope.scopeRef.length === 0 ||
+    parentScope.runId.length === 0 ||
+    input.rootImplementationSet.implementationSetRef !== parent.rootImplementationSetRef ||
+    input.rootImplementationSet.implementationSetDigest !== parent.rootImplementationSetDigest ||
+    input.rootInteractionSet.interactionSetRef !== parent.rootInteractionSetRef ||
+    input.rootInteractionSet.interactionSetDigest !== parent.rootInteractionSetDigest ||
+    !hasAdmittedImplementationSet(store, input.rootImplementationSet) ||
+    !hasAdmittedInteractionSet(store, input.rootInteractionSet)
+  ) {
+    return childRefusal(
+      "parent_basis_mismatch",
+      "child traversal requires the exact admitted parent scope and root sets",
+    );
+  }
+  const graphFunctionDigest = sha256Canonical(input.graphFunction as unknown as JsonValue);
+  if (
+    !isProgramValidation(input.programValidation) ||
+    input.programValidation.validationRef !== parent.programValidationRef ||
+    input.program.programRef !== parent.programRef ||
+    sha256Canonical(input.program as unknown as JsonValue) !== parent.programDigest ||
+    !input.program.callableMembership.includes(input.graphFunction.name)
+  ) {
+    return childRefusal(
+      "child_membership_mismatch",
+      "child GraphFunction is not a member of the exact admitted Program root",
+    );
+  }
+  if (
+    !isGraphValidation(input.graphValidation) ||
+    input.graphValidation.graphRef !== input.graph.materializationRef ||
+    input.graphValidation.graphDigest !== input.graph.materializationDigest ||
+    input.graphValidation.graphFunctionRef !== input.graphFunction.name ||
+    input.graphValidation.graphFunctionDigest !== graphFunctionDigest ||
+    input.graphValidation.programValidationRef !== input.programValidation.validationRef ||
+    input.graph.graphFunctionRef !== input.graphFunction.name ||
+    input.graph.graphFunctionDigest !== graphFunctionDigest
+  ) {
+    return childRefusal(
+      "child_graph_mismatch",
+      "child Graph and validation do not preserve the declared GraphFunction",
+    );
+  }
+  if (
+    input.admittedInputRef.length === 0 ||
+    input.graph.admittedInputRef !== input.admittedInputRef ||
+    input.graph.admittedInputDigest !== input.admittedInputDigest ||
+    input.graphValidation.admittedInputRef !== input.admittedInputRef ||
+    input.graphValidation.admittedInputDigest !== input.admittedInputDigest ||
+    input.graph.invocationAdmissionRef !== parent.invocationAdmissionRef ||
+    input.graphValidation.invocationAdmissionRef !== parent.invocationAdmissionRef
+  ) {
+    return childRefusal(
+      "child_input_mismatch",
+      "child materialization requires the exact admitted parent output binding",
+    );
+  }
+  if (
+    input.graphFunction.declarations["abg.closure_contract"] !==
+      input.closureContract.closureContractRef ||
+    input.closureContract.resultContractRef !== input.graphFunction.outputs[0]
+  ) {
+    return childRefusal(
+      "child_membership_mismatch",
+      "child entry or closure contract is absent from admitted GTL",
+    );
+  }
+
+  const localExecutableRows = input.programValidation.executableLeafRows
+    .filter((row) => row.graphFunctionRef === input.graphFunction.name);
+  const localExecutableLeafKeys = localExecutableRows
+    .map((row) => row.requirementKey)
+    .sort((left, right) => left.localeCompare(right));
+  const admittedExecutableRows = input.rootImplementationSet.rows
+    .filter((row) => row.graphFunctionRef === input.graphFunction.name)
+    .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+  const admittedExecutableKeys = admittedExecutableRows.map((row) => row.requirementKey);
+  const localInteractionRows = input.programValidation.interactionLeafRows
+    .filter((row) => row.graphFunctionRef === input.graphFunction.name);
+  const localInteractionLeafKeys = localInteractionRows
+    .map((row) => row.requirementKey)
+    .sort((left, right) => left.localeCompare(right));
+  const admittedInteractionRows = input.rootInteractionSet.rows
+    .filter((row) => row.graphFunctionRef === input.graphFunction.name)
+    .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+  const admittedInteractionKeys = admittedInteractionRows.map((row) => row.requirementKey);
+  if (
+    !sameOrderedValues(localExecutableLeafKeys, admittedExecutableKeys) ||
+    !sameOrderedValues(localInteractionLeafKeys, admittedInteractionKeys)
+  ) {
+    return childRefusal(
+      "child_subset_mismatch",
+      "child executable and interaction rows must equal exact subsets of the admitted root sets",
+    );
+  }
+
+  const localImplementationSubsetDigest = sha256Canonical({
+    rootImplementationSetRef: input.rootImplementationSet.implementationSetRef,
+    rootImplementationSetDigest: input.rootImplementationSet.implementationSetDigest,
+    executableLeafKeys: localExecutableLeafKeys,
+    rows: admittedExecutableRows,
+  } as unknown as JsonValue);
+  const localInteractionSubsetDigest = sha256Canonical({
+    rootInteractionSetRef: input.rootInteractionSet.interactionSetRef,
+    rootInteractionSetDigest: input.rootInteractionSet.interactionSetDigest,
+    interactionLeafKeys: localInteractionLeafKeys,
+    rows: admittedInteractionRows,
+  } as unknown as JsonValue);
+  const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
+  const entryDigest = sha256Canonical({
+    parentTraversalScopeRef: parentScope.scopeRef,
+    graphFunctionRef: input.graphFunction.name,
+    graphRef: input.graph.materializationRef,
+    admittedInputRef: input.admittedInputRef,
+    admittedInputDigest: input.admittedInputDigest,
+  } as unknown as JsonValue);
+  const entryRef = `child-entry://abiogenesis/${entryDigest.slice("sha256:".length)}`;
+  const executionBody = {
+    basisClass: "child" as const,
+    invocationAdmissionRef: parent.invocationAdmissionRef,
+    invocationRef: parent.invocationRef,
+    invocationDigest: parent.invocationDigest,
+    rawInputAdmissionRef: input.admittedInputRef,
+    rawInputDigest: input.admittedInputDigest,
+    workspaceBindingId: parent.workspaceBindingId,
+    workspaceBindingDigest: parent.workspaceBindingDigest,
+    catalogViewId: parent.catalogViewId,
+    catalogViewDigest: parent.catalogViewDigest,
+    programRef: parent.programRef,
+    programDigest: parent.programDigest,
+    graphFunctionRef: input.graphFunction.name,
+    graphFunctionDigest,
+    actorRef: parent.actorRef,
+    parentExecutionBasisRef: parent.basisRef,
+    parentTraversalScopeRef: parentScope.scopeRef,
+    entryRef,
+    programValidationRef: input.programValidation.validationRef,
+    graphValidationRef: input.graphValidation.validationRef,
+    graphRef: input.graph.materializationRef,
+    graphDigest: input.graph.materializationDigest,
+    implementationSetRef: input.rootImplementationSet.implementationSetRef,
+    implementationSetDigest: input.rootImplementationSet.implementationSetDigest,
+    interactionSetRef: input.rootInteractionSet.interactionSetRef,
+    interactionSetDigest: input.rootInteractionSet.interactionSetDigest,
+    rootImplementationSetRef: input.rootImplementationSet.implementationSetRef,
+    rootImplementationSetDigest: input.rootImplementationSet.implementationSetDigest,
+    rootInteractionSetRef: input.rootInteractionSet.interactionSetRef,
+    rootInteractionSetDigest: input.rootInteractionSet.interactionSetDigest,
+    localExecutableLeafKeys,
+    localImplementationSubsetDigest,
+    localInteractionLeafKeys,
+    localInteractionSubsetDigest,
+    implementationResolutionRef: null,
+    closureContractRef: input.closureContract.closureContractRef,
+    closureContractDigest,
+    terminalPredicateRef: input.closureContract.predicateRef,
+    evidenceContractRef: input.closureContract.evidenceContractRef,
+    resultContractRef: input.closureContract.resultContractRef,
+    refusalContractRef: input.closureContract.refusalContractRef,
+    refusalValueKind: input.closureContract.refusalValueKind,
+    judgmentContractRef: input.closureContract.judgmentContractRef,
+    rejectionContractRef: input.closureContract.rejectionContractRef,
+    transitionContractRef: input.closureContract.transitionContractRef,
+    replayProjectionRef: input.closureContract.replayProjectionRef,
+    terminalKind: input.closureContract.terminalKind,
+  };
+  const basisDigest = sha256Canonical(executionBody as unknown as JsonValue);
+  const basisRef = `execution-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`;
+  const event = admitRuntimeEvent(store, {
+    kind: "basis_admitted",
+    eventTime: basis.eventTime,
+    aggregateType: "frame",
+    aggregateId: parentScope.frameId,
+    parentAggregateId: parentScope.graphCallId,
+    causationEventRefs: [parentScope.frameOpenEventRef, ...basis.causationEventRefs],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: basisRef,
+    runId: parentScope.runId,
+    graphFunctionRef: input.graphFunction.name,
+    materializationRef: input.graph.materializationRef,
+    graphCallId: parentScope.graphCallId,
+    frameId: parentScope.frameId,
+    frameLineageId: parentScope.frameLineageId,
+    payload: { basisRef, basisDigest, ...executionBody },
+  });
+  const executionBasis = deepFreeze({
+    kind: "execution_basis" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    basisRef,
+    basisDigest,
+    ...executionBody,
+    admissionEventRef: event.eventId,
+  }) as ExecutionBasis;
+  executionBases.add(executionBasis);
+  return deepFreeze({
+    kind: "child_execution_basis_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    executionBasis,
+  }) as ChildExecutionBasisAdmission;
 }

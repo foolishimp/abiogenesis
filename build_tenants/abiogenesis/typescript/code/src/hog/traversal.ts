@@ -330,8 +330,17 @@ function validateTraverseInput(input: TraverseInput): TraversalRefusal | null {
   const programStart = input.program.starts.find(
     (start) => start.graphFunctionRef === input.executionBasis.graphFunctionRef,
   );
-  if (programStart === undefined) {
-    return refusal("program_mismatch", "HoG Program has no declared start for the admitted GraphFunction");
+  if (
+    input.executionBasis.basisClass === "root"
+      ? programStart === undefined || programStart.startRef !== input.executionBasis.entryRef
+      : input.executionBasis.parentExecutionBasisRef === null ||
+        input.executionBasis.parentTraversalScopeRef === null ||
+        input.executionBasis.entryRef.length === 0
+  ) {
+    return refusal(
+      "program_mismatch",
+      "HoG entry differs from the root start or admitted child entry",
+    );
   }
   if (
     !isMaterializedGtlGraph(input.graph) ||
@@ -399,15 +408,6 @@ function traversalResultAtCursor(
   if (!isExecutableCLeaf(term) || derivedStep.directStep.stepKind !== "open_leaf") {
     return derivedStep;
   }
-  const programStart = input.program.starts.find(
-    (start) => start.graphFunctionRef === input.executionBasis.graphFunctionRef,
-  );
-  if (programStart === undefined) {
-    return refusal(
-      "program_mismatch",
-      "HoG Program has no declared start for the admitted GraphFunction",
-    );
-  }
   const stopBody = {
     stopKind: "compute_locus" as const,
     cursor,
@@ -417,7 +417,7 @@ function traversalResultAtCursor(
     frameId: input.openedTraversalScope.frameId,
     nodeRef: cursor.currentNodeRef,
     programLocusRef: term.programLocusRef,
-    edgeRef: programStart.startRef,
+    edgeRef: input.executionBasis.entryRef,
     vectorIndex: term.vectorIndex,
     judgmentPredicateRef: term.judgmentPredicateRef,
     stageRole: term.stageRole,
