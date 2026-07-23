@@ -58,8 +58,10 @@ export {
 } from "./declarations.js";
 export {
   composeGraphFunctions,
+  identityGraphFunction,
   substituteGraphFunction,
   type ComposeGraphFunctionsInput,
+  type IdentityGraphFunctionInput,
   type SubstituteGraphFunctionInput,
 } from "./graph_construction.js";
 export {

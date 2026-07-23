@@ -2,6 +2,8 @@ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  cCarrier,
+  cIdentity,
   cTermResultCardinality,
   type CProgramNode,
 } from "./c_algebra.js";
@@ -13,6 +15,8 @@ import type {
 import {
   composeApplication,
   graphEdge,
+  graphFunctionApplicationRef,
+  identityApplication,
   substituteApplication,
 } from "./graph_applications.js";
 
@@ -27,6 +31,11 @@ export interface SubstituteGraphFunctionInput {
   readonly outer: Readonly<GraphFunction>;
   readonly targetVectorRef: string;
   readonly inner: Readonly<GraphFunction>;
+}
+
+export interface IdentityGraphFunctionInput {
+  readonly name: string;
+  readonly contractRef: string;
 }
 
 function requireRef(value: string, label: string): string {
@@ -202,6 +211,82 @@ function mergeApplications(
   return [...byRef.values()];
 }
 
+function isIdentityGraphFunction(
+  graphFunction: Readonly<GraphFunction>,
+): boolean {
+  if (
+    graphFunction.inputs.length !== 1 ||
+    graphFunction.outputs.length !== 1 ||
+    graphFunction.inputs[0] !== graphFunction.outputs[0] ||
+    graphFunction.environment.requires.length !== 0 ||
+    graphFunction.environment.provides.length !== 0 ||
+    graphFunction.environment.carries.length !== 0 ||
+    graphFunction.effects.length !== 0 ||
+    graphFunction.template.nodes.length !== 1 ||
+    graphFunction.template.edges.length !== 0 ||
+    graphFunction.template.terminalNodeRefs.length !== 1 ||
+    graphFunction.template.startNodeRef !== graphFunction.template.terminalNodeRefs[0]
+  ) return false;
+  const node = graphFunction.template.nodes[0]!;
+  const contractRef = graphFunction.inputs[0]!;
+  if (
+    node.nodeRef !== graphFunction.template.startNodeRef ||
+    node.term.kind !== "c_identity" ||
+    node.term.inputCarrierRef !== contractRef ||
+    node.term.outputCarrierRef !== contractRef
+  ) return false;
+  return graphFunction.template.applications.some((application) =>
+    application.relationKind === "identity" &&
+    application.targetRef === graphFunction.name &&
+    application.inputContractRef === contractRef &&
+    application.outputContractRef === contractRef &&
+    application.applicationRef === graphFunctionApplicationRef(application));
+}
+
+export function identityGraphFunction(
+  input: IdentityGraphFunctionInput,
+): Readonly<GraphFunction> {
+  const name = requireRef(input.name, "identity GraphFunction name");
+  const contractRef = requireRef(input.contractRef, "identity contractRef");
+  const application = identityApplication({
+    inputContractRef: contractRef,
+    outputContractRef: contractRef,
+    targetRef: name,
+  });
+  const identity = {
+    name,
+    contractRef,
+    applicationRef: application.applicationRef,
+  };
+  const digest = sha256Canonical(identity as unknown as JsonValue);
+  const nodeRef =
+    `node://abiogenesis/identity/${digest.slice("sha256:".length)}`;
+  return deepFreeze({
+    kind: "graph_function" as const,
+    name,
+    version: "5.0.0" as const,
+    environment: { requires: [], provides: [], carries: [] },
+    inputs: [contractRef],
+    outputs: [contractRef],
+    template: {
+      kind: "inline_graph" as const,
+      graphRef: `graph://abiogenesis/identity/${digest.slice("sha256:".length)}`,
+      startNodeRef: nodeRef,
+      terminalNodeRefs: [nodeRef],
+      nodes: [{
+        nodeRef,
+        nodeKind: "c_locus" as const,
+        term: cIdentity(cCarrier(contractRef)),
+      }],
+      edges: [],
+      applications: [application],
+    },
+    effects: [],
+    declarations: {},
+    tags: [],
+  }) as Readonly<GraphFunction>;
+}
+
 export function composeGraphFunctions(
   input: ComposeGraphFunctionsInput,
 ): Readonly<GraphFunction> {
@@ -237,18 +322,23 @@ export function composeGraphFunctions(
     throw new TypeError("compose operands contain a duplicate graph node identity");
   }
 
+  const leftIsIdentity = isIdentityGraphFunction(left);
+  const rightIsIdentity = isIdentityGraphFunction(right);
+
   const application = composeApplication({
     inputContractRef: left.inputs[0]!,
     outputContractRef: right.outputs[0]!,
     leftGraphFunctionRef: left.name,
     rightGraphFunctionRef: right.name,
   });
-  const bridgeEdges = left.template.terminalNodeRefs.map((fromNodeRef) =>
-    graphEdge({ fromNodeRef, toNodeRef: right.template.startNodeRef }));
+  const bridgeEdges = leftIsIdentity || rightIsIdentity
+    ? []
+    : left.template.terminalNodeRefs.map((fromNodeRef) =>
+      graphEdge({ fromNodeRef, toNodeRef: right.template.startNodeRef }));
   const edges = [
-    ...left.template.edges,
+    ...(leftIsIdentity ? [] : left.template.edges),
     ...bridgeEdges,
-    ...right.template.edges,
+    ...(rightIsIdentity ? [] : right.template.edges),
   ];
   if (new Set(edges.map((edge) => edge.edgeRef)).size !== edges.length) {
     throw new TypeError("compose operands produce a duplicate graph edge identity");
@@ -260,6 +350,22 @@ export function composeGraphFunctions(
     applicationRef: application.applicationRef,
   };
   const graphDigest = sha256Canonical(graphIdentity as unknown as JsonValue);
+  if (leftIsIdentity && rightIsIdentity) {
+    const base = identityGraphFunction({ name, contractRef: left.inputs[0]! });
+    return deepFreeze({
+      ...base,
+      template: {
+        ...base.template,
+        graphRef:
+          `graph://abiogenesis/composed/${graphDigest.slice("sha256:".length)}`,
+        applications: mergeApplications(
+          application,
+          [left, right, base],
+          "compose",
+        ),
+      },
+    }) as Readonly<GraphFunction>;
+  }
   const graphFunction = {
     kind: "graph_function" as const,
     name,
@@ -280,11 +386,21 @@ export function composeGraphFunctions(
     template: {
       kind: "inline_graph" as const,
       graphRef: `graph://abiogenesis/composed/${graphDigest.slice("sha256:".length)}`,
-      startNodeRef: left.template.startNodeRef,
-      terminalNodeRefs: [...right.template.terminalNodeRefs],
+      startNodeRef: leftIsIdentity
+        ? right.template.startNodeRef
+        : left.template.startNodeRef,
+      terminalNodeRefs: [
+        ...(rightIsIdentity
+          ? left.template.terminalNodeRefs
+          : right.template.terminalNodeRefs),
+      ],
       nodes: [
-        ...rewriteNodes(left, application.applicationRef, true),
-        ...rewriteNodes(right, application.applicationRef, false),
+        ...(leftIsIdentity
+          ? []
+          : rewriteNodes(left, application.applicationRef, !rightIsIdentity)),
+        ...(rightIsIdentity
+          ? []
+          : rewriteNodes(right, application.applicationRef, false)),
       ],
       edges,
       applications: mergeApplications(application, [left, right], "compose"),

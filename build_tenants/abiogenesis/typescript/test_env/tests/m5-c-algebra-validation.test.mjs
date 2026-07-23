@@ -254,6 +254,96 @@ test("M5 C.compose is canonical, flat, and identity-eliding", () => {
   assert.equal(Object.isFrozen(nested.terms), true);
 });
 
+test("M5 GraphFunction composition preserves exact left and right identity", () => {
+  const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
+  const source = publication.graphFunctions.find(
+    (candidate) => candidate.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  assert.notEqual(source, undefined);
+  const leftIdentity = gtl.identityGraphFunction({
+    name: "graph-function://m5/identity/hello-input",
+    contractRef: source.inputs[0],
+  });
+  const rightIdentity = gtl.identityGraphFunction({
+    name: "graph-function://m5/identity/hello-output",
+    contractRef: source.outputs[0],
+  });
+  const leftComposed = gtl.composeGraphFunctions({
+    name: "graph-function://m5/identity-left/hello-world",
+    left: leftIdentity,
+    right: source,
+  });
+  const rightComposed = gtl.composeGraphFunctions({
+    name: "graph-function://m5/identity-right/hello-world",
+    left: source,
+    right: rightIdentity,
+  });
+
+  for (const composed of [leftComposed, rightComposed]) {
+    assert.deepEqual(composed.inputs, source.inputs);
+    assert.deepEqual(composed.outputs, source.outputs);
+    assert.equal(composed.template.startNodeRef, source.template.startNodeRef);
+    assert.deepEqual(composed.template.terminalNodeRefs, source.template.terminalNodeRefs);
+    assert.deepEqual(
+      composed.template.nodes.map((node) => node.nodeRef),
+      source.template.nodes.map((node) => node.nodeRef),
+    );
+    assert.deepEqual(composed.template.edges, source.template.edges);
+    assert.equal(
+      composed.template.nodes.some((node) => node.term.kind === "c_identity"),
+      false,
+    );
+    assert.equal(
+      composed.template.applications.some((application) =>
+        application.relationKind === "identity"),
+      true,
+    );
+    assert.equal(
+      composed.template.applications.some((application) =>
+        application.relationKind === "compose"),
+      true,
+    );
+    assert.equal(Object.isFrozen(composed), true);
+
+    const candidate = structuredClone(publication);
+    candidate.graphFunctions.push(
+      structuredClone(
+        composed === leftComposed ? leftIdentity : rightIdentity,
+      ),
+      structuredClone(composed),
+    );
+    const baseProgram = candidate.programs[0];
+    const identityProgram = {
+      ...structuredClone(baseProgram),
+      programRef: `program://m5/${composed.name.split("/").at(-2)}`,
+      starts: [{
+        startRef: `start://m5/${composed.name.split("/").at(-2)}`,
+        graphFunctionRef: composed.name,
+      }],
+      callableMembership: [composed.name],
+    };
+    candidate.programs.push(identityProgram);
+    assert.equal(
+      programValidationResult(candidate, identityProgram).kind,
+      "program_validation",
+    );
+  }
+
+  const forged = structuredClone(leftIdentity);
+  const forgedApplication = forged.template.applications[0];
+  forgedApplication.targetRef = "graph-function://m5/identity/forged";
+  forgedApplication.applicationRef =
+    gtl.graphFunctionApplicationRef(forgedApplication);
+  assert.throws(
+    () => gtl.composeGraphFunctions({
+      name: "graph-function://m5/identity-forged/hello-world",
+      left: forged,
+      right: source,
+    }),
+    /must declare exactly one result/u,
+  );
+});
+
 test("M5 native constructors refuse invalid batch, retry, and F_H realization", () => {
   const request = gtl.cCarrier("contract://m5/request");
   const result = gtl.cCarrier("contract://m5/result");
