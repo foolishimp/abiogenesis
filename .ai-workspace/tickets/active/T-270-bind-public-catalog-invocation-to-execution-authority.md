@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: fibre_substitution_checkpoint_ready_for_review_3149a9b2
-- proof_status: m4_root_retained_m5_fibre_differential_green_s02_open
+- review_status: live_fp_checkpoint_ready_for_review_89701306
+- proof_status: m4_root_retained_m5_fibre_and_live_fp_green_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -225,6 +225,30 @@ second runtime path was added. `ABG5-S02` remains open: the residual T-270
 frontier is the uncovered forty-row inventory followed by a genuinely live F_P
 proof.
 
+Implementation commit `8970130652f914b0603914d8720ed1d54dff970f`
+completes the genuinely live F_P proof through the same installed path:
+
+- the packed candidate invokes the operator-bound real Claude executable under
+  the admitted F_P transport contract and receives an exact contract-valid
+  result from `claude-fable-5`;
+- ABG admits the transport binding, actor and process lifecycle, artifact
+  observation, probabilistic evidence, result, judgment, terminal route, and
+  complete closure chain across `41` durable events;
+- replay and the public CLI outcome agree, and the exact proof binds the package
+  basis, model, transport identity, event-log digest, artifact digests, result,
+  and replay digest; and
+- the live run exposed one bounded transport defect: Claude's protocol-owned
+  `StructuredOutput` event had been counted as a capability tool. The repair
+  excludes that event only when an exact response schema is declared, while an
+  undeclared `StructuredOutput` event and ordinary tools remain contract
+  failures on the closed-prompt lane.
+
+Fresh verification is live `test:m5:live-fp` `1/1`, fast `test:m5` `37/37`,
+and retained `test:m4` `26/26`. This proves the live F_P obligation but does not
+close `ABG5-S02`; the remaining T-270 frontier is installed graph-application
+and conservation-row coverage, including recursion, fan-out/fan-in, gate, and
+their nearest invalid substitutes.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -250,19 +274,19 @@ not a proof that the Product is complete.
 | Feature | M4 state | Owning closure |
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
-| `A5-F02` complete GTL authoring and validation | Hello World subset proven | `T-270` / S02 |
-| `A5-F03` complete graph, C, and traversal | one C.of terminal locus proven | `T-270` / S02 |
-| `A5-F04` probabilistic result integrity | absent | `T-270` / S02 |
+| `A5-F02` complete GTL authoring and validation | seven C constructors and current direct graph subset proven; remaining graph relations open | `T-270` / S02 |
+| `A5-F03` complete graph, C, and traversal | installed atomic, compose, edge, batch, retry, and workflow subset proven; graph applications and F_H open | `T-270` / S02 |
+| `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
 | `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | root CLI subset only | `T-281` / S06 |
 | `A5-F07` complete One Surface loop | absent | `T-272` / S03 |
 | `A5-F08` Consensus free construction | absent | `T-274`, `T-275`, `T-276` / S05 |
 | `A5-F09` catalog semantics | admit, view, and invoke subset proven | `T-270`, `T-281` / S02 and S06 |
-| `A5-F10` event-sourced runtime truth | deterministic terminal subset proven | `T-270`, `T-272` / S02 and S03 |
+| `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, blocked, and terminal subsets proven; durable F_H reopening open | `T-270`, `T-272` / S02 and S03 |
 | `A5-F11` self-conformance | absent | realization readiness in `T-268`; qualification in `T-247` / S04 |
 | `A5-F12` observer and tuner | absent | realization in `T-268`; qualification in `T-247` / S04 |
 | `A5-F13` native and bounded host projection | absent | `T-281` / S06 |
-| `A5-F14` packed Hello World and live F_P | deterministic half proven | `T-270` / S02 |
+| `A5-F14` packed Hello World and live F_P | installed deterministic and live F_P proofs green | `T-270` / S02 |
 | `A5-F15` exact-candidate qualification | pending by phase | `T-247` / M6 |
 | `A5-F16` immutable RC and stable release | pending by phase | `T-248` / M7 |
 | `A5-F17` downstream portability | absent | `T-281` / S06 |
