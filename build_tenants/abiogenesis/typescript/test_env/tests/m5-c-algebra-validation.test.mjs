@@ -727,39 +727,27 @@ test("M5 whole-program validation binds gate law to published Rule and Evaluator
   const publication = structuredClone(
     gtl.constructHelloWorldModulePublication(artifactBasis()),
   );
-  const program = publication.programs[0];
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === gtl.GATE_HELLO_IDS.programRef,
+  );
+  assert.notEqual(program, undefined);
   const graphFunction = publication.graphFunctions.find(
-    (candidate) => candidate.name === program.starts[0].graphFunctionRef,
+    (candidate) => candidate.name === gtl.GATE_HELLO_IDS.graphFunctionRef,
   );
   assert.notEqual(graphFunction, undefined);
-  publication.evaluators = [gtl.evaluatorDeclaration({
-    name: "evaluator://abiogenesis/conformance/hello-gate@5",
-    regime: "F_D",
-    description: "Checks the declared Hello World gate.",
-    binding: "implementation://abiogenesis/conformance/hello-gate@5",
-    consumedFieldRefs: ["$.message"],
-    tags: ["gate"],
-  })];
-  publication.rules = [gtl.ruleDeclaration({
-    name: "rule://abiogenesis/conformance/hello-gate@5",
-    kind: "continuation_gate",
-    config: { mode: "evaluator_all" },
-    tags: ["gate"],
-  })];
-  graphFunction.template.applications = [gtl.gateApplication({
-    inputContractRef: graphFunction.inputs[0],
-    outputContractRef: graphFunction.outputs[0],
-    targetRef: graphFunction.name,
-    ruleRef: publication.rules[0].name,
-    evaluatorRefs: [publication.evaluators[0].name],
-  })];
 
-  assert.equal(programValidationResult(publication).kind, "program_validation");
+  assert.equal(
+    programValidationResult(publication, program).kind,
+    "program_validation",
+  );
 
   for (const collection of ["rules", "evaluators"]) {
     const missing = structuredClone(publication);
     missing[collection] = [];
-    const result = programValidationResult(missing);
+    const missingProgram = missing.programs.find(
+      (candidate) => candidate.programRef === gtl.GATE_HELLO_IDS.programRef,
+    );
+    const result = programValidationResult(missing, missingProgram);
     assert.equal(result.kind, "static_validation_refusal", JSON.stringify(result));
     assert.equal(
       result.diagnostics.some((row) => row.code === "invalid_application"),
@@ -770,10 +758,28 @@ test("M5 whole-program validation binds gate law to published Rule and Evaluator
 
   const widened = structuredClone(publication);
   widened.evaluators[0].runtimeAuthority = "event://m5/rival";
-  const widenedResult = programValidationResult(widened);
+  const widenedProgram = widened.programs.find(
+    (candidate) => candidate.programRef === gtl.GATE_HELLO_IDS.programRef,
+  );
+  const widenedResult = programValidationResult(widened, widenedProgram);
   assert.equal(widenedResult.kind, "static_validation_refusal");
   assert.equal(
     widenedResult.diagnostics.some((row) => row.code === "invalid_reference"),
+    true,
+  );
+
+  const detached = structuredClone(publication);
+  const detachedProgram = detached.programs.find(
+    (candidate) => candidate.programRef === gtl.GATE_HELLO_IDS.programRef,
+  );
+  const detachedGraphFunction = detached.graphFunctions.find(
+    (candidate) => candidate.name === gtl.GATE_HELLO_IDS.graphFunctionRef,
+  );
+  detachedGraphFunction.template.nodes[0].term.terms[0].compositionRef = null;
+  const detachedResult = programValidationResult(detached, detachedProgram);
+  assert.equal(detachedResult.kind, "static_validation_refusal");
+  assert.equal(
+    detachedResult.diagnostics.some((row) => row.code === "invalid_application"),
     true,
   );
 });

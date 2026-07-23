@@ -33,6 +33,12 @@ const WORKFLOW_GRAPH_FUNCTION_REF =
   "graph-function://abiogenesis/conformance/hello-workflow@5";
 const WORKFLOW_CHILD_REF =
   "graph-function://abiogenesis/conformance/hello-world@5";
+const GATE_PROGRAM_REF =
+  "program://abiogenesis/conformance/hello-gate@5";
+const GATE_GRAPH_FUNCTION_REF =
+  "graph-function://abiogenesis/conformance/hello-gate@5";
+const GATE_TARGET_REF =
+  "graph-function://abiogenesis/conformance/hello-gate-target@5";
 const ACTOR_REF = "actor://abiogenesis/conformance/claude-worker@5";
 const WORKER_BINDING_REF =
   "worker-binding://abiogenesis/conformance/claude-worker@5";
@@ -252,7 +258,62 @@ const matrix = [
       .map((event) => event.payload.stageRole);
     assert.deepEqual(roles.slice(-3), ["transform", "evaluate", "consequence"]);
   }),
-  open("structural_form", "adaptive_declared_selection", "gate or policy application over named admitted compositions", "runtime evaluator admission and selected-identity replay"),
+  proven("structural_form", "adaptive_declared_selection", {
+    gtlExpression: "GateApplication bound to one F_D evaluator and one named admitted target",
+    hogPath: "evaluator judgment either advances into the named child or blocks before child entry",
+    abgEvidence: "evaluator result, judgment, caused route, and selected child GraphCall are replay truth",
+    publicOutcome: "installed CLI succeeds only on the admitted gate advance path",
+    invalidMutation: "detached evaluator relation fails validation and a blocked judgment cannot enter the target",
+  }, ({ gate, gateBlocked }) => {
+    assertSuccessfulInstalled(gate);
+    const evaluator = gate.events.find(
+      (event) =>
+        event.kind === "c_call_opened" &&
+        event.payload.stageRole === "evaluate",
+    );
+    assert.notEqual(evaluator, undefined);
+    const evaluatorFibre = gate.events.find(
+      (event) =>
+        event.kind === "c_call_fibre_selected" &&
+        event.aggregateId === evaluator.aggregateId,
+    );
+    assert.notEqual(evaluatorFibre, undefined);
+    assert.match(
+      evaluatorFibre.payload.compositionRef,
+      /^graph-function-application:\/\/abiogenesis\/[a-f0-9]{64}$/u,
+    );
+    const judgment = gate.events.find(
+      (event) =>
+        event.kind === "c_call_judged" &&
+        event.aggregateId === evaluator.aggregateId,
+    );
+    const route = gate.events.find(
+      (event) =>
+        event.kind === "traversal_route_admitted" &&
+        event.payload.cCallRef === evaluator.aggregateId,
+    );
+    assert.equal(judgment.payload.judgment, "advance");
+    assert.equal(route.payload.routeKind, "advance");
+    assert.equal(route.causationEventRefs.includes(judgment.eventId), true);
+    assert.equal(
+      gate.events.some(
+        (event) =>
+          event.kind === "graph_call_opened" &&
+          event.graphFunctionRef === GATE_TARGET_REF,
+      ),
+      true,
+    );
+    assert.equal(gateBlocked.run.exitCode, 2, gateBlocked.run.stdout);
+    assert.equal(gateBlocked.run.outcomes[5].disposition, "blocked");
+    assert.equal(
+      gateBlocked.events.some(
+        (event) =>
+          event.kind === "graph_call_opened" &&
+          event.graphFunctionRef === GATE_TARGET_REF,
+      ),
+      false,
+    );
+  }),
   proven("structural_form", "batch", {
     gtlExpression: "C.batch with two ordered C.of tasks",
     hogPath: "two task cursors retaining batch identity and task ordinal",
@@ -479,8 +540,8 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 18);
-  assert.equal(matrix.filter((row) => row.status === "open").length, 22);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 19);
+  assert.equal(matrix.filter((row) => row.status === "open").length, 21);
   for (const row of matrix) {
     for (const field of [
       "witness46",
@@ -512,6 +573,17 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     programRef: WORKFLOW_PROGRAM_REF,
     graphFunctionRef: WORKFLOW_GRAPH_FUNCTION_REF,
     allowlist: [WORKFLOW_GRAPH_FUNCTION_REF],
+  });
+  const gate = await runScenario(harness, "matrix-gate", {
+    programRef: GATE_PROGRAM_REF,
+    graphFunctionRef: GATE_GRAPH_FUNCTION_REF,
+    allowlist: [GATE_GRAPH_FUNCTION_REF, GATE_TARGET_REF],
+  });
+  const gateBlocked = await runScenario(harness, "matrix-gate-blocked", {
+    programRef: GATE_PROGRAM_REF,
+    graphFunctionRef: GATE_GRAPH_FUNCTION_REF,
+    allowlist: [GATE_GRAPH_FUNCTION_REF, GATE_TARGET_REF],
+    subject: "Blocked",
   });
   const fp = await runScenario(harness, "matrix-fp", {
     programRef: FP_PROGRAM_REF,
@@ -573,6 +645,8 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     compose,
     workflow,
     omittedChild,
+    gate,
+    gateBlocked,
     fp,
     malformedFp,
     retry,

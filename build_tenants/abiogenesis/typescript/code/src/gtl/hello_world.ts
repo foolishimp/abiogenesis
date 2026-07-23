@@ -18,6 +18,8 @@ import {
   composeGraphFunctions,
   substituteGraphFunction,
 } from "./graph_construction.js";
+import { evaluatorDeclaration, ruleDeclaration } from "./declarations.js";
+import { gateApplication } from "./graph_applications.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 
@@ -140,6 +142,43 @@ export const WORKFLOW_HELLO_IDS = Object.freeze({
     "contract://abiogenesis/conformance/hello-workflow-closure@5",
   judgmentPredicateRef:
     "predicate://abiogenesis/conformance/hello-world-result@5",
+});
+
+export const GATE_HELLO_IDS = Object.freeze({
+  programRef: "program://abiogenesis/conformance/hello-gate@5",
+  graphFunctionRef:
+    "graph-function://abiogenesis/conformance/hello-gate@5",
+  targetGraphFunctionRef:
+    "graph-function://abiogenesis/conformance/hello-gate-target@5",
+  graphRef: "graph://abiogenesis/conformance/hello-gate@5",
+  targetGraphRef: "graph://abiogenesis/conformance/hello-gate-target@5",
+  nodeRef: "node://abiogenesis/conformance/hello-gate@5",
+  targetNodeRef: "node://abiogenesis/conformance/hello-gate-target@5",
+  evaluatorLocusRef:
+    "locus://abiogenesis/conformance/hello-gate/evaluator@5",
+  targetLocusRef:
+    "locus://abiogenesis/conformance/hello-gate/target@5",
+  admittedInputContractRef:
+    "contract://abiogenesis/conformance/hello-gate-admitted-input@5",
+  evaluatorImplementationBindingRef:
+    "implementation-binding://abiogenesis/conformance/hello-gate-evaluator@5",
+  evaluatorImplementationRef:
+    "implementation://abiogenesis/conformance/hello-gate-evaluator@5",
+  targetImplementationBindingRef:
+    "implementation-binding://abiogenesis/conformance/hello-gate-target@5",
+  targetImplementationRef:
+    "implementation://abiogenesis/conformance/hello-gate-target@5",
+  evaluatorArmId:
+    "arm://abiogenesis/conformance/hello-gate/evaluator@5",
+  targetArmId:
+    "arm://abiogenesis/conformance/hello-gate/target@5",
+  evaluatorRef:
+    "evaluator://abiogenesis/conformance/hello-gate@5",
+  ruleRef: "rule://abiogenesis/conformance/hello-gate@5",
+  evaluatorJudgmentPredicateRef:
+    "predicate://abiogenesis/conformance/hello-gate-admission@5",
+  closureContractRef:
+    "contract://abiogenesis/conformance/hello-gate-closure@5",
 });
 
 export const FP_HELLO_IDS = Object.freeze({
@@ -321,6 +360,21 @@ export function resolveConformanceJudgmentRelation(
           isNormalizedHelloInput(output) &&
           evaluateNormalizedIdentityResult(input, output),
       });
+    case GATE_HELLO_IDS.evaluatorJudgmentPredicateRef:
+      return Object.freeze({
+        predicateRef,
+        advanceReasonRef:
+          "reason://abiogenesis/conformance/hello-gate-admitted@5",
+        rejectionReasonRef:
+          "reason://abiogenesis/conformance/hello-gate-blocked@5",
+        evaluate: (input: unknown, output: unknown) =>
+          isHelloWorldInput(input) &&
+          isHelloWorldInput(output) &&
+          input.kind === output.kind &&
+          input.schemaVersion === output.schemaVersion &&
+          input.subject === output.subject &&
+          input.subject !== "Blocked",
+      });
     case FP_HELLO_IDS.judgmentPredicateRef:
       return Object.freeze({
         predicateRef,
@@ -395,6 +449,8 @@ export function isDeclaredConformanceValue(
   valueKind: string,
 ): value is Readonly<Record<string, JsonValue>> {
   switch (valueKind) {
+    case "hello_world_input":
+      return isHelloWorldInput(value);
     case "hello_world_output":
       return isHelloWorldOutput(value);
     case "normalized_hello_input":
@@ -457,8 +513,32 @@ export function constructHelloWorldModulePublication(
   const normalizedInputCarrier = cCarrier<NormalizedHelloInput>(
     COMPOSED_HELLO_IDS.normalizedInputContractRef,
   );
+  const gateInputCarrier = cCarrier<HelloWorldInput>(
+    GATE_HELLO_IDS.admittedInputContractRef,
+  );
   const fpInputCarrier = cCarrier<FpHelloInstruction>(FP_HELLO_IDS.inputContractRef);
   const fpOutputCarrier = cCarrier<FpHelloOutput>(FP_HELLO_IDS.outputContractRef);
+  const gateEvaluator = evaluatorDeclaration({
+    name: GATE_HELLO_IDS.evaluatorRef,
+    regime: "F_D",
+    description: "Evaluates the declared Hello World gate.",
+    binding: GATE_HELLO_IDS.evaluatorImplementationRef,
+    consumedFieldRefs: ["$.subject"],
+    tags: ["gate", "hello-world"],
+  });
+  const gateRule = ruleDeclaration({
+    name: GATE_HELLO_IDS.ruleRef,
+    kind: "subject_gate",
+    config: { blockedSubject: "Blocked" },
+    tags: ["gate", "hello-world"],
+  });
+  const helloGateApplication = gateApplication({
+    inputContractRef: GATE_HELLO_IDS.admittedInputContractRef,
+    outputContractRef: HELLO_WORLD_IDS.outputContractRef,
+    targetRef: GATE_HELLO_IDS.targetGraphFunctionRef,
+    ruleRef: gateRule.name,
+    evaluatorRefs: [gateEvaluator.name],
+  });
   const contracts: readonly ContractDeclaration[] = [
     { contractRef: HELLO_WORLD_IDS.inputContractRef, contractVersion: "5.0.0", contractKind: "input", valueKind: "hello_world_input" },
     { contractRef: HELLO_WORLD_IDS.outputContractRef, contractVersion: "5.0.0", contractKind: "output", valueKind: "hello_world_output" },
@@ -470,6 +550,8 @@ export function constructHelloWorldModulePublication(
     { contractRef: HELLO_WORLD_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "hello_world_closure" },
     { contractRef: WORKFLOW_HELLO_IDS.evidenceContractRef, contractVersion: "5.0.0", contractKind: "evidence", valueKind: "sub_traversal_evidence_candidate" },
     { contractRef: WORKFLOW_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "hello_workflow_closure" },
+    { contractRef: GATE_HELLO_IDS.admittedInputContractRef, contractVersion: "5.0.0", contractKind: "output", valueKind: "hello_world_input" },
+    { contractRef: GATE_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "hello_gate_closure" },
     { contractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef, contractVersion: "5.0.0", contractKind: "output", valueKind: "normalized_hello_input" },
     { contractRef: FP_HELLO_IDS.inputContractRef, contractVersion: "5.0.0", contractKind: "input", valueKind: "fp_hello_instruction" },
     { contractRef: FP_HELLO_IDS.outputContractRef, contractVersion: "5.0.0", contractKind: "output", valueKind: "fp_hello_output" },
@@ -535,6 +617,34 @@ export function constructHelloWorldModulePublication(
     namedSymbol: "renderNormalizedHello",
     computeRegime: "F_D",
     inputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+    outputContractRef: HELLO_WORLD_IDS.outputContractRef,
+    failureContractRef: HELLO_WORLD_IDS.failureContractRef,
+    refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+  };
+  const gateEvaluatorImplementationBinding: ImplementationBinding = {
+    kind: "implementation_binding",
+    bindingRef: GATE_HELLO_IDS.evaluatorImplementationBindingRef,
+    implementationRef: GATE_HELLO_IDS.evaluatorImplementationRef,
+    packageName: artifact.packageName,
+    packageVersion: artifact.packageVersion,
+    modulePath: "build/code/src/implementation/hello_gate.js",
+    namedSymbol: "evaluateHelloGate",
+    computeRegime: "F_D",
+    inputContractRef: HELLO_WORLD_IDS.inputContractRef,
+    outputContractRef: GATE_HELLO_IDS.admittedInputContractRef,
+    failureContractRef: HELLO_WORLD_IDS.failureContractRef,
+    refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+  };
+  const gateTargetImplementationBinding: ImplementationBinding = {
+    kind: "implementation_binding",
+    bindingRef: GATE_HELLO_IDS.targetImplementationBindingRef,
+    implementationRef: GATE_HELLO_IDS.targetImplementationRef,
+    packageName: artifact.packageName,
+    packageVersion: artifact.packageVersion,
+    modulePath: "build/code/src/implementation/hello_gate.js",
+    namedSymbol: "realizeGatedHello",
+    computeRegime: "F_D",
+    inputContractRef: GATE_HELLO_IDS.admittedInputContractRef,
     outputContractRef: HELLO_WORLD_IDS.outputContractRef,
     failureContractRef: HELLO_WORLD_IDS.failureContractRef,
     refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
@@ -655,6 +765,23 @@ export function constructHelloWorldModulePublication(
     rejectionContractRef: HELLO_WORLD_IDS.refusalContractRef,
     transitionContractRef: HELLO_WORLD_IDS.transitionContractRef,
     replayProjectionRef: "projection://abiogenesis/conformance/hello-workflow-replay@5",
+    terminalKind: "completed",
+    eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
+  };
+  const gateClosureContract: ClosureContract = {
+    kind: "closure_contract",
+    closureContractRef: GATE_HELLO_IDS.closureContractRef,
+    predicateRef:
+      "predicate://abiogenesis/conformance/hello-gate-terminal@5",
+    evidenceContractRef: WORKFLOW_HELLO_IDS.evidenceContractRef,
+    resultContractRef: HELLO_WORLD_IDS.outputContractRef,
+    refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+    refusalValueKind: "hello_world_refusal",
+    judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+    rejectionContractRef: HELLO_WORLD_IDS.refusalContractRef,
+    transitionContractRef: HELLO_WORLD_IDS.transitionContractRef,
+    replayProjectionRef:
+      "projection://abiogenesis/conformance/hello-gate-replay@5",
     terminalKind: "completed",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
@@ -804,6 +931,154 @@ export function constructHelloWorldModulePublication(
       HELLO_WORLD_IDS.graphFunctionRef,
     ],
     closureContractRef: WORKFLOW_HELLO_IDS.closureContractRef,
+    policies: {
+      "abg.root_mode": "direct",
+      "abg.compute_regime": "F_D",
+    },
+  };
+  const gateTargetGraphFunction: GraphFunction = {
+    kind: "graph_function",
+    name: GATE_HELLO_IDS.targetGraphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [GATE_HELLO_IDS.admittedInputContractRef],
+      provides: [HELLO_WORLD_IDS.outputContractRef],
+      carries: [
+        GATE_HELLO_IDS.admittedInputContractRef,
+        HELLO_WORLD_IDS.outputContractRef,
+      ],
+    },
+    inputs: [GATE_HELLO_IDS.admittedInputContractRef],
+    outputs: [HELLO_WORLD_IDS.outputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: GATE_HELLO_IDS.targetGraphRef,
+      startNodeRef: GATE_HELLO_IDS.targetNodeRef,
+      terminalNodeRefs: [GATE_HELLO_IDS.targetNodeRef],
+      nodes: [{
+        nodeRef: GATE_HELLO_IDS.targetNodeRef,
+        nodeKind: "c_locus",
+        term: C.of({
+          input: gateInputCarrier,
+          output: outputCarrier,
+          programLocusRef: GATE_HELLO_IDS.targetLocusRef,
+          stageRole: "consequence",
+          fibre: "F_D",
+          armId: GATE_HELLO_IDS.targetArmId,
+          compositionRef: null,
+          vectorIndex: 0,
+          judgmentPredicateRef: HELLO_WORLD_IDS.judgmentPredicateRef,
+          resultBearing: true,
+          requirement: {
+            kind: "executable_leaf_requirement",
+            implementationBindingRef:
+              GATE_HELLO_IDS.targetImplementationBindingRef,
+            inputContractRef: GATE_HELLO_IDS.admittedInputContractRef,
+            outputContractRef: HELLO_WORLD_IDS.outputContractRef,
+            evidenceContractRef: HELLO_WORLD_IDS.evidenceContractRef,
+            failureContractRef: HELLO_WORLD_IDS.failureContractRef,
+            refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+            judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+          },
+        }),
+      }],
+      edges: [],
+      applications: [],
+    },
+    effects: ["effect://abiogenesis/conformance/emit-hello-output@5"],
+    declarations: {
+      "abg.compute_regime": "F_D",
+      "abg.closure_contract": HELLO_WORLD_IDS.closureContractRef,
+      "abg.evidence_contract": HELLO_WORLD_IDS.evidenceContractRef,
+      "abg.judgment_contract": HELLO_WORLD_IDS.judgmentContractRef,
+      "abg.judgment_predicate": HELLO_WORLD_IDS.judgmentPredicateRef,
+      "abg.transition_contract": HELLO_WORLD_IDS.transitionContractRef,
+    },
+    tags: ["abiogenesis", "conformance", "hello-world", "gate-target"],
+  };
+  const gateGraphFunction: GraphFunction = {
+    kind: "graph_function",
+    name: GATE_HELLO_IDS.graphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [HELLO_WORLD_IDS.inputContractRef],
+      provides: [HELLO_WORLD_IDS.outputContractRef],
+      carries: [
+        HELLO_WORLD_IDS.inputContractRef,
+        GATE_HELLO_IDS.admittedInputContractRef,
+        HELLO_WORLD_IDS.outputContractRef,
+      ],
+    },
+    inputs: [HELLO_WORLD_IDS.inputContractRef],
+    outputs: [HELLO_WORLD_IDS.outputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: GATE_HELLO_IDS.graphRef,
+      startNodeRef: GATE_HELLO_IDS.nodeRef,
+      terminalNodeRefs: [GATE_HELLO_IDS.nodeRef],
+      nodes: [{
+        nodeRef: GATE_HELLO_IDS.nodeRef,
+        nodeKind: "c_locus",
+        term: C.compose(
+          C.of({
+            input: inputCarrier,
+            output: gateInputCarrier,
+            programLocusRef: GATE_HELLO_IDS.evaluatorLocusRef,
+            stageRole: "evaluate",
+            fibre: "F_D",
+            armId: GATE_HELLO_IDS.evaluatorArmId,
+            compositionRef: helloGateApplication.applicationRef,
+            vectorIndex: 0,
+            judgmentPredicateRef:
+              GATE_HELLO_IDS.evaluatorJudgmentPredicateRef,
+            resultBearing: false,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef:
+                GATE_HELLO_IDS.evaluatorImplementationBindingRef,
+              inputContractRef: HELLO_WORLD_IDS.inputContractRef,
+              outputContractRef: GATE_HELLO_IDS.admittedInputContractRef,
+              evidenceContractRef: HELLO_WORLD_IDS.evidenceContractRef,
+              failureContractRef: HELLO_WORLD_IDS.failureContractRef,
+              refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+              judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+            },
+          }),
+          workflow.C(cGraphFunctionRef({
+            graphFunctionRef: GATE_HELLO_IDS.targetGraphFunctionRef,
+            input: gateInputCarrier,
+            output: outputCarrier,
+          })),
+        ),
+      }],
+      edges: [],
+      applications: [helloGateApplication],
+    },
+    effects: [],
+    declarations: {
+      "abg.compute_regime": "F_D",
+      "abg.closure_contract": GATE_HELLO_IDS.closureContractRef,
+      "abg.evidence_contract": WORKFLOW_HELLO_IDS.evidenceContractRef,
+      "abg.judgment_contract": HELLO_WORLD_IDS.judgmentContractRef,
+      "abg.judgment_predicate": HELLO_WORLD_IDS.judgmentPredicateRef,
+      "abg.transition_contract": HELLO_WORLD_IDS.transitionContractRef,
+    },
+    tags: ["abiogenesis", "conformance", "hello-world", "gate"],
+  };
+  const gateProgram: GtlProgram = {
+    kind: "gtl_program",
+    programRef: GATE_HELLO_IDS.programRef,
+    version: "5.0.0",
+    moduleRef: HELLO_WORLD_IDS.moduleRef,
+    starts: [{
+      startRef: "start://abiogenesis/conformance/hello-gate@5",
+      graphFunctionRef: GATE_HELLO_IDS.graphFunctionRef,
+    }],
+    callableMembership: [
+      GATE_HELLO_IDS.graphFunctionRef,
+      GATE_HELLO_IDS.targetGraphFunctionRef,
+    ],
+    closureContractRef: GATE_HELLO_IDS.closureContractRef,
     policies: {
       "abg.root_mode": "direct",
       "abg.compute_regime": "F_D",
@@ -1590,6 +1865,24 @@ export function constructHelloWorldModulePublication(
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
+  const gateContribution: CatalogContribution = {
+    handle: GATE_HELLO_IDS.graphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef: GATE_HELLO_IDS.graphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [GATE_HELLO_IDS.programRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  };
+  const gateTargetContribution: CatalogContribution = {
+    handle: GATE_HELLO_IDS.targetGraphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef: GATE_HELLO_IDS.targetGraphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [GATE_HELLO_IDS.programRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  };
   const composedContribution: CatalogContribution = {
     handle: COMPOSED_HELLO_IDS.graphFunctionRef,
     kind: "graph_function",
@@ -1692,13 +1985,15 @@ export function constructHelloWorldModulePublication(
     descriptorRef: `descriptor://abiogenesis/typescript-tenant/${artifact.productContentDigest.slice("sha256:".length)}`,
     contributionManifestRef: `contribution-manifest://abiogenesis/conformance/${artifact.productContentDigest.slice("sha256:".length)}`,
     contracts,
-    evaluators: [],
-    rules: [],
+    evaluators: [gateEvaluator],
+    rules: [gateRule],
     implementationBindings: [
       implementationBinding,
       normalizeImplementationBinding,
       passNormalizedImplementationBinding,
       renderImplementationBinding,
+      gateEvaluatorImplementationBinding,
+      gateTargetImplementationBinding,
       fpImplementationBinding,
       deterministicFpImplementationBinding,
       fpFdPassImplementationBinding,
@@ -1706,6 +2001,7 @@ export function constructHelloWorldModulePublication(
     closureContracts: [
       closureContract,
       workflowClosureContract,
+      gateClosureContract,
       normalizedHelloClosureContract,
       fpClosureContract,
       deterministicFpClosureContract,
@@ -1714,6 +2010,7 @@ export function constructHelloWorldModulePublication(
     programs: [
       program,
       workflowProgram,
+      gateProgram,
       composedProgram,
       graphNormalizeProgram,
       graphRenderProgram,
@@ -1728,6 +2025,8 @@ export function constructHelloWorldModulePublication(
     graphFunctions: [
       graphFunction,
       workflowGraphFunction,
+      gateGraphFunction,
+      gateTargetGraphFunction,
       composedGraphFunction,
       graphNormalizeGraphFunction,
       graphRenderGraphFunction,
@@ -1743,6 +2042,8 @@ export function constructHelloWorldModulePublication(
     contributions: [
       contribution,
       workflowContribution,
+      gateContribution,
+      gateTargetContribution,
       composedContribution,
       graphNormalizeContribution,
       graphRenderContribution,

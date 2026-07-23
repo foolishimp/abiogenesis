@@ -503,6 +503,9 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const contractRefs = new Set(contracts.map((contract) => contract.contractRef));
   const bindingByRef = new Map(bindings.map((binding) => [binding.bindingRef, binding]));
   const availableGraphFunctionRefs = new Set(graphFunctions.map((value) => value.name));
+  const publishedEvaluatorByRef = new Map(
+    publication.evaluators.map((value) => [value.name, value]),
+  );
   const publishedEvaluatorRefs = new Set(publication.evaluators.map((value) => value.name));
   const publishedRuleRefs = new Set(publication.rules.map((value) => value.name));
   const callableGraphFunctionRefs = new Set(program.callableMembership);
@@ -742,6 +745,51 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].evaluatorRefs`,
           message: "gate application requires published Rule and Evaluator declarations",
         });
+      }
+      if (application.relationKind === "gate") {
+        const attachedLeaves = graphFunction.template.nodes
+          .flatMap((node) => cLeafTerms(node.term))
+          .filter((leaf) => leaf.compositionRef === application.applicationRef);
+        const expectedExecutableBindings = application.evaluatorRefs
+          .flatMap((ref) => {
+            const evaluator = publishedEvaluatorByRef.get(ref);
+            return evaluator === undefined || evaluator.regime === "F_H"
+              ? []
+              : [evaluator.binding];
+          })
+          .sort();
+        const attachedExecutableBindings = attachedLeaves
+          .filter(isExecutableCLeaf)
+          .map((leaf) =>
+            bindingByRef.get(leaf.requirement.implementationBindingRef)
+              ?.implementationRef ?? ""
+          )
+          .sort();
+        const expectedRegimes = application.evaluatorRefs
+          .map((ref) => publishedEvaluatorByRef.get(ref)?.regime ?? "")
+          .sort();
+        const attachedRegimes = attachedLeaves
+          .map((leaf) => leaf.fibre)
+          .sort();
+        if (
+          attachedLeaves.length === 0 ||
+          attachedLeaves.some(
+            (leaf) =>
+              leaf.stageRole !== "evaluate" ||
+              leaf.outputCarrierRef !== application.inputContractRef,
+          ) ||
+          canonicalJson(expectedExecutableBindings) !==
+            canonicalJson(attachedExecutableBindings) ||
+          canonicalJson(expectedRegimes) !== canonicalJson(attachedRegimes)
+        ) {
+          diagnostics.push({
+            code: "invalid_application",
+            path:
+              `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+            message:
+              "gate application requires exact evaluator loci bound to its declared evaluator set and target input",
+          });
+        }
       }
       const referencedByRef = new Map(
         referencedGraphFunctions.flatMap((ref) => {
