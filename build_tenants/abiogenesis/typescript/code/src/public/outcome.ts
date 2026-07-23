@@ -57,6 +57,25 @@ function diagnosticFromEvent(
   return Array.isArray(refs) && typeof refs[0] === "string" ? refs[0] : null;
 }
 
+const TRANSIENT_LIFECYCLE_FLUENT_PREFIXES = Object.freeze([
+  "run_active(",
+  "graph_call_active(",
+  "frame_active(",
+  "locus_active(",
+  "c_call_active(",
+  "parent_waiting_on_child(",
+  "child_foldback_available(",
+  "terminal_route_available(",
+]);
+
+function hasOpenLifecycleTruth(replay: ReplayState): boolean {
+  return replay.activeFluents.some((fluent) =>
+    TRANSIENT_LIFECYCLE_FLUENT_PREFIXES.some((prefix) =>
+      fluent.startsWith(prefix)
+    )
+  );
+}
+
 export function projectOutcome(
   invocation: RootPublicInvocation,
   firstReplay: ReplayState,
@@ -84,6 +103,7 @@ export function projectOutcome(
     firstReplay.frameClosedEventRef !== null &&
     firstReplay.graphCallClosedEventRef !== null &&
     firstReplay.runClosedEventRef !== null &&
+    !hasOpenLifecycleTruth(firstReplay) &&
     eventLog.eventCount === firstReplay.eventCount &&
     sha256Canonical(eventLog.events as unknown as JsonValue) ===
       firstReplay.eventStoreDigest;

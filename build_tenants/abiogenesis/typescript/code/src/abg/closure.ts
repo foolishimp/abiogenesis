@@ -12,7 +12,15 @@ import {
   type CCall,
 } from "./c_call.js";
 import type { RuntimeAdmissionBasis } from "./execution_basis.js";
-import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+import {
+  AbgEventStore,
+  admitRuntimeEvent,
+  admitRuntimeEventBatch,
+} from "./event_store.js";
+import {
+  hasOpenedTraversalScope,
+  type OpenedTraversalScope,
+} from "./open_call.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
   isAdmittedRoute,
@@ -49,6 +57,39 @@ export interface ClosureAdmissionRefusal {
 }
 
 export type ClosureAdmissionResult = ClosureAdmission | ClosureAdmissionRefusal;
+
+export interface ChildClosureAdmission {
+  readonly kind: "child_closure_admission";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "closed";
+  readonly closureRef: string;
+  readonly closureDigest: Sha256Digest;
+  readonly cCallRef: string;
+  readonly resultRef: string;
+  readonly judgmentRef: string;
+  readonly routeRef: string;
+  readonly closureContractRef: string;
+  readonly childGraphCallId: string;
+  readonly childFrameId: string;
+  readonly terminalReachedEventRef: string;
+  readonly frameClosedEventRef: string;
+  readonly graphCallClosedEventRef: string;
+}
+
+export interface ChildClosureAdmissionRefusal {
+  readonly kind: "child_closure_admission_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code:
+    | "closure_contract_mismatch"
+    | "replay_mismatch"
+    | "runtime_basis_mismatch";
+  readonly message: string;
+}
+
+export type ChildClosureAdmissionResult =
+  | ChildClosureAdmission
+  | ChildClosureAdmissionRefusal;
 
 function refuseClosure(
   store: AbgEventStore,
@@ -171,7 +212,10 @@ export function admitClosure(
     closureContract.eventKindRefs.join("\0") !==
       ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"].join("\0") ||
     store.readAll().some(
-      (event) => event.kind === "terminal_reached" && event.runId === cCall.runId,
+      (event) =>
+        event.kind === "terminal_reached" &&
+        event.runId === cCall.runId &&
+        event.frameId === cCall.frameId,
     )
   ) {
     return refuseClosure(
@@ -289,4 +333,208 @@ export function admitClosure(
     graphCallClosedEventRef: graphCallEvent.eventId,
     runClosedEventRef: runEvent.eventId,
   }) as ClosureAdmission;
+}
+
+export function admitChildClosure(
+  store: AbgEventStore,
+  childScope: OpenedTraversalScope,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  route: AdmittedRoute,
+  replayState: ReplayState,
+  closureContract: Readonly<ClosureContract>,
+  basis: RuntimeAdmissionBasis,
+): ChildClosureAdmissionResult {
+  const closureContractDigest = sha256Canonical(
+    closureContract as unknown as JsonValue,
+  );
+  const childGraphCallOpen = store.readAll().find(
+    (event) =>
+      event.kind === "graph_call_opened" &&
+      event.eventId === childScope.graphCallOpenEventRef &&
+      event.graphCallId === childScope.graphCallId,
+  );
+  const childGraphCallPayload =
+    childGraphCallOpen !== undefined &&
+      typeof childGraphCallOpen.payload === "object" &&
+      childGraphCallOpen.payload !== null &&
+      !Array.isArray(childGraphCallOpen.payload)
+      ? childGraphCallOpen.payload as Readonly<Record<string, JsonValue>>
+      : null;
+  if (
+    !hasOpenedTraversalScope(store, childScope) ||
+    typeof childGraphCallPayload?.parentFrameId !== "string" ||
+    !hasOpenedCCall(store, cCall) ||
+    !isAdmittedCCallResult(result) ||
+    !isAdmittedCCallJudgment(judgment) ||
+    !isAdmittedRoute(route) ||
+    cCall.runId !== childScope.runId ||
+    cCall.graphCallId !== childScope.graphCallId ||
+    cCall.frameId !== childScope.frameId ||
+    result.cCallRef !== cCall.cCallRef ||
+    judgment.cCallRef !== cCall.cCallRef ||
+    route.cCallRef !== cCall.cCallRef ||
+    judgment.resultRef !== result.resultRef ||
+    route.judgmentRef !== judgment.judgmentRef ||
+    judgment.judgment !== "advance" ||
+    route.routeKind !== "terminal"
+  ) {
+    return {
+      kind: "child_closure_admission_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "runtime_basis_mismatch",
+      message:
+        "child closure requires one exact child scope, judged CCall, and terminal route",
+    };
+  }
+  const currentReplay = replay(store, { runId: childScope.runId });
+  const currentRoute = currentReplay.routes.at(-1);
+  if (
+    currentReplay.replayDigest !== replayState.replayDigest ||
+    currentRoute?.routeRef !== route.routeRef ||
+    currentRoute?.admissionEventRef !== route.admissionEventRef ||
+    store.readAll().at(-1)?.eventId !== route.admissionEventRef
+  ) {
+    return {
+      kind: "child_closure_admission_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "replay_mismatch",
+      message: "child closure basis is not current replay truth",
+    };
+  }
+  if (
+    closureContract.closureContractRef !== cCall.closureContractRef ||
+    closureContractDigest !== cCall.closureContractDigest ||
+    closureContract.predicateRef !== cCall.terminalPredicateRef ||
+    closureContract.replayProjectionRef !== cCall.replayProjectionRef ||
+    closureContract.terminalKind !== "completed" ||
+    closureContract.evidenceContractRef !== cCall.evidenceContractRef ||
+    closureContract.resultContractRef !== result.contractRef ||
+    closureContract.refusalContractRef !== cCall.refusalContractRef ||
+    closureContract.judgmentContractRef !== judgment.contractRef ||
+    closureContract.transitionContractRef !== route.contractRef ||
+    closureContract.eventKindRefs.join("\0") !==
+      ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"]
+        .join("\0") ||
+    store.readAll().some(
+      (event) =>
+        event.runId === childScope.runId &&
+        (
+          (event.kind === "terminal_reached" &&
+            event.frameId === childScope.frameId) ||
+          (event.kind === "frame_closed" &&
+            event.frameId === childScope.frameId) ||
+          (event.kind === "graph_call_closed" &&
+            event.graphCallId === childScope.graphCallId)
+        ),
+    )
+  ) {
+    return {
+      kind: "child_closure_admission_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "closure_contract_mismatch",
+      message:
+        "child closure contract, lifecycle identity, or uniqueness check failed",
+    };
+  }
+
+  const closureBody = {
+    cCallRef: cCall.cCallRef,
+    resultRef: result.resultRef,
+    judgmentRef: judgment.judgmentRef,
+    routeRef: route.routeRef,
+    closureContractRef: closureContract.closureContractRef,
+    closureContractDigest,
+    childGraphCallId: childScope.graphCallId,
+    childFrameId: childScope.frameId,
+    terminalKind: closureContract.terminalKind,
+  };
+  const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
+  const closureRef =
+    `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
+  const events = admitRuntimeEventBatch(store, [
+    () => ({
+      kind: "terminal_reached",
+      eventTime: basis.eventTime,
+      aggregateType: "frame",
+      aggregateId: childScope.frameId,
+      parentAggregateId: childScope.graphCallId,
+      causationEventRefs: [
+        route.admissionEventRef,
+        ...basis.causationEventRefs,
+      ],
+      correlationId: basis.correlationId,
+      workflowVersion: "5.0.0",
+      scopeClass: "run",
+      basisId: cCall.basisId,
+      runId: childScope.runId,
+      graphFunctionRef: cCall.graphFunctionRef,
+      graphCallId: childScope.graphCallId,
+      frameId: childScope.frameId,
+      payload: { closureRef, closureDigest, ...closureBody },
+    }),
+    (batch) => ({
+      kind: "frame_closed",
+      eventTime: basis.eventTime,
+      aggregateType: "frame",
+      aggregateId: childScope.frameId,
+      parentAggregateId: childScope.graphCallId,
+      causationEventRefs: [batch[0]!.eventId],
+      correlationId: basis.correlationId,
+      workflowVersion: "5.0.0",
+      scopeClass: "run",
+      basisId: cCall.basisId,
+      runId: childScope.runId,
+      graphFunctionRef: cCall.graphFunctionRef,
+      graphCallId: childScope.graphCallId,
+      frameId: childScope.frameId,
+      payload: {
+        frameId: childScope.frameId,
+        terminalReachedEventRef: batch[0]!.eventId,
+        closureContractRef: closureContract.closureContractRef,
+      },
+    }),
+    (batch) => ({
+      kind: "graph_call_closed",
+      eventTime: basis.eventTime,
+      aggregateType: "graph_call",
+      aggregateId: childScope.graphCallId,
+      parentAggregateId: childScope.runId,
+      causationEventRefs: [batch[1]!.eventId],
+      correlationId: basis.correlationId,
+      workflowVersion: "5.0.0",
+      scopeClass: "run",
+      basisId: cCall.basisId,
+      runId: childScope.runId,
+      graphFunctionRef: cCall.graphFunctionRef,
+      graphCallId: childScope.graphCallId,
+      frameId: childScope.frameId,
+      payload: {
+        graphCallId: childScope.graphCallId,
+        frameClosedEventRef: batch[1]!.eventId,
+        closureContractRef: closureContract.closureContractRef,
+      },
+    }),
+  ]);
+  return deepFreeze({
+    kind: "child_closure_admission",
+    schemaVersion: "5.0.0",
+    disposition: "closed",
+    closureRef,
+    closureDigest,
+    cCallRef: cCall.cCallRef,
+    resultRef: result.resultRef,
+    judgmentRef: judgment.judgmentRef,
+    routeRef: route.routeRef,
+    closureContractRef: closureContract.closureContractRef,
+    childGraphCallId: childScope.graphCallId,
+    childFrameId: childScope.frameId,
+    terminalReachedEventRef: events[0]!.eventId,
+    frameClosedEventRef: events[1]!.eventId,
+    graphCallClosedEventRef: events[2]!.eventId,
+  }) as ChildClosureAdmission;
 }

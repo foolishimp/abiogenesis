@@ -87,9 +87,23 @@ export function isBoundedRecursionState(
   }
   const record = value as Readonly<Record<string, unknown>>;
   return Object.keys(record).sort().join("\0") ===
-      ["kind", "remaining", "schemaVersion", "terminal", "trace"].join("\0") &&
+      [
+        "blockedChildRemaining",
+        "kind",
+        "remaining",
+        "schemaVersion",
+        "terminal",
+        "trace",
+      ].join("\0") &&
     record.kind === "bounded_recursion_state" &&
     record.schemaVersion === "5.0.0" &&
+    (
+      record.blockedChildRemaining === null ||
+      (
+        Number.isSafeInteger(record.blockedChildRemaining) &&
+        (record.blockedChildRemaining as number) > 0
+      )
+    ) &&
     Number.isSafeInteger(record.remaining) &&
     (record.remaining as number) >= 0 &&
     typeof record.terminal === "boolean" &&
@@ -104,6 +118,7 @@ export function evaluateRecursionTermination(
   output: Readonly<BoundedRecursionState>,
 ): boolean {
   return output.remaining === input.remaining &&
+    output.blockedChildRemaining === input.blockedChildRemaining &&
     output.terminal === (input.remaining === 0) &&
     output.trace.join("\0") === input.trace.join("\0");
 }
@@ -113,7 +128,9 @@ export function evaluateRecursionStep(
   output: Readonly<BoundedRecursionState>,
 ): boolean {
   return input.remaining > 0 &&
+    input.blockedChildRemaining !== input.remaining &&
     output.remaining === input.remaining - 1 &&
+    output.blockedChildRemaining === input.blockedChildRemaining &&
     output.terminal === false &&
     output.trace.join("\0") === [...input.trace, input.remaining - 1].join("\0");
 }
@@ -157,13 +174,27 @@ export function resolveRecursionJudgmentRelation(
 
 export function constructBoundedRecursionState(
   remaining: number,
+  blockedChildRemaining: number | null = null,
 ): Readonly<BoundedRecursionState> {
-  if (!Number.isSafeInteger(remaining) || remaining < 0) {
-    throw new TypeError("bounded recursion requires one non-negative safe integer");
+  if (
+    !Number.isSafeInteger(remaining) ||
+    remaining < 0 ||
+    (
+      blockedChildRemaining !== null &&
+      (
+        !Number.isSafeInteger(blockedChildRemaining) ||
+        blockedChildRemaining < 1
+      )
+    )
+  ) {
+    throw new TypeError(
+      "bounded recursion requires a non-negative bound and optional positive child-stop point",
+    );
   }
   return deepFreeze({
     kind: "bounded_recursion_state",
     schemaVersion: "5.0.0",
+    blockedChildRemaining,
     remaining,
     terminal: remaining === 0,
     trace: [],

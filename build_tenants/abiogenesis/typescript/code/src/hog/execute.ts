@@ -1,6 +1,7 @@
 import {
   admitApplicationChildPreparationRefusal,
   admitApplicationChildFoldback,
+  admitChildClosure,
   admitChildFoldback,
   admitChildPreparationRefusal,
   admitClosure,
@@ -342,6 +343,18 @@ function completeBlockedTraversal<Input, Output>(
     readonly resultRef: string;
   },
 ): ExecutableTraversalCompletion {
+  const resultEvent = input.store.readAll().find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      isRecord(event.payload) &&
+      event.payload.resultRef === values.resultRef,
+  );
+  const resultValue =
+    resultEvent !== undefined &&
+      isRecord(resultEvent.payload) &&
+      Object.hasOwn(resultEvent.payload, "value")
+      ? resultEvent.payload.value as JsonValue
+      : null;
   const currentReplay = replayRun(input);
   const proposal = proposeBlockedRoute(
     input.graph,
@@ -419,6 +432,7 @@ function completeBlockedTraversal<Input, Output>(
     cCallRef: cCall.cCallRef,
     resultRef: values.resultRef,
     judgmentRef: values.judgmentRef,
+    resultValue,
     diagnosticRef: values.reasonRef,
   });
 }
@@ -1168,15 +1182,36 @@ export async function completeExecutableTraversal<
       diagnosticRef: "diagnostic://abiogenesis/hog/unexpected-judged-route@5",
     });
   }
+  const routeReplay = replayRun(input);
   if (input.terminalMode === "return_to_parent") {
+    const childClosure = admitChildClosure(
+      input.store,
+      input.openedTraversalScope,
+      cCall,
+      result,
+      judgment,
+      route,
+      routeReplay,
+      input.closureContract,
+      basis(input.clock, "child-closure"),
+    );
+    if (childClosure.kind !== "child_closure_admission") {
+      return completion("failed", replayRun(input), {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        diagnosticRef:
+          `diagnostic://abiogenesis/hog/${childClosure.code}@5`,
+      });
+    }
     return completion("closed", replayRun(input), {
       cCallRef: cCall.cCallRef,
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
+      closureRef: childClosure.closureRef,
       resultValue: result.value,
     });
   }
-  const routeReplay = replayRun(input);
   const closure = admitClosure(
     input.store,
     cCall,
@@ -1329,15 +1364,41 @@ export function completeDeferredApplicationTerminal(
     );
   }
   deferredApplicationStates.delete(input.completion);
+  const routeReplay = replayRun(state.input);
   if (state.input.applicationCompletionMode === "return_to_parent") {
+    const childClosure = admitChildClosure(
+      state.input.store,
+      state.input.openedTraversalScope,
+      state.cCall,
+      state.result,
+      state.judgment,
+      route,
+      routeReplay,
+      state.input.closureContract,
+      {
+        eventTime: input.clock.eventTime,
+        correlationId:
+          `${input.clock.correlationId}/application-child-closure`,
+        causationEventRefs: [],
+      },
+    );
+    if (childClosure.kind !== "child_closure_admission") {
+      return completion("failed", replayRun(state.input), {
+        cCallRef: state.cCall.cCallRef,
+        resultRef: state.result.resultRef,
+        judgmentRef: state.judgment.judgmentRef,
+        diagnosticRef:
+          `diagnostic://abiogenesis/hog/${childClosure.code}@5`,
+      });
+    }
     return completion("closed", replayRun(state.input), {
       cCallRef: state.cCall.cCallRef,
       resultRef: state.result.resultRef,
       judgmentRef: state.judgment.judgmentRef,
+      closureRef: childClosure.closureRef,
       resultValue: state.result.value,
     });
   }
-  const routeReplay = replayRun(state.input);
   const closure = admitClosure(
     state.input.store,
     state.cCall,
@@ -1378,7 +1439,15 @@ export function advanceDeferredRecursion(
     !exactDeferredApplication(state, input.application) ||
     recursionTerminationDecision(input.application, state.result.value) !== false ||
     input.application.foldback.binding !== "$" ||
-    input.childCompletion.disposition !== "closed" ||
+    (
+      input.childCompletion.disposition !== "closed" &&
+      input.childCompletion.disposition !== "blocked"
+    ) ||
+    (
+      input.childCompletion.disposition === "closed"
+        ? input.childCompletion.closureRef === null
+        : input.childCompletion.closureRef !== null
+    ) ||
     input.childCompletion.resultRef === null ||
     input.childCompletion.judgmentRef === null ||
     typeof childValue !== "object" ||
@@ -1407,6 +1476,7 @@ export function advanceDeferredRecursion(
     {
       resultRef: input.childCompletion.resultRef,
       judgmentRef: input.childCompletion.judgmentRef,
+      closureRef: input.childCompletion.closureRef,
     },
     {
       eventTime: input.clock.eventTime,
@@ -1423,6 +1493,76 @@ export function advanceDeferredRecursion(
       `diagnostic://abiogenesis/hog/${foldback.code}@5`,
       foldback as unknown as JsonValue,
     );
+  }
+  if (foldback.childDisposition === "blocked") {
+    const foldbackReplay = replayRun(state.input);
+    const proposal = proposeRecursionRoute(
+      state.input.graph,
+      input.application,
+      state.input.traversalStop.cursor,
+      null,
+      state.cCall,
+      state.judgment,
+      foldback,
+      foldbackReplay,
+      state.cCall.transitionContractRef,
+      "blocked",
+    );
+    if (proposal.kind !== "traversal_route_candidate") {
+      return failDeferredApplication(
+        state,
+        input.completion,
+        input.clock,
+        "application-child-stop-proposal",
+        `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+        proposal as unknown as JsonValue,
+      );
+    }
+    const route = admitRecursionRoute(
+      state.input.store,
+      state.input.executionBasis,
+      state.input.graph,
+      input.application,
+      state.input.traversalStop.cursor,
+      null,
+      foldbackReplay,
+      proposal,
+      {
+        eventTime: input.clock.eventTime,
+        correlationId:
+          `${input.clock.correlationId}/application-child-stop-route`,
+        causationEventRefs: [],
+      },
+      {
+        cCall: state.cCall,
+        result: state.result,
+        judgment: state.judgment,
+        foldback,
+      },
+    );
+    deferredApplicationStates.delete(input.completion);
+    if (
+      route.kind !== "admitted_traversal_route" ||
+      route.routeKind !== "blocked" ||
+      route.runStoppedEventRef === null
+    ) {
+      return completion("failed", replayRun(state.input), {
+        cCallRef: state.cCall.cCallRef,
+        resultRef: state.result.resultRef,
+        judgmentRef: state.judgment.judgmentRef,
+        diagnosticRef: route.kind === "admitted_traversal_route"
+          ? "diagnostic://abiogenesis/hog/application-run-stop-absent@5"
+          : `diagnostic://abiogenesis/hog/${route.code}@5`,
+      });
+    }
+    return completion("blocked", replayRun(state.input), {
+      cCallRef: state.cCall.cCallRef,
+      resultRef: foldback.childResultRef,
+      judgmentRef: state.judgment.judgmentRef,
+      resultValue: childValue as JsonValue,
+      diagnosticRef: foldback.childReasonRef ??
+        "diagnostic://abiogenesis/hog/child-traversal-blocked@5",
+    });
   }
   const targetCursor = deriveRecursionReentryCursor(
     state.input.graph,
@@ -1894,6 +2034,7 @@ export function completeWorkflowTraversal(
     {
       childResultRef: input.childCompletion.resultRef,
       childJudgmentRef: input.childCompletion.judgmentRef,
+      childClosureRef: input.childCompletion.closureRef,
     },
     basis(input.clock, "child-foldback"),
   );

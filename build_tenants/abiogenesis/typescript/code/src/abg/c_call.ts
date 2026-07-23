@@ -168,6 +168,8 @@ export interface SubTraversalEvidenceCandidate {
   readonly childResultRef: string;
   readonly childResultDigest: Sha256Digest;
   readonly childJudgmentRef: string;
+  readonly childClosureRef: string | null;
+  readonly childReasonRef: string | null;
   readonly childTerminalEventRef: string;
 }
 
@@ -269,6 +271,8 @@ export interface AdmittedCCallEvidence {
   readonly childResultRef?: string;
   readonly childResultDigest?: Sha256Digest;
   readonly childJudgmentRef?: string;
+  readonly childClosureRef?: string | null;
+  readonly childReasonRef?: string | null;
   readonly childTerminalEventRef?: string;
   readonly admissionEventRef: string;
 }
@@ -368,6 +372,8 @@ export interface ChildFoldbackAdmission {
   readonly childResultRef: string;
   readonly childResultDigest: Sha256Digest;
   readonly childJudgmentRef: string;
+  readonly childClosureRef: string | null;
+  readonly childReasonRef: string | null;
   readonly childTerminalEventRef: string;
   readonly outputDigest: Sha256Digest;
   readonly admissionEventRef: string;
@@ -780,6 +786,7 @@ export function admitChildFoldback(
   input: {
     readonly childResultRef: string;
     readonly childJudgmentRef: string;
+    readonly childClosureRef: string | null;
   },
   basis: RuntimeAdmissionBasis,
 ): ChildFoldbackAdmission | ChildFoldbackRefusal {
@@ -830,7 +837,7 @@ export function admitChildFoldback(
       event.payload.judgmentRef === input.childJudgmentRef &&
       event.payload.resultRef === input.childResultRef,
   );
-  const terminalEvent = events.slice().reverse().find(
+  const routeEvent = events.slice().reverse().find(
     (event) => event.kind === "traversal_route_admitted" &&
       event.runId === childScope.runId &&
       event.frameId === childScope.frameId &&
@@ -838,12 +845,45 @@ export function admitChildFoldback(
       event.payload.judgmentRef === input.childJudgmentRef &&
       (event.payload.routeKind === "terminal" || event.payload.routeKind === "blocked"),
   );
+  const routePayload = routeEvent !== undefined && isJsonRecord(routeEvent.payload)
+    ? routeEvent.payload
+    : null;
+  const routeKind = routePayload?.routeKind;
+  const terminalReachedEvent = routeKind === "terminal"
+    ? events.find(
+        (event) =>
+          event.kind === "terminal_reached" &&
+          event.runId === childScope.runId &&
+          event.frameId === childScope.frameId &&
+          event.causationEventRefs.includes(routeEvent!.eventId) &&
+          isJsonRecord(event.payload) &&
+          event.payload.closureRef === input.childClosureRef,
+      )
+    : undefined;
+  const frameClosedEvent = terminalReachedEvent === undefined
+    ? undefined
+    : events.find(
+        (event) =>
+          event.kind === "frame_closed" &&
+          event.runId === childScope.runId &&
+          event.frameId === childScope.frameId &&
+          event.causationEventRefs.includes(terminalReachedEvent.eventId),
+      );
+  const graphCallClosedEvent = frameClosedEvent === undefined
+    ? undefined
+    : events.find(
+        (event) =>
+          event.kind === "graph_call_closed" &&
+          event.runId === childScope.runId &&
+          event.graphCallId === childScope.graphCallId &&
+          event.causationEventRefs.includes(frameClosedEvent.eventId),
+      );
   if (
     resultEvent === undefined ||
     judgmentEvent === undefined ||
-    terminalEvent === undefined ||
+    routeEvent === undefined ||
     !judgmentEvent.causationEventRefs.includes(resultEvent.eventId) ||
-    !terminalEvent.causationEventRefs.includes(judgmentEvent.eventId)
+    !routeEvent.causationEventRefs.includes(judgmentEvent.eventId)
   ) {
     return {
       kind: "child_foldback_refusal",
@@ -854,16 +894,33 @@ export function admitChildFoldback(
     };
   }
   const resultPayload = isJsonRecord(resultEvent.payload) ? resultEvent.payload : null;
-  const terminalPayload = isJsonRecord(terminalEvent.payload) ? terminalEvent.payload : null;
+  const judgmentPayload = isJsonRecord(judgmentEvent.payload)
+    ? judgmentEvent.payload
+    : null;
   const resultDigest = resultPayload?.resultDigest;
   const outputDigest = resultPayload?.valueDigest;
-  const routeKind = terminalPayload?.routeKind;
+  const childReasonRef = typeof judgmentPayload?.reasonRef === "string"
+    ? judgmentPayload.reasonRef
+    : null;
+  const childLifecycleEvent = routeKind === "terminal"
+    ? graphCallClosedEvent
+    : routeEvent;
   if (
     typeof resultDigest !== "string" ||
     !/^sha256:[a-f0-9]{64}$/u.test(resultDigest) ||
     typeof outputDigest !== "string" ||
     !/^sha256:[a-f0-9]{64}$/u.test(outputDigest) ||
-    (routeKind !== "terminal" && routeKind !== "blocked")
+    (routeKind !== "terminal" && routeKind !== "blocked") ||
+    childLifecycleEvent === undefined ||
+    (routeKind === "terminal" &&
+      (
+        input.childClosureRef === null ||
+        terminalReachedEvent === undefined ||
+        frameClosedEvent === undefined ||
+        graphCallClosedEvent === undefined
+      )) ||
+    (routeKind === "blocked" &&
+      (input.childClosureRef !== null || childReasonRef === null))
   ) {
     return {
       kind: "child_foldback_refusal",
@@ -884,7 +941,9 @@ export function admitChildFoldback(
     childResultRef: input.childResultRef,
     childResultDigest: resultDigest as Sha256Digest,
     childJudgmentRef: input.childJudgmentRef,
-    childTerminalEventRef: terminalEvent.eventId,
+    childClosureRef: input.childClosureRef,
+    childReasonRef,
+    childTerminalEventRef: childLifecycleEvent.eventId,
     outputDigest: outputDigest as Sha256Digest,
   };
   const foldbackDigest = sha256Canonical(body as unknown as JsonValue);
@@ -896,7 +955,11 @@ export function admitChildFoldback(
     aggregateType: "frame",
     aggregateId: parentCCall.frameId,
     parentAggregateId: parentCCall.graphCallId,
-    causationEventRefs: [terminalEvent.eventId, parentCCall.fibreSelectedEventRef, ...basis.causationEventRefs],
+    causationEventRefs: [
+      childLifecycleEvent.eventId,
+      parentCCall.fibreSelectedEventRef,
+      ...basis.causationEventRefs,
+    ],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -949,6 +1012,8 @@ export function deriveSubTraversalEvidence(
     childResultRef: foldback.childResultRef,
     childResultDigest: foldback.childResultDigest,
     childJudgmentRef: foldback.childJudgmentRef,
+    childClosureRef: foldback.childClosureRef,
+    childReasonRef: foldback.childReasonRef,
     childTerminalEventRef: foldback.childTerminalEventRef,
   }) as SubTraversalEvidenceCandidate;
   derivedSubTraversalEvidence.add(candidate);
@@ -1558,6 +1623,8 @@ export function admitEvidence(
     childResultRef: candidate.childResultRef,
     childResultDigest: candidate.childResultDigest,
     childJudgmentRef: candidate.childJudgmentRef,
+    childClosureRef: candidate.childClosureRef,
+    childReasonRef: candidate.childReasonRef,
     childTerminalEventRef: candidate.childTerminalEventRef,
   };
   const evidenceDigest = sha256Canonical(body as unknown as JsonValue);

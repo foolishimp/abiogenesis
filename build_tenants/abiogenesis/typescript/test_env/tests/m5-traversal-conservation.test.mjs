@@ -623,6 +623,7 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     input: {
       kind: "bounded_recursion_state",
       schemaVersion: "5.0.0",
+      blockedChildRemaining: null,
       remaining: 3,
       terminal: false,
       trace: [],
@@ -638,6 +639,7 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
       input: {
         kind: "bounded_recursion_state",
         schemaVersion: "5.0.0",
+        blockedChildRemaining: null,
         remaining: 5,
         terminal: false,
         trace: [],

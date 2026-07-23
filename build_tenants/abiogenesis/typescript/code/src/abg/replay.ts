@@ -348,14 +348,42 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
   );
 
   const runOpen = events.find((event) => event.kind === "run_segment_opened");
-  const graphCallOpen = events.find((event) => event.kind === "graph_call_opened");
-  const frameOpen = events.find((event) => event.kind === "frame_opened");
+  const graphCallOpen = events.find(
+    (event) =>
+      event.kind === "graph_call_opened" &&
+      stringField(event, "parentFrameId") === null,
+  );
+  const frameOpen = graphCallOpen === undefined
+    ? undefined
+    : events.find(
+        (event) =>
+          event.kind === "frame_opened" &&
+          event.graphCallId === graphCallOpen.graphCallId,
+      );
   const traversalCursor = events.find(
     (event) => event.kind === "traversal_cursor_entered",
   );
-  const terminal = events.find((event) => event.kind === "terminal_reached");
-  const frameClosed = events.find((event) => event.kind === "frame_closed");
-  const graphCallClosed = events.find((event) => event.kind === "graph_call_closed");
+  const terminal = frameOpen === undefined
+    ? undefined
+    : events.find(
+        (event) =>
+          event.kind === "terminal_reached" &&
+          event.frameId === frameOpen.frameId,
+      );
+  const frameClosed = frameOpen === undefined
+    ? undefined
+    : events.find(
+        (event) =>
+          event.kind === "frame_closed" &&
+          event.frameId === frameOpen.frameId,
+      );
+  const graphCallClosed = graphCallOpen === undefined
+    ? undefined
+    : events.find(
+        (event) =>
+          event.kind === "graph_call_closed" &&
+          event.graphCallId === graphCallOpen.graphCallId,
+      );
   const runClosed = events.find((event) => event.kind === "run_closed");
   const runStopped = events.find((event) => event.kind === "run_stopped");
   const invocationRefused = events.find((event) => event.kind === "invocation_refused");

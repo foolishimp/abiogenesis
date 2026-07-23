@@ -186,65 +186,382 @@ function isRecord(
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function stringField(
+  event: Pick<RuntimeEvent, "payload">,
+  name: string,
+): string | null {
+  if (!isRecord(event.payload)) return null;
+  const value = event.payload[name];
+  return typeof value === "string" ? value : null;
+}
+
+function stringArrayField(
+  event: Pick<RuntimeEvent, "payload">,
+  name: string,
+): readonly string[] {
+  if (!isRecord(event.payload)) return [];
+  const value = event.payload[name];
+  return Array.isArray(value) &&
+      value.every((entry) => typeof entry === "string")
+    ? value as readonly string[]
+    : [];
+}
+
+function fluent(name: string, identity: string): string {
+  return `${name}(${identity})`;
+}
+
+function consumedAvailabilityFluents(ref: string): readonly string[] {
+  if (ref.startsWith("judgment://")) {
+    return [fluent("c_call_judgment_available", ref)];
+  }
+  if (ref.startsWith("child-foldback://")) {
+    return [fluent("child_foldback_available", ref)];
+  }
+  if (ref.startsWith("child-preparation-refusal://")) {
+    return [fluent("child_preparation_refused", ref)];
+  }
+  if (ref.startsWith("retry-progress://")) {
+    return [fluent("retry_progress_available", ref)];
+  }
+  return [];
+}
+
 export function eventCalculusEffect(
   eventOrKind: RootEventKind | Pick<RuntimeEvent, "kind" | "payload">,
 ): EventCalculusEffect {
   if (typeof eventOrKind === "string") return ROOT_EVENT_CALCULUS[eventOrKind];
-  if (eventOrKind.kind !== "traversal_route_admitted") {
-    return ROOT_EVENT_CALCULUS[eventOrKind.kind];
+  const event = eventOrKind as RuntimeEvent;
+  switch (event.kind) {
+    case "run_segment_opened":
+      return {
+        initiates: [fluent("run_active", event.runId ?? event.aggregateId)],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    case "graph_call_opened": {
+      const graphCallId = event.graphCallId ?? event.aggregateId;
+      const parentFrameId = stringField(event, "parentFrameId");
+      return {
+        initiates: [
+          fluent("graph_call_active", graphCallId),
+          ...(parentFrameId === null
+            ? []
+            : [fluent("parent_waiting_on_child", parentFrameId)]),
+        ],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "frame_opened":
+      return {
+        initiates: [
+          fluent("frame_active", event.frameId ?? event.aggregateId),
+        ],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    case "traversal_cursor_entered": {
+      const cursorRef = stringField(event, "cursorRef");
+      return {
+        initiates: cursorRef === null
+          ? []
+          : [fluent("locus_active", cursorRef)],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "c_call_opened":
+      return {
+        initiates: [fluent("c_call_active", event.aggregateId)],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    case "c_call_fibre_selected":
+      return {
+        initiates: [fluent("c_call_fibre_admitted", event.aggregateId)],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    case "c_call_evidenced": {
+      const evidenceRef = stringField(event, "evidenceRef");
+      return {
+        initiates: evidenceRef === null
+          ? []
+          : [fluent("c_call_evidence_available", evidenceRef)],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "c_call_result_admitted": {
+      const resultRef = stringField(event, "resultRef");
+      return {
+        initiates: resultRef === null
+          ? []
+          : [fluent("c_call_result_available", resultRef)],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "c_call_judged": {
+      const judgmentRef = stringField(event, "judgmentRef");
+      return {
+        initiates: judgmentRef === null
+          ? []
+          : [fluent("c_call_judgment_available", judgmentRef)],
+        terminates: [fluent("c_call_active", event.aggregateId)],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "child_foldback_admitted": {
+      const foldbackRef = stringField(event, "foldbackRef");
+      const childGraphCallId = stringField(event, "childGraphCallId");
+      const childFrameId = stringField(event, "childFrameId");
+      const childDisposition = stringField(event, "childDisposition");
+      const applicationRef = stringField(event, "applicationRef");
+      return {
+        initiates:
+          applicationRef !== null && foldbackRef !== null
+            ? [fluent("child_foldback_available", foldbackRef)]
+            : [],
+        terminates: [
+          ...(event.frameId === undefined
+            ? []
+            : [fluent("parent_waiting_on_child", event.frameId)]),
+          ...(childDisposition === "blocked" && childFrameId !== null
+            ? [fluent("frame_active", childFrameId)]
+            : []),
+          ...(childDisposition === "blocked" && childGraphCallId !== null
+            ? [fluent("graph_call_active", childGraphCallId)]
+            : []),
+        ],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "child_preparation_refused": {
+      const refusalRef = stringField(event, "refusalRef");
+      const childGraphFunctionRef = stringField(
+        event,
+        "childGraphFunctionRef",
+      );
+      return {
+        initiates: refusalRef === null
+          ? []
+          : [fluent("child_preparation_refused", refusalRef)],
+        terminates: childGraphFunctionRef === null || event.frameId === undefined
+          ? []
+          : [fluent("parent_waiting_on_child", event.frameId)],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "traversal_route_admitted":
+      break;
+    case "runtime_failure_observed":
+      return {
+        initiates: [fluent("runtime_failure", event.eventId)],
+        terminates: [
+          ...(event.frameId === undefined
+            ? []
+            : [
+                fluent("frame_active", event.frameId),
+              ]),
+          ...(event.graphCallId === undefined
+            ? []
+            : [fluent("graph_call_active", event.graphCallId)]),
+          ...(event.runId === undefined
+            ? []
+            : [fluent("run_active", event.runId)]),
+        ],
+        clips: [],
+        declips: [],
+      };
+    case "run_stopped":
+      return {
+        initiates: event.runId === undefined
+          ? []
+          : [fluent("run_terminal", event.runId)],
+        terminates: [
+          ...(event.frameId === undefined
+            ? []
+            : [
+                fluent("frame_active", event.frameId),
+                fluent("frame_blocked", event.frameId),
+                fluent("frame_failed", event.frameId),
+              ]),
+          ...(event.graphCallId === undefined
+            ? []
+            : [fluent("graph_call_active", event.graphCallId)]),
+          ...(event.runId === undefined
+            ? []
+            : [fluent("run_active", event.runId)]),
+        ],
+        clips: [],
+        declips: [],
+      };
+    case "terminal_reached": {
+      const routeRef = stringField(event, "routeRef");
+      return {
+        initiates: event.frameId === undefined
+          ? []
+          : [fluent("terminal_admitted", event.frameId)],
+        terminates: routeRef === null
+          ? []
+          : [fluent("terminal_route_available", routeRef)],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "frame_closed":
+      return {
+        initiates: event.frameId === undefined
+          ? []
+          : [fluent("frame_closed", event.frameId)],
+        terminates: event.frameId === undefined
+          ? []
+          : [fluent("frame_active", event.frameId)],
+        clips: [],
+        declips: [],
+      };
+    case "graph_call_closed":
+      return {
+        initiates: event.graphCallId === undefined
+          ? []
+          : [fluent("graph_call_closed", event.graphCallId)],
+        terminates: event.graphCallId === undefined
+          ? []
+          : [fluent("graph_call_active", event.graphCallId)],
+        clips: [],
+        declips: [],
+      };
+    case "run_closed":
+      return {
+        initiates: event.runId === undefined
+          ? []
+          : [fluent("run_closed", event.runId)],
+        terminates: event.runId === undefined
+          ? []
+          : [fluent("run_active", event.runId)],
+        clips: [],
+        declips: [],
+      };
+    default:
+      return ROOT_EVENT_CALCULUS[event.kind];
   }
   if (!isRecord(eventOrKind.payload)) {
     throw new TypeError("traversal route event requires a closed payload");
   }
+  const sourceCursorRef = stringField(event, "sourceCursorRef");
+  const targetCursorRef = stringField(event, "targetCursorRef");
+  const routeRef = stringField(event, "routeRef");
+  const judgmentRef = stringField(event, "judgmentRef");
+  const consumedFluents = stringArrayField(
+    event,
+    "consumedAvailabilityRefs",
+  ).flatMap((ref) => consumedAvailabilityFluents(ref));
   switch (eventOrKind.payload.routeKind) {
     case "advance":
       return {
-        initiates: ["locus_active"],
-        terminates: ["locus_active"],
+        initiates: targetCursorRef === null
+          ? []
+          : [fluent("locus_active", targetCursorRef)],
+        terminates: [
+          ...(sourceCursorRef === null
+            ? []
+            : [fluent("locus_active", sourceCursorRef)]),
+          ...consumedFluents,
+        ],
         clips: [],
         declips: [],
       };
     case "retry":
       return {
-        initiates: ["locus_active"],
-        terminates: ["locus_active", "retry_progress_available"],
+        initiates: targetCursorRef === null
+          ? []
+          : [fluent("locus_active", targetCursorRef)],
+        terminates: [
+          ...(sourceCursorRef === null
+            ? []
+            : [fluent("locus_active", sourceCursorRef)]),
+          ...consumedFluents,
+        ],
         clips: [],
         declips: [],
       };
     case "terminal":
       return {
-        initiates: ["terminal_route_available"],
-        terminates: ["locus_active", "c_call_judgment_available"],
+        initiates: routeRef === null
+          ? []
+          : [fluent("terminal_route_available", routeRef)],
+        terminates: [
+          ...(sourceCursorRef === null
+            ? []
+            : [fluent("locus_active", sourceCursorRef)]),
+          ...(judgmentRef === null
+            ? []
+            : [fluent("c_call_judgment_available", judgmentRef)]),
+          ...consumedFluents,
+        ],
         clips: [],
         declips: [],
       };
     case "hold":
       return {
-        initiates: ["hold_route_admitted"],
-        terminates: ["locus_active", "frame_active"],
+        initiates: routeRef === null
+          ? []
+          : [fluent("hold_route_admitted", routeRef)],
+        terminates: [
+          ...(sourceCursorRef === null
+            ? []
+            : [fluent("locus_active", sourceCursorRef)]),
+          ...(event.frameId === undefined
+            ? []
+            : [fluent("frame_active", event.frameId)]),
+          ...consumedFluents,
+        ],
         clips: [],
         declips: [],
       };
     case "blocked":
       return {
-        initiates: ["frame_blocked"],
+        initiates: event.frameId === undefined
+          ? []
+          : [fluent("frame_blocked", event.frameId)],
         terminates: [
-          "locus_active",
-          "frame_active",
-          "retry_attempt_active",
-          "retry_progress_available",
+          ...(sourceCursorRef === null
+            ? []
+            : [fluent("locus_active", sourceCursorRef)]),
+          ...(event.frameId === undefined
+            ? []
+            : [fluent("frame_active", event.frameId)]),
+          ...consumedFluents,
         ],
         clips: [],
         declips: [],
       };
     case "failed":
       return {
-        initiates: ["frame_failed"],
+        initiates: event.frameId === undefined
+          ? []
+          : [fluent("frame_failed", event.frameId)],
         terminates: [
-          "locus_active",
-          "frame_active",
-          "retry_attempt_active",
-          "retry_progress_available",
+          ...(sourceCursorRef === null
+            ? []
+            : [fluent("locus_active", sourceCursorRef)]),
+          ...(event.frameId === undefined
+            ? []
+            : [fluent("frame_active", event.frameId)]),
+          ...consumedFluents,
         ],
         clips: [],
         declips: [],

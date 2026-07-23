@@ -76,6 +76,7 @@ export function evaluateBoundedRecursion(
   }
   const resultCandidate = deepFreeze({
     ...input,
+    blockedChildRemaining: input.blockedChildRemaining,
     terminal: input.remaining === 0,
     trace: [...input.trace],
   });
@@ -96,6 +97,7 @@ export function stepBoundedRecursion(
   const resultCandidate = deepFreeze({
     kind: "bounded_recursion_state" as const,
     schemaVersion: "5.0.0" as const,
+    blockedChildRemaining: input.blockedChildRemaining,
     remaining,
     terminal: false,
     trace: [...input.trace, remaining],

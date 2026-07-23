@@ -403,17 +403,21 @@ export function proposeRecursionRoute(
           foldback.parentCCallRef !== cCall.cCallRef ||
           foldback.parentJudgmentRef !== judgment.judgmentRef
         : targetCursor !== null ||
-          foldback !== null ||
           (
-            preparationRefusal === null
-              ? sourceCursor.attempt < application.bound
-              : !isAdmittedApplicationChildPreparationRefusal(
-                  preparationRefusal,
-                ) ||
-                preparationRefusal.applicationRef !==
-                  application.applicationRef ||
-                preparationRefusal.parentCCallRef !== cCall.cCallRef ||
-                preparationRefusal.parentJudgmentRef !== judgment.judgmentRef
+            foldback !== null
+              ? preparationRefusal !== null ||
+                foldback.parentCCallRef !== cCall.cCallRef ||
+                foldback.parentJudgmentRef !== judgment.judgmentRef ||
+                foldback.childDisposition !== "blocked"
+              : preparationRefusal === null
+                ? sourceCursor.attempt < application.bound
+                : !isAdmittedApplicationChildPreparationRefusal(
+                    preparationRefusal,
+                  ) ||
+                  preparationRefusal.applicationRef !==
+                    application.applicationRef ||
+                  preparationRefusal.parentCCallRef !== cCall.cCallRef ||
+                  preparationRefusal.parentJudgmentRef !== judgment.judgmentRef
           )
     )
   ) {
@@ -437,9 +441,11 @@ export function proposeRecursionRoute(
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: routeKind === "advance"
       ? [judgment.judgmentRef, foldback!.foldbackRef]
-      : preparationRefusal === null
-        ? [judgment.judgmentRef]
-        : [judgment.judgmentRef, preparationRefusal.refusalRef],
+      : foldback !== null
+        ? [judgment.judgmentRef, foldback.foldbackRef]
+        : preparationRefusal === null
+          ? [judgment.judgmentRef]
+          : [judgment.judgmentRef, preparationRefusal.refusalRef],
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };

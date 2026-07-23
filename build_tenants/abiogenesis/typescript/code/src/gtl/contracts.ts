@@ -40,6 +40,7 @@ export interface NormalizedHelloInput {
 export interface BoundedRecursionState {
   readonly kind: "bounded_recursion_state";
   readonly schemaVersion: "5.0.0";
+  readonly blockedChildRemaining: number | null;
   readonly remaining: number;
   readonly terminal: boolean;
   readonly trace: readonly number[];

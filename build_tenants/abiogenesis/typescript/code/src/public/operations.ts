@@ -691,7 +691,10 @@ async function applyRunInvoke(
         "run.invoke bounded-recursion input is contract-invalid",
       );
     }
-    admittedInput = gtl.constructBoundedRecursionState(inputValue.remaining);
+    admittedInput = gtl.constructBoundedRecursionState(
+      inputValue.remaining,
+      inputValue.blockedChildRemaining,
+    );
   } else {
     throw new ApplicationRefusal(
       "target_mismatch",

@@ -924,18 +924,32 @@ export function admitRecursionRoute(
       preparationRefusal.parentCCallRef === cCall.cCallRef &&
       preparationRefusal.parentJudgmentRef === judgment.judgmentRef &&
       preparationRefusal.sourceCursorRef === sourceCursor.cursorRef;
+    const blockedByChild =
+      foldback !== null &&
+      isAdmittedApplicationChildFoldback(foldback) &&
+      foldback.applicationRef === application.applicationRef &&
+      foldback.parentCCallRef === cCall.cCallRef &&
+      foldback.parentJudgmentRef === judgment.judgmentRef &&
+      foldback.sourceCursorRef === sourceCursor.cursorRef &&
+      foldback.childDisposition === "blocked";
     if (
       targetCursor !== null ||
-      foldback !== null ||
       candidate.targetCursorRef !== null ||
       candidate.targetCursorDigest !== null ||
       (
-        blockedByPreparation
+        blockedByChild
+          ? preparationRefusal !== null ||
+            !sameValues(candidate.consumedAvailabilityRefs, [
+              judgment.judgmentRef,
+              foldback.foldbackRef,
+            ])
+          : blockedByPreparation
           ? !sameValues(candidate.consumedAvailabilityRefs, [
               judgment.judgmentRef,
               preparationRefusal.refusalRef,
             ])
-          : sourceCursor.attempt < application.bound ||
+          : foldback !== null ||
+            sourceCursor.attempt < application.bound ||
             !sameValues(candidate.consumedAvailabilityRefs, [
               judgment.judgmentRef,
             ])
@@ -946,9 +960,11 @@ export function admitRecursionRoute(
         "recursion bound refusal must stop at the exact declared positive bound",
       );
     }
-    causationEventRef = blockedByPreparation
-      ? preparationRefusal.admissionEventRef
-      : judgment.admissionEventRef;
+    causationEventRef = blockedByChild
+      ? foldback.admissionEventRef
+      : blockedByPreparation
+        ? preparationRefusal.admissionEventRef
+        : judgment.admissionEventRef;
   } else {
     return refusal(
       "route_kind_not_supported",
@@ -1000,7 +1016,8 @@ export function admitRecursionRoute(
             routeRef,
             cCallRef: cCall.cCallRef,
             judgmentRef: judgment.judgmentRef,
-            reasonRef: preparationRefusal?.diagnosticRef ??
+            reasonRef: foldback?.childReasonRef ??
+              preparationRefusal?.diagnosticRef ??
               "reason://abiogenesis/recursion/bound-exhausted@5",
           },
         }),

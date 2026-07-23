@@ -186,7 +186,11 @@ export {
   type TraversalRouteKind,
 } from "./traversal_route.js";
 export {
+  admitChildClosure,
   admitClosure,
+  type ChildClosureAdmission,
+  type ChildClosureAdmissionRefusal,
+  type ChildClosureAdmissionResult,
   type ClosureAdmission,
   type ClosureAdmissionRefusal,
   type ClosureAdmissionResult,

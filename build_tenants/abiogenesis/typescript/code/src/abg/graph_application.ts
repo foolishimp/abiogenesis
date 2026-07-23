@@ -56,6 +56,8 @@ export interface ApplicationChildFoldbackAdmission {
   readonly childResultRef: string;
   readonly childResultDigest: Sha256Digest;
   readonly childJudgmentRef: string;
+  readonly childClosureRef: string | null;
+  readonly childReasonRef: string | null;
   readonly childTerminalEventRef: string;
   readonly outputDigest: Sha256Digest;
   readonly admissionEventRef: string;
@@ -274,6 +276,7 @@ export function admitApplicationChildFoldback(
   child: {
     readonly resultRef: string;
     readonly judgmentRef: string;
+    readonly closureRef: string | null;
   },
   basis: RuntimeAdmissionBasis,
 ): ApplicationChildFoldbackResult {
@@ -360,7 +363,7 @@ export function admitApplicationChildFoldback(
       event.payload.judgmentRef === child.judgmentRef &&
       event.payload.resultRef === child.resultRef,
   );
-  const terminalEvent = events.slice().reverse().find(
+  const routeEvent = events.slice().reverse().find(
     (event) =>
       event.kind === "traversal_route_admitted" &&
       event.runId === childScope.runId &&
@@ -370,27 +373,74 @@ export function admitApplicationChildFoldback(
       (event.payload.routeKind === "terminal" ||
         event.payload.routeKind === "blocked"),
   );
+  const routeKind = routeEvent !== undefined && isRecord(routeEvent.payload)
+    ? routeEvent.payload.routeKind
+    : null;
+  const terminalReachedEvent = routeKind === "terminal"
+    ? events.find(
+        (event) =>
+          event.kind === "terminal_reached" &&
+          event.runId === childScope.runId &&
+          event.frameId === childScope.frameId &&
+          event.causationEventRefs.includes(routeEvent!.eventId) &&
+          isRecord(event.payload) &&
+          event.payload.closureRef === child.closureRef,
+      )
+    : undefined;
+  const frameClosedEvent = terminalReachedEvent === undefined
+    ? undefined
+    : events.find(
+        (event) =>
+          event.kind === "frame_closed" &&
+          event.runId === childScope.runId &&
+          event.frameId === childScope.frameId &&
+          event.causationEventRefs.includes(terminalReachedEvent.eventId),
+      );
+  const graphCallClosedEvent = frameClosedEvent === undefined
+    ? undefined
+    : events.find(
+        (event) =>
+          event.kind === "graph_call_closed" &&
+          event.runId === childScope.runId &&
+          event.graphCallId === childScope.graphCallId &&
+          event.causationEventRefs.includes(frameClosedEvent.eventId),
+      );
   const resultDigest = resultEvent !== undefined && isRecord(resultEvent.payload)
     ? resultEvent.payload.resultDigest
     : null;
   const outputDigest = resultEvent !== undefined && isRecord(resultEvent.payload)
     ? resultEvent.payload.valueDigest
     : null;
-  const routeKind = terminalEvent !== undefined && isRecord(terminalEvent.payload)
-    ? terminalEvent.payload.routeKind
+  const childReasonRef =
+    judgmentEvent !== undefined && isRecord(judgmentEvent.payload) &&
+      typeof judgmentEvent.payload.reasonRef === "string"
+      ? judgmentEvent.payload.reasonRef
     : null;
+  const childLifecycleEvent = routeKind === "terminal"
+    ? graphCallClosedEvent
+    : routeEvent;
   if (
     childGraphCallEvent === undefined ||
     resultEvent === undefined ||
     judgmentEvent === undefined ||
-    terminalEvent === undefined ||
+    routeEvent === undefined ||
+    childLifecycleEvent === undefined ||
     !judgmentEvent.causationEventRefs.includes(resultEvent.eventId) ||
-    !terminalEvent.causationEventRefs.includes(judgmentEvent.eventId) ||
+    !routeEvent.causationEventRefs.includes(judgmentEvent.eventId) ||
     typeof resultDigest !== "string" ||
     !/^sha256:[a-f0-9]{64}$/u.test(resultDigest) ||
     typeof outputDigest !== "string" ||
     !/^sha256:[a-f0-9]{64}$/u.test(outputDigest) ||
-    (routeKind !== "terminal" && routeKind !== "blocked")
+    (routeKind !== "terminal" && routeKind !== "blocked") ||
+    (routeKind === "terminal" &&
+      (
+        child.closureRef === null ||
+        terminalReachedEvent === undefined ||
+        frameClosedEvent === undefined ||
+        graphCallClosedEvent === undefined
+      )) ||
+    (routeKind === "blocked" &&
+      (child.closureRef !== null || childReasonRef === null))
   ) {
     return refusal(
       "child_truth_mismatch",
@@ -412,7 +462,9 @@ export function admitApplicationChildFoldback(
     childResultRef: child.resultRef,
     childResultDigest: resultDigest as Sha256Digest,
     childJudgmentRef: child.judgmentRef,
-    childTerminalEventRef: terminalEvent.eventId,
+    childClosureRef: child.closureRef,
+    childReasonRef,
+    childTerminalEventRef: childLifecycleEvent.eventId,
     outputDigest: outputDigest as Sha256Digest,
   };
   const foldbackDigest = sha256Canonical(body as unknown as JsonValue);
@@ -425,7 +477,7 @@ export function admitApplicationChildFoldback(
     aggregateId: sourceCursor.frameId,
     parentAggregateId: sourceCursor.graphCallId,
     causationEventRefs: [
-      terminalEvent.eventId,
+      childLifecycleEvent.eventId,
       parentJudgmentEvent.eventId,
       ...basis.causationEventRefs,
     ],
