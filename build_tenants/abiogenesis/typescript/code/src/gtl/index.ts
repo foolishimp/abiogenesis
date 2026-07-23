@@ -56,6 +56,10 @@ export {
   ruleDeclaration,
 } from "./declarations.js";
 export {
+  composeGraphFunctions,
+  type ComposeGraphFunctionsInput,
+} from "./graph_construction.js";
+export {
   composeApplication,
   fanInApplication,
   fanOutApplication,

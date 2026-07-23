@@ -563,6 +563,118 @@ test("M5 whole-program validation binds gate law to published Rule and Evaluator
   );
 });
 
+test("M5 native GraphFunction composition materializes source GTL without a second executable carrier", () => {
+  const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
+  const parentProgram = publication.programs.find(
+    (candidate) => candidate.programRef === gtl.GRAPH_EDGE_HELLO_IDS.programRef,
+  );
+  const parent = publication.graphFunctions.find(
+    (candidate) => candidate.name === gtl.GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
+  );
+  const left = publication.graphFunctions.find(
+    (candidate) =>
+      candidate.name === gtl.GRAPH_EDGE_HELLO_IDS.normalizeGraphFunctionRef,
+  );
+  const right = publication.graphFunctions.find(
+    (candidate) =>
+      candidate.name === gtl.GRAPH_EDGE_HELLO_IDS.renderGraphFunctionRef,
+  );
+  assert.notEqual(parentProgram, undefined);
+  assert.notEqual(parent, undefined);
+  assert.notEqual(left, undefined);
+  assert.notEqual(right, undefined);
+
+  const application = parent.template.applications[0];
+  assert.equal(application.relationKind, "compose");
+  assert.equal(application.leftGraphFunctionRef, left.name);
+  assert.equal(application.rightGraphFunctionRef, right.name);
+  assert.equal(application.applicationRef, gtl.graphFunctionApplicationRef(application));
+  assert.deepEqual(parentProgram.callableMembership, [parent.name]);
+  assert.deepEqual(parent.inputs, left.inputs);
+  assert.deepEqual(parent.outputs, right.outputs);
+  assert.deepEqual(parent.template.nodes.map((node) => node.nodeRef), [
+    left.template.startNodeRef,
+    right.template.startNodeRef,
+  ]);
+  assert.equal(parent.template.edges.length, 1);
+  assert.equal(
+    parent.template.edges[0].edgeRef,
+    gtl.graphEdgeRef(parent.template.edges[0]),
+  );
+  assert.equal(left.template.nodes[0].term.resultBearing, true);
+  assert.equal(parent.template.nodes[0].term.resultBearing, false);
+  assert.equal(parent.template.nodes[1].term.resultBearing, true);
+  assert.equal(parent.template.nodes[0].term.compositionRef, application.applicationRef);
+  assert.equal(parent.template.nodes[1].term.compositionRef, application.applicationRef);
+  assert.match(parent.template.graphRef, /^graph:\/\/abiogenesis\/composed\//u);
+  assert.equal(Object.isFrozen(parent), true);
+  assert.equal(Object.isFrozen(parent.template.nodes), true);
+  assert.equal(programValidationResult(publication, parentProgram).kind, "program_validation");
+
+  const missingSource = structuredClone(publication);
+  const missingSourceParent = missingSource.graphFunctions.find(
+    (candidate) => candidate.name === gtl.GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
+  );
+  missingSourceParent.template.applications[0].rightGraphFunctionRef =
+    "graph-function://m5/unpublished";
+  missingSourceParent.template.applications[0].applicationRef =
+    gtl.graphFunctionApplicationRef(missingSourceParent.template.applications[0]);
+  const missingResult = programValidationResult(
+    missingSource,
+    missingSource.programs.find(
+      (candidate) => candidate.programRef === gtl.GRAPH_EDGE_HELLO_IDS.programRef,
+    ),
+  );
+  assert.equal(missingResult.kind, "static_validation_refusal");
+  assert.equal(
+    missingResult.diagnostics.some((row) => row.code === "invalid_application"),
+    true,
+  );
+
+  const mismatchedRight = structuredClone(right);
+  mismatchedRight.inputs = ["contract://m5/unrelated"];
+  assert.throws(
+    () => gtl.composeGraphFunctions({
+      name: "graph-function://m5/mismatched-compose",
+      left,
+      right: mismatchedRight,
+    }),
+    /exact left-output to right-input contract join/u,
+  );
+  const conflictingRight = structuredClone(right);
+  conflictingRight.declarations["abg.compute_regime"] = "F_P";
+  assert.throws(
+    () => gtl.composeGraphFunctions({
+      name: "graph-function://m5/conflicting-compose",
+      left,
+      right: conflictingRight,
+    }),
+    /declaration conflict/u,
+  );
+  const duplicateRight = structuredClone(right);
+  duplicateRight.template.nodes[0].nodeRef = left.template.nodes[0].nodeRef;
+  duplicateRight.template.startNodeRef = left.template.nodes[0].nodeRef;
+  duplicateRight.template.terminalNodeRefs = [left.template.nodes[0].nodeRef];
+  assert.throws(
+    () => gtl.composeGraphFunctions({
+      name: "graph-function://m5/duplicate-compose",
+      left,
+      right: duplicateRight,
+    }),
+    /duplicate graph node identity/u,
+  );
+  const malformedLeft = structuredClone(left);
+  malformedLeft.template.startNodeRef = "node://m5/missing";
+  assert.throws(
+    () => gtl.composeGraphFunctions({
+      name: "graph-function://m5/malformed-compose",
+      left: malformedLeft,
+      right,
+    }),
+    /exact start and terminal nodes/u,
+  );
+});
+
 test("M5 whole-program validation refuses forged or widened graph-edge declarations", () => {
   const publication = structuredClone(
     gtl.constructHelloWorldModulePublication(artifactBasis()),

@@ -682,11 +682,19 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
             return [];
         }
       })();
-      if (referencedGraphFunctions.some((ref) => !availableGraphFunctionRefs.has(ref))) {
+      const staticallyResolvedApplication =
+        application.relationKind === "compose" ||
+        application.relationKind === "substitute";
+      const applicationGraphByRef = staticallyResolvedApplication
+        ? publishedGraphByRef
+        : rawGraphByRef;
+      if (referencedGraphFunctions.some((ref) => !applicationGraphByRef.has(ref))) {
         diagnostics.push({
           code: "invalid_application",
           path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
-          message: "GraphFunction application references a function outside complete Program membership",
+          message: staticallyResolvedApplication
+            ? "statically resolved GraphFunction application references an unpublished function"
+            : "runtime-visible GraphFunction application references a function outside complete Program membership",
         });
       }
       if (application.relationKind === "recurse" &&
@@ -736,7 +744,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       }
       const referencedByRef = new Map(
         referencedGraphFunctions.flatMap((ref) => {
-          const value = rawGraphByRef.get(ref);
+          const value = applicationGraphByRef.get(ref);
           return value === undefined ? [] : [[ref, value] as const];
         }),
       );

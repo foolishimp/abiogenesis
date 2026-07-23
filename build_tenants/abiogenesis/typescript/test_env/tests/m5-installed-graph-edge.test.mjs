@@ -22,7 +22,7 @@ async function readEvents(path) {
     .map((line) => JSON.parse(line));
 }
 
-test("M5 installed HoG advances across one exact declared GTL graph edge", async (context) => {
+test("M5 installed HoG traverses one natively composed GraphFunction", async (context) => {
   const harness = await setupInstalledCliHarness(context, root);
   const scenario = await buildRootCliScenario(
     harness,
@@ -48,14 +48,24 @@ test("M5 installed HoG advances across one exact declared GTL graph edge", async
 
   const events = await readEvents(scenario.eventLogPath);
   const cCalls = events.filter((event) => event.kind === "c_call_opened");
+  const fibres = events.filter((event) => event.kind === "c_call_fibre_selected");
   const routes = events.filter((event) => event.kind === "traversal_route_admitted");
   assert.equal(cCalls.length, 2);
+  assert.equal(fibres.length, 2);
   assert.deepEqual(
     cCalls.map((event) => event.payload.programLocusRef),
     [
       "locus://abiogenesis/conformance/hello-graph-edge/normalize@5",
       "locus://abiogenesis/conformance/hello-graph-edge/render@5",
     ],
+  );
+  assert.equal(
+    new Set(fibres.map((event) => event.payload.compositionRef)).size,
+    1,
+  );
+  assert.match(
+    fibres[0].payload.compositionRef,
+    /^graph-function-application:\/\/abiogenesis\//u,
   );
   assert.deepEqual(
     routes.map((event) => event.payload.routeKind),
