@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: fp_fd_composition_checkpoint_ready_for_review_d543fd21
-- proof_status: m4_root_retained_m5_50_green_conservation_15_of_40_s02_open
+- review_status: bounded_retry_checkpoint_ready_for_review_ff2636ef
+- proof_status: m4_root_retained_m5_53_green_conservation_18_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -449,6 +449,29 @@ No parser, lowering, compiled carrier, public controller, or rival runtime was
 added. `ABG5-S02` remains open, and T-272 owns the missing `F_H` continuation
 locus needed for the complete mixed witness.
 
+Implementation commit `ff2636ef` proves bounded same-edge retry through the
+ordinary installed Product path:
+
+- one Product-published GTL.TypeScript GraphFunction declares
+  `C.retry(C.of(F_P), 2)` with no lowered executable carrier;
+- HoG retains the exact input basis, derives the second-attempt cursor from the
+  original GTL term, and owns the retry inside its existing graph fold;
+- ABG admits retry attempt, failed C-call judgment, retry progress, same-edge
+  route, fresh attempt, and eventual closure as append-only runtime truth;
+- replay and Public accept the successful chain only when the retried call has
+  an exact admitted retry route and sequential successor call; and
+- installed negatives prove semantic disagreement does not retry and repeated
+  malformed output stops after exactly two worker dispatches.
+
+Fresh serialized verification is `test:m5` `53/53`, retained `test:m4`
+`26/26`, and `ABI5-ROOT-001` `root_satisfied` with R1-R10 true. The fixed
+conservation inventory advances to `18/40`, with `22` explicit gaps. Repeated
+packing reproduced artifact SHA-256
+`b1360405472ec9f42ec56115176a5a6e480564dfff9a6170dc4836fd8a172362`.
+This checkpoint proves the installed `contract_failure` retry path only;
+runtime recursion, gate, fan-out/fan-in, F_H continuation, and the remaining
+rows stay open. `ABG5-S02` remains open.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -475,14 +498,14 @@ not a proof that the Product is complete.
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
 | `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition, substitution, identity, promotion, and canonical same-object witnesses are native and validated; remaining runtime relation semantics stay open | `T-270` / S02 |
-| `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, one F_P-to-F_D composition, batch, retry, and workflow subset proven; remaining applications and F_H open | `T-270` / S02 |
+| `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, one F_P-to-F_D composition, batch, real failed-attempt retry, and workflow subset proven; remaining applications and F_H open | `T-270` / S02 |
 | `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
 | `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | root CLI subset only | `T-281` / S06 |
 | `A5-F07` complete One Surface loop | absent | `T-272` / S03 |
 | `A5-F08` Consensus free construction | absent | `T-274`, `T-275`, `T-276` / S05 |
 | `A5-F09` catalog semantics | admit, view, and invoke subset proven | `T-270`, `T-281` / S02 and S06 |
-| `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, blocked, and terminal subsets proven; durable F_H reopening open | `T-270`, `T-272` / S02 and S03 |
+| `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, and terminal subsets proven; durable F_H reopening open | `T-270`, `T-272` / S02 and S03 |
 | `A5-F11` self-conformance | absent | realization readiness in `T-268`; qualification in `T-247` / S04 |
 | `A5-F12` observer and tuner | absent | realization in `T-268`; qualification in `T-247` / S04 |
 | `A5-F13` native and bounded host projection | absent | `T-281` / S06 |
