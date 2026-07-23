@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: bounded_gate_checkpoint_ready_for_review_c803dd65
-- proof_status: m4_root_retained_m5_55_green_conservation_19_of_40_s02_open
+- review_status: bounded_graph_recursion_checkpoint_ready_for_review_a4df6eeb
+- proof_status: m4_root_retained_m5_57_green_conservation_20_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -495,6 +495,36 @@ independent packs reproduced artifact SHA-256
 No parser, lowering, compiled carrier, public controller, policy engine, or
 second runtime path was added. Runtime recursion, fan-out/fan-in, F_H
 continuation, and the remaining rows stay open. `ABG5-S02` remains open.
+
+Implementation commit `a4df6eeb15dcfee565c7510f43f49de283c7fbd2`
+proves bounded graph recursion through the same ordinary installed Product
+path:
+
+- whole-Program validation requires each declared gate target to equal its
+  adjacent `workflow.C` target and binds recursion to an exact Boolean
+  termination field, published Rule and Evaluator, rebind foldback, child
+  GraphFunction, and positive bound;
+- one Product-published GTL.TypeScript Program evaluates its parent locus,
+  opens the declared child GraphCall when non-terminal, and re-enters the same
+  parent Frame only after ABG admits the child result, judgment, and foldback;
+- HoG advances the parent cursor through attempts `1` to `4` from admitted
+  application routes without a JavaScript recursion stack, generated program,
+  lowered carrier, or public traversal loop; and
+- the installed bound negative opens only three child GraphCalls, admits the
+  fourth non-terminal parent judgment as blocked application truth, and ends
+  the Run with `run_stopped`.
+
+Fresh serialized verification is `test:m5` `57/57`, retained `test:m4`
+`26/26`, and `ABI5-ROOT-001` `root_satisfied` with R1-R10 true. The fixed
+conservation inventory advances to `20/40`, with `20` explicit gaps. Two
+independent packs reproduced artifact SHA-256
+`50924833d69949f29c0dab90f5d004b196150bc69abf400e538c83d81a574849`,
+Product content digest
+`sha256:0bbb15434783efb107458915a20796c82c3a03069f821de83f84c4262af1e9b1`,
+and manifest digest
+`sha256:430e4402773ee2be8bb3b02aebc8d034df3132dcad752af96fda20517ef22596`.
+Fan-out/fan-in, F_H continuation, and the remaining rows stay open.
+`ABG5-S02` remains open.
 
 ## 4.6 Conservation
 
