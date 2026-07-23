@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: bounded_graph_recursion_checkpoint_ready_for_review_a4df6eeb
-- proof_status: m4_root_retained_m5_57_green_conservation_20_of_40_s02_open
+- review_status: bounded_graph_recursion_repair_ready_for_review_0ed75e8f
+- proof_status: m4_26_green_m5_58_green_conservation_20_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -525,6 +525,32 @@ and manifest digest
 `sha256:430e4402773ee2be8bb3b02aebc8d034df3132dcad752af96fda20517ef22596`.
 Fan-out/fan-in, F_H continuation, and the remaining rows stay open.
 `ABG5-S02` remains open.
+
+Review-repair commit `0ed75e8f27c551451cf6998d24ccce9f4ccfccab`
+corrects the nested child-lifecycle defect in that checkpoint:
+
+- every successful child now admits its own exact
+  `terminal_reached -> frame_closed -> graph_call_closed` chain before
+  foldback can claim `closed`;
+- runtime lifecycle fluents are keyed by Run, GraphCall, Frame, cursor, CCall,
+  route, judgment, and foldback identity, and the exact application foldback
+  availability is consumed by the parent route;
+- replay selects root closure from the root aggregate identities rather than
+  the first nested closure event, and a successful Public outcome refuses any
+  remaining transient lifecycle truth; and
+- one declared installed negative makes a child judgment block, admits stopped
+  child foldback truth, and propagates it into exactly one parent
+  `run_stopped`.
+
+Fresh serialized verification is `test:m5` `58/58`, retained `test:m4`
+`26/26`, and conservation `20/40` with `20` explicit gaps. Two independent
+packs reproduce artifact SHA-256
+`e97df484d3e310a1e1e6aebd26eab46474779f7657a40e8b9538654a6a07e975`,
+Product content digest
+`sha256:4e923e09dde9ba97512c08cbd86827681a75207f71f7101f0642faf29bca7a61`,
+and manifest digest
+`sha256:e8472a350ff69e15105d6818d5e33a3099d77bdc154b3f28e4af78cfde40638f`.
+Fan-out/fan-in remains the next frontier and was not started by this repair.
 
 ## 4.6 Conservation
 

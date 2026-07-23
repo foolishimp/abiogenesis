@@ -2,8 +2,10 @@
 
 ## Status
 
-Ready for bounded review at implementation commit
-`a4df6eeb15dcfee565c7510f43f49de283c7fbd2`.
+Superseded by the child-lifecycle repair at
+`0ed75e8f27c551451cf6998d24ccce9f4ccfccab`. The original implementation
+commit remains historical evidence but does not independently prove the
+`graph_recursion` row.
 
 ## Delivered
 

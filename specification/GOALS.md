@@ -38,9 +38,9 @@ exact affected-boundary delta at `d6da4269`; runtime implementation is active.
 | M5 F_H decision | direct F_H ruling on 2026-07-22: accepted and continue under T-270 |
 | selected method release | STDO `v2.0.0`, commit `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a` |
 | selected method member set | 41 members, digest `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0` |
-| current work carrier | `T-270` M5 parent implementing the accepted M5 design delta; bounded graph recursion checkpoint `a4df6eeb` is ready for review |
+| current work carrier | `T-270` M5 parent implementing the accepted M5 design delta; repaired bounded graph recursion checkpoint `0ed75e8f` is ready for review |
 | current constitutional state | accepted Product, requirements, correction vector, and direct-GTL design |
-| implementation state | exact `ABI5-ROOT-001` complete; M5 `57/57`; traversal conservation `20/40` with `20` explicit gaps; RC5, X, and final-integration remain sideways donor evidence |
+| implementation state | exact `ABI5-ROOT-001` complete; M5 `58/58`; traversal conservation `20/40` with `20` explicit gaps; RC5, X, and final-integration remain sideways donor evidence |
 
 The constitutional authoring order is one unpromoted transaction:
 
