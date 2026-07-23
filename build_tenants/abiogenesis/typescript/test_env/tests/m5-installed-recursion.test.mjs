@@ -46,6 +46,8 @@ async function activeLifecycleFluents(installedRoot, events, label) {
       "run_active(",
       "graph_call_active(",
       "frame_active(",
+      "frame_blocked(",
+      "frame_failed(",
       "locus_active(",
       "c_call_active(",
       "parent_waiting_on_child(",
@@ -143,6 +145,12 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
   assert.equal(events.filter((event) => event.kind === "terminal_reached").length, 4);
   assert.equal(events.filter((event) => event.kind === "frame_closed").length, 4);
   assert.equal(events.filter((event) => event.kind === "graph_call_closed").length, 4);
+  const abg = await import(
+    `${pathToFileURL(resolve(
+      installedRoot,
+      "build/code/src/abg/index.js",
+    )).href}?wait-identity=m5-bounded-recursion-success`
+  );
   for (const childGraphCall of childGraphCalls) {
     const childFrame = events.find(
       (event) =>
@@ -181,6 +189,18 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
     );
     assert.equal(
       foldback?.causationEventRefs.includes(graphCallClosed.eventId),
+      true,
+    );
+    assert.deepEqual(
+      abg.eventCalculusEffect(childGraphCall).initiates.filter((fluent) =>
+        fluent.startsWith("parent_waiting_on_child(")
+      ),
+      [`parent_waiting_on_child(${childGraphCall.graphCallId})`],
+    );
+    assert.equal(
+      abg.eventCalculusEffect(foldback).terminates.includes(
+        `parent_waiting_on_child(${childGraphCall.graphCallId})`,
+      ),
       true,
     );
   }

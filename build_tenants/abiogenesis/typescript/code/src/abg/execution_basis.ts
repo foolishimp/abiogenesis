@@ -928,8 +928,9 @@ export function admitChildExecutionBasis(
     );
   }
   if (
-    input.graphFunction.declarations["abg.closure_contract"] !==
+    input.graphFunction.declarations["abg.child_closure_contract"] !==
       input.closureContract.closureContractRef ||
+    input.closureContract.closureScope !== "graph_call" ||
     input.closureContract.resultContractRef !== input.graphFunction.outputs[0]
   ) {
     return childRefusal(

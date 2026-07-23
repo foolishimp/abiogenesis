@@ -358,6 +358,8 @@ export function constructRecursionPublicationParts(
       "abg.compute_regime": "F_D",
       "abg.closure_contract":
         RECURSION_HELLO_IDS.childClosureContractRef,
+      "abg.child_closure_contract":
+        RECURSION_HELLO_IDS.childClosureContractRef,
       "abg.evidence_contract": RECURSION_HELLO_IDS.evidenceContractRef,
       "abg.judgment_contract": RECURSION_HELLO_IDS.judgmentContractRef,
       "abg.judgment_predicate":
@@ -431,28 +433,45 @@ export function constructRecursionPublicationParts(
   ];
   const closure = (
     closureContractRef: string,
-  ): ClosureContract => ({
-    kind: "closure_contract",
-    closureContractRef,
-    predicateRef:
-      "predicate://abiogenesis/conformance/bounded-recursion-terminal@5",
-    evidenceContractRef: RECURSION_HELLO_IDS.evidenceContractRef,
-    resultContractRef: RECURSION_HELLO_IDS.outputContractRef,
-    refusalContractRef: RECURSION_HELLO_IDS.refusalContractRef,
-    refusalValueKind: "bounded_recursion_refusal",
-    judgmentContractRef: RECURSION_HELLO_IDS.judgmentContractRef,
-    rejectionContractRef: RECURSION_HELLO_IDS.refusalContractRef,
-    transitionContractRef: RECURSION_HELLO_IDS.transitionContractRef,
-    replayProjectionRef:
-      "projection://abiogenesis/conformance/bounded-recursion-replay@5",
-    terminalKind: "completed",
-    eventKindRefs: [
-      "terminal_reached",
-      "frame_closed",
-      "graph_call_closed",
-      "run_closed",
-    ],
-  });
+    closureScope: ClosureContract["closureScope"],
+  ): ClosureContract => {
+    const basis = {
+      kind: "closure_contract",
+      closureContractRef,
+      predicateRef:
+        "predicate://abiogenesis/conformance/bounded-recursion-terminal@5",
+      evidenceContractRef: RECURSION_HELLO_IDS.evidenceContractRef,
+      resultContractRef: RECURSION_HELLO_IDS.outputContractRef,
+      refusalContractRef: RECURSION_HELLO_IDS.refusalContractRef,
+      refusalValueKind: "bounded_recursion_refusal",
+      judgmentContractRef: RECURSION_HELLO_IDS.judgmentContractRef,
+      rejectionContractRef: RECURSION_HELLO_IDS.refusalContractRef,
+      transitionContractRef: RECURSION_HELLO_IDS.transitionContractRef,
+      replayProjectionRef:
+        "projection://abiogenesis/conformance/bounded-recursion-replay@5",
+      terminalKind: "completed",
+    } as const;
+    return closureScope === "run"
+      ? {
+        ...basis,
+        closureScope,
+        eventKindRefs: [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed",
+        ],
+      }
+      : {
+        ...basis,
+        closureScope,
+        eventKindRefs: [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+        ],
+      };
+  };
   const implementationBinding = (
     bindingRef: string,
     implementationRef: string,
@@ -502,8 +521,8 @@ export function constructRecursionPublicationParts(
       ),
     ],
     closureContracts: [
-      closure(RECURSION_HELLO_IDS.closureContractRef),
-      closure(RECURSION_HELLO_IDS.childClosureContractRef),
+      closure(RECURSION_HELLO_IDS.closureContractRef, "run"),
+      closure(RECURSION_HELLO_IDS.childClosureContractRef, "graph_call"),
     ],
     programs: [program],
     graphFunctions: [graphFunction, childGraphFunction],

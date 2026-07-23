@@ -209,6 +209,7 @@ export function admitClosure(
     closureContract.judgmentContractRef !== judgment.contractRef ||
     closureContract.transitionContractRef !== route.contractRef ||
     closureContract.terminalKind !== "completed" ||
+    closureContract.closureScope !== "run" ||
     closureContract.eventKindRefs.join("\0") !==
       ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"].join("\0") ||
     store.readAll().some(
@@ -416,8 +417,9 @@ export function admitChildClosure(
     closureContract.refusalContractRef !== cCall.refusalContractRef ||
     closureContract.judgmentContractRef !== judgment.contractRef ||
     closureContract.transitionContractRef !== route.contractRef ||
+    closureContract.closureScope !== "graph_call" ||
     closureContract.eventKindRefs.join("\0") !==
-      ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"]
+      ["terminal_reached", "frame_closed", "graph_call_closed"]
         .join("\0") ||
     store.readAll().some(
       (event) =>

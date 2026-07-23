@@ -247,7 +247,7 @@ export interface ImplementationBinding {
   readonly refusalContractRef: string;
 }
 
-export interface ClosureContract {
+interface ClosureContractBasis {
   readonly kind: "closure_contract";
   readonly closureContractRef: string;
   readonly predicateRef: string;
@@ -260,13 +260,27 @@ export interface ClosureContract {
   readonly transitionContractRef: string;
   readonly replayProjectionRef: string;
   readonly terminalKind: "completed";
-  readonly eventKindRefs: readonly [
-    "terminal_reached",
-    "frame_closed",
-    "graph_call_closed",
-    "run_closed",
-  ];
 }
+
+export type ClosureContract = ClosureContractBasis & (
+  | {
+    readonly closureScope: "run";
+    readonly eventKindRefs: readonly [
+      "terminal_reached",
+      "frame_closed",
+      "graph_call_closed",
+      "run_closed",
+    ];
+  }
+  | {
+    readonly closureScope: "graph_call";
+    readonly eventKindRefs: readonly [
+      "terminal_reached",
+      "frame_closed",
+      "graph_call_closed",
+    ];
+  }
+);
 
 export interface ProgramStart {
   readonly startRef: string;

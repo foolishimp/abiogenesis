@@ -248,7 +248,7 @@ export function eventCalculusEffect(
           fluent("graph_call_active", graphCallId),
           ...(parentFrameId === null
             ? []
-            : [fluent("parent_waiting_on_child", parentFrameId)]),
+            : [fluent("parent_waiting_on_child", graphCallId)]),
         ],
         terminates: [],
         clips: [],
@@ -328,19 +328,25 @@ export function eventCalculusEffect(
       const childFrameId = stringField(event, "childFrameId");
       const childDisposition = stringField(event, "childDisposition");
       const applicationRef = stringField(event, "applicationRef");
+      const childStopped =
+        childDisposition === "blocked" || childDisposition === "failed";
       return {
         initiates:
           applicationRef !== null && foldbackRef !== null
             ? [fluent("child_foldback_available", foldbackRef)]
             : [],
         terminates: [
-          ...(event.frameId === undefined
+          ...(childGraphCallId === null
             ? []
-            : [fluent("parent_waiting_on_child", event.frameId)]),
-          ...(childDisposition === "blocked" && childFrameId !== null
-            ? [fluent("frame_active", childFrameId)]
+            : [fluent("parent_waiting_on_child", childGraphCallId)]),
+          ...(childStopped && childFrameId !== null
+            ? [
+              fluent("frame_active", childFrameId),
+              fluent("frame_blocked", childFrameId),
+              fluent("frame_failed", childFrameId),
+            ]
             : []),
-          ...(childDisposition === "blocked" && childGraphCallId !== null
+          ...(childStopped && childGraphCallId !== null
             ? [fluent("graph_call_active", childGraphCallId)]
             : []),
         ],
@@ -350,17 +356,11 @@ export function eventCalculusEffect(
     }
     case "child_preparation_refused": {
       const refusalRef = stringField(event, "refusalRef");
-      const childGraphFunctionRef = stringField(
-        event,
-        "childGraphFunctionRef",
-      );
       return {
         initiates: refusalRef === null
           ? []
           : [fluent("child_preparation_refused", refusalRef)],
-        terminates: childGraphFunctionRef === null || event.frameId === undefined
-          ? []
-          : [fluent("parent_waiting_on_child", event.frameId)],
+        terminates: [],
         clips: [],
         declips: [],
       };

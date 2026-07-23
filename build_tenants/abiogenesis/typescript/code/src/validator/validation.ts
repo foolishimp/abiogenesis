@@ -1046,14 +1046,40 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         message: "ClosureContract requires terminal predicate, refusal value kind, and replay projection",
       });
     }
+    const expectedEventKinds = closureContract.closureScope === "run"
+      ? ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"]
+      : closureContract.closureScope === "graph_call"
+        ? ["terminal_reached", "frame_closed", "graph_call_closed"]
+        : null;
     if (
-      closureContract.eventKindRefs.join("\0") !==
-      ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"].join("\0")
+      expectedEventKinds === null ||
+      closureContract.eventKindRefs.join("\0") !== expectedEventKinds.join("\0")
     ) {
       diagnostics.push({
         code: "invalid_reference",
         path: `$.closureContracts[${closureContract.closureContractRef}].eventKindRefs`,
-        message: "ClosureContract must declare the exact ordered root closure event family",
+        message: "ClosureContract scope must match its exact ordered closure event family",
+      });
+    }
+  }
+  for (const graphFunction of graphFunctions) {
+    const childClosureContractRef =
+      graphFunction.declarations["abg.child_closure_contract"];
+    if (childClosureContractRef === undefined) continue;
+    const childClosureContract = closureContracts.find(
+      (candidate) =>
+        candidate.closureContractRef === childClosureContractRef,
+    );
+    if (
+      childClosureContract === undefined ||
+      childClosureContract.closureScope !== "graph_call" ||
+      childClosureContract.resultContractRef !== graphFunction.outputs[0]
+    ) {
+      diagnostics.push({
+        code: "missing_contract",
+        path: `$.graphFunctions[${graphFunction.name}].declarations[abg.child_closure_contract]`,
+        message:
+          "child GraphFunction closure must name one published GraphCall-scope contract over its output",
       });
     }
   }

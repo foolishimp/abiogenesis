@@ -644,6 +644,90 @@ test("M5 same-object relation is one validator-owned canonical identity witness"
   );
 });
 
+test("M5 closure validation distinguishes run and child GraphCall scope", () => {
+  const publication = structuredClone(
+    gtl.constructHelloWorldModulePublication(artifactBasis()),
+  );
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === gtl.RECURSION_HELLO_IDS.programRef,
+  );
+  const rootClosure = publication.closureContracts.find(
+    (candidate) =>
+      candidate.closureContractRef ===
+        gtl.RECURSION_HELLO_IDS.closureContractRef,
+  );
+  const childClosure = publication.closureContracts.find(
+    (candidate) =>
+      candidate.closureContractRef ===
+        gtl.RECURSION_HELLO_IDS.childClosureContractRef,
+  );
+  assert.notEqual(program, undefined);
+  assert.deepEqual(
+    {
+      eventKindRefs: rootClosure?.eventKindRefs,
+      scope: rootClosure?.closureScope,
+    },
+    {
+      eventKindRefs: [
+        "terminal_reached",
+        "frame_closed",
+        "graph_call_closed",
+        "run_closed",
+      ],
+      scope: "run",
+    },
+  );
+  assert.deepEqual(
+    {
+      eventKindRefs: childClosure?.eventKindRefs,
+      scope: childClosure?.closureScope,
+    },
+    {
+      eventKindRefs: [
+        "terminal_reached",
+        "frame_closed",
+        "graph_call_closed",
+      ],
+      scope: "graph_call",
+    },
+  );
+  assert.equal(
+    programValidationResult(publication, program).kind,
+    "program_validation",
+  );
+
+  for (const closureContractRef of [
+    gtl.RECURSION_HELLO_IDS.closureContractRef,
+    gtl.RECURSION_HELLO_IDS.childClosureContractRef,
+  ]) {
+    const invalidPublication = structuredClone(publication);
+    const invalidClosure = invalidPublication.closureContracts.find(
+      (candidate) =>
+        candidate.closureContractRef === closureContractRef,
+    );
+    assert.notEqual(invalidClosure, undefined);
+    invalidClosure.closureScope =
+      invalidClosure.closureScope === "run" ? "graph_call" : "run";
+    const result = programValidationResult(
+      invalidPublication,
+      invalidPublication.programs.find(
+        (candidate) =>
+          candidate.programRef === gtl.RECURSION_HELLO_IDS.programRef,
+      ),
+    );
+    assert.equal(result.kind, "static_validation_refusal");
+    assert.equal(
+      result.diagnostics.some(
+        (row) =>
+          row.code === "invalid_reference" &&
+          row.path.includes(closureContractRef),
+      ),
+      true,
+      JSON.stringify(result),
+    );
+  }
+});
+
 test("M5 whole-program validation admits exact recursion law and refuses its substitutes", () => {
   const publication = structuredClone(
     gtl.constructHelloWorldModulePublication(artifactBasis()),

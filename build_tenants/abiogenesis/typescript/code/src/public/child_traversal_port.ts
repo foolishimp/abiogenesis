@@ -73,7 +73,8 @@ export function bindChildTraversalPreparationPort(
         "declared child GraphFunction is absent from the bound publication",
       );
     }
-    const closureContractRef = graphFunction.declarations["abg.closure_contract"];
+    const closureContractRef =
+      graphFunction.declarations["abg.child_closure_contract"];
     const closureContract = binding.publication.closureContracts.find(
       (candidate) => candidate.closureContractRef === closureContractRef,
     );

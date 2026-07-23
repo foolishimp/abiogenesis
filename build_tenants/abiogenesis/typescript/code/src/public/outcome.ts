@@ -61,6 +61,8 @@ const TRANSIENT_LIFECYCLE_FLUENT_PREFIXES = Object.freeze([
   "run_active(",
   "graph_call_active(",
   "frame_active(",
+  "frame_blocked(",
+  "frame_failed(",
   "locus_active(",
   "c_call_active(",
   "parent_waiting_on_child(",

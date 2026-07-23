@@ -42,6 +42,8 @@ export const HELLO_WORLD_IDS = Object.freeze({
   judgmentContractRef: "contract://abiogenesis/conformance/hello-judgment@5",
   transitionContractRef: "contract://abiogenesis/conformance/hello-transition@5",
   closureContractRef: "contract://abiogenesis/conformance/hello-closure@5",
+  childClosureContractRef:
+    "contract://abiogenesis/conformance/hello-child-closure@5",
   implementationBindingRef:
     "implementation-binding://abiogenesis/conformance/hello-world-fd@5",
   implementationRef: "implementation://abiogenesis/conformance/hello-world-fd@5",
@@ -559,6 +561,7 @@ export function constructHelloWorldModulePublication(
     { contractRef: HELLO_WORLD_IDS.judgmentContractRef, contractVersion: "5.0.0", contractKind: "judgment", valueKind: "hello_world_judgment" },
     { contractRef: HELLO_WORLD_IDS.transitionContractRef, contractVersion: "5.0.0", contractKind: "transition", valueKind: "hello_world_transition" },
     { contractRef: HELLO_WORLD_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "hello_world_closure" },
+    { contractRef: HELLO_WORLD_IDS.childClosureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "hello_world_child_closure" },
     { contractRef: WORKFLOW_HELLO_IDS.evidenceContractRef, contractVersion: "5.0.0", contractKind: "evidence", valueKind: "sub_traversal_evidence_candidate" },
     { contractRef: WORKFLOW_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "hello_workflow_closure" },
     { contractRef: GATE_HELLO_IDS.admittedInputContractRef, contractVersion: "5.0.0", contractKind: "output", valueKind: "hello_world_input" },
@@ -716,7 +719,24 @@ export function constructHelloWorldModulePublication(
     transitionContractRef: HELLO_WORLD_IDS.transitionContractRef,
     replayProjectionRef: "projection://abiogenesis/conformance/hello-world-replay@5",
     terminalKind: "completed",
+    closureScope: "run",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
+  };
+  const childClosureContract: ClosureContract = {
+    kind: "closure_contract",
+    closureContractRef: HELLO_WORLD_IDS.childClosureContractRef,
+    predicateRef: "predicate://abiogenesis/conformance/hello-world-terminal@5",
+    evidenceContractRef: HELLO_WORLD_IDS.evidenceContractRef,
+    resultContractRef: HELLO_WORLD_IDS.outputContractRef,
+    refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+    refusalValueKind: "hello_world_refusal",
+    judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+    rejectionContractRef: HELLO_WORLD_IDS.refusalContractRef,
+    transitionContractRef: HELLO_WORLD_IDS.transitionContractRef,
+    replayProjectionRef: "projection://abiogenesis/conformance/hello-world-replay@5",
+    terminalKind: "completed",
+    closureScope: "graph_call",
+    eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed"],
   };
   const fpClosureContract: ClosureContract = {
     kind: "closure_contract",
@@ -731,6 +751,7 @@ export function constructHelloWorldModulePublication(
     transitionContractRef: FP_HELLO_IDS.transitionContractRef,
     replayProjectionRef: "projection://abiogenesis/conformance/fp-hello-replay@5",
     terminalKind: "completed",
+    closureScope: "run",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
   const deterministicFpClosureContract: ClosureContract = {
@@ -747,6 +768,7 @@ export function constructHelloWorldModulePublication(
     replayProjectionRef:
       "projection://abiogenesis/conformance/fd-fp-hello-replay@5",
     terminalKind: "completed",
+    closureScope: "run",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
   const fpFdClosureContract: ClosureContract = {
@@ -763,6 +785,7 @@ export function constructHelloWorldModulePublication(
     replayProjectionRef:
       "projection://abiogenesis/conformance/fp-fd-compose-replay@5",
     terminalKind: "completed",
+    closureScope: "run",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
   const workflowClosureContract: ClosureContract = {
@@ -778,6 +801,7 @@ export function constructHelloWorldModulePublication(
     transitionContractRef: HELLO_WORLD_IDS.transitionContractRef,
     replayProjectionRef: "projection://abiogenesis/conformance/hello-workflow-replay@5",
     terminalKind: "completed",
+    closureScope: "run",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
   const gateClosureContract: ClosureContract = {
@@ -795,6 +819,7 @@ export function constructHelloWorldModulePublication(
     replayProjectionRef:
       "projection://abiogenesis/conformance/hello-gate-replay@5",
     terminalKind: "completed",
+    closureScope: "run",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
   const normalizedHelloClosureContract: ClosureContract = {
@@ -812,6 +837,7 @@ export function constructHelloWorldModulePublication(
     replayProjectionRef:
       "projection://abiogenesis/conformance/hello-graph-normalize-replay@5",
     terminalKind: "completed",
+    closureScope: "run",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
   const graphFunction: GraphFunction = {
@@ -865,6 +891,7 @@ export function constructHelloWorldModulePublication(
     declarations: {
       "abg.compute_regime": "F_D",
       "abg.closure_contract": HELLO_WORLD_IDS.closureContractRef,
+      "abg.child_closure_contract": HELLO_WORLD_IDS.childClosureContractRef,
       "abg.evidence_contract": HELLO_WORLD_IDS.evidenceContractRef,
       "abg.judgment_contract": HELLO_WORLD_IDS.judgmentContractRef,
       "abg.judgment_predicate": HELLO_WORLD_IDS.judgmentPredicateRef,
@@ -1001,6 +1028,7 @@ export function constructHelloWorldModulePublication(
     declarations: {
       "abg.compute_regime": "F_D",
       "abg.closure_contract": HELLO_WORLD_IDS.closureContractRef,
+      "abg.child_closure_contract": HELLO_WORLD_IDS.childClosureContractRef,
       "abg.evidence_contract": HELLO_WORLD_IDS.evidenceContractRef,
       "abg.judgment_contract": HELLO_WORLD_IDS.judgmentContractRef,
       "abg.judgment_predicate": HELLO_WORLD_IDS.judgmentPredicateRef,
@@ -2013,6 +2041,7 @@ export function constructHelloWorldModulePublication(
     ],
     closureContracts: [
       closureContract,
+      childClosureContract,
       workflowClosureContract,
       gateClosureContract,
       normalizedHelloClosureContract,
