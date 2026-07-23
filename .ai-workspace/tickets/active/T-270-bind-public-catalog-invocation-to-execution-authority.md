@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: bounded_graph_recursion_scope_repair_accepted_fanout_active
-- proof_status: m4_26_green_m5_59_green_conservation_20_of_40_s02_open
+- review_status: fanout_fanin_checkpoint_ready_for_bounded_review
+- proof_status: m4_26_green_m5_62_green_conservation_21_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -585,6 +585,37 @@ and manifest digest
 `sha256:974acba36c4fd1376b6a4c60f343c979fcc4703d6f913e0552d6d81565eacaf6`.
 Fan-out/fan-in remains paused pending bounded review of this exact repair.
 
+Implementation commit `6c25b7c5cc0826b8fb9153c3739065b2325ab534`
+proves serial fan-out and guarded fan-in through the same ordinary installed
+Product path:
+
+- one GTL.TypeScript Program and GraphFunction declare an exact ordered
+  `C.batch` of transparent `workflow.C` member calls followed by one reducer,
+  with whole-Program validation re-deriving the materialized member set from
+  the admitted input vector;
+- HoG traverses the member tasks serially through their exact installed leaf
+  port, without a Public traversal loop, and enters the reducer only after ABG
+  admits complete-vector truth for the same Frame and batch;
+- ABG admits disjoint complete-vector and partial-stop outcomes: completion
+  binds the ordered per-task census and canonical output vector, while a stop
+  binds the completed prefix, stopping task, and unstarted suffix and cannot
+  open the reducer; and
+- installed proofs cover ordered `Alpha`, `Beta`, `Gamma` completion, one
+  reducer after all three members, reordered-input refusal, and a blocked
+  second member that leaves the third unstarted and the reducer unopened.
+
+Fresh serialized verification is `test:m5` `62/62`, retained `test:m4`
+`26/26`, and conservation `21/40` with `19` explicit gaps. Two independent
+packs reproduce artifact SHA-256
+`43c2bb73f02de2b5d6afa4caad553da3c638d95bad288bb6e690de0eae8c1801`,
+Product content digest
+`sha256:25b96e30084996ac01749c6aa48f79d3265abedccda77d05dcf290fdd9e6b1ed`,
+and manifest digest
+`sha256:450cd2d558646fc213f5cf846ba5b2c7da58a37e549b984e96cc2145d7b50a24`.
+No parser, lowering, compiled carrier, Public controller, or second runtime
+path was added. `ABG5-S02` remains open on the remaining installed traversal
+and conservation gaps.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -611,7 +642,7 @@ not a proof that the Product is complete.
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
 | `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition, substitution, identity, promotion, canonical same-object witnesses, and gate evaluator binding are native and validated; remaining runtime relation semantics stay open | `T-270` / S02 |
-| `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, one F_P-to-F_D composition, batch, workflow, declared gate, and real failed-attempt retry subsets proven; remaining applications and F_H open | `T-270` / S02 |
+| `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, one F_P-to-F_D composition, serial fan-out/fan-in with partial-stop truth, workflow, declared gate, bounded recursion, and real failed-attempt retry subsets proven; remaining applications and F_H open | `T-270` / S02 |
 | `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
 | `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | root CLI subset only | `T-281` / S06 |
