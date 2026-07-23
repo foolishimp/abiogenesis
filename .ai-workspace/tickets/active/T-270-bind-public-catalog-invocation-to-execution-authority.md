@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: traversal_conservation_checkpoint_ready_for_review_09e14a18
-- proof_status: m4_root_retained_m5_green_conservation_15_of_40_s02_open
+- review_status: graph_function_identity_checkpoint_ready_for_review_46a2786b
+- proof_status: m4_root_retained_m5_48_green_conservation_15_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -379,6 +379,28 @@ named `todo` rows, ordinary `test:m5` `47/47`, retained `test:m4` `26/26`, and
 This matrix is a no-silence governor, not an S02 completion substitute;
 `ABG5-S02` remains open.
 
+Implementation commit `46a2786b` closes the native GraphFunction identity law
+without inventing a runtime identity service:
+
+- `identityGraphFunction` constructs one immutable typed `C.id` GraphFunction
+  with one canonical identity application and no effect or executable leaf;
+- native GraphFunction composition recognizes exact left and right identity,
+  removes only the no-effect identity topology, and retains the source and
+  composition provenance in the constructed GraphFunction;
+- whole-Program validation admits both identity compositions while a forged
+  identity target falls through to ordinary composition checks and refuses;
+  and
+- no HoG, ABG, Product, Public, parser, lowering, compiled carrier, or rival
+  execution path changed.
+
+Fresh serialized verification is `test:m5` `48/48`, retained `test:m4`
+`26/26`, and `ABI5-ROOT-001` `root_satisfied` with R1-R10 true. The fixed
+conservation inventory remains honestly `15/40` with `25` explicit gaps.
+Repeated packing reproduced artifact SHA-256
+`333e48aa5026a87868d79951decd1bad3bab2abe78d26248a363557076aa8ec9`.
+This closes the static identity relation only; promotion and runtime
+recurse/fan-out/fan-in/gate remain open, so `ABG5-S02` remains open.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -404,7 +426,7 @@ not a proof that the Product is complete.
 | Feature | M4 state | Owning closure |
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
-| `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition and substitution, and canonical same-object witnesses are native and validated; remaining relation semantics stay open | `T-270` / S02 |
+| `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition, substitution, identity, and canonical same-object witnesses are native and validated; remaining relation semantics stay open | `T-270` / S02 |
 | `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, batch, retry, and workflow subset proven; remaining applications and F_H open | `T-270` / S02 |
 | `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
 | `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
