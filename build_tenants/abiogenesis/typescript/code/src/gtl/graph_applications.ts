@@ -200,10 +200,21 @@ export function identityApplication(
 }
 
 export function sameObjectApplication(
-  input: ApplicationInput<SameObjectApplication>,
+  input: Omit<ApplicationInput<SameObjectApplication>, "witnessRef">,
 ): SameObjectApplication {
   requireRef(input.leftRef, "leftRef");
   requireRef(input.rightRef, "rightRef");
-  requireRef(input.witnessRef, "witnessRef");
-  return constructApplication("same_object", input);
+  if (input.leftRef !== input.rightRef) {
+    throw new TypeError("same-object requires one exact opaque identity");
+  }
+  return constructApplication("same_object", {
+    ...input,
+    witnessRef: sameObjectWitnessRef(input.leftRef),
+  });
+}
+
+export function sameObjectWitnessRef(objectRef: string): string {
+  requireRef(objectRef, "objectRef");
+  const digest = sha256Canonical({ objectRef });
+  return `identity-witness://abiogenesis/${digest.slice("sha256:".length)}`;
 }

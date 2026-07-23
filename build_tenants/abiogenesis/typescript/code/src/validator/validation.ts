@@ -18,6 +18,7 @@ import {
   foldbackRef,
   graphEdgeRef,
   graphFunctionApplicationRef,
+  sameObjectWitnessRef,
 } from "../gtl/graph_applications.js";
 import {
   cLeafTerms,
@@ -896,6 +897,19 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           code: "carrier_mismatch",
           path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
           message: "promote application must bind its declared source and target contracts",
+        });
+      }
+      if (
+        application.relationKind === "same_object" &&
+        (
+          application.leftRef !== application.rightRef ||
+          application.witnessRef !== sameObjectWitnessRef(application.leftRef)
+        )
+      ) {
+        diagnostics.push({
+          code: "identity_mismatch",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          message: "same-object application requires one canonical witness over one exact opaque identity",
         });
       }
     }

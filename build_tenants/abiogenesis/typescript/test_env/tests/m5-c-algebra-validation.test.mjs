@@ -343,8 +343,7 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
     gtl.sameObjectApplication({
       ...base,
       leftRef: "object://m5/left",
-      rightRef: "object://m5/right",
-      witnessRef: "identity-witness://m5/same",
+      rightRef: "object://m5/left",
     }),
   ];
   const edge = gtl.graphEdge({
@@ -403,6 +402,21 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
       applications.find((application) => application.relationKind === "recurse").foldback,
     ),
   );
+  const sameObject = applications.find(
+    (application) => application.relationKind === "same_object",
+  );
+  assert.equal(
+    sameObject.witnessRef,
+    gtl.sameObjectWitnessRef(sameObject.leftRef),
+  );
+  assert.throws(
+    () => gtl.sameObjectApplication({
+      ...base,
+      leftRef: "object://m5/left",
+      rightRef: "object://m5/right",
+    }),
+    /one exact opaque identity/u,
+  );
   assert.throws(
     () => gtl.recurseApplication({
       ...base,
@@ -424,6 +438,39 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
       targetRef: inputContractRef,
     }),
     /exact interface/u,
+  );
+});
+
+test("M5 same-object relation is one validator-owned canonical identity witness", () => {
+  const publication = structuredClone(
+    gtl.constructHelloWorldModulePublication(artifactBasis()),
+  );
+  const program = publication.programs[0];
+  const graphFunction = publication.graphFunctions.find(
+    (candidate) => candidate.name === program.starts[0].graphFunctionRef,
+  );
+  assert.notEqual(graphFunction, undefined);
+  graphFunction.template.applications = [gtl.sameObjectApplication({
+    inputContractRef: graphFunction.inputs[0],
+    outputContractRef: graphFunction.outputs[0],
+    leftRef: graphFunction.name,
+    rightRef: graphFunction.name,
+  })];
+  assert.equal(programValidationResult(publication, program).kind, "program_validation");
+
+  const forged = structuredClone(publication);
+  const forgedGraphFunction = forged.graphFunctions.find(
+    (candidate) => candidate.name === program.starts[0].graphFunctionRef,
+  );
+  const forgedApplication = forgedGraphFunction.template.applications[0];
+  forgedApplication.rightRef = "graph-function://m5/rival";
+  forgedApplication.applicationRef = gtl.graphFunctionApplicationRef(forgedApplication);
+  const result = programValidationResult(forged, forged.programs[0]);
+  assert.equal(result.kind, "static_validation_refusal");
+  assert.equal(
+    result.diagnostics.some((row) => row.code === "identity_mismatch"),
+    true,
+    JSON.stringify(result),
   );
 });
 

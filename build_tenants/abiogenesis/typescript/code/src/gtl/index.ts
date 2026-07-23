@@ -75,6 +75,7 @@ export {
   promoteApplication,
   recurseApplication,
   sameObjectApplication,
+  sameObjectWitnessRef,
   substituteApplication,
   type RecurseApplicationInput,
 } from "./graph_applications.js";
