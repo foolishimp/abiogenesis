@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: bounded_retry_checkpoint_ready_for_review_ff2636ef
-- proof_status: m4_root_retained_m5_53_green_conservation_18_of_40_s02_open
+- review_status: bounded_gate_checkpoint_ready_for_review_c803dd65
+- proof_status: m4_root_retained_m5_55_green_conservation_19_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -472,6 +472,30 @@ This checkpoint proves the installed `contract_failure` retry path only;
 runtime recursion, gate, fan-out/fan-in, F_H continuation, and the remaining
 rows stay open. `ABG5-S02` remains open.
 
+Implementation commit `c803dd65f947660def0568bcddc7e39d519d7eb9`
+proves one declared gate through the ordinary installed Product path:
+
+- one Product-published GTL.TypeScript `GateApplication` binds an immutable
+  Rule, one F_D Evaluator, and one named target GraphFunction;
+- whole-Program validation requires the evaluator locus to match the declared
+  evaluator implementation, regime, composition identity, and gate input
+  contract before runtime entry;
+- HoG traverses the evaluator C-call and advances into the declared
+  `workflow.C` target only after ABG admits the evaluator result, judgment, and
+  caused route; and
+- the installed negative admits a valid evaluator result but blocks before
+  opening the target GraphCall, while detached evaluator authority refuses at
+  validation.
+
+Fresh serialized verification is `test:m5` `55/55`, retained `test:m4`
+`26/26`, and `ABI5-ROOT-001` `root_satisfied` with R1-R10 true. The fixed
+conservation inventory advances to `19/40`, with `21` explicit gaps. Two
+independent packs reproduced artifact SHA-256
+`eca20ec46453b12796c6020ed093f5506e29f8f62c5fab64b434ed5519ef8994`.
+No parser, lowering, compiled carrier, public controller, policy engine, or
+second runtime path was added. Runtime recursion, fan-out/fan-in, F_H
+continuation, and the remaining rows stay open. `ABG5-S02` remains open.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -497,8 +521,8 @@ not a proof that the Product is complete.
 | Feature | M4 state | Owning closure |
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
-| `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition, substitution, identity, promotion, and canonical same-object witnesses are native and validated; remaining runtime relation semantics stay open | `T-270` / S02 |
-| `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, one F_P-to-F_D composition, batch, real failed-attempt retry, and workflow subset proven; remaining applications and F_H open | `T-270` / S02 |
+| `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition, substitution, identity, promotion, canonical same-object witnesses, and gate evaluator binding are native and validated; remaining runtime relation semantics stay open | `T-270` / S02 |
+| `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, one F_P-to-F_D composition, batch, workflow, declared gate, and real failed-attempt retry subsets proven; remaining applications and F_H open | `T-270` / S02 |
 | `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
 | `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | root CLI subset only | `T-281` / S06 |
