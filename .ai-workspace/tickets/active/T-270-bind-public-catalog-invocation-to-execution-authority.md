@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: graph_function_identity_checkpoint_ready_for_review_46a2786b
-- proof_status: m4_root_retained_m5_48_green_conservation_15_of_40_s02_open
+- review_status: graph_function_promotion_checkpoint_ready_for_review_c0b81d6c
+- proof_status: m4_root_retained_m5_49_green_conservation_15_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -398,8 +398,30 @@ Fresh serialized verification is `test:m5` `48/48`, retained `test:m4`
 conservation inventory remains honestly `15/40` with `25` explicit gaps.
 Repeated packing reproduced artifact SHA-256
 `333e48aa5026a87868d79951decd1bad3bab2abe78d26248a363557076aa8ec9`.
-This closes the static identity relation only; promotion and runtime
-recurse/fan-out/fan-in/gate remain open, so `ABG5-S02` remains open.
+That checkpoint closed the static identity relation only; promotion and
+runtime recurse/fan-out/fan-in/gate were still open, so it did not close
+`ABG5-S02`.
+
+Implementation commit `c0b81d6c` closes the native GraphFunction promotion
+law without adding runtime policy:
+
+- `promoteGraphFunction` consumes one immutable GraphFunction and one exact
+  declared source/target contract boundary;
+- the constructed GraphFunction preserves the complete source topology,
+  environment, effects, declarations, and tags while adding one canonical
+  promotion application and a distinct graph identity;
+- whole-Program validation admits the promoted relation and rejects contract
+  mismatch or a forged promotion target; and
+- no HoG, ABG, Product, Public, parser, lowering, compiled carrier, policy
+  engine, or second execution path changed.
+
+Fresh serialized verification is `test:m5` `49/49`, retained `test:m4`
+`26/26`, and `ABI5-ROOT-001` `root_satisfied` with R1-R10 true. The fixed
+conservation inventory remains `15/40` with `25` explicit gaps. Repeated
+packing reproduced artifact SHA-256
+`041854a46c67ce5b7525787382131438e3750e5f28688113e9d70cb1213ecaac`.
+Runtime recurse, fan-out/fan-in, and gate remain open, so `ABG5-S02` remains
+open.
 
 ## 4.6 Conservation
 
@@ -426,7 +448,7 @@ not a proof that the Product is complete.
 | Feature | M4 state | Owning closure |
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
-| `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition, substitution, identity, and canonical same-object witnesses are native and validated; remaining relation semantics stay open | `T-270` / S02 |
+| `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition, substitution, identity, promotion, and canonical same-object witnesses are native and validated; remaining runtime relation semantics stay open | `T-270` / S02 |
 | `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, batch, retry, and workflow subset proven; remaining applications and F_H open | `T-270` / S02 |
 | `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
 | `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
