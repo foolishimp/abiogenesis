@@ -962,6 +962,8 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           : undefined;
         if (
           element === undefined ||
+          application.inputContractRef !== application.inputVectorRef ||
+          application.outputContractRef !== application.outputVectorRef ||
           !element.inputs.includes(application.inputMemberContractRef) ||
           !element.outputs.includes(application.outputMemberContractRef) ||
           batch === undefined ||
@@ -986,6 +988,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         const reducer = referencedByRef.get(application.reducerGraphFunctionRef);
         if (
           reducer === undefined ||
+          application.inputContractRef !== application.inputVectorRef ||
           !reducer.inputs.includes(application.inputVectorRef) ||
           !reducer.outputs.includes(application.outputContractRef)
         ) {

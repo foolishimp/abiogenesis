@@ -1982,12 +1982,26 @@ function completeFanOutWorkflowRoute(
   const completionReplay = replay(input.store, {
     runId: input.openedTraversalScope.runId,
   });
+  const replayedCompletion = completionReplay.fanOutCompletions.find(
+    (completionTruth) =>
+      completionTruth.completionRef === fanOutCompletion.completionRef &&
+      completionTruth.admissionEventRef ===
+        fanOutCompletion.admissionEventRef,
+  );
+  if (replayedCompletion === undefined) {
+    return failWorkflowTraversal(
+      input,
+      "fan-out-completion-replay",
+      "diagnostic://abiogenesis/hog/fan-out-completion-replay-absent@5",
+      fanOutCompletion as unknown as JsonValue,
+    );
+  }
   const proposal = proposeFanOutRoute(
     input.graph,
     application,
     continuationStep,
     input.parentCCall,
-    fanOutCompletion,
+    replayedCompletion,
     completionReplay,
     input.closureContract.transitionContractRef,
   );
@@ -2011,7 +2025,7 @@ function completeFanOutWorkflowRoute(
     {
       cCall: input.parentCCall,
       application,
-      completion: fanOutCompletion,
+      completion: replayedCompletion,
     },
   );
   if (route.kind !== "admitted_traversal_route") {
@@ -2022,7 +2036,7 @@ function completeFanOutWorkflowRoute(
       route as unknown as JsonValue,
     );
   }
-  if (fanOutCompletion.completionKind === "partial_stop") {
+  if (replayedCompletion.completionKind === "partial_stop") {
     if (route.routeKind !== "blocked" || route.runStoppedEventRef === null) {
       return failWorkflowTraversal(
         input,
@@ -2061,12 +2075,12 @@ function completeFanOutWorkflowRoute(
     runId: input.openedTraversalScope.runId,
   }), {
     cCallRef: input.parentCCall.cCallRef,
-    resultRef: fanOutCompletion.outputVectorRef,
+    resultRef: replayedCompletion.outputVectorRef,
     judgmentRef: judgment.judgmentRef,
     nextCursor,
-    resultValue: fanOutCompletion.outputVector,
+    resultValue: replayedCompletion.outputVector,
     continuationKind: "advance",
-    nextInputContractRef: fanOutCompletion.outputVectorContractRef,
+    nextInputContractRef: replayedCompletion.outputVectorContractRef,
   });
 }
 

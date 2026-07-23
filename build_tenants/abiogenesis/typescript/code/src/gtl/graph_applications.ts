@@ -181,6 +181,14 @@ export function fanOutApplication(
   requireRef(input.outputVectorRef, "outputVectorRef");
   requireRef(input.inputMemberContractRef, "inputMemberContractRef");
   requireRef(input.outputMemberContractRef, "outputMemberContractRef");
+  if (
+    input.inputContractRef !== input.inputVectorRef ||
+    input.outputContractRef !== input.outputVectorRef
+  ) {
+    throw new TypeError(
+      "fan-out outer contracts must equal the declared input and output vectors",
+    );
+  }
   return constructApplication("fan_out", input);
 }
 
@@ -189,6 +197,11 @@ export function fanInApplication(
 ): FanInApplication {
   requireRef(input.reducerGraphFunctionRef, "reducerGraphFunctionRef");
   requireRef(input.inputVectorRef, "inputVectorRef");
+  if (input.inputContractRef !== input.inputVectorRef) {
+    throw new TypeError(
+      "fan-in outer input contract must equal the declared input vector",
+    );
+  }
   return constructApplication("fan_in", input);
 }
 

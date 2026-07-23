@@ -27,7 +27,6 @@ import {
   type CCall,
 } from "./c_call.js";
 import {
-  isAdmittedFanOutCompletion,
   type FanOutCompletionAdmission,
 } from "./fan_out.js";
 import {
@@ -410,8 +409,10 @@ function hasRetryRouteEvidence(
     candidate.routeKind !== "retry" ||
     candidate.cCallRef !== evidence.cCall.cCallRef ||
     candidate.judgmentRef !== evidence.progress.judgmentRef ||
-    candidate.consumedAvailabilityRefs.length !== 1 ||
-    candidate.consumedAvailabilityRefs[0] !== evidence.progress.progressRef ||
+    !sameValues(candidate.consumedAvailabilityRefs, [
+      evidence.progress.judgmentRef,
+      evidence.progress.progressRef,
+    ]) ||
     candidate.contractRef !== evidence.cCall.transitionContractRef
   ) return false;
   const contexts = resolveEnclosingCRetryContexts(
@@ -450,10 +451,22 @@ function hasFanOutRouteEvidence(
   candidate: RouteCandidate,
   evidence: FanOutRouteAdmissionEvidence | null,
 ): evidence is FanOutRouteAdmissionEvidence {
+  const replayedCompletion = evidence === null
+    ? undefined
+    : replay(store, {
+        runId: sourceCursor.runId,
+      }).fanOutCompletions.find(
+        (completion) =>
+          completion.completionRef === evidence.completion.completionRef &&
+          completion.admissionEventRef ===
+            evidence.completion.admissionEventRef,
+      );
   if (
     evidence === null ||
     !hasOpenedCCall(store, evidence.cCall) ||
-    !isAdmittedFanOutCompletion(evidence.completion) ||
+    replayedCompletion === undefined ||
+    sha256Canonical(evidence.completion as unknown as JsonValue) !==
+      sha256Canonical(replayedCompletion as unknown as JsonValue) ||
     graph.template.applications.find(
       (application) =>
         application.applicationRef === evidence.application.applicationRef,
@@ -469,8 +482,12 @@ function hasFanOutRouteEvidence(
     evidence.completion.applicationRef !== evidence.application.applicationRef ||
     evidence.completion.batchRef !== evidence.application.batchRef ||
     candidate.cCallRef !== evidence.cCall.cCallRef ||
-    candidate.consumedAvailabilityRefs.length !== 1 ||
-    candidate.consumedAvailabilityRefs[0] !== evidence.application.applicationRef ||
+    !sameValues(candidate.consumedAvailabilityRefs, [
+      evidence.completion.completionKind === "complete_vector"
+        ? evidence.completion.taskRows.at(-1)?.judgmentRef ?? ""
+        : evidence.completion.stoppingRow.judgmentRef,
+      evidence.application.applicationRef,
+    ]) ||
     candidate.contractRef !== evidence.cCall.transitionContractRef
   ) return false;
   const completionEvent = store.readAll().find(

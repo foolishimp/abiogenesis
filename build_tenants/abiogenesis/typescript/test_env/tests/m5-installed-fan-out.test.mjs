@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
+import * as abg from "../../build/code/src/abg/index.js";
 import {
   buildRootCliScenario,
   runInstalledCli,
@@ -35,8 +36,7 @@ function input(subjects, blockedOrdinal = null) {
     schemaVersion: "5.0.0",
     members: subjects.map((subject, ordinal) => ({
       ordinal,
-      memberRef:
-        `fan-out-member://abiogenesis/conformance/${ordinal}/${encodeURIComponent(subject)}`,
+      memberRef: `member://developer/${encodeURIComponent(subject.toLowerCase())}`,
       value: {
         kind: "fan_out_hello_member_input",
         schemaVersion: "5.0.0",
@@ -49,6 +49,7 @@ function input(subjects, blockedOrdinal = null) {
 
 async function runFanOut(context, label, subjects, blockedOrdinal = null) {
   const harness = await setupInstalledCliHarness(context, root);
+  const submittedInput = input(subjects, blockedOrdinal);
   const scenario = await buildRootCliScenario(
     harness,
     label,
@@ -57,18 +58,37 @@ async function runFanOut(context, label, subjects, blockedOrdinal = null) {
       programRef: PROGRAM_REF,
       graphFunctionRef: GRAPH_FUNCTION_REF,
       allowlist: [GRAPH_FUNCTION_REF, ELEMENT_REF, REDUCER_REF],
-      input: input(subjects, blockedOrdinal),
+      input: submittedInput,
     },
   );
   const run = await runInstalledCli(harness, scenario);
+  let events;
+  try {
+    events = await readEvents(scenario.eventLogPath);
+  } catch (error) {
+    throw new Error(
+      `fan-out event log unavailable: ${error.message}\nstdout:\n${run.stdout}\nstderr:\n${run.stderr}`,
+    );
+  }
   return {
     run,
-    events: await readEvents(scenario.eventLogPath),
+    events,
+    submittedInput,
   };
 }
 
+function activeFluents(events) {
+  const active = new Set();
+  for (const event of events) {
+    const effect = abg.eventCalculusEffect(event);
+    effect.terminates.forEach((fluent) => active.delete(fluent));
+    effect.initiates.forEach((fluent) => active.add(fluent));
+  }
+  return [...active].sort();
+}
+
 test("M5 installed fan-out admits one ordered vector before one fan-in reducer", async (context) => {
-  const { run, events } = await runFanOut(
+  const { run, events, submittedInput } = await runFanOut(
     context,
     "m5-fan-out-complete",
     ["Alpha", "Beta", "Gamma"],
@@ -107,6 +127,16 @@ test("M5 installed fan-out admits one ordered vector before one fan-in reducer",
     [0, 1, 2],
   );
   assert.deepEqual(
+    completion.payload.taskRows.map((row) => row.inputMemberRef),
+    submittedInput.members.map((member) => member.memberRef),
+  );
+  assert.deepEqual(
+    completion.payload.outputVector.members.map((member) =>
+      member.inputMemberRef
+    ),
+    submittedInput.members.map((member) => member.memberRef),
+  );
+  assert.deepEqual(
     completion.payload.outputVector.members.map((member) => member.value.message),
     ["Hello Alpha", "Hello Beta", "Hello Gamma"],
   );
@@ -123,11 +153,31 @@ test("M5 installed fan-out admits one ordered vector before one fan-in reducer",
     ).length,
     1,
   );
+  const route = events.find(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.consumedAvailabilityRefs?.includes(
+        completion.payload.applicationRef,
+      ),
+  );
+  assert.notEqual(route, undefined);
+  assert.deepEqual(route.payload.consumedAvailabilityRefs, [
+    completion.payload.taskRows.at(-1).judgmentRef,
+    completion.payload.applicationRef,
+  ]);
+  assert.equal(
+    activeFluents(events).some((fluent) =>
+      fluent.startsWith("c_call_judgment_available(") ||
+      fluent.startsWith("fan_out_vector_available(") ||
+      fluent.startsWith("fan_out_partial_stop_available(")
+    ),
+    false,
+  );
   assert.equal(events.at(-1).kind, "run_closed");
 });
 
 test("M5 installed fan-out admits a partial stop and never enters fan-in", async (context) => {
-  const { run, events } = await runFanOut(
+  const { run, events, submittedInput } = await runFanOut(
     context,
     "m5-fan-out-partial-stop",
     ["Alpha", "Beta", "Gamma"],
@@ -161,6 +211,14 @@ test("M5 installed fan-out admits a partial stop and never enters fan-in", async
   );
   assert.equal(completion.payload.stoppingRow.ordinal, 1);
   assert.deepEqual(
+    [
+      ...completion.payload.completedRows.map((row) => row.inputMemberRef),
+      completion.payload.stoppingRow.inputMemberRef,
+      ...completion.payload.unstartedRows.map((row) => row.inputMemberRef),
+    ],
+    submittedInput.members.map((member) => member.memberRef),
+  );
+  assert.deepEqual(
     completion.payload.unstartedRows.map((row) => row.ordinal),
     [2],
   );
@@ -170,6 +228,26 @@ test("M5 installed fan-out admits a partial stop and never enters fan-in", async
       (event) =>
         event.kind === "graph_call_opened" &&
         event.graphFunctionRef === REDUCER_REF,
+    ),
+    false,
+  );
+  const route = events.find(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.consumedAvailabilityRefs?.includes(
+        completion.payload.applicationRef,
+      ),
+  );
+  assert.notEqual(route, undefined);
+  assert.deepEqual(route.payload.consumedAvailabilityRefs, [
+    completion.payload.stoppingRow.judgmentRef,
+    completion.payload.applicationRef,
+  ]);
+  assert.equal(
+    activeFluents(events).some((fluent) =>
+      fluent.startsWith("c_call_judgment_available(") ||
+      fluent.startsWith("fan_out_vector_available(") ||
+      fluent.startsWith("fan_out_partial_stop_available(")
     ),
     false,
   );

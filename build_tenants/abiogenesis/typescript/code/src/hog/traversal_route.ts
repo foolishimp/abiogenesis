@@ -130,7 +130,10 @@ export function proposeRetryRoute(
     targetCursorDigest: step.targetCursor.cursorDigest,
     cCallRef: cCall.cCallRef,
     judgmentRef: progress.judgmentRef,
-    consumedAvailabilityRefs: [progress.progressRef],
+    consumedAvailabilityRefs: [
+      progress.judgmentRef,
+      progress.progressRef,
+    ],
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };
@@ -430,7 +433,10 @@ export function proposeFanOutRoute(
     targetCursorDigest: step.targetCursor?.cursorDigest ?? null,
     cCallRef: cCall.cCallRef,
     judgmentRef: taskRow.judgmentRef,
-    consumedAvailabilityRefs: [application.applicationRef] as const,
+    consumedAvailabilityRefs: [
+      taskRow.judgmentRef,
+      application.applicationRef,
+    ] as const,
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };

@@ -484,15 +484,15 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
       ...base,
       batchRef: "c-batch://m5/application",
       elementGraphFunctionRef: "graph-function://m5/element",
-      inputVectorRef: "graph-vector://m5/input",
-      outputVectorRef: "graph-vector://m5/output",
+      inputVectorRef: inputContractRef,
+      outputVectorRef: outputContractRef,
       inputMemberContractRef: inputContractRef,
       outputMemberContractRef: outputContractRef,
     }),
     gtl.fanInApplication({
       ...base,
       reducerGraphFunctionRef: "graph-function://m5/reducer",
-      inputVectorRef: "graph-vector://m5/input",
+      inputVectorRef: inputContractRef,
     }),
     gtl.gateApplication({
       ...base,
@@ -959,6 +959,52 @@ test("M5 fan-out materialization derives one exact task per admitted input membe
   );
   assert.equal(refusal.kind, "static_validation_refusal");
   assert.equal(refusal.diagnostics[0].code, "topology_mismatch");
+});
+
+test("M5 fan-out and fan-in outer contracts equal their declared vectors", () => {
+  const mutations = [
+    {
+      relationKind: "fan_out",
+      field: "inputContractRef",
+      replacement: gtl.FAN_OUT_HELLO_IDS.inputMemberContractRef,
+    },
+    {
+      relationKind: "fan_out",
+      field: "outputContractRef",
+      replacement: gtl.FAN_OUT_HELLO_IDS.outputMemberContractRef,
+    },
+    {
+      relationKind: "fan_in",
+      field: "inputContractRef",
+      replacement: gtl.FAN_OUT_HELLO_IDS.inputMemberContractRef,
+    },
+  ];
+  for (const mutation of mutations) {
+    const publication = structuredClone(
+      gtl.constructHelloWorldModulePublication(artifactBasis()),
+    );
+    const program = publication.programs.find(
+      (candidate) => candidate.programRef === gtl.FAN_OUT_HELLO_IDS.programRef,
+    );
+    const graphFunction = publication.graphFunctions.find(
+      (candidate) =>
+        candidate.name === gtl.FAN_OUT_HELLO_IDS.graphFunctionRef,
+    );
+    const application = graphFunction.template.applications.find(
+      (candidate) => candidate.relationKind === mutation.relationKind,
+    );
+    assert.notEqual(program, undefined);
+    assert.notEqual(application, undefined);
+    application[mutation.field] = mutation.replacement;
+    application.applicationRef = gtl.graphFunctionApplicationRef(application);
+    const result = programValidationResult(publication, program);
+    assert.equal(result.kind, "static_validation_refusal", JSON.stringify(result));
+    assert.equal(
+      result.diagnostics.some((row) => row.code === "carrier_mismatch"),
+      true,
+      JSON.stringify(result),
+    );
+  }
 });
 
 test("M5 native GraphFunction composition materializes source GTL without a second executable carrier", () => {

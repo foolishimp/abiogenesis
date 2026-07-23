@@ -715,10 +715,20 @@ async function applyRunInvoke(
         "run.invoke fan-out conformance input permits at most one stopping member",
       );
     }
-    admittedInput = gtl.constructFanOutHelloInput(
-      inputValue.members.map((member) => member.value.subject),
-      blocked[0]?.ordinal ?? null,
-    );
+    admittedInput = deepFreeze({
+      kind: "fan_out_hello_vector_input" as const,
+      schemaVersion: "5.0.0" as const,
+      members: inputValue.members.map((member) => ({
+        ordinal: member.ordinal,
+        memberRef: member.memberRef,
+        value: {
+          kind: "fan_out_hello_member_input" as const,
+          schemaVersion: "5.0.0" as const,
+          block: member.value.block,
+          subject: member.value.subject,
+        },
+      })),
+    });
   } else {
     throw new ApplicationRefusal(
       "target_mismatch",

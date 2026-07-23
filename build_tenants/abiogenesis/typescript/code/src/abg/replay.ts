@@ -9,6 +9,7 @@ import type {
   RuntimeEvent,
   RuntimeEventScope,
 } from "./event_store.js";
+import type { FanOutCompletionAdmission } from "./fan_out.js";
 import type { TraversalRouteKind } from "./traversal_route.js";
 
 export interface ReplayCCallState {
@@ -78,6 +79,7 @@ export interface ReplayState {
   readonly traversalCursorEventRef: string | null;
   readonly cCalls: readonly ReplayCCallState[];
   readonly routes: readonly ReplayRouteState[];
+  readonly fanOutCompletions: readonly FanOutCompletionAdmission[];
   readonly actorProcesses: readonly ReplayActorProcessState[];
   readonly activeFluents: readonly string[];
   readonly terminalReachedEventRef: string | null;
@@ -96,7 +98,9 @@ export interface ReplayState {
     | "workspace";
 }
 
-function isRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
+function isRecord(
+  value: JsonValue | undefined,
+): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
@@ -129,6 +133,266 @@ function positiveIntegerArrayField(
       value.every((row) => Number.isSafeInteger(row) && (row as number) > 0)
     ? value as readonly number[]
     : null;
+}
+
+function hasExactKeys(
+  value: Readonly<Record<string, JsonValue>>,
+  expected: readonly string[],
+): boolean {
+  const keys = Object.keys(value).sort();
+  const expectedKeys = [...expected].sort();
+  return keys.length === expectedKeys.length &&
+    keys.every((key, index) => key === expectedKeys[index]);
+}
+
+function isNonNegativeInteger(value: JsonValue | undefined): value is number {
+  return Number.isSafeInteger(value) && (value as number) >= 0;
+}
+
+function hasNonEmptyStringFields(
+  value: Readonly<Record<string, JsonValue>>,
+  fields: readonly string[],
+): boolean {
+  return fields.every(
+    (field) => typeof value[field] === "string" && value[field].length > 0,
+  );
+}
+
+function isFanOutCompletedTaskRow(
+  value: JsonValue | undefined,
+): value is Readonly<Record<string, JsonValue>> {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "cCallRef",
+      "foldbackEventRef",
+      "foldbackRef",
+      "inputMemberDigest",
+      "inputMemberRef",
+      "judgmentRef",
+      "ordinal",
+      "outputMemberDigest",
+      "outputMemberRef",
+      "resultDigest",
+      "resultRef",
+      "value",
+    ]) &&
+    isNonNegativeInteger(value.ordinal) &&
+    hasNonEmptyStringFields(value, [
+      "cCallRef",
+      "foldbackEventRef",
+      "foldbackRef",
+      "inputMemberDigest",
+      "inputMemberRef",
+      "judgmentRef",
+      "outputMemberDigest",
+      "outputMemberRef",
+      "resultDigest",
+      "resultRef",
+    ]) &&
+    value.value !== null;
+}
+
+function isFanOutStoppingTaskRow(
+  value: JsonValue | undefined,
+): value is Readonly<Record<string, JsonValue>> {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "cCallRef",
+      "disposition",
+      "foldbackEventRef",
+      "foldbackRef",
+      "inputMemberDigest",
+      "inputMemberRef",
+      "judgmentRef",
+      "ordinal",
+      "resultDigest",
+      "resultRef",
+      "stoppingEventRef",
+    ]) &&
+    isNonNegativeInteger(value.ordinal) &&
+    value.disposition === "blocked" &&
+    hasNonEmptyStringFields(value, [
+      "cCallRef",
+      "foldbackEventRef",
+      "foldbackRef",
+      "inputMemberDigest",
+      "inputMemberRef",
+      "judgmentRef",
+      "resultDigest",
+      "resultRef",
+      "stoppingEventRef",
+    ]);
+}
+
+function isFanOutUnstartedTaskRow(
+  value: JsonValue | undefined,
+): value is Readonly<Record<string, JsonValue>> {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "inputMemberDigest",
+      "inputMemberRef",
+      "ordinal",
+    ]) &&
+    isNonNegativeInteger(value.ordinal) &&
+    hasNonEmptyStringFields(value, [
+      "inputMemberDigest",
+      "inputMemberRef",
+    ]);
+}
+
+function fanOutCompletionFromEvent(
+  event: RuntimeEvent,
+): FanOutCompletionAdmission {
+  if (
+    event.kind !== "fan_out_completion_admitted" ||
+    !isRecord(event.payload)
+  ) {
+    throw new TypeError(`invalid fan-out completion event at ${event.eventId}`);
+  }
+  const payload = event.payload;
+  const completionRef = stringField(event, "completionRef");
+  const completionDigest = stringField(event, "completionDigest");
+  const applicationRef = stringField(event, "applicationRef");
+  const batchRef = stringField(event, "batchRef");
+  const inputVectorRef = stringField(event, "inputVectorRef");
+  const outputVectorContractRef = stringField(
+    event,
+    "outputVectorContractRef",
+  );
+  const inputMemberContractRef = stringField(
+    event,
+    "inputMemberContractRef",
+  );
+  const outputMemberContractRef = stringField(
+    event,
+    "outputMemberContractRef",
+  );
+  const completionKind = payload.completionKind;
+  if (
+    completionRef === null ||
+    completionDigest === null ||
+    applicationRef === null ||
+    batchRef === null ||
+    inputVectorRef === null ||
+    outputVectorContractRef === null ||
+    inputMemberContractRef === null ||
+    outputMemberContractRef === null ||
+    (
+      completionKind !== "complete_vector" &&
+      completionKind !== "partial_stop"
+    )
+  ) {
+    throw new TypeError(
+      `incomplete fan-out completion identity at ${event.eventId}`,
+    );
+  }
+  const common = {
+    applicationRef,
+    batchRef,
+    inputVectorRef,
+    outputVectorContractRef,
+    inputMemberContractRef,
+    outputMemberContractRef,
+  };
+  let body: Readonly<Record<string, JsonValue>>;
+  if (completionKind === "complete_vector") {
+    const taskRows = payload.taskRows;
+    const outputVectorRef = payload.outputVectorRef;
+    const outputVectorDigest = payload.outputVectorDigest;
+    const outputVector = payload.outputVector;
+    if (
+      !hasExactKeys(payload, [
+        "applicationRef",
+        "batchRef",
+        "completionDigest",
+        "completionKind",
+        "completionRef",
+        "inputMemberContractRef",
+        "inputVectorRef",
+        "outputMemberContractRef",
+        "outputVector",
+        "outputVectorContractRef",
+        "outputVectorDigest",
+        "outputVectorRef",
+        "taskRows",
+      ]) ||
+      !Array.isArray(taskRows) ||
+      taskRows.length === 0 ||
+      !taskRows.every(isFanOutCompletedTaskRow) ||
+      typeof outputVectorRef !== "string" ||
+      outputVectorRef.length === 0 ||
+      typeof outputVectorDigest !== "string" ||
+      outputVectorDigest.length === 0 ||
+      !isRecord(outputVector) ||
+      sha256Canonical(outputVector) !== outputVectorDigest
+    ) {
+      throw new TypeError(
+        `invalid complete fan-out projection at ${event.eventId}`,
+      );
+    }
+    body = {
+      ...common,
+      completionKind,
+      taskRows,
+      outputVectorRef,
+      outputVectorDigest,
+      outputVector,
+    };
+  } else {
+    const completedRows = payload.completedRows;
+    const stoppingRow = payload.stoppingRow;
+    const unstartedRows = payload.unstartedRows;
+    if (
+      !hasExactKeys(payload, [
+        "applicationRef",
+        "batchRef",
+        "completedRows",
+        "completionDigest",
+        "completionKind",
+        "completionRef",
+        "inputMemberContractRef",
+        "inputVectorRef",
+        "outputMemberContractRef",
+        "outputVectorContractRef",
+        "stoppingRow",
+        "unstartedRows",
+      ]) ||
+      !Array.isArray(completedRows) ||
+      !completedRows.every(isFanOutCompletedTaskRow) ||
+      !isFanOutStoppingTaskRow(stoppingRow) ||
+      !Array.isArray(unstartedRows) ||
+      !unstartedRows.every(isFanOutUnstartedTaskRow)
+    ) {
+      throw new TypeError(
+        `invalid partial fan-out projection at ${event.eventId}`,
+      );
+    }
+    body = {
+      ...common,
+      completionKind,
+      completedRows,
+      stoppingRow,
+      unstartedRows,
+    };
+  }
+  if (
+    sha256Canonical(body as JsonValue) !== completionDigest ||
+    completionRef !==
+      `fan-out-completion://abiogenesis/${completionDigest.slice("sha256:".length)}`
+  ) {
+    throw new TypeError(
+      `fan-out completion identity mismatch at ${event.eventId}`,
+    );
+  }
+  return deepFreeze({
+    kind: "fan_out_completion_admission",
+    schemaVersion: "5.0.0",
+    disposition: "admitted",
+    completionRef,
+    completionDigest: completionDigest as Sha256Digest,
+    ...body,
+    admissionEventRef: event.eventId,
+  }) as FanOutCompletionAdmission;
 }
 
 function validateCCallOrder(events: readonly RuntimeEvent[]): void {
@@ -284,6 +548,10 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       };
     });
 
+  const fanOutCompletions = events
+    .filter((event) => event.kind === "fan_out_completion_admitted")
+    .map(fanOutCompletionFromEvent);
+
   const actorInvocationIds = [...new Set(
     events
       .filter((event) => event.aggregateType === "actor_invocation")
@@ -405,6 +673,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
     traversalCursorEventRef: traversalCursor?.eventId ?? null,
     cCalls,
     routes,
+    fanOutCompletions,
     actorProcesses,
     activeFluents: [...activeFluents].sort(),
     terminalReachedEventRef: terminal?.eventId ?? null,
