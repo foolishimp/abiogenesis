@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: fp_execution_authority_direct_fh_accepted_0b26230c
-- proof_status: m4_root_retained_fp_execution_authority_bound_s02_open
+- review_status: workflow_c_checkpoint_ready_for_review_898f7bd5
+- proof_status: m4_root_retained_workflow_c_and_fp_authority_green_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -182,9 +182,27 @@ post-install code substitution refusal, and observed bounded termination.
 Direct `F_H` accepted this bounded checkpoint on 2026-07-23 at
 `0b26230c01bfc86e3d93f57a963f4630d904010e`. The decision receipt is
 `.ai-workspace/comments/codex/20260722T230559Z_DECISION_fh_accept_t270_fp_authority_checkpoint.md`.
-The next typed frontier is transparent `workflow.C`; `ABG5-S02` remains open.
-`workflow.C`, the forty-row traversal matrix, and fibre substitution remain
-unopened.
+
+Implementation commit `898f7bd5aa115bc1a4e653d070ddc9a8b2723bb8`
+advances the next typed frontier without claiming `ABG5-S02` closure:
+
+- native GTL `workflow.C` opens one transparent parent `CCall`, admits one
+  child `ExecutionBasis`, traverses the child in the same Run through HoG, and
+  folds the admitted child result and judgment back through ABG evidence;
+- the child-preparation seam is an opaque Product-bound port and is absent
+  from the packaged HoG construction surface;
+- the F_P path now binds parser, prompt transport, lane, process contract, and
+  dispatch ordinal into admitted identity, allows one dispatch per `CCall`,
+  records unavailable commands as typed process failure, and salvages only
+  contract-valid output after transport failure; and
+- Public still performs one HoG invocation and exposes no traversal loop,
+  implementation symbol selection, compiled carrier, or child-port minting
+  authority.
+
+Fresh serialized verification is `test:m5` `34/34` and retained `test:m4`
+`26/26`. `ABG5-S02` remains open. The next typed frontier is the complete
+forty-row traversal matrix and shape-preserving fibre-substitution differential,
+followed by a genuinely live F_P proof.
 
 ## 4.6 Conservation
 
