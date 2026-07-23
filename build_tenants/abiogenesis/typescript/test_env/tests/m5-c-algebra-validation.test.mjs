@@ -60,9 +60,8 @@ function raw(value, kind) {
   return result;
 }
 
-function validatePublishedProgram(publication) {
-  const program = publication.programs[0];
-  const result = validator.validateProgram({
+function programValidationResult(publication, program = publication.programs[0]) {
+  return validator.validateProgram({
     publication: raw(publication, "module_publication"),
     program: raw(program, "gtl_program"),
     graphFunctions: publication.graphFunctions
@@ -73,6 +72,10 @@ function validatePublishedProgram(publication) {
       raw(value, "implementation_binding")),
     closureContracts: publication.closureContracts.map((value) => raw(value, "closure_contract")),
   });
+}
+
+function validatePublishedProgram(publication) {
+  const result = programValidationResult(publication);
   assert.equal(result.kind, "program_validation", JSON.stringify(result));
   return result;
 }
@@ -278,6 +281,234 @@ test("M5 native constructors refuse invalid batch, retry, and F_H realization", 
     resultBearing: true,
     requirement: executableRequirement("binding://m5/illegal-fh", request.ref, result.ref),
   }), /requirement kind/u);
+});
+
+test("M5 native GTL constructs all ten graph relations with derived identities", () => {
+  const inputContractRef = "contract://m5/application/input";
+  const outputContractRef = "contract://m5/application/output";
+  const base = { inputContractRef, outputContractRef };
+  const applications = [
+    gtl.composeApplication({
+      ...base,
+      leftGraphFunctionRef: "graph-function://m5/left",
+      rightGraphFunctionRef: "graph-function://m5/right",
+    }),
+    gtl.substituteApplication({
+      ...base,
+      outerGraphFunctionRef: "graph-function://m5/outer",
+      targetVectorRef: "graph-vector://m5/target",
+      innerGraphFunctionRef: "graph-function://m5/inner",
+    }),
+    gtl.recurseApplication({
+      ...base,
+      graphFunctionRef: "graph-function://m5/recursive",
+      terminationRuleRef: "rule://m5/termination",
+      foldback: {
+        mode: "rebind",
+        binding: "$.child.result -> $.parent.input",
+        requiresParentEvaluation: true,
+      },
+      bound: 3,
+    }),
+    gtl.fanOutApplication({
+      ...base,
+      elementGraphFunctionRef: "graph-function://m5/element",
+      inputVectorRef: "graph-vector://m5/input",
+      outputVectorRef: "graph-vector://m5/output",
+      inputMemberContractRef: inputContractRef,
+      outputMemberContractRef: outputContractRef,
+    }),
+    gtl.fanInApplication({
+      ...base,
+      reducerGraphFunctionRef: "graph-function://m5/reducer",
+      inputVectorRef: "graph-vector://m5/input",
+    }),
+    gtl.gateApplication({
+      ...base,
+      targetRef: "graph-function://m5/target",
+      ruleRef: "rule://m5/gate",
+      evaluatorRefs: ["evaluator://m5/gate"],
+    }),
+    gtl.promoteApplication({
+      ...base,
+      sourceRef: inputContractRef,
+      targetRef: outputContractRef,
+    }),
+    gtl.identityApplication({
+      inputContractRef,
+      outputContractRef: inputContractRef,
+      targetRef: inputContractRef,
+    }),
+    gtl.sameObjectApplication({
+      ...base,
+      leftRef: "object://m5/left",
+      rightRef: "object://m5/right",
+      witnessRef: "identity-witness://m5/same",
+    }),
+  ];
+  const edge = gtl.graphEdge({
+    fromNodeRef: "node://m5/source",
+    toNodeRef: "node://m5/target",
+  });
+
+  assert.deepEqual(
+    ["edge", ...applications.map((application) => application.relationKind)],
+    [
+      "edge",
+      "compose",
+      "substitute",
+      "recurse",
+      "fan_out",
+      "fan_in",
+      "gate",
+      "promote",
+      "identity",
+      "same_object",
+    ],
+  );
+  assert.equal(applications.length, 9);
+  assert.match(edge.edgeRef, /^graph-vector:\/\/abiogenesis\//u);
+  assert.equal(edge.edgeRef, gtl.graphEdgeRef(edge));
+  assert.equal(Object.isFrozen(edge), true);
+  assert.equal(
+    applications.every(
+      (application) =>
+        application.applicationRef === gtl.graphFunctionApplicationRef(application) &&
+        Object.isFrozen(application),
+    ),
+    true,
+  );
+  assert.equal(
+    applications.find((application) => application.relationKind === "recurse").foldbackRef,
+    gtl.foldbackRef(
+      applications.find((application) => application.relationKind === "recurse").foldback,
+    ),
+  );
+  assert.throws(
+    () => gtl.recurseApplication({
+      ...base,
+      graphFunctionRef: "graph-function://m5/recursive",
+      terminationRuleRef: "rule://m5/termination",
+      foldback: {
+        mode: "rebind",
+        binding: "",
+        requiresParentEvaluation: true,
+      },
+      bound: 3,
+    }),
+    /foldback/u,
+  );
+  assert.throws(
+    () => gtl.identityApplication({
+      ...base,
+      targetRef: inputContractRef,
+    }),
+    /exact interface/u,
+  );
+});
+
+test("M5 whole-program validation admits exact recursion law and refuses its substitutes", () => {
+  const publication = structuredClone(
+    gtl.constructHelloWorldModulePublication(artifactBasis()),
+  );
+  const program = publication.programs[0];
+  const graphFunction = publication.graphFunctions.find(
+    (candidate) => candidate.name === program.starts[0].graphFunctionRef,
+  );
+  assert.notEqual(graphFunction, undefined);
+  const application = gtl.recurseApplication({
+    inputContractRef: graphFunction.inputs[0],
+    outputContractRef: graphFunction.outputs[0],
+    graphFunctionRef: graphFunction.name,
+    terminationRuleRef: "rule://abiogenesis/conformance/hello-recursion-terminal@5",
+    foldback: {
+      mode: "rebind",
+      binding: "$.child.message -> $.parent.subject",
+      requiresParentEvaluation: true,
+    },
+    bound: 2,
+  });
+  graphFunction.template.applications = [application];
+
+  const admitted = validatePublishedProgram(publication);
+  assert.equal(admitted.diagnostics.length, 0);
+
+  for (const mutate of [
+    (candidate) => {
+      candidate.foldback.binding = "";
+    },
+    (candidate) => {
+      candidate.foldback.requiresParentEvaluation = false;
+    },
+    (candidate) => {
+      candidate.graphFunctionRef = "graph-function://m5/ambient-child";
+    },
+    (candidate) => {
+      candidate.applicationRef = "graph-function-application://m5/forged";
+    },
+    (candidate) => {
+      candidate.undeclaredControllerRef = "controller://m5/rival";
+      candidate.applicationRef = gtl.graphFunctionApplicationRef(candidate);
+    },
+  ]) {
+    const invalidPublication = structuredClone(publication);
+    mutate(invalidPublication.graphFunctions[0].template.applications[0]);
+    const result = programValidationResult(invalidPublication);
+    assert.equal(result.kind, "static_validation_refusal", JSON.stringify(result));
+    assert.equal(
+      result.diagnostics.some((row) => row.code === "invalid_application"),
+      true,
+      JSON.stringify(result),
+    );
+  }
+});
+
+test("M5 whole-program validation refuses forged or widened graph-edge declarations", () => {
+  const publication = structuredClone(
+    gtl.constructHelloWorldModulePublication(artifactBasis()),
+  );
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === gtl.GRAPH_EDGE_HELLO_IDS.programRef,
+  );
+  const graphFunction = publication.graphFunctions.find(
+    (candidate) => candidate.name === gtl.GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
+  );
+  assert.notEqual(program, undefined);
+  assert.notEqual(graphFunction, undefined);
+  assert.equal(programValidationResult(publication, program).kind, "program_validation");
+
+  const forged = structuredClone(publication);
+  forged.graphFunctions.find(
+    (candidate) => candidate.name === gtl.GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
+  ).template.edges[0].edgeRef = "graph-vector://m5/forged";
+  const forgedResult = programValidationResult(
+    forged,
+    forged.programs.find(
+      (candidate) => candidate.programRef === gtl.GRAPH_EDGE_HELLO_IDS.programRef,
+    ),
+  );
+  assert.equal(forgedResult.kind, "static_validation_refusal");
+  assert.equal(
+    forgedResult.diagnostics.some((row) => row.code === "identity_mismatch"),
+    true,
+  );
+
+  const widened = structuredClone(publication);
+  const widenedEdge = widened.graphFunctions.find(
+    (candidate) => candidate.name === gtl.GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
+  ).template.edges[0];
+  widenedEdge.controllerRef = "controller://m5/rival";
+  const widenedResult = programValidationResult(
+    widened,
+    widened.programs.find(
+      (candidate) => candidate.programRef === gtl.GRAPH_EDGE_HELLO_IDS.programRef,
+    ),
+  );
+  assert.equal(widenedResult.kind, "static_validation_refusal");
+  assert.equal(
+    widenedResult.diagnostics.some((row) => row.code === "identity_mismatch"),
+    true,
+  );
 });
 
 test("M5 raw admission and validator reject invented or contradictory C data", () => {

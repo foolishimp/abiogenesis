@@ -18,6 +18,7 @@ export interface CSourceContinuation {
     | "batch_next"
     | "compose_next"
     | "edge_next"
+    | "graph_edge"
     | "root_complete";
   readonly sourcePath: CSourcePath;
   readonly targetPath: CSourcePath | null;
@@ -309,5 +310,25 @@ export function deriveCSourceContinuation(
     }
   }
 
-  return continuation(sourcePath, "root_complete", null);
+  const outgoing = template.edges.filter((edge) => edge.fromNodeRef === nodeRef);
+  if (template.terminalNodeRefs.includes(nodeRef)) {
+    return outgoing.length === 0
+      ? continuation(sourcePath, "root_complete", null)
+      : refusal(
+        "invalid_source_path",
+        "terminal GTL node cannot declare an outgoing graph edge",
+      );
+  }
+  if (outgoing.length !== 1) {
+    return refusal(
+      "invalid_source_path",
+      "non-terminal GTL node requires exactly one declared graph edge",
+    );
+  }
+  const targetNode = template.nodes.find(
+    (node) => node.nodeRef === outgoing[0]!.toNodeRef,
+  );
+  return targetNode === undefined
+    ? refusal("term_path_missing", "declared graph edge target is absent")
+    : continuation(sourcePath, "graph_edge", rootCSourcePath(targetNode.nodeRef));
 }

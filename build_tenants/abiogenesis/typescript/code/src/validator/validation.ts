@@ -6,10 +6,17 @@ import type {
   ClosureContract,
   ContractDeclaration,
   GraphFunction,
+  GraphFunctionApplication,
+  GtlEdge,
   GtlProgram,
   ImplementationBinding,
   ModulePublication,
 } from "../gtl/index.js";
+import {
+  foldbackRef,
+  graphEdgeRef,
+  graphFunctionApplicationRef,
+} from "../gtl/graph_applications.js";
 import {
   cLeafTerms,
   isExecutableCLeaf,
@@ -53,6 +60,88 @@ export interface StaticValidationRefusal {
   readonly stage: "graph" | "implementation_resolution" | "publication" | "program";
   readonly subjectDigest: Sha256Digest;
   readonly diagnostics: readonly StaticDiagnostic[];
+}
+
+function hasExactKeys(value: object, expected: readonly string[]): boolean {
+  return Object.keys(value).sort().join("\0") === [...expected].sort().join("\0");
+}
+
+function hasExactGraphEdgeShape(edge: Readonly<GtlEdge>): boolean {
+  return hasExactKeys(edge, ["edgeRef", "fromNodeRef", "toNodeRef"]) &&
+    edge.edgeRef === graphEdgeRef(edge);
+}
+
+function hasExactApplicationShape(
+  application: Readonly<GraphFunctionApplication>,
+): boolean {
+  const base = [
+    "applicationRef",
+    "inputContractRef",
+    "kind",
+    "outputContractRef",
+    "relationKind",
+  ];
+  switch (application.relationKind) {
+    case "compose":
+      return hasExactKeys(application, [
+        ...base,
+        "leftGraphFunctionRef",
+        "rightGraphFunctionRef",
+      ]);
+    case "substitute":
+      return hasExactKeys(application, [
+        ...base,
+        "innerGraphFunctionRef",
+        "outerGraphFunctionRef",
+        "targetVectorRef",
+      ]);
+    case "recurse":
+      return hasExactKeys(application, [
+        ...base,
+        "bound",
+        "foldback",
+        "foldbackRef",
+        "graphFunctionRef",
+        "terminationRuleRef",
+      ]) && hasExactKeys(application.foldback, [
+        "binding",
+        "mode",
+        "requiresParentEvaluation",
+      ]);
+    case "fan_out":
+      return hasExactKeys(application, [
+        ...base,
+        "elementGraphFunctionRef",
+        "inputMemberContractRef",
+        "inputVectorRef",
+        "outputMemberContractRef",
+        "outputVectorRef",
+      ]);
+    case "fan_in":
+      return hasExactKeys(application, [
+        ...base,
+        "inputVectorRef",
+        "reducerGraphFunctionRef",
+      ]);
+    case "gate":
+      return hasExactKeys(application, [
+        ...base,
+        "evaluatorRefs",
+        "ruleRef",
+        "targetRef",
+      ]);
+    case "promote":
+      return hasExactKeys(application, [...base, "sourceRef", "targetRef"]);
+    case "identity":
+      return hasExactKeys(application, [...base, "targetRef"]);
+    case "same_object":
+      return hasExactKeys(application, [
+        ...base,
+        "leftRef",
+        "rightRef",
+        "witnessRef",
+      ]);
+  }
 }
 
 export interface ContributionValidationDisposition {
@@ -334,6 +423,13 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     if (graphFunction.template.edges.some((edge) => !nodes.has(edge.fromNodeRef) || !nodes.has(edge.toNodeRef))) {
       diagnostics.push({ code: "topology_mismatch", path: `$.graphFunctions[${graphFunction.name}].template.edges`, message: "edge endpoint is absent from graph template" });
     }
+    if (graphFunction.template.edges.some((edge) => !hasExactGraphEdgeShape(edge))) {
+      diagnostics.push({
+        code: "identity_mismatch",
+        path: `$.graphFunctions[${graphFunction.name}].template.edges`,
+        message: "graph edge must have one exact derived identity and no undeclared fields",
+      });
+    }
     for (const contractRef of [...graphFunction.inputs, ...graphFunction.outputs]) {
       if (!contractRefs.has(contractRef)) diagnostics.push({ code: "missing_contract", path: `$.graphFunctions[${graphFunction.name}]`, message: `missing contract ${contractRef}` });
     }
@@ -351,6 +447,10 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         callableGraphFunctionRefs,
         contractRefs,
         bindingByRef,
+        expectedRootResultCardinality:
+          graphFunction.template.terminalNodeRefs.includes(node.nodeRef)
+            ? "one"
+            : "zero",
       });
       diagnostics.push(...inspection.diagnostics);
       if (inspection.term !== null) {
@@ -439,6 +539,8 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         .filter(([key]) => key.endsWith("Ref") || key.endsWith("Refs"))
         .flatMap(([, value]) => Array.isArray(value) ? value : [value]);
       if (
+        application.kind !== "graph_function_application" ||
+        !hasExactApplicationShape(application) ||
         application.applicationRef.length === 0 ||
         application.inputContractRef.length === 0 ||
         application.outputContractRef.length === 0 ||
@@ -452,12 +554,60 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           message: "GraphFunction application has an empty reference or unpublished outer contract",
         });
       }
-      if (application.relationKind === "recurse" &&
-        (!Number.isSafeInteger(application.bound) || application.bound < 1)) {
+      let canonicalIdentity = false;
+      try {
+        canonicalIdentity =
+          application.applicationRef === graphFunctionApplicationRef(application);
+      } catch {
+        canonicalIdentity = false;
+      }
+      if (!canonicalIdentity) {
         diagnostics.push({
           code: "invalid_application",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].bound`,
-          message: "recurse application requires one positive safe bound",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].applicationRef`,
+          message: "GraphFunction application identity must derive from its complete declaration",
+        });
+      }
+      const referencedGraphFunctions: readonly string[] = (() => {
+        switch (application.relationKind) {
+          case "compose":
+            return [application.leftGraphFunctionRef, application.rightGraphFunctionRef];
+          case "substitute":
+            return [application.outerGraphFunctionRef, application.innerGraphFunctionRef];
+          case "recurse":
+            return [application.graphFunctionRef];
+          case "fan_out":
+            return [application.elementGraphFunctionRef];
+          case "fan_in":
+            return [application.reducerGraphFunctionRef];
+          case "gate":
+            return [application.targetRef];
+          case "identity":
+          case "promote":
+          case "same_object":
+            return [];
+        }
+      })();
+      if (referencedGraphFunctions.some((ref) => !availableGraphFunctionRefs.has(ref))) {
+        diagnostics.push({
+          code: "invalid_application",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          message: "GraphFunction application references a function outside complete Program membership",
+        });
+      }
+      if (application.relationKind === "recurse" &&
+        (
+          !Number.isSafeInteger(application.bound) ||
+          application.bound < 1 ||
+          application.foldback.mode !== "rebind" ||
+          application.foldback.binding.trim().length === 0 ||
+          application.foldback.requiresParentEvaluation !== true ||
+          application.foldbackRef !== foldbackRef(application.foldback)
+        )) {
+        diagnostics.push({
+          code: "invalid_application",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].foldback`,
+          message: "recurse application requires a positive bound and exact rebind foldback with parent re-evaluation",
         });
       }
       if (application.relationKind === "gate" && application.evaluatorRefs.length === 0) {
@@ -465,6 +615,96 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           code: "invalid_application",
           path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].evaluatorRefs`,
           message: "gate application requires at least one declared evaluator",
+        });
+      }
+      const referencedByRef = new Map(
+        referencedGraphFunctions.flatMap((ref) => {
+          const value = rawGraphByRef.get(ref);
+          return value === undefined ? [] : [[ref, value] as const];
+        }),
+      );
+      const preservesOuterInterface = (ref: string): boolean => {
+        const operand = referencedByRef.get(ref);
+        return operand !== undefined &&
+          operand.inputs.includes(application.inputContractRef) &&
+          operand.outputs.includes(application.outputContractRef);
+      };
+      if (
+        (application.relationKind === "recurse" &&
+          !preservesOuterInterface(application.graphFunctionRef)) ||
+        (application.relationKind === "gate" &&
+          !preservesOuterInterface(application.targetRef)) ||
+        (application.relationKind === "substitute" &&
+          !preservesOuterInterface(application.outerGraphFunctionRef))
+      ) {
+        diagnostics.push({
+          code: "carrier_mismatch",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          message: "GraphFunction application does not preserve its declared outer interface",
+        });
+      }
+      if (application.relationKind === "compose") {
+        const left = referencedByRef.get(application.leftGraphFunctionRef);
+        const right = referencedByRef.get(application.rightGraphFunctionRef);
+        if (
+          left === undefined ||
+          right === undefined ||
+          !left.inputs.includes(application.inputContractRef) ||
+          !right.outputs.includes(application.outputContractRef) ||
+          !left.outputs.some((contractRef) => right.inputs.includes(contractRef))
+        ) {
+          diagnostics.push({
+            code: "carrier_mismatch",
+            path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+            message: "compose application requires one typed left-to-right interface join",
+          });
+        }
+      }
+      if (application.relationKind === "fan_out") {
+        const element = referencedByRef.get(application.elementGraphFunctionRef);
+        if (
+          element === undefined ||
+          !element.inputs.includes(application.inputMemberContractRef) ||
+          !element.outputs.includes(application.outputMemberContractRef)
+        ) {
+          diagnostics.push({
+            code: "carrier_mismatch",
+            path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+            message: "fan-out member contracts must match the declared element GraphFunction",
+          });
+        }
+      }
+      if (application.relationKind === "fan_in") {
+        const reducer = referencedByRef.get(application.reducerGraphFunctionRef);
+        if (reducer === undefined || !reducer.outputs.includes(application.outputContractRef)) {
+          diagnostics.push({
+            code: "carrier_mismatch",
+            path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+            message: "fan-in output contract must match the declared reducer GraphFunction",
+          });
+        }
+      }
+      if (
+        application.relationKind === "identity" &&
+        application.inputContractRef !== application.outputContractRef
+      ) {
+        diagnostics.push({
+          code: "carrier_mismatch",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          message: "identity application must preserve one exact interface",
+        });
+      }
+      if (
+        application.relationKind === "promote" &&
+        (
+          application.sourceRef !== application.inputContractRef ||
+          application.targetRef !== application.outputContractRef
+        )
+      ) {
+        diagnostics.push({
+          code: "carrier_mismatch",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          message: "promote application must bind its declared source and target contracts",
         });
       }
     }

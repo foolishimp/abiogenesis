@@ -83,7 +83,7 @@ export interface EnterRetryStep extends DirectCTraversalStepBase {
 
 export interface ContinueTermStep extends DirectCTraversalStepBase {
   readonly stepKind: "continue_term";
-  readonly relation: "batch_next" | "compose_next" | "edge_next";
+  readonly relation: "batch_next" | "compose_next" | "edge_next" | "graph_edge";
   readonly target: CTraversalCoordinate;
 }
 
@@ -343,8 +343,17 @@ export function deriveDirectCContinuationStepFromGraph(
     );
   }
   const retryPath = source.retryPath.slice(0, continuation.targetRetryDepth);
+  const targetNodeRef = continuation.targetPath[0] === "node"
+    ? continuation.targetPath[1]
+    : undefined;
+  if (targetNodeRef === undefined || targetNodeRef.length === 0) {
+    return refusal(
+      "invalid_coordinate",
+      "GTL continuation target is not rooted at one declared graph node",
+    );
+  }
   const target = freezeCoordinate({
-    nodeRef: source.nodeRef,
+    nodeRef: targetNodeRef,
     termPath: continuation.targetPath,
     taskOrdinal: continuation.targetTaskOrdinal,
     attempt: retryPath.at(-1) ?? 1,

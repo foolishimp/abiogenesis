@@ -16,6 +16,7 @@ export interface CProgramValidationContext {
   readonly callableGraphFunctionRefs: ReadonlySet<string>;
   readonly contractRefs: ReadonlySet<string>;
   readonly bindingByRef: ReadonlyMap<string, Readonly<ImplementationBinding>>;
+  readonly expectedRootResultCardinality?: "one" | "zero";
 }
 
 export interface CProgramTermInspection {
@@ -456,11 +457,14 @@ export function inspectCProgramTerm(
 ): CProgramTermInspection {
   const diagnostics: StaticDiagnostic[] = [];
   const term = inspectTerm(value, context.path, context, diagnostics);
-  if (term !== null && cTermResultCardinality(term) !== "one") {
+  const expectedCardinality = context.expectedRootResultCardinality ?? "one";
+  if (term !== null && cTermResultCardinality(term) !== expectedCardinality) {
     diagnostics.push(diagnostic(
       "invalid_result_cardinality",
       context.path,
-      "one compute-locus C term requires exactly one result-bearing path",
+      expectedCardinality === "one"
+        ? "terminal compute-locus C term requires exactly one result-bearing path"
+        : "non-terminal compute-locus C term must not declare a result-bearing path",
     ));
   }
   return { term, diagnostics };

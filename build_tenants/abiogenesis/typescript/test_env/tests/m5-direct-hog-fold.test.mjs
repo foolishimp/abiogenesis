@@ -290,3 +290,72 @@ test("M5 HoG derives post-term continuation from the original GTL tree", () => {
   assert.equal(retrySuccess.stepKind, "complete_term");
   assert.equal(retrySuccess.relation, "root_complete");
 });
+
+test("M5 GTL graph continuation selects one declared edge and refuses topology substitutes", () => {
+  const request = gtl.cCarrier("contract://m5/graph-edge/request");
+  const candidate = gtl.cCarrier("contract://m5/graph-edge/candidate");
+  const result = gtl.cCarrier("contract://m5/graph-edge/result");
+  const edge = gtl.graphEdge({
+    fromNodeRef: "node://m5/graph-edge/source",
+    toNodeRef: "node://m5/graph-edge/target",
+  });
+  const graph = {
+    kind: "inline_graph",
+    graphRef: "graph://m5/graph-edge",
+    startNodeRef: edge.fromNodeRef,
+    terminalNodeRefs: [edge.toNodeRef],
+    nodes: [{
+      nodeRef: edge.fromNodeRef,
+      nodeKind: "c_locus",
+      term: leaf({
+        input: request,
+        output: candidate,
+        role: "graph-edge-source",
+        locus: "locus://m5/graph-edge/source",
+        resultBearing: false,
+      }),
+    }, {
+      nodeRef: edge.toNodeRef,
+      nodeKind: "c_locus",
+      term: leaf({
+        input: candidate,
+        output: result,
+        role: "graph-edge-target",
+        locus: "locus://m5/graph-edge/target",
+      }),
+    }],
+    edges: [edge],
+    applications: [],
+  };
+  const sourcePath = gtl.rootCSourcePath(edge.fromNodeRef);
+  const continuation = gtl.deriveCSourceContinuation(
+    graph,
+    edge.fromNodeRef,
+    sourcePath,
+  );
+
+  assert.equal(continuation.kind, "c_source_continuation");
+  assert.equal(continuation.relation, "graph_edge");
+  assert.deepEqual(continuation.targetPath, gtl.rootCSourcePath(edge.toNodeRef));
+
+  const ambiguous = structuredClone(graph);
+  ambiguous.edges.push({ ...edge, edgeRef: `${edge.edgeRef}/rival` });
+  assert.equal(
+    gtl.deriveCSourceContinuation(ambiguous, edge.fromNodeRef, sourcePath).kind,
+    "c_source_path_refusal",
+  );
+
+  const terminalWithEdge = structuredClone(graph);
+  terminalWithEdge.terminalNodeRefs = [edge.fromNodeRef, edge.toNodeRef];
+  assert.equal(
+    gtl.deriveCSourceContinuation(terminalWithEdge, edge.fromNodeRef, sourcePath).kind,
+    "c_source_path_refusal",
+  );
+
+  const disconnected = structuredClone(graph);
+  disconnected.edges = [];
+  assert.equal(
+    gtl.deriveCSourceContinuation(disconnected, edge.fromNodeRef, sourcePath).kind,
+    "c_source_path_refusal",
+  );
+});

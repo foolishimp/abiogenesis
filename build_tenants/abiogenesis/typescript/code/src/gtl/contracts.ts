@@ -96,11 +96,18 @@ export interface SubstituteApplication extends GraphFunctionApplicationBase {
   readonly innerGraphFunctionRef: string;
 }
 
+export interface FoldbackDeclaration {
+  readonly mode: "rebind";
+  readonly binding: string;
+  readonly requiresParentEvaluation: true;
+}
+
 export interface RecurseApplication extends GraphFunctionApplicationBase {
   readonly relationKind: "recurse";
   readonly graphFunctionRef: string;
   readonly terminationRuleRef: string;
   readonly foldbackRef: string;
+  readonly foldback: FoldbackDeclaration;
   readonly bound: number;
 }
 

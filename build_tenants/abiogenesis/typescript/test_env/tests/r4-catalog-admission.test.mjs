@@ -210,7 +210,7 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     ),
   );
   assert.equal(catalog.kind, "admitted_catalog", JSON.stringify(catalog));
-  assert.equal(catalog.rows.length, 5);
+  assert.equal(catalog.rows.length, publication.contributions.length);
   const helloRow = catalog.rows.find(
     (row) => row.handle === gtl.HELLO_WORLD_IDS.graphFunctionRef,
   );
@@ -357,11 +357,7 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     "public_operation_artifact_admitted",
     "public_operation_artifact_admitted",
     "public_operation_artifact_admitted",
-    "registry_entry_admitted",
-    "registry_entry_admitted",
-    "registry_entry_admitted",
-    "registry_entry_admitted",
-    "registry_entry_admitted",
+    ...Array.from({ length: catalog.rows.length }, () => "registry_entry_admitted"),
     "public_operation_artifact_admitted",
   ]);
   assert.equal(events.every((event) => Object.isFrozen(event) && Object.isFrozen(event.payload)), true);

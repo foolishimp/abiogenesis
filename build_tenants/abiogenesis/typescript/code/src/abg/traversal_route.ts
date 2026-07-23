@@ -180,7 +180,6 @@ function hasSameCursorLineage(
     target.graphCallId === source.graphCallId &&
     target.frameId === source.frameId &&
     target.graphRef === source.graphRef &&
-    target.currentNodeRef === source.currentNodeRef &&
     target.position === "at_term";
 }
 
@@ -192,6 +191,7 @@ function isDeclaredStructuralTarget(
 ): boolean {
   if (
     !hasSameCursorLineage(source, target) ||
+    target.currentNodeRef !== source.currentNodeRef ||
     target.inputRef !== source.inputRef ||
     target.inputDigest !== source.inputDigest
   ) return false;
@@ -343,7 +343,8 @@ function isDeclaredJudgedTarget(
   const inputDigest = continuation.relation === "batch_next"
     ? source.inputDigest
     : result.valueDigest;
-  return sameValues(target.termPath, continuation.targetPath) &&
+  return target.currentNodeRef === continuation.targetPath[1] &&
+    sameValues(target.termPath, continuation.targetPath) &&
     target.inputRef === inputRef &&
     target.inputDigest === inputDigest &&
     target.taskOrdinal === continuation.targetTaskOrdinal &&

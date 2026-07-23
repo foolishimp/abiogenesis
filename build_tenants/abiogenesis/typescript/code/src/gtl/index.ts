@@ -32,6 +32,7 @@ export {
   COMPOSED_HELLO_IDS,
   FIBRE_SUBSTITUTION_HELLO_IDS,
   FP_HELLO_IDS,
+  GRAPH_EDGE_HELLO_IDS,
   HELLO_WORLD_IDS,
   WORKFLOW_HELLO_IDS,
   constructFpHelloInstruction,
@@ -50,6 +51,22 @@ export {
   resolveConformanceJudgmentRelation,
   type ConformanceJudgmentRelation,
 } from "./hello_world.js";
+export {
+  composeApplication,
+  fanInApplication,
+  fanOutApplication,
+  foldbackRef,
+  gateApplication,
+  graphEdge,
+  graphEdgeRef,
+  graphFunctionApplicationRef,
+  identityApplication,
+  promoteApplication,
+  recurseApplication,
+  sameObjectApplication,
+  substituteApplication,
+  type RecurseApplicationInput,
+} from "./graph_applications.js";
 export type {
   CatalogContribution,
   CatalogContributionKind,
@@ -59,6 +76,7 @@ export type {
   ContractDeclaration,
   FanInApplication,
   FanOutApplication,
+  FoldbackDeclaration,
   GateApplication,
   GraphFunction,
   GraphFunctionApplication,
