@@ -72,11 +72,14 @@ function renderInstruction(input: Readonly<FpHelloInstruction>): string {
     `Attributed actor: ${input.workerActorRef}`,
     `Subject: ${JSON.stringify(input.subject)}`,
     `Instruction: ${input.instruction}`,
+    `The message field must equal exactly ${JSON.stringify(`Hello ${input.subject}`)}.`,
     "Return only the declared JSON result. Do not call tools.",
   ].join("\n");
 }
 
-function responseSchema(): Readonly<Record<string, JsonValue>> {
+function responseSchema(
+  input: Readonly<FpHelloInstruction>,
+): Readonly<Record<string, JsonValue>> {
   return {
     type: "object",
     additionalProperties: false,
@@ -86,7 +89,7 @@ function responseSchema(): Readonly<Record<string, JsonValue>> {
       schemaVersion: { const: "5.0.0" },
       resultContractRef: { const: FP_HELLO_IDS.outputContractRef },
       actorRef: { const: FP_HELLO_IDS.workerActorRef },
-      message: { type: "string", minLength: 1 },
+      message: { const: `Hello ${input.subject}` },
     },
   } as Readonly<Record<string, JsonValue>>;
 }
@@ -127,7 +130,7 @@ export async function realizeFpHello(
     resultContractRef: input.resultContractRef,
     transportLane: input.transportLane,
     prompt,
-    responseJsonSchema: responseSchema(),
+    responseJsonSchema: responseSchema(input),
   });
   const parsedCandidate = parseCandidate(transport.finalOutput);
   const salvaged = transport.disposition === "failure" &&

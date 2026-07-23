@@ -203,12 +203,13 @@ test("M5 B-001 rejects tool activity only in the closed-prompt lane", async (con
     "",
   ].join("\n"), "utf8");
   await chmod(workerPath, 0o755);
+  const contract = constructKnownWorkerTransportContract("claude", {
+    command: process.execPath,
+    prefixArgs: [workerPath],
+    environment: {},
+  });
   const result = await runWorkerTransport({
-    contract: constructKnownWorkerTransportContract("claude", {
-      command: process.execPath,
-      prefixArgs: [workerPath],
-      environment: {},
-    }),
+    contract,
     prompt: "prove without tools",
     lane: "closed_prompt_proof",
     cwd: scratch,
@@ -222,6 +223,62 @@ test("M5 B-001 rejects tool activity only in the closed-prompt lane", async (con
   assert.equal(result.toolCallCount, 1);
   assert.equal(result.args.includes("--safe-mode"), true);
   assert.equal(result.args[result.args.indexOf("--tools") + 1], "");
+});
+
+test("M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-structured-output-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const workerPath = join(scratch, "claude-structured-output-fixture.mjs");
+  await writeFile(workerPath, [
+    "#!/usr/bin/env node",
+    "process.stdin.resume();",
+    "process.stdin.on('end', () => {",
+    "  const result = {kind:'structured_result', schemaVersion:'5.0.0'};",
+    "  console.log(JSON.stringify({type:'assistant', message:{content:[{type:'tool_use', name:'StructuredOutput', input:result}]}}));",
+    "  console.log(JSON.stringify({type:'user', message:{content:[{type:'tool_result', content:'Structured output provided successfully'}]}}));",
+    "  console.log(JSON.stringify({type:'result', subtype:'success', result:JSON.stringify(result)}));",
+    "});",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(workerPath, 0o755);
+  const contract = constructKnownWorkerTransportContract("claude", {
+    command: process.execPath,
+    prefixArgs: [workerPath],
+    environment: {},
+  });
+  const result = await runWorkerTransport({
+    contract,
+    prompt: "return the declared structured output",
+    lane: "closed_prompt_proof",
+    cwd: scratch,
+    archiveRoot: join(scratch, "archive"),
+    label: "structured-output",
+    timeoutMs: 10_000,
+    responseJsonSchema: { type: "object" },
+    environment: {},
+  });
+
+  assert.equal(result.disposition, "success");
+  assert.equal(result.failureClass, null);
+  assert.equal(result.toolCallCount, 0);
+  assert.deepEqual(JSON.parse(result.finalOutput), {
+    kind: "structured_result",
+    schemaVersion: "5.0.0",
+  });
+
+  const undeclared = await runWorkerTransport({
+    contract,
+    prompt: "attempt undeclared structured output",
+    lane: "closed_prompt_proof",
+    cwd: scratch,
+    archiveRoot: join(scratch, "archive"),
+    label: "undeclared-structured-output",
+    timeoutMs: 10_000,
+    environment: {},
+  });
+  assert.equal(undeclared.disposition, "failure");
+  assert.equal(undeclared.failureClass, "contract_failure");
+  assert.equal(undeclared.toolCallCount, 1);
 });
 
 test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (context) => {

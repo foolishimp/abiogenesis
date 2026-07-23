@@ -119,20 +119,33 @@ function assertLabel(label: string): void {
   }
 }
 
-function countToolUses(value: unknown): number {
+function countToolUses(
+  value: unknown,
+  structuredOutputExpected: boolean,
+): number {
   if (Array.isArray(value)) {
-    return value.reduce((count, entry) => count + countToolUses(entry), 0);
+    return value.reduce(
+      (count, entry) => count + countToolUses(entry, structuredOutputExpected),
+      0,
+    );
   }
   if (typeof value !== "object" || value === null) return 0;
   const record = value as Readonly<Record<string, unknown>>;
-  const current = record.type === "tool_use" ? 1 : 0;
+  // Claude emits this synthetic event to satisfy --json-schema; it has no capability effect.
+  const protocolStructuredOutput = structuredOutputExpected &&
+    record.type === "tool_use" &&
+    record.name === "StructuredOutput";
+  const current = record.type === "tool_use" && !protocolStructuredOutput ? 1 : 0;
   return Object.values(record).reduce<number>(
-    (count, entry) => count + countToolUses(entry),
+    (count, entry) => count + countToolUses(entry, structuredOutputExpected),
     current,
   );
 }
 
-function observeStructuredOutput(stdout: string): StructuredObservation {
+function observeStructuredOutput(
+  stdout: string,
+  structuredOutputExpected: boolean,
+): StructuredObservation {
   const values: unknown[] = [];
   for (const line of stdout.split(/\r?\n/u)) {
     if (line.trim().length === 0) continue;
@@ -150,7 +163,7 @@ function observeStructuredOutput(stdout: string): StructuredObservation {
     if (typeof value !== "object" || value === null || Array.isArray(value)) continue;
     const record = value as Readonly<Record<string, unknown>>;
     if (record.type !== "result") progressEventCount += 1;
-    toolCallCount += countToolUses(record);
+    toolCallCount += countToolUses(record, structuredOutputExpected);
     if (record.type === "api_retry") apiRetryCount += 1;
     if (record.type === "result" && typeof record.result === "string") {
       finalOutput = record.result;
@@ -346,7 +359,10 @@ async function executeWorkerTransport(
     ...(input.observer === undefined ? {} : { observer: input.observer }),
   });
   const observation = input.contract.parser === "claude_stream_json"
-    ? observeStructuredOutput(processObservation.stdout)
+    ? observeStructuredOutput(
+        processObservation.stdout,
+        input.responseJsonSchema !== undefined,
+      )
     : {
       structuredEventCount: 0,
       progressEventCount: processObservation.stdout.length > 0 ? 1 : 0,
