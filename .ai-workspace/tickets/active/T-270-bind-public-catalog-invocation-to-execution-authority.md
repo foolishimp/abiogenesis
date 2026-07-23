@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: fanout_fanin_checkpoint_ready_for_bounded_review
-- proof_status: m4_26_green_m5_62_green_conservation_21_of_40_s02_open
+- review_status: fanout_fanin_repair_checkpoint_ready_for_bounded_rereview
+- proof_status: m4_26_green_m5_63_green_conservation_20_accepted_plus_1_provisional_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -615,6 +615,34 @@ and manifest digest
 No parser, lowering, compiled carrier, Public controller, or second runtime
 path was added. `ABG5-S02` remains open on the remaining installed traversal
 and conservation gaps.
+
+Review-repair commit `8377adf7533faad9b49aee66de6048e358cce20b`
+closes the four findings against that checkpoint:
+
+- complete-vector and partial-stop routes consume both the terminal task
+  judgment and the exact fan-out completion availability; Public now refuses
+  successful closure if any C-call judgment remains active, and the retained
+  retry route consumes the same paired judgment and progress truth;
+- replay reconstructs and verifies typed complete-vector or partial-stop
+  carriers from the admitted event payload, and HoG discards the process-local
+  completion object and proposes and admits the route from replay truth;
+- Product admission preserves each caller-submitted member ref through
+  materialization, task truth, completion rows, and output lineage; and
+- GTL authoring and raw whole-Program validation require the fan-out outer
+  input/output contracts and fan-in outer input contract to equal their exact
+  vector contracts.
+
+Fresh serialized verification is `test:m5` `63/63`, retained `test:m4`
+`26/26`, and the conservation runner `21/40` with `19` explicit gaps. Two
+independent packs reproduce artifact SHA-256
+`7c1bbd6a7c8ae1a3b6312237db4d8936d5fed6182dd2ba9f74b1022a3ed54f87`,
+Product content digest
+`sha256:d538249c584bcd8f374595c842d40af854845c46e98759eafa49bfff9cff1eca`,
+and manifest digest
+`sha256:06e02d06cb19206d76c42d1b425eb6e69195b44ab21cdb2ec6b12e6191970107`.
+The runner's `graph_span_reentry` row remains provisional pending bounded
+re-review; the durable status is therefore twenty accepted rows plus one
+repaired provisional row. `ABG5-S02` remains open.
 
 ## 4.6 Conservation
 

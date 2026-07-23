@@ -38,9 +38,9 @@ exact affected-boundary delta at `d6da4269`; runtime implementation is active.
 | M5 F_H decision | direct F_H ruling on 2026-07-22: accepted and continue under T-270 |
 | selected method release | STDO `v2.0.0`, commit `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a` |
 | selected method member set | 41 members, digest `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0` |
-| current work carrier | `T-270` M5 parent implementing the accepted M5 design delta; fan-out/fan-in checkpoint `6c25b7c5` is ready for bounded review |
+| current work carrier | `T-270` M5 parent implementing the accepted M5 design delta; fan-out/fan-in repair checkpoint `8377adf7` is ready for bounded re-review |
 | current constitutional state | accepted Product, requirements, correction vector, and direct-GTL design |
-| implementation state | exact `ABI5-ROOT-001` complete; M5 `62/62`; traversal conservation `21/40` with `19` explicit gaps; serial fan-out and guarded fan-in implemented; `ABG5-S02` remains open; RC5, X, and final-integration remain sideways donor evidence |
+| implementation state | exact `ABI5-ROOT-001` complete; M5 `63/63`; conservation runner `21/40` with `19` explicit gaps, comprising `20` accepted rows plus repaired provisional `graph_span_reentry`; serial fan-out and guarded fan-in implemented; `ABG5-S02` remains open; RC5, X, and final-integration remain sideways donor evidence |
 
 The constitutional authoring order is one unpromoted transaction:
 
@@ -106,7 +106,7 @@ coverage stays pending for M5 and qualification.
 | `M2` | Freeze donors and derive correction vector | Freeze X and final-integration; classify every RC5 semantic and implementation family plus X/final-integration carrier; repair Product/requirement authority contradictions; refreeze and independently review the exact subject. | Completed by T-284 |
 | `M3` | Accept direct-GTL realization design | Design proves GTL -> validator -> HoG -> ABG, positive intended authority, and real-path absence of compiled-plan and controller rivals. | Completed by T-285 |
 | `M4` | Establish installed root | Exact `ABI5-ROOT-001` runs green through packed bytes, clean install, direct HoG traversal, ABG replay twice, and typed CLI result. | Completed by T-286 at `ffba4e71`; 25/25 twice, deterministic retained proof, twelve installed mutations, and two clean exact-subject re-reviews |
-| `M5` | Complete pre-qualification behavior | `ABG5-S02`, `S03`, `S05`, and `S06`, all forty traversal rows, the fibre differential, observer/tuner realization, the 17-family no-silence disposition, and required negatives pass on the same candidate line. | Active under T-270; fan-out/fan-in checkpoint `6c25b7c5` ready for bounded review; conservation `21/40` with `19` explicit gaps; `S02` open |
+| `M5` | Complete pre-qualification behavior | `ABG5-S02`, `S03`, `S05`, and `S06`, all forty traversal rows, the fibre differential, observer/tuner realization, the 17-family no-silence disposition, and required negatives pass on the same candidate line. | Active under T-270; fan-out/fan-in repair `8377adf7` ready for bounded re-review; runner `21/40`, with `20` accepted plus one repaired provisional row; `S02` open |
 | `M6` | Materialize method basis and qualify | Bind the already-selected STDO `v2.0.0` identity in Product context and `QualificationLawBasis`; close `ABG5-S04` and pre-RC qualification. | Blocked by M5 |
 | `M7` | Release 5.0.0 | `ABG5-S07` preserves the pre-RC, RC, installed-RC, final-tap, released-Product, and post-publication-install subjects and taps stable 5.0.0. | Blocked by M6 |
 
