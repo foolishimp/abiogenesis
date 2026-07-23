@@ -1,0 +1,478 @@
+import assert from "node:assert/strict";
+import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import test from "node:test";
+
+import {
+  buildRootCliScenario,
+  runInstalledCli,
+  setupInstalledCliHarness,
+} from "../support/root-cli-environment.mjs";
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+const OUTPUT_CONTRACT_REF =
+  "contract://abiogenesis/conformance/fp-hello-output@5";
+const REFUSAL_CONTRACT_REF =
+  "contract://abiogenesis/conformance/fp-hello-refusal@5";
+const FP_PROGRAM_REF = "program://abiogenesis/conformance/fp-hello@5";
+const FP_GRAPH_FUNCTION_REF =
+  "graph-function://abiogenesis/conformance/fp-hello@5";
+const FD_FP_PROGRAM_REF = "program://abiogenesis/conformance/fd-fp-hello@5";
+const COMPOSE_PROGRAM_REF =
+  "program://abiogenesis/conformance/hello-compose@5";
+const COMPOSE_GRAPH_FUNCTION_REF =
+  "graph-function://abiogenesis/conformance/hello-compose@5";
+const WORKFLOW_PROGRAM_REF =
+  "program://abiogenesis/conformance/hello-workflow@5";
+const WORKFLOW_GRAPH_FUNCTION_REF =
+  "graph-function://abiogenesis/conformance/hello-workflow@5";
+const WORKFLOW_CHILD_REF =
+  "graph-function://abiogenesis/conformance/hello-world@5";
+const ACTOR_REF = "actor://abiogenesis/conformance/claude-worker@5";
+const WORKER_BINDING_REF =
+  "worker-binding://abiogenesis/conformance/claude-worker@5";
+
+function fpInput(subject) {
+  return {
+    kind: "fp_hello_instruction",
+    schemaVersion: "5.0.0",
+    materializationPlanRef: "prompt-plan://abiogenesis/conformance/fp-hello@5",
+    rendererRef: "renderer://abiogenesis/conformance/fp-hello@5",
+    instructionContractRef:
+      "contract://abiogenesis/conformance/fp-hello-instruction@5",
+    resultContractRef: OUTPUT_CONTRACT_REF,
+    workerActorRef: ACTOR_REF,
+    workerBindingRef: WORKER_BINDING_REF,
+    transportLane: "closed_prompt_proof",
+    subject,
+    instruction: "Produce one concise greeting for the declared subject.",
+  };
+}
+
+async function installWorkerFixture(harness) {
+  const bin = join(harness.scratch, "conservation-bin");
+  await mkdir(bin, { recursive: true });
+  const command = join(bin, "claude");
+  await writeFile(command, [
+    "#!/usr/bin/env node",
+    "let prompt = '';",
+    "process.stdin.setEncoding('utf8');",
+    "process.stdin.on('data', (chunk) => { prompt += chunk; });",
+    "process.stdin.on('end', () => {",
+    "  const line = prompt.split(/\\r?\\n/).find((value) => value.startsWith('Subject: '));",
+    "  const subject = line === undefined ? 'Unknown' : JSON.parse(line.slice('Subject: '.length));",
+    "  const result = { kind: 'fp_hello_output', schemaVersion: '5.0.0',",
+    `    resultContractRef: '${OUTPUT_CONTRACT_REF}', actorRef: '${ACTOR_REF}',`,
+    "    message: `Hello ${subject}` };",
+    "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
+    "  console.log(JSON.stringify({ type: 'result', subtype: 'success',",
+    "    result: process.env.ABG_MATRIX_MALFORMED === '1' ? '{not-json' : JSON.stringify(result) }));",
+    "});",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(command, 0o755);
+  return command;
+}
+
+async function readEvents(path) {
+  try {
+    const text = await readFile(path, "utf8");
+    return text.trim().length === 0
+      ? []
+      : text.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+  } catch (error) {
+    if (error?.code === "ENOENT") return [];
+    throw error;
+  }
+}
+
+async function runScenario(harness, label, options = {}, environment = {}) {
+  const scenario = await buildRootCliScenario(
+    harness,
+    label,
+    (payload) => payload,
+    options,
+  );
+  const run = await runInstalledCli(harness, scenario, { environment });
+  return { scenario, run, events: await readEvents(scenario.eventLogPath) };
+}
+
+function assertSuccessfulInstalled(evidence) {
+  assert.equal(evidence.run.exitCode, 0, evidence.run.stdout);
+  assert.equal(evidence.run.outcomes.length, 6, evidence.run.stdout);
+  assert.equal(
+    evidence.run.outcomes.every((outcome) => outcome.disposition === "succeeded"),
+    true,
+  );
+  assert.equal(evidence.run.outcomes[5].replayAgreement, true);
+  assert.equal(evidence.events.at(-1)?.kind, "run_closed");
+}
+
+function assertNoCompiledCarrier(events) {
+  const serialized = JSON.stringify(events);
+  assert.equal(serialized.includes("CompiledCProgramPlan"), false);
+  assert.equal(serialized.includes("compiled_execution"), false);
+  assert.equal(serialized.includes("publicControlLoop"), false);
+}
+
+function assertCrossWireRefuses(evidence) {
+  assert.equal(evidence.run.exitCode, 2, evidence.run.stdout);
+  assert.equal(evidence.run.outcomes[5].disposition, "refused");
+  assert.equal(evidence.run.outcomes[5].runId, null);
+  assert.deepEqual(evidence.events, []);
+}
+
+function assertMalformedFpBlocks(evidence) {
+  assert.equal(evidence.run.exitCode, 2, evidence.run.stdout);
+  assert.equal(evidence.run.outcomes[5].disposition, "blocked");
+  assert.equal(
+    evidence.run.outcomes[5].admittedResultContractRef,
+    REFUSAL_CONTRACT_REF,
+  );
+  assert.equal(evidence.events.at(-1)?.kind, "run_stopped");
+  assert.equal(evidence.events.at(-1)?.payload.disposition, "blocked");
+  assert.equal(
+    evidence.events.some((event) => event.kind === "run_closed"),
+    false,
+  );
+  assert.equal(
+    evidence.events.some((event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.payload.contractRef === OUTPUT_CONTRACT_REF),
+    false,
+  );
+}
+
+function proven(axis, behavior, proof, verify) {
+  return {
+    axis,
+    behavior,
+    status: "proven",
+    witness46: `specification/PRODUCT.md#4.6-traversal-conservation/${behavior}`,
+    ...proof,
+    verify,
+  };
+}
+
+function open(axis, behavior, gtlExpression, gap) {
+  return {
+    axis,
+    behavior,
+    status: "open",
+    witness46: `specification/PRODUCT.md#4.6-traversal-conservation/${behavior}`,
+    gtlExpression,
+    hogPath: `OPEN: ${gap}`,
+    abgEvidence: `OPEN: ${gap}`,
+    publicOutcome: `OPEN: ${gap}`,
+    invalidMutation: `OPEN: nearest invalid substitute awaits ${gap}`,
+    gap,
+  };
+}
+
+const matrix = [
+  proven("compute_fibre", "F_D", {
+    gtlExpression: "C.of leaf with fibre F_D",
+    hogPath: "direct C-call through the admitted deterministic leaf port",
+    abgEvidence: "F_D fibre, deterministic evidence, result, judgment, terminal route",
+    publicOutcome: "installed CLI result agrees with replay",
+    invalidMutation: "cross-wired equivalent GraphFunction refuses before Run admission",
+  }, ({ fd, crossWire }) => {
+    assertSuccessfulInstalled(fd);
+    assert.equal(fd.events.find((event) =>
+      event.kind === "c_call_fibre_selected")?.payload.regime, "F_D");
+    assert.equal(fd.events.some((event) =>
+      event.kind === "actor_invocation_started"), false);
+    assertCrossWireRefuses(crossWire);
+  }),
+  proven("compute_fibre", "F_P", {
+    gtlExpression: "C.of leaf with fibre F_P and one admitted worker binding",
+    hogPath: "direct C-call through one-shot probabilistic effect port",
+    abgEvidence: "transport, actor, process, artifact, probabilistic evidence, result, judgment",
+    publicOutcome: "installed CLI admits exact attributed worker result and replay",
+    invalidMutation: "malformed worker output becomes a blocked refusal before success admission",
+  }, ({ fp, malformedFp }) => {
+    assertSuccessfulInstalled(fp);
+    assert.equal(fp.events.find((event) =>
+      event.kind === "c_call_fibre_selected")?.payload.regime, "F_P");
+    assert.equal(fp.events.some((event) =>
+      event.kind === "actor_invocation_started"), true);
+    assert.equal(fp.events.some((event) =>
+      event.kind === "c_call_evidenced" &&
+      event.payload.evidenceClass === "probabilistic_transport"), true);
+    assertMalformedFpBlocks(malformedFp);
+  }),
+  open("compute_fibre", "F_H", "C.of or interaction locus with fibre F_H", "durable attributed human hold and response continuation"),
+  open("compute_fibre", "mixed", "one GTL program containing F_D, F_P, and F_H loci", "one installed mixed-fibre traversal"),
+
+  proven("structural_form", "atomic_call", {
+    gtlExpression: "one C.of leaf",
+    hogPath: "one cursor and one admitted leaf invocation",
+    abgEvidence: "one complete C-call spine in one Frame",
+    publicOutcome: "one installed direct result with replay agreement",
+    invalidMutation: "unowned GraphFunction substitution refuses before Run admission",
+  }, ({ fd, crossWire }) => {
+    assertSuccessfulInstalled(fd);
+    assert.equal(fd.events.filter((event) => event.kind === "c_call_opened").length, 1);
+    assert.equal(fd.events.filter((event) => event.kind === "c_call_judged").length, 1);
+    assertCrossWireRefuses(crossWire);
+  }),
+  proven("structural_form", "flat_composition", {
+    gtlExpression: "canonical identity-eliding C.compose",
+    hogPath: "ordered C-term cursors without an anonymous child Frame",
+    abgEvidence: "six ordered C-call spines under one GraphCall and Frame",
+    publicOutcome: "composed installed result agrees with replay",
+    invalidMutation: "nested/identity malformed terms refuse in the C-algebra mutation suite",
+  }, ({ compose }) => {
+    assertSuccessfulInstalled(compose);
+    assert.equal(compose.events.filter((event) => event.kind === "graph_call_opened").length, 1);
+    assert.equal(compose.events.filter((event) => event.kind === "frame_opened").length, 1);
+    assert.equal(compose.events.filter((event) => event.kind === "c_call_opened").length, 6);
+  }),
+  proven("structural_form", "edge_program", {
+    gtlExpression: "C.edge transform/evaluate/consequence inside C.retry",
+    hogPath: "declared transform, evaluate, and consequence cursors",
+    abgEvidence: "three role-bearing C-call spines and admitted routes",
+    publicOutcome: "edge consequence supplies the installed terminal result",
+    invalidMutation: "invalid role and contract joins refuse in the C-algebra mutation suite",
+  }, ({ compose }) => {
+    assertSuccessfulInstalled(compose);
+    const roles = compose.events
+      .filter((event) => event.kind === "c_call_opened")
+      .map((event) => event.payload.stageRole);
+    assert.deepEqual(roles.slice(-3), ["transform", "evaluate", "consequence"]);
+  }),
+  open("structural_form", "adaptive_declared_selection", "gate or policy application over named admitted compositions", "runtime evaluator admission and selected-identity replay"),
+  proven("structural_form", "batch", {
+    gtlExpression: "C.batch with two ordered C.of tasks",
+    hogPath: "two task cursors retaining batch identity and task ordinal",
+    abgEvidence: "two independently evidenced and judged C-call spines",
+    publicOutcome: "batch completion preserves ordered cardinality before continuation",
+    invalidMutation: "duplicate or malformed task identities refuse in the C-algebra mutation suite",
+  }, ({ compose }) => {
+    assertSuccessfulInstalled(compose);
+    const tasks = compose.events
+      .filter((event) => event.kind === "c_call_opened")
+      .filter((event) => event.payload.batchRef !== null)
+      .map((event) => ({
+        batchRef: event.payload.batchRef,
+        taskOrdinal: event.payload.taskOrdinal,
+      }));
+    assert.deepEqual(tasks, [
+      { batchRef: "batch://abiogenesis/conformance/hello-compose/checks@5", taskOrdinal: 0 },
+      { batchRef: "batch://abiogenesis/conformance/hello-compose/checks@5", taskOrdinal: 1 },
+    ]);
+  }),
+  proven("structural_form", "transparent_child_traversal", {
+    gtlExpression: "workflow.C targeting one published child GraphFunction",
+    hogPath: "transparent parent C-call, child GraphCall/Frame, then parent foldback",
+    abgEvidence: "child lineage, sub_traversal evidence, and child_foldback_admitted",
+    publicOutcome: "child result closes through the parent installed invocation",
+    invalidMutation: "CatalogView omitting the child refuses before the Run opens",
+  }, ({ workflow, omittedChild }) => {
+    assertSuccessfulInstalled(workflow);
+    assert.equal(workflow.events.filter((event) =>
+      event.kind === "graph_call_opened").length, 2);
+    assert.equal(workflow.events.filter((event) =>
+      event.kind === "child_foldback_admitted").length, 1);
+    assert.equal(omittedChild.run.exitCode, 2, omittedChild.run.stdout);
+    assert.equal(omittedChild.events.some((event) =>
+      event.kind === "run_segment_opened"), false);
+  }),
+  open("structural_form", "graph_recursion", "recurse application with bound, termination Rule, and Evaluators", "runtime evaluator truth, recursive lineage, and foldback"),
+  open("structural_form", "retry", "C.retry over one bounded call", "a real failed attempt followed by a fresh admitted attempt"),
+
+  open("consequence_route", "same_edge_retry", "declared retry or repair route", "same-edge retry after a rejected attempt"),
+  proven("consequence_route", "depth_traversal", {
+    gtlExpression: "workflow.C child GraphFunction declaration",
+    hogPath: "enter child GraphCall/Frame and return to parent cursor",
+    abgEvidence: "parent-child basis lineage and child foldback event",
+    publicOutcome: "one public invocation projects the folded child result",
+    invalidMutation: "missing child membership refuses before runtime effects",
+  }, ({ workflow, omittedChild }) => {
+    assertSuccessfulInstalled(workflow);
+    assert.equal(workflow.events.some((event) =>
+      event.kind === "child_foldback_admitted"), true);
+    assert.equal(omittedChild.events.some((event) =>
+      event.kind === "run_segment_opened" ||
+      event.kind === "c_call_opened" ||
+      event.kind === "child_foldback_admitted"), false);
+  }),
+  open("consequence_route", "graph_span_reentry", "declared re-entry target", "admitted span/vector re-entry without false closure"),
+  open("consequence_route", "public_start_reentry", "published start or continuation target", "durable public start/continue semantics"),
+  open("consequence_route", "ticket_traversal", "ticket-owning GraphFunction or program", "product-declared ticket traversal through the public path"),
+  open("consequence_route", "fh_input_required", "declared F_H hold route", "typed human hold and attributed response admission"),
+  open("consequence_route", "escalation_or_reprice", "declared escalation or reprice route", "F_H-authorized escalation/reprice continuation"),
+  open("consequence_route", "gap_stop", "declared typed gap route", "public unresolved-gap projection without retry or closure"),
+  proven("consequence_route", "non_admit", {
+    gtlExpression: "Program/GraphFunction membership admission",
+    hogPath: "no HoG entry when declaration or basis admission fails",
+    abgEvidence: "no Run or event stream is minted",
+    publicOutcome: "typed refused outcome with null Run identity",
+    invalidMutation: "cross-wire an equivalent but unowned GraphFunction",
+  }, ({ crossWire }) => assertCrossWireRefuses(crossWire)),
+
+  proven("runtime_disposition", "advance_vector", {
+    gtlExpression: "next declared C-term cursor",
+    hogPath: "apply admitted advance route to the current cursor",
+    abgEvidence: "traversal_route_admitted with a non-null target cursor",
+    publicOutcome: "installed traversal advances and later closes with replay agreement",
+    invalidMutation: "no undeclared target cursor is accepted",
+  }, ({ compose }) => {
+    assertSuccessfulInstalled(compose);
+    assert.equal(compose.events.some((event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.routeKind === "advance" &&
+      event.payload.targetCursorRef !== null), true);
+  }),
+  proven("runtime_disposition", "close", {
+    gtlExpression: "declared terminal C-call",
+    hogPath: "terminal route after admitted result and judgment",
+    abgEvidence: "terminal_reached followed by run_closed",
+    publicOutcome: "succeeded result with replay agreement",
+    invalidMutation: "malformed F_P output cannot mint terminal or closure",
+  }, ({ fd, malformedFp }) => {
+    assertSuccessfulInstalled(fd);
+    assert.equal(fd.events.some((event) => event.kind === "terminal_reached"), true);
+    assertMalformedFpBlocks(malformedFp);
+  }),
+  open("runtime_disposition", "retry_same_edge", "bounded same-edge retry route", "one failed attempt and fresh retry identity"),
+  open("runtime_disposition", "repair", "declared repair route", "repair candidate admission and replay"),
+  open("runtime_disposition", "re_enter", "declared re-entry route", "admitted cursor re-entry"),
+  open("runtime_disposition", "yield_continuation", "typed continuation hold", "durable yield and later continuation"),
+  open("runtime_disposition", "inspect_runtime_archive", "declared archive-inspection stop", "typed inspection projection and continuation"),
+  open("runtime_disposition", "reprice", "declared reprice proposal", "human-authorized reprice transition"),
+  open("runtime_disposition", "human_assurance_required", "declared F_H assurance hold", "typed assurance request and response"),
+  open("runtime_disposition", "escalate", "declared escalation route", "typed escalation and human authority"),
+  open("runtime_disposition", "gap_stop", "declared typed gap", "gap event, replay, and public projection"),
+  proven("runtime_disposition", "block", {
+    gtlExpression: "failure/refusal contract after rejected F_P result",
+    hogPath: "blocked route after refusal result and judgment",
+    abgEvidence: "blocked judgment, blocked route, and run_stopped",
+    publicOutcome: "typed blocked outcome with no closure",
+    invalidMutation: "malformed output cannot be projected as success",
+  }, ({ malformedFp }) => assertMalformedFpBlocks(malformedFp)),
+  proven("runtime_disposition", "non_admit", {
+    gtlExpression: "failed Program/GraphFunction invocation admission",
+    hogPath: "HoG is not entered",
+    abgEvidence: "no Run/event authority is created",
+    publicOutcome: "typed refusal with null Run identity",
+    invalidMutation: "equivalent contracts do not authorize cross-wired identity",
+  }, ({ crossWire }) => assertCrossWireRefuses(crossWire)),
+
+  open("public_control", "advance_next", "public traversal under the current program", "bounded next-step public control rather than whole-run completion"),
+  proven("public_control", "graph_function_target", {
+    gtlExpression: "published GraphFunction named by one direct invocation",
+    hogPath: "admitted root GraphFunction enters direct HoG traversal",
+    abgEvidence: "GraphCall and Frame identities retain the selected GraphFunction",
+    publicOutcome: "CLI invocation returns the selected GraphFunction result",
+    invalidMutation: "GraphFunction outside Program membership refuses before Run admission",
+  }, ({ fd, crossWire }) => {
+    assertSuccessfulInstalled(fd);
+    assert.equal(fd.scenario.transcript[5].payload.graphFunctionRef,
+      "graph-function://abiogenesis/conformance/hello-world@5");
+    assertCrossWireRefuses(crossWire);
+  }),
+  open("public_control", "asset_target", "asset target resolved through its owning program or GraphFunction", "public asset targeting without making the asset callable"),
+  open("public_control", "bounded_until", "typed until/stop condition", "bounded stop or convergence through public policy"),
+  open("public_control", "fh_control", "direct or proxied F_H control", "public human-control admission and durable continuation"),
+  proven("public_control", "root_control", {
+    gtlExpression: "direct root Program and GraphFunction selection",
+    hogPath: "one public call enters one admitted HoG root",
+    abgEvidence: "one Run, root GraphCall, Frame, and replay lineage",
+    publicOutcome: "direct CLI invocation returns replay-agreeing terminal output",
+    invalidMutation: "unowned root GraphFunction refuses without a public controller fallback",
+  }, ({ fd, crossWire }) => {
+    assertSuccessfulInstalled(fd);
+    assert.equal(fd.scenario.transcript[5].variant, "direct");
+    assertNoCompiledCarrier(fd.events);
+    assertCrossWireRefuses(crossWire);
+  }),
+];
+
+test("M5 binds the fixed 40-row traversal inventory to installed evidence", async (context) => {
+  const counts = Object.fromEntries(
+    [...new Set(matrix.map((row) => row.axis))]
+      .map((axis) => [axis, matrix.filter((row) => row.axis === axis).length]),
+  );
+  assert.deepEqual(counts, {
+    compute_fibre: 4,
+    structural_form: 8,
+    consequence_route: 9,
+    runtime_disposition: 13,
+    public_control: 6,
+  });
+  assert.equal(matrix.length, 40);
+  assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 15);
+  assert.equal(matrix.filter((row) => row.status === "open").length, 25);
+  for (const row of matrix) {
+    for (const field of [
+      "witness46",
+      "gtlExpression",
+      "hogPath",
+      "abgEvidence",
+      "publicOutcome",
+      "invalidMutation",
+    ]) {
+      assert.equal(typeof row[field], "string", `${row.axis}/${row.behavior} ${field}`);
+      assert.notEqual(row[field].length, 0, `${row.axis}/${row.behavior} ${field}`);
+    }
+  }
+
+  const harness = await setupInstalledCliHarness(context, root);
+  const command = await installWorkerFixture(harness);
+  const fd = await runScenario(harness, "matrix-fd");
+  const compose = await runScenario(harness, "matrix-compose", {
+    programRef: COMPOSE_PROGRAM_REF,
+    graphFunctionRef: COMPOSE_GRAPH_FUNCTION_REF,
+    subject: "  World  ",
+  });
+  const workflow = await runScenario(harness, "matrix-workflow", {
+    programRef: WORKFLOW_PROGRAM_REF,
+    graphFunctionRef: WORKFLOW_GRAPH_FUNCTION_REF,
+    allowlist: [WORKFLOW_GRAPH_FUNCTION_REF, WORKFLOW_CHILD_REF],
+  });
+  const omittedChild = await runScenario(harness, "matrix-workflow-omitted", {
+    programRef: WORKFLOW_PROGRAM_REF,
+    graphFunctionRef: WORKFLOW_GRAPH_FUNCTION_REF,
+    allowlist: [WORKFLOW_GRAPH_FUNCTION_REF],
+  });
+  const fp = await runScenario(harness, "matrix-fp", {
+    programRef: FP_PROGRAM_REF,
+    graphFunctionRef: FP_GRAPH_FUNCTION_REF,
+    input: fpInput("World"),
+  }, { ABG_TS_CLAUDE_COMMAND: command });
+  const malformedFp = await runScenario(harness, "matrix-fp-malformed", {
+    programRef: FP_PROGRAM_REF,
+    graphFunctionRef: FP_GRAPH_FUNCTION_REF,
+    input: fpInput("World"),
+  }, {
+    ABG_TS_CLAUDE_COMMAND: command,
+    ABG_MATRIX_MALFORMED: "1",
+  });
+  const crossWire = await runScenario(harness, "matrix-cross-wire", {
+    programRef: FD_FP_PROGRAM_REF,
+    graphFunctionRef: FP_GRAPH_FUNCTION_REF,
+    allowlist: [FP_GRAPH_FUNCTION_REF],
+    input: fpInput("World"),
+  });
+  const evidence = {
+    fd,
+    compose,
+    workflow,
+    omittedChild,
+    fp,
+    malformedFp,
+    crossWire,
+  };
+
+  for (const row of matrix) {
+    const name = `${row.axis}/${row.behavior}`;
+    if (row.status === "open") {
+      await context.test(name, { todo: row.gap }, () => {});
+    } else {
+      await context.test(name, () => row.verify(evidence));
+    }
+  }
+});
