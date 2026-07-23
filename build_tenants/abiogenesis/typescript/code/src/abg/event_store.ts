@@ -42,6 +42,8 @@ export const ROOT_EVENT_KIND_VALUES = [
   "c_call_evidenced",
   "c_call_result_admitted",
   "c_call_judged",
+  "retry_attempt_opened",
+  "retry_progress_recorded",
   "child_foldback_admitted",
   "child_preparation_refused",
   "traversal_route_admitted",

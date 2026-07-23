@@ -1,6 +1,7 @@
 import type { GtlGraph } from "../gtl/contracts.js";
 import {
   deriveCSourceContinuation,
+  resolveEnclosingCRetryContexts,
   resolveCProgramTermAtSourcePath,
 } from "../gtl/source_path.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
@@ -27,6 +28,10 @@ import {
   admitRuntimeEventBatch,
 } from "./event_store.js";
 import { replay, type ReplayState } from "./replay.js";
+import {
+  isAdmittedRetryProgress,
+  type RetryProgressAdmission,
+} from "./retry.js";
 import {
   hasAdmittedTraversalCursor,
   isTraversalCursorCandidate,
@@ -112,6 +117,11 @@ export interface BlockedRouteAdmissionEvidence {
   readonly judgmentRef: string;
   readonly judgmentEventRef: string;
   readonly reasonRef: string;
+}
+
+export interface RetryRouteAdmissionEvidence {
+  readonly cCall: CCall;
+  readonly progress: RetryProgressAdmission;
 }
 
 export interface RouteAdmissionOptions {
@@ -316,6 +326,64 @@ function hasBlockedRouteEvidence(
     judgmentEvent.payload.reasonRef === evidence.reasonRef;
 }
 
+function hasRetryRouteEvidence(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  targetCursor: TraversalCursorCandidate,
+  candidate: RouteCandidate,
+  evidence: RetryRouteAdmissionEvidence | null,
+): evidence is RetryRouteAdmissionEvidence {
+  if (
+    evidence === null ||
+    !hasOpenedCCall(store, evidence.cCall) ||
+    !isAdmittedRetryProgress(evidence.progress) ||
+    evidence.cCall.basisId !== executionBasis.basisRef ||
+    evidence.cCall.frameId !== sourceCursor.frameId ||
+    evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
+    evidence.cCall.attempt !== sourceCursor.attempt ||
+    !sameValues(
+      evidence.cCall.retryPath.map(String),
+      sourceCursor.retryPath.map(String),
+    ) ||
+    evidence.progress.cCallRef !== evidence.cCall.cCallRef ||
+    evidence.progress.attempt !== sourceCursor.attempt ||
+    evidence.progress.remainingBudget < 1 ||
+    candidate.routeKind !== "retry" ||
+    candidate.cCallRef !== evidence.cCall.cCallRef ||
+    candidate.judgmentRef !== evidence.progress.judgmentRef ||
+    candidate.consumedAvailabilityRefs.length !== 1 ||
+    candidate.consumedAvailabilityRefs[0] !== evidence.progress.progressRef ||
+    candidate.contractRef !== evidence.cCall.transitionContractRef
+  ) return false;
+  const contexts = resolveEnclosingCRetryContexts(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  if ("kind" in contexts) return false;
+  const context = contexts.at(-1);
+  if (
+    context === undefined ||
+    context.retryDepth !== sourceCursor.retryPath.length ||
+    context.retryDepth !== targetCursor.retryPath.length ||
+    evidence.progress.retryBoundaryRef.length === 0
+  ) return false;
+  const nextAttempt = sourceCursor.attempt + 1;
+  return hasSameCursorLineage(sourceCursor, targetCursor) &&
+    targetCursor.currentNodeRef === sourceCursor.currentNodeRef &&
+    sameValues(targetCursor.termPath, context.wrappedTermPath) &&
+    targetCursor.taskOrdinal === context.taskOrdinal &&
+    targetCursor.attempt === nextAttempt &&
+    sameValues(
+      targetCursor.retryPath.map(String),
+      [...sourceCursor.retryPath.slice(0, -1), nextAttempt].map(String),
+    ) &&
+    targetCursor.inputRef === evidence.progress.inputRef &&
+    targetCursor.inputDigest === evidence.progress.inputDigest;
+}
+
 function isDeclaredJudgedTarget(
   graph: Readonly<GtlGraph>,
   source: TraversalCursorCandidate,
@@ -376,7 +444,11 @@ export function admitRoute(
   replayState: ReplayState,
   candidate: RouteCandidate,
   basis: RuntimeAdmissionBasis,
-  evidence: RouteAdmissionEvidence | BlockedRouteAdmissionEvidence | null = null,
+  evidence:
+    | RouteAdmissionEvidence
+    | BlockedRouteAdmissionEvidence
+    | RetryRouteAdmissionEvidence
+    | null = null,
   options: RouteAdmissionOptions = {},
 ): RouteAdmissionResult {
   if (
@@ -537,10 +609,24 @@ export function admitRoute(
         );
       }
       causationEventRef = evidence.judgment.admissionEventRef;
+    } else if (
+      "progress" in evidence &&
+      candidate.routeKind === "retry" &&
+      hasRetryRouteEvidence(
+        store,
+        executionBasis,
+        graph,
+        sourceCursor,
+        targetCursor,
+        candidate,
+        evidence,
+      )
+    ) {
+      causationEventRef = evidence.progress.admissionEventRef;
     } else {
       return refusal(
         "judgment_mismatch",
-        "advance route requires admitted result and judgment evidence",
+        "post-call route requires admitted judgment or retry-progress evidence",
       );
     }
   } else if (candidate.routeKind === "blocked") {

@@ -18,6 +18,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
 import {
   deriveDirectCContinuationStepFromGraph,
+  deriveDirectCRetryStepFromGraph,
   deriveDirectCStepFromGraph,
   resolveCProgramTermAtPath,
   rootCTraversalCoordinate,
@@ -303,6 +304,37 @@ export function deriveCompletedTraversalStep(
   return createTraversalStep(sourceCursor, directStep, targetInput);
 }
 
+export function deriveRetryTraversalStep(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  retryInput: TraversalInputBasis,
+): TraversalStep | TraversalRefusal {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !traversalCursors.has(sourceCursor) ||
+    sourceCursor.graphRef !== graph.materializationRef ||
+    sourceCursor.position !== "at_term" ||
+    retryInput.inputRef.length === 0 ||
+    !retryInput.inputDigest.startsWith("sha256:")
+  ) {
+    return refusal(
+      "traversal_cursor_mismatch",
+      "HoG derives retry only from its exact original GTL cursor and retained input basis",
+    );
+  }
+  const directStep = deriveDirectCRetryStepFromGraph(graph.template, {
+    nodeRef: sourceCursor.currentNodeRef,
+    termPath: sourceCursor.termPath,
+    taskOrdinal: sourceCursor.taskOrdinal,
+    attempt: sourceCursor.attempt,
+    retryPath: sourceCursor.retryPath,
+  });
+  if (directStep.kind === "direct_c_traversal_refusal") {
+    return refusal("locus_missing", directStep.message);
+  }
+  return createTraversalStep(sourceCursor, directStep, retryInput);
+}
+
 function validateTraverseInput(input: TraverseInput): TraversalRefusal | null {
   if (!isExecutionBasis(input.executionBasis)) {
     return refusal("execution_basis_mismatch", "HoG requires the exact ABG-constructed ExecutionBasis");
@@ -462,7 +494,9 @@ export function applyRoute(
   route: AdmittedRoute,
 ): TraversalCursor | TraversalRefusal {
   const targetCursor = step.targetCursor;
-  const expectedKind = step.directStep.stepKind === "retry"
+  const expectedKind = step.directStep.stepKind === "retry" ||
+      (step.directStep.stepKind === "continue_term" &&
+        step.directStep.relation === "retry_same_edge")
     ? "retry"
     : step.directStep.stepKind === "continue_term" ||
         step.directStep.stepKind === "enter_term" ||

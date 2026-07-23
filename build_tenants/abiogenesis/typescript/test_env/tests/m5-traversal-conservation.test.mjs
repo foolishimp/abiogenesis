@@ -18,6 +18,10 @@ const REFUSAL_CONTRACT_REF =
 const FP_PROGRAM_REF = "program://abiogenesis/conformance/fp-hello@5";
 const FP_GRAPH_FUNCTION_REF =
   "graph-function://abiogenesis/conformance/fp-hello@5";
+const FP_RETRY_PROGRAM_REF =
+  "program://abiogenesis/conformance/fp-retry-hello@5";
+const FP_RETRY_GRAPH_FUNCTION_REF =
+  "graph-function://abiogenesis/conformance/fp-retry-hello@5";
 const FD_FP_PROGRAM_REF = "program://abiogenesis/conformance/fd-fp-hello@5";
 const COMPOSE_PROGRAM_REF =
   "program://abiogenesis/conformance/hello-compose@5";
@@ -56,18 +60,24 @@ async function installWorkerFixture(harness) {
   const command = join(bin, "claude");
   await writeFile(command, [
     "#!/usr/bin/env node",
+    "const { existsSync, readFileSync, writeFileSync } = require('node:fs');",
     "let prompt = '';",
     "process.stdin.setEncoding('utf8');",
     "process.stdin.on('data', (chunk) => { prompt += chunk; });",
     "process.stdin.on('end', () => {",
     "  const line = prompt.split(/\\r?\\n/).find((value) => value.startsWith('Subject: '));",
     "  const subject = line === undefined ? 'Unknown' : JSON.parse(line.slice('Subject: '.length));",
+    "  const counterPath = process.env.ABG_MATRIX_RETRY_COUNTER;",
+    "  const prior = counterPath && existsSync(counterPath) ? Number(readFileSync(counterPath, 'utf8')) : 0;",
+    "  const attempt = prior + 1;",
+    "  if (counterPath) writeFileSync(counterPath, String(attempt));",
     "  const result = { kind: 'fp_hello_output', schemaVersion: '5.0.0',",
     `    resultContractRef: '${OUTPUT_CONTRACT_REF}', actorRef: '${ACTOR_REF}',`,
-    "    message: `Hello ${subject}` };",
+    "    message: process.env.ABG_MATRIX_CONTRADICTORY === '1' ? `Goodbye ${subject}` : `Hello ${subject}` };",
+    "  const malformed = process.env.ABG_MATRIX_MALFORMED === '1' || process.env.ABG_MATRIX_ALWAYS_MALFORMED === '1' || (counterPath && attempt === 1);",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
     "  console.log(JSON.stringify({ type: 'result', subtype: 'success',",
-    "    result: process.env.ABG_MATRIX_MALFORMED === '1' ? '{not-json' : JSON.stringify(result) }));",
+    "    result: malformed ? '{not-json' : JSON.stringify(result) }));",
     "});",
     "",
   ].join("\n"), "utf8");
@@ -280,9 +290,50 @@ const matrix = [
       event.kind === "run_segment_opened"), false);
   }),
   open("structural_form", "graph_recursion", "recurse application with bound, termination Rule, and Evaluators", "runtime evaluator truth, recursive lineage, and foldback"),
-  open("structural_form", "retry", "C.retry over one bounded call", "a real failed attempt followed by a fresh admitted attempt"),
+  proven("structural_form", "retry", {
+    gtlExpression: "C.retry over one F_P C.of call with budget two",
+    hogPath: "same declared term is re-entered with attempt two and a fresh cursor",
+    abgEvidence: "two retry attempts and C-calls separated by admitted retry progress",
+    publicOutcome: "second admitted result closes one installed invocation",
+    invalidMutation: "semantic contradiction blocks without retry progress",
+  }, ({ retry, retryContradiction, retryExhausted }) => {
+    assertSuccessfulInstalled(retry);
+    assert.deepEqual(
+      retry.events
+        .filter((event) => event.kind === "retry_attempt_opened")
+        .map((event) => event.payload.attempt),
+      [1, 2],
+    );
+    assert.equal(retry.events.filter((event) =>
+      event.kind === "retry_progress_recorded").length, 1);
+    assert.equal(retryContradiction.run.exitCode, 2, retryContradiction.run.stdout);
+    assert.equal(retryContradiction.events.some((event) =>
+      event.kind === "retry_progress_recorded"), false);
+    assert.equal(retryExhausted.run.exitCode, 2, retryExhausted.run.stdout);
+    assert.equal(retryExhausted.events.filter((event) =>
+      event.kind === "actor_invocation_started").length, 2);
+  }),
 
-  open("consequence_route", "same_edge_retry", "declared retry or repair route", "same-edge retry after a rejected attempt"),
+  proven("consequence_route", "same_edge_retry", {
+    gtlExpression: "declared C.retry route over the current wrapped term",
+    hogPath: "retry_same_edge targets the same program locus with incremented retry path",
+    abgEvidence: "retry judgment and progress causally admit the retry route",
+    publicOutcome: "installed replay retains both attempts and the successful successor",
+    invalidMutation: "semantic rejection cannot mint retry progress or a second call",
+  }, ({ retry, retryContradiction, retryExhausted }) => {
+    assertSuccessfulInstalled(retry);
+    const routes = retry.events.filter((event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.routeKind === "retry");
+    assert.equal(routes.length, 2);
+    assert.equal(routes[0].payload.cCallRef, null);
+    assert.notEqual(routes[1].payload.cCallRef, null);
+    assert.equal(retryContradiction.events.filter((event) =>
+      event.kind === "c_call_opened").length, 1);
+    assert.equal(retryExhausted.events.filter((event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.routeKind === "retry").length, 2);
+  }),
   proven("consequence_route", "depth_traversal", {
     gtlExpression: "workflow.C child GraphFunction declaration",
     hogPath: "enter child GraphCall/Frame and return to parent cursor",
@@ -336,7 +387,31 @@ const matrix = [
     assert.equal(fd.events.some((event) => event.kind === "terminal_reached"), true);
     assertMalformedFpBlocks(malformedFp);
   }),
-  open("runtime_disposition", "retry_same_edge", "bounded same-edge retry route", "one failed attempt and fresh retry identity"),
+  proven("runtime_disposition", "retry_same_edge", {
+    gtlExpression: "bounded C.retry with retained input basis",
+    hogPath: "failed structural output advances to one fresh same-edge attempt",
+    abgEvidence: "retry judgment, progress, route, and new attempt are append-only truth",
+    publicOutcome: "one installed result closes after the retry chain",
+    invalidMutation: "non-retryable semantic disagreement remains blocked",
+  }, ({ retry, retryContradiction, retryExhausted }) => {
+    assertSuccessfulInstalled(retry);
+    const calls = retry.events.filter((event) => event.kind === "c_call_opened");
+    assert.equal(calls.length, 2);
+    assert.notEqual(calls[0].aggregateId, calls[1].aggregateId);
+    assert.deepEqual(
+      retry.events
+        .filter((event) => event.kind === "c_call_judged")
+        .map((event) => event.payload.judgment),
+      ["retry", "advance"],
+    );
+    assert.equal(retryContradiction.events.at(-1)?.kind, "run_stopped");
+    assert.deepEqual(
+      retryExhausted.events
+        .filter((event) => event.kind === "c_call_judged")
+        .map((event) => event.payload.judgment),
+      ["retry", "blocked"],
+    );
+  }),
   open("runtime_disposition", "repair", "declared repair route", "repair candidate admission and replay"),
   open("runtime_disposition", "re_enter", "declared re-entry route", "admitted cursor re-entry"),
   open("runtime_disposition", "yield_continuation", "typed continuation hold", "durable yield and later continuation"),
@@ -404,8 +479,8 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 15);
-  assert.equal(matrix.filter((row) => row.status === "open").length, 25);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 18);
+  assert.equal(matrix.filter((row) => row.status === "open").length, 22);
   for (const row of matrix) {
     for (const field of [
       "witness46",
@@ -451,6 +526,42 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     ABG_TS_CLAUDE_COMMAND: command,
     ABG_MATRIX_MALFORMED: "1",
   });
+  const retryCounterPath = join(harness.scratch, "matrix-retry.count");
+  const retry = await runScenario(harness, "matrix-retry", {
+    programRef: FP_RETRY_PROGRAM_REF,
+    graphFunctionRef: FP_RETRY_GRAPH_FUNCTION_REF,
+    input: fpInput("World"),
+  }, {
+    ABG_TS_CLAUDE_COMMAND: command,
+    ABG_MATRIX_RETRY_COUNTER: retryCounterPath,
+  });
+  const retryContradiction = await runScenario(
+    harness,
+    "matrix-retry-contradiction",
+    {
+      programRef: FP_RETRY_PROGRAM_REF,
+      graphFunctionRef: FP_RETRY_GRAPH_FUNCTION_REF,
+      input: fpInput("World"),
+    },
+    {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_MATRIX_CONTRADICTORY: "1",
+    },
+  );
+  const retryExhausted = await runScenario(
+    harness,
+    "matrix-retry-exhausted",
+    {
+      programRef: FP_RETRY_PROGRAM_REF,
+      graphFunctionRef: FP_RETRY_GRAPH_FUNCTION_REF,
+      input: fpInput("World"),
+    },
+    {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_MATRIX_RETRY_COUNTER: join(harness.scratch, "matrix-retry-exhausted.count"),
+      ABG_MATRIX_ALWAYS_MALFORMED: "1",
+    },
+  );
   const crossWire = await runScenario(harness, "matrix-cross-wire", {
     programRef: FD_FP_PROGRAM_REF,
     graphFunctionRef: FP_GRAPH_FUNCTION_REF,
@@ -464,6 +575,9 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     omittedChild,
     fp,
     malformedFp,
+    retry,
+    retryContradiction,
+    retryExhausted,
     crossWire,
   };
 

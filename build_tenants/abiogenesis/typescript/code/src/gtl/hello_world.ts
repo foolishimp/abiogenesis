@@ -167,6 +167,15 @@ export const FP_HELLO_IDS = Object.freeze({
   workerBindingRef: "worker-binding://abiogenesis/conformance/claude-worker@5",
 });
 
+export const FP_RETRY_HELLO_IDS = Object.freeze({
+  programRef: "program://abiogenesis/conformance/fp-retry-hello@5",
+  graphFunctionRef:
+    "graph-function://abiogenesis/conformance/fp-retry-hello@5",
+  graphRef: "graph://abiogenesis/conformance/fp-retry-hello@5",
+  nodeRef: "node://abiogenesis/conformance/fp-retry-hello@5",
+  locusRef: "locus://abiogenesis/conformance/fp-retry-hello@5",
+});
+
 export const FIBRE_SUBSTITUTION_HELLO_IDS = Object.freeze({
   programRef: "program://abiogenesis/conformance/fd-fp-hello@5",
   graphFunctionRef:
@@ -1333,6 +1342,84 @@ export function constructHelloWorldModulePublication(
       "abg.instruction_plan": FP_HELLO_IDS.materializationPlanRef,
     },
   };
+  const fpRetryGraphFunction: GraphFunction = {
+    kind: "graph_function",
+    name: FP_RETRY_HELLO_IDS.graphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [FP_HELLO_IDS.inputContractRef],
+      provides: [FP_HELLO_IDS.outputContractRef],
+      carries: [FP_HELLO_IDS.inputContractRef, FP_HELLO_IDS.outputContractRef],
+    },
+    inputs: [FP_HELLO_IDS.inputContractRef],
+    outputs: [FP_HELLO_IDS.outputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: FP_RETRY_HELLO_IDS.graphRef,
+      startNodeRef: FP_RETRY_HELLO_IDS.nodeRef,
+      terminalNodeRefs: [FP_RETRY_HELLO_IDS.nodeRef],
+      nodes: [{
+        nodeRef: FP_RETRY_HELLO_IDS.nodeRef,
+        nodeKind: "c_locus",
+        term: C.retry(
+          C.of({
+            input: fpInputCarrier,
+            output: fpOutputCarrier,
+            programLocusRef: FP_RETRY_HELLO_IDS.locusRef,
+            stageRole: "result",
+            fibre: "F_P",
+            armId: FP_HELLO_IDS.armId,
+            compositionRef: null,
+            vectorIndex: 0,
+            judgmentPredicateRef: FP_HELLO_IDS.judgmentPredicateRef,
+            resultBearing: true,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef: FP_HELLO_IDS.implementationBindingRef,
+              inputContractRef: FP_HELLO_IDS.inputContractRef,
+              outputContractRef: FP_HELLO_IDS.outputContractRef,
+              evidenceContractRef: FP_HELLO_IDS.evidenceContractRef,
+              failureContractRef: FP_HELLO_IDS.failureContractRef,
+              refusalContractRef: FP_HELLO_IDS.refusalContractRef,
+              judgmentContractRef: FP_HELLO_IDS.judgmentContractRef,
+            },
+          }),
+          2,
+        ),
+      }],
+      edges: [],
+      applications: [],
+    },
+    effects: ["effect://abiogenesis/conformance/emit-fp-hello-output@5"],
+    declarations: {
+      "abg.compute_regime": "F_P",
+      "abg.closure_contract": FP_HELLO_IDS.closureContractRef,
+      "abg.evidence_contract": FP_HELLO_IDS.evidenceContractRef,
+      "abg.instruction_plan": FP_HELLO_IDS.materializationPlanRef,
+      "abg.judgment_contract": FP_HELLO_IDS.judgmentContractRef,
+      "abg.judgment_predicate": FP_HELLO_IDS.judgmentPredicateRef,
+      "abg.renderer": FP_HELLO_IDS.rendererRef,
+      "abg.transition_contract": FP_HELLO_IDS.transitionContractRef,
+    },
+    tags: ["abiogenesis", "conformance", "fp-hello", "retry", "fp"],
+  };
+  const fpRetryProgram: GtlProgram = {
+    kind: "gtl_program",
+    programRef: FP_RETRY_HELLO_IDS.programRef,
+    version: "5.0.0",
+    moduleRef: HELLO_WORLD_IDS.moduleRef,
+    starts: [{
+      startRef: "start://abiogenesis/conformance/fp-retry-hello@5",
+      graphFunctionRef: FP_RETRY_HELLO_IDS.graphFunctionRef,
+    }],
+    callableMembership: [FP_RETRY_HELLO_IDS.graphFunctionRef],
+    closureContractRef: FP_HELLO_IDS.closureContractRef,
+    policies: {
+      "abg.root_mode": "direct",
+      "abg.compute_regime": "F_P",
+      "abg.instruction_plan": FP_HELLO_IDS.materializationPlanRef,
+    },
+  };
   const deterministicFpGraphFunction: GraphFunction = {
     kind: "graph_function",
     name: FIBRE_SUBSTITUTION_HELLO_IDS.graphFunctionRef,
@@ -1566,6 +1653,15 @@ export function constructHelloWorldModulePublication(
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
+  const fpRetryContribution: CatalogContribution = {
+    handle: FP_RETRY_HELLO_IDS.graphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef: FP_RETRY_HELLO_IDS.graphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [FP_RETRY_HELLO_IDS.programRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  };
   const deterministicFpContribution: CatalogContribution = {
     handle: FIBRE_SUBSTITUTION_HELLO_IDS.graphFunctionRef,
     kind: "graph_function",
@@ -1625,6 +1721,7 @@ export function constructHelloWorldModulePublication(
       graphEdgeProgram,
       graphSubstituteProgram,
       fpProgram,
+      fpRetryProgram,
       deterministicFpProgram,
       fpFdComposedProgram,
     ],
@@ -1638,6 +1735,7 @@ export function constructHelloWorldModulePublication(
       graphEdgeGraphFunction,
       graphSubstituteGraphFunction,
       fpGraphFunction,
+      fpRetryGraphFunction,
       deterministicFpGraphFunction,
       fpFdPassGraphFunction,
       fpFdComposedGraphFunction,
@@ -1652,6 +1750,7 @@ export function constructHelloWorldModulePublication(
       graphEdgeContribution,
       graphSubstituteContribution,
       fpContribution,
+      fpRetryContribution,
       deterministicFpContribution,
       fpFdComposedContribution,
     ],

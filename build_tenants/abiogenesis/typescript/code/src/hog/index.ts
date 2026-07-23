@@ -1,6 +1,7 @@
 export {
   applyRoute,
   deriveCompletedTraversalStep,
+  deriveRetryTraversalStep,
   deriveTraversalStep,
   isTraversalStep,
   isTraversalStopRef,
@@ -16,6 +17,7 @@ export {
 export {
   deriveDirectCStep,
   deriveDirectCContinuationStepFromGraph,
+  deriveDirectCRetryStepFromGraph,
   deriveDirectCStepFromGraph,
   resolveCProgramTermAtPath,
   rootCSourcePath,
@@ -42,6 +44,7 @@ export {
   proposeBlockedRoute,
   proposeWorkflowBlockedRoute,
   proposeJudgedRoute,
+  proposeRetryRoute,
   proposeStructuralRoute,
   proposeTerminalRoute,
   type RouteProposalRefusal,

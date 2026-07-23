@@ -139,6 +139,22 @@ export {
   type ReplayState,
 } from "./replay.js";
 export {
+  RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES,
+  admitRetryAttempt,
+  admitRetryProgress,
+  isAdmittedRetryAttempt,
+  isAdmittedRetryProgress,
+  projectRetryEligibility,
+  type RetryAdmissionRefusal,
+  type RetryAttemptAdmission,
+  type RetryAttemptAdmissionResult,
+  type RetryEligibility,
+  type RetryInputBasis,
+  type RetryProgressAdmission,
+  type RetryProgressAdmissionResult,
+  type RetryableRuntimeFailureClass,
+} from "./retry.js";
+export {
   persistEventLog,
   type PersistedEventLog,
 } from "./event_log.js";
@@ -147,6 +163,7 @@ export {
   isAdmittedRoute,
   type AdmittedRoute,
   type BlockedRouteAdmissionEvidence,
+  type RetryRouteAdmissionEvidence,
   type RouteAdmissionEvidence,
   type RouteAdmissionRefusal,
   type RouteAdmissionResult,

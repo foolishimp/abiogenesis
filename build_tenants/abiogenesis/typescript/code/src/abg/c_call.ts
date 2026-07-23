@@ -343,7 +343,7 @@ export interface CCallAdmissionRejection {
 export interface RejectedCCallCompletion {
   readonly kind: "rejected_c_call_completion";
   readonly schemaVersion: "5.0.0";
-  readonly disposition: "blocked";
+  readonly disposition: "blocked" | "retry";
   readonly cCallRef: string;
   readonly rejectionEvidenceRef: string | null;
   readonly refusalResultRef: string;
@@ -1767,6 +1767,7 @@ export function completeRejectedCCall(
   cCall: CCall,
   admissionRejection: CCallAdmissionRejection,
   basis: RuntimeAdmissionBasis,
+  disposition: RejectedCCallCompletion["disposition"] = "blocked",
 ): RejectedCCallCompletion {
   if (
     !hasOpenedCCall(store, cCall) ||
@@ -1886,7 +1887,7 @@ export function completeRejectedCCall(
     cCallRef: cCall.cCallRef,
     resultRef,
     resultDigest,
-    judgment: "blocked" as const,
+    judgment: disposition,
     reasonRef: admissionRejection.diagnosticRef,
     contractRef: cCall.rejectionContractRef,
     predicateRef: cCall.judgmentPredicateRef,
@@ -1921,7 +1922,7 @@ export function completeRejectedCCall(
   return deepFreeze({
     kind: "rejected_c_call_completion" as const,
     schemaVersion: "5.0.0" as const,
-    disposition: "blocked" as const,
+    disposition,
     cCallRef: cCall.cCallRef,
     rejectionEvidenceRef,
     refusalResultRef: resultRef,

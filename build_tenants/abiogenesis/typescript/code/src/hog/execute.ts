@@ -5,12 +5,15 @@ import {
   admitEvidence,
   admitJudgment,
   admitResult,
+  admitRetryAttempt,
+  admitRetryProgress,
   admitRuntimeFailure,
   admitRoute,
   completeRejectedCCall,
   deriveProbabilisticTransportEvidence,
   deriveSubTraversalEvidence,
   openCCall,
+  projectRetryEligibility,
   replay,
   traversalCursorAdmissionEventRef,
   type AbgEventStore,
@@ -19,10 +22,12 @@ import {
   type AdmittedImplementationResolutionRow,
   type AdmittedImplementationSet,
   type CCallEvidenceCandidate,
+  type CCallAdmissionRejection,
   type CCall,
   type ExecutionBasis,
   type OpenedTraversalScope,
   type ReplayState,
+  type RetryInputBasis,
   type RuntimeAdmissionBasis,
   invokeActorProcess,
 } from "../abg/index.js";
@@ -51,11 +56,13 @@ import {
 import {
   proposeBlockedRoute,
   proposeJudgedRoute,
+  proposeRetryRoute,
   proposeWorkflowBlockedRoute,
 } from "./traversal_route.js";
 import {
   applyRoute,
   deriveCompletedTraversalStep,
+  deriveRetryTraversalStep,
   type TraversalCursor,
   type TraversalStep,
   type TraversalStopRef,
@@ -118,8 +125,14 @@ export interface ExecutableTraversalCompletion {
   readonly closureRef: string | null;
   readonly nextCursor: TraversalCursor | null;
   readonly resultValue: JsonValue | null;
+  readonly continuationKind: "advance" | "retry" | null;
+  readonly nextInputContractRef: string | null;
   readonly replayState: ReplayState;
   readonly diagnosticRef: string | null;
+}
+
+export interface RetainedRetryInput extends RetryInputBasis {
+  readonly value: Readonly<Record<string, JsonValue>>;
 }
 
 export interface CompleteExecutableTraversalInput<
@@ -137,6 +150,7 @@ export interface CompleteExecutableTraversalInput<
   readonly leafPort: LeafInvocationPort;
   readonly input: Readonly<Input>;
   readonly inputDigest: `sha256:${string}`;
+  readonly retryInput?: RetainedRetryInput;
   readonly closureContract: Readonly<ClosureContract>;
   readonly actorRuntimeBinding?: ActorRuntimeBinding;
   readonly terminalMode?: "close_run" | "return_to_parent";
@@ -230,6 +244,8 @@ function completion(
     readonly closureRef?: string;
     readonly nextCursor?: TraversalCursor;
     readonly resultValue?: JsonValue;
+    readonly continuationKind?: "advance" | "retry";
+    readonly nextInputContractRef?: string;
     readonly diagnosticRef?: string;
   } = {},
 ): ExecutableTraversalCompletion {
@@ -243,6 +259,8 @@ function completion(
     closureRef: values.closureRef ?? null,
     nextCursor: values.nextCursor ?? null,
     resultValue: values.resultValue ?? null,
+    continuationKind: values.continuationKind ?? null,
+    nextInputContractRef: values.nextInputContractRef ?? null,
     replayState,
     diagnosticRef: values.diagnosticRef ?? null,
   }) as ExecutableTraversalCompletion;
@@ -340,6 +358,210 @@ function completeBlockedTraversal<Input, Output>(
     resultRef: values.resultRef,
     judgmentRef: values.judgmentRef,
     diagnosticRef: values.reasonRef,
+  });
+}
+
+function completeRetryTraversal<Input, Output>(
+  input: CompleteExecutableTraversalInput<Input, Output>,
+  cCall: CCall,
+  rejection: CCallAdmissionRejection,
+  failureClass: "contract_failure" | "no_output" | "transport_failure",
+): ExecutableTraversalCompletion | null {
+  const eligibility = projectRetryEligibility(
+    input.store,
+    input.graph,
+    input.traversalStop.cursor,
+    failureClass,
+    rejection.diagnosticRef,
+  );
+  if (eligibility.disposition !== "retry") return null;
+  const retryInput = input.retryInput;
+  if (
+    retryInput === undefined ||
+    retryInput.inputContractRef.length === 0 ||
+    sha256Canonical(retryInput.value as unknown as JsonValue) !==
+      retryInput.inputDigest
+  ) {
+    const diagnosticRef =
+      "diagnostic://abiogenesis/hog/retry-input-basis-absent@5";
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "route",
+      eligibility as unknown as JsonValue,
+      diagnosticRef,
+      cursorBasis(input, "retry-input-refusal"),
+    );
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      diagnosticRef,
+    });
+  }
+  const rejected = completeRejectedCCall(
+    input.store,
+    cCall,
+    rejection,
+    basis(input.clock, "retry-judgment"),
+    "retry",
+  );
+  const progress = admitRetryProgress(
+    input.store,
+    input.graph,
+    input.traversalStop.cursor,
+    cCall,
+    rejected,
+    failureClass,
+    rejection.diagnosticRef,
+    basis(input.clock, "retry-progress"),
+  );
+  if (progress.kind !== "retry_progress_admission") {
+    const diagnosticRef =
+      `diagnostic://abiogenesis/hog/${progress.code}@5`;
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "route",
+      progress as unknown as JsonValue,
+      diagnosticRef,
+      {
+        ...basis(input.clock, "retry-progress-refusal"),
+        causationEventRefs: [rejected.judgmentEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: rejected.refusalResultRef,
+      judgmentRef: rejected.rejectionJudgmentRef,
+      diagnosticRef,
+    });
+  }
+  const retryStep = deriveRetryTraversalStep(
+    input.graph,
+    input.traversalStop.cursor,
+    retryInput,
+  );
+  if (retryStep.kind !== "traversal_step" || retryStep.targetCursor === null) {
+    const diagnosticRef = retryStep.kind === "traversal_refusal"
+      ? `diagnostic://abiogenesis/hog/${retryStep.code}@5`
+      : "diagnostic://abiogenesis/hog/retry-target-absent@5";
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "route",
+      retryStep as unknown as JsonValue,
+      diagnosticRef,
+      {
+        ...basis(input.clock, "retry-step-refusal"),
+        causationEventRefs: [progress.admissionEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: rejected.refusalResultRef,
+      judgmentRef: rejected.rejectionJudgmentRef,
+      diagnosticRef,
+    });
+  }
+  const progressReplay = replayRun(input);
+  const proposal = proposeRetryRoute(
+    input.graph,
+    retryStep,
+    cCall,
+    progress,
+    progressReplay,
+    cCall.transitionContractRef,
+  );
+  if (proposal.kind !== "traversal_route_candidate") {
+    const diagnosticRef =
+      `diagnostic://abiogenesis/hog/${proposal.code}@5`;
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "route",
+      proposal as unknown as JsonValue,
+      diagnosticRef,
+      {
+        ...basis(input.clock, "retry-route-proposal-refusal"),
+        causationEventRefs: [progress.admissionEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: rejected.refusalResultRef,
+      judgmentRef: rejected.rejectionJudgmentRef,
+      diagnosticRef,
+    });
+  }
+  const route = admitRoute(
+    input.store,
+    input.executionBasis,
+    input.graph,
+    input.traversalStop.cursor,
+    retryStep.targetCursor,
+    progressReplay,
+    proposal,
+    basis(input.clock, "retry-route"),
+    { cCall, progress },
+  );
+  if (route.kind !== "admitted_traversal_route") {
+    const diagnosticRef =
+      `diagnostic://abiogenesis/hog/${route.code}@5`;
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "route",
+      route as unknown as JsonValue,
+      diagnosticRef,
+      {
+        ...basis(input.clock, "retry-route-admission-refusal"),
+        causationEventRefs: [progress.admissionEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: rejected.refusalResultRef,
+      judgmentRef: rejected.rejectionJudgmentRef,
+      diagnosticRef,
+    });
+  }
+  const nextCursor = applyRoute(retryStep, route);
+  if (nextCursor.kind === "traversal_refusal") {
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: rejected.refusalResultRef,
+      judgmentRef: rejected.rejectionJudgmentRef,
+      diagnosticRef: `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
+    });
+  }
+  const attempt = admitRetryAttempt(
+    input.store,
+    input.executionBasis,
+    input.graph,
+    nextCursor,
+    route.admissionEventRef,
+    basis(input.clock, "retry-attempt"),
+  );
+  if (attempt.kind !== "retry_attempt_admission") {
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: rejected.refusalResultRef,
+      judgmentRef: rejected.rejectionJudgmentRef,
+      diagnosticRef: `diagnostic://abiogenesis/hog/${attempt.code}@5`,
+    });
+  }
+  return completion("advanced", replayRun(input), {
+    cCallRef: cCall.cCallRef,
+    resultRef: rejected.refusalResultRef,
+    judgmentRef: rejected.rejectionJudgmentRef,
+    nextCursor,
+    resultValue: retryInput.value as unknown as JsonValue,
+    continuationKind: "retry",
+    nextInputContractRef: retryInput.inputContractRef,
   });
 }
 
@@ -641,6 +863,18 @@ export async function completeExecutableTraversal<
     basis(input.clock, "result"),
   );
   if (result.kind === "c_call_admission_rejection") {
+    if (
+      leaf.disposition === "success" &&
+      !validateSuccessCandidate(leaf.resultCandidate)
+    ) {
+      const retry = completeRetryTraversal(
+        input,
+        cCall,
+        result,
+        "contract_failure",
+      );
+      if (retry !== null) return retry;
+    }
     const rejected = completeRejectedCCall(
       input.store,
       cCall,
@@ -820,6 +1054,8 @@ export async function completeExecutableTraversal<
       judgmentRef: judgment.judgmentRef,
       nextCursor,
       resultValue: result.value,
+      continuationKind: "advance",
+      nextInputContractRef: cCall.outputContractRef,
     });
   }
   if (route.routeKind !== "terminal") {
@@ -1216,6 +1452,8 @@ export function completeWorkflowTraversal(
       judgmentRef: judgment.judgmentRef,
       nextCursor,
       resultValue: result.value,
+      continuationKind: "advance",
+      nextInputContractRef: input.parentCCall.outputContractRef,
     });
   }
   if (route.routeKind !== "terminal") {

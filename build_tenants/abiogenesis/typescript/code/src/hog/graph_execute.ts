@@ -17,15 +17,18 @@ import type {
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
+import { resolveEnclosingCRetryContexts } from "../gtl/source_path.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
 import type { GraphValidation } from "../validator/graph.js";
 import {
   completeExecutableTraversal,
   completeWorkflowPreparationRefusal,
   completeWorkflowTraversal,
   type ExecutableTraversalCompletion,
+  type RetainedRetryInput,
 } from "./execute.js";
 import {
   isChildTraversalPreparationPort,
@@ -35,7 +38,11 @@ import {
   advanceStructuralTraversal,
   type StructuralTraversalResult,
 } from "./structural_execute.js";
-import { traverse, traverseFromCursor } from "./traversal.js";
+import {
+  traverse,
+  traverseFromCursor,
+  type TraversalCursor,
+} from "./traversal.js";
 
 export interface ExecuteGraphTraversalInput {
   readonly store: AbgEventStore;
@@ -99,6 +106,68 @@ function advanceStructural(
       correlationId: `${input.correlationId}/structural/${ordinal}`,
     },
   });
+}
+
+function activeCursor(
+  value: StructuralTraversalResult,
+): TraversalCursor | null {
+  if (value.kind === "traversal_stop_ref") return value.cursor;
+  return value.kind === "traversal_step" ? value.sourceCursor : null;
+}
+
+function retryInputKey(
+  nodeRef: string,
+  retryTermPath: readonly string[],
+): string {
+  return JSON.stringify([nodeRef, retryTermPath]);
+}
+
+function captureRetryInputs(
+  graph: Readonly<GtlGraph>,
+  value: StructuralTraversalResult,
+  currentInput: Readonly<Record<string, JsonValue>>,
+  inputs: Map<string, RetainedRetryInput>,
+): boolean {
+  const cursor = activeCursor(value);
+  if (cursor === null) return true;
+  const contexts = resolveEnclosingCRetryContexts(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  if ("kind" in contexts || contexts.length !== cursor.retryPath.length) {
+    return false;
+  }
+  for (const context of contexts) {
+    const key = retryInputKey(cursor.currentNodeRef, context.retryTermPath);
+    if (inputs.has(key)) continue;
+    inputs.set(key, {
+      value: currentInput,
+      inputRef: cursor.inputRef,
+      inputDigest: cursor.inputDigest,
+      inputContractRef: context.inputCarrierRef,
+    });
+  }
+  return true;
+}
+
+function selectRetryInput(
+  graph: Readonly<GtlGraph>,
+  value: StructuralTraversalResult,
+  inputs: ReadonlyMap<string, RetainedRetryInput>,
+): RetainedRetryInput | undefined {
+  const cursor = activeCursor(value);
+  if (cursor === null) return undefined;
+  const contexts = resolveEnclosingCRetryContexts(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  if ("kind" in contexts) return undefined;
+  const context = contexts.at(-1);
+  return context === undefined
+    ? undefined
+    : inputs.get(retryInputKey(cursor.currentNodeRef, context.retryTermPath));
 }
 
 export async function executeGraphTraversal(
@@ -178,6 +247,15 @@ export async function executeGraphTraversal(
   }
 
   let currentInput = input.input;
+  const retryInputs = new Map<string, RetainedRetryInput>();
+  if (!captureRetryInputs(input.graph, stop, currentInput, retryInputs)) {
+    return fail(
+      input,
+      "retry-input-capture",
+      "diagnostic://abiogenesis/hog/retry-input-basis-absent@5",
+      stop as unknown as JsonValue,
+    );
+  }
   let completion: ExecutableTraversalCompletion | null = null;
   let leafOrdinal = 0;
   while (
@@ -379,6 +457,7 @@ export async function executeGraphTraversal(
       }
       completionValueKind = outputValueKind;
       completionContractRef = exactStop.outputContractRef;
+      const retryInput = selectRetryInput(input.graph, stop, retryInputs);
       completion = await completeExecutableTraversal({
         store: input.store,
         executionBasis: input.executionBasis,
@@ -391,6 +470,7 @@ export async function executeGraphTraversal(
         leafPort: input.leafPort,
         input: currentInput,
         inputDigest: exactStop.cursor.inputDigest,
+        ...(retryInput === undefined ? {} : { retryInput }),
         closureContract: input.closureContract,
         actorRuntimeBinding: input.actorRuntimeBinding,
         terminalMode: input.terminalMode ?? "close_run",
@@ -403,12 +483,23 @@ export async function executeGraphTraversal(
     if (completion.disposition !== "advanced") break;
     if (
       completion.nextCursor === null ||
+      completion.continuationKind === null ||
+      completion.nextInputContractRef === null ||
       completionValueKind === null ||
       completionContractRef === null ||
-      !input.leafPort.validateContractValue(
-        completionContractRef,
-        "output",
-        completion.resultValue,
+      typeof completion.resultValue !== "object" ||
+      completion.resultValue === null ||
+      Array.isArray(completion.resultValue) ||
+      (
+        completion.continuationKind === "retry"
+          ? completion.nextCursor.inputRef.length === 0 ||
+            completion.nextCursor.inputDigest !==
+              sha256Canonical(completion.resultValue)
+          : !input.leafPort.validateContractValue(
+            completion.nextInputContractRef,
+            "output",
+            completion.resultValue,
+          )
       )
     ) {
       return fail(
@@ -418,7 +509,7 @@ export async function executeGraphTraversal(
         { leafOrdinal, completionDisposition: completion.disposition },
       );
     }
-    currentInput = completion.resultValue;
+    currentInput = completion.resultValue as Readonly<Record<string, JsonValue>>;
     stop = traverseFromCursor(
       {
         program: input.program,
@@ -430,6 +521,14 @@ export async function executeGraphTraversal(
       completion.nextCursor,
     );
     stop = advanceStructural(input, stop, leafOrdinal + 1);
+    if (!captureRetryInputs(input.graph, stop, currentInput, retryInputs)) {
+      return fail(
+        input,
+        `retry-input-capture-${leafOrdinal}`,
+        "diagnostic://abiogenesis/hog/retry-input-basis-absent@5",
+        stop as unknown as JsonValue,
+      );
+    }
     if (
       stop.kind !== "traversal_stop_ref" &&
       !(stop.kind === "traversal_step" && stop.directStep.stepKind === "enter_child")

@@ -1,7 +1,9 @@
 import {
+  admitRetryAttempt,
   admitRoute,
   replay,
   type AbgEventStore,
+  type RetryAdmissionRefusal,
   type RouteAdmissionRefusal,
 } from "../abg/index.js";
 import {
@@ -31,6 +33,7 @@ export interface AdvanceStructuralTraversalInput extends TraverseInput {
 export type StructuralTraversalResult =
   | RouteAdmissionRefusal
   | RouteProposalRefusal
+  | RetryAdmissionRefusal
   | TraversalRefusal
   | TraversalStep
   | TraversalStopRef;
@@ -67,6 +70,31 @@ export function advanceStructuralTraversal(
       },
     );
     if (route.kind !== "admitted_traversal_route") return route;
+    if (current.directStep.stepKind === "retry") {
+      if (current.targetCursor === null) {
+        return {
+          kind: "retry_admission_refusal",
+          schemaVersion: "5.0.0",
+          disposition: "refused",
+          code: "cursor_mismatch",
+          message: "structural retry step has no target cursor",
+        };
+      }
+      const attempt = admitRetryAttempt(
+        input.store,
+        input.executionBasis,
+        input.graph,
+        current.targetCursor,
+        route.admissionEventRef,
+        {
+          eventTime: input.clock.eventTime,
+          correlationId:
+            `${input.clock.correlationId}/route/${routeOrdinal}/retry-attempt`,
+          causationEventRefs: [],
+        },
+      );
+      if (attempt.kind !== "retry_attempt_admission") return attempt;
+    }
     const target = applyRoute(current, route);
     if (target.kind === "traversal_refusal") return target;
     current = traverseFromCursor(input, target);

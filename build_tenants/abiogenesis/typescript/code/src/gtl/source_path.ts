@@ -26,6 +26,16 @@ export interface CSourceContinuation {
   readonly targetRetryDepth: number;
 }
 
+export interface CEnclosingRetryContext {
+  readonly retryTermPath: CSourcePath;
+  readonly wrappedTermPath: CSourcePath;
+  readonly retryDepth: number;
+  readonly taskOrdinal: number | null;
+  readonly budget: number;
+  readonly inputCarrierRef: string;
+  readonly outputCarrierRef: string;
+}
+
 function refusal(
   code: CSourcePathRefusal["code"],
   message: string,
@@ -213,6 +223,59 @@ export function resolveEnclosingCBatchRef(
     currentPath = parentPath;
   }
   return null;
+}
+
+export function resolveEnclosingCRetryContexts(
+  template: Readonly<GraphTemplate>,
+  nodeRef: string,
+  sourcePath: CSourcePath,
+): readonly CEnclosingRetryContext[] | CSourcePathRefusal {
+  const source = resolveCProgramTermAtSourcePath(template, nodeRef, sourcePath);
+  if (source.kind === "c_source_path_refusal") return source;
+
+  const contexts: CEnclosingRetryContext[] = [];
+  let currentPath = [...sourcePath];
+  while (currentPath.length > 3) {
+    const last = currentPath.at(-1);
+    const penultimate = currentPath.at(-2);
+    let parentPath: string[];
+    let childRole: string;
+    if (penultimate === "terms" || penultimate === "tasks") {
+      if (safeOrdinal(last) === null) {
+        return refusal("invalid_source_path", "ordered C child path has an invalid ordinal");
+      }
+      childRole = penultimate;
+      parentPath = currentPath.slice(0, -2);
+    } else if (
+      last === "transform" ||
+      last === "evaluate" ||
+      last === "consequence" ||
+      last === "term"
+    ) {
+      childRole = last;
+      parentPath = currentPath.slice(0, -1);
+    } else {
+      return refusal("invalid_source_path", "C term has no declared parent relation");
+    }
+    const parent = resolveCProgramTermAtSourcePath(template, nodeRef, parentPath);
+    if (parent.kind === "c_source_path_refusal") return parent;
+    if (parent.kind === "c_retry") {
+      if (childRole !== "term") {
+        return refusal("invalid_source_path", "C.retry child path is malformed");
+      }
+      contexts.unshift({
+        retryTermPath: Object.freeze([...parentPath]),
+        wrappedTermPath: Object.freeze([...parentPath, "term"]),
+        retryDepth: retryDepthAtPath([...parentPath, "term"]),
+        taskOrdinal: taskOrdinalAtPath(parentPath),
+        budget: parent.budget,
+        inputCarrierRef: parent.inputCarrierRef,
+        outputCarrierRef: parent.outputCarrierRef,
+      });
+    }
+    currentPath = parentPath;
+  }
+  return Object.freeze(contexts);
 }
 
 export function deriveCSourceContinuation(

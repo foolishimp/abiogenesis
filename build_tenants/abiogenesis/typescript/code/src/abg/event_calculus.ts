@@ -123,7 +123,15 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   c_call_judged: {
     initiates: ["c_call_judgment_available"],
-    terminates: ["c_call_active"], clips: [], declips: [],
+    terminates: ["c_call_active", "retry_attempt_active"], clips: [], declips: [],
+  },
+  retry_attempt_opened: {
+    initiates: ["retry_attempt_active"],
+    terminates: [], clips: [], declips: [],
+  },
+  retry_progress_recorded: {
+    initiates: ["retry_progress_available"],
+    terminates: ["retry_attempt_active"], clips: [], declips: [],
   },
   child_foldback_admitted: {
     initiates: ["child_foldback_available"],
@@ -150,6 +158,8 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
       "frame_failed",
       "graph_call_active",
       "run_active",
+      "retry_attempt_active",
+      "retry_progress_available",
     ], clips: [], declips: [],
   },
   terminal_reached: {
@@ -188,10 +198,16 @@ export function eventCalculusEffect(
   }
   switch (eventOrKind.payload.routeKind) {
     case "advance":
-    case "retry":
       return {
         initiates: ["locus_active"],
         terminates: ["locus_active"],
+        clips: [],
+        declips: [],
+      };
+    case "retry":
+      return {
+        initiates: ["locus_active"],
+        terminates: ["locus_active", "retry_progress_available"],
         clips: [],
         declips: [],
       };
@@ -212,14 +228,24 @@ export function eventCalculusEffect(
     case "blocked":
       return {
         initiates: ["frame_blocked"],
-        terminates: ["locus_active", "frame_active"],
+        terminates: [
+          "locus_active",
+          "frame_active",
+          "retry_attempt_active",
+          "retry_progress_available",
+        ],
         clips: [],
         declips: [],
       };
     case "failed":
       return {
         initiates: ["frame_failed"],
-        terminates: ["locus_active", "frame_active"],
+        terminates: [
+          "locus_active",
+          "frame_active",
+          "retry_attempt_active",
+          "retry_progress_available",
+        ],
         clips: [],
         declips: [],
       };

@@ -3,6 +3,7 @@ import type {
   AdmittedCCallResult,
   CCall,
 } from "../abg/c_call.js";
+import type { RetryProgressAdmission } from "../abg/retry.js";
 import type { ReplayState } from "../abg/replay.js";
 import type { RouteCandidate } from "../abg/traversal_route.js";
 import type { GtlGraph } from "../gtl/contracts.js";
@@ -23,6 +24,7 @@ export interface RouteProposalRefusal {
   readonly disposition: "refused";
   readonly code:
     | "judgment_not_advance"
+    | "retry_progress_missing"
     | "structural_step_missing"
     | "terminal_not_declared";
   readonly message: string;
@@ -68,6 +70,57 @@ export function proposeStructuralRoute(
     judgmentRef: null,
     consumedAvailabilityRefs: [] as const,
     contractRef: null,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}
+
+export function proposeRetryRoute(
+  graph: Readonly<GtlGraph>,
+  step: TraversalStep,
+  cCall: CCall,
+  progress: RetryProgressAdmission,
+  replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !isTraversalStep(step) ||
+    step.directStep.stepKind !== "continue_term" ||
+    step.directStep.relation !== "retry_same_edge" ||
+    step.targetCursor === null ||
+    progress.cCallRef !== cCall.cCallRef ||
+    progress.judgmentRef.length === 0 ||
+    progress.remainingBudget < 1
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "retry_progress_missing",
+      message: "retry route requires one admitted bounded progress row and HoG-derived target",
+    };
+  }
+  const body = {
+    routeKind: "retry" as const,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: step.sourceCursor.cursorRef,
+    sourceCursorDigest: step.sourceCursor.cursorDigest,
+    targetCursorRef: step.targetCursor.cursorRef,
+    targetCursorDigest: step.targetCursor.cursorDigest,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: progress.judgmentRef,
+    consumedAvailabilityRefs: [progress.progressRef],
+    contractRef,
     replayStateDigest: replayState.replayDigest,
   };
   const candidateDigest = sha256Canonical(body as unknown as JsonValue);

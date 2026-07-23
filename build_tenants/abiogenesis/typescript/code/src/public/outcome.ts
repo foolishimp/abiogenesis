@@ -9,6 +9,34 @@ import type {
   RootPublicInvocation,
 } from "./contracts.js";
 
+function hasClosedRetryChain(
+  replay: ReplayState,
+  callIndex: number,
+): boolean {
+  const cCall = replay.cCalls[callIndex];
+  const successor = replay.cCalls[callIndex + 1];
+  if (
+    cCall === undefined ||
+    cCall.judgment !== "retry" ||
+    cCall.judgmentRef === null ||
+    successor === undefined
+  ) {
+    return false;
+  }
+  const retryRoute = replay.routes.find((route) =>
+    route.routeKind === "retry" &&
+    route.cCallRef === cCall.cCallRef &&
+    route.judgmentRef === cCall.judgmentRef
+  );
+  return retryRoute !== undefined &&
+    successor.programLocusRef === cCall.programLocusRef &&
+    successor.attempt === cCall.attempt + 1 &&
+    successor.retryPath.length === cCall.retryPath.length &&
+    successor.retryPath.slice(0, -1).join("\0") ===
+      cCall.retryPath.slice(0, -1).join("\0") &&
+    successor.retryPath.at(-1) === (cCall.retryPath.at(-1) ?? 0) + 1;
+}
+
 function diagnosticFromValue(value: JsonValue | null): string | null {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return null;
   const diagnosticRef = (value as Readonly<Record<string, JsonValue>>).diagnosticRef;
@@ -44,8 +72,9 @@ export function projectOutcome(
   const closed =
     replayAgreement &&
     firstReplay.cCalls.length > 0 &&
-    firstReplay.cCalls.every((cCall) =>
-      cCall.status === "judged" && cCall.judgment === "advance") &&
+    firstReplay.cCalls.every((cCall, index) =>
+      cCall.status === "judged" &&
+      (cCall.judgment === "advance" || hasClosedRetryChain(firstReplay, index))) &&
     firstReplay.runtimeStatus === "closed" &&
     latestCall?.judgment === "advance" &&
     latestCall.resultContractRef === outputContractRef &&

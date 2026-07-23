@@ -5,6 +5,7 @@ import type {
 import type { GraphTemplate } from "../gtl/contracts.js";
 import {
   deriveCSourceContinuation,
+  resolveEnclosingCRetryContexts,
   resolveCProgramTermAtSourcePath,
   rootCSourcePath,
   type CSourcePath,
@@ -83,7 +84,12 @@ export interface EnterRetryStep extends DirectCTraversalStepBase {
 
 export interface ContinueTermStep extends DirectCTraversalStepBase {
   readonly stepKind: "continue_term";
-  readonly relation: "batch_next" | "compose_next" | "edge_next" | "graph_edge";
+  readonly relation:
+    | "batch_next"
+    | "compose_next"
+    | "edge_next"
+    | "graph_edge"
+    | "retry_same_edge";
   readonly target: CTraversalCoordinate;
 }
 
@@ -366,6 +372,56 @@ export function deriveDirectCContinuationStepFromGraph(
     source,
     termKind: sourceTerm.kind,
     relation: continuation.relation,
+    target,
+  });
+}
+
+export function deriveDirectCRetryStepFromGraph(
+  template: Readonly<GraphTemplate>,
+  sourceInput: CTraversalCoordinate,
+): DirectCTraversalResult {
+  const sourceTerm = resolveCProgramTermAtPath(template, sourceInput);
+  if (sourceTerm.kind === "direct_c_traversal_refusal") return sourceTerm;
+  const source = freezeCoordinate(sourceInput);
+  const contexts = resolveEnclosingCRetryContexts(
+    template,
+    source.nodeRef,
+    source.termPath,
+  );
+  if ("kind" in contexts) {
+    return refusal("term_path_missing", contexts.message);
+  }
+  const context = contexts.at(-1);
+  if (
+    context === undefined ||
+    context.retryDepth !== source.retryPath.length ||
+    source.attempt !== source.retryPath.at(-1) ||
+    source.attempt >= context.budget
+  ) {
+    return refusal(
+      "invalid_coordinate",
+      "same-edge retry requires one active declared retry boundary with remaining budget",
+    );
+  }
+  const nextAttempt = source.attempt + 1;
+  const targetRetryPath = [
+    ...source.retryPath.slice(0, -1),
+    nextAttempt,
+  ];
+  const target = freezeCoordinate({
+    nodeRef: source.nodeRef,
+    termPath: context.wrappedTermPath,
+    taskOrdinal: context.taskOrdinal,
+    attempt: nextAttempt,
+    retryPath: targetRetryPath,
+  });
+  return deepFreeze({
+    kind: "direct_c_traversal_step" as const,
+    schemaVersion: "5.0.0" as const,
+    stepKind: "continue_term" as const,
+    source,
+    termKind: sourceTerm.kind,
+    relation: "retry_same_edge" as const,
     target,
   });
 }
