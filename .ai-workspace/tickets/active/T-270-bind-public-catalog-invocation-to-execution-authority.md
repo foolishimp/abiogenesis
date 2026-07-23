@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: live_fp_checkpoint_ready_for_review_89701306
-- proof_status: m4_root_retained_m5_fibre_and_live_fp_green_s02_open
+- review_status: graph_edge_checkpoint_ready_for_review_13d41390
+- proof_status: m4_root_retained_m5_graph_edge_and_live_fp_green_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -249,6 +249,30 @@ close `ABG5-S02`; the remaining T-270 frontier is installed graph-application
 and conservation-row coverage, including recursion, fan-out/fan-in, gate, and
 their nearest invalid substitutes.
 
+Implementation commit `13d413905728a3d8464dec20ddf5de06dc11e6ec`
+advances the first direct graph-relation frontier without claiming the other
+application relations:
+
+- GTL.TypeScript now constructs the ordinary graph edge and all nine typed
+  `GraphFunctionApplication` relations with canonical identities; recursion
+  additionally requires an exact positive bound and declared rebind foldback
+  with parent re-evaluation;
+- the non-lowering validator checks exact relation shape, complete Program
+  membership, outer interfaces, typed joins, and invalid widened or forged
+  declarations;
+- one packed two-node F_D GraphFunction follows exactly one declared edge from
+  its non-terminal node to its terminal node, with HoG deriving the transition
+  from original GTL and ABG admitting its exact target; and
+- the installed CLI result, two C-call loci, route sequence, durable events,
+  replay, and public outcome agree without a compiled carrier, lowering pass,
+  scheduler, or public traversal loop.
+
+Fresh serialized verification is `test:m5` `42/42` and retained `test:m4`
+`26/26`; `ABI5-ROOT-001` is `root_satisfied` with R1-R10 true. Static relation
+declarations are not traversal-row proof. `ABG5-S02` remains open on installed
+recursion, fan-out/fan-in, gate, the remaining application relations, and the
+complete conservation-row inventory.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -274,8 +298,8 @@ not a proof that the Product is complete.
 | Feature | M4 state | Owning closure |
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
-| `A5-F02` complete GTL authoring and validation | seven C constructors and current direct graph subset proven; remaining graph relations open | `T-270` / S02 |
-| `A5-F03` complete graph, C, and traversal | installed atomic, compose, edge, batch, retry, and workflow subset proven; graph applications and F_H open | `T-270` / S02 |
+| `A5-F02` complete GTL authoring and validation | seven C constructors plus all ten graph-relation declarations are constructible and validated; full relation semantics remain open | `T-270` / S02 |
+| `A5-F03` complete graph, C, and traversal | installed atomic, compose, C.edge, graph edge, batch, retry, and workflow subset proven; graph applications and F_H open | `T-270` / S02 |
 | `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
 | `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | root CLI subset only | `T-281` / S06 |
