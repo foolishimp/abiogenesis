@@ -30,6 +30,7 @@ export {
 } from "./c_algebra.js";
 export {
   COMPOSED_HELLO_IDS,
+  FIBRE_SUBSTITUTION_HELLO_IDS,
   FP_HELLO_IDS,
   HELLO_WORLD_IDS,
   WORKFLOW_HELLO_IDS,

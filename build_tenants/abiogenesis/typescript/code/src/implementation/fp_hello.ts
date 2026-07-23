@@ -1,4 +1,5 @@
 import {
+  FIBRE_SUBSTITUTION_HELLO_IDS,
   FP_HELLO_IDS,
   isFpHelloInstruction,
   isFpHelloOutput,
@@ -41,6 +42,26 @@ export const FP_HELLO_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
   schemaVersion: "5.0.0" as const,
   descriptorDigest: sha256Canonical(descriptorBody),
   ...descriptorBody,
+}) as PackagedLeafImplementationDescriptor;
+
+const deterministicDescriptorBody = {
+  implementationRef: FIBRE_SUBSTITUTION_HELLO_IDS.implementationRef,
+  packageName: ABI5_PACKAGE_NAME,
+  packageVersion: ABI5_PACKAGE_VERSION,
+  modulePath: "build/code/src/implementation/fp_hello.js",
+  namedSymbol: "realizeDeterministicFpHello",
+  computeRegime: "F_D" as const,
+  inputContractRef: FP_HELLO_IDS.inputContractRef,
+  outputContractRef: FP_HELLO_IDS.outputContractRef,
+  failureContractRef: FP_HELLO_IDS.failureContractRef,
+  refusalContractRef: FP_HELLO_IDS.refusalContractRef,
+};
+
+export const DETERMINISTIC_FP_HELLO_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
+  kind: "packaged_leaf_implementation_descriptor" as const,
+  schemaVersion: "5.0.0" as const,
+  descriptorDigest: sha256Canonical(deterministicDescriptorBody),
+  ...deterministicDescriptorBody,
 }) as PackagedLeafImplementationDescriptor;
 
 function renderInstruction(input: Readonly<FpHelloInstruction>): string {
@@ -134,4 +155,34 @@ export async function realizeFpHello(
     resultCandidate,
     ...(diagnosticRef === null ? {} : { diagnosticRef }),
   }) as Readonly<FpHelloLeafCandidate>;
+}
+
+export function realizeDeterministicFpHello(
+  input: Readonly<FpHelloInstruction>,
+) {
+  if (!isFpHelloInstruction(input)) {
+    throw new TypeError(
+      "deterministic fibre-substitution implementation requires the exact instruction envelope",
+    );
+  }
+  const resultCandidate = deepFreeze({
+    kind: "fp_hello_output" as const,
+    schemaVersion: "5.0.0" as const,
+    resultContractRef: input.resultContractRef,
+    actorRef: input.workerActorRef,
+    message: `Hello ${input.subject}`,
+  });
+  return deepFreeze({
+    kind: "leaf_realization_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "success" as const,
+    evidenceCandidates: [{
+      kind: "deterministic_evidence_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      implementationRef: FIBRE_SUBSTITUTION_HELLO_IDS.implementationRef,
+      inputDigest: sha256Canonical(input),
+      outputDigest: sha256Canonical(resultCandidate),
+    }] as const,
+    resultCandidate,
+  });
 }

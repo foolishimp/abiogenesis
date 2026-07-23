@@ -1,5 +1,10 @@
 export { HELLO_WORLD_IMPLEMENTATION_DESCRIPTOR, realizeHelloWorld } from "./hello_world.js";
-export { FP_HELLO_IMPLEMENTATION_DESCRIPTOR, realizeFpHello } from "./fp_hello.js";
+export {
+  DETERMINISTIC_FP_HELLO_IMPLEMENTATION_DESCRIPTOR,
+  FP_HELLO_IMPLEMENTATION_DESCRIPTOR,
+  realizeDeterministicFpHello,
+  realizeFpHello,
+} from "./fp_hello.js";
 export {
   NORMALIZE_HELLO_IMPLEMENTATION_DESCRIPTOR,
   PASS_NORMALIZED_HELLO_IMPLEMENTATION_DESCRIPTOR,

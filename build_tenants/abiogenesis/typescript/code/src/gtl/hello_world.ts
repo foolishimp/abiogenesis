@@ -119,6 +119,22 @@ export const FP_HELLO_IDS = Object.freeze({
   workerBindingRef: "worker-binding://abiogenesis/conformance/claude-worker@5",
 });
 
+export const FIBRE_SUBSTITUTION_HELLO_IDS = Object.freeze({
+  programRef: "program://abiogenesis/conformance/fd-fp-hello@5",
+  graphFunctionRef:
+    "graph-function://abiogenesis/conformance/fd-fp-hello@5",
+  graphRef: "graph://abiogenesis/conformance/fd-fp-hello@5",
+  evidenceContractRef:
+    "contract://abiogenesis/conformance/fd-fp-hello-evidence@5",
+  closureContractRef:
+    "contract://abiogenesis/conformance/fd-fp-hello-closure@5",
+  implementationBindingRef:
+    "implementation-binding://abiogenesis/conformance/fd-fp-hello@5",
+  implementationRef:
+    "implementation://abiogenesis/conformance/fd-fp-hello@5",
+  armId: "arm://abiogenesis/conformance/fd-fp-hello@5",
+});
+
 export interface ConformanceJudgmentRelation {
   readonly predicateRef: string;
   readonly advanceReasonRef: string;
@@ -372,6 +388,8 @@ export function constructHelloWorldModulePublication(
     { contractRef: FP_HELLO_IDS.judgmentContractRef, contractVersion: "5.0.0", contractKind: "judgment", valueKind: "fp_hello_judgment" },
     { contractRef: FP_HELLO_IDS.transitionContractRef, contractVersion: "5.0.0", contractKind: "transition", valueKind: "fp_hello_transition" },
     { contractRef: FP_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "fp_hello_closure" },
+    { contractRef: FIBRE_SUBSTITUTION_HELLO_IDS.evidenceContractRef, contractVersion: "5.0.0", contractKind: "evidence", valueKind: "deterministic_evidence_candidate" },
+    { contractRef: FIBRE_SUBSTITUTION_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "fp_hello_closure" },
   ];
   const implementationBinding: ImplementationBinding = {
     kind: "implementation_binding",
@@ -443,6 +461,20 @@ export function constructHelloWorldModulePublication(
     failureContractRef: FP_HELLO_IDS.failureContractRef,
     refusalContractRef: FP_HELLO_IDS.refusalContractRef,
   };
+  const deterministicFpImplementationBinding: ImplementationBinding = {
+    kind: "implementation_binding",
+    bindingRef: FIBRE_SUBSTITUTION_HELLO_IDS.implementationBindingRef,
+    implementationRef: FIBRE_SUBSTITUTION_HELLO_IDS.implementationRef,
+    packageName: artifact.packageName,
+    packageVersion: artifact.packageVersion,
+    modulePath: "build/code/src/implementation/fp_hello.js",
+    namedSymbol: "realizeDeterministicFpHello",
+    computeRegime: "F_D",
+    inputContractRef: FP_HELLO_IDS.inputContractRef,
+    outputContractRef: FP_HELLO_IDS.outputContractRef,
+    failureContractRef: FP_HELLO_IDS.failureContractRef,
+    refusalContractRef: FP_HELLO_IDS.refusalContractRef,
+  };
   const closureContract: ClosureContract = {
     kind: "closure_contract",
     closureContractRef: HELLO_WORLD_IDS.closureContractRef,
@@ -470,6 +502,22 @@ export function constructHelloWorldModulePublication(
     rejectionContractRef: FP_HELLO_IDS.refusalContractRef,
     transitionContractRef: FP_HELLO_IDS.transitionContractRef,
     replayProjectionRef: "projection://abiogenesis/conformance/fp-hello-replay@5",
+    terminalKind: "completed",
+    eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
+  };
+  const deterministicFpClosureContract: ClosureContract = {
+    kind: "closure_contract",
+    closureContractRef: FIBRE_SUBSTITUTION_HELLO_IDS.closureContractRef,
+    predicateRef: "predicate://abiogenesis/conformance/fd-fp-hello-terminal@5",
+    evidenceContractRef: FIBRE_SUBSTITUTION_HELLO_IDS.evidenceContractRef,
+    resultContractRef: FP_HELLO_IDS.outputContractRef,
+    refusalContractRef: FP_HELLO_IDS.refusalContractRef,
+    refusalValueKind: "fp_hello_refusal",
+    judgmentContractRef: FP_HELLO_IDS.judgmentContractRef,
+    rejectionContractRef: FP_HELLO_IDS.refusalContractRef,
+    transitionContractRef: FP_HELLO_IDS.transitionContractRef,
+    replayProjectionRef:
+      "projection://abiogenesis/conformance/fd-fp-hello-replay@5",
     terminalKind: "completed",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   };
@@ -905,6 +953,82 @@ export function constructHelloWorldModulePublication(
       "abg.instruction_plan": FP_HELLO_IDS.materializationPlanRef,
     },
   };
+  const deterministicFpGraphFunction: GraphFunction = {
+    kind: "graph_function",
+    name: FIBRE_SUBSTITUTION_HELLO_IDS.graphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [FP_HELLO_IDS.inputContractRef],
+      provides: [FP_HELLO_IDS.outputContractRef],
+      carries: [FP_HELLO_IDS.inputContractRef, FP_HELLO_IDS.outputContractRef],
+    },
+    inputs: [FP_HELLO_IDS.inputContractRef],
+    outputs: [FP_HELLO_IDS.outputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: FIBRE_SUBSTITUTION_HELLO_IDS.graphRef,
+      startNodeRef: FP_HELLO_IDS.nodeRef,
+      terminalNodeRefs: [FP_HELLO_IDS.nodeRef],
+      nodes: [{
+        nodeRef: FP_HELLO_IDS.nodeRef,
+        nodeKind: "c_locus",
+        term: C.of({
+          input: fpInputCarrier,
+          output: fpOutputCarrier,
+          programLocusRef: FP_HELLO_IDS.nodeRef,
+          stageRole: "result",
+          fibre: "F_D",
+          armId: FIBRE_SUBSTITUTION_HELLO_IDS.armId,
+          compositionRef: null,
+          vectorIndex: 0,
+          judgmentPredicateRef: FP_HELLO_IDS.judgmentPredicateRef,
+          resultBearing: true,
+          requirement: {
+            kind: "executable_leaf_requirement",
+            implementationBindingRef:
+              FIBRE_SUBSTITUTION_HELLO_IDS.implementationBindingRef,
+            inputContractRef: FP_HELLO_IDS.inputContractRef,
+            outputContractRef: FP_HELLO_IDS.outputContractRef,
+            evidenceContractRef:
+              FIBRE_SUBSTITUTION_HELLO_IDS.evidenceContractRef,
+            failureContractRef: FP_HELLO_IDS.failureContractRef,
+            refusalContractRef: FP_HELLO_IDS.refusalContractRef,
+            judgmentContractRef: FP_HELLO_IDS.judgmentContractRef,
+          },
+        }),
+      }],
+      edges: [],
+      applications: [],
+    },
+    effects: ["effect://abiogenesis/conformance/emit-fp-hello-output@5"],
+    declarations: {
+      "abg.compute_regime": "F_D",
+      "abg.closure_contract":
+        FIBRE_SUBSTITUTION_HELLO_IDS.closureContractRef,
+      "abg.evidence_contract":
+        FIBRE_SUBSTITUTION_HELLO_IDS.evidenceContractRef,
+      "abg.judgment_contract": FP_HELLO_IDS.judgmentContractRef,
+      "abg.judgment_predicate": FP_HELLO_IDS.judgmentPredicateRef,
+      "abg.transition_contract": FP_HELLO_IDS.transitionContractRef,
+    },
+    tags: ["abiogenesis", "conformance", "fp-hello", "fibre-substitution", "fd"],
+  };
+  const deterministicFpProgram: GtlProgram = {
+    kind: "gtl_program",
+    programRef: FIBRE_SUBSTITUTION_HELLO_IDS.programRef,
+    version: "5.0.0",
+    moduleRef: HELLO_WORLD_IDS.moduleRef,
+    starts: [{
+      startRef: "start://abiogenesis/conformance/fd-fp-hello@5",
+      graphFunctionRef: FIBRE_SUBSTITUTION_HELLO_IDS.graphFunctionRef,
+    }],
+    callableMembership: [FIBRE_SUBSTITUTION_HELLO_IDS.graphFunctionRef],
+    closureContractRef: FIBRE_SUBSTITUTION_HELLO_IDS.closureContractRef,
+    policies: {
+      "abg.root_mode": "direct",
+      "abg.compute_regime": "F_D",
+    },
+  };
   const contribution: CatalogContribution = {
     handle: HELLO_WORLD_IDS.graphFunctionRef,
     kind: "graph_function",
@@ -944,6 +1068,16 @@ export function constructHelloWorldModulePublication(
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
+  const deterministicFpContribution: CatalogContribution = {
+    handle: FIBRE_SUBSTITUTION_HELLO_IDS.graphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef:
+      FIBRE_SUBSTITUTION_HELLO_IDS.graphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [FIBRE_SUBSTITUTION_HELLO_IDS.programRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  };
   const publicationBody = {
     kind: "module_publication" as const,
     moduleRef: HELLO_WORLD_IDS.moduleRef,
@@ -961,20 +1095,34 @@ export function constructHelloWorldModulePublication(
       passNormalizedImplementationBinding,
       renderImplementationBinding,
       fpImplementationBinding,
+      deterministicFpImplementationBinding,
     ],
-    closureContracts: [closureContract, workflowClosureContract, fpClosureContract],
-    programs: [program, workflowProgram, composedProgram, fpProgram],
+    closureContracts: [
+      closureContract,
+      workflowClosureContract,
+      fpClosureContract,
+      deterministicFpClosureContract,
+    ],
+    programs: [
+      program,
+      workflowProgram,
+      composedProgram,
+      fpProgram,
+      deterministicFpProgram,
+    ],
     graphFunctions: [
       graphFunction,
       workflowGraphFunction,
       composedGraphFunction,
       fpGraphFunction,
+      deterministicFpGraphFunction,
     ],
     contributions: [
       contribution,
       workflowContribution,
       composedContribution,
       fpContribution,
+      deterministicFpContribution,
     ],
   };
   return deepFreeze(publicationBody) as Readonly<ModulePublication>;
