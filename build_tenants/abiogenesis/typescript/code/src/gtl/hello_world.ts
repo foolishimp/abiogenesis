@@ -1222,6 +1222,8 @@ export function constructHelloWorldModulePublication(
     descriptorRef: `descriptor://abiogenesis/typescript-tenant/${artifact.productContentDigest.slice("sha256:".length)}`,
     contributionManifestRef: `contribution-manifest://abiogenesis/conformance/${artifact.productContentDigest.slice("sha256:".length)}`,
     contracts,
+    evaluators: [],
+    rules: [],
     implementationBindings: [
       implementationBinding,
       normalizeImplementationBinding,

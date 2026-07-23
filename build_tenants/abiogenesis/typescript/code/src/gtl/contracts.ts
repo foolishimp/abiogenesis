@@ -1,3 +1,4 @@
+import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import type { CProgramNode, ComputeRegime } from "./c_algebra.js";
 
@@ -64,6 +65,22 @@ export interface GtlEnvironment {
   readonly carries: readonly string[];
 }
 
+export interface EvaluatorDeclaration {
+  readonly name: string;
+  readonly regime: ComputeRegime;
+  readonly description: string;
+  readonly binding: string;
+  readonly consumedFieldRefs: readonly string[];
+  readonly tags: readonly string[];
+}
+
+export interface RuleDeclaration {
+  readonly name: string;
+  readonly kind: string;
+  readonly config: Readonly<Record<string, JsonValue>>;
+  readonly tags: readonly string[];
+}
+
 export interface GtlNode {
   readonly nodeRef: string;
   readonly nodeKind: "c_locus";
@@ -106,6 +123,7 @@ export interface RecurseApplication extends GraphFunctionApplicationBase {
   readonly relationKind: "recurse";
   readonly graphFunctionRef: string;
   readonly terminationRuleRef: string;
+  readonly terminationEvaluatorRefs: readonly string[];
   readonly foldbackRef: string;
   readonly foldback: FoldbackDeclaration;
   readonly bound: number;
@@ -279,6 +297,8 @@ export interface ModulePublication {
   readonly descriptorRef: string;
   readonly contributionManifestRef: string;
   readonly contracts: readonly ContractDeclaration[];
+  readonly evaluators: readonly EvaluatorDeclaration[];
+  readonly rules: readonly RuleDeclaration[];
   readonly implementationBindings: readonly ImplementationBinding[];
   readonly closureContracts: readonly ClosureContract[];
   readonly programs: readonly GtlProgram[];

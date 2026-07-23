@@ -122,6 +122,7 @@ export function recurseApplication(
 ): RecurseApplication {
   requireRef(input.graphFunctionRef, "graphFunctionRef");
   requireRef(input.terminationRuleRef, "terminationRuleRef");
+  requireRefs(input.terminationEvaluatorRefs, "terminationEvaluatorRefs");
   if (!Number.isSafeInteger(input.bound) || input.bound < 1) {
     throw new TypeError("bound must be one positive safe integer");
   }
@@ -137,6 +138,7 @@ export function recurseApplication(
   const canonicalFoldback = deepFreeze({ ...input.foldback });
   return constructApplication("recurse", {
     ...input,
+    terminationEvaluatorRefs: [...input.terminationEvaluatorRefs],
     foldbackRef: foldbackRef(canonicalFoldback),
     foldback: canonicalFoldback,
   });

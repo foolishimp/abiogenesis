@@ -303,6 +303,7 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
       ...base,
       graphFunctionRef: "graph-function://m5/recursive",
       terminationRuleRef: "rule://m5/termination",
+      terminationEvaluatorRefs: ["evaluator://m5/termination"],
       foldback: {
         mode: "rebind",
         binding: "$.child.result -> $.parent.input",
@@ -350,6 +351,20 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
     fromNodeRef: "node://m5/source",
     toNodeRef: "node://m5/target",
   });
+  const evaluator = gtl.evaluatorDeclaration({
+    name: "evaluator://m5/termination",
+    regime: "F_D",
+    description: "Checks the declared recursion terminal condition.",
+    binding: "implementation://m5/termination",
+    consumedFieldRefs: ["$.message"],
+    tags: ["termination"],
+  });
+  const rule = gtl.ruleDeclaration({
+    name: "rule://m5/termination",
+    kind: "recursion_termination",
+    config: { mode: "evaluator_all" },
+    tags: ["termination"],
+  });
 
   assert.deepEqual(
     ["edge", ...applications.map((application) => application.relationKind)],
@@ -370,6 +385,10 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
   assert.match(edge.edgeRef, /^graph-vector:\/\/abiogenesis\//u);
   assert.equal(edge.edgeRef, gtl.graphEdgeRef(edge));
   assert.equal(Object.isFrozen(edge), true);
+  assert.equal(Object.isFrozen(evaluator), true);
+  assert.equal(Object.isFrozen(evaluator.consumedFieldRefs), true);
+  assert.equal(Object.isFrozen(rule), true);
+  assert.equal(Object.isFrozen(rule.config), true);
   assert.equal(
     applications.every(
       (application) =>
@@ -389,6 +408,7 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
       ...base,
       graphFunctionRef: "graph-function://m5/recursive",
       terminationRuleRef: "rule://m5/termination",
+      terminationEvaluatorRefs: ["evaluator://m5/termination"],
       foldback: {
         mode: "rebind",
         binding: "",
@@ -416,11 +436,28 @@ test("M5 whole-program validation admits exact recursion law and refuses its sub
     (candidate) => candidate.name === program.starts[0].graphFunctionRef,
   );
   assert.notEqual(graphFunction, undefined);
+  publication.evaluators = [gtl.evaluatorDeclaration({
+    name: "evaluator://abiogenesis/conformance/hello-recursion-terminal@5",
+    regime: "F_D",
+    description: "Checks the bounded Hello World recursion terminal condition.",
+    binding: "implementation://abiogenesis/conformance/hello-recursion-terminal@5",
+    consumedFieldRefs: ["$.message"],
+    tags: ["recursion", "termination"],
+  })];
+  publication.rules = [gtl.ruleDeclaration({
+    name: "rule://abiogenesis/conformance/hello-recursion-terminal@5",
+    kind: "recursion_termination",
+    config: { mode: "evaluator_all" },
+    tags: ["recursion", "termination"],
+  })];
   const application = gtl.recurseApplication({
     inputContractRef: graphFunction.inputs[0],
     outputContractRef: graphFunction.outputs[0],
     graphFunctionRef: graphFunction.name,
     terminationRuleRef: "rule://abiogenesis/conformance/hello-recursion-terminal@5",
+    terminationEvaluatorRefs: [
+      "evaluator://abiogenesis/conformance/hello-recursion-terminal@5",
+    ],
     foldback: {
       mode: "rebind",
       binding: "$.child.message -> $.parent.subject",
@@ -447,6 +484,14 @@ test("M5 whole-program validation admits exact recursion law and refuses its sub
       candidate.applicationRef = "graph-function-application://m5/forged";
     },
     (candidate) => {
+      candidate.terminationRuleRef = "rule://m5/ambient";
+      candidate.applicationRef = gtl.graphFunctionApplicationRef(candidate);
+    },
+    (candidate) => {
+      candidate.terminationEvaluatorRefs = ["evaluator://m5/ambient"];
+      candidate.applicationRef = gtl.graphFunctionApplicationRef(candidate);
+    },
+    (candidate) => {
       candidate.undeclaredControllerRef = "controller://m5/rival";
       candidate.applicationRef = gtl.graphFunctionApplicationRef(candidate);
     },
@@ -461,6 +506,61 @@ test("M5 whole-program validation admits exact recursion law and refuses its sub
       JSON.stringify(result),
     );
   }
+});
+
+test("M5 whole-program validation binds gate law to published Rule and Evaluator declarations", () => {
+  const publication = structuredClone(
+    gtl.constructHelloWorldModulePublication(artifactBasis()),
+  );
+  const program = publication.programs[0];
+  const graphFunction = publication.graphFunctions.find(
+    (candidate) => candidate.name === program.starts[0].graphFunctionRef,
+  );
+  assert.notEqual(graphFunction, undefined);
+  publication.evaluators = [gtl.evaluatorDeclaration({
+    name: "evaluator://abiogenesis/conformance/hello-gate@5",
+    regime: "F_D",
+    description: "Checks the declared Hello World gate.",
+    binding: "implementation://abiogenesis/conformance/hello-gate@5",
+    consumedFieldRefs: ["$.message"],
+    tags: ["gate"],
+  })];
+  publication.rules = [gtl.ruleDeclaration({
+    name: "rule://abiogenesis/conformance/hello-gate@5",
+    kind: "continuation_gate",
+    config: { mode: "evaluator_all" },
+    tags: ["gate"],
+  })];
+  graphFunction.template.applications = [gtl.gateApplication({
+    inputContractRef: graphFunction.inputs[0],
+    outputContractRef: graphFunction.outputs[0],
+    targetRef: graphFunction.name,
+    ruleRef: publication.rules[0].name,
+    evaluatorRefs: [publication.evaluators[0].name],
+  })];
+
+  assert.equal(programValidationResult(publication).kind, "program_validation");
+
+  for (const collection of ["rules", "evaluators"]) {
+    const missing = structuredClone(publication);
+    missing[collection] = [];
+    const result = programValidationResult(missing);
+    assert.equal(result.kind, "static_validation_refusal", JSON.stringify(result));
+    assert.equal(
+      result.diagnostics.some((row) => row.code === "invalid_application"),
+      true,
+      JSON.stringify(result),
+    );
+  }
+
+  const widened = structuredClone(publication);
+  widened.evaluators[0].runtimeAuthority = "event://m5/rival";
+  const widenedResult = programValidationResult(widened);
+  assert.equal(widenedResult.kind, "static_validation_refusal");
+  assert.equal(
+    widenedResult.diagnostics.some((row) => row.code === "invalid_reference"),
+    true,
+  );
 });
 
 test("M5 whole-program validation refuses forged or widened graph-edge declarations", () => {

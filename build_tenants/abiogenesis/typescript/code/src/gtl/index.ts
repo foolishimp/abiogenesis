@@ -52,6 +52,10 @@ export {
   type ConformanceJudgmentRelation,
 } from "./hello_world.js";
 export {
+  evaluatorDeclaration,
+  ruleDeclaration,
+} from "./declarations.js";
+export {
   composeApplication,
   fanInApplication,
   fanOutApplication,
@@ -74,6 +78,7 @@ export type {
   ComputeRegime,
   ComposeApplication,
   ContractDeclaration,
+  EvaluatorDeclaration,
   FanInApplication,
   FanOutApplication,
   FoldbackDeclaration,
@@ -99,6 +104,7 @@ export type {
   ProgramStart,
   RecurseApplication,
   RootModuleArtifactBasis,
+  RuleDeclaration,
   SameObjectApplication,
   SubstituteApplication,
 } from "./contracts.js";

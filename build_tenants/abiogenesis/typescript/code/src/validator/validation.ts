@@ -5,12 +5,14 @@ import type {
   CatalogContribution,
   ClosureContract,
   ContractDeclaration,
+  EvaluatorDeclaration,
   GraphFunction,
   GraphFunctionApplication,
   GtlEdge,
   GtlProgram,
   ImplementationBinding,
   ModulePublication,
+  RuleDeclaration,
 } from "../gtl/index.js";
 import {
   foldbackRef,
@@ -71,6 +73,93 @@ function hasExactGraphEdgeShape(edge: Readonly<GtlEdge>): boolean {
     edge.edgeRef === graphEdgeRef(edge);
 }
 
+function hasExactEvaluatorShape(
+  evaluator: Readonly<EvaluatorDeclaration>,
+): boolean {
+  return hasExactKeys(evaluator, [
+    "binding",
+    "consumedFieldRefs",
+    "description",
+    "name",
+    "regime",
+    "tags",
+  ]) &&
+    typeof evaluator.name === "string" &&
+    evaluator.name.trim().length > 0 &&
+    typeof evaluator.description === "string" &&
+    typeof evaluator.binding === "string" &&
+    evaluator.binding.trim().length > 0 &&
+    ["F_D", "F_P", "F_H"].includes(evaluator.regime) &&
+    Array.isArray(evaluator.consumedFieldRefs) &&
+    evaluator.consumedFieldRefs.every(
+      (ref) => typeof ref === "string" && ref.trim().length > 0,
+    ) &&
+    Array.isArray(evaluator.tags) &&
+    evaluator.tags.every((tag) => typeof tag === "string" && tag.trim().length > 0);
+}
+
+function hasExactRuleShape(rule: Readonly<RuleDeclaration>): boolean {
+  if (
+    !hasExactKeys(rule, ["config", "kind", "name", "tags"]) ||
+    typeof rule.name !== "string" ||
+    rule.name.trim().length === 0 ||
+    typeof rule.kind !== "string" ||
+    rule.kind.trim().length === 0 ||
+    rule.config === null ||
+    Array.isArray(rule.config) ||
+    typeof rule.config !== "object" ||
+    !Array.isArray(rule.tags) ||
+    !rule.tags.every((tag) => typeof tag === "string" && tag.trim().length > 0)
+  ) {
+    return false;
+  }
+  try {
+    canonicalJson(rule.config);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function validatePublishedDeclarations(
+  publication: Readonly<ModulePublication>,
+): readonly StaticDiagnostic[] {
+  const diagnostics: StaticDiagnostic[] = [];
+  for (const name of duplicates(publication.evaluators.map((row) => row.name))) {
+    diagnostics.push({
+      code: "duplicate_identity",
+      path: "$.evaluators",
+      message: `duplicate Evaluator declaration ${name}`,
+    });
+  }
+  for (const name of duplicates(publication.rules.map((row) => row.name))) {
+    diagnostics.push({
+      code: "duplicate_identity",
+      path: "$.rules",
+      message: `duplicate Rule declaration ${name}`,
+    });
+  }
+  publication.evaluators.forEach((evaluator, index) => {
+    if (!hasExactEvaluatorShape(evaluator)) {
+      diagnostics.push({
+        code: "invalid_reference",
+        path: `$.evaluators[${index}]`,
+        message: "Evaluator requires one exact immutable declaration shape",
+      });
+    }
+  });
+  publication.rules.forEach((rule, index) => {
+    if (!hasExactRuleShape(rule)) {
+      diagnostics.push({
+        code: "invalid_reference",
+        path: `$.rules[${index}]`,
+        message: "Rule requires one exact immutable declaration shape",
+      });
+    }
+  });
+  return diagnostics;
+}
+
 function hasExactApplicationShape(
   application: Readonly<GraphFunctionApplication>,
 ): boolean {
@@ -102,6 +191,7 @@ function hasExactApplicationShape(
         "foldback",
         "foldbackRef",
         "graphFunctionRef",
+        "terminationEvaluatorRefs",
         "terminationRuleRef",
       ]) && hasExactKeys(application.foldback, [
         "binding",
@@ -275,6 +365,7 @@ function validatePublicationSubject(
   if (value.contributions.length === 0) {
     diagnostics.push({ code: "invalid_contribution", path: "$.contributions", message: "publication requires at least one contribution" });
   }
+  diagnostics.push(...validatePublishedDeclarations(value));
   for (const handle of duplicates(value.contributions.map((row) => row.handle))) {
     diagnostics.push({ code: "duplicate_identity", path: "$.contributions", message: `duplicate contribution handle ${handle}` });
   }
@@ -372,6 +463,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const contracts = input.contracts.map((raw) => raw.value);
   const bindings = input.implementationBindings.map((raw) => raw.value);
   const closureContracts = input.closureContracts.map((raw) => raw.value);
+  diagnostics.push(...validatePublishedDeclarations(publication));
 
   const publishedProgram = publication.programs.find((candidate) => candidate.programRef === program.programRef);
   if (publishedProgram === undefined || !sameValue(publishedProgram, program)) {
@@ -410,6 +502,8 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const contractRefs = new Set(contracts.map((contract) => contract.contractRef));
   const bindingByRef = new Map(bindings.map((binding) => [binding.bindingRef, binding]));
   const availableGraphFunctionRefs = new Set(graphFunctions.map((value) => value.name));
+  const publishedEvaluatorRefs = new Set(publication.evaluators.map((value) => value.name));
+  const publishedRuleRefs = new Set(publication.rules.map((value) => value.name));
   const callableGraphFunctionRefs = new Set(program.callableMembership);
   const programLocusRefs: string[] = [];
   const executableLeafRows: ValidatedExecutableLeaf[] = [];
@@ -610,11 +704,34 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           message: "recurse application requires a positive bound and exact rebind foldback with parent re-evaluation",
         });
       }
-      if (application.relationKind === "gate" && application.evaluatorRefs.length === 0) {
+      if (
+        application.relationKind === "recurse" &&
+        (
+          !publishedRuleRefs.has(application.terminationRuleRef) ||
+          application.terminationEvaluatorRefs.length === 0 ||
+          application.terminationEvaluatorRefs.some(
+            (ref) => !publishedEvaluatorRefs.has(ref),
+          )
+        )
+      ) {
+        diagnostics.push({
+          code: "invalid_application",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          message: "recurse application requires published termination Rule and Evaluator declarations",
+        });
+      }
+      if (
+        application.relationKind === "gate" &&
+        (
+          !publishedRuleRefs.has(application.ruleRef) ||
+          application.evaluatorRefs.length === 0 ||
+          application.evaluatorRefs.some((ref) => !publishedEvaluatorRefs.has(ref))
+        )
+      ) {
         diagnostics.push({
           code: "invalid_application",
           path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].evaluatorRefs`,
-          message: "gate application requires at least one declared evaluator",
+          message: "gate application requires published Rule and Evaluator declarations",
         });
       }
       const referencedByRef = new Map(
