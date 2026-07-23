@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: rule_evaluator_checkpoint_ready_for_review_25af35db
-- proof_status: m4_root_retained_m5_rule_evaluator_admission_green_s02_open
+- review_status: graph_function_compose_checkpoint_ready_for_review_f65059a8
+- proof_status: m4_root_retained_m5_native_graph_function_compose_green_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -295,6 +295,33 @@ controller, or second runtime path was added. `ABG5-S02` remains open on
 runtime recursion, fan-out/fan-in, gate, the remaining application relations,
 and the complete conservation-row inventory.
 
+Implementation commit `f65059a8` establishes the first native
+GraphFunction-construction path without claiming the remaining static
+relations:
+
+- `composeGraphFunctions` consumes two immutable GTL.TypeScript
+  GraphFunctions and returns one immutable GraphFunction containing their
+  original nodes, one derived bridge edge, and one canonical compose
+  application;
+- construction preserves both source values, demotes only the left terminal
+  result into an intermediate value, merges cumulative environment and
+  metadata fail-closed, and rejects malformed topology, interface mismatch,
+  duplicate identities, and declaration conflicts;
+- static validation resolves compose provenance against exact published source
+  GraphFunctions while retaining only the constructed parent in the invoked
+  Program membership; and
+- the packed parent traverses through ordinary HoG and ABG, with two C-call
+  fibres bound to the same composition application and replay agreeing with
+  the public CLI outcome.
+
+Fresh serialized verification is `test:m5` `44/44`, retained `test:m4`
+`26/26`, and `ABI5-ROOT-001` `root_satisfied` with R1-R10 true. Two independent
+`npm pack` runs reproduced artifact SHA-256
+`d4cf72318e3a39250db060aadc1c991ff78e7c8e1b5ec995d5d7e07c184d0134`.
+No parser, lowering, semantic IR, compiled program, public controller, or rival
+runtime was added. `ABG5-S02` remains open on substitute, identity, promotion,
+same-object, runtime recurse/fan-out/fan-in/gate, and the conservation rows.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -320,8 +347,8 @@ not a proof that the Product is complete.
 | Feature | M4 state | Owning closure |
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
-| `A5-F02` complete GTL authoring and validation | seven C constructors, all ten graph-relation declarations, and publication-bound Rule/Evaluator declarations are constructible and validated; full relation semantics remain open | `T-270` / S02 |
-| `A5-F03` complete graph, C, and traversal | installed atomic, compose, C.edge, graph edge, batch, retry, and workflow subset proven; graph applications and F_H open | `T-270` / S02 |
+| `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, and exact GraphFunction composition are native and validated; remaining relation semantics stay open | `T-270` / S02 |
+| `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition, batch, retry, and workflow subset proven; remaining applications and F_H open | `T-270` / S02 |
 | `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
 | `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | root CLI subset only | `T-281` / S06 |
