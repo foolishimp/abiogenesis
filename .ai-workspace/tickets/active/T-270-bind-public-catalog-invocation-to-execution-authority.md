@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: graph_function_promotion_checkpoint_ready_for_review_c0b81d6c
-- proof_status: m4_root_retained_m5_49_green_conservation_15_of_40_s02_open
+- review_status: fp_fd_composition_checkpoint_ready_for_review_d543fd21
+- proof_status: m4_root_retained_m5_50_green_conservation_15_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -423,6 +423,32 @@ packing reproduced artifact SHA-256
 Runtime recurse, fan-out/fan-in, and gate remain open, so `ABG5-S02` remains
 open.
 
+Implementation commit `d543fd21` proves one heterogeneous native
+GraphFunction composition through the ordinary installed Product path:
+
+- GraphFunction composition derives the `mixed` declaration only when exact
+  `F_D`, `F_P`, or `F_H` declarations differ; unrelated declaration conflicts
+  still refuse;
+- one published GTL Program composes the existing admitted `F_P` leaf with an
+  exact total `F_D` output-preservation leaf, with no generated executable
+  carrier;
+- source-blind CLI execution traverses both original GTL loci through HoG and
+  admits distinct probabilistic and deterministic C-call evidence through one
+  ABG run; and
+- both C-calls retain one GraphFunction-composition identity and produce one
+  replay-agreeing terminal result.
+
+Fresh serialized verification is `test:m5` `50/50`, retained `test:m4`
+`26/26`, and `ABI5-ROOT-001` `root_satisfied` with R1-R10 true. The fixed
+conservation inventory remains `15/40` with `25` explicit gaps. The Product's
+`mixed` row requires one Program containing `F_D`, `F_P`, and `F_H`; this
+two-fibre checkpoint is prerequisite evidence only and does not claim that
+row. Repeated packing reproduced artifact SHA-256
+`f64d28264dcf05018b04ed5269b3eaa8cf4884f2affe21471ba94fcec7b94164`.
+No parser, lowering, compiled carrier, public controller, or rival runtime was
+added. `ABG5-S02` remains open, and T-272 owns the missing `F_H` continuation
+locus needed for the complete mixed witness.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -449,7 +475,7 @@ not a proof that the Product is complete.
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
 | `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition, substitution, identity, promotion, and canonical same-object witnesses are native and validated; remaining runtime relation semantics stay open | `T-270` / S02 |
-| `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, batch, retry, and workflow subset proven; remaining applications and F_H open | `T-270` / S02 |
+| `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, one F_P-to-F_D composition, batch, retry, and workflow subset proven; remaining applications and F_H open | `T-270` / S02 |
 | `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
 | `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | root CLI subset only | `T-281` / S06 |
