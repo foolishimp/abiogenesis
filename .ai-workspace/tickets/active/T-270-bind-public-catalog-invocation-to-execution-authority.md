@@ -11,7 +11,7 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: bounded_graph_recursion_scope_repair_ready_for_review_dea47b7c
+- review_status: bounded_graph_recursion_scope_repair_accepted_fanout_active
 - proof_status: m4_26_green_m5_59_green_conservation_20_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
@@ -25,7 +25,7 @@
     M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md affected M5 boundary
 - triaged_at: 2026-07-22
 - created_at: 2026-07-14
-- updated_at: 2026-07-23
+- updated_at: 2026-07-24
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
