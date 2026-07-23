@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: graph_edge_checkpoint_ready_for_review_13d41390
-- proof_status: m4_root_retained_m5_graph_edge_and_live_fp_green_s02_open
+- review_status: rule_evaluator_checkpoint_ready_for_review_25af35db
+- proof_status: m4_root_retained_m5_rule_evaluator_admission_green_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -273,6 +273,28 @@ declarations are not traversal-row proof. `ABG5-S02` remains open on installed
 recursion, fan-out/fan-in, gate, the remaining application relations, and the
 complete conservation-row inventory.
 
+Implementation commit `25af35dbad0efb625eea7f00da131102294dcc1b`
+closes the declaration/admission prerequisite for runtime-visible recursion
+and gate relations without claiming their execution:
+
+- GTL.TypeScript publishes first-class immutable `Rule` and `Evaluator`
+  declarations as ordinary Module data; a Rule remains passive and an
+  Evaluator carries no event, traversal, or closure authority;
+- recurse binds one published termination Rule and one or more published
+  termination Evaluators in addition to its exact bound and foldback;
+- gate binds its Rule and Evaluators to the same admitted publication; and
+- static validation rejects absent, ambient, duplicate, widened, malformed,
+  or identity-forged declaration/application data before runtime entry.
+
+Fresh serialized verification is `test:m5` `43/43`, retained `test:m4`
+`26/26`, and `ABI5-ROOT-001` `root_satisfied` with R1-R10 true. Two independent
+`npm pack` runs reproduced artifact SHA-256
+`6efcc659e8d4a81c5b50ec303fb5da0ea4c2e1a9493e4e79842b758a758a2908`.
+No evaluator runtime, policy engine, parser, lowering, compiled plan, public
+controller, or second runtime path was added. `ABG5-S02` remains open on
+runtime recursion, fan-out/fan-in, gate, the remaining application relations,
+and the complete conservation-row inventory.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -298,7 +320,7 @@ not a proof that the Product is complete.
 | Feature | M4 state | Owning closure |
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
-| `A5-F02` complete GTL authoring and validation | seven C constructors plus all ten graph-relation declarations are constructible and validated; full relation semantics remain open | `T-270` / S02 |
+| `A5-F02` complete GTL authoring and validation | seven C constructors, all ten graph-relation declarations, and publication-bound Rule/Evaluator declarations are constructible and validated; full relation semantics remain open | `T-270` / S02 |
 | `A5-F03` complete graph, C, and traversal | installed atomic, compose, C.edge, graph edge, batch, retry, and workflow subset proven; graph applications and F_H open | `T-270` / S02 |
 | `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
 | `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
