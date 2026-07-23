@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: same_object_checkpoint_ready_for_review_cf4790cb
-- proof_status: m4_root_retained_m5_same_object_green_s02_open
+- review_status: traversal_conservation_checkpoint_ready_for_review_09e14a18
+- proof_status: m4_root_retained_m5_green_conservation_15_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -356,6 +356,28 @@ verification is `test:m5` `47/47`, retained `test:m4` `26/26`, and
 `3a9615098496d75f111fedd50dc12996a9744726c35cfb034a78f9155d473336`.
 `ABG5-S02` remains open on identity, promotion, runtime
 recurse/fan-out/fan-in/gate, and the conservation rows.
+
+Implementation commit `09e14a18` binds the Product's fixed traversal
+conservation inventory to executable installed evidence without claiming the
+unimplemented rows:
+
+- one test-owned matrix contains exactly `4 + 8 + 9 + 13 + 6 = 40` Product
+  behavior identities and all six required evidence columns;
+- `15` rows execute against packed CLI scenarios covering F_D, F_P, atomic,
+  composition, edge, batch, child traversal, depth, advance, close, block,
+  non-admission, GraphFunction targeting, and direct root control;
+- `25` rows remain explicit `todo` gaps, including F_H, mixed traversal,
+  runtime evaluator selection, recursion, real retry, continuation, public
+  bounded control, and the other typed consequence/disposition families; and
+- the exact package basis and retained root proof were regenerated from the
+  ordinary installed path rather than edited into agreement.
+
+Fresh serialized verification is conservation progress `15/40` with `25`
+named `todo` rows, ordinary `test:m5` `47/47`, retained `test:m4` `26/26`, and
+`ABI5-ROOT-001` `root_satisfied`. Repeated packing reproduced artifact SHA-256
+`41ba3f89af7af84bf02a6cd42319651af48540e196cb32606ce4cb0c1aa747c0`.
+This matrix is a no-silence governor, not an S02 completion substitute;
+`ABG5-S02` remains open.
 
 ## 4.6 Conservation
 
