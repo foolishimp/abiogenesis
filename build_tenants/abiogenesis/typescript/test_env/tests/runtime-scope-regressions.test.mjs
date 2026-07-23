@@ -6,6 +6,19 @@ import test from "node:test";
 import { setupInstalledRootCatalog } from "../support/root-installed-environment.mjs";
 
 function candidate(kind, runId, causationEventRefs = []) {
+  const digest = `sha256:${"1".repeat(64)}`;
+  const payload = kind === "run_closed"
+    ? {
+        runId,
+        graphCallClosedEventRef: "event://abiogenesis/synthetic-graph-call-close",
+        closureContractRef: "closure-contract://abiogenesis/synthetic",
+      }
+    : {
+        failureRef: `runtime-failure://abiogenesis/${runId}`,
+        failureDigest: digest,
+        stage: "hog_traversal",
+        subjectDigest: digest,
+      };
   return {
     kind,
     eventTime: "2026-07-21T00:00:00.000Z",
@@ -18,7 +31,7 @@ function candidate(kind, runId, causationEventRefs = []) {
     scopeClass: "run",
     basisId: `basis://t286/${runId}`,
     runId,
-    payload: { runId },
+    payload,
   };
 }
 

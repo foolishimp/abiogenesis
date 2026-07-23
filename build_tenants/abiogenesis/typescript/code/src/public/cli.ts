@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 import { canonicalJson, type JsonValue } from "../product/index.js";
 import {
   applyRootPublicInvocation,
+  closeRootOperationContext,
   createRootOperationContext,
 } from "./operations.js";
 import { parseRootPublicInvocation } from "./contracts.js";
@@ -39,30 +40,34 @@ if (args.length !== 2 || args[0] !== "--jsonl" || args[1] === undefined) {
       process.exitCode = 2;
     } else {
       const context = createRootOperationContext();
-      for (const line of lines) {
-        let decoded: unknown;
-        try {
-          decoded = JSON.parse(line);
-        } catch {
-          process.stdout.write(`${canonicalJson(transportRefusal(
-            "invalid_json",
-            "request line is not valid JSON",
-          ))}\n`);
-          process.exitCode = 2;
-          break;
+      try {
+        for (const line of lines) {
+          let decoded: unknown;
+          try {
+            decoded = JSON.parse(line);
+          } catch {
+            process.stdout.write(`${canonicalJson(transportRefusal(
+              "invalid_json",
+              "request line is not valid JSON",
+            ))}\n`);
+            process.exitCode = 2;
+            break;
+          }
+          const invocation = parseRootPublicInvocation(decoded);
+          if (invocation.kind === "public_invocation_refusal") {
+            process.stdout.write(`${canonicalJson(invocation as unknown as JsonValue)}\n`);
+            process.exitCode = 2;
+            break;
+          }
+          const outcome = await applyRootPublicInvocation(context, invocation);
+          process.stdout.write(`${canonicalJson(outcome as unknown as JsonValue)}\n`);
+          if (outcome.disposition !== "succeeded") {
+            process.exitCode = 2;
+            break;
+          }
         }
-        const invocation = parseRootPublicInvocation(decoded);
-        if (invocation.kind === "public_invocation_refusal") {
-          process.stdout.write(`${canonicalJson(invocation as unknown as JsonValue)}\n`);
-          process.exitCode = 2;
-          break;
-        }
-        const outcome = await applyRootPublicInvocation(context, invocation);
-        process.stdout.write(`${canonicalJson(outcome as unknown as JsonValue)}\n`);
-        if (outcome.disposition !== "succeeded") {
-          process.exitCode = 2;
-          break;
-        }
+      } finally {
+        closeRootOperationContext(context);
       }
     }
   } catch (error) {

@@ -1,6 +1,11 @@
 export {
   AbgEventStore,
   ROOT_EVENT_KIND_VALUES,
+  reopenEventStore,
+  type EventStoreReopenAuthority,
+  type EventStoreReopenRefusal,
+  type EventStoreReopenResult,
+  type ReopenedEventStoreContext,
   type RootEventKind,
   type RuntimeEvent,
   type RuntimeEventScope,

@@ -48,6 +48,10 @@ export function createRootOperationContext(): RootOperationContext {
   };
 }
 
+export function closeRootOperationContext(context: RootOperationContext): void {
+  context.store.closeDurableLog();
+}
+
 function stringField(
   payload: Readonly<Record<string, product.JsonValue>>,
   key: string,

@@ -7,6 +7,7 @@ export {
   type RootPublicOperationId,
 } from "./contracts.js";
 export {
+  closeRootOperationContext,
   createRootOperationContext,
   applyRootPublicInvocation,
   type RootOperationContext,
