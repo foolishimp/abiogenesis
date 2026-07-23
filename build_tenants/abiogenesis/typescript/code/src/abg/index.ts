@@ -151,6 +151,18 @@ export {
   type ReplayState,
 } from "./replay.js";
 export {
+  admitFanOutCompletion,
+  isAdmittedFanOutCompletion,
+  type AdmitFanOutCompletionInput,
+  type CompleteFanOutAdmission,
+  type FanOutCompletedTaskRow,
+  type FanOutCompletionAdmission,
+  type FanOutCompletionRefusal,
+  type FanOutCompletionResult,
+  type FanOutStoppingTaskRow,
+  type PartialFanOutAdmission,
+} from "./fan_out.js";
+export {
   RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES,
   admitRetryAttempt,
   admitRetryProgress,
@@ -176,6 +188,7 @@ export {
   isAdmittedRoute,
   type AdmittedRoute,
   type BlockedRouteAdmissionEvidence,
+  type FanOutRouteAdmissionEvidence,
   type RetryRouteAdmissionEvidence,
   type RouteAdmissionEvidence,
   type RouteAdmissionRefusal,

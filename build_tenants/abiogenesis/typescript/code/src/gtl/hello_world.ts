@@ -21,6 +21,13 @@ import {
 import { evaluatorDeclaration, ruleDeclaration } from "./declarations.js";
 import { gateApplication } from "./graph_applications.js";
 import {
+  constructFanOutPublicationParts,
+  isFanOutHelloMemberOutput,
+  isFanOutHelloSummary,
+  isFanOutHelloVectorOutput,
+  resolveFanOutJudgmentRelation,
+} from "./fan_out.js";
+import {
   constructRecursionPublicationParts,
   isBoundedRecursionState,
   resolveRecursionJudgmentRelation,
@@ -407,7 +414,8 @@ export function resolveConformanceJudgmentRelation(
           input.message === output.message,
       });
     default:
-      return resolveRecursionJudgmentRelation(predicateRef);
+      return resolveRecursionJudgmentRelation(predicateRef) ??
+        resolveFanOutJudgmentRelation(predicateRef);
   }
 }
 
@@ -466,6 +474,12 @@ export function isDeclaredConformanceValue(
       return isFpHelloOutput(value);
     case "bounded_recursion_state":
       return isBoundedRecursionState(value);
+    case "fan_out_hello_member_output":
+      return isFanOutHelloMemberOutput(value);
+    case "fan_out_hello_vector_output":
+      return isFanOutHelloVectorOutput(value);
+    case "fan_out_hello_summary":
+      return isFanOutHelloSummary(value);
     default:
       return false;
   }
@@ -518,6 +532,10 @@ export function constructHelloWorldModulePublication(
   artifact: RootModuleArtifactBasis,
 ): Readonly<ModulePublication> {
   const recursion = constructRecursionPublicationParts(
+    artifact,
+    HELLO_WORLD_IDS.moduleRef,
+  );
+  const fanOut = constructFanOutPublicationParts(
     artifact,
     HELLO_WORLD_IDS.moduleRef,
   );
@@ -579,6 +597,7 @@ export function constructHelloWorldModulePublication(
     { contractRef: FIBRE_SUBSTITUTION_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "fp_hello_closure" },
     { contractRef: FP_FD_COMPOSED_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "fp_hello_closure" },
     ...recursion.contracts,
+    ...fanOut.contracts,
   ];
   const implementationBinding: ImplementationBinding = {
     kind: "implementation_binding",
@@ -2038,6 +2057,7 @@ export function constructHelloWorldModulePublication(
       deterministicFpImplementationBinding,
       fpFdPassImplementationBinding,
       ...recursion.implementationBindings,
+      ...fanOut.implementationBindings,
     ],
     closureContracts: [
       closureContract,
@@ -2049,6 +2069,7 @@ export function constructHelloWorldModulePublication(
       deterministicFpClosureContract,
       fpFdClosureContract,
       ...recursion.closureContracts,
+      ...fanOut.closureContracts,
     ],
     programs: [
       program,
@@ -2065,6 +2086,7 @@ export function constructHelloWorldModulePublication(
       deterministicFpProgram,
       fpFdComposedProgram,
       ...recursion.programs,
+      ...fanOut.programs,
     ],
     graphFunctions: [
       graphFunction,
@@ -2083,6 +2105,7 @@ export function constructHelloWorldModulePublication(
       fpFdPassGraphFunction,
       fpFdComposedGraphFunction,
       ...recursion.graphFunctions,
+      ...fanOut.graphFunctions,
     ],
     contributions: [
       contribution,
@@ -2100,6 +2123,7 @@ export function constructHelloWorldModulePublication(
       deterministicFpContribution,
       fpFdComposedContribution,
       ...recursion.contributions,
+      ...fanOut.contributions,
     ],
   };
   return deepFreeze(publicationBody) as Readonly<ModulePublication>;

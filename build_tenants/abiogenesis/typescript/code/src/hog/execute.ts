@@ -6,6 +6,7 @@ import {
   admitChildPreparationRefusal,
   admitClosure,
   admitEvidence,
+  admitFanOutCompletion,
   admitJudgment,
   admitResult,
   admitRetryAttempt,
@@ -31,6 +32,7 @@ import {
   type CCallAdmissionRejection,
   type CCall,
   type ExecutionBasis,
+  type FanOutCompletionAdmission,
   type OpenedTraversalScope,
   type ReplayState,
   type RetryInputBasis,
@@ -44,6 +46,7 @@ import type {
 import { isAdmittedLeafInvocationPort } from "../implementation/invocation_port.js";
 import type {
   ClosureContract,
+  FanOutApplication,
   GtlGraph,
   GtlProgram,
   RecurseApplication,
@@ -65,6 +68,7 @@ import {
 } from "./judgment.js";
 import {
   proposeBlockedRoute,
+  proposeFanOutRoute,
   proposeJudgedRoute,
   proposeRecursionRoute,
   proposeRetryRoute,
@@ -252,6 +256,10 @@ export interface CompleteWorkflowTraversalInput
     Readonly<Record<string, JsonValue>>,
     Readonly<Record<string, JsonValue>>
   >;
+  readonly fanOutApplication?: Readonly<FanOutApplication>;
+  readonly validateFanOutVector?: (
+    value: unknown,
+  ) => value is Readonly<Record<string, JsonValue>>;
 }
 
 export type DeterministicTraversalClock = ExecutableTraversalClock;
@@ -1955,6 +1963,113 @@ function completeBlockedWorkflowTraversal(
   });
 }
 
+function completeFanOutWorkflowRoute(
+  input: CompleteWorkflowTraversalInput,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  fanOutCompletion: FanOutCompletionAdmission,
+  continuationStep: TraversalStep,
+): ExecutableTraversalCompletion {
+  const application = input.fanOutApplication;
+  if (application === undefined) {
+    return failWorkflowTraversal(
+      input,
+      "fan-out-application",
+      "diagnostic://abiogenesis/hog/fan-out-application-absent@5",
+      fanOutCompletion as unknown as JsonValue,
+    );
+  }
+  const completionReplay = replay(input.store, {
+    runId: input.openedTraversalScope.runId,
+  });
+  const proposal = proposeFanOutRoute(
+    input.graph,
+    application,
+    continuationStep,
+    input.parentCCall,
+    fanOutCompletion,
+    completionReplay,
+    input.closureContract.transitionContractRef,
+  );
+  if (proposal.kind !== "traversal_route_candidate") {
+    return failWorkflowTraversal(
+      input,
+      "fan-out-route-proposal",
+      `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+      proposal as unknown as JsonValue,
+    );
+  }
+  const route = admitRoute(
+    input.store,
+    input.executionBasis,
+    input.graph,
+    continuationStep.sourceCursor,
+    continuationStep.targetCursor,
+    completionReplay,
+    proposal,
+    basis(input.clock, "fan-out-route"),
+    {
+      cCall: input.parentCCall,
+      application,
+      completion: fanOutCompletion,
+    },
+  );
+  if (route.kind !== "admitted_traversal_route") {
+    return failWorkflowTraversal(
+      input,
+      "fan-out-route-admission",
+      `diagnostic://abiogenesis/hog/${route.code}@5`,
+      route as unknown as JsonValue,
+    );
+  }
+  if (fanOutCompletion.completionKind === "partial_stop") {
+    if (route.routeKind !== "blocked" || route.runStoppedEventRef === null) {
+      return failWorkflowTraversal(
+        input,
+        "fan-out-partial-stop",
+        "diagnostic://abiogenesis/hog/fan-out-run-stop-absent@5",
+        route as unknown as JsonValue,
+      );
+    }
+    return completion("blocked", replay(input.store, {
+      runId: input.openedTraversalScope.runId,
+    }), {
+      cCallRef: input.parentCCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      diagnosticRef: judgment.reasonRef,
+    });
+  }
+  if (route.routeKind !== "advance") {
+    return failWorkflowTraversal(
+      input,
+      "fan-out-complete-route",
+      "diagnostic://abiogenesis/hog/fan-out-advance-absent@5",
+      route as unknown as JsonValue,
+    );
+  }
+  const nextCursor = applyRoute(continuationStep, route);
+  if (nextCursor.kind === "traversal_refusal") {
+    return failWorkflowTraversal(
+      input,
+      "fan-out-route-application",
+      `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
+      nextCursor as unknown as JsonValue,
+    );
+  }
+  return completion("advanced", replay(input.store, {
+    runId: input.openedTraversalScope.runId,
+  }), {
+    cCallRef: input.parentCCall.cCallRef,
+    resultRef: fanOutCompletion.outputVectorRef,
+    judgmentRef: judgment.judgmentRef,
+    nextCursor,
+    resultValue: fanOutCompletion.outputVector,
+    continuationKind: "advance",
+    nextInputContractRef: fanOutCompletion.outputVectorContractRef,
+  });
+}
+
 export function completeWorkflowPreparationRefusal(
   input: CompleteWorkflowPreparationRefusalInput,
 ): ExecutableTraversalCompletion {
@@ -2144,7 +2259,51 @@ export function completeWorkflowTraversal(
       judgment.diagnosticRef,
     );
   }
+  const fanOutEnabled =
+    input.fanOutApplication !== undefined &&
+    input.validateFanOutVector !== undefined;
+  if (
+    (input.fanOutApplication === undefined) !==
+      (input.validateFanOutVector === undefined)
+  ) {
+    return failWorkflowTraversal(
+      input,
+      "fan-out-context",
+      "diagnostic://abiogenesis/hog/fan-out-context-incomplete@5",
+      { cCallRef: input.parentCCall.cCallRef },
+    );
+  }
   if (judgment.judgment !== "advance") {
+    if (fanOutEnabled) {
+      const fanOutCompletion = admitFanOutCompletion({
+        store: input.store,
+        executionBasis: input.executionBasis,
+        graph: input.graph,
+        application: input.fanOutApplication!,
+        sourceCursor: input.workflowStep.sourceCursor,
+        replayState: replay(input.store, {
+          runId: input.openedTraversalScope.runId,
+        }),
+        completionKind: "partial_stop",
+        validateOutputVector: input.validateFanOutVector!,
+        basis: basis(input.clock, "fan-out-partial-stop"),
+      });
+      if (fanOutCompletion.kind !== "fan_out_completion_admission") {
+        return failWorkflowTraversal(
+          input,
+          "fan-out-partial-stop-admission",
+          `diagnostic://abiogenesis/hog/${fanOutCompletion.code}@5`,
+          fanOutCompletion as unknown as JsonValue,
+        );
+      }
+      return completeFanOutWorkflowRoute(
+        input,
+        result,
+        judgment,
+        fanOutCompletion,
+        input.workflowStep,
+      );
+    }
     return completeBlockedWorkflowTraversal(
       input,
       result.resultRef,
@@ -2164,6 +2323,61 @@ export function completeWorkflowTraversal(
       "workflow-continuation",
       `diagnostic://abiogenesis/hog/${continuationStep.code}@5`,
       continuationStep as unknown as JsonValue,
+    );
+  }
+  if (
+    fanOutEnabled &&
+    continuationStep.directStep.stepKind === "continue_term" &&
+    continuationStep.directStep.relation === "compose_next"
+  ) {
+    const fanOutCompletion = admitFanOutCompletion({
+      store: input.store,
+      executionBasis: input.executionBasis,
+      graph: input.graph,
+      application: input.fanOutApplication!,
+      sourceCursor: input.workflowStep.sourceCursor,
+      replayState: replay(input.store, {
+        runId: input.openedTraversalScope.runId,
+      }),
+      completionKind: "complete_vector",
+      validateOutputVector: input.validateFanOutVector!,
+      basis: basis(input.clock, "fan-out-complete-vector"),
+    });
+    if (
+      fanOutCompletion.kind !== "fan_out_completion_admission" ||
+      fanOutCompletion.completionKind !== "complete_vector"
+    ) {
+      return failWorkflowTraversal(
+        input,
+        "fan-out-complete-vector-admission",
+        fanOutCompletion.kind === "fan_out_completion_admission"
+          ? "diagnostic://abiogenesis/hog/fan-out-completion-kind-mismatch@5"
+          : `diagnostic://abiogenesis/hog/${fanOutCompletion.code}@5`,
+        fanOutCompletion as unknown as JsonValue,
+      );
+    }
+    const fanInStep = deriveCompletedTraversalStep(
+      input.graph,
+      input.workflowStep.sourceCursor,
+      {
+        inputRef: fanOutCompletion.outputVectorRef,
+        inputDigest: fanOutCompletion.outputVectorDigest,
+      },
+    );
+    if (fanInStep.kind !== "traversal_step") {
+      return failWorkflowTraversal(
+        input,
+        "fan-in-continuation",
+        `diagnostic://abiogenesis/hog/${fanInStep.code}@5`,
+        fanInStep as unknown as JsonValue,
+      );
+    }
+    return completeFanOutWorkflowRoute(
+      input,
+      result,
+      judgment,
+      fanOutCompletion,
+      fanInStep,
     );
   }
   const judgedReplay = replay(input.store, { runId: input.openedTraversalScope.runId });

@@ -89,6 +89,7 @@ export function bindChildTraversalPreparationPort(
       invocationAdmissionRef: request.parentExecutionBasis.invocationAdmissionRef,
       admittedInputRef: request.inputRef,
       admittedInputDigest: request.inputDigest,
+      admittedInput: request.input,
     });
     const graphValidation = validateGraph(
       graph,
@@ -98,6 +99,7 @@ export function bindChildTraversalPreparationPort(
         invocationAdmissionRef: request.parentExecutionBasis.invocationAdmissionRef,
         admittedInputRef: request.inputRef,
         admittedInputDigest: request.inputDigest,
+        admittedInput: request.input,
       },
     );
     if (graphValidation.kind !== "graph_validation") {

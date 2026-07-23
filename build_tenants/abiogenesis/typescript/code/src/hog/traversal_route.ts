@@ -3,6 +3,7 @@ import type {
   AdmittedCCallResult,
   CCall,
 } from "../abg/c_call.js";
+import type { FanOutCompletionAdmission } from "../abg/fan_out.js";
 import type { RetryProgressAdmission } from "../abg/retry.js";
 import type { ReplayState } from "../abg/replay.js";
 import type { RouteCandidate } from "../abg/traversal_route.js";
@@ -11,7 +12,11 @@ import {
   type ApplicationChildFoldbackAdmission,
   type ApplicationChildPreparationRefusalAdmission,
 } from "../abg/graph_application.js";
-import type { GtlGraph, RecurseApplication } from "../gtl/contracts.js";
+import type {
+  FanOutApplication,
+  GtlGraph,
+  RecurseApplication,
+} from "../gtl/contracts.js";
 import { graphFunctionApplicationRef } from "../gtl/graph_applications.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import { deriveCSourceContinuation } from "../gtl/source_path.js";
@@ -354,6 +359,78 @@ export function proposeWorkflowBlockedRoute(
     cCallRef: cCall.cCallRef,
     judgmentRef,
     consumedAvailabilityRefs: [judgmentRef] as const,
+    contractRef,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}
+
+export function proposeFanOutRoute(
+  graph: Readonly<GtlGraph>,
+  application: Readonly<FanOutApplication>,
+  step: TraversalStep,
+  cCall: CCall,
+  completion: FanOutCompletionAdmission,
+  replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal {
+  const complete = completion.completionKind === "complete_vector";
+  const taskRow = complete
+    ? completion.taskRows.at(-1)
+    : completion.stoppingRow;
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    graph.template.applications.find(
+      (candidate) => candidate.applicationRef === application.applicationRef,
+    ) !== application ||
+    application.relationKind !== "fan_out" ||
+    application.applicationRef !== graphFunctionApplicationRef(application) ||
+    !isTraversalStep(step) ||
+    step.sourceCursor.graphRef !== graph.materializationRef ||
+    step.sourceCursor.frameId !== cCall.frameId ||
+    cCall.batchRef !== application.batchRef ||
+    taskRow === undefined ||
+    taskRow.cCallRef !== cCall.cCallRef ||
+    taskRow.ordinal !== step.sourceCursor.taskOrdinal ||
+    completion.applicationRef !== application.applicationRef ||
+    (
+      complete
+        ? step.directStep.stepKind !== "continue_term" ||
+          step.directStep.relation !== "compose_next" ||
+          step.targetCursor === null ||
+          step.targetCursor.inputRef !== completion.outputVectorRef ||
+          step.targetCursor.inputDigest !== completion.outputVectorDigest
+        : step.targetCursor !== null
+    )
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "structural_step_missing",
+      message:
+        "fan-out route requires the exact terminal task cursor and admitted completion variant",
+    };
+  }
+  const body = {
+    routeKind: complete ? "advance" as const : "blocked" as const,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: step.sourceCursor.cursorRef,
+    sourceCursorDigest: step.sourceCursor.cursorDigest,
+    targetCursorRef: step.targetCursor?.cursorRef ?? null,
+    targetCursorDigest: step.targetCursor?.cursorDigest ?? null,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: taskRow.judgmentRef,
+    consumedAvailabilityRefs: [application.applicationRef] as const,
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };

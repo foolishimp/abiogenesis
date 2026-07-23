@@ -1,4 +1,5 @@
 import type {
+  FanOutApplication,
   GtlGraph,
   RecurseApplication,
 } from "../gtl/contracts.js";
@@ -8,6 +9,7 @@ import {
 } from "../gtl/graph_applications.js";
 import {
   deriveCSourceContinuation,
+  resolveEnclosingCBatchRef,
   resolveEnclosingCRetryContexts,
   resolveCProgramTermAtSourcePath,
 } from "../gtl/source_path.js";
@@ -24,6 +26,10 @@ import {
   type AdmittedCCallResult,
   type CCall,
 } from "./c_call.js";
+import {
+  isAdmittedFanOutCompletion,
+  type FanOutCompletionAdmission,
+} from "./fan_out.js";
 import {
   isAdmittedApplicationChildFoldback,
   isAdmittedApplicationChildPreparationRefusal,
@@ -137,6 +143,12 @@ export interface RetryRouteAdmissionEvidence {
   readonly progress: RetryProgressAdmission;
 }
 
+export interface FanOutRouteAdmissionEvidence {
+  readonly cCall: CCall;
+  readonly application: Readonly<FanOutApplication>;
+  readonly completion: FanOutCompletionAdmission;
+}
+
 export interface RouteAdmissionOptions {
   readonly terminalizeRun?: boolean;
 }
@@ -216,6 +228,23 @@ function hasSameCursorLineage(
     target.position === "at_term";
 }
 
+function materializedMemberInput(
+  graph: Readonly<GtlGraph>,
+  batchRef: string,
+  taskOrdinal: number | null,
+): { readonly inputRef: string; readonly inputDigest: Sha256Digest } | null {
+  if (taskOrdinal === null) return null;
+  const member = graph.fanOutMaterializations.find(
+    (candidate) => candidate.batchRef === batchRef,
+  )?.members[taskOrdinal];
+  return member === undefined
+    ? null
+    : {
+        inputRef: member.memberRef,
+        inputDigest: member.memberDigest,
+      };
+}
+
 function isDeclaredStructuralTarget(
   graph: Readonly<GtlGraph>,
   source: TraversalCursorCandidate,
@@ -224,9 +253,7 @@ function isDeclaredStructuralTarget(
 ): boolean {
   if (
     !hasSameCursorLineage(source, target) ||
-    target.currentNodeRef !== source.currentNodeRef ||
-    target.inputRef !== source.inputRef ||
-    target.inputDigest !== source.inputDigest
+    target.currentNodeRef !== source.currentNodeRef
   ) return false;
   const term = resolveCProgramTermAtSourcePath(
     graph.template,
@@ -234,6 +261,13 @@ function isDeclaredStructuralTarget(
     source.termPath,
   );
   if (term.kind === "c_source_path_refusal") return false;
+  const structuralInput = term.kind === "c_batch"
+    ? materializedMemberInput(graph, term.batchRef, target.taskOrdinal) ?? source
+    : source;
+  if (
+    target.inputRef !== structuralInput.inputRef ||
+    target.inputDigest !== structuralInput.inputDigest
+  ) return false;
   const unchangedAttempt = target.attempt === source.attempt &&
     sameValues(target.retryPath.map(String), source.retryPath.map(String));
   switch (term.kind) {
@@ -407,6 +441,95 @@ function hasRetryRouteEvidence(
     targetCursor.inputDigest === evidence.progress.inputDigest;
 }
 
+function hasFanOutRouteEvidence(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  targetCursor: TraversalCursorCandidate | null,
+  candidate: RouteCandidate,
+  evidence: FanOutRouteAdmissionEvidence | null,
+): evidence is FanOutRouteAdmissionEvidence {
+  if (
+    evidence === null ||
+    !hasOpenedCCall(store, evidence.cCall) ||
+    !isAdmittedFanOutCompletion(evidence.completion) ||
+    graph.template.applications.find(
+      (application) =>
+        application.applicationRef === evidence.application.applicationRef,
+    ) !== evidence.application ||
+    evidence.application.relationKind !== "fan_out" ||
+    evidence.application.applicationRef !==
+      graphFunctionApplicationRef(evidence.application) ||
+    evidence.cCall.basisId !== executionBasis.basisRef ||
+    evidence.cCall.frameId !== sourceCursor.frameId ||
+    evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
+    evidence.cCall.batchRef !== evidence.application.batchRef ||
+    evidence.cCall.taskOrdinal !== sourceCursor.taskOrdinal ||
+    evidence.completion.applicationRef !== evidence.application.applicationRef ||
+    evidence.completion.batchRef !== evidence.application.batchRef ||
+    candidate.cCallRef !== evidence.cCall.cCallRef ||
+    candidate.consumedAvailabilityRefs.length !== 1 ||
+    candidate.consumedAvailabilityRefs[0] !== evidence.application.applicationRef ||
+    candidate.contractRef !== evidence.cCall.transitionContractRef
+  ) return false;
+  const completionEvent = store.readAll().find(
+    (event) =>
+      event.kind === "fan_out_completion_admitted" &&
+      event.eventId === evidence.completion.admissionEventRef &&
+      event.frameId === sourceCursor.frameId,
+  );
+  if (completionEvent === undefined) return false;
+  if (evidence.completion.completionKind === "partial_stop") {
+    return candidate.routeKind === "blocked" &&
+      targetCursor === null &&
+      candidate.targetCursorRef === null &&
+      candidate.targetCursorDigest === null &&
+      candidate.judgmentRef === evidence.completion.stoppingRow.judgmentRef &&
+      evidence.completion.stoppingRow.cCallRef === evidence.cCall.cCallRef &&
+      evidence.completion.stoppingRow.ordinal === sourceCursor.taskOrdinal;
+  }
+  const lastRow = evidence.completion.taskRows.at(-1);
+  if (
+    candidate.routeKind !== "advance" ||
+    targetCursor === null ||
+    lastRow === undefined ||
+    lastRow.cCallRef !== evidence.cCall.cCallRef ||
+    lastRow.ordinal !== sourceCursor.taskOrdinal ||
+    candidate.judgmentRef !== lastRow.judgmentRef ||
+    candidate.targetCursorRef !== targetCursor.cursorRef ||
+    candidate.targetCursorDigest !== targetCursor.cursorDigest ||
+    !hasSameCursorLineage(sourceCursor, targetCursor) ||
+    targetCursor.inputRef !== evidence.completion.outputVectorRef ||
+    targetCursor.inputDigest !== evidence.completion.outputVectorDigest
+  ) return false;
+  const continuation = deriveCSourceContinuation(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  if (
+    continuation.kind === "c_source_path_refusal" ||
+    continuation.disposition !== "advance" ||
+    continuation.relation !== "compose_next" ||
+    continuation.targetPath === null ||
+    !sameValues(targetCursor.termPath, continuation.targetPath)
+  ) return false;
+  const targetTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    targetCursor.currentNodeRef,
+    targetCursor.termPath,
+  );
+  const fanInApplication = graph.template.applications.find(
+    (application) =>
+      application.relationKind === "fan_in" &&
+      application.inputVectorRef === evidence.application.outputVectorRef,
+  );
+  return targetTerm.kind === "c_workflow" &&
+    fanInApplication?.relationKind === "fan_in" &&
+    targetTerm.graphFunctionRef === fanInApplication.reducerGraphFunctionRef;
+}
+
 function isDeclaredJudgedTarget(
   graph: Readonly<GtlGraph>,
   source: TraversalCursorCandidate,
@@ -428,12 +551,20 @@ function isDeclaredJudgedTarget(
     return false;
   }
   const retryPath = source.retryPath.slice(0, continuation.targetRetryDepth);
-  const inputRef = continuation.relation === "batch_next"
-    ? source.inputRef
-    : result.resultRef;
-  const inputDigest = continuation.relation === "batch_next"
-    ? source.inputDigest
-    : result.valueDigest;
+  let inputRef = result.resultRef;
+  let inputDigest = result.valueDigest;
+  if (continuation.relation === "batch_next") {
+    const batchRef = resolveEnclosingCBatchRef(
+      graph.template,
+      source.currentNodeRef,
+      source.termPath,
+    );
+    const memberInput = typeof batchRef === "string"
+      ? materializedMemberInput(graph, batchRef, continuation.targetTaskOrdinal)
+      : null;
+    inputRef = memberInput?.inputRef ?? source.inputRef;
+    inputDigest = memberInput?.inputDigest ?? source.inputDigest;
+  }
   return target.currentNodeRef === continuation.targetPath[1] &&
     sameValues(target.termPath, continuation.targetPath) &&
     target.inputRef === inputRef &&
@@ -470,6 +601,7 @@ export function admitRoute(
   evidence:
     | RouteAdmissionEvidence
     | BlockedRouteAdmissionEvidence
+    | FanOutRouteAdmissionEvidence
     | RetryRouteAdmissionEvidence
     | null = null,
   options: RouteAdmissionOptions = {},
@@ -613,6 +745,25 @@ export function admitRoute(
           "structural route is not the exact next cursor declared by the original GTL term",
         );
       }
+    } else if ("completion" in evidence) {
+      if (
+        candidate.routeKind !== "advance" ||
+        !hasFanOutRouteEvidence(
+          store,
+          executionBasis,
+          graph,
+          sourceCursor,
+          targetCursor,
+          candidate,
+          evidence,
+        )
+      ) {
+        return refusal(
+          "judgment_mismatch",
+          "fan-out route requires exact admitted complete-vector truth",
+        );
+      }
+      causationEventRef = evidence.completion.admissionEventRef;
     } else if ("result" in evidence) {
       if (
         candidate.routeKind !== "advance" ||
@@ -653,22 +804,40 @@ export function admitRoute(
       );
     }
   } else if (candidate.routeKind === "blocked") {
-    const blockedEvidence = evidence !== null && "judgmentEventRef" in evidence
-      ? evidence
-      : null;
-    if (!hasBlockedRouteEvidence(
-      store,
-      executionBasis,
-      sourceCursor,
-      candidate,
-      blockedEvidence,
-    )) {
-      return refusal(
-        "judgment_mismatch",
-        "blocked route requires this cursor's admitted blocked CCall judgment",
-      );
+    if (evidence !== null && "completion" in evidence) {
+      if (!hasFanOutRouteEvidence(
+        store,
+        executionBasis,
+        graph,
+        sourceCursor,
+        null,
+        candidate,
+        evidence,
+      )) {
+        return refusal(
+          "judgment_mismatch",
+          "fan-out blocked route requires exact admitted partial-stop truth",
+        );
+      }
+      causationEventRef = evidence.completion.admissionEventRef;
+    } else {
+      const blockedEvidence = evidence !== null && "judgmentEventRef" in evidence
+        ? evidence
+        : null;
+      if (!hasBlockedRouteEvidence(
+        store,
+        executionBasis,
+        sourceCursor,
+        candidate,
+        blockedEvidence,
+      )) {
+        return refusal(
+          "judgment_mismatch",
+          "blocked route requires this cursor's admitted blocked CCall judgment",
+        );
+      }
+      causationEventRef = blockedEvidence.judgmentEventRef;
     }
-    causationEventRef = blockedEvidence.judgmentEventRef;
   } else {
     return refusal(
       "route_kind_not_supported",
@@ -729,7 +898,10 @@ export function admitRoute(
             judgmentRef: candidate.judgmentRef,
             reasonRef: evidence !== null && "reasonRef" in evidence
               ? evidence.reasonRef
-              : "reason://abiogenesis/blocked@5",
+              : evidence !== null && "completion" in evidence &&
+                  evidence.completion.completionKind === "partial_stop"
+                ? "reason://abiogenesis/fan-out-partial-stop@5"
+                : "reason://abiogenesis/blocked@5",
           },
         }),
       ])

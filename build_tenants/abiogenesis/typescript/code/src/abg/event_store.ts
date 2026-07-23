@@ -46,6 +46,7 @@ export const ROOT_EVENT_KIND_VALUES = [
   "retry_progress_recorded",
   "child_foldback_admitted",
   "child_preparation_refused",
+  "fan_out_completion_admitted",
   "traversal_route_admitted",
   "runtime_failure_observed",
   "run_stopped",

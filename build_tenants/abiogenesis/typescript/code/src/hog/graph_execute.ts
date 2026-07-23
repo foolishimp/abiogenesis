@@ -13,6 +13,7 @@ import {
 } from "../abg/index.js";
 import type {
   ClosureContract,
+  FanOutApplication,
   GraphFunction,
   GtlGraph,
   GtlProgram,
@@ -187,6 +188,44 @@ function recurseApplicationAtStop(
   return application?.relationKind === "recurse" ? application : null;
 }
 
+function fanOutApplicationForBatch(
+  graph: Readonly<GtlGraph>,
+  batchRef: string | null,
+): Readonly<FanOutApplication> | null {
+  if (batchRef === null) return null;
+  const application = graph.template.applications.find(
+    (candidate) =>
+      candidate.relationKind === "fan_out" &&
+      candidate.batchRef === batchRef,
+  );
+  return application?.relationKind === "fan_out" ? application : null;
+}
+
+function materializedInputAtCursor(
+  graph: Readonly<GtlGraph>,
+  cursor: TraversalCursor | null,
+): {
+  readonly inputContractRef: string;
+  readonly value: Readonly<Record<string, JsonValue>>;
+} | null {
+  if (cursor === null) return null;
+  for (const materialization of graph.fanOutMaterializations) {
+    const member = materialization.members.find(
+      (candidate) =>
+        candidate.ordinal === cursor.taskOrdinal &&
+        candidate.memberRef === cursor.inputRef &&
+        candidate.memberDigest === cursor.inputDigest,
+    );
+    if (member !== undefined) {
+      return {
+        inputContractRef: materialization.inputMemberContractRef,
+        value: member.value,
+      };
+    }
+  }
+  return null;
+}
+
 export async function executeGraphTraversal(
   input: ExecuteGraphTraversalInput,
 ): Promise<ExecutableTraversalCompletion> {
@@ -263,7 +302,8 @@ export async function executeGraphTraversal(
     );
   }
 
-  let currentInput = input.input;
+  let currentInput =
+    materializedInputAtCursor(input.graph, activeCursor(stop))?.value ?? input.input;
   const retryInputs = new Map<string, RetainedRetryInput>();
   if (!captureRetryInputs(input.graph, stop, currentInput, retryInputs)) {
     return fail(
@@ -303,9 +343,30 @@ export async function executeGraphTraversal(
           workflowStep as unknown as JsonValue,
         );
       }
+      const childFailureContractRefs = new Set(
+        input.implementationSet.rows
+          .filter((row) => row.graphFunctionRef === directStep.graphFunctionRef)
+          .map((row) => row.failureContractRef),
+      );
+      const childFailureContractRef = [...childFailureContractRefs][0];
+      if (
+        childFailureContractRefs.size !== 1 ||
+        childFailureContractRef === undefined
+      ) {
+        return fail(
+          input,
+          `workflow-failure-contract-${leafOrdinal}`,
+          "diagnostic://abiogenesis/hog/workflow-failure-contract-ambiguous@5",
+          {
+            childGraphFunctionRef: directStep.graphFunctionRef,
+            failureContractRefs: [...childFailureContractRefs].sort(),
+          },
+        );
+      }
       const openedParent = openWorkflowCCall(
         input.store,
         input.executionBasis,
+        input.implementationSet,
         input.openedTraversalScope,
         input.program,
         input.graphFunction,
@@ -321,6 +382,7 @@ export async function executeGraphTraversal(
           childGraphFunctionRef: directStep.graphFunctionRef,
           inputContractRef: directStep.inputCarrierRef,
           outputContractRef: directStep.outputCarrierRef,
+          failureContractRef: childFailureContractRef,
           judgmentPredicateRef:
             input.graphFunction.declarations["abg.judgment_predicate"] ?? "",
         },
@@ -338,6 +400,10 @@ export async function executeGraphTraversal(
           openedParent as unknown as JsonValue,
         );
       }
+      const fanOutApplication = fanOutApplicationForBatch(
+        input.graph,
+        openedParent.cCall.batchRef,
+      );
       const prepared = await input.childTraversalPreparationPort.prepare({
         parentExecutionBasis: input.executionBasis,
         parentTraversalScope: input.openedTraversalScope,
@@ -388,10 +454,18 @@ export async function executeGraphTraversal(
           directStep.outputCarrierRef,
           "output",
         );
+        const failureValueKind = input.leafPort.contractValueKind(
+          openedParent.cCall.failureContractRef,
+          "failure",
+        );
         const judgmentRelation = input.leafPort.resolveJudgmentRelation(
           openedParent.cCall.judgmentPredicateRef,
         );
-        if (outputValueKind === null || judgmentRelation === null) {
+        if (
+          outputValueKind === null ||
+          failureValueKind === null ||
+          judgmentRelation === null
+        ) {
           return fail(
             input,
             `workflow-contract-${leafOrdinal}`,
@@ -418,7 +492,7 @@ export async function executeGraphTraversal(
           input: currentInput,
           inputDigest: workflowStep.sourceCursor.inputDigest,
           resultValueKind: outputValueKind,
-          failureValueKind: input.executionBasis.refusalValueKind,
+          failureValueKind,
           validateSuccessResult: (value): value is Readonly<Record<string, JsonValue>> =>
             input.leafPort.validateContractValue(
               directStep.outputCarrierRef,
@@ -427,6 +501,19 @@ export async function executeGraphTraversal(
             ) && judgmentRelation.evaluate(currentInput, value),
           closureContract: input.closureContract,
           judgmentRelation,
+          ...(fanOutApplication === null
+            ? {}
+            : {
+                fanOutApplication,
+                validateFanOutVector: (
+                  value: unknown,
+                ): value is Readonly<Record<string, JsonValue>> =>
+                  input.leafPort.validateContractValue(
+                    fanOutApplication.outputVectorRef,
+                    "output",
+                    value,
+                  ),
+              }),
           clock: {
             eventTime: input.eventTime,
             correlationId: `${input.correlationId}/workflow/${leafOrdinal}/foldback`,
@@ -633,17 +720,28 @@ export async function executeGraphTraversal(
       }
     }
     if (completion.disposition !== "advanced") break;
+    const nextMaterializedInput = materializedInputAtCursor(
+      input.graph,
+      completion.nextCursor,
+    );
     if (
       completion.nextCursor === null ||
       completion.continuationKind === null ||
       completion.nextInputContractRef === null ||
       completionValueKind === null ||
       completionContractRef === null ||
-      typeof completion.resultValue !== "object" ||
-      completion.resultValue === null ||
-      Array.isArray(completion.resultValue) ||
       (
-        completion.continuationKind === "retry"
+        nextMaterializedInput === null &&
+        (
+          typeof completion.resultValue !== "object" ||
+          completion.resultValue === null ||
+          Array.isArray(completion.resultValue)
+        )
+      ) ||
+      (
+        nextMaterializedInput !== null
+          ? false
+          : completion.continuationKind === "retry"
           ? completion.nextCursor.inputRef.length === 0 ||
             completion.nextCursor.inputDigest !==
               sha256Canonical(completion.resultValue)
@@ -661,7 +759,8 @@ export async function executeGraphTraversal(
         { leafOrdinal, completionDisposition: completion.disposition },
       );
     }
-    currentInput = completion.resultValue as Readonly<Record<string, JsonValue>>;
+    currentInput = nextMaterializedInput?.value ??
+      completion.resultValue as Readonly<Record<string, JsonValue>>;
     stop = traverseFromCursor(
       {
         program: input.program,

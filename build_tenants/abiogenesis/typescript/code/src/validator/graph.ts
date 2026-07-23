@@ -1,5 +1,8 @@
 import type { GraphFunction, GtlGraph } from "../gtl/contracts.js";
-import { isMaterializedGtlGraph } from "../gtl/materialize.js";
+import {
+  deriveMaterializedGraphShape,
+  isMaterializedGtlGraph,
+} from "../gtl/materialize.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -13,6 +16,7 @@ export interface GraphValidationBasis {
   readonly invocationAdmissionRef: string;
   readonly admittedInputRef: string;
   readonly admittedInputDigest: Sha256Digest;
+  readonly admittedInput: Readonly<Record<string, JsonValue>>;
 }
 
 export interface GraphValidation {
@@ -60,12 +64,24 @@ export function validateGraph(
   if (!isMaterializedGtlGraph(graph) || !isProgramValidation(programValidation)) {
     return invalid(graph.materializationDigest, "Graph or ProgramValidation lacks package construction identity");
   }
+  let expectedShape;
+  try {
+    expectedShape = deriveMaterializedGraphShape(graphFunction, basis);
+  } catch (error) {
+    return invalid(
+      graph.materializationDigest,
+      error instanceof Error
+        ? error.message
+        : "Graph materialization basis cannot reproduce the declared graph",
+    );
+  }
   const graphBody = {
     graphFunctionRef: graph.graphFunctionRef,
     graphFunctionDigest: graph.graphFunctionDigest,
     invocationAdmissionRef: graph.invocationAdmissionRef,
     admittedInputRef: graph.admittedInputRef,
     admittedInputDigest: graph.admittedInputDigest,
+    fanOutMaterializations: graph.fanOutMaterializations,
     template: graph.template,
   };
   const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
@@ -77,7 +93,10 @@ export function validateGraph(
     graph.invocationAdmissionRef !== basis.invocationAdmissionRef ||
     graph.admittedInputRef !== basis.admittedInputRef ||
     graph.admittedInputDigest !== basis.admittedInputDigest ||
-    canonicalJson(graph.template as unknown as JsonValue) !== canonicalJson(graphFunction.template as unknown as JsonValue)
+    canonicalJson(graph.fanOutMaterializations as unknown as JsonValue) !==
+      canonicalJson(expectedShape.fanOutMaterializations as unknown as JsonValue) ||
+    canonicalJson(graph.template as unknown as JsonValue) !==
+      canonicalJson(expectedShape.template as unknown as JsonValue)
   ) {
     return invalid(graph.materializationDigest, "materialized Graph does not preserve exact function, topology, input, and invocation basis");
   }

@@ -45,6 +45,14 @@ const RECURSION_GRAPH_FUNCTION_REF =
   "graph-function://abiogenesis/conformance/bounded-recursion@5";
 const RECURSION_CHILD_REF =
   "graph-function://abiogenesis/conformance/bounded-recursion-step@5";
+const FAN_OUT_PROGRAM_REF =
+  "program://abiogenesis/conformance/fan-out-hello@5";
+const FAN_OUT_GRAPH_FUNCTION_REF =
+  "graph-function://abiogenesis/conformance/fan-out-hello@5";
+const FAN_OUT_ELEMENT_REF =
+  "graph-function://abiogenesis/conformance/fan-out-hello-element@5";
+const FAN_IN_REDUCER_REF =
+  "graph-function://abiogenesis/conformance/fan-out-hello-reducer@5";
 const ACTOR_REF = "actor://abiogenesis/conformance/claude-worker@5";
 const WORKER_BINDING_REF =
   "worker-binding://abiogenesis/conformance/claude-worker@5";
@@ -63,6 +71,24 @@ function fpInput(subject) {
     transportLane: "closed_prompt_proof",
     subject,
     instruction: "Produce one concise greeting for the declared subject.",
+  };
+}
+
+function fanOutInput(subjects, blockedOrdinal = null) {
+  return {
+    kind: "fan_out_hello_vector_input",
+    schemaVersion: "5.0.0",
+    members: subjects.map((subject, ordinal) => ({
+      ordinal,
+      memberRef:
+        `fan-out-member://abiogenesis/conservation/${ordinal}/${encodeURIComponent(subject)}`,
+      value: {
+        kind: "fan_out_hello_member_input",
+        schemaVersion: "5.0.0",
+        block: ordinal === blockedOrdinal,
+        subject,
+      },
+    })),
   };
 }
 
@@ -441,7 +467,59 @@ const matrix = [
       event.kind === "c_call_opened" ||
       event.kind === "child_foldback_admitted"), false);
   }),
-  open("consequence_route", "graph_span_reentry", "declared re-entry target", "admitted span/vector re-entry without false closure"),
+  proven("consequence_route", "graph_span_reentry", {
+    gtlExpression: "fan_out over one admitted vector followed by fan_in over its complete output vector",
+    hogPath: "serial C.batch tasks re-enter the exact materialized member span; only complete truth enters the reducer",
+    abgEvidence: "fan_out_completion_admitted records either one complete ordered vector or one partial-stop census",
+    publicOutcome: "complete input closes through one reducer; partial stop blocks without a vector or reducer GraphCall",
+    invalidMutation: "reordered input cannot validate against the materialized graph and a stopped task cannot fabricate fan-in",
+  }, ({ fanOut, fanOutPartial }) => {
+    assertSuccessfulInstalled(fanOut);
+    const completion = fanOut.events.find(
+      (event) =>
+        event.kind === "fan_out_completion_admitted" &&
+        event.payload.completionKind === "complete_vector",
+    );
+    const reducer = fanOut.events.find(
+      (event) =>
+        event.kind === "graph_call_opened" &&
+        event.graphFunctionRef === FAN_IN_REDUCER_REF,
+    );
+    assert.notEqual(completion, undefined);
+    assert.notEqual(reducer, undefined);
+    assert.deepEqual(
+      completion.payload.outputVector.members.map((member) => member.ordinal),
+      [0, 1, 2],
+    );
+    assert.equal(completion.admissionOrdinal < reducer.admissionOrdinal, true);
+
+    assert.equal(fanOutPartial.run.exitCode, 2, fanOutPartial.run.stdout);
+    assert.equal(fanOutPartial.run.outcomes[5].disposition, "blocked");
+    const partial = fanOutPartial.events.find(
+      (event) =>
+        event.kind === "fan_out_completion_admitted" &&
+        event.payload.completionKind === "partial_stop",
+    );
+    assert.notEqual(partial, undefined);
+    assert.deepEqual(
+      partial.payload.completedRows.map((row) => row.ordinal),
+      [0],
+    );
+    assert.equal(partial.payload.stoppingRow.ordinal, 1);
+    assert.deepEqual(
+      partial.payload.unstartedRows.map((row) => row.ordinal),
+      [2],
+    );
+    assert.equal(Object.hasOwn(partial.payload, "outputVector"), false);
+    assert.equal(
+      fanOutPartial.events.some(
+        (event) =>
+          event.kind === "graph_call_opened" &&
+          event.graphFunctionRef === FAN_IN_REDUCER_REF,
+      ),
+      false,
+    );
+  }),
   open("consequence_route", "public_start_reentry", "published start or continuation target", "durable public start/continue semantics"),
   open("consequence_route", "ticket_traversal", "ticket-owning GraphFunction or program", "product-declared ticket traversal through the public path"),
   open("consequence_route", "fh_input_required", "declared F_H hold route", "typed human hold and attributed response admission"),
@@ -571,8 +649,8 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 20);
-  assert.equal(matrix.filter((row) => row.status === "open").length, 20);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 21);
+  assert.equal(matrix.filter((row) => row.status === "open").length, 19);
   for (const row of matrix) {
     for (const field of [
       "witness46",
@@ -646,6 +724,30 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
       },
     },
   );
+  const fanOut = await runScenario(harness, "matrix-fan-out", {
+    programRef: FAN_OUT_PROGRAM_REF,
+    graphFunctionRef: FAN_OUT_GRAPH_FUNCTION_REF,
+    allowlist: [
+      FAN_OUT_GRAPH_FUNCTION_REF,
+      FAN_OUT_ELEMENT_REF,
+      FAN_IN_REDUCER_REF,
+    ],
+    input: fanOutInput(["Alpha", "Beta", "Gamma"]),
+  });
+  const fanOutPartial = await runScenario(
+    harness,
+    "matrix-fan-out-partial",
+    {
+      programRef: FAN_OUT_PROGRAM_REF,
+      graphFunctionRef: FAN_OUT_GRAPH_FUNCTION_REF,
+      allowlist: [
+        FAN_OUT_GRAPH_FUNCTION_REF,
+        FAN_OUT_ELEMENT_REF,
+        FAN_IN_REDUCER_REF,
+      ],
+      input: fanOutInput(["Alpha", "Beta", "Gamma"], 1),
+    },
+  );
   const fp = await runScenario(harness, "matrix-fp", {
     programRef: FP_PROGRAM_REF,
     graphFunctionRef: FP_GRAPH_FUNCTION_REF,
@@ -710,6 +812,8 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     gateBlocked,
     recursion,
     recursionBound,
+    fanOut,
+    fanOutPartial,
     fp,
     malformedFp,
     retry,

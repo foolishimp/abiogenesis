@@ -226,6 +226,7 @@ function hasExactApplicationShape(
     case "fan_out":
       return hasExactKeys(application, [
         ...base,
+        "batchRef",
         "elementGraphFunctionRef",
         "inputMemberContractRef",
         "inputVectorRef",
@@ -939,21 +940,55 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       }
       if (application.relationKind === "fan_out") {
         const element = referencedByRef.get(application.elementGraphFunctionRef);
+        const batches = graphFunction.template.nodes.flatMap((node) => {
+          const found: CProgramNode[] = [];
+          const visit = (term: Readonly<CProgramNode>): void => {
+            if (term.kind === "c_batch") found.push(term);
+            if (term.kind === "c_compose") term.terms.forEach(visit);
+            if (term.kind === "c_edge") {
+              visit(term.transform);
+              visit(term.evaluate);
+              visit(term.consequence);
+            }
+            if (term.kind === "c_batch") term.tasks.forEach(visit);
+            if (term.kind === "c_retry") visit(term.term);
+          };
+          visit(node.term);
+          return found.filter((term) =>
+            term.kind === "c_batch" && term.batchRef === application.batchRef);
+        });
+        const batch = batches.length === 1 && batches[0]?.kind === "c_batch"
+          ? batches[0]
+          : undefined;
         if (
           element === undefined ||
           !element.inputs.includes(application.inputMemberContractRef) ||
-          !element.outputs.includes(application.outputMemberContractRef)
+          !element.outputs.includes(application.outputMemberContractRef) ||
+          batch === undefined ||
+          batch.inputCarrierRef !== application.inputVectorRef ||
+          batch.outputCarrierRef !== application.outputVectorRef ||
+          batch.taskInputCarrierRef !== application.inputMemberContractRef ||
+          batch.taskOutputCarrierRef !== application.outputMemberContractRef ||
+          batch.tasks.length !== 1 ||
+          batch.tasks[0]?.kind !== "c_workflow" ||
+          batch.tasks[0].graphFunctionRef !==
+            application.elementGraphFunctionRef
         ) {
           diagnostics.push({
             code: "carrier_mismatch",
             path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
-            message: "fan-out member contracts must match the declared element GraphFunction",
+            message:
+              "fan-out must bind one exact vector/member C.batch seed and declared element GraphFunction",
           });
         }
       }
       if (application.relationKind === "fan_in") {
         const reducer = referencedByRef.get(application.reducerGraphFunctionRef);
-        if (reducer === undefined || !reducer.outputs.includes(application.outputContractRef)) {
+        if (
+          reducer === undefined ||
+          !reducer.inputs.includes(application.inputVectorRef) ||
+          !reducer.outputs.includes(application.outputContractRef)
+        ) {
           diagnostics.push({
             code: "carrier_mismatch",
             path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,

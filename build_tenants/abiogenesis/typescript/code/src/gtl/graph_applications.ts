@@ -175,6 +175,7 @@ export function recursionTerminationDecision(
 export function fanOutApplication(
   input: ApplicationInput<FanOutApplication>,
 ): FanOutApplication {
+  requireRef(input.batchRef, "batchRef");
   requireRef(input.elementGraphFunctionRef, "elementGraphFunctionRef");
   requireRef(input.inputVectorRef, "inputVectorRef");
   requireRef(input.outputVectorRef, "outputVectorRef");

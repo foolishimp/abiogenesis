@@ -9,6 +9,7 @@ import * as validator from "../validator/index.js";
 import type {
   BoundedRecursionState,
   CatalogContribution,
+  FanOutHelloVectorInput,
   FpHelloInstruction,
   GtlProgram,
   HelloWorldInput,
@@ -662,7 +663,10 @@ async function applyRunInvoke(
   }
   const inputContractRef = graphFunction.inputs[0]!;
   let admittedInput: Readonly<
-    BoundedRecursionState | HelloWorldInput | FpHelloInstruction
+    BoundedRecursionState |
+    FanOutHelloVectorInput |
+    HelloWorldInput |
+    FpHelloInstruction
   >;
   if (inputContractRef === gtl.HELLO_WORLD_IDS.inputContractRef) {
     if (!gtl.isHelloWorldInput(inputValue)) {
@@ -695,6 +699,26 @@ async function applyRunInvoke(
       inputValue.remaining,
       inputValue.blockedChildRemaining,
     );
+  } else if (
+    inputContractRef === gtl.FAN_OUT_HELLO_IDS.inputVectorRef
+  ) {
+    if (!gtl.isFanOutHelloVectorInput(inputValue)) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "run.invoke fan-out input is contract-invalid",
+      );
+    }
+    const blocked = inputValue.members.filter((member) => member.value.block);
+    if (blocked.length > 1) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "run.invoke fan-out conformance input permits at most one stopping member",
+      );
+    }
+    admittedInput = gtl.constructFanOutHelloInput(
+      inputValue.members.map((member) => member.value.subject),
+      blocked[0]?.ordinal ?? null,
+    );
   } else {
     throw new ApplicationRefusal(
       "target_mismatch",
@@ -702,7 +726,10 @@ async function applyRunInvoke(
     );
   }
   const rawInput = rawAdmission<
-    BoundedRecursionState | HelloWorldInput | FpHelloInstruction
+    BoundedRecursionState |
+    FanOutHelloVectorInput |
+    HelloWorldInput |
+    FpHelloInstruction
   >(
     admittedInput,
     "invocation_input",
@@ -796,6 +823,9 @@ async function applyRunInvoke(
     invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
     admittedInputRef: rawInput.admissionRef,
     admittedInputDigest: rawInput.subjectDigest,
+    admittedInput: rawInput.value as unknown as Readonly<
+      Record<string, product.JsonValue>
+    >,
   });
   const graphValidation = validator.validateGraph(
     graph,
@@ -805,6 +835,9 @@ async function applyRunInvoke(
       invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
       admittedInputRef: rawInput.admissionRef,
       admittedInputDigest: rawInput.subjectDigest,
+      admittedInput: rawInput.value as unknown as Readonly<
+        Record<string, product.JsonValue>
+      >,
     },
   );
   if (graphValidation.kind !== "graph_validation") {

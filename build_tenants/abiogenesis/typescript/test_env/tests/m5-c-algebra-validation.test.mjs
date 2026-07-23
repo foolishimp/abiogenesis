@@ -482,6 +482,7 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
     }),
     gtl.fanOutApplication({
       ...base,
+      batchRef: "c-batch://m5/application",
       elementGraphFunctionRef: "graph-function://m5/element",
       inputVectorRef: "graph-vector://m5/input",
       outputVectorRef: "graph-vector://m5/output",
@@ -894,6 +895,70 @@ test("M5 whole-program validation binds gate law to published Rule and Evaluator
     true,
     JSON.stringify(divergentResult),
   );
+});
+
+test("M5 fan-out materialization derives one exact task per admitted input member", () => {
+  const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === gtl.FAN_OUT_HELLO_IDS.programRef,
+  );
+  const graphFunction = publication.graphFunctions.find(
+    (candidate) =>
+      candidate.name === gtl.FAN_OUT_HELLO_IDS.graphFunctionRef,
+  );
+  assert.notEqual(program, undefined);
+  assert.notEqual(graphFunction, undefined);
+  const programValidation = programValidationResult(publication, program);
+  assert.equal(
+    programValidation.kind,
+    "program_validation",
+    JSON.stringify(programValidation),
+  );
+  const admittedInput = gtl.constructFanOutHelloInput([
+    "Alpha",
+    "Beta",
+    "Gamma",
+  ]);
+  const basis = {
+    invocationAdmissionRef: "invocation-admission://m5/fan-out",
+    admittedInputRef: "raw-input-admission://m5/fan-out",
+    admittedInputDigest: product.sha256Canonical(admittedInput),
+    admittedInput,
+  };
+  const graph = gtl.materializeGraph(graphFunction, basis);
+  const materialization = graph.fanOutMaterializations[0];
+  assert.notEqual(materialization, undefined);
+  assert.equal(materialization.members.length, 3);
+  assert.deepEqual(
+    materialization.members.map((member) => member.ordinal),
+    [0, 1, 2],
+  );
+  const batch = graph.template.nodes[0].term.terms[0];
+  assert.equal(batch.kind, "c_batch");
+  assert.equal(batch.tasks.length, 3);
+  assert.equal(
+    validator.validateGraph(
+      graph,
+      programValidation,
+      graphFunction,
+      basis,
+    ).kind,
+    "graph_validation",
+  );
+
+  const alteredInput = structuredClone(admittedInput);
+  [alteredInput.members[0], alteredInput.members[1]] = [
+    alteredInput.members[1],
+    alteredInput.members[0],
+  ];
+  const refusal = validator.validateGraph(
+    graph,
+    programValidation,
+    graphFunction,
+    { ...basis, admittedInput: alteredInput },
+  );
+  assert.equal(refusal.kind, "static_validation_refusal");
+  assert.equal(refusal.diagnostics[0].code, "topology_mismatch");
 });
 
 test("M5 native GraphFunction composition materializes source GTL without a second executable carrier", () => {

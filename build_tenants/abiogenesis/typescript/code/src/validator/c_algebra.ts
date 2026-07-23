@@ -387,10 +387,22 @@ function inspectTerm(
         "kind",
         "inputCarrierRef",
         "outputCarrierRef",
+        "taskInputCarrierRef",
+        "taskOutputCarrierRef",
         "batchRef",
         "tasks",
       ], path, diagnostics);
       const valid = carrierPair(value, path, diagnostics) &&
+        nonEmptyString(
+          value.taskInputCarrierRef,
+          `${path}.taskInputCarrierRef`,
+          diagnostics,
+        ) &&
+        nonEmptyString(
+          value.taskOutputCarrierRef,
+          `${path}.taskOutputCarrierRef`,
+          diagnostics,
+        ) &&
         nonEmptyString(value.batchRef, `${path}.batchRef`, diagnostics);
       if (!Array.isArray(value.tasks) || value.tasks.length === 0) {
         diagnostics.push(diagnostic(
@@ -406,13 +418,13 @@ function inspectTerm(
       const admittedTasks = tasks as readonly CProgramNode[];
       const head = admittedTasks[0]!;
       if (admittedTasks.some((task) =>
-        task.inputCarrierRef !== value.inputCarrierRef ||
-        task.outputCarrierRef !== value.outputCarrierRef ||
+        task.inputCarrierRef !== value.taskInputCarrierRef ||
+        task.outputCarrierRef !== value.taskOutputCarrierRef ||
         cTermResultCardinality(task) !== cTermResultCardinality(head))) {
         diagnostics.push(diagnostic(
           "invalid_result_cardinality",
           path,
-          "C.batch tasks must preserve one carrier pair and equal per-task result cardinality",
+          "C.batch tasks must preserve the declared member carrier pair and equal per-task result cardinality",
         ));
       }
       return value as unknown as CProgramNode;

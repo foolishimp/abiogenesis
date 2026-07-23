@@ -88,6 +88,8 @@ export interface CBatchNode {
   readonly kind: "c_batch";
   readonly inputCarrierRef: string;
   readonly outputCarrierRef: string;
+  readonly taskInputCarrierRef: string;
+  readonly taskOutputCarrierRef: string;
   readonly batchRef: string;
   readonly tasks: readonly CProgramNode[];
 }
@@ -273,6 +275,12 @@ export function cTermResultCardinality(term: CProgramNode): CResultCardinality {
     case "c_workflow":
       return "one";
     case "c_batch":
+      if (
+        term.inputCarrierRef !== term.taskInputCarrierRef ||
+        term.outputCarrierRef !== term.taskOutputCarrierRef
+      ) {
+        return "zero";
+      }
       return term.tasks[0] === undefined ? "zero" : cTermResultCardinality(term.tasks[0]);
     case "c_retry":
       return cTermResultCardinality(term.term);
@@ -512,17 +520,27 @@ export function cWorkflow<Input, Output>(
 }
 
 export function cBatch<
-  Input,
-  Output,
-  First extends CProgramTerm<Input, Output>,
-  Rest extends readonly CProgramTerm<Input, Output>[],
+  TaskInput,
+  TaskOutput,
+  First extends CProgramTerm<TaskInput, TaskOutput>,
+  Rest extends readonly CProgramTerm<TaskInput, TaskOutput>[],
+  Input = TaskInput,
+  Output = TaskOutput,
 >(
   tasks: readonly [First, ...Rest],
   batchRef: string,
+  outerCarriers?: Readonly<{
+    readonly input: CCarrier<Input>;
+    readonly output: CCarrier<Output>;
+  }>,
 ): CProgramTerm<Input, Output, CRoleOf<First | Rest[number]>, CCardinalityOf<First>> {
   if (tasks.length === 0) throw new TypeError("C.batch tasks must be non-empty");
   const head = tasks[0];
   assertTerm(head, "C.batch tasks[0]");
+  if (outerCarriers !== undefined) {
+    assertCarrier(outerCarriers.input, "C.batch outer input carrier");
+    assertCarrier(outerCarriers.output, "C.batch outer output carrier");
+  }
   const headCardinality = cTermResultCardinality(head);
   for (const [index, task] of tasks.entries()) {
     assertTerm(task, `C.batch tasks[${index}]`);
@@ -539,8 +557,10 @@ export function cBatch<
   return freezeTerm(
     {
       kind: "c_batch",
-      inputCarrierRef: head.inputCarrierRef,
-      outputCarrierRef: head.outputCarrierRef,
+      inputCarrierRef: outerCarriers?.input.ref ?? head.inputCarrierRef,
+      outputCarrierRef: outerCarriers?.output.ref ?? head.outputCarrierRef,
+      taskInputCarrierRef: head.inputCarrierRef,
+      taskOutputCarrierRef: head.outputCarrierRef,
       batchRef: requireRef(batchRef, "C.batch batchRef"),
       tasks: [...tasks],
     },

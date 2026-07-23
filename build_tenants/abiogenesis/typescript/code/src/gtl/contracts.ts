@@ -46,6 +46,53 @@ export interface BoundedRecursionState {
   readonly trace: readonly number[];
 }
 
+export interface FanOutHelloMemberInput {
+  readonly kind: "fan_out_hello_member_input";
+  readonly schemaVersion: "5.0.0";
+  readonly block: boolean;
+  readonly subject: string;
+}
+
+export interface FanOutHelloMemberOutput {
+  readonly kind: "fan_out_hello_member_output";
+  readonly schemaVersion: "5.0.0";
+  readonly message: string;
+  readonly subject: string;
+}
+
+export interface FanOutHelloInputMember {
+  readonly ordinal: number;
+  readonly memberRef: string;
+  readonly value: FanOutHelloMemberInput;
+}
+
+export interface FanOutHelloVectorInput {
+  readonly kind: "fan_out_hello_vector_input";
+  readonly schemaVersion: "5.0.0";
+  readonly members: readonly FanOutHelloInputMember[];
+}
+
+export interface FanOutHelloOutputMember {
+  readonly ordinal: number;
+  readonly inputMemberRef: string;
+  readonly outputMemberRef: string;
+  readonly value: FanOutHelloMemberOutput;
+}
+
+export interface FanOutHelloVectorOutput {
+  readonly kind: "gtl_fan_out_vector";
+  readonly schemaVersion: "5.0.0";
+  readonly applicationRef: string;
+  readonly members: readonly FanOutHelloOutputMember[];
+}
+
+export interface FanOutHelloSummary {
+  readonly kind: "fan_out_hello_summary";
+  readonly schemaVersion: "5.0.0";
+  readonly count: number;
+  readonly messages: readonly string[];
+}
+
 export interface FpHelloInstruction {
   readonly kind: "fp_hello_instruction";
   readonly schemaVersion: "5.0.0";
@@ -141,6 +188,7 @@ export interface RecurseApplication extends GraphFunctionApplicationBase {
 
 export interface FanOutApplication extends GraphFunctionApplicationBase {
   readonly relationKind: "fan_out";
+  readonly batchRef: string;
   readonly elementGraphFunctionRef: string;
   readonly inputVectorRef: string;
   readonly outputVectorRef: string;
@@ -204,6 +252,24 @@ export interface GraphMaterializationBasis {
   readonly invocationAdmissionRef: string;
   readonly admittedInputRef: string;
   readonly admittedInputDigest: Sha256Digest;
+  readonly admittedInput: Readonly<Record<string, JsonValue>>;
+}
+
+export interface FanOutMaterializedMember {
+  readonly ordinal: number;
+  readonly memberRef: string;
+  readonly memberDigest: Sha256Digest;
+  readonly value: Readonly<Record<string, JsonValue>>;
+}
+
+export interface FanOutMaterialization {
+  readonly applicationRef: string;
+  readonly batchRef: string;
+  readonly inputVectorRef: string;
+  readonly outputVectorRef: string;
+  readonly inputMemberContractRef: string;
+  readonly outputMemberContractRef: string;
+  readonly members: readonly FanOutMaterializedMember[];
 }
 
 export interface GtlGraph {
@@ -216,6 +282,7 @@ export interface GtlGraph {
   readonly invocationAdmissionRef: string;
   readonly admittedInputRef: string;
   readonly admittedInputDigest: Sha256Digest;
+  readonly fanOutMaterializations: readonly FanOutMaterialization[];
   readonly template: GraphTemplate;
 }
 

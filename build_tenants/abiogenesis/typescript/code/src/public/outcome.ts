@@ -67,6 +67,8 @@ const TRANSIENT_LIFECYCLE_FLUENT_PREFIXES = Object.freeze([
   "c_call_active(",
   "parent_waiting_on_child(",
   "child_foldback_available(",
+  "fan_out_vector_available(",
+  "fan_out_partial_stop_available(",
   "terminal_route_available(",
 ]);
 

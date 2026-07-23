@@ -248,6 +248,23 @@ function createTraversalStep(
   return step;
 }
 
+function fanOutTaskInput(
+  graph: Readonly<GtlGraph>,
+  batchRef: string,
+  taskOrdinal: number,
+): TraversalInputBasis | null {
+  const materialization = graph.fanOutMaterializations.find(
+    (candidate) => candidate.batchRef === batchRef,
+  );
+  const member = materialization?.members[taskOrdinal];
+  return member === undefined
+    ? null
+    : {
+        inputRef: member.memberRef,
+        inputDigest: member.memberDigest,
+      };
+}
+
 export function deriveTraversalStep(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursor,
@@ -273,7 +290,14 @@ export function deriveTraversalStep(
   if (directStep.kind === "direct_c_traversal_refusal") {
     return refusal("locus_missing", directStep.message);
   }
-  return createTraversalStep(sourceCursor, directStep);
+  const targetInput = directStep.stepKind === "start_task"
+    ? fanOutTaskInput(
+        graph,
+        directStep.batchRef,
+        directStep.target.taskOrdinal ?? -1,
+      ) ?? sourceCursor
+    : sourceCursor;
+  return createTraversalStep(sourceCursor, directStep, targetInput);
 }
 
 export function deriveCompletedTraversalStep(
@@ -302,10 +326,24 @@ export function deriveCompletedTraversalStep(
   if (directStep.kind === "direct_c_traversal_refusal") {
     return refusal("locus_missing", directStep.message);
   }
-  const targetInput = directStep.stepKind === "continue_term" &&
-      directStep.relation === "batch_next"
-    ? sourceCursor
-    : completedInput;
+  let targetInput = completedInput;
+  if (
+    directStep.stepKind === "continue_term" &&
+    directStep.relation === "batch_next"
+  ) {
+    const batchRef = resolveEnclosingCBatchRef(
+      graph.template,
+      sourceCursor.currentNodeRef,
+      sourceCursor.termPath,
+    );
+    targetInput = typeof batchRef !== "string"
+      ? sourceCursor
+      : fanOutTaskInput(
+          graph,
+          batchRef,
+          directStep.target.taskOrdinal ?? -1,
+        ) ?? sourceCursor;
+  }
   return createTraversalStep(sourceCursor, directStep, targetInput);
 }
 

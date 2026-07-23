@@ -129,6 +129,7 @@ export interface WorkflowCCallProposal {
   readonly childGraphFunctionRef: string;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
+  readonly failureContractRef: string;
   readonly judgmentPredicateRef: string;
 }
 
@@ -1266,6 +1267,7 @@ export function openCCall(
 export function openWorkflowCCall(
   store: AbgEventStore,
   executionBasis: ExecutionBasis,
+  implementationSet: AdmittedImplementationSet,
   scope: OpenedTraversalScope,
   program: Readonly<GtlProgram>,
   graphFunction: Readonly<GraphFunction>,
@@ -1294,7 +1296,19 @@ export function openWorkflowCCall(
     cursor.currentNodeRef,
     cursor.termPath,
   );
+  const childFailureContractRefs = new Set(
+    implementationSet.rows
+      .filter((row) => row.graphFunctionRef === proposal.childGraphFunctionRef)
+      .map((row) => row.failureContractRef),
+  );
   if (
+    !hasAdmittedImplementationSet(store, implementationSet) ||
+    implementationSet.implementationSetRef !==
+      executionBasis.rootImplementationSetRef ||
+    implementationSet.implementationSetDigest !==
+      executionBasis.rootImplementationSetDigest ||
+    childFailureContractRefs.size !== 1 ||
+    !childFailureContractRefs.has(proposal.failureContractRef) ||
     proposal.kind !== "workflow_c_call_proposal" ||
     proposal.schemaVersion !== "5.0.0" ||
     proposal.traversalScopeRef !== scope.scopeRef ||
@@ -1346,6 +1360,7 @@ export function openWorkflowCCall(
     programLocusRef,
     retryPath: cursor.retryPath,
     childGraphFunctionRef: proposal.childGraphFunctionRef,
+    failureContractRef: proposal.failureContractRef,
   };
   const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
   const cCallRef = `c-call:${cCallDigest}`;
@@ -1366,6 +1381,7 @@ export function openWorkflowCCall(
     programLocusRef,
     retryPath: cursor.retryPath,
     childGraphFunctionRef: proposal.childGraphFunctionRef,
+    failureContractRef: proposal.failureContractRef,
   };
   const fibreBody = {
     cCallRef,
@@ -1448,7 +1464,7 @@ export function openWorkflowCCall(
     childGraphFunctionRef: proposal.childGraphFunctionRef,
     inputContractRef: proposal.inputContractRef,
     outputContractRef: proposal.outputContractRef,
-    failureContractRef: executionBasis.refusalContractRef,
+    failureContractRef: proposal.failureContractRef,
     refusalContractRef: executionBasis.refusalContractRef,
     refusalValueKind: executionBasis.refusalValueKind,
     evidenceContractRef: executionBasis.evidenceContractRef,

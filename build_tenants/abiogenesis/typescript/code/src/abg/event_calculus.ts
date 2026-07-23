@@ -141,6 +141,10 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: ["child_preparation_refused"],
     terminates: ["parent_waiting_on_child"], clips: [], declips: [],
   },
+  fan_out_completion_admitted: {
+    initiates: ["fan_out_completion_available"],
+    terminates: [], clips: [], declips: [],
+  },
   traversal_route_admitted: {
     initiates: [],
     terminates: ["locus_active"], clips: [], declips: [],
@@ -223,6 +227,12 @@ function consumedAvailabilityFluents(ref: string): readonly string[] {
   }
   if (ref.startsWith("retry-progress://")) {
     return [fluent("retry_progress_available", ref)];
+  }
+  if (ref.startsWith("graph-function-application://")) {
+    return [
+      fluent("fan_out_vector_available", ref),
+      fluent("fan_out_partial_stop_available", ref),
+    ];
   }
   return [];
 }
@@ -360,6 +370,22 @@ export function eventCalculusEffect(
         initiates: refusalRef === null
           ? []
           : [fluent("child_preparation_refused", refusalRef)],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "fan_out_completion_admitted": {
+      const applicationRef = stringField(event, "applicationRef");
+      const completionKind = stringField(event, "completionKind");
+      return {
+        initiates: applicationRef === null
+          ? []
+          : completionKind === "complete_vector"
+            ? [fluent("fan_out_vector_available", applicationRef)]
+            : completionKind === "partial_stop"
+              ? [fluent("fan_out_partial_stop_available", applicationRef)]
+              : [],
         terminates: [],
         clips: [],
         declips: [],
