@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_parent_implementation_active
-- review_status: bounded_graph_recursion_repair_ready_for_review_0ed75e8f
-- proof_status: m4_26_green_m5_58_green_conservation_20_of_40_s02_open
+- review_status: bounded_graph_recursion_scope_repair_ready_for_review_dea47b7c
+- proof_status: m4_26_green_m5_59_green_conservation_20_of_40_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -551,6 +551,39 @@ Product content digest
 and manifest digest
 `sha256:e8472a350ff69e15105d6818d5e33a3099d77bdc154b3f28e4af78cfde40638f`.
 Fan-out/fan-in remains the next frontier and was not started by this repair.
+
+Follow-up repair commit `dea47b7c19341c8610630c07af024b849589b091`
+closes the three remaining recursion-lifecycle findings without starting the
+next frontier:
+
+- closure contracts now discriminate complete Run closure from nested
+  GraphCall closure; each child names an explicit GraphCall-scope contract
+  containing exactly
+  `terminal_reached -> frame_closed -> graph_call_closed`, while the root alone
+  names `run_closed`;
+- static validation, child-basis admission, and closure admission reject a
+  missing, mismatched, or root-scoped child closure contract;
+- stopped child foldback terminates the exact child active, blocked, and failed
+  Frame fluents plus the child GraphCall fluent; the public and installed proof
+  lifecycle census now includes blocked and failed Frame state; and
+- `parent_waiting_on_child` is initiated and terminated by child GraphCall
+  identity, so sibling waits cannot collapse through their shared parent
+  Frame.
+
+The first complete M5 run correctly exposed that workflow and gate children
+still declared the root Hello World closure contract. Their GTL declarations
+were repaired to name the shared GraphCall-scope child contract rather than
+weakening child admission.
+
+Fresh serialized verification is `test:m5` `59/59`, retained `test:m4`
+`26/26`, and conservation `20/40` with `20` explicit gaps. Two independent
+packs reproduce artifact SHA-256
+`1dbd11d16ab24c02fa1783eaa14af9c9a72398d2f4d777dcae9cbcb7ed2b66ac`,
+Product content digest
+`sha256:897009bee8bb7da013d3eb9d4f32b51e97ebe6a3e55b5bd2b04df359018d132f`,
+and manifest digest
+`sha256:974acba36c4fd1376b6a4c60f343c979fcc4703d6f913e0552d6d81565eacaf6`.
+Fan-out/fan-in remains paused pending bounded review of this exact repair.
 
 ## 4.6 Conservation
 

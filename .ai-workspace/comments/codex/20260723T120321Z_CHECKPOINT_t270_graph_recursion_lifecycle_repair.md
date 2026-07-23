@@ -2,8 +2,9 @@
 
 ## Status
 
-Ready for bounded review at implementation commit
-`0ed75e8f27c551451cf6998d24ccce9f4ccfccab`.
+Superseded after follow-up review by
+`.ai-workspace/comments/codex/20260723T135243Z_CHECKPOINT_t270_graph_recursion_scope_repair.md`
+at implementation commit `dea47b7c19341c8610630c07af024b849589b091`.
 
 ## Review Disposition
 
