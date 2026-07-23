@@ -675,6 +675,130 @@ test("M5 native GraphFunction composition materializes source GTL without a seco
   );
 });
 
+test("M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL", () => {
+  const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
+  const parentProgram = publication.programs.find(
+    (candidate) => candidate.programRef === gtl.SUBSTITUTED_HELLO_IDS.programRef,
+  );
+  const parent = publication.graphFunctions.find(
+    (candidate) => candidate.name === gtl.SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+  );
+  const outer = publication.graphFunctions.find(
+    (candidate) => candidate.name === gtl.GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
+  );
+  const inner = publication.graphFunctions.find(
+    (candidate) => candidate.name === gtl.SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef,
+  );
+  assert.notEqual(parentProgram, undefined);
+  assert.notEqual(parent, undefined);
+  assert.notEqual(outer, undefined);
+  assert.notEqual(inner, undefined);
+
+  const application = parent.template.applications.find(
+    (candidate) => candidate.relationKind === "substitute",
+  );
+  assert.notEqual(application, undefined);
+  assert.equal(application.outerGraphFunctionRef, outer.name);
+  assert.equal(application.innerGraphFunctionRef, inner.name);
+  assert.equal(application.targetVectorRef, outer.template.edges[0].edgeRef);
+  assert.equal(application.applicationRef, gtl.graphFunctionApplicationRef(application));
+  assert.deepEqual(parentProgram.callableMembership, [parent.name]);
+  assert.deepEqual(parent.inputs, outer.inputs);
+  assert.deepEqual(parent.outputs, outer.outputs);
+  assert.deepEqual(parent.template.nodes.map((node) => node.nodeRef), [
+    gtl.GRAPH_EDGE_HELLO_IDS.normalizeNodeRef,
+    gtl.GRAPH_EDGE_HELLO_IDS.renderNodeRef,
+    gtl.SUBSTITUTED_HELLO_IDS.innerNodeRef,
+  ]);
+  assert.equal(
+    parent.template.edges.some((edge) => edge.edgeRef === application.targetVectorRef),
+    false,
+  );
+  assert.deepEqual(
+    parent.template.edges.map((edge) => [edge.fromNodeRef, edge.toNodeRef]),
+    [
+      [gtl.GRAPH_EDGE_HELLO_IDS.normalizeNodeRef, gtl.SUBSTITUTED_HELLO_IDS.innerNodeRef],
+      [gtl.SUBSTITUTED_HELLO_IDS.innerNodeRef, gtl.GRAPH_EDGE_HELLO_IDS.renderNodeRef],
+    ],
+  );
+  assert.equal(inner.template.nodes[0].term.resultBearing, true);
+  assert.equal(parent.template.nodes[2].term.resultBearing, false);
+  assert.equal(parent.template.nodes[2].term.compositionRef, application.applicationRef);
+  assert.equal(outer.template.nodes[0].term.resultBearing, false);
+  assert.equal(parent.template.nodes[0].term.resultBearing, false);
+  assert.equal(parent.template.nodes[1].term.resultBearing, true);
+  assert.match(parent.template.graphRef, /^graph:\/\/abiogenesis\/substituted\//u);
+  assert.equal(Object.isFrozen(parent), true);
+  assert.equal(programValidationResult(publication, parentProgram).kind, "program_validation");
+
+  assert.throws(
+    () => gtl.substituteGraphFunction({
+      name: "graph-function://m5/missing-substitute",
+      outer,
+      targetVectorRef: "graph-vector://m5/missing",
+      inner,
+    }),
+    /identify exactly one outer graph edge/u,
+  );
+  const mismatchedInner = structuredClone(inner);
+  mismatchedInner.inputs = [gtl.HELLO_WORLD_IDS.inputContractRef];
+  assert.throws(
+    () => gtl.substituteGraphFunction({
+      name: "graph-function://m5/mismatched-substitute",
+      outer,
+      targetVectorRef: outer.template.edges[0].edgeRef,
+      inner: mismatchedInner,
+    }),
+    /exactly join the target vector endpoints/u,
+  );
+  const ungroundedInner = structuredClone(inner);
+  ungroundedInner.environment.requires.push("binding://m5/ambient-substitute");
+  assert.throws(
+    () => gtl.substituteGraphFunction({
+      name: "graph-function://m5/ungrounded-substitute",
+      outer,
+      targetVectorRef: outer.template.edges[0].edgeRef,
+      inner: ungroundedInner,
+    }),
+    /environment requires a binding absent/u,
+  );
+  const duplicateInner = structuredClone(inner);
+  duplicateInner.template.nodes[0].nodeRef = outer.template.nodes[0].nodeRef;
+  duplicateInner.template.startNodeRef = outer.template.nodes[0].nodeRef;
+  duplicateInner.template.terminalNodeRefs = [outer.template.nodes[0].nodeRef];
+  assert.throws(
+    () => gtl.substituteGraphFunction({
+      name: "graph-function://m5/duplicate-substitute",
+      outer,
+      targetVectorRef: outer.template.edges[0].edgeRef,
+      inner: duplicateInner,
+    }),
+    /duplicate graph node identity/u,
+  );
+
+  const forged = structuredClone(publication);
+  const forgedParent = forged.graphFunctions.find(
+    (candidate) => candidate.name === gtl.SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+  );
+  const forgedApplication = forgedParent.template.applications.find(
+    (candidate) => candidate.relationKind === "substitute",
+  );
+  forgedApplication.targetVectorRef = "graph-vector://m5/missing";
+  forgedApplication.applicationRef = gtl.graphFunctionApplicationRef(forgedApplication);
+  const forgedResult = programValidationResult(
+    forged,
+    forged.programs.find(
+      (candidate) => candidate.programRef === gtl.SUBSTITUTED_HELLO_IDS.programRef,
+    ),
+  );
+  assert.equal(forgedResult.kind, "static_validation_refusal");
+  assert.equal(
+    forgedResult.diagnostics.some((row) => row.code === "carrier_mismatch"),
+    true,
+    JSON.stringify(forgedResult),
+  );
+});
+
 test("M5 whole-program validation refuses forged or widened graph-edge declarations", () => {
   const publication = structuredClone(
     gtl.constructHelloWorldModulePublication(artifactBasis()),

@@ -13,12 +13,20 @@ import type {
 import {
   composeApplication,
   graphEdge,
+  substituteApplication,
 } from "./graph_applications.js";
 
 export interface ComposeGraphFunctionsInput {
   readonly name: string;
   readonly left: Readonly<GraphFunction>;
   readonly right: Readonly<GraphFunction>;
+}
+
+export interface SubstituteGraphFunctionInput {
+  readonly name: string;
+  readonly outer: Readonly<GraphFunction>;
+  readonly targetVectorRef: string;
+  readonly inner: Readonly<GraphFunction>;
 }
 
 function requireRef(value: string, label: string): string {
@@ -33,11 +41,12 @@ function stableUnion(values: readonly (readonly string[])[]): readonly string[] 
 function mergeDeclarations(
   left: Readonly<Record<string, string>>,
   right: Readonly<Record<string, string>>,
+  relation: "compose" | "substitute",
 ): Readonly<Record<string, string>> {
   const merged: Record<string, string> = { ...left };
   for (const [key, value] of Object.entries(right)) {
     if (merged[key] !== undefined && merged[key] !== value) {
-      throw new TypeError(`compose GraphFunction declaration conflict at ${key}`);
+      throw new TypeError(`${relation} GraphFunction declaration conflict at ${key}`);
     }
     merged[key] = value;
   }
@@ -47,12 +56,15 @@ function mergeDeclarations(
 function graphNodeRefs(
   graphFunction: Readonly<GraphFunction>,
   label: string,
+  relation: "compose" | "substitute",
 ): ReadonlySet<string> {
   requireRef(graphFunction.name, `${label} GraphFunction name`);
   const refs = graphFunction.template.nodes.map((node) => node.nodeRef);
   const refSet = new Set(refs);
   if (refSet.size !== refs.length) {
-    throw new TypeError(`compose ${label} GraphFunction has duplicate node identities`);
+    throw new TypeError(
+      `${relation} ${label} GraphFunction has duplicate node identities`,
+    );
   }
   if (
     !refSet.has(graphFunction.template.startNodeRef) ||
@@ -62,7 +74,7 @@ function graphNodeRefs(
     graphFunction.template.terminalNodeRefs.some((ref) => !refSet.has(ref))
   ) {
     throw new TypeError(
-      `compose ${label} GraphFunction requires exact start and terminal nodes`,
+      `${relation} ${label} GraphFunction requires exact start and terminal nodes`,
     );
   }
   return refSet;
@@ -166,12 +178,11 @@ function rewriteNodes(
 
 function mergeApplications(
   application: GraphFunctionApplication,
-  left: Readonly<GraphFunction>,
-  right: Readonly<GraphFunction>,
+  sources: readonly Readonly<GraphFunction>[],
+  relation: "compose" | "substitute",
 ): readonly GraphFunctionApplication[] {
   const merged = [
-    ...left.template.applications,
-    ...right.template.applications,
+    ...sources.flatMap((source) => source.template.applications),
     application,
   ];
   const byRef = new Map<string, GraphFunctionApplication>();
@@ -183,7 +194,7 @@ function mergeApplications(
         canonicalJson(candidate as unknown as JsonValue)
     ) {
       throw new TypeError(
-        `compose application identity conflict at ${candidate.applicationRef}`,
+        `${relation} application identity conflict at ${candidate.applicationRef}`,
       );
     }
     byRef.set(candidate.applicationRef, candidate);
@@ -199,8 +210,8 @@ export function composeGraphFunctions(
   if (name === left.name || name === right.name) {
     throw new TypeError("composed GraphFunction requires a distinct identity");
   }
-  const leftNodeRefs = graphNodeRefs(left, "left");
-  graphNodeRefs(right, "right");
+  const leftNodeRefs = graphNodeRefs(left, "left", "compose");
+  graphNodeRefs(right, "right", "compose");
   if (
     left.inputs.length !== 1 ||
     left.outputs.length !== 1 ||
@@ -276,11 +287,157 @@ export function composeGraphFunctions(
         ...rewriteNodes(right, application.applicationRef, false),
       ],
       edges,
-      applications: mergeApplications(application, left, right),
+      applications: mergeApplications(application, [left, right], "compose"),
     },
     effects: stableUnion([left.effects, right.effects]),
-    declarations: mergeDeclarations(left.declarations, right.declarations),
+    declarations: mergeDeclarations(left.declarations, right.declarations, "compose"),
     tags: stableUnion([left.tags, right.tags]),
+  };
+  return deepFreeze(graphFunction) as Readonly<GraphFunction>;
+}
+
+export function substituteGraphFunction(
+  input: SubstituteGraphFunctionInput,
+): Readonly<GraphFunction> {
+  const name = requireRef(input.name, "substituted GraphFunction name");
+  const targetVectorRef = requireRef(input.targetVectorRef, "targetVectorRef");
+  const { outer, inner } = input;
+  if (name === outer.name || name === inner.name) {
+    throw new TypeError("substituted GraphFunction requires a distinct identity");
+  }
+  const outerNodeRefs = graphNodeRefs(outer, "outer", "substitute");
+  graphNodeRefs(inner, "inner", "substitute");
+  if (
+    outer.inputs.length !== 1 ||
+    outer.outputs.length !== 1 ||
+    inner.inputs.length !== 1 ||
+    inner.outputs.length !== 1
+  ) {
+    throw new TypeError(
+      "substitute currently requires one exact outer and inner interface",
+    );
+  }
+  const targetEdges = outer.template.edges.filter(
+    (edge) => edge.edgeRef === targetVectorRef,
+  );
+  if (targetEdges.length !== 1) {
+    throw new TypeError(
+      "substitute target vector must identify exactly one outer graph edge",
+    );
+  }
+  const targetEdge = targetEdges[0]!;
+  const sourceNode = outer.template.nodes.find(
+    (node) => node.nodeRef === targetEdge.fromNodeRef,
+  );
+  const targetNode = outer.template.nodes.find(
+    (node) => node.nodeRef === targetEdge.toNodeRef,
+  );
+  if (sourceNode === undefined || targetNode === undefined) {
+    throw new TypeError("substitute target vector endpoints must resolve in the outer graph");
+  }
+  if (
+    targetEdge.edgeRef !== graphEdge({
+      fromNodeRef: targetEdge.fromNodeRef,
+      toNodeRef: targetEdge.toNodeRef,
+    }).edgeRef
+  ) {
+    throw new TypeError("substitute target vector must have one canonical graph identity");
+  }
+  if (
+    sourceNode.term.outputCarrierRef !== inner.inputs[0] ||
+    inner.outputs[0] !== targetNode.term.inputCarrierRef
+  ) {
+    throw new TypeError(
+      "substitute inner interface must exactly join the target vector endpoints",
+    );
+  }
+  const availableAtTarget = new Set([
+    ...outer.environment.requires,
+    ...outer.environment.provides,
+    ...outer.environment.carries,
+    sourceNode.term.outputCarrierRef,
+  ]);
+  if (inner.environment.requires.some((ref) => !availableAtTarget.has(ref))) {
+    throw new TypeError(
+      "substitute inner environment requires a binding absent from the outer graph",
+    );
+  }
+  if (inner.template.nodes.some((node) => outerNodeRefs.has(node.nodeRef))) {
+    throw new TypeError("substitute operands contain a duplicate graph node identity");
+  }
+
+  const application = substituteApplication({
+    inputContractRef: outer.inputs[0]!,
+    outputContractRef: outer.outputs[0]!,
+    outerGraphFunctionRef: outer.name,
+    targetVectorRef,
+    innerGraphFunctionRef: inner.name,
+  });
+  const replacementEdges = [
+    graphEdge({
+      fromNodeRef: targetEdge.fromNodeRef,
+      toNodeRef: inner.template.startNodeRef,
+    }),
+    ...inner.template.terminalNodeRefs.map((fromNodeRef) =>
+      graphEdge({ fromNodeRef, toNodeRef: targetEdge.toNodeRef })),
+  ];
+  const edges = [
+    ...outer.template.edges.filter((edge) => edge.edgeRef !== targetVectorRef),
+    ...inner.template.edges,
+    ...replacementEdges,
+  ];
+  if (new Set(edges.map((edge) => edge.edgeRef)).size !== edges.length) {
+    throw new TypeError("substitute operands produce a duplicate graph edge identity");
+  }
+  const graphIdentity = {
+    name,
+    outerGraphRef: outer.template.graphRef,
+    targetVectorRef,
+    innerGraphRef: inner.template.graphRef,
+    applicationRef: application.applicationRef,
+  };
+  const graphDigest = sha256Canonical(graphIdentity as unknown as JsonValue);
+  const graphFunction = {
+    kind: "graph_function" as const,
+    name,
+    version: "5.0.0" as const,
+    environment: {
+      requires: [...outer.environment.requires],
+      provides: stableUnion([
+        outer.environment.provides,
+        inner.environment.provides,
+      ]),
+      carries: stableUnion([
+        outer.environment.carries,
+        inner.environment.carries,
+      ]),
+    },
+    inputs: [...outer.inputs],
+    outputs: [...outer.outputs],
+    template: {
+      kind: "inline_graph" as const,
+      graphRef:
+        `graph://abiogenesis/substituted/${graphDigest.slice("sha256:".length)}`,
+      startNodeRef: outer.template.startNodeRef,
+      terminalNodeRefs: [...outer.template.terminalNodeRefs],
+      nodes: [
+        ...outer.template.nodes,
+        ...rewriteNodes(inner, application.applicationRef, true),
+      ],
+      edges,
+      applications: mergeApplications(
+        application,
+        [outer, inner],
+        "substitute",
+      ),
+    },
+    effects: stableUnion([outer.effects, inner.effects]),
+    declarations: mergeDeclarations(
+      outer.declarations,
+      inner.declarations,
+      "substitute",
+    ),
+    tags: stableUnion([outer.tags, inner.tags]),
   };
   return deepFreeze(graphFunction) as Readonly<GraphFunction>;
 }

@@ -785,6 +785,72 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           });
         }
       }
+      if (application.relationKind === "substitute") {
+        const outer = referencedByRef.get(application.outerGraphFunctionRef);
+        const inner = referencedByRef.get(application.innerGraphFunctionRef);
+        const targetEdges = outer?.template.edges.filter(
+          (edge) => edge.edgeRef === application.targetVectorRef,
+        ) ?? [];
+        const targetEdge = targetEdges.length === 1 ? targetEdges[0] : undefined;
+        const sourceNode = targetEdge === undefined
+          ? undefined
+          : outer?.template.nodes.find(
+            (node) => node.nodeRef === targetEdge.fromNodeRef,
+          );
+        const targetNode = targetEdge === undefined
+          ? undefined
+          : outer?.template.nodes.find(
+            (node) => node.nodeRef === targetEdge.toNodeRef,
+          );
+        const replacementEdgeRefs =
+          targetEdge === undefined || inner === undefined
+            ? []
+            : [
+              graphEdgeRef({
+                fromNodeRef: targetEdge.fromNodeRef,
+                toNodeRef: inner.template.startNodeRef,
+              }),
+              ...inner.template.terminalNodeRefs.map((fromNodeRef) =>
+                graphEdgeRef({
+                  fromNodeRef,
+                  toNodeRef: targetEdge.toNodeRef,
+                })),
+            ];
+        const materializedEdgeRefs = new Set(
+          graphFunction.template.edges.map((edge) => edge.edgeRef),
+        );
+        const availableAtTarget = new Set([
+          ...(outer?.environment.requires ?? []),
+          ...(outer?.environment.provides ?? []),
+          ...(outer?.environment.carries ?? []),
+          ...(sourceNode === undefined ? [] : [sourceNode.term.outputCarrierRef]),
+        ]);
+        if (
+          outer === undefined ||
+          inner === undefined ||
+          targetEdge === undefined ||
+          sourceNode === undefined ||
+          targetNode === undefined ||
+          targetEdge.edgeRef !== graphEdgeRef(targetEdge) ||
+          inner.inputs.length !== 1 ||
+          inner.outputs.length !== 1 ||
+          sourceNode.term.outputCarrierRef !== inner.inputs[0] ||
+          inner.outputs[0] !== targetNode.term.inputCarrierRef ||
+          inner.environment.requires.some((ref) => !availableAtTarget.has(ref)) ||
+          graphFunction.template.edges.some(
+            (edge) => edge.edgeRef === application.targetVectorRef,
+          ) ||
+          replacementEdgeRefs.some((ref) => !materializedEdgeRefs.has(ref)) ||
+          inner.template.nodes.some((node) => !nodes.has(node.nodeRef))
+        ) {
+          diagnostics.push({
+            code: "carrier_mismatch",
+            path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+            message:
+              "substitute application requires one exact target vector and a visible typed inner graph replacement",
+          });
+        }
+      }
       if (application.relationKind === "fan_out") {
         const element = referencedByRef.get(application.elementGraphFunctionRef);
         if (

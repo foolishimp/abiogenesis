@@ -14,7 +14,10 @@ import type {
   NormalizedHelloInput,
 } from "./contracts.js";
 import { C, cCarrier, cGraphFunctionRef, workflow } from "./c_algebra.js";
-import { composeGraphFunctions } from "./graph_construction.js";
+import {
+  composeGraphFunctions,
+  substituteGraphFunction,
+} from "./graph_construction.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 
@@ -108,6 +111,22 @@ export const GRAPH_EDGE_HELLO_IDS = Object.freeze({
     "locus://abiogenesis/conformance/hello-graph-edge/normalize@5",
   renderLocusRef:
     "locus://abiogenesis/conformance/hello-graph-edge/render@5",
+});
+
+export const SUBSTITUTED_HELLO_IDS = Object.freeze({
+  programRef: "program://abiogenesis/conformance/hello-substitute@5",
+  graphFunctionRef:
+    "graph-function://abiogenesis/conformance/hello-substitute@5",
+  innerProgramRef:
+    "program://abiogenesis/conformance/hello-substitute-inner@5",
+  innerGraphFunctionRef:
+    "graph-function://abiogenesis/conformance/hello-substitute-inner@5",
+  innerGraphRef:
+    "graph://abiogenesis/conformance/hello-substitute-inner@5",
+  innerNodeRef:
+    "node://abiogenesis/conformance/hello-substitute/normalized-pass@5",
+  innerLocusRef:
+    "locus://abiogenesis/conformance/hello-substitute/normalized-pass@5",
 });
 
 export const WORKFLOW_HELLO_IDS = Object.freeze({
@@ -1062,6 +1081,75 @@ export function constructHelloWorldModulePublication(
       "abg.compute_regime": "F_D",
     },
   };
+  const graphSubstituteInnerGraphFunction: GraphFunction = {
+    kind: "graph_function",
+    name: SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [COMPOSED_HELLO_IDS.normalizedInputContractRef],
+      provides: [COMPOSED_HELLO_IDS.normalizedInputContractRef],
+      carries: [COMPOSED_HELLO_IDS.normalizedInputContractRef],
+    },
+    inputs: [COMPOSED_HELLO_IDS.normalizedInputContractRef],
+    outputs: [COMPOSED_HELLO_IDS.normalizedInputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: SUBSTITUTED_HELLO_IDS.innerGraphRef,
+      startNodeRef: SUBSTITUTED_HELLO_IDS.innerNodeRef,
+      terminalNodeRefs: [SUBSTITUTED_HELLO_IDS.innerNodeRef],
+      nodes: [{
+        nodeRef: SUBSTITUTED_HELLO_IDS.innerNodeRef,
+        nodeKind: "c_locus",
+        term: C.of({
+          input: normalizedInputCarrier,
+          output: normalizedInputCarrier,
+          programLocusRef: SUBSTITUTED_HELLO_IDS.innerLocusRef,
+          stageRole: "evaluate",
+          fibre: "F_D",
+          armId: COMPOSED_HELLO_IDS.passNormalizedArmId,
+          compositionRef: null,
+          vectorIndex: 0,
+          judgmentPredicateRef:
+            COMPOSED_HELLO_IDS.normalizedIdentityJudgmentPredicateRef,
+          resultBearing: true,
+          requirement: {
+            kind: "executable_leaf_requirement",
+            implementationBindingRef:
+              COMPOSED_HELLO_IDS.passNormalizedImplementationBindingRef,
+            inputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+            outputContractRef: COMPOSED_HELLO_IDS.normalizedInputContractRef,
+            evidenceContractRef: HELLO_WORLD_IDS.evidenceContractRef,
+            failureContractRef: HELLO_WORLD_IDS.failureContractRef,
+            refusalContractRef: HELLO_WORLD_IDS.refusalContractRef,
+            judgmentContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+          },
+        }),
+      }],
+      edges: [],
+      applications: [],
+    },
+    effects: [
+      "effect://abiogenesis/conformance/preserve-normalized-hello-input@5",
+    ],
+    declarations: { "abg.compute_regime": "F_D" },
+    tags: ["abiogenesis", "conformance", "hello-world", "graph-substitute-inner"],
+  };
+  const graphSubstituteInnerProgram: GtlProgram = {
+    kind: "gtl_program",
+    programRef: SUBSTITUTED_HELLO_IDS.innerProgramRef,
+    version: "5.0.0",
+    moduleRef: HELLO_WORLD_IDS.moduleRef,
+    starts: [{
+      startRef: "start://abiogenesis/conformance/hello-substitute-inner@5",
+      graphFunctionRef: SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef,
+    }],
+    callableMembership: [SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef],
+    closureContractRef: GRAPH_EDGE_HELLO_IDS.normalizeClosureContractRef,
+    policies: {
+      "abg.root_mode": "direct",
+      "abg.compute_regime": "F_D",
+    },
+  };
   const graphEdgeGraphFunction = composeGraphFunctions({
     name: GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
     left: graphNormalizeGraphFunction,
@@ -1077,6 +1165,28 @@ export function constructHelloWorldModulePublication(
       graphFunctionRef: GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
     }],
     callableMembership: [GRAPH_EDGE_HELLO_IDS.graphFunctionRef],
+    closureContractRef: HELLO_WORLD_IDS.closureContractRef,
+    policies: {
+      "abg.root_mode": "direct",
+      "abg.compute_regime": "F_D",
+    },
+  };
+  const graphSubstituteGraphFunction = substituteGraphFunction({
+    name: SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+    outer: graphEdgeGraphFunction,
+    targetVectorRef: graphEdgeGraphFunction.template.edges[0]!.edgeRef,
+    inner: graphSubstituteInnerGraphFunction,
+  });
+  const graphSubstituteProgram: GtlProgram = {
+    kind: "gtl_program",
+    programRef: SUBSTITUTED_HELLO_IDS.programRef,
+    version: "5.0.0",
+    moduleRef: HELLO_WORLD_IDS.moduleRef,
+    starts: [{
+      startRef: "start://abiogenesis/conformance/hello-substitute@5",
+      graphFunctionRef: SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+    }],
+    callableMembership: [SUBSTITUTED_HELLO_IDS.graphFunctionRef],
     closureContractRef: HELLO_WORLD_IDS.closureContractRef,
     policies: {
       "abg.root_mode": "direct",
@@ -1273,6 +1383,24 @@ export function constructHelloWorldModulePublication(
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
+  const graphSubstituteContribution: CatalogContribution = {
+    handle: SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef: SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [SUBSTITUTED_HELLO_IDS.programRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  };
+  const graphSubstituteInnerContribution: CatalogContribution = {
+    handle: SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef: SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [SUBSTITUTED_HELLO_IDS.innerProgramRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  };
   const graphNormalizeContribution: CatalogContribution = {
     handle: GRAPH_EDGE_HELLO_IDS.normalizeGraphFunctionRef,
     kind: "graph_function",
@@ -1344,7 +1472,9 @@ export function constructHelloWorldModulePublication(
       composedProgram,
       graphNormalizeProgram,
       graphRenderProgram,
+      graphSubstituteInnerProgram,
       graphEdgeProgram,
+      graphSubstituteProgram,
       fpProgram,
       deterministicFpProgram,
     ],
@@ -1354,7 +1484,9 @@ export function constructHelloWorldModulePublication(
       composedGraphFunction,
       graphNormalizeGraphFunction,
       graphRenderGraphFunction,
+      graphSubstituteInnerGraphFunction,
       graphEdgeGraphFunction,
+      graphSubstituteGraphFunction,
       fpGraphFunction,
       deterministicFpGraphFunction,
     ],
@@ -1364,7 +1496,9 @@ export function constructHelloWorldModulePublication(
       composedContribution,
       graphNormalizeContribution,
       graphRenderContribution,
+      graphSubstituteInnerContribution,
       graphEdgeContribution,
+      graphSubstituteContribution,
       fpContribution,
       deterministicFpContribution,
     ],

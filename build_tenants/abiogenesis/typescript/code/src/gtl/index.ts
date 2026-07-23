@@ -34,6 +34,7 @@ export {
   FP_HELLO_IDS,
   GRAPH_EDGE_HELLO_IDS,
   HELLO_WORLD_IDS,
+  SUBSTITUTED_HELLO_IDS,
   WORKFLOW_HELLO_IDS,
   constructFpHelloInstruction,
   constructHelloWorldInput,
@@ -57,7 +58,9 @@ export {
 } from "./declarations.js";
 export {
   composeGraphFunctions,
+  substituteGraphFunction,
   type ComposeGraphFunctionsInput,
+  type SubstituteGraphFunctionInput,
 } from "./graph_construction.js";
 export {
   composeApplication,
