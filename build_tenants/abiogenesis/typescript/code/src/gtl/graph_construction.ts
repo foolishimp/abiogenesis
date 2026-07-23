@@ -17,6 +17,7 @@ import {
   graphEdge,
   graphFunctionApplicationRef,
   identityApplication,
+  promoteApplication,
   substituteApplication,
 } from "./graph_applications.js";
 
@@ -36,6 +37,13 @@ export interface SubstituteGraphFunctionInput {
 export interface IdentityGraphFunctionInput {
   readonly name: string;
   readonly contractRef: string;
+}
+
+export interface PromoteGraphFunctionInput {
+  readonly name: string;
+  readonly source: Readonly<GraphFunction>;
+  readonly sourceRef: string;
+  readonly targetRef: string;
 }
 
 function requireRef(value: string, label: string): string {
@@ -65,7 +73,7 @@ function mergeDeclarations(
 function graphNodeRefs(
   graphFunction: Readonly<GraphFunction>,
   label: string,
-  relation: "compose" | "substitute",
+  relation: "compose" | "promote" | "substitute",
 ): ReadonlySet<string> {
   requireRef(graphFunction.name, `${label} GraphFunction name`);
   const refs = graphFunction.template.nodes.map((node) => node.nodeRef);
@@ -188,7 +196,7 @@ function rewriteNodes(
 function mergeApplications(
   application: GraphFunctionApplication,
   sources: readonly Readonly<GraphFunction>[],
-  relation: "compose" | "substitute",
+  relation: "compose" | "promote" | "substitute",
 ): readonly GraphFunctionApplication[] {
   const merged = [
     ...sources.flatMap((source) => source.template.applications),
@@ -284,6 +292,64 @@ export function identityGraphFunction(
     effects: [],
     declarations: {},
     tags: [],
+  }) as Readonly<GraphFunction>;
+}
+
+export function promoteGraphFunction(
+  input: PromoteGraphFunctionInput,
+): Readonly<GraphFunction> {
+  const name = requireRef(input.name, "promoted GraphFunction name");
+  const sourceRef = requireRef(input.sourceRef, "promotion sourceRef");
+  const targetRef = requireRef(input.targetRef, "promotion targetRef");
+  const { source } = input;
+  if (name === source.name) {
+    throw new TypeError("promoted GraphFunction requires a distinct identity");
+  }
+  graphNodeRefs(source, "source", "promote");
+  if (
+    source.inputs.length !== 1 ||
+    source.outputs.length !== 1 ||
+    source.inputs[0] !== sourceRef ||
+    source.outputs[0] !== targetRef
+  ) {
+    throw new TypeError(
+      "promote must bind the exact source GraphFunction input and output contracts",
+    );
+  }
+  const application = promoteApplication({
+    inputContractRef: sourceRef,
+    outputContractRef: targetRef,
+    sourceRef,
+    targetRef,
+  });
+  const graphDigest = sha256Canonical({
+    name,
+    sourceGraphRef: source.template.graphRef,
+    applicationRef: application.applicationRef,
+  });
+  return deepFreeze({
+    kind: "graph_function" as const,
+    name,
+    version: "5.0.0" as const,
+    environment: {
+      requires: [...source.environment.requires],
+      provides: [...source.environment.provides],
+      carries: [...source.environment.carries],
+    },
+    inputs: [sourceRef],
+    outputs: [targetRef],
+    template: {
+      kind: "inline_graph" as const,
+      graphRef: `graph://abiogenesis/promoted/${graphDigest.slice("sha256:".length)}`,
+      startNodeRef: source.template.startNodeRef,
+      terminalNodeRefs: [...source.template.terminalNodeRefs],
+      nodes: [...source.template.nodes],
+      edges: [...source.template.edges],
+      applications: mergeApplications(application, [source], "promote"),
+    },
+    effects: [...source.effects],
+    declarations: { ...source.declarations },
+    tags: [...source.tags],
   }) as Readonly<GraphFunction>;
 }
 

@@ -344,6 +344,84 @@ test("M5 GraphFunction composition preserves exact left and right identity", () 
   );
 });
 
+test("M5 GraphFunction promotion preserves topology and semantic truth", () => {
+  const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
+  const source = publication.graphFunctions.find(
+    (candidate) => candidate.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  assert.notEqual(source, undefined);
+  const promoted = gtl.promoteGraphFunction({
+    name: "graph-function://m5/promoted/hello-world",
+    source,
+    sourceRef: source.inputs[0],
+    targetRef: source.outputs[0],
+  });
+
+  assert.deepEqual(promoted.inputs, source.inputs);
+  assert.deepEqual(promoted.outputs, source.outputs);
+  assert.notEqual(promoted.template.graphRef, source.template.graphRef);
+  assert.equal(promoted.template.startNodeRef, source.template.startNodeRef);
+  assert.deepEqual(promoted.template.terminalNodeRefs, source.template.terminalNodeRefs);
+  assert.deepEqual(promoted.template.nodes, source.template.nodes);
+  assert.deepEqual(promoted.template.edges, source.template.edges);
+  assert.equal(
+    promoted.template.applications.some((application) =>
+      application.relationKind === "promote" &&
+      application.sourceRef === source.inputs[0] &&
+      application.targetRef === source.outputs[0]),
+    true,
+  );
+  assert.equal(Object.isFrozen(promoted), true);
+
+  const candidate = structuredClone(publication);
+  candidate.graphFunctions.push(structuredClone(promoted));
+  const promotedProgram = {
+    ...structuredClone(candidate.programs[0]),
+    programRef: "program://m5/promoted/hello-world",
+    starts: [{
+      startRef: "start://m5/promoted/hello-world",
+      graphFunctionRef: promoted.name,
+    }],
+    callableMembership: [promoted.name],
+  };
+  candidate.programs.push(promotedProgram);
+  assert.equal(
+    programValidationResult(candidate, promotedProgram).kind,
+    "program_validation",
+  );
+
+  assert.throws(
+    () => gtl.promoteGraphFunction({
+      name: "graph-function://m5/promoted/mismatched",
+      source,
+      sourceRef: source.inputs[0],
+      targetRef: source.inputs[0],
+    }),
+    /exact source GraphFunction input and output contracts/u,
+  );
+
+  const forged = structuredClone(candidate);
+  const forgedParent = forged.graphFunctions.find(
+    (graphFunction) => graphFunction.name === promoted.name,
+  );
+  const forgedApplication = forgedParent.template.applications.find(
+    (application) => application.relationKind === "promote",
+  );
+  forgedApplication.targetRef = source.inputs[0];
+  forgedApplication.applicationRef =
+    gtl.graphFunctionApplicationRef(forgedApplication);
+  const forgedResult = programValidationResult(
+    forged,
+    forged.programs.find((program) => program.programRef === promotedProgram.programRef),
+  );
+  assert.equal(forgedResult.kind, "static_validation_refusal");
+  assert.equal(
+    forgedResult.diagnostics.some((row) => row.code === "carrier_mismatch"),
+    true,
+    JSON.stringify(forgedResult),
+  );
+});
+
 test("M5 native constructors refuse invalid batch, retry, and F_H realization", () => {
   const request = gtl.cCarrier("contract://m5/request");
   const result = gtl.cCarrier("contract://m5/result");

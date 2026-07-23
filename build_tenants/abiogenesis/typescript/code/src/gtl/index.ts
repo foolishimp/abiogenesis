@@ -59,9 +59,11 @@ export {
 export {
   composeGraphFunctions,
   identityGraphFunction,
+  promoteGraphFunction,
   substituteGraphFunction,
   type ComposeGraphFunctionsInput,
   type IdentityGraphFunctionInput,
+  type PromoteGraphFunctionInput,
   type SubstituteGraphFunctionInput,
 } from "./graph_construction.js";
 export {
