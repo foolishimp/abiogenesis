@@ -39,6 +39,12 @@ const GATE_GRAPH_FUNCTION_REF =
   "graph-function://abiogenesis/conformance/hello-gate@5";
 const GATE_TARGET_REF =
   "graph-function://abiogenesis/conformance/hello-gate-target@5";
+const RECURSION_PROGRAM_REF =
+  "program://abiogenesis/conformance/bounded-recursion@5";
+const RECURSION_GRAPH_FUNCTION_REF =
+  "graph-function://abiogenesis/conformance/bounded-recursion@5";
+const RECURSION_CHILD_REF =
+  "graph-function://abiogenesis/conformance/bounded-recursion-step@5";
 const ACTOR_REF = "actor://abiogenesis/conformance/claude-worker@5";
 const WORKER_BINDING_REF =
   "worker-binding://abiogenesis/conformance/claude-worker@5";
@@ -350,7 +356,32 @@ const matrix = [
     assert.equal(omittedChild.events.some((event) =>
       event.kind === "run_segment_opened"), false);
   }),
-  open("structural_form", "graph_recursion", "recurse application with bound, termination Rule, and Evaluators", "runtime evaluator truth, recursive lineage, and foldback"),
+  proven("structural_form", "graph_recursion", {
+    gtlExpression: "recurse application with a Boolean termination evaluator, identity foldback, and bound four",
+    hogPath: "three child GraphCalls re-enter one parent locus through increasing attempts",
+    abgEvidence: "three admitted child foldbacks and application routes precede one terminal parent route",
+    publicOutcome: "installed CLI returns the terminal folded state with replay agreement",
+    invalidMutation: "a non-terminal fourth attempt blocks without opening another child GraphCall",
+  }, ({ recursion, recursionBound }) => {
+    assertSuccessfulInstalled(recursion);
+    assert.deepEqual(
+      recursion.events
+        .filter((event) =>
+          event.kind === "c_call_opened" &&
+          event.graphFunctionRef === RECURSION_GRAPH_FUNCTION_REF)
+        .map((event) => event.payload.attempt),
+      [1, 2, 3, 4],
+    );
+    assert.equal(recursion.events.filter((event) =>
+      event.kind === "child_foldback_admitted" &&
+      event.payload.applicationRef !== undefined).length, 3);
+    assert.equal(recursionBound.run.exitCode, 2, recursionBound.run.stdout);
+    assert.equal(recursionBound.run.outcomes[5].disposition, "blocked");
+    assert.equal(recursionBound.events.filter((event) =>
+      event.kind === "graph_call_opened" &&
+      event.graphFunctionRef === RECURSION_CHILD_REF).length, 3);
+    assert.equal(recursionBound.events.at(-1)?.kind, "run_stopped");
+  }),
   proven("structural_form", "retry", {
     gtlExpression: "C.retry over one F_P C.of call with budget two",
     hogPath: "same declared term is re-entered with attempt two and a fresh cursor",
@@ -540,8 +571,8 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 19);
-  assert.equal(matrix.filter((row) => row.status === "open").length, 21);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 20);
+  assert.equal(matrix.filter((row) => row.status === "open").length, 20);
   for (const row of matrix) {
     for (const field of [
       "witness46",
@@ -585,6 +616,34 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     allowlist: [GATE_GRAPH_FUNCTION_REF, GATE_TARGET_REF],
     subject: "Blocked",
   });
+  const recursion = await runScenario(harness, "matrix-recursion", {
+    programRef: RECURSION_PROGRAM_REF,
+    graphFunctionRef: RECURSION_GRAPH_FUNCTION_REF,
+    allowlist: [RECURSION_GRAPH_FUNCTION_REF, RECURSION_CHILD_REF],
+    input: {
+      kind: "bounded_recursion_state",
+      schemaVersion: "5.0.0",
+      remaining: 3,
+      terminal: false,
+      trace: [],
+    },
+  });
+  const recursionBound = await runScenario(
+    harness,
+    "matrix-recursion-bound",
+    {
+      programRef: RECURSION_PROGRAM_REF,
+      graphFunctionRef: RECURSION_GRAPH_FUNCTION_REF,
+      allowlist: [RECURSION_GRAPH_FUNCTION_REF, RECURSION_CHILD_REF],
+      input: {
+        kind: "bounded_recursion_state",
+        schemaVersion: "5.0.0",
+        remaining: 5,
+        terminal: false,
+        trace: [],
+      },
+    },
+  );
   const fp = await runScenario(harness, "matrix-fp", {
     programRef: FP_PROGRAM_REF,
     graphFunctionRef: FP_GRAPH_FUNCTION_REF,
@@ -647,6 +706,8 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     omittedChild,
     gate,
     gateBlocked,
+    recursion,
+    recursionBound,
     fp,
     malformedFp,
     retry,

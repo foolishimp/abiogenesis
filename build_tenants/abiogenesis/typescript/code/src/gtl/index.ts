@@ -56,6 +56,16 @@ export {
   type ConformanceJudgmentRelation,
 } from "./hello_world.js";
 export {
+  RECURSION_HELLO_IDS,
+  constructBoundedRecursionState,
+  constructRecursionPublicationParts,
+  evaluateRecursionStep,
+  evaluateRecursionTermination,
+  isBoundedRecursionState,
+  resolveRecursionJudgmentRelation,
+  type RecursionPublicationParts,
+} from "./recursion.js";
+export {
   evaluatorDeclaration,
   ruleDeclaration,
 } from "./declarations.js";
@@ -81,6 +91,7 @@ export {
   identityApplication,
   promoteApplication,
   recurseApplication,
+  recursionTerminationDecision,
   sameObjectApplication,
   sameObjectWitnessRef,
   substituteApplication,
@@ -89,6 +100,7 @@ export {
 export type {
   CatalogContribution,
   CatalogContributionKind,
+  BoundedRecursionState,
   ClosureContract,
   ComputeRegime,
   ComposeApplication,

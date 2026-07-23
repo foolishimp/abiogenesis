@@ -16,7 +16,9 @@ import type {
   GraphFunction,
   GtlGraph,
   GtlProgram,
+  RecurseApplication,
 } from "../gtl/contracts.js";
+import { recursionTerminationDecision } from "../gtl/graph_applications.js";
 import { resolveEnclosingCRetryContexts } from "../gtl/source_path.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
@@ -24,6 +26,10 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { GraphValidation } from "../validator/graph.js";
 import {
+  advanceDeferredRecursion,
+  blockDeferredRecursion,
+  blockDeferredRecursionPreparation,
+  completeDeferredApplicationTerminal,
   completeExecutableTraversal,
   completeWorkflowPreparationRefusal,
   completeWorkflowTraversal,
@@ -168,6 +174,17 @@ function selectRetryInput(
   return context === undefined
     ? undefined
     : inputs.get(retryInputKey(cursor.currentNodeRef, context.retryTermPath));
+}
+
+function recurseApplicationAtStop(
+  graph: Readonly<GtlGraph>,
+  compositionRef: string | null,
+): Readonly<RecurseApplication> | null {
+  if (compositionRef === null) return null;
+  const application = graph.template.applications.find(
+    (candidate) => candidate.applicationRef === compositionRef,
+  );
+  return application?.relationKind === "recurse" ? application : null;
 }
 
 export async function executeGraphTraversal(
@@ -458,6 +475,10 @@ export async function executeGraphTraversal(
       completionValueKind = outputValueKind;
       completionContractRef = exactStop.outputContractRef;
       const retryInput = selectRetryInput(input.graph, stop, retryInputs);
+      const recursionApplication = recurseApplicationAtStop(
+        input.graph,
+        exactStop.compositionRef,
+      );
       completion = await completeExecutableTraversal({
         store: input.store,
         executionBasis: input.executionBasis,
@@ -473,12 +494,143 @@ export async function executeGraphTraversal(
         ...(retryInput === undefined ? {} : { retryInput }),
         closureContract: input.closureContract,
         actorRuntimeBinding: input.actorRuntimeBinding,
-        terminalMode: input.terminalMode ?? "close_run",
+        terminalMode: recursionApplication === null
+          ? input.terminalMode ?? "close_run"
+          : "return_to_application",
+        ...(recursionApplication === null
+          ? {}
+          : {
+              applicationCompletionMode:
+                input.terminalMode ?? "close_run",
+            }),
         clock: {
           eventTime: input.eventTime,
           correlationId: `${input.correlationId}/leaf/${leafOrdinal}`,
         },
       });
+      if (
+        recursionApplication !== null &&
+        completion.disposition === "application_ready"
+      ) {
+        const termination = completion.resultValue === null
+          ? null
+          : recursionTerminationDecision(
+            recursionApplication,
+            completion.resultValue,
+          );
+        if (termination === null) {
+          return fail(
+            input,
+            `recursion-termination-${leafOrdinal}`,
+            "diagnostic://abiogenesis/hog/recursion-termination-value-invalid@5",
+            {
+              applicationRef: recursionApplication.applicationRef,
+              resultRef: completion.resultRef,
+            },
+          );
+        }
+        if (termination) {
+          completion = completeDeferredApplicationTerminal({
+            completion,
+            application: recursionApplication,
+            clock: {
+              eventTime: input.eventTime,
+              correlationId:
+                `${input.correlationId}/recursion/${leafOrdinal}/terminal`,
+            },
+          });
+        } else if (exactStop.cursor.attempt >= recursionApplication.bound) {
+          completion = blockDeferredRecursion({
+            completion,
+            application: recursionApplication,
+            clock: {
+              eventTime: input.eventTime,
+              correlationId:
+                `${input.correlationId}/recursion/${leafOrdinal}/bound`,
+            },
+          });
+        } else {
+          if (
+            input.childTraversalPreparationPort === undefined ||
+            !isChildTraversalPreparationPort(input.childTraversalPreparationPort) ||
+            completion.cCallRef === null ||
+            completion.resultRef === null ||
+            typeof completion.resultValue !== "object" ||
+            completion.resultValue === null ||
+            Array.isArray(completion.resultValue)
+          ) {
+            return fail(
+              input,
+              `recursion-child-port-${leafOrdinal}`,
+              "diagnostic://abiogenesis/hog/recursion-child-preparation-absent@5",
+              { applicationRef: recursionApplication.applicationRef },
+            );
+          }
+          const recursionInput = completion.resultValue as Readonly<
+            Record<string, JsonValue>
+          >;
+          const recursionInputDigest = sha256Canonical(recursionInput);
+          const prepared = await input.childTraversalPreparationPort.prepare({
+            parentExecutionBasis: input.executionBasis,
+            parentTraversalScope: input.openedTraversalScope,
+            parentCCallRef: completion.cCallRef,
+            childGraphFunctionRef: recursionApplication.graphFunctionRef,
+            inputRef: completion.resultRef,
+            inputDigest: recursionInputDigest,
+            input: recursionInput,
+            eventTime: input.eventTime,
+            correlationId:
+              `${input.correlationId}/recursion/${leafOrdinal}/prepare`,
+          });
+          if (prepared.kind !== "prepared_child_traversal") {
+            completion = blockDeferredRecursionPreparation({
+              completion,
+              application: recursionApplication,
+              preparationRefusal: prepared,
+              clock: {
+                eventTime: input.eventTime,
+                correlationId:
+                  `${input.correlationId}/recursion/${leafOrdinal}/prepare-refusal`,
+              },
+            });
+          } else {
+            const childCompletion = await executeGraphTraversal({
+              store: input.store,
+              executionBasis: prepared.executionBasis,
+              openedTraversalScope: prepared.openedTraversalScope,
+              program: prepared.program,
+              graphFunction: prepared.graphFunction,
+              graph: prepared.graph,
+              graphValidation: prepared.graphValidation,
+              implementationSet: prepared.implementationSet,
+              interactionSet: prepared.interactionSet,
+              leafPort: input.leafPort,
+              childTraversalPreparationPort:
+                input.childTraversalPreparationPort,
+              closureContract: prepared.closureContract,
+              actorRuntimeBinding: input.actorRuntimeBinding,
+              input: prepared.input,
+              inputDigest: prepared.inputDigest,
+              eventTime: input.eventTime,
+              correlationId:
+                `${input.correlationId}/recursion/${leafOrdinal}/child`,
+              terminalMode: "return_to_parent",
+            });
+            completion = advanceDeferredRecursion({
+              completion,
+              application: recursionApplication,
+              childExecutionBasis: prepared.executionBasis,
+              childTraversalScope: prepared.openedTraversalScope,
+              childCompletion,
+              clock: {
+                eventTime: input.eventTime,
+                correlationId:
+                  `${input.correlationId}/recursion/${leafOrdinal}/foldback`,
+              },
+            });
+          }
+        }
+      }
     }
     if (completion.disposition !== "advanced") break;
     if (

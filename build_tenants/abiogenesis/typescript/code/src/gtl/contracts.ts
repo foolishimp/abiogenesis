@@ -37,6 +37,14 @@ export interface NormalizedHelloInput {
   readonly subject: string;
 }
 
+export interface BoundedRecursionState {
+  readonly kind: "bounded_recursion_state";
+  readonly schemaVersion: "5.0.0";
+  readonly remaining: number;
+  readonly terminal: boolean;
+  readonly trace: readonly number[];
+}
+
 export interface FpHelloInstruction {
   readonly kind: "fp_hello_instruction";
   readonly schemaVersion: "5.0.0";
@@ -124,6 +132,7 @@ export interface RecurseApplication extends GraphFunctionApplicationBase {
   readonly graphFunctionRef: string;
   readonly terminationRuleRef: string;
   readonly terminationEvaluatorRefs: readonly string[];
+  readonly terminationFieldRef: string;
   readonly foldbackRef: string;
   readonly foldback: FoldbackDeclaration;
   readonly bound: number;

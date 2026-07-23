@@ -7,6 +7,7 @@ import * as implementation from "../implementation/index.js";
 import * as product from "../product/index.js";
 import * as validator from "../validator/index.js";
 import type {
+  BoundedRecursionState,
   CatalogContribution,
   FpHelloInstruction,
   GtlProgram,
@@ -660,7 +661,9 @@ async function applyRunInvoke(
     );
   }
   const inputContractRef = graphFunction.inputs[0]!;
-  let admittedInput: Readonly<HelloWorldInput | FpHelloInstruction>;
+  let admittedInput: Readonly<
+    BoundedRecursionState | HelloWorldInput | FpHelloInstruction
+  >;
   if (inputContractRef === gtl.HELLO_WORLD_IDS.inputContractRef) {
     if (!gtl.isHelloWorldInput(inputValue)) {
       throw new ApplicationRefusal("target_mismatch", "run.invoke Hello input is contract-invalid");
@@ -675,13 +678,29 @@ async function applyRunInvoke(
       stringField(inputValue, "instruction"),
       inputValue.transportLane as FpHelloInstruction["transportLane"],
     );
+  } else if (
+    inputContractRef === gtl.RECURSION_HELLO_IDS.inputContractRef
+  ) {
+    if (
+      !gtl.isBoundedRecursionState(inputValue) ||
+      inputValue.trace.length !== 0 ||
+      inputValue.terminal !== (inputValue.remaining === 0)
+    ) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "run.invoke bounded-recursion input is contract-invalid",
+      );
+    }
+    admittedInput = gtl.constructBoundedRecursionState(inputValue.remaining);
   } else {
     throw new ApplicationRefusal(
       "target_mismatch",
       "run.invoke selected GraphFunction input contract has no Product-owned admission function",
     );
   }
-  const rawInput = rawAdmission<HelloWorldInput | FpHelloInstruction>(
+  const rawInput = rawAdmission<
+    BoundedRecursionState | HelloWorldInput | FpHelloInstruction
+  >(
     admittedInput,
     "invocation_input",
     inputContractRef,

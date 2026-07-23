@@ -92,6 +92,18 @@ export {
   type EventCalculusEffect,
 } from "./event_calculus.js";
 export {
+  admitApplicationChildPreparationRefusal,
+  admitApplicationChildFoldback,
+  isAdmittedApplicationChildPreparationRefusal,
+  isAdmittedApplicationChildFoldback,
+  type ApplicationChildPreparationRefusalAdmission,
+  type ApplicationChildPreparationRefusalRefusal,
+  type ApplicationChildPreparationRefusalResult,
+  type ApplicationChildFoldbackAdmission,
+  type ApplicationChildFoldbackRefusal,
+  type ApplicationChildFoldbackResult,
+} from "./graph_application.js";
+export {
   admitEvidence,
   admitChildPreparationRefusal,
   admitChildFoldback,
@@ -160,6 +172,7 @@ export {
 } from "./event_log.js";
 export {
   admitRoute,
+  admitRecursionRoute,
   isAdmittedRoute,
   type AdmittedRoute,
   type BlockedRouteAdmissionEvidence,
@@ -168,6 +181,7 @@ export {
   type RouteAdmissionRefusal,
   type RouteAdmissionResult,
   type RouteAdmissionOptions,
+  type RecursionRouteAdmissionEvidence,
   type RouteCandidate,
   type TraversalRouteKind,
 } from "./traversal_route.js";

@@ -24,6 +24,7 @@ import {
   cLeafTerms,
   isExecutableCLeaf,
   isInteractionCLeaf,
+  type CProgramNode,
   type ExecutableLeafRequirement,
   type InteractionLeafRequirement,
 } from "../gtl/c_algebra.js";
@@ -72,6 +73,28 @@ function hasExactKeys(value: object, expected: readonly string[]): boolean {
 function hasExactGraphEdgeShape(edge: Readonly<GtlEdge>): boolean {
   return hasExactKeys(edge, ["edgeRef", "fromNodeRef", "toNodeRef"]) &&
     edge.edgeRef === graphEdgeRef(edge);
+}
+
+function workflowGraphFunctionRefs(term: Readonly<CProgramNode>): readonly string[] {
+  switch (term.kind) {
+    case "c_workflow":
+      return [term.graphFunctionRef];
+    case "c_compose":
+      return term.terms.flatMap((child) => workflowGraphFunctionRefs(child));
+    case "c_edge":
+      return [
+        ...workflowGraphFunctionRefs(term.transform),
+        ...workflowGraphFunctionRefs(term.evaluate),
+        ...workflowGraphFunctionRefs(term.consequence),
+      ];
+    case "c_batch":
+      return term.tasks.flatMap((child) => workflowGraphFunctionRefs(child));
+    case "c_retry":
+      return workflowGraphFunctionRefs(term.term);
+    case "c_identity":
+    case "c_of":
+      return [];
+  }
 }
 
 function hasExactEvaluatorShape(
@@ -193,6 +216,7 @@ function hasExactApplicationShape(
         "foldbackRef",
         "graphFunctionRef",
         "terminationEvaluatorRefs",
+        "terminationFieldRef",
         "terminationRuleRef",
       ]) && hasExactKeys(application.foldback, [
         "binding",
@@ -708,6 +732,9 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           application.foldback.mode !== "rebind" ||
           application.foldback.binding.trim().length === 0 ||
           application.foldback.requiresParentEvaluation !== true ||
+          !/^\$\.[A-Za-z_][A-Za-z0-9_.]*$/u.test(
+            application.terminationFieldRef,
+          ) ||
           application.foldbackRef !== foldbackRef(application.foldback)
         )) {
         diagnostics.push({
@@ -723,13 +750,19 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           application.terminationEvaluatorRefs.length === 0 ||
           application.terminationEvaluatorRefs.some(
             (ref) => !publishedEvaluatorRefs.has(ref),
+          ) ||
+          application.terminationEvaluatorRefs.some(
+            (ref) =>
+              !publishedEvaluatorByRef.get(ref)?.consumedFieldRefs.includes(
+                application.terminationFieldRef,
+              ),
           )
         )
       ) {
         diagnostics.push({
           code: "invalid_application",
           path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
-          message: "recurse application requires published termination Rule and Evaluator declarations",
+          message: "recurse application requires published termination Rule and Evaluator declarations over its exact decision field",
         });
       }
       if (
@@ -750,6 +783,8 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         const attachedLeaves = graphFunction.template.nodes
           .flatMap((node) => cLeafTerms(node.term))
           .filter((leaf) => leaf.compositionRef === application.applicationRef);
+        const workflowTargets = graphFunction.template.nodes
+          .flatMap((node) => workflowGraphFunctionRefs(node.term));
         const expectedExecutableBindings = application.evaluatorRefs
           .flatMap((ref) => {
             const evaluator = publishedEvaluatorByRef.get(ref);
@@ -773,6 +808,8 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           .sort();
         if (
           attachedLeaves.length === 0 ||
+          workflowTargets.length !== 1 ||
+          workflowTargets[0] !== application.targetRef ||
           attachedLeaves.some(
             (leaf) =>
               leaf.stageRole !== "evaluate" ||
@@ -787,7 +824,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
             path:
               `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
             message:
-              "gate application requires exact evaluator loci bound to its declared evaluator set and target input",
+              "gate application requires exact evaluator loci and one matching workflow target",
           });
         }
       }

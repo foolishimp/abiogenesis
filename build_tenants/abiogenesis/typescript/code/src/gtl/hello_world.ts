@@ -20,6 +20,11 @@ import {
 } from "./graph_construction.js";
 import { evaluatorDeclaration, ruleDeclaration } from "./declarations.js";
 import { gateApplication } from "./graph_applications.js";
+import {
+  constructRecursionPublicationParts,
+  isBoundedRecursionState,
+  resolveRecursionJudgmentRelation,
+} from "./recursion.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 
@@ -400,7 +405,7 @@ export function resolveConformanceJudgmentRelation(
           input.message === output.message,
       });
     default:
-      return null;
+      return resolveRecursionJudgmentRelation(predicateRef);
   }
 }
 
@@ -457,6 +462,8 @@ export function isDeclaredConformanceValue(
       return isNormalizedHelloInput(value);
     case "fp_hello_output":
       return isFpHelloOutput(value);
+    case "bounded_recursion_state":
+      return isBoundedRecursionState(value);
     default:
       return false;
   }
@@ -508,6 +515,10 @@ export function constructFpHelloInstruction(
 export function constructHelloWorldModulePublication(
   artifact: RootModuleArtifactBasis,
 ): Readonly<ModulePublication> {
+  const recursion = constructRecursionPublicationParts(
+    artifact,
+    HELLO_WORLD_IDS.moduleRef,
+  );
   const inputCarrier = cCarrier<HelloWorldInput>(HELLO_WORLD_IDS.inputContractRef);
   const outputCarrier = cCarrier<HelloWorldOutput>(HELLO_WORLD_IDS.outputContractRef);
   const normalizedInputCarrier = cCarrier<NormalizedHelloInput>(
@@ -564,6 +575,7 @@ export function constructHelloWorldModulePublication(
     { contractRef: FIBRE_SUBSTITUTION_HELLO_IDS.evidenceContractRef, contractVersion: "5.0.0", contractKind: "evidence", valueKind: "deterministic_evidence_candidate" },
     { contractRef: FIBRE_SUBSTITUTION_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "fp_hello_closure" },
     { contractRef: FP_FD_COMPOSED_HELLO_IDS.closureContractRef, contractVersion: "5.0.0", contractKind: "closure", valueKind: "fp_hello_closure" },
+    ...recursion.contracts,
   ];
   const implementationBinding: ImplementationBinding = {
     kind: "implementation_binding",
@@ -1985,8 +1997,8 @@ export function constructHelloWorldModulePublication(
     descriptorRef: `descriptor://abiogenesis/typescript-tenant/${artifact.productContentDigest.slice("sha256:".length)}`,
     contributionManifestRef: `contribution-manifest://abiogenesis/conformance/${artifact.productContentDigest.slice("sha256:".length)}`,
     contracts,
-    evaluators: [gateEvaluator],
-    rules: [gateRule],
+    evaluators: [gateEvaluator, ...recursion.evaluators],
+    rules: [gateRule, ...recursion.rules],
     implementationBindings: [
       implementationBinding,
       normalizeImplementationBinding,
@@ -1997,6 +2009,7 @@ export function constructHelloWorldModulePublication(
       fpImplementationBinding,
       deterministicFpImplementationBinding,
       fpFdPassImplementationBinding,
+      ...recursion.implementationBindings,
     ],
     closureContracts: [
       closureContract,
@@ -2006,6 +2019,7 @@ export function constructHelloWorldModulePublication(
       fpClosureContract,
       deterministicFpClosureContract,
       fpFdClosureContract,
+      ...recursion.closureContracts,
     ],
     programs: [
       program,
@@ -2021,6 +2035,7 @@ export function constructHelloWorldModulePublication(
       fpRetryProgram,
       deterministicFpProgram,
       fpFdComposedProgram,
+      ...recursion.programs,
     ],
     graphFunctions: [
       graphFunction,
@@ -2038,6 +2053,7 @@ export function constructHelloWorldModulePublication(
       deterministicFpGraphFunction,
       fpFdPassGraphFunction,
       fpFdComposedGraphFunction,
+      ...recursion.graphFunctions,
     ],
     contributions: [
       contribution,
@@ -2054,6 +2070,7 @@ export function constructHelloWorldModulePublication(
       fpRetryContribution,
       deterministicFpContribution,
       fpFdComposedContribution,
+      ...recursion.contributions,
     ],
   };
   return deepFreeze(publicationBody) as Readonly<ModulePublication>;

@@ -123,6 +123,9 @@ export function recurseApplication(
   requireRef(input.graphFunctionRef, "graphFunctionRef");
   requireRef(input.terminationRuleRef, "terminationRuleRef");
   requireRefs(input.terminationEvaluatorRefs, "terminationEvaluatorRefs");
+  if (!/^\$\.[A-Za-z_][A-Za-z0-9_.]*$/u.test(input.terminationFieldRef)) {
+    throw new TypeError("terminationFieldRef must be one declared JSON field path");
+  }
   if (!Number.isSafeInteger(input.bound) || input.bound < 1) {
     throw new TypeError("bound must be one positive safe integer");
   }
@@ -142,6 +145,31 @@ export function recurseApplication(
     foldbackRef: foldbackRef(canonicalFoldback),
     foldback: canonicalFoldback,
   });
+}
+
+export function recursionTerminationDecision(
+  application: Readonly<RecurseApplication>,
+  value: JsonValue,
+): boolean | null {
+  if (
+    application.relationKind !== "recurse" ||
+    !/^\$\.[A-Za-z_][A-Za-z0-9_.]*$/u.test(application.terminationFieldRef)
+  ) {
+    return null;
+  }
+  let current: JsonValue = value;
+  for (const segment of application.terminationFieldRef.slice(2).split(".")) {
+    if (
+      typeof current !== "object" ||
+      current === null ||
+      Array.isArray(current) ||
+      !Object.hasOwn(current, segment)
+    ) {
+      return null;
+    }
+    current = (current as Readonly<Record<string, JsonValue>>)[segment]!;
+  }
+  return typeof current === "boolean" ? current : null;
 }
 
 export function fanOutApplication(

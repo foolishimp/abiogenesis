@@ -1,4 +1,11 @@
-import type { GtlGraph } from "../gtl/contracts.js";
+import type {
+  GtlGraph,
+  RecurseApplication,
+} from "../gtl/contracts.js";
+import {
+  graphFunctionApplicationRef,
+  recursionTerminationDecision,
+} from "../gtl/graph_applications.js";
 import {
   deriveCSourceContinuation,
   resolveEnclosingCRetryContexts,
@@ -17,6 +24,12 @@ import {
   type AdmittedCCallResult,
   type CCall,
 } from "./c_call.js";
+import {
+  isAdmittedApplicationChildFoldback,
+  isAdmittedApplicationChildPreparationRefusal,
+  type ApplicationChildFoldbackAdmission,
+  type ApplicationChildPreparationRefusalAdmission,
+} from "./graph_application.js";
 import {
   hasAdmittedExecutionBasis,
   type ExecutionBasis,
@@ -126,6 +139,16 @@ export interface RetryRouteAdmissionEvidence {
 
 export interface RouteAdmissionOptions {
   readonly terminalizeRun?: boolean;
+}
+
+export interface RecursionRouteAdmissionEvidence {
+  readonly cCall: CCall;
+  readonly result: AdmittedCCallResult;
+  readonly judgment: AdmittedCCallJudgment;
+  readonly foldback: ApplicationChildFoldbackAdmission | null;
+  readonly preparationRefusal?:
+    | ApplicationChildPreparationRefusalAdmission
+    | null;
 }
 
 const admittedRoutes = new WeakSet<object>();
@@ -707,6 +730,278 @@ export function admitRoute(
             reasonRef: evidence !== null && "reasonRef" in evidence
               ? evidence.reasonRef
               : "reason://abiogenesis/blocked@5",
+          },
+        }),
+      ])
+    : [admitRuntimeEvent(store, routeEventCandidate)];
+  const event = admittedEvents[0]!;
+  const admitted = deepFreeze({
+    kind: "admitted_traversal_route" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    routeRef,
+    routeDigest,
+    ...body,
+    admissionEventRef: event.eventId,
+    runStoppedEventRef: admittedEvents[1]?.eventId ?? null,
+  }) as AdmittedRoute;
+  admittedRoutes.add(admitted);
+  return admitted;
+}
+
+export function admitRecursionRoute(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  application: Readonly<RecurseApplication>,
+  sourceCursor: TraversalCursorCandidate,
+  targetCursor: TraversalCursorCandidate | null,
+  replayState: ReplayState,
+  candidate: RouteCandidate,
+  basis: RuntimeAdmissionBasis,
+  evidence: RecursionRouteAdmissionEvidence,
+): RouteAdmissionResult {
+  if (
+    !hasAdmittedExecutionBasis(store, executionBasis) ||
+    executionBasis.basisRef !== sourceCursor.executionBasisRef ||
+    executionBasis.graphRef !== graph.materializationRef ||
+    !isMaterializedGtlGraph(graph) ||
+    graph.template.applications.find(
+      (row) => row.applicationRef === application.applicationRef,
+    ) !== application ||
+    application.relationKind !== "recurse" ||
+    application.applicationRef !== graphFunctionApplicationRef(application)
+  ) {
+    return refusal(
+      "basis_mismatch",
+      "recursion route requires one exact admitted Graph and recurse application",
+    );
+  }
+  if (
+    !hasAdmittedTraversalCursor(store, sourceCursor) ||
+    sourceCursor.graphRef !== graph.materializationRef ||
+    sourceCursor.executionBasisRef !== executionBasis.basisRef
+  ) {
+    return refusal(
+      "cursor_mismatch",
+      "recursion route source is not the admitted application cursor",
+    );
+  }
+  const events = store.readAll();
+  const frameEvents = events.filter(
+    (event) =>
+      event.runId === sourceCursor.runId &&
+      event.frameId === sourceCursor.frameId,
+  );
+  const latestRouteEvent = frameEvents.slice().reverse().find(
+    (event) => event.kind === "traversal_route_admitted",
+  );
+  const initialCursorEvent = frameEvents.slice().reverse().find(
+    (event) => event.kind === "traversal_cursor_entered",
+  );
+  const currentCursorRef = latestRouteEvent !== undefined &&
+      isJsonRecord(latestRouteEvent.payload)
+    ? latestRouteEvent.payload.targetCursorRef
+    : initialCursorEvent !== undefined && isJsonRecord(initialCursorEvent.payload)
+      ? initialCursorEvent.payload.cursorRef
+      : null;
+  if (
+    replay(store, { runId: sourceCursor.runId }).replayDigest !==
+      replayState.replayDigest ||
+    candidate.replayStateDigest !== replayState.replayDigest ||
+    currentCursorRef !== sourceCursor.cursorRef ||
+    events.some(
+      (event) =>
+        event.kind === "traversal_route_admitted" &&
+        isJsonRecord(event.payload) &&
+        event.payload.sourceCursorRef === sourceCursor.cursorRef,
+    )
+  ) {
+    return refusal(
+      "replay_mismatch",
+      "recursion route does not extend the current parent cursor exactly once",
+    );
+  }
+  const applicationDigest = sha256Canonical(application as unknown as JsonValue);
+  const body = candidateBody(candidate);
+  const expectedDigest = sha256Canonical(body);
+  if (
+    candidate.kind !== "traversal_route_candidate" ||
+    candidate.schemaVersion !== "5.0.0" ||
+    candidate.declarationRef !== application.applicationRef ||
+    candidate.declarationDigest !== applicationDigest ||
+    candidate.candidateDigest !== expectedDigest ||
+    candidate.candidateRef !==
+      `route-candidate://abiogenesis/${expectedDigest.slice("sha256:".length)}`
+  ) {
+    return refusal(
+      "candidate_mismatch",
+      "recursion route candidate differs from the exact GTL application",
+    );
+  }
+  const {
+    cCall,
+    result,
+    judgment,
+    foldback,
+    preparationRefusal = null,
+  } = evidence;
+  const sourceTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  if (
+    sourceTerm.kind === "c_source_path_refusal" ||
+    sourceTerm.kind !== "c_of" ||
+    sourceTerm.compositionRef !== application.applicationRef ||
+    !hasOpenedCCall(store, cCall) ||
+    !isAdmittedCCallResult(result) ||
+    !isAdmittedCCallJudgment(judgment) ||
+    cCall.basisId !== executionBasis.basisRef ||
+    cCall.frameId !== sourceCursor.frameId ||
+    cCall.graphCallId !== sourceCursor.graphCallId ||
+    cCall.attempt !== sourceCursor.attempt ||
+    cCall.compositionRef !== application.applicationRef ||
+    result.cCallRef !== cCall.cCallRef ||
+    judgment.cCallRef !== cCall.cCallRef ||
+    judgment.resultRef !== result.resultRef ||
+    judgment.judgment !== "advance" ||
+    candidate.cCallRef !== cCall.cCallRef ||
+    candidate.judgmentRef !== judgment.judgmentRef ||
+    candidate.contractRef !== cCall.transitionContractRef ||
+    recursionTerminationDecision(application, result.value) !== false
+  ) {
+    return refusal(
+      "judgment_mismatch",
+      "recursion route requires one admitted non-terminal evaluator judgment",
+    );
+  }
+  let causationEventRef: string;
+  if (candidate.routeKind === "advance") {
+    if (
+      targetCursor === null ||
+      !isTraversalCursorCandidate(targetCursor) ||
+      hasAdmittedTraversalCursor(store, targetCursor) ||
+      foldback === null ||
+      preparationRefusal !== null ||
+      !isAdmittedApplicationChildFoldback(foldback) ||
+      foldback.applicationRef !== application.applicationRef ||
+      foldback.parentCCallRef !== cCall.cCallRef ||
+      foldback.parentJudgmentRef !== judgment.judgmentRef ||
+      foldback.sourceCursorRef !== sourceCursor.cursorRef ||
+      foldback.childDisposition !== "closed" ||
+      sourceCursor.attempt >= application.bound ||
+      !hasSameCursorLineage(sourceCursor, targetCursor) ||
+      targetCursor.currentNodeRef !== sourceCursor.currentNodeRef ||
+      !sameValues(targetCursor.termPath, sourceCursor.termPath) ||
+      targetCursor.taskOrdinal !== sourceCursor.taskOrdinal ||
+      targetCursor.attempt !== sourceCursor.attempt + 1 ||
+      !sameValues(
+        targetCursor.retryPath.map(String),
+        sourceCursor.retryPath.map(String),
+      ) ||
+      targetCursor.inputRef !== foldback.childResultRef ||
+      targetCursor.inputDigest !== foldback.outputDigest ||
+      candidate.targetCursorRef !== targetCursor.cursorRef ||
+      candidate.targetCursorDigest !== targetCursor.cursorDigest ||
+      !sameValues(candidate.consumedAvailabilityRefs, [
+        judgment.judgmentRef,
+        foldback.foldbackRef,
+      ])
+    ) {
+      return refusal(
+        "candidate_mismatch",
+        "recursion advance must consume one admitted child foldback into the next bounded parent attempt",
+      );
+    }
+    causationEventRef = foldback.admissionEventRef;
+  } else if (candidate.routeKind === "blocked") {
+    const blockedByPreparation =
+      preparationRefusal !== null &&
+      isAdmittedApplicationChildPreparationRefusal(preparationRefusal) &&
+      preparationRefusal.applicationRef === application.applicationRef &&
+      preparationRefusal.parentCCallRef === cCall.cCallRef &&
+      preparationRefusal.parentJudgmentRef === judgment.judgmentRef &&
+      preparationRefusal.sourceCursorRef === sourceCursor.cursorRef;
+    if (
+      targetCursor !== null ||
+      foldback !== null ||
+      candidate.targetCursorRef !== null ||
+      candidate.targetCursorDigest !== null ||
+      (
+        blockedByPreparation
+          ? !sameValues(candidate.consumedAvailabilityRefs, [
+              judgment.judgmentRef,
+              preparationRefusal.refusalRef,
+            ])
+          : sourceCursor.attempt < application.bound ||
+            !sameValues(candidate.consumedAvailabilityRefs, [
+              judgment.judgmentRef,
+            ])
+      )
+    ) {
+      return refusal(
+        "candidate_mismatch",
+        "recursion bound refusal must stop at the exact declared positive bound",
+      );
+    }
+    causationEventRef = blockedByPreparation
+      ? preparationRefusal.admissionEventRef
+      : judgment.admissionEventRef;
+  } else {
+    return refusal(
+      "route_kind_not_supported",
+      "recursion application admits only advance or bounded blocked routes",
+    );
+  }
+  const routeDigest = sha256Canonical(body);
+  const routeRef =
+    `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}`;
+  const routeEventCandidate = {
+    kind: "traversal_route_admitted",
+    eventTime: basis.eventTime,
+    aggregateType: "frame",
+    aggregateId: sourceCursor.frameId,
+    parentAggregateId: sourceCursor.graphCallId,
+    causationEventRefs: [causationEventRef, ...basis.causationEventRefs],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: executionBasis.basisRef,
+    runId: sourceCursor.runId,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    materializationRef: graph.materializationRef,
+    graphCallId: sourceCursor.graphCallId,
+    frameId: sourceCursor.frameId,
+    payload: { routeRef, routeDigest, ...body },
+  } as const;
+  const admittedEvents = candidate.routeKind === "blocked"
+    ? admitRuntimeEventBatch(store, [
+        () => routeEventCandidate,
+        (batch) => ({
+          kind: "run_stopped",
+          eventTime: basis.eventTime,
+          aggregateType: "run",
+          aggregateId: sourceCursor.runId,
+          parentAggregateId: null,
+          causationEventRefs: [batch[0]!.eventId],
+          correlationId: `${basis.correlationId}/run-stopped`,
+          workflowVersion: "5.0.0",
+          scopeClass: "run",
+          basisId: executionBasis.basisRef,
+          runId: sourceCursor.runId,
+          graphFunctionRef: executionBasis.graphFunctionRef,
+          materializationRef: graph.materializationRef,
+          graphCallId: sourceCursor.graphCallId,
+          frameId: sourceCursor.frameId,
+          payload: {
+            disposition: "blocked",
+            routeRef,
+            cCallRef: cCall.cCallRef,
+            judgmentRef: judgment.judgmentRef,
+            reasonRef: preparationRefusal?.diagnosticRef ??
+              "reason://abiogenesis/recursion/bound-exhausted@5",
           },
         }),
       ])

@@ -1,4 +1,6 @@
 import {
+  admitApplicationChildPreparationRefusal,
+  admitApplicationChildFoldback,
   admitChildFoldback,
   admitChildPreparationRefusal,
   admitClosure,
@@ -7,6 +9,7 @@ import {
   admitResult,
   admitRetryAttempt,
   admitRetryProgress,
+  admitRecursionRoute,
   admitRuntimeFailure,
   admitRoute,
   completeRejectedCCall,
@@ -19,6 +22,8 @@ import {
   type AbgEventStore,
   type ActorRuntimeBinding,
   type ActorProcessObservation,
+  type AdmittedCCallJudgment,
+  type AdmittedCCallResult,
   type AdmittedImplementationResolutionRow,
   type AdmittedImplementationSet,
   type CCallEvidenceCandidate,
@@ -40,7 +45,11 @@ import type {
   ClosureContract,
   GtlGraph,
   GtlProgram,
+  RecurseApplication,
 } from "../gtl/contracts.js";
+import {
+  recursionTerminationDecision,
+} from "../gtl/graph_applications.js";
 import type {
   DeterministicEvidenceCandidate,
   ProbabilisticTransportEvidenceCandidate,
@@ -56,12 +65,15 @@ import {
 import {
   proposeBlockedRoute,
   proposeJudgedRoute,
+  proposeRecursionRoute,
   proposeRetryRoute,
   proposeWorkflowBlockedRoute,
 } from "./traversal_route.js";
 import {
   applyRoute,
+  applyRecursionRoute,
   deriveCompletedTraversalStep,
+  deriveRecursionReentryCursor,
   deriveRetryTraversalStep,
   type TraversalCursor,
   type TraversalStep,
@@ -118,7 +130,13 @@ export interface ExecutableTraversalClock {
 export interface ExecutableTraversalCompletion {
   readonly kind: "executable_traversal_completion";
   readonly schemaVersion: "5.0.0";
-  readonly disposition: "advanced" | "blocked" | "closed" | "failed" | "refused";
+  readonly disposition:
+    | "advanced"
+    | "application_ready"
+    | "blocked"
+    | "closed"
+    | "failed"
+    | "refused";
   readonly cCallRef: string | null;
   readonly resultRef: string | null;
   readonly judgmentRef: string | null;
@@ -153,8 +171,39 @@ export interface CompleteExecutableTraversalInput<
   readonly retryInput?: RetainedRetryInput;
   readonly closureContract: Readonly<ClosureContract>;
   readonly actorRuntimeBinding?: ActorRuntimeBinding;
-  readonly terminalMode?: "close_run" | "return_to_parent";
+  readonly terminalMode?:
+    | "close_run"
+    | "return_to_application"
+    | "return_to_parent";
+  readonly applicationCompletionMode?: "close_run" | "return_to_parent";
   readonly clock: ExecutableTraversalClock;
+}
+
+export interface CompleteDeferredRecursionInput {
+  readonly completion: ExecutableTraversalCompletion;
+  readonly application: Readonly<RecurseApplication>;
+  readonly clock: ExecutableTraversalClock;
+}
+
+export interface AdvanceDeferredRecursionInput
+  extends CompleteDeferredRecursionInput {
+  readonly childExecutionBasis: ExecutionBasis;
+  readonly childTraversalScope: OpenedTraversalScope;
+  readonly childCompletion: ExecutableTraversalCompletion;
+}
+
+export interface BlockDeferredRecursionPreparationInput
+  extends CompleteDeferredRecursionInput {
+  readonly preparationRefusal: {
+    readonly stage:
+      | "basis_admission"
+      | "graph_materialization"
+      | "graph_validation"
+      | "membership"
+      | "scope_open";
+    readonly diagnosticRef: string;
+    readonly message: string;
+  };
 }
 
 interface WorkflowParentTraversalInput {
@@ -208,6 +257,19 @@ export type DeterministicTraversalClock = ExecutableTraversalClock;
 export type DeterministicTraversalCompletion = ExecutableTraversalCompletion;
 export type CompleteDeterministicTraversalInput<Input, Output> =
   CompleteExecutableTraversalInput<Input, Output>;
+
+interface DeferredApplicationState {
+  readonly input: CompleteExecutableTraversalInput<unknown, unknown>;
+  readonly cCall: CCall;
+  readonly result: AdmittedCCallResult;
+  readonly judgment: AdmittedCCallJudgment;
+  readonly continuationStep: TraversalStep;
+}
+
+const deferredApplicationStates = new WeakMap<
+  object,
+  DeferredApplicationState
+>();
 
 function basis(
   clock: ExecutableTraversalClock,
@@ -965,6 +1027,45 @@ export async function completeExecutableTraversal<
       diagnosticRef: `diagnostic://abiogenesis/hog/${continuationStep.code}@5`,
     });
   }
+  if (input.terminalMode === "return_to_application") {
+    if (continuationStep.directStep.stepKind !== "complete_term") {
+      const diagnosticRef =
+        "diagnostic://abiogenesis/hog/application-locus-not-terminal@5";
+      admitRuntimeFailure(
+        input.store,
+        input.executionBasis,
+        input.openedTraversalScope,
+        "route",
+        continuationStep as unknown as JsonValue,
+        diagnosticRef,
+        {
+          ...basis(input.clock, "application-defer-refusal"),
+          causationEventRefs: [judgment.admissionEventRef],
+        },
+      );
+      return completion("failed", replayRun(input), {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        resultValue: result.value,
+        diagnosticRef,
+      });
+    }
+    const ready = completion("application_ready", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      resultValue: result.value,
+    });
+    deferredApplicationStates.set(ready, {
+      input: input as CompleteExecutableTraversalInput<unknown, unknown>,
+      cCall,
+      result,
+      judgment,
+      continuationStep,
+    });
+    return ready;
+  }
   const proposal = proposeJudgedRoute(
     input.graph,
     continuationStep,
@@ -1100,6 +1201,533 @@ export async function completeExecutableTraversal<
     judgmentRef: judgment.judgmentRef,
     closureRef: closure.closureRef,
     resultValue: result.value,
+  });
+}
+
+function requireDeferredApplicationState(
+  value: ExecutableTraversalCompletion,
+): DeferredApplicationState {
+  const state = deferredApplicationStates.get(value);
+  if (value.disposition !== "application_ready" || state === undefined) {
+    throw new TypeError(
+      "application completion requires the exact HoG-issued deferred capability",
+    );
+  }
+  return state;
+}
+
+function failDeferredApplication(
+  state: DeferredApplicationState,
+  value: ExecutableTraversalCompletion,
+  clock: ExecutableTraversalClock,
+  stage: string,
+  diagnosticRef: string,
+  candidate: JsonValue,
+): ExecutableTraversalCompletion {
+  deferredApplicationStates.delete(value);
+  admitRuntimeFailure(
+    state.input.store,
+    state.input.executionBasis,
+    state.input.openedTraversalScope,
+    "route",
+    { stage, candidate },
+    diagnosticRef,
+    {
+      eventTime: clock.eventTime,
+      correlationId: `${clock.correlationId}/${stage}`,
+      causationEventRefs: [state.judgment.admissionEventRef],
+    },
+  );
+  return completion("failed", replayRun(state.input), {
+    cCallRef: state.cCall.cCallRef,
+    resultRef: state.result.resultRef,
+    judgmentRef: state.judgment.judgmentRef,
+    resultValue: state.result.value,
+    diagnosticRef,
+  });
+}
+
+function exactDeferredApplication(
+  state: DeferredApplicationState,
+  application: Readonly<RecurseApplication>,
+): boolean {
+  return state.input.graph.template.applications.find(
+    (candidate) => candidate.applicationRef === application.applicationRef,
+  ) === application &&
+    state.cCall.compositionRef === application.applicationRef;
+}
+
+export function completeDeferredApplicationTerminal(
+  input: CompleteDeferredRecursionInput,
+): ExecutableTraversalCompletion {
+  const state = requireDeferredApplicationState(input.completion);
+  if (
+    !exactDeferredApplication(state, input.application) ||
+    recursionTerminationDecision(input.application, state.result.value) !== true
+  ) {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-terminal-refusal",
+      "diagnostic://abiogenesis/hog/application-terminal-not-declared@5",
+      input.application as unknown as JsonValue,
+    );
+  }
+  const judgedReplay = replayRun(state.input);
+  const proposal = proposeJudgedRoute(
+    state.input.graph,
+    state.continuationStep,
+    state.cCall,
+    state.result,
+    state.judgment,
+    judgedReplay,
+    state.input.closureContract.transitionContractRef,
+  );
+  if (proposal.kind !== "traversal_route_candidate") {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-terminal-proposal",
+      `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+      proposal as unknown as JsonValue,
+    );
+  }
+  const route = admitRoute(
+    state.input.store,
+    state.input.executionBasis,
+    state.input.graph,
+    state.input.traversalStop.cursor,
+    null,
+    judgedReplay,
+    proposal,
+    {
+      eventTime: input.clock.eventTime,
+      correlationId: `${input.clock.correlationId}/application-terminal-route`,
+      causationEventRefs: [],
+    },
+    {
+      cCall: state.cCall,
+      result: state.result,
+      judgment: state.judgment,
+    },
+  );
+  if (
+    route.kind !== "admitted_traversal_route" ||
+    route.routeKind !== "terminal"
+  ) {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-terminal-admission",
+      route.kind === "admitted_traversal_route"
+        ? "diagnostic://abiogenesis/hog/application-terminal-route-mismatch@5"
+        : `diagnostic://abiogenesis/hog/${route.code}@5`,
+      route as unknown as JsonValue,
+    );
+  }
+  deferredApplicationStates.delete(input.completion);
+  if (state.input.applicationCompletionMode === "return_to_parent") {
+    return completion("closed", replayRun(state.input), {
+      cCallRef: state.cCall.cCallRef,
+      resultRef: state.result.resultRef,
+      judgmentRef: state.judgment.judgmentRef,
+      resultValue: state.result.value,
+    });
+  }
+  const routeReplay = replayRun(state.input);
+  const closure = admitClosure(
+    state.input.store,
+    state.cCall,
+    state.result,
+    state.judgment,
+    route,
+    routeReplay,
+    state.input.closureContract,
+    {
+      eventTime: input.clock.eventTime,
+      correlationId: `${input.clock.correlationId}/application-closure`,
+      causationEventRefs: [],
+    },
+  );
+  if (closure.kind !== "closure_admission") {
+    return completion("failed", replayRun(state.input), {
+      cCallRef: state.cCall.cCallRef,
+      resultRef: state.result.resultRef,
+      judgmentRef: state.judgment.judgmentRef,
+      diagnosticRef: `diagnostic://abiogenesis/hog/${closure.code}@5`,
+    });
+  }
+  return completion("closed", replayRun(state.input), {
+    cCallRef: state.cCall.cCallRef,
+    resultRef: state.result.resultRef,
+    judgmentRef: state.judgment.judgmentRef,
+    closureRef: closure.closureRef,
+    resultValue: state.result.value,
+  });
+}
+
+export function advanceDeferredRecursion(
+  input: AdvanceDeferredRecursionInput,
+): ExecutableTraversalCompletion {
+  const state = requireDeferredApplicationState(input.completion);
+  const childValue = input.childCompletion.resultValue;
+  if (
+    !exactDeferredApplication(state, input.application) ||
+    recursionTerminationDecision(input.application, state.result.value) !== false ||
+    input.application.foldback.binding !== "$" ||
+    input.childCompletion.disposition !== "closed" ||
+    input.childCompletion.resultRef === null ||
+    input.childCompletion.judgmentRef === null ||
+    typeof childValue !== "object" ||
+    childValue === null ||
+    Array.isArray(childValue)
+  ) {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-foldback-refusal",
+      "diagnostic://abiogenesis/hog/application-foldback-mismatch@5",
+      input.application as unknown as JsonValue,
+    );
+  }
+  const foldback = admitApplicationChildFoldback(
+    state.input.store,
+    state.input.executionBasis,
+    state.input.graph,
+    input.application,
+    state.cCall,
+    state.judgment.judgmentRef,
+    state.input.traversalStop.cursor,
+    input.childExecutionBasis,
+    input.childTraversalScope,
+    {
+      resultRef: input.childCompletion.resultRef,
+      judgmentRef: input.childCompletion.judgmentRef,
+    },
+    {
+      eventTime: input.clock.eventTime,
+      correlationId: `${input.clock.correlationId}/application-foldback`,
+      causationEventRefs: [],
+    },
+  );
+  if (foldback.kind !== "application_child_foldback_admission") {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-foldback-admission",
+      `diagnostic://abiogenesis/hog/${foldback.code}@5`,
+      foldback as unknown as JsonValue,
+    );
+  }
+  const targetCursor = deriveRecursionReentryCursor(
+    state.input.graph,
+    input.application,
+    state.input.traversalStop.cursor,
+    {
+      inputRef: foldback.childResultRef,
+      inputDigest: foldback.outputDigest,
+    },
+  );
+  if (targetCursor.kind === "traversal_refusal") {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-reentry-derivation",
+      `diagnostic://abiogenesis/hog/${targetCursor.code}@5`,
+      targetCursor as unknown as JsonValue,
+    );
+  }
+  const foldbackReplay = replayRun(state.input);
+  const proposal = proposeRecursionRoute(
+    state.input.graph,
+    input.application,
+    state.input.traversalStop.cursor,
+    targetCursor,
+    state.cCall,
+    state.judgment,
+    foldback,
+    foldbackReplay,
+    state.cCall.transitionContractRef,
+    "advance",
+  );
+  if (proposal.kind !== "traversal_route_candidate") {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-route-proposal",
+      `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+      proposal as unknown as JsonValue,
+    );
+  }
+  const route = admitRecursionRoute(
+    state.input.store,
+    state.input.executionBasis,
+    state.input.graph,
+    input.application,
+    state.input.traversalStop.cursor,
+    targetCursor,
+    foldbackReplay,
+    proposal,
+    {
+      eventTime: input.clock.eventTime,
+      correlationId: `${input.clock.correlationId}/application-route`,
+      causationEventRefs: [],
+    },
+    {
+      cCall: state.cCall,
+      result: state.result,
+      judgment: state.judgment,
+      foldback,
+    },
+  );
+  if (route.kind !== "admitted_traversal_route") {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-route-admission",
+      `diagnostic://abiogenesis/hog/${route.code}@5`,
+      route as unknown as JsonValue,
+    );
+  }
+  const nextCursor = applyRecursionRoute(
+    state.input.traversalStop.cursor,
+    targetCursor,
+    route,
+  );
+  if (nextCursor.kind === "traversal_refusal") {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-route-application",
+      `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
+      nextCursor as unknown as JsonValue,
+    );
+  }
+  deferredApplicationStates.delete(input.completion);
+  return completion("advanced", replayRun(state.input), {
+    cCallRef: state.cCall.cCallRef,
+    resultRef: foldback.childResultRef,
+    judgmentRef: state.judgment.judgmentRef,
+    nextCursor,
+    resultValue: childValue as JsonValue,
+    continuationKind: "advance",
+    nextInputContractRef: input.application.outputContractRef,
+  });
+}
+
+export function blockDeferredRecursion(
+  input: CompleteDeferredRecursionInput,
+): ExecutableTraversalCompletion {
+  const state = requireDeferredApplicationState(input.completion);
+  if (
+    !exactDeferredApplication(state, input.application) ||
+    recursionTerminationDecision(input.application, state.result.value) !== false
+  ) {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-bound-refusal",
+      "diagnostic://abiogenesis/hog/application-bound-mismatch@5",
+      input.application as unknown as JsonValue,
+    );
+  }
+  const judgedReplay = replayRun(state.input);
+  const proposal = proposeRecursionRoute(
+    state.input.graph,
+    input.application,
+    state.input.traversalStop.cursor,
+    null,
+    state.cCall,
+    state.judgment,
+    null,
+    judgedReplay,
+    state.cCall.transitionContractRef,
+    "blocked",
+  );
+  if (proposal.kind !== "traversal_route_candidate") {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-bound-proposal",
+      `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+      proposal as unknown as JsonValue,
+    );
+  }
+  const route = admitRecursionRoute(
+    state.input.store,
+    state.input.executionBasis,
+    state.input.graph,
+    input.application,
+    state.input.traversalStop.cursor,
+    null,
+    judgedReplay,
+    proposal,
+    {
+      eventTime: input.clock.eventTime,
+      correlationId: `${input.clock.correlationId}/application-bound`,
+      causationEventRefs: [],
+    },
+    {
+      cCall: state.cCall,
+      result: state.result,
+      judgment: state.judgment,
+      foldback: null,
+    },
+  );
+  deferredApplicationStates.delete(input.completion);
+  if (
+    route.kind !== "admitted_traversal_route" ||
+    route.routeKind !== "blocked" ||
+    route.runStoppedEventRef === null
+  ) {
+    return completion("failed", replayRun(state.input), {
+      cCallRef: state.cCall.cCallRef,
+      resultRef: state.result.resultRef,
+      judgmentRef: state.judgment.judgmentRef,
+      diagnosticRef: route.kind === "admitted_traversal_route"
+        ? "diagnostic://abiogenesis/hog/application-run-stop-absent@5"
+        : `diagnostic://abiogenesis/hog/${route.code}@5`,
+    });
+  }
+  return completion("blocked", replayRun(state.input), {
+    cCallRef: state.cCall.cCallRef,
+    resultRef: state.result.resultRef,
+    judgmentRef: state.judgment.judgmentRef,
+    resultValue: state.result.value,
+    diagnosticRef: "reason://abiogenesis/recursion/bound-exhausted@5",
+  });
+}
+
+export function blockDeferredRecursionPreparation(
+  input: BlockDeferredRecursionPreparationInput,
+): ExecutableTraversalCompletion {
+  const state = requireDeferredApplicationState(input.completion);
+  if (
+    !exactDeferredApplication(state, input.application) ||
+    recursionTerminationDecision(input.application, state.result.value) !== false
+  ) {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-preparation-refusal",
+      "diagnostic://abiogenesis/hog/application-preparation-mismatch@5",
+      input.application as unknown as JsonValue,
+    );
+  }
+  const refusalAdmission = admitApplicationChildPreparationRefusal(
+    state.input.store,
+    state.input.executionBasis,
+    state.input.graph,
+    input.application,
+    state.cCall,
+    state.result,
+    state.judgment,
+    state.input.traversalStop.cursor,
+    {
+      childGraphFunctionRef: input.application.graphFunctionRef,
+      inputRef: state.result.resultRef,
+      inputDigest: state.result.valueDigest,
+      ...input.preparationRefusal,
+    },
+    {
+      eventTime: input.clock.eventTime,
+      correlationId: `${input.clock.correlationId}/preparation-refusal`,
+      causationEventRefs: [],
+    },
+  );
+  if (
+    refusalAdmission.kind !==
+      "application_child_preparation_refusal_admission"
+  ) {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-preparation-admission",
+      `diagnostic://abiogenesis/hog/${refusalAdmission.code}@5`,
+      refusalAdmission as unknown as JsonValue,
+    );
+  }
+  const refusalReplay = replayRun(state.input);
+  const proposal = proposeRecursionRoute(
+    state.input.graph,
+    input.application,
+    state.input.traversalStop.cursor,
+    null,
+    state.cCall,
+    state.judgment,
+    null,
+    refusalReplay,
+    state.cCall.transitionContractRef,
+    "blocked",
+    refusalAdmission,
+  );
+  if (proposal.kind !== "traversal_route_candidate") {
+    return failDeferredApplication(
+      state,
+      input.completion,
+      input.clock,
+      "application-preparation-route-proposal",
+      `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+      proposal as unknown as JsonValue,
+    );
+  }
+  const route = admitRecursionRoute(
+    state.input.store,
+    state.input.executionBasis,
+    state.input.graph,
+    input.application,
+    state.input.traversalStop.cursor,
+    null,
+    refusalReplay,
+    proposal,
+    {
+      eventTime: input.clock.eventTime,
+      correlationId:
+        `${input.clock.correlationId}/preparation-blocked-route`,
+      causationEventRefs: [],
+    },
+    {
+      cCall: state.cCall,
+      result: state.result,
+      judgment: state.judgment,
+      foldback: null,
+      preparationRefusal: refusalAdmission,
+    },
+  );
+  deferredApplicationStates.delete(input.completion);
+  if (
+    route.kind !== "admitted_traversal_route" ||
+    route.routeKind !== "blocked" ||
+    route.runStoppedEventRef === null
+  ) {
+    return completion("failed", replayRun(state.input), {
+      cCallRef: state.cCall.cCallRef,
+      resultRef: state.result.resultRef,
+      judgmentRef: state.judgment.judgmentRef,
+      diagnosticRef: route.kind === "admitted_traversal_route"
+        ? "diagnostic://abiogenesis/hog/application-run-stop-absent@5"
+        : `diagnostic://abiogenesis/hog/${route.code}@5`,
+    });
+  }
+  return completion("blocked", replayRun(state.input), {
+    cCallRef: state.cCall.cCallRef,
+    resultRef: state.result.resultRef,
+    judgmentRef: state.judgment.judgmentRef,
+    resultValue: state.result.value,
+    diagnosticRef: input.preparationRefusal.diagnosticRef,
   });
 }
 

@@ -472,6 +472,7 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
       graphFunctionRef: "graph-function://m5/recursive",
       terminationRuleRef: "rule://m5/termination",
       terminationEvaluatorRefs: ["evaluator://m5/termination"],
+      terminationFieldRef: "$.terminal",
       foldback: {
         mode: "rebind",
         binding: "$.child.result -> $.parent.input",
@@ -523,7 +524,7 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
     regime: "F_D",
     description: "Checks the declared recursion terminal condition.",
     binding: "implementation://m5/termination",
-    consumedFieldRefs: ["$.message"],
+    consumedFieldRefs: ["$.terminal"],
     tags: ["termination"],
   });
   const rule = gtl.ruleDeclaration({
@@ -591,6 +592,7 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
       graphFunctionRef: "graph-function://m5/recursive",
       terminationRuleRef: "rule://m5/termination",
       terminationEvaluatorRefs: ["evaluator://m5/termination"],
+      terminationFieldRef: "$.terminal",
       foldback: {
         mode: "rebind",
         binding: "",
@@ -656,7 +658,7 @@ test("M5 whole-program validation admits exact recursion law and refuses its sub
     regime: "F_D",
     description: "Checks the bounded Hello World recursion terminal condition.",
     binding: "implementation://abiogenesis/conformance/hello-recursion-terminal@5",
-    consumedFieldRefs: ["$.message"],
+    consumedFieldRefs: ["$.terminal"],
     tags: ["recursion", "termination"],
   })];
   publication.rules = [gtl.ruleDeclaration({
@@ -673,6 +675,7 @@ test("M5 whole-program validation admits exact recursion law and refuses its sub
     terminationEvaluatorRefs: [
       "evaluator://abiogenesis/conformance/hello-recursion-terminal@5",
     ],
+    terminationFieldRef: "$.terminal",
     foldback: {
       mode: "rebind",
       binding: "$.child.message -> $.parent.subject",
@@ -781,6 +784,31 @@ test("M5 whole-program validation binds gate law to published Rule and Evaluator
   assert.equal(
     detachedResult.diagnostics.some((row) => row.code === "invalid_application"),
     true,
+  );
+
+  const divergentTarget = structuredClone(publication);
+  const divergentProgram = divergentTarget.programs.find(
+    (candidate) => candidate.programRef === gtl.GATE_HELLO_IDS.programRef,
+  );
+  const divergentGraphFunction = divergentTarget.graphFunctions.find(
+    (candidate) => candidate.name === gtl.GATE_HELLO_IDS.graphFunctionRef,
+  );
+  divergentProgram.callableMembership.push(gtl.HELLO_WORLD_IDS.graphFunctionRef);
+  divergentGraphFunction.template.nodes[0].term.terms[1].graphFunctionRef =
+    gtl.HELLO_WORLD_IDS.graphFunctionRef;
+  const divergentResult = programValidationResult(
+    divergentTarget,
+    divergentProgram,
+  );
+  assert.equal(divergentResult.kind, "static_validation_refusal");
+  assert.equal(
+    divergentResult.diagnostics.some(
+      (row) =>
+        row.code === "invalid_application" &&
+        row.message.includes("matching workflow target"),
+    ),
+    true,
+    JSON.stringify(divergentResult),
   );
 });
 

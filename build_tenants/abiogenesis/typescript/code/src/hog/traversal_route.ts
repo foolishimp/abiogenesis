@@ -6,7 +6,13 @@ import type {
 import type { RetryProgressAdmission } from "../abg/retry.js";
 import type { ReplayState } from "../abg/replay.js";
 import type { RouteCandidate } from "../abg/traversal_route.js";
-import type { GtlGraph } from "../gtl/contracts.js";
+import {
+  isAdmittedApplicationChildPreparationRefusal,
+  type ApplicationChildFoldbackAdmission,
+  type ApplicationChildPreparationRefusalAdmission,
+} from "../abg/graph_application.js";
+import type { GtlGraph, RecurseApplication } from "../gtl/contracts.js";
+import { graphFunctionApplicationRef } from "../gtl/graph_applications.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import { deriveCSourceContinuation } from "../gtl/source_path.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -348,6 +354,92 @@ export function proposeWorkflowBlockedRoute(
     cCallRef: cCall.cCallRef,
     judgmentRef,
     consumedAvailabilityRefs: [judgmentRef] as const,
+    contractRef,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}
+
+export function proposeRecursionRoute(
+  graph: Readonly<GtlGraph>,
+  application: Readonly<RecurseApplication>,
+  sourceCursor: TraversalStopRef["cursor"],
+  targetCursor: TraversalStopRef["cursor"] | null,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  foldback: ApplicationChildFoldbackAdmission | null,
+  replayState: ReplayState,
+  contractRef: string,
+  routeKind: "advance" | "blocked",
+  preparationRefusal:
+    | ApplicationChildPreparationRefusalAdmission
+    | null = null,
+): RouteCandidate | RouteProposalRefusal {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    graph.template.applications.find(
+      (candidate) => candidate.applicationRef === application.applicationRef,
+    ) !== application ||
+    application.relationKind !== "recurse" ||
+    application.applicationRef !== graphFunctionApplicationRef(application) ||
+    sourceCursor.graphRef !== graph.materializationRef ||
+    cCall.frameId !== sourceCursor.frameId ||
+    cCall.compositionRef !== application.applicationRef ||
+    judgment.cCallRef !== cCall.cCallRef ||
+    judgment.judgment !== "advance" ||
+    (
+      routeKind === "advance"
+        ? targetCursor === null ||
+          foldback === null ||
+          preparationRefusal !== null ||
+          foldback.parentCCallRef !== cCall.cCallRef ||
+          foldback.parentJudgmentRef !== judgment.judgmentRef
+        : targetCursor !== null ||
+          foldback !== null ||
+          (
+            preparationRefusal === null
+              ? sourceCursor.attempt < application.bound
+              : !isAdmittedApplicationChildPreparationRefusal(
+                  preparationRefusal,
+                ) ||
+                preparationRefusal.applicationRef !==
+                  application.applicationRef ||
+                preparationRefusal.parentCCallRef !== cCall.cCallRef ||
+                preparationRefusal.parentJudgmentRef !== judgment.judgmentRef
+          )
+    )
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "structural_step_missing",
+      message: "recursion route requires one exact declared application, parent judgment, and bounded foldback",
+    };
+  }
+  const body = {
+    routeKind,
+    declarationRef: application.applicationRef,
+    declarationDigest: sha256Canonical(application as unknown as JsonValue),
+    sourceCursorRef: sourceCursor.cursorRef,
+    sourceCursorDigest: sourceCursor.cursorDigest,
+    targetCursorRef: targetCursor?.cursorRef ?? null,
+    targetCursorDigest: targetCursor?.cursorDigest ?? null,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: judgment.judgmentRef,
+    consumedAvailabilityRefs: routeKind === "advance"
+      ? [judgment.judgmentRef, foldback!.foldbackRef]
+      : preparationRefusal === null
+        ? [judgment.judgmentRef]
+        : [judgment.judgmentRef, preparationRefusal.refusalRef],
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };

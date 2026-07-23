@@ -7,7 +7,12 @@ import {
   isAdmittedRoute,
   type AdmittedRoute,
 } from "../abg/traversal_route.js";
-import type { ComputeRegime, GtlGraph, GtlProgram } from "../gtl/contracts.js";
+import type {
+  ComputeRegime,
+  GtlGraph,
+  GtlProgram,
+  RecurseApplication,
+} from "../gtl/contracts.js";
 import { isExecutableCLeaf } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import { resolveEnclosingCBatchRef } from "../gtl/source_path.js";
@@ -333,6 +338,67 @@ export function deriveRetryTraversalStep(
     return refusal("locus_missing", directStep.message);
   }
   return createTraversalStep(sourceCursor, directStep, retryInput);
+}
+
+export function deriveRecursionReentryCursor(
+  graph: Readonly<GtlGraph>,
+  application: Readonly<RecurseApplication>,
+  sourceCursor: TraversalCursor,
+  foldedInput: TraversalInputBasis,
+): TraversalCursor | TraversalRefusal {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !traversalCursors.has(sourceCursor) ||
+    sourceCursor.graphRef !== graph.materializationRef ||
+    sourceCursor.position !== "at_term" ||
+    graph.template.applications.find(
+      (candidate) => candidate.applicationRef === application.applicationRef,
+    ) !== application ||
+    application.relationKind !== "recurse" ||
+    sourceCursor.attempt >= application.bound ||
+    foldedInput.inputRef.length === 0 ||
+    !foldedInput.inputDigest.startsWith("sha256:")
+  ) {
+    return refusal(
+      "traversal_cursor_mismatch",
+      "HoG derives recursive re-entry only from the exact bounded application cursor and admitted foldback",
+    );
+  }
+  return createCursor(
+    cursorLineage(sourceCursor),
+    {
+      nodeRef: sourceCursor.currentNodeRef,
+      termPath: sourceCursor.termPath,
+      taskOrdinal: sourceCursor.taskOrdinal,
+      attempt: sourceCursor.attempt + 1,
+      retryPath: sourceCursor.retryPath,
+    },
+    "at_term",
+    foldedInput,
+  );
+}
+
+export function applyRecursionRoute(
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  route: AdmittedRoute,
+): TraversalCursor | TraversalRefusal {
+  if (
+    !traversalCursors.has(sourceCursor) ||
+    !traversalCursors.has(targetCursor) ||
+    !isAdmittedRoute(route) ||
+    route.routeKind !== "advance" ||
+    route.sourceCursorRef !== sourceCursor.cursorRef ||
+    route.sourceCursorDigest !== sourceCursor.cursorDigest ||
+    route.targetCursorRef !== targetCursor.cursorRef ||
+    route.targetCursorDigest !== targetCursor.cursorDigest
+  ) {
+    return refusal(
+      "route_mismatch",
+      "HoG applies only the exact ABG-admitted recursive re-entry route",
+    );
+  }
+  return targetCursor;
 }
 
 function validateTraverseInput(input: TraverseInput): TraversalRefusal | null {
