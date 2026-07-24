@@ -14,6 +14,9 @@ export type PublicOperationId =
   | "abg.operation.workspace.bind"
   | "abg.operation.catalog.admit"
   | "abg.operation.catalog.view"
+  | "abg.operation.interaction.respond"
+  | "abg.operation.project.read"
+  | "abg.operation.run.continue"
   | "abg.operation.run.invoke";
 
 export interface PublicOperationAdmissionBasis {

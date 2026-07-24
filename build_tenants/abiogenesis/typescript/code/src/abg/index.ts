@@ -29,6 +29,7 @@ export {
 } from "./catalog_admission.js";
 export {
   admitInvocation,
+  rehydrateInvocationAdmission,
   type InvocationAdmission,
   type InvocationAdmissionInput,
   type InvocationAdmissionRefusal,
@@ -46,6 +47,7 @@ export {
   isAdmittedImplementationResolution,
   isAdmittedInteractionSet,
   isExecutionBasis,
+  selectAdmittedInteractionContract,
   selectAdmittedImplementationResolution,
   type AdmittedImplementationResolutionRow,
   type AdmittedImplementationResolution,
@@ -62,6 +64,7 @@ export {
   type ChildExecutionBasisResult,
   type InvocationRefusalAdmission,
   type ImplementationResolutionSelection,
+  type InteractionContractSelection,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
 export {
@@ -110,6 +113,7 @@ export {
 } from "./graph_application.js";
 export {
   admitEvidence,
+  admitPendingInteraction,
   admitChildPreparationRefusal,
   admitChildFoldback,
   admitJudgment,
@@ -122,6 +126,7 @@ export {
   isAdmittedCCallResult,
   isCCall,
   openCCall,
+  openInteractionCCall,
   openWorkflowCCall,
   type AdmittedCCallEvidence,
   type AdmittedCCallJudgment,
@@ -145,9 +150,27 @@ export {
   type SubTraversalEvidenceCandidate,
   type ProbabilisticTransportEvidenceCandidate,
   type JudgmentCandidate,
+  type InteractionCCallLocusProposal,
+  type PendingInteractionAdmission,
   type RejectedCCallCompletion,
   type WorkflowCCallProposal,
 } from "./c_call.js";
+export {
+  admitContinuationPublicOperation,
+  admitFhInteractionOpen,
+  admitFhInteractionResponse,
+  admitFhInteractionResume,
+  projectFhContinuations,
+  rehydrateFhContinuation,
+  type ContinuationProductBasis,
+  type ContinuationPublicOperationAdmission,
+  type FhInteractionContinuation,
+  type FhInteractionResponseAdmission,
+  type FhInteractionResumeAdmission,
+  type FhContinuationRehydrationBasis,
+  type RehydratedFhContinuationScope,
+  type ReplayContinuationState,
+} from "./continuation.js";
 export {
   replay,
   type ReplayActorProcessState,
@@ -194,6 +217,8 @@ export {
   type AdmittedRoute,
   type BlockedRouteAdmissionEvidence,
   type FanOutRouteAdmissionEvidence,
+  type HoldRouteAdmissionEvidence,
+  type InteractionResumeRouteAdmissionEvidence,
   type RetryRouteAdmissionEvidence,
   type RouteAdmissionEvidence,
   type RouteAdmissionRefusal,
@@ -206,6 +231,7 @@ export {
 export {
   admitChildClosure,
   admitClosure,
+  admitInteractionClosure,
   type ChildClosureAdmission,
   type ChildClosureAdmissionRefusal,
   type ChildClosureAdmissionResult,

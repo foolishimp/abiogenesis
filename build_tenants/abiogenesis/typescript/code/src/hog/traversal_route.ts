@@ -4,6 +4,7 @@ import type {
   CCall,
 } from "../abg/c_call.js";
 import type { FanOutCompletionAdmission } from "../abg/fan_out.js";
+import type { FhInteractionResumeAdmission } from "../abg/continuation.js";
 import type { RetryProgressAdmission } from "../abg/retry.js";
 import type { ReplayState } from "../abg/replay.js";
 import type { RouteCandidate } from "../abg/traversal_route.js";
@@ -35,6 +36,8 @@ export interface RouteProposalRefusal {
   readonly disposition: "refused";
   readonly code:
     | "judgment_not_advance"
+    | "judgment_not_pending"
+    | "resume_not_admitted"
     | "retry_progress_missing"
     | "structural_step_missing"
     | "terminal_not_declared";
@@ -311,6 +314,124 @@ export function proposeBlockedRoute(
     cCallRef: cCall.cCallRef,
     judgmentRef,
     consumedAvailabilityRefs: [judgmentRef] as const,
+    contractRef,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}
+
+export function proposeHoldRoute(
+  graph: Readonly<GtlGraph>,
+  stop: TraversalStopRef,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    stop.stopClass !== "interaction" ||
+    stop.cursor.graphRef !== graph.materializationRef ||
+    stop.cursor.frameId !== cCall.frameId ||
+    stop.programLocusRef !== cCall.programLocusRef ||
+    cCall.regime !== "F_H" ||
+    judgment.cCallRef !== cCall.cCallRef ||
+    judgment.judgment !== "pending" ||
+    contractRef !== cCall.continuationContractRef
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "judgment_not_pending",
+      message:
+        "hold route requires the exact F_H locus and admitted pending judgment",
+    };
+  }
+  const body = {
+    routeKind: "hold" as const,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: stop.cursor.cursorRef,
+    sourceCursorDigest: stop.cursor.cursorDigest,
+    targetCursorRef: null,
+    targetCursorDigest: null,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: judgment.judgmentRef,
+    consumedAvailabilityRefs: [judgment.judgmentRef] as const,
+    contractRef,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}
+
+export function proposeInteractionResumeTerminalRoute(
+  graph: Readonly<GtlGraph>,
+  cursor: TraversalStopRef["cursor"],
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  resume: FhInteractionResumeAdmission,
+  replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal {
+  const continuation = deriveCSourceContinuation(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    cursor.graphRef !== graph.materializationRef ||
+    cursor.frameId !== cCall.frameId ||
+    cursor.graphCallId !== cCall.graphCallId ||
+    cursor.cursorRef !== resume.successorCursorRef ||
+    cursor.cursorDigest !== resume.successorCursorDigest ||
+    cursor.inputRef !== resume.responseRef ||
+    cursor.inputDigest !== resume.responseDigest ||
+    cCall.regime !== "F_H" ||
+    judgment.cCallRef !== cCall.cCallRef ||
+    judgment.judgment !== "pending" ||
+    continuation.kind === "c_source_path_refusal" ||
+    continuation.disposition !== "terminal" ||
+    !graph.template.terminalNodeRefs.includes(cursor.currentNodeRef) ||
+    contractRef !== cCall.transitionContractRef
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "resume_not_admitted",
+      message:
+        "F_H resume route requires the exact admitted response cursor at a declared terminal locus",
+    };
+  }
+  const body = {
+    routeKind: "terminal" as const,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: cursor.cursorRef,
+    sourceCursorDigest: cursor.cursorDigest,
+    targetCursorRef: null,
+    targetCursorDigest: null,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: judgment.judgmentRef,
+    consumedAvailabilityRefs: [resume.admissionEventRef] as const,
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };

@@ -20,8 +20,36 @@ import { bindChildTraversalPreparationPort } from "./child_traversal_port.js";
 import { projectOutcome } from "./outcome.js";
 
 export interface RootOperationContext {
-  readonly store: abg.AbgEventStore;
+  store: abg.AbgEventStore;
   readonly productState: product.RootOperationState;
+}
+
+interface ContinuationLocator {
+  readonly continuationRef: string;
+  readonly reopenAuthority: abg.EventStoreReopenAuthority;
+  readonly runtimeInvocationRef: string;
+  readonly outputContractRef: string;
+  readonly invocationAdmissionRef: string;
+  readonly runId: string;
+  readonly installState: product.InstallOperationState;
+  readonly workspaceState: product.WorkspaceOperationState;
+  readonly viewState: product.CatalogViewOperationState;
+  readonly program: Readonly<gtl.GtlProgram>;
+  readonly graph: Readonly<gtl.GtlGraph>;
+  readonly closureContract: Readonly<gtl.ClosureContract>;
+}
+
+const continuationLocators =
+  new WeakMap<RootOperationContext, Map<string, ContinuationLocator>>();
+
+function continuationLocatorMap(
+  context: RootOperationContext,
+): Map<string, ContinuationLocator> {
+  const state = continuationLocators.get(context);
+  if (state === undefined) {
+    throw new TypeError("root operation context has no continuation registry");
+  }
+  return state;
 }
 
 class ApplicationRefusal extends Error {
@@ -38,14 +66,17 @@ class ApplicationRefusal extends Error {
 }
 
 export function createRootOperationContext(): RootOperationContext {
-  return {
+  const context = {
     store: new abg.AbgEventStore(),
     productState: new product.RootOperationState(),
   };
+  continuationLocators.set(context, new Map());
+  return context;
 }
 
 export function closeRootOperationContext(context: RootOperationContext): void {
   context.store.closeDurableLog();
+  continuationLocators.delete(context);
 }
 
 function stringField(
@@ -201,30 +232,46 @@ function rawProgramInput(
 function successOutcome(
   invocation: RootPublicInvocation,
   result: product.JsonValue,
+  metadata: {
+    readonly runtimeInvocationRef?: string;
+    readonly runId?: string;
+    readonly graphCallId?: string;
+    readonly frameId?: string;
+    readonly replayRef?: string;
+    readonly replayDigest?: product.Sha256Digest;
+    readonly eventLogPath?: string;
+    readonly eventLogDigest?: product.Sha256Digest;
+    readonly eventLogByteLength?: number;
+    readonly durableEventCount?: number;
+    readonly continuationRef?: string;
+    readonly continuationStatus?: "open" | "responded" | "resolved";
+  } = {},
 ): PublicOutcome {
   const body = {
     operationId: invocation.operationId,
     variant: invocation.variant,
     invocationRef: invocation.invocationRef,
-    runtimeInvocationRef: null,
+    runtimeInvocationRef: metadata.runtimeInvocationRef ?? null,
     disposition: "succeeded" as const,
     result,
     diagnosticRef: null,
-    runId: null,
-    graphCallId: null,
-    frameId: null,
+    runId: metadata.runId ?? null,
+    graphCallId: metadata.graphCallId ?? null,
+    frameId: metadata.frameId ?? null,
     cCallRef: null,
     resultRef: null,
     judgmentRef: null,
     outputContractRef: null,
     admittedResultContractRef: null,
-    replayRef: null,
-    replayDigest: null,
-    replayAgreement: null,
-    eventLogPath: null,
-    eventLogDigest: null,
-    eventLogByteLength: null,
-    durableEventCount: null,
+    replayRef: metadata.replayRef ?? null,
+    replayDigest: metadata.replayDigest ?? null,
+    replayAgreement: metadata.replayDigest === undefined ? null : true,
+    eventLogPath: metadata.eventLogPath ?? null,
+    eventLogDigest: metadata.eventLogDigest ?? null,
+    eventLogByteLength: metadata.eventLogByteLength ?? null,
+    durableEventCount: metadata.durableEventCount ?? null,
+    continuationRef: metadata.continuationRef ?? null,
+    continuationStatus: metadata.continuationStatus ?? null,
   };
   return deepFreeze({
     kind: "public_outcome" as const,
@@ -269,6 +316,8 @@ function refusalOutcome(
     eventLogDigest: null,
     eventLogByteLength: null,
     durableEventCount: null,
+    continuationRef: null,
+    continuationStatus: null,
   };
   return deepFreeze({
     kind: "public_outcome" as const,
@@ -1050,6 +1099,13 @@ async function applyRunInvoke(
     graphValidation,
     implementationSet,
     interactionSet: executionAdmission.interactionSet,
+    continuationProductBasis: {
+      install: installState.install,
+      workspaceBinding: workspaceState.binding,
+      catalogView: viewState.view,
+      programValidation,
+      graphValidation,
+    },
     leafPort,
     childTraversalPreparationPort,
     closureContract,
@@ -1075,7 +1131,7 @@ async function applyRunInvoke(
     durableEventLogPath,
     replayScope,
   );
-  return projectOutcome(
+  const outcome = projectOutcome(
     invocation,
     firstReplay,
     secondReplay,
@@ -1083,6 +1139,34 @@ async function applyRunInvoke(
     candidate.invocationRef,
     persisted,
   );
+  if (outcome.disposition === "held") {
+    if (
+      traversalCompletion.continuationRef === null ||
+      traversalCompletion.heldInteraction === null ||
+      outcome.continuationRef !== traversalCompletion.continuationRef
+    ) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "held traversal is missing its exact continuation basis",
+      );
+    }
+    const reopenAuthority = context.store.projectReopenAuthorityAndClose();
+    continuationLocatorMap(context).set(traversalCompletion.continuationRef, {
+      continuationRef: traversalCompletion.continuationRef,
+      reopenAuthority,
+      runtimeInvocationRef: candidate.invocationRef,
+      outputContractRef: graphFunction.outputs[0] ?? "",
+      invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
+      runId: traversalCompletion.heldInteraction.cCall.runId,
+      installState,
+      workspaceState,
+      viewState,
+      program: programValue,
+      graph,
+      closureContract,
+    });
+  }
+  return outcome;
   } catch (error) {
     const failureSubject = {
       errorClass: error instanceof Error ? error.name : typeof error,
@@ -1175,6 +1259,405 @@ function eventLogPath(
   return requested;
 }
 
+function requireContinuationLocator(
+  context: RootOperationContext,
+  continuationRef: string,
+): ContinuationLocator {
+  const state = continuationLocatorMap(context).get(continuationRef);
+  if (state === undefined) {
+    throw new ApplicationRefusal(
+      "missing_prerequisite",
+      `continuation ${continuationRef} is not open in this transcript`,
+    );
+  }
+  return state;
+}
+
+function reopenContinuation(
+  context: RootOperationContext,
+  state: ContinuationLocator,
+): abg.ReopenedEventStoreContext {
+  const reopened = abg.reopenEventStore(state.reopenAuthority);
+  if (reopened.kind !== "reopened_event_store_context") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `durable continuation reopen refused: ${reopened.code}: ${reopened.message}`,
+    );
+  }
+  context.store = reopened.store;
+  return reopened;
+}
+
+function closeAndRememberContinuation(
+  context: RootOperationContext,
+  state: ContinuationLocator,
+): ContinuationLocator {
+  const updated = {
+    ...state,
+    reopenAuthority: context.store.projectReopenAuthorityAndClose(),
+  };
+  continuationLocatorMap(context).set(state.continuationRef, updated);
+  return updated;
+}
+
+function continuationMetadata(
+  state: ContinuationLocator,
+  replayState: abg.ReplayState,
+  eventLog: abg.PersistedEventLog,
+  status: "open" | "responded" | "resolved",
+) {
+  return {
+    runtimeInvocationRef: state.runtimeInvocationRef,
+    ...(replayState.runId === null ? {} : { runId: replayState.runId }),
+    ...(replayState.graphCallId === null
+      ? {}
+      : { graphCallId: replayState.graphCallId }),
+    ...(replayState.frameId === null ? {} : { frameId: replayState.frameId }),
+    replayRef: replayState.replayRef,
+    replayDigest: replayState.replayDigest,
+    eventLogPath: eventLog.eventLogPath,
+    eventLogDigest: eventLog.eventLogDigest,
+    eventLogByteLength: eventLog.durableByteLength,
+    durableEventCount: eventLog.durableEventCount,
+    continuationRef: state.continuationRef,
+    continuationStatus: status,
+  } as const;
+}
+
+async function applyProjectRead(
+  context: RootOperationContext,
+  invocation: RootPublicInvocation,
+): Promise<PublicOutcome> {
+  if (invocation.variant !== "status") {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "project.read continuation requires variant status",
+    );
+  }
+  requireExactPayloadKeys(
+    invocation.payload,
+    ["continuationRef"],
+    "project.read",
+  );
+  const continuationRef = stringField(invocation.payload, "continuationRef");
+  const state = requireContinuationLocator(context, continuationRef);
+  reopenContinuation(context, state);
+  try {
+    const replayState = abg.replay(context.store, {
+      runId: state.runId,
+    });
+    const continuation = replayState.continuations.find(
+      (row) => row.continuationRef === continuationRef,
+    );
+    if (
+      continuation === undefined ||
+      continuation.status === "resolved"
+    ) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "project.read requires the exact open or responded continuation",
+      );
+    }
+    const eventLog = await abg.persistEventLog(
+      context.store,
+      state.reopenAuthority.eventLogPath,
+      { runId: continuation.runId },
+    );
+    return successOutcome(
+      invocation,
+      {
+        kind: "continuation_status",
+        schemaVersion: "5.0.0",
+        continuationRef,
+        status: continuation.status,
+        requestRef: continuation.requestRef,
+        requestDigest: continuation.requestDigest,
+        responseContractRef: continuation.responseContractRef,
+        responseRef: continuation.responseRef,
+        replayRef: replayState.replayRef,
+        replayDigest: replayState.replayDigest,
+      },
+      continuationMetadata(state, replayState, eventLog, continuation.status),
+    );
+  } finally {
+    closeAndRememberContinuation(context, state);
+  }
+}
+
+async function applyInteractionRespond(
+  context: RootOperationContext,
+  invocation: RootPublicInvocation,
+): Promise<PublicOutcome> {
+  if (invocation.variant !== "approve") {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "interaction.respond requires the declared approve variant",
+    );
+  }
+  requireExactPayloadKeys(
+    invocation.payload,
+    ["actorRef", "capabilityRef", "continuationRef", "response"],
+    "interaction.respond",
+  );
+  const continuationRef = stringField(invocation.payload, "continuationRef");
+  const state = requireContinuationLocator(context, continuationRef);
+  reopenContinuation(context, state);
+  try {
+    const replayBefore = abg.replay(context.store, {
+      runId: state.runId,
+    });
+    const continuation = replayBefore.continuations.find(
+      (row) => row.continuationRef === continuationRef,
+    );
+    if (continuation === undefined || continuation.status !== "open") {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "interaction.respond requires the exact open continuation",
+      );
+    }
+    const responseCandidate = recordField(invocation.payload, "response");
+    const semantics = await implementation.loadInstalledProductSemantics({
+      store: context.store,
+      install: state.installState.install,
+      publication: state.viewState.catalogState.publication,
+    });
+    const response = semantics.admitInput(
+      continuation.responseContractRef,
+      responseCandidate,
+    );
+    if (response === null) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "interaction response does not satisfy the Product-owned response contract",
+      );
+    }
+    const rootInvocation = abg.rehydrateInvocationAdmission(
+      context.store,
+      state.invocationAdmissionRef,
+    );
+    if (rootInvocation === null) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "interaction response could not rehydrate its exact invocation authority",
+      );
+    }
+    const operation = abg.admitContinuationPublicOperation(
+      context.store,
+      rootInvocation,
+      "abg.operation.interaction.respond",
+      continuationRef,
+      invocation.variant,
+      stringField(invocation.payload, "actorRef"),
+      stringField(invocation.payload, "capabilityRef"),
+      operationBasis(
+        invocation,
+        state.workspaceState.binding.bindingId,
+        state.workspaceState.binding.bindingDigest,
+        [],
+      ),
+    );
+    const admitted = abg.admitFhInteractionResponse(
+      context.store,
+      continuationRef,
+      operation,
+      continuation.responseContractRef,
+      response,
+      {
+        eventTime: invocation.eventTime,
+        correlationId: `${invocation.correlationId}/fh-response`,
+        causationEventRefs: [],
+      },
+    );
+    const replayAfter = abg.replay(context.store, {
+      runId: continuation.runId,
+    });
+    const eventLog = await abg.persistEventLog(
+      context.store,
+      state.reopenAuthority.eventLogPath,
+      { runId: continuation.runId },
+    );
+    return successOutcome(
+      invocation,
+      {
+        kind: admitted.kind,
+        schemaVersion: admitted.schemaVersion,
+        disposition: admitted.disposition,
+        continuationRef,
+        responseRef: admitted.responseRef,
+        responseDigest: admitted.responseDigest,
+      },
+      continuationMetadata(state, replayAfter, eventLog, "responded"),
+    );
+  } finally {
+    closeAndRememberContinuation(context, state);
+  }
+}
+
+async function applyRunContinue(
+  context: RootOperationContext,
+  invocation: RootPublicInvocation,
+): Promise<PublicOutcome> {
+  if (invocation.variant !== "current_intent") {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "run.continue requires variant current_intent",
+    );
+  }
+  requireExactPayloadKeys(
+    invocation.payload,
+    ["actorRef", "capabilityRef", "continuationRef"],
+    "run.continue",
+  );
+  const continuationRef = stringField(invocation.payload, "continuationRef");
+  const state = requireContinuationLocator(context, continuationRef);
+  reopenContinuation(context, state);
+  let completed = false;
+  try {
+    const replayBefore = abg.replay(context.store, {
+      runId: state.runId,
+    });
+    const continuation = replayBefore.continuations.find(
+      (row) => row.continuationRef === continuationRef,
+    );
+    if (
+      continuation === undefined ||
+      continuation.status !== "responded" ||
+      continuation.responseRef === null ||
+      continuation.responseDigest === null
+    ) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "run.continue requires the exact responded continuation",
+      );
+    }
+    const rootInvocation = abg.rehydrateInvocationAdmission(
+      context.store,
+      state.invocationAdmissionRef,
+    );
+    if (rootInvocation === null) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "run continuation could not rehydrate its exact invocation authority",
+      );
+    }
+    const operation = abg.admitContinuationPublicOperation(
+      context.store,
+      rootInvocation,
+      "abg.operation.run.continue",
+      continuationRef,
+      invocation.variant,
+      stringField(invocation.payload, "actorRef"),
+      stringField(invocation.payload, "capabilityRef"),
+      operationBasis(
+        invocation,
+        state.workspaceState.binding.bindingId,
+        state.workspaceState.binding.bindingDigest,
+        [],
+      ),
+    );
+    const rehydrated = abg.rehydrateFhContinuation(
+      context.store,
+      continuationRef,
+      {
+        install: state.installState.install,
+        workspaceBinding: state.workspaceState.binding,
+        catalogView: state.viewState.view,
+        program: state.program,
+        graph: state.graph,
+        closureContract: state.closureContract,
+      },
+      operation,
+    );
+    if (rehydrated === null) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "run continuation durable authority reconstruction failed",
+      );
+    }
+    const heldCursor = hog.rehydrateHeldInteractionCursor(
+      context.store,
+      rehydrated.heldInteraction.cursor,
+    );
+    if (heldCursor === null) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "run continuation could not rehydrate its exact HoG cursor",
+      );
+    }
+    const successorCursor = hog.deriveInteractionResumeCursor(
+      heldCursor,
+      {
+        inputRef: continuation.responseRef,
+        inputDigest: continuation.responseDigest,
+      },
+    );
+    if (successorCursor.kind !== "traversal_cursor") {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        `interaction resume cursor refused: ${successorCursor.message}`,
+      );
+    }
+    const resume = abg.admitFhInteractionResume(
+      context.store,
+      continuationRef,
+      operation,
+      successorCursor,
+      state.reopenAuthority.eventLogDigest,
+      {
+        eventTime: invocation.eventTime,
+        correlationId: `${invocation.correlationId}/fh-resume`,
+        causationEventRefs: [],
+      },
+    );
+    const completion = hog.completeInteractionResume({
+      store: context.store,
+      executionBasis: rehydrated.executionBasis,
+      graph: state.graph,
+      heldInteraction: {
+        ...rehydrated.heldInteraction,
+        cursor: heldCursor,
+      },
+      successorCursor,
+      resume,
+      closureContract: state.closureContract,
+      clock: {
+        eventTime: invocation.eventTime,
+        correlationId: `${invocation.correlationId}/hog`,
+      },
+    });
+    const firstReplay = abg.replay(context.store, {
+      runId: state.runId,
+    });
+    const secondReplay = abg.replay(context.store, {
+      runId: state.runId,
+    });
+    if (completion.replayState.replayDigest !== firstReplay.replayDigest) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "continued HoG completion and ABG replay disagree",
+      );
+    }
+    const eventLog = await abg.persistEventLog(
+      context.store,
+      state.reopenAuthority.eventLogPath,
+      { runId: state.runId },
+    );
+    const outcome = projectOutcome(
+      invocation,
+      firstReplay,
+      secondReplay,
+      state.outputContractRef,
+      state.runtimeInvocationRef,
+      eventLog,
+    );
+    completed = outcome.disposition === "succeeded";
+    return outcome;
+  } finally {
+    closeAndRememberContinuation(context, state);
+    if (completed) continuationLocatorMap(context).delete(continuationRef);
+  }
+}
+
 export async function applyRootPublicInvocation(
   context: RootOperationContext,
   invocation: RootPublicInvocation,
@@ -1201,6 +1684,12 @@ export async function applyRootPublicInvocation(
         return await applyCatalogAdmit(context, invocation);
       case "abg.operation.catalog.view":
         return await applyCatalogView(context, invocation);
+      case "abg.operation.project.read":
+        return await applyProjectRead(context, invocation);
+      case "abg.operation.interaction.respond":
+        return await applyInteractionRespond(context, invocation);
+      case "abg.operation.run.continue":
+        return await applyRunContinue(context, invocation);
       case "abg.operation.run.invoke":
         return await applyRunInvoke(context, invocation, rawRequest);
     }

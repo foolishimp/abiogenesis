@@ -81,6 +81,25 @@ function hasOpenLifecycleTruth(replay: ReplayState): boolean {
   );
 }
 
+function hasClosedInteraction(
+  replay: ReplayState,
+  cCallRef: string,
+  judgmentRef: string | null,
+): boolean {
+  const continuation = replay.continuations.find(
+    (row) => row.cCallRef === cCallRef && row.status === "resolved",
+  );
+  return continuation !== undefined &&
+    judgmentRef !== null &&
+    replay.routes.some(
+      (route) =>
+        route.routeKind === "terminal" &&
+        route.cCallRef === cCallRef &&
+        route.judgmentRef === judgmentRef &&
+        route.sourceCursorRef === continuation.successorCursorRef,
+    );
+}
+
 export function projectOutcome(
   invocation: RootPublicInvocation,
   firstReplay: ReplayState,
@@ -90,31 +109,73 @@ export function projectOutcome(
   eventLog: PersistedEventLog,
 ): PublicOutcome {
   const latestCall = firstReplay.cCalls.at(-1);
+  const latestContinuation = latestCall === undefined
+    ? undefined
+    : firstReplay.continuations.find(
+        (continuation) => continuation.cCallRef === latestCall.cCallRef,
+      );
   const replayAgreement =
     firstReplay.replayDigest === secondReplay.replayDigest &&
     firstReplay.eventStoreDigest === secondReplay.eventStoreDigest;
+  const eventLogAgreement =
+    eventLog.eventCount === firstReplay.eventCount &&
+    sha256Canonical(eventLog.events as unknown as JsonValue) ===
+      firstReplay.eventStoreDigest;
+  const latestInteractionClosed =
+    latestCall !== undefined &&
+    latestCall.resultClass === "pending" &&
+    latestContinuation?.status === "resolved" &&
+    hasClosedInteraction(
+      firstReplay,
+      latestCall.cCallRef,
+      latestCall.judgmentRef,
+    );
+  const resultContractRef = latestInteractionClosed
+    ? latestContinuation.responseContractRef
+    : latestCall?.resultContractRef ?? null;
+  const resultRef = latestInteractionClosed
+    ? latestContinuation.responseRef
+    : latestCall?.resultRef ?? null;
+  const resultValue = latestInteractionClosed
+    ? latestContinuation.responseValue
+    : latestCall?.resultValue ?? null;
   const closed =
     replayAgreement &&
     firstReplay.cCalls.length > 0 &&
     firstReplay.cCalls.every((cCall, index) =>
       cCall.status === "judged" &&
-      (cCall.judgment === "advance" || hasClosedRetryChain(firstReplay, index))) &&
+      (
+        cCall.judgment === "advance" ||
+        hasClosedRetryChain(firstReplay, index) ||
+        hasClosedInteraction(firstReplay, cCall.cCallRef, cCall.judgmentRef)
+      )) &&
     firstReplay.runtimeStatus === "closed" &&
-    latestCall?.judgment === "advance" &&
-    latestCall.resultContractRef === outputContractRef &&
-    latestCall.resultRef !== null &&
+    (latestCall?.judgment === "advance" || latestInteractionClosed) &&
+    resultContractRef === outputContractRef &&
+    resultRef !== null &&
     latestCall.judgmentRef !== null &&
     firstReplay.terminalReachedEventRef !== null &&
     firstReplay.frameClosedEventRef !== null &&
     firstReplay.graphCallClosedEventRef !== null &&
     firstReplay.runClosedEventRef !== null &&
     !hasOpenLifecycleTruth(firstReplay) &&
-    eventLog.eventCount === firstReplay.eventCount &&
-    sha256Canonical(eventLog.events as unknown as JsonValue) ===
-      firstReplay.eventStoreDigest;
+    eventLogAgreement;
+  const held =
+    replayAgreement &&
+    eventLogAgreement &&
+    firstReplay.runtimeStatus === "held" &&
+    latestCall?.resultClass === "pending" &&
+    latestCall.judgment === "pending" &&
+    latestContinuation !== undefined &&
+    (
+      latestContinuation.status === "open" ||
+      latestContinuation.status === "responded"
+    );
   const disposition = closed
     ? "succeeded" as const
-    : firstReplay.runtimeStatus === "blocked"
+    : held
+      ? "held" as const
+      : firstReplay.runtimeStatus === "blocked"
       ? "blocked" as const
       : firstReplay.runtimeStatus === "failed"
         ? "failed" as const
@@ -125,8 +186,19 @@ export function projectOutcome(
     invocationRef: invocation.invocationRef,
     runtimeInvocationRef,
     disposition,
-    result: latestCall?.resultValue ?? null,
-    diagnosticRef: closed
+    result: held && latestContinuation !== undefined
+      ? {
+          kind: "fh_interaction_hold",
+          schemaVersion: "5.0.0",
+          continuationRef: latestContinuation.continuationRef,
+          continuationStatus: latestContinuation.status,
+          requestRef: latestContinuation.requestRef,
+          requestDigest: latestContinuation.requestDigest,
+          responseContractRef: latestContinuation.responseContractRef,
+          responseRef: latestContinuation.responseRef,
+        }
+      : resultValue,
+    diagnosticRef: closed || held
       ? null
       : diagnosticFromEvent(eventLog, firstReplay.runtimeFailureEventRef) ??
         diagnosticFromEvent(eventLog, firstReplay.invocationRefusalEventRef) ??
@@ -136,10 +208,10 @@ export function projectOutcome(
     graphCallId: firstReplay.graphCallId,
     frameId: firstReplay.frameId,
     cCallRef: latestCall?.cCallRef ?? null,
-    resultRef: latestCall?.resultRef ?? null,
+    resultRef,
     judgmentRef: latestCall?.judgmentRef ?? null,
     outputContractRef,
-    admittedResultContractRef: latestCall?.resultContractRef ?? null,
+    admittedResultContractRef: resultContractRef,
     replayRef: firstReplay.replayRef,
     replayDigest: firstReplay.replayDigest,
     replayAgreement,
@@ -147,6 +219,8 @@ export function projectOutcome(
     eventLogDigest: eventLog.eventLogDigest,
     eventLogByteLength: eventLog.durableByteLength,
     durableEventCount: eventLog.durableEventCount,
+    continuationRef: latestContinuation?.continuationRef ?? null,
+    continuationStatus: latestContinuation?.status ?? null,
   };
   const outcomeDigest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({

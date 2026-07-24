@@ -2,12 +2,14 @@ import {
   admitInitialTraversalCursor,
   admitRuntimeFailure,
   openWorkflowCCall,
+  selectAdmittedInteractionContract,
   selectAdmittedImplementationResolution,
   traversalCursorAdmissionEventRef,
   type AbgEventStore,
   type ActorRuntimeBinding,
   type AdmittedImplementationSet,
   type AdmittedInteractionSet,
+  type ContinuationProductBasis,
   type ExecutionBasis,
   type OpenedTraversalScope,
 } from "../abg/index.js";
@@ -32,6 +34,7 @@ import {
   blockDeferredRecursionPreparation,
   completeDeferredApplicationTerminal,
   completeExecutableTraversal,
+  completeInteractionTraversal,
   completeWorkflowPreparationRefusal,
   completeWorkflowTraversal,
   type ExecutableTraversalCompletion,
@@ -61,6 +64,7 @@ export interface ExecuteGraphTraversalInput {
   readonly graphValidation: GraphValidation;
   readonly implementationSet: AdmittedImplementationSet;
   readonly interactionSet: AdmittedInteractionSet;
+  readonly continuationProductBasis?: ContinuationProductBasis;
   readonly leafPort: LeafInvocationPort;
   readonly childTraversalPreparationPort?: ChildTraversalPreparationPort;
   readonly closureContract: Readonly<ClosureContract>;
@@ -521,6 +525,54 @@ export async function executeGraphTraversal(
         });
       }
     } else {
+      if (stop.stopClass === "interaction") {
+        if (input.continuationProductBasis === undefined) {
+          return fail(
+            input,
+            `interaction-basis-${leafOrdinal}`,
+            "diagnostic://abiogenesis/interaction/product-basis-absent@5",
+            stop as unknown as JsonValue,
+          );
+        }
+        const interaction = selectAdmittedInteractionContract(
+          input.interactionSet,
+          {
+            graphFunctionRef: input.graph.graphFunctionRef,
+            nodeRef: stop.nodeRef,
+            programLocusRef: stop.programLocusRef,
+            interactionKind: stop.interactionKind,
+            actorCapabilityRef: stop.actorCapabilityRef,
+            requestContractRef: stop.requestContractRef,
+            responseContractRef: stop.responseContractRef,
+            continuationContractRef: stop.continuationContractRef,
+          },
+        );
+        if (interaction === null) {
+          return fail(
+            input,
+            `interaction-${leafOrdinal}`,
+            "diagnostic://abiogenesis/interaction/admitted-row-absent@5",
+            stop as unknown as JsonValue,
+          );
+        }
+        return completeInteractionTraversal({
+          store: input.store,
+          executionBasis: input.executionBasis,
+          openedTraversalScope: input.openedTraversalScope,
+          program: input.program,
+          graph: input.graph,
+          traversalStop: stop,
+          interactionSet: input.interactionSet,
+          interaction,
+          productBasis: input.continuationProductBasis,
+          input: currentInput,
+          inputDigest: stop.cursor.inputDigest,
+          clock: {
+            eventTime: input.eventTime,
+            correlationId: `${input.correlationId}/interaction/${leafOrdinal}`,
+          },
+        });
+      }
       const exactStop = stop;
       const resolution = selectAdmittedImplementationResolution(
         input.implementationSet,

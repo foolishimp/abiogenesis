@@ -6,6 +6,9 @@ export const ROOT_PUBLIC_OPERATION_IDS = [
   "abg.operation.workspace.bind",
   "abg.operation.catalog.admit",
   "abg.operation.catalog.view",
+  "abg.operation.project.read",
+  "abg.operation.interaction.respond",
+  "abg.operation.run.continue",
   "abg.operation.run.invoke",
 ] as const;
 
@@ -29,7 +32,7 @@ export interface PublicOutcome {
   readonly variant: string;
   readonly invocationRef: string;
   readonly runtimeInvocationRef: string | null;
-  readonly disposition: "blocked" | "failed" | "refused" | "succeeded";
+  readonly disposition: "blocked" | "failed" | "held" | "refused" | "succeeded";
   readonly outcomeDigest: Sha256Digest;
   readonly result: JsonValue;
   readonly diagnosticRef: string | null;
@@ -48,6 +51,8 @@ export interface PublicOutcome {
   readonly eventLogDigest: Sha256Digest | null;
   readonly eventLogByteLength: number | null;
   readonly durableEventCount: number | null;
+  readonly continuationRef: string | null;
+  readonly continuationStatus: "open" | "responded" | "resolved" | null;
 }
 
 export interface PublicInvocationRefusal {

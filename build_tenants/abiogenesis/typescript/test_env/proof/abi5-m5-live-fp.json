@@ -4,9 +4,9 @@
   "candidateBasis": {
     "kind": "abi5_root_candidate_basis",
     "schemaVersion": "5.0.0",
-    "artifactDigest": "sha256:3cb1385602532965c0a6f8f88006c0eb98cdff41f11c3594364b1e346c87bad4",
-    "productContentDigest": "sha256:870f547a926acf6fb42d16cc93f3bcf034a1325d1d4cc2ccab0be1c2324698f3",
-    "manifestDigest": "sha256:4a8ef6b2979e8b20a0176066b78d1509cae974d9ab8cf251faf851b50da04c6b",
+    "artifactDigest": "sha256:c921efe74c426983949a6b0f348092dfff951fbeb8404b6a9b03cfcdfe3f6f96",
+    "productContentDigest": "sha256:872b4e25df1be4460bb9aa5057561e0ff214405051722abc0d3b65046694451b",
+    "manifestDigest": "sha256:52d26d0bec3bf3aac94e3395fff75cfab683ff5d40026f452e6cbd1ffd700a27",
     "productId": "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
     "packageName": "@abiogenesis/typescript-tenant",
     "packageVersion": "5.0.0-dev.286"
@@ -15,15 +15,29 @@
   "graphFunctionRef": "graph-function://abiogenesis/conformance/fp-hello@5",
   "command": "/Users/jim/.local/bin/claude",
   "model": "claude-fable-5",
-  "transportBindingRef": "transport-binding://abiogenesis/b7eee7db16afee2e5184cab0bfb7dcb46099de267c4bfd4bb21c8b7431d88a45",
-  "transportBindingDigest": "sha256:b7eee7db16afee2e5184cab0bfb7dcb46099de267c4bfd4bb21c8b7431d88a45",
-  "actorInvocationRef": "actor-invocation://abiogenesis/c7811798f7fafd4ce85098160fb618416e12426aec6ee7f6bf7b259dee2e9d85",
-  "processRef": "process://abiogenesis/e86c2626c9b29bd474d5a6208cfd481f06dbebbdad52f01a62a63a3189f7b895",
-  "eventCount": 41,
+  "transportBindingRef": "transport-binding://abiogenesis/774235ba80d17384ccf61474607a43609278359c666788b02da096b08d8a0972",
+  "transportBindingDigest": "sha256:774235ba80d17384ccf61474607a43609278359c666788b02da096b08d8a0972",
+  "actorInvocationRef": "actor-invocation://abiogenesis/75c88250e2866edfd847483a6e7fab9b2e27796ad17f0a2a8e04ab01c5918eec",
+  "processRef": "process://abiogenesis/6018bcc8977725595df0ee7b846af294a75171ea79697248d95548343032b582",
+  "eventCount": 54,
   "eventKinds": [
     "public_operation_artifact_admitted",
     "public_operation_artifact_admitted",
     "public_operation_artifact_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
+    "registry_entry_admitted",
     "registry_entry_admitted",
     "registry_entry_admitted",
     "registry_entry_admitted",
@@ -50,7 +64,6 @@
     "actor_process_stdout_observed",
     "actor_process_stdout_observed",
     "actor_process_stdout_observed",
-    "actor_process_stdout_observed",
     "actor_process_exited",
     "actor_result_artifact_observed",
     "actor_invocation_closed",
@@ -63,13 +76,13 @@
     "graph_call_closed",
     "run_closed"
   ],
-  "eventLogDigest": "sha256:2482d604a4928437ca0eb9002423ae10fd4413005e9ad7bcaf1d2cd4303bc37d",
+  "eventLogDigest": "sha256:34daa2c2318cdefc215c891be329eb600496c03537ad5c483b775aeff026d914",
   "artifactDigests": {
     "output": "sha256:f794b6a0b0c9f690fdb28e3f9837331d20cc67e4c95961e57deb29de490d2479",
     "prompt": "sha256:66009700b70e98cbf140d6fa346a242b73d6e918ce781fe89a5ced912e899d05",
     "stderr": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "stdout": "sha256:6cb2e1e5df45afca4e94cdecad76be897515e23bb0a97581362e9dc14222ba55",
-    "transport": "sha256:8b4fe6e60e8740c016c7b8f0295a59841f9e2c91ef8534059392f6fbb9f9908a"
+    "stdout": "sha256:1e8b53d7bd319a53c716c1d2e9a68298955c054ee06575332fe35d39a7976a4d",
+    "transport": "sha256:3e0e7e839a2798ede3ef0234235764f7bfa4d25ae2e9e119a54e24c0684b7133"
   },
   "result": {
     "actorRef": "actor://abiogenesis/conformance/claude-worker@5",
@@ -78,7 +91,7 @@
     "resultContractRef": "contract://abiogenesis/conformance/fp-hello-output@5",
     "schemaVersion": "5.0.0"
   },
-  "publicOutcomeDigest": "sha256:9e96999c08304653a24ca5c5dcccb4e94ba8f2d0079e2e488bad0b7147208154",
-  "replayDigest": "sha256:54d5bc59da5d14c08102d9ae741798f54c47e9c05e81a5806a25d04faa3ae804",
+  "publicOutcomeDigest": "sha256:c18d530085921931f6e83538a0333a702be701c84de54612d43ac52c2e0b1beb",
+  "replayDigest": "sha256:dfc7127d8667de76bb4e40109bd562ebcfe82c5a7be4ed6d0bcd94419e069f73",
   "replayAgreement": true
 }

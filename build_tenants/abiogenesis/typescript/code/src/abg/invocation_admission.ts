@@ -189,6 +189,41 @@ export function hasAdmittedInvocation(
   );
 }
 
+export function rehydrateInvocationAdmission(
+  store: AbgEventStore,
+  invocationAdmissionRef: string,
+): InvocationAdmission | null {
+  const matches = store.readAll().filter(
+    (event) =>
+      event.kind === "invocation_admitted" &&
+      isRecord(event.payload) &&
+      event.payload.invocationAdmissionRef === invocationAdmissionRef,
+  );
+  if (matches.length !== 1) return null;
+  const event = matches[0]!;
+  if (
+    event.causationEventRefs.length !== 1 ||
+    !isRecord(event.payload)
+  ) {
+    return null;
+  }
+  const publicEvent = store.readAll().find(
+    (candidate) =>
+      candidate.eventId === event.causationEventRefs[0] &&
+      candidate.kind === "public_operation_admitted",
+  );
+  if (publicEvent === undefined) return null;
+  const admission = deepFreeze({
+    kind: "invocation_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    ...event.payload,
+    publicOperationEventRef: publicEvent.eventId,
+    admissionEventRef: event.eventId,
+  }) as unknown as InvocationAdmission;
+  return hasAdmittedInvocation(store, admission) ? admission : null;
+}
+
 export function admitInvocation(
   store: AbgEventStore,
   input: InvocationAdmissionInput,

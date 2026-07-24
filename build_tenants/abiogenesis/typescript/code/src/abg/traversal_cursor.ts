@@ -113,19 +113,28 @@ export function traversalCursorAdmissionEventRef(
 ): string | null {
   if (!isTraversalCursorCandidate(cursor)) return null;
   const event = store.readAll().find((candidate) =>
-    candidate.aggregateType === "frame" &&
-    candidate.aggregateId === cursor.frameId &&
     isJsonRecord(candidate.payload) &&
     (
       (
+        candidate.aggregateType === "frame" &&
+        candidate.aggregateId === cursor.frameId &&
         candidate.kind === "traversal_cursor_entered" &&
         candidate.payload.cursorRef === cursor.cursorRef &&
         candidate.payload.cursorDigest === cursor.cursorDigest
       ) ||
       (
+        candidate.aggregateType === "frame" &&
+        candidate.aggregateId === cursor.frameId &&
         candidate.kind === "traversal_route_admitted" &&
         candidate.payload.targetCursorRef === cursor.cursorRef &&
         candidate.payload.targetCursorDigest === cursor.cursorDigest
+      ) ||
+      (
+        candidate.aggregateType === "continuation" &&
+        candidate.kind === "fh_interaction_resume_admitted" &&
+        candidate.frameId === cursor.frameId &&
+        candidate.payload.successorCursorRef === cursor.cursorRef &&
+        candidate.payload.successorCursorDigest === cursor.cursorDigest
       )
     )
   );

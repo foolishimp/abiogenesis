@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -250,8 +251,36 @@ const matrix = [
       event.payload.evidenceClass === "probabilistic_transport"), true);
     assertMalformedFpBlocks(malformedFp);
   }),
-  open("compute_fibre", "F_H", "C.of or interaction locus with fibre F_H", "durable attributed human hold and response continuation"),
-  open("compute_fibre", "mixed", "one GTL program containing F_D, F_P, and F_H loci", "one installed mixed-fibre traversal"),
+  proven("compute_fibre", "F_H", {
+    gtlExpression: "terminal C.of F_H locus in an independently published GTL Program",
+    hogPath: "hold at the exact term cursor, then owner-rehydrate and resume after response admission",
+    abgEvidence: "pending C-call, continuation open/respond/resume, same-run closure and replay",
+    publicOutcome: "project.read, interaction.respond, and run.continue return one typed result",
+    invalidMutation: "malformed response and wrong actor refuse before continuation response admission",
+  }, ({ externalMixed }) => {
+    assert.equal(
+      externalMixed.status,
+      0,
+      `${externalMixed.stdout}\n${externalMixed.stderr}`,
+    );
+    assert.match(
+      externalMixed.stdout,
+      /M5 reopens and completes an external mixed F_D\/F_P\/F_H program/u,
+    );
+  }),
+  proven("compute_fibre", "mixed", {
+    gtlExpression: "one independent GTL C.compose containing F_D, F_P, and terminal F_H loci",
+    hogPath: "one direct HoG fold crosses all three fibres without a product-specific controller",
+    abgEvidence: "exactly three fibre selections and three complete C-call spines in one Run",
+    publicOutcome: "installed extension path holds, responds, continues, closes, and agrees with replay",
+    invalidMutation: "malformed F_H response and wrong actor cannot advance the held run",
+  }, ({ externalMixed }) => {
+    assert.equal(
+      externalMixed.status,
+      0,
+      `${externalMixed.stdout}\n${externalMixed.stderr}`,
+    );
+  }),
 
   proven("structural_form", "atomic_call", {
     gtlExpression: "one C.of leaf",
@@ -649,8 +678,8 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 21);
-  assert.equal(matrix.filter((row) => row.status === "open").length, 19);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 23);
+  assert.equal(matrix.filter((row) => row.status === "open").length, 17);
   for (const row of matrix) {
     for (const field of [
       "witness46",
@@ -803,6 +832,26 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     allowlist: [FP_GRAPH_FUNCTION_REF],
     input: fpInput("World"),
   });
+  const externalMixed = spawnSync(
+    process.execPath,
+    [
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern=^M5 reopens and completes an external mixed F_D/F_P/F_H program",
+      "test_env/tests/m5-installed-external-product.test.mjs",
+    ],
+    {
+      cwd: root,
+      encoding: "utf8",
+      env: Object.fromEntries(
+        Object.entries(process.env).filter(
+          ([key]) => key !== "NODE_TEST_CONTEXT",
+        ),
+      ),
+      maxBuffer: 10 * 1024 * 1024,
+      timeout: 30_000,
+    },
+  );
   const evidence = {
     fd,
     compose,
@@ -820,6 +869,7 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     retryContradiction,
     retryExhausted,
     crossWire,
+    externalMixed,
   };
 
   for (const row of matrix) {

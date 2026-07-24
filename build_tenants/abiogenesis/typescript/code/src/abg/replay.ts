@@ -10,6 +10,10 @@ import type {
   RuntimeEventScope,
 } from "./event_store.js";
 import type { FanOutCompletionAdmission } from "./fan_out.js";
+import {
+  projectFhContinuations,
+  type ReplayContinuationState,
+} from "./continuation.js";
 import type { TraversalRouteKind } from "./traversal_route.js";
 
 export interface ReplayCCallState {
@@ -80,6 +84,7 @@ export interface ReplayState {
   readonly cCalls: readonly ReplayCCallState[];
   readonly routes: readonly ReplayRouteState[];
   readonly fanOutCompletions: readonly FanOutCompletionAdmission[];
+  readonly continuations: readonly ReplayContinuationState[];
   readonly actorProcesses: readonly ReplayActorProcessState[];
   readonly activeFluents: readonly string[];
   readonly terminalReachedEventRef: string | null;
@@ -94,6 +99,7 @@ export interface ReplayState {
     | "blocked"
     | "closed"
     | "failed"
+    | "held"
     | "refused"
     | "workspace";
 }
@@ -616,6 +622,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
   );
 
   const runOpen = events.find((event) => event.kind === "run_segment_opened");
+  const continuations = projectFhContinuations(store, runOpen?.runId);
   const graphCallOpen = events.find(
     (event) =>
       event.kind === "graph_call_opened" &&
@@ -674,6 +681,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
     cCalls,
     routes,
     fanOutCompletions,
+    continuations,
     actorProcesses,
     activeFluents: [...activeFluents].sort(),
     terminalReachedEventRef: terminal?.eventId ?? null,
@@ -691,6 +699,12 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
           ? "blocked" as const
           : invocationRefused !== undefined
             ? "refused" as const
+            : continuations.some(
+                (continuation) =>
+                  continuation.status === "open" ||
+                  continuation.status === "responded",
+              )
+              ? "held" as const
             : runOpen !== undefined
               ? "active" as const
               : "workspace" as const,

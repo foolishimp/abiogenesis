@@ -169,6 +169,19 @@ export function hasOpenedTraversalScope(
   );
 }
 
+export function rehydrateOpenedTraversalScope(
+  store: AbgEventStore,
+  value: Readonly<Record<string, JsonValue>>,
+): OpenedTraversalScope | null {
+  const scope = deepFreeze({
+    kind: "opened_traversal_scope" as const,
+    schemaVersion: "5.0.0" as const,
+    ...value,
+  }) as unknown as OpenedTraversalScope;
+  openedScopes.add(scope);
+  return hasOpenedTraversalScope(store, scope) ? scope : null;
+}
+
 export function openCall(
   store: AbgEventStore,
   executionBasis: ExecutionBasis,

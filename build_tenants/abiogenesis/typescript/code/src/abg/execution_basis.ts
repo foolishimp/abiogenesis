@@ -335,6 +335,17 @@ export interface ImplementationResolutionSelection {
   readonly implementationBindingRef: string;
 }
 
+export interface InteractionContractSelection {
+  readonly graphFunctionRef: string;
+  readonly nodeRef: string;
+  readonly programLocusRef: string;
+  readonly interactionKind: string;
+  readonly actorCapabilityRef: string;
+  readonly requestContractRef: string;
+  readonly responseContractRef: string;
+  readonly continuationContractRef: string;
+}
+
 export function selectAdmittedImplementationResolution(
   set: AdmittedImplementationSet,
   selection: ImplementationResolutionSelection,
@@ -346,6 +357,26 @@ export function selectAdmittedImplementationResolution(
       row.nodeRef === selection.nodeRef &&
       row.programLocusRef === selection.programLocusRef &&
       row.implementationBindingRef === selection.implementationBindingRef,
+  );
+  return matches.length === 1 ? matches[0] ?? null : null;
+}
+
+export function selectAdmittedInteractionContract(
+  set: AdmittedInteractionSet,
+  selection: InteractionContractSelection,
+): AdmittedInteractionContractRow | null {
+  if (!isAdmittedInteractionSet(set)) return null;
+  const matches = set.rows.filter(
+    (row) =>
+      row.graphFunctionRef === selection.graphFunctionRef &&
+      row.nodeRef === selection.nodeRef &&
+      row.programLocusRef === selection.programLocusRef &&
+      row.requirement.interactionKind === selection.interactionKind &&
+      row.requirement.actorCapabilityRef === selection.actorCapabilityRef &&
+      row.requirement.requestContractRef === selection.requestContractRef &&
+      row.requirement.responseContractRef === selection.responseContractRef &&
+      row.requirement.continuationContractRef ===
+        selection.continuationContractRef,
   );
   return matches.length === 1 ? matches[0] ?? null : null;
 }
@@ -442,6 +473,31 @@ export function hasAdmittedExecutionBasis(
     event.payload.interactionSetDigest === basis.interactionSetDigest &&
     event.payload.implementationResolutionRef === basis.implementationResolutionRef
   );
+}
+
+export function rehydrateExecutionBasis(
+  store: AbgEventStore,
+  basisRef: string,
+): ExecutionBasis | null {
+  const matches = store.readAll().filter(
+    (event) =>
+      event.kind === "basis_admitted" &&
+      event.basisId === basisRef &&
+      isJsonRecord(event.payload) &&
+      event.payload.basisRef === basisRef,
+  );
+  if (matches.length !== 1) return null;
+  const event = matches[0]!;
+  if (!isJsonRecord(event.payload)) return null;
+  const basis = deepFreeze({
+    kind: "execution_basis" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    ...event.payload,
+    admissionEventRef: event.eventId,
+  }) as unknown as ExecutionBasis;
+  executionBases.add(basis);
+  return hasAdmittedExecutionBasis(store, basis) ? basis : null;
 }
 
 export function admitInvocationRefusal(

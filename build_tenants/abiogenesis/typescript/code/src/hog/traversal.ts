@@ -7,13 +7,21 @@ import {
   isAdmittedRoute,
   type AdmittedRoute,
 } from "../abg/traversal_route.js";
+import {
+  hasAdmittedTraversalCursor,
+  type TraversalCursorCandidate,
+} from "../abg/traversal_cursor.js";
+import type { AbgEventStore } from "../abg/event_store.js";
 import type {
   ComputeRegime,
   GtlGraph,
   GtlProgram,
   RecurseApplication,
 } from "../gtl/contracts.js";
-import { isExecutableCLeaf } from "../gtl/c_algebra.js";
+import {
+  isExecutableCLeaf,
+  isInteractionCLeaf,
+} from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import { resolveEnclosingCBatchRef } from "../gtl/source_path.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -64,7 +72,7 @@ export interface TraversalStep {
   readonly directStep: DirectCTraversalStep;
 }
 
-export interface TraversalStopRef {
+interface TraversalStopBase {
   readonly kind: "traversal_stop_ref";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "at_compute_locus";
@@ -89,6 +97,11 @@ export interface TraversalStopRef {
   readonly computeRegime: ComputeRegime;
   readonly armId: string;
   readonly compositionRef: string | null;
+}
+
+export interface ExecutableTraversalStopRef extends TraversalStopBase {
+  readonly stopClass: "executable";
+  readonly computeRegime: "F_D" | "F_P";
   readonly implementationBindingRef: string;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
@@ -97,6 +110,20 @@ export interface TraversalStopRef {
   readonly refusalContractRef: string;
   readonly judgmentContractRef: string;
 }
+
+export interface InteractionTraversalStopRef extends TraversalStopBase {
+  readonly stopClass: "interaction";
+  readonly computeRegime: "F_H";
+  readonly interactionKind: string;
+  readonly actorCapabilityRef: string;
+  readonly requestContractRef: string;
+  readonly responseContractRef: string;
+  readonly continuationContractRef: string;
+}
+
+export type TraversalStopRef =
+  | ExecutableTraversalStopRef
+  | InteractionTraversalStopRef;
 
 export interface TraversalRefusal {
   readonly kind: "traversal_refusal";
@@ -129,6 +156,12 @@ const traversalSteps = new WeakSet<object>();
 
 export function isTraversalStopRef(value: object): boolean {
   return traversalStops.has(value);
+}
+
+export function isInteractionTraversalStopRef(
+  value: TraversalStopRef,
+): value is InteractionTraversalStopRef {
+  return traversalStops.has(value) && value.stopClass === "interaction";
 }
 
 export function isTraversalStep(value: object): boolean {
@@ -185,6 +218,72 @@ function createCursor(
     kind: "traversal_cursor" as const,
     schemaVersion: "5.0.0" as const,
     cursorRef: `traversal-cursor://abiogenesis/${cursorDigest.slice("sha256:".length)}`,
+    cursorDigest,
+    ...cursorBody,
+  }) as TraversalCursor;
+  traversalCursors.add(cursor);
+  return cursor;
+}
+
+export function rehydrateHeldInteractionCursor(
+  store: AbgEventStore,
+  candidate: TraversalCursorCandidate,
+): TraversalCursor | null {
+  const cursorBody = {
+    programRef: candidate.programRef,
+    executionBasisRef: candidate.executionBasisRef,
+    traversalScopeRef: candidate.traversalScopeRef,
+    runId: candidate.runId,
+    graphCallId: candidate.graphCallId,
+    frameId: candidate.frameId,
+    graphRef: candidate.graphRef,
+    inputRef: candidate.inputRef,
+    inputDigest: candidate.inputDigest,
+    currentNodeRef: candidate.currentNodeRef,
+    position: candidate.position,
+    termPath: [...candidate.termPath],
+    taskOrdinal: candidate.taskOrdinal,
+    attempt: candidate.attempt,
+    retryPath: [...candidate.retryPath],
+  };
+  const cursorDigest = sha256Canonical(cursorBody as unknown as JsonValue);
+  if (
+    !hasAdmittedTraversalCursor(store, candidate) ||
+    candidate.kind !== "traversal_cursor" ||
+    candidate.schemaVersion !== "5.0.0" ||
+    candidate.position !== "at_term" ||
+    candidate.cursorDigest !== cursorDigest ||
+    candidate.cursorRef !==
+      `traversal-cursor://abiogenesis/${cursorDigest.slice("sha256:".length)}` ||
+    candidate.programRef.length === 0 ||
+    candidate.executionBasisRef.length === 0 ||
+    candidate.traversalScopeRef.length === 0 ||
+    candidate.runId.length === 0 ||
+    candidate.graphCallId.length === 0 ||
+    candidate.frameId.length === 0 ||
+    candidate.graphRef.length === 0 ||
+    candidate.inputRef.length === 0 ||
+    !candidate.inputDigest.startsWith("sha256:") ||
+    candidate.currentNodeRef.length === 0 ||
+    !candidate.termPath.every(
+      (segment) => typeof segment === "string" && segment.length > 0,
+    ) ||
+    (
+      candidate.taskOrdinal !== null &&
+      (!Number.isInteger(candidate.taskOrdinal) || candidate.taskOrdinal < 0)
+    ) ||
+    !Number.isInteger(candidate.attempt) ||
+    candidate.attempt < 0 ||
+    !candidate.retryPath.every(
+      (ordinal) => Number.isInteger(ordinal) && ordinal >= 0,
+    )
+  ) {
+    return null;
+  }
+  const cursor = deepFreeze({
+    kind: "traversal_cursor" as const,
+    schemaVersion: "5.0.0" as const,
+    cursorRef: candidate.cursorRef,
     cursorDigest,
     ...cursorBody,
   }) as TraversalCursor;
@@ -378,6 +477,35 @@ export function deriveRetryTraversalStep(
   return createTraversalStep(sourceCursor, directStep, retryInput);
 }
 
+export function deriveInteractionResumeCursor(
+  heldCursor: TraversalCursor,
+  responseInput: TraversalInputBasis,
+): TraversalCursor | TraversalRefusal {
+  if (
+    !traversalCursors.has(heldCursor) ||
+    heldCursor.position !== "at_term" ||
+    responseInput.inputRef.length === 0 ||
+    !responseInput.inputDigest.startsWith("sha256:")
+  ) {
+    return refusal(
+      "traversal_cursor_mismatch",
+      "HoG resumes an interaction only from its exact held cursor and admitted response",
+    );
+  }
+  return createCursor(
+    cursorLineage(heldCursor),
+    {
+      nodeRef: heldCursor.currentNodeRef,
+      termPath: heldCursor.termPath,
+      taskOrdinal: heldCursor.taskOrdinal,
+      attempt: heldCursor.attempt,
+      retryPath: heldCursor.retryPath,
+    },
+    "at_term",
+    responseInput,
+  );
+}
+
 export function deriveRecursionReentryCursor(
   graph: Readonly<GtlGraph>,
   application: Readonly<RecurseApplication>,
@@ -541,10 +669,13 @@ function traversalResultAtCursor(
   }
   const derivedStep = deriveTraversalStep(input.graph, cursor);
   if (derivedStep.kind === "traversal_refusal") return derivedStep;
-  if (!isExecutableCLeaf(term) || derivedStep.directStep.stepKind !== "open_leaf") {
+  if (
+    (!isExecutableCLeaf(term) && !isInteractionCLeaf(term)) ||
+    derivedStep.directStep.stepKind !== "open_leaf"
+  ) {
     return derivedStep;
   }
-  const stopBody = {
+  const commonStopBody = {
     stopKind: "compute_locus" as const,
     cursor,
     traversalScopeRef: input.openedTraversalScope.scopeRef,
@@ -564,14 +695,30 @@ function traversalResultAtCursor(
     computeRegime: term.fibre,
     armId: term.armId,
     compositionRef: term.compositionRef,
-    implementationBindingRef: term.requirement.implementationBindingRef,
-    inputContractRef: term.requirement.inputContractRef,
-    outputContractRef: term.requirement.outputContractRef,
-    evidenceContractRef: term.requirement.evidenceContractRef,
-    failureContractRef: term.requirement.failureContractRef,
-    refusalContractRef: term.requirement.refusalContractRef,
-    judgmentContractRef: term.requirement.judgmentContractRef,
   };
+  const stopBody = isExecutableCLeaf(term)
+    ? {
+        ...commonStopBody,
+        stopClass: "executable" as const,
+        computeRegime: term.fibre,
+        implementationBindingRef: term.requirement.implementationBindingRef,
+        inputContractRef: term.requirement.inputContractRef,
+        outputContractRef: term.requirement.outputContractRef,
+        evidenceContractRef: term.requirement.evidenceContractRef,
+        failureContractRef: term.requirement.failureContractRef,
+        refusalContractRef: term.requirement.refusalContractRef,
+        judgmentContractRef: term.requirement.judgmentContractRef,
+      }
+    : {
+        ...commonStopBody,
+        stopClass: "interaction" as const,
+        computeRegime: "F_H" as const,
+        interactionKind: term.requirement.interactionKind,
+        actorCapabilityRef: term.requirement.actorCapabilityRef,
+        requestContractRef: term.requirement.requestContractRef,
+        responseContractRef: term.requirement.responseContractRef,
+        continuationContractRef: term.requirement.continuationContractRef,
+      };
   const stopDigest = sha256Canonical(stopBody as unknown as JsonValue);
   const stop = deepFreeze({
     kind: "traversal_stop_ref" as const,

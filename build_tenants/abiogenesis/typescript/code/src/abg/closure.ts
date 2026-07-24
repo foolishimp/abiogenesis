@@ -26,6 +26,7 @@ import {
   isAdmittedRoute,
   type AdmittedRoute,
 } from "./traversal_route.js";
+import type { FhInteractionResumeAdmission } from "./continuation.js";
 
 export interface ClosureAdmission {
   readonly kind: "closure_admission";
@@ -327,6 +328,216 @@ export function admitClosure(
     cCallRef: cCall.cCallRef,
     resultRef: result.resultRef,
     judgmentRef: judgment.judgmentRef,
+    routeRef: route.routeRef,
+    closureContractRef: closureContract.closureContractRef,
+    terminalReachedEventRef: terminalEvent.eventId,
+    frameClosedEventRef: frameEvent.eventId,
+    graphCallClosedEventRef: graphCallEvent.eventId,
+    runClosedEventRef: runEvent.eventId,
+  }) as ClosureAdmission;
+}
+
+export function admitInteractionClosure(
+  store: AbgEventStore,
+  cCall: CCall,
+  pendingResult: AdmittedCCallResult,
+  pendingJudgment: AdmittedCCallJudgment,
+  resume: FhInteractionResumeAdmission,
+  route: AdmittedRoute,
+  replayState: ReplayState,
+  closureContract: Readonly<ClosureContract>,
+  basis: RuntimeAdmissionBasis,
+): ClosureAdmissionResult {
+  const closureContractDigest = sha256Canonical(
+    closureContract as unknown as JsonValue,
+  );
+  if (
+    !hasOpenedCCall(store, cCall) ||
+    !isAdmittedCCallResult(pendingResult) ||
+    !isAdmittedCCallJudgment(pendingJudgment) ||
+    !isAdmittedRoute(route) ||
+    cCall.regime !== "F_H" ||
+    cCall.responseContractRef === null ||
+    cCall.continuationContractRef === null ||
+    pendingResult.cCallRef !== cCall.cCallRef ||
+    pendingResult.resultClass !== "pending" ||
+    pendingJudgment.cCallRef !== cCall.cCallRef ||
+    pendingJudgment.resultRef !== pendingResult.resultRef ||
+    pendingJudgment.judgment !== "pending" ||
+    resume.responseDigest !== sha256Canonical(
+      resume.responseValue as unknown as JsonValue,
+    ) ||
+    route.cCallRef !== cCall.cCallRef ||
+    route.judgmentRef !== pendingJudgment.judgmentRef ||
+    route.sourceCursorRef !== resume.successorCursorRef ||
+    route.sourceCursorDigest !== resume.successorCursorDigest ||
+    route.routeKind !== "terminal"
+  ) {
+    return refuseClosure(
+      store,
+      cCall,
+      "runtime_basis_mismatch",
+      "F_H closure requires one exact pending CCall, admitted response, resume, and terminal route",
+      closureContractDigest,
+      basis,
+    );
+  }
+  const resumeEvent = store.readAll().find(
+    (event) => event.eventId === resume.admissionEventRef,
+  );
+  const currentReplay = replay(store, { runId: cCall.runId });
+  const currentRoute = currentReplay.routes.at(-1);
+  if (
+    resumeEvent?.kind !== "fh_interaction_resume_admitted" ||
+    resumeEvent.runId !== cCall.runId ||
+    resumeEvent.graphCallId !== cCall.graphCallId ||
+    resumeEvent.frameId !== cCall.frameId ||
+    route.admissionEventRef !== store.readAll().at(-1)?.eventId ||
+    currentReplay.replayDigest !== replayState.replayDigest ||
+    currentRoute?.routeRef !== route.routeRef ||
+    currentRoute?.admissionEventRef !== route.admissionEventRef
+  ) {
+    return refuseClosure(
+      store,
+      cCall,
+      "replay_mismatch",
+      "F_H closure basis is not the current resumed replay truth",
+      replayState.replayDigest,
+      basis,
+    );
+  }
+  if (
+    closureContract.closureContractRef !== cCall.closureContractRef ||
+    closureContractDigest !== cCall.closureContractDigest ||
+    closureContract.predicateRef !== cCall.terminalPredicateRef ||
+    closureContract.replayProjectionRef !== cCall.replayProjectionRef ||
+    closureContract.terminalKind !== cCall.terminalKind ||
+    closureContract.evidenceContractRef !== cCall.evidenceContractRef ||
+    closureContract.resultContractRef !== cCall.responseContractRef ||
+    closureContract.refusalContractRef !== cCall.refusalContractRef ||
+    closureContract.judgmentContractRef !== cCall.continuationContractRef ||
+    closureContract.transitionContractRef !== route.contractRef ||
+    closureContract.terminalKind !== "completed" ||
+    closureContract.closureScope !== "run" ||
+    closureContract.eventKindRefs.join("\0") !==
+      ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"]
+        .join("\0") ||
+    store.readAll().some(
+      (event) =>
+        event.kind === "terminal_reached" &&
+        event.runId === cCall.runId &&
+        event.frameId === cCall.frameId,
+    )
+  ) {
+    return refuseClosure(
+      store,
+      cCall,
+      "closure_contract_mismatch",
+      "F_H closure contract, response, route, or uniqueness check failed",
+      closureContractDigest,
+      basis,
+    );
+  }
+
+  const closureBody = {
+    cCallRef: cCall.cCallRef,
+    resultRef: resume.responseRef,
+    judgmentRef: pendingJudgment.judgmentRef,
+    routeRef: route.routeRef,
+    closureContractRef: closureContract.closureContractRef,
+    closureContractDigest,
+    terminalKind: closureContract.terminalKind,
+  };
+  const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
+  const closureRef =
+    `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
+  const terminalEvent = admitRuntimeEvent(store, {
+    kind: "terminal_reached",
+    eventTime: basis.eventTime,
+    aggregateType: "frame",
+    aggregateId: cCall.frameId,
+    parentAggregateId: cCall.graphCallId,
+    causationEventRefs: [route.admissionEventRef, ...basis.causationEventRefs],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: cCall.basisId,
+    runId: cCall.runId,
+    graphFunctionRef: cCall.graphFunctionRef,
+    graphCallId: cCall.graphCallId,
+    frameId: cCall.frameId,
+    payload: { closureRef, closureDigest, ...closureBody },
+  });
+  const frameEvent = admitRuntimeEvent(store, {
+    kind: "frame_closed",
+    eventTime: basis.eventTime,
+    aggregateType: "frame",
+    aggregateId: cCall.frameId,
+    parentAggregateId: cCall.graphCallId,
+    causationEventRefs: [terminalEvent.eventId],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: cCall.basisId,
+    runId: cCall.runId,
+    graphFunctionRef: cCall.graphFunctionRef,
+    graphCallId: cCall.graphCallId,
+    frameId: cCall.frameId,
+    payload: {
+      frameId: cCall.frameId,
+      terminalReachedEventRef: terminalEvent.eventId,
+      closureContractRef: closureContract.closureContractRef,
+    },
+  });
+  const graphCallEvent = admitRuntimeEvent(store, {
+    kind: "graph_call_closed",
+    eventTime: basis.eventTime,
+    aggregateType: "graph_call",
+    aggregateId: cCall.graphCallId,
+    parentAggregateId: cCall.runId,
+    causationEventRefs: [frameEvent.eventId],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: cCall.basisId,
+    runId: cCall.runId,
+    graphFunctionRef: cCall.graphFunctionRef,
+    graphCallId: cCall.graphCallId,
+    payload: {
+      graphCallId: cCall.graphCallId,
+      frameClosedEventRef: frameEvent.eventId,
+      closureContractRef: closureContract.closureContractRef,
+    },
+  });
+  const runEvent = admitRuntimeEvent(store, {
+    kind: "run_closed",
+    eventTime: basis.eventTime,
+    aggregateType: "run",
+    aggregateId: cCall.runId,
+    parentAggregateId: null,
+    causationEventRefs: [graphCallEvent.eventId],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: cCall.basisId,
+    runId: cCall.runId,
+    graphFunctionRef: cCall.graphFunctionRef,
+    graphCallId: cCall.graphCallId,
+    payload: {
+      runId: cCall.runId,
+      graphCallClosedEventRef: graphCallEvent.eventId,
+      closureContractRef: closureContract.closureContractRef,
+    },
+  });
+  return deepFreeze({
+    kind: "closure_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "closed" as const,
+    closureRef,
+    closureDigest,
+    cCallRef: cCall.cCallRef,
+    resultRef: resume.responseRef,
+    judgmentRef: pendingJudgment.judgmentRef,
     routeRef: route.routeRef,
     closureContractRef: closureContract.closureContractRef,
     terminalReachedEventRef: terminalEvent.eventId,

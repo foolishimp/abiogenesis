@@ -62,6 +62,9 @@ export const ROOT_EVENT_KIND_VALUES = [
   "child_preparation_refused",
   "fan_out_completion_admitted",
   "traversal_route_admitted",
+  "fh_interaction_opened",
+  "fh_interaction_responded",
+  "fh_interaction_resume_admitted",
   "runtime_failure_observed",
   "run_stopped",
   "terminal_reached",
@@ -208,6 +211,15 @@ const TRANSPORT_BINDING_EVENT = Object.freeze({
     "frameId",
   ] as const),
 });
+const CONTINUATION_EVENT = Object.freeze({
+  aggregateType: "continuation" as const,
+  scopeClass: "run" as const,
+  requiredEnvelopeIdentities: Object.freeze([
+    "runId",
+    "graphCallId",
+    "frameId",
+  ] as const),
+});
 
 const IMPLEMENTATION_SET_PAYLOAD = payloadKeys(
   "implementationSet implementationSetDigest implementationSetRef interactionSet interactionSetDigest interactionSetRef",
@@ -228,7 +240,7 @@ const C_CALL_OPEN_PAYLOAD = payloadKeys(
   "attempt basisId batchRef cCallDigest cCallRef callClass edgeRef frameId graphCallId graphFunctionRef programLocusRef retryPath stageRole taskOrdinal vectorIndex",
 );
 const C_CALL_FIBRE_PAYLOAD = payloadKeys(
-  "armId cCallRef callClass compositionRef implementationBindingRef implementationRef implementationRequirementKey implementationSetRef regime",
+  "actorCapabilityRef armId cCallRef callClass compositionRef continuationContractRef implementationBindingRef implementationRef implementationRequirementKey implementationSetRef interactionKind interactionRequirementKey interactionSetRef regime requestContractRef responseContractRef",
 );
 const PROCESS_STREAM_PAYLOAD = payloadKeys(
   "actorInvocationRef byteLength chunkDigest processRef streamOrdinal",
@@ -271,12 +283,22 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   },
   public_operation_admitted: {
     variants: [WORKSPACE_EVENT],
-    payloadVariants: [payloadVariant(
-      payloadKeys(
-        "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewId definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef variant workspaceBindingId",
+    payloadVariants: [
+      payloadVariant(
+        payloadKeys(
+          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewId definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef variant workspaceBindingId",
+        ),
+        payloadKeys("operationId invocationRef invocationDigest variant"),
       ),
-      payloadKeys("operationId invocationRef invocationDigest variant"),
-    )],
+      payloadVariant(
+        payloadKeys(
+          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewId continuationRef definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef variant workspaceBindingId",
+        ),
+        payloadKeys(
+          "operationId invocationRef invocationDigest variant continuationRef",
+        ),
+      ),
+    ],
   },
   registry_entry_admitted: {
     variants: [WORKSPACE_EVENT],
@@ -574,6 +596,15 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
         EVIDENCE_PAYLOAD,
         { evidenceClass: "admission_rejection" },
       ),
+      payloadVariant(
+        combinePayloadKeys(
+          EVIDENCE_IO_PAYLOAD,
+          payloadKeys("requestDigest requestRef"),
+        ),
+        EVIDENCE_IO_PAYLOAD,
+        { evidenceClass: "interaction_request" },
+        payloadKeys("implementationRef"),
+      ),
     ],
   },
   c_call_result_admitted: {
@@ -691,6 +722,24 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ROUTE_PAYLOAD,
       payloadKeys("routeRef routeDigest routeKind"),
     )],
+  },
+  fh_interaction_opened: {
+    variants: [CONTINUATION_EVENT],
+    payloadVariants: [payloadVariant(payloadKeys(
+      "actorCapabilityRef cCall cCallRef causedByEventRef continuationDigest continuationKind continuationRef executionBasisDigest executionBasisRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef heldCursor heldCursorDigest heldCursorRef holdRouteRef implementationSetDigest implementationSetRef inputDigest inputRef inputValue installId interactionSetDigest interactionSetRef manifestDigest openedTraversalScope pendingJudgment pendingResult productContentDigest productId programDigest programRef programValidationRef requestContractRef requestDigest requestRef responseContractRef scopeDigest scopeRef workspaceBindingDigest workspaceBindingId catalogViewDigest catalogViewId",
+    ))],
+  },
+  fh_interaction_responded: {
+    variants: [CONTINUATION_EVENT],
+    payloadVariants: [payloadVariant(payloadKeys(
+      "actorRef capabilityRef continuationRef publicOperationEventRef responseContractRef responseDigest responseRef responseValue",
+    ))],
+  },
+  fh_interaction_resume_admitted: {
+    variants: [CONTINUATION_EVENT],
+    payloadVariants: [payloadVariant(payloadKeys(
+      "actorRef capabilityRef continuationRef durablePrefixDigest openedEventRef publicOperationEventRef respondedEventRef responseDigest responseRef responseValue successorCursorDigest successorCursorRef",
+    ))],
   },
   runtime_failure_observed: {
     variants: [
@@ -1552,6 +1601,7 @@ function assertRuntimeEventContract(
     candidate.kind === "c_call_evidenced" &&
     ![
       "deterministic",
+      "interaction_request",
       "probabilistic_transport",
       "sub_traversal",
       "admission_rejection",
@@ -1561,7 +1611,9 @@ function assertRuntimeEventContract(
   }
   if (
     candidate.kind === "c_call_result_admitted" &&
-    !["success", "failure", "refusal"].includes(String(payload.resultClass))
+    !["success", "failure", "pending", "refusal"].includes(
+      String(payload.resultClass),
+    )
   ) {
     throw new TypeError("C-call result event carries an unknown result class");
   }

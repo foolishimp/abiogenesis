@@ -149,6 +149,23 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: [],
     terminates: ["locus_active"], clips: [], declips: [],
   },
+  fh_interaction_opened: {
+    initiates: ["continuation_open", "interaction_pending", "frame_held"],
+    terminates: ["hold_route_admitted"], clips: [], declips: [],
+  },
+  fh_interaction_responded: {
+    initiates: ["continuation_response_available"],
+    terminates: [], clips: [], declips: [],
+  },
+  fh_interaction_resume_admitted: {
+    initiates: ["continuation_terminated", "frame_active", "locus_active"],
+    terminates: [
+      "continuation_open",
+      "interaction_pending",
+      "continuation_response_available",
+      "frame_held",
+    ], clips: [], declips: [],
+  },
   runtime_failure_observed: {
     initiates: ["runtime_failure"],
     terminates: ["locus_active", "frame_active", "graph_call_active", "run_active"], clips: [], declips: [],
@@ -387,6 +404,66 @@ export function eventCalculusEffect(
               ? [fluent("fan_out_partial_stop_available", applicationRef)]
               : [],
         terminates: [],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "fh_interaction_opened": {
+      const continuationRef = stringField(event, "continuationRef");
+      const holdRouteRef = stringField(event, "holdRouteRef");
+      return {
+        initiates: continuationRef === null
+          ? []
+          : [
+              fluent("continuation_open", continuationRef),
+              fluent("interaction_pending", continuationRef),
+              fluent("frame_held", event.frameId ?? ""),
+            ],
+        terminates: holdRouteRef === null
+          ? []
+          : [fluent("hold_route_admitted", holdRouteRef)],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "fh_interaction_responded": {
+      const continuationRef = stringField(event, "continuationRef");
+      return {
+        initiates: continuationRef === null
+          ? []
+          : [fluent("continuation_response_available", continuationRef)],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "fh_interaction_resume_admitted": {
+      const continuationRef = stringField(event, "continuationRef");
+      const successorCursorRef = stringField(event, "successorCursorRef");
+      return {
+        initiates: [
+          ...(continuationRef === null
+            ? []
+            : [fluent("continuation_terminated", continuationRef)]),
+          ...(event.frameId === undefined
+            ? []
+            : [fluent("frame_active", event.frameId)]),
+          ...(successorCursorRef === null
+            ? []
+            : [fluent("locus_active", successorCursorRef)]),
+        ],
+        terminates: [
+          ...(continuationRef === null
+            ? []
+            : [
+                fluent("continuation_open", continuationRef),
+                fluent("interaction_pending", continuationRef),
+                fluent("continuation_response_available", continuationRef),
+              ]),
+          ...(event.frameId === undefined
+            ? []
+            : [fluent("frame_held", event.frameId)]),
+        ],
         clips: [],
         declips: [],
       };

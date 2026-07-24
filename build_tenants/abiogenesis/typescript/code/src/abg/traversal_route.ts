@@ -13,6 +13,7 @@ import {
   resolveEnclosingCRetryContexts,
   resolveCProgramTermAtSourcePath,
 } from "../gtl/source_path.js";
+import { isInteractionCLeaf } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
@@ -29,6 +30,7 @@ import {
 import {
   type FanOutCompletionAdmission,
 } from "./fan_out.js";
+import type { FhInteractionResumeAdmission } from "./continuation.js";
 import {
   isAdmittedApplicationChildFoldback,
   isAdmittedApplicationChildPreparationRefusal,
@@ -135,6 +137,19 @@ export interface BlockedRouteAdmissionEvidence {
   readonly judgmentRef: string;
   readonly judgmentEventRef: string;
   readonly reasonRef: string;
+}
+
+export interface HoldRouteAdmissionEvidence {
+  readonly cCall: CCall;
+  readonly result: AdmittedCCallResult;
+  readonly judgment: AdmittedCCallJudgment;
+}
+
+export interface InteractionResumeRouteAdmissionEvidence {
+  readonly cCall: CCall;
+  readonly result: AdmittedCCallResult;
+  readonly judgment: AdmittedCCallJudgment;
+  readonly resume: FhInteractionResumeAdmission;
 }
 
 export interface RetryRouteAdmissionEvidence {
@@ -382,6 +397,108 @@ function hasBlockedRouteEvidence(
     judgmentEvent.payload.reasonRef === evidence.reasonRef;
 }
 
+function hasHoldRouteEvidence(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  candidate: RouteCandidate,
+  evidence: HoldRouteAdmissionEvidence | null,
+): evidence is HoldRouteAdmissionEvidence {
+  if (evidence === null) return false;
+  const term = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  return term.kind !== "c_source_path_refusal" &&
+    isInteractionCLeaf(term) &&
+    hasOpenedCCall(store, evidence.cCall) &&
+    isAdmittedCCallResult(evidence.result) &&
+    isAdmittedCCallJudgment(evidence.judgment) &&
+    evidence.cCall.basisId === executionBasis.basisRef &&
+    evidence.cCall.regime === "F_H" &&
+    evidence.cCall.frameId === sourceCursor.frameId &&
+    evidence.cCall.graphCallId === sourceCursor.graphCallId &&
+    evidence.cCall.programLocusRef === term.programLocusRef &&
+    evidence.result.cCallRef === evidence.cCall.cCallRef &&
+    evidence.result.resultClass === "pending" &&
+    evidence.judgment.cCallRef === evidence.cCall.cCallRef &&
+    evidence.judgment.resultRef === evidence.result.resultRef &&
+    evidence.judgment.resultDigest === evidence.result.resultDigest &&
+    evidence.judgment.judgment === "pending" &&
+    candidate.cCallRef === evidence.cCall.cCallRef &&
+    candidate.judgmentRef === evidence.judgment.judgmentRef &&
+    candidate.targetCursorRef === null &&
+    candidate.targetCursorDigest === null &&
+    candidate.consumedAvailabilityRefs.length === 1 &&
+    candidate.consumedAvailabilityRefs[0] ===
+      evidence.judgment.judgmentRef &&
+    candidate.contractRef === evidence.cCall.continuationContractRef;
+}
+
+function hasInteractionResumeRouteEvidence(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  candidate: RouteCandidate,
+  evidence: InteractionResumeRouteAdmissionEvidence | null,
+): evidence is InteractionResumeRouteAdmissionEvidence {
+  if (evidence === null) return false;
+  const term = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  const continuation = replay(store, {
+    runId: sourceCursor.runId,
+  }).continuations.find(
+    (row) => row.continuationRef === evidence.resume.continuationRef,
+  );
+  const resumeEvent = store.readAll().find(
+    (event) => event.eventId === evidence.resume.admissionEventRef,
+  );
+  return term.kind !== "c_source_path_refusal" &&
+    isInteractionCLeaf(term) &&
+    isDeclaredTerminalSource(graph, sourceCursor) &&
+    hasOpenedCCall(store, evidence.cCall) &&
+    isAdmittedCCallResult(evidence.result) &&
+    isAdmittedCCallJudgment(evidence.judgment) &&
+    evidence.cCall.basisId === executionBasis.basisRef &&
+    evidence.cCall.regime === "F_H" &&
+    evidence.cCall.frameId === sourceCursor.frameId &&
+    evidence.cCall.graphCallId === sourceCursor.graphCallId &&
+    evidence.cCall.programLocusRef === term.programLocusRef &&
+    evidence.result.cCallRef === evidence.cCall.cCallRef &&
+    evidence.result.resultClass === "pending" &&
+    evidence.judgment.cCallRef === evidence.cCall.cCallRef &&
+    evidence.judgment.resultRef === evidence.result.resultRef &&
+    evidence.judgment.resultDigest === evidence.result.resultDigest &&
+    evidence.judgment.judgment === "pending" &&
+    continuation?.status === "resolved" &&
+    continuation.cCallRef === evidence.cCall.cCallRef &&
+    continuation.responseRef === evidence.resume.responseRef &&
+    continuation.responseDigest === evidence.resume.responseDigest &&
+    continuation.successorCursorRef === sourceCursor.cursorRef &&
+    continuation.successorCursorDigest === sourceCursor.cursorDigest &&
+    resumeEvent?.kind === "fh_interaction_resume_admitted" &&
+    resumeEvent.runId === sourceCursor.runId &&
+    resumeEvent.graphCallId === sourceCursor.graphCallId &&
+    resumeEvent.frameId === sourceCursor.frameId &&
+    sourceCursor.cursorRef === evidence.resume.successorCursorRef &&
+    sourceCursor.cursorDigest === evidence.resume.successorCursorDigest &&
+    sourceCursor.inputRef === evidence.resume.responseRef &&
+    sourceCursor.inputDigest === evidence.resume.responseDigest &&
+    candidate.cCallRef === evidence.cCall.cCallRef &&
+    candidate.judgmentRef === evidence.judgment.judgmentRef &&
+    candidate.targetCursorRef === null &&
+    candidate.targetCursorDigest === null &&
+    candidate.consumedAvailabilityRefs.length === 1 &&
+    candidate.consumedAvailabilityRefs[0] === evidence.resume.admissionEventRef &&
+    candidate.contractRef === evidence.cCall.transitionContractRef;
+}
+
 function hasRetryRouteEvidence(
   store: AbgEventStore,
   executionBasis: ExecutionBasis,
@@ -619,6 +736,8 @@ export function admitRoute(
     | RouteAdmissionEvidence
     | BlockedRouteAdmissionEvidence
     | FanOutRouteAdmissionEvidence
+    | HoldRouteAdmissionEvidence
+    | InteractionResumeRouteAdmissionEvidence
     | RetryRouteAdmissionEvidence
     | null = null,
   options: RouteAdmissionOptions = {},
@@ -651,15 +770,19 @@ export function admitRoute(
   const frameEvents = store.readAll().filter(
     (event) => event.runId === sourceCursor.runId && event.frameId === sourceCursor.frameId,
   );
-  const latestRouteEvent = frameEvents.slice().reverse().find(
-    (event) => event.kind === "traversal_route_admitted",
+  const latestCursorEvent = frameEvents.slice().reverse().find(
+    (event) =>
+      event.kind === "fh_interaction_resume_admitted" ||
+      event.kind === "traversal_route_admitted",
   );
   const initialCursorEvent = frameEvents.slice().reverse().find(
     (event) => event.kind === "traversal_cursor_entered",
   );
-  const currentCursorRef = latestRouteEvent !== undefined &&
-      isJsonRecord(latestRouteEvent.payload)
-    ? latestRouteEvent.payload.targetCursorRef
+  const currentCursorRef = latestCursorEvent !== undefined &&
+      isJsonRecord(latestCursorEvent.payload)
+    ? latestCursorEvent.kind === "fh_interaction_resume_admitted"
+      ? latestCursorEvent.payload.successorCursorRef
+      : latestCursorEvent.payload.targetCursorRef
     : initialCursorEvent !== undefined && isJsonRecord(initialCursorEvent.payload)
       ? initialCursorEvent.payload.cursorRef
       : null;
@@ -705,19 +828,43 @@ export function admitRoute(
 
   let causationEventRef = traversalCursorAdmissionEventRef(store, sourceCursor);
   if (candidate.routeKind === "terminal") {
-    const judgedEvidence = evidence !== null && "result" in evidence ? evidence : null;
-    if (!hasJudgedRouteEvidence(
-      store,
-      executionBasis,
-      graph,
-      sourceCursor,
-      candidate,
-      judgedEvidence,
-    )) {
-      return refusal(
-        "judgment_mismatch",
-        "terminal route requires this cursor's admitted CCall advance judgment",
-      );
+    const resumeEvidence = evidence !== null && "resume" in evidence
+      ? evidence
+      : null;
+    const judgedEvidence =
+      resumeEvidence === null && evidence !== null && "result" in evidence
+        ? evidence
+        : null;
+    if (resumeEvidence !== null) {
+      if (!hasInteractionResumeRouteEvidence(
+        store,
+        executionBasis,
+        graph,
+        sourceCursor,
+        candidate,
+        resumeEvidence,
+      )) {
+        return refusal(
+          "judgment_mismatch",
+          "terminal F_H route requires the exact admitted response and resume cursor",
+        );
+      }
+      causationEventRef = resumeEvidence.resume.admissionEventRef;
+    } else {
+      if (!hasJudgedRouteEvidence(
+        store,
+        executionBasis,
+        graph,
+        sourceCursor,
+        candidate,
+        judgedEvidence,
+      )) {
+        return refusal(
+          "judgment_mismatch",
+          "terminal route requires this cursor's admitted CCall advance judgment",
+        );
+      }
+      causationEventRef = judgedEvidence.judgment.admissionEventRef;
     }
     if (
       targetCursor !== null ||
@@ -730,7 +877,6 @@ export function admitRoute(
         "terminal route differs from the exact GTL declaration or carries a target cursor",
       );
     }
-    causationEventRef = judgedEvidence.judgment.admissionEventRef;
   } else if (candidate.routeKind === "advance" || candidate.routeKind === "retry") {
     if (
       targetCursor === null ||
@@ -820,6 +966,27 @@ export function admitRoute(
         "post-call route requires admitted judgment or retry-progress evidence",
       );
     }
+  } else if (candidate.routeKind === "hold") {
+    const holdEvidence = evidence !== null && "result" in evidence
+      ? evidence
+      : null;
+    if (
+      targetCursor !== null ||
+      !hasHoldRouteEvidence(
+        store,
+        executionBasis,
+        graph,
+        sourceCursor,
+        candidate,
+        holdEvidence,
+      )
+    ) {
+      return refusal(
+        "judgment_mismatch",
+        "hold route requires this F_H cursor's admitted pending judgment",
+      );
+    }
+    causationEventRef = holdEvidence.judgment.admissionEventRef;
   } else if (candidate.routeKind === "blocked") {
     if (evidence !== null && "completion" in evidence) {
       if (!hasFanOutRouteEvidence(
@@ -858,7 +1025,7 @@ export function admitRoute(
   } else {
     return refusal(
       "route_kind_not_supported",
-      "hold and failed routes require their declared runtime evidence",
+      "failed routes require their declared runtime evidence",
     );
   }
   if (causationEventRef === null) {

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import test from "node:test";
@@ -41,6 +41,7 @@ async function externalScenario(
   mini,
   label,
   publication = mini.publication,
+  target = {},
 ) {
   const root = join(harness.scratch, label);
   const abiConsumer = join(root, "abiogenesis-product");
@@ -60,6 +61,14 @@ async function externalScenario(
   );
   const eventLogRoot = join(workspaceRoot, ".ai-workspace/events");
   const prefix = `invocation://t270/${label}`;
+  const programRef = target.programRef ?? mini.ids.programRef;
+  const graphFunctionRef =
+    target.graphFunctionRef ?? mini.ids.graphFunctionRef;
+  const input = target.input ?? {
+    kind: "developer_greeting_input",
+    schemaVersion: "5.0.0",
+    name: "Ada",
+  };
   const refs = {
     verifyAbi: `${prefix}/verify-abiogenesis`,
     installAbi: `${prefix}/install-abiogenesis`,
@@ -117,20 +126,16 @@ async function externalScenario(
     }),
     invocation("abg.operation.catalog.view", "allowlist", refs.view, {
       catalogInvocationRef: refs.catalog,
-      allowlist: [mini.ids.graphFunctionRef],
+      allowlist: [graphFunctionRef],
     }),
     invocation("abg.operation.run.invoke", "direct", refs.run, {
       installInvocationRef: refs.installMini,
       workspaceBindingInvocationRef: refs.bind,
       catalogViewInvocationRef: refs.view,
-      programRef: mini.ids.programRef,
-      graphFunctionRef: mini.ids.graphFunctionRef,
+      programRef,
+      graphFunctionRef,
       actorRef: "actor://developer.example/trusted-developer",
-      input: {
-        kind: "developer_greeting_input",
-        schemaVersion: "5.0.0",
-        name: "Ada",
-      },
+      input,
       eventLogPath: join(eventLogRoot, "developer-product.events.jsonl"),
     }),
   ];
@@ -146,6 +151,27 @@ async function externalScenario(
     transcript,
     transcriptPath,
   };
+}
+
+async function installMixedWorkerFixture(harness) {
+  const bin = join(harness.scratch, "developer-mixed-worker");
+  await mkdir(bin, { recursive: true });
+  const command = join(bin, "claude");
+  await writeFile(command, [
+    "#!/usr/bin/env node",
+    "let prompt = '';",
+    "process.stdin.setEncoding('utf8');",
+    "process.stdin.on('data', (chunk) => { prompt += chunk; });",
+    "process.stdin.on('end', () => {",
+    "  const line = prompt.split(/\\r?\\n/u).find((row) => row.startsWith('{'));",
+    "  const result = line === undefined ? null : JSON.parse(line);",
+    "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
+    "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: JSON.stringify(result) }));",
+    "});",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(command, 0o755);
+  return command;
 }
 
 function assertExternalOutcome(outcomes, harness, mini) {
@@ -182,7 +208,11 @@ test("M5 installs and executes one independent developer-authored GTL Product th
 
   const cliScenario = await externalScenario(harness, mini, "external-cli");
   const cliRun = await runInstalledCli(harness, cliScenario);
-  assert.equal(cliRun.exitCode, 0, cliRun.stderr);
+  assert.equal(
+    cliRun.exitCode,
+    0,
+    JSON.stringify({ stderr: cliRun.stderr, outcomes: cliRun.outcomes }),
+  );
   const cliOutcome = assertExternalOutcome(cliRun.outcomes, harness, mini);
 
   const publicApi = await import(
@@ -253,4 +283,215 @@ test("M5 installs and executes one independent developer-authored GTL Product th
   assert.equal(judgmentRun.exitCode, 2);
   assert.equal(judgmentRun.outcomes.at(-1).disposition, "failed");
   assert.equal(judgmentRun.outcomes.at(-1).result, null);
+});
+
+test("M5 reopens and completes an external mixed F_D/F_P/F_H program through separate public operations", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const command = await installMixedWorkerFixture(harness);
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    "external-mixed-fibres",
+    mini.publication,
+    {
+      programRef: mini.ids.mixedProgramRef,
+      graphFunctionRef: mini.ids.mixedGraphFunctionRef,
+      input: {
+        kind: "developer_greeting_input",
+        schemaVersion: "5.0.0",
+        name: "Grace",
+      },
+    },
+  );
+  const publicApi = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    )).href}?external-fh-sdk=${Date.now()}`
+  );
+  const operationContext = publicApi.createRootOperationContext();
+  const priorCommand = process.env.ABG_TS_CLAUDE_COMMAND;
+  process.env.ABG_TS_CLAUDE_COMMAND = command;
+  try {
+    const setupOutcomes = [];
+    for (const row of scenario.transcript) {
+      setupOutcomes.push(
+        await publicApi.applyRootPublicInvocation(operationContext, row),
+      );
+    }
+    assert.equal(
+      setupOutcomes.slice(0, -1).every(
+        (outcome) => outcome.disposition === "succeeded",
+      ),
+      true,
+      JSON.stringify(setupOutcomes),
+    );
+    const held = setupOutcomes.at(-1);
+    const heldEvents = (await readFile(scenario.eventLogPath, "utf8"))
+      .trim()
+      .split("\n")
+      .map((line) => JSON.parse(line));
+    assert.equal(
+      held.disposition,
+      "held",
+      JSON.stringify({ held, eventTail: heldEvents.slice(-12) }),
+    );
+    assert.equal(typeof held.continuationRef, "string");
+    assert.equal(held.continuationStatus, "open");
+    const continuationRef = held.continuationRef;
+    const actorRef = "actor://developer.example/trusted-developer";
+    const response = {
+      kind: "developer_greeting_output",
+      schemaVersion: "5.0.0",
+      message: "Welcome Grace.",
+    };
+
+    const readOpen = await publicApi.applyRootPublicInvocation(
+      operationContext,
+      invocation(
+        "abg.operation.project.read",
+        "status",
+        "invocation://t270/external-mixed/read-open",
+        { continuationRef },
+      ),
+    );
+    assert.equal(readOpen.disposition, "succeeded", JSON.stringify(readOpen));
+    assert.equal(readOpen.result.status, "open");
+
+    const malformedResponse = await publicApi.applyRootPublicInvocation(
+      operationContext,
+      invocation(
+        "abg.operation.interaction.respond",
+        "approve",
+        "invocation://t270/external-mixed/respond-malformed",
+        {
+          actorRef,
+          capabilityRef: mini.ids.actorCapabilityRef,
+          continuationRef,
+          response: { ...response, substituted: true },
+        },
+      ),
+    );
+    assert.equal(malformedResponse.disposition, "refused");
+    assert.equal(malformedResponse.result.code, "target_mismatch");
+
+    const wrongActor = await publicApi.applyRootPublicInvocation(
+      operationContext,
+      invocation(
+        "abg.operation.interaction.respond",
+        "approve",
+        "invocation://t270/external-mixed/respond-wrong-actor",
+        {
+          actorRef: "actor://developer.example/substituted",
+          capabilityRef: mini.ids.actorCapabilityRef,
+          continuationRef,
+          response,
+        },
+      ),
+    );
+    assert.notEqual(wrongActor.disposition, "succeeded");
+
+    const responded = await publicApi.applyRootPublicInvocation(
+      operationContext,
+      invocation(
+        "abg.operation.interaction.respond",
+        "approve",
+        "invocation://t270/external-mixed/respond",
+        {
+          actorRef,
+          capabilityRef: mini.ids.actorCapabilityRef,
+          continuationRef,
+          response,
+        },
+      ),
+    );
+    assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
+    assert.equal(responded.continuationStatus, "responded");
+
+    const readResponded = await publicApi.applyRootPublicInvocation(
+      operationContext,
+      invocation(
+        "abg.operation.project.read",
+        "status",
+        "invocation://t270/external-mixed/read-responded",
+        { continuationRef },
+      ),
+    );
+    assert.equal(
+      readResponded.disposition,
+      "succeeded",
+      JSON.stringify(readResponded),
+    );
+    assert.equal(readResponded.result.status, "responded");
+
+    const completed = await publicApi.applyRootPublicInvocation(
+      operationContext,
+      invocation(
+        "abg.operation.run.continue",
+        "current_intent",
+        "invocation://t270/external-mixed/continue",
+        {
+          actorRef,
+          capabilityRef: mini.ids.actorCapabilityRef,
+          continuationRef,
+        },
+      ),
+    );
+    assert.equal(completed.disposition, "succeeded", JSON.stringify(completed));
+    assert.equal(completed.continuationStatus, "resolved");
+    assert.equal(completed.runId, held.runId);
+    assert.equal(completed.replayAgreement, true);
+    assert.deepEqual(completed.result, response);
+
+    const events = (await readFile(scenario.eventLogPath, "utf8"))
+      .trim()
+      .split(/\r?\n/u)
+      .map((line) => JSON.parse(line));
+    assert.deepEqual(
+      events
+        .filter((event) => event.kind === "c_call_fibre_selected")
+        .map((event) => event.payload.regime),
+      ["F_D", "F_P", "F_H"],
+    );
+    assert.equal(
+      events.filter((event) => event.kind === "c_call_opened").length,
+      3,
+    );
+    assert.equal(
+      events.filter((event) => event.kind === "c_call_result_admitted").length,
+      3,
+    );
+    assert.equal(
+      events.filter((event) => event.kind === "c_call_judged").length,
+      3,
+    );
+    assert.deepEqual(
+      events
+        .filter((event) =>
+          event.aggregateType === "continuation" &&
+          event.aggregateId === continuationRef)
+        .map((event) => event.kind),
+      [
+        "fh_interaction_opened",
+        "fh_interaction_responded",
+        "fh_interaction_resume_admitted",
+      ],
+    );
+    assert.equal(
+      events.filter((event) => event.kind === "run_closed").length,
+      1,
+    );
+    assert.deepEqual(
+      events.map((event) => event.admissionOrdinal),
+      events.map((_, index) => index + 1),
+    );
+  } finally {
+    if (priorCommand === undefined) {
+      delete process.env.ABG_TS_CLAUDE_COMMAND;
+    } else {
+      process.env.ABG_TS_CLAUDE_COMMAND = priorCommand;
+    }
+    publicApi.closeRootOperationContext(operationContext);
+  }
 });

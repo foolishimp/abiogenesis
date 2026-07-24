@@ -7,7 +7,10 @@ import {
   admitClosure,
   admitEvidence,
   admitFanOutCompletion,
+  admitFhInteractionOpen,
+  admitInteractionClosure,
   admitJudgment,
+  admitPendingInteraction,
   admitResult,
   admitRetryAttempt,
   admitRetryProgress,
@@ -18,6 +21,7 @@ import {
   deriveProbabilisticTransportEvidence,
   deriveSubTraversalEvidence,
   openCCall,
+  openInteractionCCall,
   projectRetryEligibility,
   replay,
   traversalCursorAdmissionEventRef,
@@ -28,10 +32,14 @@ import {
   type AdmittedCCallResult,
   type AdmittedImplementationResolutionRow,
   type AdmittedImplementationSet,
+  type AdmittedInteractionContractRow,
+  type AdmittedInteractionSet,
   type CCallEvidenceCandidate,
   type CCallAdmissionRejection,
   type CCall,
   type ExecutionBasis,
+  type ContinuationProductBasis,
+  type FhInteractionResumeAdmission,
   type FanOutCompletionAdmission,
   type OpenedTraversalScope,
   type ReplayState,
@@ -69,6 +77,8 @@ import {
 import {
   proposeBlockedRoute,
   proposeFanOutRoute,
+  proposeHoldRoute,
+  proposeInteractionResumeTerminalRoute,
   proposeJudgedRoute,
   proposeRecursionRoute,
   proposeRetryRoute,
@@ -80,9 +90,10 @@ import {
   deriveCompletedTraversalStep,
   deriveRecursionReentryCursor,
   deriveRetryTraversalStep,
+  type ExecutableTraversalStopRef,
+  type InteractionTraversalStopRef,
   type TraversalCursor,
   type TraversalStep,
-  type TraversalStopRef,
 } from "./traversal.js";
 
 export interface DeterministicLeafSuccessCandidate<Output> {
@@ -141,6 +152,7 @@ export interface ExecutableTraversalCompletion {
     | "blocked"
     | "closed"
     | "failed"
+    | "held"
     | "refused";
   readonly cCallRef: string | null;
   readonly resultRef: string | null;
@@ -152,10 +164,46 @@ export interface ExecutableTraversalCompletion {
   readonly nextInputContractRef: string | null;
   readonly replayState: ReplayState;
   readonly diagnosticRef: string | null;
+  readonly continuationRef: string | null;
+  readonly heldCursor: TraversalCursor | null;
+  readonly heldInteraction: HeldInteractionTraversal | null;
+}
+
+export interface HeldInteractionTraversal {
+  readonly cCall: CCall;
+  readonly result: AdmittedCCallResult;
+  readonly judgment: AdmittedCCallJudgment;
+  readonly cursor: TraversalCursor;
 }
 
 export interface RetainedRetryInput extends RetryInputBasis {
   readonly value: Readonly<Record<string, JsonValue>>;
+}
+
+export interface CompleteInteractionTraversalInput {
+  readonly store: AbgEventStore;
+  readonly executionBasis: ExecutionBasis;
+  readonly openedTraversalScope: OpenedTraversalScope;
+  readonly program: Readonly<GtlProgram>;
+  readonly graph: Readonly<GtlGraph>;
+  readonly traversalStop: InteractionTraversalStopRef;
+  readonly interactionSet: AdmittedInteractionSet;
+  readonly interaction: AdmittedInteractionContractRow;
+  readonly productBasis: ContinuationProductBasis;
+  readonly input: Readonly<Record<string, JsonValue>>;
+  readonly inputDigest: `sha256:${string}`;
+  readonly clock: ExecutableTraversalClock;
+}
+
+export interface CompleteInteractionResumeInput {
+  readonly store: AbgEventStore;
+  readonly executionBasis: ExecutionBasis;
+  readonly graph: Readonly<GtlGraph>;
+  readonly heldInteraction: HeldInteractionTraversal;
+  readonly successorCursor: TraversalCursor;
+  readonly resume: FhInteractionResumeAdmission;
+  readonly closureContract: Readonly<ClosureContract>;
+  readonly clock: ExecutableTraversalClock;
 }
 
 export interface CompleteExecutableTraversalInput<
@@ -167,7 +215,7 @@ export interface CompleteExecutableTraversalInput<
   readonly openedTraversalScope: OpenedTraversalScope;
   readonly program: Readonly<GtlProgram>;
   readonly graph: Readonly<GtlGraph>;
-  readonly traversalStop: TraversalStopRef;
+  readonly traversalStop: ExecutableTraversalStopRef;
   readonly implementationSet: AdmittedImplementationSet;
   readonly implementationResolution: AdmittedImplementationResolutionRow;
   readonly leafPort: LeafInvocationPort;
@@ -291,8 +339,12 @@ function basis(
   };
 }
 
-function cursorBasis<Input, Output>(
-  input: CompleteExecutableTraversalInput<Input, Output>,
+function cursorBasis(
+  input: {
+    readonly store: AbgEventStore;
+    readonly traversalStop: { readonly cursor: TraversalCursor };
+    readonly clock: ExecutableTraversalClock;
+  },
   stage: string,
 ): RuntimeAdmissionBasis {
   const eventRef = traversalCursorAdmissionEventRef(
@@ -318,6 +370,9 @@ function completion(
     readonly continuationKind?: "advance" | "retry";
     readonly nextInputContractRef?: string;
     readonly diagnosticRef?: string;
+    readonly continuationRef?: string;
+    readonly heldCursor?: TraversalCursor;
+    readonly heldInteraction?: HeldInteractionTraversal;
   } = {},
 ): ExecutableTraversalCompletion {
   return deepFreeze({
@@ -334,7 +389,184 @@ function completion(
     nextInputContractRef: values.nextInputContractRef ?? null,
     replayState,
     diagnosticRef: values.diagnosticRef ?? null,
+    continuationRef: values.continuationRef ?? null,
+    heldCursor: values.heldCursor ?? null,
+    heldInteraction: values.heldInteraction ?? null,
   }) as ExecutableTraversalCompletion;
+}
+
+export function completeInteractionTraversal(
+  input: CompleteInteractionTraversalInput,
+): ExecutableTraversalCompletion {
+  if (
+    sha256Canonical(input.input as unknown as JsonValue) !== input.inputDigest ||
+    input.inputDigest !== input.traversalStop.cursor.inputDigest
+  ) {
+    throw new TypeError(
+      "F_H interaction input differs from the admitted traversal cursor",
+    );
+  }
+  const opened = openInteractionCCall(
+    input.store,
+    input.executionBasis,
+    input.openedTraversalScope,
+    input.program,
+    input.graph,
+    input.traversalStop,
+    input.interactionSet,
+    input.interaction,
+    basis(input.clock, "fh-c-call-open"),
+  );
+  if (opened.kind !== "c_call_admission") {
+    throw new TypeError(
+      `F_H CCall admission refused: ${opened.code}: ${opened.message}`,
+    );
+  }
+  const pending = admitPendingInteraction(
+    input.store,
+    opened.cCall,
+    input.input,
+    input.inputDigest,
+    basis(input.clock, "fh-pending"),
+  );
+  const pendingReplay = replay(input.store, {
+    runId: input.openedTraversalScope.runId,
+  });
+  const routeCandidate = proposeHoldRoute(
+    input.graph,
+    input.traversalStop,
+    opened.cCall,
+    pending.judgment,
+    pendingReplay,
+    input.traversalStop.continuationContractRef,
+  );
+  if (routeCandidate.kind !== "traversal_route_candidate") {
+    throw new TypeError(
+      `F_H hold route refused: ${routeCandidate.code}: ${routeCandidate.message}`,
+    );
+  }
+  const route = admitRoute(
+    input.store,
+    input.executionBasis,
+    input.graph,
+    input.traversalStop.cursor,
+    null,
+    pendingReplay,
+    routeCandidate,
+    basis(input.clock, "fh-hold-route"),
+    {
+      cCall: opened.cCall,
+      result: pending.result,
+      judgment: pending.judgment,
+    },
+  );
+  if (route.kind !== "admitted_traversal_route") {
+    throw new TypeError(
+      `F_H hold route admission refused: ${route.code}: ${route.message}`,
+    );
+  }
+  const continuation = admitFhInteractionOpen(
+    input.store,
+    input.executionBasis,
+    input.openedTraversalScope,
+    input.program,
+    input.graph,
+    input.interactionSet,
+    input.traversalStop.cursor,
+    pending,
+    route,
+    input.productBasis,
+    input.input,
+    basis(input.clock, "fh-continuation-open"),
+  );
+  return completion(
+    "held",
+    replay(input.store, { runId: input.openedTraversalScope.runId }),
+    {
+      cCallRef: opened.cCall.cCallRef,
+      resultRef: pending.result.resultRef,
+      judgmentRef: pending.judgment.judgmentRef,
+      resultValue: pending.result.value,
+      continuationRef: continuation.continuationRef,
+      heldCursor: input.traversalStop.cursor,
+      heldInteraction: deepFreeze({
+        cCall: opened.cCall,
+        result: pending.result,
+        judgment: pending.judgment,
+        cursor: input.traversalStop.cursor,
+      }),
+    },
+  );
+}
+
+export function completeInteractionResume(
+  input: CompleteInteractionResumeInput,
+): ExecutableTraversalCompletion {
+  const { cCall, result, judgment } = input.heldInteraction;
+  const beforeRoute = replay(input.store, { runId: cCall.runId });
+  const routeCandidate = proposeInteractionResumeTerminalRoute(
+    input.graph,
+    input.successorCursor,
+    cCall,
+    judgment,
+    input.resume,
+    beforeRoute,
+    cCall.transitionContractRef,
+  );
+  if (routeCandidate.kind !== "traversal_route_candidate") {
+    throw new TypeError(
+      `F_H resume route refused: ${routeCandidate.code}: ${routeCandidate.message}`,
+    );
+  }
+  const route = admitRoute(
+    input.store,
+    input.executionBasis,
+    input.graph,
+    input.successorCursor,
+    null,
+    beforeRoute,
+    routeCandidate,
+    basis(input.clock, "fh-resume-route"),
+    {
+      cCall,
+      result,
+      judgment,
+      resume: input.resume,
+    },
+  );
+  if (route.kind !== "admitted_traversal_route") {
+    throw new TypeError(
+      `F_H resume route admission refused: ${route.code}: ${route.message}`,
+    );
+  }
+  const afterRoute = replay(input.store, { runId: cCall.runId });
+  const closure = admitInteractionClosure(
+    input.store,
+    cCall,
+    result,
+    judgment,
+    input.resume,
+    route,
+    afterRoute,
+    input.closureContract,
+    basis(input.clock, "fh-closure"),
+  );
+  if (closure.kind !== "closure_admission") {
+    throw new TypeError(
+      `F_H closure refused: ${closure.code}: ${closure.message}`,
+    );
+  }
+  return completion(
+    "closed",
+    replay(input.store, { runId: cCall.runId }),
+    {
+      cCallRef: cCall.cCallRef,
+      resultRef: input.resume.responseRef,
+      judgmentRef: judgment.judgmentRef,
+      closureRef: closure.closureRef,
+      resultValue: input.resume.responseValue,
+    },
+  );
 }
 
 function replayRun(input: Pick<CompleteExecutableTraversalInput<unknown, unknown>, "store" | "openedTraversalScope">): ReplayState {
@@ -727,19 +959,6 @@ export async function completeExecutableTraversal<
   input: CompleteExecutableTraversalInput<Input, Output>,
 ): Promise<ExecutableTraversalCompletion> {
   const computeRegime = input.traversalStop.computeRegime;
-  if (computeRegime === "F_H") {
-    const diagnosticRef = "diagnostic://abiogenesis/hog/interaction-leaf-requires-continuation@5";
-    admitRuntimeFailure(
-      input.store,
-      input.executionBasis,
-      input.openedTraversalScope,
-      "c_call_open",
-      { computeRegime },
-      diagnosticRef,
-      cursorBasis(input, "interaction-leaf-refusal"),
-    );
-    return completion("failed", replayRun(input), { diagnosticRef });
-  }
   if (
     !isAdmittedLeafInvocationPort(input.leafPort) ||
     input.leafPort.implementationSetRef !== input.implementationSet.implementationSetRef ||

@@ -61,7 +61,10 @@ if (args.length !== 2 || args[0] !== "--jsonl" || args[1] === undefined) {
           }
           const outcome = await applyRootPublicInvocation(context, invocation);
           process.stdout.write(`${canonicalJson(outcome as unknown as JsonValue)}\n`);
-          if (outcome.disposition !== "succeeded") {
+          if (
+            outcome.disposition !== "succeeded" &&
+            outcome.disposition !== "held"
+          ) {
             process.exitCode = 2;
             break;
           }
