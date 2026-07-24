@@ -12,11 +12,11 @@ successor to the immutable 4.6 RC5 Product origin.
 
 | Surface | State |
 |---|---|
-| current work owner | `T-270` M5 parent; accepted design implementation active |
+| current work owner | `T-270` M5 parent with repriced T-281 public-product seam |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 root retained at `21166b11`; M5 `70/70`, conservation `21/40`; fan-out/fan-in and exact durable event-history reopening complete; S02 and F_H continuation open |
+| implementation | current base `b98dc7f5`; M4 bootstrap, M5 `70/70`, and conservation `21/40` retained as regression evidence; first independently authored installed GTL Product path open |
 | replacement design | M3 accepted under T-285; M5 delta accepted at `d6da4269`, SHA-256 `80269e73...c0f3` |
-| delivery governor | `ABI5-ROOT-001`, green and mandatory at every promoted checkpoint |
+| delivery governor | `ABI5-M5-EXT-001`; green `ABI5-ROOT-001` remains the mandatory bootstrap regression gate |
 | method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
 
 The source branch history and the semantic Product origin are distinct. The
@@ -86,11 +86,13 @@ build_tenants/abiogenesis/python/            withdrawn historical reference
 
 ## Current Work Rule
 
-Do not implement against a donor line. Preserve the completed
-`ABI5-ROOT-001` while T-270 extends the same accepted direct-GTL architecture.
-The bounded generic-traversal design delta is accepted and M5 implementation is
-active. Missing detail is added to existing tickets; it does not create a new
-ticket hierarchy.
+Do not implement against a donor line. Preserve `ABI5-ROOT-001`, but do not
+project further bootstrap or internal-matrix work as Product progress. Current
+work closes `ABI5-M5-EXT-001`: an independently packed developer GTL Product
+must use caller-supplied publication, a non-empty dependency lock, installed
+resolution, product-neutral SDK/CLI invocation, and ABG replay without a
+Product-specific branch in ABIogenesis core. Missing detail is added to T-270,
+T-281, or the later held owner; it does not create a new ticket hierarchy.
 
 Existing tests and commands remain current-state probes only. They are not
 5.0 Product evidence until the accepted design maps them onto the exact root,

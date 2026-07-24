@@ -3,7 +3,7 @@
 **Status**: Active - accepted by T-283 F_H closure
 **Category**: Verification
 **Date**: 2026-07-20
-**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md)
+**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md)
 **Wave**: ABIogenesis 5.0
 
 ---
@@ -52,7 +52,10 @@ The constitutional cut may close only when every required behavior and
 negative boundary is represented without contradiction or silence. Behavioral
 closure remains pending until the exact installed scenarios, all forty 4.6
 traversal rows, and the separate shape-preserving fibre-substitution
-differential have run on the accepted realization.
+differential have run on the accepted realization. The forty-row matrix is
+aggregated across the scenarios that own its behavior; it is final
+conservation and qualification evidence, not a requirement that an earlier
+scenario implement behavior constitutionally assigned to a later scenario.
 
 ## Bounded Scenario Catalog
 
@@ -90,11 +93,12 @@ replay disagreement leaves the root red.
 validate, publish, and execute representative nested forms of the complete
 retained graph and seven-constructor C algebra through direct HoG traversal.
 It shall execute one live `F_P` boundary with declared instruction and result
-contracts. It shall exercise all forty rows of the 4.6 traversal conservation
-matrix and separately exercise shape-preserving fibre substitution and one
-transparent child traversal. Malformed GTL and malformed, incomplete,
-contradictory, or unattributed `F_P` output shall refuse before effects, result
-admission, foldback, or closure.
+contracts. It shall exercise the 4.6 traversal conservation matrix's four
+compute-fibre rows and eight structural-form rows. It shall
+separately exercise shape-preserving fibre substitution and one transparent
+child traversal. Malformed GTL and malformed, incomplete, contradictory, or
+unattributed `F_P` output shall refuse before effects, result admission,
+foldback, or closure.
 
 ### `ABG5-S03` - One Surface And Human Continuation
 
@@ -113,8 +117,9 @@ gap; inspect the replay-derived frontier; admit one agent edit or typed `F_H`
 act; and resume the same run or start the lawfully repriced run to convergence.
 It shall exercise every retained consequence route and runtime disposition,
 including retry, depth traversal, graph-span re-entry, public re-entry, ticket
-work, reprice, yield, block, and non-admission. SDK, CLI, fixture, worker, and
-adapter code shall not select or order the loop.
+work, reprice, yield, block, and non-admission, plus all six retained public
+start and control behaviors. SDK, CLI, fixture, worker, and adapter code shall
+not select or order the loop.
 
 ### `ABG5-S04` - Reflection And Self-Conformance
 

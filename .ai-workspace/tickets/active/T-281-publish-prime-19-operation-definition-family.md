@@ -1,38 +1,39 @@
-# T-281 - Publish Prime 19-Operation Definition Family
+# T-281 - Publish The Product-Neutral Installed Public Path
 
-> **T-284 current disposition (2026-07-20):** `held_pending_X_vector`.
-> Every acceptance, phase, dependency, count, design, and delivery statement
-> below records the prior X-path basis only. It does not authorize current
-> implementation, define 5.0 Product scope, or project Product progress. The
-> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
-> close this ticket in place.
+> **Current disposition (2026-07-24):** repriced in place for
+> `ABI5-M5-EXT-001`. The operative scope is the current header and
+> `Current M5 Reprice` section. The retained 19-operation and X-era material is
+> historical donor evidence only; it does not define Product scope, operation
+> count, design authority, implementation order, or closure.
 
 - id: T-281
-- title: Publish the Prime ABIogenesis 5.0 public-operation definition family
+- title: Publish the product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- implementation_hold: active
-- implementation_hold_ref: T-284 correction vector and M3 design gate
-- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: held_pending_t284_vector_and_m3_design
-- review_status: prior_basis_review_only_invalidated_for_implementation
-- proof_status: historical_evidence_only_operation_count_not_product_progress
+- implementation_hold: released_for_abi5_m5_ext_001
+- implementation_hold_ref: GOAL-035 current Product frontier and T-270 requirement reprice
+- implementation_hold_effect: >-
+    implementation is authorized only for caller-supplied publication,
+    non-empty dependency locking, installed implementation resolution, and
+    product-neutral SDK/CLI invocation required by ABI5-M5-EXT-001
+- phase_status: m5_external_product_path_active
+- review_status: requirement_reprice_direct_fh_authorized
+- proof_status: independent_mini_product_installed_path_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
-- delivery_phase: unassigned_pending_x_vector
+- delivery_phase: M5_frontier_1
 - change_intent: >-
-    Replace the superseded public-operation rosters with one closed
-    PublicFunctionDefinition<K> family for the exact ratified 19 ABIogenesis
-    5.0 operations and variants, deriving typed contract, schema, catalog,
-    SDK, and CLI projections while preserving operation-specific semantic
-    handler ownership for the later P2 binding milestone.
-- change_class: design_reframe
+    Remove ABIogenesis-owned product-specific publication and invocation
+    branching from the installed public seam so an independently packed GTL
+    Product supplies its own namespace, declarations, contracts, judgment,
+    and implementation without a core change.
+- change_class: requirement_reprice
 - re_entry_point: >-
-    build_tenants/abiogenesis/typescript/design public contract and operation
-    projection boundary
-- triaged_at: 2026-07-16
+    specification/requirements/product/REQ-P-SCENARIOS.md
+    REQ-P-SCENARIOS-009 and REQ-P-SCENARIOS-013
+- triaged_at: 2026-07-24
 - created_at: 2026-07-16
-- updated_at: 2026-07-17
+- updated_at: 2026-07-24
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-278
@@ -40,8 +41,53 @@
 - migration_strategy: inside_out_hard_break
 - library_usage: replace
 - governing_library: >-
-    build_tenants/abiogenesis/typescript/code/src/app/m04/public_contracts/
-    operations.ts
+    build_tenants/abiogenesis/typescript/code/src/product and
+    build_tenants/abiogenesis/typescript/code/src/public
+
+## Current M5 Reprice
+
+T-281 is subordinate to T-270 and owns one bounded public-product seam:
+
+```text
+empty consumer directory
+  -> install packed ABIogenesis
+  -> install separately packed developer GTL Product
+  -> resolve non-empty Product dependency lock
+  -> bind workspace
+  -> admit caller-supplied Module publication
+  -> narrow catalog
+  -> invoke selected GraphFunction through installed SDK and CLI
+  -> direct HoG traversal
+  -> ABG events and replay-derived typed result
+```
+
+The developer Product owns its namespace, Module, Program, GraphFunction,
+input/output contracts, judgment relation, and implementation binding.
+ABIogenesis owns generic raw admission, validation, environment binding,
+catalog admission, invocation, traversal, runtime truth, and public projection.
+
+Closure requires:
+
+- no developer-Product identifier, contract switch, validator, judgment, or
+  implementation import in ABIogenesis core;
+- caller-supplied publication rather than construction of a built-in
+  publication by `catalog.admit`;
+- a non-empty lock edge from the mini-product to its ABIogenesis dependency;
+- exact installed implementation resolution from the admitted Product set;
+- the same typed result from CLI output and ABG replay; and
+- substitution negatives for undeclared dependency, contract, publication,
+  implementation bytes, and product-specific core branching.
+
+This checkpoint does not define a fixed operation roster, complete S06,
+authorize host projection, or resume any historical X implementation. After it
+is green, T-281 remains the existing owner for later S06 public and downstream
+portability work.
+
+## Historical X Evidence
+
+Everything below this heading is retained source material from the prior X
+trajectory. It has no current implementation or closure authority unless the
+current reprice explicitly cites a bounded claim.
 - dependencies:
   - ratified T-278 Ontology projection digest bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615; rebind from accepted-design basis 039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1 changes only the GOALS source-digest row and carries no semantic-target delta
   - accepted GOAL-035 P1 public-operation prerequisite

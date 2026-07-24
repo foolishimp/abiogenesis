@@ -16,11 +16,12 @@
 
 ## Current Project Gate
 
-T-286 completed exact `ABI5-ROOT-001`. T-270 is the sole M5 parent owner and
-owns implementation of the accepted generic-traversal and dependency-law design
-delta at commit `d6da4269`. Runtime implementation is authorized under that
-exact boundary. Every implementation checkpoint must preserve and rerun
-`ABI5-ROOT-001`.
+T-286 completed exact `ABI5-ROOT-001`, which remains the mandatory bootstrap
+regression gate. T-270 is the sole M5 parent owner; repriced T-281 owns the
+active `ABI5-M5-EXT-001` public-product seam. Current implementation must make
+one independently packed developer GTL Product run through the installed
+public path with no Product-specific ABIogenesis branch. Do not resume
+horizontal traversal-row expansion before that checkpoint is green.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -66,7 +67,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: M4 root complete; accepted M5 implementation active under T-270
+**Status**: M4 bootstrap complete; independent installed GTL Product frontier active
 
 This block is a thin read model. It does not duplicate the full Product.
 
@@ -88,11 +89,13 @@ This block is a thin read model. It does not duplicate the full Product.
 - `F_D` is restricted to interfaces and declared total functions over closed
   domains. Open semantic work is `F_P`. Attributed policy and ambiguity
   decisions are `F_H`, direct or lawfully proxied.
-- The selected delivery governor is `ABI5-ROOT-001`; its exact path and
-  `R1..R10` obligations live in `PRODUCT.md`.
+- `ABI5-ROOT-001` remains the regression gate. `ABI5-M5-EXT-001` is the
+  current delivery frontier: caller-supplied publication, non-empty Product
+  dependency, product-neutral invocation, and replay-derived result.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.
-No new M5 ticket hierarchy is authorized. Existing tickets are repriced in
-place when their T-270 boundary becomes active.
+No new M5 ticket hierarchy is authorized. T-281 is active only for the current
+public-product frontier; T-272 remains held until that frontier and S02 are
+ready.
 <!-- GTL_BOOTLOADER_END -->
