@@ -21,11 +21,10 @@ regression gate. T-270 is the sole M5 parent owner; corrected S02 and
 `ABI5-M5-EXT-001` are green. Repriced T-272 owns active S03. Accepted candidate
 `686d18bf` binds the four-authority composition, actual evidence, Product
 policy and workspace truth, action evaluation, run-causal closure, and
-post-resume failure truth. Candidate `91f3640f` adds a Product-defined
+post-resume failure truth. Accepted repair `305a3b93` adds a Product-defined
 no-action gap, ABG-admitted `gap_stop`, replay-derived public read, and exact
-fresh-context re-entry through the same independently packed external Product.
-M05 Section 12.5 is pending exact review, so subsequent S03 expansion is held.
-After acceptance, T-272 continues the retained S03 consequence,
+single-use ProductSet-bound re-entry through the same independently packed
+external Product. T-272 now continues the retained S03 consequence,
 runtime-disposition, and public-control behavior through that same extension
 path. Do not use the forty-row qualification matrix as the implementation
 queue.
@@ -101,9 +100,10 @@ This block is a thin read model. It does not duplicate the full Product.
   is green. Product-owned observation, next-action, and action-evaluation
   bases and ABG-owned construction-intent admission are green. The admitted
   evidence ledger, closure candidate, post-evidence refresh, and replay-owned
-  closure negatives are accepted at `686d18bf`. Durable gap stop/read/re-entry
-  is green at candidate `91f3640f`; Section 12.5 exact review is the current
-  gate.
+  closure negatives are accepted at `686d18bf`. Durable gap stop/read and
+  single-use ProductSet-bound re-entry are accepted at `305a3b93`. The
+  remaining S03 consequence, runtime-disposition, and public-control outcome
+  is the current gate.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.

@@ -9,10 +9,12 @@
 > binds an admitted four-authority composition, exact observation and
 > action-evaluation bases, run-causal closure, and post-resume failure truth.
 > Direct F_H accepted that exact candidate on 2026-07-25. Candidate
-> `91f3640f` now implements the external Product's typed
-> `gap_stop -> public read -> public re-entry -> convergence` path.
-> Section 12.5 and that exact implementation cut are pending review; further
-> S03 expansion is held.
+> `305a3b93` repairs and completes the external Product's typed
+> `gap_stop -> public read -> single-use public re-entry -> convergence`
+> path. The bounded proxy decision at
+> `.ai-workspace/comments/codex/20260724T192932Z_DECISION_proxy_accept_t272_gap_reentry_repair.md`
+> accepts that exact cut and Section 12.5. T-272 may continue through the
+> remaining S03 outcomes on the same external Product path.
 > Consequence routes, runtime dispositions, and public-control work remain
 > active through the same extension path.
 > Historical X-path designs and checkpoints remain donor evidence only.
@@ -22,15 +24,15 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
-- implementation_hold: active
+- implementation_hold: released
 - implementation_hold_ref: GOAL-035 ABG5-S03
 - implementation_hold_effect: >-
-    review exact candidate 91f3640f before extending the green durable F_H
-    and gap-reentry path with more consequence routes, runtime dispositions,
-    or public-control behavior; historical X remains held donor evidence
+    continue only through the green external Product path; Product reprice,
+    ticket expansion, compiler, controller, second runtime, and historical X
+    implementation remain prohibited
 - phase_status: s03_active
-- review_status: s03_gap_reentry_candidate_pending_exact_review
-- proof_status: gap_stop_read_reentry_convergence_and_mutations_green_s03_open
+- review_status: s03_gap_reentry_repair_accepted
+- proof_status: exact_single_use_gap_reentry_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -38,7 +40,7 @@
     continuation path with One Surface plus the consequence,
     runtime-disposition, and public start/control rows constitutionally
     assigned to ABG5-S03.
-- change_class: design_reframe
+- change_class: requirement_reprice
 - re_entry_point: >-
     specification/requirements/product/REQ-P-SCENARIOS.md
     REQ-P-SCENARIOS-010
@@ -77,8 +79,8 @@ disposition, and public start/control row owned by S03. This reprice does not
 authorize the historical X interpreter, checkpoint-basis carrier, public
 controller, or any other X implementation.
 
-Current integrated proof is `test:m5` `89/89`, `test:m4` `26/26`, and
-external developer Product `18/18`; all twelve S02-owned rows remain green.
+Current integrated proof is `test:m5` `95/95`, `test:m4` `26/26`, and
+external developer Product `24/24`; all twelve S02-owned rows remain green.
 The installed mixed Product proves F_H hold, replay-derived read, malformed
 and wrong-actor refusal, attributed response, append-only reopen, separate
 continue, same-Run typed closure, and replay agreement. No second result or
@@ -87,7 +89,7 @@ to an earlier package and is not current-candidate evidence.
 
 ## Durable Gap Re-entry Candidate
 
-Implementation commit `91f3640fcbb12788c34fcc17e54480390ca4d3b4`
+Implementation commit `305a3b93525f6898e15b995ff1789683d97de7e8`
 extends the same independently packed external Product:
 
 ```text
@@ -101,26 +103,33 @@ Product observation with no admitted action
   -> governed convergence
 ```
 
-The authority binds the exact installed Product, WorkspaceBinding, Catalog,
-CatalogView, source invocation, source Run, admitted gap route, stop event, and
-Product no-action projection. Re-entry reconstructs the non-lowering
-ProgramValidation from the persisted publication and requires byte-equivalence
-with the admitted validation. A self-consistent substituted prior gap refuses;
-after append, stale authority refuses. No new operation, controller, event
-family, compiler, lowering carrier, or runtime was introduced.
+The authority binds the exact installed Product, ResolvedProductLock,
+ProductSet, WorkspaceBinding, Catalog, CatalogView, public start, source
+invocation, source Run, admitted gap route, stop event, and Product no-action
+projection. Re-entry reconstructs the non-lowering ProgramValidation from the
+persisted publication and requires byte-equivalence with the admitted
+validation. The existing `invocation_admitted.reentryBasis` consumes the
+source gap exactly once; rebinding that historical gap to the latest lawful
+event-log prefix cannot open another successor Run. Missing, stale,
+wrong-workspace, wrong-Program, wrong-gap, non-gap, reduced-ProductSet, and
+already-consumed bases refuse. No new operation, controller, event family,
+compiler, lowering carrier, or runtime was introduced.
 
 The complete M05 design SHA-256 is
-`0d1c6281156cbe411240301c04f344c9024b7dd61136b77f332db487c3b5f53e`.
-Verification is `test:m5` `89/89`, `test:m4` `26/26`, external Product
-`18/18`, and two byte-identical packs at
-`sha256:7cb73b4bf73c3622fb477168bbe1ecc5e48e14c900a5c7a0287b3c401a2f3fbe`.
+`69bd9493c017102a53dc5d52a0c36fc3a377a1a08276911677a49e8b0d046682`.
+Verification is `test:m5` `95/95`, `test:m4` `26/26`, external Product
+`24/24`, and two byte-identical packs at
+`sha256:345354e8e85fe0f9d341037ab172101a64523665d32212597a7cbd197a51f49a`.
 The Product content digest is
-`sha256:eb3d22e021400bc47f194aa191591f5b67900fc11d97b744c6c9a161caa9ccee`;
+`sha256:6fc0c68d69a29b66b150fd1efebdd4fbd9421bae3ba0b7c6caaa7a1177eca82e`;
 the manifest digest is
-`sha256:e59f77987a654043154c21a9e6f7d5e60e5a64935dbb4d7a72e2b6572ed5e690`.
+`sha256:79e7181512e2950d56cf1029df8893007b51f4a0b48e3f2f8cee71e8dd1555b0`.
 
-This candidate does not close S03. Exact review is pending before further
-consequence, runtime-disposition, or public-control expansion.
+The bounded proxy decision
+`20260724T192932Z_DECISION_proxy_accept_t272_gap_reentry_repair.md` accepts
+this exact cut. It does not close S03. Remaining consequence,
+runtime-disposition, and public-control outcomes stay active through the same
+external Product path.
 
 ## Prior S03 Vertical Checkpoint
 
