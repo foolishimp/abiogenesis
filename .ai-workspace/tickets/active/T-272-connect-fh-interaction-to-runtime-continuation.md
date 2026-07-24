@@ -8,9 +8,11 @@
 > governed evidence fold, and post-evidence refresh. Candidate `686d18bf`
 > binds an admitted four-authority composition, exact observation and
 > action-evaluation bases, run-causal closure, and post-resume failure truth.
+> Direct F_H accepted that exact candidate on 2026-07-25. The current bounded
+> frontier is the external Product's
+> `gap_stop -> public read -> public re-entry -> convergence` path.
 > Consequence routes, runtime dispositions, and public-control work remain
-> active through the same extension path. Section 12 of the M05 design is an
-> affected-boundary candidate pending exact review.
+> active through the same extension path.
 > Historical X-path designs and checkpoints remain donor evidence only.
 
 - id: T-272
@@ -25,7 +27,7 @@
     consequence routes, runtime dispositions, and public-control behavior;
     historical X implementation remains held donor evidence
 - phase_status: s03_active
-- review_status: s03_composition_and_run_causal_exact_review_pending
+- review_status: s03_composition_and_run_causal_repair_accepted
 - proof_status: composition_evidence_admission_resume_totalization_and_negatives_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
@@ -286,7 +288,8 @@ after continuation resume.
 
 The complete affected M05 design subject hashes to
 `d1be9081198d47f31e9b2de58451c7e73ec2ce6afee2505c5035635152f49cb0`.
-It remains pending exact review and is not accepted by this checkpoint.
+It was accepted by direct F_H decision
+`.ai-workspace/comments/codex/20260724T173923Z_DECISION_fh_accept_t272_composition_run_causal_repair.md`.
 
 Fresh serialized verification is `test:m5` `88/88`, retained `test:m4`
 `26/26`, and external developer Product `17/17`. The retained live F_P receipt
@@ -300,8 +303,9 @@ reproduce:
 - manifest digest:
   `sha256:4d0feee33799375a0bb9b8d36dbfa55d3a1257c3e8cb7bdae2b7cf2ccc75f063`.
 
-This repair does not close S03. Exact review of this candidate precedes the
-next consumer-visible `gap_stop -> public re-entry -> convergence` slice.
+This repair does not close S03. The next consumer-visible slice is
+`gap_stop -> public re-entry -> convergence` through the same separately
+packed external Product.
 
 ## Historical X Evidence
 
