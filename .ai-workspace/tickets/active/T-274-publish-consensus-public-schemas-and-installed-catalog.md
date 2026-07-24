@@ -1,39 +1,38 @@
 # T-274 - Publish Consensus Public Schemas And Installed Catalog
 
-> **T-284 current disposition (2026-07-20):** `held_pending_X_vector`.
-> Every acceptance, phase, dependency, count, design, and delivery statement
-> below records the prior X-path basis only. It does not authorize current
-> implementation, define 5.0 Product scope, or project Product progress. The
-> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
-> close this ticket in place.
+> **Current disposition (2026-07-25):** `active_for_s05_publication`.
+> T-274 now owns one package-owned SYSTEM Consensus publication through the
+> accepted Product-neutral catalog path. The historical X body below remains
+> donor evidence only; its schema count, operation count, private native join,
+> generated assets, and publication sequence are not current authority.
 
 - id: T-274
 - title: Publish Consensus public schemas and installed catalog assets
 - type: feature
-- ticket_category: ordinary
+- ticket_category: implementation_migration
 - status: active
-- implementation_hold: active
-- implementation_hold_ref: T-284 correction vector and M3 design gate
-- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: held_pending_t284_vector_and_m3_design
-- review_status: prior_basis_review_only_invalidated_for_implementation
-- proof_status: historical_evidence_only
+- implementation_hold: released
+- implementation_hold_ref: GOAL-035 ABG5-S05 and M05 Section 13
+- implementation_hold_effect: >-
+    implement only one SYSTEM-owned Consensus publication through the existing
+    direct-GTL Product path; no X runtime, generated schema programme, new
+    operation, compiler, controller, or second catalog authority
+- phase_status: s05_publication_active
+- review_status: s05_repriced
+- proof_status: s03_green_s05_open
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
-- delivery_phase: unassigned_pending_x_vector
+- delivery_phase: M5_frontier_4
 - change_intent: >-
-    First generate and verify nine canonical Consensus schema assets plus two
-    vocabularies from one authoritative Consensus contract family and the one
-    accepted native projector; later derive the exact fifteen-definition
-    runtime join input from the T-252 source family and publish the SYSTEM-owned
-    callable catalog row from the admitted T-252 Module without creating
-    another body, authoring source, or runtime authority.
+    Publish one ABIogenesis-owned Consensus Module, Program, canonical
+    GraphFunction, subordinate callable members, closed contract family, and
+    implementation bindings through the existing package and catalog path.
 - change_class: design_reframe
 - re_entry_point: >-
-    build_tenants/abiogenesis/typescript/design M02/M04 Consensus publication
-    boundary
+    build_tenants/abiogenesis/typescript/design/
+    M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md Section 13
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-18
+- updated_at: 2026-07-25
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-268

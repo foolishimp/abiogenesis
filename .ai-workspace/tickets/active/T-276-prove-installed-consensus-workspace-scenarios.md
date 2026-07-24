@@ -1,35 +1,37 @@
 # T-276 - Prove Installed Consensus Workspace Scenarios
 
-> **T-284 current disposition (2026-07-20):** `held_pending_X_vector`.
-> Every acceptance, phase, dependency, count, design, and delivery statement
-> below records the prior X-path basis only. It does not authorize current
-> implementation, define 5.0 Product scope, or project Product progress. The
-> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
-> close this ticket in place.
+> **Current disposition (2026-07-25):** `active_for_s05_installed_proof`.
+> T-276 owns one source-blind installed driver for three outcome families over
+> three explicit workspace bindings. The historical X operation-count and
+> steel-thread sequence below remains donor evidence only.
 
 - id: T-276
 - title: Prove installed Consensus across three workspace applications
 - type: test
-- ticket_category: ordinary
+- ticket_category: implementation_migration
 - status: active
-- implementation_hold: active
-- implementation_hold_ref: T-284 correction vector and M3 design gate
-- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: held_pending_t284_vector_and_m3_design
-- review_status: prior_basis_review_only_invalidated_for_implementation
-- proof_status: historical_evidence_only_root_not_established
+- implementation_hold: released
+- implementation_hold_ref: GOAL-035 ABG5-S05 and M05 Section 13
+- implementation_hold_effect: >-
+    prove only the packed ordinary-path Consensus Product through one driver;
+    fixtures provide inputs and attributed worker output but own no panel,
+    recursion, event, continuation, result, or closure behavior
+- phase_status: s05_installed_proof_active
+- review_status: s05_repriced
+- proof_status: s03_green_s05_open
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
-- delivery_phase: unassigned_pending_x_vector
+- delivery_phase: M5_frontier_4
 - change_intent: >-
-    Qualify the exact packed candidate through one public Consensus contract in
-    existing, alternate, and caller-created temporary workspaces.
+    Prove the packed candidate's ordinary Consensus contract across agreement,
+    recursive dispute, and unresolved F_H escalation in existing, alternate,
+    and caller-created temporary workspaces.
 - change_class: design_reframe
 - re_entry_point: >-
-    build_tenants/abiogenesis/typescript/design M05 installed Consensus
-    qualification boundary
+    build_tenants/abiogenesis/typescript/design/
+    M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md Section 13
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-17
+- updated_at: 2026-07-25
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-268

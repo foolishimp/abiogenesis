@@ -1,36 +1,37 @@
 # T-275 - Realize Consensus Profiles And Ticket Result Projection
 
-> **T-284 current disposition (2026-07-20):** `held_pending_X_vector`.
-> Every acceptance, phase, dependency, count, design, and delivery statement
-> below records the prior X-path basis only. It does not authorize current
-> implementation, define 5.0 Product scope, or project Product progress. The
-> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
-> close this ticket in place.
+> **Current disposition (2026-07-25):** `active_for_s05_semantics`.
+> T-275 owns the closed profile, panel, policy, finding, ruling, result, and
+> ticket-projection semantics used by the current direct-GTL Consensus path.
+> The historical X body below remains donor evidence only.
 
 - id: T-275
 - title: Realize attributed reviewer profiles and ticket-result projection
 - type: feature
-- ticket_category: ordinary
+- ticket_category: implementation_migration
 - status: active
-- implementation_hold: active
-- implementation_hold_ref: T-284 correction vector and M3 design gate
-- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: held_pending_t284_vector_and_m3_design
-- review_status: prior_basis_review_only_invalidated_for_implementation
-- proof_status: historical_evidence_only
+- implementation_hold: released
+- implementation_hold_ref: GOAL-035 ABG5-S05 and M05 Section 13
+- implementation_hold_effect: >-
+    implement only Product-owned Consensus domain admission, reduction,
+    attribution, result, and read-only ticket projection through existing GTL,
+    HoG, ABG, replay, and public boundaries
+- phase_status: s05_semantics_active
+- review_status: s05_repriced
+- proof_status: s03_green_s05_open
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
-- delivery_phase: unassigned_pending_x_vector
+- delivery_phase: M5_frontier_4
 - change_intent: >-
-    Admit attributed reviewer and panel truth and project one typed Consensus
-    result for a ticket without granting those carriers traversal or ticket
-    mutation authority.
+    Admit attributed reviewer and panel truth, reduce bounded rounds, and
+    project one replay-derived typed Consensus result for a ticket without
+    granting those carriers traversal or ticket mutation authority.
 - change_class: design_reframe
 - re_entry_point: >-
-    build_tenants/abiogenesis/typescript/design M03 Consensus domain-carrier
-    and projection boundary
+    build_tenants/abiogenesis/typescript/design/
+    M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md Section 13
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-18
+- updated_at: 2026-07-25
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-268
