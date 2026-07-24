@@ -53,6 +53,22 @@ export interface InvocationAdmissionInput {
   readonly policy: InvocationPolicyBasis;
   readonly capabilityGrants: readonly CapabilityGrant[];
   readonly authority: InvocationAuthority;
+  readonly reentryBasis?: InvocationReentryBasis;
+}
+
+export interface InvocationReentryBasis {
+  readonly kind: "invocation_reentry_basis";
+  readonly schemaVersion: "5.0.0";
+  readonly publicAuthorityDigest: Sha256Digest;
+  readonly sourceInvocationAdmissionRef: string;
+  readonly sourceRunId: string;
+  readonly sourceRouteRef: string;
+  readonly sourceRouteDigest: Sha256Digest;
+  readonly sourceRouteEventRef: string;
+  readonly sourceRunStoppedEventRef: string;
+  readonly gapRef: string;
+  readonly nextActionProjectionRef: string;
+  readonly nextActionProjectionDigest: Sha256Digest;
 }
 
 export interface InvocationAdmission {
@@ -87,6 +103,7 @@ export interface InvocationAdmission {
   readonly authorityRef: string;
   readonly authorityDigest: Sha256Digest;
   readonly actorRef: string;
+  readonly reentryBasis: InvocationReentryBasis | null;
   readonly publicOperationEventRef: string;
   readonly admissionEventRef: string;
 }
@@ -170,6 +187,7 @@ export function hasAdmittedInvocation(
     authorityRef: admission.authorityRef,
     authorityDigest: admission.authorityDigest,
     actorRef: admission.actorRef,
+    reentryBasis: admission.reentryBasis,
   };
   const event = store.readAll().find((candidate) => candidate.eventId === admission.admissionEventRef);
   const publicEvent = store.readAll().find(
@@ -298,6 +316,10 @@ export function admitInvocation(
   const requestPayload = isRecord(request) && isRecord(request.payload)
     ? request.payload
     : null;
+  const suppliedReentryAuthority =
+    requestPayload !== null && isRecord(requestPayload.reentryAuthority)
+      ? requestPayload.reentryAuthority
+      : null;
   const rawTargetMatches =
     requestPayload !== null &&
     requestPayload.programRef === input.invocation.programRef &&
@@ -336,6 +358,89 @@ export function admitInvocation(
       "authority_mismatch",
       "invocation target lacks exact raw caller-request admission",
     );
+  }
+  const priorGap =
+    isRecord(input.rawInput.value) &&
+      isRecord(input.rawInput.value.priorGap)
+      ? input.rawInput.value.priorGap
+      : null;
+  if (input.reentryBasis === undefined) {
+    if (suppliedReentryAuthority !== null || priorGap !== null) {
+      return refusal(
+        "authority_mismatch",
+        "re-entry authority and prior gap must be admitted together",
+      );
+    }
+  } else {
+    const reentry = input.reentryBasis;
+    const sourceInvocation = rehydrateInvocationAdmission(
+      store,
+      reentry.sourceInvocationAdmissionRef,
+    );
+    const sourceRouteEvent = store.readAll().find(
+      (event) => event.eventId === reentry.sourceRouteEventRef,
+    );
+    const sourceStopEvent = store.readAll().find(
+      (event) => event.eventId === reentry.sourceRunStoppedEventRef,
+    );
+    const sourceRoutePayload =
+      sourceRouteEvent !== undefined && isRecord(sourceRouteEvent.payload)
+        ? sourceRouteEvent.payload
+        : null;
+    const sourceStopPayload =
+      sourceStopEvent !== undefined && isRecord(sourceStopEvent.payload)
+        ? sourceStopEvent.payload
+        : null;
+    const sourceProjection =
+      sourceRoutePayload !== null &&
+        isRecord(sourceRoutePayload.nextActionProjection)
+        ? sourceRoutePayload.nextActionProjection
+        : null;
+    if (
+      input.invocation.variant !== "start" ||
+      reentry.kind !== "invocation_reentry_basis" ||
+      reentry.schemaVersion !== "5.0.0" ||
+      suppliedReentryAuthority?.authorityDigest !==
+        reentry.publicAuthorityDigest ||
+      sourceInvocation === null ||
+      sourceInvocation.workspaceBindingId !==
+        input.workspaceBinding.bindingId ||
+      sourceInvocation.workspaceBindingDigest !==
+        input.workspaceBinding.bindingDigest ||
+      sourceInvocation.catalogViewId !== input.catalogView.viewId ||
+      sourceInvocation.catalogViewDigest !== input.catalogView.viewDigest ||
+      sourceInvocation.programRef !== input.program.programRef ||
+      sourceInvocation.graphFunctionRef !== input.graphFunction.name ||
+      sourceRouteEvent?.kind !== "traversal_route_admitted" ||
+      sourceRouteEvent.runId !== reentry.sourceRunId ||
+      sourceRoutePayload?.routeKind !== "gap_stop" ||
+      sourceRoutePayload.routeRef !== reentry.sourceRouteRef ||
+      sourceRoutePayload.routeDigest !== reentry.sourceRouteDigest ||
+      sourceRoutePayload.nextActionProjectionRef !==
+        reentry.nextActionProjectionRef ||
+      sourceRoutePayload.nextActionProjectionDigest !==
+        reentry.nextActionProjectionDigest ||
+      sourceProjection?.gapRef !== reentry.gapRef ||
+      sourceStopEvent?.kind !== "run_stopped" ||
+      sourceStopEvent.runId !== reentry.sourceRunId ||
+      !sourceStopEvent.causationEventRefs.includes(
+        reentry.sourceRouteEventRef,
+      ) ||
+      sourceStopPayload?.disposition !== "gap_stop" ||
+      sourceStopPayload.routeRef !== reentry.sourceRouteRef ||
+      priorGap?.sourceRunId !== reentry.sourceRunId ||
+      priorGap.sourceRouteRef !== reentry.sourceRouteRef ||
+      priorGap.gapRef !== reentry.gapRef ||
+      priorGap.nextActionProjectionRef !==
+        reentry.nextActionProjectionRef ||
+      priorGap.nextActionProjectionDigest !==
+        reentry.nextActionProjectionDigest
+    ) {
+      return refusal(
+        "authority_mismatch",
+        "re-entry requires the exact durable gap stop, Product observation, and installed invocation basis",
+      );
+    }
   }
   const exactComputeRegimes = validatedComputeRegimes(input.programValidation);
   if (
@@ -402,6 +507,7 @@ export function admitInvocation(
     authorityRef: input.authority.authorityRef,
     authorityDigest: input.authority.authorityDigest,
     actorRef: input.authority.actorRef,
+    reentryBasis: input.reentryBasis ?? null,
   };
   const invocationAdmissionDigest = sha256Canonical(admissionBody as unknown as JsonValue);
   const invocationAdmissionRef = `invocation-admission://abiogenesis/${invocationAdmissionDigest.slice("sha256:".length)}`;
@@ -450,7 +556,7 @@ export function admitInvocation(
       invocationAdmissionRef,
       invocationAdmissionDigest,
       ...admissionBody,
-    },
+    } as unknown as JsonValue,
   });
   return deepFreeze({
     kind: "invocation_admission" as const,

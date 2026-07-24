@@ -107,6 +107,8 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
     "asset://developer.example/greeting/welcome-message@5",
   approvalAssetRef:
     "asset://developer.example/greeting/human-approval@5",
+  approvalCapabilityAssetRef:
+    "asset://developer.example/greeting/human-approval-capability@5",
   approvalObligationRef:
     "obligation://developer.example/greeting/human-approval@5",
   approvalActionRef:
@@ -117,6 +119,8 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
     "condition://developer.example/greeting/approval-response-admitted@5",
   approvalStopConditionRef:
     "condition://developer.example/greeting/action-evaluated@5",
+  gapStopReasonRef:
+    "reason://developer.example/greeting/no-admitted-human-action@5",
   prioritySchemeRef:
     "priority-scheme://developer.example/greeting/obligation-first@5",
   closurePolicyRef:
@@ -322,12 +326,14 @@ function isGapProjection(value: unknown): value is Readonly<{
   pressure: "human_approval_required";
   obligationRefs: readonly string[];
   inputAssetRefs: readonly string[];
+  missingAssetRefs: readonly string[];
 }> {
   return isRecord(value) &&
     hasExactKeys(value, [
       "gapRef",
       "inputAssetRefs",
       "kind",
+      "missingAssetRefs",
       "modelRef",
       "obligationRefs",
       "pressure",
@@ -345,7 +351,16 @@ function isGapProjection(value: unknown): value is Readonly<{
     value.obligationRefs[0] === DEVELOPER_MINI_IDS.approvalObligationRef &&
     Array.isArray(value.inputAssetRefs) &&
     value.inputAssetRefs.length === 1 &&
-    value.inputAssetRefs[0] === DEVELOPER_MINI_IDS.greetingAssetRef;
+    value.inputAssetRefs[0] === DEVELOPER_MINI_IDS.greetingAssetRef &&
+    Array.isArray(value.missingAssetRefs) &&
+    (
+      value.missingAssetRefs.length === 0 ||
+      (
+        value.missingAssetRefs.length === 1 &&
+        value.missingAssetRefs[0] ===
+          DEVELOPER_MINI_IDS.approvalCapabilityAssetRef
+      )
+    );
 }
 
 function isDeveloperActionCatalog(
@@ -420,10 +435,12 @@ function isObservationSnapshot(
     !isRecord(value) ||
     !hasExactKeys(value, [
       "actionCatalog",
+      "availableActionRefs",
       "constructionState",
       "kind",
       "observedInput",
       "productAssetModel",
+      "priorGap",
       "snapshotDigest",
       "snapshotRef",
       "schemaVersion",
@@ -438,6 +455,11 @@ function isObservationSnapshot(
     value.targetOutcomeRef !== DEVELOPER_MINI_IDS.targetOutcomeRef ||
     !isGreetingInput(value.observedInput) ||
     !isDeveloperActionCatalog(value.actionCatalog) ||
+    !Array.isArray(value.availableActionRefs) ||
+    value.availableActionRefs.some(
+      (actionRef) =>
+        actionRef !== DEVELOPER_MINI_IDS.approvalActionRef,
+    ) ||
     !isRecord(value.workspaceBinding) ||
     !hasExactKeys(value.workspaceBinding, [
       "workspaceBindingDigest",
@@ -451,6 +473,24 @@ function isObservationSnapshot(
     (
       value.productAssetModel !== null &&
       !isProductAssetModel(value.productAssetModel)
+    ) ||
+    (
+      value.priorGap !== null &&
+      (
+        !isRecord(value.priorGap) ||
+        !hasExactKeys(value.priorGap, [
+          "gapRef",
+          "nextActionProjectionDigest",
+          "nextActionProjectionRef",
+          "sourceRouteRef",
+          "sourceRunId",
+        ]) ||
+        typeof value.priorGap.gapRef !== "string" ||
+        typeof value.priorGap.nextActionProjectionDigest !== "string" ||
+        typeof value.priorGap.nextActionProjectionRef !== "string" ||
+        typeof value.priorGap.sourceRouteRef !== "string" ||
+        typeof value.priorGap.sourceRunId !== "string"
+      )
     ) ||
     (
       value.constructionState !== null &&
@@ -488,11 +528,27 @@ function observationSnapshot(
   });
 }
 
+function observationHasAction(
+  snapshot: Readonly<Record<string, JsonValue>>,
+  actionRef: string,
+): boolean {
+  return Array.isArray(snapshot.availableActionRefs) &&
+    snapshot.availableActionRefs.includes(actionRef);
+}
+
 export function constructDeveloperObservationSnapshot(input: Readonly<{
   workspaceBindingId: string;
   workspaceBindingDigest: `sha256:${string}`;
   actionCatalog: Readonly<Record<string, JsonValue>>;
+  availableActionRefs?: readonly string[];
   name: string;
+  priorGap?: Readonly<{
+    gapRef: string;
+    nextActionProjectionDigest: string;
+    nextActionProjectionRef: string;
+    sourceRouteRef: string;
+    sourceRunId: string;
+  }> | null;
 }>): Readonly<Record<string, JsonValue>> {
   const candidate = observationSnapshot({
     kind: "observation_snapshot",
@@ -506,12 +562,16 @@ export function constructDeveloperObservationSnapshot(input: Readonly<{
       DEVELOPER_MINI_IDS.approvalObligationRef,
     ],
     actionCatalog: input.actionCatalog,
+    availableActionRefs: input.availableActionRefs ?? [
+      DEVELOPER_MINI_IDS.approvalActionRef,
+    ],
     constructionState: null,
     observedInput: {
       kind: "developer_greeting_input",
       schemaVersion: "5.0.0",
       name: input.name.trim(),
     },
+    priorGap: input.priorGap ?? null,
     productAssetModel: null,
   });
   if (!isObservationSnapshot(candidate)) {
@@ -579,10 +639,8 @@ function isNextActionBasis(
     value.priorityProjection.schemeRef !==
       DEVELOPER_MINI_IDS.prioritySchemeRef ||
     !Array.isArray(value.priorityProjection.orderedActionRefs) ||
-    value.priorityProjection.orderedActionRefs.join("\0") !==
-      DEVELOPER_MINI_IDS.approvalActionRef ||
     value.runtimeFrontier.kind !== "runtime_frontier" ||
-    !["action_required", "converged"].includes(
+    !["action_required", "converged", "gap_stop"].includes(
       String(value.runtimeFrontier.disposition),
     ) ||
     value.declaredPolicy.kind !== "construction_policy" ||
@@ -590,6 +648,23 @@ function isNextActionBasis(
     value.declaredPolicy.policyRef.length === 0 ||
     typeof value.declaredPolicy.requireCompleteEvidence !== "boolean" ||
     typeof value.declaredPolicy.requirePostEvidenceRefresh !== "boolean"
+  ) {
+    return false;
+  }
+  const orderedActionRefs = value.priorityProjection.orderedActionRefs;
+  const availableActionRefs = snapshot.availableActionRefs;
+  if (
+    !Array.isArray(availableActionRefs) ||
+    (
+      value.runtimeFrontier.disposition === "gap_stop"
+        ? orderedActionRefs.length !== 0 ||
+          availableActionRefs.length !== 0 ||
+          !isGapProjection(gap) ||
+          gap.missingAssetRefs.join("\0") !==
+            DEVELOPER_MINI_IDS.approvalCapabilityAssetRef
+        : orderedActionRefs.join("\0") !==
+            DEVELOPER_MINI_IDS.approvalActionRef
+    )
   ) {
     return false;
   }
@@ -753,6 +828,68 @@ function isNextActionProjection(value: unknown): value is Readonly<
     projectionDigest,
     ...body
   } = value;
+  const expectedDigest = sha256Canonical(body as JsonValue);
+  return projectionDigest === expectedDigest &&
+    projectionRef ===
+      `next-action-projection://product/${expectedDigest.slice("sha256:".length)}`;
+}
+
+const GAP_STOP_NEXT_ACTION_KEYS = Object.freeze([
+  "disposition",
+  "gapRef",
+  "kind",
+  "lawfulBasisRefs",
+  "missingAssetRefs",
+  "nextActionBasisDigest",
+  "nextActionBasisRef",
+  "noActionDisposition",
+  "programRef",
+  "projectionDigest",
+  "projectionRef",
+  "reasonRef",
+  "rejectedActionRefs",
+  "schemaVersion",
+  "targetObligationRefs",
+  "targetOutcomeRef",
+]);
+
+function isGapStopNextActionProjection(
+  value: unknown,
+): value is Readonly<Record<string, JsonValue>> {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, GAP_STOP_NEXT_ACTION_KEYS) ||
+    value.kind !== "next_action_projection" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "no_action" ||
+    value.noActionDisposition !== "gap_stop" ||
+    typeof value.projectionRef !== "string" ||
+    typeof value.projectionDigest !== "string" ||
+    typeof value.nextActionBasisRef !== "string" ||
+    typeof value.nextActionBasisDigest !== "string" ||
+    value.targetOutcomeRef !== DEVELOPER_MINI_IDS.targetOutcomeRef ||
+    value.programRef !== DEVELOPER_MINI_IDS.oneSurfaceProgramRef ||
+    typeof value.gapRef !== "string" ||
+    value.reasonRef !== DEVELOPER_MINI_IDS.gapStopReasonRef ||
+    !Array.isArray(value.targetObligationRefs) ||
+    value.targetObligationRefs.join("\0") !==
+      DEVELOPER_MINI_IDS.approvalObligationRef ||
+    !Array.isArray(value.missingAssetRefs) ||
+    value.missingAssetRefs.join("\0") !==
+      DEVELOPER_MINI_IDS.approvalCapabilityAssetRef ||
+    !Array.isArray(value.lawfulBasisRefs) ||
+    value.lawfulBasisRefs.join("\0") !== [
+      value.nextActionBasisRef,
+      value.gapRef,
+      DEVELOPER_MINI_IDS.oneSurfaceProgramRef,
+    ].join("\0") ||
+    !Array.isArray(value.rejectedActionRefs) ||
+    value.rejectedActionRefs.join("\0") !==
+      DEVELOPER_MINI_IDS.approvalActionRef
+  ) {
+    return false;
+  }
+  const { projectionRef, projectionDigest, ...body } = value;
   const expectedDigest = sha256Canonical(body as JsonValue);
   return projectionDigest === expectedDigest &&
     projectionRef ===
@@ -1421,8 +1558,10 @@ export function realizeDeveloperSynthesizeModel(
     targetOutcomeRef: input.targetOutcomeRef,
     targetObligationRefs: input.targetObligationRefs,
     actionCatalog: input.actionCatalog,
+    availableActionRefs: input.availableActionRefs,
     constructionState: input.constructionState,
     observedInput,
+    priorGap: input.priorGap,
     productAssetModel: {
       ...modelBody,
       modelRef:
@@ -1447,6 +1586,10 @@ export function realizeDeveloperEvalGap(input: unknown): Readonly<object> {
     );
   }
   const model = input.productAssetModel;
+  const approvalAvailable = observationHasAction(
+    input,
+    DEVELOPER_MINI_IDS.approvalActionRef,
+  );
   const gapBody = {
     kind: "developer_gap_projection" as const,
     schemaVersion: "5.0.0" as const,
@@ -1455,6 +1598,9 @@ export function realizeDeveloperEvalGap(input: unknown): Readonly<object> {
     pressure: "human_approval_required" as const,
     obligationRefs: [DEVELOPER_MINI_IDS.approvalObligationRef],
     inputAssetRefs: model.assetRefs,
+    missingAssetRefs: approvalAvailable
+      ? [] as const
+      : [DEVELOPER_MINI_IDS.approvalCapabilityAssetRef],
   };
   const gapDigest = sha256Canonical(gapBody);
   const gapProjection = deepFreeze({
@@ -1476,11 +1622,15 @@ export function realizeDeveloperEvalGap(input: unknown): Readonly<object> {
     priorityProjection: {
       kind: "deterministic_priority_projection",
       schemeRef: DEVELOPER_MINI_IDS.prioritySchemeRef,
-      orderedActionRefs: [DEVELOPER_MINI_IDS.approvalActionRef],
+      orderedActionRefs: approvalAvailable
+        ? [DEVELOPER_MINI_IDS.approvalActionRef]
+        : [] as const,
     },
     runtimeFrontier: {
       kind: "runtime_frontier",
-      disposition: "action_required",
+      disposition: approvalAvailable
+        ? "action_required"
+        : "gap_stop",
       openObligationRefs: [DEVELOPER_MINI_IDS.approvalObligationRef],
       snapshotRef: input.snapshotRef,
     },
@@ -1544,9 +1694,51 @@ export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
   if (
     !isRecord(gap) ||
     !isRecord(actionCatalog) ||
+    !isRecord(input.runtimeFrontier) ||
     !Array.isArray(actionCatalog.rows)
   ) {
     throw new TypeError("developer next-action basis is incomplete");
+  }
+  if (input.runtimeFrontier.disposition === "gap_stop") {
+    if (
+      !Array.isArray(gap.missingAssetRefs) ||
+      gap.missingAssetRefs.length === 0
+    ) {
+      throw new TypeError("developer gap stop requires one missing Product asset");
+    }
+    const projectionBody = {
+      kind: "next_action_projection" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "no_action" as const,
+      noActionDisposition: "gap_stop" as const,
+      targetOutcomeRef: gap.targetOutcomeRef,
+      programRef: DEVELOPER_MINI_IDS.oneSurfaceProgramRef,
+      gapRef: gap.gapRef,
+      targetObligationRefs: [
+        DEVELOPER_MINI_IDS.approvalObligationRef,
+      ],
+      missingAssetRefs: gap.missingAssetRefs,
+      reasonRef: DEVELOPER_MINI_IDS.gapStopReasonRef,
+      lawfulBasisRefs: [
+        input.basisRef,
+        gap.gapRef,
+        DEVELOPER_MINI_IDS.oneSurfaceProgramRef,
+      ],
+      rejectedActionRefs: [DEVELOPER_MINI_IDS.approvalActionRef],
+      nextActionBasisRef: input.basisRef,
+      nextActionBasisDigest: input.basisDigest,
+    };
+    const projectionDigest = sha256Canonical(projectionBody);
+    return deterministicStageCandidate(
+      input as unknown as JsonValue,
+      deepFreeze({
+        ...projectionBody,
+        projectionRef:
+          `next-action-projection://product/${projectionDigest.slice("sha256:".length)}`,
+        projectionDigest,
+      }),
+      DEVELOPER_MINI_IDS.evaluateNextImplementationRef,
+    );
   }
   const [selectedAction] = actionCatalog.rows as readonly Readonly<
     Record<string, JsonValue>
@@ -1894,12 +2086,14 @@ export function realizeDeveloperRefreshModel(
     targetOutcomeRef: prior.targetOutcomeRef,
     targetObligationRefs: prior.targetObligationRefs,
     actionCatalog: prior.actionCatalog,
+    availableActionRefs: prior.availableActionRefs,
     constructionState: {
       actionEvaluationRef: input.actionEvaluationRef,
       constructionIntentRef: input.constructionIntentRef,
       edgeClosureDecisionRef: input.edgeClosureDecision.decisionRef,
     },
     observedInput: prior.observedInput,
+    priorGap: prior.priorGap,
     productAssetModel: {
       ...body,
       modelRef:
@@ -2061,12 +2255,20 @@ function isDeveloperSemanticStageAdvance(
       return false;
     }
     const expectedDisposition = input.constructionState === null
-      ? "action_required"
+      ? observationHasAction(input, DEVELOPER_MINI_IDS.approvalActionRef)
+        ? "action_required"
+        : "gap_stop"
       : "converged";
     return output.observationSnapshot.snapshotRef === input.snapshotRef &&
       output.runtimeFrontier.disposition === expectedDisposition;
   }
-  if (isNextActionBasis(input) && isNextActionProjection(output)) {
+  if (
+    isNextActionBasis(input) &&
+    (
+      isNextActionProjection(output) ||
+      isGapStopNextActionProjection(output)
+    )
+  ) {
     return output.nextActionBasisRef === input.basisRef &&
       output.nextActionBasisDigest === input.basisDigest;
   }
@@ -2151,6 +2353,7 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
         return isActionEvaluationBasis(value);
       case "next_action_projection":
         return isNextActionProjection(value) ||
+          isGapStopNextActionProjection(value) ||
           isConvergedNextActionProjection(value);
       case "developer_human_approval":
         return isHumanApproval(value);

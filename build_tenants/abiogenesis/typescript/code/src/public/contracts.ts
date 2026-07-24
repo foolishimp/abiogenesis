@@ -32,7 +32,13 @@ export interface PublicOutcome {
   readonly variant: string;
   readonly invocationRef: string;
   readonly runtimeInvocationRef: string | null;
-  readonly disposition: "blocked" | "failed" | "held" | "refused" | "succeeded";
+  readonly disposition:
+    | "blocked"
+    | "failed"
+    | "gap_stop"
+    | "held"
+    | "refused"
+    | "succeeded";
   readonly outcomeDigest: Sha256Digest;
   readonly result: JsonValue;
   readonly diagnosticRef: string | null;

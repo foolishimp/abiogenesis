@@ -1354,3 +1354,82 @@ lineage, not magic strings, own construction semantics and closure.
 This delta repairs the selected-action, governed evidence-fold, and
 post-evidence refresh boundary. It does not close S03 or disposition the
 remaining consequence, runtime-disposition, and public-control obligations.
+
+### 12.5 Typed Gap Stop And Public Re-entry
+
+The next S03 vertical extends the same externally packed Product without
+adding another operation, controller, continuation kind, or event family:
+
+```text
+Product-owned ObservationSnapshot reports one unavailable action basis
+  -> Product-owned evalGap emits the typed unresolved pressure
+  -> Product-owned evaluateNext emits one no-action gap_stop projection
+  -> ordinary C-call evidence, result, and judgment admission
+  -> ABG admits gap_stop against the exact evaluateNext authority and basis
+  -> traversal_route_admitted(gap_stop) + run_stopped(gap_stop)
+  -> project.read(gaps) replays the stopped frontier without appending truth
+  -> an external Product observation changes
+  -> repeated run.invoke(start) presents the exact stopped-run authority
+  -> ABG admits public_start_reentry under the same immutable Product,
+       WorkspaceBinding, CatalogView, Program, composition, and event history
+  -> the ordinary One Surface path selects the now-lawful action
+  -> governed evidence fold, refresh, and convergence
+```
+
+`NextActionProjection` is total. Its selected form names one admitted
+`ActionCatalog` row. Its no-action form names `gap_stop`, the exact
+`NextActionBasis`, gap, target obligations, missing assets, reason, rejected
+action rows, Product Program, and lawful basis refs. The no-action form creates
+no `ConstructionIntent`, target cursor, F_H interaction, retry, delta, or
+closure truth.
+
+ABG admits `gap_stop` only at the declared initial `evaluateNext` authority and
+only when the Product result, admitted C-call judgment, observation,
+WorkspaceBinding, ActionCatalog, construction policy, runtime frontier, and
+gap identity agree. The admitted route consumes the judgment and current
+locus, stops the Run with disposition `gap_stop`, and remains distinct from a
+generic block or failure. The existing traversal-route and run-stop event
+families are sufficient.
+
+The public gap authority is a serialized, self-digested projection of existing
+truth: exact durable event-log prefix, stopped Run and route, admitted
+no-action projection, ProductInstall, WorkspaceBinding, AdmittedCatalog,
+CatalogView, and the original public setup references. It owns no new runtime
+state. `project.read(gaps)` reopens that exact prefix, verifies all named
+admissions, projects the stopped frontier, and closes the sink without
+appending an event.
+
+Repeated `run.invoke(start)` may carry that authority and a fresh
+Product-owned `ObservationSnapshot`. ABG admits re-entry only when:
+
+1. the source route and `run_stopped` event are the exact admitted
+   `gap_stop`;
+2. the new observation cites that gap and changes no Product, workspace,
+   catalog, Program, composition, or public target authority;
+3. the same append-only event log is reopened at the exact prior prefix;
+4. the new invocation admission records the source gap basis before a fresh
+   Run opens; and
+5. the Product, not Public, HoG, or ABG, determines whether the changed
+   observation now permits a selected action.
+
+The source authority is single-prefix by construction: after a successful
+append, reuse of the older authority refuses because its byte length and digest
+no longer match. Re-entry does not cross-link run-scoped event causation;
+instead, the new workspace-scoped invocation admission carries and validates
+the exact prior run, route, stop, projection, and gap identities.
+
+Installed evidence shall prove:
+
+- a no-action Product result becomes typed `gap_stop`, never generic success,
+  retry, hold, or closure;
+- the stopped trace contains no target cursor, `ConstructionIntent`, F_H
+  interaction, construction delta, terminal route, or run closure;
+- `project.read(gaps)` returns the replayed gap and lawful no-action basis
+  without changing event count or digest;
+- a fresh public context re-enters from the exact serialized gap authority and
+  a changed Product observation, then converges through the ordinary four
+  semantic authorities and evidence fold;
+- missing, stale, wrong-workspace, wrong-Program, wrong-gap, and non-gap
+  re-entry bases refuse before a new Run opens; and
+- Public and HoG neither select the post-gap action nor manufacture the changed
+  observation.

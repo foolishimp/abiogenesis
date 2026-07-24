@@ -1853,3 +1853,269 @@ test("M5 refuses a Product-valid F_H response bound to a different construction 
     0,
   );
 });
+
+test("M5 exposes a durable gap and re-enters it through the same external Product", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const installedPublic = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    )).href}?gap-reentry=${Date.now()}`,
+  );
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    "external-one-surface-gap-reentry",
+    mini.publication,
+    {
+      runVariant: "start",
+      startRef: mini.ids.oneSurfaceStartRef,
+      programRef: mini.ids.oneSurfaceProgramRef,
+      graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
+    },
+  );
+  const setupContext = installedPublic.createRootOperationContext();
+  const setupOutcomes = [];
+  try {
+    for (const row of scenario.transcript.slice(0, -1)) {
+      setupOutcomes.push(
+        await installedPublic.applyRootPublicInvocation(setupContext, row),
+      );
+    }
+    const start = structuredClone(scenario.transcript.at(-1));
+    const binding = setupOutcomes[4].result;
+    const program = mini.publication.programs.find(
+      (candidate) =>
+        candidate.programRef === mini.ids.oneSurfaceProgramRef,
+    );
+    assert.ok(program?.actionCatalog);
+    start.payload.input = mini.constructObservationSnapshot({
+      workspaceBindingId: binding.bindingId,
+      workspaceBindingDigest: binding.bindingDigest,
+      actionCatalog: program.actionCatalog,
+      availableActionRefs: [],
+      name: "Margaret",
+    });
+    setupOutcomes.push(
+      await installedPublic.applyRootPublicInvocation(setupContext, start),
+    );
+  } finally {
+    installedPublic.closeRootOperationContext(setupContext);
+  }
+  assert.equal(
+    setupOutcomes.slice(0, -1).every(
+      (outcome) => outcome.disposition === "succeeded",
+    ),
+    true,
+    JSON.stringify(setupOutcomes),
+  );
+  const stopped = setupOutcomes.at(-1);
+  const initialEvents = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim()
+    .split(/\r?\n/u)
+    .map((line) => JSON.parse(line));
+  assert.equal(
+    stopped.disposition,
+    "gap_stop",
+    JSON.stringify({
+      stopped,
+      finalEvents: initialEvents.slice(-4).map((event) => ({
+        kind: event.kind,
+        routeKind: event.payload?.routeKind ?? null,
+        disposition: event.payload?.disposition ?? null,
+      })),
+    }),
+  );
+  assert.equal(stopped.result.kind, "construction_gap_stop");
+  assert.equal(stopped.result.nextActionProjection.disposition, "no_action");
+  assert.equal(
+    stopped.result.nextActionProjection.noActionDisposition,
+    "gap_stop",
+  );
+  const initialGapAuthority = JSON.parse(
+    JSON.stringify(stopped.result.gapAuthority),
+  );
+  assert.equal(
+    initialEvents.filter(
+      (event) =>
+        event.kind === "traversal_route_admitted" &&
+        event.payload.routeKind === "gap_stop",
+    ).length,
+    1,
+  );
+  assert.equal(
+    initialEvents.filter((event) => event.kind === "run_stopped").length,
+    1,
+  );
+  for (const prohibitedKind of [
+    "construction_intent_selected",
+    "fh_interaction_opened",
+    "terminal_reached",
+    "run_closed",
+  ]) {
+    assert.equal(
+      initialEvents.filter((event) => event.kind === prohibitedKind).length,
+      0,
+      prohibitedKind,
+    );
+  }
+
+  const gapRead = await applyInFreshContext(
+    installedPublic,
+    invocation(
+      "abg.operation.project.read",
+      "gaps",
+      "invocation://t272/external-one-surface-gap-reentry/read-gap",
+      {
+        gapAuthority: initialGapAuthority,
+        gapRef: stopped.result.gapRef,
+      },
+    ),
+  );
+  assert.equal(gapRead.disposition, "succeeded", JSON.stringify(gapRead));
+  assert.equal(gapRead.result.kind, "public_gap_projection");
+  assert.equal(gapRead.durableEventCount, stopped.durableEventCount);
+  assert.equal(gapRead.eventLogDigest, stopped.eventLogDigest);
+  const gapAuthority = JSON.parse(
+    JSON.stringify(gapRead.result.gapAuthority),
+  );
+  const source = gapAuthority.source;
+  const reentry = structuredClone(scenario.transcript.at(-1));
+  reentry.invocationRef =
+    "invocation://t272/external-one-surface-gap-reentry/re-enter";
+  reentry.correlationId =
+    "correlation://t272/external-one-surface-gap-reentry/re-enter";
+  reentry.payload.reentryAuthority = gapAuthority;
+  reentry.payload.input = mini.constructObservationSnapshot({
+    workspaceBindingId: gapAuthority.workspaceBinding.bindingId,
+    workspaceBindingDigest: gapAuthority.workspaceBinding.bindingDigest,
+    actionCatalog: gapAuthority.catalog.modulePublication.programs.find(
+      (candidate) =>
+        candidate.programRef === mini.ids.oneSurfaceProgramRef,
+    ).actionCatalog,
+    availableActionRefs: [mini.ids.approvalActionRef],
+    name: "Margaret",
+    priorGap: {
+      sourceRunId: source.sourceRunId,
+      sourceRouteRef: source.sourceRouteRef,
+      gapRef: source.gapRef,
+      nextActionProjectionRef: source.nextActionProjectionRef,
+      nextActionProjectionDigest: source.nextActionProjectionDigest,
+    },
+  });
+  const wrongGapReentry = structuredClone(reentry);
+  wrongGapReentry.invocationRef =
+    "invocation://t272/external-one-surface-gap-reentry/wrong-gap";
+  wrongGapReentry.correlationId =
+    "correlation://t272/external-one-surface-gap-reentry/wrong-gap";
+  wrongGapReentry.payload.input = mini.constructObservationSnapshot({
+    workspaceBindingId: gapAuthority.workspaceBinding.bindingId,
+    workspaceBindingDigest: gapAuthority.workspaceBinding.bindingDigest,
+    actionCatalog: gapAuthority.catalog.modulePublication.programs.find(
+      (candidate) =>
+        candidate.programRef === mini.ids.oneSurfaceProgramRef,
+    ).actionCatalog,
+    availableActionRefs: [mini.ids.approvalActionRef],
+    name: "Margaret",
+    priorGap: {
+      sourceRunId: source.sourceRunId,
+      sourceRouteRef: `${source.sourceRouteRef}/substituted`,
+      gapRef: source.gapRef,
+      nextActionProjectionRef: source.nextActionProjectionRef,
+      nextActionProjectionDigest: source.nextActionProjectionDigest,
+    },
+  });
+  const wrongGap = await applyInFreshContext(
+    installedPublic,
+    wrongGapReentry,
+  );
+  assert.equal(wrongGap.disposition, "refused", JSON.stringify(wrongGap));
+  const held = await applyInFreshContext(installedPublic, reentry);
+  assert.equal(held.disposition, "held", JSON.stringify(held));
+
+  const staleRead = await applyInFreshContext(
+    installedPublic,
+    invocation(
+      "abg.operation.project.read",
+      "gaps",
+      "invocation://t272/external-one-surface-gap-reentry/stale-read",
+      {
+        gapAuthority,
+        gapRef: source.gapRef,
+      },
+    ),
+  );
+  assert.equal(staleRead.disposition, "refused", JSON.stringify(staleRead));
+
+  const frontier = await applyInFreshContext(
+    installedPublic,
+    invocation(
+      "abg.operation.project.read",
+      "status",
+      "invocation://t272/external-one-surface-gap-reentry/read-intent",
+      {
+        continuationAuthority: held.result.continuationAuthority,
+        continuationRef: held.continuationRef,
+      },
+    ),
+  );
+  assert.equal(frontier.disposition, "succeeded", JSON.stringify(frontier));
+  const responded = await applyInFreshContext(
+    installedPublic,
+    invocation(
+      "abg.operation.interaction.respond",
+      "approve",
+      "invocation://t272/external-one-surface-gap-reentry/respond",
+      {
+        actorRef: "actor://developer.example/trusted-developer",
+        capabilityRef: mini.ids.actorCapabilityRef,
+        continuationAuthority: held.result.continuationAuthority,
+        continuationRef: held.continuationRef,
+        response: {
+          kind: "developer_human_approval",
+          schemaVersion: "5.0.0",
+          approved: true,
+          constructionIntentRef: frontier.result.constructionIntentRef,
+          message: "Welcome Margaret.",
+          semanticEvidenceAssetRefs: [mini.ids.approvalAssetRef],
+        },
+      },
+    ),
+  );
+  assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
+  const completed = await applyInFreshContext(
+    installedPublic,
+    invocation(
+      "abg.operation.run.continue",
+      "current_intent",
+      "invocation://t272/external-one-surface-gap-reentry/continue",
+      {
+        actorRef: "actor://developer.example/trusted-developer",
+        capabilityRef: mini.ids.actorCapabilityRef,
+        continuationAuthority: responded.result.continuationAuthority,
+        continuationRef: held.continuationRef,
+      },
+    ),
+  );
+  assert.equal(completed.disposition, "succeeded", JSON.stringify(completed));
+  assert.equal(completed.replayAgreement, true);
+
+  const finalEvents = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim()
+    .split(/\r?\n/u)
+    .map((line) => JSON.parse(line));
+  const admissions = finalEvents.filter(
+    (event) => event.kind === "invocation_admitted",
+  );
+  assert.equal(admissions.length, 2);
+  assert.equal(admissions[0].payload.reentryBasis, null);
+  assert.equal(
+    admissions[1].payload.reentryBasis.sourceRouteRef,
+    source.sourceRouteRef,
+  );
+  assert.equal(
+    finalEvents.filter((event) => event.kind === "run_closed").length,
+    1,
+  );
+});

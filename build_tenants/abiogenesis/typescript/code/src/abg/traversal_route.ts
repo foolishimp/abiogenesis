@@ -66,6 +66,7 @@ export type TraversalRouteKind =
   | "advance"
   | "retry"
   | "hold"
+  | "gap_stop"
   | "blocked"
   | "failed"
   | "terminal";
@@ -87,6 +88,9 @@ export interface RouteCandidate {
   readonly consumedAvailabilityRefs: readonly string[];
   readonly contractRef: string | null;
   readonly replayStateDigest: Sha256Digest;
+  readonly nextActionProjectionRef?: string;
+  readonly nextActionProjectionDigest?: Sha256Digest;
+  readonly nextActionProjection?: Readonly<Record<string, JsonValue>>;
 }
 
 export interface AdmittedRoute {
@@ -112,9 +116,12 @@ export interface AdmittedRoute {
   readonly constructionIntentAdmissionEventRef: string | null;
   readonly admissionEventRef: string;
   readonly runStoppedEventRef: string | null;
+  readonly nextActionProjectionRef?: string;
+  readonly nextActionProjectionDigest?: Sha256Digest;
+  readonly nextActionProjection?: NextActionProjection;
 }
 
-export interface NextActionProjection {
+export interface SelectedNextActionProjection {
   readonly kind: "next_action_projection";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "selected";
@@ -138,6 +145,29 @@ export interface NextActionProjection {
   readonly nextActionBasisRef: string;
   readonly nextActionBasisDigest: Sha256Digest;
 }
+
+export interface GapStopNextActionProjection {
+  readonly kind: "next_action_projection";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "no_action";
+  readonly noActionDisposition: "gap_stop";
+  readonly projectionRef: string;
+  readonly projectionDigest: Sha256Digest;
+  readonly targetOutcomeRef: string;
+  readonly programRef: string;
+  readonly gapRef: string;
+  readonly targetObligationRefs: readonly string[];
+  readonly missingAssetRefs: readonly string[];
+  readonly reasonRef: string;
+  readonly lawfulBasisRefs: readonly string[];
+  readonly rejectedActionRefs: readonly string[];
+  readonly nextActionBasisRef: string;
+  readonly nextActionBasisDigest: Sha256Digest;
+}
+
+export type NextActionProjection =
+  | GapStopNextActionProjection
+  | SelectedNextActionProjection;
 
 export interface ConstructionIntent {
   readonly kind: "construction_intent";
@@ -256,6 +286,9 @@ export interface RouteAdmissionRefusal {
     | "basis_mismatch"
     | "candidate_mismatch"
     | "cursor_mismatch"
+    | "gap_environment_mismatch"
+    | "gap_projection_mismatch"
+    | "gap_semantics_mismatch"
     | "judgment_mismatch"
     | "replay_mismatch"
     | "route_already_admitted"
@@ -352,6 +385,15 @@ function candidateBody(
     consumedAvailabilityRefs: candidate.consumedAvailabilityRefs,
     contractRef: candidate.contractRef,
     replayStateDigest: candidate.replayStateDigest,
+    ...(candidate.nextActionProjectionRef === undefined
+      ? {}
+      : {
+          nextActionProjectionRef: candidate.nextActionProjectionRef,
+          nextActionProjectionDigest:
+            candidate.nextActionProjectionDigest!,
+          nextActionProjection:
+            candidate.nextActionProjection as unknown as JsonValue,
+        }),
   };
 }
 
@@ -408,9 +450,9 @@ function stringArray(value: JsonValue | undefined): value is readonly string[] {
     new Set(value).size === value.length;
 }
 
-function nextActionProjection(
+function selectedNextActionProjection(
   value: JsonValue,
-): NextActionProjection | null {
+): SelectedNextActionProjection | null {
   if (
     !isJsonRecord(value) ||
     !hasExactKeys(value, NEXT_ACTION_PROJECTION_KEYS) ||
@@ -453,7 +495,67 @@ function nextActionProjection(
   ) {
     return null;
   }
-  return value as unknown as NextActionProjection;
+  return value as unknown as SelectedNextActionProjection;
+}
+
+const GAP_STOP_PROJECTION_KEYS = Object.freeze([
+  "disposition",
+  "gapRef",
+  "kind",
+  "lawfulBasisRefs",
+  "missingAssetRefs",
+  "nextActionBasisDigest",
+  "nextActionBasisRef",
+  "noActionDisposition",
+  "programRef",
+  "projectionDigest",
+  "projectionRef",
+  "reasonRef",
+  "rejectedActionRefs",
+  "schemaVersion",
+  "targetObligationRefs",
+  "targetOutcomeRef",
+] as const);
+
+function gapStopNextActionProjection(
+  value: JsonValue,
+): GapStopNextActionProjection | null {
+  if (
+    !isJsonRecord(value) ||
+    !hasExactKeys(value, GAP_STOP_PROJECTION_KEYS) ||
+    value.kind !== "next_action_projection" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "no_action" ||
+    value.noActionDisposition !== "gap_stop" ||
+    typeof value.projectionRef !== "string" ||
+    typeof value.projectionDigest !== "string" ||
+    typeof value.nextActionBasisRef !== "string" ||
+    typeof value.nextActionBasisDigest !== "string" ||
+    typeof value.targetOutcomeRef !== "string" ||
+    typeof value.programRef !== "string" ||
+    typeof value.gapRef !== "string" ||
+    typeof value.reasonRef !== "string" ||
+    !nonEmptyStringArray(value.targetObligationRefs) ||
+    !nonEmptyStringArray(value.missingAssetRefs) ||
+    !nonEmptyStringArray(value.lawfulBasisRefs) ||
+    !stringArray(value.rejectedActionRefs)
+  ) {
+    return null;
+  }
+  const {
+    projectionRef,
+    projectionDigest,
+    ...body
+  } = value;
+  const expectedDigest = sha256Canonical(body);
+  if (
+    projectionDigest !== expectedDigest ||
+    projectionRef !==
+      `next-action-projection://product/${expectedDigest.slice("sha256:".length)}`
+  ) {
+    return null;
+  }
+  return value as unknown as GapStopNextActionProjection;
 }
 
 function nextActionBasis(
@@ -722,7 +824,7 @@ function constructionIntentForAdvance(
     targetCursor.currentNodeRef,
     targetCursor.termPath,
   );
-  const projection = nextActionProjection(evidence.result.value);
+  const projection = selectedNextActionProjection(evidence.result.value);
   const basisEvent = store.readAll().find(
     (event) =>
       event.kind === "c_call_result_admitted" &&
@@ -880,6 +982,183 @@ function constructionIntentForAdvance(
   };
 }
 
+function gapStopProjectionForRoute(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  evidence: RouteAdmissionEvidence | null,
+): {
+  readonly projection: GapStopNextActionProjection;
+  readonly basis: Readonly<Record<string, JsonValue>>;
+} | RouteAdmissionRefusal {
+  const sourceTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  const composition = admittedConstructionComposition(executionBasis, graph);
+  const nextActionAuthority = constructionAuthority(
+    executionBasis,
+    graph,
+    "evaluateNext",
+  );
+  if (
+    composition === null ||
+    nextActionAuthority === null ||
+    sourceTerm.kind !== "c_of" ||
+    sourceTerm.compositionRef !== composition.compositionRef ||
+    sourceTerm.programLocusRef !==
+      nextActionAuthority.initialProgramLocusRef ||
+    evidence === null
+  ) {
+    return refusal(
+      "gap_projection_mismatch",
+      "gap_stop requires the exact admitted initial evaluateNext C-call",
+    );
+  }
+  const projection = gapStopNextActionProjection(evidence.result.value);
+  const basisEvent = store.readAll().find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.runId === sourceCursor.runId &&
+      event.graphCallId === sourceCursor.graphCallId &&
+      event.frameId === sourceCursor.frameId &&
+      isJsonRecord(event.payload) &&
+      event.payload.resultRef === sourceCursor.inputRef,
+  );
+  const selectedBasis =
+    basisEvent !== undefined && isJsonRecord(basisEvent.payload)
+      ? nextActionBasis(basisEvent.payload.value)
+      : null;
+  const observationSnapshot =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.observationSnapshot)
+      ? selectedBasis.observationSnapshot
+      : null;
+  const snapshotWorkspace =
+    observationSnapshot !== null &&
+      isJsonRecord(observationSnapshot.workspaceBinding)
+      ? observationSnapshot.workspaceBinding
+      : null;
+  const snapshotActionCatalog =
+    observationSnapshot !== null &&
+      isJsonRecord(observationSnapshot.actionCatalog)
+      ? observationSnapshot.actionCatalog
+      : null;
+  const selectedActionCatalog =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.admittedActionCatalog)
+      ? selectedBasis.admittedActionCatalog
+      : null;
+  const selectedPolicy =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.declaredPolicy)
+      ? selectedBasis.declaredPolicy
+      : null;
+  const runtimeFrontier =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.runtimeFrontier)
+      ? selectedBasis.runtimeFrontier
+      : null;
+  const gapProjection =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.gapProjection)
+      ? selectedBasis.gapProjection
+      : null;
+  const targetBindings =
+    selectedBasis !== null &&
+      Array.isArray(selectedBasis.targetObligationBindings)
+      ? selectedBasis.targetObligationBindings
+      : null;
+  const priorityProjection =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.priorityProjection)
+      ? selectedBasis.priorityProjection
+      : null;
+  const catalogActionRefs = new Set(
+    executionBasis.actionCatalogRows.map((row) => row.actionRef),
+  );
+  if (
+    projection === null ||
+    selectedBasis === null ||
+    sha256Canonical(selectedBasis) !== sourceCursor.inputDigest ||
+    projection.nextActionBasisRef !== selectedBasis.basisRef ||
+    projection.nextActionBasisDigest !== selectedBasis.basisDigest ||
+    projection.programRef !== executionBasis.programRef ||
+    !projection.lawfulBasisRefs.includes(projection.nextActionBasisRef) ||
+    !projection.lawfulBasisRefs.includes(projection.gapRef) ||
+    !projection.lawfulBasisRefs.includes(projection.programRef)
+  ) {
+    return refusal(
+      "gap_projection_mismatch",
+      "gap_stop projection differs from its exact Product result or next-action basis",
+    );
+  }
+  if (
+    observationSnapshot === null ||
+    snapshotWorkspace === null ||
+    snapshotActionCatalog === null ||
+    selectedActionCatalog === null ||
+    selectedPolicy === null ||
+    runtimeFrontier === null ||
+    gapProjection === null ||
+    targetBindings === null ||
+    priorityProjection === null ||
+    snapshotWorkspace.workspaceBindingId !==
+      executionBasis.workspaceBindingId ||
+    snapshotWorkspace.workspaceBindingDigest !==
+      executionBasis.workspaceBindingDigest ||
+    snapshotActionCatalog.catalogRef !== executionBasis.actionCatalogRef ||
+    snapshotActionCatalog.catalogDigest !==
+      executionBasis.actionCatalogDigest ||
+    sha256Canonical(snapshotActionCatalog) !==
+      sha256Canonical(selectedActionCatalog) ||
+    sha256Canonical(selectedPolicy) !==
+      sha256Canonical(
+        composition.closurePolicy as unknown as JsonValue,
+      )
+  ) {
+    return refusal(
+      "gap_environment_mismatch",
+      "gap_stop basis differs from its exact admitted workspace, catalog, or policy",
+    );
+  }
+  if (
+    runtimeFrontier.disposition !== "gap_stop" ||
+    gapProjection.gapRef !== projection.gapRef ||
+    gapProjection.targetOutcomeRef !== projection.targetOutcomeRef ||
+    !sameValues(
+      projection.targetObligationRefs,
+      targetBindings.flatMap((binding) =>
+        isJsonRecord(binding) &&
+          typeof binding.obligationRef === "string"
+          ? [binding.obligationRef]
+          : []
+      ),
+    ) ||
+    !sameValues(
+      projection.missingAssetRefs,
+      Array.isArray(gapProjection.missingAssetRefs)
+        ? gapProjection.missingAssetRefs.filter(
+            (value): value is string => typeof value === "string",
+          )
+        : [],
+    ) ||
+    !Array.isArray(priorityProjection.orderedActionRefs) ||
+    priorityProjection.orderedActionRefs.length !== 0 ||
+    projection.rejectedActionRefs.some(
+      (actionRef) => !catalogActionRefs.has(actionRef),
+    )
+  ) {
+    return refusal(
+      "gap_semantics_mismatch",
+      "gap_stop projection differs from its Product gap, obligations, missing assets, priority, or rejected actions",
+    );
+  }
+  return { projection, basis: selectedBasis };
+}
+
 export function rehydrateConstructionIntentForCursor(
   store: AbgEventStore,
   cursor: TraversalCursorCandidate,
@@ -897,7 +1176,7 @@ export function rehydrateConstructionIntentForCursor(
   const intentValue = event.payload.constructionIntent;
   const projectionValue = event.payload.nextActionProjection;
   const basisValue = event.payload.nextActionBasis;
-  const projection = nextActionProjection(projectionValue ?? null);
+  const projection = selectedNextActionProjection(projectionValue ?? null);
   const selectedBasis = nextActionBasis(basisValue);
   if (
     !isJsonRecord(intentValue) ||
@@ -2239,6 +2518,10 @@ export function admitRoute(
   }
 
   let causationEventRef = traversalCursorAdmissionEventRef(store, sourceCursor);
+  let admittedGapStop: {
+    readonly projection: GapStopNextActionProjection;
+    readonly basis: Readonly<Record<string, JsonValue>>;
+  } | null = null;
   if (candidate.routeKind === "terminal") {
     const resumeEvidence = evidence !== null && "resume" in evidence
       ? evidence
@@ -2447,6 +2730,54 @@ export function admitRoute(
       );
     }
     causationEventRef = holdEvidence.judgment.admissionEventRef;
+  } else if (candidate.routeKind === "gap_stop") {
+    const gapEvidence = evidence !== null && "result" in evidence
+      ? evidence
+      : null;
+    if (
+      targetCursor !== null ||
+      candidate.targetCursorRef !== null ||
+      candidate.targetCursorDigest !== null ||
+      !hasJudgedRouteEvidence(
+        store,
+        executionBasis,
+        graph,
+        sourceCursor,
+        candidate,
+        gapEvidence,
+      )
+    ) {
+      return refusal(
+        "judgment_mismatch",
+        "gap_stop requires the exact evaluated no-action C-call judgment",
+      );
+    }
+    const gapStop = gapStopProjectionForRoute(
+      store,
+      executionBasis,
+      graph,
+      sourceCursor,
+      gapEvidence,
+    );
+    if ("kind" in gapStop) return gapStop;
+    if (
+      candidate.nextActionProjectionRef !==
+        gapStop.projection.projectionRef ||
+      candidate.nextActionProjectionDigest !==
+        gapStop.projection.projectionDigest ||
+      candidate.nextActionProjection === undefined ||
+      sha256Canonical(
+        candidate.nextActionProjection as unknown as JsonValue,
+      ) !==
+        sha256Canonical(gapStop.projection as unknown as JsonValue)
+    ) {
+      return refusal(
+        "gap_projection_mismatch",
+        "gap_stop route does not carry the exact Product no-action projection",
+      );
+    }
+    admittedGapStop = gapStop;
+    causationEventRef = gapEvidence.judgment.admissionEventRef;
   } else if (candidate.routeKind === "blocked") {
     if (evidence !== null && "completion" in evidence) {
       if (!hasFanOutRouteEvidence(
@@ -2502,14 +2833,16 @@ export function admitRoute(
       !("resume" in evidence)
       ? evidence
       : null;
-  const constructionIntent = constructionIntentForAdvance(
-    store,
-    executionBasis,
-    graph,
-    sourceCursor,
-    targetCursor,
-    judgedEvidence,
-  );
+  const constructionIntent = judgedEvidence === null
+    ? null
+    : constructionIntentForAdvance(
+        store,
+        executionBasis,
+        graph,
+        sourceCursor,
+        targetCursor,
+        judgedEvidence,
+      );
   if (
     constructionIntent !== null &&
     "kind" in constructionIntent &&
@@ -2637,7 +2970,10 @@ export function admitRoute(
         }),
         (batch) => routeEventCandidate(batch[0]!.eventId),
       ])
-    : candidate.routeKind === "blocked" && options.terminalizeRun !== false
+    : (
+        candidate.routeKind === "blocked" ||
+        candidate.routeKind === "gap_stop"
+      ) && options.terminalizeRun !== false
     ? admitRuntimeEventBatch(store, [
         () => routeEventCandidate(causationEventRef),
         (batch) => ({
@@ -2657,16 +2993,19 @@ export function admitRoute(
           graphCallId: sourceCursor.graphCallId,
           frameId: sourceCursor.frameId,
           payload: {
-            disposition: "blocked",
+            disposition: candidate.routeKind,
             routeRef,
             cCallRef: candidate.cCallRef,
             judgmentRef: candidate.judgmentRef,
-            reasonRef: evidence !== null && "reasonRef" in evidence
-              ? evidence.reasonRef
-              : evidence !== null && "completion" in evidence &&
-                  evidence.completion.completionKind === "partial_stop"
-                ? "reason://abiogenesis/fan-out-partial-stop@5"
-                : "reason://abiogenesis/blocked@5",
+            reasonRef: admittedGapStop?.projection.reasonRef ??
+              (
+                evidence !== null && "reasonRef" in evidence
+                  ? evidence.reasonRef
+                  : evidence !== null && "completion" in evidence &&
+                      evidence.completion.completionKind === "partial_stop"
+                    ? "reason://abiogenesis/fan-out-partial-stop@5"
+                    : "reason://abiogenesis/blocked@5"
+              ),
           },
         }),
       ])
@@ -2688,10 +3027,22 @@ export function admitRoute(
       admittedConstruction === null ? null : admittedEvents[1]!.eventId,
     admissionEventRef: event.eventId,
     runStoppedEventRef:
-      candidate.routeKind === "blocked" &&
+      (
+        candidate.routeKind === "blocked" ||
+        candidate.routeKind === "gap_stop"
+      ) &&
         options.terminalizeRun !== false
         ? admittedEvents[1]?.eventId ?? null
         : null,
+    ...(admittedGapStop === null
+      ? {}
+      : {
+          nextActionProjectionRef:
+            admittedGapStop.projection.projectionRef,
+          nextActionProjectionDigest:
+            admittedGapStop.projection.projectionDigest,
+          nextActionProjection: admittedGapStop.projection,
+        }),
   }) as AdmittedRoute;
   admittedRoutes.add(admitted);
   return admitted;

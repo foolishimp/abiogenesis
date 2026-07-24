@@ -35,6 +35,7 @@ export {
   rehydrateInvocationAdmission,
   type InvocationAdmission,
   type InvocationAdmissionInput,
+  type InvocationReentryBasis,
   type InvocationAdmissionRefusal,
   type InvocationAdmissionResult,
 } from "./invocation_admission.js";

@@ -78,6 +78,7 @@ import {
 import {
   proposeBlockedRoute,
   proposeFanOutRoute,
+  proposeGapStopRoute,
   proposeHoldRoute,
   proposeInteractionResumeRoute,
   proposeJudgedRoute,
@@ -153,6 +154,7 @@ export interface ExecutableTraversalCompletion {
     | "blocked"
     | "closed"
     | "failed"
+    | "gap_stop"
     | "held"
     | "refused";
   readonly cCallRef: string | null;
@@ -1285,6 +1287,86 @@ export async function completeExecutableTraversal<
     });
   }
   const judgedReplay = replayRun(input);
+  if (
+    isRecord(result.value) &&
+    result.value.kind === "next_action_projection" &&
+    result.value.disposition === "no_action" &&
+    result.value.noActionDisposition === "gap_stop"
+  ) {
+    const proposal = proposeGapStopRoute(
+      input.graph,
+      input.traversalStop,
+      cCall,
+      result,
+      judgment,
+      judgedReplay,
+      input.closureContract.transitionContractRef,
+    );
+    if (proposal.kind !== "traversal_route_candidate") {
+      admitRuntimeFailure(
+        input.store,
+        input.executionBasis,
+        input.openedTraversalScope,
+        "route",
+        proposal as unknown as JsonValue,
+        `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+        {
+          ...basis(input.clock, "gap-stop-proposal-refusal"),
+          causationEventRefs: [judgment.admissionEventRef],
+        },
+      );
+      return completion("failed", replayRun(input), {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        diagnosticRef: `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+      });
+    }
+    const route = admitRoute(
+      input.store,
+      input.executionBasis,
+      input.graph,
+      input.traversalStop.cursor,
+      null,
+      judgedReplay,
+      proposal,
+      basis(input.clock, "gap-stop-route"),
+      { cCall, result, judgment },
+    );
+    if (
+      route.kind !== "admitted_traversal_route" ||
+      route.routeKind !== "gap_stop" ||
+      route.runStoppedEventRef === null
+    ) {
+      const code = route.kind === "admitted_traversal_route"
+        ? "gap-stop-not-terminalized"
+        : route.code;
+      admitRuntimeFailure(
+        input.store,
+        input.executionBasis,
+        input.openedTraversalScope,
+        "route",
+        route as unknown as JsonValue,
+        `diagnostic://abiogenesis/hog/${code}@5`,
+        {
+          ...basis(input.clock, "gap-stop-admission-refusal"),
+          causationEventRefs: [judgment.admissionEventRef],
+        },
+      );
+      return completion("failed", replayRun(input), {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        diagnosticRef: `diagnostic://abiogenesis/hog/${code}@5`,
+      });
+    }
+    return completion("gap_stop", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      resultValue: result.value,
+    });
+  }
   const continuationStep = deriveCompletedTraversalStep(
     input.graph,
     input.traversalStop.cursor,

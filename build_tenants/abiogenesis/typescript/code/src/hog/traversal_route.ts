@@ -35,6 +35,7 @@ export interface RouteProposalRefusal {
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code:
+    | "gap_stop_not_declared"
     | "judgment_not_advance"
     | "judgment_not_pending"
     | "resume_not_admitted"
@@ -273,6 +274,86 @@ export function proposeJudgedRoute(
     consumedAvailabilityRefs: [judgment.judgmentRef] as const,
     contractRef,
     replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}
+
+export function proposeGapStopRoute(
+  graph: Readonly<GtlGraph>,
+  stop: TraversalStopRef,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal {
+  const projection =
+    typeof result.value === "object" &&
+      result.value !== null &&
+      !Array.isArray(result.value)
+      ? result.value as Readonly<Record<string, JsonValue>>
+      : null;
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    stop.cursor.graphRef !== graph.materializationRef ||
+    stop.cursor.frameId !== cCall.frameId ||
+    stop.programLocusRef !== cCall.programLocusRef ||
+    result.cCallRef !== cCall.cCallRef ||
+    judgment.cCallRef !== cCall.cCallRef ||
+    judgment.resultRef !== result.resultRef ||
+    judgment.judgment !== "advance" ||
+    projection === null ||
+    projection.kind !== "next_action_projection" ||
+    projection.disposition !== "no_action" ||
+    projection.noActionDisposition !== "gap_stop"
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "gap_stop_not_declared",
+      message:
+        "gap_stop requires the exact judged Product no-action projection at the current cursor",
+    };
+  }
+  const nextActionProjectionRef = projection.projectionRef;
+  const nextActionProjectionDigest = projection.projectionDigest;
+  if (
+    typeof nextActionProjectionRef !== "string" ||
+    typeof nextActionProjectionDigest !== "string"
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "gap_stop_not_declared",
+      message: "gap_stop projection lacks its exact Product identity",
+    };
+  }
+  const body = {
+    routeKind: "gap_stop" as const,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: stop.cursor.cursorRef,
+    sourceCursorDigest: stop.cursor.cursorDigest,
+    targetCursorRef: null,
+    targetCursorDigest: null,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: judgment.judgmentRef,
+    consumedAvailabilityRefs: [judgment.judgmentRef] as const,
+    contractRef,
+    replayStateDigest: replayState.replayDigest,
+    nextActionProjectionRef,
+    nextActionProjectionDigest,
+    nextActionProjection: projection,
   };
   const candidateDigest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({

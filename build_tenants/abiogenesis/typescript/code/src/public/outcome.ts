@@ -109,6 +109,7 @@ export function projectOutcome(
   runtimeInvocationRef: string,
   eventLog: PersistedEventLog,
   continuationAuthority: JsonValue | null = null,
+  gapAuthority: JsonValue | null = null,
 ): PublicOutcome {
   const latestCall = firstReplay.cCalls.at(-1);
   const latestCallContinuation = latestCall === undefined
@@ -179,10 +180,30 @@ export function projectOutcome(
       latestCallContinuation.status === "open" ||
       latestCallContinuation.status === "responded"
     );
+  const gapRoute = latestCall === undefined
+    ? undefined
+    : firstReplay.routes.find(
+        (route) =>
+          route.routeKind === "gap_stop" &&
+          route.cCallRef === latestCall.cCallRef &&
+          route.judgmentRef === latestCall.judgmentRef,
+      );
+  const gapStopped =
+    replayAgreement &&
+    eventLogAgreement &&
+    firstReplay.runtimeStatus === "gap_stopped" &&
+    firstReplay.runStoppedEventRef !== null &&
+    latestCall?.status === "judged" &&
+    latestCall.judgment === "advance" &&
+    gapRoute?.nextActionProjection?.disposition === "no_action" &&
+    gapRoute.nextActionProjection.noActionDisposition === "gap_stop" &&
+    !hasOpenLifecycleTruth(firstReplay);
   const disposition = closed
     ? "succeeded" as const
     : held
       ? "held" as const
+      : gapStopped
+        ? "gap_stop" as const
       : firstReplay.runtimeStatus === "blocked"
       ? "blocked" as const
       : firstReplay.runtimeStatus === "failed"
@@ -206,8 +227,19 @@ export function projectOutcome(
           responseRef: latestContinuation.responseRef,
           continuationAuthority,
         }
+      : gapStopped && gapRoute?.nextActionProjection !== undefined
+        ? {
+            kind: "construction_gap_stop",
+            schemaVersion: "5.0.0",
+            gapRef: gapRoute.nextActionProjection.gapRef,
+            routeRef: gapRoute.routeRef,
+            routeDigest: gapRoute.routeDigest,
+            nextActionProjection:
+              gapRoute.nextActionProjection as unknown as JsonValue,
+            gapAuthority,
+          }
       : resultValue,
-    diagnosticRef: closed || held
+    diagnosticRef: closed || held || gapStopped
       ? null
       : diagnosticFromEvent(eventLog, firstReplay.runtimeFailureEventRef) ??
         diagnosticFromEvent(eventLog, firstReplay.invocationRefusalEventRef) ??

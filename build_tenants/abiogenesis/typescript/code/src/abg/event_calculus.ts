@@ -697,6 +697,24 @@ export function eventCalculusEffect(
         clips: [],
         declips: [],
       };
+    case "gap_stop":
+      return {
+        initiates: [],
+        terminates: [
+          ...(sourceCursorRef === null
+            ? []
+            : [fluent("locus_active", sourceCursorRef)]),
+          ...(event.frameId === undefined
+            ? []
+            : [fluent("frame_active", event.frameId)]),
+          ...(judgmentRef === null
+            ? []
+            : [fluent("c_call_judgment_available", judgmentRef)]),
+          ...consumedFluents,
+        ],
+        clips: [],
+        declips: [],
+      };
     case "blocked":
       return {
         initiates: event.frameId === undefined

@@ -267,7 +267,7 @@ const FAN_OUT_PAYLOAD = payloadKeys(
   "applicationRef batchRef completionDigest completionKind completionRef inputMemberContractRef inputVectorRef outputMemberContractRef outputVectorContractRef",
 );
 const ROUTE_PAYLOAD = payloadKeys(
-  "cCallRef consumedAvailabilityRefs contractRef declarationDigest declarationRef judgmentRef replayStateDigest routeDigest routeKind routeRef sourceCursorDigest sourceCursorRef targetCursorDigest targetCursorRef",
+  "cCallRef consumedAvailabilityRefs contractRef declarationDigest declarationRef judgmentRef nextActionProjection nextActionProjectionDigest nextActionProjectionRef replayStateDigest routeDigest routeKind routeRef sourceCursorDigest sourceCursorRef targetCursorDigest targetCursorRef",
 );
 const TERMINAL_PAYLOAD = payloadKeys(
   "cCallRef closureContractDigest closureContractRef closureDigest closureRef judgmentRef resultRef routeRef terminalKind",
@@ -315,11 +315,13 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [WORKSPACE_EVENT],
     payloadVariants: [payloadVariant(
       payloadKeys(
-        "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef rawInputAdmissionRef rawInputDigest workspaceBindingDigest workspaceBindingId",
+        "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef rawInputAdmissionRef rawInputDigest reentryBasis workspaceBindingDigest workspaceBindingId",
       ),
       payloadKeys(
-        "invocationAdmissionRef invocationAdmissionDigest invocationRef",
+        "invocationAdmissionRef invocationAdmissionDigest invocationRef reentryBasis",
       ),
+      undefined,
+      payloadKeys("reentryBasis"),
     )],
   },
   invocation_refused: {
@@ -1645,7 +1647,15 @@ function assertRuntimeEventContract(
   }
   if (
     candidate.kind === "traversal_route_admitted" &&
-    !["advance", "retry", "terminal", "hold", "blocked", "failed"].includes(
+    ![
+      "advance",
+      "retry",
+      "terminal",
+      "hold",
+      "gap_stop",
+      "blocked",
+      "failed",
+    ].includes(
       String(payload.routeKind),
     )
   ) {
@@ -1677,7 +1687,13 @@ function assertRuntimeEventContract(
   }
   if (
     candidate.kind === "run_stopped" &&
-    !["blocked", "failed", "operator_abort", "campaign_close"].includes(
+    ![
+      "blocked",
+      "failed",
+      "gap_stop",
+      "operator_abort",
+      "campaign_close",
+    ].includes(
       String(payload.disposition),
     )
   ) {

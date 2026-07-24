@@ -131,6 +131,7 @@ export interface ReplayState {
     | "blocked"
     | "closed"
     | "failed"
+    | "gap_stopped"
     | "held"
     | "refused"
     | "workspace";
@@ -560,6 +561,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
         routeKind !== "advance" &&
         routeKind !== "retry" &&
         routeKind !== "hold" &&
+        routeKind !== "gap_stop" &&
         routeKind !== "blocked" &&
         routeKind !== "failed" &&
         routeKind !== "terminal"
@@ -595,10 +597,13 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       );
       const nextActionProjection =
         intentEvent !== undefined &&
-          isRecord(intentEvent.payload) &&
-          isRecord(intentEvent.payload.nextActionProjection)
+            isRecord(intentEvent.payload) &&
+            isRecord(intentEvent.payload.nextActionProjection)
           ? intentEvent.payload.nextActionProjection
-          : null;
+          : isRecord(event.payload) &&
+              isRecord(event.payload.nextActionProjection)
+            ? event.payload.nextActionProjection
+            : null;
       const constructionIntent =
         intentEvent !== undefined &&
           isRecord(intentEvent.payload) &&
@@ -613,6 +618,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
         sourceCursorRef === null ||
         sourceCursorDigest === null ||
         (
+          routeKind !== "gap_stop" &&
           [
             nextActionProjectionRef,
             nextActionProjectionDigest,
@@ -629,6 +635,17 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
             constructionIntentDigest,
             constructionIntent,
           ].some((value) => value === null)
+        ) ||
+        (
+          routeKind === "gap_stop" &&
+          (
+            nextActionProjectionRef === null ||
+            nextActionProjectionDigest === null ||
+            nextActionProjection === null ||
+            constructionIntentRef !== null ||
+            constructionIntentDigest !== null ||
+            constructionIntent !== null
+          )
         )
       ) {
         throw new TypeError(`incomplete traversal route payload at ${event.eventId}`);
@@ -653,13 +670,18 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
                 nextActionProjectionDigest as Sha256Digest,
               nextActionProjection:
                 nextActionProjection as unknown as NextActionProjection,
-              constructionIntentRef: constructionIntentRef as string,
-              constructionIntentDigest:
-                constructionIntentDigest as Sha256Digest,
-              constructionIntent:
-                constructionIntent as unknown as ConstructionIntent,
-              constructionIntentAdmissionEventRef:
-                intentEvent!.eventId,
+              ...(intentEvent === undefined
+                ? {}
+                : {
+                    constructionIntentRef:
+                      constructionIntentRef as string,
+                    constructionIntentDigest:
+                      constructionIntentDigest as Sha256Digest,
+                    constructionIntent:
+                      constructionIntent as unknown as ConstructionIntent,
+                    constructionIntentAdmissionEventRef:
+                      intentEvent.eventId,
+                  }),
             }),
         admissionEventRef: event.eventId,
       };
@@ -886,6 +908,10 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       );
   const runClosed = events.find((event) => event.kind === "run_closed");
   const runStopped = events.find((event) => event.kind === "run_stopped");
+  const runStoppedDisposition =
+    runStopped !== undefined && isRecord(runStopped.payload)
+      ? runStopped.payload.disposition
+      : null;
   const invocationRefused = events.find((event) => event.kind === "invocation_refused");
   const runtimeFailure = events.find((event) => event.kind === "runtime_failure_observed");
   const eventStoreDigest = store.digest(scope);
@@ -922,7 +948,9 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       : runClosed !== undefined
         ? "closed" as const
         : runStopped !== undefined
-          ? "blocked" as const
+          ? runStoppedDisposition === "gap_stop"
+            ? "gap_stopped" as const
+            : "blocked" as const
           : invocationRefused !== undefined
             ? "refused" as const
             : continuations.some(

@@ -23,6 +23,12 @@ import {
   updatePublicContinuationAuthority,
   type PublicContinuationAuthority,
 } from "./continuation_authority.js";
+import {
+  constructPublicGapAuthority,
+  parsePublicGapAuthority,
+  updatePublicGapAuthority,
+  type PublicGapAuthority,
+} from "./gap_authority.js";
 import { projectOutcome } from "./outcome.js";
 
 export interface RootOperationContext {
@@ -726,6 +732,7 @@ async function applyRunInvoke(
           "input",
           "installInvocationRef",
           "programRef",
+          "reentryAuthority",
           "rootMode",
           "scope",
           "startRef",
@@ -735,21 +742,83 @@ async function applyRunInvoke(
         ],
     "run.invoke",
   );
-  const installState = required(
-    context.productState.install(stringField(invocation.payload, "installInvocationRef")),
-    stringField(invocation.payload, "installInvocationRef"),
-    "ProductInstall",
-  );
-  const workspaceState = required(
-    context.productState.workspace(stringField(invocation.payload, "workspaceBindingInvocationRef")),
-    stringField(invocation.payload, "workspaceBindingInvocationRef"),
-    "WorkspaceBinding",
-  );
-  const viewState = required(
-    context.productState.catalogView(stringField(invocation.payload, "catalogViewInvocationRef")),
-    stringField(invocation.payload, "catalogViewInvocationRef"),
-    "CatalogView",
-  );
+  const suppliedReentry = invocation.payload.reentryAuthority;
+  const reentryState = suppliedReentry === undefined
+    ? null
+    : parsePublicGapAuthority(suppliedReentry);
+  if (
+    suppliedReentry !== undefined &&
+    (
+      invocation.variant !== "start" ||
+      reentryState === null
+    )
+  ) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "run.invoke re-entry requires one exact public gap authority on the start variant",
+    );
+  }
+  if (
+    reentryState !== null &&
+    (
+      stringField(invocation.payload, "installInvocationRef") !==
+        reentryState.installInvocationRef ||
+      stringField(invocation.payload, "workspaceBindingInvocationRef") !==
+        reentryState.workspaceBindingInvocationRef ||
+      stringField(invocation.payload, "catalogViewInvocationRef") !==
+        reentryState.catalogViewInvocationRef
+    )
+  ) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke re-entry setup references differ from the durable gap authority",
+    );
+  }
+  if (reentryState !== null) {
+    reopenGapAuthority(context, reentryState);
+  }
+  const installState = reentryState === null
+    ? required(
+        context.productState.install(
+          stringField(invocation.payload, "installInvocationRef"),
+        ),
+        stringField(invocation.payload, "installInvocationRef"),
+        "ProductInstall",
+      )
+    : {
+        candidate: { installedRoot: reentryState.install.installedRoot },
+        install: reentryState.install,
+      };
+  const workspaceState = reentryState === null
+    ? required(
+        context.productState.workspace(
+          stringField(invocation.payload, "workspaceBindingInvocationRef"),
+        ),
+        stringField(invocation.payload, "workspaceBindingInvocationRef"),
+        "WorkspaceBinding",
+      )
+    : {
+        productSet: {
+          orderedInstallRefs: [reentryState.install.installId],
+        },
+        binding: reentryState.workspaceBinding,
+      };
+  const viewState = reentryState === null
+    ? required(
+        context.productState.catalogView(
+          stringField(invocation.payload, "catalogViewInvocationRef"),
+        ),
+        stringField(invocation.payload, "catalogViewInvocationRef"),
+        "CatalogView",
+      )
+    : {
+        catalogState: {
+          publication: reentryState.catalog.modulePublication,
+          programValidations: reentryState.catalog.programValidations,
+          catalog: reentryState.catalog,
+        },
+        view: reentryState.catalogView,
+      };
   if (
     !workspaceState.productSet.orderedInstallRefs.includes(installState.install.installId) ||
     workspaceState.binding.roots.productRoot !== installState.candidate.installedRoot ||
@@ -809,18 +878,44 @@ async function applyRunInvoke(
       row.callability === "callable" &&
       row.programMembershipRefs.includes(programRef),
   );
-  const programValidation = viewState.catalogState.programValidations.find(
+  const storedProgramValidation = viewState.catalogState.programValidations.find(
     (value) => value.programRef === programRef,
   );
   if (
     selectedRow === undefined ||
     !programValue.callableMembership.includes(graphFunctionRef) ||
-    programValidation === undefined
+    storedProgramValidation === undefined
   ) {
     throw new ApplicationRefusal(
       "target_mismatch",
       "run.invoke target must be callable under the exact admitted CatalogView and Program validation",
     );
+  }
+  let programValidation: validator.ProgramValidation = storedProgramValidation;
+  if (reentryState !== null) {
+    const publicationAdmission = rawAdmission<ModulePublication>(
+      viewState.catalogState.publication,
+      "module_publication",
+      "contract://abiogenesis/gtl/module-publication@5",
+    );
+    const revalidated = validator.validateProgram(
+      rawProgramInput(publicationAdmission, programValue),
+    );
+    if (
+      revalidated.kind !== "program_validation" ||
+      product.sha256Canonical(
+        revalidated as unknown as product.JsonValue,
+      ) !==
+        product.sha256Canonical(
+          storedProgramValidation as unknown as product.JsonValue,
+        )
+    ) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "run.invoke re-entry could not reproduce its admitted non-lowering Program validation",
+      );
+    }
+    programValidation = revalidated;
   }
   const inputValue = recordField(invocation.payload, "input");
   if (graphFunction.inputs.length !== 1) {
@@ -907,7 +1002,14 @@ async function applyRunInvoke(
     throw new ApplicationRefusal("owner_refusal", `Invocation construction refused: ${candidate.message}`);
   }
   const durableEventLogPath = eventLogPath(invocation, workspaceState.binding);
-  context.store.configureDurableLog(durableEventLogPath);
+  if (reentryState === null) {
+    context.store.configureDurableLog(durableEventLogPath);
+  } else if (durableEventLogPath !== reentryState.reopenAuthority.eventLogPath) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke re-entry must append to the exact durable source log",
+    );
+  }
   const invocationAdmission = abg.admitInvocation(
     context.store,
     {
@@ -923,6 +1025,29 @@ async function applyRunInvoke(
       policy,
       capabilityGrants: [grant],
       authority,
+      ...(reentryState === null
+        ? {}
+        : {
+            reentryBasis: {
+              kind: "invocation_reentry_basis" as const,
+              schemaVersion: "5.0.0" as const,
+              publicAuthorityDigest: reentryState.authorityDigest,
+              sourceInvocationAdmissionRef:
+                reentryState.source.sourceInvocationAdmissionRef,
+              sourceRunId: reentryState.source.sourceRunId,
+              sourceRouteRef: reentryState.source.sourceRouteRef,
+              sourceRouteDigest: reentryState.source.sourceRouteDigest,
+              sourceRouteEventRef:
+                reentryState.source.sourceRouteEventRef,
+              sourceRunStoppedEventRef:
+                reentryState.source.sourceRunStoppedEventRef,
+              gapRef: reentryState.source.gapRef,
+              nextActionProjectionRef:
+                reentryState.source.nextActionProjectionRef,
+              nextActionProjectionDigest:
+                reentryState.source.nextActionProjectionDigest,
+            },
+          }),
     },
     operationBasis(
       { ...invocation, invocationRef: candidate.invocationRef },
@@ -1199,7 +1324,69 @@ async function applyRunInvoke(
     candidate.invocationRef,
     persisted,
   );
-  if (outcome.disposition === "held") {
+  if (outcome.disposition === "gap_stop") {
+    const gapRoute = firstReplay.routes.find(
+      (route) =>
+        route.routeKind === "gap_stop" &&
+        route.cCallRef === traversalCompletion.cCallRef &&
+        route.judgmentRef === traversalCompletion.judgmentRef,
+    );
+    if (
+      traversalCompletion.disposition !== "gap_stop" ||
+      firstReplay.runId === null ||
+      firstReplay.runStoppedEventRef === null ||
+      gapRoute?.nextActionProjection?.disposition !== "no_action" ||
+      gapRoute.nextActionProjection.noActionDisposition !== "gap_stop"
+    ) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "gap-stopped traversal lacks its exact replayed no-action route",
+      );
+    }
+    const reopenAuthority = context.store.projectReopenAuthorityAndClose();
+    const gapAuthority = constructPublicGapAuthority({
+      reopenAuthority,
+      installInvocationRef:
+        stringField(invocation.payload, "installInvocationRef"),
+      workspaceBindingInvocationRef:
+        stringField(invocation.payload, "workspaceBindingInvocationRef"),
+      catalogViewInvocationRef:
+        stringField(invocation.payload, "catalogViewInvocationRef"),
+      install: installState.install,
+      workspaceBinding: workspaceState.binding,
+      catalog: viewState.catalogState.catalog,
+      catalogView: viewState.view,
+      source: {
+        sourceInvocationRef: candidate.invocationRef,
+        sourceInvocationAdmissionRef:
+          invocationAdmission.invocationAdmissionRef,
+        sourceRunId: firstReplay.runId,
+        sourceRouteRef: gapRoute.routeRef,
+        sourceRouteDigest: gapRoute.routeDigest,
+        sourceRouteEventRef: gapRoute.admissionEventRef,
+        sourceRunStoppedEventRef: firstReplay.runStoppedEventRef,
+        gapRef: gapRoute.nextActionProjection.gapRef,
+        nextActionProjectionRef:
+          gapRoute.nextActionProjection.projectionRef,
+        nextActionProjectionDigest:
+          gapRoute.nextActionProjection.projectionDigest,
+        nextActionProjection:
+          gapRoute.nextActionProjection as unknown as Readonly<
+            Record<string, product.JsonValue>
+          >,
+      },
+    });
+    outcome = projectOutcome(
+      invocation,
+      firstReplay,
+      secondReplay,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      persisted,
+      null,
+      gapAuthority as unknown as product.JsonValue,
+    );
+  } else if (outcome.disposition === "held") {
     if (
       traversalCompletion.continuationRef === null ||
       traversalCompletion.heldInteraction === null ||
@@ -1447,10 +1634,177 @@ function continuationMetadata(
   } as const;
 }
 
+function reopenGapAuthority(
+  context: RootOperationContext,
+  state: PublicGapAuthority,
+): {
+  readonly rootInvocation: abg.InvocationAdmission;
+  readonly replayState: abg.ReplayState;
+  readonly route: abg.ReplayRouteState;
+} {
+  const reopened = abg.reopenEventStore(state.reopenAuthority);
+  if (reopened.kind !== "reopened_event_store_context") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `durable gap reopen refused: ${reopened.code}: ${reopened.message}`,
+    );
+  }
+  const rootInvocation = abg.rehydrateInvocationAdmission(
+    reopened.store,
+    state.source.sourceInvocationAdmissionRef,
+  );
+  const replayState = abg.replay(reopened.store, {
+    runId: state.source.sourceRunId,
+  });
+  const route = replayState.routes.find(
+    (candidate) =>
+      candidate.routeKind === "gap_stop" &&
+      candidate.routeRef === state.source.sourceRouteRef &&
+      candidate.routeDigest === state.source.sourceRouteDigest &&
+      candidate.admissionEventRef === state.source.sourceRouteEventRef,
+  );
+  const stopEvent = reopened.store.readAll().find(
+    (event) =>
+      event.eventId === state.source.sourceRunStoppedEventRef &&
+      event.kind === "run_stopped" &&
+      event.runId === state.source.sourceRunId,
+  );
+  if (
+    rootInvocation === null ||
+    rootInvocation.invocationRef !== state.source.sourceInvocationRef ||
+    rootInvocation.workspaceBindingId !== state.workspaceBinding.bindingId ||
+    rootInvocation.workspaceBindingDigest !==
+      state.workspaceBinding.bindingDigest ||
+    rootInvocation.catalogViewId !== state.catalogView.viewId ||
+    rootInvocation.catalogViewDigest !== state.catalogView.viewDigest ||
+    state.install.installedRoot !== state.workspaceBinding.roots.productRoot ||
+    state.catalog.workspaceBindingId !== state.workspaceBinding.bindingId ||
+    state.catalog.workspaceBindingDigest !==
+      state.workspaceBinding.bindingDigest ||
+    state.catalog.catalogId !== state.catalogView.catalogId ||
+    state.catalog.catalogDigest !== state.catalogView.catalogDigest ||
+    !abg.hasAdmittedProductInstall(reopened.store, state.install) ||
+    !abg.hasAdmittedWorkspaceBinding(reopened.store, state.workspaceBinding) ||
+    !abg.hasAdmittedCatalog(reopened.store, state.catalog) ||
+    !abg.hasAdmittedCatalogView(reopened.store, state.catalogView) ||
+    route === undefined ||
+    route.nextActionProjectionRef !==
+      state.source.nextActionProjectionRef ||
+    route.nextActionProjectionDigest !==
+      state.source.nextActionProjectionDigest ||
+    route.nextActionProjection?.disposition !== "no_action" ||
+    route.nextActionProjection.noActionDisposition !== "gap_stop" ||
+    route.nextActionProjection.gapRef !== state.source.gapRef ||
+    product.sha256Canonical(
+      route.nextActionProjection as unknown as product.JsonValue,
+    ) !== product.sha256Canonical(
+      state.source.nextActionProjection as unknown as product.JsonValue,
+    ) ||
+    stopEvent === undefined ||
+    !stopEvent.causationEventRefs.includes(
+      state.source.sourceRouteEventRef,
+    ) ||
+    replayState.runtimeStatus !== "gap_stopped" ||
+    replayState.runStoppedEventRef !==
+      state.source.sourceRunStoppedEventRef
+  ) {
+    reopened.store.closeDurableLog();
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      "durable gap authority differs from its admitted Product, route, stop, or invocation basis",
+    );
+  }
+  context.store = reopened.store;
+  return { rootInvocation, replayState, route };
+}
+
+function closeGapAuthority(
+  context: RootOperationContext,
+  state: PublicGapAuthority,
+): PublicGapAuthority {
+  return updatePublicGapAuthority(
+    state,
+    context.store.projectReopenAuthorityAndClose(),
+  );
+}
+
+async function applyGapRead(
+  context: RootOperationContext,
+  invocation: RootPublicInvocation,
+): Promise<PublicOutcome> {
+  requireExactPayloadKeys(
+    invocation.payload,
+    ["gapAuthority", "gapRef"],
+    "project.read",
+  );
+  const gapRef = stringField(invocation.payload, "gapRef");
+  const state = parsePublicGapAuthority(
+    invocation.payload.gapAuthority,
+    gapRef,
+  );
+  if (state === null) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "project.read gaps requires the exact self-consistent public gap authority",
+    );
+  }
+  reopenGapAuthority(context, state);
+  let closed = false;
+  try {
+    const replayState = abg.replay(context.store, {
+      runId: state.source.sourceRunId,
+    });
+    const eventLog = await abg.persistEventLog(
+      context.store,
+      state.reopenAuthority.eventLogPath,
+      { runId: state.source.sourceRunId },
+    );
+    if (
+      eventLog.eventCount !== replayState.eventCount ||
+      eventLog.eventLogDigest !== state.reopenAuthority.eventLogDigest
+    ) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "project.read gaps must remain a pure projection over one exact durable prefix",
+      );
+    }
+    const updated = closeGapAuthority(context, state);
+    closed = true;
+    return successOutcome(
+      invocation,
+      {
+        kind: "public_gap_projection",
+        schemaVersion: "5.0.0",
+        gapRef,
+        sourceRunId: state.source.sourceRunId,
+        sourceRouteRef: state.source.sourceRouteRef,
+        nextActionProjection:
+          state.source.nextActionProjection as unknown as product.JsonValue,
+        gapAuthority: updated as unknown as product.JsonValue,
+      },
+      {
+        runtimeInvocationRef: state.source.sourceInvocationRef,
+        runId: state.source.sourceRunId,
+        replayRef: replayState.replayRef,
+        replayDigest: replayState.replayDigest,
+        eventLogPath: eventLog.eventLogPath,
+        eventLogDigest: eventLog.eventLogDigest,
+        eventLogByteLength: eventLog.durableByteLength,
+        durableEventCount: eventLog.durableEventCount,
+      },
+    );
+  } finally {
+    if (!closed) closeGapAuthority(context, state);
+  }
+}
+
 async function applyProjectRead(
   context: RootOperationContext,
   invocation: RootPublicInvocation,
 ): Promise<PublicOutcome> {
+  if (invocation.variant === "gaps") {
+    return applyGapRead(context, invocation);
+  }
   if (invocation.variant !== "status") {
     throw new ApplicationRefusal(
       "invalid_request",
