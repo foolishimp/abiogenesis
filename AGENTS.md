@@ -33,10 +33,11 @@ ordinary gap re-entry. Proof `f79e1358` adds a second external ticket Program
 and GraphFunction through the same installed path without changing
 ABIogenesis runtime. Accepted candidate `16f1e173` adds one Product-selected,
 statically admitted, runtime-bounded graph-span re-entry through the same
-external Product. The conservation projection now records 33 proven rows and
-seven open rows. T-272 continues only the retained S03 consequence,
-runtime-disposition, and public-control behavior through that same extension
-path.
+external Product. Accepted candidate `7432bac3` adds Product-owned public
+`next` and asset targeting through that path. The conservation projection now
+records 35 proven rows and five open rows. T-272 continues only one governed
+correction outcome covering the retained S03 consequence and
+runtime-disposition behavior through that same extension path.
 Do not use the forty-row qualification matrix as the implementation queue.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
@@ -116,9 +117,10 @@ This block is a thin read model. It does not duplicate the full Product.
   accepted at `9cd33d15`. The Product-derived typed `reprice_required` stop is
   accepted at `f611a72d`; it does not perform a reprice. Product-declared
   ticket traversal is proven at `f79e1358` without a runtime change.
-  Product-selected graph-span re-entry is accepted at `16f1e173`. The seven
-  remaining S03 consequence, runtime-disposition, and public-control
-  obligations are the current gate.
+  Product-selected graph-span re-entry is accepted at `16f1e173`.
+  Product-owned public next and asset targeting are accepted at `7432bac3`.
+  One governed correction outcome covering the five remaining S03 consequence
+  and runtime-disposition obligations is the current gate.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.

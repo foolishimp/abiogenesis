@@ -14,8 +14,8 @@ successor to the immutable 4.6 RC5 Product origin.
 |---|---|
 | current work owner | `T-270` M5 parent with repriced T-272 active for S03 |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 `26/26`, M5 `98/98`; S02 complete; accepted S03 composition/evidence/closure base at `686d18bf`; durable external-Product gap stop, exact single-use ProductSet-bound public re-entry, convergence, side-effect-free resolved status/result/replay/lawful-action projection, typed Product-derived `reprice_required` stop, external product-declared ticket traversal, and Product-selected graph-span re-entry accepted through `16f1e173`; the conservation projection records 33 proven and seven open rows; the retained live F_P receipt belongs to an earlier package; S03 remains open |
-| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Sections 12 through 12.8 accepted at complete-design SHA-256 `071055b3...1804be` |
+| implementation | M4 `26/26`, M5 `99/99`; S02 complete; accepted S03 composition/evidence/closure base at `686d18bf`; durable external-Product gap stop, exact single-use ProductSet-bound public re-entry, convergence, side-effect-free resolved status/result/replay/lawful-action projection, typed Product-derived `reprice_required` stop, external product-declared ticket traversal, Product-selected graph-span re-entry, and Product-owned public next/asset targeting accepted through `7432bac3`; the conservation projection records 35 proven and five open rows; the retained live F_P receipt belongs to an earlier package; S03 remains open |
+| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Sections 12 through 12.9 accepted at complete-design SHA-256 `d090ff67...404bd` |
 | delivery governor | `ABG5-S03`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, and corrected S02 remain regressions |
 | method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
 

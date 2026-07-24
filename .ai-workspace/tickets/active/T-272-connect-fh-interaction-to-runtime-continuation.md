@@ -30,9 +30,14 @@
 > adds one Product-selected, statically admitted, runtime-bounded graph-span
 > re-entry through the same external Product. The bounded proxy decision at
 > `.ai-workspace/comments/codex/20260724T215303Z_DECISION_proxy_accept_t272_graph_span_reentry.md`
-> accepts that exact cut and Section 12.8.
-> Consequence routes, runtime dispositions, and public-control work remain
-> active through the same extension path.
+> accepts that exact cut and Section 12.8. Candidate `7432bac3` adds
+> Product-owned public `next` and asset targeting through the same external
+> Product. The bounded proxy decision at
+> `.ai-workspace/comments/codex/20260724T221552Z_DECISION_proxy_accept_t272_public_next_and_asset_targets.md`
+> accepts that exact cut and Section 12.9.
+> One governed correction outcome covering the five remaining consequence and
+> runtime-disposition obligations remains active through the same extension
+> path.
 > Historical X-path designs and checkpoints remain donor evidence only.
 
 - id: T-272
@@ -47,8 +52,8 @@
     ticket expansion, compiler, controller, second runtime, and historical X
     implementation remain prohibited
 - phase_status: s03_active
-- review_status: s03_graph_span_reentry_accepted
-- proof_status: s02_green_s03_graph_span_reentry_green_s03_open
+- review_status: s03_public_next_asset_accepted
+- proof_status: s02_green_s03_35_of_40_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -95,8 +100,8 @@ disposition, and public start/control row owned by S03. This reprice does not
 authorize the historical X interpreter, checkpoint-basis carrier, public
 controller, or any other X implementation.
 
-Current integrated proof is `test:m5` `98/98`, `test:m4` `26/26`, and
-external developer Product `27/27`; all twelve S02-owned rows remain green.
+Current integrated proof is `test:m5` `99/99`, `test:m4` `26/26`, and
+external developer Product `28/28`; all twelve S02-owned rows remain green.
 The installed mixed Product proves F_H hold, replay-derived read, malformed
 and wrong-actor refusal, attributed response, append-only reopen, separate
 continue, same-Run typed closure, and replay agreement. No second result or
@@ -306,6 +311,33 @@ the manifest digest is
 The bounded proxy decision
 `20260724T215303Z_DECISION_proxy_accept_t272_graph_span_reentry.md` accepts
 this exact cut and Section 12.8. S03 remains active for the seven open rows.
+
+## S03 Product-Owned Public Next And Asset Targets
+
+Implementation commit
+`7432bac3a34e35c72ec9414f336e70733ed772fd` extends the same independently
+packed external Product:
+
+- `target = next` resolves the Program's declared default start;
+- `target = asset:<handle>` resolves one Product-published asset row to its
+  owning declared start;
+- ABG admits the raw request against the exact Program, start, and
+  GraphFunction before HoG traversal;
+- the asset never becomes callable; and
+- missing default, unknown asset, and duplicate asset ownership refuse before
+  a Run opens.
+
+Fresh proof is M5 `99/99`, M4 `26/26`, external Product `28/28`, and
+conservation `57` pass with `5` explicit TODO, representing 35 proven and
+five open rows. Two byte-identical packs reproduce SHA-256
+`26e658300e487f6a096b1fb02f1d5c0373bc124e8589b146f861139ec05f7602`.
+The complete M05 design SHA-256 is
+`d090ff67ae86b444f39ecce2bef528f9e577dc8a7fe3a360e8ea1969de5404bd`.
+The bounded proxy decision
+`20260724T221552Z_DECISION_proxy_accept_t272_public_next_and_asset_targets.md`
+accepts this exact cut and Section 12.9. S03 remains active for one governed
+correction outcome covering the five open consequence and runtime-disposition
+rows.
 
 ## Prior S03 Vertical Checkpoint
 
