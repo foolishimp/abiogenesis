@@ -19,7 +19,12 @@
 > lawful-action projections over the exact resolved continuation authority.
 > The bounded proxy decision at
 > `.ai-workspace/comments/codex/20260724T195754Z_DECISION_proxy_accept_t272_resolved_run_projection.md`
-> accepts that exact cut and Section 12.6.
+> accepts that exact cut and Section 12.6. Candidate `f611a72d` adds one
+> Product-derived `reprice_required` stop whose exact meaning survives ABG
+> event admission, replay, public outcome, and fresh-context read. It cannot
+> be consumed as an ordinary gap re-entry. The bounded proxy decision at
+> `.ai-workspace/comments/codex/20260724T203655Z_DECISION_proxy_accept_t272_reprice_required_stop.md`
+> accepts that exact cut and Section 12.7.
 > Consequence routes, runtime dispositions, and public-control work remain
 > active through the same extension path.
 > Historical X-path designs and checkpoints remain donor evidence only.
@@ -36,8 +41,8 @@
     ticket expansion, compiler, controller, second runtime, and historical X
     implementation remain prohibited
 - phase_status: s03_active
-- review_status: s03_resolved_run_projection_accepted
-- proof_status: exact_durable_projection_green_s03_open
+- review_status: s03_reprice_required_stop_accepted
+- proof_status: exact_reprice_required_stop_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -84,8 +89,8 @@ disposition, and public start/control row owned by S03. This reprice does not
 authorize the historical X interpreter, checkpoint-basis carrier, public
 controller, or any other X implementation.
 
-Current integrated proof is `test:m5` `95/95`, `test:m4` `26/26`, and
-external developer Product `24/24`; all twelve S02-owned rows remain green.
+Current integrated proof is `test:m5` `96/96`, `test:m4` `26/26`, and
+external developer Product `25/25`; all twelve S02-owned rows remain green.
 The installed mixed Product proves F_H hold, replay-derived read, malformed
 and wrong-actor refusal, attributed response, append-only reopen, separate
 continue, same-Run typed closure, and replay agreement. No second result or
@@ -169,6 +174,45 @@ the manifest digest is
 The bounded proxy decision
 `20260724T195754Z_DECISION_proxy_accept_t272_resolved_run_projection.md`
 accepts this exact cut and Section 12.6. It does not close S03.
+
+## Typed Reprice-Required Stop
+
+Implementation commit `f611a72de605520b1637d51e5bdc956e9868f07e`
+extends the same external Product path:
+
+```text
+factual observation authority state
+  -> Product-owned gap pressure
+  -> Product-owned evaluateNext
+  -> reprice_required
+  -> ABG stop admission and event truth
+  -> replay-derived public outcome and fresh-context project.read(gaps)
+```
+
+The caller does not select the disposition. Core admits only the two currently
+proven no-action values, `gap_stop` and `reprice_required`, and preserves the
+exact Product value in `run_stopped`, replay, the public result, and
+fresh-context read. Ordinary gap re-entry requires `gap_stop`, so a
+`reprice_required` stop cannot silently resume as unchanged work. Unsupported
+observation authority state refuses before Run admission.
+
+This cut does not perform a reprice, satisfy the retained
+`escalation_or_reprice` consequence route, or close S03. It introduces no new
+operation, route kind, event kind, ticket, compiler, controller, or runtime.
+
+The complete M05 design SHA-256 is
+`ad54dc33fb127506a024843af258771b79e99e161577e0e887e33075675fd441`.
+Verification is `test:m5` `96/96`, `test:m4` `26/26`, external Product
+`25/25`, and two byte-identical packs at
+`sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12`.
+The Product content digest is
+`sha256:0635e99468368e66acecd8d6122346e66488aa8ed6758994cb0ffc93c8fcb323`;
+the manifest digest is
+`sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141`.
+
+The bounded proxy decision
+`20260724T203655Z_DECISION_proxy_accept_t272_reprice_required_stop.md`
+accepts this exact cut and Section 12.7.
 
 ## Prior S03 Vertical Checkpoint
 

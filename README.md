@@ -14,8 +14,8 @@ successor to the immutable 4.6 RC5 Product origin.
 |---|---|
 | current work owner | `T-270` M5 parent with repriced T-272 active for S03 |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 `26/26`, M5 `95/95`; S02 complete; accepted S03 composition/evidence/closure base at `686d18bf`; durable external-Product gap stop, exact single-use ProductSet-bound re-entry, convergence, and side-effect-free resolved status/result/replay/lawful-action projection accepted through `9cd33d15`; the retained live F_P receipt belongs to an earlier package; S03 remains open |
-| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Sections 12 through 12.6 accepted at complete-design SHA-256 `709cd704...ea254a` |
+| implementation | M4 `26/26`, M5 `96/96`; S02 complete; accepted S03 composition/evidence/closure base at `686d18bf`; durable external-Product gap stop, exact single-use ProductSet-bound re-entry, convergence, side-effect-free resolved status/result/replay/lawful-action projection, and typed Product-derived `reprice_required` stop accepted through `f611a72d`; the retained live F_P receipt belongs to an earlier package; S03 remains open |
+| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Sections 12 through 12.7 accepted at complete-design SHA-256 `ad54dc33...fd441` |
 | delivery governor | `ABG5-S03`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, and corrected S02 remain regressions |
 | method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
 

@@ -26,8 +26,11 @@ no-action gap, ABG-admitted `gap_stop`, replay-derived public read, and exact
 single-use ProductSet-bound re-entry through the same independently packed
 external Product. Accepted candidate `9cd33d15` adds side-effect-free
 fresh-context status, result, replay, and lawful-action projections over the
-exact resolved continuation authority. T-272 now continues the retained S03
-consequence and runtime-disposition behavior through that same extension path.
+exact resolved continuation authority. Accepted candidate `f611a72d`
+preserves a Product-derived `reprice_required` stop through ABG event truth,
+replay, public outcome, and fresh-context read, and excludes that stop from
+ordinary gap re-entry. T-272 now continues the retained S03 consequence and
+runtime-disposition behavior through that same extension path.
 Do not use the forty-row qualification matrix as the implementation queue.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
@@ -104,8 +107,9 @@ This block is a thin read model. It does not duplicate the full Product.
   closure negatives are accepted at `686d18bf`. Durable gap stop/read and
   single-use ProductSet-bound re-entry are accepted at `305a3b93`. The
   resolved Run's status, result, replay, and lawful-action projections are
-  accepted at `9cd33d15`. The remaining S03 consequence and
-  runtime-disposition outcome is the current gate.
+  accepted at `9cd33d15`. The Product-derived typed `reprice_required` stop is
+  accepted at `f611a72d`; it does not perform a reprice. The remaining S03
+  consequence and runtime-disposition outcome is the current gate.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.
