@@ -26,7 +26,11 @@
 > `.ai-workspace/comments/codex/20260724T203655Z_DECISION_proxy_accept_t272_reprice_required_stop.md`
 > accepts that exact cut and Section 12.7. Proof commit `f79e1358` then
 > demonstrates product-declared ticket work through a second external Program
-> and GraphFunction with no ABIogenesis runtime change.
+> and GraphFunction with no ABIogenesis runtime change. Candidate `16f1e173`
+> adds one Product-selected, statically admitted, runtime-bounded graph-span
+> re-entry through the same external Product. The bounded proxy decision at
+> `.ai-workspace/comments/codex/20260724T215303Z_DECISION_proxy_accept_t272_graph_span_reentry.md`
+> accepts that exact cut and Section 12.8.
 > Consequence routes, runtime dispositions, and public-control work remain
 > active through the same extension path.
 > Historical X-path designs and checkpoints remain donor evidence only.
@@ -43,8 +47,8 @@
     ticket expansion, compiler, controller, second runtime, and historical X
     implementation remain prohibited
 - phase_status: s03_active
-- review_status: s03_ticket_traversal_proven
-- proof_status: exact_ticket_traversal_green_s03_open
+- review_status: s03_graph_span_reentry_accepted
+- proof_status: s02_green_s03_graph_span_reentry_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -91,8 +95,8 @@ disposition, and public start/control row owned by S03. This reprice does not
 authorize the historical X interpreter, checkpoint-basis carrier, public
 controller, or any other X implementation.
 
-Current integrated proof is `test:m5` `97/97`, `test:m4` `26/26`, and
-external developer Product `26/26`; all twelve S02-owned rows remain green.
+Current integrated proof is `test:m5` `98/98`, `test:m4` `26/26`, and
+external developer Product `27/27`; all twelve S02-owned rows remain green.
 The installed mixed Product proves F_H hold, replay-derived read, malformed
 and wrong-actor refusal, attributed response, append-only reopen, separate
 continue, same-Run typed closure, and replay agreement. No second result or
@@ -258,6 +262,50 @@ byte-identical at
 `sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12`.
 This is proof reconciliation, not acceptance of Product-selected graph-span
 re-entry or any open disposition.
+
+## Product-Selected Graph-Span Re-entry
+
+Implementation commit `16f1e17358bf4c7c59259ffed0b6e0907a9428e7`
+extends the same independently packed external Product:
+
+```text
+ordinary Product target
+  -> Product selector C-call
+  -> graph_span_selection(re_enter)
+  -> ABG-admitted bounded re_enter route
+  -> second visit to the exact earlier target
+  -> Product selector C-call
+  -> graph_span_selection(continue)
+  -> ordinary convergence and closure
+```
+
+The Product publishes one `re_enter` application over exact source and target
+`CProgramLocus` values in its own GraphFunction. Static validation requires
+one earlier same-node target, exact source-output and target-input contracts,
+and a positive application bound. Product code selects re-entry or
+continuation. HoG derives and applies the target cursor. ABG admits the route
+only when the Product result, admitted application, source C-call judgment,
+replay basis, exact loci, target input, and remaining budget agree.
+
+Installed mutations refuse a forward target before Run admission and a second
+selection beyond the admitted bound without false closure. The existing
+traversal-route event and replay projection carry the result; no public
+operation, event family, compiler, controller, or second runtime was added.
+
+The complete M05 design SHA-256 is
+`071055b3bd992f71c69d29fd3ed8d3f97cc80314b7df61b952999cfee51804be`.
+Verification is `test:m5` `98/98`, `test:m4` `26/26`, external Product
+`27/27`, and conservation `55` pass with `7` explicit TODO, representing 33
+proven and seven open rows. Two byte-identical packs reproduce
+`sha256:58c73217a40ddb507fcdb6e87d5cea6198582483735f540c532cce37f8ff6c4a`.
+The Product content digest is
+`sha256:22fc63b086bf6a3e9f13d9508ef69918bd401cd38e623993181ce823c0ee7b5e`;
+the manifest digest is
+`sha256:90ddc027deb03688d65aebac43be89dc3be42da1b67b881a3dc167103056bc7d`.
+
+The bounded proxy decision
+`20260724T215303Z_DECISION_proxy_accept_t272_graph_span_reentry.md` accepts
+this exact cut and Section 12.8. S03 remains active for the seven open rows.
 
 ## Prior S03 Vertical Checkpoint
 

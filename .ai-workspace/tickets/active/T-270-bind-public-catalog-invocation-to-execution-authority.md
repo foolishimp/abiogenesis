@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_s03_active
-- review_status: s03_ticket_traversal_proven
-- proof_status: s02_green_s03_external_ticket_path_green_s03_open
+- review_status: s03_graph_span_reentry_accepted
+- proof_status: s02_green_s03_graph_span_reentry_green_s03_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -36,10 +36,10 @@
     T-272 is released for ABG5-S03 through the same Product path
 - accepted_m5_design_commit: d6da426947e1b7e18e7ed5bd1c0f945dcde9c73f
 - accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
-- pending_t272_design_sha256: 96724255739b8b3c9e2e472b3b17f8680898e8cd9eddfad1a836ddcd6d3ac4d4
+- accepted_t272_design_sha256: 071055b3bd992f71c69d29fd3ed8d3f97cc80314b7df61b952999cfee51804be
 - regression_binding: ABI5-ROOT-001
 - current_product_frontier: ABG5-S03-ONE-SURFACE-CONTINUATION
-- current_implementation_base: f611a72de605520b1637d51e5bdc956e9868f07e
+- current_implementation_base: 16f1e17358bf4c7c59259ffed0b6e0907a9428e7
 - retained_implementation_subject: ffba4e71456cf19168fa2bbf2981b463e018a0cf
 - current_branch_head_at_intake: e0575b824773d2105110918cf71257deca8b0f3a
 - selected_method_release: STDO v2.0.0
@@ -150,7 +150,7 @@ working installed slice and scales to the changed authority and risk boundary.
 |---:|---|---|
 | `1` | `T-270`, `T-281` | From an empty consumer directory, install packed ABIogenesis and a separately packed developer mini-product; resolve a non-empty Product lock; admit its supplied publication; invoke it through installed SDK and CLI; and derive the same typed result from ABG replay. |
 | `2` | `T-270` | **Repaired and complete at `cbb57d56`:** representative complete graph/C behavior, live F_P, four compute-fibre rows, eight structural-form rows, fibre substitution, durable F_H across fresh contexts, installed nonterminal identity, malformed GTL refusal, and owned negatives close S02. |
-| `3` | `T-272` | **Accepted through typed `reprice_required` stop at `f611a72d`; external ticket traversal proven at `f79e1358`; installed control proof reconciled at `4691b132`; S03 active:** the same external Product path preserves exact Product-derived no-action meaning, executes product-declared ticket work, and proves gap/F_H/yield/bounded-control/re-entry behavior without an ABIogenesis runtime branch. Complete Product-selected graph-span re-entry and the remaining consequence/runtime/public-control behavior, then close `ABG5-S03`. |
+| `3` | `T-272` | **Product-selected graph-span re-entry accepted at `16f1e173`; S03 active:** the same external Product path preserves exact Product-derived no-action meaning, executes product-declared ticket work, and proves gap/F_H/yield/bounded-control/public-start/graph-span re-entry behavior without an ABIogenesis runtime branch. Complete the seven remaining consequence/runtime/public-control obligations, then close `ABG5-S03`. |
 | `4` | `T-274`, `T-275`, `T-276` | Execute Consensus through the same ordinary extension, catalog, GTL, HoG, ABG, and public path; close `ABG5-S05`. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner realization, native and bounded host projection, and independent flavored-catalog portability through the same extension path; close `ABG5-S06` and make `ABG5-S04` runnable. |
 | `6` | `T-270` | Re-evaluate the feature ledger and freeze one exact M5 candidate; the complete forty-row conservation sweep remains an M6 qualification obligation. |
@@ -867,6 +867,37 @@ The amended M05 Section 12 design is pending exact review at SHA-256
 `96724255739b8b3c9e2e472b3b17f8680898e8cd9eddfad1a836ddcd6d3ac4d4`.
 No later S03 implementation is authorized by this checkpoint.
 
+## S03 Product-Selected Graph-Span Re-entry
+
+T-272 implementation commit
+`16f1e17358bf4c7c59259ffed0b6e0907a9428e7` replaces the prior provisional
+graph-span coverage with one installed external Product proof:
+
+- the Product publishes one bounded `re_enter` application between exact
+  loci in its own GraphFunction;
+- the validator admits only an exact earlier same-node target with matching
+  contracts;
+- Product code emits one stable selection family for either re-entry or
+  ordinary continuation;
+- HoG derives and applies the target cursor; and
+- ABG admits the route only against the exact Product result, source judgment,
+  application, replay basis, target input, and remaining application budget.
+
+The successful path admits one re-entry, observes the repeated target visit,
+then converges. A forward target refuses during catalog validation, and a
+second Product selection beyond the bound becomes runtime failure without
+false closure.
+
+Fresh proof is M5 `98/98`, M4 `26/26`, external Product `27/27`, and
+conservation `55` pass with `7` explicit TODO, representing 33 proven and
+seven open rows. Two byte-identical packs reproduce SHA-256
+`58c73217a40ddb507fcdb6e87d5cea6198582483735f540c532cce37f8ff6c4a`.
+The complete M05 design SHA-256 is
+`071055b3bd992f71c69d29fd3ed8d3f97cc80314b7df61b952999cfee51804be`.
+The bounded proxy decision
+`20260724T215303Z_DECISION_proxy_accept_t272_graph_span_reentry.md` accepts
+this cut. S03 remains open for seven explicitly named obligations.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -897,7 +928,7 @@ not a proof that the Product is complete.
 | `A5-F04` probabilistic result integrity | current-candidate live F_P evidence/result admission and malformed, incomplete, contradictory, unattributed, and extra-field refusals proven | `T-270` / S02 complete |
 | `A5-F05` one public contract authority | caller-supplied independent publication proven; complete public family pending | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | independent Product invocation proven through both installed surfaces; complete public family pending | `T-281` / S06 |
-| `A5-F07` complete One Surface loop | Product-owned model, gap, next-action, approval, action-evaluation, evidence-ledger, closure-candidate, post-evidence refresh, `gap_stop`, typed `reprice_required`, and a separately published ticket-work callable are proven through the external Product; Product-selected graph-span re-entry and remaining S03 routes are pending | `T-272` / S03 |
+| `A5-F07` complete One Surface loop | Product-owned model, gap, next-action, approval, action-evaluation, evidence-ledger, closure-candidate, post-evidence refresh, `gap_stop`, typed `reprice_required`, separately published ticket work, and Product-selected graph-span re-entry are proven through the external Product; seven S03 obligations remain | `T-272` / S03 |
 | `A5-F08` Consensus free construction | absent | `T-274`, `T-275`, `T-276` / S05 |
 | `A5-F09` catalog semantics | product-neutral admit, view, and invoke proven for an independent Product | `T-270`, `T-281` / S02 and S06 |
 | `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, terminal, exact durable-history reopen, F_H hold/respond/continue, `gap_stop`, and typed `reprice_required` stop subsets proven; S03 and later scenario truth remains open | `T-270`, `T-272` / S02 complete, S03 active |
