@@ -145,6 +145,45 @@ function oneSurfaceTerms(publication, mini) {
   return terms;
 }
 
+function spanGraph(publication, mini) {
+  const graph = publication.graphFunctions.find(
+    (candidate) => candidate.name === mini.ids.spanGraphFunctionRef,
+  );
+  assert.ok(graph);
+  return graph;
+}
+
+function withForwardSpanTarget(mini) {
+  const publication = structuredClone(mini.publication);
+  const graph = spanGraph(publication, mini);
+  const application = graph.template.applications.find(
+    (candidate) => candidate.relationKind === "re_enter",
+  );
+  assert.ok(application);
+  application.targetProgramLocusRef = mini.ids.spanFinalizeLocusRef;
+  application.outputContractRef = mini.ids.spanSelectionContractRef;
+  const { applicationRef: _priorRef, ...body } = application;
+  application.applicationRef =
+    `graph-function-application://abiogenesis/${
+      sha256Canonical(body).slice("sha256:".length)
+    }`;
+  const selector = graph.template.nodes[0].term.terms.find(
+    (term) => term.programLocusRef === mini.ids.spanSelectorLocusRef,
+  );
+  assert.ok(selector);
+  selector.compositionRef = application.applicationRef;
+  return publication;
+}
+
+function withRepeatedSpanSelection(mini) {
+  return withStageImplementation(
+    mini.publication,
+    mini.ids.spanSelectorImplementationBindingRef,
+    mini.ids.spanSelectorRepeatImplementationRef,
+    "realizeDeveloperSpanSelectorRepeat",
+  );
+}
+
 function withOneSurfaceTerminal(mini, terminalIndex, stageRole) {
   const publication = structuredClone(mini.publication);
   const graph = oneSurfaceGraph(publication, mini);
@@ -827,6 +866,153 @@ test("M5 invokes external ticket work only through its owning Program and GraphF
   assert.equal(refused.exitCode, 2);
   assert.equal(refused.outcomes.at(-1).disposition, "refused");
   assert.equal(refused.outcomes.at(-1).runId, null);
+});
+
+test("M5 applies one Product-declared graph-span re-entry through the installed path", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    "external-graph-span-reentry",
+    mini.publication,
+    {
+      programRef: mini.ids.spanProgramRef,
+      graphFunctionRef: mini.ids.spanGraphFunctionRef,
+    },
+  );
+  const run = await runInstalledCli(harness, scenario);
+  const events = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim()
+    .split("\n")
+    .map((line) => JSON.parse(line));
+  assert.equal(
+    run.exitCode,
+    0,
+    JSON.stringify({
+      outcomes: run.outcomes,
+      calls: events
+        .filter((event) => event.kind.startsWith("c_call_"))
+        .map((event) => ({
+          kind: event.kind,
+          locus: event.payload.programLocusRef,
+          resultClass: event.payload.resultClass,
+          value: event.payload.value,
+        })),
+    }),
+  );
+  assertExternalOutcome(run.outcomes, harness, mini);
+  const cCalls = events.filter(
+    (event) =>
+      event.kind === "c_call_opened" &&
+      event.graphFunctionRef === mini.ids.spanGraphFunctionRef,
+  );
+  assert.deepEqual(
+    cCalls.map((event) => event.payload.programLocusRef),
+    [
+      mini.ids.spanInitializeLocusRef,
+      mini.ids.spanTargetLocusRef,
+      mini.ids.spanSelectorLocusRef,
+      mini.ids.spanTargetLocusRef,
+      mini.ids.spanSelectorLocusRef,
+      mini.ids.spanFinalizeLocusRef,
+    ],
+  );
+  const routes = events.filter(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.routeKind === "re_enter",
+  );
+  assert.equal(routes.length, 1);
+  const [route] = routes;
+  assert.equal(
+    route.payload.graphSpanReentryProjection.sourceProgramLocusRef,
+    mini.ids.spanSelectorLocusRef,
+  );
+  assert.equal(
+    route.payload.graphSpanReentryProjection.targetProgramLocusRef,
+    mini.ids.spanTargetLocusRef,
+  );
+  assert.equal(
+    route.payload.cCallRef,
+    cCalls[2].aggregateId,
+  );
+  const selectorJudgment = events.find(
+    (event) =>
+      event.kind === "c_call_judged" &&
+      event.aggregateId === cCalls[2].aggregateId,
+  );
+  assert.ok(selectorJudgment);
+  assert.equal(
+    route.causationEventRefs.includes(selectorJudgment.eventId),
+    true,
+  );
+  assert.equal(
+    route.admissionOrdinal < cCalls[3].admissionOrdinal,
+    true,
+  );
+  assert.equal(
+    route.payload.graphSpanReentryProjection.targetInput.targetVisits,
+    1,
+  );
+  assert.equal(
+    route.payload.graphSpanReentryProjection.targetInput.reentryApplications,
+    1,
+  );
+  assert.equal(events.at(-1)?.kind, "run_closed");
+
+  const forwardScenario = await externalScenario(
+    harness,
+    mini,
+    "external-graph-span-forward-target",
+    withForwardSpanTarget(mini),
+    {
+      programRef: mini.ids.spanProgramRef,
+      graphFunctionRef: mini.ids.spanGraphFunctionRef,
+    },
+  );
+  const forwardRun = await runInstalledCli(harness, forwardScenario);
+  assert.equal(forwardRun.exitCode, 2);
+  assert.equal(forwardRun.outcomes[5].disposition, "refused");
+  assert.equal(forwardRun.outcomes.at(-1).runId, null);
+
+  const repeatedScenario = await externalScenario(
+    harness,
+    mini,
+    "external-graph-span-repeat",
+    withRepeatedSpanSelection(mini),
+    {
+      programRef: mini.ids.spanProgramRef,
+      graphFunctionRef: mini.ids.spanGraphFunctionRef,
+    },
+  );
+  const repeatedRun = await runInstalledCli(harness, repeatedScenario);
+  assert.equal(repeatedRun.exitCode, 2);
+  assert.equal(repeatedRun.outcomes.at(-1).disposition, "failed");
+  const repeatedEvents = (await readFile(
+    repeatedScenario.eventLogPath,
+    "utf8",
+  ))
+    .trim()
+    .split("\n")
+    .map((line) => JSON.parse(line));
+  assert.equal(
+    repeatedEvents.filter(
+      (event) =>
+        event.kind === "traversal_route_admitted" &&
+        event.payload.routeKind === "re_enter",
+    ).length,
+    1,
+  );
+  assert.equal(
+    repeatedEvents.some((event) => event.kind === "runtime_failure_observed"),
+    true,
+  );
+  assert.equal(repeatedEvents.at(-1)?.kind, "runtime_failure_observed");
+  assert.equal(
+    repeatedEvents.some((event) => event.kind === "run_closed"),
+    false,
+  );
 });
 
 test("M5 reopens and completes an external mixed F_D/F_P/F_H program through separate public operations", async (context) => {

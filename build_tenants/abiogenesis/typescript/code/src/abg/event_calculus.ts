@@ -626,6 +626,7 @@ export function eventCalculusEffect(
   ).flatMap((ref) => consumedAvailabilityFluents(ref));
   switch (eventOrKind.payload.routeKind) {
     case "advance":
+    case "re_enter":
       return {
         initiates: [
           ...(targetCursorRef === null

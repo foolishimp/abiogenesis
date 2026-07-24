@@ -39,6 +39,7 @@ import {
   type CCallAdmissionRejection,
   type CCall,
   type ExecutionBasis,
+  type GraphSpanReentryProjection,
   type ContinuationProductBasis,
   type FhInteractionResumeAdmission,
   type FanOutCompletionAdmission,
@@ -79,6 +80,7 @@ import {
   proposeBlockedRoute,
   proposeFanOutRoute,
   proposeGapStopRoute,
+  proposeGraphSpanReentryRoute,
   proposeHoldRoute,
   proposeInteractionResumeRoute,
   proposeJudgedRoute,
@@ -90,6 +92,7 @@ import {
   applyRoute,
   applyRecursionRoute,
   deriveCompletedTraversalStep,
+  deriveGraphSpanReentryStep,
   deriveRecursionReentryCursor,
   deriveRetryTraversalStep,
   type ExecutableTraversalStopRef,
@@ -163,7 +166,7 @@ export interface ExecutableTraversalCompletion {
   readonly closureRef: string | null;
   readonly nextCursor: TraversalCursor | null;
   readonly resultValue: JsonValue | null;
-  readonly continuationKind: "advance" | "retry" | null;
+  readonly continuationKind: "advance" | "re_enter" | "retry" | null;
   readonly nextInputContractRef: string | null;
   readonly replayState: ReplayState;
   readonly diagnosticRef: string | null;
@@ -370,7 +373,7 @@ function completion(
     readonly closureRef?: string;
     readonly nextCursor?: TraversalCursor;
     readonly resultValue?: JsonValue;
-    readonly continuationKind?: "advance" | "retry";
+    readonly continuationKind?: "advance" | "re_enter" | "retry";
     readonly nextInputContractRef?: string;
     readonly diagnosticRef?: string;
     readonly continuationRef?: string;
@@ -1368,6 +1371,166 @@ export async function completeExecutableTraversal<
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
       resultValue: result.value,
+    });
+  }
+  const graphSpanProjection =
+    isRecord(result.value) &&
+      result.value.kind === "graph_span_selection" &&
+      result.value.schemaVersion === "5.0.0" &&
+      result.value.disposition === "re_enter" &&
+      typeof result.value.projectionRef === "string" &&
+      typeof result.value.projectionDigest === "string" &&
+      typeof result.value.applicationRef === "string" &&
+      typeof result.value.graphFunctionRef === "string" &&
+      typeof result.value.sourceProgramLocusRef === "string" &&
+      typeof result.value.targetProgramLocusRef === "string" &&
+      typeof result.value.targetInputRef === "string" &&
+      typeof result.value.targetInputDigest === "string" &&
+      isRecord(result.value.targetInput)
+      ? result.value as unknown as GraphSpanReentryProjection
+      : null;
+  if (graphSpanProjection !== null) {
+    const application = input.graph.template.applications.find(
+      (candidate) =>
+        candidate.relationKind === "re_enter" &&
+        candidate.applicationRef === graphSpanProjection.applicationRef,
+    );
+    const targetInputContractRef =
+      application?.relationKind === "re_enter"
+        ? application.outputContractRef
+        : null;
+    const step = application?.relationKind === "re_enter"
+      ? deriveGraphSpanReentryStep(
+          input.graph,
+          input.traversalStop.cursor,
+          application,
+          {
+            inputRef: graphSpanProjection.targetInputRef,
+            inputDigest: graphSpanProjection.targetInputDigest,
+          },
+        )
+      : null;
+    if (
+      step === null ||
+      targetInputContractRef === null ||
+      step.kind !== "traversal_step"
+    ) {
+      const code = step === null
+        ? "graph_span_reentry_not_declared"
+        : step.kind === "traversal_refusal"
+          ? step.code
+          : "graph_span_reentry_target_contract_absent";
+      admitRuntimeFailure(
+        input.store,
+        input.executionBasis,
+        input.openedTraversalScope,
+        "route",
+        result.value,
+        `diagnostic://abiogenesis/hog/${code}@5`,
+        {
+          ...basis(input.clock, "graph-span-reentry-derivation-refusal"),
+          causationEventRefs: [judgment.admissionEventRef],
+        },
+      );
+      return completion("failed", replayRun(input), {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        diagnosticRef: `diagnostic://abiogenesis/hog/${code}@5`,
+      });
+    }
+    const proposal = proposeGraphSpanReentryRoute(
+      input.graph,
+      step,
+      cCall,
+      result,
+      judgment,
+      judgedReplay,
+      input.closureContract.transitionContractRef,
+      graphSpanProjection,
+    );
+    if (proposal.kind !== "traversal_route_candidate") {
+      admitRuntimeFailure(
+        input.store,
+        input.executionBasis,
+        input.openedTraversalScope,
+        "route",
+        proposal as unknown as JsonValue,
+        `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+        {
+          ...basis(input.clock, "graph-span-reentry-proposal-refusal"),
+          causationEventRefs: [judgment.admissionEventRef],
+        },
+      );
+      return completion("failed", replayRun(input), {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        diagnosticRef: `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+      });
+    }
+    const route = admitRoute(
+      input.store,
+      input.executionBasis,
+      input.graph,
+      input.traversalStop.cursor,
+      step.targetCursor,
+      judgedReplay,
+      proposal,
+      basis(input.clock, "graph-span-reentry-route"),
+      { cCall, result, judgment },
+    );
+    if (route.kind !== "admitted_traversal_route") {
+      admitRuntimeFailure(
+        input.store,
+        input.executionBasis,
+        input.openedTraversalScope,
+        "route",
+        route as unknown as JsonValue,
+        `diagnostic://abiogenesis/hog/${route.code}@5`,
+        {
+          ...basis(input.clock, "graph-span-reentry-admission-refusal"),
+          causationEventRefs: [judgment.admissionEventRef],
+        },
+      );
+      return completion("failed", replayRun(input), {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        diagnosticRef: `diagnostic://abiogenesis/hog/${route.code}@5`,
+      });
+    }
+    const nextCursor = applyRoute(step, route);
+    if (nextCursor.kind === "traversal_refusal") {
+      admitRuntimeFailure(
+        input.store,
+        input.executionBasis,
+        input.openedTraversalScope,
+        "route",
+        nextCursor as unknown as JsonValue,
+        `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
+        {
+          ...basis(input.clock, "graph-span-reentry-application-refusal"),
+          causationEventRefs: [route.admissionEventRef],
+        },
+      );
+      return completion("failed", replayRun(input), {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        diagnosticRef:
+          `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
+      });
+    }
+    return completion("advanced", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      nextCursor,
+      resultValue:
+        graphSpanProjection.targetInput as unknown as JsonValue,
+      continuationKind: "re_enter",
+      nextInputContractRef: targetInputContractRef,
     });
   }
   const continuationStep = deriveCompletedTraversalStep(

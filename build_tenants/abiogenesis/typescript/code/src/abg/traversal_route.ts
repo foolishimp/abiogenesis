@@ -1,6 +1,7 @@
 import type {
   FanOutApplication,
   GtlGraph,
+  ReenterApplication,
   RecurseApplication,
 } from "../gtl/contracts.js";
 import {
@@ -9,6 +10,7 @@ import {
 } from "../gtl/graph_applications.js";
 import {
   deriveCSourceContinuation,
+  resolveCProgramLocus,
   resolveEnclosingCBatchRef,
   resolveEnclosingCRetryContexts,
   resolveCProgramTermAtSourcePath,
@@ -64,6 +66,7 @@ import {
 
 export type TraversalRouteKind =
   | "advance"
+  | "re_enter"
   | "retry"
   | "hold"
   | "gap_stop"
@@ -91,6 +94,9 @@ export interface RouteCandidate {
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: Sha256Digest;
   readonly nextActionProjection?: Readonly<Record<string, JsonValue>>;
+  readonly graphSpanReentryProjectionRef?: string;
+  readonly graphSpanReentryProjectionDigest?: Sha256Digest;
+  readonly graphSpanReentryProjection?: Readonly<Record<string, JsonValue>>;
 }
 
 export interface AdmittedRoute {
@@ -119,6 +125,24 @@ export interface AdmittedRoute {
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: Sha256Digest;
   readonly nextActionProjection?: NextActionProjection;
+  readonly graphSpanReentryProjectionRef?: string;
+  readonly graphSpanReentryProjectionDigest?: Sha256Digest;
+  readonly graphSpanReentryProjection?: GraphSpanReentryProjection;
+}
+
+export interface GraphSpanReentryProjection {
+  readonly kind: "graph_span_selection";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "re_enter";
+  readonly projectionRef: string;
+  readonly projectionDigest: Sha256Digest;
+  readonly applicationRef: string;
+  readonly graphFunctionRef: string;
+  readonly sourceProgramLocusRef: string;
+  readonly targetProgramLocusRef: string;
+  readonly targetInputRef: string;
+  readonly targetInputDigest: Sha256Digest;
+  readonly targetInput: Readonly<Record<string, JsonValue>>;
 }
 
 export interface SelectedNextActionProjection {
@@ -312,6 +336,7 @@ export interface RouteAdmissionRefusal {
     | "gap_environment_mismatch"
     | "gap_projection_mismatch"
     | "gap_semantics_mismatch"
+    | "graph_span_reentry_mismatch"
     | "judgment_mismatch"
     | "replay_mismatch"
     | "route_already_admitted"
@@ -417,6 +442,16 @@ function candidateBody(
           nextActionProjection:
             candidate.nextActionProjection as unknown as JsonValue,
         }),
+    ...(candidate.graphSpanReentryProjectionRef === undefined
+      ? {}
+      : {
+          graphSpanReentryProjectionRef:
+            candidate.graphSpanReentryProjectionRef,
+          graphSpanReentryProjectionDigest:
+            candidate.graphSpanReentryProjectionDigest!,
+          graphSpanReentryProjection:
+            candidate.graphSpanReentryProjection as unknown as JsonValue,
+        }),
   };
 }
 
@@ -453,11 +488,63 @@ const NEXT_ACTION_PROJECTION_KEYS = Object.freeze([
   "targetProgramLocusRef",
 ] as const);
 
+const GRAPH_SPAN_REENTRY_PROJECTION_KEYS = Object.freeze([
+  "applicationRef",
+  "disposition",
+  "graphFunctionRef",
+  "kind",
+  "projectionDigest",
+  "projectionRef",
+  "schemaVersion",
+  "sourceProgramLocusRef",
+  "targetInput",
+  "targetInputDigest",
+  "targetInputRef",
+  "targetProgramLocusRef",
+] as const);
+
 function hasExactKeys(
   value: Readonly<Record<string, JsonValue>>,
   keys: readonly string[],
 ): boolean {
   return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
+}
+
+function graphSpanReentryProjection(
+  value: JsonValue,
+): GraphSpanReentryProjection | null {
+  if (
+    !isJsonRecord(value) ||
+    !hasExactKeys(value, GRAPH_SPAN_REENTRY_PROJECTION_KEYS) ||
+    value.kind !== "graph_span_selection" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "re_enter" ||
+    typeof value.projectionRef !== "string" ||
+    typeof value.projectionDigest !== "string" ||
+    typeof value.applicationRef !== "string" ||
+    typeof value.graphFunctionRef !== "string" ||
+    typeof value.sourceProgramLocusRef !== "string" ||
+    typeof value.targetProgramLocusRef !== "string" ||
+    typeof value.targetInputRef !== "string" ||
+    typeof value.targetInputDigest !== "string" ||
+    !isJsonRecord(value.targetInput)
+  ) {
+    return null;
+  }
+  const { projectionRef, projectionDigest, ...body } = value;
+  const expectedDigest = sha256Canonical(body);
+  const targetInputDigest = sha256Canonical(value.targetInput);
+  if (
+    projectionDigest !== expectedDigest ||
+    projectionRef !==
+      `graph-span-reentry-projection://product/${expectedDigest.slice("sha256:".length)}` ||
+    value.targetInputDigest !== targetInputDigest ||
+    value.targetInputRef !==
+      `graph-span-input://product/${targetInputDigest.slice("sha256:".length)}`
+  ) {
+    return null;
+  }
+  return value as unknown as GraphSpanReentryProjection;
 }
 
 function nonEmptyStringArray(
@@ -2440,8 +2527,109 @@ function isDeclaredJudgedTarget(
     target.inputRef === inputRef &&
     target.inputDigest === inputDigest &&
     target.taskOrdinal === continuation.targetTaskOrdinal &&
-    target.attempt === (retryPath.at(-1) ?? 1) &&
+    target.attempt ===
+      (
+        retryPath.at(-1) ??
+        (source.retryPath.length === 0 ? source.attempt : 1)
+      ) &&
     sameValues(target.retryPath.map(String), retryPath.map(String));
+}
+
+function hasGraphSpanReentryRouteEvidence(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate,
+  target: TraversalCursorCandidate,
+  candidate: RouteCandidate,
+  evidence: RouteAdmissionEvidence | null,
+): evidence is RouteAdmissionEvidence {
+  if (
+    evidence === null ||
+    candidate.routeKind !== "re_enter" ||
+    !hasJudgedRouteEvidence(
+      store,
+      executionBasis,
+      graph,
+      source,
+      candidate,
+      evidence,
+    ) ||
+    candidate.graphSpanReentryProjection === undefined ||
+    candidate.graphSpanReentryProjectionRef === undefined ||
+    candidate.graphSpanReentryProjectionDigest === undefined
+  ) {
+    return false;
+  }
+  const projection = graphSpanReentryProjection(
+    candidate.graphSpanReentryProjection as unknown as JsonValue,
+  );
+  if (
+    projection === null ||
+    projection.projectionRef !==
+      candidate.graphSpanReentryProjectionRef ||
+    projection.projectionDigest !==
+      candidate.graphSpanReentryProjectionDigest ||
+    sha256Canonical(evidence.result.value) !==
+      sha256Canonical(projection as unknown as JsonValue)
+  ) {
+    return false;
+  }
+  const application = graph.template.applications.find(
+    (row): row is ReenterApplication =>
+      row.relationKind === "re_enter" &&
+      row.applicationRef === projection.applicationRef,
+  );
+  const sourceLocus = resolveCProgramLocus(
+    graph.template,
+    projection.sourceProgramLocusRef,
+  );
+  const targetLocus = resolveCProgramLocus(
+    graph.template,
+    projection.targetProgramLocusRef,
+  );
+  if (
+    application === undefined ||
+    application.applicationRef !== graphFunctionApplicationRef(application) ||
+    projection.graphFunctionRef !== graph.graphFunctionRef ||
+    projection.graphFunctionRef !== executionBasis.graphFunctionRef ||
+    application.graphFunctionRef !== projection.graphFunctionRef ||
+    application.sourceProgramLocusRef !==
+      projection.sourceProgramLocusRef ||
+    application.targetProgramLocusRef !==
+      projection.targetProgramLocusRef ||
+    sourceLocus.kind !== "c_program_locus" ||
+    targetLocus.kind !== "c_program_locus" ||
+    sourceLocus.nodeRef !== targetLocus.nodeRef ||
+    sourceLocus.leaf.outputCarrierRef !== application.inputContractRef ||
+    targetLocus.leaf.inputCarrierRef !== application.outputContractRef ||
+    evidence.cCall.programLocusRef !==
+      application.sourceProgramLocusRef ||
+    evidence.cCall.outputContractRef !== application.inputContractRef ||
+    !hasSameCursorLineage(source, target) ||
+    target.currentNodeRef !== targetLocus.nodeRef ||
+    !sameValues(target.termPath, targetLocus.termPath) ||
+    target.inputRef !== projection.targetInputRef ||
+    target.inputDigest !== projection.targetInputDigest ||
+    target.taskOrdinal !== null ||
+    target.attempt !== source.attempt + 1 ||
+    target.retryPath.length !== 0 ||
+    candidate.targetCursorRef !== target.cursorRef ||
+    candidate.targetCursorDigest !== target.cursorDigest
+  ) {
+    return false;
+  }
+  const priorApplications = store.readAll().filter(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.runId === source.runId &&
+      isJsonRecord(event.payload) &&
+      event.payload.routeKind === "re_enter" &&
+      isJsonRecord(event.payload.graphSpanReentryProjection) &&
+      event.payload.graphSpanReentryProjection.applicationRef ===
+        application.applicationRef,
+  ).length;
+  return priorApplications < application.maxApplications;
 }
 
 function isDeclaredTerminalSource(
@@ -2710,7 +2898,11 @@ export function admitRoute(
         "terminal route differs from the exact GTL declaration or carries a target cursor",
       );
     }
-  } else if (candidate.routeKind === "advance" || candidate.routeKind === "retry") {
+  } else if (
+    candidate.routeKind === "advance" ||
+    candidate.routeKind === "re_enter" ||
+    candidate.routeKind === "retry"
+  ) {
     if (
       targetCursor === null ||
       !isTraversalCursorCandidate(targetCursor) ||
@@ -2723,7 +2915,30 @@ export function admitRoute(
         "route target is not one exact new cursor under the admitted GTL Graph",
       );
     }
-    if (evidence === null) {
+    if (candidate.routeKind === "re_enter") {
+      const reentryEvidence =
+        evidence !== null && "result" in evidence && !("resume" in evidence)
+          ? evidence
+          : null;
+      if (
+        targetCursor === null ||
+        !hasGraphSpanReentryRouteEvidence(
+          store,
+          executionBasis,
+          graph,
+          sourceCursor,
+          targetCursor,
+          candidate,
+          reentryEvidence,
+        )
+      ) {
+        return refusal(
+          "graph_span_reentry_mismatch",
+          "graph-span re-entry requires the exact Product projection, bounded GTL application, judged C-call, and target cursor",
+        );
+      }
+      causationEventRef = reentryEvidence.judgment.admissionEventRef;
+    } else if (evidence === null) {
       if (
         candidate.cCallRef !== null ||
         candidate.judgmentRef !== null ||

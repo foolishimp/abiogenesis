@@ -240,6 +240,7 @@ export {
   type RecursionRouteAdmissionEvidence,
   type ConstructionIntent,
   type ConstructionIntentAdmission,
+  type GraphSpanReentryProjection,
   type NextActionProjection,
   type RouteCandidate,
   type TraversalRouteKind,

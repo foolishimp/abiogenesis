@@ -11,6 +11,7 @@ import type {
   GraphFunctionApplication,
   IdentityApplication,
   PromoteApplication,
+  ReenterApplication,
   RecurseApplication,
   SameObjectApplication,
   SubstituteApplication,
@@ -215,6 +216,24 @@ export function gateApplication(
     ...input,
     evaluatorRefs: [...input.evaluatorRefs],
   });
+}
+
+export function reenterApplication(
+  input: ApplicationInput<ReenterApplication>,
+): ReenterApplication {
+  requireRef(input.graphFunctionRef, "graphFunctionRef");
+  requireRef(input.sourceProgramLocusRef, "sourceProgramLocusRef");
+  requireRef(input.targetProgramLocusRef, "targetProgramLocusRef");
+  if (
+    input.sourceProgramLocusRef === input.targetProgramLocusRef ||
+    !Number.isSafeInteger(input.maxApplications) ||
+    input.maxApplications < 1
+  ) {
+    throw new TypeError(
+      "re-enter requires distinct source and target loci and one positive application bound",
+    );
+  }
+  return constructApplication("re_enter", input);
 }
 
 export function promoteApplication(

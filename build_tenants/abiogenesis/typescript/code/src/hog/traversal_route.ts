@@ -7,7 +7,10 @@ import type { FanOutCompletionAdmission } from "../abg/fan_out.js";
 import type { FhInteractionResumeAdmission } from "../abg/continuation.js";
 import type { RetryProgressAdmission } from "../abg/retry.js";
 import type { ReplayState } from "../abg/replay.js";
-import type { RouteCandidate } from "../abg/traversal_route.js";
+import type {
+  GraphSpanReentryProjection,
+  RouteCandidate,
+} from "../abg/traversal_route.js";
 import {
   isAdmittedApplicationChildPreparationRefusal,
   type ApplicationChildFoldbackAdmission,
@@ -36,6 +39,7 @@ export interface RouteProposalRefusal {
   readonly disposition: "refused";
   readonly code:
     | "gap_stop_not_declared"
+    | "graph_span_reentry_not_declared"
     | "judgment_not_advance"
     | "judgment_not_pending"
     | "resume_not_admitted"
@@ -274,6 +278,82 @@ export function proposeJudgedRoute(
     consumedAvailabilityRefs: [judgment.judgmentRef] as const,
     contractRef,
     replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}
+
+export function proposeGraphSpanReentryRoute(
+  graph: Readonly<GtlGraph>,
+  step: TraversalStep,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: ReplayState,
+  contractRef: string,
+  projection: Readonly<GraphSpanReentryProjection>,
+): RouteCandidate | RouteProposalRefusal {
+  const targetCursor = step.targetCursor;
+  const application = graph.template.applications.find(
+    (candidate) =>
+      candidate.relationKind === "re_enter" &&
+      candidate.applicationRef === projection.applicationRef,
+  );
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !isTraversalStep(step) ||
+    step.directStep.stepKind !== "continue_term" ||
+    step.directStep.relation !== "graph_span_reentry" ||
+    targetCursor === null ||
+    judgment.judgment !== "advance" ||
+    result.cCallRef !== cCall.cCallRef ||
+    judgment.cCallRef !== cCall.cCallRef ||
+    judgment.resultRef !== result.resultRef ||
+    step.sourceCursor.graphRef !== graph.materializationRef ||
+    step.sourceCursor.frameId !== cCall.frameId ||
+    application?.relationKind !== "re_enter" ||
+    application.graphFunctionRef !== graph.graphFunctionRef ||
+    application.sourceProgramLocusRef !== cCall.programLocusRef ||
+    application.targetProgramLocusRef !==
+      projection.targetProgramLocusRef ||
+    projection.graphFunctionRef !== graph.graphFunctionRef ||
+    projection.sourceProgramLocusRef !== cCall.programLocusRef ||
+    targetCursor.inputRef !== projection.targetInputRef ||
+    targetCursor.inputDigest !== projection.targetInputDigest
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "graph_span_reentry_not_declared",
+      message:
+        "graph-span re-entry requires one Product projection and HoG-derived target under the exact declared application",
+    };
+  }
+  const body = {
+    routeKind: "re_enter" as const,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: step.sourceCursor.cursorRef,
+    sourceCursorDigest: step.sourceCursor.cursorDigest,
+    targetCursorRef: targetCursor.cursorRef,
+    targetCursorDigest: targetCursor.cursorDigest,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: judgment.judgmentRef,
+    consumedAvailabilityRefs: [judgment.judgmentRef] as const,
+    contractRef,
+    replayStateDigest: replayState.replayDigest,
+    graphSpanReentryProjectionRef: projection.projectionRef,
+    graphSpanReentryProjectionDigest: projection.projectionDigest,
+    graphSpanReentryProjection:
+      projection as unknown as Readonly<Record<string, JsonValue>>,
   };
   const candidateDigest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({

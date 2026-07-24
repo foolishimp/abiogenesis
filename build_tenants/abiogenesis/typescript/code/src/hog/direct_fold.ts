@@ -89,6 +89,7 @@ export interface ContinueTermStep extends DirectCTraversalStepBase {
     | "compose_next"
     | "edge_next"
     | "graph_edge"
+    | "graph_span_reentry"
     | "retry_same_edge";
   readonly target: CTraversalCoordinate;
 }
@@ -362,7 +363,8 @@ export function deriveDirectCContinuationStepFromGraph(
     nodeRef: targetNodeRef,
     termPath: continuation.targetPath,
     taskOrdinal: continuation.targetTaskOrdinal,
-    attempt: retryPath.at(-1) ?? 1,
+    attempt: retryPath.at(-1) ??
+      (source.retryPath.length === 0 ? source.attempt : 1),
     retryPath,
   });
   return deepFreeze({

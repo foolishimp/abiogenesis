@@ -267,7 +267,7 @@ const FAN_OUT_PAYLOAD = payloadKeys(
   "applicationRef batchRef completionDigest completionKind completionRef inputMemberContractRef inputVectorRef outputMemberContractRef outputVectorContractRef",
 );
 const ROUTE_PAYLOAD = payloadKeys(
-  "cCallRef consumedAvailabilityRefs contractRef declarationDigest declarationRef judgmentRef nextActionProjection nextActionProjectionDigest nextActionProjectionRef replayStateDigest routeDigest routeKind routeRef sourceCursorDigest sourceCursorRef targetCursorDigest targetCursorRef",
+  "cCallRef consumedAvailabilityRefs contractRef declarationDigest declarationRef graphSpanReentryProjection graphSpanReentryProjectionDigest graphSpanReentryProjectionRef judgmentRef nextActionProjection nextActionProjectionDigest nextActionProjectionRef replayStateDigest routeDigest routeKind routeRef sourceCursorDigest sourceCursorRef targetCursorDigest targetCursorRef",
 );
 const TERMINAL_PAYLOAD = payloadKeys(
   "cCallRef closureContractDigest closureContractRef closureDigest closureRef judgmentRef resultRef routeRef terminalKind",
@@ -1649,6 +1649,7 @@ function assertRuntimeEventContract(
     candidate.kind === "traversal_route_admitted" &&
     ![
       "advance",
+      "re_enter",
       "retry",
       "terminal",
       "hold",

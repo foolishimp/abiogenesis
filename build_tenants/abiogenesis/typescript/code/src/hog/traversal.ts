@@ -16,6 +16,7 @@ import type {
   ComputeRegime,
   GtlGraph,
   GtlProgram,
+  ReenterApplication,
   RecurseApplication,
 } from "../gtl/contracts.js";
 import {
@@ -23,7 +24,11 @@ import {
   isInteractionCLeaf,
 } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
-import { resolveEnclosingCBatchRef } from "../gtl/source_path.js";
+import {
+  resolveCProgramLocus,
+  resolveCProgramTermAtSourcePath,
+  resolveEnclosingCBatchRef,
+} from "../gtl/source_path.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
@@ -487,6 +492,72 @@ export function deriveRetryTraversalStep(
   return createTraversalStep(sourceCursor, directStep, retryInput);
 }
 
+export function deriveGraphSpanReentryStep(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+  application: Readonly<ReenterApplication>,
+  targetInput: TraversalInputBasis,
+): TraversalStep | TraversalRefusal {
+  const declaredApplication = graph.template.applications.find(
+    (candidate) => candidate.applicationRef === application.applicationRef,
+  );
+  const sourceTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  const target = resolveCProgramLocus(
+    graph.template,
+    application.targetProgramLocusRef,
+  );
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !traversalCursors.has(sourceCursor) ||
+    sourceCursor.graphRef !== graph.materializationRef ||
+    sourceCursor.position !== "at_term" ||
+    declaredApplication !== application ||
+    application.relationKind !== "re_enter" ||
+    application.graphFunctionRef !== graph.graphFunctionRef ||
+    sourceTerm.kind !== "c_of" ||
+    sourceTerm.programLocusRef !== application.sourceProgramLocusRef ||
+    sourceTerm.outputCarrierRef !== application.inputContractRef ||
+    target.kind !== "c_program_locus" ||
+    target.nodeRef !== sourceCursor.currentNodeRef ||
+    target.leaf.inputCarrierRef !== application.outputContractRef ||
+    target.termPath.includes("tasks") ||
+    target.termPath.includes("term") ||
+    targetInput.inputRef.length === 0 ||
+    !targetInput.inputDigest.startsWith("sha256:")
+  ) {
+    return refusal(
+      "traversal_cursor_mismatch",
+      "HoG derives graph-span re-entry only from one exact declared application, source cursor, target locus, and Product input",
+    );
+  }
+  const directStep = deepFreeze({
+    kind: "direct_c_traversal_step" as const,
+    schemaVersion: "5.0.0" as const,
+    stepKind: "continue_term" as const,
+    termKind: "c_of" as const,
+    relation: "graph_span_reentry" as const,
+    source: {
+      nodeRef: sourceCursor.currentNodeRef,
+      termPath: [...sourceCursor.termPath],
+      taskOrdinal: sourceCursor.taskOrdinal,
+      attempt: sourceCursor.attempt,
+      retryPath: [...sourceCursor.retryPath],
+    },
+    target: {
+      nodeRef: target.nodeRef,
+      termPath: [...target.termPath],
+      taskOrdinal: null,
+      attempt: sourceCursor.attempt + 1,
+      retryPath: [],
+    },
+  });
+  return createTraversalStep(sourceCursor, directStep, targetInput);
+}
+
 export function deriveInteractionResumeCursor(
   heldCursor: TraversalCursor,
   responseInput: TraversalInputBasis,
@@ -759,6 +830,9 @@ export function applyRoute(
       (step.directStep.stepKind === "continue_term" &&
         step.directStep.relation === "retry_same_edge")
     ? "retry"
+    : step.directStep.stepKind === "continue_term" &&
+        step.directStep.relation === "graph_span_reentry"
+      ? "re_enter"
     : step.directStep.stepKind === "continue_term" ||
         step.directStep.stepKind === "enter_term" ||
         step.directStep.stepKind === "start_task"

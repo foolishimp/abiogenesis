@@ -29,6 +29,7 @@ import {
   type ExecutableLeafRequirement,
   type InteractionLeafRequirement,
 } from "../gtl/c_algebra.js";
+import { resolveCProgramLocus } from "../gtl/source_path.js";
 import { isRawAdmittedValue, type RawAdmittedValue } from "./raw_admission.js";
 import { inspectCProgramTerm } from "./c_algebra.js";
 
@@ -267,6 +268,14 @@ function hasExactApplicationShape(
         "evaluatorRefs",
         "ruleRef",
         "targetRef",
+      ]);
+    case "re_enter":
+      return hasExactKeys(application, [
+        ...base,
+        "graphFunctionRef",
+        "maxApplications",
+        "sourceProgramLocusRef",
+        "targetProgramLocusRef",
       ]);
     case "promote":
       return hasExactKeys(application, [...base, "sourceRef", "targetRef"]);
@@ -727,6 +736,8 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
             return [application.reducerGraphFunctionRef];
           case "gate":
             return [application.targetRef];
+          case "re_enter":
+            return [application.graphFunctionRef];
           case "identity":
           case "promote":
           case "same_object":
@@ -848,6 +859,60 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
               `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
             message:
               "gate application requires exact evaluator loci and one matching workflow target",
+          });
+        }
+      }
+      if (application.relationKind === "re_enter") {
+        const source = resolveCProgramLocus(
+          graphFunction.template,
+          application.sourceProgramLocusRef,
+        );
+        const target = resolveCProgramLocus(
+          graphFunction.template,
+          application.targetProgramLocusRef,
+        );
+        const sourceLeaves = source.kind === "c_program_locus"
+          ? graphFunction.template.nodes
+            .find((node) => node.nodeRef === source.nodeRef)
+            ?.term
+          : undefined;
+        const orderedLeaves = sourceLeaves === undefined
+          ? []
+          : cLeafTerms(sourceLeaves);
+        const sourceIndex = source.kind === "c_program_locus"
+          ? orderedLeaves.findIndex(
+              (leaf) => leaf.programLocusRef === source.leaf.programLocusRef,
+            )
+          : -1;
+        const targetIndex = target.kind === "c_program_locus"
+          ? orderedLeaves.findIndex(
+              (leaf) => leaf.programLocusRef === target.leaf.programLocusRef,
+            )
+          : -1;
+        if (
+          application.graphFunctionRef !== graphFunction.name ||
+          !Number.isSafeInteger(application.maxApplications) ||
+          application.maxApplications < 1 ||
+          source.kind !== "c_program_locus" ||
+          target.kind !== "c_program_locus" ||
+          source.nodeRef !== target.nodeRef ||
+          sourceIndex < 1 ||
+          targetIndex < 0 ||
+          targetIndex >= sourceIndex ||
+          source.termPath.includes("tasks") ||
+          source.termPath.includes("term") ||
+          target.termPath.includes("tasks") ||
+          target.termPath.includes("term") ||
+          source.leaf.resultBearing ||
+          source.leaf.outputCarrierRef !== application.inputContractRef ||
+          target.leaf.inputCarrierRef !== application.outputContractRef
+        ) {
+          diagnostics.push({
+            code: "invalid_application",
+            path:
+              `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+            message:
+              "re-enter application requires one bounded earlier locus in the same static graph span with exact source-output and target-input contracts",
           });
         }
       }

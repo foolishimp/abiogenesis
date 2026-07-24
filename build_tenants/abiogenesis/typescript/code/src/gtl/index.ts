@@ -102,6 +102,7 @@ export {
   graphFunctionApplicationRef,
   identityApplication,
   promoteApplication,
+  reenterApplication,
   recurseApplication,
   recursionTerminationDecision,
   sameObjectApplication,
@@ -157,6 +158,7 @@ export type {
   PromoteApplication,
   ProgramStart,
   ProductSemanticsBinding,
+  ReenterApplication,
   RecurseApplication,
   RootModuleArtifactBasis,
   RuleDeclaration,
@@ -169,10 +171,12 @@ export {
 } from "./materialize.js";
 export {
   deriveCSourceContinuation,
+  resolveCProgramLocus,
   resolveCProgramTermAtSourcePath,
   resolveEnclosingCBatchRef,
   rootCSourcePath,
   type CSourceContinuation,
+  type CProgramLocus,
   type CSourcePath,
   type CSourcePathRefusal,
 } from "./source_path.js";

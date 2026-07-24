@@ -16,6 +16,7 @@ import {
 } from "./continuation.js";
 import type {
   ConstructionIntent,
+  GraphSpanReentryProjection,
   NextActionProjection,
   TraversalRouteKind,
 } from "./traversal_route.js";
@@ -55,6 +56,9 @@ export interface ReplayRouteState {
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: Sha256Digest;
   readonly nextActionProjection?: NextActionProjection;
+  readonly graphSpanReentryProjectionRef?: string;
+  readonly graphSpanReentryProjectionDigest?: Sha256Digest;
+  readonly graphSpanReentryProjection?: GraphSpanReentryProjection;
   readonly constructionIntentRef?: string;
   readonly constructionIntentDigest?: Sha256Digest;
   readonly constructionIntent?: ConstructionIntent;
@@ -561,6 +565,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       const routeKind = stringField(event, "routeKind");
       if (
         routeKind !== "advance" &&
+        routeKind !== "re_enter" &&
         routeKind !== "retry" &&
         routeKind !== "hold" &&
         routeKind !== "gap_stop" &&
@@ -612,6 +617,24 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
           isRecord(intentEvent.payload.constructionIntent)
           ? intentEvent.payload.constructionIntent
           : null;
+      const graphSpanReentryProjectionRef = stringField(
+        event,
+        "graphSpanReentryProjectionRef",
+      );
+      const graphSpanReentryProjectionDigest = stringField(
+        event,
+        "graphSpanReentryProjectionDigest",
+      );
+      const graphSpanReentryProjection =
+        isRecord(event.payload) &&
+          isRecord(event.payload.graphSpanReentryProjection)
+          ? event.payload.graphSpanReentryProjection
+          : null;
+      const graphSpanReentryValues = [
+        graphSpanReentryProjectionRef,
+        graphSpanReentryProjectionDigest,
+        graphSpanReentryProjection,
+      ];
       if (
         routeRef === null ||
         routeDigest === null ||
@@ -619,6 +642,22 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
         declarationDigest === null ||
         sourceCursorRef === null ||
         sourceCursorDigest === null ||
+        (
+          routeKind === "re_enter" &&
+          (
+            graphSpanReentryValues.some((value) => value === null) ||
+            nextActionProjectionRef !== null ||
+            nextActionProjectionDigest !== null ||
+            nextActionProjection !== null ||
+            constructionIntentRef !== null ||
+            constructionIntentDigest !== null ||
+            constructionIntent !== null
+          )
+        ) ||
+        (
+          routeKind !== "re_enter" &&
+          graphSpanReentryValues.some((value) => value !== null)
+        ) ||
         (
           routeKind !== "gap_stop" &&
           [
@@ -684,6 +723,16 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
                     constructionIntentAdmissionEventRef:
                       intentEvent.eventId,
                   }),
+            }),
+        ...(graphSpanReentryProjectionRef === null
+          ? {}
+          : {
+              graphSpanReentryProjectionRef,
+              graphSpanReentryProjectionDigest:
+                graphSpanReentryProjectionDigest as Sha256Digest,
+              graphSpanReentryProjection:
+                graphSpanReentryProjection as unknown as
+                  GraphSpanReentryProjection,
             }),
         admissionEventRef: event.eventId,
       };

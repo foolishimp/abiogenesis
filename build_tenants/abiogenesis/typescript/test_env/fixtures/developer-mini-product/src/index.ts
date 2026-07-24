@@ -40,6 +40,44 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
     "implementation-binding://developer.example/ticket/work-fd@5",
   ticketImplementationRef:
     "implementation://developer.example/ticket/work-fd@5",
+  spanProgramRef: "program://developer.example/greeting/span-reentry@5",
+  spanStartRef: "start://developer.example/greeting/span-reentry@5",
+  spanGraphFunctionRef:
+    "graph-function://developer.example/greeting/span-reentry@5",
+  spanGraphRef: "graph://developer.example/greeting/span-reentry@5",
+  spanNodeRef: "node://developer.example/greeting/span-reentry@5",
+  spanInitializeLocusRef:
+    "locus://developer.example/greeting/span-reentry/initialize@5",
+  spanTargetLocusRef:
+    "locus://developer.example/greeting/span-reentry/target@5",
+  spanSelectorLocusRef:
+    "locus://developer.example/greeting/span-reentry/select@5",
+  spanFinalizeLocusRef:
+    "locus://developer.example/greeting/span-reentry/finalize@5",
+  spanStateContractRef:
+    "contract://developer.example/greeting/span-state@5",
+  spanSelectionContractRef:
+    "contract://developer.example/greeting/span-selection@5",
+  spanJudgmentPredicateRef:
+    "predicate://developer.example/greeting/span-valid@5",
+  spanInitializeImplementationBindingRef:
+    "implementation-binding://developer.example/greeting/span-initialize@5",
+  spanInitializeImplementationRef:
+    "implementation://developer.example/greeting/span-initialize@5",
+  spanTargetImplementationBindingRef:
+    "implementation-binding://developer.example/greeting/span-target@5",
+  spanTargetImplementationRef:
+    "implementation://developer.example/greeting/span-target@5",
+  spanSelectorImplementationBindingRef:
+    "implementation-binding://developer.example/greeting/span-select@5",
+  spanSelectorImplementationRef:
+    "implementation://developer.example/greeting/span-select@5",
+  spanSelectorRepeatImplementationRef:
+    "implementation://developer.example/greeting/span-select-repeat@5",
+  spanFinalizeImplementationBindingRef:
+    "implementation-binding://developer.example/greeting/span-finalize@5",
+  spanFinalizeImplementationRef:
+    "implementation://developer.example/greeting/span-finalize@5",
   inputContractRef: "contract://developer.example/greeting/input@5",
   outputContractRef: "contract://developer.example/greeting/output@5",
   evidenceContractRef: "contract://developer.example/greeting/evidence@5",
@@ -341,6 +379,123 @@ function isTicketWorkOutput(value: unknown): value is Readonly<{
     value.disposition === "completed" &&
     typeof value.summary === "string" &&
     value.summary.length > 0;
+}
+
+interface DeveloperSpanState {
+  readonly kind: "developer_span_state";
+  readonly schemaVersion: "5.0.0";
+  readonly name: string;
+  readonly targetVisits: number;
+  readonly reentryApplications: number;
+}
+
+interface DeveloperSpanContinuation {
+  readonly kind: "graph_span_selection";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "continue";
+  readonly state: DeveloperSpanState;
+}
+
+interface DeveloperGraphSpanReentryProjection {
+  readonly kind: "graph_span_selection";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "re_enter";
+  readonly projectionRef: string;
+  readonly projectionDigest: `sha256:${string}`;
+  readonly applicationRef: string;
+  readonly graphFunctionRef: string;
+  readonly sourceProgramLocusRef: string;
+  readonly targetProgramLocusRef: string;
+  readonly targetInputRef: string;
+  readonly targetInputDigest: `sha256:${string}`;
+  readonly targetInput: DeveloperSpanState;
+}
+
+function isSpanState(value: unknown): value is Readonly<DeveloperSpanState> {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "kind",
+      "name",
+      "reentryApplications",
+      "schemaVersion",
+      "targetVisits",
+    ]) &&
+    value.kind === "developer_span_state" &&
+    value.schemaVersion === "5.0.0" &&
+    typeof value.name === "string" &&
+    value.name.length > 0 &&
+    Number.isSafeInteger(value.targetVisits) &&
+    Number(value.targetVisits) >= 0 &&
+    Number.isSafeInteger(value.reentryApplications) &&
+    Number(value.reentryApplications) >= 0;
+}
+
+function isGraphSpanReentryProjection(
+  value: unknown,
+): value is Readonly<DeveloperGraphSpanReentryProjection> {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "applicationRef",
+      "disposition",
+      "graphFunctionRef",
+      "kind",
+      "projectionDigest",
+      "projectionRef",
+      "schemaVersion",
+      "sourceProgramLocusRef",
+      "targetInput",
+      "targetInputDigest",
+      "targetInputRef",
+      "targetProgramLocusRef",
+    ]) ||
+    value.kind !== "graph_span_selection" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "re_enter" ||
+    typeof value.projectionRef !== "string" ||
+    typeof value.projectionDigest !== "string" ||
+    typeof value.applicationRef !== "string" ||
+    typeof value.graphFunctionRef !== "string" ||
+    typeof value.sourceProgramLocusRef !== "string" ||
+    typeof value.targetProgramLocusRef !== "string" ||
+    typeof value.targetInputRef !== "string" ||
+    typeof value.targetInputDigest !== "string" ||
+    !isSpanState(value.targetInput)
+  ) {
+    return false;
+  }
+  const {
+    projectionRef,
+    projectionDigest,
+    ...body
+  } = value;
+  const targetInputDigest = sha256Canonical(value.targetInput);
+  return projectionDigest === sha256Canonical(body as JsonValue) &&
+    projectionRef ===
+      `graph-span-reentry-projection://product/${projectionDigest.slice("sha256:".length)}` &&
+    value.targetInputDigest === targetInputDigest &&
+    value.targetInputRef ===
+      `graph-span-input://product/${targetInputDigest.slice("sha256:".length)}`;
+}
+
+function isSpanContinuation(
+  value: unknown,
+): value is Readonly<DeveloperSpanContinuation> {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "disposition",
+      "kind",
+      "schemaVersion",
+      "state",
+    ]) &&
+    value.kind === "graph_span_selection" &&
+    value.schemaVersion === "5.0.0" &&
+    value.disposition === "continue" &&
+    isSpanState(value.state);
+}
+
+function isSpanSelection(value: unknown): boolean {
+  return isGraphSpanReentryProjection(value) || isSpanContinuation(value);
 }
 
 type DeveloperNoActionDisposition = "gap_stop" | "reprice_required";
@@ -1476,6 +1631,66 @@ function deterministicStageDescriptor(
   });
 }
 
+const DEVELOPER_SPAN_REENTRY_APPLICATION_BODY = deepFreeze({
+  kind: "graph_function_application" as const,
+  relationKind: "re_enter" as const,
+  inputContractRef: DEVELOPER_MINI_IDS.spanSelectionContractRef,
+  outputContractRef: DEVELOPER_MINI_IDS.spanStateContractRef,
+  graphFunctionRef: DEVELOPER_MINI_IDS.spanGraphFunctionRef,
+  sourceProgramLocusRef: DEVELOPER_MINI_IDS.spanSelectorLocusRef,
+  targetProgramLocusRef: DEVELOPER_MINI_IDS.spanTargetLocusRef,
+  maxApplications: 1,
+});
+const DEVELOPER_SPAN_REENTRY_APPLICATION = deepFreeze({
+  applicationRef:
+    `graph-function-application://abiogenesis/${
+      sha256Canonical(
+        DEVELOPER_SPAN_REENTRY_APPLICATION_BODY,
+      ).slice("sha256:".length)
+    }`,
+  ...DEVELOPER_SPAN_REENTRY_APPLICATION_BODY,
+});
+
+export const DEVELOPER_SPAN_INITIALIZE_IMPLEMENTATION_DESCRIPTOR =
+  deterministicStageDescriptor(
+    DEVELOPER_MINI_IDS.spanInitializeImplementationRef,
+    "realizeDeveloperSpanInitialize",
+    DEVELOPER_MINI_IDS.inputContractRef,
+    DEVELOPER_MINI_IDS.spanStateContractRef,
+  );
+
+export const DEVELOPER_SPAN_TARGET_IMPLEMENTATION_DESCRIPTOR =
+  deterministicStageDescriptor(
+    DEVELOPER_MINI_IDS.spanTargetImplementationRef,
+    "realizeDeveloperSpanTarget",
+    DEVELOPER_MINI_IDS.spanStateContractRef,
+    DEVELOPER_MINI_IDS.spanStateContractRef,
+  );
+
+export const DEVELOPER_SPAN_SELECTOR_IMPLEMENTATION_DESCRIPTOR =
+  deterministicStageDescriptor(
+    DEVELOPER_MINI_IDS.spanSelectorImplementationRef,
+    "realizeDeveloperSpanSelector",
+    DEVELOPER_MINI_IDS.spanStateContractRef,
+    DEVELOPER_MINI_IDS.spanSelectionContractRef,
+  );
+
+export const DEVELOPER_SPAN_SELECTOR_REPEAT_IMPLEMENTATION_DESCRIPTOR =
+  deterministicStageDescriptor(
+    DEVELOPER_MINI_IDS.spanSelectorRepeatImplementationRef,
+    "realizeDeveloperSpanSelectorRepeat",
+    DEVELOPER_MINI_IDS.spanStateContractRef,
+    DEVELOPER_MINI_IDS.spanSelectionContractRef,
+  );
+
+export const DEVELOPER_SPAN_FINALIZE_IMPLEMENTATION_DESCRIPTOR =
+  deterministicStageDescriptor(
+    DEVELOPER_MINI_IDS.spanFinalizeImplementationRef,
+    "realizeDeveloperSpanFinalize",
+    DEVELOPER_MINI_IDS.spanSelectionContractRef,
+    DEVELOPER_MINI_IDS.outputContractRef,
+  );
+
 export const DEVELOPER_SYNTHESIZE_MODEL_IMPLEMENTATION_DESCRIPTOR =
   deterministicStageDescriptor(
     DEVELOPER_MINI_IDS.synthesizeModelImplementationRef,
@@ -1750,6 +1965,164 @@ function deterministicStageCandidate(
     }],
     resultCandidate,
   });
+}
+
+export function realizeDeveloperSpanInitialize(
+  input: unknown,
+): Readonly<object> {
+  if (!isGreetingInput(input)) {
+    throw new TypeError("span initialization requires the exact greeting input");
+  }
+  return deterministicStageCandidate(
+    input,
+    deepFreeze({
+      kind: "developer_span_state",
+      schemaVersion: "5.0.0",
+      name: input.name,
+      targetVisits: 0,
+      reentryApplications: 0,
+    }),
+    DEVELOPER_MINI_IDS.spanInitializeImplementationRef,
+  );
+}
+
+export function realizeDeveloperSpanTarget(
+  input: unknown,
+): Readonly<object> {
+  if (
+    !isSpanState(input) ||
+    !(
+      (
+        input.reentryApplications === 0 &&
+        input.targetVisits === 0
+      ) ||
+      (
+        input.reentryApplications === 1 &&
+        input.targetVisits === 1
+      )
+    )
+  ) {
+    throw new TypeError("span target requires the exact bounded state");
+  }
+  return deterministicStageCandidate(
+    input as unknown as JsonValue,
+    deepFreeze({
+      ...input,
+      targetVisits: input.targetVisits + 1,
+    }),
+    DEVELOPER_MINI_IDS.spanTargetImplementationRef,
+  );
+}
+
+function spanReentryCandidate(
+  input: Readonly<DeveloperSpanState>,
+  implementationRef: string,
+): Readonly<object> {
+  const targetInput = deepFreeze({
+    ...input,
+    reentryApplications: input.reentryApplications + 1,
+  });
+  const targetInputDigest = sha256Canonical(targetInput);
+  const body = deepFreeze({
+    kind: "graph_span_selection" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "re_enter" as const,
+    applicationRef: DEVELOPER_SPAN_REENTRY_APPLICATION.applicationRef,
+    graphFunctionRef: DEVELOPER_MINI_IDS.spanGraphFunctionRef,
+    sourceProgramLocusRef: DEVELOPER_MINI_IDS.spanSelectorLocusRef,
+    targetProgramLocusRef: DEVELOPER_MINI_IDS.spanTargetLocusRef,
+    targetInputRef:
+      `graph-span-input://product/${targetInputDigest.slice("sha256:".length)}`,
+    targetInputDigest,
+    targetInput,
+  });
+  const projectionDigest = sha256Canonical(body);
+  return deterministicStageCandidate(
+    input as unknown as JsonValue,
+    deepFreeze({
+      ...body,
+      projectionRef:
+        `graph-span-reentry-projection://product/${projectionDigest.slice("sha256:".length)}`,
+      projectionDigest,
+    }),
+    implementationRef,
+  );
+}
+
+export function realizeDeveloperSpanSelector(
+  input: unknown,
+): Readonly<object> {
+  if (!isSpanState(input)) {
+    throw new TypeError("span selector requires the exact admitted state");
+  }
+  if (input.reentryApplications === 0 && input.targetVisits === 1) {
+    return spanReentryCandidate(
+      input,
+      DEVELOPER_MINI_IDS.spanSelectorImplementationRef,
+    );
+  }
+  if (input.reentryApplications === 1 && input.targetVisits === 2) {
+    return deterministicStageCandidate(
+      input as unknown as JsonValue,
+      deepFreeze({
+        kind: "graph_span_selection",
+        schemaVersion: "5.0.0",
+        disposition: "continue",
+        state: input,
+      }),
+      DEVELOPER_MINI_IDS.spanSelectorImplementationRef,
+    );
+  }
+  throw new TypeError("span selector refuses an undeclared re-entry state");
+}
+
+export function realizeDeveloperSpanSelectorRepeat(
+  input: unknown,
+): Readonly<object> {
+  if (
+    !isSpanState(input) ||
+    !(
+      (
+        input.reentryApplications === 0 &&
+        input.targetVisits === 1
+      ) ||
+      (
+        input.reentryApplications === 1 &&
+        input.targetVisits === 2
+      )
+    )
+  ) {
+    throw new TypeError(
+      "span repeat selector requires an exact selectable state",
+    );
+  }
+  return spanReentryCandidate(
+    input,
+    DEVELOPER_MINI_IDS.spanSelectorRepeatImplementationRef,
+  );
+}
+
+export function realizeDeveloperSpanFinalize(
+  input: unknown,
+): Readonly<object> {
+  if (
+    !isSpanContinuation(input) ||
+    input.state.reentryApplications !== 1 ||
+    input.state.targetVisits !== 2
+  ) {
+    throw new TypeError(
+      "span finalization requires one exact completed re-entry",
+    );
+  }
+  return deterministicStageCandidate(
+    input as unknown as JsonValue,
+    deepFreeze({
+      kind: "developer_greeting_output",
+      schemaVersion: "5.0.0",
+      message: `Welcome ${input.state.name}.`,
+    }),
+    DEVELOPER_MINI_IDS.spanFinalizeImplementationRef,
+  );
 }
 
 export function realizeDeveloperSynthesizeModel(
@@ -2604,6 +2977,10 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
         return isGreetingOutput(value);
       case "developer_ticket_work_output":
         return isTicketWorkOutput(value);
+      case "developer_span_state":
+        return isSpanState(value);
+      case "graph_span_selection":
+        return isSpanSelection(value);
       case "developer_product_asset_model":
         return isProductAssetModel(value);
       case "developer_gap_projection":
@@ -2631,6 +3008,53 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
     }
   },
   resolveJudgmentRelation(predicateRef: string) {
+    if (predicateRef === DEVELOPER_MINI_IDS.spanJudgmentPredicateRef) {
+      return Object.freeze({
+        predicateRef,
+        advanceReasonRef:
+          "reason://developer.example/greeting/span-valid@5",
+        rejectionReasonRef:
+          "reason://developer.example/greeting/span-invalid@5",
+        evaluate: (input: unknown, output: unknown) => {
+          if (isGreetingInput(input) && isSpanState(output)) {
+            return output.name === input.name &&
+              output.targetVisits === 0 &&
+              output.reentryApplications === 0;
+          }
+          if (isSpanState(input) && isSpanState(output)) {
+            return output.name === input.name &&
+              output.targetVisits === input.targetVisits + 1 &&
+              output.reentryApplications === input.reentryApplications;
+          }
+          if (
+            isSpanState(input) &&
+            isGraphSpanReentryProjection(output)
+          ) {
+            return output.applicationRef ===
+                DEVELOPER_SPAN_REENTRY_APPLICATION.applicationRef &&
+              output.graphFunctionRef ===
+                DEVELOPER_MINI_IDS.spanGraphFunctionRef &&
+              output.sourceProgramLocusRef ===
+                DEVELOPER_MINI_IDS.spanSelectorLocusRef &&
+              output.targetProgramLocusRef ===
+                DEVELOPER_MINI_IDS.spanTargetLocusRef &&
+              output.targetInput.name === input.name &&
+              output.targetInput.targetVisits === input.targetVisits &&
+              output.targetInput.reentryApplications ===
+                input.reentryApplications + 1;
+          }
+          if (isSpanState(input) && isSpanContinuation(output)) {
+            return output.state.name === input.name &&
+              output.state.targetVisits === input.targetVisits &&
+              output.state.reentryApplications ===
+                input.reentryApplications;
+          }
+          return isSpanContinuation(input) &&
+            isGreetingOutput(output) &&
+            output.message === `Welcome ${input.state.name}.`;
+        },
+      });
+    }
     if (predicateRef === DEVELOPER_MINI_IDS.ticketJudgmentPredicateRef) {
       return Object.freeze({
         predicateRef,
@@ -2702,6 +3126,16 @@ export function constructDeveloperMiniPublication(
       "output",
       DEVELOPER_MINI_IDS.ticketOutputContractRef,
       "developer_ticket_work_output",
+    ],
+    [
+      "output",
+      DEVELOPER_MINI_IDS.spanStateContractRef,
+      "developer_span_state",
+    ],
+    [
+      "output",
+      DEVELOPER_MINI_IDS.spanSelectionContractRef,
+      "graph_span_selection",
     ],
     [
       "input",
@@ -2945,6 +3379,201 @@ export function constructDeveloperMiniPublication(
     }],
     callableMembership: [DEVELOPER_MINI_IDS.ticketGraphFunctionRef],
     closureContractRef: DEVELOPER_MINI_IDS.ticketClosureContractRef,
+    policies: {
+      "abg.compute_regime": "F_D",
+      "abg.root_mode": "direct",
+    },
+  };
+  const spanGraphFunction = {
+    kind: "graph_function",
+    name: DEVELOPER_MINI_IDS.spanGraphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [DEVELOPER_MINI_IDS.inputContractRef],
+      provides: [DEVELOPER_MINI_IDS.outputContractRef],
+      carries: [
+        DEVELOPER_MINI_IDS.inputContractRef,
+        DEVELOPER_MINI_IDS.spanStateContractRef,
+        DEVELOPER_MINI_IDS.spanSelectionContractRef,
+        DEVELOPER_MINI_IDS.outputContractRef,
+      ],
+    },
+    inputs: [DEVELOPER_MINI_IDS.inputContractRef],
+    outputs: [DEVELOPER_MINI_IDS.outputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: DEVELOPER_MINI_IDS.spanGraphRef,
+      startNodeRef: DEVELOPER_MINI_IDS.spanNodeRef,
+      terminalNodeRefs: [DEVELOPER_MINI_IDS.spanNodeRef],
+      nodes: [{
+        nodeRef: DEVELOPER_MINI_IDS.spanNodeRef,
+        nodeKind: "c_locus",
+        term: {
+          kind: "c_compose",
+          inputCarrierRef: DEVELOPER_MINI_IDS.inputContractRef,
+          outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+          terms: [{
+            kind: "c_of",
+            inputCarrierRef: DEVELOPER_MINI_IDS.inputContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.spanStateContractRef,
+            programLocusRef:
+              DEVELOPER_MINI_IDS.spanInitializeLocusRef,
+            stageRole: "initialize",
+            fibre: "F_D",
+            armId:
+              "arm://developer.example/greeting/span-reentry/initialize@5",
+            compositionRef: null,
+            vectorIndex: 0,
+            judgmentPredicateRef:
+              DEVELOPER_MINI_IDS.spanJudgmentPredicateRef,
+            resultBearing: false,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef:
+                DEVELOPER_MINI_IDS.spanInitializeImplementationBindingRef,
+              inputContractRef: DEVELOPER_MINI_IDS.inputContractRef,
+              outputContractRef:
+                DEVELOPER_MINI_IDS.spanStateContractRef,
+              evidenceContractRef:
+                DEVELOPER_MINI_IDS.evidenceContractRef,
+              failureContractRef:
+                DEVELOPER_MINI_IDS.failureContractRef,
+              refusalContractRef:
+                DEVELOPER_MINI_IDS.refusalContractRef,
+              judgmentContractRef:
+                DEVELOPER_MINI_IDS.judgmentContractRef,
+            },
+          }, {
+            kind: "c_of",
+            inputCarrierRef: DEVELOPER_MINI_IDS.spanStateContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.spanStateContractRef,
+            programLocusRef: DEVELOPER_MINI_IDS.spanTargetLocusRef,
+            stageRole: "span-target",
+            fibre: "F_D",
+            armId:
+              "arm://developer.example/greeting/span-reentry/target@5",
+            compositionRef: null,
+            vectorIndex: 1,
+            judgmentPredicateRef:
+              DEVELOPER_MINI_IDS.spanJudgmentPredicateRef,
+            resultBearing: false,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef:
+                DEVELOPER_MINI_IDS.spanTargetImplementationBindingRef,
+              inputContractRef:
+                DEVELOPER_MINI_IDS.spanStateContractRef,
+              outputContractRef:
+                DEVELOPER_MINI_IDS.spanStateContractRef,
+              evidenceContractRef:
+                DEVELOPER_MINI_IDS.evidenceContractRef,
+              failureContractRef:
+                DEVELOPER_MINI_IDS.failureContractRef,
+              refusalContractRef:
+                DEVELOPER_MINI_IDS.refusalContractRef,
+              judgmentContractRef:
+                DEVELOPER_MINI_IDS.judgmentContractRef,
+            },
+          }, {
+            kind: "c_of",
+            inputCarrierRef: DEVELOPER_MINI_IDS.spanStateContractRef,
+            outputCarrierRef:
+              DEVELOPER_MINI_IDS.spanSelectionContractRef,
+            programLocusRef: DEVELOPER_MINI_IDS.spanSelectorLocusRef,
+            stageRole: "select-span-route",
+            fibre: "F_D",
+            armId:
+              "arm://developer.example/greeting/span-reentry/select@5",
+            compositionRef:
+              DEVELOPER_SPAN_REENTRY_APPLICATION.applicationRef,
+            vectorIndex: 2,
+            judgmentPredicateRef:
+              DEVELOPER_MINI_IDS.spanJudgmentPredicateRef,
+            resultBearing: false,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef:
+                DEVELOPER_MINI_IDS.spanSelectorImplementationBindingRef,
+              inputContractRef:
+                DEVELOPER_MINI_IDS.spanStateContractRef,
+              outputContractRef:
+                DEVELOPER_MINI_IDS.spanSelectionContractRef,
+              evidenceContractRef:
+                DEVELOPER_MINI_IDS.evidenceContractRef,
+              failureContractRef:
+                DEVELOPER_MINI_IDS.failureContractRef,
+              refusalContractRef:
+                DEVELOPER_MINI_IDS.refusalContractRef,
+              judgmentContractRef:
+                DEVELOPER_MINI_IDS.judgmentContractRef,
+            },
+          }, {
+            kind: "c_of",
+            inputCarrierRef:
+              DEVELOPER_MINI_IDS.spanSelectionContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            programLocusRef:
+              DEVELOPER_MINI_IDS.spanFinalizeLocusRef,
+            stageRole: "result",
+            fibre: "F_D",
+            armId:
+              "arm://developer.example/greeting/span-reentry/finalize@5",
+            compositionRef: null,
+            vectorIndex: 3,
+            judgmentPredicateRef:
+              DEVELOPER_MINI_IDS.spanJudgmentPredicateRef,
+            resultBearing: true,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef:
+                DEVELOPER_MINI_IDS.spanFinalizeImplementationBindingRef,
+              inputContractRef:
+                DEVELOPER_MINI_IDS.spanSelectionContractRef,
+              outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              evidenceContractRef:
+                DEVELOPER_MINI_IDS.evidenceContractRef,
+              failureContractRef:
+                DEVELOPER_MINI_IDS.failureContractRef,
+              refusalContractRef:
+                DEVELOPER_MINI_IDS.refusalContractRef,
+              judgmentContractRef:
+                DEVELOPER_MINI_IDS.judgmentContractRef,
+            },
+          }],
+        },
+      }],
+      edges: [],
+      applications: [DEVELOPER_SPAN_REENTRY_APPLICATION],
+    },
+    effects: [
+      "effect://developer.example/greeting/span-reentry@5",
+    ],
+    declarations: {
+      "abg.compute_regime": "F_D",
+      "abg.closure_contract": DEVELOPER_MINI_IDS.closureContractRef,
+      "abg.evidence_contract": DEVELOPER_MINI_IDS.evidenceContractRef,
+      "abg.judgment_contract": DEVELOPER_MINI_IDS.judgmentContractRef,
+      "abg.judgment_predicate":
+        DEVELOPER_MINI_IDS.spanJudgmentPredicateRef,
+      "abg.transition_contract": DEVELOPER_MINI_IDS.transitionContractRef,
+    },
+    tags: [
+      "developer-authored",
+      "external-product",
+      "graph-span-reentry",
+    ],
+  };
+  const spanProgram = {
+    kind: "gtl_program",
+    programRef: DEVELOPER_MINI_IDS.spanProgramRef,
+    version: "5.0.0",
+    moduleRef: DEVELOPER_MINI_IDS.moduleRef,
+    starts: [{
+      startRef: DEVELOPER_MINI_IDS.spanStartRef,
+      graphFunctionRef: DEVELOPER_MINI_IDS.spanGraphFunctionRef,
+    }],
+    callableMembership: [DEVELOPER_MINI_IDS.spanGraphFunctionRef],
+    closureContractRef: DEVELOPER_MINI_IDS.closureContractRef,
     policies: {
       "abg.compute_regime": "F_D",
       "abg.root_mode": "direct",
@@ -3617,6 +4246,19 @@ export function constructDeveloperMiniPublication(
       artifact.productManifestDigest,
     ],
   };
+  const spanContribution = {
+    handle: DEVELOPER_MINI_IDS.spanGraphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef:
+      DEVELOPER_MINI_IDS.spanGraphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [DEVELOPER_MINI_IDS.spanProgramRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [
+      artifact.artifactDigest,
+      artifact.productManifestDigest,
+    ],
+  };
   const mixedContribution = {
     handle: DEVELOPER_MINI_IDS.mixedGraphFunctionRef,
     kind: "graph_function",
@@ -3701,6 +4343,68 @@ export function constructDeveloperMiniPublication(
       computeRegime: "F_D",
       inputContractRef: DEVELOPER_MINI_IDS.ticketInputContractRef,
       outputContractRef: DEVELOPER_MINI_IDS.ticketOutputContractRef,
+      failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+    }, {
+      kind: "implementation_binding",
+      bindingRef:
+        DEVELOPER_MINI_IDS.spanInitializeImplementationBindingRef,
+      implementationRef:
+        DEVELOPER_MINI_IDS.spanInitializeImplementationRef,
+      packageName: PACKAGE_NAME,
+      packageVersion: PACKAGE_VERSION,
+      modulePath: "build/index.js",
+      namedSymbol: "realizeDeveloperSpanInitialize",
+      computeRegime: "F_D",
+      inputContractRef: DEVELOPER_MINI_IDS.inputContractRef,
+      outputContractRef: DEVELOPER_MINI_IDS.spanStateContractRef,
+      failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+    }, {
+      kind: "implementation_binding",
+      bindingRef:
+        DEVELOPER_MINI_IDS.spanTargetImplementationBindingRef,
+      implementationRef:
+        DEVELOPER_MINI_IDS.spanTargetImplementationRef,
+      packageName: PACKAGE_NAME,
+      packageVersion: PACKAGE_VERSION,
+      modulePath: "build/index.js",
+      namedSymbol: "realizeDeveloperSpanTarget",
+      computeRegime: "F_D",
+      inputContractRef: DEVELOPER_MINI_IDS.spanStateContractRef,
+      outputContractRef: DEVELOPER_MINI_IDS.spanStateContractRef,
+      failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+    }, {
+      kind: "implementation_binding",
+      bindingRef:
+        DEVELOPER_MINI_IDS.spanSelectorImplementationBindingRef,
+      implementationRef:
+        DEVELOPER_MINI_IDS.spanSelectorImplementationRef,
+      packageName: PACKAGE_NAME,
+      packageVersion: PACKAGE_VERSION,
+      modulePath: "build/index.js",
+      namedSymbol: "realizeDeveloperSpanSelector",
+      computeRegime: "F_D",
+      inputContractRef: DEVELOPER_MINI_IDS.spanStateContractRef,
+      outputContractRef:
+        DEVELOPER_MINI_IDS.spanSelectionContractRef,
+      failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+    }, {
+      kind: "implementation_binding",
+      bindingRef:
+        DEVELOPER_MINI_IDS.spanFinalizeImplementationBindingRef,
+      implementationRef:
+        DEVELOPER_MINI_IDS.spanFinalizeImplementationRef,
+      packageName: PACKAGE_NAME,
+      packageVersion: PACKAGE_VERSION,
+      modulePath: "build/index.js",
+      namedSymbol: "realizeDeveloperSpanFinalize",
+      computeRegime: "F_D",
+      inputContractRef:
+        DEVELOPER_MINI_IDS.spanSelectionContractRef,
+      outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
       failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
       refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
     }, {
@@ -3929,6 +4633,7 @@ export function constructDeveloperMiniPublication(
     programs: [
       program,
       ticketProgram,
+      spanProgram,
       identityProgram,
       mixedProgram,
       oneSurfaceProgram,
@@ -3936,6 +4641,7 @@ export function constructDeveloperMiniPublication(
     graphFunctions: [
       graphFunction,
       ticketGraphFunction,
+      spanGraphFunction,
       identityGraphFunction,
       mixedGraphFunction,
       oneSurfaceGraphFunction,
@@ -3943,6 +4649,7 @@ export function constructDeveloperMiniPublication(
     contributions: [
       contribution,
       ticketContribution,
+      spanContribution,
       identityContribution,
       mixedContribution,
       oneSurfaceContribution,

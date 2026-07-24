@@ -1,4 +1,4 @@
-import type { CProgramNode } from "./c_algebra.js";
+import type { COfNode, CProgramNode } from "./c_algebra.js";
 import type { GraphTemplate } from "./contracts.js";
 
 export type CSourcePath = readonly string[];
@@ -34,6 +34,13 @@ export interface CEnclosingRetryContext {
   readonly budget: number;
   readonly inputCarrierRef: string;
   readonly outputCarrierRef: string;
+}
+
+export interface CProgramLocus {
+  readonly kind: "c_program_locus";
+  readonly nodeRef: string;
+  readonly termPath: CSourcePath;
+  readonly leaf: Readonly<COfNode>;
 }
 
 function refusal(
@@ -87,6 +94,110 @@ function continuation(
 
 export function rootCSourcePath(nodeRef: string): CSourcePath {
   return Object.freeze(["node", nodeRef, "c"]);
+}
+
+function collectProgramLoci(
+  term: Readonly<CProgramNode>,
+  path: readonly string[],
+  programLocusRef: string,
+  matches: CProgramLocus[],
+  nodeRef: string,
+): void {
+  switch (term.kind) {
+    case "c_of":
+      if (term.programLocusRef === programLocusRef) {
+        matches.push({
+          kind: "c_program_locus",
+          nodeRef,
+          termPath: Object.freeze([...path]),
+          leaf: term,
+        });
+      }
+      return;
+    case "c_identity":
+    case "c_workflow":
+      return;
+    case "c_compose":
+      term.terms.forEach((child, ordinal) =>
+        collectProgramLoci(
+          child,
+          [...path, "terms", String(ordinal)],
+          programLocusRef,
+          matches,
+          nodeRef,
+        ));
+      return;
+    case "c_edge":
+      collectProgramLoci(
+        term.transform,
+        [...path, "transform"],
+        programLocusRef,
+        matches,
+        nodeRef,
+      );
+      collectProgramLoci(
+        term.evaluate,
+        [...path, "evaluate"],
+        programLocusRef,
+        matches,
+        nodeRef,
+      );
+      collectProgramLoci(
+        term.consequence,
+        [...path, "consequence"],
+        programLocusRef,
+        matches,
+        nodeRef,
+      );
+      return;
+    case "c_batch":
+      term.tasks.forEach((child, ordinal) =>
+        collectProgramLoci(
+          child,
+          [...path, "tasks", String(ordinal)],
+          programLocusRef,
+          matches,
+          nodeRef,
+        ));
+      return;
+    case "c_retry":
+      collectProgramLoci(
+        term.term,
+        [...path, "term"],
+        programLocusRef,
+        matches,
+        nodeRef,
+      );
+  }
+}
+
+export function resolveCProgramLocus(
+  template: Readonly<GraphTemplate>,
+  programLocusRef: string,
+): CProgramLocus | CSourcePathRefusal {
+  if (programLocusRef.length === 0) {
+    return refusal(
+      "invalid_source_path",
+      "GTL program locus identity must be non-empty",
+    );
+  }
+  const matches: CProgramLocus[] = [];
+  for (const node of template.nodes) {
+    collectProgramLoci(
+      node.term,
+      rootCSourcePath(node.nodeRef),
+      programLocusRef,
+      matches,
+      node.nodeRef,
+    );
+  }
+  if (matches.length !== 1) {
+    return refusal(
+      "term_path_missing",
+      `GTL program locus ${programLocusRef} must resolve exactly once`,
+    );
+  }
+  return matches[0]!;
 }
 
 export function resolveCProgramTermAtSourcePath(

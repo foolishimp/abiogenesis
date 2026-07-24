@@ -209,6 +209,14 @@ export interface GateApplication extends GraphFunctionApplicationBase {
   readonly evaluatorRefs: readonly string[];
 }
 
+export interface ReenterApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "re_enter";
+  readonly graphFunctionRef: string;
+  readonly sourceProgramLocusRef: string;
+  readonly targetProgramLocusRef: string;
+  readonly maxApplications: number;
+}
+
 export interface PromoteApplication extends GraphFunctionApplicationBase {
   readonly relationKind: "promote";
   readonly sourceRef: string;
@@ -234,6 +242,7 @@ export type GraphFunctionApplication =
   | FanOutApplication
   | FanInApplication
   | GateApplication
+  | ReenterApplication
   | PromoteApplication
   | IdentityApplication
   | SameObjectApplication;

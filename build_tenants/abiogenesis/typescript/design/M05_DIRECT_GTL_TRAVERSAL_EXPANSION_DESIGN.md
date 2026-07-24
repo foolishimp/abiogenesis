@@ -1519,3 +1519,52 @@ Installed evidence shall prove:
 - a fresh-context read is side-effect free and renders the exact disposition;
 - an unsupported observation authority state refuses before a Run opens; and
 - attempted ordinary gap re-entry refuses without changing the event log.
+
+### 12.8 Product-Selected Graph-Span Re-entry
+
+Graph-span re-entry remains ordinary direct GTL traversal. The Product owns a
+bounded `re_enter` application between two exact loci of one admitted
+GraphFunction and emits a `graph_span_selection` result when its domain
+semantics require that application. The validator checks the application's
+static structure. HoG traverses the admitted application. ABG alone admits the
+runtime route and resulting truth.
+
+The admitted `re_enter` application shall bind:
+
+- one Product-owned selector GraphFunction;
+- exact source and target `CProgramLocus` values in the same graph;
+- an earlier target locus on the same declared node;
+- exact selector input and output contracts; and
+- a positive maximum application count.
+
+The source locus may select either `re_enter` or ordinary continuation through
+one stable `graph_span_selection` result family. A re-entry result names the
+exact target locus, target input value and digest, application reference,
+source judgment, and current traversal cursor. A continuation result names no
+re-entry target. Product code owns that semantic choice; Public, HoG, and ABG
+may not infer it from graph shape or current state.
+
+ABG admits `re_enter` only when the Product result, admitted application,
+current replay projection, source C-call result and judgment, exact loci,
+contracts, target input, and remaining application budget agree. HoG derives
+the target cursor from the admitted route. The existing cursor `attempt`
+coordinate records the bounded visit ordinal; it does not create another
+program, graph, execution plan, controller, or runtime.
+
+The existing `traversal_route_admitted` event and replay projection preserve
+the admitted re-entry. No new public operation or event family is required.
+Ordinary traversal after the target preserves the visit ordinal until another
+declared retry changes retry scope, so repeated selection cannot evade the
+application bound.
+
+Installed evidence shall prove:
+
+- one separately packed external Product selects one backward graph-span
+  re-entry and then converges through the ordinary installed SDK and CLI path;
+- replay records exactly one `re_enter` route caused by the selector C-call
+  judgment before the second target visit;
+- the Product observes the second visit and selects ordinary continuation;
+- a forward, cross-node, missing, or ambiguous target refuses during static
+  admission; and
+- a second Product selection beyond the admitted bound is refused as runtime
+  failure without closure truth.

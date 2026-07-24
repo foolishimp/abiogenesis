@@ -205,19 +205,6 @@ function proven(axis, behavior, proof, verify) {
   };
 }
 
-function provisional(axis, behavior, proof, gap, verify) {
-  return {
-    axis,
-    behavior,
-    status: "provisional",
-    witness46:
-      `PENDING immutable RC5 witness reconciliation for ${behavior}`,
-    ...proof,
-    gap,
-    verify,
-  };
-}
-
 function open(axis, behavior, gtlExpression, gap) {
   return {
     axis,
@@ -511,60 +498,17 @@ const matrix = [
       event.kind === "c_call_opened" ||
       event.kind === "child_foldback_admitted"), false);
   }),
-  provisional("consequence_route", "graph_span_reentry", {
-    gtlExpression: "fan_out over one admitted vector followed by fan_in over its complete output vector",
-    hogPath: "serial C.batch tasks re-enter the exact materialized member span; only complete truth enters the reducer",
-    abgEvidence: "fan_out_completion_admitted records either one complete ordered vector or one partial-stop census",
-    publicOutcome: "complete input closes through one reducer; partial stop blocks without a vector or reducer GraphCall",
-    invalidMutation: "reordered input cannot validate against the materialized graph and a stopped task cannot fabricate fan-in",
-  }, "explicit re-entry target selection and application belongs to S03", ({
-    fanOut,
-    fanOutPartial,
-  }) => {
-    assertSuccessfulInstalled(fanOut);
-    const completion = fanOut.events.find(
-      (event) =>
-        event.kind === "fan_out_completion_admitted" &&
-        event.payload.completionKind === "complete_vector",
-    );
-    const reducer = fanOut.events.find(
-      (event) =>
-        event.kind === "graph_call_opened" &&
-        event.graphFunctionRef === FAN_IN_REDUCER_REF,
-    );
-    assert.notEqual(completion, undefined);
-    assert.notEqual(reducer, undefined);
-    assert.deepEqual(
-      completion.payload.outputVector.members.map((member) => member.ordinal),
-      [0, 1, 2],
-    );
-    assert.equal(completion.admissionOrdinal < reducer.admissionOrdinal, true);
-
-    assert.equal(fanOutPartial.run.exitCode, 2, fanOutPartial.run.stdout);
-    assert.equal(fanOutPartial.run.outcomes[5].disposition, "blocked");
-    const partial = fanOutPartial.events.find(
-      (event) =>
-        event.kind === "fan_out_completion_admitted" &&
-        event.payload.completionKind === "partial_stop",
-    );
-    assert.notEqual(partial, undefined);
-    assert.deepEqual(
-      partial.payload.completedRows.map((row) => row.ordinal),
-      [0],
-    );
-    assert.equal(partial.payload.stoppingRow.ordinal, 1);
-    assert.deepEqual(
-      partial.payload.unstartedRows.map((row) => row.ordinal),
-      [2],
-    );
-    assert.equal(Object.hasOwn(partial.payload, "outputVector"), false);
+  proven("consequence_route", "graph_span_reentry", {
+    gtlExpression: "Product-owned bounded re_enter application from one selector locus to one earlier locus",
+    hogPath: "Product projection selects the target; HoG derives and applies the exact re-entry cursor",
+    abgEvidence: "judged selector C-call causes one bounded re_enter route carrying the exact Product projection",
+    publicOutcome: "independently packed Product revisits the selected span once and closes with replay agreement",
+    invalidMutation: "forward target refuses at validation and a second application fails before another route is admitted",
+  }, ({ externalSpanReentry }) => {
     assert.equal(
-      fanOutPartial.events.some(
-        (event) =>
-          event.kind === "graph_call_opened" &&
-          event.graphFunctionRef === FAN_IN_REDUCER_REF,
-      ),
-      false,
+      externalSpanReentry.status,
+      0,
+      `${externalSpanReentry.stdout}\n${externalSpanReentry.stderr}`,
     );
   }),
   proven("consequence_route", "public_start_reentry", {
@@ -824,10 +768,10 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 32);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 33);
   assert.equal(
     matrix.filter((row) => row.status === "provisional").length,
-    1,
+    0,
   );
   assert.equal(matrix.filter((row) => row.status === "open").length, 7);
   for (const row of matrix) {
@@ -1042,6 +986,26 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
       timeout: 30_000,
     },
   );
+  const externalSpanReentry = spawnSync(
+    process.execPath,
+    [
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern=^M5 applies one Product-declared graph-span re-entry through the installed path$",
+      "test_env/tests/m5-installed-external-product.test.mjs",
+    ],
+    {
+      cwd: root,
+      encoding: "utf8",
+      env: Object.fromEntries(
+        Object.entries(process.env).filter(
+          ([key]) => key !== "NODE_TEST_CONTEXT",
+        ),
+      ),
+      maxBuffer: 10 * 1024 * 1024,
+      timeout: 30_000,
+    },
+  );
   const evidence = {
     fd,
     compose,
@@ -1062,18 +1026,13 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
     externalMixed,
     externalTicket,
     externalGapReentry,
+    externalSpanReentry,
   };
 
   for (const row of matrix) {
     const name = `${row.axis}/${row.behavior}`;
     if (row.status === "open") {
       await context.test(name, { todo: row.gap }, () => {});
-    } else if (row.status === "provisional") {
-      await context.test(
-        name,
-        { todo: `provisional: ${row.gap}` },
-        () => row.verify(evidence),
-      );
     } else {
       await context.test(name, () => row.verify(evidence));
     }

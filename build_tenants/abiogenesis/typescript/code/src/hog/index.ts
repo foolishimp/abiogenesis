@@ -1,6 +1,7 @@
 export {
   applyRoute,
   deriveCompletedTraversalStep,
+  deriveGraphSpanReentryStep,
   deriveRetryTraversalStep,
   deriveInteractionResumeCursor,
   deriveTraversalStep,
@@ -47,6 +48,7 @@ export {
 export {
   proposeBlockedRoute,
   proposeGapStopRoute,
+  proposeGraphSpanReentryRoute,
   proposeWorkflowBlockedRoute,
   proposeJudgedRoute,
   proposeHoldRoute,
