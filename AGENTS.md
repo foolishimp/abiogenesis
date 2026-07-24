@@ -21,10 +21,11 @@ regression gate. T-270 is the sole M5 parent owner; corrected S02 and
 `ABI5-M5-EXT-001` are green. Repriced T-272 owns active S03. Current
 implementation has established the first independently packed, Program-owned
 One Surface start/read/respond/continue path. Product-owned evaluator output
-and ABG-owned construction-intent admission are green at `771e82e5`. It must
-now add post-evidence refresh and the retained S03 consequence,
-runtime-disposition, and public-control behavior through that same path. Do not
-use the forty-row qualification matrix as the implementation queue.
+and ABG-owned construction-intent admission are green at `771e82e5`. The
+governed evidence fold and post-evidence model, gap, and next-action refresh
+are green at `d5f8dbf6`. It must now add the retained S03 consequence,
+runtime-disposition, and public-control behavior through that same path. Do
+not use the forty-row qualification matrix as the implementation queue.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -95,8 +96,9 @@ This block is a thin read model. It does not duplicate the full Product.
 - `ABI5-ROOT-001` remains the regression gate. `ABI5-M5-EXT-001` and corrected
   S02 are green. The first Program-owned S03 start/read/respond/continue path
   is green. Product-owned next-action output and ABG-owned construction-intent
-  admission are green. Post-evidence refresh and retained S03 routes remain the
-  current frontier.
+  admission are green. The admitted evidence ledger, closure candidate, and
+  post-evidence model/gap/next-action refresh are green. Retained S03 routes
+  remain the current frontier.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.

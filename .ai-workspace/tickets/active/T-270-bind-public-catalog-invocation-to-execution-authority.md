@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_s03_active
-- review_status: corrected_s02_repair_green_s03_active
-- proof_status: s02_repaired_green_s03_open
+- review_status: s03_governed_evidence_fold_green_design_review_pending
+- proof_status: s02_green_s03_governed_fold_green_s03_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -25,7 +25,7 @@
     REQ-P-SCENARIOS-009 and REQ-P-SCENARIOS-010
 - triaged_at: 2026-07-24
 - created_at: 2026-07-14
-- updated_at: 2026-07-24
+- updated_at: 2026-07-25
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
@@ -36,9 +36,10 @@
     T-272 is released for ABG5-S03 through the same Product path
 - accepted_m5_design_commit: d6da426947e1b7e18e7ed5bd1c0f945dcde9c73f
 - accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
+- pending_t272_design_sha256: d437db883ebdd18a33d809be7fcbec6b1ff3eeeb20da6375b39d1e202b2acd5a
 - regression_binding: ABI5-ROOT-001
 - current_product_frontier: ABG5-S03-ONE-SURFACE-CONTINUATION
-- current_implementation_base: cbb57d567ca3ecb0a94817a8a89419836f74235b
+- current_implementation_base: d5f8dbf6
 - retained_implementation_subject: ffba4e71456cf19168fa2bbf2981b463e018a0cf
 - current_branch_head_at_intake: e0575b824773d2105110918cf71257deca8b0f3a
 - selected_method_release: STDO v2.0.0
@@ -149,7 +150,7 @@ working installed slice and scales to the changed authority and risk boundary.
 |---:|---|---|
 | `1` | `T-270`, `T-281` | From an empty consumer directory, install packed ABIogenesis and a separately packed developer mini-product; resolve a non-empty Product lock; admit its supplied publication; invoke it through installed SDK and CLI; and derive the same typed result from ABG replay. |
 | `2` | `T-270` | **Repaired and complete at `cbb57d56`:** representative complete graph/C behavior, live F_P, four compute-fibre rows, eight structural-form rows, fibre substitution, durable F_H across fresh contexts, installed nonterminal identity, malformed GTL refusal, and owned negatives close S02. |
-| `3` | `T-272` | **Active:** use durable F_H response and same-run continuation to exercise One Surface, consequence/runtime/public-control rows, and close `ABG5-S03`. |
+| `3` | `T-272` | **Governed evidence fold and post-evidence refresh green at `d5f8dbf6`; affected design review pending; active:** use the same external Product path to complete consequence/runtime/public-control rows and close `ABG5-S03`. |
 | `4` | `T-274`, `T-275`, `T-276` | Execute Consensus through the same ordinary extension, catalog, GTL, HoG, ABG, and public path; close `ABG5-S05`. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner realization, native and bounded host projection, and independent flavored-catalog portability through the same extension path; close `ABG5-S06` and make `ABG5-S04` runnable. |
 | `6` | `T-270` | Re-evaluate the feature ledger and freeze one exact M5 candidate; the complete forty-row conservation sweep remains an M6 qualification obligation. |
@@ -795,16 +796,44 @@ T-272 implementation commit `771e82e5` advances the already-green external
 Product path without changing T-270's parent boundary. The developer Program
 now emits distinct model, gap, next-action, human-approval, and
 action-evaluation values. ABG admits the `NextActionProjection`, derives one
-execution-bound `ConstructionIntent`, carries both through the existing route
-event, requires the exact intent at F_H open and response, and projects it from
-replay. Public neither selects nor recomputes the action.
+execution-bound `ConstructionIntent`, records it through the canonical
+construction selection event, requires the exact intent at F_H open and
+response, and projects it from replay. Public neither selects nor recomputes
+the action.
 
 Fresh verification is M5 `75/75`, M4 `26/26`, external Product `4/4`, live
 F_P `1/1`, and conservation `44` pass with `18` explicit gaps. The package
 reproduces twice at
 `3ed3142c0e7b29f78bd17de9c693619e936a2b3cca8b6fd98582b5b34453d845`.
-S03 remains open for post-evidence refresh and its remaining scenario-owned
-routes.
+This earlier checkpoint did not close S03.
+
+## S03 Governed Evidence Fold Checkpoint
+
+T-272 implementation commit `d5f8dbf6` extends the same external Product
+vertically:
+
+- the Program publishes the selected action's exact obligations, assets,
+  expected delta, and progress/stop conditions in one validated action catalog;
+- `construction_intent_selected` is the canonical intent event, causally after
+  traversal admission and before F_H opening;
+- F_H response remains nonterminal evidence input;
+- Product-owned `evaluateAction` emits one `EdgeFulfillmentLedger` and
+  `EdgeClosureDecision(close_candidate)` through ordinary C-call truth;
+- ABG admits one construction delta only after reconciling the catalog,
+  intent, F_H lifecycle, and action-evaluation evidence; and
+- Product-owned model, gap, and next-action refreshes must produce one
+  converged projection bound to that delta before ordinary run closure.
+
+Missing selected-action membership refuses before intent and F_H admission. A
+response naming another valid intent still refuses before response admission.
+Fresh proof is M5 `75/75`, M4 `26/26`, external Product `4/4`, live F_P `1/1`,
+and two byte-identical packs at
+`2922f06fa25abed877e09753e2247bff0dedd09fcce17ae8cb89b1bd87aa2142`.
+
+The affected M05 Section 12 design is pending exact review at SHA-256
+`d437db883ebdd18a33d809be7fcbec6b1ff3eeeb20da6375b39d1e202b2acd5a`;
+it does not inherit the accepted M5 base identity. S03 remains open for its
+remaining scenario-owned routes.
 
 ## 4.6 Conservation
 
@@ -836,7 +865,7 @@ not a proof that the Product is complete.
 | `A5-F04` probabilistic result integrity | current-candidate live F_P evidence/result admission and malformed, incomplete, contradictory, unattributed, and extra-field refusals proven | `T-270` / S02 complete |
 | `A5-F05` one public contract authority | caller-supplied independent publication proven; complete public family pending | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | independent Product invocation proven through both installed surfaces; complete public family pending | `T-281` / S06 |
-| `A5-F07` complete One Surface loop | Product-owned model, gap, next-action, approval, and action-evaluation values plus ABG-owned construction-intent admission proven through the external Product; post-evidence refresh and remaining S03 routes pending | `T-272` / S03 |
+| `A5-F07` complete One Surface loop | Product-owned model, gap, next-action, approval, action-evaluation, evidence-ledger, closure-candidate, and post-evidence refresh values plus ABG-owned intent and construction-delta admission proven through the external Product; remaining S03 routes pending | `T-272` / S03 |
 | `A5-F08` Consensus free construction | absent | `T-274`, `T-275`, `T-276` / S05 |
 | `A5-F09` catalog semantics | product-neutral admit, view, and invoke proven for an independent Product | `T-270`, `T-281` / S02 and S06 |
 | `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, terminal, exact durable-history reopen, and F_H hold/respond/continue subsets proven; S03 and later scenario truth remains open | `T-270`, `T-272` / S02 complete, S03 active |

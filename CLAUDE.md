@@ -3,12 +3,14 @@
 ## Current State
 
 The ABIogenesis 5.0 Product destination, M2 correction vector, M3 direct-GTL
-realization design, and bounded M5 design delta are accepted. T-286 completed
-the installed `ABI5-ROOT-001` bootstrap. T-270 owns active M5 realization;
-T-272 owns current S03. The independently packed developer Product now carries
-Product-owned next-action evaluation and ABG-owned construction-intent
-admission through the installed public path. Existing M5 traversal work is
-regression evidence, not the current work queue.
+realization design, and M5 base design are accepted. T-286 completed the
+installed `ABI5-ROOT-001` bootstrap. T-270 owns active M5 realization; T-272
+owns current S03. The independently packed developer Product now carries
+Product-owned next-action evaluation, ABG-owned construction-intent and
+construction-delta admission, and post-evidence model/gap/next-action refresh
+through the installed public path. The affected M05 Section 12 delta remains
+pending exact review. Existing M5 traversal work is regression evidence, not
+the current work queue.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.
@@ -44,7 +46,7 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: S02 complete; S03 selected-action and intent checkpoint green
+**Status**: S02 complete; S03 governed evidence-fold checkpoint green
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
@@ -61,8 +63,8 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
   closure.
 - `ABI5-ROOT-001` remains the installed regression gate.
 - `ABI5-M5-EXT-001` and corrected S02 are green. T-272 now extends the same
-  external Product path through post-evidence refresh and the remaining S03
-  consequence, runtime-disposition, and public-control behavior.
+  external Product path through the remaining S03 consequence,
+  runtime-disposition, and public-control behavior.
 
 RC5, X, and final-integration remain sideways donor evidence. T-270 may admit
 only claims explicitly conserved by the accepted correction vector and current

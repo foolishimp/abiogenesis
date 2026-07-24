@@ -1,15 +1,16 @@
 # M05 Direct GTL Traversal Expansion Design
 
-**Status**: Candidate under T-270; co-evolution evidence may proceed, promotion
-requires acceptance of this affected-boundary delta
+**Status**: M5 base accepted at `d6da4269`; Section 12 is a T-272
+affected-boundary candidate whose implementation evidence is green and whose
+promotion requires review and acceptance
 **Date**: 2026-07-22
 **Parent design**:
 `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`, accepted SHA-256
 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`
 **Product boundary**: `A5-F02`, `A5-F03`, `A5-F04`, `A5-F09`, `A5-F10`,
 `A5-F14`; enables later `A5-F07`, `A5-F08`, `A5-F12`, and `A5-F17`
-**Scenario boundary**: `ABG5-S02`, with continuation inputs for `ABG5-S03`
-**Work owner**: T-270
+**Scenario boundary**: completed `ABG5-S02`; Section 12 advances `ABG5-S03`
+**Work owner**: T-270 parent; T-272 for Section 12
 **Sequencing**: co-evolution inside the decisions fixed here; a newly exposed
 material authority or lifecycle ambiguity returns to design before promotion
 
@@ -1161,37 +1162,104 @@ This design delta is acceptable when review confirms:
 12. no compiled plan, generated program, feature controller, or rival event
     path is constructible.
 
-## 12. T-272 One Surface Intent Extension
+## 12. T-272 One Surface Governed Evidence Fold
 
 This bounded S03 delta co-evolves the deferred One Surface boundary without
-changing the accepted authority split or adding an event family.
+changing the accepted authority split or adding a rival event family.
 
 ```text
-Product-owned evaluateNext
-  -> typed NextActionProjection as an ordinary admitted C-call result
-  -> traversal_route_admitted binds that projection to the exact successor GTL cursor
-  -> ABG derives one ConstructionIntent over the invocation and execution basis
-  -> F_H opening consumes that exact intent
-  -> project.read renders the admitted projection from replay
-  -> interaction.respond must bind the same intent
-  -> run.continue re-enters the already admitted successor cursor
+Program-published ActionCatalog
+  -> Product-owned evaluateNext emits one typed NextActionProjection
+  -> ordinary C-call evidence, result, and judgment admission
+  -> traversal_route_admitted advances to the declared F_H cursor
+  -> construction_intent_selected binds the selected catalog row and cursor
+  -> F_H hold -> project.read -> interaction.respond -> run.continue
+  -> Product-owned evaluateAction emits:
+       ActionEvaluationProjection
+       + EdgeFulfillmentLedger
+       + EdgeClosureDecision(close_candidate)
+  -> ordinary C-call evidence, result, and judgment admission
+  -> construction_delta_observed binds the complete runtime evidence fold
+  -> Product-owned synthesizeModel refresh
+  -> Product-owned evalGap refresh
+  -> Product-owned evaluateNext emits converged NextActionProjection
+  -> ABG admits terminal route and ordinary run closure
 ```
 
-The Product owns the projection's semantic contract, selected action,
-obligations, assets, expected delta, progress condition, and stop condition.
-ABG does not choose those values. ABG admits the projection only when its
-canonical identity selects the current Program, GraphFunction, and declared
-successor F_H locus. The resulting `ConstructionIntent` binds the projection
-identity to the workspace, invocation, Program, GraphFunction, ExecutionBasis,
-Run, GraphCall, Frame, source C-call/result/judgment, and target cursor.
+### 12.1 Product And Static Authority
 
-The existing `traversal_route_admitted` event carries both immutable values and
-initiates one intent-availability fluent. The matching
-`fh_interaction_opened` event consumes that exact fluent and preserves the
-intent identity in durable continuation truth. Replay exposes the values;
-Public performs no selection or recomputation. A Product-valid response naming
-another intent refuses before `fh_interaction_responded`.
+The admitted `GtlProgram` publishes one immutable `ActionCatalog`. Each row
+owns the action identity, kind, Program, GraphFunction, target locus,
+obligations, input and output assets, expected delta, progress condition, and
+stop condition. Whole-Program validation checks canonical catalog identity,
+unique action membership, and exact Program, callable, and locus membership.
+The catalog is Product declaration truth; it is not a runtime selector.
 
-This delta establishes selected-action and construction-intent admission. It
-does not close S03, implement post-evidence refresh, or disposition the
+`evaluateNext` owns the semantic selection. ABG admits its
+`NextActionProjection` only when the selected action resolves to exactly one
+row in the admitted Program catalog and every row field equals the projection.
+The resulting `ConstructionIntent` binds that row and projection to the
+workspace, invocation, Program, GraphFunction, ExecutionBasis, Run, GraphCall,
+Frame, source C-call/result/judgment, and successor cursor. Public and HoG
+choose none of those values.
+
+### 12.2 Canonical Intent And Continuation
+
+`traversal_route_admitted` remains traversal truth only. The existing
+construction-event family supplies `construction_intent_selected` as the
+canonical intent boundary, causally after the admitted route. It initiates the
+exact intent-availability fluent. `fh_interaction_opened` consumes that fluent,
+and durable continuation truth preserves its identity. Replay joins the intent
+to the route for `project.read`; Public performs no selection or recomputation.
+A Product-valid response naming another intent refuses before
+`fh_interaction_responded`.
+
+The F_H response is evidence input only. It cannot directly close the Run.
+`run.continue` re-enters the already admitted successor cursor and completes
+the ordinary `evaluateAction` C-call.
+
+### 12.3 Evidence Fold And Closure
+
+The Product-owned `ActionEvaluationProjection` carries one canonical
+`EdgeFulfillmentLedger` and one canonical
+`EdgeClosureDecision(close_candidate)`. ABG admits
+`construction_delta_observed` only when:
+
+1. the projection, ledger, and decision share the admitted intent and target;
+2. ledger obligations and semantic evidence assets equal the selected
+   `ActionCatalog` row;
+3. the intent selection, F_H open, response, and resume events exist in the
+   same Run and Frame;
+4. the `evaluateAction` C-call has admitted evidence, result, and judgment; and
+5. the delta binds all of those event and carrier identities to the exact
+   successor refresh cursor.
+
+`construction_delta_observed` is durable admitted truth with no independent
+active fluent. Product-owned model, gap, and next-action refreshes then execute
+as ordinary declared C-calls. A terminal route may close only when the final
+`NextActionProjection` is `converged` and cites the admitted intent, closure
+decision, refreshed gap, and matching construction delta. Model, gap, ledger,
+decision, and next-action values remain Product semantics; ABG admits and
+replays them but does not calculate them.
+
+### 12.4 Prohibitions And Evidence
+
+- No F_H response, pending result, or individual evidence row is closure
+  truth.
+- No action absent from the admitted Program catalog may open an intent or F_H
+  interaction.
+- No route event doubles as construction-intent authority.
+- No Public, HoG, implementation, or projector selects an action or creates a
+  ledger, decision, delta, or terminal truth.
+- No model, gap, or projection-specific event family is introduced; ordinary
+  C-call truth plus the published construction events remains sufficient.
+
+The installed external Product proves the complete sequence through fresh
+public contexts and the same durable Run. It also proves that a canonical
+Program whose catalog omits the proposed action refuses before intent or F_H
+admission, and that an otherwise Product-valid response naming another intent
+refuses before response admission.
+
+This delta repairs the selected-action, governed evidence-fold, and
+post-evidence refresh boundary. It does not close S03 or disposition the
 remaining consequence, runtime-disposition, and public-control obligations.
