@@ -1169,7 +1169,10 @@ This bounded S03 delta co-evolves the deferred One Surface boundary without
 changing the accepted authority split or adding a rival event family.
 
 ```text
-Program-published ActionCatalog
+Program-published ConstructionComposition
+  (exact synthesizeModel + evalGap + evaluateNext + evaluateAction authorities
+   + exact initial/refresh loci + interaction locus + closure policy)
+  + Program-published ActionCatalog
   + ABG-admitted ObservationSnapshot
   -> Product-owned model synthesis
   -> Product-owned evalGap emits one typed NextActionBasis
@@ -1188,7 +1191,10 @@ Program-published ActionCatalog
        + EdgeFulfillmentLedger
        + EdgeClosureDecision(close_candidate)
   -> ordinary C-call evidence, result, and judgment admission
-  -> construction_delta_observed binds the complete runtime evidence fold
+  -> ABG admits the candidate ledger and closure decision under the exact
+       ConstructionComposition
+  -> construction_delta_observed binds that admission and the complete
+       runtime evidence fold
   -> Product-owned refreshed ObservationSnapshot
   -> Product-owned refreshed NextActionBasis with converged frontier
   -> Product-owned evaluateNext emits converged NextActionProjection
@@ -1204,6 +1210,17 @@ stop condition. Whole-Program validation checks canonical catalog identity,
 unique action membership, and exact Program, callable, and locus membership.
 The catalog is Product declaration truth; it is not a runtime selector.
 
+The same Program publishes one immutable `ConstructionComposition` containing
+exactly four semantic-authority bindings: `synthesizeModel`, `evalGap`,
+`evaluateNext`, and `evaluateAction`. Each binding owns one stable authority
+identity and its declared initial and, where applicable, refresh locus. The
+composition also names the F_H interaction locus and the exact Product closure
+policy. Whole-Program validation proves that every locus is a member of the
+same callable graph and that the initial and refresh passes use the same
+authority identities. The admitted `ExecutionBasis` preserves the exact
+composition identity and body. `stageRole` remains descriptive metadata and
+never selects a semantic authority.
+
 `evaluateNext` owns the semantic selection. ABG admits its
 `NextActionProjection` only when the selected action resolves to exactly one
 row in the admitted Program catalog and every row field equals the projection.
@@ -1217,9 +1234,10 @@ not an ABG selection algorithm. ABG verifies its identity and admitted
 environment; Product owns its semantic contents and the subsequent selection.
 
 The resulting `ConstructionIntent` binds the `NextActionBasis`, selected row,
-and projection to the workspace, invocation, Program, GraphFunction,
-ExecutionBasis, Run, GraphCall, Frame, source C-call/result/judgment, and
-successor cursor. Public and HoG choose none of those values.
+projection, `ConstructionComposition`, and `evaluateNext` authority to the
+workspace, invocation, Program, GraphFunction, ExecutionBasis, Run, GraphCall,
+Frame, source C-call/result/judgment, and successor cursor. Public and HoG
+choose none of those values.
 
 ### 12.2 Canonical Intent And Continuation
 
@@ -1236,28 +1254,43 @@ The F_H response is evidence input only. It cannot directly close the Run.
 For a continuation carrying an admitted construction intent, ABG derives one
 `ActionEvaluationBasis` from replay-visible truth before `run.continue`
 re-enters HoG. The basis contains the exact intent, preceding
-`NextActionBasis`, complete admitted response evidence, WorkspaceBinding,
-selected ActionCatalog identity, closure policy, and causal runtime event
-references. The Product-owned `evaluateAction` function consumes this complete
-basis. A raw F_H response or incomplete basis cannot enter that C-call.
+`NextActionBasis`, actual semantic evidence assets admitted from the Product
+response, WorkspaceBinding, selected ActionCatalog identity, the exact
+Program-declared closure policy, and causal runtime event references. Expected
+output assets remain obligations and cannot be copied into evidence. The
+Product-owned `evaluateAction` function consumes this complete basis. A raw
+F_H response, unobserved expected output, substituted workspace or policy, or
+otherwise incomplete basis cannot enter or complete that C-call.
 Ordinary F_H continuations without a construction intent continue to receive
 their declared Product response value.
+
+`fh_interaction_resume_admitted` consumes the prior continuation and
+reactivates the held frame. Every later refusal or failure is therefore
+totalized in ABG truth before the public operation returns: the Run either
+advances, opens a replacement continuation, blocks, or admits
+`runtime_failure_observed`. A consumed continuation cannot leave an active
+unreachable Run.
 
 ### 12.3 Evidence Fold And Closure
 
 The Product-owned `ActionEvaluationProjection` carries one canonical
 `EdgeFulfillmentLedger` and one canonical
-`EdgeClosureDecision(close_candidate)`. ABG admits
-`construction_delta_observed` only when:
+`EdgeClosureDecision(close_candidate)`. Those values remain candidates until
+ABG admits one exact action-evaluation fold under the admitted
+`ConstructionComposition`. `construction_delta_observed` records that
+admission identity and is admitted only when:
 
-1. the projection, ledger, and decision share the admitted intent and target;
-2. ledger obligations and semantic evidence assets equal the selected
-   `ActionCatalog` row;
-3. the intent selection, F_H open, response, and resume events exist in the
+1. the projection, ledger, and decision share the admitted intent, composition,
+   action-evaluation basis, and target;
+2. ledger obligations equal the selected `ActionCatalog` row while its
+   evidence references and assets equal the actual complete admitted evidence;
+3. the observation, workspace, catalog, obligation, policy, and intent chain
+   equals the preceding `NextActionBasis` and admitted `ExecutionBasis`;
+4. the intent selection, F_H open, response, and resume events exist in the
    same Run and Frame;
-4. the `evaluateAction` C-call has admitted evidence, result, and judgment; and
-5. the delta binds all of those event and carrier identities to the exact
-   successor refresh cursor.
+5. the `evaluateAction` C-call has admitted evidence, result, and judgment; and
+6. the action-evaluation admission and delta bind all of those event and
+   carrier identities to the exact successor refresh cursor.
 
 `construction_delta_observed` is durable admitted truth with no independent
 active fluent. Product-owned model, gap, and next-action refreshes then execute
@@ -1265,14 +1298,16 @@ as ordinary declared C-calls. They produce a refreshed `ObservationSnapshot`,
 a refreshed `NextActionBasis` whose runtime frontier is `converged`, and a
 final converged `NextActionProjection`.
 
-Closure is state-governed, not label-governed. If an exact Run and Frame
-contains `construction_intent_selected`, no terminal route is admissible
-unless replay also contains its matching `construction_delta_observed`, the
-post-delta refreshed basis, and the converged projection citing the admitted
-intent, closure decision, and refreshed gap. A terminal route immediately
-after `evaluateAction`, directly from F_H resume, or under any renamed stage
-role cannot bypass that invariant. Stage-role strings describe Product
-structure; they carry no closure authority.
+Closure is state-governed, not label-governed. If an exact Run contains any
+`construction_intent_selected`, no terminal route is admissible unless every
+intent in every GraphCall and Frame has its matching later
+`construction_delta_observed` with an admitted action-evaluation fold. The
+terminal frame must also contain the post-delta refreshed basis and converged
+projection citing its admitted intent, closure decision, and refreshed gap.
+The refreshed calls must use the same three declared semantic-authority
+identities as the initial model, gap, and next-action calls. A terminal route
+immediately after `evaluateAction`, directly from F_H resume, or under any
+renamed or omitted stage role cannot bypass that invariant.
 
 Model, gap, basis, ledger, decision, and next-action values remain Product
 semantics. ABG admits and replays them but does not calculate them.
@@ -1281,9 +1316,13 @@ semantics. ABG admits and replays them but does not calculate them.
 
 - No F_H response, pending result, or individual evidence row is closure
   truth.
+- No expected output asset is semantic evidence until Product output and ABG
+  admission establish it.
 - No scalar approval value substitutes for `ActionEvaluationBasis`.
 - No action absent from the admitted Program catalog may open an intent or F_H
   interaction.
+- No substituted policy, observation, workspace, catalog, obligation, or
+  semantic-authority identity may enter the governed fold.
 - No route event doubles as construction-intent authority.
 - No Public, HoG, implementation, or projector selects an action or creates a
   ledger, decision, delta, or terminal truth.
@@ -1299,12 +1338,18 @@ prove refusal of:
 
 1. terminal closure immediately after `evaluateAction`;
 2. terminal closure directly from the F_H resume;
-3. the old scalar approval input in place of `ActionEvaluationBasis`; and
-4. a canonical ledger and decision that omit the admitted evidence.
+3. the old scalar approval input in place of `ActionEvaluationBasis`;
+4. a canonical ledger and decision that omit the admitted evidence;
+5. a Product-valid substituted closure policy;
+6. a Product-valid action absent from the admitted catalog;
+7. expected but unobserved output assets;
+8. a self-consistent substituted WorkspaceBinding;
+9. an unresolved construction intent in another Frame; and
+10. an installed-byte failure after continuation resume.
 
-A complete converged path with a renamed terminal stage role remains green,
-proving that replay-visible construction state, not a magic role string, owns
-closure.
+A complete converged path with every descriptive stage role renamed remains
+green, proving that the admitted `ConstructionComposition` and replay-visible
+lineage, not magic strings, own construction semantics and closure.
 
 This delta repairs the selected-action, governed evidence-fold, and
 post-evidence refresh boundary. It does not close S03 or disposition the

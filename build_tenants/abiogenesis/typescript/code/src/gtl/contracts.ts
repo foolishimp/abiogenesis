@@ -386,6 +386,43 @@ export interface GtlActionCatalog {
   readonly rows: readonly GtlActionCatalogRow[];
 }
 
+export type GtlConstructionSemanticAuthority =
+  | "synthesizeModel"
+  | "evalGap"
+  | "evaluateNext"
+  | "evaluateAction";
+
+export interface GtlConstructionAuthorityBinding {
+  readonly kind: "construction_authority_binding";
+  readonly semanticAuthority: GtlConstructionSemanticAuthority;
+  readonly authorityRef: string;
+  readonly initialProgramLocusRef: string;
+  readonly refreshProgramLocusRef: string | null;
+}
+
+export interface GtlConstructionPolicy {
+  readonly kind: "construction_policy";
+  readonly policyRef: string;
+  readonly requireCompleteEvidence: boolean;
+  readonly requirePostEvidenceRefresh: boolean;
+}
+
+export interface GtlConstructionComposition {
+  readonly kind: "construction_composition";
+  readonly schemaVersion: "5.0.0";
+  readonly compositionRef: string;
+  readonly compositionDigest: Sha256Digest;
+  readonly graphFunctionRef: string;
+  readonly authorities: readonly [
+    GtlConstructionAuthorityBinding,
+    GtlConstructionAuthorityBinding,
+    GtlConstructionAuthorityBinding,
+    GtlConstructionAuthorityBinding,
+  ];
+  readonly interactionProgramLocusRef: string;
+  readonly closurePolicy: GtlConstructionPolicy;
+}
+
 export interface GtlProgram {
   readonly kind: "gtl_program";
   readonly programRef: string;
@@ -396,6 +433,7 @@ export interface GtlProgram {
   readonly closureContractRef: string;
   readonly policies: Readonly<Record<string, string>>;
   readonly actionCatalog?: GtlActionCatalog;
+  readonly constructionComposition?: GtlConstructionComposition;
 }
 
 export type CatalogContributionKind = "graph_function" | "node_type" | "overlay";

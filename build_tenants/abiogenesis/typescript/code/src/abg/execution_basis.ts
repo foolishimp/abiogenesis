@@ -2,6 +2,7 @@ import type {
   ClosureContract,
   GraphFunction,
   GtlActionCatalogRow,
+  GtlConstructionComposition,
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
@@ -170,6 +171,11 @@ export interface ExecutionBasis {
   readonly actionCatalogRef: string | null;
   readonly actionCatalogDigest: Sha256Digest | null;
   readonly actionCatalogRows: readonly GtlActionCatalogRow[];
+  readonly constructionCompositionRef: string | null;
+  readonly constructionCompositionDigest: Sha256Digest | null;
+  readonly constructionComposition:
+    | Readonly<GtlConstructionComposition>
+    | null;
   readonly programRef: string;
   readonly programDigest: Sha256Digest;
   readonly graphFunctionRef: string;
@@ -328,6 +334,48 @@ export function isAdmittedImplementationSet(value: object): boolean {
 
 export function isAdmittedInteractionSet(value: object): boolean {
   return interactionSets.has(value);
+}
+
+export function admittedConstructionComposition(
+  basis: ExecutionBasis,
+): Readonly<GtlConstructionComposition> | null {
+  const composition = basis.constructionComposition;
+  if (composition === null) return null;
+  const { compositionDigest, ...body } = composition;
+  return (
+      basis.constructionCompositionRef === composition.compositionRef &&
+      basis.constructionCompositionDigest === compositionDigest &&
+      compositionDigest === sha256Canonical(body as unknown as JsonValue) &&
+      composition.graphFunctionRef === basis.graphFunctionRef
+    )
+    ? composition
+    : null;
+}
+
+export function selectAdmittedConstructionAuthority(
+  basis: ExecutionBasis,
+  semanticAuthority:
+    | "synthesizeModel"
+    | "evalGap"
+    | "evaluateNext"
+    | "evaluateAction",
+) {
+  const composition = admittedConstructionComposition(basis);
+  const matches = composition?.authorities.filter(
+    (binding) => binding.semanticAuthority === semanticAuthority,
+  ) ?? [];
+  return matches.length === 1 ? matches[0]! : null;
+}
+
+export function isAdmittedConstructionInteractionLocus(
+  basis: ExecutionBasis,
+  programLocusRef: string,
+  compositionRef: string | null,
+): boolean {
+  const composition = admittedConstructionComposition(basis);
+  return composition !== null &&
+    composition.compositionRef === compositionRef &&
+    composition.interactionProgramLocusRef === programLocusRef;
 }
 
 export function hasAdmittedImplementationSet(
@@ -928,6 +976,11 @@ export function admitExecutionBasis(
     actionCatalogRef: input.program.actionCatalog?.catalogRef ?? null,
     actionCatalogDigest: input.program.actionCatalog?.catalogDigest ?? null,
     actionCatalogRows: input.program.actionCatalog?.rows ?? [],
+    constructionCompositionRef:
+      input.program.constructionComposition?.compositionRef ?? null,
+    constructionCompositionDigest:
+      input.program.constructionComposition?.compositionDigest ?? null,
+    constructionComposition: input.program.constructionComposition ?? null,
     programRef: input.invocationAdmission.programRef,
     programDigest: input.invocationAdmission.programDigest,
     graphFunctionRef: input.invocationAdmission.graphFunctionRef,
@@ -1164,6 +1217,9 @@ export function admitChildExecutionBasis(
     actionCatalogRef: parent.actionCatalogRef,
     actionCatalogDigest: parent.actionCatalogDigest,
     actionCatalogRows: parent.actionCatalogRows,
+    constructionCompositionRef: parent.constructionCompositionRef,
+    constructionCompositionDigest: parent.constructionCompositionDigest,
+    constructionComposition: parent.constructionComposition,
     programRef: parent.programRef,
     programDigest: parent.programDigest,
     graphFunctionRef: input.graphFunction.name,

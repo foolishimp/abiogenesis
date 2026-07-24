@@ -1076,6 +1076,114 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       message: `duplicate validated leaf requirement ${requirementKey}`,
     });
   }
+  if (program.constructionComposition !== undefined) {
+    const composition = program.constructionComposition;
+    const { compositionDigest, ...compositionBody } = composition;
+    const expectedSemanticAuthorities = [
+      "synthesizeModel",
+      "evalGap",
+      "evaluateNext",
+      "evaluateAction",
+    ] as const;
+    const expectedLocusOrder = [
+      composition.authorities[0]?.initialProgramLocusRef,
+      composition.authorities[1]?.initialProgramLocusRef,
+      composition.authorities[2]?.initialProgramLocusRef,
+      composition.interactionProgramLocusRef,
+      composition.authorities[3]?.initialProgramLocusRef,
+      composition.authorities[0]?.refreshProgramLocusRef,
+      composition.authorities[1]?.refreshProgramLocusRef,
+      composition.authorities[2]?.refreshProgramLocusRef,
+    ];
+    const boundLocusRefs = expectedLocusOrder.filter(
+      (value): value is string => typeof value === "string",
+    );
+    const compositionRows = [
+      ...executableLeafRows,
+      ...interactionLeafRows,
+    ].filter(
+      (row) =>
+        row.graphFunctionRef === composition.graphFunctionRef &&
+        row.compositionRef === composition.compositionRef,
+    ).sort((left, right) => left.vectorIndex - right.vectorIndex);
+    const authorityShapeIsExact =
+      composition.authorities.length === 4 &&
+      composition.authorities.every((binding, index) =>
+        hasExactKeys(binding, [
+          "authorityRef",
+          "initialProgramLocusRef",
+          "kind",
+          "refreshProgramLocusRef",
+          "semanticAuthority",
+        ]) &&
+        binding.kind === "construction_authority_binding" &&
+        binding.semanticAuthority === expectedSemanticAuthorities[index] &&
+        binding.authorityRef.length > 0 &&
+        binding.initialProgramLocusRef.length > 0 &&
+        (
+          binding.refreshProgramLocusRef === null ||
+          binding.refreshProgramLocusRef.length > 0
+        ) &&
+        (
+          binding.semanticAuthority === "evaluateAction"
+            ? binding.refreshProgramLocusRef === null
+            : binding.refreshProgramLocusRef !== null
+        )
+      );
+    const compositionShapeIsExact =
+      hasExactKeys(composition, [
+        "authorities",
+        "closurePolicy",
+        "compositionDigest",
+        "compositionRef",
+        "graphFunctionRef",
+        "interactionProgramLocusRef",
+        "kind",
+        "schemaVersion",
+      ]) &&
+      composition.kind === "construction_composition" &&
+      composition.schemaVersion === "5.0.0" &&
+      composition.compositionRef.length > 0 &&
+      composition.graphFunctionRef.length > 0 &&
+      composition.interactionProgramLocusRef.length > 0 &&
+      compositionDigest === sha256Canonical(
+        compositionBody as unknown as JsonValue,
+      ) &&
+      hasExactKeys(composition.closurePolicy, [
+        "kind",
+        "policyRef",
+        "requireCompleteEvidence",
+        "requirePostEvidenceRefresh",
+      ]) &&
+      composition.closurePolicy.kind === "construction_policy" &&
+      composition.closurePolicy.policyRef.length > 0 &&
+      composition.closurePolicy.requireCompleteEvidence === true &&
+      composition.closurePolicy.requirePostEvidenceRefresh === true;
+    const compositionMembershipIsExact =
+      program.callableMembership.includes(composition.graphFunctionRef) &&
+      boundLocusRefs.length === 8 &&
+      new Set(boundLocusRefs).size === 8 &&
+      compositionRows.length === 8 &&
+      compositionRows.map((row) => row.programLocusRef).join("\0") ===
+        boundLocusRefs.join("\0") &&
+      compositionRows.every((row, index) => row.vectorIndex === index) &&
+      compositionRows[3]?.kind === "validated_interaction_leaf" &&
+      compositionRows.filter(
+        (row) => row.kind === "validated_interaction_leaf",
+      ).length === 1;
+    if (
+      !authorityShapeIsExact ||
+      !compositionShapeIsExact ||
+      !compositionMembershipIsExact
+    ) {
+      diagnostics.push({
+        code: "missing_membership",
+        path: "$.program.constructionComposition",
+        message:
+          "construction composition must bind the exact four semantic authorities, one interaction boundary, one Product policy, and the declared initial/refresh locus order",
+      });
+    }
+  }
   if (program.actionCatalog !== undefined) {
     const { catalogRef, catalogDigest, ...catalogBody } = program.actionCatalog;
     const expectedCatalogDigest = sha256Canonical(

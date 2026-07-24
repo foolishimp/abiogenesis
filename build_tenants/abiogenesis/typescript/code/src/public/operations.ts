@@ -1683,6 +1683,11 @@ async function applyRunContinue(
   );
   reopenContinuation(context, state);
   let completed = false;
+  let resumedFailureBasis: {
+    readonly executionBasis: abg.ExecutionBasis;
+    readonly scope: abg.OpenedTraversalScope;
+    readonly resumeEventRef: string;
+  } | null = null;
   try {
     const replayBefore = abg.replay(context.store, {
       runId: state.runId,
@@ -1790,6 +1795,11 @@ async function applyRunContinue(
         causationEventRefs: [],
       },
     );
+    resumedFailureBasis = {
+      executionBasis: rehydrated.executionBasis,
+      scope: rehydrated.openedTraversalScope,
+      resumeEventRef: resume.admissionEventRef,
+    };
     let completion = hog.completeInteractionResume({
       store: context.store,
       executionBasis: rehydrated.executionBasis,
@@ -1949,6 +1959,31 @@ async function applyRunContinue(
     );
     completed = outcome.disposition === "succeeded";
     return outcome;
+  } catch (error) {
+    if (resumedFailureBasis !== null) {
+      const replayAfterFailure = abg.replay(context.store, {
+        runId: state.runId,
+      });
+      if (replayAfterFailure.runtimeStatus === "active") {
+        abg.admitRuntimeFailure(
+          context.store,
+          resumedFailureBasis.executionBasis,
+          resumedFailureBasis.scope,
+          "operation_application",
+          {
+            continuationRef,
+            error: String(error),
+          },
+          "diagnostic://abiogenesis/continuation/post-resume-failure@5",
+          {
+            eventTime: invocation.eventTime,
+            correlationId: `${invocation.correlationId}/post-resume-failure`,
+            causationEventRefs: [resumedFailureBasis.resumeEventRef],
+          },
+        );
+      }
+    }
+    throw error;
   } finally {
     closeAndRememberContinuation(context, state);
     if (completed) continuationLocatorMap(context).delete(continuationRef);

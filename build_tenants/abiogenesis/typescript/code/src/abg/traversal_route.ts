@@ -38,7 +38,9 @@ import {
   type ApplicationChildPreparationRefusalAdmission,
 } from "./graph_application.js";
 import {
+  admittedConstructionComposition as admittedBasisConstructionComposition,
   hasAdmittedExecutionBasis,
+  selectAdmittedConstructionAuthority,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
@@ -46,6 +48,7 @@ import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventBatch,
+  type RuntimeEvent,
 } from "./event_store.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
@@ -159,6 +162,9 @@ export interface ConstructionIntent {
   readonly actionCatalogRef: string;
   readonly actionCatalogDigest: Sha256Digest;
   readonly actionCatalogRowDigest: Sha256Digest;
+  readonly constructionCompositionRef: string;
+  readonly constructionCompositionDigest: Sha256Digest;
+  readonly nextActionAuthorityRef: string;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
   readonly invocationAdmissionRef: string;
@@ -689,9 +695,19 @@ function constructionIntentForAdvance(
     sourceCursor.currentNodeRef,
     sourceCursor.termPath,
   );
+  const composition = admittedConstructionComposition(executionBasis, graph);
+  const nextActionAuthority = constructionAuthority(
+    executionBasis,
+    graph,
+    "evaluateNext",
+  );
   if (
+    composition === null ||
+    nextActionAuthority === null ||
     sourceTerm.kind !== "c_of" ||
-    sourceTerm.stageRole !== "evaluateNext"
+    sourceTerm.compositionRef !== composition.compositionRef ||
+    sourceTerm.programLocusRef !==
+      nextActionAuthority.initialProgramLocusRef
   ) {
     return null;
   }
@@ -720,6 +736,31 @@ function constructionIntentForAdvance(
     basisEvent !== undefined && isJsonRecord(basisEvent.payload)
       ? nextActionBasis(basisEvent.payload.value)
       : null;
+  const observationSnapshot =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.observationSnapshot)
+      ? selectedBasis.observationSnapshot
+      : null;
+  const snapshotWorkspace =
+    observationSnapshot !== null &&
+      isJsonRecord(observationSnapshot.workspaceBinding)
+      ? observationSnapshot.workspaceBinding
+      : null;
+  const snapshotActionCatalog =
+    observationSnapshot !== null &&
+      isJsonRecord(observationSnapshot.actionCatalog)
+      ? observationSnapshot.actionCatalog
+      : null;
+  const selectedActionCatalog =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.admittedActionCatalog)
+      ? selectedBasis.admittedActionCatalog
+      : null;
+  const selectedPolicy =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.declaredPolicy)
+      ? selectedBasis.declaredPolicy
+      : null;
   const actionRows = executionBasis.actionCatalogRows.filter(
     (row) => row.actionRef === projection?.selectedActionRef,
   );
@@ -731,11 +772,31 @@ function constructionIntentForAdvance(
     projection.nextActionBasisRef !== selectedBasis.basisRef ||
     projection.nextActionBasisDigest !== selectedBasis.basisDigest ||
     !projection.lawfulBasisRefs.includes(projection.nextActionBasisRef) ||
+    observationSnapshot === null ||
+    snapshotWorkspace === null ||
+    snapshotActionCatalog === null ||
+    selectedActionCatalog === null ||
+    selectedPolicy === null ||
+    snapshotWorkspace.workspaceBindingId !==
+      executionBasis.workspaceBindingId ||
+    snapshotWorkspace.workspaceBindingDigest !==
+      executionBasis.workspaceBindingDigest ||
+    snapshotActionCatalog.catalogRef !== executionBasis.actionCatalogRef ||
+    snapshotActionCatalog.catalogDigest !==
+      executionBasis.actionCatalogDigest ||
+    sha256Canonical(snapshotActionCatalog) !==
+      sha256Canonical(selectedActionCatalog) ||
+    sha256Canonical(selectedPolicy) !==
+      sha256Canonical(
+        composition.closurePolicy as unknown as JsonValue,
+      ) ||
     executionBasis.actionCatalogRef === null ||
     executionBasis.actionCatalogDigest === null ||
     actionRow === undefined ||
     targetTerm.kind !== "c_of" ||
-    targetTerm.stageRole !== "intent" ||
+    targetTerm.compositionRef !== composition.compositionRef ||
+    targetTerm.programLocusRef !==
+      composition.interactionProgramLocusRef ||
     !isInteractionCLeaf(targetTerm) ||
     actionRow.kind !== "action_catalog_row" ||
     actionRow.actionKind !== projection.actionKind ||
@@ -780,6 +841,9 @@ function constructionIntentForAdvance(
     actionCatalogRowDigest: sha256Canonical(
       actionRow as unknown as JsonValue,
     ),
+    constructionCompositionRef: composition.compositionRef,
+    constructionCompositionDigest: composition.compositionDigest,
+    nextActionAuthorityRef: nextActionAuthority.authorityRef,
     workspaceBindingId: executionBasis.workspaceBindingId,
     workspaceBindingDigest: executionBasis.workspaceBindingDigest,
     invocationAdmissionRef: executionBasis.invocationAdmissionRef,
@@ -884,6 +948,33 @@ interface ConstructionDeltaAdmissionCandidate {
   readonly causationEventRefs: readonly string[];
 }
 
+function admittedConstructionComposition(
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+) {
+  const composition = admittedBasisConstructionComposition(executionBasis);
+  return composition?.graphFunctionRef === graph.graphFunctionRef
+    ? composition
+    : null;
+}
+
+function constructionAuthority(
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  semanticAuthority:
+    | "synthesizeModel"
+    | "evalGap"
+    | "evaluateNext"
+    | "evaluateAction",
+) {
+  const composition = admittedConstructionComposition(executionBasis, graph);
+  const binding = selectAdmittedConstructionAuthority(
+    executionBasis,
+    semanticAuthority,
+  );
+  return composition !== null ? binding : null;
+}
+
 function constructionIntentFromEvent(
   event: ReturnType<AbgEventStore["readAll"]>[number],
 ): ConstructionIntentAdmission | null {
@@ -934,9 +1025,19 @@ function constructionDeltaForAdvance(
     sourceCursor.currentNodeRef,
     sourceCursor.termPath,
   );
+  const composition = admittedConstructionComposition(executionBasis, graph);
+  const actionEvaluationAuthority = constructionAuthority(
+    executionBasis,
+    graph,
+    "evaluateAction",
+  );
   if (
+    composition === null ||
+    actionEvaluationAuthority === null ||
     sourceTerm.kind !== "c_of" ||
-    sourceTerm.stageRole !== "evaluateAction"
+    sourceTerm.compositionRef !== composition.compositionRef ||
+    sourceTerm.programLocusRef !==
+      actionEvaluationAuthority.initialProgramLocusRef
   ) {
     return null;
   }
@@ -1017,6 +1118,23 @@ function constructionDeltaForAdvance(
           : []
       )
       : [];
+  const basisEvidenceAssetRefs =
+    evaluationBasis !== null &&
+      Array.isArray(evaluationBasis.admittedEvidence)
+      ? [
+          ...new Set(
+            evaluationBasis.admittedEvidence.flatMap((row) =>
+              isJsonRecord(row) &&
+                Array.isArray(row.semanticEvidenceAssetRefs)
+                ? row.semanticEvidenceAssetRefs.filter(
+                    (entry): entry is string =>
+                      typeof entry === "string",
+                  )
+                : []
+            ),
+          ),
+        ]
+      : [];
   const basisRuntimeEventRefs =
     evaluationBasis !== null &&
       Array.isArray(evaluationBasis.runtimeEvidenceEventRefs)
@@ -1024,6 +1142,30 @@ function constructionDeltaForAdvance(
         (entry): entry is string => typeof entry === "string",
       )
       : [];
+  const evaluationNextActionBasis =
+    evaluationBasis !== null
+      ? nextActionBasis(evaluationBasis.nextActionBasis)
+      : null;
+  const evaluationObservation =
+    evaluationNextActionBasis !== null &&
+      isJsonRecord(evaluationNextActionBasis.observationSnapshot)
+      ? evaluationNextActionBasis.observationSnapshot
+      : null;
+  const evaluationWorkspace =
+    evaluationObservation !== null &&
+      isJsonRecord(evaluationObservation.workspaceBinding)
+      ? evaluationObservation.workspaceBinding
+      : null;
+  const evaluationActionCatalog =
+    evaluationNextActionBasis !== null &&
+      isJsonRecord(evaluationNextActionBasis.admittedActionCatalog)
+      ? evaluationNextActionBasis.admittedActionCatalog
+      : null;
+  const evaluationPolicy =
+    evaluationBasis !== null &&
+      isJsonRecord(evaluationBasis.closurePolicy)
+      ? evaluationBasis.closurePolicy
+      : null;
   const evidenced = events.find(
     (event) =>
       event.kind === "c_call_evidenced" &&
@@ -1038,7 +1180,11 @@ function constructionDeltaForAdvance(
     resumed === undefined ||
     evaluationBasis === null ||
     basisEvidenceRefs.length === 0 ||
+    basisEvidenceAssetRefs.length === 0 ||
     evidenced === undefined ||
+    intent.constructionCompositionRef !== composition.compositionRef ||
+    intent.constructionCompositionDigest !==
+      composition.compositionDigest ||
     intent.executionBasisRef !== executionBasis.basisRef ||
     intent.runId !== sourceCursor.runId ||
     intent.graphCallId !== sourceCursor.graphCallId ||
@@ -1049,6 +1195,38 @@ function constructionDeltaForAdvance(
     evaluation.actionEvaluationBasisRef !== evaluationBasis.basisRef ||
     evaluation.actionEvaluationBasisDigest !==
       evaluationBasis.basisDigest ||
+    evaluationNextActionBasis === null ||
+    evaluationNextActionBasis.basisRef !== intent.nextActionBasisRef ||
+    evaluationNextActionBasis.basisDigest !==
+      intent.nextActionBasisDigest ||
+    evaluationObservation === null ||
+    evaluationWorkspace === null ||
+    evaluationActionCatalog === null ||
+    evaluationPolicy === null ||
+    sha256Canonical(
+      evaluation.observationSnapshot as unknown as JsonValue,
+    ) !== sha256Canonical(evaluationObservation) ||
+    evaluationWorkspace.workspaceBindingId !==
+      executionBasis.workspaceBindingId ||
+    evaluationWorkspace.workspaceBindingDigest !==
+      executionBasis.workspaceBindingDigest ||
+    evaluationActionCatalog.catalogRef !==
+      executionBasis.actionCatalogRef ||
+    evaluationActionCatalog.catalogDigest !==
+      executionBasis.actionCatalogDigest ||
+    !isJsonRecord(evaluationBasis.actionCatalog) ||
+    evaluationBasis.actionCatalog.actionCatalogRef !==
+      intent.actionCatalogRef ||
+    evaluationBasis.actionCatalog.actionCatalogDigest !==
+      intent.actionCatalogDigest ||
+    evaluationBasis.actionCatalog.actionCatalogRowDigest !==
+      intent.actionCatalogRowDigest ||
+    evaluationBasis.actionCatalog.selectedActionRef !==
+      intent.selectedActionRef ||
+    sha256Canonical(evaluationPolicy) !==
+      sha256Canonical(
+        composition.closurePolicy as unknown as JsonValue,
+      ) ||
     !isJsonRecord(evaluationBasis.constructionIntent) ||
     evaluationBasis.constructionIntent.constructionIntentRef !==
       intent.constructionIntentRef ||
@@ -1057,11 +1235,6 @@ function constructionDeltaForAdvance(
       executionBasis.workspaceBindingId ||
     evaluationBasis.workspaceBinding.workspaceBindingDigest !==
       executionBasis.workspaceBindingDigest ||
-    !isJsonRecord(evaluationBasis.closurePolicy) ||
-    evaluationBasis.closurePolicy.closureContractRef !==
-      executionBasis.closureContractRef ||
-    evaluationBasis.closurePolicy.closureContractDigest !==
-      executionBasis.closureContractDigest ||
     !sameValues(basisRuntimeEventRefs, [
       intent.admissionEventRef,
       opened.eventId,
@@ -1077,7 +1250,12 @@ function constructionDeltaForAdvance(
     decision.constructionIntentRef !== intent.constructionIntentRef ||
     !sameValues(ledgerObligations, actionRow.targetObligationRefs) ||
     !sameValues(evaluation.admittedEvidenceRefs, basisEvidenceRefs) ||
+    !sameValues(
+      evaluation.semanticEvidenceAssetRefs,
+      basisEvidenceAssetRefs,
+    ) ||
     !sameValues(ledgerEvidenceRefs, evaluation.admittedEvidenceRefs) ||
+    !sameValues(semanticEvidenceAssetRefs, basisEvidenceAssetRefs) ||
     !sameValues(semanticEvidenceAssetRefs, actionRow.outputAssetRefs)
   ) {
     return refusal(
@@ -1097,7 +1275,43 @@ function constructionDeltaForAdvance(
     evidence.judgment.admissionEventRef,
   ];
   const actionEvaluationDigest = evaluation.actionEvaluationDigest;
+  const actionEvaluationAdmissionBody = {
+    constructionCompositionRef: composition.compositionRef,
+    constructionCompositionDigest: composition.compositionDigest,
+    actionEvaluationAuthorityRef: actionEvaluationAuthority.authorityRef,
+    constructionIntentRef: intent.constructionIntentRef,
+    constructionIntentDigest: intent.constructionIntentDigest,
+    actionEvaluationRef: evaluation.actionEvaluationRef,
+    actionEvaluationDigest,
+    edgeFulfillmentLedgerRef: ledger.ledgerRef,
+    edgeFulfillmentLedgerDigest: ledger.ledgerDigest,
+    edgeClosureDecisionRef: decision.decisionRef,
+    edgeClosureDecisionDigest: decision.decisionDigest,
+    observationSnapshotDigest: sha256Canonical(
+      evaluationObservation as unknown as JsonValue,
+    ),
+    workspaceBindingId: executionBasis.workspaceBindingId,
+    workspaceBindingDigest: executionBasis.workspaceBindingDigest,
+    semanticEvidenceAssetRefs,
+    runtimeEvidenceEventRefs,
+  };
+  const actionEvaluationAdmissionDigest = sha256Canonical(
+    actionEvaluationAdmissionBody as unknown as JsonValue,
+  );
+  const actionEvaluationAdmissionRef =
+    `action-evaluation-admission://abiogenesis/${actionEvaluationAdmissionDigest.slice("sha256:".length)}`;
+  const actionEvaluationAdmission = {
+    kind: "admitted_action_evaluation",
+    schemaVersion: "5.0.0",
+    actionEvaluationAdmissionRef,
+    actionEvaluationAdmissionDigest,
+    ...actionEvaluationAdmissionBody,
+  };
   const deltaBody = {
+    actionEvaluationAdmissionRef,
+    actionEvaluationAdmissionDigest,
+    constructionCompositionRef: composition.compositionRef,
+    constructionCompositionDigest: composition.compositionDigest,
     constructionIntentRef: intent.constructionIntentRef,
     constructionIntentDigest: intent.constructionIntentDigest,
     targetOutcomeRef: intent.targetOutcomeRef,
@@ -1127,45 +1341,125 @@ function constructionDeltaForAdvance(
       deltaDigest,
       ...deltaBody,
       actionEvaluation: evaluation as unknown as JsonValue,
+      actionEvaluationAdmission:
+        actionEvaluationAdmission as unknown as JsonValue,
       edgeFulfillmentLedger: ledger as unknown as JsonValue,
       edgeClosureDecision: decision as unknown as JsonValue,
     } as unknown as Readonly<Record<string, JsonValue>>,
   };
 }
 
+export function hasResolvedRunConstructionIntentLineage(
+  events: readonly RuntimeEvent[],
+  runId: string,
+  constructionCompositionRef: string,
+  constructionCompositionDigest: string,
+): boolean {
+  const intentEvents = events.filter(
+    (event) =>
+      event.kind === "construction_intent_selected" &&
+      event.runId === runId &&
+      isJsonRecord(event.payload),
+  );
+  return intentEvents.every((event) => {
+    if (!isJsonRecord(event.payload)) return false;
+    const eventIntentRef = event.payload.constructionIntentRef;
+    const eventIntentDigest = event.payload.constructionIntentDigest;
+    return typeof eventIntentRef === "string" &&
+      typeof eventIntentDigest === "string" &&
+      events.some(
+        (candidate) =>
+          candidate.kind === "construction_delta_observed" &&
+          candidate.runId === runId &&
+          candidate.graphCallId === event.graphCallId &&
+          candidate.frameId === event.frameId &&
+          candidate.admissionOrdinal > event.admissionOrdinal &&
+          isJsonRecord(candidate.payload) &&
+          candidate.payload.constructionIntentRef === eventIntentRef &&
+          candidate.payload.constructionIntentDigest === eventIntentDigest &&
+          candidate.payload.constructionCompositionRef ===
+            constructionCompositionRef &&
+          candidate.payload.constructionCompositionDigest ===
+            constructionCompositionDigest &&
+          typeof candidate.payload.actionEvaluationAdmissionRef ===
+            "string" &&
+          typeof candidate.payload.actionEvaluationAdmissionDigest ===
+            "string",
+      );
+  });
+}
+
 function hasGovernedConstructionClosure(
   store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
   evidence:
     | InteractionResumeRouteAdmissionEvidence
     | RouteAdmissionEvidence,
 ): boolean {
   const events = store.readAll();
+  const composition = admittedConstructionComposition(executionBasis, graph);
+  const nextActionAuthority = constructionAuthority(
+    executionBasis,
+    graph,
+    "evaluateNext",
+  );
+  const sourceTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  if (
+    composition === null ||
+    nextActionAuthority === null ||
+    sourceTerm.kind !== "c_of" ||
+    sourceTerm.compositionRef !== composition.compositionRef ||
+    sourceTerm.programLocusRef !==
+      nextActionAuthority.refreshProgramLocusRef
+  ) {
+    return composition === null;
+  }
   const intentEvents = events.filter(
     (event) =>
       event.kind === "construction_intent_selected" &&
       event.runId === sourceCursor.runId &&
-      event.graphCallId === sourceCursor.graphCallId &&
-      event.frameId === sourceCursor.frameId &&
       isJsonRecord(event.payload),
   );
   if (intentEvents.length === 0) return true;
   if ("resume" in evidence) return false;
-  const intentEvent = intentEvents.at(-1)!;
-  const intentRef = isJsonRecord(intentEvent.payload)
-    ? intentEvent.payload.constructionIntentRef
-    : null;
-  if (typeof intentRef !== "string") return false;
   const projection = convergedNextActionProjection(evidence.result.value);
   if (projection === null) return false;
+  const intentEvent = intentEvents.find(
+    (event) =>
+      isJsonRecord(event.payload) &&
+      event.payload.constructionIntentRef ===
+        projection.constructionIntentRef,
+  );
+  const intentRef =
+    intentEvent !== undefined && isJsonRecord(intentEvent.payload)
+      ? intentEvent.payload.constructionIntentRef
+      : undefined;
+  if (typeof intentRef !== "string") return false;
+  const everyRunIntentResolved = hasResolvedRunConstructionIntentLineage(
+    events,
+    sourceCursor.runId,
+    composition.compositionRef,
+    composition.compositionDigest,
+  );
+  if (!everyRunIntentResolved) return false;
   const deltaEvent = events.find(
     (event) =>
       event.kind === "construction_delta_observed" &&
       event.runId === sourceCursor.runId &&
-      event.graphCallId === sourceCursor.graphCallId &&
-      event.frameId === sourceCursor.frameId &&
+      event.graphCallId === intentEvent?.graphCallId &&
+      event.frameId === intentEvent?.frameId &&
       isJsonRecord(event.payload) &&
       event.payload.constructionIntentRef === intentRef &&
+      event.payload.constructionCompositionRef ===
+        composition.compositionRef &&
+      event.payload.constructionCompositionDigest ===
+        composition.compositionDigest &&
       event.payload.edgeClosureDecisionRef ===
         projection.edgeClosureDecisionRef &&
       event.payload.targetOutcomeRef === projection.targetOutcomeRef,
@@ -1190,8 +1484,41 @@ function hasGovernedConstructionClosure(
   const resultEvent = events.find(
     (event) => event.eventId === evidence.result.admissionEventRef,
   );
+  const refreshedBasis =
+    refreshedBasisEvent !== undefined &&
+      isJsonRecord(refreshedBasisEvent.payload) &&
+      isJsonRecord(refreshedBasisEvent.payload.value)
+      ? nextActionBasis(refreshedBasisEvent.payload.value)
+      : null;
+  const refreshedObservation =
+    refreshedBasis !== null &&
+      isJsonRecord(refreshedBasis.observationSnapshot)
+      ? refreshedBasis.observationSnapshot
+      : null;
+  const refreshedWorkspace =
+    refreshedObservation !== null &&
+      isJsonRecord(refreshedObservation.workspaceBinding)
+      ? refreshedObservation.workspaceBinding
+      : null;
+  const refreshedPolicy =
+    refreshedBasis !== null &&
+      isJsonRecord(refreshedBasis.declaredPolicy)
+      ? refreshedBasis.declaredPolicy
+      : null;
   return deltaEvent !== undefined &&
     refreshedBasisEvent !== undefined &&
+    refreshedBasis !== null &&
+    refreshedObservation !== null &&
+    refreshedWorkspace !== null &&
+    refreshedPolicy !== null &&
+    refreshedWorkspace.workspaceBindingId ===
+      executionBasis.workspaceBindingId &&
+    refreshedWorkspace.workspaceBindingDigest ===
+      executionBasis.workspaceBindingDigest &&
+    sha256Canonical(refreshedPolicy) ===
+      sha256Canonical(
+        composition.closurePolicy as unknown as JsonValue,
+      ) &&
     resultEvent !== undefined &&
     deltaEvent.admissionOrdinal < refreshedBasisEvent.admissionOrdinal &&
     refreshedBasisEvent.admissionOrdinal < resultEvent.admissionOrdinal &&
@@ -1938,6 +2265,8 @@ export function admitRoute(
       if (
         !hasGovernedConstructionClosure(
           store,
+          executionBasis,
+          graph,
           sourceCursor,
           resumeEvidence,
         )
@@ -1965,6 +2294,8 @@ export function admitRoute(
       if (
         !hasGovernedConstructionClosure(
           store,
+          executionBasis,
+          graph,
           sourceCursor,
           judgedEvidence,
         )

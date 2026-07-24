@@ -135,12 +135,64 @@ function withIncompleteActionEvidence(mini) {
   return publication;
 }
 
+function withStageImplementation(
+  publication,
+  bindingRef,
+  implementationRef,
+  namedSymbol,
+) {
+  const candidate = structuredClone(publication);
+  const binding = candidate.implementationBindings.find(
+    (row) => row.bindingRef === bindingRef,
+  );
+  assert.ok(binding);
+  binding.implementationRef = implementationRef;
+  binding.namedSymbol = namedSymbol;
+  return candidate;
+}
+
+function withSubstitutedPolicy(mini) {
+  return withStageImplementation(
+    mini.publication,
+    mini.ids.evalGapImplementationBindingRef,
+    mini.ids.evalGapSubstitutedPolicyImplementationRef,
+    "realizeDeveloperEvalGapWithSubstitutedPolicy",
+  );
+}
+
+function withMissingAction(mini) {
+  return withStageImplementation(
+    mini.publication,
+    mini.ids.evaluateNextImplementationBindingRef,
+    mini.ids.evaluateNextMissingActionImplementationRef,
+    "realizeDeveloperEvaluateNextWithMissingAction",
+  );
+}
+
+function withSubstitutedWorkspace(mini) {
+  return withStageImplementation(
+    mini.publication,
+    mini.ids.evaluateActionImplementationBindingRef,
+    mini.ids.evaluateActionSubstitutedWorkspaceImplementationRef,
+    "realizeDeveloperEvaluateActionWithSubstitutedWorkspace",
+  );
+}
+
+function withRenamedOneSurfaceRoles(mini) {
+  const publication = structuredClone(mini.publication);
+  oneSurfaceTerms(publication, mini).forEach((term, index) => {
+    term.stageRole = `descriptive-role-${index}`;
+  });
+  return publication;
+}
+
 async function oneSurfaceLifecycle(
   publicApi,
   harness,
   mini,
   label,
   publication,
+  options = {},
 ) {
   const scenario = await externalScenario(
     harness,
@@ -216,17 +268,27 @@ async function oneSurfaceLifecycle(
         capabilityRef: mini.ids.actorCapabilityRef,
         continuationAuthority,
         continuationRef: held.continuationRef,
-        response: {
-          kind: "developer_human_approval",
-          schemaVersion: "5.0.0",
-          approved: true,
-          constructionIntentRef: frontier.result.constructionIntentRef,
-          message: "Welcome Margaret.",
-        },
+        response: options.response?.(frontier) ?? {
+            kind: "developer_human_approval",
+            schemaVersion: "5.0.0",
+            approved: true,
+            constructionIntentRef: frontier.result.constructionIntentRef,
+            message: "Welcome Margaret.",
+            semanticEvidenceAssetRefs: [mini.ids.approvalAssetRef],
+          },
       },
     ),
   );
   assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
+  if (options.afterRespond !== undefined) {
+    await options.afterRespond({
+      continuationAuthority: JSON.parse(
+        JSON.stringify(responded.result.continuationAuthority),
+      ),
+      continuationRef: held.continuationRef,
+      scenario,
+    });
+  }
   const completed = await applyInFreshContext(
     publicApi,
     invocation(
@@ -248,6 +310,80 @@ async function oneSurfaceLifecycle(
     ? []
     : eventLog.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
   return { completed, events, frontier, held, responded };
+}
+
+async function oneSurfaceAdmissionRefusal(
+  publicApi,
+  harness,
+  mini,
+  label,
+  publication,
+) {
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    label,
+    publication,
+    {
+      runVariant: "start",
+      startRef: mini.ids.oneSurfaceStartRef,
+      programRef: mini.ids.oneSurfaceProgramRef,
+      graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
+    },
+  );
+  const context = publicApi.createRootOperationContext();
+  const outcomes = [];
+  try {
+    for (const row of scenario.transcript) {
+      outcomes.push(await publicApi.applyRootPublicInvocation(context, row));
+    }
+  } finally {
+    publicApi.closeRootOperationContext(context);
+  }
+  return { outcomes, scenario };
+}
+
+async function oneSurfaceStart(
+  publicApi,
+  harness,
+  mini,
+  label,
+  publication,
+) {
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    label,
+    publication,
+    {
+      runVariant: "start",
+      startRef: mini.ids.oneSurfaceStartRef,
+      programRef: mini.ids.oneSurfaceProgramRef,
+      graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
+    },
+  );
+  const context = publicApi.createRootOperationContext();
+  const outcomes = [];
+  try {
+    for (const row of scenario.transcript.slice(0, -1)) {
+      outcomes.push(await publicApi.applyRootPublicInvocation(context, row));
+    }
+    const start = structuredClone(scenario.transcript.at(-1));
+    start.payload.input = oneSurfaceObservation(
+      mini,
+      publication,
+      outcomes[4].result,
+      "Margaret",
+    );
+    outcomes.push(await publicApi.applyRootPublicInvocation(context, start));
+  } finally {
+    publicApi.closeRootOperationContext(context);
+  }
+  const eventLog = await readFile(scenario.eventLogPath, "utf8");
+  const events = eventLog.trim().length === 0
+    ? []
+    : eventLog.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+  return { events, outcome: outcomes.at(-1), outcomes, scenario };
 }
 
 async function externalScenario(
@@ -372,6 +508,7 @@ async function externalScenario(
   );
   return {
     eventLogPath: transcript.at(-1).payload.eventLogPath,
+    miniInstalledRoot,
     transcript,
     transcriptPath,
   };
@@ -973,6 +1110,7 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     approved: true,
     constructionIntentRef: frontier.result.constructionIntentRef,
     message: "Welcome Margaret.",
+    semanticEvidenceAssetRefs: [mini.ids.approvalAssetRef],
   };
 
   const responded = await applyInFreshContext(
@@ -1110,6 +1248,14 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     mini.ids.interactionLocusRef,
   );
   assert.equal(
+    intentEvent.payload.constructionIntent.constructionCompositionRef,
+    mini.ids.oneSurfaceCompositionRef,
+  );
+  assert.equal(
+    intentEvent.payload.constructionIntent.nextActionAuthorityRef,
+    mini.ids.evaluateNextAuthorityRef,
+  );
+  assert.equal(
     interactionOpened.payload.constructionIntentRef,
     frontier.result.constructionIntentRef,
   );
@@ -1154,6 +1300,43 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     "close_candidate",
   );
   assert.equal(
+    constructionDelta.payload.constructionCompositionRef,
+    mini.ids.oneSurfaceCompositionRef,
+  );
+  assert.match(
+    constructionDelta.payload.actionEvaluationAdmissionRef,
+    /^action-evaluation-admission:\/\/abiogenesis\//u,
+  );
+  assert.match(
+    constructionDelta.payload.actionEvaluationAdmissionDigest,
+    /^sha256:[a-f0-9]{64}$/u,
+  );
+  assert.equal(
+    constructionDelta.payload.actionEvaluationAdmission.kind,
+    "admitted_action_evaluation",
+  );
+  assert.equal(
+    constructionDelta.payload.actionEvaluationAdmission
+      .actionEvaluationAdmissionRef,
+    constructionDelta.payload.actionEvaluationAdmissionRef,
+  );
+  assert.equal(
+    constructionDelta.payload.actionEvaluationAdmission
+      .actionEvaluationAdmissionDigest,
+    constructionDelta.payload.actionEvaluationAdmissionDigest,
+  );
+  const {
+    kind: _admissionKind,
+    schemaVersion: _admissionSchemaVersion,
+    actionEvaluationAdmissionRef: _admissionRef,
+    actionEvaluationAdmissionDigest: _admissionDigest,
+    ...actionEvaluationAdmissionBody
+  } = constructionDelta.payload.actionEvaluationAdmission;
+  assert.equal(
+    sha256Canonical(actionEvaluationAdmissionBody),
+    constructionDelta.payload.actionEvaluationAdmissionDigest,
+  );
+  assert.equal(
     constructionDelta.payload.runtimeEvidenceEventRefs.every(
       (eventRef) => events.some((event) => event.eventId === eventRef),
     ),
@@ -1183,44 +1366,35 @@ test("M5 derives governed construction closure from replay truth rather than ter
   await context.test(
     "refuses terminal closure immediately after evaluateAction",
     async () => {
-      const result = await oneSurfaceLifecycle(
+      const result = await oneSurfaceAdmissionRefusal(
         publicApi,
         harness,
         mini,
         "external-one-surface-early-evaluate-action-terminal",
         withOneSurfaceTerminal(mini, 4),
       );
-      assert.notEqual(result.completed.disposition, "succeeded");
       assert.equal(
-        result.events.filter(
-          (event) =>
-            event.kind === "c_call_result_admitted" &&
-            event.payload.value?.kind === "action_evaluation_projection",
-        ).length,
-        1,
+        result.outcomes[5].disposition,
+        "refused",
+        JSON.stringify(result.outcomes),
       );
-      assert.equal(
-        result.events.filter(
-          (event) => event.kind === "construction_delta_observed",
-        ).length,
-        0,
+      assert.match(
+        result.outcomes[5].result.message,
+        /construction composition/u,
       );
-      assert.equal(
-        result.events.filter((event) => event.kind === "run_closed").length,
-        0,
-      );
+      assert.equal(result.outcomes.at(-1).runId, null);
     },
   );
 
   await context.test(
-    "accepts a converged terminal whose stage role was renamed",
+    "accepts convergence after every descriptive stage role is renamed",
     async () => {
       const result = await oneSurfaceLifecycle(
         publicApi,
         harness,
         mini,
         "external-one-surface-renamed-terminal-role",
-        withOneSurfaceTerminal(mini, 7, "alternativeConvergence"),
+        withRenamedOneSurfaceRoles(mini),
       );
       assert.equal(
         result.completed.disposition,
@@ -1237,24 +1411,23 @@ test("M5 derives governed construction closure from replay truth rather than ter
   await context.test(
     "refuses terminal closure directly from the F_H resume",
     async () => {
-      const result = await oneSurfaceLifecycle(
+      const result = await oneSurfaceAdmissionRefusal(
         publicApi,
         harness,
         mini,
         "external-one-surface-terminal-fh-resume",
         withOneSurfaceTerminal(mini, 3),
       );
-      assert.notEqual(result.completed.disposition, "succeeded");
       assert.equal(
-        result.events.filter(
-          (event) => event.kind === "construction_delta_observed",
-        ).length,
-        0,
+        result.outcomes[5].disposition,
+        "refused",
+        JSON.stringify(result.outcomes),
       );
-      assert.equal(
-        result.events.filter((event) => event.kind === "run_closed").length,
-        0,
+      assert.match(
+        result.outcomes[5].result.message,
+        /construction composition/u,
       );
+      assert.equal(result.outcomes.at(-1).runId, null);
     },
   );
 
@@ -1302,6 +1475,268 @@ test("M5 derives governed construction closure from replay truth rather than ter
       assert.equal(
         result.events.filter((event) => event.kind === "run_closed").length,
         0,
+      );
+    },
+  );
+});
+
+test("M5 admits construction truth only against the exact Product and runtime basis", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const publicApi = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    )).href}?external-one-surface-authority-mutations=${Date.now()}`
+  );
+  const traversalRoute = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/traversal_route.js",
+    )).href}?external-one-surface-lineage=${Date.now()}`
+  );
+
+  await context.test(
+    "refuses run closure while another frame retains an unresolved construction intent",
+    () => {
+      const program = mini.publication.programs.find(
+        (candidate) =>
+          candidate.programRef === mini.ids.oneSurfaceProgramRef,
+      );
+      assert.ok(program?.constructionComposition);
+      const composition = program.constructionComposition;
+      const intent = (ordinal, frameId, intentRef) => ({
+        kind: "construction_intent_selected",
+        runId: "run://lineage-mutation",
+        graphCallId: `graph-call://${frameId}`,
+        frameId,
+        admissionOrdinal: ordinal,
+        payload: {
+          constructionIntentRef: intentRef,
+          constructionIntentDigest: `sha256:${String(ordinal).padStart(64, "0")}`,
+        },
+      });
+      const delta = (ordinal, source) => ({
+        kind: "construction_delta_observed",
+        runId: source.runId,
+        graphCallId: source.graphCallId,
+        frameId: source.frameId,
+        admissionOrdinal: ordinal,
+        payload: {
+          constructionIntentRef:
+            source.payload.constructionIntentRef,
+          constructionIntentDigest:
+            source.payload.constructionIntentDigest,
+          constructionCompositionRef: composition.compositionRef,
+          constructionCompositionDigest: composition.compositionDigest,
+          actionEvaluationAdmissionRef:
+            `action-evaluation-admission://mutation/${ordinal}`,
+          actionEvaluationAdmissionDigest:
+            `sha256:${String(ordinal).padStart(64, "0")}`,
+        },
+      });
+      const first = intent(1, "frame://lineage/one", "intent://lineage/one");
+      const second = intent(3, "frame://lineage/two", "intent://lineage/two");
+      const events = [first, delta(2, first), second];
+      assert.equal(
+        traversalRoute.hasResolvedRunConstructionIntentLineage(
+          events,
+          first.runId,
+          composition.compositionRef,
+          composition.compositionDigest,
+        ),
+        false,
+      );
+      assert.equal(
+        traversalRoute.hasResolvedRunConstructionIntentLineage(
+          [...events, delta(4, second)],
+          first.runId,
+          composition.compositionRef,
+          composition.compositionDigest,
+        ),
+        true,
+      );
+    },
+  );
+
+  await context.test(
+    "refuses a Product-valid substituted construction policy before intent admission",
+    async () => {
+      const result = await oneSurfaceStart(
+        publicApi,
+        harness,
+        mini,
+        "external-one-surface-substituted-policy",
+        withSubstitutedPolicy(mini),
+      );
+      assert.notEqual(result.outcome.disposition, "held");
+      assert.equal(
+        result.events.some(
+          (event) =>
+            event.kind === "c_call_result_admitted" &&
+            event.payload.value?.kind === "next_action_basis" &&
+            event.payload.value?.declaredPolicy?.policyRef?.includes(
+              "substituted",
+            ),
+        ),
+        true,
+      );
+      assert.equal(
+        result.events.some(
+          (event) => event.kind === "construction_intent_selected",
+        ),
+        false,
+      );
+      assert.equal(
+        result.events.some((event) => event.kind === "fh_interaction_opened"),
+        false,
+      );
+    },
+  );
+
+  await context.test(
+    "refuses a Product-valid action candidate absent from the admitted catalog at intent admission",
+    async () => {
+      const result = await oneSurfaceStart(
+        publicApi,
+        harness,
+        mini,
+        "external-one-surface-missing-action",
+        withMissingAction(mini),
+      );
+      assert.notEqual(result.outcome.disposition, "held");
+      assert.equal(
+        result.events.some(
+          (event) =>
+            event.kind === "c_call_result_admitted" &&
+            event.payload.value?.kind === "next_action_projection" &&
+            event.payload.value?.selectedActionRef?.includes(
+              "unpublished-substitute",
+            ),
+        ),
+        true,
+      );
+      assert.equal(
+        result.events.some(
+          (event) => event.kind === "construction_intent_selected",
+        ),
+        false,
+      );
+    },
+  );
+
+  await context.test(
+    "refuses expected but unobserved output assets before continuation resume",
+    async () => {
+      const result = await oneSurfaceLifecycle(
+        publicApi,
+        harness,
+        mini,
+        "external-one-surface-unproven-output",
+        mini.publication,
+        {
+          response: (frontier) => ({
+            kind: "developer_human_approval",
+            schemaVersion: "5.0.0",
+            approved: true,
+            constructionIntentRef: frontier.result.constructionIntentRef,
+            message: "Welcome Margaret.",
+            semanticEvidenceAssetRefs: [],
+          }),
+        },
+      );
+      assert.equal(result.responded.disposition, "succeeded");
+      assert.equal(result.completed.disposition, "refused");
+      assert.equal(
+        result.events.some(
+          (event) => event.kind === "fh_interaction_resume_admitted",
+        ),
+        false,
+      );
+      assert.equal(
+        result.events.some(
+          (event) => event.kind === "construction_delta_observed",
+        ),
+        false,
+      );
+      assert.equal(
+        result.events.some((event) => event.kind === "run_closed"),
+        false,
+      );
+    },
+  );
+
+  await context.test(
+    "refuses a self-consistent workspace fork during action evaluation",
+    async () => {
+      const result = await oneSurfaceLifecycle(
+        publicApi,
+        harness,
+        mini,
+        "external-one-surface-substituted-workspace",
+        withSubstitutedWorkspace(mini),
+      );
+      assert.notEqual(result.completed.disposition, "succeeded");
+      assert.equal(
+        result.events.some(
+          (event) =>
+            event.kind === "c_call_result_admitted" &&
+            event.payload.value?.kind === "action_evaluation_projection" &&
+            event.payload.value?.observationSnapshot?.workspaceBinding
+              ?.workspaceBindingId?.includes("substituted-workspace"),
+        ),
+        true,
+      );
+      assert.equal(
+        result.events.some(
+          (event) => event.kind === "construction_delta_observed",
+        ),
+        false,
+      );
+      assert.equal(
+        result.events.some((event) => event.kind === "run_closed"),
+        false,
+      );
+    },
+  );
+
+  await context.test(
+    "totalizes an installed-byte failure after continuation resume",
+    async () => {
+      const result = await oneSurfaceLifecycle(
+        publicApi,
+        harness,
+        mini,
+        "external-one-surface-post-resume-failure",
+        mini.publication,
+        {
+          afterRespond: async ({ scenario }) => {
+            const installedModule = join(
+              scenario.miniInstalledRoot,
+              "build/index.js",
+            );
+            const bytes = await readFile(installedModule, "utf8");
+            await writeFile(installedModule, `${bytes}\n`, "utf8");
+          },
+        },
+      );
+      assert.equal(result.completed.disposition, "refused");
+      assert.equal(
+        result.events.some(
+          (event) => event.kind === "fh_interaction_resume_admitted",
+        ),
+        true,
+      );
+      const failure = result.events.find(
+        (event) =>
+          event.kind === "runtime_failure_observed" &&
+          event.payload.diagnosticRef ===
+            "diagnostic://abiogenesis/continuation/post-resume-failure@5",
+      );
+      assert.ok(failure);
+      assert.equal(
+        result.events.some((event) => event.kind === "run_closed"),
+        false,
       );
     },
   );
@@ -1398,6 +1833,7 @@ test("M5 refuses a Product-valid F_H response bound to a different construction 
           constructionIntentRef:
             `construction-intent://abiogenesis/${"0".repeat(64)}`,
           message: "Welcome Margaret.",
+          semanticEvidenceAssetRefs: [mini.ids.approvalAssetRef],
         },
       },
     ),

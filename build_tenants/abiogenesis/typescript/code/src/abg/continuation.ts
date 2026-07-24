@@ -21,8 +21,10 @@ import {
 } from "./c_call.js";
 import { hasAdmittedCatalogView } from "./catalog_admission.js";
 import {
+  admittedConstructionComposition,
   hasAdmittedExecutionBasis,
   hasAdmittedInteractionSet,
+  isAdmittedConstructionInteractionLocus,
   rehydrateExecutionBasis,
   type AdmittedInteractionSet,
   type ExecutionBasis,
@@ -393,9 +395,16 @@ export function rehydrateFhContinuation(
     resultValue,
     judgmentValue,
   );
+  if (pending === null) return null;
   const constructionIntent = isTraversalCursorCandidate(cursor)
     ? rehydrateConstructionIntentForCursor(store, cursor)
     : null;
+  const requiresConstructionIntent =
+    isAdmittedConstructionInteractionLocus(
+      executionBasis,
+      pending.cCall.programLocusRef,
+      pending.cCall.compositionRef,
+    );
   const closureContractDigest = sha256Canonical(
     expected.closureContract as unknown as JsonValue,
   );
@@ -413,7 +422,6 @@ export function rehydrateFhContinuation(
       : null;
   if (
     openedTraversalScope === null ||
-    pending === null ||
     !isTraversalCursorCandidate(cursor) ||
     !hasAdmittedTraversalCursor(store, cursor) ||
     stringField(opened, "continuationRef") !== continuationRef ||
@@ -480,7 +488,7 @@ export function rehydrateFhContinuation(
     pending.cCall.frameId !== continuation.frameId ||
     pending.cCall.responseContractRef !== continuation.responseContractRef ||
     (
-      pending.cCall.stageRole === "intent" &&
+      requiresConstructionIntent &&
       (
         constructionIntent === null ||
         continuation.constructionIntentRef !==
@@ -625,7 +633,12 @@ export function admitFhInteractionOpen(
   const cCall = pending.cCall;
   const constructionIntent: ConstructionIntentAdmission | null =
     rehydrateConstructionIntentForCursor(store, cursor);
-  const requiresConstructionIntent = cCall.stageRole === "intent";
+  const requiresConstructionIntent =
+    isAdmittedConstructionInteractionLocus(
+      executionBasis,
+      cCall.programLocusRef,
+      cCall.compositionRef,
+    );
   if (
     !hasAdmittedExecutionBasis(store, executionBasis) ||
     !hasOpenedTraversalScope(store, scope) ||
@@ -964,14 +977,40 @@ export function deriveFhResumeSuccessorInput(
       isRecord(intentEvent.payload.nextActionBasis)
       ? intentEvent.payload.nextActionBasis
       : null;
+  const composition = admittedConstructionComposition(executionBasis);
+  const declaredPolicy =
+    nextActionBasis !== null && isRecord(nextActionBasis.declaredPolicy)
+      ? nextActionBasis.declaredPolicy
+      : null;
+  const semanticEvidenceAssetRefs =
+    Array.isArray(
+      continuation.responseValue.semanticEvidenceAssetRefs,
+    ) &&
+      continuation.responseValue.semanticEvidenceAssetRefs.every(
+        (value) => typeof value === "string" && value.length > 0,
+      )
+      ? continuation.responseValue.semanticEvidenceAssetRefs as readonly string[]
+      : null;
   if (
     nextActionBasis === null ||
     nextActionBasis.kind !== "next_action_basis" ||
     nextActionBasis.basisRef !== intent.nextActionBasisRef ||
-    nextActionBasis.basisDigest !== intent.nextActionBasisDigest
+    nextActionBasis.basisDigest !== intent.nextActionBasisDigest ||
+    composition === null ||
+    composition.compositionRef !== intent.constructionCompositionRef ||
+    composition.compositionDigest !==
+      intent.constructionCompositionDigest ||
+    declaredPolicy === null ||
+    sha256Canonical(declaredPolicy) !==
+      sha256Canonical(
+        composition.closurePolicy as unknown as JsonValue,
+      ) ||
+    semanticEvidenceAssetRefs === null ||
+    semanticEvidenceAssetRefs.join("\0") !==
+      intent.outputAssetRefs.join("\0")
   ) {
     throw new TypeError(
-      "construction successor input requires its admitted next-action basis",
+      "construction successor input requires its exact admitted basis, Product policy, and observed evidence",
     );
   }
   const body = {
@@ -986,7 +1025,7 @@ export function deriveFhResumeSuccessorInput(
       responseRef: continuation.responseRef,
       responseDigest: continuation.responseDigest,
       responseValue: continuation.responseValue,
-      semanticEvidenceAssetRefs: intent.outputAssetRefs,
+      semanticEvidenceAssetRefs,
       admissionEventRef: continuation.respondedEventRef!,
     }],
     workspaceBinding: {
@@ -999,15 +1038,7 @@ export function deriveFhResumeSuccessorInput(
       actionCatalogRowDigest: intent.actionCatalogRowDigest,
       selectedActionRef: intent.selectedActionRef,
     },
-    closurePolicy: {
-      closureContractRef: executionBasis.closureContractRef,
-      closureContractDigest: executionBasis.closureContractDigest,
-      targetOutcomeRef: intent.targetOutcomeRef,
-      requiredObligationRefs: intent.targetObligationRefs,
-      requiredEvidenceAssetRefs: intent.outputAssetRefs,
-      requireCompleteEvidence: true,
-      requirePostEvidenceRefresh: true,
-    },
+    closurePolicy: composition.closurePolicy,
     runtimeEvidenceEventRefs: [
       intent.admissionEventRef,
       continuation.openedEventRef,

@@ -65,6 +65,11 @@ export interface ReplayRouteState {
 export interface ReplayConstructionDeltaState {
   readonly deltaRef: string;
   readonly deltaDigest: Sha256Digest;
+  readonly actionEvaluationAdmissionRef: string;
+  readonly actionEvaluationAdmissionDigest: Sha256Digest;
+  readonly actionEvaluationAdmission: Readonly<Record<string, JsonValue>>;
+  readonly constructionCompositionRef: string;
+  readonly constructionCompositionDigest: Sha256Digest;
   readonly constructionIntentRef: string;
   readonly constructionIntentDigest: Sha256Digest;
   readonly targetOutcomeRef: string;
@@ -669,6 +674,10 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       const required = [
         "deltaRef",
         "deltaDigest",
+        "actionEvaluationAdmissionRef",
+        "actionEvaluationAdmissionDigest",
+        "constructionCompositionRef",
+        "constructionCompositionDigest",
         "constructionIntentRef",
         "constructionIntentDigest",
         "targetOutcomeRef",
@@ -688,18 +697,76 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
         event,
         "runtimeEvidenceEventRefs",
       );
+      const actionEvaluationAdmission = isRecord(event.payload)
+        ? event.payload.actionEvaluationAdmission
+        : undefined;
       if (
         Object.values(values).some((value) => value === null) ||
         semanticEvidenceAssetRefs === null ||
-        runtimeEvidenceEventRefs === null
+        runtimeEvidenceEventRefs === null ||
+        !isRecord(actionEvaluationAdmission)
       ) {
         throw new TypeError(
           `incomplete construction delta payload at ${event.eventId}`,
         );
       }
+      const {
+        kind,
+        schemaVersion,
+        actionEvaluationAdmissionRef,
+        actionEvaluationAdmissionDigest,
+        ...actionEvaluationAdmissionBody
+      } = actionEvaluationAdmission;
+      if (
+        kind !== "admitted_action_evaluation" ||
+        schemaVersion !== "5.0.0" ||
+        actionEvaluationAdmissionRef !==
+          values.actionEvaluationAdmissionRef ||
+        actionEvaluationAdmissionDigest !==
+          values.actionEvaluationAdmissionDigest ||
+        sha256Canonical(actionEvaluationAdmissionBody as JsonValue) !==
+          values.actionEvaluationAdmissionDigest ||
+        actionEvaluationAdmissionBody.constructionCompositionRef !==
+          values.constructionCompositionRef ||
+        actionEvaluationAdmissionBody.constructionCompositionDigest !==
+          values.constructionCompositionDigest ||
+        actionEvaluationAdmissionBody.constructionIntentRef !==
+          values.constructionIntentRef ||
+        actionEvaluationAdmissionBody.constructionIntentDigest !==
+          values.constructionIntentDigest ||
+        actionEvaluationAdmissionBody.edgeFulfillmentLedgerRef !==
+          values.edgeFulfillmentLedgerRef ||
+        actionEvaluationAdmissionBody.edgeFulfillmentLedgerDigest !==
+          values.edgeFulfillmentLedgerDigest ||
+        actionEvaluationAdmissionBody.edgeClosureDecisionRef !==
+          values.edgeClosureDecisionRef ||
+        actionEvaluationAdmissionBody.edgeClosureDecisionDigest !==
+          values.edgeClosureDecisionDigest ||
+        actionEvaluationAdmissionBody.workspaceBindingId !==
+          stringField(event, "workspaceBindingId") ||
+        actionEvaluationAdmissionBody.workspaceBindingDigest !==
+          stringField(event, "workspaceBindingDigest") ||
+        JSON.stringify(actionEvaluationAdmissionBody.semanticEvidenceAssetRefs) !==
+          JSON.stringify(semanticEvidenceAssetRefs) ||
+        JSON.stringify(actionEvaluationAdmissionBody.runtimeEvidenceEventRefs) !==
+          JSON.stringify(runtimeEvidenceEventRefs)
+      ) {
+        throw new TypeError(
+          `invalid action-evaluation admission at ${event.eventId}`,
+        );
+      }
       return {
         deltaRef: values.deltaRef!,
         deltaDigest: values.deltaDigest! as Sha256Digest,
+        actionEvaluationAdmissionRef:
+          values.actionEvaluationAdmissionRef!,
+        actionEvaluationAdmissionDigest:
+          values.actionEvaluationAdmissionDigest! as Sha256Digest,
+        actionEvaluationAdmission,
+        constructionCompositionRef:
+          values.constructionCompositionRef!,
+        constructionCompositionDigest:
+          values.constructionCompositionDigest! as Sha256Digest,
         constructionIntentRef: values.constructionIntentRef!,
         constructionIntentDigest:
           values.constructionIntentDigest! as Sha256Digest,

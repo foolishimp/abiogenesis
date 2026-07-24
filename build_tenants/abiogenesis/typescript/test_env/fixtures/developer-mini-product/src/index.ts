@@ -121,6 +121,14 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
     "priority-scheme://developer.example/greeting/obligation-first@5",
   closurePolicyRef:
     "closure-policy://developer.example/greeting/complete-evidence-refresh@5",
+  synthesizeModelAuthorityRef:
+    "semantic-authority://developer.example/greeting/synthesize-model@5",
+  evalGapAuthorityRef:
+    "semantic-authority://developer.example/greeting/eval-gap@5",
+  evaluateNextAuthorityRef:
+    "semantic-authority://developer.example/greeting/evaluate-next@5",
+  evaluateActionAuthorityRef:
+    "semantic-authority://developer.example/greeting/evaluate-action@5",
   synthesizeModelLocusRef:
     "locus://developer.example/greeting/synthesize-model@5",
   evalGapLocusRef:
@@ -155,10 +163,14 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
     "implementation-binding://developer.example/greeting/eval-gap@5",
   evalGapImplementationRef:
     "implementation://developer.example/greeting/eval-gap@5",
+  evalGapSubstitutedPolicyImplementationRef:
+    "implementation://developer.example/greeting/eval-gap-substituted-policy-mutation@5",
   evaluateNextImplementationBindingRef:
     "implementation-binding://developer.example/greeting/evaluate-next@5",
   evaluateNextImplementationRef:
     "implementation://developer.example/greeting/evaluate-next@5",
+  evaluateNextMissingActionImplementationRef:
+    "implementation://developer.example/greeting/evaluate-next-missing-action-mutation@5",
   evaluateActionImplementationBindingRef:
     "implementation-binding://developer.example/greeting/evaluate-action@5",
   evaluateActionImplementationRef:
@@ -167,6 +179,8 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
     "implementation://developer.example/greeting/evaluate-action-scalar-mutation@5",
   evaluateActionIncompleteEvidenceImplementationRef:
     "implementation://developer.example/greeting/evaluate-action-incomplete-evidence-mutation@5",
+  evaluateActionSubstitutedWorkspaceImplementationRef:
+    "implementation://developer.example/greeting/evaluate-action-substituted-workspace-mutation@5",
   refreshModelImplementationBindingRef:
     "implementation-binding://developer.example/greeting/refresh-model@5",
   refreshModelImplementationRef:
@@ -218,6 +232,15 @@ function deepFreeze<T>(value: T): Readonly<T> {
   }
   for (const child of Object.values(value)) deepFreeze(child);
   return Object.freeze(value);
+}
+
+function developerConstructionPolicy(): Readonly<Record<string, JsonValue>> {
+  return deepFreeze({
+    kind: "construction_policy",
+    policyRef: DEVELOPER_MINI_IDS.closurePolicyRef,
+    requireCompleteEvidence: true,
+    requirePostEvidenceRefresh: true,
+  });
 }
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
@@ -563,9 +586,10 @@ function isNextActionBasis(
       String(value.runtimeFrontier.disposition),
     ) ||
     value.declaredPolicy.kind !== "construction_policy" ||
-    value.declaredPolicy.policyRef !== DEVELOPER_MINI_IDS.closurePolicyRef ||
-    value.declaredPolicy.requireCompleteEvidence !== true ||
-    value.declaredPolicy.requirePostEvidenceRefresh !== true
+    typeof value.declaredPolicy.policyRef !== "string" ||
+    value.declaredPolicy.policyRef.length === 0 ||
+    typeof value.declaredPolicy.requireCompleteEvidence !== "boolean" ||
+    typeof value.declaredPolicy.requirePostEvidenceRefresh !== "boolean"
   ) {
     return false;
   }
@@ -638,13 +662,8 @@ function isActionEvaluationBasis(
     value.actionCatalog.actionCatalogDigest !== intent.actionCatalogDigest ||
     value.actionCatalog.actionCatalogRowDigest !==
       intent.actionCatalogRowDigest ||
-    value.closurePolicy.targetOutcomeRef !== intent.targetOutcomeRef ||
-    !Array.isArray(value.closurePolicy.requiredObligationRefs) ||
-    value.closurePolicy.requiredObligationRefs.join("\0") !==
-      DEVELOPER_MINI_IDS.approvalObligationRef ||
-    !Array.isArray(value.closurePolicy.requiredEvidenceAssetRefs) ||
-    value.closurePolicy.requiredEvidenceAssetRefs.join("\0") !==
-      DEVELOPER_MINI_IDS.approvalAssetRef ||
+    value.closurePolicy.kind !== "construction_policy" ||
+    value.closurePolicy.policyRef !== DEVELOPER_MINI_IDS.closurePolicyRef ||
     value.closurePolicy.requireCompleteEvidence !== true ||
     value.closurePolicy.requirePostEvidenceRefresh !== true
   ) {
@@ -697,7 +716,8 @@ function isNextActionProjection(value: unknown): value is Readonly<
     typeof value.nextActionBasisRef !== "string" ||
     typeof value.nextActionBasisDigest !== "string" ||
     value.targetOutcomeRef !== DEVELOPER_MINI_IDS.targetOutcomeRef ||
-    value.selectedActionRef !== DEVELOPER_MINI_IDS.approvalActionRef ||
+    typeof value.selectedActionRef !== "string" ||
+    value.selectedActionRef.length === 0 ||
     value.programRef !== DEVELOPER_MINI_IDS.oneSurfaceProgramRef ||
     value.graphFunctionRef !== DEVELOPER_MINI_IDS.oneSurfaceGraphFunctionRef ||
     value.targetProgramLocusRef !== DEVELOPER_MINI_IDS.interactionLocusRef ||
@@ -745,6 +765,7 @@ function isHumanApproval(value: unknown): value is Readonly<{
   approved: true;
   constructionIntentRef: string;
   message: string;
+  semanticEvidenceAssetRefs: readonly string[];
 }> {
   return isRecord(value) &&
     hasExactKeys(value, [
@@ -752,6 +773,7 @@ function isHumanApproval(value: unknown): value is Readonly<{
       "constructionIntentRef",
       "kind",
       "message",
+      "semanticEvidenceAssetRefs",
       "schemaVersion",
     ]) &&
     value.kind === "developer_human_approval" &&
@@ -760,7 +782,13 @@ function isHumanApproval(value: unknown): value is Readonly<{
     typeof value.constructionIntentRef === "string" &&
     value.constructionIntentRef.startsWith("construction-intent://") &&
     typeof value.message === "string" &&
-    value.message.length > 0;
+    value.message.length > 0 &&
+    Array.isArray(value.semanticEvidenceAssetRefs) &&
+    value.semanticEvidenceAssetRefs.every(
+      (ref) => typeof ref === "string" && ref.length > 0,
+    ) &&
+    new Set(value.semanticEvidenceAssetRefs).size ===
+      value.semanticEvidenceAssetRefs.length;
 }
 
 function isActionEvaluation(value: unknown): value is Readonly<{
@@ -1131,10 +1159,26 @@ export const DEVELOPER_EVAL_GAP_IMPLEMENTATION_DESCRIPTOR =
     DEVELOPER_MINI_IDS.gapContractRef,
   );
 
+export const DEVELOPER_EVAL_GAP_SUBSTITUTED_POLICY_IMPLEMENTATION_DESCRIPTOR =
+  deterministicStageDescriptor(
+    DEVELOPER_MINI_IDS.evalGapSubstitutedPolicyImplementationRef,
+    "realizeDeveloperEvalGapWithSubstitutedPolicy",
+    DEVELOPER_MINI_IDS.modelContractRef,
+    DEVELOPER_MINI_IDS.gapContractRef,
+  );
+
 export const DEVELOPER_EVALUATE_NEXT_IMPLEMENTATION_DESCRIPTOR =
   deterministicStageDescriptor(
     DEVELOPER_MINI_IDS.evaluateNextImplementationRef,
     "realizeDeveloperEvaluateNext",
+    DEVELOPER_MINI_IDS.gapContractRef,
+    DEVELOPER_MINI_IDS.nextActionContractRef,
+  );
+
+export const DEVELOPER_EVALUATE_NEXT_MISSING_ACTION_IMPLEMENTATION_DESCRIPTOR =
+  deterministicStageDescriptor(
+    DEVELOPER_MINI_IDS.evaluateNextMissingActionImplementationRef,
+    "realizeDeveloperEvaluateNextWithMissingAction",
     DEVELOPER_MINI_IDS.gapContractRef,
     DEVELOPER_MINI_IDS.nextActionContractRef,
   );
@@ -1160,6 +1204,15 @@ export const
     deterministicStageDescriptor(
       DEVELOPER_MINI_IDS.evaluateActionIncompleteEvidenceImplementationRef,
       "realizeDeveloperEvaluateActionWithoutEvidence",
+      DEVELOPER_MINI_IDS.actionEvaluationBasisContractRef,
+      DEVELOPER_MINI_IDS.actionEvaluationContractRef,
+    );
+
+export const
+  DEVELOPER_EVALUATE_ACTION_SUBSTITUTED_WORKSPACE_IMPLEMENTATION_DESCRIPTOR =
+    deterministicStageDescriptor(
+      DEVELOPER_MINI_IDS.evaluateActionSubstitutedWorkspaceImplementationRef,
+      "realizeDeveloperEvaluateActionWithSubstitutedWorkspace",
       DEVELOPER_MINI_IDS.actionEvaluationBasisContractRef,
       DEVELOPER_MINI_IDS.actionEvaluationContractRef,
     );
@@ -1431,12 +1484,7 @@ export function realizeDeveloperEvalGap(input: unknown): Readonly<object> {
       openObligationRefs: [DEVELOPER_MINI_IDS.approvalObligationRef],
       snapshotRef: input.snapshotRef,
     },
-    declaredPolicy: {
-      kind: "construction_policy",
-      policyRef: DEVELOPER_MINI_IDS.closurePolicyRef,
-      requireCompleteEvidence: true,
-      requirePostEvidenceRefresh: true,
-    },
+    declaredPolicy: developerConstructionPolicy(),
   };
   const basisDigest = sha256Canonical(basisBody as unknown as JsonValue);
   return deterministicStageCandidate(
@@ -1448,6 +1496,40 @@ export function realizeDeveloperEvalGap(input: unknown): Readonly<object> {
       basisDigest,
     }),
     DEVELOPER_MINI_IDS.evalGapImplementationRef,
+  );
+}
+
+export function realizeDeveloperEvalGapWithSubstitutedPolicy(
+  input: unknown,
+): Readonly<object> {
+  const admitted = realizeDeveloperEvalGap(input) as Readonly<{
+    resultCandidate: Readonly<Record<string, JsonValue>>;
+  }>;
+  const {
+    basisRef: _basisRef,
+    basisDigest: _basisDigest,
+    ...basisBody
+  } = admitted.resultCandidate;
+  const substitutedBody = {
+    ...basisBody,
+    declaredPolicy: {
+      kind: "construction_policy",
+      policyRef:
+        "closure-policy://developer.example/greeting/substituted@5",
+      requireCompleteEvidence: false,
+      requirePostEvidenceRefresh: false,
+    },
+  };
+  const basisDigest = sha256Canonical(substitutedBody as JsonValue);
+  return deterministicStageCandidate(
+    input as JsonValue,
+    deepFreeze({
+      ...substitutedBody,
+      basisRef:
+        `next-action-basis://product/${basisDigest.slice("sha256:".length)}`,
+      basisDigest,
+    }),
+    DEVELOPER_MINI_IDS.evalGapSubstitutedPolicyImplementationRef,
   );
 }
 
@@ -1508,6 +1590,35 @@ export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
       projectionDigest,
     }),
     DEVELOPER_MINI_IDS.evaluateNextImplementationRef,
+  );
+}
+
+export function realizeDeveloperEvaluateNextWithMissingAction(
+  input: unknown,
+): Readonly<object> {
+  const admitted = realizeDeveloperEvaluateNext(input) as Readonly<{
+    resultCandidate: Readonly<Record<string, JsonValue>>;
+  }>;
+  const {
+    projectionRef: _projectionRef,
+    projectionDigest: _projectionDigest,
+    ...projectionBody
+  } = admitted.resultCandidate;
+  const substitutedBody = {
+    ...projectionBody,
+    selectedActionRef:
+      "action://developer.example/greeting/unpublished-substitute@5",
+  };
+  const projectionDigest = sha256Canonical(substitutedBody as JsonValue);
+  return deterministicStageCandidate(
+    input as JsonValue,
+    deepFreeze({
+      ...substitutedBody,
+      projectionRef:
+        `next-action-projection://product/${projectionDigest.slice("sha256:".length)}`,
+      projectionDigest,
+    }),
+    DEVELOPER_MINI_IDS.evaluateNextMissingActionImplementationRef,
   );
 }
 
@@ -1685,6 +1796,68 @@ export function realizeDeveloperEvaluateActionWithoutEvidence(
   );
 }
 
+export function realizeDeveloperEvaluateActionWithSubstitutedWorkspace(
+  input: unknown,
+): Readonly<object> {
+  if (!isActionEvaluationBasis(input)) {
+    throw new TypeError(
+      "developer workspace-substitution mutation requires the admitted evaluation basis",
+    );
+  }
+  const admitted = realizeDeveloperEvaluateAction(input) as Readonly<{
+    resultCandidate: Readonly<Record<string, JsonValue>>;
+  }>;
+  const original = admitted.resultCandidate;
+  const originalObservation = original.observationSnapshot;
+  if (!isRecord(originalObservation)) {
+    throw new TypeError(
+      "developer workspace-substitution mutation requires its observation snapshot",
+    );
+  }
+  const workspaceBindingBody = {
+    workspaceBindingId:
+      "workspace-binding://developer.example/substituted-workspace@5",
+  };
+  const workspaceBindingDigest = sha256Canonical(workspaceBindingBody);
+  const {
+    snapshotRef: _snapshotRef,
+    snapshotDigest: _snapshotDigest,
+    ...snapshotBody
+  } = originalObservation;
+  const substitutedSnapshotBody = {
+    ...snapshotBody,
+    workspaceBinding: {
+      ...workspaceBindingBody,
+      workspaceBindingDigest,
+    },
+  };
+  const substitutedObservation = observationSnapshot(
+    substitutedSnapshotBody as Readonly<Record<string, JsonValue>>,
+  );
+  const {
+    actionEvaluationRef: _actionEvaluationRef,
+    actionEvaluationDigest: _actionEvaluationDigest,
+    ...evaluationBody
+  } = original;
+  const substitutedEvaluationBody = {
+    ...evaluationBody,
+    observationSnapshot: substitutedObservation,
+  };
+  const actionEvaluationDigest = sha256Canonical(
+    substitutedEvaluationBody as JsonValue,
+  );
+  return deterministicStageCandidate(
+    input as JsonValue,
+    deepFreeze({
+      ...substitutedEvaluationBody,
+      actionEvaluationRef:
+        `action-evaluation://product/${actionEvaluationDigest.slice("sha256:".length)}`,
+      actionEvaluationDigest,
+    }),
+    DEVELOPER_MINI_IDS.evaluateActionSubstitutedWorkspaceImplementationRef,
+  );
+}
+
 export function realizeDeveloperRefreshModel(
   input: unknown,
 ): Readonly<object> {
@@ -1797,12 +1970,7 @@ export function realizeDeveloperRefreshGap(
       openObligationRefs: [] as const,
       snapshotRef: input.snapshotRef,
     },
-    declaredPolicy: {
-      kind: "construction_policy",
-      policyRef: DEVELOPER_MINI_IDS.closurePolicyRef,
-      requireCompleteEvidence: true,
-      requirePostEvidenceRefresh: true,
-    },
+    declaredPolicy: developerConstructionPolicy(),
   };
   const basisDigest = sha256Canonical(basisBody as unknown as JsonValue);
   return deterministicStageCandidate(
@@ -2781,6 +2949,46 @@ export function constructDeveloperMiniPublication(
     }],
   };
   const actionCatalogDigest = sha256Canonical(actionCatalogBody);
+  const constructionCompositionBody = {
+    kind: "construction_composition" as const,
+    schemaVersion: "5.0.0" as const,
+    compositionRef: DEVELOPER_MINI_IDS.oneSurfaceCompositionRef,
+    graphFunctionRef: DEVELOPER_MINI_IDS.oneSurfaceGraphFunctionRef,
+    authorities: [{
+      kind: "construction_authority_binding" as const,
+      semanticAuthority: "synthesizeModel" as const,
+      authorityRef: DEVELOPER_MINI_IDS.synthesizeModelAuthorityRef,
+      initialProgramLocusRef:
+        DEVELOPER_MINI_IDS.synthesizeModelLocusRef,
+      refreshProgramLocusRef: DEVELOPER_MINI_IDS.refreshModelLocusRef,
+    }, {
+      kind: "construction_authority_binding" as const,
+      semanticAuthority: "evalGap" as const,
+      authorityRef: DEVELOPER_MINI_IDS.evalGapAuthorityRef,
+      initialProgramLocusRef: DEVELOPER_MINI_IDS.evalGapLocusRef,
+      refreshProgramLocusRef: DEVELOPER_MINI_IDS.refreshGapLocusRef,
+    }, {
+      kind: "construction_authority_binding" as const,
+      semanticAuthority: "evaluateNext" as const,
+      authorityRef: DEVELOPER_MINI_IDS.evaluateNextAuthorityRef,
+      initialProgramLocusRef:
+        DEVELOPER_MINI_IDS.evaluateNextLocusRef,
+      refreshProgramLocusRef:
+        DEVELOPER_MINI_IDS.refreshEvaluateNextLocusRef,
+    }, {
+      kind: "construction_authority_binding" as const,
+      semanticAuthority: "evaluateAction" as const,
+      authorityRef: DEVELOPER_MINI_IDS.evaluateActionAuthorityRef,
+      initialProgramLocusRef:
+        DEVELOPER_MINI_IDS.evaluateActionLocusRef,
+      refreshProgramLocusRef: null,
+    }],
+    interactionProgramLocusRef: DEVELOPER_MINI_IDS.interactionLocusRef,
+    closurePolicy: developerConstructionPolicy(),
+  };
+  const constructionCompositionDigest = sha256Canonical(
+    constructionCompositionBody as unknown as JsonValue,
+  );
   const oneSurfaceProgram = {
     kind: "gtl_program",
     programRef: DEVELOPER_MINI_IDS.oneSurfaceProgramRef,
@@ -2797,6 +3005,10 @@ export function constructDeveloperMiniPublication(
       catalogRef:
         `action-catalog://product/${actionCatalogDigest.slice("sha256:".length)}`,
       catalogDigest: actionCatalogDigest,
+    },
+    constructionComposition: {
+      ...constructionCompositionBody,
+      compositionDigest: constructionCompositionDigest,
     },
     policies: {
       "abg.compute_regime": "mixed",
