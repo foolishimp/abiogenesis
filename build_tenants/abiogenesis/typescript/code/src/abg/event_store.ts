@@ -908,6 +908,7 @@ interface EventStoreState {
   durableAppendLock: DurableAppendLock | null;
   durableByteLength: number;
   durableAppendClosed: boolean;
+  transactionStartIndex: number | null;
 }
 
 const eventState = new WeakMap<AbgEventStore, EventStoreState>();
@@ -1366,6 +1367,7 @@ export class AbgEventStore {
       durableAppendLock: null,
       durableByteLength: 0,
       durableAppendClosed: false,
+      transactionStartIndex: null,
     });
   }
 
@@ -1928,6 +1930,7 @@ export function reopenEventStore(
     durableAppendLock: owned.lock,
     durableByteLength: bytes.byteLength,
     durableAppendClosed: false,
+    transactionStartIndex: null,
   });
   return Object.freeze({
     kind: "reopened_event_store_context" as const,
@@ -1952,7 +1955,12 @@ export function admitRuntimeEvent(
   }
   const events = state.events;
   const event = constructRuntimeEvent(events, candidate);
-  if (state.durableLogPath !== null) appendDurablyBatch(state, [event]);
+  if (
+    state.durableLogPath !== null &&
+    state.transactionStartIndex === null
+  ) {
+    appendDurablyBatch(state, [event]);
+  }
   events.push(event);
   return event;
 }
@@ -1974,7 +1982,40 @@ export function admitRuntimeEventBatch(
     staged.push(event);
     admitted.push(event);
   }
-  if (state.durableLogPath !== null) appendDurablyBatch(state, admitted);
+  if (
+    state.durableLogPath !== null &&
+    state.transactionStartIndex === null
+  ) {
+    appendDurablyBatch(state, admitted);
+  }
   state.events.push(...admitted);
   return Object.freeze(admitted);
+}
+
+export function admitRuntimeEventTransaction<T>(
+  store: AbgEventStore,
+  action: () => T,
+): T {
+  const state = eventState.get(store);
+  if (state === undefined) {
+    throw new TypeError("event store was not constructed by this ABG module");
+  }
+  if (state.transactionStartIndex !== null) {
+    throw new TypeError("ABG event admission transactions cannot nest");
+  }
+  const startIndex = state.events.length;
+  state.transactionStartIndex = startIndex;
+  try {
+    const result = action();
+    const admitted = state.events.slice(startIndex);
+    if (state.durableLogPath !== null && admitted.length !== 0) {
+      appendDurablyBatch(state, admitted);
+    }
+    return result;
+  } catch (error) {
+    state.events.splice(startIndex);
+    throw error;
+  } finally {
+    state.transactionStartIndex = null;
+  }
 }

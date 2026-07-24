@@ -53,7 +53,11 @@ export function proposeStructuralRoute(
   const routeKind = step.directStep.stepKind === "retry"
     ? "retry" as const
     : step.directStep.stepKind === "enter_term" ||
-        step.directStep.stepKind === "start_task"
+        step.directStep.stepKind === "start_task" ||
+        (
+          step.directStep.stepKind === "continue_term" &&
+          step.directStep.termKind === "c_identity"
+        )
       ? "advance" as const
       : null;
   if (

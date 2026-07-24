@@ -17,6 +17,12 @@ import type {
   RootPublicInvocation,
 } from "./contracts.js";
 import { bindChildTraversalPreparationPort } from "./child_traversal_port.js";
+import {
+  constructPublicContinuationAuthority,
+  parsePublicContinuationAuthority,
+  updatePublicContinuationAuthority,
+  type PublicContinuationAuthority,
+} from "./continuation_authority.js";
 import { projectOutcome } from "./outcome.js";
 
 export interface RootOperationContext {
@@ -24,27 +30,12 @@ export interface RootOperationContext {
   readonly productState: product.RootOperationState;
 }
 
-interface ContinuationLocator {
-  readonly continuationRef: string;
-  readonly reopenAuthority: abg.EventStoreReopenAuthority;
-  readonly runtimeInvocationRef: string;
-  readonly outputContractRef: string;
-  readonly invocationAdmissionRef: string;
-  readonly runId: string;
-  readonly installState: product.InstallOperationState;
-  readonly workspaceState: product.WorkspaceOperationState;
-  readonly viewState: product.CatalogViewOperationState;
-  readonly program: Readonly<gtl.GtlProgram>;
-  readonly graph: Readonly<gtl.GtlGraph>;
-  readonly closureContract: Readonly<gtl.ClosureContract>;
-}
-
 const continuationLocators =
-  new WeakMap<RootOperationContext, Map<string, ContinuationLocator>>();
+  new WeakMap<RootOperationContext, Map<string, PublicContinuationAuthority>>();
 
 function continuationLocatorMap(
   context: RootOperationContext,
-): Map<string, ContinuationLocator> {
+): Map<string, PublicContinuationAuthority> {
   const state = continuationLocators.get(context);
   if (state === undefined) {
     throw new TypeError("root operation context has no continuation registry");
@@ -1131,7 +1122,7 @@ async function applyRunInvoke(
     durableEventLogPath,
     replayScope,
   );
-  const outcome = projectOutcome(
+  let outcome = projectOutcome(
     invocation,
     firstReplay,
     secondReplay,
@@ -1151,20 +1142,34 @@ async function applyRunInvoke(
       );
     }
     const reopenAuthority = context.store.projectReopenAuthorityAndClose();
-    continuationLocatorMap(context).set(traversalCompletion.continuationRef, {
+    const continuationAuthority = constructPublicContinuationAuthority({
       continuationRef: traversalCompletion.continuationRef,
       reopenAuthority,
       runtimeInvocationRef: candidate.invocationRef,
       outputContractRef: graphFunction.outputs[0] ?? "",
       invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
       runId: traversalCompletion.heldInteraction.cCall.runId,
-      installState,
-      workspaceState,
-      viewState,
+      install: installState.install,
+      workspaceBinding: workspaceState.binding,
+      catalog: viewState.catalogState.catalog,
+      catalogView: viewState.view,
       program: programValue,
       graph,
       closureContract,
     });
+    continuationLocatorMap(context).set(
+      traversalCompletion.continuationRef,
+      continuationAuthority,
+    );
+    outcome = projectOutcome(
+      invocation,
+      firstReplay,
+      secondReplay,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      persisted,
+      continuationAuthority as unknown as product.JsonValue,
+    );
   }
   return outcome;
   } catch (error) {
@@ -1262,12 +1267,28 @@ function eventLogPath(
 function requireContinuationLocator(
   context: RootOperationContext,
   continuationRef: string,
-): ContinuationLocator {
+  payload: Readonly<Record<string, product.JsonValue>>,
+): PublicContinuationAuthority {
+  const supplied = payload.continuationAuthority;
+  if (supplied !== undefined) {
+    const parsed = parsePublicContinuationAuthority(
+      supplied,
+      continuationRef,
+    );
+    if (parsed === null) {
+      throw new ApplicationRefusal(
+        "invalid_request",
+        "continuationAuthority is not the exact self-consistent public carrier",
+      );
+    }
+    continuationLocatorMap(context).set(continuationRef, parsed);
+    return parsed;
+  }
   const state = continuationLocatorMap(context).get(continuationRef);
   if (state === undefined) {
     throw new ApplicationRefusal(
       "missing_prerequisite",
-      `continuation ${continuationRef} is not open in this transcript`,
+      `continuation ${continuationRef} requires its durable public authority`,
     );
   }
   return state;
@@ -1275,7 +1296,7 @@ function requireContinuationLocator(
 
 function reopenContinuation(
   context: RootOperationContext,
-  state: ContinuationLocator,
+  state: PublicContinuationAuthority,
 ): abg.ReopenedEventStoreContext {
   const reopened = abg.reopenEventStore(state.reopenAuthority);
   if (reopened.kind !== "reopened_event_store_context") {
@@ -1284,24 +1305,53 @@ function reopenContinuation(
       `durable continuation reopen refused: ${reopened.code}: ${reopened.message}`,
     );
   }
+  const rootInvocation = abg.rehydrateInvocationAdmission(
+    reopened.store,
+    state.invocationAdmissionRef,
+  );
+  if (
+    rootInvocation === null ||
+    rootInvocation.invocationRef !== state.runtimeInvocationRef ||
+    rootInvocation.outputContractRef !== state.outputContractRef ||
+    rootInvocation.workspaceBindingId !== state.workspaceBinding.bindingId ||
+    rootInvocation.workspaceBindingDigest !==
+      state.workspaceBinding.bindingDigest ||
+    rootInvocation.catalogViewId !== state.catalogView.viewId ||
+    rootInvocation.catalogViewDigest !== state.catalogView.viewDigest ||
+    rootInvocation.programRef !== state.program.programRef ||
+    rootInvocation.graphFunctionRef !== state.graph.graphFunctionRef ||
+    state.catalog.catalogId !== state.catalogView.catalogId ||
+    state.catalog.catalogDigest !== state.catalogView.catalogDigest ||
+    !abg.hasAdmittedProductInstall(reopened.store, state.install) ||
+    !abg.hasAdmittedWorkspaceBinding(reopened.store, state.workspaceBinding) ||
+    !abg.hasAdmittedCatalog(reopened.store, state.catalog) ||
+    !abg.hasAdmittedCatalogView(reopened.store, state.catalogView) ||
+    gtl.rehydrateMaterializedGtlGraph(state.graph) === null
+  ) {
+    reopened.store.closeDurableLog();
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      "durable continuation authority differs from its admitted Product and invocation basis",
+    );
+  }
   context.store = reopened.store;
   return reopened;
 }
 
 function closeAndRememberContinuation(
   context: RootOperationContext,
-  state: ContinuationLocator,
-): ContinuationLocator {
-  const updated = {
-    ...state,
-    reopenAuthority: context.store.projectReopenAuthorityAndClose(),
-  };
+  state: PublicContinuationAuthority,
+): PublicContinuationAuthority {
+  const updated = updatePublicContinuationAuthority(
+    state,
+    context.store.projectReopenAuthorityAndClose(),
+  );
   continuationLocatorMap(context).set(state.continuationRef, updated);
   return updated;
 }
 
 function continuationMetadata(
-  state: ContinuationLocator,
+  state: PublicContinuationAuthority,
   replayState: abg.ReplayState,
   eventLog: abg.PersistedEventLog,
   status: "open" | "responded" | "resolved",
@@ -1336,12 +1386,17 @@ async function applyProjectRead(
   }
   requireExactPayloadKeys(
     invocation.payload,
-    ["continuationRef"],
+    ["continuationAuthority", "continuationRef"],
     "project.read",
   );
   const continuationRef = stringField(invocation.payload, "continuationRef");
-  const state = requireContinuationLocator(context, continuationRef);
+  const state = requireContinuationLocator(
+    context,
+    continuationRef,
+    invocation.payload,
+  );
   reopenContinuation(context, state);
+  let closed = false;
   try {
     const replayState = abg.replay(context.store, {
       runId: state.runId,
@@ -1363,6 +1418,8 @@ async function applyProjectRead(
       state.reopenAuthority.eventLogPath,
       { runId: continuation.runId },
     );
+    const updated = closeAndRememberContinuation(context, state);
+    closed = true;
     return successOutcome(
       invocation,
       {
@@ -1376,11 +1433,17 @@ async function applyProjectRead(
         responseRef: continuation.responseRef,
         replayRef: replayState.replayRef,
         replayDigest: replayState.replayDigest,
+        continuationAuthority: updated as unknown as product.JsonValue,
       },
-      continuationMetadata(state, replayState, eventLog, continuation.status),
+      continuationMetadata(
+        updated,
+        replayState,
+        eventLog,
+        continuation.status,
+      ),
     );
   } finally {
-    closeAndRememberContinuation(context, state);
+    if (!closed) closeAndRememberContinuation(context, state);
   }
 }
 
@@ -1396,12 +1459,23 @@ async function applyInteractionRespond(
   }
   requireExactPayloadKeys(
     invocation.payload,
-    ["actorRef", "capabilityRef", "continuationRef", "response"],
+    [
+      "actorRef",
+      "capabilityRef",
+      "continuationAuthority",
+      "continuationRef",
+      "response",
+    ],
     "interaction.respond",
   );
   const continuationRef = stringField(invocation.payload, "continuationRef");
-  const state = requireContinuationLocator(context, continuationRef);
+  const state = requireContinuationLocator(
+    context,
+    continuationRef,
+    invocation.payload,
+  );
   reopenContinuation(context, state);
+  let closed = false;
   try {
     const replayBefore = abg.replay(context.store, {
       runId: state.runId,
@@ -1418,8 +1492,8 @@ async function applyInteractionRespond(
     const responseCandidate = recordField(invocation.payload, "response");
     const semantics = await implementation.loadInstalledProductSemantics({
       store: context.store,
-      install: state.installState.install,
-      publication: state.viewState.catalogState.publication,
+      install: state.install,
+      publication: state.catalog.modulePublication,
     });
     const response = semantics.admitInput(
       continuation.responseContractRef,
@@ -1451,8 +1525,8 @@ async function applyInteractionRespond(
       stringField(invocation.payload, "capabilityRef"),
       operationBasis(
         invocation,
-        state.workspaceState.binding.bindingId,
-        state.workspaceState.binding.bindingDigest,
+        state.workspaceBinding.bindingId,
+        state.workspaceBinding.bindingDigest,
         [],
       ),
     );
@@ -1476,6 +1550,8 @@ async function applyInteractionRespond(
       state.reopenAuthority.eventLogPath,
       { runId: continuation.runId },
     );
+    const updated = closeAndRememberContinuation(context, state);
+    closed = true;
     return successOutcome(
       invocation,
       {
@@ -1485,11 +1561,12 @@ async function applyInteractionRespond(
         continuationRef,
         responseRef: admitted.responseRef,
         responseDigest: admitted.responseDigest,
+        continuationAuthority: updated as unknown as product.JsonValue,
       },
-      continuationMetadata(state, replayAfter, eventLog, "responded"),
+      continuationMetadata(updated, replayAfter, eventLog, "responded"),
     );
   } finally {
-    closeAndRememberContinuation(context, state);
+    if (!closed) closeAndRememberContinuation(context, state);
   }
 }
 
@@ -1505,11 +1582,20 @@ async function applyRunContinue(
   }
   requireExactPayloadKeys(
     invocation.payload,
-    ["actorRef", "capabilityRef", "continuationRef"],
+    [
+      "actorRef",
+      "capabilityRef",
+      "continuationAuthority",
+      "continuationRef",
+    ],
     "run.continue",
   );
   const continuationRef = stringField(invocation.payload, "continuationRef");
-  const state = requireContinuationLocator(context, continuationRef);
+  const state = requireContinuationLocator(
+    context,
+    continuationRef,
+    invocation.payload,
+  );
   reopenContinuation(context, state);
   let completed = false;
   try {
@@ -1550,8 +1636,8 @@ async function applyRunContinue(
       stringField(invocation.payload, "capabilityRef"),
       operationBasis(
         invocation,
-        state.workspaceState.binding.bindingId,
-        state.workspaceState.binding.bindingDigest,
+        state.workspaceBinding.bindingId,
+        state.workspaceBinding.bindingDigest,
         [],
       ),
     );
@@ -1559,9 +1645,9 @@ async function applyRunContinue(
       context.store,
       continuationRef,
       {
-        install: state.installState.install,
-        workspaceBinding: state.workspaceState.binding,
-        catalogView: state.viewState.view,
+        install: state.install,
+        workspaceBinding: state.workspaceBinding,
+        catalogView: state.catalogView,
         program: state.program,
         graph: state.graph,
         closureContract: state.closureContract,

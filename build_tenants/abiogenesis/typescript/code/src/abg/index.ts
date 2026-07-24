@@ -1,5 +1,6 @@
 export {
   AbgEventStore,
+  admitRuntimeEventTransaction,
   ROOT_EVENT_KIND_VALUES,
   reopenEventStore,
   type EventStoreReopenAuthority,
@@ -22,6 +23,8 @@ export {
 } from "./environment_admission.js";
 export {
   admitCatalog,
+  hasAdmittedCatalog,
+  hasAdmittedCatalogView,
   narrowCatalogView,
   type CatalogAdmissionRefusal,
   type CatalogAdmissionResult,

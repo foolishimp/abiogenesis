@@ -265,10 +265,7 @@ function isDeclaredStructuralTarget(
   target: TraversalCursorCandidate,
   routeKind: TraversalRouteKind,
 ): boolean {
-  if (
-    !hasSameCursorLineage(source, target) ||
-    target.currentNodeRef !== source.currentNodeRef
-  ) return false;
+  if (!hasSameCursorLineage(source, target)) return false;
   const term = resolveCProgramTermAtSourcePath(
     graph.template,
     source.currentNodeRef,
@@ -287,21 +284,25 @@ function isDeclaredStructuralTarget(
   switch (term.kind) {
     case "c_compose":
       return routeKind === "advance" &&
+        target.currentNodeRef === source.currentNodeRef &&
         sameValues(target.termPath, [...source.termPath, "terms", "0"]) &&
         target.taskOrdinal === source.taskOrdinal &&
         unchangedAttempt;
     case "c_edge":
       return routeKind === "advance" &&
+        target.currentNodeRef === source.currentNodeRef &&
         sameValues(target.termPath, [...source.termPath, "transform"]) &&
         target.taskOrdinal === source.taskOrdinal &&
         unchangedAttempt;
     case "c_batch":
       return routeKind === "advance" &&
+        target.currentNodeRef === source.currentNodeRef &&
         sameValues(target.termPath, [...source.termPath, "tasks", "0"]) &&
         target.taskOrdinal === 0 &&
         unchangedAttempt;
     case "c_retry":
       return routeKind === "retry" &&
+        target.currentNodeRef === source.currentNodeRef &&
         sameValues(target.termPath, [...source.termPath, "term"]) &&
         target.taskOrdinal === source.taskOrdinal &&
         target.attempt === 1 &&
@@ -309,8 +310,39 @@ function isDeclaredStructuralTarget(
           target.retryPath.map(String),
           [...source.retryPath, 1].map(String),
         );
+    case "c_identity": {
+      const continuation = deriveCSourceContinuation(
+        graph.template,
+        source.currentNodeRef,
+        source.termPath,
+      );
+      if (
+        routeKind !== "advance" ||
+        continuation.kind === "c_source_path_refusal" ||
+        continuation.disposition !== "advance" ||
+        continuation.targetPath === null ||
+        continuation.targetRetryDepth > source.retryPath.length
+      ) {
+        return false;
+      }
+      const targetNodeRef = continuation.targetPath[0] === "node"
+        ? continuation.targetPath[1]
+        : null;
+      const targetRetryPath = source.retryPath.slice(
+        0,
+        continuation.targetRetryDepth,
+      );
+      return targetNodeRef !== null &&
+        target.currentNodeRef === targetNodeRef &&
+        sameValues(target.termPath, continuation.targetPath) &&
+        target.taskOrdinal === continuation.targetTaskOrdinal &&
+        target.attempt === (targetRetryPath.at(-1) ?? 1) &&
+        sameValues(
+          target.retryPath.map(String),
+          targetRetryPath.map(String),
+        );
+    }
     case "c_of":
-    case "c_identity":
     case "c_workflow":
       return false;
   }

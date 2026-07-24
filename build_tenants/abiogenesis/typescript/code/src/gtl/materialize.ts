@@ -16,6 +16,67 @@ export function isMaterializedGtlGraph(value: object): boolean {
   return materializedGraphs.has(value);
 }
 
+export function rehydrateMaterializedGtlGraph(
+  value: unknown,
+): Readonly<GtlGraph> | null {
+  if (
+    typeof value !== "object" ||
+    value === null ||
+    Array.isArray(value) ||
+    Object.keys(value).sort().join("\0") !== [
+      "admittedInputDigest",
+      "admittedInputRef",
+      "fanOutMaterializations",
+      "graphFunctionDigest",
+      "graphFunctionRef",
+      "invocationAdmissionRef",
+      "kind",
+      "materializationDigest",
+      "materializationRef",
+      "schemaVersion",
+      "template",
+    ].join("\0")
+  ) {
+    return null;
+  }
+  const graph = value as Partial<GtlGraph>;
+  if (
+    graph.kind !== "gtl_graph" ||
+    graph.schemaVersion !== "5.0.0" ||
+    typeof graph.materializationRef !== "string" ||
+    typeof graph.materializationDigest !== "string" ||
+    typeof graph.graphFunctionRef !== "string" ||
+    typeof graph.graphFunctionDigest !== "string" ||
+    typeof graph.invocationAdmissionRef !== "string" ||
+    typeof graph.admittedInputRef !== "string" ||
+    typeof graph.admittedInputDigest !== "string" ||
+    !Array.isArray(graph.fanOutMaterializations) ||
+    typeof graph.template !== "object" ||
+    graph.template === null
+  ) {
+    return null;
+  }
+  const body = {
+    graphFunctionRef: graph.graphFunctionRef,
+    graphFunctionDigest: graph.graphFunctionDigest,
+    invocationAdmissionRef: graph.invocationAdmissionRef,
+    admittedInputRef: graph.admittedInputRef,
+    admittedInputDigest: graph.admittedInputDigest,
+    fanOutMaterializations: graph.fanOutMaterializations,
+    template: graph.template,
+  };
+  if (
+    graph.materializationDigest !==
+      sha256Canonical(body as unknown as JsonValue) ||
+    graph.materializationRef !==
+      `graph-materialization://abiogenesis/${graph.materializationDigest.slice("sha256:".length)}`
+  ) {
+    return null;
+  }
+  materializedGraphs.add(value);
+  return value as Readonly<GtlGraph>;
+}
+
 export interface MaterializedGraphShape {
   readonly template: GraphTemplate;
   readonly fanOutMaterializations: readonly FanOutMaterialization[];

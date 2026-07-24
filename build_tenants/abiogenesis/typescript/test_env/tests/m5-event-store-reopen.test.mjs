@@ -14,6 +14,7 @@ import test from "node:test";
 import {
   AbgEventStore,
   admitRuntimeEvent,
+  admitRuntimeEventTransaction,
   reopenEventStore,
   validateHistoricalEvents,
 } from "../../build/code/src/abg/event_store.js";
@@ -126,6 +127,44 @@ test("M5 reopens one exact durable prefix without restamping and appends at max 
     .filter((line) => line.length !== 0)
     .map((line) => JSON.parse(line));
   assert.deepEqual(rows, [prefix.first, second]);
+  reopened.store.closeDurableLog();
+});
+
+test("M5 rolls back an incomplete atomic F_H hold admission without a replay-visible prefix", async (context) => {
+  const prefix = await durablePrefix(context);
+  const reopened = reopenEventStore(prefix.authority);
+  assert.equal(reopened.kind, "reopened_event_store_context");
+  const beforeEvents = reopened.store.readAll();
+  const beforeBytes = await readFile(prefix.eventLogPath);
+
+  assert.throws(
+    () => admitRuntimeEventTransaction(reopened.store, () => {
+      const pending = admitRuntimeEvent(reopened.store, workspaceEvent({
+        causationEventRefs: [prefix.first.eventId],
+        correlationId: "correlation://m5/reopen/fh-pending",
+        eventTime: "2026-07-24T00:00:01.000Z",
+        invocationRef: "invocation://m5/reopen/fh-pending",
+      }));
+      admitRuntimeEvent(reopened.store, workspaceEvent({
+        causationEventRefs: [pending.eventId],
+        correlationId: "correlation://m5/reopen/fh-hold",
+        eventTime: "2026-07-24T00:00:02.000Z",
+        invocationRef: "invocation://m5/reopen/fh-hold",
+      }));
+      throw new TypeError("injected failure before continuation open");
+    }),
+    /injected failure before continuation open/u,
+  );
+
+  assert.deepEqual(reopened.store.readAll(), beforeEvents);
+  assert.deepEqual(await readFile(prefix.eventLogPath), beforeBytes);
+  const admitted = admitRuntimeEvent(reopened.store, workspaceEvent({
+    causationEventRefs: [prefix.first.eventId],
+    correlationId: "correlation://m5/reopen/after-rollback",
+    eventTime: "2026-07-24T00:00:03.000Z",
+    invocationRef: "invocation://m5/reopen/after-rollback",
+  }));
+  assert.equal(admitted.admissionOrdinal, 2);
   reopened.store.closeDurableLog();
 });
 

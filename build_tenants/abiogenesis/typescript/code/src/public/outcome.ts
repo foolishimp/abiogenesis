@@ -107,6 +107,7 @@ export function projectOutcome(
   outputContractRef: string,
   runtimeInvocationRef: string,
   eventLog: PersistedEventLog,
+  continuationAuthority: JsonValue | null = null,
 ): PublicOutcome {
   const latestCall = firstReplay.cCalls.at(-1);
   const latestContinuation = latestCall === undefined
@@ -196,6 +197,7 @@ export function projectOutcome(
           requestDigest: latestContinuation.requestDigest,
           responseContractRef: latestContinuation.responseContractRef,
           responseRef: latestContinuation.responseRef,
+          continuationAuthority,
         }
       : resultValue,
     diagnosticRef: closed || held

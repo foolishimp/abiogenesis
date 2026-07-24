@@ -379,15 +379,25 @@ export function deriveTraversalStep(
       "HoG derives a step only from its exact materialized Graph and owner-issued term cursor",
     );
   }
-  const directStep = deriveDirectCStepFromGraph(graph.template, {
+  const coordinate = {
     nodeRef: sourceCursor.currentNodeRef,
     termPath: sourceCursor.termPath,
     taskOrdinal: sourceCursor.taskOrdinal,
     attempt: sourceCursor.attempt,
     retryPath: sourceCursor.retryPath,
-  });
+  };
+  let directStep = deriveDirectCStepFromGraph(graph.template, coordinate);
   if (directStep.kind === "direct_c_traversal_refusal") {
     return refusal("locus_missing", directStep.message);
+  }
+  if (directStep.stepKind === "pass_identity") {
+    directStep = deriveDirectCContinuationStepFromGraph(
+      graph.template,
+      coordinate,
+    );
+    if (directStep.kind === "direct_c_traversal_refusal") {
+      return refusal("locus_missing", directStep.message);
+    }
   }
   const targetInput = directStep.stepKind === "start_task"
     ? fanOutTaskInput(

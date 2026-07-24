@@ -38,6 +38,16 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
   implementationBindingRef:
     "implementation-binding://developer.example/greeting/render-fd@5",
   implementationRef: "implementation://developer.example/greeting/render-fd@5",
+  identityProgramRef:
+    "program://developer.example/greeting/identity-then-render@5",
+  identityGraphFunctionRef:
+    "graph-function://developer.example/greeting/identity-then-render@5",
+  identityGraphRef:
+    "graph://developer.example/greeting/identity-then-render@5",
+  identityNodeRef:
+    "node://developer.example/greeting/identity-then-render/identity@5",
+  identityResultNodeRef:
+    "node://developer.example/greeting/identity-then-render/result@5",
   mixedProgramRef: "program://developer.example/greeting/mixed-fibres@5",
   mixedGraphFunctionRef:
     "graph-function://developer.example/greeting/mixed-fibres@5",
@@ -458,6 +468,108 @@ export function constructDeveloperMiniPublication(
       "abg.root_mode": "direct",
     },
   };
+  const identityEdgeBody = {
+    fromNodeRef: DEVELOPER_MINI_IDS.identityNodeRef,
+    toNodeRef: DEVELOPER_MINI_IDS.identityResultNodeRef,
+  };
+  const identityGraphFunction = {
+    kind: "graph_function",
+    name: DEVELOPER_MINI_IDS.identityGraphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [DEVELOPER_MINI_IDS.inputContractRef],
+      provides: [DEVELOPER_MINI_IDS.outputContractRef],
+      carries: [
+        DEVELOPER_MINI_IDS.inputContractRef,
+        DEVELOPER_MINI_IDS.outputContractRef,
+      ],
+    },
+    inputs: [DEVELOPER_MINI_IDS.inputContractRef],
+    outputs: [DEVELOPER_MINI_IDS.outputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: DEVELOPER_MINI_IDS.identityGraphRef,
+      startNodeRef: DEVELOPER_MINI_IDS.identityNodeRef,
+      terminalNodeRefs: [DEVELOPER_MINI_IDS.identityResultNodeRef],
+      nodes: [{
+        nodeRef: DEVELOPER_MINI_IDS.identityNodeRef,
+        nodeKind: "c_locus",
+        term: {
+          kind: "c_identity",
+          inputCarrierRef: DEVELOPER_MINI_IDS.inputContractRef,
+          outputCarrierRef: DEVELOPER_MINI_IDS.inputContractRef,
+        },
+      }, {
+        nodeRef: DEVELOPER_MINI_IDS.identityResultNodeRef,
+        nodeKind: "c_locus",
+        term: {
+          kind: "c_of",
+          inputCarrierRef: DEVELOPER_MINI_IDS.inputContractRef,
+          outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+          programLocusRef: DEVELOPER_MINI_IDS.identityResultNodeRef,
+          stageRole: "result",
+          fibre: "F_D",
+          armId:
+            "arm://developer.example/greeting/identity-then-render/fd@5",
+          compositionRef: null,
+          vectorIndex: 0,
+          judgmentPredicateRef:
+            DEVELOPER_MINI_IDS.judgmentPredicateRef,
+          resultBearing: true,
+          requirement: {
+            kind: "executable_leaf_requirement",
+            implementationBindingRef:
+              DEVELOPER_MINI_IDS.implementationBindingRef,
+            inputContractRef: DEVELOPER_MINI_IDS.inputContractRef,
+            outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+            evidenceContractRef: DEVELOPER_MINI_IDS.evidenceContractRef,
+            failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+            refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+            judgmentContractRef: DEVELOPER_MINI_IDS.judgmentContractRef,
+          },
+        },
+      }],
+      edges: [{
+        edgeRef:
+          `graph-vector://abiogenesis/${
+            sha256Canonical(identityEdgeBody).slice("sha256:".length)
+          }`,
+        ...identityEdgeBody,
+      }],
+      applications: [],
+    },
+    effects: ["effect://developer.example/greeting/render@5"],
+    declarations: {
+      "abg.compute_regime": "F_D",
+      "abg.closure_contract": DEVELOPER_MINI_IDS.closureContractRef,
+      "abg.evidence_contract": DEVELOPER_MINI_IDS.evidenceContractRef,
+      "abg.judgment_contract": DEVELOPER_MINI_IDS.judgmentContractRef,
+      "abg.judgment_predicate": DEVELOPER_MINI_IDS.judgmentPredicateRef,
+      "abg.transition_contract": DEVELOPER_MINI_IDS.transitionContractRef,
+    },
+    tags: [
+      "developer-authored",
+      "external-product",
+      "nonterminal-c-identity",
+    ],
+  };
+  const identityProgram = {
+    kind: "gtl_program",
+    programRef: DEVELOPER_MINI_IDS.identityProgramRef,
+    version: "5.0.0",
+    moduleRef: DEVELOPER_MINI_IDS.moduleRef,
+    starts: [{
+      startRef:
+        "start://developer.example/greeting/identity-then-render@5",
+      graphFunctionRef: DEVELOPER_MINI_IDS.identityGraphFunctionRef,
+    }],
+    callableMembership: [DEVELOPER_MINI_IDS.identityGraphFunctionRef],
+    closureContractRef: DEVELOPER_MINI_IDS.closureContractRef,
+    policies: {
+      "abg.compute_regime": "F_D",
+      "abg.root_mode": "direct",
+    },
+  };
   const mixedGraphFunction = {
     kind: "graph_function",
     name: DEVELOPER_MINI_IDS.mixedGraphFunctionRef,
@@ -629,6 +741,19 @@ export function constructDeveloperMiniPublication(
       artifact.productManifestDigest,
     ],
   };
+  const identityContribution = {
+    handle: DEVELOPER_MINI_IDS.identityGraphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef:
+      DEVELOPER_MINI_IDS.identityGraphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [DEVELOPER_MINI_IDS.identityProgramRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [
+      artifact.artifactDigest,
+      artifact.productManifestDigest,
+    ],
+  };
   return deepFreeze({
     kind: "module_publication",
     moduleRef: DEVELOPER_MINI_IDS.moduleRef,
@@ -724,8 +849,16 @@ export function constructDeveloperMiniPublication(
         "run_closed",
       ],
     }],
-    programs: [program, mixedProgram],
-    graphFunctions: [graphFunction, mixedGraphFunction],
-    contributions: [contribution, mixedContribution],
+    programs: [program, identityProgram, mixedProgram],
+    graphFunctions: [
+      graphFunction,
+      identityGraphFunction,
+      mixedGraphFunction,
+    ],
+    contributions: [
+      contribution,
+      identityContribution,
+      mixedContribution,
+    ],
   }) as Readonly<Record<string, JsonValue>>;
 }

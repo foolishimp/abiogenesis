@@ -25,6 +25,15 @@ function invocation(operationId, variant, invocationRef, payload) {
   };
 }
 
+async function applyInFreshContext(publicApi, row) {
+  const context = publicApi.createRootOperationContext();
+  try {
+    return await publicApi.applyRootPublicInvocation(context, row);
+  } finally {
+    publicApi.closeRootOperationContext(context);
+  }
+}
+
 function expectedVerificationIdentity(basis) {
   return {
     expectedArtifactDigest: basis.artifactDigest,
@@ -252,6 +261,51 @@ test("M5 installs and executes one independent developer-authored GTL Product th
   );
   assert.doesNotMatch(installedOperations, /developer\.example|developer-mini-product/u);
 
+  const identityScenario = await externalScenario(
+    harness,
+    mini,
+    "external-nonterminal-identity",
+    mini.publication,
+    {
+      programRef: mini.ids.identityProgramRef,
+      graphFunctionRef: mini.ids.identityGraphFunctionRef,
+    },
+  );
+  const identityRun = await runInstalledCli(harness, identityScenario);
+  assert.equal(identityRun.exitCode, 0, identityRun.stdout);
+  assertExternalOutcome(identityRun.outcomes, harness, mini);
+  const identityEvents = (await readFile(identityScenario.eventLogPath, "utf8"))
+    .trim()
+    .split("\n")
+    .map((line) => JSON.parse(line));
+  assert.equal(
+    identityEvents.some(
+      (event) =>
+        event.kind === "traversal_cursor_entered" &&
+        event.payload.termPath?.join("/") ===
+          ["node", mini.ids.identityNodeRef, "c"].join("/"),
+    ),
+    true,
+  );
+  assert.equal(
+    identityEvents.filter((event) => event.kind === "c_call_opened").length,
+    1,
+  );
+
+  const malformedGtl = structuredClone(mini.publication);
+  malformedGtl.graphFunctions[0].template.nodes[0].term.kind =
+    "c_not_a_constructor";
+  const malformedGtlScenario = await externalScenario(
+    harness,
+    mini,
+    "external-malformed-serialized-gtl",
+    malformedGtl,
+  );
+  const malformedGtlRun = await runInstalledCli(harness, malformedGtlScenario);
+  assert.equal(malformedGtlRun.exitCode, 2);
+  assert.equal(malformedGtlRun.outcomes[5].disposition, "refused");
+  assert.equal(malformedGtlRun.outcomes.at(-1).runId, null);
+
   const absentSemantics = structuredClone(mini.publication);
   absentSemantics.productSemanticsBinding.namedSymbol =
     "SUBSTITUTED_PRODUCT_SEMANTICS";
@@ -310,15 +364,19 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
       "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
     )).href}?external-fh-sdk=${Date.now()}`
   );
-  const operationContext = publicApi.createRootOperationContext();
   const priorCommand = process.env.ABG_TS_CLAUDE_COMMAND;
   process.env.ABG_TS_CLAUDE_COMMAND = command;
   try {
+    const operationContext = publicApi.createRootOperationContext();
     const setupOutcomes = [];
-    for (const row of scenario.transcript) {
-      setupOutcomes.push(
-        await publicApi.applyRootPublicInvocation(operationContext, row),
-      );
+    try {
+      for (const row of scenario.transcript) {
+        setupOutcomes.push(
+          await publicApi.applyRootPublicInvocation(operationContext, row),
+        );
+      }
+    } finally {
+      publicApi.closeRootOperationContext(operationContext);
     }
     assert.equal(
       setupOutcomes.slice(0, -1).every(
@@ -340,6 +398,13 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     assert.equal(typeof held.continuationRef, "string");
     assert.equal(held.continuationStatus, "open");
     const continuationRef = held.continuationRef;
+    assert.equal(
+      held.result.continuationAuthority.kind,
+      "public_continuation_authority",
+    );
+    const openAuthority = JSON.parse(
+      JSON.stringify(held.result.continuationAuthority),
+    );
     const actorRef = "actor://developer.example/trusted-developer";
     const response = {
       kind: "developer_greeting_output",
@@ -347,20 +412,23 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
       message: "Welcome Grace.",
     };
 
-    const readOpen = await publicApi.applyRootPublicInvocation(
-      operationContext,
+    const readOpen = await applyInFreshContext(
+      publicApi,
       invocation(
         "abg.operation.project.read",
         "status",
         "invocation://t270/external-mixed/read-open",
-        { continuationRef },
+        {
+          continuationAuthority: openAuthority,
+          continuationRef,
+        },
       ),
     );
     assert.equal(readOpen.disposition, "succeeded", JSON.stringify(readOpen));
     assert.equal(readOpen.result.status, "open");
 
-    const malformedResponse = await publicApi.applyRootPublicInvocation(
-      operationContext,
+    const malformedResponse = await applyInFreshContext(
+      publicApi,
       invocation(
         "abg.operation.interaction.respond",
         "approve",
@@ -368,6 +436,7 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
         {
           actorRef,
           capabilityRef: mini.ids.actorCapabilityRef,
+          continuationAuthority: openAuthority,
           continuationRef,
           response: { ...response, substituted: true },
         },
@@ -376,8 +445,8 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     assert.equal(malformedResponse.disposition, "refused");
     assert.equal(malformedResponse.result.code, "target_mismatch");
 
-    const wrongActor = await publicApi.applyRootPublicInvocation(
-      operationContext,
+    const wrongActor = await applyInFreshContext(
+      publicApi,
       invocation(
         "abg.operation.interaction.respond",
         "approve",
@@ -385,6 +454,7 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
         {
           actorRef: "actor://developer.example/substituted",
           capabilityRef: mini.ids.actorCapabilityRef,
+          continuationAuthority: openAuthority,
           continuationRef,
           response,
         },
@@ -392,8 +462,8 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     );
     assert.notEqual(wrongActor.disposition, "succeeded");
 
-    const responded = await publicApi.applyRootPublicInvocation(
-      operationContext,
+    const responded = await applyInFreshContext(
+      publicApi,
       invocation(
         "abg.operation.interaction.respond",
         "approve",
@@ -401,6 +471,7 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
         {
           actorRef,
           capabilityRef: mini.ids.actorCapabilityRef,
+          continuationAuthority: openAuthority,
           continuationRef,
           response,
         },
@@ -408,14 +479,20 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     );
     assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
     assert.equal(responded.continuationStatus, "responded");
+    const respondedAuthority = JSON.parse(
+      JSON.stringify(responded.result.continuationAuthority),
+    );
 
-    const readResponded = await publicApi.applyRootPublicInvocation(
-      operationContext,
+    const readResponded = await applyInFreshContext(
+      publicApi,
       invocation(
         "abg.operation.project.read",
         "status",
         "invocation://t270/external-mixed/read-responded",
-        { continuationRef },
+        {
+          continuationAuthority: respondedAuthority,
+          continuationRef,
+        },
       ),
     );
     assert.equal(
@@ -425,8 +502,8 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     );
     assert.equal(readResponded.result.status, "responded");
 
-    const completed = await publicApi.applyRootPublicInvocation(
-      operationContext,
+    const completed = await applyInFreshContext(
+      publicApi,
       invocation(
         "abg.operation.run.continue",
         "current_intent",
@@ -434,6 +511,7 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
         {
           actorRef,
           capabilityRef: mini.ids.actorCapabilityRef,
+          continuationAuthority: respondedAuthority,
           continuationRef,
         },
       ),
@@ -492,6 +570,5 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     } else {
       process.env.ABG_TS_CLAUDE_COMMAND = priorCommand;
     }
-    publicApi.closeRootOperationContext(operationContext);
   }
 });

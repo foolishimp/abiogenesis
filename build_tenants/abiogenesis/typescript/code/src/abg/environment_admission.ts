@@ -60,13 +60,10 @@ function isJsonRecord(value: JsonValue | undefined): value is { readonly [key: s
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-const admittedProductInstalls = new WeakSet<object>();
-
 export function hasAdmittedProductInstall(
   store: AbgEventStore,
   install: ProductInstall,
 ): boolean {
-  if (!admittedProductInstalls.has(install)) return false;
   const {
     kind: _kind,
     disposition: _disposition,
@@ -207,7 +204,6 @@ export function admitProductInstall(
     ...body,
     admissionEventRef,
   }) as ProductInstall;
-  admittedProductInstalls.add(install);
   return install;
 }
 

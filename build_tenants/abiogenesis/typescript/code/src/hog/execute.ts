@@ -16,6 +16,7 @@ import {
   admitRetryProgress,
   admitRecursionRoute,
   admitRuntimeFailure,
+  admitRuntimeEventTransaction,
   admitRoute,
   completeRejectedCCall,
   deriveProbabilisticTransportEvidence,
@@ -422,62 +423,68 @@ export function completeInteractionTraversal(
       `F_H CCall admission refused: ${opened.code}: ${opened.message}`,
     );
   }
-  const pending = admitPendingInteraction(
+  const { continuation, pending } = admitRuntimeEventTransaction(
     input.store,
-    opened.cCall,
-    input.input,
-    input.inputDigest,
-    basis(input.clock, "fh-pending"),
-  );
-  const pendingReplay = replay(input.store, {
-    runId: input.openedTraversalScope.runId,
-  });
-  const routeCandidate = proposeHoldRoute(
-    input.graph,
-    input.traversalStop,
-    opened.cCall,
-    pending.judgment,
-    pendingReplay,
-    input.traversalStop.continuationContractRef,
-  );
-  if (routeCandidate.kind !== "traversal_route_candidate") {
-    throw new TypeError(
-      `F_H hold route refused: ${routeCandidate.code}: ${routeCandidate.message}`,
-    );
-  }
-  const route = admitRoute(
-    input.store,
-    input.executionBasis,
-    input.graph,
-    input.traversalStop.cursor,
-    null,
-    pendingReplay,
-    routeCandidate,
-    basis(input.clock, "fh-hold-route"),
-    {
-      cCall: opened.cCall,
-      result: pending.result,
-      judgment: pending.judgment,
+    () => {
+      const pending = admitPendingInteraction(
+        input.store,
+        opened.cCall,
+        input.input,
+        input.inputDigest,
+        basis(input.clock, "fh-pending"),
+      );
+      const pendingReplay = replay(input.store, {
+        runId: input.openedTraversalScope.runId,
+      });
+      const routeCandidate = proposeHoldRoute(
+        input.graph,
+        input.traversalStop,
+        opened.cCall,
+        pending.judgment,
+        pendingReplay,
+        input.traversalStop.continuationContractRef,
+      );
+      if (routeCandidate.kind !== "traversal_route_candidate") {
+        throw new TypeError(
+          `F_H hold route refused: ${routeCandidate.code}: ${routeCandidate.message}`,
+        );
+      }
+      const route = admitRoute(
+        input.store,
+        input.executionBasis,
+        input.graph,
+        input.traversalStop.cursor,
+        null,
+        pendingReplay,
+        routeCandidate,
+        basis(input.clock, "fh-hold-route"),
+        {
+          cCall: opened.cCall,
+          result: pending.result,
+          judgment: pending.judgment,
+        },
+      );
+      if (route.kind !== "admitted_traversal_route") {
+        throw new TypeError(
+          `F_H hold route admission refused: ${route.code}: ${route.message}`,
+        );
+      }
+      const continuation = admitFhInteractionOpen(
+        input.store,
+        input.executionBasis,
+        input.openedTraversalScope,
+        input.program,
+        input.graph,
+        input.interactionSet,
+        input.traversalStop.cursor,
+        pending,
+        route,
+        input.productBasis,
+        input.input,
+        basis(input.clock, "fh-continuation-open"),
+      );
+      return { continuation, pending };
     },
-  );
-  if (route.kind !== "admitted_traversal_route") {
-    throw new TypeError(
-      `F_H hold route admission refused: ${route.code}: ${route.message}`,
-    );
-  }
-  const continuation = admitFhInteractionOpen(
-    input.store,
-    input.executionBasis,
-    input.openedTraversalScope,
-    input.program,
-    input.graph,
-    input.interactionSet,
-    input.traversalStop.cursor,
-    pending,
-    route,
-    input.productBasis,
-    input.input,
-    basis(input.clock, "fh-continuation-open"),
   );
   return completion(
     "held",

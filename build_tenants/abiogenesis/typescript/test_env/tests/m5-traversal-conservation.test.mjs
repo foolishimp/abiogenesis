@@ -198,8 +198,22 @@ function proven(axis, behavior, proof, verify) {
     axis,
     behavior,
     status: "proven",
-    witness46: `specification/PRODUCT.md#4.6-traversal-conservation/${behavior}`,
+    witness46:
+      `PENDING immutable RC5 witness reconciliation for ${behavior}`,
     ...proof,
+    verify,
+  };
+}
+
+function provisional(axis, behavior, proof, gap, verify) {
+  return {
+    axis,
+    behavior,
+    status: "provisional",
+    witness46:
+      `PENDING immutable RC5 witness reconciliation for ${behavior}`,
+    ...proof,
+    gap,
     verify,
   };
 }
@@ -209,7 +223,8 @@ function open(axis, behavior, gtlExpression, gap) {
     axis,
     behavior,
     status: "open",
-    witness46: `specification/PRODUCT.md#4.6-traversal-conservation/${behavior}`,
+    witness46:
+      `PENDING immutable RC5 witness reconciliation for ${behavior}`,
     gtlExpression,
     hogPath: `OPEN: ${gap}`,
     abgEvidence: `OPEN: ${gap}`,
@@ -496,13 +511,16 @@ const matrix = [
       event.kind === "c_call_opened" ||
       event.kind === "child_foldback_admitted"), false);
   }),
-  proven("consequence_route", "graph_span_reentry", {
+  provisional("consequence_route", "graph_span_reentry", {
     gtlExpression: "fan_out over one admitted vector followed by fan_in over its complete output vector",
     hogPath: "serial C.batch tasks re-enter the exact materialized member span; only complete truth enters the reducer",
     abgEvidence: "fan_out_completion_admitted records either one complete ordered vector or one partial-stop census",
     publicOutcome: "complete input closes through one reducer; partial stop blocks without a vector or reducer GraphCall",
     invalidMutation: "reordered input cannot validate against the materialized graph and a stopped task cannot fabricate fan-in",
-  }, ({ fanOut, fanOutPartial }) => {
+  }, "explicit re-entry target selection and application belongs to S03", ({
+    fanOut,
+    fanOutPartial,
+  }) => {
     assertSuccessfulInstalled(fanOut);
     const completion = fanOut.events.find(
       (event) =>
@@ -664,7 +682,7 @@ const matrix = [
   }),
 ];
 
-test("M5 binds the fixed 40-row traversal inventory to installed evidence", async (context) => {
+test("M5 projects fixed 40-row implementation coverage without claiming RC5 reconciliation", async (context) => {
   const counts = Object.fromEntries(
     [...new Set(matrix.map((row) => row.axis))]
       .map((axis) => [axis, matrix.filter((row) => row.axis === axis).length]),
@@ -678,7 +696,11 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 23);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 22);
+  assert.equal(
+    matrix.filter((row) => row.status === "provisional").length,
+    1,
+  );
   assert.equal(matrix.filter((row) => row.status === "open").length, 17);
   for (const row of matrix) {
     for (const field of [
@@ -876,6 +898,12 @@ test("M5 binds the fixed 40-row traversal inventory to installed evidence", asyn
     const name = `${row.axis}/${row.behavior}`;
     if (row.status === "open") {
       await context.test(name, { todo: row.gap }, () => {});
+    } else if (row.status === "provisional") {
+      await context.test(
+        name,
+        { todo: `provisional: ${row.gap}` },
+        () => row.verify(evidence),
+      );
     } else {
       await context.test(name, () => row.verify(evidence));
     }

@@ -157,7 +157,10 @@ export type {
   SameObjectApplication,
   SubstituteApplication,
 } from "./contracts.js";
-export { materializeGraph } from "./materialize.js";
+export {
+  materializeGraph,
+  rehydrateMaterializedGtlGraph,
+} from "./materialize.js";
 export {
   deriveCSourceContinuation,
   resolveCProgramTermAtSourcePath,

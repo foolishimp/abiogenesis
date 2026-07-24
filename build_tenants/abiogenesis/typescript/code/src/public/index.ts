@@ -12,4 +12,7 @@ export {
   applyRootPublicInvocation,
   type RootOperationContext,
 } from "./operations.js";
+export type {
+  PublicContinuationAuthority,
+} from "./continuation_authority.js";
 export { projectOutcome } from "./outcome.js";

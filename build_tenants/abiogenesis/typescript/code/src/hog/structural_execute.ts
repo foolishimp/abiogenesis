@@ -41,7 +41,11 @@ export type StructuralTraversalResult =
 function isDescendingStructuralStep(step: TraversalStep): boolean {
   return step.directStep.stepKind === "enter_term" ||
     step.directStep.stepKind === "start_task" ||
-    step.directStep.stepKind === "retry";
+    step.directStep.stepKind === "retry" ||
+    (
+      step.directStep.stepKind === "continue_term" &&
+      step.directStep.termKind === "c_identity"
+    );
 }
 
 export function advanceStructuralTraversal(

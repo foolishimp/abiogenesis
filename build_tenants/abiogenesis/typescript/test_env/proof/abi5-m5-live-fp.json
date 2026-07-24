@@ -4,9 +4,9 @@
   "candidateBasis": {
     "kind": "abi5_root_candidate_basis",
     "schemaVersion": "5.0.0",
-    "artifactDigest": "sha256:c921efe74c426983949a6b0f348092dfff951fbeb8404b6a9b03cfcdfe3f6f96",
-    "productContentDigest": "sha256:872b4e25df1be4460bb9aa5057561e0ff214405051722abc0d3b65046694451b",
-    "manifestDigest": "sha256:52d26d0bec3bf3aac94e3395fff75cfab683ff5d40026f452e6cbd1ffd700a27",
+    "artifactDigest": "sha256:f287edc7314c97eb69ccead9bd9f64019457eabb2dbe74d8a05f802a119f5252",
+    "productContentDigest": "sha256:b3f3006cded085b51bbb78248f690ce6375d8852fa06b2f0c0d5eba955610527",
+    "manifestDigest": "sha256:9c771aff6105d84052aa81555dc0450629e088ef741d551b277d78c5c21d9c9d",
     "productId": "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
     "packageName": "@abiogenesis/typescript-tenant",
     "packageVersion": "5.0.0-dev.286"
@@ -15,10 +15,10 @@
   "graphFunctionRef": "graph-function://abiogenesis/conformance/fp-hello@5",
   "command": "/Users/jim/.local/bin/claude",
   "model": "claude-fable-5",
-  "transportBindingRef": "transport-binding://abiogenesis/774235ba80d17384ccf61474607a43609278359c666788b02da096b08d8a0972",
-  "transportBindingDigest": "sha256:774235ba80d17384ccf61474607a43609278359c666788b02da096b08d8a0972",
-  "actorInvocationRef": "actor-invocation://abiogenesis/75c88250e2866edfd847483a6e7fab9b2e27796ad17f0a2a8e04ab01c5918eec",
-  "processRef": "process://abiogenesis/6018bcc8977725595df0ee7b846af294a75171ea79697248d95548343032b582",
+  "transportBindingRef": "transport-binding://abiogenesis/f06c2a97b0028c6c694b24b3d9f9ea8e5c2847cd3cb68aadd7f14b7676af3cac",
+  "transportBindingDigest": "sha256:f06c2a97b0028c6c694b24b3d9f9ea8e5c2847cd3cb68aadd7f14b7676af3cac",
+  "actorInvocationRef": "actor-invocation://abiogenesis/c1e575e73e8f7310c5b94257c6f8d1fb3bc1347a2cd9530642e21af7f84a0a5a",
+  "processRef": "process://abiogenesis/0cf8883c77992bed8dc5723443ac2c9d594b5754b2c5d7671f985569208afa47",
   "eventCount": 54,
   "eventKinds": [
     "public_operation_artifact_admitted",
@@ -76,13 +76,13 @@
     "graph_call_closed",
     "run_closed"
   ],
-  "eventLogDigest": "sha256:34daa2c2318cdefc215c891be329eb600496c03537ad5c483b775aeff026d914",
+  "eventLogDigest": "sha256:e272f542296316a21ebbed638b0d7a36a710772c67f5399ea0f2bb6a1d7c18d6",
   "artifactDigests": {
     "output": "sha256:f794b6a0b0c9f690fdb28e3f9837331d20cc67e4c95961e57deb29de490d2479",
     "prompt": "sha256:66009700b70e98cbf140d6fa346a242b73d6e918ce781fe89a5ced912e899d05",
     "stderr": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "stdout": "sha256:1e8b53d7bd319a53c716c1d2e9a68298955c054ee06575332fe35d39a7976a4d",
-    "transport": "sha256:3e0e7e839a2798ede3ef0234235764f7bfa4d25ae2e9e119a54e24c0684b7133"
+    "stdout": "sha256:d54b7f037440d61af7cb892280f11403544fa33ce176c3e1843c3b2f1fc227da",
+    "transport": "sha256:b395ff45076b3ecabbda1b20ae100933d923221350ae19af64bad8be0585cd7f"
   },
   "result": {
     "actorRef": "actor://abiogenesis/conformance/claude-worker@5",
@@ -91,7 +91,7 @@
     "resultContractRef": "contract://abiogenesis/conformance/fp-hello-output@5",
     "schemaVersion": "5.0.0"
   },
-  "publicOutcomeDigest": "sha256:c18d530085921931f6e83538a0333a702be701c84de54612d43ac52c2e0b1beb",
-  "replayDigest": "sha256:dfc7127d8667de76bb4e40109bd562ebcfe82c5a7be4ed6d0bcd94419e069f73",
+  "publicOutcomeDigest": "sha256:ccbc2c8d3b0d564e60c663ad9d3fa9a9a873b81b2abf4527ee0a7232cf4feb07",
+  "replayDigest": "sha256:bd5bbabea4871d87247044f5a099c92952662754863f358b2669d65d3e7b0f02",
   "replayAgreement": true
 }
