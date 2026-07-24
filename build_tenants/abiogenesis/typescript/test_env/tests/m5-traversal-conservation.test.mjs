@@ -567,7 +567,23 @@ const matrix = [
       false,
     );
   }),
-  open("consequence_route", "public_start_reentry", "published start or continuation target", "durable public start/continue semantics"),
+  proven("consequence_route", "public_start_reentry", {
+    gtlExpression: "published start re-entering the same Product-owned One Surface Program after an admitted gap_stop",
+    hogPath: "fresh successor Run traverses the unchanged Program after exact single-use source-gap admission",
+    abgEvidence: "second invocation_admitted binds the consumed source gap before the successor Run opens",
+    publicOutcome: "fresh-context public read and start re-entry converge through the ordinary installed Product path",
+    invalidMutation: "missing, stale, wrong-workspace, wrong-Program, wrong-gap, non-gap, reduced-ProductSet, and consumed authorities refuse",
+  }, ({ externalGapReentry }) => {
+    assert.equal(
+      externalGapReentry.status,
+      0,
+      `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
+    );
+    assert.match(
+      externalGapReentry.stdout,
+      /M5 exposes a durable gap and re-enters it through the same external Product/u,
+    );
+  }),
   proven("consequence_route", "ticket_traversal", {
     gtlExpression: "developer-owned ticket Program and GraphFunction with one declared C.of work leaf",
     hogPath: "installed direct traversal enters only the ticket Program's admitted callable",
@@ -585,9 +601,33 @@ const matrix = [
       /M5 invokes external ticket work only through its owning Program and GraphFunction/u,
     );
   }),
-  open("consequence_route", "fh_input_required", "declared F_H hold route", "typed human hold and attributed response admission"),
+  proven("consequence_route", "fh_input_required", {
+    gtlExpression: "Product-selected F_H C.of action under the admitted One Surface composition",
+    hogPath: "exact cursor yields at the human-input locus and resumes only after owner rehydration",
+    abgEvidence: "atomic pending judgment, hold route, continuation, attributed response, and resume truth",
+    publicOutcome: "fresh-context status, response, and continuation expose one typed held-then-completed traversal",
+    invalidMutation: "wrong actor, malformed response, missing authority, and substituted intent cannot advance the hold",
+  }, ({ externalGapReentry }) => {
+    assert.equal(
+      externalGapReentry.status,
+      0,
+      `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
+    );
+  }),
   open("consequence_route", "escalation_or_reprice", "declared escalation or reprice route", "F_H-authorized escalation/reprice continuation"),
-  open("consequence_route", "gap_stop", "declared typed gap route", "public unresolved-gap projection without retry or closure"),
+  proven("consequence_route", "gap_stop", {
+    gtlExpression: "Product-owned evaluateNext emits a no-action gap_stop projection",
+    hogPath: "admitted no-action judgment stops before target traversal, F_H interaction, or closure",
+    abgEvidence: "gap_stop traversal route and run_stopped preserve the exact Product gap basis",
+    publicOutcome: "project.read(gaps) returns the durable unresolved frontier without appending truth",
+    invalidMutation: "unsupported no-action meaning and substituted gap authorities refuse without retry or closure",
+  }, ({ externalGapReentry }) => {
+    assert.equal(
+      externalGapReentry.status,
+      0,
+      `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
+    );
+  }),
   proven("consequence_route", "non_admit", {
     gtlExpression: "Program/GraphFunction membership admission",
     hogPath: "no HoG entry when declaration or basis admission fails",
@@ -646,13 +686,61 @@ const matrix = [
     );
   }),
   open("runtime_disposition", "repair", "declared repair route", "repair candidate admission and replay"),
-  open("runtime_disposition", "re_enter", "declared re-entry route", "admitted cursor re-entry"),
-  open("runtime_disposition", "yield_continuation", "typed continuation hold", "durable yield and later continuation"),
+  proven("runtime_disposition", "re_enter", {
+    gtlExpression: "public start under one exact Product-owned single-use gap re-entry basis",
+    hogPath: "successor Run enters the unchanged One Surface Program after source-gap consumption",
+    abgEvidence: "invocation_admitted records exact prior Run, route, stop, projection, and gap lineage",
+    publicOutcome: "the installed successor Run holds and then converges without rebasing Product authority",
+    invalidMutation: "a rebased second consumption of the same source gap refuses before another Run opens",
+  }, ({ externalGapReentry }) => {
+    assert.equal(
+      externalGapReentry.status,
+      0,
+      `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
+    );
+  }),
+  proven("runtime_disposition", "yield_continuation", {
+    gtlExpression: "declared F_H interaction locus under the selected Product action",
+    hogPath: "traversal yields at the exact cursor and later resumes from durable owner-rehydrated state",
+    abgEvidence: "continuation open, response, and resume events preserve one append-only Run lineage",
+    publicOutcome: "held public outcome supplies durable read/respond/continue authority across fresh contexts",
+    invalidMutation: "stale or substituted continuation authority refuses without consuming the hold",
+  }, ({ externalGapReentry }) => {
+    assert.equal(
+      externalGapReentry.status,
+      0,
+      `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
+    );
+  }),
   open("runtime_disposition", "inspect_runtime_archive", "declared archive-inspection stop", "typed inspection projection and continuation"),
   open("runtime_disposition", "reprice", "declared reprice proposal", "human-authorized reprice transition"),
-  open("runtime_disposition", "human_assurance_required", "declared F_H assurance hold", "typed assurance request and response"),
+  proven("runtime_disposition", "human_assurance_required", {
+    gtlExpression: "Product-owned approval action selects one typed F_H assurance contract",
+    hogPath: "HoG stops at the declared F_H locus until the exact actor and capability respond",
+    abgEvidence: "pending judgment and assurance continuation precede attributed response admission",
+    publicOutcome: "public status exposes fh_input_required before the same Run may continue",
+    invalidMutation: "wrong actor, capability, intent, or response contract cannot satisfy assurance",
+  }, ({ externalGapReentry }) => {
+    assert.equal(
+      externalGapReentry.status,
+      0,
+      `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
+    );
+  }),
   open("runtime_disposition", "escalate", "declared escalation route", "typed escalation and human authority"),
-  open("runtime_disposition", "gap_stop", "declared typed gap", "gap event, replay, and public projection"),
+  proven("runtime_disposition", "gap_stop", {
+    gtlExpression: "typed Product no-action result with gap_stop disposition",
+    hogPath: "current traversal stops without selecting a target, retrying, or closing",
+    abgEvidence: "admitted gap route and run_stopped retain the exact no-action projection",
+    publicOutcome: "typed gap_stop and replay-derived gap remain readable from a fresh context",
+    invalidMutation: "a non-gap source or relabelled reprice stop cannot authorize ordinary re-entry",
+  }, ({ externalGapReentry }) => {
+    assert.equal(
+      externalGapReentry.status,
+      0,
+      `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
+    );
+  }),
   proven("runtime_disposition", "block", {
     gtlExpression: "failure/refusal contract after rejected F_P result",
     hogPath: "blocked route after refusal result and judgment",
@@ -682,8 +770,32 @@ const matrix = [
     assertCrossWireRefuses(crossWire);
   }),
   open("public_control", "asset_target", "asset target resolved through its owning program or GraphFunction", "public asset targeting without making the asset callable"),
-  open("public_control", "bounded_until", "typed until/stop condition", "bounded stop or convergence through public policy"),
-  open("public_control", "fh_control", "direct or proxied F_H control", "public human-control admission and durable continuation"),
+  proven("public_control", "bounded_until", {
+    gtlExpression: "published start with until=converged and Product-owned no-action stop",
+    hogPath: "the same public start either stops at admitted gap pressure or reaches governed convergence",
+    abgEvidence: "gap_stop/run_stopped and terminal/run_closed remain distinct replayed outcomes",
+    publicOutcome: "installed public control returns typed gap_stop before later single-use re-entry converges",
+    invalidMutation: "a stopped gap cannot be projected as closure or reused after its transition is consumed",
+  }, ({ externalGapReentry }) => {
+    assert.equal(
+      externalGapReentry.status,
+      0,
+      `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
+    );
+  }),
+  proven("public_control", "fh_control", {
+    gtlExpression: "Product-declared F_H action selected inside a public start traversal",
+    hogPath: "public control delegates traversal to HoG and waits at the exact declared interaction cursor",
+    abgEvidence: "actor, capability, response, continuation, and resumed traversal are admitted runtime truth",
+    publicOutcome: "project.read, interaction.respond, and run.continue control one durable held Run",
+    invalidMutation: "unattributed or substituted human control cannot resume or close the traversal",
+  }, ({ externalGapReentry }) => {
+    assert.equal(
+      externalGapReentry.status,
+      0,
+      `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
+    );
+  }),
   proven("public_control", "root_control", {
     gtlExpression: "direct root Program and GraphFunction selection",
     hogPath: "one public call enters one admitted HoG root",
@@ -712,12 +824,12 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 23);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 32);
   assert.equal(
     matrix.filter((row) => row.status === "provisional").length,
     1,
   );
-  assert.equal(matrix.filter((row) => row.status === "open").length, 16);
+  assert.equal(matrix.filter((row) => row.status === "open").length, 7);
   for (const row of matrix) {
     for (const field of [
       "witness46",
@@ -910,6 +1022,26 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
       timeout: 30_000,
     },
   );
+  const externalGapReentry = spawnSync(
+    process.execPath,
+    [
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern=^M5 exposes a durable gap and re-enters it through the same external Product$",
+      "test_env/tests/m5-installed-external-product.test.mjs",
+    ],
+    {
+      cwd: root,
+      encoding: "utf8",
+      env: Object.fromEntries(
+        Object.entries(process.env).filter(
+          ([key]) => key !== "NODE_TEST_CONTEXT",
+        ),
+      ),
+      maxBuffer: 10 * 1024 * 1024,
+      timeout: 30_000,
+    },
+  );
   const evidence = {
     fd,
     compose,
@@ -929,6 +1061,7 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
     crossWire,
     externalMixed,
     externalTicket,
+    externalGapReentry,
   };
 
   for (const row of matrix) {
