@@ -199,11 +199,19 @@ export interface NoActionNextActionProjection {
 
 export type NoActionDisposition =
   | "gap_stop"
-  | "reprice_required";
+  | "reprice_required"
+  | "repair"
+  | "inspect_runtime_archive"
+  | "reprice"
+  | "escalate";
 
 const NO_ACTION_DISPOSITIONS = Object.freeze([
   "gap_stop",
   "reprice_required",
+  "repair",
+  "inspect_runtime_archive",
+  "reprice",
+  "escalate",
 ] as const satisfies readonly NoActionDisposition[]);
 
 export type NextActionProjection =
@@ -287,7 +295,13 @@ interface EdgeClosureDecision {
   readonly constructionIntentRef: string;
   readonly targetOutcomeRef: string;
   readonly ledgerRef: string;
-  readonly disposition: "close_candidate";
+  readonly disposition: "close_candidate" | "continue_candidate";
+  readonly correctionDisposition:
+    | "repair"
+    | "inspect_runtime_archive"
+    | "reprice"
+    | "escalate"
+    | null;
 }
 
 interface ActionEvaluationProjection {
@@ -302,6 +316,9 @@ interface ActionEvaluationProjection {
   readonly admittedEvidenceRefs: readonly string[];
   readonly semanticEvidenceAssetRefs: readonly string[];
   readonly observationSnapshot: Readonly<Record<string, JsonValue>>;
+  readonly runtimeArchiveInspection:
+    | Readonly<Record<string, JsonValue>>
+    | null;
   readonly edgeFulfillmentLedger: EdgeFulfillmentLedger;
   readonly edgeClosureDecision: EdgeClosureDecision;
 }
@@ -656,7 +673,7 @@ function noActionNextActionProjection(
     typeof value.gapRef !== "string" ||
     typeof value.reasonRef !== "string" ||
     !nonEmptyStringArray(value.targetObligationRefs) ||
-    !nonEmptyStringArray(value.missingAssetRefs) ||
+    !stringArray(value.missingAssetRefs) ||
     !Array.isArray(value.targetObligationBindings) ||
     value.targetObligationBindings.length === 0 ||
     value.targetObligationBindings.some((row) => !isJsonRecord(row)) ||
@@ -760,6 +777,7 @@ function edgeClosureDecision(
   if (
     !isJsonRecord(value) ||
     !hasExactKeys(value, [
+      "correctionDisposition",
       "constructionIntentRef",
       "decisionDigest",
       "decisionRef",
@@ -771,7 +789,20 @@ function edgeClosureDecision(
     ]) ||
     value.kind !== "edge_closure_decision" ||
     value.schemaVersion !== "5.0.0" ||
-    value.disposition !== "close_candidate" ||
+    (
+      value.disposition !== "close_candidate" &&
+      value.disposition !== "continue_candidate"
+    ) ||
+    (
+      value.disposition === "close_candidate"
+        ? value.correctionDisposition !== null
+        : ![
+            "repair",
+            "inspect_runtime_archive",
+            "reprice",
+            "escalate",
+          ].includes(String(value.correctionDisposition))
+    ) ||
     typeof value.decisionRef !== "string" ||
     typeof value.decisionDigest !== "string" ||
     typeof value.constructionIntentRef !== "string" ||
@@ -805,6 +836,7 @@ function actionEvaluationProjection(
       "edgeFulfillmentLedger",
       "kind",
       "observationSnapshot",
+      "runtimeArchiveInspection",
       "schemaVersion",
       "semanticEvidenceAssetRefs",
       "targetOutcomeRef",
@@ -825,6 +857,7 @@ function actionEvaluationProjection(
   }
   const ledger = edgeFulfillmentLedger(value.edgeFulfillmentLedger);
   const decision = edgeClosureDecision(value.edgeClosureDecision);
+  const archive = value.runtimeArchiveInspection;
   const { actionEvaluationRef, actionEvaluationDigest, ...body } = value;
   const expectedDigest = sha256Canonical(body);
   if (
@@ -835,6 +868,37 @@ function actionEvaluationProjection(
     decision.constructionIntentRef !== value.constructionIntentRef ||
     decision.targetOutcomeRef !== value.targetOutcomeRef ||
     decision.ledgerRef !== ledger.ledgerRef ||
+    (
+      decision.disposition === "close_candidate"
+        ? archive !== null
+        : !isJsonRecord(archive) ||
+          !hasExactKeys(archive, [
+            "constructionIntentRef",
+            "disposition",
+            "inspectionDigest",
+            "inspectionRef",
+            "kind",
+            "runtimeEvidenceEventRefs",
+            "schemaVersion",
+          ]) ||
+          archive.kind !== "runtime_archive_inspection" ||
+          archive.schemaVersion !== "5.0.0" ||
+          archive.disposition !== "inspected" ||
+          archive.constructionIntentRef !== value.constructionIntentRef ||
+          typeof archive.inspectionRef !== "string" ||
+          typeof archive.inspectionDigest !== "string" ||
+          !nonEmptyStringArray(archive.runtimeEvidenceEventRefs) ||
+          archive.inspectionDigest !== sha256Canonical((() => {
+            const {
+              inspectionRef: _inspectionRef,
+              inspectionDigest: _inspectionDigest,
+              ...archiveBody
+            } = archive;
+            return archiveBody;
+          })()) ||
+          archive.inspectionRef !==
+            `runtime-archive-inspection://product/${String(archive.inspectionDigest).slice("sha256:".length)}`
+    ) ||
     actionEvaluationDigest !== expectedDigest ||
     actionEvaluationRef !==
       `action-evaluation://product/${expectedDigest.slice("sha256:".length)}`
@@ -1186,13 +1250,17 @@ function noActionProjectionForStopRoute(
     nextActionAuthority === null ||
     sourceTerm.kind !== "c_of" ||
     sourceTerm.compositionRef !== composition.compositionRef ||
-    sourceTerm.programLocusRef !==
-      nextActionAuthority.initialProgramLocusRef ||
+    (
+      sourceTerm.programLocusRef !==
+        nextActionAuthority.initialProgramLocusRef &&
+      sourceTerm.programLocusRef !==
+        nextActionAuthority.refreshProgramLocusRef
+    ) ||
     evidence === null
   ) {
     return refusal(
       "gap_projection_mismatch",
-      "gap_stop requires the exact admitted initial evaluateNext C-call",
+      "gap_stop requires one exact admitted evaluateNext C-call",
     );
   }
   const projection = noActionNextActionProjection(evidence.result.value);
@@ -1259,6 +1327,39 @@ function noActionProjectionForStopRoute(
   const catalogActionRefs = new Set(
     executionBasis.actionCatalogRows.map((row) => row.actionRef),
   );
+  const correctionDisposition =
+    projection !== null &&
+      [
+        "repair",
+        "inspect_runtime_archive",
+        "reprice",
+        "escalate",
+      ].includes(projection.noActionDisposition)
+      ? projection.noActionDisposition
+      : null;
+  const constructionState =
+    observationSnapshot !== null &&
+      isJsonRecord(observationSnapshot.constructionState)
+      ? observationSnapshot.constructionState
+      : null;
+  const correctionDelta = correctionDisposition === null ||
+      constructionState === null
+    ? undefined
+    : store.readAll().find(
+        (event) =>
+          event.kind === "construction_delta_observed" &&
+          event.runId === sourceCursor.runId &&
+          event.graphCallId === sourceCursor.graphCallId &&
+          event.frameId === sourceCursor.frameId &&
+          isJsonRecord(event.payload) &&
+          event.payload.edgeClosureDecisionRef ===
+            constructionState.edgeClosureDecisionRef &&
+          isJsonRecord(event.payload.edgeClosureDecision) &&
+          event.payload.edgeClosureDecision.disposition ===
+            "continue_candidate" &&
+          event.payload.edgeClosureDecision.correctionDisposition ===
+            correctionDisposition,
+      );
   if (
     projection === null ||
     selectedBasis === null ||
@@ -1306,8 +1407,7 @@ function noActionProjectionForStopRoute(
       "gap_stop basis differs from its exact admitted workspace, catalog, or policy",
     );
   }
-  if (
-    runtimeFrontier.phase !== "initial" ||
+  const commonSemanticsInvalid =
     priorityScheme === null ||
     priorityScheme.kind !== "construction_priority_scheme" ||
     gapProjection.gapRef !== projection.gapRef ||
@@ -1320,7 +1420,6 @@ function noActionProjectionForStopRoute(
     ) ||
     !isJsonRecord(targetBindings[0]) ||
     targetBindings[0].kind !== "target_obligation_binding" ||
-    targetBindings[0].disposition !== "unbound" ||
     targetBindings[0].obligationRef !==
       projection.targetObligationRefs[0] ||
     !Array.isArray(targetBindings[0].eligibleActionRefs) ||
@@ -1336,10 +1435,45 @@ function noActionProjectionForStopRoute(
     !Array.isArray(priorityProjection.orderedActionRefs) ||
     priorityProjection.kind !== "deterministic_priority_projection" ||
     priorityProjection.schemeRef !== priorityScheme.schemeRef ||
-    priorityProjection.orderedActionRefs.length !== 0 ||
-    projection.rejectedActionRefs.some(
-      (actionRef) => !catalogActionRefs.has(actionRef),
-    )
+    priorityProjection.orderedActionRefs.length !== 0;
+  const initialSemanticsInvalid =
+    correctionDisposition === null &&
+    (
+      runtimeFrontier.phase !== "initial" ||
+      sourceTerm.programLocusRef !==
+        nextActionAuthority.initialProgramLocusRef ||
+      targetBindings[0]!.disposition !== "unbound" ||
+      !sameValues(
+        projection.missingAssetRefs,
+        Array.isArray(gapProjection.missingAssetRefs)
+          ? gapProjection.missingAssetRefs.filter(
+              (value): value is string => typeof value === "string",
+            )
+          : [],
+      ) ||
+      projection.rejectedActionRefs.some(
+        (actionRef) => !catalogActionRefs.has(actionRef),
+      )
+    );
+  const correctionSemanticsInvalid =
+    correctionDisposition !== null &&
+    (
+      runtimeFrontier.phase !== "post_evidence" ||
+      sourceTerm.programLocusRef !==
+        nextActionAuthority.refreshProgramLocusRef ||
+      targetBindings[0]!.disposition !== "fulfilled" ||
+      projection.missingAssetRefs.length !== 0 ||
+      projection.rejectedActionRefs.length !== 0 ||
+      gapProjection.pressure !== "governed_correction" ||
+      gapProjection.correctionDisposition !== correctionDisposition ||
+      constructionState === null ||
+      constructionState.correctionDisposition !== correctionDisposition ||
+      correctionDelta === undefined
+    );
+  if (
+    commonSemanticsInvalid ||
+    initialSemanticsInvalid ||
+    correctionSemanticsInvalid
   ) {
     return refusal(
       "gap_semantics_mismatch",
@@ -1611,6 +1745,23 @@ function constructionDeltaForAdvance(
         (entry): entry is string => typeof entry === "string",
       )
       : [];
+  const responseValue =
+    responded !== undefined &&
+      isJsonRecord(responded.payload) &&
+      isJsonRecord(responded.payload.responseValue)
+      ? responded.payload.responseValue
+      : null;
+  const responseCorrectionDisposition =
+    responseValue !== null &&
+      [
+        "repair",
+        "inspect_runtime_archive",
+        "reprice",
+        "escalate",
+      ].includes(String(responseValue.correctionDisposition))
+      ? responseValue.correctionDisposition
+      : null;
+  const runtimeArchiveInspection = evaluation.runtimeArchiveInspection;
   const evaluationNextActionBasis =
     evaluationBasis !== null
       ? nextActionBasis(evaluationBasis.nextActionBasis)
@@ -1647,6 +1798,7 @@ function constructionDeltaForAdvance(
     opened === undefined ||
     responded === undefined ||
     resumed === undefined ||
+    responseValue === null ||
     evaluationBasis === null ||
     basisEvidenceRefs.length === 0 ||
     basisEvidenceAssetRefs.length === 0 ||
@@ -1717,6 +1869,21 @@ function constructionDeltaForAdvance(
     evaluation.targetOutcomeRef !== intent.targetOutcomeRef ||
     ledger.constructionIntentRef !== intent.constructionIntentRef ||
     decision.constructionIntentRef !== intent.constructionIntentRef ||
+    (
+      responseCorrectionDisposition === null
+        ? decision.disposition !== "close_candidate" ||
+          decision.correctionDisposition !== null ||
+          runtimeArchiveInspection !== null
+        : decision.disposition !== "continue_candidate" ||
+          decision.correctionDisposition !==
+            responseCorrectionDisposition ||
+          runtimeArchiveInspection === null ||
+          !sameValues(
+            runtimeArchiveInspection.runtimeEvidenceEventRefs as
+              readonly string[],
+            basisRuntimeEventRefs,
+          )
+    ) ||
     !sameValues(ledgerObligations, actionRow.targetObligationRefs) ||
     !sameValues(evaluation.admittedEvidenceRefs, basisEvidenceRefs) ||
     !sameValues(

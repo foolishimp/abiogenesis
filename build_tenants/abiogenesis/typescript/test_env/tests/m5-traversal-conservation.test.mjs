@@ -205,22 +205,6 @@ function proven(axis, behavior, proof, verify) {
   };
 }
 
-function open(axis, behavior, gtlExpression, gap) {
-  return {
-    axis,
-    behavior,
-    status: "open",
-    witness46:
-      `PENDING immutable RC5 witness reconciliation for ${behavior}`,
-    gtlExpression,
-    hogPath: `OPEN: ${gap}`,
-    abgEvidence: `OPEN: ${gap}`,
-    publicOutcome: `OPEN: ${gap}`,
-    invalidMutation: `OPEN: nearest invalid substitute awaits ${gap}`,
-    gap,
-  };
-}
-
 const matrix = [
   proven("compute_fibre", "F_D", {
     gtlExpression: "C.of leaf with fibre F_D",
@@ -558,7 +542,19 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  open("consequence_route", "escalation_or_reprice", "declared escalation or reprice route", "F_H-authorized escalation/reprice continuation"),
+  proven("consequence_route", "escalation_or_reprice", {
+    gtlExpression: "Product-observed correction pressure followed by one typed F_H correction response",
+    hogPath: "the resumed One Surface traversal evaluates evidence, refreshes, and stops on the Product's exact correction",
+    abgEvidence: "construction delta, correction route, and run stop retain reprice or escalation truth without closure",
+    publicOutcome: "fresh-context status and replay return the exact reprice or escalate disposition",
+    invalidMutation: "a correction carried by the ordinary approval variant refuses without changing the event log",
+  }, ({ externalCorrections }) => {
+    assert.equal(
+      externalCorrections.status,
+      0,
+      `${externalCorrections.stdout}\n${externalCorrections.stderr}`,
+    );
+  }),
   proven("consequence_route", "gap_stop", {
     gtlExpression: "Product-owned evaluateNext emits a no-action gap_stop projection",
     hogPath: "admitted no-action judgment stops before target traversal, F_H interaction, or closure",
@@ -629,7 +625,19 @@ const matrix = [
       ["retry", "blocked"],
     );
   }),
-  open("runtime_disposition", "repair", "declared repair route", "repair candidate admission and replay"),
+  proven("runtime_disposition", "repair", {
+    gtlExpression: "post-evidence evaluateNext emits one typed repair no-action projection",
+    hogPath: "HoG applies the admitted gap-stop route without terminal traversal",
+    abgEvidence: "runtime archive inspection, construction delta, repair route, and run_stopped remain causal",
+    publicOutcome: "run.continue and fresh project.read return repair with replay agreement",
+    invalidMutation: "an approve-variant correction response refuses before durable response admission",
+  }, ({ externalCorrections }) => {
+    assert.equal(
+      externalCorrections.status,
+      0,
+      `${externalCorrections.stdout}\n${externalCorrections.stderr}`,
+    );
+  }),
   proven("runtime_disposition", "re_enter", {
     gtlExpression: "public start under one exact Product-owned single-use gap re-entry basis",
     hogPath: "successor Run enters the unchanged One Surface Program after source-gap consumption",
@@ -656,8 +664,32 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  open("runtime_disposition", "inspect_runtime_archive", "declared archive-inspection stop", "typed inspection projection and continuation"),
-  open("runtime_disposition", "reprice", "declared reprice proposal", "human-authorized reprice transition"),
+  proven("runtime_disposition", "inspect_runtime_archive", {
+    gtlExpression: "post-evidence evaluateNext emits one typed runtime-archive inspection projection",
+    hogPath: "HoG stops after the Product evaluator consumes the admitted runtime evidence basis",
+    abgEvidence: "the inspected archive projection binds four real causal event references before run_stopped",
+    publicOutcome: "fresh status exposes the same inspection identity and exact stopped disposition",
+    invalidMutation: "variant mismatch cannot create an archive-inspection response or route",
+  }, ({ externalCorrections }) => {
+    assert.equal(
+      externalCorrections.status,
+      0,
+      `${externalCorrections.stdout}\n${externalCorrections.stderr}`,
+    );
+  }),
+  proven("runtime_disposition", "reprice", {
+    gtlExpression: "Product-observed authority state plus typed human response yields a reprice projection",
+    hogPath: "the same One Surface refresh reaches reprice without target traversal or closure",
+    abgEvidence: "continue_candidate decision, construction delta, reprice route, and run_stopped are replayed",
+    publicOutcome: "run.continue and fresh status expose reprice as non-close Product truth",
+    invalidMutation: "a correction response under approve is refused before it can authorize repricing",
+  }, ({ externalCorrections }) => {
+    assert.equal(
+      externalCorrections.status,
+      0,
+      `${externalCorrections.stdout}\n${externalCorrections.stderr}`,
+    );
+  }),
   proven("runtime_disposition", "human_assurance_required", {
     gtlExpression: "Product-owned approval action selects one typed F_H assurance contract",
     hogPath: "HoG stops at the declared F_H locus until the exact actor and capability respond",
@@ -671,7 +703,19 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  open("runtime_disposition", "escalate", "declared escalation route", "typed escalation and human authority"),
+  proven("runtime_disposition", "escalate", {
+    gtlExpression: "Product-observed escalation pressure plus typed F_H response yields an escalate projection",
+    hogPath: "HoG applies the admitted nonterminal escalation route after post-evidence refresh",
+    abgEvidence: "continue_candidate decision, archive inspection, escalation route, and stop remain append-only",
+    publicOutcome: "fresh status and replay expose escalation without manufacturing closure",
+    invalidMutation: "ordinary approval cannot be relabelled as the escalation response variant",
+  }, ({ externalCorrections }) => {
+    assert.equal(
+      externalCorrections.status,
+      0,
+      `${externalCorrections.stdout}\n${externalCorrections.stderr}`,
+    );
+  }),
   proven("runtime_disposition", "gap_stop", {
     gtlExpression: "typed Product no-action result with gap_stop disposition",
     hogPath: "current traversal stops without selecting a target, retrying, or closing",
@@ -792,12 +836,12 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 35);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 40);
   assert.equal(
     matrix.filter((row) => row.status === "provisional").length,
     0,
   );
-  assert.equal(matrix.filter((row) => row.status === "open").length, 5);
+  assert.equal(matrix.filter((row) => row.status === "open").length, 0);
   for (const row of matrix) {
     for (const field of [
       "witness46",
@@ -1050,6 +1094,26 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
       timeout: 30_000,
     },
   );
+  const externalCorrections = spawnSync(
+    process.execPath,
+    [
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern=^M5 preserves governed correction dispositions through the external Product$",
+      "test_env/tests/m5-installed-external-product.test.mjs",
+    ],
+    {
+      cwd: root,
+      encoding: "utf8",
+      env: Object.fromEntries(
+        Object.entries(process.env).filter(
+          ([key]) => key !== "NODE_TEST_CONTEXT",
+        ),
+      ),
+      maxBuffer: 10 * 1024 * 1024,
+      timeout: 30_000,
+    },
+  );
   const evidence = {
     fd,
     compose,
@@ -1072,6 +1136,7 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
     externalGapReentry,
     externalSpanReentry,
     externalPublicTargets,
+    externalCorrections,
   };
 
   for (const row of matrix) {

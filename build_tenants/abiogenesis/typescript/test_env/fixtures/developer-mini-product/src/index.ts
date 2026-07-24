@@ -239,6 +239,8 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
     "implementation://developer.example/greeting/evaluate-action-incomplete-evidence-mutation@5",
   evaluateActionSubstitutedWorkspaceImplementationRef:
     "implementation://developer.example/greeting/evaluate-action-substituted-workspace-mutation@5",
+  evaluateActionSubstitutedArchiveImplementationRef:
+    "implementation://developer.example/greeting/evaluate-action-substituted-archive-mutation@5",
   refreshModelImplementationBindingRef:
     "implementation-binding://developer.example/greeting/refresh-model@5",
   refreshModelImplementationRef:
@@ -500,27 +502,91 @@ function isSpanSelection(value: unknown): boolean {
   return isGraphSpanReentryProjection(value) || isSpanContinuation(value);
 }
 
-type DeveloperNoActionDisposition = "gap_stop" | "reprice_required";
-type DeveloperChangeAuthorityState = "unchanged" | "requires_reprice";
+type DeveloperCorrectionDisposition =
+  | "repair"
+  | "inspect_runtime_archive"
+  | "reprice"
+  | "escalate";
+
+type DeveloperNoActionDisposition =
+  | "gap_stop"
+  | "reprice_required"
+  | DeveloperCorrectionDisposition;
+
+type DeveloperChangeAuthorityState =
+  | "unchanged"
+  | "requires_reprice"
+  | "repair_required"
+  | "runtime_archive_inspection_required"
+  | "reprice_authorized"
+  | "escalation_required";
 
 function isDeveloperNoActionDisposition(
   value: unknown,
 ): value is DeveloperNoActionDisposition {
-  return value === "gap_stop" || value === "reprice_required";
+  return value === "gap_stop" ||
+    value === "reprice_required" ||
+    value === "repair" ||
+    value === "inspect_runtime_archive" ||
+    value === "reprice" ||
+    value === "escalate";
+}
+
+function isDeveloperCorrectionDisposition(
+  value: unknown,
+): value is DeveloperCorrectionDisposition {
+  return value === "repair" ||
+    value === "inspect_runtime_archive" ||
+    value === "reprice" ||
+    value === "escalate";
 }
 
 function isDeveloperChangeAuthorityState(
   value: unknown,
 ): value is DeveloperChangeAuthorityState {
-  return value === "unchanged" || value === "requires_reprice";
+  return value === "unchanged" ||
+    value === "requires_reprice" ||
+    value === "repair_required" ||
+    value === "runtime_archive_inspection_required" ||
+    value === "reprice_authorized" ||
+    value === "escalation_required";
 }
 
 function noActionReasonRef(
   disposition: DeveloperNoActionDisposition,
 ): string {
-  return disposition === "gap_stop"
-    ? DEVELOPER_MINI_IDS.gapStopReasonRef
-    : "reason://developer.example/greeting/constitutional-reprice-required@5";
+  switch (disposition) {
+    case "gap_stop":
+      return DEVELOPER_MINI_IDS.gapStopReasonRef;
+    case "reprice_required":
+      return "reason://developer.example/greeting/constitutional-reprice-required@5";
+    case "repair":
+      return "reason://developer.example/greeting/correction-repair-admitted@5";
+    case "inspect_runtime_archive":
+      return "reason://developer.example/greeting/runtime-archive-inspection-admitted@5";
+    case "reprice":
+      return "reason://developer.example/greeting/reprice-authorized@5";
+    case "escalate":
+      return "reason://developer.example/greeting/escalation-admitted@5";
+  }
+}
+
+function correctionForAuthorityState(
+  state: DeveloperChangeAuthorityState,
+): DeveloperCorrectionDisposition | null {
+  switch (state) {
+    case "repair_required":
+      return "repair";
+    case "runtime_archive_inspection_required":
+      return "inspect_runtime_archive";
+    case "reprice_authorized":
+      return "reprice";
+    case "escalation_required":
+      return "escalate";
+    case "unchanged":
+    case "requires_reprice":
+      return null;
+  }
 }
 
 function isProductAssetModel(value: unknown): value is Readonly<{
@@ -743,11 +809,24 @@ function isObservationSnapshot(
         !hasExactKeys(value.constructionState, [
           "actionEvaluationRef",
           "constructionIntentRef",
+          "correctionDisposition",
           "edgeClosureDecisionRef",
+          "runtimeArchiveInspectionRef",
         ]) ||
         typeof value.constructionState.actionEvaluationRef !== "string" ||
         typeof value.constructionState.constructionIntentRef !== "string" ||
-        typeof value.constructionState.edgeClosureDecisionRef !== "string"
+        typeof value.constructionState.edgeClosureDecisionRef !== "string" ||
+        (
+          value.constructionState.correctionDisposition !== null &&
+          !isDeveloperNoActionDisposition(
+            value.constructionState.correctionDisposition,
+          )
+        ) ||
+        (
+          value.constructionState.runtimeArchiveInspectionRef !== null &&
+          typeof value.constructionState.runtimeArchiveInspectionRef !==
+            "string"
+        )
       )
     )
   ) {
@@ -1165,7 +1244,6 @@ function isNoActionNextActionProjection(
     !isRecord(value.targetObligationBindings[0]) ||
     value.targetObligationBindings[0].kind !==
       "target_obligation_binding" ||
-    value.targetObligationBindings[0].disposition !== "unbound" ||
     value.targetObligationBindings[0].obligationRef !==
       DEVELOPER_MINI_IDS.approvalObligationRef ||
     !Array.isArray(
@@ -1183,17 +1261,29 @@ function isNoActionNextActionProjection(
     value.targetObligationRefs.join("\0") !==
       DEVELOPER_MINI_IDS.approvalObligationRef ||
     !Array.isArray(value.missingAssetRefs) ||
-    value.missingAssetRefs.join("\0") !==
-      DEVELOPER_MINI_IDS.approvalCapabilityAssetRef ||
     !Array.isArray(value.lawfulBasisRefs) ||
     value.lawfulBasisRefs.join("\0") !== [
       value.nextActionBasisRef,
       value.gapRef,
       DEVELOPER_MINI_IDS.oneSurfaceProgramRef,
     ].join("\0") ||
-    !Array.isArray(value.rejectedActionRefs) ||
-    value.rejectedActionRefs.join("\0") !==
-      DEVELOPER_MINI_IDS.approvalActionRef
+    !Array.isArray(value.rejectedActionRefs)
+  ) {
+    return false;
+  }
+  const correction = isDeveloperCorrectionDisposition(
+    value.noActionDisposition,
+  );
+  if (
+    correction
+      ? value.targetObligationBindings[0].disposition !== "fulfilled" ||
+        value.missingAssetRefs.length !== 0 ||
+        value.rejectedActionRefs.length !== 0
+      : value.targetObligationBindings[0].disposition !== "unbound" ||
+        value.missingAssetRefs.join("\0") !==
+          DEVELOPER_MINI_IDS.approvalCapabilityAssetRef ||
+        value.rejectedActionRefs.join("\0") !==
+          DEVELOPER_MINI_IDS.approvalActionRef
   ) {
     return false;
   }
@@ -1211,16 +1301,29 @@ function isHumanApproval(value: unknown): value is Readonly<{
   constructionIntentRef: string;
   message: string;
   semanticEvidenceAssetRefs: readonly string[];
+  correctionDisposition?: DeveloperCorrectionDisposition;
 }> {
-  return isRecord(value) &&
-    hasExactKeys(value, [
-      "approved",
-      "constructionIntentRef",
-      "kind",
-      "message",
-      "semanticEvidenceAssetRefs",
-      "schemaVersion",
-    ]) &&
+  if (!isRecord(value)) return false;
+  const correctionDisposition = value.correctionDisposition;
+  const exactKeys = correctionDisposition === undefined
+    ? [
+        "approved",
+        "constructionIntentRef",
+        "kind",
+        "message",
+        "semanticEvidenceAssetRefs",
+        "schemaVersion",
+      ]
+    : [
+        "approved",
+        "constructionIntentRef",
+        "correctionDisposition",
+        "kind",
+        "message",
+        "semanticEvidenceAssetRefs",
+        "schemaVersion",
+      ];
+  return hasExactKeys(value, exactKeys) &&
     value.kind === "developer_human_approval" &&
     value.schemaVersion === "5.0.0" &&
     value.approved === true &&
@@ -1233,7 +1336,11 @@ function isHumanApproval(value: unknown): value is Readonly<{
       (ref) => typeof ref === "string" && ref.length > 0,
     ) &&
     new Set(value.semanticEvidenceAssetRefs).size ===
-      value.semanticEvidenceAssetRefs.length;
+      value.semanticEvidenceAssetRefs.length &&
+    (
+      correctionDisposition === undefined ||
+      isDeveloperCorrectionDisposition(correctionDisposition)
+    );
 }
 
 function isActionEvaluation(value: unknown): value is Readonly<{
@@ -1248,6 +1355,7 @@ function isActionEvaluation(value: unknown): value is Readonly<{
   admittedEvidenceRefs: readonly string[];
   semanticEvidenceAssetRefs: readonly string[];
   observationSnapshot: Readonly<Record<string, JsonValue>>;
+  runtimeArchiveInspection: Readonly<Record<string, JsonValue>> | null;
   edgeFulfillmentLedger: Readonly<Record<string, JsonValue>>;
   edgeClosureDecision: Readonly<Record<string, JsonValue>>;
 }> {
@@ -1264,6 +1372,7 @@ function isActionEvaluation(value: unknown): value is Readonly<{
       "edgeFulfillmentLedger",
       "kind",
       "observationSnapshot",
+      "runtimeArchiveInspection",
       "schemaVersion",
       "semanticEvidenceAssetRefs",
       "targetOutcomeRef",
@@ -1346,6 +1455,7 @@ function isActionEvaluation(value: unknown): value is Readonly<{
   const decision = value.edgeClosureDecision;
   if (
     !hasExactKeys(decision, [
+      "correctionDisposition",
       "constructionIntentRef",
       "decisionDigest",
       "decisionRef",
@@ -1357,7 +1467,9 @@ function isActionEvaluation(value: unknown): value is Readonly<{
     ]) ||
     decision.kind !== "edge_closure_decision" ||
     decision.schemaVersion !== "5.0.0" ||
-    decision.disposition !== "close_candidate" ||
+    !["close_candidate", "continue_candidate"].includes(
+      String(decision.disposition),
+    ) ||
     decision.constructionIntentRef !== value.constructionIntentRef ||
     decision.targetOutcomeRef !== value.targetOutcomeRef ||
     decision.ledgerRef !== ledgerRef ||
@@ -1365,6 +1477,63 @@ function isActionEvaluation(value: unknown): value is Readonly<{
     typeof decision.decisionDigest !== "string"
   ) {
     return false;
+  }
+  const expectedCorrection = correctionForAuthorityState(
+    value.observationSnapshot.changeAuthorityState as
+      DeveloperChangeAuthorityState,
+  );
+  const archive = value.runtimeArchiveInspection;
+  if (
+    (
+      expectedCorrection === null &&
+      (
+        decision.disposition !== "close_candidate" ||
+        decision.correctionDisposition !== null ||
+        archive !== null
+      )
+    ) ||
+    (
+      expectedCorrection !== null &&
+      (
+        decision.disposition !== "continue_candidate" ||
+        decision.correctionDisposition !== expectedCorrection ||
+        !isRecord(archive) ||
+        !hasExactKeys(archive, [
+          "constructionIntentRef",
+          "disposition",
+          "inspectionDigest",
+          "inspectionRef",
+          "kind",
+          "runtimeEvidenceEventRefs",
+          "schemaVersion",
+        ]) ||
+        archive.kind !== "runtime_archive_inspection" ||
+        archive.schemaVersion !== "5.0.0" ||
+        archive.disposition !== "inspected" ||
+        archive.constructionIntentRef !== value.constructionIntentRef ||
+        typeof archive.inspectionRef !== "string" ||
+        typeof archive.inspectionDigest !== "string" ||
+        !Array.isArray(archive.runtimeEvidenceEventRefs) ||
+        archive.runtimeEvidenceEventRefs.length !== 4 ||
+        new Set(archive.runtimeEvidenceEventRefs).size !== 4
+      )
+    )
+  ) {
+    return false;
+  }
+  if (isRecord(archive)) {
+    const {
+      inspectionRef,
+      inspectionDigest,
+      ...archiveBody
+    } = archive;
+    if (
+      inspectionDigest !== sha256Canonical(archiveBody as JsonValue) ||
+      inspectionRef !==
+        `runtime-archive-inspection://product/${String(inspectionDigest).slice("sha256:".length)}`
+    ) {
+      return false;
+    }
   }
   const {
     decisionRef,
@@ -1429,11 +1598,13 @@ function isRefreshedGapProjection(value: unknown): value is Readonly<{
   constructionIntentRef: string;
   targetOutcomeRef: string;
   edgeClosureDecisionRef: string;
-  pressure: "none";
+  pressure: "none" | "governed_correction";
+  correctionDisposition: DeveloperCorrectionDisposition | null;
   fulfilledObligationRefs: readonly string[];
 }> {
   return isRecord(value) &&
     hasExactKeys(value, [
+      "correctionDisposition",
       "constructionIntentRef",
       "edgeClosureDecisionRef",
       "fulfilledObligationRefs",
@@ -1446,7 +1617,16 @@ function isRefreshedGapProjection(value: unknown): value is Readonly<{
     ]) &&
     value.kind === "developer_refreshed_gap_projection" &&
     value.schemaVersion === "5.0.0" &&
-    value.pressure === "none" &&
+    (
+      (
+        value.pressure === "none" &&
+        value.correctionDisposition === null
+      ) ||
+      (
+        value.pressure === "governed_correction" &&
+        isDeveloperCorrectionDisposition(value.correctionDisposition)
+      )
+    ) &&
     typeof value.gapRef === "string" &&
     typeof value.modelRef === "string" &&
     typeof value.constructionIntentRef === "string" &&
@@ -1763,6 +1943,15 @@ export const
     deterministicStageDescriptor(
       DEVELOPER_MINI_IDS.evaluateActionSubstitutedWorkspaceImplementationRef,
       "realizeDeveloperEvaluateActionWithSubstitutedWorkspace",
+      DEVELOPER_MINI_IDS.actionEvaluationBasisContractRef,
+      DEVELOPER_MINI_IDS.actionEvaluationContractRef,
+    );
+
+export const
+  DEVELOPER_EVALUATE_ACTION_SUBSTITUTED_ARCHIVE_IMPLEMENTATION_DESCRIPTOR =
+    deterministicStageDescriptor(
+      DEVELOPER_MINI_IDS.evaluateActionSubstitutedArchiveImplementationRef,
+      "realizeDeveloperEvaluateActionWithSubstitutedRuntimeArchive",
       DEVELOPER_MINI_IDS.actionEvaluationBasisContractRef,
       DEVELOPER_MINI_IDS.actionEvaluationContractRef,
     );
@@ -2455,6 +2644,34 @@ export function realizeDeveloperEvaluateAction(
     throw new TypeError("developer action evaluation basis is incomplete");
   }
   const evidence = admittedEvidence[0];
+  const response = evidence.responseValue;
+  const observation = nextActionBasis.observationSnapshot;
+  if (
+    !isHumanApproval(response) ||
+    !isRecord(observation) ||
+    !isDeveloperChangeAuthorityState(observation.changeAuthorityState)
+  ) {
+    throw new TypeError(
+      "developer action evaluation requires its admitted Product decision",
+    );
+  }
+  const correctionDisposition = correctionForAuthorityState(
+    observation.changeAuthorityState,
+  );
+  if (
+    (
+      correctionDisposition === null &&
+      response.correctionDisposition !== undefined
+    ) ||
+    (
+      correctionDisposition !== null &&
+      response.correctionDisposition !== correctionDisposition
+    )
+  ) {
+    throw new TypeError(
+      "developer correction response differs from the Product-observed pressure",
+    );
+  }
   const evidenceRefs = [String(evidence.responseRef)];
   const evidenceAssetRefs = evidence.semanticEvidenceAssetRefs as readonly string[];
   const obligationRefs = intent.targetObligationRefs as readonly string[];
@@ -2477,13 +2694,36 @@ export function realizeDeveloperEvaluateAction(
       `edge-fulfillment-ledger://product/${ledgerDigest.slice("sha256:".length)}`,
     ledgerDigest,
   });
+  const runtimeArchiveInspection = correctionDisposition === null
+    ? null
+    : (() => {
+        const archiveBody = {
+          kind: "runtime_archive_inspection" as const,
+          schemaVersion: "5.0.0" as const,
+          disposition: "inspected" as const,
+          constructionIntentRef: intent.constructionIntentRef,
+          runtimeEvidenceEventRefs: input.runtimeEvidenceEventRefs,
+        };
+        const inspectionDigest = sha256Canonical(
+          archiveBody as unknown as JsonValue,
+        );
+        return deepFreeze({
+          ...archiveBody,
+          inspectionRef:
+            `runtime-archive-inspection://product/${inspectionDigest.slice("sha256:".length)}`,
+          inspectionDigest,
+        });
+      })();
   const decisionBody = {
     kind: "edge_closure_decision" as const,
     schemaVersion: "5.0.0" as const,
     constructionIntentRef: intent.constructionIntentRef,
     targetOutcomeRef: intent.targetOutcomeRef,
     ledgerRef: edgeFulfillmentLedger.ledgerRef,
-    disposition: "close_candidate" as const,
+    disposition: correctionDisposition === null
+      ? "close_candidate" as const
+      : "continue_candidate" as const,
+    correctionDisposition,
   };
   const decisionDigest = sha256Canonical(decisionBody);
   const edgeClosureDecision = deepFreeze({
@@ -2502,6 +2742,7 @@ export function realizeDeveloperEvaluateAction(
     admittedEvidenceRefs: evidenceRefs,
     semanticEvidenceAssetRefs: evidenceAssetRefs,
     observationSnapshot: nextActionBasis.observationSnapshot,
+    runtimeArchiveInspection,
     edgeFulfillmentLedger,
     edgeClosureDecision,
   };
@@ -2570,6 +2811,7 @@ export function realizeDeveloperEvaluateActionWithoutEvidence(
     targetOutcomeRef: originalDecision.targetOutcomeRef,
     ledgerRef: edgeFulfillmentLedger.ledgerRef,
     disposition: originalDecision.disposition,
+    correctionDisposition: originalDecision.correctionDisposition,
   };
   const decisionDigest = sha256Canonical(decisionBody as JsonValue);
   const edgeClosureDecision = deepFreeze({
@@ -2588,6 +2830,7 @@ export function realizeDeveloperEvaluateActionWithoutEvidence(
     admittedEvidenceRefs: substitutedEvidenceRefs,
     semanticEvidenceAssetRefs: original.semanticEvidenceAssetRefs,
     observationSnapshot: original.observationSnapshot,
+    runtimeArchiveInspection: original.runtimeArchiveInspection,
     edgeFulfillmentLedger,
     edgeClosureDecision,
   };
@@ -2668,6 +2911,66 @@ export function realizeDeveloperEvaluateActionWithSubstitutedWorkspace(
   );
 }
 
+export function realizeDeveloperEvaluateActionWithSubstitutedRuntimeArchive(
+  input: unknown,
+): Readonly<object> {
+  if (!isActionEvaluationBasis(input)) {
+    throw new TypeError(
+      "developer archive-substitution mutation requires the admitted evaluation basis",
+    );
+  }
+  const admitted = realizeDeveloperEvaluateAction(input) as Readonly<{
+    resultCandidate: Readonly<Record<string, JsonValue>>;
+  }>;
+  const original = admitted.resultCandidate;
+  const originalArchive = original.runtimeArchiveInspection;
+  if (!isRecord(originalArchive)) {
+    throw new TypeError(
+      "developer archive-substitution mutation requires correction evidence",
+    );
+  }
+  const archiveBody = {
+    kind: originalArchive.kind,
+    schemaVersion: originalArchive.schemaVersion,
+    disposition: originalArchive.disposition,
+    constructionIntentRef: originalArchive.constructionIntentRef,
+    runtimeEvidenceEventRefs: [
+      ...(originalArchive.runtimeEvidenceEventRefs as readonly JsonValue[])
+        .slice(0, -1),
+      "event://developer.example/unadmitted-runtime-archive-substitute",
+    ],
+  };
+  const inspectionDigest = sha256Canonical(archiveBody as JsonValue);
+  const runtimeArchiveInspection = deepFreeze({
+    ...archiveBody,
+    inspectionRef:
+      `runtime-archive-inspection://product/${inspectionDigest.slice("sha256:".length)}`,
+    inspectionDigest,
+  });
+  const {
+    actionEvaluationRef: _actionEvaluationRef,
+    actionEvaluationDigest: _actionEvaluationDigest,
+    ...evaluationBody
+  } = original;
+  const substitutedEvaluationBody = {
+    ...evaluationBody,
+    runtimeArchiveInspection,
+  };
+  const actionEvaluationDigest = sha256Canonical(
+    substitutedEvaluationBody as JsonValue,
+  );
+  return deterministicStageCandidate(
+    input as JsonValue,
+    deepFreeze({
+      ...substitutedEvaluationBody,
+      actionEvaluationRef:
+        `action-evaluation://product/${actionEvaluationDigest.slice("sha256:".length)}`,
+      actionEvaluationDigest,
+    }),
+    DEVELOPER_MINI_IDS.evaluateActionSubstitutedArchiveImplementationRef,
+  );
+}
+
 export function realizeDeveloperRefreshModel(
   input: unknown,
 ): Readonly<object> {
@@ -2709,7 +3012,13 @@ export function realizeDeveloperRefreshModel(
     constructionState: {
       actionEvaluationRef: input.actionEvaluationRef,
       constructionIntentRef: input.constructionIntentRef,
+      correctionDisposition:
+        input.edgeClosureDecision.correctionDisposition,
       edgeClosureDecisionRef: input.edgeClosureDecision.decisionRef,
+      runtimeArchiveInspectionRef:
+        input.runtimeArchiveInspection === null
+          ? null
+          : input.runtimeArchiveInspection.inspectionRef,
     },
     observedInput: prior.observedInput,
     priorGap: prior.priorGap,
@@ -2739,6 +3048,13 @@ export function realizeDeveloperRefreshGap(
       "developer gap refresh requires the refreshed observation snapshot",
     );
   }
+  const constructionState = input.constructionState;
+  const correctionDisposition =
+    isDeveloperCorrectionDisposition(
+        constructionState.correctionDisposition,
+      )
+      ? constructionState.correctionDisposition
+      : null;
   const body = {
     kind: "developer_refreshed_gap_projection" as const,
     schemaVersion: "5.0.0" as const,
@@ -2748,9 +3064,11 @@ export function realizeDeveloperRefreshGap(
         .constructionIntentRef,
     targetOutcomeRef: input.targetOutcomeRef,
     edgeClosureDecisionRef:
-      (input.constructionState as Readonly<Record<string, JsonValue>>)
-        .edgeClosureDecisionRef,
-    pressure: "none" as const,
+      constructionState.edgeClosureDecisionRef,
+    pressure: correctionDisposition === null
+      ? "none" as const
+      : "governed_correction" as const,
+    correctionDisposition,
     fulfilledObligationRefs: [
       DEVELOPER_MINI_IDS.approvalObligationRef,
     ],
@@ -2815,6 +3133,52 @@ export function realizeDeveloperRefreshEvaluateNext(
   if (!isRecord(constructionState)) {
     throw new TypeError(
       "developer convergence requires the admitted construction state",
+    );
+  }
+  if (
+    gap.pressure === "governed_correction" &&
+    isDeveloperCorrectionDisposition(gap.correctionDisposition)
+  ) {
+    const projectionBody = {
+      kind: "next_action_projection" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "no_action" as const,
+      noActionDisposition: gap.correctionDisposition,
+      targetOutcomeRef: gap.targetOutcomeRef,
+      programRef: DEVELOPER_MINI_IDS.oneSurfaceProgramRef,
+      gapRef: gap.gapRef,
+      targetObligationRefs: [
+        DEVELOPER_MINI_IDS.approvalObligationRef,
+      ],
+      targetObligationBindings: [
+        targetObligationBinding(
+          snapshot.snapshotRef,
+          "fulfilled",
+          [],
+        ),
+      ],
+      missingAssetRefs: [] as const,
+      reasonRef: noActionReasonRef(gap.correctionDisposition),
+      lawfulBasisRefs: [
+        input.basisRef,
+        gap.gapRef,
+        DEVELOPER_MINI_IDS.oneSurfaceProgramRef,
+      ],
+      rejectedActionRefs: [] as const,
+      priorityProjection: priorityProjection([]),
+      nextActionBasisRef: input.basisRef,
+      nextActionBasisDigest: input.basisDigest,
+    };
+    const projectionDigest = sha256Canonical(projectionBody);
+    return deterministicStageCandidate(
+      input as unknown as JsonValue,
+      deepFreeze({
+        ...projectionBody,
+        projectionRef:
+          `next-action-projection://product/${projectionDigest.slice("sha256:".length)}`,
+        projectionDigest,
+      }),
+      DEVELOPER_MINI_IDS.refreshEvaluateNextImplementationRef,
     );
   }
   const body = {
@@ -2905,7 +3269,15 @@ function isDeveloperSemanticStageAdvance(
       output.constructionState.constructionIntentRef ===
         input.constructionIntentRef &&
       output.constructionState.edgeClosureDecisionRef ===
-        input.edgeClosureDecision.decisionRef;
+        input.edgeClosureDecision.decisionRef &&
+      output.constructionState.correctionDisposition ===
+        input.edgeClosureDecision.correctionDisposition &&
+      output.constructionState.runtimeArchiveInspectionRef ===
+        (
+          input.runtimeArchiveInspection === null
+            ? null
+            : input.runtimeArchiveInspection.inspectionRef
+        );
   }
   if (isNextActionBasis(input) && isConvergedNextActionProjection(output)) {
     if (

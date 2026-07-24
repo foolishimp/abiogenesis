@@ -1297,6 +1297,10 @@ export async function completeExecutableTraversal<
     [
       "gap_stop",
       "reprice_required",
+      "repair",
+      "inspect_runtime_archive",
+      "reprice",
+      "escalate",
     ].includes(String(result.value.noActionDisposition))
   ) {
     const proposal = proposeGapStopRoute(

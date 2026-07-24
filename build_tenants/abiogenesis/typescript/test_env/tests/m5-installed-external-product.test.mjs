@@ -301,6 +301,15 @@ function withSubstitutedWorkspace(mini) {
   );
 }
 
+function withSubstitutedRuntimeArchive(mini) {
+  return withStageImplementation(
+    mini.publication,
+    mini.ids.evaluateActionImplementationBindingRef,
+    mini.ids.evaluateActionSubstitutedArchiveImplementationRef,
+    "realizeDeveloperEvaluateActionWithSubstitutedRuntimeArchive",
+  );
+}
+
 function withRenamedOneSurfaceRoles(mini) {
   const publication = structuredClone(mini.publication);
   oneSurfaceTerms(publication, mini).forEach((term, index) => {
@@ -343,7 +352,11 @@ async function oneSurfaceLifecycle(
       );
     }
     const start = structuredClone(scenario.transcript.at(-1));
-    start.payload.input = oneSurfaceObservation(
+    start.payload.input = options.observation?.({
+      binding: setupOutcomes[4].result,
+      mini,
+      publication,
+    }) ?? oneSurfaceObservation(
       mini,
       publication,
       setupOutcomes[4].result,
@@ -384,7 +397,7 @@ async function oneSurfaceLifecycle(
     publicApi,
     invocation(
       "abg.operation.interaction.respond",
-      "approve",
+      options.responseVariant ?? "approve",
       `invocation://t272/${label}/respond`,
       {
         actorRef: "actor://developer.example/trusted-developer",
@@ -472,6 +485,7 @@ async function oneSurfaceStart(
   mini,
   label,
   publication,
+  options = {},
 ) {
   const scenario = await externalScenario(
     harness,
@@ -492,7 +506,11 @@ async function oneSurfaceStart(
       outcomes.push(await publicApi.applyRootPublicInvocation(context, row));
     }
     const start = structuredClone(scenario.transcript.at(-1));
-    start.payload.input = oneSurfaceObservation(
+    start.payload.input = options.observation?.({
+      binding: outcomes[4].result,
+      mini,
+      publication,
+    }) ?? oneSurfaceObservation(
       mini,
       publication,
       outcomes[4].result,
@@ -2979,5 +2997,353 @@ test("M5 preserves a Product-required reprice as a readable non-close stop", asy
   assert.equal(
     await readFile(scenario.eventLogPath, "utf8"),
     eventsBeforeRead,
+  );
+});
+
+test("M5 preserves governed correction dispositions through the external Product", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const installedPublic = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    )).href}?governed-corrections=${Date.now()}`,
+  );
+  const cases = [
+    {
+      authorityState: "repair_required",
+      disposition: "repair",
+    },
+    {
+      authorityState: "runtime_archive_inspection_required",
+      disposition: "inspect_runtime_archive",
+    },
+    {
+      authorityState: "reprice_authorized",
+      disposition: "reprice",
+    },
+    {
+      authorityState: "escalation_required",
+      disposition: "escalate",
+    },
+  ];
+  const correctionObservation = (authorityState) =>
+    ({ binding, publication }) => {
+      const program = publication.programs.find(
+        (candidate) =>
+          candidate.programRef === mini.ids.oneSurfaceProgramRef,
+      );
+      assert.ok(program?.actionCatalog);
+      return mini.constructObservationSnapshot({
+        workspaceBindingId: binding.bindingId,
+        workspaceBindingDigest: binding.bindingDigest,
+        actionCatalog: program.actionCatalog,
+        changeAuthorityState: authorityState,
+        name: "Margaret",
+      });
+    };
+
+  for (const row of cases) {
+    await context.test(row.disposition, async () => {
+      const result = await oneSurfaceLifecycle(
+        installedPublic,
+        harness,
+        mini,
+        `external-one-surface-correction-${row.disposition}`,
+        mini.publication,
+        {
+          observation: correctionObservation(row.authorityState),
+          responseVariant: "answer_escalation",
+          response: (frontier) => ({
+            kind: "developer_human_approval",
+            schemaVersion: "5.0.0",
+            approved: true,
+            constructionIntentRef: frontier.result.constructionIntentRef,
+            correctionDisposition: row.disposition,
+            message: `Apply ${row.disposition}.`,
+            semanticEvidenceAssetRefs: [mini.ids.approvalAssetRef],
+          }),
+        },
+      );
+      const { completed, events, held } = result;
+      assert.equal(
+        completed.disposition,
+        row.disposition,
+        JSON.stringify(completed),
+      );
+      assert.equal(completed.replayAgreement, true);
+      assert.equal(completed.continuationStatus, "resolved");
+      assert.equal(completed.result.kind, "governed_correction_stop");
+      assert.equal(completed.result.noActionDisposition, row.disposition);
+      assert.equal(
+        completed.result.nextActionProjection.noActionDisposition,
+        row.disposition,
+      );
+      assert.equal(
+        completed.result.edgeClosureDecision.disposition,
+        "continue_candidate",
+      );
+      assert.equal(
+        completed.result.edgeClosureDecision.correctionDisposition,
+        row.disposition,
+      );
+      const archive = completed.result.runtimeArchiveInspection;
+      assert.equal(archive.kind, "runtime_archive_inspection");
+      assert.equal(archive.disposition, "inspected");
+      assert.equal(archive.runtimeEvidenceEventRefs.length, 4);
+      assert.equal(new Set(archive.runtimeEvidenceEventRefs).size, 4);
+      assert.equal(
+        archive.runtimeEvidenceEventRefs.every((eventRef) =>
+          events.some((event) => event.eventId === eventRef)
+        ),
+        true,
+      );
+
+      const deltaIndex = events.findIndex(
+        (event) => event.kind === "construction_delta_observed",
+      );
+      const correctionRouteIndex = events.findIndex(
+        (event) =>
+          event.kind === "traversal_route_admitted" &&
+          event.payload.routeKind === "gap_stop" &&
+          event.payload.nextActionProjection?.noActionDisposition ===
+            row.disposition,
+      );
+      const stoppedIndex = events.findIndex(
+        (event) =>
+          event.kind === "run_stopped" &&
+          event.payload.disposition === row.disposition,
+      );
+      assert.equal(deltaIndex >= 0, true);
+      assert.equal(correctionRouteIndex > deltaIndex, true);
+      assert.equal(stoppedIndex > correctionRouteIndex, true);
+      for (const prohibitedKind of ["terminal_reached", "run_closed"]) {
+        assert.equal(
+          events.filter((event) => event.kind === prohibitedKind).length,
+          0,
+          prohibitedKind,
+        );
+      }
+
+      const status = await applyInFreshContext(
+        installedPublic,
+        invocation(
+          "abg.operation.project.read",
+          "status",
+          `invocation://t272/correction-${row.disposition}/status`,
+          {
+            continuationAuthority: completed.continuationAuthority,
+            continuationRef: held.continuationRef,
+          },
+        ),
+      );
+      assert.equal(status.disposition, "succeeded", JSON.stringify(status));
+      assert.equal(
+        status.result.constructionStatus,
+        `construction_${row.disposition}`,
+      );
+      assert.equal(status.result.runStoppedDisposition, row.disposition);
+      assert.equal(
+        status.result.actionEvaluation.edgeClosureDecision
+          .correctionDisposition,
+        row.disposition,
+      );
+      assert.equal(
+        status.result.runtimeArchiveInspection.inspectionRef,
+        archive.inspectionRef,
+      );
+
+      const replay = await applyInFreshContext(
+        installedPublic,
+        invocation(
+          "abg.operation.project.read",
+          "replay",
+          `invocation://t272/correction-${row.disposition}/replay`,
+          {
+            continuationAuthority: status.result.continuationAuthority,
+            continuationRef: held.continuationRef,
+          },
+        ),
+      );
+      assert.equal(replay.disposition, "succeeded", JSON.stringify(replay));
+      assert.equal(replay.result.runId, completed.runId);
+      assert.equal(
+        replay.result.events.some(
+          (event) =>
+            event.kind === "run_stopped" &&
+            event.payload.disposition === row.disposition,
+        ),
+        true,
+      );
+    });
+  }
+
+  await context.test(
+    "refuses a human correction choice that differs from Product-observed pressure",
+    async () => {
+      const result = await oneSurfaceLifecycle(
+        installedPublic,
+        harness,
+        mini,
+        "external-one-surface-correction-wrong-choice",
+        mini.publication,
+        {
+          observation: correctionObservation("repair_required"),
+          responseVariant: "answer_escalation",
+          response: (frontier) => ({
+            kind: "developer_human_approval",
+            schemaVersion: "5.0.0",
+            approved: true,
+            constructionIntentRef: frontier.result.constructionIntentRef,
+            correctionDisposition: "escalate",
+            message: "Escalate instead.",
+            semanticEvidenceAssetRefs: [mini.ids.approvalAssetRef],
+          }),
+        },
+      );
+      assert.equal(result.responded.disposition, "succeeded");
+      assert.equal(
+        ["repair", "inspect_runtime_archive", "reprice", "escalate"].includes(
+          result.completed.disposition,
+        ),
+        false,
+      );
+      assert.equal(
+        result.events.some(
+          (event) => event.kind === "construction_delta_observed",
+        ),
+        false,
+      );
+      assert.equal(
+        result.events.some(
+          (event) =>
+            event.kind === "run_stopped" &&
+            ["repair", "inspect_runtime_archive", "reprice", "escalate"]
+              .includes(event.payload.disposition),
+        ),
+        false,
+      );
+      assert.equal(
+        result.events.some((event) => event.kind === "run_closed"),
+        false,
+      );
+    },
+  );
+
+  await context.test(
+    "refuses a self-consistent runtime archive outside the admitted basis",
+    async () => {
+      const result = await oneSurfaceLifecycle(
+        installedPublic,
+        harness,
+        mini,
+        "external-one-surface-correction-substituted-archive",
+        withSubstitutedRuntimeArchive(mini),
+        {
+          observation: correctionObservation("repair_required"),
+          responseVariant: "answer_escalation",
+          response: (frontier) => ({
+            kind: "developer_human_approval",
+            schemaVersion: "5.0.0",
+            approved: true,
+            constructionIntentRef: frontier.result.constructionIntentRef,
+            correctionDisposition: "repair",
+            message: "Apply repair.",
+            semanticEvidenceAssetRefs: [mini.ids.approvalAssetRef],
+          }),
+        },
+      );
+      assert.notEqual(result.completed.disposition, "repair");
+      assert.equal(
+        result.events.some(
+          (event) =>
+            event.kind === "c_call_result_admitted" &&
+            event.payload.value?.runtimeArchiveInspection
+              ?.runtimeEvidenceEventRefs?.includes(
+                "event://developer.example/unadmitted-runtime-archive-substitute",
+              ),
+        ),
+        true,
+      );
+      assert.equal(
+        result.events.some(
+          (event) => event.kind === "construction_delta_observed",
+        ),
+        false,
+      );
+      assert.equal(
+        result.events.some(
+          (event) =>
+            event.kind === "run_stopped" &&
+            event.payload.disposition === "repair",
+        ),
+        false,
+      );
+    },
+  );
+
+  await context.test(
+    "refuses a correction response carried by the approval variant",
+    async () => {
+      const started = await oneSurfaceStart(
+        installedPublic,
+        harness,
+        mini,
+        "external-one-surface-correction-wrong-variant",
+        mini.publication,
+        {
+          observation: correctionObservation("repair_required"),
+        },
+      );
+      assert.equal(
+        started.outcome.disposition,
+        "held",
+        JSON.stringify(started.outcome),
+      );
+      const frontier = await applyInFreshContext(
+        installedPublic,
+        invocation(
+          "abg.operation.project.read",
+          "status",
+          "invocation://t272/correction-wrong-variant/status",
+          {
+            continuationAuthority:
+              started.outcome.result.continuationAuthority,
+            continuationRef: started.outcome.continuationRef,
+          },
+        ),
+      );
+      assert.equal(frontier.disposition, "succeeded", JSON.stringify(frontier));
+      const before = await readFile(started.scenario.eventLogPath, "utf8");
+      const refused = await applyInFreshContext(
+        installedPublic,
+        invocation(
+          "abg.operation.interaction.respond",
+          "approve",
+          "invocation://t272/correction-wrong-variant/respond",
+          {
+            actorRef: "actor://developer.example/trusted-developer",
+            capabilityRef: mini.ids.actorCapabilityRef,
+            continuationAuthority: frontier.result.continuationAuthority,
+            continuationRef: started.outcome.continuationRef,
+            response: {
+              kind: "developer_human_approval",
+              schemaVersion: "5.0.0",
+              approved: true,
+              constructionIntentRef:
+                frontier.result.constructionIntentRef,
+              correctionDisposition: "repair",
+              message: "Apply repair.",
+              semanticEvidenceAssetRefs: [mini.ids.approvalAssetRef],
+            },
+          },
+        ),
+      );
+      assert.equal(refused.disposition, "refused", JSON.stringify(refused));
+      assert.equal(
+        await readFile(started.scenario.eventLogPath, "utf8"),
+        before,
+      );
+    },
   );
 });

@@ -1991,6 +1991,8 @@ async function applyProjectRead(
         ).kind === "next_action_projection",
     );
     const latestActionCall = actionCalls.at(-1);
+    const latestConstructionDelta =
+      replayState.constructionDeltas.at(-1) ?? null;
     const scopedEvents = context.store.readScope({ runId: state.runId });
     const constructionStatus = replayState.runtimeStatus === "closed"
       ? "construction_closed"
@@ -1998,6 +2000,14 @@ async function applyProjectRead(
         ? "construction_blocked"
         : replayState.runtimeStatus === "failed"
           ? "construction_stalled"
+          : replayState.runtimeStatus === "stopped" &&
+              [
+                "repair",
+                "inspect_runtime_archive",
+                "reprice",
+                "escalate",
+              ].includes(String(replayState.runStoppedDisposition))
+            ? `construction_${replayState.runStoppedDisposition}`
           : continuation.status === "open"
             ? "fh_input_required"
             : "construction_progressing_yield";
@@ -2038,6 +2048,12 @@ async function applyProjectRead(
           responseRef: continuation.responseRef,
           constructionIntentRef: continuation.constructionIntentRef,
           constructionIntentDigest: continuation.constructionIntentDigest,
+          runStoppedDisposition: replayState.runStoppedDisposition,
+          actionEvaluation:
+            latestConstructionDelta?.actionEvaluation ?? null,
+          runtimeArchiveInspection:
+            latestConstructionDelta?.actionEvaluation
+              .runtimeArchiveInspection ?? null,
           nextActionProjection:
             intentRoute?.nextActionProjection === undefined
               ? null
@@ -2127,10 +2143,13 @@ async function applyInteractionRespond(
   context: RootOperationContext,
   invocation: RootPublicInvocation,
 ): Promise<PublicOutcome> {
-  if (invocation.variant !== "approve") {
+  if (
+    invocation.variant !== "approve" &&
+    invocation.variant !== "answer_escalation"
+  ) {
     throw new ApplicationRefusal(
       "invalid_request",
-      "interaction.respond requires the declared approve variant",
+      "interaction.respond requires the declared approve or answer_escalation variant",
     );
   }
   requireExactPayloadKeys(
@@ -2179,6 +2198,27 @@ async function applyInteractionRespond(
       throw new ApplicationRefusal(
         "target_mismatch",
         "interaction response does not satisfy the Product-owned response contract",
+      );
+    }
+    const correctionDisposition = response.correctionDisposition;
+    if (
+      (
+        invocation.variant === "approve" &&
+        correctionDisposition !== undefined
+      ) ||
+      (
+        invocation.variant === "answer_escalation" &&
+        ![
+          "repair",
+          "inspect_runtime_archive",
+          "reprice",
+          "escalate",
+        ].includes(String(correctionDisposition))
+      )
+    ) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "interaction response variant differs from its Product-owned correction decision",
       );
     }
     const rootInvocation = abg.rehydrateInvocationAdmission(

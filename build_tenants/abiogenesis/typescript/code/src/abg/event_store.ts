@@ -1693,6 +1693,10 @@ function assertRuntimeEventContract(
       "failed",
       "gap_stop",
       "reprice_required",
+      "repair",
+      "inspect_runtime_archive",
+      "reprice",
+      "escalate",
       "operator_abort",
       "campaign_close",
     ].includes(

@@ -1609,3 +1609,75 @@ Installed evidence shall prove:
   callable identity; and
 - missing default, unknown asset, duplicate asset ownership, mismatched
   start, or unsupported mode/until combinations refuse before a Run opens.
+
+### 12.10 Governed Correction And Escalation
+
+The final S03 vertical extends the accepted One Surface path after admitted
+F_H evidence. It does not add a correction controller, a second continuation
+kind, or a new event family:
+
+```text
+Product observation identifies one correction pressure
+  -> Product evaluateNext selects the existing declared F_H action
+  -> ABG admits ConstructionIntent and opens the exact continuation
+  -> interaction.respond(answer_escalation) admits one attributed choice
+  -> run.continue reconstructs the exact ActionEvaluationBasis
+  -> Product evaluateAction consumes the intent, evidence, workspace,
+       policy, and runtime archive refs
+  -> ABG admits the action evaluation and construction delta
+  -> the same Product authorities refresh model, gap, and next action
+  -> Product emits repair | inspect_runtime_archive | reprice | escalate
+  -> ABG admits one non-progress route and stops the Run with that exact
+       semantic disposition
+  -> replay and fresh-context public read preserve the decision and basis
+```
+
+The correction choice is not a caller-selected runtime route. The initial
+Product observation declares the factual pressure. The Product response
+contract admits only a choice allowed for that pressure. `evaluateAction`
+emits the candidate fulfillment ledger, decision, and runtime-archive
+inspection projection. ABG verifies those values against the exact admitted
+F_H response, action-catalog row, evidence set, workspace, policy, and causal
+event refs before admitting the construction delta.
+
+`evaluateAction` emits `close_candidate` only for the existing fulfilled
+approval path. A governed correction emits `continue_candidate`; it cannot
+authorize closure. The post-evidence `evaluateNext` authority then emits one
+typed no-action projection carrying the selected correction disposition.
+HoG proposes only the existing non-progress route. ABG records the route and
+`run_stopped` atomically and preserves the Product disposition rather than
+collapsing it into generic success, failure, or `gap_stop`.
+
+The four dispositions have bounded meaning:
+
+- `repair` admits a Product correction decision. Applying a source edit
+  remains owned by the developer or a separately admitted Product action.
+- `inspect_runtime_archive` exposes a typed projection over the exact causal
+  runtime-event refs supplied by ABG. It does not create another truth store.
+- `reprice` records an attributed proposal under F_H authority. It does not
+  mutate Product, requirement, design, or ticket authority.
+- `escalate` records an attributed unresolved-authority escalation. It does
+  not grant the responding actor new authority.
+
+`reprice` or `escalate` satisfies the retained
+`escalation_or_reprice` consequence family because the action is declared by
+the Product, selected under Product policy, attributed to F_H, admitted by
+ABG, and replay-visible. Applying a reprice remains outside runtime and
+requires the ordinary constitutional re-entry path.
+
+Installed evidence shall prove:
+
+- each correction pressure selects the same declared F_H action before the
+  Product evaluates the human response;
+- `answer_escalation` with the wrong choice, actor, capability, intent,
+  workspace, evidence, policy, or archive basis refuses without a correction
+  stop;
+- the action evaluation and construction delta precede the refreshed
+  no-action projection and stopped Run;
+- `repair`, `inspect_runtime_archive`, `reprice`, and `escalate` remain
+  distinct in Product result, route basis, `run_stopped`, replay, and
+  fresh-context status/replay reads;
+- no correction path emits terminal, frame-close, GraphCall-close, or
+  Run-close truth; and
+- no compiler, lowering carrier, Public loop, feature-specific HoG runner, or
+  alternate runtime is introduced.

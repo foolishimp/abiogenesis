@@ -72,6 +72,7 @@ export interface ReplayConstructionDeltaState {
   readonly actionEvaluationAdmissionRef: string;
   readonly actionEvaluationAdmissionDigest: Sha256Digest;
   readonly actionEvaluationAdmission: Readonly<Record<string, JsonValue>>;
+  readonly actionEvaluation: Readonly<Record<string, JsonValue>>;
   readonly constructionCompositionRef: string;
   readonly constructionCompositionDigest: Sha256Digest;
   readonly constructionIntentRef: string;
@@ -81,6 +82,7 @@ export interface ReplayConstructionDeltaState {
   readonly edgeFulfillmentLedgerDigest: Sha256Digest;
   readonly edgeClosureDecisionRef: string;
   readonly edgeClosureDecisionDigest: Sha256Digest;
+  readonly edgeClosureDecision: Readonly<Record<string, JsonValue>>;
   readonly semanticEvidenceAssetRefs: readonly string[];
   readonly runtimeEvidenceEventRefs: readonly string[];
   readonly admissionEventRef: string;
@@ -773,11 +775,19 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       const actionEvaluationAdmission = isRecord(event.payload)
         ? event.payload.actionEvaluationAdmission
         : undefined;
+      const actionEvaluation = isRecord(event.payload)
+        ? event.payload.actionEvaluation
+        : undefined;
+      const edgeClosureDecision = isRecord(event.payload)
+        ? event.payload.edgeClosureDecision
+        : undefined;
       if (
         Object.values(values).some((value) => value === null) ||
         semanticEvidenceAssetRefs === null ||
         runtimeEvidenceEventRefs === null ||
-        !isRecord(actionEvaluationAdmission)
+        !isRecord(actionEvaluationAdmission) ||
+        !isRecord(actionEvaluation) ||
+        !isRecord(edgeClosureDecision)
       ) {
         throw new TypeError(
           `incomplete construction delta payload at ${event.eventId}`,
@@ -822,7 +832,15 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
         JSON.stringify(actionEvaluationAdmissionBody.semanticEvidenceAssetRefs) !==
           JSON.stringify(semanticEvidenceAssetRefs) ||
         JSON.stringify(actionEvaluationAdmissionBody.runtimeEvidenceEventRefs) !==
-          JSON.stringify(runtimeEvidenceEventRefs)
+          JSON.stringify(runtimeEvidenceEventRefs) ||
+        actionEvaluation.actionEvaluationRef !==
+          actionEvaluationAdmissionBody.actionEvaluationRef ||
+        actionEvaluation.actionEvaluationDigest !==
+          actionEvaluationAdmissionBody.actionEvaluationDigest ||
+        edgeClosureDecision.decisionRef !==
+          values.edgeClosureDecisionRef ||
+        edgeClosureDecision.decisionDigest !==
+          values.edgeClosureDecisionDigest
       ) {
         throw new TypeError(
           `invalid action-evaluation admission at ${event.eventId}`,
@@ -836,6 +854,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
         actionEvaluationAdmissionDigest:
           values.actionEvaluationAdmissionDigest! as Sha256Digest,
         actionEvaluationAdmission,
+        actionEvaluation,
         constructionCompositionRef:
           values.constructionCompositionRef!,
         constructionCompositionDigest:
@@ -850,6 +869,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
         edgeClosureDecisionRef: values.edgeClosureDecisionRef!,
         edgeClosureDecisionDigest:
           values.edgeClosureDecisionDigest! as Sha256Digest,
+        edgeClosureDecision,
         semanticEvidenceAssetRefs,
         runtimeEvidenceEventRefs,
         admissionEventRef: event.eventId,

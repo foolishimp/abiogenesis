@@ -206,14 +206,22 @@ export function projectOutcome(
     latestCall.judgment === "advance" &&
     noActionDisposition !== null &&
     !hasOpenLifecycleTruth(firstReplay);
+  const governedCorrectionStopped =
+    noActionStopped &&
+    (
+      noActionDisposition === "repair" ||
+      noActionDisposition === "inspect_runtime_archive" ||
+      noActionDisposition === "reprice" ||
+      noActionDisposition === "escalate"
+    );
+  const latestConstructionDelta =
+    firstReplay.constructionDeltas.at(-1) ?? null;
   const disposition = closed
     ? "succeeded" as const
     : held
       ? "held" as const
       : noActionStopped
-        ? noActionDisposition === "gap_stop"
-          ? "gap_stop" as const
-          : "reprice_required" as const
+        ? noActionDisposition
       : firstReplay.runtimeStatus === "blocked"
       ? "blocked" as const
       : firstReplay.runtimeStatus === "failed"
@@ -239,9 +247,11 @@ export function projectOutcome(
         }
       : noActionStopped && noActionRoute?.nextActionProjection !== undefined
         ? {
-            kind: noActionDisposition === "gap_stop"
-              ? "construction_gap_stop"
-              : "construction_no_action_stop",
+            kind: governedCorrectionStopped
+              ? "governed_correction_stop"
+              : noActionDisposition === "gap_stop"
+                ? "construction_gap_stop"
+                : "construction_no_action_stop",
             schemaVersion: "5.0.0",
             noActionDisposition,
             gapRef: noActionRoute.nextActionProjection.gapRef,
@@ -249,6 +259,22 @@ export function projectOutcome(
             routeDigest: noActionRoute.routeDigest,
             nextActionProjection:
               noActionRoute.nextActionProjection as unknown as JsonValue,
+            ...(governedCorrectionStopped &&
+                latestConstructionDelta !== null
+              ? {
+                  actionEvaluation:
+                    latestConstructionDelta.actionEvaluation,
+                  edgeClosureDecision:
+                    latestConstructionDelta.edgeClosureDecision,
+                  runtimeArchiveInspection:
+                    latestConstructionDelta.actionEvaluation
+                      .runtimeArchiveInspection ?? null,
+                  constructionDeltaRef:
+                    latestConstructionDelta.deltaRef,
+                  constructionDeltaDigest:
+                    latestConstructionDelta.deltaDigest,
+                }
+              : {}),
             gapAuthority,
           }
       : resultValue,

@@ -37,7 +37,11 @@ export interface PublicOutcome {
     | "failed"
     | "gap_stop"
     | "held"
+    | "inspect_runtime_archive"
+    | "repair"
+    | "reprice"
     | "reprice_required"
+    | "escalate"
     | "refused"
     | "succeeded";
   readonly outcomeDigest: Sha256Digest;

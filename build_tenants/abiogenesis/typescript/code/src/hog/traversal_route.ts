@@ -396,6 +396,10 @@ export function proposeGapStopRoute(
     ![
       "gap_stop",
       "reprice_required",
+      "repair",
+      "inspect_runtime_archive",
+      "reprice",
+      "escalate",
     ].includes(String(projection.noActionDisposition))
   ) {
     return {
