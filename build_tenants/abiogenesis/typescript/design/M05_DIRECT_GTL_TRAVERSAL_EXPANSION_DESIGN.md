@@ -1,8 +1,9 @@
 # M05 Direct GTL Traversal Expansion Design
 
-**Status**: M5 base accepted at `d6da4269`; Section 12 is a T-272
-affected-boundary candidate whose implementation evidence is green and whose
-promotion requires review and acceptance
+**Status**: M5 base accepted at `d6da4269`; Section 12 is the co-evolving
+T-272 affected-boundary design. Acceptance is subsection-scoped and recorded
+by T-272 and its exact decision receipts; implementation beyond the latest
+accepted subsection remains held.
 **Date**: 2026-07-22
 **Section 12 updated**: 2026-07-25
 **Parent design**:
