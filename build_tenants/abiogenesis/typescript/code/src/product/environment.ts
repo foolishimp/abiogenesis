@@ -2,7 +2,11 @@ import { isAbsolute } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type { ProductInstallCandidate } from "./contracts.js";
-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import {
+  isSha256Digest,
+  sha256Canonical,
+  type Sha256Digest,
+} from "../shared/digests.js";
 
 export interface ProductInstall extends Omit<ProductInstallCandidate, "kind" | "disposition"> {
   readonly kind: "product_install";
@@ -121,6 +125,23 @@ function identity(prefix: string, digest: Sha256Digest): string {
   return `${prefix}/${digest.slice("sha256:".length)}`;
 }
 
+function isRecord(
+  value: unknown,
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function hasExactKeys(
+  value: Readonly<Record<string, unknown>>,
+  keys: readonly string[],
+): boolean {
+  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
+}
+
+function nonEmptyString(value: unknown): value is string {
+  return typeof value === "string" && value.length > 0;
+}
+
 function lockRowsFor(installs: readonly ProductInstall[]): readonly ResolvedProductLockRow[] {
   return installs.map((install) => ({
     productId: install.productId,
@@ -206,6 +227,117 @@ export function constructResolvedProductLock(
   };
 }
 
+export function isResolvedProductLock(
+  value: unknown,
+): value is ResolvedProductLock {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "dependencyEdges",
+      "kind",
+      "lockDigest",
+      "lockId",
+      "rows",
+      "schemaVersion",
+    ]) ||
+    value.kind !== "resolved_product_lock" ||
+    value.schemaVersion !== "5.0.0" ||
+    !nonEmptyString(value.lockId) ||
+    !isSha256Digest(value.lockDigest) ||
+    !Array.isArray(value.rows) ||
+    value.rows.length === 0 ||
+    !Array.isArray(value.dependencyEdges)
+  ) {
+    return false;
+  }
+  const rows = value.rows;
+  if (
+    rows.some(
+      (row) =>
+        !isRecord(row) ||
+        !hasExactKeys(row, [
+          "artifactDigest",
+          "installId",
+          "manifestDigest",
+          "packageName",
+          "packageVersion",
+          "productContentDigest",
+          "productId",
+        ]) ||
+        !nonEmptyString(row.productId) ||
+        !nonEmptyString(row.packageName) ||
+        !nonEmptyString(row.packageVersion) ||
+        !isSha256Digest(row.artifactDigest) ||
+        !isSha256Digest(row.productContentDigest) ||
+        !isSha256Digest(row.manifestDigest) ||
+        !nonEmptyString(row.installId),
+    )
+  ) {
+    return false;
+  }
+  const productIds = rows.map((row) => row.productId as string);
+  const installIds = rows.map((row) => row.installId as string);
+  if (new Set(installIds).size !== installIds.length) {
+    return false;
+  }
+  const productIdSet = new Set(productIds);
+  const edges = value.dependencyEdges;
+  if (
+    edges.some(
+      (edge) =>
+        !isRecord(edge) ||
+        !hasExactKeys(edge, [
+          "fromProductId",
+          "kind",
+          "toProductId",
+        ]) ||
+        edge.kind !== "requires" ||
+        !nonEmptyString(edge.fromProductId) ||
+        !nonEmptyString(edge.toProductId) ||
+        edge.fromProductId === edge.toProductId ||
+        !productIdSet.has(edge.fromProductId) ||
+        !productIdSet.has(edge.toProductId),
+    )
+  ) {
+    return false;
+  }
+  const edgeKeys = edges.map(
+    (edge) =>
+      `${(edge as Readonly<Record<string, unknown>>).fromProductId}\0${(edge as Readonly<Record<string, unknown>>).toProductId}`,
+  );
+  if (
+    new Set(edgeKeys).size !== edgeKeys.length ||
+    [...edgeKeys].sort().join("\0") !== edgeKeys.join("\0")
+  ) {
+    return false;
+  }
+  const outgoing = new Map<string, string[]>();
+  for (const edge of edges) {
+    const fromProductId = edge.fromProductId as string;
+    const targets = outgoing.get(fromProductId) ?? [];
+    targets.push(edge.toProductId as string);
+    outgoing.set(fromProductId, targets);
+  }
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+  const hasCycle = (productId: string): boolean => {
+    if (visiting.has(productId)) return true;
+    if (visited.has(productId)) return false;
+    visiting.add(productId);
+    if ((outgoing.get(productId) ?? []).some(hasCycle)) return true;
+    visiting.delete(productId);
+    visited.add(productId);
+    return false;
+  };
+  if ([...productIdSet].some(hasCycle)) return false;
+  const expectedDigest = sha256Canonical({
+    rows,
+    dependencyEdges: edges,
+  } as unknown as JsonValue);
+  return value.lockDigest === expectedDigest &&
+    value.lockId === identity("product-lock://abiogenesis", expectedDigest);
+}
+
 export function constructProductSet(
   installs: readonly ProductInstall[],
   lock: ResolvedProductLock,
@@ -234,6 +366,49 @@ export function constructProductSet(
     lockId: lock.lockId,
     lockDigest: lock.lockDigest,
   };
+}
+
+export function isProductSet(
+  value: unknown,
+  lock: ResolvedProductLock,
+): value is ProductSet {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "kind",
+      "lockDigest",
+      "lockId",
+      "orderedInstallRefs",
+      "productSetDigest",
+      "productSetId",
+      "schemaVersion",
+    ]) ||
+    value.kind !== "product_set" ||
+    value.schemaVersion !== "5.0.0" ||
+    !nonEmptyString(value.productSetId) ||
+    !isSha256Digest(value.productSetDigest) ||
+    !nonEmptyString(value.lockId) ||
+    !isSha256Digest(value.lockDigest) ||
+    !Array.isArray(value.orderedInstallRefs) ||
+    value.orderedInstallRefs.length === 0 ||
+    value.orderedInstallRefs.some((entry) => !nonEmptyString(entry)) ||
+    new Set(value.orderedInstallRefs).size !== value.orderedInstallRefs.length ||
+    !isResolvedProductLock(lock) ||
+    value.lockId !== lock.lockId ||
+    value.lockDigest !== lock.lockDigest ||
+    value.orderedInstallRefs.join("\0") !==
+      lock.rows.map((row) => row.installId).join("\0")
+  ) {
+    return false;
+  }
+  const expectedDigest = sha256Canonical({
+    orderedInstallRefs: value.orderedInstallRefs,
+    lockId: value.lockId,
+    lockDigest: value.lockDigest,
+  } as unknown as JsonValue);
+  return value.productSetDigest === expectedDigest &&
+    value.productSetId ===
+      identity("product-set://abiogenesis", expectedDigest);
 }
 
 export function constructWorkspaceAuthorityBasis(

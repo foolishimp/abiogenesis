@@ -798,9 +798,8 @@ async function applyRunInvoke(
         "WorkspaceBinding",
       )
     : {
-        productSet: {
-          orderedInstallRefs: [reentryState.install.installId],
-        },
+        lock: reentryState.resolvedProductLock,
+        productSet: reentryState.productSet,
         binding: reentryState.workspaceBinding,
       };
   const viewState = reentryState === null
@@ -860,6 +859,29 @@ async function applyRunInvoke(
     throw new ApplicationRefusal(
       "target_mismatch",
       "run.invoke start requires one admitted supervised Program start with exact scope, target, and convergence policy",
+    );
+  }
+  if (
+    reentryState !== null &&
+    (
+      invocation.variant !== "start" ||
+      start === undefined ||
+      reentryState.publicStart.programRef !== programValue.programRef ||
+      reentryState.publicStart.graphFunctionRef !== start.graphFunctionRef ||
+      reentryState.publicStart.startRef !== start.startRef ||
+      reentryState.publicStart.scope !==
+        stringField(invocation.payload, "scope") ||
+      reentryState.publicStart.target !==
+        stringField(invocation.payload, "target") ||
+      reentryState.publicStart.until !==
+        stringField(invocation.payload, "until") ||
+      reentryState.publicStart.rootMode !==
+        stringField(invocation.payload, "rootMode")
+    )
+  ) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke re-entry must preserve the exact admitted public start identity",
     );
   }
   const graphFunctionRef = invocation.variant === "direct"
@@ -1046,6 +1068,11 @@ async function applyRunInvoke(
                 reentryState.source.nextActionProjectionRef,
               nextActionProjectionDigest:
                 reentryState.source.nextActionProjectionDigest,
+              productSetId: reentryState.productSet.productSetId,
+              productSetDigest: reentryState.productSet.productSetDigest,
+              lockId: reentryState.resolvedProductLock.lockId,
+              lockDigest: reentryState.resolvedProductLock.lockDigest,
+              sourceStart: reentryState.publicStart,
             },
           }),
     },
@@ -1353,9 +1380,22 @@ async function applyRunInvoke(
       catalogViewInvocationRef:
         stringField(invocation.payload, "catalogViewInvocationRef"),
       install: installState.install,
+      resolvedProductLock: workspaceState.lock,
+      productSet: workspaceState.productSet,
       workspaceBinding: workspaceState.binding,
       catalog: viewState.catalogState.catalog,
       catalogView: viewState.view,
+      publicStart: {
+        kind: "public_start_identity",
+        schemaVersion: "5.0.0",
+        programRef: programValue.programRef,
+        graphFunctionRef: graphFunction.name,
+        startRef: start!.startRef,
+        scope: "program",
+        target: start!.startRef,
+        until: "converged",
+        rootMode: "supervised",
+      },
       source: {
         sourceInvocationRef: candidate.invocationRef,
         sourceInvocationAdmissionRef:
@@ -1669,9 +1709,36 @@ function reopenGapAuthority(
       event.kind === "run_stopped" &&
       event.runId === state.source.sourceRunId,
   );
+  const selectedLockRow = state.resolvedProductLock.rows.find(
+    (row) => row.installId === state.install.installId,
+  );
   if (
     rootInvocation === null ||
     rootInvocation.invocationRef !== state.source.sourceInvocationRef ||
+    rootInvocation.invocationVariant !== "start" ||
+    rootInvocation.publicStart === null ||
+    product.sha256Canonical(
+      rootInvocation.publicStart as unknown as product.JsonValue,
+    ) !== product.sha256Canonical(
+      state.publicStart as unknown as product.JsonValue,
+    ) ||
+    !product.isResolvedProductLock(state.resolvedProductLock) ||
+    !product.isProductSet(state.productSet, state.resolvedProductLock) ||
+    state.workspaceBinding.productSetId !== state.productSet.productSetId ||
+    state.workspaceBinding.productSetDigest !==
+      state.productSet.productSetDigest ||
+    state.workspaceBinding.lockId !== state.resolvedProductLock.lockId ||
+    state.workspaceBinding.lockDigest !==
+      state.resolvedProductLock.lockDigest ||
+    !state.productSet.orderedInstallRefs.includes(state.install.installId) ||
+    selectedLockRow === undefined ||
+    selectedLockRow.productId !== state.install.productId ||
+    selectedLockRow.packageName !== state.install.packageName ||
+    selectedLockRow.packageVersion !== state.install.packageVersion ||
+    selectedLockRow.artifactDigest !== state.install.artifactDigest ||
+    selectedLockRow.productContentDigest !==
+      state.install.productContentDigest ||
+    selectedLockRow.manifestDigest !== state.install.manifestDigest ||
     rootInvocation.workspaceBindingId !== state.workspaceBinding.bindingId ||
     rootInvocation.workspaceBindingDigest !==
       state.workspaceBinding.bindingDigest ||

@@ -46,6 +46,52 @@ function expectedVerificationIdentity(basis) {
   };
 }
 
+function redigestGapAuthority(authority) {
+  const body = structuredClone(authority);
+  delete body.authorityDigest;
+  return {
+    ...body,
+    authorityDigest: sha256Canonical(body),
+  };
+}
+
+function withReducedProductSet(authority) {
+  const next = structuredClone(authority);
+  const rows = next.resolvedProductLock.rows.filter(
+    (row) => row.installId === next.install.installId,
+  );
+  assert.equal(rows.length, 1);
+  const dependencyEdges = [];
+  const lockDigest = sha256Canonical({ rows, dependencyEdges });
+  const lockId =
+    `product-lock://abiogenesis/${lockDigest.slice("sha256:".length)}`;
+  const orderedInstallRefs = rows.map((row) => row.installId);
+  const productSetDigest = sha256Canonical({
+    orderedInstallRefs,
+    lockId,
+    lockDigest,
+  });
+  next.resolvedProductLock = {
+    kind: "resolved_product_lock",
+    schemaVersion: "5.0.0",
+    lockId,
+    lockDigest,
+    rows,
+    dependencyEdges,
+  };
+  next.productSet = {
+    kind: "product_set",
+    schemaVersion: "5.0.0",
+    productSetId:
+      `product-set://abiogenesis/${productSetDigest.slice("sha256:".length)}`,
+    productSetDigest,
+    orderedInstallRefs,
+    lockId,
+    lockDigest,
+  };
+  return redigestGapAuthority(next);
+}
+
 function oneSurfaceObservation(mini, publication, binding, name) {
   const program = publication.programs.find(
     (candidate) => candidate.programRef === mini.ids.oneSurfaceProgramRef,
@@ -2004,6 +2050,78 @@ test("M5 exposes a durable gap and re-enters it through the same external Produc
       nextActionProjectionDigest: source.nextActionProjectionDigest,
     },
   });
+  const reentryAttempt = (suffix, authority = gapAuthority) => {
+    const candidate = structuredClone(reentry);
+    candidate.invocationRef =
+      `invocation://t272/external-one-surface-gap-reentry/${suffix}`;
+    candidate.correlationId =
+      `correlation://t272/external-one-surface-gap-reentry/${suffix}`;
+    candidate.payload.reentryAuthority = authority;
+    return candidate;
+  };
+  const assertRefusedReentry = async (candidate) => {
+    const outcome = await applyInFreshContext(installedPublic, candidate);
+    assert.equal(outcome.disposition, "refused", JSON.stringify(outcome));
+  };
+  await context.test("refuses re-entry without durable gap authority", async () => {
+    const missingAuthority = reentryAttempt("missing-authority");
+    delete missingAuthority.payload.reentryAuthority;
+    await assertRefusedReentry(missingAuthority);
+  });
+  await context.test("refuses a gap authority bound to another workspace", async () => {
+    const wrongWorkspaceAuthority = structuredClone(gapAuthority);
+    wrongWorkspaceAuthority.workspaceBinding.bindingId =
+      `${wrongWorkspaceAuthority.workspaceBinding.bindingId}/substituted`;
+    wrongWorkspaceAuthority.workspaceBinding.bindingDigest =
+      `sha256:${"0".repeat(64)}`;
+    await assertRefusedReentry(
+      reentryAttempt(
+        "wrong-workspace",
+        redigestGapAuthority(wrongWorkspaceAuthority),
+      ),
+    );
+  });
+  await context.test("refuses a gap authority bound to another Program", async () => {
+    const wrongProgramAuthority = structuredClone(gapAuthority);
+    wrongProgramAuthority.publicStart.programRef =
+      `${wrongProgramAuthority.publicStart.programRef}/substituted`;
+    await assertRefusedReentry(
+      reentryAttempt(
+        "wrong-program",
+        redigestGapAuthority(wrongProgramAuthority),
+      ),
+    );
+  });
+  await context.test("refuses a non-gap source route", async () => {
+    const advanceEvent = initialEvents.find(
+      (event) =>
+        event.kind === "traversal_route_admitted" &&
+        event.runId === source.sourceRunId &&
+        event.payload.routeKind === "advance",
+    );
+    assert.ok(advanceEvent);
+    const nonGapAuthority = structuredClone(gapAuthority);
+    nonGapAuthority.source.sourceRouteRef = advanceEvent.payload.routeRef;
+    nonGapAuthority.source.sourceRouteDigest =
+      advanceEvent.payload.routeDigest;
+    nonGapAuthority.source.sourceRouteEventRef = advanceEvent.eventId;
+    await assertRefusedReentry(
+      reentryAttempt(
+        "non-gap-source",
+        redigestGapAuthority(nonGapAuthority),
+      ),
+    );
+  });
+  await context.test("refuses a self-consistent reduced ProductSet", async () => {
+    assert.equal(gapAuthority.resolvedProductLock.rows.length, 2);
+    assert.equal(gapAuthority.productSet.orderedInstallRefs.length, 2);
+    await assertRefusedReentry(
+      reentryAttempt(
+        "reduced-product-set",
+        withReducedProductSet(gapAuthority),
+      ),
+    );
+  });
   const wrongGapReentry = structuredClone(reentry);
   wrongGapReentry.invocationRef =
     "invocation://t272/external-one-surface-gap-reentry/wrong-gap";
@@ -2033,6 +2151,18 @@ test("M5 exposes a durable gap and re-enters it through the same external Produc
   assert.equal(wrongGap.disposition, "refused", JSON.stringify(wrongGap));
   const held = await applyInFreshContext(installedPublic, reentry);
   assert.equal(held.disposition, "held", JSON.stringify(held));
+
+  await context.test("refuses a rebased second consumption of the source gap", async () => {
+    const rebasedAuthority = structuredClone(gapAuthority);
+    rebasedAuthority.reopenAuthority =
+      held.result.continuationAuthority.reopenAuthority;
+    await assertRefusedReentry(
+      reentryAttempt(
+        "duplicate-consumption",
+        redigestGapAuthority(rebasedAuthority),
+      ),
+    );
+  });
 
   const staleRead = await applyInFreshContext(
     installedPublic,

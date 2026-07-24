@@ -69,6 +69,23 @@ export interface InvocationReentryBasis {
   readonly gapRef: string;
   readonly nextActionProjectionRef: string;
   readonly nextActionProjectionDigest: Sha256Digest;
+  readonly productSetId: string;
+  readonly productSetDigest: Sha256Digest;
+  readonly lockId: string;
+  readonly lockDigest: Sha256Digest;
+  readonly sourceStart: PublicStartAdmissionIdentity;
+}
+
+export interface PublicStartAdmissionIdentity {
+  readonly kind: "public_start_identity";
+  readonly schemaVersion: "5.0.0";
+  readonly programRef: string;
+  readonly graphFunctionRef: string;
+  readonly startRef: string;
+  readonly scope: "program";
+  readonly target: string;
+  readonly until: "converged";
+  readonly rootMode: "supervised";
 }
 
 export interface InvocationAdmission {
@@ -103,6 +120,7 @@ export interface InvocationAdmission {
   readonly authorityRef: string;
   readonly authorityDigest: Sha256Digest;
   readonly actorRef: string;
+  readonly publicStart: PublicStartAdmissionIdentity | null;
   readonly reentryBasis: InvocationReentryBasis | null;
   readonly publicOperationEventRef: string;
   readonly admissionEventRef: string;
@@ -187,6 +205,7 @@ export function hasAdmittedInvocation(
     authorityRef: admission.authorityRef,
     authorityDigest: admission.authorityDigest,
     actorRef: admission.actorRef,
+    publicStart: admission.publicStart,
     reentryBasis: admission.reentryBasis,
   };
   const event = store.readAll().find((candidate) => candidate.eventId === admission.admissionEventRef);
@@ -364,6 +383,27 @@ export function admitInvocation(
       isRecord(input.rawInput.value.priorGap)
       ? input.rawInput.value.priorGap
       : null;
+  const publicStart: PublicStartAdmissionIdentity | null =
+    input.invocation.variant === "start" &&
+      requestPayload !== null &&
+      typeof requestPayload.programRef === "string" &&
+      typeof requestPayload.startRef === "string" &&
+      typeof requestPayload.scope === "string" &&
+      typeof requestPayload.target === "string" &&
+      typeof requestPayload.until === "string" &&
+      typeof requestPayload.rootMode === "string"
+      ? {
+          kind: "public_start_identity",
+          schemaVersion: "5.0.0",
+          programRef: requestPayload.programRef,
+          graphFunctionRef: input.graphFunction.name,
+          startRef: requestPayload.startRef,
+          scope: requestPayload.scope as "program",
+          target: requestPayload.target,
+          until: requestPayload.until as "converged",
+          rootMode: requestPayload.rootMode as "supervised",
+        }
+      : null;
   if (input.reentryBasis === undefined) {
     if (suppliedReentryAuthority !== null || priorGap !== null) {
       return refusal(
@@ -396,13 +436,42 @@ export function admitInvocation(
         isRecord(sourceRoutePayload.nextActionProjection)
         ? sourceRoutePayload.nextActionProjection
         : null;
+    const sourceAlreadyConsumed = store.readAll().some(
+      (event) =>
+        event.kind === "invocation_admitted" &&
+        isRecord(event.payload) &&
+        isRecord(event.payload.reentryBasis) &&
+        event.payload.reentryBasis.sourceInvocationAdmissionRef ===
+          reentry.sourceInvocationAdmissionRef &&
+        event.payload.reentryBasis.sourceRunId === reentry.sourceRunId &&
+        event.payload.reentryBasis.sourceRouteRef === reentry.sourceRouteRef &&
+        event.payload.reentryBasis.sourceRouteDigest ===
+          reentry.sourceRouteDigest &&
+        event.payload.reentryBasis.sourceRunStoppedEventRef ===
+          reentry.sourceRunStoppedEventRef &&
+        event.payload.reentryBasis.gapRef === reentry.gapRef &&
+        event.payload.reentryBasis.nextActionProjectionRef ===
+          reentry.nextActionProjectionRef &&
+        event.payload.reentryBasis.nextActionProjectionDigest ===
+          reentry.nextActionProjectionDigest,
+    );
     if (
       input.invocation.variant !== "start" ||
+      publicStart === null ||
       reentry.kind !== "invocation_reentry_basis" ||
       reentry.schemaVersion !== "5.0.0" ||
       suppliedReentryAuthority?.authorityDigest !==
         reentry.publicAuthorityDigest ||
       sourceInvocation === null ||
+      sourceInvocation.invocationVariant !== "start" ||
+      sourceInvocation.publicStart === null ||
+      sha256Canonical(
+        sourceInvocation.publicStart as unknown as JsonValue,
+      ) !== sha256Canonical(
+        reentry.sourceStart as unknown as JsonValue,
+      ) ||
+      sha256Canonical(publicStart as unknown as JsonValue) !==
+        sha256Canonical(reentry.sourceStart as unknown as JsonValue) ||
       sourceInvocation.workspaceBindingId !==
         input.workspaceBinding.bindingId ||
       sourceInvocation.workspaceBindingDigest !==
@@ -411,6 +480,12 @@ export function admitInvocation(
       sourceInvocation.catalogViewDigest !== input.catalogView.viewDigest ||
       sourceInvocation.programRef !== input.program.programRef ||
       sourceInvocation.graphFunctionRef !== input.graphFunction.name ||
+      reentry.productSetId !== input.workspaceBinding.productSetId ||
+      reentry.productSetDigest !==
+        input.workspaceBinding.productSetDigest ||
+      reentry.lockId !== input.workspaceBinding.lockId ||
+      reentry.lockDigest !== input.workspaceBinding.lockDigest ||
+      sourceAlreadyConsumed ||
       sourceRouteEvent?.kind !== "traversal_route_admitted" ||
       sourceRouteEvent.runId !== reentry.sourceRunId ||
       sourceRoutePayload?.routeKind !== "gap_stop" ||
@@ -507,6 +582,7 @@ export function admitInvocation(
     authorityRef: input.authority.authorityRef,
     authorityDigest: input.authority.authorityDigest,
     actorRef: input.authority.actorRef,
+    publicStart,
     reentryBasis: input.reentryBasis ?? null,
   };
   const invocationAdmissionDigest = sha256Canonical(admissionBody as unknown as JsonValue);

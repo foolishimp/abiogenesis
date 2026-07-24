@@ -3,7 +3,13 @@ import type {
   AdmittedCatalog,
   CatalogView,
   ProductInstall,
+  ProductSet,
+  ResolvedProductLock,
   WorkspaceBinding,
+} from "../product/index.js";
+import {
+  isProductSet,
+  isResolvedProductLock,
 } from "../product/index.js";
 import {
   canonicalJson,
@@ -30,6 +36,18 @@ export interface PublicGapSource {
   readonly nextActionProjection: Readonly<Record<string, JsonValue>>;
 }
 
+export interface PublicStartIdentity {
+  readonly kind: "public_start_identity";
+  readonly schemaVersion: "5.0.0";
+  readonly programRef: string;
+  readonly graphFunctionRef: string;
+  readonly startRef: string;
+  readonly scope: "program";
+  readonly target: string;
+  readonly until: "converged";
+  readonly rootMode: "supervised";
+}
+
 export interface PublicGapAuthority {
   readonly kind: "public_gap_authority";
   readonly schemaVersion: "5.0.0";
@@ -38,9 +56,12 @@ export interface PublicGapAuthority {
   readonly workspaceBindingInvocationRef: string;
   readonly catalogViewInvocationRef: string;
   readonly install: ProductInstall;
+  readonly resolvedProductLock: ResolvedProductLock;
+  readonly productSet: ProductSet;
   readonly workspaceBinding: WorkspaceBinding;
   readonly catalog: AdmittedCatalog;
   readonly catalogView: CatalogView;
+  readonly publicStart: PublicStartIdentity;
   readonly source: PublicGapSource;
   readonly authorityDigest: Sha256Digest;
 }
@@ -58,11 +79,26 @@ const AUTHORITY_KEYS = Object.freeze([
   "install",
   "installInvocationRef",
   "kind",
+  "productSet",
+  "publicStart",
   "reopenAuthority",
+  "resolvedProductLock",
   "schemaVersion",
   "source",
   "workspaceBinding",
   "workspaceBindingInvocationRef",
+]);
+
+const PUBLIC_START_KEYS = Object.freeze([
+  "graphFunctionRef",
+  "kind",
+  "programRef",
+  "rootMode",
+  "schemaVersion",
+  "scope",
+  "startRef",
+  "target",
+  "until",
 ]);
 
 const SOURCE_KEYS = Object.freeze([
@@ -148,12 +184,25 @@ export function parsePublicGapAuthority(
     !nonEmptyString(value.catalogViewInvocationRef) ||
     !isRecord(value.install) ||
     value.install.kind !== "product_install" ||
+    !isResolvedProductLock(value.resolvedProductLock) ||
+    !isProductSet(value.productSet, value.resolvedProductLock) ||
     !isRecord(value.workspaceBinding) ||
     value.workspaceBinding.kind !== "workspace_binding" ||
     !isRecord(value.catalog) ||
     value.catalog.kind !== "admitted_catalog" ||
     !isRecord(value.catalogView) ||
     value.catalogView.kind !== "catalog_view" ||
+    !isRecord(value.publicStart) ||
+    !hasExactKeys(value.publicStart, PUBLIC_START_KEYS) ||
+    value.publicStart.kind !== "public_start_identity" ||
+    value.publicStart.schemaVersion !== "5.0.0" ||
+    !nonEmptyString(value.publicStart.programRef) ||
+    !nonEmptyString(value.publicStart.graphFunctionRef) ||
+    !nonEmptyString(value.publicStart.startRef) ||
+    value.publicStart.scope !== "program" ||
+    value.publicStart.target !== value.publicStart.startRef ||
+    value.publicStart.until !== "converged" ||
+    value.publicStart.rootMode !== "supervised" ||
     !isRecord(value.source) ||
     !hasExactKeys(value.source, SOURCE_KEYS) ||
     !nonEmptyString(value.source.sourceInvocationRef) ||

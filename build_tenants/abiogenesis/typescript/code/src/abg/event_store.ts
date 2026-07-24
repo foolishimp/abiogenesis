@@ -315,13 +315,13 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [WORKSPACE_EVENT],
     payloadVariants: [payloadVariant(
       payloadKeys(
-        "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef rawInputAdmissionRef rawInputDigest reentryBasis workspaceBindingDigest workspaceBindingId",
+        "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis workspaceBindingDigest workspaceBindingId",
       ),
       payloadKeys(
         "invocationAdmissionRef invocationAdmissionDigest invocationRef reentryBasis",
       ),
       undefined,
-      payloadKeys("reentryBasis"),
+      payloadKeys("publicStart reentryBasis"),
     )],
   },
   invocation_refused: {

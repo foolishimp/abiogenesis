@@ -134,6 +134,10 @@ export interface SelectedNextActionProjection {
   readonly graphFunctionRef: string;
   readonly targetProgramLocusRef: string;
   readonly targetObligationRefs: readonly string[];
+  readonly targetObligationBindings: readonly Readonly<
+    Record<string, JsonValue>
+  >[];
+  readonly priorityProjection: Readonly<Record<string, JsonValue>>;
   readonly inputAssetRefs: readonly string[];
   readonly outputAssetRefs: readonly string[];
   readonly gapRef: string;
@@ -157,6 +161,10 @@ export interface GapStopNextActionProjection {
   readonly programRef: string;
   readonly gapRef: string;
   readonly targetObligationRefs: readonly string[];
+  readonly targetObligationBindings: readonly Readonly<
+    Record<string, JsonValue>
+  >[];
+  readonly priorityProjection: Readonly<Record<string, JsonValue>>;
   readonly missingAssetRefs: readonly string[];
   readonly reasonRef: string;
   readonly lawfulBasisRefs: readonly string[];
@@ -275,6 +283,12 @@ interface ConvergedNextActionProjection {
   readonly targetOutcomeRef: string;
   readonly gapRef: string;
   readonly edgeClosureDecisionRef: string;
+  readonly nextActionBasisRef: string;
+  readonly nextActionBasisDigest: Sha256Digest;
+  readonly targetObligationBindings: readonly Readonly<
+    Record<string, JsonValue>
+  >[];
+  readonly priorityProjection: Readonly<Record<string, JsonValue>>;
   readonly lawfulBasisRefs: readonly string[];
 }
 
@@ -417,6 +431,7 @@ const NEXT_ACTION_PROJECTION_KEYS = Object.freeze([
   "outputAssetRefs",
   "programRef",
   "progressConditionRef",
+  "priorityProjection",
   "projectionDigest",
   "projectionRef",
   "rejectedAlternativeRefs",
@@ -424,6 +439,7 @@ const NEXT_ACTION_PROJECTION_KEYS = Object.freeze([
   "selectedActionRef",
   "stopConditionRef",
   "targetObligationRefs",
+  "targetObligationBindings",
   "targetOutcomeRef",
   "targetProgramLocusRef",
 ] as const);
@@ -477,6 +493,10 @@ function selectedNextActionProjection(
     !nonEmptyStringArray(value.targetObligationRefs) ||
     !nonEmptyStringArray(value.inputAssetRefs) ||
     !nonEmptyStringArray(value.outputAssetRefs) ||
+    !Array.isArray(value.targetObligationBindings) ||
+    value.targetObligationBindings.length === 0 ||
+    value.targetObligationBindings.some((row) => !isJsonRecord(row)) ||
+    !isJsonRecord(value.priorityProjection) ||
     !nonEmptyStringArray(value.lawfulBasisRefs) ||
     !stringArray(value.rejectedAlternativeRefs)
   ) {
@@ -508,12 +528,14 @@ const GAP_STOP_PROJECTION_KEYS = Object.freeze([
   "nextActionBasisRef",
   "noActionDisposition",
   "programRef",
+  "priorityProjection",
   "projectionDigest",
   "projectionRef",
   "reasonRef",
   "rejectedActionRefs",
   "schemaVersion",
   "targetObligationRefs",
+  "targetObligationBindings",
   "targetOutcomeRef",
 ] as const);
 
@@ -537,6 +559,10 @@ function gapStopNextActionProjection(
     typeof value.reasonRef !== "string" ||
     !nonEmptyStringArray(value.targetObligationRefs) ||
     !nonEmptyStringArray(value.missingAssetRefs) ||
+    !Array.isArray(value.targetObligationBindings) ||
+    value.targetObligationBindings.length === 0 ||
+    value.targetObligationBindings.some((row) => !isJsonRecord(row)) ||
+    !isJsonRecord(value.priorityProjection) ||
     !nonEmptyStringArray(value.lawfulBasisRefs) ||
     !stringArray(value.rejectedActionRefs)
   ) {
@@ -753,9 +779,13 @@ function convergedNextActionProjection(
       "gapRef",
       "kind",
       "lawfulBasisRefs",
+      "nextActionBasisDigest",
+      "nextActionBasisRef",
+      "priorityProjection",
       "projectionDigest",
       "projectionRef",
       "schemaVersion",
+      "targetObligationBindings",
       "targetOutcomeRef",
     ]) ||
     value.kind !== "next_action_projection" ||
@@ -767,6 +797,12 @@ function convergedNextActionProjection(
     typeof value.targetOutcomeRef !== "string" ||
     typeof value.gapRef !== "string" ||
     typeof value.edgeClosureDecisionRef !== "string" ||
+    typeof value.nextActionBasisRef !== "string" ||
+    typeof value.nextActionBasisDigest !== "string" ||
+    !Array.isArray(value.targetObligationBindings) ||
+    value.targetObligationBindings.length !== 1 ||
+    value.targetObligationBindings.some((row) => !isJsonRecord(row)) ||
+    !isJsonRecord(value.priorityProjection) ||
     !nonEmptyStringArray(value.lawfulBasisRefs)
   ) {
     return null;
@@ -863,6 +899,25 @@ function constructionIntentForAdvance(
       isJsonRecord(selectedBasis.declaredPolicy)
       ? selectedBasis.declaredPolicy
       : null;
+  const targetObligationRefs =
+    selectedBasis !== null &&
+      Array.isArray(selectedBasis.targetObligationRefs)
+      ? selectedBasis.targetObligationRefs
+      : null;
+  const priorityScheme =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.priorityScheme)
+      ? selectedBasis.priorityScheme
+      : null;
+  const runtimeFrontier =
+    selectedBasis !== null &&
+      isJsonRecord(selectedBasis.runtimeFrontier)
+      ? selectedBasis.runtimeFrontier
+      : null;
+  const projectionBinding = projection?.targetObligationBindings.length === 1
+    ? projection.targetObligationBindings[0]
+    : undefined;
+  const projectionPriority = projection?.priorityProjection;
   const actionRows = executionBasis.actionCatalogRows.filter(
     (row) => row.actionRef === projection?.selectedActionRef,
   );
@@ -879,6 +934,11 @@ function constructionIntentForAdvance(
     snapshotActionCatalog === null ||
     selectedActionCatalog === null ||
     selectedPolicy === null ||
+    targetObligationRefs === null ||
+    priorityScheme === null ||
+    runtimeFrontier === null ||
+    projectionBinding === undefined ||
+    projectionPriority === undefined ||
     snapshotWorkspace.workspaceBindingId !==
       executionBasis.workspaceBindingId ||
     snapshotWorkspace.workspaceBindingDigest !==
@@ -892,6 +952,26 @@ function constructionIntentForAdvance(
       sha256Canonical(
         composition.closurePolicy as unknown as JsonValue,
       ) ||
+    runtimeFrontier.phase !== "initial" ||
+    priorityScheme.kind !== "construction_priority_scheme" ||
+    projectionPriority.kind !== "deterministic_priority_projection" ||
+    projectionPriority.schemeRef !== priorityScheme.schemeRef ||
+    !Array.isArray(projectionPriority.orderedActionRefs) ||
+    projectionPriority.orderedActionRefs.join("\0") !==
+      projection.selectedActionRef ||
+    projectionBinding.kind !== "target_obligation_binding" ||
+    projectionBinding.disposition !== "bound" ||
+    !Array.isArray(projectionBinding.eligibleActionRefs) ||
+    projectionBinding.eligibleActionRefs.join("\0") !==
+      projection.selectedActionRef ||
+    projectionBinding.obligationRef !==
+      projection.targetObligationRefs[0] ||
+    !sameValues(
+      projection.targetObligationRefs,
+      targetObligationRefs.filter(
+        (value): value is string => typeof value === "string",
+      ),
+    ) ||
     executionBasis.actionCatalogRef === null ||
     executionBasis.actionCatalogDigest === null ||
     actionRow === undefined ||
@@ -1066,16 +1146,18 @@ function gapStopProjectionForRoute(
       isJsonRecord(selectedBasis.gapProjection)
       ? selectedBasis.gapProjection
       : null;
-  const targetBindings =
+  const targetObligationRefs =
     selectedBasis !== null &&
-      Array.isArray(selectedBasis.targetObligationBindings)
-      ? selectedBasis.targetObligationBindings
+      Array.isArray(selectedBasis.targetObligationRefs)
+      ? selectedBasis.targetObligationRefs
       : null;
-  const priorityProjection =
+  const priorityScheme =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.priorityProjection)
-      ? selectedBasis.priorityProjection
+      isJsonRecord(selectedBasis.priorityScheme)
+      ? selectedBasis.priorityScheme
       : null;
+  const targetBindings = projection?.targetObligationBindings ?? null;
+  const priorityProjection = projection?.priorityProjection ?? null;
   const catalogActionRefs = new Set(
     executionBasis.actionCatalogRows.map((row) => row.actionRef),
   );
@@ -1103,7 +1185,9 @@ function gapStopProjectionForRoute(
     selectedPolicy === null ||
     runtimeFrontier === null ||
     gapProjection === null ||
+    targetObligationRefs === null ||
     targetBindings === null ||
+    targetBindings.length !== 1 ||
     priorityProjection === null ||
     snapshotWorkspace.workspaceBindingId !==
       executionBasis.workspaceBindingId ||
@@ -1125,18 +1209,24 @@ function gapStopProjectionForRoute(
     );
   }
   if (
-    runtimeFrontier.disposition !== "gap_stop" ||
+    runtimeFrontier.phase !== "initial" ||
+    priorityScheme === null ||
+    priorityScheme.kind !== "construction_priority_scheme" ||
     gapProjection.gapRef !== projection.gapRef ||
     gapProjection.targetOutcomeRef !== projection.targetOutcomeRef ||
     !sameValues(
       projection.targetObligationRefs,
-      targetBindings.flatMap((binding) =>
-        isJsonRecord(binding) &&
-          typeof binding.obligationRef === "string"
-          ? [binding.obligationRef]
-          : []
+      targetObligationRefs.filter(
+        (value): value is string => typeof value === "string",
       ),
     ) ||
+    !isJsonRecord(targetBindings[0]) ||
+    targetBindings[0].kind !== "target_obligation_binding" ||
+    targetBindings[0].disposition !== "unbound" ||
+    targetBindings[0].obligationRef !==
+      projection.targetObligationRefs[0] ||
+    !Array.isArray(targetBindings[0].eligibleActionRefs) ||
+    targetBindings[0].eligibleActionRefs.length !== 0 ||
     !sameValues(
       projection.missingAssetRefs,
       Array.isArray(gapProjection.missingAssetRefs)
@@ -1146,6 +1236,8 @@ function gapStopProjectionForRoute(
         : [],
     ) ||
     !Array.isArray(priorityProjection.orderedActionRefs) ||
+    priorityProjection.kind !== "deterministic_priority_projection" ||
+    priorityProjection.schemeRef !== priorityScheme.schemeRef ||
     priorityProjection.orderedActionRefs.length !== 0 ||
     projection.rejectedActionRefs.some(
       (actionRef) => !catalogActionRefs.has(actionRef),
@@ -1756,7 +1848,7 @@ function hasGovernedConstructionClosure(
       isJsonRecord(event.payload.value) &&
       nextActionBasis(event.payload.value) !== null &&
       isJsonRecord(event.payload.value.runtimeFrontier) &&
-      event.payload.value.runtimeFrontier.disposition === "converged" &&
+      event.payload.value.runtimeFrontier.phase === "post_evidence" &&
       isJsonRecord(event.payload.value.gapProjection) &&
       event.payload.value.gapProjection.gapRef === projection.gapRef,
   );
@@ -1798,6 +1890,12 @@ function hasGovernedConstructionClosure(
       sha256Canonical(
         composition.closurePolicy as unknown as JsonValue,
       ) &&
+    projection.nextActionBasisRef === refreshedBasis.basisRef &&
+    projection.nextActionBasisDigest === refreshedBasis.basisDigest &&
+    projection.targetObligationBindings.length === 1 &&
+    projection.targetObligationBindings[0]?.disposition === "fulfilled" &&
+    Array.isArray(projection.priorityProjection.orderedActionRefs) &&
+    projection.priorityProjection.orderedActionRefs.length === 0 &&
     resultEvent !== undefined &&
     deltaEvent.admissionOrdinal < refreshedBasisEvent.admissionOrdinal &&
     refreshedBasisEvent.admissionOrdinal < resultEvent.admissionOrdinal &&

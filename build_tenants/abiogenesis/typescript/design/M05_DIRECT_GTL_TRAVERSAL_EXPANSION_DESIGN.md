@@ -1227,11 +1227,14 @@ row in the admitted Program catalog and every row field equals the projection.
 
 The public start input is one Product-owned `ObservationSnapshot` bound to the
 exact admitted WorkspaceBinding and Program `ActionCatalog`. Product model and
-gap evaluation derives one `NextActionBasis` containing that snapshot, target
-obligation bindings, admitted catalog, deterministic priority projection,
-runtime frontier, and declared policy. The basis is ordinary typed GTL data,
-not an ABG selection algorithm. ABG verifies its identity and admitted
-environment; Product owns its semantic contents and the subsequent selection.
+gap evaluation derives the unresolved pressure and one `NextActionBasis`
+containing that snapshot, target-obligation references, admitted catalog,
+priority scheme, factual runtime frontier, and declared policy. The basis is
+ordinary typed GTL data, not an ABG selection algorithm. `evaluateNext`
+constructs the target-obligation bindings, applies the declared priority
+scheme, and emits the total selected-action or no-action projection. ABG
+verifies the basis, projection, and admitted environment; Product owns their
+semantic contents and the selection.
 
 The resulting `ConstructionIntent` binds the `NextActionBasis`, selected row,
 projection, `ConstructionComposition`, and `evaluateNext` authority to the
@@ -1392,31 +1395,37 @@ generic block or failure. The existing traversal-route and run-stop event
 families are sufficient.
 
 The public gap authority is a serialized, self-digested projection of existing
-truth: exact durable event-log prefix, stopped Run and route, admitted
-no-action projection, ProductInstall, WorkspaceBinding, AdmittedCatalog,
-CatalogView, and the original public setup references. It owns no new runtime
-state. `project.read(gaps)` reopens that exact prefix, verifies all named
-admissions, projects the stopped frontier, and closes the sink without
-appending an event.
+truth: durable event-log prefix, stopped Run and route, admitted no-action
+projection, ProductInstall, exact ResolvedProductLock and ProductSet,
+WorkspaceBinding, AdmittedCatalog, CatalogView, original public start identity,
+and the original public setup references. It owns no new runtime state.
+`project.read(gaps)` reopens that exact prefix, verifies all named admissions,
+projects the stopped frontier, and closes the sink without appending an event.
 
 Repeated `run.invoke(start)` may carry that authority and a fresh
 Product-owned `ObservationSnapshot`. ABG admits re-entry only when:
 
 1. the source route and `run_stopped` event are the exact admitted
    `gap_stop`;
-2. the new observation cites that gap and changes no Product, workspace,
-   catalog, Program, composition, or public target authority;
-3. the same append-only event log is reopened at the exact prior prefix;
-4. the new invocation admission records the source gap basis before a fresh
+2. the source gap has not already appeared as the consumed re-entry basis of
+   another admitted invocation;
+3. the new observation cites that gap and changes no ResolvedProductLock,
+   ProductSet, workspace, catalog, Program, composition, or public start
+   authority;
+4. the same append-only event log is reopened at an exact prefix that contains
+   the complete stopped source;
+5. the new invocation admission records the source gap basis before a fresh
    Run opens; and
-5. the Product, not Public, HoG, or ABG, determines whether the changed
+6. the Product, not Public, HoG, or ABG, determines whether the changed
    observation now permits a selected action.
 
-The source authority is single-prefix by construction: after a successful
-append, reuse of the older authority refuses because its byte length and digest
-no longer match. Re-entry does not cross-link run-scoped event causation;
-instead, the new workspace-scoped invocation admission carries and validates
-the exact prior run, route, stop, projection, and gap identities.
+Stale event-log prefixes refuse by append integrity, but prefix freshness is
+not the single-transition authority. Even if a caller rebinds the historical
+gap to the latest lawful reopen prefix, ABG rejects a second transition when
+an existing `invocation_admitted.reentryBasis` has consumed the same source
+invocation, Run, route, stop, projection, and gap. Re-entry does not cross-link
+run-scoped event causation; the new workspace-scoped invocation admission
+carries and validates that exact source basis.
 
 Installed evidence shall prove:
 
@@ -1429,7 +1438,8 @@ Installed evidence shall prove:
 - a fresh public context re-enters from the exact serialized gap authority and
   a changed Product observation, then converges through the ordinary four
   semantic authorities and evidence fold;
-- missing, stale, wrong-workspace, wrong-Program, wrong-gap, and non-gap
-  re-entry bases refuse before a new Run opens; and
+- missing, stale, wrong-workspace, wrong-Program, wrong-gap, non-gap,
+  reduced-ProductSet, and already-consumed re-entry bases refuse before a new
+  Run opens;
 - Public and HoG neither select the post-gap action nor manufacture the changed
   observation.

@@ -115,6 +115,11 @@ admitted evidence, the path shall refresh model, gap, lawful next action, and
 action-result truth. The scenario shall observe one truthful stop, hold, or
 gap; inspect the replay-derived frontier; admit one agent edit or typed `F_H`
 act; and resume the same run or start the lawfully repriced run to convergence.
+When the truthful stop is an admitted `gap_stop`, the scenario may instead
+lawfully re-enter that exact stopped Run into one successor Run under an
+admitted single-use re-entry basis. Re-entry shall preserve the exact selected
+ProductSet, resolved dependency lock, WorkspaceBinding, Program, and public
+start identity; it is not a Product reprice.
 It shall exercise every retained consequence route and runtime disposition,
 including retry, depth traversal, graph-span re-entry, public re-entry, ticket
 work, reprice, yield, block, and non-admission, plus all six retained public

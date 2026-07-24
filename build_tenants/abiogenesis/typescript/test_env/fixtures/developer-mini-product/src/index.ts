@@ -536,6 +536,36 @@ function observationHasAction(
     snapshot.availableActionRefs.includes(actionRef);
 }
 
+function targetObligationBinding(
+  snapshotRef: JsonValue,
+  disposition: "bound" | "fulfilled" | "unbound",
+  eligibleActionRefs: readonly string[],
+): Readonly<Record<string, JsonValue>> {
+  return deepFreeze({
+    kind: "target_obligation_binding",
+    obligationRef: DEVELOPER_MINI_IDS.approvalObligationRef,
+    targetOutcomeRef: DEVELOPER_MINI_IDS.targetOutcomeRef,
+    snapshotRef,
+    disposition,
+    eligibleActionRefs,
+    reasonRef: disposition === "bound"
+      ? "reason://developer.example/greeting/action-bound@5"
+      : disposition === "fulfilled"
+        ? "reason://developer.example/greeting/obligation-fulfilled@5"
+        : DEVELOPER_MINI_IDS.gapStopReasonRef,
+  });
+}
+
+function priorityProjection(
+  orderedActionRefs: readonly string[],
+): Readonly<Record<string, JsonValue>> {
+  return deepFreeze({
+    kind: "deterministic_priority_projection",
+    schemeRef: DEVELOPER_MINI_IDS.prioritySchemeRef,
+    orderedActionRefs,
+  });
+}
+
 export function constructDeveloperObservationSnapshot(input: Readonly<{
   workspaceBindingId: string;
   workspaceBindingDigest: `sha256:${string}`;
@@ -595,10 +625,10 @@ function isNextActionBasis(
       "gapProjection",
       "kind",
       "observationSnapshot",
-      "priorityProjection",
+      "priorityScheme",
       "runtimeFrontier",
       "schemaVersion",
-      "targetObligationBindings",
+      "targetObligationRefs",
     ]) ||
     value.kind !== "next_action_basis" ||
     value.schemaVersion !== "5.0.0" ||
@@ -610,39 +640,31 @@ function isNextActionBasis(
       !isRefreshedGapProjection(value.gapProjection)
     ) ||
     !isDeveloperActionCatalog(value.admittedActionCatalog) ||
-    !isRecord(value.priorityProjection) ||
+    !isRecord(value.priorityScheme) ||
     !isRecord(value.runtimeFrontier) ||
     !isRecord(value.declaredPolicy) ||
-    !Array.isArray(value.targetObligationBindings) ||
-    value.targetObligationBindings.length !== 1 ||
-    !isRecord(value.targetObligationBindings[0])
+    !Array.isArray(value.targetObligationRefs) ||
+    value.targetObligationRefs.join("\0") !==
+      DEVELOPER_MINI_IDS.approvalObligationRef
   ) {
     return false;
   }
   const snapshot = value.observationSnapshot;
   const gap = value.gapProjection;
-  const binding = value.targetObligationBindings[0];
   if (
     !isRecord(snapshot.productAssetModel) ||
     sha256Canonical(value.admittedActionCatalog as JsonValue) !==
       sha256Canonical(snapshot.actionCatalog as JsonValue) ||
     gap.modelRef !== snapshot.productAssetModel.modelRef ||
-    !hasExactKeys(binding, [
-      "obligationRef",
-      "snapshotRef",
-      "targetOutcomeRef",
-    ]) ||
-    binding.obligationRef !== DEVELOPER_MINI_IDS.approvalObligationRef ||
-    binding.snapshotRef !== snapshot.snapshotRef ||
-    binding.targetOutcomeRef !== DEVELOPER_MINI_IDS.targetOutcomeRef ||
-    value.priorityProjection.kind !== "deterministic_priority_projection" ||
-    value.priorityProjection.schemeRef !==
+    value.priorityScheme.kind !== "construction_priority_scheme" ||
+    value.priorityScheme.schemeRef !==
       DEVELOPER_MINI_IDS.prioritySchemeRef ||
-    !Array.isArray(value.priorityProjection.orderedActionRefs) ||
     value.runtimeFrontier.kind !== "runtime_frontier" ||
-    !["action_required", "converged", "gap_stop"].includes(
-      String(value.runtimeFrontier.disposition),
+    !["initial", "post_evidence"].includes(
+      String(value.runtimeFrontier.phase),
     ) ||
+    value.runtimeFrontier.snapshotRef !== snapshot.snapshotRef ||
+    !Array.isArray(value.runtimeFrontier.openObligationRefs) ||
     value.declaredPolicy.kind !== "construction_policy" ||
     typeof value.declaredPolicy.policyRef !== "string" ||
     value.declaredPolicy.policyRef.length === 0 ||
@@ -651,19 +673,14 @@ function isNextActionBasis(
   ) {
     return false;
   }
-  const orderedActionRefs = value.priorityProjection.orderedActionRefs;
-  const availableActionRefs = snapshot.availableActionRefs;
   if (
-    !Array.isArray(availableActionRefs) ||
     (
-      value.runtimeFrontier.disposition === "gap_stop"
-        ? orderedActionRefs.length !== 0 ||
-          availableActionRefs.length !== 0 ||
-          !isGapProjection(gap) ||
-          gap.missingAssetRefs.join("\0") !==
-            DEVELOPER_MINI_IDS.approvalCapabilityAssetRef
-        : orderedActionRefs.join("\0") !==
-            DEVELOPER_MINI_IDS.approvalActionRef
+      value.runtimeFrontier.phase === "initial"
+        ? value.runtimeFrontier.openObligationRefs.join("\0") !==
+            DEVELOPER_MINI_IDS.approvalObligationRef ||
+          !isGapProjection(gap)
+        : value.runtimeFrontier.openObligationRefs.length !== 0 ||
+          !isRefreshedGapProjection(gap)
     )
   ) {
     return false;
@@ -765,6 +782,7 @@ const NEXT_ACTION_KEYS = Object.freeze([
   "outputAssetRefs",
   "programRef",
   "progressConditionRef",
+  "priorityProjection",
   "projectionDigest",
   "projectionRef",
   "rejectedAlternativeRefs",
@@ -772,6 +790,7 @@ const NEXT_ACTION_KEYS = Object.freeze([
   "selectedActionRef",
   "stopConditionRef",
   "targetObligationRefs",
+  "targetObligationBindings",
   "targetOutcomeRef",
   "targetProgramLocusRef",
 ]);
@@ -803,6 +822,27 @@ function isNextActionProjection(value: unknown): value is Readonly<
       DEVELOPER_MINI_IDS.approvalProgressConditionRef ||
     value.stopConditionRef !==
       DEVELOPER_MINI_IDS.approvalStopConditionRef ||
+    !Array.isArray(value.targetObligationBindings) ||
+    value.targetObligationBindings.length !== 1 ||
+    !isRecord(value.targetObligationBindings[0]) ||
+    value.targetObligationBindings[0].kind !==
+      "target_obligation_binding" ||
+    value.targetObligationBindings[0].disposition !== "bound" ||
+    value.targetObligationBindings[0].obligationRef !==
+      DEVELOPER_MINI_IDS.approvalObligationRef ||
+    !Array.isArray(
+      value.targetObligationBindings[0].eligibleActionRefs,
+    ) ||
+    value.targetObligationBindings[0].eligibleActionRefs.join("\0") !==
+      DEVELOPER_MINI_IDS.approvalActionRef ||
+    !isRecord(value.priorityProjection) ||
+    value.priorityProjection.kind !==
+      "deterministic_priority_projection" ||
+    value.priorityProjection.schemeRef !==
+      DEVELOPER_MINI_IDS.prioritySchemeRef ||
+    !Array.isArray(value.priorityProjection.orderedActionRefs) ||
+    value.priorityProjection.orderedActionRefs.join("\0") !==
+      DEVELOPER_MINI_IDS.approvalActionRef ||
     !Array.isArray(value.targetObligationRefs) ||
     value.targetObligationRefs.length !== 1 ||
     value.targetObligationRefs[0] !==
@@ -844,12 +884,14 @@ const GAP_STOP_NEXT_ACTION_KEYS = Object.freeze([
   "nextActionBasisRef",
   "noActionDisposition",
   "programRef",
+  "priorityProjection",
   "projectionDigest",
   "projectionRef",
   "reasonRef",
   "rejectedActionRefs",
   "schemaVersion",
   "targetObligationRefs",
+  "targetObligationBindings",
   "targetOutcomeRef",
 ]);
 
@@ -871,6 +913,25 @@ function isGapStopNextActionProjection(
     value.programRef !== DEVELOPER_MINI_IDS.oneSurfaceProgramRef ||
     typeof value.gapRef !== "string" ||
     value.reasonRef !== DEVELOPER_MINI_IDS.gapStopReasonRef ||
+    !Array.isArray(value.targetObligationBindings) ||
+    value.targetObligationBindings.length !== 1 ||
+    !isRecord(value.targetObligationBindings[0]) ||
+    value.targetObligationBindings[0].kind !==
+      "target_obligation_binding" ||
+    value.targetObligationBindings[0].disposition !== "unbound" ||
+    value.targetObligationBindings[0].obligationRef !==
+      DEVELOPER_MINI_IDS.approvalObligationRef ||
+    !Array.isArray(
+      value.targetObligationBindings[0].eligibleActionRefs,
+    ) ||
+    value.targetObligationBindings[0].eligibleActionRefs.length !== 0 ||
+    !isRecord(value.priorityProjection) ||
+    value.priorityProjection.kind !==
+      "deterministic_priority_projection" ||
+    value.priorityProjection.schemeRef !==
+      DEVELOPER_MINI_IDS.prioritySchemeRef ||
+    !Array.isArray(value.priorityProjection.orderedActionRefs) ||
+    value.priorityProjection.orderedActionRefs.length !== 0 ||
     !Array.isArray(value.targetObligationRefs) ||
     value.targetObligationRefs.join("\0") !==
       DEVELOPER_MINI_IDS.approvalObligationRef ||
@@ -1162,9 +1223,13 @@ function isConvergedNextActionProjection(
       "gapRef",
       "kind",
       "lawfulBasisRefs",
+      "nextActionBasisDigest",
+      "nextActionBasisRef",
+      "priorityProjection",
       "projectionDigest",
       "projectionRef",
       "schemaVersion",
+      "targetObligationBindings",
       "targetOutcomeRef",
     ]) ||
     value.kind !== "next_action_projection" ||
@@ -1175,7 +1240,28 @@ function isConvergedNextActionProjection(
     typeof value.constructionIntentRef !== "string" ||
     typeof value.edgeClosureDecisionRef !== "string" ||
     typeof value.gapRef !== "string" ||
+    typeof value.nextActionBasisRef !== "string" ||
+    typeof value.nextActionBasisDigest !== "string" ||
     value.targetOutcomeRef !== DEVELOPER_MINI_IDS.targetOutcomeRef ||
+    !Array.isArray(value.targetObligationBindings) ||
+    value.targetObligationBindings.length !== 1 ||
+    !isRecord(value.targetObligationBindings[0]) ||
+    value.targetObligationBindings[0].kind !==
+      "target_obligation_binding" ||
+    value.targetObligationBindings[0].disposition !== "fulfilled" ||
+    value.targetObligationBindings[0].obligationRef !==
+      DEVELOPER_MINI_IDS.approvalObligationRef ||
+    !Array.isArray(
+      value.targetObligationBindings[0].eligibleActionRefs,
+    ) ||
+    value.targetObligationBindings[0].eligibleActionRefs.length !== 0 ||
+    !isRecord(value.priorityProjection) ||
+    value.priorityProjection.kind !==
+      "deterministic_priority_projection" ||
+    value.priorityProjection.schemeRef !==
+      DEVELOPER_MINI_IDS.prioritySchemeRef ||
+    !Array.isArray(value.priorityProjection.orderedActionRefs) ||
+    value.priorityProjection.orderedActionRefs.length !== 0 ||
     !Array.isArray(value.lawfulBasisRefs) ||
     value.lawfulBasisRefs.join("\0") !== [
       value.constructionIntentRef,
@@ -1613,24 +1699,17 @@ export function realizeDeveloperEvalGap(input: unknown): Readonly<object> {
     schemaVersion: "5.0.0" as const,
     observationSnapshot: input,
     gapProjection,
-    targetObligationBindings: [{
-      obligationRef: DEVELOPER_MINI_IDS.approvalObligationRef,
-      targetOutcomeRef: DEVELOPER_MINI_IDS.targetOutcomeRef,
-      snapshotRef: input.snapshotRef,
-    }],
+    targetObligationRefs: [
+      DEVELOPER_MINI_IDS.approvalObligationRef,
+    ],
     admittedActionCatalog: input.actionCatalog,
-    priorityProjection: {
-      kind: "deterministic_priority_projection",
+    priorityScheme: {
+      kind: "construction_priority_scheme",
       schemeRef: DEVELOPER_MINI_IDS.prioritySchemeRef,
-      orderedActionRefs: approvalAvailable
-        ? [DEVELOPER_MINI_IDS.approvalActionRef]
-        : [] as const,
     },
     runtimeFrontier: {
       kind: "runtime_frontier",
-      disposition: approvalAvailable
-        ? "action_required"
-        : "gap_stop",
+      phase: "initial",
       openObligationRefs: [DEVELOPER_MINI_IDS.approvalObligationRef],
       snapshotRef: input.snapshotRef,
     },
@@ -1691,15 +1770,29 @@ export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
   }
   const gap = input.gapProjection;
   const actionCatalog = input.admittedActionCatalog;
+  const snapshot = input.observationSnapshot;
   if (
     !isRecord(gap) ||
     !isRecord(actionCatalog) ||
+    !isRecord(snapshot) ||
     !isRecord(input.runtimeFrontier) ||
     !Array.isArray(actionCatalog.rows)
   ) {
     throw new TypeError("developer next-action basis is incomplete");
   }
-  if (input.runtimeFrontier.disposition === "gap_stop") {
+  const actionAvailable = observationHasAction(
+    snapshot,
+    DEVELOPER_MINI_IDS.approvalActionRef,
+  );
+  const binding = targetObligationBinding(
+    snapshot.snapshotRef,
+    actionAvailable ? "bound" : "unbound",
+    actionAvailable ? [DEVELOPER_MINI_IDS.approvalActionRef] : [],
+  );
+  const priority = priorityProjection(
+    actionAvailable ? [DEVELOPER_MINI_IDS.approvalActionRef] : [],
+  );
+  if (!actionAvailable) {
     if (
       !Array.isArray(gap.missingAssetRefs) ||
       gap.missingAssetRefs.length === 0
@@ -1717,6 +1810,7 @@ export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
       targetObligationRefs: [
         DEVELOPER_MINI_IDS.approvalObligationRef,
       ],
+      targetObligationBindings: [binding],
       missingAssetRefs: gap.missingAssetRefs,
       reasonRef: DEVELOPER_MINI_IDS.gapStopReasonRef,
       lawfulBasisRefs: [
@@ -1725,6 +1819,7 @@ export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
         DEVELOPER_MINI_IDS.oneSurfaceProgramRef,
       ],
       rejectedActionRefs: [DEVELOPER_MINI_IDS.approvalActionRef],
+      priorityProjection: priority,
       nextActionBasisRef: input.basisRef,
       nextActionBasisDigest: input.basisDigest,
     };
@@ -1757,6 +1852,7 @@ export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
     graphFunctionRef: selectedAction.graphFunctionRef,
     targetProgramLocusRef: selectedAction.targetProgramLocusRef,
     targetObligationRefs: selectedAction.targetObligationRefs,
+    targetObligationBindings: [binding],
     inputAssetRefs: selectedAction.inputAssetRefs,
     outputAssetRefs: selectedAction.outputAssetRefs,
     gapRef: gap.gapRef,
@@ -1765,6 +1861,7 @@ export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
     stopConditionRef: selectedAction.stopConditionRef,
     nextActionBasisRef: input.basisRef,
     nextActionBasisDigest: input.basisDigest,
+    priorityProjection: priority,
     lawfulBasisRefs: [
       input.basisRef,
       gap.gapRef,
@@ -2147,20 +2244,17 @@ export function realizeDeveloperRefreshGap(
     schemaVersion: "5.0.0" as const,
     observationSnapshot: input,
     gapProjection,
-    targetObligationBindings: [{
-      obligationRef: DEVELOPER_MINI_IDS.approvalObligationRef,
-      targetOutcomeRef: DEVELOPER_MINI_IDS.targetOutcomeRef,
-      snapshotRef: input.snapshotRef,
-    }],
+    targetObligationRefs: [
+      DEVELOPER_MINI_IDS.approvalObligationRef,
+    ],
     admittedActionCatalog: input.actionCatalog,
-    priorityProjection: {
-      kind: "deterministic_priority_projection",
+    priorityScheme: {
+      kind: "construction_priority_scheme",
       schemeRef: DEVELOPER_MINI_IDS.prioritySchemeRef,
-      orderedActionRefs: [DEVELOPER_MINI_IDS.approvalActionRef],
     },
     runtimeFrontier: {
       kind: "runtime_frontier",
-      disposition: "converged",
+      phase: "post_evidence",
       openObligationRefs: [] as const,
       snapshotRef: input.snapshotRef,
     },
@@ -2186,7 +2280,7 @@ export function realizeDeveloperRefreshEvaluateNext(
     !isNextActionBasis(input) ||
     !isRecord(input.gapProjection) ||
     !isRecord(input.runtimeFrontier) ||
-    input.runtimeFrontier.disposition !== "converged"
+    input.runtimeFrontier.phase !== "post_evidence"
   ) {
     throw new TypeError(
       "developer next-action refresh requires the converged admitted basis",
@@ -2209,6 +2303,16 @@ export function realizeDeveloperRefreshEvaluateNext(
     targetOutcomeRef: gap.targetOutcomeRef,
     gapRef: gap.gapRef,
     edgeClosureDecisionRef: constructionState.edgeClosureDecisionRef,
+    nextActionBasisRef: input.basisRef,
+    nextActionBasisDigest: input.basisDigest,
+    targetObligationBindings: [
+      targetObligationBinding(
+        snapshot.snapshotRef,
+        "fulfilled",
+        [],
+      ),
+    ],
+    priorityProjection: priorityProjection([]),
     lawfulBasisRefs: [
       constructionState.constructionIntentRef,
       constructionState.edgeClosureDecisionRef,
@@ -2254,13 +2358,11 @@ function isDeveloperSemanticStageAdvance(
     ) {
       return false;
     }
-    const expectedDisposition = input.constructionState === null
-      ? observationHasAction(input, DEVELOPER_MINI_IDS.approvalActionRef)
-        ? "action_required"
-        : "gap_stop"
-      : "converged";
+    const expectedPhase = input.constructionState === null
+      ? "initial"
+      : "post_evidence";
     return output.observationSnapshot.snapshotRef === input.snapshotRef &&
-      output.runtimeFrontier.disposition === expectedDisposition;
+      output.runtimeFrontier.phase === expectedPhase;
   }
   if (
     isNextActionBasis(input) &&

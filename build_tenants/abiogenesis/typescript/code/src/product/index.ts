@@ -32,6 +32,8 @@ export {
   constructResolvedProductLock,
   constructWorkspaceAuthorityBasis,
   constructWorkspaceBinding,
+  isProductSet,
+  isResolvedProductLock,
   type EnvironmentRefusal,
   type EnvironmentRefusalCode,
   type ProductInstall,
