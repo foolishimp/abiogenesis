@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_s03_active
-- review_status: corrected_s02_closed_s03_reprice_active
-- proof_status: s02_green_s03_open
+- review_status: corrected_s02_repair_green_s03_active
+- proof_status: s02_repaired_green_s03_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -38,7 +38,7 @@
 - accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
 - regression_binding: ABI5-ROOT-001
 - current_product_frontier: ABG5-S03-ONE-SURFACE-CONTINUATION
-- current_implementation_base: de29a7b7
+- current_implementation_base: cbb57d567ca3ecb0a94817a8a89419836f74235b
 - retained_implementation_subject: ffba4e71456cf19168fa2bbf2981b463e018a0cf
 - current_branch_head_at_intake: e0575b824773d2105110918cf71257deca8b0f3a
 - selected_method_release: STDO v2.0.0
@@ -148,7 +148,7 @@ working installed slice and scales to the changed authority and risk boundary.
 | Order | Existing owner | Installed outcome |
 |---:|---|---|
 | `1` | `T-270`, `T-281` | From an empty consumer directory, install packed ABIogenesis and a separately packed developer mini-product; resolve a non-empty Product lock; admit its supplied publication; invoke it through installed SDK and CLI; and derive the same typed result from ABG replay. |
-| `2` | `T-270` | **Complete at `de29a7b7`:** representative complete graph/C behavior, live F_P, four compute-fibre rows, eight structural-form rows, fibre substitution, transparent child traversal, and owned negatives close S02. |
+| `2` | `T-270` | **Repaired and complete at `cbb57d56`:** representative complete graph/C behavior, live F_P, four compute-fibre rows, eight structural-form rows, fibre substitution, durable F_H across fresh contexts, installed nonterminal identity, malformed GTL refusal, and owned negatives close S02. |
 | `3` | `T-272` | **Active:** use durable F_H response and same-run continuation to exercise One Surface, consequence/runtime/public-control rows, and close `ABG5-S03`. |
 | `4` | `T-274`, `T-275`, `T-276` | Execute Consensus through the same ordinary extension, catalog, GTL, HoG, ABG, and public path; close `ABG5-S05`. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner realization, native and bounded host projection, and independent flavored-catalog portability through the same extension path; close `ABG5-S06` and make `ABG5-S04` runnable. |
@@ -716,9 +716,9 @@ The current checkpoint is `ABI5-M5-EXT-001`. It requires:
 - structural proof that no identifier, branch, validator, judgment, or
   implementation for the mini-product exists in ABIogenesis core.
 
-Only seams exposed by that installed path are current implementation work.
-T-272 remains held until this checkpoint and the corrected S02 boundary are
-ready.
+Only seams exposed by that installed path were implementation work at this
+checkpoint. T-272 remained held until this checkpoint and the corrected S02
+boundary were ready.
 
 ## Independent Product Checkpoint
 
@@ -750,31 +750,44 @@ typed frontier is corrected S02.
 
 ## Corrected S02 Closure Checkpoint
 
-Implementation commit `de29a7b7` closes corrected `ABG5-S02` through the same
-independently packed Product seam:
+Implementation commit `de29a7b7` established the substantive corrected
+`ABG5-S02` path through the independently packed Product seam. Review then
+found process-local continuation authority, non-atomic hold admission, two
+missing installed scenario proofs, and an overstated conservation row.
+Implementation commit `cbb57d56` repairs those bounded defects:
 
 - the developer Product publishes one mixed `F_D` -> `F_P` -> terminal `F_H`
   GTL Program without any developer-specific switch in ABIogenesis core;
-- the installed path holds at the exact F_H cursor, exposes replay-derived
-  state through `project.read`, admits an attributed typed response through
-  `interaction.respond`, reopens the append-only event log, and resumes the
-  same Run through a separate `run.continue`;
+- the installed path holds at the exact F_H cursor and returns one serialized,
+  self-digested continuation authority bound to the durable event prefix,
+  Product install, workspace, catalog, Program, Graph, and closure contract;
+- `project.read`, `interaction.respond`, and `run.continue` each succeed from a
+  fresh public context; the WeakMap is only a same-context cache;
 - ABG reconstructs invocation, execution-basis, scope, C-call, pending
   result/judgment, and continuation truth from durable events; HoG separately
-  re-admits its exact held cursor before traversal resumes;
+  re-admits its exact held cursor and digest-verified materialized Graph before
+  traversal resumes;
+- pending result/judgment, hold route, and continuation opening are one durable
+  event-admission transaction, with rollback proof at the failure boundary;
 - malformed response shape and wrong actor refuse without advancing the
   continuation, while the successful path records exactly three fibre
   selections, three complete C-call spines, one resolved continuation, one
   run closure, and gap-free admission ordinals; and
+- an installed caller-supplied GraphFunction executes a nonterminal
+  `c_identity` without a C-call, while malformed serialized GTL refuses before
+  Run admission; and
 - the fresh current-candidate live F_P proof uses `claude-fable-5` through the
   same installed transport and replay path.
 
-Fresh serialized verification is `test:m5` `72/72`, retained `test:m4`
-`26/26`, live `test:m5:live-fp` `1/1`, focused durable reopen `7/7`, and
-conservation `23/40` with `17` explicit later-scenario gaps. All four
-compute-fibre and eight structural-form rows are green, alongside fibre
-substitution, transparent child traversal, and the required malformed GTL and
-F_P refusals. S02 is closed; S03 is the next Product frontier.
+Fresh serialized verification is `test:m5` `73/73`, retained `test:m4`
+`26/26`, live `test:m5:live-fp` `1/1`, and focused durable reopen `8/8`.
+The implementation projection records `22` proven rows, one
+`graph_span_reentry` row explicitly provisional for S03, and `17` open rows;
+it does not claim accepted RC5 reconciliation. All four compute-fibre and eight
+structural-form rows are green alongside fibre substitution and the required
+installed negatives. Exact package SHA-256 is
+`f287edc7314c97eb69ccead9bd9f64019457eabb2dbe74d8a05f802a119f5252`.
+S02 is closed; S03 is the next Product frontier.
 
 ## 4.6 Conservation
 

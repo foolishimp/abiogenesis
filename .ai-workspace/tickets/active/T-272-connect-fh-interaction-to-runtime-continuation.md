@@ -2,7 +2,8 @@
 
 > **Current disposition (2026-07-24):**
 > `active_for_s03`. The durable hold/read/respond/continue prerequisite and
-> mixed compute path closed with corrected S02 at `de29a7b7`. One Surface,
+> mixed compute path were repaired across fresh public contexts at `cbb57d56`.
+> One Surface,
 > consequence routes, runtime dispositions, and public-control work are now
 > active through the same extension path. Historical X-path designs and
 > checkpoints remain donor evidence only.
@@ -58,14 +59,17 @@ F_H hold
   -> same-run replay and typed outcome
 ```
 
-Implementation commit `de29a7b7` closes the F_H and mixed compute-fibre
-evidence needed by S02. The same ticket now extends that path with every
-retained consequence route, runtime disposition, and public start/control row
-owned by S03. This reprice does not authorize the historical X interpreter,
-checkpoint-basis carrier, public controller, or any other X implementation.
+Implementation commit `de29a7b7` established the F_H and mixed compute-fibre
+path needed by S02. Commit `cbb57d56` makes its public authority serializable
+and Product-bound, proves each operation from a fresh context, and atomically
+admits the pending judgment, hold route, and continuation opening. The same
+ticket now extends that path with every retained consequence route, runtime
+disposition, and public start/control row owned by S03. This reprice does not
+authorize the historical X interpreter, checkpoint-basis carrier, public
+controller, or any other X implementation.
 
-Fresh proof is `test:m5` `72/72`, `test:m4` `26/26`, live F_P `1/1`, durable
-reopen `7/7`, and conservation `23/40` with all S02-owned rows green. The
+Fresh proof is `test:m5` `73/73`, `test:m4` `26/26`, live F_P `1/1`, and
+durable reopen `8/8`; all twelve S02-owned rows are green. The
 installed mixed Product proves F_H hold, replay-derived read, malformed and
 wrong-actor refusal, attributed response, append-only reopen, separate
 continue, same-Run typed closure, and replay agreement. No second result or

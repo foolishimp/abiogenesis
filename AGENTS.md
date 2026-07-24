@@ -17,11 +17,11 @@
 ## Current Project Gate
 
 T-286 completed exact `ABI5-ROOT-001`, which remains the mandatory bootstrap
-regression gate. T-270 is the sole M5 parent owner; repriced T-281 owns the
-active `ABI5-M5-EXT-001` public-product seam. Current implementation must make
-one independently packed developer GTL Product run through the installed
-public path with no Product-specific ABIogenesis branch. Do not resume
-horizontal traversal-row expansion before that checkpoint is green.
+regression gate. T-270 is the sole M5 parent owner; corrected S02 and
+`ABI5-M5-EXT-001` are green. Repriced T-272 owns active S03. Current
+implementation must extend the independently packed developer Product with one
+GTL-owned One Surface and public read/respond/continue lifecycle. Do not use
+the forty-row qualification matrix as the implementation queue.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -67,7 +67,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: M4 bootstrap complete; independent installed GTL Product frontier active
+**Status**: corrected S02 complete; S03 One Surface and continuation active
 
 This block is a thin read model. It does not duplicate the full Product.
 
@@ -89,13 +89,12 @@ This block is a thin read model. It does not duplicate the full Product.
 - `F_D` is restricted to interfaces and declared total functions over closed
   domains. Open semantic work is `F_P`. Attributed policy and ambiguity
   decisions are `F_H`, direct or lawfully proxied.
-- `ABI5-ROOT-001` remains the regression gate. `ABI5-M5-EXT-001` is the
-  current delivery frontier: caller-supplied publication, non-empty Product
-  dependency, product-neutral invocation, and replay-derived result.
+- `ABI5-ROOT-001` remains the regression gate. `ABI5-M5-EXT-001` and corrected
+  S02 are green. S03 is the current delivery frontier: GTL-owned One Surface,
+  public read/respond/continue, and replay-derived same-run outcomes.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.
-No new M5 ticket hierarchy is authorized. T-281 is active only for the current
-public-product frontier; T-272 remains held until that frontier and S02 are
-ready.
+No new M5 ticket hierarchy is authorized. T-272 is active for S03. T-281 is
+held until its later S06 public-family and portability boundary.
 <!-- GTL_BOOTLOADER_END -->

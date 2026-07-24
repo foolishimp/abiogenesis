@@ -18,9 +18,9 @@ The ABIogenesis 5.0 Product destination, M2 correction vector, and M3 direct-GTL
 realization design are accepted. T-286 completed the bounded installed
 bootstrap root. Intent and Product remain stable. A bounded
 `requirement_reprice` corrects the S02/S03 traversal-proof ordering without
-changing Product meaning. T-270 owns the integrated M5 outcome; T-281 owns the
-active product-neutral publication and invocation seam. Direct F_H authorized
-this correction on 2026-07-24.
+changing Product meaning. T-270 owns the integrated M5 outcome; T-272 owns the
+active S03 One Surface and continuation boundary. Direct F_H authorized this
+correction on 2026-07-24.
 
 | Basis | Current truth |
 |---|---|
@@ -40,9 +40,9 @@ this correction on 2026-07-24.
 | M5 F_H decision | direct F_H ruling on 2026-07-22: accepted and continue under T-270 |
 | selected method release | STDO `v2.0.0`, commit `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a` |
 | selected method member set | 41 members, digest `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0` |
-| current work carrier | `T-270` M5 parent; T-272 owns active S03; exact implementation base `de29a7b7` |
+| current work carrier | `T-270` M5 parent; T-272 owns active S03; exact implementation base `cbb57d56` |
 | current constitutional state | accepted Product and direct-GTL design; corrected S02/S03 requirement and delivery ordering |
-| implementation state | `ABI5-ROOT-001` is green; M5 `72/72`; `ABG5-S02` is green with a fresh live F_P proof and conservation `23/40`; `ABG5-S03` is the current Product frontier |
+| implementation state | `ABI5-ROOT-001` is green; M5 `73/73`; `ABG5-S02` is green with fresh live F_P proof; implementation coverage is 22 proven, one S03-provisional, and 17 open rows; `ABG5-S03` is current |
 
 The constitutional authoring order is one unpromoted transaction:
 
@@ -95,7 +95,8 @@ mini-product-specific identifier, switch, validator, judgment, or execution
 path. The installed CLI and SDK derive the same typed result from ABG replay,
 and substitution of the Product semantics or judgment boundary fails closed.
 
-Corrected `ABG5-S02` closed at `de29a7b7`. Its final vertical prerequisite was:
+Corrected `ABG5-S02` was established at `de29a7b7` and repaired at
+`cbb57d56`. Its final vertical prerequisite is:
 
 ```text
 F_H hold
@@ -106,11 +107,14 @@ F_H hold
   -> same-run replay and typed result
 ```
 
-That path closes the F_H and mixed compute rows through the independently
-packed developer Product. Together with the ten retained S02 rows, fibre
-substitution, malformed-input refusals, and the current live F_P proof, it
-closes S02. T-272 now owns S03's One Surface, consequence,
-runtime-disposition, and public-control work through the same extension path.
+That path now crosses fresh public contexts using one serialized, self-digested
+Product-bound continuation authority; no process-local map carries authority.
+The pending judgment, hold route, and continuation opening persist atomically.
+Together with all twelve S02-owned compute and structural rows, fibre
+substitution, installed malformed-GTL and nonterminal `c_identity` proofs, and
+the current live F_P proof, it closes S02. T-272 owns S03's One Surface,
+consequence, runtime-disposition, and public-control work through the same
+extension path.
 
 ## Product Scope
 
@@ -167,8 +171,8 @@ own subordinate boundaries after in-place reprice:
 | Order | Existing owner | Product boundary |
 |---:|---|---|
 | `1` | `T-270`, `T-281` | **Complete at `bc9ca26a`:** independently packed developer GTL Product, non-empty dependency lock, caller-supplied publication, product-owned contracts and judgment, installed resolution, and product-neutral SDK/CLI invocation. |
-| `2a` | `T-272` | **Complete at `de29a7b7`:** one durable F_H hold/read/respond/continue path and one mixed F_D/F_P/F_H Program through the generic extension seam. |
-| `2b` | `T-270` | **Complete at `de29a7b7`:** four compute-fibre and eight structural-form rows, fibre substitution, complete graph/C behavior, live F_P, and owned negatives close S02. |
+| `2a` | `T-272` | **Repaired at `cbb57d56`:** one F_H hold/read/respond/continue path survives fresh public contexts; its hold truth is admitted atomically; one mixed F_D/F_P/F_H Program closes through the generic extension seam. |
+| `2b` | `T-270` | **Complete at `cbb57d56`:** four compute-fibre and eight structural-form rows, fibre substitution, installed nonterminal `c_identity`, malformed serialized GTL refusal, live F_P, and owned negatives close S02. |
 | `3` | `T-272` | **Active:** extend the same path with One Surface, all consequence and runtime-disposition rows, the six public-control rows, and close S03. |
 | `4` | `T-274`, `T-275`, `T-276` | Deliver ordinary-path Consensus through the same public extension path and close S05. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner, native and host projections, downstream portability through the same extension path, close S06, and make S04 runnable. |
