@@ -750,6 +750,85 @@ test("M5 installs and executes one independent developer-authored GTL Product th
   assert.equal(judgmentRun.outcomes.at(-1).result, null);
 });
 
+test("M5 invokes external ticket work only through its owning Program and GraphFunction", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    "external-ticket-work",
+    mini.publication,
+    {
+      programRef: mini.ids.ticketProgramRef,
+      graphFunctionRef: mini.ids.ticketGraphFunctionRef,
+      input: {
+        kind: "developer_ticket_work_input",
+        schemaVersion: "5.0.0",
+        ticketRef: "ticket://developer.example/T-001",
+        requestedOutcome: "publish one replay-derived ticket result",
+      },
+    },
+  );
+  const run = await runInstalledCli(harness, scenario);
+  assert.equal(run.exitCode, 0, run.stdout);
+  assert.equal(
+    run.outcomes.every((outcome) => outcome.disposition === "succeeded"),
+    true,
+    JSON.stringify(run.outcomes),
+  );
+  const outcome = run.outcomes.at(-1);
+  assert.equal(outcome.replayAgreement, true);
+  assert.equal(outcome.outputContractRef, mini.ids.ticketOutputContractRef);
+  assert.deepEqual(outcome.result, {
+    kind: "developer_ticket_work_output",
+    schemaVersion: "5.0.0",
+    ticketRef: "ticket://developer.example/T-001",
+    disposition: "completed",
+    summary: "Completed: publish one replay-derived ticket result",
+  });
+  const events = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim()
+    .split("\n")
+    .map((line) => JSON.parse(line));
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "graph_call_opened" &&
+        event.graphFunctionRef === mini.ids.ticketGraphFunctionRef,
+    ),
+    true,
+  );
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "c_call_result_admitted" &&
+        event.payload.contractRef === mini.ids.ticketOutputContractRef,
+    ),
+    true,
+  );
+
+  const crossWired = await externalScenario(
+    harness,
+    mini,
+    "external-ticket-cross-wire",
+    mini.publication,
+    {
+      programRef: mini.ids.programRef,
+      graphFunctionRef: mini.ids.ticketGraphFunctionRef,
+      input: {
+        kind: "developer_ticket_work_input",
+        schemaVersion: "5.0.0",
+        ticketRef: "ticket://developer.example/T-001",
+        requestedOutcome: "must not run under another Program",
+      },
+    },
+  );
+  const refused = await runInstalledCli(harness, crossWired);
+  assert.equal(refused.exitCode, 2);
+  assert.equal(refused.outcomes.at(-1).disposition, "refused");
+  assert.equal(refused.outcomes.at(-1).runId, null);
+});
+
 test("M5 reopens and completes an external mixed F_D/F_P/F_H program through separate public operations", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
   const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);

@@ -26,6 +26,20 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
   graphFunctionRef: "graph-function://developer.example/greeting/render@5",
   graphRef: "graph://developer.example/greeting/render@5",
   nodeRef: "node://developer.example/greeting/render@5",
+  ticketProgramRef: "program://developer.example/ticket/work@5",
+  ticketStartRef: "start://developer.example/ticket/work@5",
+  ticketGraphFunctionRef: "graph-function://developer.example/ticket/work@5",
+  ticketGraphRef: "graph://developer.example/ticket/work@5",
+  ticketNodeRef: "node://developer.example/ticket/work@5",
+  ticketInputContractRef: "contract://developer.example/ticket/work-input@5",
+  ticketOutputContractRef: "contract://developer.example/ticket/work-output@5",
+  ticketClosureContractRef: "contract://developer.example/ticket/closure@5",
+  ticketJudgmentPredicateRef:
+    "predicate://developer.example/ticket/work-completed@5",
+  ticketImplementationBindingRef:
+    "implementation-binding://developer.example/ticket/work-fd@5",
+  ticketImplementationRef:
+    "implementation://developer.example/ticket/work-fd@5",
   inputContractRef: "contract://developer.example/greeting/input@5",
   outputContractRef: "contract://developer.example/greeting/output@5",
   evidenceContractRef: "contract://developer.example/greeting/evidence@5",
@@ -282,6 +296,51 @@ function isGreetingOutput(value: unknown): value is Readonly<{
     value.schemaVersion === "5.0.0" &&
     typeof value.message === "string" &&
     value.message.length > 0;
+}
+
+function isTicketWorkInput(value: unknown): value is Readonly<{
+  kind: "developer_ticket_work_input";
+  schemaVersion: "5.0.0";
+  ticketRef: string;
+  requestedOutcome: string;
+}> {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "kind",
+      "requestedOutcome",
+      "schemaVersion",
+      "ticketRef",
+    ]) &&
+    value.kind === "developer_ticket_work_input" &&
+    value.schemaVersion === "5.0.0" &&
+    typeof value.ticketRef === "string" &&
+    value.ticketRef.length > 0 &&
+    typeof value.requestedOutcome === "string" &&
+    value.requestedOutcome.length > 0;
+}
+
+function isTicketWorkOutput(value: unknown): value is Readonly<{
+  kind: "developer_ticket_work_output";
+  schemaVersion: "5.0.0";
+  ticketRef: string;
+  disposition: "completed";
+  summary: string;
+}> {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "disposition",
+      "kind",
+      "schemaVersion",
+      "summary",
+      "ticketRef",
+    ]) &&
+    value.kind === "developer_ticket_work_output" &&
+    value.schemaVersion === "5.0.0" &&
+    typeof value.ticketRef === "string" &&
+    value.ticketRef.length > 0 &&
+    value.disposition === "completed" &&
+    typeof value.summary === "string" &&
+    value.summary.length > 0;
 }
 
 type DeveloperNoActionDisposition = "gap_stop" | "reprice_required";
@@ -1329,6 +1388,26 @@ export const DEVELOPER_GREETING_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
   ...descriptorBody,
 });
 
+const ticketDescriptorBody = {
+  implementationRef: DEVELOPER_MINI_IDS.ticketImplementationRef,
+  packageName: PACKAGE_NAME,
+  packageVersion: PACKAGE_VERSION,
+  modulePath: "build/index.js",
+  namedSymbol: "realizeDeveloperTicketWork",
+  computeRegime: "F_D",
+  inputContractRef: DEVELOPER_MINI_IDS.ticketInputContractRef,
+  outputContractRef: DEVELOPER_MINI_IDS.ticketOutputContractRef,
+  failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+  refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+} as const;
+
+export const DEVELOPER_TICKET_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
+  kind: "packaged_leaf_implementation_descriptor" as const,
+  schemaVersion: "5.0.0" as const,
+  descriptorDigest: sha256Canonical(ticketDescriptorBody),
+  ...ticketDescriptorBody,
+});
+
 const probabilisticDescriptorBody = {
   implementationRef: DEVELOPER_MINI_IDS.probabilisticImplementationRef,
   packageName: PACKAGE_NAME,
@@ -1512,6 +1591,34 @@ export function realizeDeveloperGreeting(input: unknown): Readonly<object> {
       kind: "deterministic_evidence_candidate" as const,
       schemaVersion: "5.0.0" as const,
       implementationRef: DEVELOPER_MINI_IDS.implementationRef,
+      inputDigest: sha256Canonical(input),
+      outputDigest: sha256Canonical(resultCandidate),
+    }],
+    resultCandidate,
+  });
+}
+
+export function realizeDeveloperTicketWork(
+  input: unknown,
+): Readonly<object> {
+  if (!isTicketWorkInput(input)) {
+    throw new TypeError("developer ticket work requires its exact input contract");
+  }
+  const resultCandidate = deepFreeze({
+    kind: "developer_ticket_work_output" as const,
+    schemaVersion: "5.0.0" as const,
+    ticketRef: input.ticketRef,
+    disposition: "completed" as const,
+    summary: `Completed: ${input.requestedOutcome}`,
+  });
+  return deepFreeze({
+    kind: "leaf_realization_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "success" as const,
+    evidenceCandidates: [{
+      kind: "deterministic_evidence_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      implementationRef: DEVELOPER_MINI_IDS.ticketImplementationRef,
       inputDigest: sha256Canonical(input),
       outputDigest: sha256Canonical(resultCandidate),
     }],
@@ -2464,6 +2571,18 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
       return deepFreeze({ ...value });
     }
     if (
+      contractRef === DEVELOPER_MINI_IDS.ticketInputContractRef &&
+      isTicketWorkInput(value)
+    ) {
+      return deepFreeze({ ...value });
+    }
+    if (
+      contractRef === DEVELOPER_MINI_IDS.ticketOutputContractRef &&
+      isTicketWorkOutput(value)
+    ) {
+      return deepFreeze({ ...value });
+    }
+    if (
       contractRef === DEVELOPER_MINI_IDS.observationContractRef &&
       isObservationSnapshot(value) &&
       value.productAssetModel === null &&
@@ -2483,6 +2602,8 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
     switch (valueKind) {
       case "developer_greeting_output":
         return isGreetingOutput(value);
+      case "developer_ticket_work_output":
+        return isTicketWorkOutput(value);
       case "developer_product_asset_model":
         return isProductAssetModel(value);
       case "developer_gap_projection":
@@ -2510,6 +2631,20 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
     }
   },
   resolveJudgmentRelation(predicateRef: string) {
+    if (predicateRef === DEVELOPER_MINI_IDS.ticketJudgmentPredicateRef) {
+      return Object.freeze({
+        predicateRef,
+        advanceReasonRef:
+          "reason://developer.example/ticket/work-completed@5",
+        rejectionReasonRef:
+          "reason://developer.example/ticket/work-incomplete@5",
+        evaluate: (input: unknown, output: unknown) =>
+          isTicketWorkInput(input) &&
+          isTicketWorkOutput(output) &&
+          output.ticketRef === input.ticketRef &&
+          output.summary === `Completed: ${input.requestedOutcome}`,
+      });
+    }
     if (predicateRef === DEVELOPER_MINI_IDS.preservePredicateRef) {
       return Object.freeze({
         predicateRef,
@@ -2558,6 +2693,16 @@ export function constructDeveloperMiniPublication(
   const contracts = [
     ["input", DEVELOPER_MINI_IDS.inputContractRef, "developer_greeting_input"],
     ["output", DEVELOPER_MINI_IDS.outputContractRef, "developer_greeting_output"],
+    [
+      "input",
+      DEVELOPER_MINI_IDS.ticketInputContractRef,
+      "developer_ticket_work_input",
+    ],
+    [
+      "output",
+      DEVELOPER_MINI_IDS.ticketOutputContractRef,
+      "developer_ticket_work_output",
+    ],
     [
       "input",
       DEVELOPER_MINI_IDS.observationContractRef,
@@ -2633,6 +2778,11 @@ export function constructDeveloperMiniPublication(
       "closure",
       DEVELOPER_MINI_IDS.oneSurfaceClosureContractRef,
       "developer_one_surface_closure",
+    ],
+    [
+      "closure",
+      DEVELOPER_MINI_IDS.ticketClosureContractRef,
+      "developer_ticket_work_closure",
     ],
   ].map(([contractKind, contractRef, valueKind]) => ({
     contractRef: contractRef!,
@@ -2712,6 +2862,89 @@ export function constructDeveloperMiniPublication(
     }],
     callableMembership: [DEVELOPER_MINI_IDS.graphFunctionRef],
     closureContractRef: DEVELOPER_MINI_IDS.closureContractRef,
+    policies: {
+      "abg.compute_regime": "F_D",
+      "abg.root_mode": "direct",
+    },
+  };
+  const ticketGraphFunction = {
+    kind: "graph_function",
+    name: DEVELOPER_MINI_IDS.ticketGraphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [DEVELOPER_MINI_IDS.ticketInputContractRef],
+      provides: [DEVELOPER_MINI_IDS.ticketOutputContractRef],
+      carries: [
+        DEVELOPER_MINI_IDS.ticketInputContractRef,
+        DEVELOPER_MINI_IDS.ticketOutputContractRef,
+      ],
+    },
+    inputs: [DEVELOPER_MINI_IDS.ticketInputContractRef],
+    outputs: [DEVELOPER_MINI_IDS.ticketOutputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: DEVELOPER_MINI_IDS.ticketGraphRef,
+      startNodeRef: DEVELOPER_MINI_IDS.ticketNodeRef,
+      terminalNodeRefs: [DEVELOPER_MINI_IDS.ticketNodeRef],
+      nodes: [{
+        nodeRef: DEVELOPER_MINI_IDS.ticketNodeRef,
+        nodeKind: "c_locus",
+        term: {
+          kind: "c_of",
+          inputCarrierRef: DEVELOPER_MINI_IDS.ticketInputContractRef,
+          outputCarrierRef: DEVELOPER_MINI_IDS.ticketOutputContractRef,
+          programLocusRef: DEVELOPER_MINI_IDS.ticketNodeRef,
+          stageRole: "ticket-work",
+          fibre: "F_D",
+          armId: "arm://developer.example/ticket/work-fd@5",
+          compositionRef: null,
+          vectorIndex: 0,
+          judgmentPredicateRef:
+            DEVELOPER_MINI_IDS.ticketJudgmentPredicateRef,
+          resultBearing: true,
+          requirement: {
+            kind: "executable_leaf_requirement",
+            implementationBindingRef:
+              DEVELOPER_MINI_IDS.ticketImplementationBindingRef,
+            inputContractRef: DEVELOPER_MINI_IDS.ticketInputContractRef,
+            outputContractRef: DEVELOPER_MINI_IDS.ticketOutputContractRef,
+            evidenceContractRef: DEVELOPER_MINI_IDS.evidenceContractRef,
+            failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+            refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+            judgmentContractRef: DEVELOPER_MINI_IDS.judgmentContractRef,
+          },
+        },
+      }],
+      edges: [],
+      applications: [],
+    },
+    effects: ["effect://developer.example/ticket/complete@5"],
+    declarations: {
+      "abg.compute_regime": "F_D",
+      "abg.closure_contract": DEVELOPER_MINI_IDS.ticketClosureContractRef,
+      "abg.evidence_contract": DEVELOPER_MINI_IDS.evidenceContractRef,
+      "abg.judgment_contract": DEVELOPER_MINI_IDS.judgmentContractRef,
+      "abg.judgment_predicate":
+        DEVELOPER_MINI_IDS.ticketJudgmentPredicateRef,
+      "abg.transition_contract": DEVELOPER_MINI_IDS.transitionContractRef,
+    },
+    tags: [
+      "developer-authored",
+      "external-product",
+      "ticket-work",
+    ],
+  };
+  const ticketProgram = {
+    kind: "gtl_program",
+    programRef: DEVELOPER_MINI_IDS.ticketProgramRef,
+    version: "5.0.0",
+    moduleRef: DEVELOPER_MINI_IDS.moduleRef,
+    starts: [{
+      startRef: DEVELOPER_MINI_IDS.ticketStartRef,
+      graphFunctionRef: DEVELOPER_MINI_IDS.ticketGraphFunctionRef,
+    }],
+    callableMembership: [DEVELOPER_MINI_IDS.ticketGraphFunctionRef],
+    closureContractRef: DEVELOPER_MINI_IDS.ticketClosureContractRef,
     policies: {
       "abg.compute_regime": "F_D",
       "abg.root_mode": "direct",
@@ -3372,6 +3605,18 @@ export function constructDeveloperMiniPublication(
       artifact.productManifestDigest,
     ],
   };
+  const ticketContribution = {
+    handle: DEVELOPER_MINI_IDS.ticketGraphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef: DEVELOPER_MINI_IDS.ticketGraphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [DEVELOPER_MINI_IDS.ticketProgramRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [
+      artifact.artifactDigest,
+      artifact.productManifestDigest,
+    ],
+  };
   const mixedContribution = {
     handle: DEVELOPER_MINI_IDS.mixedGraphFunctionRef,
     kind: "graph_function",
@@ -3443,6 +3688,19 @@ export function constructDeveloperMiniPublication(
       computeRegime: "F_D",
       inputContractRef: DEVELOPER_MINI_IDS.inputContractRef,
       outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+    }, {
+      kind: "implementation_binding",
+      bindingRef: DEVELOPER_MINI_IDS.ticketImplementationBindingRef,
+      implementationRef: DEVELOPER_MINI_IDS.ticketImplementationRef,
+      packageName: PACKAGE_NAME,
+      packageVersion: PACKAGE_VERSION,
+      modulePath: "build/index.js",
+      namedSymbol: "realizeDeveloperTicketWork",
+      computeRegime: "F_D",
+      inputContractRef: DEVELOPER_MINI_IDS.ticketInputContractRef,
+      outputContractRef: DEVELOPER_MINI_IDS.ticketOutputContractRef,
       failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
       refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
     }, {
@@ -3645,16 +3903,46 @@ export function constructDeveloperMiniPublication(
         "graph_call_closed",
         "run_closed",
       ],
+    }, {
+      kind: "closure_contract",
+      closureContractRef: DEVELOPER_MINI_IDS.ticketClosureContractRef,
+      predicateRef:
+        "predicate://developer.example/ticket/terminal@5",
+      evidenceContractRef: DEVELOPER_MINI_IDS.evidenceContractRef,
+      resultContractRef: DEVELOPER_MINI_IDS.ticketOutputContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+      refusalValueKind: "developer_greeting_refusal",
+      judgmentContractRef: DEVELOPER_MINI_IDS.judgmentContractRef,
+      rejectionContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+      transitionContractRef: DEVELOPER_MINI_IDS.transitionContractRef,
+      replayProjectionRef:
+        "projection://developer.example/ticket/replay@5",
+      terminalKind: "completed",
+      closureScope: "run",
+      eventKindRefs: [
+        "terminal_reached",
+        "frame_closed",
+        "graph_call_closed",
+        "run_closed",
+      ],
     }],
-    programs: [program, identityProgram, mixedProgram, oneSurfaceProgram],
+    programs: [
+      program,
+      ticketProgram,
+      identityProgram,
+      mixedProgram,
+      oneSurfaceProgram,
+    ],
     graphFunctions: [
       graphFunction,
+      ticketGraphFunction,
       identityGraphFunction,
       mixedGraphFunction,
       oneSurfaceGraphFunction,
     ],
     contributions: [
       contribution,
+      ticketContribution,
       identityContribution,
       mixedContribution,
       oneSurfaceContribution,

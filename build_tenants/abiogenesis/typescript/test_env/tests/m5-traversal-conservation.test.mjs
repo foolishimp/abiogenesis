@@ -568,7 +568,23 @@ const matrix = [
     );
   }),
   open("consequence_route", "public_start_reentry", "published start or continuation target", "durable public start/continue semantics"),
-  open("consequence_route", "ticket_traversal", "ticket-owning GraphFunction or program", "product-declared ticket traversal through the public path"),
+  proven("consequence_route", "ticket_traversal", {
+    gtlExpression: "developer-owned ticket Program and GraphFunction with one declared C.of work leaf",
+    hogPath: "installed direct traversal enters only the ticket Program's admitted callable",
+    abgEvidence: "ticket C-call evidence, result, judgment, terminal route, and closure remain one replayed Run",
+    publicOutcome: "installed CLI returns the Product-owned typed ticket result",
+    invalidMutation: "the same ticket GraphFunction under another Program refuses before Run admission",
+  }, ({ externalTicket }) => {
+    assert.equal(
+      externalTicket.status,
+      0,
+      `${externalTicket.stdout}\n${externalTicket.stderr}`,
+    );
+    assert.match(
+      externalTicket.stdout,
+      /M5 invokes external ticket work only through its owning Program and GraphFunction/u,
+    );
+  }),
   open("consequence_route", "fh_input_required", "declared F_H hold route", "typed human hold and attributed response admission"),
   open("consequence_route", "escalation_or_reprice", "declared escalation or reprice route", "F_H-authorized escalation/reprice continuation"),
   open("consequence_route", "gap_stop", "declared typed gap route", "public unresolved-gap projection without retry or closure"),
@@ -696,12 +712,12 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 22);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 23);
   assert.equal(
     matrix.filter((row) => row.status === "provisional").length,
     1,
   );
-  assert.equal(matrix.filter((row) => row.status === "open").length, 17);
+  assert.equal(matrix.filter((row) => row.status === "open").length, 16);
   for (const row of matrix) {
     for (const field of [
       "witness46",
@@ -874,6 +890,26 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
       timeout: 30_000,
     },
   );
+  const externalTicket = spawnSync(
+    process.execPath,
+    [
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern=^M5 invokes external ticket work only through its owning Program and GraphFunction$",
+      "test_env/tests/m5-installed-external-product.test.mjs",
+    ],
+    {
+      cwd: root,
+      encoding: "utf8",
+      env: Object.fromEntries(
+        Object.entries(process.env).filter(
+          ([key]) => key !== "NODE_TEST_CONTEXT",
+        ),
+      ),
+      maxBuffer: 10 * 1024 * 1024,
+      timeout: 30_000,
+    },
+  );
   const evidence = {
     fd,
     compose,
@@ -892,6 +928,7 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
     retryExhausted,
     crossWire,
     externalMixed,
+    externalTicket,
   };
 
   for (const row of matrix) {
