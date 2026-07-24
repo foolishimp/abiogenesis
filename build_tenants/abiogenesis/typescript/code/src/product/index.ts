@@ -35,6 +35,7 @@ export {
   type EnvironmentRefusal,
   type EnvironmentRefusalCode,
   type ProductInstall,
+  type ProductDependencyEdge,
   type ProductSet,
   type ResolvedProductLock,
   type ResolvedProductLockRow,

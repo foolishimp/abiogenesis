@@ -7,12 +7,8 @@ import * as implementation from "../implementation/index.js";
 import * as product from "../product/index.js";
 import * as validator from "../validator/index.js";
 import type {
-  BoundedRecursionState,
   CatalogContribution,
-  FanOutHelloVectorInput,
-  FpHelloInstruction,
   GtlProgram,
-  HelloWorldInput,
   ModulePublication,
 } from "../gtl/contracts.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -83,6 +79,20 @@ function recordField(
     throw new ApplicationRefusal("invalid_request", `payload.${key} must be an explicit object`);
   }
   return value as Readonly<Record<string, product.JsonValue>>;
+}
+
+function recordArrayField(
+  payload: Readonly<Record<string, product.JsonValue>>,
+  key: string,
+): readonly Readonly<Record<string, product.JsonValue>>[] {
+  const value = payload[key];
+  if (
+    !Array.isArray(value) ||
+    value.some((row) => typeof row !== "object" || row === null || Array.isArray(row))
+  ) {
+    throw new ApplicationRefusal("invalid_request", `payload.${key} must be an explicit object array`);
+  }
+  return value as readonly Readonly<Record<string, product.JsonValue>>[];
 }
 
 function requireExactPayloadKeys(
@@ -368,20 +378,70 @@ async function applyWorkspaceBind(
   requireExactPayloadKeys(invocation.payload, [
     "authorityManifestRef",
     "canonicalRoot",
+    "dependencyEdges",
     "installInvocationRef",
+    "installInvocationRefs",
     "roots",
     "workspaceId",
   ], "workspace.bind");
-  const installState = required(
-    context.productState.install(stringField(invocation.payload, "installInvocationRef")),
-    stringField(invocation.payload, "installInvocationRef"),
-    "ProductInstall",
+  const singularInstallRef = invocation.payload.installInvocationRef;
+  const pluralInstallRefs = invocation.payload.installInvocationRefs;
+  if ((singularInstallRef === undefined) === (pluralInstallRefs === undefined)) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "workspace.bind requires exactly one of installInvocationRef or installInvocationRefs",
+    );
+  }
+  const installInvocationRefs = singularInstallRef === undefined
+    ? stringArrayField(invocation.payload, "installInvocationRefs")
+    : [stringField(invocation.payload, "installInvocationRef")];
+  if (
+    installInvocationRefs.length === 0 ||
+    new Set(installInvocationRefs).size !== installInvocationRefs.length
+  ) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "workspace.bind installInvocationRefs must be non-empty and unique",
+    );
+  }
+  const installStates = installInvocationRefs.map((installInvocationRef) =>
+    required(
+      context.productState.install(installInvocationRef),
+      installInvocationRef,
+      "ProductInstall",
+    ));
+  const dependencyEdges = invocation.payload.dependencyEdges === undefined
+    ? []
+    : recordArrayField(invocation.payload, "dependencyEdges").map((edge) => {
+      requireExactPayloadKeys(
+        edge,
+        ["fromProductId", "kind", "toProductId"],
+        "workspace.bind dependency edge",
+      );
+      const kind = stringField(edge, "kind");
+      if (kind !== "requires") {
+        throw new ApplicationRefusal(
+          "invalid_request",
+          "workspace.bind dependency edge kind must be requires",
+        );
+      }
+      return {
+        kind,
+        fromProductId: stringField(edge, "fromProductId"),
+        toProductId: stringField(edge, "toProductId"),
+      } satisfies product.ProductDependencyEdge;
+    });
+  const lock = product.constructResolvedProductLock(
+    installStates.map((state) => state.install),
+    dependencyEdges,
   );
-  const lock = product.constructResolvedProductLock([installState.install]);
   if (lock.kind !== "resolved_product_lock") {
     throw new ApplicationRefusal("owner_refusal", `Product lock construction refused: ${lock.message}`);
   }
-  const productSet = product.constructProductSet([installState.install], lock);
+  const productSet = product.constructProductSet(
+    installStates.map((state) => state.install),
+    lock,
+  );
   if (productSet.kind !== "product_set") {
     throw new ApplicationRefusal("owner_refusal", `ProductSet construction refused: ${productSet.message}`);
   }
@@ -428,7 +488,7 @@ async function applyWorkspaceBind(
       invocation,
       candidate.bindingId,
       candidate.bindingDigest,
-      [installState.install.admissionEventRef],
+      installStates.map((state) => state.install.admissionEventRef),
     ),
   );
   if (binding.kind !== "workspace_binding") {
@@ -440,6 +500,12 @@ async function applyWorkspaceBind(
     bindingId: binding.bindingId,
     bindingDigest: binding.bindingDigest,
     productSetId: binding.productSetId,
+    lockedProductIds: lock.rows.map((row) => row.productId),
+    dependencyEdges: lock.dependencyEdges.map((edge) => ({
+      kind: edge.kind,
+      fromProductId: edge.fromProductId,
+      toProductId: edge.toProductId,
+    })),
     admissionEventRef: binding.admissionEventRef,
   });
 }
@@ -452,6 +518,7 @@ async function applyCatalogAdmit(
     throw new ApplicationRefusal("invalid_request", "catalog.admit requires variant module_publication");
   }
   requireExactPayloadKeys(invocation.payload, [
+    "publication",
     "verifiedInvocationRef",
     "workspaceBindingInvocationRef",
   ], "catalog.admit");
@@ -465,14 +532,19 @@ async function applyCatalogAdmit(
     stringField(invocation.payload, "workspaceBindingInvocationRef"),
     "WorkspaceBinding",
   );
-  const publication = gtl.constructHelloWorldModulePublication({
-    productId: verifiedState.verified.productId,
-    artifactDigest: verifiedState.verified.artifactDigest,
-    productContentDigest: verifiedState.verified.productContentDigest,
-    productManifestDigest: verifiedState.verified.manifestDigest,
-    packageName: verifiedState.verified.packageName,
-    packageVersion: verifiedState.verified.packageVersion,
-  });
+  const publicationValue = recordField(invocation.payload, "publication");
+  const publication = publicationValue as unknown as Readonly<ModulePublication>;
+  if (
+    publication.owningProductId !== verifiedState.verified.productId ||
+    publication.artifactDigest !== verifiedState.verified.artifactDigest ||
+    publication.productContentDigest !== verifiedState.verified.productContentDigest ||
+    publication.productManifestDigest !== verifiedState.verified.manifestDigest
+  ) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "catalog.admit publication differs from the exact verified Product basis",
+    );
+  }
   const publicationAdmission = rawAdmission<ModulePublication>(
     publication,
     "module_publication",
@@ -666,85 +738,27 @@ async function applyRunInvoke(
     );
   }
   const inputContractRef = graphFunction.inputs[0]!;
-  let admittedInput: Readonly<
-    BoundedRecursionState |
-    FanOutHelloVectorInput |
-    HelloWorldInput |
-    FpHelloInstruction
-  >;
-  if (inputContractRef === gtl.HELLO_WORLD_IDS.inputContractRef) {
-    if (!gtl.isHelloWorldInput(inputValue)) {
-      throw new ApplicationRefusal("target_mismatch", "run.invoke Hello input is contract-invalid");
-    }
-    admittedInput = gtl.constructHelloWorldInput(stringField(inputValue, "subject"));
-  } else if (inputContractRef === gtl.FP_HELLO_IDS.inputContractRef) {
-    if (!gtl.isFpHelloInstruction(inputValue)) {
-      throw new ApplicationRefusal("target_mismatch", "run.invoke F_P instruction is contract-invalid");
-    }
-    admittedInput = gtl.constructFpHelloInstruction(
-      stringField(inputValue, "subject"),
-      stringField(inputValue, "instruction"),
-      inputValue.transportLane as FpHelloInstruction["transportLane"],
-    );
-  } else if (
-    inputContractRef === gtl.RECURSION_HELLO_IDS.inputContractRef
-  ) {
-    if (
-      !gtl.isBoundedRecursionState(inputValue) ||
-      inputValue.trace.length !== 0 ||
-      inputValue.terminal !== (inputValue.remaining === 0)
-    ) {
-      throw new ApplicationRefusal(
-        "target_mismatch",
-        "run.invoke bounded-recursion input is contract-invalid",
-      );
-    }
-    admittedInput = gtl.constructBoundedRecursionState(
-      inputValue.remaining,
-      inputValue.blockedChildRemaining,
-    );
-  } else if (
-    inputContractRef === gtl.FAN_OUT_HELLO_IDS.inputVectorRef
-  ) {
-    if (!gtl.isFanOutHelloVectorInput(inputValue)) {
-      throw new ApplicationRefusal(
-        "target_mismatch",
-        "run.invoke fan-out input is contract-invalid",
-      );
-    }
-    const blocked = inputValue.members.filter((member) => member.value.block);
-    if (blocked.length > 1) {
-      throw new ApplicationRefusal(
-        "target_mismatch",
-        "run.invoke fan-out conformance input permits at most one stopping member",
-      );
-    }
-    admittedInput = deepFreeze({
-      kind: "fan_out_hello_vector_input" as const,
-      schemaVersion: "5.0.0" as const,
-      members: inputValue.members.map((member) => ({
-        ordinal: member.ordinal,
-        memberRef: member.memberRef,
-        value: {
-          kind: "fan_out_hello_member_input" as const,
-          schemaVersion: "5.0.0" as const,
-          block: member.value.block,
-          subject: member.value.subject,
-        },
-      })),
+  let productSemantics: implementation.ProductSemanticsProvider;
+  try {
+    productSemantics = await implementation.loadInstalledProductSemantics({
+      store: context.store,
+      install: installState.install,
+      publication: viewState.catalogState.publication,
     });
-  } else {
+  } catch {
     throw new ApplicationRefusal(
       "target_mismatch",
-      "run.invoke selected GraphFunction input contract has no Product-owned admission function",
+      "run.invoke selected Product semantics binding is not carried by the exact admitted install",
     );
   }
-  const rawInput = rawAdmission<
-    BoundedRecursionState |
-    FanOutHelloVectorInput |
-    HelloWorldInput |
-    FpHelloInstruction
-  >(
+  const admittedInput = productSemantics.admitInput(inputContractRef, inputValue);
+  if (admittedInput === null) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke input is refused by the selected Product-owned contract semantics",
+    );
+  }
+  const rawInput = rawAdmission<Readonly<Record<string, product.JsonValue>>>(
     admittedInput,
     "invocation_input",
     inputContractRef,

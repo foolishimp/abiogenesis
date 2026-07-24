@@ -66,6 +66,13 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
+function installedPackageRoot(targetRoot: string, packageName: string): string | null {
+  if (!/^(?:@[a-z0-9._-]+\/)?[a-z0-9._-]+$/u.test(packageName)) {
+    return null;
+  }
+  return join(targetRoot, "node_modules", ...packageName.split("/"));
+}
+
 async function listInstalledPayloadFiles(installedRoot: string): Promise<readonly string[]> {
   const files: string[] = [];
   const visit = async (absolute: string): Promise<void> => {
@@ -171,12 +178,13 @@ export async function installProduct(
     return refusal("install_failed", String(error));
   }
 
-  const installedRoot = join(
+  const installedRoot = installedPackageRoot(
     request.targetRoot,
-    "node_modules",
-    "@abiogenesis",
-    "typescript-tenant",
+    request.verifiedArtifact.packageName,
   );
+  if (installedRoot === null) {
+    return refusal("installed_identity_mismatch", "verified package name is not an installable package identity");
+  }
   let installedPackage: unknown;
   let installedManifestUnknown: unknown;
   try {
@@ -231,16 +239,12 @@ export async function installProduct(
       return refusal("unexpected_source_surface", `installed package contains source-only path: ${path}`);
     }
   }
-  if (!(await exists(join(installedRoot, "build/code/src/product/index.js")))) {
-    return refusal("installed_identity_mismatch", "installed public Product export is missing");
-  }
-
   const contentSuffix = request.verifiedArtifact.productContentDigest.slice("sha256:".length);
   return {
     kind: "product_install_candidate",
     schemaVersion: "5.0.0",
     disposition: "materialized",
-    installId: `product-install://abiogenesis/typescript-tenant/${request.verifiedArtifact.packageVersion}/${contentSuffix}`,
+    installId: `product-install://${request.verifiedArtifact.packageName}/${request.verifiedArtifact.packageVersion}/${contentSuffix}`,
     installedRoot,
     productId: request.verifiedArtifact.productId,
     packageName: request.verifiedArtifact.packageName,

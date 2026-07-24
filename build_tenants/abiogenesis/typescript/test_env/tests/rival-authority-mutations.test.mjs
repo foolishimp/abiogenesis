@@ -351,25 +351,34 @@ test("B8 post-admission exceptions become replayable ABG refusal truth", async (
 test("B8 post-open judgment exceptions complete the admitted CCall spine", async (context) => {
   const harness = await setupInstalledCliHarness(context, root);
   const scenario = await buildRootCliScenario(harness, "b8-post-open-judgment-exception");
+  const { operationContext, outcomes, publicApi } = await applyInstalledTranscriptPrefix(
+    harness,
+    scenario,
+  );
   const judgmentPath = join(
-    installedCliPackageRoot(harness),
-    "build/code/src/gtl/hello_world.js",
+    scenario.installedRoot,
+    "build/code/src/implementation/product_semantics.js",
   );
   const judgmentSource = await readFile(judgmentPath, "utf8");
-  const marker = "export function evaluateHelloWorldResult(input, output) {";
+  const marker =
+    "resolveJudgmentRelation: resolveConformanceJudgmentRelation,";
   assert.equal(judgmentSource.includes(marker), true);
   await writeFile(
     judgmentPath,
     judgmentSource.replace(
       marker,
-      `${marker}\n    throw new Error("post-open judgment mutation");`,
+      `resolveJudgmentRelation(predicateRef) {
+        const relation = resolveConformanceJudgmentRelation(predicateRef);
+        return relation === null ? null : {
+          ...relation,
+          evaluate() { throw new Error("post-open judgment mutation"); },
+        };
+      },`,
     ),
     "utf8",
   );
-  const { operationContext, outcomes, publicApi } = await applyInstalledTranscriptPrefix(
-    harness,
-    scenario,
-  );
+  await import(pathToFileURL(judgmentPath).href);
+  await writeFile(judgmentPath, judgmentSource, "utf8");
   const outcome = await publicApi.applyRootPublicInvocation(
     operationContext,
     scenario.transcript.at(-1),
@@ -516,21 +525,18 @@ test("B8 post-install implementation substitution is refused before execution", 
     scenario.transcript.at(-1),
   );
   assert.equal(outcome.disposition, "refused", JSON.stringify(outcome));
-  assert.equal(outcome.result, null);
+  assert.equal(outcome.result.kind, "public_operation_refusal");
+  assert.equal(outcome.result.code, "target_mismatch");
   assert.equal(
     outcome.diagnosticRef,
-    "diagnostic://abiogenesis/implementation-resolution/implementation_absent@5",
+    "diagnostic://abiogenesis/public/target_mismatch@5",
   );
   assert.equal(outcome.runId, null);
   assert.equal(outcome.cCallRef, null);
   assert.equal(outcome.resultRef, null);
   assert.equal(outcome.judgmentRef, null);
-  assert.equal(outcome.replayAgreement, true);
-  const events = (await readFile(scenario.eventLogPath, "utf8"))
-    .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
-  assert.equal(events.some((event) => event.kind === "run_segment_opened"), false);
-  assert.equal(events.some((event) => event.kind === "c_call_opened"), false);
-  assert.equal(events.some((event) => event.kind === "actor_invocation_started"), false);
+  assert.equal(outcome.replayAgreement, null);
+  await assert.rejects(readFile(scenario.eventLogPath, "utf8"), /ENOENT/u);
   const governor = await rootVerdict(harness, scenario, [...outcomes, outcome]);
   assert.equal(governor.disposition, "root_red");
   mutationEvidence.push({

@@ -149,6 +149,27 @@ function validatePublishedDeclarations(
   publication: Readonly<ModulePublication>,
 ): readonly StaticDiagnostic[] {
   const diagnostics: StaticDiagnostic[] = [];
+  const semantics = publication.productSemanticsBinding;
+  if (
+    semantics.kind !== "product_semantics_binding" ||
+    semantics.bindingRef.length === 0 ||
+    semantics.packageName.length === 0 ||
+    semantics.packageVersion.length === 0 ||
+    semantics.modulePath.length === 0 ||
+    semantics.namedSymbol.length === 0 ||
+    publication.implementationBindings.some(
+      (binding) =>
+        binding.packageName !== semantics.packageName ||
+        binding.packageVersion !== semantics.packageVersion,
+    )
+  ) {
+    diagnostics.push({
+      code: "invalid_reference",
+      path: "$.productSemanticsBinding",
+      message:
+        "publication requires one exact Product-owned semantics binding carried by its implementation package",
+    });
+  }
   for (const name of duplicates(publication.evaluators.map((row) => row.name))) {
     diagnostics.push({
       code: "duplicate_identity",

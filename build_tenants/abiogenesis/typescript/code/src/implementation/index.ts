@@ -27,6 +27,7 @@ export type {
   HelloWorldLeafRealizationCandidate,
   LeafInvocationPort,
   LeafInvocationResolution,
+  ProductSemanticsProvider,
   ProbabilisticLeafEffectPort,
   ProbabilisticWorkerObservation,
   ProbabilisticWorkerRequest,
@@ -34,5 +35,7 @@ export type {
 export {
   constructAdmittedLeafInvocationPort,
   isAdmittedLeafInvocationPort,
+  loadInstalledProductSemantics,
 } from "./invocation_port.js";
+export { ABI5_PRODUCT_SEMANTICS } from "./product_semantics.js";
 export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";

@@ -314,6 +314,15 @@ export interface ImplementationBinding {
   readonly refusalContractRef: string;
 }
 
+export interface ProductSemanticsBinding {
+  readonly kind: "product_semantics_binding";
+  readonly bindingRef: string;
+  readonly packageName: string;
+  readonly packageVersion: string;
+  readonly modulePath: string;
+  readonly namedSymbol: string;
+}
+
 interface ClosureContractBasis {
   readonly kind: "closure_contract";
   readonly closureContractRef: string;
@@ -387,6 +396,7 @@ export interface ModulePublication {
   readonly productManifestDigest: Sha256Digest;
   readonly descriptorRef: string;
   readonly contributionManifestRef: string;
+  readonly productSemanticsBinding: ProductSemanticsBinding;
   readonly contracts: readonly ContractDeclaration[];
   readonly evaluators: readonly EvaluatorDeclaration[];
   readonly rules: readonly RuleDeclaration[];

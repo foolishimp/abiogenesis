@@ -87,7 +87,7 @@
       "mutation": "post_install_implementation_substitution",
       "boundary": "installed_product_content",
       "disposition": "refused",
-      "diagnosticRef": "diagnostic://abiogenesis/implementation-resolution/implementation_absent@5",
+      "diagnosticRef": "diagnostic://abiogenesis/public/target_mismatch@5",
       "runtimeExecutionAbsent": true,
       "rootGovernorDisposition": "root_red"
     }

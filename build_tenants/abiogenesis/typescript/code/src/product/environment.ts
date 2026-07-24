@@ -20,13 +20,19 @@ export interface ResolvedProductLockRow {
   readonly installId: string;
 }
 
+export interface ProductDependencyEdge {
+  readonly kind: "requires";
+  readonly fromProductId: string;
+  readonly toProductId: string;
+}
+
 export interface ResolvedProductLock {
   readonly kind: "resolved_product_lock";
   readonly schemaVersion: "5.0.0";
   readonly lockId: string;
   readonly lockDigest: Sha256Digest;
   readonly rows: readonly ResolvedProductLockRow[];
-  readonly dependencyEdges: readonly [];
+  readonly dependencyEdges: readonly ProductDependencyEdge[];
 }
 
 export interface ProductSet {
@@ -84,6 +90,7 @@ export interface WorkspaceBinding extends Omit<WorkspaceBindingCandidate, "kind"
 
 export const ENVIRONMENT_REFUSAL_CODES = [
   "empty_product_set",
+  "invalid_dependency",
   "duplicate_install",
   "lock_mismatch",
   "invalid_workspace_authority",
@@ -128,6 +135,7 @@ function lockRowsFor(installs: readonly ProductInstall[]): readonly ResolvedProd
 
 export function constructResolvedProductLock(
   installs: readonly ProductInstall[],
+  dependencyEdges: readonly ProductDependencyEdge[] = [],
 ): EnvironmentRefusal | ResolvedProductLock {
   if (installs.length === 0) {
     return refusal("empty_product_set", "a resolved lock requires at least one admitted install");
@@ -140,14 +148,61 @@ export function constructResolvedProductLock(
     return refusal("duplicate_install", "a resolved lock cannot contain duplicate install identities");
   }
   const rows = lockRowsFor(installs);
-  const lockDigest = sha256Canonical({ rows, dependencyEdges: [] } as unknown as JsonValue);
+  const productIds = new Set(rows.map((row) => row.productId));
+  const edgeKeys = dependencyEdges.map(
+    (edge) => `${edge.fromProductId}\0${edge.toProductId}`,
+  );
+  if (
+    dependencyEdges.some(
+      (edge) =>
+        edge.kind !== "requires" ||
+        edge.fromProductId === edge.toProductId ||
+        !productIds.has(edge.fromProductId) ||
+        !productIds.has(edge.toProductId),
+    ) ||
+    new Set(edgeKeys).size !== edgeKeys.length
+  ) {
+    return refusal(
+      "invalid_dependency",
+      "dependency edges must be unique, non-reflexive, and bind Products in the exact lock",
+    );
+  }
+  const outgoing = new Map<string, string[]>();
+  for (const edge of dependencyEdges) {
+    const targets = outgoing.get(edge.fromProductId) ?? [];
+    targets.push(edge.toProductId);
+    outgoing.set(edge.fromProductId, targets);
+  }
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+  const hasCycle = (productId: string): boolean => {
+    if (visiting.has(productId)) return true;
+    if (visited.has(productId)) return false;
+    visiting.add(productId);
+    if ((outgoing.get(productId) ?? []).some(hasCycle)) return true;
+    visiting.delete(productId);
+    visited.add(productId);
+    return false;
+  };
+  if ([...productIds].some(hasCycle)) {
+    return refusal("invalid_dependency", "resolved Product dependencies must be acyclic");
+  }
+  const orderedEdges = [...dependencyEdges].sort((left, right) => {
+    const leftKey = `${left.fromProductId}\0${left.toProductId}`;
+    const rightKey = `${right.fromProductId}\0${right.toProductId}`;
+    return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
+  });
+  const lockDigest = sha256Canonical({
+    rows,
+    dependencyEdges: orderedEdges,
+  } as unknown as JsonValue);
   return {
     kind: "resolved_product_lock",
     schemaVersion: "5.0.0",
     lockId: identity("product-lock://abiogenesis", lockDigest),
     lockDigest,
     rows,
-    dependencyEdges: [],
+    dependencyEdges: orderedEdges,
   };
 }
 

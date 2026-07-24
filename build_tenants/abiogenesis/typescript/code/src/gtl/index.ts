@@ -150,6 +150,7 @@ export type {
   NormalizedHelloInput,
   PromoteApplication,
   ProgramStart,
+  ProductSemanticsBinding,
   RecurseApplication,
   RootModuleArtifactBasis,
   RuleDeclaration,

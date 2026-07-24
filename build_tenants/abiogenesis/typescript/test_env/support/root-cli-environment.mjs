@@ -65,6 +65,23 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     ],
     { cwd: cliHost, maxBuffer: 10 * 1024 * 1024 },
   );
+  const installedPackageRoot = join(
+    cliHost,
+    "node_modules",
+    "@abiogenesis",
+    "typescript-tenant",
+  );
+  const gtl = await import(
+    `${pathToFileURL(join(installedPackageRoot, "build/code/src/gtl/index.js")).href}?harness=${Date.now()}`
+  );
+  const rootPublication = gtl.constructHelloWorldModulePublication({
+    productId: candidateBasis.productId,
+    artifactDigest: candidateBasis.artifactDigest,
+    productContentDigest: candidateBasis.productContentDigest,
+    productManifestDigest: candidateBasis.manifestDigest,
+    packageName: candidateBasis.packageName,
+    packageVersion: candidateBasis.packageVersion,
+  });
   return {
     scratch,
     artifactPath,
@@ -73,6 +90,7 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     candidateBasis,
     cliHost,
     cliPath: join(cliHost, "node_modules/.bin/abg.cli"),
+    rootPublication,
   };
 }
 
@@ -147,6 +165,7 @@ export async function buildRootCliScenario(
       },
     }),
     invocation("abg.operation.catalog.admit", "module_publication", refs.catalog, {
+      publication: harness.rootPublication,
       verifiedInvocationRef: refs.verify,
       workspaceBindingInvocationRef: refs.bind,
     }),
