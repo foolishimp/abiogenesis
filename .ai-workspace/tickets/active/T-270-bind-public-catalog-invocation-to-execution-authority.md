@@ -789,6 +789,23 @@ installed negatives. Exact package SHA-256 is
 `f287edc7314c97eb69ccead9bd9f64019457eabb2dbe74d8a05f802a119f5252`.
 S02 is closed; S03 is the next Product frontier.
 
+## S03 Selected-Action And Intent Checkpoint
+
+T-272 implementation commit `771e82e5` advances the already-green external
+Product path without changing T-270's parent boundary. The developer Program
+now emits distinct model, gap, next-action, human-approval, and
+action-evaluation values. ABG admits the `NextActionProjection`, derives one
+execution-bound `ConstructionIntent`, carries both through the existing route
+event, requires the exact intent at F_H open and response, and projects it from
+replay. Public neither selects nor recomputes the action.
+
+Fresh verification is M5 `75/75`, M4 `26/26`, external Product `4/4`, live
+F_P `1/1`, and conservation `44` pass with `18` explicit gaps. The package
+reproduces twice at
+`3ed3142c0e7b29f78bd17de9c693619e936a2b3cca8b6fd98582b5b34453d845`.
+S03 remains open for post-evidence refresh and its remaining scenario-owned
+routes.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -819,7 +836,7 @@ not a proof that the Product is complete.
 | `A5-F04` probabilistic result integrity | current-candidate live F_P evidence/result admission and malformed, incomplete, contradictory, unattributed, and extra-field refusals proven | `T-270` / S02 complete |
 | `A5-F05` one public contract authority | caller-supplied independent publication proven; complete public family pending | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | independent Product invocation proven through both installed surfaces; complete public family pending | `T-281` / S06 |
-| `A5-F07` complete One Surface loop | absent | `T-272` / S03 |
+| `A5-F07` complete One Surface loop | Product-owned model, gap, next-action, approval, and action-evaluation values plus ABG-owned construction-intent admission proven through the external Product; post-evidence refresh and remaining S03 routes pending | `T-272` / S03 |
 | `A5-F08` Consensus free construction | absent | `T-274`, `T-275`, `T-276` / S05 |
 | `A5-F09` catalog semantics | product-neutral admit, view, and invoke proven for an independent Product | `T-270`, `T-281` / S02 and S06 |
 | `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, terminal, exact durable-history reopen, and F_H hold/respond/continue subsets proven; S03 and later scenario truth remains open | `T-270`, `T-272` / S02 complete, S03 active |

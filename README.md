@@ -14,7 +14,7 @@ successor to the immutable 4.6 RC5 Product origin.
 |---|---|
 | current work owner | `T-270` M5 parent with repriced T-272 active for S03 |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 `26/26`, M5 `74/74`, live F_P `1/1`; S02 complete; first independently packed Program-owned S03 start/continuation path green; S03 remains open |
+| implementation | M4 `26/26`, M5 `75/75`, live F_P `1/1`; S02 complete; independently packed S03 selected-action and construction-intent checkpoint green at `771e82e5`; S03 remains open |
 | replacement design | M3 accepted under T-285; M5 delta accepted at `d6da4269`, SHA-256 `80269e73...c0f3` |
 | delivery governor | `ABG5-S03`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, and corrected S02 remain regressions |
 | method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
@@ -91,9 +91,10 @@ project further bootstrap or internal-matrix work as Product progress. Current
 work closes `ABG5-S03` through the already-green independently packed developer
 Product: GTL owns One Surface ordering, public read/respond/continue operations
 resume exact durable truth, and ABG replay yields the same-run typed outcome.
-The first supervised Program-start path is green; construction-intent,
-evidence/evaluator admission, post-evidence refresh, and retained consequence,
-runtime-disposition, and public-control behavior remain.
+The supervised Program-start path now carries distinct Product-owned model,
+gap, next-action, approval, and action-evaluation values. ABG admits and replays
+the selected action and exact `ConstructionIntent`. Post-evidence refresh and
+retained consequence, runtime-disposition, and public-control behavior remain.
 Missing detail is added to T-270, T-272, or the later held owner; it does not
 create a new ticket hierarchy.
 

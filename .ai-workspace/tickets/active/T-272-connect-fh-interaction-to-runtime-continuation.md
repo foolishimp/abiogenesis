@@ -3,10 +3,11 @@
 > **Current disposition (2026-07-24):**
 > `active_for_s03`. The durable hold/read/respond/continue prerequisite and
 > mixed compute path were repaired across fresh public contexts at `cbb57d56`.
-> The first externally packed, Program-owned One Surface path is green through
-> nonterminal F_H continuation. Construction-intent and evidence/evaluator
-> admission, post-evidence refresh, consequence routes, runtime dispositions,
-> and public-control work remain active through the same extension path.
+> The externally packed, Program-owned One Surface path is green through
+> Product-owned evaluator output, ABG-owned construction-intent admission, and
+> nonterminal F_H continuation at `771e82e5`. Post-evidence refresh,
+> consequence routes, runtime dispositions, and public-control work remain
+> active through the same extension path.
 > Historical X-path designs and checkpoints remain donor evidence only.
 
 - id: T-272
@@ -21,8 +22,8 @@
     consequence routes, runtime dispositions, and public-control behavior;
     historical X implementation remains held donor evidence
 - phase_status: s03_active
-- review_status: s03_first_vertical_self_verified_review_pending
-- proof_status: program_start_and_replay_continuation_green_s03_open
+- review_status: s03_intent_checkpoint_self_verified_review_pending
+- proof_status: program_start_intent_and_replay_continuation_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -115,6 +116,41 @@ continuation but deliberately does not claim:
 Current verification is `test:m5` `74/74`, `test:m4` `26/26`, live Claude F_P
 `1/1`, external developer Product `3/3`, and two byte-identical packs at
 `sha256:0de23bd2344be03707c53846bd2570d50ee30ff59f9b12273b1e13e1a40dbed6`.
+
+## Selected Action And Construction Intent Checkpoint
+
+Implementation commit `771e82e5` advances the same external Product path:
+
+- `synthesizeModel`, `evalGap`, `evaluateNext`, F_H approval, and
+  `evaluateAction` now emit distinct Product-owned typed values through the
+  ordinary C-call evidence, result, and judgment path;
+- `evaluateNext` emits one canonical `NextActionProjection` naming its target
+  outcome, action, obligations, assets, expected delta, progress and stop
+  conditions, current Program, GraphFunction, and successor GTL locus;
+- ABG admits that projection only when it selects the exact current execution
+  basis and declared F_H successor cursor, then derives one
+  `ConstructionIntent` bound to the workspace, invocation, Program,
+  GraphFunction, ExecutionBasis, Run, GraphCall, Frame, source
+  C-call/result/judgment, and target cursor;
+- the existing `traversal_route_admitted` event carries the projection and
+  intent, `fh_interaction_opened` consumes the exact intent availability, and
+  replay-derived `project.read` renders it without Public recomputation; and
+- a Product-valid approval naming another construction intent refuses before
+  `fh_interaction_responded` or `run_closed`.
+
+Fresh serialized verification is `test:m5` `75/75`, retained `test:m4`
+`26/26`, external developer Product `4/4`, live Claude F_P `1/1`, and
+conservation `44` pass with `18` explicit `todo`. Two independent packs
+reproduce artifact SHA-256
+`3ed3142c0e7b29f78bd17de9c693619e936a2b3cca8b6fd98582b5b34453d845`,
+Product content digest
+`sha256:1f80f715f27b13f455576b78861e7b3f84cc0325c1ac395c66dace9ffe4da6e7`,
+and manifest digest
+`sha256:9967bac4560781456bbbb47a83ba2923a1df330b2fc65b59edf48b397512d0cb`.
+
+This checkpoint does not close S03. Post-evidence refresh and the remaining
+scenario-owned consequence, runtime-disposition, and public-control behavior
+remain the next frontier.
 
 ## Historical X Evidence
 

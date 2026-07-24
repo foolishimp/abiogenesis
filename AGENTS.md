@@ -20,11 +20,11 @@ T-286 completed exact `ABI5-ROOT-001`, which remains the mandatory bootstrap
 regression gate. T-270 is the sole M5 parent owner; corrected S02 and
 `ABI5-M5-EXT-001` are green. Repriced T-272 owns active S03. Current
 implementation has established the first independently packed, Program-owned
-One Surface start/read/respond/continue path. It must now add explicit
-construction-intent and evidence/evaluator admission, post-evidence refresh,
-and the retained S03 consequence, runtime-disposition, and public-control
-behavior through that same path. Do not use the forty-row qualification matrix
-as the implementation queue.
+One Surface start/read/respond/continue path. Product-owned evaluator output
+and ABG-owned construction-intent admission are green at `771e82e5`. It must
+now add post-evidence refresh and the retained S03 consequence,
+runtime-disposition, and public-control behavior through that same path. Do not
+use the forty-row qualification matrix as the implementation queue.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -94,8 +94,9 @@ This block is a thin read model. It does not duplicate the full Product.
   decisions are `F_H`, direct or lawfully proxied.
 - `ABI5-ROOT-001` remains the regression gate. `ABI5-M5-EXT-001` and corrected
   S02 are green. The first Program-owned S03 start/read/respond/continue path
-  is green. Explicit construction-intent and evidence/evaluator admission,
-  post-evidence refresh, and retained S03 routes remain the current frontier.
+  is green. Product-owned next-action output and ABG-owned construction-intent
+  admission are green. Post-evidence refresh and retained S03 routes remain the
+  current frontier.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.
