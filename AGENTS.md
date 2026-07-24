@@ -29,8 +29,11 @@ fresh-context status, result, replay, and lawful-action projections over the
 exact resolved continuation authority. Accepted candidate `f611a72d`
 preserves a Product-derived `reprice_required` stop through ABG event truth,
 replay, public outcome, and fresh-context read, and excludes that stop from
-ordinary gap re-entry. T-272 now continues the retained S03 consequence and
-runtime-disposition behavior through that same extension path.
+ordinary gap re-entry. Proof `f79e1358` adds a second external ticket Program
+and GraphFunction through the same installed path without changing
+ABIogenesis runtime. T-272 now continues Product-selected graph-span re-entry
+and the retained S03 consequence and runtime-disposition behavior through that
+same extension path.
 Do not use the forty-row qualification matrix as the implementation queue.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
@@ -108,8 +111,10 @@ This block is a thin read model. It does not duplicate the full Product.
   single-use ProductSet-bound re-entry are accepted at `305a3b93`. The
   resolved Run's status, result, replay, and lawful-action projections are
   accepted at `9cd33d15`. The Product-derived typed `reprice_required` stop is
-  accepted at `f611a72d`; it does not perform a reprice. The remaining S03
-  consequence and runtime-disposition outcome is the current gate.
+  accepted at `f611a72d`; it does not perform a reprice. Product-declared
+  ticket traversal is proven at `f79e1358` without a runtime change. The
+  remaining S03 consequence and runtime-disposition outcome is the current
+  gate.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.

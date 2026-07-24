@@ -24,7 +24,9 @@
 > event admission, replay, public outcome, and fresh-context read. It cannot
 > be consumed as an ordinary gap re-entry. The bounded proxy decision at
 > `.ai-workspace/comments/codex/20260724T203655Z_DECISION_proxy_accept_t272_reprice_required_stop.md`
-> accepts that exact cut and Section 12.7.
+> accepts that exact cut and Section 12.7. Proof commit `f79e1358` then
+> demonstrates product-declared ticket work through a second external Program
+> and GraphFunction with no ABIogenesis runtime change.
 > Consequence routes, runtime dispositions, and public-control work remain
 > active through the same extension path.
 > Historical X-path designs and checkpoints remain donor evidence only.
@@ -41,8 +43,8 @@
     ticket expansion, compiler, controller, second runtime, and historical X
     implementation remain prohibited
 - phase_status: s03_active
-- review_status: s03_reprice_required_stop_accepted
-- proof_status: exact_reprice_required_stop_green_s03_open
+- review_status: s03_ticket_traversal_proven
+- proof_status: exact_ticket_traversal_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -89,8 +91,8 @@ disposition, and public start/control row owned by S03. This reprice does not
 authorize the historical X interpreter, checkpoint-basis carrier, public
 controller, or any other X implementation.
 
-Current integrated proof is `test:m5` `96/96`, `test:m4` `26/26`, and
-external developer Product `25/25`; all twelve S02-owned rows remain green.
+Current integrated proof is `test:m5` `97/97`, `test:m4` `26/26`, and
+external developer Product `26/26`; all twelve S02-owned rows remain green.
 The installed mixed Product proves F_H hold, replay-derived read, malformed
 and wrong-actor refusal, attributed response, append-only reopen, separate
 continue, same-Run typed closure, and replay agreement. No second result or
@@ -213,6 +215,27 @@ the manifest digest is
 The bounded proxy decision
 `20260724T203655Z_DECISION_proxy_accept_t272_reprice_required_stop.md`
 accepts this exact cut and Section 12.7.
+
+## External Ticket Traversal Proof
+
+Proof commit `f79e1358d8383a99067375751e3009e55b1bf1b2` extends only the
+separately packed developer Product and installed proof:
+
+- the Product publishes a second ticket Program, GraphFunction, input/output
+  contracts, judgment predicate, implementation binding, and closure contract;
+- the installed CLI admits and directly traverses that exact callable through
+  the existing Product lock, catalog, HoG, ABG, and replay path;
+- the Product-owned typed ticket result agrees with replay; and
+- cross-wiring the ticket GraphFunction under the greeting Program refuses
+  before Run admission.
+
+No ABIogenesis runtime, public operation, route, event, controller, compiler,
+or design carrier changed. The ABIogenesis package remains byte-identical at
+`sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12`.
+Verification is `test:m5` `97/97`, `test:m4` `26/26`, external Product
+`26/26`, and conservation `45` pass with `17` explicit TODO. This proves the
+retained `ticket_traversal` consequence behavior; it does not prove
+Product-selected graph-span re-entry or close S03.
 
 ## Prior S03 Vertical Checkpoint
 

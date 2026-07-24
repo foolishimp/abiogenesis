@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_s03_active
-- review_status: s03_reprice_required_stop_accepted
-- proof_status: s02_green_s03_typed_reprice_stop_green_s03_open
+- review_status: s03_ticket_traversal_proven
+- proof_status: s02_green_s03_external_ticket_path_green_s03_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -150,7 +150,7 @@ working installed slice and scales to the changed authority and risk boundary.
 |---:|---|---|
 | `1` | `T-270`, `T-281` | From an empty consumer directory, install packed ABIogenesis and a separately packed developer mini-product; resolve a non-empty Product lock; admit its supplied publication; invoke it through installed SDK and CLI; and derive the same typed result from ABG replay. |
 | `2` | `T-270` | **Repaired and complete at `cbb57d56`:** representative complete graph/C behavior, live F_P, four compute-fibre rows, eight structural-form rows, fibre substitution, durable F_H across fresh contexts, installed nonterminal identity, malformed GTL refusal, and owned negatives close S02. |
-| `3` | `T-272` | **Accepted through typed `reprice_required` stop at `f611a72d`; S03 active:** the same external Product path now preserves exact Product-derived no-action meaning through ABG events, replay, public outcome, and fresh-context read. Complete the remaining consequence/runtime/public-control behavior and close `ABG5-S03`. |
+| `3` | `T-272` | **Accepted through typed `reprice_required` stop at `f611a72d`; external ticket traversal proven at `f79e1358`; S03 active:** the same external Product path preserves exact Product-derived no-action meaning and executes product-declared ticket work without an ABIogenesis runtime branch. Complete the remaining consequence/runtime/public-control behavior and close `ABG5-S03`. |
 | `4` | `T-274`, `T-275`, `T-276` | Execute Consensus through the same ordinary extension, catalog, GTL, HoG, ABG, and public path; close `ABG5-S05`. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner realization, native and bounded host projection, and independent flavored-catalog portability through the same extension path; close `ABG5-S06` and make `ABG5-S04` runnable. |
 | `6` | `T-270` | Re-evaluate the feature ledger and freeze one exact M5 candidate; the complete forty-row conservation sweep remains an M6 qualification obligation. |
@@ -897,7 +897,7 @@ not a proof that the Product is complete.
 | `A5-F04` probabilistic result integrity | current-candidate live F_P evidence/result admission and malformed, incomplete, contradictory, unattributed, and extra-field refusals proven | `T-270` / S02 complete |
 | `A5-F05` one public contract authority | caller-supplied independent publication proven; complete public family pending | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | independent Product invocation proven through both installed surfaces; complete public family pending | `T-281` / S06 |
-| `A5-F07` complete One Surface loop | Product-owned model, gap, next-action, approval, action-evaluation, evidence-ledger, closure-candidate, post-evidence refresh, `gap_stop`, and typed `reprice_required` values plus ABG-owned intent and construction-delta admission proven through the external Product; remaining S03 routes pending | `T-272` / S03 |
+| `A5-F07` complete One Surface loop | Product-owned model, gap, next-action, approval, action-evaluation, evidence-ledger, closure-candidate, post-evidence refresh, `gap_stop`, typed `reprice_required`, and a separately published ticket-work callable are proven through the external Product; Product-selected graph-span re-entry and remaining S03 routes are pending | `T-272` / S03 |
 | `A5-F08` Consensus free construction | absent | `T-274`, `T-275`, `T-276` / S05 |
 | `A5-F09` catalog semantics | product-neutral admit, view, and invoke proven for an independent Product | `T-270`, `T-281` / S02 and S06 |
 | `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, terminal, exact durable-history reopen, F_H hold/respond/continue, `gap_stop`, and typed `reprice_required` stop subsets proven; S03 and later scenario truth remains open | `T-270`, `T-272` / S02 complete, S03 active |
