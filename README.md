@@ -14,8 +14,8 @@ successor to the immutable 4.6 RC5 Product origin.
 |---|---|
 | current work owner | `T-270` M5 parent with repriced T-272 active for S03 |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 `26/26`, M5 `88/88`; S02 complete; independently packed S03 four-authority composition, exact evidence fold, refresh, run-causal closure, post-resume failure truth, and mutations green at candidate `686d18bf`; the retained live F_P receipt belongs to an earlier package; S03 remains open |
-| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Section 12 delta pending review at SHA-256 `d1be9081...49cb0` |
+| implementation | M4 `26/26`, M5 `89/89`; S02 complete; accepted S03 composition/evidence/closure base at `686d18bf`; durable external-Product gap stop, replay-derived read, exact re-entry, and convergence green at candidate `91f3640f`; the retained live F_P receipt belongs to an earlier package; S03 remains open |
+| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Section 12 accepted at `686d18bf`; Section 12.5 candidate pending review at SHA-256 `0d1c6281...5f53e` |
 | delivery governor | `ABG5-S03`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, and corrected S02 remain regressions |
 | method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
 
@@ -100,7 +100,11 @@ ABG admits and replays the selected action, exact `ConstructionIntent`, and
 governed construction delta, including the exact admitted action evaluation;
 terminal authority depends on every run-causal intent reaching replay-visible
 convergence rather than a stage label. Post-resume failures become ABG truth.
-Section 12 review remains pending.
+The same external Product can now emit a typed no-action projection, stop under
+an ABG-admitted `gap_stop`, expose that gap through a replay-derived read, and
+re-enter from a fresh context against an exact append-only public authority.
+The re-entered Program then follows its ordinary F_H and governed closure path.
+Section 12.5 exact review remains pending.
 Retained consequence, runtime-disposition, and public-control behavior remain.
 Missing detail is added to T-270, T-272, or the later held owner; it does not
 create a new ticket hierarchy.
