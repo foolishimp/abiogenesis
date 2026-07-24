@@ -33,7 +33,11 @@ ordinary gap re-entry. Proof `f79e1358` adds a second external ticket Program
 and GraphFunction through the same installed path without changing
 ABIogenesis runtime. T-272 now continues Product-selected graph-span re-entry
 and the retained S03 consequence and runtime-disposition behavior through that
-same extension path.
+same extension path. Proof reconciliation `4691b132` binds the existing
+installed gap, F_H, bounded-control, yield, and re-entry evidence into the
+derived conservation projection without changing packaged code; that
+projection now records 32 proven rows, one provisional graph-span row, and
+seven open rows.
 Do not use the forty-row qualification matrix as the implementation queue.
 
 Do not treat existing code, accepted X-path designs, ticket status, test

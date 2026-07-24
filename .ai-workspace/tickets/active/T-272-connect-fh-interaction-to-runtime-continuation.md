@@ -237,6 +237,28 @@ Verification is `test:m5` `97/97`, `test:m4` `26/26`, external Product
 retained `ticket_traversal` consequence behavior; it does not prove
 Product-selected graph-span re-entry or close S03.
 
+## Installed Control Proof Reconciliation
+
+Proof commit `4691b132bebbad118e528efe49bc2cd6cd85efca` changes no
+packaged source or design. It binds the already-installed external
+`gap_stop -> public read -> single-use re-entry -> F_H hold/respond/continue
+-> convergence` trace to the related conservation rows.
+
+One installed trace now discharges `public_start_reentry`,
+`fh_input_required`, consequence and runtime `gap_stop`, runtime `re_enter`,
+`yield_continuation`, `human_assurance_required`, `bounded_until`, and
+`fh_control`. Its existing mutations cover missing, stale, wrong-workspace,
+wrong-Program, wrong-gap, non-gap, reduced-ProductSet, consumed re-entry, and
+substituted F_H authority.
+
+Verification is `test:m5` `97/97`, `test:m4` `26/26`, and conservation `54`
+pass with `8` explicit TODO. The projection records 32 proven rows, one
+provisional graph-span row, and seven open rows. Two packs remain
+byte-identical at
+`sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12`.
+This is proof reconciliation, not acceptance of Product-selected graph-span
+re-entry or any open disposition.
+
 ## Prior S03 Vertical Checkpoint
 
 The first S03 product checkpoint established an independently packed developer
