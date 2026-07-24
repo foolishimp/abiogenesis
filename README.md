@@ -14,8 +14,8 @@ successor to the immutable 4.6 RC5 Product origin.
 |---|---|
 | current work owner | `T-270` M5 parent with repriced T-272 active for S03 |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 `26/26`, M5 `95/95`; S02 complete; accepted S03 composition/evidence/closure base at `686d18bf`; durable external-Product gap stop, replay-derived read, exact single-use ProductSet-bound re-entry, and convergence accepted at `305a3b93`; the retained live F_P receipt belongs to an earlier package; S03 remains open |
-| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Sections 12 through 12.5 accepted at complete-design SHA-256 `69bd9493...046682` |
+| implementation | M4 `26/26`, M5 `95/95`; S02 complete; accepted S03 composition/evidence/closure base at `686d18bf`; durable external-Product gap stop, exact single-use ProductSet-bound re-entry, convergence, and side-effect-free resolved status/result/replay/lawful-action projection accepted through `9cd33d15`; the retained live F_P receipt belongs to an earlier package; S03 remains open |
+| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Sections 12 through 12.6 accepted at complete-design SHA-256 `709cd704...ea254a` |
 | delivery governor | `ABG5-S03`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, and corrected S02 remain regressions |
 | method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
 
@@ -105,7 +105,10 @@ an ABG-admitted `gap_stop`, expose that gap through a replay-derived read, and
 re-enter once from a fresh context against the exact lock, ProductSet,
 WorkspaceBinding, Program, public start, and append-only source truth. The
 re-entered Program then follows its ordinary F_H and governed closure path.
-Retained consequence, runtime-disposition, and public-control behavior remain.
+From the exact resolved continuation authority, a fresh public context now
+projects status, admitted result, ordered replay, and lawful actions without
+appending runtime truth or invoking Product logic. Retained consequence and
+runtime-disposition behavior remains.
 Missing detail is added to T-270, T-272, or the later held owner; it does not
 create a new ticket hierarchy.
 

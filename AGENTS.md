@@ -24,10 +24,11 @@ policy and workspace truth, action evaluation, run-causal closure, and
 post-resume failure truth. Accepted repair `305a3b93` adds a Product-defined
 no-action gap, ABG-admitted `gap_stop`, replay-derived public read, and exact
 single-use ProductSet-bound re-entry through the same independently packed
-external Product. T-272 now continues the retained S03 consequence,
-runtime-disposition, and public-control behavior through that same extension
-path. Do not use the forty-row qualification matrix as the implementation
-queue.
+external Product. Accepted candidate `9cd33d15` adds side-effect-free
+fresh-context status, result, replay, and lawful-action projections over the
+exact resolved continuation authority. T-272 now continues the retained S03
+consequence and runtime-disposition behavior through that same extension path.
+Do not use the forty-row qualification matrix as the implementation queue.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -102,8 +103,9 @@ This block is a thin read model. It does not duplicate the full Product.
   evidence ledger, closure candidate, post-evidence refresh, and replay-owned
   closure negatives are accepted at `686d18bf`. Durable gap stop/read and
   single-use ProductSet-bound re-entry are accepted at `305a3b93`. The
-  remaining S03 consequence, runtime-disposition, and public-control outcome
-  is the current gate.
+  resolved Run's status, result, replay, and lawful-action projections are
+  accepted at `9cd33d15`. The remaining S03 consequence and
+  runtime-disposition outcome is the current gate.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.

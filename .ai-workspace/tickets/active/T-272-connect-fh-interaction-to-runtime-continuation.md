@@ -14,7 +14,12 @@
 > path. The bounded proxy decision at
 > `.ai-workspace/comments/codex/20260724T192932Z_DECISION_proxy_accept_t272_gap_reentry_repair.md`
 > accepts that exact cut and Section 12.5. T-272 may continue through the
-> remaining S03 outcomes on the same external Product path.
+> remaining S03 outcomes on the same external Product path. Candidate
+> `9cd33d15` adds side-effect-free fresh-context status, result, replay, and
+> lawful-action projections over the exact resolved continuation authority.
+> The bounded proxy decision at
+> `.ai-workspace/comments/codex/20260724T195754Z_DECISION_proxy_accept_t272_resolved_run_projection.md`
+> accepts that exact cut and Section 12.6.
 > Consequence routes, runtime dispositions, and public-control work remain
 > active through the same extension path.
 > Historical X-path designs and checkpoints remain donor evidence only.
@@ -31,8 +36,8 @@
     ticket expansion, compiler, controller, second runtime, and historical X
     implementation remain prohibited
 - phase_status: s03_active
-- review_status: s03_gap_reentry_repair_accepted
-- proof_status: exact_single_use_gap_reentry_green_s03_open
+- review_status: s03_resolved_run_projection_accepted
+- proof_status: exact_durable_projection_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -130,6 +135,40 @@ The bounded proxy decision
 this exact cut. It does not close S03. Remaining consequence,
 runtime-disposition, and public-control outcomes stay active through the same
 external Product path.
+
+## Resolved Run Projection
+
+Implementation commit `9cd33d15410292c63dc8e7ec0182f9fd8889e280`
+extends the same durable external Product path without adding runtime truth:
+
+```text
+resolved run.continue
+  -> exact updated continuation authority
+  -> fresh-context project.read(status | result | replay | lawful-actions)
+  -> replay-derived Product projection
+```
+
+The four read variants reopen the exact ProductInstall, WorkspaceBinding,
+CatalogView, Program, GraphFunction, invocation, Run, continuation, and
+event-log prefix. They do not append an event, run a Product evaluator, enter
+HoG, invoke an implementation, or select an action. `result` refuses until
+the continuation is resolved and replay derives successful closure.
+`lawful-actions` projects only judged Product `NextActionProjection` C-calls
+that an admitted ABG route consumed. Stale authority refuses.
+
+The complete M05 design SHA-256 is
+`709cd70411529d42b1041dcfb4c34df95575e7b8cb906f18f6bf35084bea254a`.
+Verification is `test:m5` `95/95`, `test:m4` `26/26`, external Product
+`24/24`, and two byte-identical packs at
+`sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084`.
+The Product content digest is
+`sha256:84f0d7a75576637ac75e03b928285bfa301b36579029a671e0aac19ac13147d1`;
+the manifest digest is
+`sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8`.
+
+The bounded proxy decision
+`20260724T195754Z_DECISION_proxy_accept_t272_resolved_run_projection.md`
+accepts this exact cut and Section 12.6. It does not close S03.
 
 ## Prior S03 Vertical Checkpoint
 
