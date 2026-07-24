@@ -1476,6 +1476,13 @@ async function applyProjectRead(
       state.reopenAuthority.eventLogPath,
       { runId: continuation.runId },
     );
+    const intentRoute = continuation.constructionIntentRef === null
+      ? undefined
+      : replayState.routes.find(
+          (route) =>
+            route.constructionIntentRef ===
+              continuation.constructionIntentRef,
+        );
     const updated = closeAndRememberContinuation(context, state);
     closed = true;
     return successOutcome(
@@ -1489,6 +1496,11 @@ async function applyProjectRead(
         requestDigest: continuation.requestDigest,
         responseContractRef: continuation.responseContractRef,
         responseRef: continuation.responseRef,
+        constructionIntentRef: continuation.constructionIntentRef,
+        constructionIntentDigest: continuation.constructionIntentDigest,
+        nextActionProjection: intentRoute?.nextActionProjection === undefined
+          ? null
+          : intentRoute.nextActionProjection as unknown as product.JsonValue,
         replayRef: replayState.replayRef,
         replayDigest: replayState.replayDigest,
         continuationAuthority: updated as unknown as product.JsonValue,

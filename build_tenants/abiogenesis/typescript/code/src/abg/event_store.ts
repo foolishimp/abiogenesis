@@ -718,16 +718,40 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   },
   traversal_route_admitted: {
     variants: [FRAME_EVENT],
-    payloadVariants: [payloadVariant(
-      ROUTE_PAYLOAD,
-      payloadKeys("routeRef routeDigest routeKind"),
-    )],
+    payloadVariants: [
+      payloadVariant(
+        ROUTE_PAYLOAD,
+        payloadKeys("routeRef routeDigest routeKind"),
+      ),
+      payloadVariant(
+        combinePayloadKeys(
+          ROUTE_PAYLOAD,
+          payloadKeys(
+            "constructionIntent constructionIntentDigest constructionIntentRef nextActionProjection nextActionProjectionDigest nextActionProjectionRef",
+          ),
+        ),
+        payloadKeys(
+          "routeRef routeDigest routeKind constructionIntentRef constructionIntentDigest nextActionProjectionRef nextActionProjectionDigest",
+        ),
+        { routeKind: "advance" },
+      ),
+    ],
   },
   fh_interaction_opened: {
     variants: [CONTINUATION_EVENT],
-    payloadVariants: [payloadVariant(payloadKeys(
-      "actorCapabilityRef cCall cCallRef causedByEventRef continuationDigest continuationKind continuationRef executionBasisDigest executionBasisRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef heldCursor heldCursorDigest heldCursorRef holdRouteRef implementationSetDigest implementationSetRef inputDigest inputRef inputValue installId interactionSetDigest interactionSetRef manifestDigest openedTraversalScope pendingJudgment pendingResult productContentDigest productId programDigest programRef programValidationRef requestContractRef requestDigest requestRef responseContractRef scopeDigest scopeRef workspaceBindingDigest workspaceBindingId catalogViewDigest catalogViewId",
-    ))],
+    payloadVariants: [
+      payloadVariant(payloadKeys(
+        "actorCapabilityRef cCall cCallRef causedByEventRef continuationDigest continuationKind continuationRef executionBasisDigest executionBasisRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef heldCursor heldCursorDigest heldCursorRef holdRouteRef implementationSetDigest implementationSetRef inputDigest inputRef inputValue installId interactionSetDigest interactionSetRef manifestDigest openedTraversalScope pendingJudgment pendingResult productContentDigest productId programDigest programRef programValidationRef requestContractRef requestDigest requestRef responseContractRef scopeDigest scopeRef workspaceBindingDigest workspaceBindingId catalogViewDigest catalogViewId",
+      )),
+      payloadVariant(
+        payloadKeys(
+          "actorCapabilityRef cCall cCallRef causedByEventRef constructionIntentDigest constructionIntentRef continuationDigest continuationKind continuationRef executionBasisDigest executionBasisRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef heldCursor heldCursorDigest heldCursorRef holdRouteRef implementationSetDigest implementationSetRef inputDigest inputRef inputValue installId interactionSetDigest interactionSetRef manifestDigest openedTraversalScope pendingJudgment pendingResult productContentDigest productId programDigest programRef programValidationRef requestContractRef requestDigest requestRef responseContractRef scopeDigest scopeRef workspaceBindingDigest workspaceBindingId catalogViewDigest catalogViewId",
+        ),
+        payloadKeys(
+          "continuationRef continuationDigest constructionIntentRef constructionIntentDigest",
+        ),
+      ),
+    ],
   },
   fh_interaction_responded: {
     variants: [CONTINUATION_EVENT],

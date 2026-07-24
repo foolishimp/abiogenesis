@@ -662,11 +662,6 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     JSON.stringify(held.result.continuationAuthority),
   );
   const actorRef = "actor://developer.example/trusted-developer";
-  const response = {
-    kind: "developer_greeting_output",
-    schemaVersion: "5.0.0",
-    message: "Welcome Margaret.",
-  };
 
   const frontier = await applyInFreshContext(
     publicApi,
@@ -683,6 +678,29 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
   assert.equal(frontier.disposition, "succeeded", JSON.stringify(frontier));
   assert.equal(frontier.result.status, "open");
   assert.equal(frontier.result.continuationRef, continuationRef);
+  assert.equal(
+    frontier.result.nextActionProjection.kind,
+    "next_action_projection",
+  );
+  assert.equal(
+    frontier.result.nextActionProjection.targetProgramLocusRef,
+    mini.ids.interactionLocusRef,
+  );
+  assert.equal(
+    frontier.result.nextActionProjection.programRef,
+    mini.ids.oneSurfaceProgramRef,
+  );
+  assert.match(
+    frontier.result.constructionIntentRef,
+    /^construction-intent:\/\/abiogenesis\//u,
+  );
+  const response = {
+    kind: "developer_human_approval",
+    schemaVersion: "5.0.0",
+    approved: true,
+    constructionIntentRef: frontier.result.constructionIntentRef,
+    message: "Welcome Margaret.",
+  };
 
   const responded = await applyInFreshContext(
     publicApi,
@@ -730,7 +748,14 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       ),
     }),
   );
-  assert.deepEqual(completed.result, response);
+  assert.deepEqual(completed.result, {
+    kind: "developer_action_evaluation",
+    schemaVersion: "5.0.0",
+    constructionIntentRef: frontier.result.constructionIntentRef,
+    targetOutcomeRef: mini.ids.targetOutcomeRef,
+    decision: "close",
+    message: "Welcome Margaret.",
+  });
   assert.equal(completed.continuationStatus, "resolved");
   assert.equal(completed.runId, held.runId);
   assert.equal(completed.replayAgreement, true);
@@ -746,6 +771,44 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       mini.ids.evaluateActionLocusRef,
     ],
   );
+  assert.deepEqual(
+    events
+      .filter((event) => event.kind === "c_call_result_admitted")
+      .map((event) => event.payload.value.kind),
+    [
+      "developer_product_asset_model",
+      "developer_gap_projection",
+      "next_action_projection",
+      "fh_pending_result",
+      "developer_action_evaluation",
+    ],
+  );
+  const intentRoute = events.find(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.constructionIntentRef ===
+        frontier.result.constructionIntentRef,
+  );
+  const interactionOpened = events.find(
+    (event) => event.kind === "fh_interaction_opened",
+  );
+  assert.ok(intentRoute);
+  assert.ok(interactionOpened);
+  assert.equal(
+    intentRoute.payload.nextActionProjectionRef,
+    frontier.result.nextActionProjection.projectionRef,
+  );
+  assert.equal(
+    intentRoute.payload.constructionIntent.targetProgramLocusRef,
+    mini.ids.interactionLocusRef,
+  );
+  assert.equal(
+    interactionOpened.payload.constructionIntentRef,
+    frontier.result.constructionIntentRef,
+  );
+  assert.ok(
+    intentRoute.admissionOrdinal < interactionOpened.admissionOrdinal,
+  );
   const admittedInvocation = events.find(
     (event) => event.kind === "invocation_admitted",
   );
@@ -755,4 +818,105 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     mini.ids.oneSurfaceGraphFunctionRef,
   );
   assert.equal(events.filter((event) => event.kind === "run_closed").length, 1);
+});
+
+test("M5 refuses a Product-valid F_H response bound to a different construction intent", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    "external-one-surface-wrong-intent",
+    mini.publication,
+    {
+      runVariant: "start",
+      startRef: mini.ids.oneSurfaceStartRef,
+      programRef: mini.ids.oneSurfaceProgramRef,
+      graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
+      input: {
+        kind: "developer_greeting_input",
+        schemaVersion: "5.0.0",
+        name: "Margaret",
+      },
+    },
+  );
+  const publicApi = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    )).href}?external-one-surface-wrong-intent=${Date.now()}`
+  );
+  const operationContext = publicApi.createRootOperationContext();
+  const setupOutcomes = [];
+  try {
+    for (const row of scenario.transcript) {
+      setupOutcomes.push(
+        await publicApi.applyRootPublicInvocation(operationContext, row),
+      );
+    }
+  } finally {
+    publicApi.closeRootOperationContext(operationContext);
+  }
+  assert.equal(
+    setupOutcomes.slice(0, -1).every(
+      (outcome) => outcome.disposition === "succeeded",
+    ),
+    true,
+    JSON.stringify(setupOutcomes),
+  );
+  const held = setupOutcomes.at(-1);
+  assert.equal(held.disposition, "held", JSON.stringify(held));
+  const openAuthority = JSON.parse(
+    JSON.stringify(held.result.continuationAuthority),
+  );
+  const frontier = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "status",
+      "invocation://t272/external-one-surface-wrong-intent/read",
+      {
+        continuationAuthority: openAuthority,
+        continuationRef: held.continuationRef,
+      },
+    ),
+  );
+  assert.equal(frontier.disposition, "succeeded", JSON.stringify(frontier));
+
+  const refused = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.interaction.respond",
+      "approve",
+      "invocation://t272/external-one-surface-wrong-intent/respond",
+      {
+        actorRef: "actor://developer.example/trusted-developer",
+        capabilityRef: mini.ids.actorCapabilityRef,
+        continuationAuthority: openAuthority,
+        continuationRef: held.continuationRef,
+        response: {
+          kind: "developer_human_approval",
+          schemaVersion: "5.0.0",
+          approved: true,
+          constructionIntentRef:
+            `construction-intent://abiogenesis/${"0".repeat(64)}`,
+          message: "Welcome Margaret.",
+        },
+      },
+    ),
+  );
+  assert.equal(refused.disposition, "refused", JSON.stringify(refused));
+  assert.equal(refused.result.code, "owner_refusal");
+  const events = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim()
+    .split(/\r?\n/u)
+    .map((line) => JSON.parse(line));
+  assert.equal(
+    events.filter((event) => event.kind === "fh_interaction_responded").length,
+    0,
+  );
+  assert.equal(
+    events.filter((event) => event.kind === "run_closed").length,
+    0,
+  );
 });

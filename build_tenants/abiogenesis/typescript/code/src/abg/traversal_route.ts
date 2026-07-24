@@ -104,8 +104,72 @@ export interface AdmittedRoute {
   readonly consumedAvailabilityRefs: readonly string[];
   readonly contractRef: string | null;
   readonly replayStateDigest: Sha256Digest;
+  readonly constructionIntentRef: string | null;
+  readonly constructionIntentDigest: Sha256Digest | null;
   readonly admissionEventRef: string;
   readonly runStoppedEventRef: string | null;
+}
+
+export interface NextActionProjection {
+  readonly kind: "next_action_projection";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "selected";
+  readonly projectionRef: string;
+  readonly projectionDigest: Sha256Digest;
+  readonly targetOutcomeRef: string;
+  readonly selectedActionRef: string;
+  readonly actionKind: "request_human_input";
+  readonly programRef: string;
+  readonly graphFunctionRef: string;
+  readonly targetProgramLocusRef: string;
+  readonly targetObligationRefs: readonly string[];
+  readonly inputAssetRefs: readonly string[];
+  readonly outputAssetRefs: readonly string[];
+  readonly gapRef: string;
+  readonly expectedDeltaRef: string;
+  readonly progressConditionRef: string;
+  readonly stopConditionRef: string;
+  readonly lawfulBasisRefs: readonly string[];
+  readonly rejectedAlternativeRefs: readonly string[];
+}
+
+export interface ConstructionIntent {
+  readonly kind: "construction_intent";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+  readonly constructionIntentRef: string;
+  readonly constructionIntentDigest: Sha256Digest;
+  readonly nextActionProjectionRef: string;
+  readonly nextActionProjectionDigest: Sha256Digest;
+  readonly targetOutcomeRef: string;
+  readonly selectedActionRef: string;
+  readonly actionKind: "request_human_input";
+  readonly targetProgramLocusRef: string;
+  readonly targetObligationRefs: readonly string[];
+  readonly workspaceBindingId: string;
+  readonly workspaceBindingDigest: Sha256Digest;
+  readonly invocationAdmissionRef: string;
+  readonly invocationRef: string;
+  readonly invocationDigest: Sha256Digest;
+  readonly programRef: string;
+  readonly programDigest: Sha256Digest;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: Sha256Digest;
+  readonly executionBasisRef: string;
+  readonly executionBasisDigest: Sha256Digest;
+  readonly runId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly sourceCCallRef: string;
+  readonly sourceResultRef: string;
+  readonly sourceResultDigest: Sha256Digest;
+  readonly sourceJudgmentRef: string;
+  readonly targetCursorRef: string;
+  readonly targetCursorDigest: Sha256Digest;
+}
+
+export interface ConstructionIntentAdmission extends ConstructionIntent {
+  readonly admissionEventRef: string;
 }
 
 export interface RouteAdmissionRefusal {
@@ -216,9 +280,244 @@ function candidateBody(
 }
 
 function isJsonRecord(
-  value: JsonValue,
+  value: JsonValue | undefined,
 ): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+const NEXT_ACTION_PROJECTION_KEYS = Object.freeze([
+  "actionKind",
+  "disposition",
+  "expectedDeltaRef",
+  "gapRef",
+  "graphFunctionRef",
+  "inputAssetRefs",
+  "kind",
+  "lawfulBasisRefs",
+  "outputAssetRefs",
+  "programRef",
+  "progressConditionRef",
+  "projectionDigest",
+  "projectionRef",
+  "rejectedAlternativeRefs",
+  "schemaVersion",
+  "selectedActionRef",
+  "stopConditionRef",
+  "targetObligationRefs",
+  "targetOutcomeRef",
+  "targetProgramLocusRef",
+] as const);
+
+function hasExactKeys(
+  value: Readonly<Record<string, JsonValue>>,
+  keys: readonly string[],
+): boolean {
+  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
+}
+
+function nonEmptyStringArray(
+  value: JsonValue | undefined,
+): value is readonly string[] {
+  return Array.isArray(value) &&
+    value.length > 0 &&
+    value.every((entry) => typeof entry === "string" && entry.length > 0) &&
+    new Set(value).size === value.length;
+}
+
+function stringArray(value: JsonValue | undefined): value is readonly string[] {
+  return Array.isArray(value) &&
+    value.every((entry) => typeof entry === "string" && entry.length > 0) &&
+    new Set(value).size === value.length;
+}
+
+function nextActionProjection(
+  value: JsonValue,
+): NextActionProjection | null {
+  if (
+    !isJsonRecord(value) ||
+    !hasExactKeys(value, NEXT_ACTION_PROJECTION_KEYS) ||
+    value.kind !== "next_action_projection" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "selected" ||
+    value.actionKind !== "request_human_input" ||
+    typeof value.projectionRef !== "string" ||
+    typeof value.projectionDigest !== "string" ||
+    typeof value.targetOutcomeRef !== "string" ||
+    typeof value.selectedActionRef !== "string" ||
+    typeof value.programRef !== "string" ||
+    typeof value.graphFunctionRef !== "string" ||
+    typeof value.targetProgramLocusRef !== "string" ||
+    typeof value.gapRef !== "string" ||
+    typeof value.expectedDeltaRef !== "string" ||
+    typeof value.progressConditionRef !== "string" ||
+    typeof value.stopConditionRef !== "string" ||
+    !nonEmptyStringArray(value.targetObligationRefs) ||
+    !nonEmptyStringArray(value.inputAssetRefs) ||
+    !nonEmptyStringArray(value.outputAssetRefs) ||
+    !nonEmptyStringArray(value.lawfulBasisRefs) ||
+    !stringArray(value.rejectedAlternativeRefs)
+  ) {
+    return null;
+  }
+  const {
+    projectionRef,
+    projectionDigest,
+    ...body
+  } = value;
+  const expectedDigest = sha256Canonical(body);
+  if (
+    projectionDigest !== expectedDigest ||
+    projectionRef !==
+      `next-action-projection://product/${expectedDigest.slice("sha256:".length)}`
+  ) {
+    return null;
+  }
+  return value as unknown as NextActionProjection;
+}
+
+function constructionIntentForAdvance(
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  targetCursor: TraversalCursorCandidate | null,
+  evidence: RouteAdmissionEvidence | null,
+): {
+  readonly projection: NextActionProjection;
+  readonly intent: ConstructionIntent;
+} | RouteAdmissionRefusal | null {
+  const sourceTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  if (
+    sourceTerm.kind !== "c_of" ||
+    sourceTerm.stageRole !== "evaluateNext"
+  ) {
+    return null;
+  }
+  if (targetCursor === null || evidence === null) {
+    return refusal(
+      "candidate_mismatch",
+      "evaluateNext requires one admitted selected action and exact declared target",
+    );
+  }
+  const targetTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    targetCursor.currentNodeRef,
+    targetCursor.termPath,
+  );
+  const projection = nextActionProjection(evidence.result.value);
+  if (
+    projection === null ||
+    targetTerm.kind !== "c_of" ||
+    targetTerm.stageRole !== "intent" ||
+    !isInteractionCLeaf(targetTerm) ||
+    projection.programRef !== executionBasis.programRef ||
+    projection.graphFunctionRef !== executionBasis.graphFunctionRef ||
+    projection.targetProgramLocusRef !== targetTerm.programLocusRef
+  ) {
+    return refusal(
+      "candidate_mismatch",
+      "evaluateNext output does not select the exact admitted GTL interaction target",
+    );
+  }
+  const body = {
+    kind: "construction_intent" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    nextActionProjectionRef: projection.projectionRef,
+    nextActionProjectionDigest: projection.projectionDigest,
+    targetOutcomeRef: projection.targetOutcomeRef,
+    selectedActionRef: projection.selectedActionRef,
+    actionKind: projection.actionKind,
+    targetProgramLocusRef: projection.targetProgramLocusRef,
+    targetObligationRefs: projection.targetObligationRefs,
+    workspaceBindingId: executionBasis.workspaceBindingId,
+    workspaceBindingDigest: executionBasis.workspaceBindingDigest,
+    invocationAdmissionRef: executionBasis.invocationAdmissionRef,
+    invocationRef: executionBasis.invocationRef,
+    invocationDigest: executionBasis.invocationDigest,
+    programRef: executionBasis.programRef,
+    programDigest: executionBasis.programDigest,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    graphFunctionDigest: executionBasis.graphFunctionDigest,
+    executionBasisRef: executionBasis.basisRef,
+    executionBasisDigest: executionBasis.basisDigest,
+    runId: sourceCursor.runId,
+    graphCallId: sourceCursor.graphCallId,
+    frameId: sourceCursor.frameId,
+    sourceCCallRef: evidence.cCall.cCallRef,
+    sourceResultRef: evidence.result.resultRef,
+    sourceResultDigest: evidence.result.resultDigest,
+    sourceJudgmentRef: evidence.judgment.judgmentRef,
+    targetCursorRef: targetCursor.cursorRef,
+    targetCursorDigest: targetCursor.cursorDigest,
+  };
+  const constructionIntentDigest = sha256Canonical(
+    body as unknown as JsonValue,
+  );
+  return {
+    projection,
+    intent: deepFreeze({
+      ...body,
+      constructionIntentRef:
+        `construction-intent://abiogenesis/${constructionIntentDigest.slice("sha256:".length)}`,
+      constructionIntentDigest,
+    }),
+  };
+}
+
+export function rehydrateConstructionIntentForCursor(
+  store: AbgEventStore,
+  cursor: TraversalCursorCandidate,
+): ConstructionIntentAdmission | null {
+  const event = store.readAll().find(
+    (candidate) =>
+      candidate.kind === "traversal_route_admitted" &&
+      candidate.runId === cursor.runId &&
+      candidate.graphCallId === cursor.graphCallId &&
+      candidate.frameId === cursor.frameId &&
+      isJsonRecord(candidate.payload) &&
+      candidate.payload.targetCursorRef === cursor.cursorRef,
+  );
+  if (event === undefined || !isJsonRecord(event.payload)) return null;
+  const intentValue = event.payload.constructionIntent;
+  const projectionValue = event.payload.nextActionProjection;
+  const projection = nextActionProjection(projectionValue ?? null);
+  if (
+    !isJsonRecord(intentValue) ||
+    projection === null ||
+    typeof intentValue.constructionIntentRef !== "string" ||
+    typeof intentValue.constructionIntentDigest !== "string"
+  ) {
+    return null;
+  }
+  const {
+    constructionIntentRef,
+    constructionIntentDigest,
+    ...body
+  } = intentValue;
+  if (
+    sha256Canonical(body) !== constructionIntentDigest ||
+    constructionIntentRef !==
+      `construction-intent://abiogenesis/${constructionIntentDigest.slice("sha256:".length)}` ||
+    event.payload.constructionIntentRef !== constructionIntentRef ||
+    event.payload.constructionIntentDigest !== constructionIntentDigest ||
+    event.payload.nextActionProjectionRef !== projection.projectionRef ||
+    event.payload.nextActionProjectionDigest !== projection.projectionDigest ||
+    intentValue.nextActionProjectionRef !== projection.projectionRef ||
+    intentValue.nextActionProjectionDigest !== projection.projectionDigest ||
+    intentValue.targetCursorRef !== cursor.cursorRef ||
+    intentValue.targetCursorDigest !== cursor.cursorDigest ||
+    sha256Canonical(projectionValue ?? null) !== cursor.inputDigest
+  ) {
+    return null;
+  }
+  return deepFreeze({
+    ...intentValue,
+    admissionEventRef: event.eventId,
+  }) as unknown as ConstructionIntentAdmission;
 }
 
 function sameValues(
@@ -1158,7 +1457,41 @@ export function admitRoute(
     );
   }
 
-  const routeDigest = sha256Canonical(body);
+  const judgedEvidence =
+    candidate.routeKind === "advance" &&
+      evidence !== null &&
+      "result" in evidence &&
+      !("resume" in evidence)
+      ? evidence
+      : null;
+  const constructionIntent = constructionIntentForAdvance(
+    executionBasis,
+    graph,
+    sourceCursor,
+    targetCursor,
+    judgedEvidence,
+  );
+  if (
+    constructionIntent !== null &&
+    "kind" in constructionIntent &&
+    constructionIntent.kind === "traversal_route_admission_refusal"
+  ) {
+    return constructionIntent;
+  }
+  const admittedConstruction =
+    constructionIntent !== null && !("kind" in constructionIntent)
+      ? constructionIntent
+      : null;
+  const admittedBody = admittedConstruction === null
+    ? body
+    : {
+        ...body,
+        constructionIntentRef:
+          admittedConstruction.intent.constructionIntentRef,
+        constructionIntentDigest:
+          admittedConstruction.intent.constructionIntentDigest,
+      };
+  const routeDigest = sha256Canonical(admittedBody);
   const routeRef =
     `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}`;
   const routeEventCandidate = {
@@ -1177,7 +1510,21 @@ export function admitRoute(
     materializationRef: graph.materializationRef,
     graphCallId: sourceCursor.graphCallId,
     frameId: sourceCursor.frameId,
-    payload: { routeRef, routeDigest, ...body },
+    payload: admittedConstruction === null
+      ? { routeRef, routeDigest, ...body }
+      : {
+          routeRef,
+          routeDigest,
+          ...admittedBody,
+          nextActionProjectionRef:
+            admittedConstruction.projection.projectionRef,
+          nextActionProjectionDigest:
+            admittedConstruction.projection.projectionDigest,
+          nextActionProjection:
+            admittedConstruction.projection as unknown as JsonValue,
+          constructionIntent:
+            admittedConstruction.intent as unknown as JsonValue,
+        },
   } as const;
   const admittedEvents = candidate.routeKind === "blocked" && options.terminalizeRun !== false
     ? admitRuntimeEventBatch(store, [
@@ -1221,6 +1568,10 @@ export function admitRoute(
     routeRef,
     routeDigest,
     ...body,
+    constructionIntentRef:
+      admittedConstruction?.intent.constructionIntentRef ?? null,
+    constructionIntentDigest:
+      admittedConstruction?.intent.constructionIntentDigest ?? null,
     admissionEventRef: event.eventId,
     runStoppedEventRef: admittedEvents[1]?.eventId ?? null,
   }) as AdmittedRoute;
@@ -1510,6 +1861,8 @@ export function admitRecursionRoute(
     routeRef,
     routeDigest,
     ...body,
+    constructionIntentRef: null,
+    constructionIntentDigest: null,
     admissionEventRef: event.eventId,
     runStoppedEventRef: admittedEvents[1]?.eventId ?? null,
   }) as AdmittedRoute;

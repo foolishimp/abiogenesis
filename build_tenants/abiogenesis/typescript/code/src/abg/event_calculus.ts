@@ -411,6 +411,10 @@ export function eventCalculusEffect(
     case "fh_interaction_opened": {
       const continuationRef = stringField(event, "continuationRef");
       const holdRouteRef = stringField(event, "holdRouteRef");
+      const constructionIntentRef = stringField(
+        event,
+        "constructionIntentRef",
+      );
       return {
         initiates: continuationRef === null
           ? []
@@ -419,9 +423,19 @@ export function eventCalculusEffect(
               fluent("interaction_pending", continuationRef),
               fluent("frame_held", event.frameId ?? ""),
             ],
-        terminates: holdRouteRef === null
-          ? []
-          : [fluent("hold_route_admitted", holdRouteRef)],
+        terminates: [
+          ...(holdRouteRef === null
+            ? []
+            : [fluent("hold_route_admitted", holdRouteRef)]),
+          ...(constructionIntentRef === null
+            ? []
+            : [
+                fluent(
+                  "construction_intent_available",
+                  constructionIntentRef,
+                ),
+              ]),
+        ],
         clips: [],
         declips: [],
       };
@@ -568,6 +582,10 @@ export function eventCalculusEffect(
   const targetCursorRef = stringField(event, "targetCursorRef");
   const routeRef = stringField(event, "routeRef");
   const judgmentRef = stringField(event, "judgmentRef");
+  const constructionIntentRef = stringField(
+    event,
+    "constructionIntentRef",
+  );
   const consumedFluents = stringArrayField(
     event,
     "consumedAvailabilityRefs",
@@ -575,9 +593,19 @@ export function eventCalculusEffect(
   switch (eventOrKind.payload.routeKind) {
     case "advance":
       return {
-        initiates: targetCursorRef === null
-          ? []
-          : [fluent("locus_active", targetCursorRef)],
+        initiates: [
+          ...(targetCursorRef === null
+            ? []
+            : [fluent("locus_active", targetCursorRef)]),
+          ...(constructionIntentRef === null
+            ? []
+            : [
+                fluent(
+                  "construction_intent_available",
+                  constructionIntentRef,
+                ),
+              ]),
+        ],
         terminates: [
           ...(sourceCursorRef === null
             ? []

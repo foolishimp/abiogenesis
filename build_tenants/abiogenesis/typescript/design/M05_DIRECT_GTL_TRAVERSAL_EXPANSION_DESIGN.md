@@ -1159,4 +1159,39 @@ This design delta is acceptable when review confirms:
 10. the three views project the same Ontology delta;
 11. the M3 Prime family is contracted rather than expanded; and
 12. no compiled plan, generated program, feature controller, or rival event
-   path is constructible.
+    path is constructible.
+
+## 12. T-272 One Surface Intent Extension
+
+This bounded S03 delta co-evolves the deferred One Surface boundary without
+changing the accepted authority split or adding an event family.
+
+```text
+Product-owned evaluateNext
+  -> typed NextActionProjection as an ordinary admitted C-call result
+  -> traversal_route_admitted binds that projection to the exact successor GTL cursor
+  -> ABG derives one ConstructionIntent over the invocation and execution basis
+  -> F_H opening consumes that exact intent
+  -> project.read renders the admitted projection from replay
+  -> interaction.respond must bind the same intent
+  -> run.continue re-enters the already admitted successor cursor
+```
+
+The Product owns the projection's semantic contract, selected action,
+obligations, assets, expected delta, progress condition, and stop condition.
+ABG does not choose those values. ABG admits the projection only when its
+canonical identity selects the current Program, GraphFunction, and declared
+successor F_H locus. The resulting `ConstructionIntent` binds the projection
+identity to the workspace, invocation, Program, GraphFunction, ExecutionBasis,
+Run, GraphCall, Frame, source C-call/result/judgment, and target cursor.
+
+The existing `traversal_route_admitted` event carries both immutable values and
+initiates one intent-availability fluent. The matching
+`fh_interaction_opened` event consumes that exact fluent and preserves the
+intent identity in durable continuation truth. Replay exposes the values;
+Public performs no selection or recomputation. A Product-valid response naming
+another intent refuses before `fh_interaction_responded`.
+
+This delta establishes selected-action and construction-intent admission. It
+does not close S03, implement post-evidence refresh, or disposition the
+remaining consequence, runtime-disposition, and public-control obligations.

@@ -14,7 +14,11 @@ import {
   projectFhContinuations,
   type ReplayContinuationState,
 } from "./continuation.js";
-import type { TraversalRouteKind } from "./traversal_route.js";
+import type {
+  ConstructionIntent,
+  NextActionProjection,
+  TraversalRouteKind,
+} from "./traversal_route.js";
 
 export interface ReplayCCallState {
   readonly cCallRef: string;
@@ -48,6 +52,12 @@ export interface ReplayRouteState {
   readonly targetCursorDigest: Sha256Digest | null;
   readonly cCallRef: string | null;
   readonly judgmentRef: string | null;
+  readonly nextActionProjectionRef?: string;
+  readonly nextActionProjectionDigest?: Sha256Digest;
+  readonly nextActionProjection?: NextActionProjection;
+  readonly constructionIntentRef?: string;
+  readonly constructionIntentDigest?: Sha256Digest;
+  readonly constructionIntent?: ConstructionIntent;
   readonly admissionEventRef: string;
 }
 
@@ -528,13 +538,57 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       const declarationDigest = stringField(event, "declarationDigest");
       const sourceCursorRef = stringField(event, "sourceCursorRef");
       const sourceCursorDigest = stringField(event, "sourceCursorDigest");
+      const nextActionProjectionRef = stringField(
+        event,
+        "nextActionProjectionRef",
+      );
+      const nextActionProjectionDigest = stringField(
+        event,
+        "nextActionProjectionDigest",
+      );
+      const constructionIntentRef = stringField(
+        event,
+        "constructionIntentRef",
+      );
+      const constructionIntentDigest = stringField(
+        event,
+        "constructionIntentDigest",
+      );
+      const nextActionProjection =
+        isRecord(event.payload) &&
+          isRecord(event.payload.nextActionProjection)
+          ? event.payload.nextActionProjection
+          : null;
+      const constructionIntent =
+        isRecord(event.payload) &&
+          isRecord(event.payload.constructionIntent)
+          ? event.payload.constructionIntent
+          : null;
       if (
         routeRef === null ||
         routeDigest === null ||
         declarationRef === null ||
         declarationDigest === null ||
         sourceCursorRef === null ||
-        sourceCursorDigest === null
+        sourceCursorDigest === null ||
+        (
+          [
+            nextActionProjectionRef,
+            nextActionProjectionDigest,
+            nextActionProjection,
+            constructionIntentRef,
+            constructionIntentDigest,
+            constructionIntent,
+          ].filter((value) => value !== null).length !== 0 &&
+          [
+            nextActionProjectionRef,
+            nextActionProjectionDigest,
+            nextActionProjection,
+            constructionIntentRef,
+            constructionIntentDigest,
+            constructionIntent,
+          ].some((value) => value === null)
+        )
       ) {
         throw new TypeError(`incomplete traversal route payload at ${event.eventId}`);
       }
@@ -550,6 +604,20 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
         targetCursorDigest: stringField(event, "targetCursorDigest") as Sha256Digest | null,
         cCallRef: stringField(event, "cCallRef"),
         judgmentRef: stringField(event, "judgmentRef"),
+        ...(nextActionProjectionRef === null
+          ? {}
+          : {
+              nextActionProjectionRef,
+              nextActionProjectionDigest:
+                nextActionProjectionDigest as Sha256Digest,
+              nextActionProjection:
+                nextActionProjection as unknown as NextActionProjection,
+              constructionIntentRef: constructionIntentRef as string,
+              constructionIntentDigest:
+                constructionIntentDigest as Sha256Digest,
+              constructionIntent:
+                constructionIntent as unknown as ConstructionIntent,
+            }),
         admissionEventRef: event.eventId,
       };
     });

@@ -219,6 +219,7 @@ export {
   admitRoute,
   admitRecursionRoute,
   isAdmittedRoute,
+  rehydrateConstructionIntentForCursor,
   type AdmittedRoute,
   type BlockedRouteAdmissionEvidence,
   type FanOutRouteAdmissionEvidence,
@@ -230,6 +231,9 @@ export {
   type RouteAdmissionResult,
   type RouteAdmissionOptions,
   type RecursionRouteAdmissionEvidence,
+  type ConstructionIntent,
+  type ConstructionIntentAdmission,
+  type NextActionProjection,
   type RouteCandidate,
   type TraversalRouteKind,
 } from "./traversal_route.js";
