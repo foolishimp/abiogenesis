@@ -126,6 +126,12 @@ function recordArrayField(
   return value as readonly Readonly<Record<string, product.JsonValue>>[];
 }
 
+function isJsonRecord(
+  value: product.JsonValue,
+): value is Readonly<Record<string, product.JsonValue>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 function requireExactPayloadKeys(
   payload: Readonly<Record<string, product.JsonValue>>,
   allowed: readonly string[],
@@ -764,6 +770,9 @@ async function applyRunInvoke(
   if (
     reentryState !== null &&
     (
+      reentryState.source.nextActionProjection.disposition !== "no_action" ||
+      reentryState.source.nextActionProjection.noActionDisposition !==
+        "gap_stop" ||
       stringField(invocation.payload, "installInvocationRef") !==
         reentryState.installInvocationRef ||
       stringField(invocation.payload, "workspaceBindingInvocationRef") !==
@@ -1354,7 +1363,13 @@ async function applyRunInvoke(
     candidate.invocationRef,
     persisted,
   );
-  if (outcome.disposition === "gap_stop") {
+  const noActionStop =
+    isJsonRecord(outcome.result) &&
+    (
+      outcome.result.kind === "construction_gap_stop" ||
+      outcome.result.kind === "construction_no_action_stop"
+    );
+  if (noActionStop) {
     const gapRoute = firstReplay.routes.find(
       (route) =>
         route.routeKind === "gap_stop" &&
@@ -1365,12 +1380,11 @@ async function applyRunInvoke(
       traversalCompletion.disposition !== "gap_stop" ||
       firstReplay.runId === null ||
       firstReplay.runStoppedEventRef === null ||
-      gapRoute?.nextActionProjection?.disposition !== "no_action" ||
-      gapRoute.nextActionProjection.noActionDisposition !== "gap_stop"
+      gapRoute?.nextActionProjection?.disposition !== "no_action"
     ) {
       throw new ApplicationRefusal(
         "owner_refusal",
-        "gap-stopped traversal lacks its exact replayed no-action route",
+        "stopped traversal lacks its exact replayed no-action route",
       );
     }
     const reopenAuthority = context.store.projectReopenAuthorityAndClose();
@@ -1715,6 +1729,19 @@ function reopenGapAuthority(
   const selectedLockRow = state.resolvedProductLock.rows.find(
     (row) => row.installId === state.install.installId,
   );
+  const noActionDisposition =
+    route?.nextActionProjection?.disposition === "no_action"
+      ? route.nextActionProjection.noActionDisposition
+      : null;
+  const stoppedDisposition =
+    stopEvent !== undefined &&
+      isJsonRecord(stopEvent.payload) &&
+      typeof stopEvent.payload.disposition === "string"
+      ? stopEvent.payload.disposition
+      : null;
+  const expectedRuntimeStatus = noActionDisposition === "gap_stop"
+    ? "gap_stopped"
+    : "stopped";
   if (
     rootInvocation === null ||
     rootInvocation.invocationRef !== state.source.sourceInvocationRef ||
@@ -1763,7 +1790,6 @@ function reopenGapAuthority(
     route.nextActionProjectionDigest !==
       state.source.nextActionProjectionDigest ||
     route.nextActionProjection?.disposition !== "no_action" ||
-    route.nextActionProjection.noActionDisposition !== "gap_stop" ||
     route.nextActionProjection.gapRef !== state.source.gapRef ||
     product.sha256Canonical(
       route.nextActionProjection as unknown as product.JsonValue,
@@ -1771,10 +1797,13 @@ function reopenGapAuthority(
       state.source.nextActionProjection as unknown as product.JsonValue,
     ) ||
     stopEvent === undefined ||
+    noActionDisposition === null ||
+    stoppedDisposition !== noActionDisposition ||
+    replayState.runStoppedDisposition !== noActionDisposition ||
     !stopEvent.causationEventRefs.includes(
       state.source.sourceRouteEventRef,
     ) ||
-    replayState.runtimeStatus !== "gap_stopped" ||
+    replayState.runtimeStatus !== expectedRuntimeStatus ||
     replayState.runStoppedEventRef !==
       state.source.sourceRunStoppedEventRef
   ) {
@@ -1845,6 +1874,11 @@ async function applyGapRead(
       {
         kind: "public_gap_projection",
         schemaVersion: "5.0.0",
+        constructionStatus:
+          state.source.nextActionProjection.noActionDisposition ===
+              "reprice_required"
+            ? "reprice_required"
+            : "construction_stalled",
         gapRef,
         sourceRunId: state.source.sourceRunId,
         sourceRouteRef: state.source.sourceRouteRef,

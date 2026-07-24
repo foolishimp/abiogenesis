@@ -124,6 +124,7 @@ export interface ReplayState {
   readonly graphCallClosedEventRef: string | null;
   readonly runClosedEventRef: string | null;
   readonly runStoppedEventRef: string | null;
+  readonly runStoppedDisposition: string | null;
   readonly invocationRefusalEventRef: string | null;
   readonly runtimeFailureEventRef: string | null;
   readonly runtimeStatus:
@@ -134,6 +135,7 @@ export interface ReplayState {
     | "gap_stopped"
     | "held"
     | "refused"
+    | "stopped"
     | "workspace";
 }
 
@@ -909,7 +911,9 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
   const runClosed = events.find((event) => event.kind === "run_closed");
   const runStopped = events.find((event) => event.kind === "run_stopped");
   const runStoppedDisposition =
-    runStopped !== undefined && isRecord(runStopped.payload)
+    runStopped !== undefined &&
+      isRecord(runStopped.payload) &&
+      typeof runStopped.payload.disposition === "string"
       ? runStopped.payload.disposition
       : null;
   const invocationRefused = events.find((event) => event.kind === "invocation_refused");
@@ -941,6 +945,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
     graphCallClosedEventRef: graphCallClosed?.eventId ?? null,
     runClosedEventRef: runClosed?.eventId ?? null,
     runStoppedEventRef: runStopped?.eventId ?? null,
+    runStoppedDisposition,
     invocationRefusalEventRef: invocationRefused?.eventId ?? null,
     runtimeFailureEventRef: runtimeFailure?.eventId ?? null,
     runtimeStatus: runtimeFailure !== undefined
@@ -950,7 +955,9 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
         : runStopped !== undefined
           ? runStoppedDisposition === "gap_stop"
             ? "gap_stopped" as const
-            : "blocked" as const
+            : runStoppedDisposition === "blocked"
+              ? "blocked" as const
+              : "stopped" as const
           : invocationRefused !== undefined
             ? "refused" as const
             : continuations.some(

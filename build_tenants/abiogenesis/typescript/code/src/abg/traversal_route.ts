@@ -150,11 +150,11 @@ export interface SelectedNextActionProjection {
   readonly nextActionBasisDigest: Sha256Digest;
 }
 
-export interface GapStopNextActionProjection {
+export interface NoActionNextActionProjection {
   readonly kind: "next_action_projection";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "no_action";
-  readonly noActionDisposition: "gap_stop";
+  readonly noActionDisposition: NoActionDisposition;
   readonly projectionRef: string;
   readonly projectionDigest: Sha256Digest;
   readonly targetOutcomeRef: string;
@@ -173,8 +173,17 @@ export interface GapStopNextActionProjection {
   readonly nextActionBasisDigest: Sha256Digest;
 }
 
+export type NoActionDisposition =
+  | "gap_stop"
+  | "reprice_required";
+
+const NO_ACTION_DISPOSITIONS = Object.freeze([
+  "gap_stop",
+  "reprice_required",
+] as const satisfies readonly NoActionDisposition[]);
+
 export type NextActionProjection =
-  | GapStopNextActionProjection
+  | NoActionNextActionProjection
   | SelectedNextActionProjection;
 
 export interface ConstructionIntent {
@@ -539,16 +548,18 @@ const GAP_STOP_PROJECTION_KEYS = Object.freeze([
   "targetOutcomeRef",
 ] as const);
 
-function gapStopNextActionProjection(
+function noActionNextActionProjection(
   value: JsonValue,
-): GapStopNextActionProjection | null {
+): NoActionNextActionProjection | null {
   if (
     !isJsonRecord(value) ||
     !hasExactKeys(value, GAP_STOP_PROJECTION_KEYS) ||
     value.kind !== "next_action_projection" ||
     value.schemaVersion !== "5.0.0" ||
     value.disposition !== "no_action" ||
-    value.noActionDisposition !== "gap_stop" ||
+    !NO_ACTION_DISPOSITIONS.includes(
+      value.noActionDisposition as NoActionDisposition,
+    ) ||
     typeof value.projectionRef !== "string" ||
     typeof value.projectionDigest !== "string" ||
     typeof value.nextActionBasisRef !== "string" ||
@@ -581,7 +592,7 @@ function gapStopNextActionProjection(
   ) {
     return null;
   }
-  return value as unknown as GapStopNextActionProjection;
+  return value as unknown as NoActionNextActionProjection;
 }
 
 function nextActionBasis(
@@ -1062,14 +1073,14 @@ function constructionIntentForAdvance(
   };
 }
 
-function gapStopProjectionForRoute(
+function noActionProjectionForStopRoute(
   store: AbgEventStore,
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
   evidence: RouteAdmissionEvidence | null,
 ): {
-  readonly projection: GapStopNextActionProjection;
+  readonly projection: NoActionNextActionProjection;
   readonly basis: Readonly<Record<string, JsonValue>>;
 } | RouteAdmissionRefusal {
   const sourceTerm = resolveCProgramTermAtSourcePath(
@@ -1097,7 +1108,7 @@ function gapStopProjectionForRoute(
       "gap_stop requires the exact admitted initial evaluateNext C-call",
     );
   }
-  const projection = gapStopNextActionProjection(evidence.result.value);
+  const projection = noActionNextActionProjection(evidence.result.value);
   const basisEvent = store.readAll().find(
     (event) =>
       event.kind === "c_call_result_admitted" &&
@@ -2616,8 +2627,8 @@ export function admitRoute(
   }
 
   let causationEventRef = traversalCursorAdmissionEventRef(store, sourceCursor);
-  let admittedGapStop: {
-    readonly projection: GapStopNextActionProjection;
+  let admittedNoActionStop: {
+    readonly projection: NoActionNextActionProjection;
     readonly basis: Readonly<Record<string, JsonValue>>;
   } | null = null;
   if (candidate.routeKind === "terminal") {
@@ -2850,31 +2861,31 @@ export function admitRoute(
         "gap_stop requires the exact evaluated no-action C-call judgment",
       );
     }
-    const gapStop = gapStopProjectionForRoute(
+    const noActionStop = noActionProjectionForStopRoute(
       store,
       executionBasis,
       graph,
       sourceCursor,
       gapEvidence,
     );
-    if ("kind" in gapStop) return gapStop;
+    if ("kind" in noActionStop) return noActionStop;
     if (
       candidate.nextActionProjectionRef !==
-        gapStop.projection.projectionRef ||
+        noActionStop.projection.projectionRef ||
       candidate.nextActionProjectionDigest !==
-        gapStop.projection.projectionDigest ||
+        noActionStop.projection.projectionDigest ||
       candidate.nextActionProjection === undefined ||
       sha256Canonical(
         candidate.nextActionProjection as unknown as JsonValue,
       ) !==
-        sha256Canonical(gapStop.projection as unknown as JsonValue)
+        sha256Canonical(noActionStop.projection as unknown as JsonValue)
     ) {
       return refusal(
         "gap_projection_mismatch",
         "gap_stop route does not carry the exact Product no-action projection",
       );
     }
-    admittedGapStop = gapStop;
+    admittedNoActionStop = noActionStop;
     causationEventRef = gapEvidence.judgment.admissionEventRef;
   } else if (candidate.routeKind === "blocked") {
     if (evidence !== null && "completion" in evidence) {
@@ -3091,11 +3102,13 @@ export function admitRoute(
           graphCallId: sourceCursor.graphCallId,
           frameId: sourceCursor.frameId,
           payload: {
-            disposition: candidate.routeKind,
+            disposition:
+              admittedNoActionStop?.projection.noActionDisposition ??
+              candidate.routeKind,
             routeRef,
             cCallRef: candidate.cCallRef,
             judgmentRef: candidate.judgmentRef,
-            reasonRef: admittedGapStop?.projection.reasonRef ??
+            reasonRef: admittedNoActionStop?.projection.reasonRef ??
               (
                 evidence !== null && "reasonRef" in evidence
                   ? evidence.reasonRef
@@ -3132,14 +3145,14 @@ export function admitRoute(
         options.terminalizeRun !== false
         ? admittedEvents[1]?.eventId ?? null
         : null,
-    ...(admittedGapStop === null
+    ...(admittedNoActionStop === null
       ? {}
       : {
           nextActionProjectionRef:
-            admittedGapStop.projection.projectionRef,
+            admittedNoActionStop.projection.projectionRef,
           nextActionProjectionDigest:
-            admittedGapStop.projection.projectionDigest,
-          nextActionProjection: admittedGapStop.projection,
+            admittedNoActionStop.projection.projectionDigest,
+          nextActionProjection: admittedNoActionStop.projection,
         }),
   }) as AdmittedRoute;
   admittedRoutes.add(admitted);

@@ -1474,3 +1474,47 @@ Installed evidence shall prove open, responded, and resolved status reads;
 selected and converged lawful-action reads; resolved result and ordered replay
 reads; fresh-context operation; no event-count or event-digest change; and
 refusal of stale, substituted-Run, or unresolved-result authority.
+
+### 12.7 Typed Reprice-Required Stop
+
+The external Product may determine that its current observation admits no
+construction action and requires constitutional reprice. The observation
+carries the factual change-authority state, `evalGap` derives constitutional
+pressure, and `evaluateNext` alone maps that pressure to the typed no-action
+disposition `reprice_required`. The caller does not supply a desired
+disposition. The decision uses the same admitted observation, gap, obligation,
+action-catalog, priority, runtime, policy, and Program basis as every other
+next-action projection.
+
+This result proposes no reprice and changes no constitutional authority. ABG
+admits the exact Product result and judgment, then uses the existing
+`gap_stop` route to stop unresolved traversal. The route is the no-action stop
+carrier; it does not erase the Product semantic disposition. The admitted
+`run_stopped` event, replay state, and public outcome preserve
+`reprice_required` exactly.
+
+This slice does not claim the `escalation_or_reprice` consequence route or the
+`reprice` runtime action. Applying a reprice remains subject to the existing
+change-class and human-authority law and must establish a new lawful Product
+basis.
+
+`project.read(gaps)` may reopen the exact durable stop and render its gap,
+basis, and `reprice_required` projection without appending truth. The existing
+serialized gap authority remains a read authority because the Product still
+stopped over unresolved gap pressure. It is not a transition authority:
+public-start re-entry is admissible only when the source projection's exact
+no-action disposition is `gap_stop`. A caller cannot relabel
+`reprice_required` as `gap_stop` or use the reprice stop to open a successor
+Run.
+
+Installed evidence shall prove:
+
+- the Product-owned reprice decision reaches ABG as a valid no-action
+  projection under the exact admitted basis;
+- replay and the public outcome preserve `reprice_required` rather than
+  generic success, failure, block, or `gap_stop`;
+- no target cursor, construction intent, F_H interaction, delta, terminal
+  route, or run closure follows that stop;
+- a fresh-context read is side-effect free and renders the exact disposition;
+- an unsupported observation authority state refuses before a Run opens; and
+- attempted ordinary gap re-entry refuses without changing the event log.

@@ -313,7 +313,10 @@ export function proposeGapStopRoute(
     projection === null ||
     projection.kind !== "next_action_projection" ||
     projection.disposition !== "no_action" ||
-    projection.noActionDisposition !== "gap_stop"
+    ![
+      "gap_stop",
+      "reprice_required",
+    ].includes(String(projection.noActionDisposition))
   ) {
     return {
       kind: "traversal_route_proposal_refusal",

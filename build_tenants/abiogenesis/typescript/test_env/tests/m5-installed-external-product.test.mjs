@@ -55,6 +55,19 @@ function redigestGapAuthority(authority) {
   };
 }
 
+function redigestObservationSnapshot(snapshot) {
+  const body = structuredClone(snapshot);
+  delete body.snapshotDigest;
+  delete body.snapshotRef;
+  const snapshotDigest = sha256Canonical(body);
+  return {
+    ...body,
+    snapshotRef:
+      `observation-snapshot://product/${snapshotDigest.slice("sha256:".length)}`,
+    snapshotDigest,
+  };
+}
+
 function withReducedProductSet(authority) {
   const next = structuredClone(authority);
   const rows = next.resolvedProductLock.rows.filter(
@@ -2158,6 +2171,7 @@ test("M5 exposes a durable gap and re-enters it through the same external Produc
   );
   assert.equal(gapRead.disposition, "succeeded", JSON.stringify(gapRead));
   assert.equal(gapRead.result.kind, "public_gap_projection");
+  assert.equal(gapRead.result.constructionStatus, "construction_stalled");
   assert.equal(gapRead.durableEventCount, stopped.durableEventCount);
   assert.equal(gapRead.eventLogDigest, stopped.eventLogDigest);
   const gapAuthority = JSON.parse(
@@ -2384,5 +2398,167 @@ test("M5 exposes a durable gap and re-enters it through the same external Produc
   assert.equal(
     finalEvents.filter((event) => event.kind === "run_closed").length,
     1,
+  );
+});
+
+test("M5 preserves a Product-required reprice as a readable non-close stop", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const installedPublic = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    )).href}?reprice-stop=${Date.now()}`,
+  );
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    "external-one-surface-reprice-stop",
+    mini.publication,
+    {
+      runVariant: "start",
+      startRef: mini.ids.oneSurfaceStartRef,
+      programRef: mini.ids.oneSurfaceProgramRef,
+      graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
+    },
+  );
+  const setupContext = installedPublic.createRootOperationContext();
+  const setupOutcomes = [];
+  try {
+    for (const row of scenario.transcript.slice(0, -1)) {
+      setupOutcomes.push(
+        await installedPublic.applyRootPublicInvocation(setupContext, row),
+      );
+    }
+    const start = structuredClone(scenario.transcript.at(-1));
+    const binding = setupOutcomes[4].result;
+    const program = mini.publication.programs.find(
+      (candidate) =>
+        candidate.programRef === mini.ids.oneSurfaceProgramRef,
+    );
+    assert.ok(program?.actionCatalog);
+    start.payload.input = mini.constructObservationSnapshot({
+      workspaceBindingId: binding.bindingId,
+      workspaceBindingDigest: binding.bindingDigest,
+      actionCatalog: program.actionCatalog,
+      availableActionRefs: [],
+      changeAuthorityState: "requires_reprice",
+      name: "Margaret",
+    });
+    const unsupported = structuredClone(start);
+    unsupported.invocationRef =
+      "invocation://t272/external-one-surface-reprice-stop/unsupported-disposition";
+    unsupported.correlationId =
+      "correlation://t272/external-one-surface-reprice-stop/unsupported-disposition";
+    unsupported.payload.input = redigestObservationSnapshot({
+      ...unsupported.payload.input,
+      changeAuthorityState: "ticket_required",
+    });
+    const unsupportedOutcome =
+      await installedPublic.applyRootPublicInvocation(
+        setupContext,
+        unsupported,
+      );
+    assert.equal(
+      unsupportedOutcome.disposition,
+      "refused",
+      JSON.stringify(unsupportedOutcome),
+    );
+    assert.equal(unsupportedOutcome.runId, null);
+    setupOutcomes.push(
+      await installedPublic.applyRootPublicInvocation(setupContext, start),
+    );
+  } finally {
+    installedPublic.closeRootOperationContext(setupContext);
+  }
+
+  assert.equal(
+    setupOutcomes.slice(0, -1).every(
+      (outcome) => outcome.disposition === "succeeded",
+    ),
+    true,
+    JSON.stringify(setupOutcomes),
+  );
+  const stopped = setupOutcomes.at(-1);
+  assert.equal(
+    stopped.disposition,
+    "reprice_required",
+    JSON.stringify(stopped),
+  );
+  assert.equal(stopped.result.kind, "construction_no_action_stop");
+  assert.equal(
+    stopped.result.noActionDisposition,
+    "reprice_required",
+  );
+  assert.equal(
+    stopped.result.nextActionProjection.noActionDisposition,
+    "reprice_required",
+  );
+  assert.equal(stopped.replayAgreement, true);
+
+  const eventsBeforeRead = await readFile(scenario.eventLogPath, "utf8");
+  const events = eventsBeforeRead
+    .trim()
+    .split(/\r?\n/u)
+    .map((line) => JSON.parse(line));
+  const stopEvent = events.find((event) => event.kind === "run_stopped");
+  assert.equal(stopEvent?.payload.disposition, "reprice_required");
+  assert.equal(
+    events.filter(
+      (event) =>
+        event.kind === "traversal_route_admitted" &&
+        event.payload.routeKind === "gap_stop" &&
+        event.payload.nextActionProjection
+          ?.noActionDisposition === "reprice_required",
+    ).length,
+    1,
+  );
+  for (const prohibitedKind of [
+    "construction_intent_selected",
+    "fh_interaction_opened",
+    "terminal_reached",
+    "run_closed",
+  ]) {
+    assert.equal(
+      events.filter((event) => event.kind === prohibitedKind).length,
+      0,
+      prohibitedKind,
+    );
+  }
+
+  const read = await applyInFreshContext(
+    installedPublic,
+    invocation(
+      "abg.operation.project.read",
+      "gaps",
+      "invocation://t272/external-one-surface-reprice-stop/read",
+      {
+        gapAuthority: stopped.result.gapAuthority,
+        gapRef: stopped.result.gapRef,
+      },
+    ),
+  );
+  assert.equal(read.disposition, "succeeded", JSON.stringify(read));
+  assert.equal(read.result.constructionStatus, "reprice_required");
+  assert.equal(
+    read.result.nextActionProjection.noActionDisposition,
+    "reprice_required",
+  );
+  assert.equal(
+    await readFile(scenario.eventLogPath, "utf8"),
+    eventsBeforeRead,
+  );
+
+  const reentry = structuredClone(scenario.transcript.at(-1));
+  reentry.invocationRef =
+    "invocation://t272/external-one-surface-reprice-stop/reentry-refused";
+  reentry.correlationId =
+    "correlation://t272/external-one-surface-reprice-stop/reentry-refused";
+  reentry.payload.reentryAuthority = read.result.gapAuthority;
+  const refused = await applyInFreshContext(installedPublic, reentry);
+  assert.equal(refused.disposition, "refused", JSON.stringify(refused));
+  assert.equal(
+    await readFile(scenario.eventLogPath, "utf8"),
+    eventsBeforeRead,
   );
 });

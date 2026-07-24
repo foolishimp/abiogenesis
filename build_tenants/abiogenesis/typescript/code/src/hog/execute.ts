@@ -1291,7 +1291,10 @@ export async function completeExecutableTraversal<
     isRecord(result.value) &&
     result.value.kind === "next_action_projection" &&
     result.value.disposition === "no_action" &&
-    result.value.noActionDisposition === "gap_stop"
+    [
+      "gap_stop",
+      "reprice_required",
+    ].includes(String(result.value.noActionDisposition))
   ) {
     const proposal = proposeGapStopRoute(
       input.graph,

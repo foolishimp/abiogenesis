@@ -284,6 +284,29 @@ function isGreetingOutput(value: unknown): value is Readonly<{
     value.message.length > 0;
 }
 
+type DeveloperNoActionDisposition = "gap_stop" | "reprice_required";
+type DeveloperChangeAuthorityState = "unchanged" | "requires_reprice";
+
+function isDeveloperNoActionDisposition(
+  value: unknown,
+): value is DeveloperNoActionDisposition {
+  return value === "gap_stop" || value === "reprice_required";
+}
+
+function isDeveloperChangeAuthorityState(
+  value: unknown,
+): value is DeveloperChangeAuthorityState {
+  return value === "unchanged" || value === "requires_reprice";
+}
+
+function noActionReasonRef(
+  disposition: DeveloperNoActionDisposition,
+): string {
+  return disposition === "gap_stop"
+    ? DEVELOPER_MINI_IDS.gapStopReasonRef
+    : "reason://developer.example/greeting/constitutional-reprice-required@5";
+}
+
 function isProductAssetModel(value: unknown): value is Readonly<{
   kind: "developer_product_asset_model";
   schemaVersion: "5.0.0";
@@ -323,7 +346,7 @@ function isGapProjection(value: unknown): value is Readonly<{
   gapRef: string;
   modelRef: string;
   targetOutcomeRef: string;
-  pressure: "human_approval_required";
+  pressure: "constitutional_reprice_required" | "human_approval_required";
   obligationRefs: readonly string[];
   inputAssetRefs: readonly string[];
   missingAssetRefs: readonly string[];
@@ -342,7 +365,10 @@ function isGapProjection(value: unknown): value is Readonly<{
     ]) &&
     value.kind === "developer_gap_projection" &&
     value.schemaVersion === "5.0.0" &&
-    value.pressure === "human_approval_required" &&
+    (
+      value.pressure === "human_approval_required" ||
+      value.pressure === "constitutional_reprice_required"
+    ) &&
     typeof value.gapRef === "string" &&
     typeof value.modelRef === "string" &&
     value.targetOutcomeRef === DEVELOPER_MINI_IDS.targetOutcomeRef &&
@@ -436,6 +462,7 @@ function isObservationSnapshot(
     !hasExactKeys(value, [
       "actionCatalog",
       "availableActionRefs",
+      "changeAuthorityState",
       "constructionState",
       "kind",
       "observedInput",
@@ -454,6 +481,7 @@ function isObservationSnapshot(
     typeof value.snapshotDigest !== "string" ||
     value.targetOutcomeRef !== DEVELOPER_MINI_IDS.targetOutcomeRef ||
     !isGreetingInput(value.observedInput) ||
+    !isDeveloperChangeAuthorityState(value.changeAuthorityState) ||
     !isDeveloperActionCatalog(value.actionCatalog) ||
     !Array.isArray(value.availableActionRefs) ||
     value.availableActionRefs.some(
@@ -540,6 +568,7 @@ function targetObligationBinding(
   snapshotRef: JsonValue,
   disposition: "bound" | "fulfilled" | "unbound",
   eligibleActionRefs: readonly string[],
+  unboundReasonRef: string = DEVELOPER_MINI_IDS.gapStopReasonRef,
 ): Readonly<Record<string, JsonValue>> {
   return deepFreeze({
     kind: "target_obligation_binding",
@@ -552,7 +581,7 @@ function targetObligationBinding(
       ? "reason://developer.example/greeting/action-bound@5"
       : disposition === "fulfilled"
         ? "reason://developer.example/greeting/obligation-fulfilled@5"
-        : DEVELOPER_MINI_IDS.gapStopReasonRef,
+        : unboundReasonRef,
   });
 }
 
@@ -571,6 +600,7 @@ export function constructDeveloperObservationSnapshot(input: Readonly<{
   workspaceBindingDigest: `sha256:${string}`;
   actionCatalog: Readonly<Record<string, JsonValue>>;
   availableActionRefs?: readonly string[];
+  changeAuthorityState?: DeveloperChangeAuthorityState;
   name: string;
   priorGap?: Readonly<{
     gapRef: string;
@@ -595,6 +625,7 @@ export function constructDeveloperObservationSnapshot(input: Readonly<{
     availableActionRefs: input.availableActionRefs ?? [
       DEVELOPER_MINI_IDS.approvalActionRef,
     ],
+    changeAuthorityState: input.changeAuthorityState ?? "unchanged",
     constructionState: null,
     observedInput: {
       kind: "developer_greeting_input",
@@ -874,7 +905,7 @@ function isNextActionProjection(value: unknown): value is Readonly<
       `next-action-projection://product/${expectedDigest.slice("sha256:".length)}`;
 }
 
-const GAP_STOP_NEXT_ACTION_KEYS = Object.freeze([
+const NO_ACTION_NEXT_ACTION_KEYS = Object.freeze([
   "disposition",
   "gapRef",
   "kind",
@@ -895,16 +926,16 @@ const GAP_STOP_NEXT_ACTION_KEYS = Object.freeze([
   "targetOutcomeRef",
 ]);
 
-function isGapStopNextActionProjection(
+function isNoActionNextActionProjection(
   value: unknown,
 ): value is Readonly<Record<string, JsonValue>> {
   if (
     !isRecord(value) ||
-    !hasExactKeys(value, GAP_STOP_NEXT_ACTION_KEYS) ||
+    !hasExactKeys(value, NO_ACTION_NEXT_ACTION_KEYS) ||
     value.kind !== "next_action_projection" ||
     value.schemaVersion !== "5.0.0" ||
     value.disposition !== "no_action" ||
-    value.noActionDisposition !== "gap_stop" ||
+    !isDeveloperNoActionDisposition(value.noActionDisposition) ||
     typeof value.projectionRef !== "string" ||
     typeof value.projectionDigest !== "string" ||
     typeof value.nextActionBasisRef !== "string" ||
@@ -912,7 +943,7 @@ function isGapStopNextActionProjection(
     value.targetOutcomeRef !== DEVELOPER_MINI_IDS.targetOutcomeRef ||
     value.programRef !== DEVELOPER_MINI_IDS.oneSurfaceProgramRef ||
     typeof value.gapRef !== "string" ||
-    value.reasonRef !== DEVELOPER_MINI_IDS.gapStopReasonRef ||
+    value.reasonRef !== noActionReasonRef(value.noActionDisposition) ||
     !Array.isArray(value.targetObligationBindings) ||
     value.targetObligationBindings.length !== 1 ||
     !isRecord(value.targetObligationBindings[0]) ||
@@ -1645,6 +1676,7 @@ export function realizeDeveloperSynthesizeModel(
     targetObligationRefs: input.targetObligationRefs,
     actionCatalog: input.actionCatalog,
     availableActionRefs: input.availableActionRefs,
+    changeAuthorityState: input.changeAuthorityState,
     constructionState: input.constructionState,
     observedInput,
     priorGap: input.priorGap,
@@ -1681,7 +1713,9 @@ export function realizeDeveloperEvalGap(input: unknown): Readonly<object> {
     schemaVersion: "5.0.0" as const,
     modelRef: model.modelRef,
     targetOutcomeRef: DEVELOPER_MINI_IDS.targetOutcomeRef,
-    pressure: "human_approval_required" as const,
+    pressure: input.changeAuthorityState === "requires_reprice"
+      ? "constitutional_reprice_required" as const
+      : "human_approval_required" as const,
     obligationRefs: [DEVELOPER_MINI_IDS.approvalObligationRef],
     inputAssetRefs: model.assetRefs,
     missingAssetRefs: approvalAvailable
@@ -1784,10 +1818,15 @@ export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
     snapshot,
     DEVELOPER_MINI_IDS.approvalActionRef,
   );
+  const noActionDisposition: DeveloperNoActionDisposition =
+    gap.pressure === "constitutional_reprice_required"
+      ? "reprice_required"
+      : "gap_stop";
   const binding = targetObligationBinding(
     snapshot.snapshotRef,
     actionAvailable ? "bound" : "unbound",
     actionAvailable ? [DEVELOPER_MINI_IDS.approvalActionRef] : [],
+    noActionReasonRef(noActionDisposition),
   );
   const priority = priorityProjection(
     actionAvailable ? [DEVELOPER_MINI_IDS.approvalActionRef] : [],
@@ -1803,7 +1842,7 @@ export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
       kind: "next_action_projection" as const,
       schemaVersion: "5.0.0" as const,
       disposition: "no_action" as const,
-      noActionDisposition: "gap_stop" as const,
+      noActionDisposition,
       targetOutcomeRef: gap.targetOutcomeRef,
       programRef: DEVELOPER_MINI_IDS.oneSurfaceProgramRef,
       gapRef: gap.gapRef,
@@ -1812,7 +1851,7 @@ export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
       ],
       targetObligationBindings: [binding],
       missingAssetRefs: gap.missingAssetRefs,
-      reasonRef: DEVELOPER_MINI_IDS.gapStopReasonRef,
+      reasonRef: noActionReasonRef(noActionDisposition),
       lawfulBasisRefs: [
         input.basisRef,
         gap.gapRef,
@@ -2184,6 +2223,7 @@ export function realizeDeveloperRefreshModel(
     targetObligationRefs: prior.targetObligationRefs,
     actionCatalog: prior.actionCatalog,
     availableActionRefs: prior.availableActionRefs,
+    changeAuthorityState: prior.changeAuthorityState,
     constructionState: {
       actionEvaluationRef: input.actionEvaluationRef,
       constructionIntentRef: input.constructionIntentRef,
@@ -2368,7 +2408,7 @@ function isDeveloperSemanticStageAdvance(
     isNextActionBasis(input) &&
     (
       isNextActionProjection(output) ||
-      isGapStopNextActionProjection(output)
+      isNoActionNextActionProjection(output)
     )
   ) {
     return output.nextActionBasisRef === input.basisRef &&
@@ -2455,7 +2495,7 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
         return isActionEvaluationBasis(value);
       case "next_action_projection":
         return isNextActionProjection(value) ||
-          isGapStopNextActionProjection(value) ||
+          isNoActionNextActionProjection(value) ||
           isConvergedNextActionProjection(value);
       case "developer_human_approval":
         return isHumanApproval(value);

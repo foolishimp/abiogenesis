@@ -180,7 +180,7 @@ export function projectOutcome(
       latestCallContinuation.status === "open" ||
       latestCallContinuation.status === "responded"
     );
-  const gapRoute = latestCall === undefined
+  const noActionRoute = latestCall === undefined
     ? undefined
     : firstReplay.routes.find(
         (route) =>
@@ -188,22 +188,32 @@ export function projectOutcome(
           route.cCallRef === latestCall.cCallRef &&
           route.judgmentRef === latestCall.judgmentRef,
       );
-  const gapStopped =
+  const noActionDisposition =
+    noActionRoute?.nextActionProjection?.disposition === "no_action"
+      ? noActionRoute.nextActionProjection.noActionDisposition
+      : null;
+  const noActionStopped =
     replayAgreement &&
     eventLogAgreement &&
-    firstReplay.runtimeStatus === "gap_stopped" &&
+    (
+      noActionDisposition === "gap_stop"
+        ? firstReplay.runtimeStatus === "gap_stopped"
+        : firstReplay.runtimeStatus === "stopped"
+    ) &&
     firstReplay.runStoppedEventRef !== null &&
+    firstReplay.runStoppedDisposition === noActionDisposition &&
     latestCall?.status === "judged" &&
     latestCall.judgment === "advance" &&
-    gapRoute?.nextActionProjection?.disposition === "no_action" &&
-    gapRoute.nextActionProjection.noActionDisposition === "gap_stop" &&
+    noActionDisposition !== null &&
     !hasOpenLifecycleTruth(firstReplay);
   const disposition = closed
     ? "succeeded" as const
     : held
       ? "held" as const
-      : gapStopped
-        ? "gap_stop" as const
+      : noActionStopped
+        ? noActionDisposition === "gap_stop"
+          ? "gap_stop" as const
+          : "reprice_required" as const
       : firstReplay.runtimeStatus === "blocked"
       ? "blocked" as const
       : firstReplay.runtimeStatus === "failed"
@@ -227,19 +237,22 @@ export function projectOutcome(
           responseRef: latestContinuation.responseRef,
           continuationAuthority,
         }
-      : gapStopped && gapRoute?.nextActionProjection !== undefined
+      : noActionStopped && noActionRoute?.nextActionProjection !== undefined
         ? {
-            kind: "construction_gap_stop",
+            kind: noActionDisposition === "gap_stop"
+              ? "construction_gap_stop"
+              : "construction_no_action_stop",
             schemaVersion: "5.0.0",
-            gapRef: gapRoute.nextActionProjection.gapRef,
-            routeRef: gapRoute.routeRef,
-            routeDigest: gapRoute.routeDigest,
+            noActionDisposition,
+            gapRef: noActionRoute.nextActionProjection.gapRef,
+            routeRef: noActionRoute.routeRef,
+            routeDigest: noActionRoute.routeDigest,
             nextActionProjection:
-              gapRoute.nextActionProjection as unknown as JsonValue,
+              noActionRoute.nextActionProjection as unknown as JsonValue,
             gapAuthority,
           }
       : resultValue,
-    diagnosticRef: closed || held || gapStopped
+    diagnosticRef: closed || held || noActionStopped
       ? null
       : diagnosticFromEvent(eventLog, firstReplay.runtimeFailureEventRef) ??
         diagnosticFromEvent(eventLog, firstReplay.invocationRefusalEventRef) ??

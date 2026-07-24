@@ -10,9 +10,9 @@
     "payload": {
       "artifactPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/artifacts/abiogenesis-typescript-tenant-5.0.0-dev.286.tgz",
       "artifactRef": "abiogenesis-typescript-tenant-5.0.0-dev.286.tgz",
-      "expectedArtifactDigest": "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-      "expectedProductContentDigest": "sha256:84f0d7a75576637ac75e03b928285bfa301b36579029a671e0aac19ac13147d1",
-      "expectedManifestDigest": "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8",
+      "expectedArtifactDigest": "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+      "expectedProductContentDigest": "sha256:0635e99468368e66acecd8d6122346e66488aa8ed6758994cb0ffc93c8fcb323",
+      "expectedManifestDigest": "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141",
       "expectedProductId": "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
       "expectedPackageName": "@abiogenesis/typescript-tenant",
       "expectedPackageVersion": "5.0.0-dev.286"
@@ -69,11 +69,11 @@
         "moduleRef": "module://abiogenesis/conformance/hello-world@5",
         "moduleVersion": "5.0.0",
         "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
-        "artifactDigest": "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-        "productContentDigest": "sha256:84f0d7a75576637ac75e03b928285bfa301b36579029a671e0aac19ac13147d1",
-        "productManifestDigest": "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8",
-        "descriptorRef": "descriptor://abiogenesis/typescript-tenant/84f0d7a75576637ac75e03b928285bfa301b36579029a671e0aac19ac13147d1",
-        "contributionManifestRef": "contribution-manifest://abiogenesis/conformance/84f0d7a75576637ac75e03b928285bfa301b36579029a671e0aac19ac13147d1",
+        "artifactDigest": "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+        "productContentDigest": "sha256:0635e99468368e66acecd8d6122346e66488aa8ed6758994cb0ffc93c8fcb323",
+        "productManifestDigest": "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141",
+        "descriptorRef": "descriptor://abiogenesis/typescript-tenant/0635e99468368e66acecd8d6122346e66488aa8ed6758994cb0ffc93c8fcb323",
+        "contributionManifestRef": "contribution-manifest://abiogenesis/conformance/0635e99468368e66acecd8d6122346e66488aa8ed6758994cb0ffc93c8fcb323",
         "productSemanticsBinding": {
           "kind": "product_semantics_binding",
           "bindingRef": "product-semantics://abiogenesis/conformance@5",
@@ -3110,8 +3110,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3126,8 +3126,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3142,8 +3142,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3158,8 +3158,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3174,8 +3174,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3190,8 +3190,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3206,8 +3206,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3222,8 +3222,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3238,8 +3238,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3254,8 +3254,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3270,8 +3270,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3286,8 +3286,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3302,8 +3302,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3318,8 +3318,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3334,8 +3334,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3350,8 +3350,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3366,8 +3366,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3382,8 +3382,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           },
           {
@@ -3398,8 +3398,8 @@
               "compatibility://abiogenesis/major/5"
             ],
             "provenanceRefs": [
-              "sha256:13615f2aa564693f2f30b176687d351a4fd12c7e6b5787f51768721a4bc46084",
-              "sha256:a2bc96e417dff6a545fa80e0fba1779c5e3c64aab4d9ba4bab589d0eec637fe8"
+              "sha256:a7d45ef7781593c5d8218759a79070fa664e892eaff716188e85c4c8090fcc12",
+              "sha256:0cae4ef613e2b3bdca9010d068953cdcf0daed5e81fb3e69cd4221d80e248141"
             ]
           }
         ]

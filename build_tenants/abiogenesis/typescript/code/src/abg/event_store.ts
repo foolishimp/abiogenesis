@@ -1691,6 +1691,7 @@ function assertRuntimeEventContract(
       "blocked",
       "failed",
       "gap_stop",
+      "reprice_required",
       "operator_abort",
       "campaign_close",
     ].includes(
