@@ -700,19 +700,41 @@ async function applyRunInvoke(
   invocation: RootPublicInvocation,
   rawRequest: validator.RawAdmittedValue<RootPublicInvocation>,
 ): Promise<PublicOutcome> {
-  if (invocation.variant !== "direct") {
-    throw new ApplicationRefusal("invalid_request", "run.invoke requires variant direct");
+  if (invocation.variant !== "direct" && invocation.variant !== "start") {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "run.invoke requires the declared direct or start variant",
+    );
   }
-  requireExactPayloadKeys(invocation.payload, [
-    "actorRef",
-    "catalogViewInvocationRef",
-    "eventLogPath",
-    "graphFunctionRef",
-    "input",
-    "installInvocationRef",
-    "programRef",
-    "workspaceBindingInvocationRef",
-  ], "run.invoke");
+  requireExactPayloadKeys(
+    invocation.payload,
+    invocation.variant === "direct"
+      ? [
+          "actorRef",
+          "catalogViewInvocationRef",
+          "eventLogPath",
+          "graphFunctionRef",
+          "input",
+          "installInvocationRef",
+          "programRef",
+          "workspaceBindingInvocationRef",
+        ]
+      : [
+          "actorRef",
+          "catalogViewInvocationRef",
+          "eventLogPath",
+          "input",
+          "installInvocationRef",
+          "programRef",
+          "rootMode",
+          "scope",
+          "startRef",
+          "target",
+          "until",
+          "workspaceBindingInvocationRef",
+        ],
+    "run.invoke",
+  );
   const installState = required(
     context.productState.install(stringField(invocation.payload, "installInvocationRef")),
     stringField(invocation.payload, "installInvocationRef"),
@@ -740,14 +762,44 @@ async function applyRunInvoke(
     );
   }
   const programRef = stringField(invocation.payload, "programRef");
-  const graphFunctionRef = stringField(invocation.payload, "graphFunctionRef");
   const programValue = viewState.catalogState.publication.programs.find(
     (value) => value.programRef === programRef,
   );
+  if (programValue === undefined) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke Program is absent from the admitted publication",
+    );
+  }
+  const start = invocation.variant === "start"
+    ? programValue.starts.find(
+        (value) =>
+          value.startRef === stringField(invocation.payload, "startRef"),
+      )
+    : undefined;
+  if (
+    invocation.variant === "start" &&
+    (
+      start === undefined ||
+      stringField(invocation.payload, "scope") !== "program" ||
+      stringField(invocation.payload, "target") !== start.startRef ||
+      stringField(invocation.payload, "until") !== "converged" ||
+      stringField(invocation.payload, "rootMode") !== "supervised" ||
+      programValue.policies["abg.root_mode"] !== "supervised"
+    )
+  ) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke start requires one admitted supervised Program start with exact scope, target, and convergence policy",
+    );
+  }
+  const graphFunctionRef = invocation.variant === "direct"
+    ? stringField(invocation.payload, "graphFunctionRef")
+    : start!.graphFunctionRef;
   const graphFunction = viewState.catalogState.publication.graphFunctions.find(
     (value) => value.name === graphFunctionRef,
   );
-  if (programValue === undefined || graphFunction === undefined) {
+  if (graphFunction === undefined) {
     throw new ApplicationRefusal("target_mismatch", "run.invoke target is absent from the admitted publication");
   }
   const selectedRow = viewState.view.selectedRows.find(
@@ -823,7 +875,9 @@ async function applyRunInvoke(
   if (authority.kind !== "invocation_authority") {
     throw new ApplicationRefusal("owner_refusal", `Invocation authority refused: ${authority.message}`);
   }
-  const candidate = product.constructDirectInvocation(
+  const candidate = (invocation.variant === "direct"
+    ? product.constructDirectInvocation
+    : product.constructStartInvocation)(
     workspaceState.binding,
     viewState.view,
     programValue,
@@ -1155,6 +1209,8 @@ async function applyRunInvoke(
       catalogView: viewState.view,
       program: programValue,
       graph,
+      invocationInput:
+        admittedInput as unknown as Readonly<Record<string, product.JsonValue>>,
       closureContract,
     });
     continuationLocatorMap(context).set(
@@ -1322,6 +1378,8 @@ function reopenContinuation(
     rootInvocation.graphFunctionRef !== state.graph.graphFunctionRef ||
     state.catalog.catalogId !== state.catalogView.catalogId ||
     state.catalog.catalogDigest !== state.catalogView.catalogDigest ||
+    state.graph.admittedInputDigest !==
+      product.sha256Canonical(state.invocationInput) ||
     !abg.hasAdmittedProductInstall(reopened.store, state.install) ||
     !abg.hasAdmittedWorkspaceBinding(reopened.store, state.workspaceBinding) ||
     !abg.hasAdmittedCatalog(reopened.store, state.catalog) ||
@@ -1695,7 +1753,7 @@ async function applyRunContinue(
         causationEventRefs: [],
       },
     );
-    const completion = hog.completeInteractionResume({
+    let completion = hog.completeInteractionResume({
       store: context.store,
       executionBasis: rehydrated.executionBasis,
       graph: state.graph,
@@ -1711,6 +1769,122 @@ async function applyRunContinue(
         correlationId: `${invocation.correlationId}/hog`,
       },
     });
+    if (completion.disposition === "advanced") {
+      if (
+        completion.nextCursor === null ||
+        completion.resultValue === null ||
+        typeof completion.resultValue !== "object" ||
+        Array.isArray(completion.resultValue)
+      ) {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "advanced interaction resume lacks its GTL-derived cursor and admitted response",
+        );
+      }
+      const publication = state.catalog.modulePublication;
+      const graphFunction = publication.graphFunctions.find(
+        (value) => value.name === state.graph.graphFunctionRef,
+      );
+      const publicationAdmission = rawAdmission<ModulePublication>(
+        publication,
+        "module_publication",
+        "contract://abiogenesis/gtl/module-publication@5",
+      );
+      const programValidation = validator.validateProgram(
+        rawProgramInput(publicationAdmission, state.program),
+      );
+      if (
+        graphFunction === undefined ||
+        programValidation.kind !== "program_validation" ||
+        programValidation.validationRef !==
+          rehydrated.executionBasis.programValidationRef
+      ) {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "continued run could not reproduce its admitted Program validation",
+        );
+      }
+      const graphValidation = validator.validateGraph(
+        state.graph,
+        programValidation,
+        graphFunction,
+        {
+          invocationAdmissionRef: rootInvocation.invocationAdmissionRef,
+          admittedInputRef: state.graph.admittedInputRef,
+          admittedInputDigest: state.graph.admittedInputDigest,
+          admittedInput: state.invocationInput,
+        },
+      );
+      const implementationSet = abg.rehydrateAdmittedImplementationSet(
+        context.store,
+        rehydrated.executionBasis.implementationSetRef,
+      );
+      const interactionSet = abg.rehydrateAdmittedInteractionSet(
+        context.store,
+        rehydrated.executionBasis.interactionSetRef,
+      );
+      if (
+        graphValidation.kind !== "graph_validation" ||
+        graphValidation.validationRef !==
+          rehydrated.executionBasis.graphValidationRef ||
+        implementationSet === null ||
+        interactionSet === null
+      ) {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "continued run could not reproduce its admitted Graph and execution sets",
+        );
+      }
+      const leafPort = await implementation.constructAdmittedLeafInvocationPort({
+        store: context.store,
+        install: state.install,
+        implementationSet,
+        publication,
+      });
+      const childTraversalPreparationPort = bindChildTraversalPreparationPort({
+        store: context.store,
+        publication,
+        program: state.program,
+        programValidation,
+        rootImplementationSet: implementationSet,
+        rootInteractionSet: interactionSet,
+      });
+      completion = await hog.executeGraphTraversal({
+        store: context.store,
+        executionBasis: rehydrated.executionBasis,
+        openedTraversalScope: rehydrated.openedTraversalScope,
+        program: state.program,
+        graphFunction,
+        graph: state.graph,
+        graphValidation,
+        implementationSet,
+        interactionSet,
+        continuationProductBasis: {
+          install: state.install,
+          workspaceBinding: state.workspaceBinding,
+          catalogView: state.catalogView,
+          programValidation,
+          graphValidation,
+        },
+        leafPort,
+        childTraversalPreparationPort,
+        closureContract: state.closureContract,
+        actorRuntimeBinding: {
+          workspaceBinding: state.workspaceBinding,
+        },
+        input: state.invocationInput,
+        inputDigest: state.graph.admittedInputDigest,
+        eventTime: invocation.eventTime,
+        correlationId: `${invocation.correlationId}/hog/resumed`,
+        resume: {
+          cursor: completion.nextCursor,
+          input: completion.resultValue as Readonly<
+            Record<string, product.JsonValue>
+          >,
+          inputDigest: resume.responseDigest,
+        },
+      });
+    }
     const firstReplay = abg.replay(context.store, {
       runId: state.runId,
     });

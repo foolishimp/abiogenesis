@@ -10,6 +10,7 @@ import {
   type InvocationAuthority,
   type InvocationPolicyBasis,
   type PublicInvocationCandidate,
+  type RunInvocationVariant,
   type WorkspaceBinding,
 } from "../product/index.js";
 import {
@@ -62,6 +63,7 @@ export interface InvocationAdmission {
   readonly invocationAdmissionDigest: Sha256Digest;
   readonly invocationRef: string;
   readonly invocationDigest: Sha256Digest;
+  readonly invocationVariant: RunInvocationVariant;
   readonly rawInputAdmissionRef: string;
   readonly rawInputDigest: Sha256Digest;
   readonly publicRequestAdmissionRef: string;
@@ -144,6 +146,7 @@ export function hasAdmittedInvocation(
   const body = {
     invocationRef: admission.invocationRef,
     invocationDigest: admission.invocationDigest,
+    invocationVariant: admission.invocationVariant,
     rawInputAdmissionRef: admission.rawInputAdmissionRef,
     rawInputDigest: admission.rawInputDigest,
     publicRequestAdmissionRef: admission.publicRequestAdmissionRef,
@@ -178,6 +181,7 @@ export function hasAdmittedInvocation(
     publicEvent?.kind === "public_operation_admitted" &&
     isRecord(publicEvent.payload) &&
     publicEvent.payload.operationId === "abg.operation.run.invoke" &&
+    publicEvent.payload.variant === admission.invocationVariant &&
     publicEvent.payload.invocationRef === admission.invocationRef &&
     publicEvent.payload.invocationDigest === admission.invocationDigest &&
     publicEvent.payload.authorityRef === admission.authorityRef &&
@@ -294,6 +298,28 @@ export function admitInvocation(
   const requestPayload = isRecord(request) && isRecord(request.payload)
     ? request.payload
     : null;
+  const rawTargetMatches =
+    requestPayload !== null &&
+    requestPayload.programRef === input.invocation.programRef &&
+    (
+      (
+        input.invocation.variant === "direct" &&
+        requestPayload.graphFunctionRef === input.invocation.graphFunctionRef
+      ) ||
+      (
+        input.invocation.variant === "start" &&
+        typeof requestPayload.startRef === "string" &&
+        requestPayload.scope === "program" &&
+        requestPayload.target === requestPayload.startRef &&
+        requestPayload.until === "converged" &&
+        requestPayload.rootMode === "supervised" &&
+        input.program.starts.some(
+          (start) =>
+            start.startRef === requestPayload.startRef &&
+            start.graphFunctionRef === input.invocation.graphFunctionRef,
+        )
+      )
+    );
   if (
     !isRawAdmittedValue(input.rawRequest) ||
     input.rawRequest.subjectKind !== "public_operation_request" ||
@@ -302,11 +328,9 @@ export function admitInvocation(
     input.rawRequest.subjectDigest !== input.invocation.publicRequestDigest ||
     !isRecord(request) ||
     request.operationId !== "abg.operation.run.invoke" ||
-    request.variant !== "direct" ||
+    request.variant !== input.invocation.variant ||
     request.invocationRef !== input.invocation.publicRequestInvocationRef ||
-    requestPayload === null ||
-    requestPayload.programRef !== input.invocation.programRef ||
-    requestPayload.graphFunctionRef !== input.invocation.graphFunctionRef
+    !rawTargetMatches
   ) {
     return refusal(
       "authority_mismatch",
@@ -354,6 +378,7 @@ export function admitInvocation(
   const admissionBody = {
     invocationRef: input.invocation.invocationRef,
     invocationDigest: input.invocation.invocationDigest,
+    invocationVariant: input.invocation.variant,
     rawInputAdmissionRef: input.rawInput.admissionRef,
     rawInputDigest: input.rawInput.subjectDigest,
     publicRequestAdmissionRef: input.rawRequest.admissionRef,
@@ -395,7 +420,7 @@ export function admitInvocation(
       operationId: "abg.operation.run.invoke",
       definitionKey: basis.definitionKey,
       definitionDigest: basis.definitionDigest,
-      variant: "direct",
+      variant: input.invocation.variant,
       invocationRef: input.invocation.invocationRef,
       invocationDigest: input.invocation.invocationDigest,
       actorRef: input.authority.actorRef,

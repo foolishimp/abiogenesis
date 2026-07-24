@@ -474,6 +474,7 @@ function hasInteractionResumeRouteEvidence(
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
+  targetCursor: TraversalCursorCandidate | null,
   candidate: RouteCandidate,
   evidence: InteractionResumeRouteAdmissionEvidence | null,
 ): evidence is InteractionResumeRouteAdmissionEvidence {
@@ -493,7 +494,6 @@ function hasInteractionResumeRouteEvidence(
   );
   return term.kind !== "c_source_path_refusal" &&
     isInteractionCLeaf(term) &&
-    isDeclaredTerminalSource(graph, sourceCursor) &&
     hasOpenedCCall(store, evidence.cCall) &&
     isAdmittedCCallResult(evidence.result) &&
     isAdmittedCCallJudgment(evidence.judgment) &&
@@ -524,11 +524,18 @@ function hasInteractionResumeRouteEvidence(
     sourceCursor.inputDigest === evidence.resume.responseDigest &&
     candidate.cCallRef === evidence.cCall.cCallRef &&
     candidate.judgmentRef === evidence.judgment.judgmentRef &&
-    candidate.targetCursorRef === null &&
-    candidate.targetCursorDigest === null &&
-    candidate.consumedAvailabilityRefs.length === 1 &&
-    candidate.consumedAvailabilityRefs[0] === evidence.resume.admissionEventRef &&
-    candidate.contractRef === evidence.cCall.transitionContractRef;
+    sameValues(candidate.consumedAvailabilityRefs, [
+      evidence.judgment.judgmentRef,
+      evidence.resume.admissionEventRef,
+    ]) &&
+    candidate.contractRef === evidence.cCall.transitionContractRef &&
+    isDeclaredInteractionResumeTarget(
+      graph,
+      sourceCursor,
+      targetCursor,
+      candidate,
+      evidence.resume,
+    );
 }
 
 function hasRetryRouteEvidence(
@@ -755,6 +762,70 @@ function isDeclaredTerminalSource(
     graph.template.terminalNodeRefs.includes(source.currentNodeRef);
 }
 
+function isDeclaredInteractionResumeTarget(
+  graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate,
+  target: TraversalCursorCandidate | null,
+  candidate: RouteCandidate,
+  resume: FhInteractionResumeAdmission,
+): boolean {
+  const continuation = deriveCSourceContinuation(
+    graph.template,
+    source.currentNodeRef,
+    source.termPath,
+  );
+  if (continuation.kind === "c_source_path_refusal") return false;
+  if (continuation.disposition === "terminal") {
+    return candidate.routeKind === "terminal" &&
+      target === null &&
+      candidate.targetCursorRef === null &&
+      candidate.targetCursorDigest === null &&
+      isDeclaredTerminalSource(graph, source);
+  }
+  if (
+    candidate.routeKind !== "advance" ||
+    continuation.disposition !== "advance" ||
+    continuation.targetPath === null ||
+    target === null ||
+    !hasSameCursorLineage(source, target) ||
+    candidate.targetCursorRef !== target.cursorRef ||
+    candidate.targetCursorDigest !== target.cursorDigest ||
+    continuation.targetRetryDepth > source.retryPath.length
+  ) {
+    return false;
+  }
+  const retryPath = source.retryPath.slice(0, continuation.targetRetryDepth);
+  let inputRef = resume.responseRef;
+  let inputDigest = resume.responseDigest;
+  if (continuation.relation === "batch_next") {
+    const batchRef = resolveEnclosingCBatchRef(
+      graph.template,
+      source.currentNodeRef,
+      source.termPath,
+    );
+    const memberInput = typeof batchRef === "string"
+      ? materializedMemberInput(
+          graph,
+          batchRef,
+          continuation.targetTaskOrdinal,
+        )
+      : null;
+    inputRef = memberInput?.inputRef ?? source.inputRef;
+    inputDigest = memberInput?.inputDigest ?? source.inputDigest;
+  }
+  const targetNodeRef = continuation.targetPath[0] === "node"
+    ? continuation.targetPath[1]
+    : null;
+  return targetNodeRef !== null &&
+    target.currentNodeRef === targetNodeRef &&
+    sameValues(target.termPath, continuation.targetPath) &&
+    target.inputRef === inputRef &&
+    target.inputDigest === inputDigest &&
+    target.taskOrdinal === continuation.targetTaskOrdinal &&
+    target.attempt === (retryPath.at(-1) ?? 1) &&
+    sameValues(target.retryPath.map(String), retryPath.map(String));
+}
+
 export function admitRoute(
   store: AbgEventStore,
   executionBasis: ExecutionBasis,
@@ -873,6 +944,7 @@ export function admitRoute(
         executionBasis,
         graph,
         sourceCursor,
+        null,
         candidate,
         resumeEvidence,
       )) {
@@ -940,6 +1012,25 @@ export function admitRoute(
           "structural route is not the exact next cursor declared by the original GTL term",
         );
       }
+    } else if ("resume" in evidence) {
+      if (
+        candidate.routeKind !== "advance" ||
+        !hasInteractionResumeRouteEvidence(
+          store,
+          executionBasis,
+          graph,
+          sourceCursor,
+          targetCursor,
+          candidate,
+          evidence,
+        )
+      ) {
+        return refusal(
+          "judgment_mismatch",
+          "F_H advance route requires the exact admitted response and declared target",
+        );
+      }
+      causationEventRef = evidence.resume.admissionEventRef;
     } else if ("completion" in evidence) {
       if (
         candidate.routeKind !== "advance" ||

@@ -79,7 +79,7 @@ import {
   proposeBlockedRoute,
   proposeFanOutRoute,
   proposeHoldRoute,
-  proposeInteractionResumeTerminalRoute,
+  proposeInteractionResumeRoute,
   proposeJudgedRoute,
   proposeRecursionRoute,
   proposeRetryRoute,
@@ -511,9 +511,22 @@ export function completeInteractionResume(
 ): ExecutableTraversalCompletion {
   const { cCall, result, judgment } = input.heldInteraction;
   const beforeRoute = replay(input.store, { runId: cCall.runId });
-  const routeCandidate = proposeInteractionResumeTerminalRoute(
+  const continuationStep = deriveCompletedTraversalStep(
     input.graph,
     input.successorCursor,
+    {
+      inputRef: input.resume.responseRef,
+      inputDigest: input.resume.responseDigest,
+    },
+  );
+  if (continuationStep.kind !== "traversal_step") {
+    throw new TypeError(
+      `F_H resume continuation refused: ${continuationStep.code}: ${continuationStep.message}`,
+    );
+  }
+  const routeCandidate = proposeInteractionResumeRoute(
+    input.graph,
+    continuationStep,
     cCall,
     judgment,
     input.resume,
@@ -530,7 +543,7 @@ export function completeInteractionResume(
     input.executionBasis,
     input.graph,
     input.successorCursor,
-    null,
+    continuationStep.targetCursor,
     beforeRoute,
     routeCandidate,
     basis(input.clock, "fh-resume-route"),
@@ -544,6 +557,33 @@ export function completeInteractionResume(
   if (route.kind !== "admitted_traversal_route") {
     throw new TypeError(
       `F_H resume route admission refused: ${route.code}: ${route.message}`,
+    );
+  }
+  if (route.routeKind === "advance") {
+    const nextCursor = applyRoute(continuationStep, route);
+    if (nextCursor.kind === "traversal_refusal") {
+      throw new TypeError(
+        `F_H resume route application refused: ${nextCursor.code}: ${nextCursor.message}`,
+      );
+    }
+    return completion(
+      "advanced",
+      replay(input.store, { runId: cCall.runId }),
+      {
+        cCallRef: cCall.cCallRef,
+        resultRef: input.resume.responseRef,
+        judgmentRef: judgment.judgmentRef,
+        nextCursor,
+        resultValue: input.resume.responseValue,
+        continuationKind: "advance",
+        nextInputContractRef:
+          cCall.responseContractRef ?? cCall.outputContractRef,
+      },
+    );
+  }
+  if (route.routeKind !== "terminal") {
+    throw new TypeError(
+      `F_H resume admitted unexpected route ${route.routeKind}`,
     );
   }
   const afterRoute = replay(input.store, { runId: cCall.runId });

@@ -36,6 +36,7 @@ export interface PublicContinuationAuthority {
   readonly catalogView: CatalogView;
   readonly program: Readonly<GtlProgram>;
   readonly graph: Readonly<GtlGraph>;
+  readonly invocationInput: Readonly<Record<string, JsonValue>>;
   readonly closureContract: Readonly<ClosureContract>;
   readonly authorityDigest: Sha256Digest;
 }
@@ -53,6 +54,7 @@ const AUTHORITY_KEYS = Object.freeze([
   "continuationRef",
   "graph",
   "install",
+  "invocationInput",
   "invocationAdmissionRef",
   "kind",
   "outputContractRef",
@@ -145,6 +147,7 @@ export function parsePublicContinuationAuthority(
     value.program.kind !== "gtl_program" ||
     !isRecord(value.graph) ||
     value.graph.kind !== "gtl_graph" ||
+    !isRecord(value.invocationInput) ||
     !isRecord(value.closureContract) ||
     value.closureContract.kind !== "closure_contract" ||
     !isSha256Digest(value.authorityDigest)

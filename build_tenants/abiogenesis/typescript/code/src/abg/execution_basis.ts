@@ -414,6 +414,70 @@ export function hasAdmittedInteractionSet(
   );
 }
 
+export function rehydrateAdmittedImplementationSet(
+  store: AbgEventStore,
+  implementationSetRef: string,
+): AdmittedImplementationSet | null {
+  const matches = store.readAll().filter(
+    (event) =>
+      event.kind === "implementation_admitted" &&
+      isJsonRecord(event.payload) &&
+      event.payload.implementationSetRef === implementationSetRef &&
+      event.payload.implementationSet !== undefined &&
+      isJsonRecord(event.payload.implementationSet),
+  );
+  if (matches.length !== 1) return null;
+  const event = matches[0]!;
+  if (
+    !isJsonRecord(event.payload) ||
+    event.payload.implementationSet === undefined ||
+    !isJsonRecord(event.payload.implementationSet)
+  ) {
+    return null;
+  }
+  const set = deepFreeze({
+    kind: "admitted_implementation_set" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    ...event.payload.implementationSet,
+    admissionEventRef: event.eventId,
+  }) as unknown as AdmittedImplementationSet;
+  implementationSets.add(set);
+  return hasAdmittedImplementationSet(store, set) ? set : null;
+}
+
+export function rehydrateAdmittedInteractionSet(
+  store: AbgEventStore,
+  interactionSetRef: string,
+): AdmittedInteractionSet | null {
+  const matches = store.readAll().filter(
+    (event) =>
+      event.kind === "implementation_admitted" &&
+      isJsonRecord(event.payload) &&
+      event.payload.interactionSetRef === interactionSetRef &&
+      event.payload.interactionSet !== undefined &&
+      isJsonRecord(event.payload.interactionSet),
+  );
+  if (matches.length !== 1) return null;
+  const event = matches[0]!;
+  if (
+    !isJsonRecord(event.payload) ||
+    event.payload.interactionSet === undefined ||
+    !isJsonRecord(event.payload.interactionSet)
+  ) {
+    return null;
+  }
+  const set = deepFreeze({
+    kind: "admitted_interaction_set" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    ...event.payload.interactionSet,
+    admissionEventRef: event.eventId,
+  }) as unknown as AdmittedInteractionSet;
+  interactionSets.add(set);
+  return hasAdmittedInteractionSet(store, set) ? set : null;
+}
+
 export function hasAdmittedImplementationResolution(
   store: AbgEventStore,
   resolution: AdmittedImplementationResolution,

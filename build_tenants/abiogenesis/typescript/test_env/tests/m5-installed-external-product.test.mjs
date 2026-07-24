@@ -73,6 +73,8 @@ async function externalScenario(
   const programRef = target.programRef ?? mini.ids.programRef;
   const graphFunctionRef =
     target.graphFunctionRef ?? mini.ids.graphFunctionRef;
+  const runVariant = target.runVariant ?? "direct";
+  const startRef = target.startRef ?? null;
   const input = target.input ?? {
     kind: "developer_greeting_input",
     schemaVersion: "5.0.0",
@@ -137,15 +139,23 @@ async function externalScenario(
       catalogInvocationRef: refs.catalog,
       allowlist: [graphFunctionRef],
     }),
-    invocation("abg.operation.run.invoke", "direct", refs.run, {
+    invocation("abg.operation.run.invoke", runVariant, refs.run, {
       installInvocationRef: refs.installMini,
       workspaceBindingInvocationRef: refs.bind,
       catalogViewInvocationRef: refs.view,
       programRef,
-      graphFunctionRef,
       actorRef: "actor://developer.example/trusted-developer",
       input,
       eventLogPath: join(eventLogRoot, "developer-product.events.jsonl"),
+      ...(runVariant === "start"
+        ? {
+            rootMode: "supervised",
+            scope: "program",
+            startRef,
+            target: startRef,
+            until: "converged",
+          }
+        : { graphFunctionRef }),
     }),
   ];
   const transcriptPath = join(root, "external-product.transcript.jsonl");
@@ -516,33 +526,42 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
         },
       ),
     );
-    assert.equal(completed.disposition, "succeeded", JSON.stringify(completed));
+    const events = (await readFile(scenario.eventLogPath, "utf8"))
+      .trim()
+      .split(/\r?\n/u)
+      .map((line) => JSON.parse(line));
+    assert.equal(
+      completed.disposition,
+      "succeeded",
+      JSON.stringify({
+        completed,
+        runtimeFailures: events.filter(
+          (event) => event.kind === "runtime_failure_observed",
+        ),
+      }),
+    );
     assert.equal(completed.continuationStatus, "resolved");
     assert.equal(completed.runId, held.runId);
     assert.equal(completed.replayAgreement, true);
     assert.deepEqual(completed.result, response);
 
-    const events = (await readFile(scenario.eventLogPath, "utf8"))
-      .trim()
-      .split(/\r?\n/u)
-      .map((line) => JSON.parse(line));
     assert.deepEqual(
       events
         .filter((event) => event.kind === "c_call_fibre_selected")
         .map((event) => event.payload.regime),
-      ["F_D", "F_P", "F_H"],
+      ["F_D", "F_P", "F_H", "F_D"],
     );
     assert.equal(
       events.filter((event) => event.kind === "c_call_opened").length,
-      3,
+      4,
     );
     assert.equal(
       events.filter((event) => event.kind === "c_call_result_admitted").length,
-      3,
+      4,
     );
     assert.equal(
       events.filter((event) => event.kind === "c_call_judged").length,
-      3,
+      4,
     );
     assert.deepEqual(
       events
@@ -571,4 +590,169 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
       process.env.ABG_TS_CLAUDE_COMMAND = priorCommand;
     }
   }
+});
+
+test("M5 starts an external supervised GTL Program whose One Surface order survives F_H continuation", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    "external-one-surface",
+    mini.publication,
+    {
+      runVariant: "start",
+      startRef: mini.ids.oneSurfaceStartRef,
+      programRef: mini.ids.oneSurfaceProgramRef,
+      graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
+      input: {
+        kind: "developer_greeting_input",
+        schemaVersion: "5.0.0",
+        name: "Margaret",
+      },
+    },
+  );
+  const publicApi = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    )).href}?external-one-surface=${Date.now()}`
+  );
+  const operationContext = publicApi.createRootOperationContext();
+  const setupOutcomes = [];
+  try {
+    for (const row of scenario.transcript.slice(0, -1)) {
+      setupOutcomes.push(
+        await publicApi.applyRootPublicInvocation(operationContext, row),
+      );
+    }
+    const validStart = scenario.transcript.at(-1);
+    const callerSelectedGraphFunction = await publicApi.applyRootPublicInvocation(
+      operationContext,
+      {
+        ...validStart,
+        invocationRef: `${validStart.invocationRef}/caller-selected-graph-function`,
+        payload: {
+          ...validStart.payload,
+          graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
+        },
+      },
+    );
+    assert.equal(callerSelectedGraphFunction.disposition, "refused");
+    assert.equal(callerSelectedGraphFunction.result.code, "invalid_request");
+    setupOutcomes.push(
+      await publicApi.applyRootPublicInvocation(operationContext, validStart),
+    );
+  } finally {
+    publicApi.closeRootOperationContext(operationContext);
+  }
+  assert.equal(
+    setupOutcomes.slice(0, -1).every(
+      (outcome) => outcome.disposition === "succeeded",
+    ),
+    true,
+    JSON.stringify(setupOutcomes),
+  );
+  const held = setupOutcomes.at(-1);
+  assert.equal(held.disposition, "held", JSON.stringify(held));
+  assert.equal(held.variant, "start");
+  assert.equal(held.continuationStatus, "open");
+  const continuationRef = held.continuationRef;
+  const openAuthority = JSON.parse(
+    JSON.stringify(held.result.continuationAuthority),
+  );
+  const actorRef = "actor://developer.example/trusted-developer";
+  const response = {
+    kind: "developer_greeting_output",
+    schemaVersion: "5.0.0",
+    message: "Welcome Margaret.",
+  };
+
+  const frontier = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "status",
+      "invocation://t272/external-one-surface/read-frontier",
+      {
+        continuationAuthority: openAuthority,
+        continuationRef,
+      },
+    ),
+  );
+  assert.equal(frontier.disposition, "succeeded", JSON.stringify(frontier));
+  assert.equal(frontier.result.status, "open");
+  assert.equal(frontier.result.continuationRef, continuationRef);
+
+  const responded = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.interaction.respond",
+      "approve",
+      "invocation://t272/external-one-surface/respond",
+      {
+        actorRef,
+        capabilityRef: mini.ids.actorCapabilityRef,
+        continuationAuthority: openAuthority,
+        continuationRef,
+        response,
+      },
+    ),
+  );
+  assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
+  const completed = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.run.continue",
+      "current_intent",
+      "invocation://t272/external-one-surface/continue",
+      {
+        actorRef,
+        capabilityRef: mini.ids.actorCapabilityRef,
+        continuationAuthority: JSON.parse(
+          JSON.stringify(responded.result.continuationAuthority),
+        ),
+        continuationRef,
+      },
+    ),
+  );
+  const events = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim()
+    .split(/\r?\n/u)
+    .map((line) => JSON.parse(line));
+  assert.equal(
+    completed.disposition,
+    "succeeded",
+    JSON.stringify({
+      completed,
+      runtimeFailures: events.filter(
+        (event) => event.kind === "runtime_failure_observed",
+      ),
+    }),
+  );
+  assert.deepEqual(completed.result, response);
+  assert.equal(completed.continuationStatus, "resolved");
+  assert.equal(completed.runId, held.runId);
+  assert.equal(completed.replayAgreement, true);
+  assert.deepEqual(
+    events
+      .filter((event) => event.kind === "c_call_opened")
+      .map((event) => event.payload.programLocusRef),
+    [
+      mini.ids.synthesizeModelLocusRef,
+      mini.ids.evalGapLocusRef,
+      mini.ids.evaluateNextLocusRef,
+      mini.ids.interactionLocusRef,
+      mini.ids.evaluateActionLocusRef,
+    ],
+  );
+  const admittedInvocation = events.find(
+    (event) => event.kind === "invocation_admitted",
+  );
+  assert.equal(admittedInvocation.payload.invocationVariant, "start");
+  assert.equal(
+    admittedInvocation.payload.graphFunctionRef,
+    mini.ids.oneSurfaceGraphFunctionRef,
+  );
+  assert.equal(events.filter((event) => event.kind === "run_closed").length, 1);
 });

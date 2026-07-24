@@ -67,11 +67,13 @@ export {
   constructDirectInvocation,
   constructInvocationAuthority,
   constructRootInvocationPolicy,
+  constructStartInvocation,
   type CapabilityGrant,
   type InvocationAuthority,
   type InvocationConstructionRefusal,
   type InvocationPolicyBasis,
   type PublicInvocationCandidate,
+  type RunInvocationVariant,
 } from "./invocation.js";
 export {
   isImplementationResolutionSetCandidate,

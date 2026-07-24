@@ -435,7 +435,91 @@ export function proposeInteractionResumeTerminalRoute(
     targetCursorDigest: null,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
-    consumedAvailabilityRefs: [resume.admissionEventRef] as const,
+    consumedAvailabilityRefs: [
+      judgment.judgmentRef,
+      resume.admissionEventRef,
+    ] as const,
+    contractRef,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}
+
+export function proposeInteractionResumeRoute(
+  graph: Readonly<GtlGraph>,
+  step: TraversalStep,
+  cCall: CCall,
+  judgment: AdmittedCCallJudgment,
+  resume: FhInteractionResumeAdmission,
+  replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal {
+  const cursor = step.sourceCursor;
+  const continuation = deriveCSourceContinuation(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  const terminal =
+    continuation.kind === "c_source_continuation" &&
+    continuation.disposition === "terminal" &&
+    continuation.targetPath === null &&
+    step.directStep.stepKind === "complete_term" &&
+    step.targetCursor === null &&
+    graph.template.terminalNodeRefs.includes(cursor.currentNodeRef);
+  const advancing =
+    continuation.kind === "c_source_continuation" &&
+    continuation.disposition === "advance" &&
+    continuation.targetPath !== null &&
+    step.directStep.stepKind === "continue_term" &&
+    step.targetCursor !== null;
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !isTraversalStep(step) ||
+    cursor.graphRef !== graph.materializationRef ||
+    cursor.frameId !== cCall.frameId ||
+    cursor.graphCallId !== cCall.graphCallId ||
+    cursor.cursorRef !== resume.successorCursorRef ||
+    cursor.cursorDigest !== resume.successorCursorDigest ||
+    cursor.inputRef !== resume.responseRef ||
+    cursor.inputDigest !== resume.responseDigest ||
+    cCall.regime !== "F_H" ||
+    judgment.cCallRef !== cCall.cCallRef ||
+    judgment.judgment !== "pending" ||
+    (!terminal && !advancing) ||
+    contractRef !== cCall.transitionContractRef
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "resume_not_admitted",
+      message:
+        "F_H resume route requires the exact admitted response and GTL-declared continuation",
+    };
+  }
+  const body = {
+    routeKind: terminal ? "terminal" as const : "advance" as const,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: cursor.cursorRef,
+    sourceCursorDigest: cursor.cursorDigest,
+    targetCursorRef: step.targetCursor?.cursorRef ?? null,
+    targetCursorDigest: step.targetCursor?.cursorDigest ?? null,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: judgment.judgmentRef,
+    consumedAvailabilityRefs: [
+      judgment.judgmentRef,
+      resume.admissionEventRef,
+    ] as const,
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };

@@ -81,7 +81,7 @@ function hasOpenLifecycleTruth(replay: ReplayState): boolean {
   );
 }
 
-function hasClosedInteraction(
+function hasResolvedInteractionRoute(
   replay: ReplayState,
   cCallRef: string,
   judgmentRef: string | null,
@@ -93,7 +93,7 @@ function hasClosedInteraction(
     judgmentRef !== null &&
     replay.routes.some(
       (route) =>
-        route.routeKind === "terminal" &&
+        (route.routeKind === "advance" || route.routeKind === "terminal") &&
         route.cCallRef === cCallRef &&
         route.judgmentRef === judgmentRef &&
         route.sourceCursorRef === continuation.successorCursorRef,
@@ -110,11 +110,13 @@ export function projectOutcome(
   continuationAuthority: JsonValue | null = null,
 ): PublicOutcome {
   const latestCall = firstReplay.cCalls.at(-1);
-  const latestContinuation = latestCall === undefined
+  const latestCallContinuation = latestCall === undefined
     ? undefined
     : firstReplay.continuations.find(
         (continuation) => continuation.cCallRef === latestCall.cCallRef,
       );
+  const latestContinuation =
+    latestCallContinuation ?? firstReplay.continuations.at(-1);
   const replayAgreement =
     firstReplay.replayDigest === secondReplay.replayDigest &&
     firstReplay.eventStoreDigest === secondReplay.eventStoreDigest;
@@ -125,20 +127,20 @@ export function projectOutcome(
   const latestInteractionClosed =
     latestCall !== undefined &&
     latestCall.resultClass === "pending" &&
-    latestContinuation?.status === "resolved" &&
-    hasClosedInteraction(
+    latestCallContinuation?.status === "resolved" &&
+    hasResolvedInteractionRoute(
       firstReplay,
       latestCall.cCallRef,
       latestCall.judgmentRef,
     );
   const resultContractRef = latestInteractionClosed
-    ? latestContinuation.responseContractRef
+    ? latestCallContinuation!.responseContractRef
     : latestCall?.resultContractRef ?? null;
   const resultRef = latestInteractionClosed
-    ? latestContinuation.responseRef
+    ? latestCallContinuation!.responseRef
     : latestCall?.resultRef ?? null;
   const resultValue = latestInteractionClosed
-    ? latestContinuation.responseValue
+    ? latestCallContinuation!.responseValue
     : latestCall?.resultValue ?? null;
   const closed =
     replayAgreement &&
@@ -148,7 +150,11 @@ export function projectOutcome(
       (
         cCall.judgment === "advance" ||
         hasClosedRetryChain(firstReplay, index) ||
-        hasClosedInteraction(firstReplay, cCall.cCallRef, cCall.judgmentRef)
+        hasResolvedInteractionRoute(
+          firstReplay,
+          cCall.cCallRef,
+          cCall.judgmentRef,
+        )
       )) &&
     firstReplay.runtimeStatus === "closed" &&
     (latestCall?.judgment === "advance" || latestInteractionClosed) &&
@@ -167,10 +173,10 @@ export function projectOutcome(
     firstReplay.runtimeStatus === "held" &&
     latestCall?.resultClass === "pending" &&
     latestCall.judgment === "pending" &&
-    latestContinuation !== undefined &&
+    latestCallContinuation !== undefined &&
     (
-      latestContinuation.status === "open" ||
-      latestContinuation.status === "responded"
+      latestCallContinuation.status === "open" ||
+      latestCallContinuation.status === "responded"
     );
   const disposition = closed
     ? "succeeded" as const

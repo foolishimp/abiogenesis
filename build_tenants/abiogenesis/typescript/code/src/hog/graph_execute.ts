@@ -1,6 +1,7 @@
 import {
   admitInitialTraversalCursor,
   admitRuntimeFailure,
+  hasAdmittedTraversalCursor,
   openWorkflowCCall,
   selectAdmittedInteractionContract,
   selectAdmittedImplementationResolution,
@@ -74,6 +75,11 @@ export interface ExecuteGraphTraversalInput {
   readonly eventTime: string;
   readonly correlationId: string;
   readonly terminalMode?: "close_run" | "return_to_parent";
+  readonly resume?: {
+    readonly cursor: TraversalCursor;
+    readonly input: Readonly<Record<string, JsonValue>>;
+    readonly inputDigest: `sha256:${string}`;
+  };
 }
 
 function fail(
@@ -246,21 +252,56 @@ export async function executeGraphTraversal(
     );
   }
   let stop: StructuralTraversalResult;
-  try {
-    stop = traverse({
-      program: input.program,
-      graph: input.graph,
-      graphValidation: input.graphValidation,
-      executionBasis: input.executionBasis,
-      openedTraversalScope: input.openedTraversalScope,
-    });
-  } catch {
-    return fail(
-      input,
-      "initial-traversal",
-      "diagnostic://abiogenesis/hog/traversal-exception@5",
-      { errorClass: "traversal_exception" },
+  const resumedCursor = input.resume?.cursor;
+  if (input.resume !== undefined) {
+    if (
+      !hasAdmittedTraversalCursor(input.store, input.resume.cursor) ||
+      input.resume.cursor.executionBasisRef !== input.executionBasis.basisRef ||
+      input.resume.cursor.traversalScopeRef !==
+        input.openedTraversalScope.scopeRef ||
+      input.resume.cursor.graphRef !== input.graph.materializationRef ||
+      input.resume.cursor.inputDigest !== input.resume.inputDigest ||
+      sha256Canonical(input.resume.input as unknown as JsonValue) !==
+        input.resume.inputDigest ||
+      input.resume.cursor.retryPath.length !== 0
+    ) {
+      return fail(
+        input,
+        "resume-basis",
+        "diagnostic://abiogenesis/hog/resume-basis-mismatch@5",
+        {
+          cursorRef: input.resume.cursor.cursorRef,
+          inputDigest: input.resume.inputDigest,
+        },
+      );
+    }
+    stop = traverseFromCursor(
+      {
+        program: input.program,
+        graph: input.graph,
+        graphValidation: input.graphValidation,
+        executionBasis: input.executionBasis,
+        openedTraversalScope: input.openedTraversalScope,
+      },
+      input.resume.cursor,
     );
+  } else {
+    try {
+      stop = traverse({
+        program: input.program,
+        graph: input.graph,
+        graphValidation: input.graphValidation,
+        executionBasis: input.executionBasis,
+        openedTraversalScope: input.openedTraversalScope,
+      });
+    } catch {
+      return fail(
+        input,
+        "initial-traversal",
+        "diagnostic://abiogenesis/hog/traversal-exception@5",
+        { errorClass: "traversal_exception" },
+      );
+    }
   }
   if (stop.kind === "traversal_refusal") {
     return fail(
@@ -271,26 +312,28 @@ export async function executeGraphTraversal(
     );
   }
   const initialCursor = stop.kind === "traversal_stop_ref" ? stop.cursor : stop.sourceCursor;
-  const cursorAdmission = admitInitialTraversalCursor(
-    input.store,
-    input.executionBasis,
-    input.openedTraversalScope,
-    input.graph,
-    input.graphValidation,
-    initialCursor,
-    {
-      eventTime: input.eventTime,
-      correlationId: `${input.correlationId}/cursor`,
-      causationEventRefs: [],
-    },
-  );
-  if (cursorAdmission.kind !== "traversal_cursor_admission") {
-    return fail(
-      input,
-      "cursor-refusal",
-      `diagnostic://abiogenesis/hog/${cursorAdmission.code}@5`,
-      cursorAdmission as unknown as JsonValue,
+  if (resumedCursor === undefined) {
+    const cursorAdmission = admitInitialTraversalCursor(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      input.graph,
+      input.graphValidation,
+      initialCursor,
+      {
+        eventTime: input.eventTime,
+        correlationId: `${input.correlationId}/cursor`,
+        causationEventRefs: [],
+      },
     );
+    if (cursorAdmission.kind !== "traversal_cursor_admission") {
+      return fail(
+        input,
+        "cursor-refusal",
+        `diagnostic://abiogenesis/hog/${cursorAdmission.code}@5`,
+        cursorAdmission as unknown as JsonValue,
+      );
+    }
   }
 
   stop = advanceStructural(input, stop, 0);
@@ -307,7 +350,9 @@ export async function executeGraphTraversal(
   }
 
   let currentInput =
-    materializedInputAtCursor(input.graph, activeCursor(stop))?.value ?? input.input;
+    materializedInputAtCursor(input.graph, activeCursor(stop))?.value ??
+      input.resume?.input ??
+      input.input;
   const retryInputs = new Map<string, RetainedRetryInput>();
   if (!captureRetryInputs(input.graph, stop, currentInput, retryInputs)) {
     return fail(

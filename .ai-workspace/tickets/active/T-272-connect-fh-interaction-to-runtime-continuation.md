@@ -3,10 +3,11 @@
 > **Current disposition (2026-07-24):**
 > `active_for_s03`. The durable hold/read/respond/continue prerequisite and
 > mixed compute path were repaired across fresh public contexts at `cbb57d56`.
-> One Surface,
-> consequence routes, runtime dispositions, and public-control work are now
-> active through the same extension path. Historical X-path designs and
-> checkpoints remain donor evidence only.
+> The first externally packed, Program-owned One Surface path is green through
+> nonterminal F_H continuation. Construction-intent and evidence/evaluator
+> admission, post-evidence refresh, consequence routes, runtime dispositions,
+> and public-control work remain active through the same extension path.
+> Historical X-path designs and checkpoints remain donor evidence only.
 
 - id: T-272
 - title: Connect F_H response to exact held-locus continuation
@@ -20,8 +21,8 @@
     consequence routes, runtime dispositions, and public-control behavior;
     historical X implementation remains held donor evidence
 - phase_status: s03_active
-- review_status: corrected_s02_closed_s03_scope_released
-- proof_status: durable_fh_continuation_green_s03_open
+- review_status: s03_first_vertical_self_verified_review_pending
+- proof_status: program_start_and_replay_continuation_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -74,6 +75,46 @@ installed mixed Product proves F_H hold, replay-derived read, malformed and
 wrong-actor refusal, attributed response, append-only reopen, separate
 continue, same-Run typed closure, and replay agreement. No second result or
 judgment is minted for the held C-call.
+
+## Current S03 Vertical Checkpoint
+
+The first S03 product path now runs through an independently packed developer
+Product rather than an ABIogenesis conformance publication:
+
+```text
+public Program start
+  -> Program-owned GraphFunction
+  -> synthesizeModel
+  -> evalGap
+  -> evaluateNext
+  -> nonterminal F_H hold
+  -> fresh-context read
+  -> fresh-context interaction.respond
+  -> fresh-context run.continue
+  -> evaluateAction
+  -> same-Run replay-derived closure
+```
+
+The `start` request names the admitted Program start and supervised policy. It
+does not name a GraphFunction; that target is derived from the Program. The
+validator checks the original GTL without lowering, HoG re-enters the admitted
+successor cursor, and ABG remains the authority for invocation, response,
+resume, result, judgment, replay, and closure truth. The fixture supplies its
+own namespace, contracts, semantic implementations, Program, GraphFunction,
+and implementation bindings; ABIogenesis core contains none of its identities.
+
+This is not S03 closure. The current witness proves ordering and durable
+continuation but deliberately does not claim:
+
+- admitted `ConstructionIntent` between `evaluateNext` and work invocation;
+- separate admission of evaluator output, work evidence, or action evaluation;
+- model, gap, next-action, and action-result refresh after admitted evidence;
+- the remaining consequence, runtime-disposition, and public-control rows; or
+- the final all-forty-row qualification reconciliation.
+
+Current verification is `test:m5` `74/74`, `test:m4` `26/26`, live Claude F_P
+`1/1`, external developer Product `3/3`, and two byte-identical packs at
+`sha256:0de23bd2344be03707c53846bd2570d50ee30ff59f9b12273b1e13e1a40dbed6`.
 
 ## Historical X Evidence
 

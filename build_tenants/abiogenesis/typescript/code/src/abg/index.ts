@@ -46,6 +46,8 @@ export {
   hasAdmittedImplementationSet,
   hasAdmittedImplementationResolution,
   hasAdmittedInteractionSet,
+  rehydrateAdmittedImplementationSet,
+  rehydrateAdmittedInteractionSet,
   isAdmittedImplementationSet,
   isAdmittedImplementationResolution,
   isAdmittedInteractionSet,

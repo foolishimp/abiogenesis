@@ -49,6 +49,7 @@ export {
   proposeWorkflowBlockedRoute,
   proposeJudgedRoute,
   proposeHoldRoute,
+  proposeInteractionResumeRoute,
   proposeInteractionResumeTerminalRoute,
   proposeRetryRoute,
   proposeStructuralRoute,

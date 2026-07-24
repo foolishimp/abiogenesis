@@ -16,6 +16,8 @@ import { deepFreeze } from "../shared/immutable.js";
 export const DIRECT_INVOKE_CAPABILITY =
   "abg.capability.catalog.invoke-graph-function@5";
 
+export type RunInvocationVariant = "direct" | "start";
+
 export interface InvocationPolicyBasis {
   readonly kind: "invocation_policy_basis";
   readonly schemaVersion: "5.0.0";
@@ -56,7 +58,7 @@ export interface PublicInvocationCandidate {
   readonly schemaVersion: "5.0.0";
   readonly disposition: "candidate";
   readonly operationId: "abg.operation.run.invoke";
-  readonly variant: "direct";
+  readonly variant: RunInvocationVariant;
   readonly invocationRef: string;
   readonly invocationDigest: Sha256Digest;
   readonly publicFunctionDefinitionRef: string;
@@ -223,7 +225,8 @@ export function constructInvocationAuthority(
   return value;
 }
 
-export function constructDirectInvocation(
+function constructInvocation(
+  variant: RunInvocationVariant,
   workspaceBinding: WorkspaceBinding,
   catalogView: CatalogView,
   program: Readonly<GtlProgram>,
@@ -270,25 +273,26 @@ export function constructDirectInvocation(
     rawRequest.contractRef !== "contract://abiogenesis/public/run-invoke-request@5" ||
     !isRecord(request) ||
     request.operationId !== "abg.operation.run.invoke" ||
-    request.variant !== "direct" ||
+    request.variant !== variant ||
     typeof request.invocationRef !== "string" ||
     request.invocationRef.length === 0
   ) {
     return refusal(
       "authority_mismatch",
-      "direct invocation requires one exact raw public request admission",
+      `${variant} invocation requires one exact raw public request admission`,
     );
   }
   const publicFunctionDefinition = {
     operationId: "abg.operation.run.invoke",
-    variant: "direct",
+    variant,
     schemaVersion: "5.0.0",
   };
   const publicFunctionDefinitionDigest = sha256Canonical(publicFunctionDefinition);
   const body = {
     operationId: "abg.operation.run.invoke" as const,
-    variant: "direct" as const,
-    publicFunctionDefinitionRef: "public-function://abiogenesis/run.invoke/direct@5",
+    variant,
+    publicFunctionDefinitionRef:
+      `public-function://abiogenesis/run.invoke/${variant}@5`,
     publicFunctionDefinitionDigest,
     workspaceBindingId: workspaceBinding.bindingId,
     workspaceBindingDigest: workspaceBinding.bindingDigest,
@@ -324,4 +328,54 @@ export function constructDirectInvocation(
   }) as PublicInvocationCandidate;
   invocations.add(value);
   return value;
+}
+
+export function constructDirectInvocation(
+  workspaceBinding: WorkspaceBinding,
+  catalogView: CatalogView,
+  program: Readonly<GtlProgram>,
+  graphFunction: Readonly<GraphFunction>,
+  rawRequest: RawAdmittedValue<unknown>,
+  rawInput: RawAdmittedValue<unknown>,
+  policy: InvocationPolicyBasis,
+  capabilityGrants: readonly CapabilityGrant[],
+  authority: InvocationAuthority,
+): PublicInvocationCandidate | InvocationConstructionRefusal {
+  return constructInvocation(
+    "direct",
+    workspaceBinding,
+    catalogView,
+    program,
+    graphFunction,
+    rawRequest,
+    rawInput,
+    policy,
+    capabilityGrants,
+    authority,
+  );
+}
+
+export function constructStartInvocation(
+  workspaceBinding: WorkspaceBinding,
+  catalogView: CatalogView,
+  program: Readonly<GtlProgram>,
+  graphFunction: Readonly<GraphFunction>,
+  rawRequest: RawAdmittedValue<unknown>,
+  rawInput: RawAdmittedValue<unknown>,
+  policy: InvocationPolicyBasis,
+  capabilityGrants: readonly CapabilityGrant[],
+  authority: InvocationAuthority,
+): PublicInvocationCandidate | InvocationConstructionRefusal {
+  return constructInvocation(
+    "start",
+    workspaceBinding,
+    catalogView,
+    program,
+    graphFunction,
+    rawRequest,
+    rawInput,
+    policy,
+    capabilityGrants,
+    authority,
+  );
 }

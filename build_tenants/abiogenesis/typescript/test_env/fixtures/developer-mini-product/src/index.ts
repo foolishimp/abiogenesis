@@ -67,12 +67,48 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
     "contract://developer.example/greeting/continuation@5",
   mixedClosureContractRef:
     "contract://developer.example/greeting/mixed-closure@5",
+  oneSurfaceProgramRef:
+    "program://developer.example/greeting/one-surface@5",
+  oneSurfaceStartRef:
+    "start://developer.example/greeting/one-surface@5",
+  oneSurfaceGraphFunctionRef:
+    "graph-function://developer.example/greeting/one-surface@5",
+  oneSurfaceGraphRef:
+    "graph://developer.example/greeting/one-surface@5",
+  oneSurfaceNodeRef:
+    "node://developer.example/greeting/one-surface@5",
+  oneSurfaceCompositionRef:
+    "composition://developer.example/greeting/one-surface@5",
+  synthesizeModelLocusRef:
+    "locus://developer.example/greeting/synthesize-model@5",
+  evalGapLocusRef:
+    "locus://developer.example/greeting/eval-gap@5",
+  evaluateNextLocusRef:
+    "locus://developer.example/greeting/evaluate-next@5",
+  evaluateActionLocusRef:
+    "locus://developer.example/greeting/evaluate-action@5",
   preservePredicateRef:
     "predicate://developer.example/greeting/preserved@5",
   probabilisticImplementationBindingRef:
     "implementation-binding://developer.example/greeting/pass-fp@5",
   probabilisticImplementationRef:
     "implementation://developer.example/greeting/pass-fp@5",
+  deterministicPassImplementationBindingRef:
+    "implementation-binding://developer.example/greeting/pass-fd@5",
+  deterministicPassImplementationRef:
+    "implementation://developer.example/greeting/pass-fd@5",
+  evalGapImplementationBindingRef:
+    "implementation-binding://developer.example/greeting/eval-gap@5",
+  evalGapImplementationRef:
+    "implementation://developer.example/greeting/eval-gap@5",
+  evaluateNextImplementationBindingRef:
+    "implementation-binding://developer.example/greeting/evaluate-next@5",
+  evaluateNextImplementationRef:
+    "implementation://developer.example/greeting/evaluate-next@5",
+  evaluateActionImplementationBindingRef:
+    "implementation-binding://developer.example/greeting/evaluate-action@5",
+  evaluateActionImplementationRef:
+    "implementation://developer.example/greeting/evaluate-action@5",
   interactionKind: "developer_greeting_approval",
   actorCapabilityRef:
     "capability://developer.example/greeting/approve@5",
@@ -192,6 +228,69 @@ export const DEVELOPER_PROBABILISTIC_PASS_IMPLEMENTATION_DESCRIPTOR =
     ...probabilisticDescriptorBody,
   });
 
+const deterministicPassDescriptorBody = {
+  implementationRef: DEVELOPER_MINI_IDS.deterministicPassImplementationRef,
+  packageName: PACKAGE_NAME,
+  packageVersion: PACKAGE_VERSION,
+  modulePath: "build/index.js",
+  namedSymbol: "realizeDeveloperDeterministicPass",
+  computeRegime: "F_D",
+  inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+  outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+  failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+  refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+} as const;
+
+export const DEVELOPER_DETERMINISTIC_PASS_IMPLEMENTATION_DESCRIPTOR =
+  deepFreeze({
+    kind: "packaged_leaf_implementation_descriptor" as const,
+    schemaVersion: "5.0.0" as const,
+    descriptorDigest: sha256Canonical(deterministicPassDescriptorBody),
+    ...deterministicPassDescriptorBody,
+  });
+
+function deterministicStageDescriptor(
+  implementationRef: string,
+  namedSymbol: string,
+): Readonly<object> {
+  const body = {
+    implementationRef,
+    packageName: PACKAGE_NAME,
+    packageVersion: PACKAGE_VERSION,
+    modulePath: "build/index.js",
+    namedSymbol,
+    computeRegime: "F_D",
+    inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+    outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+    failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+    refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+  };
+  return deepFreeze({
+    kind: "packaged_leaf_implementation_descriptor" as const,
+    schemaVersion: "5.0.0" as const,
+    descriptorDigest: sha256Canonical(body),
+    ...body,
+  });
+}
+
+export const DEVELOPER_EVAL_GAP_IMPLEMENTATION_DESCRIPTOR =
+  deterministicStageDescriptor(
+    DEVELOPER_MINI_IDS.evalGapImplementationRef,
+    "realizeDeveloperEvalGap",
+  );
+
+export const DEVELOPER_EVALUATE_NEXT_IMPLEMENTATION_DESCRIPTOR =
+  deterministicStageDescriptor(
+    DEVELOPER_MINI_IDS.evaluateNextImplementationRef,
+    "realizeDeveloperEvaluateNext",
+  );
+
+export const DEVELOPER_EVALUATE_ACTION_IMPLEMENTATION_DESCRIPTOR =
+  deterministicStageDescriptor(
+    DEVELOPER_MINI_IDS.evaluateActionImplementationRef,
+    "realizeDeveloperEvaluateAction",
+  );
+
 export function realizeDeveloperGreeting(input: unknown): Readonly<object> {
   if (!isGreetingInput(input)) {
     throw new TypeError("developer greeting requires its exact input contract");
@@ -295,6 +394,79 @@ export async function realizeDeveloperProbabilisticPass(
               : `diagnostic://developer.example/greeting/${transport.failureClass}@5`,
         },
   });
+}
+
+export function realizeDeveloperDeterministicPass(
+  input: unknown,
+): Readonly<object> {
+  if (!isGreetingOutput(input)) {
+    throw new TypeError(
+      "developer deterministic pass requires its exact greeting output input",
+    );
+  }
+  const resultCandidate = deepFreeze({ ...input });
+  return deepFreeze({
+    kind: "leaf_realization_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "success" as const,
+    evidenceCandidates: [{
+      kind: "deterministic_evidence_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      implementationRef:
+        DEVELOPER_MINI_IDS.deterministicPassImplementationRef,
+      inputDigest: sha256Canonical(input),
+      outputDigest: sha256Canonical(resultCandidate),
+    }],
+    resultCandidate,
+  });
+}
+
+function realizeDeveloperSemanticStage(
+  input: unknown,
+  implementationRef: string,
+): Readonly<object> {
+  if (!isGreetingOutput(input)) {
+    throw new TypeError(
+      "developer One Surface stage requires its exact greeting output input",
+    );
+  }
+  const resultCandidate = deepFreeze({ ...input });
+  return deepFreeze({
+    kind: "leaf_realization_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "success" as const,
+    evidenceCandidates: [{
+      kind: "deterministic_evidence_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      implementationRef,
+      inputDigest: sha256Canonical(input),
+      outputDigest: sha256Canonical(resultCandidate),
+    }],
+    resultCandidate,
+  });
+}
+
+export function realizeDeveloperEvalGap(input: unknown): Readonly<object> {
+  return realizeDeveloperSemanticStage(
+    input,
+    DEVELOPER_MINI_IDS.evalGapImplementationRef,
+  );
+}
+
+export function realizeDeveloperEvaluateNext(input: unknown): Readonly<object> {
+  return realizeDeveloperSemanticStage(
+    input,
+    DEVELOPER_MINI_IDS.evaluateNextImplementationRef,
+  );
+}
+
+export function realizeDeveloperEvaluateAction(
+  input: unknown,
+): Readonly<object> {
+  return realizeDeveloperSemanticStage(
+    input,
+    DEVELOPER_MINI_IDS.evaluateActionImplementationRef,
+  );
 }
 
 export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
@@ -660,7 +832,7 @@ export function constructDeveloperMiniPublication(
               vectorIndex: 2,
               judgmentPredicateRef:
                 DEVELOPER_MINI_IDS.preservePredicateRef,
-              resultBearing: true,
+              resultBearing: false,
               requirement: {
                 kind: "interaction_leaf_requirement",
                 interactionKind: DEVELOPER_MINI_IDS.interactionKind,
@@ -670,6 +842,33 @@ export function constructDeveloperMiniPublication(
                 responseContractRef: DEVELOPER_MINI_IDS.outputContractRef,
                 continuationContractRef:
                   DEVELOPER_MINI_IDS.continuationContractRef,
+              },
+            },
+            {
+              kind: "c_of",
+              inputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+              outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+              programLocusRef:
+                "locus://developer.example/greeting/mixed-fibres/post-fh@5",
+              stageRole: "result",
+              fibre: "F_D",
+              armId:
+                "arm://developer.example/greeting/mixed-fibres/post-fh@5",
+              compositionRef: DEVELOPER_MINI_IDS.mixedCompositionRef,
+              vectorIndex: 3,
+              judgmentPredicateRef:
+                DEVELOPER_MINI_IDS.preservePredicateRef,
+              resultBearing: true,
+              requirement: {
+                kind: "executable_leaf_requirement",
+                implementationBindingRef:
+                  DEVELOPER_MINI_IDS.deterministicPassImplementationBindingRef,
+                inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+                outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+                evidenceContractRef: DEVELOPER_MINI_IDS.evidenceContractRef,
+                failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+                refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+                judgmentContractRef: DEVELOPER_MINI_IDS.judgmentContractRef,
               },
             },
           ],
@@ -717,6 +916,196 @@ export function constructDeveloperMiniPublication(
       "abg.root_mode": "direct",
     },
   };
+  const oneSurfaceGraphFunction = {
+    kind: "graph_function",
+    name: DEVELOPER_MINI_IDS.oneSurfaceGraphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [DEVELOPER_MINI_IDS.inputContractRef],
+      provides: [DEVELOPER_MINI_IDS.outputContractRef],
+      carries: [
+        DEVELOPER_MINI_IDS.inputContractRef,
+        DEVELOPER_MINI_IDS.outputContractRef,
+      ],
+    },
+    inputs: [DEVELOPER_MINI_IDS.inputContractRef],
+    outputs: [DEVELOPER_MINI_IDS.outputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: DEVELOPER_MINI_IDS.oneSurfaceGraphRef,
+      startNodeRef: DEVELOPER_MINI_IDS.oneSurfaceNodeRef,
+      terminalNodeRefs: [DEVELOPER_MINI_IDS.oneSurfaceNodeRef],
+      nodes: [{
+        nodeRef: DEVELOPER_MINI_IDS.oneSurfaceNodeRef,
+        nodeKind: "c_locus",
+        term: {
+          kind: "c_compose",
+          inputCarrierRef: DEVELOPER_MINI_IDS.inputContractRef,
+          outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+          terms: [{
+            kind: "c_of",
+            inputCarrierRef: DEVELOPER_MINI_IDS.inputContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            programLocusRef: DEVELOPER_MINI_IDS.synthesizeModelLocusRef,
+            stageRole: "synthesizeModel",
+            fibre: "F_D",
+            armId:
+              "arm://developer.example/greeting/one-surface/synthesize-model@5",
+            compositionRef: DEVELOPER_MINI_IDS.oneSurfaceCompositionRef,
+            vectorIndex: 0,
+            judgmentPredicateRef:
+              DEVELOPER_MINI_IDS.judgmentPredicateRef,
+            resultBearing: false,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef:
+                DEVELOPER_MINI_IDS.implementationBindingRef,
+              inputContractRef: DEVELOPER_MINI_IDS.inputContractRef,
+              outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              evidenceContractRef: DEVELOPER_MINI_IDS.evidenceContractRef,
+              failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+              refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+              judgmentContractRef: DEVELOPER_MINI_IDS.judgmentContractRef,
+            },
+          }, {
+            kind: "c_of",
+            inputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            programLocusRef: DEVELOPER_MINI_IDS.evalGapLocusRef,
+            stageRole: "evalGap",
+            fibre: "F_D",
+            armId:
+              "arm://developer.example/greeting/one-surface/eval-gap@5",
+            compositionRef: DEVELOPER_MINI_IDS.oneSurfaceCompositionRef,
+            vectorIndex: 1,
+            judgmentPredicateRef: DEVELOPER_MINI_IDS.preservePredicateRef,
+            resultBearing: false,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef:
+                DEVELOPER_MINI_IDS.evalGapImplementationBindingRef,
+              inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              evidenceContractRef: DEVELOPER_MINI_IDS.evidenceContractRef,
+              failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+              refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+              judgmentContractRef: DEVELOPER_MINI_IDS.judgmentContractRef,
+            },
+          }, {
+            kind: "c_of",
+            inputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            programLocusRef: DEVELOPER_MINI_IDS.evaluateNextLocusRef,
+            stageRole: "evaluateNext",
+            fibre: "F_D",
+            armId:
+              "arm://developer.example/greeting/one-surface/evaluate-next@5",
+            compositionRef: DEVELOPER_MINI_IDS.oneSurfaceCompositionRef,
+            vectorIndex: 2,
+            judgmentPredicateRef: DEVELOPER_MINI_IDS.preservePredicateRef,
+            resultBearing: false,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef:
+                DEVELOPER_MINI_IDS.evaluateNextImplementationBindingRef,
+              inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              evidenceContractRef: DEVELOPER_MINI_IDS.evidenceContractRef,
+              failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+              refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+              judgmentContractRef: DEVELOPER_MINI_IDS.judgmentContractRef,
+            },
+          }, {
+            kind: "c_of",
+            inputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            programLocusRef: DEVELOPER_MINI_IDS.interactionLocusRef,
+            stageRole: "intent",
+            fibre: "F_H",
+            armId:
+              "arm://developer.example/greeting/one-surface/fh-intent@5",
+            compositionRef: DEVELOPER_MINI_IDS.oneSurfaceCompositionRef,
+            vectorIndex: 3,
+            judgmentPredicateRef: DEVELOPER_MINI_IDS.preservePredicateRef,
+            resultBearing: false,
+            requirement: {
+              kind: "interaction_leaf_requirement",
+              interactionKind: DEVELOPER_MINI_IDS.interactionKind,
+              actorCapabilityRef: DEVELOPER_MINI_IDS.actorCapabilityRef,
+              requestContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              responseContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              continuationContractRef:
+                DEVELOPER_MINI_IDS.continuationContractRef,
+            },
+          }, {
+            kind: "c_of",
+            inputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            programLocusRef: DEVELOPER_MINI_IDS.evaluateActionLocusRef,
+            stageRole: "evaluateAction",
+            fibre: "F_D",
+            armId:
+              "arm://developer.example/greeting/one-surface/evaluate-action@5",
+            compositionRef: DEVELOPER_MINI_IDS.oneSurfaceCompositionRef,
+            vectorIndex: 4,
+            judgmentPredicateRef: DEVELOPER_MINI_IDS.preservePredicateRef,
+            resultBearing: true,
+            requirement: {
+              kind: "executable_leaf_requirement",
+              implementationBindingRef:
+                DEVELOPER_MINI_IDS.evaluateActionImplementationBindingRef,
+              inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              evidenceContractRef: DEVELOPER_MINI_IDS.evidenceContractRef,
+              failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+              refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+              judgmentContractRef: DEVELOPER_MINI_IDS.judgmentContractRef,
+            },
+          }],
+        },
+      }],
+      edges: [],
+      applications: [],
+    },
+    effects: [
+      "effect://developer.example/greeting/model@5",
+      "effect://developer.example/greeting/gap@5",
+      "effect://developer.example/greeting/next-action@5",
+      "effect://developer.example/greeting/human-approval@5",
+      "effect://developer.example/greeting/action-evaluation@5",
+    ],
+    declarations: {
+      "abg.compute_regime": "mixed",
+      "abg.closure_contract":
+        DEVELOPER_MINI_IDS.mixedClosureContractRef,
+      "abg.evidence_contract": DEVELOPER_MINI_IDS.evidenceContractRef,
+      "abg.judgment_contract": DEVELOPER_MINI_IDS.judgmentContractRef,
+      "abg.judgment_predicate": DEVELOPER_MINI_IDS.preservePredicateRef,
+      "abg.transition_contract": DEVELOPER_MINI_IDS.transitionContractRef,
+    },
+    tags: [
+      "developer-authored",
+      "external-product",
+      "one-surface",
+      "supervised",
+    ],
+  };
+  const oneSurfaceProgram = {
+    kind: "gtl_program",
+    programRef: DEVELOPER_MINI_IDS.oneSurfaceProgramRef,
+    version: "5.0.0",
+    moduleRef: DEVELOPER_MINI_IDS.moduleRef,
+    starts: [{
+      startRef: DEVELOPER_MINI_IDS.oneSurfaceStartRef,
+      graphFunctionRef: DEVELOPER_MINI_IDS.oneSurfaceGraphFunctionRef,
+    }],
+    callableMembership: [DEVELOPER_MINI_IDS.oneSurfaceGraphFunctionRef],
+    closureContractRef: DEVELOPER_MINI_IDS.mixedClosureContractRef,
+    policies: {
+      "abg.compute_regime": "mixed",
+      "abg.root_mode": "supervised",
+    },
+  };
   const contribution = {
     handle: DEVELOPER_MINI_IDS.graphFunctionRef,
     kind: "graph_function",
@@ -735,6 +1124,19 @@ export function constructDeveloperMiniPublication(
     declarationOrContractRef: DEVELOPER_MINI_IDS.mixedGraphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [DEVELOPER_MINI_IDS.mixedProgramRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [
+      artifact.artifactDigest,
+      artifact.productManifestDigest,
+    ],
+  };
+  const oneSurfaceContribution = {
+    handle: DEVELOPER_MINI_IDS.oneSurfaceGraphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef:
+      DEVELOPER_MINI_IDS.oneSurfaceGraphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [DEVELOPER_MINI_IDS.oneSurfaceProgramRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [
       artifact.artifactDigest,
@@ -804,6 +1206,62 @@ export function constructDeveloperMiniPublication(
       outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
       failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
       refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+    }, {
+      kind: "implementation_binding",
+      bindingRef:
+        DEVELOPER_MINI_IDS.deterministicPassImplementationBindingRef,
+      implementationRef:
+        DEVELOPER_MINI_IDS.deterministicPassImplementationRef,
+      packageName: PACKAGE_NAME,
+      packageVersion: PACKAGE_VERSION,
+      modulePath: "build/index.js",
+      namedSymbol: "realizeDeveloperDeterministicPass",
+      computeRegime: "F_D",
+      inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+    }, {
+      kind: "implementation_binding",
+      bindingRef: DEVELOPER_MINI_IDS.evalGapImplementationBindingRef,
+      implementationRef: DEVELOPER_MINI_IDS.evalGapImplementationRef,
+      packageName: PACKAGE_NAME,
+      packageVersion: PACKAGE_VERSION,
+      modulePath: "build/index.js",
+      namedSymbol: "realizeDeveloperEvalGap",
+      computeRegime: "F_D",
+      inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+    }, {
+      kind: "implementation_binding",
+      bindingRef:
+        DEVELOPER_MINI_IDS.evaluateNextImplementationBindingRef,
+      implementationRef: DEVELOPER_MINI_IDS.evaluateNextImplementationRef,
+      packageName: PACKAGE_NAME,
+      packageVersion: PACKAGE_VERSION,
+      modulePath: "build/index.js",
+      namedSymbol: "realizeDeveloperEvaluateNext",
+      computeRegime: "F_D",
+      inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+    }, {
+      kind: "implementation_binding",
+      bindingRef:
+        DEVELOPER_MINI_IDS.evaluateActionImplementationBindingRef,
+      implementationRef: DEVELOPER_MINI_IDS.evaluateActionImplementationRef,
+      packageName: PACKAGE_NAME,
+      packageVersion: PACKAGE_VERSION,
+      modulePath: "build/index.js",
+      namedSymbol: "realizeDeveloperEvaluateAction",
+      computeRegime: "F_D",
+      inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
     }],
     closureContracts: [{
       kind: "closure_contract",
@@ -830,12 +1288,11 @@ export function constructDeveloperMiniPublication(
       closureContractRef: DEVELOPER_MINI_IDS.mixedClosureContractRef,
       predicateRef:
         "predicate://developer.example/greeting/mixed-terminal@5",
-      evidenceContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      evidenceContractRef: DEVELOPER_MINI_IDS.evidenceContractRef,
       resultContractRef: DEVELOPER_MINI_IDS.outputContractRef,
       refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
       refusalValueKind: "developer_greeting_refusal",
-      judgmentContractRef:
-        DEVELOPER_MINI_IDS.continuationContractRef,
+      judgmentContractRef: DEVELOPER_MINI_IDS.judgmentContractRef,
       rejectionContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
       transitionContractRef: DEVELOPER_MINI_IDS.transitionContractRef,
       replayProjectionRef:
@@ -849,16 +1306,18 @@ export function constructDeveloperMiniPublication(
         "run_closed",
       ],
     }],
-    programs: [program, identityProgram, mixedProgram],
+    programs: [program, identityProgram, mixedProgram, oneSurfaceProgram],
     graphFunctions: [
       graphFunction,
       identityGraphFunction,
       mixedGraphFunction,
+      oneSurfaceGraphFunction,
     ],
     contributions: [
       contribution,
       identityContribution,
       mixedContribution,
+      oneSurfaceContribution,
     ],
   }) as Readonly<Record<string, JsonValue>>;
 }
