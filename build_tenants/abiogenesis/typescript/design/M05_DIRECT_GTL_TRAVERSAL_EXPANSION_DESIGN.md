@@ -1568,3 +1568,44 @@ Installed evidence shall prove:
   admission; and
 - a second Product selection beyond the admitted bound is refused as runtime
   failure without closure truth.
+
+### 12.9 Product-Owned Public Next And Asset Targets
+
+The public `start` variant preserves the request relation
+`scope + target + until` without introducing a public traversal controller.
+This slice admits two direct, bounded target forms:
+
+```text
+scope = program
+target = next | asset:<Product handle>
+until = first_traversal
+rootMode = direct
+```
+
+The Program owns the default start used by `next`. It may also publish an exact
+asset-target registry whose rows bind one public handle and asset identity to
+one of its declared starts. The selected start owns the callable
+GraphFunction. The asset remains non-callable.
+
+Target resolution is one total lookup over the admitted Program. Public
+transports the request and resolved declaration into ordinary invocation
+construction. ABG independently admits the raw request against that exact
+Program start and GraphFunction. HoG then performs one ordinary direct
+GraphFunction traversal. `first_traversal` bounds the public request to that
+single selected traversal; it does not install an SDK loop, select an internal
+C cursor, or imply whole-Program convergence.
+
+The existing supervised `until = converged` start and durable gap re-entry
+remain unchanged. A direct request cannot carry gap re-entry authority, and a
+supervised control mode cannot be smuggled into `first_traversal`.
+
+Installed evidence shall prove:
+
+- `target = next` resolves the Program's declared default start and returns its
+  replay-agreeing typed result;
+- `target = asset:<handle>` resolves the Product-published asset row to the
+  same owning start and GraphFunction without calling the asset;
+- the admitted invocation event preserves the exact request and resolved
+  callable identity; and
+- missing default, unknown asset, duplicate asset ownership, mismatched
+  start, or unsupported mode/until combinations refuse before a Run opens.

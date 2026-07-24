@@ -23,6 +23,7 @@ const PACKAGE_VERSION = "5.0.0";
 export const DEVELOPER_MINI_IDS = Object.freeze({
   moduleRef: "module://developer.example/greeting@5",
   programRef: "program://developer.example/greeting@5",
+  startRef: "start://developer.example/greeting@5",
   graphFunctionRef: "graph-function://developer.example/greeting/render@5",
   graphRef: "graph://developer.example/greeting/render@5",
   nodeRef: "node://developer.example/greeting/render@5",
@@ -157,6 +158,7 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
     "outcome://developer.example/greeting/approved-welcome@5",
   greetingAssetRef:
     "asset://developer.example/greeting/welcome-message@5",
+  greetingAssetHandle: "greeting",
   approvalAssetRef:
     "asset://developer.example/greeting/human-approval@5",
   approvalCapabilityAssetRef:
@@ -3291,15 +3293,22 @@ export function constructDeveloperMiniPublication(
     version: "5.0.0",
     moduleRef: DEVELOPER_MINI_IDS.moduleRef,
     starts: [{
-      startRef: "start://developer.example/greeting@5",
+      startRef: DEVELOPER_MINI_IDS.startRef,
       graphFunctionRef: DEVELOPER_MINI_IDS.graphFunctionRef,
     }],
     callableMembership: [DEVELOPER_MINI_IDS.graphFunctionRef],
     closureContractRef: DEVELOPER_MINI_IDS.closureContractRef,
     policies: {
       "abg.compute_regime": "F_D",
+      "abg.default_start_ref": DEVELOPER_MINI_IDS.startRef,
       "abg.root_mode": "direct",
     },
+    publicAssetTargets: [{
+      kind: "program_public_asset_target",
+      handle: DEVELOPER_MINI_IDS.greetingAssetHandle,
+      assetRef: DEVELOPER_MINI_IDS.greetingAssetRef,
+      startRef: DEVELOPER_MINI_IDS.startRef,
+    }],
   };
   const ticketGraphFunction = {
     kind: "graph_function",

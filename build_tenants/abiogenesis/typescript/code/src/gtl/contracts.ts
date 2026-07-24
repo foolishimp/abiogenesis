@@ -372,6 +372,13 @@ export interface ProgramStart {
   readonly graphFunctionRef: string;
 }
 
+export interface ProgramPublicAssetTarget {
+  readonly kind: "program_public_asset_target";
+  readonly handle: string;
+  readonly assetRef: string;
+  readonly startRef: string;
+}
+
 export interface GtlActionCatalogRow {
   readonly kind: "action_catalog_row";
   readonly actionRef: string;
@@ -441,6 +448,7 @@ export interface GtlProgram {
   readonly callableMembership: readonly string[];
   readonly closureContractRef: string;
   readonly policies: Readonly<Record<string, string>>;
+  readonly publicAssetTargets?: readonly ProgramPublicAssetTarget[];
   readonly actionCatalog?: GtlActionCatalog;
   readonly constructionComposition?: GtlConstructionComposition;
 }

@@ -553,6 +553,74 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       diagnostics.push({ code: "missing_membership", path: `$.program.starts[${start.startRef}]`, message: "Program start is not in callable membership" });
     }
   }
+  for (const ref of duplicates(program.starts.map((start) => start.startRef))) {
+    diagnostics.push({
+      code: "duplicate_identity",
+      path: "$.program.starts",
+      message: `duplicate Program start ${ref}`,
+    });
+  }
+  if (program.publicAssetTargets !== undefined) {
+    for (const handle of duplicates(
+      program.publicAssetTargets.map((target) => target.handle),
+    )) {
+      diagnostics.push({
+        code: "duplicate_identity",
+        path: "$.program.publicAssetTargets",
+        message: `duplicate public asset handle ${handle}`,
+      });
+    }
+    for (const assetRef of duplicates(
+      program.publicAssetTargets.map((target) => target.assetRef),
+    )) {
+      diagnostics.push({
+        code: "duplicate_identity",
+        path: "$.program.publicAssetTargets",
+        message: `ambiguous public asset ownership ${assetRef}`,
+      });
+    }
+    for (
+      const [index, target] of program.publicAssetTargets.entries()
+    ) {
+      const start = program.starts.find(
+        (candidate) => candidate.startRef === target.startRef,
+      );
+      if (
+        !hasExactKeys(target, [
+          "assetRef",
+          "handle",
+          "kind",
+          "startRef",
+        ]) ||
+        target.kind !== "program_public_asset_target" ||
+        typeof target.handle !== "string" ||
+        target.handle.length === 0 ||
+        typeof target.assetRef !== "string" ||
+        target.assetRef.length === 0 ||
+        typeof target.startRef !== "string" ||
+        start === undefined
+      ) {
+        diagnostics.push({
+          code: "missing_membership",
+          path: `$.program.publicAssetTargets[${index}]`,
+          message:
+            "public asset target must bind one non-empty Product handle and asset to one declared Program start",
+        });
+      }
+    }
+  }
+  const defaultStartRef = program.policies["abg.default_start_ref"];
+  if (
+    defaultStartRef !== undefined &&
+    program.starts.filter((start) => start.startRef === defaultStartRef)
+        .length !== 1
+  ) {
+    diagnostics.push({
+      code: "missing_membership",
+      path: "$.program.policies.abg.default_start_ref",
+      message: "default public start must resolve exactly once",
+    });
+  }
   for (const ref of duplicates(program.callableMembership)) {
     diagnostics.push({ code: "duplicate_identity", path: "$.program.callableMembership", message: `duplicate GraphFunction membership ${ref}` });
   }

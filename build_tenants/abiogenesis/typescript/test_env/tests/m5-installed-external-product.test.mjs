@@ -184,6 +184,31 @@ function withRepeatedSpanSelection(mini) {
   );
 }
 
+function withDuplicatePublicAssetHandle(mini) {
+  const publication = structuredClone(mini.publication);
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === mini.ids.programRef,
+  );
+  assert.ok(program?.publicAssetTargets);
+  program.publicAssetTargets.push({
+    kind: "program_public_asset_target",
+    handle: mini.ids.greetingAssetHandle,
+    assetRef: `${mini.ids.greetingAssetRef}/duplicate`,
+    startRef: mini.ids.startRef,
+  });
+  return publication;
+}
+
+function withoutDefaultPublicStart(mini) {
+  const publication = structuredClone(mini.publication);
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === mini.ids.programRef,
+  );
+  assert.ok(program);
+  delete program.policies["abg.default_start_ref"];
+  return publication;
+}
+
 function withOneSurfaceTerminal(mini, terminalIndex, stageRole) {
   const publication = structuredClone(mini.publication);
   const graph = oneSurfaceGraph(publication, mini);
@@ -514,6 +539,7 @@ async function externalScenario(
     target.graphFunctionRef ?? mini.ids.graphFunctionRef;
   const runVariant = target.runVariant ?? "direct";
   const startRef = target.startRef ?? null;
+  const publicTarget = target.publicTarget ?? null;
   const input = target.input ?? {
     kind: "developer_greeting_input",
     schemaVersion: "5.0.0",
@@ -588,11 +614,17 @@ async function externalScenario(
       eventLogPath: join(eventLogRoot, "developer-product.events.jsonl"),
       ...(runVariant === "start"
         ? {
-            rootMode: "supervised",
-            scope: "program",
-            startRef,
-            target: startRef,
-            until: "converged",
+            rootMode:
+              target.rootMode ??
+              (publicTarget === null ? "supervised" : "direct"),
+            scope: target.scope ?? "program",
+            target: publicTarget ?? startRef,
+            until:
+              target.until ??
+              (publicTarget === null
+                ? "converged"
+                : "first_traversal"),
+            ...(publicTarget === null ? { startRef } : {}),
           }
         : { graphFunctionRef }),
     }),
@@ -787,6 +819,128 @@ test("M5 installs and executes one independent developer-authored GTL Product th
   assert.equal(judgmentRun.exitCode, 2);
   assert.equal(judgmentRun.outcomes.at(-1).disposition, "failed");
   assert.equal(judgmentRun.outcomes.at(-1).result, null);
+});
+
+test("M5 starts Product-declared next and asset targets without a Public controller", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+
+  for (const [label, publicTarget] of [
+    ["public-next", "next"],
+    [
+      "public-asset",
+      `asset:${mini.ids.greetingAssetHandle}`,
+    ],
+  ]) {
+    const scenario = await externalScenario(
+      harness,
+      mini,
+      label,
+      mini.publication,
+      {
+        runVariant: "start",
+        publicTarget,
+      },
+    );
+    const run = await runInstalledCli(harness, scenario);
+    assert.equal(run.exitCode, 0, JSON.stringify(run));
+    const outcome = assertExternalOutcome(run.outcomes, harness, mini);
+    assert.equal(outcome.replayAgreement, true);
+
+    const events = (await readFile(scenario.eventLogPath, "utf8"))
+      .trim()
+      .split(/\r?\n/u)
+      .map((line) => JSON.parse(line));
+    const invocationAdmission = events.find(
+      (event) => event.kind === "invocation_admitted",
+    );
+    assert.equal(
+      invocationAdmission?.payload.publicStart.target,
+      publicTarget,
+    );
+    assert.equal(
+      invocationAdmission?.payload.publicStart.startRef,
+      mini.ids.startRef,
+    );
+    assert.equal(
+      invocationAdmission?.payload.publicStart.graphFunctionRef,
+      mini.ids.graphFunctionRef,
+    );
+    assert.equal(
+      invocationAdmission?.payload.publicStart.rootMode,
+      "direct",
+    );
+    assert.equal(
+      invocationAdmission?.payload.publicStart.until,
+      "first_traversal",
+    );
+    const openedGraphCall = events.find(
+      (event) => event.kind === "graph_call_opened",
+    );
+    assert.equal(
+      openedGraphCall?.payload.graphFunctionRef,
+      mini.ids.graphFunctionRef,
+    );
+    assert.equal(
+      events.some(
+        (event) =>
+          event.kind === "graph_call_opened" &&
+          event.payload.graphFunctionRef === mini.ids.greetingAssetRef,
+      ),
+      false,
+    );
+  }
+
+  const missingScenario = await externalScenario(
+    harness,
+    mini,
+    "public-asset-missing",
+    mini.publication,
+    {
+      runVariant: "start",
+      publicTarget: "asset:missing",
+    },
+  );
+  const missingRun = await runInstalledCli(harness, missingScenario);
+  assert.equal(missingRun.exitCode, 2);
+  assert.equal(missingRun.outcomes.at(-1).disposition, "refused");
+  assert.equal(missingRun.outcomes.at(-1).runId, null);
+
+  const missingDefaultScenario = await externalScenario(
+    harness,
+    mini,
+    "public-next-missing-default",
+    withoutDefaultPublicStart(mini),
+    {
+      runVariant: "start",
+      publicTarget: "next",
+    },
+  );
+  const missingDefaultRun = await runInstalledCli(
+    harness,
+    missingDefaultScenario,
+  );
+  assert.equal(missingDefaultRun.exitCode, 2);
+  assert.equal(
+    missingDefaultRun.outcomes.at(-1).disposition,
+    "refused",
+  );
+  assert.equal(missingDefaultRun.outcomes.at(-1).runId, null);
+
+  const duplicateScenario = await externalScenario(
+    harness,
+    mini,
+    "public-asset-duplicate",
+    withDuplicatePublicAssetHandle(mini),
+    {
+      runVariant: "start",
+      publicTarget: `asset:${mini.ids.greetingAssetHandle}`,
+    },
+  );
+  const duplicateRun = await runInstalledCli(harness, duplicateScenario);
+  assert.equal(duplicateRun.exitCode, 2);
+  assert.equal(duplicateRun.outcomes[5].disposition, "refused");
+  assert.equal(duplicateRun.outcomes.at(-1).runId, null);
 });
 
 test("M5 invokes external ticket work only through its owning Program and GraphFunction", async (context) => {

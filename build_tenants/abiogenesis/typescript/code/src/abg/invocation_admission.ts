@@ -3,6 +3,7 @@ import type {
   GtlProgram,
   ModulePublication,
 } from "../gtl/contracts.js";
+import { resolveProgramStart } from "../gtl/public_start.js";
 import {
   DIRECT_INVOKE_CAPABILITY,
   type CapabilityGrant,
@@ -84,8 +85,8 @@ export interface PublicStartAdmissionIdentity {
   readonly startRef: string;
   readonly scope: "program";
   readonly target: string;
-  readonly until: "converged";
-  readonly rootMode: "supervised";
+  readonly until: "converged" | "first_traversal";
+  readonly rootMode: "direct" | "supervised";
 }
 
 export interface InvocationAdmission {
@@ -339,6 +340,23 @@ export function admitInvocation(
     requestPayload !== null && isRecord(requestPayload.reentryAuthority)
       ? requestPayload.reentryAuthority
       : null;
+  const resolvedPublicStart =
+    input.invocation.variant === "start" &&
+      requestPayload !== null &&
+      typeof requestPayload.scope === "string" &&
+      typeof requestPayload.target === "string" &&
+      typeof requestPayload.until === "string" &&
+      typeof requestPayload.rootMode === "string"
+      ? resolveProgramStart(input.program, {
+          scope: requestPayload.scope as "program",
+          target: requestPayload.target,
+          until: requestPayload.until as "converged" | "first_traversal",
+          rootMode: requestPayload.rootMode as "direct" | "supervised",
+          ...(typeof requestPayload.startRef === "string"
+            ? { startRef: requestPayload.startRef }
+            : {}),
+        })
+      : null;
   const rawTargetMatches =
     requestPayload !== null &&
     requestPayload.programRef === input.invocation.programRef &&
@@ -349,16 +367,9 @@ export function admitInvocation(
       ) ||
       (
         input.invocation.variant === "start" &&
-        typeof requestPayload.startRef === "string" &&
-        requestPayload.scope === "program" &&
-        requestPayload.target === requestPayload.startRef &&
-        requestPayload.until === "converged" &&
-        requestPayload.rootMode === "supervised" &&
-        input.program.starts.some(
-          (start) =>
-            start.startRef === requestPayload.startRef &&
-            start.graphFunctionRef === input.invocation.graphFunctionRef,
-        )
+        resolvedPublicStart?.kind === "resolved_program_start" &&
+        resolvedPublicStart.start.graphFunctionRef ===
+          input.invocation.graphFunctionRef
       )
     );
   if (
@@ -387,21 +398,21 @@ export function admitInvocation(
     input.invocation.variant === "start" &&
       requestPayload !== null &&
       typeof requestPayload.programRef === "string" &&
-      typeof requestPayload.startRef === "string" &&
       typeof requestPayload.scope === "string" &&
       typeof requestPayload.target === "string" &&
       typeof requestPayload.until === "string" &&
-      typeof requestPayload.rootMode === "string"
+      typeof requestPayload.rootMode === "string" &&
+      resolvedPublicStart?.kind === "resolved_program_start"
       ? {
           kind: "public_start_identity",
           schemaVersion: "5.0.0",
           programRef: requestPayload.programRef,
           graphFunctionRef: input.graphFunction.name,
-          startRef: requestPayload.startRef,
+          startRef: resolvedPublicStart.start.startRef,
           scope: requestPayload.scope as "program",
           target: requestPayload.target,
-          until: requestPayload.until as "converged",
-          rootMode: requestPayload.rootMode as "supervised",
+          until: requestPayload.until as "converged" | "first_traversal",
+          rootMode: requestPayload.rootMode as "direct" | "supervised",
         }
       : null;
   if (input.reentryBasis === undefined) {

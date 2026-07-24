@@ -941,8 +941,14 @@ export function admitExecutionBasis(
     }) as AdmittedImplementationResolution;
   if (implementationResolution !== null) implementationResolutions.add(implementationResolution);
   const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
-  const entry = input.program.starts.find(
-    (candidate) => candidate.graphFunctionRef === input.invocationAdmission.graphFunctionRef,
+  const entry = input.program.starts.find((candidate) =>
+    input.invocationAdmission.publicStart === null
+      ? candidate.graphFunctionRef ===
+        input.invocationAdmission.graphFunctionRef
+      : candidate.startRef ===
+          input.invocationAdmission.publicStart.startRef &&
+        candidate.graphFunctionRef ===
+          input.invocationAdmission.publicStart.graphFunctionRef
   );
   if (entry === undefined) {
     return reject(

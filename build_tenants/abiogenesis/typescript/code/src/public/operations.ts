@@ -851,26 +851,33 @@ async function applyRunInvoke(
       "run.invoke Program is absent from the admitted publication",
     );
   }
-  const start = invocation.variant === "start"
-    ? programValue.starts.find(
-        (value) =>
-          value.startRef === stringField(invocation.payload, "startRef"),
-      )
-    : undefined;
+  const resolvedStart = invocation.variant === "start"
+    ? gtl.resolveProgramStart(programValue, {
+        scope: stringField(invocation.payload, "scope") as "program",
+        target: stringField(invocation.payload, "target"),
+        until: stringField(invocation.payload, "until") as
+          | "converged"
+          | "first_traversal",
+        rootMode: stringField(invocation.payload, "rootMode") as
+          | "direct"
+          | "supervised",
+        ...(typeof invocation.payload.startRef === "string"
+          ? { startRef: invocation.payload.startRef }
+          : {}),
+      })
+    : null;
+  const start =
+    resolvedStart?.kind === "resolved_program_start"
+      ? resolvedStart.start
+      : undefined;
   if (
     invocation.variant === "start" &&
-    (
-      start === undefined ||
-      stringField(invocation.payload, "scope") !== "program" ||
-      stringField(invocation.payload, "target") !== start.startRef ||
-      stringField(invocation.payload, "until") !== "converged" ||
-      stringField(invocation.payload, "rootMode") !== "supervised" ||
-      programValue.policies["abg.root_mode"] !== "supervised"
-    )
+    resolvedStart?.kind !== "resolved_program_start"
   ) {
     throw new ApplicationRefusal(
       "target_mismatch",
-      "run.invoke start requires one admitted supervised Program start with exact scope, target, and convergence policy",
+      resolvedStart?.message ??
+        "run.invoke start requires one Product-resolved Program start",
     );
   }
   if (
@@ -1369,7 +1376,12 @@ async function applyRunInvoke(
       outcome.result.kind === "construction_gap_stop" ||
       outcome.result.kind === "construction_no_action_stop"
     );
-  if (noActionStop) {
+  const supervisedGapStart =
+    invocationAdmission.publicStart?.until === "converged" &&
+    invocationAdmission.publicStart.rootMode === "supervised" &&
+    invocationAdmission.publicStart.target ===
+      invocationAdmission.publicStart.startRef;
+  if (noActionStop && supervisedGapStart) {
     const gapRoute = firstReplay.routes.find(
       (route) =>
         route.routeKind === "gap_stop" &&

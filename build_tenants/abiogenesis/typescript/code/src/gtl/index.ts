@@ -82,6 +82,14 @@ export {
   ruleDeclaration,
 } from "./declarations.js";
 export {
+  resolveProgramStart,
+  type ProgramRootMode,
+  type ProgramStartRefusal,
+  type ProgramStartRequest,
+  type ProgramStartUntil,
+  type ResolvedProgramStart,
+} from "./public_start.js";
+export {
   composeGraphFunctions,
   identityGraphFunction,
   promoteGraphFunction,
@@ -164,6 +172,7 @@ export type {
   RuleDeclaration,
   SameObjectApplication,
   SubstituteApplication,
+  ProgramPublicAssetTarget,
 } from "./contracts.js";
 export {
   materializeGraph,

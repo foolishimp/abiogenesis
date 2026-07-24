@@ -700,7 +700,19 @@ const matrix = [
     invalidMutation: "equivalent contracts do not authorize cross-wired identity",
   }, ({ crossWire }) => assertCrossWireRefuses(crossWire)),
 
-  open("public_control", "advance_next", "public traversal under the current program", "bounded next-step public control rather than whole-run completion"),
+  proven("public_control", "advance_next", {
+    gtlExpression: "Product-declared default Program start selected by target=next",
+    hogPath: "one admitted start enters one bounded direct GraphFunction traversal",
+    abgEvidence: "invocation admission binds next, first_traversal, and the resolved start identity",
+    publicOutcome: "installed CLI returns the Product-owned default traversal result with replay agreement",
+    invalidMutation: "next without a Product-declared default refuses before Run admission",
+  }, ({ externalPublicTargets }) => {
+    assert.equal(
+      externalPublicTargets.status,
+      0,
+      `${externalPublicTargets.stdout}\n${externalPublicTargets.stderr}`,
+    );
+  }),
   proven("public_control", "graph_function_target", {
     gtlExpression: "published GraphFunction named by one direct invocation",
     hogPath: "admitted root GraphFunction enters direct HoG traversal",
@@ -713,7 +725,19 @@ const matrix = [
       "graph-function://abiogenesis/conformance/hello-world@5");
     assertCrossWireRefuses(crossWire);
   }),
-  open("public_control", "asset_target", "asset target resolved through its owning program or GraphFunction", "public asset targeting without making the asset callable"),
+  proven("public_control", "asset_target", {
+    gtlExpression: "Product-published asset handle maps to one declared Program start",
+    hogPath: "HoG traverses the owning GraphFunction; the asset never becomes callable",
+    abgEvidence: "invocation admission binds the requested asset handle and resolved start identity",
+    publicOutcome: "installed CLI resolves asset:greeting through the Product publication and agrees with replay",
+    invalidMutation: "missing or multiply owned asset handles refuse before Run admission",
+  }, ({ externalPublicTargets }) => {
+    assert.equal(
+      externalPublicTargets.status,
+      0,
+      `${externalPublicTargets.stdout}\n${externalPublicTargets.stderr}`,
+    );
+  }),
   proven("public_control", "bounded_until", {
     gtlExpression: "published start with until=converged and Product-owned no-action stop",
     hogPath: "the same public start either stops at admitted gap pressure or reaches governed convergence",
@@ -768,12 +792,12 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 33);
+  assert.equal(matrix.filter((row) => row.status === "proven").length, 35);
   assert.equal(
     matrix.filter((row) => row.status === "provisional").length,
     0,
   );
-  assert.equal(matrix.filter((row) => row.status === "open").length, 7);
+  assert.equal(matrix.filter((row) => row.status === "open").length, 5);
   for (const row of matrix) {
     for (const field of [
       "witness46",
@@ -1006,6 +1030,26 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
       timeout: 30_000,
     },
   );
+  const externalPublicTargets = spawnSync(
+    process.execPath,
+    [
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern=^M5 starts Product-declared next and asset targets without a Public controller$",
+      "test_env/tests/m5-installed-external-product.test.mjs",
+    ],
+    {
+      cwd: root,
+      encoding: "utf8",
+      env: Object.fromEntries(
+        Object.entries(process.env).filter(
+          ([key]) => key !== "NODE_TEST_CONTEXT",
+        ),
+      ),
+      maxBuffer: 10 * 1024 * 1024,
+      timeout: 30_000,
+    },
+  );
   const evidence = {
     fd,
     compose,
@@ -1027,6 +1071,7 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
     externalTicket,
     externalGapReentry,
     externalSpanReentry,
+    externalPublicTargets,
   };
 
   for (const row of matrix) {
