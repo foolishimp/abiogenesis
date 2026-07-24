@@ -10,15 +10,15 @@
     build_tenants/abiogenesis/typescript/code/src direct-GTL realization across
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
-- phase_status: m5_s02_fh_mixed_prerequisite_active
-- review_status: requirement_and_goal_reprice_direct_fh_authorized
-- proof_status: external_product_frontier_green_s02_open
+- phase_status: m5_s03_active
+- review_status: corrected_s02_closed_s03_reprice_active
+- proof_status: s02_green_s03_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
-    Correct the S02/S03 scheduling contradiction and extend the current
-    b98dc7f5 implementation through the first independently authored installed
-    GTL Product path before any further horizontal traversal expansion.
+    Continue from closed corrected S02 through one Product-defined S03 path:
+    One Surface orders work, public operations admit human response and
+    continuation, and ABG replay remains the runtime truth.
 - change_class: requirement_reprice
 - re_entry_point: >-
     specification/requirements/product/REQ-P-SCENARIOS.md
@@ -32,13 +32,13 @@
 - implementation_hold: released
 - implementation_hold_effect: >-
     Direct F_H authorized the bounded requirement and delivery-order correction
-    on 2026-07-24; ABI5-M5-EXT-001 is green and T-272 is released only for
-    the F_H/mixed direct prerequisite required by corrected ABG5-S02
+    on 2026-07-24; ABI5-M5-EXT-001 and corrected ABG5-S02 are green, and
+    T-272 is released for ABG5-S03 through the same Product path
 - accepted_m5_design_commit: d6da426947e1b7e18e7ed5bd1c0f945dcde9c73f
 - accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
 - regression_binding: ABI5-ROOT-001
-- current_product_frontier: ABG5-S02-FH-MIXED-PREREQUISITE
-- current_implementation_base: bc9ca26a
+- current_product_frontier: ABG5-S03-ONE-SURFACE-CONTINUATION
+- current_implementation_base: de29a7b7
 - retained_implementation_subject: ffba4e71456cf19168fa2bbf2981b463e018a0cf
 - current_branch_head_at_intake: e0575b824773d2105110918cf71257deca8b0f3a
 - selected_method_release: STDO v2.0.0
@@ -78,11 +78,11 @@ GTL.TypeScript
   -> thin public projection
 ```
 
-The current code proves this relation for the M4 all-F_D bootstrap plus useful
-internal traversal and runtime subsets. Those proofs are retained regression
-evidence. The next Product-progress claim is an independently packed,
-developer-authored GTL mini-product using the installed public path without any
-mini-product-specific identifier or switch in ABIogenesis core.
+The current code proves this relation through S01 and corrected S02, including
+an independently packed developer Product, all S02-owned traversal rows, live
+F_P, and durable F_H continuation. Those proofs remain regression evidence.
+The next Product-progress claim is S03: one GTL-owned One Surface path through
+the same product-neutral public extension seam.
 
 ## Ticket And Authority Rule
 
@@ -92,7 +92,7 @@ their boundary becomes active:
 
 | Existing ticket | M5 or successor role |
 |---|---|
-| `T-272` | `ABG5-S03`: after the independent Product path and S02, consume durable replay reopening for F_H response, continuation, One Surface, consequence/runtime rows, and public-control rows |
+| `T-272` | active `ABG5-S03`: consume the now-green durable F_H continuation path for One Surface, consequence/runtime rows, and public-control rows |
 | `T-274` | `ABG5-S05`: ordinary GTL Consensus Module and GraphFunction publication |
 | `T-275` | `ABG5-S05`: attributed profiles and replay-derived Consensus result projection |
 | `T-276` | `ABG5-S05`: source-blind installed Consensus scenarios |
@@ -148,8 +148,8 @@ working installed slice and scales to the changed authority and risk boundary.
 | Order | Existing owner | Installed outcome |
 |---:|---|---|
 | `1` | `T-270`, `T-281` | From an empty consumer directory, install packed ABIogenesis and a separately packed developer mini-product; resolve a non-empty Product lock; admit its supplied publication; invoke it through installed SDK and CLI; and derive the same typed result from ABG replay. |
-| `2` | `T-270` | Close S02 with representative complete graph/C behavior, live F_P, four compute-fibre rows, eight structural-form rows, fibre substitution, transparent child traversal, and owned negatives. |
-| `3` | `T-272` | Reopen durable replay, admit F_H response at the exact held locus, continue the same run, exercise consequence/runtime/public-control rows, and close `ABG5-S03`. |
+| `2` | `T-270` | **Complete at `de29a7b7`:** representative complete graph/C behavior, live F_P, four compute-fibre rows, eight structural-form rows, fibre substitution, transparent child traversal, and owned negatives close S02. |
+| `3` | `T-272` | **Active:** use durable F_H response and same-run continuation to exercise One Surface, consequence/runtime/public-control rows, and close `ABG5-S03`. |
 | `4` | `T-274`, `T-275`, `T-276` | Execute Consensus through the same ordinary extension, catalog, GTL, HoG, ABG, and public path; close `ABG5-S05`. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner realization, native and bounded host projection, and independent flavored-catalog portability through the same extension path; close `ABG5-S06` and make `ABG5-S04` runnable. |
 | `6` | `T-270` | Re-evaluate the feature ledger and freeze one exact M5 candidate; the complete forty-row conservation sweep remains an M6 qualification obligation. |
@@ -699,8 +699,9 @@ forty rows before those later capabilities existed.
 Current implementation base
 `b98dc7f5be9373c9b475af558fe2dabc1bf04f80` is retained. No reset, new
 zero-inherited line, Product rewrite, or new ticket hierarchy is authorized.
-The existing `21/40` matrix state is retained as conservation evidence but no
-longer selects implementation order or projects Product progress.
+At the correction point, the `21/40` matrix state was retained as conservation
+evidence but no longer selected implementation order or projected Product
+progress.
 
 The current checkpoint is `ABI5-M5-EXT-001`. It requires:
 
@@ -747,6 +748,34 @@ and manifest digest
 This checkpoint proves the extension seam, not S02 or S06 closure. The next
 typed frontier is corrected S02.
 
+## Corrected S02 Closure Checkpoint
+
+Implementation commit `de29a7b7` closes corrected `ABG5-S02` through the same
+independently packed Product seam:
+
+- the developer Product publishes one mixed `F_D` -> `F_P` -> terminal `F_H`
+  GTL Program without any developer-specific switch in ABIogenesis core;
+- the installed path holds at the exact F_H cursor, exposes replay-derived
+  state through `project.read`, admits an attributed typed response through
+  `interaction.respond`, reopens the append-only event log, and resumes the
+  same Run through a separate `run.continue`;
+- ABG reconstructs invocation, execution-basis, scope, C-call, pending
+  result/judgment, and continuation truth from durable events; HoG separately
+  re-admits its exact held cursor before traversal resumes;
+- malformed response shape and wrong actor refuse without advancing the
+  continuation, while the successful path records exactly three fibre
+  selections, three complete C-call spines, one resolved continuation, one
+  run closure, and gap-free admission ordinals; and
+- the fresh current-candidate live F_P proof uses `claude-fable-5` through the
+  same installed transport and replay path.
+
+Fresh serialized verification is `test:m5` `72/72`, retained `test:m4`
+`26/26`, live `test:m5:live-fp` `1/1`, focused durable reopen `7/7`, and
+conservation `23/40` with `17` explicit later-scenario gaps. All four
+compute-fibre and eight structural-form rows are green, alongside fibre
+substitution, transparent child traversal, and the required malformed GTL and
+F_P refusals. S02 is closed; S03 is the next Product frontier.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -772,15 +801,15 @@ not a proof that the Product is complete.
 | Feature | M4 state | Owning closure |
 |---|---|---|
 | `A5-F01` exact product/install/workspace/catalog | two independently packed Products and one non-empty exact dependency lock proven; broader conflict coverage pending | `T-270`, `T-281` |
-| `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition, substitution, identity, promotion, canonical same-object witnesses, and gate evaluator binding are native and validated; remaining runtime relation semantics stay open | `T-270` / S02 |
-| `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, one F_P-to-F_D composition, serial fan-out/fan-in with partial-stop truth, workflow, declared gate, bounded recursion, and real failed-attempt retry subsets proven; remaining S02-owned traversal applications open | `T-270` / S02 |
-| `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
+| `A5-F02` complete GTL authoring and validation | S02 authoring, serialization, raw admission, validation, publication, seven constructors, ten relation declarations, GraphFunction relations, and invalid substitutes proven | `T-270` / S02 complete |
+| `A5-F03` complete graph, C, and traversal | all four compute-fibre and eight structural-form rows, fibre substitution, transparent child traversal, and representative graph/C applications proven | `T-270` / S02 complete |
+| `A5-F04` probabilistic result integrity | current-candidate live F_P evidence/result admission and malformed, incomplete, contradictory, unattributed, and extra-field refusals proven | `T-270` / S02 complete |
 | `A5-F05` one public contract authority | caller-supplied independent publication proven; complete public family pending | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | independent Product invocation proven through both installed surfaces; complete public family pending | `T-281` / S06 |
 | `A5-F07` complete One Surface loop | absent | `T-272` / S03 |
 | `A5-F08` Consensus free construction | absent | `T-274`, `T-275`, `T-276` / S05 |
 | `A5-F09` catalog semantics | product-neutral admit, view, and invoke proven for an independent Product | `T-270`, `T-281` / S02 and S06 |
-| `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, terminal, and exact durable-history reopen subsets proven; F_H hold, response, and continuation open | `T-270`, `T-272` / S02 and S03 |
+| `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, terminal, exact durable-history reopen, and F_H hold/respond/continue subsets proven; S03 and later scenario truth remains open | `T-270`, `T-272` / S02 complete, S03 active |
 | `A5-F11` self-conformance | absent | realization readiness in `T-268`; qualification in `T-247` / S04 |
 | `A5-F12` observer and tuner | absent | realization in `T-268`; qualification in `T-247` / S04 |
 | `A5-F13` native and bounded host projection | absent | `T-281` / S06 |

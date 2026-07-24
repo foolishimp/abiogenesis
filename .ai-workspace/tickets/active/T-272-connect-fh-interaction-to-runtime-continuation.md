@@ -1,9 +1,10 @@
 # T-272 - Connect F_H Response To Replay Continuation
 
 > **Current disposition (2026-07-24):**
-> `released_for_s02_fh_mixed_prerequisite`. Only the durable
-> hold/read/respond/continue path needed by the F_H and mixed compute rows is
-> active. The rest of S03 remains held. Historical X-path designs and
+> `active_for_s03`. The durable hold/read/respond/continue prerequisite and
+> mixed compute path closed with corrected S02 at `de29a7b7`. One Surface,
+> consequence routes, runtime dispositions, and public-control work are now
+> active through the same extension path. Historical X-path designs and
 > checkpoints remain donor evidence only.
 
 - id: T-272
@@ -11,23 +12,22 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
-- implementation_hold: partial
-- implementation_hold_ref: GOAL-035 ABG5-S02 F_H/mixed direct prerequisite
+- implementation_hold: released
+- implementation_hold_ref: GOAL-035 ABG5-S03
 - implementation_hold_effect: >-
-    implement only one generic durable F_H hold/read/respond/continue path and
-    one mixed-fibre use through the installed extension seam; keep One Surface,
-    consequence routes, runtime dispositions, and broader public-control work
-    held until corrected S02 closes
-- phase_status: s02_fh_mixed_prerequisite_active
-- review_status: requirement_and_goal_reprice_direct_fh_authorized
-- proof_status: durable_event_reopen_ready_fh_continuation_pending
-- delivery_phase: M5_frontier_2a_then_frontier_3
+    extend the green durable F_H path with Product-defined One Surface,
+    consequence routes, runtime dispositions, and public-control behavior;
+    historical X implementation remains held donor evidence
+- phase_status: s03_active
+- review_status: corrected_s02_closed_s03_scope_released
+- proof_status: durable_fh_continuation_green_s03_open
+- delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
-    After the independent Product path and corrected S02 close, add one
-    replay-derived F_H hold, read, response, and same-run continuation path;
-    bind One Surface plus the consequence, runtime-disposition, and public
-    start/control rows constitutionally assigned to ABG5-S03.
+    Extend the closed replay-derived F_H hold, read, response, and same-run
+    continuation path with One Surface plus the consequence,
+    runtime-disposition, and public start/control rows constitutionally
+    assigned to ABG5-S03.
 - change_class: design_reframe
 - re_entry_point: >-
     specification/requirements/product/REQ-P-SCENARIOS.md
@@ -48,7 +48,7 @@
 
 ## Current S03 Reprice
 
-T-272 is released first for this bounded direct prerequisite:
+The bounded direct prerequisite is complete:
 
 ```text
 F_H hold
@@ -58,11 +58,18 @@ F_H hold
   -> same-run replay and typed outcome
 ```
 
-This first slice closes only the F_H and mixed compute-fibre evidence needed by
-S02. After S02 closes, the same ticket extends the path with every retained
-consequence route, runtime disposition, and public start/control row owned by
-S03. This reprice does not authorize the historical X interpreter,
+Implementation commit `de29a7b7` closes the F_H and mixed compute-fibre
+evidence needed by S02. The same ticket now extends that path with every
+retained consequence route, runtime disposition, and public start/control row
+owned by S03. This reprice does not authorize the historical X interpreter,
 checkpoint-basis carrier, public controller, or any other X implementation.
+
+Fresh proof is `test:m5` `72/72`, `test:m4` `26/26`, live F_P `1/1`, durable
+reopen `7/7`, and conservation `23/40` with all S02-owned rows green. The
+installed mixed Product proves F_H hold, replay-derived read, malformed and
+wrong-actor refusal, attributed response, append-only reopen, separate
+continue, same-Run typed closure, and replay agreement. No second result or
+judgment is minted for the held C-call.
 
 ## Historical X Evidence
 
