@@ -10,7 +10,7 @@
     build_tenants/abiogenesis/typescript/code/src direct-GTL realization across
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
-- phase_status: m5_s02_frontier_active
+- phase_status: m5_s02_fh_mixed_prerequisite_active
 - review_status: requirement_and_goal_reprice_direct_fh_authorized
 - proof_status: external_product_frontier_green_s02_open
 - goal: GOAL-035 M5
@@ -32,12 +32,12 @@
 - implementation_hold: released
 - implementation_hold_effect: >-
     Direct F_H authorized the bounded requirement and delivery-order correction
-    on 2026-07-24; ABI5-M5-EXT-001 is green and implementation is now
-    authorized for the corrected ABG5-S02 boundary
+    on 2026-07-24; ABI5-M5-EXT-001 is green and T-272 is released only for
+    the F_H/mixed direct prerequisite required by corrected ABG5-S02
 - accepted_m5_design_commit: d6da426947e1b7e18e7ed5bd1c0f945dcde9c73f
 - accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
 - regression_binding: ABI5-ROOT-001
-- current_product_frontier: ABG5-S02
+- current_product_frontier: ABG5-S02-FH-MIXED-PREREQUISITE
 - current_implementation_base: bc9ca26a
 - retained_implementation_subject: ffba4e71456cf19168fa2bbf2981b463e018a0cf
 - current_branch_head_at_intake: e0575b824773d2105110918cf71257deca8b0f3a

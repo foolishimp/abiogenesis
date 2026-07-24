@@ -1,25 +1,27 @@
 # T-272 - Connect F_H Response To Replay Continuation
 
 > **Current disposition (2026-07-24):**
-> `held_pending_abi5_m5_ext_001_and_s02`. The current S03 role is recorded
-> below. Historical X-path designs and checkpoints remain donor evidence only.
+> `released_for_s02_fh_mixed_prerequisite`. Only the durable
+> hold/read/respond/continue path needed by the F_H and mixed compute rows is
+> active. The rest of S03 remains held. Historical X-path designs and
+> checkpoints remain donor evidence only.
 
 - id: T-272
 - title: Connect F_H response to exact held-locus continuation
 - type: bug
 - ticket_category: implementation_migration
 - status: active
-- implementation_hold: active
-- implementation_hold_ref: GOAL-035 ABI5-M5-EXT-001 then corrected ABG5-S02
+- implementation_hold: partial
+- implementation_hold_ref: GOAL-035 ABG5-S02 F_H/mixed direct prerequisite
 - implementation_hold_effect: >-
-    preserve durable-reopen and historical continuation evidence; do not
-    implement F_H response, continuation, One Surface, consequence routes,
-    runtime dispositions, or public-control rows until the preceding Product
-    frontier and S02 are ready
-- phase_status: held_pending_external_product_and_s02
-- review_status: requirement_reprice_role_recorded_implementation_not_released
+    implement only one generic durable F_H hold/read/respond/continue path and
+    one mixed-fibre use through the installed extension seam; keep One Surface,
+    consequence routes, runtime dispositions, and broader public-control work
+    held until corrected S02 closes
+- phase_status: s02_fh_mixed_prerequisite_active
+- review_status: requirement_and_goal_reprice_direct_fh_authorized
 - proof_status: durable_event_reopen_ready_fh_continuation_pending
-- delivery_phase: M5_frontier_3_after_external_product_and_s02
+- delivery_phase: M5_frontier_2a_then_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     After the independent Product path and corrected S02 close, add one
@@ -46,8 +48,7 @@
 
 ## Current S03 Reprice
 
-T-272 remains held. When its boundary opens, it consumes the existing durable
-event-history reopening primitive and must deliver:
+T-272 is released first for this bounded direct prerequisite:
 
 ```text
 F_H hold
@@ -57,10 +58,11 @@ F_H hold
   -> same-run replay and typed outcome
 ```
 
-The same scenario owns every retained consequence route, runtime disposition,
-and public start/control row. Those rows no longer block S02. This reprice does
-not authorize the historical X interpreter, checkpoint-basis carrier, public
-controller, or any implementation before the hold is explicitly released.
+This first slice closes only the F_H and mixed compute-fibre evidence needed by
+S02. After S02 closes, the same ticket extends the path with every retained
+consequence route, runtime disposition, and public start/control row owned by
+S03. This reprice does not authorize the historical X interpreter,
+checkpoint-basis carrier, public controller, or any other X implementation.
 
 ## Historical X Evidence
 

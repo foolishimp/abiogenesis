@@ -10,7 +10,7 @@ truth.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M4 bootstrap and independent Product path retained; current M5 frontier is corrected `ABG5-S02` under T-270 |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M4 bootstrap and independent Product path retained; current M5 frontier is the F_H/mixed direct prerequisite for corrected `ABG5-S02` |
 
 ## Current Constitutional Basis
 
@@ -95,11 +95,23 @@ mini-product-specific identifier, switch, validator, judgment, or execution
 path. The installed CLI and SDK derive the same typed result from ABG replay,
 and substitution of the Product semantics or judgment boundary fails closed.
 
-The current M5 Product frontier is corrected `ABG5-S02`: reuse the generic
-extension path and retained traversal/F_P work to close complete graph/C
-behavior, the four compute-fibre rows, the eight structural-form rows, fibre
-substitution, and their owned negatives. Consequence, runtime-disposition,
-continuation, and public-control rows remain owned by S03 and later scenarios.
+The current M5 Product frontier is the F_H/mixed direct prerequisite for
+corrected `ABG5-S02`. The other ten S02 rows and fibre substitution are already
+represented by retained installed evidence. T-272 now owns one vertical
+prerequisite:
+
+```text
+F_H hold
+  -> public read
+  -> interaction.respond
+  -> durable event-log reopen
+  -> run.continue
+  -> same-run replay and typed result
+```
+
+That path closes the F_H compute row and permits one mixed F_D/F_P/F_H Program
+to close the mixed row. T-272's broader One Surface, consequence,
+runtime-disposition, and public-control work remains after S02.
 
 ## Product Scope
 
@@ -139,15 +151,15 @@ successor work and do not gate ABIogenesis 5.0.
 `T-283`, `T-284`, `T-285`, and `T-286` are complete. T-270 remains the sole
 M5 parent owner. T-281 completed the `ABI5-M5-EXT-001` publication,
 dependency, SDK, CLI, and invocation boundary and is held until its later S06
-public and portability role.
+public and portability role. T-272 is released only for the F_H/mixed direct
+prerequisite required to close S02; its remaining S03 scope stays held.
 
-The active tickets `T-268`, `T-272`, `T-274`, `T-275`, `T-276`, `T-278`, and
-`T-282` remain held donor or successor carriers. T-272 records its corrected
-S03 role but retains its implementation hold until the independent Product path
-and S02 boundary are ready. No ticket retains an X-era implementation sequence,
-fixed operation count, compiled-plan authority, or independent closure
-projection. T-247 and T-248 remain backlog carriers for M6 and M7. No new
-ticket hierarchy is authorized.
+The active tickets `T-268`, `T-274`, `T-275`, `T-276`, `T-278`, and `T-282`
+remain held donor or successor carriers. T-272 is active only for the
+F_H/mixed direct prerequisite and retains a hold over all other S03 work. No
+ticket retains an X-era implementation sequence, fixed operation count,
+compiled-plan authority, or independent closure projection. T-247 and T-248
+remain backlog carriers for M6 and M7. No new ticket hierarchy is authorized.
 
 ## M5 Work Ownership
 
@@ -157,8 +169,9 @@ own subordinate boundaries after in-place reprice:
 | Order | Existing owner | Product boundary |
 |---:|---|---|
 | `1` | `T-270`, `T-281` | **Complete at `bc9ca26a`:** independently packed developer GTL Product, non-empty dependency lock, caller-supplied publication, product-owned contracts and judgment, installed resolution, and product-neutral SDK/CLI invocation. |
-| `2` | `T-270` | Reuse the current traversal and F_P work to close S02 over complete graph/C behavior, the four compute-fibre and eight structural-form rows, fibre substitution, and its negatives. |
-| `3` | `T-272` | Consume durable event-history reopening; add F_H hold/read/respond/continue, One Surface, all consequence and runtime-disposition rows, the six public-control rows, and close S03. |
+| `2a` | `T-272` | Close the S02 direct prerequisite: one durable F_H hold/read/respond/continue path and one mixed F_D/F_P/F_H Program through the generic extension seam. |
+| `2b` | `T-270` | Reconcile the resulting four compute-fibre and eight structural-form rows, fibre substitution, complete graph/C behavior, and owned negatives to close S02. |
+| `3` | `T-272` | Extend the same path with One Surface, all consequence and runtime-disposition rows, the six public-control rows, and close S03. |
 | `4` | `T-274`, `T-275`, `T-276` | Deliver ordinary-path Consensus through the same public extension path and close S05. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner, native and host projections, downstream portability through the same extension path, close S06, and make S04 runnable. |
 | `6` | `T-270` | Re-evaluate the derived 17-family ledger and freeze one exact M5 candidate for T-247; M6 performs the complete forty-row qualification sweep. |
