@@ -38,6 +38,7 @@
 - accepted_m5_design_commit: d6da426947e1b7e18e7ed5bd1c0f945dcde9c73f
 - accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
 - accepted_t272_design_sha256: 4645b7124d210a494f7307e2ec9d786c29ed44ae56b58d9cc844ce4b324d10c1
+- accepted_s05_design_sha256: e9467961e11d52a40003b2aff3a152b33e1f3fdb7b8700b4fc0111e44bb2c747
 - regression_binding: ABI5-ROOT-001
 - current_product_frontier: ABG5-S05-CONSENSUS
 - current_implementation_base: ab7e57ed0c4ed1369a645432bef9c002fc9665d7
