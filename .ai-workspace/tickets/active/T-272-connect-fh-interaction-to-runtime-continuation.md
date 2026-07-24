@@ -5,7 +5,9 @@
 > mixed compute path were repaired across fresh public contexts at `cbb57d56`.
 > The externally packed, Program-owned One Surface path is green through
 > Product-owned evaluator output, ABG-owned construction-intent admission,
-> governed evidence fold, and post-evidence refresh at `d5f8dbf6`.
+> governed evidence fold, and post-evidence refresh. Candidate `bc2fb639`
+> further binds explicit observation and action-evaluation bases and derives
+> closure from replay-visible construction state rather than a stage label.
 > Consequence routes, runtime dispositions, and public-control work remain
 > active through the same extension path. Section 12 of the M05 design is an
 > affected-boundary candidate pending exact review.
@@ -23,8 +25,8 @@
     consequence routes, runtime dispositions, and public-control behavior;
     historical X implementation remains held donor evidence
 - phase_status: s03_active
-- review_status: s03_governed_evidence_fold_self_verified_review_pending
-- proof_status: program_start_governed_fold_and_refresh_green_s03_open
+- review_status: s03_governed_basis_and_closure_exact_review_pending
+- proof_status: program_start_governed_basis_fold_refresh_and_negatives_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -71,7 +73,7 @@ disposition, and public start/control row owned by S03. This reprice does not
 authorize the historical X interpreter, checkpoint-basis carrier, public
 controller, or any other X implementation.
 
-Current integrated proof is `test:m5` `75/75`, `test:m4` `26/26`, live F_P
+Current integrated proof is `test:m5` `81/81`, `test:m4` `26/26`, live F_P
 `1/1`, and durable reopen `8/8`; all twelve S02-owned rows are green. The
 installed mixed Product proves F_H hold, replay-derived read, malformed and
 wrong-actor refusal, attributed response, append-only reopen, separate
@@ -206,6 +208,50 @@ and manifest digest
 This checkpoint does not close S03. The retained consequence,
 runtime-disposition, and public-control behavior remains the next vertical
 frontier.
+
+## Governed Basis And Closure Repair Candidate
+
+Candidate `bc2fb63949dfba5524ccaa3a194b0921f74b0fe9` repairs the exact
+Section 12 findings without changing Product, requirements, scenarios, or the
+ticket graph:
+
+- the external Product starts from an `ObservationSnapshot` bound to the exact
+  WorkspaceBinding and Program `ActionCatalog`;
+- Product model and gap evaluation emits one `NextActionBasis` containing the
+  snapshot, target obligations, admitted catalog, deterministic priority,
+  runtime frontier, and declared policy;
+- the admitted `ConstructionIntent` preserves that exact basis;
+- ABG derives one `ActionEvaluationBasis` from the intent, complete admitted
+  F_H evidence, workspace, catalog identity, closure policy, and causal runtime
+  events before HoG re-enters the Product evaluator;
+- Product `evaluateAction` consumes that basis and ABG reconciles its ledger
+  and decision against every admitted evidence reference; and
+- an intent-bearing Run can close only after its matching construction delta,
+  refreshed converged basis, and converged next-action projection exist in the
+  same replay scope. Stage-role strings carry no closure authority.
+
+Installed mutations prove refusal of terminal closure immediately after
+`evaluateAction`, terminal closure directly from F_H resume, the old scalar
+approval input, and a self-consistent ledger that omits the admitted evidence.
+A complete path with a renamed terminal role remains green.
+
+The affected M05 design subject hashes to
+`96724255739b8b3c9e2e472b3b17f8680898e8cd9eddfad1a836ddcd6d3ac4d4`.
+It remains pending exact review and is not accepted by this checkpoint.
+
+Fresh serialized verification is `test:m5` `81/81`, retained `test:m4`
+`26/26`, and external developer Product `10/10`. The committed live F_P proof
+remains retained and was not rerun. Two byte-identical packs reproduce:
+
+- artifact SHA-256:
+  `bd639bc2b203ebb7baf92b2f04a0506c7dfd01ac06b93bbef493a3bbde242da2`;
+- Product content digest:
+  `sha256:2f550a698e20c16ce3c7c4011cab4121e4541ded339d5bd208bad910f652c3e2`;
+- manifest digest:
+  `sha256:145970e141aea03921ba8c06c3d3b66357d362c055ac36f89cea2a0f07e6dc1f`.
+
+This repair does not close S03. Exact review of the frozen candidate precedes
+the next consumer-visible `gap_stop -> public re-entry -> convergence` slice.
 
 ## Historical X Evidence
 

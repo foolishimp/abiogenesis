@@ -6,11 +6,13 @@ The ABIogenesis 5.0 Product destination, M2 correction vector, M3 direct-GTL
 realization design, and M5 base design are accepted. T-286 completed the
 installed `ABI5-ROOT-001` bootstrap. T-270 owns active M5 realization; T-272
 owns current S03. The independently packed developer Product now carries
-Product-owned next-action evaluation, ABG-owned construction-intent and
-construction-delta admission, and post-evidence model/gap/next-action refresh
-through the installed public path. The affected M05 Section 12 delta remains
-pending exact review. Existing M5 traversal work is regression evidence, not
-the current work queue.
+Product-owned observation, next-action, and action-evaluation bases,
+ABG-owned construction-intent and construction-delta admission, and
+post-evidence model/gap/next-action refresh through the installed public path.
+Candidate `bc2fb639` derives closure from replay-visible construction state and
+is green under its installed negatives. The affected M05 Section 12 delta
+remains pending exact review; subsequent S03 expansion is held. Existing M5
+traversal work is regression evidence, not the current work queue.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.

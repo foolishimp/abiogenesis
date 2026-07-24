@@ -11,8 +11,8 @@
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
 - phase_status: m5_s03_active
-- review_status: s03_governed_evidence_fold_green_design_review_pending
-- proof_status: s02_green_s03_governed_fold_green_s03_open
+- review_status: s03_governed_basis_and_closure_green_design_review_pending
+- proof_status: s02_green_s03_governed_basis_fold_refresh_and_negatives_green_s03_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -36,10 +36,10 @@
     T-272 is released for ABG5-S03 through the same Product path
 - accepted_m5_design_commit: d6da426947e1b7e18e7ed5bd1c0f945dcde9c73f
 - accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
-- pending_t272_design_sha256: d437db883ebdd18a33d809be7fcbec6b1ff3eeeb20da6375b39d1e202b2acd5a
+- pending_t272_design_sha256: 96724255739b8b3c9e2e472b3b17f8680898e8cd9eddfad1a836ddcd6d3ac4d4
 - regression_binding: ABI5-ROOT-001
 - current_product_frontier: ABG5-S03-ONE-SURFACE-CONTINUATION
-- current_implementation_base: d5f8dbf6
+- current_implementation_base: bc2fb63949dfba5524ccaa3a194b0921f74b0fe9
 - retained_implementation_subject: ffba4e71456cf19168fa2bbf2981b463e018a0cf
 - current_branch_head_at_intake: e0575b824773d2105110918cf71257deca8b0f3a
 - selected_method_release: STDO v2.0.0
@@ -150,7 +150,7 @@ working installed slice and scales to the changed authority and risk boundary.
 |---:|---|---|
 | `1` | `T-270`, `T-281` | From an empty consumer directory, install packed ABIogenesis and a separately packed developer mini-product; resolve a non-empty Product lock; admit its supplied publication; invoke it through installed SDK and CLI; and derive the same typed result from ABG replay. |
 | `2` | `T-270` | **Repaired and complete at `cbb57d56`:** representative complete graph/C behavior, live F_P, four compute-fibre rows, eight structural-form rows, fibre substitution, durable F_H across fresh contexts, installed nonterminal identity, malformed GTL refusal, and owned negatives close S02. |
-| `3` | `T-272` | **Governed evidence fold and post-evidence refresh green at `d5f8dbf6`; affected design review pending; active:** use the same external Product path to complete consequence/runtime/public-control rows and close `ABG5-S03`. |
+| `3` | `T-272` | **Governed basis, evidence fold, post-evidence refresh, and closure negatives green at `bc2fb639`; affected design review pending; active:** after exact review, use the same external Product path to complete consequence/runtime/public-control rows and close `ABG5-S03`. |
 | `4` | `T-274`, `T-275`, `T-276` | Execute Consensus through the same ordinary extension, catalog, GTL, HoG, ABG, and public path; close `ABG5-S05`. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner realization, native and bounded host projection, and independent flavored-catalog portability through the same extension path; close `ABG5-S06` and make `ABG5-S04` runnable. |
 | `6` | `T-270` | Re-evaluate the feature ledger and freeze one exact M5 candidate; the complete forty-row conservation sweep remains an M6 qualification obligation. |
@@ -834,6 +834,38 @@ The affected M05 Section 12 design is pending exact review at SHA-256
 `d437db883ebdd18a33d809be7fcbec6b1ff3eeeb20da6375b39d1e202b2acd5a`;
 it does not inherit the accepted M5 base identity. S03 remains open for its
 remaining scenario-owned routes.
+
+## S03 Governed Basis And Closure Repair Candidate
+
+T-272 candidate `bc2fb63949dfba5524ccaa3a194b0921f74b0fe9` retains the
+governed fold and repairs its input and terminal authority:
+
+- an exact WorkspaceBinding and Program ActionCatalog bind the initial
+  `ObservationSnapshot`;
+- Product model and gap evaluation emits one complete `NextActionBasis`;
+- the admitted `ConstructionIntent` binds that basis and selected action;
+- ABG derives `ActionEvaluationBasis` from the exact intent, complete admitted
+  response evidence, workspace, action catalog, closure policy, and runtime
+  event refs;
+- Product evaluation consumes that basis, while ABG reconciles its ledger and
+  decision against the admitted evidence; and
+- an intent-bearing Run closes only after its matching construction delta,
+  refreshed converged basis, and converged next-action projection are present
+  in the same replay scope.
+
+Installed negatives refuse early `evaluateAction` closure, direct F_H terminal
+closure, scalar-basis substitution, and incomplete evidence. A complete path
+whose terminal stage role is renamed remains green, proving the label carries
+no authority.
+
+Fresh proof is M5 `81/81`, M4 `26/26`, and external Product `10/10`. Two
+byte-identical packs reproduce SHA-256
+`bd639bc2b203ebb7baf92b2f04a0506c7dfd01ac06b93bbef493a3bbde242da2`.
+The committed live F_P proof remains retained and was not rerun.
+
+The amended M05 Section 12 design is pending exact review at SHA-256
+`96724255739b8b3c9e2e472b3b17f8680898e8cd9eddfad1a836ddcd6d3ac4d4`.
+No later S03 implementation is authorized by this checkpoint.
 
 ## 4.6 Conservation
 

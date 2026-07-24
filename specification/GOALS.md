@@ -37,13 +37,13 @@ correction on 2026-07-24.
 | M3 F_H decision | `.ai-workspace/comments/codex/20260720T141106Z_DECISION_fh_accept_t285_and_authorize_m4.md` |
 | completed work carrier | `T-286` implementation migration at `ffba4e71` |
 | accepted M5 design | `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` at `d6da4269`, SHA-256 `80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3` |
-| pending T-272 design delta | Section 12 governed evidence fold, SHA-256 `d437db883ebdd18a33d809be7fcbec6b1ff3eeeb20da6375b39d1e202b2acd5a`; exact-cut review pending |
+| pending T-272 design delta | Section 12 governed basis, evidence fold, and replay closure invariant, SHA-256 `96724255739b8b3c9e2e472b3b17f8680898e8cd9eddfad1a836ddcd6d3ac4d4`; exact-cut review pending |
 | M5 F_H decision | direct F_H ruling on 2026-07-22: accepted and continue under T-270 |
 | selected method release | STDO `v2.0.0`, commit `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a` |
 | selected method member set | 41 members, digest `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0` |
-| current work carrier | `T-270` M5 parent; T-272 owns active S03; exact implementation base `d5f8dbf6` |
+| current work carrier | `T-270` M5 parent; T-272 owns active S03; exact review candidate `bc2fb63949dfba5524ccaa3a194b0921f74b0fe9` |
 | current constitutional state | accepted Product and direct-GTL design; corrected S02/S03 requirement and delivery ordering |
-| implementation state | `ABI5-ROOT-001` is green; M5 `75/75`; `ABG5-S02` is green with fresh live F_P proof; the S03 governed evidence fold and post-evidence refresh are green; implementation coverage remains 22 proven, one S03-provisional, and 17 open rows; `ABG5-S03` is current |
+| implementation state | `ABI5-ROOT-001` is green; M5 `81/81`; `ABG5-S02` is green with retained live F_P proof; the S03 observation/action bases, governed evidence fold, post-evidence refresh, and replay-owned closure negatives are green pending exact review; implementation coverage remains 22 proven, one S03-provisional, and 17 open rows; `ABG5-S03` is current |
 
 The constitutional authoring order is one unpromoted transaction:
 
@@ -174,7 +174,7 @@ own subordinate boundaries after in-place reprice:
 | `1` | `T-270`, `T-281` | **Complete at `bc9ca26a`:** independently packed developer GTL Product, non-empty dependency lock, caller-supplied publication, product-owned contracts and judgment, installed resolution, and product-neutral SDK/CLI invocation. |
 | `2a` | `T-272` | **Repaired at `cbb57d56`:** one F_H hold/read/respond/continue path survives fresh public contexts; its hold truth is admitted atomically; one mixed F_D/F_P/F_H Program closes through the generic extension seam. |
 | `2b` | `T-270` | **Complete at `cbb57d56`:** four compute-fibre and eight structural-form rows, fibre substitution, installed nonterminal `c_identity`, malformed serialized GTL refusal, live F_P, and owned negatives close S02. |
-| `3` | `T-272` | **Governed evidence-fold checkpoint complete at `d5f8dbf6`; affected design review pending; S03 open:** the separately packed developer Program publishes its action catalog, emits Product-owned selection and action-evaluation values, and carries one evidence ledger and closure candidate through ordinary C-call truth. ABG admits the exact `ConstructionIntent` and construction delta, then requires refreshed model, gap, and converged next-action truth before closure. Missing action membership and wrong-intent responses refuse before their authority boundaries. Remaining S03 consequence, runtime-disposition, and public-control behavior remains. |
+| `3` | `T-272` | **Governed-basis repair candidate frozen at `bc2fb639`; affected design review pending; S03 open:** the separately packed developer Program publishes its action catalog and produces explicit observation, next-action, and action-evaluation bases. ABG binds those bases to the exact WorkspaceBinding, intent, complete admitted evidence, closure policy, and replay scope. Closure requires a matching construction delta and post-evidence converged basis, independent of stage-role names. Installed negatives reject early evaluateAction closure, terminal F_H, scalar-basis substitution, and incomplete evidence. Remaining S03 consequence, runtime-disposition, and public-control behavior remains. |
 | `4` | `T-274`, `T-275`, `T-276` | Deliver ordinary-path Consensus through the same public extension path and close S05. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner, native and host projections, downstream portability through the same extension path, close S06, and make S04 runnable. |
 | `6` | `T-270` | Re-evaluate the derived 17-family ledger and freeze one exact M5 candidate for T-247; M6 performs the complete forty-row qualification sweep. |
