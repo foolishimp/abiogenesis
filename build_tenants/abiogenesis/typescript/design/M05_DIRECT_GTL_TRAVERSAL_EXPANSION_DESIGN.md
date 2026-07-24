@@ -4,6 +4,7 @@
 affected-boundary candidate whose implementation evidence is green and whose
 promotion requires review and acceptance
 **Date**: 2026-07-22
+**Section 12 updated**: 2026-07-25
 **Parent design**:
 `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`, accepted SHA-256
 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`
@@ -1169,19 +1170,27 @@ changing the accepted authority split or adding a rival event family.
 
 ```text
 Program-published ActionCatalog
+  + ABG-admitted ObservationSnapshot
+  -> Product-owned model synthesis
+  -> Product-owned evalGap emits one typed NextActionBasis
+       (snapshot + gap + obligations + ActionCatalog
+        + priority + runtime frontier + policy)
   -> Product-owned evaluateNext emits one typed NextActionProjection
   -> ordinary C-call evidence, result, and judgment admission
   -> traversal_route_admitted advances to the declared F_H cursor
-  -> construction_intent_selected binds the selected catalog row and cursor
+  -> construction_intent_selected binds the basis, selected row, and cursor
   -> F_H hold -> project.read -> interaction.respond -> run.continue
+  -> ABG derives one ActionEvaluationBasis
+       (intent + complete admitted evidence + workspace
+        + ActionCatalog identity + closure policy + runtime event refs)
   -> Product-owned evaluateAction emits:
        ActionEvaluationProjection
        + EdgeFulfillmentLedger
        + EdgeClosureDecision(close_candidate)
   -> ordinary C-call evidence, result, and judgment admission
   -> construction_delta_observed binds the complete runtime evidence fold
-  -> Product-owned synthesizeModel refresh
-  -> Product-owned evalGap refresh
+  -> Product-owned refreshed ObservationSnapshot
+  -> Product-owned refreshed NextActionBasis with converged frontier
   -> Product-owned evaluateNext emits converged NextActionProjection
   -> ABG admits terminal route and ordinary run closure
 ```
@@ -1198,10 +1207,19 @@ The catalog is Product declaration truth; it is not a runtime selector.
 `evaluateNext` owns the semantic selection. ABG admits its
 `NextActionProjection` only when the selected action resolves to exactly one
 row in the admitted Program catalog and every row field equals the projection.
-The resulting `ConstructionIntent` binds that row and projection to the
-workspace, invocation, Program, GraphFunction, ExecutionBasis, Run, GraphCall,
-Frame, source C-call/result/judgment, and successor cursor. Public and HoG
-choose none of those values.
+
+The public start input is one Product-owned `ObservationSnapshot` bound to the
+exact admitted WorkspaceBinding and Program `ActionCatalog`. Product model and
+gap evaluation derives one `NextActionBasis` containing that snapshot, target
+obligation bindings, admitted catalog, deterministic priority projection,
+runtime frontier, and declared policy. The basis is ordinary typed GTL data,
+not an ABG selection algorithm. ABG verifies its identity and admitted
+environment; Product owns its semantic contents and the subsequent selection.
+
+The resulting `ConstructionIntent` binds the `NextActionBasis`, selected row,
+and projection to the workspace, invocation, Program, GraphFunction,
+ExecutionBasis, Run, GraphCall, Frame, source C-call/result/judgment, and
+successor cursor. Public and HoG choose none of those values.
 
 ### 12.2 Canonical Intent And Continuation
 
@@ -1215,8 +1233,15 @@ A Product-valid response naming another intent refuses before
 `fh_interaction_responded`.
 
 The F_H response is evidence input only. It cannot directly close the Run.
-`run.continue` re-enters the already admitted successor cursor and completes
-the ordinary `evaluateAction` C-call.
+For a continuation carrying an admitted construction intent, ABG derives one
+`ActionEvaluationBasis` from replay-visible truth before `run.continue`
+re-enters HoG. The basis contains the exact intent, preceding
+`NextActionBasis`, complete admitted response evidence, WorkspaceBinding,
+selected ActionCatalog identity, closure policy, and causal runtime event
+references. The Product-owned `evaluateAction` function consumes this complete
+basis. A raw F_H response or incomplete basis cannot enter that C-call.
+Ordinary F_H continuations without a construction intent continue to receive
+their declared Product response value.
 
 ### 12.3 Evidence Fold And Closure
 
@@ -1236,16 +1261,27 @@ The Product-owned `ActionEvaluationProjection` carries one canonical
 
 `construction_delta_observed` is durable admitted truth with no independent
 active fluent. Product-owned model, gap, and next-action refreshes then execute
-as ordinary declared C-calls. A terminal route may close only when the final
-`NextActionProjection` is `converged` and cites the admitted intent, closure
-decision, refreshed gap, and matching construction delta. Model, gap, ledger,
-decision, and next-action values remain Product semantics; ABG admits and
-replays them but does not calculate them.
+as ordinary declared C-calls. They produce a refreshed `ObservationSnapshot`,
+a refreshed `NextActionBasis` whose runtime frontier is `converged`, and a
+final converged `NextActionProjection`.
+
+Closure is state-governed, not label-governed. If an exact Run and Frame
+contains `construction_intent_selected`, no terminal route is admissible
+unless replay also contains its matching `construction_delta_observed`, the
+post-delta refreshed basis, and the converged projection citing the admitted
+intent, closure decision, and refreshed gap. A terminal route immediately
+after `evaluateAction`, directly from F_H resume, or under any renamed stage
+role cannot bypass that invariant. Stage-role strings describe Product
+structure; they carry no closure authority.
+
+Model, gap, basis, ledger, decision, and next-action values remain Product
+semantics. ABG admits and replays them but does not calculate them.
 
 ### 12.4 Prohibitions And Evidence
 
 - No F_H response, pending result, or individual evidence row is closure
   truth.
+- No scalar approval value substitutes for `ActionEvaluationBasis`.
 - No action absent from the admitted Program catalog may open an intent or F_H
   interaction.
 - No route event doubles as construction-intent authority.
@@ -1258,7 +1294,17 @@ The installed external Product proves the complete sequence through fresh
 public contexts and the same durable Run. It also proves that a canonical
 Program whose catalog omits the proposed action refuses before intent or F_H
 admission, and that an otherwise Product-valid response naming another intent
-refuses before response admission.
+refuses before response admission. Installed mutation negatives additionally
+prove refusal of:
+
+1. terminal closure immediately after `evaluateAction`;
+2. terminal closure directly from the F_H resume;
+3. the old scalar approval input in place of `ActionEvaluationBasis`; and
+4. a canonical ledger and decision that omit the admitted evidence.
+
+A complete converged path with a renamed terminal stage role remains green,
+proving that replay-visible construction state, not a magic role string, owns
+closure.
 
 This delta repairs the selected-action, governed evidence-fold, and
 post-evidence refresh boundary. It does not close S03 or disposition the

@@ -129,9 +129,21 @@ export interface FhInteractionResumeAdmission {
   readonly responseRef: string;
   readonly responseDigest: Sha256Digest;
   readonly responseValue: Readonly<Record<string, JsonValue>>;
+  readonly successorInputRef: string;
+  readonly successorInputDigest: Sha256Digest;
+  readonly successorInputValue: Readonly<Record<string, JsonValue>>;
   readonly successorCursorRef: string;
   readonly successorCursorDigest: Sha256Digest;
   readonly admissionEventRef: string;
+}
+
+export interface FhResumeSuccessorInput {
+  readonly kind: "fh_resume_successor_input";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+  readonly inputRef: string;
+  readonly inputDigest: Sha256Digest;
+  readonly inputValue: Readonly<Record<string, JsonValue>>;
 }
 
 export interface ReplayContinuationState {
@@ -154,6 +166,9 @@ export interface ReplayContinuationState {
   readonly responseRef: string | null;
   readonly responseDigest: Sha256Digest | null;
   readonly responseValue: JsonValue | null;
+  readonly successorInputRef: string | null;
+  readonly successorInputDigest: Sha256Digest | null;
+  readonly successorInputValue: JsonValue | null;
   readonly successorCursorRef: string | null;
   readonly successorCursorDigest: Sha256Digest | null;
   readonly openedEventRef: string;
@@ -267,6 +282,10 @@ export function projectFhContinuations(
     const responseValue = responded !== undefined && isRecord(responded.payload)
       ? responded.payload.responseValue ?? null
       : null;
+    const successorInputValue =
+      resumed !== undefined && isRecord(resumed.payload)
+        ? resumed.payload.successorInputValue ?? null
+        : null;
     return deepFreeze({
       continuationRef,
       continuationDigest,
@@ -294,6 +313,13 @@ export function projectFhContinuations(
         ? null
         : digestField(responded, "responseDigest"),
       responseValue,
+      successorInputRef: resumed === undefined
+        ? null
+        : stringField(resumed, "successorInputRef"),
+      successorInputDigest: resumed === undefined
+        ? null
+        : digestField(resumed, "successorInputDigest"),
+      successorInputValue,
       successorCursorRef: resumed === undefined
         ? null
         : stringField(resumed, "successorCursorRef"),
@@ -858,10 +884,163 @@ export function admitFhInteractionResponse(
   });
 }
 
+export function deriveFhResumeSuccessorInput(
+  store: AbgEventStore,
+  continuationRef: string,
+  operation: ContinuationPublicOperationAdmission,
+  executionBasis: ExecutionBasis,
+  closureContract: Readonly<ClosureContract>,
+): FhResumeSuccessorInput {
+  const [continuation] = projectFhContinuations(store).filter(
+    (row) => row.continuationRef === continuationRef,
+  );
+  if (
+    continuation === undefined ||
+    continuation.status !== "responded" ||
+    continuation.responseRef === null ||
+    continuation.responseDigest === null ||
+    !isRecord(continuation.responseValue)
+  ) {
+    throw new TypeError(
+      "F_H successor input requires one exact responded continuation",
+    );
+  }
+  if (continuation.constructionIntentRef === null) {
+    return deepFreeze({
+      kind: "fh_resume_successor_input" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      inputRef: continuation.responseRef,
+      inputDigest: continuation.responseDigest,
+      inputValue: continuation.responseValue,
+    });
+  }
+  const opened = store.readAll().find(
+    (event) => event.eventId === continuation.openedEventRef,
+  );
+  const heldCursor =
+    opened !== undefined && isRecord(opened.payload) &&
+      isRecord(opened.payload.heldCursor)
+      ? opened.payload.heldCursor
+      : null;
+  if (
+    heldCursor === null ||
+    !isTraversalCursorCandidate(
+      heldCursor as unknown as TraversalCursorCandidate,
+    ) ||
+    !hasAdmittedExecutionBasis(store, executionBasis) ||
+    executionBasis.basisRef !== opened?.basisId ||
+    closureContract.closureContractRef !==
+      executionBasis.closureContractRef ||
+    sha256Canonical(closureContract as unknown as JsonValue) !==
+      executionBasis.closureContractDigest
+  ) {
+    throw new TypeError(
+      "construction successor input requires its exact admitted execution basis",
+    );
+  }
+  const heldCursorCandidate =
+    heldCursor as unknown as TraversalCursorCandidate;
+  const intent = rehydrateConstructionIntentForCursor(
+    store,
+    heldCursorCandidate,
+  );
+  if (
+    intent === null ||
+    intent.constructionIntentRef !== continuation.constructionIntentRef ||
+    intent.constructionIntentDigest !==
+      continuation.constructionIntentDigest ||
+    intent.executionBasisRef !== executionBasis.basisRef
+  ) {
+    throw new TypeError(
+      "construction successor input requires its exact admitted intent",
+    );
+  }
+  const intentEvent = store.readAll().find(
+    (event) => event.eventId === intent.admissionEventRef,
+  );
+  const nextActionBasis =
+    intentEvent !== undefined && isRecord(intentEvent.payload) &&
+      isRecord(intentEvent.payload.nextActionBasis)
+      ? intentEvent.payload.nextActionBasis
+      : null;
+  if (
+    nextActionBasis === null ||
+    nextActionBasis.kind !== "next_action_basis" ||
+    nextActionBasis.basisRef !== intent.nextActionBasisRef ||
+    nextActionBasis.basisDigest !== intent.nextActionBasisDigest
+  ) {
+    throw new TypeError(
+      "construction successor input requires its admitted next-action basis",
+    );
+  }
+  const body = {
+    kind: "action_evaluation_basis" as const,
+    schemaVersion: "5.0.0" as const,
+    constructionIntent: intent as unknown as JsonValue,
+    nextActionBasis,
+    admittedEvidence: [{
+      kind: "admitted_semantic_evidence" as const,
+      schemaVersion: "5.0.0" as const,
+      responseContractRef: continuation.responseContractRef,
+      responseRef: continuation.responseRef,
+      responseDigest: continuation.responseDigest,
+      responseValue: continuation.responseValue,
+      semanticEvidenceAssetRefs: intent.outputAssetRefs,
+      admissionEventRef: continuation.respondedEventRef!,
+    }],
+    workspaceBinding: {
+      workspaceBindingId: executionBasis.workspaceBindingId,
+      workspaceBindingDigest: executionBasis.workspaceBindingDigest,
+    },
+    actionCatalog: {
+      actionCatalogRef: intent.actionCatalogRef,
+      actionCatalogDigest: intent.actionCatalogDigest,
+      actionCatalogRowDigest: intent.actionCatalogRowDigest,
+      selectedActionRef: intent.selectedActionRef,
+    },
+    closurePolicy: {
+      closureContractRef: executionBasis.closureContractRef,
+      closureContractDigest: executionBasis.closureContractDigest,
+      targetOutcomeRef: intent.targetOutcomeRef,
+      requiredObligationRefs: intent.targetObligationRefs,
+      requiredEvidenceAssetRefs: intent.outputAssetRefs,
+      requireCompleteEvidence: true,
+      requirePostEvidenceRefresh: true,
+    },
+    runtimeEvidenceEventRefs: [
+      intent.admissionEventRef,
+      continuation.openedEventRef,
+      continuation.respondedEventRef!,
+      operation.admissionEventRef,
+    ],
+  };
+  const basisDigest = sha256Canonical(body as unknown as JsonValue);
+  const inputValue = deepFreeze({
+    ...body,
+    basisRef:
+      `action-evaluation-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`,
+    basisDigest,
+  });
+  const inputDigest = sha256Canonical(inputValue as unknown as JsonValue);
+  return deepFreeze({
+    kind: "fh_resume_successor_input" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    inputRef: inputValue.basisRef,
+    inputDigest,
+    inputValue:
+      inputValue as unknown as Readonly<Record<string, JsonValue>>,
+  });
+}
+
 export function admitFhInteractionResume(
   store: AbgEventStore,
   continuationRef: string,
   operation: ContinuationPublicOperationAdmission,
+  executionBasis: ExecutionBasis,
+  closureContract: Readonly<ClosureContract>,
+  successorInput: FhResumeSuccessorInput,
   successorCursor: TraversalCursorCandidate,
   durablePrefixDigest: Sha256Digest,
   basis: RuntimeAdmissionBasis,
@@ -871,6 +1050,13 @@ export function admitFhInteractionResume(
   );
   const publicEvent = store.readAll().find(
     (event) => event.eventId === operation.admissionEventRef,
+  );
+  const expectedSuccessorInput = deriveFhResumeSuccessorInput(
+    store,
+    continuationRef,
+    operation,
+    executionBasis,
+    closureContract,
   );
   if (
     continuation === undefined ||
@@ -882,12 +1068,18 @@ export function admitFhInteractionResume(
     operation.capabilityRef !== continuation.actorCapabilityRef ||
     publicEvent?.kind !== "public_operation_admitted" ||
     publicEvent.admissionOrdinal !== store.readAll().at(-1)?.admissionOrdinal ||
+    successorInput.kind !== "fh_resume_successor_input" ||
+    successorInput.disposition !== "admitted" ||
+    successorInput.inputRef !== expectedSuccessorInput.inputRef ||
+    successorInput.inputDigest !== expectedSuccessorInput.inputDigest ||
+    sha256Canonical(successorInput.inputValue as unknown as JsonValue) !==
+      expectedSuccessorInput.inputDigest ||
     !isTraversalCursorCandidate(successorCursor) ||
     successorCursor.runId !== continuation.runId ||
     successorCursor.graphCallId !== continuation.graphCallId ||
     successorCursor.frameId !== continuation.frameId ||
-    successorCursor.inputRef !== continuation.responseRef ||
-    successorCursor.inputDigest !== continuation.responseDigest
+    successorCursor.inputRef !== successorInput.inputRef ||
+    successorCursor.inputDigest !== successorInput.inputDigest
   ) {
     throw new TypeError(
       "F_H resume requires one exact responded continuation and successor cursor",
@@ -922,6 +1114,9 @@ export function admitFhInteractionResume(
       responseRef: continuation.responseRef,
       responseDigest: continuation.responseDigest,
       responseValue: continuation.responseValue,
+      successorInputRef: successorInput.inputRef,
+      successorInputDigest: successorInput.inputDigest,
+      successorInputValue: successorInput.inputValue,
       successorCursorRef: successorCursor.cursorRef,
       successorCursorDigest: successorCursor.cursorDigest,
     },
@@ -936,6 +1131,9 @@ export function admitFhInteractionResume(
     responseRef: continuation.responseRef,
     responseDigest: continuation.responseDigest,
     responseValue: continuation.responseValue,
+    successorInputRef: successorInput.inputRef,
+    successorInputDigest: successorInput.inputDigest,
+    successorInputValue: successorInput.inputValue,
     successorCursorRef: successorCursor.cursorRef,
     successorCursorDigest: successorCursor.cursorDigest,
     admissionEventRef: event.eventId,

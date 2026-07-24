@@ -515,8 +515,8 @@ export function completeInteractionResume(
     input.graph,
     input.successorCursor,
     {
-      inputRef: input.resume.responseRef,
-      inputDigest: input.resume.responseDigest,
+      inputRef: input.resume.successorInputRef,
+      inputDigest: input.resume.successorInputDigest,
     },
   );
   if (continuationStep.kind !== "traversal_step") {
@@ -571,13 +571,12 @@ export function completeInteractionResume(
       replay(input.store, { runId: cCall.runId }),
       {
         cCallRef: cCall.cCallRef,
-        resultRef: input.resume.responseRef,
+        resultRef: input.resume.successorInputRef,
         judgmentRef: judgment.judgmentRef,
         nextCursor,
-        resultValue: input.resume.responseValue,
+        resultValue: input.resume.successorInputValue,
         continuationKind: "advance",
-        nextInputContractRef:
-          cCall.responseContractRef ?? cCall.outputContractRef,
+        nextInputContractRef: cCall.outputContractRef,
       },
     );
   }

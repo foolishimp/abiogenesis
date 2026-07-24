@@ -46,6 +46,210 @@ function expectedVerificationIdentity(basis) {
   };
 }
 
+function oneSurfaceObservation(mini, publication, binding, name) {
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === mini.ids.oneSurfaceProgramRef,
+  );
+  assert.ok(program?.actionCatalog);
+  assert.equal(typeof binding.bindingId, "string");
+  assert.match(binding.bindingDigest, /^sha256:[a-f0-9]{64}$/u);
+  return mini.constructObservationSnapshot({
+    workspaceBindingId: binding.bindingId,
+    workspaceBindingDigest: binding.bindingDigest,
+    actionCatalog: program.actionCatalog,
+    name,
+  });
+}
+
+function oneSurfaceGraph(publication, mini) {
+  const graph = publication.graphFunctions.find(
+    (candidate) => candidate.name === mini.ids.oneSurfaceGraphFunctionRef,
+  );
+  assert.ok(graph);
+  return graph;
+}
+
+function oneSurfaceClosure(publication, mini) {
+  const closure = publication.closureContracts.find(
+    (candidate) =>
+      candidate.closureContractRef ===
+        mini.ids.oneSurfaceClosureContractRef,
+  );
+  assert.ok(closure);
+  return closure;
+}
+
+function oneSurfaceTerms(publication, mini) {
+  const graph = oneSurfaceGraph(publication, mini);
+  const terms = graph.template.nodes[0].term.terms;
+  assert.equal(Array.isArray(terms), true);
+  return terms;
+}
+
+function withOneSurfaceTerminal(mini, terminalIndex, stageRole) {
+  const publication = structuredClone(mini.publication);
+  const graph = oneSurfaceGraph(publication, mini);
+  const composition = graph.template.nodes[0].term;
+  composition.terms = composition.terms.slice(0, terminalIndex + 1);
+  const terminal = composition.terms.at(-1);
+  assert.ok(terminal);
+  terminal.resultBearing = true;
+  if (stageRole !== undefined) terminal.stageRole = stageRole;
+  composition.outputCarrierRef = terminal.outputCarrierRef;
+  graph.outputs = [terminal.outputCarrierRef];
+  graph.environment.provides = [terminal.outputCarrierRef];
+  oneSurfaceClosure(publication, mini).resultContractRef =
+    terminal.outputCarrierRef;
+  return publication;
+}
+
+function withScalarActionEvaluation(mini) {
+  const publication = structuredClone(mini.publication);
+  const terms = oneSurfaceTerms(publication, mini);
+  terms[3].outputCarrierRef = mini.ids.approvalContractRef;
+  terms[4].inputCarrierRef = mini.ids.approvalContractRef;
+  terms[4].requirement.inputContractRef = mini.ids.approvalContractRef;
+  const binding = publication.implementationBindings.find(
+    (candidate) =>
+      candidate.bindingRef ===
+        mini.ids.evaluateActionImplementationBindingRef,
+  );
+  assert.ok(binding);
+  binding.implementationRef =
+    mini.ids.evaluateActionScalarImplementationRef;
+  binding.inputContractRef = mini.ids.approvalContractRef;
+  return publication;
+}
+
+function withIncompleteActionEvidence(mini) {
+  const publication = structuredClone(mini.publication);
+  const binding = publication.implementationBindings.find(
+    (candidate) =>
+      candidate.bindingRef ===
+        mini.ids.evaluateActionImplementationBindingRef,
+  );
+  assert.ok(binding);
+  binding.implementationRef =
+    mini.ids.evaluateActionIncompleteEvidenceImplementationRef;
+  binding.namedSymbol = "realizeDeveloperEvaluateActionWithoutEvidence";
+  return publication;
+}
+
+async function oneSurfaceLifecycle(
+  publicApi,
+  harness,
+  mini,
+  label,
+  publication,
+) {
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    label,
+    publication,
+    {
+      runVariant: "start",
+      startRef: mini.ids.oneSurfaceStartRef,
+      programRef: mini.ids.oneSurfaceProgramRef,
+      graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
+      input: {
+        kind: "developer_greeting_input",
+        schemaVersion: "5.0.0",
+        name: "Margaret",
+      },
+    },
+  );
+  const context = publicApi.createRootOperationContext();
+  const setupOutcomes = [];
+  try {
+    for (const row of scenario.transcript.slice(0, -1)) {
+      setupOutcomes.push(
+        await publicApi.applyRootPublicInvocation(context, row),
+      );
+    }
+    const start = structuredClone(scenario.transcript.at(-1));
+    start.payload.input = oneSurfaceObservation(
+      mini,
+      publication,
+      setupOutcomes[4].result,
+      "Margaret",
+    );
+    setupOutcomes.push(
+      await publicApi.applyRootPublicInvocation(context, start),
+    );
+  } finally {
+    publicApi.closeRootOperationContext(context);
+  }
+  assert.equal(
+    setupOutcomes.slice(0, -1).every(
+      (outcome) => outcome.disposition === "succeeded",
+    ),
+    true,
+    JSON.stringify(setupOutcomes),
+  );
+  const held = setupOutcomes.at(-1);
+  assert.equal(held.disposition, "held", JSON.stringify(held));
+  const continuationAuthority = JSON.parse(
+    JSON.stringify(held.result.continuationAuthority),
+  );
+  const frontier = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "status",
+      `invocation://t272/${label}/read`,
+      {
+        continuationAuthority,
+        continuationRef: held.continuationRef,
+      },
+    ),
+  );
+  assert.equal(frontier.disposition, "succeeded", JSON.stringify(frontier));
+  const responded = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.interaction.respond",
+      "approve",
+      `invocation://t272/${label}/respond`,
+      {
+        actorRef: "actor://developer.example/trusted-developer",
+        capabilityRef: mini.ids.actorCapabilityRef,
+        continuationAuthority,
+        continuationRef: held.continuationRef,
+        response: {
+          kind: "developer_human_approval",
+          schemaVersion: "5.0.0",
+          approved: true,
+          constructionIntentRef: frontier.result.constructionIntentRef,
+          message: "Welcome Margaret.",
+        },
+      },
+    ),
+  );
+  assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
+  const completed = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.run.continue",
+      "current_intent",
+      `invocation://t272/${label}/continue`,
+      {
+        actorRef: "actor://developer.example/trusted-developer",
+        capabilityRef: mini.ids.actorCapabilityRef,
+        continuationAuthority: JSON.parse(
+          JSON.stringify(responded.result.continuationAuthority),
+        ),
+        continuationRef: held.continuationRef,
+      },
+    ),
+  );
+  const eventLog = await readFile(scenario.eventLogPath, "utf8");
+  const events = eventLog.trim().length === 0
+    ? []
+    : eventLog.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+  return { completed, events, frontier, held, responded };
+}
+
 async function externalScenario(
   harness,
   mini,
@@ -596,6 +800,12 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
 test("M5 starts an external supervised GTL Program whose One Surface order survives F_H continuation", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
   const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const publicApi = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    )).href}?external-one-surface=${Date.now()}`
+  );
   const missingSelectedAction = structuredClone(mini.publication);
   const missingActionProgram = missingSelectedAction.programs.find(
     (program) => program.programRef === mini.ids.oneSurfaceProgramRef,
@@ -631,27 +841,32 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       },
     },
   );
-  const missingActionRun = await runInstalledCli(
-    harness,
-    missingActionScenario,
-  );
-  assert.equal(missingActionRun.exitCode, 2, missingActionRun.stdout);
-  assert.notEqual(missingActionRun.outcomes.at(-1).disposition, "held");
-  const missingActionEvents = (await readFile(
-    missingActionScenario.eventLogPath,
-    "utf8",
-  ))
-    .trim()
-    .split(/\r?\n/u)
-    .map((line) => JSON.parse(line));
-  assert.equal(
-    missingActionEvents.some(
-      (event) =>
-        event.kind === "construction_intent_selected" ||
-        event.kind === "fh_interaction_opened",
-    ),
-    false,
-  );
+  const missingActionContext = publicApi.createRootOperationContext();
+  const missingActionOutcomes = [];
+  try {
+    for (const row of missingActionScenario.transcript.slice(0, -1)) {
+      missingActionOutcomes.push(
+        await publicApi.applyRootPublicInvocation(
+          missingActionContext,
+          row,
+        ),
+      );
+    }
+    const start = structuredClone(missingActionScenario.transcript.at(-1));
+    start.payload.input = oneSurfaceObservation(
+      mini,
+      mini.publication,
+      missingActionOutcomes[4].result,
+      "Margaret",
+    );
+    missingActionOutcomes.push(
+      await publicApi.applyRootPublicInvocation(missingActionContext, start),
+    );
+  } finally {
+    publicApi.closeRootOperationContext(missingActionContext);
+  }
+  assert.notEqual(missingActionOutcomes.at(-1).disposition, "held");
+  assert.equal(missingActionOutcomes.at(-1).runId, null);
 
   const scenario = await externalScenario(
     harness,
@@ -670,12 +885,6 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       },
     },
   );
-  const publicApi = await import(
-    `${pathToFileURL(join(
-      harness.cliHost,
-      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
-    )).href}?external-one-surface=${Date.now()}`
-  );
   const operationContext = publicApi.createRootOperationContext();
   const setupOutcomes = [];
   try {
@@ -684,7 +893,13 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
         await publicApi.applyRootPublicInvocation(operationContext, row),
       );
     }
-    const validStart = scenario.transcript.at(-1);
+    const validStart = structuredClone(scenario.transcript.at(-1));
+    validStart.payload.input = oneSurfaceObservation(
+      mini,
+      mini.publication,
+      setupOutcomes[4].result,
+      "Margaret",
+    );
     const callerSelectedGraphFunction = await publicApi.applyRootPublicInvocation(
       operationContext,
       {
@@ -842,13 +1057,13 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       .filter((event) => event.kind === "c_call_result_admitted")
       .map((event) => event.payload.value.kind),
     [
-      "developer_product_asset_model",
-      "developer_gap_projection",
+      "observation_snapshot",
+      "next_action_basis",
       "next_action_projection",
       "fh_pending_result",
       "action_evaluation_projection",
-      "developer_refreshed_product_asset_model",
-      "developer_refreshed_gap_projection",
+      "observation_snapshot",
+      "next_action_basis",
       "next_action_projection",
     ],
   );
@@ -929,6 +1144,7 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     constructionDelta.payload.edgeFulfillmentLedger.rows,
     [{
       obligationRef: mini.ids.approvalObligationRef,
+      evidenceRefs: [interactionResponded.payload.responseRef],
       evidenceAssetRefs: [mini.ids.approvalAssetRef],
       disposition: "fulfilled",
     }],
@@ -952,6 +1168,143 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     mini.ids.oneSurfaceGraphFunctionRef,
   );
   assert.equal(events.filter((event) => event.kind === "run_closed").length, 1);
+});
+
+test("M5 derives governed construction closure from replay truth rather than terminal labels", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const publicApi = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    )).href}?external-one-surface-closure-mutations=${Date.now()}`
+  );
+
+  await context.test(
+    "refuses terminal closure immediately after evaluateAction",
+    async () => {
+      const result = await oneSurfaceLifecycle(
+        publicApi,
+        harness,
+        mini,
+        "external-one-surface-early-evaluate-action-terminal",
+        withOneSurfaceTerminal(mini, 4),
+      );
+      assert.notEqual(result.completed.disposition, "succeeded");
+      assert.equal(
+        result.events.filter(
+          (event) =>
+            event.kind === "c_call_result_admitted" &&
+            event.payload.value?.kind === "action_evaluation_projection",
+        ).length,
+        1,
+      );
+      assert.equal(
+        result.events.filter(
+          (event) => event.kind === "construction_delta_observed",
+        ).length,
+        0,
+      );
+      assert.equal(
+        result.events.filter((event) => event.kind === "run_closed").length,
+        0,
+      );
+    },
+  );
+
+  await context.test(
+    "accepts a converged terminal whose stage role was renamed",
+    async () => {
+      const result = await oneSurfaceLifecycle(
+        publicApi,
+        harness,
+        mini,
+        "external-one-surface-renamed-terminal-role",
+        withOneSurfaceTerminal(mini, 7, "alternativeConvergence"),
+      );
+      assert.equal(
+        result.completed.disposition,
+        "succeeded",
+        JSON.stringify(result.completed),
+      );
+      assert.equal(
+        result.events.filter((event) => event.kind === "run_closed").length,
+        1,
+      );
+    },
+  );
+
+  await context.test(
+    "refuses terminal closure directly from the F_H resume",
+    async () => {
+      const result = await oneSurfaceLifecycle(
+        publicApi,
+        harness,
+        mini,
+        "external-one-surface-terminal-fh-resume",
+        withOneSurfaceTerminal(mini, 3),
+      );
+      assert.notEqual(result.completed.disposition, "succeeded");
+      assert.equal(
+        result.events.filter(
+          (event) => event.kind === "construction_delta_observed",
+        ).length,
+        0,
+      );
+      assert.equal(
+        result.events.filter((event) => event.kind === "run_closed").length,
+        0,
+      );
+    },
+  );
+
+  await context.test(
+    "refuses the old scalar approval input in place of ActionEvaluationBasis",
+    async () => {
+      const result = await oneSurfaceLifecycle(
+        publicApi,
+        harness,
+        mini,
+        "external-one-surface-scalar-evaluation-basis",
+        withScalarActionEvaluation(mini),
+      );
+      assert.notEqual(result.completed.disposition, "succeeded");
+      assert.equal(
+        result.events.filter(
+          (event) => event.kind === "construction_delta_observed",
+        ).length,
+        0,
+      );
+      assert.equal(
+        result.events.filter((event) => event.kind === "run_closed").length,
+        0,
+      );
+    },
+  );
+
+  await context.test(
+    "refuses a ledger and decision that omit the admitted evidence",
+    async () => {
+      const result = await oneSurfaceLifecycle(
+        publicApi,
+        harness,
+        mini,
+        "external-one-surface-incomplete-evidence-ledger",
+        withIncompleteActionEvidence(mini),
+      );
+      assert.notEqual(result.completed.disposition, "succeeded");
+      assert.equal(
+        result.events.filter(
+          (event) => event.kind === "construction_delta_observed",
+        ).length,
+        0,
+      );
+      assert.equal(
+        result.events.filter((event) => event.kind === "run_closed").length,
+        0,
+      );
+    },
+  );
 });
 
 test("M5 refuses a Product-valid F_H response bound to a different construction intent", async (context) => {
@@ -983,11 +1336,21 @@ test("M5 refuses a Product-valid F_H response bound to a different construction 
   const operationContext = publicApi.createRootOperationContext();
   const setupOutcomes = [];
   try {
-    for (const row of scenario.transcript) {
+    for (const row of scenario.transcript.slice(0, -1)) {
       setupOutcomes.push(
         await publicApi.applyRootPublicInvocation(operationContext, row),
       );
     }
+    const start = structuredClone(scenario.transcript.at(-1));
+    start.payload.input = oneSurfaceObservation(
+      mini,
+      mini.publication,
+      setupOutcomes[4].result,
+      "Margaret",
+    );
+    setupOutcomes.push(
+      await publicApi.applyRootPublicInvocation(operationContext, start),
+    );
   } finally {
     publicApi.closeRootOperationContext(operationContext);
   }

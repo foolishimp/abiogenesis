@@ -120,6 +120,8 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
     artifactRef: basename(artifactPath),
     basis,
     ids: module.DEVELOPER_MINI_IDS,
+    constructObservationSnapshot:
+      module.constructDeveloperObservationSnapshot,
     publication: module.constructDeveloperMiniPublication({
       productId,
       artifactDigest,

@@ -850,6 +850,21 @@ async function applyRunInvoke(
       "run.invoke input is refused by the selected Product-owned contract semantics",
     );
   }
+  if (
+    !abg.hasExactInvocationObservationBasis(
+      admittedInput as unknown as Readonly<
+        Record<string, product.JsonValue>
+      >,
+      workspaceState.binding.bindingId,
+      workspaceState.binding.bindingDigest,
+      programValue,
+    )
+  ) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke observation does not bind the exact admitted workspace and Program action catalog",
+    );
+  }
   const rawInput = rawAdmission<Readonly<Record<string, product.JsonValue>>>(
     admittedInput,
     "invocation_input",
@@ -1740,11 +1755,18 @@ async function applyRunContinue(
         "run continuation could not rehydrate its exact HoG cursor",
       );
     }
+    const successorInput = abg.deriveFhResumeSuccessorInput(
+      context.store,
+      continuationRef,
+      operation,
+      rehydrated.executionBasis,
+      state.closureContract,
+    );
     const successorCursor = hog.deriveInteractionResumeCursor(
       heldCursor,
       {
-        inputRef: continuation.responseRef,
-        inputDigest: continuation.responseDigest,
+        inputRef: successorInput.inputRef,
+        inputDigest: successorInput.inputDigest,
       },
     );
     if (successorCursor.kind !== "traversal_cursor") {
@@ -1757,6 +1779,9 @@ async function applyRunContinue(
       context.store,
       continuationRef,
       operation,
+      rehydrated.executionBasis,
+      state.closureContract,
+      successorInput,
       successorCursor,
       state.reopenAuthority.eventLogDigest,
       {
@@ -1893,7 +1918,7 @@ async function applyRunContinue(
           input: completion.resultValue as Readonly<
             Record<string, product.JsonValue>
           >,
-          inputDigest: resume.responseDigest,
+          inputDigest: resume.successorInputDigest,
         },
       });
     }

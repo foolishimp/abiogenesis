@@ -132,6 +132,8 @@ export interface NextActionProjection {
   readonly stopConditionRef: string;
   readonly lawfulBasisRefs: readonly string[];
   readonly rejectedAlternativeRefs: readonly string[];
+  readonly nextActionBasisRef: string;
+  readonly nextActionBasisDigest: Sha256Digest;
 }
 
 export interface ConstructionIntent {
@@ -142,6 +144,8 @@ export interface ConstructionIntent {
   readonly constructionIntentDigest: Sha256Digest;
   readonly nextActionProjectionRef: string;
   readonly nextActionProjectionDigest: Sha256Digest;
+  readonly nextActionBasisRef: string;
+  readonly nextActionBasisDigest: Sha256Digest;
   readonly targetOutcomeRef: string;
   readonly selectedActionRef: string;
   readonly actionKind: string;
@@ -183,6 +187,7 @@ export interface ConstructionIntentAdmission extends ConstructionIntent {
 
 interface EdgeFulfillmentLedgerRow {
   readonly obligationRef: string;
+  readonly evidenceRefs: readonly string[];
   readonly evidenceAssetRefs: readonly string[];
   readonly disposition: "fulfilled";
 }
@@ -213,9 +218,13 @@ interface ActionEvaluationProjection {
   readonly schemaVersion: "5.0.0";
   readonly actionEvaluationRef: string;
   readonly actionEvaluationDigest: Sha256Digest;
+  readonly actionEvaluationBasisRef: string;
+  readonly actionEvaluationBasisDigest: Sha256Digest;
   readonly constructionIntentRef: string;
   readonly targetOutcomeRef: string;
+  readonly admittedEvidenceRefs: readonly string[];
   readonly semanticEvidenceAssetRefs: readonly string[];
+  readonly observationSnapshot: Readonly<Record<string, JsonValue>>;
   readonly edgeFulfillmentLedger: EdgeFulfillmentLedger;
   readonly edgeClosureDecision: EdgeClosureDecision;
 }
@@ -355,6 +364,8 @@ const NEXT_ACTION_PROJECTION_KEYS = Object.freeze([
   "inputAssetRefs",
   "kind",
   "lawfulBasisRefs",
+  "nextActionBasisDigest",
+  "nextActionBasisRef",
   "outputAssetRefs",
   "programRef",
   "progressConditionRef",
@@ -404,6 +415,8 @@ function nextActionProjection(
     value.actionKind.length === 0 ||
     typeof value.projectionRef !== "string" ||
     typeof value.projectionDigest !== "string" ||
+    typeof value.nextActionBasisRef !== "string" ||
+    typeof value.nextActionBasisDigest !== "string" ||
     typeof value.targetOutcomeRef !== "string" ||
     typeof value.selectedActionRef !== "string" ||
     typeof value.programRef !== "string" ||
@@ -437,6 +450,27 @@ function nextActionProjection(
   return value as unknown as NextActionProjection;
 }
 
+function nextActionBasis(
+  value: JsonValue | undefined,
+): Readonly<Record<string, JsonValue>> | null {
+  if (
+    !isJsonRecord(value) ||
+    value.kind !== "next_action_basis" ||
+    value.schemaVersion !== "5.0.0" ||
+    typeof value.basisRef !== "string" ||
+    typeof value.basisDigest !== "string"
+  ) {
+    return null;
+  }
+  const { basisRef, basisDigest, ...body } = value;
+  const expectedDigest = sha256Canonical(body);
+  return basisDigest === expectedDigest &&
+      basisRef ===
+        `next-action-basis://product/${expectedDigest.slice("sha256:".length)}`
+    ? value
+    : null;
+}
+
 function edgeFulfillmentLedger(
   value: JsonValue | undefined,
 ): EdgeFulfillmentLedger | null {
@@ -467,11 +501,13 @@ function edgeFulfillmentLedger(
       !isJsonRecord(row) ||
       !hasExactKeys(row, [
         "disposition",
+        "evidenceRefs",
         "evidenceAssetRefs",
         "obligationRef",
       ]) ||
       row.disposition !== "fulfilled" ||
       typeof row.obligationRef !== "string" ||
+      !nonEmptyStringArray(row.evidenceRefs) ||
       !nonEmptyStringArray(row.evidenceAssetRefs)
     ) {
       return null;
@@ -529,10 +565,14 @@ function actionEvaluationProjection(
     !hasExactKeys(value, [
       "actionEvaluationDigest",
       "actionEvaluationRef",
+      "actionEvaluationBasisDigest",
+      "actionEvaluationBasisRef",
+      "admittedEvidenceRefs",
       "constructionIntentRef",
       "edgeClosureDecision",
       "edgeFulfillmentLedger",
       "kind",
+      "observationSnapshot",
       "schemaVersion",
       "semanticEvidenceAssetRefs",
       "targetOutcomeRef",
@@ -541,9 +581,13 @@ function actionEvaluationProjection(
     value.schemaVersion !== "5.0.0" ||
     typeof value.actionEvaluationRef !== "string" ||
     typeof value.actionEvaluationDigest !== "string" ||
+    typeof value.actionEvaluationBasisRef !== "string" ||
+    typeof value.actionEvaluationBasisDigest !== "string" ||
     typeof value.constructionIntentRef !== "string" ||
     typeof value.targetOutcomeRef !== "string" ||
-    !nonEmptyStringArray(value.semanticEvidenceAssetRefs)
+    !nonEmptyStringArray(value.admittedEvidenceRefs) ||
+    !nonEmptyStringArray(value.semanticEvidenceAssetRefs) ||
+    !isJsonRecord(value.observationSnapshot)
   ) {
     return null;
   }
@@ -566,6 +610,27 @@ function actionEvaluationProjection(
     return null;
   }
   return value as unknown as ActionEvaluationProjection;
+}
+
+function actionEvaluationBasis(
+  value: JsonValue | undefined,
+): Readonly<Record<string, JsonValue>> | null {
+  if (
+    !isJsonRecord(value) ||
+    value.kind !== "action_evaluation_basis" ||
+    value.schemaVersion !== "5.0.0" ||
+    typeof value.basisRef !== "string" ||
+    typeof value.basisDigest !== "string"
+  ) {
+    return null;
+  }
+  const { basisRef, basisDigest, ...body } = value;
+  const expectedDigest = sha256Canonical(body);
+  return basisDigest === expectedDigest &&
+      basisRef ===
+        `action-evaluation-basis://abiogenesis/${expectedDigest.slice("sha256:".length)}`
+    ? value
+    : null;
 }
 
 function convergedNextActionProjection(
@@ -608,6 +673,7 @@ function convergedNextActionProjection(
 }
 
 function constructionIntentForAdvance(
+  store: AbgEventStore,
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
@@ -615,6 +681,7 @@ function constructionIntentForAdvance(
   evidence: RouteAdmissionEvidence | null,
 ): {
   readonly projection: NextActionProjection;
+  readonly basis: Readonly<Record<string, JsonValue>>;
   readonly intent: ConstructionIntent;
 } | RouteAdmissionRefusal | null {
   const sourceTerm = resolveCProgramTermAtSourcePath(
@@ -640,12 +707,30 @@ function constructionIntentForAdvance(
     targetCursor.termPath,
   );
   const projection = nextActionProjection(evidence.result.value);
+  const basisEvent = store.readAll().find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.runId === sourceCursor.runId &&
+      event.graphCallId === sourceCursor.graphCallId &&
+      event.frameId === sourceCursor.frameId &&
+      isJsonRecord(event.payload) &&
+      event.payload.resultRef === sourceCursor.inputRef,
+  );
+  const selectedBasis =
+    basisEvent !== undefined && isJsonRecord(basisEvent.payload)
+      ? nextActionBasis(basisEvent.payload.value)
+      : null;
   const actionRows = executionBasis.actionCatalogRows.filter(
     (row) => row.actionRef === projection?.selectedActionRef,
   );
   const actionRow = actionRows.length === 1 ? actionRows[0] : undefined;
   if (
     projection === null ||
+    selectedBasis === null ||
+    sha256Canonical(selectedBasis) !== sourceCursor.inputDigest ||
+    projection.nextActionBasisRef !== selectedBasis.basisRef ||
+    projection.nextActionBasisDigest !== selectedBasis.basisDigest ||
+    !projection.lawfulBasisRefs.includes(projection.nextActionBasisRef) ||
     executionBasis.actionCatalogRef === null ||
     executionBasis.actionCatalogDigest === null ||
     actionRow === undefined ||
@@ -678,6 +763,8 @@ function constructionIntentForAdvance(
     disposition: "admitted" as const,
     nextActionProjectionRef: projection.projectionRef,
     nextActionProjectionDigest: projection.projectionDigest,
+    nextActionBasisRef: projection.nextActionBasisRef,
+    nextActionBasisDigest: projection.nextActionBasisDigest,
     targetOutcomeRef: projection.targetOutcomeRef,
     selectedActionRef: projection.selectedActionRef,
     actionKind: projection.actionKind,
@@ -719,6 +806,7 @@ function constructionIntentForAdvance(
   );
   return {
     projection,
+    basis: selectedBasis,
     intent: deepFreeze({
       ...body,
       constructionIntentRef:
@@ -744,10 +832,13 @@ export function rehydrateConstructionIntentForCursor(
   if (event === undefined || !isJsonRecord(event.payload)) return null;
   const intentValue = event.payload.constructionIntent;
   const projectionValue = event.payload.nextActionProjection;
+  const basisValue = event.payload.nextActionBasis;
   const projection = nextActionProjection(projectionValue ?? null);
+  const selectedBasis = nextActionBasis(basisValue);
   if (
     !isJsonRecord(intentValue) ||
     projection === null ||
+    selectedBasis === null ||
     typeof intentValue.constructionIntentRef !== "string" ||
     typeof intentValue.constructionIntentDigest !== "string"
   ) {
@@ -766,8 +857,12 @@ export function rehydrateConstructionIntentForCursor(
     event.payload.constructionIntentDigest !== constructionIntentDigest ||
     event.payload.nextActionProjectionRef !== projection.projectionRef ||
     event.payload.nextActionProjectionDigest !== projection.projectionDigest ||
+    event.payload.nextActionBasisRef !== selectedBasis.basisRef ||
+    event.payload.nextActionBasisDigest !== selectedBasis.basisDigest ||
     intentValue.nextActionProjectionRef !== projection.projectionRef ||
     intentValue.nextActionProjectionDigest !== projection.projectionDigest ||
+    intentValue.nextActionBasisRef !== selectedBasis.basisRef ||
+    intentValue.nextActionBasisDigest !== selectedBasis.basisDigest ||
     intentValue.targetCursorRef !== cursor.cursorRef ||
     intentValue.targetCursorDigest !== cursor.cursorDigest ||
     event.payload.actionCatalogRef !== intentValue.actionCatalogRef ||
@@ -877,6 +972,9 @@ function constructionDeltaForAdvance(
   const ledger = evaluation.edgeFulfillmentLedger;
   const decision = evaluation.edgeClosureDecision;
   const ledgerObligations = ledger.rows.map((row) => row.obligationRef);
+  const ledgerEvidenceRefs = [
+    ...new Set(ledger.rows.flatMap((row) => row.evidenceRefs)),
+  ];
   const semanticEvidenceAssetRefs = [
     ...new Set(ledger.rows.flatMap((row) => row.evidenceAssetRefs)),
   ];
@@ -906,6 +1004,26 @@ function constructionDeltaForAdvance(
           event.payload.continuationRef === continuationRef,
       )
     : undefined;
+  const evaluationBasis =
+    resumed !== undefined && isJsonRecord(resumed.payload)
+      ? actionEvaluationBasis(resumed.payload.successorInputValue)
+      : null;
+  const basisEvidenceRefs =
+    evaluationBasis !== null &&
+      Array.isArray(evaluationBasis.admittedEvidence)
+      ? evaluationBasis.admittedEvidence.flatMap((row) =>
+        isJsonRecord(row) && typeof row.responseRef === "string"
+          ? [row.responseRef]
+          : []
+      )
+      : [];
+  const basisRuntimeEventRefs =
+    evaluationBasis !== null &&
+      Array.isArray(evaluationBasis.runtimeEvidenceEventRefs)
+      ? evaluationBasis.runtimeEvidenceEventRefs.filter(
+        (entry): entry is string => typeof entry === "string",
+      )
+      : [];
   const evidenced = events.find(
     (event) =>
       event.kind === "c_call_evidenced" &&
@@ -918,15 +1036,48 @@ function constructionDeltaForAdvance(
     opened === undefined ||
     responded === undefined ||
     resumed === undefined ||
+    evaluationBasis === null ||
+    basisEvidenceRefs.length === 0 ||
     evidenced === undefined ||
     intent.executionBasisRef !== executionBasis.basisRef ||
     intent.runId !== sourceCursor.runId ||
     intent.graphCallId !== sourceCursor.graphCallId ||
     intent.frameId !== sourceCursor.frameId ||
+    sourceCursor.inputRef !== evaluationBasis.basisRef ||
+    sourceCursor.inputDigest !==
+      sha256Canonical(evaluationBasis as unknown as JsonValue) ||
+    evaluation.actionEvaluationBasisRef !== evaluationBasis.basisRef ||
+    evaluation.actionEvaluationBasisDigest !==
+      evaluationBasis.basisDigest ||
+    !isJsonRecord(evaluationBasis.constructionIntent) ||
+    evaluationBasis.constructionIntent.constructionIntentRef !==
+      intent.constructionIntentRef ||
+    !isJsonRecord(evaluationBasis.workspaceBinding) ||
+    evaluationBasis.workspaceBinding.workspaceBindingId !==
+      executionBasis.workspaceBindingId ||
+    evaluationBasis.workspaceBinding.workspaceBindingDigest !==
+      executionBasis.workspaceBindingDigest ||
+    !isJsonRecord(evaluationBasis.closurePolicy) ||
+    evaluationBasis.closurePolicy.closureContractRef !==
+      executionBasis.closureContractRef ||
+    evaluationBasis.closurePolicy.closureContractDigest !==
+      executionBasis.closureContractDigest ||
+    !sameValues(basisRuntimeEventRefs, [
+      intent.admissionEventRef,
+      opened.eventId,
+      responded.eventId,
+      String(
+        isJsonRecord(resumed.payload)
+          ? resumed.payload.publicOperationEventRef
+          : "",
+      ),
+    ]) ||
     evaluation.targetOutcomeRef !== intent.targetOutcomeRef ||
     ledger.constructionIntentRef !== intent.constructionIntentRef ||
     decision.constructionIntentRef !== intent.constructionIntentRef ||
     !sameValues(ledgerObligations, actionRow.targetObligationRefs) ||
+    !sameValues(evaluation.admittedEvidenceRefs, basisEvidenceRefs) ||
+    !sameValues(ledgerEvidenceRefs, evaluation.admittedEvidenceRefs) ||
     !sameValues(semanticEvidenceAssetRefs, actionRow.outputAssetRefs)
   ) {
     return refusal(
@@ -984,42 +1135,72 @@ function constructionDeltaForAdvance(
 
 function hasGovernedConstructionClosure(
   store: AbgEventStore,
-  graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
-  evidence: RouteAdmissionEvidence,
+  evidence:
+    | InteractionResumeRouteAdmissionEvidence
+    | RouteAdmissionEvidence,
 ): boolean {
-  const sourceTerm = resolveCProgramTermAtSourcePath(
-    graph.template,
-    sourceCursor.currentNodeRef,
-    sourceCursor.termPath,
+  const events = store.readAll();
+  const intentEvents = events.filter(
+    (event) =>
+      event.kind === "construction_intent_selected" &&
+      event.runId === sourceCursor.runId &&
+      event.graphCallId === sourceCursor.graphCallId &&
+      event.frameId === sourceCursor.frameId &&
+      isJsonRecord(event.payload),
   );
-  if (
-    sourceTerm.kind !== "c_of" ||
-    sourceTerm.stageRole !== "evaluateNextRefresh"
-  ) {
-    return true;
-  }
+  if (intentEvents.length === 0) return true;
+  if ("resume" in evidence) return false;
+  const intentEvent = intentEvents.at(-1)!;
+  const intentRef = isJsonRecord(intentEvent.payload)
+    ? intentEvent.payload.constructionIntentRef
+    : null;
+  if (typeof intentRef !== "string") return false;
   const projection = convergedNextActionProjection(evidence.result.value);
   if (projection === null) return false;
-  return store.readAll().some(
+  const deltaEvent = events.find(
     (event) =>
       event.kind === "construction_delta_observed" &&
       event.runId === sourceCursor.runId &&
       event.graphCallId === sourceCursor.graphCallId &&
       event.frameId === sourceCursor.frameId &&
       isJsonRecord(event.payload) &&
-      event.payload.constructionIntentRef ===
-        projection.constructionIntentRef &&
+      event.payload.constructionIntentRef === intentRef &&
       event.payload.edgeClosureDecisionRef ===
         projection.edgeClosureDecisionRef &&
-      event.payload.targetOutcomeRef === projection.targetOutcomeRef &&
-      projection.lawfulBasisRefs.includes(
-        projection.constructionIntentRef,
-      ) &&
-      projection.lawfulBasisRefs.includes(
-        projection.edgeClosureDecisionRef,
-      ),
+      event.payload.targetOutcomeRef === projection.targetOutcomeRef,
   );
+  const refreshedBasisEvent = events.find(
+    (event) =>
+      deltaEvent !== undefined &&
+      event.kind === "c_call_result_admitted" &&
+      event.runId === sourceCursor.runId &&
+      event.graphCallId === sourceCursor.graphCallId &&
+      event.frameId === sourceCursor.frameId &&
+      event.admissionOrdinal > deltaEvent.admissionOrdinal &&
+      isJsonRecord(event.payload) &&
+      event.payload.resultRef === sourceCursor.inputRef &&
+      isJsonRecord(event.payload.value) &&
+      nextActionBasis(event.payload.value) !== null &&
+      isJsonRecord(event.payload.value.runtimeFrontier) &&
+      event.payload.value.runtimeFrontier.disposition === "converged" &&
+      isJsonRecord(event.payload.value.gapProjection) &&
+      event.payload.value.gapProjection.gapRef === projection.gapRef,
+  );
+  const resultEvent = events.find(
+    (event) => event.eventId === evidence.result.admissionEventRef,
+  );
+  return deltaEvent !== undefined &&
+    refreshedBasisEvent !== undefined &&
+    resultEvent !== undefined &&
+    deltaEvent.admissionOrdinal < refreshedBasisEvent.admissionOrdinal &&
+    refreshedBasisEvent.admissionOrdinal < resultEvent.admissionOrdinal &&
+    projection.constructionIntentRef === intentRef &&
+    projection.lawfulBasisRefs.includes(projection.constructionIntentRef) &&
+    projection.lawfulBasisRefs.includes(
+      projection.edgeClosureDecisionRef,
+    ) &&
+    projection.lawfulBasisRefs.includes(projection.gapRef);
 }
 
 function sameValues(
@@ -1321,8 +1502,8 @@ function hasInteractionResumeRouteEvidence(
     resumeEvent.frameId === sourceCursor.frameId &&
     sourceCursor.cursorRef === evidence.resume.successorCursorRef &&
     sourceCursor.cursorDigest === evidence.resume.successorCursorDigest &&
-    sourceCursor.inputRef === evidence.resume.responseRef &&
-    sourceCursor.inputDigest === evidence.resume.responseDigest &&
+    sourceCursor.inputRef === evidence.resume.successorInputRef &&
+    sourceCursor.inputDigest === evidence.resume.successorInputDigest &&
     candidate.cCallRef === evidence.cCall.cCallRef &&
     candidate.judgmentRef === evidence.judgment.judgmentRef &&
     sameValues(candidate.consumedAvailabilityRefs, [
@@ -1596,8 +1777,8 @@ function isDeclaredInteractionResumeTarget(
     return false;
   }
   const retryPath = source.retryPath.slice(0, continuation.targetRetryDepth);
-  let inputRef = resume.responseRef;
-  let inputDigest = resume.responseDigest;
+  let inputRef = resume.successorInputRef;
+  let inputDigest = resume.successorInputDigest;
   if (continuation.relation === "batch_next") {
     const batchRef = resolveEnclosingCBatchRef(
       graph.template,
@@ -1754,6 +1935,18 @@ export function admitRoute(
           "terminal F_H route requires the exact admitted response and resume cursor",
         );
       }
+      if (
+        !hasGovernedConstructionClosure(
+          store,
+          sourceCursor,
+          resumeEvidence,
+        )
+      ) {
+        return refusal(
+          "judgment_mismatch",
+          "terminal construction closure requires an admitted evidence fold and refreshed convergence projection",
+        );
+      }
       causationEventRef = resumeEvidence.resume.admissionEventRef;
     } else {
       if (!hasJudgedRouteEvidence(
@@ -1772,7 +1965,6 @@ export function admitRoute(
       if (
         !hasGovernedConstructionClosure(
           store,
-          graph,
           sourceCursor,
           judgedEvidence,
         )
@@ -1980,6 +2172,7 @@ export function admitRoute(
       ? evidence
       : null;
   const constructionIntent = constructionIntentForAdvance(
+    store,
     executionBasis,
     graph,
     sourceCursor,
@@ -2073,6 +2266,12 @@ export function admitRoute(
               admittedConstruction.projection.projectionDigest,
             nextActionProjection:
               admittedConstruction.projection as unknown as JsonValue,
+            nextActionBasisRef:
+              admittedConstruction.intent.nextActionBasisRef,
+            nextActionBasisDigest:
+              admittedConstruction.intent.nextActionBasisDigest,
+            nextActionBasis:
+              admittedConstruction.basis as unknown as JsonValue,
             constructionIntentRef:
               admittedConstruction.intent.constructionIntentRef,
             constructionIntentDigest:

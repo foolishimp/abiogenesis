@@ -279,8 +279,39 @@ const implementationResolutions = new WeakSet<object>();
 const implementationSets = new WeakSet<object>();
 const interactionSets = new WeakSet<object>();
 
-function isJsonRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
+function isJsonRecord(
+  value: JsonValue | undefined,
+): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+export function hasExactInvocationObservationBasis(
+  value: Readonly<Record<string, JsonValue>>,
+  workspaceBindingId: string,
+  workspaceBindingDigest: Sha256Digest,
+  program: Readonly<GtlProgram>,
+): boolean {
+  if (value.kind !== "observation_snapshot") return true;
+  if (
+    value.schemaVersion !== "5.0.0" ||
+    typeof value.snapshotRef !== "string" ||
+    typeof value.snapshotDigest !== "string" ||
+    !isJsonRecord(value.workspaceBinding) ||
+    value.workspaceBinding.workspaceBindingId !== workspaceBindingId ||
+    value.workspaceBinding.workspaceBindingDigest !==
+      workspaceBindingDigest ||
+    !isJsonRecord(value.actionCatalog) ||
+    program.actionCatalog === undefined ||
+    sha256Canonical(value.actionCatalog) !==
+      sha256Canonical(program.actionCatalog as unknown as JsonValue)
+  ) {
+    return false;
+  }
+  const { snapshotRef, snapshotDigest, ...body } = value;
+  const expectedDigest = sha256Canonical(body);
+  return snapshotDigest === expectedDigest &&
+    snapshotRef ===
+      `observation-snapshot://product/${expectedDigest.slice("sha256:".length)}`;
 }
 
 export function isExecutionBasis(value: object): boolean {

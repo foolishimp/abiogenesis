@@ -728,7 +728,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   construction_intent_selected: {
     variants: [FRAME_EVENT],
     payloadVariants: [payloadVariant(payloadKeys(
-      "actionCatalogDigest actionCatalogRef actionCatalogRowDigest constructionIntent constructionIntentDigest constructionIntentRef nextActionProjection nextActionProjectionDigest nextActionProjectionRef routeRef targetCursorDigest targetCursorRef",
+      "actionCatalogDigest actionCatalogRef actionCatalogRowDigest constructionIntent constructionIntentDigest constructionIntentRef nextActionBasis nextActionBasisDigest nextActionBasisRef nextActionProjection nextActionProjectionDigest nextActionProjectionRef routeRef targetCursorDigest targetCursorRef",
     ))],
   },
   construction_delta_observed: {
@@ -762,7 +762,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   fh_interaction_resume_admitted: {
     variants: [CONTINUATION_EVENT],
     payloadVariants: [payloadVariant(payloadKeys(
-      "actorRef capabilityRef continuationRef durablePrefixDigest openedEventRef publicOperationEventRef respondedEventRef responseDigest responseRef responseValue successorCursorDigest successorCursorRef",
+      "actorRef capabilityRef continuationRef durablePrefixDigest openedEventRef publicOperationEventRef respondedEventRef responseDigest responseRef responseValue successorCursorDigest successorCursorRef successorInputDigest successorInputRef successorInputValue",
     ))],
   },
   runtime_failure_observed: {

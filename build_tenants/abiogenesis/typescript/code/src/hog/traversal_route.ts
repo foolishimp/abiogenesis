@@ -406,8 +406,8 @@ export function proposeInteractionResumeTerminalRoute(
     cursor.graphCallId !== cCall.graphCallId ||
     cursor.cursorRef !== resume.successorCursorRef ||
     cursor.cursorDigest !== resume.successorCursorDigest ||
-    cursor.inputRef !== resume.responseRef ||
-    cursor.inputDigest !== resume.responseDigest ||
+    cursor.inputRef !== resume.successorInputRef ||
+    cursor.inputDigest !== resume.successorInputDigest ||
     cCall.regime !== "F_H" ||
     judgment.cCallRef !== cCall.cCallRef ||
     judgment.judgment !== "pending" ||
@@ -489,8 +489,8 @@ export function proposeInteractionResumeRoute(
     cursor.graphCallId !== cCall.graphCallId ||
     cursor.cursorRef !== resume.successorCursorRef ||
     cursor.cursorDigest !== resume.successorCursorDigest ||
-    cursor.inputRef !== resume.responseRef ||
-    cursor.inputDigest !== resume.responseDigest ||
+    cursor.inputRef !== resume.successorInputRef ||
+    cursor.inputDigest !== resume.successorInputDigest ||
     cCall.regime !== "F_H" ||
     judgment.cCallRef !== cCall.cCallRef ||
     judgment.judgment !== "pending" ||
