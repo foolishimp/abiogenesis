@@ -9,10 +9,12 @@ owns current S03. The independently packed developer Product now carries
 Product-owned observation, next-action, and action-evaluation bases,
 ABG-owned construction-intent and construction-delta admission, and
 post-evidence model/gap/next-action refresh through the installed public path.
-Candidate `bc2fb639` derives closure from replay-visible construction state and
-is green under its installed negatives. The affected M05 Section 12 delta
-remains pending exact review; subsequent S03 expansion is held. Existing M5
-traversal work is regression evidence, not the current work queue.
+Candidate `686d18bf` binds the exact four semantic authorities, actual
+evidence, Product policy, workspace lineage, admitted action evaluation,
+run-causal closure, and post-resume failure truth. It is green under its
+installed negatives. The affected M05 Section 12 delta remains pending exact
+review; subsequent S03 expansion is held. Existing M5 traversal work is
+regression evidence, not the current work queue.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.

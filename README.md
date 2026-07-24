@@ -14,8 +14,8 @@ successor to the immutable 4.6 RC5 Product origin.
 |---|---|
 | current work owner | `T-270` M5 parent with repriced T-272 active for S03 |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 `26/26`, M5 `81/81`, retained live F_P `1/1`; S02 complete; independently packed S03 governed bases, evidence fold, refresh, and closure negatives green at candidate `bc2fb639`; S03 remains open |
-| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Section 12 delta pending review at SHA-256 `96724255...ac4d4` |
+| implementation | M4 `26/26`, M5 `88/88`; S02 complete; independently packed S03 four-authority composition, exact evidence fold, refresh, run-causal closure, post-resume failure truth, and mutations green at candidate `686d18bf`; the retained live F_P receipt belongs to an earlier package; S03 remains open |
+| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Section 12 delta pending review at SHA-256 `d1be9081...49cb0` |
 | delivery governor | `ABG5-S03`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, and corrected S02 remain regressions |
 | method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
 
@@ -97,8 +97,10 @@ candidate, and refreshed model/gap/next-action values. Explicit observation,
 next-action, and action-evaluation bases bind those projections to the exact
 workspace, action catalog, admitted evidence, closure policy, and replay scope.
 ABG admits and replays the selected action, exact `ConstructionIntent`, and
-governed construction delta; terminal authority depends on replay-visible
-convergence rather than a stage label. Section 12 review remains pending.
+governed construction delta, including the exact admitted action evaluation;
+terminal authority depends on every run-causal intent reaching replay-visible
+convergence rather than a stage label. Post-resume failures become ABG truth.
+Section 12 review remains pending.
 Retained consequence, runtime-disposition, and public-control behavior remain.
 Missing detail is added to T-270, T-272, or the later held owner; it does not
 create a new ticket hierarchy.

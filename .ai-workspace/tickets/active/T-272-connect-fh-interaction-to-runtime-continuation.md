@@ -5,9 +5,9 @@
 > mixed compute path were repaired across fresh public contexts at `cbb57d56`.
 > The externally packed, Program-owned One Surface path is green through
 > Product-owned evaluator output, ABG-owned construction-intent admission,
-> governed evidence fold, and post-evidence refresh. Candidate `bc2fb639`
-> further binds explicit observation and action-evaluation bases and derives
-> closure from replay-visible construction state rather than a stage label.
+> governed evidence fold, and post-evidence refresh. Candidate `686d18bf`
+> binds an admitted four-authority composition, exact observation and
+> action-evaluation bases, run-causal closure, and post-resume failure truth.
 > Consequence routes, runtime dispositions, and public-control work remain
 > active through the same extension path. Section 12 of the M05 design is an
 > affected-boundary candidate pending exact review.
@@ -25,8 +25,8 @@
     consequence routes, runtime dispositions, and public-control behavior;
     historical X implementation remains held donor evidence
 - phase_status: s03_active
-- review_status: s03_governed_basis_and_closure_exact_review_pending
-- proof_status: program_start_governed_basis_fold_refresh_and_negatives_green_s03_open
+- review_status: s03_composition_and_run_causal_exact_review_pending
+- proof_status: composition_evidence_admission_resume_totalization_and_negatives_green_s03_open
 - delivery_phase: M5_frontier_3
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -73,12 +73,13 @@ disposition, and public start/control row owned by S03. This reprice does not
 authorize the historical X interpreter, checkpoint-basis carrier, public
 controller, or any other X implementation.
 
-Current integrated proof is `test:m5` `81/81`, `test:m4` `26/26`, live F_P
-`1/1`, and durable reopen `8/8`; all twelve S02-owned rows are green. The
-installed mixed Product proves F_H hold, replay-derived read, malformed and
-wrong-actor refusal, attributed response, append-only reopen, separate
+Current integrated proof is `test:m5` `88/88`, `test:m4` `26/26`, and
+external developer Product `17/17`; all twelve S02-owned rows remain green.
+The installed mixed Product proves F_H hold, replay-derived read, malformed
+and wrong-actor refusal, attributed response, append-only reopen, separate
 continue, same-Run typed closure, and replay agreement. No second result or
-judgment is minted for the held C-call.
+judgment is minted for the held C-call. The retained live F_P receipt belongs
+to an earlier package and is not current-candidate evidence.
 
 ## Prior S03 Vertical Checkpoint
 
@@ -252,6 +253,55 @@ remains retained and was not rerun. Two byte-identical packs reproduce:
 
 This repair does not close S03. Exact review of the frozen candidate precedes
 the next consumer-visible `gap_stop -> public re-entry -> convergence` slice.
+
+## Composition And Run-Causal Authority Repair Candidate
+
+Candidate `686d18bf31eb0dd5881dea9e031eca2a47a128ea` repairs the
+remaining Section 12 Product/ABG authority defects without changing Product,
+requirements, scenarios, or ticket topology:
+
+- the Program publishes one typed construction composition containing the
+  exact `synthesizeModel`, `evalGap`, `evaluateNext`, and `evaluateAction`
+  authorities and the Product closure policy;
+- initial evaluation and post-evidence refresh use those same authority
+  identities; descriptive stage-role strings carry no runtime authority;
+- continuation derives `ActionEvaluationBasis` from the exact admitted intent,
+  workspace, catalog, Product policy, F_H response, semantic evidence assets,
+  and causal runtime events rather than copying expected outputs into evidence;
+- ABG admits one immutable `admitted_action_evaluation` carrier under the
+  exact composition and persists it inside the existing
+  `construction_delta_observed` event; replay verifies its digest and complete
+  evidence, ledger, and decision binding;
+- Run closure requires every run-causal construction intent across all Frames
+  and GraphCalls to have a matching admitted evaluation and delta; and
+- once `run.continue` admits resume, any later installed validation or
+  traversal failure becomes causal `runtime_failure_observed` truth instead of
+  stranding an active Run.
+
+Installed mutations cover full stage-role renaming, Product policy
+substitution, an action absent from the admitted catalog, expected but
+unobserved output assets, a self-consistent workspace fork, unresolved
+cross-Frame intent, incomplete evaluation evidence, and installed-byte failure
+after continuation resume.
+
+The complete affected M05 design subject hashes to
+`d1be9081198d47f31e9b2de58451c7e73ec2ce6afee2505c5035635152f49cb0`.
+It remains pending exact review and is not accepted by this checkpoint.
+
+Fresh serialized verification is `test:m5` `88/88`, retained `test:m4`
+`26/26`, and external developer Product `17/17`. The retained live F_P receipt
+was not rerun and belongs to an earlier package. Two byte-identical packs
+reproduce:
+
+- artifact SHA-256:
+  `b215d75566e82cb2be701cc9fb3a083f05f559835afe83e6c695bcc2dde21ffe`;
+- Product content digest:
+  `sha256:c57ce2d3f71ee0db5c0fb72142e467b1b2994aafa2924e532ed2438061c394a9`;
+- manifest digest:
+  `sha256:4d0feee33799375a0bb9b8d36dbfa55d3a1257c3e8cb7bdae2b7cf2ccc75f063`.
+
+This repair does not close S03. Exact review of this candidate precedes the
+next consumer-visible `gap_stop -> public re-entry -> convergence` slice.
 
 ## Historical X Evidence
 
