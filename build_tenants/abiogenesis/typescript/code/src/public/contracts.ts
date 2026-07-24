@@ -59,6 +59,7 @@ export interface PublicOutcome {
   readonly durableEventCount: number | null;
   readonly continuationRef: string | null;
   readonly continuationStatus: "open" | "responded" | "resolved" | null;
+  readonly continuationAuthority?: JsonValue;
 }
 
 export interface PublicInvocationRefusal {

@@ -1443,3 +1443,34 @@ Installed evidence shall prove:
   Run opens;
 - Public and HoG neither select the post-gap action nor manufacture the changed
   observation.
+
+### 12.6 Resolved Run Projection
+
+The accepted F_H continuation authority remains a durable read basis after its
+continuation resolves. `run.continue` returns the same self-digested authority
+updated to the exact appended event-log prefix. It does not create a second
+run identity, projection store, or mutable current-run pointer.
+
+From a fresh public context, `project.read` may consume that exact authority to
+render:
+
+- `status`: the replay-derived runtime and construction status;
+- `result`: the admitted result contract, value, closure eligibility, and
+  replay basis;
+- `replay`: the ordered admitted event rows and replay identity for the exact
+  Run; and
+- `lawful-actions`: the admitted `NextActionProjection` at the current
+  frontier, including the selected F_H action while held and the converged
+  projection after the governed evidence fold.
+
+All four variants reopen and verify the same ProductInstall,
+WorkspaceBinding, CatalogView, Program, GraphFunction, invocation admission,
+Run, continuation, and event-log prefix. They append no event and invoke no
+Product evaluator, HoG traversal, implementation, or action-selection logic.
+The projector may classify already-admitted truth for display, but it may not
+create a gap, action, result, closure, or continuation.
+
+Installed evidence shall prove open, responded, and resolved status reads;
+selected and converged lawful-action reads; resolved result and ordered replay
+reads; fresh-context operation; no event-count or event-digest change; and
+refusal of stale, substituted-Run, or unresolved-result authority.

@@ -29,7 +29,10 @@ import {
   updatePublicGapAuthority,
   type PublicGapAuthority,
 } from "./gap_authority.js";
-import { projectOutcome } from "./outcome.js";
+import {
+  attachContinuationAuthority,
+  projectOutcome,
+} from "./outcome.js";
 
 export interface RootOperationContext {
   store: abg.AbgEventStore;
@@ -1872,10 +1875,14 @@ async function applyProjectRead(
   if (invocation.variant === "gaps") {
     return applyGapRead(context, invocation);
   }
-  if (invocation.variant !== "status") {
+  if (
+    !["lawful-actions", "replay", "result", "status"].includes(
+      invocation.variant,
+    )
+  ) {
     throw new ApplicationRefusal(
       "invalid_request",
-      "project.read continuation requires variant status",
+      "project.read continuation requires status, result, replay, or lawful-actions",
     );
   }
   requireExactPayloadKeys(
@@ -1898,13 +1905,10 @@ async function applyProjectRead(
     const continuation = replayState.continuations.find(
       (row) => row.continuationRef === continuationRef,
     );
-    if (
-      continuation === undefined ||
-      continuation.status === "resolved"
-    ) {
+    if (continuation === undefined) {
       throw new ApplicationRefusal(
         "target_mismatch",
-        "project.read requires the exact open or responded continuation",
+        "project.read requires the exact admitted continuation",
       );
     }
     const eventLog = await abg.persistEventLog(
@@ -1919,28 +1923,148 @@ async function applyProjectRead(
             route.constructionIntentRef ===
               continuation.constructionIntentRef,
         );
+    const latestActionRoute = [...replayState.routes].reverse().find(
+      (route) => route.nextActionProjection !== undefined,
+    );
+    const actionCalls = replayState.cCalls.filter(
+      (cCall) =>
+        cCall.status === "judged" &&
+        cCall.judgmentRef !== null &&
+        replayState.routes.some(
+          (route) =>
+            route.cCallRef === cCall.cCallRef &&
+            route.judgmentRef === cCall.judgmentRef,
+        ) &&
+        typeof cCall.resultValue === "object" &&
+        cCall.resultValue !== null &&
+        !Array.isArray(cCall.resultValue) &&
+        (
+          cCall.resultValue as Readonly<
+            Record<string, product.JsonValue>
+          >
+        ).kind === "next_action_projection",
+    );
+    const latestActionCall = actionCalls.at(-1);
+    const scopedEvents = context.store.readScope({ runId: state.runId });
+    const constructionStatus = replayState.runtimeStatus === "closed"
+      ? "construction_closed"
+      : replayState.runtimeStatus === "blocked"
+        ? "construction_blocked"
+        : replayState.runtimeStatus === "failed"
+          ? "construction_stalled"
+          : continuation.status === "open"
+            ? "fh_input_required"
+            : "construction_progressing_yield";
+    const eventsBeforeRead = context.store.readAll();
+    const projectedResult = invocation.variant === "result"
+      ? projectOutcome(
+          invocation,
+          replayState,
+          abg.replay(context.store, { runId: state.runId }),
+          state.outputContractRef,
+          state.runtimeInvocationRef,
+          eventLog,
+        )
+      : null;
+    if (
+      invocation.variant === "result" &&
+      (
+        continuation.status !== "resolved" ||
+        projectedResult?.disposition !== "succeeded"
+      )
+    ) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "project.read result requires one replay-closed resolved continuation",
+      );
+    }
+    const readResult = invocation.variant === "status"
+      ? {
+          kind: "continuation_status",
+          schemaVersion: "5.0.0",
+          continuationRef,
+          status: continuation.status,
+          constructionStatus,
+          runtimeStatus: replayState.runtimeStatus,
+          requestRef: continuation.requestRef,
+          requestDigest: continuation.requestDigest,
+          responseContractRef: continuation.responseContractRef,
+          responseRef: continuation.responseRef,
+          constructionIntentRef: continuation.constructionIntentRef,
+          constructionIntentDigest: continuation.constructionIntentDigest,
+          nextActionProjection:
+            intentRoute?.nextActionProjection === undefined
+              ? null
+              : intentRoute.nextActionProjection as unknown as product.JsonValue,
+          replayRef: replayState.replayRef,
+          replayDigest: replayState.replayDigest,
+        }
+      : invocation.variant === "result"
+        ? {
+            kind: "public_result_projection",
+            schemaVersion: "5.0.0",
+            constructionStatus,
+            disposition: projectedResult!.disposition,
+            resultRef: projectedResult!.resultRef,
+            resultContractRef: projectedResult!.admittedResultContractRef,
+            outputContractRef: projectedResult!.outputContractRef,
+            value: projectedResult!.result,
+            closureEligible: true,
+            residuals: [],
+            replayRef: replayState.replayRef,
+            replayDigest: replayState.replayDigest,
+          }
+        : invocation.variant === "replay"
+          ? {
+              kind: "public_replay_projection",
+              schemaVersion: "5.0.0",
+              runId: state.runId,
+              ordering: "admission_ordinal",
+              fromOrdinal:
+                scopedEvents.at(0)?.admissionOrdinal ?? null,
+              toOrdinal:
+                scopedEvents.at(-1)?.admissionOrdinal ?? null,
+              eventCount: scopedEvents.length,
+              events: scopedEvents,
+              replayRef: replayState.replayRef,
+              replayDigest: replayState.replayDigest,
+              eventStoreDigest: replayState.eventStoreDigest,
+            }
+          : {
+              kind: "public_lawful_actions_projection",
+              schemaVersion: "5.0.0",
+              constructionStatus,
+              current: latestActionCall?.resultValue ??
+                latestActionRoute?.nextActionProjection ??
+                null,
+              rows: actionCalls
+                .map((cCall) => ({
+                  cCallRef: cCall.cCallRef,
+                  resultRef: cCall.resultRef,
+                  judgmentRef: cCall.judgmentRef,
+                  projection: cCall.resultValue,
+                })),
+              replayRef: replayState.replayRef,
+              replayDigest: replayState.replayDigest,
+            };
+    if (
+      context.store.readAll().length !== eventsBeforeRead.length ||
+      context.store.digest({ runId: state.runId }) !==
+        replayState.eventStoreDigest
+    ) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "project.read must not append or alter runtime truth",
+      );
+    }
     const updated = closeAndRememberContinuation(context, state);
     closed = true;
     return successOutcome(
       invocation,
       {
-        kind: "continuation_status",
-        schemaVersion: "5.0.0",
-        continuationRef,
-        status: continuation.status,
-        requestRef: continuation.requestRef,
-        requestDigest: continuation.requestDigest,
-        responseContractRef: continuation.responseContractRef,
-        responseRef: continuation.responseRef,
-        constructionIntentRef: continuation.constructionIntentRef,
-        constructionIntentDigest: continuation.constructionIntentDigest,
-        nextActionProjection: intentRoute?.nextActionProjection === undefined
-          ? null
-          : intentRoute.nextActionProjection as unknown as product.JsonValue,
-        replayRef: replayState.replayRef,
-        replayDigest: replayState.replayDigest,
+        ...readResult,
         continuationAuthority: updated as unknown as product.JsonValue,
-      },
+      } as unknown as product.JsonValue,
       continuationMetadata(
         updated,
         replayState,
@@ -2104,6 +2228,7 @@ async function applyRunContinue(
   );
   reopenContinuation(context, state);
   let completed = false;
+  let durableAuthorityClosed = false;
   let resumedFailureBasis: {
     readonly executionBasis: abg.ExecutionBasis;
     readonly scope: abg.OpenedTraversalScope;
@@ -2379,7 +2504,12 @@ async function applyRunContinue(
       eventLog,
     );
     completed = outcome.disposition === "succeeded";
-    return outcome;
+    const updatedAuthority = closeAndRememberContinuation(context, state);
+    durableAuthorityClosed = true;
+    return attachContinuationAuthority(
+      outcome,
+      updatedAuthority as unknown as product.JsonValue,
+    );
   } catch (error) {
     if (resumedFailureBasis !== null) {
       const replayAfterFailure = abg.replay(context.store, {
@@ -2406,7 +2536,9 @@ async function applyRunContinue(
     }
     throw error;
   } finally {
-    closeAndRememberContinuation(context, state);
+    if (!durableAuthorityClosed) {
+      closeAndRememberContinuation(context, state);
+    }
     if (completed) continuationLocatorMap(context).delete(continuationRef);
   }
 }

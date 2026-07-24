@@ -1150,6 +1150,42 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     frontier.result.constructionIntentRef,
     /^construction-intent:\/\/abiogenesis\//u,
   );
+  assert.equal(frontier.result.constructionStatus, "fh_input_required");
+  const openActions = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "lawful-actions",
+      "invocation://t272/external-one-surface/read-open-actions",
+      {
+        continuationAuthority: openAuthority,
+        continuationRef,
+      },
+    ),
+  );
+  assert.equal(openActions.disposition, "succeeded", JSON.stringify(openActions));
+  assert.equal(
+    openActions.result.current.projectionRef,
+    frontier.result.nextActionProjection.projectionRef,
+  );
+  assert.equal(
+    openActions.result.current.selectedActionRef,
+    mini.ids.approvalActionRef,
+  );
+  const unresolvedResult = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "result",
+      "invocation://t272/external-one-surface/read-unresolved-result",
+      {
+        continuationAuthority: openAuthority,
+        continuationRef,
+      },
+    ),
+  );
+  assert.equal(unresolvedResult.disposition, "refused");
+  assert.equal(unresolvedResult.result.code, "target_mismatch");
   const response = {
     kind: "developer_human_approval",
     schemaVersion: "5.0.0",
@@ -1221,6 +1257,107 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
   assert.equal(completed.continuationStatus, "resolved");
   assert.equal(completed.runId, held.runId);
   assert.equal(completed.replayAgreement, true);
+  assert.equal(
+    completed.continuationAuthority.kind,
+    "public_continuation_authority",
+  );
+  const resolvedAuthority = JSON.parse(
+    JSON.stringify(completed.continuationAuthority),
+  );
+  const durableBytesBeforeReads = await readFile(scenario.eventLogPath, "utf8");
+  const resolvedStatus = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "status",
+      "invocation://t272/external-one-surface/read-resolved-status",
+      {
+        continuationAuthority: resolvedAuthority,
+        continuationRef,
+      },
+    ),
+  );
+  assert.equal(resolvedStatus.disposition, "succeeded");
+  assert.equal(resolvedStatus.result.status, "resolved");
+  assert.equal(
+    resolvedStatus.result.constructionStatus,
+    "construction_closed",
+  );
+  const resolvedResult = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "result",
+      "invocation://t272/external-one-surface/read-resolved-result",
+      {
+        continuationAuthority: resolvedAuthority,
+        continuationRef,
+      },
+    ),
+  );
+  assert.equal(resolvedResult.disposition, "succeeded");
+  assert.equal(resolvedResult.result.kind, "public_result_projection");
+  assert.equal(resolvedResult.result.closureEligible, true);
+  assert.deepEqual(resolvedResult.result.value, completed.result);
+  const resolvedReplay = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "replay",
+      "invocation://t272/external-one-surface/read-resolved-replay",
+      {
+        continuationAuthority: resolvedAuthority,
+        continuationRef,
+      },
+    ),
+  );
+  assert.equal(resolvedReplay.disposition, "succeeded");
+  assert.equal(resolvedReplay.result.kind, "public_replay_projection");
+  assert.equal(resolvedReplay.result.runId, completed.runId);
+  assert.equal(
+    resolvedReplay.result.events.at(-1).kind,
+    "run_closed",
+  );
+  assert.deepEqual(
+    resolvedReplay.result.events.map((event) => event.admissionOrdinal),
+    [...resolvedReplay.result.events]
+      .sort((left, right) => left.admissionOrdinal - right.admissionOrdinal)
+      .map((event) => event.admissionOrdinal),
+  );
+  const resolvedActions = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "lawful-actions",
+      "invocation://t272/external-one-surface/read-resolved-actions",
+      {
+        continuationAuthority: resolvedAuthority,
+        continuationRef,
+      },
+    ),
+  );
+  assert.equal(resolvedActions.disposition, "succeeded");
+  assert.equal(
+    resolvedActions.result.current.disposition,
+    "converged",
+  );
+  assert.equal(
+    await readFile(scenario.eventLogPath, "utf8"),
+    durableBytesBeforeReads,
+  );
+  const staleRead = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "status",
+      "invocation://t272/external-one-surface/read-stale-authority",
+      {
+        continuationAuthority: openAuthority,
+        continuationRef,
+      },
+    ),
+  );
+  assert.equal(staleRead.disposition, "refused");
   assert.deepEqual(
     events
       .filter((event) => event.kind === "c_call_opened")
