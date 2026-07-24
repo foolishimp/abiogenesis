@@ -8,6 +8,7 @@ import type {
   EvaluatorDeclaration,
   GraphFunction,
   GraphFunctionApplication,
+  GtlActionCatalogRow,
   GtlEdge,
   GtlProgram,
   ImplementationBinding,
@@ -1074,6 +1075,86 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       path: "$.graphFunctions[*].template.nodes[*].term",
       message: `duplicate validated leaf requirement ${requirementKey}`,
     });
+  }
+  if (program.actionCatalog !== undefined) {
+    const { catalogRef, catalogDigest, ...catalogBody } = program.actionCatalog;
+    const expectedCatalogDigest = sha256Canonical(
+      catalogBody as unknown as JsonValue,
+    );
+    if (
+      program.actionCatalog.kind !== "action_catalog" ||
+      program.actionCatalog.schemaVersion !== "5.0.0" ||
+      catalogDigest !== expectedCatalogDigest ||
+      catalogRef !==
+        `action-catalog://product/${expectedCatalogDigest.slice("sha256:".length)}` ||
+      program.actionCatalog.rows.length === 0
+    ) {
+      diagnostics.push({
+        code: "identity_mismatch",
+        path: "$.program.actionCatalog",
+        message: "ActionCatalog requires one canonical non-empty Product publication",
+      });
+    }
+    for (const actionRef of duplicates(
+      program.actionCatalog.rows.map((row) => row.actionRef),
+    )) {
+      diagnostics.push({
+        code: "duplicate_identity",
+        path: "$.program.actionCatalog.rows",
+        message: `duplicate action membership ${actionRef}`,
+      });
+    }
+    for (
+      const [index, row] of program.actionCatalog.rows.entries()
+    ) {
+      const exactKeys: readonly string[] = [
+        "actionKind",
+        "actionRef",
+        "expectedDeltaRef",
+        "graphFunctionRef",
+        "inputAssetRefs",
+        "kind",
+        "outputAssetRefs",
+        "programRef",
+        "progressConditionRef",
+        "stopConditionRef",
+        "targetObligationRefs",
+        "targetProgramLocusRef",
+      ];
+      const graphFunction = graphFunctions.find(
+        (candidate) => candidate.name === row.graphFunctionRef,
+      );
+      const targetExists = graphFunction?.template.nodes.some((node) =>
+        cLeafTerms(node.term).some(
+          (leaf) => leaf.programLocusRef === row.targetProgramLocusRef,
+        )
+      ) ?? false;
+      if (
+        row.kind !== "action_catalog_row" ||
+        !hasExactKeys(row, exactKeys) ||
+        row.actionRef.length === 0 ||
+        row.actionKind.length === 0 ||
+        row.programRef !== program.programRef ||
+        !program.callableMembership.includes(row.graphFunctionRef) ||
+        !targetExists ||
+        row.targetObligationRefs.length === 0 ||
+        row.targetObligationRefs.some((ref) => ref.length === 0) ||
+        row.inputAssetRefs.length === 0 ||
+        row.inputAssetRefs.some((ref) => ref.length === 0) ||
+        row.outputAssetRefs.length === 0 ||
+        row.outputAssetRefs.some((ref) => ref.length === 0) ||
+        row.expectedDeltaRef.length === 0 ||
+        row.progressConditionRef.length === 0 ||
+        row.stopConditionRef.length === 0
+      ) {
+        diagnostics.push({
+          code: "missing_membership",
+          path: `$.program.actionCatalog.rows[${index}]`,
+          message:
+            "ActionCatalog row must bind one exact Program action to a published callable locus and semantic obligations",
+        });
+      }
+    }
   }
   if (!closureContracts.some((contract) => contract.closureContractRef === program.closureContractRef)) {
     diagnostics.push({ code: "missing_contract", path: "$.program.closureContractRef", message: "Program closure contract is absent" });

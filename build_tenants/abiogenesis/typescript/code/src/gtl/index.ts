@@ -139,6 +139,8 @@ export type {
   FpHelloOutput,
   GtlEdge,
   GtlEnvironment,
+  GtlActionCatalog,
+  GtlActionCatalogRow,
   GtlGraph,
   GtlNode,
   GtlProgram,

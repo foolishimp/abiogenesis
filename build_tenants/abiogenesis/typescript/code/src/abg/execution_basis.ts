@@ -1,6 +1,7 @@
 import type {
   ClosureContract,
   GraphFunction,
+  GtlActionCatalogRow,
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
@@ -166,6 +167,9 @@ export interface ExecutionBasis {
   readonly workspaceBindingDigest: Sha256Digest;
   readonly catalogViewId: string;
   readonly catalogViewDigest: Sha256Digest;
+  readonly actionCatalogRef: string | null;
+  readonly actionCatalogDigest: Sha256Digest | null;
+  readonly actionCatalogRows: readonly GtlActionCatalogRow[];
   readonly programRef: string;
   readonly programDigest: Sha256Digest;
   readonly graphFunctionRef: string;
@@ -890,6 +894,9 @@ export function admitExecutionBasis(
     workspaceBindingDigest: input.invocationAdmission.workspaceBindingDigest,
     catalogViewId: input.invocationAdmission.catalogViewId,
     catalogViewDigest: input.invocationAdmission.catalogViewDigest,
+    actionCatalogRef: input.program.actionCatalog?.catalogRef ?? null,
+    actionCatalogDigest: input.program.actionCatalog?.catalogDigest ?? null,
+    actionCatalogRows: input.program.actionCatalog?.rows ?? [],
     programRef: input.invocationAdmission.programRef,
     programDigest: input.invocationAdmission.programDigest,
     graphFunctionRef: input.invocationAdmission.graphFunctionRef,
@@ -941,7 +948,11 @@ export function admitExecutionBasis(
     workflowVersion: "5.0.0",
     scopeClass: "workspace",
     basisId: basisRef,
-    payload: { basisRef, basisDigest, ...executionBody },
+    payload: {
+      basisRef,
+      basisDigest,
+      ...executionBody,
+    } as unknown as JsonValue,
   });
   const executionBasis = deepFreeze({
     kind: "execution_basis" as const,
@@ -1119,6 +1130,9 @@ export function admitChildExecutionBasis(
     workspaceBindingDigest: parent.workspaceBindingDigest,
     catalogViewId: parent.catalogViewId,
     catalogViewDigest: parent.catalogViewDigest,
+    actionCatalogRef: parent.actionCatalogRef,
+    actionCatalogDigest: parent.actionCatalogDigest,
+    actionCatalogRows: parent.actionCatalogRows,
     programRef: parent.programRef,
     programDigest: parent.programDigest,
     graphFunctionRef: input.graphFunction.name,
@@ -1176,7 +1190,11 @@ export function admitChildExecutionBasis(
     graphCallId: parentScope.graphCallId,
     frameId: parentScope.frameId,
     frameLineageId: parentScope.frameLineageId,
-    payload: { basisRef, basisDigest, ...executionBody },
+    payload: {
+      basisRef,
+      basisDigest,
+      ...executionBody,
+    } as unknown as JsonValue,
   });
   const executionBasis = deepFreeze({
     kind: "execution_basis" as const,

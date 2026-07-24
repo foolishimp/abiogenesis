@@ -682,7 +682,13 @@ export function admitFhInteractionOpen(
     aggregateType: "continuation",
     aggregateId: continuationRef,
     parentAggregateId: scope.frameId,
-    causationEventRefs: [route.admissionEventRef, ...basis.causationEventRefs],
+    causationEventRefs: [
+      route.admissionEventRef,
+      ...(constructionIntent === null
+        ? []
+        : [constructionIntent.admissionEventRef]),
+      ...basis.causationEventRefs,
+    ],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",

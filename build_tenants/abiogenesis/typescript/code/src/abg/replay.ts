@@ -58,6 +58,22 @@ export interface ReplayRouteState {
   readonly constructionIntentRef?: string;
   readonly constructionIntentDigest?: Sha256Digest;
   readonly constructionIntent?: ConstructionIntent;
+  readonly constructionIntentAdmissionEventRef?: string;
+  readonly admissionEventRef: string;
+}
+
+export interface ReplayConstructionDeltaState {
+  readonly deltaRef: string;
+  readonly deltaDigest: Sha256Digest;
+  readonly constructionIntentRef: string;
+  readonly constructionIntentDigest: Sha256Digest;
+  readonly targetOutcomeRef: string;
+  readonly edgeFulfillmentLedgerRef: string;
+  readonly edgeFulfillmentLedgerDigest: Sha256Digest;
+  readonly edgeClosureDecisionRef: string;
+  readonly edgeClosureDecisionDigest: Sha256Digest;
+  readonly semanticEvidenceAssetRefs: readonly string[];
+  readonly runtimeEvidenceEventRefs: readonly string[];
   readonly admissionEventRef: string;
 }
 
@@ -93,6 +109,7 @@ export interface ReplayState {
   readonly traversalCursorEventRef: string | null;
   readonly cCalls: readonly ReplayCCallState[];
   readonly routes: readonly ReplayRouteState[];
+  readonly constructionDeltas: readonly ReplayConstructionDeltaState[];
   readonly fanOutCompletions: readonly FanOutCompletionAdmission[];
   readonly continuations: readonly ReplayContinuationState[];
   readonly actorProcesses: readonly ReplayActorProcessState[];
@@ -124,6 +141,18 @@ function stringField(event: RuntimeEvent, name: string): string | null {
   if (!isRecord(event.payload)) return null;
   const value = event.payload[name];
   return typeof value === "string" ? value : null;
+}
+
+function stringArrayField(
+  event: RuntimeEvent,
+  name: string,
+): readonly string[] | null {
+  if (!isRecord(event.payload)) return null;
+  const value = event.payload[name];
+  return Array.isArray(value) &&
+      value.every((entry) => typeof entry === "string" && entry.length > 0)
+    ? value as readonly string[]
+    : null;
 }
 
 function nonNegativeIntegerField(event: RuntimeEvent, name: string): number | null {
@@ -538,31 +567,38 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       const declarationDigest = stringField(event, "declarationDigest");
       const sourceCursorRef = stringField(event, "sourceCursorRef");
       const sourceCursorDigest = stringField(event, "sourceCursorDigest");
+      const intentEvent = events.find(
+        (candidate) =>
+          candidate.kind === "construction_intent_selected" &&
+          stringField(candidate, "routeRef") === routeRef,
+      );
       const nextActionProjectionRef = stringField(
-        event,
+        intentEvent ?? event,
         "nextActionProjectionRef",
       );
       const nextActionProjectionDigest = stringField(
-        event,
+        intentEvent ?? event,
         "nextActionProjectionDigest",
       );
       const constructionIntentRef = stringField(
-        event,
+        intentEvent ?? event,
         "constructionIntentRef",
       );
       const constructionIntentDigest = stringField(
-        event,
+        intentEvent ?? event,
         "constructionIntentDigest",
       );
       const nextActionProjection =
-        isRecord(event.payload) &&
-          isRecord(event.payload.nextActionProjection)
-          ? event.payload.nextActionProjection
+        intentEvent !== undefined &&
+          isRecord(intentEvent.payload) &&
+          isRecord(intentEvent.payload.nextActionProjection)
+          ? intentEvent.payload.nextActionProjection
           : null;
       const constructionIntent =
-        isRecord(event.payload) &&
-          isRecord(event.payload.constructionIntent)
-          ? event.payload.constructionIntent
+        intentEvent !== undefined &&
+          isRecord(intentEvent.payload) &&
+          isRecord(intentEvent.payload.constructionIntent)
+          ? intentEvent.payload.constructionIntent
           : null;
       if (
         routeRef === null ||
@@ -617,6 +653,8 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
                 constructionIntentDigest as Sha256Digest,
               constructionIntent:
                 constructionIntent as unknown as ConstructionIntent,
+              constructionIntentAdmissionEventRef:
+                intentEvent!.eventId,
             }),
         admissionEventRef: event.eventId,
       };
@@ -625,6 +663,58 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
   const fanOutCompletions = events
     .filter((event) => event.kind === "fan_out_completion_admitted")
     .map(fanOutCompletionFromEvent);
+  const constructionDeltas = events
+    .filter((event) => event.kind === "construction_delta_observed")
+    .map((event): ReplayConstructionDeltaState => {
+      const required = [
+        "deltaRef",
+        "deltaDigest",
+        "constructionIntentRef",
+        "constructionIntentDigest",
+        "targetOutcomeRef",
+        "edgeFulfillmentLedgerRef",
+        "edgeFulfillmentLedgerDigest",
+        "edgeClosureDecisionRef",
+        "edgeClosureDecisionDigest",
+      ] as const;
+      const values = Object.fromEntries(
+        required.map((key) => [key, stringField(event, key)]),
+      );
+      const semanticEvidenceAssetRefs = stringArrayField(
+        event,
+        "semanticEvidenceAssetRefs",
+      );
+      const runtimeEvidenceEventRefs = stringArrayField(
+        event,
+        "runtimeEvidenceEventRefs",
+      );
+      if (
+        Object.values(values).some((value) => value === null) ||
+        semanticEvidenceAssetRefs === null ||
+        runtimeEvidenceEventRefs === null
+      ) {
+        throw new TypeError(
+          `incomplete construction delta payload at ${event.eventId}`,
+        );
+      }
+      return {
+        deltaRef: values.deltaRef!,
+        deltaDigest: values.deltaDigest! as Sha256Digest,
+        constructionIntentRef: values.constructionIntentRef!,
+        constructionIntentDigest:
+          values.constructionIntentDigest! as Sha256Digest,
+        targetOutcomeRef: values.targetOutcomeRef!,
+        edgeFulfillmentLedgerRef: values.edgeFulfillmentLedgerRef!,
+        edgeFulfillmentLedgerDigest:
+          values.edgeFulfillmentLedgerDigest! as Sha256Digest,
+        edgeClosureDecisionRef: values.edgeClosureDecisionRef!,
+        edgeClosureDecisionDigest:
+          values.edgeClosureDecisionDigest! as Sha256Digest,
+        semanticEvidenceAssetRefs,
+        runtimeEvidenceEventRefs,
+        admissionEventRef: event.eventId,
+      };
+    });
 
   const actorInvocationIds = [...new Set(
     events
@@ -748,6 +838,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
     traversalCursorEventRef: traversalCursor?.eventId ?? null,
     cCalls,
     routes,
+    constructionDeltas,
     fanOutCompletions,
     continuations,
     actorProcesses,

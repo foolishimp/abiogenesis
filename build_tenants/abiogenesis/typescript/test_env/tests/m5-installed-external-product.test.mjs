@@ -9,6 +9,7 @@ import {
   runInstalledCli,
   setupInstalledCliHarness,
 } from "../support/root-cli-environment.mjs";
+import { sha256Canonical } from "../../build/code/src/product/index.js";
 
 const packageRoot = new URL("../..", import.meta.url).pathname;
 
@@ -595,6 +596,63 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
 test("M5 starts an external supervised GTL Program whose One Surface order survives F_H continuation", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
   const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const missingSelectedAction = structuredClone(mini.publication);
+  const missingActionProgram = missingSelectedAction.programs.find(
+    (program) => program.programRef === mini.ids.oneSurfaceProgramRef,
+  );
+  missingActionProgram.actionCatalog.rows[0].actionRef =
+    "action://developer.example/greeting/substituted@5";
+  const missingActionCatalogBody = {
+    kind: missingActionProgram.actionCatalog.kind,
+    schemaVersion: missingActionProgram.actionCatalog.schemaVersion,
+    rows: missingActionProgram.actionCatalog.rows,
+  };
+  const missingActionCatalogDigest = sha256Canonical(
+    missingActionCatalogBody,
+  );
+  missingActionProgram.actionCatalog.catalogDigest =
+    missingActionCatalogDigest;
+  missingActionProgram.actionCatalog.catalogRef =
+    `action-catalog://product/${missingActionCatalogDigest.slice("sha256:".length)}`;
+  const missingActionScenario = await externalScenario(
+    harness,
+    mini,
+    "external-one-surface-missing-selected-action",
+    missingSelectedAction,
+    {
+      runVariant: "start",
+      startRef: mini.ids.oneSurfaceStartRef,
+      programRef: mini.ids.oneSurfaceProgramRef,
+      graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
+      input: {
+        kind: "developer_greeting_input",
+        schemaVersion: "5.0.0",
+        name: "Margaret",
+      },
+    },
+  );
+  const missingActionRun = await runInstalledCli(
+    harness,
+    missingActionScenario,
+  );
+  assert.equal(missingActionRun.exitCode, 2, missingActionRun.stdout);
+  assert.notEqual(missingActionRun.outcomes.at(-1).disposition, "held");
+  const missingActionEvents = (await readFile(
+    missingActionScenario.eventLogPath,
+    "utf8",
+  ))
+    .trim()
+    .split(/\r?\n/u)
+    .map((line) => JSON.parse(line));
+  assert.equal(
+    missingActionEvents.some(
+      (event) =>
+        event.kind === "construction_intent_selected" ||
+        event.kind === "fh_interaction_opened",
+    ),
+    false,
+  );
+
   const scenario = await externalScenario(
     harness,
     mini,
@@ -748,14 +806,19 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       ),
     }),
   );
-  assert.deepEqual(completed.result, {
-    kind: "developer_action_evaluation",
-    schemaVersion: "5.0.0",
-    constructionIntentRef: frontier.result.constructionIntentRef,
-    targetOutcomeRef: mini.ids.targetOutcomeRef,
-    decision: "close",
-    message: "Welcome Margaret.",
-  });
+  assert.equal(completed.result.kind, "next_action_projection");
+  assert.equal(completed.result.schemaVersion, "5.0.0");
+  assert.equal(completed.result.disposition, "converged");
+  assert.equal(
+    completed.result.constructionIntentRef,
+    frontier.result.constructionIntentRef,
+  );
+  assert.equal(completed.result.targetOutcomeRef, mini.ids.targetOutcomeRef);
+  assert.deepEqual(completed.result.lawfulBasisRefs, [
+    completed.result.constructionIntentRef,
+    completed.result.edgeClosureDecisionRef,
+    completed.result.gapRef,
+  ]);
   assert.equal(completed.continuationStatus, "resolved");
   assert.equal(completed.runId, held.runId);
   assert.equal(completed.replayAgreement, true);
@@ -769,6 +832,9 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       mini.ids.evaluateNextLocusRef,
       mini.ids.interactionLocusRef,
       mini.ids.evaluateActionLocusRef,
+      mini.ids.refreshModelLocusRef,
+      mini.ids.refreshGapLocusRef,
+      mini.ids.refreshEvaluateNextLocusRef,
     ],
   );
   assert.deepEqual(
@@ -780,26 +846,52 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       "developer_gap_projection",
       "next_action_projection",
       "fh_pending_result",
-      "developer_action_evaluation",
+      "action_evaluation_projection",
+      "developer_refreshed_product_asset_model",
+      "developer_refreshed_gap_projection",
+      "next_action_projection",
     ],
   );
-  const intentRoute = events.find(
+  const intentEvent = events.find(
     (event) =>
-      event.kind === "traversal_route_admitted" &&
+      event.kind === "construction_intent_selected" &&
       event.payload.constructionIntentRef ===
         frontier.result.constructionIntentRef,
   );
   const interactionOpened = events.find(
     (event) => event.kind === "fh_interaction_opened",
   );
-  assert.ok(intentRoute);
+  const interactionResponded = events.find(
+    (event) => event.kind === "fh_interaction_responded",
+  );
+  const interactionResumed = events.find(
+    (event) => event.kind === "fh_interaction_resume_admitted",
+  );
+  const constructionDelta = events.find(
+    (event) =>
+      event.kind === "construction_delta_observed" &&
+      event.payload.constructionIntentRef ===
+        frontier.result.constructionIntentRef,
+  );
+  const refreshOpened = events.find(
+    (event) =>
+      event.kind === "c_call_opened" &&
+      event.payload.programLocusRef === mini.ids.refreshModelLocusRef,
+  );
+  const runClosed = events.find((event) => event.kind === "run_closed");
+  assert.ok(intentEvent);
   assert.ok(interactionOpened);
+  assert.ok(interactionResponded);
+  assert.ok(interactionResumed);
+  assert.ok(constructionDelta);
+  assert.ok(refreshOpened);
+  assert.ok(runClosed);
   assert.equal(
-    intentRoute.payload.nextActionProjectionRef,
+    intentEvent.payload.nextActionProjectionRef,
     frontier.result.nextActionProjection.projectionRef,
   );
   assert.equal(
-    intentRoute.payload.constructionIntent.targetProgramLocusRef,
+    intentEvent.payload.constructionIntent.targetProgramLocusRef,
     mini.ids.interactionLocusRef,
   );
   assert.equal(
@@ -807,7 +899,49 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     frontier.result.constructionIntentRef,
   );
   assert.ok(
-    intentRoute.admissionOrdinal < interactionOpened.admissionOrdinal,
+    intentEvent.admissionOrdinal < interactionOpened.admissionOrdinal,
+  );
+  assert.ok(
+    interactionOpened.admissionOrdinal <
+      interactionResponded.admissionOrdinal,
+  );
+  assert.ok(
+    interactionResponded.admissionOrdinal <
+      interactionResumed.admissionOrdinal,
+  );
+  assert.ok(
+    interactionResumed.admissionOrdinal <
+      constructionDelta.admissionOrdinal,
+  );
+  assert.ok(
+    constructionDelta.admissionOrdinal < refreshOpened.admissionOrdinal,
+  );
+  assert.ok(refreshOpened.admissionOrdinal < runClosed.admissionOrdinal);
+  assert.equal(
+    constructionDelta.payload.edgeClosureDecisionRef,
+    completed.result.edgeClosureDecisionRef,
+  );
+  assert.equal(
+    constructionDelta.payload.actionEvaluation.kind,
+    "action_evaluation_projection",
+  );
+  assert.deepEqual(
+    constructionDelta.payload.edgeFulfillmentLedger.rows,
+    [{
+      obligationRef: mini.ids.approvalObligationRef,
+      evidenceAssetRefs: [mini.ids.approvalAssetRef],
+      disposition: "fulfilled",
+    }],
+  );
+  assert.equal(
+    constructionDelta.payload.edgeClosureDecision.disposition,
+    "close_candidate",
+  );
+  assert.equal(
+    constructionDelta.payload.runtimeEvidenceEventRefs.every(
+      (eventRef) => events.some((event) => event.eventId === eventRef),
+    ),
+    true,
   );
   const admittedInvocation = events.find(
     (event) => event.kind === "invocation_admitted",

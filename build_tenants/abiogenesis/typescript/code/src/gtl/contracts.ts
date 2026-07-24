@@ -363,6 +363,29 @@ export interface ProgramStart {
   readonly graphFunctionRef: string;
 }
 
+export interface GtlActionCatalogRow {
+  readonly kind: "action_catalog_row";
+  readonly actionRef: string;
+  readonly actionKind: string;
+  readonly programRef: string;
+  readonly graphFunctionRef: string;
+  readonly targetProgramLocusRef: string;
+  readonly targetObligationRefs: readonly string[];
+  readonly inputAssetRefs: readonly string[];
+  readonly outputAssetRefs: readonly string[];
+  readonly expectedDeltaRef: string;
+  readonly progressConditionRef: string;
+  readonly stopConditionRef: string;
+}
+
+export interface GtlActionCatalog {
+  readonly kind: "action_catalog";
+  readonly schemaVersion: "5.0.0";
+  readonly catalogRef: string;
+  readonly catalogDigest: Sha256Digest;
+  readonly rows: readonly GtlActionCatalogRow[];
+}
+
 export interface GtlProgram {
   readonly kind: "gtl_program";
   readonly programRef: string;
@@ -372,6 +395,7 @@ export interface GtlProgram {
   readonly callableMembership: readonly string[];
   readonly closureContractRef: string;
   readonly policies: Readonly<Record<string, string>>;
+  readonly actionCatalog?: GtlActionCatalog;
 }
 
 export type CatalogContributionKind = "graph_function" | "node_type" | "overlay";

@@ -62,6 +62,8 @@ export const ROOT_EVENT_KIND_VALUES = [
   "child_preparation_refused",
   "fan_out_completion_admitted",
   "traversal_route_admitted",
+  "construction_intent_selected",
+  "construction_delta_observed",
   "fh_interaction_opened",
   "fh_interaction_responded",
   "fh_interaction_resume_admitted",
@@ -228,7 +230,7 @@ const LEGACY_IMPLEMENTATION_PAYLOAD = payloadKeys(
   "catalogViewDigest catalogViewId computeRegime failureContractRef graphFunctionDigest graphFunctionRef graphValidationDigest graphValidationRef implementationBindingDigest implementationBindingRef implementationDescriptorDigest implementationRef inputContractRef modulePath namedSymbol nodeRef outputContractRef packageName packageVersion programValidationRef publicationDigest refusalContractRef resolutionCandidateDigest resolutionCandidateRef resolutionDigest resolutionRef resolutionValidationDigest resolutionValidationRef",
 );
 const BASIS_PAYLOAD = payloadKeys(
-  "actorRef basisClass basisDigest basisRef catalogViewDigest catalogViewId closureContractDigest closureContractRef entryRef evidenceContractRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef implementationResolutionRef implementationSetDigest implementationSetRef interactionSetDigest interactionSetRef invocationAdmissionRef invocationDigest invocationRef judgmentContractRef localExecutableLeafKeys localImplementationSubsetDigest localInteractionLeafKeys localInteractionSubsetDigest parentExecutionBasisRef parentTraversalScopeRef programDigest programRef programValidationRef rawInputAdmissionRef rawInputDigest refusalContractRef refusalValueKind rejectionContractRef replayProjectionRef resultContractRef rootImplementationSetDigest rootImplementationSetRef rootInteractionSetDigest rootInteractionSetRef terminalKind terminalPredicateRef transitionContractRef workspaceBindingDigest workspaceBindingId",
+  "actionCatalogDigest actionCatalogRef actionCatalogRows actorRef basisClass basisDigest basisRef catalogViewDigest catalogViewId closureContractDigest closureContractRef entryRef evidenceContractRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef implementationResolutionRef implementationSetDigest implementationSetRef interactionSetDigest interactionSetRef invocationAdmissionRef invocationDigest invocationRef judgmentContractRef localExecutableLeafKeys localImplementationSubsetDigest localInteractionLeafKeys localInteractionSubsetDigest parentExecutionBasisRef parentTraversalScopeRef programDigest programRef programValidationRef rawInputAdmissionRef rawInputDigest refusalContractRef refusalValueKind rejectionContractRef replayProjectionRef resultContractRef rootImplementationSetDigest rootImplementationSetRef rootInteractionSetDigest rootInteractionSetRef terminalKind terminalPredicateRef transitionContractRef workspaceBindingDigest workspaceBindingId",
 );
 const GRAPH_OPEN_PAYLOAD = payloadKeys(
   "executionBasisRef graphCallDigest graphCallId graphDigest graphFunctionDigest graphFunctionRef graphRef invocationRef runId",
@@ -718,24 +720,22 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   },
   traversal_route_admitted: {
     variants: [FRAME_EVENT],
-    payloadVariants: [
-      payloadVariant(
-        ROUTE_PAYLOAD,
-        payloadKeys("routeRef routeDigest routeKind"),
-      ),
-      payloadVariant(
-        combinePayloadKeys(
-          ROUTE_PAYLOAD,
-          payloadKeys(
-            "constructionIntent constructionIntentDigest constructionIntentRef nextActionProjection nextActionProjectionDigest nextActionProjectionRef",
-          ),
-        ),
-        payloadKeys(
-          "routeRef routeDigest routeKind constructionIntentRef constructionIntentDigest nextActionProjectionRef nextActionProjectionDigest",
-        ),
-        { routeKind: "advance" },
-      ),
-    ],
+    payloadVariants: [payloadVariant(
+      ROUTE_PAYLOAD,
+      payloadKeys("routeRef routeDigest routeKind"),
+    )],
+  },
+  construction_intent_selected: {
+    variants: [FRAME_EVENT],
+    payloadVariants: [payloadVariant(payloadKeys(
+      "actionCatalogDigest actionCatalogRef actionCatalogRowDigest constructionIntent constructionIntentDigest constructionIntentRef nextActionProjection nextActionProjectionDigest nextActionProjectionRef routeRef targetCursorDigest targetCursorRef",
+    ))],
+  },
+  construction_delta_observed: {
+    variants: [FRAME_EVENT],
+    payloadVariants: [payloadVariant(payloadKeys(
+      "actionEvaluation actionEvaluationDigest actionEvaluationRef constructionIntentDigest constructionIntentRef deltaDigest deltaRef edgeClosureDecision edgeClosureDecisionDigest edgeClosureDecisionRef edgeFulfillmentLedger edgeFulfillmentLedgerDigest edgeFulfillmentLedgerRef runtimeEvidenceEventRefs semanticEvidenceAssetRefs sourceCCallRef sourceJudgmentRef sourceResultDigest sourceResultRef targetCursorDigest targetCursorRef targetOutcomeRef workspaceBindingDigest workspaceBindingId",
+    ))],
   },
   fh_interaction_opened: {
     variants: [CONTINUATION_EVENT],
@@ -1649,7 +1649,9 @@ function assertRuntimeEventContract(
       String(payload.routeKind),
     )
   ) {
-    throw new TypeError("traversal route event carries an unknown route kind");
+    throw new TypeError(
+      `traversal route event carries unknown route kind ${String(payload.routeKind)}`,
+    );
   }
   if (
     candidate.kind === "fan_out_completion_admitted" &&

@@ -106,6 +106,7 @@ export interface AdmittedRoute {
   readonly replayStateDigest: Sha256Digest;
   readonly constructionIntentRef: string | null;
   readonly constructionIntentDigest: Sha256Digest | null;
+  readonly constructionIntentAdmissionEventRef: string | null;
   readonly admissionEventRef: string;
   readonly runStoppedEventRef: string | null;
 }
@@ -118,7 +119,7 @@ export interface NextActionProjection {
   readonly projectionDigest: Sha256Digest;
   readonly targetOutcomeRef: string;
   readonly selectedActionRef: string;
-  readonly actionKind: "request_human_input";
+  readonly actionKind: string;
   readonly programRef: string;
   readonly graphFunctionRef: string;
   readonly targetProgramLocusRef: string;
@@ -143,9 +144,17 @@ export interface ConstructionIntent {
   readonly nextActionProjectionDigest: Sha256Digest;
   readonly targetOutcomeRef: string;
   readonly selectedActionRef: string;
-  readonly actionKind: "request_human_input";
+  readonly actionKind: string;
   readonly targetProgramLocusRef: string;
   readonly targetObligationRefs: readonly string[];
+  readonly inputAssetRefs: readonly string[];
+  readonly outputAssetRefs: readonly string[];
+  readonly expectedDeltaRef: string;
+  readonly progressConditionRef: string;
+  readonly stopConditionRef: string;
+  readonly actionCatalogRef: string;
+  readonly actionCatalogDigest: Sha256Digest;
+  readonly actionCatalogRowDigest: Sha256Digest;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
   readonly invocationAdmissionRef: string;
@@ -170,6 +179,58 @@ export interface ConstructionIntent {
 
 export interface ConstructionIntentAdmission extends ConstructionIntent {
   readonly admissionEventRef: string;
+}
+
+interface EdgeFulfillmentLedgerRow {
+  readonly obligationRef: string;
+  readonly evidenceAssetRefs: readonly string[];
+  readonly disposition: "fulfilled";
+}
+
+interface EdgeFulfillmentLedger {
+  readonly kind: "edge_fulfillment_ledger";
+  readonly schemaVersion: "5.0.0";
+  readonly ledgerRef: string;
+  readonly ledgerDigest: Sha256Digest;
+  readonly constructionIntentRef: string;
+  readonly targetOutcomeRef: string;
+  readonly rows: readonly EdgeFulfillmentLedgerRow[];
+}
+
+interface EdgeClosureDecision {
+  readonly kind: "edge_closure_decision";
+  readonly schemaVersion: "5.0.0";
+  readonly decisionRef: string;
+  readonly decisionDigest: Sha256Digest;
+  readonly constructionIntentRef: string;
+  readonly targetOutcomeRef: string;
+  readonly ledgerRef: string;
+  readonly disposition: "close_candidate";
+}
+
+interface ActionEvaluationProjection {
+  readonly kind: "action_evaluation_projection";
+  readonly schemaVersion: "5.0.0";
+  readonly actionEvaluationRef: string;
+  readonly actionEvaluationDigest: Sha256Digest;
+  readonly constructionIntentRef: string;
+  readonly targetOutcomeRef: string;
+  readonly semanticEvidenceAssetRefs: readonly string[];
+  readonly edgeFulfillmentLedger: EdgeFulfillmentLedger;
+  readonly edgeClosureDecision: EdgeClosureDecision;
+}
+
+interface ConvergedNextActionProjection {
+  readonly kind: "next_action_projection";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "converged";
+  readonly projectionRef: string;
+  readonly projectionDigest: Sha256Digest;
+  readonly constructionIntentRef: string;
+  readonly targetOutcomeRef: string;
+  readonly gapRef: string;
+  readonly edgeClosureDecisionRef: string;
+  readonly lawfulBasisRefs: readonly string[];
 }
 
 export interface RouteAdmissionRefusal {
@@ -339,7 +400,8 @@ function nextActionProjection(
     value.kind !== "next_action_projection" ||
     value.schemaVersion !== "5.0.0" ||
     value.disposition !== "selected" ||
-    value.actionKind !== "request_human_input" ||
+    typeof value.actionKind !== "string" ||
+    value.actionKind.length === 0 ||
     typeof value.projectionRef !== "string" ||
     typeof value.projectionDigest !== "string" ||
     typeof value.targetOutcomeRef !== "string" ||
@@ -375,6 +437,176 @@ function nextActionProjection(
   return value as unknown as NextActionProjection;
 }
 
+function edgeFulfillmentLedger(
+  value: JsonValue | undefined,
+): EdgeFulfillmentLedger | null {
+  if (
+    !isJsonRecord(value) ||
+    !hasExactKeys(value, [
+      "constructionIntentRef",
+      "kind",
+      "ledgerDigest",
+      "ledgerRef",
+      "rows",
+      "schemaVersion",
+      "targetOutcomeRef",
+    ]) ||
+    value.kind !== "edge_fulfillment_ledger" ||
+    value.schemaVersion !== "5.0.0" ||
+    typeof value.ledgerRef !== "string" ||
+    typeof value.ledgerDigest !== "string" ||
+    typeof value.constructionIntentRef !== "string" ||
+    typeof value.targetOutcomeRef !== "string" ||
+    !Array.isArray(value.rows) ||
+    value.rows.length === 0
+  ) {
+    return null;
+  }
+  for (const row of value.rows) {
+    if (
+      !isJsonRecord(row) ||
+      !hasExactKeys(row, [
+        "disposition",
+        "evidenceAssetRefs",
+        "obligationRef",
+      ]) ||
+      row.disposition !== "fulfilled" ||
+      typeof row.obligationRef !== "string" ||
+      !nonEmptyStringArray(row.evidenceAssetRefs)
+    ) {
+      return null;
+    }
+  }
+  const { ledgerRef, ledgerDigest, ...body } = value;
+  const expectedDigest = sha256Canonical(body);
+  return ledgerDigest === expectedDigest &&
+      ledgerRef ===
+        `edge-fulfillment-ledger://product/${expectedDigest.slice("sha256:".length)}`
+    ? value as unknown as EdgeFulfillmentLedger
+    : null;
+}
+
+function edgeClosureDecision(
+  value: JsonValue | undefined,
+): EdgeClosureDecision | null {
+  if (
+    !isJsonRecord(value) ||
+    !hasExactKeys(value, [
+      "constructionIntentRef",
+      "decisionDigest",
+      "decisionRef",
+      "disposition",
+      "kind",
+      "ledgerRef",
+      "schemaVersion",
+      "targetOutcomeRef",
+    ]) ||
+    value.kind !== "edge_closure_decision" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "close_candidate" ||
+    typeof value.decisionRef !== "string" ||
+    typeof value.decisionDigest !== "string" ||
+    typeof value.constructionIntentRef !== "string" ||
+    typeof value.targetOutcomeRef !== "string" ||
+    typeof value.ledgerRef !== "string"
+  ) {
+    return null;
+  }
+  const { decisionRef, decisionDigest, ...body } = value;
+  const expectedDigest = sha256Canonical(body);
+  return decisionDigest === expectedDigest &&
+      decisionRef ===
+        `edge-closure-decision://product/${expectedDigest.slice("sha256:".length)}`
+    ? value as unknown as EdgeClosureDecision
+    : null;
+}
+
+function actionEvaluationProjection(
+  value: JsonValue,
+): ActionEvaluationProjection | null {
+  if (
+    !isJsonRecord(value) ||
+    !hasExactKeys(value, [
+      "actionEvaluationDigest",
+      "actionEvaluationRef",
+      "constructionIntentRef",
+      "edgeClosureDecision",
+      "edgeFulfillmentLedger",
+      "kind",
+      "schemaVersion",
+      "semanticEvidenceAssetRefs",
+      "targetOutcomeRef",
+    ]) ||
+    value.kind !== "action_evaluation_projection" ||
+    value.schemaVersion !== "5.0.0" ||
+    typeof value.actionEvaluationRef !== "string" ||
+    typeof value.actionEvaluationDigest !== "string" ||
+    typeof value.constructionIntentRef !== "string" ||
+    typeof value.targetOutcomeRef !== "string" ||
+    !nonEmptyStringArray(value.semanticEvidenceAssetRefs)
+  ) {
+    return null;
+  }
+  const ledger = edgeFulfillmentLedger(value.edgeFulfillmentLedger);
+  const decision = edgeClosureDecision(value.edgeClosureDecision);
+  const { actionEvaluationRef, actionEvaluationDigest, ...body } = value;
+  const expectedDigest = sha256Canonical(body);
+  if (
+    ledger === null ||
+    decision === null ||
+    ledger.constructionIntentRef !== value.constructionIntentRef ||
+    ledger.targetOutcomeRef !== value.targetOutcomeRef ||
+    decision.constructionIntentRef !== value.constructionIntentRef ||
+    decision.targetOutcomeRef !== value.targetOutcomeRef ||
+    decision.ledgerRef !== ledger.ledgerRef ||
+    actionEvaluationDigest !== expectedDigest ||
+    actionEvaluationRef !==
+      `action-evaluation://product/${expectedDigest.slice("sha256:".length)}`
+  ) {
+    return null;
+  }
+  return value as unknown as ActionEvaluationProjection;
+}
+
+function convergedNextActionProjection(
+  value: JsonValue,
+): ConvergedNextActionProjection | null {
+  if (
+    !isJsonRecord(value) ||
+    !hasExactKeys(value, [
+      "constructionIntentRef",
+      "disposition",
+      "edgeClosureDecisionRef",
+      "gapRef",
+      "kind",
+      "lawfulBasisRefs",
+      "projectionDigest",
+      "projectionRef",
+      "schemaVersion",
+      "targetOutcomeRef",
+    ]) ||
+    value.kind !== "next_action_projection" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "converged" ||
+    typeof value.projectionRef !== "string" ||
+    typeof value.projectionDigest !== "string" ||
+    typeof value.constructionIntentRef !== "string" ||
+    typeof value.targetOutcomeRef !== "string" ||
+    typeof value.gapRef !== "string" ||
+    typeof value.edgeClosureDecisionRef !== "string" ||
+    !nonEmptyStringArray(value.lawfulBasisRefs)
+  ) {
+    return null;
+  }
+  const { projectionRef, projectionDigest, ...body } = value;
+  const expectedDigest = sha256Canonical(body);
+  return projectionDigest === expectedDigest &&
+      projectionRef ===
+        `next-action-projection://product/${expectedDigest.slice("sha256:".length)}`
+    ? value as unknown as ConvergedNextActionProjection
+    : null;
+}
+
 function constructionIntentForAdvance(
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
@@ -408,11 +640,29 @@ function constructionIntentForAdvance(
     targetCursor.termPath,
   );
   const projection = nextActionProjection(evidence.result.value);
+  const actionRows = executionBasis.actionCatalogRows.filter(
+    (row) => row.actionRef === projection?.selectedActionRef,
+  );
+  const actionRow = actionRows.length === 1 ? actionRows[0] : undefined;
   if (
     projection === null ||
+    executionBasis.actionCatalogRef === null ||
+    executionBasis.actionCatalogDigest === null ||
+    actionRow === undefined ||
     targetTerm.kind !== "c_of" ||
     targetTerm.stageRole !== "intent" ||
     !isInteractionCLeaf(targetTerm) ||
+    actionRow.kind !== "action_catalog_row" ||
+    actionRow.actionKind !== projection.actionKind ||
+    actionRow.programRef !== projection.programRef ||
+    actionRow.graphFunctionRef !== projection.graphFunctionRef ||
+    actionRow.targetProgramLocusRef !== projection.targetProgramLocusRef ||
+    !sameValues(actionRow.targetObligationRefs, projection.targetObligationRefs) ||
+    !sameValues(actionRow.inputAssetRefs, projection.inputAssetRefs) ||
+    !sameValues(actionRow.outputAssetRefs, projection.outputAssetRefs) ||
+    actionRow.expectedDeltaRef !== projection.expectedDeltaRef ||
+    actionRow.progressConditionRef !== projection.progressConditionRef ||
+    actionRow.stopConditionRef !== projection.stopConditionRef ||
     projection.programRef !== executionBasis.programRef ||
     projection.graphFunctionRef !== executionBasis.graphFunctionRef ||
     projection.targetProgramLocusRef !== targetTerm.programLocusRef
@@ -433,6 +683,16 @@ function constructionIntentForAdvance(
     actionKind: projection.actionKind,
     targetProgramLocusRef: projection.targetProgramLocusRef,
     targetObligationRefs: projection.targetObligationRefs,
+    inputAssetRefs: projection.inputAssetRefs,
+    outputAssetRefs: projection.outputAssetRefs,
+    expectedDeltaRef: projection.expectedDeltaRef,
+    progressConditionRef: projection.progressConditionRef,
+    stopConditionRef: projection.stopConditionRef,
+    actionCatalogRef: executionBasis.actionCatalogRef,
+    actionCatalogDigest: executionBasis.actionCatalogDigest,
+    actionCatalogRowDigest: sha256Canonical(
+      actionRow as unknown as JsonValue,
+    ),
     workspaceBindingId: executionBasis.workspaceBindingId,
     workspaceBindingDigest: executionBasis.workspaceBindingDigest,
     invocationAdmissionRef: executionBasis.invocationAdmissionRef,
@@ -474,7 +734,7 @@ export function rehydrateConstructionIntentForCursor(
 ): ConstructionIntentAdmission | null {
   const event = store.readAll().find(
     (candidate) =>
-      candidate.kind === "traversal_route_admitted" &&
+      candidate.kind === "construction_intent_selected" &&
       candidate.runId === cursor.runId &&
       candidate.graphCallId === cursor.graphCallId &&
       candidate.frameId === cursor.frameId &&
@@ -510,6 +770,10 @@ export function rehydrateConstructionIntentForCursor(
     intentValue.nextActionProjectionDigest !== projection.projectionDigest ||
     intentValue.targetCursorRef !== cursor.cursorRef ||
     intentValue.targetCursorDigest !== cursor.cursorDigest ||
+    event.payload.actionCatalogRef !== intentValue.actionCatalogRef ||
+    event.payload.actionCatalogDigest !== intentValue.actionCatalogDigest ||
+    event.payload.actionCatalogRowDigest !==
+      intentValue.actionCatalogRowDigest ||
     sha256Canonical(projectionValue ?? null) !== cursor.inputDigest
   ) {
     return null;
@@ -518,6 +782,244 @@ export function rehydrateConstructionIntentForCursor(
     ...intentValue,
     admissionEventRef: event.eventId,
   }) as unknown as ConstructionIntentAdmission;
+}
+
+interface ConstructionDeltaAdmissionCandidate {
+  readonly payload: Readonly<Record<string, JsonValue>>;
+  readonly causationEventRefs: readonly string[];
+}
+
+function constructionIntentFromEvent(
+  event: ReturnType<AbgEventStore["readAll"]>[number],
+): ConstructionIntentAdmission | null {
+  if (
+    event.kind !== "construction_intent_selected" ||
+    !isJsonRecord(event.payload) ||
+    !isJsonRecord(event.payload.constructionIntent)
+  ) {
+    return null;
+  }
+  const value = event.payload.constructionIntent;
+  const constructionIntentRef = value.constructionIntentRef;
+  const constructionIntentDigest = value.constructionIntentDigest;
+  if (
+    typeof constructionIntentRef !== "string" ||
+    typeof constructionIntentDigest !== "string"
+  ) {
+    return null;
+  }
+  const {
+    constructionIntentRef: _ref,
+    constructionIntentDigest: _digest,
+    ...body
+  } = value;
+  if (
+    sha256Canonical(body) !== constructionIntentDigest ||
+    constructionIntentRef !==
+      `construction-intent://abiogenesis/${constructionIntentDigest.slice("sha256:".length)}`
+  ) {
+    return null;
+  }
+  return deepFreeze({
+    ...value,
+    admissionEventRef: event.eventId,
+  }) as unknown as ConstructionIntentAdmission;
+}
+
+function constructionDeltaForAdvance(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  targetCursor: TraversalCursorCandidate | null,
+  evidence: RouteAdmissionEvidence | null,
+): ConstructionDeltaAdmissionCandidate | RouteAdmissionRefusal | null {
+  const sourceTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  if (
+    sourceTerm.kind !== "c_of" ||
+    sourceTerm.stageRole !== "evaluateAction"
+  ) {
+    return null;
+  }
+  if (targetCursor === null || evidence === null) {
+    return refusal(
+      "candidate_mismatch",
+      "evaluateAction requires one admitted action fold and refresh target",
+    );
+  }
+  const evaluation = actionEvaluationProjection(evidence.result.value);
+  if (evaluation === null) {
+    return refusal(
+      "candidate_mismatch",
+      "evaluateAction did not emit one canonical evidence ledger and closure candidate",
+    );
+  }
+  const events = store.readAll();
+  const intentEvent = events.find(
+    (event) =>
+      event.kind === "construction_intent_selected" &&
+      isJsonRecord(event.payload) &&
+      event.payload.constructionIntentRef ===
+        evaluation.constructionIntentRef,
+  );
+  const intent = intentEvent === undefined
+    ? null
+    : constructionIntentFromEvent(intentEvent);
+  const actionRow = intent === null
+    ? undefined
+    : executionBasis.actionCatalogRows.find(
+        (row) => row.actionRef === intent.selectedActionRef,
+      );
+  const ledger = evaluation.edgeFulfillmentLedger;
+  const decision = evaluation.edgeClosureDecision;
+  const ledgerObligations = ledger.rows.map((row) => row.obligationRef);
+  const semanticEvidenceAssetRefs = [
+    ...new Set(ledger.rows.flatMap((row) => row.evidenceAssetRefs)),
+  ];
+  const opened = events.find(
+    (event) =>
+      event.kind === "fh_interaction_opened" &&
+      isJsonRecord(event.payload) &&
+      event.payload.constructionIntentRef ===
+        evaluation.constructionIntentRef,
+  );
+  const continuationRef = opened !== undefined && isJsonRecord(opened.payload)
+    ? opened.payload.continuationRef
+    : null;
+  const responded = typeof continuationRef === "string"
+    ? events.find(
+        (event) =>
+          event.kind === "fh_interaction_responded" &&
+          isJsonRecord(event.payload) &&
+          event.payload.continuationRef === continuationRef,
+      )
+    : undefined;
+  const resumed = typeof continuationRef === "string"
+    ? events.find(
+        (event) =>
+          event.kind === "fh_interaction_resume_admitted" &&
+          isJsonRecord(event.payload) &&
+          event.payload.continuationRef === continuationRef,
+      )
+    : undefined;
+  const evidenced = events.find(
+    (event) =>
+      event.kind === "c_call_evidenced" &&
+      isJsonRecord(event.payload) &&
+      event.payload.cCallRef === evidence.cCall.cCallRef,
+  );
+  if (
+    intent === null ||
+    actionRow === undefined ||
+    opened === undefined ||
+    responded === undefined ||
+    resumed === undefined ||
+    evidenced === undefined ||
+    intent.executionBasisRef !== executionBasis.basisRef ||
+    intent.runId !== sourceCursor.runId ||
+    intent.graphCallId !== sourceCursor.graphCallId ||
+    intent.frameId !== sourceCursor.frameId ||
+    evaluation.targetOutcomeRef !== intent.targetOutcomeRef ||
+    ledger.constructionIntentRef !== intent.constructionIntentRef ||
+    decision.constructionIntentRef !== intent.constructionIntentRef ||
+    !sameValues(ledgerObligations, actionRow.targetObligationRefs) ||
+    !sameValues(semanticEvidenceAssetRefs, actionRow.outputAssetRefs)
+  ) {
+    return refusal(
+      "candidate_mismatch",
+      "action fold does not cover the admitted intent, Product obligations, and complete runtime evidence",
+    );
+  }
+  const runtimeEvidenceEventRefs = [
+    intent.admissionEventRef,
+    opened.eventId,
+    responded.eventId,
+    resumed.eventId,
+    evidence.cCall.openedEventRef,
+    evidence.cCall.fibreSelectedEventRef,
+    evidenced.eventId,
+    evidence.result.admissionEventRef,
+    evidence.judgment.admissionEventRef,
+  ];
+  const actionEvaluationDigest = evaluation.actionEvaluationDigest;
+  const deltaBody = {
+    constructionIntentRef: intent.constructionIntentRef,
+    constructionIntentDigest: intent.constructionIntentDigest,
+    targetOutcomeRef: intent.targetOutcomeRef,
+    workspaceBindingId: executionBasis.workspaceBindingId,
+    workspaceBindingDigest: executionBasis.workspaceBindingDigest,
+    actionEvaluationRef: evaluation.actionEvaluationRef,
+    actionEvaluationDigest,
+    edgeFulfillmentLedgerRef: ledger.ledgerRef,
+    edgeFulfillmentLedgerDigest: ledger.ledgerDigest,
+    edgeClosureDecisionRef: decision.decisionRef,
+    edgeClosureDecisionDigest: decision.decisionDigest,
+    semanticEvidenceAssetRefs,
+    runtimeEvidenceEventRefs,
+    sourceCCallRef: evidence.cCall.cCallRef,
+    sourceResultRef: evidence.result.resultRef,
+    sourceResultDigest: evidence.result.resultDigest,
+    sourceJudgmentRef: evidence.judgment.judgmentRef,
+    targetCursorRef: targetCursor.cursorRef,
+    targetCursorDigest: targetCursor.cursorDigest,
+  };
+  const deltaDigest = sha256Canonical(deltaBody as unknown as JsonValue);
+  return {
+    causationEventRefs: runtimeEvidenceEventRefs,
+    payload: {
+      deltaRef:
+        `construction-delta://abiogenesis/${deltaDigest.slice("sha256:".length)}`,
+      deltaDigest,
+      ...deltaBody,
+      actionEvaluation: evaluation as unknown as JsonValue,
+      edgeFulfillmentLedger: ledger as unknown as JsonValue,
+      edgeClosureDecision: decision as unknown as JsonValue,
+    } as unknown as Readonly<Record<string, JsonValue>>,
+  };
+}
+
+function hasGovernedConstructionClosure(
+  store: AbgEventStore,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  evidence: RouteAdmissionEvidence,
+): boolean {
+  const sourceTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  if (
+    sourceTerm.kind !== "c_of" ||
+    sourceTerm.stageRole !== "evaluateNextRefresh"
+  ) {
+    return true;
+  }
+  const projection = convergedNextActionProjection(evidence.result.value);
+  if (projection === null) return false;
+  return store.readAll().some(
+    (event) =>
+      event.kind === "construction_delta_observed" &&
+      event.runId === sourceCursor.runId &&
+      event.graphCallId === sourceCursor.graphCallId &&
+      event.frameId === sourceCursor.frameId &&
+      isJsonRecord(event.payload) &&
+      event.payload.constructionIntentRef ===
+        projection.constructionIntentRef &&
+      event.payload.edgeClosureDecisionRef ===
+        projection.edgeClosureDecisionRef &&
+      event.payload.targetOutcomeRef === projection.targetOutcomeRef &&
+      projection.lawfulBasisRefs.includes(
+        projection.constructionIntentRef,
+      ) &&
+      projection.lawfulBasisRefs.includes(
+        projection.edgeClosureDecisionRef,
+      ),
+  );
 }
 
 function sameValues(
@@ -1267,6 +1769,19 @@ export function admitRoute(
           "terminal route requires this cursor's admitted CCall advance judgment",
         );
       }
+      if (
+        !hasGovernedConstructionClosure(
+          store,
+          graph,
+          sourceCursor,
+          judgedEvidence,
+        )
+      ) {
+        return refusal(
+          "judgment_mismatch",
+          "terminal construction closure requires an admitted evidence fold and refreshed convergence projection",
+        );
+      }
       causationEventRef = judgedEvidence.judgment.admissionEventRef;
     }
     if (
@@ -1482,25 +1997,38 @@ export function admitRoute(
     constructionIntent !== null && !("kind" in constructionIntent)
       ? constructionIntent
       : null;
-  const admittedBody = admittedConstruction === null
-    ? body
-    : {
-        ...body,
-        constructionIntentRef:
-          admittedConstruction.intent.constructionIntentRef,
-        constructionIntentDigest:
-          admittedConstruction.intent.constructionIntentDigest,
-      };
-  const routeDigest = sha256Canonical(admittedBody);
+  const constructionDelta = constructionDeltaForAdvance(
+    store,
+    executionBasis,
+    graph,
+    sourceCursor,
+    targetCursor,
+    judgedEvidence,
+  );
+  if (
+    constructionDelta !== null &&
+    "kind" in constructionDelta &&
+    constructionDelta.kind === "traversal_route_admission_refusal"
+  ) {
+    return constructionDelta;
+  }
+  const admittedConstructionDelta =
+    constructionDelta !== null && !("kind" in constructionDelta)
+      ? constructionDelta
+      : null;
+  const routeDigest = sha256Canonical(body);
   const routeRef =
     `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}`;
-  const routeEventCandidate = {
+  const routeEventCandidate = (primaryCausationEventRef: string) => ({
     kind: "traversal_route_admitted",
     eventTime: basis.eventTime,
     aggregateType: "frame",
     aggregateId: sourceCursor.frameId,
     parentAggregateId: sourceCursor.graphCallId,
-    causationEventRefs: [causationEventRef, ...basis.causationEventRefs],
+    causationEventRefs: [
+      primaryCausationEventRef,
+      ...basis.causationEventRefs,
+    ],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -1510,25 +2038,78 @@ export function admitRoute(
     materializationRef: graph.materializationRef,
     graphCallId: sourceCursor.graphCallId,
     frameId: sourceCursor.frameId,
-    payload: admittedConstruction === null
-      ? { routeRef, routeDigest, ...body }
-      : {
-          routeRef,
-          routeDigest,
-          ...admittedBody,
-          nextActionProjectionRef:
-            admittedConstruction.projection.projectionRef,
-          nextActionProjectionDigest:
-            admittedConstruction.projection.projectionDigest,
-          nextActionProjection:
-            admittedConstruction.projection as unknown as JsonValue,
-          constructionIntent:
-            admittedConstruction.intent as unknown as JsonValue,
-        },
-  } as const;
-  const admittedEvents = candidate.routeKind === "blocked" && options.terminalizeRun !== false
+    payload: { routeRef, routeDigest, ...body },
+  } as const);
+  const admittedEvents = admittedConstruction !== null
     ? admitRuntimeEventBatch(store, [
-        () => routeEventCandidate,
+        () => routeEventCandidate(causationEventRef),
+        (batch) => ({
+          kind: "construction_intent_selected",
+          eventTime: basis.eventTime,
+          aggregateType: "frame",
+          aggregateId: sourceCursor.frameId,
+          parentAggregateId: sourceCursor.graphCallId,
+          causationEventRefs: [batch[0]!.eventId],
+          correlationId: `${basis.correlationId}/construction-intent`,
+          workflowVersion: "5.0.0",
+          scopeClass: "run",
+          basisId: executionBasis.basisRef,
+          runId: sourceCursor.runId,
+          graphFunctionRef: executionBasis.graphFunctionRef,
+          materializationRef: graph.materializationRef,
+          graphCallId: sourceCursor.graphCallId,
+          frameId: sourceCursor.frameId,
+          payload: {
+            routeRef,
+            targetCursorRef: targetCursor!.cursorRef,
+            targetCursorDigest: targetCursor!.cursorDigest,
+            actionCatalogRef: executionBasis.actionCatalogRef!,
+            actionCatalogDigest: executionBasis.actionCatalogDigest!,
+            actionCatalogRowDigest:
+              admittedConstruction.intent.actionCatalogRowDigest,
+            nextActionProjectionRef:
+              admittedConstruction.projection.projectionRef,
+            nextActionProjectionDigest:
+              admittedConstruction.projection.projectionDigest,
+            nextActionProjection:
+              admittedConstruction.projection as unknown as JsonValue,
+            constructionIntentRef:
+              admittedConstruction.intent.constructionIntentRef,
+            constructionIntentDigest:
+              admittedConstruction.intent.constructionIntentDigest,
+            constructionIntent:
+              admittedConstruction.intent as unknown as JsonValue,
+          },
+        }),
+      ])
+    : admittedConstructionDelta !== null
+    ? admitRuntimeEventBatch(store, [
+        () => ({
+          kind: "construction_delta_observed",
+          eventTime: basis.eventTime,
+          aggregateType: "frame",
+          aggregateId: sourceCursor.frameId,
+          parentAggregateId: sourceCursor.graphCallId,
+          causationEventRefs: [
+            ...admittedConstructionDelta.causationEventRefs,
+            ...basis.causationEventRefs,
+          ],
+          correlationId: `${basis.correlationId}/construction-delta`,
+          workflowVersion: "5.0.0",
+          scopeClass: "run",
+          basisId: executionBasis.basisRef,
+          runId: sourceCursor.runId,
+          graphFunctionRef: executionBasis.graphFunctionRef,
+          materializationRef: graph.materializationRef,
+          graphCallId: sourceCursor.graphCallId,
+          frameId: sourceCursor.frameId,
+          payload: admittedConstructionDelta.payload,
+        }),
+        (batch) => routeEventCandidate(batch[0]!.eventId),
+      ])
+    : candidate.routeKind === "blocked" && options.terminalizeRun !== false
+    ? admitRuntimeEventBatch(store, [
+        () => routeEventCandidate(causationEventRef),
         (batch) => ({
           kind: "run_stopped",
           eventTime: basis.eventTime,
@@ -1559,8 +2140,9 @@ export function admitRoute(
           },
         }),
       ])
-    : [admitRuntimeEvent(store, routeEventCandidate)];
-  const event = admittedEvents[0]!;
+    : [admitRuntimeEvent(store, routeEventCandidate(causationEventRef))];
+  const routeEventIndex = admittedConstructionDelta === null ? 0 : 1;
+  const event = admittedEvents[routeEventIndex]!;
   const admitted = deepFreeze({
     kind: "admitted_traversal_route" as const,
     schemaVersion: "5.0.0" as const,
@@ -1572,8 +2154,14 @@ export function admitRoute(
       admittedConstruction?.intent.constructionIntentRef ?? null,
     constructionIntentDigest:
       admittedConstruction?.intent.constructionIntentDigest ?? null,
+    constructionIntentAdmissionEventRef:
+      admittedConstruction === null ? null : admittedEvents[1]!.eventId,
     admissionEventRef: event.eventId,
-    runStoppedEventRef: admittedEvents[1]?.eventId ?? null,
+    runStoppedEventRef:
+      candidate.routeKind === "blocked" &&
+        options.terminalizeRun !== false
+        ? admittedEvents[1]?.eventId ?? null
+        : null,
   }) as AdmittedRoute;
   admittedRoutes.add(admitted);
   return admitted;
@@ -1863,6 +2451,7 @@ export function admitRecursionRoute(
     ...body,
     constructionIntentRef: null,
     constructionIntentDigest: null,
+    constructionIntentAdmissionEventRef: null,
     admissionEventRef: event.eventId,
     runStoppedEventRef: admittedEvents[1]?.eventId ?? null,
   }) as AdmittedRoute;
