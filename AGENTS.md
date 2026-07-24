@@ -17,8 +17,8 @@
 ## Current Project Gate
 
 T-286 completed exact `ABI5-ROOT-001`, which remains the mandatory bootstrap
-regression gate. T-270 is the sole M5 parent owner; corrected S02 and
-`ABI5-M5-EXT-001` are green. Repriced T-272 owns active S03. Accepted candidate
+regression gate. T-270 is the sole M5 parent owner; corrected S02, S03, and
+`ABI5-M5-EXT-001` are green. Completed T-272 owns S03 history. Accepted candidate
 `686d18bf` binds the four-authority composition, actual evidence, Product
 policy and workspace truth, action evaluation, run-causal closure, and
 post-resume failure truth. Accepted repair `305a3b93` adds a Product-defined
@@ -34,10 +34,11 @@ and GraphFunction through the same installed path without changing
 ABIogenesis runtime. Accepted candidate `16f1e173` adds one Product-selected,
 statically admitted, runtime-bounded graph-span re-entry through the same
 external Product. Accepted candidate `7432bac3` adds Product-owned public
-`next` and asset targeting through that path. The conservation projection now
-records 35 proven rows and five open rows. T-272 continues only one governed
-correction outcome covering the retained S03 consequence and
-runtime-disposition behavior through that same extension path.
+`next` and asset targeting through that path. Accepted candidate `ab7e57ed`
+adds Product-owned governed correction outcomes through existing ABG
+admission, replay, stop, and public projection boundaries. The conservation
+projection now records all forty rows proven with zero TODO. Repriced T-274,
+T-275, and T-276 own active S05 Consensus through that same extension path.
 Do not use the forty-row qualification matrix as the implementation queue.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
@@ -84,7 +85,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: corrected S02 complete; first S03 vertical green; S03 remains active
+**Status**: corrected S02 and S03 complete; S05 Consensus is active
 
 This block is a thin read model. It does not duplicate the full Product.
 
@@ -119,11 +120,13 @@ This block is a thin read model. It does not duplicate the full Product.
   ticket traversal is proven at `f79e1358` without a runtime change.
   Product-selected graph-span re-entry is accepted at `16f1e173`.
   Product-owned public next and asset targeting are accepted at `7432bac3`.
-  One governed correction outcome covering the five remaining S03 consequence
-  and runtime-disposition obligations is the current gate.
+  Product-owned governed correction outcomes are accepted at `ab7e57ed`;
+  all forty implementation-coverage rows are green. Ordinary-path Consensus
+  through the same external Product seam is the current gate.
 
 RC5, X, and final-integration remain sideways donor evidence. Do not infer
 implementation authority from this bootstrap or any donor line.
-No new M5 ticket hierarchy is authorized. T-272 is active for S03. T-281 is
-held until its later S06 public-family and portability boundary.
+No new M5 ticket hierarchy is authorized. T-272 is complete. T-274, T-275,
+and T-276 are active for S05. T-281 is held until its later S06 public-family
+and portability boundary.
 <!-- GTL_BOOTLOADER_END -->

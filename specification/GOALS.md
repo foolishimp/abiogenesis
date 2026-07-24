@@ -10,7 +10,7 @@ truth.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - corrected `ABG5-S02` is green; current M5 frontier is `ABG5-S03` One Surface and human continuation |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - corrected `ABG5-S02` and `ABG5-S03` are green; current M5 frontier is `ABG5-S05` Consensus |
 
 ## Current Constitutional Basis
 
@@ -19,8 +19,9 @@ realization design are accepted. T-286 completed the bounded installed
 bootstrap root. Intent and Product remain stable. A bounded
 `requirement_reprice` corrects the S02/S03 traversal-proof ordering without
 changing Product meaning. T-270 owns the integrated M5 outcome; T-272 owns the
-active S03 One Surface and continuation boundary. Direct F_H authorized this
-correction on 2026-07-24.
+closed S03 One Surface and continuation boundary. T-274, T-275, and T-276 own
+the active S05 Consensus boundary. Direct F_H authorized this correction on
+2026-07-24.
 
 | Basis | Current truth |
 |---|---|
@@ -37,13 +38,13 @@ correction on 2026-07-24.
 | M3 F_H decision | `.ai-workspace/comments/codex/20260720T141106Z_DECISION_fh_accept_t285_and_authorize_m4.md` |
 | completed work carrier | `T-286` implementation migration at `ffba4e71` |
 | accepted M5 design | `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` at `d6da4269`, SHA-256 `80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3` |
-| accepted T-272 design delta | M05 Sections 12 through 12.9 admit the four-authority composition, exact evidence fold, run-causal closure, post-resume failure totalization, single-use Product-bound public re-entry, side-effect-free resolved Run projection, exact typed `reprice_required` stop, Product-selected bounded graph-span re-entry, and Product-owned public next/asset targeting; complete design SHA-256 `d090ff67ae86b444f39ecce2bef528f9e577dc8a7fe3a360e8ea1969de5404bd`; latest bounded proxy decision `20260724T221552Z_DECISION_proxy_accept_t272_public_next_and_asset_targets.md` |
+| accepted T-272 design delta | M05 Sections 12 through 12.10 admit the four-authority composition, exact evidence fold, run-causal closure, post-resume failure totalization, single-use Product-bound public re-entry, side-effect-free resolved Run projection, typed no-action and governed correction outcomes, Product-selected bounded graph-span re-entry, and Product-owned public next/asset targeting; complete design SHA-256 `4645b7124d210a494f7307e2ec9d786c29ed44ae56b58d9cc844ce4b324d10c1`; closing bounded proxy decision `20260724T230459Z_DECISION_proxy_accept_t272_governed_correction_and_close_s03.md` |
 | M5 F_H decision | direct F_H ruling on 2026-07-22: accepted and continue under T-270 |
 | selected method release | STDO `v2.0.0`, commit `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a` |
 | selected method member set | 41 members, digest `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0` |
-| current work carrier | `T-270` M5 parent; T-272 owns active S03; latest accepted implementation is Product-owned public next/asset targeting `7432bac3a34e35c72ec9414f336e70733ed772fd` |
+| current work carrier | `T-270` M5 parent; T-272 closed S03 at `ab7e57ed0c4ed1369a645432bef9c002fc9665d7`; T-274, T-275, and T-276 own active S05 |
 | current constitutional state | accepted Product and direct-GTL design; corrected S02/S03 requirement and delivery ordering |
-| implementation state | `ABI5-ROOT-001` is green; M5 `99/99`; `ABG5-S02` remains green; the S03 four-authority composition, exact observation/action bases, action-evaluation admission, post-evidence refresh, run-causal closure, post-resume failure truth, Product-defined no-action, ABG `gap_stop`, exact single-use fresh-context public re-entry, fresh-context status/result/replay/lawful-action projection, typed Product-derived `reprice_required` stop, external product-declared ticket traversal, Product-selected graph-span re-entry, and Product-owned public next/asset targeting are accepted; the retained live F_P receipt belongs to an earlier package; conservation is a derived projection with 57 pass and 5 explicit TODO (35 proven and five open rows); `ABG5-S03` is current |
+| implementation state | `ABI5-ROOT-001` is green; M5 `107/107`; `ABG5-S02` and `ABG5-S03` are green; the external Product carries the complete S03 One Surface, F_H continuation, re-entry, projection, public targeting, and governed correction path; the retained live F_P receipt belongs to an earlier package; conservation is a derived implementation projection with all forty rows proven and zero TODO; `ABG5-S05` is current |
 
 The constitutional authoring order is one unpromoted transaction:
 
@@ -113,9 +114,9 @@ Product-bound continuation authority; no process-local map carries authority.
 The pending judgment, hold route, and continuation opening persist atomically.
 Together with all twelve S02-owned compute and structural rows, fibre
 substitution, installed malformed-GTL and nonterminal `c_identity` proofs, and
-the current live F_P proof, it closes S02. T-272 owns S03's One Surface,
+the current live F_P proof, it closes S02. T-272 then closed S03's One Surface,
 consequence, runtime-disposition, and public-control work through the same
-extension path.
+extension path at `ab7e57ed`.
 
 ## Product Scope
 
@@ -141,7 +142,7 @@ coverage stays pending for M5 and qualification.
 | `M2` | Freeze donors and derive correction vector | Freeze X and final-integration; classify every RC5 semantic and implementation family plus X/final-integration carrier; repair Product/requirement authority contradictions; refreeze and independently review the exact subject. | Completed by T-284 |
 | `M3` | Accept direct-GTL realization design | Design proves GTL -> validator -> HoG -> ABG, positive intended authority, and real-path absence of compiled-plan and controller rivals. | Completed by T-285 |
 | `M4` | Establish installed root | Exact `ABI5-ROOT-001` runs green through packed bytes, clean install, direct HoG traversal, ABG replay twice, and typed CLI result. | Completed by T-286 at `ffba4e71`; 25/25 twice, deterministic retained proof, twelve installed mutations, and two clean exact-subject re-reviews |
-| `M5` | Complete pre-qualification behavior | First close `ABI5-M5-EXT-001`, then close `ABG5-S02`, `S03`, `S05`, and `S06`, the fibre differential, scenario-owned traversal evidence, observer/tuner realization, the 17-family no-silence disposition, and required negatives on one candidate line. | Active under T-270; `ABI5-M5-EXT-001` and corrected S02 complete; S03 is current |
+| `M5` | Complete pre-qualification behavior | First close `ABI5-M5-EXT-001`, then close `ABG5-S02`, `S03`, `S05`, and `S06`, the fibre differential, scenario-owned traversal evidence, observer/tuner realization, the 17-family no-silence disposition, and required negatives on one candidate line. | Active under T-270; `ABI5-M5-EXT-001`, corrected S02, and S03 complete; S05 is current |
 | `M6` | Materialize method basis and qualify | Bind the already-selected STDO `v2.0.0` identity in Product context and `QualificationLawBasis`; close `ABG5-S04`, reconcile all forty traversal rows across their owning scenarios, and complete pre-RC qualification. | Blocked by M5 |
 | `M7` | Release 5.0.0 | `ABG5-S07` preserves the pre-RC, RC, installed-RC, final-tap, released-Product, and post-publication-install subjects and taps stable 5.0.0. | Blocked by M6 |
 
@@ -152,11 +153,10 @@ successor work and do not gate ABIogenesis 5.0.
 
 ## Active Ticket Disposition
 
-`T-283`, `T-284`, `T-285`, and `T-286` are complete. T-270 remains the sole
-M5 parent owner. T-281 completed the `ABI5-M5-EXT-001` publication,
+`T-283`, `T-284`, `T-285`, `T-286`, and `T-272` are complete. T-270 remains the
+sole M5 parent owner. T-281 completed the `ABI5-M5-EXT-001` publication,
 dependency, SDK, CLI, and invocation boundary and is held until its later S06
-public and portability role. T-272 completed the F_H/mixed direct prerequisite
-and is active for S03.
+public and portability role. T-274, T-275, and T-276 are active for S05.
 
 The active tickets `T-268`, `T-274`, `T-275`, `T-276`, `T-278`, and `T-282`
 remain held donor or successor carriers. No ticket retains an X-era
@@ -174,8 +174,8 @@ own subordinate boundaries after in-place reprice:
 | `1` | `T-270`, `T-281` | **Complete at `bc9ca26a`:** independently packed developer GTL Product, non-empty dependency lock, caller-supplied publication, product-owned contracts and judgment, installed resolution, and product-neutral SDK/CLI invocation. |
 | `2a` | `T-272` | **Repaired at `cbb57d56`:** one F_H hold/read/respond/continue path survives fresh public contexts; its hold truth is admitted atomically; one mixed F_D/F_P/F_H Program closes through the generic extension seam. |
 | `2b` | `T-270` | **Complete at `cbb57d56`:** four compute-fibre and eight structural-form rows, fibre substitution, installed nonterminal `c_identity`, malformed serialized GTL refusal, live F_P, and owned negatives close S02. |
-| `3` | `T-272` | **Product-owned public next and asset targeting accepted at `7432bac3`; S03 open:** the separately packed developer Product publishes its action catalog, four-authority construction composition, independently owned ticket Program and GraphFunction, bounded graph-span application, default public start, and asset ownership. ABG preserves Product-derived `gap_stop` and `reprice_required`, exact single-use public re-entry, durable projections, ticket result truth, graph-span selection, F_H control, bounded stop/convergence, public next/asset selection, and yield truth through the same generic path. One governed correction outcome covering five consequence/runtime obligations remains. |
-| `4` | `T-274`, `T-275`, `T-276` | Deliver ordinary-path Consensus through the same public extension path and close S05. |
+| `3` | `T-272` | **Complete at `ab7e57ed`:** the separately packed developer Product publishes its action catalog, four-authority construction composition, independently owned ticket Program and GraphFunction, bounded graph-span application, default public start, and asset ownership. ABG preserves Product-derived no-action and correction outcomes, exact single-use public re-entry, durable projections, ticket result truth, graph-span selection, F_H control, bounded stop/convergence, public next/asset selection, and yield truth through the same generic path. |
+| `4` | `T-274`, `T-275`, `T-276` | **Current:** deliver ordinary-path Consensus through the same public extension path and close S05. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner, native and host projections, downstream portability through the same extension path, close S06, and make S04 runnable. |
 | `6` | `T-270` | Re-evaluate the derived 17-family ledger and freeze one exact M5 candidate for T-247; M6 performs the complete forty-row qualification sweep. |
 

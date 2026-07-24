@@ -12,11 +12,11 @@ successor to the immutable 4.6 RC5 Product origin.
 
 | Surface | State |
 |---|---|
-| current work owner | `T-270` M5 parent with repriced T-272 active for S03 |
+| current work owner | `T-270` M5 parent with repriced T-274, T-275, and T-276 active for S05 |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 `26/26`, M5 `99/99`; S02 complete; accepted S03 composition/evidence/closure base at `686d18bf`; durable external-Product gap stop, exact single-use ProductSet-bound public re-entry, convergence, side-effect-free resolved status/result/replay/lawful-action projection, typed Product-derived `reprice_required` stop, external product-declared ticket traversal, Product-selected graph-span re-entry, and Product-owned public next/asset targeting accepted through `7432bac3`; the conservation projection records 35 proven and five open rows; the retained live F_P receipt belongs to an earlier package; S03 remains open |
-| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Sections 12 through 12.9 accepted at complete-design SHA-256 `d090ff67...404bd` |
-| delivery governor | `ABG5-S03`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, and corrected S02 remain regressions |
+| implementation | M4 `26/26`, M5 `107/107`; S02 and S03 complete through the independently packed external Product; One Surface, durable continuation, public re-entry/read/targeting, and governed correction outcomes are accepted through `ab7e57ed`; the implementation coverage projection records all forty rows proven with zero TODO; the retained live F_P receipt belongs to an earlier package; S05 Consensus is current |
+| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Sections 12 through 12.10 accepted at complete-design SHA-256 `4645b712...d10c1` |
+| delivery governor | `ABG5-S05`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, corrected S02, and S03 remain regressions |
 | method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
 
 The source branch history and the semantic Product origin are distinct. The
@@ -87,8 +87,8 @@ build_tenants/abiogenesis/python/            withdrawn historical reference
 ## Current Work Rule
 
 Do not implement against a donor line. Preserve `ABI5-ROOT-001`, but do not
-project further bootstrap or internal-matrix work as Product progress. Current
-work closes `ABG5-S03` through the already-green independently packed developer
+project further bootstrap or internal-matrix work as Product progress. Closed
+`ABG5-S03` runs through the already-green independently packed developer
 Product: GTL owns One Surface ordering, public read/respond/continue operations
 resume exact durable truth, and ABG replay yields the same-run typed outcome.
 The supervised Program-start path now carries distinct Product-owned model,
@@ -108,11 +108,14 @@ re-entered Program then follows its ordinary F_H and governed closure path.
 From the exact resolved continuation authority, a fresh public context now
 projects status, admitted result, ordered replay, and lawful actions without
 appending runtime truth or invoking Product logic. Retained consequence and
-runtime-disposition behavior remains. The external Product also publishes one
+runtime-disposition behavior is now preserved. The external Product also publishes one
 bounded backward graph-span application, selects it through an ordinary
 C-call result, and converges after ABG admits the exact route; no ABIogenesis
-core switch selects that behavior.
-Missing detail is added to T-270, T-272, or the later held owner; it does not
+core switch selects that behavior. Product-owned governed correction outcomes
+preserve repair, runtime-archive inspection, reprice, and escalation meaning
+through ABG stop and replay truth. Current work executes Consensus through the
+same ordinary external Product seam.
+Missing detail is added to T-270 or the active existing owner; it does not
 create a new ticket hierarchy.
 
 Existing tests and commands remain current-state probes only. They are not

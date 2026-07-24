@@ -1,7 +1,7 @@
 # T-272 - Connect F_H Response To Replay Continuation
 
 > **Current disposition (2026-07-25):**
-> `active_for_s03`. The durable hold/read/respond/continue prerequisite and
+> `completed_s03`. The durable hold/read/respond/continue prerequisite and
 > mixed compute path were repaired across fresh public contexts at `cbb57d56`.
 > The externally packed, Program-owned One Surface path is green through
 > Product-owned evaluator output, ABG-owned construction-intent admission,
@@ -34,27 +34,31 @@
 > Product-owned public `next` and asset targeting through the same external
 > Product. The bounded proxy decision at
 > `.ai-workspace/comments/codex/20260724T221552Z_DECISION_proxy_accept_t272_public_next_and_asset_targets.md`
-> accepts that exact cut and Section 12.9.
-> One governed correction outcome covering the five remaining consequence and
-> runtime-disposition obligations remains active through the same extension
-> path.
+> accepts that exact cut and Section 12.9. Candidate `ab7e57ed` then preserves
+> Product-owned `repair`, `inspect_runtime_archive`, `reprice`, and `escalate`
+> correction meaning through action evaluation, ABG admission, refresh,
+> non-progress routing, `run_stopped`, replay, public outcome, and fresh reads.
+> The bounded proxy decision at
+> `.ai-workspace/comments/codex/20260724T230459Z_DECISION_proxy_accept_t272_governed_correction_and_close_s03.md`
+> accepts that exact cut and Section 12.10. All forty implementation-coverage
+> rows are green and `ABG5-S03` is closed.
 > Historical X-path designs and checkpoints remain donor evidence only.
 
 - id: T-272
 - title: Connect F_H response to exact held-locus continuation
 - type: bug
 - ticket_category: implementation_migration
-- status: active
+- status: completed
 - implementation_hold: released
 - implementation_hold_ref: GOAL-035 ABG5-S03
 - implementation_hold_effect: >-
     continue only through the green external Product path; Product reprice,
     ticket expansion, compiler, controller, second runtime, and historical X
     implementation remain prohibited
-- phase_status: s03_active
-- review_status: s03_public_next_asset_accepted
-- proof_status: s02_green_s03_35_of_40_green_s03_open
-- delivery_phase: M5_frontier_3
+- phase_status: s03_closed
+- review_status: s03_governed_correction_accepted
+- proof_status: s02_s03_green_40_of_40_implementation_rows_green
+- delivery_phase: M5_frontier_3_closed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Extend the closed replay-derived F_H hold, read, response, and same-run
@@ -100,8 +104,9 @@ disposition, and public start/control row owned by S03. This reprice does not
 authorize the historical X interpreter, checkpoint-basis carrier, public
 controller, or any other X implementation.
 
-Current integrated proof is `test:m5` `99/99`, `test:m4` `26/26`, and
-external developer Product `28/28`; all twelve S02-owned rows remain green.
+Current integrated proof is `test:m5` `107/107`, `test:m4` `26/26`, and
+external developer Product `36/36`; all twelve S02-owned rows remain green
+and all forty implementation-coverage rows are proven.
 The installed mixed Product proves F_H hold, replay-derived read, malformed
 and wrong-actor refusal, attributed response, append-only reopen, separate
 continue, same-Run typed closure, and replay agreement. No second result or
@@ -562,6 +567,41 @@ reproduce:
 This repair does not close S03. The next consumer-visible slice is
 `gap_stop -> public re-entry -> convergence` through the same separately
 packed external Product.
+
+## S03 Closure
+
+Implementation candidate `ab7e57ed0c4ed1369a645432bef9c002fc9665d7`
+completes the accepted external Product path with four governed correction
+outcomes:
+
+```text
+Product-observed correction pressure
+  -> exact F_H response
+  -> Product action evaluation over admitted evidence and runtime archive
+  -> ABG-admitted construction delta
+  -> Product refresh
+  -> repair | inspect_runtime_archive | reprice | escalate
+  -> ABG run_stopped
+  -> replay-derived public outcome and fresh read
+```
+
+The correction values preserve bounded meaning: `repair` selects an
+implementation correction without editing source, `inspect_runtime_archive`
+projects admitted archive truth without creating another store, `reprice`
+proposes upstream re-entry without performing it, and `escalate` records
+unresolved human authority without minting a grant. A mismatched F_H choice
+and a substituted runtime archive refuse before correction truth.
+
+The complete M05 design SHA-256 is
+`4645b7124d210a494f7307e2ec9d786c29ed44ae56b58d9cc844ce4b324d10c1`.
+Verification is `test:m5` `107/107`, `test:m4` `26/26`, external Product
+`36/36`, conservation `62/62` with all forty rows proven, and two
+byte-identical packages at
+`sha256:34875ee31a09f7ba2d03c40cb9da24dd0ad1b40bc450f7fce85e518e73b7da01`.
+
+The bounded proxy decision
+`20260724T230459Z_DECISION_proxy_accept_t272_governed_correction_and_close_s03.md`
+accepts this exact cut and Section 12.10. `ABG5-S03` and T-272 are closed.
 
 ## Historical X Evidence
 

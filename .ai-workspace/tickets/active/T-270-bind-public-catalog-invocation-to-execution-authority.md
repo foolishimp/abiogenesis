@@ -10,15 +10,15 @@
     build_tenants/abiogenesis/typescript/code/src direct-GTL realization across
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
-- phase_status: m5_s03_active
-- review_status: s03_public_next_asset_accepted
-- proof_status: s02_green_s03_35_of_40_green_s03_open
+- phase_status: m5_s05_active
+- review_status: s03_closed_s05_intake
+- proof_status: s02_s03_green_40_of_40_implementation_rows_green
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
-    Continue from closed corrected S02 through one Product-defined S03 path:
-    One Surface orders work, public operations admit human response and
-    continuation, and ABG replay remains the runtime truth.
+    Continue from closed corrected S02 and S03 through ordinary-path
+    Consensus: publish and execute Consensus through the same Product-neutral
+    extension, catalog, GTL, HoG, ABG, replay, SDK, and CLI path.
 - change_class: requirement_reprice
 - re_entry_point: >-
     specification/requirements/product/REQ-P-SCENARIOS.md
@@ -32,14 +32,15 @@
 - implementation_hold: released
 - implementation_hold_effect: >-
     Direct F_H authorized the bounded requirement and delivery-order correction
-    on 2026-07-24; ABI5-M5-EXT-001 and corrected ABG5-S02 are green, and
-    T-272 is released for ABG5-S03 through the same Product path
+    on 2026-07-24; ABI5-M5-EXT-001, corrected ABG5-S02, and ABG5-S03 are
+    green, and T-274, T-275, and T-276 are released for ABG5-S05 through the
+    same Product path
 - accepted_m5_design_commit: d6da426947e1b7e18e7ed5bd1c0f945dcde9c73f
 - accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
-- accepted_t272_design_sha256: d090ff67ae86b444f39ecce2bef528f9e577dc8a7fe3a360e8ea1969de5404bd
+- accepted_t272_design_sha256: 4645b7124d210a494f7307e2ec9d786c29ed44ae56b58d9cc844ce4b324d10c1
 - regression_binding: ABI5-ROOT-001
-- current_product_frontier: ABG5-S03-ONE-SURFACE-CONTINUATION
-- current_implementation_base: 7432bac3a34e35c72ec9414f336e70733ed772fd
+- current_product_frontier: ABG5-S05-CONSENSUS
+- current_implementation_base: ab7e57ed0c4ed1369a645432bef9c002fc9665d7
 - retained_implementation_subject: ffba4e71456cf19168fa2bbf2981b463e018a0cf
 - current_branch_head_at_intake: e0575b824773d2105110918cf71257deca8b0f3a
 - selected_method_release: STDO v2.0.0
@@ -79,11 +80,12 @@ GTL.TypeScript
   -> thin public projection
 ```
 
-The current code proves this relation through S01 and corrected S02, including
+The current code proves this relation through S01, corrected S02, and S03, including
 an independently packed developer Product, all S02-owned traversal rows, live
-F_P, and durable F_H continuation. Those proofs remain regression evidence.
-The next Product-progress claim is S03: one GTL-owned One Surface path through
-the same product-neutral public extension seam.
+F_P, durable F_H continuation, Product-owned One Surface, exact public
+re-entry/projection, and governed correction outcomes. Those proofs remain
+regression evidence. The next Product-progress claim is S05: ordinary-path
+Consensus through the same product-neutral public extension seam.
 
 ## Ticket And Authority Rule
 
@@ -93,10 +95,10 @@ their boundary becomes active:
 
 | Existing ticket | M5 or successor role |
 |---|---|
-| `T-272` | active `ABG5-S03`: consume the now-green durable F_H continuation path for One Surface, consequence/runtime rows, and public-control rows |
-| `T-274` | `ABG5-S05`: ordinary GTL Consensus Module and GraphFunction publication |
-| `T-275` | `ABG5-S05`: attributed profiles and replay-derived Consensus result projection |
-| `T-276` | `ABG5-S05`: source-blind installed Consensus scenarios |
+| `T-272` | completed `ABG5-S03`: One Surface, consequence/runtime rows, public-control rows, and governed corrections |
+| `T-274` | active `ABG5-S05`: ordinary GTL Consensus Module and GraphFunction publication |
+| `T-275` | active `ABG5-S05`: attributed profiles and replay-derived Consensus result projection |
+| `T-276` | active `ABG5-S05`: source-blind installed Consensus scenarios |
 | `T-281` | active `ABI5-M5-EXT-001` seam: caller-supplied publication, non-empty dependency lock, product-owned contracts and judgment, installed implementation resolution, and product-neutral SDK/CLI; later continues into S06 without a fixed operation count |
 | `T-268` | observer/tuner realization plus the final M5 feature and capability read model |
 | `T-282` | M6 Product-context materialization of the already-selected STDO v2.0.0 basis |
@@ -150,8 +152,8 @@ working installed slice and scales to the changed authority and risk boundary.
 |---:|---|---|
 | `1` | `T-270`, `T-281` | From an empty consumer directory, install packed ABIogenesis and a separately packed developer mini-product; resolve a non-empty Product lock; admit its supplied publication; invoke it through installed SDK and CLI; and derive the same typed result from ABG replay. |
 | `2` | `T-270` | **Repaired and complete at `cbb57d56`:** representative complete graph/C behavior, live F_P, four compute-fibre rows, eight structural-form rows, fibre substitution, durable F_H across fresh contexts, installed nonterminal identity, malformed GTL refusal, and owned negatives close S02. |
-| `3` | `T-272` | **Product-owned public next and asset targets accepted at `7432bac3`; S03 active:** the same external Product path preserves exact Product-derived no-action meaning, executes product-declared ticket work, and proves gap/F_H/yield/bounded-control/public-start/graph-span/public-next/asset-target behavior without an ABIogenesis runtime branch. Complete one governed correction outcome covering the five remaining consequence/runtime obligations, then close `ABG5-S03`. |
-| `4` | `T-274`, `T-275`, `T-276` | Execute Consensus through the same ordinary extension, catalog, GTL, HoG, ABG, and public path; close `ABG5-S05`. |
+| `3` | `T-272` | **Complete at `ab7e57ed`:** the same external Product path preserves exact Product-derived no-action and correction meaning, executes product-declared ticket work, and proves gap/F_H/yield/bounded-control/public-start/graph-span/public-next/asset-target behavior without an ABIogenesis runtime branch. |
+| `4` | `T-274`, `T-275`, `T-276` | **Current:** execute Consensus through the same ordinary extension, catalog, GTL, HoG, ABG, and public path; close `ABG5-S05`. |
 | `5` | `T-281`, `T-268` | Complete observer/tuner realization, native and bounded host projection, and independent flavored-catalog portability through the same extension path; close `ABG5-S06` and make `ABG5-S04` runnable. |
 | `6` | `T-270` | Re-evaluate the feature ledger and freeze one exact M5 candidate; the complete forty-row conservation sweep remains an M6 qualification obligation. |
 
@@ -922,6 +924,32 @@ The bounded proxy decision
 accepts this cut. S03 remains open for one governed correction outcome over
 the five explicitly named consequence and runtime-disposition obligations.
 
+## S03 Governed Correction Closure
+
+T-272 implementation commit
+`ab7e57ed0c4ed1369a645432bef9c002fc9665d7` completes the external Product's
+governed correction path:
+
+- Product observation and F_H response select exactly `repair`,
+  `inspect_runtime_archive`, `reprice`, or `escalate`;
+- Product evaluation consumes the admitted intent, evidence, workspace,
+  policy, and runtime archive and emits a non-closing decision;
+- ABG admits the action evaluation and construction delta;
+- Product refresh emits the matching no-action correction;
+- HoG applies the existing non-progress route; and
+- ABG records the exact stop while replay and fresh reads preserve its Product
+  meaning.
+
+Fresh proof is M5 `107/107`, M4 `26/26`, external Product `36/36`, and
+conservation `62/62`, representing all forty implementation-coverage rows
+proven with zero TODO. Two byte-identical packs reproduce SHA-256
+`34875ee31a09f7ba2d03c40cb9da24dd0ad1b40bc450f7fce85e518e73b7da01`.
+The complete M05 design SHA-256 is
+`4645b7124d210a494f7307e2ec9d786c29ed44ae56b58d9cc844ce4b324d10c1`.
+The bounded proxy decision
+`20260724T230459Z_DECISION_proxy_accept_t272_governed_correction_and_close_s03.md`
+accepts this cut and closes S03. S05 Consensus is the current frontier.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -952,10 +980,10 @@ not a proof that the Product is complete.
 | `A5-F04` probabilistic result integrity | current-candidate live F_P evidence/result admission and malformed, incomplete, contradictory, unattributed, and extra-field refusals proven | `T-270` / S02 complete |
 | `A5-F05` one public contract authority | caller-supplied independent publication proven; complete public family pending | `T-281` / S06 |
 | `A5-F06` thin SDK and CLI | independent Product invocation proven through both installed surfaces; complete public family pending | `T-281` / S06 |
-| `A5-F07` complete One Surface loop | Product-owned model, gap, next-action, approval, action-evaluation, evidence-ledger, closure-candidate, post-evidence refresh, `gap_stop`, typed `reprice_required`, separately published ticket work, Product-selected graph-span re-entry, and Product-owned public next/asset targeting are proven through the external Product; five S03 correction obligations remain | `T-272` / S03 |
+| `A5-F07` complete One Surface loop | Product-owned model, gap, next-action, approval, action-evaluation, evidence-ledger, closure-candidate, post-evidence refresh, no-action and governed correction outcomes, separately published ticket work, Product-selected graph-span re-entry, and Product-owned public next/asset targeting are proven through the external Product | `T-272` / S03 complete |
 | `A5-F08` Consensus free construction | absent | `T-274`, `T-275`, `T-276` / S05 |
 | `A5-F09` catalog semantics | product-neutral admit, view, and invoke proven for an independent Product | `T-270`, `T-281` / S02 and S06 |
-| `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, terminal, exact durable-history reopen, F_H hold/respond/continue, `gap_stop`, and typed `reprice_required` stop subsets proven; S03 and later scenario truth remains open | `T-270`, `T-272` / S02 complete, S03 active |
+| `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, terminal, exact durable-history reopen, F_H hold/respond/continue, no-action, and governed correction stop subsets proven; later scenario truth remains open | `T-270`, `T-272` / S02 and S03 complete |
 | `A5-F11` self-conformance | absent | realization readiness in `T-268`; qualification in `T-247` / S04 |
 | `A5-F12` observer and tuner | absent | realization in `T-268`; qualification in `T-247` / S04 |
 | `A5-F13` native and bounded host projection | absent | `T-281` / S06 |
