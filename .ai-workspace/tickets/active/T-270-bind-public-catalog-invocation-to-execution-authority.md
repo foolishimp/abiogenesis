@@ -10,9 +10,9 @@
     build_tenants/abiogenesis/typescript/code/src direct-GTL realization across
     gtl, validator, hog, implementation, abg, product, and public
 - status: active
-- phase_status: m5_external_product_frontier_active
+- phase_status: m5_s02_frontier_active
 - review_status: requirement_and_goal_reprice_direct_fh_authorized
-- proof_status: bootstrap_and_internal_regressions_green_external_product_frontier_red
+- proof_status: external_product_frontier_green_s02_open
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -32,12 +32,13 @@
 - implementation_hold: released
 - implementation_hold_effect: >-
     Direct F_H authorized the bounded requirement and delivery-order correction
-    on 2026-07-24; implementation is authorized only for ABI5-M5-EXT-001 and
-    its directly exposed generic seams until that checkpoint is green
+    on 2026-07-24; ABI5-M5-EXT-001 is green and implementation is now
+    authorized for the corrected ABG5-S02 boundary
 - accepted_m5_design_commit: d6da426947e1b7e18e7ed5bd1c0f945dcde9c73f
 - accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
 - regression_binding: ABI5-ROOT-001
-- current_product_frontier: ABI5-M5-EXT-001
+- current_product_frontier: ABG5-S02
+- current_implementation_base: bc9ca26a
 - retained_implementation_subject: ffba4e71456cf19168fa2bbf2981b463e018a0cf
 - current_branch_head_at_intake: e0575b824773d2105110918cf71257deca8b0f3a
 - selected_method_release: STDO v2.0.0
@@ -718,6 +719,34 @@ Only seams exposed by that installed path are current implementation work.
 T-272 remains held until this checkpoint and the corrected S02 boundary are
 ready.
 
+## Independent Product Checkpoint
+
+Implementation commit `bc9ca26a` closes `ABI5-M5-EXT-001`:
+
+- packed ABIogenesis and a separately authored TypeScript/GTL mini-product
+  install into empty consumer roots;
+- one exact two-Product lock carries a non-empty dependency edge;
+- the caller supplies the mini-product Module, Program, GraphFunction,
+  contracts, judgment relation, semantics provider, and implementation
+  binding;
+- ABIogenesis validates and admits that publication without a
+  product-specific branch, traverses it through HoG, admits runtime truth in
+  ABG, and returns the same typed result through the installed SDK and CLI;
+- the exact installed Product owns input, result, and judgment semantics, and
+  missing semantics or an undeclared judgment fails closed; and
+- the retained bootstrap proof now supplies its publication explicitly rather
+  than relying on Public to author ABIogenesis-specific GTL.
+
+Fresh serialized verification is `test:m5` `71/71` and retained `test:m4`
+`26/26`. The ABIogenesis package basis is artifact SHA-256
+`55a3361ed6de48327ed453461455f654c120ab416ebe134c53ef1842ff4c466f`,
+Product content digest
+`sha256:37eb270e3e25b1596fff658e3e67615694aa5e58f7f238cadb1a42125b4dd394`,
+and manifest digest
+`sha256:7033856da9947f5690ab3341a750ca8234a543a574d98939db3453d7d968359c`.
+This checkpoint proves the extension seam, not S02 or S06 closure. The next
+typed frontier is corrected S02.
+
 ## 4.6 Conservation
 
 The T-284 correction vector remains the origin ledger. T-270 shall consume,
@@ -742,15 +771,15 @@ not a proof that the Product is complete.
 
 | Feature | M4 state | Owning closure |
 |---|---|---|
-| `A5-F01` exact product/install/workspace/catalog | root slice proven; conflict and dependency breadth pending | `T-270`, `T-281` |
+| `A5-F01` exact product/install/workspace/catalog | two independently packed Products and one non-empty exact dependency lock proven; broader conflict coverage pending | `T-270`, `T-281` |
 | `A5-F02` complete GTL authoring and validation | seven C constructors, all ten relation declarations, Rule/Evaluator declarations, exact GraphFunction composition, substitution, identity, promotion, canonical same-object witnesses, and gate evaluator binding are native and validated; remaining runtime relation semantics stay open | `T-270` / S02 |
 | `A5-F03` complete graph, C, and traversal | installed atomic, C.compose, C.edge, graph edge, native GraphFunction composition and substitution, one F_P-to-F_D composition, serial fan-out/fan-in with partial-stop truth, workflow, declared gate, bounded recursion, and real failed-attempt retry subsets proven; remaining S02-owned traversal applications open | `T-270` / S02 |
 | `A5-F04` probabilistic result integrity | live F_P evidence/result admission and malformed-result refusals proven; broader Product uses open | `T-270` / S02 |
-| `A5-F05` one public contract authority | root six-operation subset only | `T-281` / S06 |
-| `A5-F06` thin SDK and CLI | root CLI subset only | `T-281` / S06 |
+| `A5-F05` one public contract authority | caller-supplied independent publication proven; complete public family pending | `T-281` / S06 |
+| `A5-F06` thin SDK and CLI | independent Product invocation proven through both installed surfaces; complete public family pending | `T-281` / S06 |
 | `A5-F07` complete One Surface loop | absent | `T-272` / S03 |
 | `A5-F08` Consensus free construction | absent | `T-274`, `T-275`, `T-276` / S05 |
-| `A5-F09` catalog semantics | admit, view, and invoke subset proven | `T-270`, `T-281` / S02 and S06 |
+| `A5-F09` catalog semantics | product-neutral admit, view, and invoke proven for an independent Product | `T-270`, `T-281` / S02 and S06 |
 | `A5-F10` event-sourced runtime truth | deterministic, live F_P, child traversal, bounded retry, blocked, terminal, and exact durable-history reopen subsets proven; F_H hold, response, and continuation open | `T-270`, `T-272` / S02 and S03 |
 | `A5-F11` self-conformance | absent | realization readiness in `T-268`; qualification in `T-247` / S04 |
 | `A5-F12` observer and tuner | absent | realization in `T-268`; qualification in `T-247` / S04 |
@@ -758,7 +787,7 @@ not a proof that the Product is complete.
 | `A5-F14` packed Hello World and live F_P | installed deterministic and live F_P proofs green | `T-270` / S02 |
 | `A5-F15` exact-candidate qualification | pending by phase | `T-247` / M6 |
 | `A5-F16` immutable RC and stable release | pending by phase | `T-248` / M7 |
-| `A5-F17` downstream portability | absent | `T-281` / S06 |
+| `A5-F17` downstream portability | first independently packed Product proven; independently flavored downstream catalog remains pending | `T-281` / S06 |
 
 At M5 closure, every row must state `realized`, `proof_pending`,
 `qualification_pending`, or `release_pending` against one exact candidate.

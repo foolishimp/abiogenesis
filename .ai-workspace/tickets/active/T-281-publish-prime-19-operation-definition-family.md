@@ -1,7 +1,8 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-24):** repriced in place for
-> `ABI5-M5-EXT-001`. The operative scope is the current header and
+> **Current disposition (2026-07-24):** `ABI5-M5-EXT-001` complete at
+> `bc9ca26a`; held until the later S06 public and portability boundary. The
+> operative scope is the current header and
 > `Current M5 Reprice` section. The retained 19-operation and X-era material is
 > historical donor evidence only; it does not define Product scope, operation
 > count, design authority, implementation order, or closure.
@@ -11,15 +12,14 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- implementation_hold: released_for_abi5_m5_ext_001
+- implementation_hold: active_pending_s06
 - implementation_hold_ref: GOAL-035 current Product frontier and T-270 requirement reprice
 - implementation_hold_effect: >-
-    implementation is authorized only for caller-supplied publication,
-    non-empty dependency locking, installed implementation resolution, and
-    product-neutral SDK/CLI invocation required by ABI5-M5-EXT-001
-- phase_status: m5_external_product_path_active
+    ABI5-M5-EXT-001 is complete; preserve its public extension seam and do not
+    expand T-281 until the T-270 sequence reaches S06
+- phase_status: m5_external_product_path_complete_s06_held
 - review_status: requirement_reprice_direct_fh_authorized
-- proof_status: independent_mini_product_installed_path_pending
+- proof_status: independent_mini_product_installed_path_green
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: M5_frontier_1
 - change_intent: >-
@@ -82,6 +82,21 @@ This checkpoint does not define a fixed operation roster, complete S06,
 authorize host projection, or resume any historical X implementation. After it
 is green, T-281 remains the existing owner for later S06 public and downstream
 portability work.
+
+## Independent Product Checkpoint
+
+Commit `bc9ca26a` proves this bounded seam through the installed SDK and CLI.
+The independently packed mini-product owns its namespace, Module, Program,
+GraphFunction, contracts, judgment, semantics provider, and implementation.
+ABIogenesis core owns only generic verification, installation, dependency
+locking, publication validation, catalog admission, invocation, HoG traversal,
+ABG truth, replay, and public projection.
+
+Fresh serialized gates are M5 `71/71` and retained M4 `26/26`. Missing
+installed Product semantics and an undeclared judgment predicate fail closed,
+and ABIogenesis core contains no mini-product identifier or dispatch branch.
+This closes `ABI5-M5-EXT-001`, not S06. T-281 is held until its existing S06
+role becomes current.
 
 ## Historical X Evidence
 
