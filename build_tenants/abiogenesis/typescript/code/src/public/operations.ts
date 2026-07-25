@@ -10,6 +10,7 @@ import type {
   GtlProgram,
   ModulePublication,
 } from "../gtl/contracts.js";
+import { bindInstalledLeafInvocationPort } from "../hog/installed_product.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
   PublicOutcome,
@@ -439,6 +440,7 @@ async function applyWorkspaceBind(
   }
   requireExactPayloadKeys(invocation.payload, [
     "authorityManifestRef",
+    "authorizedActorRef",
     "canonicalRoot",
     "dependencyEdges",
     "installInvocationRef",
@@ -513,6 +515,10 @@ async function applyWorkspaceBind(
     workspaceId,
     canonicalRoot,
     authorityMode: "trusted_developer" as const,
+    authorizedActorRef: stringField(
+      invocation.payload,
+      "authorizedActorRef",
+    ),
   };
   const authority = product.constructWorkspaceAuthorityBasis({
     ...authorityManifest,
@@ -1429,12 +1435,13 @@ async function applyRunInvoke(
     );
   }
   failureScope = opened.scope;
-  const leafPort = await hog.bindInstalledLeafInvocationPort({
+  const leafPort = await bindInstalledLeafInvocationPort({
     store: context.store,
     install: installState.install,
     implementationSet,
     publication: viewState.catalogState.publication,
-    semantics: productSemantics,
+    semanticsProjection:
+      product.projectInstalledLeafSemantics(productSemantics),
   });
   const childTraversalPreparationPort = bindChildTraversalPreparationPort({
     store: context.store,
@@ -2672,12 +2679,13 @@ async function applyRunContinue(
         verifyInstallAdmission: (install) =>
           abg.hasAdmittedProductInstall(context.store, install),
       });
-      const leafPort = await hog.bindInstalledLeafInvocationPort({
+      const leafPort = await bindInstalledLeafInvocationPort({
         store: context.store,
         install: state.install,
         implementationSet,
         publication,
-        semantics: productSemantics,
+        semanticsProjection:
+          product.projectInstalledLeafSemantics(productSemantics),
       });
       const childTraversalPreparationPort = bindChildTraversalPreparationPort({
         store: context.store,

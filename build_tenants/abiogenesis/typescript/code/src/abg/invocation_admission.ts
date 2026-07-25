@@ -207,6 +207,9 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
     input.policy.authorityBasisId !== input.workspaceBinding.authorityBasisId ||
     input.policy.authorityBasisDigest !==
       input.workspaceBinding.authorityBasisDigest ||
+    input.policy.authorizedActorRef !==
+      input.workspaceBinding.authorizedActorRef ||
+    input.actorRef !== input.workspaceBinding.authorizedActorRef ||
     input.policy.workspaceBindingId !== input.workspaceBinding.bindingId ||
     input.policy.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||
     input.policy.programRef !== input.program.programRef ||

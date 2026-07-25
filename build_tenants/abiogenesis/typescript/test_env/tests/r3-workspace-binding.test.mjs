@@ -143,6 +143,7 @@ test("R3 admits one immutable WorkspaceBinding over the exact ProductSet", async
   const authorityManifest = {
     workspaceId: "workspace://t286/abi5-root",
     authorityMode: "trusted_developer",
+    authorizedActorRef: "actor://abiogenesis/t286/trusted-developer",
     canonicalRoot: workspaceRoot,
   };
   const authority = installedProduct.constructWorkspaceAuthorityBasis({

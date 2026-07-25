@@ -25,7 +25,6 @@ export type {
   DeterministicEvidenceCandidate,
   HelloWorldLeafImplementation,
   HelloWorldLeafRealizationCandidate,
-  LeafContractSemanticsPort,
   LeafInvocationPort,
   LeafInvocationResolution,
   ProbabilisticLeafEffectPort,

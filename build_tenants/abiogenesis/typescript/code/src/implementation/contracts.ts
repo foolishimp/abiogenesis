@@ -75,24 +75,6 @@ export interface LeafInvocationResolution {
   readonly namedSymbol: string;
 }
 
-export interface LeafContractSemanticsPort {
-  readonly bindingRef: string;
-  readonly packageName: string;
-  readonly packageVersion: string;
-  readonly validateContractValue: (
-    valueKind: string,
-    value: unknown,
-  ) => value is Readonly<Record<string, JsonValue>>;
-  readonly resolveJudgmentRelation: (
-    predicateRef: string,
-  ) => Readonly<{
-    readonly predicateRef: string;
-    readonly advanceReasonRef: string;
-    readonly rejectionReasonRef: string;
-    readonly evaluate: (input: unknown, output: unknown) => boolean;
-  }> | null;
-}
-
 export interface LeafInvocationPort {
   readonly kind: "admitted_leaf_invocation_port";
   readonly installId: string;

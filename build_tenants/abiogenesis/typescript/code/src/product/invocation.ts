@@ -36,6 +36,7 @@ export interface InvocationPolicyBasis {
   readonly authorityMode: "trusted_developer";
   readonly authorityBasisId: string;
   readonly authorityBasisDigest: Sha256Digest;
+  readonly authorizedActorRef: string;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
   readonly programRef: string;
@@ -179,6 +180,7 @@ export function constructRootInvocationPolicy(
     canonicalRegimes.some((regime, index) => regime !== allowedComputeRegimes[index]) ||
     workspaceBinding.authorityBasisId.length === 0 ||
     workspaceBinding.authorityBasisDigest.length === 0 ||
+    workspaceBinding.authorizedActorRef.length === 0 ||
     workspaceBinding.bindingId.length === 0 ||
     workspaceBinding.bindingDigest.length === 0 ||
     program.programRef.length === 0 ||
@@ -199,6 +201,7 @@ export function constructRootInvocationPolicy(
     authorityMode: "trusted_developer" as const,
     authorityBasisId: workspaceBinding.authorityBasisId,
     authorityBasisDigest: workspaceBinding.authorityBasisDigest,
+    authorizedActorRef: workspaceBinding.authorizedActorRef,
     workspaceBindingId: workspaceBinding.bindingId,
     workspaceBindingDigest: workspaceBinding.bindingDigest,
     programRef: program.programRef,
@@ -277,6 +280,7 @@ export function constructCapabilityGrant(
   if (
     !isInvocationPolicyBasis(policy) ||
     actorRef.length === 0 ||
+    actorRef !== policy.authorizedActorRef ||
     capabilityRef.length === 0 ||
     (
       operationId === "abg.operation.run.invoke" &&
@@ -322,6 +326,7 @@ export function constructInvocationAuthority(
 ): InvocationAuthority | InvocationConstructionRefusal {
   if (
     !isInvocationPolicyBasis(policy) ||
+    actorRef !== policy.authorizedActorRef ||
     capabilityGrants.length === 0 ||
     new Set(capabilityGrants.map((grant) => grant.grantRef)).size !==
       capabilityGrants.length ||

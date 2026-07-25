@@ -578,6 +578,7 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
       eventLogFile: "one-surface.events.jsonl",
+      authorizedActorRef: "actor://abiogenesis/t276/trusted-developer",
     },
   );
   const {

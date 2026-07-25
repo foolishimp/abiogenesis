@@ -131,13 +131,15 @@ export async function buildRootCliScenario(
     "program://abiogenesis/conformance/hello-world@5";
   const graphFunctionRef = options.graphFunctionRef ??
     "graph-function://abiogenesis/conformance/hello-world@5";
+  const authorizedActorRef = options.authorizedActorRef ??
+    "actor://abiogenesis/t286/trusted-developer";
   const runPayload = transformRunPayload({
     installInvocationRef: refs.install,
     workspaceBindingInvocationRef: refs.bind,
     catalogViewInvocationRef: refs.view,
     programRef,
     graphFunctionRef,
-    actorRef: "actor://abiogenesis/t286/trusted-developer",
+    actorRef: authorizedActorRef,
     input: options.input ?? {
       kind: "hello_world_input",
       schemaVersion: "5.0.0",
@@ -160,6 +162,7 @@ export async function buildRootCliScenario(
       installInvocationRef: refs.install,
       workspaceId: options.workspaceId ?? `workspace://t286/${label}`,
       canonicalRoot: workspaceRoot,
+      authorizedActorRef,
       authorityManifestRef: `manifest://t286/${label}/workspace-authority`,
       roots: {
         toolchainRoot: productConsumer,

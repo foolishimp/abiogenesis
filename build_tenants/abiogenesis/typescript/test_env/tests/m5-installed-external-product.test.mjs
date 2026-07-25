@@ -621,6 +621,7 @@ async function externalScenario(
       }],
       workspaceId: `workspace://t270/${label}`,
       canonicalRoot: workspaceRoot,
+      authorizedActorRef: "actor://developer.example/trusted-developer",
       authorityManifestRef: `manifest://t270/${label}/workspace-authority`,
       roots: {
         toolchainRoot: abiInstalledRoot,

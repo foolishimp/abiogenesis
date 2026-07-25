@@ -52,9 +52,13 @@ export {
   admitInstalledProductInput,
   evaluateInstalledInteractionResponse,
   loadInstalledProductSemantics,
+  projectInstalledLeafSemantics,
   type InstalledProductSemanticsBasis,
   type ProductSemanticsProvider,
 } from "./semantics.js";
+export type {
+  InstalledLeafSemanticsProjection,
+} from "../shared/leaf_semantics_projection.js";
 export { verifyProduct } from "./verify_product.js";
 export {
   catalogApplicationContentDigest,

@@ -160,6 +160,7 @@ export function hasAdmittedWorkspaceBinding(
   const bindingDigest = sha256Canonical({
     authorityBasisId: binding.authorityBasisId,
     authorityBasisDigest: binding.authorityBasisDigest,
+    authorizedActorRef: binding.authorizedActorRef,
     productSetId: binding.productSetId,
     productSetDigest: binding.productSetDigest,
     lockId: binding.lockId,

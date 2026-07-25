@@ -53,6 +53,7 @@ export interface WorkspaceAuthorityBasisInput {
   readonly workspaceId: string;
   readonly canonicalRoot: string;
   readonly authorityMode: "trusted_developer";
+  readonly authorizedActorRef: string;
   readonly authorityManifestRef: string;
   readonly authorityManifestDigest: Sha256Digest;
 }
@@ -80,6 +81,7 @@ export interface WorkspaceBindingCandidate {
   readonly bindingDigest: Sha256Digest;
   readonly authorityBasisId: string;
   readonly authorityBasisDigest: Sha256Digest;
+  readonly authorizedActorRef: string;
   readonly productSetId: string;
   readonly productSetDigest: Sha256Digest;
   readonly lockId: string;
@@ -417,6 +419,7 @@ export function constructWorkspaceAuthorityBasis(
   if (
     input.workspaceId.length === 0 ||
     !isAbsolute(input.canonicalRoot) ||
+    input.authorizedActorRef.length === 0 ||
     input.authorityManifestRef.length === 0
   ) {
     return refusal("invalid_workspace_authority", "workspace authority fields must be explicit");
@@ -448,6 +451,7 @@ export function constructWorkspaceBinding(
   const bindingBody = {
     authorityBasisId: authority.authorityBasisId,
     authorityBasisDigest: authority.authorityBasisDigest,
+    authorizedActorRef: authority.authorizedActorRef,
     productSetId: productSet.productSetId,
     productSetDigest: productSet.productSetDigest,
     lockId: lock.lockId,

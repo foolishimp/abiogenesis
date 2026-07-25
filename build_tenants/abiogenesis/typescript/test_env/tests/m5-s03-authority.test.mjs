@@ -3,6 +3,7 @@ import test from "node:test";
 
 import * as abg from "../../build/code/src/abg/index.js";
 import * as hog from "../../build/code/src/hog/index.js";
+import { bindInstalledLeafInvocationPort } from "../../build/code/src/hog/installed_product.js";
 import { leafInvocationBindingMatches } from "../../build/code/src/hog/leaf_invocation_port.js";
 import * as product from "../../build/code/src/product/index.js";
 
@@ -18,6 +19,7 @@ function workspaceBinding() {
     bindingDigest: DIGEST,
     authorityBasisId: "workspace-authority://developer.example/unit",
     authorityBasisDigest: DIGEST,
+    authorizedActorRef: ACTOR,
     productSetId: "product-set://developer.example/unit",
     productSetDigest: DIGEST,
     lockId: "product-lock://developer.example/unit",
@@ -89,6 +91,15 @@ test("S03 capability policy is exact over admitted Program interaction requireme
     ["F_D"],
   );
   const directGrant = product.constructCapabilityGrant(exactPolicy, ACTOR);
+  assert.throws(
+    () =>
+      product.constructCapabilityGrant(
+        exactPolicy,
+        "actor://developer.example/substituted",
+      ),
+    /exact capability/u,
+    "the trusted-developer workspace basis selects one actor",
+  );
   assert.equal(
     abg.validateInvocationCapabilityBasis({
       actorRef: ACTOR,
@@ -267,7 +278,7 @@ test("S03 continuation operation authority requires the exact admitted grant and
   );
 });
 
-test("S03 HoG leaf binding consumes only an exact Product contract adapter", () => {
+test("S03 HoG rejects an identical-label forged Product semantics projection", async () => {
   const publication = {
     kind: "module_publication",
     schemaVersion: "5.0.0",
@@ -282,6 +293,9 @@ test("S03 HoG leaf binding consumes only an exact Product contract adapter", () 
   };
   const authority = {
     install: {
+      installId: "product-install://developer.example/unit",
+      productContentDigest: DIGEST,
+      manifestDigest: DIGEST,
       packageName: "@developer-example/unit",
       packageVersion: "5.0.0",
     },
@@ -295,18 +309,55 @@ test("S03 HoG leaf binding consumes only an exact Product contract adapter", () 
       ],
     },
     publication,
-    semantics: {
+    semanticsProjection: {
+      kind: "installed_leaf_semantics_projection",
+      schemaVersion: "5.0.0",
+      projectionRef: "leaf-semantics://developer.example/forged",
+      projectionDigest: DIGEST,
+      installId: "product-install://developer.example/unit",
+      productContentDigest: DIGEST,
+      manifestDigest: DIGEST,
+      publicationDigest: product.sha256Canonical(publication),
       bindingRef: "product-semantics://developer.example/unit@5",
       packageName: "@developer-example/unit",
       packageVersion: "5.0.0",
+      validateContractValue: () => true,
+      resolveJudgmentRelation: () => ({
+        predicateRef: "predicate://developer.example/forged",
+        advanceReasonRef: "reason://developer.example/forged-advance",
+        rejectionReasonRef: "reason://developer.example/forged-reject",
+        evaluate: () => true,
+      }),
     },
   };
-  assert.equal(leafInvocationBindingMatches(authority), true);
+  assert.equal(
+    authority.semanticsProjection.validateContractValue(
+      "developer_invalid_output",
+      {},
+    ),
+    true,
+    "the forged callback is deliberately permissive",
+  );
+  assert.equal(leafInvocationBindingMatches(authority), false);
+  await assert.rejects(
+    () =>
+      bindInstalledLeafInvocationPort({
+        ...authority,
+        store: null,
+        implementationSet: {
+          ...authority.implementationSet,
+          implementationSetRef:
+            "implementation-set://developer.example/unit",
+          implementationSetDigest: DIGEST,
+        },
+      }),
+    /exact admitted install/u,
+  );
   assert.equal(
     leafInvocationBindingMatches({
       ...authority,
-      semantics: {
-        ...authority.semantics,
+      semanticsProjection: {
+        ...authority.semanticsProjection,
         bindingRef: "product-semantics://developer.example/substituted@5",
       },
     }),
@@ -329,32 +380,43 @@ test("S03 HoG leaf binding consumes only an exact Product contract adapter", () 
   );
 });
 
-test("S03 Product semantics is Product-owned and absent from HoG's public port", () => {
+test("S03 Product semantics requires a loaded provider and is absent from HoG's public port", () => {
   assert.equal(typeof product.evaluateInstalledInteractionResponse, "function");
   assert.equal("evaluateInstalledInteractionResponse" in hog, false);
   assert.equal("admitInstalledProductInput" in hog, false);
+  assert.equal("bindInstalledLeafInvocationPort" in hog, false);
 
-  let evaluations = 0;
   const provider = {
+    kind: "product_semantics_provider",
+    schemaVersion: "5.0.0",
+    bindingRef: "product-semantics://developer.example/forged@5",
+    packageName: "@developer-example/forged",
+    packageVersion: "5.0.0",
+    admitInput: (_contractRef, value) => value,
     evaluateInteractionResponse(_basis, response) {
-      evaluations += 1;
       return response;
     },
+    validateContractValue: () => true,
+    resolveJudgmentRelation: () => null,
   };
   const response = { kind: "unit_response", schemaVersion: "5.0.0" };
-  assert.equal(
-    product.evaluateInstalledInteractionResponse(
-      provider,
-      {
-        requestContractRef: "contract://unit/request",
-        responseContractRef: "contract://unit/response",
-        requestValue: {},
-        constructionIntent: null,
-        nextActionBasis: null,
-      },
-      response,
-    ),
-    response,
+  assert.throws(
+    () =>
+      product.evaluateInstalledInteractionResponse(
+        provider,
+        {
+          requestContractRef: "contract://unit/request",
+          responseContractRef: "contract://unit/response",
+          requestValue: {},
+          constructionIntent: null,
+          nextActionBasis: null,
+        },
+        response,
+      ),
+    /exact loaded Product semantics provider/u,
   );
-  assert.equal(evaluations, 1);
+  assert.throws(
+    () => product.projectInstalledLeafSemantics(provider),
+    /exact loaded Product semantics provider/u,
+  );
 });

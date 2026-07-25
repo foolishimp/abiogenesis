@@ -8,12 +8,13 @@ import {
 } from "../abg/execution_basis.js";
 import type { AbgEventStore } from "../abg/event_store.js";
 import type { ModulePublication } from "../gtl/contracts.js";
-import type { ProductInstall } from "../product/environment.js";
-import { installedProductContentMatches } from "../product/install_product.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
+import {
+  inspectInstalledLeafSemanticsProjection,
+  type InstalledLeafSemanticsProjection,
+} from "../shared/leaf_semantics_projection.js";
 import type {
-  LeafContractSemanticsPort,
   LeafInvocationPort,
   LeafInvocationResolution,
   ProbabilisticLeafEffectPort,
@@ -21,58 +22,78 @@ import type {
 
 const admittedPorts = new WeakSet<object>();
 
+export type LeafInvocationInstall =
+  Parameters<typeof hasAdmittedProductInstall>[1];
+
 export function isAdmittedLeafInvocationPort(value: object): boolean {
   return admittedPorts.has(value);
 }
 
 export function leafInvocationBindingMatches(authority: Readonly<{
-  install: Pick<ProductInstall, "packageName" | "packageVersion">;
+  install: Pick<
+    LeafInvocationInstall,
+    | "installId"
+    | "manifestDigest"
+    | "packageName"
+    | "packageVersion"
+    | "productContentDigest"
+  >;
   implementationSet: Pick<
     AdmittedImplementationSet,
     "publicationDigest" | "rows"
   >;
   publication: Readonly<ModulePublication>;
-  semantics: Pick<
-    LeafContractSemanticsPort,
-    "bindingRef" | "packageName" | "packageVersion"
-  >;
+  semanticsProjection: unknown;
 }>): boolean {
   const publicationDigest = sha256Canonical(
     authority.publication as unknown as JsonValue,
   );
   const semanticsBinding = authority.publication.productSemanticsBinding;
+  const inspected = inspectInstalledLeafSemanticsProjection(
+    authority.semanticsProjection,
+  );
   return (
+    inspected !== null &&
     authority.implementationSet.publicationDigest === publicationDigest &&
     authority.implementationSet.rows.every(
       (row) =>
         row.packageName === authority.install.packageName &&
         row.packageVersion === authority.install.packageVersion,
     ) &&
-    authority.semantics.bindingRef === semanticsBinding.bindingRef &&
-    authority.semantics.packageName === semanticsBinding.packageName &&
-    authority.semantics.packageVersion === semanticsBinding.packageVersion
+    inspected.projection.installId === authority.install.installId &&
+    inspected.projection.productContentDigest ===
+      authority.install.productContentDigest &&
+    inspected.projection.manifestDigest === authority.install.manifestDigest &&
+    inspected.projection.publicationDigest === publicationDigest &&
+    inspected.projection.bindingRef === semanticsBinding.bindingRef &&
+    inspected.projection.packageName === semanticsBinding.packageName &&
+    inspected.projection.packageVersion === semanticsBinding.packageVersion
   );
 }
 
 export async function constructAdmittedLeafInvocationPort(authority: {
   readonly store: AbgEventStore;
-  readonly install: ProductInstall;
+  readonly install: LeafInvocationInstall;
   readonly implementationSet: AdmittedImplementationSet;
   readonly publication: Readonly<ModulePublication>;
-  readonly semantics: LeafContractSemanticsPort;
+  readonly semanticsProjection: InstalledLeafSemanticsProjection;
 }): Promise<LeafInvocationPort> {
   const publicationDigest = sha256Canonical(authority.publication as unknown as JsonValue);
+  const inspected = inspectInstalledLeafSemanticsProjection(
+    authority.semanticsProjection,
+  );
   if (
+    inspected === null ||
     !hasAdmittedProductInstall(authority.store, authority.install) ||
     !hasAdmittedImplementationSet(authority.store, authority.implementationSet) ||
     !leafInvocationBindingMatches(authority) ||
-    !(await installedProductContentMatches(authority.install))
+    !(await inspected.runtime.verifyInstalledContent())
   ) {
     throw new TypeError(
       "leaf invocation port requires one exact admitted install, publication, and implementation set",
     );
   }
-  const semantics = authority.semantics;
+  const semantics = inspected.runtime;
   const modules = new Map<string, Promise<Record<string, unknown>>>();
 
   async function loadModule(modulePath: string): Promise<Record<string, unknown>> {
@@ -130,7 +151,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         !admittedPorts.has(port) ||
         !hasAdmittedProductInstall(authority.store, authority.install) ||
         !hasAdmittedImplementationSet(authority.store, authority.implementationSet) ||
-        !(await installedProductContentMatches(authority.install)) ||
+        !(await semantics.verifyInstalledContent()) ||
         !authority.implementationSet.rows.some((row) => row === resolution)
       ) {
         throw new TypeError("leaf invocation differs from the admitted install-bound port");

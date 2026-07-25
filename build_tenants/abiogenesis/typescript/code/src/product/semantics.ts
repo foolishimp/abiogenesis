@@ -5,6 +5,11 @@ import type { ModulePublication } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { ProductInstall } from "./environment.js";
 import { installedProductContentMatches } from "./install_product.js";
+import {
+  mintInstalledLeafSemanticsProjection,
+  type InstalledLeafSemanticsProjection,
+} from "../shared/leaf_semantics_projection.js";
+import { sha256Canonical } from "../shared/digests.js";
 
 export interface ProductSemanticsProvider {
   readonly kind: "product_semantics_provider";
@@ -45,6 +50,14 @@ export interface InstalledProductSemanticsBasis {
   readonly publication: Readonly<ModulePublication>;
   readonly verifyInstallAdmission: (install: ProductInstall) => boolean;
 }
+
+interface LoadedProductSemanticsBasis {
+  readonly install: ProductInstall;
+  readonly publicationDigest: ReturnType<typeof sha256Canonical>;
+}
+
+const loadedProductSemantics =
+  new WeakMap<object, LoadedProductSemanticsBasis>();
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -87,7 +100,14 @@ export async function loadInstalledProductSemantics(
       "installed Product semantics provider differs from its published binding",
     );
   }
-  return value as unknown as ProductSemanticsProvider;
+  const provider = value as unknown as ProductSemanticsProvider;
+  loadedProductSemantics.set(provider, {
+    install: basis.install,
+    publicationDigest: sha256Canonical(
+      basis.publication as unknown as JsonValue,
+    ),
+  });
+  return provider;
 }
 
 export function admitInstalledProductInput(
@@ -95,6 +115,11 @@ export function admitInstalledProductInput(
   contractRef: string,
   value: unknown,
 ): Readonly<Record<string, JsonValue>> | null {
+  if (!loadedProductSemantics.has(semantics)) {
+    throw new TypeError(
+      "Product input admission requires the exact loaded Product semantics provider",
+    );
+  }
   return semantics.admitInput(contractRef, value);
 }
 
@@ -103,5 +128,40 @@ export function evaluateInstalledInteractionResponse(
   basis: Parameters<ProductSemanticsProvider["evaluateInteractionResponse"]>[0],
   responseCandidate: unknown,
 ): Readonly<Record<string, JsonValue>> | null {
+  if (!loadedProductSemantics.has(semantics)) {
+    throw new TypeError(
+      "Product response evaluation requires the exact loaded Product semantics provider",
+    );
+  }
   return semantics.evaluateInteractionResponse(basis, responseCandidate);
+}
+
+export function projectInstalledLeafSemantics(
+  semantics: ProductSemanticsProvider,
+): InstalledLeafSemanticsProjection {
+  const basis = loadedProductSemantics.get(semantics);
+  if (basis === undefined) {
+    throw new TypeError(
+      "leaf semantics projection requires the exact loaded Product semantics provider",
+    );
+  }
+  const install = basis.install;
+  return mintInstalledLeafSemanticsProjection(
+    {
+      installId: install.installId,
+      productContentDigest: install.productContentDigest,
+      manifestDigest: install.manifestDigest,
+      publicationDigest: basis.publicationDigest,
+      bindingRef: semantics.bindingRef,
+      packageName: semantics.packageName,
+      packageVersion: semantics.packageVersion,
+    },
+    {
+      verifyInstalledContent: () => installedProductContentMatches(install),
+      validateContractValue: (valueKind, value) =>
+        semantics.validateContractValue(valueKind, value),
+      resolveJudgmentRelation: (predicateRef) =>
+        semantics.resolveJudgmentRelation(predicateRef),
+    },
+  );
 }

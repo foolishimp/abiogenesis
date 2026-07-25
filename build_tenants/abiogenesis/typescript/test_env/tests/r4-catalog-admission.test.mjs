@@ -129,6 +129,7 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     workspaceId: "workspace://t286/abi5-root-r4",
     canonicalRoot: workspaceRoot,
     authorityMode: "trusted_developer",
+    authorizedActorRef: "actor://abiogenesis/t286/trusted-developer",
   };
   const authority = product.constructWorkspaceAuthorityBasis({
     ...authorityManifest,

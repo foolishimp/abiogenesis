@@ -119,6 +119,7 @@ async function portabilityScenario(harness, flavored, label) {
         }],
         workspaceId: `workspace://t281/${label}`,
         canonicalRoot: workspaceRoot,
+        authorizedActorRef: "actor://flavor.example/trusted-developer",
         authorityManifestRef:
           `manifest://t281/${label}/workspace-authority`,
         roots: {

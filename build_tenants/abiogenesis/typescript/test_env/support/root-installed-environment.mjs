@@ -110,6 +110,9 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
   const abg = await import(`${pathToFileURL(join(installedRoot, "build/code/src/abg/index.js")).href}?env=${nonce}`);
   const gtl = await import(`${pathToFileURL(join(installedRoot, "build/code/src/gtl/index.js")).href}?env=${nonce}`);
   const hog = await import(`${pathToFileURL(join(installedRoot, "build/code/src/hog/index.js")).href}?env=${nonce}`);
+  const hogInstalledProduct = await import(
+    `${pathToFileURL(join(installedRoot, "build/code/src/hog/installed_product.js")).href}?env=${nonce}`
+  );
   const hogExecute = await import(
     `${pathToFileURL(join(installedRoot, "build/code/src/hog/execute.js")).href}?env=${nonce}`
   );
@@ -137,6 +140,7 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     workspaceId: "workspace://t286/abi5-root",
     canonicalRoot: workspaceRoot,
     authorityMode: "trusted_developer",
+    authorizedActorRef: "actor://abiogenesis/t286/trusted-developer",
   };
   const workspaceAuthority = product.constructWorkspaceAuthorityBasis({
     ...authorityManifest,
@@ -240,6 +244,7 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     abg,
     gtl,
     hog,
+    hogInstalledProduct,
     hogExecute,
     implementation,
     validator,
@@ -523,12 +528,13 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     verifyInstallAdmission: (install) =>
       abg.hasAdmittedProductInstall(store, install),
   });
-  const leafPort = await environment.hog.bindInstalledLeafInvocationPort({
+  const leafPort = await environment.hogInstalledProduct.bindInstalledLeafInvocationPort({
     store,
     install: environment.admittedInstall,
     implementationSet: executionBasisAdmission.implementationSet,
     publication,
-    semantics,
+    semanticsProjection:
+      environment.product.projectInstalledLeafSemantics(semantics),
   });
   return {
     ...environment,

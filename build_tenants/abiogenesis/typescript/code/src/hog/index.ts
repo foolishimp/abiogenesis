@@ -94,7 +94,3 @@ export {
   type ChildTraversalPreparationResult,
   type PreparedChildTraversal,
 } from "./child_traversal.js";
-export {
-  bindInstalledLeafInvocationPort,
-  type InstalledLeafInvocationAuthority,
-} from "./installed_product.js";

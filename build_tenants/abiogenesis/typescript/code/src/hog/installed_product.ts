@@ -2,17 +2,19 @@ import type { AbgEventStore } from "../abg/event_store.js";
 import type { AdmittedImplementationSet } from "../abg/execution_basis.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import type {
-  LeafContractSemanticsPort,
   LeafInvocationPort,
 } from "../implementation/contracts.js";
-import type { ProductInstall } from "../product/environment.js";
-import { constructAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
+import type { InstalledLeafSemanticsProjection } from "../shared/leaf_semantics_projection.js";
+import {
+  constructAdmittedLeafInvocationPort,
+  type LeafInvocationInstall,
+} from "./leaf_invocation_port.js";
 
 export interface InstalledLeafInvocationAuthority {
   readonly store: AbgEventStore;
-  readonly install: ProductInstall;
+  readonly install: LeafInvocationInstall;
   readonly publication: Readonly<ModulePublication>;
-  readonly semantics: LeafContractSemanticsPort;
+  readonly semanticsProjection: InstalledLeafSemanticsProjection;
 }
 
 export async function bindInstalledLeafInvocationPort(
