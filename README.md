@@ -13,10 +13,10 @@ successor to the immutable 4.6 RC5 Product origin.
 | Surface | Current state |
 |---|---|
 | Product definition | `specification/PRODUCT.md` |
-| selected outcome | Reconcile and reclose `ABG5-S03` |
+| selected outcome | Reconcile and reclose `ABG5-S05` |
 | active owner | T-270 |
-| retained implementation | `bcd8769a8163a222e2e59400c904994b3de161fd` behavioral stock |
-| closure state | S03 and S05 provisional; S06 open and unselected |
+| accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
+| closure state | S03 accepted; S05 current; S06 open and unselected |
 | conservation | Forty-row implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -55,19 +55,21 @@ feature-specific runtime is not a lawful substitute.
 
 ## Current Work
 
-S03 correction is the only implementation-bearing frontier. It must:
+S05 reconciliation is the only implementation-bearing frontier. It must:
 
-1. require explicit durable continuation authority;
-2. remove process-local state as an admissibility source;
-3. refuse an F_H response that differs from the Product-owned pending choice
-   or exact basis;
-4. reconcile the `root_mode` and `until` law;
-5. reconcile the active S03 Ontology, Prime, IACS, module, three-view, and
-   implementation boundary; and
-6. preserve the installed external Product path and all applicable negatives.
+1. retain the packed SYSTEM-owned Consensus GraphFunction as an ordinary
+   admitted GTL callable;
+2. prove agreement, dispute recursion, and unresolved F_H escalation through
+   ordinary HoG, ABG, replay, `project.read`, and CLI paths;
+3. reconcile the affected Consensus Ontology, atomic functions, Prime, IACS,
+   module ownership, three views, operational lifecycle, and module proof;
+4. preserve accepted S03, the external Product, M4, package reproducibility,
+   and applicable negatives; and
+5. introduce no Consensus-specific command, runner, controller, scheduler,
+   event family, result store, continuation, or closure path.
 
-S05, S06, observer/tuner, complete conservation, qualification, and release
-remain blocked until GOALS selects them.
+S06, observer/tuner, complete conservation, qualification, and release remain
+blocked until GOALS selects them.
 
 ## Authority
 

@@ -17,28 +17,31 @@
 The sole current Product outcome is:
 
 ```text
-reconcile and reclose ABG5-S03
-  -> through the installed external Product path
+reconcile and reclose ABG5-S05
+  -> through the packed ordinary-path Consensus Product
   -> under T-270
 ```
 
-Commit `bcd8769a8163a222e2e59400c904994b3de161fd` is retained behavioral
-stock. S03 and S05 closure are provisional. S06 is open but not selected.
+Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
+Earlier implementation remains retained behavioral stock. S05 is current.
+S06 is open but not selected.
 Observer/tuner, full conservation qualification, qualification, and release
-must not receive implementation while S03 remains unresolved.
+must not receive implementation while S05 remains unresolved.
 
-S03 closes only when:
+S05 closes only when:
 
-- public read, respond, and continue consume explicit durable authority;
-- process-local state cannot change continuation admissibility or meaning;
-- an F_H response outside the Product-owned pending choice and exact basis
-  refuses at admission;
-- the `root_mode` and `until` relation is singular across requirement, design,
-  code, and installed proof;
-- its boundary-bounded Ontology, Prime contraction, IACS, module ownership,
-  three views, and axiom evaluation agree with implementation; and
-- existing One Surface, correction, re-entry, replay, and negative behavior
-  remains green without a rival controller or runtime.
+- the canonical SYSTEM-owned Consensus GraphFunction enters through the
+  ordinary installed catalog, admitted Program, One Surface, `run.invoke`,
+  HoG, and ABG path;
+- agreement, dispute recursion, and unresolved F_H escalation agree with
+  typed result and replay truth in all three workspace applications;
+- the boundary-bounded Consensus Ontology, Prime contraction, IACS, module
+  ownership, three views, operational lifecycle, axioms, and module proof
+  agree with implementation;
+- accepted S03, external Product, M4, package, and applicable negative evidence
+  remain green; and
+- no special Consensus command, runner, controller, scheduler, event writer,
+  result store, continuation, or closure path exists.
 
 The current forty-row matrix is implementation coverage, not completed RC5
 conservation.
@@ -112,7 +115,7 @@ from them.
 
 - A clean session starts from a clean tracked and untracked worktree.
 - Do not restore the archived observer/tuner draft onto the active line.
-- Add missing detail to T-270 while S03 is current.
+- Add missing detail to T-270 while S05 is current.
 - A review finding blocks its exact claim; it does not automatically authorize
   another ticket, refactor, artifact family, or review programme.
 - Refactor only where accepted design proves duplicate, ambiguous, or rival

@@ -3,17 +3,17 @@
 ## Current State
 
 The ABIogenesis 5.0 Product destination, M3 direct-GTL realization design, and
-M5 base design remain accepted. `specification/GOALS.md` selects one unresolved
-Product outcome: reconcile and reclose `ABG5-S03`. T-270 is the sole active M5
-execution contract. Completed T-272 and existing M5 behavior are historical
-evidence and retained behavioral stock, not current execution authority or an
-accepted S03 closure.
+M5 design through Section 12 are accepted. `specification/GOALS.md` selects
+one unresolved Product outcome: reconcile and reclose `ABG5-S05`. T-270 is the
+sole active M5 execution contract. Completed T-274, T-275, and T-276 and
+existing Consensus behavior are evidence and retained behavioral stock, not
+current execution authority or accepted S05 closure.
 
-The current correction is bounded to durable continuation authority, F_H
-response admission, the singular `root_mode` and `until` relation, and
-reconciliation of the active S03 design/module boundary. S05, S06,
-observer/tuner, conservation qualification, qualification, and release remain
-held until GOALS selects them.
+The current correction is bounded to the Consensus domain, ordinary GTL
+publication and traversal, result/replay projection, and reconciliation of
+the active S05 design/module boundary. S06, observer/tuner, conservation
+qualification, qualification, and release remain held until GOALS selects
+them.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.
@@ -50,7 +50,7 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: S03 reconciliation current; retained behavior is not closure
+**Status**: S03 accepted; S05 reconciliation current
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
@@ -66,8 +66,9 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
   topology, execution basis, traversal, events, retry, continuation, or
   closure.
 - `ABI5-ROOT-001` and `ABI5-M5-EXT-001` remain regression bindings.
-- T-270 reconciles S03 through that installed external Product path. Repeating
-  an existing green witness preserves behavior but does not close S03.
+- T-270 reconciles S05 through the packed ordinary-path Consensus Product.
+  Repeating an existing green witness preserves behavior but does not close
+  S05.
 
 RC5, X, and final-integration remain sideways donor evidence. T-270 may admit
 only claims explicitly conserved by the accepted correction vector and current
@@ -85,7 +86,8 @@ The operative local projection is `.genesis/docs/standards/`. Mutable
 law. Qualification and release record this same selected basis.
 
 No substantive change skips intake triage or the smallest lawful re-entry.
-M5 work stays inside T-270, preserves both regression bindings, and changes
-only the selected S03 boundary. Completed T-272 is evidence only. No new ticket
-is required where missing detail belongs to T-270.
+M5 work stays inside T-270, preserves accepted S03 and both root regression
+bindings, and changes only the selected S05 boundary. Completed T-274, T-275,
+and T-276 are evidence only. No new ticket is required where missing detail
+belongs to T-270.
 <!-- SDLC_BOOTLOADER_END -->

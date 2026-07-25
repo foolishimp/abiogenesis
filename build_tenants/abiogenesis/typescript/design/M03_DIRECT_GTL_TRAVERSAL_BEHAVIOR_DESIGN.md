@@ -1,7 +1,7 @@
 # M03 Direct GTL Traversal Behavior Design
 
-**Status**: Accepted direct-GTL base; the T-270 narrow Product leaf-verifier
-amendment is provisional pending exact-cut review
+**Status**: Accepted direct-GTL base including the T-270 narrow Product
+leaf-verifier amendment at exact candidate `8865ccff`
 
 ## Status
 
@@ -15,15 +15,16 @@ amendment is provisional pending exact-cut review
 | Current qualification-law basis | Product-selected STDO `v2.2.0`; this identity-only propagation does not alter the direct-GTL architecture |
 | Correction basis | 048a9fbca17736a544b4f3af9aabdbdf00a13ce41dd003d8cb29a015556466f4 |
 | Historical accepted design | SHA-256 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`; preserved in repository history |
-| Current design status | direct-GTL architecture conserved; T-270 provisionally adds one narrow HoG dependency on the Product-owned opaque leaf-semantics verifier |
+| Accepted T-270 semantic subject | SHA-256 `39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85` at candidate `8865ccff` |
+| Current design status | direct-GTL architecture conserved; one narrow HoG dependency on the Product-owned opaque leaf-semantics verifier accepted |
 | Implementation authority | current GOALS selection and T-270; this design does not select work |
 
 This document preserves the accepted M3 realization surface. It derives HOW
 from accepted Product and requirements. The selected qualification identity
 does not alter Product meaning, direct-GTL architecture, the root outcome, or
-donor disposition. T-270's provisional verifier amendment makes one existing
-leaf-semantics authority relation explicit; it cannot self-accept or enlarge
-the S03 boundary.
+donor disposition. T-270's accepted verifier amendment makes one existing
+leaf-semantics authority relation explicit; it does not enlarge Product or the
+S03 boundary.
 
 ## 1. Design Claim
 

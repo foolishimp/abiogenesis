@@ -1,23 +1,27 @@
 # M05 Direct GTL Traversal Expansion Design
 
-**Status**: M5 base accepted at `d6da4269`; the T-270 Section 12
-reconciliation candidate is implemented and awaits exact-cut review and
-acceptance. Section 12 retains completed T-272 design and decision evidence.
-T-272 has no continuing growth authority. Only the S03 boundary selected by
-GOALS and T-270 may change; later Product outcomes remain held.
+**Status**: M5 base accepted at `d6da4269`; T-270 Section 12 is accepted at
+exact candidate `8865ccff`. Section 13 is the selected S05 reconciliation
+boundary. Completed tickets retain evidence but no continuing growth
+authority. Later Product outcomes remain held.
 **Date**: 2026-07-22
 **Section 12 updated**: 2026-07-26
 **Historical accepted parent design**:
 `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`, accepted SHA-256
 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`
-**Current parent projection**: same direct-GTL architecture with STDO `v2.2.0`
-qualification identity and the provisional T-270 narrow Product
-leaf-verifier dependency reconciled, SHA-256
+**Accepted S03 parent projection**: same direct-GTL architecture with STDO
+`v2.2.0` qualification identity and the T-270 narrow Product leaf-verifier
+dependency reconciled, SHA-256
 `39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85`
+**Accepted S03 M05 semantic subject**: SHA-256
+`b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5`
+at candidate `8865ccff`
 **Product boundary**: `A5-F02`, `A5-F03`, `A5-F04`, `A5-F09`, `A5-F10`,
 `A5-F14`; enables later `A5-F07`, `A5-F08`, `A5-F12`, and `A5-F17`
-**Scenario boundary**: completed `ABG5-S02`; Section 12 advances `ABG5-S03`
-**Work owner**: T-270; completed T-272 is historical Section 12 evidence
+**Scenario boundary**: completed `ABG5-S02` and accepted `ABG5-S03`; Section
+13 advances `ABG5-S05`
+**Work owner**: T-270; completed T-274, T-275, and T-276 are Section 13
+evidence
 **Sequencing**: co-evolution inside the decisions fixed here; a newly exposed
 material authority or lifecycle ambiguity returns to design before promotion
 
@@ -1137,7 +1141,7 @@ Implementation proceeds as one current-line evolution, not a donor merge:
 8. add data-driven installed traversal and fibre-substitution proofs;
 9. add live F_P only after RC5 B-001 transport behavior is re-adopted; and
 10. expose separate response, operation-scoped durable reopen, and continuation
-    ports as retained T-272 evidence for T-270's current S03 reconciliation,
+    ports as retained T-272 evidence for T-270's accepted S03 reconciliation,
     without moving One Surface authority into traversal infrastructure.
 
 Implementation may refine private function decomposition and TypeScript
@@ -1174,9 +1178,9 @@ This design delta is acceptable when review confirms:
 
 ## 12. S03 One Surface Governed Evidence Fold
 
-This bounded S03 delta retains T-272's completed evidence under T-270's current
-authority. It co-evolves the deferred One Surface boundary without changing
-the accepted authority split or adding a rival event family.
+This accepted S03 delta retains T-272's completed evidence under T-270's S03
+acceptance subject. It realizes the former deferred One Surface boundary
+without changing the accepted authority split or adding a rival event family.
 
 ### 12.0 Boundary Reconciliation
 
@@ -1686,7 +1690,7 @@ Operational lifecycle confirmation:
 
 | Phase | Surface and current posture | Owner and source truth |
 |---|---|---|
-| upstream authority | Product S03, applicable requirements, accepted M03, M05 Sections 1-11, and this provisional Section 12 | Product/requirement authority; T-270 owns the selected correction |
+| upstream authority | Product S03, applicable requirements, accepted M03, M05 Sections 1-11, and accepted Section 12 | Product/requirement authority; T-270 owned the accepted correction |
 | realization | TypeScript `src/product` private projection registry and narrow verifier, `src/abg`, `src/hog`, `src/public`, and exact external Product fixture | module design and code under T-270 |
 | assurance | `test:m5:s03-unit` is canonical module proof; external, M5, M4, Mermaid, and mutation lanes are downstream assurance | module owners; test results are evidence, not authority |
 | package/release | two clean package builds must be byte-identical; no 5.0 release claim yet | Product packaging law; M7/T-248 owns release |

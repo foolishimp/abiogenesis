@@ -14,7 +14,7 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M5 behavior exists through S06 portability stock; S03 and S05 closure are provisional; S06 remains open |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S03 accepted; S05 reconciliation current; S06 remains open and unselected |
 
 ## Current Basis
 
@@ -25,17 +25,20 @@ selection, ordered successor outcomes, and their acceptance conditions.
   `ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c`.
 - Direct F_H adoption is recorded in
   `.ai-workspace/comments/codex/20260725T060521Z_DECISION_adopt_stdo_2_2_for_abiogenesis_5.md`.
-- `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md` remains the accepted direct-GTL
-  architecture.
-- `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` Sections 1 through 11 remain
-  the accepted traversal-expansion basis. Sections 12 through 14 and their
-  realization are provisional until their active boundaries are reconciled
-  with the selected Design Module Method.
+- `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`, including its narrow
+  Product-owned leaf-verifier relation, is accepted at candidate `8865ccff`.
+- `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` Sections 1 through 12 are
+  accepted through ABG5-S03. Section 13 and later outcome sections remain
+  provisional until their selected boundaries are reconciled with the Design
+  Module Method.
 - Commit `bcd8769a8163a222e2e59400c904994b3de161fd` is preserved behavioral
-  stock. It is not by itself S03, S05, S06, conservation, qualification, or
-  release closure.
+  stock. Exact candidate
+  `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is the accepted S03 base. Neither
+  is by itself S05, S06, conservation, qualification, or release closure.
 - T-270 remains the M5 parent owner. Existing subordinate tickets retain their
   Product boundaries; no new ticket hierarchy is selected.
+- S03 acceptance and S05 selection are recorded in
+  `.ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md`.
 
 Mutable methodology candidates do not govern ABIogenesis until released and
 explicitly selected.
@@ -70,36 +73,40 @@ The supported path excludes:
 
 The one selected unresolved outcome is:
 
-> Reconcile and reclose `ABG5-S03` through the installed external Product path.
+> Reconcile and reclose `ABG5-S05` through the packed ordinary-path Consensus
+> Product.
 
-T-270 owns this reconciliation directly. Completed T-272 records retained S03
-behavior and prior closure evidence; it is historical input, not current
-execution authority.
+T-270 owns this reconciliation directly. Completed T-274, T-275, and T-276
+record retained Consensus implementation and proof evidence; they are not
+current execution authority.
 
 Acceptance requires:
 
-1. public read, respond, and continue consume explicit durable authority;
-2. process-local state cannot change continuation admissibility or meaning;
-3. an F_H response outside the Product-owned pending choice and exact basis is
-   a typed refusal;
-4. the `root_mode` and `until` relation is singular across requirement, design,
-   code, and installed proof;
-5. the S03 Ontology, atomic functions, Prime contraction, IACS, module
-   ownership, three semantic views, and axiom evaluation are reconciled at the
-   exact active boundary;
-6. existing One Surface, correction, re-entry, replay, and negative behavior
-   remains green; and
-7. no repair introduces a rival controller, runtime, or semantic authority.
+1. the canonical SYSTEM-owned Consensus GraphFunction enters through the
+   ordinary installed catalog, admitted Program, One Surface selection,
+   `run.invoke`, HoG, and ABG path;
+2. agreement, dispute recursion, and unresolved F_H escalation produce typed
+   result and replay truth across existing, alternate, and temporary
+   workspaces;
+3. Product owns Consensus domain meaning while GTL owns topology, HoG owns
+   traversal, ABG owns runtime truth, and Public remains a thin projection;
+4. the affected Consensus Ontology, atomic functions, Prime contraction,
+   IACS, module ownership, three semantic views, operational lifecycle, axiom
+   evaluation, and module proof are reconciled at the exact boundary;
+5. S03, the installed external Product, M4, package reproducibility, and every
+   causally applicable negative remain green; and
+6. no special Consensus command, runner, controller, scheduler, event family,
+   result store, continuation, or closure authority is introduced.
 
-S05, S06, observer/tuner, complete conservation, qualification, and release do
-not select implementation while this outcome remains unresolved.
+S06, observer/tuner, complete conservation, qualification, and release do not
+select implementation while this outcome remains unresolved.
 
 ## Ordered Delivery
 
 | Order | Existing owner | Product outcome | Acceptance boundary | State |
 |---:|---|---|---|---|
-| `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Current |
-| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | Consensus result and replay are exposed through ordinary `project.read`; escalation binds the exact replay-derived unresolved result; required schemas and vocabularies are public; bounded Consensus design and module proof agree with all three workspace outcomes. | Blocked by S03 |
+| `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
+| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | Consensus result and replay are exposed through ordinary `project.read`; escalation binds the exact replay-derived unresolved result; required schemas and vocabularies are public; bounded Consensus design and module proof agree with all three workspace outcomes. | Current |
 | `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Blocked by S05 |
 | `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Unselected until S06 closes |
 | `5` | `T-270` | Freeze one M5 candidate | All pre-qualification Product behavior and all 17 feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by prior outcomes |
@@ -108,8 +115,9 @@ not select implementation while this outcome remains unresolved.
 
 ## Design Reconciliation Boundary
 
-One `design_reframe` re-entry governs the affected S03, S05, and S06
-boundaries. Execution remains vertical and outcome-ordered.
+The existing `design_reframe` continues through the affected S05 and S06
+boundaries. Accepted S03 is their regression basis. Execution remains vertical
+and outcome-ordered.
 
 For each selected outcome:
 
@@ -171,7 +179,7 @@ reconciliation is a qualification gate, not the feature-development queue.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | S03, S05, S06, A5-F12/S04 readiness, all pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S03 is current |
+| `M5` | S03, S05, S06, A5-F12/S04 readiness, all pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S05 is current |
 | `M6` | Exact selected-method binding, S04, seven-scenario pre-RC qualification, and complete RC5 reconciliation accept one pre-RC candidate. | Blocked by M5 |
 | `M7` | Distinct RC, installed RC, final-tap, released Product, and post-publication install subjects produce stable `5.0.0`. | Blocked by M6 |
 
