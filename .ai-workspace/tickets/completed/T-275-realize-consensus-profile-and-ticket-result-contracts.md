@@ -1,7 +1,7 @@
 # T-275 - Realize Consensus Profiles And Ticket Result Projection
 
-> **Current disposition (2026-07-25):** `active_for_s05_semantics`.
-> T-275 owns the closed profile, panel, policy, finding, ruling, result, and
+> **Current disposition (2026-07-25):** `completed_at_7722806d`.
+> T-275 delivered the closed profile, panel, policy, finding, ruling, result, and
 > ticket-projection semantics used by the current direct-GTL Consensus path.
 > The historical X body below remains donor evidence only.
 
@@ -9,16 +9,16 @@
 - title: Realize attributed reviewer profiles and ticket-result projection
 - type: feature
 - ticket_category: implementation_migration
-- status: active
-- implementation_hold: released
+- status: completed
+- implementation_hold: completed
 - implementation_hold_ref: GOAL-035 ABG5-S05 and M05 Section 13
 - implementation_hold_effect: >-
     implement only Product-owned Consensus domain admission, reduction,
     attribution, result, and read-only ticket projection through existing GTL,
     HoG, ABG, replay, and public boundaries
-- phase_status: s05_semantics_active
-- review_status: s05_repriced
-- proof_status: s03_green_s05_open
+- phase_status: s05_complete
+- review_status: proxy_accepted
+- proof_status: s05_green
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: M5_frontier_4
 - change_intent: >-
@@ -92,6 +92,20 @@
     .ai-workspace/comments/codex/
     20260716T062342Z_DECISION_fh_accept_t274_reconciled_publication_design.md
 - accepted_t274_design_digest: 930c26a2fa5e144ebe0d0ba1aa639fd2aaf531b51e4b5921df434860718313e8
+
+## S05 Completion
+
+Implementation commit `7722806d9f0c385a0cb009cc3885389c7156f731`
+admits exact Consensus subject, attributed profiles, panel, policy, findings,
+round state, rulings, result, escalation decision, and read-only ticket
+projection semantics. F_P reviewer output remains candidate data until ABG
+evidence and result admission; deterministic reduction owns only declared
+agreement, dispute, budget, and envelope rules. No ticket mutation or
+Consensus-specific runtime path exists.
+
+The bounded proxy decision
+`20260725T013500Z_DECISION_proxy_accept_s05_and_advance_s06.md` accepts the
+exact candidate. T-275 is complete.
 - prime_migration_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T154835Z_SELF_REVIEW_t277_pc001_pc003_consensus_realization.md

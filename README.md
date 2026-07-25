@@ -12,11 +12,11 @@ successor to the immutable 4.6 RC5 Product origin.
 
 | Surface | State |
 |---|---|
-| current work owner | `T-270` M5 parent with repriced T-274, T-275, and T-276 active for S05 |
+| current work owner | `T-270` M5 parent with T-281 and T-268 active for S06 |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 `26/26`, M5 `107/107`; S02 and S03 complete through the independently packed external Product; One Surface, durable continuation, public re-entry/read/targeting, and governed correction outcomes are accepted through `ab7e57ed`; the implementation coverage projection records all forty rows proven with zero TODO; the retained live F_P receipt belongs to an earlier package; S05 Consensus is current |
+| implementation | M4 `26/26`, M5 `120/120`; S02, S03, and S05 complete through installed Product paths; One Surface, durable continuation, public re-entry/read/targeting, governed corrections, and ordinary-path Consensus are accepted through `7722806d`; the implementation coverage projection records all forty rows proven with zero TODO; S06 is current |
 | replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Sections 12 through 12.10 accepted at complete-design SHA-256 `4645b712...d10c1` |
-| delivery governor | `ABG5-S05`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, corrected S02, and S03 remain regressions |
+| delivery governor | `ABG5-S06`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, corrected S02, S03, and S05 remain regressions |
 | method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
 
 The source branch history and the semantic Product origin are distinct. The
@@ -113,8 +113,10 @@ bounded backward graph-span application, selects it through an ordinary
 C-call result, and converges after ABG admits the exact route; no ABIogenesis
 core switch selects that behavior. Product-owned governed correction outcomes
 preserve repair, runtime-archive inspection, reprice, and escalation meaning
-through ABG stop and replay truth. Current work executes Consensus through the
-same ordinary external Product seam.
+through ABG stop and replay truth. Ordinary and supervised Consensus now
+execute through the same ordinary external Product seam. Current work closes
+native and bounded host projection, observer/tuner, and independent downstream
+portability through that seam.
 Missing detail is added to T-270 or the active existing owner; it does not
 create a new ticket hierarchy.
 

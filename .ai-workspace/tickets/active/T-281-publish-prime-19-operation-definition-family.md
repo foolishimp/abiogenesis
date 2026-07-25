@@ -1,7 +1,7 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-24):** `ABI5-M5-EXT-001` complete at
-> `bc9ca26a`; held until the later S06 public and portability boundary. The
+> **Current disposition (2026-07-25):** `ABI5-M5-EXT-001` complete at
+> `bc9ca26a`; released for the current S06 public and portability boundary. The
 > operative scope is the current header and
 > `Current M5 Reprice` section. The retained 19-operation and X-era material is
 > historical donor evidence only; it does not define Product scope, operation
@@ -12,28 +12,29 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- implementation_hold: active_pending_s06
+- implementation_hold: released_for_s06
 - implementation_hold_ref: GOAL-035 current Product frontier and T-270 requirement reprice
 - implementation_hold_effect: >-
-    ABI5-M5-EXT-001 is complete; preserve its public extension seam and do not
-    expand T-281 until the T-270 sequence reaches S06
-- phase_status: m5_external_product_path_complete_s06_held
-- review_status: requirement_reprice_direct_fh_authorized
-- proof_status: independent_mini_product_installed_path_green
+    ABI5-M5-EXT-001 and S05 are complete; preserve the public extension seam
+    while closing only the native, bounded-host, and independent downstream
+    portability obligations of S06
+- phase_status: m5_s06_active
+- review_status: s06_design_intake
+- proof_status: independent_mini_product_green_s06_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
-- delivery_phase: M5_frontier_1
+- delivery_phase: M5_frontier_5
 - change_intent: >-
-    Remove ABIogenesis-owned product-specific publication and invocation
-    branching from the installed public seam so an independently packed GTL
-    Product supplies its own namespace, declarations, contracts, judgment,
-    and implementation without a core change.
+    Preserve the Product-neutral installed public seam while proving one native
+    SDK and CLI invocation, one bounded Codex projection over the same public
+    contract, and one independently flavored downstream catalog Product with
+    no copied runtime or core product-specific branch.
 - change_class: requirement_reprice
 - re_entry_point: >-
     specification/requirements/product/REQ-P-SCENARIOS.md
     REQ-P-SCENARIOS-009 and REQ-P-SCENARIOS-013
 - triaged_at: 2026-07-24
 - created_at: 2026-07-16
-- updated_at: 2026-07-24
+- updated_at: 2026-07-25
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-278
@@ -82,6 +83,32 @@ This checkpoint does not define a fixed operation roster, complete S06,
 authorize host projection, or resume any historical X implementation. After it
 is green, T-281 remains the existing owner for later S06 public and downstream
 portability work.
+
+## Current S06 Reprice
+
+S06 resumes this ticket only at its accepted public extension boundary:
+
+```text
+same installed public contract
+  -> native SDK invocation
+  -> native CLI invocation
+  -> bounded Codex CLI or skill delegation
+  -> independent flavored catalog Product
+  -> publish -> apply -> invoke
+  -> one HoG and ABG runtime path
+  -> replay-derived typed outcome
+```
+
+The Codex projection may translate transport and presentation only. It shall
+not copy a Program, select traversal, invoke a worker directly, emit an ABG
+event, construct a continuation, or decide closure. The flavored fixture owns
+its namespace, Module, Program, GraphFunction, contracts, judgment, declaration
+application, and implementation; ABIogenesis core shall require no fixture
+identifier or source-tree knowledge.
+
+Closure is the installed `ABG5-S06` scenario in `PRODUCT.md` and
+`REQ-P-SCENARIOS-013`, not a resurrected operation count or X-era publication
+plan. Observer/tuner realization remains T-268's sibling boundary.
 
 ## Independent Product Checkpoint
 

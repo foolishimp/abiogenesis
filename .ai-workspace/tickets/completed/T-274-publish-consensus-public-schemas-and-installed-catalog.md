@@ -1,7 +1,7 @@
 # T-274 - Publish Consensus Public Schemas And Installed Catalog
 
-> **Current disposition (2026-07-25):** `active_for_s05_publication`.
-> T-274 now owns one package-owned SYSTEM Consensus publication through the
+> **Current disposition (2026-07-25):** `completed_at_7722806d`.
+> T-274 delivered one package-owned SYSTEM Consensus publication through the
 > accepted Product-neutral catalog path. The historical X body below remains
 > donor evidence only; its schema count, operation count, private native join,
 > generated assets, and publication sequence are not current authority.
@@ -10,16 +10,16 @@
 - title: Publish Consensus public schemas and installed catalog assets
 - type: feature
 - ticket_category: implementation_migration
-- status: active
-- implementation_hold: released
+- status: completed
+- implementation_hold: completed
 - implementation_hold_ref: GOAL-035 ABG5-S05 and M05 Section 13
 - implementation_hold_effect: >-
     implement only one SYSTEM-owned Consensus publication through the existing
     direct-GTL Product path; no X runtime, generated schema programme, new
     operation, compiler, controller, or second catalog authority
-- phase_status: s05_publication_active
-- review_status: s05_repriced
-- proof_status: s03_green_s05_open
+- phase_status: s05_complete
+- review_status: proxy_accepted
+- proof_status: s05_green
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: M5_frontier_4
 - change_intent: >-
@@ -108,6 +108,21 @@
     20260717T020936Z_REVIEW_t274a_exact_implementation_closure.md
 - t274a_accepted_implementation_checkpoint: >-
     b05da32fc63d01eb135d47bfd8e4f724061859e3
+
+## S05 Completion
+
+Implementation commit `7722806d9f0c385a0cb009cc3885389c7156f731`
+publishes the SYSTEM-owned Consensus Module with ordinary and supervised
+Programs, one canonical GraphFunction, subordinate callable members, the
+closed installed contract family, implementation bindings, and
+Program-qualified catalog contributions. Raw and whole-Program validation,
+ordinary catalog admission, implementation resolution, installed invocation,
+and One Surface selection pass without generated schema machinery or a second
+catalog authority.
+
+The bounded proxy decision
+`20260725T013500Z_DECISION_proxy_accept_s05_and_advance_s06.md` accepts the
+exact candidate. T-274 is complete.
 - prime_migration_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T154835Z_SELF_REVIEW_t277_pc001_pc003_consensus_realization.md

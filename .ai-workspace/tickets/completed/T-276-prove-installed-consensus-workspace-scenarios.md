@@ -1,7 +1,7 @@
 # T-276 - Prove Installed Consensus Workspace Scenarios
 
-> **Current disposition (2026-07-25):** `active_for_s05_installed_proof`.
-> T-276 owns one source-blind installed driver for three outcome families over
+> **Current disposition (2026-07-25):** `completed_at_7722806d`.
+> T-276 delivered one source-blind installed driver for three outcome families over
 > three explicit workspace bindings. The historical X operation-count and
 > steel-thread sequence below remains donor evidence only.
 
@@ -9,16 +9,16 @@
 - title: Prove installed Consensus across three workspace applications
 - type: test
 - ticket_category: implementation_migration
-- status: active
-- implementation_hold: released
+- status: completed
+- implementation_hold: completed
 - implementation_hold_ref: GOAL-035 ABG5-S05 and M05 Section 13
 - implementation_hold_effect: >-
     prove only the packed ordinary-path Consensus Product through one driver;
     fixtures provide inputs and attributed worker output but own no panel,
     recursion, event, continuation, result, or closure behavior
-- phase_status: s05_installed_proof_active
-- review_status: s05_repriced
-- proof_status: s03_green_s05_open
+- phase_status: s05_complete
+- review_status: proxy_accepted
+- proof_status: s05_green
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: M5_frontier_4
 - change_intent: >-
@@ -71,6 +71,22 @@
 - current_frontier_checkpoint_ref: >-
     .ai-workspace/comments/codex/
     20260717T061159Z_CHECKPOINT_t276_governor_t281_registry_link.md
+
+## S05 Completion
+
+Implementation commit `7722806d9f0c385a0cb009cc3885389c7156f731`
+proves agreement, dispute-then-agreement, and unresolved F_H escalation in
+existing, alternate, and temporary workspaces through one packed installed
+driver. Two attributed profiles participate in every round. Separate installed
+CLI processes preserve unresolved hold, response, continuation, result, and
+replay truth. The same package also reaches the canonical callable through its
+Program-owned One Surface action.
+
+Consensus is `13/13`; complete M5 is `120/120`; M4 is `26/26`; the external
+Product remains `36/36`; and two package archives reproduce exact bytes. The
+bounded proxy decision
+`20260725T013500Z_DECISION_proxy_accept_s05_and_advance_s06.md` accepts the
+exact candidate. T-276 is complete.
 
 ## Boundary
 

@@ -1,71 +1,88 @@
-# T-268 - Publish ABG 5 Tenant-Conformance Manifest Consensus Coverage
+# T-268 - Realize Replay-Grounded Observer And Tuner
 
-> **T-284 current disposition (2026-07-20):** `held_pending_X_vector`.
-> Every acceptance, phase, dependency, count, design, and delivery statement
-> below records the prior X-path basis only. It does not authorize current
-> implementation, define 5.0 Product scope, or project Product progress. The
-> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
-> close this ticket in place.
+> **Current disposition (2026-07-25):** repriced in place for the current S06
+> observer/tuner realization and final M5 feature/capability read model. The
+> historical tenant-manifest and X-path body below remains donor evidence only.
+> It does not define Product scope, capability count, design authority,
+> implementation order, or closure.
 
 - id: T-268
-- title: Publish ABG 5 tenant-conformance manifest Consensus coverage
+- title: Realize replay-grounded observer and tuner
 - type: feature
-- ticket_category: ordinary
+- ticket_category: implementation_migration
 - status: active
-- implementation_hold: active
-- implementation_hold_ref: T-284 correction vector and M3 design gate
-- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: held_pending_t284_vector_and_m3_design
-- review_status: prior_basis_review_only_invalidated_for_implementation
-- proof_status: historical_evidence_only
+- implementation_hold: released_for_s06
+- implementation_hold_ref: GOAL-035 current S06 frontier and T-270
+- implementation_hold_effect: >-
+    realize only replay-grounded observer/tuner behavior and its public read
+    model; no direct authority mutation, second truth store, or X-era manifest
+    roster
+- phase_status: m5_s06_active
+- review_status: s06_design_intake
+- proof_status: pending_replay_grounded_observer_tuner
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
-    Publish exact canonical ABG 5 capability coverage only after the selected
-    Consensus program, traversal contract, public router, and F_H continuation
-    path conserve the same admitted truth.
-- delivery_phase: unassigned_pending_x_vector
+    Realize observer and tuner as declared Product content over ABG replay:
+    observer emits attributed diagnostic truth; tuner emits attributed
+    declaration drafts; ratification or rejection crosses ordinary policy or
+    F_H authority and neither path mutates live authority directly.
+- delivery_phase: M5_frontier_5
 - change_class: design_reframe
 - re_entry_point: >-
-    build_tenants/abiogenesis/typescript/design canonical tenant-conformance
-    manifest publication boundary
-- triaged_at: 2026-07-14
+    build_tenants/abiogenesis/typescript/design/
+    M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md S06 delta
+- triaged_at: 2026-07-25
 - created_at: 2026-07-13
-- updated_at: 2026-07-14
+- updated_at: 2026-07-25
 - owner: abiogenesis
 - build_tenant: typescript
 - priority: critical
 - source_ticket: T-252
 - dependencies:
-  - completed T-255 canonical-manifest admission and capability-coverage contract
-  - completed T-252 topology and exhaustive census repair
-  - completed T-262 parent-rebind repair
-  - completed T-267 declared-program conservation repair
-  - T-270 public catalog/start integration
-  - T-271 complete C-program interpretation
-  - T-272 F_H lifecycle integration
-  - T-274 Consensus public schemas and installed catalog publication
-  - T-275 attributed reviewer profiles and ticket-result projection
+  - T-270 M5 parent and installed public path
+  - completed T-272 F_H lifecycle integration
+  - completed T-274 Consensus publication
+  - completed T-275 attributed profiles and projection
+  - completed T-276 installed Consensus scenario
 - authority_refs:
-  - specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md
+  - specification/PRODUCT.md A5-F12
+  - specification/PRODUCT.md ABG5-S04
+  - specification/requirements/abg/REQ-R-ABG3-TUNER.md
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md
-  - specification/GOALS.md DS-4
-- design_input_ref: build_tenants/abiogenesis/typescript/design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md
-- prime_contraction_refs:
-  - PC-006
-- governing_prime_design_ref: >-
-    build_tenants/abiogenesis/typescript/design/adrs/
-    ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
-- design_ref: >-
+  - specification/requirements/product/REQ-P-SCENARIOS.md
+- design_input_ref: >-
     build_tenants/abiogenesis/typescript/design/
-    M02_M04_CAPABILITY_DECLARATION_GRAPH_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md
-- design_acceptance_ref: >-
-    .ai-workspace/comments/codex/
-    20260714T154500Z_DECISION_fh_authorize_remaining_t277_refactor.md
-- prime_design_self_review_ref: >-
-    .ai-workspace/comments/codex/
-    20260714T160900Z_SELF_REVIEW_t277_pc006_capability_disposition.md
+    M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md Section 14 pending
 
-## Boundary
+## Current S06 Reprice
+
+T-268 is subordinate to T-270 and owns one bounded realization boundary:
+
+```text
+ABG replay truth
+  -> observer attributed diagnostic projection
+  -> tuner replay-derived signal projection
+  -> attributed declaration draft
+  -> ordinary policy or F_H ratify | reject
+  -> replay-visible disposition
+```
+
+The observer and tuner are Product content using the same admitted GTL, HoG,
+ABG, catalog, SDK, and CLI path as other Products. The observer may diagnose
+and attribute; the tuner may propose. Neither may mutate specification,
+configuration, tickets, declarations, or runtime truth directly. `project.read`
+owns read-only observer and tuning reports; `tuning.transition` owns proposal,
+ratification, and rejection. An accepted draft re-enters later as ordinary
+governed work rather than changing live authority inside the tuner run.
+
+M5 must realize enough of this boundary to make S04 runnable against one exact
+candidate: truthful halt classification, replay-grounded attributed findings
+and drafts, ratification and rejection, replay-visible acts, and one injected
+negative. M6 owns exact-candidate qualification and the final S04 verdict. A
+manifest or capability roster is a derived read model and cannot substitute
+for the installed behavior.
+
+## Historical X Evidence
 
 Publish the ABG 5.0 `abg.schema.tenant-conformance-manifest` with exact
 Consensus coverage required by DS-4. This extends one canonical engine/build-
