@@ -50,11 +50,16 @@ export {
 export { installProduct, installedProductContentMatches } from "./install_product.js";
 export { verifyProduct } from "./verify_product.js";
 export {
+  catalogApplicationContentDigest,
   constructCatalogAdmissionCandidate,
+  constructCatalogApplicationCandidate,
   constructCatalogViewCandidate,
   type AdmittedCatalog,
   type CatalogAdmissionCandidate,
   type CatalogAdmissionCandidateResult,
+  type CatalogApplication,
+  type CatalogApplicationCandidate,
+  type CatalogApplicationCandidateResult,
   type CatalogConstructionRefusal,
   type CatalogRowCandidate,
   type CatalogRowDisposition,
@@ -95,6 +100,7 @@ export {
 } from "./implementation_resolution.js";
 export {
   RootOperationState,
+  type CatalogApplicationOperationState,
   type CatalogOperationState,
   type CatalogViewOperationState,
   type InstallOperationState,

@@ -710,6 +710,80 @@ async function applyCatalogView(
   });
 }
 
+async function applyCatalogApplication(
+  context: RootOperationContext,
+  invocation: RootPublicInvocation,
+): Promise<PublicOutcome> {
+  if (invocation.variant !== "declaration") {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "catalog.apply requires variant declaration",
+    );
+  }
+  requireExactPayloadKeys(invocation.payload, [
+    "catalogViewInvocationRef",
+    "handle",
+  ], "catalog.apply");
+  const viewInvocationRef = stringField(
+    invocation.payload,
+    "catalogViewInvocationRef",
+  );
+  const viewState = required(
+    context.productState.catalogView(viewInvocationRef),
+    viewInvocationRef,
+    "CatalogView",
+  );
+  const candidate = product.constructCatalogApplicationCandidate(
+    viewState.view,
+    stringField(invocation.payload, "handle"),
+  );
+  if (candidate.kind !== "catalog_application_candidate") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `Catalog application construction refused: ${candidate.message}`,
+    );
+  }
+  const application = abg.admitCatalogApplication(
+    context.store,
+    viewState.view,
+    candidate,
+    operationBasis(
+      invocation,
+      viewState.view.viewId,
+      viewState.view.viewDigest,
+      [viewState.view.admissionEventRef],
+    ),
+  );
+  if (application.kind !== "catalog_application") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `Catalog application admission refused: ${application.message}`,
+    );
+  }
+  context.productState.rememberCatalogApplication(invocation.invocationRef, {
+    viewState,
+    application,
+  });
+  return successOutcome(invocation, {
+    kind: application.kind,
+    applicationId: application.applicationId,
+    applicationDigest: application.applicationDigest,
+    catalogId: application.catalogId,
+    viewId: application.viewId,
+    rowHandle: application.rowHandle,
+    rowDigest: application.rowDigest,
+    contributionKind: application.contributionKind,
+    declarationOrContractRef: application.declarationOrContractRef,
+    owningProductId: application.owningProductId,
+    moduleRef: application.moduleRef,
+    programMembershipRefs: application.programMembershipRefs,
+    compatibilityDisposition: application.compatibilityDisposition,
+    compatibilityRefs: application.compatibilityRefs,
+    provenanceRefs: application.provenanceRefs,
+    admissionEventRef: application.admissionEventRef,
+  });
+}
+
 async function applyRunInvoke(
   context: RootOperationContext,
   invocation: RootPublicInvocation,
@@ -2655,6 +2729,8 @@ export async function applyRootPublicInvocation(
         return await applyWorkspaceBind(context, invocation);
       case "abg.operation.catalog.admit":
         return await applyCatalogAdmit(context, invocation);
+      case "abg.operation.catalog.apply":
+        return await applyCatalogApplication(context, invocation);
       case "abg.operation.catalog.view":
         return await applyCatalogView(context, invocation);
       case "abg.operation.project.read":

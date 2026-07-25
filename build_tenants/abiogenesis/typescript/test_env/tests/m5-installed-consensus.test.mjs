@@ -111,7 +111,7 @@ async function consensusBasis(harness, label, roundBudget) {
     resolve(
       packageRoot,
       "../../..",
-      ".ai-workspace/tickets/active/T-276-prove-installed-consensus-workspace-scenarios.md",
+      ".ai-workspace/tickets/completed/T-276-prove-installed-consensus-workspace-scenarios.md",
     ),
   );
   const ticketDigest = digest(ticketBytes);

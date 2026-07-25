@@ -90,6 +90,7 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     candidateBasis,
     cliHost,
     cliPath: join(cliHost, "node_modules/.bin/abg.cli"),
+    codexPath: join(cliHost, "node_modules/.bin/abg.codex"),
     rootPublication,
   };
 }
@@ -204,6 +205,37 @@ export function runInstalledCli(harness, scenario, options = {}) {
     execFile(
       harness.cliPath,
       ["--jsonl", scenario.transcriptPath],
+      {
+        cwd: harness.cliHost,
+        env: { ...process.env, ...options.environment, NODE_OPTIONS: "" },
+        encoding: "utf8",
+        maxBuffer: 20 * 1024 * 1024,
+      },
+      (error, stdout, stderr) => {
+        const outcomes = stdout.trim().length === 0
+          ? []
+          : stdout.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+        resolveRun({
+          exitCode: error === null ? 0 : Number(error.code ?? 1),
+          stdout,
+          stderr,
+          outcomes,
+        });
+      },
+    );
+  });
+}
+
+export function runInstalledCodex(harness, scenario, options = {}) {
+  return new Promise((resolveRun) => {
+    execFile(
+      harness.codexPath,
+      [
+        "--cli",
+        harness.cliPath,
+        "--jsonl",
+        scenario.transcriptPath,
+      ],
       {
         cwd: harness.cliHost,
         env: { ...process.env, ...options.environment, NODE_OPTIONS: "" },

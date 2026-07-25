@@ -1,0 +1,17 @@
+{
+  "name": "@abiogenesis-fixtures/flavored-catalog-product",
+  "version": "5.0.0",
+  "description": "Independent flavored GTL catalog Product fixture",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    }
+  },
+  "files": [
+    "build/**",
+    "contracts/**",
+    "product-toolchain-manifest.json"
+  ]
+}

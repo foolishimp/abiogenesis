@@ -8,7 +8,8 @@
     "node": ">=20"
   },
   "bin": {
-    "abg.cli": "./build/code/src/public/cli.js"
+    "abg.cli": "./build/code/src/public/cli.js",
+    "abg.codex": "./build/code/src/public/codex_cli.js"
   },
   "exports": {
     ".": {
@@ -76,8 +77,9 @@
     "test:m5:fibre": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-fibre-substitution.test.mjs",
     "test:m5:external": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-external-product.test.mjs",
     "test:m5:consensus": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-consensus.test.mjs",
+    "test:m5:portability": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-portability.test.mjs",
     "test:m5:conservation": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/m5-traversal-conservation.test.mjs",
-    "test:m5": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/m5-direct-hog-fold.test.mjs test_env/tests/m5-installed-compose.test.mjs test_env/tests/m5-installed-graph-edge.test.mjs test_env/tests/m5-installed-substitute.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/m5-installed-fp.test.mjs test_env/tests/m5-installed-workflow.test.mjs test_env/tests/m5-installed-retry.test.mjs test_env/tests/m5-installed-gate.test.mjs test_env/tests/m5-installed-recursion.test.mjs test_env/tests/m5-installed-fan-out.test.mjs test_env/tests/m5-event-store-reopen.test.mjs test_env/tests/m5-fibre-substitution.test.mjs test_env/tests/m5-installed-fp-fd-compose.test.mjs test_env/tests/m5-installed-external-product.test.mjs test_env/tests/m5-installed-consensus.test.mjs"
+    "test:m5": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/m5-direct-hog-fold.test.mjs test_env/tests/m5-installed-compose.test.mjs test_env/tests/m5-installed-graph-edge.test.mjs test_env/tests/m5-installed-substitute.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/m5-installed-fp.test.mjs test_env/tests/m5-installed-workflow.test.mjs test_env/tests/m5-installed-retry.test.mjs test_env/tests/m5-installed-gate.test.mjs test_env/tests/m5-installed-recursion.test.mjs test_env/tests/m5-installed-fan-out.test.mjs test_env/tests/m5-event-store-reopen.test.mjs test_env/tests/m5-fibre-substitution.test.mjs test_env/tests/m5-installed-fp-fd-compose.test.mjs test_env/tests/m5-installed-external-product.test.mjs test_env/tests/m5-installed-consensus.test.mjs test_env/tests/m5-installed-portability.test.mjs"
   },
   "devDependencies": {
     "@types/node": "24.3.0",

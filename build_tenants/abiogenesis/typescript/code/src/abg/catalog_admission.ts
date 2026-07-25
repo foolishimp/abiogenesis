@@ -1,4 +1,6 @@
 import {
+  type CatalogApplication,
+  type CatalogApplicationCandidate,
   type AdmittedCatalog,
   type CatalogAdmissionCandidate,
   type CatalogRowDisposition,
@@ -6,7 +8,9 @@ import {
   type CatalogViewCandidate,
 } from "../product/index.js";
 import {
+  catalogApplicationContentDigest,
   catalogViewContentDigest,
+  isCatalogApplicationCandidate,
   isCatalogAdmissionCandidate,
   isCatalogViewCandidate,
 } from "../product/catalog.js";
@@ -26,6 +30,10 @@ export interface CatalogAdmissionRefusal {
 
 export type CatalogAdmissionResult = AdmittedCatalog | CatalogAdmissionRefusal | AbgAdmissionRefusal;
 export type CatalogViewAdmissionResult = CatalogView | CatalogAdmissionRefusal | AbgAdmissionRefusal;
+export type CatalogApplicationAdmissionResult =
+  | CatalogApplication
+  | CatalogAdmissionRefusal
+  | AbgAdmissionRefusal;
 
 function refusal(
   code: CatalogAdmissionRefusal["code"],
@@ -63,6 +71,18 @@ function viewCandidateBody(candidate: CatalogViewCandidate): JsonValue {
     disposition: _disposition,
     viewCandidateId: _viewCandidateId,
     viewCandidateDigest: _viewCandidateDigest,
+    ...body
+  } = candidate;
+  return body as unknown as JsonValue;
+}
+
+function applicationCandidateBody(candidate: CatalogApplicationCandidate): JsonValue {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    applicationCandidateId: _applicationCandidateId,
+    applicationCandidateDigest: _applicationCandidateDigest,
     ...body
   } = candidate;
   return body as unknown as JsonValue;
@@ -189,6 +209,75 @@ export function narrowCatalogView(
   }) as CatalogView;
 }
 
+export function admitCatalogApplication(
+  store: AbgEventStore,
+  view: CatalogView,
+  candidate: CatalogApplicationCandidate,
+  basis: ArtifactAdmissionBasis,
+): CatalogApplicationAdmissionResult {
+  if (!isCatalogApplicationCandidate(candidate)) {
+    return refusal(
+      "candidate_not_constructed",
+      "catalog application candidate was not constructed by the Product boundary",
+    );
+  }
+  if (
+    sha256Canonical(applicationCandidateBody(candidate)) !==
+    candidate.applicationCandidateDigest
+  ) {
+    return refusal(
+      "candidate_digest_mismatch",
+      "catalog application candidate content differs from its digest",
+    );
+  }
+  const row = view.selectedRows.find(
+    (candidateRow) => candidateRow.handle === candidate.rowHandle,
+  );
+  if (
+    !hasAdmittedCatalogView(store, view) ||
+    candidate.catalogId !== view.catalogId ||
+    candidate.catalogDigest !== view.catalogDigest ||
+    candidate.viewId !== view.viewId ||
+    candidate.viewDigest !== view.viewDigest ||
+    row === undefined ||
+    row.rowDigest !== candidate.rowDigest ||
+    row.kind !== candidate.contributionKind ||
+    basis.authorityScopeRef !== view.viewId ||
+    basis.authorityScopeDigest !== view.viewDigest
+  ) {
+    return refusal(
+      "scope_mismatch",
+      "catalog application admission scope or selected declaration differs from the admitted view",
+    );
+  }
+  const admissionEventRef = admitArtifact(
+    store,
+    basis,
+    "abg.operation.catalog.apply",
+    candidate.applicationCandidateId,
+    candidate.applicationCandidateDigest,
+  );
+  if (typeof admissionEventRef !== "string") return admissionEventRef;
+  const {
+    kind: _kind,
+    disposition: _disposition,
+    applicationCandidateId,
+    applicationCandidateDigest,
+    ...body
+  } = candidate;
+  return deepFreeze({
+    kind: "catalog_application",
+    disposition: "admitted",
+    ...body,
+    applicationId: `catalog-application://abiogenesis/${
+      applicationCandidateDigest.slice("sha256:".length)
+    }`,
+    applicationDigest: applicationCandidateDigest,
+    admissionCandidateRef: applicationCandidateId,
+    admissionEventRef,
+  }) as CatalogApplication;
+}
+
 export function hasAdmittedCatalog(
   store: AbgEventStore,
   catalog: AdmittedCatalog,
@@ -257,5 +346,43 @@ export function hasAdmittedCatalogView(
     payload.artifactRef === view.admissionCandidateRef &&
     payload.artifactDigest === view.viewDigest &&
     catalogCauseIsAdmitted
+  );
+}
+
+export function hasAdmittedCatalogApplication(
+  store: AbgEventStore,
+  application: CatalogApplication,
+): boolean {
+  const event = store.readAll().find(
+    (candidate) => candidate.eventId === application.admissionEventRef,
+  );
+  const payload = event?.payload;
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    applicationId: _applicationId,
+    applicationDigest: _applicationDigest,
+    admissionCandidateRef: _admissionCandidateRef,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = application;
+  const viewCauseIsAdmitted = event?.causationEventRefs.some((eventRef) => {
+    const cause = store.readAll().find((candidate) => candidate.eventId === eventRef);
+    return (
+      cause?.kind === "public_operation_artifact_admitted" &&
+      isJsonRecord(cause.payload) &&
+      cause.payload.operationId === "abg.operation.catalog.view" &&
+      cause.payload.artifactDigest === application.viewDigest
+    );
+  }) === true;
+  return (
+    catalogApplicationContentDigest(body) === application.applicationDigest &&
+    event?.kind === "public_operation_artifact_admitted" &&
+    isJsonRecord(payload) &&
+    payload.operationId === "abg.operation.catalog.apply" &&
+    payload.artifactRef === application.admissionCandidateRef &&
+    payload.artifactDigest === application.applicationDigest &&
+    viewCauseIsAdmitted
   );
 }

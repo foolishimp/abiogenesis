@@ -13,6 +13,7 @@ export type PublicOperationId =
   | "abg.operation.product.install"
   | "abg.operation.workspace.bind"
   | "abg.operation.catalog.admit"
+  | "abg.operation.catalog.apply"
   | "abg.operation.catalog.view"
   | "abg.operation.interaction.respond"
   | "abg.operation.project.read"

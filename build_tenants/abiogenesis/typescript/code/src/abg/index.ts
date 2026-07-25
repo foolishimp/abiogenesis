@@ -22,10 +22,13 @@ export {
   type PublicOperationId,
 } from "./environment_admission.js";
 export {
+  admitCatalogApplication,
   admitCatalog,
   hasAdmittedCatalog,
+  hasAdmittedCatalogApplication,
   hasAdmittedCatalogView,
   narrowCatalogView,
+  type CatalogApplicationAdmissionResult,
   type CatalogAdmissionRefusal,
   type CatalogAdmissionResult,
   type CatalogViewAdmissionResult,

@@ -3,7 +3,11 @@ import type {
   ProgramValidation,
   PublicationValidation,
 } from "../validator/validation.js";
-import type { AdmittedCatalog, CatalogView } from "./catalog.js";
+import type {
+  AdmittedCatalog,
+  CatalogApplication,
+  CatalogView,
+} from "./catalog.js";
 import type { VerifiedProductArtifact } from "./contracts.js";
 import type {
   ProductInstall,
@@ -40,6 +44,11 @@ export interface CatalogViewOperationState {
   readonly view: CatalogView;
 }
 
+export interface CatalogApplicationOperationState {
+  readonly viewState: CatalogViewOperationState;
+  readonly application: CatalogApplication;
+}
+
 /** Product-owned carrier registry for one explicit public-operation transcript. */
 export class RootOperationState {
   readonly #seenInvocations = new Set<string>();
@@ -48,6 +57,8 @@ export class RootOperationState {
   readonly #workspaces = new Map<string, WorkspaceOperationState>();
   readonly #catalogs = new Map<string, CatalogOperationState>();
   readonly #catalogViews = new Map<string, CatalogViewOperationState>();
+  readonly #catalogApplications =
+    new Map<string, CatalogApplicationOperationState>();
 
   claimInvocation(invocationRef: string): boolean {
     if (this.#seenInvocations.has(invocationRef)) return false;
@@ -93,5 +104,18 @@ export class RootOperationState {
 
   catalogView(invocationRef: string): CatalogViewOperationState | null {
     return this.#catalogViews.get(invocationRef) ?? null;
+  }
+
+  rememberCatalogApplication(
+    invocationRef: string,
+    value: CatalogApplicationOperationState,
+  ): void {
+    this.#catalogApplications.set(invocationRef, value);
+  }
+
+  catalogApplication(
+    invocationRef: string,
+  ): CatalogApplicationOperationState | null {
+    return this.#catalogApplications.get(invocationRef) ?? null;
   }
 }

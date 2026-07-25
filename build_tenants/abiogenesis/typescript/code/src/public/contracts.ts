@@ -5,6 +5,7 @@ export const ROOT_PUBLIC_OPERATION_IDS = [
   "abg.operation.product.install",
   "abg.operation.workspace.bind",
   "abg.operation.catalog.admit",
+  "abg.operation.catalog.apply",
   "abg.operation.catalog.view",
   "abg.operation.project.read",
   "abg.operation.interaction.respond",
