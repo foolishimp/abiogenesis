@@ -1,3 +1,4 @@
+import type { ProductSemanticsBinding } from "../gtl/index.js";
 import {
   type CatalogApplication,
   type CatalogApplicationCandidate,
@@ -6,6 +7,7 @@ import {
   type CatalogRowDisposition,
   type CatalogView,
   type CatalogViewCandidate,
+  type ProductInstall,
 } from "../product/index.js";
 import {
   catalogApplicationContentDigest,
@@ -15,9 +17,14 @@ import {
   isCatalogViewCandidate,
 } from "../product/catalog.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { admitArtifact, type AbgAdmissionRefusal, type ArtifactAdmissionBasis } from "./environment_admission.js";
+import {
+  admitArtifact,
+  hasAdmittedProductInstall,
+  type AbgAdmissionRefusal,
+  type ArtifactAdmissionBasis,
+} from "./environment_admission.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 
 export interface CatalogAdmissionRefusal {
@@ -34,6 +41,20 @@ export type CatalogApplicationAdmissionResult =
   | CatalogApplication
   | CatalogAdmissionRefusal
   | AbgAdmissionRefusal;
+
+export interface AdmittedProductSemanticsBasis {
+  readonly install: ProductInstall;
+  readonly workspaceBindingId: string;
+  readonly workspaceBindingDigest: Sha256Digest;
+  readonly catalogId: string;
+  readonly catalogDigest: Sha256Digest;
+  readonly catalogAdmissionEventRef: string;
+  readonly catalogViewId: string;
+  readonly catalogViewDigest: Sha256Digest;
+  readonly catalogViewAdmissionEventRef: string;
+  readonly publicationDigest: Sha256Digest;
+  readonly productSemanticsBinding: Readonly<ProductSemanticsBinding>;
+}
 
 function refusal(
   code: CatalogAdmissionRefusal["code"],
@@ -88,6 +109,18 @@ function applicationCandidateBody(candidate: CatalogApplicationCandidate): JsonV
   return body as unknown as JsonValue;
 }
 
+function productSemanticsBasisDigest(
+  basis: Readonly<{
+    readonly owningProductId: string;
+    readonly artifactDigest: string;
+    readonly productContentDigest: string;
+    readonly productManifestDigest: string;
+    readonly productSemanticsBinding: Readonly<ProductSemanticsBinding>;
+  }>,
+) {
+  return sha256Canonical(basis as unknown as JsonValue);
+}
+
 export function admitCatalog(
   store: AbgEventStore,
   candidate: CatalogAdmissionCandidate,
@@ -111,6 +144,18 @@ export function admitCatalog(
     "abg.operation.catalog.admit",
     candidate.candidateId,
     candidate.candidateDigest,
+    {
+      publicationDigest: candidate.publicationDigest,
+      productSemanticsBasisDigest: productSemanticsBasisDigest({
+        owningProductId: candidate.modulePublication.owningProductId,
+        artifactDigest: candidate.modulePublication.artifactDigest,
+        productContentDigest: candidate.modulePublication.productContentDigest,
+        productManifestDigest:
+          candidate.modulePublication.productManifestDigest,
+        productSemanticsBinding:
+          candidate.modulePublication.productSemanticsBinding,
+      }),
+    },
   );
   if (typeof admissionEventRef !== "string") return admissionEventRef;
 
@@ -346,6 +391,56 @@ export function hasAdmittedCatalogView(
     payload.artifactRef === view.admissionCandidateRef &&
     payload.artifactDigest === view.viewDigest &&
     catalogCauseIsAdmitted
+  );
+}
+
+export function hasAdmittedProductSemanticsBasis(
+  store: AbgEventStore,
+  basis: AdmittedProductSemanticsBasis,
+): boolean {
+  const catalogEvent = store.readAll().find(
+    (event) => event.eventId === basis.catalogAdmissionEventRef,
+  );
+  const catalogPayload = catalogEvent?.payload;
+  const viewEvent = store.readAll().find(
+    (event) => event.eventId === basis.catalogViewAdmissionEventRef,
+  );
+  const viewPayload = viewEvent?.payload;
+  const expectedCatalogId =
+    `catalog://abiogenesis/${basis.catalogDigest.slice("sha256:".length)}`;
+  const expectedViewId =
+    `catalog-view://abiogenesis/${basis.catalogViewDigest.slice("sha256:".length)}`;
+  const expectedProductSemanticsBasisDigest = productSemanticsBasisDigest({
+    owningProductId: basis.install.productId,
+    artifactDigest: basis.install.artifactDigest,
+    productContentDigest: basis.install.productContentDigest,
+    productManifestDigest: basis.install.manifestDigest,
+    productSemanticsBinding: basis.productSemanticsBinding,
+  });
+  return (
+    hasAdmittedProductInstall(store, basis.install) &&
+    basis.catalogId === expectedCatalogId &&
+    basis.catalogViewId === expectedViewId &&
+    basis.install.packageName ===
+      basis.productSemanticsBinding.packageName &&
+    basis.install.packageVersion ===
+      basis.productSemanticsBinding.packageVersion &&
+    catalogEvent?.kind === "public_operation_artifact_admitted" &&
+    isJsonRecord(catalogPayload) &&
+    catalogPayload.operationId === "abg.operation.catalog.admit" &&
+    catalogPayload.authorityScopeRef === basis.workspaceBindingId &&
+    catalogPayload.authorityScopeDigest === basis.workspaceBindingDigest &&
+    catalogPayload.artifactDigest === basis.catalogDigest &&
+    catalogPayload.publicationDigest === basis.publicationDigest &&
+    catalogPayload.productSemanticsBasisDigest ===
+      expectedProductSemanticsBasisDigest &&
+    viewEvent?.kind === "public_operation_artifact_admitted" &&
+    isJsonRecord(viewPayload) &&
+    viewPayload.operationId === "abg.operation.catalog.view" &&
+    viewPayload.authorityScopeRef === basis.catalogId &&
+    viewPayload.authorityScopeDigest === basis.catalogDigest &&
+    viewPayload.artifactDigest === basis.catalogViewDigest &&
+    viewEvent.causationEventRefs.includes(basis.catalogAdmissionEventRef)
   );
 }
 

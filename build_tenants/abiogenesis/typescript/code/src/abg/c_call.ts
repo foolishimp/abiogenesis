@@ -712,6 +712,7 @@ export function deriveProbabilisticTransportEvidence(
   cCall: CCall,
   observation: ActorProcessObservation,
   resultCandidate: JsonValue,
+  expectedInstructionContractRef: string,
 ): ProbabilisticTransportEvidenceCandidate {
   if (
     !isActorProcessObservation(observation) ||
@@ -719,7 +720,8 @@ export function deriveProbabilisticTransportEvidence(
     cCall.implementationRef === null ||
     observation.implementationRef !== cCall.implementationRef ||
     observation.inputDigest.length === 0 ||
-    observation.instructionContractRef !== cCall.inputContractRef ||
+    expectedInstructionContractRef.length === 0 ||
+    observation.instructionContractRef !== expectedInstructionContractRef ||
     observation.resultContractRef !== cCall.outputContractRef
   ) {
     throw new TypeError("probabilistic evidence requires one authentic ABG actor observation");
@@ -2159,6 +2161,7 @@ export function admitEvidence(
   contractRef: string,
   expectedInputDigest: Sha256Digest,
   basis: RuntimeAdmissionBasis,
+  expectedInstructionContractRef: string = cCall.inputContractRef,
 ): CCallEvidenceAdmissionResult {
   const candidateValue = candidate as unknown as JsonValue;
   const digestPattern = /^sha256:[a-f0-9]{64}$/u;
@@ -2182,7 +2185,7 @@ export function admitEvidence(
     typeof candidate.transportBindingDigest === "string" && digestPattern.test(candidate.transportBindingDigest) &&
     typeof candidate.materializationPlanRef === "string" && candidate.materializationPlanRef.length > 0 &&
     typeof candidate.rendererRef === "string" && candidate.rendererRef.length > 0 &&
-    candidate.instructionContractRef === cCall.inputContractRef &&
+    candidate.instructionContractRef === expectedInstructionContractRef &&
     candidate.resultContractRef === cCall.outputContractRef &&
     typeof candidate.observedOutputDigest === "string" &&
     digestPattern.test(candidate.observedOutputDigest) &&

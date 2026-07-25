@@ -111,7 +111,64 @@ const publicNativeInventory = [
   },
 ];
 
+const consensusContractRows = [
+  ["abg.schema.consensus-subject", "isConsensusSubject"],
+  ["abg.schema.consensus-panel", "isConsensusPanel"],
+  ["abg.schema.consensus-reviewer-profile", "isConsensusReviewerProfile"],
+  ["abg.schema.review-findings", "isReviewFindings"],
+  ["abg.schema.review-rulings", "isReviewRulings"],
+  ["abg.schema.consensus-round-policy", "isConsensusRoundPolicy"],
+  ["abg.schema.consensus-round-outcome", "isConsensusRoundOutcome"],
+  ["abg.schema.consensus-result", "isConsensusResult"],
+  ["abg.schema.ticket-consensus-projection", "isTicketConsensusProjection"],
+].map(([contractId, namedSymbol]) => ({
+  contractId,
+  contractVersion: "5.0.0",
+  contractDigest: sha256Canonical(gtlNativeInventory),
+  contractKind: "native_typed_group",
+  owningProduct: productId,
+  requirementAuthorityRefs: [
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-004",
+  ],
+  capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
+  nativeTypedLocator: {
+    packageName: packageJson.name,
+    packageExportPath: "./gtl",
+    namedSymbol,
+    declarationPath: gtlDeclarationPath,
+  },
+}));
+
+const consensusVocabularyRows = [
+  [
+    "abg.vocabulary.review-ruling-kind",
+    "REVIEW_RULING_KIND_VALUES",
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-007",
+  ],
+  [
+    "abg.vocabulary.consensus-round-outcome",
+    "CONSENSUS_ROUND_OUTCOME_VALUES",
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-008",
+  ],
+].map(([contractId, namedSymbol, requirementAuthorityRef]) => ({
+  contractId,
+  contractVersion: "5.0.0",
+  contractDigest: sha256Canonical(gtlNativeInventory),
+  contractKind: "native_typed_group",
+  owningProduct: productId,
+  requirementAuthorityRefs: [requirementAuthorityRef],
+  capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
+  nativeTypedLocator: {
+    packageName: packageJson.name,
+    packageExportPath: "./gtl",
+    namedSymbol,
+    declarationPath: gtlDeclarationPath,
+  },
+}));
+
 const rows = [
+  ...consensusContractRows,
+  ...consensusVocabularyRows,
   {
     contractId: "abg.contract.public.root-invocation",
     contractVersion: "5.0.0",

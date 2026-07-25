@@ -53,6 +53,8 @@ export {
   evaluateInstalledInteractionResponse,
   loadInstalledProductSemantics,
   projectInstalledLeafSemantics,
+  projectInstalledPublicResult,
+  validateInstalledInvocationBasis,
   type InstalledLeafSemanticsProjection,
   type InstalledProductSemanticsBasis,
   type ProductSemanticsProvider,

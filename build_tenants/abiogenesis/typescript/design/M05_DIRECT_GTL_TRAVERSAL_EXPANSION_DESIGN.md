@@ -2025,9 +2025,12 @@ render:
 All four variants reopen and verify the same ProductInstall,
 WorkspaceBinding, CatalogView, Program, GraphFunction, invocation admission,
 Run, continuation, and event-log prefix. They append no event and invoke no
-Product evaluator, HoG traversal, implementation, or action-selection logic.
-The projector may classify already-admitted truth for display, but it may not
-create a gap, action, result, closure, or continuation.
+HoG traversal, implementation effect, or action-selection logic. The `result`
+variant may call one pure result projector from the exact installed Product
+semantics provider after those admissions are revalidated; other variants do
+not execute Product semantics. That projector may bind already-admitted
+Product meaning to actual replay truth, but it may not create a gap, action,
+runtime result, closure, or continuation.
 
 Installed evidence shall prove open, responded, and resolved status reads;
 selected and converged lawful-action reads; resolved result and ordered replay
@@ -2243,9 +2246,13 @@ Installed evidence shall prove:
 
 ## 13. S05 Ordinary-Path Consensus
 
-S05 adds one ABIogenesis-owned standard-library publication to the already
-accepted Product-neutral extension path. It does not add a Consensus runtime,
-public command, event family, controller, scheduler, or ticket writer.
+**Design status**: Candidate - exact implementation/design/proof cut pending
+independent review and delegated acceptance under T-270.
+
+S05 adds one ABIogenesis-owned standard-library publication to the accepted
+Product-neutral path. It does not add a Consensus runtime, public command,
+event family, controller, scheduler, result store, continuation, or ticket
+writer.
 
 ```text
 packed ABIogenesis Product
@@ -2253,220 +2260,411 @@ packed ABIogenesis Product
   -> ordinary catalog admission and view
   -> admitted Program and canonical Consensus GraphFunction
   -> HoG fan-out / fan-in / bounded recursion over declared GTL
-  -> ordinary F_P reviewer leaves and F_D reduction
+  -> ordinary F_P reviewer leaves and Product-owned F_D reduction
   -> typed closed_done | recurse_next_round | escalate_fh outcome
   -> ordinary F_H hold/respond/continue only for escalate_fh
-  -> ABG result, events, replay, and public projection
+  -> ABG result, events, replay, and public project.read
 ```
 
-### 13.1 Product-owned domain
+This section derives from `A5-F08`, `ABG5-S05`, `REQ-P-CONSENSUS-001` through
+`019`, accepted M03, and accepted M05 Sections 1 through 12. It activates only
+the Consensus boundary. SDK/CLI equivalence belongs to S06; observer/tuner,
+complete conservation, qualification, and release remain deferred to their
+selected Product outcomes.
 
-One closed domain family owns:
+### 13.1 Boundary Ontology
 
-- `ConsensusSubject`, including exact subject and optional ticket identity;
-- `ConsensusReviewerProfile` and a non-empty, duplicate-free panel;
-- `ConsensusRoundPolicy` with positive budget and declared convergence,
-  disagreement, escalation, and foldback rules;
-- attributed reviewer task and finding-set values;
-- ordered round state, ruling rows, dissent, evidence, and lineage;
-- `ConsensusRoundOutcome` with exactly
-  `closed_done | recurse_next_round | escalate_fh`;
-- `ConsensusResult`; and
-- `TicketConsensusProjection`.
+The parent Product Ontology remains singular. This is its bounded Consensus
+slice.
 
-The nine public contract identities and two closed vocabularies are projections
-of that family. `ModulePublication.contracts` is their installed addressable
-catalog in this slice. Native admission and serialized values have the same
-meaning. No JSON schema, generated registry, or second decoder is required.
+| Entity or value family | Identity and relationship | Cardinality and invariant | Authority owner |
+|---|---|---|---|
+| `ConsensusDomainFamily` | SYSTEM-owned meaning for subject, panel, policy, rounds, findings, rulings, outcome, and result | exactly one family for the canonical callable; native and serialized values have identical meaning | Product |
+| `ConsensusModulePublication` | publishes the canonical and subordinate GraphFunctions, contracts, bindings, starts, and One Surface action row | exactly one publication in the installed ABIogenesis Product | Product declaration through GTL |
+| `ConsensusProgram` | direct and supervised Program projections over the same canonical callable family | one direct Program and one standard One Surface Program; neither is a second Consensus product | GTL topology |
+| `ConsensusInvocation` | composes one exact subject, panel, policy, transport lane, and invocation identity | one subject; one non-empty duplicate-free panel; one positive bounded policy; subject workspace equals admitted workspace identity | Product |
+| `ConsensusRoundState` | ordered recursive state containing subordinate tasks, findings, rulings, dissent, evidence, and lineage | round ordinals are contiguous and bounded; panel ordinal, not completion order, determines reduction | Product |
+| `ReviewerWorkerContractProjection` | projects one admitted reviewer task to its profile-owned instruction contract and declared findings result contract | exactly one projection per reviewer C call; result contract equals the C-call output contract and the instruction contract remains attributable to the exact profile | Product semantics projected through the admitted leaf port |
+| `ConsensusResultCandidate` | Product semantic result proposed by the projector or F_H finalizer | exactly one terminal semantic candidate; it cannot mint replay identity | Product |
+| `ConsensusRuntimeEpisode` | admitted invocation, Run, GraphCalls, Frames, C calls, routes, continuation, result, and replay | one causal ABG episode per public invocation; only ABG events change runtime truth | ABG |
+| `PublicRunProjectionAuthority` | read-only durable authority derived from one admitted Run, exact event-log prefix, admitted ProductInstall, compact catalog/view admission identities, publication digest, and Product semantics binding | one current carrier per prefix; update changes only the reopen prefix; it cannot append or execute; it never embeds the Catalog, CatalogView, ModulePublication, Program, or graph family | Public projection over ABG and admitted Product basis |
+| `PublicResultProjection` | binds admitted semantic result identity and actual replay identity through the exact installed pure Product projector | one read projection per requested durable prefix; Product owns result meaning and ABG remains runtime source truth | Product semantics then Public downstream envelope |
+| `TicketConsensusProjection` | optional read-only ticket-shaped projection over the admitted result and actual replay | zero or one per ticket result; never mutates ticket state | Product downstream |
 
-### 13.2 Published GTL
+Reviewer profiles, reviewer tasks, finding rows, ruling rows, round-outcome
+variants, evidence refs, and lineage refs are Subordinate Payloads of the
+owning invocation, round, or result. They do not acquire peer runtime
+authority. The nine `abg.schema.consensus-*` / `abg.schema.review-*` contract
+identities and the two `abg.vocabulary.*` identities are addressable native
+typed projections in the installed public contract catalog. They do not
+require a parallel JSON-schema runtime.
 
-The canonical public identities remain:
+Ontology invariants:
 
-- handle `gtl://abg/consensus/submitter-reviewer-rounds`;
-- GraphFunction
-  `graph-function://abg/consensus/submitter-reviewer-rounds`; and
-- owner `owner://abg/substrate`.
+1. The canonical handle, GraphFunction, and SYSTEM owner are singular.
+2. Every reviewer result preserves profile, configuration, worker,
+   instruction, result-contract, round, workspace, and invocation attribution.
+   Product resolves the worker instruction and result contracts from the exact
+   reviewer task before ABG admits actor/process truth; C-call input identity
+   remains the reviewer-task contract.
+3. Policy rule identities select the Product-owned reduction law; unknown rule
+   identities refuse rather than becoming ignored labels.
+4. `closed_done` follows complete admitted findings and deterministic
+   reduction; `recurse_next_round` preserves foldback and decrements the bound;
+   `escalate_fh` closes one typed unresolved result without deciding it.
+5. `project.read(result)` binds that unresolved result to its actual replay.
+   One ordinary escalation GraphFunction invocation may then open exactly one
+   continuation. Its response must reproduce the replay-bound unresolved
+   result and acting actor before `fh_interaction_responded`.
+6. A semantic result candidate contains no fabricated future replay identity.
+   `project.read(result)` binds its admitted result identity to the actual ABG
+   replay identity.
+7. Public reads append no event and cannot widen Product, catalog, invocation,
+   or runtime authority. `result` alone may call the exact installed pure
+   Product result projector after install, catalog/view event chain,
+   publication/semantics basis, invocation, Run, GraphCall, result, and
+   event-prefix revalidation; no Product effect or traversal follows.
+8. A retained-context reopen cache may preserve the latest exact durable
+   prefix between sequential operations. It is not admissibility authority:
+   fresh and retained contexts accept or refuse from the same serialized
+   carrier and ABG event truth.
 
-The same Program publishes subordinate reviewer, reducer, round, and
-escalation GraphFunctions. Only the canonical GraphFunction is the public
-Consensus callable. Subordinate functions are callable members needed by
-`workflow.C`, fan-out, reduction, recursion, and F_H continuation; they are
-not additional Consensus products.
+### 13.2 Entity lifecycle completeness
 
-The canonical body is direct GTL:
+| Entity | Identity | Authority owner | Declare/create | Read/project | Update/transition | Delete/retire |
+|---|---|---|---|---|---|---|
+| Consensus domain family | canonical IDs and contract/vocabulary roster | Product | `constructConsensusModulePublication` | public contract catalog and module-owned projections | new Product version only | superseded by a later Product release; history retained |
+| Module publication and Programs | module, Program, start, and GraphFunction refs | Product/GTL | construct publication; raw admit; validate | catalog view and installed declarations | new admitted publication version only | catalog supersession under Product install law |
+| Invocation and round state | invocation, round, task, finding, and state refs | Product meaning; ABG admission | constructors plus C-call admission | Product predicates and ABG replay | reducer/foldback produces a new immutable state | not_applicable: immutable lineage is retained |
+| Result candidate | Product result ref | Product proposes; ABG admits | projector or F_H finalizer | result projection | not_applicable: a different result is a new candidate | not_applicable: admitted result history remains |
+| Runtime episode | invocation/Run/GraphCall/Frame/C-call identities | ABG | ordinary invocation/open-call/C-call admission | replay and `project.read` | admitted route, continuation, result, closure, or failure events; unresolved escalation is a second invocation causally bound to the first result and replay | closed/stopped episode remains immutable history |
+| Public run projection authority | authority digest plus exact reopen prefix, Run basis, ProductInstall, compact catalog/view admission refs and digests, publication digest, and Product semantics binding | Public projection over ABG and admitted Product basis | `constructPublicRunProjectionAuthority` after durable projection | parser plus ABG rehydration; catalog admission event binds the publication and Product-semantics basis digests, and the view event must be caused by that exact catalog admission | `updatePublicRunProjectionAuthority` after a read; only the reopen prefix changes | stale or substituted prefixes/Product bases refuse; retirement follows source log retention |
+| Ticket projection | projection ref and digest | Product downstream | `projectTicketConsensus` from result plus replay | caller-owned read model | new source result/replay creates a new projection | not_applicable: no ticket mutation authority |
 
-```text
-bounded recursion evaluator
-  -> declared recurse application
-  -> child round GraphFunction
-       -> C.batch(workflow.C(reviewer))
-       -> declared fan-out materialization
-       -> workflow.C(reducer)
-       -> declared fan-in reduction
-  -> admitted foldback to the parent evaluator
-  -> terminal ConsensusRoundOutcome
-```
+### 13.3 Authority matrix
 
-The initial state is non-terminal so the first round uses the same child path
-as every later round. Reducer output alone determines agreement,
-`recurse_next_round`, or budget exhaustion. The recursion bound and policy
-budget must agree. Missing, duplicate, misattributed, malformed, or
-out-of-policy values refuse before foldback or closure.
+| Function or transition | Proposer | Evaluator | Verifier | Admitter | Executor | Projector | Retirement owner |
+|---|---|---|---|---|---|---|---|
+| publish Consensus family | Product | Product | raw admission and validator | catalog admission | not_applicable: declaration | catalog/public-contract projection | Product release |
+| invoke canonical callable | caller | Product policy | validator plus exact workspace/catalog basis | ABG invocation admission | HoG | Public | ABG episode retention |
+| materialize reviewer tasks | Product GTL | Product | validator | ABG child/C-call admission | HoG composition | ABG replay | ABG episode retention |
+| resolve reviewer worker contracts | Product task/profile | Product semantics | install-bound Product projection and exact C-call output contract | not_applicable: pure projection | HoG consumes the projection; it does not select contract meaning | ABG actor/process evidence records the exact refs | Product release |
+| invoke reviewer effect | Product task | Product contract | install-bound port, Product worker-contract projection, and transport contract | ABG actor/process and evidence admission | declared F_P implementation | ABG replay | ABG episode retention |
+| reduce findings | Product round | Product | Product contract and exact policy identities | ABG result admission | declared F_D implementation | ABG replay | ABG episode retention |
+| recurse/fold back | Product GTL | Product reducer | validator and parent/child basis | ABG route/foldback admission | HoG | ABG replay | ABG episode retention |
+| open F_H escalation | Product replay-bound unresolved result | Product | exact result plus replay and interaction requirement | ABG invocation plus atomic hold admission | HoG reaches F_H boundary in the ordinary escalation GraphFunction | Public hold projection | ABG continuation lifecycle |
+| admit F_H response | actor | Product against exact request and actor | exact capability and response contract | ABG | not_applicable: response is admitted truth | Public response projection | ABG continuation lifecycle |
+| finalize escalation | Product decision | Product | exact unresolved-result basis | ABG result admission | declared F_D implementation | ABG replay | ABG episode retention |
+| read terminal result/replay | caller with run projection authority | Product pure result semantics for `result`; not_applicable for status/replay | durable prefix, admitted install, catalog-to-view event chain, publication and Product-semantics basis digests, rehydrated invocation/Run/GraphCall/result, and exact Product semantics binding | not_applicable: read-only | Product pure projector then Public envelope for `result`; Public over ABG replay otherwise | Public projection with Product-owned result meaning | source log retention |
+| project ticket result | caller | Product pure projection | result and replay identities | not_applicable: downstream read | not_applicable | Product | caller; no ticket authority |
 
-### 13.3 Compute and authority
+Actor identity is not capability authority. Available reviewer or F_H
+capability labels do not grant invocation. Composition carries only authority
+already admitted for the exact Product, workspace, Program, action, actor, and
+runtime basis.
 
-Reviewer leaves are `F_P`. Each task binds exact profile, configuration,
-subject, panel, policy, round, instruction, result contract, capability,
-workspace, and invocation identity. ABG owns worker/process truth and evidence
-admission. Completion order never determines profile attribution or reducer
-order.
+### 13.4 Atomic functions and composition
 
-Reduction, envelope checks, panel membership, exact agreement, round-budget
-checks, ruling vocabulary, and ticket projection are `F_D`. Deterministic
-code cannot manufacture semantic findings.
+| Discovered functionality | Entity | Atomic function or template | Higher-order composition | Effect class | Required authority | Disposition |
+|---|---|---|---|---|---|---|
+| construct and validate subject/panel/policy | domain family | parameterized Product constructors and predicates | `constructConsensusInvocation` | pure | Product | derived |
+| publish canonical and subordinate functions | module publication | `constructConsensusModulePublication` | Program + GraphFunction + application composition | declaration | Product/GTL | derived |
+| initialize round state | invocation | `initializeConsensus` | canonical root workflow | pure `F_D` | Product | derived |
+| construct reviewer tasks | round state | parameterized task materialization | `C.batch` plus fan-out | pure topology | Product/GTL | derived |
+| resolve reviewer worker contracts | reviewer task/profile | `resolveProbabilisticWorkerContracts` | installed Product semantics projection consumed by the leaf port | pure | exact admitted Product install and profile | derived |
+| execute attributed reviewer | reviewer task | `realizeConsensusReviewer` | applicative fan-out | `F_P` effect edge | admitted implementation plus ABG transport | derived |
+| admit findings | finding set | ordinary C-call result/evidence admission | ordered vector collection | ABG event effect | ABG | derived |
+| reduce one round | findings vector | `reduceConsensusRound` | fan-in fold | pure `F_D` | Product | derived |
+| continue bounded rounds | round state | round terminal evaluator | `recurse` plus workflow child foldback | traversal/event effects | Product topology, HoG traversal, ABG admission | derived |
+| project semantic result | terminal state | `projectConsensusResultCandidate` | terminal workflow step | pure `F_D` | Product | derived |
+| validate invocation Product basis | admitted input plus workspace and Program basis | `validateInstalledInvocationBasis` | Product invocation admission composition | pure Product validation | exact loaded Product semantics provider | derived |
+| read/open/respond/continue escalation | replay-bound unresolved result | `project.read`, ordinary escalation invocation, and accepted Section 12 continuation functions | result read -> ordinary F_H composition | durable read plus ABG event effects | Product choice, exact replay basis, admitted actor/capability, ABG | derived from accepted S03 family and bounded S05 composition |
+| finalize escalation | admitted decision | `finalizeConsensusEscalation` | escalation finalizer GraphFunction | pure `F_D` | Product | derived |
+| admit and replay result | result candidate | ordinary ABG result/judgment/closure functions | accepted traversal spine | ABG event effects | ABG | derived by accepted M05 family |
+| project terminal run | runtime episode | `projectOutcome` | two replay folds | pure | ABG source truth, Public projection | derived |
+| mint/update/read durable run projection | runtime episode plus admitted Product basis | one parameterized run-projection-authority family | reopen -> revalidate install/catalog/view/invocation -> replay -> close | durable read effect; no append | exact ABG reopen authority and exact admitted Product basis | derived |
+| bind admitted result to replay | admitted Product result plus actual ABG replay | `projectInstalledPublicResult` | Product pure projection then Public result envelope | pure | exact loaded Product semantics provider after durable revalidation | derived |
+| project ticket result | result plus replay | `projectTicketConsensus` | downstream projection | pure | Product | derived |
+| SDK/CLI equivalence | public projection | existing public-operation family | package adapter projection | public I/O | Product public contract | deferred to S06 |
+| generic alternate policy algebra | round policy | not selected | not selected | not selected | Product re-entry | excluded from 5.0 S05; canonical declared rules only |
 
-`escalate_fh` is typed Product data, not an open interaction. The Program
-publishes one escalation GraphFunction whose ordinary `F_H` leaf consumes the
-exact unresolved result basis. `interaction.respond` and `run.continue`
-produce one attributed human decision before a finalizer emits the terminal
-Consensus result. Agreement and bounded dispute resolution never enter that
-F_H function.
+The governing algebra is:
 
-The public scenario driver may invoke the Product-declared escalation start
-only when the canonical result is exactly `escalate_fh`. It transports the
-typed Product result; it does not select reviewers, run rounds, reduce
-findings, construct events, or decide closure.
+| Law | S05 relation |
+|---|---|
+| identity/unit | one admitted invocation lifts to the initial non-terminal round state without adding findings or authority |
+| closure | every reviewer task yields admitted findings or typed non-close; every complete vector reduces to one closed round outcome |
+| associativity | ordered pure reduction may regroup only while preserving panel ordinal and exact output; effectful reviewer execution is not reassociated |
+| cardinality | panel size is non-empty and duplicate-free; one task/result position exists per profile per round; one reducer consumes one complete vector |
+| recursion | `recurse_next_round` alone creates the next bounded round and preserves prior lineage |
+| effects | F_P worker effects and all runtime transitions cross existing ABG admission; Product reduction and projection remain pure |
+| authority conservation | fan-out, fold, recursion, continuation, and projection do not widen the admitted Product, actor, workspace, or runtime basis |
 
-### 13.4 One Surface admission
+### 13.5 Whole-family Prime contraction
 
-Consensus is a callable inside one admitted Program, not the Program itself.
-The Program shall publish its start, action membership, and callable
-dependencies so the standard One Surface can select the canonical function
-through Product-owned `evaluateNext` truth before target invocation. This
-selection uses the existing construction-intent authority; Public transports
-the admitted target and HoG traverses it.
+| Candidate family | Contraction relation | Retained meaning | Authority before -> after | Accepted loss | Falsification condition |
+|---|---|---|---|---|---|
+| subject, profile, panel, policy, finding, ruling, round, result shapes | one Product-owned domain family with subordinate payload variants | closed values and public pattern-match outcomes | many possible schema authorities -> one Product family | no independent payload authorities | another decoder or schema registry can change meaning |
+| reviewer commands and worker contracts | one parameterized reviewer GraphFunction plus one Product-owned task-to-worker-contract projection | arbitrary admitted panel cardinality, attribution, and profile-owned instruction contract | per-profile command or transport-label temptation -> one GTL function and one Product semantic projection | no profile-specific operation identity | a profile requires a new public command/runtime branch or ABG accepts a worker contract not derived from that profile |
+| round orchestration | one GTL recursion/fan-out/fan-in composition | ordered review, dispute recursion, bound, foldback | host loop temptation -> GTL topology + HoG + ABG | no shell/service loop | rounds can proceed outside admitted GTL |
+| terminal classifications | one closed round-outcome family and one result projector | agreement, dissent, unresolved, contract failure | branch-specific finalizers -> one Product projection family | no independent result stores | a terminal class needs another closure authority |
+| F_H escalation | replay-bound unresolved result plus accepted generic continuation family and one Product response contract | exact unresolved-result decision | feature continuation temptation -> pure read + ordinary invocation + Product choice + ABG continuation | no Consensus-specific continuation or ambient transfer between episodes | escalation can open without the exact prior result and replay or can respond/close outside the ordinary continuation spine |
+| status/result/replay reads | one parameterized `project.read` family plus one compact run projection authority carrying the exact admitted Product-semantics basis by digest and event reference | fresh-process reads of exact ABG truth with Product-owned result meaning | direct outcome memory and feature branch -> durable ABG read plus one exact Product pure projection | no mutable caller authority, feature-specific Public/ABG branch, or repeated catalog/program snapshot | a terminal result is readable only from the invoking process, Public/ABG must name Consensus to project it, or the authority must embed the full catalog family |
 
-The first implementation cut may prove the canonical callable and escalation
-path directly through ordinary `run.invoke`. S05 does not close until the same
-callable is reached from the Program-owned One Surface selection without a
-feature-specific Public or HoG branch.
+The contracted IACS is sufficient only if all rows remain singular. Fewer files
+is not the goal; one semantic authority per retained relation is.
 
-### 13.5 Replay and public result
+### 13.6 IACS and module ownership
 
-ABG events remain the only runtime truth. The final public result and
-`ticket_consensus` projection are read-only folds over admitted result and
-replay state. They bind subject, ticket, panel, policy, ordered rounds,
-finding sets, rulings, agreement/dissent classification, outcome, evidence,
-lineage, result, and replay identities. They never mutate a ticket.
+| Carrier | Ontology law carried | Role | Authority | Visibility |
+|---|---|---|---|---|
+| Consensus domain/publication family | domain identity, contracts, policies, outcomes, GTL publication | `<<prime>>` | Product authoritative | public through `./gtl` |
+| admitted Program/GraphFunction/application family | topology and callable membership | `<<prime>>` | GTL authoritative | public |
+| Product semantics provider | raw input, invocation-basis, contract, judgment, reviewer worker-contract, F_H response, and public-result meaning | `<<effect-edge>>` | Product authoritative | module-local provider, loaded from admitted install |
+| implementation binding and leaf effect port | declared F_D/F_P interiors | `<<effect-edge>>` | subordinate to admitted binding | module-local |
+| ABG runtime episode and replay | admission, events, continuation, closure, replay | `<<prime>>` | ABG authoritative | public typed runtime surface |
+| Public run projection authority | exact durable read capability plus compact admitted install, catalog/view event chain, publication digest, and semantics binding basis | `<<prime>>` | derived from ABG and admitted Product basis; no Product meaning | public |
+| Public result/replay and ticket projection | read model | `<<downstream>>` | Product owns result projection; Public owns no semantic or runtime authority | public |
+| SDK equivalence, observer/tuner, qualification assets | later Product outcomes | `<<deferred>>` | owning later outcomes | absent from S05 cut |
 
-No Consensus-specific event kind is permitted. Existing invocation, C-call,
-actor/process, evidence, result, judgment, route, child-foldback,
-continuation, terminal, and closure events must be sufficient.
+Physical module mapping:
 
-### 13.6 Installed scenario
-
-One source-blind driver runs the same Product contract against three explicit
-workspace bindings:
-
-- the selected existing workspace;
-- an independently bound alternate workspace; and
-- a caller-created temporary workspace.
-
-For each workspace the driver proves:
-
-1. agreement closes in one round;
-2. material dispute admits at least one recurse/foldback and then closes; and
-3. unresolved dispute reaches the declared round limit, returns
-   `escalate_fh`, enters the ordinary F_H continuation, and closes only after
-   an attributed response.
-
-At least two differently attributed profiles participate. The CLI and SDK
-return the same typed result as two replay folds. Malformed subject, profile,
-panel, policy, finding, ruling, outcome, actor attribution, or cross-basis
-reuse remains typed non-close truth.
-
-### 13.7 Semantic-view and authority delta
-
-The accepted M03/M05 module topology is unchanged. This section adds one
-Product domain and one publication inside existing ownership:
-
-**Domain view**
-
-```text
-ConsensusDomainFamily
-  -> ConsensusModulePublication
-  -> ConsensusProgram
-  -> canonical Consensus GraphFunction
-  -> reviewer / reducer / round / escalation GraphFunctions
-```
-
-**Interaction view**
-
-```text
-Public invoke
-  -> ABG invocation admission
-  -> HoG canonical traversal
-  -> reviewer fan-out
-  -> ABG F_P evidence and result admission
-  -> Product reduction
-  -> ABG foldback and recursion
-  -> result or ordinary F_H continuation
-  -> replay-derived public projection
-```
-
-**Lifecycle view**
-
-```text
-admitted
-  -> round_open
-  -> findings_admitted
-  -> closed_done
-     | recurse_next_round -> round_open
-     | escalate_fh -> held -> responded -> continued -> closed
-```
-
-These labels describe projections over existing ABG event truth. They do not
-add event kinds or a second state machine.
-
-IACS remains singular:
-
-| Authority | Owns | Does not own |
+| Module | Semantic owner | Boundary |
 |---|---|---|
-| Consensus domain family | contracts, profile/panel/policy meaning, findings, rulings, outcomes, result | traversal, events, continuation |
-| GTL publication | Program topology, canonical and subordinate GraphFunctions, applications, contracts, bindings | runtime selection or truth |
-| validator | raw and whole-Program static admission | lowering or execution |
-| HoG | direct traversal of admitted GTL | Product semantics or result admission |
-| implementations | declared F_D/F_P leaf interiors | graph topology, events, closure |
-| ABG | invocation, worker, evidence, result, route, foldback, continuation, replay, closure truth | domain findings or ruling meaning |
-| Public | typed invocation and replay projection | panel loop, recursion, reduction, closure |
+| `src/gtl/consensus.ts` | Product-owned SYSTEM standard-library authoring module | owns Consensus domain constructors, predicates, pure semantics, and GTL publication; its `gtl` path is the installed authoring export, not generic GTL ownership of Product meaning |
+| `src/product/builtin_semantics.ts` | Product | admits installed Consensus values, validates the invocation workspace, resolves exact reviewer worker contracts, evaluates exact F_H response basis, and binds admitted results to actual replay |
+| `src/implementation/consensus.ts` | implementation | realizes declared leaf interiors and may call Product-owned pure functions; owns no topology or runtime truth |
+| `src/hog/leaf_invocation_port.ts` | HoG boundary over Product projection | exposes only the exact install-bound Product semantic projection needed for leaf traversal; it does not author reviewer contracts |
+| `src/public/run_projection_authority.ts` | Public projection | carries exact durable read authority and the compact install/catalog-view event and Product-semantics basis needed to re-establish Product provenance; it carries no catalog or Program snapshot |
+| `src/public/operations.ts` | Public | transports ordinary invoke/respond/continue/read operations and delegates pure result meaning to the exact installed Product; contains no Consensus branch |
+| validator, HoG, and ABG modules | accepted M03/M05 owners | unchanged generic validation, traversal, admission, event, replay, continuation, and closure behavior |
 
-Prime contraction is:
+### 13.7 Three semantic views
 
-```text
-one domain authoring family
-  + one GTL publication
-  + one ABG runtime authority
+The views project the Ontology above; they do not originate another model.
+
+```mermaid
+classDiagram
+  class Developer {
+    <<external>>
+  }
+  class ConsensusDomainFamily {
+    <<authoritative>>
+    +constructInvocation()
+    +reduceRound()
+    +projectResultCandidate()
+  }
+  class ConsensusModulePublication {
+    <<prime>>
+    +canonicalGraphFunction
+    +subordinateGraphFunctions
+  }
+  class ConsensusProgram {
+    <<prime>>
+    +directStart
+    +oneSurfaceStart
+  }
+  class ReviewerTask {
+    <<subordinate>>
+  }
+  class ReviewerWorkerContractProjection {
+    <<effect-edge>>
+    +instructionContractRef
+    +resultContractRef
+  }
+  class ProductSemanticsProvider {
+    <<effect-edge>>
+    +validateInvocationBasis()
+    +projectPublicResult()
+  }
+  class LeafEffectPort {
+    <<effect-edge>>
+  }
+  class AbgRuntimeEpisode {
+    <<authoritative>>
+    +admit()
+    +replay()
+  }
+  class PublicRunProjectionAuthority {
+    <<prime>>
+    +runId
+    +reopenAuthority
+    +install
+    +catalogAdmissionEventRef
+    +catalogViewAdmissionEventRef
+    +publicationDigest
+    +productSemanticsBinding
+  }
+  class PublicResultProjection {
+    <<downstream>>
+  }
+  class LaterOutcomeAssets {
+    <<deferred>>
+  }
+  ConsensusDomainFamily *-- ConsensusModulePublication
+  ConsensusModulePublication --> ProductSemanticsProvider
+  ConsensusModulePublication *-- ConsensusProgram
+  ConsensusProgram *-- ReviewerTask
+  ReviewerTask --> ReviewerWorkerContractProjection
+  ReviewerWorkerContractProjection --> LeafEffectPort
+  ConsensusProgram --> AbgRuntimeEpisode
+  AbgRuntimeEpisode --> PublicRunProjectionAuthority
+  AbgRuntimeEpisode --> PublicResultProjection
+  ProductSemanticsProvider --> PublicResultProjection
+  PublicResultProjection --> ConsensusProgram : escalate_fh input only
+  Developer --> ConsensusProgram
+  Developer --> PublicResultProjection
 ```
 
-Historical X schema registries, native-definition joins, special handlers,
-operation rosters, runners, and ticket projectors are neither imported nor
-recreated. A second decoder, panel loop, result store, event writer,
-continuation, or closure path fails the promotion gate.
+```mermaid
+sequenceDiagram
+  actor Developer
+  participant Public
+  participant Product
+  participant Validator
+  participant ABG
+  participant HoG
+  participant ProductSemantics
+  participant LeafPort
+  participant Replay
 
-### 13.8 Promotion boundary
+  Developer->>Public: run.invoke canonical target
+  Public->>Product: admit input and resolve declared policy
+  Public->>Validator: validate original Program and Graph
+  Public->>ABG: admit invocation and execution basis
+  ABG-->>Public: admitted basis
+  Public->>HoG: traverse admitted GTL
+  loop bounded Product-declared rounds
+    HoG->>ABG: open child and reviewer C calls
+    HoG->>LeafPort: resolve exact reviewer worker contracts
+    LeafPort->>ProductSemantics: project task/profile contracts
+    ProductSemantics-->>LeafPort: instruction and findings contract refs
+    LeafPort-->>HoG: exact install-bound projection
+    HoG->>LeafPort: invoke attributed F_P reviewer tasks
+    LeafPort->>ABG: invoke through admitted F_P effect port
+    ABG-->>LeafPort: observed actor/process result
+    LeafPort-->>HoG: semantic result candidate
+    HoG->>ABG: admit process evidence, result, and judgment
+    ABG-->>HoG: admitted ordered findings vector
+    HoG->>LeafPort: invoke Product F_D reducer
+    LeafPort-->>ABG: candidate round state
+    ABG-->>HoG: admitted closed_done, recurse_next_round, or escalate_fh
+  end
+  HoG->>ABG: terminal typed result and closure
+  ABG->>Replay: fold admitted events
+  Replay-->>Public: exact run/result/replay
+  Public-->>Developer: run outcome plus durable read authority
+  Developer->>Public: project.read result or replay
+  Public->>ABG: reopen and rehydrate exact prefix
+  Public->>ABG: verify admitted install, compact catalog-to-view event chain, and invocation
+  ABG->>Replay: pure fold
+  Replay-->>Public: typed projection
+  opt result variant
+    Public->>ProductSemantics: project admitted result plus actual replay
+    ProductSemantics-->>Public: Product-owned read value
+  end
+  Public-->>Developer: result or replay plus refreshed read authority
+  opt replay-bound result outcome is escalate_fh
+    Developer->>Public: run.invoke ordinary escalation GraphFunction
+    Public->>Product: admit exact result plus replay
+    Public->>ABG: admit linked escalation invocation
+    Public->>HoG: traverse admitted escalation GTL
+    HoG->>ABG: atomic F_H hold
+    ABG-->>Public: continuation authority
+    Developer->>Public: interaction.respond exact result and actor
+    Public->>ABG: admit actor-operation capability
+    Public->>Product: evaluate exact response basis
+    Public->>ABG: admit response
+    Developer->>Public: run.continue
+    Public->>ABG: admit continuation operation
+    Public->>HoG: resume declared cursor
+    HoG->>ABG: final result and closure
+    ABG->>Replay: fold linked escalation episode
+    Replay-->>Public: exact final result
+  end
+```
+
+```mermaid
+stateDiagram-v2
+  [*] --> Refused: Product or validator refusal [Product/validator]
+  [*] --> Admitted: invocation_admitted [ABG]
+  Admitted --> RoundOpen: graph_call_opened [ABG]
+  RoundOpen --> FindingsAdmitted: C.batch complete vector [ABG]
+  RoundOpen --> Failed: malformed or partial stop [ABG]
+  FindingsAdmitted --> RoundOpen: recurse_next_round plus foldback [HoG/ABG]
+  FindingsAdmitted --> UnresolvedClosed: escalate_fh result plus closure [Product/HoG/ABG]
+  FindingsAdmitted --> ResolvedClosed: closed_done plus closure [HoG/ABG]
+  UnresolvedClosed --> UnresolvedReadable: project.read binds replay [Product/Public/ABG]
+  UnresolvedReadable --> EscalationAdmitted: ordinary escalation invocation opens a new Run [Product/ABG]
+  EscalationAdmitted --> Held: atomic F_H hold [Product/ABG]
+  Held --> Responded: exact F_H response admitted [Product/ABG]
+  Responded --> Continued: continuation resume admitted [ABG]
+  Continued --> ResolvedClosed: final result plus closure [HoG/ABG]
+  Continued --> Failed: runtime_failure_observed [ABG]
+  ResolvedClosed --> Readable: project run projection authority [Public/ABG]
+  Failed --> Readable: project run projection authority [Public/ABG]
+  Readable --> Readable: no-append project.read refresh [Product/Public/ABG]
+  Refused --> [*]
+  UnresolvedClosed --> [*]
+  Readable --> [*]
+```
+
+### 13.8 Cross-view axioms
+
+| Axiom | Ontology evidence | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
+|---|---|---|---|---|---|---|---|---|---|
+| one canonical Consensus callable | domain family and publication | Product/GTL | singular publication relation | one invoke target | one admitted episode | constants and closed constructors | raw admission, Program validation, catalog admission | pass | none |
+| no host-owned panel loop | round state and Program topology | GTL/HoG | tasks subordinate to Program | fan-out/fan-in shown inside HoG | round transitions derive from admitted routes | direct GTL constructors | validator plus ABG child/foldback admission | pass | none |
+| reviewer attribution is ordinal and exact | invocation, task, worker-contract projection, finding | Product/ABG | profile/task containment and exact Product projection | Product contract projection precedes the effect edge; effect binds profile and worker | findings admitted before reduction | closed predicates, Product worker-contract resolver, and transport contract | actor/process plus C-call evidence/result admission | pass | none |
+| declared policy controls reduction | policy and round state | Product | policy composed into invocation | reducer consumes admitted state | only declared outcomes transition | exact rule-ref predicates | Product input/result admission | pass | none |
+| unresolved truth alone reaches F_H | outcome, replay-bound result, linked escalation invocation, and continuation | Product/ABG | escalation is a closed result variant and ordinary callable | unresolved result is read from replay before the linked escalation invocation opens a hold | UnresolvedClosed -> UnresolvedReadable -> EscalationAdmitted -> Held | closed outcome vocabulary and exact result predicate | ABG prior-result replay, invocation, and atomic hold admission | pass | none |
+| F_H response binds request and actor | result candidate and response | Product/ABG | decision composes exact unresolved result | actor admission precedes Product evaluation | Held -> Responded only on exact basis | Product response predicate | capability and response admission | pass | none |
+| semantic result cannot mint replay | result candidate, Product projector, and runtime episode | Product/ABG | result candidate separate from downstream projection | replay follows admitted closure; exact Product projector binds it only on read | Readable follows terminal truth | candidate omits replay identity; Product projector requires exact result ref | ABG replay plus Product-basis rehydration | pass | none |
+| public reads are no-append, durable, Product-exact, and proportional | run projection authority | Product meaning over ABG truth; Public transport only | downstream association plus exact install and compact catalog/view admission basis | reopen, revalidate event-bound publication/semantics digests, replay, optional pure Product result projection, close | Readable self-transition | exact carrier parser and Product projector | event prefix, ProductInstall, catalog-to-view causation, publication/Product-semantics basis digest, invocation, Run, GraphCall, result checks; full catalog snapshot is absent | pass | none |
+| ticket projection cannot mutate ticket | downstream projection | Product | downstream association | pure projection only | no ticket lifecycle transition | immutable function | not_applicable: no admission or effect | pass | none |
+| SDK equivalence | deferred S06 asset | S06 owner | deferred | deferred | deferred | not selected | not selected | not_applicable: S06 owns | T-281 |
+
+### 13.9 Operational lifecycle and proof
+
+| Phase | S05 answer | Source truth and owner |
+|---|---|---|
+| intent | Consensus is ordinary free construction, not a special engine | Intent/Product; F_H |
+| requirement | `A5-F08`, `ABG5-S05`, `REQ-P-CONSENSUS-001..019` | specification |
+| build | Product-owned domain/publication plus existing GTL/HoG/ABG/Public path | this design; T-270 |
+| assurance | module-owned Consensus proof, installed three-outcome/three-workspace proof, S03/M5/M4 regressions, Mermaid, reproducible pack | test lanes and exact candidate |
+| release | included in the future exact ABIogenesis 5.0 candidate; no independent Consensus release | T-248 / release design |
+| deployment | installed from the packed ABIogenesis Product into an explicit consumer root | Product/install law |
+| live usage | ordinary catalog, One Surface, `run.invoke`, F_H continuation when needed, and `project.read` | public Product contract |
+| observed telemetry | ABG events and replay; no Consensus event or result store | ABG |
+| retirement | superseded only by a later admitted ABIogenesis Product publication; historical event and result truth remains | Product release and ABG retention law |
+
+Module-owned proof derives from this boundary rather than helper layout:
+
+| Proof family | Owning law |
+|---|---|
+| domain/publication exactness and public contract addressability | Ontology, IACS, `REQ-P-CONSENSUS-001..008A` |
+| policy, workspace, attribution, Product-declared worker contracts, Product result projection, and F_H exact-basis mutations | authority matrix and `REQ-P-CONSENSUS-005..011` |
+| no special operation/event family and no alternate runtime | Prime/IACS and `REQ-P-CONSENSUS-010` |
+| run projection authority positive, install/semantics/catalog-admission tamper, stale-prefix, no-feature-branch, no-full-catalog-carrier, and no-append cases | public-read lifecycle and `REQ-P-POLICY-026..028` |
+| installed three outcomes across three workspaces plus One Surface | `ABG5-S05` and `REQ-P-CONSENSUS-013..018` |
+
+### 13.10 Promotion boundary
 
 Promotion requires:
 
 - one package-owned publication with the exact canonical identity;
+- addressable native public contracts and vocabularies;
 - raw admission and whole-Program validation of the original GTL;
-- ordinary catalog, implementation resolution, HoG, ABG, SDK, and CLI paths;
-- all three outcome families over all three workspace applications through
-  one driver;
-- replay-derived result and ticket projection;
+- ordinary catalog, implementation resolution, HoG, ABG, and CLI paths;
+- all three outcome families over all three workspace applications;
 - One Surface selection of the canonical callable;
+- terminal result and replay reads through fresh-process `project.read`;
+- exact workspace, policy, profile, actor, replay-bound unresolved-result,
+  final result, and replay basis;
+- module-owned proof derived from this section;
 - no special runtime or public branch;
-- `test:m4` and the complete prior `test:m5` gate remaining green; and
+- accepted S03, external Product, `test:m4`, and complete `test:m5` remaining
+  green; and
 - deterministic package reproduction.
 
 Micro-level contract and implementation details may co-evolve inside these

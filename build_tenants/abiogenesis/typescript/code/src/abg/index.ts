@@ -26,11 +26,13 @@ export {
   admitCatalog,
   hasAdmittedCatalog,
   hasAdmittedCatalogApplication,
+  hasAdmittedProductSemanticsBasis,
   hasAdmittedCatalogView,
   narrowCatalogView,
   type CatalogApplicationAdmissionResult,
   type CatalogAdmissionRefusal,
   type CatalogAdmissionResult,
+  type AdmittedProductSemanticsBasis,
   type CatalogViewAdmissionResult,
 } from "./catalog_admission.js";
 export {

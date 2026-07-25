@@ -79,6 +79,7 @@ export interface WorkspaceBindingCandidate {
   readonly schemaVersion: "5.0.0";
   readonly bindingId: string;
   readonly bindingDigest: Sha256Digest;
+  readonly workspaceId: string;
   readonly authorityBasisId: string;
   readonly authorityBasisDigest: Sha256Digest;
   readonly authorizedActorRef: string;
@@ -449,6 +450,7 @@ export function constructWorkspaceBinding(
     return refusal("lock_mismatch", "workspace ProductSet and lock disagree");
   }
   const bindingBody = {
+    workspaceId: authority.workspaceId,
     authorityBasisId: authority.authorityBasisId,
     authorityBasisDigest: authority.authorityBasisDigest,
     authorizedActorRef: authority.authorizedActorRef,

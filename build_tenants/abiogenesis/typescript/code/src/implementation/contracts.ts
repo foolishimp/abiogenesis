@@ -71,6 +71,8 @@ export interface ProbabilisticLeafEffectPort {
 export interface LeafInvocationResolution {
   readonly computeRegime: "F_D" | "F_P";
   readonly implementationRef: string;
+  readonly inputContractRef: string;
+  readonly outputContractRef: string;
   readonly modulePath: string;
   readonly namedSymbol: string;
 }
@@ -97,6 +99,13 @@ export interface LeafInvocationPort {
     readonly advanceReasonRef: string;
     readonly rejectionReasonRef: string;
     readonly evaluate: (input: unknown, output: unknown) => boolean;
+  }> | null;
+  readonly resolveProbabilisticWorkerContracts: (
+    resolution: Readonly<LeafInvocationResolution>,
+    input: Readonly<Record<string, JsonValue>>,
+  ) => Readonly<{
+    readonly instructionContractRef: string;
+    readonly resultContractRef: string;
   }> | null;
   readonly invoke: (
     resolution: Readonly<LeafInvocationResolution>,

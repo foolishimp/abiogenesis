@@ -142,6 +142,22 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     resolveJudgmentRelation(predicateRef: string) {
       return semantics.resolveJudgmentRelation(predicateRef);
     },
+    resolveProbabilisticWorkerContracts(
+      resolution: Readonly<LeafInvocationResolution>,
+      input: Readonly<Record<string, JsonValue>>,
+    ) {
+      if (
+        !admittedPorts.has(port) ||
+        !authority.implementationSet.rows.some((row) => row === resolution)
+      ) {
+        return null;
+      }
+      return semantics.resolveProbabilisticWorkerContracts({
+        inputContractRef: resolution.inputContractRef,
+        outputContractRef: resolution.outputContractRef,
+        input,
+      });
+    },
     async invoke(
       resolution: Readonly<LeafInvocationResolution>,
       input: Readonly<Record<string, JsonValue>>,

@@ -278,7 +278,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [WORKSPACE_EVENT],
     payloadVariants: [payloadVariant(
       payloadKeys(
-        "artifactDigest artifactRef authorityScopeDigest authorityScopeRef causationEventRefs correlationId definitionDigest definitionKey invocationDigest invocationPayloadDigest invocationRef operationId ownerAdmittedDisposition",
+        "artifactDigest artifactRef authorityScopeDigest authorityScopeRef causationEventRefs correlationId definitionDigest definitionKey invocationDigest invocationPayloadDigest invocationRef operationId ownerAdmittedDisposition productSemanticsBasisDigest publicationDigest",
       ),
       payloadKeys("operationId artifactRef artifactDigest"),
     )],

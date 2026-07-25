@@ -36,6 +36,11 @@ export interface PublicOperationAdmissionBasis {
 
 export type ArtifactAdmissionBasis = PublicOperationAdmissionBasis;
 
+export interface ArtifactAdmissionMetadata {
+  readonly productSemanticsBasisDigest?: Sha256Digest;
+  readonly publicationDigest?: Sha256Digest;
+}
+
 export interface AbgAdmissionRefusal {
   readonly kind: "abg_admission_refusal";
   readonly schemaVersion: "5.0.0";
@@ -118,6 +123,7 @@ export function admitArtifact(
   expectedOperation: PublicOperationId,
   artifactRef: string,
   artifactDigest: Sha256Digest,
+  metadata: ArtifactAdmissionMetadata = {},
 ): AbgAdmissionRefusal | string {
   const invalidBasis = validatePublicOperationBasis(basis, expectedOperation);
   if (invalidBasis !== null) return invalidBasis;
@@ -144,6 +150,7 @@ export function admitArtifact(
       ownerAdmittedDisposition: "admitted",
       artifactRef,
       artifactDigest,
+      ...metadata,
       causationEventRefs: basis.causationEventRefs,
       correlationId: basis.correlationId,
     },
@@ -158,6 +165,7 @@ export function hasAdmittedWorkspaceBinding(
   const event = store.readAll().find((candidate) => candidate.eventId === binding.admissionEventRef);
   const payload = event?.payload;
   const bindingDigest = sha256Canonical({
+    workspaceId: binding.workspaceId,
     authorityBasisId: binding.authorityBasisId,
     authorityBasisDigest: binding.authorityBasisDigest,
     authorizedActorRef: binding.authorizedActorRef,

@@ -84,6 +84,8 @@ interface ActorProcessInvocationInput {
   readonly scope: OpenedTraversalScope;
   readonly cCall: CCall;
   readonly expectedInputDigest: Sha256Digest;
+  readonly expectedInstructionContractRef: string;
+  readonly expectedResultContractRef: string;
   readonly runtime: ActorRuntimeBinding;
   readonly request: Readonly<ActorProcessRequest>;
   readonly dispatchOrdinal: number;
@@ -122,8 +124,11 @@ export async function invokeActorProcess(
   if (
     input.request.implementationRef !== input.cCall.implementationRef ||
     input.request.inputDigest !== input.expectedInputDigest ||
-    input.request.instructionContractRef !== input.cCall.inputContractRef ||
-    input.request.resultContractRef !== input.cCall.outputContractRef ||
+    input.expectedInstructionContractRef.length === 0 ||
+    input.expectedResultContractRef !== input.cCall.outputContractRef ||
+    input.request.instructionContractRef !==
+      input.expectedInstructionContractRef ||
+    input.request.resultContractRef !== input.expectedResultContractRef ||
     (input.request.transportLane !== "closed_prompt_proof" &&
       input.request.transportLane !== "worker_executes") ||
     !Number.isSafeInteger(input.dispatchOrdinal) ||

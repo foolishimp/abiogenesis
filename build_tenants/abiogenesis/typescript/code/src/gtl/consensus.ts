@@ -181,6 +181,10 @@ export const CONSENSUS_IDS = Object.freeze({
     "predicate://abg/consensus/round-workflow-foldback@5",
   roundEvaluatorRef: "evaluator://abg/consensus/round-terminal@5",
   roundTerminationRuleRef: "rule://abg/consensus/round-terminal@5",
+  convergenceRuleRef: "rule://abg/consensus/exact-agreement@5",
+  disagreementRuleRef: "rule://abg/consensus/material-dispute@5",
+  escalationRuleRef: "rule://abg/consensus/unresolved-to-fh@5",
+  foldbackContractRef: "contract://abg/consensus/round-foldback@5",
   reviewerPredicateRef: "predicate://abg/consensus/reviewer-attribution@5",
   reducerPredicateRef: "predicate://abg/consensus/reduce-round@5",
   projectorPredicateRef: "predicate://abg/consensus/project-result@5",
@@ -416,14 +420,17 @@ export interface ConsensusResultCandidate {
   readonly evidenceRefs: readonly string[];
   readonly lineageRefs: readonly string[];
   readonly resultRef: string;
-  readonly replayRef: string;
   readonly contractFailureRef: string | null;
+}
+
+export interface ConsensusResult extends ConsensusResultCandidate {
+  readonly replayRef: string;
 }
 
 export interface ConsensusEscalationDecision {
   readonly kind: "consensus_escalation_decision";
   readonly schemaVersion: "5.0.0";
-  readonly unresolvedResult: ConsensusResultCandidate;
+  readonly unresolvedResult: ConsensusResult;
   readonly unresolvedResultRef: string;
   readonly unresolvedResultDigest: Sha256Digest;
   readonly decision: "accept_with_dissent" | "reject";
@@ -1397,10 +1404,10 @@ export function isConsensusRoundPolicy(
     !Number.isSafeInteger(value.roundBudget) ||
     Number(value.roundBudget) < 1 ||
     Number(value.roundBudget) > 4 ||
-    !isRef(value.convergenceRuleRef) ||
-    !isRef(value.disagreementRuleRef) ||
-    !isRef(value.escalationRuleRef) ||
-    !isRef(value.foldbackContractRef)
+    value.convergenceRuleRef !== CONSENSUS_IDS.convergenceRuleRef ||
+    value.disagreementRuleRef !== CONSENSUS_IDS.disagreementRuleRef ||
+    value.escalationRuleRef !== CONSENSUS_IDS.escalationRuleRef ||
+    value.foldbackContractRef !== CONSENSUS_IDS.foldbackContractRef
   ) return false;
   const { policyDigest: _policyDigest, ...body } = value;
   return value.policyDigest ===
@@ -1539,7 +1546,7 @@ export function isReviewFindings(value: unknown): value is ReviewFindings {
   return value.outputDigest === sha256Canonical(body as unknown as JsonValue);
 }
 
-function isReviewRuling(value: unknown): value is ReviewRuling {
+export function isReviewRuling(value: unknown): value is ReviewRuling {
   return isRecord(value) &&
     hasExactKeys(value, [
       "rulingRef",
@@ -1553,6 +1560,12 @@ function isReviewRuling(value: unknown): value is ReviewRuling {
     uniqueRefs(value.findingRefs) &&
     isRef(value.rationaleRef) &&
     isRef(value.payloadRef);
+}
+
+export function isReviewRulings(
+  value: unknown,
+): value is readonly ReviewRuling[] {
+  return Array.isArray(value) && value.every(isReviewRuling);
 }
 
 export function isConsensusRoundOutcome(
@@ -1698,7 +1711,6 @@ export function isConsensusResultCandidate(
       "evidenceRefs",
       "lineageRefs",
       "resultRef",
-      "replayRef",
       "contractFailureRef",
     ]) ||
     value.kind !== "consensus_result" ||
@@ -1719,11 +1731,31 @@ export function isConsensusResultCandidate(
     !uniqueRefs(value.evidenceRefs) ||
     !uniqueRefs(value.lineageRefs, false) ||
     !isRef(value.resultRef) ||
-    !isRef(value.replayRef) ||
     !(value.contractFailureRef === null || isRef(value.contractFailureRef))
   ) return false;
   return (value.classification === "contract_failure") ===
     (value.contractFailureRef !== null);
+}
+
+export function bindConsensusReplay(
+  candidate: Readonly<ConsensusResultCandidate>,
+  replayRef: string,
+): Readonly<ConsensusResult> {
+  if (!isConsensusResultCandidate(candidate) || !isRef(replayRef)) {
+    throw new TypeError(
+      "Consensus replay projection requires one admitted result candidate and replay",
+    );
+  }
+  return deepFreeze({
+    ...candidate,
+    replayRef,
+  });
+}
+
+export function isConsensusResult(value: unknown): value is ConsensusResult {
+  if (!isRecord(value) || !isRef(value.replayRef)) return false;
+  const { replayRef: _replayRef, ...candidate } = value;
+  return isConsensusResultCandidate(candidate);
 }
 
 export function isConsensusEscalationDecision(
@@ -1742,7 +1774,7 @@ export function isConsensusEscalationDecision(
     ]) &&
     value.kind === "consensus_escalation_decision" &&
     value.schemaVersion === "5.0.0" &&
-    isConsensusResultCandidate(value.unresolvedResult) &&
+    isConsensusResult(value.unresolvedResult) &&
     isRef(value.unresolvedResultRef) &&
     isDigest(value.unresolvedResultDigest) &&
     value.unresolvedResult.resultRef === value.unresolvedResultRef &&
@@ -2070,7 +2102,6 @@ export function projectConsensusResult(
       state.subject.subjectRef,
       ...state.roundRefs,
     ],
-    replayRef: "replay://abg/pending-runtime-admission",
     contractFailureRef: null,
   };
   const digest = sha256Canonical(body as unknown as JsonValue);
@@ -2109,9 +2140,9 @@ export function finalizeConsensusEscalation(
     lineageRefs: [
       ...decision.unresolvedResult.lineageRefs,
       decision.unresolvedResultRef,
+      decision.unresolvedResult.replayRef,
       decision.humanActorRef,
     ],
-    replayRef: "replay://abg/pending-runtime-admission",
     contractFailureRef: decision.unresolvedResult.contractFailureRef,
   };
   const digest = sha256Canonical(body as unknown as JsonValue);
@@ -2123,9 +2154,18 @@ export function finalizeConsensusEscalation(
 }
 
 export function projectTicketConsensus(
-  result: Readonly<ConsensusResultCandidate>,
-  replayRef: string,
+  suppliedResult: Readonly<ConsensusResultCandidate | ConsensusResult>,
+  suppliedReplayRef?: string,
 ): Readonly<TicketConsensusProjection> {
+  const replayRef = isConsensusResult(suppliedResult)
+    ? suppliedResult.replayRef
+    : suppliedReplayRef;
+  const result = isConsensusResult(suppliedResult)
+    ? (() => {
+        const { replayRef: _replayRef, ...candidate } = suppliedResult;
+        return candidate;
+      })()
+    : suppliedResult;
   if (
     !isConsensusResultCandidate(result) ||
     !result.subjectRef.startsWith("ticket://") ||

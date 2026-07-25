@@ -241,6 +241,34 @@ function assertPortableOutcome(run, flavored) {
   return outcome;
 }
 
+function withoutPhysicalReopenIdentity(outcome) {
+  if (outcome.projectionAuthority === undefined) {
+    return outcome;
+  }
+  const {
+    outcomeDigest: _outcomeDigest,
+    projectionAuthority,
+    ...outcomeBody
+  } = outcome;
+  const {
+    authorityDigest: _projectionDigest,
+    reopenAuthority,
+    ...projectionBody
+  } = projectionAuthority;
+  const {
+    authorityDigest: _reopenDigest,
+    inode: _inode,
+    ...reopenBody
+  } = reopenAuthority;
+  return {
+    ...outcomeBody,
+    projectionAuthority: {
+      ...projectionBody,
+      reopenAuthority: reopenBody,
+    },
+  };
+}
+
 test(
   "S06 installs, applies, and invokes one independent flavored Product through SDK, CLI, and bounded delegate",
   async (context) => {
@@ -265,7 +293,10 @@ test(
     await rm(cliScenario.workspaceRoot, { recursive: true, force: true });
     const codexRun = await runInstalledCodex(harness, cliScenario);
     const codexOutcome = assertPortableOutcome(codexRun, flavored);
-    assert.equal(codexRun.stdout, cliRun.stdout);
+    assert.deepEqual(
+      codexRun.outcomes.map(withoutPhysicalReopenIdentity),
+      cliRun.outcomes.map(withoutPhysicalReopenIdentity),
+    );
     assert.deepEqual(codexOutcome.result, cliOutcome.result);
 
     const sdkScenario = await portabilityScenario(

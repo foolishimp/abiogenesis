@@ -1118,10 +1118,19 @@ export async function completeExecutableTraversal<
     });
   }
   const cCall = opened.cCall;
+  const probabilisticWorkerContracts = computeRegime === "F_P"
+    ? input.leafPort.resolveProbabilisticWorkerContracts(
+        input.implementationResolution,
+        input.input as Readonly<Record<string, JsonValue>>,
+      )
+    : null;
   let actorObservation: ActorProcessObservation | null = null;
   let dispatchCount = 0;
   const probabilisticEffects: ProbabilisticLeafEffectPort | null = computeRegime === "F_P"
-    ? input.actorRuntimeBinding === undefined
+    ? input.actorRuntimeBinding === undefined ||
+        probabilisticWorkerContracts === null ||
+        probabilisticWorkerContracts.resultContractRef !==
+          cCall.outputContractRef
       ? null
       : {
           invokeWorker: async (request) => {
@@ -1135,6 +1144,10 @@ export async function completeExecutableTraversal<
               scope: input.openedTraversalScope,
               cCall,
               expectedInputDigest: input.inputDigest,
+              expectedInstructionContractRef:
+                probabilisticWorkerContracts.instructionContractRef,
+              expectedResultContractRef:
+                probabilisticWorkerContracts.resultContractRef,
               runtime: input.actorRuntimeBinding!,
               request,
               dispatchOrdinal: dispatchCount,
@@ -1170,10 +1183,11 @@ export async function completeExecutableTraversal<
   const evidenceCandidates: readonly CCallEvidenceCandidate[] = computeRegime === "F_P"
     ? actorObservation === null
       ? []
-      : [deriveProbabilisticTransportEvidence(
+        : [deriveProbabilisticTransportEvidence(
           cCall,
           actorObservation,
           leaf.resultCandidate as unknown as JsonValue,
+          probabilisticWorkerContracts!.instructionContractRef,
         )]
     : leaf.evidenceCandidates;
   const evidence = [];
@@ -1185,6 +1199,7 @@ export async function completeExecutableTraversal<
       cCall.evidenceContractRef,
       input.inputDigest,
       basis(input.clock, "evidence"),
+      probabilisticWorkerContracts?.instructionContractRef,
     );
     if (admitted.kind === "c_call_admission_rejection") {
       const rejected = completeRejectedCCall(

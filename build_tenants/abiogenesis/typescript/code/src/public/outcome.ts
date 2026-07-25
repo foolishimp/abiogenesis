@@ -332,3 +332,25 @@ export function attachContinuationAuthority(
     ...body,
   }) as PublicOutcome;
 }
+
+export function attachProjectionAuthority(
+  outcome: PublicOutcome,
+  projectionAuthority: JsonValue,
+): PublicOutcome {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    outcomeDigest: _outcomeDigest,
+    ...priorBody
+  } = outcome;
+  const body = {
+    ...priorBody,
+    projectionAuthority,
+  };
+  return deepFreeze({
+    kind: "public_outcome" as const,
+    schemaVersion: "5.0.0" as const,
+    outcomeDigest: sha256Canonical(body as unknown as JsonValue),
+    ...body,
+  }) as PublicOutcome;
+}

@@ -1,7 +1,10 @@
 import { isAbsolute, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
-import type { ModulePublication } from "../gtl/contracts.js";
+import type {
+  ModulePublication,
+  ProductSemanticsBinding,
+} from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import {
   sha256Canonical,
@@ -25,6 +28,7 @@ export interface ProductSemanticsProvider {
       readonly requestContractRef: string;
       readonly responseContractRef: string;
       readonly requestValue: Readonly<Record<string, JsonValue>>;
+      readonly actingActorRef: string;
       readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
       readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
     }>,
@@ -42,13 +46,51 @@ export interface ProductSemanticsProvider {
     readonly rejectionReasonRef: string;
     readonly evaluate: (input: unknown, output: unknown) => boolean;
   }> | null;
+  readonly resolveProbabilisticWorkerContracts?: (
+    basis: Readonly<{
+      readonly inputContractRef: string;
+      readonly outputContractRef: string;
+      readonly input: Readonly<Record<string, JsonValue>>;
+    }>,
+  ) => Readonly<{
+    readonly instructionContractRef: string;
+    readonly resultContractRef: string;
+  }> | null;
+  readonly validateInvocationBasis?: (
+    basis: Readonly<{
+      readonly input: Readonly<Record<string, JsonValue>>;
+      readonly workspaceBindingId: string;
+      readonly workspaceBindingDigest: Sha256Digest;
+      readonly workspaceId: string;
+      readonly actionCatalog: JsonValue | null;
+    }>,
+  ) => boolean;
+  readonly projectPublicResult?: (
+    basis: Readonly<{
+      readonly value: JsonValue;
+      readonly admittedResultRef: string;
+      readonly replayRef: string;
+    }>,
+  ) => JsonValue | null;
 }
 
-export interface InstalledProductSemanticsBasis {
+interface InstalledProductSemanticsBasisCommon {
   readonly install: ProductInstall;
-  readonly publication: Readonly<ModulePublication>;
   readonly verifyInstallAdmission: (install: ProductInstall) => boolean;
 }
+
+export type InstalledProductSemanticsBasis =
+  InstalledProductSemanticsBasisCommon &
+    (
+      | {
+          readonly publication: Readonly<ModulePublication>;
+        }
+      | {
+          readonly publicationDigest: Sha256Digest;
+          readonly productSemanticsBinding:
+            Readonly<ProductSemanticsBinding>;
+        }
+    );
 
 export interface InstalledLeafSemanticsProjection {
   readonly kind: "installed_leaf_semantics_projection";
@@ -77,6 +119,16 @@ interface InstalledLeafSemanticsRuntime {
     readonly advanceReasonRef: string;
     readonly rejectionReasonRef: string;
     readonly evaluate: (input: unknown, output: unknown) => boolean;
+  }> | null;
+  readonly resolveProbabilisticWorkerContracts: (
+    basis: Readonly<{
+      readonly inputContractRef: string;
+      readonly outputContractRef: string;
+      readonly input: Readonly<Record<string, JsonValue>>;
+    }>,
+  ) => Readonly<{
+    readonly instructionContractRef: string;
+    readonly resultContractRef: string;
   }> | null;
 }
 
@@ -175,7 +227,12 @@ export function inspectProductLeafSemanticsProjection(
 export async function loadInstalledProductSemantics(
   basis: InstalledProductSemanticsBasis,
 ): Promise<ProductSemanticsProvider> {
-  const binding = basis.publication.productSemanticsBinding;
+  const binding = "publication" in basis
+    ? basis.publication.productSemanticsBinding
+    : basis.productSemanticsBinding;
+  const publicationDigest = "publication" in basis
+    ? sha256Canonical(basis.publication as unknown as JsonValue)
+    : basis.publicationDigest;
   if (
     !basis.verifyInstallAdmission(basis.install) ||
     binding.packageName !== basis.install.packageName ||
@@ -203,7 +260,19 @@ export async function loadInstalledProductSemantics(
     typeof value.admitInput !== "function" ||
     typeof value.evaluateInteractionResponse !== "function" ||
     typeof value.validateContractValue !== "function" ||
-    typeof value.resolveJudgmentRelation !== "function"
+    typeof value.resolveJudgmentRelation !== "function" ||
+    (
+      value.resolveProbabilisticWorkerContracts !== undefined &&
+      typeof value.resolveProbabilisticWorkerContracts !== "function"
+    ) ||
+    (
+      value.validateInvocationBasis !== undefined &&
+      typeof value.validateInvocationBasis !== "function"
+    ) ||
+    (
+      value.projectPublicResult !== undefined &&
+      typeof value.projectPublicResult !== "function"
+    )
   ) {
     throw new TypeError(
       "installed Product semantics provider differs from its published binding",
@@ -212,9 +281,7 @@ export async function loadInstalledProductSemantics(
   const provider = value as unknown as ProductSemanticsProvider;
   loadedProductSemantics.set(provider, {
     install: basis.install,
-    publicationDigest: sha256Canonical(
-      basis.publication as unknown as JsonValue,
-    ),
+    publicationDigest,
   });
   return provider;
 }
@@ -245,6 +312,35 @@ export function evaluateInstalledInteractionResponse(
   return semantics.evaluateInteractionResponse(basis, responseCandidate);
 }
 
+export function validateInstalledInvocationBasis(
+  semantics: ProductSemanticsProvider,
+  basis: Parameters<
+    NonNullable<ProductSemanticsProvider["validateInvocationBasis"]>
+  >[0],
+): boolean {
+  if (!loadedProductSemantics.has(semantics)) {
+    throw new TypeError(
+      "Product invocation-basis validation requires the exact loaded Product semantics provider",
+    );
+  }
+  return semantics.validateInvocationBasis?.(basis) ?? true;
+}
+
+export function projectInstalledPublicResult(
+  semantics: ProductSemanticsProvider,
+  basis: Parameters<
+    NonNullable<ProductSemanticsProvider["projectPublicResult"]>
+  >[0],
+): JsonValue | null {
+  if (!loadedProductSemantics.has(semantics)) {
+    throw new TypeError(
+      "Product public-result projection requires the exact loaded Product semantics provider",
+    );
+  }
+  const projector = semantics.projectPublicResult;
+  return projector === undefined ? basis.value : projector(basis);
+}
+
 export function projectInstalledLeafSemantics(
   semantics: ProductSemanticsProvider,
 ): InstalledLeafSemanticsProjection {
@@ -259,6 +355,16 @@ export function projectInstalledLeafSemantics(
     semantics.validateContractValue.bind(semantics);
   const resolveJudgmentRelation =
     semantics.resolveJudgmentRelation.bind(semantics);
+  const resolveProbabilisticWorkerContracts =
+    semantics.resolveProbabilisticWorkerContracts?.bind(semantics) ??
+      ((basis: Readonly<{
+        readonly inputContractRef: string;
+        readonly outputContractRef: string;
+        readonly input: Readonly<Record<string, JsonValue>>;
+      }>) => Object.freeze({
+        instructionContractRef: basis.inputContractRef,
+        resultContractRef: basis.outputContractRef,
+      }));
   return mintInstalledLeafSemanticsProjection(
     {
       installId: install.installId,
@@ -273,6 +379,7 @@ export function projectInstalledLeafSemantics(
       verifyInstalledContent: () => installedProductContentMatches(install),
       validateContractValue,
       resolveJudgmentRelation,
+      resolveProbabilisticWorkerContracts,
     },
   );
 }

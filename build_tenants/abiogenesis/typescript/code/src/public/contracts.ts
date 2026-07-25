@@ -66,6 +66,7 @@ export interface PublicOutcome {
   readonly continuationRef: string | null;
   readonly continuationStatus: "open" | "responded" | "resolved" | null;
   readonly continuationAuthority?: JsonValue;
+  readonly projectionAuthority?: JsonValue;
 }
 
 export interface PublicInvocationRefusal {

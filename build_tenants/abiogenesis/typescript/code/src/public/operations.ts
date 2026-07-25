@@ -31,13 +31,23 @@ import {
 } from "./gap_authority.js";
 import {
   attachContinuationAuthority,
+  attachProjectionAuthority,
   projectOutcome,
 } from "./outcome.js";
+import {
+  constructPublicRunProjectionAuthority,
+  parsePublicRunProjectionAuthority,
+  updatePublicRunProjectionAuthority,
+  type PublicRunProjectionAuthority,
+} from "./run_projection_authority.js";
 
 export interface RootOperationContext {
   store: abg.AbgEventStore;
+  pendingReopenAuthority: abg.EventStoreReopenAuthority | null;
   readonly productState: product.RootOperationState;
 }
+
+type RunProjectionProductBasis = abg.AdmittedProductSemanticsBasis;
 
 class ApplicationRefusal extends Error {
   constructor(
@@ -55,12 +65,38 @@ class ApplicationRefusal extends Error {
 export function createRootOperationContext(): RootOperationContext {
   return {
     store: new abg.AbgEventStore(),
+    pendingReopenAuthority: null,
     productState: new product.RootOperationState(),
   };
 }
 
 export function closeRootOperationContext(context: RootOperationContext): void {
   context.store.closeDurableLog();
+  context.pendingReopenAuthority = null;
+}
+
+function closeAndRememberDurableContext(
+  context: RootOperationContext,
+): abg.EventStoreReopenAuthority {
+  const authority = context.store.projectReopenAuthorityAndClose();
+  context.pendingReopenAuthority = authority;
+  return authority;
+}
+
+function reopenRememberedDurableContext(
+  context: RootOperationContext,
+): void {
+  const authority = context.pendingReopenAuthority;
+  if (authority === null) return;
+  const reopened = abg.reopenEventStore(authority);
+  if (reopened.kind !== "reopened_event_store_context") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `retained durable context reopen refused: ${reopened.code}: ${reopened.message}`,
+    );
+  }
+  context.store = reopened.store;
+  context.pendingReopenAuthority = null;
 }
 
 function usesDurableContinuationAuthority(
@@ -567,6 +603,7 @@ async function applyWorkspaceBind(
     kind: binding.kind,
     bindingId: binding.bindingId,
     bindingDigest: binding.bindingDigest,
+    workspaceId: binding.workspaceId,
     productSetId: binding.productSetId,
     lockedProductIds: lock.rows.map((row) => row.productId),
     dependencyEdges: lock.dependencyEdges.map((edge) => ({
@@ -917,6 +954,24 @@ async function applyRunInvoke(
         },
         view: reentryState.catalogView,
       };
+  const runProjectionProductBasis: RunProjectionProductBasis = {
+    install: installState.install,
+    workspaceBindingId:
+      viewState.catalogState.catalog.workspaceBindingId,
+    workspaceBindingDigest:
+      viewState.catalogState.catalog.workspaceBindingDigest,
+    catalogId: viewState.catalogState.catalog.catalogId,
+    catalogDigest: viewState.catalogState.catalog.catalogDigest,
+    catalogAdmissionEventRef:
+      viewState.catalogState.catalog.admissionEventRef,
+    catalogViewId: viewState.view.viewId,
+    catalogViewDigest: viewState.view.viewDigest,
+    catalogViewAdmissionEventRef: viewState.view.admissionEventRef,
+    publicationDigest:
+      viewState.catalogState.catalog.publicationDigest,
+    productSemanticsBinding:
+      viewState.catalogState.publication.productSemanticsBinding,
+  };
   if (
     !workspaceState.productSet.orderedInstallRefs.includes(installState.install.installId) ||
     workspaceState.binding.roots.productRoot !== installState.candidate.installedRoot ||
@@ -1080,6 +1135,22 @@ async function applyRunInvoke(
     throw new ApplicationRefusal(
       "target_mismatch",
       "run.invoke input is refused by the selected Product-owned contract semantics",
+    );
+  }
+  if (
+    !product.validateInstalledInvocationBasis(productSemantics, {
+      input: admittedInput,
+      workspaceBindingId: workspaceState.binding.bindingId,
+      workspaceBindingDigest: workspaceState.binding.bindingDigest,
+      workspaceId: workspaceState.binding.workspaceId,
+      actionCatalog: programValue.actionCatalog === undefined
+        ? null
+        : programValue.actionCatalog as unknown as product.JsonValue,
+    })
+  ) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke input is outside the exact Product-owned workspace or Program basis",
     );
   }
   if (
@@ -1254,6 +1325,7 @@ async function applyRunInvoke(
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
       durableEventLogPath,
+      runProjectionProductBasis,
     );
   }
   const graph = gtl.materializeGraph(graphFunction, {
@@ -1292,6 +1364,7 @@ async function applyRunInvoke(
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
       durableEventLogPath,
+      runProjectionProductBasis,
     );
   }
   activeRefusalStage = "implementation_resolution";
@@ -1315,6 +1388,7 @@ async function applyRunInvoke(
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
       durableEventLogPath,
+      runProjectionProductBasis,
     );
   }
   const resolutionSetCandidate = product.resolveImplementationSet(
@@ -1338,6 +1412,7 @@ async function applyRunInvoke(
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
       durableEventLogPath,
+      runProjectionProductBasis,
     );
   }
   const resolutionSetValidation = validator.validateImplementationResolutionSet(
@@ -1363,6 +1438,7 @@ async function applyRunInvoke(
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
       durableEventLogPath,
+      runProjectionProductBasis,
     );
   }
   const closureContract = viewState.catalogState.publication.closureContracts.find(
@@ -1383,6 +1459,7 @@ async function applyRunInvoke(
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
       durableEventLogPath,
+      runProjectionProductBasis,
     );
   }
   activeRefusalStage = "execution_basis";
@@ -1407,6 +1484,7 @@ async function applyRunInvoke(
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
       durableEventLogPath,
+      runProjectionProductBasis,
     );
   }
   failureExecutionBasis = executionAdmission.executionBasis;
@@ -1432,6 +1510,7 @@ async function applyRunInvoke(
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
       durableEventLogPath,
+      runProjectionProductBasis,
     );
   }
   failureScope = opened.scope;
@@ -1530,7 +1609,7 @@ async function applyRunInvoke(
         "stopped traversal lacks its exact replayed no-action route",
       );
     }
-    const reopenAuthority = context.store.projectReopenAuthorityAndClose();
+    const reopenAuthority = closeAndRememberDurableContext(context);
     const gapAuthority = constructPublicGapAuthority({
       reopenAuthority,
       installInvocationRef:
@@ -1597,7 +1676,7 @@ async function applyRunInvoke(
         "held traversal is missing its exact continuation basis",
       );
     }
-    const reopenAuthority = context.store.projectReopenAuthorityAndClose();
+    const reopenAuthority = closeAndRememberDurableContext(context);
     const continuationAuthority = constructPublicContinuationAuthority({
       continuationRef: traversalCompletion.continuationRef,
       reopenAuthority,
@@ -1623,6 +1702,21 @@ async function applyRunInvoke(
       candidate.invocationRef,
       persisted,
       continuationAuthority as unknown as product.JsonValue,
+    );
+  } else if (outcome.runId !== null) {
+    const projectionAuthority = constructPublicRunProjectionAuthority({
+      reopenAuthority: closeAndRememberDurableContext(context),
+      runtimeInvocationRef: candidate.invocationRef,
+      invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
+      runId: outcome.runId,
+      graphCallId: outcome.graphCallId,
+      resultRef: outcome.resultRef,
+      outputContractRef: graphFunction.outputs[0] ?? "",
+      ...runProjectionProductBasis,
+    });
+    outcome = attachProjectionAuthority(
+      outcome,
+      projectionAuthority as unknown as product.JsonValue,
     );
   }
   return outcome;
@@ -1656,7 +1750,9 @@ async function applyRunInvoke(
         graphFunction.outputs[0] ?? "",
         candidate.invocationRef,
         durableEventLogPath,
+        runProjectionProductBasis,
         failureScope.runId,
+        invocationAdmission.invocationAdmissionRef,
       );
     }
     abg.admitInvocationRefusal(
@@ -1677,6 +1773,9 @@ async function applyRunInvoke(
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
       durableEventLogPath,
+      runProjectionProductBasis,
+      undefined,
+      invocationAdmission.invocationAdmissionRef,
     );
   }
 }
@@ -1687,7 +1786,9 @@ async function projectCurrentOutcome(
   outputContractRef: string,
   runtimeInvocationRef: string,
   durableEventLogPath: string,
+  productBasis: RunProjectionProductBasis,
   runId?: string,
+  invocationAdmissionRef?: string,
 ): Promise<PublicOutcome> {
   const scope = runId === undefined
     ? { invocationRef: runtimeInvocationRef }
@@ -1695,13 +1796,30 @@ async function projectCurrentOutcome(
   const first = abg.replay(context.store, scope);
   const second = abg.replay(context.store, scope);
   const eventLog = await abg.persistEventLog(context.store, durableEventLogPath, scope);
-  return projectOutcome(
+  const outcome = projectOutcome(
     invocation,
     first,
     second,
     outputContractRef,
     runtimeInvocationRef,
     eventLog,
+  );
+  if (outcome.runId === null || invocationAdmissionRef === undefined) {
+    return outcome;
+  }
+  const projectionAuthority = constructPublicRunProjectionAuthority({
+    reopenAuthority: closeAndRememberDurableContext(context),
+    runtimeInvocationRef,
+    invocationAdmissionRef,
+    runId: outcome.runId,
+    graphCallId: outcome.graphCallId,
+    resultRef: outcome.resultRef,
+    outputContractRef,
+    ...productBasis,
+  });
+  return attachProjectionAuthority(
+    outcome,
+    projectionAuthority as unknown as product.JsonValue,
   );
 }
 
@@ -1746,6 +1864,7 @@ function reopenContinuation(
   context: RootOperationContext,
   state: PublicContinuationAuthority,
 ): abg.ReopenedEventStoreContext {
+  context.pendingReopenAuthority = null;
   const reopened = abg.reopenEventStore(state.reopenAuthority);
   if (reopened.kind !== "reopened_event_store_context") {
     throw new ApplicationRefusal(
@@ -1794,7 +1913,7 @@ function closeContinuationContext(
 ): PublicContinuationAuthority {
   return updatePublicContinuationAuthority(
     state,
-    context.store.projectReopenAuthorityAndClose(),
+    closeAndRememberDurableContext(context),
   );
 }
 
@@ -1830,6 +1949,7 @@ function reopenGapAuthority(
   readonly replayState: abg.ReplayState;
   readonly route: abg.ReplayRouteState;
 } {
+  context.pendingReopenAuthority = null;
   const reopened = abg.reopenEventStore(state.reopenAuthority);
   if (reopened.kind !== "reopened_event_store_context") {
     throw new ApplicationRefusal(
@@ -1954,8 +2074,247 @@ function closeGapAuthority(
 ): PublicGapAuthority {
   return updatePublicGapAuthority(
     state,
-    context.store.projectReopenAuthorityAndClose(),
+    closeAndRememberDurableContext(context),
   );
+}
+
+function reopenRunProjectionAuthority(
+  context: RootOperationContext,
+  state: PublicRunProjectionAuthority,
+): {
+  readonly rootInvocation: abg.InvocationAdmission;
+  readonly replayState: abg.ReplayState;
+} {
+  context.pendingReopenAuthority = null;
+  const reopened = abg.reopenEventStore(state.reopenAuthority);
+  if (reopened.kind !== "reopened_event_store_context") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `durable run projection reopen refused: ${reopened.code}: ${reopened.message}`,
+    );
+  }
+  const rootInvocation = abg.rehydrateInvocationAdmission(
+    reopened.store,
+    state.invocationAdmissionRef,
+  );
+  const replayState = abg.replay(reopened.store, { runId: state.runId });
+  const resultExists = state.resultRef === null ||
+    replayState.cCalls.some((cCall) => cCall.resultRef === state.resultRef);
+  if (
+    rootInvocation === null ||
+    rootInvocation.invocationRef !== state.runtimeInvocationRef ||
+    rootInvocation.outputContractRef !== state.outputContractRef ||
+    rootInvocation.catalogViewId !== state.catalogViewId ||
+    rootInvocation.catalogViewDigest !== state.catalogViewDigest ||
+    rootInvocation.workspaceBindingId !== state.workspaceBindingId ||
+    rootInvocation.workspaceBindingDigest !==
+      state.workspaceBindingDigest ||
+    !abg.hasAdmittedProductSemanticsBasis(reopened.store, state) ||
+    replayState.runId !== state.runId ||
+    replayState.graphCallId !== state.graphCallId ||
+    !resultExists
+  ) {
+    reopened.store.closeDurableLog();
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      "durable run projection authority differs from its admitted invocation, Run, GraphCall, or result basis",
+    );
+  }
+  context.store = reopened.store;
+  return { rootInvocation, replayState };
+}
+
+function closeRunProjectionAuthority(
+  context: RootOperationContext,
+  state: PublicRunProjectionAuthority,
+): PublicRunProjectionAuthority {
+  return updatePublicRunProjectionAuthority(
+    state,
+    closeAndRememberDurableContext(context),
+  );
+}
+
+async function applyRunProjectionRead(
+  context: RootOperationContext,
+  invocation: RootPublicInvocation,
+): Promise<PublicOutcome> {
+  requireExactPayloadKeys(
+    invocation.payload,
+    ["projectionAuthority", "targetRef"],
+    "project.read",
+  );
+  const state = parsePublicRunProjectionAuthority(
+    invocation.payload.projectionAuthority,
+  );
+  if (state === null) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "project.read requires one exact self-consistent public run projection authority",
+    );
+  }
+  const targetRef = stringField(invocation.payload, "targetRef");
+  const targetMatches = invocation.variant === "result"
+    ? targetRef === state.resultRef || targetRef === state.graphCallId
+    : targetRef === state.runId || targetRef === state.graphCallId;
+  if (!targetMatches) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "project.read target is outside the admitted Run projection authority",
+    );
+  }
+  reopenRunProjectionAuthority(context, state);
+  let closed = false;
+  try {
+    const replayState = abg.replay(context.store, { runId: state.runId });
+    const secondReplay = abg.replay(context.store, { runId: state.runId });
+    const eventLog = await abg.persistEventLog(
+      context.store,
+      state.reopenAuthority.eventLogPath,
+      { runId: state.runId },
+    );
+    if (
+      eventLog.eventCount !== replayState.eventCount ||
+      eventLog.eventLogDigest !== state.reopenAuthority.eventLogDigest ||
+      replayState.replayDigest !== secondReplay.replayDigest
+    ) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "project.read run projection differs from its exact durable prefix",
+      );
+    }
+    const eventsBeforeRead = context.store.readAll();
+    const projected = projectOutcome(
+      invocation,
+      replayState,
+      secondReplay,
+      state.outputContractRef,
+      state.runtimeInvocationRef,
+      eventLog,
+    );
+    if (
+      invocation.variant === "result" &&
+      (
+        state.resultRef === null ||
+        projected.resultRef !== state.resultRef ||
+        projected.disposition !== "succeeded"
+      )
+    ) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "project.read result requires one replay-closed admitted result",
+      );
+    }
+    const scopedEvents = context.store.readScope({ runId: state.runId });
+    let publicResultValue = projected.result;
+    if (invocation.variant === "result") {
+      try {
+        const productSemantics = await product.loadInstalledProductSemantics({
+          install: state.install,
+          publicationDigest: state.publicationDigest,
+          productSemanticsBinding: state.productSemanticsBinding,
+          verifyInstallAdmission: (install) =>
+            abg.hasAdmittedProductInstall(context.store, install),
+        });
+        publicResultValue = product.projectInstalledPublicResult(
+          productSemantics,
+          {
+            value: projected.result,
+            admittedResultRef: state.resultRef!,
+            replayRef: replayState.replayRef,
+          },
+        );
+      } catch {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "project.read Product result projection is not carried by the exact admitted install",
+        );
+      }
+      if (publicResultValue === null) {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "project.read Product result projection refused the admitted result and replay basis",
+        );
+      }
+    }
+    const readResult = invocation.variant === "status"
+      ? {
+          kind: "public_run_status_projection",
+          schemaVersion: "5.0.0",
+          runId: state.runId,
+          graphCallId: replayState.graphCallId,
+          runtimeStatus: replayState.runtimeStatus,
+          resultRef: projected.resultRef,
+          resultContractRef: projected.admittedResultContractRef,
+          replayRef: replayState.replayRef,
+          replayDigest: replayState.replayDigest,
+        }
+      : invocation.variant === "result"
+        ? {
+            kind: "public_result_projection",
+            schemaVersion: "5.0.0",
+            disposition: projected.disposition,
+            resultRef: projected.resultRef,
+            resultContractRef: projected.admittedResultContractRef,
+            outputContractRef: projected.outputContractRef,
+            value: publicResultValue,
+            closureEligible: true,
+            residuals: [],
+            replayRef: replayState.replayRef,
+            replayDigest: replayState.replayDigest,
+          }
+        : {
+            kind: "public_replay_projection",
+            schemaVersion: "5.0.0",
+            runId: state.runId,
+            ordering: "admission_ordinal",
+            fromOrdinal: scopedEvents.at(0)?.admissionOrdinal ?? null,
+            toOrdinal: scopedEvents.at(-1)?.admissionOrdinal ?? null,
+            eventCount: scopedEvents.length,
+            events: scopedEvents,
+            replayRef: replayState.replayRef,
+            replayDigest: replayState.replayDigest,
+            eventStoreDigest: replayState.eventStoreDigest,
+          };
+    if (
+      context.store.readAll().length !== eventsBeforeRead.length ||
+      context.store.digest({ runId: state.runId }) !== replayState.eventStoreDigest
+    ) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "project.read must not append or alter runtime truth",
+      );
+    }
+    const updated = closeRunProjectionAuthority(context, state);
+    closed = true;
+    return attachProjectionAuthority(
+      successOutcome(
+        invocation,
+        {
+          ...readResult,
+          projectionAuthority: updated as unknown as product.JsonValue,
+        } as unknown as product.JsonValue,
+        {
+          runtimeInvocationRef: state.runtimeInvocationRef,
+          runId: state.runId,
+          ...(replayState.graphCallId === null
+            ? {}
+            : { graphCallId: replayState.graphCallId }),
+          ...(replayState.frameId === null
+            ? {}
+            : { frameId: replayState.frameId }),
+          replayRef: replayState.replayRef,
+          replayDigest: replayState.replayDigest,
+          eventLogPath: eventLog.eventLogPath,
+          eventLogDigest: eventLog.eventLogDigest,
+          eventLogByteLength: eventLog.durableByteLength,
+          durableEventCount: eventLog.durableEventCount,
+        },
+      ),
+      updated as unknown as product.JsonValue,
+    );
+  } finally {
+    if (!closed) closeRunProjectionAuthority(context, state);
+  }
 }
 
 async function applyGapRead(
@@ -2049,6 +2408,15 @@ async function applyProjectRead(
       "invalid_request",
       "project.read continuation requires status, result, replay, or lawful-actions",
     );
+  }
+  if (invocation.payload.projectionAuthority !== undefined) {
+    if (invocation.variant === "lawful-actions") {
+      throw new ApplicationRefusal(
+        "invalid_request",
+        "project.read lawful-actions requires a continuation authority",
+      );
+    }
+    return applyRunProjectionRead(context, invocation);
   }
   requireExactPayloadKeys(
     invocation.payload,
@@ -2144,13 +2512,44 @@ async function applyProjectRead(
       invocation.variant === "result" &&
       (
         continuation.status !== "resolved" ||
-        projectedResult?.disposition !== "succeeded"
+        projectedResult?.disposition !== "succeeded" ||
+        projectedResult.resultRef === null
       )
     ) {
       throw new ApplicationRefusal(
         "target_mismatch",
         "project.read result requires one replay-closed resolved continuation",
       );
+    }
+    let publicResultValue = projectedResult?.result ?? null;
+    if (invocation.variant === "result") {
+      try {
+        const productSemantics = await product.loadInstalledProductSemantics({
+          install: state.install,
+          publication: state.catalog.modulePublication,
+          verifyInstallAdmission: (install) =>
+            abg.hasAdmittedProductInstall(context.store, install),
+        });
+        publicResultValue = product.projectInstalledPublicResult(
+          productSemantics,
+          {
+            value: projectedResult!.result,
+            admittedResultRef: projectedResult!.resultRef!,
+            replayRef: replayState.replayRef,
+          },
+        );
+      } catch {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "project.read Product result projection is not carried by the exact admitted install",
+        );
+      }
+      if (publicResultValue === null) {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "project.read Product result projection refused the admitted result and replay basis",
+        );
+      }
     }
     const readResult = invocation.variant === "status"
       ? {
@@ -2188,7 +2587,7 @@ async function applyProjectRead(
             resultRef: projectedResult!.resultRef,
             resultContractRef: projectedResult!.admittedResultContractRef,
             outputContractRef: projectedResult!.outputContractRef,
-            value: projectedResult!.result,
+            value: publicResultValue,
             closureEligible: true,
             residuals: [],
             replayRef: replayState.replayRef,
@@ -2345,7 +2744,10 @@ async function applyInteractionRespond(
     });
     const response = product.evaluateInstalledInteractionResponse(
       productSemantics,
-      interactionBasis,
+      {
+        ...interactionBasis,
+        actingActorRef: operation.actorRef,
+      },
       responseCandidate,
     );
     if (response === null) {
@@ -2843,6 +3245,9 @@ export async function applyRootPublicInvocation(
       : `contract://abiogenesis/public/${invocation.operationId}@5`,
   );
   try {
+    if (!usesDurableContinuationAuthority(invocation.operationId)) {
+      reopenRememberedDurableContext(context);
+    }
     switch (invocation.operationId) {
       case "abg.operation.product.verify":
         return await applyVerify(context, invocation);

@@ -384,7 +384,7 @@ export async function realizeConsensusReviewer(
     materializationPlanRef:
       "materialization-plan://abg/consensus/reviewer-prompt@5",
     rendererRef: "renderer://abg/consensus/reviewer-prompt@5",
-    instructionContractRef: CONSENSUS_IDS.reviewerTaskContractRef,
+    instructionContractRef: input.profile.instructionContractRef,
     resultContractRef: input.profile.resultContractRef,
     transportLane: input.transportLane,
     prompt: reviewerPrompt(input),
