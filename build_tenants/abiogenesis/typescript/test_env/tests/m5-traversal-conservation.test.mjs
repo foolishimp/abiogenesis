@@ -747,7 +747,7 @@ const matrix = [
   proven("public_control", "advance_next", {
     gtlExpression: "Product-declared default Program start selected by target=next",
     hogPath: "one admitted start enters one bounded direct GraphFunction traversal",
-    abgEvidence: "invocation admission binds next, first_traversal, and the resolved start identity",
+    abgEvidence: "invocation admission binds next, converged, and the resolved start identity",
     publicOutcome: "installed CLI returns the Product-owned default traversal result with replay agreement",
     invalidMutation: "next without a Product-declared default refuses before Run admission",
   }, ({ externalPublicTargets }) => {

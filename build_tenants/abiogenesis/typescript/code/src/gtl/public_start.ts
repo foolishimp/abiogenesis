@@ -1,6 +1,6 @@
 import type { GtlProgram, ProgramStart } from "./contracts.js";
 
-export type ProgramStartUntil = "converged" | "first_traversal";
+export type ProgramStartUntil = "converged";
 export type ProgramRootMode = "direct" | "supervised";
 
 export interface ProgramStartRequest {
@@ -71,14 +71,14 @@ export function resolveProgramStart(
         );
   }
   if (
-    request.until !== "first_traversal" ||
+    request.until !== "converged" ||
     request.rootMode !== "direct" ||
     request.startRef !== undefined ||
     program.policies["abg.root_mode"] !== "direct"
   ) {
     return refusal(
       "unsupported_control",
-      "direct public control requires next or asset target with until first_traversal and no caller-selected start",
+      "direct public control requires next or asset target with until converged and no caller-selected start",
     );
   }
   if (request.target === "next") {

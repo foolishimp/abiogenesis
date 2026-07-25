@@ -85,7 +85,7 @@ export interface PublicStartAdmissionIdentity {
   readonly startRef: string;
   readonly scope: "program";
   readonly target: string;
-  readonly until: "converged" | "first_traversal";
+  readonly until: "converged";
   readonly rootMode: "direct" | "supervised";
 }
 
@@ -355,7 +355,7 @@ export function admitInvocation(
       ? resolveProgramStart(input.program, {
           scope: requestPayload.scope as "program",
           target: requestPayload.target,
-          until: requestPayload.until as "converged" | "first_traversal",
+          until: requestPayload.until as "converged",
           rootMode: requestPayload.rootMode as "direct" | "supervised",
           ...(typeof requestPayload.startRef === "string"
             ? { startRef: requestPayload.startRef }
@@ -416,7 +416,7 @@ export function admitInvocation(
           startRef: resolvedPublicStart.start.startRef,
           scope: requestPayload.scope as "program",
           target: requestPayload.target,
-          until: requestPayload.until as "converged" | "first_traversal",
+          until: requestPayload.until as "converged",
           rootMode: requestPayload.rootMode as "direct" | "supervised",
         }
       : null;

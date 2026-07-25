@@ -60,6 +60,7 @@ export async function loadInstalledProductSemantics(authority: {
     value.packageName !== binding.packageName ||
     value.packageVersion !== binding.packageVersion ||
     typeof value.admitInput !== "function" ||
+    typeof value.evaluateInteractionResponse !== "function" ||
     typeof value.validateContractValue !== "function" ||
     typeof value.resolveJudgmentRelation !== "function"
   ) {

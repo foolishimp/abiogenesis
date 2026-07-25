@@ -100,6 +100,14 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
   packageName: ABI5_PACKAGE_NAME,
   packageVersion: ABI5_PACKAGE_VERSION,
   admitInput,
+  evaluateInteractionResponse(
+    basis: Parameters<
+      ProductSemanticsProvider["evaluateInteractionResponse"]
+    >[0],
+    responseCandidate: unknown,
+  ) {
+    return admitInput(basis.responseContractRef, responseCandidate);
+  },
   validateContractValue(
     valueKind: string,
     value: unknown,
@@ -203,6 +211,14 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   packageName: ABI5_PACKAGE_NAME,
   packageVersion: ABI5_PACKAGE_VERSION,
   admitInput: admitSystemInput,
+  evaluateInteractionResponse(
+    basis: Parameters<
+      ProductSemanticsProvider["evaluateInteractionResponse"]
+    >[0],
+    responseCandidate: unknown,
+  ) {
+    return admitSystemInput(basis.responseContractRef, responseCandidate);
+  },
   validateContractValue: validateSystemContractValue,
   resolveJudgmentRelation: resolveConsensusJudgmentRelation,
 }) satisfies ProductSemanticsProvider;

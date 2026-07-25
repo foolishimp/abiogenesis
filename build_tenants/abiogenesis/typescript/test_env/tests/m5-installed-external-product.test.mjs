@@ -415,7 +415,24 @@ async function oneSurfaceLifecycle(
       },
     ),
   );
-  assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
+  assert.equal(
+    responded.disposition,
+    options.expectedResponseDisposition ?? "succeeded",
+    JSON.stringify(responded),
+  );
+  if (responded.disposition !== "succeeded") {
+    const eventLog = await readFile(scenario.eventLogPath, "utf8");
+    const events = eventLog.trim().length === 0
+      ? []
+      : eventLog.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+    return {
+      completed: null,
+      events,
+      frontier,
+      held,
+      responded,
+    };
+  }
   if (options.afterRespond !== undefined) {
     await options.afterRespond({
       continuationAuthority: JSON.parse(
@@ -637,11 +654,7 @@ async function externalScenario(
               (publicTarget === null ? "supervised" : "direct"),
             scope: target.scope ?? "program",
             target: publicTarget ?? startRef,
-            until:
-              target.until ??
-              (publicTarget === null
-                ? "converged"
-                : "first_traversal"),
+            until: target.until ?? "converged",
             ...(publicTarget === null ? { startRef } : {}),
           }
         : { graphFunctionRef }),
@@ -890,7 +903,7 @@ test("M5 starts Product-declared next and asset targets without a Public control
     );
     assert.equal(
       invocationAdmission?.payload.publicStart.until,
-      "first_traversal",
+      "converged",
     );
     const openedGraphCall = events.find(
       (event) => event.kind === "graph_call_opened",
@@ -959,6 +972,28 @@ test("M5 starts Product-declared next and asset targets without a Public control
   assert.equal(duplicateRun.exitCode, 2);
   assert.equal(duplicateRun.outcomes[5].disposition, "refused");
   assert.equal(duplicateRun.outcomes.at(-1).runId, null);
+
+  const firstTraversalScenario = await externalScenario(
+    harness,
+    mini,
+    "public-next-first-traversal",
+    mini.publication,
+    {
+      runVariant: "start",
+      publicTarget: "next",
+      until: "first_traversal",
+    },
+  );
+  const firstTraversalRun = await runInstalledCli(
+    harness,
+    firstTraversalScenario,
+  );
+  assert.equal(firstTraversalRun.exitCode, 2);
+  assert.equal(
+    firstTraversalRun.outcomes.at(-1).disposition,
+    "refused",
+  );
+  assert.equal(firstTraversalRun.outcomes.at(-1).runId, null);
 });
 
 test("M5 invokes external ticket work only through its owning Program and GraphFunction", async (context) => {
@@ -1217,9 +1252,50 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
   try {
     const operationContext = publicApi.createRootOperationContext();
     const setupOutcomes = [];
+    const missingAuthorityOutcomes = [];
     try {
       for (const row of scenario.transcript) {
         setupOutcomes.push(
+          await publicApi.applyRootPublicInvocation(operationContext, row),
+        );
+      }
+      const held = setupOutcomes.at(-1);
+      for (const row of [
+        invocation(
+          "abg.operation.project.read",
+          "status",
+          "invocation://t270/external-mixed/read-without-authority",
+          {
+            continuationRef: held.continuationRef,
+          },
+        ),
+        invocation(
+          "abg.operation.interaction.respond",
+          "approve",
+          "invocation://t270/external-mixed/respond-without-authority",
+          {
+            actorRef: "actor://developer.example/trusted-developer",
+            capabilityRef: mini.ids.actorCapabilityRef,
+            continuationRef: held.continuationRef,
+            response: {
+              kind: "developer_greeting_output",
+              schemaVersion: "5.0.0",
+              message: "Welcome Grace.",
+            },
+          },
+        ),
+        invocation(
+          "abg.operation.run.continue",
+          "current_intent",
+          "invocation://t270/external-mixed/continue-without-authority",
+          {
+            actorRef: "actor://developer.example/trusted-developer",
+            capabilityRef: mini.ids.actorCapabilityRef,
+            continuationRef: held.continuationRef,
+          },
+        ),
+      ]) {
+        missingAuthorityOutcomes.push(
           await publicApi.applyRootPublicInvocation(operationContext, row),
         );
       }
@@ -1246,6 +1322,17 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     assert.equal(typeof held.continuationRef, "string");
     assert.equal(held.continuationStatus, "open");
     const continuationRef = held.continuationRef;
+    assert.deepEqual(
+      missingAuthorityOutcomes.map((outcome) => [
+        outcome.disposition,
+        outcome.result.code,
+      ]),
+      [
+        ["refused", "missing_prerequisite"],
+        ["refused", "missing_prerequisite"],
+        ["refused", "missing_prerequisite"],
+      ],
+    );
     assert.equal(
       held.result.continuationAuthority.kind,
       "public_continuation_authority",
@@ -2472,7 +2559,7 @@ test("M5 refuses a Product-valid F_H response bound to a different construction 
     ),
   );
   assert.equal(refused.disposition, "refused", JSON.stringify(refused));
-  assert.equal(refused.result.code, "owner_refusal");
+  assert.equal(refused.result.code, "target_mismatch");
   const events = (await readFile(scenario.eventLogPath, "utf8"))
     .trim()
     .split(/\r?\n/u)
@@ -3189,6 +3276,7 @@ test("M5 preserves governed correction dispositions through the external Product
         mini.publication,
         {
           observation: correctionObservation("repair_required"),
+          expectedResponseDisposition: "refused",
           responseVariant: "answer_escalation",
           response: (frontier) => ({
             kind: "developer_human_approval",
@@ -3201,10 +3289,12 @@ test("M5 preserves governed correction dispositions through the external Product
           }),
         },
       );
-      assert.equal(result.responded.disposition, "succeeded");
+      assert.equal(result.responded.disposition, "refused");
+      assert.equal(result.responded.result.code, "target_mismatch");
+      assert.equal(result.completed, null);
       assert.equal(
-        ["repair", "inspect_runtime_archive", "reprice", "escalate"].includes(
-          result.completed.disposition,
+        result.events.some(
+          (event) => event.kind === "fh_interaction_responded",
         ),
         false,
       );

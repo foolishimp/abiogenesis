@@ -3345,6 +3345,71 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
     }
     return null;
   },
+  evaluateInteractionResponse(
+    basis: Readonly<{
+      requestContractRef: string;
+      responseContractRef: string;
+      requestValue: Readonly<Record<string, JsonValue>>;
+      constructionIntent: Readonly<Record<string, JsonValue>> | null;
+      nextActionBasis: Readonly<Record<string, JsonValue>> | null;
+    }>,
+    responseCandidate: unknown,
+  ) {
+    if (
+      basis.constructionIntent === null &&
+      basis.nextActionBasis === null
+    ) {
+      return basis.responseContractRef ===
+          DEVELOPER_MINI_IDS.outputContractRef &&
+          isGreetingOutput(responseCandidate)
+        ? deepFreeze({ ...responseCandidate })
+        : null;
+    }
+    if (
+      basis.responseContractRef !== DEVELOPER_MINI_IDS.approvalContractRef ||
+      !isHumanApproval(responseCandidate)
+    ) {
+      return null;
+    }
+    const response = deepFreeze({ ...responseCandidate });
+    if (
+      basis.constructionIntent === null ||
+      basis.nextActionBasis === null ||
+      !isNextActionProjection(basis.requestValue) ||
+      !isNextActionBasis(basis.nextActionBasis) ||
+      basis.requestContractRef !== DEVELOPER_MINI_IDS.nextActionContractRef ||
+      basis.requestValue.nextActionBasisRef !== basis.nextActionBasis.basisRef ||
+      basis.requestValue.nextActionBasisDigest !==
+        basis.nextActionBasis.basisDigest ||
+      basis.constructionIntent.constructionIntentRef !==
+        response.constructionIntentRef
+    ) {
+      return null;
+    }
+    const observation = basis.nextActionBasis.observationSnapshot;
+    if (
+      !isRecord(observation) ||
+      !isDeveloperChangeAuthorityState(observation.changeAuthorityState)
+    ) {
+      return null;
+    }
+    const expectedCorrection = correctionForAuthorityState(
+      observation.changeAuthorityState,
+    );
+    if (
+      (
+        expectedCorrection === null &&
+        response.correctionDisposition !== undefined
+      ) ||
+      (
+        expectedCorrection !== null &&
+        response.correctionDisposition !== expectedCorrection
+      )
+    ) {
+      return null;
+    }
+    return response;
+  },
   validateContractValue(valueKind: string, value: unknown) {
     switch (valueKind) {
       case "developer_greeting_output":

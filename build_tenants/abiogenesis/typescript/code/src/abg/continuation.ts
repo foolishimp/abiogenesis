@@ -340,6 +340,123 @@ export function projectFhContinuations(
   });
 }
 
+export function projectFhInteractionSemanticBasis(
+  store: AbgEventStore,
+  continuationRef: string,
+): Readonly<{
+  readonly requestContractRef: string;
+  readonly responseContractRef: string;
+  readonly requestValue: Readonly<Record<string, JsonValue>>;
+  readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
+  readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
+}> | null {
+  const continuations = projectFhContinuations(store).filter(
+    (row) => row.continuationRef === continuationRef,
+  );
+  const openedRows = store.readAll().filter(
+    (event) =>
+      event.kind === "fh_interaction_opened" &&
+      event.aggregateType === "continuation" &&
+      event.aggregateId === continuationRef,
+  );
+  if (
+    continuations.length !== 1 ||
+    continuations[0]!.status !== "open" ||
+    openedRows.length !== 1
+  ) {
+    return null;
+  }
+  const continuation = continuations[0]!;
+  const opened = openedRows[0]!;
+  if (!isRecord(opened.payload) || !isRecord(opened.payload.inputValue)) {
+    return null;
+  }
+  const requestValue = opened.payload.inputValue;
+  if (
+    sha256Canonical(requestValue) !== continuation.requestDigest
+  ) {
+    return null;
+  }
+  if (continuation.constructionIntentRef === null) {
+    return deepFreeze({
+      requestContractRef: continuation.requestContractRef,
+      responseContractRef: continuation.responseContractRef,
+      requestValue,
+      constructionIntent: null,
+      nextActionBasis: null,
+    });
+  }
+  const intentRows = store.readAll().filter(
+    (event) =>
+      event.kind === "construction_intent_selected" &&
+      event.runId === continuation.runId &&
+      event.graphCallId === continuation.graphCallId &&
+      event.frameId === continuation.frameId &&
+      event.admissionOrdinal < opened.admissionOrdinal &&
+      isRecord(event.payload) &&
+      event.payload.constructionIntentRef ===
+        continuation.constructionIntentRef,
+  );
+  if (intentRows.length !== 1) {
+    return null;
+  }
+  const intentEvent = intentRows[0]!;
+  const intentPayload = intentEvent.payload;
+  if (!isRecord(intentPayload)) return null;
+  const constructionIntent = intentPayload.constructionIntent;
+  const nextActionBasis = intentPayload.nextActionBasis;
+  if (!isRecord(constructionIntent) || !isRecord(nextActionBasis)) {
+    return null;
+  }
+  const {
+    constructionIntentRef,
+    constructionIntentDigest,
+    ...intentBody
+  } = constructionIntent;
+  const {
+    basisRef,
+    basisDigest,
+    ...basisBody
+  } = nextActionBasis;
+  const {
+    projectionRef,
+    projectionDigest,
+    ...projectionBody
+  } = requestValue;
+  if (
+    typeof constructionIntentRef !== "string" ||
+    typeof constructionIntentDigest !== "string" ||
+    typeof basisRef !== "string" ||
+    typeof basisDigest !== "string" ||
+    typeof projectionRef !== "string" ||
+    typeof projectionDigest !== "string" ||
+    sha256Canonical(intentBody) !== constructionIntentDigest ||
+    sha256Canonical(basisBody) !== basisDigest ||
+    sha256Canonical(projectionBody) !== projectionDigest ||
+    constructionIntentRef !== continuation.constructionIntentRef ||
+    constructionIntentDigest !== continuation.constructionIntentDigest ||
+    constructionIntent.nextActionProjectionRef !== projectionRef ||
+    constructionIntent.nextActionProjectionDigest !==
+      projectionDigest ||
+    constructionIntent.nextActionBasisRef !== basisRef ||
+    constructionIntent.nextActionBasisDigest !== basisDigest ||
+    constructionIntent.targetCursorRef !== continuation.heldCursorRef ||
+    requestValue.nextActionBasisRef !== basisRef ||
+    requestValue.nextActionBasisDigest !== basisDigest ||
+    intentPayload.nextActionBasisRef !== basisRef ||
+    intentPayload.nextActionBasisDigest !== basisDigest
+  ) {
+    return null;
+  }
+  return deepFreeze({
+    requestContractRef: continuation.requestContractRef,
+    responseContractRef: continuation.responseContractRef,
+    requestValue,
+    constructionIntent,
+    nextActionBasis,
+  });
+}
+
 export function rehydrateFhContinuation(
   store: AbgEventStore,
   continuationRef: string,

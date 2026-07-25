@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s03_reconciliation
-- review_status: pending_bounded_design_reconciliation
-- proof_status: pending_s03_reclosure
+- phase_status: m5_s03_candidate_verification
+- review_status: pending_exact_cut_review
+- proof_status: runtime_and_design_gates_green_package_reproducibility_pending
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-

@@ -175,6 +175,7 @@ export {
   admitFhInteractionResume,
   deriveFhResumeSuccessorInput,
   projectFhContinuations,
+  projectFhInteractionSemanticBasis,
   rehydrateFhContinuation,
   type ContinuationProductBasis,
   type ContinuationPublicOperationAdmission,
