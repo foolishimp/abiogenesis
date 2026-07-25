@@ -16,7 +16,7 @@
 
 **Ontology authority**: `ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md` accepted semantic candidate `1ca39b2b5c536be6d16eecfb30d8310e798853232ae7c03f71ac655a7f97bf40`; current projection digest `bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615`
 
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md`
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md`
 
 **Prime authority**: [ADR-044](./adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md)
 

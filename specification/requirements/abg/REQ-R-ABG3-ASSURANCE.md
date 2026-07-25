@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Constraint / Guarantee
 **Date**: 2026-04-29
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-EVENTS.md](REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-CONVERGENCE.md](REQ-R-ABG3-CONVERGENCE.md), [REQ-R-ABG3-CORRECTION.md](REQ-R-ABG3-CORRECTION.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-EVENTS.md](REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-CONVERGENCE.md](REQ-R-ABG3-CONVERGENCE.md), [REQ-R-ABG3-CORRECTION.md](REQ-R-ABG3-CORRECTION.md)
 
 ---
 

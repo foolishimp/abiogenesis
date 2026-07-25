@@ -7,7 +7,7 @@
 
 **Validates**: REQ-L-GTL3-LANGUAGE, REQ-L-GTL3-ATTRS, REQ-L-GTL3-CONTEXT, REQ-L-GTL3-GRAPH, REQ-L-GTL3-NODE, REQ-L-GTL3-GRAPHVECTOR, REQ-L-GTL3-INTERFACE, REQ-L-GTL3-IDENTITY
 
-**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [PRODUCT.md](../PRODUCT.md), [requirements/gtl/README.md](../requirements/gtl/README.md)
+**Derives from**: [SPEC_METHOD.md](../../.genesis/docs/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ODD_METHOD.md](../../.genesis/docs/standards/ODD_METHOD.md), [PRODUCT.md](../PRODUCT.md), [requirements/gtl/README.md](../requirements/gtl/README.md)
 
 **Purpose**: Prove that GTL 3 language identity, immutable declaration
 carriers, typed graph structure, typed asset-surface declarations, invariant

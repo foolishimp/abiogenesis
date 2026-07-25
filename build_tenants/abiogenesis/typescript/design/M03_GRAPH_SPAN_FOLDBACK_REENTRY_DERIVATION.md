@@ -64,7 +64,7 @@ This design derives from:
   and admitted runtime events.
 - `M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md`: T-100
   per-edge obligation ledger, schedule, assessment, and foldback.
-- `/Users/jim/src/apps/specification_methodology/specification/standards/TICKET_METHOD.md`:
+- `../../../../.genesis/docs/standards/TICKET_METHOD.md`:
   `change_class` is the lawful constitutional re-entry classification and
   `change_intent` is the declared direction of work.
 - `.ai-workspace/comments/codex/20260326T024802_STRATEGY_intent-governed-homeostatic-self-evolution.md`:

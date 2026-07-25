@@ -1,7 +1,7 @@
 # Design Slice Pre-Code Gate Template
 
 **Status**: Template
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 Use one copy per semantic boundary or durable delivery checkpoint. Do not use

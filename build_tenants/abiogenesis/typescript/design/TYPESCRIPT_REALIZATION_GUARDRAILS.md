@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-23
-**Derived from**: `/Users/jim/src/apps/specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md`, `/Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/completed/B-040-close-half-typed-public-start-carrier-family-under-python-typing-and-carrier-set-law.md`, `/Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/completed/B-042-stop-governance-surfaces-from-drifting-into-builder-strategy-law.md`, [README.md](./README.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [GTL_3_IMPLEMENTATION_PLAN.md](./GTL_3_IMPLEMENTATION_PLAN.md)
+**Derived from**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md`, `/Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/completed/B-040-close-half-typed-public-start-carrier-family-under-python-typing-and-carrier-set-law.md`, `/Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/completed/B-042-stop-governance-surfaces-from-drifting-into-builder-strategy-law.md`, [README.md](./README.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [GTL_3_IMPLEMENTATION_PLAN.md](./GTL_3_IMPLEMENTATION_PLAN.md)
 
 ## Purpose
 

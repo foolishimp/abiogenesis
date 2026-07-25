@@ -7,7 +7,7 @@
 
 **Validates**: REQ-R-ABG3-PROJECTION, REQ-R-ABG3-LINEAGE, REQ-R-ABG3-PROVENANCE, REQ-R-ABG3-CORRECTION, REQ-R-ABG3-RETRY
 
-**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [PRODUCT.md](../PRODUCT.md), [requirements/abg/README.md](../requirements/abg/README.md)
+**Derives from**: [SPEC_METHOD.md](../../.genesis/docs/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ODD_METHOD.md](../../.genesis/docs/standards/ODD_METHOD.md), [PRODUCT.md](../PRODUCT.md), [requirements/abg/README.md](../requirements/abg/README.md)
 
 **Purpose**: Prove that ABG 3 current truth is replay-derived and that lineage,
 provenance, and correction remain explainable under retry, foldback, and

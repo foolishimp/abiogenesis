@@ -3,7 +3,7 @@
 **Status**: Retrospective three-view design blocked
 **Date**: 2026-07-12
 **Checkpoints**: `779eb07` and `28da030` (`T-223` packed candidate and installed vertical)
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 ## Boundary

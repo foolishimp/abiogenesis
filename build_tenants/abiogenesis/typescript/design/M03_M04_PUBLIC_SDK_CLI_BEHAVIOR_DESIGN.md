@@ -3,7 +3,7 @@
 **Status**: Accepted three-view design for T-258
 **Date**: 2026-07-13
 **Checkpoints**: T-223 public SDK/CLI baseline and T-258 public F_H interaction slice
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 ## Boundary

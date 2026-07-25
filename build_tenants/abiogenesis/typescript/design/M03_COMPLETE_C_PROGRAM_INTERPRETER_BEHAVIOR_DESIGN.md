@@ -12,7 +12,7 @@
 conformance re-entry accepted 2026-07-19 on the superseded basis
 **Date**: 2026-07-14
 **Ticket**: `T-271`
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 ## Boundary

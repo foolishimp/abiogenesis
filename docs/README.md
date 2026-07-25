@@ -41,7 +41,7 @@ the authored carriers, ABG owns admitted runtime truth, and `C` is selected
 ## Methodology Master
 
 - Public master repository: `https://github.com/foolishimp/specification_methodology`
-- Standards source: `https://github.com/foolishimp/specification_methodology/tree/main/specification/standards/`
+- Selected standards: [`../.genesis/docs/standards/`](../.genesis/docs/standards/)
 
 ## Archive
 

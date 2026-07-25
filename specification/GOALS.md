@@ -20,9 +20,11 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 - `specification/INTENT.md` and `specification/PRODUCT.md` remain the accepted
   destination.
-- The selected method is immutable STDO `v2.0.0` at
-  `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a`, member-set digest
-  `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0`.
+- The selected method is immutable STDO `v2.2.0` at
+  `5326562f075d60052806d0d2c79d3db49671a8ea`, member-set digest
+  `ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c`.
+- Direct F_H adoption is recorded in
+  `.ai-workspace/comments/codex/20260725T060521Z_DECISION_adopt_stdo_2_2_for_abiogenesis_5.md`.
 - `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md` remains the accepted direct-GTL
   architecture.
 - `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` Sections 1 through 11 remain

@@ -3725,8 +3725,8 @@ const installOutcome = await installBootstrap(
 
 Use these when you need more detail:
 
-- [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md)
-- [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md)
+- [ODD_METHOD.md](../.genesis/docs/standards/ODD_METHOD.md)
+- [SPEC_METHOD.md](../.genesis/docs/standards/SPEC_METHOD.md)
 - [USER_GUIDE.md](./USER_GUIDE.md)
 - [GTL requirement families](../specification/requirements/gtl/README.md)
 - [ABG requirement families](../specification/requirements/abg/README.md)

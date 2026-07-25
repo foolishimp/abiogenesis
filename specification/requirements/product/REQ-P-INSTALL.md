@@ -3,7 +3,7 @@
 **Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
 **Date**: 2026-04-27
-**Derives from**: [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md)
+**Derives from**: [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md)
 **Wave**: Shared product toolchain install-resolution reprice; ABG 5.0 product binding
 
 ---

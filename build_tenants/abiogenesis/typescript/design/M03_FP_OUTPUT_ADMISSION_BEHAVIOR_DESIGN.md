@@ -3,7 +3,7 @@
 **Status**: Accepted under delegated F_H authority; bounded target-separation amendment accepted
 **Date**: 2026-07-13; amended 2026-07-19 after T-270/T-271 conformance audit
 **Ticket**: `T-257`
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 ## Boundary

@@ -2,19 +2,18 @@
 
 ## Current State
 
-The ABIogenesis 5.0 Product destination, M2 correction vector, M3 direct-GTL
-realization design, and M5 base design are accepted. T-286 completed the
-installed `ABI5-ROOT-001` bootstrap. T-270 owns active M5 realization; T-272
-owns current S03. The independently packed developer Product now carries
-Product-owned observation, next-action, and action-evaluation bases,
-ABG-owned construction-intent and construction-delta admission, and
-post-evidence model/gap/next-action refresh through the installed public path.
-Candidate `686d18bf` binds the exact four semantic authorities, actual
-evidence, Product policy, workspace lineage, admitted action evaluation,
-run-causal closure, and post-resume failure truth. It is green under its
-installed negatives. The affected M05 Section 12 delta remains pending exact
-review; subsequent S03 expansion is held. Existing M5 traversal work is
-regression evidence, not the current work queue.
+The ABIogenesis 5.0 Product destination, M3 direct-GTL realization design, and
+M5 base design remain accepted. `specification/GOALS.md` selects one unresolved
+Product outcome: reconcile and reclose `ABG5-S03`. T-270 is the sole active M5
+execution contract. Completed T-272 and existing M5 behavior are historical
+evidence and retained behavioral stock, not current execution authority or an
+accepted S03 closure.
+
+The current correction is bounded to durable continuation authority, F_H
+response admission, the singular `root_mode` and `until` relation, and
+reconciliation of the active S03 design/module boundary. S05, S06,
+observer/tuner, conservation qualification, qualification, and release remain
+held until GOALS selects them.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.
@@ -27,6 +26,7 @@ specification/INTENT.md
 specification/PRODUCT.md
 specification/requirements/
 build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
+build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md
 .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
 .ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md
 ```
@@ -50,7 +50,7 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: S02 complete; S03 governed evidence-fold checkpoint green
+**Status**: S03 reconciliation current; retained behavior is not closure
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
@@ -65,10 +65,9 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 - CLI and SDK invoke or inspect installed catalog truth; neither owns
   topology, execution basis, traversal, events, retry, continuation, or
   closure.
-- `ABI5-ROOT-001` remains the installed regression gate.
-- `ABI5-M5-EXT-001` and corrected S02 are green. T-272 now extends the same
-  external Product path through the remaining S03 consequence,
-  runtime-disposition, and public-control behavior.
+- `ABI5-ROOT-001` and `ABI5-M5-EXT-001` remain regression bindings.
+- T-270 reconciles S03 through that installed external Product path. Repeating
+  an existing green witness preserves behavior but does not close S03.
 
 RC5, X, and final-integration remain sideways donor evidence. T-270 may admit
 only claims explicitly conserved by the accepted correction vector and current
@@ -78,16 +77,15 @@ Product. Existing X tickets do not resume without in-place reprice.
 <!-- SDLC_BOOTLOADER_START -->
 ## Method Bootstrap
 
-ABIogenesis 5.0 development is governed by released STDO `v2.0.0`, commit
-`94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a`, with standards member-set digest
-`284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0`.
+ABIogenesis 5.0 development is governed by released STDO `v2.2.0`, commit
+`5326562f075d60052806d0d2c79d3db49671a8ea`, with standards member-set digest
+`ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c`.
 The operative local projection is `.genesis/docs/standards/`. Mutable
 `specification_methodology` source is future-candidate authoring, not consumer
 law. Qualification and release record this same selected basis.
 
 No substantive change skips intake triage or the smallest lawful re-entry.
-M5 runtime work stays inside T-270 and the repriced existing owners, preserves
-`ABI5-ROOT-001`, and extends only seams exposed by the green external Product
-path. T-272 is active for S03. No new ticket is required where missing detail
-belongs to an existing owner.
+M5 work stays inside T-270, preserves both regression bindings, and changes
+only the selected S03 boundary. Completed T-272 is evidence only. No new ticket
+is required where missing detail belongs to T-270.
 <!-- SDLC_BOOTLOADER_END -->

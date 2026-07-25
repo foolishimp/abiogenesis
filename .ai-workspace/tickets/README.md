@@ -4,8 +4,8 @@ This folder is the local ticket authority for `abiogenesis`.
 
 It is a practical, project-local projection of:
 
-- [TICKET_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/TICKET_METHOD.md)
-- [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md)
+- [TICKET_METHOD.md](../../.genesis/docs/standards/TICKET_METHOD.md)
+- [SPEC_METHOD.md](../../.genesis/docs/standards/SPEC_METHOD.md)
 
 It exists so the work-tracking rules are visible at the point of use, not only
 in the central methodology repo.

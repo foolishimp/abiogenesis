@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability / Constraint
 **Date**: 2026-07-11
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (hook and plugin boundary declarations), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-PAYLOAD.md](./REQ-R-ABG3-PAYLOAD.md), [REQ-R-ABG3-HANDLERS.md](./REQ-R-ABG3-HANDLERS.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (hook and plugin boundary declarations), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-PAYLOAD.md](./REQ-R-ABG3-PAYLOAD.md), [REQ-R-ABG3-HANDLERS.md](./REQ-R-ABG3-HANDLERS.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md)
 
 ---
 

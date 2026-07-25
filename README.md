@@ -18,7 +18,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | retained implementation | `bcd8769a8163a222e2e59400c904994b3de161fd` behavioral stock |
 | closure state | S03 and S05 provisional; S06 open and unselected |
 | conservation | Forty-row implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
-| method | Released STDO `v2.0.0` at `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a` |
+| method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
 `specification/GOALS.md` is the current work-selection surface. Repository
 history, comments, completed tickets, reviews, and archived branches explain

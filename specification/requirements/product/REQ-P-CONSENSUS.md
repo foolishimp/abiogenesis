@@ -11,7 +11,7 @@
 [REQ-P-PUBLIC-CONTRACTS.md](REQ-P-PUBLIC-CONTRACTS.md),
 [REQ-P-CATALOG.md](REQ-P-CATALOG.md),
 [REQ-P-INSTALL.md](REQ-P-INSTALL.md),
-[TICKET_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/TICKET_METHOD.md)
+[TICKET_METHOD.md](../../../.genesis/docs/standards/TICKET_METHOD.md)
 **Wave**: ABIogenesis 5.0
 
 ---

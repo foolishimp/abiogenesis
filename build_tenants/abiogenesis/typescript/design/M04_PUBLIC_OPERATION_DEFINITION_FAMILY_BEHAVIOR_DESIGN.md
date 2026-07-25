@@ -38,7 +38,7 @@ therefore carries no semantic delta into this design.
 `.ai-workspace/comments/codex/20260716T055554Z_DECISION_t278_ontology_ratified.md`
 
 **Method authority**:
-`specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md`
+`../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md`
 
 **Prime authority**: [ADR-044](./adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md)
 

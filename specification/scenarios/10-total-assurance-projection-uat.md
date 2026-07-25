@@ -7,7 +7,7 @@
 
 **Validates**: REQ-R-ABG3-ASSURANCE, REQ-R-ABG3-EVENTS, REQ-R-ABG3-LINEAGE, REQ-R-ABG3-PROJECTION, REQ-R-ABG3-TRANSPORT, REQ-R-ABG3-CONVERGENCE, REQ-P-SCENARIOS, REQ-P-QUAL
 
-**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [PRODUCT.md](../PRODUCT.md), [requirements/abg/REQ-R-ABG3-ASSURANCE.md](../requirements/abg/REQ-R-ABG3-ASSURANCE.md)
+**Derives from**: [SPEC_METHOD.md](../../.genesis/docs/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ODD_METHOD.md](../../.genesis/docs/standards/ODD_METHOD.md), [PRODUCT.md](../PRODUCT.md), [requirements/abg/REQ-R-ABG3-ASSURANCE.md](../requirements/abg/REQ-R-ABG3-ASSURANCE.md)
 
 **Purpose**: Prove that ABG assurance is a total replay-derived projection over
 current authority, current input state, and admitted runtime facts. The proof

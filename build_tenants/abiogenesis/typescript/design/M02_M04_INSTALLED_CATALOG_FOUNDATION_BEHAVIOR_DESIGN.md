@@ -4,7 +4,7 @@
 **Checkpoint under review**: `f572ee9` (`T-223: checkpoint installed catalog foundation`)
 **Review date**: 2026-07-12
 **Change class**: `design_reframe`
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: `TYPESCRIPT_REALIZATION_GUARDRAILS.md`
 
 ## Boundary

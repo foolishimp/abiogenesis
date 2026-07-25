@@ -12,7 +12,7 @@
 **Date**: 2026-07-18
 **Ticket**: `T-272`
 **Change class**: `design_reframe`
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md`
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md`
 **Prime authority**: [ADR-044](./adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md)
 **Product authority**: `REQ-P-CONSENSUS-008..018`, `REQ-R-ABG3-CONTINUATION`, `REQ-R-ABG3-EVENTS`, and the accepted 19-operation One Surface
 **Prerequisite design**: [M03-M04 Public Catalog Invocation Authority Behavior Design](./M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md), including the pending T-270 contracts-owned held-execution checkpoint basis

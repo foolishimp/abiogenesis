@@ -35,9 +35,10 @@
 - regression_bindings:
   - ABI5-ROOT-001
   - ABI5-M5-EXT-001
-- selected_method_release: STDO v2.0.0
-- selected_method_commit: 94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a
-- selected_method_member_set_digest: 284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0
+- selected_method_release: STDO v2.2.0
+- selected_method_commit: 5326562f075d60052806d0d2c79d3db49671a8ea
+- selected_method_member_set_digest: ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c
+- selected_method_adoption_receipt: .ai-workspace/comments/codex/20260725T060521Z_DECISION_adopt_stdo_2_2_for_abiogenesis_5.md
 
 ## Purpose
 

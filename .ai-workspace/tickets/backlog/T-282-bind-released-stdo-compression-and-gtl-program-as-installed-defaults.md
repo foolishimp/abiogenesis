@@ -16,7 +16,7 @@
 - change_class: realization_refactor plus qualification_basis_materialization
 - re_entry_point: accepted Product context and qualification boundary
 - created_at: 2026-07-19
-- updated_at: 2026-07-22
+- updated_at: 2026-07-25
 - owner: abiogenesis
 - build_tenant: typescript
 - completed_dependencies:
@@ -27,8 +27,9 @@
 - remaining_dependency:
   - T-270 M5 closure over one exact candidate
 - selected_method_basis:
-  - STDO v2.0.0 at 94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a
-  - 41-member digest 284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0
+  - STDO v2.2.0 at 5326562f075d60052806d0d2c79d3db49671a8ea
+  - 41-member digest ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c
+  - adoption receipt .ai-workspace/comments/codex/20260725T060521Z_DECISION_adopt_stdo_2_2_for_abiogenesis_5.md
 
 ## Current Disposition
 
@@ -77,14 +78,14 @@ verify exact packaged Product
 types or overlays. It shall not create a program, callable, topology, selector,
 execution basis, or default.
 
-### Milestone B - Materialize Selected STDO 2.0
+### Milestone B - Materialize Selected STDO 2.2
 
-Released STDO `v2.0.0` already governs ABIogenesis development. Milestone B
+Released STDO `v2.2.0` governs ABIogenesis development. Milestone B
 materializes that selected basis into Product-owned context and qualification
 evidence by verifying and binding:
 
-- release tag `v2.0.0`, commit
-  `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a`, and the complete 41-member
+- release tag `v2.2.0`, commit
+  `5326562f075d60052806d0d2c79d3db49671a8ea`, and the complete 41-member
   standards inventory;
 - the exact compression identity, version, and digest;
 - every source reference declared by the compression against the released
@@ -189,7 +190,7 @@ Milestone A remains closed only while:
 
 Milestone B closes only when:
 
-- selected STDO `v2.0.0`, its 41-member distribution, and its compression
+- selected STDO `v2.2.0`, its 41-member distribution, and its compression
   verify by exact identity and digest;
 - context materialization records their exact released basis;
 - stale or mismatched method/context inputs refuse typed;

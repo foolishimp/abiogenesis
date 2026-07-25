@@ -3,7 +3,7 @@
 **Status**: Active - accepted by T-283 F_H closure
 **Category**: Verification
 **Date**: 2026-07-16
-**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
+**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: ABG 5.0
 
 ---

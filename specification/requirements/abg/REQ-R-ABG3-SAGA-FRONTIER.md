@@ -4,7 +4,7 @@
 **Lineage**: T-283 Product basis; T-284 bounded owner repair
 **Category**: Constraint / Guarantee
 **Date**: 2026-07-11
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [DESIGN_MODULE_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [GOALS.md](../../GOALS.md) GOAL-035, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-WORKER.md](./REQ-R-ABG3-WORKER.md), [REQ-R-ABG3-POLICY.md](./REQ-R-ABG3-POLICY.md), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [DESIGN_MODULE_METHOD.md](../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [GOALS.md](../../GOALS.md) GOAL-035, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-WORKER.md](./REQ-R-ABG3-WORKER.md), [REQ-R-ABG3-POLICY.md](./REQ-R-ABG3-POLICY.md), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md)
 
 ---
 

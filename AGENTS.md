@@ -63,10 +63,10 @@ authorize implementation.
 
 ABIogenesis 5.0 development is governed by the selected immutable STDO release:
 
-- version and tag: `2.0.0` / `v2.0.0`;
-- release commit: `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a`;
+- version and tag: `2.2.0` / `v2.2.0`;
+- release commit: `5326562f075d60052806d0d2c79d3db49671a8ea`;
 - standards member-set digest:
-  `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0`;
+  `ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c`;
 - operative local projection: `.genesis/docs/standards/`.
 
 Mutable methodology source and candidate releases do not govern this

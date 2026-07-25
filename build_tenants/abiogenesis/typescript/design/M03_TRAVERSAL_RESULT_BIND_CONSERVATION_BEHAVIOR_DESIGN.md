@@ -11,7 +11,7 @@
 **Prior status**: Accepted under delegated F_H authority after bounded self-review
 **Date**: 2026-07-14
 **Ticket**: `T-267`
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 ## Boundary

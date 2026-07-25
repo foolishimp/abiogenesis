@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Constraint / Guarantee
 **Date**: 2026-07-11
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-GRAPHFUNCTION.md](REQ-L-GTL3-GRAPHFUNCTION.md), [REQ-L-GTL3-GRAPHVECTOR.md](REQ-L-GTL3-GRAPHVECTOR.md), [REQ-L-GTL3-JOB.md](REQ-L-GTL3-JOB.md), [REQ-L-GTL3-EVALUATOR.md](REQ-L-GTL3-EVALUATOR.md), [REQ-L-GTL3-HOOKS.md](REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-FN-COMPOSITION.md](../abg/REQ-R-ABG3-FN-COMPOSITION.md), [REQ-R-ABG3-ASSURANCE.md](../abg/REQ-R-ABG3-ASSURANCE.md), [REQ-R-ABG3-PAYLOAD.md](../abg/REQ-R-ABG3-PAYLOAD.md), [T-143](../../../.ai-workspace/tickets/completed/T-143-define-gtl-compute-notation-types-over-ratified-carriers.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-GRAPHFUNCTION.md](REQ-L-GTL3-GRAPHFUNCTION.md), [REQ-L-GTL3-GRAPHVECTOR.md](REQ-L-GTL3-GRAPHVECTOR.md), [REQ-L-GTL3-JOB.md](REQ-L-GTL3-JOB.md), [REQ-L-GTL3-EVALUATOR.md](REQ-L-GTL3-EVALUATOR.md), [REQ-L-GTL3-HOOKS.md](REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-FN-COMPOSITION.md](../abg/REQ-R-ABG3-FN-COMPOSITION.md), [REQ-R-ABG3-ASSURANCE.md](../abg/REQ-R-ABG3-ASSURANCE.md), [REQ-R-ABG3-PAYLOAD.md](../abg/REQ-R-ABG3-PAYLOAD.md), [T-143](../../../.ai-workspace/tickets/completed/T-143-define-gtl-compute-notation-types-over-ratified-carriers.md)
 
 ---
 

@@ -7,7 +7,7 @@
 
 **Validates**: REQ-R-ABG3-SELFHOSTING
 
-**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [PRODUCT.md](../PRODUCT.md), [requirements/abg/README.md](../requirements/abg/README.md)
+**Derives from**: [SPEC_METHOD.md](../../.genesis/docs/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ODD_METHOD.md](../../.genesis/docs/standards/ODD_METHOD.md), [PRODUCT.md](../PRODUCT.md), [requirements/abg/README.md](../requirements/abg/README.md)
 
 **Purpose**: Prove that derived artifacts and qualification surfaces remain
 governed runtime work rather than bootstrap exceptions.
