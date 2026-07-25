@@ -1,15 +1,20 @@
 import assert from "node:assert/strict";
+import { access } from "node:fs/promises";
+import { dirname, join, resolve } from "node:path";
 import test from "node:test";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 import * as abg from "../../build/code/src/abg/index.js";
 import * as hog from "../../build/code/src/hog/index.js";
-import { bindInstalledLeafInvocationPort } from "../../build/code/src/hog/installed_product.js";
-import { leafInvocationBindingMatches } from "../../build/code/src/hog/leaf_invocation_port.js";
 import * as product from "../../build/code/src/product/index.js";
+import {
+  setupInstalledRootExecutionBasis,
+} from "../support/root-installed-environment.mjs";
 
 const DIGEST = `sha256:${"1".repeat(64)}`;
 const ACTOR = "actor://developer.example/trusted-developer";
 const CAPABILITY = "capability://developer.example/review@5";
+const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 function workspaceBinding() {
   return {
@@ -278,105 +283,89 @@ test("S03 continuation operation authority requires the exact admitted grant and
   );
 });
 
-test("S03 HoG rejects an identical-label forged Product semantics projection", async () => {
-  const publication = {
-    kind: "module_publication",
-    schemaVersion: "5.0.0",
-    productSemanticsBinding: {
-      kind: "product_semantics_binding",
-      bindingRef: "product-semantics://developer.example/unit@5",
-      packageName: "@developer-example/unit",
-      packageVersion: "5.0.0",
-      modulePath: "build/product.js",
-      namedSymbol: "UNIT_PRODUCT_SEMANTICS",
-    },
-  };
-  const authority = {
-    install: {
-      installId: "product-install://developer.example/unit",
-      productContentDigest: DIGEST,
-      manifestDigest: DIGEST,
-      packageName: "@developer-example/unit",
-      packageVersion: "5.0.0",
-    },
-    implementationSet: {
-      publicationDigest: product.sha256Canonical(publication),
-      rows: [
-        {
-          packageName: "@developer-example/unit",
-          packageVersion: "5.0.0",
-        },
-      ],
-    },
+test("S03 HoG accepts one Product-sealed projection and rejects its forged twin", async (context) => {
+  const environment = await setupInstalledRootExecutionBasis(
+    context,
+    packageRoot,
+  );
+  const {
+    admittedInstall,
+    gtl,
+    hogInstalledProduct,
+    implementationSet,
+    leafPort,
     publication,
-    semanticsProjection: {
-      kind: "installed_leaf_semantics_projection",
-      schemaVersion: "5.0.0",
-      projectionRef: "leaf-semantics://developer.example/forged",
-      projectionDigest: DIGEST,
-      installId: "product-install://developer.example/unit",
-      productContentDigest: DIGEST,
-      manifestDigest: DIGEST,
-      publicationDigest: product.sha256Canonical(publication),
-      bindingRef: "product-semantics://developer.example/unit@5",
-      packageName: "@developer-example/unit",
-      packageVersion: "5.0.0",
-      validateContractValue: () => true,
-      resolveJudgmentRelation: () => ({
-        predicateRef: "predicate://developer.example/forged",
-        advanceReasonRef: "reason://developer.example/forged-advance",
-        rejectionReasonRef: "reason://developer.example/forged-reject",
-        evaluate: () => true,
-      }),
-    },
+    semanticsProjection,
+    store,
+  } = environment;
+  assert.equal(leafPort.kind, "admitted_leaf_invocation_port");
+  assert.equal(
+    leafPort.validateContractValue(
+      gtl.HELLO_WORLD_IDS.outputContractRef,
+      "output",
+      {
+        kind: "forged_output",
+        schemaVersion: "5.0.0",
+      },
+    ),
+    false,
+    "the Product-sealed positive control retains exact contract meaning",
+  );
+
+  const forgedProjection = {
+    ...semanticsProjection,
+    validateContractValue: () => true,
+    resolveJudgmentRelation: () => ({
+      predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
+      advanceReasonRef: "reason://review/forged-advance",
+      rejectionReasonRef: "reason://review/forged-reject",
+      evaluate: () => true,
+    }),
   };
   assert.equal(
-    authority.semanticsProjection.validateContractValue(
+    forgedProjection.validateContractValue(
       "developer_invalid_output",
       {},
     ),
     true,
     "the forged callback is deliberately permissive",
   );
-  assert.equal(leafInvocationBindingMatches(authority), false);
+  const eventCount = store.readAll().length;
   await assert.rejects(
     () =>
-      bindInstalledLeafInvocationPort({
-        ...authority,
-        store: null,
-        implementationSet: {
-          ...authority.implementationSet,
-          implementationSetRef:
-            "implementation-set://developer.example/unit",
-          implementationSetDigest: DIGEST,
-        },
+      hogInstalledProduct.bindInstalledLeafInvocationPort({
+        store,
+        install: admittedInstall,
+        implementationSet,
+        publication,
+        semanticsProjection: forgedProjection,
       }),
     /exact admitted install/u,
   );
-  assert.equal(
-    leafInvocationBindingMatches({
-      ...authority,
-      semanticsProjection: {
-        ...authority.semanticsProjection,
-        bindingRef: "product-semantics://developer.example/substituted@5",
-      },
-    }),
-    false,
+  assert.equal(store.readAll().length, eventCount);
+  await assert.rejects(
+    () =>
+      access(
+        join(
+          environment.installedRoot,
+          "build/code/src/shared/leaf_semantics_projection.js",
+        ),
+      ),
+    /ENOENT/u,
+    "the installed package contains no shared semantic-authority mint",
+  );
+  const installedProductSemantics = await import(
+    `${pathToFileURL(
+      join(
+        environment.installedRoot,
+        "build/code/src/product/semantics.js",
+      ),
+    ).href}?s03-authority-proof`
   );
   assert.equal(
-    leafInvocationBindingMatches({
-      ...authority,
-      implementationSet: {
-        ...authority.implementationSet,
-        rows: [
-          {
-            packageName: "@developer-example/substituted",
-            packageVersion: "5.0.0",
-          },
-        ],
-      },
-    }),
+    "mintInstalledLeafSemanticsProjection" in installedProductSemantics,
     false,
+    "the Product-owned mint is not exported even from its implementation module",
   );
 });
 

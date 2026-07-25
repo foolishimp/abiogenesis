@@ -1,6 +1,7 @@
 # M03 Direct GTL Traversal Behavior Design
 
-**Status**: Accepted direct-GTL base with STDO `v2.2.0` qualification identity propagated
+**Status**: Accepted direct-GTL base; the T-270 narrow Product leaf-verifier
+amendment is provisional pending exact-cut review
 
 ## Status
 
@@ -14,13 +15,15 @@
 | Current qualification-law basis | Product-selected STDO `v2.2.0`; this identity-only propagation does not alter the direct-GTL architecture |
 | Correction basis | 048a9fbca17736a544b4f3af9aabdbdf00a13ce41dd003d8cb29a015556466f4 |
 | Historical accepted design | SHA-256 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`; preserved in repository history |
-| Current design status | direct-GTL architecture conserved; only the selected qualification-law identity is amended |
+| Current design status | direct-GTL architecture conserved; T-270 provisionally adds one narrow HoG dependency on the Product-owned opaque leaf-semantics verifier |
 | Implementation authority | current GOALS selection and T-270; this design does not select work |
 
 This document preserves the accepted M3 realization surface. It derives HOW
-from accepted Product and requirements. The current qualification-identity
-amendment does not alter Product meaning, direct-GTL architecture, the root
-outcome, or donor disposition.
+from accepted Product and requirements. The selected qualification identity
+does not alter Product meaning, direct-GTL architecture, the root outcome, or
+donor disposition. T-270's provisional verifier amendment makes one existing
+leaf-semantics authority relation explicit; it cannot self-accept or enlarge
+the S03 boundary.
 
 ## 1. Design Claim
 
@@ -561,10 +564,10 @@ The directories below are ownership boundaries, not semantic peers.
 |---|---|---|---|
 | src/gtl | typed declarations, constructors, canonical serialization | shared primitives only | runtime state or effects |
 | src/validator | raw admission, PublicationValidation, ProgramValidation, GraphValidation, implementation-resolution diagnostics | gtl | execution plan or runtime truth |
-| src/product | Product verification, install/ProductSet/workspace candidates, module publication, catalog candidates, deterministic implementation-resolution candidates, and public operation contracts | gtl and validator types | traversal, event admission, implementation selection under ambiguity, or closure |
+| src/product | Product verification, install/ProductSet/workspace candidates, module publication, catalog candidates, deterministic implementation-resolution candidates, public operation contracts, and the private mint plus verifier for an opaque installed leaf-semantics projection | gtl and validator types | traversal, event admission, implementation selection under ambiguity, or closure |
 | src/implementation | concrete host functions addressed by published ImplementationBindings | gtl contract types | topology, selection, events, judgment, or closure |
 | src/abg | invocation, implementation, basis, transition, result, and closure admission ports; event store; Event Calculus; replay and aggregate truth | gtl, validator, and product contract types | GTL topology, leaf effects, implementation resolution, or scheduling |
-| src/hog | direct traversal monad and invocation-local cursor under explicit OpenedTraversalScope | gtl values, validation types, ABG admission port, admitted implementation invocation port | event authorship, program or implementation selection, hidden defaults, ambient lineage, or leaf implementation |
+| src/hog | direct traversal monad and invocation-local cursor under explicit OpenedTraversalScope | gtl values, validation types, ABG admission port, Product opaque leaf-semantics verifier, admitted implementation invocation port | Product semantic evaluation, event authorship, program or implementation selection, hidden defaults, ambient lineage, or leaf implementation |
 | src/public | typed SDK and abg.cli plus stateless fixed operation composition | product, gtl, validator, ABG public ports/projections, and HoG public invoke | semantic selection, private state, retry, continuation, or closure |
 
 Dependency law (`A -> B` means A may import B):
@@ -574,19 +577,22 @@ validator -> gtl
 product -> gtl, validator(type-only)
 implementation -> gtl(type-only)
 abg -> gtl(type-only), validator(type-only), product(type-only)
-hog -> gtl, validator(type-only), abg(admission-port), implementation(invocation-port)
+hog -> gtl, validator(type-only), abg(admission-port), product(opaque-leaf-verifier), implementation(invocation-port)
 public -> product, gtl, validator, abg(public-port), hog(public-invoke)
 ```
 
 There is no dependency from GTL, validator, Product, or implementation to HoG
 or an ABG implementation. ABG does not call HoG. HoG receives already
 validated values, one exact OpenedTraversalScope, and one ABG-admitted
-implementation port. It calls only the ABG admission port while owning
-traversal. Product catalog projection proposes a unique implementation row or
-refuses absence or ambiguity; it never admits or invokes that row. The public
-composition root wires concrete ports in the fixed order declared by each
-public operation; it has no selector, fallback, replay state, or event writer.
-CLI parsing and rendering cannot interleave private traversal steps.
+implementation port. Its sole Product dependency verifies that a leaf-only
+projection was minted by Product from the exact loaded provider; that verifier
+does not expose Product input/F_H evaluation, catalog selection, install
+resolution, or event authority. HoG calls only the ABG admission port while
+owning traversal. Product catalog projection proposes a unique implementation
+row or refuses absence or ambiguity; it never admits or invokes that row. The
+public composition root wires concrete ports in the fixed order declared by
+each public operation; it has no selector, fallback, replay state, or event
+writer. CLI parsing and rendering cannot interleave private traversal steps.
 
 The first implementation transaction removes donor implementation from the
 canonical source and test paths before adding these seven modules. Donor code enters
@@ -726,6 +732,13 @@ classDiagram
       <<non-authoritative>>
       -implementationRef
       -realize(input)
+    }
+    class ProductLeafSemanticsProjection {
+      <<subordinate>>
+      <<effect-edge>>
+      -projectionRef
+      -projectionDigest
+      -Product-private provenance
     }
     class RawAdmittedValue {
       <<authoritative>>
@@ -867,6 +880,7 @@ classDiagram
     CatalogContribution "0..*" --> "0..1" GraphFunction
     CatalogContribution "0..*" --> "0..1" ImplementationBinding
     ImplementationBinding "1" --> "1" LeafImplementation
+    ProductLeafSemanticsProjection "0..*" --> "1" ProductInstall
     CatalogView "1" --> "0..*" GtlProgram
     CatalogView "1" --> "0..*" GraphFunction
     CatalogView "1" --> "0..*" ImplementationBinding
@@ -941,6 +955,7 @@ classDiagram
     TraversalAggregateFamily "1" *-- "0..*" CCall
     LeafRealizationBoundary "1" *-- "1" ImplementationBinding
     LeafRealizationBoundary "1" *-- "1" LeafImplementation
+    LeafRealizationBoundary "1" *-- "1" ProductLeafSemanticsProjection
     RuntimeEventFamily "1" *-- "1..*" RuntimeEvent
     ReplayProjectionFamily "1" *-- "1" ReplayState
     ReplayProjectionFamily "1" *-- "1" PublicOutcome
@@ -1031,7 +1046,9 @@ sequenceDiagram
     ABG-->>Operation: AdmittedImplementationResolution and ExecutionBasis
     Operation->>ABG: open Run, GraphCall, and Frame
     ABG-->>Operation: OpenedTraversalScope with exact aggregate refs
-    Operation->>HoG: traverse validated GTL with scope and admitted implementation port
+    Operation->>Product: project leaf semantics from exact loaded provider
+    Product-->>Operation: Product-sealed opaque projection
+    Operation->>HoG: verify projection, bind admitted port, and traverse validated GTL
     HoG->>ABG: propose first GTL transition
     ABG-->>HoG: admitted first transition
     HoG->>HoG: apply transition and reach declared C locus
@@ -1087,7 +1104,8 @@ stateDiagram-v2
     GraphValidated --> BasisAdmitted: implementation resolution and basis admitted
     GraphValidated --> InvocationRefused: resolution, validation, or basis admission refuses
     BasisAdmitted --> CallOpen: ABG opens run, call, and frame
-    CallOpen --> Traversing: HoG applies admitted first transition
+    CallOpen --> LeafPortBound: Product seals projection; HoG verifies and binds port
+    LeafPortBound --> Traversing: HoG applies admitted first transition
     Traversing --> Traversing: admitted structural transition
     Traversing --> AwaitingLeaf: declared leaf reached
     AwaitingLeaf --> PreCallRefused: atomic open and fibre admission refuses before CCall identity

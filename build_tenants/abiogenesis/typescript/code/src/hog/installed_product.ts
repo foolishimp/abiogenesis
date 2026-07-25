@@ -4,7 +4,7 @@ import type { ModulePublication } from "../gtl/contracts.js";
 import type {
   LeafInvocationPort,
 } from "../implementation/contracts.js";
-import type { InstalledLeafSemanticsProjection } from "../shared/leaf_semantics_projection.js";
+import type { InstalledLeafSemanticsProjection } from "../product/semantics.js";
 import {
   constructAdmittedLeafInvocationPort,
   type LeafInvocationInstall,

@@ -8,12 +8,12 @@ import {
 } from "../abg/execution_basis.js";
 import type { AbgEventStore } from "../abg/event_store.js";
 import type { ModulePublication } from "../gtl/contracts.js";
+import {
+  inspectProductLeafSemanticsProjection,
+  type InstalledLeafSemanticsProjection,
+} from "../product/semantics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import {
-  inspectInstalledLeafSemanticsProjection,
-  type InstalledLeafSemanticsProjection,
-} from "../shared/leaf_semantics_projection.js";
 import type {
   LeafInvocationPort,
   LeafInvocationResolution,
@@ -49,7 +49,7 @@ export function leafInvocationBindingMatches(authority: Readonly<{
     authority.publication as unknown as JsonValue,
   );
   const semanticsBinding = authority.publication.productSemanticsBinding;
-  const inspected = inspectInstalledLeafSemanticsProjection(
+  const inspected = inspectProductLeafSemanticsProjection(
     authority.semanticsProjection,
   );
   return (
@@ -79,7 +79,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
   readonly semanticsProjection: InstalledLeafSemanticsProjection;
 }): Promise<LeafInvocationPort> {
   const publicationDigest = sha256Canonical(authority.publication as unknown as JsonValue);
-  const inspected = inspectInstalledLeafSemanticsProjection(
+  const inspected = inspectProductLeafSemanticsProjection(
     authority.semanticsProjection,
   );
   if (

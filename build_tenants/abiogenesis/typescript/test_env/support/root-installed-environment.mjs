@@ -528,13 +528,14 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     verifyInstallAdmission: (install) =>
       abg.hasAdmittedProductInstall(store, install),
   });
+  const semanticsProjection =
+    environment.product.projectInstalledLeafSemantics(semantics);
   const leafPort = await environment.hogInstalledProduct.bindInstalledLeafInvocationPort({
     store,
     install: environment.admittedInstall,
     implementationSet: executionBasisAdmission.implementationSet,
     publication,
-    semanticsProjection:
-      environment.product.projectInstalledLeafSemantics(semantics),
+    semanticsProjection,
   });
   return {
     ...environment,
@@ -544,6 +545,8 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     executionBasisAdmission,
     implementationSet: executionBasisAdmission.implementationSet,
     implementationRow,
+    semantics,
+    semanticsProjection,
     leafPort,
     implementationResolution: executionBasisAdmission.implementationResolution,
     executionBasis: executionBasisAdmission.executionBasis,
