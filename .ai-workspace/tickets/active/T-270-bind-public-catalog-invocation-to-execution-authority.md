@@ -21,7 +21,7 @@
     module boundaries
 - triaged_at: 2026-07-25
 - created_at: 2026-07-14
-- updated_at: 2026-07-25
+- updated_at: 2026-07-26
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
@@ -44,18 +44,23 @@
 - superseded_candidate_design_digest: f7de6d9f6cd0b1bb27c9ffd2461fcd132b81b4196af101a04d60604169fd81fa
 - superseded_candidate_package_digest: de1af9e727842a9e2764f954692f1a47bc6ecbd37e8664e924d5450edd2b2a6a
 - superseded_candidate_evidence: .ai-workspace/comments/codex/20260725T090501Z_CHECKPOINT_t270_s03_exact_candidate.md
-- rejected_candidate_commit: 48beb3f38341cc20e4e2d6a2b5a2c4fe0e2e33e2
-- rejected_candidate_tree: b0a58f97739d7ee7f79fecb7ca2d2348f78218e4
-- rejected_candidate_design_digest: bc570436e7cef6a5063cbf83350f599745812e579ff1517be0f23b0239ab1f8c
-- rejected_candidate_package_digest: 86a9f68bd61583bb36222538dcd0feec236b7a7de944d2a2451362008b312daf
-- rejected_candidate_evidence: .ai-workspace/comments/codex/20260725T105928Z_CHECKPOINT_t270_s03_refrozen_exact_candidate.md
-- current_candidate_commit: 5956d53343597aae8a1d33770cc23bb6468779b7
-- current_candidate_tree: 1173c98af11576ec32d8cdd81388c325e1e1c2c3
-- current_candidate_design_digest: cff889b7196b620eb906ce8b1ccc0d0c391de4c42fd75e39bbf09157ea631c71
-- current_candidate_package_digest: 2b71690d0e1db1a79543334c2ef7192df5adf064a56953fe911e80b78b5f1181
-- current_candidate_product_content_digest: 3f602a21c5021f176608f0a684a23c27390557c7114169c29a9ef7927801b311
-- current_candidate_manifest_digest: 4383b0d41901e46cd3acfbabe9c1de044c4f20a1cecf6f4530d669fc7f53940e
-- current_candidate_evidence: .ai-workspace/comments/codex/20260725T135632Z_CHECKPOINT_t270_s03_authority_repair_exact_candidate.md
+- earlier_rejected_candidate_commit: 48beb3f38341cc20e4e2d6a2b5a2c4fe0e2e33e2
+- earlier_rejected_candidate_tree: b0a58f97739d7ee7f79fecb7ca2d2348f78218e4
+- earlier_rejected_candidate_design_digest: bc570436e7cef6a5063cbf83350f599745812e579ff1517be0f23b0239ab1f8c
+- earlier_rejected_candidate_package_digest: 86a9f68bd61583bb36222538dcd0feec236b7a7de944d2a2451362008b312daf
+- earlier_rejected_candidate_evidence: .ai-workspace/comments/codex/20260725T105928Z_CHECKPOINT_t270_s03_refrozen_exact_candidate.md
+- rejected_candidate_commit: 5956d53343597aae8a1d33770cc23bb6468779b7
+- rejected_candidate_tree: 1173c98af11576ec32d8cdd81388c325e1e1c2c3
+- rejected_candidate_design_digest: cff889b7196b620eb906ce8b1ccc0d0c391de4c42fd75e39bbf09157ea631c71
+- rejected_candidate_package_digest: 2b71690d0e1db1a79543334c2ef7192df5adf064a56953fe911e80b78b5f1181
+- rejected_candidate_evidence: .ai-workspace/comments/codex/20260725T135632Z_CHECKPOINT_t270_s03_authority_repair_exact_candidate.md
+- current_candidate_commit: 1d8fd3b0bcbc1fcc39cceb1e9f78c1454e880314
+- current_candidate_tree: 0dd5fc4be733bacfe66f2144928f8662b4a52445
+- current_candidate_design_digest: 3056c4e097fda9640bfb3fb8731c99b446e39a2d6274d9672d1faad095da49c0
+- current_candidate_package_digest: 5c98e1498024721873f0459758b1a7f9e24a865b5242dec881fa41dbce929082
+- current_candidate_product_content_digest: 3390a947fdc98845dcb05ce5786f72071b74c60fc8aec10984d08a18e32cd27f
+- current_candidate_manifest_digest: 9472f3b5292c1405a13769746643375ed6df59a838177f33ec2f3095065d5b5c
+- current_candidate_evidence: .ai-workspace/comments/codex/20260725T191047Z_CHECKPOINT_t270_s03_semantics_provenance_exact_candidate.md
 
 ## Purpose
 
@@ -74,17 +79,20 @@ history or evidence. They do not enlarge this ticket.
 
 ## Candidate State
 
-Candidates `19f50c17526517145070ccb2ca3c282fce7de1f2` and
-`48beb3f38341cc20e4e2d6a2b5a2c4fe0e2e33e2` received changes requested and
-are historical evidence. The bounded repair now derives F_H grants from the
-exact workspace/Program policy, admits continuation operations before Product
-evaluation, separates Product semantics from HoG leaf execution, completes
-the Section 12 reconciliation, and adds module-owned proof. Exact candidate
-`5956d53343597aae8a1d33770cc23bb6468779b7` is frozen with M5 127/127,
-M4 26/26, exact-file Mermaid 7/7, and two byte-identical 176-entry packages.
-It remains pending independent exact-cut review and direct human acceptance.
-This state does not close S03 or authorize S05, S06, qualification, or
-release.
+Candidates `19f50c17526517145070ccb2ca3c282fce7de1f2`,
+`48beb3f38341cc20e4e2d6a2b5a2c4fe0e2e33e2`, and
+`5956d53343597aae8a1d33770cc23bb6468779b7` received changes requested and
+are historical evidence. The bounded repair retains the prior continuation
+and grant-admission corrections, binds the trusted-developer actor into the
+workspace authority basis, makes Product mint one opaque leaf-semantics
+projection from the exact loaded provider, removes Product verification and
+the public binder from HoG, and reconciles the exact Section 12 atomic,
+sequence, algebra, Prime, IACS, and proof surfaces. Exact candidate
+`1d8fd3b0bcbc1fcc39cceb1e9f78c1454e880314` is frozen with S03 unit 4/4,
+external Product 36/36, M5 127/127, M4 26/26, exact-file Mermaid 7/7, and two
+byte-identical 178-entry packages. It remains pending independent exact-cut
+review and direct human acceptance. This state does not close S03 or authorize
+S05, S06, qualification, or release.
 
 ## Governing Authority
 
