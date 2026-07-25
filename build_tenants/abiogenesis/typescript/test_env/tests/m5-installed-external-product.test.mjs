@@ -994,6 +994,31 @@ test("M5 starts Product-declared next and asset targets without a Public control
     "refused",
   );
   assert.equal(firstTraversalRun.outcomes.at(-1).runId, null);
+
+  const supervisedFirstTraversalScenario = await externalScenario(
+    harness,
+    mini,
+    "supervised-first-traversal",
+    mini.publication,
+    {
+      runVariant: "start",
+      startRef: mini.ids.oneSurfaceStartRef,
+      programRef: mini.ids.oneSurfaceProgramRef,
+      graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
+      rootMode: "supervised",
+      until: "first_traversal",
+    },
+  );
+  const supervisedFirstTraversalRun = await runInstalledCli(
+    harness,
+    supervisedFirstTraversalScenario,
+  );
+  assert.equal(supervisedFirstTraversalRun.exitCode, 2);
+  assert.equal(
+    supervisedFirstTraversalRun.outcomes.at(-1).disposition,
+    "refused",
+  );
+  assert.equal(supervisedFirstTraversalRun.outcomes.at(-1).runId, null);
 });
 
 test("M5 invokes external ticket work only through its owning Program and GraphFunction", async (context) => {
@@ -1086,6 +1111,10 @@ test("M5 applies one Product-declared graph-span re-entry through the installed 
     {
       programRef: mini.ids.spanProgramRef,
       graphFunctionRef: mini.ids.spanGraphFunctionRef,
+      runVariant: "start",
+      publicTarget: "next",
+      rootMode: "direct",
+      until: "converged",
     },
   );
   const run = await runInstalledCli(harness, scenario);
@@ -1109,6 +1138,11 @@ test("M5 applies one Product-declared graph-span re-entry through the installed 
     }),
   );
   assertExternalOutcome(run.outcomes, harness, mini);
+  const invocationAdmission = events.find(
+    (event) => event.kind === "invocation_admitted",
+  );
+  assert.equal(invocationAdmission?.payload.publicStart.rootMode, "direct");
+  assert.equal(invocationAdmission?.payload.publicStart.until, "converged");
   const cCalls = events.filter(
     (event) =>
       event.kind === "c_call_opened" &&
@@ -1341,23 +1375,74 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
       JSON.stringify(held.result.continuationAuthority),
     );
     const actorRef = "actor://developer.example/trusted-developer";
+    const invocationAdmission = heldEvents.find(
+      (event) => event.kind === "invocation_admitted",
+    );
+    assert.deepEqual(
+      invocationAdmission?.payload.capabilityGrants.map((grant) => [
+        grant.actorRef,
+        grant.operationId,
+        grant.capabilityRef,
+      ]),
+      [
+        [
+          actorRef,
+          "abg.operation.run.invoke",
+          "abg.capability.catalog.invoke-graph-function@5",
+        ],
+        [
+          actorRef,
+          "abg.operation.interaction.respond",
+          mini.ids.actorCapabilityRef,
+        ],
+        [
+          actorRef,
+          "abg.operation.run.continue",
+          mini.ids.actorCapabilityRef,
+        ],
+      ],
+    );
     const response = {
       kind: "developer_greeting_output",
       schemaVersion: "5.0.0",
       message: "Welcome Grace.",
     };
 
-    const readOpen = await applyInFreshContext(
-      publicApi,
-      invocation(
-        "abg.operation.project.read",
-        "status",
-        "invocation://t270/external-mixed/read-open",
-        {
-          continuationAuthority: openAuthority,
-          continuationRef,
-        },
-      ),
+    const repeatedRead = invocation(
+      "abg.operation.project.read",
+      "status",
+      "invocation://t270/external-mixed/read-open",
+      {
+        continuationAuthority: openAuthority,
+        continuationRef,
+      },
+    );
+    const retainedReadContext = publicApi.createRootOperationContext();
+    let readOpen;
+    let readOpenDuplicate;
+    try {
+      readOpen = await publicApi.applyRootPublicInvocation(
+        retainedReadContext,
+        repeatedRead,
+      );
+      readOpenDuplicate = await publicApi.applyRootPublicInvocation(
+        retainedReadContext,
+        repeatedRead,
+      );
+    } finally {
+      publicApi.closeRootOperationContext(retainedReadContext);
+    }
+    const readOpenFresh = await applyInFreshContext(publicApi, repeatedRead);
+    assert.deepEqual(
+      [readOpen, readOpenDuplicate, readOpenFresh].map((outcome) => [
+        outcome.disposition,
+        outcome.result.status,
+      ]),
+      [
+        ["succeeded", "open"],
+        ["succeeded", "open"],
+        ["succeeded", "open"],
+      ],
     );
     assert.equal(readOpen.disposition, "succeeded", JSON.stringify(readOpen));
     assert.equal(readOpen.result.status, "open");
@@ -1397,6 +1482,25 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     );
     assert.notEqual(wrongActor.disposition, "succeeded");
 
+    const wrongCapability = await applyInFreshContext(
+      publicApi,
+      invocation(
+        "abg.operation.interaction.respond",
+        "approve",
+        "invocation://t270/external-mixed/respond-wrong-capability",
+        {
+          actorRef,
+          capabilityRef:
+            "capability://developer.example/greeting/unadmitted@5",
+          continuationAuthority: openAuthority,
+          continuationRef,
+          response,
+        },
+      ),
+    );
+    assert.equal(wrongCapability.disposition, "refused");
+    assert.equal(wrongCapability.result.code, "owner_refusal");
+
     const responded = await applyInFreshContext(
       publicApi,
       invocation(
@@ -1416,6 +1520,54 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     assert.equal(responded.continuationStatus, "responded");
     const respondedAuthority = JSON.parse(
       JSON.stringify(responded.result.continuationAuthority),
+    );
+    const duplicateRespondInvocation = invocation(
+      "abg.operation.interaction.respond",
+      "approve",
+      "invocation://t270/external-mixed/respond",
+      {
+        actorRef,
+        capabilityRef: mini.ids.actorCapabilityRef,
+        continuationAuthority: respondedAuthority,
+        continuationRef,
+        response,
+      },
+    );
+    const retainedDuplicateContext = publicApi.createRootOperationContext();
+    let duplicateRespondRetained;
+    let duplicateRespondRetainedAgain;
+    try {
+      duplicateRespondRetained = await publicApi.applyRootPublicInvocation(
+        retainedDuplicateContext,
+        duplicateRespondInvocation,
+      );
+      duplicateRespondRetainedAgain =
+        await publicApi.applyRootPublicInvocation(
+          retainedDuplicateContext,
+          duplicateRespondInvocation,
+        );
+    } finally {
+      publicApi.closeRootOperationContext(retainedDuplicateContext);
+    }
+    const duplicateRespondFresh = await applyInFreshContext(
+      publicApi,
+      duplicateRespondInvocation,
+    );
+    assert.deepEqual(
+      [
+        duplicateRespondRetained,
+        duplicateRespondRetainedAgain,
+        duplicateRespondFresh,
+      ].map((outcome) => [outcome.disposition, outcome.result.code]),
+      [
+        ["refused", "target_mismatch"],
+        ["refused", "target_mismatch"],
+        ["refused", "target_mismatch"],
+      ],
+    );
+    assert.equal(
+      duplicateRespondFresh.continuationAuthority.kind,
+      "public_continuation_authority",
     );
 
     const readResponded = await applyInFreshContext(
@@ -2442,6 +2594,10 @@ test("M5 admits construction truth only against the exact Product and runtime ba
       );
       assert.equal(result.completed.disposition, "refused");
       assert.equal(
+        result.completed.continuationAuthority.kind,
+        "public_continuation_authority",
+      );
+      assert.equal(
         result.events.some(
           (event) => event.kind === "fh_interaction_resume_admitted",
         ),
@@ -2458,6 +2614,26 @@ test("M5 admits construction truth only against the exact Product and runtime ba
         result.events.some((event) => event.kind === "run_closed"),
         false,
       );
+      const reopenedFailure = await applyInFreshContext(
+        publicApi,
+        invocation(
+          "abg.operation.project.read",
+          "status",
+          "invocation://t270/external-one-surface/post-resume-failure-read",
+          {
+            continuationAuthority:
+              result.completed.continuationAuthority,
+            continuationRef: result.completed.continuationRef,
+          },
+        ),
+      );
+      assert.equal(
+        reopenedFailure.disposition,
+        "succeeded",
+        JSON.stringify(reopenedFailure),
+      );
+      assert.equal(reopenedFailure.result.status, "resolved");
+      assert.equal(reopenedFailure.result.runtimeStatus, "failed");
     },
   );
 });

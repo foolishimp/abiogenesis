@@ -3,7 +3,6 @@ import { isAbsolute, relative, resolve } from "node:path";
 import * as abg from "../abg/index.js";
 import * as gtl from "../gtl/index.js";
 import * as hog from "../hog/index.js";
-import * as implementation from "../implementation/index.js";
 import * as product from "../product/index.js";
 import * as validator from "../validator/index.js";
 import type {
@@ -61,6 +60,16 @@ export function createRootOperationContext(): RootOperationContext {
 
 export function closeRootOperationContext(context: RootOperationContext): void {
   context.store.closeDurableLog();
+}
+
+function usesDurableContinuationAuthority(
+  operationId: RootPublicInvocation["operationId"],
+): boolean {
+  return (
+    operationId === "abg.operation.project.read" ||
+    operationId === "abg.operation.interaction.respond" ||
+    operationId === "abg.operation.run.continue"
+  );
 }
 
 function stringField(
@@ -275,6 +284,20 @@ function refusalOutcome(
   invocation: RootPublicInvocation,
   code: string,
   message: string,
+  metadata: {
+    readonly runtimeInvocationRef?: string;
+    readonly runId?: string;
+    readonly graphCallId?: string;
+    readonly frameId?: string;
+    readonly replayRef?: string;
+    readonly replayDigest?: product.Sha256Digest;
+    readonly eventLogPath?: string;
+    readonly eventLogDigest?: product.Sha256Digest;
+    readonly eventLogByteLength?: number;
+    readonly durableEventCount?: number;
+    readonly continuationRef?: string;
+    readonly continuationStatus?: "open" | "responded" | "resolved";
+  } = {},
 ): PublicOutcome {
   const diagnosticRef = `diagnostic://abiogenesis/public/${code}@5`;
   const result = {
@@ -287,27 +310,27 @@ function refusalOutcome(
     operationId: invocation.operationId,
     variant: invocation.variant,
     invocationRef: invocation.invocationRef,
-    runtimeInvocationRef: null,
+    runtimeInvocationRef: metadata.runtimeInvocationRef ?? null,
     disposition: "refused" as const,
     result,
     diagnosticRef,
-    runId: null,
-    graphCallId: null,
-    frameId: null,
+    runId: metadata.runId ?? null,
+    graphCallId: metadata.graphCallId ?? null,
+    frameId: metadata.frameId ?? null,
     cCallRef: null,
     resultRef: null,
     judgmentRef: null,
     outputContractRef: null,
     admittedResultContractRef: null,
-    replayRef: null,
-    replayDigest: null,
-    replayAgreement: null,
-    eventLogPath: null,
-    eventLogDigest: null,
-    eventLogByteLength: null,
-    durableEventCount: null,
-    continuationRef: null,
-    continuationStatus: null,
+    replayRef: metadata.replayRef ?? null,
+    replayDigest: metadata.replayDigest ?? null,
+    replayAgreement: metadata.replayDigest === undefined ? null : true,
+    eventLogPath: metadata.eventLogPath ?? null,
+    eventLogDigest: metadata.eventLogDigest ?? null,
+    eventLogByteLength: metadata.eventLogByteLength ?? null,
+    durableEventCount: metadata.durableEventCount ?? null,
+    continuationRef: metadata.continuationRef ?? null,
+    continuationStatus: metadata.continuationStatus ?? null,
   };
   return deepFreeze({
     kind: "public_outcome" as const,
@@ -1025,20 +1048,23 @@ async function applyRunInvoke(
     );
   }
   const inputContractRef = graphFunction.inputs[0]!;
-  let productSemantics: implementation.ProductSemanticsProvider;
+  let admittedInput: Readonly<Record<string, product.JsonValue>> | null;
   try {
-    productSemantics = await implementation.loadInstalledProductSemantics({
-      store: context.store,
-      install: installState.install,
-      publication: viewState.catalogState.publication,
-    });
+    admittedInput = await hog.admitInstalledProductInput(
+      {
+        store: context.store,
+        install: installState.install,
+        publication: viewState.catalogState.publication,
+      },
+      inputContractRef,
+      inputValue,
+    );
   } catch {
     throw new ApplicationRefusal(
       "target_mismatch",
       "run.invoke selected Product semantics binding is not carried by the exact admitted install",
     );
   }
-  const admittedInput = productSemantics.admitInput(inputContractRef, inputValue);
   if (admittedInput === null) {
     throw new ApplicationRefusal(
       "target_mismatch",
@@ -1073,14 +1099,35 @@ async function applyRunInvoke(
     (["F_D", "F_P", "F_H"] as const).filter((regime) => declaredRegimes.has(regime)),
   );
   const actorRef = stringField(invocation.payload, "actorRef");
-  const grant = product.constructCapabilityGrant(actorRef);
+  const interactionCapabilityRefs = [
+    ...new Set(
+      programValidation.interactionLeafRows.map(
+        (row) => row.requirement.actorCapabilityRef,
+      ),
+    ),
+  ].sort();
+  const grants = [
+    product.constructCapabilityGrant(actorRef),
+    ...interactionCapabilityRefs.flatMap((capabilityRef) => [
+      product.constructCapabilityGrant(
+        actorRef,
+        "abg.operation.interaction.respond",
+        capabilityRef,
+      ),
+      product.constructCapabilityGrant(
+        actorRef,
+        "abg.operation.run.continue",
+        capabilityRef,
+      ),
+    ]),
+  ];
   const authority = product.constructInvocationAuthority(
     actorRef,
     workspaceState.binding,
     viewState.view,
     programValue.programRef,
     graphFunction.name,
-    [grant],
+    grants,
   );
   if (authority.kind !== "invocation_authority") {
     throw new ApplicationRefusal("owner_refusal", `Invocation authority refused: ${authority.message}`);
@@ -1095,7 +1142,7 @@ async function applyRunInvoke(
     rawRequest,
     rawInput,
     policy,
-    [grant],
+    grants,
     authority,
   );
   if (candidate.kind !== "public_invocation_candidate") {
@@ -1123,7 +1170,7 @@ async function applyRunInvoke(
       workspaceBinding: workspaceState.binding,
       catalogView: viewState.view,
       policy,
-      capabilityGrants: [grant],
+      capabilityGrants: grants,
       authority,
       ...(reentryState === null
         ? {}
@@ -1365,7 +1412,7 @@ async function applyRunInvoke(
     );
   }
   failureScope = opened.scope;
-  const leafPort = await implementation.constructAdmittedLeafInvocationPort({
+  const leafPort = await hog.bindInstalledLeafInvocationPort({
     store: context.store,
     install: installState.install,
     implementationSet,
@@ -2230,11 +2277,6 @@ async function applyInteractionRespond(
       );
     }
     const responseCandidate = recordField(invocation.payload, "response");
-    const semantics = await implementation.loadInstalledProductSemantics({
-      store: context.store,
-      install: state.install,
-      publication: state.catalog.modulePublication,
-    });
     const interactionBasis = abg.projectFhInteractionSemanticBasis(
       context.store,
       continuationRef,
@@ -2245,7 +2287,12 @@ async function applyInteractionRespond(
         "interaction response could not reproduce its exact pending Product basis",
       );
     }
-    const response = semantics.evaluateInteractionResponse(
+    const response = await hog.evaluateInstalledInteractionResponse(
+      {
+        store: context.store,
+        install: state.install,
+        publication: state.catalog.modulePublication,
+      },
       interactionBasis,
       responseCandidate,
     );
@@ -2334,6 +2381,39 @@ async function applyInteractionRespond(
         continuationAuthority: updated as unknown as product.JsonValue,
       },
       continuationMetadata(updated, replayAfter, eventLog, "responded"),
+    );
+  } catch (error) {
+    const replayAfterRefusal = abg.replay(context.store, {
+      runId: state.runId,
+    });
+    const continuationAfterRefusal = replayAfterRefusal.continuations.find(
+      (row) => row.continuationRef === continuationRef,
+    );
+    const eventLog = await abg.persistEventLog(
+      context.store,
+      state.reopenAuthority.eventLogPath,
+      { runId: state.runId },
+    );
+    const updatedAuthority = closeContinuationContext(context, state);
+    closed = true;
+    const code =
+      error instanceof ApplicationRefusal ? error.code : "owner_refusal";
+    const message =
+      error instanceof Error ? error.message : String(error);
+    const outcome = refusalOutcome(
+      invocation,
+      code,
+      message,
+      continuationMetadata(
+        updatedAuthority,
+        replayAfterRefusal,
+        eventLog,
+        continuationAfterRefusal?.status ?? "open",
+      ),
+    );
+    return attachContinuationAuthority(
+      outcome,
+      updatedAuthority as unknown as product.JsonValue,
     );
   } finally {
     if (!closed) closeContinuationContext(context, state);
@@ -2566,7 +2646,7 @@ async function applyRunContinue(
           "continued run could not reproduce its admitted Graph and execution sets",
         );
       }
-      const leafPort = await implementation.constructAdmittedLeafInvocationPort({
+      const leafPort = await hog.bindInstalledLeafInvocationPort({
         store: context.store,
         install: state.install,
         implementationSet,
@@ -2671,7 +2751,38 @@ async function applyRunContinue(
         );
       }
     }
-    throw error;
+    const replayAfterFailure = abg.replay(context.store, {
+      runId: state.runId,
+    });
+    const continuationAfterFailure = replayAfterFailure.continuations.find(
+      (row) => row.continuationRef === continuationRef,
+    );
+    const eventLog = await abg.persistEventLog(
+      context.store,
+      state.reopenAuthority.eventLogPath,
+      { runId: state.runId },
+    );
+    const updatedAuthority = closeContinuationContext(context, state);
+    durableAuthorityClosed = true;
+    const code =
+      error instanceof ApplicationRefusal ? error.code : "owner_refusal";
+    const message =
+      error instanceof Error ? error.message : String(error);
+    const outcome = refusalOutcome(
+      invocation,
+      code,
+      message,
+      continuationMetadata(
+        updatedAuthority,
+        replayAfterFailure,
+        eventLog,
+        continuationAfterFailure?.status ?? "responded",
+      ),
+    );
+    return attachContinuationAuthority(
+      outcome,
+      updatedAuthority as unknown as product.JsonValue,
+    );
   } finally {
     if (!durableAuthorityClosed) {
       closeContinuationContext(context, state);
@@ -2683,7 +2794,10 @@ export async function applyRootPublicInvocation(
   context: RootOperationContext,
   invocation: RootPublicInvocation,
 ): Promise<PublicOutcome> {
-  if (!context.productState.claimInvocation(invocation.invocationRef)) {
+  if (
+    !usesDurableContinuationAuthority(invocation.operationId) &&
+    !context.productState.claimInvocation(invocation.invocationRef)
+  ) {
     return refusalOutcome(invocation, "duplicate_invocation", "invocationRef already appeared in this transcript");
   }
   const rawRequest = rawAdmission<RootPublicInvocation>(

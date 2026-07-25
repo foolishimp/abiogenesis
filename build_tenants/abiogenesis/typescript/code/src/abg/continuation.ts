@@ -5,6 +5,7 @@ import type {
 } from "../gtl/contracts.js";
 import type { ProductInstall, WorkspaceBinding } from "../product/environment.js";
 import type { CatalogView } from "../product/catalog.js";
+import { isCapabilityGrantValue } from "../product/invocation.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -104,6 +105,7 @@ export interface ContinuationPublicOperationAdmission {
   readonly invocationRef: string;
   readonly actorRef: string;
   readonly capabilityRef: string;
+  readonly capabilityGrantRef: string;
   readonly admissionEventRef: string;
 }
 
@@ -626,11 +628,12 @@ export function rehydrateFhContinuation(
     operation.operationId !== "abg.operation.run.continue" ||
     operation.continuationRef !== continuationRef ||
     operation.capabilityRef !== continuation.actorCapabilityRef ||
+    operationPayload?.capabilityRef !== operation.capabilityRef ||
     operationEvent?.kind !== "public_operation_admitted" ||
     operationPayload === null ||
     operationPayload.continuationRef !== continuationRef ||
     operationPayload.actorRef !== operation.actorRef ||
-    operationCapabilityRefs?.[0] !== operation.capabilityRef ||
+    operationCapabilityRefs?.[0] !== operation.capabilityGrantRef ||
     operationEvent.admissionOrdinal !== store.readAll().at(-1)?.admissionOrdinal
   ) {
     return null;
@@ -674,6 +677,20 @@ export function admitContinuationPublicOperation(
   const [continuation] = projectFhContinuations(store).filter(
     (row) => row.continuationRef === continuationRef,
   );
+  const grant = rootInvocation.capabilityGrants.find(
+    (candidate) =>
+      isCapabilityGrantValue(candidate) &&
+      candidate.grantRef !== "" &&
+      candidate.actorRef === actorRef &&
+      candidate.operationId === operation &&
+      candidate.capabilityRef === capabilityRef,
+  );
+  const duplicateInvocation = store.readAll().some(
+    (event) =>
+      event.kind === "public_operation_admitted" &&
+      isRecord(event.payload) &&
+      event.payload.invocationRef === basis.invocationRef,
+  );
   if (
     invalidBasis !== null ||
     continuation === undefined ||
@@ -682,7 +699,9 @@ export function admitContinuationPublicOperation(
     basis.authorityScopeRef !== rootInvocation.workspaceBindingId ||
     basis.authorityScopeDigest !== rootInvocation.workspaceBindingDigest ||
     actorRef !== rootInvocation.actorRef ||
-    capabilityRef.length === 0 ||
+    grant === undefined ||
+    !rootInvocation.capabilityGrantRefs.includes(grant.grantRef) ||
+    duplicateInvocation ||
     variant.length === 0
   ) {
     throw new TypeError(
@@ -711,7 +730,8 @@ export function admitContinuationPublicOperation(
       actorRef,
       authorityRef: rootInvocation.authorityRef,
       authorityDigest: rootInvocation.authorityDigest,
-      capabilityGrantRefs: [capabilityRef],
+      capabilityGrantRefs: [grant.grantRef],
+      capabilityRef,
       policyRef: rootInvocation.policyRef,
       policyDigest: rootInvocation.policyDigest,
       workspaceBindingId: rootInvocation.workspaceBindingId,
@@ -729,6 +749,7 @@ export function admitContinuationPublicOperation(
     invocationRef: basis.invocationRef,
     actorRef,
     capabilityRef,
+    capabilityGrantRef: grant.grantRef,
     admissionEventRef: event.eventId,
   });
 }
@@ -949,6 +970,10 @@ export function admitFhInteractionResponse(
   const publicEvent = store.readAll().find(
     (event) => event.eventId === operation.admissionEventRef,
   );
+  const publicPayload =
+    publicEvent !== undefined && isRecord(publicEvent.payload)
+      ? publicEvent.payload
+      : null;
   if (
     continuation === undefined ||
     continuation.status !== "open" ||
@@ -961,6 +986,9 @@ export function admitFhInteractionResponse(
         continuation.constructionIntentRef
     ) ||
     publicEvent?.kind !== "public_operation_admitted" ||
+    publicPayload?.capabilityRef !== operation.capabilityRef ||
+    !Array.isArray(publicPayload.capabilityGrantRefs) ||
+    publicPayload.capabilityGrantRefs[0] !== operation.capabilityGrantRef ||
     publicEvent.admissionOrdinal !== store.readAll().at(-1)?.admissionOrdinal
   ) {
     throw new TypeError(
@@ -1199,6 +1227,10 @@ export function admitFhInteractionResume(
   const publicEvent = store.readAll().find(
     (event) => event.eventId === operation.admissionEventRef,
   );
+  const publicPayload =
+    publicEvent !== undefined && isRecord(publicEvent.payload)
+      ? publicEvent.payload
+      : null;
   const expectedSuccessorInput = deriveFhResumeSuccessorInput(
     store,
     continuationRef,
@@ -1215,6 +1247,9 @@ export function admitFhInteractionResume(
     operation.operationId !== "abg.operation.run.continue" ||
     operation.capabilityRef !== continuation.actorCapabilityRef ||
     publicEvent?.kind !== "public_operation_admitted" ||
+    publicPayload?.capabilityRef !== operation.capabilityRef ||
+    !Array.isArray(publicPayload.capabilityGrantRefs) ||
+    publicPayload.capabilityGrantRefs[0] !== operation.capabilityGrantRef ||
     publicEvent.admissionOrdinal !== store.readAll().at(-1)?.admissionOrdinal ||
     successorInput.kind !== "fh_resume_successor_input" ||
     successorInput.disposition !== "admitted" ||

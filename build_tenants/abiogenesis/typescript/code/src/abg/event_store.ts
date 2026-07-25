@@ -294,7 +294,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ),
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewId continuationRef definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef variant workspaceBindingId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityRef catalogViewId continuationRef definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef variant workspaceBindingId",
         ),
         payloadKeys(
           "operationId invocationRef invocationDigest variant continuationRef",
@@ -315,7 +315,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [WORKSPACE_EVENT],
     payloadVariants: [payloadVariant(
       payloadKeys(
-        "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis workspaceBindingDigest workspaceBindingId",
+        "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityGrants catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis workspaceBindingDigest workspaceBindingId",
       ),
       payloadKeys(
         "invocationAdmissionRef invocationAdmissionDigest invocationRef reentryBasis",

@@ -17,6 +17,10 @@ export const DIRECT_INVOKE_CAPABILITY =
   "abg.capability.catalog.invoke-graph-function@5";
 
 export type RunInvocationVariant = "direct" | "start";
+export type CapabilityOperationId =
+  | "abg.operation.interaction.respond"
+  | "abg.operation.run.continue"
+  | "abg.operation.run.invoke";
 
 export interface InvocationPolicyBasis {
   readonly kind: "invocation_policy_basis";
@@ -33,8 +37,8 @@ export interface CapabilityGrant {
   readonly grantRef: string;
   readonly grantDigest: Sha256Digest;
   readonly actorRef: string;
-  readonly operationId: "abg.operation.run.invoke";
-  readonly capabilityRef: typeof DIRECT_INVOKE_CAPABILITY;
+  readonly operationId: CapabilityOperationId;
+  readonly capabilityRef: string;
 }
 
 export interface InvocationAuthority {
@@ -105,7 +109,7 @@ export function isInvocationPolicyBasis(value: object): boolean {
 }
 
 export function isCapabilityGrant(value: object): boolean {
-  return grants.has(value);
+  return grants.has(value) && isCapabilityGrantValue(value);
 }
 
 export function isInvocationAuthority(value: object): boolean {
@@ -167,11 +171,58 @@ export function constructRootInvocationPolicy(
   return value;
 }
 
-export function constructCapabilityGrant(actorRef: string): CapabilityGrant {
+export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant {
+  if (
+    !isRecord(value) ||
+    value.kind !== "capability_grant" ||
+    value.schemaVersion !== "5.0.0" ||
+    typeof value.grantRef !== "string" ||
+    typeof value.grantDigest !== "string" ||
+    typeof value.actorRef !== "string" ||
+    value.actorRef.length === 0 ||
+    ![
+      "abg.operation.interaction.respond",
+      "abg.operation.run.continue",
+      "abg.operation.run.invoke",
+    ].includes(String(value.operationId)) ||
+    typeof value.capabilityRef !== "string" ||
+    value.capabilityRef.length === 0
+  ) {
+    return false;
+  }
+  const body = {
+    actorRef: value.actorRef,
+    operationId: value.operationId,
+    capabilityRef: value.capabilityRef,
+  };
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return (
+    value.grantDigest === digest &&
+    value.grantRef === identity("capability-grant://abiogenesis", digest)
+  );
+}
+
+export function constructCapabilityGrant(
+  actorRef: string,
+  operationId: CapabilityOperationId = "abg.operation.run.invoke",
+  capabilityRef: string = DIRECT_INVOKE_CAPABILITY,
+): CapabilityGrant {
+  if (
+    actorRef.length === 0 ||
+    capabilityRef.length === 0 ||
+    (
+      operationId === "abg.operation.run.invoke" &&
+      capabilityRef !== DIRECT_INVOKE_CAPABILITY
+    )
+  ) {
+    throw new TypeError(
+      "capability grant requires one actor, operation, and exact capability",
+    );
+  }
   const body = {
     actorRef,
-    operationId: "abg.operation.run.invoke" as const,
-    capabilityRef: DIRECT_INVOKE_CAPABILITY,
+    operationId,
+    capabilityRef,
   };
   const grantDigest = sha256Canonical(body as unknown as JsonValue);
   const value = deepFreeze({
@@ -195,12 +246,21 @@ export function constructInvocationAuthority(
 ): InvocationAuthority | InvocationConstructionRefusal {
   if (
     capabilityGrants.length === 0 ||
+    new Set(capabilityGrants.map((grant) => grant.grantRef)).size !==
+      capabilityGrants.length ||
     capabilityGrants.some((grant) =>
       !isCapabilityGrant(grant) ||
-      grant.actorRef !== actorRef ||
-      grant.operationId !== "abg.operation.run.invoke")
+      grant.actorRef !== actorRef) ||
+    !capabilityGrants.some(
+      (grant) =>
+        grant.operationId === "abg.operation.run.invoke" &&
+        grant.capabilityRef === DIRECT_INVOKE_CAPABILITY,
+    )
   ) {
-    return refusal("capability_mismatch", "invocation authority requires exact actor-scoped run.invoke grants");
+    return refusal(
+      "capability_mismatch",
+      "invocation authority requires unique actor-scoped grants including run.invoke",
+    );
   }
   const body = {
     actorRef,

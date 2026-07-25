@@ -94,3 +94,9 @@ export {
   type ChildTraversalPreparationResult,
   type PreparedChildTraversal,
 } from "./child_traversal.js";
+export {
+  admitInstalledProductInput,
+  bindInstalledLeafInvocationPort,
+  evaluateInstalledInteractionResponse,
+  type InstalledProductSemanticsAuthority,
+} from "./installed_product.js";

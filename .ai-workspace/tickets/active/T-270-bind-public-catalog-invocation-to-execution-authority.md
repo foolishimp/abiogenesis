@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s03_exact_candidate_frozen
-- review_status: pending_independent_exact_cut_review
-- proof_status: exact_candidate_gates_green
+- phase_status: m5_s03_candidate_verification
+- review_status: pending_exact_cut_review
+- proof_status: runtime_and_design_gates_green_package_reproducibility_pending
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -39,11 +39,11 @@
 - selected_method_commit: 5326562f075d60052806d0d2c79d3db49671a8ea
 - selected_method_member_set_digest: ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c
 - selected_method_adoption_receipt: .ai-workspace/comments/codex/20260725T060521Z_DECISION_adopt_stdo_2_2_for_abiogenesis_5.md
-- exact_candidate_commit: 19f50c17526517145070ccb2ca3c282fce7de1f2
-- exact_candidate_tree: ccbd9d2de236481be7a282af3780b5dd402393c9
-- exact_candidate_design_digest: f7de6d9f6cd0b1bb27c9ffd2461fcd132b81b4196af101a04d60604169fd81fa
-- exact_candidate_package_digest: de1af9e727842a9e2764f954692f1a47bc6ecbd37e8664e924d5450edd2b2a6a
-- exact_candidate_evidence: .ai-workspace/comments/codex/20260725T090501Z_CHECKPOINT_t270_s03_exact_candidate.md
+- superseded_candidate_commit: 19f50c17526517145070ccb2ca3c282fce7de1f2
+- superseded_candidate_tree: ccbd9d2de236481be7a282af3780b5dd402393c9
+- superseded_candidate_design_digest: f7de6d9f6cd0b1bb27c9ffd2461fcd132b81b4196af101a04d60604169fd81fa
+- superseded_candidate_package_digest: de1af9e727842a9e2764f954692f1a47bc6ecbd37e8664e924d5450edd2b2a6a
+- superseded_candidate_evidence: .ai-workspace/comments/codex/20260725T090501Z_CHECKPOINT_t270_s03_exact_candidate.md
 
 ## Purpose
 
@@ -60,13 +60,16 @@ The implementation at `bcd8769a` is retained behavior, not accepted closure.
 Completed tickets, decisions, reviews, test counts, and donor branches are
 history or evidence. They do not enlarge this ticket.
 
-## Exact Candidate State
+## Candidate State
 
-The bounded S03 implementation and design subject is frozen at
-`19f50c17526517145070ccb2ca3c282fce7de1f2`. Mechanical and module-owned
-proof is green. Independent exact-cut review and direct human acceptance remain
-pending. This state does not close S03 or authorize S05, S06, qualification, or
-release.
+The prior bounded S03 candidate at
+`19f50c17526517145070ccb2ca3c282fce7de1f2` received changes requested and is
+historical evidence. The current bounded repair remains unfrozen. Its focused
+external Product proof is green at 36/36, complete M5 at 123/123, M4 at 26/26,
+and exact-file Mermaid rendering at 7/7. Package reproducibility remains
+pending. No current exact candidate exists until that gate passes and one new
+cut is frozen. This state does not close S03 or authorize S05, S06,
+qualification, or release.
 
 ## Governing Authority
 
@@ -98,6 +101,24 @@ This correction owns four defects:
    views, axiom evaluation, and module-owned proof.
 
 No other refactor is selected by this ticket.
+
+The current bounded review repair is causally inside defects one and four. It
+must:
+
+- derive duplicate and idempotency truth from durable events rather than
+  process-local invocation state;
+- return refreshed continuation authority after every appended outcome,
+  including post-resume refusal;
+- admit actor-operation capability grants with the root invocation and require
+  the exact grant for F_H public operations;
+- preserve the M03 dependency direction by placing installed Product semantics
+  behind HoG's exact install-bound port;
+- disposition the complete changed atomic-function family, contract it against
+  the eight accepted M3 Prime families, and project faithful domain, sequence,
+  lifecycle, and axiom views;
+- distinguish resolved append-authority exhaustion from retained immutable read
+  authority; and
+- prove both direct and supervised rejection of `until = first_traversal`.
 
 ## Design Reconciliation
 

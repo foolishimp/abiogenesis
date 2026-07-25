@@ -117,6 +117,7 @@ export interface InvocationAdmission {
   readonly programValidationDigest: Sha256Digest;
   readonly policyRef: string;
   readonly policyDigest: Sha256Digest;
+  readonly capabilityGrants: readonly CapabilityGrant[];
   readonly capabilityGrantRefs: readonly string[];
   readonly authorityRef: string;
   readonly authorityDigest: Sha256Digest;
@@ -202,6 +203,7 @@ export function hasAdmittedInvocation(
     programValidationDigest: admission.programValidationDigest,
     policyRef: admission.policyRef,
     policyDigest: admission.policyDigest,
+    capabilityGrants: admission.capabilityGrants,
     capabilityGrantRefs: admission.capabilityGrantRefs,
     authorityRef: admission.authorityRef,
     authorityDigest: admission.authorityDigest,
@@ -548,8 +550,12 @@ export function admitInvocation(
     new Set(input.capabilityGrants.map((grant) => grant.grantRef)).size !== input.capabilityGrants.length ||
     input.capabilityGrants.some((grant) =>
       !isCapabilityGrant(grant) ||
-      grant.capabilityRef !== DIRECT_INVOKE_CAPABILITY ||
       grant.actorRef !== input.invocation.actorAttributionRef) ||
+    !input.capabilityGrants.some(
+      (grant) =>
+        grant.operationId === "abg.operation.run.invoke" &&
+        grant.capabilityRef === DIRECT_INVOKE_CAPABILITY,
+    ) ||
     input.invocation.capabilityGrantRefs.join("\0") !== input.capabilityGrants.map((grant) => grant.grantRef).join("\0") ||
     input.invocation.capabilityGrantDigests.join("\0") !== input.capabilityGrants.map((grant) => grant.grantDigest).join("\0")
   ) {
@@ -594,6 +600,7 @@ export function admitInvocation(
     programValidationDigest,
     policyRef: input.policy.policyRef,
     policyDigest: input.policy.policyDigest,
+    capabilityGrants: input.capabilityGrants,
     capabilityGrantRefs: input.capabilityGrants.map((grant) => grant.grantRef),
     authorityRef: input.authority.authorityRef,
     authorityDigest: input.authority.authorityDigest,

@@ -4022,6 +4022,7 @@ export function constructDeveloperMiniPublication(
     closureContractRef: DEVELOPER_MINI_IDS.closureContractRef,
     policies: {
       "abg.compute_regime": "F_D",
+      "abg.default_start_ref": DEVELOPER_MINI_IDS.spanStartRef,
       "abg.root_mode": "direct",
     },
   };
