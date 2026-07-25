@@ -1,32 +1,31 @@
 # T-268 - Realize Replay-Grounded Observer And Tuner
 
-> **Current disposition (2026-07-25):** repriced in place for the current S06
-> observer/tuner realization and final M5 feature/capability read model. The
-> historical tenant-manifest and X-path body below remains donor evidence only.
-> It does not define Product scope, capability count, design authority,
-> implementation order, or closure.
+> **Current disposition (2026-07-25):** backlog until S06 closes and GOALS
+> selects A5-F12/S04 readiness. The rejected observer/tuner draft is preserved
+> on remote archive branch
+> `archive/abi5-observer-tuner-wip-20260725T035544Z` and has no active
+> implementation authority.
 
 - id: T-268
 - title: Realize replay-grounded observer and tuner
 - type: feature
 - ticket_category: implementation_migration
-- status: active
-- implementation_hold: released_for_s06
-- implementation_hold_ref: GOAL-035 current S06 frontier and T-270
+- status: backlog
+- implementation_hold: active
+- implementation_hold_ref: GOAL-035 current S03 outcome under T-270
 - implementation_hold_effect: >-
-    realize only replay-grounded observer/tuner behavior and its public read
-    model; no direct authority mutation, second truth store, or X-era manifest
-    roster
-- phase_status: m5_s06_active
-- review_status: s06_design_proxy_accepted
-- proof_status: pending_replay_grounded_observer_tuner
+    preserve historical evidence; no observer/tuner design, code, test, proof,
+    publication, or closure promotion until GOALS explicitly selects A5-F12
+- phase_status: m5_a5_f12_unselected
+- review_status: prior_section_14_design_provisional
+- proof_status: rejected_wip_archived_no_current_candidate
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Realize observer and tuner as declared Product content over ABG replay:
     observer emits attributed diagnostic truth; tuner emits attributed
     declaration drafts; ratification or rejection crosses ordinary policy or
     F_H authority and neither path mutates live authority directly.
-- delivery_phase: M5_frontier_5
+- delivery_phase: M5_after_s06
 - change_class: design_reframe
 - re_entry_point: >-
     build_tenants/abiogenesis/typescript/design/

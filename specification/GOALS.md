@@ -2,201 +2,191 @@
 
 ## Authority
 
-`GOALS.md` owns the bounded current work wave and selects its executable root
+`GOALS.md` owns the bounded current work wave and selects its current Product
 outcome. It does not redefine Intent, Product, requirements, design, or release
 truth.
+
+Repository history, completed tickets, decisions, reviews, and postmortems
+retain historical evidence. This file carries only the present basis, current
+selection, ordered successor outcomes, and their acceptance conditions.
 
 ## Current Goal
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - corrected `ABG5-S02`, `ABG5-S03`, and `ABG5-S05` are green; current M5 frontier is `ABG5-S06` |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M5 behavior exists through S06 portability stock; S03 and S05 closure are provisional; S06 remains open |
 
-## Current Constitutional Basis
+## Current Basis
 
-The ABIogenesis 5.0 Product destination, M2 correction vector, and M3 direct-GTL
-realization design are accepted. T-286 completed the bounded installed
-bootstrap root. Intent and Product remain stable. A bounded
-`requirement_reprice` corrects the S02/S03 traversal-proof ordering without
-changing Product meaning. T-270 owns the integrated M5 outcome; T-272 owns the
-closed S03 One Surface and continuation boundary. T-274, T-275, and T-276
-closed S05 Consensus at `7722806d`. T-281 and T-268 own the active S06
-portability and observer/tuner boundary. Direct F_H authorized this correction
-on 2026-07-24.
+- `specification/INTENT.md` and `specification/PRODUCT.md` remain the accepted
+  destination.
+- The selected method is immutable STDO `v2.0.0` at
+  `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a`, member-set digest
+  `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0`.
+- `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md` remains the accepted direct-GTL
+  architecture.
+- `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` Sections 1 through 11 remain
+  the accepted traversal-expansion basis. Sections 12 through 14 and their
+  realization are provisional until their active boundaries are reconciled
+  with the selected Design Module Method.
+- Commit `bcd8769a8163a222e2e59400c904994b3de161fd` is preserved behavioral
+  stock. It is not by itself S03, S05, S06, conservation, qualification, or
+  release closure.
+- T-270 remains the M5 parent owner. Existing subordinate tickets retain their
+  Product boundaries; no new ticket hierarchy is selected.
 
-| Basis | Current truth |
-|---|---|
-| semantic destination input | `.ai-workspace/comments/codex/20260719T152242Z_STRATEGY_abiogenesis_5_0_product_destination.md` |
-| destination input digest | `a97c070bfef704c1e7666271aad40393587269fb2e34097457b2ddd2417c0fcd` |
-| Phase-1 F_H decision | `.ai-workspace/comments/codex/20260719T180430Z_DECISION_fh_accept_abiogenesis_5_destination_and_authorize_t283.md` |
-| accepted constitutional candidate | `afb35def08b2259046830f87c18b45c95c84001c` |
-| accepted constitutional aggregate | `c85ca7ae34352b91d579fcfae035ca3aa3d9a27428b584ac81c425b0d837d260` |
-| final constitutional closure | `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md` |
-| accepted M2 candidate | `6f2d3415cf1b453ad37d098e5be66fdd658ffc00` |
-| accepted M2 aggregate | `f2a4c6970f6240ef52bdb04693a38b8430fe29027a2f8f10ed5c9f70ba32b72a` |
-| M2 F_H decision | `.ai-workspace/comments/codex/20260720T094323Z_DECISION_fh_accept_t284_and_authorize_m3.md` |
-| accepted M3 design | `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`, SHA-256 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0` |
-| M3 F_H decision | `.ai-workspace/comments/codex/20260720T141106Z_DECISION_fh_accept_t285_and_authorize_m4.md` |
-| completed work carrier | `T-286` implementation migration at `ffba4e71` |
-| accepted M5 design | `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` at `d6da4269`, SHA-256 `80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3` |
-| accepted T-272 design delta | M05 Sections 12 through 12.10 admit the four-authority composition, exact evidence fold, run-causal closure, post-resume failure totalization, single-use Product-bound public re-entry, side-effect-free resolved Run projection, typed no-action and governed correction outcomes, Product-selected bounded graph-span re-entry, and Product-owned public next/asset targeting; complete design SHA-256 `4645b7124d210a494f7307e2ec9d786c29ed44ae56b58d9cc844ce4b324d10c1`; closing bounded proxy decision `20260724T230459Z_DECISION_proxy_accept_t272_governed_correction_and_close_s03.md` |
-| accepted S05 design | M05 Section 13 binds one Product-owned Consensus domain family, one ABIogenesis-owned publication and Program, direct GTL fan-out/fan-in/recursion/F_H, existing HoG and ABG authority, replay-derived public projection, and one three-workspace driver; complete design SHA-256 `e9467961e11d52a40003b2aff3a152b33e1f3fdb7b8700b4fc0111e44bb2c747`; bounded proxy decision `20260724T232029Z_DECISION_proxy_accept_s05_ordinary_consensus_design.md` |
-| accepted S05 implementation | `7722806d9f0c385a0cb009cc3885389c7156f731`; packed artifact SHA-256 `cfd66224d74d0428566feb94c0a85c986d02b07450d86e61a783a0d46077f978`; Product content digest `sha256:28b72ae1bd0b91b17e527f95a5f7be81da2146db9849ee795e6c16e4b579d905`; manifest digest `sha256:2e02fb50175541bfb98ca1f8608447011225a64e94bc8818461b55732cdc7f4d`; proxy decision `20260725T013500Z_DECISION_proxy_accept_s05_and_advance_s06.md` |
-| accepted S06 design | M05 Section 14 binds native and Codex-delegated public parity, one independent flavored catalog Product, catalog declaration application, replay-grounded observer/tuner Product content, and ABG-owned draft transitions; design commit `6aaedf8d826f846a11291676413bd35f93df0ef4`; complete design SHA-256 `fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3`; proxy decision `20260725T014501Z_DECISION_proxy_accept_s06_design.md` |
-| M5 F_H decision | direct F_H ruling on 2026-07-22: accepted and continue under T-270 |
-| selected method release | STDO `v2.0.0`, commit `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a` |
-| selected method member set | 41 members, digest `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0` |
-| current work carrier | `T-270` M5 parent; T-272 closed S03 at `ab7e57ed0c4ed1369a645432bef9c002fc9665d7`; T-274, T-275, and T-276 closed S05 at `7722806d9f0c385a0cb009cc3885389c7156f731`; T-281 and T-268 own active S06 |
-| current constitutional state | accepted Product and direct-GTL design; corrected S02/S03 requirement and delivery ordering |
-| implementation state | `ABI5-ROOT-001` is green; M5 `120/120`; `ABG5-S02`, `ABG5-S03`, and `ABG5-S05` are green; the installed Product carries the complete S03 One Surface path and ordinary-path Consensus with three workspace outcomes; conservation is a derived implementation projection with all forty rows proven and zero TODO; `ABG5-S06` is current |
+Mutable methodology candidates do not govern ABIogenesis until released and
+explicitly selected.
 
-The constitutional authoring order is one unpromoted transaction:
+## Supported Product Path
+
+The following installed path is the supported realization basis:
 
 ```text
-INTENT
-  -> PRODUCT
-  -> requirements and scenarios
-  -> GOALS root selection
-  -> rival-authority invalidation
-  -> exact candidate freeze and review
-  -> F_H closure
+developer-authored GTL.TypeScript
+  -> non-lowering validator
+  -> admitted Product, install, workspace, lock, catalog, and implementation basis
+  -> direct HoG traversal
+  -> ABG admission, events, replay, continuation, and closure
+  -> public SDK and thin CLI projection
 ```
 
-The T-283 Product transaction is closed. `PRODUCT.md` remains the sole complete
-Product-definition surface for ABIogenesis 5.0. T-284 repaired the affected
-requirements without changing Product semantics. Any later Product-semantic
-change requires lawful Product re-entry and an F_H ruling.
+`ABI5-ROOT-001` and the independently packed developer Product remain
+regression bindings for that path. They must remain green after each promoted
+change. Further repetition of those accepted witnesses is preservation, not
+Product progress.
 
-## Delivery Governor
+The supported path excludes:
 
-`ABI5-ROOT-001` is the permanent installed bootstrap and regression binding:
+- semantic compilation or a lowered executable Program;
+- a Public, SDK, CLI, fixture, worker, plugin, or installer controller;
+- a second runtime or event authority;
+- caller-authored replay, continuation, closure, or admission truth; and
+- source-tree or private-runtime knowledge in an independent consumer.
 
-```text
-ABI5-ROOT-001
-```
+## Current Product Outcome
 
-Its supported public path, nearest weaker excluded property, finite obligation
-graph `R1` through `R10`, and terminal predicate are defined in `PRODUCT.md`
-and decomposed in `REQ-P-SCENARIOS-008`. Every promoted checkpoint preserves
-it. It no longer projects Product progress after proving the minimum installed
-mechanics.
+The one selected unresolved outcome is:
 
-`ABI5-M5-EXT-001` closed at implementation commit `bc9ca26a`:
+> Reconcile and reclose `ABG5-S03` through the installed external Product path.
 
-```text
-empty consumer directory
-  -> install packed ABIogenesis
-  -> install separately packed developer-authored mini-product
-  -> resolve a non-empty exact Product dependency lock
-  -> bind workspace and admit caller-supplied publication
-  -> narrow catalog to the mini-product Program and GraphFunction
-  -> invoke through installed public SDK and CLI
-  -> execute through GTL -> validator -> HoG -> ABG
-  -> derive the same typed result from ABG replay
-```
+T-270 owns this reconciliation directly. Completed T-272 records retained S03
+behavior and prior closure evidence; it is historical input, not current
+execution authority.
 
-The mini-product owns its namespace, Module, Program, GraphFunction, contracts,
-judgment law, and implementation. ABIogenesis core contains no
-mini-product-specific identifier, switch, validator, judgment, or execution
-path. The installed CLI and SDK derive the same typed result from ABG replay,
-and substitution of the Product semantics or judgment boundary fails closed.
+Acceptance requires:
 
-Corrected `ABG5-S02` was established at `de29a7b7` and repaired at
-`cbb57d56`. Its final vertical prerequisite is:
+1. public read, respond, and continue consume explicit durable authority;
+2. process-local state cannot change continuation admissibility or meaning;
+3. an F_H response outside the Product-owned pending choice and exact basis is
+   a typed refusal;
+4. the `root_mode` and `until` relation is singular across requirement, design,
+   code, and installed proof;
+5. the S03 Ontology, atomic functions, Prime contraction, IACS, module
+   ownership, three semantic views, and axiom evaluation are reconciled at the
+   exact active boundary;
+6. existing One Surface, correction, re-entry, replay, and negative behavior
+   remains green; and
+7. no repair introduces a rival controller, runtime, or semantic authority.
 
-```text
-F_H hold
-  -> public read
-  -> interaction.respond
-  -> durable event-log reopen
-  -> run.continue
-  -> same-run replay and typed result
-```
+S05, S06, observer/tuner, complete conservation, qualification, and release do
+not select implementation while this outcome remains unresolved.
 
-That path now crosses fresh public contexts using one serialized, self-digested
-Product-bound continuation authority; no process-local map carries authority.
-The pending judgment, hold route, and continuation opening persist atomically.
-Together with all twelve S02-owned compute and structural rows, fibre
-substitution, installed malformed-GTL and nonterminal `c_identity` proofs, and
-the current live F_P proof, it closes S02. T-272 then closed S03's One Surface,
-consequence, runtime-disposition, and public-control work through the same
-extension path at `ab7e57ed`.
+## Ordered Delivery
 
-## Product Scope
+| Order | Existing owner | Product outcome | Acceptance boundary | State |
+|---:|---|---|---|---|
+| `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Current |
+| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | Consensus result and replay are exposed through ordinary `project.read`; escalation binds the exact replay-derived unresolved result; required schemas and vocabularies are public; bounded Consensus design and module proof agree with all three workspace outcomes. | Blocked by S03 |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Blocked by S05 |
+| `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Unselected until S06 closes |
+| `5` | `T-270` | Freeze one M5 candidate | All pre-qualification Product behavior and all 17 feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by prior outcomes |
+| `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis is bound; S04 passes; all seven pre-release scenarios and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
+| `7` | `T-248` | Release ABIogenesis 5.0.0 | Immutable RC, installed-RC qualification, governed final delta, stable tap, and fresh post-publication install preserve distinct exact subjects. | Blocked by M6 |
 
-The no-silence scope is the 17 Product outcomes `A5-F01` through `A5-F17` and
-the seven scenarios `ABG5-S01` through `ABG5-S07`, exactly as defined in
-`PRODUCT.md`. Counts of operations, capabilities, atoms, tickets, files, or
-tests are derived projections and cannot add to, subtract from, or substitute
-for that scope.
+## Design Reconciliation Boundary
 
-The 4.6 semantic origin is the immutable RC5 release snapshot identified in
-`PRODUCT.md`. Conservation covers all forty traversal rows plus the separate
-shape-preserving fibre-substitution differential. Definition coverage is part
-of T-283. The M4 root now carries installed HoG, ABG replay, public-outcome,
-and bounded mutation-negative evidence; the remaining traversal and scenario
-coverage stays pending for M5 and qualification.
+One `design_reframe` re-entry governs the affected S03, S05, and S06
+boundaries. Execution remains vertical and outcome-ordered.
 
-## Current Milestones
+For each selected outcome:
 
-| Order | Milestone | Exit condition | Current state |
-|---:|---|---|---|
-| `M0` | Reify 5.0 constitution | One aligned Intent, Product, requirements, scenarios, Goal, root selection, and rival-authority disposition pass exact-cut review. | Completed by T-283 |
-| `M1` | Close constitutional destination | Method-decorrelated review accepts the exact candidate and a separate F_H receipt admits it. | Completed by T-283 |
-| `M2` | Freeze donors and derive correction vector | Freeze X and final-integration; classify every RC5 semantic and implementation family plus X/final-integration carrier; repair Product/requirement authority contradictions; refreeze and independently review the exact subject. | Completed by T-284 |
-| `M3` | Accept direct-GTL realization design | Design proves GTL -> validator -> HoG -> ABG, positive intended authority, and real-path absence of compiled-plan and controller rivals. | Completed by T-285 |
-| `M4` | Establish installed root | Exact `ABI5-ROOT-001` runs green through packed bytes, clean install, direct HoG traversal, ABG replay twice, and typed CLI result. | Completed by T-286 at `ffba4e71`; 25/25 twice, deterministic retained proof, twelve installed mutations, and two clean exact-subject re-reviews |
-| `M5` | Complete pre-qualification behavior | First close `ABI5-M5-EXT-001`, then close `ABG5-S02`, `S03`, `S05`, and `S06`, the fibre differential, scenario-owned traversal evidence, observer/tuner realization, the 17-family no-silence disposition, and required negatives on one candidate line. | Active under T-270; `ABI5-M5-EXT-001`, corrected S02, S03, and S05 complete; S06 is current |
-| `M6` | Materialize method basis and qualify | Bind the already-selected STDO `v2.0.0` identity in Product context and `QualificationLawBasis`; close `ABG5-S04`, reconcile all forty traversal rows across their owning scenarios, and complete pre-RC qualification. | Blocked by M5 |
-| `M7` | Release 5.0.0 | `ABG5-S07` preserves the pre-RC, RC, installed-RC, final-tap, released-Product, and post-publication-install subjects and taps stable 5.0.0. | Blocked by M6 |
+- derive only its materially changed Ontology and module boundary;
+- classify discovered functions as atomic, composed, subordinate, deferred,
+  excluded, or unresolved;
+- perform whole-family Prime contraction without presuming that fewer
+  functions or files is correct;
+- identify the IACS and public versus module-local carriers;
+- reconcile domain, sequence, and lifecycle views with implementation;
+- retain implementation where it conforms; and
+- refactor only where the accepted design proves duplicate, ambiguous, or
+  rival authority.
 
-Released STDO `v2.0.0` governs M5 and all subsequent development. M6 binds
-that already-selected basis into Product-owned qualification evidence; it does
-not adopt the method for the first time. odd_glc and 5.0.1 self-use remain
-successor work and do not gate ABIogenesis 5.0.
+Speculative contraction hypotheses do not independently authorize code changes.
+One outcome is accepted before GOALS selects the next.
 
-## Active Ticket Disposition
+## Product Scope And Conservation
 
-`T-283`, `T-284`, `T-285`, `T-286`, `T-272`, `T-274`, `T-275`, and `T-276`
-are complete. T-270 remains the sole M5 parent owner. T-281 resumes its existing
-S06 public and downstream portability role. T-268 is repriced in place for
-observer/tuner realization and the final M5 feature/capability read model.
+The no-silence Product scope remains:
 
-T-278 and T-282 remain held donor or successor carriers. No ticket retains an
-X-era implementation sequence, fixed operation count, compiled-plan authority,
-or independent closure projection. T-247 and T-248 remain backlog carriers for
-M6 and M7. No new ticket hierarchy is authorized.
+- feature families `A5-F01` through `A5-F17`;
+- scenarios `ABG5-S01` through `ABG5-S07`;
+- the forty 4.6 traversal-conservation rows; and
+- the separate shape-preserving fibre-substitution differential.
 
-## M5 Work Ownership
+Counts of operations, capabilities, atoms, tickets, files, tests, reviews, or
+commits are derived projections and cannot change that scope.
 
-`GOALS.md` owns ordering; T-270 owns integrated M5 closure. Existing tickets
-own subordinate boundaries after in-place reprice:
+The current forty-row executable matrix is implementation-coverage evidence.
+It is not RC5 conservation closure while its immutable 4.6 witnesses remain
+pending. Each final conserved row must bind:
 
-| Order | Existing owner | Product boundary |
-|---:|---|---|
-| `1` | `T-270`, `T-281` | **Complete at `bc9ca26a`:** independently packed developer GTL Product, non-empty dependency lock, caller-supplied publication, product-owned contracts and judgment, installed resolution, and product-neutral SDK/CLI invocation. |
-| `2a` | `T-272` | **Repaired at `cbb57d56`:** one F_H hold/read/respond/continue path survives fresh public contexts; its hold truth is admitted atomically; one mixed F_D/F_P/F_H Program closes through the generic extension seam. |
-| `2b` | `T-270` | **Complete at `cbb57d56`:** four compute-fibre and eight structural-form rows, fibre substitution, installed nonterminal `c_identity`, malformed serialized GTL refusal, live F_P, and owned negatives close S02. |
-| `3` | `T-272` | **Complete at `ab7e57ed`:** the separately packed developer Product publishes its action catalog, four-authority construction composition, independently owned ticket Program and GraphFunction, bounded graph-span application, default public start, and asset ownership. ABG preserves Product-derived no-action and correction outcomes, exact single-use public re-entry, durable projections, ticket result truth, graph-span selection, F_H control, bounded stop/convergence, public next/asset selection, and yield truth through the same generic path. |
-| `4` | `T-274`, `T-275`, `T-276` | **Complete at `7722806d`:** ordinary and supervised Consensus Programs traverse the same public extension, catalog, GTL, HoG, ABG, replay, continuation, SDK, and CLI path across three workspace outcomes. |
-| `5` | `T-281`, `T-268` | **Current:** complete observer/tuner, native and bounded host projections, downstream portability through the same extension path, close S06, and make S04 runnable. |
-| `6` | `T-270` | Re-evaluate the derived 17-family ledger and freeze one exact M5 candidate for T-247; M6 performs the complete forty-row qualification sweep. |
+- the exact immutable RC5 behavior and witness;
+- its semantic disposition;
+- the successor GTL, HoG, ABG, and public path;
+- the nearest invalid substitute; and
+- the mutation proving refusal of that substitute.
 
-The feature ledger prevents silence over known obligations but cannot certify
-completeness. Installed scenarios, mutation negatives, independent consumers,
-and review remain the falsification surfaces. Missing detail is added to its
-existing owner unless Product meaning or a material semantic boundary changes.
+Scenario-owned evidence may accumulate during M5. Complete forty-row
+reconciliation is a qualification gate, not the feature-development queue.
+
+## Work Selection
+
+- One unresolved Product outcome selects Product-progress work.
+- Acceptance exhausts that exact outcome as a selector of later work.
+- The next already-defined Product outcome is selected here only after the
+  current outcome is accepted.
+- A review finding blocks its exact claim. It does not automatically create a
+  new Product outcome, ticket, artifact, refactor, or review programme.
+- Unselected work has no promotion authority. It is removed from the active
+  worktree or retained only as clearly historical evidence.
+- Useful implementation may be retained as behavioral stock without retaining
+  an invalid closure claim.
+- Missing detail is added to an existing owner unless Product meaning or a
+  material semantic boundary requires lawful re-entry.
+
+## Release Milestones
+
+| Milestone | Exit | State |
+|---|---|---|
+| `M5` | S03, S05, S06, A5-F12/S04 readiness, all pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S03 is current |
+| `M6` | Exact selected-method binding, S04, seven-scenario pre-RC qualification, and complete RC5 reconciliation accept one pre-RC candidate. | Blocked by M5 |
+| `M7` | Distinct RC, installed RC, final-tap, released Product, and post-publication install subjects produce stable `5.0.0`. | Blocked by M6 |
+
+odd_glc release and ABIogenesis 5.0.1 self-use remain successor work and do not
+gate ABIogenesis 5.0.
 
 ## Progress Reporting
 
-For subsequent milestones, every status report shall distinguish:
+Every status report distinguishes:
 
-- root frontier movement;
+- the selected Product outcome;
 - direct-prerequisite readiness;
-- scenario and negative-proof closure;
-- definition or design coverage;
-- realized installed evidence; and
-- qualification/release subject state.
+- installed scenario and mutation evidence;
+- design and module reconciliation;
+- retained behavior versus accepted closure;
+- RC5 conservation state; and
+- qualification or release subject state.
 
-Paperwork, code volume, test count, commit count, and review count are not
-Product progress without a typed relation to one of those outcomes.
+Paperwork, code volume, test count, commit count, review count, and repeated
+proof of an already accepted witness are not Product progress.

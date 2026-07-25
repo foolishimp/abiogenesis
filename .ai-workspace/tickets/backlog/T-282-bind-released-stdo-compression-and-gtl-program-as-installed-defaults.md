@@ -4,7 +4,7 @@
 - title: Materialize the selected released STDO context for qualification
 - type: migration
 - ticket_category: design_and_realization_migration
-- status: active
+- status: backlog
 - phase_status: held_for_m6_after_t270_m5
 - review_status: aligned_to_released_stdo_and_accepted_product
 - proof_status: pending

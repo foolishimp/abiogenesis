@@ -1,28 +1,24 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-25):** `ABI5-M5-EXT-001` complete at
-> `bc9ca26a`; released for the current S06 public and portability boundary. The
-> operative scope is the current header and
-> `Current M5 Reprice` section. The retained 19-operation and X-era material is
-> historical donor evidence only; it does not define Product scope, operation
-> count, design authority, implementation order, or closure.
+> **Current disposition (2026-07-25):** backlog until GOALS selects S06.
+> Existing implementation remains behavioral stock. The retained
+> 19-operation and X-era material is historical donor evidence only.
 
 - id: T-281
 - title: Publish the product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
-- status: active
-- implementation_hold: released_for_s06
-- implementation_hold_ref: GOAL-035 current Product frontier and T-270 requirement reprice
+- status: backlog
+- implementation_hold: active
+- implementation_hold_ref: GOAL-035 current S03 outcome under T-270
 - implementation_hold_effect: >-
-    ABI5-M5-EXT-001 and S05 are complete; preserve the public extension seam
-    while closing only the native, bounded-host, and independent downstream
-    portability obligations of S06
-- phase_status: m5_s06_active
-- review_status: s06_design_proxy_accepted
-- proof_status: independent_mini_product_green_s06_pending
+    preserve existing public-path behavior; no S06 design, code, test, proof,
+    publication, or closure promotion until GOALS selects S06
+- phase_status: m5_s06_unselected
+- review_status: prior_s06_design_provisional
+- proof_status: partial_portability_behavior_only
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
-- delivery_phase: M5_frontier_5
+- delivery_phase: M5_after_s03_and_s05
 - change_intent: >-
     Preserve the Product-neutral installed public seam while proving one native
     SDK and CLI invocation, one bounded Codex projection over the same public

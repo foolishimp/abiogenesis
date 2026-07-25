@@ -1,6 +1,6 @@
 # T-278 - Derive Public Control-Plane Ontology And Reprice Operation Surface
 
-> **T-284 current disposition (2026-07-20):** `held_pending_X_vector`.
+> **Current disposition (2026-07-25):** completed historical X-path evidence.
 > Every acceptance, phase, dependency, count, design, and delivery statement
 > below records the prior X-path basis only. It does not authorize current
 > implementation, define 5.0 Product scope, or project Product progress. The
@@ -11,11 +11,11 @@
 - title: Derive the ABIogenesis public control-plane Ontology and reprice the operation surface
 - type: feature
 - ticket_category: ordinary
-- status: active
+- status: completed
 - implementation_hold: active
 - implementation_hold_ref: T-284 correction vector and M3 design gate
 - implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: superseded_by_t283_intent_reprice_pending_x_vector
+- phase_status: superseded_historical
 - review_status: prior_basis_review_only_invalidated_for_implementation
 - proof_status: historical_ontology_evidence_only
 - delivery_phase: unassigned_pending_x_vector

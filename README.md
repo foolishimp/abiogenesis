@@ -1,7 +1,7 @@
 # ABIogenesis
 
-ABIogenesis is an LLM-first GTL.TypeScript execution product. It publishes
-typed graph programs and GraphFunctions, validates them without lowering,
+ABIogenesis is an LLM-first GTL.TypeScript execution Product. It publishes
+typed graph Programs and GraphFunctions, validates them without lowering,
 traverses them directly through HoG, and records causal runtime truth through
 ABG.
 
@@ -10,18 +10,19 @@ ABG.
 The source project is preparing ABIogenesis 5.0 as the direct feature-complete
 successor to the immutable 4.6 RC5 Product origin.
 
-| Surface | State |
+| Surface | Current state |
 |---|---|
-| current work owner | `T-270` M5 parent with T-281 and T-268 active for S06 |
-| Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | M4 `26/26`, M5 `120/120`; S02, S03, and S05 complete through installed Product paths; One Surface, durable continuation, public re-entry/read/targeting, governed corrections, and ordinary-path Consensus are accepted through `7722806d`; the implementation coverage projection records all forty rows proven with zero TODO; S06 is current |
-| replacement design | M3 accepted under T-285; M5 base accepted at `d6da4269`; T-272 Sections 12 through 12.10 accepted at complete-design SHA-256 `4645b712...d10c1` |
-| delivery governor | `ABG5-S06`; green `ABI5-ROOT-001`, `ABI5-M5-EXT-001`, corrected S02, S03, and S05 remain regressions |
-| method governance | released STDO `v2.0.0`, commit `94ccf4fa...753a`, selected for development and qualification |
+| Product definition | `specification/PRODUCT.md` |
+| selected outcome | Reconcile and reclose `ABG5-S03` |
+| active owner | T-270 |
+| retained implementation | `bcd8769a8163a222e2e59400c904994b3de161fd` behavioral stock |
+| closure state | S03 and S05 provisional; S06 open and unselected |
+| conservation | Forty-row implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
+| method | Released STDO `v2.0.0` at `94ccf4faa1c0a10b002273b1e9a9e7bf4a34753a` |
 
-The source branch history and the semantic Product origin are distinct. The
-accepted correction vector requires every practical RC5 behavior to be
-reconciled even where Git ancestry branched below RC5.
+`specification/GOALS.md` is the current work-selection surface. Repository
+history, comments, completed tickets, reviews, and archived branches explain
+prior work but do not select implementation.
 
 ## Product Architecture
 
@@ -30,107 +31,79 @@ GTL.TypeScript declarations
   -> native type checking
   -> raw admission
   -> non-lowering GTL validation
+  -> admitted Product, workspace, lock, catalog, and implementation basis
   -> direct HoG traversal
-  -> declared F_D | F_P | F_H implementation seam
-  -> ABG event and result admission
-  -> replay, continuation, correction, and closure
+  -> F_D | F_P | F_H implementation seam
+  -> ABG admission, events, replay, continuation, and closure
   -> SDK / CLI projection
 ```
 
 The boundaries are strict:
 
-- GTL owns program structure and contracts.
-- GraphFunction is the named callable work contract and replayable graph
-  template, not the whole program.
+- GTL owns Program topology and contracts.
+- GraphFunction is the callable work contract and graph template, not the
+  whole Program.
 - HoG owns direct traversal mechanics.
 - ABG owns admitted runtime truth.
 - Module and catalog own publication and discoverability.
 - Implementation bindings realize declared leaf seams only.
 - SDK and CLI are thin invocation and projection shells.
 
-A generated HoG program, compiled execution plan, implementation-only
-callable, hidden default, adapter selector, private event writer, or
-feature-specific controller is not a lawful substitute.
+A generated Program, compiled execution plan, implementation-only callable,
+hidden default, adapter selector, private event writer, public controller, or
+feature-specific runtime is not a lawful substitute.
 
-## Constitutional Authority
+## Current Work
+
+S03 correction is the only implementation-bearing frontier. It must:
+
+1. require explicit durable continuation authority;
+2. remove process-local state as an admissibility source;
+3. refuse an F_H response that differs from the Product-owned pending choice
+   or exact basis;
+4. reconcile the `root_mode` and `until` law;
+5. reconcile the active S03 Ontology, Prime, IACS, module, three-view, and
+   implementation boundary; and
+6. preserve the installed external Product path and all applicable negatives.
+
+S05, S06, observer/tuner, complete conservation, qualification, and release
+remain blocked until GOALS selects them.
+
+## Authority
 
 Read in this order:
 
 1. [GOALS.md](specification/GOALS.md)
 2. [INTENT.md](specification/INTENT.md)
 3. [PRODUCT.md](specification/PRODUCT.md)
-4. [GTL requirements](specification/requirements/gtl/)
-5. [ABG requirements](specification/requirements/abg/)
-6. [mapping requirements](specification/requirements/mapping/)
-7. [Product requirements](specification/requirements/product/)
-8. [accepted direct-GTL design](build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md)
-9. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
-10. [completed T-286](.ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md)
+4. [requirements](specification/requirements/)
+5. [direct-GTL design](build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md)
+6. [M5 design](build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md)
+7. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
 
-`PRODUCT.md` is the one complete 5.0 Product-definition surface. Requirements
-decompose it. Goals select the current wave and exact root. Design and code do
-not redefine it.
+`PRODUCT.md` is the sole complete 5.0 Product-definition surface.
+Requirements decompose it. GOALS selects one current Product outcome. Design
+and code define HOW without redefining Product meaning.
 
 ## Repository Structure
 
 ```text
-specification/                               constitutional WHAT
-build_tenants/common/design/                 prior shared design; held for re-derivation
-build_tenants/abiogenesis/typescript/design/ prior TypeScript design evidence
-build_tenants/abiogenesis/typescript/code/   primary TypeScript realization
+specification/                                 constitutional WHAT
+build_tenants/abiogenesis/typescript/design/   TypeScript realization design
+build_tenants/abiogenesis/typescript/code/     TypeScript realization
 build_tenants/abiogenesis/typescript/test_env/ TypeScript proof lanes
-build_tenants/abiogenesis/python/            withdrawn historical reference
-.ai-workspace/tickets/                       durable work items
-.ai-workspace/comments/                      strategy, review, and evidence
+.ai-workspace/tickets/active/                  current execution contracts
+.ai-workspace/tickets/backlog/                 later selected Product outcomes
+.ai-workspace/tickets/completed/               historical work records
+.ai-workspace/comments/                        analysis, review, and postmortems
 ```
 
-## Current Work Rule
-
-Do not implement against a donor line. Preserve `ABI5-ROOT-001`, but do not
-project further bootstrap or internal-matrix work as Product progress. Closed
-`ABG5-S03` runs through the already-green independently packed developer
-Product: GTL owns One Surface ordering, public read/respond/continue operations
-resume exact durable truth, and ABG replay yields the same-run typed outcome.
-The supervised Program-start path now carries distinct Product-owned model,
-gap, next-action, approval, action-evaluation, evidence-ledger, closure-
-candidate, and refreshed model/gap/next-action values. Explicit observation,
-next-action, and action-evaluation bases bind those projections to the exact
-workspace, action catalog, admitted evidence, closure policy, and replay scope.
-ABG admits and replays the selected action, exact `ConstructionIntent`, and
-governed construction delta, including the exact admitted action evaluation;
-terminal authority depends on every run-causal intent reaching replay-visible
-convergence rather than a stage label. Post-resume failures become ABG truth.
-The same external Product can now emit a typed no-action projection, stop under
-an ABG-admitted `gap_stop`, expose that gap through a replay-derived read, and
-re-enter once from a fresh context against the exact lock, ProductSet,
-WorkspaceBinding, Program, public start, and append-only source truth. The
-re-entered Program then follows its ordinary F_H and governed closure path.
-From the exact resolved continuation authority, a fresh public context now
-projects status, admitted result, ordered replay, and lawful actions without
-appending runtime truth or invoking Product logic. Retained consequence and
-runtime-disposition behavior is now preserved. The external Product also publishes one
-bounded backward graph-span application, selects it through an ordinary
-C-call result, and converges after ABG admits the exact route; no ABIogenesis
-core switch selects that behavior. Product-owned governed correction outcomes
-preserve repair, runtime-archive inspection, reprice, and escalation meaning
-through ABG stop and replay truth. Ordinary and supervised Consensus now
-execute through the same ordinary external Product seam. Current work closes
-native and bounded host projection, observer/tuner, and independent downstream
-portability through that seam.
-Missing detail is added to T-270 or the active existing owner; it does not
-create a new ticket hierarchy.
-
-Existing tests and commands remain current-state probes only. They are not
-5.0 Product evidence until the accepted design maps them onto the exact root,
-Product scenarios, and qualification subjects.
-
-## Released Product Boundary
+## Release Boundary
 
 ABIogenesis 5.0 targets one source-independent package-first TypeScript Product
-for a trusted developer desktop. It includes installed GTL, HoG, ABG, catalog,
-public contracts, SDK, CLI, conformance, qualification, and release evidence.
-The exact 17 outcomes, seven scenarios, exclusions, and release lifecycle are
-defined in `PRODUCT.md`.
+for a trusted developer desktop. The exact 17 outcomes, seven scenarios,
+exclusions, qualification subjects, and release lifecycle are defined in
+`PRODUCT.md`.
 
-odd_glc and ABIogenesis 5.0.1 are successor consumers. They do not gate the
-5.0 release.
+odd_glc release and ABIogenesis 5.0.1 self-use are successor work. They do not
+gate ABIogenesis 5.0.

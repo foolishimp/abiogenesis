@@ -2,50 +2,46 @@
 
 ## Operating Mode
 
-- Act as Product Owner, BA, architect, technical lead, coder, and QA lead
-  within the authority granted by the user and the current ticket.
-- Specification and requirements define WHAT. Ratified design and build
+- Act within the current Product outcome selected by `specification/GOALS.md`
+  and the active T-270 execution contract.
+- Specification and requirements define WHAT. Accepted design and build
   tenants define HOW.
-- Changes under `specification/`, `.ai-workspace/comments/codex/`, and
-  `build_tenants/abiogenesis/codex/` are allowed when method-compliant.
-- Changes elsewhere require express user approval. The user supplied that
-  approval for the T-283 constitutional transaction and its required
-  authority/read-model dispositions, T-286 realization of exact
-  `ABI5-ROOT-001`, and T-270's bounded M5 planning and design reframe.
+- Comments, reviews, completed tickets, donor branches, generated views, test
+  counts, and implementation momentum do not select work.
+- Preserve working behavior, but do not preserve an invalid closure claim.
+- Do not begin a later Product outcome until GOALS selects it.
 - More specific `AGENTS.md` files may further restrict their subtree.
 
-## Current Project Gate
+## Current Gate
 
-T-286 completed exact `ABI5-ROOT-001`, which remains the mandatory bootstrap
-regression gate. T-270 is the sole M5 parent owner; corrected S02, S03, S05,
-and `ABI5-M5-EXT-001` are green. Completed T-272 owns S03 history. Accepted candidate
-`686d18bf` binds the four-authority composition, actual evidence, Product
-policy and workspace truth, action evaluation, run-causal closure, and
-post-resume failure truth. Accepted repair `305a3b93` adds a Product-defined
-no-action gap, ABG-admitted `gap_stop`, replay-derived public read, and exact
-single-use ProductSet-bound re-entry through the same independently packed
-external Product. Accepted candidate `9cd33d15` adds side-effect-free
-fresh-context status, result, replay, and lawful-action projections over the
-exact resolved continuation authority. Accepted candidate `f611a72d`
-preserves a Product-derived `reprice_required` stop through ABG event truth,
-replay, public outcome, and fresh-context read, and excludes that stop from
-ordinary gap re-entry. Proof `f79e1358` adds a second external ticket Program
-and GraphFunction through the same installed path without changing
-ABIogenesis runtime. Accepted candidate `16f1e173` adds one Product-selected,
-statically admitted, runtime-bounded graph-span re-entry through the same
-external Product. Accepted candidate `7432bac3` adds Product-owned public
-`next` and asset targeting through that path. Accepted candidate `ab7e57ed`
-adds Product-owned governed correction outcomes through existing ABG
-admission, replay, stop, and public projection boundaries. The conservation
-projection now records all forty rows proven with zero TODO. Accepted
-implementation `7722806d` closes ordinary-path Consensus through that same
-extension path. Completed T-274, T-275, and T-276 own S05 history. T-281 and
-T-268 own active S06 portability and observer/tuner work. Do not use the
-forty-row qualification matrix as the implementation queue.
+The sole current Product outcome is:
 
-Do not treat existing code, accepted X-path designs, ticket status, test
-results, operation counts, or generated projections as current 5.0 Product
-authority.
+```text
+reconcile and reclose ABG5-S03
+  -> through the installed external Product path
+  -> under T-270
+```
+
+Commit `bcd8769a8163a222e2e59400c904994b3de161fd` is retained behavioral
+stock. S03 and S05 closure are provisional. S06 is open but not selected.
+Observer/tuner, full conservation qualification, qualification, and release
+must not receive implementation while S03 remains unresolved.
+
+S03 closes only when:
+
+- public read, respond, and continue consume explicit durable authority;
+- process-local state cannot change continuation admissibility or meaning;
+- an F_H response outside the Product-owned pending choice and exact basis
+  refuses at admission;
+- the `root_mode` and `until` relation is singular across requirement, design,
+  code, and installed proof;
+- its boundary-bounded Ontology, Prime contraction, IACS, module ownership,
+  three views, and axiom evaluation agree with implementation; and
+- existing One Surface, correction, re-entry, replay, and negative behavior
+  remains green without a rival controller or runtime.
+
+The current forty-row matrix is implementation coverage, not completed RC5
+conservation.
 
 ## Reload Order
 
@@ -54,12 +50,13 @@ Read:
 1. `specification/GOALS.md`
 2. `specification/INTENT.md`
 3. `specification/PRODUCT.md`
-4. `specification/requirements/`
+4. applicable files under `specification/requirements/`
 5. `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`
-6. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
-7. `.ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md`
+6. `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md`
+7. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
 
-Comments and posts are inputs and evidence, not constitutional truth.
+Repository history and commentary may explain prior failure. They do not
+authorize implementation.
 
 <!-- SDLC_BOOTLOADER_START -->
 ## Method Bootstrap
@@ -72,9 +69,8 @@ ABIogenesis 5.0 development is governed by the selected immutable STDO release:
   `284efbb31affd6772fe8e523bdd157f7f2ebe4d4d8dee7b5c9ddfd0482da93a0`;
 - operative local projection: `.genesis/docs/standards/`.
 
-Mutable `specification_methodology` source authors a future candidate only. It
-does not govern this consumer. Qualification and release record the same
-selected STDO identity; they do not adopt it for the first time.
+Mutable methodology source and candidate releases do not govern this
+consumer.
 
 Authority flows:
 
@@ -87,49 +83,37 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: corrected S02, S03, and S05 complete; S06 is active
-
-This block is a thin read model. It does not duplicate the full Product.
-
 - GTL.TypeScript is the sole program language.
 - TypeScript checks local type law; raw admission checks erased input; the GTL
   validator checks whole-program law without lowering.
-- A GTL composition is a program.
+- A GTL composition is a Program.
 - GraphFunction is the named callable work contract and publishes a replayable
   GTL graph template.
-- HoG directly traverses the admitted GTL program and materialized graph.
-- ABG owns admitted runtime facts, events, frames, C calls, evidence, results,
+- HoG directly traverses the admitted GTL Program and materialized graph.
+- ABG owns runtime admission, events, frames, C calls, evidence, results,
   judgments, replay, continuation, correction, and closure.
-- Module and catalog publish declarations; implementation bindings realize
+- Module and catalog publish declarations. Implementation bindings realize
   declared leaf seams only.
 - SDK and CLI are thin typed invocation and projection shells.
-- A generated HoG program, `CompiledCProgramPlan`, compiled execution
-  declaration, runtime-program catalog, hidden default, adapter selector, or
-  feature controller is not program authority.
 - `F_D` is restricted to interfaces and declared total functions over closed
   domains. Open semantic work is `F_P`. Attributed policy and ambiguity
-  decisions are `F_H`, direct or lawfully proxied.
-- `ABI5-ROOT-001` remains the regression gate. `ABI5-M5-EXT-001` and corrected
-  S02 are green. The first Program-owned S03 start/read/respond/continue path
-  is green. Product-owned observation, next-action, and action-evaluation
-  bases and ABG-owned construction-intent admission are green. The admitted
-  evidence ledger, closure candidate, post-evidence refresh, and replay-owned
-  closure negatives are accepted at `686d18bf`. Durable gap stop/read and
-  single-use ProductSet-bound re-entry are accepted at `305a3b93`. The
-  resolved Run's status, result, replay, and lawful-action projections are
-  accepted at `9cd33d15`. The Product-derived typed `reprice_required` stop is
-  accepted at `f611a72d`; it does not perform a reprice. Product-declared
-  ticket traversal is proven at `f79e1358` without a runtime change.
-  Product-selected graph-span re-entry is accepted at `16f1e173`.
-  Product-owned public next and asset targeting are accepted at `7432bac3`.
-  Product-owned governed correction outcomes are accepted at `ab7e57ed`;
-  all forty implementation-coverage rows are green. Ordinary-path Consensus is
-  accepted at `7722806d`. Native and bounded host projection, observer/tuner,
-  and independent downstream portability through the same extension seam are
-  the current gate.
+  decisions are `F_H`.
 
-RC5, X, and final-integration remain sideways donor evidence. Do not infer
-implementation authority from this bootstrap or any donor line.
-No new M5 ticket hierarchy is authorized. T-272, T-274, T-275, and T-276 are
-complete. T-281 and T-268 are active for S06.
+A semantic compiler, lowered executable Program, generated HoG Program,
+`CompiledCProgramPlan`, hidden default, adapter selector, public controller,
+feature controller, or second runtime is prohibited.
+
+RC5, X, final-integration, archive branches, completed tickets, and rejected
+WIP are historical or donor evidence. Do not infer implementation authority
+from them.
 <!-- GTL_BOOTLOADER_END -->
+
+## Worktree Discipline
+
+- A clean session starts from a clean tracked and untracked worktree.
+- Do not restore the archived observer/tuner draft onto the active line.
+- Add missing detail to T-270 while S03 is current.
+- A review finding blocks its exact claim; it does not automatically authorize
+  another ticket, refactor, artifact family, or review programme.
+- Refactor only where accepted design proves duplicate, ambiguous, or rival
+  authority.
