@@ -19,7 +19,7 @@
     while closing only the native, bounded-host, and independent downstream
     portability obligations of S06
 - phase_status: m5_s06_active
-- review_status: s06_design_intake
+- review_status: s06_design_proxy_accepted
 - proof_status: independent_mini_product_green_s06_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: M5_frontier_5
@@ -44,6 +44,8 @@
 - governing_library: >-
     build_tenants/abiogenesis/typescript/code/src/product and
     build_tenants/abiogenesis/typescript/code/src/public
+- accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
+- accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
 
 ## Current M5 Reprice
 

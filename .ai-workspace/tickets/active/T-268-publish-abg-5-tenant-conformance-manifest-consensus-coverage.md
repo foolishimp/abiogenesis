@@ -18,7 +18,7 @@
     model; no direct authority mutation, second truth store, or X-era manifest
     roster
 - phase_status: m5_s06_active
-- review_status: s06_design_intake
+- review_status: s06_design_proxy_accepted
 - proof_status: pending_replay_grounded_observer_tuner
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -52,7 +52,9 @@
   - specification/requirements/product/REQ-P-SCENARIOS.md
 - design_input_ref: >-
     build_tenants/abiogenesis/typescript/design/
-    M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md Section 14 pending
+    M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md Section 14
+- accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
+- accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
 
 ## Current S06 Reprice
 

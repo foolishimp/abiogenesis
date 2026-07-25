@@ -39,6 +39,8 @@
 - accepted_m5_design_sha256: 80269e7306f021723f8713ee6cb37d19cfc96f3a43ed5887c92d18996738c0f3
 - accepted_t272_design_sha256: 4645b7124d210a494f7307e2ec9d786c29ed44ae56b58d9cc844ce4b324d10c1
 - accepted_s05_design_sha256: e9467961e11d52a40003b2aff3a152b33e1f3fdb7b8700b4fc0111e44bb2c747
+- accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
+- accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
 - regression_binding: ABI5-ROOT-001
 - current_product_frontier: ABG5-S06-NATIVE-DOWNSTREAM-PORTABILITY
 - current_implementation_base: 7722806d9f0c385a0cb009cc3885389c7156f731
