@@ -573,7 +573,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
         combinePayloadKeys(
           EVIDENCE_IO_PAYLOAD,
           payloadKeys(
-            "actorInvocationRef actorRef apiRetryCount artifactDigests exitObserved instructionContractRef materializationPlanRef processRef processSignal processStatus progressEventCount promptDigest rendererRef resultContractRef signalSequence stderrByteLength stdoutByteLength structuredEventCount terminationConfirmed timedOut toolCallCount transportBindingDigest transportBindingRef transportDigest transportDisposition transportFailureClass transportLane workerBindingRef",
+            "actorInvocationRef actorRef apiRetryCount artifactDigests exitObserved instructionContractRef materializationPlanRef observedOutputDigest processRef processSignal processStatus progressEventCount promptDigest rendererRef resultContractRef signalSequence stderrByteLength stdoutByteLength structuredEventCount terminationConfirmed timedOut toolCallCount transportBindingDigest transportBindingRef transportDigest transportDisposition transportFailureClass transportLane workerBindingRef",
           ),
         ),
         EVIDENCE_IO_PAYLOAD,

@@ -914,7 +914,10 @@ async function applyRunInvoke(
   }
   const selectedRow = viewState.view.selectedRows.find(
     (row) =>
-      row.handle === graphFunctionRef &&
+      (
+        row.handle === graphFunctionRef ||
+        row.declarationOrContractRef === graphFunctionRef
+      ) &&
       row.disposition === "admitted" &&
       row.callability === "callable" &&
       row.programMembershipRefs.includes(programRef),
@@ -2203,17 +2206,16 @@ async function applyInteractionRespond(
     const correctionDisposition = response.correctionDisposition;
     if (
       (
-        invocation.variant === "approve" &&
-        correctionDisposition !== undefined
-      ) ||
-      (
-        invocation.variant === "answer_escalation" &&
-        ![
-          "repair",
-          "inspect_runtime_archive",
-          "reprice",
-          "escalate",
-        ].includes(String(correctionDisposition))
+        correctionDisposition !== undefined &&
+        (
+          invocation.variant !== "answer_escalation" ||
+          ![
+            "repair",
+            "inspect_runtime_archive",
+            "reprice",
+            "escalate",
+          ].includes(String(correctionDisposition))
+        )
       )
     ) {
       throw new ApplicationRefusal(

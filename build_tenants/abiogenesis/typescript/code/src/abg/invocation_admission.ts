@@ -299,7 +299,9 @@ export function admitInvocation(
     return refusal("validation_mismatch", "Invocation requires the exact non-lowering ProgramValidation");
   }
   const selectedRow = input.catalogView.selectedRows.find(
-    (row) => row.handle === input.graphFunction.name,
+    (row) =>
+      row.handle === input.graphFunction.name ||
+      row.declarationOrContractRef === input.graphFunction.name,
   );
   if (
     input.invocation.programRef !== input.program.programRef ||

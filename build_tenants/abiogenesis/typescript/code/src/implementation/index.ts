@@ -37,5 +37,22 @@ export {
   isAdmittedLeafInvocationPort,
   loadInstalledProductSemantics,
 } from "./invocation_port.js";
-export { ABI5_PRODUCT_SEMANTICS } from "./product_semantics.js";
+export {
+  CONSENSUS_ESCALATION_FINALIZER_IMPLEMENTATION_DESCRIPTOR,
+  CONSENSUS_INITIALIZER_IMPLEMENTATION_DESCRIPTOR,
+  CONSENSUS_PROJECTOR_IMPLEMENTATION_DESCRIPTOR,
+  CONSENSUS_REDUCER_IMPLEMENTATION_DESCRIPTOR,
+  CONSENSUS_REVIEWER_IMPLEMENTATION_DESCRIPTOR,
+  CONSENSUS_ROUND_EVALUATOR_IMPLEMENTATION_DESCRIPTOR,
+  realizeConsensusEscalationFinalization,
+  realizeConsensusInitialization,
+  realizeConsensusReduction,
+  realizeConsensusResultProjection,
+  realizeConsensusReviewer,
+  realizeConsensusRoundEvaluation,
+} from "./consensus.js";
+export {
+  ABI5_PRODUCT_SEMANTICS,
+  ABI5_SYSTEM_PRODUCT_SEMANTICS,
+} from "./product_semantics.js";
 export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";

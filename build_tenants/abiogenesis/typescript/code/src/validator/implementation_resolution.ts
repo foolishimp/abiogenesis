@@ -353,7 +353,6 @@ export function validateImplementationResolutionSet(
       catalogView.selectedRows.filter((selected) =>
         selected.kind === "graph_function" &&
         selected.disposition === "admitted" &&
-        selected.handle === declaration.graphFunctionRef &&
         selected.declarationOrContractRef === declaration.graphFunctionRef &&
         selected.programMembershipRefs.includes(programValidation.programRef)).length !== 1
     ) {

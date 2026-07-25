@@ -549,6 +549,9 @@ export async function executeGraphTraversal(
               value,
             ) && judgmentRelation.evaluate(currentInput, value),
           closureContract: input.closureContract,
+          ...(input.terminalMode === undefined
+            ? {}
+            : { terminalMode: input.terminalMode }),
           judgmentRelation,
           ...(fanOutApplication === null
             ? {}

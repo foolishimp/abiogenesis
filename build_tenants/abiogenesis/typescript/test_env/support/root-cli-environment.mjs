@@ -102,9 +102,14 @@ export async function buildRootCliScenario(
 ) {
   const scenarioRoot = join(harness.scratch, label);
   const productConsumer = join(scenarioRoot, "product-consumer");
-  const workspaceRoot = join(scenarioRoot, "workspace");
+  const workspaceRoot = options.workspaceRoot ??
+    join(scenarioRoot, "workspace");
   const eventLogRoot = join(workspaceRoot, ".ai-workspace/events");
-  const eventLogPath = join(eventLogRoot, "abi5-root-001.events.jsonl");
+  const eventLogPath = join(
+    eventLogRoot,
+    options.eventLogFile ?? "abi5-root-001.events.jsonl",
+  );
+  await mkdir(scenarioRoot, { recursive: true });
   await mkdir(workspaceRoot, { recursive: true });
   const prefix = `invocation://t286/${label}`;
   const refs = {
@@ -152,7 +157,7 @@ export async function buildRootCliScenario(
     }),
     invocation("abg.operation.workspace.bind", "exact_product_set", refs.bind, {
       installInvocationRef: refs.install,
-      workspaceId: `workspace://t286/${label}`,
+      workspaceId: options.workspaceId ?? `workspace://t286/${label}`,
       canonicalRoot: workspaceRoot,
       authorityManifestRef: `manifest://t286/${label}/workspace-authority`,
       roots: {

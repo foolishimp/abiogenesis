@@ -14,6 +14,23 @@ import {
 } from "../gtl/index.js";
 import { isDeclaredConformanceValue } from "../gtl/hello_world.js";
 import {
+  CONSENSUS_IDS,
+  isConsensusEscalationDecision,
+  isConsensusFindingsVector,
+  isConsensusInvocation,
+  isConsensusPanel,
+  isConsensusResultCandidate,
+  isConsensusReviewerProfile,
+  isConsensusReviewerTask,
+  isConsensusRoundOutcome,
+  isConsensusRoundPolicy,
+  isConsensusRoundState,
+  isConsensusSubject,
+  isTicketConsensusProjection,
+  isReviewFindings,
+  resolveConsensusJudgmentRelation,
+} from "../gtl/consensus.js";
+import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
 } from "../product/contracts.js";
@@ -85,4 +102,86 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
     return isDeclaredConformanceValue(value, valueKind);
   },
   resolveJudgmentRelation: resolveConformanceJudgmentRelation,
+}) satisfies ProductSemanticsProvider;
+
+function isRecord(
+  value: unknown,
+): value is Readonly<Record<string, JsonValue>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function admitSystemInput(
+  contractRef: string,
+  value: unknown,
+): Readonly<Record<string, JsonValue>> | null {
+  if (
+    contractRef === CONSENSUS_IDS.invocationContractRef &&
+    isConsensusInvocation(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
+    contractRef === CONSENSUS_IDS.escalationRequestContractRef &&
+    isConsensusResultCandidate(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
+    contractRef === CONSENSUS_IDS.escalationDecisionContractRef &&
+    isConsensusEscalationDecision(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  return null;
+}
+
+function validateSystemContractValue(
+  valueKind: string,
+  value: unknown,
+): value is Readonly<Record<string, JsonValue>> {
+  switch (valueKind) {
+    case "consensus_subject":
+      return isConsensusSubject(value);
+    case "consensus_panel":
+      return isConsensusPanel(value);
+    case "consensus_reviewer_profile":
+      return isConsensusReviewerProfile(value);
+    case "review_findings":
+      return isReviewFindings(value);
+    case "consensus_round_policy":
+      return isConsensusRoundPolicy(value);
+    case "consensus_round_outcome":
+      return isConsensusRoundOutcome(value);
+    case "consensus_result":
+      return isConsensusResultCandidate(value);
+    case "consensus_invocation":
+      return isConsensusInvocation(value);
+    case "consensus_round_state":
+      return isConsensusRoundState(value);
+    case "consensus_reviewer_task":
+      return isConsensusReviewerTask(value);
+    case "consensus_findings_vector":
+      return isConsensusFindingsVector(value);
+    case "consensus_escalation_decision":
+      return isConsensusEscalationDecision(value);
+    case "ticket_consensus_projection":
+      return isTicketConsensusProjection(value);
+    case "consensus_failure":
+      return isRecord(value) && value.kind === "consensus_failure";
+    case "consensus_refusal":
+      return isRecord(value) && value.kind === "consensus_refusal";
+    default:
+      return false;
+  }
+}
+
+export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
+  kind: "product_semantics_provider" as const,
+  schemaVersion: "5.0.0" as const,
+  bindingRef: CONSENSUS_IDS.productSemanticsBindingRef,
+  packageName: ABI5_PACKAGE_NAME,
+  packageVersion: ABI5_PACKAGE_VERSION,
+  admitInput: admitSystemInput,
+  validateContractValue: validateSystemContractValue,
+  resolveJudgmentRelation: resolveConsensusJudgmentRelation,
 }) satisfies ProductSemanticsProvider;

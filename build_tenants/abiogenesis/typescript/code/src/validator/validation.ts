@@ -444,8 +444,26 @@ function validatePublicationSubject(
       if (!graphFunctionRefs.has(row.declarationOrContractRef)) {
         diagnostics.push({ code: "invalid_reference", path: `$.contributions[${row.handle}]`, message: "graph_function contribution does not reference a published GraphFunction" });
       }
+      const hasExactPublicHandleBinding = row.programMembershipRefs.every(
+        (ref) => {
+          const program = programByRef.get(ref);
+          return program?.publicAssetTargets?.some(
+            (target) =>
+              target.handle === row.handle &&
+              target.assetRef === row.declarationOrContractRef &&
+              program.starts.some(
+                (start) =>
+                  start.startRef === target.startRef &&
+                  start.graphFunctionRef === row.declarationOrContractRef,
+              ),
+          ) === true;
+        },
+      );
       if (
-        row.handle !== row.declarationOrContractRef ||
+        (
+          row.handle !== row.declarationOrContractRef &&
+          !hasExactPublicHandleBinding
+        ) ||
         row.programMembershipRefs.length === 0 ||
         row.programMembershipRefs.some((ref) => {
           const program = programByRef.get(ref);

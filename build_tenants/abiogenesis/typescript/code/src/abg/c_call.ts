@@ -216,6 +216,7 @@ export interface ProbabilisticTransportEvidenceCandidate {
   readonly schemaVersion: "5.0.0";
   readonly implementationRef: string;
   readonly inputDigest: Sha256Digest;
+  readonly observedOutputDigest: Sha256Digest;
   readonly outputDigest: Sha256Digest;
   readonly actorInvocationRef: string;
   readonly actorRef: string;
@@ -294,6 +295,7 @@ export interface AdmittedCCallEvidence {
   readonly implementationRef: string | null;
   readonly inputDigest: Sha256Digest;
   readonly outputDigest: Sha256Digest;
+  readonly observedOutputDigest?: Sha256Digest;
   readonly actorInvocationRef?: string;
   readonly actorRef?: string;
   readonly workerBindingRef?: string;
@@ -661,7 +663,7 @@ function hasAdmittedActorEvidence(
     artifact.payload.resultContractRef === candidate.resultContractRef &&
     artifact.payload.transportBindingRef === candidate.transportBindingRef &&
     artifact.payload.transportBindingDigest === candidate.transportBindingDigest &&
-    artifact.payload.observedOutputDigest === candidate.outputDigest &&
+    artifact.payload.observedOutputDigest === candidate.observedOutputDigest &&
     artifact.payload.transportDigest === candidate.transportDigest &&
     artifact.payload.processRef === candidate.processRef &&
     artifact.payload.promptDigest === candidate.promptDigest &&
@@ -707,6 +709,7 @@ function hasAdmittedActorEvidence(
 export function deriveProbabilisticTransportEvidence(
   cCall: CCall,
   observation: ActorProcessObservation,
+  resultCandidate: JsonValue,
 ): ProbabilisticTransportEvidenceCandidate {
   if (
     !isActorProcessObservation(observation) ||
@@ -724,7 +727,8 @@ export function deriveProbabilisticTransportEvidence(
     schemaVersion: "5.0.0" as const,
     implementationRef: observation.implementationRef,
     inputDigest: observation.inputDigest,
-    outputDigest: observation.observedOutputDigest,
+    observedOutputDigest: observation.observedOutputDigest,
+    outputDigest: sha256Canonical(resultCandidate),
     actorInvocationRef: observation.actorInvocationRef,
     actorRef: observation.actorRef,
     workerBindingRef: observation.workerBindingRef,
@@ -2176,6 +2180,8 @@ export function admitEvidence(
     typeof candidate.rendererRef === "string" && candidate.rendererRef.length > 0 &&
     candidate.instructionContractRef === cCall.inputContractRef &&
     candidate.resultContractRef === cCall.outputContractRef &&
+    typeof candidate.observedOutputDigest === "string" &&
+    digestPattern.test(candidate.observedOutputDigest) &&
     typeof candidate.promptDigest === "string" && digestPattern.test(candidate.promptDigest) &&
     typeof candidate.transportDigest === "string" && digestPattern.test(candidate.transportDigest) &&
     isJsonRecord(candidate.artifactDigests as unknown as JsonValue) &&
@@ -2247,6 +2253,7 @@ export function admitEvidence(
     contractRef,
     implementationRef: candidate.implementationRef,
     inputDigest: candidate.inputDigest,
+    observedOutputDigest: candidate.observedOutputDigest,
     outputDigest: candidate.outputDigest,
     actorInvocationRef: candidate.actorInvocationRef,
     actorRef: candidate.actorRef,

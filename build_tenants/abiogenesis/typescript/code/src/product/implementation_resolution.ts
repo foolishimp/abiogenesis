@@ -271,7 +271,9 @@ function resolveValidatedLeaf(
   packagedImplementations: readonly Readonly<PackagedLeafImplementationDescriptor>[],
 ): LeafImplementationResolutionCandidate | ImplementationResolutionSetRefusal {
   const selectedRow = catalogView.selectedRows.find(
-    (row) => row.handle === declaration.graphFunctionRef,
+    (row) =>
+      row.handle === declaration.graphFunctionRef ||
+      row.declarationOrContractRef === declaration.graphFunctionRef,
   );
   const graphFunction = publication.graphFunctions.find(
     (value) => value.name === declaration.graphFunctionRef,

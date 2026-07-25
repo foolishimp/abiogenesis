@@ -306,6 +306,7 @@ export interface CompleteWorkflowTraversalInput
     value: unknown,
   ) => value is Readonly<Record<string, JsonValue>>;
   readonly closureContract: Readonly<ClosureContract>;
+  readonly terminalMode?: "close_run" | "return_to_parent";
   readonly judgmentRelation: DeclaredJudgmentRelation<
     Readonly<Record<string, JsonValue>>,
     Readonly<Record<string, JsonValue>>
@@ -1168,7 +1169,11 @@ export async function completeExecutableTraversal<
   const evidenceCandidates: readonly CCallEvidenceCandidate[] = computeRegime === "F_P"
     ? actorObservation === null
       ? []
-      : [deriveProbabilisticTransportEvidence(cCall, actorObservation)]
+      : [deriveProbabilisticTransportEvidence(
+          cCall,
+          actorObservation,
+          leaf.resultCandidate as unknown as JsonValue,
+        )]
     : leaf.evidenceCandidates;
   const evidence = [];
   for (const candidate of evidenceCandidates) {
@@ -2978,13 +2983,46 @@ export function completeWorkflowTraversal(
       route as unknown as JsonValue,
     );
   }
+  const closureReplay = replay(input.store, {
+    runId: input.openedTraversalScope.runId,
+  });
+  if (input.terminalMode === "return_to_parent") {
+    const childClosure = admitChildClosure(
+      input.store,
+      input.openedTraversalScope,
+      input.parentCCall,
+      result,
+      judgment,
+      route,
+      closureReplay,
+      input.closureContract,
+      basis(input.clock, "workflow-child-closure"),
+    );
+    if (childClosure.kind !== "child_closure_admission") {
+      return failWorkflowTraversal(
+        input,
+        "workflow-child-closure",
+        `diagnostic://abiogenesis/hog/${childClosure.code}@5`,
+        childClosure as unknown as JsonValue,
+      );
+    }
+    return completion("closed", replay(input.store, {
+      runId: input.openedTraversalScope.runId,
+    }), {
+      cCallRef: input.parentCCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      closureRef: childClosure.closureRef,
+      resultValue: result.value,
+    });
+  }
   const closure = admitClosure(
     input.store,
     input.parentCCall,
     result,
     judgment,
     route,
-    replay(input.store, { runId: input.openedTraversalScope.runId }),
+    closureReplay,
     input.closureContract,
     basis(input.clock, "workflow-closure"),
   );
