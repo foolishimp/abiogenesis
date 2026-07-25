@@ -49,18 +49,24 @@
 - earlier_rejected_candidate_design_digest: bc570436e7cef6a5063cbf83350f599745812e579ff1517be0f23b0239ab1f8c
 - earlier_rejected_candidate_package_digest: 86a9f68bd61583bb36222538dcd0feec236b7a7de944d2a2451362008b312daf
 - earlier_rejected_candidate_evidence: .ai-workspace/comments/codex/20260725T105928Z_CHECKPOINT_t270_s03_refrozen_exact_candidate.md
-- rejected_candidate_commit: 5956d53343597aae8a1d33770cc23bb6468779b7
-- rejected_candidate_tree: 1173c98af11576ec32d8cdd81388c325e1e1c2c3
-- rejected_candidate_design_digest: cff889b7196b620eb906ce8b1ccc0d0c391de4c42fd75e39bbf09157ea631c71
-- rejected_candidate_package_digest: 2b71690d0e1db1a79543334c2ef7192df5adf064a56953fe911e80b78b5f1181
-- rejected_candidate_evidence: .ai-workspace/comments/codex/20260725T135632Z_CHECKPOINT_t270_s03_authority_repair_exact_candidate.md
-- current_candidate_commit: 1d8fd3b0bcbc1fcc39cceb1e9f78c1454e880314
-- current_candidate_tree: 0dd5fc4be733bacfe66f2144928f8662b4a52445
-- current_candidate_design_digest: 3056c4e097fda9640bfb3fb8731c99b446e39a2d6274d9672d1faad095da49c0
-- current_candidate_package_digest: 5c98e1498024721873f0459758b1a7f9e24a865b5242dec881fa41dbce929082
-- current_candidate_product_content_digest: 3390a947fdc98845dcb05ce5786f72071b74c60fc8aec10984d08a18e32cd27f
-- current_candidate_manifest_digest: 9472f3b5292c1405a13769746643375ed6df59a838177f33ec2f3095065d5b5c
-- current_candidate_evidence: .ai-workspace/comments/codex/20260725T191047Z_CHECKPOINT_t270_s03_semantics_provenance_exact_candidate.md
+- prior_rejected_candidate_commit: 5956d53343597aae8a1d33770cc23bb6468779b7
+- prior_rejected_candidate_tree: 1173c98af11576ec32d8cdd81388c325e1e1c2c3
+- prior_rejected_candidate_design_digest: cff889b7196b620eb906ce8b1ccc0d0c391de4c42fd75e39bbf09157ea631c71
+- prior_rejected_candidate_package_digest: 2b71690d0e1db1a79543334c2ef7192df5adf064a56953fe911e80b78b5f1181
+- prior_rejected_candidate_evidence: .ai-workspace/comments/codex/20260725T135632Z_CHECKPOINT_t270_s03_authority_repair_exact_candidate.md
+- rejected_candidate_commit: 1d8fd3b0bcbc1fcc39cceb1e9f78c1454e880314
+- rejected_candidate_tree: 0dd5fc4be733bacfe66f2144928f8662b4a52445
+- rejected_candidate_design_digest: 3056c4e097fda9640bfb3fb8731c99b446e39a2d6274d9672d1faad095da49c0
+- rejected_candidate_package_digest: 5c98e1498024721873f0459758b1a7f9e24a865b5242dec881fa41dbce929082
+- rejected_candidate_evidence: .ai-workspace/comments/codex/20260725T191047Z_CHECKPOINT_t270_s03_semantics_provenance_exact_candidate.md
+- current_candidate_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
+- current_candidate_tree: f1a66a2c79f01972f063189bf7668fdb762ce2e6
+- current_candidate_parent_design_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85
+- current_candidate_design_digest: b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5
+- current_candidate_package_digest: e4345ce38807abd4a988aeff76c3d83274e88ed6e0926adfb635d07fe933732b
+- current_candidate_product_content_digest: ee3e31130541b45bc88939279c57ad316e3df95e8f9fc470ae96dec76f99a7ed
+- current_candidate_manifest_digest: f6b8682c6bc4d6948017557b8d27133f2579e37fa10eea7feea0e24094d65449
+- current_candidate_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 
 ## Purpose
 
@@ -80,19 +86,22 @@ history or evidence. They do not enlarge this ticket.
 ## Candidate State
 
 Candidates `19f50c17526517145070ccb2ca3c282fce7de1f2`,
-`48beb3f38341cc20e4e2d6a2b5a2c4fe0e2e33e2`, and
-`5956d53343597aae8a1d33770cc23bb6468779b7` received changes requested and
-are historical evidence. The bounded repair retains the prior continuation
-and grant-admission corrections, binds the trusted-developer actor into the
-workspace authority basis, makes Product mint one opaque leaf-semantics
-projection from the exact loaded provider, removes Product verification and
-the public binder from HoG, and reconciles the exact Section 12 atomic,
-sequence, algebra, Prime, IACS, and proof surfaces. Exact candidate
-`1d8fd3b0bcbc1fcc39cceb1e9f78c1454e880314` is frozen with S03 unit 4/4,
-external Product 36/36, M5 127/127, M4 26/26, exact-file Mermaid 7/7, and two
-byte-identical 178-entry packages. It remains pending independent exact-cut
-review and direct human acceptance. This state does not close S03 or authorize
-S05, S06, qualification, or release.
+`48beb3f38341cc20e4e2d6a2b5a2c4fe0e2e33e2`,
+`5956d53343597aae8a1d33770cc23bb6468779b7`, and
+`1d8fd3b0bcbc1fcc39cceb1e9f78c1454e880314` received changes requested and
+are historical evidence. The bounded repair retains the prior continuation,
+grant, and trusted-actor corrections; moves the projection registry and
+unexported mint wholly into Product; gives HoG one explicit narrow
+Product-owned verifier dependency; and reconciles the actual projection order
+and stopped-source-to-distinct-successor relation across M03 and M05. Exact
+candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is frozen with S03 unit
+4/4, external Product 36/36, M5 127/127, M4 26/26, M03 Mermaid 3/3, M05
+Mermaid 7/7, and two byte-identical 176-entry packages. It remains pending
+decorrelated independent exact-cut review under the bounded human delegation
+recorded at
+`.ai-workspace/comments/human/20260725T200503Z_DECISION_delegate_stage_progression_to_independent_review.md`.
+This state does not close S03 or authorize S05, S06, qualification, or release
+before that review is dispositioned.
 
 ## Governing Authority
 
