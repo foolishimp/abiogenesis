@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_reconciliation_selected
-- review_status: s03_independent_exact_cut_accepted
-- proof_status: s03_accepted_s05_existing_lane_green
+- phase_status: m5_s05_exact_candidate_review_pending
+- review_status: s05_independent_exact_cut_pending
+- proof_status: s05_candidate_gates_green
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -25,24 +25,27 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- implementation_hold: released_for_s05_reconciliation_only
+- implementation_hold: held_for_s05_exact_cut_review
 - implementation_hold_effect: >-
-    ABG5-S05 design reconciliation and bounded repairs proved necessary by
-    that derivation may proceed; S06, observer/tuner, complete conservation,
-    qualification, and release remain held
+    Only review or a bounded repair proved by review of the exact S05 candidate
+    may proceed; S06, observer/tuner, complete conservation, qualification, and
+    release remain held
 - current_product_outcome: ABG5-S05
 - accepted_s03_candidate_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s03_candidate_tree: f1a66a2c79f01972f063189bf7668fdb762ce2e6
 - accepted_s03_m03_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85
 - accepted_s03_m05_digest: b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5
 - current_m03_status_projection_digest: ccd8f79d333c4c681f5643acafac59458b661c7d1916eb929f9c7f065dd0cfaf
-- current_m05_status_projection_digest: 27c672765509e53b3342b97c2b9d3e3a44d57d792cd9326fd094112fe0ea1eb4
+- current_m05_status_projection_digest: 8896ce64c891003e1250f9766afabd555605183c96114526d9e5825d66ba30a9
 - accepted_s03_package_digest: e4345ce38807abd4a988aeff76c3d83274e88ed6e0926adfb635d07fe933732b
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
 - accepted_s03_decision: .ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md
 - current_s05_basis_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
-- current_s05_candidate: pending
+- current_s05_candidate: c4a0f42dd55a9dec963e514579fbfa81ea286786
+- current_s05_candidate_tree: 6046a66a04de125b4639a32d022b87f9b64fac04
+- current_s05_package_digest: f576e0ec44e0be90604abefc0b017d486670b6de22bccaa1a51e914e3bd3b170
+- current_s05_evidence: .ai-workspace/comments/codex/20260725T234029Z_CHECKPOINT_t270_s05_ordinary_path_consensus_exact_candidate.md
 - retained_behavioral_stock: bcd8769a8163a222e2e59400c904994b3de161fd
 - regression_bindings:
   - ABI5-ROOT-001
