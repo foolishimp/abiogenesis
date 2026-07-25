@@ -1,18 +1,21 @@
 # M05 Direct GTL Traversal Expansion Design
 
-**Status**: M5 base accepted at `d6da4269`; Section 12 is the co-evolving
-T-272 affected-boundary design. Acceptance is subsection-scoped and recorded
-by T-272 and its exact decision receipts; implementation beyond the latest
-accepted subsection remains held.
+**Status**: M5 base accepted at `d6da4269`; Section 12 retains completed T-272
+design and decision evidence under the current T-270 S03 reconciliation.
+T-272 has no continuing growth authority. Only the S03 boundary selected by
+GOALS and T-270 may change; later Product outcomes remain held.
 **Date**: 2026-07-22
 **Section 12 updated**: 2026-07-25
-**Parent design**:
+**Historical accepted parent design**:
 `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`, accepted SHA-256
 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`
+**Current parent projection**: same direct-GTL architecture with STDO `v2.2.0`
+qualification identity propagated, SHA-256
+`12334d2d814c47a954f55cd9664c006fd331fdafaa3fb043b95a35e8832e285f`
 **Product boundary**: `A5-F02`, `A5-F03`, `A5-F04`, `A5-F09`, `A5-F10`,
 `A5-F14`; enables later `A5-F07`, `A5-F08`, `A5-F12`, and `A5-F17`
 **Scenario boundary**: completed `ABG5-S02`; Section 12 advances `ABG5-S03`
-**Work owner**: T-270 parent; T-272 for Section 12
+**Work owner**: T-270; completed T-272 is historical Section 12 evidence
 **Sequencing**: co-evolution inside the decisions fixed here; a newly exposed
 material authority or lifecycle ambiguity returns to design before promotion
 
@@ -72,7 +75,7 @@ feature runner, implementation selector, scheduler, or controller is added.
 
 | Boundary | Owner |
 |---|---|
-| One Surface semantic program and F_H interaction policy | T-272 |
+| One Surface semantic program and F_H interaction policy | T-270; completed T-272 is retained evidence |
 | Consensus declarations and result semantics | T-274, T-275, T-276 |
 | complete public projection and downstream flavored catalog | T-281 |
 | observer and tuner | T-268 |
@@ -356,8 +359,9 @@ truth opens the authoritative `Continuation` aggregate. A later
 exact continuation and response contract but does not invoke HoG. A separate
 `run.continue` operation rehydrates the durable scope, admits resume truth, and
 then explicitly re-enters HoG. It does not append a second result or judgment
-to the completed request C call. T-272 owns the domain interaction policy and
-the exact continued GTL locus.
+to the completed request C call. T-270 owns the current domain interaction
+policy and exact continued GTL locus; completed T-272 records the retained
+behavioral basis.
 
 `workflow.C` follows the same parent-level law. It first opens a transparent
 parent C call, then traverses its prepared child. A terminal child produces
@@ -1022,10 +1026,10 @@ stateDiagram-v2
 | batch and fan-out preserve task cardinality | C.batch and fan-out laws | GTL, HoG, ABG | ordered task declarations plus `FanOutCompletion` | GTL projects batch, HoG traverses tasks, ABG admits complete or partial census | one task spine each then one completion variant | stable ordinal task union | exact complete-vector or completed/stopping/unstarted partition; no vector on partial stop | pass | none |
 | fibre substitution preserves shape | fibre invariant | GTL declaration | same term topology | same fold | same lifecycle | generic leaf variant | differential proof | pass | T-270 proof |
 | worker cannot mint truth | authority matrix | ABG | effect-edge port | candidates returned | no direct closed edge | port lacks event methods | candidate admission | pass | none |
-| F_H is not an implementation or ABG callback | disjoint key sets and authority matrices | human, separate public operations, and ABG | interaction requirement plus Continuation | invoke stops, interaction.respond admits only response, run.continue rehydrates and re-enters HoG | Held through Responded, ReplayRehydrated, and ResumeAdmitted | no F_H implementation port and no ABG-to-HoG call | attributed response and resume admissions | pass | T-272 behavior |
+| F_H is not an implementation or ABG callback | disjoint key sets and authority matrices | human, separate public operations, and ABG | interaction requirement plus Continuation | invoke stops, interaction.respond admits only response, run.continue rehydrates and re-enters HoG | Held through Responded, ReplayRehydrated, and ResumeAdmitted | no F_H implementation port and no ABG-to-HoG call | attributed response and resume admissions | pass | retained T-272 evidence under T-270 |
 | child traversal is transparent | relationship inventory | HoG plus ABG | child lineage | child scope and foldback | ChildActive | typed child relation | child basis and replay | pass | T-270 implementation |
-| continuation is authoritative and replay-constructible | Continuation aggregate, reopened store, and basis relation | ABG | open obligation plus downstream basis and exact historical prefix | reopen without restamp, verify public ingress, reconstruct, then separate resume and HoG re-entry | open to resolved, superseded, or abandoned | preserved ordinals and owner constructors renewed only after equality | existing sink, max-plus-one append, immutable authority basis, and basis-fork refusal | pass | T-272 behavior |
-| continuation resume is actor-authorized | public-operation and continuation relations | public ingress plus ABG | `run.continue` admission, actor, capability, and input | public admission precedes same-run resume event | reopened through ResumeAdmitted | typed operation and capability refs | exact ingress event is causal input to resume | pass | T-272 behavior |
+| continuation is authoritative and replay-constructible | Continuation aggregate, reopened store, and basis relation | ABG | open obligation plus downstream basis and exact historical prefix | reopen without restamp, verify public ingress, reconstruct, then separate resume and HoG re-entry | open to resolved, superseded, or abandoned | preserved ordinals and owner constructors renewed only after equality | existing sink, max-plus-one append, immutable authority basis, and basis-fork refusal | pass | retained T-272 evidence under T-270 |
+| continuation resume is actor-authorized | public-operation and continuation relations | public ingress plus ABG | `run.continue` admission, actor, capability, and input | public admission precedes same-run resume event | reopened through ResumeAdmitted | typed operation and capability refs | exact ingress event is causal input to resume | pass | retained T-272 evidence under T-270 |
 | every new runtime fact has one event/effect law | RuntimeEventFamily delta | ABG | fixed event kinds and closed payload variants | append precedes downstream effect | every initiated active fluent has an explicit terminal consumer | closed event union | declared Event Calculus effect table and mutation proof | pass | none |
 | public layer is not controller | unchanged M3 law | Product/ABG/HoG | no public Prime | one invoke call | no public private state | stateless operation types | public-controller mutation | pass | T-281 breadth |
 
@@ -1130,7 +1134,8 @@ Implementation proceeds as one current-line evolution, not a donor merge:
 8. add data-driven installed traversal and fibre-substitution proofs;
 9. add live F_P only after RC5 B-001 transport behavior is re-adopted; and
 10. expose separate response, operation-scoped durable reopen, and continuation
-    ports for T-272 without implementing One Surface inside T-270.
+    ports as retained T-272 evidence for T-270's current S03 reconciliation,
+    without moving One Surface authority into traversal infrastructure.
 
 Implementation may refine private function decomposition and TypeScript
 generic spelling. It may not change the entities, authority, lifecycle,
@@ -1164,10 +1169,11 @@ This design delta is acceptable when review confirms:
 12. no compiled plan, generated program, feature controller, or rival event
     path is constructible.
 
-## 12. T-272 One Surface Governed Evidence Fold
+## 12. S03 One Surface Governed Evidence Fold
 
-This bounded S03 delta co-evolves the deferred One Surface boundary without
-changing the accepted authority split or adding a rival event family.
+This bounded S03 delta retains T-272's completed evidence under T-270's current
+authority. It co-evolves the deferred One Surface boundary without changing
+the accepted authority split or adding a rival event family.
 
 ```text
 Program-published ConstructionComposition

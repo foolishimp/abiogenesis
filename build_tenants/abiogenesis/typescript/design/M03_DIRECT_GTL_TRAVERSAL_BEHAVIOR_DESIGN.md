@@ -1,6 +1,6 @@
 # M03 Direct GTL Traversal Behavior Design
 
-**Status**: Immutable acceptance candidate; authority exists only through an exact-subject F_H receipt
+**Status**: Accepted direct-GTL base with STDO `v2.2.0` qualification identity propagated
 
 ## Status
 
@@ -10,14 +10,17 @@
 | Change class | design_reframe |
 | Boundary | direct GTL validation, traversal, runtime admission, replay, and public projection |
 | Product basis | accepted ABIogenesis 5.0 Product |
-| Requirement basis | accepted T-284 aggregate c0dcdc264db854f5a4d4f429a35a96e8bd8b4f9481a05cdf532cdfee60722473 |
+| Historical requirement basis | accepted T-284 aggregate c0dcdc264db854f5a4d4f429a35a96e8bd8b4f9481a05cdf532cdfee60722473; preserved as the accepted M3 construction basis |
+| Current qualification-law basis | Product-selected STDO `v2.2.0`; this identity-only propagation does not alter the direct-GTL architecture |
 | Correction basis | 048a9fbca17736a544b4f3af9aabdbdf00a13ce41dd003d8cb29a015556466f4 |
-| Design status | review-ready immutable candidate; no acceptance authority is embedded in these bytes |
-| Implementation authority | none until this exact design is accepted |
+| Historical accepted design | SHA-256 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`; preserved in repository history |
+| Current design status | direct-GTL architecture conserved; only the selected qualification-law identity is amended |
+| Implementation authority | current GOALS selection and T-270; this design does not select work |
 
-This document is the single candidate M3 realization surface. It derives HOW
-from accepted Product and requirements. It does not amend Product meaning,
-requirements, the root outcome, or donor disposition.
+This document preserves the accepted M3 realization surface. It derives HOW
+from accepted Product and requirements. The current qualification-identity
+amendment does not alter Product meaning, direct-GTL architecture, the root
+outcome, or donor disposition.
 
 ## 1. Design Claim
 
@@ -1214,8 +1217,8 @@ LeafRealizationCandidate and still crosses evidence, result, and judgment
 admission. It cannot become a direct runtime Failed state.
 
 No future GTL, ABG, GLC, registry, or external service capability is required
-for the root. Live F_P workers, Consensus, and STDO 2.0 qualification are later
-Product slices and do not block native construction of this boundary.
+for the root. Live F_P workers, Consensus, and STDO `v2.2.0` qualification are
+later Product slices and do not block native construction of this boundary.
 
 ## 12. ABI5-ROOT-001 Design Mapping
 

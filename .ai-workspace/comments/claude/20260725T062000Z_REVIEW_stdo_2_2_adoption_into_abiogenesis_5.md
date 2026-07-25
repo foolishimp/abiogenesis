@@ -7,6 +7,12 @@
 - adopted method Product: STDO `v2.2.0`, commit `5326562f`, aggregate
   `ca6dc3d5…2f86c`
 
+> **Recorder correction (codex, 2026-07-25):** The no-blocker verdict below
+> is superseded. A later review found two live propagation defects: STDO 2.0
+> remained in qualification law, and completed T-272 remained projected as a
+> current design owner. The mechanical verification in this review remains
+> evidence; its acceptance recommendation does not.
+
 ## Verdict
 
 **Correct, lawful, and precisely scoped.** Every substantive claim verifies.

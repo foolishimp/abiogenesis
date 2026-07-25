@@ -1,8 +1,8 @@
 # REQ-P-SCENARIOS - ABIogenesis 5.0 Product Scenarios
 
-**Status**: Active - accepted by T-283 F_H closure
+**Status**: Active - T-283 base; STDO `v2.2.0` qualification identity amended by direct F_H adoption
 **Category**: Verification
-**Date**: 2026-07-20
+**Date**: 2026-07-25
 **Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md)
 **Wave**: ABIogenesis 5.0
 
@@ -130,7 +130,7 @@ not select or order the loop.
 
 **REQ-P-SCENARIOS-011**: `ABG5-S04` shall bind the exact
 `pre_rc_candidate`, complete frozen inventory, and content-addressed
-`QualificationLawBasis` to the tapped and installed STDO 2.0 release. It shall
+`QualificationLawBasis` to the tapped and installed STDO `v2.2.0` release. It shall
 run real-tree and seeded-negative self-conformance through the sole owning
 qualification family. Observer and tuner shall operate over replay truth and
 prove truthful halt, grounded attributed drafts, ratification, rejection,
@@ -185,9 +185,10 @@ earlier subject.
 
 **REQ-P-SCENARIOS-015**: `ABG5-S01` establishes the continuous delivery
 governor. `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` may establish
-their behavior before the STDO 2.0 release is tapped. `ABG5-S04`, pre-RC
-qualification, and `ABG5-S07` require the exact tapped and installed STDO 2.0
-law basis. STDO adoption shall not weaken or replace the root governor.
+their behavior before the selected STDO release is installed. `ABG5-S04`,
+pre-RC qualification, and `ABG5-S07` require the exact tapped and installed
+STDO `v2.2.0` law basis. STDO adoption shall not weaken or replace the root
+governor.
 
 **REQ-P-SCENARIOS-016**: One exact `pre_rc_candidate` shall pass
 `ABG5-S01` through `ABG5-S06` before RC eligibility. `ABG5-S07` then owns the

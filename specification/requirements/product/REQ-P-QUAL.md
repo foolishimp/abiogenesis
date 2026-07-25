@@ -1,8 +1,8 @@
 # REQ-P-QUAL — Qualification Infrastructure
 
-**Status**: Active - accepted by T-283 F_H closure
+**Status**: Active - T-283 base; STDO `v2.2.0` qualification identity amended by direct F_H adoption
 **Category**: Verification
-**Date**: 2026-07-16
+**Date**: 2026-07-25
 **Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: ABG 5.0
 
@@ -217,7 +217,7 @@ tenant-conformance manifest, frozen owning-gate inventory, and one subordinate
 `QualificationLawBasis`.
 
 **REQ-P-QUAL-057B**: `QualificationLawBasis` shall bind the exact tapped and
-installed STDO 2.0 release identity and digest, method version, rule-catalog
+installed STDO `v2.2.0` release identity and digest, method version, rule-catalog
 version, source refs, and content digests used by the owning gates.
 Its identity and digest shall be preserved unchanged through every admitted
 owning-gate result, the `QualificationGateResultVector<K>`, the declared
@@ -299,7 +299,7 @@ ABIogenesis 5.0 candidate or final release green.
 conservation rows; the separate shape-preserving fibre-substitution
 differential; the seven-term declared C algebra and malformed GTL/F_P
 differentials; the public operator loop; self-conformance under the exact
-tapped STDO 2.0 basis; observer/tuner truth; installed Consensus; native and
+tapped STDO `v2.2.0` basis; observer/tuner truth; installed Consensus; native and
 Codex projections; the independent flavored downstream fixture; and every
 `ABG5-S01` through `ABG5-S06` obligation. Each owning gate retains its own
 execution and semantic authority.

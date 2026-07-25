@@ -6,7 +6,7 @@
 - ticket_category: design_and_realization_migration
 - status: backlog
 - phase_status: held_for_m6_after_t270_m5
-- review_status: aligned_to_released_stdo_and_accepted_product
+- review_status: stdo_2_2_basis_propagated_m6_realization_review_pending
 - proof_status: pending
 - implementation_hold: active
 - implementation_hold_ref: T-270 owns M5; T-282 resumes for M6 after one exact M5 candidate exists
@@ -30,11 +30,17 @@
   - STDO v2.2.0 at 5326562f075d60052806d0d2c79d3db49671a8ea
   - 41-member digest ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c
   - adoption receipt .ai-workspace/comments/codex/20260725T060521Z_DECISION_adopt_stdo_2_2_for_abiogenesis_5.md
+- qualification_basis_alignment:
+  - active qualification requirements select STDO v2.2.0
+  - accepted M3 architecture is conserved with its historical identities explicit
+  - completed T-272 is evidence only; T-270 owns current S03
 
 ## Current Disposition
 
 T-282 remains held until M6. Milestone A was realized by T-286 and is retained
-as exact installed-root evidence. Its remaining concerns are:
+as exact installed-root evidence. STDO 2.2 qualification-basis wording and
+current-owner projection are reconciled; Milestone B realization and proof
+remain pending. Its remaining concerns are:
 
 - installer-generated runtime files currently author private program,
   GraphFunction, policy, and execution-basis truth;

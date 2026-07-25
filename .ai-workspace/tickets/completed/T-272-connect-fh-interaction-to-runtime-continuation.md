@@ -1,8 +1,12 @@
 # T-272 - Connect F_H Response To Replay Continuation
 
 > **Current disposition (2026-07-25):**
-> `completed_s03`. The durable hold/read/respond/continue prerequisite and
-> mixed compute path were repaired across fresh public contexts at `cbb57d56`.
+> `completed_historical_evidence`. T-272's growth authority is exhausted.
+> GOALS and active T-270 own the current S03 reconciliation; none of the
+> evidence or prior decisions recorded here may select more work or restore
+> the earlier S03 closure claim. The durable hold/read/respond/continue
+> prerequisite and mixed compute path were repaired across fresh public
+> contexts at `cbb57d56`.
 > The externally packed, Program-owned One Surface path is green through
 > Product-owned evaluator output, ABG-owned construction-intent admission,
 > governed evidence fold, and post-evidence refresh. Candidate `686d18bf`
@@ -13,9 +17,9 @@
 > `gap_stop -> public read -> single-use public re-entry -> convergence`
 > path. The bounded proxy decision at
 > `.ai-workspace/comments/codex/20260724T192932Z_DECISION_proxy_accept_t272_gap_reentry_repair.md`
-> accepts that exact cut and Section 12.5. T-272 may continue through the
-> remaining S03 outcomes on the same external Product path. Candidate
-> `9cd33d15` adds side-effect-free fresh-context status, result, replay, and
+> accepts that exact cut and Section 12.5. T-272 then continued historically
+> through the remaining S03 outcomes on the same external Product path.
+> Candidate `9cd33d15` adds side-effect-free fresh-context status, result, replay, and
 > lawful-action projections over the exact resolved continuation authority.
 > The bounded proxy decision at
 > `.ai-workspace/comments/codex/20260724T195754Z_DECISION_proxy_accept_t272_resolved_run_projection.md`
@@ -41,7 +45,8 @@
 > The bounded proxy decision at
 > `.ai-workspace/comments/codex/20260724T230459Z_DECISION_proxy_accept_t272_governed_correction_and_close_s03.md`
 > accepts that exact cut and Section 12.10. All forty implementation-coverage
-> rows are green and `ABG5-S03` is closed.
+> rows were reported green and `ABG5-S03` was reported closed. Current GOALS
+> supersedes that closure claim and retains these results as evidence only.
 > Historical X-path designs and checkpoints remain donor evidence only.
 
 - id: T-272
@@ -49,15 +54,14 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: completed
-- implementation_hold: released
-- implementation_hold_ref: GOAL-035 ABG5-S03
+- implementation_hold: exhausted_completed
+- implementation_hold_ref: active T-270 owns current GOAL-035 ABG5-S03 reconciliation
 - implementation_hold_effect: >-
-    continue only through the green external Product path; Product reprice,
-    ticket expansion, compiler, controller, second runtime, and historical X
-    implementation remain prohibited
-- phase_status: s03_closed
-- review_status: s03_governed_correction_accepted
-- proof_status: s02_s03_green_40_of_40_implementation_rows_green
+    no further implementation or promotion authority; retain evidence for
+    T-270 without inheriting T-272 scope, dependencies, or closure claims
+- phase_status: historical_s03_closure_evidence
+- review_status: accepted_historical_evidence_reconciliation_required
+- proof_status: retained_implementation_coverage_not_current_s03_closure
 - delivery_phase: M5_frontier_3_closed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
