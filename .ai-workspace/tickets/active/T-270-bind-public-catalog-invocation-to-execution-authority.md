@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s03_review_repair_ready_for_freeze
-- review_status: changes_requested_repaired_pending_refreeze
-- proof_status: repaired_worktree_gates_green
+- phase_status: m5_s03_repaired_exact_candidate_frozen
+- review_status: pending_independent_exact_cut_review
+- proof_status: exact_candidate_gates_green
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -49,6 +49,13 @@
 - rejected_candidate_design_digest: bc570436e7cef6a5063cbf83350f599745812e579ff1517be0f23b0239ab1f8c
 - rejected_candidate_package_digest: 86a9f68bd61583bb36222538dcd0feec236b7a7de944d2a2451362008b312daf
 - rejected_candidate_evidence: .ai-workspace/comments/codex/20260725T105928Z_CHECKPOINT_t270_s03_refrozen_exact_candidate.md
+- current_candidate_commit: 5956d53343597aae8a1d33770cc23bb6468779b7
+- current_candidate_tree: 1173c98af11576ec32d8cdd81388c325e1e1c2c3
+- current_candidate_design_digest: cff889b7196b620eb906ce8b1ccc0d0c391de4c42fd75e39bbf09157ea631c71
+- current_candidate_package_digest: 2b71690d0e1db1a79543334c2ef7192df5adf064a56953fe911e80b78b5f1181
+- current_candidate_product_content_digest: 3f602a21c5021f176608f0a684a23c27390557c7114169c29a9ef7927801b311
+- current_candidate_manifest_digest: 4383b0d41901e46cd3acfbabe9c1de044c4f20a1cecf6f4530d669fc7f53940e
+- current_candidate_evidence: .ai-workspace/comments/codex/20260725T135632Z_CHECKPOINT_t270_s03_authority_repair_exact_candidate.md
 
 ## Purpose
 
@@ -72,11 +79,12 @@ Candidates `19f50c17526517145070ccb2ca3c282fce7de1f2` and
 are historical evidence. The bounded repair now derives F_H grants from the
 exact workspace/Program policy, admits continuation operations before Product
 evaluation, separates Product semantics from HoG leaf execution, completes
-the Section 12 reconciliation, and adds module-owned proof. The repaired
-worktree is green at M5 127/127, M4 26/26, exact-file Mermaid 7/7, and two
-byte-identical 176-entry packages. It remains pending one exact freeze,
-independent review, and direct human acceptance. This state does not close S03
-or authorize S05, S06, qualification, or release.
+the Section 12 reconciliation, and adds module-owned proof. Exact candidate
+`5956d53343597aae8a1d33770cc23bb6468779b7` is frozen with M5 127/127,
+M4 26/26, exact-file Mermaid 7/7, and two byte-identical 176-entry packages.
+It remains pending independent exact-cut review and direct human acceptance.
+This state does not close S03 or authorize S05, S06, qualification, or
+release.
 
 ## Governing Authority
 
