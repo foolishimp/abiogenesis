@@ -22,12 +22,26 @@ export type CapabilityOperationId =
   | "abg.operation.run.continue"
   | "abg.operation.run.invoke";
 
+export interface InvocationInteractionCapability {
+  readonly requirementKey: string;
+  readonly requirementKeyDigest: Sha256Digest;
+  readonly actorCapabilityRef: string;
+}
+
 export interface InvocationPolicyBasis {
   readonly kind: "invocation_policy_basis";
   readonly schemaVersion: "5.0.0";
   readonly policyRef: string;
   readonly policyDigest: Sha256Digest;
+  readonly authorityMode: "trusted_developer";
+  readonly authorityBasisId: string;
+  readonly authorityBasisDigest: Sha256Digest;
+  readonly workspaceBindingId: string;
+  readonly workspaceBindingDigest: Sha256Digest;
+  readonly programRef: string;
+  readonly programDigest: Sha256Digest;
   readonly allowedComputeRegimes: readonly ComputeRegime[];
+  readonly interactionCapabilities: readonly InvocationInteractionCapability[];
   readonly graphMaterialization: "after_invocation_admission";
 }
 
@@ -39,6 +53,9 @@ export interface CapabilityGrant {
   readonly actorRef: string;
   readonly operationId: CapabilityOperationId;
   readonly capabilityRef: string;
+  readonly policyRef: string;
+  readonly policyDigest: Sha256Digest;
+  readonly interactionRequirementKeys: readonly string[];
 }
 
 export interface InvocationAuthority {
@@ -54,6 +71,8 @@ export interface InvocationAuthority {
   readonly catalogViewDigest: Sha256Digest;
   readonly programRef: string;
   readonly graphFunctionRef: string;
+  readonly policyRef: string;
+  readonly policyDigest: Sha256Digest;
   readonly capabilityGrantRefs: readonly string[];
 }
 
@@ -142,21 +161,50 @@ function refusal(
 }
 
 export function constructRootInvocationPolicy(
+  workspaceBinding: WorkspaceBinding,
+  program: Readonly<GtlProgram>,
+  interactionCapabilities: readonly InvocationInteractionCapability[],
   allowedComputeRegimes: readonly ComputeRegime[] = ["F_D"],
 ): InvocationPolicyBasis {
   const canonicalOrder: readonly ComputeRegime[] = ["F_D", "F_P", "F_H"];
   const canonicalRegimes = canonicalOrder.filter((regime) =>
     allowedComputeRegimes.includes(regime)
   );
+  const canonicalInteractions = [...interactionCapabilities].sort((left, right) =>
+    left.requirementKey.localeCompare(right.requirementKey)
+  );
   if (
     canonicalRegimes.length === 0 ||
     canonicalRegimes.length !== allowedComputeRegimes.length ||
-    canonicalRegimes.some((regime, index) => regime !== allowedComputeRegimes[index])
+    canonicalRegimes.some((regime, index) => regime !== allowedComputeRegimes[index]) ||
+    workspaceBinding.authorityBasisId.length === 0 ||
+    workspaceBinding.authorityBasisDigest.length === 0 ||
+    workspaceBinding.bindingId.length === 0 ||
+    workspaceBinding.bindingDigest.length === 0 ||
+    program.programRef.length === 0 ||
+    new Set(canonicalInteractions.map((row) => row.requirementKey)).size !==
+      canonicalInteractions.length ||
+    canonicalInteractions.some(
+      (row) =>
+        row.requirementKey.length === 0 ||
+        row.requirementKeyDigest.length === 0 ||
+        row.actorCapabilityRef.length === 0,
+    )
   ) {
-    throw new TypeError("invocation policy requires one canonical, unique compute-regime set");
+    throw new TypeError(
+      "invocation policy requires one exact workspace, Program, compute-regime set, and interaction requirement set",
+    );
   }
   const body = {
+    authorityMode: "trusted_developer" as const,
+    authorityBasisId: workspaceBinding.authorityBasisId,
+    authorityBasisDigest: workspaceBinding.authorityBasisDigest,
+    workspaceBindingId: workspaceBinding.bindingId,
+    workspaceBindingDigest: workspaceBinding.bindingDigest,
+    programRef: program.programRef,
+    programDigest: sha256Canonical(program as unknown as JsonValue),
     allowedComputeRegimes: canonicalRegimes,
+    interactionCapabilities: canonicalInteractions,
     graphMaterialization: "after_invocation_admission" as const,
   };
   const policyDigest = sha256Canonical(body as unknown as JsonValue);
@@ -186,7 +234,16 @@ export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant
       "abg.operation.run.invoke",
     ].includes(String(value.operationId)) ||
     typeof value.capabilityRef !== "string" ||
-    value.capabilityRef.length === 0
+    value.capabilityRef.length === 0 ||
+    typeof value.policyRef !== "string" ||
+    value.policyRef.length === 0 ||
+    typeof value.policyDigest !== "string" ||
+    !Array.isArray(value.interactionRequirementKeys) ||
+    value.interactionRequirementKeys.some(
+      (key) => typeof key !== "string" || key.length === 0,
+    ) ||
+    new Set(value.interactionRequirementKeys).size !==
+      value.interactionRequirementKeys.length
   ) {
     return false;
   }
@@ -194,6 +251,9 @@ export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant
     actorRef: value.actorRef,
     operationId: value.operationId,
     capabilityRef: value.capabilityRef,
+    policyRef: value.policyRef,
+    policyDigest: value.policyDigest,
+    interactionRequirementKeys: value.interactionRequirementKeys,
   };
   const digest = sha256Canonical(body as unknown as JsonValue);
   return (
@@ -203,16 +263,28 @@ export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant
 }
 
 export function constructCapabilityGrant(
+  policy: InvocationPolicyBasis,
   actorRef: string,
   operationId: CapabilityOperationId = "abg.operation.run.invoke",
   capabilityRef: string = DIRECT_INVOKE_CAPABILITY,
 ): CapabilityGrant {
+  const interactionRequirementKeys =
+    operationId === "abg.operation.run.invoke"
+      ? []
+      : policy.interactionCapabilities
+          .filter((row) => row.actorCapabilityRef === capabilityRef)
+          .map((row) => row.requirementKey);
   if (
+    !isInvocationPolicyBasis(policy) ||
     actorRef.length === 0 ||
     capabilityRef.length === 0 ||
     (
       operationId === "abg.operation.run.invoke" &&
       capabilityRef !== DIRECT_INVOKE_CAPABILITY
+    ) ||
+    (
+      operationId !== "abg.operation.run.invoke" &&
+      interactionRequirementKeys.length === 0
     )
   ) {
     throw new TypeError(
@@ -223,6 +295,9 @@ export function constructCapabilityGrant(
     actorRef,
     operationId,
     capabilityRef,
+    policyRef: policy.policyRef,
+    policyDigest: policy.policyDigest,
+    interactionRequirementKeys,
   };
   const grantDigest = sha256Canonical(body as unknown as JsonValue);
   const value = deepFreeze({
@@ -242,15 +317,19 @@ export function constructInvocationAuthority(
   catalogView: CatalogView,
   programRef: string,
   graphFunctionRef: string,
+  policy: InvocationPolicyBasis,
   capabilityGrants: readonly CapabilityGrant[],
 ): InvocationAuthority | InvocationConstructionRefusal {
   if (
+    !isInvocationPolicyBasis(policy) ||
     capabilityGrants.length === 0 ||
     new Set(capabilityGrants.map((grant) => grant.grantRef)).size !==
       capabilityGrants.length ||
     capabilityGrants.some((grant) =>
       !isCapabilityGrant(grant) ||
-      grant.actorRef !== actorRef) ||
+      grant.actorRef !== actorRef ||
+      grant.policyRef !== policy.policyRef ||
+      grant.policyDigest !== policy.policyDigest) ||
     !capabilityGrants.some(
       (grant) =>
         grant.operationId === "abg.operation.run.invoke" &&
@@ -271,6 +350,8 @@ export function constructInvocationAuthority(
     catalogViewDigest: catalogView.viewDigest,
     programRef,
     graphFunctionRef,
+    policyRef: policy.policyRef,
+    policyDigest: policy.policyDigest,
     capabilityGrantRefs: capabilityGrants.map((grant) => grant.grantRef),
   };
   const authorityDigest = sha256Canonical(body as unknown as JsonValue);
@@ -311,6 +392,8 @@ function constructInvocation(
     authority.catalogViewDigest !== catalogView.viewDigest ||
     authority.programRef !== program.programRef ||
     authority.graphFunctionRef !== graphFunction.name ||
+    authority.policyRef !== policy.policyRef ||
+    authority.policyDigest !== policy.policyDigest ||
     authority.capabilityGrantRefs.join("\0") !== capabilityGrants.map((grant) => grant.grantRef).join("\0")
   ) {
     return refusal("authority_mismatch", "invocation authority differs from the selected environment or target");

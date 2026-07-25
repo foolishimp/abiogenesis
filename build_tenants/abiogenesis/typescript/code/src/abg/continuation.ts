@@ -5,7 +5,10 @@ import type {
 } from "../gtl/contracts.js";
 import type { ProductInstall, WorkspaceBinding } from "../product/environment.js";
 import type { CatalogView } from "../product/catalog.js";
-import { isCapabilityGrantValue } from "../product/invocation.js";
+import {
+  isCapabilityGrantValue,
+  type CapabilityGrant,
+} from "../product/invocation.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -673,17 +676,8 @@ export function admitContinuationPublicOperation(
   capabilityRef: string,
   basis: PublicOperationAdmissionBasis,
 ): ContinuationPublicOperationAdmission {
-  const invalidBasis = validatePublicOperationBasis(basis, operation);
   const [continuation] = projectFhContinuations(store).filter(
     (row) => row.continuationRef === continuationRef,
-  );
-  const grant = rootInvocation.capabilityGrants.find(
-    (candidate) =>
-      isCapabilityGrantValue(candidate) &&
-      candidate.grantRef !== "" &&
-      candidate.actorRef === actorRef &&
-      candidate.operationId === operation &&
-      candidate.capabilityRef === capabilityRef,
   );
   const duplicateInvocation = store.readAll().some(
     (event) =>
@@ -691,18 +685,22 @@ export function admitContinuationPublicOperation(
       isRecord(event.payload) &&
       event.payload.invocationRef === basis.invocationRef,
   );
+  const grant = continuation === undefined
+    ? null
+    : resolveContinuationPublicOperationGrant({
+        rootInvocation,
+        continuation,
+        operation,
+        variant,
+        actorRef,
+        capabilityRef,
+        basis,
+        duplicateInvocation,
+      });
   if (
-    invalidBasis !== null ||
-    continuation === undefined ||
-    continuation.status === "resolved" ||
+    grant === null ||
     !hasAdmittedInvocation(store, rootInvocation) ||
-    basis.authorityScopeRef !== rootInvocation.workspaceBindingId ||
-    basis.authorityScopeDigest !== rootInvocation.workspaceBindingDigest ||
-    actorRef !== rootInvocation.actorRef ||
-    grant === undefined ||
-    !rootInvocation.capabilityGrantRefs.includes(grant.grantRef) ||
-    duplicateInvocation ||
-    variant.length === 0
+    continuation === undefined
   ) {
     throw new TypeError(
       "continuation public operation requires the exact admitted run authority",
@@ -752,6 +750,60 @@ export function admitContinuationPublicOperation(
     capabilityGrantRef: grant.grantRef,
     admissionEventRef: event.eventId,
   });
+}
+
+export function resolveContinuationPublicOperationGrant(input: Readonly<{
+  rootInvocation: Pick<
+    InvocationAdmission,
+    | "actorRef"
+    | "capabilityGrants"
+    | "capabilityGrantRefs"
+    | "workspaceBindingDigest"
+    | "workspaceBindingId"
+  >;
+  continuation: Pick<ReplayContinuationState, "continuationRef" | "status">;
+  operation:
+    | "abg.operation.interaction.respond"
+    | "abg.operation.run.continue";
+  variant: string;
+  actorRef: string;
+  capabilityRef: string;
+  basis: PublicOperationAdmissionBasis;
+  duplicateInvocation: boolean;
+}>): CapabilityGrant | null {
+  const invalidBasis = validatePublicOperationBasis(
+    input.basis,
+    input.operation,
+  );
+  const requiredStatus =
+    input.operation === "abg.operation.interaction.respond"
+      ? "open"
+      : "responded";
+  const grant = input.rootInvocation.capabilityGrants.find(
+    (candidate) =>
+      isCapabilityGrantValue(candidate) &&
+      candidate.grantRef !== "" &&
+      candidate.actorRef === input.actorRef &&
+      candidate.operationId === input.operation &&
+      candidate.capabilityRef === input.capabilityRef,
+  );
+  if (
+    invalidBasis !== null ||
+    input.continuation.continuationRef.length === 0 ||
+    input.continuation.status !== requiredStatus ||
+    input.basis.authorityScopeRef !==
+      input.rootInvocation.workspaceBindingId ||
+    input.basis.authorityScopeDigest !==
+      input.rootInvocation.workspaceBindingDigest ||
+    input.actorRef !== input.rootInvocation.actorRef ||
+    grant === undefined ||
+    !input.rootInvocation.capabilityGrantRefs.includes(grant.grantRef) ||
+    input.duplicateInvocation ||
+    input.variant.length === 0
+  ) {
+    return null;
+  }
+  return grant;
 }
 
 export function admitFhInteractionOpen(

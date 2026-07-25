@@ -2048,7 +2048,7 @@ export function constructHelloWorldModulePublication(
       bindingRef: "product-semantics://abiogenesis/conformance@5",
       packageName: artifact.packageName,
       packageVersion: artifact.packageVersion,
-      modulePath: "build/code/src/implementation/product_semantics.js",
+      modulePath: "build/code/src/product/builtin_semantics.js",
       namedSymbol: "ABI5_PRODUCT_SEMANTICS",
     },
     contracts,

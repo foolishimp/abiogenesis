@@ -26,7 +26,7 @@ import type {
 } from "../gtl/contracts.js";
 import { recursionTerminationDecision } from "../gtl/graph_applications.js";
 import { resolveEnclosingCRetryContexts } from "../gtl/source_path.js";
-import { isAdmittedLeafInvocationPort } from "../implementation/invocation_port.js";
+import { isAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";

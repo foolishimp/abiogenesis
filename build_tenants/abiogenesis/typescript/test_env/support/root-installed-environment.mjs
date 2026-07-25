@@ -300,15 +300,20 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
     "public_operation_request",
     "contract://abiogenesis/public/run-invoke-request@5",
   );
-  const policy = product.constructRootInvocationPolicy();
+  const policy = product.constructRootInvocationPolicy(
+    workspaceBinding,
+    program,
+    [],
+  );
   const actorRef = "actor://abiogenesis/t286/trusted-developer";
-  const capabilityGrant = product.constructCapabilityGrant(actorRef);
+  const capabilityGrant = product.constructCapabilityGrant(policy, actorRef);
   const invocationAuthority = product.constructInvocationAuthority(
     actorRef,
     workspaceBinding,
     catalogView,
     program.programRef,
     graphFunction.name,
+    policy,
     [capabilityGrant],
   );
   const invocation = product.constructDirectInvocation(
@@ -512,11 +517,18 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     },
   );
   assert.notEqual(implementationRow, null);
-  const leafPort = await environment.implementation.constructAdmittedLeafInvocationPort({
+  const semantics = await environment.product.loadInstalledProductSemantics({
+    install: environment.admittedInstall,
+    publication,
+    verifyInstallAdmission: (install) =>
+      abg.hasAdmittedProductInstall(store, install),
+  });
+  const leafPort = await environment.hog.bindInstalledLeafInvocationPort({
     store,
     install: environment.admittedInstall,
     implementationSet: executionBasisAdmission.implementationSet,
     publication,
+    semantics,
   });
   return {
     ...environment,

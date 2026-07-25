@@ -431,6 +431,7 @@ async function oneSurfaceLifecycle(
       frontier,
       held,
       responded,
+      scenario,
     };
   }
   if (options.afterRespond !== undefined) {
@@ -462,7 +463,7 @@ async function oneSurfaceLifecycle(
   const events = eventLog.trim().length === 0
     ? []
     : eventLog.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
-  return { completed, events, frontier, held, responded };
+  return { completed, events, frontier, held, responded, scenario };
 }
 
 async function oneSurfaceAdmissionRefusal(
@@ -1464,7 +1465,16 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     );
     assert.equal(malformedResponse.disposition, "refused");
     assert.equal(malformedResponse.result.code, "target_mismatch");
+    const authorityAfterMalformed = JSON.parse(
+      JSON.stringify(malformedResponse.continuationAuthority),
+    );
 
+    const installedMiniProduct = await import(
+      pathToFileURL(
+        join(scenario.miniInstalledRoot, "build/index.js"),
+      ).href
+    );
+    installedMiniProduct.resetInteractionResponseEvaluationCount();
     const wrongActor = await applyInFreshContext(
       publicApi,
       invocation(
@@ -1474,14 +1484,20 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
         {
           actorRef: "actor://developer.example/substituted",
           capabilityRef: mini.ids.actorCapabilityRef,
-          continuationAuthority: openAuthority,
+          continuationAuthority: authorityAfterMalformed,
           continuationRef,
           response,
         },
       ),
     );
     assert.notEqual(wrongActor.disposition, "succeeded");
+    assert.equal(
+      installedMiniProduct.readInteractionResponseEvaluationCount(),
+      0,
+      "wrong actor must be refused before installed Product evaluation",
+    );
 
+    installedMiniProduct.resetInteractionResponseEvaluationCount();
     const wrongCapability = await applyInFreshContext(
       publicApi,
       invocation(
@@ -1492,7 +1508,7 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
           actorRef,
           capabilityRef:
             "capability://developer.example/greeting/unadmitted@5",
-          continuationAuthority: openAuthority,
+          continuationAuthority: authorityAfterMalformed,
           continuationRef,
           response,
         },
@@ -1500,7 +1516,13 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     );
     assert.equal(wrongCapability.disposition, "refused");
     assert.equal(wrongCapability.result.code, "owner_refusal");
+    assert.equal(
+      installedMiniProduct.readInteractionResponseEvaluationCount(),
+      0,
+      "wrong capability must be refused before installed Product evaluation",
+    );
 
+    installedMiniProduct.resetInteractionResponseEvaluationCount();
     const responded = await applyInFreshContext(
       publicApi,
       invocation(
@@ -1510,7 +1532,7 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
         {
           actorRef,
           capabilityRef: mini.ids.actorCapabilityRef,
-          continuationAuthority: openAuthority,
+          continuationAuthority: authorityAfterMalformed,
           continuationRef,
           response,
         },
@@ -1518,6 +1540,10 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
     );
     assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
     assert.equal(responded.continuationStatus, "responded");
+    assert.equal(
+      installedMiniProduct.readInteractionResponseEvaluationCount(),
+      1,
+    );
     const respondedAuthority = JSON.parse(
       JSON.stringify(responded.result.continuationAuthority),
     );
@@ -2534,6 +2560,59 @@ test("M5 admits construction truth only against the exact Product and runtime ba
       assert.equal(
         result.events.some((event) => event.kind === "run_closed"),
         false,
+      );
+      const duplicateContinue = invocation(
+        "abg.operation.run.continue",
+        "current_intent",
+        "invocation://t272/external-one-surface-unproven-output/continue",
+        {
+          actorRef: "actor://developer.example/trusted-developer",
+          capabilityRef: mini.ids.actorCapabilityRef,
+          continuationAuthority: JSON.parse(
+            JSON.stringify(result.completed.continuationAuthority),
+          ),
+          continuationRef: result.held.continuationRef,
+        },
+      );
+      const retainedContext = publicApi.createRootOperationContext();
+      let retainedDuplicate;
+      let retainedDuplicateAgain;
+      try {
+        retainedDuplicate = await publicApi.applyRootPublicInvocation(
+          retainedContext,
+          duplicateContinue,
+        );
+        retainedDuplicateAgain = await publicApi.applyRootPublicInvocation(
+          retainedContext,
+          duplicateContinue,
+        );
+      } finally {
+        publicApi.closeRootOperationContext(retainedContext);
+      }
+      const freshDuplicate = await applyInFreshContext(
+        publicApi,
+        duplicateContinue,
+      );
+      assert.deepEqual(
+        [
+          retainedDuplicate,
+          retainedDuplicateAgain,
+          freshDuplicate,
+        ].map((outcome) => outcome.disposition),
+        ["refused", "refused", "refused"],
+      );
+      const eventsAfterDuplicates = (await readFile(
+        result.scenario.eventLogPath,
+        "utf8",
+      )).trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+      assert.equal(
+        eventsAfterDuplicates.filter(
+          (event) =>
+            event.kind === "public_operation_admitted" &&
+            event.payload.invocationRef === duplicateContinue.invocationRef,
+        ).length,
+        1,
+        "durable invocation identity must reject retries in retained and fresh contexts",
       );
     },
   );
@@ -3606,9 +3685,21 @@ test("M5 preserves governed correction dispositions through the external Product
         ),
       );
       assert.equal(refused.disposition, "refused", JSON.stringify(refused));
+      const after = await readFile(started.scenario.eventLogPath, "utf8");
       assert.equal(
-        await readFile(started.scenario.eventLogPath, "utf8"),
-        before,
+        after.trim().split(/\r?\n/u).length,
+        before.trim().split(/\r?\n/u).length + 1,
+      );
+      const appended = JSON.parse(after.trim().split(/\r?\n/u).at(-1));
+      assert.equal(appended.kind, "public_operation_admitted");
+      assert.equal(
+        appended.payload.invocationRef,
+        "invocation://t272/correction-wrong-variant/respond",
+      );
+      assert.equal(
+        after.includes("\"kind\":\"fh_interaction_responded\""),
+        false,
+        "an authorized but Product-invalid response must not become response truth",
       );
     },
   );

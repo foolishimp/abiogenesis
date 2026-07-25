@@ -48,6 +48,13 @@ export {
   type WorkspaceDeclaredRoots,
 } from "./environment.js";
 export { installProduct, installedProductContentMatches } from "./install_product.js";
+export {
+  admitInstalledProductInput,
+  evaluateInstalledInteractionResponse,
+  loadInstalledProductSemantics,
+  type InstalledProductSemanticsBasis,
+  type ProductSemanticsProvider,
+} from "./semantics.js";
 export { verifyProduct } from "./verify_product.js";
 export {
   catalogApplicationContentDigest,
@@ -80,6 +87,7 @@ export {
   type CapabilityOperationId,
   type InvocationAuthority,
   type InvocationConstructionRefusal,
+  type InvocationInteractionCapability,
   type InvocationPolicyBasis,
   type PublicInvocationCandidate,
   type RunInvocationVariant,

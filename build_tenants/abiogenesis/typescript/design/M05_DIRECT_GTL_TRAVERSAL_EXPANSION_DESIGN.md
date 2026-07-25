@@ -126,7 +126,7 @@ does not add a peer authority.
 | `RouteCandidate` | `TraversalAggregateFamily` | declared implementation or HoG proposal | Candidate consequence constrained to GTL-declared routes. |
 | `AdmittedRoute` | `RuntimeEventFamily` | ABG | Canonical event truth accepting one route on current replay and authority basis. |
 | `FanOutCompletion` | `RuntimeEventFamily` | ABG | Frame-local authoritative completion truth with disjoint `complete_vector` and `partial_stop` variants; Vector is never an aggregate. |
-| `Continuation` | `TraversalAggregateFamily` | ABG | Authoritative run-local open obligation with open, resolved, superseded, and abandoned lifecycle truth. |
+| `Continuation` | `TraversalAggregateFamily` | ABG | Authoritative run-local open obligation. The complete target algebra names open, resolved, superseded, and abandoned; the selected S03 realization proves only open, responded, and resolved, with superseded and abandoned deferred. |
 | `ContinuationBasis` | `ReplayProjectionFamily` | ABG replay | Downstream held cursor, response contract, authority, and event-log identity derived from admitted events. |
 | `ReopenedEventStoreContext` | `RuntimeEventFamily` | ABG event-store boundary | One exclusive live append context seeded from a verified existing durable log without restamping historical events. |
 | `ReplayState` | `ReplayProjectionFamily` | downstream | Complete state derived only from admitted events. |
@@ -203,7 +203,7 @@ does not add a peer authority.
 | C call | atomically opened and fibre selected | evidenced, result admitted, judged | judged success, failure, refusal, pending, blocked, or escalation; never stranded |
 | child traversal | opened | traversing, folded back | blocked, held, failed, closed |
 | fan-out completion | declared ordered tasks | task truth accumulating | complete vector admitted or partial stop admitted |
-| continuation | opened from admitted hold | open, responded, resume admitted | resolved, superseded, or abandoned |
+| continuation | opened from admitted hold | open, responded, resume admitted | resolved in the selected S03 realization; superseded and abandoned remain explicit target-only gaps |
 | durable event store | absent or verified historical log | exclusive append context open | append context closed or reopen refused |
 | run | active | active, held, blocked, failed | closed or stopped with an admitted terminal disposition |
 
@@ -225,12 +225,12 @@ judgment carriers retire by supersession or invocation completion, not mutation.
 | `TraversalCursor` | HoG derives from GTL, scope, and replay | HoG reads current derived position | replaced only after an admitted event/route | next cursor or terminal event supersedes |
 | `TraversalStep` | HoG derives one total step | ABG evaluates candidate against scope | HoG executes only after required admission | accepted, refused, or superseded by newer replay |
 | `LeafExecutionPort` | package plus implementation binding admission | HoG addresses exact admitted port | implementation realizes F_D/F_P interior | call or invocation terminates |
-| `HumanInteractionBoundary` | GTL declares callout and ABG admits hold | public projection renders pending interaction | attributed external actor returns candidate | response admitted, rejected, abandoned, or superseded |
+| `HumanInteractionBoundary` | GTL declares callout and ABG admits hold | public projection renders pending interaction | attributed external actor returns candidate | response admitted or rejected in this cut; abandonment and supersession remain target-only gaps |
 | `RouteCandidate` | HoG or declared implementation proposes within GTL route set | ABG evaluates against replay | never applies itself | admitted, refused, or superseded |
 | `AdmittedRoute` | ABG admits canonical route event | replay projects route truth | HoG deterministically applies exact admitted route | next admitted route or terminal event supersedes it |
 | `FanOutCompletion` | ABG admits one closed completion variant | replay projects ordered vector or partial-stop facts | only a later declared route may consume it | owning frame or run terminal |
-| `Continuation` | ABG admits an opening lifecycle event | replay projects exactly one run-local member | only separate response and continuation operations may advance it | resolved, superseded, or explicitly abandoned before run termination |
-| `ContinuationBasis` | replay derives open obligation | public read and `run.continue` consume exact basis | never invokes HoG itself | resolved, superseded, abandoned, or run terminal |
+| `Continuation` | ABG admits an opening lifecycle event | replay projects exactly one run-local member | only separate response and continuation operations may advance it | resolved in this cut; superseded and abandoned are deferred with T-270 re-entry |
+| `ContinuationBasis` | replay derives open obligation | public read and `run.continue` consume exact basis | never invokes HoG itself | resolved or run terminal in this cut; superseded and abandoned are deferred |
 | `ReopenedEventStoreContext` | ABG validates an existing log and acquires exclusive append ownership | replay and event admission read the exact seeded prefix | new events append at the next ordinal only | context closes; historical log remains immutable truth |
 | `ReplayState` | pure fold of admitted event log | HoG and public projections read | never writes events or executes work | superseded by a longer valid prefix |
 
@@ -244,14 +244,14 @@ judgment carriers retire by supersession or invocation completion, not mutation.
 | prepare child traversal | HoG supplies only GTL-declared child ref and input | fixed operation-bound port invokes GTL and validator owners | ABG checks parent scope and exact root-set subsets | stateless port composition | prepared-child result | ABG owns admitted child basis and scope | child terminal or parent invocation terminal |
 | derive next structural cursor | HoG | GTL relation plus replay | ABG scope identity | HoG after required admission | replay cursor | no new truth until route admission | next admitted event |
 | realize leaf interior | admitted F_D or F_P implementation | result contract | ABG result checks | exact implementation port | replayed C-call | ABG | judged C call or invocation terminal |
-| request or answer human work | HoG proposes declared hold; attributed human answers | declared interaction and response contracts | F_H authority and replay basis | external human only | continuation and public interaction views | ABG | resolved, rejected, abandoned, or superseded continuation |
+| request or answer human work | HoG proposes declared hold; attributed human answers | declared interaction and response contracts | F_H authority and replay basis | external human only | continuation and public interaction views | ABG | resolved or rejected in this cut; abandonment and supersession remain deferred |
 | choose consequence candidate | declared implementation or HoG from declared relation | GTL route set | ABG current replay | none | route diagnostic | ABG | admission, refusal, or newer replay |
 | apply transition | admitted route | GTL cursor relation | replay | HoG | replay cursor | ABG event is prior truth | next cursor or terminal event |
 | admit fan-out completion | HoG submits task-result census | declared vector and task contracts | ABG checks exact ordinal partition and current replay | none | ordered vector or partial-stop projection | ABG | owning frame or run terminal |
 | totalize post-open rejection | actual contract rejection | refusal and rejection contracts | current C-call spine | ABG appends only missing suffix | replayed rejected C-call | ABG | judged rejection |
 | respond to hold | attributed F_H actor | declared response and capability contracts | ABG verifies open continuation and replay basis | `interaction.respond` only admits response truth | responded interaction view | ABG | response consumed, rejected, or continuation terminal |
 | reopen durable truth | caller supplies existing sink and expected digest | canonical log grammar and event union | ABG validates immutable stamps, ordinal order, causation, scope, and exclusive append ownership | event store seeds one live context without emitting | replay prefix and next ordinal | ABG event-store boundary | context closes or reopen refuses |
-| continue held run | admitted `run.continue` ingress names existing run/continuation, actor, capability, and input | declared continuation contract | ABG uses the reopened context to verify exact durable scope and public authority | `run.continue` explicitly re-enters HoG after resume admission | continuation and replay views | ABG | resolved, superseded, abandoned, or run terminal |
+| continue held run | admitted `run.continue` ingress names existing run/continuation, actor, capability, and input | declared continuation contract | ABG uses the reopened context to verify exact durable scope and public authority | `run.continue` explicitly re-enters HoG after resume admission | continuation and replay views | ABG | resolved or run terminal in this cut; superseded and abandoned remain deferred |
 | close | HoG submits current judged terminal | closure predicate | replay and exact contracts | ABG appends closure transaction | replay and PublicOutcome | ABG | immutable terminal run |
 
 ## 4. Function And Composition Derivation
@@ -993,7 +993,8 @@ stateDiagram-v2
   Failed --> [*]
 ```
 
-The lifecycle view above projects this exact run-local continuation substate:
+The lifecycle view above projects the complete target continuation algebra.
+Edges marked `deferred` are not part of the selected S03 realization or proof:
 
 ```mermaid
 stateDiagram-v2
@@ -1001,10 +1002,10 @@ stateDiagram-v2
   Open --> Responded: fh_interaction_responded
   Open --> Resolved: continuation_resume_admitted
   Responded --> Resolved: fh_interaction_resume_admitted
-  Open --> Superseded: continuation_superseded
-  Responded --> Superseded: continuation_superseded
-  Open --> Abandoned: continuation_abandoned before terminal run stop
-  Responded --> Abandoned: continuation_abandoned before terminal run stop
+  Open --> Superseded: deferred continuation_superseded
+  Responded --> Superseded: deferred continuation_superseded
+  Open --> Abandoned: deferred continuation_abandoned
+  Responded --> Abandoned: deferred continuation_abandoned
   Resolved --> [*]
   Superseded --> [*]
   Abandoned --> [*]
@@ -1029,17 +1030,19 @@ stateDiagram-v2
 | worker cannot mint truth | authority matrix | ABG | effect-edge port | candidates returned | no direct closed edge | port lacks event methods | candidate admission | pass | none |
 | F_H is not an implementation or ABG callback | disjoint key sets and authority matrices | human, separate public operations, and ABG | interaction requirement plus Continuation | invoke stops, interaction.respond admits only response, run.continue rehydrates and re-enters HoG | Held through Responded, ReplayRehydrated, and ResumeAdmitted | no F_H implementation port and no ABG-to-HoG call | attributed response and resume admissions | pass | retained T-272 evidence under T-270 |
 | child traversal is transparent | relationship inventory | HoG plus ABG | child lineage | child scope and foldback | ChildActive | typed child relation | child basis and replay | pass | T-270 implementation |
-| continuation is authoritative and replay-constructible | Continuation aggregate, reopened store, and basis relation | ABG | open obligation plus downstream basis and exact historical prefix | reopen without restamp, verify public ingress, reconstruct, then separate resume and HoG re-entry | open to resolved, superseded, or abandoned | preserved ordinals and owner constructors renewed only after equality | existing sink, max-plus-one append, immutable authority basis, and basis-fork refusal | pass | retained T-272 evidence under T-270 |
+| continuation is authoritative and replay-constructible | Continuation aggregate, reopened store, and basis relation | ABG | open obligation plus downstream basis and exact historical prefix | reopen without restamp, verify public ingress, reconstruct, then separate resume and HoG re-entry | open/responded/resolved proven; superseded/abandoned target-only | preserved ordinals and owner constructors renewed only after equality | existing sink, max-plus-one append, immutable authority basis, and basis-fork refusal | pass for selected S03 path; two target transitions deferred | T-270 re-entry if Product selects supersede or abandon |
 | continuation resume is actor-authorized | public-operation and continuation relations | public ingress plus ABG | `run.continue` admission, actor, capability, and input | public admission precedes same-run resume event | reopened through ResumeAdmitted | typed operation and capability refs | exact ingress event is causal input to resume | pass | retained T-272 evidence under T-270 |
 | every new runtime fact has one event/effect law | RuntimeEventFamily delta | ABG | fixed event kinds and closed payload variants | append precedes downstream effect | every initiated active fluent has an explicit terminal consumer | closed event union | declared Event Calculus effect table and mutation proof | pass | none |
 | public layer is not controller | unchanged M3 law | Product/ABG/HoG | no public Prime | one invoke call | no public private state | stateless operation types | public-controller mutation | pass | T-281 breadth |
 
 ## 9. Runtime Event And Replay Delta
 
-M5 retains the accepted opening and closure kinds and extends the published
-`RUNTIME_EVENT_KIND_VALUES` union with the new exact kinds below. The table
-repeats existing opening kinds where their fluent effects participate in the
-expanded lifecycle. It does not create another envelope or event family. Every row carries
+M5 retains the accepted opening and closure kinds. The table below is the
+complete target event delta and repeats existing opening kinds where their
+fluent effects participate in the expanded lifecycle. Rows explicitly marked
+`deferred` are not members of the selected S03 realization or proof and do not
+claim current `RUNTIME_EVENT_KIND_VALUES` membership. The realized rows add no
+second envelope or event family. Every realized row carries
 the canonical envelope, a store-assigned admission ordinal, `basisId`, `runId`,
 `graphFunctionRef`, `materializationRef`, `graphCallId`, `frameId`,
 `frameLineageId`, unique admitted `causationEventRefs`, and `correlationId`
@@ -1063,9 +1066,9 @@ before the next effectful step observes it.
 | `fh_interaction_responded` | `continuation`; actor and capability refs, response contract, response ref/digest and canonical admitted value, `interaction.respond` public-operation admission ref | exact open interaction plus admitted `interaction.respond` ingress in the same reopened store | initiates `continuation_response_available(continuationId)`; changes no traversal or terminal fluent |
 | `continuation_resume_admitted` | `continuation`; durable prefix/replay digests, opened-event ref, `run.continue` public-operation admission ref, acting operator and capability refs, declared input ref/digest/body, verified reconstructed scope refs/digests, successor cursor and input refs/digests | exact open non-F_H member, admitted same-run `run.continue` ingress, valid current basis, and declared current input | terminates `continuation_open` and `frame_held`; initiates `continuation_terminated(continuationId,resolved)`, `frame_active(frameId)`, and `locus_active(successorCursorRef)` |
 | `fh_interaction_resume_admitted` | `continuation`; durable prefix/replay digests, opened/responded-event refs, `run.continue` public-operation admission ref, acting operator and capability refs, declared input ref/digest/body, verified reconstructed scope refs/digests, successor cursor and input refs/digests | exact open member, admitted same-run `run.continue` ingress, valid current basis, and required admitted response truth | terminates `continuation_open`, `interaction_pending`, `continuation_response_available`, and `frame_held`; initiates `continuation_terminated(continuationId,resolved)`, `frame_active(frameId)`, and `locus_active(successorCursorRef)` |
-| `continuation_superseded` | `continuation`; old member, response-state discriminant, accepted correction or reprice ref, and reason ref | exact open member plus admitted same-run authority change | terminates `continuation_open` and `frame_held`; the F_H variant also terminates `interaction_pending` and, only when the discriminant is `responded`, `continuation_response_available`; initiates `continuation_terminated(continuationId,superseded)` |
-| `continuation_abandoned` | `continuation`; member, response-state discriminant, abandoning actor when present, prior terminal-cause event ref, and reason ref | exact open member plus admitted same-run blocked/failed route, operator-stop ingress, or other terminal cause that precedes `run_stopped` | terminates `continuation_open` and `frame_held`; the F_H variant also terminates `interaction_pending` and, only when the discriminant is `responded`, `continuation_response_available`; initiates `continuation_terminated(continuationId,abandoned)` |
-| `continuation_reentry_link_admitted` | run-independent `workspace`; old run/continuation and supersession-event refs/digests, replacement run/basis/open refs/digests, accepted correction/reprice ref, and new continuation contract | ABG verifies all payload refs against the old terminal member and replacement run, but supplies no cross-run `causationEventRefs` | initiates `continuation_reentry_link_available(linkRef)`; a new-run continuation may cite this workspace-scoped link plus same-run opening events, then consumes the link |
+| `continuation_superseded` (deferred) | target-only `continuation`; old member, response-state discriminant, accepted correction or reprice ref, and reason ref | unselected; requires a Product-authorized supersession operation | target-only effect; no current realization claim |
+| `continuation_abandoned` (deferred) | target-only `continuation`; member, response-state discriminant, abandoning actor when present, prior terminal-cause event ref, and reason ref | unselected; requires a Product-authorized abandonment operation | target-only effect; no current realization claim |
+| `continuation_reentry_link_admitted` (deferred) | target-only workspace link between an admitted supersession and replacement basis | unselected; depends on the deferred supersession transition | target-only effect; no current realization claim |
 | `run_stopped` | `run`; closed disposition of `blocked`, `failed`, `operator_abort`, or `campaign_close`, exact still-open aggregate, cursor, retry, hold, parent-wait, availability, continuation-terminal, frame-state, CCall/judgment/route refs, and reason ref | admitted blocked/failed route or attributed operator stop in the same run; `runtime_failure_observed` remains its own accepted terminal path | terminates `run_active`, `graph_call_active`, every listed `frame_active`, `frame_held`, `frame_blocked`, `frame_failed`, `locus_active`, `retry_attempt_active`, `retry_progress_available`, `hold_route_admitted`, `parent_waiting_on_child`, child-refusal/foldback, and fan-out availability fluent; initiates `run_terminal(runId,disposition)` |
 | `terminal_reached` | existing `frame` payload plus terminal-route ref and exact terminal predicate evidence | admitted `terminal` route under current replay | terminates `terminal_route_available(routeRef)` and initiates `terminal_admitted(frameId)` |
 | `frame_closed` | existing `frame` closure payload | `terminal_reached` | terminates `frame_active(frameId)` and initiates `frame_closed(frameId)` |
@@ -1082,29 +1085,27 @@ The pending C-call judgment, hold `traversal_route_admitted`, and matching
 continuation-open event are one ordered atomic admission batch. The hold route
 is constructed first and is therefore a valid cause of the continuation event;
 neither becomes replay-visible unless the full batch is durably accepted. The
-same rule applies to an admitted blocked/failed route, all required
-continuation-abandon events, and the following `run_stopped`, in that order.
-This removes intermediate unowned hold or terminal states.
+same atomicity rule applies to an admitted blocked/failed route and the
+following `run_stopped`. A future path that selects abandonment must re-enter
+this design and add its required atomic transition before claiming that target
+behavior. This removes intermediate unowned hold or terminal states without
+pretending the deferred event exists.
 
 Child preparation reuses `basis_admitted`, `graph_call_opened`, and
 `frame_opened` with the child refs and both exact child-set digests. Parent and
 child leaf work reuses the canonical C-call spine. Successful aggregate closure
 reuses `terminal_reached`, `frame_closed`, `graph_call_closed`, and
 `run_closed`; their accepted M4 effects terminate their matching active
-fluents. A blocked or failed run emits `run_stopped`; before that event, ABG
-emits one `continuation_abandoned` for every still-open continuation in the run.
-No terminal state is inferred from missing close events.
+fluents. A blocked or failed selected S03 path emits `run_stopped` only after
+its active continuation has resolved or the path has otherwise totalized that
+continuation under currently admitted truth. General open-continuation
+abandonment remains deferred. No terminal state is inferred from missing close
+events.
 
-Cross-run relation is payload linkage, not forbidden cross-run event causation.
-When superseded work remains relevant, the old run first emits
-`continuation_superseded`. After the replacement run and basis exist, ABG admits
-one workspace-scoped `continuation_reentry_link_admitted` that verifies both
-sides by payload reference and carries no run-scoped cause. The new run may then
-open a new continuation caused by that run's own opening events plus the
-workspace-scoped link. Link admission and new-continuation opening are one
-ordered atomic batch, so no unconsumed link becomes visible. The new event
-consumes the link, gets a new identity, and never names the old run event in
-`causationEventRefs`.
+The target cross-run supersession relation is retained as design history, not
+current realization authority. If selected later, it must use workspace-scoped
+payload linkage rather than forbidden cross-run event causation and must
+re-enter T-270's boundary before implementation.
 
 Replay validates the complete event union, canonical envelope, admission
 ordinal, scope, causation, and declared effect relation before folding. It then
@@ -1190,73 +1191,97 @@ path.
 
 #### Ontology slice
 
-| Entity or value family | Identity and cardinality | Authority | Lifecycle |
-|---|---|---|---|
-| `ConstructionComposition` | One Program-published composition names exactly the four One Surface semantic functions and their loci. | GTL declaration; validator checks static membership. | Published, admitted with the Program, superseded only by a new Program version. |
-| `ActionCatalog` | One Program-published catalog contains unique action rows; one selected projection resolves to exactly one row. | Product declaration; validator checks shape and ABG admits exact selected membership. | Published, admitted with the Program, superseded only by a new Program version. |
-| `ObservationSnapshot` | One immutable Product value binds one WorkspaceBinding, target, obligations, catalog, frontier, and observed state. | Product constructs meaning; ABG admits the exact runtime basis. | Candidate, contract-valid, admitted as C-call truth, then superseded by a causally later snapshot. |
-| `NextActionBasis` | One basis binds one snapshot, gap, obligation set, catalog, priority, frontier, and policy. | Product constructs; ABG verifies the admitted environment and C-call lineage. | Candidate, admitted, consumed by one `evaluateNext`, then superseded by refresh. |
-| `NextActionProjection` | One total projection is selected action, lawful no-action stop, or convergence. | Product `evaluateNext`; ABG admits exact catalog and runtime-basis agreement. | Candidate, admitted as C-call result and judgment, then consumed by route or intent admission. |
-| `ConstructionIntent` | One admitted intent binds the selected projection, action row, basis, workspace, execution basis, Run, GraphCall, Frame, and target cursor. | ABG is the sole runtime admitter. | Selected, consumed by the matching interaction and evaluation fold, resolved by one admitted delta or a truthful stop. |
-| `Continuation` | One run-local continuation binds one open F_H interaction, held cursor, Product basis, and append-only event prefix. | ABG event truth. | This S03 path realizes open, responded, and resolved. Superseded and abandoned are named deferred transitions, not claimed runtime behavior. |
-| `PublicContinuationAuthority` | One opaque public carrier binds the exact continuation, install, workspace, catalog, Program, graph, invocation, closure contract, and reopen authority. | Downstream projection; it carries no authority without exact parse and ABG rehydration. | Projected on hold, explicitly supplied to every reopen operation, and returned after every append. Resolution exhausts append, response, and continue authority while retaining immutable read authority. |
-| `CapabilityGrant` | One actor-scoped grant binds one public operation and one capability identity. Each invoked F_H operation resolves exactly one grant from the admitted root invocation. | Product proposes the grant; ABG admits it with the invocation and verifies later use. | Constructed before invocation, admitted once, consumed as authority evidence by public-operation admission, and immutable thereafter. |
-| `InstalledProductSemanticsAuthority` | One opaque HoG port binds the admitted install, publication, event store, and optional implementation set. | Product declarations own meaning; the installed host realizes only the declared semantic/effect seam. | Bound from exact installed bytes for one operation and not retained as Public state. |
-| `InteractionResponseCandidate` | One F_H candidate names the pending intent and satisfies the declared response contract. | External F_H proposes; installed Product semantics evaluates the pending Product choice; ABG admits runtime truth. | Proposed, Product-valid or refused, then ABG-admitted or refused. |
-| `ActionEvaluationBasis` | One basis binds intent, complete admitted evidence, exact workspace, catalog, policy, and causal events. | ABG derives runtime basis; Product consumes it. | Derived after response/resume, admitted as C-call input, consumed by `evaluateAction`. |
-| `ActionEvaluationProjection` | One Product candidate contains the ledger and closure decision over the exact basis. | Product constructs; ABG admits the fold and delta. | Candidate, admitted or refused, then refreshed before any terminal route. |
+Sections 12.1 through 12.10 are one selected S03 boundary. Their active
+families are included here even where their detailed laws remain in the later
+subsection. Earlier Sections 1 through 11 rows that name `superseded` or
+`abandoned` continuation transitions describe the complete target algebra.
+Neither transition is realized or claimed as proof in this S03 cut.
+
+Subordinate payloads inherit the identity, lifecycle, and authority of the
+family named below.
+
+| Entity | Identity | Authority owner | Declare/create | Read/project | Update/transition | Delete/retire |
+|---|---|---|---|---|---|---|
+| Program semantic authority family: `GtlProgram`, `ConstructionComposition`, `ActionCatalog`, starts, public targets, and closure policy | Exact Program ref and canonical Program digest; one composition, one catalog, and a finite unique start/target set per Program version | Product owns semantic meaning; GTL carries it | Product publishes; validator admits static coherence | Program inspection and admitted `ExecutionBasis` | New immutable Program version only | Superseded by a separately admitted Program version; history retained |
+| Environment basis: install, lock, ProductSet, WorkspaceBinding, catalog, and publication | Existing M3 immutable identities and digests; one exact ordered lock/ProductSet for one WorkspaceBinding | Product proposes; ABG admits runtime use | Existing verification, install, workspace, and catalog admissions | Public and replay project exact refs; Product and ABG consume exact values | New admitted basis, never in-place mutation | Existing release/install retirement law; not changed by S03 |
+| Invocation policy and grant family | One policy binds trusted-developer authority, exact workspace authority basis, WorkspaceBinding, Program digest, compute fibres, and all validated F_H requirement rows; grants are the exact closed operation/capability projection | Product constructs policy and grants; ABG independently verifies and admits them | `constructRootInvocationPolicy`, `constructCapabilityGrant`, then root invocation admission | ABG resolves the exact admitted grant for each public operation | Immutable for one admitted root invocation | Exhausted with the invocation; no caller-minted surplus grant is admissible |
+| Observation and next-action family: snapshot, gap, basis, and projection | Immutable canonical values causally bound to one Program composition, workspace, obligations, catalog, frontier, and policy | Product functions own meaning; ABG owns runtime admission | Product `synthesizeModel`, `evalGap`, and `evaluateNext`; ordinary C-call admission | Product refresh and replay-derived public reads | Causally later admitted refresh value | Consumed by route, intent, stop, or terminal truth; historical values retained |
+| Construction evaluation family: intent, evaluation basis, ledger, closure decision, and delta | One intent per admitted selected action and cursor; one fold/delta per intent | Product evaluates semantic candidates; ABG alone admits intent, fold, and delta truth | `construction_intent_selected`; ABG basis derivation; Product `evaluateAction`; ABG fold/delta admission | Replay, refresh, and public projection | Intent resolves only through matching delta or truthful stop | Retained as event history after run terminal |
+| Traversal aggregate family: Run, GraphCall, Frame, C-call, and cursor | Existing M3/M5 aggregate identities; finite causal membership | HoG owns traversal; ABG owns aggregate and event truth | Existing open/admission functions | HoG consumes admitted scope; replay projects truth | Declared route and admitted transition only | Existing close/stop/failure law |
+| Continuation and continuation-operation family | One run-local continuation plus unique public-operation invocation identities | ABG event truth | Atomic hold opens continuation; ABG admits each respond/continue operation before Product or traversal effects | Replay and explicit public carrier | This cut realizes open -> responded -> resolved and replacement authority after post-resume failure | Resolved exhausts append authority; `superseded` and `abandoned` are named deferred gaps owned by T-270 if a Product path selects them |
+| `PublicContinuationAuthority` and public read family | Self-digested carrier over exact install, workspace, catalog, Program, graph, invocation, continuation, and event prefix; one closed read variant | Downstream Public projection only | Projected from ABG/replay truth on hold and after each append | `status`, `interaction`, `result`, `replay`, `lawful-actions`, and `gaps` | Replaced by the carrier for the longer admitted prefix | Append authority exhausts at resolution; immutable read authority remains |
+| Product semantics provider | One publication binding and exact installed Product bytes; operation-local provider value | Product module owns semantic invocation; published Product code owns domain meaning | `product.loadInstalledProductSemantics` after exact install admission | Fixed Public composition and leaf-port construction consume it | Reloaded from a newly admitted install only | Operation-local provider is released after the call; publication binding retires with install/Product version |
+| F_D/F_P leaf invocation port | One opaque install/publication/implementation-set bound port | HoG owns traversal use; implementation realizes declared leaf effect; ABG admits effect truth | `hog.bindInstalledLeafInvocationPort` from exact admitted basis | HoG invokes only the admitted resolved leaf | No mutation; a new basis creates a new port | Operation-local port released after traversal |
+| F_H response candidate | One attributed candidate for one open interaction and construction intent | F_H proposes; Product evaluates; ABG admits | Public transports candidate after operation admission | Product response evaluation and ABG continuation admission | Admitted response advances continuation once | Refusal creates no response truth; admitted value remains history |
+| Route and disposition family: hold, gap, block, yield, re-entry, retry, correction, escalation, reprice, and terminal | Existing typed route identity bound to exact C-call judgment, cursor, and basis | Product selects semantic disposition where required; HoG proposes traversal route; ABG admits/applies runtime truth | Existing route constructors and admissions in Sections 1 through 11 plus 12.5 through 12.10 | Replay and public projections | One admitted route transition per consumed availability | Consumed by application or terminal run truth; event history retained |
+| Gap/public re-entry family | Exact stopped gap authority plus one source-consumption basis | Product owns changed observation; ABG admits single successor invocation | `gap_stop` then a later `run.invoke(start)` with exact durable basis | `project.read(gaps)` and invocation rehydration | Source gap may be consumed exactly once | Consumed source remains historical and cannot authorize another successor |
+| Runtime event and replay family | Existing canonical event refs, ordinals, causal refs, aggregate ids, and deterministic replay digest | ABG owns append truth; replay is downstream | Existing event admissions only; no S03 event family is added | Replay and public projection | Append-only longer prefix | Release/archive retention law; no in-place deletion |
 
 Cardinality and authority invariants:
 
-1. A public read, response, or continuation has exactly one explicitly supplied
-   `PublicContinuationAuthority`. Process state, cache membership, and caller
-   knowledge do not change admissibility.
-2. The carrier digest proves internal identity only. Reopening additionally
-   proves the immutable event prefix and exact Product, install, workspace,
-   catalog, Program, graph, invocation, and continuation basis.
-3. Product semantics evaluates a response against the exact pending request,
-   `NextActionBasis`, and `ConstructionIntent`. Public does not infer the
-   Product choice, and ABG does not invent Product meaning.
-4. ABG admits a Product-valid response only against the open continuation,
-   attributed actor, admitted capability, declared contract, current basis,
-   and exact Product evaluation.
-5. Both `root_mode = direct` and `root_mode = supervised` require
-   `until = converged`. Direct mode selects one admitted entry without the
-   One Surface overlay; convergence remains HoG/ABG traversal and runtime
-   truth, never a Public repetition loop.
-
-The entity-lifecycle closure is:
-
-| Entity | Create or admit | Read or project | Transition | Retire or terminal |
-|---|---|---|---|---|
-| composition and catalog | Program publication and validation | Program, validator, Product semantics, ABG | immutable | Program supersession |
-| snapshot, basis, projection | Product function candidate plus ordinary C-call admission | replay and later Product functions | causally later admitted value | consumed or invocation terminal |
-| intent | ABG `construction_intent_selected` | replay, continuation, evaluation fold | matching admitted delta or truthful stop | resolved intent or terminal run |
-| continuation | atomic ABG hold admission | replay and explicit public authority | response, resume, replacement, or stop | resolved in this slice; superseded and abandoned deferred until a Product operation selects those transitions |
-| public continuation authority | downstream projection from admitted Product and event truth | public operation ingress and immutable reads | replaced after each append | append authority exhausted at resolution; immutable read authority retained |
-| capability grant | Product construction and root invocation admission | exact public-operation admission | immutable | root invocation terminal |
-| installed Product semantics authority | exact install and publication binding through HoG | one installed Product semantic or leaf call | operation-local | call return or refusal |
-| response candidate | external F_H proposal | Product semantic evaluation | ABG response admission | admitted, refused, or superseded |
+1. The admitted grant set is exactly one `run.invoke` grant plus one
+   `interaction.respond` and one `run.continue` grant for each distinct
+   Program-declared F_H capability. An all-F_D Program admits no F_H grant.
+2. Actor identity, a capability string, a carrier digest, or possession of an
+   old prefix is not authority. ABG independently verifies the exact policy,
+   grant set, Program requirements, actor, operation, workspace, and durable
+   event basis.
+3. ABG admits a continuation public operation before Product response
+   evaluation or resumed traversal. Refused authority therefore executes no
+   installed Product or leaf code.
+4. F_H response and Product contract semantics are not leaf realization.
+   Their installed provider is loaded and invoked through `src/product`.
+   Program-declared F_D/F_P semantic functions remain executable leaves and
+   HoG reaches them only through the opaque `LeafInvocationPort`.
+5. A public read, response, continuation, or re-entry has one explicit durable
+   authority carrier. Process state and caller knowledge do not change
+   admissibility.
+6. Both `root_mode = direct` and `root_mode = supervised` require
+   `until = converged`. Public performs no repetition or semantic selection.
 
 #### Functions, authority, and composition
 
-The complete changed function family is dispositioned below. Subordinate
-helpers inherit the row's owner and do not become peer authorities.
+The complete active S03 boundary-crossing authority model is:
+
+| Function or transition | Proposer | Evaluator | Verifier | Admitter | Executor | Projector | Retirement owner |
+|---|---|---|---|---|---|---|---|
+| Publish and validate Program semantics | Product author | Product law | GTL validator | ABG admits exact Program basis for invocation | Product semantic functions | Program/catalog views | Product version authority |
+| Construct root policy and grants | Fixed Public composition supplies admitted values | Product policy constructor | ABG compares with exact workspace and ProgramValidation | ABG root invocation admission | not_applicable: authority construction has no external effect | Invocation/replay refs | Root invocation terminal |
+| Admit public start/invocation | Public request | Product start relation | Validator and ABG basis checks | ABG | HoG after admission | Public outcome/replay | Run terminal |
+| Load installed Product semantics | Fixed Public composition | Product publication binding | Exact install admission and installed-byte verification | Existing install/publication admission | Product semantic provider | not_applicable: provider is not public truth | Operation return or install retirement |
+| Bind and invoke F_D/F_P leaf port | HoG from admitted resolution | Product-declared contract/judgment | Exact install, publication, implementation set, and bytes | ABG admits implementation basis before port construction | Implementation leaf under HoG traversal | ABG evidence/events/replay | Traversal return or install retirement |
+| Synthesize observation and gap | Product Program | Product functions | Contract and exact basis checks | Ordinary ABG C-call admission | Installed Product leaf through HoG's admitted port | Replay/public read | Superseded by admitted refresh |
+| Select next action or no-action stop | Product `evaluateNext` | Product policy | Exact basis, catalog, and Program checks | ABG result/judgment and route/intent admission | HoG applies admitted route | Replay/public lawful-actions or gaps | Consumed by intent/stop/terminal |
+| Open F_H hold and continuation | HoG hold proposal | Declared route/interaction law | ABG cursor and intent checks | ABG atomic hold batch | not_applicable: hold is admitted state | Public continuation carrier | Resolution or named deferred transition |
+| Admit respond/continue operation | Developer request | Product invocation policy | ABG exact grant and durable duplicate checks | ABG before Product or HoG effect | not_applicable: admission is event truth | Replay and refreshed carrier | Invocation terminal |
+| Evaluate F_H response | Attributed F_H candidate | Installed Product semantic function | Product request/response contract and pending basis | ABG response admission after Product validity | Product semantic provider | Replay/public interaction | Continuation resolution |
+| Resume held traversal | Developer request carrying admitted response | Declared continuation law | ABG exact cursor, operation, and grant | ABG resume admission | HoG | Replay/refreshed carrier | Run terminal |
+| Evaluate evidence fold and refresh | Product Program | Product `evaluateAction`, then the same model/gap/next authorities | Exact intent, evidence, workspace, catalog, policy, and causal events | ABG action fold, delta, route, and closure admissions | Installed Product leaves through HoG's admitted port | Replay/public result and lawful actions | Run terminal |
+| Admit gap stop and public re-entry | Product no-action projection or changed observation | Product `evaluateNext` and start relation | ABG exact stopped basis, ProductSet/lock, and single-consumption check | ABG | HoG only after successor invocation admission | Public gap/status/replay | Source gap exhausted after one successor |
+| Apply retry or graph-span re-entry | Product-declared selector result | Product route meaning | HoG scope plus ABG C-call/judgment/bound checks | ABG | HoG | Replay route projection | Bound exhaustion or run terminal |
+| Apply correction, escalation, yield, block, or reprice stop | Product semantic projection | Product policy | ABG exact evidence and route-basis checks | ABG | HoG applies admitted route where traversal continues | Replay/public stop projection | Run terminal or lawful successor |
+| Project immutable reads | Public read request | Closed read variant | Exact carrier and event-prefix rehydration | not_applicable: reads append no truth | Public projector | Public outcome | Carrier supersession by longer prefix |
+| Supersede or abandon continuation | Future Product operation | Unselected | Unselected | Unselected | Unselected | Replay if later selected | `Gap: T-270 re-entry when Product selects either transition` |
+
+The complete discovered atomic-function family is dispositioned below.
+Subordinate helpers inherit the row's owner.
 
 | Discovered functionality | Entity | Atomic function or template | Higher-order composition | Effect class | Required authority | Disposition |
 |---|---|---|---|---|---|---|
 | Resolve public start | `GtlProgram` | `resolveProgramStart` | public-start validation | pure | admitted Program plus Product-declared target policy | derived; retain in `src/gtl` |
-| Construct actor-operation authority | `CapabilityGrant` | `constructCapabilityGrant(operationId, actorRef, capabilityRef)` | root invocation construction | pure | Product invocation policy | derived; retain in `src/product` |
-| Admit root invocation and grants | `InvocationAdmission` | `admitInvocation` | invocation admission fold | event admission | exact Product, workspace, catalog, Program, start, and grants | derived; retain in `src/abg` |
+| Construct root policy | `InvocationPolicyBasis` | `constructRootInvocationPolicy(workspace, Program, validatedInteractionRows, fibres)` | root invocation construction | pure | admitted workspace and exact validated Program | derived; retain in `src/product` |
+| Construct actor-operation authority | `CapabilityGrant` | `constructCapabilityGrant(policy, actor, operation, capability)` | closed grant-set construction | pure | exact Product policy and one Program requirement row for F_H operations | derived; retain in `src/product` |
+| Verify and admit root invocation and grants | `InvocationAdmission` | `validateInvocationCapabilityBasis` then `admitInvocation` | invocation admission fold | event admission | exact Product, workspace, catalog, ProgramValidation, policy, start, and complete non-surplus grants | derived; retain in `src/abg` |
 | Project or refresh public authority | `PublicContinuationAuthority` | `construct/updatePublicContinuationAuthority` | replay projection | downstream | exact continuation and event-prefix identities | derived; retain in `src/public` |
 | Parse and reopen durable authority | `Continuation` | `parsePublicContinuationAuthority` plus `rehydrateFhContinuation` | reopen verification | read plus append-open effect | exact carrier, event prefix, Product basis, and continuation lineage | composed; Public parses, ABG rehydrates |
-| Admit a public continuation operation once | `ContinuationPublicOperationAdmission` | `admitContinuationPublicOperation` | durable idempotency fold | event admission | one admitted actor-operation capability grant and no prior event with the same invocation identity | derived; retain in `src/abg` |
+| Admit a public continuation operation once | `ContinuationPublicOperationAdmission` | `resolveContinuationPublicOperationGrant` then `admitContinuationPublicOperation` | durable idempotency fold | pure authority resolution then event admission | one admitted actor-operation capability grant, exact lifecycle state, and no prior event with the same invocation identity | derived; retain in `src/abg` |
 | Project pending Product meaning | `FhInteractionSemanticBasis` | `projectFhInteractionSemanticBasis` | replay projection | downstream | open continuation and admitted construction lineage | derived; retain in `src/abg` |
-| Evaluate an F_H response | `InteractionResponseCandidate` | `evaluateInstalledInteractionResponse` | installed Product semantic application | effect edge, no runtime truth | exact install/publication authority and Product contract | composed through HoG's installed Product port |
+| Bind installed Product semantics | Product semantics provider | `loadInstalledProductSemantics` | installed Product semantic application | effect edge, no runtime truth | exact admitted install, publication binding, and installed bytes | derived; retain in `src/product`; not a HoG or leaf authority |
+| Evaluate an F_H response | `InteractionResponseCandidate` | `evaluateInstalledInteractionResponse` | installed Product semantic application | Product effect edge, no runtime truth | prior admitted public operation plus exact pending basis and Product contract | derived; retain in `src/product` |
 | Admit response truth | `FhInteractionResponseAdmission` | `admitFhInteractionResponse` | continuation transition | event admission | admitted public operation, grant, Product-valid response, open continuation, and exact basis | derived; retain in `src/abg` |
 | Derive resume input | `FhResumeSuccessorInput` | `deriveFhResumeSuccessorInput` | continuation transition | pure | responded continuation and admitted response | derived; retain in `src/abg` |
 | Admit resume truth | `FhInteractionResumeAdmission` | `admitFhInteractionResume` | continuation transition | event admission | admitted `run.continue` operation and responded continuation | derived; retain in `src/abg` |
-| Bind installed Product semantics | `InstalledProductSemanticsAuthority` | `admitInstalledProductInput`, `evaluateInstalledInteractionResponse`, `bindInstalledLeafInvocationPort` | installed invocation port | effect edge | exact install, publication, store, and implementation set where needed | contracted into one HoG-owned port family |
+| Bind installed executable leaf | F_D/F_P leaf port | `leafInvocationBindingMatches` then `bindInstalledLeafInvocationPort` | HoG leaf invocation | pure authority relation then implementation effect edge | exact install, publication, leaf-only contract/judgment adapter projected from the Product provider, and admitted implementation set | derived; retain in `src/hog`; no F_H semantic evaluation or full Product-provider dependency |
 | Traverse or resume | Run, GraphCall, Frame, C-call, Continuation | existing HoG direct traversal functions | GTL sequential/recursive composition | traversal effect through ABG ports | admitted execution basis and opened traversal scope | consume accepted Sections 1-11 |
 | Totalize post-resume failure | Run and Continuation | existing runtime-failure admission plus authority refresh | failure composition | event admission and projection | reopened append context and resumed Run | composed; every post-append refusal returns the refreshed carrier |
 | Construct observation and gap | `ObservationSnapshot`, gap | Product `synthesizeModel` and `evalGap` | One Surface composition | Product semantic C calls | admitted Program composition and input basis | consume retained Product functions |
@@ -1265,45 +1290,69 @@ helpers inherit the row's owner and do not become peer authorities.
 | Evaluate evidence fold | `ActionEvaluationBasis`, ledger, decision | Product `evaluateAction` | One Surface composition | Product semantic C call | admitted intent, complete evidence, workspace, catalog, and policy | consume retained Product function |
 | Admit delta and convergence | construction fold plus refreshed projections | existing fold/delta admissions and same Product functions | evidence fold then refresh | event admission plus Product C calls | exact composition and run-causal intent lineage | consume retained ABG/Product families |
 | Read status, result, replay, and lawful actions | replay projections | one typed read projection family parameterized by read variant | projection | downstream | valid immutable public authority and replay truth | contracted; no peer read authorities |
+| Stop for gap or reprice | no-action projection | one typed no-action admission parameterized by disposition | Product selection then ABG route admission | Product semantic plus event admission | exact NextActionBasis and admitted judgment | derived; retain existing route/event family |
+| Re-enter from a gap | source gap basis and successor invocation | one invocation admission variant carrying `reentryBasis` | public start composition | event admission | exact unconsumed source, unchanged lock/ProductSet/workspace/Program, and changed Product observation | derived; retain in root invocation family |
+| Re-enter a graph span | route and cursor | one graph-span route variant | bounded HoG traversal | event admission plus traversal | Product selector judgment, exact target, and remaining bound | derived; retain existing route family |
+| Apply correction or escalation | correction projection | one no-progress route family parameterized by disposition | governed evidence fold then stop | Product semantic plus event admission | exact action evaluation, archive/evidence basis, and Product policy | derived; retain existing route/event family |
 | Supersede or abandon a continuation | Continuation | no selected atomic transition in this S03 path | none | deferred event transition | future Product operation and ABG admission law | deferred; re-enter Section 12 when a selected Product path requires either transition |
 | Process-local duplicate or continuation registry | none | none | none | prohibited | none | excluded; process state cannot alter durable admissibility |
 | Public semantic evaluator or controller | none | none | none | prohibited | none | excluded; Public composes ports only |
 | New S03 event family | none | none | none | prohibited | none | excluded; existing ABG event family is complete for this slice |
 
-The governing higher-order relation is:
+The governing higher-order algebra is:
 
 ```text
-resolve and admit start
-  ; HoG traverses Program-declared One Surface C calls
-  ; ABG atomically admits intent and hold
-  ; project explicit authority
-  ; admit Product-valid response
-  ; admit resume
-  ; HoG resumes the exact cursor
-  ; Product evaluates the evidence fold
-  ; ABG admits delta
-  ; Product refreshes to convergence or a truthful stop
-  ; replay projects the public outcome
+unit(admitted start and execution basis)
+  ; traverse(Program-declared C)
+  ; admit(intent + hold + continuation)
+  ; project(explicit durable authority)
+  ; admit(public operation and exact grant)
+  ; evaluate(Product response)
+  ; admit(response)
+  ; admit(public continue operation and resume)
+  ; traverse(exact successor cursor)
+  ; evaluate(Product evidence fold)
+  ; admit(fold + delta)
+  ; traverse(Product refresh)
+  ; admit(convergence | gap | correction | re-entry | stop)
+  ; project(replay-derived public outcome)
 ```
 
-Sequential composition is closed only when each constituent consumes the exact
-prior output and authority basis. Projection cannot widen authority. Failure
-after any append is totalized into ABG truth and returns the next exact public
-authority. No private loop or process registry is a constructor.
+Composition laws:
+
+- **Identity/unit**: the admitted start and `ExecutionBasis` are the only unit;
+  a helper, carrier, actor label, or capability string cannot create a second
+  entry authority.
+- **Closure**: every composed result is either an admitted next basis, an
+  admitted route/transition, a downstream projection, or a typed refusal.
+- **Associativity**: regrouping pure Product projections or downstream reads
+  does not change causal order; eventful admission, Product evaluation, and
+  HoG traversal retain their declared order and cannot commute.
+- **Cardinality**: one root policy, one exact grant set, one consumed operation
+  identity, at most one response and resume per continuation, at most one
+  successor per source gap, and one terminal disposition per Run.
+- **Effects**: Product semantic invocation and leaf invocation are distinct
+  effect edges; event append is ABG's sole truth-writing effect; Public
+  projection is read-only.
+- **Authority conservation**: composition carries the intersection of admitted
+  input authorities. It never widens policy, grant, Program, install,
+  workspace, route, or continuation authority.
 
 Whole-family Prime contraction covers every changed row:
 
-| Candidate family | Contraction result | M3 IACS family | Disposition and reason |
-|---|---|---|---|
-| start request, declared start, and target resolution | one typed GTL start relation | `GtlDeclarationFamily` | retain; Product declaration owns target meaning |
-| invocation policy, three operation grants, and root admission | one parameterized grant constructor plus one invocation admission | `InvocationBasis` | retain; operation is a closed variant, not a peer authority |
-| carrier construction, update, parse, reopen, and read variants | one public carrier plus one reopen/projection family | `ReplayProjectionFamily` | contract; all are downstream over one event prefix |
-| public-operation admission, response admission, resume admission, and failure totalization | typed transitions over one continuation aggregate | `TraversalAggregateFamily` plus `RuntimeEventFamily` | retain as lifecycle variants; ABG is the singular admitter |
-| Product input admission, response evaluation, and executable leaf binding | one installed Product semantics port family | `LeafRealizationBoundary` | contract behind HoG; host code realizes declared meaning but owns no semantic or event authority |
-| observation, gap, next action, evaluation, and refresh values | four Program-declared Product functions and subordinate typed values | `GtlDeclarationFamily` plus `InvocationBasis` | retain; no controller or additional semantic source |
-| status, interaction, result, replay, and lawful-action reads | one parameterized projection family | `ReplayProjectionFamily` | contract; reads cannot append or admit |
-| process registry, Public evaluator, response controller, rival events | no lawful carrier | none | reject; each duplicates accepted authority |
-| supersede and abandon transitions | no selected realization in this slice | `TraversalAggregateFamily` | defer explicitly; do not claim proof |
+| Candidate family | Contraction relation | Retained meaning | Authority before -> after | Accepted loss | Falsification condition | M3 IACS disposition |
+|---|---|---|---|---|---|---|
+| start request, declared start, public target, and target resolution | closed target variant -> one typed GTL start relation | Product-declared entry meaning | Product + GTL -> unchanged | no independent endpoint selector | Public or HoG chooses a target absent from Program | retain in `GtlDeclarationFamily` |
+| policy, operation grants, and root admission | many capability strings -> one policy plus exact closed grant set and one admission | actor-operation authority under exact Program/workspace | caller + Product + ABG ambiguity -> Product proposal, ABG verification/admission | surplus or undeclared grants | all-F_D Program admits F_H grant or actor string alone authorizes | retain in `InvocationBasis` |
+| carrier construction, update, parse, reopen, and read variants | carrier helpers -> one durable carrier plus parameterized projection family | exact-prefix continuation access | Public/process ambiguity -> ABG truth then downstream Public projection | process-local lookup authority | fresh and retained contexts differ, or read appends truth | contract into `ReplayProjectionFamily` |
+| operation, response, resume, failure, and replacement transitions | endpoint helpers -> typed lifecycle transitions over one continuation | durable single-use continuation law | mixed endpoint state -> ABG singular admission | no private mutable current state | Product/HoG effect precedes operation admission or failure strands Run | retain in `TraversalAggregateFamily` and `RuntimeEventFamily` |
+| Product input and F_H semantic evaluation | implementation/HoG ambiguity -> one Product-owned provider bound to publication/install | Product contract and F_H response meaning | HoG/implementation candidate -> Product module effect edge, ABG later admission | no HoG F_H semantic export | HoG exports/evaluates F_H semantics or Product bytes are unbound | subordinate effect edge of `GtlDeclarationFamily`; no ninth Prime family |
+| executable leaf binding and invocation | leaf helpers -> one opaque install-bound port | exact F_D/F_P effect seam | implementation candidate -> HoG traversal through admitted port, ABG truth | no direct Public leaf invocation | execution occurs outside admitted port | retain `LeafRealizationBoundary` |
+| observation, gap, next action, intent, evaluation, and refresh | stage helpers -> four Program-declared semantic authorities plus subordinate values | One Surface Product meaning | role-string/controller ambiguity -> Product functions, ABG admission, HoG traversal | role labels carry no authority | renaming a role changes semantics or closure | retain `GtlDeclarationFamily`, `InvocationBasis`, and aggregate families |
+| gap, graph-span, correction, escalation, reprice, yield, and terminal routes | route-specific helpers -> one typed route family with closed variants | distinct Product disposition and traversal consequence | mixed route handling -> Product semantic selection, HoG proposal, ABG admission | no generic success collapse | one disposition can masquerade as another or bypass basis | retain `TraversalAggregateFamily` and `RuntimeEventFamily` |
+| status, interaction, result, replay, lawful-action, and gap reads | peer readers -> one parameterized read projection | immutable replay-derived public meaning | endpoint-owned summaries -> downstream replay projection | no mutable projection store | read changes events or invents semantic truth | contract into `ReplayProjectionFamily` |
+| process registry, Public evaluator/controller, rival events, compiled carrier | remove candidate family | none | rival sources -> absent | all rival convenience | any becomes necessary for accepted path | reject; no IACS membership |
+| supersede and abandon transitions | no contraction selected | requirement-level lifecycle alternatives | unselected -> unselected | no current realization claim | S03 Product selects either without design re-entry | defer under `TraversalAggregateFamily`, owner T-270 |
 
 The accepted M3 eight-family IACS remains complete. S03 introduces no ninth
 Prime family:
@@ -1315,15 +1364,23 @@ Prime family:
 | exact install, workspace, catalog, and Program basis | `EnvironmentBasis` | `<<prime>> <<authoritative>>` | `src/product`; immutable values public |
 | grants, invocation, start, intent, response, evaluation, and resume bases | `InvocationBasis` | `<<prime>> <<subordinate>> <<authoritative>>` | `src/product` and `src/abg`; refs public, bodies module-local |
 | Run, Frame, C-call, and Continuation | `TraversalAggregateFamily` | `<<prime>> <<authoritative>>` | `src/abg`; replay-visible |
-| installed host semantic evaluator and leaf function | `LeafRealizationBoundary` | `<<prime>> <<effect-edge>>` | `src/implementation`; reachable only through HoG's exact installed port |
+| installed Product semantic provider | subordinate realization of `GtlDeclarationFamily` | `<<subordinate>> <<effect-edge>>` | `src/product`; Product-owned provider loaded from exact admitted publication/install; no HoG export |
+| installed F_D/F_P leaf function | `LeafRealizationBoundary` | `<<prime>> <<effect-edge>>` | `src/implementation`; reachable only through HoG's exact installed leaf port |
 | construction, response, resume, route, failure, and closure events | `RuntimeEventFamily` | `<<prime>> <<authoritative>>` | `src/abg`; append-only and replay-readable |
 | public authority plus status, interaction, result, and replay views | `ReplayProjectionFamily` | `<<prime>> <<downstream>>` | `src/public`; public carrier and reads |
 
 The Product's declared contracts and GTL functions own semantic meaning.
-`src/implementation` realizes those contracts. `src/hog/installed_product.ts`
-is the only adapter visible to Public; it binds exact installed bytes and calls
-the implementation seam. Public imports no implementation module, and the
-adapter gains no Product-selection or runtime-truth authority.
+`src/product/semantics.ts` owns loading and invoking the exact installed Product
+contract and F_H response provider; ABIogenesis's own provider resides in
+`src/product/builtin_semantics.ts`. The fixed Public composition may invoke its F_H response
+function only after ABG admits the corresponding actor-operation grant. HoG
+does not export or evaluate F_H Product semantics.
+`src/hog/installed_product.ts` binds only the F_D/F_P leaf invocation port
+consumed by traversal. Its `LeafContractSemanticsPort` exposes only contract
+validation and judgment resolution, not input or F_H response evaluation.
+Those executable leaves realize the Product-declared GTL functions. Public
+imports no implementation module, and neither adapter gains Product-selection
+or runtime-truth authority.
 
 #### Three views
 
@@ -1367,10 +1424,16 @@ classDiagram
     +CCall
     +Continuation
   }
+  class ProductSemanticBoundary {
+    <<subordinate>>
+    <<effect-edge>>
+    -loadExactProvider()
+    -admitProductInput()
+    -evaluateInteractionResponse()
+  }
   class LeafRealizationBoundary {
     <<prime>>
     <<effect-edge>>
-    -evaluateProductSemantics()
     -invokeLeaf()
   }
   class RuntimeEventFamily {
@@ -1389,10 +1452,10 @@ classDiagram
     +ReplayState
     -projectRead()
   }
-  class HoGInstalledProductPort {
+  class HoGLeafPort {
     <<subordinate>>
     <<effect-edge>>
-    -bindInstalledProduct()
+    -bindInstalledLeaf()
     -executeTraversal()
   }
   class GtlFunctions {
@@ -1415,6 +1478,9 @@ classDiagram
   class InstalledProductFunctions {
     <<effect-edge>>
     -evaluateInteractionResponse()
+  }
+  class InstalledLeafFunctions {
+    <<effect-edge>>
     -invokeDeclaredFunction()
   }
   class PublicAdapter {
@@ -1431,18 +1497,21 @@ classDiagram
   }
   GtlDeclarationFamily "1" --> "1" ValidationFamily
   GtlDeclarationFamily "1" *-- "1" GtlFunctions
+  GtlDeclarationFamily "1" *-- "1" ProductSemanticBoundary
+  ProductSemanticBoundary "1" *-- "1" InstalledProductFunctions
   EnvironmentBasis "1" *-- "1" InvocationBasis
   GtlDeclarationFamily "1" *-- "1" InvocationBasis
   InvocationBasis "1" *-- "1" AbgAdmissionFunctions
   InvocationBasis "1" --> "1" TraversalAggregateFamily
   TraversalAggregateFamily "1" *-- "1" HoGTraversalFunctions
-  TraversalAggregateFamily "1" --> "1" HoGInstalledProductPort
-  HoGInstalledProductPort "1" --> "1" LeafRealizationBoundary
-  LeafRealizationBoundary "1" *-- "1" InstalledProductFunctions
+  TraversalAggregateFamily "1" --> "1" HoGLeafPort
+  HoGLeafPort "1" --> "1" LeafRealizationBoundary
+  LeafRealizationBoundary "1" *-- "1" InstalledLeafFunctions
   TraversalAggregateFamily "1" --> "1..*" RuntimeEventFamily
   RuntimeEventFamily "1..*" --> "1" ReplayProjectionFamily
   PublicAdapter "1" --> "1" ReplayProjectionFamily
-  PublicAdapter "1" --> "1" HoGInstalledProductPort
+  PublicAdapter "1" --> "1" ProductSemanticBoundary
+  PublicAdapter "1" --> "1" HoGLeafPort
   TraversalAggregateFamily "1" --> "0..*" DeferredContinuationTransition
 ```
 
@@ -1453,32 +1522,35 @@ sequenceDiagram
   participant GtlFunctions
   participant AbgAdmissionFunctions
   participant HoGTraversalFunctions
-  participant InstalledProductFunctions
+  participant ProductSemanticBoundary
+  participant LeafRealizationBoundary
   Developer->>PublicAdapter: start(target, until=converged, root_mode)
   PublicAdapter->>GtlFunctions: resolveProgramStart(admitted Program, request)
   GtlFunctions-->>PublicAdapter: declared start or refusal
   PublicAdapter->>AbgAdmissionFunctions: admit invocation, start, and capability grants
   AbgAdmissionFunctions-->>PublicAdapter: admitted invocation basis
   PublicAdapter->>HoGTraversalFunctions: execute(admitted basis, installed port)
-  HoGTraversalFunctions->>InstalledProductFunctions: invoke declared One Surface functions
-  InstalledProductFunctions-->>HoGTraversalFunctions: typed Product candidates
+  HoGTraversalFunctions->>LeafRealizationBoundary: invoke declared Product semantic C calls
+  LeafRealizationBoundary-->>HoGTraversalFunctions: typed Product candidates
   HoGTraversalFunctions->>AbgAdmissionFunctions: propose intent and hold
   AbgAdmissionFunctions-->>PublicAdapter: held plus explicit continuation authority
   Developer->>PublicAdapter: interaction.respond(authority, candidate)
   PublicAdapter->>AbgAdmissionFunctions: reopen, admit public operation, project pending basis
   AbgAdmissionFunctions-->>PublicAdapter: admitted grant plus exact interaction basis
-  PublicAdapter->>HoGTraversalFunctions: evaluate installed Product response
-  HoGTraversalFunctions->>InstalledProductFunctions: evaluateInteractionResponse(basis, candidate)
-  InstalledProductFunctions-->>HoGTraversalFunctions: canonical response or refusal
-  HoGTraversalFunctions-->>PublicAdapter: Product-valid response or refusal
+  PublicAdapter->>ProductSemanticBoundary: evaluateInteractionResponse(admitted operation, basis, candidate)
+  ProductSemanticBoundary-->>PublicAdapter: canonical response or refusal
   PublicAdapter->>AbgAdmissionFunctions: admit attributed response
   AbgAdmissionFunctions-->>PublicAdapter: responded authority
   Developer->>PublicAdapter: run.continue(responded authority)
   PublicAdapter->>AbgAdmissionFunctions: reopen, admit continue operation, admit resume
   AbgAdmissionFunctions-->>PublicAdapter: exact successor cursor
   PublicAdapter->>HoGTraversalFunctions: resume(admitted cursor, installed port)
-  HoGTraversalFunctions->>InstalledProductFunctions: evaluate evidence and refresh
-  InstalledProductFunctions-->>HoGTraversalFunctions: convergence or lawful stop
+  HoGTraversalFunctions->>LeafRealizationBoundary: evaluate evidence and refresh
+  LeafRealizationBoundary-->>HoGTraversalFunctions: convergence or lawful stop
+  opt other F_D or F_P leaf
+    HoGTraversalFunctions->>LeafRealizationBoundary: invoke admitted leaf port
+    LeafRealizationBoundary-->>HoGTraversalFunctions: leaf candidate
+  end
   HoGTraversalFunctions->>AbgAdmissionFunctions: propose route
   AbgAdmissionFunctions-->>PublicAdapter: admitted route and replay truth
   PublicAdapter-->>Developer: outcome plus next authority
@@ -1496,7 +1568,7 @@ stateDiagram-v2
   Active --> Blocked: admit block or runtime failure / ABG
   Active --> Stopped: admit gap or correction disposition / ABG
   Active --> Closed: admit delta, refreshed convergence, and closure / ABG
-  Responded --> Failed: totalize post-resume failure / ABG
+  Active --> Failed: totalize post-resume failure after resume / ABG
   Failed --> Readable: refresh public authority / Public projection
   Closed --> Readable: exhaust append and retain immutable read authority
   Blocked --> [*]
@@ -1509,23 +1581,44 @@ stateDiagram-v2
 | Axiom | Ontology evidence | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
 |---|---|---|---|---|---|---|---|---|---|
 | continuation authority is explicit and process-independent | one carrier and one ABG continuation aggregate | ABG event truth precedes projection | carrier is downstream of events | every reopen supplies the carrier | same and fresh contexts reach the same event-derived state | carrier parser and event-store reopen | ABG rehydration and durable operation-identity scan | pass, focused installed proof green | none |
-| F_H capability is admitted provenance, not string equality | one actor-operation `CapabilityGrant` variant | Product proposes; ABG admits and later resolves exact grant | grant belongs to `InvocationBasis` | response and continue each name the admitted grant | no transition without grant admission | structural grant digest and exact operation variant | invocation and continuation admission | pass, focused wrong-capability proof green | none |
-| Product meaning is not a Public or implementation authority | contracts and functions remain in `GtlDeclarationFamily`; host is effect edge | Product declaration owns meaning; host realizes; ABG admits | HoG installed port associates declaration with exact bytes | Public calls HoG, HoG calls installed Product, HoG calls ABG ports | Product refusal leaves runtime state unchanged | `src/hog/installed_product.ts`; no Public implementation import | exact install/publication binding plus ABG admission | pass, M4 and M5 dependency regressions green | none |
+| F_H capability is admitted provenance, not string equality | policy and exact closed grant set belong to `InvocationBasis` | Product proposes from exact Program/workspace; ABG independently verifies and admits | no grant exists without matching Program F_H requirement | response/continue admission precedes Product/HoG effect | no transition without exact grant admission | Product constructors reject undeclared grant | ABG rejects missing, surplus, reordered, wrong-actor, wrong-policy, and wrong-capability sets | pass, module-owned and installed negatives green | none |
+| Product meaning is not a Public, HoG, or implementation authority | contracts/functions remain in `GtlDeclarationFamily`; Product provider is subordinate effect edge; leaf boundary is separate | Product declaration owns meaning; Product module invokes provider; ABG admits truth | Product and leaf boundaries are distinct | Public admits operation then calls Product; HoG traverses and invokes only leaves | Product refusal leaves runtime state unchanged | `src/product/semantics.ts`; no HoG semantic export or Public implementation import | exact install/publication binding plus ABG admission | pass, module-owned topology proof and installed zero-call negatives green | none |
 | public operation identity is durable and context-independent | operation admission is one RuntimeEvent variant | ABG is singular admitter | no process-registry entity exists | duplicate check reads event truth | retained and fresh contexts refuse identically | no continuation operation uses `RootOperationState` admission | existing `public_operation_admitted` event identity | pass, focused installed proof green | none |
 | post-resume failure is total and publicly reopenable | failure transition plus refreshed carrier | ABG admits failure; Public projects authority | failure remains runtime truth, carrier remains downstream | every post-append catch replays and returns next authority | Responded reaches Active, Failed, then Readable | public refusal outcome carries event and continuation metadata | runtime failure event and exact-prefix refresh | pass, focused installed-byte mutation green | none |
 | direct and supervised start share one convergence law | one GTL start relation with closed root-mode variant | Product policy plus GTL relation | both variants remain in declaration family | both reject `first_traversal`; direct positive traverses six C calls | admitted start enters Active only with converged | `src/gtl/public_start.ts` | validator and invocation admission | pass, focused installed proof green | none |
-| S03 closure is evidence-fold and replay governed | intent, evaluation, delta, refresh, and terminal entities are complete | Product evaluates; ABG admits; HoG traverses | no role-label authority exists | terminal route follows delta and refreshed convergence | Closed reachable only from admitted converged state | Product contracts and HoG traversal | ABG run-causal intent fold | pass, retained installed mutations and M5 123/123 green | none |
-| no rival controller, runtime, or event authority | whole-family contraction retains eight M3 families | existing four semantic authorities unchanged | Public and HoG helpers are subordinate | Public never selects Product action or calls implementation directly | lifecycle is event-derived | module import census and M4 rivals | M4 and M5 gates | pass, M4 26/26 and M5 123/123 green | none |
+| S03 closure is evidence-fold and replay governed | intent, evaluation, delta, refresh, and terminal entities are complete | Product evaluates; ABG admits; HoG traverses | no role-label authority exists | terminal route follows delta and refreshed convergence | Closed reachable only from admitted converged state | Product contracts and HoG traversal | ABG run-causal intent fold | pass, retained installed mutations and M5 127/127 green | none |
+| gap/public re-entry is single-use and basis-preserving | source gap and successor basis are one lifecycle family | Product supplies changed observation; ABG admits successor once | no peer re-entry controller | read is side-effect-free; successor admission precedes Run open | Stopped reaches one new Active Run or refusal | exact lock/ProductSet/workspace/Program restoration | durable source-consumption scan | pass, retained installed mutations green | none |
+| graph-span, correction, escalation, reprice, yield, block, and non-admission remain distinct | one closed route/disposition family | Product owns semantic choice; HoG proposes; ABG admits | route variants share no generic success identity | each route follows its exact judgment/basis | each reaches its declared active, stopped, blocked, or failed state | typed route constructors | ABG basis and event admission | pass for realized S03 paths; qualification-wide conservation remains deferred | T-270 final M5 conservation gate |
+| no rival controller, runtime, or event authority | whole-family contraction retains eight M3 families | existing four semantic authorities unchanged | Public and HoG helpers are subordinate | Public never selects Product action or calls implementation directly | lifecycle is event-derived | module import census and M4 rivals | M4 and M5 gates | pass, M4 26/26 and M5 127/127 green | none |
 | superseded and abandoned continuation transitions are not falsely claimed | explicit deferred functionality row | no selected Product operation authorizes either transition | deferred class is outside realized associations | no message claims either transition | active state diagram omits both realized transitions | no implementation path | no admission event selected | not_applicable to selected S03 path; deferred | T-270 re-entry if Product selects replacement or abandonment |
 
-The module proof subject is the installed external Product path. Component
-tests may support local relations, but acceptance requires the packed Product,
-fresh public contexts, explicit carriers, append-only event truth, replay
-agreement, M4 root regression, complete M5 gate, Mermaid rendering, and
-reproducible packages. The focused external Product proof is green at 36/36,
-the complete M5 gate at 123/123, the M4 root at 26/26, and exact-file Mermaid
-rendering at 7/7. The exact design and implementation cut remains pending
-package reproduction, freeze, independent review, and direct acceptance; it
+The canonical module-owned proof is `test:m5:s03-unit`. It derives from the
+`InvocationBasis`, Product semantic boundary, and leaf-boundary ownership
+above. It proves exact Program-derived grant construction, independent ABG
+grant-set verification, all-F_D surplus-F_H refusal, exact continuation
+lifecycle/grant resolution, exact HoG leaf-binding agreement, Product ownership
+of the installed semantic evaluator, and absence of that evaluator from HoG's
+public port. The packed external Product scenario remains downstream integration
+proof; it cannot replace the module lane. It proves admission-before-effect
+with instrumented zero-evaluator-call wrong-actor and wrong-capability
+negatives, durable duplicate admission across retained and fresh contexts,
+fresh-context continuation, and the complete S03 route behavior.
+
+Operational lifecycle confirmation:
+
+| Phase | Surface and current posture | Owner and source truth |
+|---|---|---|
+| upstream authority | Product S03, applicable requirements, accepted M03, M05 Sections 1-11, and this provisional Section 12 | Product/requirement authority; T-270 owns the selected correction |
+| realization | TypeScript `src/product`, `src/abg`, `src/hog`, `src/public`, and exact external Product fixture | module design and code under T-270 |
+| assurance | `test:m5:s03-unit` is canonical module proof; external, M5, M4, Mermaid, and mutation lanes are downstream assurance | module owners; test results are evidence, not authority |
+| package/release | two clean package builds must be byte-identical; no 5.0 release claim yet | Product packaging law; M7/T-248 owns release |
+| deploy/install | clean consumer directory installs packed ABIogenesis and separately packed Product; exact installs are admitted | Product install/workspace/catalog law and ABG admission |
+| live invocation | SDK/CLI uses exact public operations; Product semantics, HoG traversal, implementation leaves, and ABG truth retain distinct ownership | Product, HoG, implementation, and ABG boundaries above |
+| telemetry/projection | append-only ABG events and deterministic replay feed immutable public reads | ABG event truth; Public downstream projection |
+| retirement/decommission | operation-local providers/ports retire on return; grants and append authority exhaust at terminal state; immutable history remains; Product/install retirement stays with release/install law | ABG for runtime authority; Product/release authority for versions and installs |
+
+The exact design and implementation cut remains pending full gate rerun,
+package reproduction, freeze, independent review, and direct acceptance. It
 cannot self-accept.
 
 ```text
@@ -1611,12 +1704,13 @@ exact intent-availability fluent. `fh_interaction_opened` consumes that fluent,
 and durable continuation truth preserves its identity. Replay joins the intent
 to the route for `project.read`; Public performs no selection or recomputation.
 Before runtime admission, ABG projects the exact pending request,
-`NextActionBasis`, and `ConstructionIntent` from that lineage. The installed
-Product semantics binding evaluates the response candidate against that basis
-through HoG's exact install-bound port and returns either one canonical
-Product-valid response or refusal. Public does not import or invoke an
-implementation module. A response naming another intent or a choice outside
-the Product-owned pending choice therefore refuses before
+`NextActionBasis`, and `ConstructionIntent` from that lineage. After ABG admits
+the exact actor-operation grant, the Product-owned installed semantics provider
+evaluates the response candidate against that basis and returns either one
+canonical Product-valid response or refusal. Public invokes the Product module
+adapter but does not import or invoke an implementation module. HoG does not
+participate in F_H response evaluation. A response naming another intent or a
+choice outside the Product-owned pending choice therefore refuses before
 `fh_interaction_responded`.
 
 The root invocation admits actor-operation `CapabilityGrant` values for

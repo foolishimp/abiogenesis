@@ -53,7 +53,7 @@ import type {
   LeafInvocationPort,
   ProbabilisticLeafEffectPort,
 } from "../implementation/contracts.js";
-import { isAdmittedLeafInvocationPort } from "../implementation/invocation_port.js";
+import { isAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
 import type {
   ClosureContract,
   FanOutApplication,

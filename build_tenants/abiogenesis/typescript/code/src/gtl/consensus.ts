@@ -3381,7 +3381,7 @@ export function constructConsensusModulePublication(
       bindingRef: CONSENSUS_IDS.productSemanticsBindingRef,
       packageName: artifact.packageName,
       packageVersion: artifact.packageVersion,
-      modulePath: "build/code/src/implementation/product_semantics.js",
+      modulePath: "build/code/src/product/builtin_semantics.js",
       namedSymbol: "ABI5_SYSTEM_PRODUCT_SEMANTICS",
     },
     contracts,

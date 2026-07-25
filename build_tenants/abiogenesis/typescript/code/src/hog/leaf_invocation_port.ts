@@ -13,11 +13,11 @@ import { installedProductContentMatches } from "../product/install_product.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type {
+  LeafContractSemanticsPort,
   LeafInvocationPort,
   LeafInvocationResolution,
   ProbabilisticLeafEffectPort,
-  ProductSemanticsProvider,
-} from "./contracts.js";
+} from "../implementation/contracts.js";
 
 const admittedPorts = new WeakSet<object>();
 
@@ -25,50 +25,33 @@ export function isAdmittedLeafInvocationPort(value: object): boolean {
   return admittedPorts.has(value);
 }
 
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-export async function loadInstalledProductSemantics(authority: {
-  readonly store: AbgEventStore;
-  readonly install: ProductInstall;
-  readonly publication: Readonly<ModulePublication>;
-}): Promise<ProductSemanticsProvider> {
-  const binding = authority.publication.productSemanticsBinding;
-  if (
-    !hasAdmittedProductInstall(authority.store, authority.install) ||
-    binding.packageName !== authority.install.packageName ||
-    binding.packageVersion !== authority.install.packageVersion ||
-    !(await installedProductContentMatches(authority.install))
-  ) {
-    throw new TypeError(
-      "Product semantics requires one exact admitted install and publication binding",
-    );
-  }
-  const exactPath = resolve(authority.install.installedRoot, binding.modulePath);
-  const relation = relative(authority.install.installedRoot, exactPath);
-  if (relation.length === 0 || relation.startsWith("..") || isAbsolute(relation)) {
-    throw new TypeError("Product semantics module escapes the admitted Product install");
-  }
-  const loaded = await import(pathToFileURL(exactPath).href) as Record<string, unknown>;
-  const value = loaded[binding.namedSymbol];
-  if (
-    !isRecord(value) ||
-    value.kind !== "product_semantics_provider" ||
-    value.schemaVersion !== "5.0.0" ||
-    value.bindingRef !== binding.bindingRef ||
-    value.packageName !== binding.packageName ||
-    value.packageVersion !== binding.packageVersion ||
-    typeof value.admitInput !== "function" ||
-    typeof value.evaluateInteractionResponse !== "function" ||
-    typeof value.validateContractValue !== "function" ||
-    typeof value.resolveJudgmentRelation !== "function"
-  ) {
-    throw new TypeError(
-      "installed Product semantics provider differs from its published binding",
-    );
-  }
-  return value as unknown as ProductSemanticsProvider;
+export function leafInvocationBindingMatches(authority: Readonly<{
+  install: Pick<ProductInstall, "packageName" | "packageVersion">;
+  implementationSet: Pick<
+    AdmittedImplementationSet,
+    "publicationDigest" | "rows"
+  >;
+  publication: Readonly<ModulePublication>;
+  semantics: Pick<
+    LeafContractSemanticsPort,
+    "bindingRef" | "packageName" | "packageVersion"
+  >;
+}>): boolean {
+  const publicationDigest = sha256Canonical(
+    authority.publication as unknown as JsonValue,
+  );
+  const semanticsBinding = authority.publication.productSemanticsBinding;
+  return (
+    authority.implementationSet.publicationDigest === publicationDigest &&
+    authority.implementationSet.rows.every(
+      (row) =>
+        row.packageName === authority.install.packageName &&
+        row.packageVersion === authority.install.packageVersion,
+    ) &&
+    authority.semantics.bindingRef === semanticsBinding.bindingRef &&
+    authority.semantics.packageName === semanticsBinding.packageName &&
+    authority.semantics.packageVersion === semanticsBinding.packageVersion
+  );
 }
 
 export async function constructAdmittedLeafInvocationPort(authority: {
@@ -76,24 +59,20 @@ export async function constructAdmittedLeafInvocationPort(authority: {
   readonly install: ProductInstall;
   readonly implementationSet: AdmittedImplementationSet;
   readonly publication: Readonly<ModulePublication>;
+  readonly semantics: LeafContractSemanticsPort;
 }): Promise<LeafInvocationPort> {
   const publicationDigest = sha256Canonical(authority.publication as unknown as JsonValue);
   if (
     !hasAdmittedProductInstall(authority.store, authority.install) ||
     !hasAdmittedImplementationSet(authority.store, authority.implementationSet) ||
-    authority.implementationSet.publicationDigest !== publicationDigest ||
-    authority.implementationSet.rows.some(
-      (row) =>
-        row.packageName !== authority.install.packageName ||
-        row.packageVersion !== authority.install.packageVersion,
-    ) ||
+    !leafInvocationBindingMatches(authority) ||
     !(await installedProductContentMatches(authority.install))
   ) {
     throw new TypeError(
       "leaf invocation port requires one exact admitted install, publication, and implementation set",
     );
   }
-  const semantics = await loadInstalledProductSemantics(authority);
+  const semantics = authority.semantics;
   const modules = new Map<string, Promise<Record<string, unknown>>>();
 
   async function loadModule(modulePath: string): Promise<Record<string, unknown>> {

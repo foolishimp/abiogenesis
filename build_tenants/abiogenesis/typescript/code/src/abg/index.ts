@@ -36,6 +36,7 @@ export {
 export {
   admitInvocation,
   rehydrateInvocationAdmission,
+  validateInvocationCapabilityBasis,
   type InvocationAdmission,
   type InvocationAdmissionInput,
   type InvocationReentryBasis,
@@ -177,6 +178,7 @@ export {
   projectFhContinuations,
   projectFhInteractionSemanticBasis,
   rehydrateFhContinuation,
+  resolveContinuationPublicOperationGrant,
   type ContinuationProductBasis,
   type ContinuationPublicOperationAdmission,
   type FhInteractionContinuation,

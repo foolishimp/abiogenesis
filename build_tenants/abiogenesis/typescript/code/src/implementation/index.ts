@@ -25,18 +25,13 @@ export type {
   DeterministicEvidenceCandidate,
   HelloWorldLeafImplementation,
   HelloWorldLeafRealizationCandidate,
+  LeafContractSemanticsPort,
   LeafInvocationPort,
   LeafInvocationResolution,
-  ProductSemanticsProvider,
   ProbabilisticLeafEffectPort,
   ProbabilisticWorkerObservation,
   ProbabilisticWorkerRequest,
 } from "./contracts.js";
-export {
-  constructAdmittedLeafInvocationPort,
-  isAdmittedLeafInvocationPort,
-  loadInstalledProductSemantics,
-} from "./invocation_port.js";
 export {
   CONSENSUS_ESCALATION_FINALIZER_IMPLEMENTATION_DESCRIPTOR,
   CONSENSUS_EVAL_GAP_IMPLEMENTATION_DESCRIPTOR,
@@ -65,8 +60,4 @@ export {
   realizeConsensusReviewer,
   realizeConsensusRoundEvaluation,
 } from "./consensus.js";
-export {
-  ABI5_PRODUCT_SEMANTICS,
-  ABI5_SYSTEM_PRODUCT_SEMANTICS,
-} from "./product_semantics.js";
 export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";

@@ -53,15 +53,20 @@ test("R5 selects and admits the exact validated direct invocation target", async
     "public_operation_request",
     "contract://abiogenesis/public/run-invoke-request@5",
   );
-  const policy = product.constructRootInvocationPolicy();
+  const policy = product.constructRootInvocationPolicy(
+    workspaceBinding,
+    program,
+    [],
+  );
   const actorRef = "actor://abiogenesis/t286/trusted-developer";
-  const capabilityGrant = product.constructCapabilityGrant(actorRef);
+  const capabilityGrant = product.constructCapabilityGrant(policy, actorRef);
   const authority = product.constructInvocationAuthority(
     actorRef,
     workspaceBinding,
     catalogView,
     program.programRef,
     graphFunction.name,
+    policy,
     [capabilityGrant],
   );
   assert.equal(authority.kind, "invocation_authority", JSON.stringify(authority));

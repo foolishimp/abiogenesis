@@ -75,26 +75,10 @@ export interface LeafInvocationResolution {
   readonly namedSymbol: string;
 }
 
-export interface ProductSemanticsProvider {
-  readonly kind: "product_semantics_provider";
-  readonly schemaVersion: "5.0.0";
+export interface LeafContractSemanticsPort {
   readonly bindingRef: string;
   readonly packageName: string;
   readonly packageVersion: string;
-  readonly admitInput: (
-    contractRef: string,
-    value: unknown,
-  ) => Readonly<Record<string, JsonValue>> | null;
-  readonly evaluateInteractionResponse: (
-    basis: Readonly<{
-      readonly requestContractRef: string;
-      readonly responseContractRef: string;
-      readonly requestValue: Readonly<Record<string, JsonValue>>;
-      readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
-      readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
-    }>,
-    responseCandidate: unknown,
-  ) => Readonly<Record<string, JsonValue>> | null;
   readonly validateContractValue: (
     valueKind: string,
     value: unknown,

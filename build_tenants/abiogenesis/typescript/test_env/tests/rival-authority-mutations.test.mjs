@@ -357,7 +357,7 @@ test("B8 post-open judgment exceptions complete the admitted CCall spine", async
   );
   const judgmentPath = join(
     scenario.installedRoot,
-    "build/code/src/implementation/product_semantics.js",
+    "build/code/src/product/builtin_semantics.js",
   );
   const judgmentSource = await readFile(judgmentPath, "utf8");
   const marker =

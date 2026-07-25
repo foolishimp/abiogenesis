@@ -38,10 +38,10 @@ import {
 import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
-} from "../product/contracts.js";
+} from "./contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type { ProductSemanticsProvider } from "./contracts.js";
+import type { ProductSemanticsProvider } from "./semantics.js";
 
 function admitInput(
   contractRef: string,

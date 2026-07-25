@@ -9,6 +9,7 @@ import {
   type CapabilityGrant,
   type CatalogView,
   type InvocationAuthority,
+  type InvocationInteractionCapability,
   type InvocationPolicyBasis,
   type PublicInvocationCandidate,
   type RunInvocationVariant,
@@ -174,6 +175,109 @@ function validatedComputeRegimes(
     ...validation.interactionLeafRows.map((row) => row.fibre),
   ]);
   return (["F_D", "F_P", "F_H"] as const).filter((regime) => declared.has(regime));
+}
+
+function validatedInteractionCapabilities(
+  validation: ProgramValidation,
+): readonly InvocationInteractionCapability[] {
+  return validation.interactionLeafRows
+    .map((row) => ({
+      requirementKey: row.requirementKey,
+      requirementKeyDigest: row.requirementKeyDigest,
+      actorCapabilityRef: row.requirement.actorCapabilityRef,
+    }))
+    .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+}
+
+export function validateInvocationCapabilityBasis(input: Readonly<{
+  actorRef: string;
+  capabilityGrants: readonly CapabilityGrant[];
+  policy: InvocationPolicyBasis;
+  program: Readonly<GtlProgram>;
+  programValidation: ProgramValidation;
+  workspaceBinding: WorkspaceBinding;
+}>): InvocationAdmissionRefusal | null {
+  const exactComputeRegimes = validatedComputeRegimes(input.programValidation);
+  const exactInteractionCapabilities = validatedInteractionCapabilities(
+    input.programValidation,
+  );
+  if (
+    !isInvocationPolicyBasis(input.policy) ||
+    input.policy.authorityMode !== "trusted_developer" ||
+    input.policy.authorityBasisId !== input.workspaceBinding.authorityBasisId ||
+    input.policy.authorityBasisDigest !==
+      input.workspaceBinding.authorityBasisDigest ||
+    input.policy.workspaceBindingId !== input.workspaceBinding.bindingId ||
+    input.policy.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||
+    input.policy.programRef !== input.program.programRef ||
+    input.policy.programDigest !==
+      sha256Canonical(input.program as unknown as JsonValue) ||
+    input.policy.allowedComputeRegimes.join("\0") !== exactComputeRegimes.join("\0") ||
+    sha256Canonical(
+      input.policy.interactionCapabilities as unknown as JsonValue,
+    ) !== sha256Canonical(
+      exactInteractionCapabilities as unknown as JsonValue,
+    ) ||
+    input.policy.graphMaterialization !== "after_invocation_admission"
+  ) {
+    return refusal(
+      "capability_mismatch",
+      "root invocation policy differs from the admitted workspace, Program, compute fibres, or interaction requirements",
+    );
+  }
+  const expectedGrantRows = [
+    {
+      operationId: "abg.operation.run.invoke",
+      capabilityRef: DIRECT_INVOKE_CAPABILITY,
+      interactionRequirementKeys: [] as readonly string[],
+    },
+    ...[
+      ...new Set(
+        exactInteractionCapabilities.map((row) => row.actorCapabilityRef),
+      ),
+    ].sort().flatMap((capabilityRef) => {
+      const interactionRequirementKeys = exactInteractionCapabilities
+        .filter((row) => row.actorCapabilityRef === capabilityRef)
+        .map((row) => row.requirementKey);
+      return [
+        {
+          operationId: "abg.operation.interaction.respond",
+          capabilityRef,
+          interactionRequirementKeys,
+        },
+        {
+          operationId: "abg.operation.run.continue",
+          capabilityRef,
+          interactionRequirementKeys,
+        },
+      ];
+    }),
+  ];
+  if (
+    input.capabilityGrants.length !== expectedGrantRows.length ||
+    new Set(input.capabilityGrants.map((grant) => grant.grantRef)).size !==
+      input.capabilityGrants.length ||
+    input.capabilityGrants.some((grant, index) => {
+      const expected = expectedGrantRows[index];
+      return (
+        expected === undefined ||
+        !isCapabilityGrant(grant) ||
+        grant.actorRef !== input.actorRef ||
+        grant.policyRef !== input.policy.policyRef ||
+        grant.policyDigest !== input.policy.policyDigest ||
+        grant.operationId !== expected.operationId ||
+        grant.capabilityRef !== expected.capabilityRef ||
+        grant.interactionRequirementKeys.join("\0") !==
+          expected.interactionRequirementKeys.join("\0")
+      );
+    })
+  ) {
+    return refusal(
+      "capability_mismatch",
+      "invocation capability grants are absent, surplus, reordered, or inconsistent with the exact Program requirements",
+    );
+  }
+  return null;
 }
 
 export function hasAdmittedInvocation(
@@ -535,31 +639,25 @@ export function admitInvocation(
       );
     }
   }
-  const exactComputeRegimes = validatedComputeRegimes(input.programValidation);
+  const capabilityRefusal = validateInvocationCapabilityBasis({
+    actorRef: input.invocation.actorAttributionRef,
+    capabilityGrants: input.capabilityGrants,
+    policy: input.policy,
+    program: input.program,
+    programValidation: input.programValidation,
+    workspaceBinding: input.workspaceBinding,
+  });
   if (
-    !isInvocationPolicyBasis(input.policy) ||
+    capabilityRefusal !== null ||
     input.policy.policyRef !== input.invocation.sessionPolicyRef ||
     input.policy.policyDigest !== input.invocation.sessionPolicyDigest ||
-    input.policy.allowedComputeRegimes.join("\0") !== exactComputeRegimes.join("\0") ||
-    input.policy.graphMaterialization !== "after_invocation_admission"
-  ) {
-    return refusal("capability_mismatch", "root invocation policy differs from the exact validated compute fibres");
-  }
-  if (
-    input.capabilityGrants.length === 0 ||
-    new Set(input.capabilityGrants.map((grant) => grant.grantRef)).size !== input.capabilityGrants.length ||
-    input.capabilityGrants.some((grant) =>
-      !isCapabilityGrant(grant) ||
-      grant.actorRef !== input.invocation.actorAttributionRef) ||
-    !input.capabilityGrants.some(
-      (grant) =>
-        grant.operationId === "abg.operation.run.invoke" &&
-        grant.capabilityRef === DIRECT_INVOKE_CAPABILITY,
-    ) ||
     input.invocation.capabilityGrantRefs.join("\0") !== input.capabilityGrants.map((grant) => grant.grantRef).join("\0") ||
     input.invocation.capabilityGrantDigests.join("\0") !== input.capabilityGrants.map((grant) => grant.grantDigest).join("\0")
   ) {
-    return refusal("capability_mismatch", "invocation capability grants are absent, reordered, or inconsistent");
+    return capabilityRefusal ?? refusal(
+      "capability_mismatch",
+      "invocation candidate differs from its exact admitted policy or grants",
+    );
   }
   if (
     !isInvocationAuthority(input.authority) ||
@@ -568,9 +666,14 @@ export function admitInvocation(
     input.authority.authorityDigest !== input.invocation.invocationAuthorityDigest ||
     input.authority.actorRef !== input.invocation.actorAttributionRef ||
     input.authority.workspaceBindingId !== input.workspaceBinding.bindingId ||
+    input.authority.workspaceBindingDigest !==
+      input.workspaceBinding.bindingDigest ||
     input.authority.catalogViewId !== input.catalogView.viewId ||
+    input.authority.catalogViewDigest !== input.catalogView.viewDigest ||
     input.authority.programRef !== input.program.programRef ||
     input.authority.graphFunctionRef !== input.graphFunction.name ||
+    input.authority.policyRef !== input.policy.policyRef ||
+    input.authority.policyDigest !== input.policy.policyDigest ||
     input.authority.capabilityGrantRefs.join("\0") !== input.capabilityGrants.map((grant) => grant.grantRef).join("\0")
   ) {
     return refusal("authority_mismatch", "invocation authority does not cover the exact actor, environment, and target");

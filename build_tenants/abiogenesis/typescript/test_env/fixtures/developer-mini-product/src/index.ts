@@ -3294,6 +3294,16 @@ function isDeveloperSemanticStageAdvance(
   return false;
 }
 
+let interactionResponseEvaluationCount = 0;
+
+export function resetInteractionResponseEvaluationCount(): void {
+  interactionResponseEvaluationCount = 0;
+}
+
+export function readInteractionResponseEvaluationCount(): number {
+  return interactionResponseEvaluationCount;
+}
+
 export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
   kind: "product_semantics_provider" as const,
   schemaVersion: "5.0.0" as const,
@@ -3355,6 +3365,7 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
     }>,
     responseCandidate: unknown,
   ) {
+    interactionResponseEvaluationCount += 1;
     if (
       basis.constructionIntent === null &&
       basis.nextActionBasis === null

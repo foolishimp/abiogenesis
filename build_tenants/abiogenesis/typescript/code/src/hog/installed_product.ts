@@ -1,43 +1,22 @@
 import type { AbgEventStore } from "../abg/event_store.js";
 import type { AdmittedImplementationSet } from "../abg/execution_basis.js";
 import type { ModulePublication } from "../gtl/contracts.js";
-import {
-  constructAdmittedLeafInvocationPort,
-  loadInstalledProductSemantics,
-} from "../implementation/invocation_port.js";
 import type {
+  LeafContractSemanticsPort,
   LeafInvocationPort,
-  ProductSemanticsProvider,
 } from "../implementation/contracts.js";
 import type { ProductInstall } from "../product/environment.js";
-import type { JsonValue } from "../shared/canonical_json.js";
+import { constructAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
 
-export interface InstalledProductSemanticsAuthority {
+export interface InstalledLeafInvocationAuthority {
   readonly store: AbgEventStore;
   readonly install: ProductInstall;
   readonly publication: Readonly<ModulePublication>;
-}
-
-export async function admitInstalledProductInput(
-  authority: InstalledProductSemanticsAuthority,
-  contractRef: string,
-  value: unknown,
-): Promise<Readonly<Record<string, JsonValue>> | null> {
-  const semantics = await loadInstalledProductSemantics(authority);
-  return semantics.admitInput(contractRef, value);
-}
-
-export async function evaluateInstalledInteractionResponse(
-  authority: InstalledProductSemanticsAuthority,
-  basis: Parameters<ProductSemanticsProvider["evaluateInteractionResponse"]>[0],
-  responseCandidate: unknown,
-): Promise<Readonly<Record<string, JsonValue>> | null> {
-  const semantics = await loadInstalledProductSemantics(authority);
-  return semantics.evaluateInteractionResponse(basis, responseCandidate);
+  readonly semantics: LeafContractSemanticsPort;
 }
 
 export async function bindInstalledLeafInvocationPort(
-  authority: InstalledProductSemanticsAuthority & {
+  authority: InstalledLeafInvocationAuthority & {
     readonly implementationSet: AdmittedImplementationSet;
   },
 ): Promise<LeafInvocationPort> {

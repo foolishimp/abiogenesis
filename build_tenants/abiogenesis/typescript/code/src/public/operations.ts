@@ -1048,14 +1048,19 @@ async function applyRunInvoke(
     );
   }
   const inputContractRef = graphFunction.inputs[0]!;
+  let productSemantics: product.ProductSemanticsProvider;
   let admittedInput: Readonly<Record<string, product.JsonValue>> | null;
   try {
-    admittedInput = await hog.admitInstalledProductInput(
+    productSemantics = await product.loadInstalledProductSemantics(
       {
-        store: context.store,
         install: installState.install,
         publication: viewState.catalogState.publication,
+        verifyInstallAdmission: (install) =>
+          abg.hasAdmittedProductInstall(context.store, install),
       },
+    );
+    admittedInput = product.admitInstalledProductInput(
+      productSemantics,
       inputContractRef,
       inputValue,
     );
@@ -1095,7 +1100,16 @@ async function applyRunInvoke(
     ...programValidation.executableLeafRows.map((row) => row.fibre),
     ...programValidation.interactionLeafRows.map((row) => row.fibre),
   ]);
+  const interactionCapabilities =
+    programValidation.interactionLeafRows.map((row) => ({
+      requirementKey: row.requirementKey,
+      requirementKeyDigest: row.requirementKeyDigest,
+      actorCapabilityRef: row.requirement.actorCapabilityRef,
+    }));
   const policy = product.constructRootInvocationPolicy(
+    workspaceState.binding,
+    programValue,
+    interactionCapabilities,
     (["F_D", "F_P", "F_H"] as const).filter((regime) => declaredRegimes.has(regime)),
   );
   const actorRef = stringField(invocation.payload, "actorRef");
@@ -1107,14 +1121,16 @@ async function applyRunInvoke(
     ),
   ].sort();
   const grants = [
-    product.constructCapabilityGrant(actorRef),
+    product.constructCapabilityGrant(policy, actorRef),
     ...interactionCapabilityRefs.flatMap((capabilityRef) => [
       product.constructCapabilityGrant(
+        policy,
         actorRef,
         "abg.operation.interaction.respond",
         capabilityRef,
       ),
       product.constructCapabilityGrant(
+        policy,
         actorRef,
         "abg.operation.run.continue",
         capabilityRef,
@@ -1127,6 +1143,7 @@ async function applyRunInvoke(
     viewState.view,
     programValue.programRef,
     graphFunction.name,
+    policy,
     grants,
   );
   if (authority.kind !== "invocation_authority") {
@@ -1417,6 +1434,7 @@ async function applyRunInvoke(
     install: installState.install,
     implementationSet,
     publication: viewState.catalogState.publication,
+    semantics: productSemantics,
   });
   const childTraversalPreparationPort = bindChildTraversalPreparationPort({
     store: context.store,
@@ -2276,6 +2294,31 @@ async function applyInteractionRespond(
         "interaction.respond requires the exact open continuation",
       );
     }
+    const rootInvocation = abg.rehydrateInvocationAdmission(
+      context.store,
+      state.invocationAdmissionRef,
+    );
+    if (rootInvocation === null) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "interaction response could not rehydrate its exact invocation authority",
+      );
+    }
+    const operation = abg.admitContinuationPublicOperation(
+      context.store,
+      rootInvocation,
+      "abg.operation.interaction.respond",
+      continuationRef,
+      invocation.variant,
+      stringField(invocation.payload, "actorRef"),
+      stringField(invocation.payload, "capabilityRef"),
+      operationBasis(
+        invocation,
+        state.workspaceBinding.bindingId,
+        state.workspaceBinding.bindingDigest,
+        [],
+      ),
+    );
     const responseCandidate = recordField(invocation.payload, "response");
     const interactionBasis = abg.projectFhInteractionSemanticBasis(
       context.store,
@@ -2287,12 +2330,14 @@ async function applyInteractionRespond(
         "interaction response could not reproduce its exact pending Product basis",
       );
     }
-    const response = await hog.evaluateInstalledInteractionResponse(
-      {
-        store: context.store,
-        install: state.install,
-        publication: state.catalog.modulePublication,
-      },
+    const productSemantics = await product.loadInstalledProductSemantics({
+      install: state.install,
+      publication: state.catalog.modulePublication,
+      verifyInstallAdmission: (install) =>
+        abg.hasAdmittedProductInstall(context.store, install),
+    });
+    const response = product.evaluateInstalledInteractionResponse(
+      productSemantics,
       interactionBasis,
       responseCandidate,
     );
@@ -2322,31 +2367,6 @@ async function applyInteractionRespond(
         "interaction response variant differs from its Product-owned correction decision",
       );
     }
-    const rootInvocation = abg.rehydrateInvocationAdmission(
-      context.store,
-      state.invocationAdmissionRef,
-    );
-    if (rootInvocation === null) {
-      throw new ApplicationRefusal(
-        "owner_refusal",
-        "interaction response could not rehydrate its exact invocation authority",
-      );
-    }
-    const operation = abg.admitContinuationPublicOperation(
-      context.store,
-      rootInvocation,
-      "abg.operation.interaction.respond",
-      continuationRef,
-      invocation.variant,
-      stringField(invocation.payload, "actorRef"),
-      stringField(invocation.payload, "capabilityRef"),
-      operationBasis(
-        invocation,
-        state.workspaceBinding.bindingId,
-        state.workspaceBinding.bindingDigest,
-        [],
-      ),
-    );
     const admitted = abg.admitFhInteractionResponse(
       context.store,
       continuationRef,
@@ -2646,11 +2666,18 @@ async function applyRunContinue(
           "continued run could not reproduce its admitted Graph and execution sets",
         );
       }
+      const productSemantics = await product.loadInstalledProductSemantics({
+        install: state.install,
+        publication,
+        verifyInstallAdmission: (install) =>
+          abg.hasAdmittedProductInstall(context.store, install),
+      });
       const leafPort = await hog.bindInstalledLeafInvocationPort({
         store: context.store,
         install: state.install,
         implementationSet,
         publication,
+        semantics: productSemantics,
       });
       const childTraversalPreparationPort = bindChildTraversalPreparationPort({
         store: context.store,

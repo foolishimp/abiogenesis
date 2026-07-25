@@ -409,7 +409,7 @@ for (const workspace of workspaceApplications) {
         harness.scratch,
         "m5-consensus-unresolved-fh-continuation.jsonl",
       );
-      const respondedAuthority = held.result.continuationAuthority;
+      let respondedAuthority = held.result.continuationAuthority;
       if (workspace.label === "existing") {
         const substitutedDecision = {
           ...decision,
@@ -439,6 +439,12 @@ for (const workspace of workspaceApplications) {
         assert.equal(
           substitutedResponseRun.outcomes.at(-1).disposition,
           "refused",
+        );
+        respondedAuthority =
+          substitutedResponseRun.outcomes.at(-1).continuationAuthority;
+        assert.equal(
+          respondedAuthority.kind,
+          "public_continuation_authority",
         );
       }
       const responseInvocation = publicInvocation(
