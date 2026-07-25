@@ -231,7 +231,11 @@ export interface ConstructionIntent {
   readonly targetOutcomeRef: string;
   readonly selectedActionRef: string;
   readonly actionKind: string;
+  readonly selectedGraphFunctionRef: string;
   readonly targetProgramLocusRef: string;
+  readonly targetInputRef: string | null;
+  readonly targetInputDigest: Sha256Digest | null;
+  readonly targetInput: Readonly<Record<string, JsonValue>> | null;
   readonly targetObligationRefs: readonly string[];
   readonly inputAssetRefs: readonly string[];
   readonly outputAssetRefs: readonly string[];
@@ -1084,6 +1088,38 @@ function constructionIntentForAdvance(
     (row) => row.actionRef === projection?.selectedActionRef,
   );
   const actionRow = actionRows.length === 1 ? actionRows[0] : undefined;
+  const selectedTargetInput =
+    selectedBasis !== null && isJsonRecord(selectedBasis.targetInput)
+      ? selectedBasis.targetInput
+      : null;
+  const selectedTargetInputRef =
+    selectedBasis !== null && typeof selectedBasis.targetInputRef === "string"
+      ? selectedBasis.targetInputRef
+      : null;
+  const selectedTargetInputDigest =
+    selectedBasis !== null &&
+      typeof selectedBasis.targetInputDigest === "string"
+      ? selectedBasis.targetInputDigest
+      : null;
+  const selectsInteraction =
+    projection?.actionKind === "request_human_input" &&
+    targetTerm.kind === "c_of" &&
+    targetTerm.compositionRef === composition.compositionRef &&
+    targetTerm.programLocusRef ===
+      composition.interactionProgramLocusRef &&
+    isInteractionCLeaf(targetTerm) &&
+    projection.graphFunctionRef === executionBasis.graphFunctionRef &&
+    projection.targetProgramLocusRef === targetTerm.programLocusRef;
+  const selectsGraphFunction =
+    projection?.actionKind === "invoke_graph_function" &&
+    targetTerm.kind === "c_workflow" &&
+    targetTerm.graphFunctionRef === projection.graphFunctionRef &&
+    projection.targetProgramLocusRef === targetTerm.graphFunctionRef &&
+    composition.interactionProgramLocusRef === targetTerm.graphFunctionRef &&
+    selectedTargetInput !== null &&
+    selectedTargetInputRef !== null &&
+    selectedTargetInputDigest !== null &&
+    sha256Canonical(selectedTargetInput) === selectedTargetInputDigest;
   if (
     projection === null ||
     selectedBasis === null ||
@@ -1137,11 +1173,7 @@ function constructionIntentForAdvance(
     executionBasis.actionCatalogRef === null ||
     executionBasis.actionCatalogDigest === null ||
     actionRow === undefined ||
-    targetTerm.kind !== "c_of" ||
-    targetTerm.compositionRef !== composition.compositionRef ||
-    targetTerm.programLocusRef !==
-      composition.interactionProgramLocusRef ||
-    !isInteractionCLeaf(targetTerm) ||
+    (!selectsInteraction && !selectsGraphFunction) ||
     actionRow.kind !== "action_catalog_row" ||
     actionRow.actionKind !== projection.actionKind ||
     actionRow.programRef !== projection.programRef ||
@@ -1154,8 +1186,10 @@ function constructionIntentForAdvance(
     actionRow.progressConditionRef !== projection.progressConditionRef ||
     actionRow.stopConditionRef !== projection.stopConditionRef ||
     projection.programRef !== executionBasis.programRef ||
-    projection.graphFunctionRef !== executionBasis.graphFunctionRef ||
-    projection.targetProgramLocusRef !== targetTerm.programLocusRef
+    (
+      selectsInteraction &&
+      projection.graphFunctionRef !== executionBasis.graphFunctionRef
+    )
   ) {
     return refusal(
       "candidate_mismatch",
@@ -1173,7 +1207,12 @@ function constructionIntentForAdvance(
     targetOutcomeRef: projection.targetOutcomeRef,
     selectedActionRef: projection.selectedActionRef,
     actionKind: projection.actionKind,
+    selectedGraphFunctionRef: projection.graphFunctionRef,
     targetProgramLocusRef: projection.targetProgramLocusRef,
+    targetInputRef: selectsGraphFunction ? selectedTargetInputRef : null,
+    targetInputDigest:
+      selectsGraphFunction ? selectedTargetInputDigest : null,
+    targetInput: selectsGraphFunction ? selectedTargetInput : null,
     targetObligationRefs: projection.targetObligationRefs,
     inputAssetRefs: projection.inputAssetRefs,
     outputAssetRefs: projection.outputAssetRefs,
@@ -1532,6 +1571,20 @@ export function rehydrateConstructionIntentForCursor(
     intentValue.nextActionBasisDigest !== selectedBasis.basisDigest ||
     intentValue.targetCursorRef !== cursor.cursorRef ||
     intentValue.targetCursorDigest !== cursor.cursorDigest ||
+    typeof intentValue.selectedGraphFunctionRef !== "string" ||
+    (
+      intentValue.actionKind === "invoke_graph_function"
+        ? !isJsonRecord(intentValue.targetInput) ||
+          typeof intentValue.targetInputRef !== "string" ||
+          typeof intentValue.targetInputDigest !== "string" ||
+          sha256Canonical(intentValue.targetInput) !==
+            intentValue.targetInputDigest ||
+          intentValue.selectedGraphFunctionRef !==
+            projection.graphFunctionRef
+        : intentValue.targetInput !== null ||
+          intentValue.targetInputRef !== null ||
+          intentValue.targetInputDigest !== null
+    ) ||
     event.payload.actionCatalogRef !== intentValue.actionCatalogRef ||
     event.payload.actionCatalogDigest !== intentValue.actionCatalogDigest ||
     event.payload.actionCatalogRowDigest !==
@@ -1544,6 +1597,141 @@ export function rehydrateConstructionIntentForCursor(
     ...intentValue,
     admissionEventRef: event.eventId,
   }) as unknown as ConstructionIntentAdmission;
+}
+
+export function deriveGraphFunctionActionEvaluationBasis(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  cursor: TraversalCursorCandidate,
+  input: Readonly<{
+    childGraphFunctionRef: string;
+    childResultRef: string;
+    childResultValue: Readonly<Record<string, JsonValue>>;
+    childJudgmentRef: string;
+    childClosureRef: string;
+  }>,
+): Readonly<Record<string, JsonValue>> | null {
+  const intent = rehydrateConstructionIntentForCursor(store, cursor);
+  const composition = admittedBasisConstructionComposition(executionBasis);
+  if (
+    intent === null ||
+    intent.actionKind !== "invoke_graph_function" ||
+    intent.selectedGraphFunctionRef !== input.childGraphFunctionRef ||
+    intent.targetInput === null ||
+    intent.targetInputRef === null ||
+    intent.targetInputDigest === null ||
+    composition === null
+  ) {
+    return null;
+  }
+  const events = store.readAll();
+  const intentEvent = events.find(
+    (event) => event.eventId === intent.admissionEventRef,
+  );
+  const selectedNextActionBasis =
+    intentEvent !== undefined &&
+      isJsonRecord(intentEvent.payload) &&
+      isJsonRecord(intentEvent.payload.nextActionBasis)
+      ? nextActionBasis(intentEvent.payload.nextActionBasis)
+      : null;
+  const resultEvent = events.find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.runId === intent.runId &&
+      event.graphFunctionRef === input.childGraphFunctionRef &&
+      isJsonRecord(event.payload) &&
+      event.payload.resultRef === input.childResultRef,
+  );
+  const judgmentEvent = events.find(
+    (event) =>
+      event.kind === "c_call_judged" &&
+      event.runId === intent.runId &&
+      event.graphFunctionRef === input.childGraphFunctionRef &&
+      isJsonRecord(event.payload) &&
+      event.payload.judgmentRef === input.childJudgmentRef &&
+      event.payload.resultRef === input.childResultRef,
+  );
+  const terminalEvent = events.find(
+    (event) =>
+      event.kind === "terminal_reached" &&
+      event.runId === intent.runId &&
+      event.graphFunctionRef === input.childGraphFunctionRef &&
+      isJsonRecord(event.payload) &&
+      event.payload.closureRef === input.childClosureRef,
+  );
+  const graphClosedEvent = events.find(
+    (event) =>
+      terminalEvent !== undefined &&
+      event.kind === "graph_call_closed" &&
+      event.runId === intent.runId &&
+      event.graphFunctionRef === input.childGraphFunctionRef &&
+      event.graphCallId === terminalEvent.graphCallId &&
+      event.admissionOrdinal > terminalEvent.admissionOrdinal,
+  );
+  const resultValueDigest = sha256Canonical(
+    input.childResultValue as unknown as JsonValue,
+  );
+  const resultPayload =
+    resultEvent !== undefined && isJsonRecord(resultEvent.payload)
+      ? resultEvent.payload
+      : null;
+  if (
+    intentEvent === undefined ||
+    selectedNextActionBasis === null ||
+    selectedNextActionBasis.basisRef !== intent.nextActionBasisRef ||
+    selectedNextActionBasis.basisDigest !== intent.nextActionBasisDigest ||
+    resultEvent === undefined ||
+    resultPayload === null ||
+    judgmentEvent === undefined ||
+    terminalEvent === undefined ||
+    graphClosedEvent === undefined ||
+    resultPayload.valueDigest !== resultValueDigest ||
+    typeof resultPayload.contractRef !== "string" ||
+    sha256Canonical(intent.targetInput) !== intent.targetInputDigest
+  ) {
+    return null;
+  }
+  const body = {
+    kind: "action_evaluation_basis" as const,
+    schemaVersion: "5.0.0" as const,
+    constructionIntent: intent as unknown as JsonValue,
+    nextActionBasis: selectedNextActionBasis,
+    admittedEvidence: [{
+      kind: "admitted_semantic_evidence" as const,
+      schemaVersion: "5.0.0" as const,
+      responseContractRef: resultPayload.contractRef,
+      responseRef: input.childResultRef,
+      responseDigest: resultValueDigest,
+      responseValue: input.childResultValue,
+      semanticEvidenceAssetRefs: intent.outputAssetRefs,
+      admissionEventRef: resultEvent.eventId,
+    }],
+    workspaceBinding: {
+      workspaceBindingId: executionBasis.workspaceBindingId,
+      workspaceBindingDigest: executionBasis.workspaceBindingDigest,
+    },
+    actionCatalog: {
+      actionCatalogRef: intent.actionCatalogRef,
+      actionCatalogDigest: intent.actionCatalogDigest,
+      actionCatalogRowDigest: intent.actionCatalogRowDigest,
+      selectedActionRef: intent.selectedActionRef,
+    },
+    closurePolicy: composition.closurePolicy as unknown as JsonValue,
+    runtimeEvidenceEventRefs: [
+      intent.admissionEventRef,
+      resultEvent.eventId,
+      judgmentEvent.eventId,
+      terminalEvent.eventId,
+      graphClosedEvent.eventId,
+    ],
+  };
+  const basisDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    ...body,
+    basisRef:
+      `action-evaluation-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`,
+    basisDigest,
+  });
 }
 
 interface ConstructionDeltaAdmissionCandidate {
@@ -1708,10 +1896,31 @@ function constructionDeltaForAdvance(
           event.payload.continuationRef === continuationRef,
       )
     : undefined;
-  const evaluationBasis =
+  const interactionEvaluationBasis =
     resumed !== undefined && isJsonRecord(resumed.payload)
       ? actionEvaluationBasis(resumed.payload.successorInputValue)
       : null;
+  const graphFunctionEvaluationBasisEvent = events.find(
+    (event) =>
+      intent?.actionKind === "invoke_graph_function" &&
+      event.kind === "c_call_result_admitted" &&
+      event.runId === sourceCursor.runId &&
+      event.graphCallId === sourceCursor.graphCallId &&
+      event.frameId === sourceCursor.frameId &&
+      isJsonRecord(event.payload) &&
+      event.payload.resultRef === sourceCursor.inputRef &&
+      actionEvaluationBasis(event.payload.value) !== null,
+  );
+  const graphFunctionEvaluationBasis =
+    graphFunctionEvaluationBasisEvent !== undefined &&
+      isJsonRecord(graphFunctionEvaluationBasisEvent.payload)
+      ? actionEvaluationBasis(
+          graphFunctionEvaluationBasisEvent.payload.value,
+        )
+      : null;
+  const evaluationBasis = intent?.actionKind === "invoke_graph_function"
+    ? graphFunctionEvaluationBasis
+    : interactionEvaluationBasis;
   const basisEvidenceRefs =
     evaluationBasis !== null &&
       Array.isArray(evaluationBasis.admittedEvidence)
@@ -1745,12 +1954,23 @@ function constructionDeltaForAdvance(
         (entry): entry is string => typeof entry === "string",
       )
       : [];
-  const responseValue =
+  const interactionResponseValue =
     responded !== undefined &&
       isJsonRecord(responded.payload) &&
       isJsonRecord(responded.payload.responseValue)
       ? responded.payload.responseValue
       : null;
+  const graphFunctionResponseValue =
+    evaluationBasis !== null &&
+      Array.isArray(evaluationBasis.admittedEvidence) &&
+      evaluationBasis.admittedEvidence.length === 1 &&
+      isJsonRecord(evaluationBasis.admittedEvidence[0]) &&
+      isJsonRecord(evaluationBasis.admittedEvidence[0].responseValue)
+      ? evaluationBasis.admittedEvidence[0].responseValue
+      : null;
+  const responseValue = intent?.actionKind === "invoke_graph_function"
+    ? graphFunctionResponseValue
+    : interactionResponseValue;
   const responseCorrectionDisposition =
     responseValue !== null &&
       [
@@ -1792,12 +2012,46 @@ function constructionDeltaForAdvance(
       isJsonRecord(event.payload) &&
       event.payload.cCallRef === evidence.cCall.cCallRef,
   );
+  const graphFunctionRuntimeEvents = basisRuntimeEventRefs.map(
+    (eventRef) => events.find((event) => event.eventId === eventRef),
+  );
+  const graphFunctionRuntimeBasisValid =
+    intent?.actionKind === "invoke_graph_function" &&
+    graphFunctionEvaluationBasisEvent !== undefined &&
+    basisRuntimeEventRefs.length === 5 &&
+    graphFunctionRuntimeEvents.every((event) => event !== undefined) &&
+    graphFunctionRuntimeEvents[0]?.eventId === intent.admissionEventRef &&
+    graphFunctionRuntimeEvents[1]?.kind === "c_call_result_admitted" &&
+    graphFunctionRuntimeEvents[1]?.graphFunctionRef ===
+      intent.selectedGraphFunctionRef &&
+    graphFunctionRuntimeEvents[2]?.kind === "c_call_judged" &&
+    graphFunctionRuntimeEvents[2]?.graphFunctionRef ===
+      intent.selectedGraphFunctionRef &&
+    graphFunctionRuntimeEvents[3]?.kind === "terminal_reached" &&
+    graphFunctionRuntimeEvents[3]?.graphFunctionRef ===
+      intent.selectedGraphFunctionRef &&
+    graphFunctionRuntimeEvents[4]?.kind === "graph_call_closed" &&
+    graphFunctionRuntimeEvents[4]?.graphFunctionRef ===
+      intent.selectedGraphFunctionRef;
+  const interactionRuntimeBasisValid =
+    intent?.actionKind !== "invoke_graph_function" &&
+    opened !== undefined &&
+    responded !== undefined &&
+    resumed !== undefined &&
+    sameValues(basisRuntimeEventRefs, [
+      intent?.admissionEventRef ?? "",
+      opened?.eventId ?? "",
+      responded?.eventId ?? "",
+      String(
+        resumed !== undefined && isJsonRecord(resumed.payload)
+          ? resumed.payload.publicOperationEventRef
+          : "",
+      ),
+    ]);
   if (
     intent === null ||
     actionRow === undefined ||
-    opened === undefined ||
-    responded === undefined ||
-    resumed === undefined ||
+    (!graphFunctionRuntimeBasisValid && !interactionRuntimeBasisValid) ||
     responseValue === null ||
     evaluationBasis === null ||
     basisEvidenceRefs.length === 0 ||
@@ -1810,7 +2064,10 @@ function constructionDeltaForAdvance(
     intent.runId !== sourceCursor.runId ||
     intent.graphCallId !== sourceCursor.graphCallId ||
     intent.frameId !== sourceCursor.frameId ||
-    sourceCursor.inputRef !== evaluationBasis.basisRef ||
+    (
+      intent.actionKind !== "invoke_graph_function" &&
+      sourceCursor.inputRef !== evaluationBasis.basisRef
+    ) ||
     sourceCursor.inputDigest !==
       sha256Canonical(evaluationBasis as unknown as JsonValue) ||
     evaluation.actionEvaluationBasisRef !== evaluationBasis.basisRef ||
@@ -1856,16 +2113,6 @@ function constructionDeltaForAdvance(
       executionBasis.workspaceBindingId ||
     evaluationBasis.workspaceBinding.workspaceBindingDigest !==
       executionBasis.workspaceBindingDigest ||
-    !sameValues(basisRuntimeEventRefs, [
-      intent.admissionEventRef,
-      opened.eventId,
-      responded.eventId,
-      String(
-        isJsonRecord(resumed.payload)
-          ? resumed.payload.publicOperationEventRef
-          : "",
-      ),
-    ]) ||
     evaluation.targetOutcomeRef !== intent.targetOutcomeRef ||
     ledger.constructionIntentRef !== intent.constructionIntentRef ||
     decision.constructionIntentRef !== intent.constructionIntentRef ||
@@ -1900,10 +2147,7 @@ function constructionDeltaForAdvance(
     );
   }
   const runtimeEvidenceEventRefs = [
-    intent.admissionEventRef,
-    opened.eventId,
-    responded.eventId,
-    resumed.eventId,
+    ...basisRuntimeEventRefs,
     evidence.cCall.openedEventRef,
     evidence.cCall.fibreSelectedEventRef,
     evidenced.eventId,

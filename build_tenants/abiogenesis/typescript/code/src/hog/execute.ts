@@ -305,6 +305,7 @@ export interface CompleteWorkflowTraversalInput
   readonly validateSuccessResult: (
     value: unknown,
   ) => value is Readonly<Record<string, JsonValue>>;
+  readonly successResultValue?: Readonly<Record<string, JsonValue>>;
   readonly closureContract: Readonly<ClosureContract>;
   readonly terminalMode?: "close_run" | "return_to_parent";
   readonly judgmentRelation: DeclaredJudgmentRelation<
@@ -2697,10 +2698,19 @@ export function completeWorkflowTraversal(
       foldback as unknown as JsonValue,
     );
   }
+  const childSucceeded = input.childCompletion.disposition === "closed";
+  const childValue = childSucceeded
+    ? input.successResultValue ?? input.childCompletion.resultValue
+    : input.childCompletion.resultValue;
   const evidence = admitEvidence(
     input.store,
     input.parentCCall,
-    deriveSubTraversalEvidence(input.parentCCall, foldback, input.inputDigest),
+    deriveSubTraversalEvidence(
+      input.parentCCall,
+      foldback,
+      input.inputDigest,
+      sha256Canonical(childValue),
+    ),
     input.parentCCall.evidenceContractRef,
     input.inputDigest,
     basis(input.clock, "sub-traversal-evidence"),
@@ -2720,8 +2730,6 @@ export function completeWorkflowTraversal(
       evidence.diagnosticRef,
     );
   }
-  const childSucceeded = input.childCompletion.disposition === "closed";
-  const childValue = input.childCompletion.resultValue;
   const result = admitResult(
     input.store,
     input.parentCCall,

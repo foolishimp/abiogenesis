@@ -272,8 +272,11 @@ function resolveValidatedLeaf(
 ): LeafImplementationResolutionCandidate | ImplementationResolutionSetRefusal {
   const selectedRow = catalogView.selectedRows.find(
     (row) =>
-      row.handle === declaration.graphFunctionRef ||
-      row.declarationOrContractRef === declaration.graphFunctionRef,
+      (
+        row.handle === declaration.graphFunctionRef ||
+        row.declarationOrContractRef === declaration.graphFunctionRef
+      ) &&
+      row.programMembershipRefs.includes(programValidation.programRef),
   );
   const graphFunction = publication.graphFunctions.find(
     (value) => value.name === declaration.graphFunctionRef,

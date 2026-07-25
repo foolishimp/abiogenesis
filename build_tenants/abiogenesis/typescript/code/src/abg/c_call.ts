@@ -205,6 +205,7 @@ export interface SubTraversalEvidenceCandidate {
   readonly childDisposition: "blocked" | "closed" | "failed" | "held" | "refused";
   readonly childResultRef: string;
   readonly childResultDigest: Sha256Digest;
+  readonly childOutputDigest: Sha256Digest;
   readonly childJudgmentRef: string;
   readonly childClosureRef: string | null;
   readonly childReasonRef: string | null;
@@ -334,6 +335,7 @@ export interface AdmittedCCallEvidence {
   readonly childDisposition?: SubTraversalEvidenceCandidate["childDisposition"];
   readonly childResultRef?: string;
   readonly childResultDigest?: Sha256Digest;
+  readonly childOutputDigest?: Sha256Digest;
   readonly childJudgmentRef?: string;
   readonly childClosureRef?: string | null;
   readonly childReasonRef?: string | null;
@@ -1055,6 +1057,7 @@ export function deriveSubTraversalEvidence(
   parentCCall: CCall,
   foldback: ChildFoldbackAdmission,
   inputDigest: Sha256Digest,
+  outputDigest: Sha256Digest,
 ): SubTraversalEvidenceCandidate {
   if (
     !isCCall(parentCCall) ||
@@ -1068,7 +1071,7 @@ export function deriveSubTraversalEvidence(
     kind: "sub_traversal_evidence_candidate" as const,
     schemaVersion: "5.0.0" as const,
     inputDigest,
-    outputDigest: foldback.outputDigest,
+    outputDigest,
     foldbackRef: foldback.foldbackRef,
     foldbackDigest: foldback.foldbackDigest,
     foldbackEventRef: foldback.admissionEventRef,
@@ -1079,6 +1082,7 @@ export function deriveSubTraversalEvidence(
     childDisposition: foldback.childDisposition,
     childResultRef: foldback.childResultRef,
     childResultDigest: foldback.childResultDigest,
+    childOutputDigest: foldback.outputDigest,
     childJudgmentRef: foldback.childJudgmentRef,
     childClosureRef: foldback.childClosureRef,
     childReasonRef: foldback.childReasonRef,
@@ -2224,7 +2228,7 @@ export function admitEvidence(
     foldbackEvent.payload.parentCCallRef === cCall.cCallRef &&
     foldbackEvent.payload.foldbackRef === candidate.foldbackRef &&
     foldbackEvent.payload.foldbackDigest === candidate.foldbackDigest &&
-    foldbackEvent.payload.outputDigest === candidate.outputDigest;
+    foldbackEvent.payload.outputDigest === candidate.childOutputDigest;
   if (
     !hasOpenedCCall(store, cCall) ||
     !commonValid ||
@@ -2300,6 +2304,7 @@ export function admitEvidence(
     childDisposition: candidate.childDisposition,
     childResultRef: candidate.childResultRef,
     childResultDigest: candidate.childResultDigest,
+    childOutputDigest: candidate.childOutputDigest,
     childJudgmentRef: candidate.childJudgmentRef,
     childClosureRef: candidate.childClosureRef,
     childReasonRef: candidate.childReasonRef,

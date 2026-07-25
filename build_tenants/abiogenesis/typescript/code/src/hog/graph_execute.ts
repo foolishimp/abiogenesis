@@ -1,8 +1,10 @@
 import {
   admitInitialTraversalCursor,
   admitRuntimeFailure,
+  deriveGraphFunctionActionEvaluationBasis,
   hasAdmittedTraversalCursor,
   openWorkflowCCall,
+  rehydrateConstructionIntentForCursor,
   selectAdmittedInteractionContract,
   selectAdmittedImplementationResolution,
   traversalCursorAdmissionEventRef,
@@ -453,14 +455,53 @@ export async function executeGraphTraversal(
         input.graph,
         openedParent.cCall.batchRef,
       );
+      const constructionIntent = rehydrateConstructionIntentForCursor(
+        input.store,
+        workflowStep.sourceCursor,
+      );
+      const selectedChildInput =
+        constructionIntent?.actionKind === "invoke_graph_function"
+          ? constructionIntent.targetInput
+          : currentInput;
+      const selectedChildInputRef =
+        constructionIntent?.actionKind === "invoke_graph_function"
+          ? constructionIntent.targetInputRef
+          : workflowStep.sourceCursor.inputRef;
+      const selectedChildInputDigest =
+        constructionIntent?.actionKind === "invoke_graph_function"
+          ? constructionIntent.targetInputDigest
+          : workflowStep.sourceCursor.inputDigest;
+      if (
+        selectedChildInput === null ||
+        selectedChildInputRef === null ||
+        selectedChildInputDigest === null ||
+        (
+          constructionIntent?.actionKind === "invoke_graph_function" &&
+          (
+            constructionIntent.selectedGraphFunctionRef !==
+              directStep.graphFunctionRef ||
+            constructionIntent.targetProgramLocusRef !==
+              directStep.graphFunctionRef ||
+            sha256Canonical(selectedChildInput) !==
+              selectedChildInputDigest
+          )
+        )
+      ) {
+        return fail(
+          input,
+          `workflow-selected-input-${leafOrdinal}`,
+          "diagnostic://abiogenesis/hog/workflow-selected-input-mismatch@5",
+          workflowStep as unknown as JsonValue,
+        );
+      }
       const prepared = await input.childTraversalPreparationPort.prepare({
         parentExecutionBasis: input.executionBasis,
         parentTraversalScope: input.openedTraversalScope,
         parentCCallRef: openedParent.cCall.cCallRef,
         childGraphFunctionRef: directStep.graphFunctionRef,
-        inputRef: workflowStep.sourceCursor.inputRef,
-        inputDigest: workflowStep.sourceCursor.inputDigest,
-        input: currentInput,
+        inputRef: selectedChildInputRef,
+        inputDigest: selectedChildInputDigest,
+        input: selectedChildInput,
         eventTime: input.eventTime,
         correlationId: `${input.correlationId}/workflow/${leafOrdinal}/prepare`,
       });
@@ -499,6 +540,42 @@ export async function executeGraphTraversal(
           correlationId: `${input.correlationId}/workflow/${leafOrdinal}/child`,
           terminalMode: "return_to_parent",
         });
+        const selectedActionEvaluationBasis =
+          constructionIntent?.actionKind === "invoke_graph_function" &&
+            childCompletion.disposition === "closed" &&
+            childCompletion.resultRef !== null &&
+            childCompletion.judgmentRef !== null &&
+            childCompletion.closureRef !== null &&
+            typeof childCompletion.resultValue === "object" &&
+            childCompletion.resultValue !== null &&
+            !Array.isArray(childCompletion.resultValue)
+            ? deriveGraphFunctionActionEvaluationBasis(
+                input.store,
+                input.executionBasis,
+                workflowStep.sourceCursor,
+                {
+                  childGraphFunctionRef: directStep.graphFunctionRef,
+                  childResultRef: childCompletion.resultRef,
+                  childResultValue:
+                    childCompletion.resultValue as Readonly<
+                      Record<string, JsonValue>
+                    >,
+                  childJudgmentRef: childCompletion.judgmentRef,
+                  childClosureRef: childCompletion.closureRef,
+                },
+              )
+            : null;
+        if (
+          constructionIntent?.actionKind === "invoke_graph_function" &&
+          selectedActionEvaluationBasis === null
+        ) {
+          return fail(
+            input,
+            `workflow-action-evaluation-basis-${leafOrdinal}`,
+            "diagnostic://abiogenesis/hog/workflow-action-evaluation-basis-absent@5",
+            workflowStep as unknown as JsonValue,
+          );
+        }
         const outputValueKind = input.leafPort.contractValueKind(
           directStep.outputCarrierRef,
           "output",
@@ -548,6 +625,9 @@ export async function executeGraphTraversal(
               "output",
               value,
             ) && judgmentRelation.evaluate(currentInput, value),
+          ...(selectedActionEvaluationBasis === null
+            ? {}
+            : { successResultValue: selectedActionEvaluationBasis }),
           closureContract: input.closureContract,
           ...(input.terminalMode === undefined
             ? {}

@@ -1,14 +1,25 @@
 import {
   CONSENSUS_IDS,
+  evaluateConsensusAction,
+  evaluateConsensusGap,
   finalizeConsensusEscalation,
   initializeConsensus,
+  isConsensusActionEvaluationBasis,
+  isConsensusActionEvaluationProjection,
   isConsensusEscalationDecision,
   isConsensusFindingsVector,
   isConsensusInvocation,
+  isConsensusNextActionBasis,
+  isConsensusObservationSnapshot,
   isConsensusReviewerTask,
   isConsensusRoundState,
   projectConsensusResult,
+  refreshConsensusGap,
+  refreshConsensusModel,
+  refreshConsensusNextAction,
   reduceConsensusRound,
+  selectConsensusNextAction,
+  synthesizeConsensusModel,
   type ConsensusEscalationDecision,
   type ConsensusFindingsVector,
   type ConsensusInvocation,
@@ -117,6 +128,65 @@ export const CONSENSUS_ESCALATION_FINALIZER_IMPLEMENTATION_DESCRIPTOR =
     computeRegime: "F_D",
     inputContractRef: CONSENSUS_IDS.escalationDecisionContractRef,
     outputContractRef: CONSENSUS_IDS.resultContractRef,
+  });
+
+export const CONSENSUS_SYNTHESIZE_MODEL_IMPLEMENTATION_DESCRIPTOR =
+  descriptor({
+    implementationRef: CONSENSUS_IDS.synthesizeModelImplementationRef,
+    namedSymbol: "realizeConsensusModelSynthesis",
+    computeRegime: "F_D",
+    inputContractRef: CONSENSUS_IDS.observationContractRef,
+    outputContractRef: CONSENSUS_IDS.modelContractRef,
+  });
+
+export const CONSENSUS_EVAL_GAP_IMPLEMENTATION_DESCRIPTOR = descriptor({
+  implementationRef: CONSENSUS_IDS.evalGapImplementationRef,
+  namedSymbol: "realizeConsensusGapEvaluation",
+  computeRegime: "F_D",
+  inputContractRef: CONSENSUS_IDS.modelContractRef,
+  outputContractRef: CONSENSUS_IDS.nextActionBasisContractRef,
+});
+
+export const CONSENSUS_EVALUATE_NEXT_IMPLEMENTATION_DESCRIPTOR = descriptor({
+  implementationRef: CONSENSUS_IDS.evaluateNextImplementationRef,
+  namedSymbol: "realizeConsensusNextActionSelection",
+  computeRegime: "F_D",
+  inputContractRef: CONSENSUS_IDS.nextActionBasisContractRef,
+  outputContractRef: CONSENSUS_IDS.nextActionContractRef,
+});
+
+export const CONSENSUS_EVALUATE_ACTION_IMPLEMENTATION_DESCRIPTOR = descriptor({
+  implementationRef: CONSENSUS_IDS.evaluateActionImplementationRef,
+  namedSymbol: "realizeConsensusActionEvaluation",
+  computeRegime: "F_D",
+  inputContractRef: CONSENSUS_IDS.actionEvaluationBasisContractRef,
+  outputContractRef: CONSENSUS_IDS.actionEvaluationContractRef,
+});
+
+export const CONSENSUS_REFRESH_MODEL_IMPLEMENTATION_DESCRIPTOR = descriptor({
+  implementationRef: CONSENSUS_IDS.refreshModelImplementationRef,
+  namedSymbol: "realizeConsensusModelRefresh",
+  computeRegime: "F_D",
+  inputContractRef: CONSENSUS_IDS.actionEvaluationContractRef,
+  outputContractRef: CONSENSUS_IDS.modelContractRef,
+});
+
+export const CONSENSUS_REFRESH_GAP_IMPLEMENTATION_DESCRIPTOR = descriptor({
+  implementationRef: CONSENSUS_IDS.refreshGapImplementationRef,
+  namedSymbol: "realizeConsensusGapRefresh",
+  computeRegime: "F_D",
+  inputContractRef: CONSENSUS_IDS.modelContractRef,
+  outputContractRef: CONSENSUS_IDS.nextActionBasisContractRef,
+});
+
+export const CONSENSUS_REFRESH_EVALUATE_NEXT_IMPLEMENTATION_DESCRIPTOR =
+  descriptor({
+    implementationRef:
+      CONSENSUS_IDS.refreshEvaluateNextImplementationRef,
+    namedSymbol: "realizeConsensusNextActionRefresh",
+    computeRegime: "F_D",
+    inputContractRef: CONSENSUS_IDS.nextActionBasisContractRef,
+    outputContractRef: CONSENSUS_IDS.nextActionContractRef,
   });
 
 function deterministicSuccess(
@@ -230,6 +300,14 @@ function isSemanticCandidate(value: unknown): value is ReviewerSemanticCandidate
   ) return false;
   const candidate = value as Partial<ReviewerSemanticCandidate>;
   if (
+    Object.keys(value).sort().join("\0") !==
+      [
+        "findings",
+        "kind",
+        "recommendation",
+        "residualRefs",
+        "schemaVersion",
+      ].sort().join("\0") ||
     candidate.kind !== "consensus_reviewer_candidate" ||
     candidate.schemaVersion !== "5.0.0" ||
     !["accept", "revise"].includes(String(candidate.recommendation)) ||
@@ -407,5 +485,114 @@ export function realizeConsensusEscalationFinalization(
     CONSENSUS_IDS.escalationFinalizerImplementationRef,
     input as unknown as Readonly<Record<string, JsonValue>>,
     result as unknown as Readonly<Record<string, JsonValue>>,
+  );
+}
+
+export function realizeConsensusModelSynthesis(
+  input: Readonly<Record<string, JsonValue>>,
+) {
+  if (!isConsensusObservationSnapshot(input)) {
+    throw new TypeError(
+      "Consensus model synthesis requires one admitted observation",
+    );
+  }
+  return deterministicSuccess(
+    CONSENSUS_IDS.synthesizeModelImplementationRef,
+    input,
+    synthesizeConsensusModel(input) as unknown as Readonly<
+      Record<string, JsonValue>
+    >,
+  );
+}
+
+export function realizeConsensusGapEvaluation(
+  input: Readonly<Record<string, JsonValue>>,
+) {
+  if (!isConsensusObservationSnapshot(input)) {
+    throw new TypeError(
+      "Consensus gap evaluation requires one admitted observation",
+    );
+  }
+  return deterministicSuccess(
+    CONSENSUS_IDS.evalGapImplementationRef,
+    input,
+    evaluateConsensusGap(input),
+  );
+}
+
+export function realizeConsensusNextActionSelection(
+  input: Readonly<Record<string, JsonValue>>,
+) {
+  if (!isConsensusNextActionBasis(input)) {
+    throw new TypeError(
+      "Consensus action selection requires one admitted basis",
+    );
+  }
+  return deterministicSuccess(
+    CONSENSUS_IDS.evaluateNextImplementationRef,
+    input,
+    selectConsensusNextAction(input),
+  );
+}
+
+export function realizeConsensusActionEvaluation(
+  input: Readonly<Record<string, JsonValue>>,
+) {
+  if (!isConsensusActionEvaluationBasis(input)) {
+    throw new TypeError(
+      "Consensus action evaluation requires admitted child evidence",
+    );
+  }
+  return deterministicSuccess(
+    CONSENSUS_IDS.evaluateActionImplementationRef,
+    input,
+    evaluateConsensusAction(input),
+  );
+}
+
+export function realizeConsensusModelRefresh(
+  input: Readonly<Record<string, JsonValue>>,
+) {
+  if (!isConsensusActionEvaluationProjection(input)) {
+    throw new TypeError(
+      "Consensus model refresh requires one admitted action evaluation",
+    );
+  }
+  return deterministicSuccess(
+    CONSENSUS_IDS.refreshModelImplementationRef,
+    input,
+    refreshConsensusModel(input) as unknown as Readonly<
+      Record<string, JsonValue>
+    >,
+  );
+}
+
+export function realizeConsensusGapRefresh(
+  input: Readonly<Record<string, JsonValue>>,
+) {
+  if (!isConsensusObservationSnapshot(input)) {
+    throw new TypeError(
+      "Consensus gap refresh requires one refreshed observation",
+    );
+  }
+  return deterministicSuccess(
+    CONSENSUS_IDS.refreshGapImplementationRef,
+    input,
+    refreshConsensusGap(input),
+  );
+}
+
+export function realizeConsensusNextActionRefresh(
+  input: Readonly<Record<string, JsonValue>>,
+) {
+  if (!isConsensusNextActionBasis(input)) {
+    throw new TypeError(
+      "Consensus convergence requires one refreshed basis",
+    );
+  }
+  return deterministicSuccess(
+    CONSENSUS_IDS.refreshEvaluateNextImplementationRef,
+    input,
+    refreshConsensusNextAction(input),
   );
 }

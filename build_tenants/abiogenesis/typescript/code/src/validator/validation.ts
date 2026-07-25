@@ -99,6 +99,19 @@ function workflowGraphFunctionRefs(term: Readonly<CProgramNode>): readonly strin
   }
 }
 
+function compositionTerms(
+  graphFunction: Readonly<GraphFunction> | undefined,
+): readonly Readonly<CProgramNode>[] {
+  if (
+    graphFunction === undefined ||
+    graphFunction.template.nodes.length !== 1
+  ) {
+    return [];
+  }
+  const term = graphFunction.template.nodes[0]!.term;
+  return term.kind === "c_compose" ? term.terms : [term];
+}
+
 function hasExactEvaluatorShape(
   evaluator: Readonly<EvaluatorDeclaration>,
 ): boolean {
@@ -1249,14 +1262,12 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     const boundLocusRefs = expectedLocusOrder.filter(
       (value): value is string => typeof value === "string",
     );
-    const compositionRows = [
-      ...executableLeafRows,
-      ...interactionLeafRows,
-    ].filter(
-      (row) =>
-        row.graphFunctionRef === composition.graphFunctionRef &&
-        row.compositionRef === composition.compositionRef,
-    ).sort((left, right) => left.vectorIndex - right.vectorIndex);
+    const orderedTerms = compositionTerms(
+      graphFunctions.find(
+        (graphFunction) =>
+          graphFunction.name === composition.graphFunctionRef,
+      ),
+    );
     const authorityShapeIsExact =
       composition.authorities.length === 4 &&
       composition.authorities.every((binding, index) =>
@@ -1314,14 +1325,27 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       program.callableMembership.includes(composition.graphFunctionRef) &&
       boundLocusRefs.length === 8 &&
       new Set(boundLocusRefs).size === 8 &&
-      compositionRows.length === 8 &&
-      compositionRows.map((row) => row.programLocusRef).join("\0") ===
-        boundLocusRefs.join("\0") &&
-      compositionRows.every((row, index) => row.vectorIndex === index) &&
-      compositionRows[3]?.kind === "validated_interaction_leaf" &&
-      compositionRows.filter(
-        (row) => row.kind === "validated_interaction_leaf",
-      ).length === 1;
+      orderedTerms.length === 8 &&
+      orderedTerms.every((term, index) => {
+        const expectedLocusRef = boundLocusRefs[index];
+        if (index === 3 && term.kind === "c_workflow") {
+          return term.graphFunctionRef === expectedLocusRef;
+        }
+        return term.kind === "c_of" &&
+          term.compositionRef === composition.compositionRef &&
+          term.vectorIndex === index &&
+          term.programLocusRef === expectedLocusRef;
+      }) &&
+      (
+        orderedTerms[3]?.kind === "c_workflow" ||
+        (
+          orderedTerms[3]?.kind === "c_of" &&
+          isInteractionCLeaf(orderedTerms[3])
+        )
+      ) &&
+      orderedTerms.filter(
+        (term) => term.kind === "c_of" && isInteractionCLeaf(term),
+      ).length === (orderedTerms[3]?.kind === "c_workflow" ? 0 : 1);
     if (
       !authorityShapeIsExact ||
       !compositionShapeIsExact ||
@@ -1383,11 +1407,14 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       const graphFunction = graphFunctions.find(
         (candidate) => candidate.name === row.graphFunctionRef,
       );
-      const targetExists = graphFunction?.template.nodes.some((node) =>
-        cLeafTerms(node.term).some(
-          (leaf) => leaf.programLocusRef === row.targetProgramLocusRef,
-        )
-      ) ?? false;
+      const targetExists = row.actionKind === "invoke_graph_function"
+        ? graphFunction !== undefined &&
+          row.targetProgramLocusRef === graphFunction.name
+        : graphFunction?.template.nodes.some((node) =>
+          cLeafTerms(node.term).some(
+            (leaf) => leaf.programLocusRef === row.targetProgramLocusRef,
+          )
+        ) ?? false;
       if (
         row.kind !== "action_catalog_row" ||
         !hasExactKeys(row, exactKeys) ||

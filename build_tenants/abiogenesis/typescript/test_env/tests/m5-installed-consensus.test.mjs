@@ -6,6 +6,7 @@ import { pathToFileURL } from "node:url";
 import test from "node:test";
 
 import {
+  applyInstalledTranscriptPrefix,
   buildRootCliScenario,
   installedCliPackageRoot,
   runInstalledCli,
@@ -55,6 +56,7 @@ async function installConsensusWorker(harness) {
     "    }] : [],",
     "    residualRefs: revise ? [`residual://${task.profile.profileRef}/round-${task.roundOrdinal}`] : []",
     "  };",
+    "  if (mode === 'malformed_finding') candidate.unadmitted = true;",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
     "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: JSON.stringify(candidate) }));",
     "});",
@@ -261,6 +263,7 @@ for (const workspace of workspaceApplications) {
       basis.gtl.CONSENSUS_IDS.projectorGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.escalationFinalizerGraphFunctionRef,
+      basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
     ];
     const installed = await buildRootCliScenario(
       harness,
@@ -407,6 +410,37 @@ for (const workspace of workspaceApplications) {
         "m5-consensus-unresolved-fh-continuation.jsonl",
       );
       const respondedAuthority = held.result.continuationAuthority;
+      if (workspace.label === "existing") {
+        const substitutedDecision = {
+          ...decision,
+          unresolvedResultRef: `${decision.unresolvedResultRef}/substituted`,
+        };
+        const substitutedResponseInvocation = publicInvocation(
+          "abg.operation.interaction.respond",
+          "answer_escalation",
+          "invocation://t276/consensus/unresolved/respond-substituted",
+          {
+            actorRef,
+            capabilityRef: basis.gtl.CONSENSUS_IDS.actorCapabilityRef,
+            continuationAuthority: respondedAuthority,
+            continuationRef: held.continuationRef,
+            response: substitutedDecision,
+          },
+        );
+        await writeFile(
+          continuationTranscriptPath,
+          `${JSON.stringify(substitutedResponseInvocation)}\n`,
+          "utf8",
+        );
+        const substitutedResponseRun = await runInstalledCli(harness, {
+          transcriptPath: continuationTranscriptPath,
+        });
+        assert.equal(substitutedResponseRun.exitCode, 2);
+        assert.equal(
+          substitutedResponseRun.outcomes.at(-1).disposition,
+          "refused",
+        );
+      }
       const responseInvocation = publicInvocation(
         "abg.operation.interaction.respond",
         "answer_escalation",
@@ -521,4 +555,261 @@ test("M5 Consensus publication validates its canonical handle and ordinary calla
     ),
     false,
   );
+});
+
+test("M5 starts canonical Consensus through the installed One Surface GTL Program", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const command = await installConsensusWorker(harness);
+  const basis = await consensusBasis(harness, "one-surface", 2);
+  harness.rootPublication = basis.publication;
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-consensus-one-surface",
+    (payload) => payload,
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+      graphFunctionRef: basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+      allowlist: basis.publication.contributions.map((row) => row.handle),
+      input: basis.input,
+      eventLogFile: "one-surface.events.jsonl",
+    },
+  );
+  const {
+    operationContext,
+    outcomes,
+    publicApi,
+  } = await applyInstalledTranscriptPrefix(harness, scenario);
+  assert.equal(
+    outcomes.every((outcome) => outcome.disposition === "succeeded"),
+    true,
+    JSON.stringify(outcomes),
+  );
+  const workspaceBinding = outcomes[2].result;
+  assert.equal(
+    typeof workspaceBinding.bindingId,
+    "string",
+    JSON.stringify(outcomes[2]),
+  );
+  assert.match(workspaceBinding.bindingId, /^workspace-binding:\/\//u);
+  assert.match(workspaceBinding.bindingDigest, /^sha256:[a-f0-9]{64}$/u);
+  assert.equal(
+    basis.publication.programs.find(
+      (program) =>
+        program.programRef === basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+    ).actionCatalog.kind,
+    "action_catalog",
+  );
+  const oneSurfaceProgram = basis.publication.programs.find(
+    (program) =>
+      program.programRef === basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+  );
+  const observation = basis.gtl.constructConsensusObservationSnapshot({
+    workspaceBindingId: workspaceBinding.bindingId,
+    workspaceBindingDigest: workspaceBinding.bindingDigest,
+    actionCatalog: oneSurfaceProgram.actionCatalog,
+    consensusInvocation: basis.input,
+  });
+  const start = structuredClone(scenario.transcript.at(-1));
+  start.variant = "start";
+  start.payload = {
+    installInvocationRef: scenario.refs.install,
+    workspaceBindingInvocationRef: scenario.refs.bind,
+    catalogViewInvocationRef: scenario.refs.view,
+    programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+    actorRef: "actor://abiogenesis/t276/trusted-developer",
+    input: observation,
+    eventLogPath: scenario.eventLogPath,
+    rootMode: "supervised",
+    scope: "program",
+    target: basis.gtl.CONSENSUS_IDS.oneSurfaceStartRef,
+    until: "converged",
+    startRef: basis.gtl.CONSENSUS_IDS.oneSurfaceStartRef,
+  };
+
+  const priorCommand = process.env.ABG_TS_CLAUDE_COMMAND;
+  const priorMode = process.env.ABG_CONSENSUS_TEST_MODE;
+  let completed;
+  try {
+    process.env.ABG_TS_CLAUDE_COMMAND = command;
+    process.env.ABG_CONSENSUS_TEST_MODE = "agreement";
+    completed = await publicApi.applyRootPublicInvocation(
+      operationContext,
+      start,
+    );
+  } finally {
+    publicApi.closeRootOperationContext(operationContext);
+    if (priorCommand === undefined) {
+      delete process.env.ABG_TS_CLAUDE_COMMAND;
+    } else {
+      process.env.ABG_TS_CLAUDE_COMMAND = priorCommand;
+    }
+    if (priorMode === undefined) {
+      delete process.env.ABG_CONSENSUS_TEST_MODE;
+    } else {
+      process.env.ABG_CONSENSUS_TEST_MODE = priorMode;
+    }
+  }
+
+  const events = await eventsAt(scenario.eventLogPath);
+  assert.equal(
+    completed.disposition,
+    "succeeded",
+    `${JSON.stringify(completed)}\n${JSON.stringify(diagnosticSummary(events))}\n${JSON.stringify(diagnosticTail(events))}`,
+  );
+  assert.equal(completed.replayAgreement, true);
+  assert.equal(completed.result.kind, "next_action_projection");
+  assert.equal(completed.result.disposition, "converged");
+
+  const intent = events.find(
+    (event) => event.kind === "construction_intent_selected",
+  );
+  const childOpen = events.find(
+    (event) =>
+      event.kind === "graph_call_opened" &&
+      event.payload.graphFunctionRef ===
+        basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+  );
+  const childResult = events.find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.payload.contractRef ===
+        basis.gtl.CONSENSUS_IDS.resultContractRef,
+  );
+  const delta = events.find(
+    (event) => event.kind === "construction_delta_observed",
+  );
+  const refresh = events.find(
+    (event) =>
+      event.kind === "c_call_opened" &&
+      event.payload.programLocusRef ===
+        basis.gtl.CONSENSUS_IDS.refreshModelLocusRef,
+  );
+  const runClosed = events.find((event) => event.kind === "run_closed");
+
+  assert.ok(intent);
+  assert.ok(childOpen);
+  assert.ok(childResult);
+  assert.ok(delta);
+  assert.ok(refresh);
+  assert.ok(runClosed);
+  assert.equal(
+    intent.payload.constructionIntent.actionKind,
+    "invoke_graph_function",
+  );
+  assert.equal(
+    intent.payload.constructionIntent.selectedGraphFunctionRef,
+    basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+  );
+  assert.equal(
+    intent.payload.constructionIntent.targetInputRef,
+    basis.input.invocationRef,
+  );
+  assert.equal(
+    delta.payload.edgeFulfillmentLedger.rows[0].evidenceRefs[0],
+    childResult.payload.resultRef,
+  );
+  assert.equal(
+    completed.result.edgeClosureDecisionRef,
+    delta.payload.edgeClosureDecisionRef,
+  );
+  assert.ok(intent.admissionOrdinal < childOpen.admissionOrdinal);
+  assert.ok(childOpen.admissionOrdinal < childResult.admissionOrdinal);
+  assert.ok(childResult.admissionOrdinal < delta.admissionOrdinal);
+  assert.ok(delta.admissionOrdinal < refresh.admissionOrdinal);
+  assert.ok(refresh.admissionOrdinal < runClosed.admissionOrdinal);
+  assert.equal(events.at(-1).kind, "run_closed");
+});
+
+test("M5 Consensus refuses malformed and cross-basis Product values before a Run opens", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const basis = await consensusBasis(harness, "invalid-values", 2);
+  harness.rootPublication = basis.publication;
+  const allowlist = basis.publication.contributions.map((row) => row.handle);
+  const mutations = [{
+    label: "subject-extra-field",
+    mutate(input) {
+      input.subject.unadmitted = true;
+    },
+  }, {
+    label: "duplicate-panel-profile",
+    mutate(input) {
+      input.panel.profiles[1] = structuredClone(input.panel.profiles[0]);
+    },
+  }, {
+    label: "invalid-round-policy",
+    mutate(input) {
+      input.policy.roundBudget = 0;
+    },
+  }, {
+    label: "cross-basis-panel",
+    mutate(input) {
+      input.subject.panelRef = `${input.subject.panelRef}/substituted`;
+    },
+  }];
+  for (const mutation of mutations) {
+    const input = structuredClone(basis.input);
+    mutation.mutate(input);
+    const scenario = await buildRootCliScenario(
+      harness,
+      `m5-consensus-${mutation.label}`,
+      (payload) => payload,
+      {
+        programRef: basis.gtl.CONSENSUS_IDS.programRef,
+        graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+        allowlist,
+        input,
+        eventLogFile: `${mutation.label}.events.jsonl`,
+      },
+    );
+    const run = await runInstalledCli(harness, scenario);
+    assert.equal(run.exitCode, 2, run.stdout);
+    assert.equal(run.outcomes.at(-1).disposition, "refused");
+    assert.equal(run.outcomes.at(-1).runId, null);
+  }
+});
+
+test("M5 Consensus refuses malformed attributed reviewer output before successful foldback or closure", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const command = await installConsensusWorker(harness);
+  const basis = await consensusBasis(harness, "malformed-reviewer", 2);
+  harness.rootPublication = basis.publication;
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-consensus-malformed-reviewer",
+    (payload) => payload,
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.programRef,
+      graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+      allowlist: basis.publication.contributions.map((row) => row.handle),
+      input: basis.input,
+      eventLogFile: "malformed-reviewer.events.jsonl",
+    },
+  );
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_CONSENSUS_TEST_MODE: "malformed_finding",
+    },
+  });
+  assert.equal(run.exitCode, 2, run.stdout);
+  assert.equal(
+    run.outcomes.at(-1).disposition,
+    "failed",
+    JSON.stringify(run.outcomes.at(-1)),
+  );
+  const events = await eventsAt(scenario.eventLogPath);
+  const fanOutCompletion = events.find(
+    (event) => event.kind === "fan_out_completion_admitted",
+  );
+  assert.equal(fanOutCompletion?.payload.completionKind, "partial_stop");
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "child_foldback_admitted" &&
+        event.payload.childDisposition === "closed",
+    ),
+    false,
+  );
+  assert.equal(events.some((event) => event.kind === "run_closed"), false);
+  assert.equal(events.at(-1).kind, "runtime_failure_observed");
 });

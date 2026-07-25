@@ -583,7 +583,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
         combinePayloadKeys(
           EVIDENCE_IO_PAYLOAD,
           payloadKeys(
-            "childClosureRef childDisposition childExecutionBasisDigest childExecutionBasisRef childFrameId childGraphCallId childJudgmentRef childReasonRef childResultDigest childResultRef childTerminalEventRef foldbackDigest foldbackEventRef foldbackRef",
+            "childClosureRef childDisposition childExecutionBasisDigest childExecutionBasisRef childFrameId childGraphCallId childJudgmentRef childOutputDigest childReasonRef childResultDigest childResultRef childTerminalEventRef foldbackDigest foldbackEventRef foldbackRef",
           ),
         ),
         EVIDENCE_IO_PAYLOAD,

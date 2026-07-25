@@ -15,9 +15,14 @@ import {
 import { isDeclaredConformanceValue } from "../gtl/hello_world.js";
 import {
   CONSENSUS_IDS,
+  isConsensusActionEvaluationBasis,
+  isConsensusActionEvaluationProjection,
   isConsensusEscalationDecision,
   isConsensusFindingsVector,
   isConsensusInvocation,
+  isConsensusNextActionBasis,
+  isConsensusNextActionProjection,
+  isConsensusObservationSnapshot,
   isConsensusPanel,
   isConsensusResultCandidate,
   isConsensusReviewerProfile,
@@ -121,6 +126,12 @@ function admitSystemInput(
     return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
   }
   if (
+    contractRef === CONSENSUS_IDS.observationContractRef &&
+    isConsensusObservationSnapshot(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
     contractRef === CONSENSUS_IDS.escalationRequestContractRef &&
     isConsensusResultCandidate(value)
   ) {
@@ -156,6 +167,16 @@ function validateSystemContractValue(
       return isConsensusResultCandidate(value);
     case "consensus_invocation":
       return isConsensusInvocation(value);
+    case "observation_snapshot":
+      return isConsensusObservationSnapshot(value);
+    case "next_action_basis":
+      return isConsensusNextActionBasis(value);
+    case "next_action_projection":
+      return isConsensusNextActionProjection(value);
+    case "action_evaluation_basis":
+      return isConsensusActionEvaluationBasis(value);
+    case "action_evaluation_projection":
+      return isConsensusActionEvaluationProjection(value);
     case "consensus_round_state":
       return isConsensusRoundState(value);
     case "consensus_reviewer_task":

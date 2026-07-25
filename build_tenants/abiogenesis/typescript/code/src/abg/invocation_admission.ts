@@ -300,8 +300,11 @@ export function admitInvocation(
   }
   const selectedRow = input.catalogView.selectedRows.find(
     (row) =>
-      row.handle === input.graphFunction.name ||
-      row.declarationOrContractRef === input.graphFunction.name,
+      (
+        row.handle === input.graphFunction.name ||
+        row.declarationOrContractRef === input.graphFunction.name
+      ) &&
+      row.programMembershipRefs.includes(input.program.programRef),
   );
   if (
     input.invocation.programRef !== input.program.programRef ||

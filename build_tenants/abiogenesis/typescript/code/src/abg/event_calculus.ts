@@ -467,13 +467,25 @@ export function eventCalculusEffect(
         declips: [],
       };
     }
-    case "construction_delta_observed":
+    case "construction_delta_observed": {
+      const constructionIntentRef = stringField(
+        event,
+        "constructionIntentRef",
+      );
       return {
         initiates: [],
-        terminates: [],
+        terminates: constructionIntentRef === null
+          ? []
+          : [
+              fluent(
+                "construction_intent_available",
+                constructionIntentRef,
+              ),
+            ],
         clips: [],
         declips: [],
       };
+    }
     case "fh_interaction_responded": {
       const continuationRef = stringField(event, "continuationRef");
       return {

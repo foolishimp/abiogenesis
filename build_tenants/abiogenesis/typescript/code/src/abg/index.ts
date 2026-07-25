@@ -225,6 +225,7 @@ export {
 export {
   admitRoute,
   admitRecursionRoute,
+  deriveGraphFunctionActionEvaluationBasis,
   isAdmittedRoute,
   rehydrateConstructionIntentForCursor,
   type AdmittedRoute,
