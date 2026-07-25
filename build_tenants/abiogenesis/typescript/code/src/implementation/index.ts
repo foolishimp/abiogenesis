@@ -69,4 +69,10 @@ export {
   ABI5_PRODUCT_SEMANTICS,
   ABI5_SYSTEM_PRODUCT_SEMANTICS,
 } from "./product_semantics.js";
+export {
+  EXECUTIVE_OBSERVER_IMPLEMENTATION_DESCRIPTOR,
+  EXECUTIVE_TUNER_IMPLEMENTATION_DESCRIPTOR,
+  realizeExecutiveObserver,
+  realizeExecutiveTuner,
+} from "./executive.js";
 export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";

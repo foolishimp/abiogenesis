@@ -36,6 +36,14 @@ import {
   resolveConsensusJudgmentRelation,
 } from "../gtl/consensus.js";
 import {
+  EXECUTIVE_IDS,
+  isExecutiveDeclarationDraft,
+  isExecutiveObserverReport,
+  isExecutiveReplaySnapshot,
+  isExecutiveTuningInput,
+  resolveExecutiveJudgmentRelation,
+} from "../gtl/executive.js";
+import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
 } from "../product/contracts.js";
@@ -143,6 +151,18 @@ function admitSystemInput(
   ) {
     return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
   }
+  if (
+    contractRef === EXECUTIVE_IDS.replaySnapshotContractRef &&
+    isExecutiveReplaySnapshot(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
+    contractRef === EXECUTIVE_IDS.tuningSignalContractRef &&
+    isExecutiveTuningInput(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
   return null;
 }
 
@@ -187,13 +207,30 @@ function validateSystemContractValue(
       return isConsensusEscalationDecision(value);
     case "ticket_consensus_projection":
       return isTicketConsensusProjection(value);
+    case "executive_replay_snapshot":
+      return isExecutiveReplaySnapshot(value);
+    case "executive_observer_report":
+      return isExecutiveObserverReport(value);
+    case "executive_tuning_input":
+      return isExecutiveTuningInput(value);
+    case "executive_declaration_draft":
+      return isExecutiveDeclarationDraft(value);
     case "consensus_failure":
       return isRecord(value) && value.kind === "consensus_failure";
     case "consensus_refusal":
       return isRecord(value) && value.kind === "consensus_refusal";
+    case "executive_failure":
+      return isRecord(value) && value.kind === "executive_failure";
+    case "executive_refusal":
+      return isRecord(value) && value.kind === "executive_refusal";
     default:
       return false;
   }
+}
+
+function resolveSystemJudgmentRelation(predicateRef: string) {
+  return resolveConsensusJudgmentRelation(predicateRef) ??
+    resolveExecutiveJudgmentRelation(predicateRef);
 }
 
 export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
@@ -204,5 +241,5 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   packageVersion: ABI5_PACKAGE_VERSION,
   admitInput: admitSystemInput,
   validateContractValue: validateSystemContractValue,
-  resolveJudgmentRelation: resolveConsensusJudgmentRelation,
+  resolveJudgmentRelation: resolveSystemJudgmentRelation,
 }) satisfies ProductSemanticsProvider;
