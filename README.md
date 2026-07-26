@@ -16,7 +16,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | selected outcome | Reconcile and reclose `ABG5-S05` |
 | active owner | T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 accepted; S05 current; S06 open and unselected |
+| closure state | S03 accepted; S05 design-only gate current; implementation held; S06 open and unselected |
 | conservation | Forty-row implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -55,7 +55,9 @@ feature-specific runtime is not a lawful substitute.
 
 ## Current Work
 
-S05 reconciliation is the only implementation-bearing frontier. It must:
+S05 reconciliation is the only current frontier. Its complete global-to-local
+design must be independently reviewed and directly accepted before
+implementation resumes. The design must:
 
 1. retain the packed SYSTEM-owned Consensus GraphFunction as an ordinary
    admitted GTL callable;
@@ -81,7 +83,8 @@ Read in this order:
 4. [requirements](specification/requirements/)
 5. [direct-GTL design](build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md)
 6. [M5 design](build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md)
-7. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
+7. [S05 design delta](build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md)
+8. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
 
 `PRODUCT.md` is the sole complete 5.0 Product-definition surface.
 Requirements decompose it. GOALS selects one current Product outcome. Design

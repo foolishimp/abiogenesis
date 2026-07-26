@@ -4,21 +4,21 @@
 
 The ABIogenesis 5.0 Product and direct-GTL M3 architecture are accepted.
 GOALS selects the current S05 reconciliation under T-270. M05 Sections 1
-through 12 are the accepted expansion basis; Section 13 is the candidate S05
-boundary pending exact review and direct human acceptance.
+through 12 are accepted at S03. The current S05 boundary is a separate
+design-only delta pending exact review and direct human acceptance.
 
 The current design basis is:
 
-- [M03 Direct GTL Traversal Behavior Design](./M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md)
-- [M05 Direct GTL Traversal Expansion Design](./M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md)
+- accepted M03 and M05 Sections 1 through 12 at S03 candidate `8865ccff`;
+- [M05 S05 Consensus Global-To-Local Design](./M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md);
+  and
+- [ADR-045 Global Design Constraints Survive Local Projection](./adrs/ADR-045-global-design-constraints-survive-local-projection.md)
+  as rationale.
 
-The historical accepted M03 SHA-256
-`9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`
-remains immutable provenance. The current M03 projection propagates the
-selected STDO `v2.2.0` qualification identity and the accepted T-270 narrow
-Product leaf-verifier dependency. Its exact SHA-256 is
-`ccd8f79d333c4c681f5643acafac59458b661c7d1916eb929f9c7f065dd0cfaf`.
-Completed T-272 and T-286 are evidence only and select no further work.
+Current M03/M05 working-tree material after the accepted S03 cut is retained
+design-discovery evidence. It is not accepted S05 design and is not part of
+the current review subject unless the S05 delta incorporates it explicitly.
+Completed T-272 and T-286 remain evidence only.
 
 ## Governing Truth
 
@@ -48,7 +48,8 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-T-270 may promote only work that advances exact `ABG5-S05` through the
-accepted S03 basis and candidate Section 13 boundary. S06, observer/tuner,
-complete conservation, qualification, and release remain held. Donor or
-historical evidence carries no independent growth authority.
+T-270 permits only mechanical readiness work on the exact S05 design subject.
+Implementation, S06, observer/tuner, complete conservation, qualification, and
+release remain held. Freeze the design once, hand it to independent reviewers,
+and stop editing until their findings are consolidated or F_H directs the next
+step.

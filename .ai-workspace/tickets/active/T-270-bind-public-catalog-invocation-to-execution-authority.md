@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_submitter_response_exact_candidate_frozen
-- review_status: s05_submitter_response_independent_review_active
-- proof_status: s05_exact_candidate_gates_green_not_acceptance
+- phase_status: m5_s05_global_to_local_design_cut_frozen
+- review_status: s05_design_awaiting_independent_review
+- proof_status: s05_design_mechanical_readiness_green_not_acceptance
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -20,31 +20,29 @@
     specification/requirements/product/REQ-P-CONSENSUS.md
     REQ-P-CONSENSUS-004, -006A, -008, -009, -011, -011A, -015A, and
     -016..018, then build_tenants/abiogenesis/typescript/design/
-    M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md Section 13 and its realized
-    Product-owned Consensus boundary
+    M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md over the accepted S03
+    M03/M05 basis
 - triaged_at: 2026-07-26T16:51:19+10:00
 - created_at: 2026-07-14
-- updated_at: 2026-07-26
+- updated_at: 2026-07-27
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- implementation_hold: held_for_independent_review_and_direct_human_acceptance
+- implementation_hold: held_for_independent_design_review_and_direct_human_acceptance
 - implementation_hold_effect: >-
-    Only review or a bounded repair of exact candidate 9f13d85e may proceed;
-    S06, observer/tuner, complete conservation, qualification, and release
-    remain held
+    Only design authoring, mechanical readiness, one freeze, and independent
+    review may proceed; runtime, S06, observer/tuner, complete conservation,
+    qualification, and release remain held
 - current_product_outcome: ABG5-S05
 - accepted_s03_candidate_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s03_candidate_tree: f1a66a2c79f01972f063189bf7668fdb762ce2e6
 - accepted_s03_m03_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85
 - accepted_s03_m05_digest: b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5
-- current_m03_status_projection_digest: ccd8f79d333c4c681f5643acafac59458b661c7d1916eb929f9c7f065dd0cfaf
-- current_m05_status_projection_digest: d4f3006e8e0667bd4c421be273129cb242d41e44ea55489b7489e1afc10bb261
 - accepted_s03_package_digest: e4345ce38807abd4a988aeff76c3d83274e88ed6e0926adfb635d07fe933732b
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
 - accepted_s03_decision: .ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md
-- current_s05_basis_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
+- current_s05_basis_commit: 7c27f0aa642fb5922e7895bb14575f86e19464a4
 - superseded_s05_candidate: c4a0f42dd55a9dec963e514579fbfa81ea286786
 - superseded_s05_candidate_tree: 6046a66a04de125b4639a32d022b87f9b64fac04
 - superseded_s05_evidence: .ai-workspace/comments/codex/20260725T234029Z_CHECKPOINT_t270_s05_ordinary_path_consensus_exact_candidate.md
@@ -71,16 +69,18 @@
 - retained_s05_clean_checkout_proof: fresh_git_archive_without_generated_asset_directories
 - retained_s05_evidence: .ai-workspace/comments/codex/20260726T073212Z_CHECKPOINT_t270_s05_clean_checkout_repaired_exact_candidate.md
 - retained_s05_design_index_digest: ff5fcfbf4acd7179647e39a5b67dac44aa5d10aa8d04e72a82ebfe7ad119458b
-- current_s05_candidate: 9f13d85e1088b50c88ec2529024408326ea9d98c
-- current_s05_candidate_tree: e40fed0b94016250c2435f2d3af3ac29f433ce52
-- current_s05_requirement_digest: c21cd25b28c6f731d800b715141bbbc674a434fddd78fcb82d2c27a897145982
-- current_s05_design_digest: d4f3006e8e0667bd4c421be273129cb242d41e44ea55489b7489e1afc10bb261
-- current_s05_package_digest: 64b3ed4e4bdddde142f6dbd9ff7af5aefc01675e5b44f1af6733337609223377
-- current_s05_package_inventory_digest: aeccb9312e5410c335c18eabab150e0d723f36b721e35f1c9c74196e0eb0fa38
-- current_s05_product_content_digest: 5a2ba3a12b72c7c3e0baeea20fff5b1c0a345963d614acb2b2285bdabe0d86ff
-- current_s05_manifest_digest: ff155df642922dc5d472033d85df384bf3cf155c84da9b0eb2a158be4d434f2c
-- current_s05_clean_checkout_proof: fresh_git_archive_without_generated_consensus_assets
-- current_s05_evidence: .ai-workspace/comments/codex/20260726T104704Z_CHECKPOINT_t270_s05_submitter_response_exact_candidate.md
+- superseded_s05_submitter_response_candidate: 9f13d85e1088b50c88ec2529024408326ea9d98c
+- superseded_s05_submitter_response_candidate_tree: e40fed0b94016250c2435f2d3af3ac29f433ce52
+- current_s05_candidate: none_design_only_gate
+- current_s05_design_subject:
+  - specification/requirements/product/REQ-P-CONSENSUS.md
+  - build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md
+  - build_tenants/abiogenesis/typescript/design/adrs/ADR-045-global-design-constraints-survive-local-projection.md
+- current_s05_design_requirement_digest: 3dca76c38435ac8ea0b78e8636aeaf0023214eb22c298c77c3fa49178895178c
+- current_s05_design_delta_digest: 6009602004101e722454cc863d09afa208d7ac3d4bf4018d77b41547f897b37e
+- current_s05_design_adr_digest: de6301adfa25185d5eace74124530a852d9cebe4ce784263dd638bba03896755
+- current_s05_design_subject_aggregate: 6a809f94d011962d9888cfa8fa2f59dfd63c1163404db851d9c2eb6880ca2be1
+- current_s05_design_handoff: .ai-workspace/comments/codex/20260726T165744Z_HANDOFF_t270_s05_global_to_local_design_review.md
 - latest_s05_reviewed_candidate: 48103ed936aa9326d546f4dcd667b16a5c803f9c
 - latest_s05_review: .ai-workspace/comments/codex/20260726T081217Z_REVIEW_t270_s05_provenance_repaired_exact_candidate.md
 - latest_s05_review_disposition: rejected_by_requirement_reprice
@@ -134,7 +134,8 @@ Read this ticket through:
    continuation requirements;
 6. accepted M03 direct-GTL design;
 7. accepted M05 Sections 1 through 12; and
-8. provisional M05 Section 13 plus completed T-274/T-275/T-276 evidence.
+8. proposed `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`, with ADR-045 as
+   rationale.
 
 Higher authority governs any contradiction. Historical designs, tickets,
 comments, and tests cannot silently reprice Product or requirements.
@@ -183,12 +184,35 @@ The S05 reconciliation shall:
 Existing implementation may be retained wherever the derivation proves exact
 agreement. Only a concrete S05 defect authorizes a bounded code change.
 
+## Design Closure And Review Boundary
+
+S05 design is a global-to-local constraint network. Before implementation
+resumes it shall:
+
+- resolve the complete Product function and its irreducible semantic
+  relations;
+- standardize identity, authority, lineage, authoritative events, Event
+  Calculus, replay, refusal, retry, closure, persistence, and public projection
+  once for the Product;
+- project each global decision into an abstract module, interface, local
+  obligation, and falsification condition;
+- leave concrete helpers and equivalent algorithms to realization without
+  leaving Product meaning, topology, lifecycle, or failure semantics open; and
+- make a semantic choice discovered during coding a design re-entry, not a
+  local implementation repair.
+
+The worker may revise privately while authoring. It then runs mechanical checks
+only, freezes one exact subject, produces one handoff, and stops. Independent
+reviewers issue semantic verdicts. Their findings are consolidated into one
+bounded repair set; a further architectural finding returns to design or F_H.
+
 ## Acceptance
 
 S05 closes only when:
 
 - the complete S05 causal requirement and accepted-design path is satisfied;
-- M05 Section 13 and module-owned proof are accepted at one exact subject;
+- the current S05 design delta and module proof are independently reviewed and
+  directly accepted at one exact subject before implementation;
 - `npm run test:m5:consensus` passes serially;
 - `npm run test:m5:external` passes serially;
 - `npm run test:m5` passes serially;
@@ -227,6 +251,9 @@ S05 closes only when:
 
 S05 remains open if:
 
+- implementation resumes before direct acceptance of the exact design subject;
+- code or code review must choose an unresolved semantic atom, authority,
+  topology, interface direction, lifecycle, failure route, or closure relation;
 - the canonical Consensus callable bypasses Program-owned One Surface
   selection or the existing `run.invoke(start)` path;
 - host-language orchestration owns panel selection, rounds, reduction,

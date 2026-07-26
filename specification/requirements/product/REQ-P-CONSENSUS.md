@@ -1,6 +1,6 @@
 # REQ-P-CONSENSUS - Agent-Invocable Consensus GraphFunction
 
-**Status**: Active - bounded S05 requirement reprice under T-270
+**Status**: Active - bounded S05 requirement reprice accepted; design reframe current under T-270
 **Category**: Capability / Constraint / Verification
 **Date**: 2026-07-12
 **Repriced**: 2026-07-26

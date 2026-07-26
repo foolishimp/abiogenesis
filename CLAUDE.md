@@ -9,11 +9,11 @@ sole active M5 execution contract. Completed T-274, T-275, and T-276 and
 existing Consensus behavior are evidence and retained behavioral stock, not
 current execution authority or accepted S05 closure.
 
-The current correction is bounded to the Consensus domain, ordinary GTL
-publication and traversal, result/replay projection, and reconciliation of
-the active S05 design/module boundary. S06, observer/tuner, conservation
-qualification, qualification, and release remain held until GOALS selects
-them.
+The current correction is design-only. The complete S05 function is being
+resolved as a global-to-local constraint network in
+`M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`. Implementation is held pending
+independent review and direct human acceptance. S06, observer/tuner,
+conservation qualification, qualification, and release remain held.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.
@@ -27,6 +27,7 @@ specification/PRODUCT.md
 specification/requirements/
 build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
 build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md
+build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md
 .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
 .ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md
 ```
@@ -50,7 +51,7 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: S03 accepted; S05 reconciliation current
+**Status**: S03 accepted; S05 design review boundary current; implementation held
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower

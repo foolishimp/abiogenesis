@@ -12,6 +12,19 @@
 - Do not begin a later Product outcome until GOALS selects it.
 - More specific `AGENTS.md` files may further restrict their subtree.
 
+## Worker And Reviewer Separation
+
+- The worker may reason and revise privately while authoring one coherent cut.
+- Worker readiness checks are mechanical only: tests, formatting, hashes,
+  traceability, and rendering.
+- The worker does not issue semantic review verdicts, publish intermediate
+  review posts, or recursively refreeze candidates.
+- Freeze one exact subject, produce one handoff, and stop editing.
+- Independent reviewers assess that subject. Consolidate their findings into
+  at most one bounded repair pass.
+- A further architectural finding returns to design or F_H; it does not
+  authorize another autonomous patch-review loop.
+
 ## Current Gate
 
 The sole current Product outcome is:
@@ -23,8 +36,11 @@ reconcile and reclose ABG5-S05
 ```
 
 Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
-Earlier implementation remains retained behavioral stock. S05 is current.
-S06 is open but not selected.
+Earlier implementation remains retained behavioral stock. S05 is at a
+design-only gate under
+`M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`; implementation is held pending
+independent design review and direct human acceptance. S06 is open but not
+selected.
 Observer/tuner, full conservation qualification, qualification, and release
 must not receive implementation while S05 remains unresolved.
 
@@ -59,7 +75,8 @@ Read:
 4. applicable files under `specification/requirements/`
 5. `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`
 6. `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md`
-7. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
+7. `build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`
+8. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
 
 Repository history and commentary may explain prior failure. They do not
 authorize implementation.
@@ -118,7 +135,8 @@ from them.
 
 - A clean session starts from a clean tracked and untracked worktree.
 - Do not restore the archived observer/tuner draft onto the active line.
-- Add missing detail to T-270 while S05 is current.
+- While the S05 design hold is active, change only its design subject and
+  authority pointers.
 - A review finding blocks its exact claim; it does not automatically authorize
   another ticket, refactor, artifact family, or review programme.
 - Refactor only where accepted design proves duplicate, ambiguous, or rival
