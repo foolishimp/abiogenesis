@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_authority_relations_repaired_exact_candidate
+- phase_status: m5_s05_product_path_repaired_exact_candidate
 - review_status: s05_independent_exact_cut_pending
-- proof_status: s05_authority_relations_repaired_candidate_gates_green
+- proof_status: s05_product_path_candidate_gates_green
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -36,7 +36,7 @@
 - accepted_s03_m03_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85
 - accepted_s03_m05_digest: b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5
 - current_m03_status_projection_digest: ccd8f79d333c4c681f5643acafac59458b661c7d1916eb929f9c7f065dd0cfaf
-- current_m05_status_projection_digest: dd1cf148789a33e1d5c44f2bfc8437297ca33f45c422d732846c0a4c1a3600c9
+- current_m05_status_projection_digest: 46f110d2da0778598d9e2030a1785db0f97dfbbbb21739574aa69ab72cdcc71b
 - accepted_s03_package_digest: e4345ce38807abd4a988aeff76c3d83274e88ed6e0926adfb635d07fe933732b
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
@@ -48,10 +48,16 @@
 - superseded_s05_source_truth_candidate: 65b9cd542cda50adc072ed46be0d3ca270818b20
 - superseded_s05_source_truth_candidate_tree: 62953f27cf7e1655139e9994e4c79b7e3c9808a5
 - superseded_s05_source_truth_evidence: .ai-workspace/comments/codex/20260726T011331Z_CHECKPOINT_t270_s05_source_truth_repaired_exact_candidate.md
-- current_s05_candidate: cd94165699a6a73b1a9d8ffbd0e1ffa78f5a3624
-- current_s05_candidate_tree: 2a8d2319b1019dd6bdadfe65de85901b47b71480
-- current_s05_package_digest: 47b315e90276532df6d48ca672a6405c92ac25dde9b37442b1509f4fd8a398d9
-- current_s05_evidence: .ai-workspace/comments/codex/20260726T020457Z_CHECKPOINT_t270_s05_authority_relations_repaired_exact_candidate.md
+- superseded_s05_authority_candidate: cd94165699a6a73b1a9d8ffbd0e1ffa78f5a3624
+- superseded_s05_authority_candidate_tree: 2a8d2319b1019dd6bdadfe65de85901b47b71480
+- superseded_s05_authority_evidence: .ai-workspace/comments/codex/20260726T020457Z_CHECKPOINT_t270_s05_authority_relations_repaired_exact_candidate.md
+- superseded_s05_review_candidate: 0de994eb030452a2835b44ae564e75443c119de2
+- superseded_s05_review_candidate_tree: 6b5458a6d045af7f9fff4f867599412f75a27363
+- superseded_s05_review_candidate_package_digest: 4ef65c896ab23b5b16343ccb590095c0354f7b8d95762b78ffe777a7d5b6f68a
+- current_s05_candidate: 6a380544df8bdbd68db427aa80c278e37275c9bb
+- current_s05_candidate_tree: 6f853a0db7f1b53b9b4e8e805b179f1552e1212f
+- current_s05_package_digest: 622dd8b118d01b81a7ede12f93ac9e7421ecb6a3d8b3a14d9398d08635f18b6b
+- current_s05_evidence: .ai-workspace/comments/codex/20260726T041753Z_CHECKPOINT_t270_s05_product_path_repaired_exact_candidate.md
 - retained_behavioral_stock: bcd8769a8163a222e2e59400c904994b3de161fd
 - regression_bindings:
   - ABI5-ROOT-001
@@ -115,15 +121,21 @@ The S05 reconciliation shall:
 3. reconcile IACS, module ownership, public versus module-local visibility,
    domain, sequence, lifecycle, operational lifecycle, and applicable axioms;
 4. bind the canonical SYSTEM-owned Consensus GraphFunction to the ordinary
-   installed catalog and admitted Program;
+   installed catalog, admitted One Surface Program, and exact Product-selected
+   action/ConstructionIntent;
 5. preserve ordinary HoG traversal and ABG admission for fan-out, fan-in,
    bounded recursion, F_P review, F_D reduction, F_H escalation, result,
    replay, and closure;
-6. expose the typed result and replay through ordinary `project.read` and the
-   thin CLI;
-7. prove agreement, dispute recursion, and unresolved escalation across the
-   existing, alternate, and temporary workspace applications; and
-8. retain S03, the external Product, M4, package reproducibility, and all
+6. carry exact selected ticket bytes and resolved profile instruction
+   bodies/schemas into every attributed reviewer task;
+7. publish canonical digest-bound serialized Consensus schema and vocabulary
+   assets without adding a schema runtime;
+8. expose agreement, dissent, unresolved, and typed `contract_failure`
+   results plus replay through ordinary `project.read` and the thin CLI;
+9. prove agreement, dispute recursion, and unresolved escalation across the
+   existing, alternate, and temporary workspace applications, all through One
+   Surface; and
+10. retain S03, the external Product, M4, package reproducibility, and all
    causally applicable negative behavior.
 
 Existing implementation may be retained wherever the derivation proves exact
@@ -143,10 +155,16 @@ S05 closes only when:
   digest;
 - agreement, recursive dispute, and unresolved F_H escalation agree with
   replay in all three workspace applications;
+- exact ticket bytes and resolved profile instructions reach every attributed
+  reviewer through the declared F_P request;
+- malformed attributed reviewer output produces a typed replay-visible
+  `contract_failure` readable through the public Product;
+- schema and vocabulary identities resolve to canonical digest-bound
+  serialized assets and the matching native Product meaning;
 - no special Consensus public verb, runner, scheduler, controller, event
   writer, result store, continuation, or closure path participates; and
 - the exact implementation/design/evidence subject receives independent
-  review and the delegated acceptance disposition.
+  review and direct human acceptance.
 
 ## Non-Closure Conditions
 
