@@ -17,7 +17,8 @@ dependency reconciled, SHA-256
 `b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5`
 at candidate `8865ccff`
 **Product boundary**: `A5-F02`, `A5-F03`, `A5-F04`, `A5-F09`, `A5-F10`,
-`A5-F14`; enables later `A5-F07`, `A5-F08`, `A5-F12`, and `A5-F17`
+`A5-F14`; Section 13 activates `A5-F08` and enables later `A5-F07`,
+`A5-F12`, and `A5-F17`
 **Scenario boundary**: completed `ABG5-S02` and accepted `ABG5-S03`; Section
 13 advances `ABG5-S05`
 **Work owner**: T-270; completed T-274, T-275, and T-276 are Section 13

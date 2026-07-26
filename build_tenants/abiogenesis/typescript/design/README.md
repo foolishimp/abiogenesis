@@ -3,9 +3,9 @@
 ## Current Boundary
 
 The ABIogenesis 5.0 Product and direct-GTL M3 architecture are accepted.
-GOALS selects the current S03 reconciliation under T-270. M05 Sections 1
-through 11 are the accepted expansion basis; Section 12 is retained evidence
-under current T-270 reconciliation.
+GOALS selects the current S05 reconciliation under T-270. M05 Sections 1
+through 12 are the accepted expansion basis; Section 13 is the candidate S05
+boundary pending exact review and direct human acceptance.
 
 The current design basis is:
 
@@ -31,7 +31,7 @@ Read in this order:
 6. .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
 
 Specification defines WHAT. The current design basis defines HOW within the
-S03 boundary selected by GOALS and T-270.
+S05 boundary selected by GOALS and T-270.
 
 ## Historical Evidence
 
@@ -47,9 +47,7 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-The M3 hold is released. T-286 may promote only work that advances exact
-`ABI5-ROOT-001` under the accepted design. Donor code, tests, package exports,
-generated manifests, and runtime paths remain inadmissible unless T-286 names
-their T-284 disposition and proof.
-
-No horizontal feature work precedes that installed steel thread.
+T-270 may promote only work that advances exact `ABG5-S05` through the
+accepted S03 basis and candidate Section 13 boundary. S06, observer/tuner,
+complete conservation, qualification, and release remain held. Donor or
+historical evidence carries no independent growth authority.

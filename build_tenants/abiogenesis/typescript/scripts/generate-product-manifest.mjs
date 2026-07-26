@@ -1,4 +1,4 @@
-import { lstat, readFile, readdir, writeFile } from "node:fs/promises";
+import { lstat, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -43,6 +43,11 @@ function closedVocabulary(vocabularyId, values) {
     values: [...values],
   };
 }
+
+await Promise.all([
+  mkdir(dirname(join(root, consensusSchemaPath)), { recursive: true }),
+  mkdir(dirname(join(root, reviewRulingVocabularyPath)), { recursive: true }),
+]);
 
 await Promise.all([
   writeFile(
