@@ -83,9 +83,9 @@ identity; HoG traverses that value directly.
   embedded directly in TypeScript as `GTL.TypeScript` and declares the graph
   universe, callable GraphFunctions, typed Compute, contracts, and program
   law.
-- **C** stands for **Compute**. A `C<A, B>` is a typed, composable computation
-  from `A` to `B`. Composition is one operation over Compute; `C` does not
-  stand for Composition.
+- **C** names the typed **Compute** algebra. A `C<A, B>` is a typed computation
+  from carrier `A` to carrier `B`; `C.compose` sequences compatible Compute
+  terms.
 - **Heart of Gold (HoG)** is the traversal monad and graph executor. Its
   **Infinite Probability Drive** is a deliberate play on the fictional
   Infinite Improbability Drive: ABIogenesis makes probabilistic Compute
@@ -490,11 +490,9 @@ interface InteractionLeafRequirement {
 
 ### 4.4 The seven C constructors
 
-Here `C` means **Compute**: `C<A, B>` is a typed computation from carrier `A`
-to carrier `B`. Compute is composable, but `C` does not stand for Composition.
-`C.compose` is one constructor in the algebra. Older suffix notation such as
-`transform.C` identifies a selected composition context; it does not rename
-the `C` type or add another constructor.
+Here `C` names the typed **Compute** algebra. `C<A, B>` maps carrier `A` to
+carrier `B`, and `C.compose` sequences compatible Compute terms. It is one of
+the seven constructors below.
 
 The exported constructor surface is:
 
@@ -2856,7 +2854,6 @@ The following distinctions are important for this documentation cut:
 | Ten-operation public surface documented above | Exact currently exported implementation, pending final public-contract reconciliation |
 | Complete neutral authored GTL declaration | Present in Section 4.13 and structurally valid against the current language; its Product semantics, implementations, worker, actor, installation, and end-to-end execution remain consumer obligations |
 | Neutral installed end-to-end Product proof | Pending S06; the repository proof lane remains the current executable witness |
-| `C` terminology | This guide uses `C<A, B>` for Compute and distinguishes older `.C` selected-composition suffix notation; the owning requirements should make that distinction explicit in a later bounded reconciliation |
 | ABIogenesis `5.0.0` package and documentation | Not released |
 
 Consensus, where present, is an ordinary GTL construction over the same
@@ -2873,7 +2870,7 @@ presence of provisional exports.
 | Term | Meaning in ABIogenesis 5.0 |
 |---|---|
 | **ABG** | The ABIogenesis runtime-truth substrate around HoG. It admits runtime facts and owns event, evidence, result, judgment, replay, continuation, correction, and closure truth. This guide does not invent a separate long-form expansion. |
-| **C** | **Compute**. `C<A, B>` is a typed computation from carrier `A` to carrier `B`. Compute is composable; `C` does not stand for Composition. |
+| **C** | The typed **Compute** algebra. `C<A, B>` maps carrier `A` to carrier `B`; `C.compose` sequences compatible Compute terms. |
 | **CCall** | One ABG runtime call identity for an admitted atomic `C.of` leaf, including its locus, selected fibre, evidence, result, and judgment lineage. |
 | **CLI** | **Command-line interface**. `abg.cli` transports typed public requests and renders typed outcomes; it is not a controller. |
 | **ESM** | **ECMAScript module**, the JavaScript module form used by the current CLI-host example. |
