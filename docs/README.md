@@ -61,9 +61,12 @@ This first cut is intentionally provisional:
 - no ABIogenesis 5.0 RC or stable 5.0 Product exists.
 
 Stable language and authority descriptions are usable now. The request
-transcript is a schema example until a complete neutral installed-package
-example is added. S05 and S06 examples remain provisional until their exact
-implementation subjects are accepted and installed-package verified.
+transcript is a schema example. The human guide now includes a
+declaration-complete neutral mixed-fibre GTL Program; its Product semantics,
+leaf implementations, worker, human actor, and installed end-to-end proof
+remain consumer or S06 obligations. S05 and S06 examples remain provisional
+until their exact implementation subjects are accepted and
+installed-package verified.
 
 ## Historical Material
 

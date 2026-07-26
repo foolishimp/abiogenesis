@@ -11,3 +11,7 @@ for ABIogenesis 5.0.
 
 The immutable ABIogenesis 4.6 support line remains the deciding source for
 released 4.6 Product history.
+
+These files retain their pre-archive bytes. Relative links authored from their
+former `docs/` location may therefore no longer resolve from this deeper
+archive path.

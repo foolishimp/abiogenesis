@@ -37,23 +37,24 @@ at the source snapshot above.
 
 ## 1. What ABIogenesis is
 
-ABIogenesis is an LLM-first graph programming product. It lets a developer
-declare a complete typed program before execution, then preserve a causal,
-replayable account of what happened during execution.
+ABIogenesis is a large language model (LLM)-first graph programming product.
+It lets a developer declare a complete typed program before execution, then
+preserve a causal, replayable account of what happened during execution.
 
 The product has four central layers:
 
 | Layer | Owns | Does not own |
 |---|---|---|
-| GTL.TypeScript | Program meaning, GraphFunctions, graph topology, compute composition, contracts, policies, and publication | Runtime facts, event admission, worker supervision, or closure truth |
+| GTL.TypeScript | Program meaning, GraphFunctions, graph topology, Compute composition, contracts, policies, and publication | Runtime facts, event admission, worker supervision, or closure truth |
 | GTL validator | Raw admission and static whole-program judgment without lowering | Work selection, runtime state, or an executable plan |
-| HoG | Direct traversal of the admitted GTL Program and materialized GraphFunction graph | Program authorship, catalog authority, or runtime truth |
-| ABG | Invocation admission, calls, frames, attempts, events, evidence, results, replay, continuation, correction, and closure | Product-domain meaning or an alternative program |
+| Heart of Gold (HoG) | Monadic traversal of the admitted GTL Program and materialized GraphFunction graph | Program authorship, catalog authority, or runtime truth |
+| ABG runtime | Invocation admission, calls, frames, attempts, events, evidence, results, replay, continuation, correction, and closure | Product-domain meaning or an alternative program |
 
-The public SDK and `abg.cli` are thin shells over the same installed Product
-and ABG runtime. They carry explicit requests and render typed projections.
-They do not decide topology, choose hidden work, invoke a worker directly,
-write events, manufacture continuation authority, or decide closure.
+The public software development kit (SDK) and `abg.cli` command-line interface
+(CLI) are thin shells over the same installed Product and ABG runtime. They
+carry explicit requests and render typed projections. They do not decide
+topology, choose hidden work, invoke a worker directly, write events,
+manufacture continuation authority, or decide closure.
 
 The supported path is:
 
@@ -76,43 +77,222 @@ There is no compiler from GTL into a second executable Program, intermediate
 representation, bytecode, or HoG plan. Validation preserves the admitted GTL
 identity; HoG traverses that value directly.
 
-## 2. The programming model
+### 1.1 Names and notation
 
-### 2.1 The main declaration hierarchy
+- **GTL** historically expands to **Graph Topology Language**. In 5.0 it is
+  embedded directly in TypeScript as `GTL.TypeScript` and declares the graph
+  universe, callable GraphFunctions, typed Compute, contracts, and program
+  law.
+- **C** stands for **Compute**. A `C<A, B>` is a typed, composable computation
+  from `A` to `B`. Composition is one operation over Compute; `C` does not
+  stand for Composition.
+- **Heart of Gold (HoG)** is the traversal monad and graph executor. Its
+  **Infinite Probability Drive** is a deliberate play on the fictional
+  Infinite Improbability Drive: ABIogenesis makes probabilistic Compute
+  (`F_P`) a first-class fibre. The name does not authorize random topology;
+  GTL declares the graph and HoG traverses only its admitted structure.
+- **ABG** names ABIogenesis's runtime-truth substrate around HoG. No separate
+  long-form expansion is asserted here. ABG admits what happened and derives
+  replay, continuation, correction, and closure.
 
-```text
-ModulePublication
-  ├── ContractDeclaration[]
-  ├── EvaluatorDeclaration[]
-  ├── RuleDeclaration[]
-  ├── ImplementationBinding[]
-  ├── ClosureContract[]
-  ├── GtlProgram[]
-  │     ├── ProgramStart[]
-  │     ├── callable GraphFunction membership
-  │     └── policies and optional Product construction declarations
-  ├── GraphFunction[]
-  │     └── GraphTemplate
-  │           ├── GtlNode[]
-  │           │     └── CProgramNode
-  │           ├── GtlEdge[]
-  │           └── GraphFunctionApplication[]
-  └── CatalogContribution[]
+## 2. The GTL language in one view
+
+### 2.1 The language in one page
+
+GTL, historically named the Graph Topology Language, is an embedded TypeScript
+language for declaring complete graph programs as immutable data. A complete
+GTL program is published by a `ModulePublication`, admitted as a `GtlProgram`,
+entered through a declared `ProgramStart` or callable `GraphFunction`, and
+built from two nested composition levels:
+
+1. graph composition relates nodes, loci, and named `GraphFunction`s; and
+2. `C`, meaning Compute, composes typed work inside graph nodes.
+
+`C.of` introduces one atomic Compute leaf in one of three fibres:
+deterministic `F_D`, probabilistic `F_P`, or attributed-human `F_H`. The other
+six `C` constructors combine, lift, group, or retry Compute terms. HoG
+traverses the admitted graph structure. ABG admits the runtime facts produced
+around that traversal and derives replay truth.
+
+| Entity | Language role | Principal relationship |
+|---|---|---|
+| `ModulePublication` | Versioned publication boundary | Contains Programs, GraphFunctions, contracts, evaluators, rules, bindings, closure contracts, and catalog contributions |
+| `GtlProgram` | Complete admitted graph composition | Owns starts, callable membership, policy, closure, and optional Product construction declarations |
+| `GraphFunction` | Sole named callable work contract | Publishes a replayable graph template with outer input/output contract references; `CGraphFunctionRef<A, B>` is the exported native typed reference |
+| `GraphTemplate` | Authored topology | Contains nodes, adjacency edges, and graph-function applications |
+| `GtlNode` | Typed program locus | Carries one `CProgramNode` Compute term |
+| `GraphFunctionApplication` | Higher-order graph relation | Composes, substitutes, recurses, fans, gates, re-enters, promotes, or preserves admitted structure |
+| `CProgramNode` | Typed Compute algebra | Is built only from the seven closed constructors |
+| `ContractDeclaration` | Typed boundary law | Defines input, output, evidence, refusal, failure, judgment, transition, and closure value kinds |
+| `ImplementationBinding` | Leaf realization address | Realizes one admitted `F_D` or `F_P` leaf seam without owning topology or runtime truth |
+| `F_D`, `F_P`, `F_H` | Compute fibres | Distinguish total closed-domain Compute, probabilistic candidate Compute, and attributed-human Compute |
+
+Only a `GraphFunction` may be invoked by name. A Program may instead be
+started at a declared `ProgramStart`. Node types, overlays, assets, vectors,
+and contracts can be inspected or applied where declared, but they are not
+callable.
+
+### 2.2 Declaration and entity model
+
+```mermaid
+classDiagram
+    direction LR
+
+    class ModulePublication {
+      +moduleRef
+      +moduleVersion
+      +owningProductId
+    }
+    class ContractDeclaration
+    class EvaluatorDeclaration
+    class RuleDeclaration
+    class ImplementationBinding
+    class ClosureContract
+    class CatalogContribution
+    class GtlProgram {
+      +programRef
+      +starts
+      +callableMembership
+      +policies
+    }
+    class ProgramStart
+    class GraphFunction {
+      +name
+      +inputs
+      +outputs
+      +template
+    }
+    class GraphTemplate
+    class GtlNode
+    class GtlEdge
+    class GraphFunctionApplication
+    class CProgramNode
+
+    ModulePublication "1" *-- "0..*" ContractDeclaration : contracts
+    ModulePublication "1" *-- "0..*" EvaluatorDeclaration : evaluators
+    ModulePublication "1" *-- "0..*" RuleDeclaration : rules
+    ModulePublication "1" *-- "0..*" ImplementationBinding : leaf bindings
+    ModulePublication "1" *-- "0..*" ClosureContract : closure law
+    ModulePublication "1" *-- "0..*" GtlProgram : programs
+    ModulePublication "1" *-- "0..*" GraphFunction : graph functions
+    ModulePublication "1" *-- "0..*" CatalogContribution : catalog rows
+    GtlProgram "1" *-- "0..*" ProgramStart : declares
+    GtlProgram "1" --> "0..*" GraphFunction : start and callable refs
+    GraphFunction "1" *-- "1" GraphTemplate : publishes
+    GraphTemplate "1" *-- "1..*" GtlNode : nodes
+    GraphTemplate "1" *-- "0..*" GtlEdge : adjacency
+    GraphTemplate "1" *-- "0..*" GraphFunctionApplication : applications
+    GtlNode "1" *-- "1" CProgramNode : Compute term
+    CatalogContribution "0..*" --> "0..*" GtlProgram : membership refs
+    CatalogContribution "0..*" --> "0..1" GraphFunction : declaration ref
 ```
 
-A `ModulePublication` is the publication boundary. A `GtlProgram` is the
-complete admitted graph composition that owns starts and callable membership.
-A `GraphFunction` is the sole named callable work contract. Each
-`GraphFunction` supplies a graph template; it is not an implementation-only
-function pointer.
+Containment in this diagram means authored declaration membership, not runtime
+ownership. Runtime identities such as Run, GraphCall, Frame, CCall, event,
+continuation, and replay state are ABG values rather than additional GTL
+program entities.
 
-Only a GraphFunction may be invoked by name. A Program may be started at a
-declared `ProgramStart`. Node types, overlays, assets, vectors, and contracts
-can be inspected or applied where declared, but they are not callable.
+### 2.3 The two composition levels
 
-### 2.2 Identity is part of the language
+```mermaid
+flowchart TB
+    PROGRAM["GtlProgram<br/>starts, callable membership, policy"]
+    FUNCTION["GraphFunction<br/>sole named callable work contract<br/>with typed input and output contracts"]
+    TEMPLATE["GraphTemplate<br/>replayable authored topology"]
 
-Most GTL entities use explicit URI-like references:
+    subgraph GRAPH["Graph composition"]
+      NODES["GtlNode[]<br/>typed program loci"]
+      EDGES["GtlEdge[]<br/>edge"]
+      APPLICATIONS["GraphFunctionApplication[]<br/>compose | substitute | recurse | fan_out | fan_in<br/>gate | re_enter | promote | identity | same_object"]
+    end
+
+    subgraph COMPUTE["C - Compute composition inside each node"]
+      TERM["CProgramNode"]
+      CONSTRUCTORS["C.of | C.id | C.compose | C.edge<br/>workflow.C | C.batch | C.retry"]
+      FIBRES["C.of selects one fibre<br/>F_D | F_P | F_H"]
+    end
+
+    PROGRAM -->|"ProgramStart and callableMembership refs"| FUNCTION
+    FUNCTION -->|"owns"| TEMPLATE
+    TEMPLATE --> NODES
+    TEMPLATE --> EDGES
+    TEMPLATE --> APPLICATIONS
+    EDGES -->|"fromNodeRef and toNodeRef"| NODES
+    NODES -->|"term"| TERM
+    TERM --> CONSTRUCTORS
+    TERM --> FIBRES
+    APPLICATIONS -.->|"relate admitted GraphFunctions and loci"| FUNCTION
+    CONSTRUCTORS -.->|"workflow.C lifts an admitted child GraphFunction"| FUNCTION
+```
+
+Graph composition and Compute composition are distinct. Graph relations
+organize callable graph structure. A node's `CProgramNode` declares the typed
+Compute traversed at that locus. `workflow.C` is the explicit bridge: it lifts
+one admitted child `CGraphFunctionRef<A, B>` into a parent `C<A, B>`.
+
+### 2.4 From authored declaration to runtime outcome
+
+```mermaid
+flowchart TB
+    AUTHOR["Developer authors immutable ModulePublication,<br/>Program, GraphFunctions, contracts, and bindings"]
+    TYPES["TypeScript<br/>checks native types and constructor law"]
+    RAW["Raw admission<br/>recovers erased package or serialized boundaries"]
+    VALIDATE["GTL validator<br/>checks publication and whole-Program law<br/>without lowering"]
+    CATALOG["Product and ABG<br/>admit exact installed Product, workspace,<br/>publication, catalog, and invocation basis"]
+    PREPARE["GTL materialization + validator + Product resolution<br/>materialize graph, validate it, resolve exact leaf seams"]
+    TRAVERSE["Heart of Gold<br/>traverses the original admitted Program and graph"]
+    LEAF{"Declared C leaf"}
+    FD["F_D<br/>total closed-domain result candidate"]
+    FP["F_P<br/>probabilistic evidence and result candidate"]
+    FH["F_H<br/>durable hold, then attributed response candidate"]
+    ADMIT["ABG<br/>admits evidence, result, judgment, and transition"]
+    REPLAY{"Replay-derived disposition"}
+    CONTINUE["next | retry | recurse | foldback | re-enter"]
+    OUTCOME["Public SDK or CLI<br/>projects typed result, hold, gap, block,<br/>refusal, or failure"]
+
+    AUTHOR --> TYPES --> RAW --> VALIDATE --> CATALOG --> PREPARE --> TRAVERSE
+    TRAVERSE --> LEAF
+    LEAF --> FD --> ADMIT
+    LEAF --> FP --> ADMIT
+    LEAF --> FH --> ADMIT
+    ADMIT --> REPLAY
+    REPLAY -->|"continue traversal"| CONTINUE --> TRAVERSE
+    REPLAY -->|"stop or terminal"| OUTCOME
+```
+
+The public layer coordinates the fixed owner calls above, but it does not own
+a controller state machine. Each arrow crosses a typed admission boundary.
+Candidate values do not become runtime truth merely because a TypeScript
+function, worker, human, or CLI produced them.
+
+### 2.5 A complete Program at a glance
+
+The complete mixed-fibre example in
+[Section 4.13](#413-a-complete-mixed-fibre-gtl-program) declares this Program:
+
+```mermaid
+flowchart LR
+    INPUT["EditorialRequest"] --> FD1["C.of normalize<br/>F_D"]
+    FD1 --> NORMALIZED["NormalizedEditorialRequest"]
+    NORMALIZED --> FP["C.of draft<br/>F_P"]
+    FP --> DRAFT["EditorialDraft"]
+    DRAFT --> FH["C.of approve<br/>F_H"]
+    FH --> APPROVAL["EditorialApproval"]
+    APPROVAL --> FD2["C.of publish<br/>F_D"]
+    FD2 --> OUTPUT["PublishedEditorial"]
+```
+
+The example includes the types and carriers, all contracts, one
+`C.compose` chain, one `GraphFunction`, its graph template, one Program and
+start, a closure contract, implementation bindings, Product-semantics binding,
+catalog contribution, and final `ModulePublication`. Only the last `F_D` leaf
+is result-bearing. The `F_H` leaf creates a durable hold; the final leaf runs
+only after an admitted response and replay-derived continuation.
+
+### 2.6 Identity is part of the language
+
+Most GTL entities use explicit Uniform Resource Identifier (URI)-like
+references:
 
 ```text
 module://example.local/text@5
@@ -130,7 +310,7 @@ predicate://example.local/text/rendered@5
 These strings are opaque identities, not paths to hidden behavior. References
 must be non-empty, unique where required, and resolve through the publication
 and selected catalog view. Content-bearing runtime values additionally carry
-canonical SHA-256 identities.
+canonical SHA-256 (Secure Hash Algorithm 256-bit) identities.
 
 Changing declaration content without changing or invalidating its identity is
 not a supported form of mutation. Build a new immutable publication or
@@ -151,7 +331,8 @@ npm run build
 npm pack --ignore-scripts --json --pack-destination /absolute/path/to/artifacts
 ```
 
-Create a clean ESM CLI host and install the produced tarball:
+Create a clean ECMAScript module (ESM) CLI host and install the produced
+tarball:
 
 ```bash
 mkdir -p /absolute/path/to/cli-host
@@ -218,9 +399,10 @@ interface ContractDeclaration {
 }
 ```
 
-Contract declarations do not themselves validate arbitrary JSON. They bind
-semantic identities used by the Product-owned validation and judgment
-relations. A complete executable leaf normally references:
+Contract declarations do not themselves validate arbitrary JavaScript Object
+Notation (JSON). They bind semantic identities used by the Product-owned
+validation and judgment relations. A complete executable leaf normally
+references:
 
 - input and output contracts;
 - evidence contract;
@@ -263,11 +445,11 @@ const output = cCarrier<TextOutput>(
 Use `cCarrier`; do not forge a carrier-shaped object. Constructor identity is
 checked in addition to its visible fields.
 
-### 4.3 Compute regimes
+### 4.3 Compute fibres
 
-Every executable leaf selects one compute regime:
+Every executable leaf selects one Compute fibre:
 
-| Regime | Meaning | Admission rule |
+| Fibre | Meaning | Admission rule |
 |---|---|---|
 | `F_D` | Interface checks, envelope checks, total mechanical predicates, and declared total functions over a closed domain | Produces deterministic candidate evidence and result; ABG still admits runtime truth |
 | `F_P` | Open semantic construction or evaluation, including synthesis, diagnosis, ranking, and repair | Output remains candidate material until contract, attribution, and contradiction admission succeeds |
@@ -307,6 +489,12 @@ interface InteractionLeafRequirement {
 ```
 
 ### 4.4 The seven C constructors
+
+Here `C` means **Compute**: `C<A, B>` is a typed computation from carrier `A`
+to carrier `B`. Compute is composable, but `C` does not stand for Composition.
+`C.compose` is one constructor in the algebra. Older suffix notation such as
+`transform.C` identifies a selected composition context; it does not rename
+the `C` type or add another constructor.
 
 The exported constructor surface is:
 
@@ -1169,7 +1357,508 @@ module may publish zero Programs, GraphFunctions, or implementation bindings.
 A callable row must resolve through an admitted Program, GraphFunction,
 contracts, and implementation/interaction requirements.
 
-### 4.13 Required 5.0 language breadth
+### 4.13 A complete mixed-fibre GTL Program
+
+The following is one complete authored GTL declaration. It contains no omitted
+Program members or placeholder ellipses. The domain is deliberately neutral:
+normalize an editorial request deterministically, construct a draft
+probabilistically, obtain attributed human approval, then publish the approved
+result deterministically.
+
+```text
+EditorialRequest
+  -> F_D normalize
+  -> F_P draft
+  -> F_H approve
+  -> F_D publish
+  -> PublishedEditorial
+```
+
+This is **declaration-complete**, not a complete installable application
+bundle. The code after the listing must still be supplied by the owning
+Product package: Product semantics, three named implementation functions,
+implementation descriptors, a worker lane for `F_P`, and an admitted actor
+capability for `F_H`.
+
+```ts
+import {
+  C,
+  cCarrier,
+  type CatalogContribution,
+  type ClosureContract,
+  type ContractDeclaration,
+  type ExecutableLeafRequirement,
+  type GraphFunction,
+  type GtlProgram,
+  type ImplementationBinding,
+  type ModulePublication,
+  type RootModuleArtifactBasis,
+} from "@abiogenesis/typescript-tenant/gtl";
+
+interface EditorialRequest {
+  readonly kind: "editorial_request";
+  readonly schemaVersion: "5.0.0";
+  readonly subject: string;
+}
+
+interface NormalizedEditorialRequest {
+  readonly kind: "normalized_editorial_request";
+  readonly schemaVersion: "5.0.0";
+  readonly subject: string;
+}
+
+interface EditorialDraft {
+  readonly kind: "editorial_draft";
+  readonly schemaVersion: "5.0.0";
+  readonly text: string;
+}
+
+interface EditorialApproval {
+  readonly kind: "editorial_approval";
+  readonly schemaVersion: "5.0.0";
+  readonly approved: boolean;
+  readonly message: string;
+}
+
+interface PublishedEditorial {
+  readonly kind: "published_editorial";
+  readonly schemaVersion: "5.0.0";
+  readonly text: string;
+}
+
+const ID = {
+  module: "module://example.invalid/editorial@5",
+  program: "program://example.invalid/editorial/review@5",
+  start: "start://example.invalid/editorial/review@5",
+  graphFunction:
+    "graph-function://example.invalid/editorial/review@5",
+  graph: "graph://example.invalid/editorial/review@5",
+  node: "node://example.invalid/editorial/review@5",
+  composition:
+    "composition://example.invalid/editorial/review@5",
+
+  input: "contract://example.invalid/editorial/request@5",
+  normalized:
+    "contract://example.invalid/editorial/normalized-request@5",
+  draft: "contract://example.invalid/editorial/draft@5",
+  approval: "contract://example.invalid/editorial/approval@5",
+  output: "contract://example.invalid/editorial/published@5",
+  evidence: "contract://example.invalid/editorial/evidence@5",
+  probabilisticEvidence:
+    "contract://example.invalid/editorial/probabilistic-evidence@5",
+  failure: "contract://example.invalid/editorial/failure@5",
+  refusal: "contract://example.invalid/editorial/refusal@5",
+  judgment: "contract://example.invalid/editorial/judgment@5",
+  transition: "contract://example.invalid/editorial/transition@5",
+  continuation:
+    "contract://example.invalid/editorial/continuation@5",
+  closure: "contract://example.invalid/editorial/closure@5",
+
+  normalizeBinding:
+    "implementation-binding://example.invalid/editorial/normalize@5",
+  draftBinding:
+    "implementation-binding://example.invalid/editorial/draft@5",
+  publishBinding:
+    "implementation-binding://example.invalid/editorial/publish@5",
+  normalizeImplementation:
+    "implementation://example.invalid/editorial/normalize@5",
+  draftImplementation:
+    "implementation://example.invalid/editorial/draft@5",
+  publishImplementation:
+    "implementation://example.invalid/editorial/publish@5",
+
+  approvalCapability:
+    "capability://example.invalid/editorial/approve@5",
+  judgmentPredicate:
+    "predicate://example.invalid/editorial/admitted@5",
+} as const;
+
+const request = cCarrier<EditorialRequest>(ID.input);
+const normalized =
+  cCarrier<NormalizedEditorialRequest>(ID.normalized);
+const draft = cCarrier<EditorialDraft>(ID.draft);
+const approval = cCarrier<EditorialApproval>(ID.approval);
+const published = cCarrier<PublishedEditorial>(ID.output);
+
+function executableRequirement(
+  implementationBindingRef: string,
+  inputContractRef: string,
+  outputContractRef: string,
+  evidenceContractRef: string,
+): ExecutableLeafRequirement {
+  return {
+    kind: "executable_leaf_requirement",
+    implementationBindingRef,
+    inputContractRef,
+    outputContractRef,
+    evidenceContractRef,
+    failureContractRef: ID.failure,
+    refusalContractRef: ID.refusal,
+    judgmentContractRef: ID.judgment,
+  };
+}
+
+const normalize = C.of({
+  input: request,
+  output: normalized,
+  programLocusRef:
+    "locus://example.invalid/editorial/normalize@5",
+  stageRole: "transform",
+  fibre: "F_D",
+  armId: "arm://example.invalid/editorial/normalize@5",
+  compositionRef: ID.composition,
+  vectorIndex: 0,
+  judgmentPredicateRef: ID.judgmentPredicate,
+  resultBearing: false,
+  requirement: executableRequirement(
+    ID.normalizeBinding,
+    ID.input,
+    ID.normalized,
+    ID.evidence,
+  ),
+});
+
+const generateDraft = C.of({
+  input: normalized,
+  output: draft,
+  programLocusRef:
+    "locus://example.invalid/editorial/draft@5",
+  stageRole: "evaluate",
+  fibre: "F_P",
+  armId: "arm://example.invalid/editorial/draft@5",
+  compositionRef: ID.composition,
+  vectorIndex: 1,
+  judgmentPredicateRef: ID.judgmentPredicate,
+  resultBearing: false,
+  requirement: executableRequirement(
+    ID.draftBinding,
+    ID.normalized,
+    ID.draft,
+    ID.probabilisticEvidence,
+  ),
+});
+
+const requestApproval = C.of({
+  input: draft,
+  output: approval,
+  programLocusRef:
+    "locus://example.invalid/editorial/approve@5",
+  stageRole: "consequence",
+  fibre: "F_H",
+  armId: "arm://example.invalid/editorial/approve@5",
+  compositionRef: ID.composition,
+  vectorIndex: 2,
+  judgmentPredicateRef: ID.judgmentPredicate,
+  resultBearing: false,
+  requirement: {
+    kind: "interaction_leaf_requirement",
+    interactionKind: "editorial_approval",
+    actorCapabilityRef: ID.approvalCapability,
+    requestContractRef: ID.draft,
+    responseContractRef: ID.approval,
+    continuationContractRef: ID.continuation,
+  },
+});
+
+const publish = C.of({
+  input: approval,
+  output: published,
+  programLocusRef:
+    "locus://example.invalid/editorial/publish@5",
+  stageRole: "result",
+  fibre: "F_D",
+  armId: "arm://example.invalid/editorial/publish@5",
+  compositionRef: ID.composition,
+  vectorIndex: 3,
+  judgmentPredicateRef: ID.judgmentPredicate,
+  resultBearing: true,
+  requirement: executableRequirement(
+    ID.publishBinding,
+    ID.approval,
+    ID.output,
+    ID.evidence,
+  ),
+});
+
+const editorialCompute = C.compose(
+  C.compose(
+    C.compose(normalize, generateDraft),
+    requestApproval,
+  ),
+  publish,
+);
+
+const editorialGraphFunction: GraphFunction = {
+  kind: "graph_function",
+  name: ID.graphFunction,
+  version: "5.0.0",
+  environment: {
+    requires: [ID.input],
+    provides: [ID.output],
+    carries: [
+      ID.input,
+      ID.normalized,
+      ID.draft,
+      ID.approval,
+      ID.output,
+    ],
+  },
+  inputs: [ID.input],
+  outputs: [ID.output],
+  template: {
+    kind: "inline_graph",
+    graphRef: ID.graph,
+    startNodeRef: ID.node,
+    terminalNodeRefs: [ID.node],
+    nodes: [{
+      nodeRef: ID.node,
+      nodeKind: "c_locus",
+      term: editorialCompute,
+    }],
+    edges: [],
+    applications: [],
+  },
+  effects: [
+    "effect://example.invalid/editorial/propose@5",
+    "effect://example.invalid/editorial/approve@5",
+  ],
+  declarations: {
+    "abg.compute_regime": "mixed",
+    "abg.closure_contract": ID.closure,
+    "abg.evidence_contract": ID.evidence,
+    "abg.judgment_contract": ID.judgment,
+    "abg.judgment_predicate": ID.judgmentPredicate,
+    "abg.transition_contract": ID.transition,
+  },
+  tags: ["example", "editorial"],
+};
+
+const editorialProgram: GtlProgram = {
+  kind: "gtl_program",
+  programRef: ID.program,
+  version: "5.0.0",
+  moduleRef: ID.module,
+  starts: [{
+    startRef: ID.start,
+    graphFunctionRef: ID.graphFunction,
+  }],
+  callableMembership: [ID.graphFunction],
+  closureContractRef: ID.closure,
+  policies: {
+    "abg.compute_regime": "mixed",
+    "abg.default_start_ref": ID.start,
+    "abg.root_mode": "direct",
+  },
+};
+
+function contract(
+  contractRef: string,
+  contractKind: ContractDeclaration["contractKind"],
+  valueKind: string,
+): ContractDeclaration {
+  return {
+    contractRef,
+    contractVersion: "5.0.0",
+    contractKind,
+    valueKind,
+  };
+}
+
+const contracts: readonly ContractDeclaration[] = [
+  contract(ID.input, "input", "editorial_request"),
+  contract(
+    ID.normalized,
+    "transition",
+    "normalized_editorial_request",
+  ),
+  contract(ID.draft, "output", "editorial_draft"),
+  contract(ID.approval, "judgment", "editorial_approval"),
+  contract(ID.output, "output", "published_editorial"),
+  contract(ID.evidence, "evidence", "editorial_evidence"),
+  contract(
+    ID.probabilisticEvidence,
+    "evidence",
+    "probabilistic_editorial_evidence",
+  ),
+  contract(ID.failure, "failure", "editorial_failure"),
+  contract(ID.refusal, "refusal", "editorial_refusal"),
+  contract(ID.judgment, "judgment", "editorial_judgment"),
+  contract(ID.transition, "transition", "editorial_transition"),
+  contract(
+    ID.continuation,
+    "transition",
+    "editorial_continuation",
+  ),
+  contract(ID.closure, "closure", "editorial_closure"),
+];
+
+const closure: ClosureContract = {
+  kind: "closure_contract",
+  closureContractRef: ID.closure,
+  predicateRef: ID.judgmentPredicate,
+  evidenceContractRef: ID.evidence,
+  resultContractRef: ID.output,
+  refusalContractRef: ID.refusal,
+  refusalValueKind: "editorial_refusal",
+  judgmentContractRef: ID.judgment,
+  rejectionContractRef: ID.refusal,
+  transitionContractRef: ID.transition,
+  replayProjectionRef:
+    "projection://example.invalid/editorial/replay@5",
+  terminalKind: "completed",
+  closureScope: "run",
+  eventKindRefs: [
+    "terminal_reached",
+    "frame_closed",
+    "graph_call_closed",
+    "run_closed",
+  ],
+};
+
+export function constructEditorialPublication(
+  artifact: RootModuleArtifactBasis,
+): ModulePublication {
+  const implementationBindings:
+    readonly ImplementationBinding[] = [{
+      kind: "implementation_binding",
+      bindingRef: ID.normalizeBinding,
+      implementationRef: ID.normalizeImplementation,
+      packageName: artifact.packageName,
+      packageVersion: artifact.packageVersion,
+      modulePath: "build/index.js",
+      namedSymbol: "normalizeEditorialRequest",
+      computeRegime: "F_D",
+      inputContractRef: ID.input,
+      outputContractRef: ID.normalized,
+      failureContractRef: ID.failure,
+      refusalContractRef: ID.refusal,
+    }, {
+      kind: "implementation_binding",
+      bindingRef: ID.draftBinding,
+      implementationRef: ID.draftImplementation,
+      packageName: artifact.packageName,
+      packageVersion: artifact.packageVersion,
+      modulePath: "build/index.js",
+      namedSymbol: "generateEditorialDraft",
+      computeRegime: "F_P",
+      inputContractRef: ID.normalized,
+      outputContractRef: ID.draft,
+      failureContractRef: ID.failure,
+      refusalContractRef: ID.refusal,
+    }, {
+      kind: "implementation_binding",
+      bindingRef: ID.publishBinding,
+      implementationRef: ID.publishImplementation,
+      packageName: artifact.packageName,
+      packageVersion: artifact.packageVersion,
+      modulePath: "build/index.js",
+      namedSymbol: "publishApprovedEditorial",
+      computeRegime: "F_D",
+      inputContractRef: ID.approval,
+      outputContractRef: ID.output,
+      failureContractRef: ID.failure,
+      refusalContractRef: ID.refusal,
+    }];
+
+  const contribution: CatalogContribution = {
+    handle: ID.graphFunction,
+    kind: "graph_function",
+    declarationOrContractRef: ID.graphFunction,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [ID.program],
+    compatibilityRefs: [
+      "compatibility://abiogenesis/major/5",
+    ],
+    provenanceRefs: [
+      artifact.artifactDigest,
+      artifact.productManifestDigest,
+    ],
+  };
+
+  return {
+    kind: "module_publication",
+    moduleRef: ID.module,
+    moduleVersion: "5.0.0",
+    owningProductId: artifact.productId,
+    artifactDigest: artifact.artifactDigest,
+    productContentDigest: artifact.productContentDigest,
+    productManifestDigest: artifact.productManifestDigest,
+    descriptorRef:
+      "descriptor://example.invalid/editorial@5",
+    contributionManifestRef:
+      "contribution-manifest://example.invalid/editorial@5",
+    productSemanticsBinding: {
+      kind: "product_semantics_binding",
+      bindingRef:
+        "product-semantics-binding://example.invalid/editorial@5",
+      packageName: artifact.packageName,
+      packageVersion: artifact.packageVersion,
+      modulePath: "build/index.js",
+      namedSymbol: "EDITORIAL_PRODUCT_SEMANTICS",
+    },
+    contracts,
+
+    // This Program uses no gate or recurse application, so it requires
+    // no evaluator or rule declaration.
+    evaluators: [],
+    rules: [],
+
+    implementationBindings,
+    closureContracts: [closure],
+    programs: [editorialProgram],
+    graphFunctions: [editorialGraphFunction],
+    contributions: [contribution],
+  };
+}
+```
+
+At the source snapshot named by this guide, the exact listing type-checks and
+returns:
+
+```text
+publication_validation diagnostics=[]
+program_validation diagnostics=[]
+F_D:transform:false
+F_P:evaluate:false
+F_H:consequence:false
+F_D:result:true
+```
+
+The complete declaration has these layers:
+
+| Layer | What the example declares |
+|---|---|
+| Domain wire types | Five immutable values from request through published result |
+| Carriers | One nominal `CCarrier<T>` for each Compute boundary |
+| Compute | Four leaves joined by three typed `C.compose` binds |
+| Graph | One `c_locus` node carrying the complete Compute term |
+| GraphFunction | One named callable contract around the graph |
+| Program | One start, one callable member, policy, and closure identity |
+| Contracts | Input, intermediate, output, evidence, failure, refusal, judgment, transition, continuation, and closure value kinds |
+| Realization addresses | Three installed `F_D`/`F_P` bindings; `F_H` uses a capability instead |
+| Publication | Exact Product/artifact identity, semantics binding, members, and catalog contribution |
+
+The solid carrier sequence does not transfer trust directly. At runtime HoG
+traverses each declared term, and ABG must admit its evidence, result,
+judgment, and next route before the next term receives the value. The `F_H`
+stage stops at a durable hold until an exact attributed response is admitted
+and replay supplies continuation authority.
+
+To run this publication, the installed Product package must additionally:
+
+- bind `RootModuleArtifactBasis` to its real packed artifact, Product-content,
+  and manifest identities;
+- export `EDITORIAL_PRODUCT_SEMANTICS`;
+- export the three named implementation functions and compatible packaged
+  implementation descriptors;
+- validate each Product value kind and human response;
+- supply the `F_P` instruction/result relation and worker lane; and
+- admit an actor with the declared approval capability.
+
+Those are Product installation and leaf-realization obligations. They are not
+missing GTL declarations and must not be hidden inside the Program.
+
+### 4.14 Required 5.0 language breadth
 
 The interfaces above describe the current exported `5.0.0-dev.286` carrier.
 They are not the whole final 5.0 language obligation. Product requires the
@@ -1623,7 +2312,8 @@ local paths.
 
 The `publication` placeholder must be replaced by the complete
 `ModulePublication`; the abbreviated object above is intentionally not valid.
-Generate the JSONL with code rather than hand-editing digests.
+Generate the newline-delimited JSON (JSONL) with code rather than hand-editing
+digests.
 
 `/absolute/path/to/product-consumer` is the separate Product installation
 target introduced in section 3. It must be absent or empty before this
@@ -2164,7 +2854,9 @@ The following distinctions are important for this documentation cut:
 | S06 native/host projection and independent portability closure | Unselected or provisional; not a released claim |
 | Observer/tuner, complete 4.6 conservation, qualification, RC, and stable release | Later work; not complete |
 | Ten-operation public surface documented above | Exact currently exported implementation, pending final public-contract reconciliation |
-| Complete neutral end-to-end example | Pending; the six-request JSONL is a schema example and the repository proof lane remains the executable witness |
+| Complete neutral authored GTL declaration | Present in Section 4.13 and structurally valid against the current language; its Product semantics, implementations, worker, actor, installation, and end-to-end execution remain consumer obligations |
+| Neutral installed end-to-end Product proof | Pending S06; the repository proof lane remains the current executable witness |
+| `C` terminology | This guide uses `C<A, B>` for Compute and distinguishes older `.C` selected-composition suffix notation; the owning requirements should make that distinction explicit in a later bounded reconciliation |
 | ABIogenesis `5.0.0` package and documentation | Not released |
 
 Consensus, where present, is an ordinary GTL construction over the same
@@ -2176,7 +2868,35 @@ boundary; it is not an S05 acceptance receipt.
 Do not infer release readiness from this guide, package version, test count, or
 presence of provisional exports.
 
-## 16. Source map
+## 16. Glossary and abbreviations
+
+| Term | Meaning in ABIogenesis 5.0 |
+|---|---|
+| **ABG** | The ABIogenesis runtime-truth substrate around HoG. It admits runtime facts and owns event, evidence, result, judgment, replay, continuation, correction, and closure truth. This guide does not invent a separate long-form expansion. |
+| **C** | **Compute**. `C<A, B>` is a typed computation from carrier `A` to carrier `B`. Compute is composable; `C` does not stand for Composition. |
+| **CCall** | One ABG runtime call identity for an admitted atomic `C.of` leaf, including its locus, selected fibre, evidence, result, and judgment lineage. |
+| **CLI** | **Command-line interface**. `abg.cli` transports typed public requests and renders typed outcomes; it is not a controller. |
+| **ESM** | **ECMAScript module**, the JavaScript module form used by the current CLI-host example. |
+| **`F_D`** | Deterministic Compute over a declared total function or closed domain. It still crosses ABG runtime admission. |
+| **`F_P`** | Probabilistic Compute for open semantic construction or evaluation. Its output remains a candidate until admitted. |
+| **`F_H`** | Attributed human Compute. It produces a durable hold and requires an exact admitted response and capability before continuation. |
+| **GraphFunction** | The sole named callable GTL work contract. It publishes a replayable graph template with typed inputs, outputs, environment, effects, and declarations. |
+| **GTL** | Historically **Graph Topology Language**. In 5.0 it is embedded directly in TypeScript as `GTL.TypeScript`; there is no second source language or parser. |
+| **Heart of Gold (HoG)** | The monadic traversal engine that directly traverses the admitted GTL Program and graph. |
+| **Infinite Probability Drive** | The Heart of Gold allusion: a play on the fictional Infinite Improbability Drive and ABIogenesis's first-class probabilistic `F_P` Compute. It does not authorize random graph topology. |
+| **JSON** | **JavaScript Object Notation**, the serialized value form used at raw and public transport boundaries. |
+| **JSONL** | **Newline-delimited JSON**: one JSON value per non-empty line. It is the current `abg.cli --jsonl` request/response transport. |
+| **LLM** | **Large language model**. LLM output used by `F_P` remains candidate data until its declared admission law succeeds. |
+| **ModulePublication** | The versioned GTL publication boundary containing the declarations that a module contributes to an installed catalog. |
+| **Program** | The complete admitted GTL graph composition that owns starts, callable membership, policies, closure, and optional Product construction declarations. It is not a lowered execution plan. |
+| **Product** | The immutable released thing when discussing a release, or the capitalized product-definition identity when discussing an exact installed Product basis. Do not confuse it with mutable source or `PRODUCT.md`. |
+| **RC** | **Release candidate**, an immutable candidate cut evaluated before stable release. |
+| **SDK** | **Software development kit**. The public SDK applies the same typed public contract as the CLI without owning traversal or runtime truth. |
+| **SHA-256** | **Secure Hash Algorithm 256-bit**, used for canonical content and artifact identities. |
+| **STDO `v2.2.0`** | The project-selected, versioned method reference. Its already-selected project compression governs; this guide neither expands nor restates it. |
+| **URI** | **Uniform Resource Identifier**. GTL uses URI-like opaque references for semantic identities; they are not paths to hidden behavior. |
+
+## 17. Source map
 
 This guide was constructed from these deciding and explanatory surfaces:
 
