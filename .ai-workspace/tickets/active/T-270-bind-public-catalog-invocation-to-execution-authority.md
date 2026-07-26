@@ -45,10 +45,10 @@
 - superseded_s05_candidate: c4a0f42dd55a9dec963e514579fbfa81ea286786
 - superseded_s05_candidate_tree: 6046a66a04de125b4639a32d022b87f9b64fac04
 - superseded_s05_evidence: .ai-workspace/comments/codex/20260725T234029Z_CHECKPOINT_t270_s05_ordinary_path_consensus_exact_candidate.md
-- current_s05_candidate: self_resolved_by_current_s05_evidence
-- current_s05_candidate_tree: self_resolved_by_current_s05_evidence
+- current_s05_candidate: 65b9cd542cda50adc072ed46be0d3ca270818b20
+- current_s05_candidate_tree: 62953f27cf7e1655139e9994e4c79b7e3c9808a5
 - current_s05_package_digest: 38f389e1cfe31792f6dd8a95d38672f29da075f74d329445ab21c3b898c42394
-- current_s05_evidence: pending_exact_checkpoint_post
+- current_s05_evidence: .ai-workspace/comments/codex/20260726T011331Z_CHECKPOINT_t270_s05_source_truth_repaired_exact_candidate.md
 - retained_behavioral_stock: bcd8769a8163a222e2e59400c904994b3de161fd
 - regression_bindings:
   - ABI5-ROOT-001
