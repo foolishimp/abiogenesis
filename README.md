@@ -16,7 +16,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | selected outcome | Reconcile and reclose `ABG5-S05` |
 | active owner | T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 accepted; S05 design-only gate current; implementation held; S06 open and unselected |
+| closure state | S03 accepted; S05 accepted-design realization current; S06 open and unselected |
 | conservation | Forty-row implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 

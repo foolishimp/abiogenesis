@@ -1,6 +1,6 @@
 # M05 S05 Consensus Global-To-Local Design
 
-**Status**: Proposed replacement design cut; implementation held
+**Status**: Accepted S05 realization basis at `283325aa`
 
 **Owner**: T-270
 
@@ -14,16 +14,16 @@
 
 ## Authority And Supersession
 
-This file is the sole current S05 design candidate selected by GOALS. It
-supersedes M05 Section 13 in full for S05 upon acceptance. Until then, M05
-Section 13 and commits after accepted S03 remain design-discovery evidence
-only; they carry no independent implementation or closure authority.
+This file is the sole accepted S05 design selected by GOALS. It supersedes M05
+Section 13 in full for S05. M05 Section 13 and commits after accepted S03 remain
+design-discovery evidence only; they carry no independent implementation or
+closure authority.
 
-This is a design-gated boundary. Product and requirements fix the semantic
-destination, but the prior cut left material choices over round outcomes,
-workspace topology, F_H continuation, occurrence identity, and module
-placement. Implementation remains held until independent review and direct
-human acceptance of one exact design subject.
+This was a design-gated boundary. Product and requirements fix the semantic
+destination, while this accepted cut resolves round outcomes, workspace
+topology, F_H continuation, occurrence identity, and module placement.
+Direct human acceptance is recorded in
+`.ai-workspace/comments/codex/20260726T182458Z_DECISION_direct_accept_s05_design_and_resume_realization.md`.
 
 The constitutional sources are:
 

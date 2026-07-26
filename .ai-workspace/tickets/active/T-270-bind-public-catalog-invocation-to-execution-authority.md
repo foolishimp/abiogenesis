@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_consolidated_design_repair_frozen
-- review_status: s05_repaired_design_awaiting_independent_review
-- proof_status: s05_repaired_design_mechanical_readiness_green_not_acceptance
+- phase_status: m5_s05_accepted_design_realization_active
+- review_status: s05_design_directly_accepted_for_realization
+- proof_status: s05_realization_and_assets_pending
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -28,10 +28,10 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- implementation_hold: held_for_independent_design_review_and_direct_human_acceptance
+- implementation_hold: released_for_s05_accepted_design_realization_only
 - implementation_hold_effect: >-
-    Only design authoring, mechanical readiness, one freeze, and independent
-    review may proceed; runtime, S06, observer/tuner, complete conservation,
+    S05 realization and its module, installed-path, asset, replay, negative,
+    and package proof may proceed; S06, observer/tuner, complete conservation,
     qualification, and release remain held
 - current_product_outcome: ABG5-S05
 - accepted_s03_candidate_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
@@ -71,7 +71,7 @@
 - retained_s05_design_index_digest: ff5fcfbf4acd7179647e39a5b67dac44aa5d10aa8d04e72a82ebfe7ad119458b
 - superseded_s05_submitter_response_candidate: 9f13d85e1088b50c88ec2529024408326ea9d98c
 - superseded_s05_submitter_response_candidate_tree: e40fed0b94016250c2435f2d3af3ac29f433ce52
-- current_s05_candidate: none_design_only_gate
+- current_s05_candidate: none_realization_active
 - superseded_s05_design_subject_aggregate: 6a809f94d011962d9888cfa8fa2f59dfd63c1163404db851d9c2eb6880ca2be1
 - superseded_s05_design_handoff: .ai-workspace/comments/codex/20260726T165744Z_HANDOFF_t270_s05_global_to_local_design_review.md
 - current_s05_design_subject:
@@ -84,6 +84,10 @@
 - current_s05_design_subject_aggregate: 5d01783b843481fc60a3a947a65522bc53620dd01cc87350fe2e0441015567cb
 - current_s05_design_mermaid_count: 3
 - current_s05_design_handoff: .ai-workspace/comments/codex/20260726T175027Z_HANDOFF_t270_s05_consolidated_design_repair_review.md
+- accepted_s05_design_commit: 283325aa082844ad4691ca07bb39882fda7152dc
+- accepted_s05_design_tree: 96759ce55322bee5dc98d1ab926e8c60ef56f951
+- accepted_s05_design_subject_aggregate: 5d01783b843481fc60a3a947a65522bc53620dd01cc87350fe2e0441015567cb
+- accepted_s05_design_decision: .ai-workspace/comments/codex/20260726T182458Z_DECISION_direct_accept_s05_design_and_resume_realization.md
 - latest_s05_reviewed_candidate: 48103ed936aa9326d546f4dcd667b16a5c803f9c
 - latest_s05_review: .ai-workspace/comments/codex/20260726T081217Z_REVIEW_t270_s05_provenance_repaired_exact_candidate.md
 - latest_s05_review_disposition: rejected_by_requirement_reprice
@@ -206,17 +210,18 @@ resumes it shall:
   local implementation repair.
 
 The worker may revise privately while authoring. It then runs mechanical checks
-only, freezes one exact subject, produces one handoff, and stops. Independent
-reviewers issue semantic verdicts. Their findings are consolidated into one
-bounded repair set; a further architectural finding returns to design or F_H.
+only, freezes one exact implementation subject, produces one handoff, and
+stops. The accepted design is not recursively reviewed during realization. A
+semantic contradiction returns to F_H rather than starting an autonomous
+patch-review loop.
 
 ## Acceptance
 
 S05 closes only when:
 
 - the complete S05 causal requirement and accepted-design path is satisfied;
-- the current S05 design delta and module proof are independently reviewed and
-  directly accepted at one exact subject before implementation;
+- the current S05 design delta and module proof are directly accepted at one
+  exact subject before implementation;
 - `npm run test:m5:consensus` passes serially;
 - `npm run test:m5:external` passes serially;
 - `npm run test:m5` passes serially;

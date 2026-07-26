@@ -36,11 +36,9 @@ reconcile and reclose ABG5-S05
 ```
 
 Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
-Earlier implementation remains retained behavioral stock. S05 is at a
-design-only gate under
-`M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`; implementation is held pending
-independent design review and direct human acceptance. S06 is open but not
-selected.
+Earlier implementation remains retained behavioral stock. The S05 design in
+`M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` is directly accepted at
+`283325aa`; S05 realization is current. S06 is open but not selected.
 Observer/tuner, full conservation qualification, qualification, and release
 must not receive implementation while S05 remains unresolved.
 
@@ -135,8 +133,8 @@ from them.
 
 - A clean session starts from a clean tracked and untracked worktree.
 - Do not restore the archived observer/tuner draft onto the active line.
-- While the S05 design hold is active, change only its design subject and
-  authority pointers.
+- During S05 realization, change only surfaces required to project the accepted
+  S05 design and prove that projection.
 - A review finding blocks its exact claim; it does not automatically authorize
   another ticket, refactor, artifact family, or review programme.
 - Refactor only where accepted design proves duplicate, ambiguous, or rival
