@@ -44,6 +44,8 @@ export {
   CONSENSUS_REDUCER_IMPLEMENTATION_DESCRIPTOR,
   CONSENSUS_REVIEWER_IMPLEMENTATION_DESCRIPTOR,
   CONSENSUS_ROUND_EVALUATOR_IMPLEMENTATION_DESCRIPTOR,
+  CONSENSUS_SUBMITTER_IMPLEMENTATION_DESCRIPTOR,
+  CONSENSUS_SUBMITTER_TASK_IMPLEMENTATION_DESCRIPTOR,
   CONSENSUS_SYNTHESIZE_MODEL_IMPLEMENTATION_DESCRIPTOR,
   realizeConsensusActionEvaluation,
   realizeConsensusEscalationFinalization,
@@ -58,5 +60,7 @@ export {
   realizeConsensusResultProjection,
   realizeConsensusReviewer,
   realizeConsensusRoundEvaluation,
+  realizeConsensusSubmitter,
+  realizeConsensusSubmitterTaskPreparation,
 } from "./consensus.js";
 export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";

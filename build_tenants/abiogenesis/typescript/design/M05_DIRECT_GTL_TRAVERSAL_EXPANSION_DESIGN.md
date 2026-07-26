@@ -17,8 +17,8 @@ dependency reconciled, SHA-256
 `b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5`
 at candidate `8865ccff`
 **Product boundary**: `A5-F02`, `A5-F03`, `A5-F04`, `A5-F09`, `A5-F10`,
-`A5-F14`; Section 13 activates `A5-F08` and enables later `A5-F07`,
-`A5-F12`, and `A5-F17`
+`A5-F14`; Section 13 consumes accepted `A5-F07`, activates `A5-F08`, and
+enables later `A5-F12` and `A5-F17`
 **Scenario boundary**: completed `ABG5-S02` and accepted `ABG5-S03`; Section
 13 advances `ABG5-S05`
 **Work owner**: T-270; completed T-274, T-275, and T-276 are Section 13
@@ -2264,18 +2264,22 @@ packed ABIogenesis Product
   -> exact ticket bytes and declared profile instructions in reviewer tasks
   -> canonical Consensus GraphFunction
   -> HoG fan-out / fan-in / bounded recursion over declared GTL
-  -> ordinary F_P reviewer leaves and Product-owned F_D reduction
+  -> ordinary F_P reviewer leaves and one complete admitted findings vector
+  -> one attributed F_P submitter response over that exact vector
+  -> ordinary response admission and Product-owned F_D reduction
+  -> reviewer reconsideration of the admitted response on bounded recursion
   -> typed closed_done | recurse_next_round | escalate_fh state
   -> agreement | dissent | unresolved | contract_failure result
   -> ordinary F_H hold/respond/continue only for unresolved_disagreement + escalate_fh
   -> ABG result, events, replay, and public project.read
 ```
 
-This section derives from `A5-F08`, `ABG5-S05`, `REQ-P-CONSENSUS-001` through
-`019`, accepted M03, and accepted M05 Sections 1 through 12. It activates only
-the Consensus boundary. SDK/CLI equivalence belongs to S06; observer/tuner,
-complete conservation, qualification, and release remain deferred to their
-selected Product outcomes.
+This section consumes accepted `A5-F07` and derives the selected S05 boundary
+from `A5-F08`, `ABG5-S05`, `REQ-P-CONSENSUS-001` through `019`, accepted M03,
+and accepted M05 Sections 1 through 12. It activates only the Consensus
+boundary. SDK/CLI equivalence belongs to S06; observer/tuner, complete
+conservation, qualification, and release remain deferred to their selected
+Product outcomes.
 
 ### 13.1 Boundary Ontology
 
@@ -2284,23 +2288,26 @@ slice.
 
 | Entity or value family | Identity and relationship | Cardinality and invariant | Authority owner |
 |---|---|---|---|
-| `ConsensusDomainFamily` | SYSTEM-owned meaning for subject, panel, policy, rounds, findings, rulings, outcome, and result | exactly one family for the canonical callable; native and serialized values have identical meaning | Product |
+| `ConsensusDomainFamily` | SYSTEM-owned meaning for subject, panel, policy, reviewer findings, submitter profile/instruction/task/response, reviewer reconsideration, rulings, rounds, outcome, and result | exactly one family for the canonical callable; native and serialized values have identical meaning | Product |
 | `ConsensusModulePublication` | publishes the canonical and subordinate GraphFunctions, contracts, bindings, starts, and One Surface action row | exactly one publication in the installed ABIogenesis Product | Product declaration through GTL |
 | `ConsensusProgram` | one supervised One Surface Program publishes the canonical public handle; one non-public support Program carries only replay-bound F_H escalation | the complete three-outcome by three-workspace S05 matrix enters through One Surface; the support Program cannot invoke the canonical Consensus root | GTL topology |
 | `ConsensusSubjectMaterialization` | binds the selected subject ref and contract to exact UTF-8 bytes and their digest | exactly one non-empty materialization per invocation; its digest equals the subject and ticket digest carried by the invocation | Product |
 | `ConsensusReviewerInstruction` | binds one reviewer role and instruction contract to exact instruction text, canonical response schema, and digest | exactly one instruction per admitted profile; role, instruction ref, instruction digest, and response schema agree before task construction | Product |
-| `ConsensusInvocation` | composes one exact subject materialization, non-empty panel, matching instruction vector, policy, transport lane, and invocation identity | one subject; one non-empty duplicate-free panel; one instruction per profile; one positive bounded policy; subject workspace equals admitted workspace identity | Product |
+| `ConsensusInvocation` | composes one exact subject materialization, non-empty reviewer panel, matching reviewer instruction vector, one attributed submitter profile and instruction, policy, transport lane, and invocation identity | one subject; one non-empty duplicate-free panel; one reviewer instruction per profile; one submitter profile whose actor equals the submitting actor; one matching submitter instruction; one positive bounded policy; subject workspace equals admitted workspace identity | Product |
 | `ConsensusOneSurfaceBasis` | admitted observation, action catalog, four-authority construction composition, selected ConstructionIntent, evidence fold, and refreshed no-action projection around the canonical Consensus GraphFunction | one exact action row selects the canonical GraphFunction; the selected intent and admitted evidence must converge through the same declared authorities before the outer Run closes | Product proposes meaning; ABG admits runtime truth |
-| `ConsensusRoundState` | ordered recursive state containing subordinate tasks, findings, rulings, dissent, evidence, and lineage | round ordinals are contiguous and bounded; panel ordinal, not completion order, determines reduction | Product |
-| `ReviewerWorkerContractProjection` | projects one admitted reviewer task to its profile-owned instruction contract and declared findings result contract | exactly one projection per reviewer C call; the profile configuration digest is recomputed over every execution-affecting profile field before use; result contract equals the C-call output contract and the instruction contract remains attributable to the exact profile | Product semantics projected through the admitted leaf port |
+| `ConsensusRoundState` | ordered recursive state containing subordinate reviewer tasks, findings, submitter responses, rulings, dissent, evidence, and lineage | round ordinals are contiguous and bounded; panel ordinal, not completion order, determines the findings vector; exactly one admitted submitter response binds each complete admitted round before reduction | Product |
+| `ConsensusSubmitterTask` | binds the submitting actor's exact profile and instruction to one complete admitted findings vector, subject materialization, panel, policy, round, prior response refs, evidence, and invocation | exactly one task per complete vector, including a vector carrying a typed reviewer refusal; the canonical digest derived from that carried vector and every round/subject/actor identity remain exact; no partial vector can create the task | Product |
+| `ConsensusSubmitterResponse` | attributed F_P response candidate and admitted response record over one exact submitter task and findings-vector digest | exactly one admitted response per complete round; disposition is `acknowledge`, `address_findings`, or `dispute_findings`; addressed and residual finding refs partition the exact finding refs; malformed or unattributed output cannot reach reduction | Product meaning; ABG admits ordinary C-call evidence, result, and judgment |
+| reviewer reconsideration relation | the irreducible round relation carries one complete admitted reviewer findings vector into one attributed F_P submitter response, ordinary response admission, response-bound reduction, and, on recursion, next-round reviewer tasks carrying the ordered prior responses | zero prior responses in round one; exactly one prior response per prior round thereafter; only `recurse_next_round` creates the next task/vector relation | Product/GTL declares the relation; HoG traverses it; ABG admits runtime truth |
+| `ProbabilisticWorkerContractProjection` | projects one admitted reviewer or submitter task to its profile-owned instruction contract and declared result contract | exactly one projection per F_P C call; the profile configuration digest is recomputed over every execution-affecting field before use; result contract equals the C-call output contract and the instruction contract remains attributable to the exact profile | Product semantics projected through the admitted leaf port |
 | `ConsensusResultCandidate` | Product semantic result proposed by the projector or F_H finalizer | exactly one terminal semantic candidate; agreement, dissent, unresolved disagreement, and typed contract failure are closed variants; only `unresolved_disagreement` with `escalate_fh` and no contract-failure ref is escalation-eligible; it cannot mint replay identity | Product |
 | `ConsensusEscalationDecision` | attributed F_H response over one exact replay-bound escalation-eligible unresolved result | zero or one admitted decision per eligible unresolved escalation continuation; actor, request, result, disposition, and rationale remain exact; agreement, dissent, and contract failure cannot enter this path | Product evaluates; ABG admits |
 | `ConsensusRuntimeEpisode` | admitted invocation, Run, GraphCalls, Frames, C calls, routes, continuation, result, and replay | one causal ABG episode per public invocation; only ABG events change runtime truth | ABG |
 | `PublicRunProjectionAuthority` | read-only durable authority derived from one admitted Run, exact event-log prefix, logical workspace identity recorded by the source invocation admission, admitted ProductInstall, compact catalog/view admission identities, publication digest, and Product semantics binding | one current carrier per prefix; update changes only the reopen prefix; reopening requires its workspace identity to equal the source invocation event; it cannot append or execute; it never embeds the Catalog, CatalogView, ModulePublication, Program, or graph family | Public projection over ABG and admitted Product basis |
 | `PublicResultProjection` | binds one requested admitted root or subordinate C-call result identity and actual replay identity through the exact installed pure Product projector | one read projection per exact result and durable prefix; the selected result must be judged `advance` in the closed source Run; Product owns result meaning and ABG remains runtime source truth | Product semantics then Public downstream envelope |
 | `InvocationSourceResultBasis` | ABG-derived cross-episode basis over one admitted source invocation, its exact bound closed Run, selected GraphCall/C-call result, advancing judgment, exact result/value digests, replay, WorkspaceBinding, and public read authority | zero or one per new invocation; immutable and branded by the source event store; derivation appends no source event; a linked target invocation must use the exact same WorkspaceBinding identity and digest | ABG |
-| `ConsensusSchemaSource` | one Product-owned TypeScript value defines the public schema, reviewer response schema, closed value rosters, and required-key families used by native predicates | exactly one source per Product cut; native predicates and generated serialized schema consume this source without an independently authored duplicate | Product |
-| `ConsensusSerializedContractAssets` | one generated JSON Schema asset contains the public Consensus definitions; two generated JSON vocabulary assets carry ruling and round-outcome values; manifest rows bind exact paths, digests, media types, and definition refs | one generated schema asset and two generated vocabulary assets per Product cut; all consume the Product-owned TypeScript source and must project meaning identical to native `./gtl` predicates | Product publication |
+| `ConsensusSchemaSource` | one Product-owned TypeScript value defines the public schema, reviewer and submitter response schemas, closed value rosters, and required-key families used by native predicates | exactly one source per Product cut; native predicates and generated serialized schema consume this source without an independently authored duplicate | Product |
+| `ConsensusSerializedContractAssets` | subordinate `GtlDeclarationFamily` projection containing one generated JSON Schema asset for the public Consensus definitions and two generated JSON vocabulary assets for ruling and round-outcome values; manifest rows bind exact paths, digests, media types, and definition refs | one generated schema asset and two generated vocabulary assets per Product cut; all consume the Product-owned TypeScript source and must project meaning identical to native `./gtl` predicates; none belongs to `ReplayProjectionFamily` | Product publication |
 | `TicketConsensusProjection` | optional read-only ticket-shaped projection over the admitted result and actual replay | zero or one per ticket result; never mutates ticket state | Product downstream |
 
 Every exported native type and named serialized record has one Promotion Test
@@ -2308,25 +2315,27 @@ disposition:
 
 | Native or schema records | Disposition | Promotion criterion | Authority and lifecycle limit |
 |---|---|---|---|
-| `ConsensusSubject`, `ConsensusSubjectMaterialization`, `ConsensusReviewerInstruction`, `ConsensusReviewerProfile`, `ConsensusPanel`, `ConsensusRoundPolicy`, `ConsensusInvocation`, `ConsensusObservationSnapshot` | promoted as public or admitted Product input contracts | authoritative source carrier plus public contract boundary | Product meaning; immutable members of one invocation or One Surface basis, never peer runtime authorities |
-| `ConsensusReviewerTask`, `ReviewFindings`, `ConsensusFindingsVector` | promoted as the F_P and higher-order vector contract boundary | public effect-edge input/output reused across GTL, implementation, HoG, and ABG | subordinate to one invocation and round; no independent lifecycle or admission authority |
+| `ConsensusSubject`, `ConsensusSubjectMaterialization`, `ConsensusReviewerInstruction`, `ConsensusReviewerProfile`, `ConsensusSubmitterInstruction`, `ConsensusSubmitterProfile`, `ConsensusPanel`, `ConsensusRoundPolicy`, `ConsensusInvocation`, `ConsensusObservationSnapshot` | promoted as public or admitted Product input contracts | authoritative source carrier plus public contract boundary | Product meaning; immutable members of one invocation or One Surface basis, never peer runtime authorities |
+| `ConsensusReviewerCandidate`, `ConsensusReviewerTask`, `ReviewFindings`, `ConsensusFindingsVector`, `ConsensusSubmitterResponseCandidate`, `ConsensusSubmitterTask`, `ConsensusSubmitterResponse`, `ConsensusSubmitterResponseRecord` | promoted as the F_P, response-admission, and higher-order vector contract boundary | public effect-edge input/output reused across GTL, implementation, HoG, and ABG | subordinate to one invocation and round; no independent lifecycle or admission authority |
 | `ReviewFinding`, `ReviewRuling`, `ReviewRulings`, `ReviewRulingKind`, `ConsensusRoundOutcome`, `ConsensusRoundOutcomeValue`, `ConsensusClassification` | promoted as closed public outcome variants | direct consumer pattern-match semantics | subordinate payloads of one finding set, round, or result; no peer truth writer |
 | `ConsensusRoundState`, `ConsensusResultCandidate`, `ConsensusResult`, `ConsensusEscalationDecision`, `TicketConsensusProjection` | promoted as cross-function or public result/projection contracts | reused module boundary, public result, or persisted/replay-linked contract | Product meaning; ABG alone admits runtime truth; projection types append no truth |
 | schema helpers `Ref`, `Digest`, and `RefArray` | remain subordinate schema payloads | no independent authority, lifecycle, or consumer outcome meaning | schema-local definitions; no catalog row or native peer carrier |
-| `CONSENSUS_IDS`, `CONSENSUS_PUBLIC_SCHEMA`, `CONSENSUS_SCHEMA_REQUIRED_KEYS`, value rosters, and `CONSENSUS_REVIEWER_RESPONSE_SCHEMA` | remain Product declaration values, not promoted entity types | one closed source family carried by native predicates and the generated serialized contract projection | change only with a new Product cut; no independent lifecycle |
+| `CONSENSUS_IDS`, `CONSENSUS_PUBLIC_SCHEMA`, `CONSENSUS_SCHEMA_REQUIRED_KEYS`, value rosters, `CONSENSUS_REVIEWER_RESPONSE_SCHEMA`, and `CONSENSUS_SUBMITTER_RESPONSE_SCHEMA` | remain Product declaration values, not promoted entity types | one closed source family carried by native predicates and the generated serialized contract projection | change only with a new Product cut; no independent lifecycle |
 | implementation-private parsing and transport records | remain private or local payloads | no true interface boundary | implementation-local; cannot enter IACS or public schema authority |
 
-Reviewer profiles, tasks, findings, rulings, round outcomes, evidence refs, and
-lineage refs therefore inherit Product meaning and the lifecycle of the owning
-invocation, round, or result. Public typing does not promote them to
-independent products, modules, lifecycle owners, or admission authorities.
+Reviewer and submitter profiles, instructions, tasks, candidates, findings,
+responses, rulings, round outcomes, evidence refs, and lineage refs therefore
+inherit Product meaning and the lifecycle of the owning invocation, round, or
+result. Public typing does not promote them to independent products, modules,
+lifecycle owners, or admission authorities.
 
 The Product-owned `src/gtl/consensus_schema.ts` value is the single source for
-the native reviewer-candidate predicate, response schema, closed value rosters,
-required-key families, and public serialized schema. Package preparation
-deterministically writes its `CONSENSUS_PUBLIC_SCHEMA` projection to
+the native reviewer- and submitter-candidate predicates, both response schemas,
+closed value rosters, required-key families, and public serialized schema.
+Package preparation deterministically writes its `CONSENSUS_PUBLIC_SCHEMA`
+projection to
 `contracts/schemas/consensus.schema.json` and its ruling and round-outcome
-rosters to the two `contracts/vocabularies/*.json` assets. The nine
+rosters to the two `contracts/vocabularies/*.json` assets. The eleven
 `abg.schema.consensus-*` / `abg.schema.review-*` contract identities resolve
 through the generated schema; the two `abg.vocabulary.*` identities resolve
 through the generated vocabularies. Manifest rows carry exact content digests
@@ -2351,22 +2360,39 @@ Ontology invariants:
    Product resolves the worker instruction and result contracts from the exact
    reviewer task before ABG admits actor/process truth; C-call input identity
    remains the reviewer-task contract.
-3. Policy rule identities select the Product-owned reduction law; unknown rule
+3. Each complete admitted findings vector, including a vector carrying a typed
+   reviewer refusal, creates exactly one submitter task
+   bound to the subject's submitting actor, exact submitter profile and
+   instruction, round, policy, vector digest, and prior response lineage.
+   The attributed F_P submitter response partitions the exact round findings
+   into addressed and residual refs before ordinary ABG response admission.
+   Product reduction consumes that admitted response and its bound vector. A
+   refusal-bearing vector then deterministically projects typed
+   `contract_failure`; it does not bypass the response gate.
+   On `recurse_next_round`, the next reviewer tasks carry the ordered admitted
+   response so reviewers reconsider the submitter's answer rather than merely
+   repeating the original assessment. Missing, malformed, duplicate,
+   wrong-actor/profile/configuration, wrong-prior-round, forged
+   identity/digest/evidence, vector-unbound, or unadmitted submitter responses
+   cannot reduce, recurse, or close.
+4. Policy rule identities select the Product-owned reduction law; unknown rule
    identities refuse rather than becoming ignored labels.
-4. One Surface alone selects the canonical Consensus action. Product
+5. One Surface alone selects the canonical Consensus action. Product
    construction and ABG invocation admission both refuse direct invocation of
    a supervised Program before a Run or reviewer actor can open. The exact
    `ActionCatalog`, `evaluateNext` projection, admitted ConstructionIntent,
    evidence fold, construction delta, and refreshed no-action projection
    surround every promoted S05 scenario. The support Program cannot bypass
    this entry relation.
-5. `closed_done` follows complete admitted findings and deterministic
-   reduction; `recurse_next_round` preserves foldback and decrements the bound;
+6. `closed_done` follows complete admitted findings, one admitted attributed
+   submitter response, and deterministic reduction; `recurse_next_round`
+   preserves response-bearing reconsideration foldback and decrements the bound;
    `escalate_fh` closes one typed `unresolved_disagreement` result without
    deciding it. Agreement, dissent, and `contract_failure` cannot enter the F_H
    support Program.
    A successfully observed reviewer transport whose payload violates the
-   declared response schema becomes typed refused `ReviewFindings`; reduction
+   declared response schema becomes typed refused `ReviewFindings`; after the
+   complete vector passes through the exact submitter response gate, reduction
    emits one replay-visible `contract_failure` result instead of successful
    agreement. A schema-valid reviewer candidate observed before timeout,
    non-zero exit, crash, or equivalent transport failure is deterministically
@@ -2374,7 +2400,7 @@ Ontology invariants:
    failure without a valid preserved candidate, or no observed output, remains
    an implementation failure candidate and enters ordinary ABG failure/stop
    truth; it cannot be reclassified as semantic `contract_failure`.
-6. `project.read(result)` may select an exact admitted root or subordinate
+7. `project.read(result)` may select an exact admitted root or subordinate
    C-call result from the closed Run and bind it to the actual replay. Before
    an ordinary escalation GraphFunction can open, ABG derives one
    `InvocationSourceResultBasis` from that exact source result, advancing
@@ -2383,19 +2409,19 @@ Ontology invariants:
    admission. Product validates the replay-bound unresolved input and exact
    source/target WorkspaceBinding equality against that basis; ABG records the
    basis on the new invocation admission. The source Run remains closed.
-7. A semantic result candidate contains no fabricated future replay identity.
+8. A semantic result candidate contains no fabricated future replay identity.
    `project.read(result)` binds its admitted result identity to the actual ABG
    replay identity.
-8. Public reads append no event and cannot widen Product, catalog, invocation,
+9. Public reads append no event and cannot widen Product, catalog, invocation,
    or runtime authority. `result` alone may call the exact installed pure
    Product result projector after install, catalog/view event chain,
    publication/semantics basis, invocation, Run, GraphCall, result, and
    event-prefix revalidation; no Product effect or traversal follows.
-9. A retained-context reopen cache may preserve the latest exact durable
+10. A retained-context reopen cache may preserve the latest exact durable
    prefix between sequential operations. It is not admissibility authority:
    fresh and retained contexts accept or refuse from the same serialized
    carrier and ABG event truth.
-10. A source-result basis is not caller-authored authority. Missing, stale,
+11. A source-result basis is not caller-authored authority. Missing, stale,
    substituted, cross-invocation, cross-Run, cross-WorkspaceBinding,
    mismatched, or non-advancing source results refuse before the new invocation
    is admitted and do not append to either source or target event truth.
@@ -2406,18 +2432,20 @@ Ontology invariants:
 |---|---|---|---|---|---|---|
 | Consensus domain family | canonical IDs and contract/vocabulary roster | Product | `constructConsensusModulePublication` | public contract catalog and module-owned projections | new Product version only | superseded by a later Product release; history retained |
 | Module publication and Programs | module, public One Surface Program, support Program, start, GraphFunction, action, and construction-composition refs | Product/GTL | construct publication; raw admit; validate | catalog view and installed declarations | new admitted publication version only | catalog supersession under Product install law |
-| Subject materialization and reviewer instruction | materialization ref/content digest; instruction contract/role/digest | Product | `constructConsensusSubjectMaterialization`; `constructConsensusReviewerInstruction` | invocation, reviewer task, F_P request, schema projection | not_applicable: changed bytes or instruction body create a new immutable carrier | Product release supersession; admitted task/evidence history retained |
-| Consensus invocation | invocation ref over exact materialization, panel, instruction vector, policy, lane, and workspace | Product meaning; ABG admission | Product constructors; raw admission; validator; `admitInvocation` | Product predicates and ABG replay | not_applicable: invocation is immutable; a retry or escalation is another invocation | admitted invocation remains immutable episode history |
+| Subject materialization and reviewer/submitter instructions | materialization ref/content digest; role-specific instruction contract/role/digest | Product | `constructConsensusSubjectMaterialization`; `constructConsensusReviewerInstruction`; `constructConsensusSubmitterInstruction` | invocation, role-specific task, F_P request, schema projection | not_applicable: changed bytes or either instruction body create a new immutable carrier | Product release supersession; admitted task/evidence history retained |
+| Consensus invocation | invocation ref over exact materialization, reviewer panel/instruction vector, submitter profile/instruction, policy, lane, and workspace | Product meaning; ABG admission | Product constructors; raw admission; validator; `admitInvocation` | Product predicates and ABG replay | not_applicable: invocation is immutable; a retry or escalation is another invocation | admitted invocation remains immutable episode history |
 | One Surface construction basis | observation, action-catalog, composition, intent, evaluation, delta, and refresh refs/digests | Product meaning; ABG runtime admission | Product constructors and declared F_D GraphFunction stages; ordinary result/route admission | ABG replay and public result projection | each stage creates the next immutable candidate or admitted runtime fact; refresh reuses the same four declared authorities | outer Run closes only after converged refreshed projection; history remains |
-| Consensus round state | round and state refs over ordered tasks, findings, rulings, evidence, dissent, and lineage | Product meaning; ABG admission of runtime effects | `initializeConsensus` and subordinate C-call admission | Product predicates and ABG replay | reducer/foldback produces the next immutable state | not_applicable: immutable lineage is retained |
-| Reviewer worker-contract projection | profile configuration digest plus instruction/result contract refs | Product semantics | resolve from one exact admitted reviewer task/profile | leaf port and ABG actor/process evidence | not_applicable: changed profile/configuration creates another projection | Product release supersession; historical evidence retained |
+| Consensus round state | round and state refs over ordered reviewer tasks, findings, submitter response, rulings, evidence, dissent, and lineage | Product meaning; ABG admission of runtime effects | `initializeConsensus` and subordinate C-call admission | Product predicates and ABG replay | admitted submitter response plus reducer/foldback produces the next immutable state and reviewer reconsideration basis | not_applicable: immutable lineage is retained |
+| Reviewer task, candidate, findings, and complete vector | task identity over exact subject/profile/instruction/round and prior submitter responses; candidate/findings attribution and vector order with a canonical derived digest | Product meaning; ABG admission of F_P runtime effects and vector completion | declared reviewer task construction; reviewer F_P candidate; Product candidate/findings predicates; ordinary C-call and fan-out completion admission | submitter task construction, Product predicates, and ABG replay | exactly one complete vector creates the exact submitter task; a partial vector or transport failure without a preserved candidate remains existing non-close truth | immutable findings/evidence history remains |
+| Submitter task and response | task identity over the exact carried findings vector, submitter profile/instruction, subject, round, policy, prior response refs, and evidence; response ref/digest binds the vector's canonical digest to one attributed candidate | Product meaning; ABG admission of F_P runtime effects | task construction after complete findings admission; submitter F_P candidate; Product response predicate; ordinary C-call admission | round state, next-round reviewer tasks, Product predicates, and ABG replay | one admitted response enables deterministic reduction; recurse carries it into the next reviewer tasks | immutable response history remains; malformed or failed candidates terminate through existing non-close truth |
+| Probabilistic worker-contract projection | reviewer or submitter profile configuration digest plus instruction/result contract refs | Product semantics | resolve from one exact admitted F_P task/profile | leaf port and ABG actor/process evidence | not_applicable: changed profile/configuration creates another projection | Product release supersession; historical evidence retained |
 | Result candidate | Product result ref, closed classification, terminal outcome, and optional contract-failure ref | Product proposes; ABG admits | `projectConsensusResult` or F_H finalizer | replay-bound public result projection | not_applicable: a different result is a new candidate; only unresolved/no-contract-failure/escalate is support-eligible | not_applicable: admitted result history remains |
 | Escalation decision | decision over exact escalation-eligible unresolved result, actor, disposition, and rationale | Product evaluates; ABG admits | actor proposes through `interaction.respond`; Product evaluates exact response basis | continuation and replay projection | admitted once before continuation resume | resolved continuation exhausts append authority; admitted history remains |
 | Runtime episode | invocation/Run/GraphCall/Frame/C-call identities | ABG | ordinary invocation/open-call/C-call admission | replay and `project.read` | admitted route, continuation, result, closure, or failure events; unresolved escalation is a second invocation causally bound to the first result and replay | closed/stopped episode remains immutable history |
 | Public run projection authority | authority digest plus exact reopen prefix, Run basis, source-invocation workspace identity, ProductInstall, compact catalog/view admission refs and digests, publication digest, and Product semantics binding | Public projection over ABG and admitted Product basis | `constructPublicRunProjectionAuthority` after durable projection | parser plus ABG rehydration; workspace identity must equal the source `invocation_admitted` payload; catalog admission event binds the publication and Product-semantics basis digests, and the view event must be caused by that exact catalog admission | `updatePublicRunProjectionAuthority` after a read; only the reopen prefix changes | stale or substituted prefixes/Product bases refuse; retirement follows source log retention |
 | Public result projection | requested result ref plus source Run and replay identity | Product meaning over ABG truth | `project.read(result)` after exact source rehydration | caller-owned immutable read value | a different result or prefix produces a new projection | not_applicable: no append or execution authority |
 | Invocation source-result basis | basis ref/digest over source invocation, its exact bound Run, GraphCall/C-call, result admission, judgment, replay, WorkspaceBinding, and public authority | ABG | `deriveInvocationSourceResultBasis` from one exact source event store | Product invocation-basis validator and ABG admission | not_applicable: immutable evidence basis | target invocation retirement does not alter source history |
-| Consensus schema source and serialized contract assets | Product source identity plus schema/vocabulary paths, exact content digests, and definition refs | Product meaning and publication | `src/gtl/consensus_schema.ts` declares the native source; package preparation generates the JSON Schema and both vocabulary projections; manifest generation binds those generated assets | native predicates, public contract catalog, and direct package reads | changed meaning creates a new Product source value, generated assets, and manifest identity | Product release supersession; prior release assets remain immutable |
+| Consensus schema source and serialized contract assets | Product source identity plus schema/vocabulary paths, exact content digests, and definition refs | Product meaning and publication within `GtlDeclarationFamily`; no replay authority | `src/gtl/consensus_schema.ts` declares the native source; package preparation generates the subordinate JSON Schema and both vocabulary projections; manifest generation binds those generated assets | native predicates, public contract catalog, and direct package reads | changed meaning creates a new Product source value, generated assets, and manifest identity | Product release supersession; prior release assets remain immutable |
 | Ticket Consensus projection | projection ref and digest | Product downstream | `projectTicketConsensus` from result plus replay | caller-owned read model | new source result/replay creates a new projection | not_applicable: no ticket mutation authority |
 
 ### 13.3 Authority matrix
@@ -2429,12 +2457,15 @@ Ontology invariants:
 | enforce supervised canonical entry | caller proposes a public start | Product Program policy | Product constructor and ABG compare invocation variant with the admitted Program root mode | ABG refuses direct entry before Run admission | not_applicable on refusal; HoG only receives an admitted supervised basis | Public refusal or ordinary outcome | ABG episode retention |
 | select canonical callable through One Surface | Product observation/action catalog | Product `synthesizeModel`, `evalGap`, and `evaluateNext` semantics | exact workspace, action row, target obligation/assets, priority, and construction composition | ABG ConstructionIntent and route admission | HoG traverses the declared composition | ABG replay and Public outcome | ABG episode retention |
 | invoke canonical callable | selected ConstructionIntent | Product action policy | validator plus exact workspace/catalog/action basis | ABG child invocation and C-call admission | HoG | Public | ABG episode retention |
-| materialize exact subject and reviewer instructions | caller supplies selected ticket bytes and declared profile instructions | Product | content digest, subject/ticket equality, role/instruction/digest/schema equality | Product invocation validation; ABG admits the carrying invocation and reviewer C calls | not_applicable: pure construction | reviewer task and F_P request | Product release and ABG episode retention |
+| materialize exact subject and reviewer/submitter instructions | caller supplies selected ticket bytes and declared role-specific profile instructions | Product | content digest, subject/ticket equality, reviewer and submitter role/instruction/digest/schema equality | Product invocation validation; ABG admits the carrying invocation and role-specific C calls | not_applicable: pure construction | reviewer/submitter tasks and F_P requests | Product release and ABG episode retention |
 | materialize reviewer tasks | Product GTL | Product | exact subject materialization, instruction vector, profile, panel, policy, and round invariants | ABG child/C-call admission | HoG composition | ABG replay | ABG episode retention |
-| resolve reviewer worker contracts | Product task/profile | Product semantics | install-bound Product projection and exact C-call output contract | not_applicable: pure projection | HoG consumes the projection; it does not select contract meaning | ABG actor/process evidence records the exact refs | Product release |
+| resolve F_P worker contracts | Product reviewer or submitter task/profile | Product semantics | install-bound Product projection and exact C-call output contract | not_applicable: pure projection | HoG consumes the projection; it does not select contract meaning | ABG actor/process evidence records the exact refs | Product release |
 | invoke reviewer effect | Product task containing exact subject and instruction | Product contract | install-bound port, Product worker-contract projection, declared response schema, and transport contract | ABG actor/process and evidence admission | declared F_P implementation | ABG replay | ABG episode retention |
-| reduce findings | Product round | Product | Product contract and exact policy identities | ABG result admission | declared F_D implementation | ABG replay | ABG episode retention |
-| project typed reviewer contract failure | successful attributed reviewer observation with a semantically malformed payload | Product closed refusal semantics | exact task attribution, refusal ref, residual evidence, complete vector, and result predicate | ordinary ABG evidence/result/judgment admission | declared F_P leaf proposes refusal; declared F_D reducer/projector classifies it | ABG replay and public result projection | ABG episode retention |
+| construct submitter task | complete admitted findings vector, including a typed reviewer refusal | Product | exact vector digest, subject/submitting actor, submitter profile/instruction, round, policy, prior responses, and evidence | ABG submitter C-call admission | HoG declared composition | ABG replay | ABG episode retention |
+| invoke and admit submitter response | exact submitter task | Product response contract | install-bound worker projection, submitter response schema, attribution, vector digest, and addressed/residual partition | ordinary ABG actor/process, evidence, result, and judgment admission | declared F_P submitter implementation | ABG replay | ABG episode retention |
+| reduce findings and submitter response | Product round | Product | complete vector plus exact admitted submitter response, Product contract, and policy identities | ABG result admission | declared F_D implementation | ABG replay | ABG episode retention |
+| bind reviewer reconsideration | admitted submitter response with `recurse_next_round` | Product/GTL | response lineage, round order, addressed/residual refs, and recursion bound | ABG child/foldback admission | HoG constructs the next declared reviewer tasks | ABG replay | ABG episode retention |
+| project typed reviewer contract failure | successful attributed reviewer observation with a semantically malformed payload | Product closed refusal semantics | exact task attribution, refusal ref, residual evidence, complete vector, exact admitted submitter response, and result predicate | ordinary reviewer and submitter evidence/result/judgment admission | reviewer F_P leaf proposes refusal; submitter F_P answers the complete vector; declared F_D reducer/projector classifies it | ABG replay and public result projection | ABG episode retention |
 | salvage valid reviewer output before failed process termination | schema-valid attributed reviewer candidate preserved before timeout, non-zero exit, crash, or equivalent transport failure | Product reviewer-candidate predicate | exact task attribution, native response-schema semantics, and preserved output bytes | ordinary ABG process evidence plus C-call evidence/result/judgment admission | declared F_P leaf returns the valid candidate without erasing failed process truth | ABG replay exposes both process failure and admitted semantic result | ABG episode retention |
 | preserve reviewer transport failure | observed timeout, non-zero exit without a valid preserved candidate, or no-output process result | implementation failure contract | ABG-owned actor/process observation and failure candidate contract | ordinary ABG failure result, judgment, route, and stop admission | declared F_P leaf reports failure without fabricating findings | ABG replay and public failed outcome | ABG episode retention |
 | recurse/fold back | Product GTL | Product reducer | validator and parent/child basis | ABG route/foldback admission | HoG | ABG replay | ABG episode retention |
@@ -2456,25 +2487,29 @@ runtime basis.
 |---|---|---|---|---|---|---|
 | materialize exact review subject | subject materialization | `constructConsensusSubjectMaterialization` plus `isConsensusSubjectMaterialization` | subject bytes -> digest -> invocation/task | pure | Product | derived |
 | materialize exact reviewer instruction | reviewer instruction | `constructConsensusReviewerInstruction` plus `isConsensusReviewerInstruction` | instruction body/schema -> profile -> panel -> invocation/task | pure | Product | derived |
-| construct and validate subject/panel/policy | domain family | parameterized Product constructors and predicates | exact materialization + instruction vector + `constructConsensusInvocation` | pure | Product | derived |
+| materialize exact submitter instruction | submitter instruction | `constructConsensusSubmitterInstruction` plus `isConsensusSubmitterInstruction` | instruction body/schema -> submitter profile -> invocation/task | pure | Product | derived |
+| construct and validate subject/panel/policy | domain family | parameterized Product constructors and predicates | exact materialization + reviewer instruction vector + submitter profile/instruction + `constructConsensusInvocation` | pure | Product | derived |
 | validate reviewer configuration identity | reviewer profile and panel | recompute `configurationDigest` over every profile field, then verify panel digest | profile -> panel -> invocation validation | pure | Product | derived |
-| validate one reviewer semantic candidate | reviewer response | `isConsensusReviewerCandidate` over the Product-owned response schema and recommendation/findings cardinality law | observed output -> admitted findings or typed refusal | pure | Product | derived |
+| validate one reviewer semantic candidate | `ConsensusReviewerCandidate` | `isConsensusReviewerCandidate` over the Product-owned response schema and recommendation/findings cardinality law | observed output -> admitted findings or typed refusal | pure | Product | derived |
+| validate one submitter semantic candidate | `ConsensusSubmitterResponseCandidate` | `isConsensusSubmitterResponseCandidate` over the Product-owned response schema and addressed/residual partition law | observed output -> attributed submitter response or typed non-close refusal | pure | Product | derived |
 | publish canonical and subordinate functions | module publication | `constructConsensusModulePublication` | Program + GraphFunction + application composition | declaration | Product/GTL | derived |
-| define public Consensus contract meaning | schema source | `CONSENSUS_PUBLIC_SCHEMA`, `CONSENSUS_SCHEMA_REQUIRED_KEYS`, response schema, and closed value rosters | one Product-owned source consumed by native predicates and package generation | pure declaration | Product | derived |
+| define public Consensus contract meaning | schema source | `CONSENSUS_PUBLIC_SCHEMA`, `CONSENSUS_SCHEMA_REQUIRED_KEYS`, reviewer and submitter response schemas, and closed value rosters | one Product-owned source consumed by native predicates and package generation | pure declaration | Product | derived |
 | publish serialized contract projections | schema/vocabulary assets | deterministic generation of the schema and both vocabularies plus manifest asset locators | one generated schema definition family + two generated closed vocabularies + native predicate/value projection | package projection | Product publication | derived |
 | enforce supervised canonical entry | Program and invocation | `constructInvocation` plus `admitInvocation` root-mode checks | public start -> Product refusal or ABG refusal before Run -> admitted supervised traversal | pure validation followed by ABG admission | Product policy and ABG | derived |
 | construct admitted observation | One Surface observation | `constructConsensusObservationSnapshot` | workspace + action catalog + exact Consensus invocation | pure | Product | derived |
 | select canonical Consensus action | One Surface basis | `synthesizeConsensusModel` -> `evaluateConsensusGap` -> `selectConsensusNextAction` | accepted four-authority construction composition | pure `F_D` followed by ABG intent/route effects | Product selection; ABG admission | derived |
 | initialize round state | invocation | `initializeConsensus` | canonical root workflow | pure `F_D` | Product | derived |
-| construct reviewer tasks | round state | parameterized task materialization carrying exact subject materialization and matched instruction | `C.batch` plus fan-out | pure topology | Product/GTL | derived |
-| resolve reviewer worker contracts | reviewer task/profile | `resolveProbabilisticWorkerContracts` | installed Product semantics projection consumed by the leaf port | pure | exact admitted Product install and profile | derived |
+| construct reviewer tasks | round state | parameterized task materialization carrying exact subject materialization, matched instruction, and ordered prior submitter responses | `C.batch` plus fan-out | pure topology | Product/GTL | derived |
+| resolve F_P worker contracts | reviewer or submitter task/profile | `resolveProbabilisticWorkerContracts` | installed Product semantics projection consumed by the leaf port | pure | exact admitted Product install and profile | derived |
 | execute attributed reviewer | reviewer task | `realizeConsensusReviewer` | applicative fan-out | `F_P` effect edge | admitted implementation plus ABG transport | derived |
 | admit findings | finding set | ordinary C-call result/evidence admission | ordered vector collection | ABG event effect | ABG | derived |
 | totalize malformed reviewer output | reviewer task and successful process observation | `realizeConsensusReviewer` typed refusal projection | successful attributed F_P observation -> refused `ReviewFindings` -> complete vector | F_P effect observation followed by pure candidate construction | admitted implementation observation; Product contract | derived |
 | salvage valid reviewer output | reviewer task, valid preserved candidate, and failed process observation | `realizeConsensusReviewer` semantic candidate projection | valid attributed output observed before timeout, non-zero exit, crash, or equivalent transport failure -> admitted findings while failed process evidence remains exact | F_P effect observation followed by pure candidate construction and ABG event effects | Product reviewer contract; ABG process truth | derived |
 | preserve reviewer transport failure | reviewer task and failed/missing process observation without a valid preserved candidate | `realizeConsensusReviewer` failure candidate projection | timeout, non-zero exit, or no-output -> ordinary ABG failure result/judgment/stop | F_P effect observation followed by ABG event effects | admitted implementation observation; ABG runtime truth | derived |
-| reduce one round | findings vector | `reduceConsensusRound` | fan-in fold | pure `F_D` | Product | derived |
-| continue bounded rounds | round state | round terminal evaluator | `recurse` plus workflow child foldback | traversal/event effects | Product topology, HoG traversal, ABG admission | derived |
+| construct submitter task | complete admitted findings vector, including a typed reviewer refusal | `constructConsensusSubmitterTask` carrying the exact vector, subject/submitting actor, submitter profile/instruction, policy, round, prior responses, and evidence; the response binds its canonical digest | ordered findings vector -> `workflow.C(submitter)` | pure topology | Product/GTL | derived |
+| execute attributed submitter response | submitter task | declared submitter F_P leaf plus `isConsensusSubmitterResponseCandidate` and `isConsensusSubmitterResponse` | exact findings vector -> attributed response candidate -> ordinary C-call admission | `F_P` effect edge followed by Product validation and ABG event effects | admitted implementation, Product contract, and ABG transport | derived |
+| reduce one round | admitted submitter response carrying its complete findings vector | `reduceConsensusRound` | response-bound fan-in fold | pure `F_D` | Product | derived |
+| continue bounded rounds | round state plus admitted submitter response | round terminal evaluator | `recurse` plus workflow child foldback; next reviewer tasks carry ordered prior responses | traversal/event effects | Product topology, HoG traversal, ABG admission | derived |
 | project semantic result | terminal state | `projectConsensusResult` | terminal workflow step over agreement, dissent, unresolved, or contract-failure variants | pure `F_D` | Product | derived |
 | evaluate action and refresh after child result | admitted Consensus result and One Surface construction basis | `evaluateConsensusAction`, `refreshConsensusModel`, `refreshConsensusGap`, `refreshConsensusNextAction` | evidence fold -> construction delta -> same-authority refresh -> converged projection | pure `F_D` plus ordinary ABG result/route effects | Product meaning; ABG admission | derived |
 | validate invocation Product basis | admitted input plus workspace and Program basis | `validateInstalledInvocationBasis` | Product invocation admission composition | pure Product validation | exact loaded Product semantics provider | derived |
@@ -2493,30 +2528,50 @@ runtime basis.
 | SDK/CLI equivalence | public projection | existing public-operation family | package adapter projection | public I/O | Product public contract | deferred to S06 |
 | generic alternate policy algebra | round policy | not selected | not selected | not selected | Product re-entry | excluded from 5.0 S05; canonical declared rules only |
 
+The canonical round topology is one declared relation:
+
+```text
+ConsensusRoundState
+  -> C.batch(workflow.C(reviewer F_P))
+  -> complete attributed ConsensusFindingsVector
+  -> workflow.C(submitter F_P)
+  -> attributed ConsensusSubmitterResponse candidate
+  -> ordinary ABG evidence/result/judgment admission
+  -> workflow.C(reducer F_D)
+  -> closed_done | recurse_next_round | escalate_fh
+  -> on recurse, fold the admitted response into every next-round reviewer task
+```
+
+The submitter leaf does not reduce findings or choose closure. The reducer
+cannot run on reviewer findings alone. Reviewer reconsideration is the declared
+recursive input relation over the admitted submitter response; it is not a
+host loop, prompt convention, new event, continuation, or runtime family.
+
 The governing algebra is:
 
 | Law | S05 relation |
 |---|---|
-| identity/unit | accepted GTL `C.identity` remains the left and right unit of pure `C.compose`; initializing one exact Consensus invocation lifts it into the initial non-terminal round state without inventing findings, runtime truth, or authority |
-| closure | every reviewer task with a schema-valid preserved candidate yields admitted findings even when the process later times out, crashes, or exits non-zero; a successfully observed malformed payload yields an attributed typed refusal; a transport failure without a valid candidate, no-output failure, or partial stop enters ABG failure/stop truth and never masquerades as a complete vector; every complete vector reduces once to one closed round outcome; only unresolved/no-contract-failure/escalate may enter F_H; the outer construction closes only after evidence fold and same-authority converged refresh |
-| associativity | not_applicable to `reduceConsensusRound`: it is one total fold over one complete ordered vector and exposes no binary regrouping operator; accepted GTL `C.compose` associativity governs the surrounding pure stages, while effectful reviewer execution is never reassociated |
-| cardinality | panel size is non-empty and duplicate-free; one task/result position exists per profile per round; one reducer consumes one complete vector |
-| recursion | `recurse_next_round` alone creates the next bounded round and preserves prior lineage |
-| effects | F_P worker effects and all runtime transitions cross existing ABG admission; Product reduction and projection remain pure |
+| identity/unit | accepted GTL `C.id` constructor (`cIdentity`) remains the left and right unit of pure `C.compose`; initializing one exact Consensus invocation lifts it into the initial non-terminal round state without inventing findings, submitter response, runtime truth, or authority |
+| closure | every reviewer task with a schema-valid preserved candidate yields admitted findings even when the process later times out, crashes, or exits non-zero; a successfully observed malformed payload yields an attributed typed refusal inside the complete vector; a transport failure without a valid candidate, no-output failure, or partial stop enters ABG failure/stop truth and never masquerades as a complete vector; every complete vector, including a refusal-bearing vector, produces one attributed submitter task and requires one admitted response before one reduction to one closed round outcome; a refusal-bearing response-bound reduction projects typed contract failure; only unresolved/no-contract-failure/escalate may enter F_H; the outer construction closes only after evidence fold and same-authority converged refresh |
+| associativity | not_applicable to `reduceConsensusRound`: it is one total fold over one complete ordered vector plus its exact admitted submitter response and exposes no binary regrouping operator; accepted GTL `C.compose` associativity governs the surrounding pure stages, while effectful reviewer and submitter execution is never reassociated |
+| cardinality | panel size is non-empty and duplicate-free; one reviewer task/result position exists per profile per round; one submitter task and admitted response exist per complete vector; one reducer consumes that exact response-bound vector |
+| recursion | `recurse_next_round` alone creates the next bounded round, preserves prior lineage, and carries the admitted submitter response into every next-round reviewer task for reconsideration |
+| effects | reviewer and submitter F_P worker effects and all runtime transitions cross existing ABG admission; Product response validation, reduction, and projection remain pure |
 | authority conservation | fan-out, fold, recursion, continuation, and projection do not widen the admitted Product, actor, workspace, or runtime basis |
 
 ### 13.5 Whole-family Prime contraction
 
 | Candidate family | Contraction relation | Retained meaning | Authority before -> after | Accepted loss | Falsification condition | M3 IACS disposition |
 |---|---|---|---|---|---|---|
-| subject reference, subject bytes, reviewer role, instruction body, and response schema | one exact materialization plus one parameterized instruction family carried by the invocation and reviewer task | reviewers receive the selected subject bytes and declared profile instructions, not metadata-only refs | caller/file/profile label temptations -> one Product-owned digest-bound carrier chain | no ambient file read or hard-coded prompt/schema authority | a reviewer can execute without the exact subject bytes and matched instruction body/schema, or substituted content survives the digest checks | retain inside `GtlDeclarationFamily` |
-| subject, profile, panel, policy, finding, ruling, round, result shapes | one Product-owned domain family with subordinate payload variants | closed values and public pattern-match outcomes | many possible schema authorities -> one Product family | no independent payload authorities | another decoder or schema registry can change meaning | retain inside `GtlDeclarationFamily`; runtime instances remain subordinate to `TraversalAggregateFamily` |
-| native and serialized contract representations | one Product-owned TypeScript schema/value/key source projected into one generated schema asset and two generated vocabulary assets | installed execution meaning plus canonical serialized CLI/package contracts | independently authored native and JSON shapes -> one native source family with deterministic digest-bound serialized projections | no schema runtime, per-contract generator, rival decoder, or hand-maintained duplicate schema authority | native and serialized closed values disagree, generation does not reproduce all three serialized assets, a manifest row lacks an exact asset digest/definition ref, or asset bytes can change without Product identity changing | native meaning remains in `GtlDeclarationFamily`; serialized assets are downstream `ReplayProjectionFamily` projections |
+| subject reference, subject bytes, reviewer/submitter roles, instruction bodies, and response schemas | one exact materialization plus parameterized reviewer and submitter instruction carriers in the invocation and their tasks | reviewers and submitter receive the selected subject bytes and their declared profile instructions, not metadata-only refs | caller/file/profile label temptations -> one Product-owned digest-bound carrier chain | no ambient file read or hard-coded prompt/schema authority | either F_P role can execute without the exact subject bytes and matched instruction body/schema, or substituted content survives the digest checks | retain inside `GtlDeclarationFamily` |
+| subject, profile, panel, policy, reviewer candidate/finding, submitter candidate/response, ruling, round, and result shapes | one Product-owned domain family with subordinate payload variants | closed values and public pattern-match outcomes | many possible schema authorities -> one Product family | no independent payload authorities | another decoder or schema registry can change meaning | retain inside `GtlDeclarationFamily`; runtime instances remain subordinate to `TraversalAggregateFamily` |
+| native and serialized contract representations | one Product-owned TypeScript schema/value/key source projected into one generated schema asset and two generated vocabulary assets | installed execution meaning plus canonical serialized CLI/package contracts | independently authored native and JSON shapes -> one native source family with deterministic digest-bound serialized projections | no schema runtime, per-contract generator, rival decoder, or hand-maintained duplicate schema authority | native and serialized closed values disagree, generation does not reproduce all three serialized assets, a manifest row lacks an exact asset digest/definition ref, or asset bytes can change without Product identity changing | native meaning and serialized declaration assets remain subordinate members of `GtlDeclarationFamily`; no `ReplayProjectionFamily` classification |
 | static Product and Program checks | parameterized raw, whole-Program, contract, and Product-basis predicates | refusal without lowering or runtime effect | ad hoc checks -> one staged static-judgment family | no executable validator or feature controller | invalid One Surface, materialization, instruction, panel, policy, or workspace basis reaches a Run | retain `ValidationFamily` |
 | installed Product, workspace, catalog, action, and invocation basis | one exact environment plus staged invocation basis | exact install/workspace/catalog authority and Product-selected target | caller labels and repeated snapshots -> admitted environment and invocation identities | no ambient workspace or catalog authority | a changed install, workspace, catalog, action, or invocation basis survives admission | retain `EnvironmentBasis` and `InvocationBasis` |
 | public entry and support entry | one supervised One Surface public handle plus one non-public replay-bound F_H support Program | canonical selection through ActionCatalog/evaluateNext across every promoted S05 scenario; unresolved-result escalation remains ordinary GTL | direct Consensus bypass plus separate One Surface demonstration -> one canonical One Surface selection path guarded by Product and ABG before Run, and one narrowly scoped support path | no public direct root start for canonical Consensus | any promoted agreement/dispute/unresolved workspace case invokes the root outside One Surface, Product or ABG admits a direct start of the supervised Program, or the support Program can select the canonical root | retain `GtlDeclarationFamily`, `InvocationBasis`, and `TraversalAggregateFamily` |
-| reviewer commands and worker contracts | one parameterized reviewer GraphFunction plus one Product-owned task-to-worker-contract projection | arbitrary admitted panel cardinality, attribution, profile-owned instruction contract, and digest-bound execution configuration | per-profile command or transport-label temptation -> one GTL function and one Product semantic projection | no profile-specific operation identity | a profile requires a new public command/runtime branch, a changed execution-affecting field survives a stale configuration digest, or ABG accepts a worker contract not derived from that profile | declarations remain in `GtlDeclarationFamily`; execution stays inside `LeafRealizationBoundary` |
-| round orchestration and runtime truth | one GTL recursion/fan-out/fan-in composition plus the existing C-call/event spine | ordered review, dispute recursion, bound, foldback, and replay-visible truth | host loop or feature-event temptation -> GTL topology + HoG + ABG | no shell/service loop or Consensus event family | rounds proceed outside admitted GTL or another writer creates runtime truth | retain `TraversalAggregateFamily` and `RuntimeEventFamily` |
+| reviewer and submitter commands and worker contracts | one parameterized reviewer GraphFunction, one attributed submitter GraphFunction, and one Product-owned task-to-worker-contract projection | arbitrary admitted reviewer panel cardinality, exact submitting actor, attribution, profile-owned instruction contracts, and digest-bound execution configuration | per-profile command or transport-label temptation -> two declared GTL roles and one Product semantic projection | no profile-specific operation identity or host-authored response turn | either role requires a new public command/runtime branch, a changed execution-affecting field survives a stale configuration digest, or ABG accepts a worker contract not derived from that profile | declarations remain in `GtlDeclarationFamily`; execution stays inside `LeafRealizationBoundary` |
+| reviewer findings, submitter response, and reviewer reconsideration | one round-local typed relation from complete attributed findings vector through one attributed F_P submitter response and ordinary admission to response-bound reduction and next-round reviewer tasks | the submitting actor answers the exact findings before closure, and reviewers receive that admitted answer when reconsidering | reducer-only or host-mediated response temptation -> Product declarations + two F_P leaves + F_D reducer over admitted carriers | no ambient submitter prose, direct findings-only reduction, or implicit repeated review | reduction runs without one exact admitted response, a response is not bound to the vector/actor/round, or recursion omits it from next reviewer tasks | declarations remain subordinate in `GtlDeclarationFamily`; execution and admission remain in `LeafRealizationBoundary`, `TraversalAggregateFamily`, and `RuntimeEventFamily` |
+| round orchestration and runtime truth | one GTL reviewer fan-out/fan-in -> submitter -> reducer -> recursion composition plus the existing C-call/event spine | ordered review, attributed response, reviewer reconsideration, dispute recursion, bound, foldback, and replay-visible truth | host loop or feature-event temptation -> GTL topology + HoG + ABG | no shell/service loop or Consensus event family | any round relation proceeds outside admitted GTL or another writer creates runtime truth | retain `TraversalAggregateFamily` and `RuntimeEventFamily` |
 | terminal classifications | one closed round-outcome family and one result projector, with deterministic valid-output salvage and outputless transport failure remaining ordinary ABG stop truth | agreement, dissent, unresolved disagreement, and semantic contract failure only for successfully observed malformed reviewer payloads; a valid candidate observed before timeout, crash, or non-zero exit survives while failed process truth remains visible | branch-specific finalizers or semantic relabeling of process failure -> one Product projection family plus the existing ABG failure family | no independent result store, malformed-output side channel, loss of valid observed output, or conversion of outputless timeout/non-zero/no-output into Product disagreement truth | a successfully observed malformed reviewer payload cannot produce a typed replay-visible contract failure, a valid preserved candidate is lost after transport failure, a transport/no-output failure can produce semantic contract failure, or a terminal class needs another closure authority | Product meaning remains in `GtlDeclarationFamily`; admitted result/failure truth and reads remain in `RuntimeEventFamily` and `ReplayProjectionFamily` |
 | F_H escalation | replay-bound `unresolved_disagreement` plus `escalate_fh` and null contract-failure ref, one ABG-derived source-result basis, accepted generic continuation family, and one Product response contract | exact unresolved-result decision while the source Run remains closed; agreement, dissent, and contract failure remain terminal readable results | feature continuation or caller-asserted provenance -> pure eligibility check + read + ABG prior-result derivation + ordinary invocation + Product choice + ABG continuation | no Consensus-specific continuation, ambient transfer, caller-minted source truth, or contract-failure escalation between episodes | escalation can open for any ineligible classification, without the exact source invocation-to-Run relation, selected result, advancing judgment, replay, exact source/target WorkspaceBinding, and public authority, or can respond/close outside the ordinary continuation spine | retain `InvocationBasis`, `TraversalAggregateFamily`, `RuntimeEventFamily`, and `ReplayProjectionFamily` |
 | status/result/replay reads | one parameterized `project.read` family plus one compact run projection authority carrying the exact admitted Product-semantics basis by digest and event reference | fresh-process reads of exact ABG truth, including a requested admitted child C-call result, with Product-owned result meaning | direct outcome memory and feature branch -> durable ABG read plus one exact Product pure projection | no mutable caller authority, feature-specific Public/ABG branch, repeated catalog/program snapshot, or root-result-only read restriction | an admitted child result is not selectable, a terminal result is readable only from the invoking process, Public/ABG must name Consensus to project it, or the authority must embed the full catalog family | contract into `ReplayProjectionFamily` |
@@ -2534,12 +2589,13 @@ relation is.
 | Carrier | Ontology law carried | Role | Authority | Visibility |
 |---|---|---|---|---|
 | Consensus domain/publication/schema-source family | domain identity, contracts, policies, outcomes, native schema/value/key source, and GTL publication | `<<prime>>` | Product authoritative | public through `./gtl` |
-| subject materialization and reviewer instruction | exact source bytes, profile instruction body, response schema, and digests crossing the reviewer effect boundary | `<<prime>>` | Product authoritative | public typed values through `./gtl`; carried inside invocation/task |
-| Consensus invocation, One Surface basis, round state, result candidate, and escalation decision | immutable Product semantic values carried through ordinary GTL and ABG admission | `<<prime>>` | Product meaning; ABG owns only admitted runtime truth | public typed values through `./gtl` |
+| subject materialization plus reviewer and submitter instructions | exact source bytes, profile instruction bodies, response schemas, and digests crossing both F_P effect boundaries | `<<prime>>` | Product authoritative | public typed values through `./gtl`; carried inside invocation/tasks |
+| Consensus invocation, One Surface basis, round state, reviewer candidate/findings, submitter candidate/task/response, result candidate, and escalation decision | immutable Product semantic values and subordinate payloads carried through ordinary GTL and ABG admission | `<<prime>>` with payloads `<<subordinate>>` | Product meaning; ABG owns only admitted runtime truth | public typed values through `./gtl` |
+| irreducible reviewer-findings-to-submitter-response-to-reviewer-reconsideration relation | one complete admitted findings vector -> attributed submitter F_P task/candidate/response -> ordinary response admission -> response-bound reduction -> ordered prior response in recursively created reviewer tasks | `<<subordinate>>` relation within the accepted eight families | Product/GTL owns semantic relation; HoG traverses; ABG admits effects and foldback truth | public typed carriers through `./gtl`; no peer operation, event, continuation, or runtime family |
 | admitted Program/GraphFunction/application family | One Surface selection, support-only escalation topology, and callable membership | `<<prime>>` | GTL authoritative | public |
-| Consensus generated schema and vocabulary assets | serialized projection of the public Product contracts | `<<downstream>>` | Product authoritative meaning; assets carry no runtime admission authority | public package assets and manifest locators |
-| Product semantics provider | raw input, invocation-basis, contract, judgment, reviewer worker-contract, F_H response, and public-result meaning | `<<effect-edge>>` | Product authoritative | module-local provider, loaded from admitted install |
-| implementation binding and leaf effect port | declared F_D/F_P interiors | `<<effect-edge>>` | subordinate to admitted binding | module-local |
+| Consensus generated schema and vocabulary assets | serialized declaration projection of the public Product contracts | `<<subordinate>>` member of `GtlDeclarationFamily` | Product authoritative meaning; assets carry no runtime admission or replay authority | public package assets and manifest locators |
+| Product semantics provider | raw input, invocation-basis, contract, judgment, reviewer/submitter worker-contract, F_H response, and public-result meaning | `<<effect-edge>>` | Product authoritative | module-local provider, loaded from admitted install |
+| implementation binding and leaf effect port | declared F_D/F_P reviewer, submitter, reducer, and projector interiors | `<<effect-edge>>` | subordinate to admitted binding | module-local |
 | ABG runtime episode and replay | admission, events, continuation, closure, replay | `<<prime>>` | ABG authoritative | public typed runtime surface |
 | invocation source-result basis | exact prior invocation, closed Run, selected result/judgment, replay, workspace, and public authority | `<<prime>>` | ABG authoritative derivation; Product consumes but cannot mint | public typed ABG value only through ordinary invocation admission |
 | Public run projection authority | exact durable read capability plus compact admitted install, catalog/view event chain, publication digest, and semantics binding basis | `<<prime>>` | derived from ABG and admitted Product basis; no Product meaning | public |
@@ -2550,14 +2606,14 @@ Physical module mapping:
 
 | Module | Semantic owner | Boundary |
 |---|---|---|
-| `src/gtl/consensus_schema.ts` | Product-owned Consensus contract source | owns the public schema value, reviewer response schema, reviewer-candidate predicate, closed value rosters, and required-key families consumed by native predicates and package generation |
-| `src/gtl/consensus.ts` | Product-owned SYSTEM standard-library authoring module | owns exact subject/instruction carriers, Consensus domain constructors and predicates over the schema source, digest-complete reviewer configuration validation, One Surface semantics, reduction/result semantics, and GTL publication; its `gtl` path is the installed authoring export, not generic GTL ownership of Product meaning |
-| `src/product/builtin_semantics.ts` | Product | admits installed Consensus values, validates the invocation workspace, resolves exact reviewer worker contracts, evaluates exact F_H response basis, and binds admitted results to actual replay |
-| `src/implementation/consensus.ts` | implementation | realizes declared leaf interiors, materializes exact task subject/instruction/schema into the F_P request, and may call Product-owned pure functions; owns no topology or runtime truth |
-| `contracts/schemas/consensus.schema.json` and `contracts/vocabularies/*.json` | Product publication projection | generated serialized schema and generated vocabulary assets bound by manifest digest and definition/value checks; no executable schema authority |
+| `src/gtl/consensus_schema.ts` | Product-owned Consensus contract source | owns the public schema value, reviewer and submitter response schemas and candidate predicates, closed value rosters, and required-key families consumed by native predicates and package generation |
+| `src/gtl/consensus.ts` | Product-owned SYSTEM standard-library authoring module | owns exact subject/reviewer/submitter instruction carriers, Consensus domain constructors and predicates over the schema source, digest-complete profile validation, the findings-response-reconsideration relation, One Surface semantics, reduction/result semantics, and GTL publication; its `gtl` path is the installed authoring export, not generic GTL ownership of Product meaning |
+| `src/product/builtin_semantics.ts` | Product | admits installed Consensus values, validates the invocation workspace, resolves exact reviewer and submitter worker contracts, evaluates exact F_H response basis, and binds admitted results to actual replay |
+| `src/implementation/consensus.ts` | implementation | realizes declared reviewer, submitter, reducer, and projector leaf interiors; materializes exact task subject/instruction/schema into each F_P request; and may call Product-owned pure functions; owns no topology or runtime truth |
+| `contracts/schemas/consensus.schema.json` and `contracts/vocabularies/*.json` | subordinate `GtlDeclarationFamily` publication assets | generated serialized schema and generated vocabulary declarations bound by manifest digest and definition/value checks; no executable schema, runtime, replay, or independent projection authority |
 | `scripts/generate-product-manifest.mjs` | Product packaging projection | regenerates the schema and both vocabularies from the Product-owned source and binds them into the public contract catalog with exact path, media type, digest, and definition ref; does not originate contract meaning |
 | `src/product/invocation.ts` and `src/abg/invocation_admission.ts` | Product policy and ABG admission | independently refuse direct invocation of any supervised Program before Run admission; contain no Consensus identity branch |
-| `src/hog/leaf_invocation_port.ts` | HoG boundary over Product projection | exposes only the exact install-bound Product semantic projection needed for leaf traversal; it does not author reviewer contracts |
+| `src/hog/leaf_invocation_port.ts` | HoG boundary over Product projection | exposes only the exact install-bound Product semantic projection needed for leaf traversal; it does not author reviewer or submitter contracts |
 | `src/abg/invocation_admission.ts` | ABG | rehydrates and derives the immutable source-result basis, verifies the exact source invocation-to-Run relation, source events, replay, and WorkspaceBinding, and records it on the ordinary target invocation admission |
 | `src/public/run_projection_authority.ts` | Public projection | carries exact durable read authority and the compact install/catalog-view event and Product-semantics basis needed to re-establish Product provenance; it carries no catalog or Program snapshot |
 | `src/public/operations.ts` | Public | transports ordinary invoke/respond/continue/read operations, requests ABG source-basis derivation, and delegates pure result meaning to the exact installed Product; contains no Consensus branch |
@@ -2581,7 +2637,8 @@ classDiagram
     <<authoritative>>
     +declarePublication()
     +materializeSubject()
-    +materializeInstruction()
+    +materializeReviewerInstruction()
+    +materializeSubmitterInstruction()
     +evaluateConstruction()
   }
   class Validator {
@@ -2601,7 +2658,7 @@ classDiagram
   class ProductSemantics {
     <<effect-edge>>
     -validateInvocationBasis()
-    -resolveReviewerContracts()
+    -resolveProbabilisticWorkerContracts()
     -projectPublicResult()
   }
   class LeafPort {
@@ -2615,13 +2672,16 @@ classDiagram
   class ConsensusDomainFamily {
     <<authoritative>>
     +constructInvocation()
+    +validateSubmitterResponse()
     +reduceRound()
     +projectResultCandidate()
   }
   class ConsensusSchemaSource {
     <<authoritative>>
     +publicSchema
-    +responseSchema
+    +reviewerResponseSchema
+    +submitterResponseSchema
+    +candidatePredicates
     +valueRosters
     +requiredKeyFamilies
   }
@@ -2648,12 +2708,27 @@ classDiagram
     +instructionDigest
     +responseSchema
   }
+  class ConsensusSubmitterInstruction {
+    <<prime>>
+    +instructionContractRef
+    +roleContractRef
+    +instructionDigest
+    +responseSchema
+  }
+  class ConsensusSubmitterProfile {
+    <<subordinate>>
+    +profileRef
+    +actorRef
+    +configurationDigest
+  }
   class ConsensusInvocation {
     <<prime>>
     +subject
     +subjectMaterialization
     +panel
     +instructions
+    +submitterProfile
+    +submitterInstruction
     +policy
     +workspaceRef
   }
@@ -2669,6 +2744,7 @@ classDiagram
     <<prime>>
     +roundOrdinal
     +findings
+    +submitterResponses
     +rulings
     +lineage
   }
@@ -2676,6 +2752,13 @@ classDiagram
     <<subordinate>>
     +subjectMaterialization
     +instruction
+    +priorSubmitterResponses
+  }
+  class ConsensusReviewerCandidate {
+    <<subordinate>>
+    +recommendation
+    +findings
+    +residualRefs
   }
   class ReviewFindings {
     <<subordinate>>
@@ -2683,7 +2766,32 @@ classDiagram
     +findings
     +refusalRef
   }
-  class ReviewerWorkerContractProjection {
+  class ConsensusFindingsVector {
+    <<subordinate>>
+    +applicationRef
+    +orderedMembers
+  }
+  class ConsensusSubmitterTask {
+    <<subordinate>>
+    +findingsVector
+    +profile
+    +instruction
+    +priorSubmitterResponseRefs
+  }
+  class ConsensusSubmitterResponseCandidate {
+    <<subordinate>>
+    +disposition
+    +responseText
+    +addressedFindingRefs
+    +residualFindingRefs
+  }
+  class ConsensusSubmitterResponse {
+    <<subordinate>>
+    +responseRef
+    +findingsVectorDigest
+    +submittingActorRef
+  }
+  class ProbabilisticWorkerContractProjection {
     <<effect-edge>>
     +configurationDigest
     +instructionContractRef
@@ -2734,7 +2842,8 @@ classDiagram
     <<downstream>>
   }
   class ConsensusSerializedContractAssets {
-    <<downstream>>
+    <<subordinate>>
+    +parentFamily GtlDeclarationFamily
     +schemaDigest
     +vocabularyDigests
   }
@@ -2753,16 +2862,27 @@ classDiagram
   ConsensusDomainFamily "1" --> "0..*" ConsensusInvocation
   ConsensusInvocation "1" *-- "1" ConsensusSubjectMaterialization
   ConsensusInvocation "1" *-- "1..*" ConsensusReviewerInstruction
+  ConsensusInvocation "1" *-- "1" ConsensusSubmitterInstruction
+  ConsensusInvocation "1" *-- "1" ConsensusSubmitterProfile
   ConsensusProgram "1" --> "0..*" ConsensusOneSurfaceBasis
   ConsensusOneSurfaceBasis "1" --> "1" ConsensusInvocation : selects
   ConsensusInvocation "1" *-- "1..*" ConsensusRoundState
   ConsensusRoundState "1" *-- "1..*" ConsensusReviewerTask
   ConsensusReviewerTask "1" --> "1" ConsensusSubjectMaterialization
   ConsensusReviewerTask "1" --> "1" ConsensusReviewerInstruction
-  ConsensusReviewerTask "1" --> "1" ReviewerWorkerContractProjection
-  ConsensusReviewerTask "1" --> "0..1" ReviewFindings
-  ReviewerWorkerContractProjection "1" --> "1" LeafPort
-  ReviewFindings "1..*" --> "1" ConsensusRoundState : reduced into
+  ConsensusReviewerTask "1" --> "1" ProbabilisticWorkerContractProjection
+  ConsensusReviewerTask "1" --> "0..1" ConsensusReviewerCandidate : F_P proposes
+  ConsensusReviewerCandidate "1" --> "0..1" ReviewFindings : validates into
+  ReviewFindings "1..*" --> "1" ConsensusFindingsVector : ordered complete vector
+  ConsensusFindingsVector "1" --> "1" ConsensusSubmitterTask
+  ConsensusSubmitterTask "1" --> "1" ConsensusSubmitterInstruction
+  ConsensusSubmitterTask "1" --> "1" ConsensusSubmitterProfile
+  ConsensusSubmitterTask "1" --> "1" ProbabilisticWorkerContractProjection
+  ConsensusSubmitterTask "1" --> "0..1" ConsensusSubmitterResponseCandidate : F_P proposes
+  ConsensusSubmitterResponseCandidate "1" --> "0..1" ConsensusSubmitterResponse : validates into
+  ConsensusSubmitterResponse "1" --> "1" ConsensusRoundState : admitted then reduced into
+  ConsensusSubmitterResponse "0..*" --> "0..*" ConsensusReviewerTask : ordered prior response for reconsideration
+  ProbabilisticWorkerContractProjection "1" --> "1" LeafPort
   ConsensusRoundState "1" --> "0..1" ConsensusResultCandidate
   ConsensusEscalationDecision "0..1" --> "1" ConsensusResultCandidate : decides eligible unresolved only
   ConsensusResultCandidate "1" --> "0..1" TicketConsensusProjection
@@ -2775,14 +2895,15 @@ classDiagram
   ABG "1" *-- "0..*" ConsensusRuntimeEpisode
   ABG "1" --> "1" Replay
   ConsensusProgram "1" --> "0..*" ConsensusInvocation
-  ConsensusSerializedContractAssets "1" ..> ConsensusDomainFamily : projects
+  ConsensusSerializedContractAssets "1" ..> ConsensusDomainFamily : subordinate declaration projection
   ConsensusInvocation "1" --> "0..1" ConsensusRuntimeEpisode : admitted as
   ConsensusRuntimeEpisode "1" --> "0..1" PublicRunProjectionAuthority
   ConsensusRuntimeEpisode "1" --> "0..*" PublicResultProjection
   ConsensusResultCandidate "1" --> "0..*" PublicResultProjection
   ProductSemantics "1" --> "0..*" PublicResultProjection
-  ProductSemantics "1" --> "0..*" ReviewerWorkerContractProjection
+  ProductSemantics "1" --> "0..*" ProbabilisticWorkerContractProjection
   ProductSemantics "1" --> "0..*" ConsensusEscalationDecision
+  ConsensusSubmitterResponse "1" --> "1" ConsensusRuntimeEpisode : admitted in
   ConsensusRuntimeEpisode "1" --> "0..*" InvocationSourceResultBasis : source
   InvocationSourceResultBasis "0..1" --> "0..1" ConsensusRuntimeEpisode : target
   PublicResultProjection "1" --> "0..1" InvocationSourceResultBasis
@@ -2805,9 +2926,9 @@ sequenceDiagram
   participant Replay
 
   Developer->>Public: start canonical handle with Consensus observation
-  Public->>Product: construct supervised invocation over exact workspace, subject bytes, instructions, panel, policy, and action catalog
+  Public->>Product: construct supervised invocation over exact workspace, subject bytes, reviewer/submitter instructions and profiles, panel, policy, and action catalog
   Product-->>Public: exact Product input, direct variant refuses before ABG
-  Public->>ProductSemantics: recompute materialization, instruction, reviewer configuration, and panel digests
+  Public->>ProductSemantics: recompute materialization, reviewer/submitter instruction, profile configuration, and panel digests
   ProductSemantics-->>Public: exact Product observation and invocation meaning
   Public->>Validator: validate original One Surface Program and Graph
   Public->>ABG: admit supervised invocation and execution basis, direct candidate refuses before Run
@@ -2821,7 +2942,7 @@ sequenceDiagram
   ABG-->>HoG: exact target GraphFunction admitted
   loop bounded Product-declared rounds
     HoG->>ABG: open child and reviewer C calls
-    HoG->>LeafPort: resolve reviewer task with exact subject bytes and instruction body/schema
+    HoG->>LeafPort: resolve reviewer task with exact subject bytes, instruction body/schema, and ordered prior submitter responses
     LeafPort->>ProductSemantics: project exact task/profile worker contracts
     ProductSemantics-->>LeafPort: instruction and findings contract refs
     LeafPort-->>HoG: exact install-bound projection
@@ -2842,9 +2963,29 @@ sequenceDiagram
       ABG-->>Public: failed outcome and replay, no Consensus result
     end
     opt complete admitted findings vector
-      HoG->>LeafPort: invoke Product F_D reducer
-      LeafPort-->>ABG: candidate round state
-      ABG-->>HoG: admitted closed_done, recurse_next_round, or escalate_fh state with typed refusals retained
+      HoG->>LeafPort: resolve submitter task over exact vector digest, submitting actor, profile, instruction, round, policy, and prior responses
+      LeafPort->>ProductSemantics: project exact submitter task/profile worker contracts
+      ProductSemantics-->>LeafPort: submitter instruction and response contract refs
+      LeafPort-->>HoG: exact install-bound projection
+      HoG->>LeafPort: invoke attributed F_P submitter response
+      LeafPort->>ABG: invoke through admitted F_P effect port
+      ABG-->>LeafPort: observed submitter actor/process result
+      alt response satisfies declared submitter schema and exact findings partition
+        LeafPort-->>HoG: attributed ConsensusSubmitterResponse candidate
+        HoG->>ABG: admit ordinary evidence, result, and judgment
+        ABG-->>HoG: admitted response bound to exact vector, actor, and round
+        HoG->>LeafPort: invoke Product F_D reducer over findings plus admitted response
+        LeafPort-->>ABG: candidate round state
+        ABG-->>HoG: admitted closed_done, recurse_next_round, or escalate_fh state
+        opt recurse_next_round
+          HoG->>ABG: admit foldback carrying response lineage
+          HoG->>LeafPort: materialize next reviewer tasks with admitted response for reconsideration
+        end
+      else missing, malformed, wrong-actor/profile/configuration, wrong-prior-round, forged, vector-unbound, or failed submitter response
+        LeafPort-->>HoG: typed non-close refusal or implementation failure candidate
+        HoG->>ABG: admit ordinary failed result, judgment, route, and stop
+        ABG-->>Public: failed outcome and replay, no reduction or Consensus closure
+      end
     end
   end
   opt complete terminal Consensus state
@@ -2907,12 +3048,14 @@ stateDiagram-v2
   [*] --> SourceAdmitted: source invocation_admitted [ABG]
   SourceAdmitted --> SourceActionSelected: evaluateNext plus ConstructionIntent admitted [Product/ABG]
   SourceActionSelected --> SourceRoundOpen: canonical Consensus child graph_call_opened [HoG/ABG]
-  SourceRoundOpen --> SourceFindingsAdmitted: C.batch complete vector [ABG]
-  SourceRoundOpen --> SourceContractFailureClosed: successful transport plus malformed payload -> attributed refusal -> contract_failure result -> converged refresh and closure [Product/HoG/ABG]
+  SourceRoundOpen --> SourceFindingsAdmitted: C.batch complete vector, including attributed typed refusal [ABG]
   SourceRoundOpen --> SourceFailed: no valid preserved output after transport failure, no output, or partial stop [ABG]
-  SourceFindingsAdmitted --> SourceRoundOpen: recurse_next_round plus foldback [HoG/ABG]
-  SourceFindingsAdmitted --> SourceUnresolvedClosed: escalate_fh result plus converged refresh and source closure [Product/HoG/ABG]
-  SourceFindingsAdmitted --> SourceResolvedClosed: closed_done plus converged refresh and source closure [Product/HoG/ABG]
+  SourceFindingsAdmitted --> SourceSubmitterResponseAdmitted: attributed F_P submitter response admitted through ordinary C-call evidence, result, and judgment [Product/HoG/ABG]
+  SourceFindingsAdmitted --> SourceFailed: missing, malformed, wrong-actor/profile/configuration, wrong-prior-round, forged, vector-unbound, or failed submitter response, with no reduction or next-round fact [Product/ABG]
+  SourceSubmitterResponseAdmitted --> SourceRoundOpen: recurse_next_round foldback carries response into next reviewer tasks for reconsideration [HoG/ABG]
+  SourceSubmitterResponseAdmitted --> SourceUnresolvedClosed: response-bound reduction emits escalate_fh plus converged refresh and source closure [Product/HoG/ABG]
+  SourceSubmitterResponseAdmitted --> SourceResolvedClosed: response-bound reduction emits closed_done plus converged refresh and source closure [Product/HoG/ABG]
+  SourceSubmitterResponseAdmitted --> SourceContractFailureClosed: response-bound reduction over refusal-bearing findings emits typed contract_failure plus converged refresh and source closure [Product/HoG/ABG]
   SourceUnresolvedClosed --> SourceUnresolvedReadable: no-append unresolved result and replay projection; source remains closed [Product/Public/ABG]
   SourceResolvedClosed --> SourceFinalReadable: no-append result and replay projection [Product/Public/ABG]
   SourceContractFailureClosed --> SourceFinalReadable: no-append typed contract-failure result and replay projection [Product/Public/ABG]
@@ -2941,15 +3084,16 @@ stateDiagram-v2
 
 | Axiom | Ontology evidence | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/static enforcement | Verdict | Gap owner |
 |---|---|---|---|---|---|---|---|---|---|
-| view participants and cardinalities are closed | Product, Public, validator, ABG, HoG, Product semantics, leaf port, replay, domain/schema-source/publication/Program, invocation, round, reviewer task and contract projection, result candidate, escalation decision, source-result basis, source/target runtime episode, and public/ticket projection entities | each named owner | every active Ontology entity is named and every association carries a cardinality | every sequence participant is a domain identity; payload entities remain subordinate to their named invocation/round/result owner | source and target episode states are distinct and every transition names Product, Public, HoG, or ABG authority | module exports and module-local Product provider | TypeScript boundaries plus admission checks | pass | none |
+| view participants and cardinalities are closed | Product, Public, validator, ABG, HoG, Product semantics, leaf port, replay, domain/schema-source/publication/Program, invocation, round, reviewer task/candidate/findings/vector, submitter task/candidate/response, worker-contract projection, result candidate, escalation decision, source-result basis, source/target runtime episode, and public/ticket projection entities | each named owner | every active Ontology entity is named and every association carries a cardinality | every sequence participant is a domain identity; payload entities remain subordinate to their named invocation/round/result owner | source and target episode states are distinct and every transition names Product, Public, HoG, or ABG authority | module exports and module-local Product provider | TypeScript boundaries plus admission checks | pass | none |
 | one canonical Consensus callable | domain family, One Surface basis, and publication | Product/GTL | singular public handle plus non-public escalation support relation | ActionCatalog/evaluateNext selects the one canonical target; support Program exposes only replay-bound escalation | SourceAdmitted -> SourceActionSelected -> SourceRoundOpen | constants, closed constructors, and exact action/composition predicates | raw admission, whole-Program validation, catalog/action admission | pass | none |
 | supervised canonical entry cannot be bypassed | supervised Consensus Program, invocation, and runtime episode | Product policy and ABG admission | one canonical public Program has supervised root mode; support Program cannot select its root | Product construction refuses direct variant; ABG independently refuses a direct candidate before Run | direct refusal terminates at SourceRefused; supervised admission alone reaches SourceAdmitted | generic invocation constructor root-mode check | generic ABG invocation-admission root-mode check plus installed no-event mutation | pass | none |
-| exact subject and reviewer instructions reach each F_P task | subject materialization, instruction, invocation, and reviewer task | Product | one materialization and matched instruction per profile/task; ticket identity, when present, equals subject ref and digest | exact bytes, instruction body, and response schema cross the leaf effect edge | SourceRoundOpen cannot produce findings without an exact task | content/instruction/configuration digests, exact ticket/subject equality, and closed predicates | Product invocation validation, cross-paired ticket ref/digest mutations, C-call contracts, and ABG result admission | pass | none |
-| serialized contracts project native Product meaning | schema source, serialized contract assets, and domain family | Product publication | one TypeScript schema/value/key source generates one schema family and both vocabulary projections | deterministic package generation precedes manifest binding and installed catalog use | not_applicable: immutable release asset, not runtime state | native reviewer-candidate predicate, required-key families, response schema, closed values, and `CONSENSUS_PUBLIC_SCHEMA` share one source | generated schema/vocabulary equality plus exact asset digest, media type, definition ref, and native-value proof | pass | none |
-| no host-owned panel loop | round state and Program topology | GTL/HoG | tasks subordinate to Program | fan-out/fan-in shown inside HoG | round transitions derive from admitted routes | direct GTL constructors | validator plus ABG child/foldback admission | pass | none |
-| reviewer attribution is ordinal and exact | invocation, task, worker-contract projection, finding | Product/ABG | profile/task containment, recomputed complete configuration digest, and exact Product projection | Product configuration and contract projection precede the effect edge; effect binds profile and worker | findings admitted before reduction | closed predicates recompute the profile digest; Product worker-contract resolver and transport contract preserve it | panel/invocation validation plus actor/process and C-call evidence/result admission | pass | none |
-| declared policy controls reduction | policy and round state | Product | policy composed into invocation | reducer consumes admitted state | only declared outcomes transition | exact rule-ref predicates | Product input/result admission | pass | none |
-| malformed successful reviewer output becomes typed Product truth but cannot escalate | reviewer task, ReviewFindings refusal, round state, and result candidate | Product meaning; ABG runtime truth | refusal remains subordinate to the exact task and terminal result; contract failure has no F_H eligibility | successful transport plus malformed payload -> attributed typed refusal -> complete vector -> Product reduction/projector -> ordinary ABG admission; support invocation refuses | SourceRoundOpen -> SourceContractFailureClosed -> SourceFinalReadable with no edge to SourceBasisDerived | exact response-schema, refusal/result predicates, deterministic contract-failure ref, and escalation-eligibility predicate | actor/process success evidence plus ordinary C-call result, judgment, closure, replay, public read, and installed support-invocation refusal with no target or hold events | pass | none |
+| exact subject and reviewer/submitter instructions reach each F_P task | subject materialization, both instruction/profile roles, invocation, reviewer task, and submitter task | Product | one materialization and matched instruction per profile/task; submitter actor equals the subject submitting actor; ticket identity, when present, equals subject ref and digest | exact bytes, instruction body, response schema, and prior response context cross each leaf effect edge | SourceRoundOpen cannot produce findings and SourceFindingsAdmitted cannot produce a response without exact tasks | content/instruction/configuration digests, exact ticket/subject/submitter equality, and closed predicates | Product invocation validation, cross-paired ticket/role mutations, C-call contracts, and ABG result admission | pass | none |
+| serialized contracts are subordinate GTL declarations of native Product meaning | schema source, serialized contract assets, and domain family | Product publication within `GtlDeclarationFamily` | one TypeScript schema/value/key source generates one subordinate schema family and both subordinate vocabulary projections | deterministic package generation precedes manifest binding and installed catalog use; no replay fold creates them | not_applicable: immutable release declarations, not runtime state | native reviewer/submitter candidate predicates, required-key families, both response schemas, closed values, and `CONSENSUS_PUBLIC_SCHEMA` share one source | generated schema/vocabulary equality plus exact asset digest, media type, definition ref, and native-value proof | pass | none |
+| no host-owned panel or response loop | round state and Program topology | GTL/HoG | reviewer tasks, submitter task, admitted response, reducer, and reconsideration remain subordinate to the Program | reviewer fan-out/fan-in -> submitter F_P -> ordinary admission -> reducer -> response-bearing foldback is shown inside HoG | round transitions derive from admitted routes and no new runtime state family | direct GTL constructors | validator plus ordinary ABG C-call, child, and foldback admission | pass | none |
+| reviewer and submitter attribution is ordinal and exact | invocation, reviewer/submitter tasks, worker-contract projection, findings, and response | Product/ABG | profile/task containment, submitting-actor equality, recomputed complete configuration digests, and exact Product projection | Product configuration and contract projection precede both effect edges; each effect binds profile and worker | findings and response are admitted before reduction | closed predicates recompute both profile digests; Product worker-contract resolver and transport contracts preserve them | invocation validation plus actor/process and C-call evidence/result admission | pass | none |
+| submitter response precedes reduction and governs reviewer reconsideration | findings vector, submitter task/candidate/response, round state, and next reviewer tasks | Product declares meaning; ABG admits runtime truth | every complete vector, including a refusal-bearing vector, relates to exactly one attributed response; addressed and residual refs partition its findings; ordered prior responses enter each recursively created reviewer task | complete vector -> submitter F_P -> ordinary response admission -> F_D reduction -> response-bearing foldback | SourceFindingsAdmitted -> SourceSubmitterResponseAdmitted -> resolved, unresolved, contract failure, or next SourceRoundOpen; missing response reaches SourceFailed | `isConsensusSubmitterTask`, `isConsensusSubmitterResponseCandidate`, `isConsensusSubmitterResponse`, exact vector digest, response partition, and prior-response predicates | ordinary F_P C-call evidence/result/judgment and child foldback; no Consensus-specific event or continuation | pass | none |
+| declared policy controls response-bound reduction | policy, submitter response, and round state | Product | policy composed into invocation and submitter task | reducer consumes the exact admitted response carrying its findings vector | only declared outcomes transition after SourceSubmitterResponseAdmitted | exact rule-ref and response predicates | Product input/result admission | pass | none |
+| malformed successful reviewer output becomes typed Product truth but cannot escalate | reviewer task, ReviewFindings refusal, submitter task/response, round state, and result candidate | Product meaning; ABG runtime truth | refusal remains subordinate to the exact task, complete vector, exact admitted response, and terminal result; contract failure has no F_H eligibility | successful transport plus malformed payload -> attributed typed refusal -> complete vector -> attributed submitter F_P response -> ordinary response admission -> response-bound contract-failure reduction/projector -> ordinary ABG admission; support invocation refuses | SourceRoundOpen -> SourceFindingsAdmitted -> SourceSubmitterResponseAdmitted -> SourceContractFailureClosed -> SourceFinalReadable with no edge to SourceBasisDerived | exact reviewer and submitter response schemas, refusal/response/result predicates, deterministic contract-failure ref, and escalation-eligibility predicate | reviewer and submitter actor/process evidence plus ordinary C-call result, judgment, closure, replay, public read, and installed support-invocation refusal with no target or hold events | pass | none |
 | reviewer transport truth preserves valid observed output without inventing semantic contract failure | reviewer task, reviewer candidate, implementation failure candidate, runtime episode, and replay | Product owns candidate meaning; ABG owns process and stop truth | a valid candidate observed before timeout, crash, or non-zero exit has ReviewFindings plus failed process truth; transport failure without a valid candidate and no-output have no ReviewFindings or Consensus result identity | valid preserved candidate -> ordinary findings admission with exact failed process evidence; failed/missing process observation without one -> implementation failure candidate -> ABG failure result/judgment/route/stop | valid preserved candidate reaches SourceFindingsAdmitted; outputless failure reaches SourceFailed -> SourceFinalReadable | Product reviewer-candidate predicate is shared by schema and parser; failure candidate contract contains no findings or terminal Consensus classification | installed valid-before-timeout and valid-before-nonzero proofs plus timeout/non-zero/no-output mutations prove the two disjoint outcomes | pass | none |
 | eligible unresolved truth alone reaches F_H | outcome, requested result projection, ABG source-result basis, linked target invocation, and continuation | Product/ABG | one source episode relates to zero or more derived bases; each target episode has at most one; source and target are distinct; only unresolved/no-contract-failure/escalate is eligible | requested eligible result is selected from the exact source Run; ABG proves the source Run opened from that invocation and derives result/judgment/replay/WorkspaceBinding before Product validation and target admission | SourceUnresolvedClosed -> SourceUnresolvedReadable -> SourceBasisDerived -> TargetAdmitted -> TargetHeld; source Run remains immutable terminal history; contract failure remains SourceFinalReadable | closed outcome vocabulary, `isConsensusEscalationRequest`, exact result predicate, and Product basis validator | ABG source invocation-to-Run rehydration, advancing judgment, branded basis, exact source/target WorkspaceBinding equality, target invocation, atomic hold admission, and contract-failure negative | pass | none |
 | F_H response binds request and actor | result candidate and Consensus escalation decision | Product/ABG | decision composes exact unresolved result and actor | actor admission precedes Product evaluation | TargetHeld -> TargetResponded only on exact basis | Product response predicate | capability and response admission | pass | none |
@@ -2957,7 +3101,7 @@ stateDiagram-v2
 | source result cannot cross invocation-to-Run lineage | invocation source-result basis and runtime episode | ABG | each source basis binds one admitted invocation to its own opened Run and selected result | ABG rehydrates the exact invocation and proves `run_segment_opened` before deriving the basis | SourceUnresolvedReadable -> SourceBasisDerived only for the same source episode | not_applicable: global event relation | direct two-Run cross-pair mutation plus ABG rehydration and replay checks | pass | none |
 | public reads are no-append, durable, Product-exact, and proportional | run projection authority and requested root-or-child result | Product meaning over ABG truth; Public transport only | runtime episode relates to zero or more result projections under one current authority | reopen, revalidate event-bound publication/semantics digests, invocation-to-Run relation, replay, select exact judged result, optional pure Product projection, close | SourceUnresolvedReadable, SourceFinalReadable, and TargetReadable self-transitions do not change either Run | exact carrier parser and Product projector | event prefix, ProductInstall, catalog-to-view causation, publication/Product-semantics basis digest, invocation-to-Run binding, closed Run, selected GraphCall/C-call result and judgment checks; full catalog snapshot is absent | pass | none |
 | ticket projection cannot mutate ticket | Ticket Consensus projection | Product | result candidate relates to zero or one downstream ticket projection | pure projection only | no ticket lifecycle transition | immutable function | not_applicable: no admission or effect | pass | none |
-| promoted payload types do not create peer authority | subject materialization, instruction, reviewer task, findings/rulings, and round outcome within the one domain/IACS family | Product | public/effect contracts and direct pattern-match variants remain subordinate to invocation/round/result lifecycle | no promoted payload originates selection, admission, execution, or closure | no independent payload lifecycle state | one closed TypeScript/schema family | ordinary Product predicates and ABG owner admissions only | pass | none |
+| promoted payload types do not create peer authority | subject materialization, reviewer/submitter instructions and profiles, reviewer candidate/task/findings/vector, submitter candidate/task/response, rulings, and round outcome within the one domain/IACS family | Product | public/effect contracts and direct pattern-match variants remain subordinate to invocation/round/result lifecycle | no promoted payload originates selection, admission, execution, or closure | no independent payload lifecycle state; SourceSubmitterResponseAdmitted is a projection of ordinary C-call truth | one closed TypeScript/schema family | ordinary Product predicates and ABG owner admissions only | pass | none |
 | SDK equivalence | deferred S06 asset | S06 owner | deferred | deferred | deferred | not selected | not selected | not_applicable: S06 owns | T-281 |
 
 ### 13.9 Operational lifecycle and proof
@@ -2965,12 +3109,12 @@ stateDiagram-v2
 | Phase | S05 answer | Source truth and owner |
 |---|---|---|
 | intent | Consensus is ordinary free construction, not a special engine | Intent/Product; F_H |
-| requirement | `A5-F08`, `ABG5-S05`, `REQ-P-CONSENSUS-001..019` | specification |
-| build | Product-owned exact subject/instruction/domain/publication assets plus existing GTL/HoG/ABG/Public path | this design; T-270 |
-| assurance | module-owned exact-materialization, schema/vocabulary generation and reviewer-candidate agreement, contract-failure non-escalation, valid-output salvage, generic ABG direct-entry refusal, source-Run, and authority proof; installed One Surface three-outcome/three-workspace proof; exact source-result and child-result projection mutations; S03/M5/M4 regressions; Mermaid; reproducible pack | test lanes and exact candidate |
+| requirement | accepted `A5-F07` consumed by `A5-F08`, `ABG5-S05`, and `REQ-P-CONSENSUS-001..019` | specification |
+| build | Product-owned exact subject/reviewer/submitter instruction/domain/publication assets plus the declared findings-response-reconsideration relation over the existing GTL/HoG/ABG/Public path | this design; T-270 |
+| assurance | module-owned exact-materialization, schema/vocabulary generation, reviewer/submitter candidate agreement, attributed response admission before reduction, response-bearing reviewer reconsideration, contract-failure non-escalation, valid-output salvage, generic ABG direct-entry refusal, source-Run, and authority proof; installed One Surface three-outcome/three-workspace proof; exact source-result and child-result projection mutations; S03/M5/M4 regressions; Mermaid; reproducible pack | test lanes and exact candidate |
 | release | included in the future exact ABIogenesis 5.0 candidate; no independent Consensus release | T-248 / release design |
 | deployment | installed from the packed ABIogenesis Product into an explicit consumer root with schema/vocabulary assets addressable through the manifest | Product/install law |
-| live usage | ordinary catalog, canonical One Surface start, exact materialized ticket Consensus, F_H continuation when needed, and `project.read` | public Product contract |
+| live usage | ordinary catalog, canonical One Surface start, exact materialized ticket Consensus, attributed submitter response and reviewer reconsideration on recursion, F_H continuation when needed, and `project.read` | public Product contract |
 | observed telemetry | ABG events and replay; no Consensus event or result store | ABG |
 | retirement | superseded only by a later admitted ABIogenesis Product publication; historical event and result truth remains | Product release and ABG retention law |
 
@@ -2979,7 +3123,8 @@ Module-owned proof derives from this boundary rather than helper layout:
 | Proof family | Owning law |
 |---|---|
 | domain/publication exactness, one Product-owned schema/value/key source, deterministic serialized schema and vocabulary generation, native parser/schema agreement, and public contract addressability | Ontology, IACS, `REQ-P-CONSENSUS-001..008A` |
-| exact ticket bytes, exact ticket-ref/digest equality with the subject, declared reviewer instruction bodies/schemas, policy, exact WorkspaceBinding, recomputed reviewer configuration, attribution, Product-declared worker contracts, Product result projection, and F_H exact-basis mutations | authority matrix and `REQ-P-CONSENSUS-005..011` |
+| exact ticket bytes, exact ticket-ref/digest equality with the subject, declared reviewer and submitter instruction bodies/schemas, policy, exact WorkspaceBinding, recomputed profile configuration, attribution, Product-declared worker contracts, Product result projection, and F_H exact-basis mutations | authority matrix and `REQ-P-CONSENSUS-005..011` |
+| `ConsensusReviewerCandidate` promotion plus exact reviewer findings vector -> attributed F_P submitter task/candidate/response -> ordinary response admission -> response-bound F_D reduction -> next-round reviewer reconsideration, with missing response, wrong actor/profile/configuration, wrong prior round, forged identity/digest/evidence, and vector-unbound negatives | Ontology relation, atomic topology, Prime/IACS, three views, and `REQ-P-CONSENSUS-009..011A` |
 | generic Product and ABG refusal of direct invocation against the supervised canonical Program before Run or actor truth, including a direct ABG module mutation | public-entry Prime row and `REQ-P-CONSENSUS-010` |
 | typed reviewer contract failure from a successfully observed malformed attributed payload through ordinary result admission, replay, public read, and refusal before support invocation/F_H truth | terminal-classification and F_H Prime rows plus `REQ-P-CONSENSUS-008A` |
 | a valid reviewer candidate observed before timeout or non-zero exit is salvaged with exact failed process evidence; transport failure without a valid candidate and no-output remain ordinary failed/stopped ABG truth and never become semantic Consensus contract failure | terminal-classification Prime row and transport/runtime requirements |
@@ -2998,7 +3143,19 @@ Promotion requires:
 - raw admission and whole-Program validation of the original GTL;
 - ordinary catalog, implementation resolution, HoG, ABG, and CLI paths;
 - exact ticket bytes and declared reviewer instruction bodies/schemas reaching
-  every attributed F_P task;
+  every attributed reviewer F_P task;
+- exact submitter profile/instruction attribution and one
+  `ConsensusSubmitterResponseCandidate` validated and admitted as one
+  `ConsensusSubmitterResponse` for every complete findings vector, including a
+  refusal-bearing vector;
+- ordinary ABG response evidence/result/judgment admission before F_D
+  reduction, with no findings-only reducer path;
+- `recurse_next_round` carrying the ordered admitted submitter response into
+  every next-round reviewer task for reconsideration;
+- missing response, wrong submitter actor/profile/configuration, wrong prior
+  round, forged response identity/digest/evidence, and vector-unbound response
+  all refusing before any successor-round GraphCall, Frame, task, C-call, or
+  event;
 - exact ticket ref/digest equality with the selected subject identity;
 - all three outcome families over all three workspace applications, each
   selected through One Surface;
@@ -3036,6 +3193,10 @@ Micro-level contract and implementation details may co-evolve inside these
 fixed identities and authority boundaries. A change to Product meaning,
 runtime authority, event ownership, or public operation identity returns to
 design before promotion.
+
+S06 remains held and unselected. This S05 reconciliation adds no Product
+family, ticket, public operation, event kind, continuation, runtime, or S06
+implementation authority.
 
 ## 14. S06 Portability And Reflective Product Content
 

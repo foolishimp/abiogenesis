@@ -5,30 +5,33 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_independent_exact_cut_accepted
-- review_status: s05_independent_exact_cut_accepted
-- proof_status: s05_fresh_archive_gates_green
+- phase_status: m5_s05_bounded_requirement_repair_active
+- review_status: s05_48103ed9_rejected_repair_pending
+- proof_status: prior_s05_proof_retained_not_closure
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
     Preserve the accepted direct-GTL and S03 realization while reconciling the
-    exact Consensus design, module, installed-public-path, result, replay, and
-    negative evidence needed to accept ABG5-S05.
+    exact Consensus design, module, installed-public-path, attributed
+    submitter-response gate, result, replay, and negative evidence needed to
+    accept ABG5-S05.
 - change_class: requirement_reprice
 - re_entry_point: >-
     specification/requirements/product/REQ-P-CONSENSUS.md
-    REQ-P-CONSENSUS-015, then build_tenants/abiogenesis/typescript/design/
+    REQ-P-CONSENSUS-004, -006A, -008, -009, -011, -011A, -015A, and
+    -016..018, then build_tenants/abiogenesis/typescript/design/
     M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md Section 13 and its realized
     Product-owned Consensus boundary
-- triaged_at: 2026-07-25
+- triaged_at: 2026-07-26T16:51:19+10:00
 - created_at: 2026-07-14
 - updated_at: 2026-07-26
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- implementation_hold: held_for_direct_human_s05_acceptance
+- implementation_hold: bounded_s05_requirement_repair_only
 - implementation_hold_effect: >-
-    Only direct human acceptance or rejection of the exact S05 candidate may
+    Only the bounded findings-to-submitter-response-to-next-round repair and
+    its exact design, implementation, module proof, and installed proof may
     proceed; S06, observer/tuner, complete conservation, qualification, and
     release remain held
 - current_product_outcome: ABG5-S05
@@ -58,19 +61,25 @@
 - superseded_s05_product_path_candidate: 6a380544df8bdbd68db427aa80c278e37275c9bb
 - superseded_s05_product_path_candidate_tree: 6f853a0db7f1b53b9b4e8e805b179f1552e1212f
 - superseded_s05_product_path_evidence: .ai-workspace/comments/codex/20260726T041753Z_CHECKPOINT_t270_s05_product_path_repaired_exact_candidate.md
-- current_s05_candidate: 48103ed936aa9326d546f4dcd667b16a5c803f9c
-- current_s05_candidate_tree: e954654fe57eff416808ca7370f43b8327a9f04d
-- current_s05_functional_candidate: 425993da5894b78b6c88b939736dead3fd2e7f98
-- current_s05_functional_candidate_tree: e997884f14a05fe71f06e2c4a73bd924125fd7db
-- current_s05_requirement_digest: 8f945dbb6b2e715e8a70a0643f69d469e68e258a6d2703ece921e54492374f44
-- current_s05_package_digest: 85ca145e7d6755285f9c18f999f840888f8637c3e9788e35dd702a476f16d733
-- current_s05_package_inventory_digest: 112d8cb84308315cf58c9e1e3f596423f219f4564247d9b326cbdbc6f8dd4ec3
-- current_s05_clean_checkout_proof: fresh_git_archive_without_generated_asset_directories
-- current_s05_evidence: .ai-workspace/comments/codex/20260726T073212Z_CHECKPOINT_t270_s05_clean_checkout_repaired_exact_candidate.md
-- current_s05_design_index_digest: ff5fcfbf4acd7179647e39a5b67dac44aa5d10aa8d04e72a82ebfe7ad119458b
+- rejected_s05_candidate: 48103ed936aa9326d546f4dcd667b16a5c803f9c
+- rejected_s05_candidate_tree: e954654fe57eff416808ca7370f43b8327a9f04d
+- rejected_s05_candidate_disposition: retained_behavioral_stock_only
+- rejected_s05_functional_stock: 425993da5894b78b6c88b939736dead3fd2e7f98
+- rejected_s05_functional_stock_tree: e997884f14a05fe71f06e2c4a73bd924125fd7db
+- rejected_s05_requirement_digest: 8f945dbb6b2e715e8a70a0643f69d469e68e258a6d2703ece921e54492374f44
+- retained_s05_package_digest: 85ca145e7d6755285f9c18f999f840888f8637c3e9788e35dd702a476f16d733
+- retained_s05_package_inventory_digest: 112d8cb84308315cf58c9e1e3f596423f219f4564247d9b326cbdbc6f8dd4ec3
+- retained_s05_clean_checkout_proof: fresh_git_archive_without_generated_asset_directories
+- retained_s05_evidence: .ai-workspace/comments/codex/20260726T073212Z_CHECKPOINT_t270_s05_clean_checkout_repaired_exact_candidate.md
+- retained_s05_design_index_digest: ff5fcfbf4acd7179647e39a5b67dac44aa5d10aa8d04e72a82ebfe7ad119458b
+- current_s05_candidate: pending_bounded_requirement_repair
+- current_s05_candidate_tree: pending
+- current_s05_requirement_digest: pending
 - latest_s05_reviewed_candidate: 48103ed936aa9326d546f4dcd667b16a5c803f9c
 - latest_s05_review: .ai-workspace/comments/codex/20260726T081217Z_REVIEW_t270_s05_provenance_repaired_exact_candidate.md
+- latest_s05_review_disposition: rejected_by_requirement_reprice
 - retained_behavioral_stock: bcd8769a8163a222e2e59400c904994b3de161fd
+- retained_s05_rejected_stock: 48103ed936aa9326d546f4dcd667b16a5c803f9c
 - regression_bindings:
   - ABI5-ROOT-001
   - ABI5-M5-EXT-001
@@ -88,6 +97,8 @@ Product outcome is now:
 ```text
 reconcile and reclose ABG5-S05
   -> through the packed ordinary GTL Consensus publication
+  -> reviewer findings -> exact attributed F_P submitter response
+  -> ABG response admission -> next reviewer round binding
   -> through catalog, HoG, ABG, replay, project.read, and thin CLI
   -> without a Consensus-specific runner, controller, event family, or result authority
 ```
@@ -140,15 +151,27 @@ The S05 reconciliation shall:
    replay, and closure;
 6. carry exact selected ticket bytes and resolved profile instruction
    bodies/schemas into every attributed reviewer task;
-7. generate digest-bound serialized Consensus schema and vocabulary assets
+7. publish one canonical submitter F_P contract and response schema, bind one
+   exact subject-attributed submitter profile per invocation,
+   carry the complete admitted reviewer findings vector into its F_P task, and
+   bind the exact response to the invocation and source round;
+8. make every next reviewer round, including round two, impossible before
+   Product validation and ABG admission of that exact submitter response;
+9. reject missing response, wrong submitter, wrong prior round, forged
+   response, and response unbound from the admitted findings vector without
+   admitting any next-round runtime fact;
+10. generate digest-bound serialized Consensus schema and vocabulary assets
    from the Product-owned source without adding a schema runtime or independent
    JSON authority;
-8. expose agreement, dissent, unresolved, and typed `contract_failure`
+11. expose agreement, dissent, unresolved, and typed `contract_failure`
    results plus replay through ordinary `project.read` and the thin CLI;
-9. prove agreement, dispute recursion, and unresolved escalation across the
+12. preserve the non-public replay-bound direct F_H support GraphFunction only
+    as an explicit exception pending direct human affirmation that it does not
+    create rival public entry, continuation, or closure authority;
+13. prove agreement, dispute recursion, and unresolved escalation across the
    existing, alternate, and temporary workspace applications, all through One
    Surface; and
-10. retain S03, the external Product, M4, package reproducibility, and all
+14. retain S03, the external Product, M4, package reproducibility, and all
    causally applicable negative behavior.
 
 Existing implementation may be retained wherever the derivation proves exact
@@ -170,6 +193,13 @@ S05 closes only when:
   replay in all three workspace applications;
 - exact ticket bytes and resolved profile instructions reach every attributed
   reviewer through the declared F_P request;
+- each complete admitted reviewer findings vector reaches the canonical
+  attributed submitter F_P task, and its exact response is Product-valid and
+  ABG-admitted against the source invocation and round before any successor
+  round is bound;
+- missing response, wrong submitter, wrong prior round, forged response, and
+  response unbound from the admitted findings vector all refuse before a
+  round-two GraphCall, Frame, reviewer task, C-call, or event is admitted;
 - malformed attributed reviewer output produces a typed replay-visible
   `contract_failure` readable through the public Product but ineligible for
   F_H escalation;
@@ -181,7 +211,9 @@ S05 closes only when:
 - schema and vocabulary identities resolve to generated digest-bound
   serialized assets and the matching native Product meaning;
 - no special Consensus public verb, runner, scheduler, controller, event
-  writer, result store, continuation, or closure path participates; and
+  writer, result store, continuation, or closure path participates;
+- the replay-bound direct F_H support exception receives direct human
+  affirmation as support-only and non-rival; and
 - the exact implementation/design/evidence subject receives independent
   review and direct human acceptance.
 
@@ -195,6 +227,13 @@ S05 remains open if:
   recursion, escalation, or closure;
 - Product candidates become ABG truth without ordinary admission;
 - agreement, dissent, or `contract_failure` can enter the F_H support Program;
+- a successor reviewer round can be constructed, bound, opened, or executed
+  before the exact attributed submitter response is Product-valid and
+  ABG-admitted against the complete source-round findings vector;
+- a missing, wrong-submitter, wrong-prior-round, forged, or unbound submitter
+  response can append next-round truth;
+- the non-public replay-bound direct F_H support exception is treated as
+  accepted without direct human affirmation;
 - schema validation and the native reviewer parser disagree;
 - public result or ticket projection depends on mutable caller memory rather
   than replay;

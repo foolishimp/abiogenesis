@@ -1,5 +1,6 @@
 import {
   CONSENSUS_IDS,
+  constructConsensusSubmitterTask,
   evaluateConsensusAction,
   evaluateConsensusGap,
   finalizeConsensusEscalation,
@@ -14,6 +15,9 @@ import {
   isConsensusReviewerCandidate,
   isConsensusReviewerTask,
   isConsensusRoundState,
+  isConsensusSubmitterResponse,
+  isConsensusSubmitterResponseCandidate,
+  isConsensusSubmitterTask,
   projectConsensusResult,
   refreshConsensusGap,
   refreshConsensusModel,
@@ -27,6 +31,9 @@ import {
   type ConsensusReviewerTask,
   type ConsensusRoundState,
   type ConsensusReviewerCandidate,
+  type ConsensusSubmitterResponse,
+  type ConsensusSubmitterResponseCandidate,
+  type ConsensusSubmitterTask,
   type ReviewFinding,
   type ReviewFindings,
 } from "../gtl/consensus.js";
@@ -96,11 +103,27 @@ export const CONSENSUS_REVIEWER_IMPLEMENTATION_DESCRIPTOR = descriptor({
   outputContractRef: CONSENSUS_IDS.findingsContractRef,
 });
 
+export const CONSENSUS_SUBMITTER_TASK_IMPLEMENTATION_DESCRIPTOR = descriptor({
+  implementationRef: CONSENSUS_IDS.submitterTaskImplementationRef,
+  namedSymbol: "realizeConsensusSubmitterTaskPreparation",
+  computeRegime: "F_D",
+  inputContractRef: CONSENSUS_IDS.findingsVectorContractRef,
+  outputContractRef: CONSENSUS_IDS.submitterTaskContractRef,
+});
+
+export const CONSENSUS_SUBMITTER_IMPLEMENTATION_DESCRIPTOR = descriptor({
+  implementationRef: CONSENSUS_IDS.submitterImplementationRef,
+  namedSymbol: "realizeConsensusSubmitter",
+  computeRegime: "F_P",
+  inputContractRef: CONSENSUS_IDS.submitterTaskContractRef,
+  outputContractRef: CONSENSUS_IDS.submitterResponseContractRef,
+});
+
 export const CONSENSUS_REDUCER_IMPLEMENTATION_DESCRIPTOR = descriptor({
   implementationRef: CONSENSUS_IDS.reducerImplementationRef,
   namedSymbol: "realizeConsensusReduction",
   computeRegime: "F_D",
-  inputContractRef: CONSENSUS_IDS.findingsVectorContractRef,
+  inputContractRef: CONSENSUS_IDS.submitterResponseContractRef,
   outputContractRef: CONSENSUS_IDS.stateContractRef,
 });
 
@@ -248,8 +271,40 @@ function reviewerPrompt(input: Readonly<ConsensusReviewerTask>): string {
     `Role contract: ${input.profile.roleContractRef}`,
     `Capabilities: ${input.profile.capabilityRefs.join(", ")}`,
     `Prior findings: ${input.priorFindingSetRefs.join(", ") || "none"}`,
+    `Prior submitter responses: ${
+      input.priorSubmitterResponses.length === 0
+        ? "none"
+        : JSON.stringify(input.priorSubmitterResponses)
+    }`,
     `Task: ${JSON.stringify(input)}`,
     "Return only the declared reviewer candidate JSON.",
+  ].join("\n");
+}
+
+function submitterPrompt(input: Readonly<ConsensusSubmitterTask>): string {
+  return [
+    input.instruction.instructionText,
+    `Instruction contract: ${input.instruction.instructionContractRef}`,
+    `Instruction digest: ${input.instruction.instructionDigest}`,
+    `Subject: ${input.subject.subjectRef}`,
+    `Subject digest: ${input.subject.subjectDigest}`,
+    `Subject media type: ${input.subjectMaterialization.mediaType}`,
+    "Subject materialization:",
+    input.subjectMaterialization.content,
+    "End subject materialization.",
+    `Round: ${input.roundOrdinal}`,
+    `Submitting actor: ${input.profile.actorRef}`,
+    `Submitter profile: ${input.profile.profileRef}`,
+    `Submitter configuration: ${input.profile.configurationDigest}`,
+    `Role contract: ${input.profile.roleContractRef}`,
+    `Capabilities: ${input.profile.capabilityRefs.join(", ")}`,
+    `Prior rounds: ${input.priorRoundRefs.join(", ") || "none"}`,
+    `Prior submitter responses: ${
+      input.priorSubmitterResponseRefs.join(", ") || "none"
+    }`,
+    `Admitted reviewer findings vector: ${JSON.stringify(input.findingsVector)}`,
+    `Task: ${JSON.stringify(input)}`,
+    "Return only the declared submitter response candidate JSON.",
   ].join("\n");
 }
 
@@ -259,6 +314,17 @@ function parseSemanticCandidate(
   try {
     const value = JSON.parse(output) as unknown;
     return isConsensusReviewerCandidate(value) ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+function parseSubmitterCandidate(
+  output: string,
+): ConsensusSubmitterResponseCandidate | null {
+  try {
+    const value = JSON.parse(output) as unknown;
+    return isConsensusSubmitterResponseCandidate(value) ? value : null;
   } catch {
     return null;
   }
@@ -398,12 +464,144 @@ export async function realizeConsensusReviewer(
   });
 }
 
-export function realizeConsensusReduction(
+export function realizeConsensusSubmitterTaskPreparation(
   input: Readonly<ConsensusFindingsVector>,
 ) {
   if (!isConsensusFindingsVector(input)) {
     throw new TypeError(
-      "Consensus reducer requires one exact admitted findings vector",
+      "Consensus submitter preparation requires one exact findings vector",
+    );
+  }
+  const result = constructConsensusSubmitterTask(input);
+  return deterministicSuccess(
+    CONSENSUS_IDS.submitterTaskImplementationRef,
+    input as unknown as Readonly<Record<string, JsonValue>>,
+    result as unknown as Readonly<Record<string, JsonValue>>,
+  );
+}
+
+export async function realizeConsensusSubmitter(
+  input: Readonly<ConsensusSubmitterTask>,
+  effects: Readonly<ProbabilisticLeafEffectPort>,
+): Promise<Readonly<ConsensusLeafCandidate>> {
+  if (!isConsensusSubmitterTask(input)) {
+    throw new TypeError(
+      "Consensus submitter requires one exact attributed response task",
+    );
+  }
+  const transport = await effects.invokeWorker({
+    actorRef: input.profile.actorRef,
+    workerBindingRef: input.profile.workerBindingRef,
+    implementationRef: CONSENSUS_IDS.submitterImplementationRef,
+    inputDigest: sha256Canonical(input as unknown as JsonValue),
+    materializationPlanRef:
+      "materialization-plan://abg/consensus/submitter-response@5",
+    rendererRef: "renderer://abg/consensus/submitter-response@5",
+    instructionContractRef: input.profile.instructionContractRef,
+    resultContractRef: input.profile.resultContractRef,
+    transportLane: input.transportLane,
+    prompt: submitterPrompt(input),
+    responseJsonSchema: input.instruction.responseSchema,
+  });
+  const semantic = parseSubmitterCandidate(transport.finalOutput);
+  const salvaged = transport.disposition === "failure" &&
+    transport.failureClass === "transport_failure" &&
+    semantic !== null;
+  if (transport.disposition !== "success" && !salvaged) {
+    const failureClass = transport.failureClass ?? "transport_failure";
+    const diagnosticRef =
+      `diagnostic://abg/consensus/submitter-transport-${failureClass.replaceAll("_", "-")}@5`;
+    return deepFreeze({
+      kind: "leaf_realization_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "failure" as const,
+      evidenceCandidates: [] as const,
+      resultCandidate: deepFreeze({
+        kind: "consensus_failure" as const,
+        schemaVersion: "5.0.0" as const,
+        failureClass,
+        diagnosticRef,
+      }),
+      diagnosticRef,
+    });
+  }
+  if (semantic === null) {
+    const diagnosticRef =
+      "diagnostic://abg/consensus/submitter-output-refused@5";
+    return deepFreeze({
+      kind: "leaf_realization_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "failure" as const,
+      evidenceCandidates: [] as const,
+      resultCandidate: deepFreeze({
+        kind: "consensus_failure" as const,
+        schemaVersion: "5.0.0" as const,
+        failureClass: "result_contract_failure" as const,
+        diagnosticRef,
+      }),
+      diagnosticRef,
+    });
+  }
+  const evidenceRef =
+    `transport-evidence://abg/${transport.transportDigest.slice("sha256:".length)}`;
+  const responseBody = {
+    invocationRef: input.invocationRef,
+    findingsVectorDigest:
+      sha256Canonical(input.findingsVector as unknown as JsonValue),
+    roundRef: input.roundRef,
+    roundOrdinal: input.roundOrdinal,
+    submittingActorRef: input.profile.actorRef,
+    profileRef: input.profile.profileRef,
+    disposition: semantic.disposition,
+    responseText: semantic.responseText,
+    addressedFindingRefs: [...semantic.addressedFindingRefs],
+    residualFindingRefs: [...semantic.residualFindingRefs],
+    evidenceRefs: [evidenceRef],
+  };
+  const outputDigest = sha256Canonical(responseBody as unknown as JsonValue);
+  const resultCandidate: ConsensusSubmitterResponse = deepFreeze({
+    kind: "consensus_submitter_response" as const,
+    schemaVersion: "5.0.0" as const,
+    configurationDigest: input.profile.configurationDigest,
+    task: input,
+    ...responseBody,
+    responseRef:
+      `submitter-response://abg/${outputDigest.slice("sha256:".length)}`,
+    outputDigest,
+  });
+  if (!isConsensusSubmitterResponse(resultCandidate)) {
+    const diagnosticRef =
+      "diagnostic://abg/consensus/submitter-response-basis-refused@5";
+    return deepFreeze({
+      kind: "leaf_realization_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "failure" as const,
+      evidenceCandidates: [] as const,
+      resultCandidate: deepFreeze({
+        kind: "consensus_failure" as const,
+        schemaVersion: "5.0.0" as const,
+        failureClass: "result_contract_failure" as const,
+        diagnosticRef,
+      }),
+      diagnosticRef,
+    });
+  }
+  return deepFreeze({
+    kind: "leaf_realization_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "success" as const,
+    evidenceCandidates: [] as const,
+    resultCandidate:
+      resultCandidate as unknown as Readonly<Record<string, JsonValue>>,
+  });
+}
+
+export function realizeConsensusReduction(
+  input: Readonly<ConsensusSubmitterResponse>,
+) {
+  if (!isConsensusSubmitterResponse(input)) {
+    throw new TypeError(
+      "Consensus reducer requires one exact admitted submitter response",
     );
   }
   const result = reduceConsensusRound(input);

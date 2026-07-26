@@ -14,7 +14,11 @@ import test from "node:test";
 import * as abg from "../../build/code/src/abg/index.js";
 import { ROOT_EVENT_CONTRACT_DIGEST } from "../../build/code/src/abg/event_store.js";
 import * as gtl from "../../build/code/src/gtl/index.js";
-import { realizeConsensusReviewer } from "../../build/code/src/implementation/consensus.js";
+import {
+  realizeConsensusReviewer,
+  realizeConsensusSubmitter,
+  realizeConsensusSubmitterTaskPreparation,
+} from "../../build/code/src/implementation/consensus.js";
 import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "../../build/code/src/product/builtin_semantics.js";
 import * as product from "../../build/code/src/product/index.js";
 import { ROOT_PUBLIC_OPERATION_IDS } from "../../build/code/src/public/index.js";
@@ -86,6 +90,24 @@ function invocationFor(workspaceRef = WORKSPACE) {
     "panel://developer/consensus/module-proof",
     profiles,
   );
+  const submitterInstruction = gtl.constructConsensusSubmitterInstruction({
+    instructionContractRef:
+      "contract://developer/consensus/submitter-instruction@1",
+    roleContractRef: "contract://developer/submitter-role@1",
+    instructionText:
+      "Respond to every exact admitted reviewer finding for this round.",
+    responseSchema: gtl.CONSENSUS_SUBMITTER_RESPONSE_SCHEMA,
+  });
+  const submitterProfile = gtl.constructConsensusSubmitterProfile({
+    profileRef: "submitter-profile://developer/author",
+    roleContractRef: submitterInstruction.roleContractRef,
+    instructionContractRef: submitterInstruction.instructionContractRef,
+    instructionDigest: submitterInstruction.instructionDigest,
+    resultContractRef: gtl.CONSENSUS_IDS.submitterResponseContractRef,
+    capabilityRefs: ["capability://developer/submitter/respond"],
+    actorRef: ACTOR,
+    workerBindingRef: "worker-binding://developer/submitter/author",
+  });
   const policy = canonicalPolicy();
   const subject = gtl.constructConsensusSubject({
     subjectContractRef: "contract://stdo/ticket@2",
@@ -104,6 +126,8 @@ function invocationFor(workspaceRef = WORKSPACE) {
     subjectMaterialization,
     panel,
     instructions,
+    submitterProfile,
+    submitterInstruction,
     policy,
     transportLane: "closed_prompt_proof",
   });
@@ -121,6 +145,7 @@ function unresolvedCandidate(
     policyRef: "policy://developer/consensus/module-proof@1",
     roundRefs: ["consensus-round://developer/1"],
     findingSetRefs: ["review-findings://developer/1"],
+    submitterResponseRefs: ["submitter-response://developer/1"],
     rulings: [],
     classification: "unresolved_disagreement",
     dissentProfileRefs: ["reviewer-profile://developer/independent"],
@@ -182,6 +207,126 @@ function reviewerCandidate(recommendation = "accept") {
   };
 }
 
+function submitterCandidate(
+  disposition = "acknowledge",
+  findingRefs = [],
+) {
+  return {
+    kind: "consensus_submitter_response_candidate",
+    schemaVersion: "5.0.0",
+    disposition,
+    responseText: disposition === "acknowledge"
+      ? "No admitted semantic findings require a response."
+      : "The exact admitted findings have been addressed.",
+    addressedFindingRefs:
+      disposition === "address_findings" ? [...findingRefs] : [],
+    residualFindingRefs:
+      disposition === "dispute_findings" ? [...findingRefs] : [],
+  };
+}
+
+function workerObservation(finalOutput, suffix) {
+  return {
+    actorInvocationRef:
+      `actor-invocation://developer/module-proof/${suffix}`,
+    transportBindingRef:
+      `transport-binding://developer/module-proof/${suffix}`,
+    transportBindingDigest: DIGEST,
+    disposition: "success",
+    failureClass: null,
+    finalOutput,
+    promptDigest: DIGEST,
+    transportDigest: DIGEST,
+    transportLane: "closed_prompt_proof",
+    processStatus: 0,
+    processSignal: null,
+    timedOut: false,
+    exitObserved: true,
+    terminationConfirmed: true,
+    progressEventCount: 0,
+    toolCallCount: 0,
+    artifactDigests: {
+      output: DIGEST,
+      prompt: DIGEST,
+      stderr: DIGEST,
+      stdout: DIGEST,
+      transport: DIGEST,
+    },
+  };
+}
+
+async function findingsVectorFor(state, recommendation = "revise") {
+  const members = await Promise.all(
+    state.members.map(async (member, ordinal) => {
+      const realized = await realizeConsensusReviewer(member.value, {
+        async invokeWorker() {
+          return workerObservation(
+            JSON.stringify(reviewerCandidate(recommendation)),
+            `reviewer-${state.roundOrdinal}-${ordinal}`,
+          );
+        },
+      });
+      assert.equal(realized.disposition, "success");
+      assert.equal(gtl.isReviewFindings(realized.resultCandidate), true);
+      return {
+        ordinal,
+        inputMemberRef: member.memberRef,
+        outputMemberRef:
+          `member://developer/module-proof/round-${state.roundOrdinal}/output-${ordinal}`,
+        value: realized.resultCandidate,
+      };
+    }),
+  );
+  return {
+    kind: "gtl_fan_out_vector",
+    schemaVersion: "5.0.0",
+    applicationRef: gtl.CONSENSUS_IDS.roundApplicationRef,
+    members,
+  };
+}
+
+async function responseFor(vector, disposition = "address_findings") {
+  const prepared = realizeConsensusSubmitterTaskPreparation(vector);
+  assert.equal(prepared.disposition, "success");
+  const findingRefs = vector.members.flatMap((member) =>
+    member.value.findings.map((finding) => finding.findingRef)
+  );
+  const realized = await realizeConsensusSubmitter(
+    prepared.resultCandidate,
+    {
+      async invokeWorker() {
+        return workerObservation(
+          JSON.stringify(submitterCandidate(disposition, findingRefs)),
+          `submitter-${prepared.resultCandidate.roundOrdinal}`,
+        );
+      },
+    },
+  );
+  assert.equal(realized.disposition, "success");
+  assert.equal(
+    gtl.isConsensusSubmitterResponse(realized.resultCandidate),
+    true,
+  );
+  return realized.resultCandidate;
+}
+
+function rehashSubmitterResponse(response) {
+  const value = structuredClone(response);
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    configurationDigest: _configurationDigest,
+    task: _task,
+    responseRef: _responseRef,
+    outputDigest: _outputDigest,
+    ...body
+  } = value;
+  value.outputDigest = product.sha256Canonical(body);
+  value.responseRef =
+    `submitter-response://abg/${value.outputDigest.slice("sha256:".length)}`;
+  return value;
+}
+
 test("S05 module publishes the exact Consensus contracts, vocabularies, and ordinary GTL callable", async () => {
   const manifest = JSON.parse(
     await readFile(resolve(packageRoot, "product-toolchain-manifest.json"), "utf8"),
@@ -195,6 +340,14 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
     [
       "abg.schema.consensus-reviewer-profile",
       ["ConsensusReviewerProfile", "isConsensusReviewerProfile"],
+    ],
+    [
+      "abg.schema.consensus-submitter-profile",
+      ["ConsensusSubmitterProfile", "isConsensusSubmitterProfile"],
+    ],
+    [
+      "abg.schema.consensus-submitter-response",
+      ["ConsensusSubmitterResponse", "isConsensusSubmitterResponse"],
     ],
     ["abg.schema.review-findings", ["ReviewFindings", "isReviewFindings"]],
     ["abg.schema.review-rulings", ["ReviewRulings", "isReviewRulings"]],
@@ -302,6 +455,14 @@ test("S05 serialized Consensus schema is one exact projection of native Product 
     schema.$defs.ConsensusReviewerInstruction.properties.responseSchema.const,
     gtl.CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
   );
+  assert.deepEqual(
+    schema.$defs.ConsensusSubmitterResponseCandidate,
+    gtl.CONSENSUS_SUBMITTER_RESPONSE_SCHEMA,
+  );
+  assert.deepEqual(
+    schema.$defs.ConsensusSubmitterInstruction.properties.responseSchema.const,
+    gtl.CONSENSUS_SUBMITTER_RESPONSE_SCHEMA,
+  );
   const acceptedReviewerCandidate = reviewerCandidate();
   const revisedReviewerCandidate = reviewerCandidate("revise");
   assert.equal(
@@ -332,6 +493,57 @@ test("S05 serialized Consensus schema is one exact projection of native Product 
     schema.$defs.ConsensusReviewerCandidate.allOf,
     gtl.CONSENSUS_REVIEWER_RESPONSE_SCHEMA.allOf,
   );
+  const acknowledgedSubmitterCandidate = submitterCandidate();
+  const addressedSubmitterCandidate = submitterCandidate(
+    "address_findings",
+    ["finding://developer/module-proof"],
+  );
+  assert.equal(
+    gtl.isConsensusSubmitterResponseCandidate(
+      acknowledgedSubmitterCandidate,
+    ),
+    true,
+  );
+  assert.equal(
+    gtl.isConsensusSubmitterResponseCandidate(
+      addressedSubmitterCandidate,
+    ),
+    true,
+  );
+  assert.equal(
+    gtl.isConsensusSubmitterResponseCandidate({
+      ...acknowledgedSubmitterCandidate,
+      addressedFindingRefs: ["finding://developer/module-proof"],
+    }),
+    false,
+    "an acknowledgement cannot claim addressed findings",
+  );
+  assert.equal(
+    gtl.isConsensusSubmitterResponseCandidate({
+      ...addressedSubmitterCandidate,
+      addressedFindingRefs: [],
+    }),
+    false,
+    "an address-findings response must identify at least one exact finding",
+  );
+  assert.deepEqual(
+    schema.$defs.ConsensusSubmitterResponseCandidate.allOf,
+    gtl.CONSENSUS_SUBMITTER_RESPONSE_SCHEMA.allOf,
+  );
+  assert.equal(
+    schema.$defs.ConsensusReviewerTask.properties.priorSubmitterResponses
+      .items.$ref,
+    "#/$defs/ConsensusSubmitterResponseRecord",
+  );
+  for (
+    const key of schema.$defs.ConsensusSubmitterResponseRecord.required
+  ) {
+    assert.deepEqual(
+      schema.$defs.ConsensusSubmitterResponse.properties[key],
+      schema.$defs.ConsensusSubmitterResponseRecord.properties[key],
+      key,
+    );
+  }
   assert.deepEqual(
     schema.$defs.ReviewRulingKind.enum,
     [...gtl.REVIEW_RULING_KIND_VALUES],
@@ -870,10 +1082,13 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     policy: invocation.policy,
     profile: invocation.panel.profiles[0],
     instruction: invocation.instructions[0],
+    submitterProfile: invocation.submitterProfile,
+    submitterInstruction: invocation.submitterInstruction,
     priorRoundRefs: [],
     priorFindingSetRefs: [],
     priorRulings: [],
     priorDissentProfileRefs: [],
+    priorSubmitterResponses: [],
     priorEvidenceRefs: [],
     transportLane: invocation.transportLane,
   };
@@ -972,7 +1187,7 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     true,
   );
   assert.notEqual(refusedCandidate.resultCandidate.refusalRef, null);
-  const terminalState = gtl.reduceConsensusRound({
+  const refusedVector = {
     kind: "gtl_fan_out_vector",
     schemaVersion: "5.0.0",
     applicationRef: gtl.CONSENSUS_IDS.roundApplicationRef,
@@ -982,7 +1197,47 @@ test("S05 reviewer realization carries the Product-declared instruction contract
       outputMemberRef: "member://developer/module-proof/refused/output",
       value: refusedCandidate.resultCandidate,
     }],
-  });
+  };
+  const submitterTaskCandidate =
+    realizeConsensusSubmitterTaskPreparation(refusedVector);
+  const submitterResponseCandidate = await realizeConsensusSubmitter(
+    submitterTaskCandidate.resultCandidate,
+    {
+      async invokeWorker() {
+        return {
+          actorInvocationRef:
+            "actor-invocation://developer/module-proof/submitter",
+          transportBindingRef:
+            "transport-binding://developer/module-proof/submitter",
+          transportBindingDigest: DIGEST,
+          disposition: "success",
+          failureClass: null,
+          finalOutput: JSON.stringify(submitterCandidate()),
+          promptDigest: DIGEST,
+          transportDigest: DIGEST,
+          transportLane: task.transportLane,
+          processStatus: 0,
+          processSignal: null,
+          timedOut: false,
+          exitObserved: true,
+          terminationConfirmed: true,
+          progressEventCount: 0,
+          toolCallCount: 0,
+          artifactDigests: {
+            output: DIGEST,
+            prompt: DIGEST,
+            stderr: DIGEST,
+            stdout: DIGEST,
+            transport: DIGEST,
+          },
+        };
+      },
+    },
+  );
+  assert.equal(submitterResponseCandidate.disposition, "success");
+  const terminalState = gtl.reduceConsensusRound(
+    submitterResponseCandidate.resultCandidate,
+  );
   assert.equal(terminalState.terminal, true);
   assert.equal(terminalState.terminalOutcome.outcome, "escalate_fh");
   const contractFailure = gtl.projectConsensusResult(terminalState);
@@ -1085,6 +1340,106 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     true,
   );
   assert.equal(salvagedCandidate.resultCandidate.recommendation, "accept");
+});
+
+test("S05 exact submitter-response basis gates reviewer reconsideration", async () => {
+  const initial = gtl.initializeConsensus(invocationFor());
+  const firstVector = await findingsVectorFor(initial);
+  const firstResponse = await responseFor(
+    firstVector,
+    "address_findings",
+  );
+  const reconsideration = gtl.reduceConsensusRound(firstResponse);
+
+  assert.equal(reconsideration.terminal, false);
+  assert.equal(reconsideration.roundOrdinal, 2);
+  assert.equal(reconsideration.submitterResponses.length, 1);
+  assert.equal(
+    reconsideration.submitterResponses[0].responseRef,
+    firstResponse.responseRef,
+  );
+  assert.equal(
+    reconsideration.members.every(
+      (member) =>
+        member.value.roundOrdinal === 2 &&
+        member.value.priorRoundRefs[0] === firstResponse.roundRef &&
+        member.value.priorSubmitterResponses.length === 1 &&
+        member.value.priorSubmitterResponses[0].responseRef ===
+          firstResponse.responseRef &&
+        member.value.priorSubmitterResponses[0].outputDigest ===
+          firstResponse.outputDigest,
+    ),
+    true,
+    "round two must carry the exact admitted response for reviewer reconsideration",
+  );
+
+  assert.throws(
+    () => gtl.reduceConsensusRound(undefined),
+    /requires one exact admitted submitter response/,
+    "missing response cannot construct successor-round state",
+  );
+
+  const assertRefused = (candidate, label) => {
+    assert.equal(
+      gtl.isConsensusSubmitterResponse(candidate),
+      false,
+      label,
+    );
+    assert.equal(
+      ABI5_SYSTEM_PRODUCT_SEMANTICS.validateContractValue(
+        "consensus_submitter_response",
+        candidate,
+      ),
+      false,
+      `${label}: Product contract admission`,
+    );
+    assert.throws(
+      () => gtl.reduceConsensusRound(candidate),
+      /requires one exact admitted submitter response/,
+      `${label}: no successor state`,
+    );
+  };
+
+  const wrongSubmitter = structuredClone(firstResponse);
+  wrongSubmitter.submittingActorRef =
+    "actor://developer/consensus/wrong-submitter";
+  assertRefused(
+    rehashSubmitterResponse(wrongSubmitter),
+    "wrong submitter must refuse",
+  );
+
+  const forgedIdentity = structuredClone(firstResponse);
+  forgedIdentity.responseRef =
+    `${forgedIdentity.responseRef}/forged`;
+  assertRefused(forgedIdentity, "forged response identity must refuse");
+
+  const unboundVector = structuredClone(firstResponse);
+  unboundVector.findingsVectorDigest = DIGEST;
+  assertRefused(
+    rehashSubmitterResponse(unboundVector),
+    "response unbound from the exact findings vector must refuse",
+  );
+
+  const secondVector = await findingsVectorFor(reconsideration);
+  const secondResponse = await responseFor(
+    secondVector,
+    "address_findings",
+  );
+  const wrongPriorRound = structuredClone(secondResponse);
+  wrongPriorRound.task.priorRoundRefs[0] =
+    "consensus-round://developer/wrong-prior-round";
+  assertRefused(
+    rehashSubmitterResponse(wrongPriorRound),
+    "wrong prior round must refuse",
+  );
+
+  const unchangedPriorResponse = structuredClone(secondResponse);
+  unchangedPriorResponse.task.priorSubmitterResponseRefs[0] =
+    "submitter-response://developer/unbound-prior-response";
+  assertRefused(
+    rehashSubmitterResponse(unchangedPriorResponse),
+    "unchanged or unbound prior response must refuse",
+  );
 });
 
 test("S05 public result binds real replay while its authority rejects digest tampering", () => {

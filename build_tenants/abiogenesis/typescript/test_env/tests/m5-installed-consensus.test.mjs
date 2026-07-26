@@ -111,7 +111,25 @@ async function installConsensusWorker(harness) {
     "    console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
     "    return;",
     "  }",
-    "  const revise = mode === 'unresolved' || (mode === 'dispute_then_agree' && task?.roundOrdinal === 1);",
+    "  if (task?.kind === 'consensus_submitter_task') {",
+    "    const findingRefs = task.findingsVector.members.flatMap((member) => member.value.findings.map((finding) => finding.findingRef));",
+    "    const disposition = findingRefs.length === 0 ? 'acknowledge' : mode === 'unresolved' ? 'dispute_findings' : 'address_findings';",
+    "    const candidate = {",
+    "      kind: 'consensus_submitter_response_candidate',",
+    "      schemaVersion: '5.0.0',",
+    "      disposition,",
+    "      responseText: disposition === 'acknowledge' ? 'No admitted semantic findings require a response.' : disposition === 'address_findings' ? 'The exact admitted findings have been addressed for reviewer reconsideration.' : 'The submitter disputes the exact admitted findings.',",
+    "      addressedFindingRefs: disposition === 'address_findings' ? findingRefs : [],",
+    "      residualFindingRefs: disposition === 'dispute_findings' ? findingRefs : []",
+    "    };",
+    "    if (mode === 'malformed_submitter') candidate.unadmitted = true;",
+    "    console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
+    "    console.log(JSON.stringify({ type: 'result', subtype: 'success', result: JSON.stringify(candidate) }));",
+    "    return;",
+    "  }",
+    "  const priorResponse = task?.priorSubmitterResponses?.at(-1);",
+    "  const responseBound = task?.roundOrdinal === 2 && priorResponse?.roundOrdinal === 1 && priorResponse?.roundRef === task?.priorRoundRefs?.[0] && priorResponse?.disposition === 'address_findings' && priorResponse?.residualFindingRefs?.length === 0;",
+    "  const revise = mode === 'unresolved' || (mode === 'dispute_then_agree' && !responseBound);",
     "  const candidate = {",
     "    kind: 'consensus_reviewer_candidate',",
     "    schemaVersion: '5.0.0',",
@@ -190,6 +208,25 @@ async function consensusBasis(
     "panel://developer/submitter-independent@1",
     profiles,
   );
+  const submitterInstruction = gtl.constructConsensusSubmitterInstruction({
+    instructionContractRef:
+      "contract://developer/consensus/submitter-instruction@1",
+    roleContractRef: "contract://developer/submitter-role@1",
+    instructionText:
+      "Respond to every exact admitted reviewer finding under contract://developer/submitter-role@1.",
+    responseSchema: gtl.CONSENSUS_SUBMITTER_RESPONSE_SCHEMA,
+  });
+  const submitterProfile = gtl.constructConsensusSubmitterProfile({
+    profileRef: "submitter-profile://developer/consensus-submitter",
+    roleContractRef: submitterInstruction.roleContractRef,
+    instructionContractRef: submitterInstruction.instructionContractRef,
+    instructionDigest: submitterInstruction.instructionDigest,
+    resultContractRef: gtl.CONSENSUS_IDS.submitterResponseContractRef,
+    capabilityRefs: ["capability://developer/consensus-submit-response"],
+    actorRef: "actor://developer/consensus-submitter",
+    workerBindingRef:
+      "worker-binding://developer/consensus-submitter",
+  });
   const policy = gtl.constructConsensusRoundPolicy({
     policyRef: `policy://developer/consensus/${label}@1`,
     roundBudget,
@@ -231,6 +268,8 @@ async function consensusBasis(
     subjectMaterialization,
     panel,
     instructions,
+    submitterProfile,
+    submitterInstruction,
     policy,
     transportLane: "closed_prompt_proof",
   });
@@ -395,6 +434,10 @@ function assertTicketConsensusProjection(gtl, result, replayRef) {
   assert.equal(projection.replayRef, replayRef ?? result.replayRef);
   assert.deepEqual(projection.roundRefs, result.roundRefs);
   assert.deepEqual(projection.findingSetRefs, result.findingSetRefs);
+  assert.deepEqual(
+    projection.submitterResponseRefs,
+    result.submitterResponseRefs,
+  );
   assert.deepEqual(projection.rulings, result.rulings);
   assert.deepEqual(projection.terminalOutcome, result.terminalOutcome);
   assert.deepEqual(projection.evidenceRefs, result.evidenceRefs);
@@ -463,7 +506,7 @@ for (const workspace of workspaceApplications) {
       basis.gtl.CONSENSUS_IDS.roundLoopGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.roundGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.reviewerGraphFunctionRef,
-      basis.gtl.CONSENSUS_IDS.reducerGraphFunctionRef,
+      basis.gtl.CONSENSUS_IDS.roundReducerGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.projectorGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.escalationFinalizerGraphFunctionRef,
@@ -536,6 +579,11 @@ for (const workspace of workspaceApplications) {
     assert.equal(
       consensusResultCandidate.roundRefs.length,
       scenario.expectedRounds,
+    );
+    assert.equal(
+      consensusResultCandidate.submitterResponseRefs.length,
+      scenario.expectedRounds,
+      "every admitted round must expose one exact submitter response",
     );
     assert.equal(
       consensusResultCandidate.findingSetRefs.length,
@@ -709,6 +757,70 @@ for (const workspace of workspaceApplications) {
       ).length,
       scenario.expectedRounds * 2,
     );
+    assert.equal(
+      events.filter(
+        (event) =>
+          event.kind === "actor_invocation_started" &&
+          event.payload?.implementationRef ===
+            basis.gtl.CONSENSUS_IDS.submitterImplementationRef,
+      ).length,
+      scenario.expectedRounds,
+      "each complete findings vector must invoke one attributed submitter F_P leaf",
+    );
+    const admittedSubmitterResponses = events
+      .filter(
+        (event) =>
+          event.kind === "c_call_result_admitted" &&
+          event.payload?.contractRef ===
+            basis.gtl.CONSENSUS_IDS.submitterResponseContractRef &&
+          event.payload?.value?.kind === "consensus_submitter_response",
+      )
+      .map((event) => event.payload.value);
+    assert.equal(
+      admittedSubmitterResponses.length,
+      scenario.expectedRounds,
+    );
+    assert.deepEqual(
+      admittedSubmitterResponses.map((response) => response.responseRef),
+      consensusResultCandidate.submitterResponseRefs,
+    );
+    if (scenario.expectedRounds > 1) {
+      const reconsideredFindings = events
+        .filter(
+          (event) =>
+            event.kind === "c_call_result_admitted" &&
+            event.payload?.contractRef ===
+              basis.gtl.CONSENSUS_IDS.findingsContractRef &&
+            event.payload?.value?.kind === "review_findings" &&
+            event.payload.value.roundOrdinal === 2,
+        )
+        .map((event) => event.payload.value);
+      const uniqueReconsideredFindings = [
+        ...new Map(
+          reconsideredFindings.map((findings) => [
+            `${findings.profileRef}\0${findings.outputDigest}`,
+            findings,
+          ]),
+        ).values(),
+      ];
+      assert.equal(
+        uniqueReconsideredFindings.length,
+        2,
+        "round-two retry and child C-call truth must project two unique reviewer results",
+      );
+      assert.equal(
+        uniqueReconsideredFindings.every(
+          (findings) =>
+            findings.task.priorSubmitterResponses.length === 1 &&
+            findings.task.priorSubmitterResponses[0].responseRef ===
+              admittedSubmitterResponses[0].responseRef &&
+            findings.task.priorSubmitterResponses[0].outputDigest ===
+              admittedSubmitterResponses[0].outputDigest,
+        ),
+        true,
+        "round-two reviewers must receive the exact admitted round-one response",
+      );
+    }
     assert.equal(
       events.filter(
         (event) =>
@@ -1854,6 +1966,116 @@ test("M5 Consensus projects malformed attributed reviewer output as typed contra
     "typed contract-failure reads must not append runtime truth",
   );
   assert.equal(events.at(-1).kind, "run_closed");
+});
+
+test("M5 Consensus refuses malformed submitter output before reviewer reconsideration", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const command = await installConsensusWorker(harness);
+  const workspaceId =
+    "workspace://developer/consensus/malformed-submitter";
+  const basis = await consensusBasis(
+    harness,
+    "malformed-submitter",
+    2,
+    workspaceId,
+  );
+  harness.rootPublication = basis.publication;
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-consensus-malformed-submitter",
+    (payload) => payload,
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+      graphFunctionRef:
+        basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+      allowlist: basis.publication.contributions.map((row) => row.handle),
+      input: basis.input,
+      eventLogFile: "malformed-submitter.events.jsonl",
+      workspaceId,
+    },
+  );
+  await selectConsensusThroughOneSurface(basis, harness, scenario);
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_CONSENSUS_TEST_MODE: "malformed_submitter",
+    },
+  });
+  const events = await eventsAt(scenario.eventLogPath);
+  assert.equal(run.exitCode, 2, run.stdout);
+  assert.equal(run.outcomes.at(-1).disposition, "failed");
+  const roundOneFindings = events
+    .filter(
+      (event) =>
+        event.kind === "c_call_result_admitted" &&
+        event.payload?.contractRef ===
+          basis.gtl.CONSENSUS_IDS.findingsContractRef &&
+        event.payload?.value?.roundOrdinal === 1,
+    )
+    .map((event) => event.payload.value);
+  assert.equal(
+    new Set(roundOneFindings.map((findings) => findings.profileRef)).size,
+    2,
+  );
+  assert.equal(
+    events.filter(
+      (event) =>
+        event.kind === "actor_invocation_started" &&
+        event.payload?.implementationRef ===
+          basis.gtl.CONSENSUS_IDS.submitterImplementationRef,
+    ).length,
+    1,
+    "one malformed submitter effect must stop before round two",
+  );
+  const submitterFailure = events.find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.payload?.contractRef ===
+        basis.gtl.CONSENSUS_IDS.failureContractRef &&
+      event.payload?.value?.failureClass === "result_contract_failure",
+  );
+  assert.ok(submitterFailure, JSON.stringify(diagnosticTail(events)));
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "c_call_result_admitted" &&
+        event.payload?.contractRef ===
+          basis.gtl.CONSENSUS_IDS.submitterResponseContractRef,
+    ),
+    false,
+    "malformed output must not become an admitted submitter response",
+  );
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "c_call_result_admitted" &&
+        event.payload?.contractRef ===
+          basis.gtl.CONSENSUS_IDS.findingsContractRef &&
+        event.payload?.value?.roundOrdinal === 2,
+    ),
+    false,
+    "reviewer round two must not open without an admitted response",
+  );
+  assert.equal(
+    events.filter(
+      (event) =>
+        event.kind === "graph_call_opened" &&
+        event.graphFunctionRef ===
+          basis.gtl.CONSENSUS_IDS.roundGraphFunctionRef,
+    ).length,
+    1,
+  );
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "c_call_result_admitted" &&
+        event.payload?.contractRef ===
+          basis.gtl.CONSENSUS_IDS.resultContractRef,
+    ),
+    false,
+  );
+  assert.equal(events.some((event) => event.kind === "run_closed"), false);
+  assert.equal(events.some((event) => event.kind === "run_stopped"), true);
 });
 
 for (const transportCase of [{

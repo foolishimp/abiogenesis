@@ -1,8 +1,9 @@
 # REQ-P-CONSENSUS - Agent-Invocable Consensus GraphFunction
 
-**Status**: Active - accepted by T-283 F_H closure
+**Status**: Active - bounded S05 requirement reprice under T-270
 **Category**: Capability / Constraint / Verification
 **Date**: 2026-07-12
+**Repriced**: 2026-07-26
 **Derives from**: [PRODUCT.md](../../PRODUCT.md),
 [REQ-L-GTL3-GRAPHFUNCTION.md](../gtl/REQ-L-GTL3-GRAPHFUNCTION.md),
 [REQ-L-GTL3-HOF.md](../gtl/REQ-L-GTL3-HOF.md),
@@ -20,9 +21,9 @@
 
 Publish one bounded, agent-invocable Consensus capability as a SYSTEM-owned GTL
 free construction. A calling agent invokes the function through `abg.cli`,
-HoG traverses its declared reviewer fan-out, reduction, bounded verification
-rounds, result admission, and replay without a feature-specific engine service,
-plugin controller, or shell loop.
+HoG traverses its declared reviewer fan-out, exact attributed submitter
+response, reduction, bounded verification rounds, result admission, and replay
+without a feature-specific engine service, plugin controller, or shell loop.
 
 ## Identity And Ownership
 
@@ -50,6 +51,8 @@ second panel loop, emit ABG truth, or decide Consensus closure.
 **REQ-P-CONSENSUS-004**: The public contract catalog shall locate canonical
 schemas for `abg.schema.consensus-subject`,
 `abg.schema.consensus-panel`, `abg.schema.consensus-reviewer-profile`,
+`abg.schema.consensus-submitter-profile`,
+`abg.schema.consensus-submitter-response`,
 `abg.schema.review-findings`, `abg.schema.review-rulings`,
 `abg.schema.consensus-round-policy`, `abg.schema.consensus-round-outcome`,
 `abg.schema.consensus-result`, and
@@ -72,6 +75,19 @@ adapter position. A panel shall resolve to an explicit non-empty reviewer vector
 duplicate profile identities shall fail admission, and the product shall not
 hard-code one panel cardinality.
 
+**REQ-P-CONSENSUS-006A**: ABIogenesis shall publish one canonical attributed
+submitter GraphFunction and submitter-response contract for Consensus. Each
+invocation shall bind exactly one submitter profile whose actor is the
+subject's submitting actor. The profile shall bind its stable profile identity,
+role or worker-selection contract, configuration digest, instruction and
+result-contract refs, and declared capabilities. The response shall bind the
+exact invocation, source round identity and ordinal, complete admitted reviewer
+findings-vector digest, submitter profile and actor, response identity and
+digest, disposition, addressed and residual finding refs, evidence refs, and
+the Product-declared response schema. Submitter instruction and task carriers
+shall remain subordinate contracts inside this one Product-owned family; they
+shall not become another public operation, runtime authority, or loop owner.
+
 **REQ-P-CONSENSUS-007**: Review reduction shall emit only the closed ruling
 kinds `decision_row`, `draft_ticket`, `split_ticket`, `deferment`, and
 `rejected_finding`. A ruling is result data for the caller and never owns ticket
@@ -80,8 +96,9 @@ status. The public contract catalog shall publish this roster as
 
 **REQ-P-CONSENSUS-008**: Consensus round policy shall declare a positive round
 budget, convergence rule, disagreement rule, escalation rule, and foldback
-contract. Each admitted round shall return exactly one outcome from
-`closed_done | recurse_next_round | escalate_fh`, published as
+contract. Each admitted round shall bind its complete admitted reviewer
+findings vector and exact admitted submitter response before returning exactly
+one outcome from `closed_done | recurse_next_round | escalate_fh`, published as
 `abg.vocabulary.consensus-round-outcome`. Exhaustion shall produce typed
 `escalate_fh`; it shall not silently accept or start another round.
 
@@ -96,10 +113,15 @@ without collapsing those states into one accepted boolean.
 
 **REQ-P-CONSENSUS-009**: The GTL body shall express the declared reviewer vector
 through lawful higher-order fan-out, collect attributed results through an
-explicit vector boundary, reduce them through declared evaluation and rule
-surfaces, and express another verification round through declared bounded
-recursion and foldback. Prompts, reviewer selection, merge policy, round control,
-and closure classification shall be declarations or referenced contracts, not
+explicit vector boundary, invoke the canonical attributed submitter F_P
+function over that exact admitted vector, carry the submitter response through
+ordinary ABG result and judgment admission, reduce the admitted findings and
+response through declared evaluation and rule surfaces, and express another
+verification round through declared bounded recursion and foldback. The next
+reviewer round, including round two, shall be impossible to construct, bind,
+open, or execute before ABG admits the exact source-round submitter response.
+Prompts, reviewer or submitter selection, merge policy, round control, and
+closure classification shall be declarations or referenced contracts, not
 host-language orchestration.
 
 **REQ-P-CONSENSUS-010**: HoG shall traverse Consensus through ordinary catalog
@@ -115,9 +137,21 @@ writer, scheduler, automatic wake mechanism, retry loop, or closure authority.
 attribution, panel membership, budget, exact-agreement classification, and
 envelope checks. Deterministic reduction shall use declared panel ordinal and
 profile identity rather than worker completion order. F_P owns reviewer
-findings, disputed semantic judgment, and submitter response. Unresolved
-judgment routes to F_H. F_D shall not manufacture semantic agreement, and F_P
-shall not waive a failed deterministic envelope.
+findings, disputed semantic judgment, and the exact attributed submitter
+response. ABG owns admission of each reviewer result and submitter response and
+the causal source-round binding consumed by foldback. Unresolved judgment routes
+to F_H. F_D shall not manufacture semantic agreement, and F_P shall not waive a
+failed deterministic envelope.
+
+**REQ-P-CONSENSUS-011A**: Before any next-round state, reviewer task, GraphCall,
+Frame, or C-call is admitted, the Product-validation and ABG-admission gate
+shall refuse a missing submitter response; a response attributed to the wrong
+submitter actor, profile, or configuration; a response bound to another
+invocation or to a round other than the exact source round whose findings it
+consumes; a forged response identity, digest, or evidence basis; and a response
+not bound to the complete admitted reviewer findings vector for that source
+round. Each refusal shall remain typed non-close truth, append no next-round
+runtime fact, and leave the source-round evidence replayable.
 
 **REQ-P-CONSENSUS-012**: For a ticket subject, `ticket.consensus` shall be the
 ordinary typed Consensus result bound to the ticket ref and digest. The function
@@ -153,30 +187,47 @@ path. `abg.operation.catalog.view` may narrow the admitted catalog to the
 Consensus function and its declared dependencies; it shall not widen catalog
 authority.
 
+**REQ-P-CONSENSUS-015A**: The non-public direct F_H support GraphFunction in
+REQ-P-CONSENSUS-015 is an explicit S05 exception to the canonical One Surface
+entry relation. It shall remain limited to an ABG-derived and admitted exact
+source-result basis over a replay-bound unresolved result and shall not select
+or invoke the canonical Consensus root. S05 closure requires direct human
+affirmation that this support-only exception preserves one public entry and
+does not create rival selection, continuation, or closure authority. Prior
+implementation, tests, review, or delegated acceptance shall not silently
+supply that affirmation.
+
 ## Qualification
 
 **REQ-P-CONSENSUS-016**: The 5.0 release gate shall invoke the packed and
 installed candidate's published Consensus function over one real ticket subject
-using at least two differently attributed reviewer profiles. The proof shall
-enter through the admitted program and `run.invoke`, read the typed result and
-replay through `project.read`, and run through the existing, alternate, and
-temporary workspace applications without source imports or shell-owned panel
+using at least two differently attributed reviewer profiles and one exact
+attributed submitter profile. The proof shall enter through the admitted
+program and `run.invoke`, read the typed result and replay through
+`project.read`, and run through the existing, alternate, and temporary
+workspace applications without source imports or shell-owned panel, submitter,
 or One Surface orchestration.
 
 **REQ-P-CONSENSUS-017**: Qualification shall include three controlled fixture
 families: agreement reaches `closed_done`; a material dispute reaches
-`recurse_next_round` and rebinds the next round through declared foldback; and
-round exhaustion or an unresolved dispute reaches `escalate_fh`. Malformed
-subjects, profiles, findings, rulings, policies, and round outcomes shall remain
-typed non-close truth.
+`recurse_next_round` only after the exact attributed submitter response is
+admitted and rebinds the next round through declared foldback; and round
+exhaustion or an unresolved dispute reaches `escalate_fh`. Qualification shall
+prove that round two cannot open for missing response, wrong submitter, wrong
+prior round, forged response, or response unbound from the admitted findings
+vector. Malformed subjects, profiles, findings, submitter responses, rulings,
+policies, and round outcomes shall remain typed non-close truth.
 
 **REQ-P-CONSENSUS-018**: Consensus is not release-complete until the executable
 GTL body, GTL validation, installed catalog row, addressable public
-schemas and vocabularies, all three fixture families, all three workspace
-applications, actor attribution, result, and replay evidence pass over the exact
-5.0 candidate. A declaration-only entry or imperative implementation shall fail
-the gate. The proof shall use only the complete Product-derived public function
-family; a legacy operation identity or parallel adapter register shall fail it.
+schemas and vocabularies including the submitter profile and response
+schemas, all three fixture families, all three workspace applications,
+reviewer and submitter actor attribution, exact findings-to-response-to-ABG
+admission-to-next-round causality, result, and replay evidence pass over the
+exact 5.0 candidate. A declaration-only entry or imperative implementation
+shall fail the gate. The proof shall use only the complete Product-derived
+public function family; a legacy operation identity or parallel adapter
+register shall fail it.
 
 ## Bounded Scope
 

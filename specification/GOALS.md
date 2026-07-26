@@ -14,7 +14,7 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S03 accepted; S05 reconciliation current; S06 remains open and unselected |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S03 accepted; bounded S05 requirement repair current; S06 held |
 
 ## Current Basis
 
@@ -37,6 +37,9 @@ selection, ordered successor outcomes, and their acceptance conditions.
   is by itself S05, S06, conservation, qualification, or release closure.
 - T-270 remains the M5 parent owner. Existing subordinate tickets retain their
   Product boundaries; no new ticket hierarchy is selected.
+- Commit `48103ed936aa9326d546f4dcd667b16a5c803f9c` is rejected as an
+  S05 closure candidate and retained only as behavioral stock. Its prior proof
+  and review records do not satisfy the repriced submitter-response boundary.
 - S03 acceptance and S05 selection are recorded in
   `.ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md`.
 
@@ -74,7 +77,8 @@ The supported path excludes:
 The one selected unresolved outcome is:
 
 > Reconcile and reclose `ABG5-S05` through the packed ordinary-path Consensus
-> Product.
+> Product, including the exact attributed submitter response between each
+> reviewer findings vector and any successor reviewer round.
 
 T-270 owns this reconciliation directly. Completed T-274, T-275, and T-276
 record retained Consensus implementation and proof evidence; they are not
@@ -86,18 +90,27 @@ Acceptance requires:
    ordinary installed catalog, admitted Program, One Surface selection,
    `run.invoke`, HoG, and ABG path, with exact ticket bytes and resolved
    profile instructions carried into every attributed reviewer task;
-2. agreement, dispute recursion, and unresolved F_H escalation produce typed
+2. reviewers return attributed findings, the exact attributed submitter
+   responds through its declared F_P contract over that exact admitted findings
+   vector, ABG admits the response against the source round, and only then may
+   the next reviewer round be bound or opened;
+3. missing, wrong-submitter, wrong-prior-round, forged, or unbound submitter
+   responses refuse without admitting round-two truth;
+4. agreement, dispute recursion, and unresolved F_H escalation produce typed
    result and replay truth across existing, alternate, and temporary
    workspaces, and malformed attributed reviewer output produces a typed,
    replay-visible, publicly readable `contract_failure`;
-3. Product owns Consensus domain meaning while GTL owns topology, HoG owns
+5. Product owns Consensus domain meaning while GTL owns topology, HoG owns
    traversal, ABG owns runtime truth, and Public remains a thin projection;
-4. the affected Consensus Ontology, atomic functions, Prime contraction,
+6. the non-public replay-bound direct F_H support exception receives direct
+   human affirmation that it preserves One Surface as the sole public
+   Consensus entry and creates no rival continuation or closure authority;
+7. the affected Consensus Ontology, atomic functions, Prime contraction,
    IACS, module ownership, three semantic views, operational lifecycle, axiom
    evaluation, and module proof are reconciled at the exact boundary;
-5. S03, the installed external Product, M4, package reproducibility, and every
+8. S03, the installed external Product, M4, package reproducibility, and every
    causally applicable negative remain green; and
-6. no special Consensus command, runner, controller, scheduler, event family,
+9. no special Consensus command, runner, controller, scheduler, event family,
    result store, continuation, or closure authority is introduced.
 
 S06, observer/tuner, complete conservation, qualification, and release do not
@@ -108,7 +121,7 @@ select implementation while this outcome remains unresolved.
 | Order | Existing owner | Product outcome | Acceptance boundary | State |
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
-| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | Every promoted scenario enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; Consensus result, typed contract failure, and replay are exposed through ordinary `project.read`; escalation binds the exact replay-derived unresolved result; required schemas and vocabularies are public; bounded Consensus design and module proof agree with all three workspace outcomes. | Current |
+| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | Every promoted scenario enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; the replay-bound direct F_H support exception receives direct human affirmation; bounded Consensus design and module proof agree with all three workspace outcomes. | Current - bounded requirement repair active |
 | `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Blocked by S05 |
 | `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Unselected until S06 closes |
 | `5` | `T-270` | Freeze one M5 candidate | All pre-qualification Product behavior and all 17 feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by prior outcomes |
@@ -117,9 +130,12 @@ select implementation while this outcome remains unresolved.
 
 ## Design Reconciliation Boundary
 
-The existing `design_reframe` continues through the affected S05 and S06
-boundaries. Accepted S03 is their regression basis. Execution remains vertical
-and outcome-ordered.
+The bounded S05 `requirement_reprice` re-enters only the
+findings-to-submitter-response-to-next-round relation and its exact public
+contracts, admission law, negatives, and proof. The existing `design_reframe`
+must project that requirement before S05 can reclose. Accepted S03 remains the
+regression basis. S06 remains held. Execution remains vertical and
+outcome-ordered.
 
 For each selected outcome:
 
@@ -181,7 +197,7 @@ reconciliation is a qualification gate, not the feature-development queue.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | S03, S05, S06, A5-F12/S04 readiness, all pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S05 is current |
+| `M5` | S03, S05, S06, A5-F12/S04 readiness, all pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - bounded S05 requirement repair current; S06 held |
 | `M6` | Exact selected-method binding, S04, seven-scenario pre-RC qualification, and complete RC5 reconciliation accept one pre-RC candidate. | Blocked by M5 |
 | `M7` | Distinct RC, installed RC, final-tap, released Product, and post-publication install subjects produce stable `5.0.0`. | Blocked by M6 |
 

@@ -25,6 +25,7 @@ import type {
 import {
   fanInApplication,
   fanOutApplication,
+  graphEdge,
   recurseApplication,
 } from "./graph_applications.js";
 import { evaluatorDeclaration, ruleDeclaration } from "./declarations.js";
@@ -33,7 +34,9 @@ import {
   CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
   CONSENSUS_ROUND_OUTCOME_VALUES,
   CONSENSUS_SCHEMA_REQUIRED_KEYS,
+  CONSENSUS_SUBMITTER_RESPONSE_SCHEMA,
   isConsensusReviewerCandidate,
+  isConsensusSubmitterResponseCandidate,
   REVIEW_RULING_KIND_VALUES,
 } from "./consensus_schema.js";
 export {
@@ -42,9 +45,12 @@ export {
   CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
   CONSENSUS_ROUND_OUTCOME_VALUES,
   CONSENSUS_SCHEMA_REQUIRED_KEYS,
+  CONSENSUS_SUBMITTER_RESPONSE_SCHEMA,
   isConsensusReviewerCandidate,
+  isConsensusSubmitterResponseCandidate,
   REVIEW_RULING_KIND_VALUES,
   type ConsensusReviewerCandidate,
+  type ConsensusSubmitterResponseCandidate,
 } from "./consensus_schema.js";
 
 export type ReviewRulingKind = (typeof REVIEW_RULING_KIND_VALUES)[number];
@@ -116,6 +122,19 @@ export const CONSENSUS_IDS = Object.freeze({
   reviewerGraphFunctionRef: "graph-function://abg/consensus/reviewer@5",
   reviewerGraphRef: "graph://abg/consensus/reviewer@5",
   reviewerNodeRef: "locus://abg/consensus/reviewer@5",
+  submitterGraphFunctionRef: "graph-function://abg/consensus/submitter@5",
+  submitterGraphRef: "graph://abg/consensus/submitter@5",
+  submitterNodeRef: "locus://abg/consensus/submitter@5",
+  submitterTaskGraphFunctionRef:
+    "graph-function://abg/consensus/prepare-submitter-task@5",
+  submitterTaskGraphRef:
+    "graph://abg/consensus/prepare-submitter-task@5",
+  submitterTaskNodeRef:
+    "locus://abg/consensus/prepare-submitter-task@5",
+  roundReducerGraphFunctionRef:
+    "graph-function://abg/consensus/submitter-reviewer-fold@5",
+  roundReducerGraphRef:
+    "graph://abg/consensus/submitter-reviewer-fold@5",
   reducerGraphFunctionRef: "graph-function://abg/consensus/reducer@5",
   reducerGraphRef: "graph://abg/consensus/reducer@5",
   reducerNodeRef: "locus://abg/consensus/reducer@5",
@@ -139,6 +158,14 @@ export const CONSENSUS_IDS = Object.freeze({
   profileContractRef: "contract://abg/schema/consensus-reviewer-profile@5",
   reviewerInstructionContractRef:
     "contract://abg/consensus/reviewer-instruction@5",
+  submitterProfileContractRef:
+    "contract://abg/schema/consensus-submitter-profile@5",
+  submitterInstructionContractRef:
+    "contract://abg/consensus/submitter-instruction@5",
+  submitterTaskContractRef:
+    "contract://abg/consensus/submitter-task@5",
+  submitterResponseContractRef:
+    "contract://abg/consensus/submitter-response@5",
   findingsContractRef: "contract://abg/schema/review-findings@5",
   rulingsContractRef: "contract://abg/schema/review-rulings@5",
   policyContractRef: "contract://abg/schema/consensus-round-policy@5",
@@ -184,6 +211,8 @@ export const CONSENSUS_IDS = Object.freeze({
     "predicate://abg/consensus/root-workflow-foldback@5",
   roundWorkflowPredicateRef:
     "predicate://abg/consensus/round-workflow-foldback@5",
+  roundReducerPredicateRef:
+    "predicate://abg/consensus/submitter-reviewer-fold@5",
   roundEvaluatorRef: "evaluator://abg/consensus/round-terminal@5",
   roundTerminationRuleRef: "rule://abg/consensus/round-terminal@5",
   convergenceRuleRef: "rule://abg/consensus/exact-agreement@5",
@@ -191,6 +220,9 @@ export const CONSENSUS_IDS = Object.freeze({
   escalationRuleRef: "rule://abg/consensus/unresolved-to-fh@5",
   foldbackContractRef: "contract://abg/consensus/round-foldback@5",
   reviewerPredicateRef: "predicate://abg/consensus/reviewer-attribution@5",
+  submitterTaskPredicateRef:
+    "predicate://abg/consensus/prepare-submitter-task@5",
+  submitterPredicateRef: "predicate://abg/consensus/submitter-attribution@5",
   reducerPredicateRef: "predicate://abg/consensus/reduce-round@5",
   projectorPredicateRef: "predicate://abg/consensus/project-result@5",
   escalationFinalizerPredicateRef:
@@ -207,6 +239,13 @@ export const CONSENSUS_IDS = Object.freeze({
   reviewerImplementationBindingRef:
     "implementation-binding://abg/consensus/reviewer@5",
   reviewerImplementationRef: "implementation://abg/consensus/reviewer@5",
+  submitterTaskImplementationBindingRef:
+    "implementation-binding://abg/consensus/prepare-submitter-task@5",
+  submitterTaskImplementationRef:
+    "implementation://abg/consensus/prepare-submitter-task@5",
+  submitterImplementationBindingRef:
+    "implementation-binding://abg/consensus/submitter@5",
+  submitterImplementationRef: "implementation://abg/consensus/submitter@5",
   reducerImplementationBindingRef:
     "implementation-binding://abg/consensus/reducer@5",
   reducerImplementationRef: "implementation://abg/consensus/reducer@5",
@@ -305,6 +344,30 @@ export interface ConsensusReviewerProfile {
   readonly workerBindingRef: string;
 }
 
+export interface ConsensusSubmitterInstruction {
+  readonly kind: "consensus_submitter_instruction";
+  readonly schemaVersion: "5.0.0";
+  readonly instructionContractRef: string;
+  readonly roleContractRef: string;
+  readonly instructionDigest: Sha256Digest;
+  readonly instructionText: string;
+  readonly responseSchema: Readonly<Record<string, JsonValue>>;
+}
+
+export interface ConsensusSubmitterProfile {
+  readonly kind: "consensus_submitter_profile";
+  readonly schemaVersion: "5.0.0";
+  readonly profileRef: string;
+  readonly roleContractRef: string;
+  readonly configurationDigest: Sha256Digest;
+  readonly instructionContractRef: string;
+  readonly instructionDigest: Sha256Digest;
+  readonly resultContractRef: string;
+  readonly capabilityRefs: readonly string[];
+  readonly actorRef: string;
+  readonly workerBindingRef: string;
+}
+
 export interface ConsensusPanel {
   readonly kind: "consensus_panel";
   readonly schemaVersion: "5.0.0";
@@ -333,6 +396,8 @@ export interface ConsensusInvocation {
   readonly subjectMaterialization: ConsensusSubjectMaterialization;
   readonly panel: ConsensusPanel;
   readonly instructions: readonly ConsensusReviewerInstruction[];
+  readonly submitterProfile: ConsensusSubmitterProfile;
+  readonly submitterInstruction: ConsensusSubmitterInstruction;
   readonly policy: ConsensusRoundPolicy;
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
 }
@@ -349,10 +414,13 @@ export interface ConsensusReviewerTask {
   readonly policy: ConsensusRoundPolicy;
   readonly profile: ConsensusReviewerProfile;
   readonly instruction: ConsensusReviewerInstruction;
+  readonly submitterProfile: ConsensusSubmitterProfile;
+  readonly submitterInstruction: ConsensusSubmitterInstruction;
   readonly priorRoundRefs: readonly string[];
   readonly priorFindingSetRefs: readonly string[];
   readonly priorRulings: readonly ReviewRuling[];
   readonly priorDissentProfileRefs: readonly string[];
+  readonly priorSubmitterResponses: readonly ConsensusSubmitterResponseRecord[];
   readonly priorEvidenceRefs: readonly string[];
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
 }
@@ -407,12 +475,15 @@ export interface ConsensusRoundState {
   readonly subjectMaterialization: ConsensusSubjectMaterialization;
   readonly panel: ConsensusPanel;
   readonly instructions: readonly ConsensusReviewerInstruction[];
+  readonly submitterProfile: ConsensusSubmitterProfile;
+  readonly submitterInstruction: ConsensusSubmitterInstruction;
   readonly policy: ConsensusRoundPolicy;
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly roundOrdinal: number;
   readonly roundRefs: readonly string[];
   readonly findingSetRefs: readonly string[];
   readonly findingSets: readonly ReviewFindings[];
+  readonly submitterResponses: readonly ConsensusSubmitterResponseRecord[];
   readonly rulings: readonly ReviewRuling[];
   readonly dissentProfileRefs: readonly string[];
   readonly evidenceRefs: readonly string[];
@@ -437,6 +508,52 @@ export interface ConsensusFindingsVector {
   }[];
 }
 
+export interface ConsensusSubmitterTask {
+  readonly kind: "consensus_submitter_task";
+  readonly schemaVersion: "5.0.0";
+  readonly invocationRef: string;
+  readonly roundRef: string;
+  readonly roundOrdinal: number;
+  readonly subject: ConsensusSubject;
+  readonly subjectMaterialization: ConsensusSubjectMaterialization;
+  readonly panelRef: string;
+  readonly policy: ConsensusRoundPolicy;
+  readonly profile: ConsensusSubmitterProfile;
+  readonly instruction: ConsensusSubmitterInstruction;
+  readonly findingsVector: ConsensusFindingsVector;
+  readonly priorRoundRefs: readonly string[];
+  readonly priorSubmitterResponseRefs: readonly string[];
+  readonly priorEvidenceRefs: readonly string[];
+  readonly transportLane: "closed_prompt_proof" | "worker_executes";
+}
+
+export interface ConsensusSubmitterResponseRecord {
+  readonly invocationRef: string;
+  readonly responseRef: string;
+  readonly outputDigest: Sha256Digest;
+  readonly findingsVectorDigest: Sha256Digest;
+  readonly roundRef: string;
+  readonly roundOrdinal: number;
+  readonly submittingActorRef: string;
+  readonly profileRef: string;
+  readonly disposition:
+    | "acknowledge"
+    | "address_findings"
+    | "dispute_findings";
+  readonly responseText: string;
+  readonly addressedFindingRefs: readonly string[];
+  readonly residualFindingRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface ConsensusSubmitterResponse
+  extends ConsensusSubmitterResponseRecord {
+  readonly kind: "consensus_submitter_response";
+  readonly schemaVersion: "5.0.0";
+  readonly configurationDigest: Sha256Digest;
+  readonly task: ConsensusSubmitterTask;
+}
+
 export interface ConsensusResultCandidate {
   readonly kind: "consensus_result";
   readonly schemaVersion: "5.0.0";
@@ -446,6 +563,7 @@ export interface ConsensusResultCandidate {
   readonly policyRef: string;
   readonly roundRefs: readonly string[];
   readonly findingSetRefs: readonly string[];
+  readonly submitterResponseRefs: readonly string[];
   readonly rulings: readonly ReviewRuling[];
   readonly classification: ConsensusClassification;
   readonly dissentProfileRefs: readonly string[];
@@ -484,6 +602,7 @@ export interface TicketConsensusProjection {
   readonly policyRef: string;
   readonly roundRefs: readonly string[];
   readonly findingSetRefs: readonly string[];
+  readonly submitterResponseRefs: readonly string[];
   readonly rulings: readonly ReviewRuling[];
   readonly classification: ConsensusClassification;
   readonly dissentProfileRefs: readonly string[];
@@ -1300,6 +1419,60 @@ export function constructConsensusReviewerProfile(
   return profile;
 }
 
+export function constructConsensusSubmitterInstruction(
+  input: Omit<
+    ConsensusSubmitterInstruction,
+    "instructionDigest" | "kind" | "schemaVersion"
+  >,
+): Readonly<ConsensusSubmitterInstruction> {
+  const body = {
+    kind: "consensus_submitter_instruction" as const,
+    schemaVersion: "5.0.0" as const,
+    instructionContractRef: input.instructionContractRef,
+    roleContractRef: input.roleContractRef,
+    instructionText: input.instructionText,
+    responseSchema: input.responseSchema,
+  };
+  const instruction = deepFreeze({
+    ...body,
+    instructionDigest: sha256Canonical(body as unknown as JsonValue),
+  });
+  if (!isConsensusSubmitterInstruction(instruction)) {
+    throw new TypeError(
+      "Consensus submitter instruction requires one exact body and response schema",
+    );
+  }
+  return instruction;
+}
+
+export function constructConsensusSubmitterProfile(
+  input: Omit<
+    ConsensusSubmitterProfile,
+    "configurationDigest" | "kind" | "schemaVersion"
+  >,
+): Readonly<ConsensusSubmitterProfile> {
+  const body = {
+    kind: "consensus_submitter_profile" as const,
+    schemaVersion: "5.0.0" as const,
+    profileRef: input.profileRef,
+    roleContractRef: input.roleContractRef,
+    instructionContractRef: input.instructionContractRef,
+    instructionDigest: input.instructionDigest,
+    resultContractRef: input.resultContractRef,
+    capabilityRefs: [...input.capabilityRefs],
+    actorRef: input.actorRef,
+    workerBindingRef: input.workerBindingRef,
+  };
+  const profile = deepFreeze({
+    ...body,
+    configurationDigest: sha256Canonical(body as unknown as JsonValue),
+  });
+  if (!isConsensusSubmitterProfile(profile)) {
+    throw new TypeError("Consensus submitter profile is incomplete");
+  }
+  return profile;
+}
+
 export function constructConsensusPanel(
   panelRef: string,
   profiles: readonly Readonly<ConsensusReviewerProfile>[],
@@ -1450,6 +1623,33 @@ export function isConsensusReviewerInstruction(
     sha256Canonical(body as unknown as JsonValue);
 }
 
+export function isConsensusSubmitterInstruction(
+  value: unknown,
+): value is ConsensusSubmitterInstruction {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubmitterInstruction,
+    ) ||
+    value.kind !== "consensus_submitter_instruction" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isRef(value.instructionContractRef) ||
+    !isRef(value.roleContractRef) ||
+    !isDigest(value.instructionDigest) ||
+    typeof value.instructionText !== "string" ||
+    value.instructionText.length === 0 ||
+    !isRecord(value.responseSchema) ||
+    sha256Canonical(value.responseSchema as unknown as JsonValue) !==
+      sha256Canonical(
+        CONSENSUS_SUBMITTER_RESPONSE_SCHEMA as unknown as JsonValue,
+      )
+  ) return false;
+  const { instructionDigest: _instructionDigest, ...body } = value;
+  return value.instructionDigest ===
+    sha256Canonical(body as unknown as JsonValue);
+}
+
 function isConsensusInstructionSet(
   value: unknown,
   panel: ConsensusPanel,
@@ -1501,6 +1701,35 @@ export function isConsensusReviewerProfile(
     isRef(value.instructionContractRef) &&
     isDigest(value.instructionDigest) &&
     value.resultContractRef === CONSENSUS_IDS.findingsContractRef &&
+    uniqueRefs(value.capabilityRefs) &&
+    isRef(value.actorRef) &&
+    isRef(value.workerBindingRef);
+}
+
+export function isConsensusSubmitterProfile(
+  value: unknown,
+): value is ConsensusSubmitterProfile {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubmitterProfile,
+    )
+  ) return false;
+  const {
+    configurationDigest,
+    ...configuration
+  } = value;
+  return value.kind === "consensus_submitter_profile" &&
+    value.schemaVersion === "5.0.0" &&
+    isRef(value.profileRef) &&
+    isRef(value.roleContractRef) &&
+    isDigest(configurationDigest) &&
+    configurationDigest ===
+      sha256Canonical(configuration as unknown as JsonValue) &&
+    isRef(value.instructionContractRef) &&
+    isDigest(value.instructionDigest) &&
+    value.resultContractRef === CONSENSUS_IDS.submitterResponseContractRef &&
     uniqueRefs(value.capabilityRefs) &&
     isRef(value.actorRef) &&
     isRef(value.workerBindingRef);
@@ -1565,6 +1794,8 @@ export function isConsensusInvocation(
       "subjectMaterialization",
       "panel",
       "instructions",
+      "submitterProfile",
+      "submitterInstruction",
       "policy",
       "transportLane",
     ]) &&
@@ -1583,6 +1814,15 @@ export function isConsensusInvocation(
     ) &&
     isConsensusPanel(value.panel) &&
     isConsensusInstructionSet(value.instructions, value.panel) &&
+    isConsensusSubmitterProfile(value.submitterProfile) &&
+    isConsensusSubmitterInstruction(value.submitterInstruction) &&
+    value.submitterProfile.actorRef === value.subject.submittingActorRef &&
+    value.submitterInstruction.instructionContractRef ===
+      value.submitterProfile.instructionContractRef &&
+    value.submitterInstruction.instructionDigest ===
+      value.submitterProfile.instructionDigest &&
+    value.submitterInstruction.roleContractRef ===
+      value.submitterProfile.roleContractRef &&
     isConsensusRoundPolicy(value.policy) &&
     value.subject.panelRef === value.panel.panelRef &&
     value.subject.roundPolicyRef === value.policy.policyRef &&
@@ -1594,41 +1834,64 @@ export function isConsensusInvocation(
 export function isConsensusReviewerTask(
   value: unknown,
 ): value is ConsensusReviewerTask {
-  return isRecord(value) &&
-    hasExactKeys(
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(
       value,
       CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusReviewerTask,
-    ) &&
-    value.kind === "consensus_reviewer_task" &&
-    value.schemaVersion === "5.0.0" &&
-    isRef(value.invocationRef) &&
-    isRef(value.roundRef) &&
-    Number.isSafeInteger(value.roundOrdinal) &&
-    Number(value.roundOrdinal) > 0 &&
-    isConsensusSubject(value.subject) &&
-    isConsensusSubjectMaterialization(value.subjectMaterialization) &&
-    value.subjectMaterialization.subjectContractRef ===
-      value.subject.subjectContractRef &&
-    value.subjectMaterialization.subjectRef === value.subject.subjectRef &&
-    value.subjectMaterialization.contentDigest === value.subject.subjectDigest &&
-    isRef(value.panelRef) &&
-    value.subject.panelRef === value.panelRef &&
-    isConsensusRoundPolicy(value.policy) &&
-    value.subject.roundPolicyRef === value.policy.policyRef &&
-    isConsensusReviewerProfile(value.profile) &&
-    isConsensusReviewerInstruction(value.instruction) &&
-    value.instruction.instructionContractRef ===
-      value.profile.instructionContractRef &&
-    value.instruction.instructionDigest === value.profile.instructionDigest &&
-    value.instruction.roleContractRef === value.profile.roleContractRef &&
-    uniqueRefs(value.priorRoundRefs) &&
-    uniqueRefs(value.priorFindingSetRefs) &&
-    Array.isArray(value.priorRulings) &&
-    value.priorRulings.every(isReviewRuling) &&
-    uniqueRefs(value.priorDissentProfileRefs) &&
-    uniqueRefs(value.priorEvidenceRefs) &&
-    ["closed_prompt_proof", "worker_executes"].includes(
+    ) ||
+    value.kind !== "consensus_reviewer_task" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isRef(value.invocationRef) ||
+    !isRef(value.roundRef) ||
+    !Number.isSafeInteger(value.roundOrdinal) ||
+    Number(value.roundOrdinal) < 1 ||
+    !isConsensusSubject(value.subject) ||
+    !isConsensusSubjectMaterialization(value.subjectMaterialization) ||
+    !isRef(value.panelRef) ||
+    !isConsensusRoundPolicy(value.policy) ||
+    !isConsensusReviewerProfile(value.profile) ||
+    !isConsensusReviewerInstruction(value.instruction) ||
+    !isConsensusSubmitterProfile(value.submitterProfile) ||
+    !isConsensusSubmitterInstruction(value.submitterInstruction) ||
+    !uniqueRefs(value.priorRoundRefs) ||
+    !uniqueRefs(value.priorFindingSetRefs) ||
+    !Array.isArray(value.priorRulings) ||
+    !value.priorRulings.every(isReviewRuling) ||
+    !uniqueRefs(value.priorDissentProfileRefs) ||
+    !Array.isArray(value.priorSubmitterResponses) ||
+    !value.priorSubmitterResponses.every(
+      isConsensusSubmitterResponseRecord,
+    ) ||
+    !uniqueRefs(value.priorEvidenceRefs) ||
+    !["closed_prompt_proof", "worker_executes"].includes(
       String(value.transportLane),
+    )
+  ) return false;
+  const task = value as unknown as ConsensusReviewerTask;
+  return task.subjectMaterialization.subjectContractRef ===
+      task.subject.subjectContractRef &&
+    task.subjectMaterialization.subjectRef === task.subject.subjectRef &&
+    task.subjectMaterialization.contentDigest === task.subject.subjectDigest &&
+    task.subject.panelRef === task.panelRef &&
+    task.subject.roundPolicyRef === task.policy.policyRef &&
+    task.instruction.instructionContractRef ===
+      task.profile.instructionContractRef &&
+    task.instruction.instructionDigest === task.profile.instructionDigest &&
+    task.instruction.roleContractRef === task.profile.roleContractRef &&
+    task.submitterProfile.actorRef === task.subject.submittingActorRef &&
+    task.submitterInstruction.instructionContractRef ===
+      task.submitterProfile.instructionContractRef &&
+    task.submitterInstruction.instructionDigest ===
+      task.submitterProfile.instructionDigest &&
+    task.submitterInstruction.roleContractRef ===
+      task.submitterProfile.roleContractRef &&
+    task.priorRoundRefs.length === task.roundOrdinal - 1 &&
+    task.priorSubmitterResponses.length === task.roundOrdinal - 1 &&
+    task.priorSubmitterResponses.every((response, index) =>
+      response.roundOrdinal === index + 1 &&
+      response.roundRef === task.priorRoundRefs[index] &&
+      response.submittingActorRef === task.subject.submittingActorRef
     );
 }
 
@@ -1720,8 +1983,9 @@ export function isConsensusRoundOutcome(
 export function isConsensusRoundState(
   value: unknown,
 ): value is ConsensusRoundState {
-  return isRecord(value) &&
-    hasExactKeys(value, [
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
       "kind",
       "schemaVersion",
       "invocationRef",
@@ -1729,70 +1993,93 @@ export function isConsensusRoundState(
       "subjectMaterialization",
       "panel",
       "instructions",
+      "submitterProfile",
+      "submitterInstruction",
       "policy",
       "transportLane",
       "roundOrdinal",
       "roundRefs",
       "findingSetRefs",
       "findingSets",
+      "submitterResponses",
       "rulings",
       "dissentProfileRefs",
       "evidenceRefs",
       "terminalOutcome",
       "terminal",
       "members",
-    ]) &&
-    value.kind === "consensus_round_state" &&
-    value.schemaVersion === "5.0.0" &&
-    isRef(value.invocationRef) &&
-    isConsensusSubject(value.subject) &&
-    isConsensusSubjectMaterialization(value.subjectMaterialization) &&
-    value.subjectMaterialization.subjectRef === value.subject.subjectRef &&
-    value.subjectMaterialization.subjectContractRef ===
-      value.subject.subjectContractRef &&
-    value.subjectMaterialization.contentDigest === value.subject.subjectDigest &&
-    isConsensusPanel(value.panel) &&
-    isConsensusInstructionSet(value.instructions, value.panel) &&
-    isConsensusRoundPolicy(value.policy) &&
-    value.subject.panelRef === value.panel.panelRef &&
-    value.subject.roundPolicyRef === value.policy.policyRef &&
-    ["closed_prompt_proof", "worker_executes"].includes(
+    ]) ||
+    value.kind !== "consensus_round_state" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isRef(value.invocationRef) ||
+    !isConsensusSubject(value.subject) ||
+    !isConsensusSubjectMaterialization(value.subjectMaterialization) ||
+    !isConsensusPanel(value.panel) ||
+    !isConsensusInstructionSet(value.instructions, value.panel) ||
+    !isConsensusSubmitterProfile(value.submitterProfile) ||
+    !isConsensusSubmitterInstruction(value.submitterInstruction) ||
+    !isConsensusRoundPolicy(value.policy) ||
+    !["closed_prompt_proof", "worker_executes"].includes(
       String(value.transportLane),
-    ) &&
-    Number.isSafeInteger(value.roundOrdinal) &&
-    Number(value.roundOrdinal) > 0 &&
-    uniqueRefs(value.roundRefs) &&
-    uniqueRefs(value.findingSetRefs) &&
-    Array.isArray(value.findingSets) &&
-    value.findingSets.every(isReviewFindings) &&
-    Array.isArray(value.rulings) &&
-    value.rulings.every(isReviewRuling) &&
-    uniqueRefs(value.dissentProfileRefs) &&
-    uniqueRefs(value.evidenceRefs) &&
-    (
+    ) ||
+    !Number.isSafeInteger(value.roundOrdinal) ||
+    Number(value.roundOrdinal) < 1 ||
+    !uniqueRefs(value.roundRefs) ||
+    !uniqueRefs(value.findingSetRefs) ||
+    !Array.isArray(value.findingSets) ||
+    !value.findingSets.every(isReviewFindings) ||
+    !Array.isArray(value.submitterResponses) ||
+    !value.submitterResponses.every(isConsensusSubmitterResponseRecord) ||
+    !Array.isArray(value.rulings) ||
+    !value.rulings.every(isReviewRuling) ||
+    !uniqueRefs(value.dissentProfileRefs) ||
+    !uniqueRefs(value.evidenceRefs) ||
+    !(
       value.terminalOutcome === null ||
       isConsensusRoundOutcome(value.terminalOutcome)
+    ) ||
+    typeof value.terminal !== "boolean" ||
+    !Array.isArray(value.members)
+  ) return false;
+  const state = value as unknown as ConsensusRoundState;
+  return state.subjectMaterialization.subjectRef === state.subject.subjectRef &&
+    state.subjectMaterialization.subjectContractRef ===
+      state.subject.subjectContractRef &&
+    state.subjectMaterialization.contentDigest === state.subject.subjectDigest &&
+    state.submitterProfile.actorRef === state.subject.submittingActorRef &&
+    state.submitterInstruction.instructionContractRef ===
+      state.submitterProfile.instructionContractRef &&
+    state.submitterInstruction.instructionDigest ===
+      state.submitterProfile.instructionDigest &&
+    state.submitterInstruction.roleContractRef ===
+      state.submitterProfile.roleContractRef &&
+    state.subject.panelRef === state.panel.panelRef &&
+    state.subject.roundPolicyRef === state.policy.policyRef &&
+    state.submitterResponses.length === state.roundRefs.length &&
+    state.submitterResponses.every((response, index) =>
+      response.invocationRef === state.invocationRef &&
+      response.roundRef === state.roundRefs[index] &&
+      response.roundOrdinal === index + 1 &&
+      response.submittingActorRef === state.subject.submittingActorRef &&
+      response.profileRef === state.submitterProfile.profileRef
     ) &&
-    typeof value.terminal === "boolean" &&
-    value.terminal === (value.terminalOutcome !== null) &&
-    Array.isArray(value.members) &&
+    state.terminal === (state.terminalOutcome !== null) &&
     (
-      value.terminal
-        ? value.members.length === 0
-        : value.members.length === value.panel.profiles.length
+      state.terminal
+        ? state.members.length === 0
+        : state.members.length === state.panel.profiles.length
     ) &&
-    value.members.every((member, ordinal) =>
+    state.members.every((member, ordinal) =>
       isRecord(member) &&
       hasExactKeys(member, ["ordinal", "memberRef", "value"]) &&
       member.ordinal === ordinal &&
       isRef(member.memberRef) &&
       isConsensusReviewerTask(member.value) &&
       member.value.profile.profileRef ===
-        (value.panel as ConsensusPanel).profiles[ordinal]?.profileRef &&
+        state.panel.profiles[ordinal]?.profileRef &&
       member.value.subjectMaterialization.materializationRef ===
-        (value.subjectMaterialization as ConsensusSubjectMaterialization)
-          .materializationRef &&
-      member.value.roundOrdinal === value.roundOrdinal
+        state.subjectMaterialization.materializationRef &&
+      member.value.roundOrdinal === state.roundOrdinal
     );
 }
 
@@ -1826,6 +2113,163 @@ export function isConsensusFindingsVector(
     );
 }
 
+function submitterResponseRecordBody(
+  value: Readonly<ConsensusSubmitterResponseRecord>,
+) {
+  const { outputDigest: _outputDigest, responseRef: _responseRef, ...body } =
+    value;
+  return body;
+}
+
+export function isConsensusSubmitterResponseRecord(
+  value: unknown,
+): value is ConsensusSubmitterResponseRecord {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubmitterResponseRecord,
+    ) ||
+    !isRef(value.invocationRef) ||
+    !isRef(value.responseRef) ||
+    !isDigest(value.outputDigest) ||
+    !isDigest(value.findingsVectorDigest) ||
+    !isRef(value.roundRef) ||
+    !Number.isSafeInteger(value.roundOrdinal) ||
+    Number(value.roundOrdinal) < 1 ||
+    !isRef(value.submittingActorRef) ||
+    !isRef(value.profileRef) ||
+    ![
+      "acknowledge",
+      "address_findings",
+      "dispute_findings",
+    ].includes(String(value.disposition)) ||
+    typeof value.responseText !== "string" ||
+    value.responseText.length === 0 ||
+    !uniqueRefs(value.addressedFindingRefs) ||
+    !uniqueRefs(value.residualFindingRefs) ||
+    !uniqueRefs(value.evidenceRefs)
+  ) return false;
+  const body = submitterResponseRecordBody(
+    value as unknown as Readonly<ConsensusSubmitterResponseRecord>,
+  );
+  const outputDigest = sha256Canonical(body as unknown as JsonValue);
+  return value.outputDigest === outputDigest &&
+    value.responseRef ===
+      `submitter-response://abg/${outputDigest.slice("sha256:".length)}`;
+}
+
+export function isConsensusSubmitterTask(
+  value: unknown,
+): value is ConsensusSubmitterTask {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubmitterTask,
+    ) ||
+    value.kind !== "consensus_submitter_task" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isRef(value.invocationRef) ||
+    !isRef(value.roundRef) ||
+    !Number.isSafeInteger(value.roundOrdinal) ||
+    Number(value.roundOrdinal) < 1 ||
+    !isConsensusSubject(value.subject) ||
+    !isConsensusSubjectMaterialization(value.subjectMaterialization) ||
+    value.subjectMaterialization.subjectContractRef !==
+      value.subject.subjectContractRef ||
+    value.subjectMaterialization.subjectRef !== value.subject.subjectRef ||
+    value.subjectMaterialization.contentDigest !== value.subject.subjectDigest ||
+    !isRef(value.panelRef) ||
+    value.subject.panelRef !== value.panelRef ||
+    !isConsensusRoundPolicy(value.policy) ||
+    value.subject.roundPolicyRef !== value.policy.policyRef ||
+    !isConsensusSubmitterProfile(value.profile) ||
+    value.profile.actorRef !== value.subject.submittingActorRef ||
+    !isConsensusSubmitterInstruction(value.instruction) ||
+    value.instruction.instructionContractRef !==
+      value.profile.instructionContractRef ||
+    value.instruction.instructionDigest !== value.profile.instructionDigest ||
+    value.instruction.roleContractRef !== value.profile.roleContractRef ||
+    !isConsensusFindingsVector(value.findingsVector) ||
+    value.findingsVector.members.some((member) =>
+      member.value.invocationRef !== value.invocationRef ||
+      member.value.roundRef !== value.roundRef ||
+      member.value.roundOrdinal !== value.roundOrdinal
+    ) ||
+    !uniqueRefs(value.priorRoundRefs) ||
+    !uniqueRefs(value.priorSubmitterResponseRefs) ||
+    !uniqueRefs(value.priorEvidenceRefs) ||
+    !["closed_prompt_proof", "worker_executes"].includes(
+      String(value.transportLane),
+    )
+  ) return false;
+  const task = value as unknown as ConsensusSubmitterTask;
+  return task.priorRoundRefs.length === task.roundOrdinal - 1 &&
+    task.priorSubmitterResponseRefs.length === task.roundOrdinal - 1 &&
+    task.findingsVector.members[0]?.value.task.priorRoundRefs
+    .every((ref, index) => ref === task.priorRoundRefs[index]) === true &&
+    task.findingsVector.members[0]?.value.task.priorSubmitterResponses
+      .every((response, index) =>
+        response.responseRef === task.priorSubmitterResponseRefs[index]
+      ) === true;
+}
+
+export function isConsensusSubmitterResponse(
+  value: unknown,
+): value is ConsensusSubmitterResponse {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubmitterResponse,
+    ) ||
+    value.kind !== "consensus_submitter_response" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isConsensusSubmitterTask(value.task) ||
+    !isDigest(value.configurationDigest) ||
+    value.configurationDigest !== value.task.profile.configurationDigest
+  ) return false;
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    configurationDigest: _configurationDigest,
+    task: _task,
+    ...record
+  } = value;
+  if (!isConsensusSubmitterResponseRecord(record)) return false;
+  if (
+    value.invocationRef !== value.task.invocationRef ||
+    value.roundRef !== value.task.roundRef ||
+    value.roundOrdinal !== value.task.roundOrdinal ||
+    value.submittingActorRef !== value.task.subject.submittingActorRef ||
+    value.submittingActorRef !== value.task.profile.actorRef ||
+    value.profileRef !== value.task.profile.profileRef ||
+    value.findingsVectorDigest !==
+      sha256Canonical(value.task.findingsVector as unknown as JsonValue)
+  ) return false;
+  const findingRefs = value.task.findingsVector.members.flatMap((member) =>
+    member.value.findings.map((finding) => finding.findingRef)
+  );
+  const response = value as unknown as ConsensusSubmitterResponse;
+  const addressed = new Set(response.addressedFindingRefs);
+  const residual = new Set(response.residualFindingRefs);
+  if (
+    [...addressed].some((ref) => residual.has(ref)) ||
+    [...addressed, ...residual].some((ref) => !findingRefs.includes(ref)) ||
+    new Set([...addressed, ...residual]).size !== new Set(findingRefs).size
+  ) return false;
+  if (findingRefs.length === 0) {
+    return response.disposition === "acknowledge" &&
+      addressed.size === 0 &&
+      residual.size === 0;
+  }
+  if (response.disposition === "address_findings") {
+    return addressed.size === new Set(findingRefs).size && residual.size === 0;
+  }
+  return response.disposition === "dispute_findings" && residual.size > 0;
+}
+
 export function isConsensusResultCandidate(
   value: unknown,
 ): value is ConsensusResultCandidate {
@@ -1843,6 +2287,8 @@ export function isConsensusResultCandidate(
     !isRef(value.policyRef) ||
     !uniqueRefs(value.roundRefs, false) ||
     !uniqueRefs(value.findingSetRefs) ||
+    !uniqueRefs(value.submitterResponseRefs) ||
+    value.submitterResponseRefs.length !== value.roundRefs.length ||
     !Array.isArray(value.rulings) ||
     !value.rulings.every(isReviewRuling) ||
     !CONSENSUS_CLASSIFICATION_VALUES.includes(
@@ -1942,6 +2388,8 @@ export function isTicketConsensusProjection(
     !isRef(value.policyRef) ||
     !uniqueRefs(value.roundRefs, false) ||
     !uniqueRefs(value.findingSetRefs) ||
+    !uniqueRefs(value.submitterResponseRefs) ||
+    value.submitterResponseRefs.length !== value.roundRefs.length ||
     !Array.isArray(value.rulings) ||
     !value.rulings.every(isReviewRuling) ||
     !CONSENSUS_CLASSIFICATION_VALUES.includes(
@@ -1978,6 +2426,7 @@ function reviewerTask(
   priorFindingSetRefs: readonly string[],
   priorRulings: readonly ReviewRuling[],
   priorDissentProfileRefs: readonly string[],
+  priorSubmitterResponses: readonly ConsensusSubmitterResponseRecord[],
   priorEvidenceRefs: readonly string[],
 ): Readonly<ConsensusReviewerTask> {
   const currentRoundRef = roundRef(invocation.invocationRef, ordinal);
@@ -2003,10 +2452,13 @@ function reviewerTask(
     policy: invocation.policy,
     profile,
     instruction,
+    submitterProfile: invocation.submitterProfile,
+    submitterInstruction: invocation.submitterInstruction,
     priorRoundRefs: [...priorRoundRefs],
     priorFindingSetRefs: [...priorFindingSetRefs],
     priorRulings: [...priorRulings],
     priorDissentProfileRefs: [...priorDissentProfileRefs],
+    priorSubmitterResponses: [...priorSubmitterResponses],
     priorEvidenceRefs: [...priorEvidenceRefs],
     transportLane: invocation.transportLane,
   });
@@ -2019,6 +2471,7 @@ function stateMembers(
   priorFindingSetRefs: readonly string[],
   priorRulings: readonly ReviewRuling[],
   priorDissentProfileRefs: readonly string[],
+  priorSubmitterResponses: readonly ConsensusSubmitterResponseRecord[],
   priorEvidenceRefs: readonly string[],
 ) {
   return invocation.panel.profiles.map((profile, index) => {
@@ -2030,6 +2483,7 @@ function stateMembers(
       priorFindingSetRefs,
       priorRulings,
       priorDissentProfileRefs,
+      priorSubmitterResponses,
       priorEvidenceRefs,
     );
     return {
@@ -2055,18 +2509,21 @@ export function initializeConsensus(
     subjectMaterialization: invocation.subjectMaterialization,
     panel: invocation.panel,
     instructions: invocation.instructions,
+    submitterProfile: invocation.submitterProfile,
+    submitterInstruction: invocation.submitterInstruction,
     policy: invocation.policy,
     transportLane: invocation.transportLane,
     roundOrdinal: 1,
     roundRefs: [],
     findingSetRefs: [],
     findingSets: [],
+    submitterResponses: [],
     rulings: [],
     dissentProfileRefs: [],
     evidenceRefs: [],
     terminalOutcome: null,
     terminal: false,
-    members: stateMembers(invocation, 1, [], [], [], [], []),
+    members: stateMembers(invocation, 1, [], [], [], [], [], []),
   });
 }
 
@@ -2095,12 +2552,87 @@ function rulingFor(findings: Readonly<ReviewFindings>): Readonly<ReviewRuling> {
   });
 }
 
-export function reduceConsensusRound(
+export function constructConsensusSubmitterTask(
   vector: Readonly<ConsensusFindingsVector>,
-): Readonly<ConsensusRoundState> {
+): Readonly<ConsensusSubmitterTask> {
   if (!isConsensusFindingsVector(vector)) {
-    throw new TypeError("Consensus reduction requires one exact findings vector");
+    throw new TypeError(
+      "Consensus submitter task requires one exact findings vector",
+    );
   }
+  const first = vector.members[0]!.value.task;
+  if (
+    vector.members.some((member) =>
+      member.value.invocationRef !== first.invocationRef ||
+      member.value.roundRef !== first.roundRef ||
+      member.value.roundOrdinal !== first.roundOrdinal ||
+      member.value.task.subject.subjectRef !== first.subject.subjectRef ||
+      member.value.task.subject.subjectDigest !== first.subject.subjectDigest ||
+      member.value.task.panelRef !== first.panelRef ||
+      member.value.task.policy.policyDigest !== first.policy.policyDigest ||
+      member.value.task.priorSubmitterResponses.length !==
+        first.priorSubmitterResponses.length ||
+      member.value.task.priorSubmitterResponses.some((response, index) =>
+        response.responseRef !==
+          first.priorSubmitterResponses[index]?.responseRef
+      )
+    )
+  ) {
+    throw new TypeError(
+      "Consensus submitter task requires one complete attributed panel round",
+    );
+  }
+  const invocation = vector.members[0]!.value.task;
+  const task = deepFreeze({
+    kind: "consensus_submitter_task" as const,
+    schemaVersion: "5.0.0" as const,
+    invocationRef: invocation.invocationRef,
+    roundRef: invocation.roundRef,
+    roundOrdinal: invocation.roundOrdinal,
+    subject: invocation.subject,
+    subjectMaterialization: invocation.subjectMaterialization,
+    panelRef: invocation.panelRef,
+    policy: invocation.policy,
+    profile: invocation.submitterProfile,
+    instruction: invocation.submitterInstruction,
+    findingsVector: vector,
+    priorRoundRefs: [...invocation.priorRoundRefs],
+    priorSubmitterResponseRefs: invocation.priorSubmitterResponses.map(
+      (response) => response.responseRef,
+    ),
+    priorEvidenceRefs: [...invocation.priorEvidenceRefs],
+    transportLane: invocation.transportLane,
+  });
+  if (!isConsensusSubmitterTask(task)) {
+    throw new TypeError(
+      "Consensus submitter task failed exact subject, round, or attribution binding",
+    );
+  }
+  return task;
+}
+
+function responseRecord(
+  response: Readonly<ConsensusSubmitterResponse>,
+): Readonly<ConsensusSubmitterResponseRecord> {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    configurationDigest: _configurationDigest,
+    task: _task,
+    ...record
+  } = response;
+  return deepFreeze(record);
+}
+
+export function reduceConsensusRound(
+  response: Readonly<ConsensusSubmitterResponse>,
+): Readonly<ConsensusRoundState> {
+  if (!isConsensusSubmitterResponse(response)) {
+    throw new TypeError(
+      "Consensus reduction requires one exact admitted submitter response",
+    );
+  }
+  const vector = response.task.findingsVector;
   const findings = vector.members.map((member) => member.value);
   const first = findings[0]!;
   const task = first.task;
@@ -2134,7 +2666,12 @@ export function reduceConsensusRound(
   const findingSetRefs = findings.map(findingSetRef);
   const rulings = findings.map(rulingFor);
   const rulingRefs = rulings.map((ruling) => ruling.rulingRef);
-  const evidenceRefs = findings.flatMap((row) => row.evidenceRefs);
+  const evidenceRefs = [
+    ...new Set([
+      ...findings.flatMap((row) => row.evidenceRefs),
+      ...response.evidenceRefs,
+    ]),
+  ];
   const roundDissentProfileRefs = findings
     .filter((row) => row.recommendation === "revise")
     .map((row) => row.profileRef);
@@ -2150,7 +2687,8 @@ export function reduceConsensusRound(
   const outcome: ConsensusRoundOutcomeValue =
     hasContractFailure
     ? "escalate_fh"
-    : roundDissentProfileRefs.length === 0
+    : roundDissentProfileRefs.length === 0 &&
+        response.disposition === "acknowledge"
     ? "closed_done"
     : task.roundOrdinal >= task.policy.roundBudget
     ? "escalate_fh"
@@ -2172,6 +2710,8 @@ export function reduceConsensusRound(
     subjectMaterialization: task.subjectMaterialization,
     panel,
     instructions: findings.map((row) => row.task.instruction),
+    submitterProfile: response.task.profile,
+    submitterInstruction: response.task.instruction,
     policy: task.policy,
     transportLane: task.transportLane,
   };
@@ -2184,6 +2724,8 @@ export function reduceConsensusRound(
     subjectMaterialization: task.subjectMaterialization,
     panel,
     instructions: invocation.instructions,
+    submitterProfile: invocation.submitterProfile,
+    submitterInstruction: invocation.submitterInstruction,
     policy: task.policy,
     transportLane: task.transportLane,
     roundOrdinal: outcome === "recurse_next_round"
@@ -2192,6 +2734,10 @@ export function reduceConsensusRound(
     roundRefs: [...task.priorRoundRefs, task.roundRef],
     findingSetRefs: [...task.priorFindingSetRefs, ...findingSetRefs],
     findingSets: findings,
+    submitterResponses: [
+      ...task.priorSubmitterResponses,
+      responseRecord(response),
+    ],
     rulings: [...task.priorRulings, ...rulings],
     dissentProfileRefs,
     evidenceRefs: [...new Set([...task.priorEvidenceRefs, ...evidenceRefs])],
@@ -2205,6 +2751,7 @@ export function reduceConsensusRound(
         [...task.priorFindingSetRefs, ...findingSetRefs],
         [...task.priorRulings, ...rulings],
         dissentProfileRefs,
+        [...task.priorSubmitterResponses, responseRecord(response)],
         [...new Set([...task.priorEvidenceRefs, ...evidenceRefs])],
       )
       : [],
@@ -2251,6 +2798,9 @@ export function projectConsensusResult(
     policyRef: state.policy.policyRef,
     roundRefs: state.roundRefs,
     findingSetRefs: state.findingSetRefs,
+    submitterResponseRefs: state.submitterResponses.map(
+      (response) => response.responseRef,
+    ),
     rulings: state.rulings,
     classification,
     dissentProfileRefs: state.dissentProfileRefs,
@@ -2260,6 +2810,7 @@ export function projectConsensusResult(
       state.invocationRef,
       state.subject.subjectRef,
       ...state.roundRefs,
+      ...state.submitterResponses.map((response) => response.responseRef),
       ...refusalRefs,
     ],
     contractFailureRef,
@@ -2290,6 +2841,7 @@ export function finalizeConsensusEscalation(
     policyRef: decision.unresolvedResult.policyRef,
     roundRefs: decision.unresolvedResult.roundRefs,
     findingSetRefs: decision.unresolvedResult.findingSetRefs,
+    submitterResponseRefs: decision.unresolvedResult.submitterResponseRefs,
     rulings: decision.unresolvedResult.rulings,
     classification: decision.decision === "accept_with_dissent"
       ? "partial_agreement_with_dissent" as const
@@ -2346,6 +2898,7 @@ export function projectTicketConsensus(
     policyRef: result.policyRef,
     roundRefs: result.roundRefs,
     findingSetRefs: result.findingSetRefs,
+    submitterResponseRefs: result.submitterResponseRefs,
     rulings: result.rulings,
     classification: result.classification,
     dissentProfileRefs: result.dissentProfileRefs,
@@ -2362,6 +2915,26 @@ export function projectTicketConsensus(
       `ticket-consensus-projection://abg/${projectionDigest.slice("sha256:".length)}`,
     projectionDigest,
   });
+}
+
+function isConsensusRoundFold(input: unknown, output: unknown): boolean {
+  if (
+    !isConsensusFindingsVector(input) ||
+    !isConsensusRoundState(output)
+  ) return false;
+  const first = input.members[0]?.value;
+  const response = output.submitterResponses.at(-1);
+  return first !== undefined &&
+    response !== undefined &&
+    response.invocationRef === first.invocationRef &&
+    response.roundRef === first.roundRef &&
+    response.roundOrdinal === first.roundOrdinal &&
+    response.findingsVectorDigest ===
+      sha256Canonical(input as unknown as JsonValue) &&
+    output.findingSets.length === input.members.length &&
+    output.findingSets.every((row, ordinal) =>
+      row.outputDigest === input.members[ordinal]?.value.outputDigest
+    );
 }
 
 export function resolveConsensusJudgmentRelation(predicateRef: string) {
@@ -2417,13 +2990,36 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           ) ||
           (
             isConsensusFindingsVector(input) &&
+            isConsensusSubmitterTask(output) &&
+            sha256Canonical(output as unknown as JsonValue) ===
+              sha256Canonical(
+                constructConsensusSubmitterTask(input) as unknown as JsonValue,
+              )
+          ) ||
+          (
+            isConsensusSubmitterTask(input) &&
+            isConsensusSubmitterResponse(output) &&
+            output.task.invocationRef === input.invocationRef &&
+            output.task.roundRef === input.roundRef &&
+            output.task.roundOrdinal === input.roundOrdinal
+          ) ||
+          (
+            isConsensusSubmitterResponse(input) &&
             isConsensusRoundState(output) &&
             sha256Canonical(output as unknown as JsonValue) ===
               sha256Canonical(
                 reduceConsensusRound(input) as unknown as JsonValue,
               )
+          ) ||
+          (
+            isConsensusRoundFold(input, output)
           ),
         "round-workflow-foldback",
+      );
+    case CONSENSUS_IDS.roundReducerPredicateRef:
+      return relation(
+        isConsensusRoundFold,
+        "submitter-reviewer-fold",
       );
     case CONSENSUS_IDS.reviewerPredicateRef:
       return relation(
@@ -2435,10 +3031,32 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           output.roundRef === input.roundRef,
         "reviewer-attribution",
       );
-    case CONSENSUS_IDS.reducerPredicateRef:
+    case CONSENSUS_IDS.submitterTaskPredicateRef:
       return relation(
         (input, output) =>
           isConsensusFindingsVector(input) &&
+          isConsensusSubmitterTask(output) &&
+          sha256Canonical(output as unknown as JsonValue) ===
+            sha256Canonical(
+              constructConsensusSubmitterTask(input) as unknown as JsonValue,
+            ),
+        "submitter-task-preparation",
+      );
+    case CONSENSUS_IDS.submitterPredicateRef:
+      return relation(
+        (input, output) =>
+          isConsensusSubmitterTask(input) &&
+          isConsensusSubmitterResponse(output) &&
+          output.task.invocationRef === input.invocationRef &&
+          output.task.roundRef === input.roundRef &&
+          output.task.roundOrdinal === input.roundOrdinal &&
+          output.submittingActorRef === input.profile.actorRef,
+        "submitter-attribution",
+      );
+    case CONSENSUS_IDS.reducerPredicateRef:
+      return relation(
+        (input, output) =>
+          isConsensusSubmitterResponse(input) &&
           isConsensusRoundState(output) &&
           sha256Canonical(output as unknown as JsonValue) ===
             sha256Canonical(
@@ -2576,8 +3194,12 @@ function leafGraphFunction(input: {
   readonly stageRole: string;
   readonly fibre: "F_D" | "F_P";
   readonly closureContractRef: string;
+  readonly effectRef?: string;
   readonly retryBudget?: number;
 }): GraphFunction {
+  if (input.fibre === "F_P" && input.effectRef === undefined) {
+    throw new TypeError("Consensus F_P leaves require one declared effect");
+  }
   const leaf = C.of({
     input: cCarrier<Record<string, JsonValue>>(input.inputContractRef),
     output: cCarrier<Record<string, JsonValue>>(input.outputContractRef),
@@ -2621,9 +3243,7 @@ function leafGraphFunction(input: {
       edges: [],
       applications: [],
     },
-    effects: input.fibre === "F_P"
-      ? ["effect://abg/consensus/reviewer-worker@5"]
-      : [],
+    effects: input.effectRef === undefined ? [] : [input.effectRef],
     declarations: {
       "abg.compute_regime": input.fibre,
       "abg.closure_contract": input.closureContractRef,
@@ -2717,6 +3337,12 @@ export function constructConsensusModulePublication(
   const findingsVectorCarrier = cCarrier<ConsensusFindingsVector>(
     CONSENSUS_IDS.findingsVectorContractRef,
   );
+  const submitterTaskCarrier = cCarrier<ConsensusSubmitterTask>(
+    CONSENSUS_IDS.submitterTaskContractRef,
+  );
+  const submitterResponseCarrier = cCarrier<ConsensusSubmitterResponse>(
+    CONSENSUS_IDS.submitterResponseContractRef,
+  );
   const roundLoopRef = cGraphFunctionRef({
     graphFunctionRef: CONSENSUS_IDS.roundLoopGraphFunctionRef,
     input: stateCarrier,
@@ -2732,8 +3358,8 @@ export function constructConsensusModulePublication(
     input: reviewerTaskCarrier,
     output: findingsCarrier,
   });
-  const reducerRef = cGraphFunctionRef({
-    graphFunctionRef: CONSENSUS_IDS.reducerGraphFunctionRef,
+  const roundReducerRef = cGraphFunctionRef({
+    graphFunctionRef: CONSENSUS_IDS.roundReducerGraphFunctionRef,
     input: findingsVectorCarrier,
     output: stateCarrier,
   });
@@ -2766,7 +3392,7 @@ export function constructConsensusModulePublication(
   const fanIn = fanInApplication({
     inputContractRef: CONSENSUS_IDS.findingsVectorContractRef,
     outputContractRef: CONSENSUS_IDS.stateContractRef,
-    reducerGraphFunctionRef: CONSENSUS_IDS.reducerGraphFunctionRef,
+    reducerGraphFunctionRef: CONSENSUS_IDS.roundReducerGraphFunctionRef,
     inputVectorRef: CONSENSUS_IDS.findingsVectorContractRef,
   });
   const initializerLeaf = C.of({
@@ -2903,6 +3529,8 @@ export function constructConsensusModulePublication(
         CONSENSUS_IDS.reviewerTaskContractRef,
         CONSENSUS_IDS.findingsContractRef,
         CONSENSUS_IDS.findingsVectorContractRef,
+        CONSENSUS_IDS.submitterTaskContractRef,
+        CONSENSUS_IDS.submitterResponseContractRef,
       ],
     },
     inputs: [CONSENSUS_IDS.stateContractRef],
@@ -2921,7 +3549,7 @@ export function constructConsensusModulePublication(
             CONSENSUS_IDS.roundBatchRef,
             { input: stateCarrier, output: findingsVectorCarrier },
           ),
-          workflow.C(reducerRef),
+          workflow.C(roundReducerRef),
         ),
       }],
       edges: [],
@@ -2950,13 +3578,40 @@ export function constructConsensusModulePublication(
     stageRole: "reviewer_assessment",
     fibre: "F_P",
     closureContractRef: CONSENSUS_IDS.reviewerClosureContractRef,
+    effectRef: "effect://abg/consensus/reviewer-worker@5",
+    retryBudget: 2,
+  });
+  const submitterTaskGraphFunction = leafGraphFunction({
+    name: CONSENSUS_IDS.submitterTaskGraphFunctionRef,
+    graphRef: CONSENSUS_IDS.submitterTaskGraphRef,
+    nodeRef: CONSENSUS_IDS.submitterTaskNodeRef,
+    inputContractRef: CONSENSUS_IDS.findingsVectorContractRef,
+    outputContractRef: CONSENSUS_IDS.submitterTaskContractRef,
+    bindingRef: CONSENSUS_IDS.submitterTaskImplementationBindingRef,
+    predicateRef: CONSENSUS_IDS.submitterTaskPredicateRef,
+    stageRole: "prepare_submitter_task",
+    fibre: "F_D",
+    closureContractRef: CONSENSUS_IDS.childClosureContractRef,
+  });
+  const submitterGraphFunction = leafGraphFunction({
+    name: CONSENSUS_IDS.submitterGraphFunctionRef,
+    graphRef: CONSENSUS_IDS.submitterGraphRef,
+    nodeRef: CONSENSUS_IDS.submitterNodeRef,
+    inputContractRef: CONSENSUS_IDS.submitterTaskContractRef,
+    outputContractRef: CONSENSUS_IDS.submitterResponseContractRef,
+    bindingRef: CONSENSUS_IDS.submitterImplementationBindingRef,
+    predicateRef: CONSENSUS_IDS.submitterPredicateRef,
+    stageRole: "submitter_response",
+    fibre: "F_P",
+    closureContractRef: CONSENSUS_IDS.childClosureContractRef,
+    effectRef: "effect://abg/consensus/submitter-worker@5",
     retryBudget: 2,
   });
   const reducerGraphFunction = leafGraphFunction({
     name: CONSENSUS_IDS.reducerGraphFunctionRef,
     graphRef: CONSENSUS_IDS.reducerGraphRef,
     nodeRef: CONSENSUS_IDS.reducerNodeRef,
-    inputContractRef: CONSENSUS_IDS.findingsVectorContractRef,
+    inputContractRef: CONSENSUS_IDS.submitterResponseContractRef,
     outputContractRef: CONSENSUS_IDS.stateContractRef,
     bindingRef: CONSENSUS_IDS.reducerImplementationBindingRef,
     predicateRef: CONSENSUS_IDS.reducerPredicateRef,
@@ -2964,6 +3619,97 @@ export function constructConsensusModulePublication(
     fibre: "F_D",
     closureContractRef: CONSENSUS_IDS.childClosureContractRef,
   });
+  const submitterTaskTerm =
+    submitterTaskGraphFunction.template.nodes[0]!.term;
+  const submitterTerm = submitterGraphFunction.template.nodes[0]!.term;
+  const reducerTerm = reducerGraphFunction.template.nodes[0]!.term;
+  if (
+    submitterTaskTerm.kind !== "c_of" ||
+    submitterTerm.kind !== "c_retry" ||
+    submitterTerm.term.kind !== "c_of" ||
+    reducerTerm.kind !== "c_of"
+  ) {
+    throw new TypeError(
+      "Consensus submitter-reviewer fold requires three exact leaf terms",
+    );
+  }
+  const roundReducerGraphFunction: GraphFunction = {
+    kind: "graph_function",
+    name: CONSENSUS_IDS.roundReducerGraphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [CONSENSUS_IDS.findingsVectorContractRef],
+      provides: [
+        CONSENSUS_IDS.submitterTaskContractRef,
+        CONSENSUS_IDS.submitterResponseContractRef,
+        CONSENSUS_IDS.stateContractRef,
+      ],
+      carries: [
+        CONSENSUS_IDS.findingsVectorContractRef,
+        CONSENSUS_IDS.submitterTaskContractRef,
+        CONSENSUS_IDS.submitterResponseContractRef,
+        CONSENSUS_IDS.stateContractRef,
+      ],
+    },
+    inputs: [CONSENSUS_IDS.findingsVectorContractRef],
+    outputs: [CONSENSUS_IDS.stateContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: CONSENSUS_IDS.roundReducerGraphRef,
+      startNodeRef: CONSENSUS_IDS.submitterTaskNodeRef,
+      terminalNodeRefs: [CONSENSUS_IDS.reducerNodeRef],
+      nodes: [{
+        nodeRef: CONSENSUS_IDS.submitterTaskNodeRef,
+        nodeKind: "c_locus",
+        term: {
+          ...submitterTaskTerm,
+          resultBearing: false,
+        },
+      }, {
+        nodeRef: CONSENSUS_IDS.submitterNodeRef,
+        nodeKind: "c_locus",
+        term: {
+          ...submitterTerm,
+          term: {
+            ...submitterTerm.term,
+            resultBearing: false,
+          },
+        },
+      }, {
+        nodeRef: CONSENSUS_IDS.reducerNodeRef,
+        nodeKind: "c_locus",
+        term: reducerTerm,
+      }],
+      edges: [
+        graphEdge({
+          fromNodeRef: CONSENSUS_IDS.submitterTaskNodeRef,
+          toNodeRef: CONSENSUS_IDS.submitterNodeRef,
+        }),
+        graphEdge({
+          fromNodeRef: CONSENSUS_IDS.submitterNodeRef,
+          toNodeRef: CONSENSUS_IDS.reducerNodeRef,
+        }),
+      ],
+      applications: [],
+    },
+    effects: [...submitterGraphFunction.effects],
+    declarations: {
+      "abg.compute_regime": "F_D+F_P",
+      "abg.closure_contract": CONSENSUS_IDS.childClosureContractRef,
+      "abg.child_closure_contract":
+        CONSENSUS_IDS.childClosureContractRef,
+      "abg.evidence_contract": CONSENSUS_IDS.evidenceContractRef,
+      "abg.judgment_contract": CONSENSUS_IDS.judgmentContractRef,
+      "abg.judgment_predicate": CONSENSUS_IDS.roundReducerPredicateRef,
+      "abg.transition_contract": CONSENSUS_IDS.transitionContractRef,
+    },
+    tags: [
+      "abiogenesis",
+      "consensus",
+      "submitter-reviewer-fold",
+      "fan-in",
+    ],
+  };
   const projectorGraphFunction = leafGraphFunction({
     name: CONSENSUS_IDS.projectorGraphFunctionRef,
     graphRef: CONSENSUS_IDS.projectorGraphRef,
@@ -3211,11 +3957,20 @@ export function constructConsensusModulePublication(
     roundLoopGraphFunction,
     roundGraphFunction,
     reviewerGraphFunction,
-    reducerGraphFunction,
+    roundReducerGraphFunction,
     projectorGraphFunction,
     escalationGraphFunction,
     escalationFinalizerGraphFunction,
     oneSurfaceGraphFunction,
+  ];
+  const oneSurfaceCallableMembership: readonly string[] = [
+    CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+    CONSENSUS_IDS.graphFunctionRef,
+    CONSENSUS_IDS.roundLoopGraphFunctionRef,
+    CONSENSUS_IDS.roundGraphFunctionRef,
+    CONSENSUS_IDS.reviewerGraphFunctionRef,
+    CONSENSUS_IDS.roundReducerGraphFunctionRef,
+    CONSENSUS_IDS.projectorGraphFunctionRef,
   ];
   const actionCatalogBody = {
     kind: "action_catalog" as const,
@@ -3306,7 +4061,7 @@ export function constructConsensusModulePublication(
       startRef: CONSENSUS_IDS.oneSurfaceStartRef,
       graphFunctionRef: CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
     }],
-    callableMembership: graphFunctions.map((graphFunction) => graphFunction.name),
+    callableMembership: oneSurfaceCallableMembership,
     closureContractRef: CONSENSUS_IDS.oneSurfaceClosureContractRef,
     actionCatalog: {
       ...actionCatalogBody,
@@ -3350,6 +4105,8 @@ export function constructConsensusModulePublication(
     [CONSENSUS_IDS.stateContractRef, "output", "consensus_round_state"],
     [CONSENSUS_IDS.reviewerTaskContractRef, "input", "consensus_reviewer_task"],
     [CONSENSUS_IDS.findingsVectorContractRef, "output", "consensus_findings_vector"],
+    [CONSENSUS_IDS.submitterTaskContractRef, "output", "consensus_submitter_task"],
+    [CONSENSUS_IDS.submitterResponseContractRef, "output", "consensus_submitter_response"],
     [CONSENSUS_IDS.escalationRequestContractRef, "input", "consensus_result"],
     [CONSENSUS_IDS.escalationDecisionContractRef, "output", "consensus_escalation_decision"],
     [CONSENSUS_IDS.failureContractRef, "failure", "consensus_failure"],
@@ -3411,11 +4168,27 @@ export function constructConsensusModulePublication(
       CONSENSUS_IDS.findingsContractRef,
     ),
     binding(
+      CONSENSUS_IDS.submitterTaskImplementationBindingRef,
+      CONSENSUS_IDS.submitterTaskImplementationRef,
+      "realizeConsensusSubmitterTaskPreparation",
+      "F_D",
+      CONSENSUS_IDS.findingsVectorContractRef,
+      CONSENSUS_IDS.submitterTaskContractRef,
+    ),
+    binding(
+      CONSENSUS_IDS.submitterImplementationBindingRef,
+      CONSENSUS_IDS.submitterImplementationRef,
+      "realizeConsensusSubmitter",
+      "F_P",
+      CONSENSUS_IDS.submitterTaskContractRef,
+      CONSENSUS_IDS.submitterResponseContractRef,
+    ),
+    binding(
       CONSENSUS_IDS.reducerImplementationBindingRef,
       CONSENSUS_IDS.reducerImplementationRef,
       "realizeConsensusReduction",
       "F_D",
-      CONSENSUS_IDS.findingsVectorContractRef,
+      CONSENSUS_IDS.submitterResponseContractRef,
       CONSENSUS_IDS.stateContractRef,
     ),
     binding(
@@ -3532,7 +4305,9 @@ export function constructConsensusModulePublication(
     declarationOrContractRef: graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [
-      CONSENSUS_IDS.oneSurfaceProgramRef,
+      ...(oneSurfaceCallableMembership.includes(graphFunctionRef)
+        ? [CONSENSUS_IDS.oneSurfaceProgramRef]
+        : []),
       ...(
           graphFunctionRef === CONSENSUS_IDS.escalationGraphFunctionRef ||
           graphFunctionRef ===

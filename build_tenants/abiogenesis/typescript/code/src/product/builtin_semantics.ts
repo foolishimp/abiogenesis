@@ -34,6 +34,9 @@ import {
   isConsensusRoundState,
   isConsensusResult,
   isConsensusSubject,
+  isConsensusSubmitterProfile,
+  isConsensusSubmitterResponse,
+  isConsensusSubmitterTask,
   isTicketConsensusProjection,
   isReviewFindings,
   resolveConsensusJudgmentRelation,
@@ -169,6 +172,8 @@ function validateSystemContractValue(
       return isConsensusPanel(value);
     case "consensus_reviewer_profile":
       return isConsensusReviewerProfile(value);
+    case "consensus_submitter_profile":
+      return isConsensusSubmitterProfile(value);
     case "review_findings":
       return isReviewFindings(value);
     case "consensus_round_policy":
@@ -195,6 +200,10 @@ function validateSystemContractValue(
       return isConsensusReviewerTask(value);
     case "consensus_findings_vector":
       return isConsensusFindingsVector(value);
+    case "consensus_submitter_task":
+      return isConsensusSubmitterTask(value);
+    case "consensus_submitter_response":
+      return isConsensusSubmitterResponse(value);
     case "consensus_escalation_decision":
       return isConsensusEscalationDecision(value);
     case "ticket_consensus_projection":
@@ -259,6 +268,17 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
       basis.inputContractRef === CONSENSUS_IDS.reviewerTaskContractRef &&
       basis.outputContractRef === CONSENSUS_IDS.findingsContractRef &&
       isConsensusReviewerTask(basis.input)
+    ) {
+      return Object.freeze({
+        instructionContractRef:
+          basis.input.profile.instructionContractRef,
+        resultContractRef: basis.input.profile.resultContractRef,
+      });
+    }
+    if (
+      basis.inputContractRef === CONSENSUS_IDS.submitterTaskContractRef &&
+      basis.outputContractRef === CONSENSUS_IDS.submitterResponseContractRef &&
+      isConsensusSubmitterTask(basis.input)
     ) {
       return Object.freeze({
         instructionContractRef:

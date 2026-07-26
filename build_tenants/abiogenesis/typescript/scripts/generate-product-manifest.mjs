@@ -171,6 +171,8 @@ const consensusContractRows = [
   ["abg.schema.consensus-subject", "ConsensusSubject"],
   ["abg.schema.consensus-panel", "ConsensusPanel"],
   ["abg.schema.consensus-reviewer-profile", "ConsensusReviewerProfile"],
+  ["abg.schema.consensus-submitter-profile", "ConsensusSubmitterProfile"],
+  ["abg.schema.consensus-submitter-response", "ConsensusSubmitterResponse"],
   ["abg.schema.review-findings", "ReviewFindings"],
   ["abg.schema.review-rulings", "ReviewRulings"],
   ["abg.schema.consensus-round-policy", "ConsensusRoundPolicy"],
