@@ -9,6 +9,7 @@ import {
   isConsensusActionEvaluationProjection,
   isConsensusEscalationDecision,
   isConsensusFindingsVector,
+  isConsensusFinalizationState,
   isConsensusInvocation,
   isConsensusNextActionBasis,
   isConsensusObservationSnapshot,
@@ -18,7 +19,8 @@ import {
   isConsensusSubmitterResponse,
   isConsensusSubmitterResponseCandidate,
   isConsensusSubmitterTask,
-  projectConsensusResult,
+  prepareConsensusFinalization,
+  projectConsensusFinalResult,
   refreshConsensusGap,
   refreshConsensusModel,
   refreshConsensusNextAction,
@@ -27,6 +29,7 @@ import {
   synthesizeConsensusModel,
   type ConsensusEscalationDecision,
   type ConsensusFindingsVector,
+  type ConsensusFinalizationState,
   type ConsensusInvocation,
   type ConsensusReviewerTask,
   type ConsensusRoundState,
@@ -127,11 +130,31 @@ export const CONSENSUS_REDUCER_IMPLEMENTATION_DESCRIPTOR = descriptor({
   outputContractRef: CONSENSUS_IDS.stateContractRef,
 });
 
+export const CONSENSUS_FINALIZATION_PREPARATION_IMPLEMENTATION_DESCRIPTOR =
+  descriptor({
+    implementationRef:
+      CONSENSUS_IDS.finalizationPreparationImplementationRef,
+    namedSymbol: "realizeConsensusFinalizationPreparation",
+    computeRegime: "F_D",
+    inputContractRef: CONSENSUS_IDS.stateContractRef,
+    outputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
+  });
+
+export const CONSENSUS_FINALIZATION_EVALUATOR_IMPLEMENTATION_DESCRIPTOR =
+  descriptor({
+    implementationRef:
+      CONSENSUS_IDS.finalizationEvaluatorImplementationRef,
+    namedSymbol: "realizeConsensusFinalizationEvaluation",
+    computeRegime: "F_D",
+    inputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
+    outputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
+  });
+
 export const CONSENSUS_PROJECTOR_IMPLEMENTATION_DESCRIPTOR = descriptor({
   implementationRef: CONSENSUS_IDS.projectorImplementationRef,
   namedSymbol: "realizeConsensusResultProjection",
   computeRegime: "F_D",
-  inputContractRef: CONSENSUS_IDS.stateContractRef,
+  inputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
   outputContractRef: CONSENSUS_IDS.resultContractRef,
 });
 
@@ -141,7 +164,7 @@ export const CONSENSUS_ESCALATION_FINALIZER_IMPLEMENTATION_DESCRIPTOR =
     namedSymbol: "realizeConsensusEscalationFinalization",
     computeRegime: "F_D",
     inputContractRef: CONSENSUS_IDS.escalationDecisionContractRef,
-    outputContractRef: CONSENSUS_IDS.resultContractRef,
+    outputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
   });
 
 export const CONSENSUS_SYNTHESIZE_MODEL_IMPLEMENTATION_DESCRIPTOR =
@@ -407,6 +430,12 @@ export async function realizeConsensusReviewer(
     const body = {
       kind: "review_findings" as const,
       schemaVersion: "5.0.0" as const,
+      reviewerTaskRef: input.taskRef,
+      reviewerTaskDigest: input.taskDigest,
+      panelRef: input.panel.panelRef,
+      panelPosition: input.panelPosition,
+      cCallRef: effects.occurrence.cCallRef,
+      cCallAttempt: effects.occurrence.attempt,
       profileRef: input.profile.profileRef,
       configurationDigest: input.profile.configurationDigest,
       invocationRef: input.invocationRef,
@@ -437,6 +466,12 @@ export async function realizeConsensusReviewer(
   const body = {
     kind: "review_findings" as const,
     schemaVersion: "5.0.0" as const,
+    reviewerTaskRef: input.taskRef,
+    reviewerTaskDigest: input.taskDigest,
+    panelRef: input.panel.panelRef,
+    panelPosition: input.panelPosition,
+    cCallRef: effects.occurrence.cCallRef,
+    cCallAttempt: effects.occurrence.attempt,
     profileRef: input.profile.profileRef,
     configurationDigest: input.profile.configurationDigest,
     invocationRef: input.invocationRef,
@@ -612,15 +647,46 @@ export function realizeConsensusReduction(
   );
 }
 
-export function realizeConsensusResultProjection(
+export function realizeConsensusFinalizationPreparation(
   input: Readonly<ConsensusRoundState>,
 ) {
   if (!isConsensusRoundState(input)) {
     throw new TypeError(
-      "Consensus result projector requires one exact terminal state",
+      "Consensus finalization preparation requires one exact terminal round state",
     );
   }
-  const result = projectConsensusResult(input);
+  const result = prepareConsensusFinalization(input);
+  return deterministicSuccess(
+    CONSENSUS_IDS.finalizationPreparationImplementationRef,
+    input as unknown as Readonly<Record<string, JsonValue>>,
+    result as unknown as Readonly<Record<string, JsonValue>>,
+  );
+}
+
+export function realizeConsensusFinalizationEvaluation(
+  input: Readonly<ConsensusFinalizationState>,
+) {
+  if (!isConsensusFinalizationState(input)) {
+    throw new TypeError(
+      "Consensus finalization evaluation requires one exact finalization state",
+    );
+  }
+  return deterministicSuccess(
+    CONSENSUS_IDS.finalizationEvaluatorImplementationRef,
+    input as unknown as Readonly<Record<string, JsonValue>>,
+    input as unknown as Readonly<Record<string, JsonValue>>,
+  );
+}
+
+export function realizeConsensusResultProjection(
+  input: Readonly<ConsensusFinalizationState>,
+) {
+  if (!isConsensusFinalizationState(input)) {
+    throw new TypeError(
+      "Consensus result projector requires one exact terminal finalization state",
+    );
+  }
+  const result = projectConsensusFinalResult(input);
   return deterministicSuccess(
     CONSENSUS_IDS.projectorImplementationRef,
     input as unknown as Readonly<Record<string, JsonValue>>,

@@ -363,8 +363,10 @@ export function deriveDirectCContinuationStepFromGraph(
     nodeRef: targetNodeRef,
     termPath: continuation.targetPath,
     taskOrdinal: continuation.targetTaskOrdinal,
-    attempt: retryPath.at(-1) ??
-      (source.retryPath.length === 0 ? source.attempt : 1),
+    attempt: continuation.relation === "graph_edge"
+      ? 1
+      : retryPath.at(-1) ??
+        (source.retryPath.length === 0 ? source.attempt : 1),
     retryPath,
   });
   return deepFreeze({

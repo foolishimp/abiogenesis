@@ -1106,6 +1106,206 @@ export function hasOpenedCCall(store: AbgEventStore, cCall: CCall): boolean {
   );
 }
 
+export function rehydrateWorkflowCCall(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  implementationSet: AdmittedImplementationSet,
+  scope: OpenedTraversalScope,
+  graphFunction: Readonly<GraphFunction>,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  cCallValue: Readonly<Record<string, JsonValue>>,
+): CCall | null {
+  const declaredTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  const declaredBatchRef = resolveEnclosingCBatchRef(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  if (
+    !hasAdmittedExecutionBasis(store, executionBasis) ||
+    !hasAdmittedImplementationSet(store, implementationSet) ||
+    !hasOpenedTraversalScope(store, scope) ||
+    !hasAdmittedTraversalCursor(store, sourceCursor) ||
+    scope.executionBasisRef !== executionBasis.basisRef ||
+    sourceCursor.executionBasisRef !== executionBasis.basisRef ||
+    sourceCursor.traversalScopeRef !== scope.scopeRef ||
+    sourceCursor.graphRef !== graph.materializationRef ||
+    graphFunction.name !== graph.graphFunctionRef ||
+    sha256Canonical(graphFunction as unknown as JsonValue) !==
+      graph.graphFunctionDigest ||
+    implementationSet.implementationSetRef !==
+      executionBasis.rootImplementationSetRef ||
+    implementationSet.implementationSetDigest !==
+      executionBasis.rootImplementationSetDigest ||
+    declaredTerm.kind === "c_source_path_refusal" ||
+    declaredTerm.kind !== "c_workflow" ||
+    (declaredBatchRef !== null && typeof declaredBatchRef !== "string")
+  ) {
+    return null;
+  }
+  const failureContractRefs = new Set(
+    implementationSet.rows
+      .filter((row) => row.graphFunctionRef === declaredTerm.graphFunctionRef)
+      .map((row) => row.failureContractRef),
+  );
+  const failureContractRef = [...failureContractRefs][0];
+  const judgmentPredicateRef =
+    graphFunction.declarations["abg.judgment_predicate"];
+  if (
+    failureContractRefs.size !== 1 ||
+    failureContractRef === undefined ||
+    judgmentPredicateRef === undefined
+  ) {
+    return null;
+  }
+  const programLocusDigest = sha256Canonical({
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    nodeRef: sourceCursor.currentNodeRef,
+    termPath: sourceCursor.termPath,
+    childGraphFunctionRef: declaredTerm.graphFunctionRef,
+  } as unknown as JsonValue);
+  const programLocusRef =
+    `workflow-locus://abiogenesis/${programLocusDigest.slice("sha256:".length)}`;
+  const identity = {
+    basisId: executionBasis.basisRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    vectorIndex: 0,
+    stageRole: "workflow",
+    taskOrdinal: sourceCursor.taskOrdinal,
+    attempt: sourceCursor.attempt,
+    programLocusRef,
+    retryPath: sourceCursor.retryPath,
+    childGraphFunctionRef: declaredTerm.graphFunctionRef,
+    failureContractRef,
+  };
+  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallRef = `c-call:${cCallDigest}`;
+  const events = eventsFor(store, cCallRef);
+  const openedEvent = events[0];
+  const fibreEvent = events[1];
+  if (
+    events.length !== 2 ||
+    openedEvent?.kind !== "c_call_opened" ||
+    fibreEvent?.kind !== "c_call_fibre_selected"
+  ) {
+    return null;
+  }
+  const expected = deepFreeze({
+    kind: "c_call" as const,
+    schemaVersion: "5.0.0" as const,
+    cCallRef,
+    cCallDigest,
+    callClass: "workflow" as const,
+    basisId: executionBasis.basisRef,
+    runId: scope.runId,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    edgeRef: executionBasis.entryRef,
+    vectorIndex: 0,
+    stageRole: "workflow",
+    batchRef: declaredBatchRef,
+    taskOrdinal: sourceCursor.taskOrdinal,
+    attempt: sourceCursor.attempt,
+    programLocusRef,
+    retryPath: sourceCursor.retryPath,
+    regime: "F_D" as const,
+    armId: "arm://abiogenesis/workflow.C@5",
+    compositionRef: null,
+    implementationSetRef: executionBasis.rootImplementationSetRef,
+    implementationRequirementKey: null,
+    implementationBindingRef: null,
+    implementationRef: null,
+    childGraphFunctionRef: declaredTerm.graphFunctionRef,
+    inputContractRef: declaredTerm.inputCarrierRef,
+    outputContractRef: declaredTerm.outputCarrierRef,
+    failureContractRef,
+    refusalContractRef: executionBasis.refusalContractRef,
+    refusalValueKind: executionBasis.refusalValueKind,
+    evidenceContractRef: executionBasis.evidenceContractRef,
+    judgmentContractRef: executionBasis.judgmentContractRef,
+    rejectionContractRef: executionBasis.rejectionContractRef,
+    transitionContractRef: executionBasis.transitionContractRef,
+    closureContractRef: executionBasis.closureContractRef,
+    closureContractDigest: executionBasis.closureContractDigest,
+    judgmentPredicateRef,
+    terminalPredicateRef: executionBasis.terminalPredicateRef,
+    replayProjectionRef: executionBasis.replayProjectionRef,
+    terminalKind: executionBasis.terminalKind,
+    openedEventRef: openedEvent.eventId,
+    fibreSelectedEventRef: fibreEvent.eventId,
+  }) as CCall;
+  const locusBody = {
+    cCallRef,
+    cCallDigest,
+    callClass: "workflow" as const,
+    basisId: executionBasis.basisRef,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    edgeRef: executionBasis.entryRef,
+    vectorIndex: 0,
+    stageRole: "workflow",
+    batchRef: declaredBatchRef,
+    taskOrdinal: sourceCursor.taskOrdinal,
+    attempt: sourceCursor.attempt,
+    programLocusRef,
+    retryPath: sourceCursor.retryPath,
+    childGraphFunctionRef: declaredTerm.graphFunctionRef,
+    failureContractRef,
+  };
+  const fibreBody = {
+    cCallRef,
+    callClass: "workflow" as const,
+    regime: "F_D" as const,
+    armId: "arm://abiogenesis/workflow.C@5",
+    compositionRef: null,
+    implementationSetRef: executionBasis.rootImplementationSetRef,
+    implementationRequirementKey: null,
+    implementationBindingRef: null,
+    implementationRef: null,
+    interactionSetRef: executionBasis.rootInteractionSetRef,
+    interactionRequirementKey: null,
+    interactionKind: null,
+    actorCapabilityRef: null,
+    responseContractRef: null,
+    continuationContractRef: null,
+    childGraphFunctionRef: declaredTerm.graphFunctionRef,
+  };
+  const cursorEventRef = traversalCursorAdmissionEventRef(store, sourceCursor);
+  if (
+    cursorEventRef === null ||
+    sha256Canonical(cCallValue as unknown as JsonValue) !==
+      sha256Canonical(expected as unknown as JsonValue) ||
+    openedEvent.aggregateId !== cCallRef ||
+    openedEvent.parentAggregateId !== scope.frameId ||
+    openedEvent.basisId !== executionBasis.basisRef ||
+    openedEvent.runId !== scope.runId ||
+    openedEvent.graphCallId !== scope.graphCallId ||
+    openedEvent.frameId !== scope.frameId ||
+    !openedEvent.causationEventRefs.includes(cursorEventRef) ||
+    !exactEventBody(openedEvent, "c_call_opened", locusBody) ||
+    fibreEvent.aggregateId !== cCallRef ||
+    fibreEvent.parentAggregateId !== scope.frameId ||
+    fibreEvent.basisId !== executionBasis.basisRef ||
+    fibreEvent.runId !== scope.runId ||
+    fibreEvent.graphCallId !== scope.graphCallId ||
+    fibreEvent.frameId !== scope.frameId ||
+    !fibreEvent.causationEventRefs.includes(openedEvent.eventId) ||
+    !exactEventBody(fibreEvent, "c_call_fibre_selected", fibreBody)
+  ) {
+    return null;
+  }
+  cCalls.add(expected);
+  return hasOpenedCCall(store, expected) ? expected : null;
+}
+
 function exactEventBody(
   event: ReturnType<AbgEventStore["readAll"]>[number] | undefined,
   expectedKind: string,
@@ -1115,6 +1315,121 @@ function exactEventBody(
     isJsonRecord(event.payload) &&
     sha256Canonical(event.payload) ===
       sha256Canonical(expected as unknown as JsonValue);
+}
+
+export interface RehydratedAdmittedCCallState {
+  readonly cCall: CCall;
+  readonly result: AdmittedCCallResult;
+  readonly judgment: AdmittedCCallJudgment;
+}
+
+export function rehydrateAdmittedCCallState(
+  store: AbgEventStore,
+  cCallValue: Readonly<Record<string, JsonValue>>,
+  resultValue: Readonly<Record<string, JsonValue>>,
+  judgmentValue: Readonly<Record<string, JsonValue>>,
+): RehydratedAdmittedCCallState | null {
+  const cCall = deepFreeze(cCallValue) as unknown as CCall;
+  const result = deepFreeze(resultValue) as unknown as AdmittedCCallResult;
+  const judgment = deepFreeze(judgmentValue) as unknown as AdmittedCCallJudgment;
+  if (
+    cCall.kind !== "c_call" ||
+    cCall.schemaVersion !== "5.0.0" ||
+    cCall.callClass !== "leaf" ||
+    result.kind !== "admitted_c_call_result" ||
+    result.schemaVersion !== "5.0.0" ||
+    result.disposition !== "admitted" ||
+    judgment.kind !== "admitted_c_call_judgment" ||
+    judgment.schemaVersion !== "5.0.0" ||
+    judgment.disposition !== "admitted"
+  ) {
+    return null;
+  }
+  const identity = {
+    basisId: cCall.basisId,
+    graphCallId: cCall.graphCallId,
+    frameId: cCall.frameId,
+    vectorIndex: cCall.vectorIndex,
+    stageRole: cCall.stageRole,
+    taskOrdinal: cCall.taskOrdinal,
+    attempt: cCall.attempt,
+    programLocusRef: cCall.programLocusRef,
+    retryPath: cCall.retryPath,
+  };
+  const {
+    kind: _resultKind,
+    schemaVersion: _resultSchemaVersion,
+    disposition: _resultDisposition,
+    resultRef: _resultRef,
+    resultDigest: _resultDigest,
+    admissionEventRef: _resultEventRef,
+    ...resultBody
+  } = result;
+  const {
+    kind: _judgmentKind,
+    schemaVersion: _judgmentSchemaVersion,
+    disposition: _judgmentDisposition,
+    judgmentRef: _judgmentRef,
+    judgmentDigest: _judgmentDigest,
+    admissionEventRef: _judgmentEventRef,
+    ...judgmentBody
+  } = judgment;
+  const cCallEvents = eventsFor(store, cCall.cCallRef);
+  const resultEvent = store.readAll().find(
+    (event) => event.eventId === result.admissionEventRef,
+  );
+  const judgmentEvent = store.readAll().find(
+    (event) => event.eventId === judgment.admissionEventRef,
+  );
+  if (
+    cCall.cCallDigest !== sha256Canonical(identity as unknown as JsonValue) ||
+    cCall.cCallRef !== `c-call:${cCall.cCallDigest}` ||
+    cCallEvents[0]?.eventId !== cCall.openedEventRef ||
+    cCallEvents[1]?.eventId !== cCall.fibreSelectedEventRef ||
+    result.resultDigest !== sha256Canonical(resultBody as unknown as JsonValue) ||
+    result.resultRef !==
+      `result://abiogenesis/${result.resultDigest.slice("sha256:".length)}` ||
+    result.cCallRef !== cCall.cCallRef ||
+    result.valueDigest !== sha256Canonical(result.value) ||
+    judgment.judgmentDigest !==
+      sha256Canonical(judgmentBody as unknown as JsonValue) ||
+    judgment.judgmentRef !==
+      `judgment://abiogenesis/${judgment.judgmentDigest.slice("sha256:".length)}` ||
+    judgment.cCallRef !== cCall.cCallRef ||
+    judgment.resultRef !== result.resultRef ||
+    judgment.resultDigest !== result.resultDigest ||
+    !exactEventBody(
+      resultEvent,
+      "c_call_result_admitted",
+      {
+        resultRef: result.resultRef,
+        resultDigest: result.resultDigest,
+        ...resultBody,
+      },
+    ) ||
+    !exactEventBody(
+      judgmentEvent,
+      "c_call_judged",
+      {
+        judgmentRef: judgment.judgmentRef,
+        judgmentDigest: judgment.judgmentDigest,
+        ...judgmentBody,
+      },
+    )
+  ) {
+    return null;
+  }
+  cCalls.add(cCall);
+  admittedResults.add(result);
+  admittedJudgments.add(judgment);
+  if (
+    !hasOpenedCCall(store, cCall) ||
+    !isAdmittedCCallResult(result) ||
+    !isAdmittedCCallJudgment(judgment)
+  ) {
+    return null;
+  }
+  return deepFreeze({ cCall, result, judgment });
 }
 
 export function rehydratePendingInteraction(

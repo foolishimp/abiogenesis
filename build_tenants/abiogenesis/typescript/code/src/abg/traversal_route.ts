@@ -2940,8 +2940,10 @@ function isDeclaredJudgedTarget(
     target.taskOrdinal === continuation.targetTaskOrdinal &&
     target.attempt ===
       (
-        retryPath.at(-1) ??
-        (source.retryPath.length === 0 ? source.attempt : 1)
+        continuation.relation === "graph_edge"
+          ? 1
+          : retryPath.at(-1) ??
+            (source.retryPath.length === 0 ? source.attempt : 1)
       ) &&
     sameValues(target.retryPath.map(String), retryPath.map(String));
 }

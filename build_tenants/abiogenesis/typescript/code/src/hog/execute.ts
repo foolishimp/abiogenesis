@@ -23,6 +23,9 @@ import {
   deriveSubTraversalEvidence,
   openCCall,
   openInteractionCCall,
+  isAdmittedCCallJudgment,
+  isAdmittedCCallResult,
+  isCCall,
   projectRetryEligibility,
   replay,
   traversalCursorAdmissionEventRef,
@@ -174,6 +177,9 @@ export interface ExecutableTraversalCompletion {
   readonly continuationRef: string | null;
   readonly heldCursor: TraversalCursor | null;
   readonly heldInteraction: HeldInteractionTraversal | null;
+  readonly heldGraph: Readonly<GtlGraph> | null;
+  readonly heldClosureContract: Readonly<ClosureContract> | null;
+  readonly parentSuspensions: readonly HeldParentTraversalSuspension[];
 }
 
 export interface HeldInteractionTraversal {
@@ -182,6 +188,53 @@ export interface HeldInteractionTraversal {
   readonly judgment: AdmittedCCallJudgment;
   readonly cursor: TraversalCursor;
 }
+
+export interface HeldWorkflowSuspension {
+  readonly kind: "held_workflow_suspension";
+  readonly schemaVersion: "5.0.0";
+  readonly parentExecutionBasisRef: string;
+  readonly parentTraversalScope: OpenedTraversalScope;
+  readonly parentGraph: Readonly<GtlGraph>;
+  readonly parentClosureContract: Readonly<ClosureContract>;
+  readonly parentCCall: CCall;
+  readonly sourceCursor: TraversalCursor;
+  readonly parentGraphInput: Readonly<Record<string, JsonValue>>;
+  readonly parentGraphInputDigest: `sha256:${string}`;
+  readonly parentInput: Readonly<Record<string, JsonValue>>;
+  readonly parentInputDigest: `sha256:${string}`;
+  readonly childExecutionBasisRef: string;
+  readonly childTraversalScopeRef: string;
+  readonly childInput: Readonly<Record<string, JsonValue>>;
+  readonly childInputDigest: `sha256:${string}`;
+  readonly terminalMode: "close_run" | "return_to_parent";
+}
+
+export interface HeldRecursionSuspension {
+  readonly kind: "held_recursion_suspension";
+  readonly schemaVersion: "5.0.0";
+  readonly parentExecutionBasisRef: string;
+  readonly parentTraversalScope: OpenedTraversalScope;
+  readonly parentGraph: Readonly<GtlGraph>;
+  readonly parentClosureContract: Readonly<ClosureContract>;
+  readonly parentGraphInput: Readonly<Record<string, JsonValue>>;
+  readonly parentGraphInputDigest: `sha256:${string}`;
+  readonly application: Readonly<RecurseApplication>;
+  readonly evaluatorCCall: CCall;
+  readonly evaluatorResult: AdmittedCCallResult;
+  readonly evaluatorJudgment: AdmittedCCallJudgment;
+  readonly sourceCursor: TraversalCursor;
+  readonly evaluatorInput: Readonly<Record<string, JsonValue>>;
+  readonly evaluatorInputDigest: `sha256:${string}`;
+  readonly childExecutionBasisRef: string;
+  readonly childTraversalScopeRef: string;
+  readonly childInput: Readonly<Record<string, JsonValue>>;
+  readonly childInputDigest: `sha256:${string}`;
+  readonly terminalMode: "close_run" | "return_to_parent";
+}
+
+export type HeldParentTraversalSuspension =
+  | HeldRecursionSuspension
+  | HeldWorkflowSuspension;
 
 export interface RetainedRetryInput extends RetryInputBasis {
   readonly value: Readonly<Record<string, JsonValue>>;
@@ -199,6 +252,7 @@ export interface CompleteInteractionTraversalInput {
   readonly productBasis: ContinuationProductBasis;
   readonly input: Readonly<Record<string, JsonValue>>;
   readonly inputDigest: `sha256:${string}`;
+  readonly closureContract: Readonly<ClosureContract>;
   readonly clock: ExecutableTraversalClock;
 }
 
@@ -332,6 +386,17 @@ interface DeferredApplicationState {
   readonly continuationStep: TraversalStep;
 }
 
+export interface RestoreDeferredRecursionInput {
+  readonly traversalInput: CompleteExecutableTraversalInput<
+    Readonly<Record<string, JsonValue>>,
+    Readonly<Record<string, JsonValue>>
+  >;
+  readonly application: Readonly<RecurseApplication>;
+  readonly cCall: CCall;
+  readonly result: AdmittedCCallResult;
+  readonly judgment: AdmittedCCallJudgment;
+}
+
 const deferredApplicationStates = new WeakMap<
   object,
   DeferredApplicationState
@@ -382,6 +447,9 @@ function completion(
     readonly continuationRef?: string;
     readonly heldCursor?: TraversalCursor;
     readonly heldInteraction?: HeldInteractionTraversal;
+    readonly heldGraph?: Readonly<GtlGraph>;
+    readonly heldClosureContract?: Readonly<ClosureContract>;
+    readonly parentSuspensions?: readonly HeldParentTraversalSuspension[];
   } = {},
 ): ExecutableTraversalCompletion {
   return deepFreeze({
@@ -401,7 +469,163 @@ function completion(
     continuationRef: values.continuationRef ?? null,
     heldCursor: values.heldCursor ?? null,
     heldInteraction: values.heldInteraction ?? null,
+    heldGraph: values.heldGraph ?? null,
+    heldClosureContract: values.heldClosureContract ?? null,
+    parentSuspensions: values.parentSuspensions ?? [],
   }) as ExecutableTraversalCompletion;
+}
+
+export function suspendHeldWorkflowTraversal(input: Readonly<{
+  parentExecutionBasis: ExecutionBasis;
+  parentTraversalScope: OpenedTraversalScope;
+  parentGraph: Readonly<GtlGraph>;
+  parentClosureContract: Readonly<ClosureContract>;
+  parentCCall: CCall;
+  sourceCursor: TraversalCursor;
+  parentGraphInput: Readonly<Record<string, JsonValue>>;
+  parentGraphInputDigest: `sha256:${string}`;
+  parentInput: Readonly<Record<string, JsonValue>>;
+  parentInputDigest: `sha256:${string}`;
+  childExecutionBasis: ExecutionBasis;
+  childTraversalScope: OpenedTraversalScope;
+  childInput: Readonly<Record<string, JsonValue>>;
+  childInputDigest: `sha256:${string}`;
+  childCompletion: ExecutableTraversalCompletion;
+  terminalMode: "close_run" | "return_to_parent";
+}>): ExecutableTraversalCompletion {
+  if (
+    input.childCompletion.disposition !== "held" ||
+    input.childCompletion.continuationRef === null ||
+    input.childCompletion.heldInteraction === null ||
+    input.childCompletion.heldGraph === null ||
+    input.childCompletion.heldClosureContract === null ||
+    input.parentTraversalScope.executionBasisRef !==
+      input.parentExecutionBasis.basisRef ||
+    input.childExecutionBasis.parentExecutionBasisRef !==
+      input.parentExecutionBasis.basisRef ||
+    input.childExecutionBasis.parentTraversalScopeRef !==
+      input.parentTraversalScope.scopeRef ||
+    input.childTraversalScope.executionBasisRef !==
+      input.childExecutionBasis.basisRef ||
+    sha256Canonical(input.childInput as unknown as JsonValue) !==
+      input.childInputDigest ||
+    input.parentCCall.callClass !== "workflow" ||
+    input.parentCCall.basisId !== input.parentExecutionBasis.basisRef ||
+    input.sourceCursor.executionBasisRef !==
+      input.parentExecutionBasis.basisRef ||
+    input.sourceCursor.traversalScopeRef !== input.parentTraversalScope.scopeRef ||
+    sha256Canonical(input.parentGraphInput as unknown as JsonValue) !==
+      input.parentGraphInputDigest ||
+    input.parentGraph.admittedInputDigest !==
+      input.parentGraphInputDigest ||
+    sha256Canonical(input.parentInput as unknown as JsonValue) !==
+      input.parentInputDigest
+  ) {
+    throw new TypeError(
+      "held workflow suspension requires one exact admitted parent and child lineage",
+    );
+  }
+  const suspension = deepFreeze({
+    kind: "held_workflow_suspension" as const,
+    schemaVersion: "5.0.0" as const,
+    parentExecutionBasisRef: input.parentExecutionBasis.basisRef,
+    parentTraversalScope: input.parentTraversalScope,
+    parentGraph: input.parentGraph,
+    parentClosureContract: input.parentClosureContract,
+    parentCCall: input.parentCCall,
+    sourceCursor: input.sourceCursor,
+    parentGraphInput: input.parentGraphInput,
+    parentGraphInputDigest: input.parentGraphInputDigest,
+    parentInput: input.parentInput,
+    parentInputDigest: input.parentInputDigest,
+    childExecutionBasisRef: input.childExecutionBasis.basisRef,
+    childTraversalScopeRef: input.childTraversalScope.scopeRef,
+    childInput: input.childInput,
+    childInputDigest: input.childInputDigest,
+    terminalMode: input.terminalMode,
+  });
+  return deepFreeze({
+    ...input.childCompletion,
+    parentSuspensions: [
+      ...input.childCompletion.parentSuspensions,
+      suspension,
+    ],
+  });
+}
+
+export function suspendHeldRecursionTraversal(input: Readonly<{
+  parentGraphInput: Readonly<Record<string, JsonValue>>;
+  parentGraphInputDigest: `sha256:${string}`;
+  application: Readonly<RecurseApplication>;
+  deferredCompletion: ExecutableTraversalCompletion;
+  childExecutionBasis: ExecutionBasis;
+  childTraversalScope: OpenedTraversalScope;
+  childInput: Readonly<Record<string, JsonValue>>;
+  childInputDigest: `sha256:${string}`;
+  childCompletion: ExecutableTraversalCompletion;
+  terminalMode: "close_run" | "return_to_parent";
+}>): ExecutableTraversalCompletion {
+  const state = requireDeferredApplicationState(input.deferredCompletion);
+  if (
+    input.childCompletion.disposition !== "held" ||
+    input.childCompletion.continuationRef === null ||
+    input.childCompletion.heldInteraction === null ||
+    input.childCompletion.heldGraph === null ||
+    input.childCompletion.heldClosureContract === null ||
+    !exactDeferredApplication(state, input.application) ||
+    recursionTerminationDecision(input.application, state.result.value) !==
+      false ||
+    input.childExecutionBasis.parentExecutionBasisRef !==
+      state.input.executionBasis.basisRef ||
+    input.childExecutionBasis.parentTraversalScopeRef !==
+      state.input.openedTraversalScope.scopeRef ||
+    input.childTraversalScope.executionBasisRef !==
+      input.childExecutionBasis.basisRef ||
+    state.input.applicationCompletionMode !== input.terminalMode ||
+    sha256Canonical(input.parentGraphInput as unknown as JsonValue) !==
+      input.parentGraphInputDigest ||
+    state.input.graph.admittedInputDigest !==
+      input.parentGraphInputDigest ||
+    sha256Canonical(input.childInput as unknown as JsonValue) !==
+      input.childInputDigest ||
+    !isRecord(state.input.input) ||
+    sha256Canonical(state.input.input as unknown as JsonValue) !==
+      state.input.inputDigest
+  ) {
+    throw new TypeError(
+      "held recursion suspension requires one exact deferred application lineage",
+    );
+  }
+  const suspension = deepFreeze({
+    kind: "held_recursion_suspension" as const,
+    schemaVersion: "5.0.0" as const,
+    parentExecutionBasisRef: state.input.executionBasis.basisRef,
+    parentTraversalScope: state.input.openedTraversalScope,
+    parentGraph: state.input.graph,
+    parentClosureContract: state.input.closureContract,
+    parentGraphInput: input.parentGraphInput,
+    parentGraphInputDigest: input.parentGraphInputDigest,
+    application: input.application,
+    evaluatorCCall: state.cCall,
+    evaluatorResult: state.result,
+    evaluatorJudgment: state.judgment,
+    sourceCursor: state.input.traversalStop.cursor,
+    evaluatorInput: state.input.input,
+    evaluatorInputDigest: state.input.inputDigest,
+    childExecutionBasisRef: input.childExecutionBasis.basisRef,
+    childTraversalScopeRef: input.childTraversalScope.scopeRef,
+    childInput: input.childInput,
+    childInputDigest: input.childInputDigest,
+    terminalMode: input.terminalMode,
+  }) as HeldRecursionSuspension;
+  deferredApplicationStates.delete(input.deferredCompletion);
+  return deepFreeze({
+    ...input.childCompletion,
+    parentSuspensions: [
+      ...input.childCompletion.parentSuspensions,
+      suspension,
+    ],
+  });
 }
 
 export function completeInteractionTraversal(
@@ -504,6 +728,8 @@ export function completeInteractionTraversal(
       resultValue: pending.result.value,
       continuationRef: continuation.continuationRef,
       heldCursor: input.traversalStop.cursor,
+      heldGraph: input.graph,
+      heldClosureContract: input.closureContract,
       heldInteraction: deepFreeze({
         cCall: opened.cCall,
         result: pending.result,
@@ -1134,6 +1360,15 @@ export async function completeExecutableTraversal<
           cCall.outputContractRef
       ? null
       : {
+          occurrence: {
+            cCallRef: cCall.cCallRef,
+            runId: cCall.runId,
+            graphCallId: cCall.graphCallId,
+            frameId: cCall.frameId,
+            programLocusRef: cCall.programLocusRef,
+            taskOrdinal: cCall.taskOrdinal,
+            attempt: cCall.attempt,
+          },
           invokeWorker: async (request) => {
             if (dispatchCount !== 0) {
               throw new TypeError("one F_P C-call may dispatch exactly one actor invocation");
@@ -1236,6 +1471,8 @@ export async function completeExecutableTraversal<
           cCall.outputContractRef,
           value as unknown as Readonly<Record<string, JsonValue>>,
           evidence.map((row) => deepFreeze({
+            cCallRef: cCall.cCallRef,
+            cCallAttempt: cCall.attempt,
             evidenceRef: row.evidenceRef,
             evidenceDigest: row.evidenceDigest,
             evidenceClass: row.evidenceClass,
@@ -1605,29 +1842,6 @@ export async function completeExecutableTraversal<
     });
   }
   if (input.terminalMode === "return_to_application") {
-    if (continuationStep.directStep.stepKind !== "complete_term") {
-      const diagnosticRef =
-        "diagnostic://abiogenesis/hog/application-locus-not-terminal@5";
-      admitRuntimeFailure(
-        input.store,
-        input.executionBasis,
-        input.openedTraversalScope,
-        "route",
-        continuationStep as unknown as JsonValue,
-        diagnosticRef,
-        {
-          ...basis(input.clock, "application-defer-refusal"),
-          causationEventRefs: [judgment.admissionEventRef],
-        },
-      );
-      return completion("failed", replayRun(input), {
-        cCallRef: cCall.cCallRef,
-        resultRef: result.resultRef,
-        judgmentRef: judgment.judgmentRef,
-        resultValue: result.value,
-        diagnosticRef,
-      });
-    }
     const ready = completion("application_ready", replayRun(input), {
       cCallRef: cCall.cCallRef,
       resultRef: result.resultRef,
@@ -1855,6 +2069,61 @@ function exactDeferredApplication(
     state.cCall.compositionRef === application.applicationRef;
 }
 
+export function restoreDeferredRecursion(
+  input: RestoreDeferredRecursionInput,
+): ExecutableTraversalCompletion | null {
+  const traversal = input.traversalInput;
+  const continuationStep = deriveCompletedTraversalStep(
+    traversal.graph,
+    traversal.traversalStop.cursor,
+    {
+      inputRef: input.result.resultRef,
+      inputDigest: input.result.valueDigest,
+    },
+  );
+  if (
+    !isCCall(input.cCall) ||
+    !isAdmittedCCallResult(input.result) ||
+    !isAdmittedCCallJudgment(input.judgment) ||
+    continuationStep.kind !== "traversal_step" ||
+    traversal.terminalMode !== "return_to_application" ||
+    recursionTerminationDecision(input.application, input.result.value) !==
+      false ||
+    traversal.graph.template.applications.find(
+      (candidate) =>
+        candidate.applicationRef === input.application.applicationRef,
+    ) !== input.application ||
+    input.cCall.compositionRef !== input.application.applicationRef ||
+    input.cCall.basisId !== traversal.executionBasis.basisRef ||
+    input.cCall.graphCallId !== traversal.openedTraversalScope.graphCallId ||
+    input.cCall.frameId !== traversal.openedTraversalScope.frameId ||
+    input.cCall.programLocusRef !==
+      traversal.traversalStop.programLocusRef ||
+    input.result.cCallRef !== input.cCall.cCallRef ||
+    input.judgment.cCallRef !== input.cCall.cCallRef ||
+    input.judgment.resultRef !== input.result.resultRef ||
+    sha256Canonical(traversal.input as unknown as JsonValue) !==
+      traversal.inputDigest ||
+    traversal.inputDigest !== traversal.traversalStop.cursor.inputDigest
+  ) {
+    return null;
+  }
+  const ready = completion("application_ready", replayRun(traversal), {
+    cCallRef: input.cCall.cCallRef,
+    resultRef: input.result.resultRef,
+    judgmentRef: input.judgment.judgmentRef,
+    resultValue: input.result.value,
+  });
+  deferredApplicationStates.set(ready, {
+    input: traversal,
+    cCall: input.cCall,
+    result: input.result,
+    judgment: input.judgment,
+    continuationStep,
+  });
+  return ready;
+}
+
 export function completeDeferredApplicationTerminal(
   input: CompleteDeferredRecursionInput,
 ): ExecutableTraversalCompletion {
@@ -1897,7 +2166,7 @@ export function completeDeferredApplicationTerminal(
     state.input.executionBasis,
     state.input.graph,
     state.input.traversalStop.cursor,
-    null,
+    state.continuationStep.targetCursor,
     judgedReplay,
     proposal,
     {
@@ -1913,7 +2182,7 @@ export function completeDeferredApplicationTerminal(
   );
   if (
     route.kind !== "admitted_traversal_route" ||
-    route.routeKind !== "terminal"
+    !["advance", "terminal"].includes(route.routeKind)
   ) {
     return failDeferredApplication(
       state,
@@ -1927,6 +2196,27 @@ export function completeDeferredApplicationTerminal(
     );
   }
   deferredApplicationStates.delete(input.completion);
+  if (route.routeKind === "advance") {
+    const nextCursor = applyRoute(state.continuationStep, route);
+    if (nextCursor.kind === "traversal_refusal") {
+      return completion("failed", replayRun(state.input), {
+        cCallRef: state.cCall.cCallRef,
+        resultRef: state.result.resultRef,
+        judgmentRef: state.judgment.judgmentRef,
+        diagnosticRef:
+          `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
+      });
+    }
+    return completion("advanced", replayRun(state.input), {
+      cCallRef: state.cCall.cCallRef,
+      resultRef: state.result.resultRef,
+      judgmentRef: state.judgment.judgmentRef,
+      nextCursor,
+      resultValue: state.result.value,
+      continuationKind: "advance",
+      nextInputContractRef: input.application.outputContractRef,
+    });
+  }
   const routeReplay = replayRun(state.input);
   if (state.input.applicationCompletionMode === "return_to_parent") {
     const childClosure = admitChildClosure(

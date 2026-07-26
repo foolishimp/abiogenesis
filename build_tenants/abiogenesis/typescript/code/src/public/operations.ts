@@ -7,10 +7,13 @@ import * as product from "../product/index.js";
 import * as validator from "../validator/index.js";
 import type {
   CatalogContribution,
+  ClosureContract,
+  GtlGraph,
   GtlProgram,
   ModulePublication,
 } from "../gtl/contracts.js";
 import { bindInstalledLeafInvocationPort } from "../hog/installed_product.js";
+import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
   PublicOutcome,
@@ -1724,6 +1727,8 @@ async function applyRunInvoke(
     if (
       traversalCompletion.continuationRef === null ||
       traversalCompletion.heldInteraction === null ||
+      traversalCompletion.heldGraph === null ||
+      traversalCompletion.heldClosureContract === null ||
       outcome.continuationRef !== traversalCompletion.continuationRef
     ) {
       throw new ApplicationRefusal(
@@ -1745,6 +1750,9 @@ async function applyRunInvoke(
       catalogView: viewState.view,
       program: programValue,
       graph,
+      heldGraph: traversalCompletion.heldGraph,
+      heldClosureContract: traversalCompletion.heldClosureContract,
+      parentSuspensions: traversalCompletion.parentSuspensions,
       invocationInput:
         admittedInput as unknown as Readonly<Record<string, product.JsonValue>>,
       closureContract,
@@ -1957,7 +1965,12 @@ function reopenContinuation(
     !abg.hasAdmittedWorkspaceBinding(reopened.store, state.workspaceBinding) ||
     !abg.hasAdmittedCatalog(reopened.store, state.catalog) ||
     !abg.hasAdmittedCatalogView(reopened.store, state.catalogView) ||
-    gtl.rehydrateMaterializedGtlGraph(state.graph) === null
+    gtl.rehydrateMaterializedGtlGraph(state.graph) === null ||
+    gtl.rehydrateMaterializedGtlGraph(state.heldGraph) === null ||
+    state.parentSuspensions.some(
+      (suspension) =>
+        gtl.rehydrateMaterializedGtlGraph(suspension.parentGraph) === null,
+    )
   ) {
     reopened.store.closeDurableLog();
     throw new ApplicationRefusal(
@@ -3080,8 +3093,8 @@ async function applyRunContinue(
         workspaceBinding: state.workspaceBinding,
         catalogView: state.catalogView,
         program: state.program,
-        graph: state.graph,
-        closureContract: state.closureContract,
+        graph: state.heldGraph,
+        closureContract: state.heldClosureContract,
       },
       operation,
     );
@@ -3106,7 +3119,7 @@ async function applyRunContinue(
       continuationRef,
       operation,
       rehydrated.executionBasis,
-      state.closureContract,
+      state.heldClosureContract,
     );
     const successorCursor = hog.deriveInteractionResumeCursor(
       heldCursor,
@@ -3126,7 +3139,7 @@ async function applyRunContinue(
       continuationRef,
       operation,
       rehydrated.executionBasis,
-      state.closureContract,
+      state.heldClosureContract,
       successorInput,
       successorCursor,
       state.reopenAuthority.eventLogDigest,
@@ -3144,114 +3157,119 @@ async function applyRunContinue(
     let completion = hog.completeInteractionResume({
       store: context.store,
       executionBasis: rehydrated.executionBasis,
-      graph: state.graph,
+      graph: state.heldGraph,
       heldInteraction: {
         ...rehydrated.heldInteraction,
         cursor: heldCursor,
       },
       successorCursor,
       resume,
-      closureContract: state.closureContract,
+      closureContract: state.heldClosureContract,
       clock: {
         eventTime: invocation.eventTime,
         correlationId: `${invocation.correlationId}/hog`,
       },
     });
-    if (completion.disposition === "advanced") {
-      if (
-        completion.nextCursor === null ||
-        completion.resultValue === null ||
-        typeof completion.resultValue !== "object" ||
-        Array.isArray(completion.resultValue)
-      ) {
-        throw new ApplicationRefusal(
-          "owner_refusal",
-          "advanced interaction resume lacks its GTL-derived cursor and admitted response",
-        );
-      }
-      const publication = state.catalog.modulePublication;
+    const publication = state.catalog.modulePublication;
+    const publicationAdmission = rawAdmission<ModulePublication>(
+      publication,
+      "module_publication",
+      "contract://abiogenesis/gtl/module-publication@5",
+    );
+    const programValidation = validator.validateProgram(
+      rawProgramInput(publicationAdmission, state.program),
+    );
+    const implementationSet = abg.rehydrateAdmittedImplementationSet(
+      context.store,
+      rehydrated.executionBasis.rootImplementationSetRef,
+    );
+    const interactionSet = abg.rehydrateAdmittedInteractionSet(
+      context.store,
+      rehydrated.executionBasis.rootInteractionSetRef,
+    );
+    if (
+      programValidation.kind !== "program_validation" ||
+      programValidation.validationRef !==
+        rehydrated.executionBasis.programValidationRef ||
+      implementationSet === null ||
+      interactionSet === null
+    ) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        "continued run could not reproduce its admitted Program and execution sets",
+      );
+    }
+    const productSemantics = await product.loadInstalledProductSemantics({
+      install: state.install,
+      publication,
+      verifyInstallAdmission: (install) =>
+        abg.hasAdmittedProductInstall(context.store, install),
+    });
+    const leafPort = await bindInstalledLeafInvocationPort({
+      store: context.store,
+      install: state.install,
+      implementationSet,
+      publication,
+      semanticsProjection:
+        product.projectInstalledLeafSemantics(productSemantics),
+    });
+    const childTraversalPreparationPort = bindChildTraversalPreparationPort({
+      store: context.store,
+      publication,
+      program: state.program,
+      programValidation,
+      rootImplementationSet: implementationSet,
+      rootInteractionSet: interactionSet,
+    });
+    const traversalInput = (
+      executionBasis: abg.ExecutionBasis,
+      openedTraversalScope: abg.OpenedTraversalScope,
+      graph: Readonly<GtlGraph>,
+      closureContract: Readonly<ClosureContract>,
+      graphInput: Readonly<Record<string, product.JsonValue>>,
+      terminalMode: "close_run" | "return_to_parent",
+      correlationId: string,
+    ): hog.ExecuteGraphTraversalInput => {
       const graphFunction = publication.graphFunctions.find(
-        (value) => value.name === state.graph.graphFunctionRef,
+        (value) => value.name === graph.graphFunctionRef,
       );
-      const publicationAdmission = rawAdmission<ModulePublication>(
-        publication,
-        "module_publication",
-        "contract://abiogenesis/gtl/module-publication@5",
-      );
-      const programValidation = validator.validateProgram(
-        rawProgramInput(publicationAdmission, state.program),
-      );
+      const graphValidation = graphFunction === undefined
+        ? null
+        : validator.validateGraph(
+            graph,
+            programValidation,
+            graphFunction,
+            {
+              invocationAdmissionRef: rootInvocation.invocationAdmissionRef,
+              admittedInputRef: graph.admittedInputRef,
+              admittedInputDigest: graph.admittedInputDigest,
+              admittedInput: graphInput,
+            },
+          );
       if (
         graphFunction === undefined ||
-        programValidation.kind !== "program_validation" ||
-        programValidation.validationRef !==
-          rehydrated.executionBasis.programValidationRef
-      ) {
-        throw new ApplicationRefusal(
-          "owner_refusal",
-          "continued run could not reproduce its admitted Program validation",
-        );
-      }
-      const graphValidation = validator.validateGraph(
-        state.graph,
-        programValidation,
-        graphFunction,
-        {
-          invocationAdmissionRef: rootInvocation.invocationAdmissionRef,
-          admittedInputRef: state.graph.admittedInputRef,
-          admittedInputDigest: state.graph.admittedInputDigest,
-          admittedInput: state.invocationInput,
-        },
-      );
-      const implementationSet = abg.rehydrateAdmittedImplementationSet(
-        context.store,
-        rehydrated.executionBasis.implementationSetRef,
-      );
-      const interactionSet = abg.rehydrateAdmittedInteractionSet(
-        context.store,
-        rehydrated.executionBasis.interactionSetRef,
-      );
-      if (
+        graphValidation === null ||
         graphValidation.kind !== "graph_validation" ||
-        graphValidation.validationRef !==
-          rehydrated.executionBasis.graphValidationRef ||
-        implementationSet === null ||
-        interactionSet === null
+        graphValidation.validationRef !== executionBasis.graphValidationRef ||
+        executionBasis.graphRef !== graph.materializationRef ||
+        executionBasis.graphDigest !== graph.materializationDigest ||
+        executionBasis.closureContractRef !==
+          closureContract.closureContractRef ||
+        sha256Canonical(graphInput as unknown as product.JsonValue) !==
+          graph.admittedInputDigest
       ) {
         throw new ApplicationRefusal(
           "owner_refusal",
-          "continued run could not reproduce its admitted Graph and execution sets",
+          "continued run could not reproduce an admitted Graph boundary",
         );
       }
-      const productSemantics = await product.loadInstalledProductSemantics({
-        install: state.install,
-        publication,
-        verifyInstallAdmission: (install) =>
-          abg.hasAdmittedProductInstall(context.store, install),
-      });
-      const leafPort = await bindInstalledLeafInvocationPort({
+      return {
         store: context.store,
-        install: state.install,
-        implementationSet,
-        publication,
-        semanticsProjection:
-          product.projectInstalledLeafSemantics(productSemantics),
-      });
-      const childTraversalPreparationPort = bindChildTraversalPreparationPort({
-        store: context.store,
-        publication,
-        program: state.program,
-        programValidation,
-        rootImplementationSet: implementationSet,
-        rootInteractionSet: interactionSet,
-      });
-      completion = await hog.executeGraphTraversal({
-        store: context.store,
-        executionBasis: rehydrated.executionBasis,
-        openedTraversalScope: rehydrated.openedTraversalScope,
+        executionBasis,
+        openedTraversalScope,
         program: state.program,
         graphFunction,
-        graph: state.graph,
+        graph,
         graphValidation,
         implementationSet,
         interactionSet,
@@ -3264,22 +3282,175 @@ async function applyRunContinue(
         },
         leafPort,
         childTraversalPreparationPort,
-        closureContract: state.closureContract,
+        closureContract,
         actorRuntimeBinding: {
           workspaceBinding: state.workspaceBinding,
         },
-        input: state.invocationInput,
-        inputDigest: state.graph.admittedInputDigest,
+        input: graphInput,
+        inputDigest: graph.admittedInputDigest,
         eventTime: invocation.eventTime,
-        correlationId: `${invocation.correlationId}/hog/resumed`,
+        correlationId,
+        ...(terminalMode === "return_to_parent"
+          ? { terminalMode }
+          : {}),
+      };
+    };
+    const immediateSuspension = state.parentSuspensions[0];
+    const heldGraphInput = immediateSuspension === undefined
+      ? state.invocationInput
+      : immediateSuspension.childInput;
+    if (completion.disposition === "advanced") {
+      if (
+        completion.nextCursor === null ||
+        completion.resultValue === null ||
+        typeof completion.resultValue !== "object" ||
+        Array.isArray(completion.resultValue)
+      ) {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "advanced interaction resume lacks its GTL-derived cursor and admitted response",
+        );
+      }
+      const resumedInput =
+        completion.resultValue as Readonly<Record<string, product.JsonValue>>;
+      const resumedInputDigest = sha256Canonical(
+        resumedInput as unknown as product.JsonValue,
+      );
+      if (completion.nextCursor.inputDigest !== resumedInputDigest) {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "advanced interaction response differs from its admitted cursor",
+        );
+      }
+      completion = await hog.executeGraphTraversal({
+        ...traversalInput(
+          rehydrated.executionBasis,
+          rehydrated.openedTraversalScope,
+          state.heldGraph,
+          state.heldClosureContract,
+          heldGraphInput,
+          state.parentSuspensions.length === 0
+            ? "close_run"
+            : "return_to_parent",
+          `${invocation.correlationId}/hog/resumed`,
+        ),
         resume: {
           cursor: completion.nextCursor,
-          input: completion.resultValue as Readonly<
-            Record<string, product.JsonValue>
-          >,
-          inputDigest: resume.successorInputDigest,
+          input: resumedInput,
+          inputDigest: resumedInputDigest,
         },
       });
+    }
+    let childExecutionBasis = rehydrated.executionBasis;
+    let childTraversalScope = rehydrated.openedTraversalScope;
+    for (
+      const [ordinal, suspension] of
+        state.parentSuspensions.entries()
+    ) {
+      const parentExecutionBasis = abg.rehydrateExecutionBasis(
+        context.store,
+        suspension.parentExecutionBasisRef,
+      );
+      const parentTraversalScope = abg.rehydrateOpenedTraversalScope(
+        context.store,
+        suspension.parentTraversalScope as unknown as Readonly<
+          Record<string, product.JsonValue>
+        >,
+      );
+      const sourceCursor = hog.rehydrateHeldInteractionCursor(
+        context.store,
+        suspension.sourceCursor,
+      );
+      const parentRuntime = parentExecutionBasis === null ||
+          parentTraversalScope === null
+        ? null
+        : traversalInput(
+            parentExecutionBasis,
+            parentTraversalScope,
+            suspension.parentGraph,
+            suspension.parentClosureContract,
+            suspension.parentGraphInput,
+            suspension.terminalMode,
+            `${invocation.correlationId}/hog/parent/${ordinal}`,
+          );
+      if (
+        parentRuntime === null ||
+        sourceCursor === null ||
+        suspension.childExecutionBasisRef !==
+          childExecutionBasis.basisRef ||
+        suspension.childTraversalScopeRef !== childTraversalScope.scopeRef
+      ) {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "continued run could not rehydrate its suspended workflow lineage",
+        );
+      }
+      resumedFailureBasis = {
+        executionBasis: parentExecutionBasis!,
+        scope: parentTraversalScope!,
+        resumeEventRef: resume.admissionEventRef,
+      };
+      if (suspension.kind === "held_workflow_suspension") {
+        const parentCCall = abg.rehydrateWorkflowCCall(
+          context.store,
+          parentExecutionBasis!,
+          implementationSet,
+          parentTraversalScope!,
+          parentRuntime.graphFunction,
+          suspension.parentGraph,
+          sourceCursor,
+          suspension.parentCCall as unknown as Readonly<
+            Record<string, product.JsonValue>
+          >,
+        );
+        if (parentCCall === null) {
+          throw new ApplicationRefusal(
+            "owner_refusal",
+            "continued run could not rehydrate its parent workflow call",
+          );
+        }
+        completion = await hog.resumeHeldWorkflowTraversal({
+          parent: parentRuntime,
+          suspension,
+          parentCCall,
+          sourceCursor,
+          childExecutionBasis,
+          childTraversalScope,
+          childCompletion: completion,
+        });
+      } else {
+        const evaluator = abg.rehydrateAdmittedCCallState(
+          context.store,
+          suspension.evaluatorCCall as unknown as Readonly<
+            Record<string, product.JsonValue>
+          >,
+          suspension.evaluatorResult as unknown as Readonly<
+            Record<string, product.JsonValue>
+          >,
+          suspension.evaluatorJudgment as unknown as Readonly<
+            Record<string, product.JsonValue>
+          >,
+        );
+        if (evaluator === null) {
+          throw new ApplicationRefusal(
+            "owner_refusal",
+            "continued run could not rehydrate its deferred application call",
+          );
+        }
+        completion = await hog.resumeHeldRecursionTraversal({
+          parent: parentRuntime,
+          suspension,
+          evaluatorCCall: evaluator.cCall,
+          evaluatorResult: evaluator.result,
+          evaluatorJudgment: evaluator.judgment,
+          sourceCursor,
+          childExecutionBasis,
+          childTraversalScope,
+          childCompletion: completion,
+        });
+      }
+      childExecutionBasis = parentExecutionBasis!;
+      childTraversalScope = parentTraversalScope!;
     }
     const firstReplay = abg.replay(context.store, {
       runId: state.runId,
@@ -3308,10 +3479,39 @@ async function applyRunContinue(
     );
     const updatedAuthority = closeContinuationContext(context, state);
     durableAuthorityClosed = true;
-    return attachContinuationAuthority(
+    let completedOutcome = attachContinuationAuthority(
       outcome,
       updatedAuthority as unknown as product.JsonValue,
     );
+    if (outcome.disposition === "succeeded" && outcome.runId !== null) {
+      const projectionAuthority = constructPublicRunProjectionAuthority({
+        reopenAuthority: updatedAuthority.reopenAuthority,
+        runtimeInvocationRef: state.runtimeInvocationRef,
+        invocationAdmissionRef: state.invocationAdmissionRef,
+        runId: outcome.runId,
+        graphCallId: outcome.graphCallId,
+        resultRef: outcome.resultRef,
+        outputContractRef: state.outputContractRef,
+        install: state.install,
+        workspaceId: state.workspaceBinding.workspaceId,
+        workspaceBindingId: state.workspaceBinding.bindingId,
+        workspaceBindingDigest: state.workspaceBinding.bindingDigest,
+        catalogId: state.catalog.catalogId,
+        catalogDigest: state.catalog.catalogDigest,
+        catalogAdmissionEventRef: state.catalog.admissionEventRef,
+        catalogViewId: state.catalogView.viewId,
+        catalogViewDigest: state.catalogView.viewDigest,
+        catalogViewAdmissionEventRef: state.catalogView.admissionEventRef,
+        publicationDigest: state.catalog.publicationDigest,
+        productSemanticsBinding:
+          state.catalog.modulePublication.productSemanticsBinding,
+      });
+      completedOutcome = attachProjectionAuthority(
+        completedOutcome,
+        projectionAuthority as unknown as product.JsonValue,
+      );
+    }
+    return completedOutcome;
   } catch (error) {
     if (resumedFailureBasis !== null) {
       const replayAfterFailure = abg.replay(context.store, {

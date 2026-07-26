@@ -64,6 +64,9 @@ export {
   completeInteractionResume,
   completeInteractionTraversal,
   completeWorkflowTraversal,
+  restoreDeferredRecursion,
+  suspendHeldRecursionTraversal,
+  suspendHeldWorkflowTraversal,
   type CompleteWorkflowPreparationRefusalInput,
   type CompleteWorkflowTraversalInput,
   type CompleteInteractionResumeInput,
@@ -76,6 +79,10 @@ export {
   type ExecutableTraversalClock,
   type ExecutableTraversalCompletion,
   type HeldInteractionTraversal,
+  type HeldParentTraversalSuspension,
+  type HeldRecursionSuspension,
+  type HeldWorkflowSuspension,
+  type RestoreDeferredRecursionInput,
 } from "./execute.js";
 export {
   advanceStructuralTraversal,
@@ -85,7 +92,11 @@ export {
 } from "./structural_execute.js";
 export {
   executeGraphTraversal,
+  resumeHeldRecursionTraversal,
+  resumeHeldWorkflowTraversal,
   type ExecuteGraphTraversalInput,
+  type ResumeHeldRecursionTraversalInput,
+  type ResumeHeldWorkflowTraversalInput,
 } from "./graph_execute.js";
 export {
   type ChildTraversalPreparationPort,

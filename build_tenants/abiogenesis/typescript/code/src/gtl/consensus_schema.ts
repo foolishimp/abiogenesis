@@ -782,9 +782,12 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
       "required": [
         "kind",
         "schemaVersion",
+        "taskRef",
+        "taskDigest",
         "invocationRef",
         "roundRef",
         "roundOrdinal",
+        "panelPosition",
         "subject",
         "subjectMaterialization",
         "panel",
@@ -808,6 +811,12 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "schemaVersion": {
           "const": "5.0.0"
         },
+        "taskRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "taskDigest": {
+          "$ref": "#/$defs/Digest"
+        },
         "invocationRef": {
           "$ref": "#/$defs/Ref"
         },
@@ -817,6 +826,10 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "roundOrdinal": {
           "type": "integer",
           "minimum": 1
+        },
+        "panelPosition": {
+          "type": "integer",
+          "minimum": 0
         },
         "subject": {
           "$ref": "#/$defs/ConsensusSubject"
@@ -877,6 +890,12 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
       "required": [
         "kind",
         "schemaVersion",
+        "reviewerTaskRef",
+        "reviewerTaskDigest",
+        "panelRef",
+        "panelPosition",
+        "cCallRef",
+        "cCallAttempt",
         "profileRef",
         "configurationDigest",
         "invocationRef",
@@ -896,6 +915,26 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
         "schemaVersion": {
           "const": "5.0.0"
+        },
+        "reviewerTaskRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "reviewerTaskDigest": {
+          "$ref": "#/$defs/Digest"
+        },
+        "panelRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "panelPosition": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cCallRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "cCallAttempt": {
+          "type": "integer",
+          "minimum": 1
         },
         "profileRef": {
           "$ref": "#/$defs/Ref"
@@ -1314,6 +1353,192 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
       ],
     },
+    "ConsensusResultCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "subjectRef",
+        "subjectDigest",
+        "panelRef",
+        "policyRef",
+        "roundRefs",
+        "findingSetRefs",
+        "submitterResponseRefs",
+        "rulings",
+        "classification",
+        "dissentProfileRefs",
+        "terminalOutcome",
+        "evidenceRefs",
+        "lineageRefs",
+        "resultRef",
+        "contractFailureRef"
+      ],
+      "properties": {
+        "kind": {
+          "const": "consensus_result"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "subjectRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "subjectDigest": {
+          "$ref": "#/$defs/Digest"
+        },
+        "panelRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "policyRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "roundRefs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+        },
+        "findingSetRefs": {
+          "$ref": "#/$defs/RefArray"
+        },
+        "submitterResponseRefs": {
+          "$ref": "#/$defs/RefArray"
+        },
+        "rulings": {
+          "$ref": "#/$defs/ReviewRulings"
+        },
+        "classification": {
+          "$ref": "#/$defs/ConsensusClassification"
+        },
+        "dissentProfileRefs": {
+          "$ref": "#/$defs/RefArray"
+        },
+        "terminalOutcome": {
+          "$ref": "#/$defs/ConsensusRoundOutcome"
+        },
+        "evidenceRefs": {
+          "$ref": "#/$defs/RefArray"
+        },
+        "lineageRefs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/Ref"
+          },
+        },
+        "resultRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "contractFailureRef": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Ref"
+            },
+            {
+              "type": "null"
+            },
+          ],
+        },
+      },
+    },
+    "ConsensusFinalizationState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "finalizationRef",
+        "finalizationDigest",
+        "disposition",
+        "provisionalResult",
+        "finalResult",
+        "terminal"
+      ],
+      "properties": {
+        "kind": {
+          "const": "consensus_finalization_state"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "finalizationRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "finalizationDigest": {
+          "$ref": "#/$defs/Digest"
+        },
+        "disposition": {
+          "enum": [
+            "closed_done",
+            "escalate_fh"
+          ],
+        },
+        "provisionalResult": {
+          "$ref": "#/$defs/ConsensusResultCandidate"
+        },
+        "finalResult": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ConsensusResultCandidate"
+            },
+            {
+              "type": "null"
+            },
+          ],
+        },
+        "terminal": {
+          "type": "boolean"
+        },
+      },
+    },
+    "ConsensusEscalationDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "finalizationState",
+        "finalizationRef",
+        "finalizationDigest",
+        "decision",
+        "humanActorRef",
+        "rationaleRef"
+      ],
+      "properties": {
+        "kind": {
+          "const": "consensus_escalation_decision"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "finalizationState": {
+          "$ref": "#/$defs/ConsensusFinalizationState"
+        },
+        "finalizationRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "finalizationDigest": {
+          "$ref": "#/$defs/Digest"
+        },
+        "decision": {
+          "enum": [
+            "accept_with_dissent",
+            "reject"
+          ],
+        },
+        "humanActorRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "rationaleRef": {
+          "$ref": "#/$defs/Ref"
+        },
+      },
+    },
     "TicketConsensusProjection": {
       "type": "object",
       "additionalProperties": false,
@@ -1469,10 +1694,12 @@ export const CONSENSUS_SCHEMA_REQUIRED_KEYS = deepFreeze({
   ConsensusRoundOutcome:
     CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundOutcome.required,
   ConsensusResultCandidate:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusResult.required.filter(
-      (key) => key !== "replayRef",
-    ),
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusResultCandidate.required,
   ConsensusResult: CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusResult.required,
+  ConsensusFinalizationState:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusFinalizationState.required,
+  ConsensusEscalationDecision:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusEscalationDecision.required,
   TicketConsensusProjection:
     CONSENSUS_PUBLIC_SCHEMA.$defs.TicketConsensusProjection.required,
 });

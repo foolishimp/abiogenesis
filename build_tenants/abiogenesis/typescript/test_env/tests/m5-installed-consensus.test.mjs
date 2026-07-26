@@ -59,31 +59,246 @@ async function readRunProjection(
   return runInstalledCli(harness, { transcriptPath });
 }
 
-async function readContinuationProjection(
-  harness,
-  continuationAuthority,
-  continuationRef,
-  variant,
-  label,
-) {
-  const transcriptPath = join(
-    harness.scratch,
-    `m5-consensus-${label}-${variant}-continuation-read.jsonl`,
+function finalizationStateFromHeldOutcome(held, ids) {
+  const authority = held.result?.continuationAuthority;
+  assert.equal(authority?.kind, "public_continuation_authority");
+  assert.equal(
+    authority.heldGraph.graphFunctionRef,
+    ids.escalationGraphFunctionRef,
   );
+  assert.deepEqual(
+    authority.parentSuspensions.map((row) => row.kind),
+    ["held_recursion_suspension", "held_workflow_suspension"],
+  );
+  const suspension = authority.parentSuspensions.find(
+    (row) => row.kind === "held_recursion_suspension",
+  );
+  assert.ok(suspension, "held Consensus must retain its recursion suspension");
+  assert.equal(
+    suspension.parentGraph.graphFunctionRef,
+    ids.graphFunctionRef,
+  );
+  assert.equal(
+    suspension.sourceCursor.currentNodeRef,
+    ids.finalizationLoopNodeRef,
+  );
+  assert.equal(
+    suspension.sourceCursor.attempt,
+    1,
+    "the finalization application starts a fresh C-call attempt after round recursion",
+  );
+  assert.equal(
+    authority.parentSuspensions[1].parentGraph.graphFunctionRef,
+    ids.oneSurfaceGraphFunctionRef,
+  );
+  assert.equal(suspension.childInput?.kind, "consensus_finalization_state");
+  return suspension.childInput;
+}
+
+async function completeHeldConsensus(
+  harness,
+  basis,
+  installed,
+  held,
+  label,
+  decisionKind = "accept_with_dissent",
+  proveRefusals = false,
+) {
+  const actorRef = installed.transcript.at(-1).payload.actorRef;
+  const finalizationState = finalizationStateFromHeldOutcome(
+    held,
+    basis.gtl.CONSENSUS_IDS,
+  );
+  assert.equal(
+    finalizationState.provisionalResult.classification,
+    "unresolved_disagreement",
+  );
+  assert.equal(
+    finalizationState.provisionalResult.terminalOutcome.outcome,
+    "escalate_fh",
+  );
+  const decision = {
+    kind: "consensus_escalation_decision",
+    schemaVersion: "5.0.0",
+    finalizationState,
+    finalizationRef: finalizationState.finalizationRef,
+    finalizationDigest: finalizationState.finalizationDigest,
+    decision: decisionKind,
+    humanActorRef: actorRef,
+    rationaleRef:
+      `rationale://abiogenesis/t276/${decisionKind}`,
+  };
+  const continuationTranscriptPath = join(
+    harness.scratch,
+    `m5-consensus-${label}-continuation.jsonl`,
+  );
+  let continuationAuthority = held.result.continuationAuthority;
+
+  if (proveRefusals) {
+    const invalidResponses = [{
+      label: "wrong-finalization",
+      response: {
+        ...decision,
+        finalizationRef: `${decision.finalizationRef}/substituted`,
+      },
+    }, {
+      label: "wrong-human-actor",
+      response: {
+        ...decision,
+        humanActorRef: "actor://developer/consensus/substituted-human",
+      },
+    }];
+    for (const invalid of invalidResponses) {
+      const respondedCountBefore = (
+        await eventsAt(installed.eventLogPath)
+      ).filter((event) => event.kind === "fh_interaction_responded").length;
+      await writeFile(
+        continuationTranscriptPath,
+        `${JSON.stringify(publicInvocation(
+          "abg.operation.interaction.respond",
+          "answer_escalation",
+          `invocation://t276/consensus/${label}/respond-${invalid.label}`,
+          {
+            actorRef,
+            capabilityRef: basis.gtl.CONSENSUS_IDS.actorCapabilityRef,
+            continuationAuthority,
+            continuationRef: held.continuationRef,
+            response: invalid.response,
+          },
+        ))}\n`,
+        "utf8",
+      );
+      const refused = await runInstalledCli(harness, {
+        transcriptPath: continuationTranscriptPath,
+      });
+      assert.equal(refused.exitCode, 2, refused.stdout);
+      assert.equal(refused.outcomes.at(-1).disposition, "refused");
+      continuationAuthority =
+        refused.outcomes.at(-1).continuationAuthority;
+      assert.equal(
+        continuationAuthority.kind,
+        "public_continuation_authority",
+      );
+      const eventsAfter = await eventsAt(installed.eventLogPath);
+      assert.equal(
+        eventsAfter.filter(
+          (event) => event.kind === "fh_interaction_responded",
+        ).length,
+        respondedCountBefore,
+      );
+    }
+  }
+
   await writeFile(
-    transcriptPath,
+    continuationTranscriptPath,
     `${JSON.stringify(publicInvocation(
-      "abg.operation.project.read",
-      variant,
-      `invocation://t276/consensus/${label}/continuation-read-${variant}`,
+      "abg.operation.interaction.respond",
+      "answer_escalation",
+      `invocation://t276/consensus/${label}/respond`,
       {
+        actorRef,
+        capabilityRef: basis.gtl.CONSENSUS_IDS.actorCapabilityRef,
         continuationAuthority,
-        continuationRef,
+        continuationRef: held.continuationRef,
+        response: decision,
       },
     ))}\n`,
     "utf8",
   );
-  return runInstalledCli(harness, { transcriptPath });
+  const responseRun = await runInstalledCli(harness, {
+    transcriptPath: continuationTranscriptPath,
+  });
+  assert.equal(
+    responseRun.exitCode,
+    0,
+    `${responseRun.stderr}\n${JSON.stringify(responseRun.outcomes.at(-1))}`,
+  );
+  const responded = responseRun.outcomes.at(-1);
+  assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
+  assert.equal(responded.continuationStatus, "responded");
+
+  await writeFile(
+    continuationTranscriptPath,
+    `${JSON.stringify(publicInvocation(
+      "abg.operation.run.continue",
+      "current_intent",
+      `invocation://t276/consensus/${label}/continue`,
+      {
+        actorRef,
+        capabilityRef: basis.gtl.CONSENSUS_IDS.actorCapabilityRef,
+        continuationAuthority: responded.result.continuationAuthority,
+        continuationRef: held.continuationRef,
+      },
+    ))}\n`,
+    "utf8",
+  );
+  const continuedRun = await runInstalledCli(harness, {
+    transcriptPath: continuationTranscriptPath,
+  });
+  assert.equal(
+    continuedRun.exitCode,
+    0,
+    `${continuedRun.stderr}\n${JSON.stringify(continuedRun.outcomes.at(-1))}`,
+  );
+  const completed = continuedRun.outcomes.at(-1);
+  assert.equal(completed.disposition, "succeeded", JSON.stringify(completed));
+  assert.equal(completed.continuationStatus, "resolved");
+  assert.equal(completed.runId, held.runId);
+  assert.equal(completed.result.kind, "next_action_projection");
+  assert.equal(completed.result.disposition, "converged");
+  assert.equal(
+    completed.projectionAuthority.kind,
+    "public_run_projection_authority",
+  );
+
+  const events = await eventsAt(installed.eventLogPath);
+  const admittedResults = [
+    ...new Map(
+      events
+        .filter(
+          (event) =>
+            event.kind === "c_call_result_admitted" &&
+            event.payload?.contractRef ===
+              basis.gtl.CONSENSUS_IDS.resultContractRef &&
+            event.payload?.value?.kind === "consensus_result",
+        )
+        .map((event) => [event.payload.resultRef, event]),
+    ).values(),
+  ];
+  assert.equal(
+    admittedResults.length,
+    1,
+    "one held Consensus Run must admit exactly one final result",
+  );
+  const consensusResult = admittedResults[0].payload.value;
+  assert.equal(
+    consensusResult.classification,
+    decisionKind === "accept_with_dissent"
+      ? "partial_agreement_with_dissent"
+      : "unresolved_disagreement",
+  );
+  assert.equal(consensusResult.terminalOutcome.outcome, "closed_done");
+  assert.equal(
+    events.filter(
+      (event) => event.kind === "run_closed" && event.runId === held.runId,
+    ).length,
+    1,
+  );
+  assert.deepEqual(
+    events
+      .filter((event) => event.aggregateType === "continuation")
+      .map((event) => event.kind),
+    [
+      "fh_interaction_opened",
+      "fh_interaction_responded",
+      "fh_interaction_resume_admitted",
+    ],
+  );
+  return {
+    completed,
+    consensusResultEvent: admittedResults[0],
+    events,
+  };
 }
 
 async function installConsensusWorker(harness) {
@@ -503,12 +718,10 @@ for (const workspace of workspaceApplications) {
     harness.rootPublication = basis.publication;
     const allowlist = [
       basis.gtl.CONSENSUS_IDS.handle,
-      basis.gtl.CONSENSUS_IDS.roundLoopGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.roundGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.reviewerGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.submitterGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.roundReducerGraphFunctionRef,
-      basis.gtl.CONSENSUS_IDS.projectorGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.escalationFinalizerGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
@@ -546,22 +759,54 @@ for (const workspace of workspaceApplications) {
       0,
       `${JSON.stringify(run.outcomes.at(-1))}\n${run.stderr}\n${JSON.stringify(diagnosticSummary(events))}\n${JSON.stringify(diagnosticTail(events))}`,
     );
-    assert.equal(
-      run.outcomes.every((outcome) => outcome.disposition === "succeeded"),
-      true,
-      JSON.stringify(run.outcomes),
-    );
-    const outcome = run.outcomes.at(-1);
+    let outcome = run.outcomes.at(-1);
+    let childResultEvent;
+    if (scenario.label === "unresolved") {
+      assert.equal(
+        run.outcomes.slice(0, -1).every(
+          (row) => row.disposition === "succeeded",
+        ),
+        true,
+        JSON.stringify(run.outcomes),
+      );
+      assert.equal(outcome.disposition, "held", JSON.stringify(outcome));
+      assert.equal(outcome.continuationStatus, "open");
+      assert.equal(
+        events.some((event) => event.kind === "run_closed"),
+        false,
+        "an unresolved source must remain in the same open Run",
+      );
+      const completed = await completeHeldConsensus(
+        harness,
+        basis,
+        installed,
+        outcome,
+        `${workspace.label}-unresolved`,
+        "accept_with_dissent",
+        workspace.label === "existing",
+      );
+      outcome = completed.completed;
+      events = completed.events;
+      childResultEvent = completed.consensusResultEvent;
+    } else {
+      assert.equal(
+        run.outcomes.every(
+          (row) => row.disposition === "succeeded",
+        ),
+        true,
+        JSON.stringify(run.outcomes),
+      );
+      childResultEvent = events.find(
+        (event) =>
+          event.kind === "c_call_result_admitted" &&
+          event.payload?.contractRef ===
+            basis.gtl.CONSENSUS_IDS.resultContractRef &&
+          event.payload?.value?.kind === "consensus_result",
+      );
+    }
     assert.equal(outcome.replayAgreement, true);
     assert.equal(outcome.result.kind, "next_action_projection");
     assert.equal(outcome.result.disposition, "converged");
-    const childResultEvent = events.find(
-      (event) =>
-        event.kind === "c_call_result_admitted" &&
-        event.payload?.contractRef ===
-          basis.gtl.CONSENSUS_IDS.resultContractRef &&
-        event.payload?.value?.kind === "consensus_result",
-    );
     assert.ok(childResultEvent, JSON.stringify(diagnosticSummary(events)));
     const consensusResultCandidate = childResultEvent.payload.value;
     assert.equal(
@@ -571,11 +816,13 @@ for (const workspace of workspaceApplications) {
     );
     assert.equal(
       consensusResultCandidate.terminalOutcome.outcome,
-      scenario.expectedOutcome,
+      "closed_done",
     );
     assert.equal(
       consensusResultCandidate.classification,
-      scenario.expectedClassification,
+      scenario.label === "unresolved"
+        ? "partial_agreement_with_dissent"
+        : scenario.expectedClassification,
     );
     assert.equal(
       consensusResultCandidate.roundRefs.length,
@@ -843,286 +1090,58 @@ for (const workspace of workspaceApplications) {
       true,
     );
     assert.equal(events.at(-1).kind, "run_closed");
-
-    if (scenario.label === "unresolved") {
-      const replayBoundUnresolvedResult =
-        resultProjection.result.value;
-      await rm(installed.productConsumer, {
-        recursive: true,
-        force: true,
-      });
-      const escalation = await buildRootCliScenario(
-        harness,
-        `m5-consensus-${workspace.label}-unresolved-fh`,
-        (payload) => ({
-          ...payload,
-          sourceProjectionAuthority:
-            resultProjection.projectionAuthority,
-          sourceResultRef: resultProjection.result.resultRef,
-        }),
-        {
-          programRef: basis.gtl.CONSENSUS_IDS.programRef,
-          graphFunctionRef:
-            basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
-          allowlist,
-          input: replayBoundUnresolvedResult,
-          workspaceId:
-            `workspace://developer/consensus/${workspace.label}`,
-          workspaceRoot,
-          productConsumer: installed.productConsumer,
-          authorityManifestRef:
-            installed.transcript[2].payload.authorityManifestRef,
-          eventLogFile: "unresolved-fh.events.jsonl",
-        },
-      );
-      const heldRun = await runInstalledCli(harness, escalation);
-      assert.equal(
-        heldRun.exitCode,
-        0,
-        `${heldRun.stderr}\n${JSON.stringify(heldRun.outcomes.at(-1))}`,
-      );
-      assert.equal(
-        heldRun.outcomes.slice(0, -1).every(
-          (row) => row.disposition === "succeeded",
-        ),
-        true,
-        JSON.stringify(heldRun.outcomes),
-      );
-      const held = heldRun.outcomes.at(-1);
-      assert.equal(held.disposition, "held", JSON.stringify(held));
-      assert.equal(held.continuationStatus, "open");
-
-      const product = await import(
-        `${pathToFileURL(join(
-          installedCliPackageRoot(harness),
-          "build/code/src/product/index.js",
-        )).href}?consensus-escalation=unresolved`,
-      );
-      const actorRef =
-        escalation.transcript.at(-1).payload.actorRef;
-      const decision = {
-        kind: "consensus_escalation_decision",
-        schemaVersion: "5.0.0",
-        unresolvedResult: replayBoundUnresolvedResult,
-        unresolvedResultRef: replayBoundUnresolvedResult.resultRef,
-        unresolvedResultDigest:
-          product.sha256Canonical(replayBoundUnresolvedResult),
-        decision: "accept_with_dissent",
-        humanActorRef: actorRef,
-        rationaleRef: "rationale://abiogenesis/t276/accept-with-dissent",
-      };
-      const continuationTranscriptPath = join(
-        harness.scratch,
-        "m5-consensus-unresolved-fh-continuation.jsonl",
-      );
-      let respondedAuthority = held.result.continuationAuthority;
-      if (workspace.label === "existing") {
-        const otherResult = {
-          ...consensusResultCandidate,
-          resultRef:
-            `${consensusResultCandidate.resultRef}/other-admitted-shape`,
-        };
-        const invalidResponses = [{
-          label: "different-pending-result",
-          response: {
-            ...decision,
-            unresolvedResult: otherResult,
-            unresolvedResultRef: otherResult.resultRef,
-            unresolvedResultDigest: product.sha256Canonical(otherResult),
-          },
-        }, {
-          label: "different-human-actor",
-          response: {
-            ...decision,
-            humanActorRef: "actor://developer/consensus/substituted-human",
-          },
-        }];
-        for (const invalid of invalidResponses) {
-          const respondedCountBefore = (
-            await eventsAt(escalation.eventLogPath)
-          ).filter((event) => event.kind === "fh_interaction_responded").length;
-          const responseInvocation = publicInvocation(
-            "abg.operation.interaction.respond",
-            "answer_escalation",
-            `invocation://t276/consensus/unresolved/respond-${invalid.label}`,
-            {
-              actorRef,
-              capabilityRef: basis.gtl.CONSENSUS_IDS.actorCapabilityRef,
-              continuationAuthority: respondedAuthority,
-              continuationRef: held.continuationRef,
-              response: invalid.response,
-            },
-          );
-          await writeFile(
-            continuationTranscriptPath,
-            `${JSON.stringify(responseInvocation)}\n`,
-            "utf8",
-          );
-          const invalidRun = await runInstalledCli(harness, {
-            transcriptPath: continuationTranscriptPath,
-          });
-          assert.equal(invalidRun.exitCode, 2);
-          assert.equal(invalidRun.outcomes.at(-1).disposition, "refused");
-          respondedAuthority =
-            invalidRun.outcomes.at(-1).continuationAuthority;
-          assert.equal(
-            respondedAuthority.kind,
-            "public_continuation_authority",
-          );
-          const invalidEvents = await eventsAt(escalation.eventLogPath);
-          assert.equal(
-            invalidEvents.filter(
-              (event) => event.kind === "fh_interaction_responded",
-            ).length,
-            respondedCountBefore,
-          );
-        }
-      }
-      const responseInvocation = publicInvocation(
-        "abg.operation.interaction.respond",
-        "answer_escalation",
-        "invocation://t276/consensus/unresolved/respond",
-        {
-          actorRef,
-          capabilityRef: basis.gtl.CONSENSUS_IDS.actorCapabilityRef,
-          continuationAuthority: respondedAuthority,
-          continuationRef: held.continuationRef,
-          response: decision,
-        },
-      );
-      await writeFile(
-        continuationTranscriptPath,
-        `${JSON.stringify(responseInvocation)}\n`,
-        "utf8",
-      );
-      const responseRun = await runInstalledCli(harness, {
-        transcriptPath: continuationTranscriptPath,
-      });
-      assert.equal(
-        responseRun.exitCode,
-        0,
-        `${responseRun.stderr}\n${JSON.stringify(responseRun.outcomes.at(-1))}`,
-      );
-      const responded = responseRun.outcomes.at(-1);
-      assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
-      assert.equal(responded.continuationStatus, "responded");
-
-      const continueInvocation = publicInvocation(
-        "abg.operation.run.continue",
-        "current_intent",
-        "invocation://t276/consensus/unresolved/continue",
-        {
-          actorRef,
-          capabilityRef: basis.gtl.CONSENSUS_IDS.actorCapabilityRef,
-          continuationAuthority: responded.result.continuationAuthority,
-          continuationRef: held.continuationRef,
-        },
-      );
-      await writeFile(
-        continuationTranscriptPath,
-        `${JSON.stringify(continueInvocation)}\n`,
-        "utf8",
-      );
-      const continuedRun = await runInstalledCli(harness, {
-        transcriptPath: continuationTranscriptPath,
-      });
-      assert.equal(
-        continuedRun.exitCode,
-        0,
-        `${continuedRun.stderr}\n${JSON.stringify(continuedRun.outcomes.at(-1))}`,
-      );
-      const completed = continuedRun.outcomes.at(-1);
-      assert.equal(completed.disposition, "succeeded", JSON.stringify(completed));
-      assert.equal(completed.continuationStatus, "resolved");
-      assert.equal(completed.result.kind, "consensus_result");
-      assert.equal(
-        completed.result.classification,
-        "partial_agreement_with_dissent",
-      );
-      assert.equal(completed.result.terminalOutcome.outcome, "closed_done");
-      assert.equal(
-        completed.result.subjectRef,
-        consensusResultCandidate.subjectRef,
-      );
-      assert.equal(
-        completed.result.subjectDigest,
-        consensusResultCandidate.subjectDigest,
-      );
-      assert.equal(
-        completed.result.panelRef,
-        consensusResultCandidate.panelRef,
-      );
-      assert.equal(
-        completed.result.policyRef,
-        consensusResultCandidate.policyRef,
-      );
-      assert.deepEqual(
-        completed.result.roundRefs,
-        consensusResultCandidate.roundRefs,
-      );
-      assert.deepEqual(
-        completed.result.findingSetRefs,
-        consensusResultCandidate.findingSetRefs,
-      );
-      assert.equal(
-        Object.hasOwn(completed.result, "replayRef"),
-        false,
-        "the resumed Product result remains a replay-free admission candidate",
-      );
-      const finalResultRead = await readContinuationProjection(
-        harness,
-        completed.continuationAuthority,
-        held.continuationRef,
-        "result",
-        `${workspace.label}-unresolved-final`,
-      );
-      assert.equal(
-        finalResultRead.exitCode,
-        0,
-        `${finalResultRead.stderr}\n${finalResultRead.stdout}`,
-      );
-      const finalResultProjection = finalResultRead.outcomes.at(-1);
-      assert.equal(finalResultProjection.disposition, "succeeded");
-      assert.equal(
-        basis.gtl.isConsensusResult(finalResultProjection.result.value),
-        true,
-      );
-      const finalReplayRead = await readContinuationProjection(
-        harness,
-        finalResultProjection.result.continuationAuthority,
-        held.continuationRef,
-        "replay",
-        `${workspace.label}-unresolved-final`,
-      );
-      assert.equal(
-        finalReplayRead.exitCode,
-        0,
-        `${finalReplayRead.stderr}\n${finalReplayRead.stdout}`,
-      );
-      assert.equal(
-        finalReplayRead.outcomes.at(-1).result.replayRef,
-        finalResultProjection.result.value.replayRef,
-      );
-      assertTicketConsensusProjection(
-        basis.gtl,
-        finalResultProjection.result.value,
-      );
-      const escalationEvents = await eventsAt(escalation.eventLogPath);
-      assert.deepEqual(
-        escalationEvents
-          .filter((event) => event.aggregateType === "continuation")
-          .map((event) => event.kind),
-        [
-          "fh_interaction_opened",
-          "fh_interaction_responded",
-          "fh_interaction_resume_admitted",
-        ],
-      );
-      assert.equal(escalationEvents.at(-1).kind, "run_closed");
-    }
   });
   }
 }
+
+test("M5 installed Consensus closes the same Run with an unresolved result when F_H rejects", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const command = await installConsensusWorker(harness);
+  const workspaceId = "workspace://developer/consensus/fh-reject";
+  const basis = await consensusBasis(
+    harness,
+    "fh-reject",
+    2,
+    workspaceId,
+  );
+  harness.rootPublication = basis.publication;
+  const installed = await buildRootCliScenario(
+    harness,
+    "m5-consensus-fh-reject",
+    (payload) => payload,
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+      graphFunctionRef:
+        basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+      allowlist: basis.publication.contributions.map((row) => row.handle),
+      input: basis.input,
+      eventLogFile: "fh-reject.events.jsonl",
+      workspaceId,
+    },
+  );
+  await selectConsensusThroughOneSurface(basis, harness, installed);
+  const sourceRun = await runInstalledCli(harness, installed, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_CONSENSUS_TEST_MODE: "unresolved",
+    },
+  });
+  assert.equal(sourceRun.exitCode, 0, sourceRun.stderr);
+  const held = sourceRun.outcomes.at(-1);
+  assert.equal(held.disposition, "held", JSON.stringify(held));
+  const completed = await completeHeldConsensus(
+    harness,
+    basis,
+    installed,
+    held,
+    "fh-reject",
+    "reject",
+  );
+  assert.equal(
+    completed.consensusResultEvent.payload.value.classification,
+    "unresolved_disagreement",
+  );
+});
 
 test("M5 Consensus publication validates its canonical handle and ordinary callable body", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
@@ -1557,14 +1576,13 @@ test("M5 Consensus refuses malformed and cross-basis Product values before a Run
   }
 });
 
-test("M5 Consensus escalation requires one exact replay-derived source result", async (context) => {
+test("M5 Consensus exposes no direct support start outside same-Run continuation", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
   const command = await installConsensusWorker(harness);
-  const workspaceId =
-    "workspace://developer/consensus/source-result-authority";
+  const workspaceId = "workspace://developer/consensus/no-direct-support";
   const basis = await consensusBasis(
     harness,
-    "source-result-authority",
+    "no-direct-support",
     2,
     workspaceId,
   );
@@ -1572,7 +1590,7 @@ test("M5 Consensus escalation requires one exact replay-derived source result", 
   const allowlist = basis.publication.contributions.map((row) => row.handle);
   const source = await buildRootCliScenario(
     harness,
-    "m5-consensus-source-result-authority",
+    "m5-consensus-no-direct-support-source",
     (payload) => payload,
     {
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
@@ -1580,7 +1598,7 @@ test("M5 Consensus escalation requires one exact replay-derived source result", 
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist,
       input: basis.input,
-      eventLogFile: "source-result-authority.events.jsonl",
+      eventLogFile: "no-direct-support-source.events.jsonl",
       workspaceId,
     },
   );
@@ -1592,202 +1610,50 @@ test("M5 Consensus escalation requires one exact replay-derived source result", 
     },
   });
   assert.equal(sourceRun.exitCode, 0, sourceRun.stderr);
-  const sourceOutcome = sourceRun.outcomes.at(-1);
+  const held = sourceRun.outcomes.at(-1);
+  assert.equal(held.disposition, "held", JSON.stringify(held));
+  assert.equal(held.continuationStatus, "open");
+  const finalizationState = finalizationStateFromHeldOutcome(
+    held,
+    basis.gtl.CONSENSUS_IDS,
+  );
   const sourceEvents = await eventsAt(source.eventLogPath);
-  const sourceResultEvent = sourceEvents.find(
-    (event) =>
-      event.kind === "c_call_result_admitted" &&
-      event.payload?.contractRef ===
-        basis.gtl.CONSENSUS_IDS.resultContractRef &&
-      event.payload?.value?.kind === "consensus_result",
+  assert.equal(
+    sourceEvents.some((event) => event.kind === "run_closed"),
+    false,
   );
-  assert.ok(sourceResultEvent);
-  const sourceRead = await readRunProjection(
-    harness,
-    sourceOutcome.projectionAuthority,
-    "result",
-    sourceResultEvent.payload.resultRef,
-    "source-result-authority",
-  );
-  assert.equal(sourceRead.exitCode, 0, sourceRead.stderr);
-  const sourceProjection = sourceRead.outcomes.at(-1);
-  const sourceResult = sourceProjection.result.value;
-  assert.equal(basis.gtl.isConsensusResult(sourceResult), true);
-  assert.equal(sourceResult.terminalOutcome.outcome, "escalate_fh");
-  const sourceEventCount = (await eventsAt(source.eventLogPath)).length;
+  const sourceEventCount = sourceEvents.length;
 
-  const escalation = await buildRootCliScenario(
+  const directSupport = await buildRootCliScenario(
     harness,
-    "m5-consensus-source-result-authority-escalation",
-    (payload) => ({
-      ...payload,
-      sourceProjectionAuthority: sourceProjection.projectionAuthority,
-      sourceResultRef: sourceProjection.result.resultRef,
-    }),
+    "m5-consensus-no-direct-support-attempt",
+    (payload) => payload,
     {
-      programRef: basis.gtl.CONSENSUS_IDS.programRef,
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
       graphFunctionRef: basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
       allowlist,
-      input: sourceResult,
-      eventLogFile: "source-result-authority-escalation.events.jsonl",
+      input: finalizationState,
+      eventLogFile: "no-direct-support-attempt.events.jsonl",
       workspaceId,
     },
   );
-  const {
-    operationContext,
-    publicApi,
-  } = await applyInstalledTranscriptPrefix(harness, escalation);
-  const baseInvocation = escalation.transcript.at(-1);
-  const closedResult = structuredClone(sourceResult);
-  closedResult.terminalOutcome.outcome = "closed_done";
-  assert.equal(basis.gtl.isConsensusResult(closedResult), true);
-  const wrongReplayResult = {
-    ...sourceResult,
-    replayRef: `${sourceResult.replayRef}/forged`,
-  };
-  const forgedAuthority = structuredClone(
-    sourceProjection.projectionAuthority,
-  );
-  forgedAuthority.runId = `${forgedAuthority.runId}/forged`;
-  const {
-    authorityDigest: _forgedDigest,
-    ...forgedAuthorityBody
-  } = forgedAuthority;
-  forgedAuthority.authorityDigest =
-    basis.product.sha256Canonical(forgedAuthorityBody);
-  const mutations = [{
-    label: "missing-source-authority",
-    mutate(invocation) {
-      delete invocation.payload.sourceProjectionAuthority;
-      delete invocation.payload.sourceResultRef;
-    },
-  }, {
-    label: "wrong-replay",
-    mutate(invocation) {
-      invocation.payload.input = wrongReplayResult;
-    },
-  }, {
-    label: "wrong-source-result",
-    mutate(invocation) {
-      invocation.payload.sourceResultRef =
-        `${sourceProjection.result.resultRef}/forged`;
-    },
-  }, {
-    label: "closed-result-substitution",
-    mutate(invocation) {
-      invocation.payload.input = closedResult;
-    },
-  }, {
-    label: "forged-source-authority",
-    mutate(invocation) {
-      invocation.payload.sourceProjectionAuthority = forgedAuthority;
-    },
-  }];
-  try {
-    for (const mutation of mutations) {
-      const candidate = structuredClone(baseInvocation);
-      candidate.invocationRef =
-        `${baseInvocation.invocationRef}/${mutation.label}`;
-      candidate.correlationId =
-        `${baseInvocation.correlationId}/${mutation.label}`;
-      mutation.mutate(candidate);
-      const result = await publicApi.applyRootPublicInvocation(
-        operationContext,
-        candidate,
-      );
-      assert.equal(result.disposition, "refused", JSON.stringify(result));
-      assert.equal(result.runId, null);
-      assert.equal(
-        operationContext.store.readAll().some(
-          (event) => event.kind === "invocation_admitted",
-        ),
-        false,
-      );
-    }
-  } finally {
-    publicApi.closeRootOperationContext(operationContext);
-  }
-  const differentBindingEscalation = await buildRootCliScenario(
-    harness,
-    "m5-consensus-source-result-authority-different-binding",
-    (payload) => ({
-      ...payload,
-      sourceProjectionAuthority:
-        sourceProjection.projectionAuthority,
-      sourceResultRef: sourceProjection.result.resultRef,
-    }),
-    {
-      programRef: basis.gtl.CONSENSUS_IDS.programRef,
-      graphFunctionRef:
-        basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
-      allowlist,
-      input: sourceResult,
-      eventLogFile:
-        "source-result-authority-different-binding.events.jsonl",
-      workspaceId,
-    },
-  );
-  const differentBindingRun = await runInstalledCli(
-    harness,
-    differentBindingEscalation,
-  );
-  assert.equal(differentBindingRun.exitCode, 2, differentBindingRun.stderr);
+  const directSupportRun = await runInstalledCli(harness, directSupport);
+  assert.equal(directSupportRun.exitCode, 2, directSupportRun.stderr);
+  assert.equal(directSupportRun.outcomes.at(-1).disposition, "refused");
+  assert.equal(directSupportRun.outcomes.at(-1).runId, null);
   assert.equal(
-    differentBindingRun.outcomes.at(-1).disposition,
-    "refused",
-  );
-  assert.equal(differentBindingRun.outcomes.at(-1).runId, null);
-  assert.equal(
-    (await eventsAtIfPresent(differentBindingEscalation.eventLogPath)).some(
-      (event) => event.kind === "invocation_admitted",
+    (await eventsAtIfPresent(directSupport.eventLogPath)).some(
+      (event) =>
+        event.kind === "invocation_admitted" ||
+        event.kind === "fh_interaction_opened",
     ),
     false,
-  );
-  const substitutedWorkspaceId = `${workspaceId}/substituted`;
-  const substitutedAuthority = structuredClone(
-    sourceProjection.projectionAuthority,
-  );
-  substitutedAuthority.workspaceId = substitutedWorkspaceId;
-  const {
-    authorityDigest: _substitutedWorkspaceDigest,
-    ...substitutedAuthorityBody
-  } = substitutedAuthority;
-  substitutedAuthority.authorityDigest =
-    basis.product.sha256Canonical(substitutedAuthorityBody);
-  const crossWorkspaceEscalation = await buildRootCliScenario(
-    harness,
-    "m5-consensus-source-result-authority-cross-workspace",
-    (payload) => ({
-      ...payload,
-      sourceProjectionAuthority: substitutedAuthority,
-      sourceResultRef: sourceProjection.result.resultRef,
-    }),
-    {
-      programRef: basis.gtl.CONSENSUS_IDS.programRef,
-      graphFunctionRef: basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
-      allowlist,
-      input: sourceResult,
-      eventLogFile: "source-result-authority-cross-workspace.events.jsonl",
-      workspaceId: substitutedWorkspaceId,
-    },
-  );
-  const crossWorkspaceRun = await runInstalledCli(
-    harness,
-    crossWorkspaceEscalation,
-  );
-  assert.equal(crossWorkspaceRun.exitCode, 2, crossWorkspaceRun.stderr);
-  assert.equal(crossWorkspaceRun.outcomes.at(-1).disposition, "refused");
-  assert.equal(crossWorkspaceRun.outcomes.at(-1).runId, null);
-  assert.equal(
-    (await eventsAtIfPresent(crossWorkspaceEscalation.eventLogPath)).some(
-      (event) => event.kind === "invocation_admitted",
-    ),
-    false,
+    "the F_H child is not a public start",
   );
   assert.equal(
     (await eventsAt(source.eventLogPath)).length,
     sourceEventCount,
-    "source-result validation must remain a no-append read",
+    "a separate direct-support attempt must not append to the held Run",
   );
 });
 
@@ -1875,7 +1741,7 @@ test("M5 Consensus projects malformed attributed reviewer output as typed contra
   assert.equal(consensusResultCandidate.classification, "contract_failure");
   assert.equal(
     consensusResultCandidate.terminalOutcome.outcome,
-    "escalate_fh",
+    "closed_done",
   );
   assert.equal(typeof consensusResultCandidate.contractFailureRef, "string");
   assert.equal(
@@ -1932,37 +1798,10 @@ test("M5 Consensus projects malformed attributed reviewer output as typed contra
     replayRead.outcomes.at(-1).result.replayRef,
     resultProjection.result.value.replayRef,
   );
-  const escalation = await buildRootCliScenario(
-    harness,
-    "m5-consensus-contract-failure-escalation-refusal",
-    (payload) => ({
-      ...payload,
-      sourceProjectionAuthority: resultProjection.projectionAuthority,
-      sourceResultRef: resultProjection.result.resultRef,
-    }),
-    {
-      programRef: basis.gtl.CONSENSUS_IDS.programRef,
-      graphFunctionRef:
-        basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
-      allowlist: basis.publication.contributions.map((row) => row.handle),
-      input: resultProjection.result.value,
-      eventLogFile: "contract-failure-escalation-refusal.events.jsonl",
-      workspaceId,
-    },
-  );
-  const escalationRun = await runInstalledCli(harness, escalation);
-  assert.equal(escalationRun.exitCode, 2, escalationRun.stdout);
-  assert.equal(escalationRun.outcomes.at(-1).disposition, "refused");
-  assert.equal(escalationRun.outcomes.at(-1).runId, null);
-  const escalationEvents = await eventsAtIfPresent(escalation.eventLogPath);
   assert.equal(
-    escalationEvents.some(
-      (event) =>
-        event.kind === "invocation_admitted" ||
-        event.kind === "fh_interaction_opened",
-    ),
+    events.some((event) => event.kind === "fh_interaction_opened"),
     false,
-    "contract failure cannot become an F_H escalation source",
+    "contract failure closes without opening an F_H hold",
   );
   assert.equal(
     (await eventsAt(scenario.eventLogPath)).length,

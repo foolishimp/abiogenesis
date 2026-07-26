@@ -206,6 +206,43 @@ export interface RehydratedFhContinuationScope {
   };
 }
 
+function executionBasisDescendsFromRootInvocation(
+  store: AbgEventStore,
+  leafBasis: ExecutionBasis,
+  rootInvocation: InvocationAdmission,
+): boolean {
+  const seen = new Set<string>();
+  let current: ExecutionBasis | null = leafBasis;
+  while (current !== null) {
+    if (
+      seen.has(current.basisRef) ||
+      current.invocationAdmissionRef !==
+        rootInvocation.invocationAdmissionRef ||
+      current.invocationRef !== rootInvocation.invocationRef ||
+      current.programRef !== rootInvocation.programRef
+    ) {
+      return false;
+    }
+    seen.add(current.basisRef);
+    if (current.parentExecutionBasisRef === null) {
+      return current.basisClass === "root" &&
+        current.parentTraversalScopeRef === null &&
+        current.graphFunctionRef === rootInvocation.graphFunctionRef;
+    }
+    if (
+      current.basisClass !== "child" ||
+      current.parentTraversalScopeRef === null
+    ) {
+      return false;
+    }
+    current = rehydrateExecutionBasis(
+      store,
+      current.parentExecutionBasisRef,
+    );
+  }
+  return false;
+}
+
 function isRecord(
   value: unknown,
 ): value is Readonly<Record<string, JsonValue>> {
@@ -596,7 +633,11 @@ export function rehydrateFhContinuation(
     rootInvocation.workspaceBindingId !== expected.workspaceBinding.bindingId ||
     rootInvocation.catalogViewId !== expected.catalogView.viewId ||
     rootInvocation.programRef !== expected.program.programRef ||
-    rootInvocation.graphFunctionRef !== expected.graph.graphFunctionRef ||
+    !executionBasisDescendsFromRootInvocation(
+      store,
+      executionBasis,
+      rootInvocation,
+    ) ||
     openedTraversalScope.executionBasisRef !== executionBasis.basisRef ||
     openedTraversalScope.scopeRef !== stringField(opened, "scopeRef") ||
     openedTraversalScope.scopeDigest !== digestField(opened, "scopeDigest") ||

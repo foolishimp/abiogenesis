@@ -20,6 +20,7 @@ import {
   isConsensusActionEvaluationProjection,
   isConsensusEscalationDecision,
   isConsensusEscalationRequest,
+  isConsensusFinalizationState,
   isConsensusFindingsVector,
   isConsensusInvocation,
   isConsensusNextActionBasis,
@@ -147,7 +148,7 @@ function admitSystemInput(
     return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
   }
   if (
-    contractRef === CONSENSUS_IDS.escalationRequestContractRef &&
+    contractRef === CONSENSUS_IDS.finalizationStateContractRef &&
     isConsensusEscalationRequest(value)
   ) {
     return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
@@ -196,6 +197,8 @@ function validateSystemContractValue(
       return isConsensusActionEvaluationProjection(value);
     case "consensus_round_state":
       return isConsensusRoundState(value);
+    case "consensus_finalization_state":
+      return isConsensusFinalizationState(value);
     case "consensus_reviewer_task":
       return isConsensusReviewerTask(value);
     case "consensus_findings_vector":
@@ -245,7 +248,11 @@ function validateSystemResultEvidenceLineage(
     basis.outputContractRef === CONSENSUS_IDS.findingsContractRef &&
     isReviewFindings(basis.value)
   ) {
-    return basis.value.evidenceRefs.length === 1 &&
+    return basis.admittedEvidence[0]?.cCallRef ===
+        basis.value.cCallRef &&
+      basis.admittedEvidence[0]?.cCallAttempt ===
+        basis.value.cCallAttempt &&
+      basis.value.evidenceRefs.length === 1 &&
       basis.value.evidenceRefs[0] === expectedEvidenceRef &&
       basis.value.findings.every((finding) =>
         finding.evidenceRefs.length === 1 &&
@@ -274,20 +281,20 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   ) {
     if (
       basis.requestContractRef ===
-        CONSENSUS_IDS.escalationRequestContractRef &&
+        CONSENSUS_IDS.finalizationStateContractRef &&
       basis.responseContractRef ===
         CONSENSUS_IDS.escalationDecisionContractRef
     ) {
       if (
-        !isConsensusResult(basis.requestValue) ||
+        !isConsensusEscalationRequest(basis.requestValue) ||
         !isConsensusEscalationDecision(responseCandidate) ||
         responseCandidate.humanActorRef !== basis.actingActorRef ||
-        responseCandidate.unresolvedResultRef !==
-          basis.requestValue.resultRef ||
-        responseCandidate.unresolvedResultDigest !==
-          sha256Canonical(basis.requestValue) ||
+        responseCandidate.finalizationRef !==
+          basis.requestValue.finalizationRef ||
+        responseCandidate.finalizationDigest !==
+          basis.requestValue.finalizationDigest ||
         sha256Canonical(
-          responseCandidate.unresolvedResult as unknown as JsonValue,
+          responseCandidate.finalizationState as unknown as JsonValue,
         ) !==
           sha256Canonical(basis.requestValue as unknown as JsonValue)
       ) {
@@ -361,33 +368,6 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
         sha256Canonical(
           basis.input.actionCatalog as unknown as JsonValue,
         ) === sha256Canonical(basis.actionCatalog);
-    }
-    if (isConsensusEscalationRequest(basis.input)) {
-      const source = basis.sourceResultBasis;
-      if (
-        source === null ||
-        source.sourceGraphFunctionRef !== CONSENSUS_IDS.graphFunctionRef ||
-        source.sourceResultContractRef !== CONSENSUS_IDS.resultContractRef ||
-        source.sourceResultValueDigest !==
-          sha256Canonical(source.sourceResultValue) ||
-        source.sourceWorkspaceId !== basis.workspaceId ||
-        source.workspaceBindingId !== basis.workspaceBindingId ||
-        source.workspaceBindingDigest !== basis.workspaceBindingDigest ||
-        !isConsensusResultCandidate(source.sourceResultValue) ||
-        source.sourceResultValue.classification !==
-          "unresolved_disagreement" ||
-        source.sourceResultValue.contractFailureRef !== null ||
-        basis.input.classification !== "unresolved_disagreement" ||
-        basis.input.contractFailureRef !== null
-      ) {
-        return false;
-      }
-      const projected = bindConsensusReplay(
-        source.sourceResultValue,
-        source.sourceReplayRef,
-      );
-      return sha256Canonical(projected as unknown as JsonValue) ===
-        sha256Canonical(basis.input as unknown as JsonValue);
     }
     return basis.sourceResultBasis === null;
   },

@@ -62,7 +62,18 @@ export interface ProbabilisticWorkerObservation {
   }>;
 }
 
+export interface LeafExecutionOccurrence {
+  readonly cCallRef: string;
+  readonly runId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly programLocusRef: string;
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+}
+
 export interface ProbabilisticLeafEffectPort {
+  readonly occurrence: Readonly<LeafExecutionOccurrence>;
   readonly invokeWorker: (
     request: Readonly<ProbabilisticWorkerRequest>,
   ) => Promise<Readonly<ProbabilisticWorkerObservation>>;

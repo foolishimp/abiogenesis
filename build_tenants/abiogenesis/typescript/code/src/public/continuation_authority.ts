@@ -4,6 +4,7 @@ import type {
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
+import type { HeldParentTraversalSuspension } from "../hog/execute.js";
 import type {
   AdmittedCatalog,
   CatalogView,
@@ -36,6 +37,9 @@ export interface PublicContinuationAuthority {
   readonly catalogView: CatalogView;
   readonly program: Readonly<GtlProgram>;
   readonly graph: Readonly<GtlGraph>;
+  readonly heldGraph: Readonly<GtlGraph>;
+  readonly heldClosureContract: Readonly<ClosureContract>;
+  readonly parentSuspensions: readonly HeldParentTraversalSuspension[];
   readonly invocationInput: Readonly<Record<string, JsonValue>>;
   readonly closureContract: Readonly<ClosureContract>;
   readonly authorityDigest: Sha256Digest;
@@ -53,6 +57,8 @@ const AUTHORITY_KEYS = Object.freeze([
   "closureContract",
   "continuationRef",
   "graph",
+  "heldClosureContract",
+  "heldGraph",
   "install",
   "invocationInput",
   "invocationAdmissionRef",
@@ -64,6 +70,7 @@ const AUTHORITY_KEYS = Object.freeze([
   "runtimeInvocationRef",
   "schemaVersion",
   "workspaceBinding",
+  "parentSuspensions",
 ]);
 
 function isRecord(
@@ -147,6 +154,20 @@ export function parsePublicContinuationAuthority(
     value.program.kind !== "gtl_program" ||
     !isRecord(value.graph) ||
     value.graph.kind !== "gtl_graph" ||
+    !isRecord(value.heldGraph) ||
+    value.heldGraph.kind !== "gtl_graph" ||
+    !isRecord(value.heldClosureContract) ||
+    value.heldClosureContract.kind !== "closure_contract" ||
+    !Array.isArray(value.parentSuspensions) ||
+    !value.parentSuspensions.every(
+      (suspension) =>
+        isRecord(suspension) &&
+        [
+          "held_recursion_suspension",
+          "held_workflow_suspension",
+        ].includes(String(suspension.kind)) &&
+        suspension.schemaVersion === "5.0.0",
+    ) ||
     !isRecord(value.invocationInput) ||
     !isRecord(value.closureContract) ||
     value.closureContract.kind !== "closure_contract" ||

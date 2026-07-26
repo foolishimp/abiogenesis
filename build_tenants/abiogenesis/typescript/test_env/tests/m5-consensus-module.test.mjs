@@ -165,23 +165,40 @@ function unresolvedCandidate(
   };
 }
 
-function unresolvedResult(
+function unresolvedFinalization(
   resultRef = "consensus-result://developer/unresolved",
 ) {
-  return gtl.bindConsensusReplay(
-    unresolvedCandidate(resultRef),
-    `replay://abiogenesis/${resultRef.split("/").at(-1)}`,
-  );
+  const body = {
+    kind: "consensus_finalization_state",
+    schemaVersion: "5.0.0",
+    disposition: "escalate_fh",
+    provisionalResult: unresolvedCandidate(resultRef),
+    finalResult: null,
+    terminal: false,
+  };
+  const finalizationDigest = product.sha256Canonical(body);
+  return {
+    ...body,
+    finalizationRef:
+      `consensus-finalization://abg/${
+        finalizationDigest.slice("sha256:".length)
+      }`,
+    finalizationDigest,
+  };
 }
 
-function escalationDecision(result, humanActorRef = ACTOR) {
+function escalationDecision(
+  finalizationState,
+  humanActorRef = ACTOR,
+  decision = "accept_with_dissent",
+) {
   return {
     kind: "consensus_escalation_decision",
     schemaVersion: "5.0.0",
-    unresolvedResult: result,
-    unresolvedResultRef: result.resultRef,
-    unresolvedResultDigest: product.sha256Canonical(result),
-    decision: "accept_with_dissent",
+    finalizationState,
+    finalizationRef: finalizationState.finalizationRef,
+    finalizationDigest: finalizationState.finalizationDigest,
+    decision,
     humanActorRef,
     rationaleRef: "rationale://developer/consensus/module-proof",
   };
@@ -255,10 +272,25 @@ function workerObservation(finalOutput, suffix) {
   };
 }
 
+function occurrence(suffix, attempt = 1) {
+  return {
+    cCallRef: `c-call://developer/module-proof/${suffix}/${attempt}`,
+    runId: "run://developer/module-proof",
+    graphCallId: "graph-call://developer/module-proof",
+    frameId: "frame://developer/module-proof",
+    programLocusRef: `locus://developer/module-proof/${suffix}`,
+    taskOrdinal: null,
+    attempt,
+  };
+}
+
 async function findingsVectorFor(state, recommendation = "revise") {
   const members = await Promise.all(
     state.members.map(async (member, ordinal) => {
       const realized = await realizeConsensusReviewer(member.value, {
+        occurrence: occurrence(
+          `reviewer-${state.roundOrdinal}-${ordinal}`,
+        ),
         async invokeWorker() {
           return workerObservation(
             JSON.stringify(reviewerCandidate(recommendation)),
@@ -294,6 +326,9 @@ async function responseFor(vector, disposition = "address_findings") {
   const realized = await realizeConsensusSubmitter(
     prepared.resultCandidate,
     {
+      occurrence: occurrence(
+        `submitter-${prepared.resultCandidate.roundOrdinal}`,
+      ),
       async invokeWorker() {
         return workerObservation(
           JSON.stringify(submitterCandidate(disposition, findingRefs)),
@@ -612,7 +647,15 @@ test("S05 serialized Consensus schema is one exact projection of native Product 
     false,
     "a semantic candidate is not the serialized replay-bound public result",
   );
-  assert.equal(gtl.isConsensusResult(unresolvedResult()), true);
+  assert.equal(
+    gtl.isConsensusResult(
+      gtl.bindConsensusReplay(
+        candidate,
+        "replay://abiogenesis/module-proof/unresolved",
+      ),
+    ),
+    true,
+  );
 });
 
 test("S05 module binds exact policy identities and the invocation workspace", () => {
@@ -753,9 +796,9 @@ test("S05 admits one explicit reviewer without hard-coding panel cardinality", (
 });
 
 test("S05 Product response semantics bind the exact pending result and acting actor", () => {
-  const pending = unresolvedResult();
+  const pending = unresolvedFinalization();
   const basis = {
-    requestContractRef: gtl.CONSENSUS_IDS.escalationRequestContractRef,
+    requestContractRef: gtl.CONSENSUS_IDS.finalizationStateContractRef,
     responseContractRef: gtl.CONSENSUS_IDS.escalationDecisionContractRef,
     requestValue: pending,
     actingActorRef: ACTOR,
@@ -767,7 +810,9 @@ test("S05 Product response semantics bind the exact pending result and acting ac
     ),
     null,
   );
-  const other = unresolvedResult(`${pending.resultRef}/other`);
+  const other = unresolvedFinalization(
+    `${pending.provisionalResult.resultRef}/other`,
+  );
   assert.equal(
     ABI5_SYSTEM_PRODUCT_SEMANTICS.evaluateInteractionResponse(
       basis,
@@ -782,6 +827,69 @@ test("S05 Product response semantics bind the exact pending result and acting ac
     ),
     null,
   );
+});
+
+test("S05 round reduction and same-Run human finalization form one total Product algebra", async () => {
+  const agreementState = gtl.initializeConsensus(invocationFor());
+  const agreementVector = await findingsVectorFor(agreementState, "accept");
+  const agreementResponse = await responseFor(
+    agreementVector,
+    "acknowledge",
+  );
+  const agreement = gtl.reduceConsensusRound(agreementResponse);
+  assert.equal(agreement.terminal, true);
+  assert.equal(agreement.terminalOutcome.outcome, "closed_done");
+  assert.equal(
+    gtl.projectConsensusResult(agreement).classification,
+    "unanimous_agreement",
+  );
+  const closed = gtl.prepareConsensusFinalization(agreement);
+  assert.equal(closed.disposition, "closed_done");
+  assert.equal(closed.terminal, true);
+  assert.deepEqual(
+    gtl.projectConsensusFinalResult(closed),
+    closed.provisionalResult,
+  );
+
+  const firstRound = gtl.initializeConsensus(invocationFor());
+  const firstVector = await findingsVectorFor(firstRound, "revise");
+  const firstResponse = await responseFor(
+    firstVector,
+    "address_findings",
+  );
+  const successor = gtl.reduceConsensusRound(firstResponse);
+  assert.equal(successor.terminal, false);
+  assert.equal(successor.roundOrdinal, 2);
+
+  const exhaustedVector = await findingsVectorFor(successor, "revise");
+  const exhaustedResponse = await responseFor(
+    exhaustedVector,
+    "dispute_findings",
+  );
+  const exhausted = gtl.reduceConsensusRound(exhaustedResponse);
+  assert.equal(exhausted.terminal, true);
+  assert.equal(exhausted.terminalOutcome.outcome, "escalate_fh");
+  const pending = gtl.prepareConsensusFinalization(exhausted);
+  assert.equal(gtl.isConsensusEscalationRequest(pending), true);
+
+  for (const [decisionKind, classification] of [
+    ["accept_with_dissent", "partial_agreement_with_dissent"],
+    ["reject", "unresolved_disagreement"],
+  ]) {
+    const finalized = gtl.finalizeConsensusEscalation(
+      escalationDecision(pending, ACTOR, decisionKind),
+    );
+    assert.equal(finalized.disposition, "closed_done");
+    assert.equal(finalized.terminal, true);
+    assert.equal(finalized.finalResult.classification, classification);
+    assert.equal(finalized.finalResult.terminalOutcome.outcome, "closed_done");
+    assert.equal(
+      finalized.finalResult.lineageRefs.includes(
+        pending.provisionalResult.resultRef,
+      ),
+      true,
+    );
+  }
 });
 
 test("S05 Product semantics own invocation-basis validation and replay projection", () => {
@@ -862,7 +970,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       actionCatalog: null,
       sourceResultBasis,
     }),
-    true,
+    false,
+    "a closed result cannot authorize a separate Consensus support invocation",
   );
   assert.equal(
     validateInvocationBasis({
@@ -873,7 +982,16 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       actionCatalog: null,
       sourceResultBasis: null,
     }),
-    false,
+    true,
+    "generic basis validation is not contract admission",
+  );
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.admitInput(
+      gtl.CONSENSUS_IDS.finalizationStateContractRef,
+      projected,
+    ),
+    null,
+    "a replay-bound result is not a same-Run finalization state",
   );
   assert.equal(
     validateInvocationBasis({
@@ -1110,6 +1228,7 @@ test("S05 reviewer realization carries the Product-declared instruction contract
   });
   let request = null;
   const candidate = await realizeConsensusReviewer(task, {
+    occurrence: occurrence("reviewer-instruction"),
     async invokeWorker(value) {
       request = value;
       return {
@@ -1156,8 +1275,43 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     request.responseJsonSchema,
     task.instruction.responseSchema,
   );
+  const exactEvidence = [{
+    cCallRef: candidate.resultCandidate.cCallRef,
+    cCallAttempt: candidate.resultCandidate.cCallAttempt,
+    evidenceRef: candidate.resultCandidate.evidenceRefs[0],
+    evidenceDigest: DIGEST,
+    evidenceClass: "probabilistic_transport",
+    outputDigest: candidate.resultCandidate.outputDigest,
+    transportDigest: DIGEST,
+  }];
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.validateResultEvidenceLineage({
+      outputContractRef: gtl.CONSENSUS_IDS.findingsContractRef,
+      value: candidate.resultCandidate,
+      admittedEvidence: exactEvidence,
+    }),
+    true,
+  );
+  for (const mutation of [{
+    ...exactEvidence[0],
+    cCallRef: `${exactEvidence[0].cCallRef}/other`,
+  }, {
+    ...exactEvidence[0],
+    cCallAttempt: exactEvidence[0].cCallAttempt + 1,
+  }]) {
+    assert.equal(
+      ABI5_SYSTEM_PRODUCT_SEMANTICS.validateResultEvidenceLineage({
+        outputContractRef: gtl.CONSENSUS_IDS.findingsContractRef,
+        value: candidate.resultCandidate,
+        admittedEvidence: [mutation],
+      }),
+      false,
+      "reviewer evidence from another C-call occurrence cannot satisfy this result",
+    );
+  }
 
   const refusedCandidate = await realizeConsensusReviewer(task, {
+    occurrence: occurrence("reviewer-refused"),
     async invokeWorker() {
       return {
         actorInvocationRef: "actor-invocation://developer/module-proof/refused",
@@ -1199,6 +1353,7 @@ test("S05 reviewer realization carries the Product-declared instruction contract
   const submitterResponseCandidate = await realizeConsensusSubmitter(
     submitterTaskCandidate.resultCandidate,
     {
+      occurrence: occurrence("submitter-refused-vector"),
       async invokeWorker() {
         return {
           actorInvocationRef:
@@ -1235,33 +1390,26 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     submitterResponseCandidate.resultCandidate,
   );
   assert.equal(terminalState.terminal, true);
-  assert.equal(terminalState.terminalOutcome.outcome, "escalate_fh");
+  assert.equal(terminalState.terminalOutcome.outcome, "closed_done");
   const contractFailure = gtl.projectConsensusResult(terminalState);
   assert.equal(contractFailure.classification, "contract_failure");
   assert.notEqual(contractFailure.contractFailureRef, null);
-  const replayBoundContractFailure = gtl.bindConsensusReplay(
-    contractFailure,
-    "replay://abiogenesis/module-proof/contract-failure",
-  );
   assert.equal(
-    gtl.isConsensusEscalationRequest(replayBoundContractFailure),
+    gtl.isConsensusEscalationRequest(
+      gtl.prepareConsensusFinalization(terminalState),
+    ),
     false,
   );
   assert.equal(
     ABI5_SYSTEM_PRODUCT_SEMANTICS.admitInput(
-      gtl.CONSENSUS_IDS.escalationRequestContractRef,
-      replayBoundContractFailure,
+      gtl.CONSENSUS_IDS.finalizationStateContractRef,
+      gtl.prepareConsensusFinalization(terminalState),
     ),
     null,
   );
-  assert.equal(
-    gtl.isConsensusEscalationDecision(
-      escalationDecision(replayBoundContractFailure),
-    ),
-    false,
-  );
 
   const transportFailure = await realizeConsensusReviewer(task, {
+    occurrence: occurrence("reviewer-transport-failure"),
     async invokeWorker() {
       return {
         actorInvocationRef:
@@ -1301,6 +1449,7 @@ test("S05 reviewer realization carries the Product-declared instruction contract
   );
 
   const salvagedCandidate = await realizeConsensusReviewer(task, {
+    occurrence: occurrence("reviewer-salvaged"),
     async invokeWorker() {
       return {
         actorInvocationRef:
@@ -1529,6 +1678,7 @@ test("S05 Product judgment binds reviewer and submitter output to the exact inpu
   const secondReviewerResult = await realizeConsensusReviewer(
     secondState.members[0].value,
     {
+      occurrence: occurrence("reviewer-cross-pair"),
       async invokeWorker() {
         return workerObservation(
           JSON.stringify(reviewerCandidate("revise")),

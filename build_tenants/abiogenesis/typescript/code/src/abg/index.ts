@@ -61,6 +61,7 @@ export {
   hasAdmittedInteractionSet,
   rehydrateAdmittedImplementationSet,
   rehydrateAdmittedInteractionSet,
+  rehydrateExecutionBasis,
   isAdmittedImplementationSet,
   isAdmittedImplementationResolution,
   isAdmittedInteractionSet,
@@ -92,6 +93,7 @@ export {
   isOpenedTraversalScope,
   openCall,
   openChildCall,
+  rehydrateOpenedTraversalScope,
   type OpenCallAdmission,
   type OpenCallRefusal,
   type OpenCallResult,
@@ -148,6 +150,8 @@ export {
   openCCall,
   openInteractionCCall,
   openWorkflowCCall,
+  rehydrateAdmittedCCallState,
+  rehydrateWorkflowCCall,
   type AdmittedCCallEvidence,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
@@ -173,6 +177,7 @@ export {
   type InteractionCCallLocusProposal,
   type PendingInteractionAdmission,
   type RejectedCCallCompletion,
+  type RehydratedAdmittedCCallState,
   type WorkflowCCallProposal,
 } from "./c_call.js";
 export {
