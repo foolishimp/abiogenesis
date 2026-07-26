@@ -1,5 +1,9 @@
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import {
+  sha256Bytes,
+  sha256Canonical,
+  type Sha256Digest,
+} from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   C,
@@ -45,6 +49,40 @@ export const CONSENSUS_CLASSIFICATION_VALUES = Object.freeze([
   "unresolved_disagreement",
   "contract_failure",
 ] as const);
+
+export const CONSENSUS_REVIEWER_RESPONSE_SCHEMA = Object.freeze({
+  type: "object",
+  additionalProperties: false,
+  required: [
+    "kind",
+    "schemaVersion",
+    "recommendation",
+    "findings",
+    "residualRefs",
+  ],
+  properties: {
+    kind: { const: "consensus_reviewer_candidate" },
+    schemaVersion: { const: "5.0.0" },
+    recommendation: { enum: ["accept", "revise"] },
+    findings: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["findingContractRef", "findingPayloadRef"],
+        properties: {
+          findingContractRef: { type: "string", minLength: 1 },
+          findingPayloadRef: { type: "string", minLength: 1 },
+        },
+      },
+    },
+    residualRefs: {
+      type: "array",
+      items: { type: "string", minLength: 1 },
+      uniqueItems: true,
+    },
+  },
+} as const satisfies Readonly<Record<string, JsonValue>>);
 
 export type ReviewRulingKind = (typeof REVIEW_RULING_KIND_VALUES)[number];
 export type ConsensusRoundOutcomeValue =
@@ -132,8 +170,12 @@ export const CONSENSUS_IDS = Object.freeze({
     "locus://abg/consensus/fh-escalation-finalizer@5",
   escalationStartRef: "start://abg/consensus/fh-escalation@5",
   subjectContractRef: "contract://abg/schema/consensus-subject@5",
+  subjectMaterializationContractRef:
+    "contract://abg/consensus/subject-materialization@5",
   panelContractRef: "contract://abg/schema/consensus-panel@5",
   profileContractRef: "contract://abg/schema/consensus-reviewer-profile@5",
+  reviewerInstructionContractRef:
+    "contract://abg/consensus/reviewer-instruction@5",
   findingsContractRef: "contract://abg/schema/review-findings@5",
   rulingsContractRef: "contract://abg/schema/review-rulings@5",
   policyContractRef: "contract://abg/schema/consensus-round-policy@5",
@@ -265,6 +307,27 @@ export interface ConsensusSubject {
   readonly ticketDigest: Sha256Digest | null;
 }
 
+export interface ConsensusSubjectMaterialization {
+  readonly kind: "consensus_subject_materialization";
+  readonly schemaVersion: "5.0.0";
+  readonly materializationRef: string;
+  readonly subjectContractRef: string;
+  readonly subjectRef: string;
+  readonly contentDigest: Sha256Digest;
+  readonly mediaType: "text/markdown; charset=utf-8";
+  readonly content: string;
+}
+
+export interface ConsensusReviewerInstruction {
+  readonly kind: "consensus_reviewer_instruction";
+  readonly schemaVersion: "5.0.0";
+  readonly instructionContractRef: string;
+  readonly roleContractRef: string;
+  readonly instructionDigest: Sha256Digest;
+  readonly instructionText: string;
+  readonly responseSchema: Readonly<Record<string, JsonValue>>;
+}
+
 export interface ConsensusReviewerProfile {
   readonly kind: "consensus_reviewer_profile";
   readonly schemaVersion: "5.0.0";
@@ -272,6 +335,7 @@ export interface ConsensusReviewerProfile {
   readonly roleContractRef: string;
   readonly configurationDigest: Sha256Digest;
   readonly instructionContractRef: string;
+  readonly instructionDigest: Sha256Digest;
   readonly resultContractRef: string;
   readonly capabilityRefs: readonly string[];
   readonly actorRef: string;
@@ -303,7 +367,9 @@ export interface ConsensusInvocation {
   readonly schemaVersion: "5.0.0";
   readonly invocationRef: string;
   readonly subject: ConsensusSubject;
+  readonly subjectMaterialization: ConsensusSubjectMaterialization;
   readonly panel: ConsensusPanel;
+  readonly instructions: readonly ConsensusReviewerInstruction[];
   readonly policy: ConsensusRoundPolicy;
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
 }
@@ -315,9 +381,11 @@ export interface ConsensusReviewerTask {
   readonly roundRef: string;
   readonly roundOrdinal: number;
   readonly subject: ConsensusSubject;
+  readonly subjectMaterialization: ConsensusSubjectMaterialization;
   readonly panelRef: string;
   readonly policy: ConsensusRoundPolicy;
   readonly profile: ConsensusReviewerProfile;
+  readonly instruction: ConsensusReviewerInstruction;
   readonly priorRoundRefs: readonly string[];
   readonly priorFindingSetRefs: readonly string[];
   readonly priorRulings: readonly ReviewRuling[];
@@ -373,7 +441,9 @@ export interface ConsensusRoundState {
   readonly schemaVersion: "5.0.0";
   readonly invocationRef: string;
   readonly subject: ConsensusSubject;
+  readonly subjectMaterialization: ConsensusSubjectMaterialization;
   readonly panel: ConsensusPanel;
+  readonly instructions: readonly ConsensusReviewerInstruction[];
   readonly policy: ConsensusRoundPolicy;
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly roundOrdinal: number;
@@ -1191,6 +1261,57 @@ function uniqueRefs(value: unknown, allowEmpty = true): value is readonly string
     new Set(value).size === value.length;
 }
 
+export function constructConsensusSubjectMaterialization(input: Readonly<{
+  subjectContractRef: string;
+  subjectRef: string;
+  content: string;
+}>): Readonly<ConsensusSubjectMaterialization> {
+  const contentDigest = sha256Bytes(input.content);
+  const materialization = deepFreeze({
+    kind: "consensus_subject_materialization" as const,
+    schemaVersion: "5.0.0" as const,
+    materializationRef:
+      `subject-materialization://abg/${contentDigest.slice("sha256:".length)}`,
+    subjectContractRef: input.subjectContractRef,
+    subjectRef: input.subjectRef,
+    contentDigest,
+    mediaType: "text/markdown; charset=utf-8" as const,
+    content: input.content,
+  });
+  if (!isConsensusSubjectMaterialization(materialization)) {
+    throw new TypeError(
+      "Consensus subject materialization requires exact UTF-8 content",
+    );
+  }
+  return materialization;
+}
+
+export function constructConsensusReviewerInstruction(
+  input: Omit<
+    ConsensusReviewerInstruction,
+    "instructionDigest" | "kind" | "schemaVersion"
+  >,
+): Readonly<ConsensusReviewerInstruction> {
+  const body = {
+    kind: "consensus_reviewer_instruction" as const,
+    schemaVersion: "5.0.0" as const,
+    instructionContractRef: input.instructionContractRef,
+    roleContractRef: input.roleContractRef,
+    instructionText: input.instructionText,
+    responseSchema: input.responseSchema,
+  };
+  const instruction = deepFreeze({
+    ...body,
+    instructionDigest: sha256Canonical(body as unknown as JsonValue),
+  });
+  if (!isConsensusReviewerInstruction(instruction)) {
+    throw new TypeError(
+      "Consensus reviewer instruction requires one exact body and response schema",
+    );
+  }
+  return instruction;
+}
+
 export function constructConsensusReviewerProfile(
   input: Omit<ConsensusReviewerProfile, "configurationDigest" | "kind" | "schemaVersion">,
 ): Readonly<ConsensusReviewerProfile> {
@@ -1200,6 +1321,7 @@ export function constructConsensusReviewerProfile(
     profileRef: input.profileRef,
     roleContractRef: input.roleContractRef,
     instructionContractRef: input.instructionContractRef,
+    instructionDigest: input.instructionDigest,
     resultContractRef: input.resultContractRef,
     capabilityRefs: [...input.capabilityRefs],
     actorRef: input.actorRef,
@@ -1231,7 +1353,7 @@ export function constructConsensusPanel(
   });
   if (!isConsensusPanel(panel)) {
     throw new TypeError(
-      "Consensus panel requires at least two unique exact reviewer profiles",
+      "Consensus panel requires one non-empty vector of unique exact reviewer profiles",
     );
   }
   return panel;
@@ -1283,6 +1405,7 @@ export function constructConsensusInvocation(
     kind: "consensus_invocation" as const,
     schemaVersion: "5.0.0" as const,
     ...input,
+    instructions: [...input.instructions],
   });
   if (!isConsensusInvocation(invocation)) {
     throw new TypeError(
@@ -1324,6 +1447,91 @@ export function isConsensusSubject(value: unknown): value is ConsensusSubject {
     );
 }
 
+export function isConsensusSubjectMaterialization(
+  value: unknown,
+): value is ConsensusSubjectMaterialization {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "kind",
+      "schemaVersion",
+      "materializationRef",
+      "subjectContractRef",
+      "subjectRef",
+      "contentDigest",
+      "mediaType",
+      "content",
+    ]) &&
+    value.kind === "consensus_subject_materialization" &&
+    value.schemaVersion === "5.0.0" &&
+    isRef(value.subjectContractRef) &&
+    isRef(value.subjectRef) &&
+    typeof value.content === "string" &&
+    value.content.length > 0 &&
+    value.mediaType === "text/markdown; charset=utf-8" &&
+    value.contentDigest === sha256Bytes(value.content) &&
+    value.materializationRef ===
+      `subject-materialization://abg/${value.contentDigest.slice("sha256:".length)}`;
+}
+
+export function isConsensusReviewerInstruction(
+  value: unknown,
+): value is ConsensusReviewerInstruction {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "kind",
+      "schemaVersion",
+      "instructionContractRef",
+      "roleContractRef",
+      "instructionDigest",
+      "instructionText",
+      "responseSchema",
+    ]) ||
+    value.kind !== "consensus_reviewer_instruction" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isRef(value.instructionContractRef) ||
+    !isRef(value.roleContractRef) ||
+    !isDigest(value.instructionDigest) ||
+    typeof value.instructionText !== "string" ||
+    value.instructionText.length === 0 ||
+    !isRecord(value.responseSchema) ||
+    sha256Canonical(value.responseSchema as unknown as JsonValue) !==
+      sha256Canonical(
+        CONSENSUS_REVIEWER_RESPONSE_SCHEMA as unknown as JsonValue,
+      )
+  ) return false;
+  const { instructionDigest: _instructionDigest, ...body } = value;
+  return value.instructionDigest ===
+    sha256Canonical(body as unknown as JsonValue);
+}
+
+function isConsensusInstructionSet(
+  value: unknown,
+  panel: ConsensusPanel,
+): value is readonly ConsensusReviewerInstruction[] {
+  if (
+    !Array.isArray(value) ||
+    value.length !== panel.profiles.length ||
+    !value.every(isConsensusReviewerInstruction)
+  ) return false;
+  const instructions = value as readonly ConsensusReviewerInstruction[];
+  return (
+    new Set(
+      instructions.map((instruction) =>
+        `${instruction.instructionContractRef}\0${instruction.roleContractRef}`
+      ),
+    ).size === instructions.length &&
+    panel.profiles.every((profile) =>
+      instructions.some((instruction) =>
+        instruction.instructionContractRef ===
+          profile.instructionContractRef &&
+        instruction.instructionDigest === profile.instructionDigest &&
+        instruction.roleContractRef === profile.roleContractRef
+      )
+    )
+  );
+}
+
 export function isConsensusReviewerProfile(
   value: unknown,
 ): value is ConsensusReviewerProfile {
@@ -1336,6 +1544,7 @@ export function isConsensusReviewerProfile(
       "roleContractRef",
       "configurationDigest",
       "instructionContractRef",
+      "instructionDigest",
       "resultContractRef",
       "capabilityRefs",
       "actorRef",
@@ -1354,6 +1563,7 @@ export function isConsensusReviewerProfile(
     configurationDigest ===
       sha256Canonical(configuration as unknown as JsonValue) &&
     isRef(value.instructionContractRef) &&
+    isDigest(value.instructionDigest) &&
     value.resultContractRef === CONSENSUS_IDS.findingsContractRef &&
     uniqueRefs(value.capabilityRefs) &&
     isRef(value.actorRef) &&
@@ -1429,7 +1639,9 @@ export function isConsensusInvocation(
       "schemaVersion",
       "invocationRef",
       "subject",
+      "subjectMaterialization",
       "panel",
+      "instructions",
       "policy",
       "transportLane",
     ]) &&
@@ -1437,7 +1649,17 @@ export function isConsensusInvocation(
     value.schemaVersion === "5.0.0" &&
     isRef(value.invocationRef) &&
     isConsensusSubject(value.subject) &&
+    isConsensusSubjectMaterialization(value.subjectMaterialization) &&
+    value.subjectMaterialization.subjectContractRef ===
+      value.subject.subjectContractRef &&
+    value.subjectMaterialization.subjectRef === value.subject.subjectRef &&
+    value.subjectMaterialization.contentDigest === value.subject.subjectDigest &&
+    (
+      value.subject.ticketDigest === null ||
+      value.subject.ticketDigest === value.subjectMaterialization.contentDigest
+    ) &&
     isConsensusPanel(value.panel) &&
+    isConsensusInstructionSet(value.instructions, value.panel) &&
     isConsensusRoundPolicy(value.policy) &&
     value.subject.panelRef === value.panel.panelRef &&
     value.subject.roundPolicyRef === value.policy.policyRef &&
@@ -1457,9 +1679,11 @@ export function isConsensusReviewerTask(
       "roundRef",
       "roundOrdinal",
       "subject",
+      "subjectMaterialization",
       "panelRef",
       "policy",
       "profile",
+      "instruction",
       "priorRoundRefs",
       "priorFindingSetRefs",
       "priorRulings",
@@ -1474,11 +1698,21 @@ export function isConsensusReviewerTask(
     Number.isSafeInteger(value.roundOrdinal) &&
     Number(value.roundOrdinal) > 0 &&
     isConsensusSubject(value.subject) &&
+    isConsensusSubjectMaterialization(value.subjectMaterialization) &&
+    value.subjectMaterialization.subjectContractRef ===
+      value.subject.subjectContractRef &&
+    value.subjectMaterialization.subjectRef === value.subject.subjectRef &&
+    value.subjectMaterialization.contentDigest === value.subject.subjectDigest &&
     isRef(value.panelRef) &&
     value.subject.panelRef === value.panelRef &&
     isConsensusRoundPolicy(value.policy) &&
     value.subject.roundPolicyRef === value.policy.policyRef &&
     isConsensusReviewerProfile(value.profile) &&
+    isConsensusReviewerInstruction(value.instruction) &&
+    value.instruction.instructionContractRef ===
+      value.profile.instructionContractRef &&
+    value.instruction.instructionDigest === value.profile.instructionDigest &&
+    value.instruction.roleContractRef === value.profile.roleContractRef &&
     uniqueRefs(value.priorRoundRefs) &&
     uniqueRefs(value.priorFindingSetRefs) &&
     Array.isArray(value.priorRulings) &&
@@ -1544,9 +1778,17 @@ export function isReviewFindings(value: unknown): value is ReviewFindings {
     value.configurationDigest !== value.task.profile.configurationDigest ||
     value.invocationRef !== value.task.invocationRef ||
     value.roundRef !== value.task.roundRef ||
-    value.roundOrdinal !== value.task.roundOrdinal ||
-    (value.recommendation === "accept" && value.findings.length !== 0) ||
-    (value.recommendation === "revise" && value.findings.length === 0)
+    value.roundOrdinal !== value.task.roundOrdinal
+  ) return false;
+  if (value.refusalRef === null) {
+    if (
+      (value.recommendation === "accept" && value.findings.length !== 0) ||
+      (value.recommendation === "revise" && value.findings.length === 0)
+    ) return false;
+  } else if (
+    value.recommendation !== "revise" ||
+    value.findings.length !== 0 ||
+    value.residualRefs.length === 0
   ) return false;
   const { outputDigest: _outputDigest, ...body } = value;
   return value.outputDigest === sha256Canonical(body as unknown as JsonValue);
@@ -1607,7 +1849,9 @@ export function isConsensusRoundState(
       "schemaVersion",
       "invocationRef",
       "subject",
+      "subjectMaterialization",
       "panel",
+      "instructions",
       "policy",
       "transportLane",
       "roundOrdinal",
@@ -1625,7 +1869,13 @@ export function isConsensusRoundState(
     value.schemaVersion === "5.0.0" &&
     isRef(value.invocationRef) &&
     isConsensusSubject(value.subject) &&
+    isConsensusSubjectMaterialization(value.subjectMaterialization) &&
+    value.subjectMaterialization.subjectRef === value.subject.subjectRef &&
+    value.subjectMaterialization.subjectContractRef ===
+      value.subject.subjectContractRef &&
+    value.subjectMaterialization.contentDigest === value.subject.subjectDigest &&
     isConsensusPanel(value.panel) &&
+    isConsensusInstructionSet(value.instructions, value.panel) &&
     isConsensusRoundPolicy(value.policy) &&
     value.subject.panelRef === value.panel.panelRef &&
     value.subject.roundPolicyRef === value.policy.policyRef &&
@@ -1662,6 +1912,9 @@ export function isConsensusRoundState(
       isConsensusReviewerTask(member.value) &&
       member.value.profile.profileRef ===
         (value.panel as ConsensusPanel).profiles[ordinal]?.profileRef &&
+      member.value.subjectMaterialization.materializationRef ===
+        (value.subjectMaterialization as ConsensusSubjectMaterialization)
+          .materializationRef &&
       member.value.roundOrdinal === value.roundOrdinal
     );
 }
@@ -1870,6 +2123,16 @@ function reviewerTask(
   priorEvidenceRefs: readonly string[],
 ): Readonly<ConsensusReviewerTask> {
   const currentRoundRef = roundRef(invocation.invocationRef, ordinal);
+  const instruction = invocation.instructions.find((candidate) =>
+    candidate.instructionContractRef === profile.instructionContractRef &&
+    candidate.instructionDigest === profile.instructionDigest &&
+    candidate.roleContractRef === profile.roleContractRef
+  );
+  if (instruction === undefined) {
+    throw new TypeError(
+      "Consensus reviewer task requires one exact profile instruction",
+    );
+  }
   return deepFreeze({
     kind: "consensus_reviewer_task" as const,
     schemaVersion: "5.0.0" as const,
@@ -1877,9 +2140,11 @@ function reviewerTask(
     roundRef: currentRoundRef,
     roundOrdinal: ordinal,
     subject: invocation.subject,
+    subjectMaterialization: invocation.subjectMaterialization,
     panelRef: invocation.panel.panelRef,
     policy: invocation.policy,
     profile,
+    instruction,
     priorRoundRefs: [...priorRoundRefs],
     priorFindingSetRefs: [...priorFindingSetRefs],
     priorRulings: [...priorRulings],
@@ -1929,7 +2194,9 @@ export function initializeConsensus(
     schemaVersion: "5.0.0" as const,
     invocationRef: invocation.invocationRef,
     subject: invocation.subject,
+    subjectMaterialization: invocation.subjectMaterialization,
     panel: invocation.panel,
+    instructions: invocation.instructions,
     policy: invocation.policy,
     transportLane: invocation.transportLane,
     roundOrdinal: 1,
@@ -1952,9 +2219,13 @@ function findingSetRef(findings: Readonly<ReviewFindings>): string {
 function rulingFor(findings: Readonly<ReviewFindings>): Readonly<ReviewRuling> {
   const findingRefs = findings.findings.map((finding) => finding.findingRef);
   const body = {
-    rulingKind: "decision_row" as const,
+    rulingKind: findings.refusalRef === null
+      ? "decision_row" as const
+      : "deferment" as const,
     findingRefs,
-    rationaleRef: findings.recommendation === "accept"
+    rationaleRef: findings.refusalRef !== null
+      ? "rationale://abg/consensus/reviewer-contract-failure@5"
+      : findings.recommendation === "accept"
       ? "rationale://abg/consensus/profile-acceptance@5"
       : "rationale://abg/consensus/profile-revision@5",
     payloadRef: findingSetRef(findings),
@@ -2015,8 +2286,13 @@ export function reduceConsensusRound(
       ...roundDissentProfileRefs,
     ]),
   ];
+  const hasContractFailure = findings.some(
+    (row) => row.refusalRef !== null,
+  );
   const outcome: ConsensusRoundOutcomeValue =
-    roundDissentProfileRefs.length === 0
+    hasContractFailure
+    ? "escalate_fh"
+    : roundDissentProfileRefs.length === 0
     ? "closed_done"
     : task.roundOrdinal >= task.policy.roundBudget
     ? "escalate_fh"
@@ -2035,7 +2311,9 @@ export function reduceConsensusRound(
     schemaVersion: "5.0.0",
     invocationRef: task.invocationRef,
     subject: task.subject,
+    subjectMaterialization: task.subjectMaterialization,
     panel,
+    instructions: findings.map((row) => row.task.instruction),
     policy: task.policy,
     transportLane: task.transportLane,
   };
@@ -2045,7 +2323,9 @@ export function reduceConsensusRound(
     schemaVersion: "5.0.0" as const,
     invocationRef: task.invocationRef,
     subject: task.subject,
+    subjectMaterialization: task.subjectMaterialization,
     panel,
+    instructions: invocation.instructions,
     policy: task.policy,
     transportLane: task.transportLane,
     roundOrdinal: outcome === "recurse_next_round"
@@ -2083,8 +2363,23 @@ export function projectConsensusResult(
   ) {
     throw new TypeError("Consensus result projection requires terminal round truth");
   }
+  const refusalRefs = [
+    ...new Set(state.findingSets.flatMap((findings) =>
+      findings.refusalRef === null ? [] : [findings.refusalRef]
+    )),
+  ];
+  const contractFailureRef = refusalRefs.length === 0
+    ? null
+    : `consensus-contract-failure://abg/${
+      sha256Canonical({
+        invocationRef: state.invocationRef,
+        refusalRefs,
+      }).slice("sha256:".length)
+    }`;
   const classification: ConsensusClassification =
-    state.terminalOutcome.outcome === "escalate_fh"
+    contractFailureRef !== null
+      ? "contract_failure"
+      : state.terminalOutcome.outcome === "escalate_fh"
       ? "unresolved_disagreement"
       : state.dissentProfileRefs.length === 0
       ? "unanimous_agreement"
@@ -2107,8 +2402,9 @@ export function projectConsensusResult(
       state.invocationRef,
       state.subject.subjectRef,
       ...state.roundRefs,
+      ...refusalRefs,
     ],
-    contractFailureRef: null,
+    contractFailureRef,
   };
   const digest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({
@@ -3122,37 +3418,26 @@ export function constructConsensusModulePublication(
   const constructionCompositionDigest = sha256Canonical(
     constructionCompositionBody as unknown as JsonValue,
   );
-  const directGraphFunctionRefs = graphFunctions
-    .filter(
-      (graphFunction) =>
-        graphFunction.name !== CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
-    )
-    .map((graphFunction) => graphFunction.name);
-  const program: GtlProgram = {
+  const supportProgram: GtlProgram = {
     kind: "gtl_program",
     programRef: CONSENSUS_IDS.programRef,
     version: "5.0.0",
     moduleRef: CONSENSUS_IDS.moduleRef,
     starts: [{
-      startRef: CONSENSUS_IDS.startRef,
-      graphFunctionRef: CONSENSUS_IDS.graphFunctionRef,
-    }, {
       startRef: CONSENSUS_IDS.escalationStartRef,
       graphFunctionRef: CONSENSUS_IDS.escalationGraphFunctionRef,
     }],
-    callableMembership: directGraphFunctionRefs,
-    closureContractRef: CONSENSUS_IDS.rootClosureContractRef,
+    callableMembership: [
+      CONSENSUS_IDS.escalationGraphFunctionRef,
+      CONSENSUS_IDS.escalationFinalizerGraphFunctionRef,
+    ],
+    closureContractRef: CONSENSUS_IDS.escalationClosureContractRef,
     policies: {
       "abg.root_mode": "direct",
       "abg.owner": CONSENSUS_IDS.ownerRef,
       "abg.consensus.round_budget_max": "4",
     },
-    publicAssetTargets: [{
-      kind: "program_public_asset_target",
-      handle: CONSENSUS_IDS.handle,
-      assetRef: CONSENSUS_IDS.graphFunctionRef,
-      startRef: CONSENSUS_IDS.startRef,
-    }],
+    publicAssetTargets: [],
   };
   const oneSurfaceProgram: GtlProgram = {
     kind: "gtl_program",
@@ -3180,7 +3465,12 @@ export function constructConsensusModulePublication(
       "abg.owner": CONSENSUS_IDS.ownerRef,
       "abg.consensus.round_budget_max": "4",
     },
-    publicAssetTargets: [],
+    publicAssetTargets: [{
+      kind: "program_public_asset_target",
+      handle: CONSENSUS_IDS.handle,
+      assetRef: CONSENSUS_IDS.graphFunctionRef,
+      startRef: CONSENSUS_IDS.oneSurfaceStartRef,
+    }],
   };
   const contracts = [
     [CONSENSUS_IDS.subjectContractRef, "input", "consensus_subject"],
@@ -3378,19 +3668,21 @@ export function constructConsensusModulePublication(
   const contribution = (
     graphFunctionRef: string,
     handle = graphFunctionRef,
-    programMembershipRefs = graphFunctionRef ===
-        CONSENSUS_IDS.oneSurfaceGraphFunctionRef
-      ? [CONSENSUS_IDS.oneSurfaceProgramRef]
-      : [
-          CONSENSUS_IDS.programRef,
-          CONSENSUS_IDS.oneSurfaceProgramRef,
-        ],
   ): CatalogContribution => ({
     handle,
     kind: "graph_function",
     declarationOrContractRef: graphFunctionRef,
     owningProductId: artifact.productId,
-    programMembershipRefs,
+    programMembershipRefs: [
+      CONSENSUS_IDS.oneSurfaceProgramRef,
+      ...(
+          graphFunctionRef === CONSENSUS_IDS.escalationGraphFunctionRef ||
+          graphFunctionRef ===
+            CONSENSUS_IDS.escalationFinalizerGraphFunctionRef
+        ? [CONSENSUS_IDS.programRef]
+        : []
+      ),
+    ],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   });
@@ -3400,17 +3692,7 @@ export function constructConsensusModulePublication(
       graphFunction.name === CONSENSUS_IDS.graphFunctionRef
         ? CONSENSUS_IDS.handle
         : graphFunction.name,
-      graphFunction.name === CONSENSUS_IDS.graphFunctionRef
-        ? [CONSENSUS_IDS.programRef]
-        : undefined,
     ));
-  contributions.push(
-    contribution(
-      CONSENSUS_IDS.graphFunctionRef,
-      CONSENSUS_IDS.graphFunctionRef,
-      [CONSENSUS_IDS.oneSurfaceProgramRef],
-    ),
-  );
   return deepFreeze({
     kind: "module_publication" as const,
     moduleRef: CONSENSUS_IDS.moduleRef,
@@ -3450,7 +3732,7 @@ export function constructConsensusModulePublication(
     })],
     implementationBindings,
     closureContracts,
-    programs: [program, oneSurfaceProgram],
+    programs: [oneSurfaceProgram, supportProgram],
     graphFunctions,
     contributions,
   });

@@ -58,8 +58,20 @@ for (const path of productRelativeLocators) {
 
 const catalogSchemaPath = "contracts/schemas/public-contract-catalog.schema.json";
 const manifestSchemaPath = "contracts/schemas/product-toolchain-manifest.schema.json";
+const consensusSchemaPath = "contracts/schemas/consensus.schema.json";
+const reviewRulingVocabularyPath =
+  "contracts/vocabularies/review-ruling-kind.json";
+const consensusRoundOutcomeVocabularyPath =
+  "contracts/vocabularies/consensus-round-outcome.json";
 const catalogSchemaDigest = await sha256File(join(root, catalogSchemaPath));
 const manifestSchemaDigest = await sha256File(join(root, manifestSchemaPath));
+const consensusSchemaDigest = await sha256File(join(root, consensusSchemaPath));
+const reviewRulingVocabularyDigest = await sha256File(
+  join(root, reviewRulingVocabularyPath),
+);
+const consensusRoundOutcomeVocabularyDigest = await sha256File(
+  join(root, consensusRoundOutcomeVocabularyPath),
+);
 const productDeclarationPath = "build/code/src/product/index.d.ts";
 const productDeclarationDigest = await sha256File(join(root, productDeclarationPath));
 const nativeInventory = [
@@ -112,57 +124,60 @@ const publicNativeInventory = [
 ];
 
 const consensusContractRows = [
-  ["abg.schema.consensus-subject", "isConsensusSubject"],
-  ["abg.schema.consensus-panel", "isConsensusPanel"],
-  ["abg.schema.consensus-reviewer-profile", "isConsensusReviewerProfile"],
-  ["abg.schema.review-findings", "isReviewFindings"],
-  ["abg.schema.review-rulings", "isReviewRulings"],
-  ["abg.schema.consensus-round-policy", "isConsensusRoundPolicy"],
-  ["abg.schema.consensus-round-outcome", "isConsensusRoundOutcome"],
-  ["abg.schema.consensus-result", "isConsensusResult"],
-  ["abg.schema.ticket-consensus-projection", "isTicketConsensusProjection"],
-].map(([contractId, namedSymbol]) => ({
+  ["abg.schema.consensus-subject", "ConsensusSubject"],
+  ["abg.schema.consensus-panel", "ConsensusPanel"],
+  ["abg.schema.consensus-reviewer-profile", "ConsensusReviewerProfile"],
+  ["abg.schema.review-findings", "ReviewFindings"],
+  ["abg.schema.review-rulings", "ReviewRulings"],
+  ["abg.schema.consensus-round-policy", "ConsensusRoundPolicy"],
+  ["abg.schema.consensus-round-outcome", "ConsensusRoundOutcome"],
+  ["abg.schema.consensus-result", "ConsensusResult"],
+  ["abg.schema.ticket-consensus-projection", "TicketConsensusProjection"],
+].map(([contractId, definitionName]) => ({
   contractId,
   contractVersion: "5.0.0",
-  contractDigest: sha256Canonical(gtlNativeInventory),
-  contractKind: "native_typed_group",
+  contractDigest: consensusSchemaDigest,
+  contractKind: "schema_asset",
   owningProduct: productId,
   requirementAuthorityRefs: [
     "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-004",
   ],
   capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
-  nativeTypedLocator: {
-    packageName: packageJson.name,
-    packageExportPath: "./gtl",
-    namedSymbol,
-    declarationPath: gtlDeclarationPath,
+  assetLocator: {
+    path: consensusSchemaPath,
+    mediaType: "application/schema+json",
+    schemaVersion: "5.0.0",
+    contentDigest: consensusSchemaDigest,
+    definitionRef: `#/$defs/${definitionName}`,
   },
 }));
 
 const consensusVocabularyRows = [
   [
     "abg.vocabulary.review-ruling-kind",
-    "REVIEW_RULING_KIND_VALUES",
+    reviewRulingVocabularyPath,
+    reviewRulingVocabularyDigest,
     "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-007",
   ],
   [
     "abg.vocabulary.consensus-round-outcome",
-    "CONSENSUS_ROUND_OUTCOME_VALUES",
+    consensusRoundOutcomeVocabularyPath,
+    consensusRoundOutcomeVocabularyDigest,
     "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-008",
   ],
-].map(([contractId, namedSymbol, requirementAuthorityRef]) => ({
+].map(([contractId, path, digest, requirementAuthorityRef]) => ({
   contractId,
   contractVersion: "5.0.0",
-  contractDigest: sha256Canonical(gtlNativeInventory),
-  contractKind: "native_typed_group",
+  contractDigest: digest,
+  contractKind: "vocabulary_asset",
   owningProduct: productId,
   requirementAuthorityRefs: [requirementAuthorityRef],
   capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
-  nativeTypedLocator: {
-    packageName: packageJson.name,
-    packageExportPath: "./gtl",
-    namedSymbol,
-    declarationPath: gtlDeclarationPath,
+  assetLocator: {
+    path,
+    mediaType: "application/json",
+    schemaVersion: "5.0.0",
+    contentDigest: digest,
   },
 }));
 

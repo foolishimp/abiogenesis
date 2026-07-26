@@ -84,10 +84,12 @@ Acceptance requires:
 
 1. the canonical SYSTEM-owned Consensus GraphFunction enters through the
    ordinary installed catalog, admitted Program, One Surface selection,
-   `run.invoke`, HoG, and ABG path;
+   `run.invoke`, HoG, and ABG path, with exact ticket bytes and resolved
+   profile instructions carried into every attributed reviewer task;
 2. agreement, dispute recursion, and unresolved F_H escalation produce typed
    result and replay truth across existing, alternate, and temporary
-   workspaces;
+   workspaces, and malformed attributed reviewer output produces a typed,
+   replay-visible, publicly readable `contract_failure`;
 3. Product owns Consensus domain meaning while GTL owns topology, HoG owns
    traversal, ABG owns runtime truth, and Public remains a thin projection;
 4. the affected Consensus Ontology, atomic functions, Prime contraction,
@@ -106,7 +108,7 @@ select implementation while this outcome remains unresolved.
 | Order | Existing owner | Product outcome | Acceptance boundary | State |
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
-| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | Consensus result and replay are exposed through ordinary `project.read`; escalation binds the exact replay-derived unresolved result; required schemas and vocabularies are public; bounded Consensus design and module proof agree with all three workspace outcomes. | Current |
+| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | Every promoted scenario enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; Consensus result, typed contract failure, and replay are exposed through ordinary `project.read`; escalation binds the exact replay-derived unresolved result; required schemas and vocabularies are public; bounded Consensus design and module proof agree with all three workspace outcomes. | Current |
 | `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Blocked by S05 |
 | `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Unselected until S06 closes |
 | `5` | `T-270` | Freeze one M5 candidate | All pre-qualification Product behavior and all 17 feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by prior outcomes |

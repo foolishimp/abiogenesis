@@ -32,9 +32,12 @@ S05 closes only when:
 
 - the canonical SYSTEM-owned Consensus GraphFunction enters through the
   ordinary installed catalog, admitted Program, One Surface, `run.invoke`,
-  HoG, and ABG path;
+  HoG, and ABG path, with exact ticket bytes and resolved reviewer
+  instructions in every attributed F_P task;
 - agreement, dispute recursion, and unresolved F_H escalation agree with
-  typed result and replay truth in all three workspace applications;
+  typed result and replay truth in all three workspace applications, while
+  malformed attributed reviewer output yields a typed, publicly readable
+  `contract_failure`;
 - the boundary-bounded Consensus Ontology, Prime contraction, IACS, module
   ownership, three views, operational lifecycle, axioms, and module proof
   agree with implementation;

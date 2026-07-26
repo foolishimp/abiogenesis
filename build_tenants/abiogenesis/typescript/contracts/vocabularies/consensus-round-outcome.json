@@ -1,0 +1,10 @@
+{
+  "kind": "closed_vocabulary",
+  "schemaVersion": "5.0.0",
+  "vocabularyId": "abg.vocabulary.consensus-round-outcome",
+  "values": [
+    "closed_done",
+    "recurse_next_round",
+    "escalate_fh"
+  ]
+}

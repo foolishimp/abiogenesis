@@ -285,6 +285,19 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
       return basis.sourceResultBasis === null &&
         basis.input.subject.workspaceRef === basis.workspaceId;
     }
+    if (isConsensusObservationSnapshot(basis.input)) {
+      return basis.sourceResultBasis === null &&
+        basis.input.workspaceBinding.workspaceBindingId ===
+          basis.workspaceBindingId &&
+        basis.input.workspaceBinding.workspaceBindingDigest ===
+          basis.workspaceBindingDigest &&
+        basis.input.consensusInvocation.subject.workspaceRef ===
+          basis.workspaceId &&
+        basis.actionCatalog !== null &&
+        sha256Canonical(
+          basis.input.actionCatalog as unknown as JsonValue,
+        ) === sha256Canonical(basis.actionCatalog);
+    }
     if (isConsensusResult(basis.input)) {
       const source = basis.sourceResultBasis;
       if (

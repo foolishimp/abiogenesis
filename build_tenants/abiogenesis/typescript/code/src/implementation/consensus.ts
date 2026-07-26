@@ -242,9 +242,15 @@ export function realizeConsensusRoundEvaluation(
 
 function reviewerPrompt(input: Readonly<ConsensusReviewerTask>): string {
   return [
-    "Evaluate the exact Consensus subject under the attributed reviewer profile.",
+    input.instruction.instructionText,
+    `Instruction contract: ${input.instruction.instructionContractRef}`,
+    `Instruction digest: ${input.instruction.instructionDigest}`,
     `Subject: ${input.subject.subjectRef}`,
     `Subject digest: ${input.subject.subjectDigest}`,
+    `Subject media type: ${input.subjectMaterialization.mediaType}`,
+    "Subject materialization:",
+    input.subjectMaterialization.content,
+    "End subject materialization.",
     `Round: ${input.roundOrdinal}`,
     `Profile: ${input.profile.profileRef}`,
     `Profile configuration: ${input.profile.configurationDigest}`,
@@ -254,42 +260,6 @@ function reviewerPrompt(input: Readonly<ConsensusReviewerTask>): string {
     `Task: ${JSON.stringify(input)}`,
     "Return only the declared reviewer candidate JSON.",
   ].join("\n");
-}
-
-function reviewerResponseSchema(): Readonly<Record<string, JsonValue>> {
-  return {
-    type: "object",
-    additionalProperties: false,
-    required: [
-      "kind",
-      "schemaVersion",
-      "recommendation",
-      "findings",
-      "residualRefs",
-    ],
-    properties: {
-      kind: { const: "consensus_reviewer_candidate" },
-      schemaVersion: { const: "5.0.0" },
-      recommendation: { enum: ["accept", "revise"] },
-      findings: {
-        type: "array",
-        items: {
-          type: "object",
-          additionalProperties: false,
-          required: ["findingContractRef", "findingPayloadRef"],
-          properties: {
-            findingContractRef: { type: "string", minLength: 1 },
-            findingPayloadRef: { type: "string", minLength: 1 },
-          },
-        },
-      },
-      residualRefs: {
-        type: "array",
-        items: { type: "string", minLength: 1 },
-        uniqueItems: true,
-      },
-    },
-  } as Readonly<Record<string, JsonValue>>;
 }
 
 function isSemanticCandidate(value: unknown): value is ReviewerSemanticCandidate {
@@ -388,24 +358,40 @@ export async function realizeConsensusReviewer(
     resultContractRef: input.profile.resultContractRef,
     transportLane: input.transportLane,
     prompt: reviewerPrompt(input),
-    responseJsonSchema: reviewerResponseSchema(),
+    responseJsonSchema: input.instruction.responseSchema,
   });
   const semantic = parseSemanticCandidate(transport.finalOutput);
   if (transport.disposition !== "success" || semantic === null) {
     const diagnosticRef =
       "diagnostic://abg/consensus/reviewer-output-refused@5";
+    const evidenceRef =
+      `transport-evidence://abg/${transport.transportDigest.slice("sha256:".length)}`;
+    const body = {
+      kind: "review_findings" as const,
+      schemaVersion: "5.0.0" as const,
+      profileRef: input.profile.profileRef,
+      configurationDigest: input.profile.configurationDigest,
+      invocationRef: input.invocationRef,
+      roundRef: input.roundRef,
+      roundOrdinal: input.roundOrdinal,
+      recommendation: "revise" as const,
+      evidenceRefs: [evidenceRef],
+      findings: [] as const,
+      residualRefs: [diagnosticRef],
+      refusalRef: diagnosticRef,
+      task: input,
+    };
+    const resultCandidate: ReviewFindings = deepFreeze({
+      ...body,
+      outputDigest: sha256Canonical(body as unknown as JsonValue),
+    });
     return deepFreeze({
       kind: "leaf_realization_candidate" as const,
       schemaVersion: "5.0.0" as const,
-      disposition: "failure" as const,
+      disposition: "success" as const,
       evidenceCandidates: [] as const,
-      resultCandidate: {
-        kind: "consensus_failure",
-        schemaVersion: "5.0.0",
-        failureClass: transport.failureClass ?? "invalid_reviewer_output",
-        diagnosticRef,
-      },
-      diagnosticRef,
+      resultCandidate:
+        resultCandidate as unknown as Readonly<Record<string, JsonValue>>,
     });
   }
   const evidenceRef =

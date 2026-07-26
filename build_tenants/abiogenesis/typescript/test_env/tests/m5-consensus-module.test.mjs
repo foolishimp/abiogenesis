@@ -51,18 +51,37 @@ function canonicalPolicy() {
 }
 
 function invocationFor(workspaceRef = WORKSPACE) {
-  const profiles = ["author", "independent"].map((name) =>
+  const subjectMaterialization =
+    gtl.constructConsensusSubjectMaterialization({
+      subjectContractRef: "contract://stdo/ticket@2",
+      subjectRef: "ticket://abiogenesis/T-276",
+      content: "# T-276\n\nExact module-proof Consensus subject.\n",
+    });
+  const instructions = ["author", "independent"].map((name) =>
+    gtl.constructConsensusReviewerInstruction({
+      instructionContractRef:
+        `contract://developer/consensus/reviewer-instruction/${name}@1`,
+      roleContractRef: `contract://developer/reviewer-role/${name}@1`,
+      instructionText:
+        `Review the exact materialized ticket as the ${name} profile.`,
+      responseSchema: gtl.CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
+    })
+  );
+  const profiles = instructions.map((instruction, index) => {
+    const name = ["author", "independent"][index];
+    return (
     gtl.constructConsensusReviewerProfile({
       profileRef: `reviewer-profile://developer/${name}`,
-      roleContractRef: `contract://developer/reviewer-role/${name}@1`,
-      instructionContractRef:
-        "contract://developer/consensus/reviewer-instruction@1",
+      roleContractRef: instruction.roleContractRef,
+      instructionContractRef: instruction.instructionContractRef,
+      instructionDigest: instruction.instructionDigest,
       resultContractRef: gtl.CONSENSUS_IDS.findingsContractRef,
       capabilityRefs: [`capability://developer/reviewer/${name}`],
       actorRef: `actor://developer/reviewer/${name}`,
       workerBindingRef: `worker-binding://developer/reviewer/${name}`,
     })
-  );
+    );
+  });
   const panel = gtl.constructConsensusPanel(
     "panel://developer/consensus/module-proof",
     profiles,
@@ -71,18 +90,20 @@ function invocationFor(workspaceRef = WORKSPACE) {
   const subject = gtl.constructConsensusSubject({
     subjectContractRef: "contract://stdo/ticket@2",
     subjectRef: "ticket://abiogenesis/T-276",
-    subjectDigest: DIGEST,
+    subjectDigest: subjectMaterialization.contentDigest,
     submittingActorRef: ACTOR,
     panelRef: panel.panelRef,
     roundPolicyRef: policy.policyRef,
     workspaceRef,
     ticketRef: "ticket://abiogenesis/T-276",
-    ticketDigest: DIGEST,
+    ticketDigest: subjectMaterialization.contentDigest,
   });
   return gtl.constructConsensusInvocation({
     invocationRef: "consensus-invocation://developer/module-proof",
     subject,
+    subjectMaterialization,
     panel,
+    instructions,
     policy,
     transportLane: "closed_prompt_proof",
   });
@@ -145,27 +166,77 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
   const manifest = JSON.parse(
     await readFile(resolve(packageRoot, "product-toolchain-manifest.json"), "utf8"),
   );
-  const required = [
-    "abg.schema.consensus-subject",
-    "abg.schema.consensus-panel",
-    "abg.schema.consensus-reviewer-profile",
-    "abg.schema.review-findings",
-    "abg.schema.review-rulings",
-    "abg.schema.consensus-round-policy",
-    "abg.schema.consensus-round-outcome",
-    "abg.schema.consensus-result",
-    "abg.schema.ticket-consensus-projection",
-    "abg.vocabulary.review-ruling-kind",
-    "abg.vocabulary.consensus-round-outcome",
-  ];
   const rows = new Map(
     manifest.publicContractCatalog.rows.map((row) => [row.contractId, row]),
   );
-  for (const contractId of required) {
+  const schemaBindings = new Map([
+    ["abg.schema.consensus-subject", ["ConsensusSubject", "isConsensusSubject"]],
+    ["abg.schema.consensus-panel", ["ConsensusPanel", "isConsensusPanel"]],
+    [
+      "abg.schema.consensus-reviewer-profile",
+      ["ConsensusReviewerProfile", "isConsensusReviewerProfile"],
+    ],
+    ["abg.schema.review-findings", ["ReviewFindings", "isReviewFindings"]],
+    ["abg.schema.review-rulings", ["ReviewRulings", "isReviewRulings"]],
+    [
+      "abg.schema.consensus-round-policy",
+      ["ConsensusRoundPolicy", "isConsensusRoundPolicy"],
+    ],
+    [
+      "abg.schema.consensus-round-outcome",
+      ["ConsensusRoundOutcome", "isConsensusRoundOutcome"],
+    ],
+    ["abg.schema.consensus-result", ["ConsensusResult", "isConsensusResult"]],
+    [
+      "abg.schema.ticket-consensus-projection",
+      ["TicketConsensusProjection", "isTicketConsensusProjection"],
+    ],
+  ]);
+  for (const [contractId, [definitionName, nativeSymbol]] of schemaBindings) {
     const row = rows.get(contractId);
     assert.ok(row, contractId);
-    assert.equal(row.nativeTypedLocator.packageExportPath, "./gtl");
-    assert.notEqual(gtl[row.nativeTypedLocator.namedSymbol], undefined);
+    assert.equal(row.contractKind, "schema_asset");
+    assert.equal(row.assetLocator.mediaType, "application/schema+json");
+    assert.equal(
+      row.assetLocator.definitionRef,
+      `#/$defs/${definitionName}`,
+    );
+    const bytes = await readFile(
+      resolve(packageRoot, row.assetLocator.path),
+    );
+    assert.equal(
+      row.contractDigest,
+      `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
+    );
+    const schema = JSON.parse(bytes);
+    assert.ok(schema.$defs[definitionName], contractId);
+    assert.equal(typeof gtl[nativeSymbol], "function");
+  }
+
+  const vocabularyBindings = new Map([
+    [
+      "abg.vocabulary.review-ruling-kind",
+      gtl.REVIEW_RULING_KIND_VALUES,
+    ],
+    [
+      "abg.vocabulary.consensus-round-outcome",
+      gtl.CONSENSUS_ROUND_OUTCOME_VALUES,
+    ],
+  ]);
+  for (const [contractId, nativeValues] of vocabularyBindings) {
+    const row = rows.get(contractId);
+    assert.ok(row, contractId);
+    assert.equal(row.contractKind, "vocabulary_asset");
+    assert.equal(row.assetLocator.mediaType, "application/json");
+    const bytes = await readFile(
+      resolve(packageRoot, row.assetLocator.path),
+    );
+    assert.equal(
+      row.contractDigest,
+      `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
+    );
+    const vocabulary = JSON.parse(bytes);
+    assert.deepEqual(vocabulary.values, [...nativeValues]);
   }
 
   const publication = gtl.constructConsensusModulePublication(artifactBasis());
@@ -213,7 +284,8 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
 
   const publication = gtl.constructConsensusModulePublication(artifactBasis());
   const program = publication.programs.find(
-    (candidate) => candidate.programRef === gtl.CONSENSUS_IDS.programRef,
+    (candidate) =>
+      candidate.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
   );
   const input = invocationFor();
   const basis = {
@@ -241,6 +313,35 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
       ...basis,
       workspaceId: `${WORKSPACE}/substituted`,
+    }),
+    false,
+  );
+
+  const observation = gtl.constructConsensusObservationSnapshot({
+    workspaceBindingId: basis.workspaceBindingId,
+    workspaceBindingDigest: basis.workspaceBindingDigest,
+    actionCatalog: program.actionCatalog,
+    consensusInvocation: input,
+  });
+  const observationBasis = {
+    ...basis,
+    input: observation,
+  };
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis(observationBasis),
+    true,
+  );
+  const crossWorkspaceObservation =
+    gtl.constructConsensusObservationSnapshot({
+      workspaceBindingId: basis.workspaceBindingId,
+      workspaceBindingDigest: basis.workspaceBindingDigest,
+      actionCatalog: program.actionCatalog,
+      consensusInvocation: invocationFor(`${WORKSPACE}/substituted`),
+    });
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
+      ...observationBasis,
+      input: crossWorkspaceObservation,
     }),
     false,
   );
@@ -277,6 +378,7 @@ test("S05 admits one explicit reviewer without hard-coding panel cardinality", (
     ...invocation,
     subject,
     panel,
+    instructions: [invocation.instructions[0]],
   });
   assert.equal(gtl.isConsensusPanel(panel), true);
   assert.equal(gtl.isConsensusInvocation(singleton), true);
@@ -439,9 +541,14 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
     packageRoot,
     "test_env/proof/abi5-root-r10.events.jsonl",
   );
+  const transcriptPath = resolve(
+    packageRoot,
+    "test_env/proof/abi5-root-r10.transcript.json",
+  );
   const eventLogPath = join(scratch, "abi5-root-r10.events.jsonl");
   try {
     await copyFile(sourcePath, eventLogPath);
+    const transcript = JSON.parse(await readFile(transcriptPath, "utf8"));
     const bytes = await readFile(eventLogPath);
     const status = await stat(eventLogPath);
     const authorityBody = {
@@ -510,6 +617,106 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
         ),
         true,
       );
+      const installEvent = reopened.store.readAll().find(
+        (event) =>
+          event.kind === "public_operation_artifact_admitted" &&
+          event.payload.operationId === "abg.operation.product.install",
+      );
+      const catalogEvent = reopened.store.readAll().find(
+        (event) =>
+          event.kind === "public_operation_artifact_admitted" &&
+          event.payload.operationId === "abg.operation.catalog.admit",
+      );
+      const catalogViewEvent = reopened.store.readAll().find(
+        (event) =>
+          event.kind === "public_operation_artifact_admitted" &&
+          event.payload.operationId === "abg.operation.catalog.view",
+      );
+      assert.ok(installEvent);
+      assert.ok(catalogEvent);
+      assert.ok(catalogViewEvent);
+      const verification = transcript[0].payload;
+      const install = {
+        kind: "product_install",
+        schemaVersion: "5.0.0",
+        disposition: "admitted",
+        installId: installEvent.aggregateId,
+        installedRoot: join(
+          transcript[1].payload.targetRoot,
+          "node_modules",
+          "@abiogenesis",
+          "typescript-tenant",
+        ),
+        productId: verification.expectedProductId,
+        packageName: verification.expectedPackageName,
+        packageVersion: verification.expectedPackageVersion,
+        artifactDigest: verification.expectedArtifactDigest,
+        productContentDigest: verification.expectedProductContentDigest,
+        manifestDigest: verification.expectedManifestDigest,
+        admissionEventRef: installEvent.eventId,
+      };
+      const publication = transcript[3].payload.publication;
+      const productSemanticsBasis = {
+        install,
+        workspaceBindingId: catalogEvent.payload.authorityScopeRef,
+        workspaceBindingDigest: catalogEvent.payload.authorityScopeDigest,
+        catalogId: catalogViewEvent.payload.authorityScopeRef,
+        catalogDigest: catalogEvent.payload.artifactDigest,
+        catalogAdmissionEventRef: catalogEvent.eventId,
+        catalogViewId:
+          `catalog-view://abiogenesis/${catalogViewEvent.payload.artifactDigest.slice("sha256:".length)}`,
+        catalogViewDigest: catalogViewEvent.payload.artifactDigest,
+        catalogViewAdmissionEventRef: catalogViewEvent.eventId,
+        publicationDigest: catalogEvent.payload.publicationDigest,
+        productSemanticsBinding: publication.productSemanticsBinding,
+      };
+      assert.equal(
+        abg.hasAdmittedProductSemanticsBasis(
+          reopened.store,
+          productSemanticsBasis,
+        ),
+        true,
+      );
+      const replays = runOpens.map((event) =>
+        abg.replay(reopened.store, { runId: event.runId })
+      );
+      const resultRefs = replays.map(
+        (replay) =>
+          replay.cCalls.find((cCall) => cCall.resultRef !== null)?.resultRef,
+      );
+      assert.equal(typeof resultRefs[0], "string");
+      assert.equal(typeof resultRefs[1], "string");
+      const ownRunBasis = abg.deriveInvocationSourceResultBasis(
+        reopened.store,
+        {
+          publicAuthorityDigest: DIGEST,
+          runtimeInvocationRef: admissions[0].invocationRef,
+          invocationAdmissionRef:
+            runOpens[0].payload.invocationAdmissionRef,
+          runId: runOpens[0].runId,
+          resultRef: resultRefs[0],
+          productSemanticsBasis,
+        },
+      );
+      assert.ok(ownRunBasis);
+      assert.equal(ownRunBasis.sourceRunId, runOpens[0].runId);
+      const crossPairedRunBasis = abg.deriveInvocationSourceResultBasis(
+        reopened.store,
+        {
+          publicAuthorityDigest: DIGEST,
+          runtimeInvocationRef: admissions[0].invocationRef,
+          invocationAdmissionRef:
+            runOpens[0].payload.invocationAdmissionRef,
+          runId: runOpens[1].runId,
+          resultRef: resultRefs[1],
+          productSemanticsBasis,
+        },
+      );
+      assert.equal(
+        crossPairedRunBasis,
+        null,
+        "a source-result basis must not cross-pair one admitted invocation with another Run",
+      );
     } finally {
       reopened.store.closeDurableLog();
     }
@@ -527,9 +734,11 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     roundRef: "consensus-round://developer/module-proof/1",
     roundOrdinal: 1,
     subject: invocation.subject,
+    subjectMaterialization: invocation.subjectMaterialization,
     panelRef: invocation.panel.panelRef,
     policy: invocation.policy,
     profile: invocation.panel.profiles[0],
+    instruction: invocation.instructions[0],
     priorRoundRefs: [],
     priorFindingSetRefs: [],
     priorRulings: [],
@@ -590,6 +799,70 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     request.instructionContractRef,
     task.profile.instructionContractRef,
   );
+  assert.equal(
+    request.prompt.includes(task.subjectMaterialization.content),
+    true,
+  );
+  assert.equal(
+    request.prompt.includes(task.instruction.instructionText),
+    true,
+  );
+  assert.deepEqual(
+    request.responseJsonSchema,
+    task.instruction.responseSchema,
+  );
+
+  const refusedCandidate = await realizeConsensusReviewer(task, {
+    async invokeWorker() {
+      return {
+        actorInvocationRef: "actor-invocation://developer/module-proof/refused",
+        transportBindingRef: "transport-binding://developer/module-proof",
+        transportBindingDigest: DIGEST,
+        disposition: "success",
+        failureClass: null,
+        finalOutput: "{\"unadmitted\":true}",
+        promptDigest: DIGEST,
+        transportDigest: DIGEST,
+        transportLane: task.transportLane,
+        processStatus: 0,
+        processSignal: null,
+        timedOut: false,
+        exitObserved: true,
+        terminationConfirmed: true,
+        progressEventCount: 0,
+        toolCallCount: 0,
+        artifactDigests: {
+          output: DIGEST,
+          prompt: DIGEST,
+          stderr: DIGEST,
+          stdout: DIGEST,
+          transport: DIGEST,
+        },
+      };
+    },
+  });
+  assert.equal(refusedCandidate.disposition, "success");
+  assert.equal(
+    gtl.isReviewFindings(refusedCandidate.resultCandidate),
+    true,
+  );
+  assert.notEqual(refusedCandidate.resultCandidate.refusalRef, null);
+  const terminalState = gtl.reduceConsensusRound({
+    kind: "gtl_fan_out_vector",
+    schemaVersion: "5.0.0",
+    applicationRef: gtl.CONSENSUS_IDS.roundApplicationRef,
+    members: [{
+      ordinal: 0,
+      inputMemberRef: "member://developer/module-proof/refused/input",
+      outputMemberRef: "member://developer/module-proof/refused/output",
+      value: refusedCandidate.resultCandidate,
+    }],
+  });
+  assert.equal(terminalState.terminal, true);
+  assert.equal(terminalState.terminalOutcome.outcome, "escalate_fh");
+  const contractFailure = gtl.projectConsensusResult(terminalState);
+  assert.equal(contractFailure.classification, "contract_failure");
+  assert.notEqual(contractFailure.contractFailureRef, null);
 });
 
 test("S05 public result binds real replay while its authority rejects digest tampering", () => {

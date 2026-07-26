@@ -98,6 +98,12 @@ async function installConsensusWorker(harness) {
     "process.stdin.on('end', () => {",
     "  const taskLine = prompt.split(/\\r?\\n/u).find((line) => line.startsWith('Task: '));",
     "  const task = taskLine === undefined ? null : JSON.parse(taskLine.slice('Task: '.length));",
+    "  const exactSubject = task?.subjectMaterialization?.content;",
+    "  const exactInstruction = task?.instruction?.instructionText;",
+    "  const profileRole = task?.profile?.roleContractRef;",
+    "  if (typeof exactSubject !== 'string' || !exactSubject.includes('T-276')) process.exit(41);",
+    "  if (typeof exactInstruction !== 'string' || !exactInstruction.includes(profileRole)) process.exit(42);",
+    "  if (!prompt.includes(exactSubject) || !prompt.includes(exactInstruction)) process.exit(43);",
     "  const mode = process.env.ABG_CONSENSUS_TEST_MODE ?? 'agreement';",
     "  const revise = mode === 'unresolved' || (mode === 'dispute_then_agree' && task?.roundOrdinal === 1);",
     "  const candidate = {",
@@ -142,19 +148,34 @@ async function consensusBasis(
     packageName: harness.candidateBasis.packageName,
     packageVersion: harness.candidateBasis.packageVersion,
   });
-  const profiles = profileNames.map(
-    (name, ordinal) => gtl.constructConsensusReviewerProfile({
-      profileRef: `reviewer-profile://developer/${name}`,
-      roleContractRef: `contract://developer/reviewer-role/${name}@1`,
+  const instructions = profileNames.map((name) => {
+    const roleContractRef =
+      `contract://developer/reviewer-role/${name}@1`;
+    return gtl.constructConsensusReviewerInstruction({
       instructionContractRef:
-        "contract://abg/consensus/reviewer-instruction@5",
+        `contract://developer/consensus/reviewer-instruction/${name}@1`,
+      roleContractRef,
+      instructionText:
+        `Review the exact materialized ticket under ${roleContractRef}.`,
+      responseSchema: gtl.CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
+    });
+  });
+  const profiles = instructions.map(
+    (instruction, ordinal) => gtl.constructConsensusReviewerProfile({
+      profileRef:
+        `reviewer-profile://developer/${profileNames[ordinal]}`,
+      roleContractRef: instruction.roleContractRef,
+      instructionContractRef: instruction.instructionContractRef,
+      instructionDigest: instruction.instructionDigest,
       resultContractRef: gtl.CONSENSUS_IDS.findingsContractRef,
       capabilityRefs: [
         "capability://developer/read-ticket",
         `capability://developer/review-role/${ordinal}`,
       ],
-      actorRef: `actor://developer/reviewer/${name}`,
-      workerBindingRef: `worker-binding://developer/reviewer/${name}`,
+      actorRef:
+        `actor://developer/reviewer/${profileNames[ordinal]}`,
+      workerBindingRef:
+        `worker-binding://developer/reviewer/${profileNames[ordinal]}`,
     }),
   );
   const panel = gtl.constructConsensusPanel(
@@ -170,14 +191,21 @@ async function consensusBasis(
     foldbackContractRef: gtl.CONSENSUS_IDS.foldbackContractRef,
   });
   const ticketRef = "ticket://abiogenesis/T-276";
-  const ticketBytes = await readFile(
+  const ticketContent = await readFile(
     resolve(
       packageRoot,
       "../../..",
       ".ai-workspace/tickets/completed/T-276-prove-installed-consensus-workspace-scenarios.md",
     ),
+    "utf8",
   );
-  const ticketDigest = digest(ticketBytes);
+  const subjectMaterialization =
+    gtl.constructConsensusSubjectMaterialization({
+      subjectContractRef: "contract://stdo/ticket@2",
+      subjectRef: ticketRef,
+      content: ticketContent,
+    });
+  const ticketDigest = subjectMaterialization.contentDigest;
   const subject = gtl.constructConsensusSubject({
     subjectContractRef: "contract://stdo/ticket@2",
     subjectRef: ticketRef,
@@ -192,11 +220,103 @@ async function consensusBasis(
   const input = gtl.constructConsensusInvocation({
     invocationRef: `consensus-invocation://developer/${label}`,
     subject,
+    subjectMaterialization,
     panel,
+    instructions,
     policy,
     transportLane: "closed_prompt_proof",
   });
   return { gtl, input, product, publication };
+}
+
+function expectedWorkspaceBinding(basis, harness, scenario) {
+  const install = {
+    kind: "product_install",
+    schemaVersion: "5.0.0",
+    disposition: "admitted",
+    installId:
+      `product-install://${harness.candidateBasis.packageName}/${harness.candidateBasis.packageVersion}/${harness.candidateBasis.productContentDigest.slice("sha256:".length)}`,
+    installedRoot: scenario.installedRoot,
+    productId: harness.candidateBasis.productId,
+    packageName: harness.candidateBasis.packageName,
+    packageVersion: harness.candidateBasis.packageVersion,
+    artifactDigest: harness.candidateBasis.artifactDigest,
+    productContentDigest: harness.candidateBasis.productContentDigest,
+    manifestDigest: harness.candidateBasis.manifestDigest,
+    admissionEventRef: "event://client/derived-install-basis",
+  };
+  const lock = basis.product.constructResolvedProductLock([install], []);
+  assert.equal(lock.kind, "resolved_product_lock");
+  const productSet = basis.product.constructProductSet([install], lock);
+  assert.equal(productSet.kind, "product_set");
+  const payload = scenario.transcript[2].payload;
+  const authorityManifest = {
+    workspaceId: payload.workspaceId,
+    canonicalRoot: payload.canonicalRoot,
+    authorityMode: "trusted_developer",
+    authorizedActorRef: payload.authorizedActorRef,
+  };
+  const authority = basis.product.constructWorkspaceAuthorityBasis({
+    ...authorityManifest,
+    authorityManifestRef: payload.authorityManifestRef,
+    authorityManifestDigest:
+      basis.product.sha256Canonical(authorityManifest),
+  });
+  assert.equal(authority.kind, "workspace_authority_basis");
+  const binding = basis.product.constructWorkspaceBinding(
+    authority,
+    productSet,
+    lock,
+    payload.roots,
+  );
+  assert.equal(binding.kind, "workspace_binding_candidate");
+  return binding;
+}
+
+async function selectConsensusThroughOneSurface(
+  basis,
+  harness,
+  scenario,
+  consensusInvocation = basis.input,
+) {
+  const program = basis.publication.programs.find(
+    (candidate) =>
+      candidate.programRef === basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+  );
+  assert.ok(program?.actionCatalog);
+  const workspaceBinding = expectedWorkspaceBinding(
+    basis,
+    harness,
+    scenario,
+  );
+  const observation = basis.gtl.constructConsensusObservationSnapshot({
+    workspaceBindingId: workspaceBinding.bindingId,
+    workspaceBindingDigest: workspaceBinding.bindingDigest,
+    actionCatalog: program.actionCatalog,
+    consensusInvocation,
+  });
+  const start = scenario.transcript.at(-1);
+  start.variant = "start";
+  start.payload = {
+    installInvocationRef: scenario.refs.install,
+    workspaceBindingInvocationRef: scenario.refs.bind,
+    catalogViewInvocationRef: scenario.refs.view,
+    programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+    actorRef: scenario.transcript[2].payload.authorizedActorRef,
+    input: observation,
+    eventLogPath: scenario.eventLogPath,
+    rootMode: "supervised",
+    scope: "program",
+    target: basis.gtl.CONSENSUS_IDS.oneSurfaceStartRef,
+    until: "converged",
+    startRef: basis.gtl.CONSENSUS_IDS.oneSurfaceStartRef,
+  };
+  await writeFile(
+    scenario.transcriptPath,
+    `${scenario.transcript.map((row) => JSON.stringify(row)).join("\n")}\n`,
+    "utf8",
+  );
+  return observation;
 }
 
 async function eventsAt(path) {
@@ -346,8 +466,9 @@ for (const workspace of workspaceApplications) {
       `m5-consensus-${workspace.label}-${scenario.label}`,
       (payload) => payload,
       {
-        programRef: basis.gtl.CONSENSUS_IDS.programRef,
-        graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+        programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+        graphFunctionRef:
+          basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
         allowlist,
         input: basis.input,
         workspaceId,
@@ -355,6 +476,7 @@ for (const workspace of workspaceApplications) {
         eventLogFile: `${scenario.label}.events.jsonl`,
       },
     );
+    await selectConsensusThroughOneSurface(basis, harness, installed);
     const run = await runInstalledCli(harness, installed, {
       environment: {
         ABG_TS_CLAUDE_COMMAND: command,
@@ -379,23 +501,36 @@ for (const workspace of workspaceApplications) {
     );
     const outcome = run.outcomes.at(-1);
     assert.equal(outcome.replayAgreement, true);
-    assert.equal(outcome.result.kind, "consensus_result");
+    assert.equal(outcome.result.kind, "next_action_projection");
+    assert.equal(outcome.result.disposition, "converged");
+    const childResultEvent = events.find(
+      (event) =>
+        event.kind === "c_call_result_admitted" &&
+        event.payload?.contractRef ===
+          basis.gtl.CONSENSUS_IDS.resultContractRef &&
+        event.payload?.value?.kind === "consensus_result",
+    );
+    assert.ok(childResultEvent, JSON.stringify(diagnosticSummary(events)));
+    const consensusResultCandidate = childResultEvent.payload.value;
     assert.equal(
-      Object.hasOwn(outcome.result, "replayRef"),
+      Object.hasOwn(consensusResultCandidate, "replayRef"),
       false,
       "the admitted Product result candidate must not fabricate future replay identity",
     );
     assert.equal(
-      outcome.result.terminalOutcome.outcome,
+      consensusResultCandidate.terminalOutcome.outcome,
       scenario.expectedOutcome,
     );
     assert.equal(
-      outcome.result.classification,
+      consensusResultCandidate.classification,
       scenario.expectedClassification,
     );
-    assert.equal(outcome.result.roundRefs.length, scenario.expectedRounds);
     assert.equal(
-      outcome.result.findingSetRefs.length,
+      consensusResultCandidate.roundRefs.length,
+      scenario.expectedRounds,
+    );
+    assert.equal(
+      consensusResultCandidate.findingSetRefs.length,
       scenario.label === "agreement"
         ? 2
         : scenario.expectedRounds * 2,
@@ -422,7 +557,7 @@ for (const workspace of workspaceApplications) {
         harness,
         substitutedAuthority,
         "result",
-        outcome.resultRef,
+        childResultEvent.payload.resultRef,
         `${readLabel}-substituted-product`,
       );
       assert.equal(refusedRead.exitCode, 2, refusedRead.stdout);
@@ -446,7 +581,7 @@ for (const workspace of workspaceApplications) {
         harness,
         substitutedSemanticsAuthority,
         "result",
-        outcome.resultRef,
+        childResultEvent.payload.resultRef,
         `${readLabel}-substituted-semantics`,
       );
       assert.equal(
@@ -474,7 +609,7 @@ for (const workspace of workspaceApplications) {
         harness,
         substitutedCatalogAuthority,
         "result",
-        outcome.resultRef,
+        childResultEvent.payload.resultRef,
         `${readLabel}-substituted-catalog-admission`,
       );
       assert.equal(
@@ -489,12 +624,12 @@ for (const workspace of workspaceApplications) {
       );
     }
     const resultRead = await readRunProjection(
-      harness,
-      outcome.projectionAuthority,
-      "result",
-      outcome.resultRef,
-      readLabel,
-    );
+        harness,
+        outcome.projectionAuthority,
+        "result",
+        childResultEvent.payload.resultRef,
+        readLabel,
+      );
     assert.equal(
       resultRead.exitCode,
       0,
@@ -514,7 +649,7 @@ for (const workspace of workspaceApplications) {
     );
     assert.equal(
       resultProjection.result.value.resultRef,
-      outcome.result.resultRef,
+      consensusResultCandidate.resultRef,
     );
     const replayRead = await readRunProjection(
       harness,
@@ -659,8 +794,9 @@ for (const workspace of workspaceApplications) {
       let respondedAuthority = held.result.continuationAuthority;
       if (workspace.label === "existing") {
         const otherResult = {
-          ...outcome.result,
-          resultRef: `${outcome.result.resultRef}/other-admitted-shape`,
+          ...consensusResultCandidate,
+          resultRef:
+            `${consensusResultCandidate.resultRef}/other-admitted-shape`,
         };
         const invalidResponses = [{
           label: "different-pending-result",
@@ -780,14 +916,29 @@ for (const workspace of workspaceApplications) {
         "partial_agreement_with_dissent",
       );
       assert.equal(completed.result.terminalOutcome.outcome, "closed_done");
-      assert.equal(completed.result.subjectRef, outcome.result.subjectRef);
-      assert.equal(completed.result.subjectDigest, outcome.result.subjectDigest);
-      assert.equal(completed.result.panelRef, outcome.result.panelRef);
-      assert.equal(completed.result.policyRef, outcome.result.policyRef);
-      assert.deepEqual(completed.result.roundRefs, outcome.result.roundRefs);
+      assert.equal(
+        completed.result.subjectRef,
+        consensusResultCandidate.subjectRef,
+      );
+      assert.equal(
+        completed.result.subjectDigest,
+        consensusResultCandidate.subjectDigest,
+      );
+      assert.equal(
+        completed.result.panelRef,
+        consensusResultCandidate.panelRef,
+      );
+      assert.equal(
+        completed.result.policyRef,
+        consensusResultCandidate.policyRef,
+      );
+      assert.deepEqual(
+        completed.result.roundRefs,
+        consensusResultCandidate.roundRefs,
+      );
       assert.deepEqual(
         completed.result.findingSetRefs,
-        outcome.result.findingSetRefs,
+        consensusResultCandidate.findingSetRefs,
       );
       assert.equal(
         Object.hasOwn(completed.result, "replayRef"),
@@ -895,14 +1046,16 @@ test("M5 installed Consensus admits one explicit reviewer through the ordinary p
     "m5-consensus-single-reviewer",
     (payload) => payload,
     {
-      programRef: basis.gtl.CONSENSUS_IDS.programRef,
-      graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+      graphFunctionRef:
+        basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
       eventLogFile: "single-reviewer.events.jsonl",
       workspaceId,
     },
   );
+  await selectConsensusThroughOneSurface(basis, harness, scenario);
   const run = await runInstalledCli(harness, scenario, {
     environment: {
       ABG_TS_CLAUDE_COMMAND: command,
@@ -916,9 +1069,21 @@ test("M5 installed Consensus admits one explicit reviewer through the ordinary p
   );
   const outcome = run.outcomes.at(-1);
   assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
-  assert.equal(outcome.result.kind, "consensus_result");
-  assert.equal(outcome.result.terminalOutcome.outcome, "closed_done");
+  assert.equal(outcome.result.kind, "next_action_projection");
+  assert.equal(outcome.result.disposition, "converged");
   const events = await eventsAt(scenario.eventLogPath);
+  const childResult = events.find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.payload?.contractRef ===
+        basis.gtl.CONSENSUS_IDS.resultContractRef &&
+      event.payload?.value?.kind === "consensus_result",
+  );
+  assert.ok(childResult);
+  assert.equal(
+    childResult.payload.value.terminalOutcome.outcome,
+    "closed_done",
+  );
   assert.equal(
     events.filter(
       (event) =>
@@ -1169,17 +1334,47 @@ test("M5 Consensus refuses malformed and cross-basis Product values before a Run
       `m5-consensus-${mutation.label}`,
       (payload) => payload,
       {
-        programRef: basis.gtl.CONSENSUS_IDS.programRef,
-        graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+        programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+        graphFunctionRef:
+          basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
         allowlist,
         input,
         eventLogFile: `${mutation.label}.events.jsonl`,
         workspaceId,
       },
     );
-    const run = await runInstalledCli(harness, scenario);
+    await selectConsensusThroughOneSurface(basis, harness, scenario);
+    const malformedObservation = structuredClone(
+      scenario.transcript.at(-1).payload.input,
+    );
+    malformedObservation.consensusInvocation = input;
+    const {
+      snapshotDigest: _snapshotDigest,
+      snapshotRef: _snapshotRef,
+      ...observationBody
+    } = malformedObservation;
+    malformedObservation.snapshotDigest =
+      basis.product.sha256Canonical(observationBody);
+    malformedObservation.snapshotRef =
+      `observation-snapshot://product/${malformedObservation.snapshotDigest.slice("sha256:".length)}`;
+    scenario.transcript.at(-1).payload.input = malformedObservation;
+    await writeFile(
+      scenario.transcriptPath,
+      `${scenario.transcript.map((row) => JSON.stringify(row)).join("\n")}\n`,
+      "utf8",
+    );
+    const run = await runInstalledCli(harness, scenario, {
+      environment: {
+        ABG_TS_CLAUDE_COMMAND:
+          "__invalid_consensus_input_must_not_reach_worker__",
+      },
+    });
     assert.equal(run.exitCode, 2, run.stdout);
-    assert.equal(run.outcomes.at(-1).disposition, "refused");
+    assert.equal(
+      run.outcomes.at(-1).disposition,
+      "refused",
+      `${mutation.label}: ${JSON.stringify(run.outcomes.at(-1))}`,
+    );
     assert.equal(run.outcomes.at(-1).runId, null);
   }
 });
@@ -1202,14 +1397,16 @@ test("M5 Consensus escalation requires one exact replay-derived source result", 
     "m5-consensus-source-result-authority",
     (payload) => payload,
     {
-      programRef: basis.gtl.CONSENSUS_IDS.programRef,
-      graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+      graphFunctionRef:
+        basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist,
       input: basis.input,
       eventLogFile: "source-result-authority.events.jsonl",
       workspaceId,
     },
   );
+  await selectConsensusThroughOneSurface(basis, harness, source);
   const sourceRun = await runInstalledCli(harness, source, {
     environment: {
       ABG_TS_CLAUDE_COMMAND: command,
@@ -1218,11 +1415,20 @@ test("M5 Consensus escalation requires one exact replay-derived source result", 
   });
   assert.equal(sourceRun.exitCode, 0, sourceRun.stderr);
   const sourceOutcome = sourceRun.outcomes.at(-1);
+  const sourceEvents = await eventsAt(source.eventLogPath);
+  const sourceResultEvent = sourceEvents.find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.payload?.contractRef ===
+        basis.gtl.CONSENSUS_IDS.resultContractRef &&
+      event.payload?.value?.kind === "consensus_result",
+  );
+  assert.ok(sourceResultEvent);
   const sourceRead = await readRunProjection(
     harness,
     sourceOutcome.projectionAuthority,
     "result",
-    sourceOutcome.resultRef,
+    sourceResultEvent.payload.resultRef,
     "source-result-authority",
   );
   assert.equal(sourceRead.exitCode, 0, sourceRead.stderr);
@@ -1407,7 +1613,7 @@ test("M5 Consensus escalation requires one exact replay-derived source result", 
   );
 });
 
-test("M5 Consensus refuses malformed attributed reviewer output before successful foldback or closure", async (context) => {
+test("M5 Consensus projects malformed attributed reviewer output as typed contract failure", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
   const command = await installConsensusWorker(harness);
   const workspaceId = "workspace://developer/consensus/malformed-reviewer";
@@ -1423,39 +1629,135 @@ test("M5 Consensus refuses malformed attributed reviewer output before successfu
     "m5-consensus-malformed-reviewer",
     (payload) => payload,
     {
-      programRef: basis.gtl.CONSENSUS_IDS.programRef,
-      graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+      graphFunctionRef:
+        basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
       eventLogFile: "malformed-reviewer.events.jsonl",
       workspaceId,
     },
   );
+  await selectConsensusThroughOneSurface(basis, harness, scenario);
   const run = await runInstalledCli(harness, scenario, {
     environment: {
       ABG_TS_CLAUDE_COMMAND: command,
       ABG_CONSENSUS_TEST_MODE: "malformed_finding",
     },
   });
-  assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(
-    run.outcomes.at(-1).disposition,
-    "failed",
-    JSON.stringify(run.outcomes.at(-1)),
-  );
   const events = await eventsAt(scenario.eventLogPath);
+  assert.equal(run.exitCode, 0, run.stdout);
+  const outcome = run.outcomes.at(-1);
+  assert.equal(
+    outcome.disposition,
+    "succeeded",
+    JSON.stringify(outcome),
+  );
+  assert.equal(outcome.replayAgreement, true);
+  assert.equal(outcome.result.kind, "next_action_projection");
+  assert.equal(outcome.result.disposition, "converged");
   const fanOutCompletion = events.find(
     (event) => event.kind === "fan_out_completion_admitted",
   );
-  assert.equal(fanOutCompletion?.payload.completionKind, "partial_stop");
-  assert.equal(
-    events.some(
+  assert.equal(fanOutCompletion?.payload.completionKind, "complete_vector");
+  const refusedFindings = events
+    .filter(
       (event) =>
-        event.kind === "child_foldback_admitted" &&
-        event.payload.childDisposition === "closed",
+        event.kind === "c_call_result_admitted" &&
+        event.payload?.contractRef ===
+          basis.gtl.CONSENSUS_IDS.findingsContractRef &&
+        event.payload?.value?.kind === "review_findings",
+    )
+    .map((event) => event.payload.value);
+  const uniqueRefusedFindings = [
+    ...new Map(
+      refusedFindings.map((findings) => [findings.outputDigest, findings]),
+    ).values(),
+  ];
+  assert.equal(uniqueRefusedFindings.length, 2);
+  assert.equal(
+    uniqueRefusedFindings.every(
+      (findings) =>
+        findings.recommendation === "revise" &&
+        findings.refusalRef !== null &&
+        findings.findings.length === 0 &&
+        findings.residualRefs.length > 0,
     ),
-    false,
+    true,
   );
-  assert.equal(events.some((event) => event.kind === "run_closed"), false);
-  assert.equal(events.at(-1).kind, "runtime_failure_observed");
+  const childResultEvent = events.find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.payload?.contractRef ===
+        basis.gtl.CONSENSUS_IDS.resultContractRef &&
+      event.payload?.value?.kind === "consensus_result",
+  );
+  assert.ok(childResultEvent, JSON.stringify(diagnosticSummary(events)));
+  const consensusResultCandidate = childResultEvent.payload.value;
+  assert.equal(consensusResultCandidate.classification, "contract_failure");
+  assert.equal(
+    consensusResultCandidate.terminalOutcome.outcome,
+    "escalate_fh",
+  );
+  assert.equal(typeof consensusResultCandidate.contractFailureRef, "string");
+  assert.equal(
+    Object.hasOwn(consensusResultCandidate, "replayRef"),
+    false,
+    "the admitted Product result candidate must not fabricate replay identity",
+  );
+  const eventCountBeforeRead = events.length;
+  const resultRead = await readRunProjection(
+    harness,
+    outcome.projectionAuthority,
+    "result",
+    childResultEvent.payload.resultRef,
+    "malformed-reviewer",
+  );
+  assert.equal(
+    resultRead.exitCode,
+    0,
+    `${resultRead.stderr}\n${resultRead.stdout}`,
+  );
+  const resultProjection = resultRead.outcomes.at(-1);
+  assert.equal(resultProjection.disposition, "succeeded");
+  assert.equal(resultProjection.result.kind, "public_result_projection");
+  assert.equal(
+    basis.gtl.isConsensusResult(resultProjection.result.value),
+    true,
+    JSON.stringify(resultProjection.result.value),
+  );
+  assert.equal(
+    resultProjection.result.value.classification,
+    "contract_failure",
+  );
+  assert.equal(
+    resultProjection.result.value.contractFailureRef,
+    consensusResultCandidate.contractFailureRef,
+  );
+  assert.equal(
+    resultProjection.result.value.replayRef,
+    resultProjection.replayRef,
+  );
+  const replayRead = await readRunProjection(
+    harness,
+    resultProjection.projectionAuthority,
+    "replay",
+    outcome.runId,
+    "malformed-reviewer",
+  );
+  assert.equal(
+    replayRead.exitCode,
+    0,
+    `${replayRead.stderr}\n${replayRead.stdout}`,
+  );
+  assert.equal(
+    replayRead.outcomes.at(-1).result.replayRef,
+    resultProjection.result.value.replayRef,
+  );
+  assert.equal(
+    (await eventsAt(scenario.eventLogPath)).length,
+    eventCountBeforeRead,
+    "typed contract-failure reads must not append runtime truth",
+  );
+  assert.equal(events.at(-1).kind, "run_closed");
 });

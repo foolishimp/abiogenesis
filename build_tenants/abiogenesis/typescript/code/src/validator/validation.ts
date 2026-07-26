@@ -461,14 +461,27 @@ function validatePublicationSubject(
         (ref) => {
           const program = programByRef.get(ref);
           return program?.publicAssetTargets?.some(
-            (target) =>
-              target.handle === row.handle &&
-              target.assetRef === row.declarationOrContractRef &&
-              program.starts.some(
-                (start) =>
-                  start.startRef === target.startRef &&
-                  start.graphFunctionRef === row.declarationOrContractRef,
-              ),
+            (target) => {
+              const start = program.starts.find(
+                (candidate) => candidate.startRef === target.startRef,
+              );
+              const directStart =
+                start?.graphFunctionRef === row.declarationOrContractRef;
+              const supervisedSelection =
+                program.policies["abg.root_mode"] === "supervised" &&
+                start?.graphFunctionRef ===
+                  program.constructionComposition?.graphFunctionRef &&
+                program.actionCatalog?.rows.some(
+                  (action) =>
+                    action.programRef === program.programRef &&
+                    action.graphFunctionRef === row.declarationOrContractRef &&
+                    action.targetProgramLocusRef ===
+                      row.declarationOrContractRef,
+                ) === true;
+              return target.handle === row.handle &&
+                target.assetRef === row.declarationOrContractRef &&
+                (directStart || supervisedSelection);
+            },
           ) === true;
         },
       );
