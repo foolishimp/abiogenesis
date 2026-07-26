@@ -5,8 +5,8 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_provenance_repaired_exact_candidate
-- review_status: s05_narrow_provenance_exact_cut_pending
+- phase_status: m5_s05_independent_exact_cut_accepted
+- review_status: s05_independent_exact_cut_accepted
 - proof_status: s05_fresh_archive_gates_green
 - goal: GOAL-035 M5
 - priority: critical
@@ -26,10 +26,10 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- implementation_hold: held_for_s05_narrow_exact_cut_review
+- implementation_hold: held_for_direct_human_s05_acceptance
 - implementation_hold_effect: >-
-    Only review or a bounded repair proved by review of the exact S05 candidate
-    may proceed; S06, observer/tuner, complete conservation, qualification, and
+    Only direct human acceptance or rejection of the exact S05 candidate may
+    proceed; S06, observer/tuner, complete conservation, qualification, and
     release remain held
 - current_product_outcome: ABG5-S05
 - accepted_s03_candidate_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
@@ -68,8 +68,8 @@
 - current_s05_clean_checkout_proof: fresh_git_archive_without_generated_asset_directories
 - current_s05_evidence: .ai-workspace/comments/codex/20260726T073212Z_CHECKPOINT_t270_s05_clean_checkout_repaired_exact_candidate.md
 - current_s05_design_index_digest: ff5fcfbf4acd7179647e39a5b67dac44aa5d10aa8d04e72a82ebfe7ad119458b
-- latest_s05_reviewed_candidate: 425993da5894b78b6c88b939736dead3fd2e7f98
-- latest_s05_review: .ai-workspace/comments/codex/20260726T080720Z_REVIEW_t270_s05_clean_checkout_candidate.md
+- latest_s05_reviewed_candidate: 48103ed936aa9326d546f4dcd667b16a5c803f9c
+- latest_s05_review: .ai-workspace/comments/codex/20260726T081217Z_REVIEW_t270_s05_provenance_repaired_exact_candidate.md
 - retained_behavioral_stock: bcd8769a8163a222e2e59400c904994b3de161fd
 - regression_bindings:
   - ABI5-ROOT-001
