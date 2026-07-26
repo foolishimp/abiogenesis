@@ -246,8 +246,12 @@ export function deriveInvocationSourceResultBasis(
         resultEvent === undefined ||
         judgmentEvent.causationEventRefs.includes(resultEvent.eventId)
       );
+  const sourceRunMatchesInvocation =
+    sourceInvocation !== null &&
+    hasInvocationRunBinding(store, sourceInvocation, input.runId);
   if (
     sourceInvocation === null ||
+    !sourceRunMatchesInvocation ||
     sourceInvocation.invocationRef !== input.runtimeInvocationRef ||
     sourceReplay.runId !== input.runId ||
     sourceReplay.runtimeStatus !== "closed" ||
@@ -478,6 +482,35 @@ export function hasAdmittedInvocation(
     event.payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
     event.payload.invocationAdmissionDigest === admission.invocationAdmissionDigest &&
     event.causationEventRefs.includes(admission.publicOperationEventRef)
+  );
+}
+
+export function hasInvocationRunBinding(
+  store: AbgEventStore,
+  admission: InvocationAdmission,
+  runId: string,
+): boolean {
+  if (!hasAdmittedInvocation(store, admission)) return false;
+  const runOpenEvents = store.readScope({ runId }).filter(
+    (event) =>
+      event.kind === "run_segment_opened" &&
+      event.aggregateType === "run" &&
+      event.aggregateId === runId &&
+      event.runId === runId,
+  );
+  if (runOpenEvents.length !== 1) return false;
+  const runOpen = runOpenEvents[0]!;
+  const payload = runOpen.payload;
+  return (
+    isRecord(payload) &&
+    runOpen.parentAggregateId === admission.workspaceBindingId &&
+    runOpen.graphFunctionRef === admission.graphFunctionRef &&
+    payload.runId === runId &&
+    payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
+    payload.invocationRef === admission.invocationRef &&
+    payload.workspaceBindingId === admission.workspaceBindingId &&
+    payload.programRef === admission.programRef &&
+    payload.graphFunctionRef === admission.graphFunctionRef
   );
 }
 

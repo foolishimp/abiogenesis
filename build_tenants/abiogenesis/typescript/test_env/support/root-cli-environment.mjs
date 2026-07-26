@@ -102,7 +102,8 @@ export async function buildRootCliScenario(
   options = {},
 ) {
   const scenarioRoot = join(harness.scratch, label);
-  const productConsumer = join(scenarioRoot, "product-consumer");
+  const productConsumer = options.productConsumer ??
+    join(scenarioRoot, "product-consumer");
   const workspaceRoot = options.workspaceRoot ??
     join(scenarioRoot, "workspace");
   const eventLogRoot = join(workspaceRoot, ".ai-workspace/events");
@@ -163,7 +164,8 @@ export async function buildRootCliScenario(
       workspaceId: options.workspaceId ?? `workspace://t286/${label}`,
       canonicalRoot: workspaceRoot,
       authorizedActorRef,
-      authorityManifestRef: `manifest://t286/${label}/workspace-authority`,
+      authorityManifestRef: options.authorityManifestRef ??
+        `manifest://t286/${label}/workspace-authority`,
       roots: {
         toolchainRoot: productConsumer,
         productRoot: installedRoot,

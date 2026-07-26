@@ -1342,11 +1342,17 @@ export function isConsensusReviewerProfile(
       "workerBindingRef",
     ])
   ) return false;
+  const {
+    configurationDigest,
+    ...configuration
+  } = value;
   return value.kind === "consensus_reviewer_profile" &&
     value.schemaVersion === "5.0.0" &&
     isRef(value.profileRef) &&
     isRef(value.roleContractRef) &&
-    isDigest(value.configurationDigest) &&
+    isDigest(configurationDigest) &&
+    configurationDigest ===
+      sha256Canonical(configuration as unknown as JsonValue) &&
     isRef(value.instructionContractRef) &&
     value.resultContractRef === CONSENSUS_IDS.findingsContractRef &&
     uniqueRefs(value.capabilityRefs) &&

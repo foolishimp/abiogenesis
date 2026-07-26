@@ -2284,12 +2284,13 @@ slice.
 | `ConsensusProgram` | direct and supervised Program projections over the same canonical callable family | one direct Program and one standard One Surface Program; neither is a second Consensus product | GTL topology |
 | `ConsensusInvocation` | composes one exact subject, panel, policy, transport lane, and invocation identity | one subject; one non-empty duplicate-free panel; one positive bounded policy; subject workspace equals admitted workspace identity | Product |
 | `ConsensusRoundState` | ordered recursive state containing subordinate tasks, findings, rulings, dissent, evidence, and lineage | round ordinals are contiguous and bounded; panel ordinal, not completion order, determines reduction | Product |
-| `ReviewerWorkerContractProjection` | projects one admitted reviewer task to its profile-owned instruction contract and declared findings result contract | exactly one projection per reviewer C call; result contract equals the C-call output contract and the instruction contract remains attributable to the exact profile | Product semantics projected through the admitted leaf port |
+| `ReviewerWorkerContractProjection` | projects one admitted reviewer task to its profile-owned instruction contract and declared findings result contract | exactly one projection per reviewer C call; the profile configuration digest is recomputed over every execution-affecting profile field before use; result contract equals the C-call output contract and the instruction contract remains attributable to the exact profile | Product semantics projected through the admitted leaf port |
 | `ConsensusResultCandidate` | Product semantic result proposed by the projector or F_H finalizer | exactly one terminal semantic candidate; it cannot mint replay identity | Product |
+| `ConsensusEscalationDecision` | attributed F_H response over one exact replay-bound unresolved result | zero or one admitted decision per unresolved escalation continuation; actor, request, result, disposition, and rationale remain exact | Product evaluates; ABG admits |
 | `ConsensusRuntimeEpisode` | admitted invocation, Run, GraphCalls, Frames, C calls, routes, continuation, result, and replay | one causal ABG episode per public invocation; only ABG events change runtime truth | ABG |
 | `PublicRunProjectionAuthority` | read-only durable authority derived from one admitted Run, exact event-log prefix, logical workspace identity recorded by the source invocation admission, admitted ProductInstall, compact catalog/view admission identities, publication digest, and Product semantics binding | one current carrier per prefix; update changes only the reopen prefix; reopening requires its workspace identity to equal the source invocation event; it cannot append or execute; it never embeds the Catalog, CatalogView, ModulePublication, Program, or graph family | Public projection over ABG and admitted Product basis |
 | `PublicResultProjection` | binds one requested admitted root or subordinate C-call result identity and actual replay identity through the exact installed pure Product projector | one read projection per exact result and durable prefix; the selected result must be judged `advance` in the closed source Run; Product owns result meaning and ABG remains runtime source truth | Product semantics then Public downstream envelope |
-| `InvocationSourceResultBasis` | ABG-derived cross-episode basis over one admitted source invocation, closed Run, selected GraphCall/C-call result, advancing judgment, exact result/value digests, replay, workspace, and public read authority | zero or one per new invocation; immutable and branded by the source event store; derivation appends no source event | ABG |
+| `InvocationSourceResultBasis` | ABG-derived cross-episode basis over one admitted source invocation, its exact bound closed Run, selected GraphCall/C-call result, advancing judgment, exact result/value digests, replay, WorkspaceBinding, and public read authority | zero or one per new invocation; immutable and branded by the source event store; derivation appends no source event; a linked target invocation must use the exact same WorkspaceBinding identity and digest | ABG |
 | `TicketConsensusProjection` | optional read-only ticket-shaped projection over the admitted result and actual replay | zero or one per ticket result; never mutates ticket state | Product downstream |
 
 Reviewer profiles, reviewer tasks, finding rows, ruling rows, round-outcome
@@ -2305,6 +2306,8 @@ Ontology invariants:
 1. The canonical handle, GraphFunction, and SYSTEM owner are singular.
 2. Every reviewer result preserves profile, configuration, worker,
    instruction, result-contract, round, workspace, and invocation attribution.
+   The profile configuration digest is recomputed over the exact profile
+   fields before panel, invocation, Product, or worker admission.
    Product resolves the worker instruction and result contracts from the exact
    reviewer task before ABG admits actor/process truth; C-call input identity
    remains the reviewer-task contract.
@@ -2317,9 +2320,11 @@ Ontology invariants:
    C-call result from the closed Run and bind it to the actual replay. Before
    an ordinary escalation GraphFunction can open, ABG derives one
    `InvocationSourceResultBasis` from that exact source result, advancing
-   judgment, replay, source-invocation workspace, and public authority. Product validates the
-   replay-bound unresolved input against that basis; ABG records the basis on
-   the new invocation admission. The source Run remains closed.
+   judgment, replay, source-invocation WorkspaceBinding, and public authority.
+   The source `run_segment_opened` must bind the exact source invocation
+   admission. Product validates the replay-bound unresolved input and exact
+   source/target WorkspaceBinding equality against that basis; ABG records the
+   basis on the new invocation admission. The source Run remains closed.
 6. A semantic result candidate contains no fabricated future replay identity.
    `project.read(result)` binds its admitted result identity to the actual ABG
    replay identity.
@@ -2333,9 +2338,9 @@ Ontology invariants:
    fresh and retained contexts accept or refuse from the same serialized
    carrier and ABG event truth.
 9. A source-result basis is not caller-authored authority. Missing, stale,
-   substituted, cross-workspace, mismatched, or non-advancing source results refuse before the
-   new invocation is admitted and do not append to either source or target
-   event truth.
+   substituted, cross-invocation, cross-Run, cross-WorkspaceBinding,
+   mismatched, or non-advancing source results refuse before the new invocation
+   is admitted and do not append to either source or target event truth.
 
 ### 13.2 Entity lifecycle completeness
 
@@ -2343,13 +2348,16 @@ Ontology invariants:
 |---|---|---|---|---|---|---|
 | Consensus domain family | canonical IDs and contract/vocabulary roster | Product | `constructConsensusModulePublication` | public contract catalog and module-owned projections | new Product version only | superseded by a later Product release; history retained |
 | Module publication and Programs | module, Program, start, and GraphFunction refs | Product/GTL | construct publication; raw admit; validate | catalog view and installed declarations | new admitted publication version only | catalog supersession under Product install law |
-| Invocation and round state | invocation, round, task, finding, and state refs | Product meaning; ABG admission | constructors plus C-call admission | Product predicates and ABG replay | reducer/foldback produces a new immutable state | not_applicable: immutable lineage is retained |
+| Consensus invocation | invocation ref over exact subject, panel, policy, lane, and workspace | Product meaning; ABG admission | Product constructors; raw admission; validator; `admitInvocation` | Product predicates and ABG replay | not_applicable: invocation is immutable; a retry or escalation is another invocation | admitted invocation remains immutable episode history |
+| Consensus round state | round and state refs over ordered tasks, findings, rulings, evidence, dissent, and lineage | Product meaning; ABG admission of runtime effects | `initializeConsensus` and subordinate C-call admission | Product predicates and ABG replay | reducer/foldback produces the next immutable state | not_applicable: immutable lineage is retained |
+| Reviewer worker-contract projection | profile configuration digest plus instruction/result contract refs | Product semantics | resolve from one exact admitted reviewer task/profile | leaf port and ABG actor/process evidence | not_applicable: changed profile/configuration creates another projection | Product release supersession; historical evidence retained |
 | Result candidate | Product result ref | Product proposes; ABG admits | projector or F_H finalizer | result projection | not_applicable: a different result is a new candidate | not_applicable: admitted result history remains |
+| Escalation decision | decision over exact unresolved result, actor, disposition, and rationale | Product evaluates; ABG admits | actor proposes through `interaction.respond`; Product evaluates exact response basis | continuation and replay projection | admitted once before continuation resume | resolved continuation exhausts append authority; admitted history remains |
 | Runtime episode | invocation/Run/GraphCall/Frame/C-call identities | ABG | ordinary invocation/open-call/C-call admission | replay and `project.read` | admitted route, continuation, result, closure, or failure events; unresolved escalation is a second invocation causally bound to the first result and replay | closed/stopped episode remains immutable history |
 | Public run projection authority | authority digest plus exact reopen prefix, Run basis, source-invocation workspace identity, ProductInstall, compact catalog/view admission refs and digests, publication digest, and Product semantics binding | Public projection over ABG and admitted Product basis | `constructPublicRunProjectionAuthority` after durable projection | parser plus ABG rehydration; workspace identity must equal the source `invocation_admitted` payload; catalog admission event binds the publication and Product-semantics basis digests, and the view event must be caused by that exact catalog admission | `updatePublicRunProjectionAuthority` after a read; only the reopen prefix changes | stale or substituted prefixes/Product bases refuse; retirement follows source log retention |
 | Public result projection | requested result ref plus source Run and replay identity | Product meaning over ABG truth | `project.read(result)` after exact source rehydration | caller-owned immutable read value | a different result or prefix produces a new projection | not_applicable: no append or execution authority |
-| Invocation source-result basis | basis ref/digest over source invocation, Run, GraphCall/C-call, result admission, judgment, replay, workspace, and public authority | ABG | `deriveInvocationSourceResultBasis` from one exact source event store | Product invocation-basis validator and ABG admission | not_applicable: immutable evidence basis | target invocation retirement does not alter source history |
-| Ticket projection | projection ref and digest | Product downstream | `projectTicketConsensus` from result plus replay | caller-owned read model | new source result/replay creates a new projection | not_applicable: no ticket mutation authority |
+| Invocation source-result basis | basis ref/digest over source invocation, its exact bound Run, GraphCall/C-call, result admission, judgment, replay, WorkspaceBinding, and public authority | ABG | `deriveInvocationSourceResultBasis` from one exact source event store | Product invocation-basis validator and ABG admission | not_applicable: immutable evidence basis | target invocation retirement does not alter source history |
+| Ticket Consensus projection | projection ref and digest | Product downstream | `projectTicketConsensus` from result plus replay | caller-owned read model | new source result/replay creates a new projection | not_applicable: no ticket mutation authority |
 
 ### 13.3 Authority matrix
 
@@ -2362,8 +2370,8 @@ Ontology invariants:
 | invoke reviewer effect | Product task | Product contract | install-bound port, Product worker-contract projection, and transport contract | ABG actor/process and evidence admission | declared F_P implementation | ABG replay | ABG episode retention |
 | reduce findings | Product round | Product | Product contract and exact policy identities | ABG result admission | declared F_D implementation | ABG replay | ABG episode retention |
 | recurse/fold back | Product GTL | Product reducer | validator and parent/child basis | ABG route/foldback admission | HoG | ABG replay | ABG episode retention |
-| derive prior-result invocation basis | caller supplies read authority and result ref | not_applicable: no Product choice | ABG rehydrates the source invocation, closed Run, exact selected C-call result, advancing judgment, replay, workspace, and Product-semantics basis | ABG derives and brands the immutable basis; no event append | not_applicable: evidence derivation | Product invocation validator consumes it; ABG invocation event records it | source event-log retention |
-| open F_H escalation | Product replay-bound unresolved result plus ABG-derived source-result basis | Product | exact source result/value digests, advancing judgment, replay, workspace, public authority, and interaction requirement | ABG invocation plus atomic hold admission | HoG reaches F_H boundary in the ordinary escalation GraphFunction | Public hold projection | ABG continuation lifecycle |
+| derive prior-result invocation basis | caller supplies read authority and result ref | not_applicable: no Product choice | ABG rehydrates the source invocation, proves its exact `run_segment_opened` relation, closed Run, exact selected C-call result, advancing judgment, replay, WorkspaceBinding, and Product-semantics basis | ABG derives and brands the immutable basis; no event append | not_applicable: evidence derivation | Product invocation validator consumes it; ABG invocation event records it | source event-log retention |
+| open F_H escalation | Product replay-bound unresolved result plus ABG-derived source-result basis | Product | exact source result/value digests, advancing judgment, replay, source/target WorkspaceBinding identity and digest, public authority, and interaction requirement | ABG invocation plus atomic hold admission | HoG reaches F_H boundary in the ordinary escalation GraphFunction | Public hold projection | ABG continuation lifecycle |
 | admit F_H response | actor | Product against exact request and actor | exact capability and response contract | ABG | not_applicable: response is admitted truth | Public response projection | ABG continuation lifecycle |
 | finalize escalation | Product decision | Product | exact unresolved-result basis | ABG result admission | declared F_D implementation | ABG replay | ABG episode retention |
 | read admitted result/replay | caller with run projection authority | Product pure result semantics for `result`; not_applicable for status/replay | durable prefix, admitted install, catalog-to-view event chain, publication and Product-semantics basis digests, rehydrated invocation/closed Run/requested root-or-child C-call result, advancing judgment, and exact Product semantics binding | not_applicable: read-only | Product pure projector then Public envelope for `result`; Public over ABG replay otherwise | Public projection with Product-owned result meaning | source log retention |
@@ -2379,6 +2387,7 @@ runtime basis.
 | Discovered functionality | Entity | Atomic function or template | Higher-order composition | Effect class | Required authority | Disposition |
 |---|---|---|---|---|---|---|
 | construct and validate subject/panel/policy | domain family | parameterized Product constructors and predicates | `constructConsensusInvocation` | pure | Product | derived |
+| validate reviewer configuration identity | reviewer profile and panel | recompute `configurationDigest` over every profile field, then verify panel digest | profile -> panel -> invocation validation | pure | Product | derived |
 | publish canonical and subordinate functions | module publication | `constructConsensusModulePublication` | Program + GraphFunction + application composition | declaration | Product/GTL | derived |
 | initialize round state | invocation | `initializeConsensus` | canonical root workflow | pure `F_D` | Product | derived |
 | construct reviewer tasks | round state | parameterized task materialization | `C.batch` plus fan-out | pure topology | Product/GTL | derived |
@@ -2390,8 +2399,8 @@ runtime basis.
 | project semantic result | terminal state | `projectConsensusResultCandidate` | terminal workflow step | pure `F_D` | Product | derived |
 | validate invocation Product basis | admitted input plus workspace and Program basis | `validateInstalledInvocationBasis` | Product invocation admission composition | pure Product validation | exact loaded Product semantics provider | derived |
 | select admitted result for public read | durable run authority plus requested result ref | `projectCurrentOutcome` result selection | source rehydration -> replay -> exact C-call selection -> Product projection | durable read; no append | exact ABG source truth and installed Product projector | derived |
-| derive cross-episode source basis | exact public read authority plus selected result ref | `deriveInvocationSourceResultBasis` | source invocation + closed Run + C-call result + judgment + replay + workspace | pure ABG derivation; no append | ABG | derived |
-| validate replay-bound escalation input | admitted input plus source-result basis | `validateInstalledInvocationBasis` | Product pure comparison of input to source candidate plus actual replay | pure Product validation | exact loaded Product semantics provider | derived |
+| derive cross-episode source basis | exact public read authority plus selected result ref | `deriveInvocationSourceResultBasis` | source invocation + exact bound closed Run + C-call result + judgment + replay + WorkspaceBinding | pure ABG derivation; no append | ABG | derived |
+| validate replay-bound escalation input | admitted input, target WorkspaceBinding, and source-result basis | `validateInstalledInvocationBasis` | Product pure comparison of input to source candidate, actual replay, and exact source/target WorkspaceBinding equality | pure Product validation | exact loaded Product semantics provider | derived |
 | record source basis on target invocation | Product-validated input plus branded source basis | `admitInvocation` | ordinary invocation admission | ABG event effect | ABG | derived |
 | read/open/respond/continue escalation | replay-bound unresolved result | `project.read`, source-basis derivation, ordinary escalation invocation, and accepted Section 12 continuation functions | result read -> exact prior-result admission -> ordinary F_H composition | durable read plus ABG event effects | Product choice, ABG source basis, admitted actor/capability | derived from accepted S03 family and bounded S05 composition |
 | finalize escalation | admitted decision | `finalizeConsensusEscalation` | escalation finalizer GraphFunction | pure `F_D` | Product | derived |
@@ -2420,10 +2429,10 @@ The governing algebra is:
 | Candidate family | Contraction relation | Retained meaning | Authority before -> after | Accepted loss | Falsification condition |
 |---|---|---|---|---|---|
 | subject, profile, panel, policy, finding, ruling, round, result shapes | one Product-owned domain family with subordinate payload variants | closed values and public pattern-match outcomes | many possible schema authorities -> one Product family | no independent payload authorities | another decoder or schema registry can change meaning |
-| reviewer commands and worker contracts | one parameterized reviewer GraphFunction plus one Product-owned task-to-worker-contract projection | arbitrary admitted panel cardinality, attribution, and profile-owned instruction contract | per-profile command or transport-label temptation -> one GTL function and one Product semantic projection | no profile-specific operation identity | a profile requires a new public command/runtime branch or ABG accepts a worker contract not derived from that profile |
+| reviewer commands and worker contracts | one parameterized reviewer GraphFunction plus one Product-owned task-to-worker-contract projection | arbitrary admitted panel cardinality, attribution, profile-owned instruction contract, and digest-bound execution configuration | per-profile command or transport-label temptation -> one GTL function and one Product semantic projection | no profile-specific operation identity | a profile requires a new public command/runtime branch, a changed execution-affecting field survives a stale configuration digest, or ABG accepts a worker contract not derived from that profile |
 | round orchestration | one GTL recursion/fan-out/fan-in composition | ordered review, dispute recursion, bound, foldback | host loop temptation -> GTL topology + HoG + ABG | no shell/service loop | rounds can proceed outside admitted GTL |
 | terminal classifications | one closed round-outcome family and one result projector | agreement, dissent, unresolved, contract failure | branch-specific finalizers -> one Product projection family | no independent result stores | a terminal class needs another closure authority |
-| F_H escalation | replay-bound unresolved result, one ABG-derived source-result basis, accepted generic continuation family, and one Product response contract | exact unresolved-result decision while the source Run remains closed | feature continuation or caller-asserted provenance -> pure read + ABG prior-result derivation + ordinary invocation + Product choice + ABG continuation | no Consensus-specific continuation, ambient transfer, or caller-minted source truth between episodes | escalation can open without the exact source invocation, closed Run, selected result, advancing judgment, replay, workspace, and public authority, or can respond/close outside the ordinary continuation spine |
+| F_H escalation | replay-bound unresolved result, one ABG-derived source-result basis, accepted generic continuation family, and one Product response contract | exact unresolved-result decision while the source Run remains closed | feature continuation or caller-asserted provenance -> pure read + ABG prior-result derivation + ordinary invocation + Product choice + ABG continuation | no Consensus-specific continuation, ambient transfer, or caller-minted source truth between episodes | escalation can open without the exact source invocation-to-Run relation, selected result, advancing judgment, replay, exact source/target WorkspaceBinding, and public authority, or can respond/close outside the ordinary continuation spine |
 | status/result/replay reads | one parameterized `project.read` family plus one compact run projection authority carrying the exact admitted Product-semantics basis by digest and event reference | fresh-process reads of exact ABG truth, including a requested admitted child C-call result, with Product-owned result meaning | direct outcome memory and feature branch -> durable ABG read plus one exact Product pure projection | no mutable caller authority, feature-specific Public/ABG branch, repeated catalog/program snapshot, or root-result-only read restriction | an admitted child result is not selectable, a terminal result is readable only from the invoking process, Public/ABG must name Consensus to project it, or the authority must embed the full catalog family |
 
 The contracted IACS is sufficient only if all rows remain singular. Fewer files
@@ -2434,6 +2443,7 @@ is not the goal; one semantic authority per retained relation is.
 | Carrier | Ontology law carried | Role | Authority | Visibility |
 |---|---|---|---|---|
 | Consensus domain/publication family | domain identity, contracts, policies, outcomes, GTL publication | `<<prime>>` | Product authoritative | public through `./gtl` |
+| Consensus invocation, round state, result candidate, and escalation decision | immutable Product semantic values carried through ordinary GTL and ABG admission | `<<prime>>` | Product meaning; ABG owns only admitted runtime truth | public typed values through `./gtl` |
 | admitted Program/GraphFunction/application family | topology and callable membership | `<<prime>>` | GTL authoritative | public |
 | Product semantics provider | raw input, invocation-basis, contract, judgment, reviewer worker-contract, F_H response, and public-result meaning | `<<effect-edge>>` | Product authoritative | module-local provider, loaded from admitted install |
 | implementation binding and leaf effect port | declared F_D/F_P interiors | `<<effect-edge>>` | subordinate to admitted binding | module-local |
@@ -2447,11 +2457,11 @@ Physical module mapping:
 
 | Module | Semantic owner | Boundary |
 |---|---|---|
-| `src/gtl/consensus.ts` | Product-owned SYSTEM standard-library authoring module | owns Consensus domain constructors, predicates, pure semantics, and GTL publication; its `gtl` path is the installed authoring export, not generic GTL ownership of Product meaning |
+| `src/gtl/consensus.ts` | Product-owned SYSTEM standard-library authoring module | owns Consensus domain constructors, predicates, digest-complete reviewer configuration validation, pure semantics, and GTL publication; its `gtl` path is the installed authoring export, not generic GTL ownership of Product meaning |
 | `src/product/builtin_semantics.ts` | Product | admits installed Consensus values, validates the invocation workspace, resolves exact reviewer worker contracts, evaluates exact F_H response basis, and binds admitted results to actual replay |
 | `src/implementation/consensus.ts` | implementation | realizes declared leaf interiors and may call Product-owned pure functions; owns no topology or runtime truth |
 | `src/hog/leaf_invocation_port.ts` | HoG boundary over Product projection | exposes only the exact install-bound Product semantic projection needed for leaf traversal; it does not author reviewer contracts |
-| `src/abg/invocation_admission.ts` | ABG | rehydrates and derives the immutable source-result basis, verifies its source events and replay, and records it on the ordinary target invocation admission |
+| `src/abg/invocation_admission.ts` | ABG | rehydrates and derives the immutable source-result basis, verifies the exact source invocation-to-Run relation, source events, replay, and WorkspaceBinding, and records it on the ordinary target invocation admission |
 | `src/public/run_projection_authority.ts` | Public projection | carries exact durable read authority and the compact install/catalog-view event and Product-semantics basis needed to re-establish Product provenance; it carries no catalog or Program snapshot |
 | `src/public/operations.ts` | Public | transports ordinary invoke/respond/continue/read operations, requests ABG source-basis derivation, and delegates pure result meaning to the exact installed Product; contains no Consensus branch |
 | validator, HoG, and ABG modules | accepted M03/M05 owners | unchanged generic validation, traversal, admission, event, replay, continuation, and closure behavior |
@@ -2517,16 +2527,44 @@ classDiagram
     +directStart
     +oneSurfaceStart
   }
-  class ReviewerTask {
+  class ConsensusInvocation {
+    <<prime>>
+    +subject
+    +panel
+    +policy
+    +workspaceRef
+  }
+  class ConsensusRoundState {
+    <<prime>>
+    +roundOrdinal
+    +findings
+    +rulings
+    +lineage
+  }
+  class ConsensusReviewerTask {
     <<subordinate>>
   }
   class ReviewerWorkerContractProjection {
     <<effect-edge>>
+    +configurationDigest
     +instructionContractRef
     +resultContractRef
   }
+  class ConsensusResultCandidate {
+    <<prime>>
+    +terminalOutcome
+  }
+  class ConsensusEscalationDecision {
+    <<prime>>
+    +unresolvedResultRef
+    +humanActorRef
+    +decision
+  }
   class ConsensusRuntimeEpisode {
     <<authoritative>>
+    +invocationAdmissionRef
+    +runId
+    +workspaceBindingId
   }
   class PublicRunProjectionAuthority {
     <<prime>>
@@ -2544,9 +2582,15 @@ classDiagram
   }
   class InvocationSourceResultBasis {
     <<prime>>
+    +sourceInvocationAdmissionRef
+    +sourceRunId
     +sourceResultRef
     +sourceReplayRef
     +workspaceBindingId
+    +workspaceBindingDigest
+  }
+  class TicketConsensusProjection {
+    <<downstream>>
   }
   class LaterOutcomeAssets {
     <<deferred>>
@@ -2556,9 +2600,14 @@ classDiagram
   Product "1" *-- "1" ProductSemantics
   ConsensusDomainFamily "1" *-- "1" ConsensusModulePublication
   ConsensusModulePublication "1" *-- "2" ConsensusProgram
-  ConsensusProgram "1" *-- "1..*" ReviewerTask
-  ReviewerTask "1" --> "1" ReviewerWorkerContractProjection
+  ConsensusDomainFamily "1" --> "0..*" ConsensusInvocation
+  ConsensusInvocation "1" *-- "1..*" ConsensusRoundState
+  ConsensusRoundState "1" *-- "1..*" ConsensusReviewerTask
+  ConsensusReviewerTask "1" --> "1" ReviewerWorkerContractProjection
   ReviewerWorkerContractProjection "1" --> "1" LeafPort
+  ConsensusRoundState "1" --> "0..1" ConsensusResultCandidate
+  ConsensusEscalationDecision "0..1" --> "1" ConsensusResultCandidate : decides unresolved
+  ConsensusResultCandidate "1" --> "0..1" TicketConsensusProjection
   Public "1" --> "1" Product
   Public "1" --> "1" Validator
   Public "1" --> "1" ABG
@@ -2567,10 +2616,14 @@ classDiagram
   LeafPort "1" --> "1" ProductSemantics
   ABG "1" *-- "0..*" ConsensusRuntimeEpisode
   ABG "1" --> "1" Replay
-  ConsensusProgram "1" --> "0..*" ConsensusRuntimeEpisode
+  ConsensusProgram "1" --> "0..*" ConsensusInvocation
+  ConsensusInvocation "1" --> "0..1" ConsensusRuntimeEpisode : admitted as
   ConsensusRuntimeEpisode "1" --> "0..1" PublicRunProjectionAuthority
   ConsensusRuntimeEpisode "1" --> "0..*" PublicResultProjection
+  ConsensusResultCandidate "1" --> "0..1" PublicResultProjection
   ProductSemantics "1" --> "0..*" PublicResultProjection
+  ProductSemantics "1" --> "0..*" ReviewerWorkerContractProjection
+  ProductSemantics "1" --> "0..*" ConsensusEscalationDecision
   ConsensusRuntimeEpisode "1" --> "0..*" InvocationSourceResultBasis : source
   InvocationSourceResultBasis "0..1" --> "1" ConsensusRuntimeEpisode : target
   PublicResultProjection "1" --> "0..1" InvocationSourceResultBasis
@@ -2594,6 +2647,8 @@ sequenceDiagram
 
   Developer->>Public: run.invoke canonical target
   Public->>Product: admit input and resolve declared policy
+  Public->>ProductSemantics: recompute reviewer configuration and panel digests
+  ProductSemantics-->>Public: exact Product invocation meaning
   Public->>Validator: validate original Program and Graph
   Public->>ABG: admit invocation and execution basis
   ABG-->>Public: admitted basis
@@ -2634,19 +2689,20 @@ sequenceDiagram
   opt replay-bound result outcome is escalate_fh
     Developer->>Public: run.invoke escalation with source authority and result ref
     Public->>ABG: reopen exact closed source Run
+    ABG->>ABG: prove run_segment_opened binds exact source invocation
     ABG->>Replay: fold source events
-    Replay-->>ABG: source invocation, result, judgment, replay, workspace
+    Replay-->>ABG: source result, judgment, replay, and exact WorkspaceBinding
     ABG-->>Public: branded InvocationSourceResultBasis
     Public->>Product: admit replay-bound unresolved result
-    Public->>ProductSemantics: validate input against source-result basis
+    Public->>ProductSemantics: validate input and exact source/target WorkspaceBinding
     Public->>Validator: validate original escalation Program and Graph
-    Public->>ABG: admit linked escalation invocation with source-result basis
+    Public->>ABG: admit separate target invocation with source-result basis
     Public->>HoG: traverse admitted escalation GTL
     HoG->>ABG: atomic F_H hold
     ABG-->>Public: continuation authority
     Developer->>Public: interaction.respond exact result and actor
     Public->>ABG: admit actor-operation capability
-    Public->>Product: evaluate exact response basis
+    Public->>Product: evaluate exact ConsensusEscalationDecision basis
     Public->>ABG: admit response
     Developer->>Public: run.continue
     Public->>ABG: admit continuation operation
@@ -2659,44 +2715,51 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
-  [*] --> Refused: Product or validator refusal [Product/validator]
-  [*] --> Admitted: invocation_admitted [ABG]
-  Admitted --> RoundOpen: graph_call_opened [ABG]
-  RoundOpen --> FindingsAdmitted: C.batch complete vector [ABG]
-  RoundOpen --> Failed: malformed or partial stop [ABG]
-  FindingsAdmitted --> RoundOpen: recurse_next_round plus foldback [HoG/ABG]
-  FindingsAdmitted --> UnresolvedClosed: escalate_fh result plus closure [Product/HoG/ABG]
-  FindingsAdmitted --> ResolvedClosed: closed_done plus closure [HoG/ABG]
-  UnresolvedClosed --> UnresolvedReadable: no-append project.read selects result and binds replay [Product/Public/ABG]
-  UnresolvedReadable --> SourceBasisDerived: derive exact source result/judgment/replay basis [ABG]
-  SourceBasisDerived --> EscalationAdmitted: admit a separate escalation Run [Product/ABG]
-  EscalationAdmitted --> Held: atomic F_H hold [Product/ABG]
-  Held --> Responded: exact F_H response admitted [Product/ABG]
-  Responded --> Continued: continuation resume admitted [ABG]
-  Continued --> ResolvedClosed: final result plus closure [HoG/ABG]
-  Continued --> Failed: runtime_failure_observed [ABG]
-  ResolvedClosed --> Readable: project run projection authority [Public/ABG]
-  Failed --> Readable: project run projection authority [Public/ABG]
-  Readable --> Readable: no-append project.read refresh [Product/Public/ABG]
-  Refused --> [*]
-  UnresolvedClosed --> [*]: source Run remains terminal
-  Readable --> [*]
+  [*] --> SourceRefused: Product or validator refusal [Product/validator]
+  [*] --> SourceAdmitted: source invocation_admitted [ABG]
+  SourceAdmitted --> SourceRoundOpen: source graph_call_opened [ABG]
+  SourceRoundOpen --> SourceFindingsAdmitted: C.batch complete vector [ABG]
+  SourceRoundOpen --> SourceFailed: malformed or partial stop [ABG]
+  SourceFindingsAdmitted --> SourceRoundOpen: recurse_next_round plus foldback [HoG/ABG]
+  SourceFindingsAdmitted --> SourceUnresolvedClosed: escalate_fh result plus source closure [Product/HoG/ABG]
+  SourceFindingsAdmitted --> SourceResolvedClosed: closed_done plus source closure [HoG/ABG]
+  SourceUnresolvedClosed --> SourceReadable: no-append result and replay projection; source remains closed [Product/Public/ABG]
+  SourceResolvedClosed --> SourceReadable: no-append result and replay projection [Product/Public/ABG]
+  SourceFailed --> SourceReadable: no-append status and replay projection [Public/ABG]
+  SourceReadable --> SourceReadable: no-append project.read refresh [Product/Public/ABG]
+  SourceReadable --> SourceBasisDerived: derive exact source invocation, Run, result, replay, and WorkspaceBinding [ABG]
+  SourceBasisDerived --> TargetRefused: source or target basis mismatch [Product/ABG]
+  SourceBasisDerived --> TargetAdmitted: separate target invocation under exact WorkspaceBinding [Product/ABG]
+  TargetAdmitted --> TargetHeld: atomic F_H hold [Product/ABG]
+  TargetHeld --> TargetResponded: exact ConsensusEscalationDecision admitted [Product/ABG]
+  TargetResponded --> TargetContinued: target continuation resume admitted [ABG]
+  TargetContinued --> TargetResolvedClosed: target final result plus closure [HoG/ABG]
+  TargetContinued --> TargetFailed: target runtime_failure_observed [ABG]
+  TargetResolvedClosed --> TargetReadable: target run projection authority [Public/ABG]
+  TargetFailed --> TargetReadable: target run projection authority [Public/ABG]
+  TargetReadable --> TargetReadable: no-append project.read refresh [Product/Public/ABG]
+  SourceRefused --> [*]
+  SourceUnresolvedClosed --> [*]: source Run is immutable terminal history
+  SourceResolvedClosed --> [*]: source Run is immutable terminal history
+  SourceFailed --> [*]: source Run is immutable terminal history
+  TargetRefused --> [*]
+  TargetReadable --> [*]
 ```
 
 ### 13.8 Cross-view axioms
 
 | Axiom | Ontology evidence | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/static enforcement | Verdict | Gap owner |
 |---|---|---|---|---|---|---|---|---|---|
-| view participants and cardinalities are closed | Product, Public, validator, ABG, HoG, Product semantics, leaf port, replay, runtime episode, and projection entities | each named owner | every sequence participant is a named domain identity and every association carries a cardinality | sequence uses only those identities | state transitions name Product, Public, HoG, or ABG authority | module exports and module-local Product provider | TypeScript boundaries plus admission checks | pass | none |
+| view participants and cardinalities are closed | Product, Public, validator, ABG, HoG, Product semantics, leaf port, replay, domain/publication/Program, invocation, round, reviewer task and contract projection, result candidate, escalation decision, source-result basis, source/target runtime episode, and public/ticket projection entities | each named owner | every active Ontology entity is named and every association carries a cardinality | every sequence participant is a domain identity; payload entities remain subordinate to their named invocation/round/result owner | source and target episode states are distinct and every transition names Product, Public, HoG, or ABG authority | module exports and module-local Product provider | TypeScript boundaries plus admission checks | pass | none |
 | one canonical Consensus callable | domain family and publication | Product/GTL | singular publication relation | one invoke target | one admitted episode | constants and closed constructors | raw admission, Program validation, catalog admission | pass | none |
 | no host-owned panel loop | round state and Program topology | GTL/HoG | tasks subordinate to Program | fan-out/fan-in shown inside HoG | round transitions derive from admitted routes | direct GTL constructors | validator plus ABG child/foldback admission | pass | none |
-| reviewer attribution is ordinal and exact | invocation, task, worker-contract projection, finding | Product/ABG | profile/task containment and exact Product projection | Product contract projection precedes the effect edge; effect binds profile and worker | findings admitted before reduction | closed predicates, Product worker-contract resolver, and transport contract | actor/process plus C-call evidence/result admission | pass | none |
+| reviewer attribution is ordinal and exact | invocation, task, worker-contract projection, finding | Product/ABG | profile/task containment, recomputed complete configuration digest, and exact Product projection | Product configuration and contract projection precede the effect edge; effect binds profile and worker | findings admitted before reduction | closed predicates recompute the profile digest; Product worker-contract resolver and transport contract preserve it | panel/invocation validation plus actor/process and C-call evidence/result admission | pass | none |
 | declared policy controls reduction | policy and round state | Product | policy composed into invocation | reducer consumes admitted state | only declared outcomes transition | exact rule-ref predicates | Product input/result admission | pass | none |
-| unresolved truth alone reaches F_H | outcome, requested result projection, ABG source-result basis, linked escalation invocation, and continuation | Product/ABG | source runtime episode relates to zero or more bases; each target episode has at most one | requested result is selected from the exact source Run; ABG derives its result/judgment/replay/workspace basis before Product validation and target admission | UnresolvedClosed -> UnresolvedReadable -> SourceBasisDerived -> EscalationAdmitted -> Held; source Run remains terminal | closed outcome vocabulary, exact result predicate, and Product basis validator | ABG source rehydration, advancing judgment, branded basis, invocation, and atomic hold admission | pass | none |
-| F_H response binds request and actor | result candidate and response | Product/ABG | decision composes exact unresolved result | actor admission precedes Product evaluation | Held -> Responded only on exact basis | Product response predicate | capability and response admission | pass | none |
+| unresolved truth alone reaches F_H | outcome, requested result projection, ABG source-result basis, linked target invocation, and continuation | Product/ABG | one source episode relates to zero or more derived bases; each target episode has at most one; source and target are distinct | requested result is selected from the exact source Run; ABG proves the source Run opened from that invocation and derives result/judgment/replay/WorkspaceBinding before Product validation and target admission | SourceUnresolvedClosed -> SourceReadable -> SourceBasisDerived -> TargetAdmitted -> TargetHeld; source Run remains immutable terminal history | closed outcome vocabulary, exact result predicate, and Product basis validator | ABG source invocation-to-Run rehydration, advancing judgment, branded basis, exact source/target WorkspaceBinding equality, target invocation, and atomic hold admission | pass | none |
+| F_H response binds request and actor | result candidate and Consensus escalation decision | Product/ABG | decision composes exact unresolved result and actor | actor admission precedes Product evaluation | TargetHeld -> TargetResponded only on exact basis | Product response predicate | capability and response admission | pass | none |
 | semantic result cannot mint replay | result candidate, Product projector, runtime episode, and source-result basis | Product/ABG | candidate, public projection, and source basis are distinct identities | replay follows admitted closure; exact Product projector binds it only on read; only ABG derives later invocation provenance | Readable or SourceBasisDerived follows terminal source truth | candidate omits replay identity; Product projector requires exact result ref | ABG replay, selected result/judgment checks, and Product-basis rehydration | pass | none |
-| public reads are no-append, durable, Product-exact, and proportional | run projection authority and requested root-or-child result | Product meaning over ABG truth; Public transport only | runtime episode relates to zero or more result projections under one current authority | reopen, revalidate event-bound publication/semantics digests, replay, select exact judged result, optional pure Product projection, close | Readable self-transition; source Run remains terminal | exact carrier parser and Product projector | event prefix, ProductInstall, catalog-to-view causation, publication/Product-semantics basis digest, invocation, closed Run, selected GraphCall/C-call result and judgment checks; full catalog snapshot is absent | pass | none |
-| ticket projection cannot mutate ticket | downstream projection | Product | downstream association | pure projection only | no ticket lifecycle transition | immutable function | not_applicable: no admission or effect | pass | none |
+| public reads are no-append, durable, Product-exact, and proportional | run projection authority and requested root-or-child result | Product meaning over ABG truth; Public transport only | runtime episode relates to zero or more result projections under one current authority | reopen, revalidate event-bound publication/semantics digests, invocation-to-Run relation, replay, select exact judged result, optional pure Product projection, close | SourceReadable and TargetReadable self-transitions do not change either Run | exact carrier parser and Product projector | event prefix, ProductInstall, catalog-to-view causation, publication/Product-semantics basis digest, invocation-to-Run binding, closed Run, selected GraphCall/C-call result and judgment checks; full catalog snapshot is absent | pass | none |
+| ticket projection cannot mutate ticket | Ticket Consensus projection | Product | result candidate relates to zero or one downstream ticket projection | pure projection only | no ticket lifecycle transition | immutable function | not_applicable: no admission or effect | pass | none |
 | SDK equivalence | deferred S06 asset | S06 owner | deferred | deferred | deferred | not selected | not selected | not_applicable: S06 owns | T-281 |
 
 ### 13.9 Operational lifecycle and proof
@@ -2718,10 +2781,10 @@ Module-owned proof derives from this boundary rather than helper layout:
 | Proof family | Owning law |
 |---|---|
 | domain/publication exactness and public contract addressability | Ontology, IACS, `REQ-P-CONSENSUS-001..008A` |
-| policy, workspace, attribution, Product-declared worker contracts, Product result projection, and F_H exact-basis mutations | authority matrix and `REQ-P-CONSENSUS-005..011` |
+| policy, exact WorkspaceBinding, recomputed reviewer configuration, attribution, Product-declared worker contracts, Product result projection, and F_H exact-basis mutations | authority matrix and `REQ-P-CONSENSUS-005..011` |
 | no special operation/event family and no alternate runtime | Prime/IACS and `REQ-P-CONSENSUS-010` |
 | run projection authority positive, install/semantics/catalog-admission tamper, stale-prefix, no-feature-branch, no-full-catalog-carrier, and no-append cases | public-read lifecycle and `REQ-P-POLICY-026..028` |
-| exact child-result read plus missing, wrong-replay, wrong-result, terminal-class, forged-source-authority, and recomputed cross-workspace-authority refusals before target admission | source-result lifecycle, Prime contraction, and cross-episode authority axiom |
+| exact child-result read plus missing, wrong-replay, wrong-result, terminal-class, forged-source-authority, source invocation/Run mismatch, changed WorkspaceBinding under the same logical workspace, and cross-workspace refusals before target admission | source-result lifecycle, Prime contraction, and cross-episode authority axiom |
 | installed three outcomes across three workspaces plus One Surface | `ABG5-S05` and `REQ-P-CONSENSUS-013..018` |
 
 ### 13.10 Promotion boundary
@@ -2737,9 +2800,11 @@ Promotion requires:
 - admitted root and subordinate result plus replay reads through fresh-process
   `project.read`;
 - unresolved escalation admitted only from one ABG-derived exact source-result
-  basis recorded on the target invocation while the source Run remains closed;
-- exact workspace, policy, profile, actor, replay-bound unresolved-result,
-  final result, and replay basis;
+  basis whose source Run opened from the exact source invocation, recorded on
+  the target invocation while the source Run remains closed;
+- exact WorkspaceBinding identity and digest across linked source and target
+  episodes, policy, digest-complete profile, actor, replay-bound unresolved
+  result, final result, and replay basis;
 - module-owned proof derived from this section;
 - no special runtime or public branch;
 - accepted S03, external Product, `test:m4`, and complete `test:m5` remaining

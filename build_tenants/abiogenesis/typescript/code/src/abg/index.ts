@@ -39,6 +39,7 @@ export {
   admitInvocation,
   deriveInvocationSourceResultBasis,
   isInvocationSourceResultBasis,
+  hasInvocationRunBinding,
   rehydrateInvocationAdmission,
   validateInvocationCapabilityBasis,
   type InvocationAdmission,

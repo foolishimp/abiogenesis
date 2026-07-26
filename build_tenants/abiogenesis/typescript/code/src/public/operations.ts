@@ -2171,6 +2171,11 @@ function openRunProjectionAuthority(
     rootInvocation.workspaceBindingId !== state.workspaceBindingId ||
     rootInvocation.workspaceBindingDigest !==
       state.workspaceBindingDigest ||
+    !abg.hasInvocationRunBinding(
+      reopened.store,
+      rootInvocation,
+      state.runId,
+    ) ||
     !abg.hasAdmittedProductSemanticsBasis(reopened.store, state) ||
     replayState.runId !== state.runId ||
     replayState.graphCallId !== state.graphCallId ||

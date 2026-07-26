@@ -1,6 +1,14 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { createHash } from "node:crypto";
+import {
+  copyFile,
+  mkdtemp,
+  readFile,
+  rm,
+  stat,
+} from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 import test from "node:test";
 
 import * as abg from "../../build/code/src/abg/index.js";
@@ -238,6 +246,23 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
   );
 });
 
+test("S05 reviewer profiles bind every execution-affecting configuration field", () => {
+  const invocation = structuredClone(invocationFor());
+  const profile = invocation.panel.profiles[0];
+  profile.instructionContractRef =
+    `${profile.instructionContractRef}/substituted`;
+  const { panelDigest: _panelDigest, ...panelBody } = invocation.panel;
+  invocation.panel.panelDigest = product.sha256Canonical(panelBody);
+
+  assert.equal(
+    gtl.isConsensusReviewerProfile(profile),
+    false,
+    "a stale configuration digest must not authorize substituted reviewer configuration",
+  );
+  assert.equal(gtl.isConsensusPanel(invocation.panel), false);
+  assert.equal(gtl.isConsensusInvocation(invocation), false);
+});
+
 test("S05 Product response semantics bind the exact pending result and acting actor", () => {
   const pending = unresolvedResult();
   const basis = {
@@ -387,6 +412,91 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
     }),
     false,
   );
+});
+
+test("S05 ABG binds each durable Run to its exact admitted invocation", async () => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-s05-run-binding-"));
+  const sourcePath = resolve(
+    packageRoot,
+    "test_env/proof/abi5-root-r10.events.jsonl",
+  );
+  const eventLogPath = join(scratch, "abi5-root-r10.events.jsonl");
+  try {
+    await copyFile(sourcePath, eventLogPath);
+    const bytes = await readFile(eventLogPath);
+    const status = await stat(eventLogPath);
+    const authorityBody = {
+      kind: "event_store_reopen_authority",
+      schemaVersion: "5.0.0",
+      eventLogPath,
+      device: status.dev,
+      inode: status.ino,
+      eventLogDigest:
+        `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
+      durableByteLength: bytes.byteLength,
+      eventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
+    };
+    const reopened = abg.reopenEventStore({
+      ...authorityBody,
+      authorityDigest: product.sha256Canonical(authorityBody),
+    });
+    assert.equal(
+      reopened.kind,
+      "reopened_event_store_context",
+      JSON.stringify(reopened),
+    );
+    if (reopened.kind !== "reopened_event_store_context") return;
+    try {
+      const runOpens = reopened.store.readAll().filter(
+        (event) => event.kind === "run_segment_opened",
+      );
+      assert.equal(runOpens.length, 2);
+      const admissions = runOpens.map((event) =>
+        abg.rehydrateInvocationAdmission(
+          reopened.store,
+          event.payload.invocationAdmissionRef,
+        )
+      );
+      assert.ok(admissions[0]);
+      assert.ok(admissions[1]);
+      assert.equal(
+        abg.hasInvocationRunBinding(
+          reopened.store,
+          admissions[0],
+          runOpens[0].runId,
+        ),
+        true,
+      );
+      assert.equal(
+        abg.hasInvocationRunBinding(
+          reopened.store,
+          admissions[0],
+          runOpens[1].runId,
+        ),
+        false,
+      );
+      assert.equal(
+        abg.hasInvocationRunBinding(
+          reopened.store,
+          admissions[1],
+          runOpens[0].runId,
+        ),
+        false,
+      );
+      assert.equal(
+        abg.hasInvocationRunBinding(
+          reopened.store,
+          admissions[1],
+          runOpens[1].runId,
+        ),
+        true,
+      );
+    } finally {
+      reopened.store.closeDurableLog();
+    }
+  } finally {
+    await rm(scratch, { recursive: true, force: true });
+  }
 });
 
 test("S05 reviewer realization carries the Product-declared instruction contract", async () => {

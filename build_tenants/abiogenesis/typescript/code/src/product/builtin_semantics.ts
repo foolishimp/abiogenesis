@@ -294,6 +294,8 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
         source.sourceResultValueDigest !==
           sha256Canonical(source.sourceResultValue) ||
         source.sourceWorkspaceId !== basis.workspaceId ||
+        source.workspaceBindingId !== basis.workspaceBindingId ||
+        source.workspaceBindingDigest !== basis.workspaceBindingDigest ||
         !isConsensusResultCandidate(source.sourceResultValue) ||
         basis.input.terminalOutcome.outcome !== "escalate_fh"
       ) {

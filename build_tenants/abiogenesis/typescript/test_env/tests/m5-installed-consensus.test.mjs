@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
+import { chmod, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import test from "node:test";
@@ -203,6 +203,15 @@ async function eventsAt(path) {
     .trim()
     .split(/\r?\n/u)
     .map((line) => JSON.parse(line));
+}
+
+async function eventsAtIfPresent(path) {
+  try {
+    return await eventsAt(path);
+  } catch (error) {
+    if (error?.code === "ENOENT") return [];
+    throw error;
+  }
 }
 
 function diagnosticTail(events) {
@@ -578,6 +587,10 @@ for (const workspace of workspaceApplications) {
     if (scenario.label === "unresolved") {
       const replayBoundUnresolvedResult =
         resultProjection.result.value;
+      await rm(installed.productConsumer, {
+        recursive: true,
+        force: true,
+      });
       const escalation = await buildRootCliScenario(
         harness,
         `m5-consensus-${workspace.label}-unresolved-fh`,
@@ -596,6 +609,9 @@ for (const workspace of workspaceApplications) {
           workspaceId:
             `workspace://developer/consensus/${workspace.label}`,
           workspaceRoot,
+          productConsumer: installed.productConsumer,
+          authorityManifestRef:
+            installed.transcript[2].payload.authorityManifestRef,
           eventLogFile: "unresolved-fh.events.jsonl",
         },
       );
@@ -1253,6 +1269,42 @@ test("M5 Consensus escalation requires one exact replay-derived source result", 
   } finally {
     publicApi.closeRootOperationContext(operationContext);
   }
+  const differentBindingEscalation = await buildRootCliScenario(
+    harness,
+    "m5-consensus-source-result-authority-different-binding",
+    (payload) => ({
+      ...payload,
+      sourceProjectionAuthority:
+        sourceProjection.projectionAuthority,
+      sourceResultRef: sourceProjection.result.resultRef,
+    }),
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.programRef,
+      graphFunctionRef:
+        basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
+      allowlist,
+      input: sourceResult,
+      eventLogFile:
+        "source-result-authority-different-binding.events.jsonl",
+      workspaceId,
+    },
+  );
+  const differentBindingRun = await runInstalledCli(
+    harness,
+    differentBindingEscalation,
+  );
+  assert.equal(differentBindingRun.exitCode, 2, differentBindingRun.stderr);
+  assert.equal(
+    differentBindingRun.outcomes.at(-1).disposition,
+    "refused",
+  );
+  assert.equal(differentBindingRun.outcomes.at(-1).runId, null);
+  assert.equal(
+    (await eventsAtIfPresent(differentBindingEscalation.eventLogPath)).some(
+      (event) => event.kind === "invocation_admitted",
+    ),
+    false,
+  );
   const substitutedWorkspaceId = `${workspaceId}/substituted`;
   const substitutedAuthority = structuredClone(
     sourceProjection.projectionAuthority,
@@ -1288,6 +1340,12 @@ test("M5 Consensus escalation requires one exact replay-derived source result", 
   assert.equal(crossWorkspaceRun.exitCode, 2, crossWorkspaceRun.stderr);
   assert.equal(crossWorkspaceRun.outcomes.at(-1).disposition, "refused");
   assert.equal(crossWorkspaceRun.outcomes.at(-1).runId, null);
+  assert.equal(
+    (await eventsAtIfPresent(crossWorkspaceEscalation.eventLogPath)).some(
+      (event) => event.kind === "invocation_admitted",
+    ),
+    false,
+  );
   assert.equal(
     (await eventsAt(source.eventLogPath)).length,
     sourceEventCount,
