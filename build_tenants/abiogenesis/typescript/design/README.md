@@ -14,9 +14,10 @@ The current design basis is:
 
 The historical accepted M03 SHA-256
 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`
-remains immutable provenance. The current M03 projection, changed only to
-propagate the selected STDO `v2.2.0` qualification identity, is
-`12334d2d814c47a954f55cd9664c006fd331fdafaa3fb043b95a35e8832e285f`.
+remains immutable provenance. The current M03 projection propagates the
+selected STDO `v2.2.0` qualification identity and the accepted T-270 narrow
+Product leaf-verifier dependency. Its exact SHA-256 is
+`ccd8f79d333c4c681f5643acafac59458b661c7d1916eb929f9c7f065dd0cfaf`.
 Completed T-272 and T-286 are evidence only and select no further work.
 
 ## Governing Truth
