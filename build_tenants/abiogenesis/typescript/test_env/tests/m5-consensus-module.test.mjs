@@ -421,6 +421,31 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
     contribution.declarationOrContractRef,
     gtl.CONSENSUS_IDS.graphFunctionRef,
   );
+  assert.ok(
+    publication.graphFunctions.some(
+      (graphFunction) =>
+        graphFunction.name === gtl.CONSENSUS_IDS.submitterGraphFunctionRef,
+    ),
+    "the canonical submitter GraphFunction must be published",
+  );
+  const submitterContribution = publication.contributions.find(
+    (row) =>
+      row.declarationOrContractRef ===
+        gtl.CONSENSUS_IDS.submitterGraphFunctionRef,
+  );
+  assert.deepEqual(
+    submitterContribution?.programMembershipRefs,
+    [gtl.CONSENSUS_IDS.oneSurfaceProgramRef],
+  );
+  assert.equal(
+    publication.programs.find(
+      (program) =>
+        program.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+    )?.callableMembership.includes(
+      gtl.CONSENSUS_IDS.submitterGraphFunctionRef,
+    ),
+    true,
+  );
   assert.equal(
     JSON.stringify(publication).match(/compiled|lowered/gu),
     null,
@@ -1070,28 +1095,8 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
 
 test("S05 reviewer realization carries the Product-declared instruction contract", async () => {
   const invocation = invocationFor();
-  const task = {
-    kind: "consensus_reviewer_task",
-    schemaVersion: "5.0.0",
-    invocationRef: invocation.invocationRef,
-    roundRef: "consensus-round://developer/module-proof/1",
-    roundOrdinal: 1,
-    subject: invocation.subject,
-    subjectMaterialization: invocation.subjectMaterialization,
-    panelRef: invocation.panel.panelRef,
-    policy: invocation.policy,
-    profile: invocation.panel.profiles[0],
-    instruction: invocation.instructions[0],
-    submitterProfile: invocation.submitterProfile,
-    submitterInstruction: invocation.submitterInstruction,
-    priorRoundRefs: [],
-    priorFindingSetRefs: [],
-    priorRulings: [],
-    priorDissentProfileRefs: [],
-    priorSubmitterResponses: [],
-    priorEvidenceRefs: [],
-    transportLane: invocation.transportLane,
-  };
+  const state = gtl.initializeConsensus(invocation);
+  const task = state.members[0].value;
   assert.equal(gtl.isConsensusReviewerTask(task), true);
   const workerContracts =
     ABI5_SYSTEM_PRODUCT_SEMANTICS.resolveProbabilisticWorkerContracts({
@@ -1187,17 +1192,8 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     true,
   );
   assert.notEqual(refusedCandidate.resultCandidate.refusalRef, null);
-  const refusedVector = {
-    kind: "gtl_fan_out_vector",
-    schemaVersion: "5.0.0",
-    applicationRef: gtl.CONSENSUS_IDS.roundApplicationRef,
-    members: [{
-      ordinal: 0,
-      inputMemberRef: "member://developer/module-proof/refused/input",
-      outputMemberRef: "member://developer/module-proof/refused/output",
-      value: refusedCandidate.resultCandidate,
-    }],
-  };
+  const refusedVector = await findingsVectorFor(state, "accept");
+  refusedVector.members[0].value = refusedCandidate.resultCandidate;
   const submitterTaskCandidate =
     realizeConsensusSubmitterTaskPreparation(refusedVector);
   const submitterResponseCandidate = await realizeConsensusSubmitter(
@@ -1349,6 +1345,71 @@ test("S05 exact submitter-response basis gates reviewer reconsideration", async 
     firstVector,
     "address_findings",
   );
+  const admittedEvidence = [{
+    evidenceRef: "evidence://abiogenesis/module-proof",
+    evidenceDigest: DIGEST,
+    evidenceClass: "probabilistic_transport",
+    outputDigest: firstResponse.outputDigest,
+    transportDigest: DIGEST,
+  }];
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.validateResultEvidenceLineage({
+      outputContractRef: gtl.CONSENSUS_IDS.submitterResponseContractRef,
+      value: firstResponse,
+      admittedEvidence,
+    }),
+    true,
+  );
+  const forgedEvidence = structuredClone(firstResponse);
+  forgedEvidence.evidenceRefs = [
+    "transport-evidence://abg/forged-semantic-lineage",
+  ];
+  const forgedEvidenceResponse = rehashSubmitterResponse(forgedEvidence);
+  assert.equal(
+    gtl.isConsensusSubmitterResponse(forgedEvidenceResponse),
+    true,
+    "the Product response remains structurally valid before ABG evidence reconciliation",
+  );
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.validateResultEvidenceLineage({
+      outputContractRef: gtl.CONSENSUS_IDS.submitterResponseContractRef,
+      value: forgedEvidenceResponse,
+      admittedEvidence,
+    }),
+    false,
+    "semantic evidence must derive from the exact ABG-admitted transport evidence",
+  );
+  const partialVector = structuredClone(firstVector);
+  partialVector.members = partialVector.members.slice(0, 1);
+  assert.equal(
+    gtl.isConsensusFindingsVector(partialVector),
+    false,
+    "a partial findings vector cannot shrink the admitted panel",
+  );
+  assert.throws(
+    () => realizeConsensusSubmitterTaskPreparation(partialVector),
+    /requires one exact findings vector/,
+  );
+  const reorderedVector = structuredClone(firstVector);
+  reorderedVector.members.reverse();
+  reorderedVector.members.forEach((member, ordinal) => {
+    member.ordinal = ordinal;
+  });
+  assert.equal(
+    gtl.isConsensusFindingsVector(reorderedVector),
+    false,
+    "a findings vector cannot reorder the admitted panel",
+  );
+  const otherRoundVector = await findingsVectorFor(
+    gtl.initializeConsensus(invocationFor(`${WORKSPACE}/other-basis`)),
+  );
+  const crossBasisVector = structuredClone(firstVector);
+  crossBasisVector.members[1] = structuredClone(otherRoundVector.members[1]);
+  assert.equal(
+    gtl.isConsensusFindingsVector(crossBasisVector),
+    false,
+    "panel-shaped findings from another invocation basis cannot enter the vector",
+  );
   const reconsideration = gtl.reduceConsensusRound(firstResponse);
 
   assert.equal(reconsideration.terminal, false);
@@ -1408,6 +1469,21 @@ test("S05 exact submitter-response basis gates reviewer reconsideration", async 
     "wrong submitter must refuse",
   );
 
+  const wrongProfile = structuredClone(firstResponse);
+  wrongProfile.profileRef =
+    "submitter-profile://developer/wrong-profile";
+  assertRefused(
+    rehashSubmitterResponse(wrongProfile),
+    "wrong submitter profile must refuse",
+  );
+
+  const wrongConfiguration = structuredClone(firstResponse);
+  wrongConfiguration.configurationDigest = DIGEST;
+  assertRefused(
+    wrongConfiguration,
+    "wrong submitter configuration must refuse",
+  );
+
   const forgedIdentity = structuredClone(firstResponse);
   forgedIdentity.responseRef =
     `${forgedIdentity.responseRef}/forged`;
@@ -1439,6 +1515,51 @@ test("S05 exact submitter-response basis gates reviewer reconsideration", async 
   assertRefused(
     rehashSubmitterResponse(unchangedPriorResponse),
     "unchanged or unbound prior response must refuse",
+  );
+});
+
+test("S05 Product judgment binds reviewer and submitter output to the exact input task", async () => {
+  const firstState = gtl.initializeConsensus(
+    invocationFor("workspace://developer/consensus/cross-pair-a"),
+  );
+  const secondState = gtl.initializeConsensus(
+    invocationFor("workspace://developer/consensus/cross-pair-b"),
+  );
+  const firstReviewerTask = firstState.members[0].value;
+  const secondReviewerResult = await realizeConsensusReviewer(
+    secondState.members[0].value,
+    {
+      async invokeWorker() {
+        return workerObservation(
+          JSON.stringify(reviewerCandidate("revise")),
+          "reviewer-cross-pair",
+        );
+      },
+    },
+  );
+  assert.equal(secondReviewerResult.disposition, "success");
+  assert.equal(
+    gtl.resolveConsensusJudgmentRelation(
+      gtl.CONSENSUS_IDS.reviewerPredicateRef,
+    ).evaluate(firstReviewerTask, secondReviewerResult.resultCandidate),
+    false,
+    "valid reviewer output for another task must not advance",
+  );
+
+  const firstVector = await findingsVectorFor(firstState);
+  const secondVector = await findingsVectorFor(secondState);
+  const firstSubmitterTask =
+    realizeConsensusSubmitterTaskPreparation(firstVector).resultCandidate;
+  const secondSubmitterResponse = await responseFor(
+    secondVector,
+    "address_findings",
+  );
+  assert.equal(
+    gtl.resolveConsensusJudgmentRelation(
+      gtl.CONSENSUS_IDS.submitterPredicateRef,
+    ).evaluate(firstSubmitterTask, secondSubmitterResponse),
+    false,
+    "valid submitter output for another findings vector must not advance",
   );
 });
 
@@ -1530,10 +1651,36 @@ test("S05 generic Public and ABG invocation basis contain no Consensus branch", 
     resolve(packageRoot, "code/src/abg/execution_basis.ts"),
     "utf8",
   );
+  const hogExecutionSource = await readFile(
+    resolve(packageRoot, "code/src/hog/execute.ts"),
+    "utf8",
+  );
   for (const source of [publicSource, executionBasisSource]) {
     assert.doesNotMatch(
       source,
       /\b(?:Consensus|consensus|isConsensus|bindConsensus)\b/,
     );
   }
+  const resultAdmissionStart = hogExecutionSource.indexOf(
+    "const result = admitResult(",
+  );
+  const resultAdmissionEnd = hogExecutionSource.indexOf(
+    "if (result.kind === \"c_call_admission_rejection\")",
+    resultAdmissionStart,
+  );
+  assert.ok(resultAdmissionStart >= 0 && resultAdmissionEnd > resultAdmissionStart);
+  const resultAdmission = hogExecutionSource.slice(
+    resultAdmissionStart,
+    resultAdmissionEnd,
+  );
+  assert.match(
+    resultAdmission,
+    /validateSuccessResult\(value\)\s*&&\s*input\.leafPort\.validateResultEvidenceLineage\(/u,
+    "generic HoG result admission must invoke the Product evidence-lineage relation",
+  );
+  assert.match(
+    resultAdmission,
+    /evidence\.map\(/u,
+    "the Product relation must receive the exact admitted C-call evidence basis",
+  );
 });

@@ -29,6 +29,7 @@ import {
   type AbgEventStore,
   type ActorRuntimeBinding,
   type ActorProcessObservation,
+  type AdmittedCCallEvidence,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type AdmittedImplementationResolutionRow,
@@ -1190,7 +1191,7 @@ export async function completeExecutableTraversal<
           probabilisticWorkerContracts!.instructionContractRef,
         )]
     : leaf.evidenceCandidates;
-  const evidence = [];
+  const evidence: AdmittedCCallEvidence[] = [];
   for (const candidate of evidenceCandidates) {
     const admitted = admitEvidence(
       input.store,
@@ -1229,7 +1230,23 @@ export async function completeExecutableTraversal<
       ? resultValueKind
       : failureValueKind,
     leaf.disposition === "success"
-      ? validateSuccessResult
+      ? (value) =>
+        validateSuccessResult(value) &&
+        input.leafPort.validateResultEvidenceLineage(
+          cCall.outputContractRef,
+          value as unknown as Readonly<Record<string, JsonValue>>,
+          evidence.map((row) => deepFreeze({
+            evidenceRef: row.evidenceRef,
+            evidenceDigest: row.evidenceDigest,
+            evidenceClass: row.evidenceClass,
+            outputDigest: row.outputDigest,
+            transportDigest: row.evidenceClass === "probabilistic_transport" &&
+                "transportDigest" in row &&
+                typeof row.transportDigest === "string"
+              ? row.transportDigest
+              : null,
+          })),
+        )
       : (value) => isRecord(value) &&
         value.kind === failureValueKind &&
         value.schemaVersion === "5.0.0" &&

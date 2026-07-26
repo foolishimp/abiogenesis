@@ -506,6 +506,7 @@ for (const workspace of workspaceApplications) {
       basis.gtl.CONSENSUS_IDS.roundLoopGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.roundGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.reviewerGraphFunctionRef,
+      basis.gtl.CONSENSUS_IDS.submitterGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.roundReducerGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.projectorGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
@@ -767,7 +768,8 @@ for (const workspace of workspaceApplications) {
       scenario.expectedRounds,
       "each complete findings vector must invoke one attributed submitter F_P leaf",
     );
-    const admittedSubmitterResponses = events
+    const admittedSubmitterResponses = [
+      ...new Map(events
       .filter(
         (event) =>
           event.kind === "c_call_result_admitted" &&
@@ -775,7 +777,9 @@ for (const workspace of workspaceApplications) {
             basis.gtl.CONSENSUS_IDS.submitterResponseContractRef &&
           event.payload?.value?.kind === "consensus_submitter_response",
       )
-      .map((event) => event.payload.value);
+      .map((event) => [event.payload.value.responseRef, event.payload.value]))
+        .values(),
+    ];
     assert.equal(
       admittedSubmitterResponses.length,
       scenario.expectedRounds,

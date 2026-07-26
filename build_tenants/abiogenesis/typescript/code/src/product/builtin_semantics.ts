@@ -217,6 +217,48 @@ function validateSystemContractValue(
   }
 }
 
+function validateSystemResultEvidenceLineage(
+  basis: Parameters<
+    NonNullable<ProductSemanticsProvider["validateResultEvidenceLineage"]>
+  >[0],
+): boolean {
+  if (
+    basis.outputContractRef !== CONSENSUS_IDS.findingsContractRef &&
+    basis.outputContractRef !== CONSENSUS_IDS.submitterResponseContractRef
+  ) {
+    return true;
+  }
+  if (
+    basis.admittedEvidence.length !== 1 ||
+    basis.admittedEvidence[0]?.evidenceClass !==
+      "probabilistic_transport" ||
+    typeof basis.admittedEvidence[0]?.transportDigest !== "string"
+  ) {
+    return false;
+  }
+  const transportDigest = basis.admittedEvidence[0].transportDigest;
+  const expectedEvidenceRef =
+    `transport-evidence://abg/${
+      transportDigest.slice("sha256:".length)
+    }`;
+  if (
+    basis.outputContractRef === CONSENSUS_IDS.findingsContractRef &&
+    isReviewFindings(basis.value)
+  ) {
+    return basis.value.evidenceRefs.length === 1 &&
+      basis.value.evidenceRefs[0] === expectedEvidenceRef &&
+      basis.value.findings.every((finding) =>
+        finding.evidenceRefs.length === 1 &&
+        finding.evidenceRefs[0] === expectedEvidenceRef
+      );
+  }
+  return basis.outputContractRef ===
+      CONSENSUS_IDS.submitterResponseContractRef &&
+    isConsensusSubmitterResponse(basis.value) &&
+    basis.value.evidenceRefs.length === 1 &&
+    basis.value.evidenceRefs[0] === expectedEvidenceRef;
+}
+
 export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   kind: "product_semantics_provider" as const,
   schemaVersion: "5.0.0" as const,
@@ -259,6 +301,7 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   },
   validateContractValue: validateSystemContractValue,
   resolveJudgmentRelation: resolveConsensusJudgmentRelation,
+  validateResultEvidenceLineage: validateSystemResultEvidenceLineage,
   resolveProbabilisticWorkerContracts(basis: Readonly<{
     inputContractRef: string;
     outputContractRef: string;

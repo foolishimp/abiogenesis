@@ -72,6 +72,15 @@ export interface ProductSemanticsProvider {
     readonly rejectionReasonRef: string;
     readonly evaluate: (input: unknown, output: unknown) => boolean;
   }> | null;
+  readonly validateResultEvidenceLineage?: (
+    basis: Readonly<{
+      readonly outputContractRef: string;
+      readonly value: Readonly<Record<string, JsonValue>>;
+      readonly admittedEvidence: readonly Readonly<
+        Record<string, JsonValue>
+      >[];
+    }>,
+  ) => boolean;
   readonly resolveProbabilisticWorkerContracts?: (
     basis: Readonly<{
       readonly inputContractRef: string;
@@ -147,6 +156,15 @@ interface InstalledLeafSemanticsRuntime {
     readonly rejectionReasonRef: string;
     readonly evaluate: (input: unknown, output: unknown) => boolean;
   }> | null;
+  readonly validateResultEvidenceLineage: (
+    basis: Readonly<{
+      readonly outputContractRef: string;
+      readonly value: Readonly<Record<string, JsonValue>>;
+      readonly admittedEvidence: readonly Readonly<
+        Record<string, JsonValue>
+      >[];
+    }>,
+  ) => boolean;
   readonly resolveProbabilisticWorkerContracts: (
     basis: Readonly<{
       readonly inputContractRef: string;
@@ -293,6 +311,10 @@ export async function loadInstalledProductSemantics(
       typeof value.resolveProbabilisticWorkerContracts !== "function"
     ) ||
     (
+      value.validateResultEvidenceLineage !== undefined &&
+      typeof value.validateResultEvidenceLineage !== "function"
+    ) ||
+    (
       value.validateInvocationBasis !== undefined &&
       typeof value.validateInvocationBasis !== "function"
     ) ||
@@ -399,6 +421,9 @@ export function projectInstalledLeafSemantics(
     semantics.validateContractValue.bind(semantics);
   const resolveJudgmentRelation =
     semantics.resolveJudgmentRelation.bind(semantics);
+  const validateResultEvidenceLineage =
+    semantics.validateResultEvidenceLineage?.bind(semantics) ??
+      (() => true);
   const resolveProbabilisticWorkerContracts =
     semantics.resolveProbabilisticWorkerContracts?.bind(semantics) ??
       ((basis: Readonly<{
@@ -423,6 +448,7 @@ export function projectInstalledLeafSemantics(
       verifyInstalledContent: () => installedProductContentMatches(install),
       validateContractValue,
       resolveJudgmentRelation,
+      validateResultEvidenceLineage,
       resolveProbabilisticWorkerContracts,
     },
   );

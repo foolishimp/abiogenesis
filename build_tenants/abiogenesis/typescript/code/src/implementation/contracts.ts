@@ -100,6 +100,11 @@ export interface LeafInvocationPort {
     readonly rejectionReasonRef: string;
     readonly evaluate: (input: unknown, output: unknown) => boolean;
   }> | null;
+  readonly validateResultEvidenceLineage: (
+    outputContractRef: string,
+    value: Readonly<Record<string, JsonValue>>,
+    admittedEvidence: readonly Readonly<Record<string, JsonValue>>[],
+  ) => boolean;
   readonly resolveProbabilisticWorkerContracts: (
     resolution: Readonly<LeafInvocationResolution>,
     input: Readonly<Record<string, JsonValue>>,

@@ -566,7 +566,7 @@ The directories below are ownership boundaries, not semantic peers.
 | src/gtl | typed declarations, constructors, canonical serialization | shared primitives only | runtime state or effects |
 | src/validator | raw admission, PublicationValidation, ProgramValidation, GraphValidation, implementation-resolution diagnostics | gtl | execution plan or runtime truth |
 | src/product | Product verification, install/ProductSet/workspace candidates, module publication, catalog candidates, deterministic implementation-resolution candidates, public operation contracts, and the private mint plus verifier for an opaque installed leaf-semantics projection | gtl and validator types | traversal, event admission, implementation selection under ambiguity, or closure |
-| src/implementation | concrete host functions addressed by published ImplementationBindings | gtl contract types | topology, selection, events, judgment, or closure |
+| src/implementation | concrete host functions addressed by published ImplementationBindings | GTL contract values and Product-owned pure realization functions exported through a Product authoring module under `src/gtl`; Product package identity and descriptor types; shared primitives | topology, selection, semantic authority, events, judgment, or closure |
 | src/abg | invocation, implementation, basis, transition, result, and closure admission ports; event store; Event Calculus; replay and aggregate truth | gtl, validator, and product contract types | GTL topology, leaf effects, implementation resolution, or scheduling |
 | src/hog | direct traversal monad and invocation-local cursor under explicit OpenedTraversalScope | gtl values, validation types, ABG admission port, Product opaque leaf-semantics verifier, admitted implementation invocation port | Product semantic evaluation, event authorship, program or implementation selection, hidden defaults, ambient lineage, or leaf implementation |
 | src/public | typed SDK and abg.cli plus stateless fixed operation composition | product, gtl, validator, ABG public ports/projections, and HoG public invoke | semantic selection, private state, retry, continuation, or closure |
@@ -576,7 +576,7 @@ Dependency law (`A -> B` means A may import B):
 ```text
 validator -> gtl
 product -> gtl, validator(type-only)
-implementation -> gtl(type-only)
+implementation -> gtl(contracts + Product-owned pure leaf functions), product(package identity + descriptor types)
 abg -> gtl(type-only), validator(type-only), product(type-only)
 hog -> gtl, validator(type-only), abg(admission-port), product(opaque-leaf-verifier), implementation(invocation-port)
 public -> product, gtl, validator, abg(public-port), hog(public-invoke)
@@ -594,6 +594,14 @@ row or refuses absence or ambiguity; it never admits or invokes that row. The
 public composition root wires concrete ports in the fixed order declared by
 each public operation; it has no selector, fallback, replay state, or event
 writer. CLI parsing and rendering cannot interleave private traversal steps.
+
+A Product-owned standard-library module may physically reside under `src/gtl`
+because that is the installed authoring export. An implementation leaf may
+call its declared pure constructors, predicates, or projections to realize one
+published binding. That dependency does not transfer Product meaning,
+topology, judgment, admission, or closure authority into
+`src/implementation`; replacing the Product function with implementation-local
+meaning is a rival authority.
 
 The first implementation transaction removes donor implementation from the
 canonical source and test paths before adding these seven modules. Donor code enters

@@ -787,7 +787,7 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "roundOrdinal",
         "subject",
         "subjectMaterialization",
-        "panelRef",
+        "panel",
         "policy",
         "profile",
         "instruction",
@@ -824,8 +824,8 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "subjectMaterialization": {
           "$ref": "#/$defs/ConsensusSubjectMaterialization"
         },
-        "panelRef": {
-          "$ref": "#/$defs/Ref"
+        "panel": {
+          "$ref": "#/$defs/ConsensusPanel"
         },
         "policy": {
           "$ref": "#/$defs/ConsensusRoundPolicy"
@@ -1065,7 +1065,7 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "roundOrdinal",
         "subject",
         "subjectMaterialization",
-        "panelRef",
+        "panel",
         "policy",
         "profile",
         "instruction",
@@ -1098,8 +1098,8 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "subjectMaterialization": {
           "$ref": "#/$defs/ConsensusSubjectMaterialization"
         },
-        "panelRef": {
-          "$ref": "#/$defs/Ref"
+        "panel": {
+          "$ref": "#/$defs/ConsensusPanel"
         },
         "policy": {
           "$ref": "#/$defs/ConsensusRoundPolicy"

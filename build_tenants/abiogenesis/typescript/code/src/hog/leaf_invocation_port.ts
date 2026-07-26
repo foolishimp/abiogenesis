@@ -142,6 +142,17 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     resolveJudgmentRelation(predicateRef: string) {
       return semantics.resolveJudgmentRelation(predicateRef);
     },
+    validateResultEvidenceLineage(
+      outputContractRef: string,
+      value: Readonly<Record<string, JsonValue>>,
+      admittedEvidence: readonly Readonly<Record<string, JsonValue>>[],
+    ) {
+      return semantics.validateResultEvidenceLineage({
+        outputContractRef,
+        value,
+        admittedEvidence,
+      });
+    },
     resolveProbabilisticWorkerContracts(
       resolution: Readonly<LeafInvocationResolution>,
       input: Readonly<Record<string, JsonValue>>,
