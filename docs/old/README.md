@@ -1,8 +1,12 @@
-# Archived Docs
+# Archived Documentation
 
-This directory contains superseded drafts and generated renders that are not
-live guidance for the `abiogenesis` 3.2.0 line.
+This directory contains superseded drafts, historical release documentation,
+generated renders, and commentary. It is not current ABIogenesis, GTL, HoG, or
+ABG guidance.
 
-Use the markdown files in `docs/` for current operator, builder, and release
-guidance. Regenerate PDFs from live markdown before publishing new rendered
-docs.
+- [pre-5.0/](./pre-5.0/) contains the documentation removed from the live root
+  during the ABIogenesis 5.0 documentation reset.
+- the remaining files are earlier Genesis Vision drafts.
+
+Use [../README.md](../README.md) to select documentation for a current,
+version-bound Product contract.
