@@ -1375,7 +1375,7 @@ export function isConsensusPanel(value: unknown): value is ConsensusPanel {
     !isRef(value.panelRef) ||
     !isDigest(value.panelDigest) ||
     !Array.isArray(value.profiles) ||
-    value.profiles.length < 2 ||
+    value.profiles.length < 1 ||
     !value.profiles.every(isConsensusReviewerProfile)
   ) return false;
   if (
@@ -1680,7 +1680,7 @@ export function isConsensusFindingsVector(
     value.schemaVersion === "5.0.0" &&
     isRef(value.applicationRef) &&
     Array.isArray(value.members) &&
-    value.members.length >= 2 &&
+    value.members.length >= 1 &&
     value.members.every((member, ordinal) =>
       isRecord(member) &&
       hasExactKeys(member, [

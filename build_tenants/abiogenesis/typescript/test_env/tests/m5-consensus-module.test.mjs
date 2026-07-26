@@ -263,6 +263,25 @@ test("S05 reviewer profiles bind every execution-affecting configuration field",
   assert.equal(gtl.isConsensusInvocation(invocation), false);
 });
 
+test("S05 admits one explicit reviewer without hard-coding panel cardinality", () => {
+  const invocation = invocationFor();
+  const panel = gtl.constructConsensusPanel(
+    `${invocation.panel.panelRef}/singleton`,
+    [invocation.panel.profiles[0]],
+  );
+  const subject = gtl.constructConsensusSubject({
+    ...invocation.subject,
+    panelRef: panel.panelRef,
+  });
+  const singleton = gtl.constructConsensusInvocation({
+    ...invocation,
+    subject,
+    panel,
+  });
+  assert.equal(gtl.isConsensusPanel(panel), true);
+  assert.equal(gtl.isConsensusInvocation(singleton), true);
+});
+
 test("S05 Product response semantics bind the exact pending result and acting actor", () => {
   const pending = unresolvedResult();
   const basis = {

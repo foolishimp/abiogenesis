@@ -125,6 +125,7 @@ async function consensusBasis(
   label,
   roundBudget,
   workspaceRef,
+  profileNames = ["submitter-review", "independent-review"],
 ) {
   const installedRoot = installedCliPackageRoot(harness);
   const gtl = await import(
@@ -141,7 +142,7 @@ async function consensusBasis(
     packageName: harness.candidateBasis.packageName,
     packageVersion: harness.candidateBasis.packageVersion,
   });
-  const profiles = ["submitter-review", "independent-review"].map(
+  const profiles = profileNames.map(
     (name, ordinal) => gtl.constructConsensusReviewerProfile({
       profileRef: `reviewer-profile://developer/${name}`,
       roleContractRef: `contract://developer/reviewer-role/${name}@1`,
@@ -873,6 +874,59 @@ test("M5 Consensus publication validates its canonical handle and ordinary calla
       JSON.stringify(graphFunction.template).includes("compiled")
     ),
     false,
+  );
+});
+
+test("M5 installed Consensus admits one explicit reviewer through the ordinary path", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const command = await installConsensusWorker(harness);
+  const workspaceId =
+    "workspace://developer/consensus/single-reviewer";
+  const basis = await consensusBasis(
+    harness,
+    "single-reviewer",
+    1,
+    workspaceId,
+    ["single-reviewer"],
+  );
+  harness.rootPublication = basis.publication;
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-consensus-single-reviewer",
+    (payload) => payload,
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.programRef,
+      graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+      allowlist: basis.publication.contributions.map((row) => row.handle),
+      input: basis.input,
+      eventLogFile: "single-reviewer.events.jsonl",
+      workspaceId,
+    },
+  );
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_CONSENSUS_TEST_MODE: "agree",
+    },
+  });
+  assert.equal(
+    run.exitCode,
+    0,
+    `${run.stderr}\n${JSON.stringify(run.outcomes.at(-1))}`,
+  );
+  const outcome = run.outcomes.at(-1);
+  assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+  assert.equal(outcome.result.kind, "consensus_result");
+  assert.equal(outcome.result.terminalOutcome.outcome, "closed_done");
+  const events = await eventsAt(scenario.eventLogPath);
+  assert.equal(
+    events.filter(
+      (event) =>
+        event.kind === "actor_process_started" &&
+        event.graphFunctionRef ===
+          basis.gtl.CONSENSUS_IDS.reviewerGraphFunctionRef,
+    ).length,
+    1,
   );
 });
 

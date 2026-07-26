@@ -1187,7 +1187,8 @@ without changing the accepted authority split or adding a rival event family.
 This subsection is the design-reconciliation subject for T-270. Sections 1
 through 11 remain the accepted traversal basis. The remaining Section 12
 material is candidate evidence and is retained only where it agrees with this
-derivation. Sections 13 and 14 remain outside the selected outcome.
+derivation. Section 13 is selected independently under S05; Section 14 remains
+outside the selected outcome.
 
 The governing requirements are `REQ-P-POLICY-013`, `-023`, `-024`, and
 `-029..033`; `REQ-R-ABG3-CONTINUATION-001..014`; and the construction,
@@ -2620,12 +2621,12 @@ classDiagram
   ConsensusInvocation "1" --> "0..1" ConsensusRuntimeEpisode : admitted as
   ConsensusRuntimeEpisode "1" --> "0..1" PublicRunProjectionAuthority
   ConsensusRuntimeEpisode "1" --> "0..*" PublicResultProjection
-  ConsensusResultCandidate "1" --> "0..1" PublicResultProjection
+  ConsensusResultCandidate "1" --> "0..*" PublicResultProjection
   ProductSemantics "1" --> "0..*" PublicResultProjection
   ProductSemantics "1" --> "0..*" ReviewerWorkerContractProjection
   ProductSemantics "1" --> "0..*" ConsensusEscalationDecision
   ConsensusRuntimeEpisode "1" --> "0..*" InvocationSourceResultBasis : source
-  InvocationSourceResultBasis "0..1" --> "1" ConsensusRuntimeEpisode : target
+  InvocationSourceResultBasis "0..1" --> "0..1" ConsensusRuntimeEpisode : target
   PublicResultProjection "1" --> "0..1" InvocationSourceResultBasis
   Replay "1" --> "0..*" PublicResultProjection
   Public "1" --> "0..*" PublicRunProjectionAuthority
