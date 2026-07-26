@@ -121,6 +121,28 @@ test("R5 selects and admits the exact validated direct invocation target", async
   assert.equal("until" in invocation, false);
 
   const eventCountBeforeNegatives = store.readAll().length;
+  const directSupervisedRefusal = abg.admitInvocation(
+    store,
+    {
+      ...admissionInput,
+      program: {
+        ...program,
+        policies: {
+          ...program.policies,
+          "abg.root_mode": "supervised",
+        },
+      },
+    },
+    publicOperationBasis(
+      product,
+      "abg.operation.run.invoke",
+      workspaceBinding.bindingId,
+      workspaceBinding.bindingDigest,
+      invocation.invocationRef,
+    ),
+  );
+  assert.equal(directSupervisedRefusal.code, "selection_mismatch");
+
   const malformedInput = requireRawAdmission(
     validator,
     { kind: "wrong_input", schemaVersion: "5.0.0", subject: "World" },

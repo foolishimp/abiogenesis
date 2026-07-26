@@ -19,6 +19,7 @@ import {
   isConsensusActionEvaluationBasis,
   isConsensusActionEvaluationProjection,
   isConsensusEscalationDecision,
+  isConsensusEscalationRequest,
   isConsensusFindingsVector,
   isConsensusInvocation,
   isConsensusNextActionBasis,
@@ -144,7 +145,7 @@ function admitSystemInput(
   }
   if (
     contractRef === CONSENSUS_IDS.escalationRequestContractRef &&
-    isConsensusResult(value)
+    isConsensusEscalationRequest(value)
   ) {
     return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
   }
@@ -298,7 +299,7 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
           basis.input.actionCatalog as unknown as JsonValue,
         ) === sha256Canonical(basis.actionCatalog);
     }
-    if (isConsensusResult(basis.input)) {
+    if (isConsensusEscalationRequest(basis.input)) {
       const source = basis.sourceResultBasis;
       if (
         source === null ||
@@ -310,7 +311,11 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
         source.workspaceBindingId !== basis.workspaceBindingId ||
         source.workspaceBindingDigest !== basis.workspaceBindingDigest ||
         !isConsensusResultCandidate(source.sourceResultValue) ||
-        basis.input.terminalOutcome.outcome !== "escalate_fh"
+        source.sourceResultValue.classification !==
+          "unresolved_disagreement" ||
+        source.sourceResultValue.contractFailureRef !== null ||
+        basis.input.classification !== "unresolved_disagreement" ||
+        basis.input.contractFailureRef !== null
       ) {
         return false;
       }

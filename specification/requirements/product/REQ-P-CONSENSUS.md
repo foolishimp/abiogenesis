@@ -141,13 +141,17 @@ workspace are not implied. If a later Consensus contract requires either, it
 shall declare the authority through the ordinary input/output-workspace binding
 law before realization.
 
-**REQ-P-CONSENSUS-015**: `abg.cli` shall invoke Consensus through the existing
-`invoke` variant of `abg.operation.run.invoke` and shall read its result and
-replay through the corresponding variants of `abg.operation.project.read`.
-Consensus shall not add a feature-specific CLI verb, operation identity, or
-host-owned orchestration path. `abg.operation.catalog.view` may narrow the
-admitted catalog to the Consensus function and its declared dependencies; it
-shall not widen catalog authority.
+**REQ-P-CONSENSUS-015**: `abg.cli` shall invoke the canonical Consensus root
+through the existing `start` variant of `abg.operation.run.invoke`, the
+supervised One Surface Program's declared start identity, and
+`until=converged`. It shall read the result and replay through the corresponding
+variants of `abg.operation.project.read`. The non-public replay-bound F_H
+support GraphFunction may use the existing direct variant only when ABG derives
+and admits its exact source-result basis. Consensus shall not add a
+feature-specific CLI verb, operation identity, or host-owned orchestration
+path. `abg.operation.catalog.view` may narrow the admitted catalog to the
+Consensus function and its declared dependencies; it shall not widen catalog
+authority.
 
 ## Qualification
 

@@ -162,6 +162,26 @@ function escalationDecision(result, humanActorRef = ACTOR) {
   };
 }
 
+function reviewerCandidate(recommendation = "accept") {
+  const revise = recommendation === "revise";
+  return {
+    kind: "consensus_reviewer_candidate",
+    schemaVersion: "5.0.0",
+    recommendation,
+    findings: revise
+      ? [{
+          findingContractRef:
+            "contract://abg/consensus/material-dispute@5",
+          findingPayloadRef:
+            "finding-payload://developer/consensus/module-proof",
+        }]
+      : [],
+    residualRefs: revise
+      ? ["residual://developer/consensus/module-proof"]
+      : [],
+  };
+}
+
 test("S05 module publishes the exact Consensus contracts, vocabularies, and ordinary GTL callable", async () => {
   const manifest = JSON.parse(
     await readFile(resolve(packageRoot, "product-toolchain-manifest.json"), "utf8"),
@@ -281,6 +301,36 @@ test("S05 serialized Consensus schema is one exact projection of native Product 
   assert.deepEqual(
     schema.$defs.ConsensusReviewerInstruction.properties.responseSchema.const,
     gtl.CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
+  );
+  const acceptedReviewerCandidate = reviewerCandidate();
+  const revisedReviewerCandidate = reviewerCandidate("revise");
+  assert.equal(
+    gtl.isConsensusReviewerCandidate(acceptedReviewerCandidate),
+    true,
+  );
+  assert.equal(
+    gtl.isConsensusReviewerCandidate(revisedReviewerCandidate),
+    true,
+  );
+  assert.equal(
+    gtl.isConsensusReviewerCandidate({
+      ...acceptedReviewerCandidate,
+      findings: revisedReviewerCandidate.findings,
+    }),
+    false,
+    "an accept recommendation cannot carry findings",
+  );
+  assert.equal(
+    gtl.isConsensusReviewerCandidate({
+      ...revisedReviewerCandidate,
+      findings: [],
+    }),
+    false,
+    "a revise recommendation requires at least one finding",
+  );
+  assert.deepEqual(
+    schema.$defs.ConsensusReviewerCandidate.allOf,
+    gtl.CONSENSUS_REVIEWER_RESPONSE_SCHEMA.allOf,
   );
   assert.deepEqual(
     schema.$defs.ReviewRulingKind.enum,
@@ -848,13 +898,7 @@ test("S05 reviewer realization carries the Product-declared instruction contract
         transportBindingDigest: DIGEST,
         disposition: "success",
         failureClass: null,
-        finalOutput: JSON.stringify({
-          kind: "consensus_reviewer_candidate",
-          schemaVersion: "5.0.0",
-          recommendation: "accept",
-          findings: [],
-          residualRefs: [],
-        }),
+        finalOutput: JSON.stringify(reviewerCandidate()),
         promptDigest: DIGEST,
         transportDigest: DIGEST,
         transportLane: task.transportLane,
@@ -944,6 +988,27 @@ test("S05 reviewer realization carries the Product-declared instruction contract
   const contractFailure = gtl.projectConsensusResult(terminalState);
   assert.equal(contractFailure.classification, "contract_failure");
   assert.notEqual(contractFailure.contractFailureRef, null);
+  const replayBoundContractFailure = gtl.bindConsensusReplay(
+    contractFailure,
+    "replay://abiogenesis/module-proof/contract-failure",
+  );
+  assert.equal(
+    gtl.isConsensusEscalationRequest(replayBoundContractFailure),
+    false,
+  );
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.admitInput(
+      gtl.CONSENSUS_IDS.escalationRequestContractRef,
+      replayBoundContractFailure,
+    ),
+    null,
+  );
+  assert.equal(
+    gtl.isConsensusEscalationDecision(
+      escalationDecision(replayBoundContractFailure),
+    ),
+    false,
+  );
 
   const transportFailure = await realizeConsensusReviewer(task, {
     async invokeWorker() {
@@ -983,6 +1048,43 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     false,
     "transport failure must not become a semantic contract-failure finding",
   );
+
+  const salvagedCandidate = await realizeConsensusReviewer(task, {
+    async invokeWorker() {
+      return {
+        actorInvocationRef:
+          "actor-invocation://developer/module-proof/salvaged",
+        transportBindingRef: "transport-binding://developer/module-proof",
+        transportBindingDigest: DIGEST,
+        disposition: "failure",
+        failureClass: "transport_failure",
+        finalOutput: JSON.stringify(reviewerCandidate()),
+        promptDigest: DIGEST,
+        transportDigest: DIGEST,
+        transportLane: task.transportLane,
+        processStatus: 47,
+        processSignal: null,
+        timedOut: false,
+        exitObserved: true,
+        terminationConfirmed: true,
+        progressEventCount: 0,
+        toolCallCount: 0,
+        artifactDigests: {
+          output: DIGEST,
+          prompt: DIGEST,
+          stderr: DIGEST,
+          stdout: DIGEST,
+          transport: DIGEST,
+        },
+      };
+    },
+  });
+  assert.equal(salvagedCandidate.disposition, "success");
+  assert.equal(
+    gtl.isReviewFindings(salvagedCandidate.resultCandidate),
+    true,
+  );
+  assert.equal(salvagedCandidate.resultCandidate.recommendation, "accept");
 });
 
 test("S05 public result binds real replay while its authority rejects digest tampering", () => {

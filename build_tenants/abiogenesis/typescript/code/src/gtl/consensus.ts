@@ -33,6 +33,7 @@ import {
   CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
   CONSENSUS_ROUND_OUTCOME_VALUES,
   CONSENSUS_SCHEMA_REQUIRED_KEYS,
+  isConsensusReviewerCandidate,
   REVIEW_RULING_KIND_VALUES,
 } from "./consensus_schema.js";
 export {
@@ -41,7 +42,9 @@ export {
   CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
   CONSENSUS_ROUND_OUTCOME_VALUES,
   CONSENSUS_SCHEMA_REQUIRED_KEYS,
+  isConsensusReviewerCandidate,
   REVIEW_RULING_KIND_VALUES,
+  type ConsensusReviewerCandidate,
 } from "./consensus_schema.js";
 
 export type ReviewRulingKind = (typeof REVIEW_RULING_KIND_VALUES)[number];
@@ -1881,6 +1884,15 @@ export function isConsensusResult(value: unknown): value is ConsensusResult {
   return isConsensusResultCandidate(candidate);
 }
 
+export function isConsensusEscalationRequest(
+  value: unknown,
+): value is ConsensusResult {
+  return isConsensusResult(value) &&
+    value.classification === "unresolved_disagreement" &&
+    value.contractFailureRef === null &&
+    value.terminalOutcome.outcome === "escalate_fh";
+}
+
 export function isConsensusEscalationDecision(
   value: unknown,
 ): value is ConsensusEscalationDecision {
@@ -1897,7 +1909,7 @@ export function isConsensusEscalationDecision(
     ]) &&
     value.kind === "consensus_escalation_decision" &&
     value.schemaVersion === "5.0.0" &&
-    isConsensusResult(value.unresolvedResult) &&
+    isConsensusEscalationRequest(value.unresolvedResult) &&
     isRef(value.unresolvedResultRef) &&
     isDigest(value.unresolvedResultDigest) &&
     value.unresolvedResult.resultRef === value.unresolvedResultRef &&
@@ -2291,7 +2303,7 @@ export function finalizeConsensusEscalation(
       decision.unresolvedResult.replayRef,
       decision.humanActorRef,
     ],
-    contractFailureRef: decision.unresolvedResult.contractFailureRef,
+    contractFailureRef: null,
   };
   const digest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({

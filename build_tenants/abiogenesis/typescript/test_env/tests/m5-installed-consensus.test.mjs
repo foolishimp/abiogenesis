@@ -125,6 +125,8 @@ async function installConsensusWorker(harness) {
     "  if (mode === 'malformed_finding') candidate.unadmitted = true;",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
     "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: JSON.stringify(candidate) }));",
+    "  if (mode === 'valid_then_timeout') { setInterval(() => {}, 1_000); return; }",
+    "  if (mode === 'valid_then_nonzero') process.exitCode = 47;",
     "});",
     "",
   ].join("\n"), "utf8");
@@ -1814,6 +1816,38 @@ test("M5 Consensus projects malformed attributed reviewer output as typed contra
     replayRead.outcomes.at(-1).result.replayRef,
     resultProjection.result.value.replayRef,
   );
+  const escalation = await buildRootCliScenario(
+    harness,
+    "m5-consensus-contract-failure-escalation-refusal",
+    (payload) => ({
+      ...payload,
+      sourceProjectionAuthority: resultProjection.projectionAuthority,
+      sourceResultRef: resultProjection.result.resultRef,
+    }),
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.programRef,
+      graphFunctionRef:
+        basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
+      allowlist: basis.publication.contributions.map((row) => row.handle),
+      input: resultProjection.result.value,
+      eventLogFile: "contract-failure-escalation-refusal.events.jsonl",
+      workspaceId,
+    },
+  );
+  const escalationRun = await runInstalledCli(harness, escalation);
+  assert.equal(escalationRun.exitCode, 2, escalationRun.stdout);
+  assert.equal(escalationRun.outcomes.at(-1).disposition, "refused");
+  assert.equal(escalationRun.outcomes.at(-1).runId, null);
+  const escalationEvents = await eventsAtIfPresent(escalation.eventLogPath);
+  assert.equal(
+    escalationEvents.some(
+      (event) =>
+        event.kind === "invocation_admitted" ||
+        event.kind === "fh_interaction_opened",
+    ),
+    false,
+    "contract failure cannot become an F_H escalation source",
+  );
   assert.equal(
     (await eventsAt(scenario.eventLogPath)).length,
     eventCountBeforeRead,
@@ -1911,4 +1945,93 @@ for (const transportCase of [{
       JSON.stringify(diagnosticTail(events)),
     );
   });
+}
+
+for (const salvageCase of [{
+  label: "nonzero exit",
+  mode: "valid_then_nonzero",
+  timeoutMs: "2000",
+  expectedStatus: 47,
+  expectedTimedOut: false,
+}, {
+  label: "timeout",
+  mode: "valid_then_timeout",
+  timeoutMs: "1000",
+  expectedStatus: null,
+  expectedTimedOut: true,
+}]) {
+test(`M5 Consensus salvages a valid reviewer candidate observed before ${salvageCase.label}`, async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const command = await installConsensusWorker(harness);
+  const workspaceId =
+    `workspace://developer/consensus/valid-before-${salvageCase.mode}`;
+  const basis = await consensusBasis(
+    harness,
+    `valid-before-${salvageCase.mode}`,
+    2,
+    workspaceId,
+  );
+  harness.rootPublication = basis.publication;
+  const scenario = await buildRootCliScenario(
+    harness,
+    `m5-consensus-valid-before-${salvageCase.mode}`,
+    (payload) => payload,
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+      graphFunctionRef:
+        basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+      allowlist: basis.publication.contributions.map((row) => row.handle),
+      input: basis.input,
+      eventLogFile: `valid-before-${salvageCase.mode}.events.jsonl`,
+      workspaceId,
+    },
+  );
+  await selectConsensusThroughOneSurface(basis, harness, scenario);
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_CONSENSUS_TEST_MODE: salvageCase.mode,
+      ABG_TS_FP_TIMEOUT_MS: salvageCase.timeoutMs,
+      ABG_TS_FP_TERMINATION_GRACE_MS: "50",
+    },
+  });
+  assert.equal(run.exitCode, 0, run.stdout);
+  assert.equal(run.outcomes.at(-1).disposition, "succeeded");
+  const events = await eventsAt(scenario.eventLogPath);
+  const transportEvidence = events.filter(
+    (event) =>
+      event.kind === "c_call_evidenced" &&
+      event.payload?.evidenceClass === "probabilistic_transport" &&
+      event.payload?.transportDisposition === "failure" &&
+      event.payload?.transportFailureClass === "transport_failure",
+  );
+  assert.equal(transportEvidence.length >= 2, true);
+  assert.equal(
+    transportEvidence.every(
+      (event) =>
+        event.payload.processStatus === salvageCase.expectedStatus &&
+        event.payload.timedOut === salvageCase.expectedTimedOut,
+    ),
+    true,
+  );
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "c_call_result_admitted" &&
+        event.payload?.contractRef ===
+          basis.gtl.CONSENSUS_IDS.findingsContractRef &&
+        event.payload?.value?.kind === "review_findings",
+    ),
+    true,
+  );
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "c_call_result_admitted" &&
+        event.payload?.value?.kind === "consensus_failure",
+    ),
+    false,
+  );
+  assert.equal(events.at(-1).kind, "run_closed");
+});
 }

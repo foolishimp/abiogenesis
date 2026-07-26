@@ -573,15 +573,6 @@ export function admitInvocation(
     return refusal("catalog_view_not_admitted", "invocation CatalogView lacks ABG admission truth");
   }
   if (
-    !isProgramValidation(input.programValidation) ||
-    input.programValidation.programRef !== input.program.programRef ||
-    input.programValidation.programDigest !== input.invocation.programDigest ||
-    input.programValidation.publicationDigest !== sha256Canonical(input.modulePublication as unknown as JsonValue) ||
-    !input.programValidation.graphFunctionDigests.includes(input.invocation.graphFunctionDigest)
-  ) {
-    return refusal("validation_mismatch", "Invocation requires the exact non-lowering ProgramValidation");
-  }
-  if (
     input.invocation.variant === "direct" &&
     input.program.policies["abg.root_mode"] === "supervised"
   ) {
@@ -589,6 +580,15 @@ export function admitInvocation(
       "selection_mismatch",
       "a supervised Program cannot be admitted through direct invocation",
     );
+  }
+  if (
+    !isProgramValidation(input.programValidation) ||
+    input.programValidation.programRef !== input.program.programRef ||
+    input.programValidation.programDigest !== input.invocation.programDigest ||
+    input.programValidation.publicationDigest !== sha256Canonical(input.modulePublication as unknown as JsonValue) ||
+    !input.programValidation.graphFunctionDigests.includes(input.invocation.graphFunctionDigest)
+  ) {
+    return refusal("validation_mismatch", "Invocation requires the exact non-lowering ProgramValidation");
   }
   const selectedRow = input.catalogView.selectedRows.find(
     (row) =>

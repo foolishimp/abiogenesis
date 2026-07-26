@@ -12,7 +12,9 @@ import {
   sha256File,
 } from "../build/code/src/product/index.js";
 import {
+  CONSENSUS_ROUND_OUTCOME_VALUES,
   CONSENSUS_PUBLIC_SCHEMA,
+  REVIEW_RULING_KIND_VALUES,
 } from "../build/code/src/gtl/consensus_schema.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -28,11 +30,43 @@ if (
 }
 
 const consensusSchemaPath = "contracts/schemas/consensus.schema.json";
-await writeFile(
-  join(root, consensusSchemaPath),
-  `${JSON.stringify(CONSENSUS_PUBLIC_SCHEMA, null, 2)}\n`,
-  "utf8",
-);
+const reviewRulingVocabularyPath =
+  "contracts/vocabularies/review-ruling-kind.json";
+const consensusRoundOutcomeVocabularyPath =
+  "contracts/vocabularies/consensus-round-outcome.json";
+
+function closedVocabulary(vocabularyId, values) {
+  return {
+    kind: "closed_vocabulary",
+    schemaVersion: "5.0.0",
+    vocabularyId,
+    values: [...values],
+  };
+}
+
+await Promise.all([
+  writeFile(
+    join(root, consensusSchemaPath),
+    `${JSON.stringify(CONSENSUS_PUBLIC_SCHEMA, null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, reviewRulingVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.review-ruling-kind",
+      REVIEW_RULING_KIND_VALUES,
+    ), null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, consensusRoundOutcomeVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.consensus-round-outcome",
+      CONSENSUS_ROUND_OUTCOME_VALUES,
+    ), null, 2)}\n`,
+    "utf8",
+  ),
+]);
 
 async function listFiles(path) {
   const files = [];
@@ -68,10 +102,6 @@ for (const path of productRelativeLocators) {
 
 const catalogSchemaPath = "contracts/schemas/public-contract-catalog.schema.json";
 const manifestSchemaPath = "contracts/schemas/product-toolchain-manifest.schema.json";
-const reviewRulingVocabularyPath =
-  "contracts/vocabularies/review-ruling-kind.json";
-const consensusRoundOutcomeVocabularyPath =
-  "contracts/vocabularies/consensus-round-outcome.json";
 const catalogSchemaDigest = await sha256File(join(root, catalogSchemaPath));
 const manifestSchemaDigest = await sha256File(join(root, manifestSchemaPath));
 const consensusSchemaDigest = await sha256File(join(root, consensusSchemaPath));

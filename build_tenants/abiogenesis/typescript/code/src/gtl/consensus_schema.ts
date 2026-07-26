@@ -1,6 +1,17 @@
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 
+export interface ConsensusReviewerCandidate {
+  readonly kind: "consensus_reviewer_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly recommendation: "accept" | "revise";
+  readonly findings: readonly {
+    readonly findingContractRef: string;
+    readonly findingPayloadRef: string;
+  }[];
+  readonly residualRefs: readonly string[];
+}
+
 const consensusReviewerResponseSchema = deepFreeze({
   type: "object",
   additionalProperties: false,
@@ -33,7 +44,77 @@ const consensusReviewerResponseSchema = deepFreeze({
       uniqueItems: true,
     },
   },
+  allOf: [
+    {
+      if: {
+        properties: {
+          recommendation: { const: "accept" },
+        },
+        required: ["recommendation"],
+      },
+      then: {
+        properties: {
+          findings: { maxItems: 0 },
+        },
+      },
+    },
+    {
+      if: {
+        properties: {
+          recommendation: { const: "revise" },
+        },
+        required: ["recommendation"],
+      },
+      then: {
+        properties: {
+          findings: { minItems: 1 },
+        },
+      },
+    },
+  ],
 } as const satisfies JsonValue);
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function hasExactKeys(
+  value: Readonly<Record<string, unknown>>,
+  keys: readonly string[],
+): boolean {
+  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
+}
+
+export function isConsensusReviewerCandidate(
+  value: unknown,
+): value is ConsensusReviewerCandidate {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, consensusReviewerResponseSchema.required) ||
+    value.kind !== "consensus_reviewer_candidate" ||
+    value.schemaVersion !== "5.0.0" ||
+    (value.recommendation !== "accept" && value.recommendation !== "revise") ||
+    !Array.isArray(value.findings) ||
+    !Array.isArray(value.residualRefs) ||
+    !value.residualRefs.every(
+      (ref) => typeof ref === "string" && ref.length > 0,
+    ) ||
+    new Set(value.residualRefs).size !== value.residualRefs.length ||
+    !value.findings.every((finding) =>
+      isRecord(finding) &&
+      hasExactKeys(finding, ["findingContractRef", "findingPayloadRef"]) &&
+      typeof finding.findingContractRef === "string" &&
+      finding.findingContractRef.length > 0 &&
+      typeof finding.findingPayloadRef === "string" &&
+      finding.findingPayloadRef.length > 0
+    )
+  ) {
+    return false;
+  }
+  return value.recommendation === "accept"
+    ? value.findings.length === 0
+    : value.findings.length > 0;
+}
 
 export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
   "$schema": "https://json-schema.org/draft/2020-12/schema",

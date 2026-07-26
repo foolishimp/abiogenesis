@@ -11,6 +11,7 @@ import {
   isConsensusInvocation,
   isConsensusNextActionBasis,
   isConsensusObservationSnapshot,
+  isConsensusReviewerCandidate,
   isConsensusReviewerTask,
   isConsensusRoundState,
   projectConsensusResult,
@@ -25,6 +26,7 @@ import {
   type ConsensusInvocation,
   type ConsensusReviewerTask,
   type ConsensusRoundState,
+  type ConsensusReviewerCandidate,
   type ReviewFinding,
   type ReviewFindings,
 } from "../gtl/consensus.js";
@@ -45,17 +47,6 @@ interface ConsensusLeafCandidate {
   readonly evidenceCandidates: readonly [];
   readonly resultCandidate: Readonly<Record<string, JsonValue>>;
   readonly diagnosticRef?: string;
-}
-
-interface ReviewerSemanticCandidate {
-  readonly kind: "consensus_reviewer_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly recommendation: "accept" | "revise";
-  readonly findings: readonly {
-    readonly findingContractRef: string;
-    readonly findingPayloadRef: string;
-  }[];
-  readonly residualRefs: readonly string[];
 }
 
 function descriptor(input: {
@@ -262,52 +253,12 @@ function reviewerPrompt(input: Readonly<ConsensusReviewerTask>): string {
   ].join("\n");
 }
 
-function isSemanticCandidate(value: unknown): value is ReviewerSemanticCandidate {
-  if (
-    typeof value !== "object" ||
-    value === null ||
-    Array.isArray(value)
-  ) return false;
-  const candidate = value as Partial<ReviewerSemanticCandidate>;
-  if (
-    Object.keys(value).sort().join("\0") !==
-      [
-        "findings",
-        "kind",
-        "recommendation",
-        "residualRefs",
-        "schemaVersion",
-      ].sort().join("\0") ||
-    candidate.kind !== "consensus_reviewer_candidate" ||
-    candidate.schemaVersion !== "5.0.0" ||
-    !["accept", "revise"].includes(String(candidate.recommendation)) ||
-    !Array.isArray(candidate.findings) ||
-    !Array.isArray(candidate.residualRefs) ||
-    !candidate.residualRefs.every(
-      (ref) => typeof ref === "string" && ref.length > 0,
-    ) ||
-    new Set(candidate.residualRefs).size !== candidate.residualRefs.length ||
-    !candidate.findings.every((finding) =>
-      typeof finding === "object" &&
-      finding !== null &&
-      !Array.isArray(finding) &&
-      Object.keys(finding).sort().join("\0") ===
-        ["findingContractRef", "findingPayloadRef"].sort().join("\0") &&
-      typeof finding.findingContractRef === "string" &&
-      finding.findingContractRef.length > 0 &&
-      typeof finding.findingPayloadRef === "string" &&
-      finding.findingPayloadRef.length > 0
-    )
-  ) return false;
-  return candidate.recommendation === "accept"
-    ? candidate.findings.length === 0
-    : candidate.findings.length > 0;
-}
-
-function parseSemanticCandidate(output: string): ReviewerSemanticCandidate | null {
+function parseSemanticCandidate(
+  output: string,
+): ConsensusReviewerCandidate | null {
   try {
     const value = JSON.parse(output) as unknown;
-    return isSemanticCandidate(value) ? value : null;
+    return isConsensusReviewerCandidate(value) ? value : null;
   } catch {
     return null;
   }
@@ -315,7 +266,7 @@ function parseSemanticCandidate(output: string): ReviewerSemanticCandidate | nul
 
 function finding(
   task: Readonly<ConsensusReviewerTask>,
-  semantic: ReviewerSemanticCandidate["findings"][number],
+  semantic: ConsensusReviewerCandidate["findings"][number],
   ordinal: number,
   transportDigest: string,
 ): Readonly<ReviewFinding> {
@@ -360,7 +311,11 @@ export async function realizeConsensusReviewer(
     prompt: reviewerPrompt(input),
     responseJsonSchema: input.instruction.responseSchema,
   });
-  if (transport.disposition !== "success") {
+  const semantic = parseSemanticCandidate(transport.finalOutput);
+  const salvaged = transport.disposition === "failure" &&
+    transport.failureClass === "transport_failure" &&
+    semantic !== null;
+  if (transport.disposition !== "success" && !salvaged) {
     const failureClass = transport.failureClass ?? "transport_failure";
     const diagnosticRef =
       `diagnostic://abg/consensus/reviewer-transport-${failureClass.replaceAll("_", "-")}@5`;
@@ -378,7 +333,6 @@ export async function realizeConsensusReviewer(
       diagnosticRef,
     });
   }
-  const semantic = parseSemanticCandidate(transport.finalOutput);
   if (semantic === null) {
     const diagnosticRef =
       "diagnostic://abg/consensus/reviewer-output-refused@5";
