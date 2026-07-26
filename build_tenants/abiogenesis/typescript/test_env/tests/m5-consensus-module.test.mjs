@@ -266,6 +266,68 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
   );
 });
 
+test("S05 serialized Consensus schema is one exact projection of native Product meaning", async () => {
+  const schema = JSON.parse(
+    await readFile(
+      resolve(packageRoot, "contracts/schemas/consensus.schema.json"),
+      "utf8",
+    ),
+  );
+  assert.deepEqual(schema, gtl.CONSENSUS_PUBLIC_SCHEMA);
+  assert.deepEqual(
+    schema.$defs.ConsensusReviewerCandidate,
+    gtl.CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
+  );
+  assert.deepEqual(
+    schema.$defs.ConsensusReviewerInstruction.properties.responseSchema.const,
+    gtl.CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
+  );
+  assert.deepEqual(
+    schema.$defs.ReviewRulingKind.enum,
+    [...gtl.REVIEW_RULING_KIND_VALUES],
+  );
+  assert.deepEqual(
+    schema.$defs.ConsensusRoundOutcomeValue.enum,
+    [...gtl.CONSENSUS_ROUND_OUTCOME_VALUES],
+  );
+  for (const [definitionName, requiredKeys] of Object.entries(
+    gtl.CONSENSUS_SCHEMA_REQUIRED_KEYS,
+  )) {
+    if (definitionName === "ConsensusResultCandidate") {
+      assert.deepEqual(
+        requiredKeys,
+        schema.$defs.ConsensusResult.required.filter(
+          (key) => key !== "replayRef",
+        ),
+      );
+      continue;
+    }
+    assert.deepEqual(
+      requiredKeys,
+      schema.$defs[definitionName].required,
+      definitionName,
+    );
+  }
+
+  const instruction = invocationFor().instructions[0];
+  assert.equal(gtl.isConsensusReviewerInstruction(instruction), true);
+  assert.equal(
+    gtl.isConsensusReviewerInstruction({
+      ...instruction,
+      responseSchema: { type: "object" },
+    }),
+    false,
+  );
+  const candidate = unresolvedCandidate();
+  assert.equal(gtl.isConsensusResultCandidate(candidate), true);
+  assert.equal(
+    gtl.isConsensusResult(candidate),
+    false,
+    "a semantic candidate is not the serialized replay-bound public result",
+  );
+  assert.equal(gtl.isConsensusResult(unresolvedResult()), true);
+});
+
 test("S05 module binds exact policy identities and the invocation workspace", () => {
   const policy = canonicalPolicy();
   assert.equal(gtl.isConsensusRoundPolicy(policy), true);
@@ -344,6 +406,25 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
       input: crossWorkspaceObservation,
     }),
     false,
+  );
+});
+
+test("S05 ticket Consensus binds ticket identity to the exact subject bytes", () => {
+  const invocation = invocationFor();
+  const wrongRef = structuredClone(invocation.subject);
+  wrongRef.ticketRef = `${wrongRef.subjectRef}/other`;
+  assert.equal(gtl.isConsensusSubject(wrongRef), false);
+  assert.throws(
+    () => gtl.constructConsensusSubject(wrongRef),
+    /exact immutable identity/u,
+  );
+
+  const wrongDigest = structuredClone(invocation.subject);
+  wrongDigest.ticketDigest = `sha256:${"2".repeat(64)}`;
+  assert.equal(gtl.isConsensusSubject(wrongDigest), false);
+  assert.throws(
+    () => gtl.constructConsensusSubject(wrongDigest),
+    /exact immutable identity/u,
   );
 });
 
@@ -863,6 +944,45 @@ test("S05 reviewer realization carries the Product-declared instruction contract
   const contractFailure = gtl.projectConsensusResult(terminalState);
   assert.equal(contractFailure.classification, "contract_failure");
   assert.notEqual(contractFailure.contractFailureRef, null);
+
+  const transportFailure = await realizeConsensusReviewer(task, {
+    async invokeWorker() {
+      return {
+        actorInvocationRef:
+          "actor-invocation://developer/module-proof/transport-failure",
+        transportBindingRef: "transport-binding://developer/module-proof",
+        transportBindingDigest: DIGEST,
+        disposition: "failure",
+        failureClass: "no_output",
+        finalOutput: "",
+        promptDigest: DIGEST,
+        transportDigest: DIGEST,
+        transportLane: task.transportLane,
+        processStatus: 0,
+        processSignal: null,
+        timedOut: false,
+        exitObserved: true,
+        terminationConfirmed: true,
+        progressEventCount: 0,
+        toolCallCount: 0,
+        artifactDigests: {
+          output: DIGEST,
+          prompt: DIGEST,
+          stderr: DIGEST,
+          stdout: DIGEST,
+          transport: DIGEST,
+        },
+      };
+    },
+  });
+  assert.equal(transportFailure.disposition, "failure");
+  assert.equal(transportFailure.resultCandidate.kind, "consensus_failure");
+  assert.equal(transportFailure.resultCandidate.failureClass, "no_output");
+  assert.equal(
+    gtl.isReviewFindings(transportFailure.resultCandidate),
+    false,
+    "transport failure must not become a semantic contract-failure finding",
+  );
 });
 
 test("S05 public result binds real replay while its authority rejects digest tampering", () => {

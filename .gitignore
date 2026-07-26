@@ -41,5 +41,8 @@ builds/claude_code/test_env/test_runs/
 # Local package installs inside build tenants
 build_tenants/*/*/node_modules/
 
+# Deterministic package projection generated from Product-owned GTL schema law
+build_tenants/abiogenesis/typescript/contracts/schemas/consensus.schema.json
+
 # Local browser/tool scratch
 .playwright-mcp/

@@ -360,8 +360,26 @@ export async function realizeConsensusReviewer(
     prompt: reviewerPrompt(input),
     responseJsonSchema: input.instruction.responseSchema,
   });
+  if (transport.disposition !== "success") {
+    const failureClass = transport.failureClass ?? "transport_failure";
+    const diagnosticRef =
+      `diagnostic://abg/consensus/reviewer-transport-${failureClass.replaceAll("_", "-")}@5`;
+    return deepFreeze({
+      kind: "leaf_realization_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "failure" as const,
+      evidenceCandidates: [] as const,
+      resultCandidate: deepFreeze({
+        kind: "consensus_failure" as const,
+        schemaVersion: "5.0.0" as const,
+        failureClass,
+        diagnosticRef,
+      }),
+      diagnosticRef,
+    });
+  }
   const semantic = parseSemanticCandidate(transport.finalOutput);
-  if (transport.disposition !== "success" || semantic === null) {
+  if (semantic === null) {
     const diagnosticRef =
       "diagnostic://abg/consensus/reviewer-output-refused@5";
     const evidenceRef =

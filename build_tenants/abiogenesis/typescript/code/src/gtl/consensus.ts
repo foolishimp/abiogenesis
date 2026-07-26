@@ -28,61 +28,21 @@ import {
   recurseApplication,
 } from "./graph_applications.js";
 import { evaluatorDeclaration, ruleDeclaration } from "./declarations.js";
-
-export const REVIEW_RULING_KIND_VALUES = Object.freeze([
-  "decision_row",
-  "draft_ticket",
-  "split_ticket",
-  "deferment",
-  "rejected_finding",
-] as const);
-
-export const CONSENSUS_ROUND_OUTCOME_VALUES = Object.freeze([
-  "closed_done",
-  "recurse_next_round",
-  "escalate_fh",
-] as const);
-
-export const CONSENSUS_CLASSIFICATION_VALUES = Object.freeze([
-  "unanimous_agreement",
-  "partial_agreement_with_dissent",
-  "unresolved_disagreement",
-  "contract_failure",
-] as const);
-
-export const CONSENSUS_REVIEWER_RESPONSE_SCHEMA = Object.freeze({
-  type: "object",
-  additionalProperties: false,
-  required: [
-    "kind",
-    "schemaVersion",
-    "recommendation",
-    "findings",
-    "residualRefs",
-  ],
-  properties: {
-    kind: { const: "consensus_reviewer_candidate" },
-    schemaVersion: { const: "5.0.0" },
-    recommendation: { enum: ["accept", "revise"] },
-    findings: {
-      type: "array",
-      items: {
-        type: "object",
-        additionalProperties: false,
-        required: ["findingContractRef", "findingPayloadRef"],
-        properties: {
-          findingContractRef: { type: "string", minLength: 1 },
-          findingPayloadRef: { type: "string", minLength: 1 },
-        },
-      },
-    },
-    residualRefs: {
-      type: "array",
-      items: { type: "string", minLength: 1 },
-      uniqueItems: true,
-    },
-  },
-} as const satisfies Readonly<Record<string, JsonValue>>);
+import {
+  CONSENSUS_CLASSIFICATION_VALUES,
+  CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
+  CONSENSUS_ROUND_OUTCOME_VALUES,
+  CONSENSUS_SCHEMA_REQUIRED_KEYS,
+  REVIEW_RULING_KIND_VALUES,
+} from "./consensus_schema.js";
+export {
+  CONSENSUS_CLASSIFICATION_VALUES,
+  CONSENSUS_PUBLIC_SCHEMA,
+  CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
+  CONSENSUS_ROUND_OUTCOME_VALUES,
+  CONSENSUS_SCHEMA_REQUIRED_KEYS,
+  REVIEW_RULING_KIND_VALUES,
+} from "./consensus_schema.js";
 
 export type ReviewRulingKind = (typeof REVIEW_RULING_KIND_VALUES)[number];
 export type ConsensusRoundOutcomeValue =
@@ -1418,19 +1378,7 @@ export function constructConsensusInvocation(
 export function isConsensusSubject(value: unknown): value is ConsensusSubject {
   if (
     !isRecord(value) ||
-    !hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "subjectContractRef",
-      "subjectRef",
-      "subjectDigest",
-      "submittingActorRef",
-      "panelRef",
-      "roundPolicyRef",
-      "workspaceRef",
-      "ticketRef",
-      "ticketDigest",
-    ])
+    !hasExactKeys(value, CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubject)
   ) return false;
   return value.kind === "consensus_subject" &&
     value.schemaVersion === "5.0.0" &&
@@ -1443,7 +1391,12 @@ export function isConsensusSubject(value: unknown): value is ConsensusSubject {
     isRef(value.workspaceRef) &&
     (
       (value.ticketRef === null && value.ticketDigest === null) ||
-      (isRef(value.ticketRef) && isDigest(value.ticketDigest))
+      (
+        isRef(value.ticketRef) &&
+        isDigest(value.ticketDigest) &&
+        value.ticketRef === value.subjectRef &&
+        value.ticketDigest === value.subjectDigest
+      )
     );
 }
 
@@ -1451,16 +1404,10 @@ export function isConsensusSubjectMaterialization(
   value: unknown,
 ): value is ConsensusSubjectMaterialization {
   return isRecord(value) &&
-    hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "materializationRef",
-      "subjectContractRef",
-      "subjectRef",
-      "contentDigest",
-      "mediaType",
-      "content",
-    ]) &&
+    hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubjectMaterialization,
+    ) &&
     value.kind === "consensus_subject_materialization" &&
     value.schemaVersion === "5.0.0" &&
     isRef(value.subjectContractRef) &&
@@ -1478,15 +1425,10 @@ export function isConsensusReviewerInstruction(
 ): value is ConsensusReviewerInstruction {
   if (
     !isRecord(value) ||
-    !hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "instructionContractRef",
-      "roleContractRef",
-      "instructionDigest",
-      "instructionText",
-      "responseSchema",
-    ]) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusReviewerInstruction,
+    ) ||
     value.kind !== "consensus_reviewer_instruction" ||
     value.schemaVersion !== "5.0.0" ||
     !isRef(value.instructionContractRef) ||
@@ -1537,19 +1479,10 @@ export function isConsensusReviewerProfile(
 ): value is ConsensusReviewerProfile {
   if (
     !isRecord(value) ||
-    !hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "profileRef",
-      "roleContractRef",
-      "configurationDigest",
-      "instructionContractRef",
-      "instructionDigest",
-      "resultContractRef",
-      "capabilityRefs",
-      "actorRef",
-      "workerBindingRef",
-    ])
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusReviewerProfile,
+    )
   ) return false;
   const {
     configurationDigest,
@@ -1573,13 +1506,7 @@ export function isConsensusReviewerProfile(
 export function isConsensusPanel(value: unknown): value is ConsensusPanel {
   if (
     !isRecord(value) ||
-    !hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "panelRef",
-      "panelDigest",
-      "profiles",
-    ]) ||
+    !hasExactKeys(value, CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusPanel) ||
     value.kind !== "consensus_panel" ||
     value.schemaVersion !== "5.0.0" ||
     !isRef(value.panelRef) ||
@@ -1602,17 +1529,10 @@ export function isConsensusRoundPolicy(
 ): value is ConsensusRoundPolicy {
   if (
     !isRecord(value) ||
-    !hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "policyRef",
-      "policyDigest",
-      "roundBudget",
-      "convergenceRuleRef",
-      "disagreementRuleRef",
-      "escalationRuleRef",
-      "foldbackContractRef",
-    ]) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusRoundPolicy,
+    ) ||
     value.kind !== "consensus_round_policy" ||
     value.schemaVersion !== "5.0.0" ||
     !isRef(value.policyRef) ||
@@ -1672,25 +1592,10 @@ export function isConsensusReviewerTask(
   value: unknown,
 ): value is ConsensusReviewerTask {
   return isRecord(value) &&
-    hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "invocationRef",
-      "roundRef",
-      "roundOrdinal",
-      "subject",
-      "subjectMaterialization",
-      "panelRef",
-      "policy",
-      "profile",
-      "instruction",
-      "priorRoundRefs",
-      "priorFindingSetRefs",
-      "priorRulings",
-      "priorDissentProfileRefs",
-      "priorEvidenceRefs",
-      "transportLane",
-    ]) &&
+    hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusReviewerTask,
+    ) &&
     value.kind === "consensus_reviewer_task" &&
     value.schemaVersion === "5.0.0" &&
     isRef(value.invocationRef) &&
@@ -1726,12 +1631,7 @@ export function isConsensusReviewerTask(
 
 function isReviewFinding(value: unknown): value is ReviewFinding {
   return isRecord(value) &&
-    hasExactKeys(value, [
-      "findingRef",
-      "findingContractRef",
-      "findingPayloadRef",
-      "evidenceRefs",
-    ]) &&
+    hasExactKeys(value, CONSENSUS_SCHEMA_REQUIRED_KEYS.ReviewFinding) &&
     isRef(value.findingRef) &&
     isRef(value.findingContractRef) &&
     isRef(value.findingPayloadRef) &&
@@ -1741,22 +1641,7 @@ function isReviewFinding(value: unknown): value is ReviewFinding {
 export function isReviewFindings(value: unknown): value is ReviewFindings {
   if (
     !isRecord(value) ||
-    !hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "profileRef",
-      "configurationDigest",
-      "invocationRef",
-      "roundRef",
-      "roundOrdinal",
-      "recommendation",
-      "outputDigest",
-      "evidenceRefs",
-      "findings",
-      "residualRefs",
-      "refusalRef",
-      "task",
-    ]) ||
+    !hasExactKeys(value, CONSENSUS_SCHEMA_REQUIRED_KEYS.ReviewFindings) ||
     value.kind !== "review_findings" ||
     value.schemaVersion !== "5.0.0" ||
     !isRef(value.profileRef) ||
@@ -1796,13 +1681,7 @@ export function isReviewFindings(value: unknown): value is ReviewFindings {
 
 export function isReviewRuling(value: unknown): value is ReviewRuling {
   return isRecord(value) &&
-    hasExactKeys(value, [
-      "rulingRef",
-      "rulingKind",
-      "findingRefs",
-      "rationaleRef",
-      "payloadRef",
-    ]) &&
+    hasExactKeys(value, CONSENSUS_SCHEMA_REQUIRED_KEYS.ReviewRuling) &&
     isRef(value.rulingRef) &&
     REVIEW_RULING_KIND_VALUES.includes(value.rulingKind as ReviewRulingKind) &&
     uniqueRefs(value.findingRefs) &&
@@ -1820,15 +1699,10 @@ export function isConsensusRoundOutcome(
   value: unknown,
 ): value is ConsensusRoundOutcome {
   return isRecord(value) &&
-    hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "roundRef",
-      "outcome",
-      "findingSetRefs",
-      "rulingRefs",
-      "evidenceRefs",
-    ]) &&
+    hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusRoundOutcome,
+    ) &&
     value.kind === "consensus_round_outcome" &&
     value.schemaVersion === "5.0.0" &&
     isRef(value.roundRef) &&
@@ -1954,24 +1828,10 @@ export function isConsensusResultCandidate(
 ): value is ConsensusResultCandidate {
   if (
     !isRecord(value) ||
-    !hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "subjectRef",
-      "subjectDigest",
-      "panelRef",
-      "policyRef",
-      "roundRefs",
-      "findingSetRefs",
-      "rulings",
-      "classification",
-      "dissentProfileRefs",
-      "terminalOutcome",
-      "evidenceRefs",
-      "lineageRefs",
-      "resultRef",
-      "contractFailureRef",
-    ]) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusResultCandidate,
+    ) ||
     value.kind !== "consensus_result" ||
     value.schemaVersion !== "5.0.0" ||
     !isRef(value.subjectRef) ||
@@ -2012,7 +1872,11 @@ export function bindConsensusReplay(
 }
 
 export function isConsensusResult(value: unknown): value is ConsensusResult {
-  if (!isRecord(value) || !isRef(value.replayRef)) return false;
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusResult) ||
+    !isRef(value.replayRef)
+  ) return false;
   const { replayRef: _replayRef, ...candidate } = value;
   return isConsensusResultCandidate(candidate);
 }
@@ -2050,28 +1914,10 @@ export function isTicketConsensusProjection(
 ): value is TicketConsensusProjection {
   if (
     !isRecord(value) ||
-    !hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "projectionRef",
-      "projectionDigest",
-      "ticketRef",
-      "ticketDigest",
-      "subjectRef",
-      "subjectDigest",
-      "panelRef",
-      "policyRef",
-      "roundRefs",
-      "findingSetRefs",
-      "rulings",
-      "classification",
-      "dissentProfileRefs",
-      "terminalOutcome",
-      "evidenceRefs",
-      "lineageRefs",
-      "resultRef",
-      "replayRef",
-    ]) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.TicketConsensusProjection,
+    ) ||
     value.kind !== "ticket_consensus_projection" ||
     value.schemaVersion !== "5.0.0" ||
     !isRef(value.projectionRef) ||

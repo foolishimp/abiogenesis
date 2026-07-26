@@ -11,6 +11,9 @@ import {
   sha256Canonical,
   sha256File,
 } from "../build/code/src/product/index.js";
+import {
+  CONSENSUS_PUBLIC_SCHEMA,
+} from "../build/code/src/gtl/consensus_schema.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
@@ -23,6 +26,13 @@ if (
 ) {
   throw new Error("package metadata and exported ABI5 Product identity disagree");
 }
+
+const consensusSchemaPath = "contracts/schemas/consensus.schema.json";
+await writeFile(
+  join(root, consensusSchemaPath),
+  `${JSON.stringify(CONSENSUS_PUBLIC_SCHEMA, null, 2)}\n`,
+  "utf8",
+);
 
 async function listFiles(path) {
   const files = [];
@@ -58,7 +68,6 @@ for (const path of productRelativeLocators) {
 
 const catalogSchemaPath = "contracts/schemas/public-contract-catalog.schema.json";
 const manifestSchemaPath = "contracts/schemas/product-toolchain-manifest.schema.json";
-const consensusSchemaPath = "contracts/schemas/consensus.schema.json";
 const reviewRulingVocabularyPath =
   "contracts/vocabularies/review-ruling-kind.json";
 const consensusRoundOutcomeVocabularyPath =

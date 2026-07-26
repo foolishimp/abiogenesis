@@ -581,6 +581,15 @@ export function admitInvocation(
   ) {
     return refusal("validation_mismatch", "Invocation requires the exact non-lowering ProgramValidation");
   }
+  if (
+    input.invocation.variant === "direct" &&
+    input.program.policies["abg.root_mode"] === "supervised"
+  ) {
+    return refusal(
+      "selection_mismatch",
+      "a supervised Program cannot be admitted through direct invocation",
+    );
+  }
   const selectedRow = input.catalogView.selectedRows.find(
     (row) =>
       (

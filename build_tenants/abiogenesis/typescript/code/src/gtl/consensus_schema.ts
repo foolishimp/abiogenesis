@@ -1,4 +1,41 @@
-{
+import type { JsonValue } from "../shared/canonical_json.js";
+import { deepFreeze } from "../shared/immutable.js";
+
+const consensusReviewerResponseSchema = deepFreeze({
+  type: "object",
+  additionalProperties: false,
+  required: [
+    "kind",
+    "schemaVersion",
+    "recommendation",
+    "findings",
+    "residualRefs",
+  ],
+  properties: {
+    kind: { const: "consensus_reviewer_candidate" },
+    schemaVersion: { const: "5.0.0" },
+    recommendation: { enum: ["accept", "revise"] },
+    findings: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["findingContractRef", "findingPayloadRef"],
+        properties: {
+          findingContractRef: { type: "string", minLength: 1 },
+          findingPayloadRef: { type: "string", minLength: 1 },
+        },
+      },
+    },
+    residualRefs: {
+      type: "array",
+      items: { type: "string", minLength: 1 },
+      uniqueItems: true,
+    },
+  },
+} as const satisfies JsonValue);
+
+export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "abg.schema.consensus@5",
   "title": "ABIogenesis Consensus Public Contracts",
@@ -17,7 +54,7 @@
       "uniqueItems": true,
       "items": {
         "$ref": "#/$defs/Ref"
-      }
+      },
     },
     "ReviewRulingKind": {
       "enum": [
@@ -26,14 +63,14 @@
         "split_ticket",
         "deferment",
         "rejected_finding"
-      ]
+      ],
     },
     "ConsensusRoundOutcomeValue": {
       "enum": [
         "closed_done",
         "recurse_next_round",
         "escalate_fh"
-      ]
+      ],
     },
     "ConsensusClassification": {
       "enum": [
@@ -41,8 +78,9 @@
         "partial_agreement_with_dissent",
         "unresolved_disagreement",
         "contract_failure"
-      ]
+      ],
     },
+    "ConsensusReviewerCandidate": consensusReviewerResponseSchema,
     "ConsensusSubject": {
       "type": "object",
       "additionalProperties": false,
@@ -94,8 +132,8 @@
             },
             {
               "type": "null"
-            }
-          ]
+            },
+          ],
         },
         "ticketDigest": {
           "oneOf": [
@@ -104,9 +142,9 @@
             },
             {
               "type": "null"
-            }
-          ]
-        }
+            },
+          ],
+        },
       },
       "allOf": [
         {
@@ -114,25 +152,25 @@
             "properties": {
               "ticketRef": {
                 "type": "null"
-              }
-            }
+              },
+            },
           },
           "then": {
             "properties": {
               "ticketDigest": {
                 "type": "null"
-              }
-            }
+              },
+            },
           },
           "else": {
             "properties": {
               "ticketDigest": {
                 "$ref": "#/$defs/Digest"
-              }
-            }
-          }
-        }
-      ]
+              },
+            },
+          },
+        },
+      ],
     },
     "ConsensusSubjectMaterialization": {
       "type": "object",
@@ -172,8 +210,8 @@
         "content": {
           "type": "string",
           "minLength": 1
-        }
-      }
+        },
+      },
     },
     "ConsensusReviewerInstruction": {
       "type": "object",
@@ -208,9 +246,9 @@
           "minLength": 1
         },
         "responseSchema": {
-          "type": "object"
-        }
-      }
+          "const": consensusReviewerResponseSchema
+        },
+      },
     },
     "ConsensusReviewerProfile": {
       "type": "object",
@@ -261,8 +299,8 @@
         },
         "workerBindingRef": {
           "$ref": "#/$defs/Ref"
-        }
-      }
+        },
+      },
     },
     "ConsensusPanel": {
       "type": "object",
@@ -293,9 +331,9 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/$defs/ConsensusReviewerProfile"
-          }
-        }
-      }
+          },
+        },
+      },
     },
     "ConsensusRoundPolicy": {
       "type": "object",
@@ -340,8 +378,8 @@
         },
         "foldbackContractRef": {
           "const": "contract://abg/consensus/round-foldback@5"
-        }
-      }
+        },
+      },
     },
     "ReviewFinding": {
       "type": "object",
@@ -364,8 +402,8 @@
         },
         "evidenceRefs": {
           "$ref": "#/$defs/RefArray"
-        }
-      }
+        },
+      },
     },
     "ReviewRuling": {
       "type": "object",
@@ -392,14 +430,14 @@
         },
         "payloadRef": {
           "$ref": "#/$defs/Ref"
-        }
-      }
+        },
+      },
     },
     "ReviewRulings": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/ReviewRuling"
-      }
+      },
     },
     "ConsensusReviewerTask": {
       "type": "object",
@@ -477,9 +515,9 @@
           "enum": [
             "closed_prompt_proof",
             "worker_executes"
-          ]
-        }
-      }
+          ],
+        },
+      },
     },
     "ReviewFindings": {
       "type": "object",
@@ -527,7 +565,7 @@
           "enum": [
             "accept",
             "revise"
-          ]
+          ],
         },
         "outputDigest": {
           "$ref": "#/$defs/Digest"
@@ -539,7 +577,7 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/ReviewFinding"
-          }
+          },
         },
         "residualRefs": {
           "$ref": "#/$defs/RefArray"
@@ -551,19 +589,19 @@
             },
             {
               "type": "null"
-            }
-          ]
+            },
+          ],
         },
         "task": {
           "$ref": "#/$defs/ConsensusReviewerTask"
-        }
+        },
       },
       "oneOf": [
         {
           "properties": {
             "refusalRef": {
               "type": "null"
-            }
+            },
           },
           "allOf": [
             {
@@ -571,25 +609,25 @@
                 "properties": {
                   "recommendation": {
                     "const": "accept"
-                  }
-                }
+                  },
+                },
               },
               "then": {
                 "properties": {
                   "findings": {
                     "maxItems": 0
-                  }
-                }
+                  },
+                },
               },
               "else": {
                 "properties": {
                   "findings": {
                     "minItems": 1
-                  }
-                }
-              }
-            }
-          ]
+                  },
+                },
+              },
+            },
+          ],
         },
         {
           "properties": {
@@ -608,11 +646,11 @@
               "uniqueItems": true,
               "items": {
                 "$ref": "#/$defs/Ref"
-              }
-            }
-          }
-        }
-      ]
+              },
+            },
+          },
+        },
+      ],
     },
     "ConsensusRoundOutcome": {
       "type": "object",
@@ -647,8 +685,8 @@
         },
         "evidenceRefs": {
           "$ref": "#/$defs/RefArray"
-        }
-      }
+        },
+      },
     },
     "ConsensusResult": {
       "type": "object",
@@ -697,7 +735,7 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/$defs/Ref"
-          }
+          },
         },
         "findingSetRefs": {
           "$ref": "#/$defs/RefArray"
@@ -723,7 +761,7 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/$defs/Ref"
-          }
+          },
         },
         "resultRef": {
           "$ref": "#/$defs/Ref"
@@ -735,12 +773,12 @@
             },
             {
               "type": "null"
-            }
-          ]
+            },
+          ],
         },
         "replayRef": {
           "$ref": "#/$defs/Ref"
-        }
+        },
       },
       "allOf": [
         {
@@ -748,25 +786,25 @@
             "properties": {
               "classification": {
                 "const": "contract_failure"
-              }
-            }
+              },
+            },
           },
           "then": {
             "properties": {
               "contractFailureRef": {
                 "$ref": "#/$defs/Ref"
-              }
-            }
+              },
+            },
           },
           "else": {
             "properties": {
               "contractFailureRef": {
                 "type": "null"
-              }
-            }
-          }
-        }
-      ]
+              },
+            },
+          },
+        },
+      ],
     },
     "TicketConsensusProjection": {
       "type": "object",
@@ -830,7 +868,7 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/$defs/Ref"
-          }
+          },
         },
         "findingSetRefs": {
           "$ref": "#/$defs/RefArray"
@@ -856,16 +894,16 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/$defs/Ref"
-          }
+          },
         },
         "resultRef": {
           "$ref": "#/$defs/Ref"
         },
         "replayRef": {
           "$ref": "#/$defs/Ref"
-        }
-      }
-    }
+        },
+      },
+    },
   },
   "x-abiogenesis-invariants": [
     "All digests are recomputed from their Product-declared canonical bodies.",
@@ -873,5 +911,41 @@
     "Subject, panel, policy, task, finding, result, ticket, workspace, and replay identities agree across their containing carriers.",
     "Reviewer instructions and subject materialization match the exact digests and identities selected by the invocation.",
     "Consensus classification is contract_failure exactly when contractFailureRef is non-null."
-  ]
-}
+  ],
+} as const satisfies JsonValue);
+
+export const REVIEW_RULING_KIND_VALUES =
+  CONSENSUS_PUBLIC_SCHEMA.$defs.ReviewRulingKind.enum;
+export const CONSENSUS_ROUND_OUTCOME_VALUES =
+  CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundOutcomeValue.enum;
+export const CONSENSUS_CLASSIFICATION_VALUES =
+  CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusClassification.enum;
+export const CONSENSUS_REVIEWER_RESPONSE_SCHEMA =
+  consensusReviewerResponseSchema;
+
+export const CONSENSUS_SCHEMA_REQUIRED_KEYS = deepFreeze({
+  ConsensusSubject: CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubject.required,
+  ConsensusSubjectMaterialization:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubjectMaterialization.required,
+  ConsensusReviewerInstruction:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusReviewerInstruction.required,
+  ConsensusReviewerProfile:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusReviewerProfile.required,
+  ConsensusPanel: CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusPanel.required,
+  ConsensusRoundPolicy:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundPolicy.required,
+  ConsensusReviewerTask:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusReviewerTask.required,
+  ReviewFinding: CONSENSUS_PUBLIC_SCHEMA.$defs.ReviewFinding.required,
+  ReviewFindings: CONSENSUS_PUBLIC_SCHEMA.$defs.ReviewFindings.required,
+  ReviewRuling: CONSENSUS_PUBLIC_SCHEMA.$defs.ReviewRuling.required,
+  ConsensusRoundOutcome:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundOutcome.required,
+  ConsensusResultCandidate:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusResult.required.filter(
+      (key) => key !== "replayRef",
+    ),
+  ConsensusResult: CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusResult.required,
+  TicketConsensusProjection:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.TicketConsensusProjection.required,
+});

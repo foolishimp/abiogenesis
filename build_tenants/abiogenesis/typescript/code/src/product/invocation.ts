@@ -390,6 +390,15 @@ function constructInvocation(
     return refusal("capability_mismatch", "invocation policy or capability grant is not Product-constructed");
   }
   if (
+    variant === "direct" &&
+    program.policies["abg.root_mode"] === "supervised"
+  ) {
+    return refusal(
+      "authority_mismatch",
+      "a supervised Program may be entered only through public start selection",
+    );
+  }
+  if (
     !isInvocationAuthority(authority) ||
     authority.workspaceBindingId !== workspaceBinding.bindingId ||
     authority.workspaceBindingDigest !== workspaceBinding.bindingDigest ||

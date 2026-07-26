@@ -105,6 +105,12 @@ async function installConsensusWorker(harness) {
     "  if (typeof exactInstruction !== 'string' || !exactInstruction.includes(profileRole)) process.exit(42);",
     "  if (!prompt.includes(exactSubject) || !prompt.includes(exactInstruction)) process.exit(43);",
     "  const mode = process.env.ABG_CONSENSUS_TEST_MODE ?? 'agreement';",
+    "  if (mode === 'transport_nonzero') process.exit(47);",
+    "  if (mode === 'transport_timeout') { setInterval(() => {}, 1_000); return; }",
+    "  if (mode === 'no_output') {",
+    "    console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
+    "    return;",
+    "  }",
     "  const revise = mode === 'unresolved' || (mode === 'dispute_then_agree' && task?.roundOrdinal === 1);",
     "  const candidate = {",
     "    kind: 'consensus_reviewer_candidate',",
@@ -1289,6 +1295,50 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
   );
 });
 
+test("M5 rejects direct invocation of the supervised canonical Consensus root before a Run opens", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const workspaceId = "workspace://t286/m5-consensus-direct-refusal";
+  const basis = await consensusBasis(
+    harness,
+    "direct-refusal",
+    2,
+    workspaceId,
+  );
+  harness.rootPublication = basis.publication;
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-consensus-direct-refusal",
+    (payload) => payload,
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+      graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+      allowlist: basis.publication.contributions.map((row) => row.handle),
+      input: basis.input,
+      eventLogFile: "direct-refusal.events.jsonl",
+      workspaceId,
+    },
+  );
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND:
+        "__direct_supervised_consensus_must_not_reach_worker__",
+    },
+  });
+  assert.equal(run.exitCode, 2, run.stdout);
+  const outcome = run.outcomes.at(-1);
+  assert.equal(outcome.disposition, "refused", JSON.stringify(outcome));
+  assert.equal(outcome.runId, null);
+  const events = await eventsAtIfPresent(scenario.eventLogPath);
+  assert.equal(
+    events.some((event) =>
+      event.kind === "invocation_admitted" ||
+      event.kind === "run_segment_opened" ||
+      event.kind === "actor_process_started"
+    ),
+    false,
+  );
+});
+
 test("M5 Consensus refuses malformed and cross-basis Product values before a Run opens", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
   const workspaceId = "workspace://developer/consensus/invalid-values";
@@ -1324,6 +1374,16 @@ test("M5 Consensus refuses malformed and cross-basis Product values before a Run
     label: "cross-basis-workspace",
     mutate(input) {
       input.subject.workspaceRef = `${input.subject.workspaceRef}/substituted`;
+    },
+  }, {
+    label: "cross-paired-ticket-ref",
+    mutate(input) {
+      input.subject.ticketRef = `${input.subject.subjectRef}/substituted`;
+    },
+  }, {
+    label: "cross-paired-ticket-digest",
+    mutate(input) {
+      input.subject.ticketDigest = `sha256:${"2".repeat(64)}`;
     },
   }];
   for (const mutation of mutations) {
@@ -1761,3 +1821,94 @@ test("M5 Consensus projects malformed attributed reviewer output as typed contra
   );
   assert.equal(events.at(-1).kind, "run_closed");
 });
+
+for (const transportCase of [{
+  label: "nonzero-exit",
+  mode: "transport_nonzero",
+  expectedFailureClass: "transport_failure",
+}, {
+  label: "no-output",
+  mode: "no_output",
+  expectedFailureClass: "no_output",
+}, {
+  label: "timeout",
+  mode: "transport_timeout",
+  expectedFailureClass: "transport_failure",
+}]) {
+  test(`M5 Consensus preserves ${transportCase.label} as transport failure truth`, async (context) => {
+    const harness = await setupInstalledCliHarness(context, packageRoot);
+    const command = await installConsensusWorker(harness);
+    const workspaceId =
+      `workspace://developer/consensus/${transportCase.label}`;
+    const basis = await consensusBasis(
+      harness,
+      transportCase.label,
+      2,
+      workspaceId,
+    );
+    harness.rootPublication = basis.publication;
+    const scenario = await buildRootCliScenario(
+      harness,
+      `m5-consensus-${transportCase.label}`,
+      (payload) => payload,
+      {
+        programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+        graphFunctionRef:
+          basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+        allowlist: basis.publication.contributions.map((row) => row.handle),
+        input: basis.input,
+        eventLogFile: `${transportCase.label}.events.jsonl`,
+        workspaceId,
+      },
+    );
+    await selectConsensusThroughOneSurface(basis, harness, scenario);
+    const run = await runInstalledCli(harness, scenario, {
+      environment: {
+        ABG_TS_CLAUDE_COMMAND: command,
+        ABG_CONSENSUS_TEST_MODE: transportCase.mode,
+        ABG_TS_FP_TIMEOUT_MS:
+          transportCase.mode === "transport_timeout" ? "100" : "2000",
+        ABG_TS_FP_TERMINATION_GRACE_MS: "50",
+      },
+    });
+    const events = await eventsAt(scenario.eventLogPath);
+    assert.equal(run.exitCode, 2, run.stdout);
+    assert.equal(run.outcomes.at(-1).disposition, "failed");
+    const actorFailure = events.find(
+      (event) => event.kind === "actor_invocation_failed",
+    );
+    assert.equal(
+      actorFailure?.payload.failureClass,
+      transportCase.expectedFailureClass,
+      JSON.stringify(diagnosticSummary(events)),
+    );
+    const failureResult = events.find(
+      (event) =>
+        event.kind === "c_call_result_admitted" &&
+        event.payload?.contractRef ===
+          basis.gtl.CONSENSUS_IDS.failureContractRef &&
+        event.payload?.value?.kind === "consensus_failure",
+    );
+    assert.equal(
+      failureResult?.payload.value.failureClass,
+      transportCase.expectedFailureClass,
+      JSON.stringify(diagnosticTail(events)),
+    );
+    assert.equal(
+      events.some(
+        (event) =>
+          event.kind === "c_call_result_admitted" &&
+          event.payload?.contractRef ===
+            basis.gtl.CONSENSUS_IDS.resultContractRef &&
+          event.payload?.value?.classification === "contract_failure",
+      ),
+      false,
+      "transport failure must not become a semantic Consensus result",
+    );
+    assert.equal(
+      events.some((event) => event.kind === "run_stopped"),
+      true,
+      JSON.stringify(diagnosticTail(events)),
+    );
+  });
+}
