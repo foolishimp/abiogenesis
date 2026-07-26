@@ -5,8 +5,8 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_clean_checkout_repaired_exact_candidate
-- review_status: s05_independent_exact_cut_pending
+- phase_status: m5_s05_provenance_repaired_exact_candidate
+- review_status: s05_narrow_provenance_exact_cut_pending
 - proof_status: s05_fresh_archive_gates_green
 - goal: GOAL-035 M5
 - priority: critical
@@ -26,7 +26,7 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- implementation_hold: held_for_s05_exact_cut_review
+- implementation_hold: held_for_s05_narrow_exact_cut_review
 - implementation_hold_effect: >-
     Only review or a bounded repair proved by review of the exact S05 candidate
     may proceed; S06, observer/tuner, complete conservation, qualification, and
@@ -58,15 +58,18 @@
 - superseded_s05_product_path_candidate: 6a380544df8bdbd68db427aa80c278e37275c9bb
 - superseded_s05_product_path_candidate_tree: 6f853a0db7f1b53b9b4e8e805b179f1552e1212f
 - superseded_s05_product_path_evidence: .ai-workspace/comments/codex/20260726T041753Z_CHECKPOINT_t270_s05_product_path_repaired_exact_candidate.md
-- current_s05_candidate: 425993da5894b78b6c88b939736dead3fd2e7f98
-- current_s05_candidate_tree: e997884f14a05fe71f06e2c4a73bd924125fd7db
+- current_s05_candidate: 48103ed936aa9326d546f4dcd667b16a5c803f9c
+- current_s05_candidate_tree: e954654fe57eff416808ca7370f43b8327a9f04d
+- current_s05_functional_candidate: 425993da5894b78b6c88b939736dead3fd2e7f98
+- current_s05_functional_candidate_tree: e997884f14a05fe71f06e2c4a73bd924125fd7db
 - current_s05_requirement_digest: 8f945dbb6b2e715e8a70a0643f69d469e68e258a6d2703ece921e54492374f44
 - current_s05_package_digest: 85ca145e7d6755285f9c18f999f840888f8637c3e9788e35dd702a476f16d733
 - current_s05_package_inventory_digest: 112d8cb84308315cf58c9e1e3f596423f219f4564247d9b326cbdbc6f8dd4ec3
 - current_s05_clean_checkout_proof: fresh_git_archive_without_generated_asset_directories
 - current_s05_evidence: .ai-workspace/comments/codex/20260726T073212Z_CHECKPOINT_t270_s05_clean_checkout_repaired_exact_candidate.md
-- latest_s05_reviewed_candidate: 61c7676ec38dcf91d6ab14396c5f1b87eb1f4ff3
-- latest_s05_review: .ai-workspace/comments/codex/20260726T072211Z_REVIEW_t270_s05_review_authority_candidate.md
+- current_s05_design_index_digest: ff5fcfbf4acd7179647e39a5b67dac44aa5d10aa8d04e72a82ebfe7ad119458b
+- latest_s05_reviewed_candidate: 425993da5894b78b6c88b939736dead3fd2e7f98
+- latest_s05_review: .ai-workspace/comments/codex/20260726T080720Z_REVIEW_t270_s05_clean_checkout_candidate.md
 - retained_behavioral_stock: bcd8769a8163a222e2e59400c904994b3de161fd
 - regression_bindings:
   - ABI5-ROOT-001
