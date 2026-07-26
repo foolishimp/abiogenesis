@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_clean_checkout_repair
-- review_status: s05_independent_review_changes_requested
-- proof_status: s05_clean_checkout_reproof_pending
+- phase_status: m5_s05_clean_checkout_repaired_exact_candidate
+- review_status: s05_independent_exact_cut_pending
+- proof_status: s05_fresh_archive_gates_green
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -26,7 +26,7 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- implementation_hold: held_for_bounded_s05_clean_checkout_repair
+- implementation_hold: held_for_s05_exact_cut_review
 - implementation_hold_effect: >-
     Only review or a bounded repair proved by review of the exact S05 candidate
     may proceed; S06, observer/tuner, complete conservation, qualification, and
@@ -37,7 +37,7 @@
 - accepted_s03_m03_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85
 - accepted_s03_m05_digest: b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5
 - current_m03_status_projection_digest: ccd8f79d333c4c681f5643acafac59458b661c7d1916eb929f9c7f065dd0cfaf
-- current_m05_status_projection_digest: 4da2abf9c39b4662212a6c0584713f91ea4a29e2a0d5b54f90c67f770c5c951d
+- current_m05_status_projection_digest: e95ca635a0f1fbd721d93aeb6b5e807c597c6ed163e403aa38bc6b7c94e73a18
 - accepted_s03_package_digest: e4345ce38807abd4a988aeff76c3d83274e88ed6e0926adfb635d07fe933732b
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
@@ -58,12 +58,13 @@
 - superseded_s05_product_path_candidate: 6a380544df8bdbd68db427aa80c278e37275c9bb
 - superseded_s05_product_path_candidate_tree: 6f853a0db7f1b53b9b4e8e805b179f1552e1212f
 - superseded_s05_product_path_evidence: .ai-workspace/comments/codex/20260726T041753Z_CHECKPOINT_t270_s05_product_path_repaired_exact_candidate.md
-- current_s05_candidate: pending_clean_checkout_repair_cut
-- current_s05_candidate_tree: pending_clean_checkout_repair_cut
-- current_s05_requirement_digest: pending_clean_checkout_repair_cut
-- current_s05_package_digest: pending_clean_checkout_repair_cut
-- current_s05_package_inventory_digest: pending_clean_checkout_repair_cut
-- current_s05_evidence: pending_clean_checkout_repair_cut
+- current_s05_candidate: 425993da5894b78b6c88b939736dead3fd2e7f98
+- current_s05_candidate_tree: e997884f14a05fe71f06e2c4a73bd924125fd7db
+- current_s05_requirement_digest: 8f945dbb6b2e715e8a70a0643f69d469e68e258a6d2703ece921e54492374f44
+- current_s05_package_digest: 85ca145e7d6755285f9c18f999f840888f8637c3e9788e35dd702a476f16d733
+- current_s05_package_inventory_digest: 112d8cb84308315cf58c9e1e3f596423f219f4564247d9b326cbdbc6f8dd4ec3
+- current_s05_clean_checkout_proof: fresh_git_archive_without_generated_asset_directories
+- current_s05_evidence: .ai-workspace/comments/codex/20260726T073212Z_CHECKPOINT_t270_s05_clean_checkout_repaired_exact_candidate.md
 - latest_s05_reviewed_candidate: 61c7676ec38dcf91d6ab14396c5f1b87eb1f4ff3
 - latest_s05_review: .ai-workspace/comments/codex/20260726T072211Z_REVIEW_t270_s05_review_authority_candidate.md
 - retained_behavioral_stock: bcd8769a8163a222e2e59400c904994b3de161fd
