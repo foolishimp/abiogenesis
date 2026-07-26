@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_repaired_exact_candidate
+- phase_status: m5_s05_authority_relations_repaired_exact_candidate
 - review_status: s05_independent_exact_cut_pending
-- proof_status: s05_repaired_candidate_gates_green
+- proof_status: s05_authority_relations_repaired_candidate_gates_green
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -36,7 +36,7 @@
 - accepted_s03_m03_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85
 - accepted_s03_m05_digest: b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5
 - current_m03_status_projection_digest: ccd8f79d333c4c681f5643acafac59458b661c7d1916eb929f9c7f065dd0cfaf
-- current_m05_status_projection_digest: 1b4084eba93c70b5da0ca907436e4a273cd9cb7664e42b26d8646cdf681a2ca3
+- current_m05_status_projection_digest: dd1cf148789a33e1d5c44f2bfc8437297ca33f45c422d732846c0a4c1a3600c9
 - accepted_s03_package_digest: e4345ce38807abd4a988aeff76c3d83274e88ed6e0926adfb635d07fe933732b
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
@@ -45,10 +45,13 @@
 - superseded_s05_candidate: c4a0f42dd55a9dec963e514579fbfa81ea286786
 - superseded_s05_candidate_tree: 6046a66a04de125b4639a32d022b87f9b64fac04
 - superseded_s05_evidence: .ai-workspace/comments/codex/20260725T234029Z_CHECKPOINT_t270_s05_ordinary_path_consensus_exact_candidate.md
-- current_s05_candidate: 65b9cd542cda50adc072ed46be0d3ca270818b20
-- current_s05_candidate_tree: 62953f27cf7e1655139e9994e4c79b7e3c9808a5
-- current_s05_package_digest: 38f389e1cfe31792f6dd8a95d38672f29da075f74d329445ab21c3b898c42394
-- current_s05_evidence: .ai-workspace/comments/codex/20260726T011331Z_CHECKPOINT_t270_s05_source_truth_repaired_exact_candidate.md
+- superseded_s05_source_truth_candidate: 65b9cd542cda50adc072ed46be0d3ca270818b20
+- superseded_s05_source_truth_candidate_tree: 62953f27cf7e1655139e9994e4c79b7e3c9808a5
+- superseded_s05_source_truth_evidence: .ai-workspace/comments/codex/20260726T011331Z_CHECKPOINT_t270_s05_source_truth_repaired_exact_candidate.md
+- current_s05_candidate: cd94165699a6a73b1a9d8ffbd0e1ffa78f5a3624
+- current_s05_candidate_tree: 2a8d2319b1019dd6bdadfe65de85901b47b71480
+- current_s05_package_digest: 47b315e90276532df6d48ca672a6405c92ac25dde9b37442b1509f4fd8a398d9
+- current_s05_evidence: .ai-workspace/comments/codex/20260726T020457Z_CHECKPOINT_t270_s05_authority_relations_repaired_exact_candidate.md
 - retained_behavioral_stock: bcd8769a8163a222e2e59400c904994b3de161fd
 - regression_bindings:
   - ABI5-ROOT-001
