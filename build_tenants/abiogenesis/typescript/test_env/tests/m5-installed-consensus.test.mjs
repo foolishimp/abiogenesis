@@ -396,7 +396,7 @@ for (const workspace of workspaceApplications) {
     );
     const eventCountBeforeRead = events.length;
     const readLabel = `${workspace.label}-${scenario.label}`;
-    if (workspace.label === "default" && scenario.label === "agreement") {
+    if (workspace.label === "existing" && scenario.label === "agreement") {
       const substitutedAuthority = structuredClone(
         outcome.projectionAuthority,
       );
@@ -581,7 +581,12 @@ for (const workspace of workspaceApplications) {
       const escalation = await buildRootCliScenario(
         harness,
         `m5-consensus-${workspace.label}-unresolved-fh`,
-        (payload) => payload,
+        (payload) => ({
+          ...payload,
+          sourceProjectionAuthority:
+            resultProjection.projectionAuthority,
+          sourceResultRef: resultProjection.result.resultRef,
+        }),
         {
           programRef: basis.gtl.CONSENSUS_IDS.programRef,
           graphFunctionRef:
@@ -1024,6 +1029,29 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
   assert.ok(delta.admissionOrdinal < refresh.admissionOrdinal);
   assert.ok(refresh.admissionOrdinal < runClosed.admissionOrdinal);
   assert.equal(events.at(-1).kind, "run_closed");
+  const childRead = await readRunProjection(
+    harness,
+    completed.projectionAuthority,
+    "result",
+    childResult.payload.resultRef,
+    "one-surface-child",
+  );
+  assert.equal(
+    childRead.exitCode,
+    0,
+    `${childRead.stderr}\n${childRead.stdout}`,
+  );
+  const childProjection = childRead.outcomes.at(-1);
+  assert.equal(childProjection.disposition, "succeeded");
+  assert.equal(childProjection.result.kind, "public_result_projection");
+  assert.equal(
+    basis.gtl.isConsensusResult(childProjection.result.value),
+    true,
+  );
+  assert.equal(
+    childProjection.result.value.replayRef,
+    childProjection.replayRef,
+  );
 });
 
 test("M5 Consensus refuses malformed and cross-basis Product values before a Run opens", async (context) => {
@@ -1084,6 +1112,187 @@ test("M5 Consensus refuses malformed and cross-basis Product values before a Run
     assert.equal(run.outcomes.at(-1).disposition, "refused");
     assert.equal(run.outcomes.at(-1).runId, null);
   }
+});
+
+test("M5 Consensus escalation requires one exact replay-derived source result", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const command = await installConsensusWorker(harness);
+  const workspaceId =
+    "workspace://developer/consensus/source-result-authority";
+  const basis = await consensusBasis(
+    harness,
+    "source-result-authority",
+    2,
+    workspaceId,
+  );
+  harness.rootPublication = basis.publication;
+  const allowlist = basis.publication.contributions.map((row) => row.handle);
+  const source = await buildRootCliScenario(
+    harness,
+    "m5-consensus-source-result-authority",
+    (payload) => payload,
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.programRef,
+      graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+      allowlist,
+      input: basis.input,
+      eventLogFile: "source-result-authority.events.jsonl",
+      workspaceId,
+    },
+  );
+  const sourceRun = await runInstalledCli(harness, source, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_CONSENSUS_TEST_MODE: "unresolved",
+    },
+  });
+  assert.equal(sourceRun.exitCode, 0, sourceRun.stderr);
+  const sourceOutcome = sourceRun.outcomes.at(-1);
+  const sourceRead = await readRunProjection(
+    harness,
+    sourceOutcome.projectionAuthority,
+    "result",
+    sourceOutcome.resultRef,
+    "source-result-authority",
+  );
+  assert.equal(sourceRead.exitCode, 0, sourceRead.stderr);
+  const sourceProjection = sourceRead.outcomes.at(-1);
+  const sourceResult = sourceProjection.result.value;
+  assert.equal(basis.gtl.isConsensusResult(sourceResult), true);
+  assert.equal(sourceResult.terminalOutcome.outcome, "escalate_fh");
+  const sourceEventCount = (await eventsAt(source.eventLogPath)).length;
+
+  const escalation = await buildRootCliScenario(
+    harness,
+    "m5-consensus-source-result-authority-escalation",
+    (payload) => ({
+      ...payload,
+      sourceProjectionAuthority: sourceProjection.projectionAuthority,
+      sourceResultRef: sourceProjection.result.resultRef,
+    }),
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.programRef,
+      graphFunctionRef: basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
+      allowlist,
+      input: sourceResult,
+      eventLogFile: "source-result-authority-escalation.events.jsonl",
+      workspaceId,
+    },
+  );
+  const {
+    operationContext,
+    publicApi,
+  } = await applyInstalledTranscriptPrefix(harness, escalation);
+  const baseInvocation = escalation.transcript.at(-1);
+  const closedResult = structuredClone(sourceResult);
+  closedResult.terminalOutcome.outcome = "closed_done";
+  assert.equal(basis.gtl.isConsensusResult(closedResult), true);
+  const wrongReplayResult = {
+    ...sourceResult,
+    replayRef: `${sourceResult.replayRef}/forged`,
+  };
+  const forgedAuthority = structuredClone(
+    sourceProjection.projectionAuthority,
+  );
+  forgedAuthority.runId = `${forgedAuthority.runId}/forged`;
+  const {
+    authorityDigest: _forgedDigest,
+    ...forgedAuthorityBody
+  } = forgedAuthority;
+  forgedAuthority.authorityDigest =
+    basis.product.sha256Canonical(forgedAuthorityBody);
+  const mutations = [{
+    label: "missing-source-authority",
+    mutate(invocation) {
+      delete invocation.payload.sourceProjectionAuthority;
+      delete invocation.payload.sourceResultRef;
+    },
+  }, {
+    label: "wrong-replay",
+    mutate(invocation) {
+      invocation.payload.input = wrongReplayResult;
+    },
+  }, {
+    label: "wrong-source-result",
+    mutate(invocation) {
+      invocation.payload.sourceResultRef =
+        `${sourceProjection.result.resultRef}/forged`;
+    },
+  }, {
+    label: "closed-result-substitution",
+    mutate(invocation) {
+      invocation.payload.input = closedResult;
+    },
+  }, {
+    label: "forged-source-authority",
+    mutate(invocation) {
+      invocation.payload.sourceProjectionAuthority = forgedAuthority;
+    },
+  }];
+  try {
+    for (const mutation of mutations) {
+      const candidate = structuredClone(baseInvocation);
+      candidate.invocationRef =
+        `${baseInvocation.invocationRef}/${mutation.label}`;
+      candidate.correlationId =
+        `${baseInvocation.correlationId}/${mutation.label}`;
+      mutation.mutate(candidate);
+      const result = await publicApi.applyRootPublicInvocation(
+        operationContext,
+        candidate,
+      );
+      assert.equal(result.disposition, "refused", JSON.stringify(result));
+      assert.equal(result.runId, null);
+      assert.equal(
+        operationContext.store.readAll().some(
+          (event) => event.kind === "invocation_admitted",
+        ),
+        false,
+      );
+    }
+  } finally {
+    publicApi.closeRootOperationContext(operationContext);
+  }
+  const substitutedWorkspaceId = `${workspaceId}/substituted`;
+  const substitutedAuthority = structuredClone(
+    sourceProjection.projectionAuthority,
+  );
+  substitutedAuthority.workspaceId = substitutedWorkspaceId;
+  const {
+    authorityDigest: _substitutedWorkspaceDigest,
+    ...substitutedAuthorityBody
+  } = substitutedAuthority;
+  substitutedAuthority.authorityDigest =
+    basis.product.sha256Canonical(substitutedAuthorityBody);
+  const crossWorkspaceEscalation = await buildRootCliScenario(
+    harness,
+    "m5-consensus-source-result-authority-cross-workspace",
+    (payload) => ({
+      ...payload,
+      sourceProjectionAuthority: substitutedAuthority,
+      sourceResultRef: sourceProjection.result.resultRef,
+    }),
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.programRef,
+      graphFunctionRef: basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
+      allowlist,
+      input: sourceResult,
+      eventLogFile: "source-result-authority-cross-workspace.events.jsonl",
+      workspaceId: substitutedWorkspaceId,
+    },
+  );
+  const crossWorkspaceRun = await runInstalledCli(
+    harness,
+    crossWorkspaceEscalation,
+  );
+  assert.equal(crossWorkspaceRun.exitCode, 2, crossWorkspaceRun.stderr);
+  assert.equal(crossWorkspaceRun.outcomes.at(-1).disposition, "refused");
+  assert.equal(crossWorkspaceRun.outcomes.at(-1).runId, null);
+  assert.equal(
+    (await eventsAt(source.eventLogPath)).length,
+    sourceEventCount,
+    "source-result validation must remain a no-append read",
+  );
 });
 
 test("M5 Consensus refuses malformed attributed reviewer output before successful foldback or closure", async (context) => {

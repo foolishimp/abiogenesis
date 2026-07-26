@@ -37,10 +37,13 @@ export {
 } from "./catalog_admission.js";
 export {
   admitInvocation,
+  deriveInvocationSourceResultBasis,
+  isInvocationSourceResultBasis,
   rehydrateInvocationAdmission,
   validateInvocationCapabilityBasis,
   type InvocationAdmission,
   type InvocationAdmissionInput,
+  type InvocationSourceResultDerivationInput,
   type InvocationReentryBasis,
   type InvocationAdmissionRefusal,
   type InvocationAdmissionResult,

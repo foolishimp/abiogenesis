@@ -276,9 +276,37 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
     workspaceBindingDigest: ReturnType<typeof sha256Canonical>;
     workspaceId: string;
     actionCatalog: JsonValue | null;
+    sourceResultBasis:
+      Parameters<
+        NonNullable<ProductSemanticsProvider["validateInvocationBasis"]>
+      >[0]["sourceResultBasis"];
   }>) {
-    return !isConsensusInvocation(basis.input) ||
-      basis.input.subject.workspaceRef === basis.workspaceId;
+    if (isConsensusInvocation(basis.input)) {
+      return basis.sourceResultBasis === null &&
+        basis.input.subject.workspaceRef === basis.workspaceId;
+    }
+    if (isConsensusResult(basis.input)) {
+      const source = basis.sourceResultBasis;
+      if (
+        source === null ||
+        source.sourceGraphFunctionRef !== CONSENSUS_IDS.graphFunctionRef ||
+        source.sourceResultContractRef !== CONSENSUS_IDS.resultContractRef ||
+        source.sourceResultValueDigest !==
+          sha256Canonical(source.sourceResultValue) ||
+        source.sourceWorkspaceId !== basis.workspaceId ||
+        !isConsensusResultCandidate(source.sourceResultValue) ||
+        basis.input.terminalOutcome.outcome !== "escalate_fh"
+      ) {
+        return false;
+      }
+      const projected = bindConsensusReplay(
+        source.sourceResultValue,
+        source.sourceReplayRef,
+      );
+      return sha256Canonical(projected as unknown as JsonValue) ===
+        sha256Canonical(basis.input as unknown as JsonValue);
+    }
+    return basis.sourceResultBasis === null;
   },
   projectPublicResult(basis: Readonly<{
     value: JsonValue;

@@ -51,12 +51,14 @@ export { installProduct, installedProductContentMatches } from "./install_produc
 export {
   admitInstalledProductInput,
   evaluateInstalledInteractionResponse,
+  hasInstalledPublicResultProjection,
   loadInstalledProductSemantics,
   projectInstalledLeafSemantics,
   projectInstalledPublicResult,
   validateInstalledInvocationBasis,
   type InstalledLeafSemanticsProjection,
   type InstalledProductSemanticsBasis,
+  type ProductInvocationSourceResultBasis,
   type ProductSemanticsProvider,
 } from "./semantics.js";
 export { verifyProduct } from "./verify_product.js";

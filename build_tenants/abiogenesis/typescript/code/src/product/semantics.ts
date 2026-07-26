@@ -13,6 +13,32 @@ import {
 import type { ProductInstall } from "./environment.js";
 import { installedProductContentMatches } from "./install_product.js";
 
+export interface ProductInvocationSourceResultBasis {
+  readonly kind: "invocation_source_result_basis";
+  readonly schemaVersion: "5.0.0";
+  readonly basisRef: string;
+  readonly basisDigest: Sha256Digest;
+  readonly publicAuthorityDigest: Sha256Digest;
+  readonly sourceInvocationAdmissionRef: string;
+  readonly sourceInvocationRef: string;
+  readonly sourceRunId: string;
+  readonly sourceGraphCallId: string;
+  readonly sourceGraphFunctionRef: string;
+  readonly sourceCCallRef: string;
+  readonly sourceResultAdmissionEventRef: string;
+  readonly sourceResultJudgmentEventRef: string;
+  readonly sourceResultRef: string;
+  readonly sourceResultDigest: Sha256Digest;
+  readonly sourceResultValueDigest: Sha256Digest;
+  readonly sourceResultContractRef: string;
+  readonly sourceResultValue: JsonValue;
+  readonly sourceReplayRef: string;
+  readonly sourceReplayDigest: Sha256Digest;
+  readonly sourceWorkspaceId: string;
+  readonly workspaceBindingId: string;
+  readonly workspaceBindingDigest: Sha256Digest;
+}
+
 export interface ProductSemanticsProvider {
   readonly kind: "product_semantics_provider";
   readonly schemaVersion: "5.0.0";
@@ -63,6 +89,7 @@ export interface ProductSemanticsProvider {
       readonly workspaceBindingDigest: Sha256Digest;
       readonly workspaceId: string;
       readonly actionCatalog: JsonValue | null;
+      readonly sourceResultBasis: ProductInvocationSourceResultBasis | null;
     }>,
   ) => boolean;
   readonly projectPublicResult?: (
@@ -323,7 +350,24 @@ export function validateInstalledInvocationBasis(
       "Product invocation-basis validation requires the exact loaded Product semantics provider",
     );
   }
+  if (
+    semantics.validateInvocationBasis === undefined &&
+    basis.sourceResultBasis !== null
+  ) {
+    return false;
+  }
   return semantics.validateInvocationBasis?.(basis) ?? true;
+}
+
+export function hasInstalledPublicResultProjection(
+  semantics: ProductSemanticsProvider,
+): boolean {
+  if (!loadedProductSemantics.has(semantics)) {
+    throw new TypeError(
+      "Product public-result capability requires the exact loaded Product semantics provider",
+    );
+  }
+  return semantics.projectPublicResult !== undefined;
 }
 
 export function projectInstalledPublicResult(

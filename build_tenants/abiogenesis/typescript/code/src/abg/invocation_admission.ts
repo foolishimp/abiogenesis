@@ -11,6 +11,7 @@ import {
   type InvocationAuthority,
   type InvocationInteractionCapability,
   type InvocationPolicyBasis,
+  type ProductInvocationSourceResultBasis,
   type PublicInvocationCandidate,
   type RunInvocationVariant,
   type WorkspaceBinding,
@@ -33,7 +34,11 @@ import {
   isRawAdmittedValue,
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
-import { hasAdmittedCatalogView } from "./catalog_admission.js";
+import {
+  hasAdmittedCatalogView,
+  hasAdmittedProductSemanticsBasis,
+  type AdmittedProductSemanticsBasis,
+} from "./catalog_admission.js";
 import {
   hasAdmittedWorkspaceBinding,
   validatePublicOperationBasis,
@@ -41,6 +46,7 @@ import {
   type PublicOperationAdmissionBasis,
 } from "./environment_admission.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+import { replay } from "./replay.js";
 
 export interface InvocationAdmissionInput {
   readonly invocation: PublicInvocationCandidate;
@@ -56,6 +62,7 @@ export interface InvocationAdmissionInput {
   readonly capabilityGrants: readonly CapabilityGrant[];
   readonly authority: InvocationAuthority;
   readonly reentryBasis?: InvocationReentryBasis;
+  readonly sourceResultBasis?: ProductInvocationSourceResultBasis;
 }
 
 export interface InvocationReentryBasis {
@@ -104,6 +111,7 @@ export interface InvocationAdmission {
   readonly publicRequestAdmissionRef: string;
   readonly publicRequestDigest: Sha256Digest;
   readonly publicRequestInvocationRef: string;
+  readonly workspaceId: string;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
   readonly catalogViewId: string;
@@ -125,6 +133,7 @@ export interface InvocationAdmission {
   readonly actorRef: string;
   readonly publicStart: PublicStartAdmissionIdentity | null;
   readonly reentryBasis: InvocationReentryBasis | null;
+  readonly sourceResultBasis: ProductInvocationSourceResultBasis | null;
   readonly publicOperationEventRef: string;
   readonly admissionEventRef: string;
 }
@@ -165,6 +174,136 @@ function refusal(
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+const sourceResultBases = new WeakSet<object>();
+
+export interface InvocationSourceResultDerivationInput {
+  readonly publicAuthorityDigest: Sha256Digest;
+  readonly runtimeInvocationRef: string;
+  readonly invocationAdmissionRef: string;
+  readonly runId: string;
+  readonly resultRef: string;
+  readonly productSemanticsBasis: AdmittedProductSemanticsBasis;
+}
+
+export function isInvocationSourceResultBasis(
+  value: object,
+): value is ProductInvocationSourceResultBasis {
+  return sourceResultBases.has(value);
+}
+
+export function deriveInvocationSourceResultBasis(
+  store: AbgEventStore,
+  input: InvocationSourceResultDerivationInput,
+): ProductInvocationSourceResultBasis | null {
+  const sourceInvocation = rehydrateInvocationAdmission(
+    store,
+    input.invocationAdmissionRef,
+  );
+  const sourceReplay = replay(store, { runId: input.runId });
+  const sourceCall = sourceReplay.cCalls.find(
+    (row) => row.resultRef === input.resultRef,
+  );
+  const resultEvent = sourceCall === undefined
+    ? undefined
+    : store.readScope({ runId: input.runId }).find(
+        (event) =>
+          event.kind === "c_call_result_admitted" &&
+          event.aggregateId === sourceCall.cCallRef &&
+          isRecord(event.payload) &&
+          event.payload.resultRef === input.resultRef,
+      );
+  const judgmentEvent = sourceCall === undefined
+    ? undefined
+    : store.readScope({ runId: input.runId }).find(
+        (event) =>
+          event.kind === "c_call_judged" &&
+          event.aggregateId === sourceCall.cCallRef &&
+          isRecord(event.payload) &&
+          event.payload.judgmentRef === sourceCall.judgmentRef,
+      );
+  const sourceResultValueDigest =
+    resultEvent !== undefined &&
+      isRecord(resultEvent.payload) &&
+      typeof resultEvent.payload.valueDigest === "string"
+      ? resultEvent.payload.valueDigest
+      : null;
+  const sourceResultAdmissionDigest =
+    resultEvent !== undefined &&
+      isRecord(resultEvent.payload) &&
+      typeof resultEvent.payload.resultDigest === "string"
+      ? resultEvent.payload.resultDigest
+      : null;
+  const sourceJudgmentMatches =
+    judgmentEvent !== undefined &&
+      isRecord(judgmentEvent.payload) &&
+      judgmentEvent.graphCallId === resultEvent?.graphCallId &&
+      judgmentEvent.payload.resultRef === sourceCall?.resultRef &&
+      judgmentEvent.payload.resultDigest === sourceCall?.resultDigest &&
+      judgmentEvent.payload.judgment === "advance" &&
+      (
+        resultEvent === undefined ||
+        judgmentEvent.causationEventRefs.includes(resultEvent.eventId)
+      );
+  if (
+    sourceInvocation === null ||
+    sourceInvocation.invocationRef !== input.runtimeInvocationRef ||
+    sourceReplay.runId !== input.runId ||
+    sourceReplay.runtimeStatus !== "closed" ||
+    sourceReplay.runClosedEventRef === null ||
+    sourceCall === undefined ||
+    sourceCall.status !== "judged" ||
+    sourceCall.judgment !== "advance" ||
+    sourceCall.resultRef === null ||
+    sourceCall.resultDigest === null ||
+    sourceCall.resultContractRef === null ||
+    sourceCall.resultValue === null ||
+    resultEvent === undefined ||
+    resultEvent.graphCallId === null ||
+    sourceResultValueDigest !==
+      sha256Canonical(sourceCall.resultValue) ||
+    sourceResultAdmissionDigest !== sourceCall.resultDigest ||
+    !sourceJudgmentMatches ||
+    !hasAdmittedProductSemanticsBasis(
+      store,
+      input.productSemanticsBasis,
+    )
+  ) {
+    return null;
+  }
+  const body = {
+    publicAuthorityDigest: input.publicAuthorityDigest,
+    sourceInvocationAdmissionRef: input.invocationAdmissionRef,
+    sourceInvocationRef: sourceInvocation.invocationRef,
+    sourceRunId: input.runId,
+    sourceGraphCallId: resultEvent.graphCallId,
+    sourceGraphFunctionRef: resultEvent.graphFunctionRef,
+    sourceCCallRef: sourceCall.cCallRef,
+    sourceResultAdmissionEventRef: resultEvent.eventId,
+    sourceResultJudgmentEventRef: judgmentEvent.eventId,
+    sourceResultRef: sourceCall.resultRef,
+    sourceResultDigest: sourceCall.resultDigest,
+    sourceResultValueDigest: sourceResultValueDigest as Sha256Digest,
+    sourceResultContractRef: sourceCall.resultContractRef,
+    sourceResultValue: sourceCall.resultValue,
+    sourceReplayRef: sourceReplay.replayRef,
+    sourceReplayDigest: sourceReplay.replayDigest,
+    sourceWorkspaceId: sourceInvocation.workspaceId,
+    workspaceBindingId: sourceInvocation.workspaceBindingId,
+    workspaceBindingDigest: sourceInvocation.workspaceBindingDigest,
+  };
+  const basisDigest = sha256Canonical(body as unknown as JsonValue);
+  const basis = deepFreeze({
+    kind: "invocation_source_result_basis" as const,
+    schemaVersion: "5.0.0" as const,
+    basisRef:
+      `invocation-source-result://abiogenesis/${basisDigest.slice("sha256:".length)}`,
+    basisDigest,
+    ...body,
+  }) as ProductInvocationSourceResultBasis;
+  sourceResultBases.add(basis);
+  return basis;
 }
 
 function validatedComputeRegimes(
@@ -296,6 +435,7 @@ export function hasAdmittedInvocation(
     publicRequestAdmissionRef: admission.publicRequestAdmissionRef,
     publicRequestDigest: admission.publicRequestDigest,
     publicRequestInvocationRef: admission.publicRequestInvocationRef,
+    workspaceId: admission.workspaceId,
     workspaceBindingId: admission.workspaceBindingId,
     workspaceBindingDigest: admission.workspaceBindingDigest,
     catalogViewId: admission.catalogViewId,
@@ -317,6 +457,7 @@ export function hasAdmittedInvocation(
     actorRef: admission.actorRef,
     publicStart: admission.publicStart,
     reentryBasis: admission.reentryBasis,
+    sourceResultBasis: admission.sourceResultBasis,
   };
   const event = store.readAll().find((candidate) => candidate.eventId === admission.admissionEventRef);
   const publicEvent = store.readAll().find(
@@ -453,6 +594,16 @@ export function admitInvocation(
   const suppliedReentryAuthority =
     requestPayload !== null && isRecord(requestPayload.reentryAuthority)
       ? requestPayload.reentryAuthority
+      : null;
+  const suppliedSourceProjectionAuthority =
+    requestPayload !== null &&
+      isRecord(requestPayload.sourceProjectionAuthority)
+      ? requestPayload.sourceProjectionAuthority
+      : null;
+  const suppliedSourceResultRef =
+    requestPayload !== null &&
+      typeof requestPayload.sourceResultRef === "string"
+      ? requestPayload.sourceResultRef
       : null;
   const resolvedPublicStart =
     input.invocation.variant === "start" &&
@@ -642,6 +793,29 @@ export function admitInvocation(
       );
     }
   }
+  if (input.sourceResultBasis === undefined) {
+    if (
+      suppliedSourceProjectionAuthority !== null ||
+      suppliedSourceResultRef !== null
+    ) {
+      return refusal(
+        "authority_mismatch",
+        "source result authority and its ABG-derived basis must be admitted together",
+      );
+    }
+  } else if (
+    suppliedSourceProjectionAuthority === null ||
+    suppliedSourceResultRef === null ||
+    !isInvocationSourceResultBasis(input.sourceResultBasis) ||
+    suppliedSourceProjectionAuthority.authorityDigest !==
+      input.sourceResultBasis.publicAuthorityDigest ||
+    suppliedSourceResultRef !== input.sourceResultBasis.sourceResultRef
+  ) {
+    return refusal(
+      "authority_mismatch",
+      "source result basis differs from the durable public authority or selected result",
+    );
+  }
   const capabilityRefusal = validateInvocationCapabilityBasis({
     actorRef: input.invocation.actorAttributionRef,
     capabilityGrants: input.capabilityGrants,
@@ -692,6 +866,7 @@ export function admitInvocation(
     publicRequestAdmissionRef: input.rawRequest.admissionRef,
     publicRequestDigest: input.rawRequest.subjectDigest,
     publicRequestInvocationRef: input.invocation.publicRequestInvocationRef,
+    workspaceId: input.workspaceBinding.workspaceId,
     workspaceBindingId: input.workspaceBinding.bindingId,
     workspaceBindingDigest: input.workspaceBinding.bindingDigest,
     catalogViewId: input.catalogView.viewId,
@@ -713,6 +888,7 @@ export function admitInvocation(
     actorRef: input.authority.actorRef,
     publicStart,
     reentryBasis: input.reentryBasis ?? null,
+    sourceResultBasis: input.sourceResultBasis ?? null,
   };
   const invocationAdmissionDigest = sha256Canonical(admissionBody as unknown as JsonValue);
   const invocationAdmissionRef = `invocation-admission://abiogenesis/${invocationAdmissionDigest.slice("sha256:".length)}`;

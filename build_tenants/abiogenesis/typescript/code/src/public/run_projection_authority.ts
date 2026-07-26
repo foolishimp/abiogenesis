@@ -23,6 +23,7 @@ export interface PublicRunProjectionAuthority {
   readonly resultRef: string | null;
   readonly outputContractRef: string;
   readonly install: ProductInstall;
+  readonly workspaceId: string;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
   readonly catalogId: string;
@@ -61,6 +62,7 @@ const AUTHORITY_KEYS = Object.freeze([
   "runId",
   "runtimeInvocationRef",
   "schemaVersion",
+  "workspaceId",
   "workspaceBindingDigest",
   "workspaceBindingId",
 ]);
@@ -152,6 +154,8 @@ export function parsePublicRunProjectionAuthority(
     value.outputContractRef.length === 0 ||
     !isRecord(value.install) ||
     value.install.kind !== "product_install" ||
+    typeof value.workspaceId !== "string" ||
+    value.workspaceId.length === 0 ||
     typeof value.workspaceBindingId !== "string" ||
     value.workspaceBindingId.length === 0 ||
     !isSha256Digest(value.workspaceBindingDigest) ||

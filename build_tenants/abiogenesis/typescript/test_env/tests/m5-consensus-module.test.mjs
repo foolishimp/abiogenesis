@@ -214,6 +214,7 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     workspaceBindingDigest: DIGEST,
     workspaceId: WORKSPACE,
     actionCatalog: program.actionCatalog,
+    sourceResultBasis: null,
   };
   assert.equal(
     abg.hasExactInvocationObservationBasis(
@@ -280,6 +281,7 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
+      sourceResultBasis: null,
     }),
     true,
   );
@@ -290,6 +292,7 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: `${WORKSPACE}/other`,
       actionCatalog: null,
+      sourceResultBasis: null,
     }),
     false,
   );
@@ -307,6 +310,82 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
     "result://abg/module-proof",
     pending.resultRef,
     "ABG admission identity and Product semantic identity remain distinct",
+  );
+  const sourceResultBasis = {
+    kind: "invocation_source_result_basis",
+    schemaVersion: "5.0.0",
+    basisRef: "invocation-source-result://abiogenesis/module-proof",
+    basisDigest: DIGEST,
+    publicAuthorityDigest: DIGEST,
+    sourceInvocationAdmissionRef:
+      "invocation-admission://abiogenesis/module-proof",
+    sourceInvocationRef: "invocation://abiogenesis/module-proof",
+    sourceRunId: "run://abiogenesis/module-proof",
+    sourceGraphCallId: "graph-call://abiogenesis/module-proof",
+    sourceGraphFunctionRef: gtl.CONSENSUS_IDS.graphFunctionRef,
+    sourceCCallRef: "c-call://abiogenesis/module-proof",
+    sourceResultAdmissionEventRef:
+      "event://abiogenesis/module-proof/result",
+    sourceResultJudgmentEventRef:
+      "event://abiogenesis/module-proof/judgment",
+    sourceResultRef: "result://abg/module-proof",
+    sourceResultDigest: product.sha256Canonical(pending),
+    sourceResultValueDigest: product.sha256Canonical(pending),
+    sourceResultContractRef: gtl.CONSENSUS_IDS.resultContractRef,
+    sourceResultValue: pending,
+    sourceReplayRef: replayRef,
+    sourceReplayDigest: DIGEST,
+    sourceWorkspaceId: WORKSPACE,
+    workspaceBindingId: "workspace-binding://developer/module-proof",
+    workspaceBindingDigest: DIGEST,
+  };
+  assert.equal(
+    validateInvocationBasis({
+      input: projected,
+      workspaceBindingId: "workspace-binding://developer/module-proof",
+      workspaceBindingDigest: DIGEST,
+      workspaceId: WORKSPACE,
+      actionCatalog: null,
+      sourceResultBasis,
+    }),
+    true,
+  );
+  assert.equal(
+    validateInvocationBasis({
+      input: projected,
+      workspaceBindingId: "workspace-binding://developer/module-proof",
+      workspaceBindingDigest: DIGEST,
+      workspaceId: WORKSPACE,
+      actionCatalog: null,
+      sourceResultBasis: null,
+    }),
+    false,
+  );
+  assert.equal(
+    validateInvocationBasis({
+      input: projected,
+      workspaceBindingId: "workspace-binding://developer/module-proof",
+      workspaceBindingDigest: DIGEST,
+      workspaceId: `${WORKSPACE}/substituted`,
+      actionCatalog: null,
+      sourceResultBasis,
+    }),
+    false,
+  );
+  assert.equal(
+    validateInvocationBasis({
+      input: projected,
+      workspaceBindingId: "workspace-binding://developer/module-proof",
+      workspaceBindingDigest: DIGEST,
+      workspaceId: WORKSPACE,
+      actionCatalog: null,
+      sourceResultBasis: {
+        ...sourceResultBasis,
+        sourceGraphFunctionRef:
+          gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
+      },
+    }),
+    false,
   );
 });
 
@@ -431,6 +510,7 @@ test("S05 public result binds real replay while its authority rejects digest tam
       manifestDigest: DIGEST,
       admissionEventRef: "event://developer/install-admitted",
     },
+    workspaceId: WORKSPACE,
     workspaceBindingId: "workspace-binding://developer/module-proof",
     workspaceBindingDigest: DIGEST,
     catalogId: "catalog://abiogenesis/module-proof",

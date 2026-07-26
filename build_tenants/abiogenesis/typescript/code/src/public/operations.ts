@@ -47,7 +47,9 @@ export interface RootOperationContext {
   readonly productState: product.RootOperationState;
 }
 
-type RunProjectionProductBasis = abg.AdmittedProductSemanticsBasis;
+type RunProjectionProductBasis = abg.AdmittedProductSemanticsBasis & Readonly<{
+  workspaceId: string;
+}>;
 
 class ApplicationRefusal extends Error {
   constructor(
@@ -856,6 +858,8 @@ async function applyRunInvoke(
           "input",
           "installInvocationRef",
           "programRef",
+          "sourceProjectionAuthority",
+          "sourceResultRef",
           "workspaceBindingInvocationRef",
         ]
       : [
@@ -868,6 +872,8 @@ async function applyRunInvoke(
           "reentryAuthority",
           "rootMode",
           "scope",
+          "sourceProjectionAuthority",
+          "sourceResultRef",
           "startRef",
           "target",
           "until",
@@ -889,6 +895,32 @@ async function applyRunInvoke(
     throw new ApplicationRefusal(
       "invalid_request",
       "run.invoke re-entry requires one exact public gap authority on the start variant",
+    );
+  }
+  const suppliedSourceProjectionAuthority =
+    invocation.payload.sourceProjectionAuthority;
+  const suppliedSourceResultRef = invocation.payload.sourceResultRef;
+  const sourceProjectionState =
+    suppliedSourceProjectionAuthority === undefined
+      ? null
+      : parsePublicRunProjectionAuthority(
+          suppliedSourceProjectionAuthority,
+        );
+  if (
+    (suppliedSourceProjectionAuthority === undefined) !==
+      (suppliedSourceResultRef === undefined) ||
+    (
+      suppliedSourceProjectionAuthority !== undefined &&
+      (
+        sourceProjectionState === null ||
+        typeof suppliedSourceResultRef !== "string" ||
+        suppliedSourceResultRef.length === 0
+      )
+    )
+  ) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "run.invoke source result requires one exact public projection authority and result identity",
     );
   }
   if (
@@ -956,6 +988,7 @@ async function applyRunInvoke(
       };
   const runProjectionProductBasis: RunProjectionProductBasis = {
     install: installState.install,
+    workspaceId: workspaceState.binding.workspaceId,
     workspaceBindingId:
       viewState.catalogState.catalog.workspaceBindingId,
     workspaceBindingDigest:
@@ -1111,6 +1144,7 @@ async function applyRunInvoke(
   const inputContractRef = graphFunction.inputs[0]!;
   let productSemantics: product.ProductSemanticsProvider;
   let admittedInput: Readonly<Record<string, product.JsonValue>> | null;
+  let sourceResultBasis: product.ProductInvocationSourceResultBasis | null;
   try {
     productSemantics = await product.loadInstalledProductSemantics(
       {
@@ -1125,6 +1159,13 @@ async function applyRunInvoke(
       inputContractRef,
       inputValue,
     );
+    sourceResultBasis = sourceProjectionState === null
+      ? null
+      : deriveInvocationSourceResultBasis(
+          sourceProjectionState,
+          suppliedSourceResultRef as string,
+          runProjectionProductBasis,
+        );
   } catch {
     throw new ApplicationRefusal(
       "target_mismatch",
@@ -1146,6 +1187,7 @@ async function applyRunInvoke(
       actionCatalog: programValue.actionCatalog === undefined
         ? null
         : programValue.actionCatalog as unknown as product.JsonValue,
+      sourceResultBasis,
     })
   ) {
     throw new ApplicationRefusal(
@@ -1173,6 +1215,8 @@ async function applyRunInvoke(
     "invocation_input",
     inputContractRef,
   );
+  const projectRunResult =
+    product.hasInstalledPublicResultProjection(productSemantics);
   const declaredRegimes = new Set<gtl.ComputeRegime>([
     ...programValidation.executableLeafRows.map((row) => row.fibre),
     ...programValidation.interactionLeafRows.map((row) => row.fibre),
@@ -1294,6 +1338,9 @@ async function applyRunInvoke(
               sourceStart: reentryState.publicStart,
             },
           }),
+      ...(sourceResultBasis === null
+        ? {}
+        : { sourceResultBasis }),
     },
     operationBasis(
       { ...invocation, invocationRef: candidate.invocationRef },
@@ -1326,6 +1373,7 @@ async function applyRunInvoke(
       candidate.invocationRef,
       durableEventLogPath,
       runProjectionProductBasis,
+      projectRunResult,
     );
   }
   const graph = gtl.materializeGraph(graphFunction, {
@@ -1365,6 +1413,7 @@ async function applyRunInvoke(
       candidate.invocationRef,
       durableEventLogPath,
       runProjectionProductBasis,
+      projectRunResult,
     );
   }
   activeRefusalStage = "implementation_resolution";
@@ -1389,6 +1438,7 @@ async function applyRunInvoke(
       candidate.invocationRef,
       durableEventLogPath,
       runProjectionProductBasis,
+      projectRunResult,
     );
   }
   const resolutionSetCandidate = product.resolveImplementationSet(
@@ -1413,6 +1463,7 @@ async function applyRunInvoke(
       candidate.invocationRef,
       durableEventLogPath,
       runProjectionProductBasis,
+      projectRunResult,
     );
   }
   const resolutionSetValidation = validator.validateImplementationResolutionSet(
@@ -1439,6 +1490,7 @@ async function applyRunInvoke(
       candidate.invocationRef,
       durableEventLogPath,
       runProjectionProductBasis,
+      projectRunResult,
     );
   }
   const closureContract = viewState.catalogState.publication.closureContracts.find(
@@ -1460,6 +1512,7 @@ async function applyRunInvoke(
       candidate.invocationRef,
       durableEventLogPath,
       runProjectionProductBasis,
+      projectRunResult,
     );
   }
   activeRefusalStage = "execution_basis";
@@ -1485,6 +1538,7 @@ async function applyRunInvoke(
       candidate.invocationRef,
       durableEventLogPath,
       runProjectionProductBasis,
+      projectRunResult,
     );
   }
   failureExecutionBasis = executionAdmission.executionBasis;
@@ -1511,6 +1565,7 @@ async function applyRunInvoke(
       candidate.invocationRef,
       durableEventLogPath,
       runProjectionProductBasis,
+      projectRunResult,
     );
   }
   failureScope = opened.scope;
@@ -1703,7 +1758,7 @@ async function applyRunInvoke(
       persisted,
       continuationAuthority as unknown as product.JsonValue,
     );
-  } else if (outcome.runId !== null) {
+  } else if (outcome.runId !== null && projectRunResult) {
     const projectionAuthority = constructPublicRunProjectionAuthority({
       reopenAuthority: closeAndRememberDurableContext(context),
       runtimeInvocationRef: candidate.invocationRef,
@@ -1751,6 +1806,7 @@ async function applyRunInvoke(
         candidate.invocationRef,
         durableEventLogPath,
         runProjectionProductBasis,
+        projectRunResult,
         failureScope.runId,
         invocationAdmission.invocationAdmissionRef,
       );
@@ -1774,6 +1830,7 @@ async function applyRunInvoke(
       candidate.invocationRef,
       durableEventLogPath,
       runProjectionProductBasis,
+      projectRunResult,
       undefined,
       invocationAdmission.invocationAdmissionRef,
     );
@@ -1787,6 +1844,7 @@ async function projectCurrentOutcome(
   runtimeInvocationRef: string,
   durableEventLogPath: string,
   productBasis: RunProjectionProductBasis,
+  projectRunResult: boolean,
   runId?: string,
   invocationAdmissionRef?: string,
 ): Promise<PublicOutcome> {
@@ -1804,7 +1862,11 @@ async function projectCurrentOutcome(
     runtimeInvocationRef,
     eventLog,
   );
-  if (outcome.runId === null || invocationAdmissionRef === undefined) {
+  if (
+    !projectRunResult ||
+    outcome.runId === null ||
+    invocationAdmissionRef === undefined
+  ) {
     return outcome;
   }
   const projectionAuthority = constructPublicRunProjectionAuthority({
@@ -2078,14 +2140,13 @@ function closeGapAuthority(
   );
 }
 
-function reopenRunProjectionAuthority(
-  context: RootOperationContext,
+function openRunProjectionAuthority(
   state: PublicRunProjectionAuthority,
 ): {
+  readonly reopened: abg.ReopenedEventStoreContext;
   readonly rootInvocation: abg.InvocationAdmission;
   readonly replayState: abg.ReplayState;
 } {
-  context.pendingReopenAuthority = null;
   const reopened = abg.reopenEventStore(state.reopenAuthority);
   if (reopened.kind !== "reopened_event_store_context") {
     throw new ApplicationRefusal(
@@ -2102,6 +2163,7 @@ function reopenRunProjectionAuthority(
     replayState.cCalls.some((cCall) => cCall.resultRef === state.resultRef);
   if (
     rootInvocation === null ||
+    state.workspaceId !== rootInvocation.workspaceId ||
     rootInvocation.invocationRef !== state.runtimeInvocationRef ||
     rootInvocation.outputContractRef !== state.outputContractRef ||
     rootInvocation.catalogViewId !== state.catalogViewId ||
@@ -2120,8 +2182,72 @@ function reopenRunProjectionAuthority(
       "durable run projection authority differs from its admitted invocation, Run, GraphCall, or result basis",
     );
   }
-  context.store = reopened.store;
-  return { rootInvocation, replayState };
+  return { reopened, rootInvocation, replayState };
+}
+
+function reopenRunProjectionAuthority(
+  context: RootOperationContext,
+  state: PublicRunProjectionAuthority,
+): {
+  readonly rootInvocation: abg.InvocationAdmission;
+  readonly replayState: abg.ReplayState;
+} {
+  context.pendingReopenAuthority = null;
+  const opened = openRunProjectionAuthority(state);
+  context.store = opened.reopened.store;
+  return {
+    rootInvocation: opened.rootInvocation,
+    replayState: opened.replayState,
+  };
+}
+
+function deriveInvocationSourceResultBasis(
+  state: PublicRunProjectionAuthority,
+  resultRef: string,
+  currentProductBasis: RunProjectionProductBasis,
+): product.ProductInvocationSourceResultBasis {
+  if (
+    state.install.packageName !== currentProductBasis.install.packageName ||
+    state.install.packageVersion !== currentProductBasis.install.packageVersion ||
+    state.install.productContentDigest !==
+      currentProductBasis.install.productContentDigest ||
+    state.install.manifestDigest !== currentProductBasis.install.manifestDigest ||
+    state.publicationDigest !== currentProductBasis.publicationDigest ||
+    product.sha256Canonical(
+      state.productSemanticsBinding as unknown as product.JsonValue,
+    ) !==
+      product.sha256Canonical(
+        currentProductBasis.productSemanticsBinding as unknown as product.JsonValue,
+      )
+  ) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "source result authority belongs to a different Product publication or semantics basis",
+    );
+  }
+  const opened = openRunProjectionAuthority(state);
+  try {
+    const basis = abg.deriveInvocationSourceResultBasis(
+      opened.reopened.store,
+      {
+        publicAuthorityDigest: state.authorityDigest,
+        runtimeInvocationRef: state.runtimeInvocationRef,
+        invocationAdmissionRef: state.invocationAdmissionRef,
+        runId: state.runId,
+        resultRef,
+        productSemanticsBasis: state,
+      },
+    );
+    if (basis === null) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "source result is not closed admitted truth under the supplied projection authority",
+      );
+    }
+    return basis;
+  } finally {
+    opened.reopened.store.closeDurableLog();
+  }
 }
 
 function closeRunProjectionAuthority(
@@ -2153,20 +2279,30 @@ async function applyRunProjectionRead(
     );
   }
   const targetRef = stringField(invocation.payload, "targetRef");
-  const targetMatches = invocation.variant === "result"
-    ? targetRef === state.resultRef || targetRef === state.graphCallId
-    : targetRef === state.runId || targetRef === state.graphCallId;
-  if (!targetMatches) {
-    throw new ApplicationRefusal(
-      "target_mismatch",
-      "project.read target is outside the admitted Run projection authority",
-    );
-  }
   reopenRunProjectionAuthority(context, state);
   let closed = false;
   try {
     const replayState = abg.replay(context.store, { runId: state.runId });
     const secondReplay = abg.replay(context.store, { runId: state.runId });
+    const selectedResultRef = invocation.variant === "result"
+      ? targetRef === state.graphCallId
+        ? state.resultRef
+        : targetRef
+      : null;
+    const selectedResult = selectedResultRef === null
+      ? undefined
+      : replayState.cCalls.find(
+          (cCall) => cCall.resultRef === selectedResultRef,
+        );
+    const targetMatches = invocation.variant === "result"
+      ? selectedResult !== undefined
+      : targetRef === state.runId || targetRef === state.graphCallId;
+    if (!targetMatches) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "project.read target is outside the admitted Run or subordinate result authority",
+      );
+    }
     const eventLog = await abg.persistEventLog(
       context.store,
       state.reopenAuthority.eventLogPath,
@@ -2194,9 +2330,14 @@ async function applyRunProjectionRead(
     if (
       invocation.variant === "result" &&
       (
-        state.resultRef === null ||
-        projected.resultRef !== state.resultRef ||
-        projected.disposition !== "succeeded"
+        selectedResult === undefined ||
+        selectedResult.status !== "judged" ||
+        selectedResult.judgment !== "advance" ||
+        selectedResult.resultRef === null ||
+        selectedResult.resultContractRef === null ||
+        selectedResult.resultValue === null ||
+        replayState.runtimeStatus !== "closed" ||
+        replayState.runClosedEventRef === null
       )
     ) {
       throw new ApplicationRefusal(
@@ -2205,7 +2346,9 @@ async function applyRunProjectionRead(
       );
     }
     const scopedEvents = context.store.readScope({ runId: state.runId });
-    let publicResultValue = projected.result;
+    let publicResultValue = invocation.variant === "result"
+      ? selectedResult!.resultValue!
+      : projected.result;
     if (invocation.variant === "result") {
       try {
         const productSemantics = await product.loadInstalledProductSemantics({
@@ -2218,8 +2361,8 @@ async function applyRunProjectionRead(
         publicResultValue = product.projectInstalledPublicResult(
           productSemantics,
           {
-            value: projected.result,
-            admittedResultRef: state.resultRef!,
+            value: selectedResult!.resultValue!,
+            admittedResultRef: selectedResult!.resultRef!,
             replayRef: replayState.replayRef,
           },
         );
@@ -2253,9 +2396,9 @@ async function applyRunProjectionRead(
             kind: "public_result_projection",
             schemaVersion: "5.0.0",
             disposition: projected.disposition,
-            resultRef: projected.resultRef,
-            resultContractRef: projected.admittedResultContractRef,
-            outputContractRef: projected.outputContractRef,
+            resultRef: selectedResult!.resultRef,
+            resultContractRef: selectedResult!.resultContractRef,
+            outputContractRef: selectedResult!.resultContractRef,
             value: publicResultValue,
             closureEligible: true,
             residuals: [],

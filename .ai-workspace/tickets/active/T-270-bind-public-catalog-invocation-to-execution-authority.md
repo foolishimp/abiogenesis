@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_exact_candidate_review_pending
+- phase_status: m5_s05_repaired_exact_candidate
 - review_status: s05_independent_exact_cut_pending
-- proof_status: s05_candidate_gates_green
+- proof_status: s05_repaired_candidate_gates_green
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -36,16 +36,19 @@
 - accepted_s03_m03_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85
 - accepted_s03_m05_digest: b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5
 - current_m03_status_projection_digest: ccd8f79d333c4c681f5643acafac59458b661c7d1916eb929f9c7f065dd0cfaf
-- current_m05_status_projection_digest: 8896ce64c891003e1250f9766afabd555605183c96114526d9e5825d66ba30a9
+- current_m05_status_projection_digest: 1b4084eba93c70b5da0ca907436e4a273cd9cb7664e42b26d8646cdf681a2ca3
 - accepted_s03_package_digest: e4345ce38807abd4a988aeff76c3d83274e88ed6e0926adfb635d07fe933732b
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
 - accepted_s03_decision: .ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md
 - current_s05_basis_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
-- current_s05_candidate: c4a0f42dd55a9dec963e514579fbfa81ea286786
-- current_s05_candidate_tree: 6046a66a04de125b4639a32d022b87f9b64fac04
-- current_s05_package_digest: f576e0ec44e0be90604abefc0b017d486670b6de22bccaa1a51e914e3bd3b170
-- current_s05_evidence: .ai-workspace/comments/codex/20260725T234029Z_CHECKPOINT_t270_s05_ordinary_path_consensus_exact_candidate.md
+- superseded_s05_candidate: c4a0f42dd55a9dec963e514579fbfa81ea286786
+- superseded_s05_candidate_tree: 6046a66a04de125b4639a32d022b87f9b64fac04
+- superseded_s05_evidence: .ai-workspace/comments/codex/20260725T234029Z_CHECKPOINT_t270_s05_ordinary_path_consensus_exact_candidate.md
+- current_s05_candidate: self_resolved_by_current_s05_evidence
+- current_s05_candidate_tree: self_resolved_by_current_s05_evidence
+- current_s05_package_digest: 38f389e1cfe31792f6dd8a95d38672f29da075f74d329445ab21c3b898c42394
+- current_s05_evidence: pending_exact_checkpoint_post
 - retained_behavioral_stock: bcd8769a8163a222e2e59400c904994b3de161fd
 - regression_bindings:
   - ABI5-ROOT-001
