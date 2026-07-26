@@ -1,9 +1,9 @@
 # REQ-L-GTL3-GRAPHFUNCTION — Reusable Workflow Library Functions
 
-**Status**: Active
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
-**Date**: 2026-04-06
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
+**Date**: 2026-07-20
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -18,7 +18,10 @@ abstraction and contract boundary for lawful workflow reuse.
 
 **REQ-L-GTL3-GRAPHFUNCTION-002**: A graph function shall have an explicit typed outer interface and an explicit cumulative environment contract. It materializes a `Graph`, remains the reference contract boundary for callers, and is the sole public named callable workflow-library carrier of GTL 3.
 
-**REQ-L-GTL3-GRAPHFUNCTION-003**: The template shall be represented as replayable publication truth. Interpreter-local callable resolution may exist as implementation convenience, but it is not the published graph-function contract.
+**REQ-L-GTL3-GRAPHFUNCTION-003**: The template shall be represented as
+replayable publication truth. HoG-local callable resolution may exist as an
+invocation convenience, but it is not the published GraphFunction contract or
+a substitute executable program.
 
 **REQ-L-GTL3-GRAPHFUNCTION-004**: Graph-function materialization may depend on declared inputs, selected workflow families, and other declared structural parameters without relying on ambient hidden interpreter state.
 
@@ -63,14 +66,14 @@ locator/digest truth, and asset-surface required-context truth; GTL shall not
 introduce a new observer-specific workspace, graph, frame, replay, or
 continuation topology object for that role.
 
-**REQ-L-GTL3-GRAPHFUNCTION-021**: A reusable node type shall use the
-`GraphFunction` carrier only as a non-callable identity realization of a node
-contract. It shall not be eligible as public traversal work.
+**REQ-L-GTL3-GRAPHFUNCTION-021**: A reusable node type shall retain its own
+typed declaration identity and shall not be represented as a non-callable
+GraphFunction. Node-type publication is inspectable declaration truth, not
+callable work.
 
-**REQ-L-GTL3-GRAPHFUNCTION-022**: A node-type graph function shall have no
-runtime effects and shall preserve its declared node contract through identity
-materialization. Any implementation binding that uses a different realization
-shall prove the same identity, non-callability, and publication semantics.
+**REQ-L-GTL3-GRAPHFUNCTION-022**: A node-type realization shall preserve its
+declared node contract, non-callability, and publication semantics without
+minting a GraphFunction identity or runtime effects.
 
 **REQ-L-GTL3-GRAPHFUNCTION-023**: Job binding, public start binding,
 runtime-registry graph-function selection, graph-call opening, and invocation
@@ -81,3 +84,13 @@ function or callable work contract. It shall not be treated as the whole
 product program when a graph overlay or GTL program composition declares the
 program that binds graph functions, vectors, node types, starts, roles,
 security, policy, proof obligations, and plugin/result contracts.
+
+**REQ-L-GTL3-GRAPHFUNCTION-025**: Every callable GraphFunction shall publish a
+GTL template that materializes a graph accepted by the GTL validator and
+directly traversable by HoG. An implementation binding may realize only a
+declared leaf seam inside that graph.
+
+**REQ-L-GTL3-GRAPHFUNCTION-026**: Admission shall reject an
+implementation-only callable, handler, plugin, worker, or function pointer
+that claims GraphFunction identity without the matching published template,
+materialized graph, contracts, program membership, and provenance.

@@ -1,6 +1,6 @@
 # REQ-R-ABG3-CCALL — The Uniform C-Call Envelope
 
-**Status**: Active
+**Status**: Active - accepted by T-283 F_H closure
 **Realizes**: T-200 (design §2 as amended §8)
 **Derives from**: REQ-R-ABG3-* dispatch census (T-190), REQ-L-GTL3-TEMPORAL-PROPERTIES (T-192), REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH (T-188), T-195 C3/C4 adjudications, T-030 emergence boundary law.
 
@@ -10,9 +10,8 @@ of the tuple at one program stage. Descriptive language elsewhere
 (e.g. the T-205 "category vs functor" plugin factoring) never redefines
 C: the declared shape of compute is data, the handler realizes compute,
 and C names the compute itself.
-Each edge traversal runs its DECLARED program of C calls (-014); the
-canonical default program is the triple [transform, evaluate,
-consequence], baked only as bootstrap P0. The envelope below is the one
+Each HoG traversal runs the C structure declared by the admitted GTL program
+(-014). The envelope below is the one
 truth shape for every C call; the fibre is data inside it, never
 structure around it.
 
@@ -27,18 +26,27 @@ structure around it.
   vectorIndex, stageRole, taskOrdinal|null, attempt. No spine event
   carries a fibre name OR fibre-dependent material (instruction
   manifests are fibre evidence, not locus identity); fibre-freedom is
-  structural.
+  structural. A call reached in an admitted open GTL C program also carries
+  `programLocusRef` and the complete `retryPath`, represented as a possibly
+  empty sequence of positive integers. Those fields identify the authored
+  structural locus and nested attempt path; they carry no fibre or handler
+  truth. Every 5.0 standard-path call carries both fields; no flat
+  compatibility path is release-authoritative.
 - **-003 Fibre selection is admitted truth.** `c_call_fibre_selected`
   {cCallRef, regime, armId, compositionRef|null} is the first interior
-  row. The (stageRole × fibre) arm census is registry data asserted at
-  the one resolver entry.
+  row. The (stageRole × fibre) arm census derives from the admitted GTL
+  declaration and implementation bindings at the one resolution seam.
 - **-004 Full replay identity.** cCallRef is a STABLE DIGEST over the
   typed identity tuple {basisId, graphCallId, frameId, vectorIndex,
   stageRole, taskOrdinal, attempt} — `c-call:sha256:<hex>` — injective
   by construction (delimiter encodings collide across ":"-bearing
   fields); the READABLE locus is retained on `c_call_opened` itself.
   Recursive frames, repeated graph calls, and composed tasks shall not
-  collide. (Absorbs the T-198 frame-identity successor.)
+  collide. For an admitted open GTL C program, the typed tuple additionally
+  includes {programLocusRef, retryPath}; serial same-role loci and nested
+  attempts therefore cannot collapse onto the flat compatibility identity.
+  The two fields appear together or not at all. (Absorbs the T-198
+  frame-identity successor.)
 - **-005 Spine per invoking task.** Any stage-task that can invoke a
   worker or plugin gets its own spine; a composed batch is a parent
   grouping ref (batchRef), never the counted call.
@@ -85,14 +93,18 @@ structure around it.
 
 - **-014 Open edge programs.** The edge program is a DECLARED
   composition in the C algebra, not a fixed triple: stage roles are
-  admitted program data (the census becomes (declared role × fibre));
-  the canonical default program is [transform, evaluate, consequence].
+  admitted program data (the census becomes (declared role × fibre)). A
+  standard-library program may explicitly declare [transform, evaluate,
+  consequence], but that shape is not a hidden runtime default.
   Every declared program names its RESULT-BEARING role (whose admitted
   payload feeds closure/carry law) and runs under the same judgment
   router and retry law. Spine admission accepts any non-empty role;
-  program MEMBERSHIP is enforced at enclosure/conformance where the
+  program MEMBERSHIP is enforced at validation and runtime admission where the
   declared program is in scope — a role outside the admitted program is
-  drift.
+  drift. ABG may project separate call-preparation, result-admission, and
+  materialization bind rows around those stages. Such rows are runtime
+  admission mechanics, not C stages: they never satisfy declared stage cardinality,
+  result-bearing-role, program-order, or fibre-substitution law.
 
 - **-015 Gate invariance under compression.** A cognitive stage (plan,
   critique, repair guidance) is reifiable as an explicit program stage
@@ -102,49 +114,20 @@ structure around it.
   that remain explicit stages under every compression level. Capability
   is assessed from replay, never self-declared.
 
-- **-016 Labelled configurations.** HoG programs are NAMED
-  configurations, never a singleton: a declared catalog
-  (`abg.hog_program_catalog`) carries coexisting programs keyed by
-  programRef; edges select by label (`abg.hog_program_ref`); duplicate
-  labels fail closed. Tuning is addressable at BOTH declared levels:
-  workflow shape (the program) and prompt level (per-stage
-  `instructionCategoryRefs` — the inlined form of cognitive stages
-  under -015, consumed by the instruction section machinery at render).
+- **-016 Named GTL authority.** Programs and GraphFunctions are named admitted
+  GTL declarations published through Module and catalog authority. HoG
+  traverses those declarations directly. There is no `abg.hog_program`,
+  `abg.hog_program_catalog`, `abg.hog_program_ref`, generated handler program,
+  or interpreter-local configuration that can replace or select the GTL
+  program.
 
-- **-017 Adaptive selection.** Program selection is a RUNTIME decision
-  over DECLARED terms: an edge-class declares a selection LADDER —
-  ordered labelled configurations with predicates over replay-observed
-  signals (attempt number, prior judgments, proportionality
-  declared-vs-observed, worker-capability indicators) — and the judgment
-  router walks it live: retry may ESCALATE the program (lean → hardened
-  → human-gated) instead of re-running the same shape blindly. Different
-  C calls in the SAME workflow may run different configurations. The
-  solve/optimize boundary holds: the ladder and its predicates are
-  declarations (the optimize loop re-authors them offline from replay);
-  the router only selects among them (candidates, never terms).
-  VISIBILITY: the governing programRef is recorded on
-  `c_call_fibre_selected` so every call's configuration is replay
-  truth and -012 cost reports per configuration. Capability is assessed
-  from replay, never self-declared (-015).
-
-## Realization State (typed strangler window — reviewed at each T-200 checkpoint)
-
--001's universality is realized INCREMENTALLY under the ratified
-two-step strangler. ENCLOSED at this revision: transform.F_P (all
-exits), evaluate.F_P, evaluate.F_D (live substitution), consequence
-scalar (both paired sites), composed transform/consequence batch tasks
-(spine per invoking task), construction sub_traversal (-013). PENDING,
-with retirement points: evaluation-rule batch arms and fh_admit (P3,
-with their gate antecedents); F_D mechanical transform (program
-interpretation, P5); gate antecedent rebind from fp_dispatch_requested
-to the selection row (P3 — until then the old antecedent remains the
-operative gate point on new runs); resolveCCall delegation replacing
-the site brackets (pre-P5; the brackets are the delegation's parity
-oracle); GTL catalog publication of program declarations (P2g/P3).
-This clause retires when -001 holds unconditionally; a release note may
-not claim envelope universality while it stands. Owner: T-244 routing;
-implementation requires a singular realization leaf using the retained
-complete-C design evidence.
+- **-017 Declared adaptive traversal.** Retry, escalation, branching, and
+  alternative compute paths shall be expressed in admitted GTL graph and C
+  structure with explicit predicates, policy references, bounds, and terminal
+  cases. HoG evaluates that declared structure against ABG-admitted replay
+  facts. ABG records the selected locus, regime, implementation, judgment, and
+  continuation as runtime truth. A private runtime ladder, adapter selector,
+  hidden fallback, or generated program is prohibited.
 
 ## Non-closure
 

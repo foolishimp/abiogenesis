@@ -1,243 +1,111 @@
-# Abiogenesis
+# ABIogenesis
 
-Abiogenesis is the constitutional source for a GTL-native AI SDLC engine.
+ABIogenesis is an LLM-first GTL.TypeScript execution Product. It publishes
+typed graph Programs and GraphFunctions, validates them without lowering,
+traverses them directly through HoG, and records causal runtime truth through
+ABG.
 
-The repo is organized around spec-driven development:
-- `specification/` is the constitutional source
-- `build_tenants/TENANT_REGISTRY.md` is the canonical tenant registry
-- `build_tenants/common/` is the shared tenant-local realization root
-- `build_tenants/abiogenesis/typescript/design/` is the primary release design
-  surface for the current GTL 3 / ABG 3 line
-- `build_tenants/abiogenesis/typescript/code/` is the primary TypeScript
-  realization
-- `build_tenants/abiogenesis/typescript/test_env/` is the primary TS RC proof
-  harness
-- `build_tenants/abiogenesis/python/` is a withdrawn historical reference line
+## Current Source State
 
-The latest published TypeScript RC is `@abiogenesis/typescript-tenant`
-`4.6.0-rc.3`; the mutable source package advances independently toward 5.0.
-The constitutional language/runtime requirement families remain GTL 3 / ABG
-3. The fast reload authority for GTL contract-law/API review is
-[`REQ-L-GTL3-CONTRACT-LAW-API.md`](specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md).
+The source project is preparing ABIogenesis 5.0 as the direct feature-complete
+successor to the immutable 4.6 RC5 Product origin.
 
-The active engine and language surface is:
-- GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Operator`,
-  `Evaluator`, `Rule`, `GraphFunction`, `RefinementBoundary`,
-  `CandidateFamily`, `ContractRef`, `Job`, `Role`
-- ABG: interpreter, typed runtime carriers, event stream, projection,
-  convergence, regime binding, run, graph call, continuation, transport,
-  provenance, payload ledger, assurance projection, program conformance gate
+| Surface | Current state |
+|---|---|
+| Product definition | `specification/PRODUCT.md` |
+| selected outcome | Reconcile and reclose `ABG5-S05` |
+| active owner | T-270 |
+| accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
+| closure state | S03 accepted; S05 current; S06 open and unselected |
+| conservation | Forty-row implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
+| method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
-The current TypeScript runtime boundary is carrier and event owned. Public execution
-still enters through published `GraphFunction` work, but advancement, dispatch,
-convergence, completion, and projection consume typed runtime truth rather than
-controller-local state or `runtime_config` side channels. In the TypeScript RC
-line, `start(...)` owns the public `start -> iterate` engine path and
-`publicStart(...)` is only an adapter over that path.
+`specification/GOALS.md` is the current work-selection surface. Repository
+history, comments, completed tickets, reviews, and archived branches explain
+prior work but do not select implementation.
 
-The epistemic notation layer is deliberately not new ontology. `C` means the
-selected `abg.fn_composition` identity at an owning GTL boundary.
-Composed `.C` stages share one stage-set law; scalar stage plugins are one-task
-reductions.
-`plugin.transform.C` computes candidates and evidence. `plugin.evaluate.C` is
-an evaluation-set phase whose rules compute deterministic registers and
-semantic findings; the scalar F_P evaluator is the one-rule reduction of that
-phase. `plugin.consequence.C` computes projection refs. ABG.system admits those
-values, writes events and ledgers, folds assurance, derives traversal, and
-replays continuation.
-
-Downstream ODD domain builders declare hook refs in GTL and bind executable
-behavior through ABG plugin contracts. Payloads that influence authority,
-evidence, ambiguity, traversal, or closure pass through ABG admission and the
-event-sourced payload ledger.
-
-## Public Operator Surface
-
-Abiogenesis publishes one versioned public SDK. `abg.cli` is its thin native
-graph-shell adapter. The public operation families are:
-
-- product/catalog `resolve`, `verify`, `install`, `bind`, `admit`, `list`,
-  `describe`, `allow`, and GraphFunction `invoke`;
-- workspace `create` and `open`;
-- `start`, `resume`, `status`, `result`, `evidence`, and `replay`;
-- `gaps`, lawful `actions`, and typed F_H operations;
-- `assess-result` and `witness <act>`;
-- `observe report|drafts` and `tune report|propose|ratify|reject`;
-- `typecheck-gtl-program`; and
-- `context-bootstrap`, `gen-config`, and `release-snapshot`.
-
-Each operation has typed inputs, outputs, defaults, errors, provenance, actor
-attribution, and read-versus-write semantics. Reads project admitted truth and
-do not mutate it. Mutations enter through ABG admission. CLI, SDK, catalog
-products, and host projections do not invoke workers directly or own traversal,
-events, continuation, retry, or closure.
-
-The public contract includes one versioned host-neutral invocation descriptor
-for `invoke` and `start`. Native, CLI, and host adapters may carry it, but it
-contains no private runtime state or adapter-owned orchestration.
-
-`start` accepts one traversal request grammar:
-
-- `scope`
-- `target`
-- `until`
-
-Current public target families are:
-
-- `next`
-- `graph_function:<published_handle>`
-- `asset:<published_handle>` when the selected runtime publishes an operator
-  asset registry and ownership surface
-
-Control modes and session allowlists sit outside that request grammar. An
-allowlist narrows only the already admitted workspace catalog. `F_H` is an
-external human-callout regime; ABG admits the pending interaction and the typed
-actor-attributed response rather than performing human work inside the runtime.
-
-The current public control-mode families are:
-
-- `fh_mode = direct | human-proxy`
-- `root_mode = direct | supervised`
-
-`fh_mode` defaults to `direct`; `root_mode` defaults to `supervised`. Concrete
-spellings such as `--fh-mode` and `--root-mode` are adapter/build bindings for
-those same product-policy control families. In the current cut, both are lawful
-only with `until = converged`.
-
-Lower-level traversal or status hooks may still exist in the runtime and
-install line, but they are not the public human operator workflow.
-
-Internally, `start` binds operator input to the kernel carrier family
-(`ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`, and
-`RegimeBindingSet`). Those carriers and replay-visible events are the runtime
-source of truth.
-
-## Source of Truth
-
-Read these first:
-- Public methodology master: `https://github.com/foolishimp/specification_methodology`
-- Methodology standard: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md)
-- [INTENT.md](specification/INTENT.md)
-- [PRODUCT.md](specification/PRODUCT.md)
-- [REQ-L-GTL3-CONTRACT-LAW-API.md](specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md)
-- [requirements/gtl/](specification/requirements/gtl/)
-- [requirements/abg/](specification/requirements/abg/)
-- [requirements/mapping/](specification/requirements/mapping/)
-- [requirements/product/](specification/requirements/product/)
-- [TENANT_REGISTRY.md](build_tenants/TENANT_REGISTRY.md)
-- [build_tenants/common/design/README.md](build_tenants/common/design/README.md)
-- [build_tenants/common/design/module_decomp.md](build_tenants/common/design/module_decomp.md)
-- [build_tenants/abiogenesis/typescript/design/README.md](build_tenants/abiogenesis/typescript/design/README.md)
-
-The project method is explicit:
-- requirements are the constitutional `what`
-- design is the structural bridge
-- code must derive from requirements plus design
-- live requirements need downstream realization or explicit deferment
-- shipping behavior must trace back to constitutional authority
-
-## Shipping Surface
-
-The primary release line is the package-first TypeScript realization under
-`build_tenants/abiogenesis/typescript/`.
-
-The Python realization under `build_tenants/abiogenesis/python/` is retained as
-a withdrawn historical reference line. Python tests and archives remain useful
-evidence, but Python work is not part of the TS-primary release gate.
-
-Relevant directories:
+## Product Architecture
 
 ```text
-build_tenants/abiogenesis/typescript/
-├── code/         TypeScript GTL/ABG primary release implementation
-├── design/       TypeScript design, IACS, and structural carrier surfaces
-├── test_env/     semantic, sandbox, installed, and live RC proof lanes
-└── package.json  package-first scripts and binary bindings
+GTL.TypeScript declarations
+  -> native type checking
+  -> raw admission
+  -> non-lowering GTL validation
+  -> admitted Product, workspace, lock, catalog, and implementation basis
+  -> direct HoG traversal
+  -> F_D | F_P | F_H implementation seam
+  -> ABG admission, events, replay, continuation, and closure
+  -> SDK / CLI projection
 ```
+
+The boundaries are strict:
+
+- GTL owns Program topology and contracts.
+- GraphFunction is the callable work contract and graph template, not the
+  whole Program.
+- HoG owns direct traversal mechanics.
+- ABG owns admitted runtime truth.
+- Module and catalog own publication and discoverability.
+- Implementation bindings realize declared leaf seams only.
+- SDK and CLI are thin invocation and projection shells.
+
+A generated Program, compiled execution plan, implementation-only callable,
+hidden default, adapter selector, private event writer, public controller, or
+feature-specific runtime is not a lawful substitute.
+
+## Current Work
+
+S05 reconciliation is the only implementation-bearing frontier. It must:
+
+1. retain the packed SYSTEM-owned Consensus GraphFunction as an ordinary
+   admitted GTL callable;
+2. prove agreement, dispute recursion, and unresolved F_H escalation through
+   ordinary HoG, ABG, replay, `project.read`, and CLI paths;
+3. reconcile the affected Consensus Ontology, atomic functions, Prime, IACS,
+   module ownership, three views, operational lifecycle, and module proof;
+4. preserve accepted S03, the external Product, M4, package reproducibility,
+   and applicable negatives; and
+5. introduce no Consensus-specific command, runner, controller, scheduler,
+   event family, result store, continuation, or closure path.
+
+S06, observer/tuner, complete conservation, qualification, and release remain
+blocked until GOALS selects them.
+
+## Authority
+
+Read in this order:
+
+1. [GOALS.md](specification/GOALS.md)
+2. [INTENT.md](specification/INTENT.md)
+3. [PRODUCT.md](specification/PRODUCT.md)
+4. [requirements](specification/requirements/)
+5. [direct-GTL design](build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md)
+6. [M5 design](build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md)
+7. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
+
+`PRODUCT.md` is the sole complete 5.0 Product-definition surface.
+Requirements decompose it. GOALS selects one current Product outcome. Design
+and code define HOW without redefining Product meaning.
+
+## Repository Structure
 
 ```text
-build_tenants/abiogenesis/python/
-├── code/         paused released reference engine + GTL types + domain packages
-├── design/       paused released reference design / ADR surface
-├── test_env/     paused released reference test harness
-└── test_runs/    persistent reference test archives
+specification/                                 constitutional WHAT
+build_tenants/abiogenesis/typescript/design/   TypeScript realization design
+build_tenants/abiogenesis/typescript/code/     TypeScript realization
+build_tenants/abiogenesis/typescript/test_env/ TypeScript proof lanes
+.ai-workspace/tickets/active/                  current execution contracts
+.ai-workspace/tickets/backlog/                 later selected Product outcomes
+.ai-workspace/tickets/completed/               historical work records
+.ai-workspace/comments/                        analysis, review, and postmortems
 ```
 
-`build_tenants/abiogenesis/codex/` is non-shipping and not part of the canonical publish gate.
+## Release Boundary
 
-## Test Harness
+ABIogenesis 5.0 targets one source-independent package-first TypeScript Product
+for a trusted developer desktop. The exact 17 outcomes, seven scenarios,
+exclusions, qualification subjects, and release lifecycle are defined in
+`PRODUCT.md`.
 
-The primary TypeScript proof lane is:
-
-```bash
-cd build_tenants/abiogenesis/typescript
-npm run test:semantic
-npm run test:b016
-npm run test:t072
-npm run lint:semantic
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=180000 npm run test:t094:live
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live:uat
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live
-```
-
-The repo root is not the active test bed.
-
-The paused Python reference harness remains available for reference-only
-regression evidence:
-
-```bash
-cd build_tenants/abiogenesis/python/test_env
-./run_tests
-./run_tests e2e
-./run_tests live
-./run_tests file tests/test_live_fp_qualification.py -m live_fp -k TestLiveFpSmoke -v
-```
-
-## Installer
-
-The TypeScript RC installer is the primary bootstrap path:
-
-```bash
-cd build_tenants/abiogenesis/typescript
-npm run build:semantic
-node build/semantic/code/src/bin/abiogenesis.js install --target /path/to/project
-```
-
-That installs a package-backed ABG TypeScript runtime into the target project:
-`.abiogenesis/install-manifest.json`,
-`.abiogenesis/typescript-installer-manifest.json`,
-`.abiogenesis/docs/`,
-`node_modules/@abiogenesis/typescript-tenant`, and
-`node_modules/.bin/{abiogenesis-ts,genesis-ts}`.
-
-The paused Python reference installer remains historical/reference-only:
-
-```bash
-python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
-```
-
-That installs a `.genesis/` runtime into the target project. It is not the
-primary TS release bootstrap path.
-
-## GTL Hook And ABG Plugin Setup
-
-For ODD domain builders, the setup rule is:
-
-```text
-GTL declaration -> hook ref + replay-safe config
-ABG plugin      -> admitted provider/evaluator/policy implementation
-ABG events      -> payload, evidence, ambiguity, and closure truth
-Read models     -> projected lifecycle and lineage registers
-```
-
-The assurance plugin concerns are authority snapshot, evidence adapter,
-ambiguity classifier, closure policy provider, and gain-function adapter.
-Plugins supply inputs to ABG; ABG owns event emission, projection, selection,
-closure, and ledger truth.
-
-## Notes
-
-- Historical V1 doctrine and supersession history still exist in the specification where they matter constitutionally.
-- Alternate or legacy truth surfaces are being pruned aggressively from shipping
-  surfaces.
-- Live domain artifacts are versioned constitutional history and must change by supersession or withdrawal, not silent in-place mutation.
+odd_glc release and ABIogenesis 5.0.1 self-use are successor work. They do not
+gate ABIogenesis 5.0.

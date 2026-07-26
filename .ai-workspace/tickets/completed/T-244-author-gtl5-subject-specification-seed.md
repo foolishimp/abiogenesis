@@ -5,6 +5,8 @@
 - type: planning
 - ticket_category: feature_register
 - status: completed
+- phase_status: regenerated_and_reclosed
+- review_status: independent_reclosure_accepted
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - owner: abiogenesis
 - priority: critical
@@ -12,145 +14,209 @@
 - change_class: goal_reprice
 - re_entry_point: GOAL-035 feature and closure register
 - created_at: 2026-07-12
-- updated_at: 2026-07-13 (stable-first exact register)
-- closed_at: 2026-07-13
+- updated_at: 2026-07-16
+- first_closed_at: 2026-07-13
+- reopened_at: 2026-07-16
+- reclosed_at: 2026-07-16
+- reopen_reason: T-278 superseded the prior exact-36 operation and self-host-era projection
 - source_ticket: T-242
-- admission_condition: T-242 Stable-First Superseding Decision Record is present
+- target_shape_ticket: T-278
+- target_shape_checkpoint: 83c87dec
+- target_shape_decision_ref: .ai-workspace/comments/codex/20260715T234641Z_DECISION_fh_accept_t278_v9_target_shape.md
+- independent_reclosure_review_ref: .ai-workspace/comments/codex/20260716T051125Z_REVIEW_t244_regenerated_feature_register.md
 - dependencies:
-  - T-242 stable-first ruling (not T-242 closure)
-  - completed T-218 revision-5 candidate and capability dispositions
-  - completed T-220 and T-223 built-proof surfaces
-  - A5 completed-code three-view design register and its review dispositions
+  - current specification/GOALS.md
+  - current specification/INTENT.md
+  - current specification/PRODUCT.md
+  - current specification/requirements/
+  - accepted T-278 /9-candidate target shape
 
-## Intake Triage
+## Reopen Triage
 
-1. Substantive: yes. The prior ticket mixed a GTL-5 campaign seed with the
-   feature register and made the campaign the delivery mechanism.
-2. F_H ruled that 5.0 is the stable full-product baseline before dogfooding.
-   This ticket therefore owns the exact no-silence feature register and no
-   specification, design, code, campaign, qualification, or release work.
-3. The first affected layer is GOAL-035 scope, so `goal_reprice` is the one
-   change class. T-249 propagates the selected truth into constitutional text.
-4. This ticket depends on the recorded T-242 ruling, not T-242 closure. T-249
-   depends on this register, and T-242 closes after T-249; this ordering removes
-   the former dependency cycle.
+1. The prior register closed lawfully against its then-current constitutional
+   inputs, but T-278 later repriced the public control plane and release basis.
+2. The first affected surface is this derived GOAL-035 closure projection. The
+   constitutional reprice is already complete; this ticket does not change it.
+3. The prior register's exact-36 operation completion model, missing-17 count,
+   and self-host-era release framing are stale. They cannot authorize code or
+   release closure.
+4. Reopening this ticket preserves its identity and first closure record while
+   replacing only the derived projection. No successor register is created.
 
 ## Scope Law
 
-GOALS, INTENT, PRODUCT, and requirements own constitutional 5.0 scope. This
-ticket is the sole exact derived traceability and closure register over that
-scope. It cannot add, remove, or reinterpret constitutional meaning. Plan
-prose, retired leaves, design commentary, campaigns, and downstream backlogs
-do not create a competing register.
+GOALS, INTENT, PRODUCT, and requirements own ABIogenesis 5.0 scope. This ticket
+is their single derived feature traceability and closure projection. It cannot
+add, remove, or reinterpret constitutional meaning.
 
-A row is retained when it is required by present-tense constitutional law, a
-supported stable-product use case, a definition-bearing claim, or a direct F_H
-ruling. Delivery difficulty changes sequencing, not scope. Only operational
-self-use/dogfood evidence moves to 5.0.1 under the stable-first ruling.
+The accepted target derives 17 retained feature families, 19 public operation
+identities, 16 capability identities, one Prime
+`ExactCandidateQualification<K>` family, and 10 explicit non-5.0 dispositions.
+Those counts are no-silence checks, not independent axioms.
 
-`odd_glc` enablement is one downstream-consumer test. It is not the definition
-of feature completeness, and odd_glc 1.0 is not a 5.0 release dependency.
+ABIogenesis 5.0 is the stable, source-independent product baseline. It does not
+claim self-hosting and does not depend on odd_glc or GLC to build, qualify, or
+release it. Installed 5.0 dogfooding begins with the 5.0.1 source project.
 
-Every code-bearing row must enter through a singular ticket and accepted
-three-view domain/sequence/state design when execution starts. This register
-does not pre-create another leaf DAG and does not authorize code.
+Built proof below means evidence already present in the committed product line.
+The uncommitted T-270/T-272 runtime wave is provisional evidence only. It is not
+target closure until the final Ontology and affected designs are accepted and
+the hard-break reconciliation is independently reviewed.
 
 ## Exact Retained 5.0 Register
 
-Status terms in `Built proof` are current facts, not closure claims. `candidate`
-and `blocked` carry the verdicts in
-`build_tenants/abiogenesis/typescript/design/A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md`.
+| ID | Retained feature and authority | Current built proof | Remaining work and owner | Exact 5.0 release gate |
+|---|---|---|---|---|
+| `A5-F01` | Exact product, install, workspace, lock, binding, and ABG-owned catalog. PRODUCT installed-product law; REQ-P-INSTALL; REQ-P-CATALOG; REQ-R-ABG3-BINDING. | T-223 proves a packed predecessor install/workspace/catalog steel thread. It is not full target-contract closure. | Reconcile target definitions, exact product resolution/verification/install/bind, dependency lock, catalog admission/view, source isolation, and negatives. Owner: install/catalog boundaries, DS-5. | A fresh source-blind install binds exact product, lock, roots, workspace, and catalog truth; conflicts, mutable-source fallback, and implicit rebinding fail typed. |
+| `A5-F02` | GTL declaration, serialization, raw admission, typecheck, GraphFunction publication, and semantic compilation. PRODUCT GTL law; REQ-L-GTL3-GRAPHFUNCTION; REQ-L-GTL3-MODULE; REQ-L-GTL3-CONTRACT-LAW-API. | T-220 and T-263 through T-266 close typed authoring, strict raw admission, conformance inventory, combinator applications, and native Node/interface witnesses. | Complete packed publication parity and retain malformed/category-invalid rejection across source-blind use. Owner: GTL authoring/admission/compiler boundaries, DS-5/DS-6. | A packed consumer declares, admits, serializes, typechecks, publishes, and invokes lawful GTL; malformed GTL never executes. |
+| `A5-F03` | Seven-term C algebra, HOF, retry, recurse, complete interpreter, execution joins, and C-call conservation. REQ-L-GTL3-C-ALGEBRA; REQ-R-ABG3-INTERPRET; REQ-R-ABG3-FN-COMPOSITION. | T-259 through T-262 close the generic runtime atoms; T-267 and T-271 close whole-program conservation and complete interpretation. | Reconcile public execution against the accepted admitted-program authority in T-270, then continuation in T-272. Owner: ABG runtime semantic boundaries, DS-2/DS-3 integration. | The admitted Consensus program and non-Consensus mixed/nested fixtures execute through the same seven constructors with no feature-specific runtime branch. |
+| `A5-F04` | Declared instructions and strict malformed F_P result admission before write or closure. INTENT malformed-output law; REQ-R-ABG3-FP-CONSCIOUSNESS; REQ-R-ABG3-PLUGIN-SEAMS; REQ-P-POLICY. | T-256 closes declared execution context; T-257 closes exact F_P result-contract admission. | Carry admitted result truth through target `run.invoke`/`run.continue`; prove installed malformed, incomplete, contradictory, and unattributed negatives. Owner: T-270/T-272 and DS-6. | Invalid F_P output cannot materialize product truth or close work; valid output retains producer, evidence, lineage, result, and replay identity. |
+| `A5-F05` | One public-contract definition family, canonical schemas/vocabularies, 19 operations, 16 capabilities, and generated publication parity. REQ-P-PUBLIC-CONTRACTS; REQ-M-GTL3-CAPABILITY. | The committed register/generator is reusable predecessor machinery with 82 schema assets and 8 capability assets. Only `workspace.create`, `workspace.open`, and `catalog.admit` intersect the accepted target operations (`3/19`); only 7 capability assets match the target 16, while `abg.capability.fh.interact@5` is obsolete. This is not target parity. | Define and publish all 19 target rows from one authority; migrate the other 16 by hard break; publish the Consensus projections, one exact-candidate qualification schema family, and the exact 16-row capability graph. Owners: public definition/projector owners, T-274, T-247, and T-268. | Packed catalog, native symbols, schemas, SDK/CLI coordinates, handlers, capability graph, and generated assets agree exactly; no legacy identity or parallel register remains. |
+| `A5-F06` | Versioned public SDK and thin `abg.cli` graph shell over the 19-operation projection. INTENT public CLI law; PRODUCT Public Operator Contract; REQ-P-POLICY; REQ-P-PUBLIC-CONTRACTS. | T-223 proves a thin SDK/CLI predecessor steel thread. Current public handlers target the superseded roster; only 3 target identities exist by name. | Reconcile every target definition, handler, SDK method, CLI coordinate, result/refusal, and workspace-binding rule. Owner: public SDK/CLI plus semantic operation owners, DS-2/DS-4. | Source-blind SDK and CLI expose the same 19 functions and typed outcomes; CLI owns parsing, formatting, and ignition only. |
+| `A5-F07` | Complete One Surface operator loop: synthesize model, evaluate gaps, select lawful action, invoke or continue, admit evidence, evaluate action, stop/hold/respond/resume. PRODUCT One Surface; REQ-P-POLICY; REQ-R-ABG3-CONTINUATION; ABG5-S03. | T-258 closes public F_H carrier admission; T-267/T-271 preserve the static interpreter and result loci. No target end-to-end public loop is closed. | Realize the four distinct authorities through an admitted GTL program, then reconcile T-270/T-272 without ingress-owned orchestration. Owner: One Surface design/runtime owners, DS-2. | Installed ABG completes ABG5-S03 with replay-derived frontier/actions and typed F_H continuation; public ingress and adapters never select or order work. |
+| `A5-F08` | SYSTEM-owned bounded Consensus GraphFunction as a free construction over public atoms. REQ-P-CONSENSUS; REQ-P-SCENARIOS ABG5-S05; GTL GraphFunction/composition law. | T-252 provides the canonical pure-data body and census; completed T-253, T-259 through T-267, T-269, and T-271 provide generic admission, runtime, construction, conservation, and interpreter atoms. No Consensus runtime branch exists. | Publish the installed Module/schema family/catalog row in T-274, profiles/result projection in T-275, capabilities in T-268, and three-workspace proof in T-276. | Through `abg.cli`, two attributed profiles over a real ticket prove agreement, dispute recursion, and F_H escalation in existing, alternate, and temporary workspaces with result/replay truth and no ticket mutation. |
+| `A5-F09` | Public read/view/apply/invoke semantics for GraphFunction, node type, and overlay; only GraphFunction callable. PRODUCT catalog law; REQ-P-CATALOG; REQ-M-GTL3-PROGRAM-TRAVERSAL. | Typed catalog kinds and compiler callability constraints exist. The accepted `project.read`, `catalog.view`, `catalog.apply`, and `run.invoke` public projection is not realized. | Reconcile public catalog semantics under the target operation family and prove node/overlay application remains non-callable. Owner: compiler/catalog/public-operation boundaries, DS-2/DS-4. | Packed fixtures list/describe retained kinds, narrow views, apply node/overlay declarations, invoke only published GraphFunctions, and reject every alternate callable path. |
+| `A5-F10` | Event, replay, lineage, provenance, correction, continuation, consequence, projection, and typed failure truth. PRODUCT ABG truth law; REQ-R-ABG3-EVENTS; REQ-R-ABG3-PROJECTION; REQ-R-ABG3-CONTINUATION. | The committed kernel and T-223/T-267/T-271 proofs provide substantial event/replay/conservation evidence. Target public routing is not closed. | Reconcile event admission and passive projections through target operations; close continuation, blocked-path, diagnostic census, and installed evidence. Owner: ABG runtime truth boundaries, DS-2/DS-6. | Every retained scenario cites attributable event, result, replay, correction, continuation, and closure truth; malformed and basis-fork paths remain typed non-close. |
+| `A5-F11` | ABIogenesis self-conformance with no product exemption. PRODUCT self-conformance; REQ-P-SELF-CONFORMANCE; REQ-P-QUAL; ABG5-S04. | T-264 provides proportional conformance inventory and T-277 Prime evidence. No exact 5.0 candidate verdict exists. | Inventory the frozen candidate, run real-tree and seeded-negative gates, and reduce owning results through the one qualification family. Owner: T-247, DS-6. | One exact candidate passes applicable constitutional/design/code/proof/ticket/public/release law; a seeded violation produces typed non-green evidence. |
+| `A5-F12` | Replay-grounded observer and tuner with draft-only mutation. INTENT reflective law; PRODUCT observer/tuner boundary; REQ-P-POLICY. | Predecessor observer/tuner behavior exists. It is not qualified against the accepted 5.0 public surface. | Bind reads/drafts/ratify/reject to target `project.read` and `tuning.transition`; prove attribution, truthful halt, replay, and injected negative. Owner: observer/tuner GraphFunctions and T-247, DS-5/DS-6. | Installed candidate proves drafts never mutate authority and one injected negative returns the expected non-green truth. |
+| `A5-F13` | Native operation plus one bounded Codex compatibility projection over the same public contract. INTENT native/adapter law; PRODUCT host projection; ABG5-S06. | Native SDK/CLI and capability preflight substrate exist. Exact target parity and the structural adapter differential are open. | Complete native 19-operation use and one Codex projection with no copied runtime behavior. Owner: native SDK/CLI and Codex adapter, DS-5/DS-6. | Native use works without a marketplace; Codex delegates the same public invocation; adapter failure leaves native use intact and no worker/event/traversal authority appears in the adapter. |
+| `A5-F14` | Packed install, Hello World, and bounded live F_P proof. PRODUCT source-independent distribution; REQ-P-INSTALL; ABG5-S01/ABG5-S02. | T-223 provides packed Hello World, source isolation, package, and catalog predecessor evidence. It predates the accepted hard break. | Rerun from exact candidate bytes after target public and Consensus publication; include malformed-output, dependency-cycle, and one sunny-day live proof. Owner: packaging/install/runtime owners, DS-6. | A clean root installs the tarball and completes Hello World plus one live F_P path with typed result/replay and no source/private imports. |
+| `A5-F15` | One Prime `ExactCandidateQualification<K>` basis/verdict family with law basis, ordered gate-result vector, prospective RC identity, installed-RC authorization, final-tap delta, and bounded release read model. PRODUCT Release Framing; REQ-P-QUAL; REQ-P-SELF-CONFORMANCE. | The accepted constitutional family and lifecycle are specified. No exact candidate has been frozen or qualified. | Implement owning-gate citations, vector admission/reduction, bypass refusal, candidate freeze, installed-RC authorization, and final-delta affected-gate rerun. Owners: T-247 and T-248, DS-6/DS-7. | Same-subject/same-law-basis results reduce to one green non-bypassed verdict; qualified bytes and basis-bound prospective RC identity materialize unchanged; final-only delta is typed and fully reconciled. |
+| `A5-F16` | Immutable RC window and stable `5.0.0` release. PRODUCT Release Framing; REQ-P-QUAL; REQ-P-POLICY; RELEASE_METHOD; ABG5-S07. | No 5.0 RC or stable cut exists. The 4.6 line is process evidence only. | Freeze and qualify pre-RC candidate, publish immutable RC, qualify installed RC, reconcile final-only delta, cut final, and verify fresh install. Owner: T-248, DS-7. | Git ref, tag, tarball, manifest, checksums, qualification evidence, final cut, and installed Product identify the same immutable bytes. |
+| `A5-F17` | Generic downstream catalog compatibility sufficient for odd_glc without making it a release dependency. INTENT downstream-product law; PRODUCT ODD ownership; REQ-P-CATALOG; REQ-P-INSTALL. | T-223 and released predecessor fixtures show bounded catalog consumption. They do not prove the accepted 19-operation hard-break surface. | Run a bounded declarations-only downstream fixture over exact installed 5.0; retain three-layer ownership and no local controller. Owner: generic ABIogenesis substrate; odd_glc remains independent, DS-5/DS-6. | A flavored downstream catalog binds and invokes through public ABG contracts without private imports or local runtime/controller; no odd_glc release gates 5.0. |
 
-| ID and feature (T-218 coverage) | Requirement/product authority | Built proof and design status | Remaining 5.0 work | Owner | Dependency | Exact release gate | Material risk, hedge, and F_H disposition |
-|---|---|---|---|---|---|---|---|
-| `A5-F01` Exact product, install, workspace, binding, lock, and ABG-owned catalog foundation (`CR-P-01/02`, `CR-M-01..08`, `CR-C-01/02`, `A5-EX1`) | PRODUCT installed-product/catalog law; REQ-P-INSTALL; REQ-P-PUBLIC-CONTRACTS; BINDING-015 | T-223 packed product/workspace/catalog foundation; `M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN` is `candidate` | Close design review; prove exact resolve/verify/install/bind/admit, dependency lock, provenance-preserving reads, explicit re-resolution, and source independence over final bytes | ABIogenesis install/catalog boundaries | accepted foundation design; publication rows | Fresh source-blind install binds exact product and workspace identities; conflicts fail typed; no mutable-source fallback | Risk: source/install/product collapse. Hedge: exact manifests, digests, explicit roots, packed fixture. Residual: trusted local filesystem. `retain_5_0` |
-| `A5-F02` GTL declaration, raw admission, serialization, typecheck, GraphFunction publication, and semantic compiler (`CR-P-07`, `CR-GF-01/07`, `A5-GF1`) | PRODUCT GTL/atom law; REQ-L-GTL3 contract-law families; REQ-P-PUBLIC-CONTRACTS | T-220 gate 35/35; `M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN` is `candidate` | Accept design; publish exact native/schema/corpus contracts; ensure malformed authored and serialized GTL fails before execution; keep GraphFunction as sole callable kind | GTL authoring/admission/compiler boundaries | F01 publication substrate | Packed candidate declares, admits, typechecks, serializes, publishes, and invokes lawful GTL; malformed/category-invalid GTL is typed non-execution | Risk: LLM invents hidden structure. Hedge: native types, raw admission, semantic compiler. `retain_5_0` |
-| `A5-F03` Complete seven-term C algebra, C-conformance-to-ExecutionBasis join, uniform C-call enclosure, stage interiors, hooks, node/overlay application, and runtime residuals (`CR-GF-08..12`, `CR-RL-01..06/11`, `A5-GF1`, former DS-2) | PRODUCT C/compute spine; REQ-L C algebra; REQ-R INTERPRET/FN-COMPOSITION/EVENTS/PLUGIN-SEAMS/WITNESS/ITERATION | T-220 supplies typed constructors and compiler diagnostics; execution-handoff design is `candidate`; `workflow.C`, `C.batch`, and `C.retry` are explicitly `semantic_not_realized` | Use the Consensus GTL probe to census gaps; realize generic `workflow.C`, then `C.batch`, then `C.retry`; bind conformance identity into basis; close one spine/enclosure, hook precedence, replay-ordinal, store-context, basis-fork, continuation, node/overlay gaps | ABIogenesis GTL/runtime semantic boundaries; separate singular leaves per accepted design | F02; non-Consensus consumer named for each generic atom | Same admitted Consensus graph recompiles after each atom and loses the expected gap without feature-specific code; multi-stage fixture and non-Consensus fan-out/retry scenarios pass; archive/replay equality holds | Risk: consensus-specific atoms or another mega-leaf. Hedge: same-graph recompile oracle, non-Consensus fixtures, per-boundary leaves. `retain_5_0` |
-| `A5-F04` Declared instruction/protocol assets and malformed F_P output admission before materialization or closure (`CR-GF-09/10`, PAYLOAD-028, PLUGIN-SEAMS-006) | INTENT malformed-output law; PRODUCT declared result path; REQ-R PAYLOAD/HANDLERS/PLUGIN-SEAMS; REQ-P-QUAL | F_P attribution subclaim passes; `M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN` and `M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN` are `blocked` | Move protocol strings/refs into GTL declarations; close G1-G5 raw-to-close gaps; one schema from worker artifact through admission/materialization; typed retry/F_H truth; no local prompt shell | GTL instruction declarations; ABG F_P/result admission boundaries | F02/F03; accepted F_P and instruction designs | Malformed, incomplete, contradictory, or unattributed F_P output cannot write product truth or close work; valid output retains producer, evidence, lineage, result, and replay refs | Risk: likely malformed probabilistic output. Hedge: strict declared response admission at the pre-write boundary. `retain_5_0` |
-| `A5-F05` Addressable public-contract catalog, canonical schemas, vocabularies, conformance corpus, operation identities, capability identities, and generated publication parity (`CR-RL-09/10`, `A5-SP1`) | REQ-P-PUBLIC-CONTRACTS; REQ-P-SCENARIOS; PRODUCT public distribution | T-223 DS-1 subset publishes the steel-thread catalog and generated assets; `M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN` is `candidate` for DS-1 and `blocked` for full 5.0 | Publish every T-244-retained native/schema/vocabulary/corpus row; complete the exact 36-operation roster and the T-249-aligned 16 mandatory capability identities; prove source/generator/output parity | Public-contract compiler/generator and owning semantic modules | F01/F02/F04; T-249 identity reprice | Source-blind consumer resolves every normative contract by stable identity/digest; exact census and parity gates pass; no operation/capability claim exists only in prose | Risk: subset proof presented as complete. Hedge: exact manifest census against T-244 and requirements. `retain_5_0` |
-| `A5-F06` Versioned public SDK and thin `abg.cli` graph shell for workspace, install, catalog, invocation, status, result, replay, conformance, witness, observer, tuner, and lifecycle operations (`CR-C-01..06-I/09..11`, `A5-EX2/EX3`) | INTENT public CLI; PRODUCT public operator contract; REQ-P-POLICY/PUBLIC-CONTRACTS | T-223 packed steel thread publishes 13 operation identities; `M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN` is `blocked` | Implement every retained operation identity through one SDK contract; complete exact request/result/error/default/actor semantics; no CLI orchestration or private runtime imports | Public SDK plus thin CLI adapter | F03-F05 | A source-blind agent completes every retained operation through SDK and CLI; both paths produce the same contract truth; CLI owns formatting/ignition only | Risk: shell becomes second controller. Hedge: operation parity and structural no-worker/event/continuation path gate. `retain_5_0` |
-| `A5-F07` Complete interactive operator loop: start, truthful stop/hold/gap, lawful frontier/actions, typed F_H act, resume/restart, and convergence (`CR-GF-02-R/05/06`, `CR-C-06-R/07/08`, `CR-RL-04`) | INTENT primary workflow; PRODUCT operator loop; REQ-P-POLICY and interaction/event law | Start/result/replay substrate exists; no complete public typed F_H exit; public SDK design is `blocked` | Publish replay-derived lawful-action queries; bind approval/assessment/answer/escalation to pending interaction, actor, and capability; implement public resume without caller-owned continuation | ABG runtime interaction/admission/projection boundaries; SDK/CLI adapter | F03/F04/F06 | Installed `start -> truthful stop -> inspect/actions -> agent edit or typed F_H response -> resume/start -> converged` passes without a second controller | Risk: deferral removes the actual product workflow. Hedge: definition-bearing end-to-end scenario. `retain_5_0` |
-| `A5-F08` ABG SYSTEM-owned agent-invocable governed Consensus GraphFunction over ticket or typed subject (`CR-H bounded re-entry`, `A5-GF2` narrowed) | Direct F_H CR-H ruling; PRODUCT atom criterion after T-249; REQ-L GraphFunction/recursion/composition; REQ-P-SCENARIOS | T-217 provides declarations/vocabularies only; T-223 provides packed workspace/invoke/result/replay atoms; invalid imperative implementation `945b5a2` reverted by `2c85a88`; rejected design records category failure | Author executable GTL body first; compile to typed gaps; supply strict subject/panel/finding/round/result schemas, attributed heterogeneous profiles, governed recursion/foldback, dissent, budget/F_H outcome, ticket-bound read projection; no plugin body | ABIogenesis owns reusable GraphFunction; hosts/catalogs own profiles/bindings/policies/overlays | F03/F04/F06/F07; accepted new Consensus design | From packed candidate, an agent invokes a real ticket with two profiles; fixtures converge, recurse on dispute, and reach round-limit/F_H; same path works in current, alternate explicit, and caller-created temporary workspaces; result/replay/triage action readable; no shell orchestration or mutation | Risk: repeat imperative counterfeit. Hedge: mandatory Mermaid domain/sequence/state review, executable GTL body, semantic gap oracle. `retain_5_0` |
-| `A5-F09` Public list/describe/apply semantics for `graph_function`, `node_type`, and `overlay`; only GraphFunction callable (`CR-M-05`, former T-179/T-228) | PRODUCT recursive catalog/ODD ownership; catalog/node/overlay requirements | Catalog kind vocabulary and GraphFunction selection exist; complete node/overlay public application proof is not closed | Name exact public inspect/application operations and semantic compiler checks; prove node/overlay remain typed declarations, never alternate callable programs or runtime controllers | GTL/compiler/catalog application boundaries | F02/F05/F06 | Packed fixture lists/describes all retained kinds, applies node/overlay lawfully, and refuses callable selection for non-GraphFunction rows | Risk: downstream flavor leaks into kernel or creates another controller. Hedge: three-layer ownership and callable-kind gate. `retain_5_0` |
-| `A5-F10` Runtime truth: admitted events, replay ordinal, provenance, lineage, correction, continuation, consequence, projections, and typed failure (`CR-P-03`, `CR-GF-10..12`, `CR-RL-01/02/05/06`, `A5-SP3`) | PRODUCT ABG truth ownership; REQ-R EVENTS/WITNESS/ITERATION/FRAME/PAYLOAD | Large existing kernel/test corpus; T-223 result/replay steel thread; design rows expose basis-join and blocked-path gaps | Close retained runtime residuals at their semantic boundaries; ensure events are written only by admission boundaries and read models remain passive; publish exact event/diagnostic census | ABG runtime admission/projection boundaries | F03/F04/F05 | All retained installed scenarios cite attributable event, result, replay, correction, continuation, and closure truth; malformed/basis-fork paths stay typed non-close | Risk: passive carriers act as controllers or array order becomes truth. Hedge: accepted domain/sequence/state diagrams plus ordinal/store pins. `retain_5_0` |
-| `A5-F11` ABIogenesis self-conformance with no product exemption (`A5-SH0`, `CR-RL-10`) | INTENT item 12; PRODUCT self-conformance; REQ-P-SELF-CONFORMANCE/QUAL | Constitutional surfaces and conformance machinery exist; complete exact-candidate audit not yet closed | Inventory exact method/rule/source and constitutional/design/code/proof/ticket/public/release surfaces; typed findings/dispositions; real-tree and seeded-negative gates; no self-host implication | T-247 compliance owner; compiler/conformance boundaries | T-249; F05; retained feature implementations | Exact candidate passes published conformance under exact bases; seeded violation fails with typed evidence; snapshot cites result | Risk: compliance by manifest assertion. Hedge: source-blind inventory, negative fixture, executable-change witness. `retain_5_0` |
-| `A5-F12` Current observer/tuner as replay-grounded, draft-producing capabilities (`A5-SH4` stripped of self-build coupling) | INTENT item 11; PRODUCT observer/tuner and reflective boundary | Existing observer/tuner predecessor behavior; no exact 5.0 candidate qualification | Prove truthful halt, replay-grounded findings/drafts, actor/policy attribution, ratification/rejection, replay-visible acts, and injected negative over ordinary candidate surfaces | ABIogenesis observer/tuner GraphFunctions; T-247 qualification | F06/F10/F11 | Exact candidate installed proof shows drafts never mutate authority and one negative returns expected non-green truth | Risk: observer/tuner becomes mutation authority. Hedge: draft-only contract and attributed F_H ratification gate. `retain_5_0` |
-| `A5-F13` Native no-host operation plus one bounded Codex CLI/skill compatibility projection (`CR-P-05/06`, `CR-X-01..07`, `A5-CX1`) | INTENT native/adapter law; PRODUCT host compatibility; public contract requirements | Native CLI/SDK and capability preflight substrate exists; complete operation parity not closed | Finish native retained scenarios; implement Codex projection strictly over public CLI/SDK; compare fixed digests or live schema/replay invariants; prove host failure leaves native path usable | Native SDK/CLI; Codex adapter owns projection only | F06-F08 | Native path completes with no marketplace; Codex path delegates same invocation; structural differential finds no worker/event/traversal/continuation authority | Risk: marketplace skill cohabitation creates copied controller. Hedge: one host-neutral descriptor and adapter structural gate. `retain_5_0` |
-| `A5-F14` Packed candidate, clean install, Hello World, and bounded installed live proof (`CR-P-04`, `A5-EX1`, former DS-1) | INTENT source-blind install; PRODUCT distribution; REQ-P-INSTALL/QUAL/SCENARIOS | T-223 gate 70/70 and packed Hello World/live steel thread; `M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN` is `blocked` by F_P/instruction placement | Re-run after F03/F04; prove recursive dependency materialization/cycle refusal; final exact manifest/source isolation; at least one live sunny-day sandbox | Packaging/install/runtime owners | F01-F06 | Exact tarball fresh-installs; Hello World and a live F_P path return typed result/replay; no source/private import; cycle and malformed-output negatives pass | Risk: source-tree test mistaken for product proof. Hedge: packed-only clean root and source isolation. `retain_5_0` |
-| `A5-F15` Complete qualification enforcement and one bounded self-certifying release read model (`CR-RL-07`, `A5-SP1/SP2`, `A5-R1`) | REQ-P-QUAL; RELEASE_METHOD; PRODUCT exact cut | Existing build/lint/test and candidate manifest machinery; diff witness, exemption, bypass, and exact full-product aggregation remain open | General executable census; zero unexplained legacy exemptions; packed/live-only retained proofs; red/bypass refusal; cite owning evidence without second checker | T-247 | F05/F11-F14 and all retained rows | T-247 returns one green exact-candidate compliance result; every changed executable is witnessed; mandatory red/bypass cannot promote; snapshot binds exact bytes | Risk: paper manifest or proof framework proliferation. Hedge: one read model over owning proofs plus negative gates. `retain_5_0` |
-| `A5-F16` Direct immutable 5.0 RC window and final release (`A5-R1`, old DS-8 narrowed) | PRODUCT exact release; REQ-P-QUAL RC/final law; RELEASE_METHOD | 4.6 rc.3/odd_glc 0.1 release discipline is predecessor evidence; no stable 5.0 cut exists | Freeze exact candidate; publish immutable RC; qualify latest accepted RC; reconcile final-only delta; fresh-install final; push branch/tag/checksums/record | T-248 | every retained row, T-247, T-249 | Exact `5.0.0` Git/tag/tarball/manifest/checksum/install/proof identities agree after RC window; no dogfood or GLC rung | Risk: release identity diverges or dogfood silently re-enters. Hedge: exact-cut manifest and explicit no-second-rung gate. `retain_5_0` |
-| `A5-F17` Downstream catalog compatibility and three-layer ownership sufficient for odd_glc (`CR-P-04`, old `A5-EX4` narrowed) | INTENT odd_glc independent product law; PRODUCT ODD ownership; ODD_METHOD | Released odd_glc 0.1/rc.3 evidence and T-223 fixture prove bounded predecessor compatibility, not odd_glc 1.0 or dogfood | Ensure retained install/catalog/node/overlay/GraphFunction/public contracts can host a declarations-only flavored catalog; use fixture/current release evidence only; do not require odd_glc 1.0 | ABIogenesis owns generic substrate; odd_glc owns its later declarations/product | F01/F02/F06/F09/F14 | Bounded downstream fixture binds and invokes without local runtime/controller; no odd_glc release or data-mapper campaign gates 5.0 | Risk: downstream product becomes hidden compiler or release dependency. Hedge: generic fixture and explicit product separation. `retain_5_0` |
+## Derived Public Operation Projection
+
+The following 19 identities derive from one `PublicFunctionDefinition<K>`
+family. They are the complete 5.0 external projection, not 19 separately
+authored semantic authorities.
+
+| Identity | Closed variation |
+|---|---|
+| `abg.operation.workspace.create` | target plus `clean | imported` policy |
+| `abg.operation.workspace.open` | expected workspace-authority basis plus readiness projection |
+| `abg.operation.project.read` | closed catalog/runtime/evidence/replay/gap/action/observer/tuning projection relation |
+| `abg.operation.product.verify` | artifact format and contract |
+| `abg.operation.product.resolve` | product requirements |
+| `abg.operation.product.install` | install target policy |
+| `abg.operation.workspace.bind` | exact product set, dependency lock, and roots |
+| `abg.operation.catalog.admit` | admitted contribution family |
+| `abg.operation.catalog.view` | narrowing allowlist |
+| `abg.operation.catalog.apply` | `node_type | overlay`; both non-callable |
+| `abg.operation.run.invoke` | `invoke | start` |
+| `abg.operation.run.continue` | current intent or newly admitted selected action |
+| `abg.operation.interaction.respond` | `select | approve | reject | assess | answer_escalation` |
+| `abg.operation.result.assess` | declared result-assessment contract |
+| `abg.operation.witness.admit` | `reprice | attest | hygiene-stamp | intake | run-resumed | run-stopped` |
+| `abg.operation.tuning.transition` | `propose | ratify | reject` |
+| `abg.operation.conformance.evaluate` | public `gtl_program`; self-conformance remains qualification-bound |
+| `abg.operation.product.materialize` | `context_bootstrap | configuration` |
+| `abg.operation.release.snapshot` | `published_rc | tapped_release` |
+
+Current committed identity intersection is exactly 3/19:
+`workspace.create`, `workspace.open`, and `catalog.admit`. The current register,
+generator, schemas, and handlers are reusable provisional machinery, not target
+parity. The other 16 target identities require hard-break migration. Every
+non-derived legacy identity retires without alias, facade, fallback, or parallel
+register.
+
+## Derived Capability Projection
+
+The complete mandatory capability projection is:
+
+1. `abg.capability.gtl.declare@5`
+2. `abg.capability.gtl.admit@5`
+3. `abg.capability.gtl.serialize@5`
+4. `abg.capability.gtl.typecheck@5`
+5. `abg.capability.module.publish@5`
+6. `abg.capability.catalog.contribute@5`
+7. `abg.capability.catalog.invoke-graph-function@5`
+8. `abg.capability.catalog.apply-node-type@5`
+9. `abg.capability.catalog.apply-overlay@5`
+10. `abg.capability.runtime.execute-seven-term-c@5`
+11. `abg.capability.runtime.admit-fp-result@5`
+12. `abg.capability.runtime.replay-continuation@5`
+13. `abg.capability.operator.public-contract@5`
+14. `abg.capability.install.bind-products@5`
+15. `abg.capability.qualification.self-conformance@5`
+16. `abg.capability.graph-function.consensus@5`
+
+These identities derive from one capability-definition graph. T-268 publishes
+realized claims over that graph after target operation and Consensus parity; it
+does not author another vocabulary or infer support from package presence.
+
+## Prime Qualification Family
+
+There is one content-addressed `ExactCandidateQualification<K>` atomic family,
+with `K = basis | verdict`. Its basis and verdict projections own subordinate
+`QualificationLawBasis`, ordered same-subject/same-law-basis owning-gate result
+vector, and `FinalTapDelta` definitions. Those definitions are not independent
+qualification authorities or separately authored peer families.
+
+The acyclic release path is:
+
+```text
+pre_rc_candidate basis, prospective RC identity, and exact bytes carrying it
+  -> owning gates and one reduced verdict
+  -> published_rc cut and output evidence
+  -> installed_rc basis and verdict
+  -> final_tap_candidate basis plus FinalTapDelta
+  -> affected-gate reruns and verdict
+  -> tapped_release cut and output evidence
+```
+
+`release.snapshot` materializes only bytes and identity already admitted by the
+matching green non-bypassed verdict. `installed_rc` is authorization evidence
+for the final basis, never a direct release-cut variant.
 
 ## Explicit Non-5.0 Dispositions
 
-These rows prevent exclusions and successor work from disappearing by silence.
-
 | ID | Candidate scope | Disposition and re-entry trigger |
 |---|---|---|
-| `A5-D01` | P4/I4/B5/S5/C1/C2/R5 two-stage self-host and operational self-use proof (old `A5-SH1..SH3`) | `deferred_to_5_0_1_dogfood`. Exact 4.6 rc.3 remains evidence only. Installed stable 5.0 plus odd_glc 1.0 first governs the 5.0.1 subject through T-245/T-246. No 5.0 self-host capability or release gate remains. |
-| `A5-D02` | odd_glc 1.0 maturation, full data-mapper campaign, and released ABG/GLC pair | `deferred_to_post_5_0`. These are downstream/dogfood work after T-248, not missing 5.0 functionality. |
-| `A5-D03` | Update, disable, unbind, uninstall, retirement, revocation, and supersession (`CR-M-10A/B`) | `deferred`. Re-enters with a concrete installed-product lifecycle use case; initial exact install/bind remains F01. |
-| `A5-D04` | Generic Review product, unrelated homeostatic GF2 compositions, scheduler, automatic wake, recurrence, and direct ticket mutation (remaining `CR-H`) | `excluded`. Only bounded agent-invocable Consensus F08 is admitted. Re-entry requires a new concrete product use case and product/intent decision. |
-| `A5-D05` | Hosted registry/storefront, ranking, billing, signing, licensing, IAM/RBAC, multi-user administration (`CR-M-09`) | `excluded` on the trusted-desktop boundary. Re-enters with a hosted/multi-user product decision. |
-| `A5-D06` | Multiple host adapters, generic pass@k/harness products (`A5-Q1/Q2`) | `excluded`. One bounded Codex projection remains F13; additional hosts or research products require demand. |
+| `A5-D01` | Two-stage self-host and operational self-use proof | `deferred_to_5_0_1_dogfood`. Installed stable 5.0 plus later odd_glc 1.0 may build the 5.0.1 source project. No self-host claim, capability, or release gate remains in 5.0. |
+| `A5-D02` | odd_glc 1.0 maturation, full data-mapper campaign, and released ABG/GLC pair | `deferred_to_post_5_0`. These are downstream or dogfood work, not missing 5.0 functionality. |
+| `A5-D03` | Update, disable, unbind, uninstall, retirement, revocation, and supersession lifecycle | `deferred`. Re-enters with a concrete installed-product lifecycle use case; exact initial install/bind remains F01. |
+| `A5-D04` | Generic Review product, unrelated homeostatic compositions, scheduler, automatic wake, recurrence, and direct ticket mutation | `excluded`. Only bounded agent-invocable Consensus F08 is admitted. Re-entry requires concrete product demand and product/intent decision. |
+| `A5-D05` | Hosted registry/storefront, ranking, billing, signing, licensing, IAM/RBAC, and multi-user administration | `excluded` on the trusted-desktop boundary. Re-enters with a hosted or multi-user product decision. |
+| `A5-D06` | Multiple host adapters and generic pass-at-k/research harness products | `excluded`. One bounded Codex projection remains F13; additional hosts or research products require demand. |
 | `A5-D07` | Hostile local-object/filesystem forgery, cryptographic substitution, remote attestation, and tamper-proofing | `excluded`. Re-enters only if the trust boundary changes or a supported-path reproduction requires it. |
-| `A5-D08` | Universal proof-carry-through migration for every legacy edge (`CR-RL-12`) | `deferred`. New retained proof-bearing paths declare required carry-through; universal migration re-enters with a universal coverage claim. |
-| `A5-D09` | Shared promotion-method law (`CR-SM-01`) | `deferred_to_method_intake`. Requires specification_methodology authority; it is not silently made an ABIogenesis engine feature. |
-| `A5-D10` | Full installed-product source-governance induction (`B-010`) | `deferred_to_5_0_1_dogfood`. Manual STDO plus accepted-design gates govern 5.0 construction; installed stable 5.0/odd_glc 1.0 governs the successor only. |
+| `A5-D08` | Universal proof-carry-through migration for every legacy edge | `deferred`. New retained paths carry required proof; universal migration re-enters with a universal coverage claim. |
+| `A5-D09` | Shared promotion-method law | `deferred_to_method_intake`. It belongs in specification_methodology, not as an ABIogenesis engine feature. |
+| `A5-D10` | Full installed-product source-governance induction | `deferred_to_5_0_1_dogfood`. Manual STDO and accepted-design gates govern 5.0 construction; installed stable 5.0 governs its successor. |
 
-## Nothing-Lost Map
+## No-Silence Closure Checks
 
-| T-218 source family | Register destination |
-|---|---|
-| `CR-P-01..07` | F01, F02, F06, F11, F13, F14, F17, D01/D02 |
-| `CR-M-01..10B` | F01, F05, F09, D03/D05 |
-| `CR-GF-01..12` | F02-F04, F07, F10 |
-| `CR-C-01..11` | F01, F06, F07 |
-| `CR-H-01..09` | F08 for bounded Consensus; D04 for the remainder |
-| `CR-X-01..07` | F13 |
-| `CR-SM-01` | D09 |
-| `CR-RL-01..12` | F03-F05, F07, F10, F11, F15; D08 |
-| `A5-SH0..SH4` | F11/F12; D01 removes fixed-point coupling |
-| `A5-SP1..SP3`, `A5-GF1/GF2` | F02-F05, F08, F10, F15 |
-| `A5-EX1..EX4`, `A5-CX1`, `A5-R1`, `A5-Q1/Q2` | F01, F05-F07, F13-F17; D02/D06 |
-| Completed-code design register's nine stages | F02-F06, F08, F10, F14; rejected Consensus remains negative evidence in F08 |
-| T-247 held claims | F11, F12, F15 |
+- [x] All 17 retained GOAL-035 feature identities have authority, honest built
+  proof, remaining work, owner, and exact release gate.
+- [x] All 10 non-5.0 candidates have explicit dispositions and re-entry
+  triggers.
+- [x] The exact 19-operation and 16-capability projections are enumerated.
+- [x] The operation projection records current target identity truth as 3/19,
+  not legacy-count parity.
+- [x] One Prime qualification family and its acyclic release path are explicit.
+- [x] Self-hosting, odd_glc maturation, and 5.0.1 dogfood are not 5.0 gates.
+- [x] No exact-36 completion target, missing-17 work claim, legacy facade, or
+  parallel public register remains.
+- [x] Independent review confirms the regenerated projection against current
+  GOALS, INTENT, PRODUCT, requirements, and the accepted T-278 ruling.
+- [x] Reclosure records the accepted review and moves this ticket back to the
+  completed lane without changing constitutional scope.
 
-## Risk And Hedge Law
+## Historical Closure Lineage
 
-Risk does not authorize a feature or a control. Each retained row names the
-failure mode, proportionate hedge, and accepted residual. A hedge belongs at
-the boundary that can reduce the named risk; a misplaced or permanent hedge
-without a retirement trigger is technical debt. The supported environment is
-one trusted developer desktop, so malformed GTL and likely malformed F_P output
-receive strong treatment while hostile-local tamper work remains excluded.
+T-244 first closed on 2026-07-13 against checkpoint `7107604`, with independent
+Phase-1 review `d5aaa3f` and a then-current register containing 17 feature rows
+and 10 explicit dispositions. That closure remains historical evidence of the
+earlier plan; it is not current implementation authority.
 
-The optional stable-plan amendment A5, a mechanical commit/push guard requiring
-ticket and accepted-design refs on product-code changes, remains `pending_fh`.
-The mandatory gate already stands: no product code without a singular ticket,
-accepted design, and phase self-review. Optional automation may enforce that
-law later; it is not a release feature or prerequisite.
+T-278 subsequently superseded the earlier exact-36 operation model and removed
+self-hosting from the 5.0 release claim. This 2026-07-16 reopen preserves the
+ticket identity and prior closure record, replaces only the derived projection,
+and leaves runtime, Ontology, GOALS, constitutional text, and every other ticket
+unchanged.
 
-## Closure Condition
-
-1. Every T-218 candidate/capability family, T-219 residual, T-247 claim, and
-   completed-code design stage maps to exactly one retained or explicit
-   non-5.0 disposition above.
-2. Every retained row has exact authority, honest built proof, remaining work,
-   owner, dependency, release gate, material risk, proportionate hedge, and F_H
-   disposition.
-3. Only D01/D02/D10 self-use/campaign evidence moves to the 5.0.1 era; no
-   runtime, operator, Consensus, conformance, compatibility, or release
-   functionality moves with it.
-4. F_H confirms this register as the exact T-249 constitutional basis. T-249
-   may author candidate propagation while both tickets remain active, but
-   neither ticket closes before that confirmation. This ticket itself changes
-   no specification, design, code, or release surface.
-
-## Closure Record
-
-F_H confirmation is satisfied by the direct stable-first plan approval
-persisted in T-242, the exact register checkpoint `7107604`, independent Phase
-1 review `d5aaa3f` (8/8), and the subsequent instruction to continue execution.
-The live register contains 17 retained feature rows and 10 explicit successor
-or non-5.0 dispositions. No competing live 5.0 feature list remains.
+The independent reclosure review first rejected one numeric-range overclaim
+that included active T-268 and T-270 as built proof. The repaired register names
+only completed tickets, and the same reviewer accepted the exact 17/10/19/16
+projection for reclosure. The review is recorded at
+`.ai-workspace/comments/codex/20260716T051125Z_REVIEW_t244_regenerated_feature_register.md`.

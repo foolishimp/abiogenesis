@@ -1,0 +1,47 @@
+{
+  "$id": "schema://developer.example/greeting@5",
+  "oneOf": [
+    {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "developer_greeting_input"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        }
+      },
+      "required": [
+        "kind",
+        "name",
+        "schemaVersion"
+      ],
+      "type": "object"
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "developer_greeting_output"
+        },
+        "message": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        }
+      },
+      "required": [
+        "kind",
+        "message",
+        "schemaVersion"
+      ],
+      "type": "object"
+    }
+  ]
+}

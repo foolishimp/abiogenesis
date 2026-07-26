@@ -89,7 +89,7 @@ New ADRs will implement active `REQ-L-GTL3-*` and `REQ-R-ABG3-*` keys.
 
 Traceability derives from the active GTL 3 / ABG 3 requirement surface plus the
 live testcase-authority surfaces under `specification/scenarios/`.
-Live requirement headers carry `Status` and `Category` metadata per [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md).
+Live requirement headers carry `Status` and `Category` metadata per [SPEC_METHOD.md](../../../../.genesis/docs/standards/SPEC_METHOD.md).
 The paused reference verification harness is downstream of this design surface
 in `build_tenants/abiogenesis/python/test_env/`.
 

@@ -1,9 +1,9 @@
 # REQ-L-GTL3-REQUIREMENTS-ALGEBRA — Requirement Declaration Wrappers
 
-**Status**: Active
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability / Constraint
 **Date**: 2026-06-26
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-CONTRACT-LAW-API.md](REQ-L-GTL3-CONTRACT-LAW-API.md), [REQ-L-GTL3-MODULE.md](REQ-L-GTL3-MODULE.md), [REQ-L-GTL3-GRAPHFUNCTION.md](REQ-L-GTL3-GRAPHFUNCTION.md), [REQ-L-GTL3-GRAPHVECTOR.md](REQ-L-GTL3-GRAPHVECTOR.md), [REQ-L-GTL3-CONTEXT.md](REQ-L-GTL3-CONTEXT.md), [REQ-L-GTL3-HOOKS.md](REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md](../abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-CONTRACT-LAW-API.md](REQ-L-GTL3-CONTRACT-LAW-API.md), [REQ-L-GTL3-MODULE.md](REQ-L-GTL3-MODULE.md), [REQ-L-GTL3-GRAPHFUNCTION.md](REQ-L-GTL3-GRAPHFUNCTION.md), [REQ-L-GTL3-GRAPHVECTOR.md](REQ-L-GTL3-GRAPHVECTOR.md), [REQ-L-GTL3-CONTEXT.md](REQ-L-GTL3-CONTEXT.md), [REQ-L-GTL3-HOOKS.md](REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md](../abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md)
 
 ---
 
@@ -14,8 +14,9 @@ requirement identity, relations, spans, staged context, destination topology,
 proof-evidence relations, and evidence policy without creating a second requirements
 language beside GTL.
 
-GTL exposes declarations. ABG owns admission, replay, projection, fold,
-residual, continuation, closure, and query truth.
+GTL exposes declarations. HoG traverses admitted requirement-bearing GTL
+structure. ABG owns admission, replay, projection, fold, residual,
+continuation, closure, and query truth.
 
 ## Acceptance Criteria
 
@@ -41,7 +42,7 @@ residual, continuation, closure, and query truth.
 
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-011**: A GTL requirements lifecycle composition declaration shall carry published route refs, contract refs, symbolic bindings, and source digests. It shall not import, instantiate, or depend on ABG runtime implementation modules.
 
-**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-012**: GTL requirement route refs shall be inert declaration truth until ABG interprets and resolves them against admitted route/publication authority. A GTL route ref shall not become runtime authority merely because it names an ABG route.
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-012**: GTL requirement route refs shall be inert declaration truth until HoG reaches them and ABG resolves them against admitted route/publication authority. A GTL route ref shall not become runtime authority merely because it names an ABG route.
 
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-013**: GTL conformance for requirement route declarations shall fail closed for unknown route refs, missing contract refs, malformed source digests, duplicate lifecycle composition refs, and any field that attempts to smuggle ABG runtime state or event authority into GTL.
 

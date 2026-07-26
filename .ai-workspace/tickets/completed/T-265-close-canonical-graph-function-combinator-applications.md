@@ -1,13 +1,27 @@
 # T-265 - Close Canonical GraphFunction Combinator Applications
 
 - id: T-265
+- title: Close canonical GraphFunction combinator applications
+- type: feature
+- ticket_category: ordinary
 - status: completed
 - phase_status: closed_after_self_and_independent_review
 - review_status: closure_review_clean
 - implementation_admission: completed_as_designed
 - closed_at: 2026-07-13
 - delivery_phase: DS-1
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Preserve recurse, fan-in, and gate as canonical first-class application
+    declarations across native authoring, raw admission, and compilation.
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252

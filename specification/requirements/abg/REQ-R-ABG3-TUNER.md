@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability / Constraint
 **Date**: 2026-07-09
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (the reflective boundary; the atom criterion), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md), [REQ-R-ABG3-SUPERVISOR-WITNESS.md](./REQ-R-ABG3-SUPERVISOR-WITNESS.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md) (absorbing [T-206](../../../.ai-workspace/tickets/completed/T-206-abg-shell-tuner-bundled-consciousness-loop.md))
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (the reflective boundary; the atom criterion), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md), [REQ-R-ABG3-SUPERVISOR-WITNESS.md](./REQ-R-ABG3-SUPERVISOR-WITNESS.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md) (absorbing [T-206](../../../.ai-workspace/tickets/completed/T-206-abg-shell-tuner-bundled-consciousness-loop.md))
 
 ---
 
@@ -25,12 +25,14 @@ downward control path.
 
 **REQ-R-ABG3-TUNER-002**: The tuner's read surface shall be replay-derived read models only: replay event streams, per-configuration cost projection, closure-point/temporal verdicts, witness truth (halt-diagnosis, reprice admissions, hygiene stamps, citability), and progress/stagnation ledgers. The tuner shall not own a second truth store and shall not consume unattributed telemetry.
 
-**REQ-R-ABG3-TUNER-003**: The tuner verb surface shall be `tune report`
-(read-only projection rendering), `tune propose` (admits declaration drafts),
-`tune ratify` (the ratification gate), and `tune reject` (admits rejection of a
-draft). `tune report` shall emit no event or mutation. The three mutation verbs
-shall enter through ordinary admitted actor or policy truth. No tuner act exists
-outside these public operations.
+**REQ-R-ABG3-TUNER-003**: The public tuner surface shall project through two
+accepted public function identities. `tune report` is an ergonomic CLI binding
+to the pure `abg.operation.project.read` tuning-report relation and shall emit no
+event or mutation. `tune propose`, `tune ratify`, and `tune reject` are ergonomic
+variant bindings to `abg.operation.tuning.transition` and shall enter through
+ordinary admitted actor or policy truth. The literal command spellings are not
+operation identities, and no tuner act exists outside those two public
+relations.
 
 **REQ-R-ABG3-TUNER-004**: The tuner shall write declaration drafts ONLY. It shall not mutate live declarations, code, workspace assets, or runtime state. A ratified draft re-enters the system as ordinary admitted work through the owning ticket and change class. Solve and optimize shall remain separated: solve loops write candidates, optimize loops write terms, and no program does both in one judgment. The tuner shall not perform defect diagnosis or triage within an optimisation judgment; observer and tuner exchange truth only through admitted records (intake records, telemetry read models), never inside one judgment.
 

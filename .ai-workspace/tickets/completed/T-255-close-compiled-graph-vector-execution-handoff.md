@@ -1,0 +1,153 @@
+# T-255 - Close Compiled GraphVector Execution Handoff
+
+- id: T-255
+- title: Close the compiled GraphVector execution handoff
+- type: feature
+- ticket_category: ordinary
+- status: completed
+- phase_status: closed_after_self_review
+- review_status: accepted_by_fh
+- implementation_status: realized_and_verified
+- proof_status: verified
+- closed_at: 2026-07-13
+- delivery_phase: DS-2
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Join the selected GraphVector, declared C program, target binding, and
+    canonical capability truth into one startup-governed execution handoff.
+- change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
+- owner: abiogenesis
+- priority: critical
+- source_ticket: T-252
+- dependencies:
+  - completed T-252 corrected construction checkpoint
+  - completed T-263 strict raw Module admission
+  - completed T-264 proportional conformance inventory
+  - completed T-265 canonical GraphFunction applications and derived owner lineage
+- design_ref: build_tenants/abiogenesis/typescript/design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md
+- upstream_decision_ref: .ai-workspace/comments/codex/20260713T044119Z_DECISION_fh_accept_t252_t263_t264_corrected_checkpoint.md
+- previous_review_ref: .ai-workspace/comments/codex/20260713T045307Z_REVIEW_GATE_t255_compiled_handoff_design_repair.md
+- review_ref: .ai-workspace/comments/codex/20260713T052506Z_REVIEW_GATE_t255_round2_authority_correction.md
+- correction_proof_ref: .ai-workspace/comments/codex/20260713T053229Z_PROOF_t255_round2_t252_authority_repair.md
+- self_review_ref: .ai-workspace/comments/codex/20260713T053506Z_SELF_REVIEW_t255_round2_authority_correction.md
+- decision_ref: .ai-workspace/comments/codex/20260713T053912Z_DECISION_fh_accept_t255_corrected_design.md
+- realization_proof_ref: .ai-workspace/comments/codex/20260713T062700Z_PROOF_t255_compiled_handoff_realization.md
+- implementation_self_review_ref: .ai-workspace/comments/codex/20260713T062800Z_SELF_REVIEW_t255_compiled_handoff_realization.md
+- implementation_commit: d569c0be4bf62ca1a4323d433f73e6afdf04bd44
+
+## Boundary
+
+Close one generic relation:
+
+`admitted (GraphFunction, GraphVector, selected C program, effective composition selection, target binding, canonical tenant-conformance manifest or absence) -> published startup-blocked handoff | typed blocked outcome`
+
+This owner absorbs the census families
+`graph_vector_program_runtime_selection`, `c_program_runtime_shape_generalization`,
+`target_carrier_contract`, `edge_closure_contract`, and
+`composition_owning_declaration_join`, because they are facets of that one
+handoff. The selected C program and the effective public `abg.fn_composition`
+selected under existing vector-local then GraphFunction-default precedence join
+at this boundary as distinct authorities:
+the former selects program shape, while the latter owns regime, carrier,
+assurance, and closure governance. Neither declaration may be inferred from or
+used to select the other. When the composition carries
+`owningDeclarationRef`, this boundary verifies it against the already-compiled
+T-254 vector/program binding; authored equality alone is not enforcement.
+
+## T-252 Census Gap Ownership
+
+- gap_family: c_program_runtime_shape_generalization
+- gap_family: graph_vector_program_runtime_selection
+- gap_family: target_carrier_contract
+- gap_family: edge_closure_contract
+- gap_family: composition_owning_declaration_join
+
+## Entry And Exit
+
+The corrected three-view design has been accepted explicitly by F_H. Bounded
+implementation is admitted. Runtime must consume the exact T-254 binding, preserve arbitrary
+lawful C-program shape, join the effective exact `abg.fn_composition` selection,
+enforce any `owningDeclarationRef` against the T-254 binding, and derive one
+canonical target row, edge-closure contract, and execution-handoff outcome
+without a Consensus branch, second validator, or second declaration owner. The
+visible generic target defaults instance must be corrected to satisfy the
+existing target-row law; the handoff compiler may not repair malformed defaults
+silently. Exit requires the unchanged T-252 body to lose only the five owned
+handoff diagnostics and non-Consensus single-stage and multi-stage fixtures to
+pass.
+
+For an effect-bearing GraphFunction, M04 admits the canonical versioned
+`abg.schema.tenant-conformance-manifest` before M03 is called. T-255 receives
+only that admitted carrier or explicit absence, derives a basis-preserving
+capability-coverage projection, and decides compatibility against T-264
+effect-requirement projections. DS-4 supplies ABG 5.0 manifest coverage
+including Consensus. Missing manifest truth blocks publication; it is not a
+deferred status. T-268 owns that DS-4 publication. A non-Consensus canonical
+manifest fixture proves the generic admission law; the 28 structurally eligible
+T-252 handoffs remain typed manifest blocks until T-268 lands.
+
+Final plugin result-interface and bind-conservation closeability require
+authorities not present at this boundary and are owned by T-267. Every handoff
+published by T-255 remains startup-blocked before traversal, worker/plugin
+invocation, archive writes, successful assessment, or closure truth until
+T-267 supplies that authority. The selector-free structural HOF wrapper remains
+T-260 runtime work.
+
+## Non-Closure
+
+GraphFunction-global selection, canonical-three-stage coercion, inferred target
+or closure truth, composition inferred from program selection, feature-specific
+runtime code, a second selector, a second composition owner, a test-only target
+row builder, silent repair of malformed target defaults, an M03 dependency on
+M04 application code, a duplicated public-contract catalog carrier/admitter, a
+second tenant profile or manifest authority, or a capability projection that
+does not preserve the admitted manifest basis. Raw manifest input reaching M03,
+an effect-bearing handoff published without exact admitted manifest coverage,
+or any published handoff traversing or causing effects before T-267 closes the
+`TraversalUnit` is also non-closure.
+
+## Current Disposition
+
+`closed_as_designed_with_post_closure_selection_reconciliation`. The accepted generic handoff boundary is realized and
+verified. T-252 compiles to 35 typed handoffs, 35 canonical target rows, and 35
+edge-closure rows without changing its body digest. The five T-255-owned census
+families are closed. The exact 34 vector/program selections now return accepted
+bindings without retaining T-254's superseded
+`gtl-c-unrealized-vector-program-selection` diagnostic. All published handoffs remain startup-blocked pending
+T-267, and ABG 5.0 tenant-conformance-manifest publication remains owned by
+T-268.
+
+## Closure Evidence
+
+- implementation checkpoint:
+  `d569c0be4bf62ca1a4323d433f73e6afdf04bd44`
+- full semantic suite: 1597/1597
+- focused T-255 suite: 27/27, with GTL law 82/82
+- compile-time raw/admitted seam: passed
+- packed/public API lane: 125/125, with GTL law 82/82
+- T-250 version-basis lane: 13/13
+- final T-252 body/probe lane: 11/11, with GTL law 82/82
+- T-252 body digest at T-255 closure, superseded by the later T-252 topology repair:
+  `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`
+- final T-252 probe manifest digest:
+  `sha256:6b6e1f39294cfc6735d0fb1206a50ea2f70ba75d2dbc3de30321232387619adb`
+  at original T-255 closure; post-review census reconciliation regenerates it
+  as `sha256:9075f2f3bffc3c3b67d9746e61e306fb59fa697f87ea113a03c68c9ffa4c0556`
+- ownership join: zero active-owned but unobserved families, zero duplicate
+  owners, and zero unowned gaps
+- public-contract schemas: 63 verified
+- generated publication assets: 33 verified from 1035 immutable payload files
+- Mermaid design gate: 5/5 across 27 diagrams in 9 files
+- semantic lint and diff checks: passed
+
+Post-review selection reconciliation checkpoint: `a644b8eb`. The exact
+vector/program selector now returns an accepted binding with no residual T-254
+placeholder diagnostic, and T-255 proves all 34 canonical selections before
+partitioning handoff outcomes.

@@ -1,1 +1,0 @@
-{"capabilityId":"abg.capability.catalog.contribute@5","kind":"abg_capability_contract","requiredContractIds":["abg.schema.catalog-product-descriptor","abg.schema.catalog-contribution-manifest","abg.schema.catalog-admission","abg.operation.catalog.admit","abg.operation.catalog.list","abg.operation.catalog.describe"],"schemaVersion":1}

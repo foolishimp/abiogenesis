@@ -1,71 +1,151 @@
-# REQ-R-ABG3-INTERPRET — Graph-Function Runtime Interpretation
+# REQ-R-ABG3-INTERPRET - HoG Traversal And ABG Runtime Admission
 
-**Status**: Active
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
-**Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
+**Date**: 2026-07-20
+**Historical family identity**: `REQ-R-ABG3-INTERPRET`
+**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [REQ-M-GTL3-PROGRAM-TRAVERSAL.md](../mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md)
 
 ---
 
 ## Purpose
 
-Define ABG 3 interpretation as graph-function-first runtime execution over
-event-authoritative aggregates.
+Define direct HoG execution of admitted GTL and the ABG admission, event,
+replay, continuation, and closure law surrounding that execution. The retained
+family identity does not make ABG the program interpreter or executor.
 
 ## Acceptance Criteria
 
-**REQ-R-ABG3-INTERPRET-001**: ABG shall load GTL 3 declarations without collapsing them into stale or flatter language shapes.
+**REQ-R-ABG3-INTERPRET-001**: The runtime shall load admitted GTL declarations
+without collapsing them into a flatter language or executable program
+representation.
 
-**REQ-R-ABG3-INTERPRET-002**: Public execution shall enter through published `GraphFunction` carriers bound by GTL `Job` contracts.
+**REQ-R-ABG3-INTERPRET-002**: Public execution shall bind one exact Product,
+workspace when required, catalog view, GTL program, callable GraphFunction
+membership, input and output contracts, and invocation authority. None may be
+inferred from display names, package presence, or caller-local defaults.
 
-**REQ-R-ABG3-INTERPRET-003**: ABG shall materialize graph functions through explicit, replayable materialization requests over declared graph-function identity, profiles, and structural parameters.
+**REQ-R-ABG3-INTERPRET-003**: A GraphFunction call shall materialize its
+replayable GTL template into one graph under declared inputs and structural
+parameters. The published template and resulting graph, not an
+implementation-only callable, are HoG traversal authority.
 
-**REQ-R-ABG3-INTERPRET-004**: `GraphVector` shall remain internal invariant-boundary truth for local traversal, evaluation, proof, closure, and dispatch facts. It shall not be the public execution carrier.
+**REQ-R-ABG3-INTERPRET-004**: TypeScript and GTL validation shall complete
+before HoG enters the graph. Invalid or unresolved program law shall fail or
+remain typed pressure before prohibited effects.
 
-**REQ-R-ABG3-INTERPRET-005**: Recursive interpretation shall operate through explicit `GraphCall` and `Frame` truth rather than ad hoc command logic or hidden controller memory.
+**REQ-R-ABG3-INTERPRET-005**: HoG shall traverse the original admitted GTL
+program and materialized graph directly through declared graph and C relations.
 
-**REQ-R-ABG3-INTERPRET-006**: Post-dispatch runtime truth, including readiness, worker turn invocation, failure classification, proof re-entry, closure re-entry, and continuation opening, shall be engine-owned.
+**REQ-R-ABG3-INTERPRET-006**: Runtime execution shall reject a generated HoG
+program, CompiledCProgramPlan, compiled execution declaration, runtime-program
+catalog, or other executable intermediate representation as program authority.
 
-**REQ-R-ABG3-INTERPRET-007**: ABG shall fail closed on undeclared graph-function identity, undeclared profile, undeclared structural parameter, materialization output that violates the published outer contract, or unresolved runtime law.
+**REQ-R-ABG3-INTERPRET-007**: GraphVector shall remain an internal typed
+boundary between graph loci. It shall not be a public callable, whole program,
+or independent runtime plan.
 
-**REQ-R-ABG3-INTERPRET-008**: Post-dispatch observer truth that is non-blocking but unresolved shall yield to the next lawful observer or routing layer rather than immediately redispatching the same constructive lane by default.
+**REQ-R-ABG3-INTERPRET-008**: Recursion and child traversal shall use declared
+GraphFunction relations plus invocation-local GraphCall and Frame truth.
+Controller callbacks, private queues, or worker decomposition shall not invent
+recursion topology.
 
-**REQ-R-ABG3-INTERPRET-009**: Public start/resume entry shall act as a safe ignition boundary over published `GraphFunction` work. It shall locate, admit, or resume the lawful graph-function execution boundary, but shall not replace the ABG internal iteration engine.
+**REQ-R-ABG3-INTERPRET-009**: ABG shall own post-entry runtime admission,
+including worker invocation facts, result and evidence admission, failure
+classification, consequence, judgment, correction, continuation, and closure.
 
-**REQ-R-ABG3-INTERPRET-010**: ABG shall execute a published `GraphFunction` by repeatedly planning and advancing lawful internal `TraversalUnit<A, B>` instances over selected `GraphVector<A, B>` boundaries from replay-derived runtime truth until convergence, failure, hold, continuation, yielded handoff, human gate, or another lawful public stop condition is reached.
+**REQ-R-ABG3-INTERPRET-010**: Runtime admission shall fail closed on undeclared
+program or GraphFunction identity, missing membership, malformed parameters,
+contract mismatch, unavailable implementation seam, invalid compute basis, or
+unresolved runtime law.
 
-**REQ-R-ABG3-INTERPRET-011**: Next-edge selection shall be derived from graph-call, frame, vector-local traversal, evaluation, proof, and closure event truth. It shall not be inferred from private controller memory, package-local loop counters, or a fixed first-vector shortcut.
+**REQ-R-ABG3-INTERPRET-011**: Public ingress shall validate and admit one typed
+invocation, then ignite or continue the admitted GTL program. It shall not
+order One Surface, choose private traversal state, retry, construct
+continuation, or decide closure.
 
-**REQ-R-ABG3-INTERPRET-012**: A realization shall not claim graph-function execution parity when it only materializes a composed graph function or dispatches one selected vector without proving replay-derived progression across the callable graph boundary.
+**REQ-R-ABG3-INTERPRET-012**: HoG next-locus selection shall derive from the
+admitted GTL program and ABG replay-derived current state. It shall not derive
+from public fields, controller memory, package-local counters, handler order,
+or a fixed first-vector shortcut.
 
-**REQ-R-ABG3-INTERPRET-013**: ABG shall name an admitted graph-function execution request with no declared runtime compute basis as `no_compute_basis`. It shall not treat an uninitialized traversal as a no-op, identity traversal, deterministic fallback, probabilistic fallback, or human fallback.
+**REQ-R-ABG3-INTERPRET-013**: A proof shall not claim program execution when it
+only materializes a GraphFunction, dispatches one vector, calls an
+implementation, or observes event co-presence. It shall prove exact admission,
+HoG progression, effects, ABG admission, and replay-derived outcome.
 
-**REQ-R-ABG3-INTERPRET-014**: Every ABG-known runtime system or runtime asset surface participating in a graph-function invocation shall expose a declared runtime activity probe surface when it can affect liveness. Probe facts observe activity and evidence only; they shall not select retry, traversal movement, stop state, or closure.
+**REQ-R-ABG3-INTERPRET-014**: An invocation with no declared or admitted
+compute basis shall produce `no_compute_basis`. It shall not become an
+identity, no-op, deterministic, probabilistic, or human fallback.
 
-**REQ-R-ABG3-INTERPRET-015**: ABG shall derive invocation liveness through one runtime liveness observer projection over admitted probe and interruption events. Caller-local timers, harness state, CLI adapters, and product summaries shall not own rival liveness truth for ABG-owned graph-function work.
+**REQ-R-ABG3-INTERPRET-015**: Every runtime surface that can affect liveness
+shall publish an admitted activity probe when required. Probe facts observe
+activity and evidence only.
 
-**REQ-R-ABG3-INTERPRET-016**: ABG watchdog and evaluator dispositions shall consume the runtime liveness observer projection before deciding continue-waiting, controlled inactivity termination, external interruption block, hard safety-cap block, retry-budget exhaustion, or artifact-salvage admission.
+**REQ-R-ABG3-INTERPRET-016**: ABG shall derive liveness through one replay
+projection over admitted probe and interruption events. CLI timers, harness
+state, and product summaries are not rival liveness truth.
 
-**REQ-R-ABG3-INTERPRET-017**: If no watchdog/evaluator disposition selects an alternate lawful action, graph-function execution shall continue following replay-derived graph progression. The default is graph progress, not caller-local timeout policy.
+**REQ-R-ABG3-INTERPRET-017**: Watchdog and evaluator dispositions shall consume
+that liveness projection before selecting continue, controlled inactivity,
+interruption block, safety-cap block, retry exhaustion, or artifact-salvage
+admission.
 
-**REQ-R-ABG3-INTERPRET-018**: Overlay-like runtime attention frames shall be ABG frame contracts bound to GTL graph-function, graph-vector, graph-span, job, module, or rule anchors. They shall not introduce a rival GTL topology type or a product-local controller loop. Fire, terminate, fold-back, re-entry, and pressure decisions shall derive from admitted runtime events and admitted observed-state refs.
+**REQ-R-ABG3-INTERPRET-018**: Unless an admitted disposition selects another
+lawful route, HoG shall continue declared graph progress. Caller-local timeout
+policy is not default traversal law.
 
-**REQ-R-ABG3-INTERPRET-019**: ABG shall provide a deterministic static GTL program conformance function that downstream products can call before runtime execution. The function shall admit raw program inventory input, return typed issue rows for malformed or non-conforming input, and expose any CLI entry as a wrapper over the same programmatic function.
+**REQ-R-ABG3-INTERPRET-019**: Runtime attention or zoom frames shall remain ABG
+frame contracts anchored to admitted GTL identities. They shall not create
+rival topology or controller loops.
 
-**REQ-R-ABG3-INTERPRET-020**: Static GTL program conformance shall fail closed for empty, partial, or caller-selected coverage that omits required current graph functions, graph vectors, target-carrier rows, edge-closure rows, prompt invocation assets, plugin contracts, overlays, public starts, or active source identity rows.
+**REQ-R-ABG3-INTERPRET-020**: The Product shall publish one deterministic GTL
+validator callable before runtime. Native and CLI entry points shall project
+the same validator function and typed result family.
 
-**REQ-R-ABG3-INTERPRET-021**: Static GTL program conformance shall check graph-function interface law by deriving graph outputs from declared graph inputs through graph-vector source and target contracts. It shall reject undeclared source or target nodes, unsatisfied graph-vector dependencies, unreachable vectors, non-derivable declared outputs, and ambiguous duplicate graph-vector identities.
+**REQ-R-ABG3-INTERPRET-021**: Whole-program validation shall fail closed for
+empty, partial, or caller-selected inventory that omits required programs,
+GraphFunctions, graphs, vectors, interfaces, starts, contracts, implementation
+bindings, or source identities.
 
-**REQ-R-ABG3-INTERPRET-022**: Static GTL program conformance shall key graph-vector evidence by opaque graph-function, graph, and graph-vector identity. Display names are presentation metadata and shall not be used as target-carrier, edge-closure, or composition truth.
+**REQ-R-ABG3-INTERPRET-022**: Validation shall derive graph outputs from
+declared inputs through graph-vector source and target contracts and shall
+reject undeclared loci, unsatisfied dependencies, unreachable vectors,
+non-derivable outputs, and ambiguous duplicate identities.
 
-**REQ-R-ABG3-INTERPRET-023**: Static GTL program conformance shall require exactly one target-carrier row and exactly one edge-closure row for each materialized graph-vector identity in the admitted inventory.
+**REQ-R-ABG3-INTERPRET-023**: Validation evidence shall key graph, function,
+vector, interface, and contract truth by opaque identity. Display names are
+presentation metadata.
 
-**REQ-R-ABG3-INTERPRET-024**: When a supplied inventory row declares a prompt invocation asset, static GTL program conformance shall require row-local rendered-view, constructor, digest policy, output-contract, authority-slot, proof-obligation, node, and current fold evidence sufficient to prove the prompt row is a typed `AssetSurface` view rather than caller-owned prompt truth.
+**REQ-R-ABG3-INTERPRET-024**: Every materialized vector shall have exactly one
+applicable target-carrier relation and one closure relation or a typed
+unresolved-semantic result.
 
-**REQ-R-ABG3-INTERPRET-025**: Static GTL program conformance shall admit plugin contracts and GTL fulfillment bindings through the same ABG/GTL constructors and admitters used by runtime. Engine-authority flags shall be single-sourced by a shared vocabulary and rejected rather than silently stripped.
+**REQ-R-ABG3-INTERPRET-025**: A declared prompt asset shall preserve its
+renderer, constructor, digest policy, output contract, authority slot, proof
+obligation, node, and fold relations. Prompt text or caller files are not
+contract truth.
 
-**REQ-R-ABG3-INTERPRET-026**: Static GTL program conformance report identity shall be evidence-bound to the normalized audited inventory, including graph functions, modules, vectors, target-carrier rows, closure rows, overlays, prompt invocation assets, plugin contracts, public starts, and source identity digests.
+**REQ-R-ABG3-INTERPRET-026**: Plugin contracts and implementation bindings shall
+enter through the same typed constructors and admission law used by runtime.
+Unknown or prohibited authority fields shall be rejected, not stripped.
 
-**REQ-R-ABG3-INTERPRET-027**: Static GTL program conformance shall project traversal-unit law from admitted inventory. The report shall be able to name or reject public graph-function entry surfaces, internal graph-vector unit boundaries, start-to-entry-unit bindings, overlay policy/catalog rows, plugin-result output-admission rows, consequence traversal catalog availability, and catalog-bound bind options.
+**REQ-R-ABG3-INTERPRET-027**: A validation report shall bind the exact
+normalized audited GTL inventory and its digest. The report is evidence, not a
+program, execution plan, runtime fact, or release verdict.
 
-**REQ-R-ABG3-INTERPRET-028**: Static GTL program conformance shall fail closed when inventory attempts to use a bare graph vector as public authority, an overlay as an execution shortcut, runtime-start schedule selection as topology, plugin output files as result contract law, consequence traversal not present in the admitted catalog, product-local CLI/replay route selection as bind law, or ambiguous entry/bind candidates.
+**REQ-R-ABG3-INTERPRET-028**: Validation shall project or reject public starts,
+GraphFunction entries, internal vector boundaries, program membership,
+implementation seams, output admission, allowed consequences, and catalog bind
+options without executing them.
+
+**REQ-R-ABG3-INTERPRET-029**: Validation and runtime admission shall reject bare
+vectors as public authority, overlays as execution shortcuts, schedule data as
+topology, plugin files as result law, unavailable consequences, adapter route
+selection as bind law, and ambiguous entry candidates.
+
+**REQ-R-ABG3-INTERPRET-030**: The admitted GTL program shall own the One Surface
+order and every published recursive refinement. HoG shall traverse that order.
+ABG shall preserve the four semantic authorities and distinct intent,
+invocation, evidence, action-result, and continuation admission boundaries.
+No helper, worker, SDK, CLI, or fixture may become a second controller.

@@ -1,1219 +1,924 @@
-# Abiogenesis — Product
+# ABIogenesis 5.0 - Product
 
 **Product ID**: PROD-001
-**Date**: 2026-07-11
-**Status**: Approved
-**Derives from**: INT-001, INT-005, INT-006, INT-007
+**Version target**: 5.0.0
+**Updated**: 2026-07-20
+**Status**: Active - accepted by T-283 F_H closure
+**Derives from**: INT-001 through INT-007
+**Change authority**: T-283 `intent_reprice`
+**Acceptance receipt**:
+`.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
 
 ---
 
 ## Purpose
 
-This document defines the current product shape of abiogenesis as the GTL + ABG
-product line.
+This document is the sole complete ABIogenesis 5.0 Product-definition surface.
+It defines the Product identity, lineage, language and runtime boundaries,
+retained traversal behavior, feature families, cumulative scenarios, root
+outcome, exclusions, qualification subjects, release boundary, and completion
+predicate.
 
-It is a product-definition bridge surface. It exists to make the following
-things explicit:
+Intent owns direction. Requirements and scenarios provide traceable, testable
+decomposition. Goals select the current work wave and root. Design and code
+realize this Product. None of those surfaces may redefine it through local
+terminology, implementation shape, operation counts, or historical precedent.
 
-- what abiogenesis is releasing
-- what GTL owns
-- what ABG owns
-- what belongs in mapping and product policy above them
-- what a release is actually claiming
-- where active product goals should live
-
-It does not replace the live requirement surface. Requirements remain the
-detailed constitutional law. This document stabilizes product identity, release
-framing, and goal-setting above that requirement split.
+The current implementation is evidence to be evaluated after this
+constitutional definition closes. It is not an input that can weaken or expand
+the Product destination.
 
 ---
 
 ## Product Statement
 
-Abiogenesis is the reference product that ships:
+ABIogenesis 5.0 is the feature-complete, source-independent successor to the
+practical ABIogenesis 4.6 product.
 
-- `GTL 3` as the declaration language for graph-native workflows
-- `ABG 3` as the canonical interpreter, binding, traversal-control, and
-  runtime-truth substrate for GTL
-- mapping and provenance law that preserves the GTL to runtime boundary
-- product-layer policy, qualification, and scenario surfaces that make the
-  system operationally provable
+It is an LLM-first programming system in which:
 
-The product is not a downstream domain workflow.
-Downstream products are consumers and proving domains for GTL + ABG. They are
-not the GTL + ABG product itself.
+1. developers and LLMs author exhaustive typed graph programs in
+   `GTL.TypeScript`;
+2. TypeScript and one GTL validator check local types, raw declarations, and
+   whole-program semantic relations;
+3. modules publish GTL programs, callable `GraphFunction` values, contracts,
+   and implementation bindings into one admitted catalog;
+4. the HoG executor traverses the admitted GTL program directly;
+5. declared `F_D`, `F_P`, and `F_H` boundaries perform deterministic,
+   probabilistic, and human work without exchanging authority;
+6. ABG admits runtime facts and owns events, replay, lineage, continuation,
+   correction, and closure; and
+7. a thin SDK and CLI let a user inspect the catalog, call a published
+   `GraphFunction`, start a published program, observe its state, respond to a
+   human boundary, and continue the same run.
 
----
+The product can be compressed to this path:
 
-## Current Product Contract
+```text
+GTL.TypeScript source
+  -> TypeScript checking
+  -> GTL validation
+  -> module and catalog admission
+  -> program start or GraphFunction call
+  -> HoG traversal of the original admitted GTL value
+  -> F_D | F_P | F_H implementation boundary
+  -> ABG event admission and replay
+  -> typed result | continuation | hold | gap | block
+```
 
-Abiogenesis is one source-independent installed GTL and ABG product for a
-trusted developer desktop. It publishes immutable product identity, public
-contracts, a native catalog, a public SDK, a thin native CLI, replay-citable
-runtime truth, bounded Consensus, self-conformance, and exact release evidence.
+ABIogenesis 5.0 does not invent a second source language. It does not compile
+GTL into a second executable program language or intermediate representation.
 
-### Installed And Catalog Product
+This is an explicit supersession of one 4.6 mechanism, not a reinterpretation
+of 4.6 history. The 4.6 semantic compiler performed validation and diagnostics,
+then lowered admitted C declarations into a normalized HoG program declaration
+and compiled execution-declaration handoff. 5.0 conserves its type checking,
+normalization, diagnostics, repair relations, pre-effect refusal, and complete
+handoff obligations while retiring the lowered declaration as executable
+program authority. The active 5.0 product term is **GTL validator** because HoG
+traverses the admitted GTL value directly.
 
-An Abiogenesis release is an immutable product selected by exact identity,
-version, digest, interface, dependency, and manifest truth. A source-blind
-consumer can verify and install it from a Git release artifact or tarball
-without importing the mutable source project.
+## Product Lineage
 
-Catalog products are independently versioned products. A workspace may bind an
-exact ABG product and one or more exact compatible catalog products. Their
-admitted contributions enter one ABG-owned catalog under one identity,
-compatibility, conflict, provenance, and allowlist law. Catalog presence grants
-no runtime authority.
+The semantic origin baseline is the immutable ABIogenesis 4.6 RC5 product cut:
 
-`GraphFunction` is the sole named callable catalog contribution. Retained node
-types and overlays are inspectable and may participate in admitted program
-binding, but they are not independently callable. Workers are invoked only
-through a selected published graph function. Catalog products do not dispatch
-workers, emit ABG events, construct continuations, retry traversal, or decide
+| Coordinate | Exact origin identity |
+|---|---|
+| release identity | `4.6.0-rc.5` |
+| Git tag | `v4.6.0-rc.5` |
+| published tag commit | `8d43dc8968e3df16029e6201680a0301eda035f1` |
+| clean source commit recorded by the release manifest | `bab609ab353304324b939a4528371603eef0a05d` |
+| package | `@abiogenesis/typescript-tenant@4.6.0-rc.5` |
+| tarball SHA-256 | `d9c99382f2c5b787ebe48ce72c320616baeac9187863078332df18c0036853ea` |
+| release-snapshot manifest SHA-256 | `39fd4bd30fc8647b66fe20af4e0e78e3d2327a7d519cad15e3f589eba0acb913` |
+| release-note SHA-256 | `2e07d2436193851dc349a51a227cc8f4a3db36e9624da1721346d43e2411a7eb` |
+
+The release-snapshot manifest, release note, exact package, and their recorded
+proof are part of this origin baseline. The origin is a semantic and released-
+artifact baseline. It does not assert that the current 5.0 implementation branch
+descends from RC5; Git ancestry is separate evidence assessed during the later
+correction vector.
+
+4.6 already established the product's core identity:
+
+- GTL declares graph structure and lawful work;
+- the traversal monad composes work across deterministic, probabilistic, and
+  human boundaries;
+- ABG owns admitted runtime truth rather than a caller, worker, fixture, or log;
+- events and replay preserve causal state;
+- results may be terminal or may expose typed unresolved pressure; and
+- a real worker invocation, result, continuation, and replay path is product
+  behavior rather than test scaffolding.
+
+5.0 completes and externalizes that product. It adds complete GTL authoring and
+validation, direct HoG execution of the full retained algebra, source-independent
+installation, one admitted catalog, a public SDK and CLI shell, standard GTL
+constructions, self-conformance, downstream portability, and an exact release
+lifecycle.
+
+5.0 must account for every semantic behavior and explicit exclusion in the
+exact origin baseline. The ledger begins complete and unfiltered; it does not
+preselect only behavior already believed to be retained. This includes the RC5
+B-001 transport correction: capability-lane propagation through the real
+dispatch path, closed-prompt versus `worker_executes` tool posture, bounded
+downstream argv extension, declared external-sandbox posture, and fail-closed
+protocol-owned flags. It also includes the RC4 substrate that RC5 explicitly
+retained.
+
+Each origin-baseline row must end as `conserved`, `superseded`,
+`intentionally_removed`, or `not_applicable`, with behavioral evidence. A
+successor-native implementation may replace a 4.6 mechanism, but no baseline
+claim or repair may disappear silently.
+
+The mutable implementation produced during the attempted 5.0 build is not a
+product-lineage authority and does not define this Product. It is evaluated
+separately against this Product through an admitted current-state correction
+vector after constitutional Product closure.
+
+## Product Identities
+
+The following identities are distinct and exhaustive at the architecture
+boundary.
+
+### ABIogenesis
+
+ABIogenesis is the released product. It packages GTL, the validator, HoG, ABG,
+the catalog and public contracts, the standard library, the SDK and CLI, product
+management, conformance, proof, and release assets.
+
+### GTL.TypeScript
+
+GTL.TypeScript is the embedded typed graph programming language. A GTL value is
+ordinary TypeScript data created through typed constructors and checked through
+TypeScript plus GTL semantic validation.
+
+GTL owns program meaning:
+
+- graphs, nodes, vectors, contexts, interfaces, and attributes;
+- graph functions, modules, roles, jobs, operators, evaluators, and rules;
+- composition, substitution, recursion, fan-out, fan-in, gates, and promotion;
+- compute composition and regime declarations;
+- program starts, callable membership, policy, effects, results, closure, and
+  proof obligations; and
+- publication and compatibility declarations.
+
+### GTL Program
+
+A GTL program is an admitted graph composition. It owns topology, starts,
+callable membership, compute composition, policies, result contracts, and proof
+obligations.
+
+A program is executable through a declared start. It is not a callable library
+function and is not a runtime plan.
+
+### GraphFunction
+
+`GraphFunction` is the sole named callable work contract. It declares a typed
+input/output boundary and a replayable GTL template that materializes a graph.
+Every callable GraphFunction therefore has GTL structure for HoG to traverse.
+
+An admitted implementation binding may realize a declared leaf seam inside
+that constructive body. It cannot replace the template, materialized graph, or
+published GraphFunction contract with an implementation-only callable.
+
+A GraphFunction may be called from another GTL program or directly through a
+public invocation when it belongs to the selected admitted program and catalog
+view.
+
+### HoG
+
+HoG is the graph executor. It traverses the original admitted GTL program and
+its GraphFunctions. It does not author, lower, select, or publish a rival
+program.
+
+HoG may derive invocation-local execution state such as frames, cursors, work
+queues, resolved bindings, and caches. Such state remains subordinate to one
+program and invocation, cannot alter program meaning, and cannot be published or
+resumed as an independent program.
+
+### ABG
+
+ABG is the runtime-truth substrate around HoG execution. ABG owns admission,
+graph-call and frame identity, attempts, events, replay, lineage, evidence,
+correction, continuation, and closure.
+
+HoG advances the admitted GTL traversal. ABG admits execution facts and derives
+the next admitted runtime state from those facts and the declared program.
+There is one runtime path, not an HoG path and a competing ABG path.
+
+### Module, Catalog, And Implementation
+
+A module publishes programs, GraphFunctions, types, contracts, and compatible
+implementation bindings. The catalog is the admitted, discoverable projection
+of those publications.
+
+An implementation, worker, tool, or plugin realizes only its declared seam. It
+does not own program topology, traversal, event truth, continuation, or closure.
+
+## GTL Language Contract
+
+### Graph Algebra
+
+The retained graph algebra includes:
+
+```text
+edge
+compose
+substitute
+recurse
+fan_out
+fan_in
+gate
+promote
+identity
+same_object
+```
+
+These are language relations, not service methods or feature-specific runners.
+
+### Compute Algebra
+
+The complete retained C algebra is:
+
+```text
+C.of
+C.id
+C.compose
+C.edge
+workflow.C
+C.batch
+C.retry
+```
+
+`C.compose` is associative Kleisli sequencing. `workflow.C` crosses a published
+GraphFunction or workflow boundary. `C.batch` preserves a declared collection
+of pointwise child computations and their identities. `C.retry` repeats one
+bounded C interior under one declared retry policy and attempt lineage.
+
+Graph recursion and `C.retry` are not substitutes. Recursion reapplies a
+GraphFunction under declared termination, foldback, parent re-evaluation, and
+lineage. Retry repeats an attempt without changing the declared graph relation.
+
+### Traversal Monad
+
+The bounded runtime unit is `TraversalUnit<A, B>`. HoG executes each unit under
+the selected GTL program. ABG bind admits its outcome and joins it to exactly
+one lawful continuation:
+
+```text
+next unit
+same-unit retry
+declared recursive call
+parent foldback
+re-entry or reprice
+typed human hold
+yield or block
+terminal projection
+```
+
+One traversal law covers deterministic workflows, LLM work, human work,
+recursion, and mixed programs. Feature-specific controllers are unnecessary.
+
+## 4.6 Traversal Conservation Contract
+
+The 4.6 product did not define traversal as one flat list of commands. It
+defined several orthogonal dimensions that may be combined. 5.0 must preserve
+those dimensions rather than collapse them into one enum, one runner branch, or
+one preferred happy path.
+
+This section names the behavioral baseline. It does not require reuse of a 4.6
+class, file, command spelling, or state machine.
+
+### Compute Fibre
+
+Every traversal stage selects one declared compute fibre:
+
+| Fibre | Preserved behavior |
+|---|---|
+| `F_D` | Total deterministic work or evaluation executes with deterministic evidence and no probabilistic or human substitution. |
+| `F_P` | Bounded probabilistic work executes through an admitted worker boundary and returns candidate output for admission. |
+| `F_H` | Human work becomes a typed external hold or callout and resumes only after attributed response admission. |
+| mixed | One program may compose all three fibres while preserving each stage's type, evidence, authority, and replay identity. |
+
+Fibre substitution is shape-preserving. Replacing a declared `F_P` stage with
+an equivalent `F_D` stage changes the selected interior and evidence class, not
+the graph topology, C-call locus, event-spine shape, or continuation law. An
+all-`F_D` program degenerates to a conventional workflow. An all-`F_H` program
+degenerates to a human process. Both remain ordinary GTL traversals.
+
+### Structural Form
+
+The same traversal monad supports these structural forms:
+
+| Form | Preserved behavior |
+|---|---|
+| atomic call | One `C.of` leaf executes inside one declared C-call boundary and returns admitted evidence and result. |
+| flat composition | `C.compose` sequences typed calls associatively; anonymous nesting erases and does not create a hidden frame. |
+| edge program | `C.edge` expresses the canonical transform/evaluate/consequence program while allowing other declared open programs. |
+| adaptive declared selection | GTL gates or policy select among named admitted compositions from replay-observed facts; the selected identity becomes replay truth and no HoG-local program catalog or ladder owns the choice. |
+| batch | `C.batch` preserves every task's identity, result cardinality, evidence, and judgment under one non-authoritative grouping identity. |
+| transparent child traversal | `workflow.C` invokes a named GraphFunction as a child traversal with child graph-call, frame, basis, run, and `sub_traversal` evidence. |
+| graph recursion | A GraphFunction may reapply itself or another GraphFunction under declared termination, foldback, parent re-evaluation, and lineage. |
+| retry | `C.retry` repeats the same bounded call under one retry policy and fresh attempt identity without pretending to be graph recursion. |
+
+An atomic worker session and a transparent child traversal are both lawful
+monad-boundary placements. The placement is declared. A child traversal uses
+the same GTL/HoG/ABG law at the next level; it is not hidden orchestration.
+
+### Consequence Route
+
+4.6 published nine allowed consequence traversal families. 5.0 preserves their
+semantics as declared GTL and ABG behavior, not as nine special HoG runners.
+
+| 4.6 family | 5.0 conserved meaning |
+|---|---|
+| `same_edge_retry` | Retry or repair the current declared call or edge under bounded attempt and evidence law. |
+| `depth_traversal` | Enter a declared deeper GraphFunction, refinement, or zoom boundary and preserve parent/child identity and foldback. |
+| `graph_span_reentry` | Re-enter an admitted graph span or vector target without fabricating closure for skipped work. |
+| `public_start_reentry` | Start or continue a published program or GraphFunction through the public admission path. |
+| `ticket_traversal` | Invoke product-declared ticket work through an owning GraphFunction or program; ABG does not own ticket storage or meaning. |
+| `fh_input_required` | Stop at a typed human-input boundary and resume the same traversal after lawful response admission. |
+| `escalation_or_reprice` | Escalate unresolved authority or propose reprice through declared policy and `F_H`; a worker cannot apply it directly. |
+| `gap_stop` | Publish unresolved pressure as a typed gap or block without false completion or automatic retry. |
+| `non_admit` | Refuse the proposed route before effects because declaration, authority, basis, or contract admission failed. |
+
+GTL declares which routes are available at the current boundary. A consequence
+implementation may propose one. ABG admits or rejects the transition and owns
+its event, continuation, cursor-fact, and replay truth. HoG applies only that
+admitted transition to direct GTL traversal. Missing route declaration is
+negative authority, not permission for an SDK or product controller to
+improvise.
+
+### Runtime Disposition
+
+The observable outcome of a traversal step remains typed. The conserved
+semantic outcomes are:
+
+```text
+advance_vector
+close
+retry_same_edge
+repair
+re_enter
+yield_continuation
+inspect_runtime_archive
+reprice
+human_assurance_required
+escalate
+gap_stop
+block
+non_admit
+```
+
+These outcomes may project into more specific contract variants, but none may
+be erased into a generic success/failure flag. A lower-priority retry fallback
+cannot override a typed block, reprice, human hold, yield, or re-entry fact.
+Closure requires admitted assurance on the current basis; worker completion or
+asset presence is insufficient.
+
+### Public Start And Control Semantics
+
+4.6 exposed `start -> iterate` over the semantic request dimensions `scope`,
+`target`, and `until`. It supported:
+
+- advancing the next lawful work under the current program;
+- targeting a published GraphFunction;
+- targeting a published asset through its owning program or GraphFunction;
+- bounded traversal until one requested stop or convergence condition;
+- direct or lawfully proxied `F_H` control; and
+- direct or supervised root control.
+
+5.0 may use different typed SDK and CLI spellings. It must preserve these
+behaviors through program start, GraphFunction invocation, catalog resolution,
+typed stop conditions, and policy. A published asset remains non-callable; its
+owning program or GraphFunction is the executable target. Control mode remains
+policy around traversal and never becomes another traversal controller.
+
+### Conservation Proof
+
+Before 5.0 can close, its exact installed candidate must provide a traversal
+conservation matrix with one row for every compute fibre, structural form,
+consequence route, runtime disposition, and public start/control behavior above.
+The frozen no-silence inventory is:
+
+| Axis | Required rows |
+|---|---:|
+| compute fibre | 4 |
+| structural form | 8 |
+| consequence route | 9 |
+| runtime disposition | 13 |
+| public start/control behavior | 6 |
+| total | 40 |
+
+The counts are proof inventory, not engine ontology. Adding, removing, merging,
+or weakening a row requires product re-entry; implementation refactoring does
+not. Shape-preserving fibre substitution is a separate mandatory differential
+over the same rows.
+
+Each row records:
+
+```text
+4.6 behavior identity and witness
+5.0 declared GTL expression
+5.0 HoG execution path
+5.0 ABG event and replay evidence
+publicly observable result or continuation
+mutation that proves the nearest invalid substitute refuses
+```
+
+Equivalent successor behavior is sufficient; patch or carrier identity is not.
+An unresolved row blocks the affected 5.0 feature and release claim. This matrix
+is part of product proof, not the later classification of the current `X`
+implementation.
+
+## Validation Contract
+
+GTL has three validation depths.
+
+1. Native TypeScript checking decides local type, generic, interface,
+   discriminated-union, and constructor law.
+2. Raw admission checks serialized or package-originated values after
+   TypeScript types have been erased.
+3. The GTL validator checks whole-program relations that local types cannot
+   decide.
+
+The GTL validator checks at least:
+
+- identity, version, digest, and reference coherence;
+- uniqueness and reference resolution;
+- module, program, catalog, and GraphFunction membership;
+- source and target interface compatibility;
+- graph and C-algebra well-formedness;
+- exhaustive starts and callable publication;
+- role, capability, implementation, and compute-regime compatibility;
+- recursion, termination, foldback, and boundedness declarations;
+- input, output, effect, evidence, refusal, and closure completeness;
+- required runtime-binding declarations; and
+- absence of conflicting selectors, hidden defaults, and parallel authorities.
+
+The validator returns typed diagnostics and may return an identity-bearing
+validated view of the same GTL value. It does not return an executable plan,
+instruction program, HoG program, controller, or runtime topology.
+
+Runtime admission resolves environmental facts such as workspace, installed
+product, catalog, worker, tool, capability, context snapshot, and execution
+basis. Static validation cannot manufacture those facts.
+
+Canonical serialization supports package transport, identity, digests, replay,
+and source-independent consumption. It must round-trip the same GTL value. It is
+not a second language.
+
+## Compute And Authority
+
+Every executable boundary declares one compute regime.
+
+| Regime | Product meaning | Boundary |
+|---|---|---|
+| `F_D` | Interface and envelope validation, total mechanical predicates, and explicitly declared total deterministic functions over a closed domain. | Deterministic implementation alone is insufficient. Open-world judgment, semantic inference, and hidden defaults are not `F_D`. |
+| `F_P` | Semantic construction, interpretation, diagnosis, synthesis, ranking, repair, and evaluation that is not a total function. | Output is candidate material until admitted. It cannot emit ABG truth, choose continuation, or certify closure. |
+| `F_H` | Attributed human approval, rejection, policy choice, ambiguity resolution, escalation, and reprice authority. | Input crosses typed admission and cannot override deterministic invalidity or write runtime truth directly. |
+
+`F_P` is the default for non-total machine work. `F_D` is not a quality label.
+`F_H` may be exercised directly or by a lawfully admitted proxy, but proxy actor
+identity does not become the underlying authority identity.
+
+## Exhaustive LLM-First Contract
+
+LLM-first means the LLM receives an explicit construction space rather than an
+unbounded prompt surface.
+
+Every executable program and GraphFunction boundary declares, directly or by
+exact reference:
+
+- input, output, and context interfaces;
+- immutable basis inputs;
+- compute regime and implementation role;
+- worker, tool, or capability requirements;
+- allowed effects and write territory;
+- result, refusal, malformed-output, and contradiction shapes;
+- evidence, attribution, and provenance requirements;
+- retry, recursion, continuation, escalation, and termination law;
+- closure predicate or authority;
+- program and callable membership;
+- version, compatibility, and invalidation identity; and
+- event, replay, and projection obligations.
+
+Prompt or instruction text is a stateless projection of those contracts and
+the admitted runtime context. It is not program source, a compiled plan, or a
+source of semantic authority.
+
+## HoG And ABG Runtime Contract
+
+For each invocation, the product follows one causal path:
+
+```text
+admit invocation and exact basis
+  -> open graph call and frame
+  -> traverse the selected GTL term through HoG
+  -> invoke the declared F_D | F_P | F_H seam
+  -> admit result and evidence
+  -> emit canonical ABG events
+  -> replay the current state
+  -> evaluate the declared boundary
+  -> bind continuation or terminal truth
+```
+
+The runtime must preserve:
+
+- invocation, graph-call, frame, and attempt identity;
+- parent/child and source/result causality;
+- selected program, GraphFunction, catalog, and implementation basis;
+- inputs, outputs, effects, evidence, and actor attribution;
+- retries, recursive calls, foldback, corrections, and re-entry;
+- typed stop, hold, gap, block, and terminal states; and
+- deterministic replay of every published projection.
+
+A command, log entry, file, worker response, or fixture assertion is not an ABG
+event merely because it exists. Runtime truth begins only at the owning
+admission boundary. Replay derives state from admitted events; callers and
+fixtures do not author the result they later claim to observe.
+
+## Installed Product And Catalog
+
+ABIogenesis 5.0 is an immutable, source-independent product for a trusted
+developer desktop. A consumer can install and use it from exact release
+artifacts without importing the mutable source tree.
+
+The installed product includes:
+
+- GTL.TypeScript types and constructors;
+- raw admission and GTL validation;
+- HoG and ABG runtime libraries;
+- the standard module and catalog;
+- public contracts and schemas;
+- a typed SDK and thin CLI;
+- conformance and installed-product scenarios;
+- product identity, dependency, compatibility, and provenance manifests; and
+- qualification and release evidence for the exact bytes.
+
+The catalog publishes exact modules, programs, GraphFunctions, non-callable
+types and overlays, implementation bindings, schemas, versions, compatibility,
+and provenance. Catalog presence grants discoverability, not execution
+authority. Invocation binds one installed product set, workspace, admitted
+program, catalog view, callable or start, input, context, implementation,
+capability set, and ABG execution basis.
+
+Only GraphFunction is a named callable library function. A program may be
+started at a declared entry. Types, nodes, vectors, and overlays may be
+inspected and composed but are not callable.
+
+## SDK And CLI
+
+The SDK is the typed programmatic projection of the installed catalog and ABG
+runtime. The CLI is a thin invocation shell over that same projection, analogous
+to a Python shell or Scala REPL over a loaded environment.
+
+The user can:
+
+```text
+inspect installed products, modules, programs, functions, and contracts
+validate a GTL program
+publish or admit a lawful module
+call a published GraphFunction
+start a published GTL program
+read state, result, evidence, gaps, and replay
+respond to a pending F_H boundary
+continue the same admitted run
+run conformance and installed-product proof
+```
+
+The public surface derives from one typed contract and catalog authority. Exact
+operation names, schemas, and capability projections are frozen for the release,
+but their count does not define the engine or create separate semantic owners.
+
+The SDK and CLI may parse, type, transport, ignite, and render. They may not:
+
+- compile or lower GTL;
+- choose hidden topology, vectors, C stages, or defaults;
+- resolve implementations outside admitted catalog authority;
+- invoke workers directly;
+- construct execution bases, events, retries, or continuations;
+- order One Surface; or
+- decide closure.
+
+One bounded Codex projection may delegate to the same public contract. It owns
+no copied program, traversal, event, continuation, or product behavior. Native
+operation must not depend on Codex, Claude, or another marketplace host.
+
+## Standard GTL Product Constructions
+
+5.0 publishes product capabilities that prove the general engine by using the
+same public GTL, catalog, HoG, and ABG path as downstream consumers.
+
+### System And One Surface
+
+The standard system program composes exactly four semantic authorities:
+
+```text
+synthesizeModel -> evalGap -> evaluateNext -> evaluateAction
+```
+
+Intent admission, GraphFunction invocation, evidence admission, and
+continuation are distinct ABG boundaries between and around those authorities;
+they are not additional semantic authorities. The public SDK and CLI start or
+continue the program; they do not implement its loop. A typed `F_H` hold and
+response continue the same admitted run.
+
+### Consensus
+
+Consensus is a bounded standard-library GraphFunction expressed through
+ordinary GTL composition. It demonstrates attributed parallel work, fan-out,
+fan-in, disagreement, bounded retry or recursion, mechanical validation,
+probabilistic evaluation, human escalation, typed results, and replay.
+
+Consensus has no special runner, scheduler, CLI command, event family, ticket
+mutation authority, or closure path.
+
+### Observer And Tuner
+
+The observer and tuner read ABG replay truth and produce attributed diagnostic
+or change proposals. Their outputs remain drafts. Ratification or rejection
+crosses the ordinary policy or `F_H` boundary; neither capability mutates
+specification, configuration, or tickets directly.
+
+### Recursive Programs
+
+Recursive LLM work is an ordinary application of GTL recursion, child
+GraphFunction calls, HoG child frames, admitted result foldback, parent
+re-evaluation, and ABG continuation. It is not a separate runtime, controller,
+or product feature family.
+
+## Complete 5.0 Feature Set
+
+These 17 families preserve the original 5.0 product scope. They are product
+outcomes, not implementation modules, operation counts, or ticket counts.
+
+| ID | Product outcome |
+|---|---|
+| `A5-F01` | **Exact product, install, workspace, and catalog.** A source-blind consumer resolves, verifies, installs, binds, and opens one exact product set and admitted catalog with typed conflict and dependency handling. |
+| `A5-F02` | **Complete GTL authoring and validation.** Typed TypeScript APIs, raw admission, canonical serialization, whole-program validation, module publication, and malformed-program refusal cover the complete retained language. |
+| `A5-F03` | **Complete graph, C, and traversal execution.** HoG traverses every retained graph relation, all seven C constructors, and the complete 4.6 traversal conservation matrix without lowering or feature-specific runners. Every C call preserves its locus, selected fibre, evidence, admitted result, judgment, parent/child relation, C-call conservation basis, and lawful runtime join. |
+| `A5-F04` | **Probabilistic result integrity.** Every `F_P` call receives declared instructions and contracts; malformed, incomplete, contradictory, or unattributed output refuses before effect or closure. |
+| `A5-F05` | **One public contract authority.** Catalog, SDK, CLI, schemas, capabilities, handlers, and documentation derive from one typed definition surface and agree exactly at release. |
+| `A5-F06` | **Thin public SDK and CLI.** Native consumers inspect, validate, publish, invoke, start, read, respond, and continue without a public adapter becoming a controller. |
+| `A5-F07` | **Complete One Surface loop.** The standard system program orders the four distinct semantic authorities `synthesizeModel`, `evalGap`, `evaluateNext`, and `evaluateAction`; ABG separately owns intent admission, invocation, evidence admission, and continuation. Fresh evidence refreshes model, gap, next-action, and action-result truth before the next step. |
+| `A5-F08` | **Consensus free construction.** HoG traverses the bounded Consensus GraphFunction through ordinary public GTL composition, while ABG admits its runtime facts through ordinary ABG atoms; no special engine path exists. |
+| `A5-F09` | **Catalog semantics.** Consumers inspect and narrow catalog views, apply non-callable declarations, call only admitted GraphFunctions, and start only admitted programs. |
+| `A5-F10` | **Event-sourced runtime truth.** Invocation, result, evidence, consequence, correction, retry, repair, recursive child traversal, re-entry, yield, human hold, escalation, continuation, typed failure, block, non-admission, closure, and every public projection form one causal ABG episode. One transition authority resolves competing pressure; replay, not caller memory, derives the result and next state. |
+| `A5-F11` | **Self-conformance.** The exact 5.0 candidate evaluates its own applicable specification, design, contract, realization, proof, qualification, and release obligations without exemption or self-minted assurance. |
+| `A5-F12` | **Replay-grounded observer and tuner.** Observation and tuning operate over admitted replay truth, preserve attribution, and cannot mutate authority without ratification. |
+| `A5-F13` | **Native and bounded host projection.** The product works without a marketplace host; one Codex projection may delegate to the same public contract without copied semantics. |
+| `A5-F14` | **Packed Hello World and live probabilistic proof.** A clean source-blind install executes a minimal deterministic path and one live `F_P` path with typed result, evidence, events, and replay. |
+| `A5-F15` | **Exact-candidate qualification.** One content-addressed qualification family preserves distinct `pre_rc_candidate`, `installed_rc`, and `final_tap_candidate` subjects; binds the exact `QualificationLawBasis`, ordered owning-gate vector, prospective RC authorization, installed-RC authorization, typed `FinalTapDelta`, affected-gate reruns, and non-bypassed verdicts. |
+| `A5-F16` | **Immutable RC and stable 5.0 release.** The qualified pre-RC subject authorizes one immutable RC; that exact installed RC is qualified; one governed final-only delta produces and qualifies the final-tap subject; the stable tag, package, manifest, checksums, and post-publication install identify the admitted final cut. |
+| `A5-F17` | **Downstream portability sufficient for odd_glc.** A bounded independent flavored catalog fixture exercises the same contract class required by real odd_glc: it authors, publishes, applies, and invokes GTL through only installed public ABIogenesis contracts and owns no local runtime or controller. odd_glc release remains independent and does not gate 5.0. |
+
+No separate atom count, public-operation count, capability count, ticket roster,
+or implementation census may add to or subtract from these product outcomes.
+Such counts are derived no-silence and conformance projections after product
 closure.
 
-### Public Operator Product
+## Required Product Scenarios
 
-Abiogenesis publishes one source-blind public SDK. The native `abg.cli` graph
-shell is a thin adapter over that SDK and owns no separate runtime behavior.
-The public product covers:
+One exact installed `pre_rc_candidate` must pass `ABG5-S01` through `ABG5-S06`
+and become eligible to authorize an RC. `ABG5-S07` then preserves the distinct
+subjects of the release lifecycle. Every scenario uses the same public product
+path; no scenario may introduce a feature-specific harness or alternate
+authority.
 
-- source-blind workspace creation and opening;
-- exact product resolution, verification, installation, binding, catalog
-  admission, and inspection;
-- graph-function invocation, start, and resume;
-- status, result, evidence, and replay reads;
-- gaps and replay-derived lawful-action reads;
-- typed F_H selection, approval, rejection, assessment, escalation response,
-  and continuation;
-- assessed-result admission and witnessed operator acts;
-- observer reports and tuner report, proposal, ratification, and rejection;
-- GTL program conformance; and
-- exact release qualification and snapshot operations.
+### `ABG5-S01`: Clean Install And Minimal Invocation
 
-Every operation publishes typed inputs, outputs, defaults, errors, actor
-attribution, and read-versus-write semantics. Read operations project replay
-truth and do not mutate it. Mutating operations enter through ABG admission and
-record attributed events. The SDK, CLI, and host projections cannot select
-private traversal state or become a second controller.
+Pack the exact candidate, install it in a clean temporary location, verify and
+bind the product, admit its catalog, resolve
+`program://abiogenesis/conformance/hello-world@5` and
+`graph-function://abiogenesis/conformance/hello-world@5`, invoke the function
+through the public CLI, and read its typed result and replay without source
+imports or private paths.
 
-A host-neutral invocation descriptor may carry one public invoke/start request
-between native, CLI, and host adapters. It binds the public operation-contract
-version, exact workspace/product/catalog identities, GraphFunction and input
-contracts, session allowlist, capabilities, and declared steering inputs. It is
-data for public admission, not a worker call, continuation, or controller.
+### `ABG5-S02`: Complete GTL And Live F_P
 
-The primary operator workflow is an interactive loop over that public contract:
-start admitted work, receive one truthful stop, hold, gap, or terminal result,
-inspect the lawful frontier, remove one ambiguity or submit one typed F_H
-response, and resume or start again. ABG resolves the continuation and remains
-the sole owner of traversal and closure.
+Author, serialize, admit, validate, publish, and execute representative nested
+forms of the complete graph and C algebra through HoG. Execute one live `F_P`
+boundary. Exercise the compute-fibre and structural-form rows of the 4.6
+traversal conservation contract, including shape-preserving fibre substitution
+and a transparent child traversal. Prove malformed GTL and malformed
+probabilistic output refuse before effect, event admission, foldback, or
+closure.
 
-ABIogenesis 5.0 also publishes one bounded ABG SYSTEM-owned Consensus
-GraphFunction. A calling agent invokes it through the existing
-`catalog.invoke` operation and reads its typed decision, dissent, result,
-lineage, and replay truth through the existing `read.result` and `read.replay`
-operations. The graph function binds declared reviewer profiles, admits
-attributed findings, and returns one declared `closed_done`,
-`recurse_next_round`, or `escalate_fh` outcome. It is a free construction over
-the ordinary GTL and ABG atom set, not a new CLI verb, engine loop, scheduler,
-ticket-status authority, or automatic ticket mutation.
+### `ABG5-S03`: One Surface And Human Continuation
 
-### Conformance And Reflective Product
+Admit one public invocation and prove that the GTL program orders
+`synthesizeModel -> evalGap -> evaluateNext -> intent admission -> invoke or
+continue -> evidence admission -> evaluateAction`. After admitted evidence it
+must refresh model, gap, lawful next action, and action-result truth. Observe a
+truthful stop, hold, or gap; inspect the replay-derived frontier; remove one
+ambiguity through an agent edit or typed `F_H` act; and resume or start again to
+convergence. The SDK, CLI, fixture, and worker must not select or order the
+loop. Exercise every retained consequence route and runtime disposition,
+including retry, depth traversal, graph-span re-entry, public re-entry, ticket
+work, reprice, yield, gap/block, and non-admission.
 
-The released product publishes the GTL and ABG capability and contract surface
-against which a build tenant, catalog product, or program claims conformance.
-Native types own locally decidable authoring validity, raw admission owns
-serialized validity, the semantic compiler owns whole-program relations, and
-runtime admission owns environmental facts and probabilistic results.
+### `ABG5-S04`: Reflection And Self-Conformance
 
-ABIogenesis applies the same specification-method, contract, semantic, runtime,
-proof, and release rules to its own frozen specification, design, realization,
-ticket or execution-contract, public-contract, proof, qualification, and
-release-candidate surfaces. Self-conformance returns typed findings and
-dispositions through the ordinary conformance path. The product has no
-exemption and no second checker defines release truth.
+Bind the exact `pre_rc_candidate` to its content-addressed qualification basis,
+complete frozen inventory, and matching `QualificationLawBasis`. Run real-tree
+and seeded-negative self-conformance through the owning qualification family.
+Run the observer and tuner over replay truth and prove truthful halt, grounded
+drafts, attribution, ratification, rejection, replay, and one injected negative
+without product exemption or silent authority mutation.
 
-The current observer and tuner are product capabilities over ABG replay truth.
-The observer diagnoses pressure and may draft lawful re-entry work. The tuner
-may draft policy or declaration changes. Drafts do not mutate effective truth;
-attributed ratification and ordinary constitutional re-entry remain required.
+### `ABG5-S05`: Consensus Free Construction
 
-### Stable Baseline And Successor Dogfood
+Invoke the packed candidate's SYSTEM-owned Consensus GraphFunction through the
+ordinary catalog and CLI path over one real ticket and at least two differently
+attributed reviewer profiles. Prove agreement closure, dispute recursion, and
+round-limit or unresolved-dispute `F_H` escalation in existing, alternate, and
+temporary workspace applications. Every result and continuation must be typed
+and replay-derived, with no shell-owned orchestration or ticket mutation.
 
-ABIogenesis 5.0 is the stable, SPEC_METHOD-compliant full-product baseline. Its
-mutable source project is authored and built through manual STDO governance,
-accepted design gates, GTL admission, the ABG semantic compiler, and ordinary
-in-tree implementation. Its release cut is qualified against the same
-specification, design, public-contract, proof, and release law that the
-installed product publishes. The 5.0 release does not claim self-hosting and
-does not require a prior installed ABG product, GLC product, or odd_glc product
-to build or qualify it.
+### `ABG5-S06`: Native And Downstream Portability
 
-Recursive dogfooding begins after the stable 5.0 product is released. odd_glc
-may first mature to 1.0 over exact installed 5.0. The installed 5.0 product and
-odd_glc 1.0 may then act together as the development product used to author and
-build the 5.0.1 source project through declared graph functions and public
-contracts. That 5.0.1 successor run is the first dogfood proof. It is not
-retroactive evidence for the 5.0 release and cannot block or redefine the 5.0
-stable tap.
+Complete one public-contract invocation through the native SDK and CLI without
+a marketplace host, then complete the equivalent invocation through one
+bounded Codex CLI or skill projection. Prove the adapter owns no copied runtime
+behavior. Install one independent flavored catalog fixture sufficient for the
+real odd_glc contract class and publish, apply, and invoke its GraphFunction
+without source-tree or private-runtime knowledge.
 
-odd_glc remains an independently versioned downstream catalog product. It may
-bind and consume released ABIogenesis contracts under the ordinary installed
-catalog law, but it is not the ABIogenesis compiler, runtime substrate, builder,
-or release dependency. Each product owns its own RC and final release process.
+### `ABG5-S07`: Exact Qualification And Release
 
-### Native And Release Boundary
+Qualify one exact `pre_rc_candidate` basis through the sole qualification
+reducer and use its green verdict to authorize one prospective immutable RC.
+Materialize the RC and its output-only snapshot without rebuilding. Fresh-
+install and qualify that exact RC as the distinct `installed_rc` subject. Bind
+one exact `final_tap_candidate` to the installed-RC verdict and typed
+`FinalTapDelta`, rerun every affected gate, and admit the final verdict before
+cutting stable `5.0.0`. Finally, fresh-install the released Product and verify
+its identity, lineage, package, manifest, checksums, and release records. The
+post-publication install is a terminal read-model addendum; it cannot
+retroactively authorize an earlier subject.
 
-Native ABG operation requires no Claude, Codex, or other marketplace host. The
-selected Codex CLI or skill projection delegates to the same public SDK or native CLI
-contract and contains no copied graph, worker, traversal, event, continuation,
-or orchestration logic.
+## Root Product Outcome
 
-Public distribution means exact immutable Git release artifacts and tarballs
-with coherent product identity, manifests, checksums, installed proof, and
-qualification evidence. It does not require a hosted package registry,
-storefront, signing service, license system, scheduler, multiple-host portfolio,
-multi-user administration, or hostile-workstation tamper defense.
+The continuous delivery governor is one stable root binding, not a choice among
+nearby paths.
 
-A generic Review product and homeostatic intent-refinement composition beyond
-the bounded Consensus GraphFunction are not part of this product contract. The
-current observer and tuner remain in scope; automatic wake, ABG-owned
-scheduling, and direct ticket mutation do not.
+| Binding field | Exact value |
+|---|---|
+| binding identity | `ABI5-ROOT-001` |
+| governor identity | `abg5.root.s01.hello_world@5` |
+| product boundary | one exact packed ABIogenesis `pre_rc_candidate`, including its destination-owned all-`F_D` conformance module |
+| scenario | `ABG5-S01` |
+| runnable form | clean source-blind installation on the trusted developer desktop through the installed native `abg.cli` |
+| module | `module://abiogenesis/conformance/hello-world@5` |
+| program binding | `program://abiogenesis/conformance/hello-world@5`, containing one all-`F_D` traversal and exactly one callable membership |
+| entry | `graph-function://abiogenesis/conformance/hello-world@5` |
+| input contract | `contract://abiogenesis/conformance/hello-input@5` |
+| output contract | `contract://abiogenesis/conformance/hello-output@5` |
+| expected outcome | one admitted terminal Hello World result plus one causally complete replay projection |
+| nearest weaker excluded property | package, schema, symbol, catalog row, component test, event co-presence, or fixture-authored result without the complete installed causal path |
 
----
-
-## LLM-First Product Identity
-
-GTL is an LLM-first, graph-first algebraic language.
-
-It is LLM-first because its product role is to give probabilistic constructors
-a constrained program space rather than an unconstrained prompt surface. The
-constructive surface is made from typed nodes, edge traversal contracts,
-operators, evaluators, graph functions, modules, jobs, runtime policy hooks,
-and proof obligations.
-
-Abiogenesis relies on LLMs to construct GTL programs under specification
-authority. It does not rely on hidden LLM reasoning as product truth.
-
-GTL reduces LLM drift by making lawful structure explicit, typed, and
-axiomatic. The compiler/validator is expected to report typed law or typed
-failure for graph, overlay, start, plugin, result-interface, catalog, and
-carrier declarations rather than leaving agents or reviewers to infer
-substrate legality from implementation files.
-
-The product split is:
-
-- GTL declares the program algebra
-- LLMs construct lawful GTL expressions within that algebra
-- ABG admits, executes, records, projects, and proves traversals
-- downstream domains own asset meaning, domain HOW, and acceptance
-  interpretation
-
-Installed ABG owns the shared product toolchain contract for released GTL/ABG
-products. A target workspace binds to immutable versioned product payloads,
-command paths, reference docs, and standards through a selected product
-manifest under the admitted toolchain root. The target workspace keeps observed
-workspace assets, observer/control state, executor state, events, projections,
-and archives as explicit mutable roots. The target `.abiogenesis/` surface is
-the inspectable binding, provenance, runtime binding, and configuration
-surface; it is not a product-library install root. `ABG_TOOLCHAIN_ROOT` is the
-only environment selector. Legacy aliases, target-local full package copies,
-top-level command shims, and implicit target-root product fallback are outside
-the product contract.
-
-Graph functions are reusable workflow library functions and callable work
-contracts. A graph overlay or GTL program composition is the published program
-surface that binds graph functions, node types, starts, roles, policies, proof
-obligations, and plugin/result contracts. A graph function is product-real only
-when it is discoverable through a module or job surface, materializable from
-declared inputs and policy-visible parameters, callable through admitted
-GTL/ABG program truth, and replayable through event and provenance truth.
-
-ABG also owns the default recursive executive observer role for preserving
-obligation pressure over admitted graph work. The observer is a graph function
-over a declared target workspace and target work, expressed through existing
-`GraphFunction.environment`, `Context` locator/digest, and asset-surface
-required-context truth. It observes replay-derived ABG projections about the
-target graph, admits `evaluate.C` findings as pressure facts, and feeds those
-facts to ABG continuation, re-entry, reprice, block, or close-candidate
-projection. It does not mutate the observed workspace, emit runtime events
-directly, own closure, replace `consequence.C`, or create a second workspace,
-observation, replay, continuation, or lifecycle ontology.
-
----
-
-## GTL Contract-Law API Reload Anchor
-
-`REQ-L-GTL3-CONTRACT-LAW-API` is the fast constitutional reload surface for GTL
-capability and boundary review. It indexes the detailed GTL requirement
-families rather than replacing them.
-
-GTL is the product's contract-law API and graph algebra for graph-native
-deterministic integrations. It owns graph algebra, typed graph program
-declarations, graph-function interfaces, graph-vector identity and target law,
-target-carrier contract definitions, hook and plugin boundary declarations,
-prompt and typed asset-surface interfaces, module publication, and job or
-public-start binding law.
-
-GTL must be complete enough as a language to configure every product-visible
-graph-program element that ABG admits or interprets. This includes graph
-structure and interface law, `Operator`/`Evaluator`/`Rule` declarations,
-selected `F_D`/`F_P`/`F_H` composition through `abg.fn_composition`, recursive
-graph functions, higher-order graph algebra, selection and refinement
-boundaries, prompt construction and typed assets, plugin/hook boundaries,
-module/job/public-start bindings, and external tool gates.
-
-ABG owns admission, interpretation, runtime events, payload ledgers, assurance
-fold, traversal transition, continuation, correction, and replay. Downstream
-products own domain meaning and product read models over admitted GTL/ABG
-facts. They must not replace GTL contract law with product-local parsers,
-prompt prose, plugin wrappers, or test-only inventories.
-
-GTL `Operator` declarations are not the same category as ABG runtime
-operations. Product-visible configuration for ABG runtime operations such as
-start, graph call, frame opening, iteration, traversal selection, retry,
-continuation, correction, replay, payload admission, worker binding, transport,
-projection, assurance, and saga/frontier control must trace to GTL declarations
-or ABG-admitted carriers over GTL declarations.
-
-The programmatic ABG proof surface for downstream graph assets is
-`typecheckGtlProgram(...)`, with raw input first admitted through
-`admitGtlProgramConformanceInput(...)`. External tool surfaces, including MCP
-endpoints, may be gated by GTL/ABG, but they are not the constitutional source
-of GTL contract law.
-
-The conformance surface has a published contract shape. It accepts a submitted
-GTL program and returns typed conformance issues drawn from a published
-diagnostic-id enum, together with typed repair-edit classes and a default
-admissible-repair set. Target-carrier conformance rows and edge-closure
-conformance rows are part of the published contract. The diagnostic-id enum and
-the repair-edit classes are published versioned contracts of the released
-package.
-
-`typecheckGtlProgram(...)` is also the normal inspection surface for traversal
-law. A conforming downstream program publishes inventory; the validator projects
-which graph functions, internal graph vectors, starts, overlays, plugin result
-interfaces, and consequence catalogs can instantiate lawful traversal units and
-typed bind options. Manual graph or overlay scanning is not the product's
-normal substrate-validation mechanism.
-
-This boundary derives from `REQ-L-GTL3-CONTRACT-LAW-API`,
-`REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-LAWS`, `REQ-L-GTL3-GRAPHVECTOR`,
-`REQ-L-GTL3-GRAPHFUNCTION`, `REQ-L-GTL3-OPERATOR`,
-`REQ-L-GTL3-EVALUATOR`, `REQ-L-GTL3-RULE`, `REQ-L-GTL3-RECURSE`,
-`REQ-L-GTL3-HOF`, `REQ-L-GTL3-HOOKS`,
-`REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-L-GTL3-ASSET-SURFACE`,
-`REQ-L-GTL3-MODULE`, `REQ-R-ABG3-FN-COMPOSITION`, and
-`REQ-R-ABG3-INTERPRET`.
-
----
-
-## Canonical GTL Topology Anchors
-
-The canonical GTL topology-anchoring types are `Graph`, `Node`, `GraphVector`,
-`GraphFunction`, `Job`, and `Module`.
-
-These anchors do not exhaust the first-class GTL declaration surface. `Context`,
-`Operator`, `Evaluator`, `Rule`, `RefinementBoundary`, `CandidateFamily`, and
-`Role` remain first-class GTL declarations. They attach to, govern, refine, or
-publish through the topology anchors without becoming rival public work
-entrypoints. `ContractRef` is the job indirection to a published contract, not a
-topology anchor or runtime execution target.
-
-Downstream terms such as graph overlay, leaf, workflow lane, app surface, or
-other product-local vocabulary are not canonical GTL type names. They must bind
-back to a GTL topology anchor or first-class declaration surface before
-declaring GTL or ABG behavior.
-
-The programming abstraction boundary is: `GraphFunction` is a reusable
-workflow library function and callable work contract; a graph overlay or GTL
-program composition is the program that binds graph functions, vectors, node
-types, roles, security, starts, policies, proof obligations, and plugin/result
-contracts; a workspace is the mutable instance surface that supplies bootstrap
-config, files, data, observed state, generated artifacts, and run archives.
-ABG traversal runs over the admitted program plus admitted workspace binding.
-
-| Type | Product meaning | Boundary |
-| --- | --- | --- |
-| `Graph` | Named topology of nodes and graph vectors. | It is the structural materialization surface, not the public callable workflow carrier by itself. |
-| `Node` | Typed local locus of graph meaning, invariant state, markov conditions, and optional asset-surface declaration. | It is not an executable workflow carrier, public work entrypoint, or graph function. |
-| `GraphVector` | Invariant traversal boundary and internal adjacency record from source node set to target node. It carries transition-governance declarations including dispatch intent, evaluation policy, escalation policy, deterministic proof surfaces, closure contract, assurance hook refs, other hook refs, and opaque hook config. | It is not a rival public ontology, public callable carrier, or semantic job target. |
-| `GraphFunction` | Published reusable workflow library function and callable work contract. It has an explicit typed outer interface and cumulative environment contract, materializes a graph, and may realize one or more internal graph vectors. | It is not the whole product program, not a graph overlay/program composition, not a workspace, not a node, not the materialized graph itself, not a runtime graph-call attempt, and not the downstream asset produced by an attempt. |
-| `Job` | Durable semantic work contract over one or more published graph-function contracts. | It does not target bare graph vectors. |
-| `Module` | Publication boundary for GTL declarations, including graphs, graph functions, refinement boundaries, candidate families, jobs, roles, operators, evaluators, rules, imports, metadata, and module-level policy hooks. | It is not runtime event truth and does not replace ABG projection. |
-
-| First-class declaration | Product boundary |
-| --- | --- |
-| `Context` | Snapshot-bound constraint declaration carried by graph structure. It is language-owned declaration truth, not an engine-owned event or runtime fact. |
-| `Operator` | Effectful work declaration with regime and binding. It is distinct from worker identity and concrete transport. |
-| `Evaluator` | Convergence and attestation declaration. It checks or attests contract satisfaction; it does not perform work or emit runtime events by itself. |
-| `Rule` | Passive declarative constraint over what must hold at a contract boundary. It is not enforcement strategy. |
-| `RefinementBoundary` | Explicit lawful refinement or synthesis boundary that preserves an outer contract. It is not hidden selection strategy. |
-| `CandidateFamily` | Published family of lawful alternatives over one outer contract. It exposes choices without deciding them in GTL. |
-| `Role` | Semantic capability class for work, supervision, or approval. It is distinct from ABG `Worker` identity. |
-
-A node may describe an asset surface that contains graph-function-related data,
-such as a catalog, selector, or declaration file. That does not make the node a
-`GraphFunction`. Public execution enters through published graph-function
-carriers bound by jobs. ABG executes the call by advancing the realized internal
-`GraphVector` boundaries beneath that carrier.
-
-`TraversalUnit<A, B>` names the closeable traversal atom over those existing
-carriers. It is formal notation for a selected `GraphFunction` execution,
-selected internal `GraphVector<A, B>`, selected `abg.fn_composition`, execution
-and frame identity, admitted attempt/output/assurance/consequence truth, and
-ABG replay disposition. It is not a new topology anchor, public callable
-carrier, graph-vector rival, overlay, registry, runtime controller, or CLI
-command.
-
-This boundary derives from `REQ-L-GTL3-GRAPH`, `REQ-L-GTL3-NODE`,
-`REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-GRAPHFUNCTION`,
-`REQ-L-GTL3-JOB`, `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-CONTEXT`,
-`REQ-L-GTL3-OPERATOR`, `REQ-L-GTL3-EVALUATOR`, `REQ-L-GTL3-RULE`,
-`REQ-L-GTL3-ROLE`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-LAWS`,
-`REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-COMPUTE-NOTATION`, and
-`REQ-R-ABG3-INTERPRET`.
-
----
-
-## Ontology And Epistemology
-
-Ontology names the lawful carriers. Epistemology names how facts are known,
-admitted, projected, and authorized over those carriers.
-
-The GTL ontology is the authored language surface: `Graph`, `Node`,
-`GraphVector`, `Context`, `Operator`, `Evaluator`, `Rule`, `GraphFunction`,
-`RefinementBoundary`, `CandidateFamily`, `ContractRef`, `Role`, `Job`, and
-`Module`.
-
-The ABG runtime ontology is the interpreter-owned truth surface: selected
-`abg.fn_composition`, runtime events, `Run`, `GraphCall`, `Frame`,
-`ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`,
-`Continuation`, payload admission, payload ledgers, assurance projection,
-closure fold, traversal transition, and replay projection.
-
-`TraversalUnit<A, B>` is the formal unit ABG opens, attempts, admits, closes,
-and binds inside that runtime truth. It is a notation over the GTL/ABG carriers
-above, not a separate runtime aggregate.
-
-Downstream product ontology remains product-owned. A product may define pressure
-maps, gain lenses, acceptance registers, lifecycle views, and domain read
-models. Those are product projections over ABG-admitted facts, not new GTL or
-ABG authority.
-
-`C` is the GTL-facing notation for selected composition identity at the owning
-boundary. It is shorthand over selected `abg.fn_composition`; it is not
-`ComputeUnit`, not `ReliableCompute`, not a topology anchor, not a public
-callable carrier, and not an ABG runtime carrier.
-
-The epistemic flow is:
+The supported public path is:
 
 ```text
-ABG.start(fn<A, B>.C)
-  .bind(system.openGraphCall)
-  .bind(system.openFrame)
-  .bind(plugin.transform.C)
-  .bind(system.admitTransform)
-  .bind(system.writeTransformEventsAndLedgers)
-  .bind(system.planEvaluationSet)
-  .bind(plugin.evaluate.C.rule[*])
-  .bind(system.admitEvaluationRuleResult[*])
-  .bind(system.writeEvaluationLedgers)
-  .bind(system.collectEvaluationSet)
-  .bind(system.assuranceFold)
-  .bind(plugin.consequence.C)
-  .bind(system.admitConsequenceProjection)
-  .bind(system.traversalTransition)
-  .bind(system.replayContinuation)
+pack exact pre_rc_candidate with conformance module
+  -> clean source-blind install
+  -> verify and bind product
+  -> admit catalog and narrow the view
+  -> resolve program://abiogenesis/conformance/hello-world@5
+  -> resolve graph-function://abiogenesis/conformance/hello-world@5
+  -> materialize and validate its GTL graph
+  -> invoke it through installed abg.cli
+  -> HoG traverses the admitted GTL directly
+  -> the declared deterministic Hello World implementation executes
+  -> ABG admits the invocation, C-call, evidence, result, judgment, and close
+  -> replay derives the same terminal result and closed state
+  -> abg.cli returns the typed contract://abiogenesis/conformance/hello-output@5 result
 ```
 
-ABG is the opinionated probabilistic eventual-consistency monad over selected
-GTL composition. A purely deterministic event-sourced `F_D` run is a lawful
-reduction of that model, not a separate execution surface.
-
-The monadic unit is `TraversalUnit<A, B>`. Consequence bind is not the plugin
-call alone. It is the combined boundary where `plugin.consequence.C` proposes
-projection/action, ABG admits or rejects that consequence, derives traversal
-transition, and replays continuation. That bind composes closed unit truth with
-the next lawful unit, same-unit retry, re-entry, reprice, yield, block, or
-terminal projection.
-
-The function over the monad is intent-lineage preserving:
-`traverse<A, B>(intent_lineage, context, A) -> (B, obligation_delta)`.
-`intent_lineage` is admitted truth over intent refs, lineage refs, target-carrier
-and materialization refs, carried obligations, residual pressure, staged
-authority, and lawful basis refs. `obligation_delta` accounts for each carried
-obligation as realized, refined, deferred to a named downstream traversal,
-blocked, repriced, preserved as no-close pressure, or terminally projected.
-ABG bind is therefore a conservation boundary: scalar edge close cannot erase
-the obligation vector, and materializing traversal cannot dispatch until a
-sufficient construction intent has been rehydrated from admitted lineage.
-
-The obligation topology is discovered, not enumerated. Where a proof
-surface's obligation instances depend on delivered artifacts — which
-tests instantiate a depth class, which adversarial checks a delivered
-map implies — the intermediate computation reveals the topology: each
-admitted intermediate asset extends the obligation set, and
-completeness is adjudicated against the extended set, never against the
-startup enumeration. A proof surface whose obligation cardinality is
-capped by initial declarations while admitted intermediate assets
-lawfully extend it carries a typed gap, not implicit completeness.
-
-Coverage-gated closure applies where an edge declares the requirement
-proof-carry-through contract. ABIogenesis 5.0 does not claim that every legacy
-edge has been migrated to that declaration. An edge with active obligations but
-no declared carry-through contract retains the typed transitional semantics of
-`REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038`; it cannot be cited as proof of
-universal coverage-gated closure. New ABIogenesis and downstream proof-bearing
-paths declare the contract when they claim coverage-gated closure. Universal
-legacy-edge migration re-enters only with an explicit universal product claim.
-
-Requirements are the product-level carrier for that conservation boundary.
-A requirement is not only a prose row or a downstream-local obligation id. It is
-an admitted algebraic term with stable identity, source provenance, typed
-relations, traversal-span coverage, staged context bindings, evidence policy,
-fold projection, residual pressure, and replay-visible query identity.
-
-ABG/GTL core owns the generic requirement substrate. GTL exposes requirement
-declarations through module, graph-function, graph-vector, context, role, job,
-hook, and asset-surface law. ABG admits requirement event payloads, replays them
-into `RequirementLedger` read models, builds edge-local requirement
-environments, projects obligations and materialization or execution
-expectations, binds evidence, maps requirement fold/residual states over the
-existing assurance fold and continuation truth, and exposes query/read models.
-
-`RequirementLedger` is a replay-derived projection over emitted requirement
-events. It is not a writable side ledger, not a second event store, not a
-product-local register, and not a rival closure surface. Product and downstream
-ledgers may render requirement pressure as read models or retained
-compatibility inputs, but they do not own ABG closure, retry, continuation,
-re-entry, or event truth.
-
-Destination topology is the HOW constraint framework through which a
-requirement may need to be realized. A destination topology may describe tenant
-family, technology stack, runtime model, packaging, deployment, proof topology,
-regulatory frame, or another conformance surface. It is distinct from WHAT
-requirement meaning and may constrain projection or materialization without
-becoming the requirement itself.
-
-The generic requirements algebra is intentionally closed-world for F_D. A
-deterministic evaluator may validate admitted carrier shape, identity,
-provenance, spans, relation refs, evidence policy, replay consistency, and
-coverage gates. It must not infer product semantic satisfaction from unknown
-syntax, file paths, worker prose, or local archive shape. Ambiguous or
-ungrammatized content is routed to typed F_P pressure, and owner decisions or
-explicit reprices are routed to F_H.
-
-Composed `.C` stages share one stage-set shape. `transform.C`, `evaluate.C`,
-and `consequence.C` may each plan ordered or parallel task sets under selected
-composition. A scalar stage plugin is the one-task reduction of that shape, not
-a second execution surface.
-
-`plugin.transform.C` may produce candidates and evidence. `plugin.evaluate.C`
-is an evaluation-set phase over read-only admitted facts. Its rules may
-produce deterministic registers, semantic findings, gain, residual pressure,
-continuation, evidence, authority, diagnostic, and proposed disposition refs.
-The scalar F_P evaluator is only the one-rule reduction of that phase.
-`plugin.consequence.C` may produce product read-model projection refs over
-ABG-admitted state. Plugins do not write ledgers, emit runtime events, select
-traversal, own replay, or close the boundary.
-
-ABG admission is the boundary where proposed plugin payloads become runtime
-facts. ABG.system owns graph call/frame opening, event emission, payload ledger
-projection, assurance fold, traversal transition, continuation, closure,
-correction, and replay truth. `F_H` is an external callout regime: ABG admits
-or emits the callout boundary and later admits the response event/carrier; human
-work itself is outside the ABG system.
-
-Exact wire and serialization schemas for carriers, event envelopes, payloads,
-and public operations are published versioned contracts of the released
-product. `product-toolchain-manifest.json` contains the addressable
-`publicContractCatalog` governed by `REQ-P-PUBLIC-CONTRACTS`: stable contract
-and capability identities, exact versions/digests, native package-export and
-named-symbol locators, canonical schema/asset locators, the event and diagnostic
-rosters, the language conformance corpus, and every public operation row. The
-TypeScript product publishes the contract groups through `./gtl/m01`,
-`./gtl/m02`, `./gtl/requirements`, `./abg/requirements`, `./abg/executive`,
-`./abg/m03`, `./abg/m03/transport`, `./app/m04`, and
-`./qualification/m05`; the root export may aggregate but does not replace those
-identities. A tenant builder certifies exact shape against that catalog.
-Unpublished implementation types, prompt prose, parser tolerance, local archive
-shape, or source paths are not schema authority. Static schemas and corpus
-assets do not imply a hosted `schema://` service.
-
-This boundary derives from `REQ-L-GTL3-COMPUTE-NOTATION`,
-`REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-EVALUATOR`,
-`REQ-R-ABG3-FN-COMPOSITION`, `REQ-R-ABG3-PAYLOAD`, and
-`REQ-R-ABG3-ASSURANCE`.
-
----
-
-## Probabilistic Compute Boundary
-
-Abiogenesis treats `TraversalUnit<A, B>` as the bounded unit of probabilistic
-compute: one closeable GTL edge traversal under a published graph-function
-execution, selected internal graph vector, selected composition, admitted
-attempt envelope, admitted outputs, assurance fold, consequence projection, and
-ABG replay disposition.
-
-The edge declares the admissible external traversal space:
-
-- input and output contract
-- mandatory target carrier contract binding for the output surface
-- required context
-- role or capability expectation
-- evaluator regime
-- provenance obligation
-- lawful stop, hold, gap, continuation, or completion states
-- edge assurance contract when automated or probabilistic gain and closure are
-  intended
-
-GTL owns that lawful workflow structure.
-
-Target carrier binding is mandatory at the effective graph-vector level. A
-vector may declare a product-specific `gtl.target_carrier_contract`. If it does
-not, the generic binding comes from visible GTL defaults config, not from code
-constants, prompt prose, parser convention, or null. ABG consumes the selected
-binding for payload admission, replay, projection, and closure preconditions.
-
-ABG.Fn composition binding is mandatory wherever a graph function, graph
-vector, evaluator, rule, or operator boundary combines deterministic,
-probabilistic, or human/held-out regimes for traversal selection, evidence,
-optimization, or closure. The selected composition identity binds the host GTL
-surface, ordered regime roles, standards context, policy context, carrier
-context, assurance context, and deterministic closure predicate. F_P and F_H
-contributions are evidence or judgment states under that identity; they are not
-closure law. F_P-to-F_D optimization is lawful only when an admitted equivalence
-contract preserves the source composition identity through positive and negative
-cases.
-
-Execution-bearing edges default to the generic typed F_P traversal: the
-edge declares, through typed input and output contracts, that the
-probabilistic worker executes the built unit, test suite, data
-generation, or other declared plan and returns a typed execution-result
-asset. The worker's run-and-iterate path is hidden interior freedom;
-the returned result is candidate material until deterministic
-mechanical checks and admission make it truth. F_D-specific execution
-interiors are optimizations: they enter a program only through the
-reflective layer's ratified annealing proposals under the equivalence
-contract above, never by preemptive design.
-
-ABG owns the governance and control truth around an invocation of that
-traversal. It binds the traversal to a worker, tool, or agent; records events
-and provenance; projects state; classifies outcomes; and advances only through
-lawful next steps.
-
-Traversal-unit states are replay-derived, not controller memory. A unit may
-close, retry, repair, re-enter, reprice, yield, block, or terminate only through
-ABG-admitted runtime truth and catalog-bound consequence bind.
-
-ABG is not the domain executor. The worker, tool, agent, or domain
-implementation owns the internal HOW inside the declared traversal boundary.
-
-For F_P work, any unconstrained space remains hidden internal traversal by the
-probabilistic worker. GTL and ABG constrain the boundary and force the result
-back through declared contracts, evaluator evidence, provenance, and control
-state.
-
-F_D is a deterministic evaluator or domain-owned optimization where the domain
-can make part of the work precise. F_D does not move domain HOW into GTL or ABG.
-
-If a GTL edge traversal does not declare an assurance function, the default
-assurance regime is F_H by absentia. ABG must not infer automated closure from
-worker output, file presence, runtime success, or absence of gaps. A human may
-iterate over the open edge, perform direct worksite transformation, and declare
-close or continuation. ABG owns the scoped observation, admission, replay, and
-next lawful consequence of that human judgment.
-
-### Outcome Compute Contract
-
-ABG is the compact runtime motor for outcome compute.
-
-Its primitive is one governed iteration over a current projection, cumulative
-context, and evaluator set:
-
-```text
-iterate(
-  current_surface_projection,
-  cumulative_context,
-  evaluators
-) -> runtime_events
-```
-
-The current surface is a replay-derived projection over runtime truth. It is
-not private mutable controller state.
-
-The cumulative context is the declared constraint and history pressure
-available to the traversal. It includes the edge contract, required context,
-carried environment, prior edge evidence, intermediate ledgers, retry gap
-dossiers, and current delta.
-
-ABG does not certify a domain result merely because a worker produced an asset.
-ABG admits lawful runtime events, projects the next current surface from those
-events, and advances through declared evaluation, retry, continuation, hold,
-gap, completion, or stop law.
-
-Downstream products provide the graph function, domain contexts, evaluator
-implementations, and worker bindings. ABG provides the replayable control loop
-that makes outcome compute auditable and capable of lawful re-entry.
-
-### Higher-Order F_P Construction Episodes
-
-One edge traversal remains the bounded runtime unit of probabilistic compute.
-ABG may also support a higher-order `F_P` construction episode that composes
-those bounded invocations through event-sourced tail recursion:
-
-```text
-observe current linked asset state
--> evaluate admissible construction outcomes
--> admit one construction intent
--> invoke the selected graph function through ABG
--> project the runtime and asset delta
--> recur, yield progress, close, block, or escalate
-```
-
-The construction episode does not make ABG the domain strategy decider. The
-product-owned `F_P` evaluator chooses the highest-value lawful outcome from the
-declared graph/action catalog. ABG admits or rejects that evaluator intent,
-binds it to graph-call, frame, continuation, lineage, event, ledger, and
-projection truth, and exposes one public construction-progress projection.
-
-When a downstream product declares a steel thread or dependency fan-out from its
-own content, that declaration is admitted product authority, not a runtime
-concurrency command. ABG may realize the same declared work serially or as
-bounded parallel branch execution. Product meaning is stable across both
-realizations when dependency declarations, target/output/evidence expectations,
-write territories, and fan-in meaning are unchanged. Parallel execution is an
-ABG runtime admission consequence over replay, branch identity, idempotency,
-leases, liveness, policy, and disjoint write territory.
-
-System parallelism is an immutable semantic boundary over admitted carriers and
-replay-derived projections. The shared mutable workspace remains an effect edge
-guarded by observed-state, write-territory/output-allocation, staging,
-publication, and admission truth.
-
-F_D may optimize and reject mechanical defects under hard authority. When the
-source authority has not disambiguated product meaning, F_D shall not force a
-semantic failure or canonical output shape. It must surface ambiguity to the
-`F_P` construction evaluator so the product layer can decide the next lawful
-outcome.
-
----
-
-## Product Layers
-
-### 1. GTL
-
-`GTL` is the language layer.
-
-It owns the declaration-side truth for:
-
-- graph structure and typed nodes
-- vectors and outer contract boundaries
-- operators, evaluators, and rules
-- jobs and roles as semantic work declarations
-- `GraphFunction` as the primary reusable workflow library function and
-  callable work contract
-- graph overlays or GTL program compositions as the program surface that binds
-  graph functions, vectors, node types, roles, security, starts, policies,
-  proof obligations, and plugin/result contracts
-- edge traversal contracts as the admissible external space for probabilistic
-  compute
-- lawful composition, substitution, recursion, and higher-order graph operators
-- module publication and engine-independence boundaries
-- temporal-property law: GTL temporal properties as a Rule kind checked as
-  total three-valued functions over finite replay traces, with safety
-  gating on the composed evaluation path (per-vector online formulas
-  arrive with the consciousness wave's tuner work), residual-routed
-  liveness, vacuity rejection, and the standing audit gates as the
-  first declared property set (REQ-L-GTL3-TEMPORAL-PROPERTIES);
-- authoring-loop meta-law: ratified diagnostic identities with admissible
-  repair affordances, canonical authored form and declarations-as-data,
-  golden instance bindings, declared underdetermination, declaration
-  authorship, and the language conformance corpus
-
-GTL does not own runtime binding, transport policy, business-choice logic,
-hidden worker reasoning, or product-layer release governance.
-
-### 2. ABG
-
-`ABG` is the canonical runtime governance and control layer.
-
-It owns the runtime control truth for:
-
-- lawful interpretation of GTL declarations
-- graph-function materialization and selection application
-- worker, binding, run, and lineage semantics
-- event emission, projection, correction, and convergence
-- outcome-compute iteration over current projections, cumulative context, and
-  evaluator truth
-- replayable provenance over traversal invocation and runtime identity
-- ordinary graph-function transport, result ingestion, and runtime behavior
-  when an installed product acts as a development product
-
-Runtime identity in ABG remains structured. Reporting projections such as
-`build` must not overwrite canonical worker/backend/authority truth.
-
-ABG does not own business policy, hidden domain logic, worker-internal HOW, or
-the semantic definition of GTL itself.
-
-### 3. Mapping
-
-The mapping layer is the bridge between GTL constitutional truth and engine
-realization.
-
-It owns:
-
-- preservation of GTL meaning into executable runtime surfaces
-- capability-visible mapping boundaries
-- graph-function and materialization provenance
-- graph-derived bundle provenance where runtime traversal depends on derived
-  structural surfaces
-
-Mapping does not redefine GTL semantics and does not excuse ABG from lawful
-runtime behavior.
-
-### 4. Product Layer
-
-The product layer sits above GTL, ABG, and mapping.
-
-It owns:
-
-- product policy
-- qualification infrastructure
-- installed substrate contracts
-- scenario and proving surfaces
-- release claims
-- operator-facing product behavior above pure language/runtime law
-
-This layer may consume GTL declarations and ABG runtime truth, but it must not
-smuggle product policy down into the language or interpreter kernel.
-
-## Installed Substrate Contract
-
-Abiogenesis publishes an installer as product behavior.
-
-The installer turns a released or source-bound ABG build into an installed
-substrate inside an independent target workspace. That installed substrate is a
-development product: downstream products may build over it, but it is not the
-mutable abiogenesis source project.
-
-The installed substrate must be inspectable from the target workspace. It must
-publish:
-
-- the `.abiogenesis/` substrate root
-- install and installer manifests
-- installed package identity and command bindings
-- exact bound-product identities, versions, digests, dependencies, and
-  compatibility results
-- admitted catalog contributions and their provenance
-- runtime identity, event roots, projection roots, and archive roots
-- selected product manifest refs for method standards and reference docs
-- a cold-agent-readable bootstrap surface
-
-The released install path is source-independent. It resolves, verifies,
-installs, and binds immutable product artifacts without a mutable source import
-or private test harness. A workspace binding may name Abiogenesis and compatible
-catalog products, but ABG remains the sole owner of catalog admission, runtime
-eligibility, selection, graph calls, traversal, events, replay, and closure.
-
-Installed standards are product reference payloads resolved through the
-workspace binding and selected product manifest. They make cold-agent
-references stable without copying a full standards tree into every target
-workspace. They do not become the upstream source of shared method law when the
-method itself is edited.
-
-The four method standards that requirements derive from — `SPEC_METHOD`,
-`ODD_METHOD`, `TICKET_METHOD`, and `DESIGN_MODULE_METHOD` — are constitutional
-inputs sourced from the `specification_methodology` repository and
-install-mirrored into the workspace standards root. A tenant builder requires
-them as declared inputs.
-
-## Public Operator Contract
-
-Abiogenesis publishes one public control plane. Its verb families are:
-
-- workspace `create` and `open`
-- catalog operations — resolve, verify, bind, admit, list, describe, and allow
-- `start` and invoke — advancement over the product-owned traversal request
-  grammar
-- `resume` — replay-derived continuation of an existing admitted run
-- status, result, evidence, and replay — read-only runtime projections
-- `gaps` and lawful actions — read-only frontier projections
-- F_H operations — typed selection, approval, rejection, assessment,
-  escalation response, and continuation
-- `assess-result` — admission of assessed F_P result truth
-- `witness <act>` — operator-witnessed acts admitted as events
-- `observe report|drafts` — replay-derived observer read models
-- `tune report|propose|ratify|reject` — drafts-only tuning mutation
-- `typecheck-gtl-program` — the conformance proof verb
-- install and release operations — context bootstrap, install, configuration,
-  verification, and release snapshot
-
-Those verb families are the public named-composition truth.
-
-Each operation has one tenant-invariant public contract for input, defaults,
-value domains, result, errors, actor attribution, mutation semantics, and
-terminal or non-terminal disposition. Literal executable names and host
-bindings may differ, but they do not define rival operation semantics.
-
-`start` accepts one product-owned traversal request grammar:
-
-- `scope`
-- `target`
-- `until`
-
-`start` also accepts declared session arguments above that grammar: a session
-allowlist narrowing argument (`--allow`) that restricts lawful work for one
-session without changing published program law, and declared transport steering
-arguments that select transport behavior for the session's probabilistic
-workers. Session arguments are declared start ingress. They are not members of
-the `scope + target + until` request grammar.
-
-The currently published target families are:
-
-- `next`
-- `graph_function:<published_handle>`
-- `asset:<published_handle>` when the selected runtime publishes one operator
-  asset registry and ownership surface
-
-`graph_function:<published_handle>` must resolve through a published target
-catalog to one canonical callable-carrier identity. It does not target raw
-graph vectors, unpublished helpers, or implicit candidate-family choice.
-
-`gaps` is a read-only evaluator projection surface. It may expose
-replay-derived open work, typed asset gaps, candidate completion or induction
-recommendations, blocking reasons, the highest-ranked asset, the implicated
-graph function, and ranking reasons from the same evaluator surface used for
-construction action selection. It does not start traversal, mutate runtime
-truth, admit construction intent, dispatch graph work, or own a retry loop.
-Under REQ-R-ABG3-WITNESS-009's operator-command/event grammar it is a pure
-read verb: it projects replay-derived read models and admits no events; event
-admission belongs to the commands that change or attest runtime truth.
-
-Status, result, evidence, replay, and lawful-action operations are also
-replay-derived reads. The lawful-action projection exposes only actions admitted
-at the current frontier. A caller may render or select a published action but
-may not construct private continuation or traversal state.
-
-`resume` continues an existing admitted run or continuation identity. ABG
-checks product and declaration compatibility, resolves the replay frontier, and
-records actor-attributed lifecycle truth. A caller cannot choose a private
-cursor or bypass the ordinary start and continuation law.
-
-Typed F_H operations bind a human selection, approval, rejection, assessment,
-or escalation response to the pending interaction, actor, capability, and run
-identity. Human input does not override deterministic failure and does not emit
-events or decide closure outside ABG admission.
-
-`assess-result` admits externally assessed F_P result truth back into runtime
-truth. It is an admission verb: what becomes truth is governed by admission and
-replay law, not by the assessing agent's prose.
-
-`witness <act>` records an operator-witnessed act as an admitted event. The
-published acts are `reprice`, `attest`, `hygiene-stamp`, `intake`,
-`run-resumed`, and `run-stopped`. Every witnessed act is an admitted event in
-the same append-only stream; witnessing does not mutate projections directly.
-
-`observe report` and `observe drafts` expose replay-derived observer read
-models only. They do not admit intent or mutate runtime truth; as pure read
-verbs under REQ-R-ABG3-WITNESS-009's operator-command/event grammar they
-admit no events.
-
-`tune report|propose|ratify|reject` is the tuning surface. Tuning mutation is
-drafts-only: proposals accumulate as drafts, and F_H ratification (or a
-declared ratification policy) admits the draft as ratified. Per
-REQ-R-ABG3-TUNER-004, ratification does not itself change effective
-configuration: a ratified draft re-enters the system as ordinary admitted work
-through the owning ticket and change class.
-
-`typecheck-gtl-program` is the conformance proof verb over submitted GTL
-programs. It is the operator binding of the programmatic conformance surface
-named in the GTL Contract-Law API Reload Anchor.
-
-The install-time verbs — `context-bootstrap`, `install`, `gen-config`, and
-`release-snapshot` — own workspace context bootstrap, installed substrate
-creation, configuration generation, and release snapshot cuts. They are verbs
-of the same one control plane, not a second toolchain.
-
-`asset:<published_handle>` must resolve through one published operator asset
-registry and ownership surface. That surface must publish the asset handle and
-one governing traversal boundary. In the current ABG cut, the governing
-boundary must resolve to one published graph-function carrier identity.
-Unresolved, unowned, unsupported, or ambiguously owned asset handles fail
-closed.
-
-Their literal delivery spellings are adapter and build bindings, not rival
-product law. Every binding resolves through the installed product manifest and
-the same public operation contracts.
-
-Lower-level traversal and status hooks may still exist structurally where the
-runtime or install line needs them, but they sit below the public operator
-contract. They must not be taught as co-equal human commands beside the public
-verb families above.
-
-Orthogonal control modes such as F_H proxying or root supervision are product
-policy around `start`. They are not members of the `scope + target + until`
-request grammar.
-
-The current public control-mode families are:
-
-- `fh_mode`
-- `root_mode`
-
-Their current public values are:
-
-- `fh_mode = direct | human-proxy`
-- `root_mode = direct | supervised`
-
-`fh_mode` defaults to `direct`; `root_mode` defaults to `supervised`. Both are
-public control-mode truth above the adapter.
-Literal bindings such as `--fh-mode` and `--root-mode` are delivery bindings
-for those same mode families, not rival product law. In the current cut, both
-mode families are lawful only when `start` is operating with
-`until = converged`.
-
-The primary operator surface is the native CLI graph shell over the public SDK.
-Downstream websites, services, agentic coders, and marketplace skills may
-project the same contract, but they remain adapters. The core operator loop is:
-
-1. define or refine the current project assets and constraints
-2. trigger `start`
-3. accept one truthful stop, hold, or gap signal from substrate truth
-4. work interactively with the agent to remove one ambiguity, missing
-   capability, or roadblock
-5. run `gaps`, inspect lawful actions, or submit the typed human response
-6. invoke `resume` or trigger `start` again
-
-That loop is product truth. It must be projection over ABG truth rather than a
-second controller or local runtime replacement in downstream wrappers.
-
----
-
-## Product Boundary
-
-Abiogenesis should be understood as a product with a clean boundary between its
-constituent layers:
-
-| Surface | Owns | Does not own |
-| --- | --- | --- |
-| `GTL` | language, graph law, reusable workflow structure, edge traversal contracts, outer contracts | runtime binding, transport, product policy |
-| `ABG` | traversal governance, binding, runs, lineage, correction, provenance | business-choice logic, product policy, language semantics, worker-internal HOW |
-| `Mapping` | faithful bridge from GTL to runtime realization | ad hoc semantic rewrite |
-| `Product` | policy, qualification, scenarios, release shape, goals | hidden kernel semantics |
-
-Within that boundary, ABG owns canonical run algebra, failure classification,
-and event-emission law. Product policy, including CLI auto-loop behavior and
-operator-facing summaries, must be projections over ABG truth rather than a
-second semantic center.
-
-The product boundary also separates abiogenesis from its downstream consumers:
-
-- abiogenesis owns the GTL + ABG product
-- downstream products own their domain truth and use abiogenesis as the
-  language/runtime platform
-
-The ownership law across that boundary is strict. GTL provides
-declarative syntax. ABG interprets it and provides the runtime kernel:
-everything that executes, admits, derives, or gates is ABG-owned
-mechanism. Downstream products own domain knowledge — types,
-decomposition, vocabulary, policy data, calibration, and read-only
-interpretation — and own no systems functionality. A downstream surface
-that executes plans, runs processes, derives truth, or adjudicates
-completeness is misallocated mechanism, not product realization.
-
----
-
-## Current Product Shape
-
-This section states the current release realization of the source project as
-product law.
-
-The current product is:
-
-- a graph-native workflow language, not a private configuration dialect
-- a canonical traversal governance and runtime-truth substrate, not a
-  domain-specific planner or executor
-- a reference implementation and proving surface for graph-native product
-  systems
-- a platform that should support downstream products without leaking one
-  downstream domain into the GTL or ABG core
-
-Each release identifies one qualified tenant carrier and its exact public
-contracts. Other tenant lines are reference or alternate realizations unless
-separately qualified for that release. Downstream proving domains remain
-evidence surfaces and independent catalog products; they are not the GTL and
-ABG product definition.
-
-## Downstream Product-Lab Boundary
-
-Abiogenesis may be used as a product lab for downstream ODD-native products
-when the downstream work starts from published graph functions, typed assets,
-admitted programs, ABG replay truth, and scenario proof rather than imperative
-framework scaffolding. Each downstream readiness claim requires its own
-product authority and installed scenario evidence; ABIogenesis does not infer
-readiness for a named downstream domain from substrate capability alone.
-
----
-
-## Release Framing
-
-A release of abiogenesis is not only a code cut.
-
-A release claim should answer, at minimum:
-
-1. What GTL language surface is current?
-2. What ABG runtime surface is current?
-3. What mapping/provenance surface preserves the GTL to runtime boundary?
-4. Which realization is the released carrier?
-5. What qualification and scenario evidence proves the claim?
-6. Which downstream proving domains were in scope for the cut?
-
-The 5.0 release claim identifies the exact immutable ABIogenesis product, its
-complete public operator and bounded Consensus contracts, self-conformance,
-native and Codex-projection results, and installed scenario evidence. Git ref,
-tarball, manifest, checksums, product identity, and qualification evidence must
-identify the same bytes. A rebuilt or source-importing approximation is not
-release evidence for that cut. An odd_glc release, a self-host equivalence
-result, and 5.0.1 dogfood evidence are not 5.0 release dependencies.
-
-ABIogenesis follows `RELEASE_METHOD`: a mutable RC window publishes and
-qualifies at least one immutable versioned RC cut before final tap. The final
-tap assigns the final version and reconciles release-scoped assets. Any product
-behavior, declaration, public-contract, or dependency change after the accepted
-RC reopens that product's RC window; it is not hidden in the final tap.
-
-The purpose of this document in the release process is to define what the
-release is releasing.
-
-Release metadata, taps, and version identifiers remain separate release-process
-surfaces. This document describes present product truth rather than release-line
-history.
-
----
-
-## Goal Authority
-
-The bounded current work wave lives only in [GOALS.md](GOALS.md). This product
-definition does not maintain a rival active-goal table. When a goal changes
-current product truth, that change enters this document and the owning
-requirements through the declared constitutional re-entry path.
-
----
-
-## Product Consequence
-
-With this definition in place, abiogenesis can be discussed more cleanly in
-product terms:
-
-- `INTENT.md` states why the product exists and what directional gaps matter
-- `PRODUCT.md` states what the product currently is and what a release is
-  claiming
-- `requirements/` decomposes that product into constitutional obligations
-- realization and qualification prove the product operationally
-
-That is the intended role of this document.
-
-## Heart of Gold: The Compute Architecture
-
-ABG is the code engine. GTL is the language. HoG.GTL is the
-system-level composition written in GTL — HoG IS ABG running HoG.GTL.
-The engine's substrate surface is: seven algebra primitives, five spine
-event kinds, one judgment router, one census, and law. Everything
-richer is admitted GTL configuration.
-
-### The algebra
-
-Traversal A→B carries compute C as a tuple over the fibres
-{F_D, F_P, F_H}. Each edge runs its DECLARED program of C calls;
-the canonical triple [transform, evaluate, consequence] is baked only
-as bootstrap P0. The generator set: C.of (unit), C.id, C.compose
-(Kleisli sequencing, associative, flat unless lifted), C.edge,
-workflow.C (the named lift — the recursion functor), C.batch,
-C.retry. Compose is closed; boundaries exist only via named lifts:
-every spine level corresponds to an admitted program identity.
-All-F_D degenerates to a workflow engine; all-F_H to a human process;
-truth is shape-preserving under fibre substitution
-(`REQ-R-ABG3-CCALL-001..-015`).
-
-### The envelope
-
-One locus-only spine per C call (opened → fibre-selected →
-evidenced → result-admitted → judged); fibres are admitted interior
-rows, never spine structure. The judgment vocabulary {advance, retry,
-pending, blocked, escalated, no_declared_check} routes the monad;
-no_declared_check is never gate-satisfying. External work sessions in
-archives equal external-work-bearing spine invocations in replay — the
-engine's cost and coverage are readable from its own truth.
-
-### Programs are configuration
-
-Workflow shape is product-declared data compiled through one isolated,
-versioned typed GTL C-program contract, never engine code. Configurations
-are LABELLED and coexist — a declared catalog of named programs with
-per-edge selection by ref — so tuning is addressable per edge-class at
-both the workflow level and the prompt level (per-stage instruction
-categories, the inlined form under gate invariance). Stage
-explicitness is capability-relative: cognitive stages reify as explicit
-nodes for weaker workers or inline as instruction categories for
-stronger ones — the regulator/process/checklist isomorphism — while
-verification gates remain explicit at every compression level
-(`-015`). Proportionality is the composable measure over C calls:
-declared class reconciles against replay-observed cost, and sustained
-divergence is a typed signal.
-
-### The atom criterion
-
-The product's deliverable is its ATOM SET, judged on exactly two
-properties: ROBUST (fail-closed admission, gated advancement, replay
-audit — an atom that can be misused silently is not done) and
-COMPOSABLE (one algebra, declared boundaries, reference joins — an atom
-that only works in one arrangement is not an atom). Higher-order
-decision networks — tuners, intent observers, lifecycle overlays,
-consensus panels — are FREE CONSTRUCTIONS over these atoms: unbounded
-in number, each inheriting admission, gating, drift-witnessing, and
-audit without new engine law. Every wave of work is accepted against
-this criterion: does it strengthen atom robustness or composability;
-feature count is not a measure.
-
-### The reflective boundary
-
-Allocation over scarcity (which calls earn effort, which anneal to
-F_D, which few escalate to F_H — the scarcest resource) belongs to a
-reflective layer that consumes replay and authors DECLARATIONS only:
-solve loops write candidates, optimize loops write terms, and no
-program does both in one judgment. ABG remains the sole truth
-authority at every layer.
-
-The workspace is the underlying reality: mutable, concurrent, forever
-changing, and known only through telemetry. Telemetry is attributed
-point-measurement of a region of reality at an instant; replay is the
-append-only measurement record — epistemic truth, never reality
-itself; every projection is a model over measurements. Drift between
-model and reality is the default condition, bounded by attributed
-measurement, single-writer mutation windows, and scheduled
-re-measurement — never assumed away.
-
-Regulation is a view, not a layer of command. Every actor operates
-through a bounded, admitted view of the one record; a tier is a
-coordinate choice over the same substrate — the same machinery and the
-same worker class pointed at the system's own telemetry instead of the
-worksite. Recursion is view restriction: narrower scope, finer
-resolution, opened only through published refinement boundaries.
-Defects concentrate at the transitions between views, where no local
-evaluator can see them in principle; the reflective layer is the view
-whose coordinates are those transitions.
-
-The reflective layer holds an internal model of what is intended (the
-constitutional surface), receives telemetry, and the gap between them
-drives an intent process that covers solutioning up to — never into —
-action: the TICKET is its only effector, behind F_H ratification, and
-its drafts re-enter the system as ordinary admitted work. It has no
-downward control path. Local-loop tightening (evaluator calibration,
-F_D annealing under admitted equivalence contracts) arrives as the
-reflective layer's OUTPUT derived from telemetry, never as hand-tuning.
-A proving campaign's deliverable is always the builder, not the
-scenario artifact; capability claims require frozen law — runs whose
-declarations were amended mid-flight are diagnostic history, not
-closure evidence.
+The root obligation graph is finite and acyclic:
+
+| Obligation | Depends on | Remaining rank after satisfaction |
+|---|---|---:|
+| `R1 exact artifacts verified` | none | 9 |
+| `R2 clean install complete` | `R1` | 8 |
+| `R3 workspace bound to exact product set` | `R2` | 7 |
+| `R4 catalog admitted and narrowed` | `R3` | 6 |
+| `R5 exact target program selected and admitted` | `R4` | 5 |
+| `R6 exact GraphFunction and contracts resolved` | `R5` | 4 |
+| `R7 materialized GTL graph validated` | `R6` | 3 |
+| `R8 HoG execution entered through public invocation` | `R7` | 2 |
+| `R9 ABG admitted causal result and closure events` | `R8` | 1 |
+| `R10 replay and CLI agree on typed terminal outcome` | `R9` | 0 |
+
+The terminal predicate is true only when all ten obligations are satisfied on
+the same binding and replay derives the admitted result and closed state twice
+identically. A transport error, typed continuation, hold, gap, block,
+non-admission, missing event, source import, private path, wrong contract, or
+fixture-authored result leaves the root red. Continuation is product behavior
+proved by `ABG5-S03`; it is not accepted as the sunny root outcome.
+
+Changing the product boundary, scenario, entry, contracts, runnable form,
+outcome, terminal predicate, obligation graph, or governor identity requires
+lawful product/goal re-entry and an F_H disposition. A ticket or subwave cannot
+choose a weaker root.
+
+Root green is required throughout delivery but is not complete product or
+release closure. The remaining scenarios, negative boundaries, conformance,
+qualification, and release gates remain independently required.
+
+## Explicit Non-Features
+
+ABIogenesis 5.0 does not include:
+
+- a new GTL source language, parser, compiler pipeline, bytecode, or executable
+  intermediate representation;
+- a generated HoG program, compiled execution plan, or runtime-program catalog
+  distinct from admitted GTL;
+- hidden default programs, selectors, stages, instructions, or topology;
+- controller authority in an SDK, CLI, installer, fixture, worker, plugin,
+  Consensus, or One Surface surface;
+- a second event stream, result ledger, retry loop, continuation model, or
+  closure authority;
+- a recursive-LLM-specific runtime or compute regime;
+- self-hosting or ABIogenesis-builds-ABIogenesis as a 5.0 release gate;
+- odd_glc or another GLC product as a 5.0 build or release dependency;
+- automatic ticket mutation, automatic wake, or an ABG-owned scheduler;
+- hosted registry, marketplace, billing, IAM, RBAC, multi-user service, or
+  distributed orchestration;
+- hostile-workstation resistance, publisher authenticity, remote attestation,
+  or signing on the trusted-desktop boundary; or
+- installed-product update, disable, unbind, uninstall, revocation, retirement,
+  or supersession lifecycle beyond exact initial installation and binding.
+
+Installed stable 5.0 may become the development product for 5.0.1. Self-use and
+deeper GLC dogfooding begin there and cannot retroactively qualify 5.0.
+
+## Governance And Release Boundary
+
+There is one lawful STDO identity. ABIogenesis 5.0 development is governed by
+the selected and installed release `v2.2.0`, commit
+`5326562f075d60052806d0d2c79d3db49671a8ea`, with standards member-set digest
+`ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c`.
+Self-conformance, qualification, and release must bind that same exact basis.
+Another STDO version cannot substitute without lawful Product re-entry and an
+F_H disposition. Mutable methodology source and candidate work are authoring
+inputs for a future release, not operative ABIogenesis law.
+
+This definition applies the released STDO version 2.2 disciplines without
+turning them into product features:
+
+- one product definition rather than competing target surfaces;
+- one immutable 4.6 origin baseline with semantic successor conservation;
+- one executable root outcome throughout delivery;
+- transactional replacement and retirement at hard breaks;
+- proportional proof ordered by the declared trusted-desktop risk model;
+- distinct authority, evidence, and projection bases; and
+- direct or lawfully proxied F_H closure.
+
+Product-definition closure does not accept the current implementation, approve
+a migration, or claim release readiness. It fixes the destination against which
+those later decisions are made.
+
+## Product Completion Predicate
+
+ABIogenesis 5.0 is complete only when one exact acyclic release lineage
+satisfies all of the following:
+
+1. Every semantic claim, repair, and explicit exclusion in the exact 4.6 origin
+   baseline has a terminal `conserved`, `superseded`,
+   `intentionally_removed`, or `not_applicable` disposition with behavioral
+   evidence.
+2. GTL programs are authored as TypeScript values and validated without
+   translation into a rival source language or executable program.
+3. HoG directly traverses every retained graph relation and C constructor.
+4. Every row of the 4.6 traversal conservation contract has a 5.0 declared
+   expression, installed execution witness, replay evidence, public outcome,
+   and real mutation-negative proof.
+5. `F_D`, `F_P`, and `F_H` obey their declared type and authority boundaries.
+6. The catalog publishes exact programs, callable GraphFunctions, contracts,
+   implementations, compatibility, versions, and provenance.
+7. The SDK and CLI are thin projections over that catalog and ABG runtime.
+8. One ABG path owns admission, events, replay, correction, continuation, and
+   closure around HoG traversal.
+9. All 17 feature families are realized. `ABG5-S01` through `ABG5-S06` pass on
+   one exact installed `pre_rc_candidate`; `ABG5-S07` preserves the distinct
+   pre-RC, RC, installed-RC, final-tap, released-Product, and post-publication
+   install subjects while using the same product contracts.
+10. Malformed GTL, malformed probabilistic output, invalid authority, basis
+   conflict, and rival-path mutations fail at their owning boundaries before
+   prohibited effects.
+11. No rival compiler, executable program representation, controller, registry,
+    event stream, or closure path remains public or reachable.
+12. Every qualification subject passes self-conformance and its owning gates
+    under the exact selected and installed STDO `v2.2.0` basis with no mixed
+    subject or substituted property.
+13. Any delta between immutable RC and final-tap candidate is limited to the
+    admitted `FinalTapDelta`; every affected gate is rerun before final
+    authorization.
+14. The final qualified cut is the stable `5.0.0` Git and package product and
+    passes a fresh source-blind post-publication installation.
+
+Component tests, type checks, schema counts, operation counts, published names,
+event co-presence, generated manifests, or a feature-specific installed fixture
+cannot substitute for this predicate.

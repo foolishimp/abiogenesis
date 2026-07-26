@@ -1,5 +1,9 @@
 module: M06-mapping-deferred
-status: deferred
+status: held_pending_t283_rederivation
+authority_note: >-
+  Prior-basis deferred evidence only. Not current ABIogenesis 5.0 design
+  authority; re-derive only if the closed Product and X-to-5 vector retain an
+  alternate-runtime mapping boundary.
 owns:
   - alternate engine capability profiles
   - alternate runtime-family mapping bridge surfaces beyond canonical ABG

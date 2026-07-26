@@ -1,5 +1,9 @@
 module: M04-app-bootstrap
-status: active
+status: held_pending_t283_rederivation
+authority_note: >-
+  Prior-basis structural evidence only. Not current ABIogenesis 5.0 design
+  authority; re-derive as thin installed SDK and CLI shells after T-283 closure
+  and the X-to-5 vector.
 owns:
   - public SDK operation admission and app-edge effect adapters
   - operator-facing entry and projection boundary

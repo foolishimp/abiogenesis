@@ -1,9 +1,9 @@
 # REQ-L-GTL3-LAWS — Language Laws
 
-**Status**: Active
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Constraint / Guarantee
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -63,7 +63,17 @@ are stable across releases and are removed only by supersession, not by renaming
 
 **REQ-L-GTL3-LAWS-021**: Canonical authored form — an authored GTL program has one canonical data serialization with stable ordering and content-addressable digest identity. Identity canonicalization for digests and the canonical authored form are the same serialization law; alternate orderings or spellings are not rival authored truth.
 
-**REQ-L-GTL3-LAWS-022**: Declarations are data — authored GTL declarations are pure data in the canonical form. Host-language control flow, computation, or string assembly that produces declaration content at authoring time is drift, not authored truth; conformance rejects computed declarations at the declaration boundary.
+**REQ-L-GTL3-LAWS-022**: Declarations are data — authored GTL declaration
+truth is pure data in the canonical form. A published native constructor may
+use total deterministic host-language computation to assemble that data from
+explicit typed inputs when the result serializes to the one canonical form,
+round-trips through raw admission without loss, and derives the same content
+digest. The constructor is authoring syntax, not a second declaration
+authority. Declaration content derived from ambient process state, runtime
+events, filesystem discovery, randomness, clock time, unstable iteration, or
+hidden defaults is drift; so is a module export without an exact canonical
+round-trip witness. Conformance rejects those sources at the declaration
+boundary.
 
 **REQ-L-GTL3-LAWS-023**: Golden instance binding — a contract declaration may bind ratified example and counterexample instances as admitted data with content digests, promoting the existing evidence-shape and counterexample ref families rather than minting a rival surface. Golden instances calibrate evaluators and supply non-tautology mutation material; they are data, never closure authority.
 
@@ -90,7 +100,7 @@ authorized surface-to-subject bindings, and live facts. Version subjects are a
 closed tagged family: mutable source project, immutable published RC cut,
 tapped release cut, released product, and stamped installed product. These
 subjects never substitute for one another. For every versioned surface the
-semantic compiler shall resolve exactly one binding by binding ref and surface
+GTL validator shall resolve exactly one binding by binding ref and surface
 ref, then exactly one version fact for that binding's exact tagged subject,
 before comparing values. Missing, duplicate, or kind-incoherent basis is
 `version-basis-unresolved`; a declared version that disagrees with its resolved
@@ -103,7 +113,7 @@ digest is `surface-digest-missing`; and a public seam whose key set diverges
 from the passthrough authority is `seam-parity-drift`. Version-basis failure
 shall not suppress ticket or seam assessment. Each drift diagnostic carries a
 ratified identity and an admissible repair from the existing repair vocabulary.
-Drift detection shall not be a second checker outside the semantic compiler,
+Drift detection shall not be a second checker outside the GTL validator,
 and drift rules shall not be prose review checklists.
 
 ## Amendment (T-200 P0)

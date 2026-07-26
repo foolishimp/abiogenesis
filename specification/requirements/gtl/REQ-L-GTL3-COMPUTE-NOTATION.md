@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Constraint / Guarantee
 **Date**: 2026-07-11
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-GRAPHFUNCTION.md](REQ-L-GTL3-GRAPHFUNCTION.md), [REQ-L-GTL3-GRAPHVECTOR.md](REQ-L-GTL3-GRAPHVECTOR.md), [REQ-L-GTL3-JOB.md](REQ-L-GTL3-JOB.md), [REQ-L-GTL3-EVALUATOR.md](REQ-L-GTL3-EVALUATOR.md), [REQ-L-GTL3-HOOKS.md](REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-FN-COMPOSITION.md](../abg/REQ-R-ABG3-FN-COMPOSITION.md), [REQ-R-ABG3-ASSURANCE.md](../abg/REQ-R-ABG3-ASSURANCE.md), [REQ-R-ABG3-PAYLOAD.md](../abg/REQ-R-ABG3-PAYLOAD.md), [T-143](../../../.ai-workspace/tickets/completed/T-143-define-gtl-compute-notation-types-over-ratified-carriers.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-GRAPHFUNCTION.md](REQ-L-GTL3-GRAPHFUNCTION.md), [REQ-L-GTL3-GRAPHVECTOR.md](REQ-L-GTL3-GRAPHVECTOR.md), [REQ-L-GTL3-JOB.md](REQ-L-GTL3-JOB.md), [REQ-L-GTL3-EVALUATOR.md](REQ-L-GTL3-EVALUATOR.md), [REQ-L-GTL3-HOOKS.md](REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-FN-COMPOSITION.md](../abg/REQ-R-ABG3-FN-COMPOSITION.md), [REQ-R-ABG3-ASSURANCE.md](../abg/REQ-R-ABG3-ASSURANCE.md), [REQ-R-ABG3-PAYLOAD.md](../abg/REQ-R-ABG3-PAYLOAD.md), [T-143](../../../.ai-workspace/tickets/completed/T-143-define-gtl-compute-notation-types-over-ratified-carriers.md)
 
 ---
 
@@ -47,7 +47,7 @@ GTL ontology contains the authored language carriers:
 - `Job`
 - `Module`
 
-ABG runtime ontology contains interpreter-owned runtime truth, including:
+ABG runtime ontology contains ABG-admitted runtime truth, including:
 
 - selected `abg.fn_composition`
 - runtime events
@@ -111,7 +111,7 @@ contract identity for the owning boundary.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-011**: Evaluation, admitted-state, and consequence notation shall carry selected composition ref and digest, or a causally linked composition selection ref, whenever the stage participates in an `abg.fn_composition` governed boundary.
 
-**REQ-L-GTL3-COMPUTE-NOTATION-012**: ABG shall remain the owner of event emission, payload admission, ledger projection, assurance fold, traversal transition, continuation, closure, correction, and replay truth. GTL compute notation may point at those surfaces but shall not write them.
+**REQ-L-GTL3-COMPUTE-NOTATION-012**: HoG shall remain the owner of direct GTL traversal mechanics. ABG shall remain the owner of event emission, payload admission, ledger projection, assurance fold, admitted transition, continuation, closure, correction, and replay truth. GTL compute notation may point at those surfaces but shall not write them.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-013**: Product-specific pressure, gain meaning, and read-model interpretation shall remain product-owned projections over ABG-admitted facts. GTL compute notation shall not standardize downstream product strategy semantics.
 
@@ -123,7 +123,11 @@ contract identity for the owning boundary.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-017**: `F_H` shall be represented as an external human-callout compute category when it participates in composition. The category shall require `F_H`, shall state that human work is external to ABG, and shall require response admission before any human result can affect runtime truth.
 
-**REQ-L-GTL3-COMPUTE-NOTATION-018**: ABG.system side effects shall appear between plugin compute categories. A product plugin may compute and return typed values or refs, but only ABG.system may admit them, write events, derive ledgers, fold assurance, select traversal, replay continuation, or close.
+**REQ-L-GTL3-COMPUTE-NOTATION-018**: ABG.system side effects shall appear
+between plugin compute categories. A product plugin may compute and return
+typed values or refs, but only ABG.system may admit them, write events, derive
+ledgers, fold assurance, admit traversal transitions, replay continuation, or
+close. HoG alone advances the admitted GTL traversal topology.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-019**: The deterministic event-sourced case shall be represented as a lawful reduction of the same composition notation. A fully `F_D` graph remains a program graph over ABG admission/events/replay, not a separate API or shortcut around selected composition identity.
 

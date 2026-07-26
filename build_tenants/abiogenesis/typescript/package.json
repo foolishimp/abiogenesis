@@ -1,330 +1,90 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "5.0.0-dev.0",
+  "version": "5.0.0-dev.286",
+  "description": "ABIogenesis 5 direct-GTL TypeScript product",
   "private": true,
   "type": "module",
-  "types": "./build/semantic/code/src/index.d.ts",
-  "bin": {
-    "abg.cli": "./build/semantic/code/src/bin/abg.cli.js",
-    "abiogenesis-ts": "./build/semantic/code/src/bin/abiogenesis.js",
-    "genesis-ts": "./build/semantic/code/src/bin/abiogenesis.js",
-    "abg.install": "./build/semantic/code/src/bin/abg.install.js"
-  },
-  "exports": {
-    ".": {
-      "types": "./build/semantic/code/src/index.d.ts",
-      "import": "./build/semantic/code/src/index.js"
-    },
-    "./gtl/m01": {
-      "types": "./build/semantic/code/src/gtl/m01/index.d.ts",
-      "import": "./build/semantic/code/src/gtl/m01/index.js"
-    },
-    "./gtl/m02": {
-      "types": "./build/semantic/code/src/gtl/m02/index.d.ts",
-      "import": "./build/semantic/code/src/gtl/m02/index.js"
-    },
-    "./gtl/requirements": {
-      "types": "./build/semantic/code/src/gtl/requirements/index.d.ts",
-      "import": "./build/semantic/code/src/gtl/requirements/index.js"
-    },
-    "./abg/requirements": {
-      "types": "./build/semantic/code/src/abg/requirements/index.d.ts",
-      "import": "./build/semantic/code/src/abg/requirements/index.js"
-    },
-    "./abg/executive": {
-      "types": "./build/semantic/code/src/abg/executive/index.d.ts",
-      "import": "./build/semantic/code/src/abg/executive/index.js"
-    },
-    "./abg/m03": {
-      "types": "./build/semantic/code/src/abg/m03/index.d.ts",
-      "import": "./build/semantic/code/src/abg/m03/index.js"
-    },
-    "./abg/m03/transport": {
-      "types": "./build/semantic/code/src/abg/m03/transport/index.d.ts",
-      "import": "./build/semantic/code/src/abg/m03/transport/index.js"
-    },
-    "./app/m04": {
-      "types": "./build/semantic/code/src/app/m04/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/index.js"
-    },
-    "./app/m04/asset-addressing": {
-      "types": "./build/semantic/code/src/app/m04/asset_addressing/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/asset_addressing/index.js"
-    },
-    "./app/m04/control": {
-      "types": "./build/semantic/code/src/app/m04/control/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/control/index.js"
-    },
-    "./app/m04/bootloader": {
-      "types": "./build/semantic/code/src/app/m04/bootloader/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/bootloader/index.js"
-    },
-    "./app/m04/event-ingress": {
-      "types": "./build/semantic/code/src/app/m04/event_ingress/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/event_ingress/index.js"
-    },
-    "./app/m04/gaps": {
-      "types": "./build/semantic/code/src/app/m04/gaps/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/gaps/index.js"
-    },
-    "./app/m04/install-bootstrap": {
-      "types": "./build/semantic/code/src/app/m04/install_bootstrap/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/install_bootstrap/index.js"
-    },
-    "./app/m04/toolchain-binding": {
-      "types": "./build/semantic/code/src/app/m04/toolchain_binding/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/toolchain_binding/index.js"
-    },
-    "./app/m04/live-status": {
-      "types": "./build/semantic/code/src/app/m04/live_status/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/live_status/index.js"
-    },
-    "./app/m04/max-autonomy": {
-      "types": "./build/semantic/code/src/app/m04/max_autonomy/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/max_autonomy/index.js"
-    },
-    "./app/m04/result-assessment": {
-      "types": "./build/semantic/code/src/app/m04/result_assessment/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/result_assessment/index.js"
-    },
-    "./qualification/m05": {
-      "types": "./build/semantic/code/src/qualification/m05/index.d.ts",
-      "import": "./build/semantic/code/src/qualification/m05/index.js"
-    },
-    "./shared/traced-process": {
-      "types": "./build/semantic/code/src/shared/traced_process/index.d.ts",
-      "import": "./build/semantic/code/src/shared/traced_process/index.js"
-    }
-  },
-  "files": [
-    "build/semantic/**",
-    "config/**",
-    "contracts/**",
-    "product-toolchain-manifest.json"
-  ],
   "engines": {
     "node": ">=20"
   },
-  "scripts": {
-    "build:host": "tsc -p tsconfig.semantic-strict.json",
-    "check:design-mermaid": "node test_env/gates/design_mermaid_gate.mjs",
-    "generate:public-contract-schemas": "npm run build:host && node test_env/tools/generate_public_contract_schemas.mjs --write",
-    "check:public-contract-schemas": "npm run build:host && node test_env/tools/generate_public_contract_schemas.mjs --check",
-    "generate:abg-product-publication": "npm run check:public-contract-schemas && node test_env/tools/publish_abg_product_contracts.mjs --write",
-    "check:abg-product-publication": "npm run check:public-contract-schemas && node test_env/tools/publish_abg_product_contracts.mjs --check",
-    "generate:t223-hello-world-fixture": "node test_env/tools/t223_hello_world_fixture.mjs generate --abg-version $npm_package_version",
-    "check:t223-hello-world-fixture": "node test_env/tools/t223_hello_world_fixture.mjs check --abg-version $npm_package_version",
-    "pack:t223-hello-world-fixture": "node test_env/tools/t223_hello_world_fixture.mjs pack --abg-version $npm_package_version --output ${ABG_T223_FIXTURE_PACK_ROOT:-test_env/test_runs/t223_hello_world_fixture}",
-    "build:semantic": "npm run build:host && npm run guard:gtl-law && npm run test:gtl-law",
-    "lint:host": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/gtl/requirements/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/runner/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/abg/requirements/**/*.ts\" \"code/src/abg/executive/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\" \"code/src/shared/traced_process/**/*.ts\"",
-    "lint:semantic": "npm run lint:host && npm run guard:gtl-law",
-    "guard:gtl-law": "node test_env/gates/gtl_algebra_authority_guard.mjs",
-    "test:gtl-law": "tsc -p test_env/type_tests/tsconfig.t220-c-algebra.json && tsc -p test_env/type_tests/tsconfig.t220.json && tsc -p test_env/type_tests/tsconfig.t253.json && tsc -p test_env/type_tests/tsconfig.t254.json && tsc -p test_env/type_tests/tsconfig.t265.json && tsc -p test_env/type_tests/tsconfig.t266.json && node --test test_env/tests/test_t220_c_algebra.test.mjs test_env/tests/test_t220_declaration_law.test.mjs test_env/tests/test_t220_execution_basis_coherence.test.mjs test_env/tests/test_t220_fp_output_admission.test.mjs test_env/tests/test_t253_hof_vector_relation.test.mjs test_env/tests/test_t253_hof_relation_compiler.test.mjs test_env/tests/test_t254_graph_vector_c_program_selection.test.mjs test_env/tests/test_t265_graph_function_application.test.mjs test_env/tests/test_t265_graph_function_application_compiler.test.mjs test_env/tests/test_t266_native_node_interface_witness.test.mjs",
-    "test:t220": "npm run build:semantic",
-    "test:t223": "npm run build:semantic && tsc -p test_env/type_tests/tsconfig.t223.json && node --test --test-concurrency=1 test_env/tests/test_t223*.test.mjs",
-    "test:t223:live": "npm run build:semantic && ABG_TS_T223_PACKED_HELLO_WORLD_LIVE=1 node --test --test-concurrency=1 test_env/live/test_t223_packed_hello_world_live.test.mjs",
-    "test:t250": "npm run build:semantic && tsc -p test_env/type_tests/tsconfig.t250.json && node --test --test-concurrency=1 test_env/tests/test_t193_constitutional_drift.test.mjs test_env/tests/test_t195_docs_drift.test.mjs",
-    "test:t253": "npm run build:semantic && node --test test_env/tests/test_m01_gtl_core_integration.test.mjs test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs test_env/tests/test_t191_gtl_diagnostic_law.test.mjs",
-    "test:t254": "npm run build:semantic && node --test test_env/tests/test_t254_graph_vector_c_program_selection.test.mjs",
-    "test:t265": "npm run build:semantic && node --test test_env/tests/test_t265_graph_function_application.test.mjs test_env/tests/test_t265_graph_function_application_compiler.test.mjs",
-    "test:t266": "npm run build:semantic && node --test test_env/tests/test_t266_native_node_interface_witness.test.mjs test_env/tests/test_t266_packed_public_api.proof.mjs test_env/tests/test_m01_gtl_core_integration.test.mjs test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs",
-    "lint:test-harness": "eslint --max-warnings=0 \"test_env/live/**/*.mjs\" \"test_env/sandbox/**/*.mjs\" \"test_env/tests/support/**/*.mjs\"",
-    "test:design-mermaid": "node --test --test-concurrency=1 test_env/tests/test_t251_design_mermaid_gate.test.mjs",
-    "lint:t087": "npm run lint:semantic && eslint --max-warnings=0 \"test_env/live/test_t087_supervised_actor_invocation_live.test.mjs\"",
-    "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",
-    "test:t156": "npm run build:semantic && node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs test_env/tests/test_t156_consequence_allowed_traversal_catalog.test.mjs test_env/tests/test_t156_consequence_ticket_traversal_bridge.test.mjs test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs",
-    "test:t159": "npm run build:semantic && node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs",
-    "test:t162": "npm run build:semantic && node --test test_env/tests/test_t162_requirements_algebra.test.mjs",
-    "test:t162:live": "npm run build:semantic && ABG_TS_T162_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t162_requirements_algebra_live.test.mjs",
-    "test:t162:hello-world-live": "npm run test:t162:live",
-    "test:t164": "npm run build:semantic && node --test test_env/tests/test_t162_requirements_algebra.test.mjs test_env/tests/test_t164_requirements_route_facade.test.mjs",
-    "test:t165:hello-world-live": "npm run build:semantic && ABG_TS_T165_HELLO_WORLD_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t165_hello_world_requirements_route_live.test.mjs",
-    "test:t166": "npm run build:semantic && node --test test_env/tests/test_t166_requirements_route_replay_artifact.test.mjs",
-    "test:t166:live": "npm run test:t165:hello-world-live",
-    "test:t167": "npm run build:semantic && node --test test_env/tests/test_t167_non_closed_requirements_route_replay_artifact.test.mjs",
-    "test:t171": "npm run build:semantic && node --test test_env/live/test_t171_non_js_toolchain_execution_live.test.mjs",
-    "test:t171:live": "npm run build:semantic && ABG_TS_T171_NON_JS_TOOLCHAIN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t171_non_js_toolchain_execution_live.test.mjs",
-    "test:t172": "npm run build:semantic && node --test test_env/live/test_t172_service_process_request_live.test.mjs",
-    "test:t172:live": "npm run build:semantic && ABG_TS_T172_SERVICE_REQUEST_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t172_service_process_request_live.test.mjs",
-    "test:t168": "npm run build:semantic && node --test test_env/tests/test_t168_requirement_graph_refinement.test.mjs",
-    "test:t168:live": "npm run build:semantic && ABG_TS_T168_REFINEMENT_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t168_requirement_graph_refinement_live.test.mjs",
-    "test:t169": "npm run build:semantic && node --test test_env/tests/test_t169_requirement_span_identity_recursion.test.mjs",
-    "test:t169:live": "npm run build:semantic && ABG_TS_T169_SPAN_LINEAGE_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t169_requirement_span_identity_recursion_live.test.mjs",
-    "test:t160": "npm run build:semantic && node --test test_env/tests/test_t160_recursive_executive_observer.test.mjs",
-    "test:t160:live": "npm run build:semantic && ABG_TS_T160_EXECUTIVE_OBSERVER_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t160_recursive_executive_observer_live.test.mjs",
-    "test:t173": "npm run build:semantic && node --test test_env/tests/test_t173_generic_proof_evidence_projection.test.mjs",
-    "test:t173:live": "npm run build:semantic && ABG_TS_T173_GENERIC_PROOF_EVIDENCE_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t173_generic_proof_evidence_live.test.mjs",
-    "test:t174": "npm run build:semantic && node --test test_env/live/test_t174_parallel_hello_world_live.test.mjs",
-    "test:t174:live": "npm run build:semantic && ABG_TS_T174_PARALLEL_HELLO_WORLD_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t174_parallel_hello_world_live.test.mjs",
-    "test:t175:live": "npm run build:semantic && ABG_TS_T175_NON_CLOSED_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t175_live_non_closed_requirements_route.test.mjs",
-    "test:t177": "npm run build:semantic && node --test test_env/tests/test_t177_runtime_graph_function_registry.test.mjs",
-    "test:t177:live": "npm run build:semantic && ABG_TS_T165_HELLO_WORLD_LIVE=1 ABG_TS_T177_REGISTRY_HELLO_WORLD_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t165_hello_world_requirements_route_live.test.mjs",
-    "test:t180": "npm run build:semantic && node --test test_env/tests/test_t180_gtl_node_types.test.mjs",
-    "test:hello-world:live": "npm run build:semantic && ABG_TS_HELLO_WORLD_FULL_STACK_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/sandbox/test_t180_glc_hello_world_bootstrap_live.test.mjs",
-    "test:t180:live": "npm run test:hello-world:live",
-    "test:t180:live:direct": "npm run build:semantic && ABG_TS_T180_NODE_TYPES_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t180_gtl_node_types_live.test.mjs",
-    "test:t182": "npm run build:semantic && node --test test_env/tests/test_t182_instruction_causal_carry.test.mjs",
-    "test:t182:live": "npm run test:hello-world:live",
-    "test:t183": "npm run build:semantic && node --test test_env/tests/test_t183_instruction_assembly_semantic_compiler.test.mjs",
-    "test:t183:live": "npm run test:hello-world:live",
-    "test:t188": "npm run build:semantic && node --test test_env/tests/test_t188_requirement_proof_carry_through.test.mjs test_env/tests/test_t188_fold_gating_wiring.test.mjs",
-    "test:t188:live": "npm run build:semantic && ABG_TS_T188_REQUIREMENT_PROOF_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t188_requirement_proof_carry_through_live.test.mjs",
-    "test:t189": "npm run build:semantic && node --test test_env/tests/test_t189_instruction_dispatch_runtime_wiring.test.mjs",
-    "test:t159:odd-sdlc-t132-live": "npm run build:semantic && ABG_TS_ODD_SDLC_T132_FROZEN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs",
-    "test:t161": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs",
-    "test:t163": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs test_env/tests/test_t163_shared_product_toolchain_resolution.test.mjs",
-    "snapshot:release": "npm run build:semantic && node build/semantic/code/src/bin/abiogenesis.js release-snapshot --snapshot-root ../../../release_snapshots/abiogenesis-typescript-tenant/$npm_package_version --release-identity $npm_package_version --source-ref main --rc-branch main --release-note ../../../docs/ABIOGENESIS_RC_RELEASE_NOTE.md --expected-package-name $npm_package_name --expected-package-version $npm_package_version",
-    "test:live": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_portfolio.test.mjs",
-    "test:live:uat": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_uat.test.mjs",
-    "test:t009": "npm run build:semantic && node --test test_env/tests/t009-m01-negative-ingress.test.mjs test_env/tests/t009-m01-roundtrip.test.mjs test_env/tests/test_m01_gtl_core_integration.test.mjs",
-    "test:t010": "npm run build:semantic && node --test test_env/tests/t010-m02-negative-ingress.test.mjs test_env/tests/test_m02_work_publication_integration.test.mjs",
-    "test:t011": "npm run build:semantic && node --test test_env/tests/t011-abg-negative-ingress.test.mjs test_env/tests/test_m03_engine_kernel_integration.test.mjs",
-    "test:t012": "npm run build:semantic && node --test test_env/tests/t012-m04-negative-ingress.test.mjs test_env/tests/test_m04_app_bootstrap_unit.test.mjs test_env/tests/test_m04_app_bootstrap_integration.test.mjs",
-    "test:t013": "npm run build:semantic && node --test test_env/tests/t013-m04-control-negative.test.mjs test_env/tests/test_m04_control_loop_unit.test.mjs test_env/tests/test_m04_control_loop_integration.test.mjs",
-    "test:t014": "npm run build:semantic && node --test test_env/tests/t014-lookup-authority-negative.test.mjs test_env/tests/test_m02_m03_lookup_authority_integration.test.mjs",
-    "test:t016": "npm run build:semantic && node --test test_env/tests/t016-m04-event-ingress-negative.test.mjs test_env/tests/test_m04_event_ingress_unit.test.mjs test_env/tests/test_m04_event_ingress_integration.test.mjs",
-    "test:t017": "npm run build:semantic && node --test test_env/tests/t017-m04-result-assessment-negative.test.mjs test_env/tests/test_m04_result_assessment_unit.test.mjs test_env/tests/test_m04_result_assessment_integration.test.mjs",
-    "test:t018": "npm run build:semantic && node --test test_env/tests/t018-m04-live-status-negative.test.mjs test_env/tests/test_m04_live_status_unit.test.mjs test_env/tests/test_m04_live_status_integration.test.mjs",
-    "test:t019": "npm run build:semantic && node --test test_env/tests/t019-m04-install-bootstrap-negative.test.mjs test_env/tests/test_m04_install_bootstrap_unit.test.mjs test_env/tests/test_m04_install_bootstrap_integration.test.mjs",
-    "test:t020": "npm run build:semantic && node --test test_env/tests/t020-m04-bootloader-negative.test.mjs test_env/tests/test_m04_bootloader_unit.test.mjs test_env/tests/test_m04_bootloader_integration.test.mjs",
-    "test:t021": "npm run build:semantic && node --test test_env/tests/t021-m05-qualification-negative.test.mjs test_env/tests/test_m05_method_trace_unit.test.mjs test_env/tests/test_m05_fake_lane_integration.test.mjs",
-    "test:t022": "npm run build:semantic && node --test test_env/tests/t022-m05-installed-sandbox-negative.test.mjs test_env/tests/test_m05_sandbox_install_integration.test.mjs test_env/tests/test_m05_sandbox_live_integration.test.mjs test_env/tests/test_m05_installed_graph_function_target_integration.test.mjs test_env/tests/test_m05_run_archive_integration.test.mjs",
-    "test:t031": "npm run build:semantic && node --test test_env/tests/t031-m05-live-portfolio-negative.test.mjs test_env/tests/test_m05_reference_obligations_unit.test.mjs test_env/tests/test_m05_installed_live_portfolio_unit.test.mjs test_env/tests/test_m05_installed_live_portfolio_integration.test.mjs",
-    "test:t036": "npm run build:semantic && node --test test_env/tests/test_m05_python_sandbox_behavior_portfolio_integration.test.mjs test_env/tests/test_m05_three_stage_graph_function_sandbox_integration.test.mjs",
-    "test:t044": "npm run build:semantic && node --test test_env/tests/t044-m03-graph-function-iteration-negative.test.mjs test_env/tests/test_m03_graph_function_iteration_unit.test.mjs test_env/tests/test_m03_graph_function_iteration_integration.test.mjs",
-    "test:t045": "npm run build:semantic && node --test test_env/tests/t045-m03-retry-leaftask-negative.test.mjs test_env/tests/test_m03_retry_repair_unit.test.mjs test_env/tests/test_m03_leaf_task_integration.test.mjs",
-    "test:t030": "npm run build:semantic && node --test test_env/tests/t030-m05-archive-finalization-negative.test.mjs test_env/tests/test_m05_archive_finalization_unit.test.mjs test_env/tests/test_m05_run_archive_integration.test.mjs",
-    "test:t032": "npm run build:semantic && node --test test_env/tests/t032-m05-reset-postmortem-negative.test.mjs test_env/tests/test_m05_installed_reset_postmortem_unit.test.mjs test_env/tests/test_m05_installed_reset_postmortem_integration.test.mjs",
-    "test:t025": "npm run build:semantic && node --test test_env/tests/t025-m04-public-asset-addressing-negative.test.mjs test_env/tests/test_m04_public_asset_addressing_unit.test.mjs test_env/tests/test_m04_public_asset_addressing_integration.test.mjs",
-    "test:t026": "npm run build:semantic && node --test test_env/tests/t026-m03-transport-protocol-negative.test.mjs test_env/tests/test_m03_transport_protocol_unit.test.mjs test_env/tests/test_m03_transport_protocol_integration.test.mjs",
-    "test:b030": "npm run build:semantic && node --test test_env/tests/b030-ts-m04-complete-start-negative.test.mjs test_env/tests/test_m04_complete_start_surface_unit.test.mjs test_env/tests/test_m04_complete_start_surface_integration.test.mjs",
-    "test:t027": "npm run build:semantic && node --test test_env/tests/t027-abg-common-realization-library-negative.test.mjs test_env/tests/test_abg_common_realization_library_unit.test.mjs test_env/tests/test_abg_common_realization_library_integration.test.mjs",
-    "test:t028": "npm run build:semantic && node --test test_env/tests/t028-abg-common-delivery-library-negative.test.mjs test_env/tests/test_abg_common_delivery_library_unit.test.mjs test_env/tests/test_abg_common_delivery_library_integration.test.mjs",
-    "test:t057": "npm run build:semantic && node --test test_env/tests/t057-m04-cli-binary-negative.test.mjs test_env/tests/test_m04_cli_binary_integration.test.mjs",
-    "test:t058": "npm run build:semantic && node --test test_env/tests/t058-m04-public-gaps-negative.test.mjs test_env/tests/test_m04_public_gaps_projection_integration.test.mjs",
-    "test:t059": "npm run build:semantic && node --test test_env/tests/test_m03_generic_single_hop_graph_function_investigation.test.mjs",
-    "test:t060": "npm run build:semantic && node --test test_env/tests/test_m03_no_compute_basis_taxonomy.test.mjs",
-    "test:t061": "npm run build:semantic && node --test test_env/tests/test_m03_minimum_typed_traversal_investigation.test.mjs",
-    "test:t062": "npm run build:semantic && node --test test_env/tests/test_m03_traversal_structure_probe_unit.test.mjs",
-    "test:t063": "npm run build:semantic && node --test test_env/tests/test_m05_sdlc_bootstrap_lineage_unit.test.mjs",
-    "test:t064": "npm run build:semantic && node --test test_env/sandbox/test_m05_data_mapper_real_ingress.test.mjs",
-    "test:t065": "npm run build:semantic && node --test test_env/tests/test_m03_forensic_traversal_probe_completeness.test.mjs",
-    "test:t066": "npm run build:semantic && node --test test_env/tests/test_m03_internal_control_loop_sufficiency.test.mjs",
-    "test:t069": "npm run build:semantic && node --test test_env/tests/test_m03_graph_application_instance_semantics.test.mjs",
-    "test:t072": "npm run build:semantic && node --test test_env/tests/test_m03_engine_owned_iterate_runner_unit.test.mjs test_env/tests/test_m04_engine_start_integration.test.mjs test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs",
-    "test:b016": "npm run build:semantic && node --test test_env/tests/test_b016_ioc_hook_authority.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m04_engine_start_integration.test.mjs",
-    "test:t072:plugins": "npm run build:semantic && node --test test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs",
-    "test:t076": "npm run build:semantic && node --test test_env/tests/test_m04_typescript_installer_integration.test.mjs",
-    "test:t077": "npm run build:semantic && node --test test_env/tests/test_t077_m05_public_sandbox_archive_api_integration.test.mjs",
-    "test:t084": "npm run build:semantic && node --test test_env/tests/test_t084_attached_fp_worker_loop.test.mjs",
-    "test:t085": "npm run build:semantic && node --test test_env/sandbox/test_t085_attached_fp_local_live_sandbox.test.mjs",
-    "test:t087": "npm run build:semantic && node --test test_env/tests/test_t087_supervised_actor_invocation.test.mjs",
-    "test:t087:live": "npm run build:semantic && node --test test_env/live/test_t087_supervised_actor_invocation_live.test.mjs",
-    "test:t092": "npm run build:semantic && node --test test_env/tests/test_t092_total_assurance_projection_unit.test.mjs",
-    "test:t093": "npm run build:semantic && node --test test_env/tests/test_t093_assurance_gate_integration.test.mjs",
-    "test:t094": "npm run build:semantic && node --test test_env/tests/test_t094_assurance_register_two_hop_unit.test.mjs",
-    "test:t094:live": "npm run build:semantic && node --test test_env/live/test_t094_assurance_register_two_hop_live.test.mjs",
-    "test:t095": "npm run build:semantic && node --test test_env/tests/test_t095_payload_ledger_unit.test.mjs test_env/tests/test_t094_assurance_register_two_hop_unit.test.mjs",
-    "test:t097": "npm run build:semantic && node --test test_env/tests/test_t097_supervised_process_actor.test.mjs",
-    "test:t098": "npm run build:semantic && node --test test_env/tests/test_t098_retry_frontier_projection.test.mjs",
-    "test:t099": "npm run build:semantic && node --test test_env/tests/test_t099_fp_stage_carriers.test.mjs",
-    "test:t082": "npm run build:semantic && node --test test_env/tests/test_t082_output_allocation_unit.test.mjs",
-    "test:t100:unit": "npm run build:semantic && node --test test_env/tests/test_t100_workspace_zoom_foldback_unit.test.mjs",
-    "test:t100:sandbox": "npm run build:semantic && node --test test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs",
-    "test:t100": "npm run build:semantic && node --test test_env/tests/test_t100_workspace_zoom_foldback_unit.test.mjs test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs",
-    "test:t100:five-rule": "npm run build:semantic && node --test test_env/live/test_t100_five_rule_algebra_live.test.mjs",
-    "test:t100:test35-parity": "npm run build:semantic && node --test test_env/tests/test_t100_workspace_zoom_foldback_unit.test.mjs test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs test_env/live/test_t100_five_rule_algebra_live.test.mjs",
-    "test:t101": "npm run build:semantic && node --test test_env/sandbox/test_t101_mini_dm_redux_live.test.mjs",
-    "test:t101:edge1": "npm run build:semantic && node test_env/sandbox/mini_dm_redux/run.mjs --edge derive_field_spec",
-    "test:t101:edge2": "npm run build:semantic && node test_env/sandbox/mini_dm_redux/run.mjs --edge derive_implementation",
-    "test:t101:edge3": "npm run build:semantic && node test_env/sandbox/mini_dm_redux/run.mjs --edge derive_validation",
-    "test:t101:full": "npm run build:semantic && node test_env/sandbox/mini_dm_redux/run.mjs --full",
-    "test:t101:gaps": "node test_env/sandbox/mini_dm_redux/run.mjs --gaps",
-    "test:t102": "npm run build:semantic && node --test test_env/tests/test_t102_eval_suite_projection_unit.test.mjs && T100_MINI_SANDBOX_REPEAT=2 node --test test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs",
-    "test:t103": "npm run build:semantic && node --test test_env/tests/test_t103_graph_span_reentry_unit.test.mjs test_env/tests/test_t103_graph_span_reentry_semantic_deep.test.mjs",
-    "test:t154": "npm run build:semantic && node --test test_env/tests/test_t154_runtime_authoring_routes.test.mjs",
-    "test:t155": "npm run build:semantic && node --test test_env/tests/test_t155_graph_function_zoom_plan.test.mjs test_env/live/test_t155_graph_function_zoom_plan_live.test.mjs",
-    "test:t104:unit": "npm run build:semantic && node --test test_env/tests/test_t104_cross_workspace_output_allocation_unit.test.mjs",
-    "test:t104:sandbox": "npm run build:semantic && node --test test_env/sandbox/test_t104_cross_workspace_mini_dm_forensics_sandbox.test.mjs",
-    "test:t104": "npm run build:semantic && node --test test_env/tests/test_t104_cross_workspace_output_allocation_unit.test.mjs test_env/sandbox/test_t104_cross_workspace_mini_dm_forensics_sandbox.test.mjs",
-    "test:t106": "npm run build:semantic && node --test test_env/tests/test_t106_traversal_non_progress_continuation.test.mjs",
-    "test:t107": "npm run build:semantic && node --test test_env/tests/test_t107_traversal_modulation_unit.test.mjs",
-    "test:t107:data-mapper-live": "npm run build:semantic && CODEX_LIVE_FP=1 node --test test_env/sandbox/test_t107_mini_dm_traversal_schemes_live.test.mjs",
-    "test:agent-callout-guard": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_guard.test.mjs",
-    "test:claude-stream-json-parser": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_traced_substrate.test.mjs",
-    "test:agent-callout-forced-failure": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_traced_substrate.test.mjs",
-    "test:t109": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_guard.test.mjs test_env/tests/test_t109_agent_callout_traced_substrate.test.mjs",
-    "test:t111": "npm run build:semantic && node --test test_env/tests/test_t111_pty_terminal_executor.test.mjs",
-    "test:t112:sandbox": "npm run build:semantic && node --test test_env/sandbox/test_t112_traversal_strategy_sandbox.test.mjs",
-    "test:t112": "npm run build:semantic && node --test test_env/tests/test_t112_traversal_strategy_selection.test.mjs test_env/tests/test_t107_traversal_modulation_unit.test.mjs test_env/sandbox/test_t112_traversal_strategy_sandbox.test.mjs",
-    "test:t113:live": "npm run build:semantic && CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal node --test test_env/live/test_t113_live_pty_claude_actor_worker.test.mjs",
-    "test:t115": "npm run build:semantic && node --test test_env/tests/test_t115_actor_worker_callout_closure.test.mjs",
-    "test:t116": "npm run build:semantic && node --test test_env/tests/test_t116_plugin_traversal_observer_binding.test.mjs",
-    "test:t116:live": "npm run test:t113:live",
-    "test:t117": "npm run build:semantic && node --test test_env/tests/test_t117_abg_defaults_bundle.test.mjs test_env/tests/test_m04_typescript_installer_integration.test.mjs",
-    "test:t117:live": "npm run test:t113:live",
-    "test:t119:gtl": "npm run build:semantic && node --test test_env/tests/test_t119_temporal_gtl_syntax.test.mjs",
-    "test:t119:sandbox": "npm run build:semantic && node --test test_env/sandbox/test_t119_temporal_gtl_sandbox.test.mjs",
-    "test:t119:live": "npm run build:semantic && node --test test_env/live/test_t119_temporal_gtl_live.test.mjs test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
-    "test:t119": "npm run build:semantic && node --test test_env/tests/test_t119_temporal_algebra_unit.test.mjs test_env/tests/test_t119_temporal_gtl_syntax.test.mjs test_env/tests/test_t120_event_calculus_runtime_law.test.mjs test_env/sandbox/test_t119_temporal_gtl_sandbox.test.mjs test_env/live/test_t119_temporal_gtl_live.test.mjs test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
-    "test:t120": "npm run build:semantic && node --test test_env/tests/test_t120_event_calculus_runtime_law.test.mjs",
-    "test:t121": "npm run build:semantic && node --test test_env/tests/test_t121_event_calculus_projection_parity.test.mjs",
-    "test:t122": "npm run build:semantic && node --test test_env/tests/test_t122_temporal_deadline_policy.test.mjs",
-    "test:t123": "npm run build:semantic && node --test test_env/tests/test_t123_method_trace_guard.test.mjs",
-    "test:t128": "npm run build:semantic && node --test test_env/tests/test_t128_construction_runner.test.mjs",
-    "test:t127:unit": "npm run build:semantic && node --test test_env/tests/test_t127_fp_consciousness_loop_unit.test.mjs",
-    "test:t127:sandbox": "npm run build:semantic && node --test test_env/sandbox/test_t127_fp_consciousness_scenarios_sandbox.test.mjs",
-    "test:t127:live": "npm run build:semantic && node --test test_env/live/test_t127_fp_consciousness_scenarios_live.test.mjs",
-    "test:t127": "npm run build:semantic && node --test test_env/tests/test_t127_fp_consciousness_loop_unit.test.mjs test_env/sandbox/test_t127_fp_consciousness_scenarios_sandbox.test.mjs",
-    "test:t129": "npm run build:semantic && node --test test_env/tests/test_t129_runtime_liveness_observer.test.mjs",
-    "test:t130": "npm run build:semantic && node --test test_env/tests/test_t130_hook_action_typing_model.test.mjs",
-    "test:t131": "npm run build:semantic && node --test test_env/tests/test_t131_edge_assurance_contract.test.mjs",
-    "test:t130:t131": "npm run build:semantic && node --test test_env/tests/test_t130_hook_action_typing_model.test.mjs test_env/tests/test_t131_edge_assurance_contract.test.mjs",
-    "test:t132": "npm run build:semantic && node --test test_env/tests/test_t132_edge_assurance_installed_sandbox.test.mjs",
-    "test:t132:live": "npm run build:semantic && node --test test_env/live/test_t132_edge_assurance_installed_live.test.mjs",
-    "test:t133": "npm run build:semantic && node --test test_env/tests/test_t133_target_carrier_contract.test.mjs",
-    "test:t135": "npm run build:semantic && node --test test_env/tests/test_t135_vector_local_runtime_regime.test.mjs",
-    "test:t136": "npm run build:semantic && node --test test_env/tests/test_t136_observed_state_admission.test.mjs",
-    "test:t137": "npm run build:semantic && node --test test_env/tests/test_t137_overlay_frame_contract.test.mjs",
-    "test:t138": "npm run build:semantic && node --test test_env/tests/test_t138_fd_authority_placement.test.mjs",
-    "test:t139": "npm run build:semantic && node --test test_env/tests/test_t139_construction_pressure_package.test.mjs",
-    "test:t140": "npm run build:semantic && node --test test_env/tests/test_t140_runtime_identity_consolidation.test.mjs",
-    "test:t141:async": "npm run build:semantic && node --test test_env/tests/test_t141_saga_frontier_async.test.mjs",
-    "test:t141": "npm run build:semantic && node --test test_env/tests/test_t141_saga_frontier.test.mjs test_env/tests/test_t141_saga_frontier_async.test.mjs",
-    "test:t141:live": "npm run build:semantic && CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal node --test test_env/live/test_t141_saga_frontier_live.test.mjs",
-    "test:t142": "npm run build:semantic && node --test test_env/tests/test_t142_release_snapshot_bundle.test.mjs",
-    "test:t143": "npm run build:semantic && node --test test_env/tests/test_t143_gtl_compute_notation_types.test.mjs",
-    "test:t144": "npm run build:semantic && node --test test_env/tests/test_t144_abg_probabilistic_monad_plugin_boundary.test.mjs",
-    "test:t145": "npm run build:semantic && node --test test_env/tests/test_t145_evaluation_set_phase.test.mjs",
-    "test:t146": "npm run build:semantic && node --test test_env/tests/test_t146_composed_stage_set_phase.test.mjs",
-    "test:t147": "npm run build:semantic && node --test test_env/tests/test_t147_runtime_authority_invariants.test.mjs",
-    "test:t148": "npm run build:semantic && node --test test_env/tests/test_t148_runtime_continuation_transition.test.mjs",
-    "test:t149": "npm run build:semantic && node --test test_env/tests/test_t149_iteration_state_action_algebra.test.mjs",
-    "test:t150": "npm run build:semantic && node --test test_env/tests/test_t150_gtl_prompt_asset_surface.test.mjs test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs test_env/live/test_t150_gtl_prompt_asset_surface_live.test.mjs",
-    "test:t151": "npm run build:semantic && node --test test_env/tests/test_t151_segment_scoped_evaluation_redispatch.test.mjs test_env/live/test_t151_segment_scoped_evaluation_redispatch_live.test.mjs",
-    "test:t125:live": "npm run build:semantic && node --test test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
-    "test:t125": "npm run test:t125:live",
-    "test:t191": "npm run build:semantic && node --test test_env/tests/test_t191_gtl_diagnostic_law.test.mjs",
-    "test:t194:sandbox-live": "npm run build:semantic && ABG_TS_T194_FEATURE_MATRIX_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/sandbox/test_t194_feature_matrix_sandbox_live.test.mjs",
-    "test:t200": "npm run build:semantic && node --test test_env/tests/test_t200_c_call_envelope.test.mjs",
-    "test:t205": "npm run build:semantic && node --test --test-name-pattern \"T-205\" test_env/tests/test_t200_c_call_envelope.test.mjs test_env/tests/test_t192_temporal_properties.test.mjs test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs",
-    "test:semantic:built": "node --test test_env/tests/*.test.mjs",
-    "gate:diff-witness": "npm run build:semantic && rm -rf .v8-coverage && NODE_V8_COVERAGE=.v8-coverage npm run test:semantic:built && node test_env/gates/diff_execution_witness.mjs --base HEAD~1 --coverage .v8-coverage"
+  "bin": {
+    "abg.cli": "./build/code/src/public/cli.js",
+    "abg.codex": "./build/code/src/public/codex_cli.js"
   },
-  "dependencies": {
-    "ajv": "8.20.0",
-    "jsonc-parser": "3.3.1",
-    "semver": "7.7.4",
-    "valibot": "1.3.1"
+  "exports": {
+    ".": {
+      "types": "./build/code/src/index.d.ts",
+      "import": "./build/code/src/index.js"
+    },
+    "./product": {
+      "types": "./build/code/src/product/index.d.ts",
+      "import": "./build/code/src/product/index.js"
+    },
+    "./abg": {
+      "types": "./build/code/src/abg/index.d.ts",
+      "import": "./build/code/src/abg/index.js"
+    },
+    "./gtl": {
+      "types": "./build/code/src/gtl/index.d.ts",
+      "import": "./build/code/src/gtl/index.js"
+    },
+    "./hog": {
+      "types": "./build/code/src/hog/index.d.ts",
+      "import": "./build/code/src/hog/index.js"
+    },
+    "./public": {
+      "types": "./build/code/src/public/index.d.ts",
+      "import": "./build/code/src/public/index.js"
+    },
+    "./validator": {
+      "types": "./build/code/src/validator/index.d.ts",
+      "import": "./build/code/src/validator/index.js"
+    }
+  },
+  "files": [
+    "build/**",
+    "contracts/**",
+    "product-toolchain-manifest.json"
+  ],
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "build": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",
+    "prepack": "npm run build",
+    "test:r1": "npm run build && node --test test_env/tests/r1-packed-artifact.test.mjs",
+    "test:r2": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs",
+    "test:r3": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs",
+    "test:r4": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs",
+    "test:r5": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs",
+    "test:r6": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs",
+    "test:r7": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs",
+    "test:r8": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs",
+    "test:r9": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs",
+    "test:r10": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs test_env/tests/r10-installed-cli-outcome.test.mjs",
+    "test:m4": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs test_env/tests/r10-installed-cli-outcome.test.mjs test_env/tests/rival-authority-mutations.test.mjs test_env/tests/runtime-scope-regressions.test.mjs test_env/tests/root-governor.test.mjs",
+    "test:m5:gtl": "npm run build && node --test test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test:m5:hog": "npm run build && node --test test_env/tests/m5-direct-hog-fold.test.mjs",
+    "test:m5:compose": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-compose.test.mjs",
+    "test:m5:graph-edge": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-graph-edge.test.mjs",
+    "test:m5:substitute": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-substitute.test.mjs",
+    "test:m5:fp": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-fp.test.mjs",
+    "test:m5:live-fp": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-live-fp.test.mjs",
+    "test:m5:workflow": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-workflow.test.mjs",
+    "test:m5:retry": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-retry.test.mjs",
+    "test:m5:gate": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-gate.test.mjs",
+    "test:m5:recursion": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-recursion.test.mjs",
+    "test:m5:fan-out": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-fan-out.test.mjs",
+    "test:m5:reopen": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-event-store-reopen.test.mjs",
+    "test:m5:fibre": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-fibre-substitution.test.mjs",
+    "test:m5:external": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-external-product.test.mjs",
+    "test:m5:s03-unit": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-s03-authority.test.mjs",
+    "test:m5:consensus-unit": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-consensus-module.test.mjs",
+    "test:m5:consensus": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-consensus.test.mjs",
+    "test:m5:portability": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-portability.test.mjs",
+    "test:m5:conservation": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/m5-traversal-conservation.test.mjs",
+    "test:m5": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/m5-direct-hog-fold.test.mjs test_env/tests/m5-installed-compose.test.mjs test_env/tests/m5-installed-graph-edge.test.mjs test_env/tests/m5-installed-substitute.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/m5-installed-fp.test.mjs test_env/tests/m5-installed-workflow.test.mjs test_env/tests/m5-installed-retry.test.mjs test_env/tests/m5-installed-gate.test.mjs test_env/tests/m5-installed-recursion.test.mjs test_env/tests/m5-installed-fan-out.test.mjs test_env/tests/m5-event-store-reopen.test.mjs test_env/tests/m5-fibre-substitution.test.mjs test_env/tests/m5-installed-fp-fd-compose.test.mjs test_env/tests/m5-s03-authority.test.mjs test_env/tests/m5-installed-external-product.test.mjs test_env/tests/m5-consensus-module.test.mjs test_env/tests/m5-installed-consensus.test.mjs test_env/tests/m5-installed-portability.test.mjs"
   },
   "devDependencies": {
-    "@mermaid-js/mermaid-cli": "11.3.0",
-    "@types/semver": "7.7.1",
-    "@typescript-eslint/eslint-plugin": "8.59.0",
-    "@typescript-eslint/parser": "8.59.0",
-    "eslint": "10.2.1",
-    "puppeteer": "23.6.1",
-    "ts-json-schema-generator": "2.9.0",
-    "typescript": "6.0.3"
+    "@types/node": "24.3.0",
+    "typescript": "5.9.2"
   }
 }

@@ -1,9 +1,9 @@
 # REQ-P-INSTALL — Installed Substrate Contract
 
-**Status**: Active
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
 **Date**: 2026-04-27
-**Derives from**: [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md)
+**Derives from**: [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md)
 **Wave**: Shared product toolchain install-resolution reprice; ABG 5.0 product binding
 
 ---
@@ -20,12 +20,16 @@ scripts, source-tree imports, or ticket commentary.
 ## Product Boundary
 
 **REQ-P-INSTALL-001**: Abiogenesis shall publish a public installer surface for
-each released build tenant that claims installed substrate behavior.
+each released build tenant that claims installed substrate behavior. The public
+surface shall bind `abg.operation.product.install`; package helpers and CLI
+paths shall not publish another installation operation identity.
 
-**REQ-P-INSTALL-002**: The installer shall create a target workspace binding to
+**REQ-P-INSTALL-002**: The installed-substrate composition shall first install
 one or more immutable released product payloads, including the selected ABG
-product, without treating a mutable source project or the target workspace as
-an installed product.
+product, and then admit a target workspace binding through
+`abg.operation.workspace.bind`, without treating a mutable source project or
+the target workspace as an installed product. Installation alone shall not
+create or change a binding.
 
 **REQ-P-INSTALL-003**: The installed substrate root shall be `.abiogenesis/`.
 Downstream products may install product-owned payload beneath
@@ -56,11 +60,17 @@ workspace binding truth, and workspace binding truth outranks
 present and valid, resolution shall fail closed. No configured default,
 target-root fallback, or legacy environment alias is a lawful selector.
 
-**REQ-P-INSTALL-008**: A workspace binding shall record the observed workspace
-root, observer/control state root, executor state root, event log path, runtime
-state root, projection root, archive root, selected toolchain root, selected
-product payloads, product root, package root, command paths, product manifest
-path, and product manifest digest.
+**REQ-P-INSTALL-008**: A `WorkspaceAuthorityBasis` shall bind the stable
+workspace identity, canonical root locator, authority mode, and
+authority-bearing manifest and configuration refs and digests. One immutable
+`WorkspaceBinding` shall bind that authority basis to one exact verified
+installed-product set, resolved lock, selected toolchain root, product and
+package roots, and declared observer/control, executor, event-log,
+runtime-state, projection, and archive root locations. It shall record public
+command or contract refs, product-manifest paths, and manifest digests. Mutable
+file, process, runtime, replay, artifact, and observed-root content shall belong
+to an `ObservationSnapshot`, not the authority basis or binding. A new
+observation shall not mutate, replace, or invalidate either stable identity.
 
 **REQ-P-INSTALL-008A**: A selected ABG product manifest that claims ABIogenesis
 5.0-or-later conformance shall contain the bootstrap and
@@ -122,7 +132,8 @@ manifest refs, standards-copy refs, runtime identity, and install result.
 verification surface that can distinguish a complete installed substrate from
 an incomplete or stale substrate. If a build tenant replaces a command-line
 `verify` mode with manifest or archive verification, that replacement shall be
-public, typed, and documented as the verification surface.
+public, typed, and documented as a variant of
+`abg.operation.product.verify`, not as another operation identity.
 
 **REQ-P-INSTALL-015A**: Topology verification shall validate the selected
 toolchain binding and configured mutable state roots when a workspace is bound
@@ -240,7 +251,9 @@ not sufficient proof of installed substrate behavior.
 **REQ-P-INSTALL-043**: The public installer shall accept an immutable supplied
 product artifact together with its expected product descriptor, contribution
 manifest, dependency lock, and content identity. Installation shall not require
-access to the product's mutable source project.
+access to the product's mutable source project. This request is the
+`abg.operation.product.install` public function and shall carry no implicit
+workspace binding; binding remains a separate operation.
 
 **REQ-P-INSTALL-044**: Before materializing or binding a supplied artifact, the
 installer shall verify its content digest, package and product identity,
@@ -273,7 +286,8 @@ test harness helper, or source-built compatibility shim shall not be required.
 **REQ-P-INSTALL-049**: One workspace binding shall support an ordered set of
 exact installed product identities. The set shall include one selected ABG
 runtime product and may include independently released catalog products such as
-odd_glc.
+odd_glc. The binding shall be admitted by `abg.operation.workspace.bind` over
+one stable workspace-authority basis.
 
 **REQ-P-INSTALL-050**: Each bound product row shall record its publisher or
 product namespace, product and package identity, exact version, content digest,
@@ -289,7 +303,9 @@ previous lock.
 
 **REQ-P-INSTALL-052**: Installation and binding shall remain distinct. A product
 may be installed without being selected by a workspace, and installation shall
-not silently alter an existing workspace binding.
+not silently alter an existing workspace binding. They bind
+`abg.operation.product.install` and `abg.operation.workspace.bind`
+respectively; neither is a mode or alias of the other.
 
 **REQ-P-INSTALL-053**: Binding and catalog admission shall remain distinct. A
 bound product supplies candidate contribution truth; ABG admission determines
@@ -302,9 +318,12 @@ selected ABG runtime product.
 
 **REQ-P-INSTALL-055**: An existing workspace binding shall not change through
 automatic re-resolution. ABG 5.0 conformance requires initial exact install and
-bind; a different lock may be resolved for a new binding, but changing an
-existing binding through update, disable, unbind, uninstall, retirement,
-revocation, or supersession is not required.
+bind. Multiple immutable binding identities may exist for one workspace, but
+there is no mutable global current-binding pointer. A different lock or product
+set requires a separately supplied and admitted binding identity. Introducing
+that binding onto a continued execution spine requires an exact covering
+reprice. Changing an existing binding through update, disable, unbind,
+uninstall, retirement, revocation, or supersession is not required.
 
 **REQ-P-INSTALL-056**: Install provenance shall record the supplied artifact
 digest, verification disposition, descriptor and contribution identities,
@@ -315,7 +334,8 @@ identity, and result sufficient to reproduce the install without source access.
 with the exact installed artifacts, product manifests, descriptors,
 contribution manifests, content digests, dependency lock, and command or public
 contract references. It shall distinguish installed-but-unbound from missing,
-stale, incompatible, or content-mismatched state.
+stale, incompatible, or content-mismatched state and shall bind
+`abg.operation.product.verify`.
 
 **REQ-P-INSTALL-058**: ABG 5.0 installation shall not require a hosted package
 registry, storefront, signing service, license service, organization RBAC, or
@@ -329,12 +349,16 @@ and digests are provided.
 from product installation, product binding, catalog admission, and project
 scaffolding. Creating a clean workspace shall produce one inspectable workspace
 identity and explicit authority/scaffold state without selecting mutable source
-or manufacturing project-owned constitutional truth.
+or manufacturing project-owned constitutional truth. It shall bind
+`abg.operation.workspace.create`, whose pre-binding variants forbid a workspace
+binding.
 
 **REQ-P-INSTALL-060**: Opening an existing workspace shall admit and report its
-workspace identity, authority mode, selected binding/configuration refs, and
-typed readiness or stale/malformed condition. Opening shall not silently
-install, change a binding, resolve a new lock, admit a catalog, or start work.
+workspace identity, stable workspace-authority basis, authority mode, selected
+binding/configuration refs, and typed readiness or stale/malformed condition.
+It shall bind `abg.operation.workspace.open`, whose pre-binding variants forbid
+a workspace binding. Opening shall not silently install, change a binding,
+resolve a new lock, admit a catalog, or start work.
 
 ## Acceptance
 
@@ -371,5 +395,11 @@ target workspace proves:
   content digests, manifests, compatibility results, and one resolved lock
 - installed, bound, admitted, session-visible, and callable states remain
   distinct
+- workspace authority and immutable binding survive ordinary observation
+  change; mutable observed truth remains in separately identified snapshots
 - initial exact install and bind do not imply broader product or registry-entry
   lifecycle behavior
+- installer, workspace, and adapter paths bind the complete Product-derived
+  public function definitions without legacy operation identities or a
+  parallel register; an operation count is a derived no-silence projection,
+  not installation authority

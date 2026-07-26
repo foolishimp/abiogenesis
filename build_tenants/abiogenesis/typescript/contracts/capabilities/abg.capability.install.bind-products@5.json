@@ -1,1 +1,0 @@
-{"capabilityId":"abg.capability.install.bind-products@5","kind":"abg_capability_contract","requiredContractIds":["abg.operation.catalog.resolve","abg.operation.catalog.verify","abg.operation.install.install","abg.operation.catalog.bind","abg.schema.resolved-product-lock","abg.schema.install-manifest","abg.schema.workspace-binding"],"schemaVersion":1}

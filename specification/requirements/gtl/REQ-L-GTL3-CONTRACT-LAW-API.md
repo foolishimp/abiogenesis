@@ -1,200 +1,158 @@
-# REQ-L-GTL3-CONTRACT-LAW-API - Contract-Law API And Reload Surface
+# REQ-L-GTL3-CONTRACT-LAW-API - Contract-Law Reload Surface
 
-**Status**: Active
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability / Constraint
-**Date**: 2026-07-11
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
+**Date**: 2026-07-20
+**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
 ## Purpose
 
-Define GTL as the constitutional contract-law API and graph algebra for
-graph-native deterministic integrations.
+Provide one fast reload surface for GTL contract law and its exact boundary with
+the GTL validator, HoG, ABG, implementation seams, and downstream products.
+This file indexes detailed requirement families; it does not replace them or
+the complete Product definition.
 
-GTL shall be complete enough as a language to configure every product-visible
-graph-program element that ABG admits or interprets. If ABG supports a
-product-visible graph asset, compute boundary, prompt construction surface,
-plugin boundary, public start, selection boundary, or recursive graph-function
-shape, that element must be expressible as GTL language or an ABG-admitted
-declaration over GTL language. It shall not be hidden only in product-local
-code, prompt prose, wrapper convention, or test-only inventory construction.
+The governing chain is:
 
-This requirement is a reload and index surface. It does not replace the
-detailed GTL requirement families. It states the one-truth boundary that lets a
-reviewer reload GTL capability quickly, then trace outward to the detailed
-language, graph, algebra, contract, hook, asset, module, job, and ABG
-interpreter requirements.
+```text
+GTL.TypeScript declaration
+  -> native type checking and raw admission
+  -> non-lowering GTL validation
+  -> module and catalog admission
+  -> direct HoG traversal
+  -> declared F_D | F_P | F_H implementation seam
+  -> ABG admission, events, replay, continuation, and closure
+```
 
 ## Indexed Requirement Families
 
-This requirement indexes and depends on:
+The reload surface covers:
 
-- `REQ-L-GTL3-LANGUAGE`
-- `REQ-L-GTL3-ATTRS`
-- `REQ-L-GTL3-CONTEXT`
-- `REQ-L-GTL3-LAWS`
-- `REQ-L-GTL3-TEMPORAL-PROPERTIES`
-- `REQ-L-GTL3-GRAPH`
-- `REQ-L-GTL3-NODE`
-- `REQ-L-GTL3-GRAPHVECTOR`
-- `REQ-L-GTL3-INTERFACE`
-- `REQ-L-GTL3-OPERATOR`
-- `REQ-L-GTL3-EVALUATOR`
-- `REQ-L-GTL3-RULE`
-- `REQ-L-GTL3-GRAPHFUNCTION`
-- `REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT`
-- `REQ-L-GTL3-COMPOSE`
-- `REQ-L-GTL3-C-ALGEBRA`
-- `REQ-L-GTL3-SUBSTITUTE`
-- `REQ-L-GTL3-RECURSE`
-- `REQ-L-GTL3-HOF`
-- `REQ-L-GTL3-SELECTION-BOUNDARY`
-- `REQ-L-GTL3-SUBWORK`
-- `REQ-L-GTL3-SYNTHESIS`
-- `REQ-L-GTL3-HOOKS`
-- `REQ-L-GTL3-COMPUTE-NOTATION`
-- `REQ-L-GTL3-ASSET-SURFACE`
-- `REQ-L-GTL3-MODULE`
-- `REQ-L-GTL3-JOB`
-- `REQ-L-GTL3-ROLE`
-- `REQ-L-GTL3-IDENTITY`
-- `REQ-L-GTL3-REQUIREMENTS-ALGEBRA`
-- `REQ-R-ABG3-INTERPRET`
-- `REQ-R-ABG3-FN-COMPOSITION`
-- `REQ-R-ABG3-SELECTION-APPLICATION`
-- `REQ-R-ABG3-BINDING`
-- `REQ-R-ABG3-RUN`
-- `REQ-R-ABG3-GRAPHCALL`
-- `REQ-R-ABG3-FRAME`
-- `REQ-R-ABG3-ITERATION`
-- `REQ-R-ABG3-CONTINUATION`
-- `REQ-R-ABG3-RETRY`
-- `REQ-R-ABG3-CORRECTION`
-- `REQ-R-ABG3-EVENTS`
-- `REQ-R-ABG3-PAYLOAD`
-- `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`
-- `REQ-R-ABG3-ASSURANCE`
-- `REQ-R-ABG3-PROJECTION`
-- `REQ-R-ABG3-PROVENANCE`
-- `REQ-R-ABG3-LINEAGE`
-- `REQ-R-ABG3-POLICY`
-- `REQ-R-ABG3-TRANSPORT`
-- `REQ-R-ABG3-WORKER`
-- `REQ-R-ABG3-JOB-WORKER`
-- `REQ-R-ABG3-SAGA-FRONTIER`
-
-The realized GraphFunction zoom, recursive foldback, and typed-composition
-surfaces are governed by `REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT`. Runtime zoom,
-lineage, foldback evaluation, and parent re-evaluation remain ABG law.
+- language and identity: `REQ-L-GTL3-LANGUAGE`, `ATTRS`, `CONTEXT`,
+  `IDENTITY`, and `LAWS`;
+- program structure: `GRAPH`, `NODE`, `GRAPHVECTOR`, `INTERFACE`,
+  `GRAPHFUNCTION`, `MODULE`, `JOB`, and `ROLE`;
+- graph algebra: `COMPOSE`, `SUBSTITUTE`, `RECURSE`, `HOF`, and
+  `C-ALGEBRA`;
+- declaration boundaries: `OPERATOR`, `EVALUATOR`, `RULE`, `HOOKS`,
+  `COMPUTE-NOTATION`, `ASSET-SURFACE`, `SELECTION-BOUNDARY`,
+  `SYNTHESIS`, and `SUBWORK`;
+- traversal mapping: `REQ-M-GTL3-PROGRAM-TRAVERSAL`;
+- runtime truth: `REQ-R-ABG3-INTERPRET`, `FN-COMPOSITION`, `BINDING`,
+  `RUN`, `GRAPHCALL`, `FRAME`, `CONTINUATION`, `EVENTS`,
+  `PAYLOAD`, `ASSURANCE`, `PROJECTION`, `PROVENANCE`, and
+  `LINEAGE`.
 
 ## Acceptance Criteria
 
-**REQ-L-GTL3-CONTRACT-LAW-API-001**: GTL shall be the constitutional contract-law API for graph-native workflow programs and deterministic integration boundaries. The authoring-loop meta-law (typed diagnostic identity, admissible repair affordances, canonical authored form, declarations-as-data, golden instance bindings, declared underdetermination, declaration authorship, and the language conformance corpus) is indexed at REQ-L-GTL3-LAWS-019 through -028 (-028: constitutional drift as typed conformance failure over witnessed surfaces, separately authorized exact version subjects and facts, and other live facts). The temporal-property law (the temporal_property Rule kind, trace-only atoms over the one event-calculus vocabulary, three-valued finite-trace verdicts with first-class vacuity, the safety/liveness consequence split with declared gate points, and replay-visible verdict carriers) is indexed at REQ-L-GTL3-TEMPORAL-PROPERTIES-001 through -012.
+**REQ-L-GTL3-CONTRACT-LAW-API-001**: GTL shall be the constitutional typed
+contract-law API for graph-native programs. Authoring validity, diagnostics,
+repair affordances, declarations-as-data, and conformance corpus truth shall be
+inspectable and traceable.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-002**: GTL shall expose graph algebra as inspectable program law. Core graph algebra operations include `edge`, `compose`, `substitute`, `recurse`, `fan_out`, `fan_in`, `gate`, `promote`, `identity`, and `same_object`. Implementation APIs may use host-language spellings such as `sameObject` when the carrier identity and law are unchanged.
+**REQ-L-GTL3-CONTRACT-LAW-API-002**: Core graph algebra shall remain
+`edge`, `compose`, `substitute`, `recurse`, `fan_out`, `fan_in`,
+`gate`, `promote`, `identity`, and `same_object`. Host spellings may
+vary only when carrier identity and law are preserved.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-003**: GTL contract definitions shall include or index the declarations required for graph-function interface law, graph-vector identity and target law, target-carrier contract law, hook and plugin boundary law, typed prompt or `AssetSurface` law, module publication law, and job or public-start binding law.
+**REQ-L-GTL3-CONTRACT-LAW-API-003**: A GTL program shall own topology, starts,
+GraphFunction membership, compute composition, policy, effects, results, and
+proof obligations. A program is not a runtime plan or callable function.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-004**: GTL shall expose selection, refinement, synthesis, and publication carriers as first-class language configuration surfaces. `RefinementBoundary`, `CandidateFamily`, candidate selection boundaries, sub-work, synthesis declarations, and single-vector graph-function publication helpers are not hidden orchestration; each shall trace to a GTL carrier, GTL algebra constructor, or ABG admission rule.
+**REQ-L-GTL3-CONTRACT-LAW-API-004**: GraphFunction shall be the sole public
+named callable work contract. It shall publish a typed outer interface and
+replayable GTL template that materializes a graph. An implementation binding
+shall not replace that constructive body.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-005**: GTL shall make the selected `F_D`, `F_P`, and `F_H` composition law configurable and inspectable through `abg.fn_composition` and GTL compute notation. The reload surface shall include `fn<A, B>.C`, `transform.C`, `evaluate.C`, `consequence.C`, `evaluate.C.F_D.register_rule[*]`, `evaluate.C.F_P.semantic_judgment_rule[*]`, and `F_H` as an external `human_callout` category.
+**REQ-L-GTL3-CONTRACT-LAW-API-005**: The seven C constructors and selected
+`F_D`, `F_P`, and `F_H` composition shall be typed, inspectable GTL
+declaration truth. Compute regimes shall not exchange authority.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-006**: GTL shall allow recursive graph-function creation by declaring a recursive `GraphFunction` over an existing graph-function interface with explicit termination, foldback, lineage, and bound declarations. Recursive graph functions shall preserve their declared outer interface; ABG shall interpret the declared recursion law and shall not invent a hidden recursive controller.
+**REQ-L-GTL3-CONTRACT-LAW-API-006**: Recursive GraphFunctions shall declare
+the callable relation, termination, foldback, lineage, and bounds. HoG shall
+traverse the declared relation; ABG shall admit child and parent runtime truth.
+No hidden recursive controller is permitted.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-007**: GTL shall be complete enough to configure ABG-visible plugin and hook boundaries. Transform, evaluate, consequence, and external human-callout plugin contracts shall preserve selected composition identity, compute means, stage purpose, input carrier refs, output carrier refs, evidence refs, and authority-denial flags through GTL declarations and ABG admission.
+**REQ-L-GTL3-CONTRACT-LAW-API-007**: Plugin, worker, handler, tool, and native
+function bindings shall identify only declared implementation seams, input and
+output contracts, compute means, capability requirements, and authority
+denials. They shall not own topology, traversal, events, continuation, or
+closure.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-008**: GTL shall be complete enough to configure prompt construction and typed asset surfaces. A downstream inventory row that declares a rendered prompt invocation asset shall be admitted as a typed GTL asset-surface view with the row-local constructor, renderer, digest, authority-slot, output-contract, proof, node, and evidence bindings needed by that row policy. Non-rendered assets shall use a different declared inventory kind.
+**REQ-L-GTL3-CONTRACT-LAW-API-008**: Prompt construction and other typed assets
+shall be declared through GTL asset contracts with constructor, renderer,
+digest, authority slot, output contract, proof, node, and evidence relations.
+Rendered text is not authority.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-009**: ABG shall own program admission and interpretation for GTL programs. A downstream graph program shall be typechecked through an ABG-owned programmatic function before ABG runtime traversal when the downstream product claims GTL/ABG conformance.
+**REQ-L-GTL3-CONTRACT-LAW-API-009**: One deterministic GTL validator shall
+apply native-equivalent law to serialized programs and shall report typed
+validity, invalidity, or unresolved semantics. It may produce canonical
+serialization and subordinate indexes but shall not produce an executable
+program or runtime truth.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-010**: ABG program admission shall fail closed when a supplied GTL program inventory is empty, partial, identity-ambiguous, graph-unreachable, algebra-incomplete, composition-incomplete, prompt-incomplete, hook-incomplete, or lossy relative to the GTL contract declarations it claims to represent.
+**REQ-L-GTL3-CONTRACT-LAW-API-010**: HoG shall traverse the original admitted
+GTL program and materialized GraphFunction graphs directly. A generated HoG
+program, CompiledCProgramPlan, compiled execution declaration, ladder, or
+runtime-program catalog shall fail as executable authority.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-011**: Target-carrier rows supplied to an ABG GTL program admission gate shall carry visible contract declaration fields required by runtime admission and replay. A row that only names a vector, target asset type, or local parser summary shall not satisfy GTL target-carrier law.
+**REQ-L-GTL3-CONTRACT-LAW-API-011**: ABG shall own admission, graph-call and
+frame identity, effects and result truth, events, replay, evidence, correction,
+continuation, and closure around HoG traversal. ABG shall not redefine GTL
+program meaning.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-012**: Downstream products shall not create second contract-law surfaces in local parsers, prompt prose, plugin wrappers, test-only inventory construction, or generated read models. Product-local domain meaning may interpret admitted GTL/ABG facts, but it shall not redefine GTL language semantics, graph algebra, target-carrier law, hook law, prompt asset law, compute-composition law, recursive graph-function law, or ABG runtime truth.
+**REQ-L-GTL3-CONTRACT-LAW-API-012**: Downstream products shall not create
+second contract-law, validator, executor, event, replay, continuation, or
+closure surfaces in parsers, prompt prose, adapters, plugins, fixtures, or
+generated read models.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-013**: Every concrete syntax carrier accepted by an implementation shall trace to either a GTL contract declaration or an ABG admission function.
+**REQ-L-GTL3-CONTRACT-LAW-API-013**: Every concrete authoring or serialized
+carrier accepted by a build tenant shall trace to a GTL declaration, GTL
+validator rule, or ABG runtime-admission contract.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-014**: External tool surfaces, including MCP endpoints, may be gated by GTL/ABG admission. They shall not become the constitutional source of GTL contract law.
+**REQ-L-GTL3-CONTRACT-LAW-API-014**: External tool surfaces may realize
+declared implementation seams. Tool metadata, transport configuration, and
+tool output shall not become GTL or ABG authority by presence.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-015**: `PRODUCT.md` and `requirements/gtl/README.md` shall identify this requirement as the fast reload surface for GTL contract-law API review.
+**REQ-L-GTL3-CONTRACT-LAW-API-015**: `PRODUCT.md`,
+`requirements/gtl/README.md`, and installed context projections shall
+identify this file as the fast reload surface and shall bind enough identity to
+detect stale versions.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-016**: GTL compiler/validator surfaces shall project downstream program inventory into typed traversal law. A conforming validator shall report lawful graph-function entry surfaces, internal graph-vector traversal-unit boundaries, public-start entry units, overlay policy/catalog declarations, plugin-result output admission, consequence traversal catalog availability, and typed non-conformance rows for missing, ambiguous, or illegal traversal bind declarations. Manual downstream graph or overlay scanning shall not be the normal substrate-validation mechanism.
+**REQ-L-GTL3-CONTRACT-LAW-API-016**: The GTL validator shall project declared
+entry, internal vector, start-to-entry, program-membership, implementation-seam,
+output-admission, consequence, and catalog-bind relations without executing
+them. Missing, ambiguous, illegal, or incomplete relations shall remain typed
+non-conformance.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-017**: GTL compiler/validator surfaces shall report the declared conservation basis for each traversal-unit bind. The projection shall expose the intent-lineage inputs, target-carrier and materialization bindings, carried obligation refs, downstream pressure refs, admission-strength refs, allowed bind dispositions, and the declared obligation-delta families for realization, refinement, downstream deferral, block, re-entry, reprice, no-close preservation, and terminal projection. A program inventory that declares materialization or close-capable traversal while omitting the conservation basis required to preserve those refs shall fail with typed non-conformance rows before runtime traversal. For materializing units, the validator shall reject conservation rows where staged pressure and materialization authority lack compiler-visible admission-strength compatibility.
+**REQ-L-GTL3-CONTRACT-LAW-API-017**: Validation shall expose the declared
+conservation basis for every traversal bind, including intent lineage, target
+carriers, materialization authority, carried obligations, residual pressure,
+allowed dispositions, admission strength, and obligation delta. Missing
+conservation law blocks traversal admission.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-018**: GTL shall expose requirement declaration wrappers for requirement identity, typed relations, traversal spans, staged context fragments, destination topology, test relations, and evidence policy through existing GTL publication and attachment law. These wrappers shall feed ABG requirement algebra admission and replay; they shall not emit runtime events, write ledgers, select traversal, close assurance scopes, or own continuation/re-entry.
+**REQ-L-GTL3-CONTRACT-LAW-API-018**: Requirement, traversal-span, context,
+destination-topology, test-relation, and evidence-policy declarations shall use
+existing GTL publication and attachment law. They feed ABG admission and replay
+but shall not emit events, write ledgers, select traversal, or close work.
 
 ## Capability Router
 
-Use this table to reload the language configuration surface without treating
-this requirement as a replacement for the detailed families.
+| Question | Declaration owner | Validation | Execution and truth |
+|---|---|---|---|
+| program topology and starts | GTL program | GTL validator | HoG traverses; ABG admits |
+| named callable work | GraphFunction template and contracts | GTL validator | HoG traverses materialized graph |
+| local transition | GraphVector | GTL validator | HoG advances locus; ABG records |
+| compute interior | C plus F_D/F_P/F_H declaration | GTL validator | implementation performs; ABG admits |
+| recursion and refinement | GTL GraphFunction relation | GTL validator | HoG child frame; ABG foldback truth |
+| runtime effects and results | declared implementation seam | admission contract | implementation acts; ABG admits |
+| continuation and closure | GTL policy and result contracts | validator plus admission | ABG replay-derived state |
+| downstream domain meaning | downstream Product and Module | common contract law | common HoG and ABG path |
 
-| Capability question | GTL language surface | ABG admission or interpretation owner | Primary requirement trace | Proof surface |
-| --- | --- | --- | --- | --- |
-| Graph structure and interface | `Graph`, `Node`, `GraphVector`, `Context`, `Interface`, `GraphFunction` | ABG graph-function admission and traversal binding | `REQ-L-GTL3-GRAPH`, `REQ-L-GTL3-NODE`, `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-INTERFACE`, `REQ-L-GTL3-GRAPHFUNCTION`, `REQ-R-ABG3-INTERPRET` | GTL core and ABG conformance tests |
-| Core graph algebra | `edge`, `compose`, `substitute`, `recurse`, `fan_out`, `fan_in`, `gate`, `promote`, `identity`, `same_object` | ABG interprets admitted graph functions; algebra constructors own GTL shape | `REQ-L-GTL3-COMPOSE`, `REQ-L-GTL3-SUBSTITUTE`, `REQ-L-GTL3-RECURSE`, `REQ-L-GTL3-HOF`, `REQ-L-GTL3-LAWS` | GTL core algebra tests |
-| Operator, evaluator, and rule declarations | `Operator`, `Evaluator`, `Rule`, vector/module attachment, regime declarations | ABG resolves executable bindings, evaluator admission, and policy-visible enforcement | `REQ-L-GTL3-OPERATOR`, `REQ-L-GTL3-EVALUATOR`, `REQ-L-GTL3-RULE`, `REQ-L-GTL3-GRAPHVECTOR`, `REQ-R-ABG3-BINDING` | ABG plugin and conformance tests |
-| `F_*` compute composition | `abg.fn_composition`, `fn<A, B>.C`, `transform.C`, `evaluate.C`, `consequence.C`, `F_D`, `F_P`, `F_H`, `human_callout` | ABG admits payloads, binds regimes, owns ledgers, assurance, traversal, closure, and replay | `REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-FN-COMPOSITION`, `REQ-R-ABG3-PAYLOAD`, `REQ-R-ABG3-ASSURANCE` | T-144/T-146/T-150/T-152 semantic tests |
-| Recursive graph functions | `recurse(graph_function, termination, foldback)` over a declared `GraphFunction` with termination, foldback, lineage, and bounds | ABG interprets declared recursion and frame/runtime truth; ABG does not invent foldback | `REQ-L-GTL3-RECURSE`, `REQ-L-GTL3-LAWS`, `REQ-R-ABG3-FRAME`, `REQ-R-ABG3-CONTINUATION`, `REQ-R-ABG3-LINEAGE` | `test_m01_gtl_core_integration.test.mjs` recursion tests |
-| Selection, refinement, synthesis, and sub-work | `RefinementBoundary`, `CandidateFamily`, selection boundaries, synthesis declarations, sub-work declarations | ABG may enumerate and admit; strategic selection remains externally supplied or policy-owned | `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-SUBWORK`, `REQ-R-ABG3-SELECTION-APPLICATION` | GTL carrier and ABG selection tests |
-| Prompt construction and typed assets | `AssetSurface`, prompt invocation asset rows, renderers, digest policy, authority slots, output contracts, proof refs | ABG conformance admits rows and rejects lossy prompt or asset inventory | `REQ-L-GTL3-ASSET-SURFACE`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-PAYLOAD` | T-150/T-152 conformance tests |
-| Module, job, role, and public starts | `Module`, `Job`, `Role`, public callable graph-function binding | ABG public start and runtime binding admission | `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-JOB`, `REQ-L-GTL3-ROLE`, `REQ-R-ABG3-BINDING`, `REQ-R-ABG3-RUN` | ABG public-start and downstream conformance tests |
-| Traversal unit and consequence bind | `GraphFunction`, internal `GraphVector`, selected `abg.fn_composition`, target-carrier rows, materialization policy refs, admission-strength refs, plugin result interfaces, allowed consequence traversal catalog declarations, public-start rows, obligation-delta families | ABG admits, advances, closes, transitions, replays, and conserves traversal units; `typecheckGtlProgram(...)` projects declared unit/bind law and rejects missing intent-lineage, obligation-conservation, or admission-strength compatibility basis | `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-FN-COMPOSITION`, `REQ-R-ABG3-PAYLOAD` | T-159 compiler/report and traversal-bind tests |
-| Requirement declaration wrappers | `Module`, `GraphFunction`, `GraphVector`, `Context`, hook refs, asset surfaces, requirement declarations, traversal-span declarations, destination-topology declarations, and test-relation declarations | ABG admits requirement event payloads, projects requirement ledgers, builds edge requirement environments, folds evidence over assurance truth, preserves residual pressure, and exposes query read models | `REQ-L-GTL3-REQUIREMENTS-ALGEBRA`, `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-ASSURANCE` | T-162 requirements algebra tests |
-| External tool gates | GTL declarations plus ABG-admitted tool boundary refs | ABG gates tool payloads; external tool metadata is not language truth | `REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-TRANSPORT`, `REQ-R-ABG3-PAYLOAD` | Tool-boundary and payload admission tests |
+## Non-Substitution Rule
 
-## ABG Runtime Operation Index
-
-GTL `Operator` declarations are language-level work surfaces. ABG runtime
-operations are interpreter families. A runtime operation is not a GTL operator,
-but any product-visible configuration for that runtime operation shall be
-declared through GTL language or an ABG-admitted carrier over GTL language.
-
-| ABG runtime operation family | Configuration source | Runtime truth owner |
-| --- | --- | --- |
-| public start, run, graph call, and frame opening | `Module`, `Job`, `Role`, `GraphFunction`, public-start rows, binding policy | ABG run, graph-call, frame, binding, and provenance requirements |
-| iteration, traversal transition, and selection application | `Graph`, `GraphVector`, evaluator/rule declarations, selected composition, policy hooks | ABG iteration, selection-application, events, projection, and assurance requirements |
-| retry, continuation, correction, and replay | declared graph-function/vector contracts, edge assurance, continuation policy, correction policy | ABG retry, continuation, correction, events, projection, lineage, and provenance requirements |
-| payload ledgers and prompt/plugin payload admission | `AssetSurface`, compute notation, plugin contracts, hook refs, output contracts | ABG payload, assurance, event, and projection requirements |
-| worker and transport binding | `Operator`, `Evaluator`, `Role`, job/public-start binding, policy hooks | ABG worker, job-worker, binding, transport, and provenance requirements |
-| saga/frontier and bounded parallelism | graph dependency truth, branch/frontier policy, graph-function declarations | ABG saga-frontier, continuation, projection, lineage, and policy requirements |
-
-## Owner Split
-
-| Owner | Owns | Does not own |
-| --- | --- | --- |
-| GTL | Declarations, graph algebra, contract law, selected compute composition syntax, recursive graph-function law, hook attachment, typed asset-surface shape, target-carrier contract law, plugin boundary shape, module/job/public-start publication. | Runtime events, worker identity, traversal transition, replay projection, or product-domain meaning. |
-| ABG | Admission, interpretation, payload ledgers, assurance fold, event truth, traversal transition, continuation, correction, replay, and programmatic conformance gates over GTL program inventory. | GTL language semantics or downstream domain acceptance meaning. |
-| Downstream product | Domain meaning, product read models, acceptance interpretation, domain-specific proof interpretation, and product-owned implementations behind admitted GTL/ABG boundaries. | GTL contract law, graph algebra, target-carrier law, hook law, prompt asset law, compute-composition law, recursive graph-function law, or ABG runtime truth. |
-
-## Reload Checklist
-
-When reviewing GTL/ABG contract capability, load this requirement first, then
-trace to the indexed detailed families:
-
-- language atoms and identity: `REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-ATTRS`,
-  `REQ-L-GTL3-CONTEXT`, and `REQ-L-GTL3-IDENTITY`
-- graph program shape and algebra: `REQ-L-GTL3-LAWS`,
-  `REQ-L-GTL3-GRAPH`, `REQ-L-GTL3-NODE`, `REQ-L-GTL3-GRAPHVECTOR`,
-  `REQ-L-GTL3-INTERFACE`, and `REQ-L-GTL3-GRAPHFUNCTION`
-- graph algebra operations: `REQ-L-GTL3-COMPOSE`, `REQ-L-GTL3-SUBSTITUTE`,
-  `REQ-L-GTL3-RECURSE`, and `REQ-L-GTL3-HOF`
-- recursive graph functions: `REQ-L-GTL3-RECURSE`
-- selection, refinement, synthesis, and sub-work carriers:
-  `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-SYNTHESIS`, and
-  `REQ-L-GTL3-SUBWORK`
-- target-carrier and typed asset contracts: `REQ-L-GTL3-GRAPHVECTOR` and
-  `REQ-L-GTL3-ASSET-SURFACE`
-- operator/evaluator/rule regimes and compute composition:
-  `REQ-L-GTL3-OPERATOR`, `REQ-L-GTL3-EVALUATOR`,
-  `REQ-L-GTL3-RULE`, `REQ-L-GTL3-COMPUTE-NOTATION`, and
-  `REQ-R-ABG3-FN-COMPOSITION`
-- hook and plugin boundaries: `REQ-L-GTL3-HOOKS`,
-  `REQ-R-ABG3-BINDING`, and `REQ-R-ABG3-PAYLOAD`
-- publication and work binding: `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-JOB`, and
-  `REQ-L-GTL3-ROLE`
-- admission and runtime truth: `REQ-R-ABG3-INTERPRET`,
-  `REQ-R-ABG3-PAYLOAD`, `REQ-R-ABG3-SELECTION-APPLICATION`, and
-  `REQ-R-ABG3-ASSURANCE`
+Types, lints, validator reports, package manifests, operation counts, catalog
+rows, event co-presence, and generated documentation are necessary evidence
+where applicable. None substitutes for the installed causal path or for the
+complete Product scenarios.

@@ -2,7 +2,7 @@
 
 **Status**: Retrospective three-view design gate
 **Design date**: 2026-07-12
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 **Retrospective subject**: completed T-220 implementation
 

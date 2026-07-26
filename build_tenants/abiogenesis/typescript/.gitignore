@@ -1,1 +1,5 @@
-.v8-coverage/
+artifacts/
+build/
+node_modules/
+product-toolchain-manifest.json
+test_env/evidence/*.json

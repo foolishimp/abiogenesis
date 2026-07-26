@@ -1,331 +1,125 @@
 # AGENTS.md
 
-## Operating Mode (Mandatory)
-- Role: Product Owner and BA for specification and prioritization of product scenarios and behavioral tests, can write to specification and requirements.
-- Role: Architect, Tech Lead, coder, QA Lead.
-- You may freely make changes within `./build_tenants/abiogenesis/codex`, `./specification`, and `.ai-workspace/comments/codex`. Inside these directories, changes are allowed but need to comply with Methodology.md
-- You can write anywhere else in './abiogenesis', but only with an express approval to do so, such 'approved', 'do it', 'go ahead' etc.
-- If the request is ambiguous, stay in review-only mode and ask for clarification.
+## Operating Mode
 
-## Scope Priority
-- This policy applies to the whole repository.
-- More specific `AGENTS.md` files (for example under `./build_tenants/abiogenesis/codex`) may further restrict behavior.
+- Act within the current Product outcome selected by `specification/GOALS.md`
+  and the active T-270 execution contract.
+- Specification and requirements define WHAT. Accepted design and build
+  tenants define HOW.
+- Comments, reviews, completed tickets, donor branches, generated views, test
+  counts, and implementation momentum do not select work.
+- Preserve working behavior, but do not preserve an invalid closure claim.
+- Do not begin a later Product outcome until GOALS selects it.
+- More specific `AGENTS.md` files may further restrict their subtree.
+
+## Current Gate
+
+The sole current Product outcome is:
+
+```text
+reconcile and reclose ABG5-S05
+  -> through the packed ordinary-path Consensus Product
+  -> under T-270
+```
+
+Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
+Earlier implementation remains retained behavioral stock. S05 is current.
+S06 is open but not selected.
+Observer/tuner, full conservation qualification, qualification, and release
+must not receive implementation while S05 remains unresolved.
+
+S05 closes only when:
+
+- the canonical SYSTEM-owned Consensus GraphFunction enters through the
+  ordinary installed catalog, admitted Program, One Surface, `run.invoke`,
+  HoG, and ABG path, with exact ticket bytes and resolved reviewer
+  instructions in every attributed F_P task;
+- agreement, dispute recursion, and unresolved F_H escalation agree with
+  typed result and replay truth in all three workspace applications, while
+  malformed attributed reviewer output yields a typed, publicly readable
+  `contract_failure`;
+- the boundary-bounded Consensus Ontology, Prime contraction, IACS, module
+  ownership, three views, operational lifecycle, axioms, and module proof
+  agree with implementation;
+- accepted S03, external Product, M4, package, and applicable negative evidence
+  remain green; and
+- no special Consensus command, runner, controller, scheduler, event writer,
+  result store, continuation, or closure path exists.
+
+The current forty-row matrix is implementation coverage, not completed RC5
+conservation.
+
+## Reload Order
+
+Read:
+
+1. `specification/GOALS.md`
+2. `specification/INTENT.md`
+3. `specification/PRODUCT.md`
+4. applicable files under `specification/requirements/`
+5. `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`
+6. `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md`
+7. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
+
+Repository history and commentary may explain prior failure. They do not
+authorize implementation.
 
 <!-- SDLC_BOOTLOADER_START -->
-The public master methodology repository is `https://github.com/foolishimp/specification_methodology`.
-For this local checkout, the installer and trace surface use `/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md`.
-Read the live project-owned constitutional surfaces first:
-- `workspace://README.md`
-- `workspace://specification/INTENT.md`
-- `workspace://specification/PRODUCT.md`
-- `workspace://specification/requirements/gtl/`
-- `workspace://specification/requirements/abg/`
-- `workspace://specification/requirements/mapping/`
-- `workspace://specification/requirements/product/`
-- `workspace://build_tenants/common/design/README.md`
-- `workspace://build_tenants/common/design/module_decomp.md`
-- `workspace://build_tenants/common/design/modules/`
-- `workspace://build_tenants/abiogenesis/typescript/design/README.md`
-- `workspace://docs/LLM_GTL_APP_BUILDER_GUIDE.md`
-- `workspace://docs/USER_GUIDE.md`
+## Method Bootstrap
 
-Installed axioms:
-- Specification defines project truth; design surfaces define realization.
-- `workspace://build_tenants/TENANT_REGISTRY.md` is the canonical registry of tenant families, variants, and activity state.
-- The only lawful operative path is the resolved runtime at workspace://.ai-workspace/runtime/resolved-runtime.json.
-- One edge traversal binds one role and one worker assignment.
-- Backend identity is derived from worker assignment, not selected independently.
-- Project-owned live surfaces live under workspace://specification/, workspace://build_tenants/, and workspace://docs/.
-- Runtime/session state lives under workspace://.ai-workspace/runtime/; when it differs from release defaults, the resolved runtime wins.
+ABIogenesis 5.0 development is governed by the selected immutable STDO release:
 
-Default role assignments for this install:
-- `constructor` -> `claude_code`
-- `implementer` -> `claude_code`
+- version and tag: `2.2.0` / `v2.2.0`;
+- release commit: `5326562f075d60052806d0d2c79d3db49671a8ea`;
+- standards member-set digest:
+  `ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c`;
+- operative local projection: `.genesis/docs/standards/`.
+
+Mutable methodology source and candidate releases do not govern this
+consumer.
+
+Authority flows:
+
+```text
+Goals -> Intent -> Product -> Requirements -> Design -> Code
+  -> Events -> Projection -> Delta -> Scenarios -> Gap -> Reprice
+```
 <!-- SDLC_BOOTLOADER_END -->
 
 <!-- GTL_BOOTLOADER_START -->
-# GTL Bootloader: Axiomatic Constraint Surface
+## GTL / HoG / ABG Bootstrap
 
-**Version**: 4.6.0-rc.3
-**Status**: Compressed install-time bootstrap
-**Role**: Minimal read model over the live GTL 3 / ABG 3 constitutional surface
+- GTL.TypeScript is the sole program language.
+- TypeScript checks local type law; raw admission checks erased input; the GTL
+  validator checks whole-program law without lowering.
+- A GTL composition is a Program.
+- GraphFunction is the named callable work contract and publishes a replayable
+  GTL graph template.
+- HoG directly traverses the admitted GTL Program and materialized graph.
+- ABG owns runtime admission, events, frames, C calls, evidence, results,
+  judgments, replay, continuation, correction, and closure.
+- Module and catalog publish declarations. Implementation bindings realize
+  declared leaf seams only.
+- SDK and CLI are thin typed invocation and projection shells.
+- `F_D` is restricted to interfaces and declared total functions over closed
+  domains. Open semantic work is `F_P`. Attributed policy and ambiguity
+  decisions are `F_H`.
 
-This is the precreated bootstrap the installer injects into `AGENTS.md` and `CLAUDE.md`.
-It is intentionally compressed.
-It is authored and validated here; it is not generated by ABG.
+A semantic compiler, lowered executable Program, generated HoG Program,
+`CompiledCProgramPlan`, hidden default, adapter selector, public controller,
+feature controller, or second runtime is prohibited.
 
-Use this document to initialize the LLM with a compressed axiomatic surface.
-The main GTL contract-law/API reload authority is
-`specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md`.
-Use that requirement, `specification/PRODUCT.md`, and the detailed requirement
-families for live authority.
-
-Precedence:
-- source truth is `intent -> requirements -> design -> code`
-- this bootstrap is a constrained read model over that truth
-- if stale code comments or non-constitutional notes disagree, the live constitutional/design surface wins
-
-## 1. Core Position
-
-GTL is the language.
-ABG is the canonical interpreter/runtime for GTL.
-
-GTL is:
-- graph-first
-- composition-first
-- recursion-capable
-- higher-order
-- engine-agnostic
-
-ABG is:
-- event-sourced
-- provenance-carrying
-- replayable
-- carrier-owned at the runtime-law boundary
-- tail-loop recursive over explicit continuation and child-frontier state
-
-The published module stays stable.
-Recursive selection opens invocation-local frames; it does not rewrite global module topology.
-
-## 2. Structural Axioms
-
-1. `Graph` is the one first-class structural type.
-2. `Node` is the typed local locus of graph meaning.
-3. `GraphVector` is the internal admissible transition contract between nodes.
-4. `Context` is an externally located, snapshot-bound constraint dimension.
-5. `Operator` is the effectful action surface.
-6. `Evaluator` is the convergence and attestation surface.
-7. `GraphFunction` is the reusable workflow library function or callable work contract.
-8. `RefinementBoundary` is the explicit lawful refinement or synthesis boundary.
-9. `CandidateFamily` is the explicit lawful structural-alternative family.
-10. `Module` is the publication boundary.
-11. `Job` is the durable semantic work contract over published graph functions.
-12. `Role` is the semantic capability class.
-
-ABG runtime types such as `Traversal`, `ConvergenceResult`, `Worker`, `Run`, `SelectionDecision`, `RecursiveContinuation`, `ChildFrontier`, `RecursiveMachineControl`, `OutputInstanceAllocation`, `OutputWorkspaceBinding`, `ZoomFrame`, `ScheduledSliceAssessment`, `ZoomFoldbackEvaluation`, `GraphSpanAssessment`, `GraphSpanFoldbackEvaluation`, `GraphReentryFrontierProjection`, `GraphReentryPlan`, `GraphConstitutionalReentry`, `EvalSuiteSpec`, and `EvalAggregateProjection` are interpreter/runtime artifacts, not rival GTL language ontology.
-
-## 3. GTL Type Surface
-
-| Type | Module | Meaning |
-|------|--------|---------|
-| `Graph` | `gtl.graph` | Named topology of nodes and graph vectors |
-| `Node` | `gtl.graph` | Typed locus with declared conditions |
-| `GraphVector` | `gtl.graph` | Admissible transition contract between nodes |
-| `Context` | `gtl.graph` | Snapshot-bound external constraint |
-| `Operator` | `gtl.operator_model` | Named capability with regime and binding |
-| `Evaluator` | `gtl.operator_model` | Convergence and attestation declaration |
-| `Rule` | `gtl.operator_model` | Declarative constraint with kind and config |
-| `GraphFunction` | `gtl.function_model` | Reusable workflow library function or callable work contract |
-| `RefinementBoundary` | `gtl.function_model` | Published lawful refinement boundary |
-| `CandidateFamily` | `gtl.function_model` | Published lawful alternatives over one outer contract |
-| `ContractRef` | `gtl.work_model` | Reference from a semantic job to a published graph-function contract |
-| `Role` | `gtl.work_model` | Semantic capability class |
-| `Job` | `gtl.work_model` | Durable semantic work contract |
-| `Module` | `gtl.module_model` | Publication boundary for GTL artifacts |
-
-Core GTL graph algebra:
-- `edge`
-- `compose`
-- `substitute`
-- `recurse`
-- `fan_out`
-- `fan_in`
-- `gate`
-- `promote`
-- `identity`
-- `same_object`
-
-Host-language APIs may spell `same_object` as `sameObject`. Selection,
-refinement, synthesis, and publication carriers such as `RefinementBoundary`
-and `CandidateFamily` are first-class GTL configuration surfaces, not core
-graph algebra operators.
-
-## 4. GTL / ABG Boundary
-
-GTL declares:
-- graph structure
-- graph algebra
-- operator, evaluator, and rule declarations
-- selected `F_D`/`F_P`/`F_H` composition through `abg.fn_composition`
-- higher-order graph functions
-- refinement boundaries
-- candidate families
-- jobs
-- roles
-- module publication
-- prompt construction and typed asset surfaces
-- plugin and hook boundary declarations
-- recursion law: declared termination plus declared fold-back contract
-- semantic jobs over published graph functions, with graph vectors retained as
-  internal realized traversal structure
-
-ABG realizes:
-- traversal
-- typed advancement carriers
-- typed regime-binding algebra
-- lawful selection application
-- materialization
-- events
-- projection
-- provenance
-- convergence
-- lineage
-- role binding
-- correction/reset
-- transport
-- admitted payload ledger projection
-- total assurance projection
-- closure-fold gating
-- self-hosting consistency checks
-- recursive machine control
-- output allocation and materialization-root authority
-- zoomed obligation ledger and slice-schedule traversal
-- graph-span foldback and reentry-frontier projection
-- constitutional reentry routing through typed `change_class`
-- eval-suite projection over event-sourced trial truth
-- cross-workspace start truth
-
-GTL must not depend on ABG runtime modules.
-ABG may interpret GTL declarations.
-
-GTL declares hook refs and replay-safe config on `GraphFunction`,
-`GraphVector`, `Role`, and `CandidateFamily` surfaces. ABG resolves those refs
-through governed plugin contracts. Downstream ODD builders must not create
-side-door payload or assurance frameworks in transport prompts, runtime config,
-or app-local service loops.
-
-Assurance plugin concerns include authority snapshots, evidence adaptation,
-ambiguity classification, closure policy, and gain-function adaptation. Plugins
-provide data or policy inputs to ABG; ABG owns event emission, projection,
-selection, closure, and ledger truth.
-
-F_P owns the per-obligation semantic judgment of `A.req_i -> B.result_i`. F_D
-owns mechanical envelope checks: existence, schema, digest, write-root,
-identity, admission envelope, target certification. Subdivision of one
-requirement into many obligations is structural; each per-obligation check is
-still F_P. Determinism does not reclassify a check as F_D.
-
-## 5. Evaluator Regimes
-
-| Regime | Meaning | Role |
-|--------|---------|------|
-| `F_D` | Deterministic | Objective checks, schema/tests/hash/provenance checks |
-| `F_P` | Probabilistic | Agent disambiguation and bounded construction |
-| `F_H` | Human | Human approval, rejection, or escalation |
-
-Rules:
-1. Deterministic truth closes first wherever possible.
-2. Agent output is not constitutional truth by itself.
-3. Human approval does not override deterministic failure.
-4. Evaluators attest contract satisfaction; operators perform work.
-5. Deterministic observations may inform F_P without structurally blocking
-   lawful constructive dispatch when resolved runtime policy permits it.
-
-## 6. Recursive Runtime Contract
-
-Operational GTL recursion in ABG means:
-- selection chooses only from published lawful alternatives
-- a recursive choice opens an invocation frame
-- frame-local publication is fail-closed
-- recursion progresses as tail-loop control over explicit continuation and child frontier
-- child completion produces fold-back input, not automatic parent certification
-- parent truth is re-evaluated after rebind
-- reset/reopen mints a fresh attempt identity
-- checkpoints are resumability aids, not a second truth surface
-- terminal-vector closure triggers graph-span foldback over source-to-terminal spans
-- reentry-frontier projection routes the next vector to the earliest implicated source or to a constitutional layer
-
-Containment is strict.
-If frame-local recursion bleeds into global publication or hidden fallback traversal, recursion is broken.
-
-## 7. Runtime Truth Rules
-
-1. The event stream is append-only.
-2. `emit()` is the only lawful write path into runtime truth.
-3. Projection is replay-derived.
-4. Delta is derived truth, not stored authority.
-5. Correction shadows stale truth; it does not erase history.
-6. Transport/prompt formatting is replaceable; manifest/work truth is authoritative.
-7. Derived artifacts are read models and must not outrank constitutional or design truth.
-8. Runtime advancement truth is carried by `ExecutionBasis` and
-   `AdvancementTransition`, not by controller-local result shapes.
-9. Iteration decisions are carried by `IterationAdvanceDecision`.
-10. Regime truth is carried by `RegimeBindingSet`; `F_D`, `F_P`, and `F_H`
-    consumers pattern-match the algebra instead of reinterpreting evaluator
-    lists.
-11. `runtime_config` is adapter/bootstrap ingress, not semantic runtime law.
-12. In the TypeScript RC line, `start(...)` delegates to the M03-owned
-    `start -> iterate` runner. `publicStart(...)` is an adapter over that path,
-    not a separate one-step advancement loop.
-13. Payloads that affect authority, evidence, ambiguity, traversal, or closure
-    pass through ABG admission and event-sourced payload-ledger projection.
-14. Assurance and lineage registers are projections over admitted events, not
-    independent writable ledgers.
-15. Edge convergence holds only when `carryConverged AND fulfillmentConverged
-    AND admitted AND targetCertificationPassed AND fdRecheckPassed`.
-16. Worker-runtime failure retry is gated by the typed allowlist
-    `{transport_failure, no_output, contract_failure}`. Other failure classes
-    block the slice.
-17. Graph-span foldback at terminal close evaluates source-to-terminal spans;
-    reentry routes to the earliest implicated vector or to a constitutional
-    layer typed by `change_class`.
-18. Output materialization roots are minted by ABG through
-    `OutputInstanceAllocation` and confined to allowed write roots;
-    cross-workspace starts admit a typed `OutputWorkspaceBinding`.
-
-## 8. Read Next
-
-Methodology master — **STDO** is the four-method constitutional governance surface:
-
-- `workspace://.abiogenesis/docs/standards/SPEC_METHOD.md` — what a specification artifact must satisfy
-- `workspace://.abiogenesis/docs/standards/TICKET_METHOD.md` — how change is admitted as first-class artifacts
-- `workspace://.abiogenesis/docs/standards/DESIGN_MODULE_METHOD.md` — how design decomposes into governed modules with explicit derivation
-- `workspace://.abiogenesis/docs/standards/ODD_METHOD.md` — outcome-driven worksite law for governed delivery
-
-Companion methods and guides governing specific surfaces:
-
-- `workspace://.abiogenesis/docs/standards/UX_METHOD.md`
-- `workspace://.abiogenesis/docs/standards/IDENTITY_METHOD.md`
-- `workspace://.abiogenesis/docs/standards/WORLD_MODEL_METHOD.md`
-- `workspace://.abiogenesis/docs/standards/RELEASE_METHOD.md`
-- `workspace://.abiogenesis/docs/standards/WRITING_GUIDE.md`
-- `workspace://.abiogenesis/docs/standards/POSTING_GUIDE.md`
-- `workspace://.abiogenesis/docs/standards/GLOSSARY_GUIDE.md`
-
-Public source-of-truth: `https://github.com/foolishimp/specification_methodology`
-Installed workspace mirror: `workspace://.abiogenesis/docs/standards/`
-
-Installed runtime details, always present after install:
-- `workspace://.abiogenesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md`
-- `workspace://.abiogenesis/docs/USER_GUIDE.md`
-- `workspace://.abiogenesis/install-manifest.json`
-- `workspace://.abiogenesis/install-provenance.json`
-- `workspace://.abiogenesis/cli-runtime.mjs`
-
-Project-owned surfaces, when present after scaffold:
-- `workspace://README.md`
-- `workspace://.ai-workspace/comments/README.md`
-- `workspace://.abiogenesis/docs/standards/SPEC_METHOD.md`
-- `workspace://specification/INTENT.md`
-- `workspace://specification/PRODUCT.md`
-- `workspace://specification/GOALS.md`
-- `workspace://specification/requirements/`
-- `workspace://build_tenants/TENANT_REGISTRY.md`
-- `workspace://build_tenants/common/design/README.md`
-- `workspace://build_tenants/abiogenesis/typescript/design/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md`
-- `workspace://build_tenants/abiogenesis/typescript/design/M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md`
-
-## 9. LLM Operating Rule
-
-When acting under this bootstrap:
-1. start from live requirements/design, not stale precedent
-2. preserve the GTL / ABG boundary
-3. use the smallest lawful concept that satisfies the requirement
-4. prefer present-tense active truth over migration narration
-5. treat missing traceability as a defect
-6. if a live requirement is not realized, state the gap explicitly
-7. do not invent hidden selection strategy, hidden traversal targets, or rival ontology
-8. if writing under `workspace://.ai-workspace/comments/`, follow `workspace://.abiogenesis/docs/standards/POSTING_GUIDE.md` and treat the result as commentary, not law
-9. STDO governs constitutional change. Spec changes obey `SPEC_METHOD`; defect, regression, and feature admission obey `TICKET_METHOD`; design decomposition obeys `DESIGN_MODULE_METHOD`; outcome-driven worksite acts obey `ODD_METHOD`. No constitutional change is lawful outside these four.
-
+RC5, X, final-integration, archive branches, completed tickets, and rejected
+WIP are historical or donor evidence. Do not infer implementation authority
+from them.
 <!-- GTL_BOOTLOADER_END -->
+
+## Worktree Discipline
+
+- A clean session starts from a clean tracked and untracked worktree.
+- Do not restore the archived observer/tuner draft onto the active line.
+- Add missing detail to T-270 while S05 is current.
+- A review finding blocks its exact claim; it does not automatically authorize
+  another ticket, refactor, artifact family, or review programme.
+- Refactor only where accepted design proves duplicate, ambiguous, or rival
+  authority.

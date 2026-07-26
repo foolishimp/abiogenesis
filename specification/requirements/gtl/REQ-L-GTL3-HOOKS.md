@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Constraint / Guarantee
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -50,7 +50,13 @@ be the constitutional GTL surface.
 
 **REQ-L-GTL3-HOOKS-017**: `abg.fn_composition` hook/config truth shall be declared and replayable for closure-capable, mixed-regime, optimized, or construction-substrate traversal boundaries. The default precedence is `GraphVector.declarations["abg.fn_composition"]` > `GraphFunction.declarations["abg.fn_composition"]` > `Job.policy_hooks["abg.fn_composition"]` > `Role.policy_hooks["abg.fn_composition"]` > `Module.policy_hooks["abg.fn_composition"]` > visible defaults config or published template. Malformed present declarations fail closed.
 
-**REQ-L-GTL3-HOOKS-018**: An `abg.fn_composition` hook/config declaration may carry refs and opaque config for host binding, ordered regime bindings, standards context, policy context, carrier context, assurance context, deterministic closure, and optimization. GTL shall not define product-specific strategy semantics inside the hook config; ABG shall admit and interpret the selected contract under `REQ-R-ABG3-FN-COMPOSITION`.
+**REQ-L-GTL3-HOOKS-018**: An `abg.fn_composition` hook/config declaration may
+carry refs and opaque config for host binding, ordered regime bindings,
+standards context, policy context, carrier context, assurance context,
+deterministic closure, and optimization. GTL shall not define product-specific
+strategy semantics inside the hook config. The GTL validator shall validate
+the selected contract, HoG shall traverse its admitted composition, and ABG
+shall admit the resulting runtime facts under `REQ-R-ABG3-FN-COMPOSITION`.
 
 **REQ-L-GTL3-HOOKS-019**: Executive-observer tuning shall reuse existing
 `abg.fp_consciousness`, `abg.fn_composition`, `evaluate.C`, policy-hook, and

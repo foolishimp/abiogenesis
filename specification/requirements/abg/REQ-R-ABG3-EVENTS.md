@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Constraint / Guarantee
 **Date**: 2026-07-11
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -53,7 +53,7 @@ Define the ABG 3 event substrate as the only written runtime truth surface.
 
 **REQ-R-ABG3-EVENTS-020**: Traversal strategy selection shall use one canonical GTL declaration surface: `GraphVector.declarations["abg.traversal_strategy"]`, `GraphFunction.declarations["abg.default_traversal_strategy"]`, and `Role.policy_hooks["abg.traversal_strategy"]`. Legacy or alternate traversal-modulation key spellings shall not be admitted as live authority surfaces.
 
-**REQ-R-ABG3-EVENTS-021**: Construction consciousness-loop event families shall separate admitted primary events from derived-fluent projection. Events such as construction episode start, observation materialization, action-catalog projection, evaluator invocation, candidate return, candidate admission/rejection, intent selection, graph-action invocation, and delta observation may carry primary event authority when they declare Event Calculus effects. Progress, stagnation, public terminal status, and summary agreement shall be derived from admitted events and declared `RuntimeDerivedFluentRule` law unless a later requirement explicitly grants primary event authority.
+**REQ-R-ABG3-EVENTS-021**: The existing construction event family shall preserve the admitted One Surface authority boundaries without inventing another event roster. Construction-episode start shall bind the admitted program, workspace binding, execution basis, and lineage; observation events shall bind the exact `ObservationSnapshot`; owning invocation/result events shall identify whether they belong to `synthesizeModel`, `evalGap`, `evaluateNext`, or `evaluateAction` and bind the owning input/output refs; action-catalog events shall record only the admitted-program projection basis; intent selection and graph-action invocation shall bind the admitted `NextActionProjection` and `ConstructionIntent`; evidence and delta events shall bind action-evaluation inputs. These existing primary events may carry authority only when their published kind declares the applicable Event Calculus effects. Model, gap, target-binding, priority, next-action, ledger, decision, progress, stagnation, public terminal status, and summary read models shall derive from owning admitted truth and `RuntimeDerivedFluentRule` law unless a requirement explicitly grants primary event authority. This clause does not authorize an event kind absent from the published runtime event-kind census.
 
 **REQ-R-ABG3-EVENTS-022**: Runtime probe activity and external interruption shall be admitted as typed ABG events when they affect liveness, watchdog, retry, or public runtime status. At minimum ABG shall admit `runtime_activity_probe_observed` and `runtime_external_interruption_observed` events that preserve basis, graph function, run, work key, graph call, frame, vector, edge, actor invocation when present, worker/backend identity when present, probe/source identity, system or runtime-asset ref, evidence refs, causation refs, correlation id, and elapsed observation time. Event log, ledger, manifest, PTY capture, stream capture, result artifact, projection/report, archive, heartbeat, and structured stream observations shall normalize through the same event family when they are used as liveness evidence.
 
@@ -82,6 +82,12 @@ machine-readable roster is the named `RUNTIME_EVENT_KIND_VALUES` symbol and the
 `abg.contract.abg.m03` in the exact product's public contract catalog. The
 family enumeration below is a normative map into that roster, not a substitute.
 
+**REQ-R-ABG3-EVENTS-030**: One Surface events shall preserve stable workspace authority separately from mutable observation. Workspace-binding and execution-basis refs shall remain unchanged across ordinary re-observation, while each admitted observation carries its own snapshot identity and digest. No observation, projection, file change, replay advance, or worksite digest shall emit or imply a new workspace binding or basis-fork event.
+
+**REQ-R-ABG3-EVENTS-031**: Public-operation admission events shall attest typed ingress, actor attribution, operation variant, invocation authority, and exact binding requirement only. They shall not record public ingress as the owner of model synthesis, gap evaluation, next-action evaluation, action evaluation, program ordering, retry, continuation, or closure; those authorities remain with the admitted GTL program and ABG runtime boundaries.
+
+**REQ-R-ABG3-EVENTS-032**: Every effectful public operation shall cross into ABG runtime truth by exactly one of two routes: its semantic owner emits admitted runtime events whose Event Calculus effects are declared, or its semantic owner produces an immutable authoritative artifact and ABG admits one `public_operation_artifact_admitted` boundary event before any runtime consumer uses that artifact. The generic boundary event shall preserve the operation identity, structural definition key and definition digest, stable authority-scope ref and canonical scope digest, invocation ref and digest, owner-admitted disposition, immutable artifact ref and digest, causation refs, and correlation id. Its definition-key operation identity shall equal the event operation identity. It shall initiate only the replay-derived `public_operation_artifact_available` fluent, keyed by the stable authority-scope ref rather than the invocation ref. Shared-store artifact projections shall admit one exact scope ref and digest and shall fail closed when the same scope ref appears under another digest. It shall not own or infer result meaning, assessment, closure, retry, continuation, next action, or ticket mutation. Per-operation boundary event kinds and runner-local artifact truth are forbidden.
+
 ## Canonical Runtime Event-Kind Census
 
 The runtime event union decomposes into these families. Example kinds are
@@ -105,4 +111,4 @@ published `RUNTIME_EVENT_KIND_VALUES` roster owns the complete set.
 - timer: `timer_intent_admitted`, `deadline_breach_admitted`, `scheduled_continuation_reopened`
 - construction: `construction_episode_started`, `construction_intent_selected`, `construction_delta_observed`
 - registry/projection: `registry_entry_admitted`, `graph_function_selected`, `node_type_satisfaction_projected`
-- public-operation attribution: `public_operation_admitted`
+- public-operation attribution: `public_operation_admitted`, `public_operation_artifact_admitted`

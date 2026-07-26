@@ -26,7 +26,8 @@ ratified ontology, and the GTL/ABG boundary.
 - contract-law API identity, reload boundary, and ownership split across GTL,
   ABG, and downstream products
 - complete GTL language configuration for product-visible graph-program
-  elements admitted or interpreted by ABG
+  elements validated as GTL, traversed by HoG, and admitted as runtime truth
+  by ABG
 - graph structure, typed loci, interfaces, graph vectors, and identities
 - typed asset-surface interfaces, including renderer-backed asset contracts
 - operators, evaluators, rules, and governance hook surfaces

@@ -1,7 +1,7 @@
 # Design Slice Pre-Code Gate Template
 
 **Status**: Template
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 Use one copy per semantic boundary or durable delivery checkpoint. Do not use
@@ -22,6 +22,54 @@ one copy per source file. Delete all instructional placeholders before review.
 
 Implementation is prohibited unless the verdict is `accepted` and the axiom
 matrix contains no failed applicable axiom or relied-on realization gap.
+
+## Prime Contraction Review
+
+Delete this section only when ADR-044 is not applicable. For T-277-governed
+work, replace every placeholder with exact evidence. This embedded block is
+validated by `npm run check:prime-contraction`.
+
+```json prime-contraction
+{
+  "schemaVersion": 1,
+  "iacs": [
+    "PrimeCarrier"
+  ],
+  "authoritativeCarriers": [
+    "PrimeCarrier"
+  ],
+  "subordinatePayloads": [
+    "SubordinatePayload"
+  ],
+  "promotionTests": [
+    {
+      "candidate": "PrimeCarrier",
+      "verdict": "promote",
+      "reason": "State the independent authority, admission, lifecycle, effect, or reuse boundary."
+    }
+  ],
+  "recurrenceReview": {
+    "status": "none_found",
+    "ref": "ticket-or-census-evidence-ref"
+  },
+  "authoritySourceCount": {
+    "before": 0,
+    "after": 1
+  },
+  "authoringSourceCount": {
+    "before": 0,
+    "after": 1
+  },
+  "disposition": "retain_prime",
+  "ownerTicket": "T-NNN"
+}
+```
+
+Use `retain_prime`, `derive_projection`, `commonize_tenant`,
+`consume_existing`, `retire_duplicate`, `migrate_authority`,
+`requirement_reprice`, or `not_a_candidate`. A contraction disposition must
+reduce at least one measured authority or authoring-source count. An accepted
+`requirement_reprice` is invalid because implementation must stop upstream.
 
 ## Domain Model
 

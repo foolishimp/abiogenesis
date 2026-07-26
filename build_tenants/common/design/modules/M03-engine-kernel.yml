@@ -1,5 +1,9 @@
 module: M03-engine-kernel
-status: active
+status: held_pending_t283_rederivation
+authority_note: >-
+  Prior-basis structural evidence only. Its execution ownership is not current
+  5.0 authority; re-derive for direct HoG traversal and ABG runtime admission
+  after T-283 closure and the X-to-5 vector.
 owns:
   - ABG kernel runtime and replay model
   - bound-catalog union-row admission, runtime catalog and GraphFunction-registry projection, session eligibility, and GraphFunction invocation admission

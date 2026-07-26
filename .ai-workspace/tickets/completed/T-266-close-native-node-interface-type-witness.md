@@ -1,6 +1,9 @@
 # T-266 - Close Native Node And Interface Type Witnesses
 
 - id: T-266
+- title: Close native Node and interface type witnesses
+- type: bug
+- ticket_category: ordinary
 - status: completed
 - phase_status: closed
 - review_status: accepted_by_fh_after_repair
@@ -8,7 +11,18 @@
 - proof_status: repaired_declared_gates_green
 - closed_at: 2026-07-13
 - delivery_phase: DS-1 prerequisite
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Bind native TypeScript C and HOF relations to the actual admitted Nodes
+    while keeping witness authority private and packed carriers ordinary data.
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252

@@ -1,0 +1,102 @@
+{
+  "kind": "abi5_root_rival_authority_evidence",
+  "schemaVersion": "5.0.0",
+  "bindingId": "ABI5-ROOT-001",
+  "result": "real_owner_boundary_mutations_refused_or_non_closing",
+  "sourceImportUsed": false,
+  "mutations": [
+    {
+      "mutation": "undeclared_compiled_plan",
+      "boundary": "public_ingress",
+      "disposition": "refused",
+      "refusalCode": "invalid_request",
+      "runtimeInvocationAbsent": true,
+      "durableEventLogAbsent": true
+    },
+    {
+      "mutation": "missing_explicit_target",
+      "boundary": "abg_invocation_admission",
+      "disposition": "refused",
+      "refusalCode": "owner_refusal",
+      "hiddenDefaultActivated": true,
+      "invocationAdmissionAbsent": true,
+      "runOpenAbsent": true
+    },
+    {
+      "mutation": "setup_undeclared_payload_fields",
+      "boundary": "public_ingress",
+      "cases": [
+        "install",
+        "workspace",
+        "workspace-roots",
+        "catalog",
+        "view"
+      ],
+      "allRefused": true
+    },
+    {
+      "mutation": "disabled_hog_with_callable_rival",
+      "boundary": "executor",
+      "disposition": "failed",
+      "runtimeFailureAdmitted": true,
+      "cCallAbsent": true,
+      "rivalResultAbsent": true,
+      "falseClosureAbsent": true,
+      "rootGovernorDisposition": "root_red"
+    },
+    {
+      "mutation": "renamed_controller_forged_output",
+      "boundary": "public_projection",
+      "projectedDisposition": "succeeded",
+      "matchingOutputForged": true,
+      "arbitraryFileCannotSubstituteForAbgTruth": true,
+      "installedRootSatisfied": false
+    },
+    {
+      "mutation": "copied_private_execution_basis",
+      "boundary": "abg_open_call",
+      "disposition": "refused",
+      "refusalCode": "execution_basis_not_admitted",
+      "runtimeEventsAdded": 0
+    },
+    {
+      "mutation": "post_admission_validator_exception",
+      "boundary": "graph_validation",
+      "disposition": "refused",
+      "invocationAdmitted": true,
+      "refusalAdmitted": true,
+      "runOpenAbsent": true,
+      "rootGovernorDisposition": "root_red"
+    },
+    {
+      "mutation": "post_open_judgment_exception",
+      "boundary": "judgment_relation",
+      "disposition": "blocked",
+      "cCallSpineComplete": true,
+      "directRuntimeFailureAbsent": true,
+      "rootGovernorDisposition": "root_red"
+    },
+    {
+      "mutation": "forged_leaf_execution_port",
+      "boundary": "leaf_execution_port",
+      "disposition": "failed",
+      "packageExportAbsent": true,
+      "cCallAbsent": true
+    },
+    {
+      "mutation": "post_install_implementation_substitution",
+      "boundary": "installed_product_content",
+      "disposition": "refused",
+      "diagnosticRef": "diagnostic://abiogenesis/public/target_mismatch@5",
+      "runtimeExecutionAbsent": true,
+      "rootGovernorDisposition": "root_red"
+    }
+  ],
+  "installedAbsence": {
+    "compiledPlan": true,
+    "compiledExecutionDeclaration": true,
+    "publicControlLoop": true,
+    "runtimeProgramCatalog": true,
+    "rawEventWriterExported": false
+  }
+}

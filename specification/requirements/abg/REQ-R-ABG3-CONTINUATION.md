@@ -3,14 +3,15 @@
 **Status**: Active
 **Category**: Constraint / Guarantee
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
 ## Purpose
 
 Define `Continuation` as run-local runtime obligation truth derived from prior
-events.
+events, preserving the distinction between continuation of the current admitted
+intent and admission of a newly selected action.
 
 ## Acceptance Criteria
 
@@ -37,3 +38,11 @@ continuation, retry, re-entry, reprice, block, or close-candidate projection
 only after ABG admits the observer's `evaluate.C` findings and projects typed
 pressure facts. Worker prose, product plugin tuning, or downstream lifecycle
 read models shall not directly select continuation action.
+
+**REQ-R-ABG3-CONTINUATION-011**: An admitted F_H response, post-yield input, or other lawful input for the current construction intent shall continue only that intent through `continueExecution` over the exact replay-derived continuation and execution basis. The response shall not create a next-action basis, select another GraphFunction, or admit a new construction intent.
+
+**REQ-R-ABG3-CONTINUATION-012**: When fresh post-disposition truth selects a new action, the path shall be `evaluateNext -> admitConstructionIntent -> invokeGraphFunction`. It shall not be relabeled as continuation of the prior intent or opened directly by public ingress, a projector, an adapter, or a worker result.
+
+**REQ-R-ABG3-CONTINUATION-013**: A newer `ObservationSnapshot` under the same immutable workspace binding and `ExecutionBasis` may stale prior model, gap, target-binding, priority, or next-action projections and shall rerun the affected `synthesizeModel`, `evalGap`, and `evaluateNext` functions. Observation freshness alone shall not create a basis fork or require a new workspace binding.
+
+**REQ-R-ABG3-CONTINUATION-014**: A changed workspace authority basis, workspace binding, product/install/catalog authority, declared root, or other execution authority on a continued spine shall require a separately admitted binding when applicable and an exact covering declaration reprice naming the crossed basis pair. Without that reprice, continuation shall fail closed as typed `basis_fork_detected` before traversal, materialization, or closure.

@@ -1,9 +1,9 @@
 # REQ-R-ABG3-SELFHOSTING — Successor Use And Derived-Artifact Governance
 
-**Status**: Active
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Constraint / Guarantee
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -23,8 +23,8 @@ activity and is not a gate on the 5.0 release.
 **REQ-R-ABG3-SELFHOSTING-003**: Derived artifact governance is ordinary graph-function application and runtime truth, not special bootstrap magic.
 
 **REQ-R-ABG3-SELFHOSTING-004**: ABIogenesis 5.0 shall be authored under manual
-STDO governance through accepted design gates, GTL admission, the ABIogenesis
-semantic compiler, and ordinary in-tree implementation. It shall close through
+STDO governance through accepted design gates, GTL admission, GTL validation,
+direct HoG traversal, and ordinary in-tree implementation. It shall close through
 its specification-method, public-contract, qualification, RC, and release
 gates. A predecessor-builds-candidate bootstrap, candidate fixed point, or
 downstream catalog-product campaign shall not be required to qualify or release

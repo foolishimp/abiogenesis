@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability
 **Date**: 2026-07-11
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -22,7 +22,11 @@ asset-surface declaration in GTL 3.
 
 **REQ-L-GTL3-NODE-004**: Source-node markov conditions express upstream guarantees available to downstream graph application. Target-node markov conditions express declared conditions that a lawful transformation is intended to satisfy.
 
-**REQ-L-GTL3-NODE-005**: `markov` belongs to the language declaration surface, not to ABG runtime metadata. ABG may interpret, render, project, or validate it, but shall not own or invent it.
+**REQ-L-GTL3-NODE-005**: `markov` belongs to the GTL language declaration
+surface, not to ABG runtime metadata. TypeScript and the GTL validator may
+validate it; HoG may traverse according to the admitted declaration; ABG may
+admit observations against it and render or project the resulting runtime
+truth. ABG shall not interpret, own, or invent the declaration.
 
 **REQ-L-GTL3-NODE-006**: `markov` shall default to the empty tuple when unspecified. Absence of `markov` means no declared conditions.
 
@@ -32,7 +36,10 @@ asset-surface declaration in GTL 3.
 
 **REQ-L-GTL3-NODE-009**: A node may declare an `asset_surface` describing the intended asset kind/schema role at that locus, required carried contexts, and standards or output-contract references associated to production of that asset.
 
-**REQ-L-GTL3-NODE-010**: `asset_surface` belongs to GTL declaration truth, not ABG runtime invention. ABG may resolve, project, or validate it, but shall not invent missing `asset_surface` law at runtime.
+**REQ-L-GTL3-NODE-010**: `asset_surface` belongs to GTL declaration truth, not
+ABG runtime invention. TypeScript and the GTL validator may validate it; HoG
+may resolve its admitted traversal binding; ABG may admit and project runtime
+facts against it. ABG shall not invent missing `asset_surface` law at runtime.
 
 **REQ-L-GTL3-NODE-011**: Any lawful GTL interpretation, serialization surface, or GTL to ABG bridge shall preserve declared `asset_surface` contract without semantic loss.
 

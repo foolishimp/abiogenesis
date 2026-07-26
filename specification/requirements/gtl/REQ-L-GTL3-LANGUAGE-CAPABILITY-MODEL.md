@@ -1,6 +1,6 @@
 # REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL - GTL Language Capability Model
 
-**Status**: Active
+**Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability / Vocabulary / Constraint
 **Date**: 2026-06-30
 **Derives from**: `REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-CONTRACT-LAW-API`, `REQ-M-GTL3-MAPPING`, `REQ-M-GTL3-PROVENANCE`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-FN-COMPOSITION`
@@ -12,7 +12,7 @@
 
 Define the GTL language capability model: the complete language-level set of
 things GTL can declare, constrain, publish, compose, validate, and expose for
-ABG interpretation.
+direct HoG traversal and ABG runtime admission.
 
 This family is the language-agnostic WHAT surface. It gives HOW design enough
 signal to bind the language to concrete carriers, modules, APIs, events,
@@ -87,13 +87,15 @@ probabilistic or human judgment own closure or runtime selection authority.
 bundles, traversal spans, lifecycle compositions, and proof-role declarations
 as authoring surfaces for ABG requirements algebra.
 
-**program validation**: GTL shall be validatable through ABG-owned admission
-or compiler surfaces that report typed conformance, traversal-unit shape,
-capability coverage, publication inventory, and proof/readiness issues.
+**program validation**: GTL shall be validated by the non-lowering GTL
+validator before runtime admission. The validator shall report typed
+conformance, traversal-unit shape, capability coverage, publication inventory,
+and proof/readiness issues without producing an executable plan.
 
-**mapping to runtime**: GTL shall provide enough language signal for ABG to
-interpret, admit, execute, project, and replay graph programs while preserving
-the GTL/ABG owner split.
+**mapping to runtime**: GTL shall provide enough language signal for HoG to
+traverse admitted graph programs directly and for ABG to admit, project, and
+replay the resulting runtime facts while preserving the GTL/HoG/ABG owner
+split.
 
 ## Subordinate Vocabulary
 
@@ -267,8 +269,8 @@ library/program/workspace abstraction boundary. Graph functions are reusable
 library functions or callable work contracts. Graph overlays or GTL program
 compositions are the program surfaces that bind those functions. Workspaces are
 mutable instance surfaces that supply bootstrap config, files, data, observed
-state, generated artifacts, and run archives. ABG traversal is the runtime bind
-over admitted program and workspace truth.
+state, generated artifacts, and run archives. HoG traversal is the execution
+bind over admitted program and workspace truth; ABG admits its runtime facts.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-016**: An overlay frame shall be ABG
 runtime contract truth over observed state, pressure, or foldback. An overlay
@@ -285,7 +287,9 @@ as product-visible runtime authority.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-019**: Runtime lookup shall return
 candidates or rejection diagnostics over admitted registry truth. Runtime
-lookup shall not become traversal authority until ABG emits selection truth.
+lookup shall not become traversal authority. A declared GTL selector or
+attributed external decision proposes the selected identity, ABG admits that
+identity as runtime truth, and HoG follows the admitted program relation.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-020**: An eligibility filter shall
 account for candidate identity, interface, source contracts, target contracts,
@@ -293,12 +297,13 @@ context, authority, overlay scope, namespace, version, provenance, readiness,
 proof state, and policy refs before a candidate can be selected.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-021**: A selection event shall be
-ABG-emitted truth whenever candidate choice affects traversal. F_P or F_H
-ranking may inform selection only when ABG F_D/admission guard and emitted
-selection truth preserve final authority.
+ABG-admitted truth whenever candidate choice affects traversal. `F_D`, `F_P`,
+or `F_H` ranking may propose selection only through the declared GTL boundary;
+ABG validates and admits the resulting identity and HoG applies it. Neither ABG
+nor the proposing implementation owns a hidden selection policy.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-022**: Implementation-specific HOW
-accounts, semantic compiler capability maps, and spec-vs-implementation gap
+accounts, GTL-validator capability maps, and spec-vs-implementation gap
 tables shall not be written into this requirement family. They are design or
 commentary read models over the live requirement surface.
 
@@ -325,13 +330,12 @@ type refs, composing node types, checking type satisfaction, and composing
 graph functions by endpoint type satisfaction.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-027**: A node type shall be published
-through the GTL library path as a non-callable identity graph-function
-declaration or a ratified equivalent that uses the same `GraphFunction`
-carrier, the same non-callable identity realization, the same `node_type`
-registry kind, and no parallel type publication path.
+through the GTL library path as a non-callable node-type declaration with its
+own typed identity and the `node_type` registry kind. It shall not mint or use
+a `GraphFunction` identity, and no parallel type publication path is lawful.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-028**: A `node_type` library entry may
-be admitted, projected, imported, queried, and used by compiler/conformance
+be admitted, projected, imported, queried, and used by validator/conformance
 surfaces. It shall not become runtime traversal work, public-start authority,
 graph-call authority, or `graph_function_selected` truth.
 
