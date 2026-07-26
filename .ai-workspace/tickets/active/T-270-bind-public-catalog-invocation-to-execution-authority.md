@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_bounded_requirement_repair_active
-- review_status: s05_48103ed9_rejected_repair_pending
-- proof_status: prior_s05_proof_retained_not_closure
+- phase_status: m5_s05_submitter_response_exact_candidate_frozen
+- review_status: s05_submitter_response_independent_review_active
+- proof_status: s05_exact_candidate_gates_green_not_acceptance
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -28,19 +28,18 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- implementation_hold: bounded_s05_requirement_repair_only
+- implementation_hold: held_for_independent_review_and_direct_human_acceptance
 - implementation_hold_effect: >-
-    Only the bounded findings-to-submitter-response-to-next-round repair and
-    its exact design, implementation, module proof, and installed proof may
-    proceed; S06, observer/tuner, complete conservation, qualification, and
-    release remain held
+    Only review or a bounded repair of exact candidate 9f13d85e may proceed;
+    S06, observer/tuner, complete conservation, qualification, and release
+    remain held
 - current_product_outcome: ABG5-S05
 - accepted_s03_candidate_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s03_candidate_tree: f1a66a2c79f01972f063189bf7668fdb762ce2e6
 - accepted_s03_m03_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85
 - accepted_s03_m05_digest: b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5
 - current_m03_status_projection_digest: ccd8f79d333c4c681f5643acafac59458b661c7d1916eb929f9c7f065dd0cfaf
-- current_m05_status_projection_digest: e95ca635a0f1fbd721d93aeb6b5e807c597c6ed163e403aa38bc6b7c94e73a18
+- current_m05_status_projection_digest: d4f3006e8e0667bd4c421be273129cb242d41e44ea55489b7489e1afc10bb261
 - accepted_s03_package_digest: e4345ce38807abd4a988aeff76c3d83274e88ed6e0926adfb635d07fe933732b
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
@@ -72,9 +71,16 @@
 - retained_s05_clean_checkout_proof: fresh_git_archive_without_generated_asset_directories
 - retained_s05_evidence: .ai-workspace/comments/codex/20260726T073212Z_CHECKPOINT_t270_s05_clean_checkout_repaired_exact_candidate.md
 - retained_s05_design_index_digest: ff5fcfbf4acd7179647e39a5b67dac44aa5d10aa8d04e72a82ebfe7ad119458b
-- current_s05_candidate: pending_bounded_requirement_repair
-- current_s05_candidate_tree: pending
-- current_s05_requirement_digest: pending
+- current_s05_candidate: 9f13d85e1088b50c88ec2529024408326ea9d98c
+- current_s05_candidate_tree: e40fed0b94016250c2435f2d3af3ac29f433ce52
+- current_s05_requirement_digest: c21cd25b28c6f731d800b715141bbbc674a434fddd78fcb82d2c27a897145982
+- current_s05_design_digest: d4f3006e8e0667bd4c421be273129cb242d41e44ea55489b7489e1afc10bb261
+- current_s05_package_digest: 64b3ed4e4bdddde142f6dbd9ff7af5aefc01675e5b44f1af6733337609223377
+- current_s05_package_inventory_digest: aeccb9312e5410c335c18eabab150e0d723f36b721e35f1c9c74196e0eb0fa38
+- current_s05_product_content_digest: 5a2ba3a12b72c7c3e0baeea20fff5b1c0a345963d614acb2b2285bdabe0d86ff
+- current_s05_manifest_digest: ff155df642922dc5d472033d85df384bf3cf155c84da9b0eb2a158be4d434f2c
+- current_s05_clean_checkout_proof: fresh_git_archive_without_generated_consensus_assets
+- current_s05_evidence: .ai-workspace/comments/codex/20260726T104704Z_CHECKPOINT_t270_s05_submitter_response_exact_candidate.md
 - latest_s05_reviewed_candidate: 48103ed936aa9326d546f4dcd667b16a5c803f9c
 - latest_s05_review: .ai-workspace/comments/codex/20260726T081217Z_REVIEW_t270_s05_provenance_repaired_exact_candidate.md
 - latest_s05_review_disposition: rejected_by_requirement_reprice
