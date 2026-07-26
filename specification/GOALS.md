@@ -29,11 +29,10 @@ selection, ordered successor outcomes, and their acceptance conditions.
   Product-owned leaf-verifier relation, is accepted at candidate `8865ccff`.
 - `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` Sections 1 through 12 are
   accepted through ABG5-S03. Section 13 and later outcome sections remain
-  provisional until their selected boundaries are reconciled with the Design
-  Module Method.
+  design-discovery evidence only.
 - `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` is the current proposed S05
-  delta. ADR-045 records its rationale. Neither is accepted until exact
-  independent design review and direct human acceptance.
+  replacement for Section 13. ADR-045 records its rationale. Neither is
+  accepted until exact independent design review and direct human acceptance.
 - Commit `bcd8769a8163a222e2e59400c904994b3de161fd` is preserved behavioral
   stock. Exact candidate
   `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is the accepted S03 base. Neither
@@ -111,9 +110,10 @@ Acceptance requires:
    replay-visible, publicly readable `contract_failure`;
 7. Product owns Consensus domain meaning while GTL owns topology, HoG owns
    traversal, ABG owns runtime truth, and Public remains a thin projection;
-8. the non-public replay-bound direct F_H support exception receives direct
-   human affirmation that it preserves One Surface as the sole public
-   Consensus entry and creates no rival continuation or closure authority;
+8. direct human authority affirms that unresolved F_H support remains a hold,
+   response, and continuation inside the same admitted Run and causal ABG
+   episode, with no direct support invocation or rival result, continuation,
+   or closure authority;
 9. the affected Consensus Ontology, atomic functions, Prime contraction,
    IACS, module ownership, three semantic views, operational lifecycle, axiom
    evaluation, and module proof are reconciled at the exact boundary;
@@ -130,7 +130,7 @@ select implementation while this outcome remains unresolved.
 | Order | Existing owner | Product outcome | Acceptance boundary | State |
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
-| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is independently reviewed and directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; the replay-bound direct F_H support exception receives direct human affirmation; bounded Consensus design and module proof agree with all three workspace outcomes. | Current - design review boundary; implementation held |
+| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is independently reviewed and directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Current - replacement design review boundary; implementation held |
 | `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Blocked by S05 |
 | `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Unselected until S06 closes |
 | `5` | `T-270` | Freeze one M5 candidate | All pre-qualification Product behavior and all 17 feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by prior outcomes |

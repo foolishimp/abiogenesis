@@ -5,21 +5,21 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_global_to_local_design_cut_frozen
-- review_status: s05_design_awaiting_independent_review
-- proof_status: s05_design_mechanical_readiness_green_not_acceptance
+- phase_status: m5_s05_consolidated_design_repair_frozen
+- review_status: s05_repaired_design_awaiting_independent_review
+- proof_status: s05_repaired_design_mechanical_readiness_green_not_acceptance
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
     Preserve the accepted direct-GTL and S03 realization while reconciling the
     exact Consensus design, module, installed-public-path, attributed
-    submitter-response gate, result, replay, and negative evidence needed to
-    accept ABG5-S05.
+    submitter-response gate, total round and same-Run F_H algebra, result,
+    replay, and negative evidence needed to accept ABG5-S05.
 - change_class: requirement_reprice
 - re_entry_point: >-
     specification/requirements/product/REQ-P-CONSENSUS.md
-    REQ-P-CONSENSUS-004, -006A, -008, -009, -011, -011A, -015A, and
-    -016..018, then build_tenants/abiogenesis/typescript/design/
+    REQ-P-CONSENSUS-004, -006, -008, -008A, -015, -015A, and -018,
+    then build_tenants/abiogenesis/typescript/design/
     M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md over the accepted S03
     M03/M05 basis
 - triaged_at: 2026-07-26T16:51:19+10:00
@@ -72,15 +72,18 @@
 - superseded_s05_submitter_response_candidate: 9f13d85e1088b50c88ec2529024408326ea9d98c
 - superseded_s05_submitter_response_candidate_tree: e40fed0b94016250c2435f2d3af3ac29f433ce52
 - current_s05_candidate: none_design_only_gate
+- superseded_s05_design_subject_aggregate: 6a809f94d011962d9888cfa8fa2f59dfd63c1163404db851d9c2eb6880ca2be1
+- superseded_s05_design_handoff: .ai-workspace/comments/codex/20260726T165744Z_HANDOFF_t270_s05_global_to_local_design_review.md
 - current_s05_design_subject:
   - specification/requirements/product/REQ-P-CONSENSUS.md
   - build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md
   - build_tenants/abiogenesis/typescript/design/adrs/ADR-045-global-design-constraints-survive-local-projection.md
-- current_s05_design_requirement_digest: 3dca76c38435ac8ea0b78e8636aeaf0023214eb22c298c77c3fa49178895178c
-- current_s05_design_delta_digest: 6009602004101e722454cc863d09afa208d7ac3d4bf4018d77b41547f897b37e
+- current_s05_design_requirement_digest: 12bab5c07ca0f9a0fe0075f1df8a766f4333cf43f8e347c03799b20f280eed89
+- current_s05_design_delta_digest: f5d9d4445a66eda58fc8d8fcc4abd0d772913f40937a8d192e31d25044f1d2b5
 - current_s05_design_adr_digest: de6301adfa25185d5eace74124530a852d9cebe4ce784263dd638bba03896755
-- current_s05_design_subject_aggregate: 6a809f94d011962d9888cfa8fa2f59dfd63c1163404db851d9c2eb6880ca2be1
-- current_s05_design_handoff: .ai-workspace/comments/codex/20260726T165744Z_HANDOFF_t270_s05_global_to_local_design_review.md
+- current_s05_design_subject_aggregate: 5d01783b843481fc60a3a947a65522bc53620dd01cc87350fe2e0441015567cb
+- current_s05_design_mermaid_count: 3
+- current_s05_design_handoff: .ai-workspace/comments/codex/20260726T175027Z_HANDOFF_t270_s05_consolidated_design_repair_review.md
 - latest_s05_reviewed_candidate: 48103ed936aa9326d546f4dcd667b16a5c803f9c
 - latest_s05_review: .ai-workspace/comments/codex/20260726T081217Z_REVIEW_t270_s05_provenance_repaired_exact_candidate.md
 - latest_s05_review_disposition: rejected_by_requirement_reprice
@@ -172,9 +175,10 @@ The S05 reconciliation shall:
    JSON authority;
 11. expose agreement, dissent, unresolved, and typed `contract_failure`
    results plus replay through ordinary `project.read` and the thin CLI;
-12. preserve the non-public replay-bound direct F_H support GraphFunction only
-    as an explicit exception pending direct human affirmation that it does not
-    create rival public entry, continuation, or closure authority;
+12. preserve unresolved F_H escalation only as a hold, response, and
+    continuation inside the same admitted Run and causal ABG episode, pending
+    direct human affirmation that no direct support invocation or rival result,
+    continuation, or closure authority exists;
 13. prove agreement, dispute recursion, and unresolved escalation across the
    existing, alternate, and temporary workspace applications, all through One
    Surface; and
@@ -242,8 +246,7 @@ S05 closes only when:
   serialized assets and the matching native Product meaning;
 - no special Consensus public verb, runner, scheduler, controller, event
   writer, result store, continuation, or closure path participates;
-- the replay-bound direct F_H support exception receives direct human
-  affirmation as support-only and non-rival; and
+- the same-Run F_H topology receives direct human affirmation; and
 - the exact implementation/design/evidence subject receives independent
   review and direct human acceptance.
 
@@ -265,8 +268,8 @@ S05 remains open if:
   ABG-admitted against the complete source-round findings vector;
 - a missing, wrong-submitter, wrong-prior-round, forged, or unbound submitter
   response can append next-round truth;
-- the non-public replay-bound direct F_H support exception is treated as
-  accepted without direct human affirmation;
+- the same-Run F_H topology is treated as accepted without direct human
+  affirmation, or a direct support invocation or second Run is retained;
 - schema validation and the native reviewer parser disagree;
 - public result or ticket projection depends on mutable caller memory rather
   than replay;

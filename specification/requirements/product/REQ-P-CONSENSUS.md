@@ -53,11 +53,15 @@ schemas for `abg.schema.consensus-subject`,
 `abg.schema.consensus-panel`, `abg.schema.consensus-reviewer-profile`,
 `abg.schema.consensus-submitter-profile`,
 `abg.schema.consensus-submitter-response`,
+`abg.schema.consensus-escalation-decision`,
 `abg.schema.review-findings`, `abg.schema.review-rulings`,
 `abg.schema.consensus-round-policy`, `abg.schema.consensus-round-outcome`,
 `abg.schema.consensus-result`, and
 `abg.schema.ticket-consensus-projection`. Their native and serialized forms
-shall have the same field and value-domain meaning.
+shall have the same field and value-domain meaning. The public contract catalog
+shall also publish the closed F_H decision roster
+`accept_with_dissent | reject` as
+`abg.vocabulary.consensus-fh-decision`.
 
 **REQ-P-CONSENSUS-005**: A Consensus subject shall bind an exact subject
 contract, subject ref and digest, submitting actor, selected reviewer-panel ref,
@@ -69,11 +73,14 @@ not identify the reviewed subject.
 identity, role or worker-selection contract, configuration digest, instruction
 and result-contract refs, and declared capability requirements. Each admitted
 finding set shall carry the profile identity and configuration digest,
-invocation ref, output digest, evidence refs, typed findings, and typed residuals
-or refusal. Reviewer attribution shall not be inferred from completion order or
-adapter position. A panel shall resolve to an explicit non-empty reviewer vector;
-duplicate profile identities shall fail admission, and the product shall not
-hard-code one panel cardinality.
+invocation ref, source round ref and ordinal, panel ref and position, exact
+reviewer-task ref and digest, C-call attempt ref, output digest, evidence refs,
+typed findings, and typed residuals or refusal. Those fields form one reviewer
+result-occurrence identity and shall equal the expected admitted task occurrence
+before vector assembly. Reviewer attribution shall not be inferred from
+completion order or adapter position. A panel shall resolve to an explicit
+non-empty reviewer vector; duplicate profile identities shall fail admission,
+and the product shall not hard-code one panel cardinality.
 
 **REQ-P-CONSENSUS-006A**: ABIogenesis shall publish one canonical attributed
 submitter GraphFunction and submitter-response contract for Consensus. Each
@@ -100,14 +107,35 @@ contract. Each admitted round shall bind its complete admitted reviewer
 findings vector and exact admitted submitter response before returning exactly
 one outcome from `closed_done | recurse_next_round | escalate_fh`, published as
 `abg.vocabulary.consensus-round-outcome`. Exhaustion shall produce typed
-`escalate_fh`; it shall not silently accept or start another round.
+`escalate_fh`; it shall not silently accept or start another round. The Product
+round decision shall be total over the exact policy, source round, complete
+findings vector, and admitted submitter response:
+
+- a refusal-bearing complete vector produces `closed_done` with typed
+  `contract_failure`;
+- exact agreement produces `closed_done` with
+  `unanimous_agreement`;
+- material disagreement with remaining budget produces
+  `recurse_next_round` and one response-bearing successor-round basis; and
+- material disagreement without remaining budget, or an admitted escalation
+  rule, produces `escalate_fh` with one same-Run F_H hold basis and provisional
+  `unresolved_disagreement`.
+
+The same relation shall construct the closed ruling vector from the admitted
+finding occurrences and submitter response using only the roster in
+REQ-P-CONSENSUS-007. No other outcome, classification, ruling kind, successor,
+or hold is lawful.
 
 **REQ-P-CONSENSUS-008A**: The final Consensus result shall bind the subject,
 panel, policy, round identities, admitted finding sets, ruling rows, consensus
 and dissent classification, terminal round outcome, evidence and lineage refs,
 and result and replay refs. It shall distinguish unanimous agreement, partial
 agreement with dissent, unresolved disagreement, and typed contract failure
-without collapsing those states into one accepted boolean.
+without collapsing those states into one accepted boolean. One admitted
+Consensus Run shall expose at most one final result. An `escalate_fh` round
+decision is provisional hold basis, not a second final result: the same Run
+finalizes to partial agreement when F_H chooses `accept_with_dissent`, or to
+unresolved disagreement when F_H chooses `reject`.
 
 ## Constructive And Runtime Law
 
@@ -179,21 +207,21 @@ law before realization.
 through the existing `start` variant of `abg.operation.run.invoke`, the
 supervised One Surface Program's declared start identity, and
 `until=converged`. It shall read the result and replay through the corresponding
-variants of `abg.operation.project.read`. The non-public replay-bound F_H
-support GraphFunction may use the existing direct variant only when ABG derives
-and admits its exact source-result basis. Consensus shall not add a
-feature-specific CLI verb, operation identity, or host-owned orchestration
-path. `abg.operation.catalog.view` may narrow the admitted catalog to the
-Consensus function and its declared dependencies; it shall not widen catalog
-authority.
+variants of `abg.operation.project.read`. An `escalate_fh` outcome shall open a
+typed hold inside that same admitted Run. `interaction.respond` shall admit the
+exact actor, capability, hold, provisional unresolved result, and one decision
+from `accept_with_dissent | reject`; `run.continue` shall resume the same Run,
+admit exactly one final result, and close through the ordinary ABG path.
+Consensus shall not add a direct support invocation, feature-specific CLI verb,
+operation identity, or host-owned orchestration path.
+`abg.operation.catalog.view` may narrow the admitted catalog to the Consensus
+function and its declared dependencies; it shall not widen catalog authority.
 
-**REQ-P-CONSENSUS-015A**: The non-public direct F_H support GraphFunction in
-REQ-P-CONSENSUS-015 is an explicit S05 exception to the canonical One Surface
-entry relation. It shall remain limited to an ABG-derived and admitted exact
-source-result basis over a replay-bound unresolved result and shall not select
-or invoke the canonical Consensus root. S05 closure requires direct human
-affirmation that this support-only exception preserves one public entry and
-does not create rival selection, continuation, or closure authority. Prior
+**REQ-P-CONSENSUS-015A**: S05 closure requires direct human affirmation that
+the repaired F_H topology preserves Product law: One Surface remains the sole
+public entry, escalation remains a hold and continuation inside the same
+admitted Run and causal ABG episode, and no direct support invocation or rival
+selection, result, continuation, or closure authority exists. Prior
 implementation, tests, review, or delegated acceptance shall not silently
 supply that affirmation.
 
@@ -227,7 +255,9 @@ admission-to-next-round causality, result, and replay evidence pass over the
 exact 5.0 candidate. A declaration-only entry or imperative implementation
 shall fail the gate. The proof shall use only the complete Product-derived
 public function family; a legacy operation identity or parallel adapter
-register shall fail it.
+register shall fail it. The unresolved fixture shall prove that
+`interaction.respond` and `run.continue` retain the exact original Run identity,
+consume one hold once, and produce one final result before ordinary closure.
 
 ## Bounded Scope
 

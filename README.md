@@ -61,8 +61,9 @@ implementation resumes. The design must:
 
 1. retain the packed SYSTEM-owned Consensus GraphFunction as an ordinary
    admitted GTL callable;
-2. prove agreement, dispute recursion, and unresolved F_H escalation through
-   ordinary HoG, ABG, replay, `project.read`, and CLI paths;
+2. prove agreement, dispute recursion, and unresolved same-Run F_H
+   continuation through ordinary HoG, ABG, replay, `project.read`, and CLI
+   paths;
 3. reconcile the affected Consensus Ontology, atomic functions, Prime, IACS,
    module ownership, three views, operational lifecycle, and module proof;
 4. preserve accepted S03, the external Product, M4, package reproducibility,

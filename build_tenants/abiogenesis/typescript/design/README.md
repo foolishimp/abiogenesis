@@ -16,9 +16,10 @@ The current design basis is:
   as rationale.
 
 Current M03/M05 working-tree material after the accepted S03 cut is retained
-design-discovery evidence. It is not accepted S05 design and is not part of
-the current review subject unless the S05 delta incorporates it explicitly.
-Completed T-272 and T-286 remain evidence only.
+design-discovery evidence. In particular, M05 Section 13 has no current S05
+design authority; the proposed S05 delta supersedes it in full upon acceptance.
+If the delta is rejected, no S05 design is accepted. Completed T-272 and T-286
+remain evidence only.
 
 ## Governing Truth
 
