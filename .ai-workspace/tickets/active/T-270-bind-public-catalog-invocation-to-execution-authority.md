@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_product_path_repaired_exact_candidate
+- phase_status: m5_s05_bounded_review_repair_exact_candidate
 - review_status: s05_independent_exact_cut_pending
-- proof_status: s05_product_path_candidate_gates_green
+- proof_status: s05_bounded_review_repair_gates_green
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -36,7 +36,7 @@
 - accepted_s03_m03_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85
 - accepted_s03_m05_digest: b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5
 - current_m03_status_projection_digest: ccd8f79d333c4c681f5643acafac59458b661c7d1916eb929f9c7f065dd0cfaf
-- current_m05_status_projection_digest: 46f110d2da0778598d9e2030a1785db0f97dfbbbb21739574aa69ab72cdcc71b
+- current_m05_status_projection_digest: 8eefe639bbec51e82206da0df7b3d42954d798c2289a96f506a4b0a3775284e9
 - accepted_s03_package_digest: e4345ce38807abd4a988aeff76c3d83274e88ed6e0926adfb635d07fe933732b
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
@@ -54,10 +54,13 @@
 - superseded_s05_review_candidate: 0de994eb030452a2835b44ae564e75443c119de2
 - superseded_s05_review_candidate_tree: 6b5458a6d045af7f9fff4f867599412f75a27363
 - superseded_s05_review_candidate_package_digest: 4ef65c896ab23b5b16343ccb590095c0354f7b8d95762b78ffe777a7d5b6f68a
-- current_s05_candidate: 6a380544df8bdbd68db427aa80c278e37275c9bb
-- current_s05_candidate_tree: 6f853a0db7f1b53b9b4e8e805b179f1552e1212f
-- current_s05_package_digest: 622dd8b118d01b81a7ede12f93ac9e7421ecb6a3d8b3a14d9398d08635f18b6b
-- current_s05_evidence: .ai-workspace/comments/codex/20260726T041753Z_CHECKPOINT_t270_s05_product_path_repaired_exact_candidate.md
+- superseded_s05_product_path_candidate: 6a380544df8bdbd68db427aa80c278e37275c9bb
+- superseded_s05_product_path_candidate_tree: 6f853a0db7f1b53b9b4e8e805b179f1552e1212f
+- superseded_s05_product_path_evidence: .ai-workspace/comments/codex/20260726T041753Z_CHECKPOINT_t270_s05_product_path_repaired_exact_candidate.md
+- current_s05_candidate: 3a955d6938856d09a0d8ef19af0bb629e20cd8a3
+- current_s05_candidate_tree: 6acb6c81f22bafe4f3b4806826e5488cefe86b76
+- current_s05_package_digest: 52b56666d2ebc0773204bcbf2298477a3f2414904a35190d866bc909ee2cc3cf
+- current_s05_evidence: .ai-workspace/comments/codex/20260726T053300Z_CHECKPOINT_t270_s05_bounded_review_repair_exact_candidate.md
 - retained_behavioral_stock: bcd8769a8163a222e2e59400c904994b3de161fd
 - regression_bindings:
   - ABI5-ROOT-001
