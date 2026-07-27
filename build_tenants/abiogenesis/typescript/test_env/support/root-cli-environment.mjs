@@ -1,7 +1,14 @@
 import { execFile } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { basename, join } from "node:path";
+import {
+  basename,
+  isAbsolute,
+  join,
+  relative,
+  resolve,
+  sep,
+} from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 
@@ -71,8 +78,10 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     "@abiogenesis",
     "typescript-tenant",
   );
-  const gtl = await import(
-    `${pathToFileURL(join(installedPackageRoot, "build/code/src/gtl/index.js")).href}?harness=${Date.now()}`
+  const gtl = await importInstalledPackageExport(
+    { cliHost },
+    "@abiogenesis/typescript-tenant/gtl",
+    `harness=${Date.now()}`,
   );
   const rootPublication = gtl.constructHelloWorldModulePublication({
     productId: candidateBasis.productId,
@@ -89,6 +98,8 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     packageJson,
     candidateBasis,
     cliHost,
+    installedPackageRoot,
+    sourcePackageRoot: packageRoot,
     cliPath: join(cliHost, "node_modules/.bin/abg.cli"),
     codexPath: join(cliHost, "node_modules/.bin/abg.codex"),
     rootPublication,
@@ -287,12 +298,54 @@ export function runInstalledCodex(harness, scenario, options = {}) {
 }
 
 export function installedCliPackageRoot(harness) {
-  return join(
-    harness.cliHost,
-    "node_modules",
-    "@abiogenesis",
-    "typescript-tenant",
+  return harness.installedPackageRoot ??
+    join(
+      harness.cliHost,
+      "node_modules",
+      "@abiogenesis",
+      "typescript-tenant",
+    );
+}
+
+export async function resolveInstalledPackageExport(harness, specifier) {
+  const packageRoot = installedCliPackageRoot(harness);
+  const packageJson = JSON.parse(
+    await readFile(join(packageRoot, "package.json"), "utf8"),
   );
+  const packageName = packageJson.name;
+  const exportKey = specifier === packageName
+    ? "."
+    : specifier.startsWith(`${packageName}/`)
+    ? `./${specifier.slice(packageName.length + 1)}`
+    : null;
+  const target = exportKey === null
+    ? null
+    : packageJson.exports?.[exportKey]?.import;
+  if (typeof target !== "string") {
+    throw new TypeError(
+      `${specifier} is not one declared installed package export`,
+    );
+  }
+  const resolved = resolve(packageRoot, target);
+  const relation = relative(packageRoot, resolved);
+  if (
+    relation.length === 0 ||
+    relation === ".." ||
+    relation.startsWith(`..${sep}`) ||
+    isAbsolute(relation)
+  ) {
+    throw new TypeError(`${specifier} export escapes the installed package`);
+  }
+  return resolved;
+}
+
+export async function importInstalledPackageExport(
+  harness,
+  specifier,
+  query = `installed=${Date.now()}`,
+) {
+  const resolved = await resolveInstalledPackageExport(harness, specifier);
+  return import(`${pathToFileURL(resolved).href}?${query}`);
 }
 
 export async function applyInstalledTranscriptPrefix(
@@ -300,12 +353,10 @@ export async function applyInstalledTranscriptPrefix(
   scenario,
   count = 5,
 ) {
-  const publicModulePath = join(
-    installedCliPackageRoot(harness),
-    "build/code/src/public/index.js",
-  );
-  const publicApi = await import(
-    `${pathToFileURL(publicModulePath).href}?scenario=${encodeURIComponent(scenario.label)}`
+  const publicApi = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `scenario=${encodeURIComponent(scenario.label)}`,
   );
   const operationContext = publicApi.createRootOperationContext();
   const outcomes = [];

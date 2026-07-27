@@ -1,21 +1,18 @@
 import { createHash } from "node:crypto";
 
-type JsonValue =
-  | boolean
-  | null
-  | number
-  | string
-  | readonly JsonValue[]
-  | { readonly [key: string]: JsonValue };
-
-interface ArtifactBasis {
-  readonly productId: string;
-  readonly artifactDigest: `sha256:${string}`;
-  readonly productContentDigest: `sha256:${string}`;
-  readonly productManifestDigest: `sha256:${string}`;
-  readonly packageName: string;
-  readonly packageVersion: string;
-}
+import type {
+  JsonValue,
+  PackagedLeafImplementationDescriptor,
+  ProductSemanticsProvider,
+  Sha256Digest,
+} from "@abiogenesis/typescript-tenant/product";
+import type {
+  ContractDeclaration,
+  GraphFunction,
+  GtlProgram,
+  ModulePublication,
+  RootModuleArtifactBasis,
+} from "@abiogenesis/typescript-tenant/gtl";
 
 const PACKAGE_NAME = "@abiogenesis-fixtures/flavored-catalog-product";
 const PACKAGE_VERSION = "5.0.0";
@@ -69,7 +66,7 @@ function canonicalJson(value: JsonValue): string {
     .join(",")}}`;
 }
 
-function sha256Canonical(value: JsonValue): `sha256:${string}` {
+function sha256Canonical(value: JsonValue): Sha256Digest {
   return `sha256:${
     createHash("sha256").update(canonicalJson(value)).digest("hex")
   }`;
@@ -187,7 +184,8 @@ const descriptorBody = {
   refusalContractRef: FLAVORED_CATALOG_IDS.refusalContractRef,
 } as const;
 
-export const FLAVORED_TEXT_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
+export const FLAVORED_TEXT_IMPLEMENTATION_DESCRIPTOR:
+  Readonly<PackagedLeafImplementationDescriptor> = deepFreeze({
   kind: "packaged_leaf_implementation_descriptor" as const,
   schemaVersion: "5.0.0" as const,
   descriptorDigest: sha256Canonical(descriptorBody),
@@ -223,7 +221,8 @@ export function realizeFlavoredText(input: unknown): Readonly<object> {
   });
 }
 
-export const FLAVORED_CATALOG_PRODUCT_SEMANTICS = Object.freeze({
+export const FLAVORED_CATALOG_PRODUCT_SEMANTICS:
+  ProductSemanticsProvider = Object.freeze({
   kind: "product_semantics_provider" as const,
   schemaVersion: "5.0.0" as const,
   bindingRef: FLAVORED_CATALOG_IDS.semanticsBindingRef,
@@ -264,7 +263,10 @@ export const FLAVORED_CATALOG_PRODUCT_SEMANTICS = Object.freeze({
   evaluateInteractionResponse() {
     return null;
   },
-  validateContractValue(valueKind: string, value: unknown): boolean {
+  validateContractValue(
+    valueKind: string,
+    value: unknown,
+  ): value is Readonly<Record<string, JsonValue>> {
     if (valueKind === "flavored_text_input") return isFlavoredInput(value);
     if (valueKind === "flavored_text_output") return isFlavoredOutput(value);
     if (valueKind === "flavored_node_type") return isFlavoredNodeType(value);
@@ -334,8 +336,8 @@ export const FLAVORED_CATALOG_PRODUCT_SEMANTICS = Object.freeze({
 });
 
 export function constructFlavoredCatalogPublication(
-  artifact: ArtifactBasis,
-): Readonly<Record<string, JsonValue>> {
+  artifact: RootModuleArtifactBasis,
+): Readonly<ModulePublication> {
   if (
     artifact.packageName !== PACKAGE_NAME ||
     artifact.packageVersion !== PACKAGE_VERSION
@@ -345,7 +347,13 @@ export function constructFlavoredCatalogPublication(
     );
   }
   const ids = FLAVORED_CATALOG_IDS;
-  const contracts = [
+  const contractRows: readonly (
+    readonly [
+      ContractDeclaration["contractKind"],
+      string,
+      string,
+    ]
+  )[] = [
     ["input", ids.inputContractRef, "flavored_text_input"],
     ["output", ids.outputContractRef, "flavored_text_output"],
     ["evidence", ids.evidenceContractRef, "deterministic_evidence_candidate"],
@@ -356,13 +364,16 @@ export function constructFlavoredCatalogPublication(
     ["closure", ids.closureContractRef, "flavored_text_closure"],
     ["input", ids.nodeTypeRef, "flavored_node_type"],
     ["input", ids.overlayRef, "flavored_overlay"],
-  ].map(([contractKind, contractRef, valueKind]) => ({
+  ];
+  const contracts: readonly ContractDeclaration[] = contractRows.map((
+    [contractKind, contractRef, valueKind],
+  ) => ({
     contractRef: contractRef!,
     contractVersion: "5.0.0",
     contractKind: contractKind!,
     valueKind: valueKind!,
   }));
-  const graphFunction = {
+  const graphFunction: GraphFunction = {
     kind: "graph_function",
     name: ids.graphFunctionRef,
     version: "5.0.0",
@@ -419,7 +430,7 @@ export function constructFlavoredCatalogPublication(
     },
     tags: ["external-product", "flavored-catalog", "all-fd"],
   };
-  const program = {
+  const program: GtlProgram = {
     kind: "gtl_program",
     programRef: ids.programRef,
     version: "5.0.0",
@@ -444,7 +455,7 @@ export function constructFlavoredCatalogPublication(
       artifact.productManifestDigest,
     ],
   };
-  return deepFreeze({
+  const publication: ModulePublication = {
     kind: "module_publication",
     moduleRef: ids.moduleRef,
     moduleVersion: "5.0.0",
@@ -522,5 +533,6 @@ export function constructFlavoredCatalogPublication(
       programMembershipRefs: [ids.programRef],
       ...contributionBasis,
     }],
-  }) as Readonly<Record<string, JsonValue>>;
+  };
+  return deepFreeze(publication);
 }

@@ -1,24 +1,24 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-28):** S06 selected by direct F_H after exact
-> S05 acceptance. Implement the bounded Prime gate and product-neutral
-> installed shell only. The retained 19-operation and X-era material is
-> historical donor evidence.
+> **Current disposition (2026-07-28):** The bounded Prime gate and S06
+> product-neutral installed shell are realized. Freeze one exact candidate for
+> independent review; do not add functionality or begin S04. The retained
+> 19-operation and X-era material is historical donor evidence.
 
 - id: T-281
 - title: Publish the product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- implementation_hold: bounded_s06_only
+- implementation_hold: exact_s06_review_handoff
 - implementation_hold_ref: GOAL-035 current S06 outcome under T-270
 - implementation_hold_effect: >-
-    authorize the four named Prime recurrence dispositions and exact S06
-    portability path; prohibit alternate functionality, S04, qualification,
-    release, and broad runtime refactoring
-- phase_status: m5_s06_selected
-- review_status: authoring
-- proof_status: baseline_portability_4_of_4
+    prohibit further realization after the exact S06 candidate freeze; permit
+    only mechanical evidence and review handoff while S04, qualification,
+    release, alternate functionality, and broad runtime refactoring remain held
+- phase_status: m5_s06_realization_complete
+- review_status: pending_independent_exact_cut_review
+- proof_status: mechanical_green_m5_165_m4_26_external_36_prime_4_portability_4
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: M5_after_s03_and_s05
 - change_intent: >-
@@ -120,6 +120,37 @@ bounded recurrence families named by GOALS and T-270:
 
 The gate preserves owner and admission authority. It does not authorize broad
 ABG or HoG refactoring.
+
+### Prime Gate Projection
+
+The accepted contraction is recorded in M05 Section 14.0:
+
+| Family | Disposition |
+|---|---|
+| exact catalog coordinate lookup | consume one Product-local `ResolveExactMatch` zero/one/many relation |
+| verified installed-module loading | consume one Product-local content, confinement, and import relation; callers retain semantic validation |
+| Product dependency topology | consume one cycle predicate in lock construction and validation |
+| GTL declaration/publication construction | extend GTL mechanical constructors; retain Product-owned identities, topology, meaning, and complete publication assembly |
+
+The module-owned `test:m5:s06-prime` lane must remain mutation-sensitive for
+all four dispositions. This is a bounded refactor, not a new public operation
+or runtime capability.
+
+## S06 Realization
+
+The realization consumes the installed package's declared `./gtl`,
+`./product`, and `./public` exports. The independently packed flavored Product
+type-checks its declarations against those public contracts, owns its complete
+Product meaning, and carries no ABIogenesis deep-runtime import. Native SDK,
+native CLI, and `abg.codex` execute the same serialized public transcript;
+`abg.codex` only validates two absolute file paths, spawns the exact installed
+CLI, and forwards process bytes and status.
+
+The existing catalog admits and applies the Product's exact URI-coordinate
+`node_type` and `overlay` rows. No catalog, Program, traversal, worker,
+continuation, event, or closure alternative is introduced. The S06 package
+and exact candidate identity are recorded only after the immutable candidate
+commit is created.
 
 ## Independent Product Checkpoint
 

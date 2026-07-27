@@ -13,5 +13,8 @@
     "build/**",
     "contracts/**",
     "product-toolchain-manifest.json"
-  ]
+  ],
+  "devDependencies": {
+    "@abiogenesis/typescript-tenant": "5.0.0-dev.286"
+  }
 }

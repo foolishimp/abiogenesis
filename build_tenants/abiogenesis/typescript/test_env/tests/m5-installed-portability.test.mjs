@@ -7,6 +7,7 @@ import test from "node:test";
 import { prepareFlavoredCatalogProduct } from
   "../support/flavored-catalog-product.mjs";
 import {
+  importInstalledPackageExport,
   runInstalledCli,
   runInstalledCodex,
   setupInstalledCliHarness,
@@ -339,8 +340,7 @@ test(
   async (context) => {
     const harness = await setupInstalledCliHarness(context, packageRoot);
     const flavored = await prepareFlavoredCatalogProduct(
-      packageRoot,
-      harness.scratch,
+      harness,
     );
     const cliScenario = await portabilityScenario(
       harness,
@@ -383,18 +383,10 @@ test(
       flavored,
       "flavored-sdk",
     );
-    const installedPublic = await import(
-      `${
-        pathToFileURL(
-          join(
-            harness.cliHost,
-            "node_modules",
-            "@abiogenesis",
-            "typescript-tenant",
-            "build/code/src/public/index.js",
-          ),
-        ).href
-      }?portability=${Date.now()}`
+    const installedPublic = await importInstalledPackageExport(
+      harness,
+      "@abiogenesis/typescript-tenant/public",
+      `portability=${Date.now()}`,
     );
     const operationContext = installedPublic.createRootOperationContext();
     const sdkOutcomes = [];
@@ -423,26 +415,17 @@ test(
   async (context) => {
     const harness = await setupInstalledCliHarness(context, packageRoot);
     const flavored = await prepareFlavoredCatalogProduct(
-      packageRoot,
-      harness.scratch,
+      harness,
     );
     const scenario = await portabilityScenario(
       harness,
       flavored,
       "flavored-apply-refusals",
     );
-    const installedPublic = await import(
-      `${
-        pathToFileURL(
-          join(
-            harness.cliHost,
-            "node_modules",
-            "@abiogenesis",
-            "typescript-tenant",
-            "build/code/src/public/index.js",
-          ),
-        ).href
-      }?apply-refusal=${Date.now()}`
+    const installedPublic = await importInstalledPackageExport(
+      harness,
+      "@abiogenesis/typescript-tenant/public",
+      `apply-refusal=${Date.now()}`,
     );
     const operationContext = installedPublic.createRootOperationContext();
     let operationContextClosed = false;
@@ -881,18 +864,41 @@ test(
   },
 );
 
-test("S06 Codex delegate contains transport only", async () => {
-  const source = await readFile(
+test("S06 Codex delegate and flavored Product keep their public boundaries", async () => {
+  const delegateSource = await readFile(
     join(packageRoot, "code/src/public/codex_cli.ts"),
     "utf8",
   );
   assert.doesNotMatch(
-    source,
+    delegateSource,
     /from\s+["'][.]{2}\/(?:abg|gtl|hog|implementation|product|public|validator)\//u,
   );
   assert.doesNotMatch(
-    source,
+    delegateSource,
     /GraphFunction|catalog\.apply|run\.invoke|continuation|closure/u,
   );
-  assert.match(source, /spawn\(cliPath,\s*\["--jsonl", transcriptPath\]/u);
+  assert.match(
+    delegateSource,
+    /spawn\(cliPath,\s*\["--jsonl", transcriptPath\]/u,
+  );
+
+  const flavoredSource = await readFile(
+    join(
+      packageRoot,
+      "test_env/fixtures/flavored-catalog-product/src/index.ts",
+    ),
+    "utf8",
+  );
+  assert.match(
+    flavoredSource,
+    /from "@abiogenesis\/typescript-tenant\/product"/u,
+  );
+  assert.match(
+    flavoredSource,
+    /from "@abiogenesis\/typescript-tenant\/gtl"/u,
+  );
+  assert.doesNotMatch(
+    flavoredSource,
+    /build\/code\/src|from\s+["'][.]{1,2}\//u,
+  );
 });

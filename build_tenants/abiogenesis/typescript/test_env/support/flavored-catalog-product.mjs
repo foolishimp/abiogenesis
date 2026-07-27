@@ -4,15 +4,24 @@ import {
   mkdir,
   readFile,
   rm,
+  symlink,
   writeFile,
 } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 
+import {
+  importInstalledPackageExport,
+} from "./root-cli-environment.mjs";
+
 const execFileAsync = promisify(execFile);
 
-export async function prepareFlavoredCatalogProduct(packageRoot, scratch) {
+export async function prepareFlavoredCatalogProduct(
+  harness,
+  scratch = harness.scratch,
+) {
+  const packageRoot = harness.sourcePackageRoot;
   const fixtureRoot = join(
     packageRoot,
     "test_env/fixtures/flavored-catalog-product",
@@ -20,6 +29,17 @@ export async function prepareFlavoredCatalogProduct(packageRoot, scratch) {
   const sourceRoot = join(scratch, "flavored-catalog-product-source");
   await rm(sourceRoot, { force: true, recursive: true });
   await cp(fixtureRoot, sourceRoot, { recursive: true });
+  const installedTypeScope = join(
+    sourceRoot,
+    "node_modules",
+    "@abiogenesis",
+  );
+  await mkdir(installedTypeScope, { recursive: true });
+  await symlink(
+    harness.installedPackageRoot,
+    join(installedTypeScope, "typescript-tenant"),
+    "dir",
+  );
   await execFileAsync(
     join(packageRoot, "node_modules/.bin/tsc"),
     [
@@ -31,10 +51,10 @@ export async function prepareFlavoredCatalogProduct(packageRoot, scratch) {
     { cwd: sourceRoot, maxBuffer: 10 * 1024 * 1024 },
   );
 
-  const product = await import(
-    `${pathToFileURL(
-      join(packageRoot, "build/code/src/product/index.js"),
-    ).href}?flavored=${Date.now()}`
+  const product = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/product",
+    `flavored=${Date.now()}`,
   );
   const packageJson = JSON.parse(
     await readFile(join(sourceRoot, "package.json"), "utf8"),
