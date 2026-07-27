@@ -95,6 +95,36 @@ export interface CatalogView extends Omit<CatalogViewCandidate, "kind" | "dispos
   readonly admissionEventRef: string;
 }
 
+export type CatalogApplicationVariant = "node_type" | "overlay";
+
+export type CatalogNodeTypeTargetInput =
+  | Readonly<{
+      readonly kind: "program";
+      readonly programRef: string;
+    }>
+  | Readonly<{
+      readonly kind: "node";
+      readonly programRef: string;
+      readonly graphFunctionRef: string;
+      readonly nodeRef: string;
+    }>;
+
+export type CatalogNodeTypeTarget =
+  | Readonly<{
+      readonly kind: "program";
+      readonly targetRef: string;
+      readonly targetDigest: Sha256Digest;
+      readonly programRef: string;
+    }>
+  | Readonly<{
+      readonly kind: "node";
+      readonly targetRef: string;
+      readonly targetDigest: Sha256Digest;
+      readonly programRef: string;
+      readonly graphFunctionRef: string;
+      readonly nodeRef: string;
+    }>;
+
 export interface CatalogApplicationCandidate {
   readonly kind: "catalog_application_candidate";
   readonly schemaVersion: "5.0.0";
@@ -107,6 +137,15 @@ export interface CatalogApplicationCandidate {
   readonly viewDigest: Sha256Digest;
   readonly rowHandle: string;
   readonly rowDigest: Sha256Digest;
+  readonly applicationVariant: CatalogApplicationVariant;
+  readonly validationReceiptRef: string;
+  readonly validationReceiptDigest: Sha256Digest;
+  readonly validatingInstallId: string;
+  readonly validatingProductId: string;
+  readonly validatingArtifactDigest: Sha256Digest;
+  readonly validatingProductContentDigest: Sha256Digest;
+  readonly validatingManifestDigest: Sha256Digest;
+  readonly validatingPublicationDigest: Sha256Digest;
   readonly appliedHandle: string;
   readonly appliedValueRef: string;
   readonly appliedValueDigest: Sha256Digest;
@@ -119,6 +158,7 @@ export interface CatalogApplicationCandidate {
   readonly owningProductId: string;
   readonly moduleRef: string;
   readonly programMembershipRefs: readonly string[];
+  readonly nodeTypeTarget: CatalogNodeTypeTarget | null;
   readonly compatibilityDisposition: "compatible";
   readonly compatibilityRefs: readonly string[];
   readonly provenanceRefs: readonly string[];
@@ -137,16 +177,6 @@ export interface CatalogApplication
   readonly admissionEventRef: null;
 }
 
-export interface CatalogAppliedValue {
-  readonly kind: "catalog_applied_value";
-  readonly schemaVersion: "5.0.0";
-  readonly contractRef: string;
-  readonly valueRef: string;
-  readonly valueDigest: Sha256Digest;
-  readonly value: Readonly<Record<string, JsonValue>>;
-  readonly programMembershipRefs: readonly string[];
-}
-
 export interface CatalogConstructionRefusal {
   readonly kind: "catalog_construction_refusal";
   readonly schemaVersion: "5.0.0";
@@ -155,6 +185,9 @@ export interface CatalogConstructionRefusal {
     | "application_not_supported"
     | "invalid_application_binding"
     | "invalid_application_contributor"
+    | "invalid_application_receipt"
+    | "invalid_application_target"
+    | "invalid_application_variant"
     | "binding_lock_mismatch"
     | "duplicate_allowlist_entry"
     | "invalid_validation_basis"
@@ -172,7 +205,6 @@ export type CatalogApplicationCandidateResult =
 
 const catalogAdmissionCandidates = new WeakSet<object>();
 const catalogViewCandidates = new WeakSet<object>();
-const catalogApplicationCandidates = new WeakSet<object>();
 
 export function isCatalogAdmissionCandidate(value: object): boolean {
   return catalogAdmissionCandidates.has(value);
@@ -180,10 +212,6 @@ export function isCatalogAdmissionCandidate(value: object): boolean {
 
 export function isCatalogViewCandidate(value: object): boolean {
   return catalogViewCandidates.has(value);
-}
-
-export function isCatalogApplicationCandidate(value: object): boolean {
-  return catalogApplicationCandidates.has(value);
 }
 
 function refusal(
@@ -316,124 +344,6 @@ export function constructCatalogViewCandidate(
     ...body,
   }) as CatalogViewCandidate;
   catalogViewCandidates.add(candidate);
-  return candidate;
-}
-
-export function constructCatalogApplicationCandidate(
-  catalog: AdmittedCatalog,
-  view: CatalogView,
-  workspaceBinding: WorkspaceBinding,
-  lock: ResolvedProductLock,
-  handle: string,
-  appliedValue: CatalogAppliedValue,
-  contributorRef: string,
-): CatalogApplicationCandidateResult {
-  const row = view.selectedRows.find((candidate) => candidate.handle === handle);
-  if (row === undefined) {
-    return refusal(
-      "unknown_allowlist_entry",
-      `catalog application handle ${handle} is not present in the admitted view`,
-    );
-  }
-  if (row.disposition !== "admitted") {
-    return refusal("row_not_admitted", "catalog application requires an admitted row");
-  }
-  if (row.kind === "graph_function") {
-    return refusal(
-      "application_not_supported",
-      "GraphFunction rows remain callable through run.invoke and cannot be applied",
-    );
-  }
-  if (
-    catalog.catalogId !== view.catalogId ||
-    catalog.catalogDigest !== view.catalogDigest ||
-    catalog.workspaceBindingId !== workspaceBinding.bindingId ||
-    catalog.workspaceBindingDigest !== workspaceBinding.bindingDigest
-  ) {
-    return refusal(
-      "invalid_application_binding",
-      "catalog application workspace differs from the admitted view",
-    );
-  }
-  if (
-    workspaceBinding.lockId !== lock.lockId ||
-    workspaceBinding.lockDigest !== lock.lockDigest ||
-    appliedValue.kind !== "catalog_applied_value" ||
-    appliedValue.schemaVersion !== "5.0.0" ||
-    appliedValue.contractRef !== row.declarationOrContractRef ||
-    appliedValue.valueRef.trim().length === 0 ||
-    !/^sha256:[0-9a-f]{64}$/u.test(appliedValue.valueDigest) ||
-    sha256Canonical(appliedValue.value as unknown as JsonValue) !==
-      appliedValue.valueDigest ||
-    appliedValue.programMembershipRefs.join("\0") !==
-      row.programMembershipRefs.join("\0")
-  ) {
-    return refusal(
-      "invalid_application_binding",
-      "catalog application requires one Product-validated concrete value under the exact row contract and Program composition",
-    );
-  }
-  const contributorLockRow = lock.rows.find(
-    (candidate) => candidate.productId === contributorRef,
-  );
-  const contributorKind = contributorRef === workspaceBinding.authorizedActorRef
-    ? "host" as const
-    : contributorLockRow === undefined
-    ? null
-    : "product" as const;
-  if (contributorKind === null) {
-    return refusal(
-      "invalid_application_contributor",
-      "catalog application contributor is absent from the admitted workspace authority and Product lock",
-    );
-  }
-  const contributorProvenanceRefs = contributorKind === "host"
-    ? [
-        workspaceBinding.authorityBasisId,
-        workspaceBinding.bindingId,
-      ]
-    : [
-        lock.lockId,
-        contributorLockRow!.artifactDigest,
-        contributorLockRow!.manifestDigest,
-      ];
-  const body = {
-    catalogId: view.catalogId,
-    catalogDigest: view.catalogDigest,
-    viewId: view.viewId,
-    viewDigest: view.viewDigest,
-    rowHandle: row.handle,
-    rowDigest: row.rowDigest,
-    appliedHandle:
-      `${row.handle}/${appliedValue.valueDigest.slice("sha256:".length)}`,
-    appliedValueRef: appliedValue.valueRef,
-    appliedValueDigest: appliedValue.valueDigest,
-    appliedValue: appliedValue.value,
-    contributorKind,
-    contributorRef,
-    contributorProvenanceRefs,
-    contributionKind: row.kind,
-    declarationOrContractRef: row.declarationOrContractRef,
-    owningProductId: row.owningProductId,
-    moduleRef: row.moduleRef,
-    programMembershipRefs: row.programMembershipRefs,
-    compatibilityDisposition: row.compatibilityDisposition,
-    compatibilityRefs: row.compatibilityRefs,
-    provenanceRefs: row.provenanceRefs,
-  };
-  const applicationCandidateDigest = sha256Canonical(body as unknown as JsonValue);
-  const candidate = deepFreeze({
-    kind: "catalog_application_candidate",
-    schemaVersion: "5.0.0",
-    disposition: "candidate",
-    applicationCandidateId: identity(
-      "catalog-application-candidate://abiogenesis",
-      applicationCandidateDigest,
-    ),
-    applicationCandidateDigest,
-    ...body,
-  }) as CatalogApplicationCandidate;
-  catalogApplicationCandidates.add(candidate);
   return candidate;
 }
 

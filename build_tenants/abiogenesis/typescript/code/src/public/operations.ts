@@ -76,6 +76,7 @@ export function createRootOperationContext(): RootOperationContext {
 }
 
 export function closeRootOperationContext(context: RootOperationContext): void {
+  abg.releaseCatalogApplicationScope(context.store);
   context.store.closeDurableLog();
   context.pendingReopenAuthority = null;
 }
@@ -83,6 +84,7 @@ export function closeRootOperationContext(context: RootOperationContext): void {
 function closeAndRememberDurableContext(
   context: RootOperationContext,
 ): abg.EventStoreReopenAuthority {
+  abg.releaseCatalogApplicationScope(context.store);
   const authority = context.store.projectReopenAuthorityAndClose();
   context.pendingReopenAuthority = authority;
   return authority;
@@ -774,10 +776,10 @@ async function applyCatalogApplication(
   context: RootOperationContext,
   invocation: RootPublicInvocation,
 ): Promise<PublicOutcome> {
-  if (invocation.variant !== "declaration") {
+  if (invocation.variant !== "node_type" && invocation.variant !== "overlay") {
     throw new ApplicationRefusal(
       "invalid_request",
-      "catalog.apply requires variant declaration",
+      "catalog.apply requires variant node_type or overlay",
     );
   }
   requireExactPayloadKeys(invocation.payload, [
@@ -785,6 +787,7 @@ async function applyCatalogApplication(
     "contributorRef",
     "handle",
     "productInstallInvocationRef",
+    ...(invocation.variant === "node_type" ? ["target"] : []),
     "value",
   ], "catalog.apply");
   const viewInvocationRef = stringField(
@@ -832,7 +835,10 @@ async function applyCatalogApplication(
       "GraphFunction rows remain callable through run.invoke and cannot be applied",
     );
   }
-  let appliedValue: product.CatalogAppliedValue | null;
+  const nodeTypeTarget = invocation.variant === "node_type"
+    ? recordField(invocation.payload, "target")
+    : null;
+  let candidate: product.CatalogApplicationCandidateResult;
   try {
     const semantics = await product.loadInstalledProductSemantics({
       install: installState.install,
@@ -840,29 +846,26 @@ async function applyCatalogApplication(
       verifyInstallAdmission: (install) =>
         abg.hasAdmittedProductInstall(context.store, install),
     });
-    appliedValue = product.admitInstalledCatalogApplicationValue(
+    candidate = product.constructCatalogApplicationCandidate(
       semantics,
-      row.declarationOrContractRef,
-      recordField(invocation.payload, "value"),
+      {
+        catalog: viewState.catalogState.catalog,
+        view: viewState.view,
+        workspaceBinding: viewState.catalogState.workspaceState.binding,
+        lock: viewState.catalogState.workspaceState.lock,
+        handle,
+        applicationVariant: invocation.variant,
+        value: recordField(invocation.payload, "value"),
+        contributorRef: stringField(invocation.payload, "contributorRef"),
+        nodeTypeTarget,
+      },
     );
   } catch {
-    appliedValue = null;
-  }
-  if (appliedValue === null) {
     throw new ApplicationRefusal(
       "target_mismatch",
-      "catalog.apply value is not admitted by the exact installed Product contract",
+      "catalog.apply value cannot be validated by the exact installed Product",
     );
   }
-  const candidate = product.constructCatalogApplicationCandidate(
-    viewState.catalogState.catalog,
-    viewState.view,
-    viewState.catalogState.workspaceState.binding,
-    viewState.catalogState.workspaceState.lock,
-    handle,
-    appliedValue,
-    stringField(invocation.payload, "contributorRef"),
-  );
   if (candidate.kind !== "catalog_application_candidate") {
     throw new ApplicationRefusal(
       "owner_refusal",
@@ -898,6 +901,9 @@ async function applyCatalogApplication(
     viewId: application.viewId,
     rowHandle: application.rowHandle,
     rowDigest: application.rowDigest,
+    applicationVariant: application.applicationVariant,
+    validationReceiptRef: application.validationReceiptRef,
+    validationReceiptDigest: application.validationReceiptDigest,
     appliedHandle: application.appliedHandle,
     appliedValueRef: application.appliedValueRef,
     appliedValueDigest: application.appliedValueDigest,
@@ -909,6 +915,7 @@ async function applyCatalogApplication(
     owningProductId: application.owningProductId,
     moduleRef: application.moduleRef,
     programMembershipRefs: application.programMembershipRefs,
+    nodeTypeTarget: application.nodeTypeTarget,
     compatibilityDisposition: application.compatibilityDisposition,
     compatibilityRefs: application.compatibilityRefs,
     provenanceRefs: application.provenanceRefs,

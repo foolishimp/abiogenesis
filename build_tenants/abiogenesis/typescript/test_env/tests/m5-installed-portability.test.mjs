@@ -165,19 +165,23 @@ async function portabilityScenario(harness, flavored, label) {
     }),
     invocation(
       "abg.operation.catalog.apply",
-      "declaration",
+      "node_type",
       refs.applyNode,
       {
         catalogViewInvocationRef: refs.view,
         contributorRef: flavored.basis.productId,
         handle: flavored.ids.nodeTypeHandle,
         productInstallInvocationRef: refs.installFlavored,
+        target: {
+          kind: "program",
+          programRef: flavored.ids.programRef,
+        },
         value: flavored.nodeTypeValue,
       },
     ),
     invocation(
       "abg.operation.catalog.apply",
-      "declaration",
+      "overlay",
       refs.applyOverlay,
       {
         catalogViewInvocationRef: refs.view,
@@ -191,6 +195,10 @@ async function portabilityScenario(harness, flavored, label) {
       installInvocationRef: refs.installFlavored,
       workspaceBindingInvocationRef: refs.bind,
       catalogViewInvocationRef: refs.view,
+      catalogApplicationInvocationRefs: [
+        refs.applyNode,
+        refs.applyOverlay,
+      ],
       programRef: flavored.ids.programRef,
       graphFunctionRef: flavored.ids.graphFunctionRef,
       actorRef: "actor://flavor.example/trusted-developer",
@@ -235,7 +243,14 @@ function assertPortableOutcome(run, flavored) {
   const overlayApplication = run.outcomes[8];
   const outcome = run.outcomes[9];
   assert.equal(nodeApplication.result.contributionKind, "node_type");
+  assert.equal(nodeApplication.result.applicationVariant, "node_type");
   assert.equal(nodeApplication.result.appliedValueRef, flavored.ids.nodeTypeRef);
+  assert.deepEqual(nodeApplication.result.nodeTypeTarget, {
+    kind: "program",
+    targetRef: flavored.ids.programRef,
+    targetDigest: nodeApplication.result.nodeTypeTarget.targetDigest,
+    programRef: flavored.ids.programRef,
+  });
   assert.equal(nodeApplication.result.contributorKind, "product");
   assert.equal(
     nodeApplication.result.contributorRef,
@@ -259,6 +274,8 @@ function assertPortableOutcome(run, flavored) {
     flavored.ids.nodeTypeRef,
   );
   assert.equal(overlayApplication.result.contributionKind, "overlay");
+  assert.equal(overlayApplication.result.applicationVariant, "overlay");
+  assert.equal(overlayApplication.result.nodeTypeTarget, null);
   assert.equal(
     overlayApplication.result.declarationOrContractRef,
     flavored.ids.overlayRef,
@@ -388,6 +405,7 @@ test(
       }?apply-refusal=${Date.now()}`
     );
     const operationContext = installedPublic.createRootOperationContext();
+    let operationContextClosed = false;
     try {
       for (const row of scenario.transcript.slice(0, 7)) {
         const outcome = await installedPublic.applyRootPublicInvocation(
@@ -400,13 +418,17 @@ test(
         operationContext,
         invocation(
           "abg.operation.catalog.apply",
-          "declaration",
+          "node_type",
           "invocation://t281/apply-callable-refusal",
           {
             catalogViewInvocationRef: scenario.refs.view,
             contributorRef: flavored.basis.productId,
             handle: flavored.ids.graphFunctionRef,
             productInstallInvocationRef: scenario.refs.installFlavored,
+            target: {
+              kind: "program",
+              programRef: flavored.ids.programRef,
+            },
             value: flavored.nodeTypeValue,
           },
         ),
@@ -420,7 +442,7 @@ test(
         operationContext,
         invocation(
           "abg.operation.catalog.apply",
-          "declaration",
+          "overlay",
           "invocation://t281/apply-unknown-refusal",
           {
             catalogViewInvocationRef: scenario.refs.view,
@@ -441,7 +463,7 @@ test(
           operationContext,
           invocation(
             "abg.operation.catalog.apply",
-            "declaration",
+            "node_type",
             "invocation://t281/apply-fabricated-digest-refusal",
             {
               catalogViewInvocationRef: scenario.refs.view,
@@ -458,13 +480,17 @@ test(
           operationContext,
           invocation(
             "abg.operation.catalog.apply",
-            "declaration",
+            "node_type",
             "invocation://t281/apply-invalid-contributor-refusal",
             {
               catalogViewInvocationRef: scenario.refs.view,
               contributorRef: "product://flavor.example/unlocked@5",
               handle: flavored.ids.nodeTypeHandle,
               productInstallInvocationRef: scenario.refs.installFlavored,
+              target: {
+                kind: "program",
+                programRef: flavored.ids.programRef,
+              },
               value: flavored.nodeTypeValue,
             },
           ),
@@ -472,10 +498,141 @@ test(
       assert.equal(invalidContributor.disposition, "refused");
       assert.match(
         invalidContributor.result.message,
-        /contributor is absent/u,
+        /neither the admitted workspace actor nor the exact row-owning installed Product/u,
+      );
+      const unrelatedLockedContributor =
+        await installedPublic.applyRootPublicInvocation(
+          operationContext,
+          invocation(
+            "abg.operation.catalog.apply",
+            "node_type",
+            "invocation://t281/apply-unrelated-locked-contributor-refusal",
+            {
+              catalogViewInvocationRef: scenario.refs.view,
+              contributorRef: harness.candidateBasis.productId,
+              handle: flavored.ids.nodeTypeHandle,
+              productInstallInvocationRef: scenario.refs.installFlavored,
+              target: {
+                kind: "program",
+                programRef: flavored.ids.programRef,
+              },
+              value: flavored.nodeTypeValue,
+            },
+          ),
+        );
+      assert.equal(unrelatedLockedContributor.disposition, "refused");
+      assert.match(
+        unrelatedLockedContributor.result.message,
+        /exact row-owning installed Product/u,
+      );
+      const wrongVariant = await installedPublic.applyRootPublicInvocation(
+        operationContext,
+        invocation(
+          "abg.operation.catalog.apply",
+          "overlay",
+          "invocation://t281/apply-wrong-variant-refusal",
+          {
+            catalogViewInvocationRef: scenario.refs.view,
+            contributorRef: flavored.basis.productId,
+            handle: flavored.ids.nodeTypeHandle,
+            productInstallInvocationRef: scenario.refs.installFlavored,
+            value: flavored.nodeTypeValue,
+          },
+        ),
+      );
+      assert.equal(wrongVariant.disposition, "refused");
+      assert.match(wrongVariant.result.message, /variant differs/u);
+
+      const missingTarget = await installedPublic.applyRootPublicInvocation(
+        operationContext,
+        invocation(
+          "abg.operation.catalog.apply",
+          "node_type",
+          "invocation://t281/apply-missing-target-refusal",
+          {
+            catalogViewInvocationRef: scenario.refs.view,
+            contributorRef: flavored.basis.productId,
+            handle: flavored.ids.nodeTypeHandle,
+            productInstallInvocationRef: scenario.refs.installFlavored,
+            value: flavored.nodeTypeValue,
+          },
+        ),
+      );
+      assert.equal(missingTarget.disposition, "refused");
+      assert.match(missingTarget.result.message, /payload\.target/u);
+
+      const admittedNode = await installedPublic.applyRootPublicInvocation(
+        operationContext,
+        scenario.transcript[7],
+      );
+      assert.equal(admittedNode.disposition, "succeeded");
+      const application =
+        operationContext.productState.catalogApplication(
+          scenario.refs.applyNode,
+        ).application;
+      const installedPackageRoot = join(
+        harness.cliHost,
+        "node_modules",
+        "@abiogenesis",
+        "typescript-tenant",
+      );
+      const installedAbg = await import(
+        pathToFileURL(
+          join(installedPackageRoot, "build/code/src/abg/index.js"),
+        ).href
+      );
+      const installedProduct = await import(
+        pathToFileURL(
+          join(installedPackageRoot, "build/code/src/product/index.js"),
+        ).href
+      );
+      assert.equal(
+        installedAbg.hasAdmittedCatalogApplication(
+          operationContext.store,
+          application,
+        ),
+        true,
+      );
+      const forgedCandidate = structuredClone({
+        ...application,
+        kind: "catalog_application_candidate",
+        disposition: "candidate",
+        applicationCandidateId: application.admissionCandidateRef,
+        applicationCandidateDigest: application.applicationDigest,
+      });
+      assert.equal(
+        installedProduct.isCatalogApplicationCandidate(forgedCandidate),
+        false,
+        "a structural receipt clone must not acquire Product validation authority",
+      );
+      const foreignContext = installedPublic.createRootOperationContext();
+      try {
+        assert.equal(
+          installedAbg.hasAdmittedCatalogApplication(
+            foreignContext.store,
+            application,
+          ),
+          false,
+          "an application must not cross its originating store",
+        );
+      } finally {
+        installedPublic.closeRootOperationContext(foreignContext);
+      }
+      const originatingStore = operationContext.store;
+      installedPublic.closeRootOperationContext(operationContext);
+      operationContextClosed = true;
+      assert.equal(
+        installedAbg.hasAdmittedCatalogApplication(
+          originatingStore,
+          application,
+        ),
+        false,
+        "closing the operation context must revoke application authority",
       );
     } finally {
-      installedPublic.closeRootOperationContext(operationContext);
+      if (!operationContextClosed) {
+        installedPublic.closeRootOperationContext(operationContext);
+      }
     }
   },
 );

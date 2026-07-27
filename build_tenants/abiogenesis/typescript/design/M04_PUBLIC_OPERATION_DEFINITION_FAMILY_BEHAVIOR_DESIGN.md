@@ -1017,8 +1017,12 @@ retry, continuation, or next-action authority. `workspace.create`,
 its first implemented steel-thread consumer. Manifest, provenance, and result
 facts remain in owner contract truth. `catalog.apply` is the deliberate
 write-without-event exception required by `REQ-P-CATALOG-030`: Product
-validates the immutable application value and ABG admits its operation-local
-carrier, but no runtime or generic artifact event is appended.
+validates the immutable application value and seals the exact installed
+Product, publication, selected row, contributor, Program composition, and
+node-or-Program target basis in an opaque receipt. ABG admits the
+Product-branded carrier only in the originating event-store context, and that
+authority expires when the context closes. The exact `node_type` and `overlay`
+variants append no runtime or generic artifact event.
 
 All other exact values derive from the existing accepted tables above. The
 metadata basis is the one authored constructor input; those prose tables become

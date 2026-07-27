@@ -1,5 +1,6 @@
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { isNonBlankRef } from "../shared/references.js";
 
 export interface ConsensusReviewerCandidate {
   readonly kind: "consensus_reviewer_candidate";
@@ -45,14 +46,14 @@ const consensusReviewerResponseSchema = deepFreeze({
         additionalProperties: false,
         required: ["findingContractRef", "findingPayloadRef"],
         properties: {
-          findingContractRef: { type: "string", minLength: 1 },
-          findingPayloadRef: { type: "string", minLength: 1 },
+          findingContractRef: { type: "string", minLength: 1, pattern: "\\S" },
+          findingPayloadRef: { type: "string", minLength: 1, pattern: "\\S" },
         },
       },
     },
     residualRefs: {
       type: "array",
-      items: { type: "string", minLength: 1 },
+      items: { type: "string", minLength: 1, pattern: "\\S" },
       uniqueItems: true,
     },
   },
@@ -106,12 +107,12 @@ const consensusSubmitterResponseSchema = deepFreeze({
     responseText: { type: "string", minLength: 1 },
     addressedFindingRefs: {
       type: "array",
-      items: { type: "string", minLength: 1 },
+      items: { type: "string", minLength: 1, pattern: "\\S" },
       uniqueItems: true,
     },
     residualFindingRefs: {
       type: "array",
-      items: { type: "string", minLength: 1 },
+      items: { type: "string", minLength: 1, pattern: "\\S" },
       uniqueItems: true,
     },
   },
@@ -184,7 +185,11 @@ const consensusSubmitterResponseRecordSchema = deepFreeze({
     outputDigest: { $ref: "#/$defs/Digest" },
     findingsVectorDigest: { $ref: "#/$defs/Digest" },
     roundRef: { $ref: "#/$defs/Ref" },
-    roundOrdinal: { type: "integer", minimum: 1 },
+    roundOrdinal: {
+      type: "integer",
+      minimum: 1,
+      maximum: Number.MAX_SAFE_INTEGER,
+    },
     submittingActorRef: { $ref: "#/$defs/Ref" },
     profileRef: { $ref: "#/$defs/Ref" },
     disposition: {
@@ -220,16 +225,14 @@ export function isConsensusReviewerCandidate(
     !Array.isArray(value.findings) ||
     !Array.isArray(value.residualRefs) ||
     !value.residualRefs.every(
-      (ref) => typeof ref === "string" && ref.length > 0,
+      (ref) => isNonBlankRef(ref),
     ) ||
     new Set(value.residualRefs).size !== value.residualRefs.length ||
     !value.findings.every((finding) =>
       isRecord(finding) &&
       hasExactKeys(finding, ["findingContractRef", "findingPayloadRef"]) &&
-      typeof finding.findingContractRef === "string" &&
-      finding.findingContractRef.length > 0 &&
-      typeof finding.findingPayloadRef === "string" &&
-      finding.findingPayloadRef.length > 0
+      isNonBlankRef(finding.findingContractRef) &&
+      isNonBlankRef(finding.findingPayloadRef)
     )
   ) {
     return false;
@@ -256,13 +259,13 @@ export function isConsensusSubmitterResponseCandidate(
     value.responseText.length === 0 ||
     !Array.isArray(value.addressedFindingRefs) ||
     !value.addressedFindingRefs.every(
-      (ref) => typeof ref === "string" && ref.length > 0,
+      (ref) => isNonBlankRef(ref),
     ) ||
     new Set(value.addressedFindingRefs).size !==
       value.addressedFindingRefs.length ||
     !Array.isArray(value.residualFindingRefs) ||
     !value.residualFindingRefs.every(
-      (ref) => typeof ref === "string" && ref.length > 0,
+      (ref) => isNonBlankRef(ref),
     ) ||
     new Set(value.residualFindingRefs).size !==
       value.residualFindingRefs.length
@@ -758,7 +761,8 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
         "roundBudget": {
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "maximum": 9007199254740991
         },
         "convergenceRuleRef": {
           "const": "rule://abg/consensus/exact-agreement@5"
@@ -891,11 +895,13 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
         "roundOrdinal": {
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "maximum": 9007199254740991
         },
         "panelPosition": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 9007199254740991
         },
         "subject": {
           "$ref": "#/$defs/ConsensusSubject"
@@ -993,14 +999,16 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
         "panelPosition": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 9007199254740991
         },
         "cCallRef": {
           "$ref": "#/$defs/Ref"
         },
         "cCallAttempt": {
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "maximum": 9007199254740991
         },
         "profileRef": {
           "$ref": "#/$defs/Ref"
@@ -1016,7 +1024,8 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
         "roundOrdinal": {
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "maximum": 9007199254740991
         },
         "recommendation": {
           "enum": [
@@ -1143,7 +1152,8 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
             "properties": {
               "ordinal": {
                 "type": "integer",
-                "minimum": 0
+                "minimum": 0,
+                "maximum": 9007199254740991
               },
               "inputMemberRef": {
                 "$ref": "#/$defs/Ref"
@@ -1195,7 +1205,8 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
         "roundOrdinal": {
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "maximum": 9007199254740991
         },
         "subject": {
           "$ref": "#/$defs/ConsensusSubject"

@@ -195,13 +195,16 @@ export async function buildRootCliScenario(
     ...(options.catalogApplications ?? []).map((application, index) =>
       invocation(
         "abg.operation.catalog.apply",
-        "declaration",
+        application.applicationVariant,
         refs.applications[index],
         {
           catalogViewInvocationRef: refs.view,
           contributorRef: authorizedActorRef,
           handle: application.handle,
           productInstallInvocationRef: refs.install,
+          ...(application.applicationVariant === "node_type"
+            ? { target: application.nodeTypeTarget }
+            : {}),
           value: application.value,
         },
       )),

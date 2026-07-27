@@ -29,6 +29,7 @@ export {
   hasAdmittedProductSemanticsBasis,
   hasAdmittedCatalogView,
   narrowCatalogView,
+  releaseCatalogApplicationScope,
   type CatalogApplicationAdmissionResult,
   type CatalogAdmissionRefusal,
   type CatalogAdmissionResult,

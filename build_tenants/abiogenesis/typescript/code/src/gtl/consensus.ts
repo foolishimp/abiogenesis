@@ -482,9 +482,14 @@ export interface ConsensusInvocation {
 
 export interface ConsensusCatalogApplicationBinding {
   readonly handle: string;
+  readonly applicationVariant: "node_type" | "overlay";
   readonly valueRef: string;
   readonly valueDigest: Sha256Digest;
   readonly value: JsonValue;
+  readonly nodeTypeTarget: Readonly<{
+    readonly kind: "program";
+    readonly programRef: string;
+  }> | null;
 }
 
 export interface ConsensusReviewerTask {
@@ -1723,12 +1728,20 @@ export function consensusCatalogApplicationBindings(
     handle: string,
     valueRef: string,
     value: JsonValue,
+    applicationVariant: "node_type" | "overlay" = "node_type",
   ): Readonly<ConsensusCatalogApplicationBinding> =>
     deepFreeze({
       handle,
+      applicationVariant,
       valueRef,
       valueDigest: sha256Canonical(value),
       value,
+      nodeTypeTarget: applicationVariant === "node_type"
+        ? {
+            kind: "program",
+            programRef: CONSENSUS_IDS.oneSurfaceProgramRef,
+          }
+        : null,
     });
   const bindings = [
     bind(
@@ -1770,6 +1783,7 @@ export function consensusCatalogApplicationBindings(
         CONSENSUS_IDS.rulingOverlayCatalogHandle,
         invocation.policy.rulingOverlay.overlayRef,
         invocation.policy.rulingOverlay as unknown as JsonValue,
+        "overlay",
       ),
     );
   }

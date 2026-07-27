@@ -385,6 +385,7 @@ async function consensusBasis(
   roundBudget,
   workspaceRef,
   profileNames = ["submitter-review", "independent-review"],
+  acceptedFindingRulingKind = null,
 ) {
   const installedRoot = installedCliPackageRoot(harness);
   const gtl = await import(
@@ -454,12 +455,24 @@ async function consensusBasis(
     workerBindingRef:
       "worker-binding://developer/consensus-submitter",
   });
+  const rulingOverlay = acceptedFindingRulingKind === null
+    ? null
+    : gtl.constructConsensusRulingOverlay({
+        overlayRef:
+          `${gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle}/${label}`,
+        programRef: gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+        graphFunctionRef:
+          gtl.CONSENSUS_IDS.roundReducerGraphFunctionRef,
+        policyContractRef: gtl.CONSENSUS_IDS.policyContractRef,
+        disagreementRuleRef: gtl.CONSENSUS_IDS.disagreementRuleRef,
+        acceptedFindingRulingKind,
+      });
   const policy = gtl.constructConsensusRoundPolicy({
     policyRef: `policy://developer/consensus/${label}@1`,
     roundBudget,
     convergenceRuleRef: gtl.CONSENSUS_IDS.convergenceRuleRef,
     disagreementRuleRef: gtl.CONSENSUS_IDS.disagreementRuleRef,
-    rulingOverlay: null,
+    rulingOverlay,
     escalationRuleRef: gtl.CONSENSUS_IDS.escalationRuleRef,
     foldbackContractRef: gtl.CONSENSUS_IDS.foldbackContractRef,
   });
@@ -1758,6 +1771,62 @@ test("M5 Consensus refuses uncataloged values and unapplied overlays before a Ru
       `${row.label} must refuse before Run or actor effects`,
     );
   }
+});
+
+test("M5 installed Consensus consumes an applied overlay to select ruling behavior", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const command = await installConsensusWorker(harness);
+  const workspaceId =
+    "workspace://developer/consensus/applied-ruling-overlay";
+  const basis = await consensusBasis(
+    harness,
+    "applied-ruling-overlay",
+    3,
+    workspaceId,
+    ["submitter-review", "independent-review"],
+    "rejected_finding",
+  );
+  harness.rootPublication = basis.publication;
+  const scenario = await buildRootCliScenario(
+    harness,
+    "m5-consensus-applied-ruling-overlay",
+    (payload) => payload,
+    {
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+      graphFunctionRef:
+        basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+      allowlist: basis.publication.contributions.map((row) => row.handle),
+      input: basis.input,
+      catalogApplications: basis.catalogApplications,
+      eventLogFile: "applied-ruling-overlay.events.jsonl",
+      workspaceId,
+    },
+  );
+  await selectConsensusThroughOneSurface(basis, harness, scenario);
+  const run = await runInstalledCli(harness, scenario, {
+    environment: {
+      ABG_TS_CLAUDE_COMMAND: command,
+      ABG_CONSENSUS_TEST_MODE: "dispute_then_agree",
+    },
+  });
+  assert.equal(run.exitCode, 0, JSON.stringify(run.outcomes.at(-1)));
+  const events = await eventsAt(scenario.eventLogPath);
+  const resultEvent = events.find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.payload?.contractRef ===
+        basis.gtl.CONSENSUS_IDS.resultCandidateContractRef &&
+      event.payload?.value?.kind === "consensus_result_candidate",
+  );
+  assert.ok(resultEvent, JSON.stringify(diagnosticSummary(events)));
+  assert.equal(
+    resultEvent.payload.value.rulings.length > 0 &&
+      resultEvent.payload.value.rulings.every(
+        (ruling) => ruling.rulingKind === "rejected_finding",
+      ),
+    true,
+    "the exact applied overlay must control every non-refusal ruling",
+  );
 });
 
 test("M5 Consensus exposes no direct support start outside same-Run continuation", async (context) => {

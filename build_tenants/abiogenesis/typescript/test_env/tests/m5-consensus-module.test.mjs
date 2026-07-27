@@ -86,6 +86,14 @@ function consensusCatalogApplications(invocation) {
       appliedValueRef: binding.valueRef,
       appliedValueDigest: binding.valueDigest,
       appliedValue: binding.value,
+      applicationVariant: binding.applicationVariant,
+      nodeTypeTarget: binding.nodeTypeTarget === null
+        ? null
+        : {
+            ...binding.nodeTypeTarget,
+            targetRef: binding.nodeTypeTarget.programRef,
+            targetDigest: DIGEST,
+          },
       contributionKind:
         binding.handle === gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle
           ? "overlay"
@@ -705,6 +713,22 @@ test("S05 serialized Consensus schema is one exact projection of native Product 
     false,
     "a revise recommendation requires at least one finding",
   );
+  assert.equal(
+    gtl.isConsensusReviewerCandidate({
+      ...revisedReviewerCandidate,
+      findings: [{
+        findingContractRef: " ",
+        findingPayloadRef: "finding-payload://developer/module-proof",
+      }],
+    }),
+    false,
+    "native reviewer references must reject whitespace-only values",
+  );
+  assert.equal(
+    schema.$defs.ConsensusReviewerCandidate.properties.findings.items.properties
+      .findingContractRef.pattern,
+    "\\S",
+  );
   assert.deepEqual(
     schema.$defs.ConsensusReviewerCandidate.allOf,
     gtl.CONSENSUS_REVIEWER_RESPONSE_SCHEMA.allOf,
@@ -741,6 +765,29 @@ test("S05 serialized Consensus schema is one exact projection of native Product 
     }),
     false,
     "an address-findings response must identify at least one exact finding",
+  );
+  assert.equal(
+    gtl.isConsensusSubmitterResponseCandidate({
+      ...addressedSubmitterCandidate,
+      addressedFindingRefs: [" "],
+    }),
+    false,
+    "native submitter references must reject whitespace-only values",
+  );
+  assert.equal(
+    schema.$defs.ConsensusSubmitterResponseCandidate.properties
+      .addressedFindingRefs.items.pattern,
+    "\\S",
+  );
+  const unsafePolicy = structuredClone(canonicalPolicy());
+  unsafePolicy.roundBudget = Number.MAX_SAFE_INTEGER + 1;
+  const { policyDigest: _unsafePolicyDigest, ...unsafePolicyBody } =
+    unsafePolicy;
+  unsafePolicy.policyDigest = product.sha256Canonical(unsafePolicyBody);
+  assert.equal(gtl.isConsensusRoundPolicy(unsafePolicy), false);
+  assert.equal(
+    schema.$defs.ConsensusRoundPolicy.properties.roundBudget.maximum,
+    Number.MAX_SAFE_INTEGER,
   );
   assert.deepEqual(
     schema.$defs.ConsensusSubmitterResponseCandidate.allOf,

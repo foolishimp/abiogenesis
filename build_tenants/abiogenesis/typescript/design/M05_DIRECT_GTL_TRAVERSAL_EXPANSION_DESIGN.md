@@ -3302,12 +3302,18 @@ validator, judgment relation, implementation import, or result branch.
 `catalog.apply` consumes one exact admitted CatalogView row. Only `node_type`
 and `overlay` rows are applicable. The row-owning installed Product validates
 the concrete value preimage and derives its reference and Program memberships.
-The workspace actor or resolved Product lock supplies exact contributor
-provenance. Product code constructs the application candidate; ABG admits the
-operation-local application without emitting a runtime event. The result
-preserves row, value, contributor, declaration or contract, owning Product,
-Program membership, compatibility, and provenance identities. Applying a
-GraphFunction refuses because callability remains owned by `run.invoke`.
+A node-type application additionally binds one exact validated node or Program
+target from the admitted publication; the node-type row itself remains
+non-callable and carries no callable Program membership. The workspace actor or
+the exact row-owning installed Product supplies contributor provenance; an
+unrelated lock row cannot claim the value. Product seals the install,
+publication, row, value, target, membership, and contributor basis in one
+opaque validation receipt and constructs the branded application candidate.
+ABG admits it only in the originating event-store operation context and emits
+no runtime event; context close revokes the carrier. The result preserves row,
+value, target, contributor, declaration or contract, owning Product, Program
+membership, compatibility, and provenance identities. Applying a GraphFunction
+refuses because callability remains owned by `run.invoke`.
 
 The installed scenario applies both independent declarations, invokes the
 fixture's GraphFunction, and derives the same typed result from the native SDK,

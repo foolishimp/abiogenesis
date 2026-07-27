@@ -11,11 +11,22 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type { ProductInstall } from "./environment.js";
+import { isNonBlankRef } from "../shared/references.js";
+import type {
+  ProductInstall,
+  ResolvedProductLock,
+  WorkspaceBinding,
+} from "./environment.js";
 import { installedProductContentMatches } from "./install_product.js";
 import type {
-  CatalogAppliedValue,
+  AdmittedCatalog,
   CatalogApplication,
+  CatalogApplicationCandidate,
+  CatalogApplicationCandidateResult,
+  CatalogApplicationVariant,
+  CatalogConstructionRefusal,
+  CatalogNodeTypeTarget,
+  CatalogNodeTypeTargetInput,
   CatalogView,
 } from "./catalog.js";
 
@@ -207,12 +218,14 @@ interface InstalledLeafSemanticsRuntime {
 interface LoadedProductSemanticsBasis {
   readonly install: ProductInstall;
   readonly publicationDigest: ReturnType<typeof sha256Canonical>;
+  readonly publication: Readonly<ModulePublication> | null;
 }
 
 const loadedProductSemantics =
   new WeakMap<object, LoadedProductSemanticsBasis>();
 const projectedLeafSemantics =
   new WeakMap<object, InstalledLeafSemanticsRuntime>();
+const catalogApplicationCandidates = new WeakSet<object>();
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -375,6 +388,7 @@ export async function loadInstalledProductSemantics(
   loadedProductSemantics.set(provider, {
     install: basis.install,
     publicationDigest,
+    publication: "publication" in basis ? basis.publication : null,
   });
   return provider;
 }
@@ -392,42 +406,374 @@ export function admitInstalledProductInput(
   return semantics.admitInput(contractRef, value);
 }
 
-export function admitInstalledCatalogApplicationValue(
-  semantics: ProductSemanticsProvider,
-  contractRef: string,
+function catalogApplicationRefusal(
+  code: CatalogConstructionRefusal["code"],
+  message: string,
+): CatalogConstructionRefusal {
+  return {
+    kind: "catalog_construction_refusal",
+    schemaVersion: "5.0.0",
+    disposition: "refused",
+    code,
+    message,
+  };
+}
+
+function exactInstallLockRow(
+  install: ProductInstall,
+  lock: ResolvedProductLock,
+): boolean {
+  const row = lock.rows.find((candidate) => candidate.installId === install.installId);
+  return row !== undefined &&
+    row.productId === install.productId &&
+    row.packageName === install.packageName &&
+    row.packageVersion === install.packageVersion &&
+    row.artifactDigest === install.artifactDigest &&
+    row.productContentDigest === install.productContentDigest &&
+    row.manifestDigest === install.manifestDigest;
+}
+
+function isNodeTypeTargetInput(
   value: unknown,
-): CatalogAppliedValue | null {
-  if (!loadedProductSemantics.has(semantics)) {
-    throw new TypeError(
-      "catalog application value admission requires the exact loaded Product semantics provider",
+): value is CatalogNodeTypeTargetInput {
+  if (!isRecord(value) || (value.kind !== "program" && value.kind !== "node")) {
+    return false;
+  }
+  if (value.kind === "program") {
+    return Object.keys(value).sort().join("\0") ===
+        ["kind", "programRef"].join("\0") &&
+      isNonBlankRef(value.programRef);
+  }
+  return Object.keys(value).sort().join("\0") ===
+      ["graphFunctionRef", "kind", "nodeRef", "programRef"].join("\0") &&
+    isNonBlankRef(value.programRef) &&
+    isNonBlankRef(value.graphFunctionRef) &&
+    isNonBlankRef(value.nodeRef);
+}
+
+function resolveNodeTypeTarget(
+  publication: Readonly<ModulePublication>,
+  catalog: AdmittedCatalog,
+  input: unknown,
+): CatalogNodeTypeTarget | null {
+  if (!isNodeTypeTargetInput(input)) return null;
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === input.programRef,
+  );
+  const validation = catalog.programValidations.find(
+    (candidate) => candidate.programRef === input.programRef,
+  );
+  if (
+    program === undefined ||
+    validation === undefined ||
+    validation.publicationDigest !== catalog.publicationDigest ||
+    validation.programDigest !==
+      sha256Canonical(program as unknown as JsonValue)
+  ) {
+    return null;
+  }
+  if (input.kind === "program") {
+    return deepFreeze({
+      kind: "program",
+      targetRef: program.programRef,
+      targetDigest: validation.programDigest,
+      programRef: program.programRef,
+    });
+  }
+  const graphFunction = publication.graphFunctions.find(
+    (candidate) => candidate.name === input.graphFunctionRef,
+  );
+  const node = graphFunction?.template.nodes.find(
+    (candidate) => candidate.nodeRef === input.nodeRef,
+  );
+  const graphFunctionDigest = graphFunction === undefined
+    ? null
+    : sha256Canonical(graphFunction as unknown as JsonValue);
+  if (
+    graphFunction === undefined ||
+    node === undefined ||
+    graphFunctionDigest === null ||
+    !program.callableMembership.includes(graphFunction.name) ||
+    !validation.graphFunctionDigests.includes(graphFunctionDigest)
+  ) {
+    return null;
+  }
+  return deepFreeze({
+    kind: "node",
+    targetRef: node.nodeRef,
+    targetDigest: sha256Canonical(node as unknown as JsonValue),
+    programRef: program.programRef,
+    graphFunctionRef: graphFunction.name,
+    nodeRef: node.nodeRef,
+  });
+}
+
+export function isCatalogApplicationCandidate(value: object): boolean {
+  return catalogApplicationCandidates.has(value);
+}
+
+export function constructCatalogApplicationCandidate(
+  semantics: ProductSemanticsProvider,
+  basis: Readonly<{
+    readonly catalog: AdmittedCatalog;
+    readonly view: CatalogView;
+    readonly workspaceBinding: WorkspaceBinding;
+    readonly lock: ResolvedProductLock;
+    readonly handle: string;
+    readonly applicationVariant: CatalogApplicationVariant;
+    readonly value: unknown;
+    readonly contributorRef: string;
+    readonly nodeTypeTarget: unknown;
+  }>,
+): CatalogApplicationCandidateResult {
+  const loaded = loadedProductSemantics.get(semantics);
+  if (loaded === undefined || loaded.publication === null) {
+    return catalogApplicationRefusal(
+      "invalid_application_receipt",
+      "catalog application requires the exact loaded Product semantics and publication",
     );
   }
-  if (!isRecord(value)) return null;
-  const admitted = deepFreeze(value) as Readonly<Record<string, JsonValue>>;
+  const { catalog, view, workspaceBinding, lock } = basis;
+  const row = view.selectedRows.find(
+    (candidate) => candidate.handle === basis.handle,
+  );
+  if (row === undefined) {
+    return catalogApplicationRefusal(
+      "unknown_allowlist_entry",
+      `catalog application handle ${basis.handle} is not present in the admitted view`,
+    );
+  }
+  if (row.disposition !== "admitted") {
+    return catalogApplicationRefusal(
+      "row_not_admitted",
+      "catalog application requires an admitted row",
+    );
+  }
+  if (row.kind === "graph_function") {
+    return catalogApplicationRefusal(
+      "application_not_supported",
+      "GraphFunction rows remain callable through run.invoke and cannot be applied",
+    );
+  }
+  if (
+    basis.applicationVariant !== "node_type" &&
+    basis.applicationVariant !== "overlay"
+  ) {
+    return catalogApplicationRefusal(
+      "invalid_application_variant",
+      "catalog.apply accepts only node_type or overlay",
+    );
+  }
+  if (basis.applicationVariant !== row.kind) {
+    return catalogApplicationRefusal(
+      "invalid_application_variant",
+      "catalog.apply variant differs from the selected contribution kind",
+    );
+  }
+  const publication = loaded.publication;
+  const publicationDigest = sha256Canonical(
+    publication as unknown as JsonValue,
+  );
+  if (
+    catalog.catalogId !== view.catalogId ||
+    catalog.catalogDigest !== view.catalogDigest ||
+    catalog.workspaceBindingId !== workspaceBinding.bindingId ||
+    catalog.workspaceBindingDigest !== workspaceBinding.bindingDigest ||
+    workspaceBinding.lockId !== lock.lockId ||
+    workspaceBinding.lockDigest !== lock.lockDigest ||
+    catalog.lockId !== lock.lockId ||
+    catalog.lockDigest !== lock.lockDigest ||
+    publicationDigest !== catalog.publicationDigest ||
+    publicationDigest !== loaded.publicationDigest ||
+    publication.owningProductId !== row.owningProductId ||
+    publication.owningProductId !== loaded.install.productId ||
+    publication.moduleRef !== row.moduleRef ||
+    !exactInstallLockRow(loaded.install, lock)
+  ) {
+    return catalogApplicationRefusal(
+      "invalid_application_binding",
+      "catalog application differs from its admitted workspace, lock, publication, row owner, or installed Product",
+    );
+  }
+  const publishedContribution = publication.contributions.find(
+    (candidate) => candidate.handle === row.handle,
+  );
+  if (
+    publishedContribution === undefined ||
+    publishedContribution.kind !== row.kind ||
+    publishedContribution.declarationOrContractRef !==
+      row.declarationOrContractRef ||
+    publishedContribution.owningProductId !== row.owningProductId ||
+    publishedContribution.programMembershipRefs.join("\0") !==
+      row.programMembershipRefs.join("\0")
+  ) {
+    return catalogApplicationRefusal(
+      "invalid_application_binding",
+      "catalog application row differs from the exact installed Product publication",
+    );
+  }
+  if (!isRecord(basis.value)) {
+    return catalogApplicationRefusal(
+      "invalid_application_binding",
+      "catalog application requires one concrete object value",
+    );
+  }
+  const admitted = deepFreeze(basis.value) as Readonly<
+    Record<string, JsonValue>
+  >;
   const projection = semantics.resolveCatalogApplicationValue?.({
-    contractRef,
+    contractRef: row.declarationOrContractRef,
     value: admitted,
   }) ?? null;
   if (
     projection === null ||
-    projection.valueRef.trim().length === 0 ||
-    projection.programMembershipRefs.some((ref) => ref.trim().length === 0) ||
+    !isNonBlankRef(projection.valueRef) ||
+    projection.programMembershipRefs.some((ref) => !isNonBlankRef(ref)) ||
     new Set(projection.programMembershipRefs).size !==
-      projection.programMembershipRefs.length
+      projection.programMembershipRefs.length ||
+    projection.programMembershipRefs.join("\0") !==
+      row.programMembershipRefs.join("\0")
   ) {
-    return null;
+    return catalogApplicationRefusal(
+      "invalid_application_binding",
+      "catalog application value is not admitted by the exact installed Product contract and Program composition",
+    );
   }
-  return Object.freeze({
-    kind: "catalog_applied_value",
+  const nodeTypeTarget = row.kind === "node_type"
+    ? resolveNodeTypeTarget(publication, catalog, basis.nodeTypeTarget)
+    : null;
+  if (
+    (row.kind === "node_type" && nodeTypeTarget === null) ||
+    (row.kind === "overlay" && basis.nodeTypeTarget !== null) ||
+    (
+      row.kind === "overlay" &&
+      (
+        row.programMembershipRefs.length === 0 ||
+        row.programMembershipRefs.some(
+          (programRef) =>
+            !publication.programs.some(
+              (program) => program.programRef === programRef,
+            ),
+        )
+      )
+    )
+  ) {
+    return catalogApplicationRefusal(
+      "invalid_application_target",
+      row.kind === "node_type"
+        ? "node_type application requires one exact admitted node or Program target"
+        : "overlay application requires only its exact published Program composition",
+    );
+  }
+  const validatingLockRow = lock.rows.find(
+    (candidate) => candidate.installId === loaded.install.installId,
+  )!;
+  const contributorKind =
+    basis.contributorRef === workspaceBinding.authorizedActorRef
+      ? "host" as const
+      : basis.contributorRef === loaded.install.productId
+      ? "product" as const
+      : null;
+  if (contributorKind === null) {
+    return catalogApplicationRefusal(
+      "invalid_application_contributor",
+      "catalog application contributor is neither the admitted workspace actor nor the exact row-owning installed Product",
+    );
+  }
+  const contributorProvenanceRefs = contributorKind === "host"
+    ? [
+        workspaceBinding.authorityBasisId,
+        workspaceBinding.bindingId,
+      ]
+    : [
+        lock.lockId,
+        validatingLockRow.installId,
+        validatingLockRow.artifactDigest,
+        validatingLockRow.manifestDigest,
+        publication.contributionManifestRef,
+      ];
+  const appliedValueDigest = sha256Canonical(
+    admitted as unknown as JsonValue,
+  );
+  const receiptBody = {
+    validatingInstallId: loaded.install.installId,
+    validatingProductId: loaded.install.productId,
+    validatingArtifactDigest: loaded.install.artifactDigest,
+    validatingProductContentDigest: loaded.install.productContentDigest,
+    validatingManifestDigest: loaded.install.manifestDigest,
+    validatingPublicationDigest: publicationDigest,
+    catalogId: catalog.catalogId,
+    catalogDigest: catalog.catalogDigest,
+    viewId: view.viewId,
+    viewDigest: view.viewDigest,
+    rowHandle: row.handle,
+    rowDigest: row.rowDigest,
+    applicationVariant: basis.applicationVariant,
+    declarationOrContractRef: row.declarationOrContractRef,
+    appliedValueRef: projection.valueRef,
+    appliedValueDigest,
+    contributorKind,
+    contributorRef: basis.contributorRef,
+    contributorProvenanceRefs,
+    programMembershipRefs: projection.programMembershipRefs,
+    nodeTypeTarget,
+  };
+  const validationReceiptDigest = sha256Canonical(
+    receiptBody as unknown as JsonValue,
+  );
+  const body = {
+    catalogId: view.catalogId,
+    catalogDigest: view.catalogDigest,
+    viewId: view.viewId,
+    viewDigest: view.viewDigest,
+    rowHandle: row.handle,
+    rowDigest: row.rowDigest,
+    applicationVariant: basis.applicationVariant,
+    validationReceiptRef:
+      `catalog-application-receipt://abiogenesis/${
+        validationReceiptDigest.slice("sha256:".length)
+      }`,
+    validationReceiptDigest,
+    validatingInstallId: loaded.install.installId,
+    validatingProductId: loaded.install.productId,
+    validatingArtifactDigest: loaded.install.artifactDigest,
+    validatingProductContentDigest: loaded.install.productContentDigest,
+    validatingManifestDigest: loaded.install.manifestDigest,
+    validatingPublicationDigest: publicationDigest,
+    appliedHandle:
+      `${row.handle}/${appliedValueDigest.slice("sha256:".length)}`,
+    appliedValueRef: projection.valueRef,
+    appliedValueDigest,
+    appliedValue: admitted as unknown as JsonValue,
+    contributorKind,
+    contributorRef: basis.contributorRef,
+    contributorProvenanceRefs,
+    contributionKind: row.kind,
+    declarationOrContractRef: row.declarationOrContractRef,
+    owningProductId: row.owningProductId,
+    moduleRef: row.moduleRef,
+    programMembershipRefs: projection.programMembershipRefs,
+    nodeTypeTarget,
+    compatibilityDisposition: row.compatibilityDisposition,
+    compatibilityRefs: row.compatibilityRefs,
+    provenanceRefs: row.provenanceRefs,
+  };
+  const applicationCandidateDigest = sha256Canonical(
+    body as unknown as JsonValue,
+  );
+  const candidate = deepFreeze({
+    kind: "catalog_application_candidate",
     schemaVersion: "5.0.0",
-    contractRef,
-    valueRef: projection.valueRef,
-    valueDigest: sha256Canonical(admitted as unknown as JsonValue),
-    value: admitted,
-    programMembershipRefs: Object.freeze([
-      ...projection.programMembershipRefs,
-    ]),
-  });
+    disposition: "candidate",
+    applicationCandidateId:
+      `catalog-application-candidate://abiogenesis/${
+        applicationCandidateDigest.slice("sha256:".length)
+      }`,
+    applicationCandidateDigest,
+    ...body,
+  }) as CatalogApplicationCandidate;
+  catalogApplicationCandidates.add(candidate);
+  return candidate;
 }
 
 export function evaluateInstalledInteractionResponse(

@@ -12,10 +12,10 @@ import {
 import {
   catalogApplicationContentDigest,
   catalogViewContentDigest,
-  isCatalogApplicationCandidate,
   isCatalogAdmissionCandidate,
   isCatalogViewCandidate,
 } from "../product/catalog.js";
+import { isCatalogApplicationCandidate } from "../product/semantics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -28,7 +28,16 @@ import {
 } from "./environment_admission.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 
-const admittedCatalogApplications = new WeakSet<object>();
+const admittedCatalogApplications =
+  new WeakMap<AbgEventStore, WeakSet<object>>();
+
+function catalogApplicationScope(store: AbgEventStore): WeakSet<object> {
+  const existing = admittedCatalogApplications.get(store);
+  if (existing !== undefined) return existing;
+  const scope = new WeakSet<object>();
+  admittedCatalogApplications.set(store, scope);
+  return scope;
+}
 
 export interface CatalogAdmissionRefusal {
   readonly kind: "catalog_admission_refusal";
@@ -329,8 +338,12 @@ export function admitCatalogApplication(
     admissionCandidateRef: applicationCandidateId,
     admissionEventRef: null,
   }) as CatalogApplication;
-  admittedCatalogApplications.add(application);
+  catalogApplicationScope(store).add(application);
   return application;
+}
+
+export function releaseCatalogApplicationScope(store: AbgEventStore): void {
+  admittedCatalogApplications.delete(store);
 }
 
 export function hasAdmittedCatalog(
@@ -478,7 +491,7 @@ export function hasAdmittedCatalogApplication(
     );
   });
   return (
-    admittedCatalogApplications.has(application) &&
+    admittedCatalogApplications.get(store)?.has(application) === true &&
     catalogApplicationContentDigest(body) === application.applicationDigest &&
     application.admissionEventRef === null &&
     viewCauseIsAdmitted

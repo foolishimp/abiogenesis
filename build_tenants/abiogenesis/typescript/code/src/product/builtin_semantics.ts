@@ -165,8 +165,17 @@ function hasExactConsensusCatalogApplications(
         application.appliedValueDigest === binding.valueDigest &&
         sha256Canonical(application.appliedValue) ===
           binding.valueDigest &&
+        application.applicationVariant === binding.applicationVariant &&
         application.contributionKind === expectedKind &&
-        application.declarationOrContractRef === expectedContractRef,
+        application.declarationOrContractRef === expectedContractRef &&
+        (
+          binding.nodeTypeTarget === null
+            ? application.nodeTypeTarget === null
+            : application.nodeTypeTarget?.kind ===
+                binding.nodeTypeTarget.kind &&
+              application.nodeTypeTarget.programRef ===
+                binding.nodeTypeTarget.programRef
+        ),
     );
     return matching.length === 1;
   });
