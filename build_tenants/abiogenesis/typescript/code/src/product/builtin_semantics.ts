@@ -20,7 +20,7 @@ import {
   isConsensusActionEvaluationProjection,
   isConsensusEscalationDecision,
   isConsensusEscalationRequest,
-  isConsensusFinalizationState,
+  isConsensusResolution,
   isConsensusFindingsVector,
   isConsensusInvocation,
   isConsensusNextActionBasis,
@@ -40,6 +40,7 @@ import {
   isConsensusSubmitterTask,
   isTicketConsensusProjection,
   isReviewFindings,
+  projectTicketConsensus,
   resolveConsensusJudgmentRelation,
 } from "../gtl/consensus.js";
 import {
@@ -131,6 +132,22 @@ function isRecord(
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function hasCatalogSurface(
+  view: Parameters<
+    NonNullable<ProductSemanticsProvider["validateInvocationBasis"]>
+  >[0]["catalogView"],
+  handle: string,
+  kind: "node_type" | "overlay",
+  declarationOrContractRef: string,
+): boolean {
+  return view.selectedRows.some((row) =>
+    row.disposition === "admitted" &&
+    row.handle === handle &&
+    row.kind === kind &&
+    row.declarationOrContractRef === declarationOrContractRef
+  );
+}
+
 function admitSystemInput(
   contractRef: string,
   value: unknown,
@@ -148,7 +165,7 @@ function admitSystemInput(
     return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
   }
   if (
-    contractRef === CONSENSUS_IDS.finalizationStateContractRef &&
+    contractRef === CONSENSUS_IDS.resolutionContractRef &&
     isConsensusEscalationRequest(value)
   ) {
     return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
@@ -181,8 +198,10 @@ function validateSystemContractValue(
       return isConsensusRoundPolicy(value);
     case "consensus_round_outcome":
       return isConsensusRoundOutcome(value);
+    case "consensus_result_candidate":
+      return isConsensusResultCandidate(value);
     case "consensus_result":
-      return isConsensusResultCandidate(value) || isConsensusResult(value);
+      return isConsensusResult(value);
     case "consensus_invocation":
       return isConsensusInvocation(value);
     case "observation_snapshot":
@@ -197,8 +216,8 @@ function validateSystemContractValue(
       return isConsensusActionEvaluationProjection(value);
     case "consensus_round_state":
       return isConsensusRoundState(value);
-    case "consensus_finalization_state":
-      return isConsensusFinalizationState(value);
+    case "consensus_resolution":
+      return isConsensusResolution(value);
     case "consensus_reviewer_task":
       return isConsensusReviewerTask(value);
     case "consensus_findings_vector":
@@ -281,7 +300,7 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   ) {
     if (
       basis.requestContractRef ===
-        CONSENSUS_IDS.finalizationStateContractRef &&
+        CONSENSUS_IDS.resolutionContractRef &&
       basis.responseContractRef ===
         CONSENSUS_IDS.escalationDecisionContractRef
     ) {
@@ -289,12 +308,12 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
         !isConsensusEscalationRequest(basis.requestValue) ||
         !isConsensusEscalationDecision(responseCandidate) ||
         responseCandidate.humanActorRef !== basis.actingActorRef ||
-        responseCandidate.finalizationRef !==
-          basis.requestValue.finalizationRef ||
-        responseCandidate.finalizationDigest !==
-          basis.requestValue.finalizationDigest ||
+        responseCandidate.roundDecision.decisionRef !==
+          basis.requestValue.decisionRef ||
+        responseCandidate.roundDecision.decisionDigest !==
+          basis.requestValue.decisionDigest ||
         sha256Canonical(
-          responseCandidate.finalizationState as unknown as JsonValue,
+          responseCandidate.roundDecision as unknown as JsonValue,
         ) !==
           sha256Canonical(basis.requestValue as unknown as JsonValue)
       ) {
@@ -341,20 +360,44 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
       resultContractRef: basis.outputContractRef,
     });
   },
-  validateInvocationBasis(basis: Readonly<{
-    input: Readonly<Record<string, JsonValue>>;
-    workspaceBindingId: string;
-    workspaceBindingDigest: ReturnType<typeof sha256Canonical>;
-    workspaceId: string;
-    actionCatalog: JsonValue | null;
-    sourceResultBasis:
-      Parameters<
-        NonNullable<ProductSemanticsProvider["validateInvocationBasis"]>
-      >[0]["sourceResultBasis"];
-  }>) {
+  validateInvocationBasis(
+    basis: Parameters<
+      NonNullable<ProductSemanticsProvider["validateInvocationBasis"]>
+    >[0],
+  ) {
     if (isConsensusInvocation(basis.input)) {
       return basis.sourceResultBasis === null &&
-        basis.input.subject.workspaceRef === basis.workspaceId;
+        basis.input.subject.workspaceRef === basis.workspaceId &&
+        hasCatalogSurface(
+          basis.catalogView,
+          CONSENSUS_IDS.subjectCatalogHandle,
+          "node_type",
+          CONSENSUS_IDS.subjectContractRef,
+        ) &&
+        hasCatalogSurface(
+          basis.catalogView,
+          CONSENSUS_IDS.reviewerProfileCatalogHandle,
+          "node_type",
+          CONSENSUS_IDS.profileContractRef,
+        ) &&
+        hasCatalogSurface(
+          basis.catalogView,
+          CONSENSUS_IDS.submitterProfileCatalogHandle,
+          "node_type",
+          CONSENSUS_IDS.submitterProfileContractRef,
+        ) &&
+        hasCatalogSurface(
+          basis.catalogView,
+          CONSENSUS_IDS.policyCatalogHandle,
+          "node_type",
+          CONSENSUS_IDS.policyContractRef,
+        ) &&
+        hasCatalogSurface(
+          basis.catalogView,
+          basis.input.policy.disagreementRuleRef,
+          "overlay",
+          CONSENSUS_IDS.rulingsContractRef,
+        );
     }
     if (isConsensusObservationSnapshot(basis.input)) {
       return basis.sourceResultBasis === null &&
@@ -364,6 +407,36 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
           basis.workspaceBindingDigest &&
         basis.input.consensusInvocation.subject.workspaceRef ===
           basis.workspaceId &&
+        hasCatalogSurface(
+          basis.catalogView,
+          CONSENSUS_IDS.subjectCatalogHandle,
+          "node_type",
+          CONSENSUS_IDS.subjectContractRef,
+        ) &&
+        hasCatalogSurface(
+          basis.catalogView,
+          CONSENSUS_IDS.reviewerProfileCatalogHandle,
+          "node_type",
+          CONSENSUS_IDS.profileContractRef,
+        ) &&
+        hasCatalogSurface(
+          basis.catalogView,
+          CONSENSUS_IDS.submitterProfileCatalogHandle,
+          "node_type",
+          CONSENSUS_IDS.submitterProfileContractRef,
+        ) &&
+        hasCatalogSurface(
+          basis.catalogView,
+          CONSENSUS_IDS.policyCatalogHandle,
+          "node_type",
+          CONSENSUS_IDS.policyContractRef,
+        ) &&
+        hasCatalogSurface(
+          basis.catalogView,
+          basis.input.consensusInvocation.policy.disagreementRuleRef,
+          "overlay",
+          CONSENSUS_IDS.rulingsContractRef,
+        ) &&
         basis.actionCatalog !== null &&
         sha256Canonical(
           basis.input.actionCatalog as unknown as JsonValue,
@@ -374,9 +447,41 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   projectPublicResult(basis: Readonly<{
     value: JsonValue;
     admittedResultRef: string;
+    admittedResultContractRef: string;
     replayRef: string;
+    projectionKind: string;
   }>) {
-    if (!isConsensusResultCandidate(basis.value)) return basis.value;
-    return bindConsensusReplay(basis.value, basis.replayRef) as unknown as JsonValue;
+    if (
+      basis.projectionKind !== "result" &&
+      basis.projectionKind !== "ticket.consensus"
+    ) {
+      return null;
+    }
+    if (!isConsensusResultCandidate(basis.value)) {
+      if (basis.projectionKind !== "result") return null;
+      return {
+        kind: "product_public_result_projection" as const,
+        schemaVersion: "5.0.0" as const,
+        contractRef: basis.admittedResultContractRef,
+        value: basis.value,
+      };
+    }
+    const result = bindConsensusReplay(
+      basis.value,
+      basis.admittedResultRef,
+      basis.replayRef,
+    );
+    return {
+      kind: "product_public_result_projection" as const,
+      schemaVersion: "5.0.0" as const,
+      contractRef: basis.projectionKind === "ticket.consensus"
+        ? CONSENSUS_IDS.ticketProjectionContractRef
+        : CONSENSUS_IDS.resultContractRef,
+      value: (
+        basis.projectionKind === "ticket.consensus"
+          ? projectTicketConsensus(result)
+          : result
+      ) as unknown as JsonValue,
+    };
   },
 }) satisfies ProductSemanticsProvider;

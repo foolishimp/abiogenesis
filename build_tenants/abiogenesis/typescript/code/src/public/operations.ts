@@ -114,6 +114,10 @@ function usesDurableContinuationAuthority(
   );
 }
 
+function isProductResultProjectionVariant(variant: string): boolean {
+  return !["gaps", "lawful-actions", "replay", "status"].includes(variant);
+}
+
 function stringField(
   payload: Readonly<Record<string, product.JsonValue>>,
   key: string,
@@ -1190,6 +1194,7 @@ async function applyRunInvoke(
       actionCatalog: programValue.actionCatalog === undefined
         ? null
         : programValue.actionCatalog as unknown as product.JsonValue,
+      catalogView: viewState.view,
       sourceResultBasis,
     })
   ) {
@@ -2302,7 +2307,8 @@ async function applyRunProjectionRead(
   try {
     const replayState = abg.replay(context.store, { runId: state.runId });
     const secondReplay = abg.replay(context.store, { runId: state.runId });
-    const selectedResultRef = invocation.variant === "result"
+    const isResultRead = isProductResultProjectionVariant(invocation.variant);
+    const selectedResultRef = isResultRead
       ? targetRef === state.graphCallId
         ? state.resultRef
         : targetRef
@@ -2312,7 +2318,7 @@ async function applyRunProjectionRead(
       : replayState.cCalls.find(
           (cCall) => cCall.resultRef === selectedResultRef,
         );
-    const targetMatches = invocation.variant === "result"
+    const targetMatches = isResultRead
       ? selectedResult !== undefined
       : targetRef === state.runId || targetRef === state.graphCallId;
     if (!targetMatches) {
@@ -2346,7 +2352,7 @@ async function applyRunProjectionRead(
       eventLog,
     );
     if (
-      invocation.variant === "result" &&
+      isResultRead &&
       (
         selectedResult === undefined ||
         selectedResult.status !== "judged" ||
@@ -2364,10 +2370,11 @@ async function applyRunProjectionRead(
       );
     }
     const scopedEvents = context.store.readScope({ runId: state.runId });
-    let publicResultValue = invocation.variant === "result"
+    let publicResultValue = isResultRead
       ? selectedResult!.resultValue!
       : projected.result;
-    if (invocation.variant === "result") {
+    let publicResultContractRef = selectedResult?.resultContractRef ?? null;
+    if (isResultRead) {
       try {
         const productSemantics = await product.loadInstalledProductSemantics({
           install: state.install,
@@ -2376,14 +2383,19 @@ async function applyRunProjectionRead(
           verifyInstallAdmission: (install) =>
             abg.hasAdmittedProductInstall(context.store, install),
         });
-        publicResultValue = product.projectInstalledPublicResult(
+        const publicProjection = product.projectInstalledPublicResult(
           productSemantics,
           {
             value: selectedResult!.resultValue!,
             admittedResultRef: selectedResult!.resultRef!,
+            admittedResultContractRef:
+              selectedResult!.resultContractRef!,
             replayRef: replayState.replayRef,
+            projectionKind: invocation.variant,
           },
         );
+        publicResultValue = publicProjection?.value ?? null;
+        publicResultContractRef = publicProjection?.contractRef ?? null;
       } catch {
         throw new ApplicationRefusal(
           "owner_refusal",
@@ -2409,14 +2421,14 @@ async function applyRunProjectionRead(
           replayRef: replayState.replayRef,
           replayDigest: replayState.replayDigest,
         }
-      : invocation.variant === "result"
+      : isResultRead
         ? {
             kind: "public_result_projection",
             schemaVersion: "5.0.0",
             disposition: projected.disposition,
             resultRef: selectedResult!.resultRef,
-            resultContractRef: selectedResult!.resultContractRef,
-            outputContractRef: selectedResult!.resultContractRef,
+            resultContractRef: publicResultContractRef,
+            outputContractRef: publicResultContractRef,
             value: publicResultValue,
             closureEligible: true,
             residuals: [],
@@ -2560,16 +2572,6 @@ async function applyProjectRead(
   if (invocation.variant === "gaps") {
     return applyGapRead(context, invocation);
   }
-  if (
-    !["lawful-actions", "replay", "result", "status"].includes(
-      invocation.variant,
-    )
-  ) {
-    throw new ApplicationRefusal(
-      "invalid_request",
-      "project.read continuation requires status, result, replay, or lawful-actions",
-    );
-  }
   if (invocation.payload.projectionAuthority !== undefined) {
     if (invocation.variant === "lawful-actions") {
       throw new ApplicationRefusal(
@@ -2659,7 +2661,8 @@ async function applyProjectRead(
             ? "fh_input_required"
             : "construction_progressing_yield";
     const eventsBeforeRead = context.store.readAll();
-    const projectedResult = invocation.variant === "result"
+    const isResultRead = isProductResultProjectionVariant(invocation.variant);
+    const projectedResult = isResultRead
       ? projectOutcome(
           invocation,
           replayState,
@@ -2670,7 +2673,7 @@ async function applyProjectRead(
         )
       : null;
     if (
-      invocation.variant === "result" &&
+      isResultRead &&
       (
         continuation.status !== "resolved" ||
         projectedResult?.disposition !== "succeeded" ||
@@ -2683,7 +2686,9 @@ async function applyProjectRead(
       );
     }
     let publicResultValue = projectedResult?.result ?? null;
-    if (invocation.variant === "result") {
+    let publicResultContractRef =
+      projectedResult?.admittedResultContractRef ?? null;
+    if (isResultRead) {
       try {
         const productSemantics = await product.loadInstalledProductSemantics({
           install: state.install,
@@ -2691,14 +2696,19 @@ async function applyProjectRead(
           verifyInstallAdmission: (install) =>
             abg.hasAdmittedProductInstall(context.store, install),
         });
-        publicResultValue = product.projectInstalledPublicResult(
+        const publicProjection = product.projectInstalledPublicResult(
           productSemantics,
           {
             value: projectedResult!.result,
             admittedResultRef: projectedResult!.resultRef!,
+            admittedResultContractRef:
+              projectedResult!.admittedResultContractRef!,
             replayRef: replayState.replayRef,
+            projectionKind: invocation.variant,
           },
         );
+        publicResultValue = publicProjection?.value ?? null;
+        publicResultContractRef = publicProjection?.contractRef ?? null;
       } catch {
         throw new ApplicationRefusal(
           "owner_refusal",
@@ -2739,15 +2749,15 @@ async function applyProjectRead(
           replayRef: replayState.replayRef,
           replayDigest: replayState.replayDigest,
         }
-      : invocation.variant === "result"
+      : isResultRead
         ? {
             kind: "public_result_projection",
             schemaVersion: "5.0.0",
             constructionStatus,
             disposition: projectedResult!.disposition,
             resultRef: projectedResult!.resultRef,
-            resultContractRef: projectedResult!.admittedResultContractRef,
-            outputContractRef: projectedResult!.outputContractRef,
+            resultContractRef: publicResultContractRef,
+            outputContractRef: publicResultContractRef,
             value: publicResultValue,
             closureEligible: true,
             residuals: [],

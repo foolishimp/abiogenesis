@@ -12,6 +12,7 @@ import {
 } from "../shared/digests.js";
 import type { ProductInstall } from "./environment.js";
 import { installedProductContentMatches } from "./install_product.js";
+import type { CatalogView } from "./catalog.js";
 
 export interface ProductInvocationSourceResultBasis {
   readonly kind: "invocation_source_result_basis";
@@ -37,6 +38,13 @@ export interface ProductInvocationSourceResultBasis {
   readonly sourceWorkspaceId: string;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
+}
+
+export interface ProductPublicResultProjection {
+  readonly kind: "product_public_result_projection";
+  readonly schemaVersion: "5.0.0";
+  readonly contractRef: string;
+  readonly value: JsonValue;
 }
 
 export interface ProductSemanticsProvider {
@@ -98,6 +106,7 @@ export interface ProductSemanticsProvider {
       readonly workspaceBindingDigest: Sha256Digest;
       readonly workspaceId: string;
       readonly actionCatalog: JsonValue | null;
+      readonly catalogView: CatalogView;
       readonly sourceResultBasis: ProductInvocationSourceResultBasis | null;
     }>,
   ) => boolean;
@@ -105,9 +114,11 @@ export interface ProductSemanticsProvider {
     basis: Readonly<{
       readonly value: JsonValue;
       readonly admittedResultRef: string;
+      readonly admittedResultContractRef: string;
       readonly replayRef: string;
+      readonly projectionKind: string;
     }>,
-  ) => JsonValue | null;
+  ) => ProductPublicResultProjection | null;
 }
 
 interface InstalledProductSemanticsBasisCommon {
@@ -397,14 +408,21 @@ export function projectInstalledPublicResult(
   basis: Parameters<
     NonNullable<ProductSemanticsProvider["projectPublicResult"]>
   >[0],
-): JsonValue | null {
+): ProductPublicResultProjection | null {
   if (!loadedProductSemantics.has(semantics)) {
     throw new TypeError(
       "Product public-result projection requires the exact loaded Product semantics provider",
     );
   }
   const projector = semantics.projectPublicResult;
-  return projector === undefined ? basis.value : projector(basis);
+  return projector === undefined && basis.projectionKind === "result"
+    ? {
+      kind: "product_public_result_projection",
+      schemaVersion: "5.0.0",
+      contractRef: basis.admittedResultContractRef,
+      value: basis.value,
+    }
+    : projector?.(basis) ?? null;
 }
 
 export function projectInstalledLeafSemantics(

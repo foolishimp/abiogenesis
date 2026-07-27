@@ -12,6 +12,7 @@ import {
   sha256File,
 } from "../build/code/src/product/index.js";
 import {
+  CONSENSUS_FH_DECISION_VALUES,
   CONSENSUS_ROUND_OUTCOME_VALUES,
   CONSENSUS_PUBLIC_SCHEMA,
   REVIEW_RULING_KIND_VALUES,
@@ -34,6 +35,8 @@ const reviewRulingVocabularyPath =
   "contracts/vocabularies/review-ruling-kind.json";
 const consensusRoundOutcomeVocabularyPath =
   "contracts/vocabularies/consensus-round-outcome.json";
+const consensusFhDecisionVocabularyPath =
+  "contracts/vocabularies/consensus-fh-decision.json";
 
 function closedVocabulary(vocabularyId, values) {
   return {
@@ -68,6 +71,14 @@ await Promise.all([
     `${JSON.stringify(closedVocabulary(
       "abg.vocabulary.consensus-round-outcome",
       CONSENSUS_ROUND_OUTCOME_VALUES,
+    ), null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, consensusFhDecisionVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.consensus-fh-decision",
+      CONSENSUS_FH_DECISION_VALUES,
     ), null, 2)}\n`,
     "utf8",
   ),
@@ -115,6 +126,9 @@ const reviewRulingVocabularyDigest = await sha256File(
 );
 const consensusRoundOutcomeVocabularyDigest = await sha256File(
   join(root, consensusRoundOutcomeVocabularyPath),
+);
+const consensusFhDecisionVocabularyDigest = await sha256File(
+  join(root, consensusFhDecisionVocabularyPath),
 );
 const productDeclarationPath = "build/code/src/product/index.d.ts";
 const productDeclarationDigest = await sha256File(join(root, productDeclarationPath));
@@ -173,6 +187,7 @@ const consensusContractRows = [
   ["abg.schema.consensus-reviewer-profile", "ConsensusReviewerProfile"],
   ["abg.schema.consensus-submitter-profile", "ConsensusSubmitterProfile"],
   ["abg.schema.consensus-submitter-response", "ConsensusSubmitterResponse"],
+  ["abg.schema.consensus-escalation-decision", "ConsensusEscalationDecision"],
   ["abg.schema.review-findings", "ReviewFindings"],
   ["abg.schema.review-rulings", "ReviewRulings"],
   ["abg.schema.consensus-round-policy", "ConsensusRoundPolicy"],
@@ -210,6 +225,12 @@ const consensusVocabularyRows = [
     consensusRoundOutcomeVocabularyPath,
     consensusRoundOutcomeVocabularyDigest,
     "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-008",
+  ],
+  [
+    "abg.vocabulary.consensus-fh-decision",
+    consensusFhDecisionVocabularyPath,
+    consensusFhDecisionVocabularyDigest,
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-004",
   ],
 ].map(([contractId, path, digest, requirementAuthorityRef]) => ({
   contractId,

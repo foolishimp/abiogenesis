@@ -9,7 +9,7 @@ import {
   isConsensusActionEvaluationProjection,
   isConsensusEscalationDecision,
   isConsensusFindingsVector,
-  isConsensusFinalizationState,
+  isConsensusResolution,
   isConsensusInvocation,
   isConsensusNextActionBasis,
   isConsensusObservationSnapshot,
@@ -19,7 +19,7 @@ import {
   isConsensusSubmitterResponse,
   isConsensusSubmitterResponseCandidate,
   isConsensusSubmitterTask,
-  prepareConsensusFinalization,
+  prepareConsensusResolution,
   projectConsensusFinalResult,
   refreshConsensusGap,
   refreshConsensusModel,
@@ -29,7 +29,7 @@ import {
   synthesizeConsensusModel,
   type ConsensusEscalationDecision,
   type ConsensusFindingsVector,
-  type ConsensusFinalizationState,
+  type ConsensusResolution,
   type ConsensusInvocation,
   type ConsensusReviewerTask,
   type ConsensusRoundState,
@@ -137,7 +137,7 @@ export const CONSENSUS_FINALIZATION_PREPARATION_IMPLEMENTATION_DESCRIPTOR =
     namedSymbol: "realizeConsensusFinalizationPreparation",
     computeRegime: "F_D",
     inputContractRef: CONSENSUS_IDS.stateContractRef,
-    outputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
+    outputContractRef: CONSENSUS_IDS.resolutionContractRef,
   });
 
 export const CONSENSUS_FINALIZATION_EVALUATOR_IMPLEMENTATION_DESCRIPTOR =
@@ -146,16 +146,16 @@ export const CONSENSUS_FINALIZATION_EVALUATOR_IMPLEMENTATION_DESCRIPTOR =
       CONSENSUS_IDS.finalizationEvaluatorImplementationRef,
     namedSymbol: "realizeConsensusFinalizationEvaluation",
     computeRegime: "F_D",
-    inputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
-    outputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
+    inputContractRef: CONSENSUS_IDS.resolutionContractRef,
+    outputContractRef: CONSENSUS_IDS.resolutionContractRef,
   });
 
 export const CONSENSUS_PROJECTOR_IMPLEMENTATION_DESCRIPTOR = descriptor({
   implementationRef: CONSENSUS_IDS.projectorImplementationRef,
   namedSymbol: "realizeConsensusResultProjection",
   computeRegime: "F_D",
-  inputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
-  outputContractRef: CONSENSUS_IDS.resultContractRef,
+  inputContractRef: CONSENSUS_IDS.resolutionContractRef,
+  outputContractRef: CONSENSUS_IDS.resultCandidateContractRef,
 });
 
 export const CONSENSUS_ESCALATION_FINALIZER_IMPLEMENTATION_DESCRIPTOR =
@@ -164,7 +164,7 @@ export const CONSENSUS_ESCALATION_FINALIZER_IMPLEMENTATION_DESCRIPTOR =
     namedSymbol: "realizeConsensusEscalationFinalization",
     computeRegime: "F_D",
     inputContractRef: CONSENSUS_IDS.escalationDecisionContractRef,
-    outputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
+    outputContractRef: CONSENSUS_IDS.resolutionContractRef,
   });
 
 export const CONSENSUS_SYNTHESIZE_MODEL_IMPLEMENTATION_DESCRIPTOR =
@@ -655,7 +655,7 @@ export function realizeConsensusFinalizationPreparation(
       "Consensus finalization preparation requires one exact terminal round state",
     );
   }
-  const result = prepareConsensusFinalization(input);
+  const result = prepareConsensusResolution(input);
   return deterministicSuccess(
     CONSENSUS_IDS.finalizationPreparationImplementationRef,
     input as unknown as Readonly<Record<string, JsonValue>>,
@@ -664,9 +664,9 @@ export function realizeConsensusFinalizationPreparation(
 }
 
 export function realizeConsensusFinalizationEvaluation(
-  input: Readonly<ConsensusFinalizationState>,
+  input: Readonly<ConsensusResolution>,
 ) {
-  if (!isConsensusFinalizationState(input)) {
+  if (!isConsensusResolution(input)) {
     throw new TypeError(
       "Consensus finalization evaluation requires one exact finalization state",
     );
@@ -679,9 +679,9 @@ export function realizeConsensusFinalizationEvaluation(
 }
 
 export function realizeConsensusResultProjection(
-  input: Readonly<ConsensusFinalizationState>,
+  input: Readonly<ConsensusResolution>,
 ) {
-  if (!isConsensusFinalizationState(input)) {
+  if (!isConsensusResolution(input)) {
     throw new TypeError(
       "Consensus result projector requires one exact terminal finalization state",
     );

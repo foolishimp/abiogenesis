@@ -325,6 +325,12 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "contract_failure"
       ],
     },
+    "ConsensusFhDecision": {
+      "enum": [
+        "accept_with_dissent",
+        "reject"
+      ],
+    },
     "ConsensusReviewerCandidate": consensusReviewerResponseSchema,
     "ConsensusSubmitterResponseCandidate": consensusSubmitterResponseSchema,
     "ConsensusSubmitterResponseRecord":
@@ -683,6 +689,7 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "roundBudget",
         "convergenceRuleRef",
         "disagreementRuleRef",
+        "acceptedFindingRulingKind",
         "escalationRuleRef",
         "foldbackContractRef"
       ],
@@ -701,14 +708,21 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
         "roundBudget": {
           "type": "integer",
-          "minimum": 1,
-          "maximum": 4
+          "minimum": 1
         },
         "convergenceRuleRef": {
           "const": "rule://abg/consensus/exact-agreement@5"
         },
         "disagreementRuleRef": {
-          "const": "rule://abg/consensus/material-dispute@5"
+          "$ref": "#/$defs/Ref"
+        },
+        "acceptedFindingRulingKind": {
+          "enum": [
+            "decision_row",
+            "draft_ticket",
+            "split_ticket",
+            "rejected_finding"
+          ]
         },
         "escalationRuleRef": {
           "const": "rule://abg/consensus/unresolved-to-fh@5"
@@ -1372,12 +1386,11 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "terminalOutcome",
         "evidenceRefs",
         "lineageRefs",
-        "resultRef",
         "contractFailureRef"
       ],
       "properties": {
         "kind": {
-          "const": "consensus_result"
+          "const": "consensus_result_candidate"
         },
         "schemaVersion": {
           "const": "5.0.0"
@@ -1431,9 +1444,6 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
             "$ref": "#/$defs/Ref"
           },
         },
-        "resultRef": {
-          "$ref": "#/$defs/Ref"
-        },
         "contractFailureRef": {
           "oneOf": [
             {
@@ -1446,22 +1456,68 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
       },
     },
-    "ConsensusFinalizationState": {
+    "ConsensusRoundDecision": {
       "type": "object",
       "additionalProperties": false,
       "required": [
         "kind",
+        "resolutionKind",
         "schemaVersion",
-        "finalizationRef",
-        "finalizationDigest",
-        "disposition",
-        "provisionalResult",
-        "finalResult",
-        "terminal"
+        "decisionRef",
+        "decisionDigest",
+        "outcome",
+        "result",
+        "resolutionTerminal"
       ],
       "properties": {
         "kind": {
-          "const": "consensus_finalization_state"
+          "const": "consensus_resolution"
+        },
+        "resolutionKind": {
+          "const": "round_decision"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "decisionRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "decisionDigest": {
+          "$ref": "#/$defs/Digest"
+        },
+        "outcome": {
+          "$ref": "#/$defs/ConsensusRoundOutcome"
+        },
+        "result": {
+          "$ref": "#/$defs/ConsensusResultCandidate"
+        },
+        "resolutionTerminal": {
+          "type": "boolean"
+        },
+      },
+    },
+    "ConsensusHumanFinalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "resolutionKind",
+        "schemaVersion",
+        "finalizationRef",
+        "finalizationDigest",
+        "roundDecision",
+        "decision",
+        "humanActorRef",
+        "rationaleRef",
+        "result",
+        "resolutionTerminal"
+      ],
+      "properties": {
+        "kind": {
+          "const": "consensus_resolution"
+        },
+        "resolutionKind": {
+          "const": "human_finalization"
         },
         "schemaVersion": {
           "const": "5.0.0"
@@ -1472,29 +1528,35 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "finalizationDigest": {
           "$ref": "#/$defs/Digest"
         },
-        "disposition": {
-          "enum": [
-            "closed_done",
-            "escalate_fh"
-          ],
+        "roundDecision": {
+          "$ref": "#/$defs/ConsensusRoundDecision"
         },
-        "provisionalResult": {
+        "decision": {
+          "$ref": "#/$defs/ConsensusFhDecision"
+        },
+        "humanActorRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "rationaleRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "result": {
           "$ref": "#/$defs/ConsensusResultCandidate"
         },
-        "finalResult": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/ConsensusResultCandidate"
-            },
-            {
-              "type": "null"
-            },
-          ],
-        },
-        "terminal": {
-          "type": "boolean"
+        "resolutionTerminal": {
+          "const": true
         },
       },
+    },
+    "ConsensusResolution": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ConsensusRoundDecision"
+        },
+        {
+          "$ref": "#/$defs/ConsensusHumanFinalization"
+        }
+      ],
     },
     "ConsensusEscalationDecision": {
       "type": "object",
@@ -1502,9 +1564,9 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
       "required": [
         "kind",
         "schemaVersion",
-        "finalizationState",
-        "finalizationRef",
-        "finalizationDigest",
+        "roundDecision",
+        "decisionRef",
+        "decisionDigest",
         "decision",
         "humanActorRef",
         "rationaleRef"
@@ -1516,20 +1578,17 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "schemaVersion": {
           "const": "5.0.0"
         },
-        "finalizationState": {
-          "$ref": "#/$defs/ConsensusFinalizationState"
+        "roundDecision": {
+          "$ref": "#/$defs/ConsensusRoundDecision"
         },
-        "finalizationRef": {
+        "decisionRef": {
           "$ref": "#/$defs/Ref"
         },
-        "finalizationDigest": {
+        "decisionDigest": {
           "$ref": "#/$defs/Digest"
         },
         "decision": {
-          "enum": [
-            "accept_with_dissent",
-            "reject"
-          ],
+          "$ref": "#/$defs/ConsensusFhDecision"
         },
         "humanActorRef": {
           "$ref": "#/$defs/Ref"
@@ -1658,6 +1717,8 @@ export const CONSENSUS_ROUND_OUTCOME_VALUES =
   CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundOutcomeValue.enum;
 export const CONSENSUS_CLASSIFICATION_VALUES =
   CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusClassification.enum;
+export const CONSENSUS_FH_DECISION_VALUES =
+  CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusFhDecision.enum;
 export const CONSENSUS_REVIEWER_RESPONSE_SCHEMA =
   consensusReviewerResponseSchema;
 export const CONSENSUS_SUBMITTER_RESPONSE_SCHEMA =
@@ -1696,8 +1757,10 @@ export const CONSENSUS_SCHEMA_REQUIRED_KEYS = deepFreeze({
   ConsensusResultCandidate:
     CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusResultCandidate.required,
   ConsensusResult: CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusResult.required,
-  ConsensusFinalizationState:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusFinalizationState.required,
+  ConsensusRoundDecision:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundDecision.required,
+  ConsensusHumanFinalization:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusHumanFinalization.required,
   ConsensusEscalationDecision:
     CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusEscalationDecision.required,
   TicketConsensusProjection:

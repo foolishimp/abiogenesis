@@ -31,6 +31,7 @@ import {
 import { evaluatorDeclaration, ruleDeclaration } from "./declarations.js";
 import {
   CONSENSUS_CLASSIFICATION_VALUES,
+  CONSENSUS_FH_DECISION_VALUES,
   CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
   CONSENSUS_ROUND_OUTCOME_VALUES,
   CONSENSUS_SCHEMA_REQUIRED_KEYS,
@@ -41,6 +42,7 @@ import {
 } from "./consensus_schema.js";
 export {
   CONSENSUS_CLASSIFICATION_VALUES,
+  CONSENSUS_FH_DECISION_VALUES,
   CONSENSUS_PUBLIC_SCHEMA,
   CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
   CONSENSUS_ROUND_OUTCOME_VALUES,
@@ -58,6 +60,8 @@ export type ConsensusRoundOutcomeValue =
   (typeof CONSENSUS_ROUND_OUTCOME_VALUES)[number];
 export type ConsensusClassification =
   (typeof CONSENSUS_CLASSIFICATION_VALUES)[number];
+export type ConsensusFhDecision =
+  (typeof CONSENSUS_FH_DECISION_VALUES)[number];
 
 export const CONSENSUS_IDS = Object.freeze({
   handle: "gtl://abg/consensus/submitter-reviewer-rounds",
@@ -175,6 +179,8 @@ export const CONSENSUS_IDS = Object.freeze({
   rulingsContractRef: "contract://abg/schema/review-rulings@5",
   policyContractRef: "contract://abg/schema/consensus-round-policy@5",
   roundOutcomeContractRef: "contract://abg/schema/consensus-round-outcome@5",
+  resultCandidateContractRef:
+    "contract://abg/consensus/result-candidate@5",
   resultContractRef: "contract://abg/schema/consensus-result@5",
   ticketProjectionContractRef:
     "contract://abg/schema/ticket-consensus-projection@5",
@@ -192,8 +198,8 @@ export const CONSENSUS_IDS = Object.freeze({
   actionEvaluationContractRef:
     "contract://abg/consensus/action-evaluation@5",
   stateContractRef: "contract://abg/consensus/round-state@5",
-  finalizationStateContractRef:
-    "contract://abg/consensus/finalization-state@5",
+  resolutionContractRef:
+    "contract://abg/consensus/resolution@5",
   reviewerTaskContractRef: "contract://abg/consensus/reviewer-task@5",
   findingsVectorContractRef: "contract://abg/consensus/findings-vector@5",
   escalationDecisionContractRef:
@@ -318,8 +324,19 @@ export const CONSENSUS_IDS = Object.freeze({
   actorCapabilityRef: "capability://abg/consensus/fh-resolution@5",
   continuationContractRef: "contract://abg/consensus/continuation@5",
   productSemanticsBindingRef: "product-semantics://abiogenesis/system@5",
+  subjectCatalogHandle:
+    "catalog://abg/consensus/subject",
+  reviewerProfileCatalogHandle:
+    "catalog://abg/consensus/profile/reviewer",
+  submitterProfileCatalogHandle:
+    "catalog://abg/consensus/profile/submitter",
+  policyCatalogHandle:
+    "catalog://abg/consensus/policy/round",
+  rulingOverlayCatalogHandle:
+    "catalog://abg/consensus/overlay/ruling",
   rulingVocabularyRef: "abg.vocabulary.review-ruling-kind",
   roundOutcomeVocabularyRef: "abg.vocabulary.consensus-round-outcome",
+  fhDecisionVocabularyRef: "abg.vocabulary.consensus-fh-decision",
 });
 
 export interface ConsensusSubject {
@@ -411,6 +428,10 @@ export interface ConsensusRoundPolicy {
   readonly roundBudget: number;
   readonly convergenceRuleRef: string;
   readonly disagreementRuleRef: string;
+  readonly acceptedFindingRulingKind: Exclude<
+    ReviewRulingKind,
+    "deferment"
+  >;
   readonly escalationRuleRef: string;
   readonly foldbackContractRef: string;
 }
@@ -591,7 +612,7 @@ export interface ConsensusSubmitterResponse
 }
 
 export interface ConsensusResultCandidate {
-  readonly kind: "consensus_result";
+  readonly kind: "consensus_result_candidate";
   readonly schemaVersion: "5.0.0";
   readonly subjectRef: string;
   readonly subjectDigest: Sha256Digest;
@@ -606,32 +627,52 @@ export interface ConsensusResultCandidate {
   readonly terminalOutcome: ConsensusRoundOutcome;
   readonly evidenceRefs: readonly string[];
   readonly lineageRefs: readonly string[];
-  readonly resultRef: string;
   readonly contractFailureRef: string | null;
 }
 
-export interface ConsensusResult extends ConsensusResultCandidate {
+export interface ConsensusResult
+  extends Omit<ConsensusResultCandidate, "kind"> {
+  readonly kind: "consensus_result";
+  readonly resultRef: string;
   readonly replayRef: string;
 }
 
-export interface ConsensusFinalizationState {
-  readonly kind: "consensus_finalization_state";
+export interface ConsensusRoundDecision {
+  readonly kind: "consensus_resolution";
+  readonly resolutionKind: "round_decision";
+  readonly schemaVersion: "5.0.0";
+  readonly decisionRef: string;
+  readonly decisionDigest: Sha256Digest;
+  readonly outcome: ConsensusRoundOutcome;
+  readonly result: ConsensusResultCandidate;
+  readonly resolutionTerminal: boolean;
+}
+
+export interface ConsensusHumanFinalization {
+  readonly kind: "consensus_resolution";
+  readonly resolutionKind: "human_finalization";
   readonly schemaVersion: "5.0.0";
   readonly finalizationRef: string;
   readonly finalizationDigest: Sha256Digest;
-  readonly disposition: "closed_done" | "escalate_fh";
-  readonly provisionalResult: ConsensusResultCandidate;
-  readonly finalResult: ConsensusResultCandidate | null;
-  readonly terminal: boolean;
+  readonly roundDecision: ConsensusRoundDecision;
+  readonly decision: ConsensusFhDecision;
+  readonly humanActorRef: string;
+  readonly rationaleRef: string;
+  readonly result: ConsensusResultCandidate;
+  readonly resolutionTerminal: true;
 }
+
+export type ConsensusResolution =
+  | ConsensusRoundDecision
+  | ConsensusHumanFinalization;
 
 export interface ConsensusEscalationDecision {
   readonly kind: "consensus_escalation_decision";
   readonly schemaVersion: "5.0.0";
-  readonly finalizationState: ConsensusFinalizationState;
-  readonly finalizationRef: string;
-  readonly finalizationDigest: Sha256Digest;
-  readonly decision: "accept_with_dissent" | "reject";
+  readonly roundDecision: ConsensusRoundDecision;
+  readonly decisionRef: string;
+  readonly decisionDigest: Sha256Digest;
+  readonly decision: ConsensusFhDecision;
   readonly humanActorRef: string;
   readonly rationaleRef: string;
 }
@@ -1552,6 +1593,7 @@ export function constructConsensusRoundPolicy(
     roundBudget: input.roundBudget,
     convergenceRuleRef: input.convergenceRuleRef,
     disagreementRuleRef: input.disagreementRuleRef,
+    acceptedFindingRulingKind: input.acceptedFindingRulingKind,
     escalationRuleRef: input.escalationRuleRef,
     foldbackContractRef: input.foldbackContractRef,
   };
@@ -1818,9 +1860,12 @@ export function isConsensusRoundPolicy(
     !isDigest(value.policyDigest) ||
     !Number.isSafeInteger(value.roundBudget) ||
     Number(value.roundBudget) < 1 ||
-    Number(value.roundBudget) > 4 ||
     value.convergenceRuleRef !== CONSENSUS_IDS.convergenceRuleRef ||
-    value.disagreementRuleRef !== CONSENSUS_IDS.disagreementRuleRef ||
+    !isRef(value.disagreementRuleRef) ||
+    !REVIEW_RULING_KIND_VALUES.includes(
+      value.acceptedFindingRulingKind as ReviewRulingKind,
+    ) ||
+    value.acceptedFindingRulingKind === "deferment" ||
     value.escalationRuleRef !== CONSENSUS_IDS.escalationRuleRef ||
     value.foldbackContractRef !== CONSENSUS_IDS.foldbackContractRef
   ) return false;
@@ -2415,7 +2460,7 @@ export function isConsensusResultCandidate(
       value,
       CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusResultCandidate,
     ) ||
-    value.kind !== "consensus_result" ||
+    value.kind !== "consensus_result_candidate" ||
     value.schemaVersion !== "5.0.0" ||
     !isRef(value.subjectRef) ||
     !isDigest(value.subjectDigest) ||
@@ -2434,7 +2479,6 @@ export function isConsensusResultCandidate(
     !isConsensusRoundOutcome(value.terminalOutcome) ||
     !uniqueRefs(value.evidenceRefs) ||
     !uniqueRefs(value.lineageRefs, false) ||
-    !isRef(value.resultRef) ||
     !(value.contractFailureRef === null || isRef(value.contractFailureRef))
   ) return false;
   return (value.classification === "contract_failure") ===
@@ -2443,15 +2487,22 @@ export function isConsensusResultCandidate(
 
 export function bindConsensusReplay(
   candidate: Readonly<ConsensusResultCandidate>,
+  admittedResultRef: string,
   replayRef: string,
 ): Readonly<ConsensusResult> {
-  if (!isConsensusResultCandidate(candidate) || !isRef(replayRef)) {
+  if (
+    !isConsensusResultCandidate(candidate) ||
+    !isRef(admittedResultRef) ||
+    !isRef(replayRef)
+  ) {
     throw new TypeError(
-      "Consensus replay projection requires one admitted result candidate and replay",
+      "Consensus replay projection requires one admitted result identity and replay",
     );
   }
   return deepFreeze({
     ...candidate,
+    kind: "consensus_result" as const,
+    resultRef: admittedResultRef,
     replayRef,
   });
 }
@@ -2460,137 +2511,186 @@ export function isConsensusResult(value: unknown): value is ConsensusResult {
   if (
     !isRecord(value) ||
     !hasExactKeys(value, CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusResult) ||
+    value.kind !== "consensus_result" ||
+    !isRef(value.resultRef) ||
     !isRef(value.replayRef)
   ) return false;
-  const { replayRef: _replayRef, ...candidate } = value;
+  const {
+    resultRef: _resultRef,
+    replayRef: _replayRef,
+    ...candidateBody
+  } = value;
+  const candidate = {
+    ...candidateBody,
+    kind: "consensus_result_candidate",
+  };
   return isConsensusResultCandidate(candidate);
 }
 
-function constructConsensusFinalizationState(input: Readonly<{
-  disposition: ConsensusFinalizationState["disposition"];
-  provisionalResult: Readonly<ConsensusResultCandidate>;
-  finalResult: Readonly<ConsensusResultCandidate> | null;
-}>): Readonly<ConsensusFinalizationState> {
-  const terminal = input.finalResult !== null;
-  const body = {
-    kind: "consensus_finalization_state" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: input.disposition,
-    provisionalResult: input.provisionalResult,
-    finalResult: input.finalResult,
-    terminal,
-  };
-  const finalizationDigest = sha256Canonical(body as unknown as JsonValue);
-  const state = deepFreeze({
-    ...body,
-    finalizationRef:
-      `consensus-finalization://abg/${
-        finalizationDigest.slice("sha256:".length)
-      }`,
-    finalizationDigest,
-  });
-  if (!isConsensusFinalizationState(state)) {
+function constructConsensusRoundDecision(
+  result: Readonly<ConsensusResultCandidate>,
+): Readonly<ConsensusRoundDecision> {
+  if (!isConsensusResultCandidate(result)) {
     throw new TypeError(
-      "Consensus finalization requires one total closed or same-Run F_H state",
+      "Consensus round decision requires one exact result candidate",
     );
   }
-  return state;
+  const body = {
+    kind: "consensus_resolution" as const,
+    resolutionKind: "round_decision" as const,
+    schemaVersion: "5.0.0" as const,
+    outcome: result.terminalOutcome,
+    result,
+    resolutionTerminal:
+      result.terminalOutcome.outcome !== "escalate_fh",
+  };
+  const decisionDigest = sha256Canonical(body as unknown as JsonValue);
+  const decision = deepFreeze({
+    ...body,
+    decisionRef:
+      `consensus-round-decision://abg/${
+        decisionDigest.slice("sha256:".length)
+      }`,
+    decisionDigest,
+  });
+  if (!isConsensusRoundDecision(decision)) {
+    throw new TypeError(
+      "Consensus round decision must preserve one total historical outcome",
+    );
+  }
+  return decision;
 }
 
-export function isConsensusFinalizationState(
+export function isConsensusRoundDecision(
   value: unknown,
-): value is ConsensusFinalizationState {
+): value is ConsensusRoundDecision {
   if (
     !isRecord(value) ||
     !hasExactKeys(
       value,
-      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusFinalizationState,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusRoundDecision,
     ) ||
-    value.kind !== "consensus_finalization_state" ||
+    value.kind !== "consensus_resolution" ||
+    value.resolutionKind !== "round_decision" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isRef(value.decisionRef) ||
+    !isDigest(value.decisionDigest) ||
+    !isConsensusRoundOutcome(value.outcome) ||
+    !isConsensusResultCandidate(value.result) ||
+    typeof value.resolutionTerminal !== "boolean" ||
+    sha256Canonical(value.outcome as unknown as JsonValue) !==
+      sha256Canonical(value.result.terminalOutcome as unknown as JsonValue) ||
+    value.resolutionTerminal !==
+      (value.outcome.outcome !== "escalate_fh")
+  ) return false;
+  const {
+    decisionRef: _decisionRef,
+    decisionDigest: _decisionDigest,
+    ...body
+  } = value;
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return value.decisionDigest === digest &&
+    value.decisionRef ===
+      `consensus-round-decision://abg/${digest.slice("sha256:".length)}`;
+}
+
+export function isConsensusHumanFinalization(
+  value: unknown,
+): value is ConsensusHumanFinalization {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusHumanFinalization,
+    ) ||
+    value.kind !== "consensus_resolution" ||
+    value.resolutionKind !== "human_finalization" ||
     value.schemaVersion !== "5.0.0" ||
     !isRef(value.finalizationRef) ||
     !isDigest(value.finalizationDigest) ||
-    !["closed_done", "escalate_fh"].includes(String(value.disposition)) ||
-    !isConsensusResultCandidate(value.provisionalResult) ||
-    !(
-      value.finalResult === null ||
-      isConsensusResultCandidate(value.finalResult)
+    !isConsensusRoundDecision(value.roundDecision) ||
+    value.roundDecision.resolutionTerminal ||
+    value.roundDecision.outcome.outcome !== "escalate_fh" ||
+    !CONSENSUS_FH_DECISION_VALUES.includes(
+      value.decision as ConsensusFhDecision,
     ) ||
-    typeof value.terminal !== "boolean"
+    !isRef(value.humanActorRef) ||
+    !isRef(value.rationaleRef) ||
+    !isConsensusResultCandidate(value.result) ||
+    value.resolutionTerminal !== true ||
+    sha256Canonical(
+      value.result.terminalOutcome as unknown as JsonValue,
+    ) !== sha256Canonical(
+      value.roundDecision.outcome as unknown as JsonValue,
+    ) ||
+    value.result.contractFailureRef !== null ||
+    value.result.classification !==
+      (
+        value.decision === "accept_with_dissent"
+          ? "partial_agreement_with_dissent"
+          : "unresolved_disagreement"
+      ) ||
+    !value.result.lineageRefs.includes(value.roundDecision.decisionRef)
   ) return false;
   const {
-    finalizationRef,
-    finalizationDigest,
+    finalizationRef: _finalizationRef,
+    finalizationDigest: _finalizationDigest,
     ...body
   } = value;
-  const expectedDigest = sha256Canonical(body as unknown as JsonValue);
-  if (
-    finalizationDigest !== expectedDigest ||
-    finalizationRef !==
-      `consensus-finalization://abg/${
-        expectedDigest.slice("sha256:".length)
-      }` ||
-    value.terminal !== (value.finalResult !== null)
-  ) return false;
-  if (value.disposition === "escalate_fh") {
-    return value.terminal === false &&
-      value.finalResult === null &&
-      value.provisionalResult.classification ===
-        "unresolved_disagreement" &&
-      value.provisionalResult.contractFailureRef === null &&
-      value.provisionalResult.terminalOutcome.outcome === "escalate_fh";
-  }
-  if (value.terminal !== true || value.finalResult === null) return false;
-  const direct = sha256Canonical(
-    value.finalResult as unknown as JsonValue,
-  ) === sha256Canonical(
-    value.provisionalResult as unknown as JsonValue,
-  );
-  const humanFinalized =
-    value.provisionalResult.classification ===
-      "unresolved_disagreement" &&
-    value.provisionalResult.terminalOutcome.outcome === "escalate_fh" &&
-    value.finalResult.terminalOutcome.outcome === "closed_done" &&
-    value.finalResult.lineageRefs.includes(
-      value.provisionalResult.resultRef,
-    );
-  return direct || humanFinalized;
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return value.finalizationDigest === digest &&
+    value.finalizationRef ===
+      `consensus-human-finalization://abg/${
+        digest.slice("sha256:".length)
+      }`;
+}
+
+export function isConsensusResolution(
+  value: unknown,
+): value is ConsensusResolution {
+  return isConsensusRoundDecision(value) ||
+    isConsensusHumanFinalization(value);
 }
 
 export function isConsensusEscalationRequest(
   value: unknown,
-): value is ConsensusFinalizationState {
-  return isConsensusFinalizationState(value) &&
-    value.disposition === "escalate_fh" &&
-    value.terminal === false &&
-    value.finalResult === null;
+): value is ConsensusRoundDecision {
+  return isConsensusRoundDecision(value) &&
+    value.outcome.outcome === "escalate_fh" &&
+    value.resolutionTerminal === false;
 }
 
 export function isConsensusEscalationDecision(
   value: unknown,
 ): value is ConsensusEscalationDecision {
-  return isRecord(value) &&
-    hasExactKeys(value, [
-      "kind",
-      "schemaVersion",
-      "finalizationState",
-      "finalizationRef",
-      "finalizationDigest",
-      "decision",
-      "humanActorRef",
-      "rationaleRef",
-    ]) &&
-    value.kind === "consensus_escalation_decision" &&
-    value.schemaVersion === "5.0.0" &&
-    isConsensusEscalationRequest(value.finalizationState) &&
-    isRef(value.finalizationRef) &&
-    isDigest(value.finalizationDigest) &&
-    value.finalizationState.finalizationRef === value.finalizationRef &&
-    value.finalizationState.finalizationDigest ===
-      value.finalizationDigest &&
-    ["accept_with_dissent", "reject"].includes(String(value.decision)) &&
-    isRef(value.humanActorRef) &&
-    isRef(value.rationaleRef);
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusEscalationDecision,
+    ) ||
+    value.kind !== "consensus_escalation_decision" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isConsensusEscalationRequest(value.roundDecision) ||
+    !isRef(value.decisionRef) ||
+    !isDigest(value.decisionDigest) ||
+    !CONSENSUS_FH_DECISION_VALUES.includes(
+      value.decision as ConsensusFhDecision,
+    ) ||
+    !isRef(value.humanActorRef) ||
+    !isRef(value.rationaleRef)
+  ) return false;
+  const {
+    decisionRef: _decisionRef,
+    decisionDigest: _decisionDigest,
+    ...body
+  } = value;
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return value.decisionDigest === digest &&
+    value.decisionRef ===
+      `consensus-escalation-decision://abg/${
+        digest.slice("sha256:".length)
+      }`;
 }
 
 export function isTicketConsensusProjection(
@@ -2766,12 +2866,16 @@ function findingSetRef(findings: Readonly<ReviewFindings>): string {
   return `finding-set://abg/${findings.outputDigest.slice("sha256:".length)}`;
 }
 
-function rulingFor(findings: Readonly<ReviewFindings>): Readonly<ReviewRuling> {
+function rulingFor(
+  findings: Readonly<ReviewFindings>,
+  policy: Readonly<ConsensusRoundPolicy>,
+): Readonly<ReviewRuling> {
   const findingRefs = findings.findings.map((finding) => finding.findingRef);
+  const rulingKind: ReviewRulingKind = findings.refusalRef === null
+      ? policy.acceptedFindingRulingKind
+      : "deferment";
   const body = {
-    rulingKind: findings.refusalRef === null
-      ? "decision_row" as const
-      : "deferment" as const,
+    rulingKind,
     findingRefs,
     rationaleRef: findings.refusalRef !== null
       ? "rationale://abg/consensus/reviewer-contract-failure@5"
@@ -2891,7 +2995,7 @@ export function reduceConsensusRound(
   }
   const panel = task.panel;
   const findingSetRefs = findings.map(findingSetRef);
-  const rulings = findings.map(rulingFor);
+  const rulings = findings.map((row) => rulingFor(row, task.policy));
   const rulingRefs = rulings.map((ruling) => ruling.rulingRef);
   const evidenceRefs = [
     ...new Set([
@@ -3017,7 +3121,7 @@ export function projectConsensusResult(
       ? "unanimous_agreement"
       : "partial_agreement_with_dissent";
   const body = {
-    kind: "consensus_result" as const,
+    kind: "consensus_result_candidate" as const,
     schemaVersion: "5.0.0" as const,
     subjectRef: state.subject.subjectRef,
     subjectDigest: state.subject.subjectDigest,
@@ -3042,57 +3146,43 @@ export function projectConsensusResult(
     ],
     contractFailureRef,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
-  return deepFreeze({
-    ...body,
-    resultRef: `consensus-result://abg/${digest.slice("sha256:".length)}`,
-  });
+  return deepFreeze(body);
 }
 
-export function prepareConsensusFinalization(
+export function prepareConsensusResolution(
   state: Readonly<ConsensusRoundState>,
-): Readonly<ConsensusFinalizationState> {
-  const result = projectConsensusResult(state);
-  return constructConsensusFinalizationState({
-    disposition:
-      result.terminalOutcome.outcome === "escalate_fh"
-        ? "escalate_fh"
-        : "closed_done",
-    provisionalResult: result,
-    finalResult:
-      result.terminalOutcome.outcome === "escalate_fh" ? null : result,
-  });
+): Readonly<ConsensusRoundDecision> {
+  return constructConsensusRoundDecision(projectConsensusResult(state));
 }
 
 export function projectConsensusFinalResult(
-  state: Readonly<ConsensusFinalizationState>,
+  resolution: Readonly<ConsensusResolution>,
 ): Readonly<ConsensusResultCandidate> {
-  if (
-    !isConsensusFinalizationState(state) ||
-    state.terminal !== true ||
-    state.finalResult === null
-  ) {
+  if (!isConsensusResolution(resolution)) {
     throw new TypeError(
-      "Consensus final result projection requires one terminal finalization state",
+      "Consensus result projection requires one exact resolution",
     );
   }
-  return state.finalResult;
+  if (
+    isConsensusRoundDecision(resolution) &&
+    !resolution.resolutionTerminal
+  ) {
+    throw new TypeError(
+      "Consensus unresolved round requires one admitted F_H decision",
+    );
+  }
+  return resolution.result;
 }
 
 export function finalizeConsensusEscalation(
   decision: Readonly<ConsensusEscalationDecision>,
-): Readonly<ConsensusFinalizationState> {
+): Readonly<ConsensusHumanFinalization> {
   if (!isConsensusEscalationDecision(decision)) {
     throw new TypeError("Consensus escalation requires one exact human decision");
   }
-  const unresolvedResult =
-    decision.finalizationState.provisionalResult;
-  const terminalOutcome: ConsensusRoundOutcome = {
-    ...unresolvedResult.terminalOutcome,
-    outcome: "closed_done",
-  };
-  const body = {
-    kind: "consensus_result" as const,
+  const unresolvedResult = decision.roundDecision.result;
+  const result = deepFreeze({
+    kind: "consensus_result_candidate" as const,
     schemaVersion: "5.0.0" as const,
     subjectRef: unresolvedResult.subjectRef,
     subjectDigest: unresolvedResult.subjectDigest,
@@ -3106,47 +3196,51 @@ export function finalizeConsensusEscalation(
       ? "partial_agreement_with_dissent" as const
       : "unresolved_disagreement" as const,
     dissentProfileRefs: unresolvedResult.dissentProfileRefs,
-    terminalOutcome,
+    terminalOutcome: unresolvedResult.terminalOutcome,
     evidenceRefs: unresolvedResult.evidenceRefs,
     lineageRefs: [
       ...unresolvedResult.lineageRefs,
-      unresolvedResult.resultRef,
-      decision.finalizationRef,
+      decision.roundDecision.decisionRef,
+      decision.decisionRef,
       decision.humanActorRef,
       decision.rationaleRef,
     ],
     contractFailureRef: null,
+  });
+  const body = {
+    kind: "consensus_resolution" as const,
+    resolutionKind: "human_finalization" as const,
+    schemaVersion: "5.0.0" as const,
+    roundDecision: decision.roundDecision,
+    decision: decision.decision,
+    humanActorRef: decision.humanActorRef,
+    rationaleRef: decision.rationaleRef,
+    result,
+    resolutionTerminal: true as const,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
-  const finalResult = deepFreeze({
+  const finalizationDigest = sha256Canonical(body as unknown as JsonValue);
+  const finalization = deepFreeze({
     ...body,
-    resultRef:
-      `consensus-result://abg/fh/${digest.slice("sha256:".length)}`,
+    finalizationRef:
+      `consensus-human-finalization://abg/${
+        finalizationDigest.slice("sha256:".length)
+      }`,
+    finalizationDigest,
   });
-  return constructConsensusFinalizationState({
-    disposition: "closed_done",
-    provisionalResult: unresolvedResult,
-    finalResult,
-  });
+  if (!isConsensusHumanFinalization(finalization)) {
+    throw new TypeError(
+      "Consensus F_H finalization must preserve its historical escalation outcome",
+    );
+  }
+  return finalization;
 }
 
 export function projectTicketConsensus(
-  suppliedResult: Readonly<ConsensusResultCandidate | ConsensusResult>,
-  suppliedReplayRef?: string,
+  result: Readonly<ConsensusResult>,
 ): Readonly<TicketConsensusProjection> {
-  const replayRef = isConsensusResult(suppliedResult)
-    ? suppliedResult.replayRef
-    : suppliedReplayRef;
-  const result = isConsensusResult(suppliedResult)
-    ? (() => {
-        const { replayRef: _replayRef, ...candidate } = suppliedResult;
-        return candidate;
-      })()
-    : suppliedResult;
   if (
-    !isConsensusResultCandidate(result) ||
-    !result.subjectRef.startsWith("ticket://") ||
-    !isRef(replayRef)
+    !isConsensusResult(result) ||
+    !result.subjectRef.startsWith("ticket://")
   ) {
     throw new TypeError(
       "Ticket Consensus projection requires one admitted ticket result and replay",
@@ -3171,7 +3265,7 @@ export function projectTicketConsensus(
     evidenceRefs: result.evidenceRefs,
     lineageRefs: result.lineageRefs,
     resultRef: result.resultRef,
-    replayRef,
+    replayRef: result.replayRef,
   };
   const projectionDigest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({
@@ -3349,18 +3443,18 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
       return relation(
         (input, output) =>
           isConsensusRoundState(input) &&
-          isConsensusFinalizationState(output) &&
+          isConsensusRoundDecision(output) &&
           sha256Canonical(output as unknown as JsonValue) ===
             sha256Canonical(
-              prepareConsensusFinalization(input) as unknown as JsonValue,
+              prepareConsensusResolution(input) as unknown as JsonValue,
             ),
         "finalization-preparation",
       );
     case CONSENSUS_IDS.finalizationEvaluatorPredicateRef:
       return relation(
         (input, output) =>
-          isConsensusFinalizationState(input) &&
-          isConsensusFinalizationState(output) &&
+          isConsensusResolution(input) &&
+          isConsensusResolution(output) &&
           sha256Canonical(input as unknown as JsonValue) ===
             sha256Canonical(output as unknown as JsonValue),
         "finalization-evaluation",
@@ -3368,7 +3462,7 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
     case CONSENSUS_IDS.projectorPredicateRef:
       return relation(
         (input, output) =>
-          isConsensusFinalizationState(input) &&
+          isConsensusResolution(input) &&
           isConsensusResultCandidate(output) &&
           sha256Canonical(output as unknown as JsonValue) ===
             sha256Canonical(
@@ -3380,7 +3474,7 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
       return relation(
         (input, output) =>
           isConsensusEscalationDecision(input) &&
-          isConsensusFinalizationState(output) &&
+          isConsensusHumanFinalization(output) &&
           sha256Canonical(output as unknown as JsonValue) ===
             sha256Canonical(
               finalizeConsensusEscalation(input) as unknown as JsonValue,
@@ -3608,11 +3702,11 @@ export function constructConsensusModulePublication(
   const stateCarrier = cCarrier<ConsensusRoundState>(
     CONSENSUS_IDS.stateContractRef,
   );
-  const finalizationStateCarrier = cCarrier<ConsensusFinalizationState>(
-    CONSENSUS_IDS.finalizationStateContractRef,
+  const resolutionCarrier = cCarrier<ConsensusResolution>(
+    CONSENSUS_IDS.resolutionContractRef,
   );
   const resultCarrier = cCarrier<ConsensusResultCandidate>(
-    CONSENSUS_IDS.resultContractRef,
+    CONSENSUS_IDS.resultCandidateContractRef,
   );
   const observationCarrier = cCarrier<Record<string, JsonValue>>(
     CONSENSUS_IDS.observationContractRef,
@@ -3681,18 +3775,18 @@ export function constructConsensusModulePublication(
       binding: "$",
       requiresParentEvaluation: true,
     },
-    bound: 4,
+    bound: Number.MAX_SAFE_INTEGER,
   });
   const finalizationRecursion = recurseApplication({
-    inputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
-    outputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
+    inputContractRef: CONSENSUS_IDS.resolutionContractRef,
+    outputContractRef: CONSENSUS_IDS.resolutionContractRef,
     graphFunctionRef: CONSENSUS_IDS.escalationGraphFunctionRef,
     terminationRuleRef:
       CONSENSUS_IDS.finalizationTerminationRuleRef,
     terminationEvaluatorRefs: [
       CONSENSUS_IDS.finalizationEvaluatorRef,
     ],
-    terminationFieldRef: "$.terminal",
+    terminationFieldRef: "$.resolutionTerminal",
     foldback: {
       mode: "rebind",
       binding: "$",
@@ -3735,7 +3829,7 @@ export function constructConsensusModulePublication(
   });
   const finalizationPreparationLeaf = C.of({
     input: stateCarrier,
-    output: finalizationStateCarrier,
+    output: resolutionCarrier,
     programLocusRef: CONSENSUS_IDS.finalizationPreparationNodeRef,
     stageRole: "prepare_finalization",
     fibre: "F_D",
@@ -3748,11 +3842,11 @@ export function constructConsensusModulePublication(
     requirement: executableRequirement(
       CONSENSUS_IDS.finalizationPreparationImplementationBindingRef,
       CONSENSUS_IDS.stateContractRef,
-      CONSENSUS_IDS.finalizationStateContractRef,
+      CONSENSUS_IDS.resolutionContractRef,
     ),
   });
   const projectorLeaf = C.of({
-    input: finalizationStateCarrier,
+    input: resolutionCarrier,
     output: resultCarrier,
     programLocusRef: CONSENSUS_IDS.projectorNodeRef,
     stageRole: "project_result",
@@ -3764,8 +3858,8 @@ export function constructConsensusModulePublication(
     resultBearing: true,
     requirement: executableRequirement(
       CONSENSUS_IDS.projectorImplementationBindingRef,
-      CONSENSUS_IDS.finalizationStateContractRef,
-      CONSENSUS_IDS.resultContractRef,
+      CONSENSUS_IDS.resolutionContractRef,
+      CONSENSUS_IDS.resultCandidateContractRef,
     ),
   });
   const roundEvaluator = C.of({
@@ -3786,8 +3880,8 @@ export function constructConsensusModulePublication(
     ),
   });
   const finalizationEvaluator = C.of({
-    input: finalizationStateCarrier,
-    output: finalizationStateCarrier,
+    input: resolutionCarrier,
+    output: resolutionCarrier,
     programLocusRef: CONSENSUS_IDS.finalizationLoopNodeRef,
     stageRole: "finalization_termination",
     fibre: "F_D",
@@ -3799,8 +3893,8 @@ export function constructConsensusModulePublication(
     resultBearing: false,
     requirement: executableRequirement(
       CONSENSUS_IDS.finalizationEvaluatorImplementationBindingRef,
-      CONSENSUS_IDS.finalizationStateContractRef,
-      CONSENSUS_IDS.finalizationStateContractRef,
+      CONSENSUS_IDS.resolutionContractRef,
+      CONSENSUS_IDS.resolutionContractRef,
     ),
   });
   const rootGraphFunction: GraphFunction = {
@@ -3809,16 +3903,16 @@ export function constructConsensusModulePublication(
     version: "5.0.0",
     environment: {
       requires: [CONSENSUS_IDS.invocationContractRef],
-      provides: [CONSENSUS_IDS.resultContractRef],
+      provides: [CONSENSUS_IDS.resultCandidateContractRef],
       carries: [
         CONSENSUS_IDS.stateContractRef,
-        CONSENSUS_IDS.finalizationStateContractRef,
+        CONSENSUS_IDS.resolutionContractRef,
         CONSENSUS_IDS.findingsContractRef,
         CONSENSUS_IDS.roundOutcomeContractRef,
       ],
     },
     inputs: [CONSENSUS_IDS.invocationContractRef],
-    outputs: [CONSENSUS_IDS.resultContractRef],
+    outputs: [CONSENSUS_IDS.resultCandidateContractRef],
     template: {
       kind: "inline_graph",
       graphRef: CONSENSUS_IDS.graphRef,
@@ -3871,9 +3965,13 @@ export function constructConsensusModulePublication(
       ],
       applications: [recursion, finalizationRecursion],
     },
-    effects: [],
+    effects: [
+      "effect://abg/consensus/reviewer-worker@5",
+      "effect://abg/consensus/submitter-worker@5",
+      "effect://abg/consensus/human-resolution@5",
+    ],
     declarations: {
-      "abg.compute_regime": "F_D+F_P",
+      "abg.compute_regime": "mixed",
       "abg.closure_contract": CONSENSUS_IDS.rootClosureContractRef,
       "abg.child_closure_contract":
         CONSENSUS_IDS.resultClosureContractRef,
@@ -3922,9 +4020,12 @@ export function constructConsensusModulePublication(
       edges: [],
       applications: [fanOut, fanIn],
     },
-    effects: [],
+    effects: [
+      "effect://abg/consensus/reviewer-worker@5",
+      "effect://abg/consensus/submitter-worker@5",
+    ],
     declarations: {
-      "abg.compute_regime": "F_D+F_P",
+      "abg.compute_regime": "mixed",
       "abg.closure_contract": CONSENSUS_IDS.childClosureContractRef,
       "abg.child_closure_contract": CONSENSUS_IDS.childClosureContractRef,
       "abg.evidence_contract": CONSENSUS_IDS.evidenceContractRef,
@@ -4036,7 +4137,7 @@ export function constructConsensusModulePublication(
     },
     effects: [...submitterGraphFunction.effects],
     declarations: {
-      "abg.compute_regime": "F_D+F_P",
+      "abg.compute_regime": "mixed",
       "abg.closure_contract": CONSENSUS_IDS.childClosureContractRef,
       "abg.child_closure_contract":
         CONSENSUS_IDS.childClosureContractRef,
@@ -4058,19 +4159,19 @@ export function constructConsensusModulePublication(
   const escalationFinalizerRef = cGraphFunctionRef({
     graphFunctionRef: CONSENSUS_IDS.escalationFinalizerGraphFunctionRef,
     input: escalationDecisionCarrier,
-    output: finalizationStateCarrier,
+    output: resolutionCarrier,
   });
   const escalationGraphFunction: GraphFunction = {
     kind: "graph_function",
     name: CONSENSUS_IDS.escalationGraphFunctionRef,
     version: "5.0.0",
     environment: {
-      requires: [CONSENSUS_IDS.finalizationStateContractRef],
-      provides: [CONSENSUS_IDS.finalizationStateContractRef],
+      requires: [CONSENSUS_IDS.resolutionContractRef],
+      provides: [CONSENSUS_IDS.resolutionContractRef],
       carries: [CONSENSUS_IDS.escalationDecisionContractRef],
     },
-    inputs: [CONSENSUS_IDS.finalizationStateContractRef],
-    outputs: [CONSENSUS_IDS.finalizationStateContractRef],
+    inputs: [CONSENSUS_IDS.resolutionContractRef],
+    outputs: [CONSENSUS_IDS.resolutionContractRef],
     template: {
       kind: "inline_graph",
       graphRef: CONSENSUS_IDS.escalationGraphRef,
@@ -4081,7 +4182,7 @@ export function constructConsensusModulePublication(
         nodeKind: "c_locus",
         term: C.compose(
           C.of({
-            input: finalizationStateCarrier,
+            input: resolutionCarrier,
             output: escalationDecisionCarrier,
             programLocusRef: CONSENSUS_IDS.escalationNodeRef,
             stageRole: "consensus_fh_escalation",
@@ -4097,7 +4198,7 @@ export function constructConsensusModulePublication(
               interactionKind: CONSENSUS_IDS.interactionKind,
               actorCapabilityRef: CONSENSUS_IDS.actorCapabilityRef,
               requestContractRef:
-                CONSENSUS_IDS.finalizationStateContractRef,
+                CONSENSUS_IDS.resolutionContractRef,
               responseContractRef:
                 CONSENSUS_IDS.escalationDecisionContractRef,
               continuationContractRef:
@@ -4112,7 +4213,7 @@ export function constructConsensusModulePublication(
     },
     effects: ["effect://abg/consensus/human-resolution@5"],
     declarations: {
-      "abg.compute_regime": "F_H+F_D",
+      "abg.compute_regime": "mixed",
       "abg.closure_contract":
         CONSENSUS_IDS.finalizationClosureContractRef,
       "abg.child_closure_contract":
@@ -4130,7 +4231,7 @@ export function constructConsensusModulePublication(
     graphRef: CONSENSUS_IDS.escalationFinalizerGraphRef,
     nodeRef: CONSENSUS_IDS.escalationFinalizerNodeRef,
     inputContractRef: CONSENSUS_IDS.escalationDecisionContractRef,
-    outputContractRef: CONSENSUS_IDS.finalizationStateContractRef,
+    outputContractRef: CONSENSUS_IDS.resolutionContractRef,
     bindingRef: CONSENSUS_IDS.escalationFinalizerImplementationBindingRef,
     predicateRef: CONSENSUS_IDS.escalationFinalizerPredicateRef,
     stageRole: "fh_escalation_finalization",
@@ -4252,7 +4353,7 @@ export function constructConsensusModulePublication(
         CONSENSUS_IDS.nextActionContractRef,
         CONSENSUS_IDS.actionEvaluationBasisContractRef,
         CONSENSUS_IDS.actionEvaluationContractRef,
-        CONSENSUS_IDS.resultContractRef,
+        CONSENSUS_IDS.resultCandidateContractRef,
       ],
     },
     inputs: [CONSENSUS_IDS.observationContractRef],
@@ -4270,9 +4371,13 @@ export function constructConsensusModulePublication(
       edges: [],
       applications: [],
     },
-    effects: [],
+    effects: [
+      "effect://abg/consensus/reviewer-worker@5",
+      "effect://abg/consensus/submitter-worker@5",
+      "effect://abg/consensus/human-resolution@5",
+    ],
     declarations: {
-      "abg.compute_regime": "F_D+F_P",
+      "abg.compute_regime": "mixed",
       "abg.closure_contract":
         CONSENSUS_IDS.oneSurfaceClosureContractRef,
       "abg.evidence_contract": CONSENSUS_IDS.evidenceContractRef,
@@ -4402,6 +4507,7 @@ export function constructConsensusModulePublication(
     [CONSENSUS_IDS.rulingsContractRef, "output", "review_rulings"],
     [CONSENSUS_IDS.policyContractRef, "input", "consensus_round_policy"],
     [CONSENSUS_IDS.roundOutcomeContractRef, "output", "consensus_round_outcome"],
+    [CONSENSUS_IDS.resultCandidateContractRef, "output", "consensus_result_candidate"],
     [CONSENSUS_IDS.resultContractRef, "output", "consensus_result"],
     [CONSENSUS_IDS.ticketProjectionContractRef, "output", "ticket_consensus_projection"],
     [CONSENSUS_IDS.invocationContractRef, "input", "consensus_invocation"],
@@ -4412,7 +4518,7 @@ export function constructConsensusModulePublication(
     [CONSENSUS_IDS.actionEvaluationBasisContractRef, "output", "action_evaluation_basis"],
     [CONSENSUS_IDS.actionEvaluationContractRef, "output", "action_evaluation_projection"],
     [CONSENSUS_IDS.stateContractRef, "output", "consensus_round_state"],
-    [CONSENSUS_IDS.finalizationStateContractRef, "output", "consensus_finalization_state"],
+    [CONSENSUS_IDS.resolutionContractRef, "output", "consensus_resolution"],
     [CONSENSUS_IDS.reviewerTaskContractRef, "input", "consensus_reviewer_task"],
     [CONSENSUS_IDS.findingsVectorContractRef, "output", "consensus_findings_vector"],
     [CONSENSUS_IDS.submitterTaskContractRef, "output", "consensus_submitter_task"],
@@ -4506,23 +4612,23 @@ export function constructConsensusModulePublication(
       "realizeConsensusFinalizationPreparation",
       "F_D",
       CONSENSUS_IDS.stateContractRef,
-      CONSENSUS_IDS.finalizationStateContractRef,
+      CONSENSUS_IDS.resolutionContractRef,
     ),
     binding(
       CONSENSUS_IDS.finalizationEvaluatorImplementationBindingRef,
       CONSENSUS_IDS.finalizationEvaluatorImplementationRef,
       "realizeConsensusFinalizationEvaluation",
       "F_D",
-      CONSENSUS_IDS.finalizationStateContractRef,
-      CONSENSUS_IDS.finalizationStateContractRef,
+      CONSENSUS_IDS.resolutionContractRef,
+      CONSENSUS_IDS.resolutionContractRef,
     ),
     binding(
       CONSENSUS_IDS.projectorImplementationBindingRef,
       CONSENSUS_IDS.projectorImplementationRef,
       "realizeConsensusResultProjection",
       "F_D",
-      CONSENSUS_IDS.finalizationStateContractRef,
-      CONSENSUS_IDS.resultContractRef,
+      CONSENSUS_IDS.resolutionContractRef,
+      CONSENSUS_IDS.resultCandidateContractRef,
     ),
     binding(
       CONSENSUS_IDS.escalationFinalizerImplementationBindingRef,
@@ -4530,7 +4636,7 @@ export function constructConsensusModulePublication(
       "realizeConsensusEscalationFinalization",
       "F_D",
       CONSENSUS_IDS.escalationDecisionContractRef,
-      CONSENSUS_IDS.finalizationStateContractRef,
+      CONSENSUS_IDS.resolutionContractRef,
     ),
     binding(
       CONSENSUS_IDS.synthesizeModelImplementationBindingRef,
@@ -4593,7 +4699,7 @@ export function constructConsensusModulePublication(
     closure(
       CONSENSUS_IDS.rootClosureContractRef,
       "run",
-      CONSENSUS_IDS.resultContractRef,
+      CONSENSUS_IDS.resultCandidateContractRef,
     ),
     closure(
       CONSENSUS_IDS.childClosureContractRef,
@@ -4613,12 +4719,12 @@ export function constructConsensusModulePublication(
     closure(
       CONSENSUS_IDS.resultClosureContractRef,
       "graph_call",
-      CONSENSUS_IDS.resultContractRef,
+      CONSENSUS_IDS.resultCandidateContractRef,
     ),
     closure(
       CONSENSUS_IDS.finalizationClosureContractRef,
       "graph_call",
-      CONSENSUS_IDS.finalizationStateContractRef,
+      CONSENSUS_IDS.resolutionContractRef,
     ),
     closure(
       CONSENSUS_IDS.oneSurfaceClosureContractRef,
@@ -4649,6 +4755,46 @@ export function constructConsensusModulePublication(
         ? CONSENSUS_IDS.handle
         : graphFunction.name,
     ));
+  const catalogSurface = (
+    handle: string,
+    kind: "node_type" | "overlay",
+    declarationOrContractRef: string,
+  ): CatalogContribution => ({
+    handle,
+    kind,
+    declarationOrContractRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  });
+  contributions.push(
+    catalogSurface(
+      CONSENSUS_IDS.subjectCatalogHandle,
+      "node_type",
+      CONSENSUS_IDS.subjectContractRef,
+    ),
+    catalogSurface(
+      CONSENSUS_IDS.reviewerProfileCatalogHandle,
+      "node_type",
+      CONSENSUS_IDS.profileContractRef,
+    ),
+    catalogSurface(
+      CONSENSUS_IDS.submitterProfileCatalogHandle,
+      "node_type",
+      CONSENSUS_IDS.submitterProfileContractRef,
+    ),
+    catalogSurface(
+      CONSENSUS_IDS.policyCatalogHandle,
+      "node_type",
+      CONSENSUS_IDS.policyContractRef,
+    ),
+    catalogSurface(
+      CONSENSUS_IDS.rulingOverlayCatalogHandle,
+      "overlay",
+      CONSENSUS_IDS.rulingsContractRef,
+    ),
+  );
   return deepFreeze({
     kind: "module_publication" as const,
     moduleRef: CONSENSUS_IDS.moduleRef,
@@ -4684,7 +4830,7 @@ export function constructConsensusModulePublication(
         description:
           "Evaluates whether Consensus finalization is complete or requires the same-Run F_H child.",
         binding: CONSENSUS_IDS.finalizationEvaluatorImplementationRef,
-        consumedFieldRefs: ["$.terminal"],
+        consumedFieldRefs: ["$.resolutionTerminal"],
         tags: ["consensus", "finalization", "same-run"],
       }),
     ],
@@ -4702,7 +4848,7 @@ export function constructConsensusModulePublication(
         name: CONSENSUS_IDS.finalizationTerminationRuleRef,
         kind: "boolean_field_termination",
         config: {
-          fieldRef: "$.terminal",
+          fieldRef: "$.resolutionTerminal",
           terminalValue: true,
         },
         tags: ["consensus", "finalization", "same-run"],

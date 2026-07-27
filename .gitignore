@@ -45,6 +45,7 @@ build_tenants/*/*/node_modules/
 build_tenants/abiogenesis/typescript/contracts/schemas/consensus.schema.json
 build_tenants/abiogenesis/typescript/contracts/vocabularies/consensus-round-outcome.json
 build_tenants/abiogenesis/typescript/contracts/vocabularies/review-ruling-kind.json
+build_tenants/abiogenesis/typescript/contracts/vocabularies/consensus-fh-decision.json
 
 # Local browser/tool scratch
 .playwright-mcp/

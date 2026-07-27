@@ -43,18 +43,45 @@ function artifactBasis() {
   };
 }
 
-function canonicalPolicy() {
+function canonicalPolicy(acceptedFindingRulingKind = "decision_row") {
   return gtl.constructConsensusRoundPolicy({
     policyRef: "policy://developer/consensus/module-proof@1",
     roundBudget: 2,
     convergenceRuleRef: gtl.CONSENSUS_IDS.convergenceRuleRef,
-    disagreementRuleRef: gtl.CONSENSUS_IDS.disagreementRuleRef,
+    disagreementRuleRef: gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
+    acceptedFindingRulingKind,
     escalationRuleRef: gtl.CONSENSUS_IDS.escalationRuleRef,
     foldbackContractRef: gtl.CONSENSUS_IDS.foldbackContractRef,
   });
 }
 
-function invocationFor(workspaceRef = WORKSPACE) {
+function consensusCatalogView() {
+  const publication = gtl.constructConsensusModulePublication(artifactBasis());
+  const handles = [
+    gtl.CONSENSUS_IDS.subjectCatalogHandle,
+    gtl.CONSENSUS_IDS.reviewerProfileCatalogHandle,
+    gtl.CONSENSUS_IDS.submitterProfileCatalogHandle,
+    gtl.CONSENSUS_IDS.policyCatalogHandle,
+    gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
+  ];
+  return {
+    selectedRows: handles.map((handle) => {
+      const contribution = publication.contributions.find(
+        (row) => row.handle === handle,
+      );
+      assert.ok(contribution, `missing catalog contribution ${handle}`);
+      return {
+        ...contribution,
+        disposition: "admitted",
+      };
+    }),
+  };
+}
+
+function invocationFor(
+  workspaceRef = WORKSPACE,
+  acceptedFindingRulingKind = "decision_row",
+) {
   const subjectMaterialization =
     gtl.constructConsensusSubjectMaterialization({
       subjectContractRef: "contract://stdo/ticket@2",
@@ -108,7 +135,7 @@ function invocationFor(workspaceRef = WORKSPACE) {
     actorRef: ACTOR,
     workerBindingRef: "worker-binding://developer/submitter/author",
   });
-  const policy = canonicalPolicy();
+  const policy = canonicalPolicy(acceptedFindingRulingKind);
   const subject = gtl.constructConsensusSubject({
     subjectContractRef: "contract://stdo/ticket@2",
     subjectRef: "ticket://abiogenesis/T-276",
@@ -133,13 +160,11 @@ function invocationFor(workspaceRef = WORKSPACE) {
   });
 }
 
-function unresolvedCandidate(
-  resultRef = "consensus-result://developer/unresolved",
-) {
+function unresolvedCandidate(subjectRef = "ticket://abiogenesis/T-276") {
   return {
-    kind: "consensus_result",
+    kind: "consensus_result_candidate",
     schemaVersion: "5.0.0",
-    subjectRef: "ticket://abiogenesis/T-276",
+    subjectRef,
     subjectDigest: DIGEST,
     panelRef: "panel://developer/consensus/module-proof",
     policyRef: "policy://developer/consensus/module-proof@1",
@@ -160,47 +185,52 @@ function unresolvedCandidate(
     },
     evidenceRefs: ["evidence://developer/1"],
     lineageRefs: ["consensus-round://developer/1"],
-    resultRef,
     contractFailureRef: null,
   };
 }
 
-function unresolvedFinalization(
-  resultRef = "consensus-result://developer/unresolved",
-) {
+function unresolvedResolution(subjectRef = "ticket://abiogenesis/T-276") {
+  const result = unresolvedCandidate(subjectRef);
   const body = {
-    kind: "consensus_finalization_state",
+    kind: "consensus_resolution",
+    resolutionKind: "round_decision",
     schemaVersion: "5.0.0",
-    disposition: "escalate_fh",
-    provisionalResult: unresolvedCandidate(resultRef),
-    finalResult: null,
-    terminal: false,
+    outcome: result.terminalOutcome,
+    result,
+    resolutionTerminal: false,
   };
-  const finalizationDigest = product.sha256Canonical(body);
+  const decisionDigest = product.sha256Canonical(body);
   return {
     ...body,
-    finalizationRef:
-      `consensus-finalization://abg/${
-        finalizationDigest.slice("sha256:".length)
+    decisionRef:
+      `consensus-round-decision://abg/${
+        decisionDigest.slice("sha256:".length)
       }`,
-    finalizationDigest,
+    decisionDigest,
   };
 }
 
 function escalationDecision(
-  finalizationState,
+  roundDecision,
   humanActorRef = ACTOR,
   decision = "accept_with_dissent",
 ) {
-  return {
+  const body = {
     kind: "consensus_escalation_decision",
     schemaVersion: "5.0.0",
-    finalizationState,
-    finalizationRef: finalizationState.finalizationRef,
-    finalizationDigest: finalizationState.finalizationDigest,
+    roundDecision,
     decision,
     humanActorRef,
     rationaleRef: "rationale://developer/consensus/module-proof",
+  };
+  const decisionDigest = product.sha256Canonical(body);
+  return {
+    ...body,
+    decisionRef:
+      `consensus-escalation-decision://abg/${
+        decisionDigest.slice("sha256:".length)
+      }`,
+    decisionDigest,
   };
 }
 
@@ -430,6 +460,10 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
       "abg.vocabulary.consensus-round-outcome",
       gtl.CONSENSUS_ROUND_OUTCOME_VALUES,
     ],
+    [
+      "abg.vocabulary.consensus-fh-decision",
+      gtl.CONSENSUS_FH_DECISION_VALUES,
+    ],
   ]);
   for (const [contractId, nativeValues] of vocabularyBindings) {
     const row = rows.get(contractId);
@@ -619,7 +653,7 @@ test("S05 serialized Consensus schema is one exact projection of native Product 
       assert.deepEqual(
         requiredKeys,
         schema.$defs.ConsensusResult.required.filter(
-          (key) => key !== "replayRef",
+          (key) => !["resultRef", "replayRef"].includes(key),
         ),
       );
       continue;
@@ -651,6 +685,7 @@ test("S05 serialized Consensus schema is one exact projection of native Product 
     gtl.isConsensusResult(
       gtl.bindConsensusReplay(
         candidate,
+        "result://abg/module-proof/unresolved",
         "replay://abiogenesis/module-proof/unresolved",
       ),
     ),
@@ -663,7 +698,6 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
   assert.equal(gtl.isConsensusRoundPolicy(policy), true);
   for (const field of [
     "convergenceRuleRef",
-    "disagreementRuleRef",
     "escalationRuleRef",
     "foldbackContractRef",
   ]) {
@@ -673,6 +707,11 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     mutated.policyDigest = product.sha256Canonical(body);
     assert.equal(gtl.isConsensusRoundPolicy(mutated), false, field);
   }
+  const invalidRuling = structuredClone(policy);
+  invalidRuling.acceptedFindingRulingKind = "deferment";
+  const { policyDigest: _invalidDigest, ...invalidRulingBody } = invalidRuling;
+  invalidRuling.policyDigest = product.sha256Canonical(invalidRulingBody);
+  assert.equal(gtl.isConsensusRoundPolicy(invalidRuling), false);
 
   const publication = gtl.constructConsensusModulePublication(artifactBasis());
   const program = publication.programs.find(
@@ -686,6 +725,7 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     workspaceBindingDigest: DIGEST,
     workspaceId: WORKSPACE,
     actionCatalog: program.actionCatalog,
+    catalogView: consensusCatalogView(),
     sourceResultBasis: null,
   };
   assert.equal(
@@ -707,6 +747,20 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
       workspaceId: `${WORKSPACE}/substituted`,
     }),
     false,
+  );
+  const unknownOverlay = structuredClone(input);
+  unknownOverlay.policy.disagreementRuleRef =
+    "catalog://downstream/consensus/overlay/unknown";
+  const { policyDigest: _policyDigest, ...policyBody } = unknownOverlay.policy;
+  unknownOverlay.policy.policyDigest = product.sha256Canonical(policyBody);
+  assert.equal(gtl.isConsensusInvocation(unknownOverlay), true);
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
+      ...basis,
+      input: unknownOverlay,
+    }),
+    false,
+    "a policy overlay URI must resolve through the existing admitted catalog view",
   );
 
   const observation = gtl.constructConsensusObservationSnapshot({
@@ -796,9 +850,9 @@ test("S05 admits one explicit reviewer without hard-coding panel cardinality", (
 });
 
 test("S05 Product response semantics bind the exact pending result and acting actor", () => {
-  const pending = unresolvedFinalization();
+  const pending = unresolvedResolution();
   const basis = {
-    requestContractRef: gtl.CONSENSUS_IDS.finalizationStateContractRef,
+    requestContractRef: gtl.CONSENSUS_IDS.resolutionContractRef,
     responseContractRef: gtl.CONSENSUS_IDS.escalationDecisionContractRef,
     requestValue: pending,
     actingActorRef: ACTOR,
@@ -810,9 +864,7 @@ test("S05 Product response semantics bind the exact pending result and acting ac
     ),
     null,
   );
-  const other = unresolvedFinalization(
-    `${pending.provisionalResult.resultRef}/other`,
-  );
+  const other = unresolvedResolution("ticket://abiogenesis/T-276/other");
   assert.equal(
     ABI5_SYSTEM_PRODUCT_SEMANTICS.evaluateInteractionResponse(
       basis,
@@ -830,6 +882,23 @@ test("S05 Product response semantics bind the exact pending result and acting ac
 });
 
 test("S05 round reduction and same-Run human finalization form one total Product algebra", async () => {
+  for (const rulingKind of [
+    "decision_row",
+    "draft_ticket",
+    "split_ticket",
+    "rejected_finding",
+  ]) {
+    const state = gtl.initializeConsensus(invocationFor(WORKSPACE, rulingKind));
+    const vector = await findingsVectorFor(state, "accept");
+    const response = await responseFor(vector, "acknowledge");
+    const decision = gtl.reduceConsensusRound(response);
+    assert.deepEqual(
+      decision.rulings.map((ruling) => ruling.rulingKind),
+      Array.from({ length: state.panel.profiles.length }, () => rulingKind),
+      rulingKind,
+    );
+  }
+
   const agreementState = gtl.initializeConsensus(invocationFor());
   const agreementVector = await findingsVectorFor(agreementState, "accept");
   const agreementResponse = await responseFor(
@@ -843,12 +912,12 @@ test("S05 round reduction and same-Run human finalization form one total Product
     gtl.projectConsensusResult(agreement).classification,
     "unanimous_agreement",
   );
-  const closed = gtl.prepareConsensusFinalization(agreement);
-  assert.equal(closed.disposition, "closed_done");
-  assert.equal(closed.terminal, true);
+  const closed = gtl.prepareConsensusResolution(agreement);
+  assert.equal(closed.outcome.outcome, "closed_done");
+  assert.equal(closed.resolutionTerminal, true);
   assert.deepEqual(
     gtl.projectConsensusFinalResult(closed),
-    closed.provisionalResult,
+    closed.result,
   );
 
   const firstRound = gtl.initializeConsensus(invocationFor());
@@ -869,7 +938,7 @@ test("S05 round reduction and same-Run human finalization form one total Product
   const exhausted = gtl.reduceConsensusRound(exhaustedResponse);
   assert.equal(exhausted.terminal, true);
   assert.equal(exhausted.terminalOutcome.outcome, "escalate_fh");
-  const pending = gtl.prepareConsensusFinalization(exhausted);
+  const pending = gtl.prepareConsensusResolution(exhausted);
   assert.equal(gtl.isConsensusEscalationRequest(pending), true);
 
   for (const [decisionKind, classification] of [
@@ -879,14 +948,15 @@ test("S05 round reduction and same-Run human finalization form one total Product
     const finalized = gtl.finalizeConsensusEscalation(
       escalationDecision(pending, ACTOR, decisionKind),
     );
-    assert.equal(finalized.disposition, "closed_done");
-    assert.equal(finalized.terminal, true);
-    assert.equal(finalized.finalResult.classification, classification);
-    assert.equal(finalized.finalResult.terminalOutcome.outcome, "closed_done");
+    assert.equal(finalized.resolutionTerminal, true);
+    assert.equal(finalized.result.classification, classification);
     assert.equal(
-      finalized.finalResult.lineageRefs.includes(
-        pending.provisionalResult.resultRef,
-      ),
+      finalized.result.terminalOutcome.outcome,
+      "escalate_fh",
+      "F_H finalization must preserve immutable round truth",
+    );
+    assert.equal(
+      finalized.result.lineageRefs.includes(pending.decisionRef),
       true,
     );
   }
@@ -903,6 +973,7 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
+      catalogView: consensusCatalogView(),
       sourceResultBasis: null,
     }),
     true,
@@ -914,6 +985,7 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: `${WORKSPACE}/other`,
       actionCatalog: null,
+      catalogView: consensusCatalogView(),
       sourceResultBasis: null,
     }),
     false,
@@ -924,15 +996,13 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
   const projected = ABI5_SYSTEM_PRODUCT_SEMANTICS.projectPublicResult({
     value: pending,
     admittedResultRef: "result://abg/module-proof",
+    admittedResultContractRef: gtl.CONSENSUS_IDS.resultCandidateContractRef,
     replayRef,
+    projectionKind: "result",
   });
-  assert.equal(gtl.isConsensusResult(projected), true);
-  assert.equal(projected.replayRef, replayRef);
-  assert.notEqual(
-    "result://abg/module-proof",
-    pending.resultRef,
-    "ABG admission identity and Product semantic identity remain distinct",
-  );
+  assert.equal(gtl.isConsensusResult(projected.value), true);
+  assert.equal(projected.value.replayRef, replayRef);
+  assert.equal(projected.value.resultRef, "result://abg/module-proof");
   const sourceResultBasis = {
     kind: "invocation_source_result_basis",
     schemaVersion: "5.0.0",
@@ -963,11 +1033,12 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
   };
   assert.equal(
     validateInvocationBasis({
-      input: projected,
+      input: projected.value,
       workspaceBindingId: "workspace-binding://developer/module-proof",
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
+      catalogView: consensusCatalogView(),
       sourceResultBasis,
     }),
     false,
@@ -975,11 +1046,12 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
   );
   assert.equal(
     validateInvocationBasis({
-      input: projected,
+      input: projected.value,
       workspaceBindingId: "workspace-binding://developer/module-proof",
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
+      catalogView: consensusCatalogView(),
       sourceResultBasis: null,
     }),
     true,
@@ -987,30 +1059,32 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
   );
   assert.equal(
     ABI5_SYSTEM_PRODUCT_SEMANTICS.admitInput(
-      gtl.CONSENSUS_IDS.finalizationStateContractRef,
-      projected,
+      gtl.CONSENSUS_IDS.resolutionContractRef,
+      projected.value,
     ),
     null,
-    "a replay-bound result is not a same-Run finalization state",
+    "a replay-bound result is not a same-Run resolution carrier",
   );
   assert.equal(
     validateInvocationBasis({
-      input: projected,
+      input: projected.value,
       workspaceBindingId: "workspace-binding://developer/module-proof",
       workspaceBindingDigest: DIGEST,
       workspaceId: `${WORKSPACE}/substituted`,
       actionCatalog: null,
+      catalogView: consensusCatalogView(),
       sourceResultBasis,
     }),
     false,
   );
   assert.equal(
     validateInvocationBasis({
-      input: projected,
+      input: projected.value,
       workspaceBindingId: "workspace-binding://developer/module-proof",
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
+      catalogView: consensusCatalogView(),
       sourceResultBasis: {
         ...sourceResultBasis,
         sourceGraphFunctionRef:
@@ -1396,14 +1470,14 @@ test("S05 reviewer realization carries the Product-declared instruction contract
   assert.notEqual(contractFailure.contractFailureRef, null);
   assert.equal(
     gtl.isConsensusEscalationRequest(
-      gtl.prepareConsensusFinalization(terminalState),
+      gtl.prepareConsensusResolution(terminalState),
     ),
     false,
   );
   assert.equal(
     ABI5_SYSTEM_PRODUCT_SEMANTICS.admitInput(
-      gtl.CONSENSUS_IDS.finalizationStateContractRef,
-      gtl.prepareConsensusFinalization(terminalState),
+      gtl.CONSENSUS_IDS.resolutionContractRef,
+      gtl.prepareConsensusResolution(terminalState),
     ),
     null,
   );
@@ -1717,6 +1791,7 @@ test("S05 public result binds real replay while its authority rejects digest tam
   const pending = unresolvedCandidate();
   const result = gtl.bindConsensusReplay(
     pending,
+    "result://abg/module-proof",
     "replay://abiogenesis/module-proof",
   );
   assert.equal(gtl.isConsensusResult(result), true);
@@ -1744,8 +1819,8 @@ test("S05 public result binds real replay while its authority rejects digest tam
     invocationAdmissionRef: "invocation-admission://developer/module-proof",
     runId: "run://developer/module-proof",
     graphCallId: "graph-call://developer/module-proof",
-    resultRef: pending.resultRef,
-    outputContractRef: gtl.CONSENSUS_IDS.resultContractRef,
+    resultRef: result.resultRef,
+    outputContractRef: gtl.CONSENSUS_IDS.resultCandidateContractRef,
     install: {
       kind: "product_install",
       schemaVersion: "5.0.0",
@@ -1786,7 +1861,7 @@ test("S05 public result binds real replay while its authority rejects digest tam
   assert.equal(
     parsePublicRunProjectionAuthority({
       ...authority,
-      resultRef: `${pending.resultRef}/tampered`,
+      resultRef: `${result.resultRef}/tampered`,
     }),
     null,
   );
