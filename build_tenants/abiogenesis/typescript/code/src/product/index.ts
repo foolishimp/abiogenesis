@@ -55,6 +55,7 @@ export {
   loadInstalledProductSemantics,
   projectInstalledLeafSemantics,
   projectInstalledPublicResult,
+  supportsInstalledPublicResultProjection,
   validateInstalledInvocationBasis,
   type InstalledLeafSemanticsProjection,
   type InstalledProductSemanticsBasis,

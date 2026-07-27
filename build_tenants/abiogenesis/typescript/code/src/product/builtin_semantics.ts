@@ -16,32 +16,19 @@ import { isDeclaredConformanceValue } from "../gtl/hello_world.js";
 import {
   CONSENSUS_IDS,
   bindConsensusReplay,
-  isConsensusActionEvaluationBasis,
-  isConsensusActionEvaluationProjection,
+  consensusCatalogApplicationBindings,
   isConsensusEscalationDecision,
   isConsensusEscalationRequest,
-  isConsensusResolution,
-  isConsensusFindingsVector,
   isConsensusInvocation,
-  isConsensusNextActionBasis,
-  isConsensusNextActionProjection,
   isConsensusObservationSnapshot,
-  isConsensusPanel,
   isConsensusResultCandidate,
-  isConsensusReviewerProfile,
   isConsensusReviewerTask,
-  isConsensusRoundOutcome,
-  isConsensusRoundPolicy,
-  isConsensusRoundState,
-  isConsensusResult,
-  isConsensusSubject,
-  isConsensusSubmitterProfile,
   isConsensusSubmitterResponse,
   isConsensusSubmitterTask,
-  isTicketConsensusProjection,
   isReviewFindings,
   projectTicketConsensus,
   resolveConsensusJudgmentRelation,
+  validateConsensusContractValue,
 } from "../gtl/consensus.js";
 import {
   ABI5_PACKAGE_NAME,
@@ -132,20 +119,48 @@ function isRecord(
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function hasCatalogSurface(
-  view: Parameters<
+function hasExactConsensusCatalogApplications(
+  basis: Parameters<
     NonNullable<ProductSemanticsProvider["validateInvocationBasis"]>
-  >[0]["catalogView"],
-  handle: string,
-  kind: "node_type" | "overlay",
-  declarationOrContractRef: string,
+  >[0],
+  invocation: Parameters<typeof consensusCatalogApplicationBindings>[0],
 ): boolean {
-  return view.selectedRows.some((row) =>
-    row.disposition === "admitted" &&
-    row.handle === handle &&
-    row.kind === kind &&
-    row.declarationOrContractRef === declarationOrContractRef
-  );
+  const expected = consensusCatalogApplicationBindings(invocation);
+  const applications = basis.catalogApplications ?? [];
+  if (applications.length !== expected.length) return false;
+  return expected.every((binding) => {
+    const expectedKind =
+      binding.handle === CONSENSUS_IDS.rulingOverlayCatalogHandle
+        ? "overlay"
+        : "node_type";
+    const expectedContractRef =
+      binding.handle === CONSENSUS_IDS.subjectCatalogHandle
+        ? CONSENSUS_IDS.subjectContractRef
+        : binding.handle === CONSENSUS_IDS.reviewerProfileCatalogHandle
+        ? CONSENSUS_IDS.profileContractRef
+        : binding.handle === CONSENSUS_IDS.reviewerInstructionCatalogHandle
+        ? CONSENSUS_IDS.reviewerInstructionContractRef
+        : binding.handle === CONSENSUS_IDS.submitterProfileCatalogHandle
+        ? CONSENSUS_IDS.submitterProfileContractRef
+        : binding.handle === CONSENSUS_IDS.submitterInstructionCatalogHandle
+        ? CONSENSUS_IDS.submitterInstructionContractRef
+        : binding.handle === CONSENSUS_IDS.policyCatalogHandle
+        ? CONSENSUS_IDS.policyContractRef
+        : CONSENSUS_IDS.rulingOverlayContractRef;
+    const matching = applications.filter(
+      (application) =>
+        application.rowHandle === binding.handle &&
+        application.appliedHandle ===
+          `${binding.handle}/${
+            binding.valueDigest.slice("sha256:".length)
+          }` &&
+        application.appliedValueRef === binding.valueRef &&
+        application.appliedValueDigest === binding.valueDigest &&
+        application.contributionKind === expectedKind &&
+        application.declarationOrContractRef === expectedContractRef,
+    );
+    return matching.length === 1;
+  });
 }
 
 function admitSystemInput(
@@ -183,60 +198,8 @@ function validateSystemContractValue(
   valueKind: string,
   value: unknown,
 ): value is Readonly<Record<string, JsonValue>> {
-  switch (valueKind) {
-    case "consensus_subject":
-      return isConsensusSubject(value);
-    case "consensus_panel":
-      return isConsensusPanel(value);
-    case "consensus_reviewer_profile":
-      return isConsensusReviewerProfile(value);
-    case "consensus_submitter_profile":
-      return isConsensusSubmitterProfile(value);
-    case "review_findings":
-      return isReviewFindings(value);
-    case "consensus_round_policy":
-      return isConsensusRoundPolicy(value);
-    case "consensus_round_outcome":
-      return isConsensusRoundOutcome(value);
-    case "consensus_result_candidate":
-      return isConsensusResultCandidate(value);
-    case "consensus_result":
-      return isConsensusResult(value);
-    case "consensus_invocation":
-      return isConsensusInvocation(value);
-    case "observation_snapshot":
-      return isConsensusObservationSnapshot(value);
-    case "next_action_basis":
-      return isConsensusNextActionBasis(value);
-    case "next_action_projection":
-      return isConsensusNextActionProjection(value);
-    case "action_evaluation_basis":
-      return isConsensusActionEvaluationBasis(value);
-    case "action_evaluation_projection":
-      return isConsensusActionEvaluationProjection(value);
-    case "consensus_round_state":
-      return isConsensusRoundState(value);
-    case "consensus_resolution":
-      return isConsensusResolution(value);
-    case "consensus_reviewer_task":
-      return isConsensusReviewerTask(value);
-    case "consensus_findings_vector":
-      return isConsensusFindingsVector(value);
-    case "consensus_submitter_task":
-      return isConsensusSubmitterTask(value);
-    case "consensus_submitter_response":
-      return isConsensusSubmitterResponse(value);
-    case "consensus_escalation_decision":
-      return isConsensusEscalationDecision(value);
-    case "ticket_consensus_projection":
-      return isTicketConsensusProjection(value);
-    case "consensus_failure":
-      return isRecord(value) && value.kind === "consensus_failure";
-    case "consensus_refusal":
-      return isRecord(value) && value.kind === "consensus_refusal";
-    default:
-      return false;
-  }
+  return validateConsensusContractValue(valueKind, value) &&
+    isRecord(value);
 }
 
 function validateSystemResultEvidenceLineage(
@@ -291,6 +254,7 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   bindingRef: CONSENSUS_IDS.productSemanticsBindingRef,
   packageName: ABI5_PACKAGE_NAME,
   packageVersion: ABI5_PACKAGE_VERSION,
+  publicResultProjectionKinds: ["result", "ticket.consensus"] as const,
   admitInput: admitSystemInput,
   evaluateInteractionResponse(
     basis: Parameters<
@@ -368,35 +332,9 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
     if (isConsensusInvocation(basis.input)) {
       return basis.sourceResultBasis === null &&
         basis.input.subject.workspaceRef === basis.workspaceId &&
-        hasCatalogSurface(
-          basis.catalogView,
-          CONSENSUS_IDS.subjectCatalogHandle,
-          "node_type",
-          CONSENSUS_IDS.subjectContractRef,
-        ) &&
-        hasCatalogSurface(
-          basis.catalogView,
-          CONSENSUS_IDS.reviewerProfileCatalogHandle,
-          "node_type",
-          CONSENSUS_IDS.profileContractRef,
-        ) &&
-        hasCatalogSurface(
-          basis.catalogView,
-          CONSENSUS_IDS.submitterProfileCatalogHandle,
-          "node_type",
-          CONSENSUS_IDS.submitterProfileContractRef,
-        ) &&
-        hasCatalogSurface(
-          basis.catalogView,
-          CONSENSUS_IDS.policyCatalogHandle,
-          "node_type",
-          CONSENSUS_IDS.policyContractRef,
-        ) &&
-        hasCatalogSurface(
-          basis.catalogView,
-          basis.input.policy.disagreementRuleRef,
-          "overlay",
-          CONSENSUS_IDS.rulingsContractRef,
+        hasExactConsensusCatalogApplications(
+          basis,
+          basis.input,
         );
     }
     if (isConsensusObservationSnapshot(basis.input)) {
@@ -407,35 +345,9 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
           basis.workspaceBindingDigest &&
         basis.input.consensusInvocation.subject.workspaceRef ===
           basis.workspaceId &&
-        hasCatalogSurface(
-          basis.catalogView,
-          CONSENSUS_IDS.subjectCatalogHandle,
-          "node_type",
-          CONSENSUS_IDS.subjectContractRef,
-        ) &&
-        hasCatalogSurface(
-          basis.catalogView,
-          CONSENSUS_IDS.reviewerProfileCatalogHandle,
-          "node_type",
-          CONSENSUS_IDS.profileContractRef,
-        ) &&
-        hasCatalogSurface(
-          basis.catalogView,
-          CONSENSUS_IDS.submitterProfileCatalogHandle,
-          "node_type",
-          CONSENSUS_IDS.submitterProfileContractRef,
-        ) &&
-        hasCatalogSurface(
-          basis.catalogView,
-          CONSENSUS_IDS.policyCatalogHandle,
-          "node_type",
-          CONSENSUS_IDS.policyContractRef,
-        ) &&
-        hasCatalogSurface(
-          basis.catalogView,
-          basis.input.consensusInvocation.policy.disagreementRuleRef,
-          "overlay",
-          CONSENSUS_IDS.rulingsContractRef,
+        hasExactConsensusCatalogApplications(
+          basis,
+          basis.input.consensusInvocation,
         ) &&
         basis.actionCatalog !== null &&
         sha256Canonical(
@@ -465,6 +377,12 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
         contractRef: basis.admittedResultContractRef,
         value: basis.value,
       };
+    }
+    if (
+      basis.admittedResultContractRef !==
+        CONSENSUS_IDS.resultCandidateContractRef
+    ) {
+      return null;
     }
     const result = bindConsensusReplay(
       basis.value,

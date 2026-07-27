@@ -9,3 +9,4 @@ export {
   type Sha256Digest,
 } from "./digests.js";
 export { deepFreeze } from "./immutable.js";
+export { isNonBlankRef, requireRef } from "./references.js";

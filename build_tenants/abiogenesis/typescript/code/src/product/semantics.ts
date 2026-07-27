@@ -12,7 +12,7 @@ import {
 } from "../shared/digests.js";
 import type { ProductInstall } from "./environment.js";
 import { installedProductContentMatches } from "./install_product.js";
-import type { CatalogView } from "./catalog.js";
+import type { CatalogApplication, CatalogView } from "./catalog.js";
 
 export interface ProductInvocationSourceResultBasis {
   readonly kind: "invocation_source_result_basis";
@@ -53,6 +53,7 @@ export interface ProductSemanticsProvider {
   readonly bindingRef: string;
   readonly packageName: string;
   readonly packageVersion: string;
+  readonly publicResultProjectionKinds?: readonly string[];
   readonly admitInput: (
     contractRef: string,
     value: unknown,
@@ -107,6 +108,7 @@ export interface ProductSemanticsProvider {
       readonly workspaceId: string;
       readonly actionCatalog: JsonValue | null;
       readonly catalogView: CatalogView;
+      readonly catalogApplications: readonly CatalogApplication[];
       readonly sourceResultBasis: ProductInvocationSourceResultBasis | null;
     }>,
   ) => boolean;
@@ -332,6 +334,19 @@ export async function loadInstalledProductSemantics(
     (
       value.projectPublicResult !== undefined &&
       typeof value.projectPublicResult !== "function"
+    ) ||
+    (
+      value.publicResultProjectionKinds !== undefined &&
+      (
+        !Array.isArray(value.publicResultProjectionKinds) ||
+        value.publicResultProjectionKinds.some(
+          (kind) =>
+            typeof kind !== "string" ||
+            kind.trim().length === 0,
+        ) ||
+        new Set(value.publicResultProjectionKinds).size !==
+          value.publicResultProjectionKinds.length
+      )
     )
   ) {
     throw new TypeError(
@@ -401,6 +416,19 @@ export function hasInstalledPublicResultProjection(
     );
   }
   return semantics.projectPublicResult !== undefined;
+}
+
+export function supportsInstalledPublicResultProjection(
+  semantics: ProductSemanticsProvider,
+  projectionKind: string,
+): boolean {
+  if (!loadedProductSemantics.has(semantics)) {
+    throw new TypeError(
+      "Product public-result roster requires the exact loaded Product semantics provider",
+    );
+  }
+  const roster = semantics.publicResultProjectionKinds ?? ["result"];
+  return roster.includes(projectionKind);
 }
 
 export function projectInstalledPublicResult(

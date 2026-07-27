@@ -254,6 +254,8 @@ export function constructFlavoredCatalogPublication(
     ["judgment", ids.judgmentContractRef, "flavored_text_judgment"],
     ["transition", ids.transitionContractRef, "flavored_text_transition"],
     ["closure", ids.closureContractRef, "flavored_text_closure"],
+    ["input", ids.nodeTypeRef, "flavored_node_type"],
+    ["input", ids.overlayRef, "flavored_overlay"],
   ].map(([contractKind, contractRef, valueKind]) => ({
     contractRef: contractRef!,
     contractVersion: "5.0.0",

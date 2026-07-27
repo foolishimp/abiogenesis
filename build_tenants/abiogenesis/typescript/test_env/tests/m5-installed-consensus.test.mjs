@@ -454,12 +454,16 @@ async function consensusBasis(
     workerBindingRef:
       "worker-binding://developer/consensus-submitter",
   });
+  const rulingOverlay = gtl.constructConsensusRulingOverlay({
+    overlayRef: gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
+    acceptedFindingRulingKind: "decision_row",
+  });
   const policy = gtl.constructConsensusRoundPolicy({
     policyRef: `policy://developer/consensus/${label}@1`,
     roundBudget,
     convergenceRuleRef: gtl.CONSENSUS_IDS.convergenceRuleRef,
-    disagreementRuleRef: gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
-    acceptedFindingRulingKind: "decision_row",
+    disagreementRuleRef: rulingOverlay.overlayRef,
+    rulingOverlay,
     escalationRuleRef: gtl.CONSENSUS_IDS.escalationRuleRef,
     foldbackContractRef: gtl.CONSENSUS_IDS.foldbackContractRef,
   });
@@ -501,7 +505,14 @@ async function consensusBasis(
     policy,
     transportLane: "closed_prompt_proof",
   });
-  return { gtl, input, product, publication };
+  return {
+    gtl,
+    input,
+    product,
+    publication,
+    catalogApplications:
+      gtl.consensusCatalogApplicationBindings(input),
+  };
 }
 
 function expectedWorkspaceBinding(basis, harness, scenario) {
@@ -576,6 +587,7 @@ async function selectConsensusThroughOneSurface(
     installInvocationRef: scenario.refs.install,
     workspaceBindingInvocationRef: scenario.refs.bind,
     catalogViewInvocationRef: scenario.refs.view,
+    catalogApplicationInvocationRefs: scenario.refs.applications,
     programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
     actorRef: scenario.transcript[2].payload.authorizedActorRef,
     input: observation,
@@ -737,7 +749,9 @@ for (const workspace of workspaceApplications) {
       basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       basis.gtl.CONSENSUS_IDS.subjectCatalogHandle,
       basis.gtl.CONSENSUS_IDS.reviewerProfileCatalogHandle,
+      basis.gtl.CONSENSUS_IDS.reviewerInstructionCatalogHandle,
       basis.gtl.CONSENSUS_IDS.submitterProfileCatalogHandle,
+      basis.gtl.CONSENSUS_IDS.submitterInstructionCatalogHandle,
       basis.gtl.CONSENSUS_IDS.policyCatalogHandle,
       basis.gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
     ];
@@ -751,6 +765,7 @@ for (const workspace of workspaceApplications) {
           basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
         allowlist,
         input: basis.input,
+        catalogApplications: basis.catalogApplications,
         workspaceId,
         workspaceRoot,
         eventLogFile: `${scenario.label}.events.jsonl`,
@@ -940,6 +955,23 @@ for (const workspace of workspaceApplications) {
         (await eventsAt(installed.eventLogPath)).length,
         eventCountBeforeRead,
         "substituted catalog admission reference must append no runtime truth",
+      );
+      const refusedUnknownRead = await readRunProjection(
+        harness,
+        outcome.projectionAuthority,
+        "ticket.unknown",
+        childResultEvent.payload.resultRef,
+        `${readLabel}-unknown-variant`,
+      );
+      assert.equal(
+        refusedUnknownRead.exitCode,
+        2,
+        refusedUnknownRead.stdout,
+      );
+      assert.equal(
+        (await eventsAt(installed.eventLogPath)).length,
+        eventCountBeforeRead,
+        "a read outside the exact Product-declared roster must append no runtime truth",
       );
     }
     const resultRead = await readRunProjection(
@@ -1150,6 +1182,7 @@ test("M5 installed Consensus closes the same Run with an unresolved result when 
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
+      catalogApplications: basis.catalogApplications,
       eventLogFile: "fh-reject.events.jsonl",
       workspaceId,
     },
@@ -1229,6 +1262,7 @@ test("M5 installed Consensus admits one explicit reviewer through the ordinary p
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
+      catalogApplications: basis.catalogApplications,
       eventLogFile: "single-reviewer.events.jsonl",
       workspaceId,
     },
@@ -1249,7 +1283,7 @@ test("M5 installed Consensus admits one explicit reviewer through the ordinary p
   assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
   assert.equal(outcome.result.kind, "next_action_projection");
   assert.equal(outcome.result.disposition, "converged");
-  const events = await eventsAt(scenario.eventLogPath);
+  const events = await eventsAtIfPresent(scenario.eventLogPath);
   const childResult = events.find(
     (event) =>
       event.kind === "c_call_result_admitted" &&
@@ -1293,6 +1327,7 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
       graphFunctionRef: basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
+      catalogApplications: basis.catalogApplications,
       eventLogFile: "one-surface.events.jsonl",
       authorizedActorRef: "actor://abiogenesis/t276/trusted-developer",
       workspaceId,
@@ -1302,7 +1337,11 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
     operationContext,
     outcomes,
     publicApi,
-  } = await applyInstalledTranscriptPrefix(harness, scenario);
+  } = await applyInstalledTranscriptPrefix(
+    harness,
+    scenario,
+    scenario.transcript.length - 1,
+  );
   assert.equal(
     outcomes.every((outcome) => outcome.disposition === "succeeded"),
     true,
@@ -1339,6 +1378,7 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
     installInvocationRef: scenario.refs.install,
     workspaceBindingInvocationRef: scenario.refs.bind,
     catalogViewInvocationRef: scenario.refs.view,
+    catalogApplicationInvocationRefs: scenario.refs.applications,
     programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
     actorRef: "actor://abiogenesis/t276/trusted-developer",
     input: observation,
@@ -1374,7 +1414,7 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
     }
   }
 
-  const events = await eventsAt(scenario.eventLogPath);
+  const events = await eventsAtIfPresent(scenario.eventLogPath);
   assert.equal(
     completed.disposition,
     "succeeded",
@@ -1486,6 +1526,7 @@ test("M5 rejects direct invocation of the supervised canonical Consensus root be
       graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
+      catalogApplications: basis.catalogApplications,
       eventLogFile: "direct-refusal.events.jsonl",
       workspaceId,
     },
@@ -1571,6 +1612,7 @@ test("M5 Consensus refuses malformed and cross-basis Product values before a Run
           basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
         allowlist,
         input,
+        catalogApplications: basis.catalogApplications,
         eventLogFile: `${mutation.label}.events.jsonl`,
         workspaceId,
       },
@@ -1611,6 +1653,112 @@ test("M5 Consensus refuses malformed and cross-basis Product values before a Run
   }
 });
 
+test("M5 Consensus refuses uncataloged values and unapplied overlays before a Run opens", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const workspaceId =
+    "workspace://developer/consensus/catalog-application-refusal";
+  const basis = await consensusBasis(
+    harness,
+    "catalog-application-refusal",
+    2,
+    workspaceId,
+  );
+  harness.rootPublication = basis.publication;
+  const allowlist = basis.publication.contributions.map((row) => row.handle);
+
+  const substitutedProfile =
+    basis.gtl.constructConsensusReviewerProfile({
+      ...basis.input.panel.profiles[0],
+      profileRef: "reviewer-profile://downstream/uncataloged",
+    });
+  const substitutedPanel = basis.gtl.constructConsensusPanel(
+    basis.input.panel.panelRef,
+    [
+      substitutedProfile,
+      ...basis.input.panel.profiles.slice(1),
+    ],
+  );
+  const uncatalogedProfileInvocation =
+    basis.gtl.constructConsensusInvocation({
+      ...basis.input,
+      panel: substitutedPanel,
+    });
+
+  const substitutedOverlay =
+    basis.gtl.constructConsensusRulingOverlay({
+      overlayRef: basis.input.policy.rulingOverlay.overlayRef,
+      acceptedFindingRulingKind: "rejected_finding",
+    });
+  const substitutedPolicy =
+    basis.gtl.constructConsensusRoundPolicy({
+      ...basis.input.policy,
+      rulingOverlay: substitutedOverlay,
+    });
+  const unappliedOverlayInvocation =
+    basis.gtl.constructConsensusInvocation({
+      ...basis.input,
+      policy: substitutedPolicy,
+    });
+
+  const cases = [{
+    label: "uncataloged-profile",
+    input: uncatalogedProfileInvocation,
+    applications: basis.catalogApplications,
+  }, {
+    label: "unapplied-overlay",
+    input: unappliedOverlayInvocation,
+    applications: basis.catalogApplications,
+  }, {
+    label: "missing-instruction-application",
+    input: basis.input,
+    applications: basis.catalogApplications.filter(
+      (binding) =>
+        binding.handle !==
+          basis.gtl.CONSENSUS_IDS.reviewerInstructionCatalogHandle,
+    ),
+  }];
+
+  for (const row of cases) {
+    const scenario = await buildRootCliScenario(
+      harness,
+      `m5-consensus-${row.label}`,
+      (payload) => payload,
+      {
+        programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+        graphFunctionRef:
+          basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+        allowlist,
+        input: row.input,
+        catalogApplications: row.applications,
+        eventLogFile: `${row.label}.events.jsonl`,
+        workspaceId,
+      },
+    );
+    await selectConsensusThroughOneSurface(
+      basis,
+      harness,
+      scenario,
+      row.input,
+    );
+    const run = await runInstalledCli(harness, scenario, {
+      environment: {
+        ABG_TS_CLAUDE_COMMAND:
+          "__uncataloged_consensus_basis_must_not_reach_worker__",
+      },
+    });
+    assert.equal(run.exitCode, 2, `${row.label}: ${run.stdout}`);
+    const events = await eventsAtIfPresent(scenario.eventLogPath);
+    assert.equal(
+      events.some((event) =>
+        event.kind === "run_segment_opened" ||
+        event.kind === "actor_process_started"
+      ),
+      false,
+      `${row.label} must refuse before Run or actor effects`,
+    );
+  }
+});
+
 test("M5 Consensus exposes no direct support start outside same-Run continuation", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
   const command = await installConsensusWorker(harness);
@@ -1633,6 +1781,7 @@ test("M5 Consensus exposes no direct support start outside same-Run continuation
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist,
       input: basis.input,
+      catalogApplications: basis.catalogApplications,
       eventLogFile: "no-direct-support-source.events.jsonl",
       workspaceId,
     },
@@ -1713,6 +1862,7 @@ test("M5 Consensus projects malformed attributed reviewer output as typed contra
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
+      catalogApplications: basis.catalogApplications,
       eventLogFile: "malformed-reviewer.events.jsonl",
       workspaceId,
     },
@@ -1868,6 +2018,7 @@ test("M5 Consensus refuses malformed submitter output before reviewer reconsider
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
+      catalogApplications: basis.catalogApplications,
       eventLogFile: "malformed-submitter.events.jsonl",
       workspaceId,
     },
@@ -1991,6 +2142,7 @@ for (const transportCase of [{
           basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
         allowlist: basis.publication.contributions.map((row) => row.handle),
         input: basis.input,
+        catalogApplications: basis.catalogApplications,
         eventLogFile: `${transportCase.label}.events.jsonl`,
         workspaceId,
       },
@@ -2082,6 +2234,7 @@ test(`M5 Consensus salvages a valid reviewer candidate observed before ${salvage
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
+      catalogApplications: basis.catalogApplications,
       eventLogFile: `valid-before-${salvageCase.mode}.events.jsonl`,
       workspaceId,
     },

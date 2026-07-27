@@ -8,7 +8,7 @@ import {
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import type { CatalogView } from "./catalog.js";
+import type { CatalogApplication, CatalogView } from "./catalog.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { WorkspaceBinding } from "./environment.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -43,6 +43,8 @@ export interface InvocationPolicyBasis {
   readonly programDigest: Sha256Digest;
   readonly allowedComputeRegimes: readonly ComputeRegime[];
   readonly interactionCapabilities: readonly InvocationInteractionCapability[];
+  readonly catalogApplicationRefs: readonly string[];
+  readonly catalogApplicationDigests: readonly Sha256Digest[];
   readonly graphMaterialization: "after_invocation_admission";
 }
 
@@ -166,6 +168,7 @@ export function constructRootInvocationPolicy(
   program: Readonly<GtlProgram>,
   interactionCapabilities: readonly InvocationInteractionCapability[],
   allowedComputeRegimes: readonly ComputeRegime[] = ["F_D"],
+  catalogApplications: readonly CatalogApplication[] = [],
 ): InvocationPolicyBasis {
   const canonicalOrder: readonly ComputeRegime[] = ["F_D", "F_P", "F_H"];
   const canonicalRegimes = canonicalOrder.filter((regime) =>
@@ -173,6 +176,9 @@ export function constructRootInvocationPolicy(
   );
   const canonicalInteractions = [...interactionCapabilities].sort((left, right) =>
     left.requirementKey.localeCompare(right.requirementKey)
+  );
+  const canonicalApplications = [...catalogApplications].sort((left, right) =>
+    left.applicationId.localeCompare(right.applicationId)
   );
   if (
     canonicalRegimes.length === 0 ||
@@ -191,7 +197,9 @@ export function constructRootInvocationPolicy(
         row.requirementKey.length === 0 ||
         row.requirementKeyDigest.length === 0 ||
         row.actorCapabilityRef.length === 0,
-    )
+    ) ||
+    new Set(canonicalApplications.map((row) => row.applicationId)).size !==
+      canonicalApplications.length
   ) {
     throw new TypeError(
       "invocation policy requires one exact workspace, Program, compute-regime set, and interaction requirement set",
@@ -208,6 +216,12 @@ export function constructRootInvocationPolicy(
     programDigest: sha256Canonical(program as unknown as JsonValue),
     allowedComputeRegimes: canonicalRegimes,
     interactionCapabilities: canonicalInteractions,
+    catalogApplicationRefs: canonicalApplications.map(
+      (application) => application.applicationId,
+    ),
+    catalogApplicationDigests: canonicalApplications.map(
+      (application) => application.applicationDigest,
+    ),
     graphMaterialization: "after_invocation_admission" as const,
   };
   const policyDigest = sha256Canonical(body as unknown as JsonValue);

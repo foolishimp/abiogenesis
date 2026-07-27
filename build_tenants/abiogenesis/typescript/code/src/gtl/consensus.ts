@@ -5,6 +5,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { isNonBlankRef } from "../shared/references.js";
 import {
   C,
   cCarrier,
@@ -34,6 +35,7 @@ import {
   CONSENSUS_FH_DECISION_VALUES,
   CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
   CONSENSUS_ROUND_OUTCOME_VALUES,
+  CONSENSUS_SCHEMA_ASSET_BINDINGS,
   CONSENSUS_SCHEMA_REQUIRED_KEYS,
   CONSENSUS_SUBMITTER_RESPONSE_SCHEMA,
   isConsensusReviewerCandidate,
@@ -46,6 +48,7 @@ export {
   CONSENSUS_PUBLIC_SCHEMA,
   CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
   CONSENSUS_ROUND_OUTCOME_VALUES,
+  CONSENSUS_SCHEMA_ASSET_BINDINGS,
   CONSENSUS_SCHEMA_REQUIRED_KEYS,
   CONSENSUS_SUBMITTER_RESPONSE_SCHEMA,
   isConsensusReviewerCandidate,
@@ -62,6 +65,7 @@ export type ConsensusClassification =
   (typeof CONSENSUS_CLASSIFICATION_VALUES)[number];
 export type ConsensusFhDecision =
   (typeof CONSENSUS_FH_DECISION_VALUES)[number];
+export type ConsensusRole = "reviewer" | "submitter";
 
 export const CONSENSUS_IDS = Object.freeze({
   handle: "gtl://abg/consensus/submitter-reviewer-rounds",
@@ -177,6 +181,8 @@ export const CONSENSUS_IDS = Object.freeze({
     "contract://abg/consensus/submitter-response@5",
   findingsContractRef: "contract://abg/schema/review-findings@5",
   rulingsContractRef: "contract://abg/schema/review-rulings@5",
+  rulingOverlayContractRef:
+    "contract://abg/schema/consensus-ruling-overlay@5",
   policyContractRef: "contract://abg/schema/consensus-round-policy@5",
   roundOutcomeContractRef: "contract://abg/schema/consensus-round-outcome@5",
   resultCandidateContractRef:
@@ -328,8 +334,12 @@ export const CONSENSUS_IDS = Object.freeze({
     "catalog://abg/consensus/subject",
   reviewerProfileCatalogHandle:
     "catalog://abg/consensus/profile/reviewer",
+  reviewerInstructionCatalogHandle:
+    "catalog://abg/consensus/instruction/reviewer",
   submitterProfileCatalogHandle:
     "catalog://abg/consensus/profile/submitter",
+  submitterInstructionCatalogHandle:
+    "catalog://abg/consensus/instruction/submitter",
   policyCatalogHandle:
     "catalog://abg/consensus/policy/round",
   rulingOverlayCatalogHandle:
@@ -412,12 +422,31 @@ export interface ConsensusSubmitterProfile {
   readonly workerBindingRef: string;
 }
 
+export type ConsensusRoleInstruction =
+  | ConsensusReviewerInstruction
+  | ConsensusSubmitterInstruction;
+
+export type ConsensusRoleProfile =
+  | ConsensusReviewerProfile
+  | ConsensusSubmitterProfile;
+
 export interface ConsensusPanel {
   readonly kind: "consensus_panel";
   readonly schemaVersion: "5.0.0";
   readonly panelRef: string;
   readonly panelDigest: Sha256Digest;
   readonly profiles: readonly ConsensusReviewerProfile[];
+}
+
+export interface ConsensusRulingOverlay {
+  readonly kind: "consensus_ruling_overlay";
+  readonly schemaVersion: "5.0.0";
+  readonly overlayRef: string;
+  readonly overlayDigest: Sha256Digest;
+  readonly acceptedFindingRulingKind: Exclude<
+    ReviewRulingKind,
+    "deferment"
+  >;
 }
 
 export interface ConsensusRoundPolicy {
@@ -428,10 +457,7 @@ export interface ConsensusRoundPolicy {
   readonly roundBudget: number;
   readonly convergenceRuleRef: string;
   readonly disagreementRuleRef: string;
-  readonly acceptedFindingRulingKind: Exclude<
-    ReviewRulingKind,
-    "deferment"
-  >;
+  readonly rulingOverlay: ConsensusRulingOverlay;
   readonly escalationRuleRef: string;
   readonly foldbackContractRef: string;
 }
@@ -448,6 +474,12 @@ export interface ConsensusInvocation {
   readonly submitterInstruction: ConsensusSubmitterInstruction;
   readonly policy: ConsensusRoundPolicy;
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
+}
+
+export interface ConsensusCatalogApplicationBinding {
+  readonly handle: string;
+  readonly valueRef: string;
+  readonly valueDigest: Sha256Digest;
 }
 
 export interface ConsensusReviewerTask {
@@ -584,6 +616,10 @@ export interface ConsensusSubmitterTask {
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
 }
 
+export type ConsensusRoleTask =
+  | ConsensusReviewerTask
+  | ConsensusSubmitterTask;
+
 export interface ConsensusSubmitterResponseRecord {
   readonly invocationRef: string;
   readonly responseRef: string;
@@ -610,6 +646,10 @@ export interface ConsensusSubmitterResponse
   readonly configurationDigest: Sha256Digest;
   readonly task: ConsensusSubmitterTask;
 }
+
+export type ConsensusRoleOccurrence =
+  | ReviewFindings
+  | ConsensusSubmitterResponse;
 
 export interface ConsensusResultCandidate {
   readonly kind: "consensus_result_candidate";
@@ -732,7 +772,7 @@ function hasExactKeys(
 }
 
 function isRef(value: unknown): value is string {
-  return typeof value === "string" && value.length > 0;
+  return isNonBlankRef(value);
 }
 
 function isConsensusActionCatalog(
@@ -1456,55 +1496,58 @@ export function constructConsensusSubjectMaterialization(input: Readonly<{
   return materialization;
 }
 
+type ConsensusRoleInstructionInput =
+  | {
+    readonly role: "reviewer";
+    readonly value: Omit<
+      ConsensusReviewerInstruction,
+      "instructionDigest" | "kind" | "schemaVersion"
+    >;
+  }
+  | {
+    readonly role: "submitter";
+    readonly value: Omit<
+      ConsensusSubmitterInstruction,
+      "instructionDigest" | "kind" | "schemaVersion"
+    >;
+  };
+
+export function constructConsensusRoleInstruction(
+  input: ConsensusRoleInstructionInput,
+): Readonly<ConsensusRoleInstruction> {
+  const kind = input.role === "reviewer"
+    ? "consensus_reviewer_instruction"
+    : "consensus_submitter_instruction";
+  const body = {
+    kind,
+    schemaVersion: "5.0.0" as const,
+    instructionContractRef: input.value.instructionContractRef,
+    roleContractRef: input.value.roleContractRef,
+    instructionText: input.value.instructionText,
+    responseSchema: input.value.responseSchema,
+  };
+  const instruction = deepFreeze({
+    ...body,
+    instructionDigest: sha256Canonical(body as unknown as JsonValue),
+  });
+  if (!isConsensusRoleInstruction(input.role, instruction)) {
+    throw new TypeError(
+      `Consensus ${input.role} instruction requires one exact body and response schema`,
+    );
+  }
+  return instruction;
+}
+
 export function constructConsensusReviewerInstruction(
   input: Omit<
     ConsensusReviewerInstruction,
     "instructionDigest" | "kind" | "schemaVersion"
   >,
 ): Readonly<ConsensusReviewerInstruction> {
-  const body = {
-    kind: "consensus_reviewer_instruction" as const,
-    schemaVersion: "5.0.0" as const,
-    instructionContractRef: input.instructionContractRef,
-    roleContractRef: input.roleContractRef,
-    instructionText: input.instructionText,
-    responseSchema: input.responseSchema,
-  };
-  const instruction = deepFreeze({
-    ...body,
-    instructionDigest: sha256Canonical(body as unknown as JsonValue),
-  });
-  if (!isConsensusReviewerInstruction(instruction)) {
-    throw new TypeError(
-      "Consensus reviewer instruction requires one exact body and response schema",
-    );
-  }
-  return instruction;
-}
-
-export function constructConsensusReviewerProfile(
-  input: Omit<ConsensusReviewerProfile, "configurationDigest" | "kind" | "schemaVersion">,
-): Readonly<ConsensusReviewerProfile> {
-  const body = {
-    kind: "consensus_reviewer_profile" as const,
-    schemaVersion: "5.0.0" as const,
-    profileRef: input.profileRef,
-    roleContractRef: input.roleContractRef,
-    instructionContractRef: input.instructionContractRef,
-    instructionDigest: input.instructionDigest,
-    resultContractRef: input.resultContractRef,
-    capabilityRefs: [...input.capabilityRefs],
-    actorRef: input.actorRef,
-    workerBindingRef: input.workerBindingRef,
-  };
-  const profile = deepFreeze({
-    ...body,
-    configurationDigest: sha256Canonical(body as unknown as JsonValue),
-  });
-  if (!isConsensusReviewerProfile(profile)) {
-    throw new TypeError("Consensus reviewer profile is incomplete");
-  }
-  return profile;
+  return constructConsensusRoleInstruction({
+    role: "reviewer",
+    value: input,
+  }) as Readonly<ConsensusReviewerInstruction>;
 }
 
 export function constructConsensusSubmitterInstruction(
@@ -1513,24 +1556,66 @@ export function constructConsensusSubmitterInstruction(
     "instructionDigest" | "kind" | "schemaVersion"
   >,
 ): Readonly<ConsensusSubmitterInstruction> {
-  const body = {
-    kind: "consensus_submitter_instruction" as const,
-    schemaVersion: "5.0.0" as const,
-    instructionContractRef: input.instructionContractRef,
-    roleContractRef: input.roleContractRef,
-    instructionText: input.instructionText,
-    responseSchema: input.responseSchema,
-  };
-  const instruction = deepFreeze({
-    ...body,
-    instructionDigest: sha256Canonical(body as unknown as JsonValue),
-  });
-  if (!isConsensusSubmitterInstruction(instruction)) {
-    throw new TypeError(
-      "Consensus submitter instruction requires one exact body and response schema",
-    );
+  return constructConsensusRoleInstruction({
+    role: "submitter",
+    value: input,
+  }) as Readonly<ConsensusSubmitterInstruction>;
+}
+
+type ConsensusRoleProfileInput =
+  | {
+    readonly role: "reviewer";
+    readonly value: Omit<
+      ConsensusReviewerProfile,
+      "configurationDigest" | "kind" | "schemaVersion"
+    >;
   }
-  return instruction;
+  | {
+    readonly role: "submitter";
+    readonly value: Omit<
+      ConsensusSubmitterProfile,
+      "configurationDigest" | "kind" | "schemaVersion"
+    >;
+  };
+
+export function constructConsensusRoleProfile(
+  input: ConsensusRoleProfileInput,
+): Readonly<ConsensusRoleProfile> {
+  const kind = input.role === "reviewer"
+    ? "consensus_reviewer_profile"
+    : "consensus_submitter_profile";
+  const body = {
+    kind,
+    schemaVersion: "5.0.0" as const,
+    profileRef: input.value.profileRef,
+    roleContractRef: input.value.roleContractRef,
+    instructionContractRef: input.value.instructionContractRef,
+    instructionDigest: input.value.instructionDigest,
+    resultContractRef: input.value.resultContractRef,
+    capabilityRefs: [...input.value.capabilityRefs],
+    actorRef: input.value.actorRef,
+    workerBindingRef: input.value.workerBindingRef,
+  };
+  const profile = deepFreeze({
+    ...body,
+    configurationDigest: sha256Canonical(body as unknown as JsonValue),
+  });
+  if (!isConsensusRoleProfile(input.role, profile)) {
+    throw new TypeError(`Consensus ${input.role} profile is incomplete`);
+  }
+  return profile;
+}
+
+export function constructConsensusReviewerProfile(
+  input: Omit<
+    ConsensusReviewerProfile,
+    "configurationDigest" | "kind" | "schemaVersion"
+  >,
+): Readonly<ConsensusReviewerProfile> {
+  return constructConsensusRoleProfile({
+    role: "reviewer",
+    value: input,
+  }) as Readonly<ConsensusReviewerProfile>;
 }
 
 export function constructConsensusSubmitterProfile(
@@ -1539,26 +1624,10 @@ export function constructConsensusSubmitterProfile(
     "configurationDigest" | "kind" | "schemaVersion"
   >,
 ): Readonly<ConsensusSubmitterProfile> {
-  const body = {
-    kind: "consensus_submitter_profile" as const,
-    schemaVersion: "5.0.0" as const,
-    profileRef: input.profileRef,
-    roleContractRef: input.roleContractRef,
-    instructionContractRef: input.instructionContractRef,
-    instructionDigest: input.instructionDigest,
-    resultContractRef: input.resultContractRef,
-    capabilityRefs: [...input.capabilityRefs],
-    actorRef: input.actorRef,
-    workerBindingRef: input.workerBindingRef,
-  };
-  const profile = deepFreeze({
-    ...body,
-    configurationDigest: sha256Canonical(body as unknown as JsonValue),
-  });
-  if (!isConsensusSubmitterProfile(profile)) {
-    throw new TypeError("Consensus submitter profile is incomplete");
-  }
-  return profile;
+  return constructConsensusRoleProfile({
+    role: "submitter",
+    value: input,
+  }) as Readonly<ConsensusSubmitterProfile>;
 }
 
 export function constructConsensusPanel(
@@ -1583,6 +1652,30 @@ export function constructConsensusPanel(
   return panel;
 }
 
+export function constructConsensusRulingOverlay(
+  input: Omit<
+    ConsensusRulingOverlay,
+    "kind" | "overlayDigest" | "schemaVersion"
+  >,
+): Readonly<ConsensusRulingOverlay> {
+  const body = {
+    kind: "consensus_ruling_overlay" as const,
+    schemaVersion: "5.0.0" as const,
+    overlayRef: input.overlayRef,
+    acceptedFindingRulingKind: input.acceptedFindingRulingKind,
+  };
+  const overlay = deepFreeze({
+    ...body,
+    overlayDigest: sha256Canonical(body as unknown as JsonValue),
+  });
+  if (!isConsensusRulingOverlay(overlay)) {
+    throw new TypeError(
+      "Consensus ruling overlay requires one exact non-deferment ruling",
+    );
+  }
+  return overlay;
+}
+
 export function constructConsensusRoundPolicy(
   input: Omit<ConsensusRoundPolicy, "kind" | "policyDigest" | "schemaVersion">,
 ): Readonly<ConsensusRoundPolicy> {
@@ -1593,7 +1686,7 @@ export function constructConsensusRoundPolicy(
     roundBudget: input.roundBudget,
     convergenceRuleRef: input.convergenceRuleRef,
     disagreementRuleRef: input.disagreementRuleRef,
-    acceptedFindingRulingKind: input.acceptedFindingRulingKind,
+    rulingOverlay: input.rulingOverlay,
     escalationRuleRef: input.escalationRuleRef,
     foldbackContractRef: input.foldbackContractRef,
   };
@@ -1607,6 +1700,65 @@ export function constructConsensusRoundPolicy(
     );
   }
   return policy;
+}
+
+export function consensusCatalogApplicationBindings(
+  invocation: Readonly<ConsensusInvocation>,
+): readonly Readonly<ConsensusCatalogApplicationBinding>[] {
+  if (!isConsensusInvocation(invocation)) {
+    throw new TypeError(
+      "Consensus catalog bindings require one exact invocation",
+    );
+  }
+  const bind = (
+    handle: string,
+    valueRef: string,
+    value: JsonValue,
+  ): Readonly<ConsensusCatalogApplicationBinding> =>
+    deepFreeze({
+      handle,
+      valueRef,
+      valueDigest: sha256Canonical(value),
+    });
+  return deepFreeze([
+    bind(
+      CONSENSUS_IDS.subjectCatalogHandle,
+      invocation.subject.subjectRef,
+      invocation.subject as unknown as JsonValue,
+    ),
+    ...invocation.panel.profiles.map((profile) =>
+      bind(
+        CONSENSUS_IDS.reviewerProfileCatalogHandle,
+        profile.profileRef,
+        profile as unknown as JsonValue,
+      )),
+    ...invocation.instructions.map((instruction) =>
+      bind(
+        CONSENSUS_IDS.reviewerInstructionCatalogHandle,
+        instruction.instructionContractRef,
+        instruction as unknown as JsonValue,
+      )),
+    bind(
+      CONSENSUS_IDS.submitterProfileCatalogHandle,
+      invocation.submitterProfile.profileRef,
+      invocation.submitterProfile as unknown as JsonValue,
+    ),
+    bind(
+      CONSENSUS_IDS.submitterInstructionCatalogHandle,
+      invocation.submitterInstruction.instructionContractRef,
+      invocation.submitterInstruction as unknown as JsonValue,
+    ),
+    bind(
+      CONSENSUS_IDS.policyCatalogHandle,
+      invocation.policy.policyRef,
+      invocation.policy as unknown as JsonValue,
+    ),
+    bind(
+      CONSENSUS_IDS.rulingOverlayCatalogHandle,
+      invocation.policy.rulingOverlay.overlayRef,
+      invocation.policy.rulingOverlay as unknown as JsonValue,
+    ),
+  ]);
 }
 
 export function constructConsensusSubject(
@@ -1685,16 +1837,24 @@ export function isConsensusSubjectMaterialization(
       `subject-materialization://abg/${value.contentDigest.slice("sha256:".length)}`;
 }
 
-export function isConsensusReviewerInstruction(
+export function isConsensusRoleInstruction(
+  role: ConsensusRole,
   value: unknown,
-): value is ConsensusReviewerInstruction {
+): value is ConsensusRoleInstruction {
+  const reviewer = role === "reviewer";
+  const requiredKeys = reviewer
+    ? CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusReviewerInstruction
+    : CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubmitterInstruction;
+  const expectedKind = reviewer
+    ? "consensus_reviewer_instruction"
+    : "consensus_submitter_instruction";
+  const expectedSchema = reviewer
+    ? CONSENSUS_REVIEWER_RESPONSE_SCHEMA
+    : CONSENSUS_SUBMITTER_RESPONSE_SCHEMA;
   if (
     !isRecord(value) ||
-    !hasExactKeys(
-      value,
-      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusReviewerInstruction,
-    ) ||
-    value.kind !== "consensus_reviewer_instruction" ||
+    !hasExactKeys(value, requiredKeys) ||
+    value.kind !== expectedKind ||
     value.schemaVersion !== "5.0.0" ||
     !isRef(value.instructionContractRef) ||
     !isRef(value.roleContractRef) ||
@@ -1703,40 +1863,23 @@ export function isConsensusReviewerInstruction(
     value.instructionText.length === 0 ||
     !isRecord(value.responseSchema) ||
     sha256Canonical(value.responseSchema as unknown as JsonValue) !==
-      sha256Canonical(
-        CONSENSUS_REVIEWER_RESPONSE_SCHEMA as unknown as JsonValue,
-      )
+      sha256Canonical(expectedSchema as unknown as JsonValue)
   ) return false;
   const { instructionDigest: _instructionDigest, ...body } = value;
   return value.instructionDigest ===
     sha256Canonical(body as unknown as JsonValue);
 }
 
+export function isConsensusReviewerInstruction(
+  value: unknown,
+): value is ConsensusReviewerInstruction {
+  return isConsensusRoleInstruction("reviewer", value);
+}
+
 export function isConsensusSubmitterInstruction(
   value: unknown,
 ): value is ConsensusSubmitterInstruction {
-  if (
-    !isRecord(value) ||
-    !hasExactKeys(
-      value,
-      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubmitterInstruction,
-    ) ||
-    value.kind !== "consensus_submitter_instruction" ||
-    value.schemaVersion !== "5.0.0" ||
-    !isRef(value.instructionContractRef) ||
-    !isRef(value.roleContractRef) ||
-    !isDigest(value.instructionDigest) ||
-    typeof value.instructionText !== "string" ||
-    value.instructionText.length === 0 ||
-    !isRecord(value.responseSchema) ||
-    sha256Canonical(value.responseSchema as unknown as JsonValue) !==
-      sha256Canonical(
-        CONSENSUS_SUBMITTER_RESPONSE_SCHEMA as unknown as JsonValue,
-      )
-  ) return false;
-  const { instructionDigest: _instructionDigest, ...body } = value;
-  return value.instructionDigest ===
-    sha256Canonical(body as unknown as JsonValue);
+  return isConsensusRoleInstruction("submitter", value);
 }
 
 function isConsensusInstructionSet(
@@ -1766,21 +1909,29 @@ function isConsensusInstructionSet(
   );
 }
 
-export function isConsensusReviewerProfile(
+export function isConsensusRoleProfile(
+  role: ConsensusRole,
   value: unknown,
-): value is ConsensusReviewerProfile {
+): value is ConsensusRoleProfile {
+  const reviewer = role === "reviewer";
+  const requiredKeys = reviewer
+    ? CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusReviewerProfile
+    : CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubmitterProfile;
+  const expectedKind = reviewer
+    ? "consensus_reviewer_profile"
+    : "consensus_submitter_profile";
+  const expectedResultContractRef = reviewer
+    ? CONSENSUS_IDS.findingsContractRef
+    : CONSENSUS_IDS.submitterResponseContractRef;
   if (
     !isRecord(value) ||
-    !hasExactKeys(
-      value,
-      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusReviewerProfile,
-    )
+    !hasExactKeys(value, requiredKeys)
   ) return false;
   const {
     configurationDigest,
     ...configuration
   } = value;
-  return value.kind === "consensus_reviewer_profile" &&
+  return value.kind === expectedKind &&
     value.schemaVersion === "5.0.0" &&
     isRef(value.profileRef) &&
     isRef(value.roleContractRef) &&
@@ -1789,39 +1940,22 @@ export function isConsensusReviewerProfile(
       sha256Canonical(configuration as unknown as JsonValue) &&
     isRef(value.instructionContractRef) &&
     isDigest(value.instructionDigest) &&
-    value.resultContractRef === CONSENSUS_IDS.findingsContractRef &&
+    value.resultContractRef === expectedResultContractRef &&
     uniqueRefs(value.capabilityRefs) &&
     isRef(value.actorRef) &&
     isRef(value.workerBindingRef);
 }
 
+export function isConsensusReviewerProfile(
+  value: unknown,
+): value is ConsensusReviewerProfile {
+  return isConsensusRoleProfile("reviewer", value);
+}
+
 export function isConsensusSubmitterProfile(
   value: unknown,
 ): value is ConsensusSubmitterProfile {
-  if (
-    !isRecord(value) ||
-    !hasExactKeys(
-      value,
-      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusSubmitterProfile,
-    )
-  ) return false;
-  const {
-    configurationDigest,
-    ...configuration
-  } = value;
-  return value.kind === "consensus_submitter_profile" &&
-    value.schemaVersion === "5.0.0" &&
-    isRef(value.profileRef) &&
-    isRef(value.roleContractRef) &&
-    isDigest(configurationDigest) &&
-    configurationDigest ===
-      sha256Canonical(configuration as unknown as JsonValue) &&
-    isRef(value.instructionContractRef) &&
-    isDigest(value.instructionDigest) &&
-    value.resultContractRef === CONSENSUS_IDS.submitterResponseContractRef &&
-    uniqueRefs(value.capabilityRefs) &&
-    isRef(value.actorRef) &&
-    isRef(value.workerBindingRef);
+  return isConsensusRoleProfile("submitter", value);
 }
 
 export function isConsensusPanel(value: unknown): value is ConsensusPanel {
@@ -1845,6 +1979,29 @@ export function isConsensusPanel(value: unknown): value is ConsensusPanel {
     sha256Canonical(body as unknown as JsonValue);
 }
 
+export function isConsensusRulingOverlay(
+  value: unknown,
+): value is ConsensusRulingOverlay {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(
+      value,
+      CONSENSUS_SCHEMA_REQUIRED_KEYS.ConsensusRulingOverlay,
+    ) ||
+    value.kind !== "consensus_ruling_overlay" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isRef(value.overlayRef) ||
+    !isDigest(value.overlayDigest) ||
+    !REVIEW_RULING_KIND_VALUES.includes(
+      value.acceptedFindingRulingKind as ReviewRulingKind,
+    ) ||
+    value.acceptedFindingRulingKind === "deferment"
+  ) return false;
+  const { overlayDigest: _overlayDigest, ...body } = value;
+  return value.overlayDigest ===
+    sha256Canonical(body as unknown as JsonValue);
+}
+
 export function isConsensusRoundPolicy(
   value: unknown,
 ): value is ConsensusRoundPolicy {
@@ -1861,11 +2018,8 @@ export function isConsensusRoundPolicy(
     !Number.isSafeInteger(value.roundBudget) ||
     Number(value.roundBudget) < 1 ||
     value.convergenceRuleRef !== CONSENSUS_IDS.convergenceRuleRef ||
-    !isRef(value.disagreementRuleRef) ||
-    !REVIEW_RULING_KIND_VALUES.includes(
-      value.acceptedFindingRulingKind as ReviewRulingKind,
-    ) ||
-    value.acceptedFindingRulingKind === "deferment" ||
+    !isConsensusRulingOverlay(value.rulingOverlay) ||
+    value.disagreementRuleRef !== value.rulingOverlay.overlayRef ||
     value.escalationRuleRef !== CONSENSUS_IDS.escalationRuleRef ||
     value.foldbackContractRef !== CONSENSUS_IDS.foldbackContractRef
   ) return false;
@@ -1923,7 +2077,7 @@ export function isConsensusInvocation(
     );
 }
 
-export function isConsensusReviewerTask(
+function validateConsensusReviewerTask(
   value: unknown,
 ): value is ConsensusReviewerTask {
   if (
@@ -2338,7 +2492,7 @@ export function isConsensusSubmitterResponseRecord(
       `submitter-response://abg/${outputDigest.slice("sha256:".length)}`;
 }
 
-export function isConsensusSubmitterTask(
+function validateConsensusSubmitterTask(
   value: unknown,
 ): value is ConsensusSubmitterTask {
   if (
@@ -2396,6 +2550,27 @@ export function isConsensusSubmitterTask(
       ) === true;
 }
 
+export function isConsensusRoleTask(
+  role: ConsensusRole,
+  value: unknown,
+): value is ConsensusRoleTask {
+  return role === "reviewer"
+    ? validateConsensusReviewerTask(value)
+    : validateConsensusSubmitterTask(value);
+}
+
+export function isConsensusReviewerTask(
+  value: unknown,
+): value is ConsensusReviewerTask {
+  return isConsensusRoleTask("reviewer", value);
+}
+
+export function isConsensusSubmitterTask(
+  value: unknown,
+): value is ConsensusSubmitterTask {
+  return isConsensusRoleTask("submitter", value);
+}
+
 export function isConsensusSubmitterResponse(
   value: unknown,
 ): value is ConsensusSubmitterResponse {
@@ -2449,6 +2624,15 @@ export function isConsensusSubmitterResponse(
     return addressed.size === new Set(findingRefs).size && residual.size === 0;
   }
   return response.disposition === "dispute_findings" && residual.size > 0;
+}
+
+export function isConsensusRoleOccurrence(
+  role: ConsensusRole,
+  value: unknown,
+): value is ConsensusRoleOccurrence {
+  return role === "reviewer"
+    ? isReviewFindings(value)
+    : isConsensusSubmitterResponse(value);
 }
 
 export function isConsensusResultCandidate(
@@ -2744,18 +2928,44 @@ function roundRef(invocationRef: string, ordinal: number): string {
   return `consensus-round://abg/${digest.slice("sha256:".length)}`;
 }
 
-function reviewerTask(
-  invocation: Readonly<ConsensusInvocation>,
-  ordinal: number,
-  panelPosition: number,
-  profile: Readonly<ConsensusReviewerProfile>,
-  priorRoundRefs: readonly string[],
-  priorFindingSetRefs: readonly string[],
-  priorRulings: readonly ReviewRuling[],
-  priorDissentProfileRefs: readonly string[],
-  priorSubmitterResponses: readonly ConsensusSubmitterResponseRecord[],
-  priorEvidenceRefs: readonly string[],
+interface ConsensusReviewerRoleTaskBasis {
+  readonly role: "reviewer";
+  readonly invocation: Readonly<ConsensusInvocation>;
+  readonly ordinal: number;
+  readonly panelPosition: number;
+  readonly profile: Readonly<ConsensusReviewerProfile>;
+  readonly priorRoundRefs: readonly string[];
+  readonly priorFindingSetRefs: readonly string[];
+  readonly priorRulings: readonly ReviewRuling[];
+  readonly priorDissentProfileRefs: readonly string[];
+  readonly priorSubmitterResponses: readonly ConsensusSubmitterResponseRecord[];
+  readonly priorEvidenceRefs: readonly string[];
+}
+
+interface ConsensusSubmitterRoleTaskBasis {
+  readonly role: "submitter";
+  readonly findingsVector: Readonly<ConsensusFindingsVector>;
+}
+
+export type ConsensusRoleTaskBasis =
+  | ConsensusReviewerRoleTaskBasis
+  | ConsensusSubmitterRoleTaskBasis;
+
+function constructReviewerRoleTask(
+  basis: Readonly<ConsensusReviewerRoleTaskBasis>,
 ): Readonly<ConsensusReviewerTask> {
+  const {
+    invocation,
+    ordinal,
+    panelPosition,
+    profile,
+    priorRoundRefs,
+    priorFindingSetRefs,
+    priorRulings,
+    priorDissentProfileRefs,
+    priorSubmitterResponses,
+    priorEvidenceRefs,
+  } = basis;
   const currentRoundRef = roundRef(invocation.invocationRef, ordinal);
   const instruction = invocation.instructions.find((candidate) =>
     candidate.instructionContractRef === profile.instructionContractRef &&
@@ -2810,10 +3020,11 @@ function stateMembers(
   priorEvidenceRefs: readonly string[],
 ) {
   return invocation.panel.profiles.map((profile, index) => {
-    const task = reviewerTask(
+    const task = constructConsensusRoleTask({
+      role: "reviewer",
       invocation,
       ordinal,
-      index,
+      panelPosition: index,
       profile,
       priorRoundRefs,
       priorFindingSetRefs,
@@ -2821,7 +3032,7 @@ function stateMembers(
       priorDissentProfileRefs,
       priorSubmitterResponses,
       priorEvidenceRefs,
-    );
+    }) as Readonly<ConsensusReviewerTask>;
     return {
       ordinal: index,
       memberRef: task.taskRef,
@@ -2868,11 +3079,11 @@ function findingSetRef(findings: Readonly<ReviewFindings>): string {
 
 function rulingFor(
   findings: Readonly<ReviewFindings>,
-  policy: Readonly<ConsensusRoundPolicy>,
+  overlay: Readonly<ConsensusRulingOverlay>,
 ): Readonly<ReviewRuling> {
   const findingRefs = findings.findings.map((finding) => finding.findingRef);
   const rulingKind: ReviewRulingKind = findings.refusalRef === null
-      ? policy.acceptedFindingRulingKind
+      ? overlay.acceptedFindingRulingKind
       : "deferment";
   const body = {
     rulingKind,
@@ -2891,7 +3102,7 @@ function rulingFor(
   });
 }
 
-export function constructConsensusSubmitterTask(
+function constructSubmitterRoleTask(
   vector: Readonly<ConsensusFindingsVector>,
 ): Readonly<ConsensusSubmitterTask> {
   if (!isConsensusFindingsVector(vector)) {
@@ -2951,6 +3162,23 @@ export function constructConsensusSubmitterTask(
   return task;
 }
 
+export function constructConsensusRoleTask(
+  basis: Readonly<ConsensusRoleTaskBasis>,
+): Readonly<ConsensusRoleTask> {
+  return basis.role === "reviewer"
+    ? constructReviewerRoleTask(basis)
+    : constructSubmitterRoleTask(basis.findingsVector);
+}
+
+export function constructConsensusSubmitterTask(
+  vector: Readonly<ConsensusFindingsVector>,
+): Readonly<ConsensusSubmitterTask> {
+  return constructConsensusRoleTask({
+    role: "submitter",
+    findingsVector: vector,
+  }) as Readonly<ConsensusSubmitterTask>;
+}
+
 function responseRecord(
   response: Readonly<ConsensusSubmitterResponse>,
 ): Readonly<ConsensusSubmitterResponseRecord> {
@@ -2995,7 +3223,8 @@ export function reduceConsensusRound(
   }
   const panel = task.panel;
   const findingSetRefs = findings.map(findingSetRef);
-  const rulings = findings.map((row) => rulingFor(row, task.policy));
+  const rulings = findings.map((row) =>
+    rulingFor(row, task.policy.rulingOverlay));
   const rulingRefs = rulings.map((ruling) => ruling.rulingRef);
   const evidenceRefs = [
     ...new Set([
@@ -3691,6 +3920,89 @@ function closure(
         "graph_call_closed",
       ],
     };
+}
+
+export interface ConsensusNativeContractDefinition
+  extends ContractDeclaration {
+  readonly validate:
+    | ((value: unknown) => boolean)
+    | null;
+}
+
+function consensusContract(
+  contractRef: string,
+  contractKind: ContractDeclaration["contractKind"],
+  valueKind: string,
+  validate: ConsensusNativeContractDefinition["validate"],
+): Readonly<ConsensusNativeContractDefinition> {
+  return Object.freeze({
+    contractRef,
+    contractVersion: "5.0.0" as const,
+    contractKind,
+    valueKind,
+    validate,
+  });
+}
+
+export const CONSENSUS_NATIVE_CONTRACT_DEFINITIONS = Object.freeze([
+  consensusContract(CONSENSUS_IDS.subjectContractRef, "input", "consensus_subject", isConsensusSubject),
+  consensusContract(CONSENSUS_IDS.panelContractRef, "input", "consensus_panel", isConsensusPanel),
+  consensusContract(CONSENSUS_IDS.profileContractRef, "input", "consensus_reviewer_profile", isConsensusReviewerProfile),
+  consensusContract(CONSENSUS_IDS.reviewerInstructionContractRef, "input", "consensus_reviewer_instruction", isConsensusReviewerInstruction),
+  consensusContract(CONSENSUS_IDS.submitterProfileContractRef, "input", "consensus_submitter_profile", isConsensusSubmitterProfile),
+  consensusContract(CONSENSUS_IDS.submitterInstructionContractRef, "input", "consensus_submitter_instruction", isConsensusSubmitterInstruction),
+  consensusContract(CONSENSUS_IDS.findingsContractRef, "output", "review_findings", isReviewFindings),
+  consensusContract(CONSENSUS_IDS.rulingsContractRef, "output", "review_rulings", isReviewRulings),
+  consensusContract(CONSENSUS_IDS.rulingOverlayContractRef, "input", "consensus_ruling_overlay", isConsensusRulingOverlay),
+  consensusContract(CONSENSUS_IDS.policyContractRef, "input", "consensus_round_policy", isConsensusRoundPolicy),
+  consensusContract(CONSENSUS_IDS.roundOutcomeContractRef, "output", "consensus_round_outcome", isConsensusRoundOutcome),
+  consensusContract(CONSENSUS_IDS.resultCandidateContractRef, "output", "consensus_result_candidate", isConsensusResultCandidate),
+  consensusContract(CONSENSUS_IDS.resultContractRef, "output", "consensus_result", isConsensusResult),
+  consensusContract(CONSENSUS_IDS.ticketProjectionContractRef, "output", "ticket_consensus_projection", isTicketConsensusProjection),
+  consensusContract(CONSENSUS_IDS.invocationContractRef, "input", "consensus_invocation", isConsensusInvocation),
+  consensusContract(CONSENSUS_IDS.observationContractRef, "input", "observation_snapshot", isConsensusObservationSnapshot),
+  consensusContract(CONSENSUS_IDS.modelContractRef, "output", "observation_snapshot", isConsensusObservationSnapshot),
+  consensusContract(CONSENSUS_IDS.nextActionBasisContractRef, "output", "next_action_basis", isConsensusNextActionBasis),
+  consensusContract(CONSENSUS_IDS.nextActionContractRef, "output", "next_action_projection", isConsensusNextActionProjection),
+  consensusContract(CONSENSUS_IDS.actionEvaluationBasisContractRef, "output", "action_evaluation_basis", isConsensusActionEvaluationBasis),
+  consensusContract(CONSENSUS_IDS.actionEvaluationContractRef, "output", "action_evaluation_projection", isConsensusActionEvaluationProjection),
+  consensusContract(CONSENSUS_IDS.stateContractRef, "output", "consensus_round_state", isConsensusRoundState),
+  consensusContract(CONSENSUS_IDS.resolutionContractRef, "output", "consensus_resolution", isConsensusResolution),
+  consensusContract(CONSENSUS_IDS.reviewerTaskContractRef, "input", "consensus_reviewer_task", isConsensusReviewerTask),
+  consensusContract(CONSENSUS_IDS.findingsVectorContractRef, "output", "consensus_findings_vector", isConsensusFindingsVector),
+  consensusContract(CONSENSUS_IDS.submitterTaskContractRef, "output", "consensus_submitter_task", isConsensusSubmitterTask),
+  consensusContract(CONSENSUS_IDS.submitterResponseContractRef, "output", "consensus_submitter_response", isConsensusSubmitterResponse),
+  consensusContract(CONSENSUS_IDS.escalationDecisionContractRef, "output", "consensus_escalation_decision", isConsensusEscalationDecision),
+  consensusContract(
+    CONSENSUS_IDS.failureContractRef,
+    "failure",
+    "consensus_failure",
+    (value) => isRecord(value) && value.kind === "consensus_failure",
+  ),
+  consensusContract(
+    CONSENSUS_IDS.refusalContractRef,
+    "refusal",
+    "consensus_refusal",
+    (value) => isRecord(value) && value.kind === "consensus_refusal",
+  ),
+  consensusContract(CONSENSUS_IDS.evidenceContractRef, "evidence", "probabilistic_transport_evidence_candidate", null),
+  consensusContract(CONSENSUS_IDS.judgmentContractRef, "judgment", "consensus_judgment", null),
+  consensusContract(CONSENSUS_IDS.transitionContractRef, "transition", "consensus_transition", null),
+  consensusContract(CONSENSUS_IDS.continuationContractRef, "transition", "consensus_continuation", null),
+]);
+
+export function validateConsensusContractValue(
+  valueKind: string,
+  value: unknown,
+): boolean {
+  const definitions = CONSENSUS_NATIVE_CONTRACT_DEFINITIONS.filter(
+    (definition) => definition.valueKind === valueKind,
+  );
+  return definitions.length > 0 &&
+    definitions.every(
+      (definition) =>
+        definition.validate !== null && definition.validate(value),
+    );
 }
 
 export function constructConsensusModulePublication(
@@ -4499,43 +4811,9 @@ export function constructConsensusModulePublication(
       startRef: CONSENSUS_IDS.oneSurfaceStartRef,
     }],
   };
-  const contracts = [
-    [CONSENSUS_IDS.subjectContractRef, "input", "consensus_subject"],
-    [CONSENSUS_IDS.panelContractRef, "input", "consensus_panel"],
-    [CONSENSUS_IDS.profileContractRef, "input", "consensus_reviewer_profile"],
-    [CONSENSUS_IDS.findingsContractRef, "output", "review_findings"],
-    [CONSENSUS_IDS.rulingsContractRef, "output", "review_rulings"],
-    [CONSENSUS_IDS.policyContractRef, "input", "consensus_round_policy"],
-    [CONSENSUS_IDS.roundOutcomeContractRef, "output", "consensus_round_outcome"],
-    [CONSENSUS_IDS.resultCandidateContractRef, "output", "consensus_result_candidate"],
-    [CONSENSUS_IDS.resultContractRef, "output", "consensus_result"],
-    [CONSENSUS_IDS.ticketProjectionContractRef, "output", "ticket_consensus_projection"],
-    [CONSENSUS_IDS.invocationContractRef, "input", "consensus_invocation"],
-    [CONSENSUS_IDS.observationContractRef, "input", "observation_snapshot"],
-    [CONSENSUS_IDS.modelContractRef, "output", "observation_snapshot"],
-    [CONSENSUS_IDS.nextActionBasisContractRef, "output", "next_action_basis"],
-    [CONSENSUS_IDS.nextActionContractRef, "output", "next_action_projection"],
-    [CONSENSUS_IDS.actionEvaluationBasisContractRef, "output", "action_evaluation_basis"],
-    [CONSENSUS_IDS.actionEvaluationContractRef, "output", "action_evaluation_projection"],
-    [CONSENSUS_IDS.stateContractRef, "output", "consensus_round_state"],
-    [CONSENSUS_IDS.resolutionContractRef, "output", "consensus_resolution"],
-    [CONSENSUS_IDS.reviewerTaskContractRef, "input", "consensus_reviewer_task"],
-    [CONSENSUS_IDS.findingsVectorContractRef, "output", "consensus_findings_vector"],
-    [CONSENSUS_IDS.submitterTaskContractRef, "output", "consensus_submitter_task"],
-    [CONSENSUS_IDS.submitterResponseContractRef, "output", "consensus_submitter_response"],
-    [CONSENSUS_IDS.escalationDecisionContractRef, "output", "consensus_escalation_decision"],
-    [CONSENSUS_IDS.failureContractRef, "failure", "consensus_failure"],
-    [CONSENSUS_IDS.refusalContractRef, "refusal", "consensus_refusal"],
-    [CONSENSUS_IDS.evidenceContractRef, "evidence", "probabilistic_transport_evidence_candidate"],
-    [CONSENSUS_IDS.judgmentContractRef, "judgment", "consensus_judgment"],
-    [CONSENSUS_IDS.transitionContractRef, "transition", "consensus_transition"],
-    [CONSENSUS_IDS.continuationContractRef, "transition", "consensus_continuation"],
-  ].map(([contractRef, contractKind, valueKind]) => ({
-    contractRef,
-    contractVersion: "5.0.0",
-    contractKind,
-    valueKind,
-  } as ContractDeclaration));
+  const contracts = CONSENSUS_NATIVE_CONTRACT_DEFINITIONS.map(
+    ({ validate: _validate, ...declaration }) => declaration,
+  );
   const binding = (
     bindingRef: string,
     implementationRef: string,
@@ -4577,7 +4855,7 @@ export function constructConsensusModulePublication(
     binding(
       CONSENSUS_IDS.reviewerImplementationBindingRef,
       CONSENSUS_IDS.reviewerImplementationRef,
-      "realizeConsensusReviewer",
+      "realizeConsensusRole",
       "F_P",
       CONSENSUS_IDS.reviewerTaskContractRef,
       CONSENSUS_IDS.findingsContractRef,
@@ -4593,7 +4871,7 @@ export function constructConsensusModulePublication(
     binding(
       CONSENSUS_IDS.submitterImplementationBindingRef,
       CONSENSUS_IDS.submitterImplementationRef,
-      "realizeConsensusSubmitter",
+      "realizeConsensusRole",
       "F_P",
       CONSENSUS_IDS.submitterTaskContractRef,
       CONSENSUS_IDS.submitterResponseContractRef,
@@ -4780,9 +5058,19 @@ export function constructConsensusModulePublication(
       CONSENSUS_IDS.profileContractRef,
     ),
     catalogSurface(
+      CONSENSUS_IDS.reviewerInstructionCatalogHandle,
+      "node_type",
+      CONSENSUS_IDS.reviewerInstructionContractRef,
+    ),
+    catalogSurface(
       CONSENSUS_IDS.submitterProfileCatalogHandle,
       "node_type",
       CONSENSUS_IDS.submitterProfileContractRef,
+    ),
+    catalogSurface(
+      CONSENSUS_IDS.submitterInstructionCatalogHandle,
+      "node_type",
+      CONSENSUS_IDS.submitterInstructionContractRef,
     ),
     catalogSurface(
       CONSENSUS_IDS.policyCatalogHandle,
@@ -4792,7 +5080,7 @@ export function constructConsensusModulePublication(
     catalogSurface(
       CONSENSUS_IDS.rulingOverlayCatalogHandle,
       "overlay",
-      CONSENSUS_IDS.rulingsContractRef,
+      CONSENSUS_IDS.rulingOverlayContractRef,
     ),
   );
   return deepFreeze({

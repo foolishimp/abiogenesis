@@ -120,6 +120,9 @@ export async function buildRootCliScenario(
     bind: `${prefix}/workspace-bind`,
     catalog: `${prefix}/catalog-admit`,
     view: `${prefix}/catalog-view`,
+    applications: (options.catalogApplications ?? []).map(
+      (_application, index) => `${prefix}/catalog-apply-${index}`,
+    ),
     run: `${prefix}/run-invoke`,
   };
   const installedRoot = join(
@@ -141,6 +144,11 @@ export async function buildRootCliScenario(
     programRef,
     graphFunctionRef,
     actorRef: authorizedActorRef,
+    ...(refs.applications.length === 0
+      ? {}
+      : {
+          catalogApplicationInvocationRefs: refs.applications,
+        }),
     input: options.input ?? {
       kind: "hello_world_input",
       schemaVersion: "5.0.0",
@@ -184,6 +192,18 @@ export async function buildRootCliScenario(
       catalogInvocationRef: refs.catalog,
       allowlist: options.allowlist ?? [graphFunctionRef],
     }),
+    ...(options.catalogApplications ?? []).map((application, index) =>
+      invocation(
+        "abg.operation.catalog.apply",
+        "declaration",
+        refs.applications[index],
+        {
+          catalogViewInvocationRef: refs.view,
+          handle: application.handle,
+          valueRef: application.valueRef,
+          valueDigest: application.valueDigest,
+        },
+      )),
     invocation("abg.operation.run.invoke", "direct", refs.run, runPayload),
   ];
   const transcriptPath = join(scenarioRoot, "root-transcript.jsonl");

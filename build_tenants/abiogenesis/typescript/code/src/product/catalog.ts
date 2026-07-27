@@ -107,6 +107,9 @@ export interface CatalogApplicationCandidate {
   readonly viewDigest: Sha256Digest;
   readonly rowHandle: string;
   readonly rowDigest: Sha256Digest;
+  readonly appliedHandle: string;
+  readonly appliedValueRef: string | null;
+  readonly appliedValueDigest: Sha256Digest | null;
   readonly contributionKind: "node_type" | "overlay";
   readonly declarationOrContractRef: string;
   readonly owningProductId: string;
@@ -136,6 +139,7 @@ export interface CatalogConstructionRefusal {
   readonly disposition: "refused";
   readonly code:
     | "application_not_supported"
+    | "invalid_application_binding"
     | "binding_lock_mismatch"
     | "duplicate_allowlist_entry"
     | "invalid_validation_basis"
@@ -303,6 +307,10 @@ export function constructCatalogViewCandidate(
 export function constructCatalogApplicationCandidate(
   view: CatalogView,
   handle: string,
+  binding: Readonly<{
+    readonly valueRef: string;
+    readonly valueDigest: Sha256Digest;
+  }> | null = null,
 ): CatalogApplicationCandidateResult {
   const row = view.selectedRows.find((candidate) => candidate.handle === handle);
   if (row === undefined) {
@@ -320,6 +328,18 @@ export function constructCatalogApplicationCandidate(
       "GraphFunction rows remain callable through run.invoke and cannot be applied",
     );
   }
+  if (
+    binding !== null &&
+    (
+      binding.valueRef.trim().length === 0 ||
+      !/^sha256:[0-9a-f]{64}$/u.test(binding.valueDigest)
+    )
+  ) {
+    return refusal(
+      "invalid_application_binding",
+      "catalog application value binding requires one nonblank reference and canonical SHA-256 digest",
+    );
+  }
   const body = {
     catalogId: view.catalogId,
     catalogDigest: view.catalogDigest,
@@ -327,6 +347,11 @@ export function constructCatalogApplicationCandidate(
     viewDigest: view.viewDigest,
     rowHandle: row.handle,
     rowDigest: row.rowDigest,
+    appliedHandle: binding === null
+      ? row.handle
+      : `${row.handle}/${binding.valueDigest.slice("sha256:".length)}`,
+    appliedValueRef: binding?.valueRef ?? null,
+    appliedValueDigest: binding?.valueDigest ?? null,
     contributionKind: row.kind,
     declarationOrContractRef: row.declarationOrContractRef,
     owningProductId: row.owningProductId,

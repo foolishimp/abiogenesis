@@ -114,8 +114,8 @@ function usesDurableContinuationAuthority(
   );
 }
 
-function isProductResultProjectionVariant(variant: string): boolean {
-  return !["gaps", "lawful-actions", "replay", "status"].includes(variant);
+function isCoreRunProjectionVariant(variant: string): boolean {
+  return ["gaps", "lawful-actions", "replay", "status"].includes(variant);
 }
 
 function stringField(
@@ -782,7 +782,20 @@ async function applyCatalogApplication(
   requireExactPayloadKeys(invocation.payload, [
     "catalogViewInvocationRef",
     "handle",
+    "valueDigest",
+    "valueRef",
   ], "catalog.apply");
+  const suppliedValueRef = invocation.payload.valueRef;
+  const suppliedValueDigest = invocation.payload.valueDigest;
+  if (
+    (suppliedValueRef === undefined) !==
+      (suppliedValueDigest === undefined)
+  ) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "catalog.apply valueRef and valueDigest must be supplied together",
+    );
+  }
   const viewInvocationRef = stringField(
     invocation.payload,
     "catalogViewInvocationRef",
@@ -795,6 +808,15 @@ async function applyCatalogApplication(
   const candidate = product.constructCatalogApplicationCandidate(
     viewState.view,
     stringField(invocation.payload, "handle"),
+    suppliedValueRef === undefined
+      ? null
+      : {
+          valueRef: stringField(invocation.payload, "valueRef"),
+          valueDigest: stringField(
+            invocation.payload,
+            "valueDigest",
+          ) as product.Sha256Digest,
+        },
   );
   if (candidate.kind !== "catalog_application_candidate") {
     throw new ApplicationRefusal(
@@ -831,6 +853,9 @@ async function applyCatalogApplication(
     viewId: application.viewId,
     rowHandle: application.rowHandle,
     rowDigest: application.rowDigest,
+    appliedHandle: application.appliedHandle,
+    appliedValueRef: application.appliedValueRef,
+    appliedValueDigest: application.appliedValueDigest,
     contributionKind: application.contributionKind,
     declarationOrContractRef: application.declarationOrContractRef,
     owningProductId: application.owningProductId,
@@ -859,6 +884,7 @@ async function applyRunInvoke(
     invocation.variant === "direct"
       ? [
           "actorRef",
+          "catalogApplicationInvocationRefs",
           "catalogViewInvocationRef",
           "eventLogPath",
           "graphFunctionRef",
@@ -871,6 +897,7 @@ async function applyRunInvoke(
         ]
       : [
           "actorRef",
+          "catalogApplicationInvocationRefs",
           "catalogViewInvocationRef",
           "eventLogPath",
           "input",
@@ -993,6 +1020,41 @@ async function applyRunInvoke(
         },
         view: reentryState.catalogView,
       };
+  const catalogApplicationInvocationRefs =
+    invocation.payload.catalogApplicationInvocationRefs === undefined
+      ? []
+      : stringArrayField(
+          invocation.payload,
+          "catalogApplicationInvocationRefs",
+        );
+  if (
+    new Set(catalogApplicationInvocationRefs).size !==
+      catalogApplicationInvocationRefs.length
+  ) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "run.invoke catalog application references must be unique",
+    );
+  }
+  const catalogApplications = catalogApplicationInvocationRefs.map(
+    (applicationInvocationRef) => {
+      const applicationState = required(
+        context.productState.catalogApplication(applicationInvocationRef),
+        applicationInvocationRef,
+        "CatalogApplication",
+      );
+      if (
+        applicationState.viewState.view.viewId !== viewState.view.viewId ||
+        applicationState.viewState.view.viewDigest !== viewState.view.viewDigest
+      ) {
+        throw new ApplicationRefusal(
+          "target_mismatch",
+          "run.invoke catalog application differs from the exact selected CatalogView",
+        );
+      }
+      return applicationState.application;
+    },
+  );
   const runProjectionProductBasis: RunProjectionProductBasis = {
     install: installState.install,
     workspaceId: workspaceState.binding.workspaceId,
@@ -1195,6 +1257,7 @@ async function applyRunInvoke(
         ? null
         : programValue.actionCatalog as unknown as product.JsonValue,
       catalogView: viewState.view,
+      catalogApplications,
       sourceResultBasis,
     })
   ) {
@@ -1240,6 +1303,7 @@ async function applyRunInvoke(
     programValue,
     interactionCapabilities,
     (["F_D", "F_P", "F_H"] as const).filter((regime) => declaredRegimes.has(regime)),
+    catalogApplications,
   );
   const actorRef = stringField(invocation.payload, "actorRef");
   const interactionCapabilityRefs = [
@@ -1315,6 +1379,7 @@ async function applyRunInvoke(
       programValidation,
       workspaceBinding: workspaceState.binding,
       catalogView: viewState.view,
+      catalogApplications,
       policy,
       capabilityGrants: grants,
       authority,
@@ -1354,7 +1419,12 @@ async function applyRunInvoke(
       { ...invocation, invocationRef: candidate.invocationRef },
       workspaceState.binding.bindingId,
       workspaceState.binding.bindingDigest,
-      [viewState.view.admissionEventRef],
+      [
+        viewState.view.admissionEventRef,
+        ...catalogApplications.map(
+          (application) => application.admissionEventRef,
+        ),
+      ],
     ),
   );
   if (invocationAdmission.kind !== "invocation_admission") {
@@ -2307,7 +2377,35 @@ async function applyRunProjectionRead(
   try {
     const replayState = abg.replay(context.store, { runId: state.runId });
     const secondReplay = abg.replay(context.store, { runId: state.runId });
-    const isResultRead = isProductResultProjectionVariant(invocation.variant);
+    let productSemantics: product.ProductSemanticsProvider | null = null;
+    if (!isCoreRunProjectionVariant(invocation.variant)) {
+      try {
+        productSemantics = await product.loadInstalledProductSemantics({
+          install: state.install,
+          publicationDigest: state.publicationDigest,
+          productSemanticsBinding: state.productSemanticsBinding,
+          verifyInstallAdmission: (install) =>
+            abg.hasAdmittedProductInstall(context.store, install),
+        });
+      } catch {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "project.read Product result projection is not carried by the exact admitted install",
+        );
+      }
+      if (
+        !product.supportsInstalledPublicResultProjection(
+          productSemantics,
+          invocation.variant,
+        )
+      ) {
+        throw new ApplicationRefusal(
+          "invalid_request",
+          `project.read variant ${invocation.variant} is absent from the Product-declared result projection roster`,
+        );
+      }
+    }
+    const isResultRead = productSemantics !== null;
     const selectedResultRef = isResultRead
       ? targetRef === state.graphCallId
         ? state.resultRef
@@ -2375,33 +2473,19 @@ async function applyRunProjectionRead(
       : projected.result;
     let publicResultContractRef = selectedResult?.resultContractRef ?? null;
     if (isResultRead) {
-      try {
-        const productSemantics = await product.loadInstalledProductSemantics({
-          install: state.install,
-          publicationDigest: state.publicationDigest,
-          productSemanticsBinding: state.productSemanticsBinding,
-          verifyInstallAdmission: (install) =>
-            abg.hasAdmittedProductInstall(context.store, install),
-        });
-        const publicProjection = product.projectInstalledPublicResult(
-          productSemantics,
-          {
-            value: selectedResult!.resultValue!,
-            admittedResultRef: selectedResult!.resultRef!,
-            admittedResultContractRef:
-              selectedResult!.resultContractRef!,
-            replayRef: replayState.replayRef,
-            projectionKind: invocation.variant,
-          },
-        );
-        publicResultValue = publicProjection?.value ?? null;
-        publicResultContractRef = publicProjection?.contractRef ?? null;
-      } catch {
-        throw new ApplicationRefusal(
-          "owner_refusal",
-          "project.read Product result projection is not carried by the exact admitted install",
-        );
-      }
+      const publicProjection = product.projectInstalledPublicResult(
+        productSemantics!,
+        {
+          value: selectedResult!.resultValue!,
+          admittedResultRef: selectedResult!.resultRef!,
+          admittedResultContractRef:
+            selectedResult!.resultContractRef!,
+          replayRef: replayState.replayRef,
+          projectionKind: invocation.variant,
+        },
+      );
+      publicResultValue = publicProjection?.value ?? null;
+      publicResultContractRef = publicProjection?.contractRef ?? null;
       if (publicResultValue === null) {
         throw new ApplicationRefusal(
           "owner_refusal",
@@ -2661,7 +2745,34 @@ async function applyProjectRead(
             ? "fh_input_required"
             : "construction_progressing_yield";
     const eventsBeforeRead = context.store.readAll();
-    const isResultRead = isProductResultProjectionVariant(invocation.variant);
+    let productSemantics: product.ProductSemanticsProvider | null = null;
+    if (!isCoreRunProjectionVariant(invocation.variant)) {
+      try {
+        productSemantics = await product.loadInstalledProductSemantics({
+          install: state.install,
+          publication: state.catalog.modulePublication,
+          verifyInstallAdmission: (install) =>
+            abg.hasAdmittedProductInstall(context.store, install),
+        });
+      } catch {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "project.read Product result projection is not carried by the exact admitted install",
+        );
+      }
+      if (
+        !product.supportsInstalledPublicResultProjection(
+          productSemantics,
+          invocation.variant,
+        )
+      ) {
+        throw new ApplicationRefusal(
+          "invalid_request",
+          `project.read variant ${invocation.variant} is absent from the Product-declared result projection roster`,
+        );
+      }
+    }
+    const isResultRead = productSemantics !== null;
     const projectedResult = isResultRead
       ? projectOutcome(
           invocation,
@@ -2689,32 +2800,19 @@ async function applyProjectRead(
     let publicResultContractRef =
       projectedResult?.admittedResultContractRef ?? null;
     if (isResultRead) {
-      try {
-        const productSemantics = await product.loadInstalledProductSemantics({
-          install: state.install,
-          publication: state.catalog.modulePublication,
-          verifyInstallAdmission: (install) =>
-            abg.hasAdmittedProductInstall(context.store, install),
-        });
-        const publicProjection = product.projectInstalledPublicResult(
-          productSemantics,
-          {
-            value: projectedResult!.result,
-            admittedResultRef: projectedResult!.resultRef!,
-            admittedResultContractRef:
-              projectedResult!.admittedResultContractRef!,
-            replayRef: replayState.replayRef,
-            projectionKind: invocation.variant,
-          },
-        );
-        publicResultValue = publicProjection?.value ?? null;
-        publicResultContractRef = publicProjection?.contractRef ?? null;
-      } catch {
-        throw new ApplicationRefusal(
-          "owner_refusal",
-          "project.read Product result projection is not carried by the exact admitted install",
-        );
-      }
+      const publicProjection = product.projectInstalledPublicResult(
+        productSemantics!,
+        {
+          value: projectedResult!.result,
+          admittedResultRef: projectedResult!.resultRef!,
+          admittedResultContractRef:
+            projectedResult!.admittedResultContractRef!,
+          replayRef: replayState.replayRef,
+          projectionKind: invocation.variant,
+        },
+      );
+      publicResultValue = publicProjection?.value ?? null;
+      publicResultContractRef = publicProjection?.contractRef ?? null;
       if (publicResultValue === null) {
         throw new ApplicationRefusal(
           "owner_refusal",

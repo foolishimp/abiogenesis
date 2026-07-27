@@ -15,6 +15,9 @@ import * as abg from "../../build/code/src/abg/index.js";
 import { ROOT_EVENT_CONTRACT_DIGEST } from "../../build/code/src/abg/event_store.js";
 import * as gtl from "../../build/code/src/gtl/index.js";
 import {
+  CONSENSUS_REVIEWER_IMPLEMENTATION_DESCRIPTOR,
+  CONSENSUS_SUBMITTER_IMPLEMENTATION_DESCRIPTOR,
+  realizeConsensusRole,
   realizeConsensusReviewer,
   realizeConsensusSubmitter,
   realizeConsensusSubmitterTaskPreparation,
@@ -22,6 +25,7 @@ import {
 import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "../../build/code/src/product/builtin_semantics.js";
 import * as product from "../../build/code/src/product/index.js";
 import { ROOT_PUBLIC_OPERATION_IDS } from "../../build/code/src/public/index.js";
+import * as validator from "../../build/code/src/validator/index.js";
 import {
   constructPublicRunProjectionAuthority,
   parsePublicRunProjectionAuthority,
@@ -43,16 +47,62 @@ function artifactBasis() {
   };
 }
 
+function rawAdmission(value, kind, contractRef) {
+  const admitted = validator.rawAdmitValue(value, kind, contractRef);
+  assert.equal(admitted.kind, "raw_admitted_value", JSON.stringify(admitted));
+  return admitted;
+}
+
 function canonicalPolicy(acceptedFindingRulingKind = "decision_row") {
+  const rulingOverlay = gtl.constructConsensusRulingOverlay({
+    overlayRef: gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
+    acceptedFindingRulingKind,
+  });
   return gtl.constructConsensusRoundPolicy({
     policyRef: "policy://developer/consensus/module-proof@1",
     roundBudget: 2,
     convergenceRuleRef: gtl.CONSENSUS_IDS.convergenceRuleRef,
-    disagreementRuleRef: gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
-    acceptedFindingRulingKind,
+    disagreementRuleRef: rulingOverlay.overlayRef,
+    rulingOverlay,
     escalationRuleRef: gtl.CONSENSUS_IDS.escalationRuleRef,
     foldbackContractRef: gtl.CONSENSUS_IDS.foldbackContractRef,
   });
+}
+
+function consensusCatalogApplications(invocation) {
+  return gtl.consensusCatalogApplicationBindings(invocation).map(
+    (binding, index) => ({
+      applicationId: `catalog-application://module-proof/${index}`,
+      applicationDigest: product.sha256Canonical(binding),
+      rowHandle: binding.handle,
+      appliedHandle:
+        `${binding.handle}/${binding.valueDigest.slice("sha256:".length)}`,
+      appliedValueRef: binding.valueRef,
+      appliedValueDigest: binding.valueDigest,
+      contributionKind:
+        binding.handle === gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle
+          ? "overlay"
+          : "node_type",
+      declarationOrContractRef:
+        binding.handle === gtl.CONSENSUS_IDS.subjectCatalogHandle
+          ? gtl.CONSENSUS_IDS.subjectContractRef
+          : binding.handle ===
+              gtl.CONSENSUS_IDS.reviewerProfileCatalogHandle
+          ? gtl.CONSENSUS_IDS.profileContractRef
+          : binding.handle ===
+              gtl.CONSENSUS_IDS.reviewerInstructionCatalogHandle
+          ? gtl.CONSENSUS_IDS.reviewerInstructionContractRef
+          : binding.handle ===
+              gtl.CONSENSUS_IDS.submitterProfileCatalogHandle
+          ? gtl.CONSENSUS_IDS.submitterProfileContractRef
+          : binding.handle ===
+              gtl.CONSENSUS_IDS.submitterInstructionCatalogHandle
+          ? gtl.CONSENSUS_IDS.submitterInstructionContractRef
+          : binding.handle === gtl.CONSENSUS_IDS.policyCatalogHandle
+          ? gtl.CONSENSUS_IDS.policyContractRef
+          : gtl.CONSENSUS_IDS.rulingOverlayContractRef,
+    }),
+  );
 }
 
 function consensusCatalogView() {
@@ -60,7 +110,9 @@ function consensusCatalogView() {
   const handles = [
     gtl.CONSENSUS_IDS.subjectCatalogHandle,
     gtl.CONSENSUS_IDS.reviewerProfileCatalogHandle,
+    gtl.CONSENSUS_IDS.reviewerInstructionCatalogHandle,
     gtl.CONSENSUS_IDS.submitterProfileCatalogHandle,
+    gtl.CONSENSUS_IDS.submitterInstructionCatalogHandle,
     gtl.CONSENSUS_IDS.policyCatalogHandle,
     gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
   ];
@@ -411,8 +463,16 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
       ["ConsensusSubmitterProfile", "isConsensusSubmitterProfile"],
     ],
     [
+      "abg.schema.consensus-ruling-overlay",
+      ["ConsensusRulingOverlay", "isConsensusRulingOverlay"],
+    ],
+    [
       "abg.schema.consensus-submitter-response",
       ["ConsensusSubmitterResponse", "isConsensusSubmitterResponse"],
+    ],
+    [
+      "abg.schema.consensus-escalation-decision",
+      ["ConsensusEscalationDecision", "isConsensusEscalationDecision"],
     ],
     ["abg.schema.review-findings", ["ReviewFindings", "isReviewFindings"]],
     ["abg.schema.review-rulings", ["ReviewRulings", "isReviewRulings"]],
@@ -430,6 +490,11 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
       ["TicketConsensusProjection", "isTicketConsensusProjection"],
     ],
   ]);
+  assert.deepEqual(
+    [...schemaBindings.keys()],
+    gtl.CONSENSUS_SCHEMA_ASSET_BINDINGS.map(([contractId]) => contractId),
+    "manifest schema rows must derive from the native schema binding registry",
+  );
   for (const [contractId, [definitionName, nativeSymbol]] of schemaBindings) {
     const row = rows.get(contractId);
     assert.ok(row, contractId);
@@ -482,6 +547,13 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
   }
 
   const publication = gtl.constructConsensusModulePublication(artifactBasis());
+  assert.deepEqual(
+    publication.contracts,
+    gtl.CONSENSUS_NATIVE_CONTRACT_DEFINITIONS.map(
+      ({ validate: _validate, ...declaration }) => declaration,
+    ),
+    "publication contracts must project the single native contract registry",
+  );
   const contribution = publication.contributions.find(
     (row) => row.handle === gtl.CONSENSUS_IDS.handle,
   );
@@ -530,6 +602,44 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
       eventKind.includes("consensus")
     ),
     false,
+  );
+});
+
+test("S05 every non-callable catalog row references one published contract", () => {
+  const publication = structuredClone(
+    gtl.constructConsensusModulePublication(artifactBasis()),
+  );
+  publication.contracts = publication.contracts.filter(
+    (contract) =>
+      contract.contractRef !==
+        gtl.CONSENSUS_IDS.submitterProfileContractRef,
+  );
+  const admittedPublication = rawAdmission(
+    publication,
+    "module_publication",
+    "contract://abiogenesis/gtl/module-publication@5",
+  );
+  const admittedContributions = publication.contributions.map((value) =>
+    rawAdmission(
+      value,
+      "catalog_contribution",
+      "contract://abiogenesis/gtl/catalog-contribution@5",
+    )
+  );
+  const result = validator.validatePublication(
+    admittedPublication,
+    admittedContributions,
+  );
+  assert.equal(result.kind, "static_validation_refusal");
+  assert.equal(
+    result.diagnostics.some(
+      (diagnostic) =>
+        diagnostic.code === "invalid_reference" &&
+        diagnostic.path.includes(
+          gtl.CONSENSUS_IDS.submitterProfileCatalogHandle,
+        ),
+    ),
+    true,
   );
 });
 
@@ -708,7 +818,13 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     assert.equal(gtl.isConsensusRoundPolicy(mutated), false, field);
   }
   const invalidRuling = structuredClone(policy);
-  invalidRuling.acceptedFindingRulingKind = "deferment";
+  invalidRuling.rulingOverlay.acceptedFindingRulingKind = "deferment";
+  const {
+    overlayDigest: _overlayDigest,
+    ...overlayBody
+  } = invalidRuling.rulingOverlay;
+  invalidRuling.rulingOverlay.overlayDigest =
+    product.sha256Canonical(overlayBody);
   const { policyDigest: _invalidDigest, ...invalidRulingBody } = invalidRuling;
   invalidRuling.policyDigest = product.sha256Canonical(invalidRulingBody);
   assert.equal(gtl.isConsensusRoundPolicy(invalidRuling), false);
@@ -726,6 +842,7 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     workspaceId: WORKSPACE,
     actionCatalog: program.actionCatalog,
     catalogView: consensusCatalogView(),
+    catalogApplications: consensusCatalogApplications(input),
     sourceResultBasis: null,
   };
   assert.equal(
@@ -741,6 +858,26 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis(basis),
     true,
   );
+  for (const missingHandle of [
+    gtl.CONSENSUS_IDS.subjectCatalogHandle,
+    gtl.CONSENSUS_IDS.reviewerProfileCatalogHandle,
+    gtl.CONSENSUS_IDS.reviewerInstructionCatalogHandle,
+    gtl.CONSENSUS_IDS.submitterProfileCatalogHandle,
+    gtl.CONSENSUS_IDS.submitterInstructionCatalogHandle,
+    gtl.CONSENSUS_IDS.policyCatalogHandle,
+    gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
+  ]) {
+    assert.equal(
+      ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
+        ...basis,
+        catalogApplications: basis.catalogApplications.filter(
+          (application) => application.rowHandle !== missingHandle,
+        ),
+      }),
+      false,
+      `missing exact catalog application ${missingHandle} must refuse`,
+    );
+  }
   assert.equal(
     ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
       ...basis,
@@ -748,11 +885,23 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     }),
     false,
   );
-  const unknownOverlay = structuredClone(input);
-  unknownOverlay.policy.disagreementRuleRef =
-    "catalog://downstream/consensus/overlay/unknown";
-  const { policyDigest: _policyDigest, ...policyBody } = unknownOverlay.policy;
-  unknownOverlay.policy.policyDigest = product.sha256Canonical(policyBody);
+  const unknownOverlayValue = gtl.constructConsensusRulingOverlay({
+    overlayRef: "catalog://downstream/consensus/overlay/unknown",
+    acceptedFindingRulingKind: "decision_row",
+  });
+  const unknownPolicy = gtl.constructConsensusRoundPolicy({
+    ...input.policy,
+    disagreementRuleRef: unknownOverlayValue.overlayRef,
+    rulingOverlay: unknownOverlayValue,
+  });
+  const unknownOverlay = gtl.constructConsensusInvocation({
+    ...input,
+    policy: unknownPolicy,
+    subject: gtl.constructConsensusSubject({
+      ...input.subject,
+      roundPolicyRef: unknownPolicy.policyRef,
+    }),
+  });
   assert.equal(gtl.isConsensusInvocation(unknownOverlay), true);
   assert.equal(
     ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
@@ -761,6 +910,37 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     }),
     false,
     "a policy overlay URI must resolve through the existing admitted catalog view",
+  );
+  const substitutedOverlayValue = gtl.constructConsensusRulingOverlay({
+    overlayRef: input.policy.rulingOverlay.overlayRef,
+    acceptedFindingRulingKind: "rejected_finding",
+  });
+  const substitutedPolicy = gtl.constructConsensusRoundPolicy({
+    ...input.policy,
+    rulingOverlay: substitutedOverlayValue,
+  });
+  const substitutedOverlay = gtl.constructConsensusInvocation({
+    ...input,
+    policy: substitutedPolicy,
+  });
+  assert.equal(gtl.isConsensusInvocation(substitutedOverlay), true);
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
+      ...basis,
+      input: substitutedOverlay,
+    }),
+    false,
+    "an unapplied ruling-overlay value cannot select behavior",
+  );
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
+      ...basis,
+      input: substitutedOverlay,
+      catalogApplications:
+        consensusCatalogApplications(substitutedOverlay),
+    }),
+    true,
+    "the exact applied overlay value selects the admitted ruling behavior",
   );
 
   const observation = gtl.constructConsensusObservationSnapshot({
@@ -827,6 +1007,128 @@ test("S05 reviewer profiles bind every execution-affecting configuration field",
   );
   assert.equal(gtl.isConsensusPanel(invocation.panel), false);
   assert.equal(gtl.isConsensusInvocation(invocation), false);
+});
+
+test("S05 reviewer and submitter project through one role-parameterized Prime atom", async () => {
+  const invocation = invocationFor();
+  assert.equal(
+    gtl.isConsensusRoleInstruction("reviewer", invocation.instructions[0]),
+    true,
+  );
+  assert.equal(
+    gtl.isConsensusRoleInstruction(
+      "submitter",
+      invocation.submitterInstruction,
+    ),
+    true,
+  );
+  assert.equal(
+    gtl.isConsensusRoleProfile("reviewer", invocation.panel.profiles[0]),
+    true,
+  );
+  assert.equal(
+    gtl.isConsensusRoleProfile("submitter", invocation.submitterProfile),
+    true,
+  );
+  assert.equal(
+    gtl.isConsensusRoleProfile("submitter", invocation.panel.profiles[0]),
+    false,
+    "one typed role variant cannot be admitted as the other",
+  );
+  assert.throws(
+    () => gtl.cCarrier(" "),
+    /non-empty/u,
+  );
+  assert.throws(
+    () =>
+      gtl.constructConsensusReviewerInstruction({
+        ...invocation.instructions[0],
+        instructionContractRef: " ",
+      }),
+    /exact body/u,
+  );
+
+  const state = gtl.initializeConsensus(invocation);
+  const reviewerTask = state.members[0].value;
+  assert.equal(gtl.isConsensusRoleTask("reviewer", reviewerTask), true);
+  assert.equal(gtl.isConsensusRoleTask("submitter", reviewerTask), false);
+  const reviewerResult = await realizeConsensusRole(reviewerTask, {
+    occurrence: occurrence("role-prime-reviewer"),
+    async invokeWorker() {
+      return workerObservation(
+        JSON.stringify(reviewerCandidate("revise")),
+        "role-prime-reviewer",
+      );
+    },
+  });
+  assert.equal(
+    gtl.isConsensusRoleOccurrence(
+      "reviewer",
+      reviewerResult.resultCandidate,
+    ),
+    true,
+  );
+
+  const vector = await findingsVectorFor(state);
+  const submitterTask =
+    gtl.constructConsensusRoleTask({
+      role: "submitter",
+      findingsVector: vector,
+    });
+  assert.equal(gtl.isConsensusRoleTask("submitter", submitterTask), true);
+  assert.equal(gtl.isConsensusRoleTask("reviewer", submitterTask), false);
+  const findingRefs = vector.members.flatMap((member) =>
+    member.value.findings.map((finding) => finding.findingRef)
+  );
+  const submitterResult = await realizeConsensusRole(submitterTask, {
+    occurrence: occurrence("role-prime-submitter"),
+    async invokeWorker() {
+      return workerObservation(
+        JSON.stringify(
+          submitterCandidate("address_findings", findingRefs),
+        ),
+        "role-prime-submitter",
+      );
+    },
+  });
+  assert.equal(
+    gtl.isConsensusRoleOccurrence(
+      "submitter",
+      submitterResult.resultCandidate,
+    ),
+    true,
+  );
+
+  assert.equal(
+    CONSENSUS_REVIEWER_IMPLEMENTATION_DESCRIPTOR.namedSymbol,
+    "realizeConsensusRole",
+  );
+  assert.equal(
+    CONSENSUS_SUBMITTER_IMPLEMENTATION_DESCRIPTOR.namedSymbol,
+    "realizeConsensusRole",
+  );
+  const publication = gtl.constructConsensusModulePublication(artifactBasis());
+  const roleBindings = publication.implementationBindings.filter(
+    (binding) =>
+      binding.implementationRef ===
+        gtl.CONSENSUS_IDS.reviewerImplementationRef ||
+      binding.implementationRef ===
+        gtl.CONSENSUS_IDS.submitterImplementationRef,
+  );
+  assert.equal(roleBindings.length, 2);
+  assert.deepEqual(
+    new Set(roleBindings.map((binding) => binding.namedSymbol)),
+    new Set(["realizeConsensusRole"]),
+  );
+  const source = await readFile(
+    resolve(packageRoot, "code/src/implementation/consensus.ts"),
+    "utf8",
+  );
+  assert.equal(
+    [...source.matchAll(/effects\.invokeWorker\(/gu)].length,
+    1,
+    "the role family must retain one worker effect seam",
+  );
 });
 
 test("S05 admits one explicit reviewer without hard-coding panel cardinality", () => {
@@ -974,6 +1276,7 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceId: WORKSPACE,
       actionCatalog: null,
       catalogView: consensusCatalogView(),
+      catalogApplications: consensusCatalogApplications(invocation),
       sourceResultBasis: null,
     }),
     true,
@@ -986,6 +1289,7 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceId: `${WORKSPACE}/other`,
       actionCatalog: null,
       catalogView: consensusCatalogView(),
+      catalogApplications: consensusCatalogApplications(invocation),
       sourceResultBasis: null,
     }),
     false,
@@ -1003,6 +1307,17 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
   assert.equal(gtl.isConsensusResult(projected.value), true);
   assert.equal(projected.value.replayRef, replayRef);
   assert.equal(projected.value.resultRef, "result://abg/module-proof");
+  assert.equal(
+    ABI5_SYSTEM_PRODUCT_SEMANTICS.projectPublicResult({
+      value: pending,
+      admittedResultRef: "result://abg/module-proof",
+      admittedResultContractRef: gtl.CONSENSUS_IDS.resultContractRef,
+      replayRef,
+      projectionKind: "result",
+    }),
+    null,
+    "a Consensus candidate admitted under another contract cannot become a public result",
+  );
   const sourceResultBasis = {
     kind: "invocation_source_result_basis",
     schemaVersion: "5.0.0",

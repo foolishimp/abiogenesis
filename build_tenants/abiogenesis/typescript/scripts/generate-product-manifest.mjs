@@ -15,6 +15,7 @@ import {
   CONSENSUS_FH_DECISION_VALUES,
   CONSENSUS_ROUND_OUTCOME_VALUES,
   CONSENSUS_PUBLIC_SCHEMA,
+  CONSENSUS_SCHEMA_ASSET_BINDINGS,
   REVIEW_RULING_KIND_VALUES,
 } from "../build/code/src/gtl/consensus_schema.js";
 
@@ -181,20 +182,8 @@ const publicNativeInventory = [
   },
 ];
 
-const consensusContractRows = [
-  ["abg.schema.consensus-subject", "ConsensusSubject"],
-  ["abg.schema.consensus-panel", "ConsensusPanel"],
-  ["abg.schema.consensus-reviewer-profile", "ConsensusReviewerProfile"],
-  ["abg.schema.consensus-submitter-profile", "ConsensusSubmitterProfile"],
-  ["abg.schema.consensus-submitter-response", "ConsensusSubmitterResponse"],
-  ["abg.schema.consensus-escalation-decision", "ConsensusEscalationDecision"],
-  ["abg.schema.review-findings", "ReviewFindings"],
-  ["abg.schema.review-rulings", "ReviewRulings"],
-  ["abg.schema.consensus-round-policy", "ConsensusRoundPolicy"],
-  ["abg.schema.consensus-round-outcome", "ConsensusRoundOutcome"],
-  ["abg.schema.consensus-result", "ConsensusResult"],
-  ["abg.schema.ticket-consensus-projection", "TicketConsensusProjection"],
-].map(([contractId, definitionName]) => ({
+const consensusContractRows = CONSENSUS_SCHEMA_ASSET_BINDINGS.map(
+  ([contractId, definitionName]) => ({
   contractId,
   contractVersion: "5.0.0",
   contractDigest: consensusSchemaDigest,

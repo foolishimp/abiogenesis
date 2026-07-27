@@ -15,6 +15,7 @@ import {
   isConsensusObservationSnapshot,
   isConsensusReviewerCandidate,
   isConsensusReviewerTask,
+  isConsensusRoleTask,
   isConsensusRoundState,
   isConsensusSubmitterResponse,
   isConsensusSubmitterResponseCandidate,
@@ -34,6 +35,8 @@ import {
   type ConsensusReviewerTask,
   type ConsensusRoundState,
   type ConsensusReviewerCandidate,
+  type ConsensusRole,
+  type ConsensusRoleTask,
   type ConsensusSubmitterResponse,
   type ConsensusSubmitterResponseCandidate,
   type ConsensusSubmitterTask,
@@ -48,7 +51,10 @@ import type { PackagedLeafImplementationDescriptor } from "../product/implementa
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type { ProbabilisticLeafEffectPort } from "./contracts.js";
+import type {
+  ProbabilisticLeafEffectPort,
+  ProbabilisticWorkerObservation,
+} from "./contracts.js";
 
 interface ConsensusLeafCandidate {
   readonly kind: "leaf_realization_candidate";
@@ -100,7 +106,7 @@ export const CONSENSUS_ROUND_EVALUATOR_IMPLEMENTATION_DESCRIPTOR = descriptor({
 
 export const CONSENSUS_REVIEWER_IMPLEMENTATION_DESCRIPTOR = descriptor({
   implementationRef: CONSENSUS_IDS.reviewerImplementationRef,
-  namedSymbol: "realizeConsensusReviewer",
+  namedSymbol: "realizeConsensusRole",
   computeRegime: "F_P",
   inputContractRef: CONSENSUS_IDS.reviewerTaskContractRef,
   outputContractRef: CONSENSUS_IDS.findingsContractRef,
@@ -116,7 +122,7 @@ export const CONSENSUS_SUBMITTER_TASK_IMPLEMENTATION_DESCRIPTOR = descriptor({
 
 export const CONSENSUS_SUBMITTER_IMPLEMENTATION_DESCRIPTOR = descriptor({
   implementationRef: CONSENSUS_IDS.submitterImplementationRef,
-  namedSymbol: "realizeConsensusSubmitter",
+  namedSymbol: "realizeConsensusRole",
   computeRegime: "F_P",
   inputContractRef: CONSENSUS_IDS.submitterTaskContractRef,
   outputContractRef: CONSENSUS_IDS.submitterResponseContractRef,
@@ -277,8 +283,11 @@ export function realizeConsensusRoundEvaluation(
   );
 }
 
-function reviewerPrompt(input: Readonly<ConsensusReviewerTask>): string {
-  return [
+function rolePrompt(
+  role: ConsensusRole,
+  input: Readonly<ConsensusRoleTask>,
+): string {
+  const common = [
     input.instruction.instructionText,
     `Instruction contract: ${input.instruction.instructionContractRef}`,
     `Instruction digest: ${input.instruction.instructionDigest}`,
@@ -293,61 +302,48 @@ function reviewerPrompt(input: Readonly<ConsensusReviewerTask>): string {
     `Profile configuration: ${input.profile.configurationDigest}`,
     `Role contract: ${input.profile.roleContractRef}`,
     `Capabilities: ${input.profile.capabilityRefs.join(", ")}`,
-    `Prior findings: ${input.priorFindingSetRefs.join(", ") || "none"}`,
-    `Prior submitter responses: ${
-      input.priorSubmitterResponses.length === 0
-        ? "none"
-        : JSON.stringify(input.priorSubmitterResponses)
-    }`,
-    `Task: ${JSON.stringify(input)}`,
-    "Return only the declared reviewer candidate JSON.",
-  ].join("\n");
-}
-
-function submitterPrompt(input: Readonly<ConsensusSubmitterTask>): string {
+  ];
+  if (role === "reviewer") {
+    const task = input as Readonly<ConsensusReviewerTask>;
+    return [
+      ...common,
+      `Prior findings: ${task.priorFindingSetRefs.join(", ") || "none"}`,
+      `Prior submitter responses: ${
+        task.priorSubmitterResponses.length === 0
+          ? "none"
+          : JSON.stringify(task.priorSubmitterResponses)
+      }`,
+      `Task: ${JSON.stringify(task)}`,
+      "Return only the declared reviewer candidate JSON.",
+    ].join("\n");
+  }
+  const task = input as Readonly<ConsensusSubmitterTask>;
   return [
-    input.instruction.instructionText,
-    `Instruction contract: ${input.instruction.instructionContractRef}`,
-    `Instruction digest: ${input.instruction.instructionDigest}`,
-    `Subject: ${input.subject.subjectRef}`,
-    `Subject digest: ${input.subject.subjectDigest}`,
-    `Subject media type: ${input.subjectMaterialization.mediaType}`,
-    "Subject materialization:",
-    input.subjectMaterialization.content,
-    "End subject materialization.",
-    `Round: ${input.roundOrdinal}`,
-    `Submitting actor: ${input.profile.actorRef}`,
-    `Submitter profile: ${input.profile.profileRef}`,
-    `Submitter configuration: ${input.profile.configurationDigest}`,
-    `Role contract: ${input.profile.roleContractRef}`,
-    `Capabilities: ${input.profile.capabilityRefs.join(", ")}`,
-    `Prior rounds: ${input.priorRoundRefs.join(", ") || "none"}`,
+    ...common,
+    `Submitting actor: ${task.profile.actorRef}`,
+    `Prior rounds: ${task.priorRoundRefs.join(", ") || "none"}`,
     `Prior submitter responses: ${
-      input.priorSubmitterResponseRefs.join(", ") || "none"
+      task.priorSubmitterResponseRefs.join(", ") || "none"
     }`,
-    `Admitted reviewer findings vector: ${JSON.stringify(input.findingsVector)}`,
-    `Task: ${JSON.stringify(input)}`,
+    `Admitted reviewer findings vector: ${JSON.stringify(task.findingsVector)}`,
+    `Task: ${JSON.stringify(task)}`,
     "Return only the declared submitter response candidate JSON.",
   ].join("\n");
 }
 
-function parseSemanticCandidate(
-  output: string,
-): ConsensusReviewerCandidate | null {
-  try {
-    const value = JSON.parse(output) as unknown;
-    return isConsensusReviewerCandidate(value) ? value : null;
-  } catch {
-    return null;
-  }
-}
+type ConsensusRoleSemanticCandidate =
+  | ConsensusReviewerCandidate
+  | ConsensusSubmitterResponseCandidate;
 
-function parseSubmitterCandidate(
+function parseRoleCandidate(
+  role: ConsensusRole,
   output: string,
-): ConsensusSubmitterResponseCandidate | null {
+): ConsensusRoleSemanticCandidate | null {
   try {
     const value = JSON.parse(output) as unknown;
-    return isConsensusSubmitterResponseCandidate(value) ? value : null;
+    return role === "reviewer"
+      ? (isConsensusReviewerCandidate(value) ? value : null)
+      : (isConsensusSubmitterResponseCandidate(value) ? value : null);
   } catch {
     return null;
   }
@@ -377,51 +373,12 @@ function finding(
   });
 }
 
-export async function realizeConsensusReviewer(
+function projectReviewerRoleResult(
   input: Readonly<ConsensusReviewerTask>,
   effects: Readonly<ProbabilisticLeafEffectPort>,
-): Promise<Readonly<ConsensusLeafCandidate>> {
-  if (!isConsensusReviewerTask(input)) {
-    throw new TypeError(
-      "Consensus reviewer requires one exact attributed reviewer task",
-    );
-  }
-  const transport = await effects.invokeWorker({
-    actorRef: input.profile.actorRef,
-    workerBindingRef: input.profile.workerBindingRef,
-    implementationRef: CONSENSUS_IDS.reviewerImplementationRef,
-    inputDigest: sha256Canonical(input as unknown as JsonValue),
-    materializationPlanRef:
-      "materialization-plan://abg/consensus/reviewer-prompt@5",
-    rendererRef: "renderer://abg/consensus/reviewer-prompt@5",
-    instructionContractRef: input.profile.instructionContractRef,
-    resultContractRef: input.profile.resultContractRef,
-    transportLane: input.transportLane,
-    prompt: reviewerPrompt(input),
-    responseJsonSchema: input.instruction.responseSchema,
-  });
-  const semantic = parseSemanticCandidate(transport.finalOutput);
-  const salvaged = transport.disposition === "failure" &&
-    transport.failureClass === "transport_failure" &&
-    semantic !== null;
-  if (transport.disposition !== "success" && !salvaged) {
-    const failureClass = transport.failureClass ?? "transport_failure";
-    const diagnosticRef =
-      `diagnostic://abg/consensus/reviewer-transport-${failureClass.replaceAll("_", "-")}@5`;
-    return deepFreeze({
-      kind: "leaf_realization_candidate" as const,
-      schemaVersion: "5.0.0" as const,
-      disposition: "failure" as const,
-      evidenceCandidates: [] as const,
-      resultCandidate: deepFreeze({
-        kind: "consensus_failure" as const,
-        schemaVersion: "5.0.0" as const,
-        failureClass,
-        diagnosticRef,
-      }),
-      diagnosticRef,
-    });
-  }
+  transport: Readonly<ProbabilisticWorkerObservation>,
+  semantic: ConsensusReviewerCandidate | null,
+): Readonly<ConsensusLeafCandidate> {
   if (semantic === null) {
     const diagnosticRef =
       "diagnostic://abg/consensus/reviewer-output-refused@5";
@@ -515,51 +472,11 @@ export function realizeConsensusSubmitterTaskPreparation(
   );
 }
 
-export async function realizeConsensusSubmitter(
+function projectSubmitterRoleResult(
   input: Readonly<ConsensusSubmitterTask>,
-  effects: Readonly<ProbabilisticLeafEffectPort>,
-): Promise<Readonly<ConsensusLeafCandidate>> {
-  if (!isConsensusSubmitterTask(input)) {
-    throw new TypeError(
-      "Consensus submitter requires one exact attributed response task",
-    );
-  }
-  const transport = await effects.invokeWorker({
-    actorRef: input.profile.actorRef,
-    workerBindingRef: input.profile.workerBindingRef,
-    implementationRef: CONSENSUS_IDS.submitterImplementationRef,
-    inputDigest: sha256Canonical(input as unknown as JsonValue),
-    materializationPlanRef:
-      "materialization-plan://abg/consensus/submitter-response@5",
-    rendererRef: "renderer://abg/consensus/submitter-response@5",
-    instructionContractRef: input.profile.instructionContractRef,
-    resultContractRef: input.profile.resultContractRef,
-    transportLane: input.transportLane,
-    prompt: submitterPrompt(input),
-    responseJsonSchema: input.instruction.responseSchema,
-  });
-  const semantic = parseSubmitterCandidate(transport.finalOutput);
-  const salvaged = transport.disposition === "failure" &&
-    transport.failureClass === "transport_failure" &&
-    semantic !== null;
-  if (transport.disposition !== "success" && !salvaged) {
-    const failureClass = transport.failureClass ?? "transport_failure";
-    const diagnosticRef =
-      `diagnostic://abg/consensus/submitter-transport-${failureClass.replaceAll("_", "-")}@5`;
-    return deepFreeze({
-      kind: "leaf_realization_candidate" as const,
-      schemaVersion: "5.0.0" as const,
-      disposition: "failure" as const,
-      evidenceCandidates: [] as const,
-      resultCandidate: deepFreeze({
-        kind: "consensus_failure" as const,
-        schemaVersion: "5.0.0" as const,
-        failureClass,
-        diagnosticRef,
-      }),
-      diagnosticRef,
-    });
-  }
+  transport: Readonly<ProbabilisticWorkerObservation>,
+  semantic: ConsensusSubmitterResponseCandidate | null,
+): Readonly<ConsensusLeafCandidate> {
   if (semantic === null) {
     const diagnosticRef =
       "diagnostic://abg/consensus/submitter-output-refused@5";
@@ -629,6 +546,109 @@ export async function realizeConsensusSubmitter(
     resultCandidate:
       resultCandidate as unknown as Readonly<Record<string, JsonValue>>,
   });
+}
+
+function roleFailure(
+  role: ConsensusRole,
+  failureClass: string,
+): Readonly<ConsensusLeafCandidate> {
+  const diagnosticRef =
+    `diagnostic://abg/consensus/${role}-transport-${failureClass.replaceAll("_", "-")}@5`;
+  return deepFreeze({
+    kind: "leaf_realization_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "failure" as const,
+    evidenceCandidates: [] as const,
+    resultCandidate: deepFreeze({
+      kind: "consensus_failure" as const,
+      schemaVersion: "5.0.0" as const,
+      failureClass,
+      diagnosticRef,
+    }),
+    diagnosticRef,
+  });
+}
+
+export async function realizeConsensusRole(
+  input: Readonly<ConsensusRoleTask>,
+  effects: Readonly<ProbabilisticLeafEffectPort>,
+): Promise<Readonly<ConsensusLeafCandidate>> {
+  const role: ConsensusRole | null = isConsensusRoleTask("reviewer", input)
+    ? "reviewer"
+    : isConsensusRoleTask("submitter", input)
+    ? "submitter"
+    : null;
+  if (role === null) {
+    throw new TypeError(
+      "Consensus role evaluation requires one exact attributed role task",
+    );
+  }
+  const implementationRef = role === "reviewer"
+    ? CONSENSUS_IDS.reviewerImplementationRef
+    : CONSENSUS_IDS.submitterImplementationRef;
+  const promptKind = role === "reviewer"
+    ? "reviewer-prompt"
+    : "submitter-response";
+  const transport = await effects.invokeWorker({
+    actorRef: input.profile.actorRef,
+    workerBindingRef: input.profile.workerBindingRef,
+    implementationRef,
+    inputDigest: sha256Canonical(input as unknown as JsonValue),
+    materializationPlanRef:
+      `materialization-plan://abg/consensus/${promptKind}@5`,
+    rendererRef: `renderer://abg/consensus/${promptKind}@5`,
+    instructionContractRef: input.profile.instructionContractRef,
+    resultContractRef: input.profile.resultContractRef,
+    transportLane: input.transportLane,
+    prompt: rolePrompt(role, input),
+    responseJsonSchema: input.instruction.responseSchema,
+  });
+  const semantic = parseRoleCandidate(role, transport.finalOutput);
+  const salvaged = transport.disposition === "failure" &&
+    transport.failureClass === "transport_failure" &&
+    semantic !== null;
+  if (transport.disposition !== "success" && !salvaged) {
+    return roleFailure(
+      role,
+      transport.failureClass ?? "transport_failure",
+    );
+  }
+  return role === "reviewer"
+    ? projectReviewerRoleResult(
+      input as Readonly<ConsensusReviewerTask>,
+      effects,
+      transport,
+      semantic as ConsensusReviewerCandidate | null,
+    )
+    : projectSubmitterRoleResult(
+      input as Readonly<ConsensusSubmitterTask>,
+      transport,
+      semantic as ConsensusSubmitterResponseCandidate | null,
+    );
+}
+
+export async function realizeConsensusReviewer(
+  input: Readonly<ConsensusReviewerTask>,
+  effects: Readonly<ProbabilisticLeafEffectPort>,
+): Promise<Readonly<ConsensusLeafCandidate>> {
+  if (!isConsensusReviewerTask(input)) {
+    throw new TypeError(
+      "Consensus reviewer requires one exact attributed reviewer task",
+    );
+  }
+  return realizeConsensusRole(input, effects);
+}
+
+export async function realizeConsensusSubmitter(
+  input: Readonly<ConsensusSubmitterTask>,
+  effects: Readonly<ProbabilisticLeafEffectPort>,
+): Promise<Readonly<ConsensusLeafCandidate>> {
+  if (!isConsensusSubmitterTask(input)) {
+    throw new TypeError(
+      "Consensus submitter requires one exact attributed response task",
+    );
+  }
+  return realizeConsensusRole(input, effects);
 }
 
 export function realizeConsensusReduction(

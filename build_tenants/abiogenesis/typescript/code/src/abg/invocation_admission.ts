@@ -7,6 +7,7 @@ import { resolveProgramStart } from "../gtl/public_start.js";
 import {
   DIRECT_INVOKE_CAPABILITY,
   type CapabilityGrant,
+  type CatalogApplication,
   type CatalogView,
   type InvocationAuthority,
   type InvocationInteractionCapability,
@@ -35,6 +36,7 @@ import {
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
 import {
+  hasAdmittedCatalogApplication,
   hasAdmittedCatalogView,
   hasAdmittedProductSemanticsBasis,
   type AdmittedProductSemanticsBasis,
@@ -58,6 +60,7 @@ export interface InvocationAdmissionInput {
   readonly programValidation: ProgramValidation;
   readonly workspaceBinding: WorkspaceBinding;
   readonly catalogView: CatalogView;
+  readonly catalogApplications?: readonly CatalogApplication[];
   readonly policy: InvocationPolicyBasis;
   readonly capabilityGrants: readonly CapabilityGrant[];
   readonly authority: InvocationAuthority;
@@ -116,6 +119,8 @@ export interface InvocationAdmission {
   readonly workspaceBindingDigest: Sha256Digest;
   readonly catalogViewId: string;
   readonly catalogViewDigest: Sha256Digest;
+  readonly catalogApplicationRefs: readonly string[];
+  readonly catalogApplicationDigests: readonly Sha256Digest[];
   readonly programRef: string;
   readonly programDigest: Sha256Digest;
   readonly graphFunctionRef: string;
@@ -335,6 +340,7 @@ function validatedInteractionCapabilities(
 export function validateInvocationCapabilityBasis(input: Readonly<{
   actorRef: string;
   capabilityGrants: readonly CapabilityGrant[];
+  catalogApplications?: readonly CatalogApplication[];
   policy: InvocationPolicyBasis;
   program: Readonly<GtlProgram>;
   programValidation: ProgramValidation;
@@ -344,6 +350,10 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
   const exactInteractionCapabilities = validatedInteractionCapabilities(
     input.programValidation,
   );
+  const exactCatalogApplications = [...(input.catalogApplications ?? [])]
+    .sort((left, right) =>
+      left.applicationId.localeCompare(right.applicationId)
+    );
   if (
     !isInvocationPolicyBasis(input.policy) ||
     input.policy.authorityMode !== "trusted_developer" ||
@@ -364,6 +374,14 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
     ) !== sha256Canonical(
       exactInteractionCapabilities as unknown as JsonValue,
     ) ||
+    input.policy.catalogApplicationRefs.join("\0") !==
+      exactCatalogApplications.map(
+        (application) => application.applicationId,
+      ).join("\0") ||
+    input.policy.catalogApplicationDigests.join("\0") !==
+      exactCatalogApplications.map(
+        (application) => application.applicationDigest,
+      ).join("\0") ||
     input.policy.graphMaterialization !== "after_invocation_admission"
   ) {
     return refusal(
@@ -430,6 +448,13 @@ export function hasAdmittedInvocation(
   store: AbgEventStore,
   admission: InvocationAdmission,
 ): boolean {
+  const event = store.readAll().find(
+    (candidate) => candidate.eventId === admission.admissionEventRef,
+  );
+  const carriesCatalogApplications = event?.kind === "invocation_admitted" &&
+    isRecord(event.payload) &&
+    Array.isArray(event.payload.catalogApplicationRefs) &&
+    Array.isArray(event.payload.catalogApplicationDigests);
   const body = {
     invocationRef: admission.invocationRef,
     invocationDigest: admission.invocationDigest,
@@ -444,6 +469,12 @@ export function hasAdmittedInvocation(
     workspaceBindingDigest: admission.workspaceBindingDigest,
     catalogViewId: admission.catalogViewId,
     catalogViewDigest: admission.catalogViewDigest,
+    ...(carriesCatalogApplications
+      ? {
+        catalogApplicationRefs: admission.catalogApplicationRefs,
+        catalogApplicationDigests: admission.catalogApplicationDigests,
+      }
+      : {}),
     programRef: admission.programRef,
     programDigest: admission.programDigest,
     graphFunctionRef: admission.graphFunctionRef,
@@ -463,7 +494,6 @@ export function hasAdmittedInvocation(
     reentryBasis: admission.reentryBasis,
     sourceResultBasis: admission.sourceResultBasis,
   };
-  const event = store.readAll().find((candidate) => candidate.eventId === admission.admissionEventRef);
   const publicEvent = store.readAll().find(
     (candidate) => candidate.eventId === admission.publicOperationEventRef,
   );
@@ -477,6 +507,17 @@ export function hasAdmittedInvocation(
     publicEvent.payload.invocationRef === admission.invocationRef &&
     publicEvent.payload.invocationDigest === admission.invocationDigest &&
     publicEvent.payload.authorityRef === admission.authorityRef &&
+    (
+      !carriesCatalogApplications ||
+      (
+        Array.isArray(publicEvent.payload.catalogApplicationRefs) &&
+        Array.isArray(publicEvent.payload.catalogApplicationDigests) &&
+        publicEvent.payload.catalogApplicationRefs.join("\0") ===
+          admission.catalogApplicationRefs.join("\0") &&
+        publicEvent.payload.catalogApplicationDigests.join("\0") ===
+          admission.catalogApplicationDigests.join("\0")
+      )
+    ) &&
     event?.kind === "invocation_admitted" &&
     isRecord(event.payload) &&
     event.payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
@@ -543,6 +584,14 @@ export function rehydrateInvocationAdmission(
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
     ...event.payload,
+    catalogApplicationRefs:
+      Array.isArray(event.payload.catalogApplicationRefs)
+        ? event.payload.catalogApplicationRefs
+        : [],
+    catalogApplicationDigests:
+      Array.isArray(event.payload.catalogApplicationDigests)
+        ? event.payload.catalogApplicationDigests
+        : [],
     publicOperationEventRef: publicEvent.eventId,
     admissionEventRef: event.eventId,
   }) as unknown as InvocationAdmission;
@@ -554,6 +603,7 @@ export function admitInvocation(
   input: InvocationAdmissionInput,
   basis: PublicOperationAdmissionBasis,
 ): InvocationAdmissionResult {
+  const catalogApplications = input.catalogApplications ?? [];
   const invalidBasis = validatePublicOperationBasis(basis, "abg.operation.run.invoke");
   if (invalidBasis !== null) return invalidBasis;
   if (!isPublicInvocationCandidate(input.invocation)) {
@@ -571,6 +621,21 @@ export function admitInvocation(
   }
   if (!hasAdmittedCatalogView(store, input.catalogView)) {
     return refusal("catalog_view_not_admitted", "invocation CatalogView lacks ABG admission truth");
+  }
+  if (
+    new Set(catalogApplications.map((row) => row.applicationId)).size !==
+      catalogApplications.length ||
+    catalogApplications.some(
+      (application) =>
+        application.viewId !== input.catalogView.viewId ||
+        application.viewDigest !== input.catalogView.viewDigest ||
+        !hasAdmittedCatalogApplication(store, application),
+    )
+  ) {
+    return refusal(
+      "catalog_view_not_admitted",
+      "invocation catalog applications require unique ABG admission under the exact CatalogView",
+    );
   }
   if (
     input.invocation.variant === "direct" &&
@@ -861,6 +926,7 @@ export function admitInvocation(
   const capabilityRefusal = validateInvocationCapabilityBasis({
     actorRef: input.invocation.actorAttributionRef,
     capabilityGrants: input.capabilityGrants,
+    catalogApplications,
     policy: input.policy,
     program: input.program,
     programValidation: input.programValidation,
@@ -913,6 +979,16 @@ export function admitInvocation(
     workspaceBindingDigest: input.workspaceBinding.bindingDigest,
     catalogViewId: input.catalogView.viewId,
     catalogViewDigest: input.catalogView.viewDigest,
+    catalogApplicationRefs: [...catalogApplications]
+      .sort((left, right) =>
+        left.applicationId.localeCompare(right.applicationId)
+      )
+      .map((application) => application.applicationId),
+    catalogApplicationDigests: [...catalogApplications]
+      .sort((left, right) =>
+        left.applicationId.localeCompare(right.applicationId)
+      )
+      .map((application) => application.applicationDigest),
     programRef: input.program.programRef,
     programDigest: input.invocation.programDigest,
     graphFunctionRef: input.graphFunction.name,
@@ -940,7 +1016,14 @@ export function admitInvocation(
     aggregateType: "workspace",
     aggregateId: input.workspaceBinding.bindingId,
     parentAggregateId: input.invocation.invocationRef,
-    causationEventRefs: basis.causationEventRefs,
+    causationEventRefs: [
+      ...new Set([
+        ...basis.causationEventRefs,
+        ...catalogApplications.map(
+          (application) => application.admissionEventRef,
+        ),
+      ]),
+    ],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "workspace",
@@ -956,6 +1039,9 @@ export function admitInvocation(
       authorityRef: input.authority.authorityRef,
       authorityDigest: input.authority.authorityDigest,
       capabilityGrantRefs: input.capabilityGrants.map((grant) => grant.grantRef),
+      catalogApplicationRefs: admissionBody.catalogApplicationRefs,
+      catalogApplicationDigests:
+        admissionBody.catalogApplicationDigests,
       policyRef: input.policy.policyRef,
       policyDigest: input.policy.policyDigest,
       workspaceBindingId: input.workspaceBinding.bindingId,

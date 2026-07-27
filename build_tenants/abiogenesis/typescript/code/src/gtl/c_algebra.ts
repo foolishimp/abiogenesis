@@ -1,4 +1,5 @@
 import { deepFreeze } from "../shared/immutable.js";
+import { requireRef } from "../shared/references.js";
 
 export const COMPUTE_REGIME_VALUES = ["F_D", "F_P", "F_H"] as const;
 export type ComputeRegime = (typeof COMPUTE_REGIME_VALUES)[number];
@@ -202,13 +203,6 @@ type CLeafInput<
 } & (ExecutableLeafInput | InteractionLeafInput);
 
 const nativeTerms = new WeakSet<object>();
-
-function requireRef(value: string, label: string): string {
-  if (typeof value !== "string" || value.length === 0) {
-    throw new TypeError(`${label} must be a non-empty string`);
-  }
-  return value;
-}
 
 function assertCarrier(value: object, label: string): void {
   if (!Object.hasOwn(value, C_CARRIER_TYPE)) {

@@ -288,9 +288,19 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     payloadVariants: [
       payloadVariant(
         payloadKeys(
+          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogApplicationDigests catalogApplicationRefs catalogViewId definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef variant workspaceBindingId",
+        ),
+        payloadKeys(
+          "catalogApplicationDigests catalogApplicationRefs operationId invocationRef invocationDigest variant",
+        ),
+      ),
+      payloadVariant(
+        payloadKeys(
           "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewId definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef variant workspaceBindingId",
         ),
-        payloadKeys("operationId invocationRef invocationDigest variant"),
+        payloadKeys(
+          "operationId invocationRef invocationDigest variant",
+        ),
       ),
       payloadVariant(
         payloadKeys(
@@ -313,16 +323,28 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   },
   invocation_admitted: {
     variants: [WORKSPACE_EVENT],
-    payloadVariants: [payloadVariant(
-      payloadKeys(
-        "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityGrants catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis sourceResultBasis workspaceBindingDigest workspaceBindingId workspaceId",
+    payloadVariants: [
+      payloadVariant(
+        payloadKeys(
+          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityGrants catalogApplicationDigests catalogApplicationRefs catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis sourceResultBasis workspaceBindingDigest workspaceBindingId workspaceId",
+        ),
+        payloadKeys(
+          "catalogApplicationDigests catalogApplicationRefs invocationAdmissionRef invocationAdmissionDigest invocationRef reentryBasis sourceResultBasis",
+        ),
+        undefined,
+        payloadKeys("publicStart reentryBasis sourceResultBasis"),
       ),
-      payloadKeys(
-        "invocationAdmissionRef invocationAdmissionDigest invocationRef reentryBasis sourceResultBasis",
+      payloadVariant(
+        payloadKeys(
+          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityGrants catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis sourceResultBasis workspaceBindingDigest workspaceBindingId workspaceId",
+        ),
+        payloadKeys(
+          "invocationAdmissionRef invocationAdmissionDigest invocationRef reentryBasis sourceResultBasis",
+        ),
+        undefined,
+        payloadKeys("publicStart reentryBasis sourceResultBasis"),
       ),
-      undefined,
-      payloadKeys("publicStart reentryBasis sourceResultBasis"),
-    )],
+    ],
   },
   invocation_refused: {
     variants: [WORKSPACE_EVENT],

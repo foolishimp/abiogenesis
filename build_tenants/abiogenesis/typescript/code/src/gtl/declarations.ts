@@ -1,15 +1,11 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { requireRef } from "../shared/references.js";
 import { COMPUTE_REGIME_VALUES } from "./c_algebra.js";
 import type {
   EvaluatorDeclaration,
   RuleDeclaration,
 } from "./contracts.js";
-
-function requireRef(value: string, label: string): string {
-  if (value.trim().length === 0) throw new TypeError(`${label} must be non-empty`);
-  return value;
-}
 
 function freezeStrings(values: readonly string[], label: string): readonly string[] {
   if (values.some((value) => value.trim().length === 0)) {

@@ -444,6 +444,7 @@ function validatePublicationSubject(
   }
   const rawByHandle = new Map(contributions.map((row) => [row.value.handle, row]));
   const graphFunctionRefs = new Set(value.graphFunctions.map((graphFunction) => graphFunction.name));
+  const contractRefs = new Set(value.contracts.map((contract) => contract.contractRef));
   const programByRef = new Map(value.programs.map((program) => [program.programRef, program]));
   for (const row of value.contributions) {
     const raw = rawByHandle.get(row.handle);
@@ -498,8 +499,13 @@ function validatePublicationSubject(
       ) {
         diagnostics.push({ code: "missing_membership", path: `$.contributions[${row.handle}].programMembershipRefs`, message: "graph_function contribution requires exact Program membership" });
       }
-    } else if (row.programMembershipRefs.length !== 0) {
-      diagnostics.push({ code: "invalid_contribution", path: `$.contributions[${row.handle}].programMembershipRefs`, message: "non-callable contributions cannot carry callable Program membership" });
+    } else {
+      if (!contractRefs.has(row.declarationOrContractRef)) {
+        diagnostics.push({ code: "invalid_reference", path: `$.contributions[${row.handle}].declarationOrContractRef`, message: "non-callable contribution does not reference a published contract" });
+      }
+      if (row.programMembershipRefs.length !== 0) {
+        diagnostics.push({ code: "invalid_contribution", path: `$.contributions[${row.handle}].programMembershipRefs`, message: "non-callable contributions cannot carry callable Program membership" });
+      }
     }
   }
   if (diagnostics.length !== 0) return invalid("publication", publication.subjectDigest, diagnostics);

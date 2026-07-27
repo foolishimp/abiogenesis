@@ -678,6 +678,39 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
       },
     },
+    "ConsensusRulingOverlay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "overlayRef",
+        "overlayDigest",
+        "acceptedFindingRulingKind"
+      ],
+      "properties": {
+        "kind": {
+          "const": "consensus_ruling_overlay"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "overlayRef": {
+          "$ref": "#/$defs/Ref"
+        },
+        "overlayDigest": {
+          "$ref": "#/$defs/Digest"
+        },
+        "acceptedFindingRulingKind": {
+          "enum": [
+            "decision_row",
+            "draft_ticket",
+            "split_ticket",
+            "rejected_finding"
+          ]
+        },
+      },
+    },
     "ConsensusRoundPolicy": {
       "type": "object",
       "additionalProperties": false,
@@ -689,7 +722,7 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "roundBudget",
         "convergenceRuleRef",
         "disagreementRuleRef",
-        "acceptedFindingRulingKind",
+        "rulingOverlay",
         "escalationRuleRef",
         "foldbackContractRef"
       ],
@@ -716,13 +749,8 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "disagreementRuleRef": {
           "$ref": "#/$defs/Ref"
         },
-        "acceptedFindingRulingKind": {
-          "enum": [
-            "decision_row",
-            "draft_ticket",
-            "split_ticket",
-            "rejected_finding"
-          ]
+        "rulingOverlay": {
+          "$ref": "#/$defs/ConsensusRulingOverlay"
         },
         "escalationRuleRef": {
           "const": "rule://abg/consensus/unresolved-to-fh@5"
@@ -1724,6 +1752,22 @@ export const CONSENSUS_REVIEWER_RESPONSE_SCHEMA =
 export const CONSENSUS_SUBMITTER_RESPONSE_SCHEMA =
   consensusSubmitterResponseSchema;
 
+export const CONSENSUS_SCHEMA_ASSET_BINDINGS = deepFreeze([
+  ["abg.schema.consensus-subject", "ConsensusSubject"],
+  ["abg.schema.consensus-panel", "ConsensusPanel"],
+  ["abg.schema.consensus-reviewer-profile", "ConsensusReviewerProfile"],
+  ["abg.schema.consensus-submitter-profile", "ConsensusSubmitterProfile"],
+  ["abg.schema.consensus-ruling-overlay", "ConsensusRulingOverlay"],
+  ["abg.schema.consensus-submitter-response", "ConsensusSubmitterResponse"],
+  ["abg.schema.consensus-escalation-decision", "ConsensusEscalationDecision"],
+  ["abg.schema.review-findings", "ReviewFindings"],
+  ["abg.schema.review-rulings", "ReviewRulings"],
+  ["abg.schema.consensus-round-policy", "ConsensusRoundPolicy"],
+  ["abg.schema.consensus-round-outcome", "ConsensusRoundOutcome"],
+  ["abg.schema.consensus-result", "ConsensusResult"],
+  ["abg.schema.ticket-consensus-projection", "TicketConsensusProjection"],
+] as const);
+
 export const CONSENSUS_SCHEMA_REQUIRED_KEYS = deepFreeze({
   ConsensusSubject: CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubject.required,
   ConsensusSubjectMaterialization:
@@ -1737,6 +1781,8 @@ export const CONSENSUS_SCHEMA_REQUIRED_KEYS = deepFreeze({
   ConsensusSubmitterProfile:
     CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubmitterProfile.required,
   ConsensusPanel: CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusPanel.required,
+  ConsensusRulingOverlay:
+    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRulingOverlay.required,
   ConsensusRoundPolicy:
     CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundPolicy.required,
   ConsensusReviewerTask:

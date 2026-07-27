@@ -1,6 +1,7 @@
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { requireRef } from "../shared/references.js";
 import type {
   ComposeApplication,
   FanInApplication,
@@ -26,11 +27,6 @@ export type RecurseApplicationInput = Omit<
   ApplicationInput<RecurseApplication>,
   "foldbackRef"
 >;
-
-function requireRef(value: string, label: string): string {
-  if (value.trim().length === 0) throw new TypeError(`${label} must be non-empty`);
-  return value;
-}
 
 function requireRefs(values: readonly string[], label: string): readonly string[] {
   if (values.length === 0 || values.some((value) => value.trim().length === 0)) {

@@ -1,6 +1,7 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { requireRef } from "../shared/references.js";
 import {
   cCarrier,
   cIdentity,
@@ -44,11 +45,6 @@ export interface PromoteGraphFunctionInput {
   readonly source: Readonly<GraphFunction>;
   readonly sourceRef: string;
   readonly targetRef: string;
-}
-
-function requireRef(value: string, label: string): string {
-  if (value.trim().length === 0) throw new TypeError(`${label} must be non-empty`);
-  return value;
 }
 
 function stableUnion(values: readonly (readonly string[])[]): readonly string[] {
