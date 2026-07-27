@@ -3253,6 +3253,12 @@ implementation authority.
 
 ## 14. S06 Portability And Reflective Product Content
 
+**Supersession note (2026-07-28):** Sections 14.1 and 14.2 remain the
+provisional S06 portability design. The observer/tuner material in Sections
+14.3 through 14.7 is superseded for S04 by
+`M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md` and remains design-discovery
+evidence only. It carries no independent S04 realization or closure authority.
+
 S06 closes one developer-visible portability path and realizes the reflective
 Product content required before qualification. It preserves the accepted
 direct-GTL architecture:

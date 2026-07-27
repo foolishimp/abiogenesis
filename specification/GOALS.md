@@ -14,7 +14,7 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S03 accepted; replacement S05 realization candidate frozen for review; S06 held |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 candidate frozen for acceptance; S04 design-only reframe selected; S06 and S04 realization held |
 
 ## Current Basis
 
@@ -45,6 +45,12 @@ selection, ordered successor outcomes, and their acceptance conditions.
   review. Its mechanical evidence is recorded in
   `.ai-workspace/comments/codex/20260727T151414Z_HANDOFF_t270_s05_direct_exit_timeout_candidate.md`.
   This freeze is not S05 acceptance and does not select S06.
+- Direct F_H instruction on 2026-07-28 selects one bounded S04 design-only
+  reframe while the frozen S05 candidate awaits acceptance. It does not accept
+  S05, reorder S06 and S04 realization, or authorize S04 code. The candidate
+  design is
+  `M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md`; ADR-047 records its
+  existing-CLI and replay decision.
 - Candidate `3e0a148ae8ea3110d715cc142fb9708010876dcb` is superseded by this
   bounded repair and remains behavioral stock only.
 - Commit `bcd8769a8163a222e2e59400c904994b3de161fd` is preserved behavioral
@@ -139,6 +145,53 @@ Acceptance requires:
 S06, observer/tuner, complete conservation, qualification, and release do not
 select implementation while this outcome remains unresolved.
 
+## Current Design Gate
+
+The selected non-realization design gate is:
+
+> Resolve A5-F12/S04 observer and tuner as one complete GTL free construction
+> over exact existing graph replay. The executive evaluates an evolving
+> workspace against one applied overlay; the tuner derives immutable catalog
+> declaration successors `A -> A1` under one explicit objective. Prove that
+> generic `run.invoke` and the thin CLI can trigger the construction without
+> alternate functionality, freeze one design subject, and stop for independent
+> review.
+
+T-268 owns this design gate under T-270. It may change only S04 design,
+design-status, and handoff surfaces. It may not change runtime, contracts,
+schemas, events, public operations, tests, publication, or package output.
+
+Design acceptance requires:
+
+1. the target graph/replay vector, exact immutable executed declaration set,
+   applied evaluation overlay, overlay-fulfillment projection, observer report,
+   signal vector, objective, target set, score comparison, declaration draft,
+   transition, and read relations are complete and singular;
+2. observer and tuner are separate Product judgments composed through declared
+   GTL with an ABG-admitted result boundary;
+3. the CLI remains an elimination-equivalent shell over `run.invoke`,
+   `project.read`, and `tuning.transition`;
+4. the workspace is the evolving observed subject while GraphFunctions,
+   reusable node types, overlays, and their subordinate policy content remain
+   immutable declarations; every proposal is a complete new `A1` version with
+   exact source lineage;
+5. the existing catalog's exact URI hierarchy makes ratified versions available
+   without mutable aliases, prefix fallback, automatic replacement, or a second
+   hierarchy authority;
+6. an immutable evaluation overlay and explicit ordered objective define what
+   "better" means; a target overlay cannot judge itself, and only later replay
+   can establish realized improvement;
+7. the affected Ontology, atomic functions, whole-family Prime contraction,
+   IACS, module mapping, three views, lifecycle, axioms, and module proof leave
+   no semantic decision to implementation;
+8. no target/declaration mutation, tuner runner, controller, new catalog, event family,
+   replay fold, draft ledger, or private command semantics is lawful; and
+9. one exact design subject is handed to independent reviewers before any S04
+   realization begins.
+
+This design gate does not claim S04 readiness or qualification. S04
+realization remains Order 4 and unselected until S06 closes.
+
 ## Ordered Delivery
 
 | Order | Existing owner | Product outcome | Acceptance boundary | State |
@@ -146,7 +199,7 @@ select implementation while this outcome remains unresolved.
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Current - replacement realization candidate `1ddc802d` frozen for independent review; not accepted |
 | `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Blocked by S05 |
-| `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Unselected until S06 closes |
+| `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Design-only reframe current; realization unselected until S06 closes |
 | `5` | `T-270` | Freeze one M5 candidate | All pre-qualification Product behavior and all 17 feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by prior outcomes |
 | `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis is bound; S04 passes; all seven pre-release scenarios and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
 | `7` | `T-248` | Release ABIogenesis 5.0.0 | Immutable RC, installed-RC qualification, governed final delta, stable tap, and fresh post-publication install preserve distinct exact subjects. | Blocked by M6 |
@@ -159,6 +212,12 @@ findings-to-submitter-response-to-next-round relation. The accepted
 constraint network. Its bounded realization repair is frozen at `1ddc802d`
 for independent review. Accepted S03 remains the regression basis.
 S06 remains held.
+
+The S04 design-only gate consumes accepted M03 and M05 Sections 1 through 12,
+supersedes only the observer/tuner material in provisional M05 Sections 14.3
+through 14.7, and leaves S06 portability design and all realization untouched.
+Its output is a review subject, not Product progress or implementation
+authority.
 
 For each selected outcome:
 
@@ -212,6 +271,9 @@ reconciliation is a qualification gate, not the feature-development queue.
 ## Work Selection
 
 - One unresolved Product outcome selects Product-progress work.
+- Direct F_H may select a later outcome's design-only disambiguation while
+  realization remains held. That exception must be explicit here, must not
+  reorder Product acceptance, and ends at one frozen review subject.
 - Acceptance exhausts that exact outcome as a selector of later work.
 - The next already-defined Product outcome is selected here only after the
   current outcome is accepted.
@@ -228,7 +290,7 @@ reconciliation is a qualification gate, not the feature-development queue.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | S03, S05, S06, A5-F12/S04 readiness, all pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S05 realization candidate frozen for review; S06 held |
+| `M5` | S03, S05, S06, A5-F12/S04 readiness, all pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S05 candidate frozen; S04 design-only reframe selected; realization held |
 | `M6` | Exact selected-method binding, S04, seven-scenario pre-RC qualification, and complete RC5 reconciliation accept one pre-RC candidate. | Blocked by M5 |
 | `M7` | Distinct RC, installed RC, final-tap, released Product, and post-publication install subjects produce stable `5.0.0`. | Blocked by M6 |
 

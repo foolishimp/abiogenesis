@@ -13,10 +13,11 @@ successor to the immutable 4.6 RC5 Product origin.
 | Surface | Current state |
 |---|---|
 | Product definition | `specification/PRODUCT.md` |
-| selected outcome | Reconcile and reclose `ABG5-S05` |
-| active owner | T-270 |
+| selected implementation outcome | Reconcile and reclose `ABG5-S05` |
+| selected design-only gate | Resolve A5-F12/S04 observer and tuner over exact replay |
+| active owners | T-270 for S05; T-268 for S04 design only |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 accepted; S05 accepted-design realization current; S06 open and unselected |
+| closure state | S03 accepted; exact S05 candidate frozen for acceptance; S06 and S04 realization unselected |
 | conservation | Forty-row implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -55,23 +56,28 @@ feature-specific runtime is not a lawful substitute.
 
 ## Current Work
 
-S05 reconciliation is the only current frontier. Its complete global-to-local
-design must be independently reviewed and directly accepted before
-implementation resumes. The design must:
+The exact S05 realization candidate remains frozen for direct acceptance. No
+S05 repair or later realization is selected.
 
-1. retain the packed SYSTEM-owned Consensus GraphFunction as an ordinary
-   admitted GTL callable;
-2. prove agreement, dispute recursion, and unresolved same-Run F_H
-   continuation through ordinary HoG, ABG, replay, `project.read`, and CLI
-   paths;
-3. reconcile the affected Consensus Ontology, atomic functions, Prime, IACS,
-   module ownership, three views, operational lifecycle, and module proof;
-4. preserve accepted S03, the external Product, M4, package reproducibility,
-   and applicable negatives; and
-5. introduce no Consensus-specific command, runner, controller, scheduler,
-   event family, result store, continuation, or closure path.
+The current authoring work is one S04 design-only gate. It must resolve:
 
-S06, observer/tuner, complete conservation, qualification, and release remain
+1. the exact existing graph/replay observation vector, immutable executed
+   declaration set, and applied evaluation overlay;
+2. observer and tuner as separate Product-owned GraphFunctions composed through
+   existing GTL atoms;
+3. an explicit objective by which the executive evaluates evolving workspace
+   truth and the tuner derives complete immutable `A -> A1` GraphFunction,
+   `node_type`, or overlay candidates through the existing catalog URI
+   hierarchy;
+4. generic `run.invoke` and thin CLI triggering with no alternate
+   functionality;
+5. grounded draft, ratify/reject, later ordinary A1 registration, replay, and
+   read lifecycles;
+6. complete Ontology, Prime, IACS, module, three-view, lifecycle, axiom, and
+   proof constraints; and
+7. one frozen handoff followed by independent review before code.
+
+S06, S04 realization, complete conservation, qualification, and release remain
 blocked until GOALS selects them.
 
 ## Authority
@@ -85,7 +91,9 @@ Read in this order:
 5. [direct-GTL design](build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md)
 6. [M5 design](build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md)
 7. [S05 design delta](build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md)
-8. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
+8. [S04 observer/tuner candidate design](build_tenants/abiogenesis/typescript/design/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md)
+9. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
+10. [T-268](.ai-workspace/tickets/active/T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md)
 
 `PRODUCT.md` is the sole complete 5.0 Product-definition surface.
 Requirements decompose it. GOALS selects one current Product outcome. Design

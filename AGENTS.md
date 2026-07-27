@@ -27,7 +27,7 @@
 
 ## Current Gate
 
-The sole current Product outcome is:
+The sole current Product implementation outcome is:
 
 ```text
 reconcile and reclose ABG5-S05
@@ -41,6 +41,20 @@ Earlier implementation remains retained behavioral stock. The S05 design in
 `283325aa`; S05 realization is current. S06 is open but not selected.
 Observer/tuner, full conservation qualification, qualification, and release
 must not receive implementation while S05 remains unresolved.
+
+Direct F_H instruction on 2026-07-28 selects one bounded S04 design-only gate
+under T-268. The worker may complete
+`M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md`, its ADR, exact status
+surfaces, and one review handoff. It may not implement S04, change public or
+runtime code, accept S05, select S06 realization, or self-review the design.
+Freeze once and stop for independent review.
+
+The S04 design must treat the workspace as evolving observed state and every
+GraphFunction, reusable `node_type`, and overlay as immutable catalog content.
+The executive evaluates replay against an exact applied overlay and objective;
+the tuner may only derive a complete successor version `A1` from `A`. URI
+hierarchy is naming and exact lookup, not a resolver, mutable alias, or second
+catalog.
 
 S05 closes only when:
 
@@ -74,7 +88,9 @@ Read:
 5. `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`
 6. `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md`
 7. `build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`
-8. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
+8. `build_tenants/abiogenesis/typescript/design/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md`
+9. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
+10. `.ai-workspace/tickets/active/T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md`
 
 Repository history and commentary may explain prior failure. They do not
 authorize implementation.
@@ -135,6 +151,8 @@ from them.
 - Do not restore the archived observer/tuner draft onto the active line.
 - During S05 realization, change only surfaces required to project the accepted
   S05 design and prove that projection.
+- During the S04 design-only gate, change no realization, schema, event,
+  operation, test, publication, or package surface.
 - A review finding blocks its exact claim; it does not automatically authorize
   another ticket, refactor, artifact family, or review programme.
 - Refactor only where accepted design proves duplicate, ambiguous, or rival
