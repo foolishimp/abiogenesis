@@ -33,12 +33,20 @@ selection, ordered successor outcomes, and their acceptance conditions.
 - `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` is the accepted S05
   replacement for Section 13. ADR-045 records its rationale. Direct human
   acceptance at commit `283325aa` also affirms the same-Run F_H topology.
+- The bounded catalog-application clarification across M04, M05, the S05
+  design, and ADR-046 is frozen with realization candidate `8fde581d`; its
+  exact four-file aggregate is
+  `c8f1d7f40778357061fec5ac8fed8a9f75c1baa150407021832405702d59696e`.
+  It remains candidate design evidence pending exact-cut review and does not
+  alter the accepted S05 Product function or select another outcome.
 - Exact S05 realization candidate
-  `5ceb940123dee9d64332d6a744a35194a171007d`, tree
-  `df8ba907cf0f1191b9984664605ad424eca9c960`, is frozen for independent
+  `8fde581d97dff06439c7de358e531f4f0d1525d9`, tree
+  `2c9887db1b395501d78e7037dd89fb452f7cbf1d`, is frozen for independent
   review. Its mechanical evidence is recorded in
-  `.ai-workspace/comments/codex/20260727T041213Z_HANDOFF_t270_s05_catalog_prime_contracted_candidate.md`.
+  `.ai-workspace/comments/codex/20260727T054308Z_HANDOFF_t270_s05_policy_catalog_schema_repair_candidate.md`.
   This freeze is not S05 acceptance and does not select S06.
+- Candidate `5ceb940123dee9d64332d6a744a35194a171007d` is superseded by this
+  bounded repair and remains behavioral stock only.
 - Commit `bcd8769a8163a222e2e59400c904994b3de161fd` is preserved behavioral
   stock. Exact candidate
   `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is the accepted S03 base. Neither
@@ -136,7 +144,7 @@ select implementation while this outcome remains unresolved.
 | Order | Existing owner | Product outcome | Acceptance boundary | State |
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
-| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Current - realization candidate `5ceb9401` frozen for independent review; not accepted |
+| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Current - bounded realization candidate `8fde581d` frozen for independent review; not accepted |
 | `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Blocked by S05 |
 | `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Unselected until S06 closes |
 | `5` | `T-270` | Freeze one M5 candidate | All pre-qualification Product behavior and all 17 feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by prior outcomes |
@@ -148,8 +156,9 @@ select implementation while this outcome remains unresolved.
 The bounded S05 `requirement_reprice` established the
 findings-to-submitter-response-to-next-round relation. The accepted
 `design_reframe` resolves the complete S05 function as a global-to-local
-constraint network. Its realization is frozen at `5ceb9401` for independent
-review. Accepted S03 remains the regression basis. S06 remains held.
+constraint network. Its bounded policy/catalog/schema repair is frozen at
+`8fde581d` for independent review. Accepted S03 remains the regression basis.
+S06 remains held.
 
 For each selected outcome:
 
