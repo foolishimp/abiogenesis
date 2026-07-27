@@ -24,7 +24,7 @@
     M03/M05 basis
 - triaged_at: 2026-07-26T16:51:19+10:00
 - created_at: 2026-07-14
-- updated_at: 2026-07-27
+- updated_at: 2026-07-28
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
@@ -42,7 +42,7 @@
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
 - accepted_s03_decision: .ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md
-- current_s05_basis_commit: 3e0a148ae8ea3110d715cc142fb9708010876dcb
+- current_s05_basis_commit: 1ddc802d3003a3d0782398f7ec7c74cfa81ab127
 - superseded_s05_candidate: c4a0f42dd55a9dec963e514579fbfa81ea286786
 - superseded_s05_candidate_tree: 6046a66a04de125b4639a32d022b87f9b64fac04
 - superseded_s05_evidence: .ai-workspace/comments/codex/20260725T234029Z_CHECKPOINT_t270_s05_ordinary_path_consensus_exact_candidate.md
@@ -86,13 +86,13 @@
 - superseded_s05_catalog_scope_timeout_candidate: 17c6444a39a4542f4bf7015d222ec0c383f4e2a8
 - superseded_s05_catalog_scope_timeout_candidate_tree: b060bdee43f6882c7e4c832d1fbd4c727808accf
 - superseded_s05_catalog_scope_timeout_candidate_evidence: .ai-workspace/comments/codex/20260727T103744Z_HANDOFF_t270_s05_catalog_scope_timeout_candidate.md
-- current_s05_candidate: 3e0a148ae8ea3110d715cc142fb9708010876dcb
-- current_s05_candidate_tree: 0db18d769c870f10bb8eecb7646a16b907092268
-- current_s05_candidate_package_digest: 79d0b12c21d049353266c888d6a28596108efb6cd77ecd70ead73f4ff5c1feda
-- current_s05_candidate_package_inventory_digest: 15cf76447cf164662f0a5fc499be88343c067878fe9c7bfa46ca779f91430c2e
-- current_s05_candidate_product_content_digest: 08785889d7a33af4dfc5d7a10e9b8521227ec5085d82470a637551f0b874d5f6
-- current_s05_candidate_manifest_digest: c8088312e94b071b511f0d68f1e116cd1d0c64831c1a8c16c39cc63c3dc64827
-- current_s05_candidate_evidence: .ai-workspace/comments/codex/20260727T114922Z_HANDOFF_t270_s05_edge_closure_candidate.md
+- current_s05_candidate: 1ddc802d3003a3d0782398f7ec7c74cfa81ab127
+- current_s05_candidate_tree: b50684077f95867a079b8f5435db10d61384b881
+- current_s05_candidate_package_digest: 7f5bbad797b85c5aff678aba225f409bfd168639a7c34a167af8fa08e1162376
+- current_s05_candidate_package_inventory_digest: f41cc8cd0cada9a456925e7c9ac03b11a01ddd3697b0ff2a24f193215c804e58
+- current_s05_candidate_product_content_digest: e40e6fe1e72e7fa6561da31118421831f912d889eff1203227bfb5d3b3301822
+- current_s05_candidate_manifest_digest: 00a1f4cc3179bbab0b301f2222b152103ce266cb5212d518ca1f4a892fc9637c
+- current_s05_candidate_evidence: .ai-workspace/comments/codex/20260727T151414Z_HANDOFF_t270_s05_direct_exit_timeout_candidate.md
 - superseded_s05_design_subject_aggregate: 6a809f94d011962d9888cfa8fa2f59dfd63c1163404db851d9c2eb6880ca2be1
 - superseded_s05_design_handoff: .ai-workspace/comments/codex/20260726T165744Z_HANDOFF_t270_s05_global_to_local_design_review.md
 - current_s05_design_subject:
