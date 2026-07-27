@@ -34,9 +34,10 @@
     outcome begins until independent findings are consolidated and direct human
     authority accepts or redirects S05
 - design_only_exception: >-
-    Direct F_H instruction on 2026-07-28 selects T-268 to derive and freeze one
-    S04 observer/tuner design subject. This does not accept S05, select S06 or
-    S04 realization, or authorize code.
+    Direct F_H instruction on 2026-07-28 selected T-268 to derive and freeze
+    one S04 observer/tuner design subject. Candidate 4897ead1 is now frozen for
+    independent review. This does not accept S05, select S06 or S04
+    realization, or authorize code.
 - current_product_outcome: ABG5-S05
 - accepted_s03_candidate_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s03_candidate_tree: f1a66a2c79f01972f063189bf7668fdb762ce2e6
@@ -155,9 +156,9 @@ reconcile and reclose ABG5-S05
 Completed T-274, T-275, and T-276 are implementation and proof evidence. They
 do not independently select work or preserve old X authority.
 
-T-268 may proceed in parallel only as the GOALS-selected S04 design gate. Its
-output is one independently reviewable design subject. T-270 remains the sole
-M5 realization owner, and all S04 implementation remains held.
+T-268 produced exact design candidate `4897ead1`; independent review is now the
+only selected S04 activity. T-270 remains the sole M5 realization owner, and
+all S04 implementation remains held.
 
 ## Accepted S03 Basis
 

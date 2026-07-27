@@ -1,8 +1,8 @@
 # T-268 - Design Replay-Grounded Observer And Tuner
 
-> **Current disposition (2026-07-28):** active for one S04 design-only
-> reframe. Implementation remains held until independent design review, direct
-> acceptance, S06 closure, and later GOALS selection.
+> **Current disposition (2026-07-28):** S04 design frozen at exact candidate
+> `4897ead1`; independent semantic review is current. Implementation remains
+> held until direct acceptance, S06 closure, and later GOALS selection.
 
 - id: T-268
 - title: Design replay-grounded observer and tuner
@@ -12,12 +12,13 @@
 - implementation_hold: active
 - implementation_hold_ref: GOAL-035 current S04 design-only gate
 - implementation_hold_effect: >-
-    authorize design, ADR, mechanical validation, exact freeze, and handoff
-    only; prohibit runtime, contract, schema, event, operation, test,
-    publication, package, or proof implementation
-- phase_status: m5_s04_design_selected_realization_unselected
-- review_status: candidate_design_pending_independent_review
-- proof_status: design_mechanical_evidence_pending
+    exact design is frozen; authorize independent review only; prohibit design
+    repair until findings are consolidated and prohibit runtime, contract,
+    schema, event, operation, test, publication, package, or proof
+    implementation
+- phase_status: m5_s04_design_frozen_realization_unselected
+- review_status: exact_candidate_pending_independent_review
+- proof_status: design_mechanical_evidence_passed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Resolve observer and tuner as a complete GTL free construction over exact
@@ -62,6 +63,15 @@
 - candidate_adr_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-047-reflective-optimization-is-gtl-over-replay.md
+- candidate_commit: 4897ead13d4d43bdd7538f74e3ce83888b03f5c6
+- candidate_tree: 11d0ef7ba40cfbd6efc31f447b27b21834c23d54
+- candidate_ticket_sha256: 67ac610d92c1a0192c1bd17e067082f396cbab762d5392cad8d92466befc523a
+- candidate_design_sha256: a84cf02bb428ff1f0fce2c2b203a2ad478fa9a81b0c1ed3405cf9ed09893d3a5
+- candidate_adr_sha256: 92c469ac44f9ae1dd65054fc363a25023ca75f7f153d148166f1a137c676627e
+- candidate_core_aggregate_sha256: c85541d57e465c8eee55dc63f976a441085f849a479d67db95247816bb5e87fa
+- handoff_ref: >-
+    .ai-workspace/comments/codex/
+    20260727T170342Z_HANDOFF_t268_s04_immutable_tuning_design.md
 
 ## Selected Design Outcome
 

@@ -5,8 +5,9 @@
 The ABIogenesis 5.0 Product and direct-GTL M3 architecture are accepted.
 GOALS retains S05 as the current unresolved Product outcome and selects one
 bounded S04 design-only reframe while the exact S05 candidate awaits
-acceptance. M05 Sections 1 through 12 are accepted at S03. S04 realization
-remains held.
+acceptance. The S04 design is frozen at candidate `4897ead1`, tree
+`11d0ef7b`, for independent review. M05 Sections 1 through 12 are accepted at
+S03. S04 realization remains held.
 
 The current design basis is:
 
@@ -56,8 +57,7 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-T-270 retains the frozen S05 candidate. T-268 permits S04 design and mechanical
-readiness work only. S06 and S04 implementation, complete conservation,
-qualification, and release remain held. Freeze the S04 design once, hand it to
-independent reviewers, and stop editing until findings are consolidated or F_H
-directs the next step.
+T-270 retains the frozen S05 candidate. T-268's exact S04 design subject is now
+frozen. S06 and S04 implementation, complete conservation, qualification, and
+release remain held. Independent reviewers may inspect the exact cut; authoring
+does not resume until findings are consolidated or F_H directs the next step.

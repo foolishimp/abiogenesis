@@ -14,7 +14,7 @@ successor to the immutable 4.6 RC5 Product origin.
 |---|---|
 | Product definition | `specification/PRODUCT.md` |
 | selected implementation outcome | Reconcile and reclose `ABG5-S05` |
-| selected design-only gate | Resolve A5-F12/S04 observer and tuner over exact replay |
+| selected design-only gate | S04 design frozen at `4897ead1` for independent review |
 | active owners | T-270 for S05; T-268 for S04 design only |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
 | closure state | S03 accepted; exact S05 candidate frozen for acceptance; S06 and S04 realization unselected |
@@ -59,7 +59,8 @@ feature-specific runtime is not a lawful substitute.
 The exact S05 realization candidate remains frozen for direct acceptance. No
 S05 repair or later realization is selected.
 
-The current authoring work is one S04 design-only gate. It must resolve:
+The S04 design-only gate is frozen at exact candidate `4897ead1`, tree
+`11d0ef7b`, for independent review. It resolves:
 
 1. the exact existing graph/replay observation vector, immutable executed
    declaration set, and applied evaluation overlay;
@@ -78,7 +79,8 @@ The current authoring work is one S04 design-only gate. It must resolve:
 7. one frozen handoff followed by independent review before code.
 
 S06, S04 realization, complete conservation, qualification, and release remain
-blocked until GOALS selects them.
+blocked until GOALS selects them. Do not edit the frozen S04 subject while
+review is active.
 
 ## Authority
 

@@ -42,12 +42,11 @@ Earlier implementation remains retained behavioral stock. The S05 design in
 Observer/tuner, full conservation qualification, qualification, and release
 must not receive implementation while S05 remains unresolved.
 
-Direct F_H instruction on 2026-07-28 selects one bounded S04 design-only gate
-under T-268. The worker may complete
-`M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md`, its ADR, exact status
-surfaces, and one review handoff. It may not implement S04, change public or
-runtime code, accept S05, select S06 realization, or self-review the design.
-Freeze once and stop for independent review.
+Direct F_H instruction on 2026-07-28 selected one bounded S04 design-only gate
+under T-268. That design is frozen at candidate `4897ead1`, tree `11d0ef7b`,
+for independent review. Do not edit or implement it until review findings are
+consolidated and direct F_H authority accepts or redirects the exact subject.
+Do not accept S05 or select S06 realization through this gate.
 
 The S04 design must treat the workspace as evolving observed state and every
 GraphFunction, reusable `node_type`, and overlay as immutable catalog content.
