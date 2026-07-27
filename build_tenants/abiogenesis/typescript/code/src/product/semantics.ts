@@ -10,9 +10,14 @@ import {
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import type { ProductInstall } from "./environment.js";
 import { installedProductContentMatches } from "./install_product.js";
-import type { CatalogApplication, CatalogView } from "./catalog.js";
+import type {
+  CatalogAppliedValue,
+  CatalogApplication,
+  CatalogView,
+} from "./catalog.js";
 
 export interface ProductInvocationSourceResultBasis {
   readonly kind: "invocation_source_result_basis";
@@ -80,6 +85,15 @@ export interface ProductSemanticsProvider {
     readonly advanceReasonRef: string;
     readonly rejectionReasonRef: string;
     readonly evaluate: (input: unknown, output: unknown) => boolean;
+  }> | null;
+  readonly resolveCatalogApplicationValue?: (
+    basis: Readonly<{
+      readonly contractRef: string;
+      readonly value: Readonly<Record<string, JsonValue>>;
+    }>,
+  ) => Readonly<{
+    readonly valueRef: string;
+    readonly programMembershipRefs: readonly string[];
   }> | null;
   readonly validateResultEvidenceLineage?: (
     basis: Readonly<{
@@ -320,6 +334,10 @@ export async function loadInstalledProductSemantics(
     typeof value.validateContractValue !== "function" ||
     typeof value.resolveJudgmentRelation !== "function" ||
     (
+      value.resolveCatalogApplicationValue !== undefined &&
+      typeof value.resolveCatalogApplicationValue !== "function"
+    ) ||
+    (
       value.resolveProbabilisticWorkerContracts !== undefined &&
       typeof value.resolveProbabilisticWorkerContracts !== "function"
     ) ||
@@ -372,6 +390,44 @@ export function admitInstalledProductInput(
     );
   }
   return semantics.admitInput(contractRef, value);
+}
+
+export function admitInstalledCatalogApplicationValue(
+  semantics: ProductSemanticsProvider,
+  contractRef: string,
+  value: unknown,
+): CatalogAppliedValue | null {
+  if (!loadedProductSemantics.has(semantics)) {
+    throw new TypeError(
+      "catalog application value admission requires the exact loaded Product semantics provider",
+    );
+  }
+  if (!isRecord(value)) return null;
+  const admitted = deepFreeze(value) as Readonly<Record<string, JsonValue>>;
+  const projection = semantics.resolveCatalogApplicationValue?.({
+    contractRef,
+    value: admitted,
+  }) ?? null;
+  if (
+    projection === null ||
+    projection.valueRef.trim().length === 0 ||
+    projection.programMembershipRefs.some((ref) => ref.trim().length === 0) ||
+    new Set(projection.programMembershipRefs).size !==
+      projection.programMembershipRefs.length
+  ) {
+    return null;
+  }
+  return Object.freeze({
+    kind: "catalog_applied_value",
+    schemaVersion: "5.0.0",
+    contractRef,
+    valueRef: projection.valueRef,
+    valueDigest: sha256Canonical(admitted as unknown as JsonValue),
+    value: admitted,
+    programMembershipRefs: Object.freeze([
+      ...projection.programMembershipRefs,
+    ]),
+  });
 }
 
 export function evaluateInstalledInteractionResponse(

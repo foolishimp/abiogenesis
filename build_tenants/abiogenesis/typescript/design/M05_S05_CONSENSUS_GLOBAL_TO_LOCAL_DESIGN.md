@@ -1,6 +1,7 @@
 # M05 S05 Consensus Global-To-Local Design
 
-**Status**: Accepted S05 realization basis at `283325aa`
+**Status**: Accepted S05 realization basis at `283325aa`; bounded
+catalog-application clarification pending exact-cut review
 
 **Owner**: T-270
 
@@ -11,6 +12,8 @@
 
 **Decision rationale**:
 [ADR-045](./adrs/ADR-045-global-design-constraints-survive-local-projection.md)
+and
+[ADR-046](./adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md)
 
 ## Authority And Supersession
 
@@ -58,6 +61,7 @@ The constitutional sources are:
 | `015A` | direct human acceptance must affirm the same-Run F_H topology | delegated acceptance or prior behavior supplies affirmation |
 | `016..018` | module proof plus installed qualification cover the canonical path, three outcomes, and three workspace applications | fixture, source import, or parallel adapter substitutes |
 | `019` | the boundary remains one reusable Consensus construction | scheduler, watcher, ticket writer, or generic service enters |
+| `CATALOG-008/015/030` | the existing catalog applies Product-validated concrete values with exact contributor provenance; an optional overlay binds one published Program composition and application emits no runtime event | caller digest creates truth, placeholder ownership replaces the contributor, overlay is mandatory or unbound, or application appends runtime truth |
 
 ## Product Function
 
@@ -174,6 +178,18 @@ result store, continuation family, public command, compiler, or second runtime.
     - Falsified by: built-in panel count, completion-order attribution,
       cross-round reuse, or invented ruling kind.
 
+16. **Catalog rows describe kinds; catalog applications bind exact values.**
+    - Local: `catalog.apply` consumes one selected URI handle, one concrete
+      value admitted by the row-owning installed Product contract, and one
+      contributor selected by the workspace actor or resolved Product lock.
+      Node types carry no Program membership. An overlay carries the exact
+      published Program membership it modifies. ABG admits the operation-local
+      application without appending a runtime event.
+    - Falsified by: caller-authored value digest without a preimage,
+      contributor provenance copied from the category row, overlay with empty
+      or different Program membership, application of a callable, or any
+      `catalog.apply` runtime event.
+
 ## Closed Semantic Algebra
 
 ### Reviewer Occurrence
@@ -213,13 +229,17 @@ equal to the admitted panel.
 `ConstructRulingVector` is a Product F_D relation over the exact findings
 vector, submitter response, and admitted disagreement-rule contract.
 
-- the canonical rule emits one row per panel position;
+- with no applied overlay, the canonical rule emits one row per panel
+  position;
 - a refusal-bearing finding set emits `deferment`;
 - another canonical finding set emits `decision_row`;
-- an admitted downstream disagreement-rule overlay may instead select
+- an optional, concretely applied downstream disagreement-rule overlay may
+  instead select
   `draft_ticket`, `split_ticket`, or `rejected_finding`;
-- every overlay remains inside the closed roster and is an admitted catalog
-  input, never implementation logic; and
+- every overlay binds the canonical disagreement rule, One Surface Program,
+  reducer GraphFunction, policy contract, exact contributor provenance, and
+  closed ruling roster; it is an admitted catalog input, never implementation
+  logic; and
 - row order, finding refs, rationale, and payload refs derive from the exact
   occurrence and response.
 
@@ -298,6 +318,8 @@ continuation, and public-operation identities are consumed, not redefined.
 | ConsensusPublication -> ConsensusProgram | one supervised Program; no support Program | Product/GTL |
 | Program -> ConsensusInvocation | zero or more admitted invocations | Product proposes; ABG admits |
 | Invocation -> WorkspaceBinding | exactly one, independent of root application kind | Product/ABG |
+| selected catalog row -> CatalogApplication | zero or more exact Product-validated values; no runtime event | Product validates; ABG admits |
+| overlay CatalogApplication -> Program | exactly one published Program membership | Product/ABG |
 | Invocation -> reviewer panel | one non-empty duplicate-free ordered vector | Product |
 | Invocation -> submitter role | exactly one actor-equal profile | Product |
 | Invocation -> rounds | one through positive policy budget | Product/GTL; ABG admits |
@@ -317,6 +339,7 @@ continuation, and public-operation identities are consumed, not redefined.
 | `ConsensusPublication` | Product/version/publication digest | Product/GTL | package declaration | catalog view | new Product cut only | superseded by release |
 | `ConsensusInvocation` | canonical invocation ref/digest | Product meaning; ABG admission | `ConstructConsensusInvocation` then admit | replay/public status | none; immutable | exhausted with Run |
 | `WorkspaceBinding` | binding ref/digest | Product/ABG | existing workspace admission | invocation/replay | new observation snapshot only | release/workspace revocation |
+| `CatalogApplication` | row + concrete value digest + contributor provenance | Product validation; ABG admission | `ResolveCatalogApplicationValue` then `catalog.apply` | invocation basis | not_applicable: immutable operation-local value | operation context |
 | `ConsensusRound` | invocation + round ref/ordinal | Product/GTL; ABG admission | `InitializeRound` or successor basis | replay/result | `DecideRound` once | terminal decision |
 | `ReviewerTaskOccurrence` | `ReviewerOccurrenceKey` | Product meaning; ABG attempt truth | `ConstructRoleTask(reviewer)` | finding/evidence replay | retry creates new attempt, not mutation | child close-or-stop |
 | `ReviewFindingsOccurrence` | occurrence key + output digest | Product meaning; ABG admission | `ValidateRoleOccurrence` | vector/replay | not_applicable: immutable result | Run retention policy |
@@ -337,6 +360,7 @@ entities above unless the public contract Promotion Test below applies.
 
 | Function or transition | Proposer | Evaluator | Verifier | Admitter | Executor | Projector | Retirement owner |
 |---|---|---|---|---|---|---|---|
+| apply catalog value | workspace actor or locked Product | installed Product contract | Product + catalog/view/lock checks | ABG, without runtime event | Public fixed operation | invocation basis | operation-context expiry |
 | construct invocation | developer/catalog | Product | Product + validator | ABG | Public fixed composition | replay/Public | ABG Run closure |
 | construct role task | GTL traversal | Product | Product predicates | ABG C-call basis | HoG | replay | child close-or-stop |
 | reviewer/submitter effect | admitted task | Product contract | Product occurrence/lineage verifier | ABG result/judgment | implementation F_P port | replay | C-call terminal truth |
@@ -371,6 +395,7 @@ only the authority admitted for its exact inputs and current Run basis.
 | result, replay, ticket read | downstream projection | `ProjectConsensusRead(kind)` | public read | F_D | Product over ABG truth | atomic parameterized |
 | three workspace applications | WorkspaceBinding | `ConstructConsensusInvocation(workspaceBinding)` | same start composition | F_D | Product/ABG | derived parameter |
 | downstream profile/policy overlays | catalog declarations | `ResolveRoleBasis` and invocation construction | catalog admission | F_D | contributor proposes; Product/ABG admit | derived composition |
+| concrete catalog value and contributor | selected row + value preimage + workspace/lock | `ResolveCatalogApplicationValue` then `AdmitCatalogApplication` | invocation construction | F_D then operation admission | contributor proposes; Product validates; ABG admits | atomic shared catalog relation |
 | reviewer isolation or output workspace | deferred boundary | none | none | not_applicable | future Product re-entry | deferred by REQ-014 |
 | generic scheduler/ticket writer | excluded boundary | none | none | not_applicable | no authority | excluded by REQ-019 |
 
@@ -384,6 +409,7 @@ only the authority admitted for its exact inputs and current Run basis.
 | separate source/support episodes | `FinalizeSupport(target) -> FinalizeHumanDecision(same Run)` | F_H resolution and typed result | ABG remains one episode owner | direct support Program, source-result basis, target Run | source closes before F_H or second result appears |
 | three workspace modes | `existing + alternate + temporary -> WorkspaceBinding application parameter` | all root applications and exact authority | Product/ABG unchanged | mode identities and shortcuts | any application crosses another topology |
 | result and ticket readers | `ProjectResult + ProjectTicket -> ProjectConsensusRead(kind)` | public pattern-match variants | Product projection remains singular | duplicate read authority | ticket projection can append or differ semantically |
+| category row plus free digest | `CatalogRow + caller(valueRef,digest) -> CatalogRow + ProductValidatedValue + ContributorProvenance` | exact downstream value and source identity | caller claim -> Product validation and ABG admission | caller-minted digest authority | missing preimage, wrong contributor, or runtime event is accepted |
 
 No further contraction is lawful:
 
@@ -407,6 +433,7 @@ No further contraction is lawful:
 | retry cardinality | each role child has the declared finite C-call attempt bound and at most one successful result |
 | recursion cardinality | round ordinal starts at one, is contiguous, and never exceeds policy budget |
 | response cardinality | one complete vector creates one submitter task and at most one admitted response |
+| catalog-application cardinality | every required invocation value has exactly one matching application; the canonical ruling rule requires zero overlay applications and an alternative requires exactly one |
 | F_H cardinality | one escalate decision creates one hold, one admitted response, and one final result in the same Run |
 | effect conservation | F_D appends no truth; F_P returns candidates; F_H supplies a decision; ABG alone admits events and closure |
 | authority conservation | composition cannot widen catalog, actor, capability, workspace, Run, or result authority |
@@ -419,7 +446,7 @@ M03 set.
 | S05 carrier | Accepted IACS family | Ontology law carried | Authority/status |
 |---|---|---|---|
 | publication, Program, GraphFunctions, native contracts, schemas, vocabularies | `GtlDeclarationFamily` | canonical meaning and composition | Product-authoritative, public/versioned |
-| subject, profile, policy, panel, WorkspaceBinding, admitted catalog rows | `EnvironmentBasis` plus subordinate invocation inputs | exact environment and contribution basis | Product/ABG admitted |
+| subject, profile, policy, panel, WorkspaceBinding, admitted catalog rows and applications | `EnvironmentBasis` plus subordinate invocation inputs | exact environment, concrete value, contributor, and contribution basis | Product-validated; ABG admitted without runtime event |
 | invocation admission and same-Run continuation basis | `InvocationBasis` | one start, one Run, admitted actor/capability | ABG-authoritative, opaque publicly |
 | round, role task, vector, response, decision payloads | subordinate to `TraversalAggregateFamily` | invocation-local GTL values and foldback | Product meaning; ABG event-linked |
 | reviewer/submitter effect tasks and candidates | `LeafRealizationBoundary` effect-edge variants | exact F_P contract and occurrence | task public; function private |
@@ -450,6 +477,8 @@ kernel.
 |---|---|---|---|
 | `MaterializeSubject` | Product | `src/gtl` `ConsensusSemantics` | subject materialization |
 | `ResolveRoleBasis` | Product/catalog | `src/gtl` `ConsensusSemantics` | reviewer/submitter role variant |
+| `ResolveCatalogApplicationValue` | installed Product | existing `src/product` semantics-provider interface | value ref plus Program memberships |
+| `AdmitCatalogApplication` | ABG | existing `src/abg` catalog application port | operation-local admitted application; no event |
 | `ConstructConsensusInvocation` | Product | `src/gtl` `ConsensusSemantics` | invocation candidate |
 | `InitializeRound` | Product | `src/gtl` `ConsensusSemantics` | round seed |
 | `ConstructRoleTask` | Product/GTL | `src/gtl` `ConsensusSemantics` | role-task variant |
@@ -518,6 +547,11 @@ classDiagram
     <<prime>>
     +invocationRef
   }
+  class CatalogApplication {
+    <<subordinate>>
+    +valueDigest
+    +contributorRef
+  }
   class ConsensusRound {
     <<subordinate>>
     +roundRef
@@ -568,6 +602,8 @@ classDiagram
   Product *-- ProductVerifier
   ConsensusPublication *-- SerializedContractAssets
   ConsensusPublication --> ConsensusInvocation
+  ConsensusPublication --> "0..*" CatalogApplication
+  CatalogApplication --> ConsensusInvocation
   ConsensusInvocation *-- WorkspaceBinding
   ConsensusInvocation *-- "1..*" ConsensusRound
   ConsensusRound *-- "1..*" RoleTaskOccurrence
@@ -606,8 +642,12 @@ sequenceDiagram
   participant ABG
   participant Replay
 
+  Developer->>Public: apply exact subject, role, policy, and optional overlay values
+  Public->>ProductVerifier: validate value preimages, contributor provenance, and overlay Program membership
+  ProductVerifier-->>Public: Product-validated catalog application values
+  Public->>ABG: admit catalog applications without runtime events
   Developer->>Public: start canonical Consensus observation
-  Public->>ProductVerifier: verify Product, catalog, workspace, profiles, policy
+  Public->>ProductVerifier: verify Product, catalog, workspace, applications, profiles, policy
   ProductVerifier-->>Public: exact admitted Product basis
   Public->>GtlConsensus: MaterializeSubject + ResolveRoleBasis + ConstructConsensusInvocation
   GtlConsensus-->>Public: invocation candidate over one WorkspaceBinding contract
@@ -672,8 +712,9 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
-  [*] --> RefusedBeforeRun: invalid Product, workspace, catalog, Program, or invocation [Product/Validator/ABG]
-  [*] --> RoundOpen: invocation and Run admitted, Consensus child opened [ABG/HoG]
+  [*] --> RefusedBeforeRun: invalid Product, workspace, catalog, application, Program, or invocation [Product/Validator/ABG]
+  [*] --> CatalogApplied: concrete values and contributor provenance admitted without runtime event [Product/ABG]
+  CatalogApplied --> RoundOpen: invocation and Run admitted, Consensus child opened [ABG/HoG]
   RoundOpen --> ReviewerEffects: ConstructRoleTask(reviewer) [Product/GTL]
   ReviewerEffects --> ReviewerEffects: retry opens fresh C-call attempt [HoG/ABG]
   ReviewerEffects --> RunStopped: no semantic output after transport stop [ABG]
@@ -714,6 +755,7 @@ stateDiagram-v2
 | ABG events alone own runtime truth | runtime aggregate relations | ABG | ABG authoritative, Replay downstream | every runtime transition crosses ABG | all active states are event-derived | event payload types | event-store admission and replay | pass | none |
 | diagnostics cannot affect semantics | global decision 7 | no semantic authority | no diagnostic entity | no diagnostic decision message | no diagnostic transition | not_applicable: observational payloads | absence from admission predicates | pass | none |
 | downstream contribution cannot replace core | catalog contribution relation | contributor proposes; Product/ABG admit | overlays subordinate to invocation | catalog resolution precedes construction | no overlay lifecycle authority | closed contracts and roster | catalog/Program admission | pass | none |
+| catalog application cannot mint truth | concrete value, contributor, application, Program-membership relations | Product validates; ABG admits | applications are subordinate EnvironmentBasis values | preimage/provenance checks precede invocation | no runtime-event transition exists | exact Product predicates and digests | workspace/lock/view checks plus operation-local admission | pass | none |
 | public and ticket reads append no truth | Result and TicketProjection | Product/Public | projections downstream | read follows replay | self-loop only on closed/readable | pure projector | exact prefix/result verification | pass | none |
 | no hidden controller or constructor | function derivation and composition laws | GTL/HoG/ABG | no controller entity | all loops/branches are declared | every transition has declared source | GTL constructors and closed functions | whole-Program validation | pass | none |
 
@@ -737,7 +779,7 @@ stateDiagram-v2
 | Module boundary | Owned laws to prove | Existing proof lane and required additions |
 |---|---|---|
 | `src/gtl` Consensus semantics | closed contracts, variable panel, occurrence equality, total decision/F_H unions, workspace parameter, pure reads | extend existing `test:m5:consensus-unit`; table-drive every decision predicate, both F_H decisions, all occurrence substitutions, singleton and larger panels, and three workspace bindings |
-| `src/product` verifier | exact installed Product/catalog/projection provenance; no second Consensus kernel | existing S03 authority lane plus Consensus unit mutations for forged provider/catalog/overlay |
+| `src/product` verifier | exact installed Product/catalog/projection provenance; concrete catalog preimage and contributor identity; no second Consensus kernel | existing S03 authority lane plus Consensus unit mutations for forged provider/catalog/overlay, fabricated digest, and unlocked contributor |
 | `src/implementation` role effect | exact task/instruction transport; no semantic decision; valid-before-failure salvage | existing worker and Consensus module lanes with reviewer and submitter effect variants |
 | `src/hog` traversal | declared fan-out, submitter child, retry, recursion, same-Run resume, proposals only | existing traversal module lanes plus no-direct-support and one-foldback mutations |
 | `src/abg` admission/replay | exact occurrence, response, decision, hold, idempotency, continuation, one result, closure | existing S03/ABG unit lanes plus wrong Run/hold/actor/capability, duplicate response, post-resume failure, and competing-result mutations |

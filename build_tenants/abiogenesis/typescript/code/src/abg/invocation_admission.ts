@@ -1019,9 +1019,6 @@ export function admitInvocation(
     causationEventRefs: [
       ...new Set([
         ...basis.causationEventRefs,
-        ...catalogApplications.map(
-          (application) => application.admissionEventRef,
-        ),
       ]),
     ],
     correlationId: basis.correlationId,

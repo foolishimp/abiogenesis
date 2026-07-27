@@ -977,7 +977,7 @@ METADATA_BASIS_BY_OPERATION = {
   "abg.operation.workspace.bind":       ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-07", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "workspace_binding_persistence",     "immutable_artifact_boundary"],
   "abg.operation.catalog.admit":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-08", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "catalog_event_admission",           "owning_semantic_authority"],
   "abg.operation.catalog.view":         ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-09", SEMANTIC_AUTHORITY_DIGESTS.ontology, "pure",        "deterministic_narrowing",            "none"],
-  "abg.operation.catalog.apply":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-10", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "declaration_application_admission",  "immutable_artifact_boundary"],
+  "abg.operation.catalog.apply":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-10", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "declaration_application_admission",  "none"],
   "abg.operation.run.invoke":           ["build_tenants/abiogenesis/typescript/design/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md", SEMANTIC_AUTHORITY_DIGESTS.runInvoke, "write", "abg_traversal", "owning_semantic_authority"],
   "abg.operation.run.continue":         ["build_tenants/abiogenesis/typescript/design/M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md", SEMANTIC_AUTHORITY_DIGESTS.runContinue, "write", "abg_continuation", "owning_semantic_authority"],
   "abg.operation.interaction.respond":  ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-18", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "fh_response_admission",             "owning_semantic_authority"],
@@ -1012,12 +1012,13 @@ owner-authoritative artifact and then uses the one generic
 `public_operation_artifact_admitted` boundary event before ABG consumes that
 artifact. The boundary does not select a handler or acquire result, closure,
 retry, continuation, or next-action authority. `workspace.create`,
-`product.install`, `workspace.bind`, `catalog.apply`, `product.materialize`,
-and `release.snapshot` are the complete Rule-B operation set. `workspace.bind`
-is its first implemented steel-thread consumer. Manifest, provenance, and
-result facts remain in owner contract truth. In particular, `catalog.apply`
-retains typed declaration-application admission without inventing a
-per-operation event.
+`product.install`, `workspace.bind`, `product.materialize`, and
+`release.snapshot` are the complete Rule-B operation set. `workspace.bind` is
+its first implemented steel-thread consumer. Manifest, provenance, and result
+facts remain in owner contract truth. `catalog.apply` is the deliberate
+write-without-event exception required by `REQ-P-CATALOG-030`: Product
+validates the immutable application value and ABG admits its operation-local
+carrier, but no runtime or generic artifact event is appended.
 
 All other exact values derive from the existing accepted tables above. The
 metadata basis is the one authored constructor input; those prose tables become

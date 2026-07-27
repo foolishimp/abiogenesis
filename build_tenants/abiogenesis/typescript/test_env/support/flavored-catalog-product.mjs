@@ -125,6 +125,8 @@ export async function prepareFlavoredCatalogProduct(packageRoot, scratch) {
     artifactRef: basename(artifactPath),
     basis,
     ids: module.FLAVORED_CATALOG_IDS,
+    nodeTypeValue: module.FLAVORED_NODE_TYPE,
+    overlayValue: module.FLAVORED_PROGRAM_OVERLAY,
     publication: module.constructFlavoredCatalogPublication({
       productId,
       artifactDigest,

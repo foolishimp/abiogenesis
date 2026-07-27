@@ -91,6 +91,50 @@ function hasExactKeys(
     [...keys].sort().join("\0");
 }
 
+export const FLAVORED_NODE_TYPE = deepFreeze({
+  kind: "flavored_node_type" as const,
+  schemaVersion: "5.0.0" as const,
+  nodeTypeRef: FLAVORED_CATALOG_IDS.nodeTypeRef,
+});
+
+export const FLAVORED_PROGRAM_OVERLAY = deepFreeze({
+  kind: "flavored_overlay" as const,
+  schemaVersion: "5.0.0" as const,
+  overlayRef: FLAVORED_CATALOG_IDS.overlayRef,
+  programRef: FLAVORED_CATALOG_IDS.programRef,
+  graphFunctionRef: FLAVORED_CATALOG_IDS.graphFunctionRef,
+  nodeTypeRef: FLAVORED_CATALOG_IDS.nodeTypeRef,
+  styleRef: FLAVORED_CATALOG_IDS.styleRef,
+});
+
+function isFlavoredNodeType(value: unknown): boolean {
+  return isRecord(value) &&
+    hasExactKeys(value, ["kind", "nodeTypeRef", "schemaVersion"]) &&
+    value.kind === FLAVORED_NODE_TYPE.kind &&
+    value.schemaVersion === FLAVORED_NODE_TYPE.schemaVersion &&
+    value.nodeTypeRef === FLAVORED_NODE_TYPE.nodeTypeRef;
+}
+
+function isFlavoredProgramOverlay(value: unknown): boolean {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "graphFunctionRef",
+      "kind",
+      "nodeTypeRef",
+      "overlayRef",
+      "programRef",
+      "schemaVersion",
+      "styleRef",
+    ]) &&
+    value.kind === FLAVORED_PROGRAM_OVERLAY.kind &&
+    value.schemaVersion === FLAVORED_PROGRAM_OVERLAY.schemaVersion &&
+    value.overlayRef === FLAVORED_PROGRAM_OVERLAY.overlayRef &&
+    value.programRef === FLAVORED_PROGRAM_OVERLAY.programRef &&
+    value.graphFunctionRef === FLAVORED_PROGRAM_OVERLAY.graphFunctionRef &&
+    value.nodeTypeRef === FLAVORED_PROGRAM_OVERLAY.nodeTypeRef &&
+    value.styleRef === FLAVORED_PROGRAM_OVERLAY.styleRef;
+}
+
 function isFlavoredInput(value: unknown): value is Readonly<{
   kind: "flavored_text_input";
   schemaVersion: "5.0.0";
@@ -199,6 +243,18 @@ export const FLAVORED_CATALOG_PRODUCT_SEMANTICS = Object.freeze({
     ) {
       return deepFreeze({ ...value });
     }
+    if (
+      contractRef === FLAVORED_CATALOG_IDS.nodeTypeRef &&
+      isFlavoredNodeType(value)
+    ) {
+      return FLAVORED_NODE_TYPE;
+    }
+    if (
+      contractRef === FLAVORED_CATALOG_IDS.overlayRef &&
+      isFlavoredProgramOverlay(value)
+    ) {
+      return FLAVORED_PROGRAM_OVERLAY;
+    }
     return null;
   },
   evaluateInteractionResponse() {
@@ -207,11 +263,41 @@ export const FLAVORED_CATALOG_PRODUCT_SEMANTICS = Object.freeze({
   validateContractValue(valueKind: string, value: unknown): boolean {
     if (valueKind === "flavored_text_input") return isFlavoredInput(value);
     if (valueKind === "flavored_text_output") return isFlavoredOutput(value);
+    if (valueKind === "flavored_node_type") return isFlavoredNodeType(value);
+    if (valueKind === "flavored_overlay") {
+      return isFlavoredProgramOverlay(value);
+    }
     return isRecord(value) &&
       (
         valueKind === "flavored_text_failure" ||
         valueKind === "flavored_text_refusal"
       );
+  },
+  resolveCatalogApplicationValue(
+    basis: Readonly<{
+      contractRef: string;
+      value: Readonly<Record<string, JsonValue>>;
+    }>,
+  ) {
+    if (
+      basis.contractRef === FLAVORED_CATALOG_IDS.nodeTypeRef &&
+      isFlavoredNodeType(basis.value)
+    ) {
+      return Object.freeze({
+        valueRef: FLAVORED_CATALOG_IDS.nodeTypeRef,
+        programMembershipRefs: [],
+      });
+    }
+    if (
+      basis.contractRef === FLAVORED_CATALOG_IDS.overlayRef &&
+      isFlavoredProgramOverlay(basis.value)
+    ) {
+      return Object.freeze({
+        valueRef: FLAVORED_CATALOG_IDS.overlayRef,
+        programMembershipRefs: [FLAVORED_CATALOG_IDS.programRef],
+      });
+    }
+    return null;
   },
   resolveJudgmentRelation(predicateRef: string) {
     if (predicateRef !== FLAVORED_CATALOG_IDS.judgmentPredicateRef) {
@@ -419,7 +505,7 @@ export function constructFlavoredCatalogPublication(
       handle: ids.overlayHandle,
       kind: "overlay",
       declarationOrContractRef: ids.overlayRef,
-      programMembershipRefs: [],
+      programMembershipRefs: [ids.programRef],
       ...contributionBasis,
     }],
   }) as Readonly<Record<string, JsonValue>>;

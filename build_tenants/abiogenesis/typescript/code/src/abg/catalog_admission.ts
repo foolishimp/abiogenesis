@@ -22,10 +22,13 @@ import { deepFreeze } from "../shared/immutable.js";
 import {
   admitArtifact,
   hasAdmittedProductInstall,
+  validatePublicOperationBasis,
   type AbgAdmissionRefusal,
   type ArtifactAdmissionBasis,
 } from "./environment_admission.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+
+const admittedCatalogApplications = new WeakSet<object>();
 
 export interface CatalogAdmissionRefusal {
   readonly kind: "catalog_admission_refusal";
@@ -295,14 +298,19 @@ export function admitCatalogApplication(
       "catalog application admission scope or selected declaration differs from the admitted view",
     );
   }
-  const admissionEventRef = admitArtifact(
-    store,
+  const invalidOperation = validatePublicOperationBasis(
     basis,
     "abg.operation.catalog.apply",
-    candidate.applicationCandidateId,
-    candidate.applicationCandidateDigest,
   );
-  if (typeof admissionEventRef !== "string") return admissionEventRef;
+  if (invalidOperation !== null) return invalidOperation;
+  if (
+    !basis.causationEventRefs.includes(view.admissionEventRef)
+  ) {
+    return refusal(
+      "scope_mismatch",
+      "catalog application requires the exact admitted CatalogView cause",
+    );
+  }
   const {
     kind: _kind,
     disposition: _disposition,
@@ -310,7 +318,7 @@ export function admitCatalogApplication(
     applicationCandidateDigest,
     ...body
   } = candidate;
-  return deepFreeze({
+  const application = deepFreeze({
     kind: "catalog_application",
     disposition: "admitted",
     ...body,
@@ -319,8 +327,10 @@ export function admitCatalogApplication(
     }`,
     applicationDigest: applicationCandidateDigest,
     admissionCandidateRef: applicationCandidateId,
-    admissionEventRef,
+    admissionEventRef: null,
   }) as CatalogApplication;
+  admittedCatalogApplications.add(application);
+  return application;
 }
 
 export function hasAdmittedCatalog(
@@ -448,10 +458,6 @@ export function hasAdmittedCatalogApplication(
   store: AbgEventStore,
   application: CatalogApplication,
 ): boolean {
-  const event = store.readAll().find(
-    (candidate) => candidate.eventId === application.admissionEventRef,
-  );
-  const payload = event?.payload;
   const {
     kind: _kind,
     schemaVersion: _schemaVersion,
@@ -462,22 +468,19 @@ export function hasAdmittedCatalogApplication(
     admissionEventRef: _admissionEventRef,
     ...body
   } = application;
-  const viewCauseIsAdmitted = event?.causationEventRefs.some((eventRef) => {
-    const cause = store.readAll().find((candidate) => candidate.eventId === eventRef);
+  const viewCauseIsAdmitted = store.readAll().some((cause) => {
     return (
       cause?.kind === "public_operation_artifact_admitted" &&
       isJsonRecord(cause.payload) &&
       cause.payload.operationId === "abg.operation.catalog.view" &&
-      cause.payload.artifactDigest === application.viewDigest
+      cause.payload.artifactDigest === application.viewDigest &&
+      cause.payload.authorityScopeDigest === application.catalogDigest
     );
-  }) === true;
+  });
   return (
+    admittedCatalogApplications.has(application) &&
     catalogApplicationContentDigest(body) === application.applicationDigest &&
-    event?.kind === "public_operation_artifact_admitted" &&
-    isJsonRecord(payload) &&
-    payload.operationId === "abg.operation.catalog.apply" &&
-    payload.artifactRef === application.admissionCandidateRef &&
-    payload.artifactDigest === application.applicationDigest &&
+    application.admissionEventRef === null &&
     viewCauseIsAdmitted
   );
 }

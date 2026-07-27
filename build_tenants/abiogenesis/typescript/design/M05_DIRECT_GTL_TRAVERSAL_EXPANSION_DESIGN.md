@@ -3300,12 +3300,14 @@ exports only. ABIogenesis core contains no fixture Product ID, contract switch,
 validator, judgment relation, implementation import, or result branch.
 
 `catalog.apply` consumes one exact admitted CatalogView row. Only `node_type`
-and `overlay` rows are applicable. Product code constructs the application
-candidate; ABG admits it as an ordinary public-operation artifact caused by the
-CatalogView admission. The result preserves the row identity, declaration or
-contract reference, owning Product, Program memberships, compatibility, and
-provenance. Applying a GraphFunction refuses because callability remains owned
-by `run.invoke`.
+and `overlay` rows are applicable. The row-owning installed Product validates
+the concrete value preimage and derives its reference and Program memberships.
+The workspace actor or resolved Product lock supplies exact contributor
+provenance. Product code constructs the application candidate; ABG admits the
+operation-local application without emitting a runtime event. The result
+preserves row, value, contributor, declaration or contract, owning Product,
+Program membership, compatibility, and provenance identities. Applying a
+GraphFunction refuses because callability remains owned by `run.invoke`.
 
 The installed scenario applies both independent declarations, invokes the
 fixture's GraphFunction, and derives the same typed result from the native SDK,

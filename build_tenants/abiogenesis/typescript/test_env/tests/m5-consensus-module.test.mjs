@@ -54,15 +54,21 @@ function rawAdmission(value, kind, contractRef) {
 }
 
 function canonicalPolicy(acceptedFindingRulingKind = "decision_row") {
-  const rulingOverlay = gtl.constructConsensusRulingOverlay({
-    overlayRef: gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
-    acceptedFindingRulingKind,
-  });
+  const rulingOverlay = acceptedFindingRulingKind === "decision_row"
+    ? null
+    : gtl.constructConsensusRulingOverlay({
+        overlayRef: gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
+        programRef: gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+        graphFunctionRef: gtl.CONSENSUS_IDS.roundReducerGraphFunctionRef,
+        policyContractRef: gtl.CONSENSUS_IDS.policyContractRef,
+        disagreementRuleRef: gtl.CONSENSUS_IDS.disagreementRuleRef,
+        acceptedFindingRulingKind,
+      });
   return gtl.constructConsensusRoundPolicy({
     policyRef: "policy://developer/consensus/module-proof@1",
     roundBudget: 2,
     convergenceRuleRef: gtl.CONSENSUS_IDS.convergenceRuleRef,
-    disagreementRuleRef: rulingOverlay.overlayRef,
+    disagreementRuleRef: gtl.CONSENSUS_IDS.disagreementRuleRef,
     rulingOverlay,
     escalationRuleRef: gtl.CONSENSUS_IDS.escalationRuleRef,
     foldbackContractRef: gtl.CONSENSUS_IDS.foldbackContractRef,
@@ -79,6 +85,7 @@ function consensusCatalogApplications(invocation) {
         `${binding.handle}/${binding.valueDigest.slice("sha256:".length)}`,
       appliedValueRef: binding.valueRef,
       appliedValueDigest: binding.valueDigest,
+      appliedValue: binding.value,
       contributionKind:
         binding.handle === gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle
           ? "overlay"
@@ -513,6 +520,11 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
     );
     const schema = JSON.parse(bytes);
     assert.ok(schema.$defs[definitionName], contractId);
+    assert.equal(
+      schema.$defs.Ref.pattern,
+      "\\S",
+      "serialized references must reject the same whitespace-only values as native admission",
+    );
     assert.equal(typeof gtl[nativeSymbol], "function");
   }
 
@@ -817,7 +829,7 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     mutated.policyDigest = product.sha256Canonical(body);
     assert.equal(gtl.isConsensusRoundPolicy(mutated), false, field);
   }
-  const invalidRuling = structuredClone(policy);
+  const invalidRuling = structuredClone(canonicalPolicy("rejected_finding"));
   invalidRuling.rulingOverlay.acceptedFindingRulingKind = "deferment";
   const {
     overlayDigest: _overlayDigest,
@@ -858,15 +870,11 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis(basis),
     true,
   );
-  for (const missingHandle of [
-    gtl.CONSENSUS_IDS.subjectCatalogHandle,
-    gtl.CONSENSUS_IDS.reviewerProfileCatalogHandle,
-    gtl.CONSENSUS_IDS.reviewerInstructionCatalogHandle,
-    gtl.CONSENSUS_IDS.submitterProfileCatalogHandle,
-    gtl.CONSENSUS_IDS.submitterInstructionCatalogHandle,
-    gtl.CONSENSUS_IDS.policyCatalogHandle,
-    gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
-  ]) {
+  for (
+    const missingHandle of new Set(
+      basis.catalogApplications.map((application) => application.rowHandle),
+    )
+  ) {
     assert.equal(
       ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
         ...basis,
@@ -887,11 +895,14 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
   );
   const unknownOverlayValue = gtl.constructConsensusRulingOverlay({
     overlayRef: "catalog://downstream/consensus/overlay/unknown",
+    programRef: gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+    graphFunctionRef: gtl.CONSENSUS_IDS.roundReducerGraphFunctionRef,
+    policyContractRef: gtl.CONSENSUS_IDS.policyContractRef,
+    disagreementRuleRef: gtl.CONSENSUS_IDS.disagreementRuleRef,
     acceptedFindingRulingKind: "decision_row",
   });
   const unknownPolicy = gtl.constructConsensusRoundPolicy({
     ...input.policy,
-    disagreementRuleRef: unknownOverlayValue.overlayRef,
     rulingOverlay: unknownOverlayValue,
   });
   const unknownOverlay = gtl.constructConsensusInvocation({
@@ -909,10 +920,14 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
       input: unknownOverlay,
     }),
     false,
-    "a policy overlay URI must resolve through the existing admitted catalog view",
+    "an exact overlay value must be applied before it can select behavior",
   );
   const substitutedOverlayValue = gtl.constructConsensusRulingOverlay({
-    overlayRef: input.policy.rulingOverlay.overlayRef,
+    overlayRef: gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
+    programRef: gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+    graphFunctionRef: gtl.CONSENSUS_IDS.roundReducerGraphFunctionRef,
+    policyContractRef: gtl.CONSENSUS_IDS.policyContractRef,
+    disagreementRuleRef: gtl.CONSENSUS_IDS.disagreementRuleRef,
     acceptedFindingRulingKind: "rejected_finding",
   });
   const substitutedPolicy = gtl.constructConsensusRoundPolicy({
@@ -1149,6 +1164,40 @@ test("S05 admits one explicit reviewer without hard-coding panel cardinality", (
   });
   assert.equal(gtl.isConsensusPanel(panel), true);
   assert.equal(gtl.isConsensusInvocation(singleton), true);
+});
+
+test("S05 lets distinct reviewer profiles share one exact instruction contract", () => {
+  const invocation = invocationFor();
+  const sharedInstruction = invocation.instructions[0];
+  const first = invocation.panel.profiles[0];
+  const second = gtl.constructConsensusReviewerProfile({
+    profileRef: "reviewer-profile://developer/shared-instruction-peer",
+    roleContractRef: first.roleContractRef,
+    instructionContractRef: first.instructionContractRef,
+    instructionDigest: first.instructionDigest,
+    resultContractRef: first.resultContractRef,
+    capabilityRefs: ["capability://developer/reviewer/shared-instruction-peer"],
+    actorRef: "actor://developer/reviewer/shared-instruction-peer",
+    workerBindingRef:
+      "worker-binding://developer/reviewer/shared-instruction-peer",
+  });
+  const panel = gtl.constructConsensusPanel(
+    `${invocation.panel.panelRef}/shared-instruction`,
+    [first, second],
+  );
+  const subject = gtl.constructConsensusSubject({
+    ...invocation.subject,
+    panelRef: panel.panelRef,
+  });
+  const shared = gtl.constructConsensusInvocation({
+    ...invocation,
+    subject,
+    panel,
+    instructions: [sharedInstruction],
+  });
+  assert.equal(shared.panel.profiles.length, 2);
+  assert.equal(shared.instructions.length, 1);
+  assert.equal(gtl.isConsensusInvocation(shared), true);
 });
 
 test("S05 Product response semantics bind the exact pending result and acting actor", () => {

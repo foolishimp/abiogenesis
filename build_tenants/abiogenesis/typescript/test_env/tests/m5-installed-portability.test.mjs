@@ -38,6 +38,13 @@ function expectedVerificationIdentity(basis) {
   };
 }
 
+async function eventsAt(path) {
+  return (await readFile(path, "utf8"))
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => JSON.parse(line));
+}
+
 async function portabilityScenario(harness, flavored, label) {
   const root = join(harness.scratch, label);
   const abiConsumer = join(root, "abiogenesis-product");
@@ -162,7 +169,10 @@ async function portabilityScenario(harness, flavored, label) {
       refs.applyNode,
       {
         catalogViewInvocationRef: refs.view,
+        contributorRef: flavored.basis.productId,
         handle: flavored.ids.nodeTypeHandle,
+        productInstallInvocationRef: refs.installFlavored,
+        value: flavored.nodeTypeValue,
       },
     ),
     invocation(
@@ -171,7 +181,10 @@ async function portabilityScenario(harness, flavored, label) {
       refs.applyOverlay,
       {
         catalogViewInvocationRef: refs.view,
+        contributorRef: flavored.basis.productId,
         handle: flavored.ids.overlayHandle,
+        productInstallInvocationRef: refs.installFlavored,
+        value: flavored.overlayValue,
       },
     ),
     invocation("abg.operation.run.invoke", "direct", refs.run, {
@@ -222,6 +235,25 @@ function assertPortableOutcome(run, flavored) {
   const overlayApplication = run.outcomes[8];
   const outcome = run.outcomes[9];
   assert.equal(nodeApplication.result.contributionKind, "node_type");
+  assert.equal(nodeApplication.result.appliedValueRef, flavored.ids.nodeTypeRef);
+  assert.equal(nodeApplication.result.contributorKind, "product");
+  assert.equal(
+    nodeApplication.result.contributorRef,
+    flavored.basis.productId,
+  );
+  assert.equal(
+    nodeApplication.result.contributorProvenanceRefs.includes(
+      flavored.basis.artifactDigest,
+    ),
+    true,
+  );
+  assert.equal(
+    nodeApplication.result.contributorProvenanceRefs.includes(
+      flavored.basis.manifestDigest,
+    ),
+    true,
+  );
+  assert.equal(nodeApplication.result.admissionEventRef, null);
   assert.equal(
     nodeApplication.result.declarationOrContractRef,
     flavored.ids.nodeTypeRef,
@@ -230,6 +262,10 @@ function assertPortableOutcome(run, flavored) {
   assert.equal(
     overlayApplication.result.declarationOrContractRef,
     flavored.ids.overlayRef,
+  );
+  assert.deepEqual(
+    overlayApplication.result.programMembershipRefs,
+    [flavored.ids.programRef],
   );
   assert.deepEqual(outcome.result, {
     kind: "flavored_text_output",
@@ -256,6 +292,23 @@ test(
     );
     const cliRun = await runInstalledCli(harness, cliScenario);
     const cliOutcome = assertPortableOutcome(cliRun, flavored);
+    const cliEvents = await eventsAt(cliScenario.eventLogPath);
+    assert.equal(
+      cliEvents.some((event) =>
+        event.kind === "public_operation_artifact_admitted" &&
+        event.payload?.operationId === "abg.operation.catalog.view"
+      ),
+      true,
+      "the persisted prefix must include the neighboring CatalogView event",
+    );
+    assert.equal(
+      cliEvents.some((event) =>
+        event.kind === "public_operation_artifact_admitted" &&
+        event.payload?.operationId === "abg.operation.catalog.apply"
+      ),
+      false,
+      "catalog.apply must not manufacture runtime-event truth",
+    );
 
     await rm(cliScenario.abiConsumer, { recursive: true, force: true });
     await rm(
@@ -351,7 +404,10 @@ test(
           "invocation://t281/apply-callable-refusal",
           {
             catalogViewInvocationRef: scenario.refs.view,
+            contributorRef: flavored.basis.productId,
             handle: flavored.ids.graphFunctionRef,
+            productInstallInvocationRef: scenario.refs.installFlavored,
+            value: flavored.nodeTypeValue,
           },
         ),
       );
@@ -368,12 +424,56 @@ test(
           "invocation://t281/apply-unknown-refusal",
           {
             catalogViewInvocationRef: scenario.refs.view,
+            contributorRef: flavored.basis.productId,
             handle: "overlay://flavor.example/unknown@5",
+            productInstallInvocationRef: scenario.refs.installFlavored,
+            value: flavored.overlayValue,
           },
         ),
       );
       assert.equal(unknown.disposition, "refused");
-      assert.match(unknown.result.message, /not present in the admitted view/u);
+      assert.match(
+        unknown.result.message,
+        /absent from the admitted CatalogView/u,
+      );
+      const fabricatedDigest =
+        await installedPublic.applyRootPublicInvocation(
+          operationContext,
+          invocation(
+            "abg.operation.catalog.apply",
+            "declaration",
+            "invocation://t281/apply-fabricated-digest-refusal",
+            {
+              catalogViewInvocationRef: scenario.refs.view,
+              handle: flavored.ids.nodeTypeHandle,
+              valueRef: flavored.ids.nodeTypeRef,
+              valueDigest: `sha256:${"f".repeat(64)}`,
+            },
+          ),
+      );
+      assert.equal(fabricatedDigest.disposition, "refused");
+      assert.match(fabricatedDigest.result.message, /undeclared fields/u);
+      const invalidContributor =
+        await installedPublic.applyRootPublicInvocation(
+          operationContext,
+          invocation(
+            "abg.operation.catalog.apply",
+            "declaration",
+            "invocation://t281/apply-invalid-contributor-refusal",
+            {
+              catalogViewInvocationRef: scenario.refs.view,
+              contributorRef: "product://flavor.example/unlocked@5",
+              handle: flavored.ids.nodeTypeHandle,
+              productInstallInvocationRef: scenario.refs.installFlavored,
+              value: flavored.nodeTypeValue,
+            },
+          ),
+        );
+      assert.equal(invalidContributor.disposition, "refused");
+      assert.match(
+        invalidContributor.result.message,
+        /contributor is absent/u,
+      );
     } finally {
       installedPublic.closeRootOperationContext(operationContext);
     }

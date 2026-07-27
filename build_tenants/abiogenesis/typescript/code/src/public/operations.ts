@@ -708,6 +708,7 @@ async function applyCatalogAdmit(
     throw new ApplicationRefusal("owner_refusal", `Catalog admission refused: ${catalog.message}`);
   }
   context.productState.rememberCatalog(invocation.invocationRef, {
+    workspaceState,
     publication,
     publicationValidation,
     programValidations: programValidations as readonly validator.ProgramValidation[],
@@ -781,21 +782,11 @@ async function applyCatalogApplication(
   }
   requireExactPayloadKeys(invocation.payload, [
     "catalogViewInvocationRef",
+    "contributorRef",
     "handle",
-    "valueDigest",
-    "valueRef",
+    "productInstallInvocationRef",
+    "value",
   ], "catalog.apply");
-  const suppliedValueRef = invocation.payload.valueRef;
-  const suppliedValueDigest = invocation.payload.valueDigest;
-  if (
-    (suppliedValueRef === undefined) !==
-      (suppliedValueDigest === undefined)
-  ) {
-    throw new ApplicationRefusal(
-      "invalid_request",
-      "catalog.apply valueRef and valueDigest must be supplied together",
-    );
-  }
   const viewInvocationRef = stringField(
     invocation.payload,
     "catalogViewInvocationRef",
@@ -805,18 +796,72 @@ async function applyCatalogApplication(
     viewInvocationRef,
     "CatalogView",
   );
+  const installInvocationRef = stringField(
+    invocation.payload,
+    "productInstallInvocationRef",
+  );
+  const installState = required(
+    context.productState.install(installInvocationRef),
+    installInvocationRef,
+    "ProductInstall",
+  );
+  if (
+    installState.install.productId !==
+      viewState.catalogState.publication.owningProductId ||
+    !viewState.catalogState.workspaceState.productSet.orderedInstallRefs
+      .includes(installState.install.installId)
+  ) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "catalog.apply Product semantics install differs from the row-owning admitted Product",
+    );
+  }
+  const handle = stringField(invocation.payload, "handle");
+  const row = viewState.view.selectedRows.find(
+    (candidate) => candidate.handle === handle,
+  );
+  if (row === undefined) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "catalog.apply handle is absent from the admitted CatalogView",
+    );
+  }
+  if (row.kind === "graph_function") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      "GraphFunction rows remain callable through run.invoke and cannot be applied",
+    );
+  }
+  let appliedValue: product.CatalogAppliedValue | null;
+  try {
+    const semantics = await product.loadInstalledProductSemantics({
+      install: installState.install,
+      publication: viewState.catalogState.publication,
+      verifyInstallAdmission: (install) =>
+        abg.hasAdmittedProductInstall(context.store, install),
+    });
+    appliedValue = product.admitInstalledCatalogApplicationValue(
+      semantics,
+      row.declarationOrContractRef,
+      recordField(invocation.payload, "value"),
+    );
+  } catch {
+    appliedValue = null;
+  }
+  if (appliedValue === null) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "catalog.apply value is not admitted by the exact installed Product contract",
+    );
+  }
   const candidate = product.constructCatalogApplicationCandidate(
+    viewState.catalogState.catalog,
     viewState.view,
-    stringField(invocation.payload, "handle"),
-    suppliedValueRef === undefined
-      ? null
-      : {
-          valueRef: stringField(invocation.payload, "valueRef"),
-          valueDigest: stringField(
-            invocation.payload,
-            "valueDigest",
-          ) as product.Sha256Digest,
-        },
+    viewState.catalogState.workspaceState.binding,
+    viewState.catalogState.workspaceState.lock,
+    handle,
+    appliedValue,
+    stringField(invocation.payload, "contributorRef"),
   );
   if (candidate.kind !== "catalog_application_candidate") {
     throw new ApplicationRefusal(
@@ -856,6 +901,9 @@ async function applyCatalogApplication(
     appliedHandle: application.appliedHandle,
     appliedValueRef: application.appliedValueRef,
     appliedValueDigest: application.appliedValueDigest,
+    contributorKind: application.contributorKind,
+    contributorRef: application.contributorRef,
+    contributorProvenanceRefs: application.contributorProvenanceRefs,
     contributionKind: application.contributionKind,
     declarationOrContractRef: application.declarationOrContractRef,
     owningProductId: application.owningProductId,
@@ -1421,9 +1469,6 @@ async function applyRunInvoke(
       workspaceState.binding.bindingDigest,
       [
         viewState.view.admissionEventRef,
-        ...catalogApplications.map(
-          (application) => application.admissionEventRef,
-        ),
       ],
     ),
   );

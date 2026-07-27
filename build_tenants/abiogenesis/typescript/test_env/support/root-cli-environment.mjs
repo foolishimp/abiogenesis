@@ -199,9 +199,10 @@ export async function buildRootCliScenario(
         refs.applications[index],
         {
           catalogViewInvocationRef: refs.view,
+          contributorRef: authorizedActorRef,
           handle: application.handle,
-          valueRef: application.valueRef,
-          valueDigest: application.valueDigest,
+          productInstallInvocationRef: refs.install,
+          value: application.value,
         },
       )),
     invocation("abg.operation.run.invoke", "direct", refs.run, runPayload),

@@ -21,8 +21,15 @@ import {
   isConsensusEscalationRequest,
   isConsensusInvocation,
   isConsensusObservationSnapshot,
+  isConsensusReviewerInstruction,
+  isConsensusReviewerProfile,
   isConsensusResultCandidate,
+  isConsensusRoundPolicy,
+  isConsensusRulingOverlay,
+  isConsensusSubject,
   isConsensusReviewerTask,
+  isConsensusSubmitterInstruction,
+  isConsensusSubmitterProfile,
   isConsensusSubmitterResponse,
   isConsensusSubmitterTask,
   isReviewFindings,
@@ -156,6 +163,8 @@ function hasExactConsensusCatalogApplications(
           }` &&
         application.appliedValueRef === binding.valueRef &&
         application.appliedValueDigest === binding.valueDigest &&
+        sha256Canonical(application.appliedValue) ===
+          binding.valueDigest &&
         application.contributionKind === expectedKind &&
         application.declarationOrContractRef === expectedContractRef,
     );
@@ -200,6 +209,70 @@ function validateSystemContractValue(
 ): value is Readonly<Record<string, JsonValue>> {
   return validateConsensusContractValue(valueKind, value) &&
     isRecord(value);
+}
+
+function resolveSystemCatalogApplicationValue(
+  basis: Readonly<{
+    contractRef: string;
+    value: Readonly<Record<string, JsonValue>>;
+  }>,
+): Readonly<{
+  valueRef: string;
+  programMembershipRefs: readonly string[];
+}> | null {
+  const value = basis.value;
+  if (
+    basis.contractRef === CONSENSUS_IDS.subjectContractRef &&
+    isConsensusSubject(value)
+  ) {
+    return { valueRef: value.subjectRef, programMembershipRefs: [] };
+  }
+  if (
+    basis.contractRef === CONSENSUS_IDS.profileContractRef &&
+    isConsensusReviewerProfile(value)
+  ) {
+    return { valueRef: value.profileRef, programMembershipRefs: [] };
+  }
+  if (
+    basis.contractRef === CONSENSUS_IDS.reviewerInstructionContractRef &&
+    isConsensusReviewerInstruction(value)
+  ) {
+    return {
+      valueRef: value.instructionContractRef,
+      programMembershipRefs: [],
+    };
+  }
+  if (
+    basis.contractRef === CONSENSUS_IDS.submitterProfileContractRef &&
+    isConsensusSubmitterProfile(value)
+  ) {
+    return { valueRef: value.profileRef, programMembershipRefs: [] };
+  }
+  if (
+    basis.contractRef === CONSENSUS_IDS.submitterInstructionContractRef &&
+    isConsensusSubmitterInstruction(value)
+  ) {
+    return {
+      valueRef: value.instructionContractRef,
+      programMembershipRefs: [],
+    };
+  }
+  if (
+    basis.contractRef === CONSENSUS_IDS.policyContractRef &&
+    isConsensusRoundPolicy(value)
+  ) {
+    return { valueRef: value.policyRef, programMembershipRefs: [] };
+  }
+  if (
+    basis.contractRef === CONSENSUS_IDS.rulingOverlayContractRef &&
+    isConsensusRulingOverlay(value)
+  ) {
+    return {
+      valueRef: value.overlayRef,
+      programMembershipRefs: [value.programRef],
+    };
+  }
+  return null;
 }
 
 function validateSystemResultEvidenceLineage(
@@ -290,6 +363,7 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
     return admitSystemInput(basis.responseContractRef, responseCandidate);
   },
   validateContractValue: validateSystemContractValue,
+  resolveCatalogApplicationValue: resolveSystemCatalogApplicationValue,
   resolveJudgmentRelation: resolveConsensusJudgmentRelation,
   validateResultEvidenceLineage: validateSystemResultEvidenceLineage,
   resolveProbabilisticWorkerContracts(basis: Readonly<{

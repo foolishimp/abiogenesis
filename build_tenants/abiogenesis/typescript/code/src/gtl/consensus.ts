@@ -443,6 +443,10 @@ export interface ConsensusRulingOverlay {
   readonly schemaVersion: "5.0.0";
   readonly overlayRef: string;
   readonly overlayDigest: Sha256Digest;
+  readonly programRef: string;
+  readonly graphFunctionRef: string;
+  readonly policyContractRef: string;
+  readonly disagreementRuleRef: string;
   readonly acceptedFindingRulingKind: Exclude<
     ReviewRulingKind,
     "deferment"
@@ -457,7 +461,7 @@ export interface ConsensusRoundPolicy {
   readonly roundBudget: number;
   readonly convergenceRuleRef: string;
   readonly disagreementRuleRef: string;
-  readonly rulingOverlay: ConsensusRulingOverlay;
+  readonly rulingOverlay: ConsensusRulingOverlay | null;
   readonly escalationRuleRef: string;
   readonly foldbackContractRef: string;
 }
@@ -480,6 +484,7 @@ export interface ConsensusCatalogApplicationBinding {
   readonly handle: string;
   readonly valueRef: string;
   readonly valueDigest: Sha256Digest;
+  readonly value: JsonValue;
 }
 
 export interface ConsensusReviewerTask {
@@ -1662,6 +1667,10 @@ export function constructConsensusRulingOverlay(
     kind: "consensus_ruling_overlay" as const,
     schemaVersion: "5.0.0" as const,
     overlayRef: input.overlayRef,
+    programRef: input.programRef,
+    graphFunctionRef: input.graphFunctionRef,
+    policyContractRef: input.policyContractRef,
+    disagreementRuleRef: input.disagreementRuleRef,
     acceptedFindingRulingKind: input.acceptedFindingRulingKind,
   };
   const overlay = deepFreeze({
@@ -1719,8 +1728,9 @@ export function consensusCatalogApplicationBindings(
       handle,
       valueRef,
       valueDigest: sha256Canonical(value),
+      value,
     });
-  return deepFreeze([
+  const bindings = [
     bind(
       CONSENSUS_IDS.subjectCatalogHandle,
       invocation.subject.subjectRef,
@@ -1753,12 +1763,17 @@ export function consensusCatalogApplicationBindings(
       invocation.policy.policyRef,
       invocation.policy as unknown as JsonValue,
     ),
-    bind(
-      CONSENSUS_IDS.rulingOverlayCatalogHandle,
-      invocation.policy.rulingOverlay.overlayRef,
-      invocation.policy.rulingOverlay as unknown as JsonValue,
-    ),
-  ]);
+  ];
+  if (invocation.policy.rulingOverlay !== null) {
+    bindings.push(
+      bind(
+        CONSENSUS_IDS.rulingOverlayCatalogHandle,
+        invocation.policy.rulingOverlay.overlayRef,
+        invocation.policy.rulingOverlay as unknown as JsonValue,
+      ),
+    );
+  }
+  return deepFreeze(bindings);
 }
 
 export function constructConsensusSubject(
@@ -1888,7 +1903,8 @@ function isConsensusInstructionSet(
 ): value is readonly ConsensusReviewerInstruction[] {
   if (
     !Array.isArray(value) ||
-    value.length !== panel.profiles.length ||
+    value.length < 1 ||
+    value.length > panel.profiles.length ||
     !value.every(isConsensusReviewerInstruction)
   ) return false;
   const instructions = value as readonly ConsensusReviewerInstruction[];
@@ -1898,6 +1914,14 @@ function isConsensusInstructionSet(
         `${instruction.instructionContractRef}\0${instruction.roleContractRef}`
       ),
     ).size === instructions.length &&
+    instructions.every((instruction) =>
+      panel.profiles.some((profile) =>
+        instruction.instructionContractRef ===
+          profile.instructionContractRef &&
+        instruction.instructionDigest === profile.instructionDigest &&
+        instruction.roleContractRef === profile.roleContractRef
+      )
+    ) &&
     panel.profiles.every((profile) =>
       instructions.some((instruction) =>
         instruction.instructionContractRef ===
@@ -1992,6 +2016,11 @@ export function isConsensusRulingOverlay(
     value.schemaVersion !== "5.0.0" ||
     !isRef(value.overlayRef) ||
     !isDigest(value.overlayDigest) ||
+    value.programRef !== CONSENSUS_IDS.oneSurfaceProgramRef ||
+    value.graphFunctionRef !==
+      CONSENSUS_IDS.roundReducerGraphFunctionRef ||
+    value.policyContractRef !== CONSENSUS_IDS.policyContractRef ||
+    value.disagreementRuleRef !== CONSENSUS_IDS.disagreementRuleRef ||
     !REVIEW_RULING_KIND_VALUES.includes(
       value.acceptedFindingRulingKind as ReviewRulingKind,
     ) ||
@@ -2018,8 +2047,11 @@ export function isConsensusRoundPolicy(
     !Number.isSafeInteger(value.roundBudget) ||
     Number(value.roundBudget) < 1 ||
     value.convergenceRuleRef !== CONSENSUS_IDS.convergenceRuleRef ||
-    !isConsensusRulingOverlay(value.rulingOverlay) ||
-    value.disagreementRuleRef !== value.rulingOverlay.overlayRef ||
+    value.disagreementRuleRef !== CONSENSUS_IDS.disagreementRuleRef ||
+    (
+      value.rulingOverlay !== null &&
+      !isConsensusRulingOverlay(value.rulingOverlay)
+    ) ||
     value.escalationRuleRef !== CONSENSUS_IDS.escalationRuleRef ||
     value.foldbackContractRef !== CONSENSUS_IDS.foldbackContractRef
   ) return false;
@@ -3079,11 +3111,11 @@ function findingSetRef(findings: Readonly<ReviewFindings>): string {
 
 function rulingFor(
   findings: Readonly<ReviewFindings>,
-  overlay: Readonly<ConsensusRulingOverlay>,
+  overlay: Readonly<ConsensusRulingOverlay> | null,
 ): Readonly<ReviewRuling> {
   const findingRefs = findings.findings.map((finding) => finding.findingRef);
   const rulingKind: ReviewRulingKind = findings.refusalRef === null
-      ? overlay.acceptedFindingRulingKind
+      ? overlay?.acceptedFindingRulingKind ?? "decision_row"
       : "deferment";
   const body = {
     rulingKind,
@@ -5037,12 +5069,13 @@ export function constructConsensusModulePublication(
     handle: string,
     kind: "node_type" | "overlay",
     declarationOrContractRef: string,
+    programMembershipRefs: readonly string[] = [],
   ): CatalogContribution => ({
     handle,
     kind,
     declarationOrContractRef,
     owningProductId: artifact.productId,
-    programMembershipRefs: [],
+    programMembershipRefs,
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   });
@@ -5081,6 +5114,7 @@ export function constructConsensusModulePublication(
       CONSENSUS_IDS.rulingOverlayCatalogHandle,
       "overlay",
       CONSENSUS_IDS.rulingOverlayContractRef,
+      [CONSENSUS_IDS.oneSurfaceProgramRef],
     ),
   );
   return deepFreeze({

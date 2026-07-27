@@ -288,7 +288,8 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
   "$defs": {
     "Ref": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "pattern": "\\S"
     },
     "Digest": {
       "type": "string",
@@ -686,6 +687,10 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         "schemaVersion",
         "overlayRef",
         "overlayDigest",
+        "programRef",
+        "graphFunctionRef",
+        "policyContractRef",
+        "disagreementRuleRef",
         "acceptedFindingRulingKind"
       ],
       "properties": {
@@ -700,6 +705,18 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
         },
         "overlayDigest": {
           "$ref": "#/$defs/Digest"
+        },
+        "programRef": {
+          "const": "program://abg/system/consensus-one-surface@5"
+        },
+        "graphFunctionRef": {
+          "const": "graph-function://abg/consensus/round-reducer@5"
+        },
+        "policyContractRef": {
+          "const": "contract://abg/consensus/round-policy@5"
+        },
+        "disagreementRuleRef": {
+          "const": "rule://abg/consensus/material-dispute@5"
         },
         "acceptedFindingRulingKind": {
           "enum": [
@@ -747,10 +764,17 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
           "const": "rule://abg/consensus/exact-agreement@5"
         },
         "disagreementRuleRef": {
-          "$ref": "#/$defs/Ref"
+          "const": "rule://abg/consensus/material-dispute@5"
         },
         "rulingOverlay": {
-          "$ref": "#/$defs/ConsensusRulingOverlay"
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ConsensusRulingOverlay"
+            }
+          ]
         },
         "escalationRuleRef": {
           "const": "rule://abg/consensus/unresolved-to-fh@5"

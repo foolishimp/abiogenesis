@@ -503,8 +503,20 @@ function validatePublicationSubject(
       if (!contractRefs.has(row.declarationOrContractRef)) {
         diagnostics.push({ code: "invalid_reference", path: `$.contributions[${row.handle}].declarationOrContractRef`, message: "non-callable contribution does not reference a published contract" });
       }
-      if (row.programMembershipRefs.length !== 0) {
-        diagnostics.push({ code: "invalid_contribution", path: `$.contributions[${row.handle}].programMembershipRefs`, message: "non-callable contributions cannot carry callable Program membership" });
+      if (
+        row.kind === "node_type" &&
+        row.programMembershipRefs.length !== 0
+      ) {
+        diagnostics.push({ code: "invalid_contribution", path: `$.contributions[${row.handle}].programMembershipRefs`, message: "node_type contributions cannot carry callable Program membership" });
+      }
+      if (
+        row.kind === "overlay" &&
+        (
+          row.programMembershipRefs.length === 0 ||
+          row.programMembershipRefs.some((ref) => !programByRef.has(ref))
+        )
+      ) {
+        diagnostics.push({ code: "missing_membership", path: `$.contributions[${row.handle}].programMembershipRefs`, message: "overlay contributions require exact published Program composition membership" });
       }
     }
   }

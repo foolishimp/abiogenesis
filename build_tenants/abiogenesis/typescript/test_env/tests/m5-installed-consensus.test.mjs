@@ -454,16 +454,12 @@ async function consensusBasis(
     workerBindingRef:
       "worker-binding://developer/consensus-submitter",
   });
-  const rulingOverlay = gtl.constructConsensusRulingOverlay({
-    overlayRef: gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
-    acceptedFindingRulingKind: "decision_row",
-  });
   const policy = gtl.constructConsensusRoundPolicy({
     policyRef: `policy://developer/consensus/${label}@1`,
     roundBudget,
     convergenceRuleRef: gtl.CONSENSUS_IDS.convergenceRuleRef,
-    disagreementRuleRef: rulingOverlay.overlayRef,
-    rulingOverlay,
+    disagreementRuleRef: gtl.CONSENSUS_IDS.disagreementRuleRef,
+    rulingOverlay: null,
     escalationRuleRef: gtl.CONSENSUS_IDS.escalationRuleRef,
     foldbackContractRef: gtl.CONSENSUS_IDS.foldbackContractRef,
   });
@@ -1686,7 +1682,12 @@ test("M5 Consensus refuses uncataloged values and unapplied overlays before a Ru
 
   const substitutedOverlay =
     basis.gtl.constructConsensusRulingOverlay({
-      overlayRef: basis.input.policy.rulingOverlay.overlayRef,
+      overlayRef: basis.gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
+      programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+      graphFunctionRef:
+        basis.gtl.CONSENSUS_IDS.roundReducerGraphFunctionRef,
+      policyContractRef: basis.gtl.CONSENSUS_IDS.policyContractRef,
+      disagreementRuleRef: basis.gtl.CONSENSUS_IDS.disagreementRuleRef,
       acceptedFindingRulingKind: "rejected_finding",
     });
   const substitutedPolicy =

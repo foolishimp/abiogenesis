@@ -108,8 +108,12 @@ export interface CatalogApplicationCandidate {
   readonly rowHandle: string;
   readonly rowDigest: Sha256Digest;
   readonly appliedHandle: string;
-  readonly appliedValueRef: string | null;
-  readonly appliedValueDigest: Sha256Digest | null;
+  readonly appliedValueRef: string;
+  readonly appliedValueDigest: Sha256Digest;
+  readonly appliedValue: JsonValue;
+  readonly contributorKind: "host" | "product";
+  readonly contributorRef: string;
+  readonly contributorProvenanceRefs: readonly string[];
   readonly contributionKind: "node_type" | "overlay";
   readonly declarationOrContractRef: string;
   readonly owningProductId: string;
@@ -130,7 +134,17 @@ export interface CatalogApplication
   readonly applicationId: string;
   readonly applicationDigest: Sha256Digest;
   readonly admissionCandidateRef: string;
-  readonly admissionEventRef: string;
+  readonly admissionEventRef: null;
+}
+
+export interface CatalogAppliedValue {
+  readonly kind: "catalog_applied_value";
+  readonly schemaVersion: "5.0.0";
+  readonly contractRef: string;
+  readonly valueRef: string;
+  readonly valueDigest: Sha256Digest;
+  readonly value: Readonly<Record<string, JsonValue>>;
+  readonly programMembershipRefs: readonly string[];
 }
 
 export interface CatalogConstructionRefusal {
@@ -140,6 +154,7 @@ export interface CatalogConstructionRefusal {
   readonly code:
     | "application_not_supported"
     | "invalid_application_binding"
+    | "invalid_application_contributor"
     | "binding_lock_mismatch"
     | "duplicate_allowlist_entry"
     | "invalid_validation_basis"
@@ -305,12 +320,13 @@ export function constructCatalogViewCandidate(
 }
 
 export function constructCatalogApplicationCandidate(
+  catalog: AdmittedCatalog,
   view: CatalogView,
+  workspaceBinding: WorkspaceBinding,
+  lock: ResolvedProductLock,
   handle: string,
-  binding: Readonly<{
-    readonly valueRef: string;
-    readonly valueDigest: Sha256Digest;
-  }> | null = null,
+  appliedValue: CatalogAppliedValue,
+  contributorRef: string,
 ): CatalogApplicationCandidateResult {
   const row = view.selectedRows.find((candidate) => candidate.handle === handle);
   if (row === undefined) {
@@ -329,17 +345,58 @@ export function constructCatalogApplicationCandidate(
     );
   }
   if (
-    binding !== null &&
-    (
-      binding.valueRef.trim().length === 0 ||
-      !/^sha256:[0-9a-f]{64}$/u.test(binding.valueDigest)
-    )
+    catalog.catalogId !== view.catalogId ||
+    catalog.catalogDigest !== view.catalogDigest ||
+    catalog.workspaceBindingId !== workspaceBinding.bindingId ||
+    catalog.workspaceBindingDigest !== workspaceBinding.bindingDigest
   ) {
     return refusal(
       "invalid_application_binding",
-      "catalog application value binding requires one nonblank reference and canonical SHA-256 digest",
+      "catalog application workspace differs from the admitted view",
     );
   }
+  if (
+    workspaceBinding.lockId !== lock.lockId ||
+    workspaceBinding.lockDigest !== lock.lockDigest ||
+    appliedValue.kind !== "catalog_applied_value" ||
+    appliedValue.schemaVersion !== "5.0.0" ||
+    appliedValue.contractRef !== row.declarationOrContractRef ||
+    appliedValue.valueRef.trim().length === 0 ||
+    !/^sha256:[0-9a-f]{64}$/u.test(appliedValue.valueDigest) ||
+    sha256Canonical(appliedValue.value as unknown as JsonValue) !==
+      appliedValue.valueDigest ||
+    appliedValue.programMembershipRefs.join("\0") !==
+      row.programMembershipRefs.join("\0")
+  ) {
+    return refusal(
+      "invalid_application_binding",
+      "catalog application requires one Product-validated concrete value under the exact row contract and Program composition",
+    );
+  }
+  const contributorLockRow = lock.rows.find(
+    (candidate) => candidate.productId === contributorRef,
+  );
+  const contributorKind = contributorRef === workspaceBinding.authorizedActorRef
+    ? "host" as const
+    : contributorLockRow === undefined
+    ? null
+    : "product" as const;
+  if (contributorKind === null) {
+    return refusal(
+      "invalid_application_contributor",
+      "catalog application contributor is absent from the admitted workspace authority and Product lock",
+    );
+  }
+  const contributorProvenanceRefs = contributorKind === "host"
+    ? [
+        workspaceBinding.authorityBasisId,
+        workspaceBinding.bindingId,
+      ]
+    : [
+        lock.lockId,
+        contributorLockRow!.artifactDigest,
+        contributorLockRow!.manifestDigest,
+      ];
   const body = {
     catalogId: view.catalogId,
     catalogDigest: view.catalogDigest,
@@ -347,11 +404,14 @@ export function constructCatalogApplicationCandidate(
     viewDigest: view.viewDigest,
     rowHandle: row.handle,
     rowDigest: row.rowDigest,
-    appliedHandle: binding === null
-      ? row.handle
-      : `${row.handle}/${binding.valueDigest.slice("sha256:".length)}`,
-    appliedValueRef: binding?.valueRef ?? null,
-    appliedValueDigest: binding?.valueDigest ?? null,
+    appliedHandle:
+      `${row.handle}/${appliedValue.valueDigest.slice("sha256:".length)}`,
+    appliedValueRef: appliedValue.valueRef,
+    appliedValueDigest: appliedValue.valueDigest,
+    appliedValue: appliedValue.value,
+    contributorKind,
+    contributorRef,
+    contributorProvenanceRefs,
     contributionKind: row.kind,
     declarationOrContractRef: row.declarationOrContractRef,
     owningProductId: row.owningProductId,
