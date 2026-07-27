@@ -1,8 +1,8 @@
 # T-268 - Design Replay-Grounded Observer And Tuner
 
 > **Current disposition (2026-07-28):** S04 design frozen at exact candidate
-> `4897ead1`; independent semantic review is current. Implementation remains
-> held until direct acceptance, S06 closure, and later GOALS selection.
+> `4897ead1` and parked by direct F_H. Design repair and implementation remain
+> held until S06 closure and later GOALS selection.
 
 - id: T-268
 - title: Design replay-grounded observer and tuner
@@ -10,14 +10,13 @@
 - ticket_category: implementation_migration
 - status: active
 - implementation_hold: active
-- implementation_hold_ref: GOAL-035 current S04 design-only gate
+- implementation_hold_ref: GOAL-035 parked S04 design subject
 - implementation_hold_effect: >-
-    exact design is frozen; authorize independent review only; prohibit design
-    repair until findings are consolidated and prohibit runtime, contract,
-    schema, event, operation, test, publication, package, or proof
-    implementation
-- phase_status: m5_s04_design_frozen_realization_unselected
-- review_status: exact_candidate_pending_independent_review
+    exact design is frozen and parked; prohibit design repair and runtime,
+    contract, schema, event, operation, test, publication, package, or proof
+    implementation until GOALS reselects S04
+- phase_status: m5_s04_design_parked_realization_unselected
+- review_status: parked
 - proof_status: design_mechanical_evidence_passed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-

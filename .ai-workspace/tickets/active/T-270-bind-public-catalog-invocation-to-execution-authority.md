@@ -5,40 +5,33 @@
 - type: correction
 - ticket_category: design_and_realization_correction
 - status: active
-- phase_status: m5_s05_realization_candidate_frozen_for_review
-- review_status: s05_realization_pending_independent_review_and_direct_acceptance
-- proof_status: s05_candidate_mechanical_evidence_green
+- phase_status: m5_s06_selected_under_t281
+- review_status: s05_accepted_s06_authoring
+- proof_status: s05_accepted_s06_pending
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
-    Preserve the accepted direct-GTL and S03 realization while reconciling the
-    exact Consensus design, module, installed-public-path, attributed
-    submitter-response gate, total round and same-Run F_H algebra, result,
-    replay, and negative evidence needed to accept ABG5-S05.
-- change_class: requirement_reprice
+    Preserve accepted S03 and S05 while T-281 closes the product-neutral
+    installed SDK, CLI, bounded Codex shell, and independent flavored Product
+    path required by ABG5-S06.
+- change_class: realization_refactor
 - re_entry_point: >-
-    specification/requirements/product/REQ-P-CONSENSUS.md
-    REQ-P-CONSENSUS-004, -006, -008, -008A, -015, -015A, and -018,
-    then build_tenants/abiogenesis/typescript/design/
-    M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md over the accepted S03
-    M03/M05 basis
+    T-281 over PRODUCT.md ABG5-S06, REQ-P-SCENARIOS-013,
+    REQ-P-POLICY-044..045, and accepted M05 Sections 14.1..14.2
 - triaged_at: 2026-07-26T16:51:19+10:00
 - created_at: 2026-07-14
 - updated_at: 2026-07-28
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- implementation_hold: held_at_s05_exact_candidate_review_boundary
+- implementation_hold: s04_and_later_outcomes_held
 - implementation_hold_effect: >-
-    Exact candidate review may proceed; no realization repair or later Product
-    outcome begins until independent findings are consolidated and direct human
-    authority accepts or redirects S05
+    authorize only T-281/S06 and its bounded Prime gate; prohibit S04
+    realization, qualification, release, and unrelated refactoring
 - design_only_exception: >-
-    Direct F_H instruction on 2026-07-28 selected T-268 to derive and freeze
-    one S04 observer/tuner design subject. Candidate 4897ead1 is now frozen for
-    independent review. This does not accept S05, select S06 or S04
-    realization, or authorize code.
-- current_product_outcome: ABG5-S05
+    S04 candidate 4897ead1 is frozen and parked. It does not participate in S06
+    and authorizes no S04 design repair or realization.
+- current_product_outcome: ABG5-S06
 - accepted_s03_candidate_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s03_candidate_tree: f1a66a2c79f01972f063189bf7668fdb762ce2e6
 - accepted_s03_m03_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85
@@ -98,6 +91,8 @@
 - current_s05_candidate_product_content_digest: e40e6fe1e72e7fa6561da31118421831f912d889eff1203227bfb5d3b3301822
 - current_s05_candidate_manifest_digest: 00a1f4cc3179bbab0b301f2222b152103ce266cb5212d518ca1f4a892fc9637c
 - current_s05_candidate_evidence: .ai-workspace/comments/codex/20260727T151414Z_HANDOFF_t270_s05_direct_exit_timeout_candidate.md
+- accepted_s05_candidate: 1ddc802d3003a3d0782398f7ec7c74cfa81ab127
+- accepted_s05_decision: .ai-workspace/comments/codex/20260727T174956Z_DECISION_accept_s05_select_s06_park_s04.md
 - superseded_s05_design_subject_aggregate: 6a809f94d011962d9888cfa8fa2f59dfd63c1163404db851d9c2eb6880ca2be1
 - superseded_s05_design_handoff: .ai-workspace/comments/codex/20260726T165744Z_HANDOFF_t270_s05_global_to_local_design_review.md
 - current_s05_design_subject:
@@ -256,9 +251,9 @@ stops. The accepted design is not recursively reviewed during realization. A
 semantic contradiction returns to F_H rather than starting an autonomous
 patch-review loop.
 
-## Acceptance
+## Accepted S05 Boundary
 
-S05 closes only when:
+S05 closed at exact candidate `1ddc802d`. Its enduring guarantees are:
 
 - the complete S05 causal requirement and accepted-design path is satisfied;
 - the current S05 design delta and module proof are directly accepted at one
@@ -305,9 +300,9 @@ S05 closes only when:
 - the exact implementation/design/evidence subject receives independent
   review and direct human acceptance.
 
-## Non-Closure Conditions
+## S06 Non-Closure Conditions
 
-S05 remains open if:
+S06 remains open if:
 
 - implementation resumes before direct acceptance of the exact design subject;
 - code or code review must choose an unresolved semantic atom, authority,
@@ -336,14 +331,13 @@ S05 remains open if:
 - installed tests bypass the public path or substitute fixtures for Product
   behavior;
 - integration tests substitute for missing module/design proof; or
-- S06, observer/tuner, conservation qualification, qualification, or release
-  work enters the promoted subject.
+- S04, conservation qualification, qualification, or release work enters the
+  promoted subject.
 
 ## Exclusions
 
 This ticket does not authorize:
 
-- S06 portability repair;
 - observer or tuner implementation;
 - complete RC5 conservation reconciliation;
 - qualification or release;
@@ -351,13 +345,13 @@ This ticket does not authorize:
 - a new ticket hierarchy;
 - a Consensus-specific runtime, controller, event family, or public command;
 - restoration of X or another rebuild; or
-- speculative refactoring without a proved S05 defect.
+- speculative refactoring outside the four bounded S06 recurrence families.
 
-## Pre-S06 Prime Gate
+## S06 Prime Gate
 
-S06 remains unselected after this candidate freeze. Before GOALS may select
-S06, one bounded `realization_refactor` must consume, extend, or record a
-reasoned refusal to commonize these recurrence families:
+S06 is selected. Before its portability realization is promoted, one bounded
+`realization_refactor` must consume, extend, or record a reasoned refusal to
+commonize these recurrence families:
 
 1. exact zero/one/many catalog coordinate lookup;
 2. Product-local verified installed-module loading;

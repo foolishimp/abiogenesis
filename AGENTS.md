@@ -30,23 +30,20 @@
 The sole current Product implementation outcome is:
 
 ```text
-reconcile and reclose ABG5-S05
-  -> through the packed ordinary-path Consensus Product
-  -> under T-270
+close ABG5-S06
+  -> native SDK + native CLI + bounded Codex CLI shell
+  -> independent flavored Product through installed public exports
+  -> under T-281 and parent T-270
 ```
 
 Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
-Earlier implementation remains retained behavioral stock. The S05 design in
-`M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` is directly accepted at
-`283325aa`; S05 realization is current. S06 is open but not selected.
-Observer/tuner, full conservation qualification, qualification, and release
-must not receive implementation while S05 remains unresolved.
+The S05 design is directly accepted at `283325aa`; S05 realization is accepted
+at `1ddc802d`. S06 is selected. Observer/tuner, full conservation
+qualification, qualification, and release must not receive implementation
+while S06 remains unresolved.
 
-Direct F_H instruction on 2026-07-28 selected one bounded S04 design-only gate
-under T-268. That design is frozen at candidate `4897ead1`, tree `11d0ef7b`,
-for independent review. Do not edit or implement it until review findings are
-consolidated and direct F_H authority accepts or redirects the exact subject.
-Do not accept S05 or select S06 realization through this gate.
+S04 design is frozen at candidate `4897ead1`, tree `11d0ef7b`, and parked
+under T-268. Do not edit or implement it during S06.
 
 The S04 design must treat the workspace as evolving observed state and every
 GraphFunction, reusable `node_type`, and overlay as immutable catalog content.
@@ -55,23 +52,19 @@ the tuner may only derive a complete successor version `A1` from `A`. URI
 hierarchy is naming and exact lookup, not a resolver, mutable alias, or second
 catalog.
 
-S05 closes only when:
+S06 closes only when:
 
-- the canonical SYSTEM-owned Consensus GraphFunction enters through the
-  ordinary installed catalog, admitted Program, One Surface, `run.invoke`,
-  HoG, and ABG path, with exact ticket bytes and resolved reviewer
-  instructions in every attributed F_P task;
-- agreement, dispute recursion, and unresolved same-Run F_H continuation agree
-  with typed result and replay truth in all three workspace applications,
-  while malformed attributed reviewer output yields a typed, publicly readable
-  `contract_failure`;
-- the boundary-bounded Consensus Ontology, Prime contraction, IACS, module
-  ownership, three views, operational lifecycle, axioms, and module proof
-  agree with implementation;
-- accepted S03, external Product, M4, package, and applicable negative evidence
-  remain green; and
-- no special Consensus command, runner, controller, scheduler, event writer,
-  result store, continuation, or closure path exists.
+- its four named Prime recurrence families are dispositioned before the
+  portability path is promoted;
+- native SDK, native CLI, and the bounded Codex delegate use one installed
+  public operation contract and produce the same deterministic result;
+- the Codex delegate is process transport only;
+- one independently packed flavored Product compiles and executes against
+  installed public exports, owns its declarations and semantics, uses the
+  existing catalog, and reaches the ordinary HoG/ABG path;
+- no fixture identity or semantic branch enters ABIogenesis core; and
+- accepted S03/S05, M4, external Product, catalog negatives, and package
+  reproducibility remain green.
 
 The current forty-row matrix is implementation coverage, not completed RC5
 conservation.
@@ -87,9 +80,10 @@ Read:
 5. `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`
 6. `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md`
 7. `build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`
-8. `build_tenants/abiogenesis/typescript/design/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md`
+8. `.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md`
 9. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
-10. `.ai-workspace/tickets/active/T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md`
+10. `build_tenants/abiogenesis/typescript/design/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md`
+11. `.ai-workspace/tickets/active/T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md`
 
 Repository history and commentary may explain prior failure. They do not
 authorize implementation.
@@ -148,10 +142,10 @@ from them.
 
 - A clean session starts from a clean tracked and untracked worktree.
 - Do not restore the archived observer/tuner draft onto the active line.
-- During S05 realization, change only surfaces required to project the accepted
-  S05 design and prove that projection.
-- During the S04 design-only gate, change no realization, schema, event,
-  operation, test, publication, or package surface.
+- During S06 realization, change only the four bounded Prime families, the
+  existing SDK/CLI/Codex shell, the independent flavored Product, and their
+  proof surfaces.
+- Do not edit the parked S04 design or any S04 realization surface.
 - A review finding blocks its exact claim; it does not automatically authorize
   another ticket, refactor, artifact family, or review programme.
 - Refactor only where accepted design proves duplicate, ambiguous, or rival

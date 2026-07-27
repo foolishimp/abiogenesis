@@ -1,22 +1,24 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-25):** backlog until GOALS selects S06.
-> Existing implementation remains behavioral stock. The retained
-> 19-operation and X-era material is historical donor evidence only.
+> **Current disposition (2026-07-28):** S06 selected by direct F_H after exact
+> S05 acceptance. Implement the bounded Prime gate and product-neutral
+> installed shell only. The retained 19-operation and X-era material is
+> historical donor evidence.
 
 - id: T-281
 - title: Publish the product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
-- status: backlog
-- implementation_hold: active
-- implementation_hold_ref: GOAL-035 current S03 outcome under T-270
+- status: active
+- implementation_hold: bounded_s06_only
+- implementation_hold_ref: GOAL-035 current S06 outcome under T-270
 - implementation_hold_effect: >-
-    preserve existing public-path behavior; no S06 design, code, test, proof,
-    publication, or closure promotion until GOALS selects S06
-- phase_status: m5_s06_unselected
-- review_status: prior_s06_design_provisional
-- proof_status: partial_portability_behavior_only
+    authorize the four named Prime recurrence dispositions and exact S06
+    portability path; prohibit alternate functionality, S04, qualification,
+    release, and broad runtime refactoring
+- phase_status: m5_s06_selected
+- review_status: authoring
+- proof_status: baseline_portability_4_of_4
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: M5_after_s03_and_s05
 - change_intent: >-
@@ -30,7 +32,7 @@
     REQ-P-SCENARIOS-009 and REQ-P-SCENARIOS-013
 - triaged_at: 2026-07-24
 - created_at: 2026-07-16
-- updated_at: 2026-07-25
+- updated_at: 2026-07-28
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-278
@@ -84,7 +86,7 @@ portability work.
 
 ## Current S06 Reprice
 
-S06 resumes this ticket only at its accepted public extension boundary:
+S06 resumes this ticket at its accepted public extension boundary:
 
 ```text
 same installed public contract
@@ -107,6 +109,17 @@ identifier or source-tree knowledge.
 Closure is the installed `ABG5-S06` scenario in `PRODUCT.md` and
 `REQ-P-SCENARIOS-013`, not a resurrected operation count or X-era publication
 plan. Observer/tuner realization remains T-268's sibling boundary.
+
+Before portability promotion, consume, extend, or explicitly refuse the four
+bounded recurrence families named by GOALS and T-270:
+
+1. exact zero/one/many catalog coordinate lookup;
+2. Product-local verified installed-module loading;
+3. Product dependency topology; and
+4. GTL declaration/publication construction.
+
+The gate preserves owner and admission authority. It does not authorize broad
+ABG or HoG refactoring.
 
 ## Independent Product Checkpoint
 

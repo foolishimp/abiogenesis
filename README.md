@@ -13,11 +13,11 @@ successor to the immutable 4.6 RC5 Product origin.
 | Surface | Current state |
 |---|---|
 | Product definition | `specification/PRODUCT.md` |
-| selected implementation outcome | Reconcile and reclose `ABG5-S05` |
-| selected design-only gate | S04 design frozen at `4897ead1` for independent review |
-| active owners | T-270 for S05; T-268 for S04 design only |
+| selected implementation outcome | Close `ABG5-S06` |
+| parked design subject | S04 design frozen at `4897ead1` |
+| active owners | T-281 for S06 under T-270; T-268 retains parked S04 design |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 accepted; exact S05 candidate frozen for acceptance; S06 and S04 realization unselected |
+| closure state | S03 and S05 accepted; S06 selected; S04 realization unselected |
 | conservation | Forty-row implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -56,31 +56,14 @@ feature-specific runtime is not a lawful substitute.
 
 ## Current Work
 
-The exact S05 realization candidate remains frozen for direct acceptance. No
-S05 repair or later realization is selected.
+S06 is the selected implementation boundary. It proves one installed public
+contract through the native SDK, native CLI, and a bounded Codex process
+delegate, plus one independently packed flavored Product using installed
+public exports and the existing catalog. The delegate is a convenience shell,
+not alternate functionality.
 
-The S04 design-only gate is frozen at exact candidate `4897ead1`, tree
-`11d0ef7b`, for independent review. It resolves:
-
-1. the exact existing graph/replay observation vector, immutable executed
-   declaration set, and applied evaluation overlay;
-2. observer and tuner as separate Product-owned GraphFunctions composed through
-   existing GTL atoms;
-3. an explicit objective by which the executive evaluates evolving workspace
-   truth and the tuner derives complete immutable `A -> A1` GraphFunction,
-   `node_type`, or overlay candidates through the existing catalog URI
-   hierarchy;
-4. generic `run.invoke` and thin CLI triggering with no alternate
-   functionality;
-5. grounded draft, ratify/reject, later ordinary A1 registration, replay, and
-   read lifecycles;
-6. complete Ontology, Prime, IACS, module, three-view, lifecycle, axiom, and
-   proof constraints; and
-7. one frozen handoff followed by independent review before code.
-
-S06, S04 realization, complete conservation, qualification, and release remain
-blocked until GOALS selects them. Do not edit the frozen S04 subject while
-review is active.
+S04 design candidate `4897ead1`, tree `11d0ef7b`, remains parked. S04
+realization, complete conservation, qualification, and release remain held.
 
 ## Authority
 
