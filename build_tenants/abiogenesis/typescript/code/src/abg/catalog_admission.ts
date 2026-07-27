@@ -29,7 +29,11 @@ import {
   type AbgAdmissionRefusal,
   type ArtifactAdmissionBasis,
 } from "./environment_admission.js";
-import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+import {
+  AbgEventStore,
+  admitRuntimeEvent,
+  isEventStoreAdmissionOpen,
+} from "./event_store.js";
 
 interface CatalogApplicationContextState {
   readonly candidateScope: CatalogApplicationCandidateScope;
@@ -55,6 +59,11 @@ function newCatalogApplicationContextState(): CatalogApplicationContextState {
 export function catalogApplicationCandidateScope(
   store: AbgEventStore,
 ): CatalogApplicationCandidateScope {
+  if (!isEventStoreAdmissionOpen(store)) {
+    throw new TypeError(
+      "catalog application candidate scope is revoked for this ABG event-store context",
+    );
+  }
   const existing = catalogApplicationContexts.get(store);
   if (existing !== undefined) {
     if (!existing.active) {
@@ -304,6 +313,7 @@ export function admitCatalogApplication(
 ): CatalogApplicationAdmissionResult {
   const contextState = catalogApplicationContexts.get(store);
   if (
+    !isEventStoreAdmissionOpen(store) ||
     contextState === undefined ||
     !contextState.active ||
     contextState.consumedCandidates.has(candidate) ||
@@ -531,6 +541,7 @@ export function hasAdmittedCatalogApplication(
     );
   });
   return (
+    isEventStoreAdmissionOpen(store) &&
     catalogApplicationContexts.get(store)?.active === true &&
     catalogApplicationContexts.get(store)?.applications.has(application) ===
       true &&

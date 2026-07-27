@@ -1506,6 +1506,11 @@ export class AbgEventStore {
   }
 }
 
+export function isEventStoreAdmissionOpen(store: AbgEventStore): boolean {
+  const state = eventState.get(store);
+  return state !== undefined && !state.durableAppendClosed;
+}
+
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }

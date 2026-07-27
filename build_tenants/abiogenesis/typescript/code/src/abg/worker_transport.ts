@@ -194,7 +194,7 @@ function runProcess(input: {
     let stderr = "";
     let timedOut = false;
     let launchError: string | null = null;
-    let timeoutStdout: string | null = null;
+    let resultBearingStdout: string | null = null;
     let settled = false;
     let forceTimer: ReturnType<typeof setTimeout> | null = null;
     let confirmationTimer: ReturnType<typeof setTimeout> | null = null;
@@ -203,6 +203,9 @@ function runProcess(input: {
       readonly status: number | null;
       readonly signal: NodeJS.Signals | null;
     } | null = null;
+    const snapshotResultBearingStdout = (): void => {
+      if (resultBearingStdout === null) resultBearingStdout = stdout;
+    };
     const child = spawn(input.command, input.args, {
       cwd: input.cwd,
       env: input.env,
@@ -227,14 +230,14 @@ function runProcess(input: {
         exitObserved,
         terminationConfirmed,
         launchError,
-        resultBearingStdout: timeoutStdout ?? stdout,
+        resultBearingStdout: resultBearingStdout ?? stdout,
         stdout,
         stderr,
       });
     };
     const timeout = setTimeout(() => {
       timedOut = true;
-      timeoutStdout = stdout;
+      snapshotResultBearingStdout();
       input.observer?.onTimeoutObserved?.();
       input.observer?.onSignalRequested?.("SIGTERM");
       child.kill("SIGTERM");
@@ -264,10 +267,12 @@ function runProcess(input: {
       input.observer?.onStderrObserved?.(chunk);
     });
     child.once("error", (error) => {
+      snapshotResultBearingStdout();
       launchError = error.message;
       input.observer?.onSpawnFailed?.(error.message);
     });
     child.once("exit", (status, signal) => {
+      snapshotResultBearingStdout();
       observedExit = { status, signal };
       input.observer?.onProcessExited?.(status, signal);
       if (forceTimer !== null) clearTimeout(forceTimer);
@@ -280,6 +285,7 @@ function runProcess(input: {
       }, Math.min(input.terminationGraceMs, 250));
     });
     child.once("close", (status, signal) => {
+      snapshotResultBearingStdout();
       if (observedExit !== null) {
         settle(observedExit.status, observedExit.signal, true, true);
         return;

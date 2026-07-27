@@ -654,10 +654,13 @@ test(
             install,
           ),
       });
-      const constructNodeCandidate = () => {
+      const constructNodeCandidate = (
+        scope = candidateScope,
+        provider = semantics,
+      ) => {
         const candidate =
           installedProduct.constructCatalogApplicationCandidate(
-            semantics,
+            provider,
             {
               catalog: viewState.catalogState.catalog,
               view: viewState.view,
@@ -672,7 +675,7 @@ test(
                 kind: "program",
                 programRef: flavored.ids.programRef,
               },
-              candidateScope,
+              candidateScope: scope,
             },
           );
         assert.equal(
@@ -761,6 +764,63 @@ test(
       } finally {
         installedPublic.closeRootOperationContext(foreignContext);
       }
+      await context.test(
+        "direct ABG store closure revokes its genuine catalog candidate",
+        async () => {
+          const directCloseStore = new installedEventStore.AbgEventStore();
+          mirrorEventHistory(
+            operationContext.store,
+            directCloseStore,
+            installedEventStore.admitRuntimeEvent,
+          );
+          const directCloseScope =
+            installedAbg.catalogApplicationCandidateScope(directCloseStore);
+          const directCloseSemantics =
+            await installedProduct.loadInstalledProductSemantics({
+              install: installState.install,
+              publication: viewState.catalogState.publication,
+              verifyInstallAdmission: (install) =>
+                installedAbg.hasAdmittedProductInstall(
+                  directCloseStore,
+                  install,
+                ),
+            });
+          const directCloseCandidate = constructNodeCandidate(
+            directCloseScope,
+            directCloseSemantics,
+          );
+          directCloseStore.configureDurableLog(
+            join(harness.scratch, "catalog-direct-close.events.jsonl"),
+          );
+          const reopenAuthority =
+            directCloseStore.projectReopenAuthorityAndClose();
+          assert.equal(
+            reopenAuthority.kind,
+            "event_store_reopen_authority",
+          );
+          const directCloseAdmission = installedAbg.admitCatalogApplication(
+            directCloseStore,
+            viewState.view,
+            directCloseCandidate,
+            catalogApplyBasis(
+              installedProduct,
+              viewState.view,
+              "invocation://t270/catalog-apply-after-direct-store-close",
+            ),
+          );
+          assert.equal(
+            directCloseAdmission.kind,
+            "catalog_admission_refusal",
+          );
+          assert.equal(directCloseAdmission.code, "scope_mismatch");
+          assert.throws(
+            () => installedAbg.catalogApplicationCandidateScope(
+              directCloseStore,
+            ),
+            /revoked/u,
+          );
+        },
+      );
       const oneShotCandidate = constructNodeCandidate();
       const oneShotAdmission = installedAbg.admitCatalogApplication(
         operationContext.store,

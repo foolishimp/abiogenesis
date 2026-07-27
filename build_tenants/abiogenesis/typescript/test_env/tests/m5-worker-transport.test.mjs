@@ -369,3 +369,56 @@ test("M5 ABG transport excludes semantic output emitted after its timeout bounda
   assert.match(result.stdout, /late_worker_output/u);
   assert.equal(result.artifacts.output.byteLength, 0);
 });
+
+test("M5 ABG transport excludes descendant output emitted after direct-process exit", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-post-exit-output-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const descendantPath = join(scratch, "post-exit-descendant.mjs");
+  const workerPath = join(scratch, "post-exit-worker.mjs");
+  await writeFile(descendantPath, [
+    "#!/usr/bin/env node",
+    "setTimeout(() => {",
+    "  const result = JSON.stringify({kind:'late_exit_output',schemaVersion:'5.0.0'});",
+    "  const transcript = JSON.stringify({type:'result',subtype:'success',result});",
+    "  process.stdout.write(`${transcript}\\n`, () => process.exit(0));",
+    "}, 75);",
+    "",
+  ].join("\n"), "utf8");
+  await writeFile(workerPath, [
+    "#!/usr/bin/env node",
+    "import { spawn } from 'node:child_process';",
+    `const descendant = spawn(process.execPath, [${
+      JSON.stringify(descendantPath)
+    }], {stdio:['ignore','inherit','inherit']});`,
+    "descendant.unref();",
+    "process.exit(47);",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(descendantPath, 0o755);
+  await chmod(workerPath, 0o755);
+  const result = await runWorkerTransport({
+    contract: constructKnownWorkerTransportContract("claude", {
+      command: process.execPath,
+      prefixArgs: [workerPath],
+      environment: {},
+    }),
+    prompt: "do not admit output after the direct worker exits",
+    lane: "worker_executes",
+    cwd: scratch,
+    archiveRoot: join(scratch, "archive"),
+    label: "post-exit-output",
+    timeoutMs: 5_000,
+    terminationGraceMs: 500,
+    environment: {},
+  });
+
+  assert.equal(result.disposition, "failure");
+  assert.equal(result.failureClass, "transport_failure");
+  assert.equal(result.status, 47);
+  assert.equal(result.timedOut, false);
+  assert.equal(result.exitObserved, true);
+  assert.equal(result.finalOutput, "");
+  assert.equal(result.structuredEventCount, 0);
+  assert.match(result.stdout, /late_exit_output/u);
+  assert.equal(result.artifacts.output.byteLength, 0);
+});
