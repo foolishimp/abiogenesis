@@ -272,6 +272,7 @@ function runProcess(input: {
       input.observer?.onSpawnFailed?.(error.message);
     });
     child.once("exit", (status, signal) => {
+      clearTimeout(timeout);
       snapshotResultBearingStdout();
       observedExit = { status, signal };
       input.observer?.onProcessExited?.(status, signal);

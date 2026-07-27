@@ -381,7 +381,7 @@ test("M5 ABG transport excludes descendant output emitted after direct-process e
     "  const result = JSON.stringify({kind:'late_exit_output',schemaVersion:'5.0.0'});",
     "  const transcript = JSON.stringify({type:'result',subtype:'success',result});",
     "  process.stdout.write(`${transcript}\\n`, () => process.exit(0));",
-    "}, 75);",
+    "}, 225);",
     "",
   ].join("\n"), "utf8");
   await writeFile(workerPath, [
@@ -391,11 +391,14 @@ test("M5 ABG transport excludes descendant output emitted after direct-process e
       JSON.stringify(descendantPath)
     }], {stdio:['ignore','inherit','inherit']});`,
     "descendant.unref();",
-    "process.exit(47);",
+    "setTimeout(() => process.exit(47), 50);",
     "",
   ].join("\n"), "utf8");
   await chmod(descendantPath, 0o755);
   await chmod(workerPath, 0o755);
+  let timeoutObservations = 0;
+  const requestedSignals = [];
+  const observedExits = [];
   const result = await runWorkerTransport({
     contract: constructKnownWorkerTransportContract("claude", {
       command: process.execPath,
@@ -407,9 +410,14 @@ test("M5 ABG transport excludes descendant output emitted after direct-process e
     cwd: scratch,
     archiveRoot: join(scratch, "archive"),
     label: "post-exit-output",
-    timeoutMs: 5_000,
+    timeoutMs: 150,
     terminationGraceMs: 500,
     environment: {},
+    observer: {
+      onTimeoutObserved: () => { timeoutObservations += 1; },
+      onSignalRequested: (signal) => requestedSignals.push(signal),
+      onProcessExited: (status, signal) => observedExits.push({ status, signal }),
+    },
   });
 
   assert.equal(result.disposition, "failure");
@@ -417,6 +425,9 @@ test("M5 ABG transport excludes descendant output emitted after direct-process e
   assert.equal(result.status, 47);
   assert.equal(result.timedOut, false);
   assert.equal(result.exitObserved, true);
+  assert.deepEqual(observedExits, [{ status: 47, signal: null }]);
+  assert.equal(timeoutObservations, 0);
+  assert.deepEqual(requestedSignals, []);
   assert.equal(result.finalOutput, "");
   assert.equal(result.structuredEventCount, 0);
   assert.match(result.stdout, /late_exit_output/u);
