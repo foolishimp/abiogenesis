@@ -42,7 +42,7 @@
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
 - accepted_s03_decision: .ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md
-- current_s05_basis_commit: 92e8cc744ba802ea2a8ab6cc260d1d3a90513cea
+- current_s05_basis_commit: 5ceb940123dee9d64332d6a744a35194a171007d
 - superseded_s05_candidate: c4a0f42dd55a9dec963e514579fbfa81ea286786
 - superseded_s05_candidate_tree: 6046a66a04de125b4639a32d022b87f9b64fac04
 - superseded_s05_evidence: .ai-workspace/comments/codex/20260725T234029Z_CHECKPOINT_t270_s05_ordinary_path_consensus_exact_candidate.md
@@ -74,13 +74,13 @@
 - superseded_s05_realization_candidate: 3a10bd562193e4028c38a37208cd6d8175be2609
 - superseded_s05_realization_candidate_tree: 1a89378f3027443b37953e08a64520a39abf8d44
 - superseded_s05_realization_candidate_evidence: .ai-workspace/comments/codex/20260726T204820Z_HANDOFF_t270_s05_realization_candidate_review.md
-- current_s05_candidate: 92e8cc744ba802ea2a8ab6cc260d1d3a90513cea
-- current_s05_candidate_tree: d153ed3dce55e7b2b7fcb53dd914a5d6a545841c
-- current_s05_candidate_package_digest: 96e058633b03721f57f2f76837f296c6ce3f9f07414793c993df60553c9e2647
-- current_s05_candidate_package_inventory_digest: eee4d1b15acecc0388c325af7596f0ecd2f07c8d47f54013810066f2cc7a0328
-- current_s05_candidate_product_content_digest: a926029a1d103b8adeaa54b1bb505c6692f00150209eb1b6f1eb954f8123aa49
-- current_s05_candidate_manifest_digest: 4ea949871d5e89391de9ffdb0b7af1c2c5acd9d813703b71df9f2ae63c40ffb4
-- current_s05_candidate_evidence: .ai-workspace/comments/codex/20260727T022415Z_HANDOFF_t270_s05_consolidated_realization_candidate_review.md
+- current_s05_candidate: 5ceb940123dee9d64332d6a744a35194a171007d
+- current_s05_candidate_tree: df8ba907cf0f1191b9984664605ad424eca9c960
+- current_s05_candidate_package_digest: 06e452efdadf43fa0cd57a7eb80f84bf3d1e5b87210fd93c981adef9265b74a3
+- current_s05_candidate_package_inventory_digest: 3ff82e7fc0fbbc246e3c326942fd30b71dc548357c2558adce002991e86dfac3
+- current_s05_candidate_product_content_digest: 1b0cc11576173971709fb73f73f5deb8251d5fd51e5856ebbc025149e60b37c0
+- current_s05_candidate_manifest_digest: f4f2167001668f6afe7869ac716f210fbaf01fb66679f44be532e639956fd15b
+- current_s05_candidate_evidence: .ai-workspace/comments/codex/20260727T041213Z_HANDOFF_t270_s05_catalog_prime_contracted_candidate.md
 - superseded_s05_design_subject_aggregate: 6a809f94d011962d9888cfa8fa2f59dfd63c1163404db851d9c2eb6880ca2be1
 - superseded_s05_design_handoff: .ai-workspace/comments/codex/20260726T165744Z_HANDOFF_t270_s05_global_to_local_design_review.md
 - current_s05_design_subject:
@@ -150,7 +150,7 @@ Read this ticket through:
    continuation requirements;
 6. accepted M03 direct-GTL design;
 7. accepted M05 Sections 1 through 12; and
-8. proposed `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`, with ADR-045 as
+8. accepted `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`, with ADR-045 as
    rationale.
 
 Higher authority governs any contradiction. Historical designs, tickets,
@@ -306,3 +306,19 @@ This ticket does not authorize:
 - a Consensus-specific runtime, controller, event family, or public command;
 - restoration of X or another rebuild; or
 - speculative refactoring without a proved S05 defect.
+
+## Pre-S06 Prime Gate
+
+S06 remains unselected after this candidate freeze. Before GOALS may select
+S06, one bounded `realization_refactor` must consume, extend, or record a
+reasoned refusal to commonize these recurrence families:
+
+1. exact zero/one/many catalog coordinate lookup;
+2. Product-local verified installed-module loading;
+3. Product dependency topology; and
+4. GTL declaration/publication construction.
+
+These are the recurrence families S06 will exercise. The gate does not
+authorize a repository-wide cleanup or changes to EventStore, Event Calculus,
+replay, HoG traversal, ABG admission, or any authority boundary without a
+demonstrated semantic divergence.
