@@ -76,6 +76,7 @@ export {
   type CatalogApplication,
   type CatalogApplicationVariant,
   type CatalogApplicationCandidate,
+  type CatalogApplicationCandidateScope,
   type CatalogApplicationCandidateResult,
   type CatalogConstructionRefusal,
   type CatalogNodeTypeTarget,

@@ -858,6 +858,7 @@ async function applyCatalogApplication(
         value: recordField(invocation.payload, "value"),
         contributorRef: stringField(invocation.payload, "contributorRef"),
         nodeTypeTarget,
+        candidateScope: abg.catalogApplicationCandidateScope(context.store),
       },
     );
   } catch {
@@ -909,6 +910,8 @@ async function applyCatalogApplication(
     appliedValueDigest: application.appliedValueDigest,
     contributorKind: application.contributorKind,
     contributorRef: application.contributorRef,
+    contributorAuthorityKind: application.contributorAuthorityKind,
+    contributorAuthorityRef: application.contributorAuthorityRef,
     contributorProvenanceRefs: application.contributorProvenanceRefs,
     contributionKind: application.contributionKind,
     declarationOrContractRef: application.declarationOrContractRef,

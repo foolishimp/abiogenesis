@@ -23,19 +23,24 @@ ABIogenesis retains one catalog.
 - Its applied child URI derives from the canonical digest of one concrete value.
 - The row-owning installed Product validates that value under the row contract
   and derives its value reference and Program memberships.
-- The contributor is either the admitted workspace actor or the exact
-  row-owning installed Product in the resolved lock; application preserves that
-  contributor's provenance and cannot attribute the value to an unrelated
-  locked Product.
+- The caller's contributor reference is a proposal, not provenance. A host
+  value is attributed only to the exact admitted workspace actor under the
+  trusted-developer authority basis. A Product value is attributed only when
+  the exact loaded row-owning Product semantics provider returns its own
+  contributor identity and attestation reference for that concrete value.
+  Application records which authority relation supplied the attribution and
+  cannot attribute the value to an unrelated locked Product.
 - `catalog.apply` has exactly the `node_type` and `overlay` variants.
 - A node-type row and value carry no callable Program membership. Its
   application separately binds the reusable type to one exact validated node
   or Program target ref and digest from the admitted publication.
 - An overlay value binds the exact published Program composition it modifies.
-- Product validation seals the exact install, publication, row, value,
-  membership, target, and contributor basis in an opaque receipt carried by
-  the Product-branded application candidate. Structural similarity cannot mint
-  that receipt.
+- Before Product validation, ABG supplies one opaque candidate-scope identity
+  owned by the exact event-store operation context. Product validation seals
+  that scope together with the exact install, publication, row, value,
+  membership, target, and contributor basis in a branded application
+  candidate. ABG consumes the candidate once. Structural similarity, another
+  store, or a second admission cannot mint or reuse that authority.
 - The canonical Consensus disagreement rule needs no overlay. An alternative
   ruling exists only when its concrete overlay is applied.
 - ABG verifies and admits the operation-local application carrier without
@@ -51,6 +56,7 @@ inheritance mechanism. Catalog row selection remains exact.
 - a structural value or receipt that did not pass the row-owning installed
   Product validator;
 - copying category-row ownership onto a downstream value;
+- treating a caller-supplied Product label as Product contributor attestation;
 - attributing one Product's value to an unrelated locked Product;
 - a node-type application without an admitted node or Program target;
 - mandatory overlays that make the canonical rule unreachable;
@@ -60,10 +66,12 @@ inheritance mechanism. Catalog row selection remains exact.
 
 ## Consequence
 
-`catalog.apply` is a write operation with no runtime event. Its admitted carrier
-is valid only inside the exact ABG event-store operation context that owns the
-CatalogView, workspace binding, resolved lock, installed Product semantics,
-value, target, and contributor basis. Closing or replacing that context revokes
-the in-memory application authority; a structurally equal carrier cannot cross
-to another store. Later invocation may consume that exact carrier before
-expiry; mere row presence or an unproven digest cannot control traversal.
+`catalog.apply` is a write operation with no runtime event. Its candidate and
+admitted carrier are valid only inside the exact ABG event-store operation
+context that owns the CatalogView, workspace binding, resolved lock, installed
+Product semantics, value, target, and contributor basis. Candidate admission is
+one-shot. Closing or replacing that context revokes pending candidates and
+admitted applications; mirrored event history and structurally equal carriers
+cannot cross to another store. Later invocation may consume the admitted
+carrier before expiry; mere row presence, an unproven digest, or a contributor
+label cannot control traversal.

@@ -19,6 +19,9 @@ interface ArtifactBasis {
 
 const PACKAGE_NAME = "@abiogenesis-fixtures/flavored-catalog-product";
 const PACKAGE_VERSION = "5.0.0";
+const PRODUCT_ID = "product://flavor.example/text@5.0.0";
+const CATALOG_VALUE_ATTESTATION_REF =
+  "contributor-attestation://flavor.example/text/catalog-values@5";
 
 export const FLAVORED_CATALOG_IDS = Object.freeze({
   moduleRef: "module://flavor.example/text@5",
@@ -45,6 +48,7 @@ export const FLAVORED_CATALOG_IDS = Object.freeze({
   overlayHandle: "overlay://flavor.example/emphasis@5",
   overlayRef: "overlay://flavor.example/emphasis@5",
   styleRef: "style://flavor.example/emphasis@5",
+  contributorAttestationRef: CATALOG_VALUE_ATTESTATION_REF,
 });
 
 function canonicalJson(value: JsonValue): string {
@@ -286,6 +290,11 @@ export const FLAVORED_CATALOG_PRODUCT_SEMANTICS = Object.freeze({
       return Object.freeze({
         valueRef: FLAVORED_CATALOG_IDS.nodeTypeRef,
         programMembershipRefs: [],
+        productContributorAttestation: {
+          contributorRef: PRODUCT_ID,
+          attestationRef:
+            FLAVORED_CATALOG_IDS.contributorAttestationRef,
+        },
       });
     }
     if (
@@ -295,6 +304,11 @@ export const FLAVORED_CATALOG_PRODUCT_SEMANTICS = Object.freeze({
       return Object.freeze({
         valueRef: FLAVORED_CATALOG_IDS.overlayRef,
         programMembershipRefs: [FLAVORED_CATALOG_IDS.programRef],
+        productContributorAttestation: {
+          contributorRef: PRODUCT_ID,
+          attestationRef:
+            FLAVORED_CATALOG_IDS.contributorAttestationRef,
+        },
       });
     }
     return null;

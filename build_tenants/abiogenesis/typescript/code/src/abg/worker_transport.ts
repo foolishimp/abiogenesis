@@ -93,6 +93,7 @@ interface ProcessObservation {
   readonly exitObserved: boolean;
   readonly terminationConfirmed: boolean;
   readonly launchError: string | null;
+  readonly resultBearingStdout: string;
   readonly stdout: string;
   readonly stderr: string;
 }
@@ -193,6 +194,7 @@ function runProcess(input: {
     let stderr = "";
     let timedOut = false;
     let launchError: string | null = null;
+    let timeoutStdout: string | null = null;
     let settled = false;
     let forceTimer: ReturnType<typeof setTimeout> | null = null;
     let confirmationTimer: ReturnType<typeof setTimeout> | null = null;
@@ -225,12 +227,14 @@ function runProcess(input: {
         exitObserved,
         terminationConfirmed,
         launchError,
+        resultBearingStdout: timeoutStdout ?? stdout,
         stdout,
         stderr,
       });
     };
     const timeout = setTimeout(() => {
       timedOut = true;
+      timeoutStdout = stdout;
       input.observer?.onTimeoutObserved?.();
       input.observer?.onSignalRequested?.("SIGTERM");
       child.kill("SIGTERM");
@@ -360,15 +364,16 @@ async function executeWorkerTransport(
   });
   const observation = input.contract.parser === "claude_stream_json"
     ? observeStructuredOutput(
-        processObservation.stdout,
+        processObservation.resultBearingStdout,
         input.responseJsonSchema !== undefined,
       )
     : {
       structuredEventCount: 0,
-      progressEventCount: processObservation.stdout.length > 0 ? 1 : 0,
+      progressEventCount:
+        processObservation.resultBearingStdout.length > 0 ? 1 : 0,
       toolCallCount: 0,
       apiRetryCount: 0,
-      finalOutput: processObservation.stdout,
+      finalOutput: processObservation.resultBearingStdout,
     };
   const finalOutput = observation.finalOutput;
   const failureClass = classifyFailure({

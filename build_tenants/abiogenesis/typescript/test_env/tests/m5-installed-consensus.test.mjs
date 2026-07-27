@@ -368,6 +368,17 @@ async function installConsensusWorker(harness) {
     "    residualRefs: revise ? [`residual://${task.profile.profileRef}/round-${task.roundOrdinal}`] : []",
     "  };",
     "  if (mode === 'malformed_finding') candidate.unadmitted = true;",
+    "  if (mode === 'valid_after_sigterm') {",
+    "    process.on('SIGTERM', () => {",
+    "      const transcript = [",
+    "        JSON.stringify({ type: 'system', subtype: 'init' }),",
+    "        JSON.stringify({ type: 'result', subtype: 'success', result: JSON.stringify(candidate) })",
+    "      ].join('\\n');",
+    "      process.stdout.write(`${transcript}\\n`, () => process.exit(0));",
+    "    });",
+    "    setInterval(() => {}, 1_000);",
+    "    return;",
+    "  }",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
     "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: JSON.stringify(candidate) }));",
     "  if (mode === 'valid_then_timeout') { setInterval(() => {}, 1_000); return; }",
@@ -2189,6 +2200,10 @@ for (const transportCase of [{
   label: "timeout",
   mode: "transport_timeout",
   expectedFailureClass: "transport_failure",
+}, {
+  label: "post-timeout output",
+  mode: "valid_after_sigterm",
+  expectedFailureClass: "transport_failure",
 }]) {
   test(`M5 Consensus preserves ${transportCase.label} as transport failure truth`, async (context) => {
     const harness = await setupInstalledCliHarness(context, packageRoot);
@@ -2223,7 +2238,10 @@ for (const transportCase of [{
         ABG_TS_CLAUDE_COMMAND: command,
         ABG_CONSENSUS_TEST_MODE: transportCase.mode,
         ABG_TS_FP_TIMEOUT_MS:
-          transportCase.mode === "transport_timeout" ? "100" : "2000",
+          transportCase.mode === "transport_timeout" ||
+              transportCase.mode === "valid_after_sigterm"
+            ? "250"
+            : "2000",
         ABG_TS_FP_TERMINATION_GRACE_MS: "50",
       },
     });

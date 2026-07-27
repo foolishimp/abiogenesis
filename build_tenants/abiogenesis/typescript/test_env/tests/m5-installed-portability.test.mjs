@@ -38,6 +38,46 @@ function expectedVerificationIdentity(basis) {
   };
 }
 
+function catalogApplyBasis(product, view, invocationRef) {
+  const operationId = "abg.operation.catalog.apply";
+  const invocationPayloadDigest = product.sha256Canonical({
+    probe: invocationRef,
+  });
+  return {
+    operationId,
+    definitionKey: operationId,
+    definitionDigest: product.sha256Canonical({
+      operationId,
+      schemaVersion: "5.0.0",
+    }),
+    authorityScopeRef: view.viewId,
+    authorityScopeDigest: view.viewDigest,
+    invocationRef,
+    invocationPayloadDigest,
+    invocationDigest: product.sha256Canonical({
+      invocationRef,
+      operationId,
+      payloadDigest: invocationPayloadDigest,
+    }),
+    correlationId: "correlation://t270/s05-catalog-authority",
+    eventTime: "2026-07-25T00:00:00.000Z",
+    causationEventRefs: [view.admissionEventRef],
+  };
+}
+
+function mirrorEventHistory(source, target, admitRuntimeEvent) {
+  for (const event of source.readAll()) {
+    const {
+      eventId: expectedEventId,
+      admissionOrdinal: _admissionOrdinal,
+      payloadDigest: _payloadDigest,
+      ...candidate
+    } = event;
+    const admitted = admitRuntimeEvent(target, candidate);
+    assert.equal(admitted.eventId, expectedEventId);
+  }
+}
+
 async function eventsAt(path) {
   return (await readFile(path, "utf8"))
     .split("\n")
@@ -379,7 +419,7 @@ test(
 );
 
 test(
-  "S06 catalog.apply refuses callable and unknown rows before declaration admission",
+  "S05 catalog.apply keeps concrete-value authority inside one operation context",
   async (context) => {
     const harness = await setupInstalledCliHarness(context, packageRoot);
     const flavored = await prepareFlavoredCatalogProduct(
@@ -498,7 +538,7 @@ test(
       assert.equal(invalidContributor.disposition, "refused");
       assert.match(
         invalidContributor.result.message,
-        /neither the admitted workspace actor nor the exact row-owning installed Product/u,
+        /neither the admitted workspace actor.*exact row-owning installed Product/u,
       );
       const unrelatedLockedContributor =
         await installedPublic.applyRootPublicInvocation(
@@ -586,10 +626,80 @@ test(
           join(installedPackageRoot, "build/code/src/product/index.js"),
         ).href
       );
+      const installedEventStore = await import(
+        pathToFileURL(
+          join(
+            installedPackageRoot,
+            "build/code/src/abg/event_store.js",
+          ),
+        ).href
+      );
+      const installState = operationContext.productState.install(
+        scenario.refs.installFlavored,
+      );
+      const viewState = operationContext.productState.catalogView(
+        scenario.refs.view,
+      );
+      assert.ok(installState);
+      assert.ok(viewState);
+      const candidateScope = installedAbg.catalogApplicationCandidateScope(
+        operationContext.store,
+      );
+      const semantics = await installedProduct.loadInstalledProductSemantics({
+        install: installState.install,
+        publication: viewState.catalogState.publication,
+        verifyInstallAdmission: (install) =>
+          installedAbg.hasAdmittedProductInstall(
+            operationContext.store,
+            install,
+          ),
+      });
+      const constructNodeCandidate = () => {
+        const candidate =
+          installedProduct.constructCatalogApplicationCandidate(
+            semantics,
+            {
+              catalog: viewState.catalogState.catalog,
+              view: viewState.view,
+              workspaceBinding:
+                viewState.catalogState.workspaceState.binding,
+              lock: viewState.catalogState.workspaceState.lock,
+              handle: flavored.ids.nodeTypeHandle,
+              applicationVariant: "node_type",
+              value: flavored.nodeTypeValue,
+              contributorRef: flavored.basis.productId,
+              nodeTypeTarget: {
+                kind: "program",
+                programRef: flavored.ids.programRef,
+              },
+              candidateScope,
+            },
+          );
+        assert.equal(
+          candidate.kind,
+          "catalog_application_candidate",
+          JSON.stringify(candidate),
+        );
+        return candidate;
+      };
       assert.equal(
         installedAbg.hasAdmittedCatalogApplication(
           operationContext.store,
           application,
+        ),
+        true,
+      );
+      assert.equal(
+        application.contributorAuthorityKind,
+        "installed_product_attestation",
+      );
+      assert.equal(
+        application.contributorAuthorityRef,
+        flavored.ids.contributorAttestationRef,
+      );
+      assert.equal(
+        application.contributorProvenanceRefs.includes(
+          flavored.ids.contributorAttestationRef,
         ),
         true,
       );
@@ -601,12 +711,30 @@ test(
         applicationCandidateDigest: application.applicationDigest,
       });
       assert.equal(
-        installedProduct.isCatalogApplicationCandidate(forgedCandidate),
+        installedProduct.isCatalogApplicationCandidate(
+          forgedCandidate,
+          candidateScope,
+        ),
         false,
         "a structural receipt clone must not acquire Product validation authority",
       );
+      const crossStoreCandidate = constructNodeCandidate();
       const foreignContext = installedPublic.createRootOperationContext();
       try {
+        mirrorEventHistory(
+          operationContext.store,
+          foreignContext.store,
+          installedEventStore.admitRuntimeEvent,
+        );
+        installedAbg.catalogApplicationCandidateScope(foreignContext.store);
+        assert.equal(
+          installedAbg.hasAdmittedCatalogView(
+            foreignContext.store,
+            viewState.view,
+          ),
+          true,
+          "the foreign store must contain the exact mirrored CatalogView history",
+        );
         assert.equal(
           installedAbg.hasAdmittedCatalogApplication(
             foreignContext.store,
@@ -615,9 +743,49 @@ test(
           false,
           "an application must not cross its originating store",
         );
+        const crossStoreAdmission = installedAbg.admitCatalogApplication(
+          foreignContext.store,
+          viewState.view,
+          crossStoreCandidate,
+          catalogApplyBasis(
+            installedProduct,
+            viewState.view,
+            "invocation://t270/catalog-apply-cross-store",
+          ),
+        );
+        assert.equal(
+          crossStoreAdmission.kind,
+          "catalog_admission_refusal",
+        );
+        assert.equal(crossStoreAdmission.code, "scope_mismatch");
       } finally {
         installedPublic.closeRootOperationContext(foreignContext);
       }
+      const oneShotCandidate = constructNodeCandidate();
+      const oneShotAdmission = installedAbg.admitCatalogApplication(
+        operationContext.store,
+        viewState.view,
+        oneShotCandidate,
+        catalogApplyBasis(
+          installedProduct,
+          viewState.view,
+          "invocation://t270/catalog-apply-one-shot",
+        ),
+      );
+      assert.equal(oneShotAdmission.kind, "catalog_application");
+      const repeatedAdmission = installedAbg.admitCatalogApplication(
+        operationContext.store,
+        viewState.view,
+        oneShotCandidate,
+        catalogApplyBasis(
+          installedProduct,
+          viewState.view,
+          "invocation://t270/catalog-apply-one-shot-repeated",
+        ),
+      );
+      assert.equal(repeatedAdmission.kind, "catalog_admission_refusal");
+      assert.equal(repeatedAdmission.code, "scope_mismatch");
+      const postCloseCandidate = constructNodeCandidate();
       const originatingStore = operationContext.store;
       installedPublic.closeRootOperationContext(operationContext);
       operationContextClosed = true;
@@ -628,6 +796,22 @@ test(
         ),
         false,
         "closing the operation context must revoke application authority",
+      );
+      const postCloseAdmission = installedAbg.admitCatalogApplication(
+        originatingStore,
+        viewState.view,
+        postCloseCandidate,
+        catalogApplyBasis(
+          installedProduct,
+          viewState.view,
+          "invocation://t270/catalog-apply-after-close",
+        ),
+      );
+      assert.equal(postCloseAdmission.kind, "catalog_admission_refusal");
+      assert.equal(postCloseAdmission.code, "scope_mismatch");
+      assert.throws(
+        () => installedAbg.catalogApplicationCandidateScope(originatingStore),
+        /revoked/u,
       );
     } finally {
       if (!operationContextClosed) {

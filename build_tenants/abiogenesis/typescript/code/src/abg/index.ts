@@ -24,6 +24,7 @@ export {
 export {
   admitCatalogApplication,
   admitCatalog,
+  catalogApplicationCandidateScope,
   hasAdmittedCatalog,
   hasAdmittedCatalogApplication,
   hasAdmittedProductSemanticsBasis,

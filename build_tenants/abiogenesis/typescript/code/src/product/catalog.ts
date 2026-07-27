@@ -97,6 +97,10 @@ export interface CatalogView extends Omit<CatalogViewCandidate, "kind" | "dispos
 
 export type CatalogApplicationVariant = "node_type" | "overlay";
 
+export interface CatalogApplicationCandidateScope {
+  readonly kind: "catalog_application_candidate_scope";
+}
+
 export type CatalogNodeTypeTargetInput =
   | Readonly<{
       readonly kind: "program";
@@ -152,6 +156,10 @@ export interface CatalogApplicationCandidate {
   readonly appliedValue: JsonValue;
   readonly contributorKind: "host" | "product";
   readonly contributorRef: string;
+  readonly contributorAuthorityKind:
+    | "installed_product_attestation"
+    | "trusted_developer_attribution";
+  readonly contributorAuthorityRef: string;
   readonly contributorProvenanceRefs: readonly string[];
   readonly contributionKind: "node_type" | "overlay";
   readonly declarationOrContractRef: string;

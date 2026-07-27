@@ -22,6 +22,7 @@ import type {
   AdmittedCatalog,
   CatalogApplication,
   CatalogApplicationCandidate,
+  CatalogApplicationCandidateScope,
   CatalogApplicationCandidateResult,
   CatalogApplicationVariant,
   CatalogConstructionRefusal,
@@ -105,6 +106,10 @@ export interface ProductSemanticsProvider {
   ) => Readonly<{
     readonly valueRef: string;
     readonly programMembershipRefs: readonly string[];
+    readonly productContributorAttestation?: Readonly<{
+      readonly contributorRef: string;
+      readonly attestationRef: string;
+    }>;
   }> | null;
   readonly validateResultEvidenceLineage?: (
     basis: Readonly<{
@@ -225,7 +230,8 @@ const loadedProductSemantics =
   new WeakMap<object, LoadedProductSemanticsBasis>();
 const projectedLeafSemantics =
   new WeakMap<object, InstalledLeafSemanticsRuntime>();
-const catalogApplicationCandidates = new WeakSet<object>();
+const catalogApplicationCandidates =
+  new WeakMap<object, CatalogApplicationCandidateScope>();
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -508,8 +514,11 @@ function resolveNodeTypeTarget(
   });
 }
 
-export function isCatalogApplicationCandidate(value: object): boolean {
-  return catalogApplicationCandidates.has(value);
+export function isCatalogApplicationCandidate(
+  value: object,
+  scope: CatalogApplicationCandidateScope,
+): boolean {
+  return catalogApplicationCandidates.get(value) === scope;
 }
 
 export function constructCatalogApplicationCandidate(
@@ -524,6 +533,7 @@ export function constructCatalogApplicationCandidate(
     readonly value: unknown;
     readonly contributorRef: string;
     readonly nodeTypeTarget: unknown;
+    readonly candidateScope: CatalogApplicationCandidateScope;
   }>,
 ): CatalogApplicationCandidateResult {
   const loaded = loadedProductSemantics.get(semantics);
@@ -534,6 +544,16 @@ export function constructCatalogApplicationCandidate(
     );
   }
   const { catalog, view, workspaceBinding, lock } = basis;
+  if (
+    typeof basis.candidateScope !== "object" ||
+    basis.candidateScope === null ||
+    basis.candidateScope.kind !== "catalog_application_candidate_scope"
+  ) {
+    return catalogApplicationRefusal(
+      "invalid_application_receipt",
+      "catalog application requires one active ABG operation-context candidate scope",
+    );
+  }
   const row = view.selectedRows.find(
     (candidate) => candidate.handle === basis.handle,
   );
@@ -625,6 +645,8 @@ export function constructCatalogApplicationCandidate(
     contractRef: row.declarationOrContractRef,
     value: admitted,
   }) ?? null;
+  const productContributorAttestation =
+    projection?.productContributorAttestation ?? null;
   if (
     projection === null ||
     !isNonBlankRef(projection.valueRef) ||
@@ -632,7 +654,14 @@ export function constructCatalogApplicationCandidate(
     new Set(projection.programMembershipRefs).size !==
       projection.programMembershipRefs.length ||
     projection.programMembershipRefs.join("\0") !==
-      row.programMembershipRefs.join("\0")
+      row.programMembershipRefs.join("\0") ||
+    (
+      productContributorAttestation !== null &&
+      (
+        !isNonBlankRef(productContributorAttestation.contributorRef) ||
+        !isNonBlankRef(productContributorAttestation.attestationRef)
+      )
+    )
   ) {
     return catalogApplicationRefusal(
       "invalid_application_binding",
@@ -669,17 +698,29 @@ export function constructCatalogApplicationCandidate(
     (candidate) => candidate.installId === loaded.install.installId,
   )!;
   const contributorKind =
-    basis.contributorRef === workspaceBinding.authorizedActorRef
+    productContributorAttestation === null &&
+      basis.contributorRef === workspaceBinding.authorizedActorRef
       ? "host" as const
-      : basis.contributorRef === loaded.install.productId
+      : productContributorAttestation?.contributorRef ===
+            loaded.install.productId &&
+          basis.contributorRef === loaded.install.productId
       ? "product" as const
       : null;
   if (contributorKind === null) {
     return catalogApplicationRefusal(
       "invalid_application_contributor",
-      "catalog application contributor is neither the admitted workspace actor nor the exact row-owning installed Product",
+      "catalog application contributor is neither the admitted workspace actor under trusted-developer authority nor attested by the exact row-owning installed Product",
     );
   }
+  const contributorRef = contributorKind === "host"
+    ? workspaceBinding.authorizedActorRef
+    : loaded.install.productId;
+  const contributorAuthorityKind = contributorKind === "host"
+    ? "trusted_developer_attribution" as const
+    : "installed_product_attestation" as const;
+  const contributorAuthorityRef = contributorKind === "host"
+    ? workspaceBinding.authorityBasisId
+    : productContributorAttestation!.attestationRef;
   const contributorProvenanceRefs = contributorKind === "host"
     ? [
         workspaceBinding.authorityBasisId,
@@ -691,6 +732,7 @@ export function constructCatalogApplicationCandidate(
         validatingLockRow.artifactDigest,
         validatingLockRow.manifestDigest,
         publication.contributionManifestRef,
+        contributorAuthorityRef,
       ];
   const appliedValueDigest = sha256Canonical(
     admitted as unknown as JsonValue,
@@ -713,7 +755,9 @@ export function constructCatalogApplicationCandidate(
     appliedValueRef: projection.valueRef,
     appliedValueDigest,
     contributorKind,
-    contributorRef: basis.contributorRef,
+    contributorRef,
+    contributorAuthorityKind,
+    contributorAuthorityRef,
     contributorProvenanceRefs,
     programMembershipRefs: projection.programMembershipRefs,
     nodeTypeTarget,
@@ -746,7 +790,9 @@ export function constructCatalogApplicationCandidate(
     appliedValueDigest,
     appliedValue: admitted as unknown as JsonValue,
     contributorKind,
-    contributorRef: basis.contributorRef,
+    contributorRef,
+    contributorAuthorityKind,
+    contributorAuthorityRef,
     contributorProvenanceRefs,
     contributionKind: row.kind,
     declarationOrContractRef: row.declarationOrContractRef,
@@ -772,7 +818,7 @@ export function constructCatalogApplicationCandidate(
     applicationCandidateDigest,
     ...body,
   }) as CatalogApplicationCandidate;
-  catalogApplicationCandidates.add(candidate);
+  catalogApplicationCandidates.set(candidate, basis.candidateScope);
   return candidate;
 }
 

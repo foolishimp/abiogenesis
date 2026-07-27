@@ -329,3 +329,43 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
   );
   assert.equal(Date.now() - startedAt < 2_000, true);
 });
+
+test("M5 ABG transport excludes semantic output emitted after its timeout boundary", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-post-timeout-output-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const workerPath = join(scratch, "post-timeout-worker.mjs");
+  await writeFile(workerPath, [
+    "#!/usr/bin/env node",
+    "process.on('SIGTERM', () => {",
+    "  const result = JSON.stringify({kind:'late_worker_output',schemaVersion:'5.0.0'});",
+    "  const transcript = JSON.stringify({type:'result',subtype:'success',result});",
+    "  process.stdout.write(`${transcript}\\n`, () => process.exit(0));",
+    "});",
+    "setInterval(() => {}, 1_000);",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(workerPath, 0o755);
+  const result = await runWorkerTransport({
+    contract: constructKnownWorkerTransportContract("claude", {
+      command: process.execPath,
+      prefixArgs: [workerPath],
+      environment: {},
+    }),
+    prompt: "do not admit output after the deadline",
+    lane: "worker_executes",
+    cwd: scratch,
+    archiveRoot: join(scratch, "archive"),
+    label: "post-timeout-output",
+    timeoutMs: 150,
+    terminationGraceMs: 250,
+    environment: {},
+  });
+
+  assert.equal(result.disposition, "failure");
+  assert.equal(result.failureClass, "transport_failure");
+  assert.equal(result.timedOut, true);
+  assert.equal(result.finalOutput, "");
+  assert.equal(result.structuredEventCount, 0);
+  assert.match(result.stdout, /late_worker_output/u);
+  assert.equal(result.artifacts.output.byteLength, 0);
+});

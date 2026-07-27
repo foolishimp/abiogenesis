@@ -2,6 +2,7 @@ import type { ProductSemanticsBinding } from "../gtl/index.js";
 import {
   type CatalogApplication,
   type CatalogApplicationCandidate,
+  type CatalogApplicationCandidateScope,
   type AdmittedCatalog,
   type CatalogAdmissionCandidate,
   type CatalogRowDisposition,
@@ -15,7 +16,9 @@ import {
   isCatalogAdmissionCandidate,
   isCatalogViewCandidate,
 } from "../product/catalog.js";
-import { isCatalogApplicationCandidate } from "../product/semantics.js";
+import {
+  isCatalogApplicationCandidate,
+} from "../product/semantics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -28,15 +31,42 @@ import {
 } from "./environment_admission.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 
-const admittedCatalogApplications =
-  new WeakMap<AbgEventStore, WeakSet<object>>();
+interface CatalogApplicationContextState {
+  readonly candidateScope: CatalogApplicationCandidateScope;
+  readonly applications: WeakSet<object>;
+  readonly consumedCandidates: WeakSet<object>;
+  active: boolean;
+}
 
-function catalogApplicationScope(store: AbgEventStore): WeakSet<object> {
-  const existing = admittedCatalogApplications.get(store);
-  if (existing !== undefined) return existing;
-  const scope = new WeakSet<object>();
-  admittedCatalogApplications.set(store, scope);
-  return scope;
+const catalogApplicationContexts =
+  new WeakMap<AbgEventStore, CatalogApplicationContextState>();
+
+function newCatalogApplicationContextState(): CatalogApplicationContextState {
+  return {
+    candidateScope: Object.freeze({
+      kind: "catalog_application_candidate_scope",
+    }),
+    applications: new WeakSet<object>(),
+    consumedCandidates: new WeakSet<object>(),
+    active: true,
+  };
+}
+
+export function catalogApplicationCandidateScope(
+  store: AbgEventStore,
+): CatalogApplicationCandidateScope {
+  const existing = catalogApplicationContexts.get(store);
+  if (existing !== undefined) {
+    if (!existing.active) {
+      throw new TypeError(
+        "catalog application candidate scope is revoked for this ABG event-store context",
+      );
+    }
+    return existing.candidateScope;
+  }
+  const state = newCatalogApplicationContextState();
+  catalogApplicationContexts.set(store, state);
+  return state.candidateScope;
 }
 
 export interface CatalogAdmissionRefusal {
@@ -272,10 +302,16 @@ export function admitCatalogApplication(
   candidate: CatalogApplicationCandidate,
   basis: ArtifactAdmissionBasis,
 ): CatalogApplicationAdmissionResult {
-  if (!isCatalogApplicationCandidate(candidate)) {
+  const contextState = catalogApplicationContexts.get(store);
+  if (
+    contextState === undefined ||
+    !contextState.active ||
+    contextState.consumedCandidates.has(candidate) ||
+    !isCatalogApplicationCandidate(candidate, contextState.candidateScope)
+  ) {
     return refusal(
-      "candidate_not_constructed",
-      "catalog application candidate was not constructed by the Product boundary",
+      "scope_mismatch",
+      "catalog application candidate was not constructed for this active ABG event-store context",
     );
   }
   if (
@@ -320,6 +356,7 @@ export function admitCatalogApplication(
       "catalog application requires the exact admitted CatalogView cause",
     );
   }
+  contextState.consumedCandidates.add(candidate);
   const {
     kind: _kind,
     disposition: _disposition,
@@ -338,12 +375,15 @@ export function admitCatalogApplication(
     admissionCandidateRef: applicationCandidateId,
     admissionEventRef: null,
   }) as CatalogApplication;
-  catalogApplicationScope(store).add(application);
+  contextState.applications.add(application);
   return application;
 }
 
 export function releaseCatalogApplicationScope(store: AbgEventStore): void {
-  admittedCatalogApplications.delete(store);
+  const state = catalogApplicationContexts.get(store) ??
+    newCatalogApplicationContextState();
+  state.active = false;
+  catalogApplicationContexts.set(store, state);
 }
 
 export function hasAdmittedCatalog(
@@ -491,7 +531,9 @@ export function hasAdmittedCatalogApplication(
     );
   });
   return (
-    admittedCatalogApplications.get(store)?.has(application) === true &&
+    catalogApplicationContexts.get(store)?.active === true &&
+    catalogApplicationContexts.get(store)?.applications.has(application) ===
+      true &&
     catalogApplicationContentDigest(body) === application.applicationDigest &&
     application.admissionEventRef === null &&
     viewCauseIsAdmitted
