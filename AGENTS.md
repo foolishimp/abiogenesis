@@ -38,9 +38,10 @@ close ABG5-S06
 
 Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
 The S05 design is directly accepted at `283325aa`; S05 realization is accepted
-at `1ddc802d`. S06 is selected. Observer/tuner, full conservation
-qualification, qualification, and release must not receive implementation
-while S06 remains unresolved.
+at `1ddc802d`. S06 candidate `fd6a3f16`, tree `8d3aeccf`, is frozen for
+independent review. Do not edit or recursively refreeze it. Observer/tuner,
+full conservation qualification, qualification, and release must not receive
+implementation while S06 remains unresolved.
 
 S04 design is frozen at candidate `4897ead1`, tree `11d0ef7b`, and parked
 under T-268. Do not edit or implement it during S06.

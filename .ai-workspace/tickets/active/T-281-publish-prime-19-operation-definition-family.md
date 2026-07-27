@@ -1,9 +1,9 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
 > **Current disposition (2026-07-28):** The bounded Prime gate and S06
-> product-neutral installed shell are realized. Freeze one exact candidate for
-> independent review; do not add functionality or begin S04. The retained
-> 19-operation and X-era material is historical donor evidence.
+> product-neutral installed shell are frozen at `fd6a3f16` for independent
+> review. Do not edit the subject, add functionality, or begin S04. The
+> retained 19-operation and X-era material is historical donor evidence.
 
 - id: T-281
 - title: Publish the product-neutral installed public path
@@ -16,7 +16,7 @@
     prohibit further realization after the exact S06 candidate freeze; permit
     only mechanical evidence and review handoff while S04, qualification,
     release, alternate functionality, and broad runtime refactoring remain held
-- phase_status: m5_s06_realization_complete
+- phase_status: m5_s06_candidate_frozen
 - review_status: pending_independent_exact_cut_review
 - proof_status: mechanical_green_m5_165_m4_26_external_36_prime_4_portability_4
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
@@ -44,6 +44,13 @@
     build_tenants/abiogenesis/typescript/code/src/public
 - accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
 - accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
+- current_s06_candidate: fd6a3f1670687fcf5e50765161a72fd769d6271b
+- current_s06_candidate_tree: 8d3aeccf8a3e9966df31c68382ed03f6807baac8
+- current_s06_package_digest: d747cf0f99eeac442baf2a8c068bb605943040fb7780a4c7c6b0fcfa41d62cdd
+- current_s06_package_inventory_digest: 8ee18e0de2439672c7da88bb413408e684f5b37843463124afcbaf709bbb71dc
+- current_s06_handoff: >-
+    .ai-workspace/comments/codex/
+    20260727T183833Z_HANDOFF_t281_s06_portability_candidate.md
 
 ## Current M5 Reprice
 
@@ -148,9 +155,9 @@ CLI, and forwards process bytes and status.
 
 The existing catalog admits and applies the Product's exact URI-coordinate
 `node_type` and `overlay` rows. No catalog, Program, traversal, worker,
-continuation, event, or closure alternative is introduced. The S06 package
-and exact candidate identity are recorded only after the immutable candidate
-commit is created.
+continuation, event, or closure alternative is introduced. Candidate
+`fd6a3f16`, tree `8d3aeccf`, and package `d747cf0f...62cdd` are the sole S06
+review subject.
 
 ## Independent Product Checkpoint
 
