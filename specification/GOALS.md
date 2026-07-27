@@ -34,10 +34,10 @@ selection, ordered successor outcomes, and their acceptance conditions.
   replacement for Section 13. ADR-045 records its rationale. Direct human
   acceptance at commit `283325aa` also affirms the same-Run F_H topology.
 - Exact S05 realization candidate
-  `3a10bd562193e4028c38a37208cd6d8175be2609`, tree
-  `1a89378f3027443b37953e08a64520a39abf8d44`, is frozen for independent
+  `92e8cc744ba802ea2a8ab6cc260d1d3a90513cea`, tree
+  `d153ed3dce55e7b2b7fcb53dd914a5d6a545841c`, is frozen for independent
   review. Its mechanical evidence is recorded in
-  `.ai-workspace/comments/codex/20260726T204820Z_HANDOFF_t270_s05_realization_candidate_review.md`.
+  `.ai-workspace/comments/codex/20260727T022415Z_HANDOFF_t270_s05_consolidated_realization_candidate_review.md`.
   This freeze is not S05 acceptance and does not select S06.
 - Commit `bcd8769a8163a222e2e59400c904994b3de161fd` is preserved behavioral
   stock. Exact candidate
@@ -136,7 +136,7 @@ select implementation while this outcome remains unresolved.
 | Order | Existing owner | Product outcome | Acceptance boundary | State |
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
-| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Current - realization candidate `3a10bd56` frozen for independent review; not accepted |
+| `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Current - realization candidate `92e8cc74` frozen for independent review; not accepted |
 | `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Blocked by S05 |
 | `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Unselected until S06 closes |
 | `5` | `T-270` | Freeze one M5 candidate | All pre-qualification Product behavior and all 17 feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by prior outcomes |
@@ -148,7 +148,7 @@ select implementation while this outcome remains unresolved.
 The bounded S05 `requirement_reprice` established the
 findings-to-submitter-response-to-next-round relation. The accepted
 `design_reframe` resolves the complete S05 function as a global-to-local
-constraint network. Its realization is frozen at `3a10bd56` for independent
+constraint network. Its realization is frozen at `92e8cc74` for independent
 review. Accepted S03 remains the regression basis. S06 remains held.
 
 For each selected outcome:
