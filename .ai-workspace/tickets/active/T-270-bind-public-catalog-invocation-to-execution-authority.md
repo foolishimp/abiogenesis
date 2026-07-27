@@ -42,7 +42,7 @@
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
 - accepted_s03_decision: .ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md
-- current_s05_basis_commit: 17c6444a39a4542f4bf7015d222ec0c383f4e2a8
+- current_s05_basis_commit: 3e0a148ae8ea3110d715cc142fb9708010876dcb
 - superseded_s05_candidate: c4a0f42dd55a9dec963e514579fbfa81ea286786
 - superseded_s05_candidate_tree: 6046a66a04de125b4639a32d022b87f9b64fac04
 - superseded_s05_evidence: .ai-workspace/comments/codex/20260725T234029Z_CHECKPOINT_t270_s05_ordinary_path_consensus_exact_candidate.md
@@ -83,13 +83,16 @@
 - superseded_s05_catalog_authority_candidate: c33ba46c4b9fdc49aca179fd3f111eb4357b1ce5
 - superseded_s05_catalog_authority_candidate_tree: 8206b6846421725d2d6692b7b46d7d6c4f940e82
 - superseded_s05_catalog_authority_candidate_evidence: .ai-workspace/comments/codex/20260727T074428Z_HANDOFF_t270_s05_catalog_application_authority_candidate.md
-- current_s05_candidate: 17c6444a39a4542f4bf7015d222ec0c383f4e2a8
-- current_s05_candidate_tree: b060bdee43f6882c7e4c832d1fbd4c727808accf
-- current_s05_candidate_package_digest: 9da45164e48c9c3f6117adfc59c58897c1718f7e9e9e75fc41df20093bf97586
-- current_s05_candidate_package_inventory_digest: f52aa10489ca0b3cf8f29babb3dc60bd3953439657df0f525e77b3a0dcd781a1
-- current_s05_candidate_product_content_digest: 99bf66422bd2eeda45f7582bfb18c33a39445d04ae00ddd869bcc4d5e6b8c407
-- current_s05_candidate_manifest_digest: 5d88bcc57f4d01af2435ab4406abcfeab47fdd6fa6c172a0d95d5672142cf063
-- current_s05_candidate_evidence: .ai-workspace/comments/codex/20260727T103744Z_HANDOFF_t270_s05_catalog_scope_timeout_candidate.md
+- superseded_s05_catalog_scope_timeout_candidate: 17c6444a39a4542f4bf7015d222ec0c383f4e2a8
+- superseded_s05_catalog_scope_timeout_candidate_tree: b060bdee43f6882c7e4c832d1fbd4c727808accf
+- superseded_s05_catalog_scope_timeout_candidate_evidence: .ai-workspace/comments/codex/20260727T103744Z_HANDOFF_t270_s05_catalog_scope_timeout_candidate.md
+- current_s05_candidate: 3e0a148ae8ea3110d715cc142fb9708010876dcb
+- current_s05_candidate_tree: 0db18d769c870f10bb8eecb7646a16b907092268
+- current_s05_candidate_package_digest: 79d0b12c21d049353266c888d6a28596108efb6cd77ecd70ead73f4ff5c1feda
+- current_s05_candidate_package_inventory_digest: 15cf76447cf164662f0a5fc499be88343c067878fe9c7bfa46ca779f91430c2e
+- current_s05_candidate_product_content_digest: 08785889d7a33af4dfc5d7a10e9b8521227ec5085d82470a637551f0b874d5f6
+- current_s05_candidate_manifest_digest: c8088312e94b071b511f0d68f1e116cd1d0c64831c1a8c16c39cc63c3dc64827
+- current_s05_candidate_evidence: .ai-workspace/comments/codex/20260727T114922Z_HANDOFF_t270_s05_edge_closure_candidate.md
 - superseded_s05_design_subject_aggregate: 6a809f94d011962d9888cfa8fa2f59dfd63c1163404db851d9c2eb6880ca2be1
 - superseded_s05_design_handoff: .ai-workspace/comments/codex/20260726T165744Z_HANDOFF_t270_s05_global_to_local_design_review.md
 - current_s05_design_subject:
@@ -280,8 +283,9 @@ S05 closes only when:
 - a valid reviewer candidate observed before timeout or non-zero process exit
   remains admissible while the exact failed process evidence remains
   replay-visible;
-- output emitted only after timeout signaling remains diagnostic process output
-  and cannot become an admitted reviewer or submitter semantic result;
+- output emitted only after timeout signaling or direct-process exit remains
+  diagnostic process output and cannot become an admitted reviewer or
+  submitter semantic result;
 - transport failure without a valid preserved candidate and no-output failures
   remain ordinary failed/stopped ABG truth;
 - schema and vocabulary identities resolve to generated digest-bound
@@ -307,6 +311,8 @@ S05 remains open if:
 - a catalog-application candidate can cross stores, be consumed more than
   once, survive origin closure, or attribute a Product contribution without
   exact Product attestation;
+- worker output observed only after timeout signaling or direct-process exit
+  can become an admitted semantic result;
 - agreement, dissent, or `contract_failure` can enter the F_H support Program;
 - a successor reviewer round can be constructed, bound, opened, or executed
   before the exact attributed submitter response is Product-valid and
