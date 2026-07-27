@@ -8,11 +8,11 @@
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - owner: abiogenesis
 - priority: high
-- governance_scope: SPEC_METHOD, REQ-P-SELF-CONFORMANCE, REQ-P-QUAL
+- governance_scope: SPEC_METHOD, REQ-P-INSTALL, REQ-P-SELF-CONFORMANCE, REQ-P-QUAL
 - change_class: realization_refactor
 - re_entry_point: exact-candidate qualification contract and proof surfaces
 - created_at: 2026-07-12
-- updated_at: 2026-07-16 (exact qualification-law basis bound through verdict)
+- updated_at: 2026-07-27 (4.6 installed-sandbox capability bound to exact-candidate proof)
 - source_ticket: T-242
 - admission_condition: >-
     T-249 has retained and aligned the claims, T-244 identifies their exact
@@ -50,9 +50,19 @@ self-use is not: the first required dogfood build is 5.0.1 under T-245/T-246.
    unexplained exemptions before T-248.
 3. **Packed/live proof and bypass posture** — each retained live qualification
    runs against the packed-and-installed candidate unless its declared proof
-   class is explicitly static. A red mandatory result or release-grade bypass
-   cannot produce a green qualification verdict or satisfy the admission
-   contract later consumed by `AF-25`.
+   class is explicitly static. One installed-sandbox conservation witness shall
+   start from an empty target and use only the packed candidate's public
+   composition: `workspace.create` -> `product.verify` -> `product.install` ->
+   `workspace.bind` -> `catalog.admit` -> `catalog.view` -> `run.invoke` ->
+   `project.read`. It shall populate the Workspace, invoke one bounded scenario
+   through the installed runtime, and read its result and replay. The witness
+   shall preserve the install, runtime, event, projection, and archive evidence
+   required by `REQ-P-QUAL-018G..018I`; source-tree imports, private test
+   helpers, or a separate sandbox runtime shall not satisfy it. This is a
+   composition of existing Product operations, not a new sandbox identity,
+   transport contract, dispatch law, or recovery model. A red mandatory result
+   or release-grade bypass cannot produce a green qualification verdict or
+   satisfy the admission contract later consumed by `AF-25`.
 4. **Exact qualification basis and verdict** — one bounded qualification read
    model binds the exact source ref and commit, candidate artifact content and
    install digests, product toolchain manifest, installed-product and install
@@ -165,8 +175,10 @@ pre-RC `ExactCandidateQualificationBasis` and its bound exact
 `QualificationLawBasis`; real-tree and
 seeded-negative self-conformance pass; executable-change witnessing has no
 unexplained gap; every required live proof uses its declared packed installed
-substrate; red, stale, cross-basis, missing, and bypass differentials fail
-closed; one roster-complete, basis-conserving, digest-resolving
+substrate; one source-blind installed-sandbox witness proves the retained 4.6
+workspace setup-and-run capability through existing public Product operations;
+red, stale, cross-basis, missing, and bypass differentials fail closed; one
+roster-complete, basis-conserving, digest-resolving
 `QualificationGateResultVector<K>` is admitted; and one green
 `ExactCandidateQualificationVerdict` cites the exact subject/law basis and owning
 proofs without restating their semantics. T-248 consumes that exact basis and
