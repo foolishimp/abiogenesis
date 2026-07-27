@@ -1,6 +1,3 @@
-import { isAbsolute, relative, resolve } from "node:path";
-import { pathToFileURL } from "node:url";
-
 import type {
   ModulePublication,
   ProductSemanticsBinding,
@@ -17,7 +14,9 @@ import type {
   ResolvedProductLock,
   WorkspaceBinding,
 } from "./environment.js";
+import { resolveExactMatch } from "./exact_match.js";
 import { installedProductContentMatches } from "./install_product.js";
+import { loadVerifiedInstalledModule } from "./installed_module.js";
 import type {
   AdmittedCatalog,
   CatalogApplication,
@@ -327,19 +326,26 @@ export async function loadInstalledProductSemantics(
   if (
     !basis.verifyInstallAdmission(basis.install) ||
     binding.packageName !== basis.install.packageName ||
-    binding.packageVersion !== basis.install.packageVersion ||
-    !(await installedProductContentMatches(basis.install))
+    binding.packageVersion !== basis.install.packageVersion
   ) {
     throw new TypeError(
       "Product semantics requires one exact admitted install and publication binding",
     );
   }
-  const exactPath = resolve(basis.install.installedRoot, binding.modulePath);
-  const relation = relative(basis.install.installedRoot, exactPath);
-  if (relation.length === 0 || relation.startsWith("..") || isAbsolute(relation)) {
-    throw new TypeError("Product semantics module escapes the admitted Product install");
+  const moduleResult = await loadVerifiedInstalledModule(
+    basis.install,
+    binding.modulePath,
+  );
+  if (moduleResult.kind === "refused") {
+    throw new TypeError(
+      moduleResult.code === "path_escape"
+        ? "Product semantics module escapes the admitted Product install"
+        : moduleResult.code === "content_mismatch"
+        ? "Product semantics requires exact installed Product content"
+        : "Product semantics module cannot be loaded from the admitted Product install",
+    );
   }
-  const loaded = await import(pathToFileURL(exactPath).href) as Record<string, unknown>;
+  const loaded = moduleResult.module;
   const value = loaded[binding.namedSymbol];
   if (
     !isRecord(value) ||
@@ -429,14 +435,17 @@ function exactInstallLockRow(
   install: ProductInstall,
   lock: ResolvedProductLock,
 ): boolean {
-  const row = lock.rows.find((candidate) => candidate.installId === install.installId);
-  return row !== undefined &&
-    row.productId === install.productId &&
-    row.packageName === install.packageName &&
-    row.packageVersion === install.packageVersion &&
-    row.artifactDigest === install.artifactDigest &&
-    row.productContentDigest === install.productContentDigest &&
-    row.manifestDigest === install.manifestDigest;
+  const match = resolveExactMatch(
+    lock.rows,
+    (candidate) => candidate.installId === install.installId,
+  );
+  return match.kind === "one" &&
+    match.value.productId === install.productId &&
+    match.value.packageName === install.packageName &&
+    match.value.packageVersion === install.packageVersion &&
+    match.value.artifactDigest === install.artifactDigest &&
+    match.value.productContentDigest === install.productContentDigest &&
+    match.value.manifestDigest === install.manifestDigest;
 }
 
 function isNodeTypeTargetInput(
@@ -463,21 +472,25 @@ function resolveNodeTypeTarget(
   input: unknown,
 ): CatalogNodeTypeTarget | null {
   if (!isNodeTypeTargetInput(input)) return null;
-  const program = publication.programs.find(
+  const programMatch = resolveExactMatch(
+    publication.programs,
     (candidate) => candidate.programRef === input.programRef,
   );
-  const validation = catalog.programValidations.find(
+  const validationMatch = resolveExactMatch(
+    catalog.programValidations,
     (candidate) => candidate.programRef === input.programRef,
   );
   if (
-    program === undefined ||
-    validation === undefined ||
-    validation.publicationDigest !== catalog.publicationDigest ||
-    validation.programDigest !==
-      sha256Canonical(program as unknown as JsonValue)
+    programMatch.kind !== "one" ||
+    validationMatch.kind !== "one" ||
+    validationMatch.value.publicationDigest !== catalog.publicationDigest ||
+    validationMatch.value.programDigest !==
+      sha256Canonical(programMatch.value as unknown as JsonValue)
   ) {
     return null;
   }
+  const program = programMatch.value;
+  const validation = validationMatch.value;
   if (input.kind === "program") {
     return deepFreeze({
       kind: "program",
@@ -486,24 +499,26 @@ function resolveNodeTypeTarget(
       programRef: program.programRef,
     });
   }
-  const graphFunction = publication.graphFunctions.find(
+  const graphFunctionMatch = resolveExactMatch(
+    publication.graphFunctions,
     (candidate) => candidate.name === input.graphFunctionRef,
   );
-  const node = graphFunction?.template.nodes.find(
+  if (graphFunctionMatch.kind !== "one") return null;
+  const graphFunction = graphFunctionMatch.value;
+  const nodeMatch = resolveExactMatch(
+    graphFunction.template.nodes,
     (candidate) => candidate.nodeRef === input.nodeRef,
   );
-  const graphFunctionDigest = graphFunction === undefined
-    ? null
-    : sha256Canonical(graphFunction as unknown as JsonValue);
+  const graphFunctionDigest =
+    sha256Canonical(graphFunction as unknown as JsonValue);
   if (
-    graphFunction === undefined ||
-    node === undefined ||
-    graphFunctionDigest === null ||
+    nodeMatch.kind !== "one" ||
     !program.callableMembership.includes(graphFunction.name) ||
     !validation.graphFunctionDigests.includes(graphFunctionDigest)
   ) {
     return null;
   }
+  const node = nodeMatch.value;
   return deepFreeze({
     kind: "node",
     targetRef: node.nodeRef,
@@ -554,15 +569,19 @@ export function constructCatalogApplicationCandidate(
       "catalog application requires one active ABG operation-context candidate scope",
     );
   }
-  const row = view.selectedRows.find(
+  const rowMatch = resolveExactMatch(
+    view.selectedRows,
     (candidate) => candidate.handle === basis.handle,
   );
-  if (row === undefined) {
+  if (rowMatch.kind !== "one") {
     return catalogApplicationRefusal(
       "unknown_allowlist_entry",
-      `catalog application handle ${basis.handle} is not present in the admitted view`,
+      rowMatch.kind === "absent"
+        ? `catalog application handle ${basis.handle} is not present in the admitted view`
+        : `catalog application handle ${basis.handle} is ambiguous in the admitted view`,
     );
   }
+  const row = rowMatch.value;
   if (row.disposition !== "admitted") {
     return catalogApplicationRefusal(
       "row_not_admitted",
@@ -615,16 +634,17 @@ export function constructCatalogApplicationCandidate(
       "catalog application differs from its admitted workspace, lock, publication, row owner, or installed Product",
     );
   }
-  const publishedContribution = publication.contributions.find(
+  const contributionMatch = resolveExactMatch(
+    publication.contributions,
     (candidate) => candidate.handle === row.handle,
   );
   if (
-    publishedContribution === undefined ||
-    publishedContribution.kind !== row.kind ||
-    publishedContribution.declarationOrContractRef !==
+    contributionMatch.kind !== "one" ||
+    contributionMatch.value.kind !== row.kind ||
+    contributionMatch.value.declarationOrContractRef !==
       row.declarationOrContractRef ||
-    publishedContribution.owningProductId !== row.owningProductId ||
-    publishedContribution.programMembershipRefs.join("\0") !==
+    contributionMatch.value.owningProductId !== row.owningProductId ||
+    contributionMatch.value.programMembershipRefs.join("\0") !==
       row.programMembershipRefs.join("\0")
   ) {
     return catalogApplicationRefusal(
@@ -694,9 +714,17 @@ export function constructCatalogApplicationCandidate(
         : "overlay application requires only its exact published Program composition",
     );
   }
-  const validatingLockRow = lock.rows.find(
+  const validatingLockRowMatch = resolveExactMatch(
+    lock.rows,
     (candidate) => candidate.installId === loaded.install.installId,
-  )!;
+  );
+  if (validatingLockRowMatch.kind !== "one") {
+    return catalogApplicationRefusal(
+      "invalid_application_binding",
+      "catalog application requires one exact validating Product lock row",
+    );
+  }
+  const validatingLockRow = validatingLockRowMatch.value;
   const contributorKind =
     productContributorAttestation === null &&
       basis.contributorRef === workspaceBinding.authorizedActorRef

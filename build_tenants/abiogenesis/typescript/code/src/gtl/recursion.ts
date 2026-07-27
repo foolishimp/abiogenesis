@@ -11,7 +11,14 @@ import type {
   RuleDeclaration,
 } from "./contracts.js";
 import { C, cCarrier } from "./c_algebra.js";
-import { evaluatorDeclaration, ruleDeclaration } from "./declarations.js";
+import {
+  catalogContribution,
+  closureContract,
+  contractDeclaration,
+  evaluatorDeclaration,
+  implementationBinding as declareImplementationBinding,
+  ruleDeclaration,
+} from "./declarations.js";
 import { recurseApplication } from "./graph_applications.js";
 import { deepFreeze } from "../shared/immutable.js";
 
@@ -387,7 +394,7 @@ export function constructRecursionPublicationParts(
       "abg.compute_regime": "F_D",
     },
   };
-  const contracts: readonly ContractDeclaration[] = [
+  const contracts = [
     {
       contractRef: RECURSION_HELLO_IDS.inputContractRef,
       contractVersion: "5.0.0",
@@ -430,7 +437,9 @@ export function constructRecursionPublicationParts(
       contractKind: "transition",
       valueKind: "bounded_recursion_transition",
     },
-  ];
+  ].map((contract) =>
+    contractDeclaration(contract as ContractDeclaration)
+  );
   const closure = (
     closureContractRef: string,
     closureScope: ClosureContract["closureScope"],
@@ -451,8 +460,9 @@ export function constructRecursionPublicationParts(
         "projection://abiogenesis/conformance/bounded-recursion-replay@5",
       terminalKind: "completed",
     } as const;
-    return closureScope === "run"
-      ? {
+    return closureContract(
+      closureScope === "run"
+        ? {
         ...basis,
         closureScope,
         eventKindRefs: [
@@ -461,8 +471,8 @@ export function constructRecursionPublicationParts(
           "graph_call_closed",
           "run_closed",
         ],
-      }
-      : {
+        }
+        : {
         ...basis,
         closureScope,
         eventKindRefs: [
@@ -470,14 +480,15 @@ export function constructRecursionPublicationParts(
           "frame_closed",
           "graph_call_closed",
         ],
-      };
+        },
+    );
   };
   const implementationBinding = (
     bindingRef: string,
     implementationRef: string,
     namedSymbol: string,
     inputContractRef: string,
-  ): ImplementationBinding => ({
+  ): ImplementationBinding => declareImplementationBinding({
     kind: "implementation_binding",
     bindingRef,
     implementationRef,
@@ -493,7 +504,7 @@ export function constructRecursionPublicationParts(
   });
   const contribution = (
     graphFunctionRef: string,
-  ): CatalogContribution => ({
+  ): CatalogContribution => catalogContribution({
     handle: graphFunctionRef,
     kind: "graph_function",
     declarationOrContractRef: graphFunctionRef,

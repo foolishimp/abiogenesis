@@ -5,6 +5,7 @@ import * as gtl from "../gtl/index.js";
 import * as hog from "../hog/index.js";
 import * as product from "../product/index.js";
 import * as validator from "../validator/index.js";
+import { resolveExactMatch } from "../product/exact_match.js";
 import type {
   CatalogContribution,
   ClosureContract,
@@ -820,15 +821,19 @@ async function applyCatalogApplication(
     );
   }
   const handle = stringField(invocation.payload, "handle");
-  const row = viewState.view.selectedRows.find(
+  const rowMatch = resolveExactMatch(
+    viewState.view.selectedRows,
     (candidate) => candidate.handle === handle,
   );
-  if (row === undefined) {
+  if (rowMatch.kind !== "one") {
     throw new ApplicationRefusal(
       "target_mismatch",
-      "catalog.apply handle is absent from the admitted CatalogView",
+      rowMatch.kind === "absent"
+        ? "catalog.apply handle is absent from the admitted CatalogView"
+        : "catalog.apply handle is ambiguous in the admitted CatalogView",
     );
   }
+  const row = rowMatch.value;
   if (row.kind === "graph_function") {
     throw new ApplicationRefusal(
       "owner_refusal",
@@ -1144,15 +1149,19 @@ async function applyRunInvoke(
     );
   }
   const programRef = stringField(invocation.payload, "programRef");
-  const programValue = viewState.catalogState.publication.programs.find(
+  const programMatch = resolveExactMatch(
+    viewState.catalogState.publication.programs,
     (value) => value.programRef === programRef,
   );
-  if (programValue === undefined) {
+  if (programMatch.kind !== "one") {
     throw new ApplicationRefusal(
       "target_mismatch",
-      "run.invoke Program is absent from the admitted publication",
+      programMatch.kind === "absent"
+        ? "run.invoke Program is absent from the admitted publication"
+        : "run.invoke Program is ambiguous in the admitted publication",
     );
   }
+  const programValue = programMatch.value;
   const resolvedStart = invocation.variant === "start"
     ? gtl.resolveProgramStart(programValue, {
         scope: stringField(invocation.payload, "scope") as "program",
@@ -1206,13 +1215,21 @@ async function applyRunInvoke(
   const graphFunctionRef = invocation.variant === "direct"
     ? stringField(invocation.payload, "graphFunctionRef")
     : start!.graphFunctionRef;
-  const graphFunction = viewState.catalogState.publication.graphFunctions.find(
+  const graphFunctionMatch = resolveExactMatch(
+    viewState.catalogState.publication.graphFunctions,
     (value) => value.name === graphFunctionRef,
   );
-  if (graphFunction === undefined) {
-    throw new ApplicationRefusal("target_mismatch", "run.invoke target is absent from the admitted publication");
+  if (graphFunctionMatch.kind !== "one") {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      graphFunctionMatch.kind === "absent"
+        ? "run.invoke target is absent from the admitted publication"
+        : "run.invoke target is ambiguous in the admitted publication",
+    );
   }
-  const selectedRow = viewState.view.selectedRows.find(
+  const graphFunction = graphFunctionMatch.value;
+  const selectedRowMatch = resolveExactMatch(
+    viewState.view.selectedRows,
     (row) =>
       (
         row.handle === graphFunctionRef ||
@@ -1222,19 +1239,21 @@ async function applyRunInvoke(
       row.callability === "callable" &&
       row.programMembershipRefs.includes(programRef),
   );
-  const storedProgramValidation = viewState.catalogState.programValidations.find(
+  const programValidationMatch = resolveExactMatch(
+    viewState.catalogState.programValidations,
     (value) => value.programRef === programRef,
   );
   if (
-    selectedRow === undefined ||
+    selectedRowMatch.kind !== "one" ||
     !programValue.callableMembership.includes(graphFunctionRef) ||
-    storedProgramValidation === undefined
+    programValidationMatch.kind !== "one"
   ) {
     throw new ApplicationRefusal(
       "target_mismatch",
       "run.invoke target must be callable under the exact admitted CatalogView and Program validation",
     );
   }
+  const storedProgramValidation = programValidationMatch.value;
   let programValidation: validator.ProgramValidation = storedProgramValidation;
   if (reentryState !== null) {
     const publicationAdmission = rawAdmission<ModulePublication>(
@@ -1626,10 +1645,11 @@ async function applyRunInvoke(
       projectRunResult,
     );
   }
-  const closureContract = viewState.catalogState.publication.closureContracts.find(
+  const closureContractMatch = resolveExactMatch(
+    viewState.catalogState.publication.closureContracts,
     (value) => value.closureContractRef === programValue.closureContractRef,
   );
-  if (closureContract === undefined) {
+  if (closureContractMatch.kind !== "one") {
     abg.admitInvocationRefusal(
       context.store,
       invocationAdmission,
@@ -1648,6 +1668,7 @@ async function applyRunInvoke(
       projectRunResult,
     );
   }
+  const closureContract = closureContractMatch.value;
   activeRefusalStage = "execution_basis";
   const executionAdmission = abg.admitExecutionBasis(
     context.store,
@@ -2182,7 +2203,8 @@ function reopenGapAuthority(
       event.kind === "run_stopped" &&
       event.runId === state.source.sourceRunId,
   );
-  const selectedLockRow = state.resolvedProductLock.rows.find(
+  const selectedLockRowMatch = resolveExactMatch(
+    state.resolvedProductLock.rows,
     (row) => row.installId === state.install.installId,
   );
   const noActionDisposition =
@@ -2217,14 +2239,14 @@ function reopenGapAuthority(
     state.workspaceBinding.lockDigest !==
       state.resolvedProductLock.lockDigest ||
     !state.productSet.orderedInstallRefs.includes(state.install.installId) ||
-    selectedLockRow === undefined ||
-    selectedLockRow.productId !== state.install.productId ||
-    selectedLockRow.packageName !== state.install.packageName ||
-    selectedLockRow.packageVersion !== state.install.packageVersion ||
-    selectedLockRow.artifactDigest !== state.install.artifactDigest ||
-    selectedLockRow.productContentDigest !==
+    selectedLockRowMatch.kind !== "one" ||
+    selectedLockRowMatch.value.productId !== state.install.productId ||
+    selectedLockRowMatch.value.packageName !== state.install.packageName ||
+    selectedLockRowMatch.value.packageVersion !== state.install.packageVersion ||
+    selectedLockRowMatch.value.artifactDigest !== state.install.artifactDigest ||
+    selectedLockRowMatch.value.productContentDigest !==
       state.install.productContentDigest ||
-    selectedLockRow.manifestDigest !== state.install.manifestDigest ||
+    selectedLockRowMatch.value.manifestDigest !== state.install.manifestDigest ||
     rootInvocation.workspaceBindingId !== state.workspaceBinding.bindingId ||
     rootInvocation.workspaceBindingDigest !==
       state.workspaceBinding.bindingDigest ||
@@ -3393,15 +3415,16 @@ async function applyRunContinue(
       terminalMode: "close_run" | "return_to_parent",
       correlationId: string,
     ): hog.ExecuteGraphTraversalInput => {
-      const graphFunction = publication.graphFunctions.find(
+      const graphFunctionMatch = resolveExactMatch(
+        publication.graphFunctions,
         (value) => value.name === graph.graphFunctionRef,
       );
-      const graphValidation = graphFunction === undefined
+      const graphValidation = graphFunctionMatch.kind !== "one"
         ? null
         : validator.validateGraph(
             graph,
             programValidation,
-            graphFunction,
+            graphFunctionMatch.value,
             {
               invocationAdmissionRef: rootInvocation.invocationAdmissionRef,
               admittedInputRef: graph.admittedInputRef,
@@ -3410,7 +3433,7 @@ async function applyRunContinue(
             },
           );
       if (
-        graphFunction === undefined ||
+        graphFunctionMatch.kind !== "one" ||
         graphValidation === null ||
         graphValidation.kind !== "graph_validation" ||
         graphValidation.validationRef !== executionBasis.graphValidationRef ||
@@ -3426,6 +3449,7 @@ async function applyRunContinue(
           "continued run could not reproduce an admitted Graph boundary",
         );
       }
+      const graphFunction = graphFunctionMatch.value;
       return {
         store: context.store,
         executionBasis,

@@ -1,9 +1,10 @@
 # M05 Direct GTL Traversal Expansion Design
 
 **Status**: M5 base accepted at `d6da4269`; T-270 Section 12 is accepted at
-exact candidate `8865ccff`. Section 13 is the selected S05 reconciliation
-boundary. Completed tickets retain evidence but no continuing growth
-authority. Later Product outcomes remain held.
+exact candidate `8865ccff`; the replacement S05 design and realization are
+accepted at `283325aa` and `1ddc802d`. Sections 14.1 and 14.2 are the selected
+S06 boundary under T-281. Sections 14.3 through 14.7 are superseded S04
+discovery material; the replacement S04 design is parked.
 **Date**: 2026-07-22
 **Section 12 updated**: 2026-07-26
 **Historical accepted parent design**:
@@ -16,13 +17,12 @@ dependency reconciled, SHA-256
 **Accepted S03 M05 semantic subject**: SHA-256
 `b385ce64745cdb531d8002719d0a3a6f36995c6b8f2418e76eaecdaf46ef15a5`
 at candidate `8865ccff`
-**Product boundary**: `A5-F02`, `A5-F03`, `A5-F04`, `A5-F09`, `A5-F10`,
-`A5-F14`; Section 13 consumes accepted `A5-F07`, activates `A5-F08`, and
-enables later `A5-F12` and `A5-F17`
-**Scenario boundary**: completed `ABG5-S02` and accepted `ABG5-S03`; Section
-13 advances `ABG5-S05`
-**Work owner**: T-270; completed T-274, T-275, and T-276 are Section 13
-evidence
+**Product boundary**: accepted `A5-F02`, `A5-F03`, `A5-F04`, `A5-F07`,
+`A5-F08`, `A5-F09`, `A5-F10`, and `A5-F14`; Sections 14.1 and 14.2 close the
+S06 portability portion of `A5-F13` and `A5-F17`
+**Scenario boundary**: accepted `ABG5-S02`, `ABG5-S03`, and `ABG5-S05`;
+Sections 14.1 and 14.2 advance `ABG5-S06`
+**Work owner**: T-281 under T-270
 **Sequencing**: co-evolution inside the decisions fixed here; a newly exposed
 material authority or lifecycle ambiguity returns to design before promotion
 
@@ -3247,11 +3247,11 @@ fixed identities and authority boundaries. A change to Product meaning,
 runtime authority, event ownership, or public operation identity returns to
 design before promotion.
 
-S06 remains held and unselected. This S05 reconciliation adds no Product
-family, ticket, public operation, event kind, continuation, runtime, or S06
-implementation authority.
+At the S05 freeze, S06 remained held. Direct F_H acceptance at `1ddc802d`
+subsequently selected T-281/S06 without adding a Product family, public
+operation, event kind, continuation, or runtime.
 
-## 14. S06 Portability And Reflective Product Content
+## 14. S06 Native And Downstream Portability
 
 **Supersession note (2026-07-28):** Sections 14.1 and 14.2 remain the
 provisional S06 portability design. The observer/tuner material in Sections
@@ -3259,8 +3259,7 @@ provisional S06 portability design. The observer/tuner material in Sections
 `M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md` and remains design-discovery
 evidence only. It carries no independent S04 realization or closure authority.
 
-S06 closes one developer-visible portability path and realizes the reflective
-Product content required before qualification. It preserves the accepted
+S06 closes one developer-visible portability path. It preserves the accepted
 direct-GTL architecture:
 
 ```text
@@ -3272,19 +3271,45 @@ independently packed flavored Product
   -> the same invocation through a bounded Codex delegate
   -> direct HoG traversal
   -> ABG events and replay-derived result
-
-ABG replay
-  -> Product-owned observer GraphFunction
-  -> attributed diagnostic projection
-  -> Product-owned tuner GraphFunction
-  -> attributed declaration draft
-  -> tuning.transition propose -> ratify | reject
-  -> replay-visible draft disposition
 ```
 
-No host, fixture, observer, or tuner may own traversal, invoke a worker
-directly, emit an event directly, construct a continuation, or decide runtime
-closure.
+No host or fixture may own traversal, invoke a worker directly, emit an event
+directly, construct a continuation, or decide runtime closure. Observer and
+tuner design is parked under the separate S04 subject and is not part of this
+boundary.
+
+### 14.0 Bounded Prime gate
+
+The recurring mechanics exercised by S06 contract into four owner-local
+functions before portability realization. They carry no admission or domain
+authority:
+
+| Complete recurring function | Prime atom | Authority and abstract module | Output | Falsified by |
+|---|---|---|---|---|
+| Resolve one coordinate from an admitted finite family without first-match or last-write behavior. | `ResolveExactMatch(values, predicate) -> absent | one(value) | many(values)` | Product mechanical relation in `src/product`; the caller still owns the meaning and disposition of zero, one, or many. | Any `.find`, map overwrite, prefix fallback, or implicit first row can select an ambiguous catalog, Program, GraphFunction, validation, binding, or lock coordinate. |
+| Load one module only from exact installed Product bytes. | `LoadVerifiedInstalledModule(install, modulePath) -> loaded(namespace) | refused(content_mismatch | path_escape | load_failed)` | Product install boundary in `src/product`; semantics and implementation-resolution callers retain provider/descriptor validation and admission. | Either caller separately reconstructs content verification, path confinement, or dynamic import, or a loaded namespace becomes semantic authority without caller validation. |
+| Decide whether one exact Product dependency graph is acyclic. | `HasProductDependencyCycle(productIds, dependencyEdges) -> boolean` | Product environment relation in `src/product`; lock construction and lock validation consume the same predicate. | Constructor and validator can disagree about the same edge set, or a cyclic digest-valid lock passes either path. |
+| Construct repeated declaration carriers without owning their meaning. | `Contract`, `ImplementationBinding`, `ClosureContract`, `CatalogContribution`, and `ModulePublication` mechanical constructors | GTL declaration boundary in `src/gtl`; each Product still supplies every identity, contract meaning, Program topology, implementation, contribution, and complete publication. | A third GTL family rebuilds carrier mechanics locally, or a shared constructor selects Product identities, Program membership, policy, semantics, or catalog authority. |
+
+The composition is ordered:
+
+```text
+Product-owned identities and meaning
+  -> GTL mechanical declaration constructors
+  -> Product-owned complete ModulePublication
+  -> exact Product coordinate resolution
+  -> verified installed-module loading
+  -> existing validator and ABG admission
+```
+
+The constructors are identity over already-valid semantic input: constructing
+an already constructed carrier preserves its canonical value. They do not
+combine declarations, infer defaults, search URI parents, select a Product, or
+admit runtime truth. Publication assembly remains Product-owned because
+commonizing that semantic choice would erase the independent flavored Product
+boundary. Module proof directly mutates zero/one/many cardinality, dependency
+cycles, installed-content/path/load failures, closure event order, and
+nonblank declaration references.
 
 ### 14.1 Independent flavored Product
 

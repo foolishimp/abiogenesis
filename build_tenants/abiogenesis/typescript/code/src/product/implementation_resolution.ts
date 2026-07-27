@@ -1,6 +1,3 @@
-import { isAbsolute, relative, resolve } from "node:path";
-import { pathToFileURL } from "node:url";
-
 import type { ComputeRegime, ModulePublication } from "../gtl/contracts.js";
 import {
   isGraphValidation,
@@ -16,7 +13,9 @@ import { catalogViewContentDigest, type CatalogView } from "./catalog.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { ProductInstall } from "./environment.js";
+import { resolveExactMatch } from "./exact_match.js";
 import { installedProductContentMatches } from "./install_product.js";
+import { loadVerifiedInstalledModule } from "./installed_module.js";
 
 export interface PackagedLeafImplementationDescriptor {
   readonly kind: "packaged_leaf_implementation_descriptor";
@@ -151,8 +150,7 @@ export async function loadInstalledImplementationDescriptors(
       (binding) =>
         binding.packageName !== install.packageName ||
         binding.packageVersion !== install.packageVersion,
-    ) ||
-    !(await installedProductContentMatches(install))
+    )
   ) {
     return setRefusal(
       "implementation_absent",
@@ -161,30 +159,36 @@ export async function loadInstalledImplementationDescriptors(
     );
   }
   const descriptors: PackagedLeafImplementationDescriptor[] = [];
-  for (const modulePath of new Set(
+  const modulePaths = [...new Set(
     publication.implementationBindings.map((binding) => binding.modulePath),
-  )) {
-    const exactPath = resolve(install.installedRoot, modulePath);
-    const relation = relative(install.installedRoot, exactPath);
-    if (relation.length === 0 || relation.startsWith("..") || isAbsolute(relation)) {
+  )];
+  if (
+    modulePaths.length === 0 &&
+    !(await installedProductContentMatches(install))
+  ) {
+    return setRefusal(
+      "implementation_absent",
+      null,
+      "published implementation bindings are not carried by the exact admitted Product install",
+    );
+  }
+  for (const modulePath of modulePaths) {
+    const moduleResult = await loadVerifiedInstalledModule(install, modulePath);
+    if (moduleResult.kind === "refused") {
       return setRefusal(
         "implementation_absent",
         null,
-        "published implementation module escapes the admitted Product install",
-      );
-    }
-    let loaded: Record<string, unknown>;
-    try {
-      loaded = await import(pathToFileURL(exactPath).href) as Record<string, unknown>;
-    } catch {
-      return setRefusal(
-        "implementation_absent",
-        null,
-        "published implementation module cannot be loaded from the admitted Product install",
+        moduleResult.code === "path_escape"
+          ? "published implementation module escapes the admitted Product install"
+          : moduleResult.code === "content_mismatch"
+          ? "published implementation module differs from the admitted Product install"
+          : "published implementation module cannot be loaded from the admitted Product install",
       );
     }
     descriptors.push(
-      ...Object.values(loaded).filter(isPackagedLeafImplementationDescriptor),
+      ...Object.values(moduleResult.module).filter(
+        isPackagedLeafImplementationDescriptor,
+      ),
     );
   }
   return Object.freeze(descriptors);
@@ -270,7 +274,8 @@ function resolveValidatedLeaf(
   declaration: ValidatedExecutableLeaf,
   packagedImplementations: readonly Readonly<PackagedLeafImplementationDescriptor>[],
 ): LeafImplementationResolutionCandidate | ImplementationResolutionSetRefusal {
-  const selectedRow = catalogView.selectedRows.find(
+  const selectedRowMatch = resolveExactMatch(
+    catalogView.selectedRows,
     (row) =>
       (
         row.handle === declaration.graphFunctionRef ||
@@ -278,16 +283,22 @@ function resolveValidatedLeaf(
       ) &&
       row.programMembershipRefs.includes(programValidation.programRef),
   );
-  const graphFunction = publication.graphFunctions.find(
+  const graphFunctionMatch = resolveExactMatch(
+    publication.graphFunctions,
     (value) => value.name === declaration.graphFunctionRef,
   );
   if (
-    selectedRow?.kind !== "graph_function" ||
-    selectedRow.disposition !== "admitted" ||
-    selectedRow.declarationOrContractRef !== declaration.graphFunctionRef ||
-    !selectedRow.programMembershipRefs.includes(programValidation.programRef) ||
-    graphFunction === undefined ||
-    sha256Canonical(graphFunction as unknown as JsonValue) !== declaration.graphFunctionDigest
+    selectedRowMatch.kind !== "one" ||
+    graphFunctionMatch.kind !== "one" ||
+    selectedRowMatch.value.kind !== "graph_function" ||
+    selectedRowMatch.value.disposition !== "admitted" ||
+    selectedRowMatch.value.declarationOrContractRef !==
+      declaration.graphFunctionRef ||
+    !selectedRowMatch.value.programMembershipRefs.includes(
+      programValidation.programRef,
+    ) ||
+    sha256Canonical(graphFunctionMatch.value as unknown as JsonValue) !==
+      declaration.graphFunctionDigest
   ) {
     return setRefusal(
       "selection_mismatch",
@@ -492,10 +503,14 @@ export function resolveImplementation(
   ) {
     return refusal("invalid_program_validation", "implementation resolution requires exact ProgramValidation");
   }
-  const graphFunction = publication.graphFunctions.find((value) => value.name === graphFunctionRef);
+  const graphFunctionMatch = resolveExactMatch(
+    publication.graphFunctions,
+    (value) => value.name === graphFunctionRef,
+  );
   if (
-    graphFunction === undefined ||
-    graphValidation.graphFunctionDigest !== sha256Canonical(graphFunction as unknown as JsonValue)
+    graphFunctionMatch.kind !== "one" ||
+    graphValidation.graphFunctionDigest !==
+      sha256Canonical(graphFunctionMatch.value as unknown as JsonValue)
   ) {
     return refusal("invalid_program_validation", "GraphValidation does not bind the exact GraphFunction");
   }
@@ -511,16 +526,17 @@ export function resolveImplementation(
       set.message,
     );
   }
-  const matches = set.rows.filter(
+  const match = resolveExactMatch(
+    set.rows,
     (row) => row.graphFunctionRef === graphFunctionRef && row.nodeRef === nodeRef,
   );
-  if (matches.length === 0) {
+  if (match.kind === "absent") {
     return refusal("implementation_absent", "declared graph node has no executable resolution row");
   }
-  if (matches.length !== 1) {
+  if (match.kind === "many") {
     return refusal("ambiguous_implementation", "declared graph node has more than one executable resolution row");
   }
-  const leaf = matches[0]!;
+  const leaf = match.value;
   const body = {
     catalogViewId: leaf.catalogViewId,
     catalogViewDigest: leaf.catalogViewDigest,

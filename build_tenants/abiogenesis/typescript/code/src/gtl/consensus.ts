@@ -29,7 +29,12 @@ import {
   graphEdge,
   recurseApplication,
 } from "./graph_applications.js";
-import { evaluatorDeclaration, ruleDeclaration } from "./declarations.js";
+import {
+  evaluatorDeclaration,
+  modulePublication,
+  productSemanticsBinding,
+  ruleDeclaration,
+} from "./declarations.js";
 import {
   CONSENSUS_CLASSIFICATION_VALUES,
   CONSENSUS_FH_DECISION_VALUES,
@@ -5131,7 +5136,7 @@ export function constructConsensusModulePublication(
       [CONSENSUS_IDS.oneSurfaceProgramRef],
     ),
   );
-  return deepFreeze({
+  return modulePublication({
     kind: "module_publication" as const,
     moduleRef: CONSENSUS_IDS.moduleRef,
     moduleVersion: "5.0.0" as const,
@@ -5142,14 +5147,14 @@ export function constructConsensusModulePublication(
     descriptorRef: "descriptor://abg/consensus/module@5",
     contributionManifestRef:
       "contribution-manifest://abg/consensus/module@5",
-    productSemanticsBinding: {
+    productSemanticsBinding: productSemanticsBinding({
       kind: "product_semantics_binding" as const,
       bindingRef: CONSENSUS_IDS.productSemanticsBindingRef,
       packageName: artifact.packageName,
       packageVersion: artifact.packageVersion,
       modulePath: "build/code/src/product/builtin_semantics.js",
       namedSymbol: "ABI5_SYSTEM_PRODUCT_SEMANTICS",
-    },
+    }),
     contracts,
     evaluators: [
       evaluatorDeclaration({

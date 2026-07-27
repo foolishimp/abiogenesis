@@ -78,7 +78,13 @@ export {
   type RecursionPublicationParts,
 } from "./recursion.js";
 export {
+  catalogContribution,
+  closureContract,
+  contractDeclaration,
   evaluatorDeclaration,
+  implementationBinding,
+  modulePublication,
+  productSemanticsBinding,
   ruleDeclaration,
 } from "./declarations.js";
 export {

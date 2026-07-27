@@ -18,7 +18,12 @@ import {
   composeGraphFunctions,
   substituteGraphFunction,
 } from "./graph_construction.js";
-import { evaluatorDeclaration, ruleDeclaration } from "./declarations.js";
+import {
+  evaluatorDeclaration,
+  modulePublication,
+  productSemanticsBinding,
+  ruleDeclaration,
+} from "./declarations.js";
 import { gateApplication } from "./graph_applications.js";
 import {
   constructFanOutPublicationParts,
@@ -2043,14 +2048,14 @@ export function constructHelloWorldModulePublication(
     productManifestDigest: artifact.productManifestDigest,
     descriptorRef: `descriptor://abiogenesis/typescript-tenant/${artifact.productContentDigest.slice("sha256:".length)}`,
     contributionManifestRef: `contribution-manifest://abiogenesis/conformance/${artifact.productContentDigest.slice("sha256:".length)}`,
-    productSemanticsBinding: {
+    productSemanticsBinding: productSemanticsBinding({
       kind: "product_semantics_binding" as const,
       bindingRef: "product-semantics://abiogenesis/conformance@5",
       packageName: artifact.packageName,
       packageVersion: artifact.packageVersion,
       modulePath: "build/code/src/product/builtin_semantics.js",
       namedSymbol: "ABI5_PRODUCT_SEMANTICS",
-    },
+    }),
     contracts,
     evaluators: [gateEvaluator, ...recursion.evaluators],
     rules: [gateRule, ...recursion.rules],
@@ -2134,5 +2139,5 @@ export function constructHelloWorldModulePublication(
       ...fanOut.contributions,
     ],
   };
-  return deepFreeze(publicationBody) as Readonly<ModulePublication>;
+  return modulePublication(publicationBody);
 }

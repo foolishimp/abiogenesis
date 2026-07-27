@@ -21,6 +21,12 @@ import type {
   RootModuleArtifactBasis,
 } from "./contracts.js";
 import {
+  catalogContribution,
+  closureContract,
+  contractDeclaration,
+  implementationBinding,
+} from "./declarations.js";
+import {
   fanInApplication,
   fanOutApplication,
 } from "./graph_applications.js";
@@ -540,12 +546,14 @@ export function constructFanOutPublicationParts(
       "transition",
       "fan_out_hello_transition",
     ],
-  ].map(([contractRef, contractKind, valueKind]) => ({
-    contractRef,
-    contractVersion: "5.0.0",
-    contractKind,
-    valueKind,
-  } as ContractDeclaration));
+  ].map(([contractRef, contractKind, valueKind]) =>
+    contractDeclaration({
+      contractRef,
+      contractVersion: "5.0.0",
+      contractKind,
+      valueKind,
+    } as ContractDeclaration)
+  );
   const closure = (
     closureContractRef: string,
     closureScope: ClosureContract["closureScope"],
@@ -567,8 +575,9 @@ export function constructFanOutPublicationParts(
         "projection://abiogenesis/conformance/fan-out-hello-replay@5",
       terminalKind: "completed",
     } as const;
-    return closureScope === "run"
-      ? {
+    return closureContract(
+      closureScope === "run"
+        ? {
         ...common,
         closureScope,
         eventKindRefs: [
@@ -577,8 +586,8 @@ export function constructFanOutPublicationParts(
           "graph_call_closed",
           "run_closed",
         ],
-      }
-      : {
+        }
+        : {
         ...common,
         closureScope,
         eventKindRefs: [
@@ -586,7 +595,8 @@ export function constructFanOutPublicationParts(
           "frame_closed",
           "graph_call_closed",
         ],
-      };
+        },
+    );
   };
   const binding = (
     bindingRef: string,
@@ -594,7 +604,7 @@ export function constructFanOutPublicationParts(
     namedSymbol: string,
     inputContractRef: string,
     outputContractRef: string,
-  ): ImplementationBinding => ({
+  ): ImplementationBinding => implementationBinding({
     kind: "implementation_binding",
     bindingRef,
     implementationRef,
@@ -608,7 +618,8 @@ export function constructFanOutPublicationParts(
     failureContractRef: FAN_OUT_HELLO_IDS.failureContractRef,
     refusalContractRef: FAN_OUT_HELLO_IDS.refusalContractRef,
   });
-  const contribution = (graphFunctionRef: string): CatalogContribution => ({
+  const contribution = (graphFunctionRef: string): CatalogContribution =>
+    catalogContribution({
     handle: graphFunctionRef,
     kind: "graph_function",
     declarationOrContractRef: graphFunctionRef,
@@ -616,7 +627,7 @@ export function constructFanOutPublicationParts(
     programMembershipRefs: [FAN_OUT_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
-  });
+    });
   return deepFreeze({
     contracts,
     implementationBindings: [

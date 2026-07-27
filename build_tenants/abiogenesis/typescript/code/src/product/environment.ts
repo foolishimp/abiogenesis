@@ -157,6 +157,33 @@ function lockRowsFor(installs: readonly ProductInstall[]): readonly ResolvedProd
   }));
 }
 
+function hasProductDependencyCycle(
+  productIds: ReadonlySet<string>,
+  dependencyEdges: readonly Readonly<{
+    fromProductId: string;
+    toProductId: string;
+  }>[],
+): boolean {
+  const outgoing = new Map<string, string[]>();
+  for (const edge of dependencyEdges) {
+    const targets = outgoing.get(edge.fromProductId) ?? [];
+    targets.push(edge.toProductId);
+    outgoing.set(edge.fromProductId, targets);
+  }
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+  const visit = (productId: string): boolean => {
+    if (visiting.has(productId)) return true;
+    if (visited.has(productId)) return false;
+    visiting.add(productId);
+    if ((outgoing.get(productId) ?? []).some(visit)) return true;
+    visiting.delete(productId);
+    visited.add(productId);
+    return false;
+  };
+  return [...productIds].some(visit);
+}
+
 export function constructResolvedProductLock(
   installs: readonly ProductInstall[],
   dependencyEdges: readonly ProductDependencyEdge[] = [],
@@ -191,24 +218,7 @@ export function constructResolvedProductLock(
       "dependency edges must be unique, non-reflexive, and bind Products in the exact lock",
     );
   }
-  const outgoing = new Map<string, string[]>();
-  for (const edge of dependencyEdges) {
-    const targets = outgoing.get(edge.fromProductId) ?? [];
-    targets.push(edge.toProductId);
-    outgoing.set(edge.fromProductId, targets);
-  }
-  const visiting = new Set<string>();
-  const visited = new Set<string>();
-  const hasCycle = (productId: string): boolean => {
-    if (visiting.has(productId)) return true;
-    if (visited.has(productId)) return false;
-    visiting.add(productId);
-    if ((outgoing.get(productId) ?? []).some(hasCycle)) return true;
-    visiting.delete(productId);
-    visited.add(productId);
-    return false;
-  };
-  if ([...productIds].some(hasCycle)) {
+  if (hasProductDependencyCycle(productIds, dependencyEdges)) {
     return refusal("invalid_dependency", "resolved Product dependencies must be acyclic");
   }
   const orderedEdges = [...dependencyEdges].sort((left, right) => {
@@ -314,25 +324,14 @@ export function isResolvedProductLock(
   ) {
     return false;
   }
-  const outgoing = new Map<string, string[]>();
-  for (const edge of edges) {
-    const fromProductId = edge.fromProductId as string;
-    const targets = outgoing.get(fromProductId) ?? [];
-    targets.push(edge.toProductId as string);
-    outgoing.set(fromProductId, targets);
-  }
-  const visiting = new Set<string>();
-  const visited = new Set<string>();
-  const hasCycle = (productId: string): boolean => {
-    if (visiting.has(productId)) return true;
-    if (visited.has(productId)) return false;
-    visiting.add(productId);
-    if ((outgoing.get(productId) ?? []).some(hasCycle)) return true;
-    visiting.delete(productId);
-    visited.add(productId);
+  if (
+    hasProductDependencyCycle(
+      productIdSet,
+      edges as readonly ProductDependencyEdge[],
+    )
+  ) {
     return false;
-  };
-  if ([...productIdSet].some(hasCycle)) return false;
+  }
   const expectedDigest = sha256Canonical({
     rows,
     dependencyEdges: edges,

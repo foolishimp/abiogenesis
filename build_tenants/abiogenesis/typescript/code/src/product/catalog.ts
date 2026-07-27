@@ -14,6 +14,7 @@ import type {
   ResolvedProductLock,
   WorkspaceBinding,
 } from "./environment.js";
+import { resolveExactMatch } from "./exact_match.js";
 
 export type CatalogRowDispositionKind =
   | "admitted"
@@ -252,18 +253,26 @@ export function constructCatalogAdmissionCandidate(
   ) {
     return refusal("binding_lock_mismatch", "workspace binding and resolved lock disagree");
   }
-  const productLockRow = lock.rows.find((row) => row.productId === publication.owningProductId);
+  const productLockRowMatch = resolveExactMatch(
+    lock.rows,
+    (row) => row.productId === publication.owningProductId,
+  );
   if (
-    productLockRow === undefined ||
-    productLockRow.artifactDigest !== publication.artifactDigest ||
-    productLockRow.productContentDigest !== publication.productContentDigest ||
-    productLockRow.manifestDigest !== publication.productManifestDigest
+    productLockRowMatch.kind !== "one" ||
+    productLockRowMatch.value.artifactDigest !== publication.artifactDigest ||
+    productLockRowMatch.value.productContentDigest !==
+      publication.productContentDigest ||
+    productLockRowMatch.value.manifestDigest !==
+      publication.productManifestDigest
   ) {
     return refusal("publication_not_bound", "module publication is not carried by the exact bound Product lock");
   }
   const publicationDigest = sha256Canonical(publication as unknown as JsonValue);
-  const validationByProgram = new Map(
-    programValidations.map((validation) => [validation.programRef, validation]),
+  const validationMatches = publication.programs.map((program) =>
+    resolveExactMatch(
+      programValidations,
+      (validation) => validation.programRef === program.programRef,
+    )
   );
   if (
     !isPublicationValidation(publicationValidation) ||
@@ -273,10 +282,11 @@ export function constructCatalogAdmissionCandidate(
     publicationValidation.publicationDigest !== publicationDigest ||
     publicationValidation.moduleRef !== publication.moduleRef ||
     publication.programs.length !== programValidations.length ||
-    publication.programs.some((program) => {
-      const validation = validationByProgram.get(program.programRef);
-      return validation === undefined || validation.publicationDigest !== publicationDigest;
-    })
+    validationMatches.some(
+      (match) =>
+        match.kind !== "one" ||
+        match.value.publicationDigest !== publicationDigest,
+    )
   ) {
     return refusal("invalid_validation_basis", "catalog candidate requires exact publication and Program validations");
   }
@@ -330,12 +340,28 @@ export function constructCatalogViewCandidate(
   if (new Set(allowlist).size !== allowlist.length) {
     return refusal("duplicate_allowlist_entry", "catalog allowlist cannot contain duplicate handles");
   }
-  const rowsByHandle = new Map(catalog.rows.map((row) => [row.handle, row]));
-  const unknown = allowlist.filter((handle) => !rowsByHandle.has(handle));
-  if (unknown.length !== 0) {
-    return refusal("unknown_allowlist_entry", `unknown catalog allowlist handle ${unknown[0]}`);
+  const rowMatches = allowlist.map((handle) => ({
+    handle,
+    match: resolveExactMatch(
+      catalog.rows,
+      (row) => row.handle === handle,
+    ),
+  }));
+  const unresolved = rowMatches.find(({ match }) => match.kind !== "one");
+  if (unresolved !== undefined) {
+    return refusal(
+      "unknown_allowlist_entry",
+      unresolved.match.kind === "absent"
+        ? `unknown catalog allowlist handle ${unresolved.handle}`
+        : `ambiguous catalog allowlist handle ${unresolved.handle}`,
+    );
   }
-  const selectedRows = allowlist.map((handle) => rowsByHandle.get(handle)!);
+  const selectedRows = rowMatches.map(({ match }) => {
+    if (match.kind !== "one") {
+      throw new TypeError("catalog allowlist resolution changed during construction");
+    }
+    return match.value;
+  });
   const body = {
     catalogId: catalog.catalogId,
     catalogDigest: catalog.catalogDigest,
