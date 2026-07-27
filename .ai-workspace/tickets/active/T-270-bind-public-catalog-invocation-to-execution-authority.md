@@ -42,7 +42,7 @@
 - accepted_s03_evidence: .ai-workspace/comments/codex/20260725T200436Z_CHECKPOINT_t270_s03_product_sealed_semantics_exact_candidate.md
 - accepted_s03_review: .ai-workspace/comments/codex/20260725T211207Z_REVIEW_t270_s03_product_sealed_exact_candidate.md
 - accepted_s03_decision: .ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md
-- current_s05_basis_commit: c33ba46c4b9fdc49aca179fd3f111eb4357b1ce5
+- current_s05_basis_commit: 17c6444a39a4542f4bf7015d222ec0c383f4e2a8
 - superseded_s05_candidate: c4a0f42dd55a9dec963e514579fbfa81ea286786
 - superseded_s05_candidate_tree: 6046a66a04de125b4639a32d022b87f9b64fac04
 - superseded_s05_evidence: .ai-workspace/comments/codex/20260725T234029Z_CHECKPOINT_t270_s05_ordinary_path_consensus_exact_candidate.md
@@ -80,13 +80,16 @@
 - superseded_s05_catalog_application_candidate: 8fde581d97dff06439c7de358e531f4f0d1525d9
 - superseded_s05_catalog_application_candidate_tree: 2c9887db1b395501d78e7037dd89fb452f7cbf1d
 - superseded_s05_catalog_application_candidate_evidence: .ai-workspace/comments/codex/20260727T054308Z_HANDOFF_t270_s05_policy_catalog_schema_repair_candidate.md
-- current_s05_candidate: c33ba46c4b9fdc49aca179fd3f111eb4357b1ce5
-- current_s05_candidate_tree: 8206b6846421725d2d6692b7b46d7d6c4f940e82
-- current_s05_candidate_package_digest: 84535a40bf2514e6d4aae3e0ef5fb9836325bcddc5664e26f0bf6aed7bc3f84b
-- current_s05_candidate_package_inventory_digest: 21d1ce1296d745e1446579312d58003c07f1c8997c297118fc86e0df1b8eb86e
-- current_s05_candidate_product_content_digest: 8d9c582c9bf5a938e8378654b526b59ad3c5ccbb5cb5b1b27430bb90567f9fac
-- current_s05_candidate_manifest_digest: fc43e1e5609394cf257d186f1f88afce40038f3b3a759cf7564bc4d597f22011
-- current_s05_candidate_evidence: .ai-workspace/comments/codex/20260727T074428Z_HANDOFF_t270_s05_catalog_application_authority_candidate.md
+- superseded_s05_catalog_authority_candidate: c33ba46c4b9fdc49aca179fd3f111eb4357b1ce5
+- superseded_s05_catalog_authority_candidate_tree: 8206b6846421725d2d6692b7b46d7d6c4f940e82
+- superseded_s05_catalog_authority_candidate_evidence: .ai-workspace/comments/codex/20260727T074428Z_HANDOFF_t270_s05_catalog_application_authority_candidate.md
+- current_s05_candidate: 17c6444a39a4542f4bf7015d222ec0c383f4e2a8
+- current_s05_candidate_tree: b060bdee43f6882c7e4c832d1fbd4c727808accf
+- current_s05_candidate_package_digest: 9da45164e48c9c3f6117adfc59c58897c1718f7e9e9e75fc41df20093bf97586
+- current_s05_candidate_package_inventory_digest: f52aa10489ca0b3cf8f29babb3dc60bd3953439657df0f525e77b3a0dcd781a1
+- current_s05_candidate_product_content_digest: 99bf66422bd2eeda45f7582bfb18c33a39445d04ae00ddd869bcc4d5e6b8c407
+- current_s05_candidate_manifest_digest: 5d88bcc57f4d01af2435ab4406abcfeab47fdd6fa6c172a0d95d5672142cf063
+- current_s05_candidate_evidence: .ai-workspace/comments/codex/20260727T103744Z_HANDOFF_t270_s05_catalog_scope_timeout_candidate.md
 - superseded_s05_design_subject_aggregate: 6a809f94d011962d9888cfa8fa2f59dfd63c1163404db851d9c2eb6880ca2be1
 - superseded_s05_design_handoff: .ai-workspace/comments/codex/20260726T165744Z_HANDOFF_t270_s05_global_to_local_design_review.md
 - current_s05_design_subject:
@@ -110,9 +113,9 @@
   - build_tenants/abiogenesis/typescript/design/adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md
 - current_s05_design_m04_digest: 9c689f8033dc5fe1fb2767d4b20f97445efb93eafd0c38807477dd53d0d845c2
 - current_s05_design_m05_digest: 2f67fd2a29e59a22a33693096ce296aed885dce0752bcb95a76ec533c2071aeb
-- current_s05_design_amendment_s05_digest: e0a4a9e47a3e60dc0026581d711e0a148d39b9f40ee042227b04508ae0843008
-- current_s05_design_adr046_digest: 1d6f918ab41516893d2265a7083e96aad99dc8d8d7ea0b0f25828b252c8571f9
-- current_s05_design_amendment_aggregate: 5f4f3c4547b61031e5e76cf86671aac9de2b341ec7fdbc7585516a1534fa195b
+- current_s05_design_amendment_s05_digest: ee57d2b20bf9cbd382a8a804f1e84b553d8744da28fb6173d47f6d4e779f9387
+- current_s05_design_adr046_digest: b5ed970eee8deb1e60673c1c338cb88d9a2d3d117f553dcd35eff705e2c0ca15
+- current_s05_design_amendment_aggregate: 015a158a8a636502e76b88fe87866633757deca597832e1010099ba371e13c2d
 - current_s05_design_amendment_status: pending_exact_candidate_review
 - latest_s05_reviewed_candidate: 48103ed936aa9326d546f4dcd667b16a5c803f9c
 - latest_s05_review: .ai-workspace/comments/codex/20260726T081217Z_REVIEW_t270_s05_provenance_repaired_exact_candidate.md
@@ -254,6 +257,12 @@ S05 closes only when:
 - `npm run test:m4` passes serially;
 - two clean package builds have identical archive bytes, inventory, and
   digest;
+- each catalog-application candidate is bound to one exact originating ABG
+  operation context, is consumable once, and refuses cross-store,
+  repeated, or post-close admission;
+- contributor attribution is derived from the exact authorized workspace
+  actor or an exact installed-Product attestation rather than from an
+  unverified caller label;
 - agreement, recursive dispute, and unresolved F_H escalation agree with
   replay in all three workspace applications;
 - exact ticket bytes and resolved profile instructions reach every attributed
@@ -271,6 +280,8 @@ S05 closes only when:
 - a valid reviewer candidate observed before timeout or non-zero process exit
   remains admissible while the exact failed process evidence remains
   replay-visible;
+- output emitted only after timeout signaling remains diagnostic process output
+  and cannot become an admitted reviewer or submitter semantic result;
 - transport failure without a valid preserved candidate and no-output failures
   remain ordinary failed/stopped ABG truth;
 - schema and vocabulary identities resolve to generated digest-bound
@@ -293,6 +304,9 @@ S05 remains open if:
 - host-language orchestration owns panel selection, rounds, reduction,
   recursion, escalation, or closure;
 - Product candidates become ABG truth without ordinary admission;
+- a catalog-application candidate can cross stores, be consumed more than
+  once, survive origin closure, or attribute a Product contribution without
+  exact Product attestation;
 - agreement, dissent, or `contract_failure` can enter the F_H support Program;
 - a successor reviewer round can be constructed, bound, opened, or executed
   before the exact attributed submitter response is Product-valid and
