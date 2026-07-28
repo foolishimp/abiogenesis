@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 native-contract design pending independent acceptance with realization held; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 native-contract design `b645595c` pending independent acceptance with realization held; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -57,7 +57,7 @@ feature-specific runtime is not a lawful substitute.
 ## Current Work
 
 S06 implementation candidate `4f9bf707` is returned evidence. The active
-subject is the bounded Design Module Method re-entry in
+subject is frozen design candidate `b645595c`, tree `130af566`, in
 `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`: exact packed declaration roots,
 complete native inventories, owner-relative direct dependency linkage, final
 compiler-visible exports, and one native-closure digest in the existing

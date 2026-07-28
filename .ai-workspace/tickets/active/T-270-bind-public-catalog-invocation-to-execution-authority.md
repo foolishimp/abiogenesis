@@ -5,7 +5,7 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_native_contract_design_gate_under_t281
+- phase_status: m5_s06_native_contract_design_candidate_frozen_under_t281
 - review_status: s03_s05_accepted_s06_design_review_pending
 - proof_status: s06_design_candidate_mechanical_green_pandoc_7_mermaid_3_diff_check
 - goal: GOAL-035 M5
@@ -45,9 +45,15 @@
 - current_s06_owner: T-281
 - returned_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
 - current_s06_candidate: none_design_gate_active
+- current_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
+- current_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
+- current_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
 - current_s06_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
+- current_s06_design_handoff: >-
+    .ai-workspace/comments/codex/
+    20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - accepted_s03_candidate: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s05_candidate: 1ddc802d3003a3d0782398f7ec7c74cfa81ab127
 - selected_method_release: STDO v2.2.0

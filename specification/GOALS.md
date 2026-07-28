@@ -57,9 +57,10 @@ selection, ordered successor outcomes, and their acceptance conditions.
   closure, external symbol authority, and module placement for code to choose.
 - S06 is design-gated at
   `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. That bounded candidate Ontology
-  and design must be independently accepted before retained realization
-  resumes. The current uncommitted implementation is constructability evidence
-  only and carries no design authority.
+  and design are frozen at candidate `b645595c`, tree `130af566`, for
+  independent review and must be accepted before retained realization resumes.
+  The current uncommitted implementation is constructability evidence only and
+  carries no design authority.
 - Exact candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b`
   is the accepted S03 base.
 - T-270 remains the M5 parent owner. Existing subordinate tickets retain their
@@ -107,8 +108,9 @@ The one selected unresolved outcome is held at independent design review:
 
 T-281 owns this outcome under T-270. The S06 shell adds no Product semantics,
 runtime capability, catalog, controller, or execution path. There is currently
-no implementation candidate. The exact next review subject is the bounded
-native-contract design candidate; implementation remains held.
+no implementation candidate. The exact review subject is native-contract
+design candidate `b645595c16d23e98c7f65b958fcdf3e206ad3893`, tree
+`130af56655ec46ec26ff66dd6a4f2bbe99d8bed8`; implementation remains held.
 
 Acceptance requires:
 
@@ -153,7 +155,7 @@ release authority and do not participate in S06 closure.
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
-| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Native-contract design candidate pending independent acceptance; implementation held |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Design candidate `b645595c` frozen for independent acceptance; implementation held |
 | `4` | `T-270` | Freeze one M5 candidate | All selected pre-qualification 5.0 Product behavior and all 16 selected feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 |
 | `5` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
 | `6` | `T-248` | Release ABIogenesis 5.0.0 | Immutable RC, installed-RC qualification, governed final delta, stable tap, and fresh post-publication install preserve distinct exact subjects. | Blocked by M6 |
