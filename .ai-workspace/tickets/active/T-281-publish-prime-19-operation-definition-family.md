@@ -1,26 +1,28 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-28):** Replacement S06 candidate `4f9bf707`,
-> tree `21ffbdaa`, is frozen for independent exact-cut review. The bounded
-> direct-dependency, TypeScript export-resolution, and schema-pointer repair is
-> complete as a candidate claim. Do not edit, extend, or refreeze it; S04 and
-> later work remain held.
+> **Current disposition (2026-07-29):** S06 implementation candidate
+> `4f9bf707` is returned evidence, not a closure candidate. Native declaration
+> closure exposed a material design ambiguity. Realization is held while
+> `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md` completes Design Module Method
+> review. S04 and later work remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_candidate_frozen
-- review_status: pending_independent_exact_cut_review
-- proof_status: mechanical_green_m5_176_m4_26_external_36_prime_6_portability_13
+- phase_status: m5_s06_native_contract_design_gate
+- review_status: pending_independent_design_review
+- proof_status: candidate_design_mechanical_green_pandoc_7_mermaid_3_diff_check
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
-- implementation_hold: exact_s06_review_handoff
+- implementation_hold: native_contract_design_acceptance
 - implementation_hold_effect: >-
-    prohibit further realization after the replacement S06 candidate freeze;
-    permit only mechanical evidence, independent review, and direct disposition
+    prohibit retained realization until the bounded native-contract Ontology,
+    Prime contraction, IACS, module mapping, three views, and design verdict are
+    independently accepted; permit only design authoring, mechanical design
+    checks, one exact design handoff, independent review, and direct disposition
     while M5 freeze, M6 qualification, M7 release, planned 5.1 observer/tuner
     work, alternate functionality, and broad refactoring remain held
 - delivery_phase: M5_after_accepted_s03_and_s05
@@ -29,13 +31,14 @@
     native CLI, bounded Codex process shell, and one independently flavored
     downstream Product without copied runtime or core Product-specific
     behavior.
-- change_class: requirement_reprice
+- change_class: design_reframe
 - re_entry_point: >-
-    specification/requirements/product/REQ-P-SCENARIOS.md
-    REQ-P-SCENARIOS-009 and REQ-P-SCENARIOS-013
+    build_tenants/abiogenesis/typescript/design/
+    M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md native declaration
+    closure and M05 Section 14 Product verification/resolution boundary
 - triaged_at: 2026-07-24
 - created_at: 2026-07-16
-- updated_at: 2026-07-28
+- updated_at: 2026-07-29
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-278
@@ -46,13 +49,12 @@
     build_tenants/abiogenesis/typescript/code/src/public
 - accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
 - accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
-- current_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
-- current_s06_candidate_tree: 21ffbdaa5dfa52886a3cb29c6f2311f2d25012cc
-- current_s06_package_digest: 2005527064d3ed250acb07a41c5f241bd47675488c8f2609214c2127552bc1ca
-- current_s06_package_inventory_digest: a4ed5c359a678d504e32a201259a3c06bde9255fd3909a440ab24ee25353caa5
-- current_s06_handoff: >-
-    .ai-workspace/comments/codex/
-    20260728T130324Z_HANDOFF_t281_s06_direct_dependency_typescript_candidate.md
+- returned_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
+- returned_s06_candidate_tree: 21ffbdaa5dfa52886a3cb29c6f2311f2d25012cc
+- current_s06_candidate: none_design_gate_active
+- current_s06_design_subject: >-
+    build_tenants/abiogenesis/typescript/design/
+    M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
 
 ## Selected Outcome
 
@@ -102,6 +104,29 @@ The accepted S06 design contracts four recurrence families:
 The independently flavored Product must consume the shared GTL constructors.
 It may not rebuild a third local declaration family. This gate does not
 authorize repository-wide cleanup or changes to ABG/HoG authority.
+
+## Native Contract Design Gate
+
+`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md` is the sole candidate design delta
+for the returned native-contract boundary. Before code resumes it must
+establish:
+
+- package export roots from exact packed `types` exports;
+- complete local declaration inventory and native digest;
+- private local evidence for unresolved external occurrences;
+- one owner-indexed linked TypeScript declaration program at
+  `product.resolve`;
+- direct required-contract and imported-symbol authority without transitive or
+  ambient leakage;
+- one canonical native-closure digest inside the existing resolved-lock
+  identity;
+- the existing `EnvironmentBasis` as the only affected Prime/IACS family;
+- private analyzer and occurrence/binding evidence; and
+- exact module-owned positives and mutations.
+
+The current uncommitted implementation is a disposable constructability probe.
+It cannot select fields, functions, module exports, dependency semantics, or
+proof expectations that the accepted design does not require.
 
 ## Bounded Review Repair
 
@@ -168,10 +193,16 @@ dependencies inside the Product payload and does not consult an ambient
 toolchain. JSON Schema definition pointers traverse both object properties and
 canonical array indices before requiring an object or Boolean schema value.
 
+That native declaration paragraph is superseded for realization detail by the
+candidate design gate. It remains historical scope evidence until the design
+is independently accepted.
+
 ## Acceptance
 
 The exact candidate closes S06 only when independent review confirms:
 
+- the native-contract Ontology and design verdicts were independently accepted
+  before retained implementation resumed;
 - native SDK, native CLI, and the Codex shell preserve one serialized public
   operation contract and deterministic outcome;
 - `product.resolve` is a distinct public operation and `product.install`
@@ -198,7 +229,8 @@ The exact candidate closes S06 only when independent review confirms:
   catalog, HoG, and ABG path;
 - no flavored-Product identity, semantic branch, deep import, second catalog,
   resolver, controller, runtime, or event family enters ABIogenesis core;
-- all four Prime relations remain mutation-sensitive;
+- all four recurrence contractions remain mutation-sensitive inside their
+  accepted Prime carriers;
 - accepted S03 and S05, M4, the external Product, catalog negatives, and
   package reproducibility remain green; and
 - the reviewed commit, tree, package, inventory, and evidence identities match
@@ -208,6 +240,7 @@ The exact candidate closes S06 only when independent review confirms:
 
 S06 remains open if:
 
+- realization resumes before the native-contract design gate is accepted;
 - review examines a moving tree or another candidate;
 - the Codex shell can launch a substituted executable or interpret Product
   semantics;
@@ -223,12 +256,12 @@ S06 remains open if:
 
 ## Handoff
 
-Independent reviewers inspected
-`33ab384b14f7feb1bbab42f16c03f1724270eafd` through the prior handoff. Their
-three bounded findings produced replacement candidate
-`4f9bf7077579469135963a73b20cac7d9d082fb3`. Reviewers now inspect only that
-exact subject through the replacement handoff. The worker has stopped. Direct
-F_H acceptance closes S06.
+Independent reviews returned `4f9bf7077579469135963a73b20cac7d9d082fb3`
+because native declaration closure still allowed materially different roots,
+digest closure, and external-reference authority. The next subject is one
+exact design candidate, not the provisional implementation. After independent
+design review, direct F_H either accepts the design or returns one consolidated
+design repair. Implementation remains stopped.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active

@@ -10,7 +10,9 @@ parent and T-281 owns the exact S06 boundary.
 The complete S05 function is resolved as the accepted global-to-local
 constraint network in `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` at
 `283325aa`; S05 realization is accepted at `1ddc802d`. S06 candidate
-`4f9bf707`, tree `21ffbdaa`, is frozen for independent exact-cut review.
+`4f9bf707` is returned evidence. The active subject is
+`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`; realization is held pending one
+independent design review and direct disposition.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -27,6 +29,7 @@ specification/requirements/
 build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
 build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md
 build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md
+build_tenants/abiogenesis/typescript/design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
 .ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md
 .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
 .ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md
@@ -51,7 +54,8 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: S03 and S05 accepted; S06 exact candidate under review
+**Status**: S03 and S05 accepted; S06 native-contract design under review;
+realization held
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
@@ -72,6 +76,9 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 - T-281 closes S06 through the installed SDK, CLI, bounded Codex shell, and
   independent flavored Product. Repeating an accepted S03/S05 witness
   preserves behavior but is not S06 progress.
+- Native declaration closure remains inside the existing Product
+  `EnvironmentBasis`; it is not a new Prime carrier, public analyzer, compiler
+  service, or alternate resolution path.
 
 RC5, X, and final-integration remain sideways donor evidence. T-270 may admit
 only claims explicitly conserved by the accepted correction vector and current
@@ -90,7 +97,9 @@ law. Qualification and release record this same selected basis.
 
 No substantive change skips intake triage or the smallest lawful re-entry.
 M5 work stays inside T-270/T-281, preserves accepted S03/S05 and both root
-regression bindings, and changes only the selected S06 boundary. Planned 5.1
-observer/tuner work, M6 qualification, and M7 release remain unselected. No
-new ticket is required where missing detail belongs to the active owners.
+regression bindings, and changes only the selected S06 boundary. Retained S06
+implementation does not resume before the candidate Ontology and design are
+independently accepted. Planned 5.1 observer/tuner work, M6 qualification, and
+M7 release remain unselected. No new ticket is required where missing detail
+belongs to the active owners.
 <!-- SDLC_BOOTLOADER_END -->

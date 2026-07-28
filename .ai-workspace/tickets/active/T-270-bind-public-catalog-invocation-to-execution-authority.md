@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_candidate_frozen_under_t281
-- review_status: s03_s05_accepted_s06_independent_review_pending
-- proof_status: s06_mechanical_evidence_green
+- phase_status: m5_s06_native_contract_design_gate_under_t281
+- review_status: s03_s05_accepted_s06_design_review_pending
+- proof_status: s06_design_candidate_mechanical_green_pandoc_7_mermaid_3_diff_check
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -22,16 +22,18 @@
     applicability requirements
 - triaged_at: 2026-07-28
 - created_at: 2026-07-14
-- updated_at: 2026-07-28
+- updated_at: 2026-07-29
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
 - current_product_outcome: ABG5-S06
-- implementation_hold: later_outcomes_held
+- implementation_hold: s06_realization_and_later_outcomes_held
 - implementation_hold_effect: >-
-    authorize only exact S06 review and disposition under T-281; prohibit
-    planned 5.1 observer/tuner realization, M6 qualification, M7 release, and
-    unrelated refactoring until the current gate closes
+    authorize only the bounded S06 native-contract design, its mechanical
+    checks, one exact design handoff, independent review, and direct
+    disposition under T-281; prohibit retained S06 realization, planned 5.1
+    observer/tuner realization, M5 freeze, M6 qualification, M7 release, and
+    unrelated refactoring until the design gate closes
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_5_0_pre_rc_scenarios: ABG5-S01,ABG5-S02,ABG5-S03,ABG5-S05,ABG5-S06
 - release_scenario: ABG5-S07
@@ -41,13 +43,11 @@
     .ai-workspace/tickets/backlog/
     T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md
 - current_s06_owner: T-281
-- current_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
-- current_s06_candidate_tree: 21ffbdaa5dfa52886a3cb29c6f2311f2d25012cc
-- current_s06_package_digest: 2005527064d3ed250acb07a41c5f241bd47675488c8f2609214c2127552bc1ca
-- current_s06_package_inventory_digest: a4ed5c359a678d504e32a201259a3c06bde9255fd3909a440ab24ee25353caa5
-- current_s06_evidence: >-
-    .ai-workspace/comments/codex/
-    20260728T130324Z_HANDOFF_t281_s06_direct_dependency_typescript_candidate.md
+- returned_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
+- current_s06_candidate: none_design_gate_active
+- current_s06_design_subject: >-
+    build_tenants/abiogenesis/typescript/design/
+    M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
 - accepted_s03_candidate: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s05_candidate: 1ddc802d3003a3d0782398f7ec7c74cfa81ab127
 - selected_method_release: STDO v2.2.0
@@ -94,7 +94,10 @@ reviews, completed tickets, and backlogged 5.1 design do not select work.
 
 ## Current Boundary
 
-T-281 owns the exact S06 review subject. S06 closes only when:
+T-281 owns the exact S06 boundary. The returned implementation is not a review
+subject. Native declaration closure is design-gated under
+`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`; retained realization resumes only
+after independent design acceptance. S06 closes only when:
 
 - native SDK and native CLI invoke one installed public operation contract;
 - `abg.codex` is a convenience process shell over the exact installed CLI and
@@ -104,6 +107,9 @@ T-281 owns the exact S06 review subject. S06 closes only when:
   path;
 - Product dependencies derive from verified Product declarations rather than
   caller-authored authority;
+- exact native declaration meaning derives from packed export roots, complete
+  local inventories, owner-relative direct dependencies, final linked compiler
+  truth, and one closure digest inside the resolved lock;
 - the flavored Product consumes the accepted shared GTL constructors without
   rebuilding a third local declaration family;
 - exact CLI substitution, missing-path, dependency, deep-import, and
@@ -130,6 +136,8 @@ conditions. This parent ticket does not restate or expand them.
 
 T-270 remains open if:
 
+- S06 realization resumes before its native-contract Ontology and design are
+  independently accepted;
 - S06 is accepted from a moving or different subject;
 - the SDK, CLI, Codex shell, or flavored Product introduces alternate
   functionality, authority, catalog, traversal, runtime, or closure;

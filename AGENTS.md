@@ -38,12 +38,12 @@ close ABG5-S06
 
 Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
 The S05 design is directly accepted at `283325aa`; S05 realization is accepted
-at `1ddc802d`. Replacement S06 candidate `33ab384b`, tree `a5b86b54`, is
-frozen for independent exact-cut review after one bounded readiness and
-packed-contract verification repair. Do not edit, extend, or recursively
-refreeze it. Full conservation
-qualification, qualification, and release must not receive implementation
-while S06 remains unresolved.
+at `1ddc802d`. S06 implementation candidate `4f9bf707` is returned evidence.
+Native declaration closure is design-gated in
+`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Retained realization must not
+resume until one independently reviewed Ontology/design cut is directly
+accepted. Full conservation qualification, qualification, and release must
+not receive implementation while S06 remains unresolved.
 
 `A5-F12` and `ABG5-S04` are deferred to planned ABIogenesis 5.1. Their design
 is frozen at candidate `4897ead1`, tree `11d0ef7b`, under backlogged T-268 as
@@ -52,8 +52,12 @@ design for 5.0.
 
 S06 closes only when:
 
-- its four named Prime recurrence families are dispositioned before the
-  portability path is promoted;
+- its four named recurrence families are dispositioned within the accepted
+  Prime carrier set before the portability path is promoted;
+- native declaration roots, complete inventories, owner-relative direct
+  dependency linkage, final compiler export truth, and resolved-lock identity
+  project the accepted native-contract design without adding a new Prime
+  carrier or public analyzer;
 - native SDK, native CLI, and the bounded Codex delegate use one installed
   public operation contract and produce the same deterministic result;
 - the Codex delegate is process transport only;
@@ -78,8 +82,9 @@ Read:
 5. `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`
 6. `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md`
 7. `build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`
-8. `.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md`
-9. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
+8. `build_tenants/abiogenesis/typescript/design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`
+9. `.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md`
+10. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
 
 Repository history and commentary may explain prior failure. They do not
 authorize implementation.
@@ -139,9 +144,9 @@ from them.
 - A clean session starts from a clean tracked and untracked worktree.
 - Do not restore or implement the planned 5.1 observer/tuner design on the 5.0
   active line.
-- During S06 realization, change only the four bounded Prime families, the
-  existing SDK/CLI/Codex shell, the independent flavored Product, and their
-  proof surfaces.
+- During the current design gate, change only the bounded native-contract
+  Ontology/design, active status carriers, and mechanical design handoff.
+  Treat all S06 code/schema/test edits as provisional and do not extend them.
 - Do not edit the deferred S04 design or any S04 realization surface.
 - A review finding blocks its exact claim; it does not automatically authorize
   another ticket, refactor, artifact family, or review programme.
