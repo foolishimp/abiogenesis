@@ -10,10 +10,10 @@ parent and T-281 owns the exact S06 boundary.
 The complete S05 function is resolved as the accepted global-to-local
 constraint network in `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` at
 `283325aa`; S05 realization is accepted at `1ddc802d`. S06 candidate
-`4f9bf707` is returned evidence. The active subject is design candidate
-`b645595c`, tree `130af566`, under
-`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`; realization is held pending one
-independent design review and direct disposition.
+`4f9bf707` and design candidate `b645595c` are returned evidence. The active
+subject is the bounded replacement in
+`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`; realization is held pending exact
+freeze, delta-only independent review, and direct disposition.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 

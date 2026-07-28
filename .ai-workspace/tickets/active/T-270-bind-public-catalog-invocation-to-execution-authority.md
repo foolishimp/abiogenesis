@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_native_contract_design_candidate_frozen_under_t281
-- review_status: s03_s05_accepted_s06_design_review_pending
-- proof_status: s06_design_candidate_mechanical_green_pandoc_7_mermaid_3_diff_check
+- phase_status: m5_s06_native_contract_design_repair_ready_to_freeze_under_t281
+- review_status: s03_s05_accepted_s06_bounded_design_delta_review_pending
+- proof_status: s06_design_repair_mechanical_green_pandoc_7_mermaid_3_diff_check
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -45,13 +45,14 @@
 - current_s06_owner: T-281
 - returned_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
 - current_s06_candidate: none_design_gate_active
-- current_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
-- current_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
-- current_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
+- returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
+- returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
+- returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
+- current_s06_design_candidate: pending_exact_replacement_design_freeze
 - current_s06_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
-- current_s06_design_handoff: >-
+- returned_s06_design_handoff: >-
     .ai-workspace/comments/codex/
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - accepted_s03_candidate: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
@@ -114,8 +115,11 @@ after independent design acceptance. S06 closes only when:
 - Product dependencies derive from verified Product declarations rather than
   caller-authored authority;
 - exact native declaration meaning derives from packed export roots, complete
-  local inventories, owner-relative direct dependencies, final linked compiler
-  truth, and one closure digest inside the resolved lock;
+  local inventories, publisher-proposal/local-verification/linked-resolution
+  separation, sole named-symbol contract authority, per-symbol namespace/star
+  coverage, cross-Product augmentation refusal, owner-relative direct
+  dependencies, final linked compiler truth, and one closure digest inside the
+  resolved lock;
 - the flavored Product consumes the accepted shared GTL constructors without
   rebuilding a third local declaration family;
 - exact CLI substitution, missing-path, dependency, deep-import, and

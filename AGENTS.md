@@ -39,11 +39,13 @@ close ABG5-S06
 Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
 The S05 design is directly accepted at `283325aa`; S05 realization is accepted
 at `1ddc802d`. S06 implementation candidate `4f9bf707` is returned evidence.
-Native declaration design candidate `b645595c`, tree `130af566`, is frozen for
-independent review under `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Retained
-realization must not resume until that exact Ontology/design cut is directly
-accepted. Full conservation qualification, qualification, and release must
-not receive implementation while S06 remains unresolved.
+Native declaration design candidate `b645595c`, tree `130af566`, is also
+returned. Its three findings are repaired together in
+`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`; the replacement cut is awaiting
+exact freeze and bounded delta review. Retained realization must not resume
+until that exact Ontology/design cut is directly accepted. Full conservation
+qualification, qualification, and release must not receive implementation
+while S06 remains unresolved.
 
 `A5-F12` and `ABG5-S04` are deferred to planned ABIogenesis 5.1. Their design
 is frozen at candidate `4897ead1`, tree `11d0ef7b`, under backlogged T-268 as

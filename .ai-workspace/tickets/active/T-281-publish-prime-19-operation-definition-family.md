@@ -1,18 +1,19 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
 > **Current disposition (2026-07-29):** S06 implementation candidate
-> `4f9bf707` is returned evidence, not a closure candidate. Native declaration
-> design candidate `b645595c`, tree `130af566`, is frozen for independent
-> Design Module Method review. Realization, S04, and later work remain held.
+> `4f9bf707` and native declaration design candidate `b645595c` are returned
+> evidence. The three bounded design findings are repaired together in the
+> current design subject. Exact replacement identity follows its freeze;
+> realization, S04, and later work remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_native_contract_design_candidate_frozen
-- review_status: pending_independent_design_review
-- proof_status: candidate_design_mechanical_green_pandoc_7_mermaid_3_diff_check
+- phase_status: m5_s06_native_contract_design_repair_ready_to_freeze
+- review_status: pending_bounded_design_delta_review
+- proof_status: candidate_design_repair_mechanical_green_pandoc_7_mermaid_3_diff_check
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
@@ -51,13 +52,14 @@
 - returned_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
 - returned_s06_candidate_tree: 21ffbdaa5dfa52886a3cb29c6f2311f2d25012cc
 - current_s06_candidate: none_design_gate_active
-- current_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
-- current_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
-- current_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
+- returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
+- returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
+- returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
+- current_s06_design_candidate: pending_exact_replacement_design_freeze
 - current_s06_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
-- current_s06_design_handoff: >-
+- returned_s06_design_handoff: >-
     .ai-workspace/comments/codex/
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 
@@ -118,10 +120,16 @@ establish:
 
 - package export roots from exact packed `types` exports;
 - complete local declaration inventory and native digest;
+- publisher inventory and `namedSymbol` remain proposals until independently
+  admitted by `product.verify` and `product.resolve`;
 - private local evidence for unresolved external occurrences;
 - one owner-indexed linked TypeScript declaration program at
   `product.resolve`;
-- direct required-contract and imported-symbol authority without transitive or
+- one contract owns only its exact `namedSymbol`; namespace and star relations
+  require exact per-symbol coverage through directly required contracts;
+- cross-Product module/global augmentation and external side-effect-only
+  declaration relations refuse;
+- direct required-contract and imported-symbol authority has no transitive or
   ambient leakage;
 - one canonical native-closure digest inside the existing resolved-lock
   identity;
@@ -263,10 +271,11 @@ S06 remains open if:
 
 Independent reviews returned `4f9bf7077579469135963a73b20cac7d9d082fb3`
 because native declaration closure still allowed materially different roots,
-digest closure, and external-reference authority. Reviewers now inspect only
-design candidate `b645595c16d23e98c7f65b958fcdf3e206ad3893`, tree
-`130af56655ec46ec26ff66dd6a4f2bbe99d8bed8`, through the exact handoff. Direct
-F_H either accepts the design or returns one consolidated design repair.
+digest closure, and external-reference authority. Review then returned design
+candidate `b645595c16d23e98c7f65b958fcdf3e206ad3893` for three bounded choices:
+proposal versus admission, contract-to-symbol ownership, and cross-Product
+augmentation. They are repaired together. The next review is limited to those
+relations and their affected projections under one exact replacement handoff.
 Implementation remains stopped.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
