@@ -270,12 +270,11 @@ method/rule/source basis. The real-tree and seeded-negative gates shall pass,
 findings and dispositions shall be typed, and the product shall receive no
 conformance exemption.
 
-**REQ-P-QUAL-060A**: The exact installed ABIogenesis 5.0 candidate shall run the
-current observer and tuner over the frozen candidate and release path and prove
-truthful halt classification, replay-grounded findings and drafts, actor/policy
-attribution, ratification and rejection without direct authority mutation,
-replay-visible acts, and one injected negative that returns the expected
-non-green typed result.
+**REQ-P-QUAL-060A**: Reserved for ABIogenesis 5.1. The observer/tuner
+qualification described by this clause is not applicable to the ABIogenesis
+5.0 candidate, qualification basis, gate inventory, RC, or release. Deferral
+does not affect the real-tree and seeded-negative self-conformance required by
+`REQ-P-QUAL-060`.
 
 **REQ-P-QUAL-061**: The exact installed ABIogenesis 5.0 candidate shall satisfy
 `REQ-P-CONSENSUS`. Qualification shall invoke its published SYSTEM-owned
@@ -286,11 +285,12 @@ existing, alternate, and temporary workspace applications; and expose the typed
 result and replay without source import, feature-specific engine code, or
 shell-owned orchestration.
 
-**REQ-P-QUAL-062**: An odd_glc release, downstream data-mapper campaign, or
-installed 5.0 product authoring the distinct 5.0.1 successor is post-5.0
-evidence. It shall have its own exact product identities, requirements, design,
-qualification, and release gate and shall not be required to make the
-ABIogenesis 5.0 candidate or final release green.
+**REQ-P-QUAL-062**: An odd_glc release, downstream data-mapper campaign,
+installed 5.0 product authoring the distinct 5.0.1 successor, or the planned
+5.1 observer/tuner Product is post-5.0 evidence. It shall have its own exact
+product identities, requirements, design, qualification, and release gate and
+shall not be required to make the ABIogenesis 5.0 candidate or final release
+green.
 
 **REQ-P-QUAL-063**: The exact installed ABIogenesis 5.0 candidate shall complete its native public path without Claude, Codex, or another marketplace host. The Codex CLI or skill compatibility projection shall complete the same public-contract scenario without directly invoking a worker, emitting an ABG event, constructing a continuation, controlling traversal, or deciding closure.
 
@@ -299,10 +299,10 @@ ABIogenesis 5.0 candidate or final release green.
 conservation rows; the separate shape-preserving fibre-substitution
 differential; the seven-term declared C algebra and malformed GTL/F_P
 differentials; the public operator loop; self-conformance under the exact
-tapped STDO `v2.2.0` basis; observer/tuner truth; installed Consensus; native and
-Codex projections; the independent flavored downstream fixture; and every
-`ABG5-S01` through `ABG5-S06` obligation. Each owning gate retains its own
-execution and semantic authority.
+tapped STDO `v2.2.0` basis; installed Consensus; native and Codex projections;
+the independent flavored downstream fixture; and every selected
+`ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` obligation.
+Each owning gate retains its own execution and semantic authority.
 
 **REQ-P-QUAL-064A**: One subordinate
 `QualificationGateResultVector<K>` shall bind the exact
@@ -371,11 +371,12 @@ an `installed_rc` verdict. The `installed_rc` verdict authorizes construction of
 a prospective `final_tap_candidate` basis only; it shall not materialize another
 cut or snapshot.
 
-**REQ-P-QUAL-069**: An odd_glc release or 5.0.1 dogfood campaign may begin only
-after stable ABIogenesis 5.0 is available as an exact installed development
-product. Its failure shall block its own claim and may re-enter ABIogenesis when
-it exposes a retained 5.0 product defect, but it shall not be a deferred
-prerequisite or terminal addendum required for the ABIogenesis 5.0 release.
+**REQ-P-QUAL-069**: An odd_glc release, 5.0.1 dogfood campaign, or planned 5.1
+observer/tuner realization may begin only after stable ABIogenesis 5.0 is
+available as an exact installed development product. Its failure shall block
+its own claim and may re-enter ABIogenesis when it exposes a retained 5.0
+product defect, but it shall not be a deferred prerequisite or terminal
+addendum required for the ABIogenesis 5.0 release.
 
 **REQ-P-QUAL-070**: An `ExactCandidateQualification<basis>` projection for
 `final_tap_candidate` shall bind the accepted RC, the exact `installed_rc` basis

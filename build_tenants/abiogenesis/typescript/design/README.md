@@ -3,29 +3,26 @@
 ## Current Boundary
 
 The ABIogenesis 5.0 Product and direct-GTL M3 architecture are accepted.
-GOALS retains S05 as the current unresolved Product outcome and selects one
-bounded S04 design-only reframe while the exact S05 candidate awaits
-acceptance. The S04 design is frozen at candidate `4897ead1`, tree
-`11d0ef7b`, for independent review. M05 Sections 1 through 12 are accepted at
-S03. S04 realization remains held.
+S03 and S05 are accepted. GOALS selects S06 as the sole unresolved 5.0 Product
+outcome; its candidate `ac61e080`, tree `90d16730`, is frozen for independent
+review. `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen
+design remains non-operative future input under backlogged T-268.
 
 The current design basis is:
 
 - accepted M03 and M05 Sections 1 through 12 at S03 candidate `8865ccff`;
 - [M05 S05 Consensus Global-To-Local Design](./M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md);
   the accepted S05 realization basis;
-- [M05 S04 Observer And Tuner Global-To-Local Design](./M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md),
-  the current candidate design-only boundary resolving exact overlay-relative
-  workspace evaluation and immutable catalog derivation `A -> A1`;
 - [ADR-045 Global Design Constraints Survive Local Projection](./adrs/ADR-045-global-design-constraints-survive-local-projection.md)
   as global-to-local rationale; and
-- [ADR-047 Reflective Optimization Is GTL Over Replay](./adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md)
-  as the current CLI/replay decision.
+- M05 Sections 14.1 and 14.2 as the accepted S06 portability design at
+  `6aaedf8d`.
 
-M05 Section 13 remains superseded by the accepted S05 design. M05 Sections
-14.3 through 14.7 are superseded for S04 by the candidate design above and are
-design-discovery evidence only. Sections 14.1 and 14.2 remain provisional S06
-material. Completed T-272 and T-286 remain evidence only.
+M05 Section 13 remains superseded by the accepted S05 design. The frozen
+[S04 observer/tuner design](./M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md)
+and [ADR-047](./adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md)
+are planned 5.1 input, not 5.0 design authority. Completed T-272 and T-286
+remain evidence only.
 
 ## Governing Truth
 
@@ -36,12 +33,11 @@ Read in this order:
 3. specification/PRODUCT.md
 4. specification/requirements/
 5. the current design basis above
-6. .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
-7. .ai-workspace/tickets/active/T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md
+6. .ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md
+7. .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
 
-Specification defines WHAT. Accepted design defines HOW for S05. The S04
-candidate defines no implementation authority until independently reviewed and
-directly accepted.
+Specification defines WHAT. Accepted design defines HOW for S06. The deferred
+S04 subject defines no 5.0 implementation or review authority.
 
 ## Historical Evidence
 
@@ -57,7 +53,7 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-T-270 retains the frozen S05 candidate. T-268's exact S04 design subject is now
-frozen. S06 and S04 implementation, complete conservation, qualification, and
-release remain held. Independent reviewers may inspect the exact cut; authoring
-does not resume until findings are consolidated or F_H directs the next step.
+T-281 owns the frozen S06 candidate under T-270. S06 authoring does not resume
+until findings are consolidated or F_H directs the next step. Planned 5.1
+observer/tuner realization, complete conservation, qualification, and release
+remain held.

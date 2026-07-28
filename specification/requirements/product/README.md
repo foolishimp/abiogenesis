@@ -16,6 +16,11 @@ Use these families for the observable product contract that sits above pure lang
 - qualification and evidence expectations
 - end-to-end scenario obligations
 
+ABIogenesis 5.0 retains self-conformance and qualification but excludes the
+planned 5.1 observer/tuner Product (`A5-F12`, `ABG5-S04`) and its public
+operation variants. Exact release applicability is defined by
+[`../README.md`](../README.md).
+
 ## Families
 
 - `REQ-P-POLICY.md`

@@ -82,7 +82,6 @@ these contract-group identities and package export locators. The root export
 | `abg.contract.gtl.m02` | `@abiogenesis/typescript-tenant/gtl/m02` | Module, publication, lookup, descriptor-facing declaration contracts |
 | `abg.contract.gtl.requirements` | `@abiogenesis/typescript-tenant/gtl/requirements` | GTL requirement declaration and relation contracts |
 | `abg.contract.abg.requirements` | `@abiogenesis/typescript-tenant/abg/requirements` | ABG requirement and proof-carry contracts |
-| `abg.contract.abg.executive` | `@abiogenesis/typescript-tenant/abg/executive` | observer/tuner and executive projection contracts |
 | `abg.contract.abg.m03` | `@abiogenesis/typescript-tenant/abg/m03` | runtime event, admission, catalog, traversal, result, replay, continuation, and conformance contracts |
 | `abg.contract.abg.transport` | `@abiogenesis/typescript-tenant/abg/m03/transport` | replaceable transport input/result contracts; no runtime authority |
 | `abg.contract.app.m04` | `@abiogenesis/typescript-tenant/app/m04` | installed public SDK operation, workspace, catalog, invocation, result, replay, F_H, and installer contracts |
@@ -96,6 +95,11 @@ class, operation-indexed workspace-binding requirement, capability refs, and
 adapter coordinates. Package exports, operation catalog rows, schemas, SDK
 methods, and CLI paths are projections of that family; they shall not author
 parallel function meaning.
+
+The `abg.contract.abg.executive` group and
+`@abiogenesis/typescript-tenant/abg/executive` locator are reserved candidate
+identities for the planned 5.1 observer/tuner Product. ABIogenesis 5.0 does not
+publish or require them.
 
 **REQ-P-PUBLIC-CONTRACTS-006**: The `abg.contract.abg.m03` roster shall locate
 the named symbols `RuntimeEvent`, `CanonicalRuntimeEvent`, and
@@ -196,7 +200,7 @@ shall not define Product scope or substitute for an outcome scenario:
 |---|---|
 | `abg.operation.workspace.create` | target plus explicit `clean` or `imported` creation policy |
 | `abg.operation.workspace.open` | expected stable workspace-authority basis plus readiness projection |
-| `abg.operation.project.read` | closed source/projection relation for catalog, runtime, evidence, replay, gaps, lawful actions, observer, and tuning reads |
+| `abg.operation.project.read` | closed source/projection relation for catalog, runtime, evidence, replay, gaps, and lawful actions |
 | `abg.operation.product.verify` | artifact format and contract |
 | `abg.operation.product.resolve` | product requirements |
 | `abg.operation.product.install` | install target policy |
@@ -209,10 +213,13 @@ shall not define Product scope or substitute for an outcome scenario:
 | `abg.operation.interaction.respond` | `select`, `approve`, `reject`, `assess`, or `answer_escalation` |
 | `abg.operation.result.assess` | declared result-assessment contract |
 | `abg.operation.witness.admit` | `reprice`, `attest`, `hygiene-stamp`, `intake`, `run-resumed`, or `run-stopped` |
-| `abg.operation.tuning.transition` | `propose`, `ratify`, or `reject` |
 | `abg.operation.conformance.evaluate` | public `gtl_program`; self-conformance remains qualification-bound |
 | `abg.operation.product.materialize` | `context_bootstrap` or `configuration` |
 | `abg.operation.release.snapshot` | `published_rc` or `tapped_release` |
+
+Observer-report, observer-drafts, and tuning-report `project.read` variants and
+`abg.operation.tuning.transition` are reserved candidate identities for
+ABIogenesis 5.1. They are excluded from the closed 5.0 operation family.
 
 This is a hard break. Every non-derived legacy operation identity, facade,
 parallel register, default, or fallback shall be retired. CLI command paths may

@@ -126,16 +126,15 @@ work, reprice, yield, block, and non-admission, plus all six retained public
 start and control behaviors. SDK, CLI, fixture, worker, and adapter code shall
 not select or order the loop.
 
-### `ABG5-S04` - Reflection And Self-Conformance
+### `ABG5-S04` - Planned 5.1 Reflection And Tuning
 
-**REQ-P-SCENARIOS-011**: `ABG5-S04` shall bind the exact
-`pre_rc_candidate`, complete frozen inventory, and content-addressed
-`QualificationLawBasis` to the tapped and installed STDO `v2.2.0` release. It shall
-run real-tree and seeded-negative self-conformance through the sole owning
-qualification family. Observer and tuner shall operate over replay truth and
-prove truthful halt, grounded attributed drafts, ratification, rejection,
-replay, and one injected negative without product exemption, self-minted
-assurance, or silent authority mutation.
+**REQ-P-SCENARIOS-011**: `ABG5-S04` is reserved for a lawful ABIogenesis 5.1
+Product re-entry and is not a 5.0 gate. When selected for 5.1, observer and
+tuner shall operate over replay truth and prove truthful halt, grounded
+attributed drafts, ratification, rejection, replay, and one injected negative
+without product exemption, self-minted assurance, or silent authority
+mutation. Deferral of this scenario shall not defer or weaken 5.0
+self-conformance under `REQ-P-SELF-CONFORMANCE` and `REQ-P-QUAL-060`.
 
 ### `ABG5-S05` - Consensus Free Construction
 
@@ -185,17 +184,18 @@ earlier subject.
 
 **REQ-P-SCENARIOS-015**: `ABG5-S01` establishes the continuous delivery
 governor. `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` may establish
-their behavior before the selected STDO release is installed. `ABG5-S04`,
-pre-RC qualification, and `ABG5-S07` require the exact tapped and installed
-STDO `v2.2.0` law basis. STDO adoption shall not weaken or replace the root
+their behavior before the selected STDO release is installed. Pre-RC
+qualification and `ABG5-S07` require the exact tapped and installed STDO
+`v2.2.0` law basis. STDO adoption shall not weaken or replace the root
 governor.
 
 **REQ-P-SCENARIOS-016**: One exact `pre_rc_candidate` shall pass
-`ABG5-S01` through `ABG5-S06` before RC eligibility. `ABG5-S07` then owns the
-release lifecycle across its distinct subjects. A post-5.0 odd_glc campaign,
-5.0.1 self-use campaign, fixed-point proof, operation count, atom count,
-ticket roster, or implementation census is successor or derived evidence, not
-an additional 5.0 scenario.
+`ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` before RC
+eligibility. `ABG5-S07` then owns the release lifecycle across its distinct
+subjects. `ABG5-S04`, a post-5.0 odd_glc campaign, 5.0.1 self-use campaign,
+fixed-point proof, operation count, atom count, ticket roster, or
+implementation census is successor or derived evidence, not an additional
+5.0 scenario.
 
 **REQ-P-SCENARIOS-017**: Changing a scenario identity, exact subject, root
 binding, supported public path, outcome predicate, nearest weaker excluded

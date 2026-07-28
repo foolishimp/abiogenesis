@@ -1,6 +1,6 @@
 # REQ-R-ABG3-TUNER — Reflective Tuner And Annealing Authority
 
-**Status**: Active
+**Status**: Deferred - planned ABIogenesis 5.1; not applicable to 5.0
 **Category**: Capability / Constraint
 **Date**: 2026-07-09
 **Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (the reflective boundary; the atom criterion), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md), [REQ-R-ABG3-SUPERVISOR-WITNESS.md](./REQ-R-ABG3-SUPERVISOR-WITNESS.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md) (absorbing [T-206](../../../.ai-workspace/tickets/completed/T-206-abg-shell-tuner-bundled-consciousness-loop.md))
@@ -18,6 +18,11 @@ track changes are its drafts). Same manifold, different observables:
 the tuner is the same machinery and worker class pointed at the
 system's own telemetry; it is not a meta-framework and holds no
 downward control path.
+
+This family preserves the planned ABIogenesis 5.1 Product contract. It does
+not select 5.0 realization, public operations, qualification, or release work.
+ABIogenesis 5.0 retains the replay, projection, catalog, GTL, HoG, ABG, and
+self-conformance substrate on which a later 5.1 re-entry may realize it.
 
 ## Acceptance Criteria
 

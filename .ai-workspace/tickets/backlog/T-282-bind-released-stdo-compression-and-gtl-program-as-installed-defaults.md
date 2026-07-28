@@ -100,8 +100,9 @@ evidence by verifying and binding:
   Product context and `QualificationLawBasis`.
 
 Milestone B does not block M5 behavior. Its Product-context and qualification
-binding is mandatory before `ABG5-S04`, exact pre-RC qualification,
-`ABG5-S07`, or stable 5.0 release.
+binding is mandatory before exact pre-RC qualification, `ABG5-S07`, or stable
+5.0 release. A future 5.1 selection of `ABG5-S04` must consume the released
+method basis independently; it is not a 5.0 prerequisite.
 
 ABIogenesis verifies the selected STDO release identity. It does not
 independently re-adjudicate STDO's F_H release decision.
@@ -200,7 +201,9 @@ Milestone B closes only when:
   verify by exact identity and digest;
 - context materialization records their exact released basis;
 - stale or mismatched method/context inputs refuse typed;
-- `ABG5-S04` and qualification bind the same `QualificationLawBasis`; and
+- 5.0 qualification binds the exact released `QualificationLawBasis`, and any
+  future selected `ABG5-S04` independently binds its then-governing released
+  basis; and
 - no mutable candidate or local copy is represented as released method truth.
 
 T-282 cannot close before M6 qualification materializes the selected method

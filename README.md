@@ -14,11 +14,11 @@ successor to the immutable 4.6 RC5 Product origin.
 |---|---|
 | Product definition | `specification/PRODUCT.md` |
 | selected implementation outcome | Close `ABG5-S06` |
-| parked design subject | S04 design frozen at `4897ead1` |
-| active owners | T-281 for S06 under T-270; T-268 retains parked S04 design |
+| planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
+| active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 candidate `ac61e080` frozen for independent review; S04 realization unselected |
-| conservation | Forty-row implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
+| closure state | S03 and S05 accepted; S06 candidate `ac61e080` frozen for independent review; A5-F12/S04 deferred to 5.1 |
+| conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
 `specification/GOALS.md` is the current work-selection surface. Repository
@@ -62,8 +62,10 @@ and a bounded Codex process delegate, plus one independently packed flavored
 Product using installed public exports and the existing catalog. The delegate
 is a convenience shell, not alternate functionality.
 
-S04 design candidate `4897ead1`, tree `11d0ef7b`, remains parked. S04
-realization, complete conservation, qualification, and release remain held.
+`A5-F12` and `ABG5-S04` are planned 5.1 work. Their design candidate
+`4897ead1`, tree `11d0ef7b`, remains immutable future input under backlogged
+T-268. Complete conservation, qualification, and release remain held until S06
+closes.
 
 ## Authority
 
@@ -76,9 +78,8 @@ Read in this order:
 5. [direct-GTL design](build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md)
 6. [M5 design](build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md)
 7. [S05 design delta](build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md)
-8. [S04 observer/tuner candidate design](build_tenants/abiogenesis/typescript/design/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md)
+8. [T-281](.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md)
 9. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
-10. [T-268](.ai-workspace/tickets/active/T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md)
 
 `PRODUCT.md` is the sole complete 5.0 Product-definition surface.
 Requirements decompose it. GOALS selects one current Product outcome. Design
@@ -100,9 +101,9 @@ build_tenants/abiogenesis/typescript/test_env/ TypeScript proof lanes
 ## Release Boundary
 
 ABIogenesis 5.0 targets one source-independent package-first TypeScript Product
-for a trusted developer desktop. The exact 17 outcomes, seven scenarios,
-exclusions, qualification subjects, and release lifecycle are defined in
-`PRODUCT.md`.
+for a trusted developer desktop. The exact 16 selected outcomes, five selected
+pre-RC scenarios, release scenario, exclusions, qualification subjects, and
+release lifecycle are defined in `PRODUCT.md`.
 
-odd_glc release and ABIogenesis 5.0.1 self-use are successor work. They do not
-gate ABIogenesis 5.0.
+The planned 5.1 observer/tuner Product, odd_glc release, and ABIogenesis 5.0.1
+self-use are successor work. They do not gate ABIogenesis 5.0.

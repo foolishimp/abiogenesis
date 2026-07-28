@@ -127,11 +127,10 @@ all of the following product behavior:
   non-callable node-type and overlay application, and GraphFunction invocation;
 - start and invoke through one run-invocation function, plus replay-derived
   continuation through one run-continuation function;
-- status, result, evidence, replay, gap, lawful-action, observer, and tuning
-  reads through one typed projection function;
+- status, result, evidence, replay, gap, and lawful-action reads through one
+  typed projection function;
 - F_H selection, approval, rejection, assessment, and escalation response;
 - result assessment and witnessed-act admission;
-- tuning proposal, ratification, and rejection transitions;
 - GTL-program conformance evaluation; and
 - qualified RC and tapped-release snapshot materialization.
 
@@ -139,6 +138,10 @@ Tenant or host bindings may express a variant through ergonomic subcommands or
 typed SDK methods, but shall bind one of those exact identities and shall not
 retain a legacy identity, compatibility facade, parallel register, default, or
 fallback. This is the STDO hard break.
+
+Observer-report, observer-drafts, tuning-report, and tuning-transition
+variants are planned 5.1 Product contracts. They are not members of the 5.0
+public operation family.
 
 **REQ-P-POLICY-022**: The public SDK and CLI shall expose equivalent operation
 semantics. Given the same admitted inputs and bound product identities, they
@@ -254,19 +257,16 @@ request shall identify its actor, subject, typed reason or payload, evidence,
 and applicable run, segment, workspace, or basis. Each accepted witness act
 shall be an actor-attributed admitted event.
 
-**REQ-P-POLICY-036**: The observer-report and observer-drafts variants of
-`abg.operation.project.read` shall remain read-only replay-derived projections.
-Their outputs shall identify observation basis, source events or projections,
-findings or draft identities, evidence, and provenance without admitting intent
-or mutating runtime truth.
+**REQ-P-POLICY-036**: Reserved for ABIogenesis 5.1. When selected, the
+observer-report and observer-drafts variants of `abg.operation.project.read`
+shall remain read-only replay-derived projections. They are not 5.0 public
+operation variants.
 
-**REQ-P-POLICY-037**: The tuning-report variant of
-`abg.operation.project.read` shall remain a read-only projection. The
-`propose | ratify | reject` variants of
-`abg.operation.tuning.transition` shall identify the draft, actor or admitted
-policy authority, basis, rationale, evidence, and resulting draft disposition.
-Ratification shall not directly rewrite effective configuration; the ratified
-draft shall re-enter through its owning admitted change boundary.
+**REQ-P-POLICY-037**: Reserved for ABIogenesis 5.1. When selected, the
+tuning-report variant of `abg.operation.project.read` shall remain read-only,
+and `abg.operation.tuning.transition` shall preserve admitted proposal,
+ratification, and rejection authority. Neither identity is part of the 5.0
+public operation family.
 
 **REQ-P-POLICY-038**: The public `gtl_program` variant of
 `abg.operation.conformance.evaluate` shall accept a submitted GTL program and
@@ -289,18 +289,18 @@ only; it shall not qualify itself or serve as candidate-freeze input.
 
 ## Read, Mutation, And Adapter Boundaries
 
-**REQ-P-POLICY-041**: Every catalog, runtime, evidence, replay, gap,
-lawful-action, observer, and tuning-report variant of
+**REQ-P-POLICY-041**: Every 5.0 catalog, runtime, evidence, replay, gap, and
+lawful-action variant of
 `abg.operation.project.read` shall be a pure public read. A read shall admit no
 runtime mutation event and shall not change installed, bound, catalog, run,
 continuation, draft, assessment, intent, selection, or closure truth.
 
 **REQ-P-POLICY-042**: `run.invoke`, `run.continue`,
-`interaction.respond`, `result.assess`, `witness.admit`, and
-`tuning.transition` shall route through one typed public-invocation admission
-boundary. Every accepted variant that changes or attests runtime truth shall
-produce actor-attributed admitted event truth. Admission shall not make ingress
-the owner of One Surface orchestration.
+`interaction.respond`, `result.assess`, and `witness.admit` shall route through
+one typed public-invocation admission boundary. Every accepted variant that
+changes or attests runtime truth shall produce actor-attributed admitted event
+truth. Admission shall not make ingress the owner of One Surface
+orchestration.
 
 **REQ-P-POLICY-043**: Install, configuration, and release operations shall
 produce typed manifest or provenance truth appropriate to their product
@@ -512,8 +512,8 @@ consumer can use the SDK and CLI to:
 - inspect gaps and lawful actions;
 - submit an `interaction.respond` variant against a pending interaction;
 - continue or restart the same lawful operator workflow to convergence;
-- use result assessment, witness, observer, tuner, conformance, install,
-  materialization, and release variants through their exact definitions; and
+- use result assessment, witness, conformance, install, materialization, and
+  release variants through their exact definitions; and
 - obtain equivalent typed dispositions from the SDK and CLI without either
   adapter owning runtime truth or orchestration, and without any legacy
   operation identity or parallel contract register.

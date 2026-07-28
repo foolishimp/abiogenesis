@@ -12,7 +12,7 @@
 - change_class: realization_refactor
 - re_entry_point: exact-candidate qualification contract and proof surfaces
 - created_at: 2026-07-12
-- updated_at: 2026-07-27 (4.6 installed-sandbox capability bound to exact-candidate proof)
+- updated_at: 2026-07-28 (5.0 qualification scope reconciled after S04 deferral)
 - source_ticket: T-242
 - admission_condition: >-
     T-249 has retained and aligned the claims, T-244 identifies their exact
@@ -74,11 +74,11 @@ self-use is not: the first required dogfood build is 5.0.1 under T-245/T-246.
    public-contract, installed behavior, identity, and retained feature evidence
    without recomputing the owning verdicts.
 
-The current observer/tuner claim remains included where T-244 retains it: it
-must prove truthful halt classification, grounded draft production,
-attribution, ratification/rejection, replay-visible acts, and an injected
-negative over the candidate's ordinary governed surfaces. It is not tied to a
-self-build path.
+`A5-F12`, `ABG5-S04`, and observer/tuner realization or qualification are
+planned 5.1 work and are excluded from this 5.0 ticket. This does not weaken
+5.0 self-conformance: the exact 5.0 candidate must still conform to every
+applicable method, Product, requirement, design, code, proof, ticket, public,
+qualification, and release rule.
 
 ## Qualification Contract And Lifecycle
 
@@ -154,17 +154,21 @@ candidate supplied to that invocation.
 ## Prime Contraction Input
 
 On activation, consume T-277 `PC-009`. Measure the actual proof graph before
-selecting a common harness. Preserve all 17 T-244 claim identities and their
-row-specific closure gates while commonizing authority-neutral product setup,
-evidence acquisition, and replay traversal. The current five-journey grouping
-is a hypothesis, not an accepted count. One qualification read model may cite
-owning proofs but may not recompute their semantic verdicts.
+selecting a common harness. Preserve the 16 selected 5.0 Product claim
+identities and their row-specific closure gates while commonizing
+authority-neutral product setup, evidence acquisition, and replay traversal.
+T-244's `A5-F12` row is retained historical input for 5.1 and is not a 5.0
+qualification row. The current five-journey grouping is a hypothesis, not an
+accepted count. One qualification read model may cite owning proofs but may
+not recompute their semantic verdicts.
 
 ## Explicit Non-Scope
 
 - Two-stage C1/C2 self-hosting, B5, R5, or exact-I4 bootstrap proof.
 - odd_glc 1.0, a data-mapper campaign, or released-pair qualification.
 - The 5.0.1 dogfood proof owned by T-245/T-246.
+- Planned 5.1 `A5-F12`/`ABG5-S04` observer/tuner realization,
+  qualification, and release.
 - Hostile-workstation tamper defense, signing, remote attestation, or a new
   qualification framework.
 

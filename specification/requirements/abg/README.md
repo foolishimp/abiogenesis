@@ -33,9 +33,9 @@ related engine behavior.
 - supervisor/operator witness law: halt diagnosis, defect intake, reprice
   admission, substrate stamps, operator lifecycle, workspace hygiene,
   mechanical citability, CLI-as-control-plane
-- reflective tuner law: declaration-draft-only optimisation, ratification
-  states, annealing equivalence contracts, crystallization (rails/emergence)
-  track changes
+- planned 5.1 reflective tuner law: declaration-draft-only optimisation,
+  ratification states, annealing equivalence contracts, crystallization
+  (rails/emergence) track changes; this family is not applicable to 5.0
 - kernel plugin adoption surface: the five plugin seams, the governed standard
   catalog, fail-closed declared selection, F_H-approved live capability rows
 
@@ -70,5 +70,5 @@ related engine behavior.
 - `REQ-R-ABG3-INTERPRET.md`
 - `REQ-R-ABG3-SELFHOSTING.md`
 - `REQ-R-ABG3-SUPERVISOR-WITNESS.md`
-- `REQ-R-ABG3-TUNER.md`
+- `REQ-R-ABG3-TUNER.md` - planned 5.1; non-operative for 5.0
 - `REQ-R-ABG3-PLUGIN-SEAMS.md`

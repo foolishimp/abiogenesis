@@ -35,6 +35,10 @@ the Product destination.
 ABIogenesis 5.0 is the feature-complete, source-independent successor to the
 practical ABIogenesis 4.6 product.
 
+For this release, feature-complete means complete against the 16 selected 5.0
+outcome families and their explicit baseline dispositions below. It does not
+claim the planned 5.1 observer/tuner Product.
+
 It is an LLM-first programming system in which:
 
 1. developers and LLMs author exhaustive typed graph programs in
@@ -634,12 +638,17 @@ probabilistic evaluation, human escalation, typed results, and replay.
 Consensus has no special runner, scheduler, CLI command, event family, ticket
 mutation authority, or closure path.
 
-### Observer And Tuner
+### Planned 5.1 Observer And Tuner
 
 The observer and tuner read ABG replay truth and produce attributed diagnostic
 or change proposals. Their outputs remain drafts. Ratification or rejection
 crosses the ordinary policy or `F_H` boundary; neither capability mutates
 specification, configuration, or tickets directly.
+
+This higher-order Product is reserved for ABIogenesis 5.1. It is not part of
+the 5.0 feature, scenario, qualification, or release predicate. ABIogenesis
+5.0 supplies the immutable execution, event, replay, catalog, and public
+substrate over which the later 5.1 Product may be designed and qualified.
 
 ### Recursive Programs
 
@@ -650,8 +659,9 @@ or product feature family.
 
 ## Complete 5.0 Feature Set
 
-These 17 families preserve the original 5.0 product scope. They are product
-outcomes, not implementation modules, operation counts, or ticket counts.
+These 16 selected families define the repriced 5.0 product scope. They are
+product outcomes, not implementation modules, operation counts, or ticket
+counts.
 
 | ID | Product outcome |
 |---|---|
@@ -666,12 +676,15 @@ outcomes, not implementation modules, operation counts, or ticket counts.
 | `A5-F09` | **Catalog semantics.** Consumers inspect and narrow catalog views, apply non-callable declarations, call only admitted GraphFunctions, and start only admitted programs. |
 | `A5-F10` | **Event-sourced runtime truth.** Invocation, result, evidence, consequence, correction, retry, repair, recursive child traversal, re-entry, yield, human hold, escalation, continuation, typed failure, block, non-admission, closure, and every public projection form one causal ABG episode. One transition authority resolves competing pressure; replay, not caller memory, derives the result and next state. |
 | `A5-F11` | **Self-conformance.** The exact 5.0 candidate evaluates its own applicable specification, design, contract, realization, proof, qualification, and release obligations without exemption or self-minted assurance. |
-| `A5-F12` | **Replay-grounded observer and tuner.** Observation and tuning operate over admitted replay truth, preserve attribution, and cannot mutate authority without ratification. |
 | `A5-F13` | **Native and bounded host projection.** The product works without a marketplace host; one Codex projection may delegate to the same public contract without copied semantics. |
 | `A5-F14` | **Packed Hello World and live probabilistic proof.** A clean source-blind install executes a minimal deterministic path and one live `F_P` path with typed result, evidence, events, and replay. |
 | `A5-F15` | **Exact-candidate qualification.** One content-addressed qualification family preserves distinct `pre_rc_candidate`, `installed_rc`, and `final_tap_candidate` subjects; binds the exact `QualificationLawBasis`, ordered owning-gate vector, prospective RC authorization, installed-RC authorization, typed `FinalTapDelta`, affected-gate reruns, and non-bypassed verdicts. |
 | `A5-F16` | **Immutable RC and stable 5.0 release.** The qualified pre-RC subject authorizes one immutable RC; that exact installed RC is qualified; one governed final-only delta produces and qualifies the final-tap subject; the stable tag, package, manifest, checksums, and post-publication install identify the admitted final cut. |
 | `A5-F17` | **Downstream portability sufficient for odd_glc.** A bounded independent flavored catalog fixture exercises the same contract class required by real odd_glc: it authors, publishes, applies, and invokes GTL through only installed public ABIogenesis contracts and owns no local runtime or controller. odd_glc release remains independent and does not gate 5.0. |
+
+`A5-F12`, replay-grounded observer and tuner, retains its stable identity as a
+planned ABIogenesis 5.1 outcome. It is excluded from 5.0 realization,
+qualification, and release rather than silently weakened or renumbered.
 
 No separate atom count, public-operation count, capability count, ticket roster,
 or implementation census may add to or subtract from these product outcomes.
@@ -680,11 +693,13 @@ closure.
 
 ## Required Product Scenarios
 
-One exact installed `pre_rc_candidate` must pass `ABG5-S01` through `ABG5-S06`
-and become eligible to authorize an RC. `ABG5-S07` then preserves the distinct
-subjects of the release lifecycle. Every scenario uses the same public product
-path; no scenario may introduce a feature-specific harness or alternate
-authority.
+One exact installed `pre_rc_candidate` must pass the five selected pre-RC
+scenarios `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` and
+become eligible to authorize an RC. `ABG5-S07` then preserves the distinct
+subjects of the release lifecycle. `ABG5-S04` retains its identity as a
+planned 5.1 scenario and is not a 5.0 gate. Every selected scenario uses the
+same public product path; no scenario may introduce a feature-specific harness
+or alternate authority.
 
 ### `ABG5-S01`: Clean Install And Minimal Invocation
 
@@ -718,14 +733,17 @@ loop. Exercise every retained consequence route and runtime disposition,
 including retry, depth traversal, graph-span re-entry, public re-entry, ticket
 work, reprice, yield, gap/block, and non-admission.
 
-### `ABG5-S04`: Reflection And Self-Conformance
+### `ABG5-S04`: Planned 5.1 Reflection And Tuning
 
-Bind the exact `pre_rc_candidate` to its content-addressed qualification basis,
-complete frozen inventory, and matching `QualificationLawBasis`. Run real-tree
-and seeded-negative self-conformance through the owning qualification family.
-Run the observer and tuner over replay truth and prove truthful halt, grounded
-drafts, attribution, ratification, rejection, replay, and one injected negative
-without product exemption or silent authority mutation.
+This scenario is reserved for ABIogenesis 5.1. It will run the observer and
+tuner over replay truth and prove truthful halt, grounded drafts, attribution,
+ratification, rejection, replay, and one injected negative without product
+exemption or silent authority mutation. Its frozen design is non-operative
+input to a future 5.1 Product re-entry.
+
+ABIogenesis 5.0 self-conformance remains mandatory under `A5-F11` and the
+qualification family. Deferring this scenario does not defer, weaken, or merge
+self-conformance.
 
 ### `ABG5-S05`: Consensus Free Construction
 
@@ -901,10 +919,12 @@ satisfies all of the following:
 7. The SDK and CLI are thin projections over that catalog and ABG runtime.
 8. One ABG path owns admission, events, replay, correction, continuation, and
    closure around HoG traversal.
-9. All 17 feature families are realized. `ABG5-S01` through `ABG5-S06` pass on
-   one exact installed `pre_rc_candidate`; `ABG5-S07` preserves the distinct
-   pre-RC, RC, installed-RC, final-tap, released-Product, and post-publication
-   install subjects while using the same product contracts.
+9. All 16 selected 5.0 feature families are realized. `ABG5-S01`,
+   `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` pass on one exact
+   installed `pre_rc_candidate`; `ABG5-S07` preserves the distinct pre-RC, RC,
+   installed-RC, final-tap, released-Product, and post-publication install
+   subjects while using the same product contracts. `A5-F12` and `ABG5-S04`
+   remain excluded planned 5.1 work.
 10. Malformed GTL, malformed probabilistic output, invalid authority, basis
    conflict, and rival-path mutations fail at their owning boundaries before
    prohibited effects.

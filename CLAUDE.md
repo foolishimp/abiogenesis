@@ -4,14 +4,14 @@
 
 The ABIogenesis 5.0 Product destination, M3 direct-GTL realization design, and
 M5 design through Section 12 are accepted. `specification/GOALS.md` selects
-one unresolved Product outcome: reconcile and reclose `ABG5-S05`. T-270 is the
-sole active M5 execution contract. Completed T-274, T-275, and T-276 and
-existing Consensus behavior are evidence and retained behavioral stock, not
-current execution authority or accepted S05 closure.
+one unresolved Product outcome: close `ABG5-S06`. T-270 is the active M5
+parent and T-281 owns the exact S06 boundary.
 
 The complete S05 function is resolved as the accepted global-to-local
 constraint network in `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` at
-`283325aa`. S05 realization is current. S06, observer/tuner, conservation
+`283325aa`; S05 realization is accepted at `1ddc802d`. S06 candidate
+`ac61e080`, tree `90d16730`, is frozen for independent review. `A5-F12` and
+`ABG5-S04` are planned 5.1 work under backlogged T-268. Conservation
 qualification, qualification, and release remain held.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
@@ -27,6 +27,7 @@ specification/requirements/
 build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
 build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md
 build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md
+.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md
 .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
 .ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md
 ```
@@ -50,7 +51,7 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: S03 accepted; S05 accepted-design realization current; S06 held
+**Status**: S03 and S05 accepted; S06 exact candidate under review
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
@@ -65,10 +66,12 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 - CLI and SDK invoke or inspect installed catalog truth; neither owns
   topology, execution basis, traversal, events, retry, continuation, or
   closure.
+- The Codex CLI adapter is convenience transport over the exact installed CLI.
+  It provides no alternate functionality.
 - `ABI5-ROOT-001` and `ABI5-M5-EXT-001` remain regression bindings.
-- T-270 reconciles S05 through the packed ordinary-path Consensus Product.
-  Repeating an existing green witness preserves behavior but does not close
-  S05.
+- T-281 closes S06 through the installed SDK, CLI, bounded Codex shell, and
+  independent flavored Product. Repeating an accepted S03/S05 witness
+  preserves behavior but is not S06 progress.
 
 RC5, X, and final-integration remain sideways donor evidence. T-270 may admit
 only claims explicitly conserved by the accepted correction vector and current
@@ -86,8 +89,8 @@ The operative local projection is `.genesis/docs/standards/`. Mutable
 law. Qualification and release record this same selected basis.
 
 No substantive change skips intake triage or the smallest lawful re-entry.
-M5 work stays inside T-270, preserves accepted S03 and both root regression
-bindings, and changes only the selected S05 boundary. Completed T-274, T-275,
-and T-276 are evidence only. No new ticket is required where missing detail
-belongs to T-270.
+M5 work stays inside T-270/T-281, preserves accepted S03/S05 and both root
+regression bindings, and changes only the selected S06 boundary. Planned 5.1
+observer/tuner work, M6 qualification, and M7 release remain unselected. No
+new ticket is required where missing detail belongs to the active owners.
 <!-- SDLC_BOOTLOADER_END -->

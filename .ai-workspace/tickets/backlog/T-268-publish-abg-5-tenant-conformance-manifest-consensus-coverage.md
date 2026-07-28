@@ -1,24 +1,27 @@
 # T-268 - Design Replay-Grounded Observer And Tuner
 
-> **Current disposition (2026-07-28):** S04 design frozen at exact candidate
-> `4897ead1` and parked by direct F_H. Design repair and implementation remain
-> held until S06 closure and later GOALS selection.
+> **Current disposition (2026-07-28):** Direct F_H repriced `A5-F12` and
+> `ABG5-S04` from ABIogenesis 5.0 to planned 5.1. The exact frozen design at
+> candidate `4897ead1` is preserved byte-for-byte as non-operative future
+> input. This ticket has no 5.0 realization, qualification, or release
+> authority.
 
 - id: T-268
 - title: Design replay-grounded observer and tuner
 - type: feature
 - ticket_category: implementation_migration
-- status: active
+- status: backlog
 - implementation_hold: active
-- implementation_hold_ref: GOAL-035 parked S04 design subject
+- implementation_hold_ref: planned ABIogenesis 5.1 Product re-entry
 - implementation_hold_effect: >-
-    exact design is frozen and parked; prohibit design repair and runtime,
-    contract, schema, event, operation, test, publication, package, or proof
-    implementation until GOALS reselects S04
-- phase_status: m5_s04_design_parked_realization_unselected
-- review_status: parked
+    preserve the exact frozen design; prohibit design repair and runtime,
+    contract, schema, event, operation, test, publication, package,
+    qualification, or proof implementation until stable 5.0 exists and a
+    5.1 Product/GOALS re-entry explicitly selects A5-F12/ABG5-S04
+- phase_status: planned_5_1_design_candidate_preserved
+- review_status: not_selected_for_5_0
 - proof_status: design_mechanical_evidence_passed
-- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- goal: planned ABIogenesis 5.1 A5-F12/ABG5-S04
 - change_intent: >-
     Resolve observer and tuner as a complete GTL free construction over exact
     ABG replay, where the executive evaluates an evolving workspace against an
@@ -26,7 +29,7 @@
     successors A -> A1 under one explicit objective. Resolve the generic CLI
     trigger, atomic functions, Prime contraction, module ownership, lifecycle,
     transitions, reads, and proof before any realization begins.
-- delivery_phase: M5_design_before_s04_realization
+- delivery_phase: planned_5_1
 - change_class: design_reframe
 - re_entry_point: >-
     build_tenants/abiogenesis/typescript/design/
@@ -38,8 +41,12 @@
 - build_tenant: typescript
 - priority: critical
 - source_ticket: T-252
-- parent_owner: T-270
-- realization_predecessor: T-281/S06 must close before GOALS selects S04 code
+- parent_owner: future 5.1 Product owner
+- deferred_from_release: 5.0.0
+- deferred_to_release: 5.1.0
+- realization_predecessor: >-
+    stable released ABIogenesis 5.0 plus an explicit 5.1 Product and GOALS
+    selection
 - authority_refs:
   - specification/PRODUCT.md Observer And Tuner
   - specification/PRODUCT.md A5-F12
@@ -64,10 +71,14 @@
     ADR-047-reflective-optimization-is-gtl-over-replay.md
 - candidate_commit: 4897ead13d4d43bdd7538f74e3ce83888b03f5c6
 - candidate_tree: 11d0ef7ba40cfbd6efc31f447b27b21834c23d54
-- candidate_ticket_sha256: 67ac610d92c1a0192c1bd17e067082f396cbab762d5392cad8d92466befc523a
+- frozen_candidate_ticket_sha256: 67ac610d92c1a0192c1bd17e067082f396cbab762d5392cad8d92466befc523a
 - candidate_design_sha256: a84cf02bb428ff1f0fce2c2b203a2ad478fa9a81b0c1ed3405cf9ed09893d3a5
 - candidate_adr_sha256: 92c469ac44f9ae1dd65054fc363a25023ca75f7f153d148166f1a137c676627e
 - candidate_core_aggregate_sha256: c85541d57e465c8eee55dc63f976a441085f849a479d67db95247816bb5e87fa
+- candidate_identity_scope: >-
+    exact ticket, design, and ADR blobs at candidate_commit; the current
+    backlog projection records later delivery disposition and is not relabeled
+    as that frozen ticket blob
 - handoff_ref: >-
     .ai-workspace/comments/codex/
     20260727T170342Z_HANDOFF_t268_s04_immutable_tuning_design.md
@@ -157,17 +168,17 @@ produces one handoff, and stops. It does not issue a semantic verdict.
 
 ## Realization Hold
 
-Even after design acceptance, implementation remains unselected until:
+Implementation remains unselected until:
 
-1. S05 receives direct acceptance;
-2. S06 closes;
-3. GOALS explicitly selects Order 4 realization; and
-4. T-268 records the accepted design identity and exact implementation
-   boundary.
+1. stable ABIogenesis 5.0 is released;
+2. a 5.1 Product re-entry selects `A5-F12` and `ABG5-S04`;
+3. 5.1 GOALS assigns one active realization owner; and
+4. that owner revalidates this frozen design against the released 5.0
+   substrate before coding.
 
-M5 realization will make S04 runnable over a bounded installed replay fixture.
-M6/T-247 owns exact pre-RC self-conformance and the final S04 qualification
-verdict.
+T-247 and T-248 do not own S04 qualification or release. A future 5.1
+qualification owner must qualify the selected observer/tuner Product against
+its exact 5.1 candidate.
 
 ## Non-Closure
 

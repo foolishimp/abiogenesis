@@ -14,7 +14,7 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 selected; S04 design parked |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 selected; A5-F12/S04 deferred to 5.1 |
 
 ## Current Basis
 
@@ -38,28 +38,25 @@ selection, ordered successor outcomes, and their acceptance conditions.
   exact four-file aggregate is
   `015a158a8a636502e76b88fe87866633757deca597832e1010099ba371e13c2d`.
   It does not alter the accepted S05 Product function.
-- Exact S05 realization candidate
+- Exact S05 realization
   `1ddc802d3003a3d0782398f7ec7c74cfa81ab127`, tree
-  `b50684077f95867a079b8f5435db10d61384b881`, is frozen for independent
-  review. Its mechanical evidence is recorded in
+  `b50684077f95867a079b8f5435db10d61384b881`, is accepted. Its mechanical
+  evidence is recorded in
   `.ai-workspace/comments/codex/20260727T151414Z_HANDOFF_t270_s05_direct_exit_timeout_candidate.md`.
   Direct F_H accepted that exact subject and selected S06 in
   `.ai-workspace/comments/codex/20260727T174956Z_DECISION_accept_s05_select_s06_park_s04.md`.
-- Direct F_H instruction on 2026-07-28 parked the frozen S04 design subject.
-  It does not authorize S04 repair or code. The candidate design is
+- Direct F_H instruction on 2026-07-28 repriced `A5-F12` and `ABG5-S04` out
+  of 5.0 and into the planned 5.1 Product. The frozen S04 design remains
+  non-operative future input and authorizes no repair or code. The candidate is
   `M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md`; ADR-047 records its
   existing-CLI and replay decision.
-- Candidate `3e0a148ae8ea3110d715cc142fb9708010876dcb` is superseded by this
-  bounded repair and remains behavioral stock only.
-- Commit `bcd8769a8163a222e2e59400c904994b3de161fd` is preserved behavioral
-  stock. Exact candidate
-  `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is the accepted S03 base. Neither
-  is by itself S05, S06, conservation, qualification, or release closure.
+- This Product reprice changes no S06 meaning, design, code, acceptance
+  predicate, or candidate identity. Candidate `ac61e080` remains the exact S06
+  review subject.
+- Exact candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b`
+  is the accepted S03 base.
 - T-270 remains the M5 parent owner. Existing subordinate tickets retain their
   Product boundaries; no new ticket hierarchy is selected.
-- Commit `48103ed936aa9326d546f4dcd667b16a5c803f9c` is rejected as an
-  S05 closure candidate and retained only as behavioral stock. Its prior proof
-  and review records do not satisfy the repriced submitter-response boundary.
 - S03 acceptance and S05 selection are recorded in
   `.ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md`.
 
@@ -126,13 +123,15 @@ Acceptance requires:
    from the independent Product and Codex projection;
 8. S03, S05, M4, external Product, package reproducibility, and applicable
    catalog-authority negatives remain green; and
-9. S04 code, qualification, release, and complete conservation remain held.
+9. planned 5.1 observer/tuner work plus 5.0 qualification, release, and
+   complete conservation remain held.
 
-## Parked Design Subject
+## Deferred 5.1 Design Input
 
 S04 design candidate `4897ead1`, tree `11d0ef7b`, and core aggregate
-`c85541d5...5e87fa` remain immutable review material under T-268. S04 design
-repair and realization are parked. They do not participate in S06 closure.
+`c85541d5...5e87fa` remain immutable future input under backlogged T-268.
+They are not active 5.0 specification, design, realization, qualification, or
+release authority and do not participate in S06 closure.
 
 ## Ordered Delivery
 
@@ -141,10 +140,9 @@ repair and realization are parked. They do not participate in S06 closure.
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
 | `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Candidate `ac61e080` frozen; independent review pending |
-| `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Design frozen at `4897ead1` and parked; realization unselected |
-| `5` | `T-270` | Freeze one M5 candidate | All pre-qualification Product behavior and all 17 feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by prior outcomes |
-| `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis is bound; S04 passes; all seven pre-release scenarios and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
-| `7` | `T-248` | Release ABIogenesis 5.0.0 | Immutable RC, installed-RC qualification, governed final delta, stable tap, and fresh post-publication install preserve distinct exact subjects. | Blocked by M6 |
+| `4` | `T-270` | Freeze one M5 candidate | All selected pre-qualification 5.0 Product behavior and all 16 selected feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 |
+| `5` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
+| `6` | `T-248` | Release ABIogenesis 5.0.0 | Immutable RC, installed-RC qualification, governed final delta, stable tap, and fresh post-publication install preserve distinct exact subjects. | Blocked by M6 |
 
 ## Design Reconciliation Boundary
 
@@ -153,11 +151,9 @@ The bounded S05 `requirement_reprice`, accepted design, and realization at
 and same-Run F_H closure. Accepted S03 and S05 are regression bases. S06 is the
 current realization boundary.
 
-The parked S04 design subject consumes accepted M03 and M05 Sections 1 through 12,
-supersedes only the observer/tuner material in provisional M05 Sections 14.3
-through 14.7, and leaves S06 portability design and all realization untouched.
-It is immutable review material, not current Product progress or
-implementation authority.
+The deferred S04 design subject is preserved byte-for-byte as planned 5.1
+input. It leaves S06 portability and all 5.0 realization untouched and carries
+no current Product-progress or implementation authority.
 
 For each selected outcome:
 
@@ -186,12 +182,17 @@ does not authorize broad ABG or HoG refactoring.
 
 ## Product Scope And Conservation
 
-The no-silence Product scope remains:
+The repriced no-silence 5.0 Product scope is:
 
-- feature families `A5-F01` through `A5-F17`;
-- scenarios `ABG5-S01` through `ABG5-S07`;
+- feature families `A5-F01` through `A5-F11` and `A5-F13` through `A5-F17`;
+- scenarios `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S05`,
+  `ABG5-S06`, and release lifecycle `ABG5-S07`;
 - the forty 4.6 traversal-conservation rows; and
 - the separate shape-preserving fibre-substitution differential.
+
+`A5-F12` and `ABG5-S04` retain stable identities as planned 5.1 work. They are
+not gaps in the 5.0 scope and cannot be reintroduced without a future Product
+re-entry.
 
 Counts of operations, capabilities, atoms, tickets, files, tests, reviews, or
 commits are derived projections and cannot change that scope.
@@ -231,12 +232,12 @@ reconciliation is a qualification gate, not the feature-development queue.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | S03, S05, S06, A5-F12/S04 readiness, all pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S06 selected; S04 design parked |
-| `M6` | Exact selected-method binding, S04, seven-scenario pre-RC qualification, and complete RC5 reconciliation accept one pre-RC candidate. | Blocked by M5 |
+| `M5` | S03, S05, S06, all 16 selected pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S06 selected |
+| `M6` | Exact selected-method binding, self-conformance, five-scenario pre-RC qualification, and complete RC5 reconciliation accept one pre-RC candidate. | Blocked by M5 |
 | `M7` | Distinct RC, installed RC, final-tap, released Product, and post-publication install subjects produce stable `5.0.0`. | Blocked by M6 |
 
-odd_glc release and ABIogenesis 5.0.1 self-use remain successor work and do not
-gate ABIogenesis 5.0.
+odd_glc release, ABIogenesis 5.0.1 self-use, and the planned 5.1
+observer/tuner Product remain successor work and do not gate ABIogenesis 5.0.
 
 ## Progress Reporting
 

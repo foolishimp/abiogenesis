@@ -39,19 +39,14 @@ close ABG5-S06
 Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
 The S05 design is directly accepted at `283325aa`; S05 realization is accepted
 at `1ddc802d`. S06 candidate `ac61e080`, tree `90d16730`, is frozen for
-independent review. Do not edit or recursively refreeze it. Observer/tuner,
-full conservation qualification, qualification, and release must not receive
-implementation while S06 remains unresolved.
+independent review. Do not edit or recursively refreeze it. Full conservation
+qualification, qualification, and release must not receive implementation
+while S06 remains unresolved.
 
-S04 design is frozen at candidate `4897ead1`, tree `11d0ef7b`, and parked
-under T-268. Do not edit or implement it during S06.
-
-The S04 design must treat the workspace as evolving observed state and every
-GraphFunction, reusable `node_type`, and overlay as immutable catalog content.
-The executive evaluates replay against an exact applied overlay and objective;
-the tuner may only derive a complete successor version `A1` from `A`. URI
-hierarchy is naming and exact lookup, not a resolver, mutable alias, or second
-catalog.
+`A5-F12` and `ABG5-S04` are deferred to planned ABIogenesis 5.1. Their design
+is frozen at candidate `4897ead1`, tree `11d0ef7b`, under backlogged T-268 as
+non-operative future input. Do not review, edit, qualify, or implement that
+design for 5.0.
 
 S06 closes only when:
 
@@ -67,7 +62,7 @@ S06 closes only when:
 - accepted S03/S05, M4, external Product, catalog negatives, and package
   reproducibility remain green.
 
-The current forty-row matrix is implementation coverage, not completed RC5
+The current conservation matrix is implementation coverage, not completed RC5
 conservation.
 
 ## Reload Order
@@ -83,8 +78,6 @@ Read:
 7. `build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`
 8. `.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md`
 9. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
-10. `build_tenants/abiogenesis/typescript/design/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md`
-11. `.ai-workspace/tickets/active/T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md`
 
 Repository history and commentary may explain prior failure. They do not
 authorize implementation.
@@ -142,11 +135,12 @@ from them.
 ## Worktree Discipline
 
 - A clean session starts from a clean tracked and untracked worktree.
-- Do not restore the archived observer/tuner draft onto the active line.
+- Do not restore or implement the planned 5.1 observer/tuner design on the 5.0
+  active line.
 - During S06 realization, change only the four bounded Prime families, the
   existing SDK/CLI/Codex shell, the independent flavored Product, and their
   proof surfaces.
-- Do not edit the parked S04 design or any S04 realization surface.
+- Do not edit the deferred S04 design or any S04 realization surface.
 - A review finding blocks its exact claim; it does not automatically authorize
   another ticket, refactor, artifact family, or review programme.
 - Refactor only where accepted design proves duplicate, ambiguous, or rival

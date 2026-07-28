@@ -99,7 +99,6 @@ published `RUNTIME_EVENT_KIND_VALUES` roster owns the complete set.
 - actor/process: `actor_invocation_started`, `actor_process_started`, `actor_process_exited`
 - instruction assembly: `instruction_prompt_manifest_projected`, `instruction_response_contract_admitted`, `instruction_causal_context_bound`
 - witness/attestation/proof: `declaration_reprice_admitted`, `replay_log_attested`, `workspace_hygiene_stamped`
-- tuner: `tuner_draft_admitted`, `tuner_draft_ratified`, `tuner_draft_rejected`
 - c-call spine: `c_call_opened`, `c_call_evidenced`, `c_call_judged`
 - retry/continuation: `retry_attempt_opened`, `retry_progress_recorded`, `continuation_reopened`
 - leaf-task/branch saga: `leaf_task_opened`, `branch_lease_acquired`, `branch_fan_in_projected`
@@ -112,3 +111,8 @@ published `RUNTIME_EVENT_KIND_VALUES` roster owns the complete set.
 - construction: `construction_episode_started`, `construction_intent_selected`, `construction_delta_observed`
 - registry/projection: `registry_entry_admitted`, `graph_function_selected`, `node_type_satisfaction_projected`
 - public-operation attribution: `public_operation_admitted`, `public_operation_artifact_admitted`
+
+The tuner event family
+(`tuner_draft_admitted`, `tuner_draft_ratified`, and
+`tuner_draft_rejected`) is reserved for the planned 5.1 observer/tuner
+Product. It is not part of the selected 5.0 runtime event-kind census.
