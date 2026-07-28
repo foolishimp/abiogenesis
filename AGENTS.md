@@ -38,13 +38,11 @@ close ABG5-S06
 
 Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
 The S05 design is directly accepted at `283325aa`; S05 realization is accepted
-at `1ddc802d`. Replacement S06 candidate `28122033`, tree `93e692d6`, is
-frozen for independent exact-cut review after one consolidated
-design-and-realization repair to the common public operation contract,
-immutable Product authority, and exact publication binding. Do not edit,
-extend, or recursively refreeze it. Full conservation qualification,
-qualification, and release must not receive implementation while S06 remains
-unresolved.
+at `1ddc802d`. Replacement S06 candidate `c0d2a3e6`, tree `2fb9cbbe`, is
+frozen for independent exact-cut review after one bounded contract-authority
+repair. Do not edit, extend, or recursively refreeze it. Full conservation
+qualification, qualification, and release must not receive implementation
+while S06 remains unresolved.
 
 `A5-F12` and `ABG5-S04` are deferred to planned ABIogenesis 5.1. Their design
 is frozen at candidate `4897ead1`, tree `11d0ef7b`, under backlogged T-268 as

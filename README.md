@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 candidate `28122033` frozen for independent review; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 candidate `c0d2a3e6` frozen for independent review; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -56,7 +56,7 @@ feature-specific runtime is not a lawful substitute.
 
 ## Current Work
 
-S06 candidate `28122033`, tree `93e692d6`, is frozen for independent review.
+S06 candidate `c0d2a3e6`, tree `2fb9cbbe`, is frozen for independent review.
 It proves one installed public contract through the native SDK, native CLI,
 and a bounded Codex process delegate, plus one independently packed flavored
 Product using installed public exports and the existing catalog. The delegate

@@ -1,9 +1,9 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-28):** Replacement S06 candidate `28122033`,
-> tree `93e692d6`, is frozen for independent exact-cut review. The consolidated
-> repair is complete as a candidate claim. Do not edit, extend, or refreeze it;
-> S04 and later work remain held.
+> **Current disposition (2026-07-28):** Replacement S06 candidate `c0d2a3e6`,
+> tree `2fb9cbbe`, is frozen for independent exact-cut review. The bounded
+> contract-authority repair is complete as a candidate claim. Do not edit,
+> extend, or refreeze it; S04 and later work remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
@@ -12,7 +12,7 @@
 - status: active
 - phase_status: m5_s06_candidate_frozen
 - review_status: pending_independent_exact_cut_review
-- proof_status: mechanical_green_m5_171_m4_26_external_36_prime_4_portability_10
+- proof_status: mechanical_green_m5_172_m4_26_external_36_prime_4_portability_11
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
@@ -45,13 +45,13 @@
     build_tenants/abiogenesis/typescript/code/src/public
 - accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
 - accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
-- current_s06_candidate: 281220331a9684247d8f7f00eb7ec4e7422131c9
-- current_s06_candidate_tree: 93e692d60713c5bae0aa2b5da84b7411caf59221
-- current_s06_package_digest: acd47629a6b57ba0fa51106c54b5d1748f3dbb7ee1159c3c64c17dc29ef1996d
-- current_s06_package_inventory_digest: ceecadbbadfeca42cd495efb00fbe27c02c0d1c3a5012897dd3f8d444405692e
+- current_s06_candidate: c0d2a3e686ed589ce35efe629a351d149025a9d3
+- current_s06_candidate_tree: 2fb9cbbe041c650d3c52846657ea579668b6258e
+- current_s06_package_digest: 1deedcc3979d06d4c6546464c01632b7cc65aea9176c8750cb92b4cd16d5686c
+- current_s06_package_inventory_digest: 5b9c3d52b5c67b2d33c78330398d425fb37c87102109d81dfbc8dc58ef74e913
 - current_s06_handoff: >-
     .ai-workspace/comments/codex/
-    20260728T070320Z_HANDOFF_t281_s06_public_product_authority_candidate.md
+    20260728T092054Z_HANDOFF_t281_s06_contract_authority_candidate.md
 
 ## Selected Outcome
 
@@ -215,9 +215,9 @@ S06 remains open if:
 ## Handoff
 
 Independent reviewers inspected
-`d97942750a295c1c2ca47acbff947e7da5f7c3de` through the prior handoff. Their
+`281220331a9684247d8f7f00eb7ec4e7422131c9` through the prior handoff. Their
 consolidated findings produced replacement candidate
-`281220331a9684247d8f7f00eb7ec4e7422131c9`. Reviewers now inspect only that
+`c0d2a3e686ed589ce35efe629a351d149025a9d3`. Reviewers now inspect only that
 exact subject through the replacement handoff. The worker has stopped. Direct
 F_H acceptance closes S06.
 
