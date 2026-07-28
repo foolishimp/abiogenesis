@@ -32,13 +32,13 @@
     S04 candidate 4897ead1 is frozen and parked. It does not participate in S06
     and authorizes no S04 design repair or realization.
 - current_product_outcome: ABG5-S06
-- current_s06_candidate: fd6a3f1670687fcf5e50765161a72fd769d6271b
-- current_s06_candidate_tree: 8d3aeccf8a3e9966df31c68382ed03f6807baac8
-- current_s06_package_digest: d747cf0f99eeac442baf2a8c068bb605943040fb7780a4c7c6b0fcfa41d62cdd
-- current_s06_package_inventory_digest: 8ee18e0de2439672c7da88bb413408e684f5b37843463124afcbaf709bbb71dc
+- current_s06_candidate: ac61e0805b38f5535049bc792865daddd569e434
+- current_s06_candidate_tree: 90d16730524f7376c63d056a358e2c20f70da9d5
+- current_s06_package_digest: b72284ed9d8ded15e0f6e7c8e2b8f8654e36914e1e2f8367503ddda5446e73bc
+- current_s06_package_inventory_digest: bb4d1f71aca8ba387c529669225d0674f6bf15d1e0145c2a91f878a12d816fb8
 - current_s06_evidence: >-
     .ai-workspace/comments/codex/
-    20260727T183833Z_HANDOFF_t281_s06_portability_candidate.md
+    20260728T010929Z_HANDOFF_t281_s06_portability_repair_candidate.md
 - accepted_s03_candidate_commit: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s03_candidate_tree: f1a66a2c79f01972f063189bf7668fdb762ce2e6
 - accepted_s03_m03_digest: 39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85

@@ -103,8 +103,8 @@ The one selected unresolved outcome is frozen for independent review:
 
 T-281 owns this outcome under T-270. The S06 shell adds no Product semantics,
 runtime capability, catalog, controller, or execution path. Exact candidate
-`fd6a3f1670687fcf5e50765161a72fd769d6271b`, tree
-`8d3aeccf8a3e9966df31c68382ed03f6807baac8`, is immutable review input.
+`ac61e0805b38f5535049bc792865daddd569e434`, tree
+`90d16730524f7376c63d056a358e2c20f70da9d5`, is immutable review input.
 
 Acceptance requires:
 
@@ -140,7 +140,7 @@ repair and realization are parked. They do not participate in S06 closure.
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
-| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Candidate `fd6a3f16` frozen; independent review pending |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Candidate `ac61e080` frozen; independent review pending |
 | `4` | `T-268`, under `T-270` | Realize `A5-F12` and make `ABG5-S04` runnable | ABG derives the replay basis; observer and tuner run as ordinary GTL; reports and proposals preserve attribution; transition requires admitted actor and policy authority; no observer or tuner mutates live authority. | Design frozen at `4897ead1` and parked; realization unselected |
 | `5` | `T-270` | Freeze one M5 candidate | All pre-qualification Product behavior and all 17 feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by prior outcomes |
 | `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis is bound; S04 passes; all seven pre-release scenarios and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
