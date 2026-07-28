@@ -59,8 +59,9 @@ selection, ordered successor outcomes, and their acceptance conditions.
   `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. That bounded candidate Ontology
   and design candidate `b645595c`, tree `130af566`, was returned for one
   bounded repair: proposal/admission separation, sole named-symbol ownership,
-  and cross-Product augmentation refusal. The replacement design cut contains
-  those three repairs and must be accepted before retained realization resumes.
+  and cross-Product augmentation refusal. Replacement candidate `4f80f84a`,
+  tree `7070dca7`, contains those three repairs and is frozen for delta-only
+  independent review. It must be accepted before retained realization resumes.
   The current uncommitted implementation is constructability evidence only and
   carries no design authority.
 - Exact candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b`
@@ -111,8 +112,8 @@ The one selected unresolved outcome is held at independent design review:
 T-281 owns this outcome under T-270. The S06 shell adds no Product semantics,
 runtime capability, catalog, controller, or execution path. There is currently
 no implementation candidate. The exact review subject is native-contract
-replacement design in `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`; its exact
-identity is bound by the freeze evidence child. Implementation remains held.
+replacement design `4f80f84a826de86b4cfb4d9fec3baff428dcb44a`, tree
+`7070dca7d0f2ca90374b525faa60d5b810488763`. Implementation remains held.
 
 Acceptance requires:
 
@@ -157,7 +158,7 @@ release authority and do not participate in S06 closure.
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
-| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Bounded replacement design ready to freeze; implementation held |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Replacement design `4f80f84a` frozen for delta review; implementation held |
 | `4` | `T-270` | Freeze one M5 candidate | All selected pre-qualification 5.0 Product behavior and all 16 selected feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 |
 | `5` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
 | `6` | `T-248` | Release ABIogenesis 5.0.0 | Immutable RC, installed-RC qualification, governed final delta, stable tap, and fresh post-publication install preserve distinct exact subjects. | Blocked by M6 |

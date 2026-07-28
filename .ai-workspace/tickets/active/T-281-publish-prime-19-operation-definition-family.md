@@ -2,16 +2,16 @@
 
 > **Current disposition (2026-07-29):** S06 implementation candidate
 > `4f9bf707` and native declaration design candidate `b645595c` are returned
-> evidence. The three bounded design findings are repaired together in the
-> current design subject. Exact replacement identity follows its freeze;
-> realization, S04, and later work remain held.
+> evidence. Replacement design candidate `4f80f84a`, tree `7070dca7`, is
+> frozen for one independent delta review of the three repaired relations.
+> Realization, S04, and later work remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_native_contract_design_repair_ready_to_freeze
+- phase_status: m5_s06_native_contract_design_repair_candidate_frozen
 - review_status: pending_bounded_design_delta_review
 - proof_status: candidate_design_repair_mechanical_green_pandoc_7_mermaid_3_diff_check
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
@@ -55,13 +55,18 @@
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
-- current_s06_design_candidate: pending_exact_replacement_design_freeze
+- current_s06_design_candidate: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
+- current_s06_design_candidate_tree: 7070dca7d0f2ca90374b525faa60d5b810488763
+- current_s06_design_sha256: ab44417157853490f4a3d8f9055b5eca8c295fd16f9615020b70e327f57c09fe
 - current_s06_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
 - returned_s06_design_handoff: >-
     .ai-workspace/comments/codex/
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
+- current_s06_design_handoff: >-
+    .ai-workspace/comments/codex/
+    20260728T165447Z_HANDOFF_t281_s06_native_contract_design_repair.md
 
 ## Selected Outcome
 
@@ -274,9 +279,11 @@ because native declaration closure still allowed materially different roots,
 digest closure, and external-reference authority. Review then returned design
 candidate `b645595c16d23e98c7f65b958fcdf3e206ad3893` for three bounded choices:
 proposal versus admission, contract-to-symbol ownership, and cross-Product
-augmentation. They are repaired together. The next review is limited to those
-relations and their affected projections under one exact replacement handoff.
-Implementation remains stopped.
+augmentation. They are repaired together at candidate
+`4f80f84a826de86b4cfb4d9fec3baff428dcb44a`, tree
+`7070dca7d0f2ca90374b525faa60d5b810488763`. The next review is limited to
+those relations and their affected projections under the exact replacement
+handoff. Implementation remains stopped.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active
