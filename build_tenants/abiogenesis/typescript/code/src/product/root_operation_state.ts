@@ -24,6 +24,7 @@ export interface VerifiedOperationState {
 export interface InstallOperationState {
   readonly candidate: ProductInstallCandidate;
   readonly install: ProductInstall;
+  readonly lock: ResolvedProductLock;
 }
 
 export interface WorkspaceOperationState {

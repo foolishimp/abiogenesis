@@ -64,12 +64,15 @@ test("R3 admits one immutable WorkspaceBinding over the exact ProductSet", async
     ...expectedVerificationIdentity(candidateBasis),
   });
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
+  const lock = bootstrapProduct.constructResolvedProductLock([verified]);
+  assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
 
   const consumerRoot = join(scratch, "consumer");
   const installCandidate = await bootstrapProduct.installProduct({
     artifactPath,
     targetRoot: consumerRoot,
     verifiedArtifact: verified,
+    resolvedLock: lock,
   });
   assert.equal(installCandidate.disposition, "materialized", JSON.stringify(installCandidate));
 
@@ -122,8 +125,6 @@ test("R3 admits one immutable WorkspaceBinding over the exact ProductSet", async
   );
   assert.equal(admittedInstall.kind, "product_install", JSON.stringify(admittedInstall));
 
-  const lock = installedProduct.constructResolvedProductLock([admittedInstall]);
-  assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
   const productSet = installedProduct.constructProductSet([admittedInstall], lock);
   assert.equal(productSet.kind, "product_set", JSON.stringify(productSet));
   const wrongManifestDigest = `sha256:${"0".repeat(64)}`;

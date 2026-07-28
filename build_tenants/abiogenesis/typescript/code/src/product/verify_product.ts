@@ -4,7 +4,12 @@ import { isAbsolute, posix } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type {
+  ProductAssetLocator,
+  ProductContributionManifest,
+  ProductContributionManifestRow,
   ProductDeclaredDependency,
+  ProductNativeTypedLocator,
+  ProductPublicContract,
   ProductVerificationRefusal,
   ProductVerificationRefusalCode,
   ProductVerificationResult,
@@ -32,6 +37,8 @@ export interface ProductManifestView {
   readonly descriptorRef: string;
   readonly publisherNamespace: string;
   readonly contributionManifestRef: string;
+  readonly contributionManifestDigest: Sha256Digest;
+  readonly contributionManifest: ProductContributionManifest;
   readonly compatibilityRefs: readonly string[];
   readonly declaredDependencies: readonly ProductDeclaredDependency[];
   readonly provenanceRef: string;
@@ -109,6 +116,71 @@ function isDeclaredDependency(value: unknown): value is ProductDeclaredDependenc
     isUniqueStringArray(value.requiredCapabilityRefs);
 }
 
+function isContributionManifestRow(
+  value: unknown,
+): value is ProductContributionManifestRow {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "compatibilityRefs",
+      "declarationOrContractRef",
+      "handle",
+      "kind",
+      "moduleRef",
+      "owningProductId",
+      "programMembershipRefs",
+      "provenanceRef",
+      "readinessPrerequisiteRefs",
+    ]) &&
+    isNonblankString(value.moduleRef) &&
+    isNonblankString(value.handle) &&
+    (
+      value.kind === "graph_function" ||
+      value.kind === "node_type" ||
+      value.kind === "overlay"
+    ) &&
+    isNonblankString(value.declarationOrContractRef) &&
+    isNonblankString(value.owningProductId) &&
+    isUniqueStringArray(value.programMembershipRefs) &&
+    isUniqueStringArray(value.compatibilityRefs) &&
+    isNonblankString(value.provenanceRef) &&
+    isUniqueStringArray(value.readinessPrerequisiteRefs);
+}
+
+export function isProductContributionManifest(
+  value: unknown,
+): value is ProductContributionManifest {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "contributionManifestRef",
+      "descriptorRef",
+      "kind",
+      "productContentDigest",
+      "productId",
+      "productVersion",
+      "publicContractCatalogDigest",
+      "publicContractCatalogId",
+      "rows",
+      "schemaVersion",
+    ]) ||
+    value.kind !== "product_contribution_manifest" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isNonblankString(value.contributionManifestRef) ||
+    !isNonblankString(value.productId) ||
+    !isNonblankString(value.productVersion) ||
+    !isNonblankString(value.descriptorRef) ||
+    !isSha256Digest(value.productContentDigest) ||
+    !isNonblankString(value.publicContractCatalogId) ||
+    !isSha256Digest(value.publicContractCatalogDigest) ||
+    !Array.isArray(value.rows) ||
+    !value.rows.every(isContributionManifestRow)
+  ) {
+    return false;
+  }
+  const rowKeys = value.rows.map((row) => `${row.moduleRef}\0${row.handle}`);
+  return new Set(rowKeys).size === rowKeys.length;
+}
+
 function isSafeProductPath(value: string): boolean {
   if (value.length === 0 || isAbsolute(value) || value.includes("\\")) {
     return false;
@@ -118,7 +190,11 @@ function isSafeProductPath(value: string): boolean {
 }
 
 export function parseProductManifest(value: unknown): ProductManifestView | null {
-  if (!isRecord(value) || !isRecord(value.publicContractCatalog)) {
+  if (
+    !isRecord(value) ||
+    !isRecord(value.publicContractCatalog) ||
+    !isProductContributionManifest(value.contributionManifest)
+  ) {
     return null;
   }
   const catalog = value.publicContractCatalog;
@@ -134,6 +210,7 @@ export function parseProductManifest(value: unknown): ProductManifestView | null
     !isNonblankString(value.descriptorRef) ||
     !isNonblankString(value.publisherNamespace) ||
     !isNonblankString(value.contributionManifestRef) ||
+    !isSha256Digest(value.contributionManifestDigest) ||
     !isUniqueStringArray(value.compatibilityRefs) ||
     !Array.isArray(value.declaredDependencies) ||
     !value.declaredDependencies.every(isDeclaredDependency) ||
@@ -151,10 +228,22 @@ export function parseProductManifest(value: unknown): ProductManifestView | null
     return null;
   }
   const dependencies = value.declaredDependencies as readonly ProductDeclaredDependency[];
+  const contributionManifest = value.contributionManifest;
   if (
     dependencies.some((dependency) => dependency.productId === value.productId) ||
     new Set(dependencies.map((dependency) => dependency.productId)).size !==
-      dependencies.length
+      dependencies.length ||
+    contributionManifest.contributionManifestRef !==
+      value.contributionManifestRef ||
+    contributionManifest.productId !== value.productId ||
+    contributionManifest.productVersion !== value.packageVersion ||
+    contributionManifest.descriptorRef !== value.descriptorRef ||
+    contributionManifest.productContentDigest !== value.productContentDigest ||
+    contributionManifest.publicContractCatalogId !== catalog.catalogId ||
+    contributionManifest.publicContractCatalogDigest !== catalog.catalogDigest ||
+    contributionManifest.rows.some(
+      (row) => row.owningProductId !== value.productId,
+    )
   ) {
     return null;
   }
@@ -182,33 +271,109 @@ function catalogWithoutDigest(catalog: ProductManifestView["publicContractCatalo
   return withoutDigest;
 }
 
-function readAssetLocator(row: JsonRecord): { readonly path: string; readonly digest: Sha256Digest } | null {
+function readAssetLocator(row: JsonRecord): ProductAssetLocator | null {
   const locator = row.assetLocator;
   if (!isRecord(locator)) {
     return null;
   }
-  if (typeof locator.path !== "string" || !isSha256Digest(locator.contentDigest)) {
+  const allowedKeys = locator.definitionRef === undefined
+    ? ["contentDigest", "mediaType", "path", "schemaVersion"]
+    : ["contentDigest", "definitionRef", "mediaType", "path", "schemaVersion"];
+  if (
+    !hasExactKeys(locator, allowedKeys) ||
+    !isNonblankString(locator.path) ||
+    !isNonblankString(locator.mediaType) ||
+    !isNonblankString(locator.schemaVersion) ||
+    !isSha256Digest(locator.contentDigest) ||
+    (
+      locator.definitionRef !== undefined &&
+      !isNonblankString(locator.definitionRef)
+    )
+  ) {
     return null;
   }
-  return { path: locator.path, digest: locator.contentDigest };
+  return {
+    path: locator.path,
+    mediaType: locator.mediaType,
+    schemaVersion: locator.schemaVersion,
+    contentDigest: locator.contentDigest,
+    ...(locator.definitionRef === undefined
+      ? {}
+      : { definitionRef: locator.definitionRef }),
+  };
 }
 
 function readNativeLocator(
   row: JsonRecord,
-): { readonly packageExportPath: string; readonly declarationPath: string } | null {
+): ProductNativeTypedLocator | null {
   const locator = row.nativeTypedLocator;
   if (!isRecord(locator)) {
     return null;
   }
   if (
-    typeof locator.packageExportPath !== "string" ||
-    typeof locator.declarationPath !== "string"
+    !hasExactKeys(locator, [
+      "declarationPath",
+      "namedSymbol",
+      "packageExportPath",
+      "packageName",
+    ]) ||
+    !isNonblankString(locator.packageName) ||
+    !isNonblankString(locator.packageExportPath) ||
+    !isNonblankString(locator.namedSymbol) ||
+    !isNonblankString(locator.declarationPath)
   ) {
     return null;
   }
   return {
+    packageName: locator.packageName,
     packageExportPath: locator.packageExportPath,
+    namedSymbol: locator.namedSymbol,
     declarationPath: locator.declarationPath,
+  };
+}
+
+export function parseProductPublicContract(
+  value: unknown,
+  productId: string,
+): ProductPublicContract | null {
+  if (!isRecord(value)) return null;
+  const row = value as JsonRecord;
+  if (
+    !isNonblankString(row.contractId) ||
+    !isNonblankString(row.contractVersion) ||
+    !isSha256Digest(row.contractDigest) ||
+    !isNonblankString(row.contractKind) ||
+    row.owningProduct !== productId ||
+    !isUniqueStringArray(row.requirementAuthorityRefs) ||
+    !isUniqueStringArray(row.capabilityIdentities)
+  ) {
+    return null;
+  }
+  const nativeTypedLocator = readNativeLocator(row);
+  const assetLocator = readAssetLocator(row);
+  if (nativeTypedLocator === null && assetLocator === null) return null;
+  const allowedKeys = [
+    "capabilityIdentities",
+    "contractDigest",
+    "contractId",
+    "contractKind",
+    "contractVersion",
+    "owningProduct",
+    "requirementAuthorityRefs",
+    ...(nativeTypedLocator === null ? [] : ["nativeTypedLocator"]),
+    ...(assetLocator === null ? [] : ["assetLocator"]),
+  ];
+  if (!hasExactKeys(row, allowedKeys)) return null;
+  return {
+    contractId: row.contractId,
+    contractVersion: row.contractVersion,
+    contractDigest: row.contractDigest,
+    contractKind: row.contractKind,
+    owningProduct: productId,
+    requirementAuthorityRefs: [...row.requirementAuthorityRefs],
+    capabilityIdentities: [...row.capabilityIdentities],
+    ...(nativeTypedLocator === null ? {} : { nativeTypedLocator }),
+    ...(assetLocator === null ? {} : { assetLocator }),
   };
 }
 
@@ -309,6 +474,16 @@ export async function verifyProduct(
       "product manifest differs from the externally expected manifest identity",
     );
   }
+  if (
+    sha256Canonical(manifest.contributionManifest as unknown as JsonValue) !==
+      manifest.contributionManifestDigest
+  ) {
+    return refusal(
+      request,
+      "contribution_mismatch",
+      "Product contribution manifest digest is invalid",
+    );
+  }
 
   if (
     manifest.productId !== request.expectedProductId ||
@@ -383,6 +558,7 @@ export async function verifyProduct(
 
   const contractIds = new Set<string>();
   const publicCapabilityRefs = new Set<string>();
+  const publicContracts: ProductPublicContract[] = [];
   try {
     const schemaBytes = await readArchiveEntry(
       request.artifactPath,
@@ -393,25 +569,24 @@ export async function verifyProduct(
     }
 
     for (const row of manifest.publicContractCatalog.rows) {
+      const contract = parseProductPublicContract(row, manifest.productId);
       if (
-        typeof row.contractId !== "string" ||
-        contractIds.has(row.contractId) ||
-        !isSha256Digest(row.contractDigest)
+        contract === null ||
+        contractIds.has(contract.contractId)
       ) {
-        return refusal(request, "catalog_mismatch", "catalog row identity or digest is invalid");
+        return refusal(
+          request,
+          "catalog_mismatch",
+          "catalog row authority, identity, or locator is incomplete",
+        );
       }
-      contractIds.add(row.contractId);
-      if (
-        row.capabilityIdentities !== undefined &&
-        !isUniqueStringArray(row.capabilityIdentities)
-      ) {
-        return refusal(request, "catalog_mismatch", "catalog row capabilities are invalid");
-      }
-      for (const capabilityRef of row.capabilityIdentities ?? []) {
-        publicCapabilityRefs.add(capabilityRef as string);
+      contractIds.add(contract.contractId);
+      publicContracts.push(contract);
+      for (const capabilityRef of contract.capabilityIdentities) {
+        publicCapabilityRefs.add(capabilityRef);
       }
 
-      const assetLocator = readAssetLocator(row);
+      const assetLocator = contract.assetLocator ?? null;
       if (assetLocator !== null) {
         if (!isSafeProductPath(assetLocator.path)) {
           return refusal(request, "unsafe_locator", "contract asset path is unsafe");
@@ -419,7 +594,10 @@ export async function verifyProduct(
         const assetDigest = sha256Bytes(
           await readArchiveEntry(request.artifactPath, `package/${assetLocator.path}`),
         );
-        if (assetDigest !== assetLocator.digest || assetDigest !== row.contractDigest) {
+        if (
+          assetDigest !== assetLocator.contentDigest ||
+          assetDigest !== contract.contractDigest
+        ) {
           return refusal(
             request,
             "contract_asset_mismatch",
@@ -428,10 +606,11 @@ export async function verifyProduct(
         }
       }
 
-      const nativeLocator = readNativeLocator(row);
+      const nativeLocator = contract.nativeTypedLocator ?? null;
       if (nativeLocator !== null) {
         if (
           !isSafeProductPath(nativeLocator.declarationPath) ||
+          nativeLocator.packageName !== manifest.packageName ||
           !(nativeLocator.packageExportPath in packageJson.exports)
         ) {
           return refusal(request, "catalog_mismatch", "native typed locator is invalid");
@@ -446,14 +625,11 @@ export async function verifyProduct(
             declarationDigest,
           },
         ]);
-        if (nativeDigest !== row.contractDigest) {
+        if (nativeDigest !== contract.contractDigest) {
           return refusal(request, "catalog_mismatch", "native typed contract digest is invalid");
         }
       }
 
-      if (assetLocator === null && nativeLocator === null) {
-        return refusal(request, "catalog_mismatch", "catalog row has no contract locator");
-      }
     }
   } catch (error) {
     return refusal(request, "contract_asset_mismatch", String(error));
@@ -474,6 +650,16 @@ export async function verifyProduct(
     descriptorRef: manifest.descriptorRef,
     publisherNamespace: manifest.publisherNamespace,
     contributionManifestRef: manifest.contributionManifestRef,
+    contributionManifestDigest: manifest.contributionManifestDigest,
+    contributionManifest: {
+      ...manifest.contributionManifest,
+      rows: manifest.contributionManifest.rows.map((row) => ({
+        ...row,
+        programMembershipRefs: [...row.programMembershipRefs],
+        compatibilityRefs: [...row.compatibilityRefs],
+        readinessPrerequisiteRefs: [...row.readinessPrerequisiteRefs],
+      })),
+    },
     compatibilityRefs: [...manifest.compatibilityRefs],
     declaredDependencies: manifest.declaredDependencies.map((dependency) => ({
       ...dependency,
@@ -484,6 +670,7 @@ export async function verifyProduct(
     declaredCapabilityRefs: [...manifest.declaredCapabilityRefs],
     catalogId: manifest.publicContractCatalog.catalogId,
     catalogDigest: manifest.publicContractCatalog.catalogDigest,
+    publicContracts,
     publicContractRefs: [...contractIds].sort(),
     publicCapabilityRefs: [...publicCapabilityRefs].sort(),
     checkedPayloadFiles: inventory.length,

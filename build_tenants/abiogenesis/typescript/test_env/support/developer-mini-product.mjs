@@ -37,6 +37,11 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
   const packageJson = JSON.parse(
     await readFile(join(sourceRoot, "package.json"), "utf8"),
   );
+  const module = await import(
+    `${pathToFileURL(
+      join(sourceRoot, "build/index.js"),
+    ).href}?publication-authority=${Date.now()}`
+  );
   const abiogenesisManifest = JSON.parse(
     await readFile(join(packageRoot, "product-toolchain-manifest.json"), "utf8"),
   );
@@ -63,6 +68,10 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
   const greetingSchemaDigest = await product.sha256File(
     join(sourceRoot, greetingSchemaPath),
   );
+  const descriptorRef = "descriptor://developer.example/greeting@5";
+  const contributionManifestRef =
+    "contribution-manifest://developer.example/greeting@5";
+  const provenanceRef = "provenance://developer.example/greeting@5";
   const catalogWithoutDigest = {
     schemaVersion: "5.0.0",
     catalogId: "catalog://developer.example/greeting/public-contracts@5.0.0",
@@ -71,12 +80,58 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
     catalogSchemaDigest,
     rows: [{
       contractId: "developer.example.contract.greeting",
+      contractVersion: "5.0.0",
       contractDigest: greetingSchemaDigest,
+      contractKind: "schema_asset",
+      owningProduct: productId,
+      requirementAuthorityRefs: [
+        "requirement://developer.example/greeting/render@5",
+      ],
+      capabilityIdentities: [
+        "developer.example.capability.greeting@5",
+      ],
       assetLocator: {
         path: greetingSchemaPath,
+        mediaType: "application/schema+json",
+        schemaVersion: "5.0.0",
         contentDigest: greetingSchemaDigest,
       },
     }],
+  };
+  const publicContractCatalog = {
+    ...catalogWithoutDigest,
+    catalogDigest: product.sha256Canonical(catalogWithoutDigest),
+  };
+  const placeholderDigest = `sha256:${"0".repeat(64)}`;
+  const draftPublication = module.constructDeveloperMiniPublication({
+    productId,
+    artifactDigest: placeholderDigest,
+    productContentDigest,
+    productManifestDigest: placeholderDigest,
+    packageName: packageJson.name,
+    packageVersion: packageJson.version,
+  });
+  const contributionManifest = {
+    kind: "product_contribution_manifest",
+    schemaVersion: "5.0.0",
+    contributionManifestRef,
+    productId,
+    productVersion: packageJson.version,
+    descriptorRef,
+    productContentDigest,
+    publicContractCatalogId: publicContractCatalog.catalogId,
+    publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+    rows: draftPublication.contributions.map((contribution) => ({
+      moduleRef: draftPublication.moduleRef,
+      handle: contribution.handle,
+      kind: contribution.kind,
+      declarationOrContractRef: contribution.declarationOrContractRef,
+      owningProductId: contribution.owningProductId,
+      programMembershipRefs: [...contribution.programMembershipRefs],
+      compatibilityRefs: [...contribution.compatibilityRefs],
+      provenanceRef,
+      readinessPrerequisiteRefs: [...contribution.programMembershipRefs],
+    })),
   };
   const manifest = {
     kind: "abg_product_toolchain_manifest",
@@ -86,10 +141,11 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
     packageVersion: packageJson.version,
     productContentDigest,
     productRelativeLocators,
-    descriptorRef: "descriptor://developer.example/greeting@5",
+    descriptorRef,
     publisherNamespace: "developer.example",
-    contributionManifestRef:
-      "contribution-manifest://developer.example/greeting@5",
+    contributionManifestRef,
+    contributionManifestDigest: product.sha256Canonical(contributionManifest),
+    contributionManifest,
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     declaredDependencies: [{
       kind: "requires",
@@ -105,12 +161,9 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
         "abg.capability.gtl.author@5",
       ],
     }],
-    provenanceRef: "provenance://developer.example/greeting@5",
+    provenanceRef,
     declaredCapabilityRefs: ["developer.example.capability.greeting@5"],
-    publicContractCatalog: {
-      ...catalogWithoutDigest,
-      catalogDigest: product.sha256Canonical(catalogWithoutDigest),
-    },
+    publicContractCatalog,
   };
   await writeFile(
     join(sourceRoot, "product-toolchain-manifest.json"),
@@ -128,9 +181,6 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
   const [packResult] = JSON.parse(stdout);
   const artifactPath = join(artifacts, packResult.filename);
   const artifactDigest = await product.sha256File(artifactPath);
-  const module = await import(
-    `${pathToFileURL(join(sourceRoot, "build/index.js")).href}?publication=${Date.now()}`
-  );
   const basis = {
     artifactDigest,
     manifestDigest,

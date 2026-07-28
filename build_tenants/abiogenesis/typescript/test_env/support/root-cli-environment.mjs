@@ -179,6 +179,7 @@ export async function buildRootCliScenario(
     }),
     invocation("abg.operation.product.install", "verified_artifact", refs.install, {
       verifiedInvocationRef: refs.verify,
+      lockVerifiedInvocationRefs: [refs.verify],
       artifactPath: harness.artifactPath,
       targetRoot: productConsumer,
     }),

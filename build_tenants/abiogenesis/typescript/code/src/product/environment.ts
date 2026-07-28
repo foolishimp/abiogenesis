@@ -2,14 +2,21 @@ import { isAbsolute } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type {
+  ProductContributionManifest,
   ProductDeclaredDependency,
   ProductInstallCandidate,
+  ProductPublicContract,
+  VerifiedProductArtifact,
 } from "./contracts.js";
 import {
   isSha256Digest,
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
+import {
+  isProductContributionManifest,
+  parseProductPublicContract,
+} from "./verify_product.js";
 
 export interface ProductInstall extends Omit<ProductInstallCandidate, "kind" | "disposition"> {
   readonly kind: "product_install";
@@ -26,14 +33,18 @@ export interface ResolvedProductLockRow {
   readonly manifestDigest: Sha256Digest;
   readonly descriptorRef: string;
   readonly publisherNamespace: string;
+  readonly catalogId: string;
+  readonly catalogDigest: Sha256Digest;
   readonly contributionManifestRef: string;
+  readonly contributionManifestDigest: Sha256Digest;
+  readonly contributionManifest: ProductContributionManifest;
   readonly compatibilityRefs: readonly string[];
   readonly declaredDependencies: readonly ProductDeclaredDependency[];
   readonly provenanceRef: string;
   readonly declaredCapabilityRefs: readonly string[];
+  readonly publicContracts: readonly ProductPublicContract[];
   readonly publicContractRefs: readonly string[];
   readonly publicCapabilityRefs: readonly string[];
-  readonly installId: string;
 }
 
 export interface ProductDependencyEdge {
@@ -42,6 +53,7 @@ export interface ProductDependencyEdge {
   readonly toProductId: string;
   readonly packageVersion: string;
   readonly compatibilityRef: string;
+  readonly compatibilityDisposition: "compatible";
   readonly requiredContractRefs: readonly string[];
   readonly requiredCapabilityRefs: readonly string[];
 }
@@ -195,25 +207,69 @@ function copyDependency(
   };
 }
 
-function lockRowsFor(installs: readonly ProductInstall[]): readonly ResolvedProductLockRow[] {
-  return installs.map((install) => ({
-    productId: install.productId,
-    packageName: install.packageName,
-    packageVersion: install.packageVersion,
-    artifactDigest: install.artifactDigest,
-    productContentDigest: install.productContentDigest,
-    manifestDigest: install.manifestDigest,
-    descriptorRef: install.descriptorRef,
-    publisherNamespace: install.publisherNamespace,
-    contributionManifestRef: install.contributionManifestRef,
-    compatibilityRefs: [...install.compatibilityRefs],
-    declaredDependencies: install.declaredDependencies.map(copyDependency),
-    provenanceRef: install.provenanceRef,
-    declaredCapabilityRefs: [...install.declaredCapabilityRefs],
-    publicContractRefs: [...install.publicContractRefs],
-    publicCapabilityRefs: [...install.publicCapabilityRefs],
-    installId: install.installId,
-  }));
+function copyContributionManifest(
+  manifest: ProductContributionManifest,
+): ProductContributionManifest {
+  return {
+    ...manifest,
+    rows: manifest.rows.map((row) => ({
+      ...row,
+      programMembershipRefs: [...row.programMembershipRefs],
+      compatibilityRefs: [...row.compatibilityRefs],
+      readinessPrerequisiteRefs: [...row.readinessPrerequisiteRefs],
+    })),
+  };
+}
+
+function copyPublicContract(
+  contract: ProductPublicContract,
+): ProductPublicContract {
+  return {
+    ...contract,
+    requirementAuthorityRefs: [...contract.requirementAuthorityRefs],
+    capabilityIdentities: [...contract.capabilityIdentities],
+    ...(contract.nativeTypedLocator === undefined
+      ? {}
+      : { nativeTypedLocator: { ...contract.nativeTypedLocator } }),
+    ...(contract.assetLocator === undefined
+      ? {}
+      : { assetLocator: { ...contract.assetLocator } }),
+  };
+}
+
+function lockRowFor(
+  artifact: VerifiedProductArtifact | ProductInstall,
+): ResolvedProductLockRow {
+  return {
+    productId: artifact.productId,
+    packageName: artifact.packageName,
+    packageVersion: artifact.packageVersion,
+    artifactDigest: artifact.artifactDigest,
+    productContentDigest: artifact.productContentDigest,
+    manifestDigest: artifact.manifestDigest,
+    descriptorRef: artifact.descriptorRef,
+    publisherNamespace: artifact.publisherNamespace,
+    catalogId: artifact.catalogId,
+    catalogDigest: artifact.catalogDigest,
+    contributionManifestRef: artifact.contributionManifestRef,
+    contributionManifestDigest: artifact.contributionManifestDigest,
+    contributionManifest: copyContributionManifest(
+      artifact.contributionManifest,
+    ),
+    compatibilityRefs: [...artifact.compatibilityRefs],
+    declaredDependencies: artifact.declaredDependencies.map(copyDependency),
+    provenanceRef: artifact.provenanceRef,
+    declaredCapabilityRefs: [...artifact.declaredCapabilityRefs],
+    publicContracts: artifact.publicContracts.map(copyPublicContract),
+    publicContractRefs: [...artifact.publicContractRefs],
+    publicCapabilityRefs: [...artifact.publicCapabilityRefs],
+  };
+}
+
+function lockRowsFor(
+  artifacts: readonly VerifiedProductArtifact[],
+): readonly ResolvedProductLockRow[] {
+  return artifacts.map(lockRowFor);
 }
 
 function deriveDeclaredDependencyEdges(
@@ -267,6 +323,7 @@ function deriveDeclaredDependencyEdges(
         toProductId: target.productId,
         packageVersion: dependency.packageVersion,
         compatibilityRef: dependency.compatibilityRef,
+        compatibilityDisposition: "compatible",
         requiredContractRefs: [...dependency.requiredContractRefs],
         requiredCapabilityRefs: [...dependency.requiredCapabilityRefs],
       });
@@ -307,19 +364,34 @@ function hasProductDependencyCycle(
 }
 
 export function constructResolvedProductLock(
-  installs: readonly ProductInstall[],
+  artifacts: readonly VerifiedProductArtifact[],
 ): EnvironmentRefusal | ResolvedProductLock {
-  if (installs.length === 0) {
-    return refusal("empty_product_set", "a resolved lock requires at least one admitted install");
+  if (artifacts.length === 0) {
+    return refusal(
+      "empty_product_set",
+      "a resolved lock requires at least one verified Product artifact",
+    );
   }
-  if (installs.some((install) => install.kind !== "product_install" || install.disposition !== "admitted")) {
-    return refusal("lock_mismatch", "a resolved lock accepts admitted ProductInstall values only");
+  if (
+    artifacts.some(
+      (artifact) =>
+        artifact.kind !== "verified_product_artifact" ||
+        artifact.disposition !== "verified",
+    )
+  ) {
+    return refusal(
+      "lock_mismatch",
+      "a resolved lock accepts verified Product artifacts only",
+    );
   }
-  const installIds = installs.map((install) => install.installId);
-  if (new Set(installIds).size !== installIds.length) {
-    return refusal("duplicate_install", "a resolved lock cannot contain duplicate install identities");
+  const artifactDigests = artifacts.map((artifact) => artifact.artifactDigest);
+  if (new Set(artifactDigests).size !== artifactDigests.length) {
+    return refusal(
+      "duplicate_install",
+      "a resolved lock cannot contain duplicate artifact identities",
+    );
   }
-  const rows = lockRowsFor(installs);
+  const rows = lockRowsFor(artifacts);
   const productIds = rows.map((row) => row.productId);
   if (new Set(productIds).size !== productIds.length) {
     return refusal(
@@ -377,12 +449,15 @@ export function isResolvedProductLock(
         !isRecord(row) ||
         !hasExactKeys(row, [
           "artifactDigest",
+          "catalogDigest",
+          "catalogId",
           "compatibilityRefs",
+          "contributionManifest",
+          "contributionManifestDigest",
           "contributionManifestRef",
           "declaredCapabilityRefs",
           "declaredDependencies",
           "descriptorRef",
-          "installId",
           "manifestDigest",
           "packageName",
           "packageVersion",
@@ -390,6 +465,7 @@ export function isResolvedProductLock(
           "productContentDigest",
           "productId",
           "publicCapabilityRefs",
+          "publicContracts",
           "publicContractRefs",
           "publisherNamespace",
         ]) ||
@@ -401,25 +477,52 @@ export function isResolvedProductLock(
         !isSha256Digest(row.manifestDigest) ||
         !nonEmptyString(row.descriptorRef) ||
         !nonEmptyString(row.publisherNamespace) ||
+        !nonEmptyString(row.catalogId) ||
+        !isSha256Digest(row.catalogDigest) ||
         !nonEmptyString(row.contributionManifestRef) ||
+        !isSha256Digest(row.contributionManifestDigest) ||
+        !isProductContributionManifest(row.contributionManifest) ||
+        sha256Canonical(row.contributionManifest as unknown as JsonValue) !==
+          row.contributionManifestDigest ||
+        row.contributionManifest.contributionManifestRef !==
+          row.contributionManifestRef ||
+        row.contributionManifest.productId !== row.productId ||
+        row.contributionManifest.productVersion !== row.packageVersion ||
+        row.contributionManifest.descriptorRef !== row.descriptorRef ||
+        row.contributionManifest.productContentDigest !==
+          row.productContentDigest ||
+        row.contributionManifest.publicContractCatalogId !== row.catalogId ||
+        row.contributionManifest.publicContractCatalogDigest !==
+          row.catalogDigest ||
         !isUniqueStringArray(row.compatibilityRefs) ||
         !Array.isArray(row.declaredDependencies) ||
         !row.declaredDependencies.every(isDeclaredDependency) ||
         !nonEmptyString(row.provenanceRef) ||
         !isUniqueStringArray(row.declaredCapabilityRefs) ||
+        !Array.isArray(row.publicContracts) ||
+        !row.publicContracts.every(
+          (contract) =>
+            parseProductPublicContract(contract, row.productId as string) !==
+            null,
+        ) ||
         !isUniqueStringArray(row.publicContractRefs) ||
         !isUniqueStringArray(row.publicCapabilityRefs) ||
-        !nonEmptyString(row.installId),
+        row.publicContractRefs.join("\0") !==
+          (row.publicContracts as readonly ProductPublicContract[])
+            .map((contract) => contract.contractId)
+            .sort()
+            .join("\0") ||
+        row.publicCapabilityRefs.join("\0") !==
+          [...new Set(
+            (row.publicContracts as readonly ProductPublicContract[])
+              .flatMap((contract) => contract.capabilityIdentities),
+          )].sort().join("\0"),
     )
   ) {
     return false;
   }
   const productIds = rows.map((row) => row.productId as string);
-  const installIds = rows.map((row) => row.installId as string);
-  if (
-    new Set(installIds).size !== installIds.length ||
-    new Set(productIds).size !== productIds.length
-  ) {
+  if (new Set(productIds).size !== productIds.length) {
     return false;
   }
   const productIdSet = new Set(productIds);
@@ -430,6 +533,7 @@ export function isResolvedProductLock(
         !isRecord(edge) ||
         !hasExactKeys(edge, [
           "compatibilityRef",
+          "compatibilityDisposition",
           "fromProductId",
           "kind",
           "packageVersion",
@@ -442,6 +546,7 @@ export function isResolvedProductLock(
         !nonEmptyString(edge.toProductId) ||
         !nonEmptyString(edge.packageVersion) ||
         !nonEmptyString(edge.compatibilityRef) ||
+        edge.compatibilityDisposition !== "compatible" ||
         !isUniqueStringArray(edge.requiredContractRefs) ||
         !isUniqueStringArray(edge.requiredCapabilityRefs) ||
         edge.fromProductId === edge.toProductId ||
@@ -487,6 +592,17 @@ export function isResolvedProductLock(
     value.lockId === identity("product-lock://abiogenesis", expectedDigest);
 }
 
+export function verifiedArtifactMatchesResolvedLock(
+  artifact: VerifiedProductArtifact,
+  lock: ResolvedProductLock,
+): boolean {
+  if (!isResolvedProductLock(lock)) return false;
+  const matches = lock.rows.filter((row) => row.productId === artifact.productId);
+  return matches.length === 1 &&
+    canonicalJson(matches[0] as unknown as JsonValue) ===
+      canonicalJson(lockRowFor(artifact) as unknown as JsonValue);
+}
+
 export function constructProductSet(
   installs: readonly ProductInstall[],
   lock: ResolvedProductLock,
@@ -498,7 +614,16 @@ export function constructProductSet(
   if (new Set(orderedInstallRefs).size !== orderedInstallRefs.length) {
     return refusal("duplicate_install", "a ProductSet cannot contain duplicate install identities");
   }
-  if (canonicalJson(lockRowsFor(installs) as unknown as JsonValue) !== canonicalJson(lock.rows as unknown as JsonValue)) {
+  if (
+    installs.some(
+      (install) =>
+        install.resolvedLockId !== lock.lockId ||
+        install.resolvedLockDigest !== lock.lockDigest,
+    ) ||
+    canonicalJson(
+      installs.map(lockRowFor) as unknown as JsonValue,
+    ) !== canonicalJson(lock.rows as unknown as JsonValue)
+  ) {
     return refusal("lock_mismatch", "ProductSet installs and resolved lock rows disagree");
   }
   const productSetDigest = sha256Canonical({
@@ -545,8 +670,7 @@ export function isProductSet(
     !isResolvedProductLock(lock) ||
     value.lockId !== lock.lockId ||
     value.lockDigest !== lock.lockDigest ||
-    value.orderedInstallRefs.join("\0") !==
-      lock.rows.map((row) => row.installId).join("\0")
+    value.orderedInstallRefs.length !== lock.rows.length
   ) {
     return false;
   }

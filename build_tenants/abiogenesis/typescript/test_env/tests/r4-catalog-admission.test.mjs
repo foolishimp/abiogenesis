@@ -93,12 +93,15 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     ...expectedVerificationIdentity(candidateBasis),
   });
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
+  const lock = bootstrapProduct.constructResolvedProductLock([verified]);
+  assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
 
   const consumerRoot = join(scratch, "consumer");
   const installCandidate = await bootstrapProduct.installProduct({
     artifactPath,
     targetRoot: consumerRoot,
     verifiedArtifact: verified,
+    resolvedLock: lock,
   });
   assert.equal(installCandidate.disposition, "materialized", JSON.stringify(installCandidate));
   const installedRoot = installCandidate.installedRoot;
@@ -121,7 +124,6 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     ),
   );
   assert.equal(admittedInstall.kind, "product_install", JSON.stringify(admittedInstall));
-  const lock = product.constructResolvedProductLock([admittedInstall]);
   const productSet = product.constructProductSet([admittedInstall], lock);
   const workspaceRoot = join(scratch, "workspace");
   await mkdir(workspaceRoot);

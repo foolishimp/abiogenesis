@@ -536,12 +536,57 @@ async function consensusBasis(
 }
 
 function expectedWorkspaceBinding(basis, harness, scenario) {
+  const publicContracts = harness.candidateManifest.publicContractCatalog.rows;
+  const publicContractRefs = publicContracts.map(
+    (row) => row.contractId,
+  ).sort();
+  const publicCapabilityRefs = [
+    ...new Set(
+      publicContracts.flatMap(
+        (row) => row.capabilityIdentities ?? [],
+      ),
+    ),
+  ].sort();
+  const verified = {
+    kind: "verified_product_artifact",
+    schemaVersion: "5.0.0",
+    disposition: "verified",
+    artifactRef: harness.artifactRef,
+    artifactDigest: harness.candidateBasis.artifactDigest,
+    artifactByteLength: 1,
+    productId: harness.candidateBasis.productId,
+    packageName: harness.candidateBasis.packageName,
+    packageVersion: harness.candidateBasis.packageVersion,
+    productContentDigest: harness.candidateBasis.productContentDigest,
+    manifestDigest: harness.candidateBasis.manifestDigest,
+    descriptorRef: harness.candidateManifest.descriptorRef,
+    publisherNamespace: harness.candidateManifest.publisherNamespace,
+    contributionManifestRef:
+      harness.candidateManifest.contributionManifestRef,
+    contributionManifestDigest:
+      harness.candidateManifest.contributionManifestDigest,
+    contributionManifest: harness.candidateManifest.contributionManifest,
+    compatibilityRefs: harness.candidateManifest.compatibilityRefs,
+    declaredDependencies: harness.candidateManifest.declaredDependencies,
+    provenanceRef: harness.candidateManifest.provenanceRef,
+    declaredCapabilityRefs:
+      harness.candidateManifest.declaredCapabilityRefs,
+    catalogId: harness.candidateManifest.publicContractCatalog.catalogId,
+    catalogDigest:
+      harness.candidateManifest.publicContractCatalog.catalogDigest,
+    publicContracts,
+    publicContractRefs,
+    publicCapabilityRefs,
+    checkedPayloadFiles: harness.candidateManifest.productRelativeLocators.length,
+  };
+  const lock = basis.product.constructResolvedProductLock([verified]);
+  assert.equal(lock.kind, "resolved_product_lock");
   const install = {
     kind: "product_install",
     schemaVersion: "5.0.0",
     disposition: "admitted",
     installId:
-      `product-install://${harness.candidateBasis.packageName}/${harness.candidateBasis.packageVersion}/${harness.candidateBasis.productContentDigest.slice("sha256:".length)}`,
+      `product-install://${harness.candidateBasis.packageName}/${harness.candidateBasis.packageVersion}/${harness.candidateBasis.productContentDigest.slice("sha256:".length)}/${lock.lockDigest.slice("sha256:".length)}`,
     installedRoot: scenario.installedRoot,
     productId: harness.candidateBasis.productId,
     packageName: harness.candidateBasis.packageName,
@@ -553,26 +598,24 @@ function expectedWorkspaceBinding(basis, harness, scenario) {
     publisherNamespace: harness.candidateManifest.publisherNamespace,
     contributionManifestRef:
       harness.candidateManifest.contributionManifestRef,
+    contributionManifestDigest:
+      harness.candidateManifest.contributionManifestDigest,
+    contributionManifest: harness.candidateManifest.contributionManifest,
     compatibilityRefs: harness.candidateManifest.compatibilityRefs,
     declaredDependencies: harness.candidateManifest.declaredDependencies,
     provenanceRef: harness.candidateManifest.provenanceRef,
     declaredCapabilityRefs:
       harness.candidateManifest.declaredCapabilityRefs,
-    publicContractRefs:
-      harness.candidateManifest.publicContractCatalog.rows.map(
-        (row) => row.contractId,
-      ).sort(),
-    publicCapabilityRefs: [
-      ...new Set(
-        harness.candidateManifest.publicContractCatalog.rows.flatMap(
-          (row) => row.capabilityIdentities ?? [],
-        ),
-      ),
-    ].sort(),
+    catalogId: harness.candidateManifest.publicContractCatalog.catalogId,
+    catalogDigest:
+      harness.candidateManifest.publicContractCatalog.catalogDigest,
+    publicContracts,
+    publicContractRefs,
+    publicCapabilityRefs,
+    resolvedLockId: lock.lockId,
+    resolvedLockDigest: lock.lockDigest,
     admissionEventRef: "event://client/derived-install-basis",
   };
-  const lock = basis.product.constructResolvedProductLock([install]);
-  assert.equal(lock.kind, "resolved_product_lock");
   const productSet = basis.product.constructProductSet([install], lock);
   assert.equal(productSet.kind, "product_set");
   const payload = scenario.transcript[2].payload;

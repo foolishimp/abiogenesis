@@ -13,7 +13,7 @@ function usage(message: string): never {
 }
 
 function exactArguments(argv: readonly string[]): {
-  readonly cliPath: string;
+  readonly installedCliPath: string;
   readonly transcriptPath: string;
 } {
   if (
@@ -50,11 +50,16 @@ function exactArguments(argv: readonly string[]): {
       "abg.codex requires the exact sibling installed abg.cli and one transcript",
     );
   }
-  return { cliPath, transcriptPath };
+  return {
+    installedCliPath,
+    transcriptPath: resolvedTranscriptPath,
+  };
 }
 
-const { cliPath, transcriptPath } = exactArguments(process.argv.slice(2));
-const child = spawn(cliPath, ["--jsonl", transcriptPath], {
+const { installedCliPath, transcriptPath } = exactArguments(
+  process.argv.slice(2),
+);
+const child = spawn(installedCliPath, ["--jsonl", transcriptPath], {
   stdio: "inherit",
   shell: false,
 });

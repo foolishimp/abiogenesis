@@ -10,7 +10,10 @@ import type {
   ProductInstallRefusalCode,
   ProductInstallResult,
 } from "./contracts.js";
-import type { ProductInstall } from "./environment.js";
+import {
+  type ProductInstall,
+  verifiedArtifactMatchesResolvedLock,
+} from "./environment.js";
 import {
   payloadInventoryDigest,
   sha256Canonical,
@@ -145,9 +148,16 @@ export async function installedProductContentMatches(
 export async function installProduct(
   request: InstallProductRequest,
 ): Promise<ProductInstallResult> {
-  await mkdir(request.targetRoot, { recursive: true });
-  if ((await readdir(request.targetRoot)).length !== 0) {
-    return refusal("target_not_empty", "installation target must be empty");
+  if (
+    !verifiedArtifactMatchesResolvedLock(
+      request.verifiedArtifact,
+      request.resolvedLock,
+    )
+  ) {
+    return refusal(
+      "dependency_lock_mismatch",
+      "installation requires exact membership in one resolved Product lock",
+    );
   }
 
   let artifactDigest: string;
@@ -158,6 +168,11 @@ export async function installProduct(
   }
   if (artifactDigest !== request.verifiedArtifact.artifactDigest) {
     return refusal("artifact_mismatch", "artifact bytes differ from the verified artifact");
+  }
+
+  await mkdir(request.targetRoot, { recursive: true });
+  if ((await readdir(request.targetRoot)).length !== 0) {
+    return refusal("target_not_empty", "installation target must be empty");
   }
 
   const consumerPackage = {
@@ -240,11 +255,13 @@ export async function installProduct(
     }
   }
   const contentSuffix = request.verifiedArtifact.productContentDigest.slice("sha256:".length);
+  const lockSuffix = request.resolvedLock.lockDigest.slice("sha256:".length);
   return {
     kind: "product_install_candidate",
     schemaVersion: "5.0.0",
     disposition: "materialized",
-    installId: `product-install://${request.verifiedArtifact.packageName}/${request.verifiedArtifact.packageVersion}/${contentSuffix}`,
+    installId:
+      `product-install://${request.verifiedArtifact.packageName}/${request.verifiedArtifact.packageVersion}/${contentSuffix}/${lockSuffix}`,
     installedRoot,
     productId: request.verifiedArtifact.productId,
     packageName: request.verifiedArtifact.packageName,
@@ -256,6 +273,17 @@ export async function installProduct(
     publisherNamespace: request.verifiedArtifact.publisherNamespace,
     contributionManifestRef:
       request.verifiedArtifact.contributionManifestRef,
+    contributionManifestDigest:
+      request.verifiedArtifact.contributionManifestDigest,
+    contributionManifest: {
+      ...request.verifiedArtifact.contributionManifest,
+      rows: request.verifiedArtifact.contributionManifest.rows.map((row) => ({
+        ...row,
+        programMembershipRefs: [...row.programMembershipRefs],
+        compatibilityRefs: [...row.compatibilityRefs],
+        readinessPrerequisiteRefs: [...row.readinessPrerequisiteRefs],
+      })),
+    },
     compatibilityRefs: [...request.verifiedArtifact.compatibilityRefs],
     declaredDependencies: request.verifiedArtifact.declaredDependencies.map(
       (dependency) => ({
@@ -268,7 +296,24 @@ export async function installProduct(
     declaredCapabilityRefs: [
       ...request.verifiedArtifact.declaredCapabilityRefs,
     ],
+    catalogId: request.verifiedArtifact.catalogId,
+    catalogDigest: request.verifiedArtifact.catalogDigest,
+    publicContracts: request.verifiedArtifact.publicContracts.map(
+      (contract) => ({
+        ...contract,
+        requirementAuthorityRefs: [...contract.requirementAuthorityRefs],
+        capabilityIdentities: [...contract.capabilityIdentities],
+        ...(contract.nativeTypedLocator === undefined
+          ? {}
+          : { nativeTypedLocator: { ...contract.nativeTypedLocator } }),
+        ...(contract.assetLocator === undefined
+          ? {}
+          : { assetLocator: { ...contract.assetLocator } }),
+      }),
+    ),
     publicContractRefs: [...request.verifiedArtifact.publicContractRefs],
     publicCapabilityRefs: [...request.verifiedArtifact.publicCapabilityRefs],
+    resolvedLockId: request.resolvedLock.lockId,
+    resolvedLockDigest: request.resolvedLock.lockDigest,
   };
 }

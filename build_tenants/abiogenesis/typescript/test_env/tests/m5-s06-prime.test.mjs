@@ -26,29 +26,68 @@ const packageRoot = new URL("../..", import.meta.url).pathname;
 const digest = (character) => `sha256:${character.repeat(64)}`;
 
 function install(label, character, overrides = {}) {
-  return {
-    kind: "product_install",
+  const productId = `product://s06-prime/${label}@5`;
+  const packageName = `@s06-prime/${label}`;
+  const productContentDigest = digest(character);
+  const descriptorRef = `descriptor://s06-prime/${label}@5`;
+  const contributionManifestRef =
+    `contribution-manifest://s06-prime/${label}@5`;
+  const publicContract = {
+    contractId: `contract://s06-prime/${label}@5`,
+    contractVersion: "5.0.0",
+    contractDigest: digest(character),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [`requirement://s06-prime/${label}@5`],
+    capabilityIdentities: [`capability://s06-prime/${label}@5`],
+    nativeTypedLocator: {
+      packageName,
+      packageExportPath: "./product",
+      namedSymbol: "S06PrimeContract",
+      declarationPath: "build/product.d.ts",
+    },
+  };
+  const catalogId = `catalog://s06-prime/${label}@5`;
+  const catalogDigest = digest(character);
+  const contributionManifest = {
+    kind: "product_contribution_manifest",
     schemaVersion: "5.0.0",
-    disposition: "admitted",
-    admissionEventRef: `event://s06-prime/${label}`,
-    installId: `product-install://s06-prime/${label}`,
-    installedRoot: `/tmp/s06-prime/${label}`,
-    productId: `product://s06-prime/${label}@5`,
-    packageName: `@s06-prime/${label}`,
+    contributionManifestRef,
+    productId,
+    productVersion: "5.0.0",
+    descriptorRef,
+    productContentDigest,
+    publicContractCatalogId: catalogId,
+    publicContractCatalogDigest: catalogDigest,
+    rows: [],
+  };
+  return {
+    kind: "verified_product_artifact",
+    schemaVersion: "5.0.0",
+    disposition: "verified",
+    artifactRef: `artifact://s06-prime/${label}@5`,
+    artifactByteLength: 1,
+    productId,
+    packageName,
     packageVersion: "5.0.0",
     artifactDigest: digest(character),
-    productContentDigest: digest(character),
+    productContentDigest,
     manifestDigest: digest(character),
-    descriptorRef: `descriptor://s06-prime/${label}@5`,
+    descriptorRef,
     publisherNamespace: "s06-prime",
-    contributionManifestRef:
-      `contribution-manifest://s06-prime/${label}@5`,
+    contributionManifestRef,
+    contributionManifestDigest: sha256Canonical(contributionManifest),
+    contributionManifest,
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     declaredDependencies: [],
     provenanceRef: `provenance://s06-prime/${label}@5`,
     declaredCapabilityRefs: [`capability://s06-prime/${label}@5`],
-    publicContractRefs: [`contract://s06-prime/${label}@5`],
+    catalogId,
+    catalogDigest,
+    publicContracts: [publicContract],
+    publicContractRefs: [publicContract.contractId],
     publicCapabilityRefs: [`capability://s06-prime/${label}@5`],
+    checkedPayloadFiles: 1,
     ...overrides,
   };
 }
@@ -75,14 +114,18 @@ function lockRow(value) {
     manifestDigest: value.manifestDigest,
     descriptorRef: value.descriptorRef,
     publisherNamespace: value.publisherNamespace,
+    catalogId: value.catalogId,
+    catalogDigest: value.catalogDigest,
     contributionManifestRef: value.contributionManifestRef,
+    contributionManifestDigest: value.contributionManifestDigest,
+    contributionManifest: value.contributionManifest,
     compatibilityRefs: value.compatibilityRefs,
     declaredDependencies: value.declaredDependencies,
     provenanceRef: value.provenanceRef,
     declaredCapabilityRefs: value.declaredCapabilityRefs,
+    publicContracts: value.publicContracts,
     publicContractRefs: value.publicContractRefs,
     publicCapabilityRefs: value.publicCapabilityRefs,
-    installId: value.installId,
   };
 }
 
@@ -123,6 +166,7 @@ test("S06 dependency topology uses one cycle relation for construction and valid
     toProductId: right.productId,
     packageVersion: right.packageVersion,
     compatibilityRef: right.compatibilityRefs[0],
+    compatibilityDisposition: "compatible",
     requiredContractRefs: [right.publicContractRefs[0]],
     requiredCapabilityRefs: [right.publicCapabilityRefs[0]],
   }]);
@@ -212,6 +256,7 @@ test("S06 dependency topology uses one cycle relation for construction and valid
     toProductId: cycleRight.productId,
     packageVersion: cycleRight.packageVersion,
     compatibilityRef: cycleRight.compatibilityRefs[0],
+    compatibilityDisposition: "compatible",
     requiredContractRefs: [cycleRight.publicContractRefs[0]],
     requiredCapabilityRefs: [cycleRight.publicCapabilityRefs[0]],
   }, {
@@ -220,6 +265,7 @@ test("S06 dependency topology uses one cycle relation for construction and valid
     toProductId: cycleLeft.productId,
     packageVersion: cycleLeft.packageVersion,
     compatibilityRef: cycleLeft.compatibilityRefs[0],
+    compatibilityDisposition: "compatible",
     requiredContractRefs: [cycleLeft.publicContractRefs[0]],
     requiredCapabilityRefs: [cycleLeft.publicCapabilityRefs[0]],
   }];

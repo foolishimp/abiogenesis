@@ -71,14 +71,14 @@ function redigestObservationSnapshot(snapshot) {
 function withReducedProductSet(authority) {
   const next = structuredClone(authority);
   const rows = next.resolvedProductLock.rows.filter(
-    (row) => row.installId === next.install.installId,
+    (row) => row.productId === next.install.productId,
   );
   assert.equal(rows.length, 1);
   const dependencyEdges = [];
   const lockDigest = sha256Canonical({ rows, dependencyEdges });
   const lockId =
     `product-lock://abiogenesis/${lockDigest.slice("sha256:".length)}`;
-  const orderedInstallRefs = rows.map((row) => row.installId);
+  const orderedInstallRefs = [next.install.installId];
   const productSetDigest = sha256Canonical({
     orderedInstallRefs,
     lockId,
@@ -597,18 +597,20 @@ async function externalScenario(
       artifactRef: harness.artifactRef,
       ...expectedVerificationIdentity(harness.candidateBasis),
     }),
-    invocation("abg.operation.product.install", "verified_artifact", refs.installAbi, {
-      verifiedInvocationRef: refs.verifyAbi,
-      artifactPath: harness.artifactPath,
-      targetRoot: abiConsumer,
-    }),
     invocation("abg.operation.product.verify", "artifact", refs.verifyMini, {
       artifactPath: mini.artifactPath,
       artifactRef: mini.artifactRef,
       ...expectedVerificationIdentity(mini.basis),
     }),
+    invocation("abg.operation.product.install", "verified_artifact", refs.installAbi, {
+      verifiedInvocationRef: refs.verifyAbi,
+      lockVerifiedInvocationRefs: [refs.verifyAbi, refs.verifyMini],
+      artifactPath: harness.artifactPath,
+      targetRoot: abiConsumer,
+    }),
     invocation("abg.operation.product.install", "verified_artifact", refs.installMini, {
       verifiedInvocationRef: refs.verifyMini,
+      lockVerifiedInvocationRefs: [refs.verifyAbi, refs.verifyMini],
       artifactPath: mini.artifactPath,
       targetRoot: miniConsumer,
     }),
@@ -711,6 +713,7 @@ function assertExternalOutcome(outcomes, harness, mini) {
     toProductId: harness.candidateBasis.productId,
     packageVersion: harness.candidateBasis.packageVersion,
     compatibilityRef: "compatibility://abiogenesis/major/5",
+    compatibilityDisposition: "compatible",
     requiredContractRefs: [
       "abg.contract.gtl.root-declaration",
       "abg.contract.public.root-invocation",

@@ -1625,6 +1625,9 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
           ),
         ),
       ].sort();
+      const publication = transcript[3].payload.publication;
+      const contentIdentity =
+        verification.expectedProductContentDigest.slice("sha256:".length);
       const install = {
         kind: "product_install",
         schemaVersion: "5.0.0",
@@ -1642,18 +1645,18 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
         artifactDigest: verification.expectedArtifactDigest,
         productContentDigest: verification.expectedProductContentDigest,
         manifestDigest: verification.expectedManifestDigest,
-        descriptorRef: manifest.descriptorRef,
+        descriptorRef: publication.descriptorRef,
         publisherNamespace: manifest.publisherNamespace,
-        contributionManifestRef: manifest.contributionManifestRef,
+        contributionManifestRef: publication.contributionManifestRef,
         compatibilityRefs: manifest.compatibilityRefs,
         declaredDependencies: manifest.declaredDependencies,
-        provenanceRef: manifest.provenanceRef,
+        provenanceRef:
+          `provenance://abiogenesis/typescript-tenant/${contentIdentity}`,
         declaredCapabilityRefs: manifest.declaredCapabilityRefs,
         publicContractRefs,
         publicCapabilityRefs,
         admissionEventRef: installEvent.eventId,
       };
-      const publication = transcript[3].payload.publication;
       const productSemanticsBasis = {
         install,
         workspaceBindingId: catalogEvent.payload.authorityScopeRef,

@@ -45,12 +45,15 @@ test("R2 installs the verified artifact into an empty source-blind consumer", as
   };
   const verified = await product.verifyProduct(verificationRequest);
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
+  const lock = product.constructResolvedProductLock([verified]);
+  assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
 
   const consumerRoot = join(scratch, "consumer");
   const installed = await product.installProduct({
     artifactPath,
     targetRoot: consumerRoot,
     verifiedArtifact: verified,
+    resolvedLock: lock,
   });
   assert.equal(installed.disposition, "materialized", JSON.stringify(installed));
 
@@ -98,6 +101,7 @@ test("R2 installs the verified artifact into an empty source-blind consumer", as
     artifactPath,
     targetRoot: occupiedRoot,
     verifiedArtifact: verified,
+    resolvedLock: lock,
   });
   assert.equal(refused.disposition, "refused");
   assert.equal(refused.code, "target_not_empty");

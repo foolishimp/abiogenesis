@@ -18,6 +18,10 @@ import {
   CONSENSUS_SCHEMA_ASSET_BINDINGS,
   REVIEW_RULING_KIND_VALUES,
 } from "../build/code/src/gtl/consensus_schema.js";
+import {
+  constructConsensusModulePublication,
+  constructHelloWorldModulePublication,
+} from "../build/code/src/gtl/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
@@ -577,6 +581,57 @@ const catalogWithoutDigest = {
 
 const productContentDigest = payloadInventoryDigest(payloadInventory);
 const contentIdentity = productContentDigest.slice("sha256:".length);
+const descriptorRef =
+  `descriptor://abiogenesis/typescript-tenant/${contentIdentity}`;
+const contributionManifestRef =
+  `contribution-manifest://abiogenesis/conformance/${contentIdentity}`;
+const provenanceRef =
+  `provenance://abiogenesis/typescript-tenant/${contentIdentity}`;
+const publicContractCatalog = {
+  ...catalogWithoutDigest,
+  catalogDigest: sha256Canonical(catalogWithoutDigest),
+};
+const placeholderDigest = `sha256:${"0".repeat(64)}`;
+const publicationBasis = {
+  productId,
+  artifactDigest: placeholderDigest,
+  productContentDigest,
+  productManifestDigest: placeholderDigest,
+  packageName: packageJson.name,
+  packageVersion: packageJson.version,
+};
+const contributionRows = [
+  constructHelloWorldModulePublication(publicationBasis),
+  constructConsensusModulePublication(publicationBasis),
+].flatMap((publication) =>
+  publication.contributions.map((contribution) => ({
+    moduleRef: publication.moduleRef,
+    handle: contribution.handle,
+    kind: contribution.kind,
+    declarationOrContractRef: contribution.declarationOrContractRef,
+    owningProductId: contribution.owningProductId,
+    programMembershipRefs: [...contribution.programMembershipRefs],
+    compatibilityRefs: [...contribution.compatibilityRefs],
+    provenanceRef,
+    readinessPrerequisiteRefs: [...contribution.programMembershipRefs],
+  }))
+).sort((left, right) => {
+  const leftKey = `${left.moduleRef}\0${left.handle}`;
+  const rightKey = `${right.moduleRef}\0${right.handle}`;
+  return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
+});
+const contributionManifest = {
+  kind: "product_contribution_manifest",
+  schemaVersion: "5.0.0",
+  contributionManifestRef,
+  productId,
+  productVersion: packageJson.version,
+  descriptorRef,
+  productContentDigest,
+  publicContractCatalogId: publicContractCatalog.catalogId,
+  publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+  rows: contributionRows,
+};
 const manifest = {
   kind: "abg_product_toolchain_manifest",
   schemaVersion: "5.0.0",
@@ -585,22 +640,18 @@ const manifest = {
   packageVersion: packageJson.version,
   productContentDigest,
   productRelativeLocators,
-  descriptorRef:
-    `descriptor://abiogenesis/typescript-tenant/${contentIdentity}`,
+  descriptorRef,
   publisherNamespace: "abiogenesis",
-  contributionManifestRef:
-    `contribution-manifest://abiogenesis/conformance/${contentIdentity}`,
+  contributionManifestRef,
+  contributionManifestDigest: sha256Canonical(contributionManifest),
+  contributionManifest,
   compatibilityRefs: ["compatibility://abiogenesis/major/5"],
   declaredDependencies: [],
-  provenanceRef:
-    `provenance://abiogenesis/typescript-tenant/${contentIdentity}`,
+  provenanceRef,
   declaredCapabilityRefs: [
     ...new Set(rows.flatMap((row) => row.capabilityIdentities)),
   ].sort(),
-  publicContractCatalog: {
-    ...catalogWithoutDigest,
-    catalogDigest: sha256Canonical(catalogWithoutDigest),
-  },
+  publicContractCatalog,
 };
 
 await writeFile(

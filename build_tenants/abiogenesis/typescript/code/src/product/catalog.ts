@@ -7,7 +7,7 @@ import {
   isProgramValidation,
   isPublicationValidation,
 } from "../validator/validation.js";
-import type { JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
@@ -270,6 +270,52 @@ export function constructCatalogAdmissionCandidate(
   ) {
     return refusal("publication_not_bound", "module publication is not carried by the exact bound Product lock");
   }
+  const productLockRow = productLockRowMatch.value;
+  const declaredContributionRows =
+    productLockRow.contributionManifest.rows.filter(
+      (row) => row.moduleRef === publication.moduleRef,
+    );
+  if (
+    declaredContributionRows.length !== publication.contributions.length ||
+    publication.contributions.some((contribution) => {
+      const matches = declaredContributionRows.filter(
+        (row) => row.handle === contribution.handle,
+      );
+      if (matches.length !== 1) return true;
+      const declared = matches[0]!;
+      return declared.kind !== contribution.kind ||
+        declared.declarationOrContractRef !==
+          contribution.declarationOrContractRef ||
+        declared.owningProductId !== contribution.owningProductId ||
+        declared.provenanceRef !== productLockRow.provenanceRef ||
+        canonicalJson(declared.programMembershipRefs as unknown as JsonValue) !==
+          canonicalJson(
+            contribution.programMembershipRefs as unknown as JsonValue,
+          ) ||
+        canonicalJson(declared.compatibilityRefs as unknown as JsonValue) !==
+          canonicalJson(contribution.compatibilityRefs as unknown as JsonValue) ||
+        declared.compatibilityRefs.some(
+          (compatibilityRef) =>
+            !productLockRow.compatibilityRefs.includes(compatibilityRef),
+        ) ||
+        canonicalJson(
+          declared.readinessPrerequisiteRefs as unknown as JsonValue,
+        ) !== canonicalJson(
+          contribution.programMembershipRefs as unknown as JsonValue,
+        ) ||
+        canonicalJson(
+          contribution.provenanceRefs as unknown as JsonValue,
+        ) !== canonicalJson([
+          productLockRow.artifactDigest,
+          productLockRow.manifestDigest,
+        ]);
+    })
+  ) {
+    return refusal(
+      "publication_not_bound",
+      "module publication contributions differ from publisher-authored Product truth",
+    );
+  }
   const publicationDigest = sha256Canonical(publication as unknown as JsonValue);
   const validationMatches = publication.programs.map((program) =>
     resolveExactMatch(
@@ -307,7 +353,14 @@ export function constructCatalogAdmissionCandidate(
       sessionVisibility: "workspace" as const,
       compatibilityDisposition: "compatible" as const,
       compatibilityRefs: contribution.compatibilityRefs,
-      provenanceRefs: contribution.provenanceRefs,
+      provenanceRefs: [
+        productLockRow.provenanceRef,
+        productLockRow.descriptorRef,
+        productLockRow.contributionManifestRef,
+        productLockRow.contributionManifestDigest,
+        productLockRow.artifactDigest,
+        productLockRow.manifestDigest,
+      ],
     };
     return { ...body, rowDigest: sha256Canonical(body as unknown as JsonValue) };
   });

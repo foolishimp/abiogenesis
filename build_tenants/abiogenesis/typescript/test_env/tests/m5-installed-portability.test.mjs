@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import test from "node:test";
@@ -125,16 +125,6 @@ async function portabilityScenario(harness, flavored, label) {
       ...expectedVerificationIdentity(harness.candidateBasis),
     }),
     invocation(
-      "abg.operation.product.install",
-      "verified_artifact",
-      refs.installAbi,
-      {
-        verifiedInvocationRef: refs.verifyAbi,
-        artifactPath: harness.artifactPath,
-        targetRoot: abiConsumer,
-      },
-    ),
-    invocation(
       "abg.operation.product.verify",
       "artifact",
       refs.verifyFlavored,
@@ -147,9 +137,27 @@ async function portabilityScenario(harness, flavored, label) {
     invocation(
       "abg.operation.product.install",
       "verified_artifact",
+      refs.installAbi,
+      {
+        verifiedInvocationRef: refs.verifyAbi,
+        lockVerifiedInvocationRefs: [
+          refs.verifyAbi,
+          refs.verifyFlavored,
+        ],
+        artifactPath: harness.artifactPath,
+        targetRoot: abiConsumer,
+      },
+    ),
+    invocation(
+      "abg.operation.product.install",
+      "verified_artifact",
       refs.installFlavored,
       {
         verifiedInvocationRef: refs.verifyFlavored,
+        lockVerifiedInvocationRefs: [
+          refs.verifyAbi,
+          refs.verifyFlavored,
+        ],
         artifactPath: flavored.artifactPath,
         targetRoot: flavoredConsumer,
       },
@@ -284,6 +292,7 @@ function assertPortableOutcome(run, flavored) {
     toProductId: run.outcomes[0].result.productId,
     packageVersion: "5.0.0-dev.286",
     compatibilityRef: "compatibility://abiogenesis/major/5",
+    compatibilityDisposition: "compatible",
     requiredContractRefs: [
       "abg.contract.gtl.root-declaration",
       "abg.contract.public.root-invocation",
@@ -456,6 +465,126 @@ test("S06 workspace binding rejects caller-authored dependency edges", async (co
     );
     assert.equal(refused.disposition, "refused");
     assert.equal(refused.result.code, "invalid_request");
+  } finally {
+    installedPublic.closeRootOperationContext(operationContext);
+  }
+});
+
+test("S06 catalog admission rejects contribution truth absent from the verified Product", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const flavored = await prepareFlavoredCatalogProduct(harness);
+  const scenario = await portabilityScenario(
+    harness,
+    flavored,
+    "flavored-contribution-forgery",
+  );
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `contribution-forgery=${Date.now()}`,
+  );
+  const operationContext = installedPublic.createRootOperationContext();
+  try {
+    for (const row of scenario.transcript.slice(0, 5)) {
+      const outcome = await installedPublic.applyRootPublicInvocation(
+        operationContext,
+        row,
+      );
+      assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+    }
+    const forgedCatalog = structuredClone(scenario.transcript[5]);
+    forgedCatalog.invocationRef =
+      "invocation://t281/flavored-contribution-forgery/catalog";
+    forgedCatalog.payload.publication.contributions[0].compatibilityRefs = [
+      "compatibility://abiogenesis/major/999",
+    ];
+    const refused = await installedPublic.applyRootPublicInvocation(
+      operationContext,
+      forgedCatalog,
+    );
+    assert.equal(refused.disposition, "refused");
+    assert.equal(refused.result.code, "owner_refusal");
+    assert.match(
+      refused.result.message,
+      /publisher-authored Product truth/u,
+    );
+  } finally {
+    installedPublic.closeRootOperationContext(operationContext);
+  }
+});
+
+test("S06 unresolved dependency lock refuses before Product materialization", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const flavored = await prepareFlavoredCatalogProduct(harness);
+  const scenario = await portabilityScenario(
+    harness,
+    flavored,
+    "flavored-preinstall-lock",
+  );
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `preinstall-lock=${Date.now()}`,
+  );
+  const operationContext = installedPublic.createRootOperationContext();
+  try {
+    for (const row of scenario.transcript.slice(0, 2)) {
+      const outcome = await installedPublic.applyRootPublicInvocation(
+        operationContext,
+        row,
+      );
+      assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+    }
+    const unresolvedInstall = structuredClone(scenario.transcript[3]);
+    unresolvedInstall.invocationRef =
+      "invocation://t281/flavored-preinstall-lock/unresolved-install";
+    unresolvedInstall.payload.lockVerifiedInvocationRefs = [
+      scenario.refs.verifyFlavored,
+    ];
+    const refused = await installedPublic.applyRootPublicInvocation(
+      operationContext,
+      unresolvedInstall,
+    );
+    assert.equal(refused.disposition, "refused");
+    assert.equal(refused.result.code, "owner_refusal");
+    assert.match(refused.result.message, /lock construction refused/u);
+    await assert.rejects(access(scenario.flavoredConsumer));
+  } finally {
+    installedPublic.closeRootOperationContext(operationContext);
+  }
+});
+
+test("S06 Product verification rejects an incomplete public-contract row", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const flavored = await prepareFlavoredCatalogProduct(
+    harness,
+    harness.scratch,
+    {
+      transformPublicContract: (row) => {
+        delete row.contractVersion;
+        return row;
+      },
+    },
+  );
+  const scenario = await portabilityScenario(
+    harness,
+    flavored,
+    "flavored-incomplete-contract",
+  );
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `incomplete-contract=${Date.now()}`,
+  );
+  const operationContext = installedPublic.createRootOperationContext();
+  try {
+    const refused = await installedPublic.applyRootPublicInvocation(
+      operationContext,
+      scenario.transcript[1],
+    );
+    assert.equal(refused.disposition, "refused");
+    assert.equal(refused.result.code, "owner_refusal");
+    assert.match(refused.result.message, /catalog_mismatch/u);
   } finally {
     installedPublic.closeRootOperationContext(operationContext);
   }
@@ -957,7 +1086,11 @@ test("S06 Codex delegate and flavored Product keep their public boundaries", asy
   );
   assert.match(
     delegateSource,
-    /spawn\(cliPath,\s*\["--jsonl", transcriptPath\]/u,
+    /spawn\(installedCliPath,\s*\["--jsonl", transcriptPath\]/u,
+  );
+  assert.doesNotMatch(
+    delegateSource,
+    /spawn\(cliPath,/u,
   );
 
   const flavoredSource = await readFile(

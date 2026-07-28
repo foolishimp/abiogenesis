@@ -5,11 +5,17 @@ export {
   PRODUCT_INSTALL_REFUSAL_CODES,
   PRODUCT_VERIFICATION_REFUSAL_CODES,
   type InstallProductRequest,
+  type ProductAssetLocator,
+  type ProductContributionKind,
+  type ProductContributionManifest,
+  type ProductContributionManifestRow,
   type ProductDeclaredDependency,
   type ProductInstallCandidate,
   type ProductInstallRefusal,
   type ProductInstallRefusalCode,
   type ProductInstallResult,
+  type ProductNativeTypedLocator,
+  type ProductPublicContract,
   type ProductVerificationRefusal,
   type ProductVerificationRefusalCode,
   type ProductVerificationResult,
@@ -35,6 +41,7 @@ export {
   constructWorkspaceBinding,
   isProductSet,
   isResolvedProductLock,
+  verifiedArtifactMatchesResolvedLock,
   type EnvironmentRefusal,
   type EnvironmentRefusalCode,
   type ProductInstall,
@@ -66,7 +73,11 @@ export {
   type ProductPublicResultProjection,
   type ProductSemanticsProvider,
 } from "./semantics.js";
-export { verifyProduct } from "./verify_product.js";
+export {
+  isProductContributionManifest,
+  parseProductPublicContract,
+  verifyProduct,
+} from "./verify_product.js";
 export {
   catalogApplicationContentDigest,
   constructCatalogAdmissionCandidate,

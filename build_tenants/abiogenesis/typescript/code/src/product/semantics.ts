@@ -437,15 +437,20 @@ function exactInstallLockRow(
 ): boolean {
   const match = resolveExactMatch(
     lock.rows,
-    (candidate) => candidate.installId === install.installId,
+    (candidate) => candidate.productId === install.productId,
   );
   return match.kind === "one" &&
+    install.resolvedLockId === lock.lockId &&
+    install.resolvedLockDigest === lock.lockDigest &&
     match.value.productId === install.productId &&
     match.value.packageName === install.packageName &&
     match.value.packageVersion === install.packageVersion &&
     match.value.artifactDigest === install.artifactDigest &&
     match.value.productContentDigest === install.productContentDigest &&
-    match.value.manifestDigest === install.manifestDigest;
+    match.value.manifestDigest === install.manifestDigest &&
+    match.value.descriptorRef === install.descriptorRef &&
+    match.value.contributionManifestDigest ===
+      install.contributionManifestDigest;
 }
 
 function isNodeTypeTargetInput(
@@ -716,7 +721,7 @@ export function constructCatalogApplicationCandidate(
   }
   const validatingLockRowMatch = resolveExactMatch(
     lock.rows,
-    (candidate) => candidate.installId === loaded.install.installId,
+    (candidate) => candidate.productId === loaded.install.productId,
   );
   if (validatingLockRowMatch.kind !== "one") {
     return catalogApplicationRefusal(
@@ -756,7 +761,7 @@ export function constructCatalogApplicationCandidate(
       ]
     : [
         lock.lockId,
-        validatingLockRow.installId,
+        loaded.install.installId,
         validatingLockRow.artifactDigest,
         validatingLockRow.manifestDigest,
         publication.contributionManifestRef,

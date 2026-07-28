@@ -1,26 +1,28 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-28):** S06 candidate `ac61e080`, tree
-> `90d16730`, is frozen for independent exact-cut review. Do not edit,
-> refreeze, or add functionality. The 5.0 Product reprice deferring S04 to 5.1
-> does not change this subject or its acceptance predicate.
+> **Current disposition (2026-07-28):** Independent review returned S06
+> candidate `ac61e080`, tree `90d16730`, for one bounded Product-authority
+> repair. Retain its verified shell, Prime-constructor, installed portability,
+> and dependency-reducer work. Repair only publisher-owned contribution truth,
+> complete public-contract rows, pre-materialization lock consumption, the
+> resolved CLI path, and focused proof.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_candidate_frozen
-- review_status: pending_independent_exact_cut_review
+- phase_status: m5_s06_bounded_authority_repair
+- review_status: changes_requested
 - proof_status: mechanical_green_m5_167_m4_26_external_36_prime_4_portability_6
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
-- implementation_hold: exact_s06_review_handoff
+- implementation_hold: bounded_s06_authority_repair_only
 - implementation_hold_effect: >-
-    prohibit further realization after the exact S06 candidate freeze; permit
-    only mechanical evidence, independent review, and direct disposition while
-    M5 freeze, M6 qualification, M7 release, planned 5.1 observer/tuner work,
+    permit only the consolidated contribution-manifest, public-contract,
+    pre-install lock, resolved CLI path, and focused proof repair while M5
+    freeze, M6 qualification, M7 release, planned 5.1 observer/tuner work,
     alternate functionality, and broad refactoring remain held
 - delivery_phase: M5_after_accepted_s03_and_s05
 - change_intent: >-
@@ -102,6 +104,40 @@ The independently flavored Product must consume the shared GTL constructors.
 It may not rebuild a third local declaration family. This gate does not
 authorize repository-wide cleanup or changes to ABG/HoG authority.
 
+## Bounded Review Repair
+
+The replacement cut shall realize this exact authority order:
+
+```text
+publisher-authored Product descriptor
+  + exact contribution manifest
+  + complete public-contract rows
+  -> Product verification from packed bytes
+  -> complete dependency and compatibility lock
+  -> selected Product installation consumes that exact lock
+  -> workspace binding consumes the same installed set and lock
+  -> catalog admission matches every publication contribution to its exact
+     verified contribution-manifest row
+```
+
+The contribution manifest is immutable Product truth, not a reference label.
+Each row binds its Module, handle, kind, declaration or contract, owning
+Product, Program memberships, compatibility requirements, publisher
+provenance, and readiness prerequisites. Verification carries the exact
+manifest and digest into the resolved lock. Catalog admission may project only
+an exact manifest row and may not infer or relabel contribution truth.
+
+Every public-contract row must carry the complete
+`REQ-P-PUBLIC-CONTRACTS-003` identity and authority family before it can satisfy
+a dependency. A lock resolves from verified artifacts before target
+materialization; unresolved, incompatible, ambiguous, cyclic, or incomplete
+selection refuses without writing an install target. Every selected install
+and the later workspace binding consume one identical lock identity.
+
+The Codex shell resolves both the supplied CLI and its installed sibling, then
+spawns the resolved installed sibling. The submitted path is never the
+post-check execution path.
+
 ## Acceptance
 
 The exact candidate closes S06 only when independent review confirms:
@@ -112,6 +148,12 @@ The exact candidate closes S06 only when independent review confirms:
   and missing paths deterministically, and has no alternate functionality;
 - dependencies originate in immutable verified Product declarations and
   cannot be invented by `workspace.bind`;
+- contribution and compatibility rows originate in the exact verified
+  contribution manifest and cannot be invented by `catalog.admit`;
+- complete public-contract rows, rather than bare IDs, satisfy dependency
+  requirements;
+- the dependency lock resolves before installation, every selected
+  installation consumes it, and workspace binding consumes the same lock;
 - the independently packed flavored Product compiles and runs using declared
   package exports only, owns all fixture meaning, and reaches the ordinary
   catalog, HoG, and ABG path;
@@ -142,10 +184,11 @@ S06 remains open if:
 
 ## Handoff
 
-The worker has frozen one subject and stopped. Independent reviewers inspect
-`ac61e0805b38f5535049bc792865daddd569e434` through the named handoff. Findings
-must bind that exact subject. Direct F_H acceptance closes S06; rejection may
-authorize only one consolidated repair over demonstrated defects.
+Independent reviewers inspected
+`ac61e0805b38f5535049bc792865daddd569e434` through the named handoff. Their
+consolidated findings authorize the bounded repair above. The worker freezes
+one replacement subject, publishes one exact handoff, and stops. Direct F_H
+acceptance closes S06.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active

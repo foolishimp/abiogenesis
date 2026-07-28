@@ -20,6 +20,7 @@ const execFileAsync = promisify(execFile);
 export async function prepareFlavoredCatalogProduct(
   harness,
   scratch = harness.scratch,
+  options = {},
 ) {
   const packageRoot = harness.sourcePackageRoot;
   const fixtureRoot = join(
@@ -64,6 +65,11 @@ export async function prepareFlavoredCatalogProduct(
   const packageJson = JSON.parse(
     await readFile(join(sourceRoot, "package.json"), "utf8"),
   );
+  const module = await import(
+    `${pathToFileURL(
+      join(sourceRoot, "build/index.js"),
+    ).href}?publication-authority=${Date.now()}`
+  );
   const productId = "product://flavor.example/text@5.0.0";
   const productRelativeLocators = [
     "build/index.d.ts",
@@ -88,20 +94,73 @@ export async function prepareFlavoredCatalogProduct(
   const flavoredSchemaDigest = await product.sha256File(
     join(sourceRoot, flavoredSchemaPath),
   );
+  const descriptorRef = "descriptor://flavor.example/text@5";
+  const contributionManifestRef =
+    "contribution-manifest://flavor.example/text@5";
+  const provenanceRef = "provenance://flavor.example/text@5";
+  const publicContractRow = {
+    contractId: "flavor.example.contract.text",
+    contractVersion: "5.0.0",
+    contractDigest: flavoredSchemaDigest,
+    contractKind: "schema_asset",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "requirement://flavor.example/text/render@5",
+    ],
+    capabilityIdentities: ["flavor.example.capability.render@5"],
+    assetLocator: {
+      path: flavoredSchemaPath,
+      mediaType: "application/schema+json",
+      schemaVersion: "5.0.0",
+      contentDigest: flavoredSchemaDigest,
+    },
+  };
   const catalogWithoutDigest = {
     schemaVersion: "5.0.0",
     catalogId: "catalog://flavor.example/text/public-contracts@5.0.0",
     catalogVersion: "5.0.0",
     catalogSchemaPath,
     catalogSchemaDigest,
-    rows: [{
-      contractId: "flavor.example.contract.text",
-      contractDigest: flavoredSchemaDigest,
-      assetLocator: {
-        path: flavoredSchemaPath,
-        contentDigest: flavoredSchemaDigest,
-      },
-    }],
+    rows: [
+      options.transformPublicContract === undefined
+        ? publicContractRow
+        : options.transformPublicContract(structuredClone(publicContractRow)),
+    ],
+  };
+  const publicContractCatalog = {
+    ...catalogWithoutDigest,
+    catalogDigest: product.sha256Canonical(catalogWithoutDigest),
+  };
+  const placeholderDigest = `sha256:${"0".repeat(64)}`;
+  const draftPublication = module.constructFlavoredCatalogPublication({
+    productId,
+    artifactDigest: placeholderDigest,
+    productContentDigest,
+    productManifestDigest: placeholderDigest,
+    packageName: packageJson.name,
+    packageVersion: packageJson.version,
+  }, gtl);
+  const contributionManifest = {
+    kind: "product_contribution_manifest",
+    schemaVersion: "5.0.0",
+    contributionManifestRef,
+    productId,
+    productVersion: packageJson.version,
+    descriptorRef,
+    productContentDigest,
+    publicContractCatalogId: publicContractCatalog.catalogId,
+    publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+    rows: draftPublication.contributions.map((contribution) => ({
+      moduleRef: draftPublication.moduleRef,
+      handle: contribution.handle,
+      kind: contribution.kind,
+      declarationOrContractRef: contribution.declarationOrContractRef,
+      owningProductId: contribution.owningProductId,
+      programMembershipRefs: [...contribution.programMembershipRefs],
+      compatibilityRefs: [...contribution.compatibilityRefs],
+      provenanceRef,
+      readinessPrerequisiteRefs: [...contribution.programMembershipRefs],
+    })),
   };
   const manifest = {
     kind: "abg_product_toolchain_manifest",
@@ -111,10 +170,11 @@ export async function prepareFlavoredCatalogProduct(
     packageVersion: packageJson.version,
     productContentDigest,
     productRelativeLocators,
-    descriptorRef: "descriptor://flavor.example/text@5",
+    descriptorRef,
     publisherNamespace: "flavor.example",
-    contributionManifestRef:
-      "contribution-manifest://flavor.example/text@5",
+    contributionManifestRef,
+    contributionManifestDigest: product.sha256Canonical(contributionManifest),
+    contributionManifest,
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     declaredDependencies: [{
       kind: "requires",
@@ -130,12 +190,9 @@ export async function prepareFlavoredCatalogProduct(
         "abg.capability.gtl.author@5",
       ],
     }],
-    provenanceRef: "provenance://flavor.example/text@5",
+    provenanceRef,
     declaredCapabilityRefs: ["flavor.example.capability.render@5"],
-    publicContractCatalog: {
-      ...catalogWithoutDigest,
-      catalogDigest: product.sha256Canonical(catalogWithoutDigest),
-    },
+    publicContractCatalog,
   };
   await writeFile(
     join(sourceRoot, "product-toolchain-manifest.json"),
@@ -153,11 +210,6 @@ export async function prepareFlavoredCatalogProduct(
   const [packResult] = JSON.parse(stdout);
   const artifactPath = join(artifacts, packResult.filename);
   const artifactDigest = await product.sha256File(artifactPath);
-  const module = await import(
-    `${pathToFileURL(
-      join(sourceRoot, "build/index.js"),
-    ).href}?publication=${Date.now()}`
-  );
   const basis = {
     artifactDigest,
     manifestDigest,

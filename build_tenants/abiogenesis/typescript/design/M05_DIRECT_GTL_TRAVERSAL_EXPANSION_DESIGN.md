@@ -3330,6 +3330,36 @@ dependency lock. The fixture is admitted from installed bytes and public
 exports only. ABIogenesis core contains no fixture Product ID, contract switch,
 validator, judgment relation, implementation import, or result branch.
 
+Product authority closes before materialization:
+
+```text
+exact packed Product bytes
+  -> verify descriptor and complete public-contract catalog
+  -> verify exact publisher-authored contribution manifest
+  -> resolve one complete dependency and compatibility lock
+  -> materialize each selected Product under that exact lock
+  -> bind the installed Product set under the same lock
+  -> match ModulePublication rows exactly to contribution-manifest rows
+  -> existing catalog admission
+```
+
+The contribution manifest is content, not a reference label. Each immutable
+row identifies its Module, handle, contribution kind, declaration or contract,
+owning Product, Program memberships, compatibility requirements, publisher
+provenance, and readiness prerequisites. Its digest and exact rows enter the
+verified Product and resolved lock. A publication contribution is ready and
+compatible only when one exact manifest row matches every field, its declared
+compatibility is resolved by the lock, and the publication preserves the
+verified artifact and manifest provenance. Missing, surplus, or changed rows
+refuse; catalog admission does not infer publisher truth.
+
+A public contract can satisfy a dependency only after Product verification has
+admitted its complete version, digest, kind, owning Product, requirement
+authority, capability, and native or asset locator relation. Lock resolution
+consumes verified artifacts and finishes before any install target is written.
+Each selected installation consumes that exact lock, and workspace binding
+refuses installs carrying another lock or an incomplete lock member set.
+
 `catalog.apply` consumes one exact admitted CatalogView row. Only `node_type`
 and `overlay` rows are applicable. The row-owning installed Product validates
 the concrete value preimage and derives its reference and Program memberships.
@@ -3362,6 +3392,10 @@ It invokes `abg.cli --jsonl <transcript>`, forwards stdout, stderr, and exit
 status, and adds no interpretation. It imports no GTL, validator, HoG, ABG,
 Product, implementation, or Public runtime module. It carries no Program,
 catalog, event, continuation, worker, retry, or closure type.
+
+The delegate resolves the submitted CLI path and the installed sibling path,
+requires identity, and spawns the resolved installed sibling. The submitted
+path is not retained as the executable path after verification.
 
 The prior Python Codex build tenant is an alternate implementation and runtime,
 not this projection. It is retired transactionally when the bounded delegate

@@ -439,18 +439,54 @@ async function applyInstall(
   }
   requireExactPayloadKeys(invocation.payload, [
     "artifactPath",
+    "lockVerifiedInvocationRefs",
     "targetRoot",
     "verifiedInvocationRef",
   ], "product.install");
+  const verifiedInvocationRef = stringField(
+    invocation.payload,
+    "verifiedInvocationRef",
+  );
   const verifiedState = required(
-    context.productState.verified(stringField(invocation.payload, "verifiedInvocationRef")),
-    stringField(invocation.payload, "verifiedInvocationRef"),
+    context.productState.verified(verifiedInvocationRef),
+    verifiedInvocationRef,
     "verified Product",
   );
+  const lockVerifiedInvocationRefs = stringArrayField(
+    invocation.payload,
+    "lockVerifiedInvocationRefs",
+  );
+  if (
+    lockVerifiedInvocationRefs.length === 0 ||
+    new Set(lockVerifiedInvocationRefs).size !==
+      lockVerifiedInvocationRefs.length ||
+    !lockVerifiedInvocationRefs.includes(verifiedInvocationRef)
+  ) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "product.install requires a unique lock selection containing the installed Product",
+    );
+  }
+  const lockVerifiedStates = lockVerifiedInvocationRefs.map((reference) =>
+    required(
+      context.productState.verified(reference),
+      reference,
+      "verified Product lock member",
+    ));
+  const lock = product.constructResolvedProductLock(
+    lockVerifiedStates.map((state) => state.verified),
+  );
+  if (lock.kind !== "resolved_product_lock") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `Product lock construction refused: ${lock.message}`,
+    );
+  }
   const candidate = await product.installProduct({
     artifactPath: stringField(invocation.payload, "artifactPath"),
     targetRoot: stringField(invocation.payload, "targetRoot"),
     verifiedArtifact: verifiedState.verified,
+    resolvedLock: lock,
   });
   if (candidate.disposition !== "materialized") {
     throw new ApplicationRefusal("owner_refusal", `Product installation refused: ${candidate.code}`);
@@ -468,13 +504,18 @@ async function applyInstall(
   if (install.kind !== "product_install") {
     throw new ApplicationRefusal("owner_refusal", `ProductInstall admission refused: ${install.message}`);
   }
-  context.productState.rememberInstall(invocation.invocationRef, { candidate, install });
+  context.productState.rememberInstall(
+    invocation.invocationRef,
+    { candidate, install, lock },
+  );
   return successOutcome(invocation, {
     kind: install.kind,
     disposition: install.disposition,
     installId: install.installId,
     productId: install.productId,
     installedRoot: install.installedRoot,
+    resolvedLockId: install.resolvedLockId,
+    resolvedLockDigest: install.resolvedLockDigest,
     admissionEventRef: install.admissionEventRef,
   });
 }
@@ -521,11 +562,18 @@ async function applyWorkspaceBind(
       installInvocationRef,
       "ProductInstall",
     ));
-  const lock = product.constructResolvedProductLock(
-    installStates.map((state) => state.install),
-  );
-  if (lock.kind !== "resolved_product_lock") {
-    throw new ApplicationRefusal("owner_refusal", `Product lock construction refused: ${lock.message}`);
+  const lock = installStates[0]!.lock;
+  if (
+    installStates.some(
+      (state) =>
+        state.lock.lockId !== lock.lockId ||
+        state.lock.lockDigest !== lock.lockDigest,
+    )
+  ) {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      "workspace.bind requires installs materialized under one exact resolved lock",
+    );
   }
   const productSet = product.constructProductSet(
     installStates.map((state) => state.install),
@@ -601,6 +649,7 @@ async function applyWorkspaceBind(
       toProductId: edge.toProductId,
       packageVersion: edge.packageVersion,
       compatibilityRef: edge.compatibilityRef,
+      compatibilityDisposition: edge.compatibilityDisposition,
       requiredContractRefs: edge.requiredContractRefs,
       requiredCapabilityRefs: edge.requiredCapabilityRefs,
     })),
@@ -2186,7 +2235,7 @@ function reopenGapAuthority(
   );
   const selectedLockRowMatch = resolveExactMatch(
     state.resolvedProductLock.rows,
-    (row) => row.installId === state.install.installId,
+    (row) => row.productId === state.install.productId,
   );
   const noActionDisposition =
     route?.nextActionProjection?.disposition === "no_action"
