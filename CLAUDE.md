@@ -10,9 +10,9 @@ parent and T-281 owns the exact S06 boundary.
 The complete S05 function is resolved as the accepted global-to-local
 constraint network in `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` at
 `283325aa`; S05 realization is accepted at `1ddc802d`. S06 candidate
-`ac61e080`, tree `90d16730`, is frozen for independent review. `A5-F12` and
-`ABG5-S04` are planned 5.1 work under backlogged T-268. Conservation
-qualification, qualification, and release remain held.
+`28122033`, tree `93e692d6`, is frozen for independent exact-cut review.
+`A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
+Conservation qualification, qualification, and release remain held.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.

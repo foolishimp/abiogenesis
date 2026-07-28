@@ -1,9 +1,9 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-28):** Replacement S06 candidate `d9794275`,
-> tree `6db6aa53`, is frozen for independent exact-cut review. The bounded
-> Product-authority repair is complete as a candidate claim. Do not edit,
-> extend, refreeze, or select later work before review and direct disposition.
+> **Current disposition (2026-07-28):** Replacement S06 candidate `28122033`,
+> tree `93e692d6`, is frozen for independent exact-cut review. The consolidated
+> repair is complete as a candidate claim. Do not edit, extend, or refreeze it;
+> S04 and later work remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
@@ -12,7 +12,7 @@
 - status: active
 - phase_status: m5_s06_candidate_frozen
 - review_status: pending_independent_exact_cut_review
-- proof_status: mechanical_green_m5_170_m4_26_external_36_prime_4_portability_9
+- proof_status: mechanical_green_m5_171_m4_26_external_36_prime_4_portability_10
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
@@ -45,13 +45,13 @@
     build_tenants/abiogenesis/typescript/code/src/public
 - accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
 - accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
-- current_s06_candidate: ac61e0805b38f5535049bc792865daddd569e434
-- current_s06_candidate_tree: 90d16730524f7376c63d056a358e2c20f70da9d5
-- current_s06_package_digest: b72284ed9d8ded15e0f6e7c8e2b8f8654e36914e1e2f8367503ddda5446e73bc
-- current_s06_package_inventory_digest: bb4d1f71aca8ba387c529669225d0674f6bf15d1e0145c2a91f878a12d816fb8
+- current_s06_candidate: 281220331a9684247d8f7f00eb7ec4e7422131c9
+- current_s06_candidate_tree: 93e692d60713c5bae0aa2b5da84b7411caf59221
+- current_s06_package_digest: acd47629a6b57ba0fa51106c54b5d1748f3dbb7ee1159c3c64c17dc29ef1996d
+- current_s06_package_inventory_digest: ceecadbbadfeca42cd495efb00fbe27c02c0d1c3a5012897dd3f8d444405692e
 - current_s06_handoff: >-
     .ai-workspace/comments/codex/
-    20260728T010929Z_HANDOFF_t281_s06_portability_repair_candidate.md
+    20260728T070320Z_HANDOFF_t281_s06_public_product_authority_candidate.md
 
 ## Selected Outcome
 
@@ -136,18 +136,50 @@ The Codex shell resolves both the supplied CLI and its installed sibling, then
 spawns the resolved installed sibling. The submitted path is never the
 post-check execution path.
 
+The serialized public boundary is singular:
+
+```text
+unknown host value
+  -> common SDK parser
+  -> product.verify
+  -> product.resolve
+  -> product.install(exact resolution)
+  -> remaining public operations
+  -> PublicOutcome | PublicInvocationRefusal
+```
+
+The CLI delegates to this parser and operation roster. Canonical invocation,
+outcome, and refusal schemas publish the same closed contract. Root-operation
+state and all verified Product, resolution, lock, install, binding, and
+catalog carriers are opaque and deeply immutable after admission.
+
+Publisher-authored packed manifest truth binds the complete normalized
+`ModulePublication`, not only contribution metadata. Native contract locators
+bind their exact exported symbols. Readiness prerequisites remain independent
+from Program membership. The flavored Product consumes the published GTL
+constructor contract and `abg.capability.gtl.declare@5`.
+
 ## Acceptance
 
 The exact candidate closes S06 only when independent review confirms:
 
 - native SDK, native CLI, and the Codex shell preserve one serialized public
   operation contract and deterministic outcome;
+- `product.resolve` is a distinct public operation and `product.install`
+  consumes only its exact immutable result;
+- unknown or malformed SDK and CLI invocations receive the same typed refusal;
 - the shell derives or verifies the exact installed CLI, refuses substitution
   and missing paths deterministically, and has no alternate functionality;
+- root-operation state and remembered Product authority are opaque and cannot
+  be changed after verification or resolution;
 - dependencies originate in immutable verified Product declarations and
   cannot be invented by `workspace.bind`;
 - contribution and compatibility rows originate in the exact verified
   contribution manifest and cannot be invented by `catalog.admit`;
+- the complete publication body, exact native symbols, and independent
+  readiness prerequisites remain bound to verified publisher truth;
+- canonical invocation, outcome, refusal, catalog, and toolchain schemas agree
+  with their native value domains;
 - complete public-contract rows, rather than bare IDs, satisfy dependency
   requirements;
 - the dependency lock resolves before installation, every selected
@@ -183,9 +215,9 @@ S06 remains open if:
 ## Handoff
 
 Independent reviewers inspected
-`ac61e0805b38f5535049bc792865daddd569e434` through the prior handoff. Their
+`d97942750a295c1c2ca47acbff947e7da5f7c3de` through the prior handoff. Their
 consolidated findings produced replacement candidate
-`d97942750a295c1c2ca47acbff947e7da5f7c3de`. Reviewers now inspect only that
+`281220331a9684247d8f7f00eb7ec4e7422131c9`. Reviewers now inspect only that
 exact subject through the replacement handoff. The worker has stopped. Direct
 F_H acceptance closes S06.
 

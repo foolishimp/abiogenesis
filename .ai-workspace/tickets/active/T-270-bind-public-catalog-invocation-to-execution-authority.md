@@ -41,13 +41,13 @@
     .ai-workspace/tickets/backlog/
     T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md
 - current_s06_owner: T-281
-- current_s06_candidate: ac61e0805b38f5535049bc792865daddd569e434
-- current_s06_candidate_tree: 90d16730524f7376c63d056a358e2c20f70da9d5
-- current_s06_package_digest: b72284ed9d8ded15e0f6e7c8e2b8f8654e36914e1e2f8367503ddda5446e73bc
-- current_s06_package_inventory_digest: bb4d1f71aca8ba387c529669225d0674f6bf15d1e0145c2a91f878a12d816fb8
+- current_s06_candidate: 281220331a9684247d8f7f00eb7ec4e7422131c9
+- current_s06_candidate_tree: 93e692d60713c5bae0aa2b5da84b7411caf59221
+- current_s06_package_digest: acd47629a6b57ba0fa51106c54b5d1748f3dbb7ee1159c3c64c17dc29ef1996d
+- current_s06_package_inventory_digest: ceecadbbadfeca42cd495efb00fbe27c02c0d1c3a5012897dd3f8d444405692e
 - current_s06_evidence: >-
     .ai-workspace/comments/codex/
-    20260728T010929Z_HANDOFF_t281_s06_portability_repair_candidate.md
+    20260728T070320Z_HANDOFF_t281_s06_public_product_authority_candidate.md
 - accepted_s03_candidate: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s05_candidate: 1ddc802d3003a3d0782398f7ec7c74cfa81ab127
 - selected_method_release: STDO v2.2.0
