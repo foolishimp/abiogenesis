@@ -10,7 +10,7 @@ parent and T-281 owns the exact S06 boundary.
 The complete S05 function is resolved as the accepted global-to-local
 constraint network in `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` at
 `283325aa`; S05 realization is accepted at `1ddc802d`. S06 candidate
-`c0d2a3e6`, tree `2fb9cbbe`, is frozen for independent exact-cut review.
+`33ab384b`, tree `a5b86b54`, is frozen for independent exact-cut review.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 

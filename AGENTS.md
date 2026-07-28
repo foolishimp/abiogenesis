@@ -38,9 +38,10 @@ close ABG5-S06
 
 Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
 The S05 design is directly accepted at `283325aa`; S05 realization is accepted
-at `1ddc802d`. Replacement S06 candidate `c0d2a3e6`, tree `2fb9cbbe`, is
-frozen for independent exact-cut review after one bounded contract-authority
-repair. Do not edit, extend, or recursively refreeze it. Full conservation
+at `1ddc802d`. Replacement S06 candidate `33ab384b`, tree `a5b86b54`, is
+frozen for independent exact-cut review after one bounded readiness and
+packed-contract verification repair. Do not edit, extend, or recursively
+refreeze it. Full conservation
 qualification, qualification, and release must not receive implementation
 while S06 remains unresolved.
 

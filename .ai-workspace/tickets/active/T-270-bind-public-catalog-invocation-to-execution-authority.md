@@ -41,13 +41,13 @@
     .ai-workspace/tickets/backlog/
     T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md
 - current_s06_owner: T-281
-- current_s06_candidate: c0d2a3e686ed589ce35efe629a351d149025a9d3
-- current_s06_candidate_tree: 2fb9cbbe041c650d3c52846657ea579668b6258e
-- current_s06_package_digest: 1deedcc3979d06d4c6546464c01632b7cc65aea9176c8750cb92b4cd16d5686c
-- current_s06_package_inventory_digest: 5b9c3d52b5c67b2d33c78330398d425fb37c87102109d81dfbc8dc58ef74e913
+- current_s06_candidate: 33ab384b14f7feb1bbab42f16c03f1724270eafd
+- current_s06_candidate_tree: a5b86b5441666d679a86a6bc61da892883eab1ab
+- current_s06_package_digest: 6005326e627cc57ccf4a72f2bb85f1ccc7306f6b7e5a7dc6f965f5fb6f85afd3
+- current_s06_package_inventory_digest: b5ef43c73b4adf827bcee2ba214678543564e7e424808e0b8d50c5a8305a3fec
 - current_s06_evidence: >-
     .ai-workspace/comments/codex/
-    20260728T092054Z_HANDOFF_t281_s06_contract_authority_candidate.md
+    20260728T102300Z_HANDOFF_t281_s06_readiness_contract_candidate.md
 - accepted_s03_candidate: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s05_candidate: 1ddc802d3003a3d0782398f7ec7c74cfa81ab127
 - selected_method_release: STDO v2.2.0
