@@ -16,6 +16,12 @@ import {
   sha256Canonical,
 } from "../../build/code/src/product/index.js";
 import {
+  directSatisfiedDependencyRefs,
+} from "../../build/code/src/product/catalog.js";
+import {
+  declarationExportSymbols,
+} from "../../build/code/src/product/declaration_exports.js";
+import {
   resolveExactMatch,
 } from "../../build/code/src/product/exact_match.js";
 import {
@@ -301,6 +307,87 @@ test("S06 dependency topology uses one cycle relation for construction and valid
     isResolvedProductLock(forged),
     false,
     "a digest-consistent cyclic lock must still fail validation",
+  );
+});
+
+test("S06 readiness authority stops at the publisher's direct dependency edges", () => {
+  const transitive = install("transitive", "3");
+  const direct = install("direct", "2", {
+    declaredDependencies: [dependency(transitive)],
+  });
+  const publisher = install("publisher", "1", {
+    declaredDependencies: [dependency(direct)],
+  });
+  const lock = constructResolvedProductLock([publisher, direct, transitive]);
+  assert.equal(lock.kind, "resolved_product_lock");
+
+  const satisfied = directSatisfiedDependencyRefs(lock, publisher.productId);
+  assert.equal(satisfied.has(direct.publicContractRefs[0]), true);
+  assert.equal(satisfied.has(direct.publicCapabilityRefs[0]), true);
+  assert.equal(
+    satisfied.has(transitive.publicContractRefs[0]),
+    false,
+    "A -> B -> C must not let A consume C's contract without an A -> C edge",
+  );
+  assert.equal(
+    satisfied.has(transitive.publicCapabilityRefs[0]),
+    false,
+    "A -> B -> C must not let A consume C's capability without an A -> C edge",
+  );
+});
+
+test("S06 native export resolution is TypeScript-program derived", async () => {
+  const encode = (path, source) => ({
+    path,
+    bytes: new TextEncoder().encode(source),
+  });
+  const valid = await declarationExportSymbols("index.d.ts", [
+    encode(
+      "index.d.ts",
+      [
+        "export declare const enum Kind { A }",
+        "export declare namespace \u03A9 { type Value = string }",
+        "export type * as Types from \"./types.js\"",
+        "export declare const noSemicolon: string",
+      ].join("\n"),
+    ),
+    encode("types.d.ts", "export type T = string"),
+  ]);
+  assert.notEqual(valid, null);
+  assert.equal(valid.has("Kind"), true);
+  assert.equal(valid.has("\u03A9"), true);
+  assert.equal(valid.has("Types"), true);
+  assert.equal(valid.has("noSemicolon"), true);
+
+  assert.equal(
+    await declarationExportSymbols("index.d.ts", [
+      encode("index.d.ts", "export declare const Forged:;"),
+    ]),
+    null,
+    "syntactically invalid declaration exports must refuse",
+  );
+  assert.equal(
+    await declarationExportSymbols("index.d.ts", [
+      encode(
+        "index.d.ts",
+        "export { Missing } from \"./missing.js\";",
+      ),
+    ]),
+    null,
+    "unresolved declaration re-exports must refuse",
+  );
+
+  const exportAssignment = await declarationExportSymbols("index.d.ts", [
+    encode(
+      "index.d.ts",
+      "declare const Foo: unique symbol;\nexport = Foo;",
+    ),
+  ]);
+  assert.notEqual(exportAssignment, null);
+  assert.equal(
+    exportAssignment.has("default"),
+    false,
+    "TypeScript export assignment must not mint an ESM default export",
   );
 });
 

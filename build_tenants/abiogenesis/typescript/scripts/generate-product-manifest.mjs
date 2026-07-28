@@ -1,4 +1,13 @@
-import { lstat, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import {
+  copyFile,
+  cp,
+  lstat,
+  mkdir,
+  readFile,
+  readdir,
+  writeFile,
+} from "node:fs/promises";
+import { createRequire } from "node:module";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -34,6 +43,7 @@ import {
 } from "../build/code/src/public/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const require = createRequire(import.meta.url);
 const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
 const productId = `product://abiogenesis/typescript-tenant@${packageJson.version}`;
 
@@ -68,6 +78,41 @@ await Promise.all([
   mkdir(dirname(join(root, consensusSchemaPath)), { recursive: true }),
   mkdir(dirname(join(root, reviewRulingVocabularyPath)), { recursive: true }),
 ]);
+
+const toolchainRoot = join(root, "build/toolchain");
+const typescriptRoot = dirname(require.resolve("typescript/package.json"));
+const typescriptLibRoot = join(typescriptRoot, "lib");
+const nodeTypesRoot = dirname(require.resolve("@types/node/package.json"));
+const undiciTypesRoot = dirname(require.resolve("undici-types/package.json"));
+await mkdir(join(toolchainRoot, "node_modules/@types"), { recursive: true });
+await Promise.all([
+  copyFile(
+    join(typescriptLibRoot, "typescript.js"),
+    join(toolchainRoot, "typescript.cjs"),
+  ),
+  copyFile(
+    join(typescriptRoot, "LICENSE.txt"),
+    join(toolchainRoot, "typescript.LICENSE.txt"),
+  ),
+  cp(
+    nodeTypesRoot,
+    join(toolchainRoot, "node_modules/@types/node"),
+    { recursive: true },
+  ),
+  cp(
+    undiciTypesRoot,
+    join(toolchainRoot, "node_modules/undici-types"),
+    { recursive: true },
+  ),
+]);
+for (const entry of await readdir(typescriptLibRoot)) {
+  if (/^lib(?:\..+)?\.d\.ts$/u.test(entry)) {
+    await copyFile(
+      join(typescriptLibRoot, entry),
+      join(toolchainRoot, entry),
+    );
+  }
+}
 
 await Promise.all([
   writeFile(

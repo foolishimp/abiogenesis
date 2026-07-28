@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { isAbsolute, posix } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { declarationExportSymbols } from "./declaration_exports.js";
+import { declarationExportSymbolTable } from "./declaration_exports.js";
 import type {
   ProductAssetLocator,
   ProductContributionManifest,
@@ -513,10 +513,22 @@ function assetDefinitionExists(
   if (!pointer.startsWith("/")) return false;
   for (const encodedSegment of pointer.slice(1).split("/")) {
     const segment = encodedSegment.replace(/~1/gu, "/").replace(/~0/gu, "~");
+    if (Array.isArray(current)) {
+      if (!/^(?:0|[1-9][0-9]*)$/u.test(segment)) return false;
+      const index = Number(segment);
+      if (
+        !Number.isSafeInteger(index) ||
+        index >= current.length ||
+        !Object.hasOwn(current, index)
+      ) {
+        return false;
+      }
+      current = current[index];
+      continue;
+    }
     if (
       typeof current !== "object" ||
       current === null ||
-      Array.isArray(current) ||
       !Object.hasOwn(current, segment)
     ) {
       return false;
@@ -638,11 +650,17 @@ export async function verifyProduct(
   }
 
   const inventory: PayloadInventoryRow[] = [];
+  const payloadFiles = new Map<string, Uint8Array>();
   try {
     for (const locator of [...locators].sort()) {
+      const bytes = await readArchiveEntry(
+        request.artifactPath,
+        `package/${locator}`,
+      );
+      payloadFiles.set(locator, bytes);
       inventory.push({
         path: locator,
-        sha256: sha256Bytes(await readArchiveEntry(request.artifactPath, `package/${locator}`)),
+        sha256: sha256Bytes(bytes),
       });
     }
   } catch (error) {
@@ -670,11 +688,30 @@ export async function verifyProduct(
   const contractIds = new Set<string>();
   const publicCapabilityRefs = new Set<string>();
   const publicContracts: ProductPublicContract[] = [];
+  const declarationSources = [...payloadFiles.entries()]
+    .filter(
+      ([path]) =>
+        path.startsWith("build/code/") &&
+        /\.d\.(?:c|m)?ts$/u.test(path),
+    )
+    .map(([path, bytes]) => ({ path, bytes }));
   try {
-    const schemaBytes = await readArchiveEntry(
-      request.artifactPath,
-      `package/${manifest.publicContractCatalog.catalogSchemaPath}`,
+    const declarationExports = await declarationExportSymbolTable(
+      declarationSources,
     );
+    if (declarationExports === null) {
+      return refusal(
+        request,
+        "catalog_mismatch",
+        "native declaration closure does not form a valid TypeScript program",
+      );
+    }
+    const schemaBytes = payloadFiles.get(
+      manifest.publicContractCatalog.catalogSchemaPath,
+    );
+    if (schemaBytes === undefined) {
+      throw new Error("catalog schema is absent from the product payload");
+    }
     if (sha256Bytes(schemaBytes) !== manifest.publicContractCatalog.catalogSchemaDigest) {
       return refusal(request, "catalog_mismatch", "catalog schema digest is invalid");
     }
@@ -703,10 +740,10 @@ export async function verifyProduct(
         if (!isSafeProductPath(assetLocator.path)) {
           return refusal(request, "unsafe_locator", "contract asset path is unsafe");
         }
-        const assetBytes = await readArchiveEntry(
-          request.artifactPath,
-          `package/${assetLocator.path}`,
-        );
+        const assetBytes = payloadFiles.get(assetLocator.path);
+        if (assetBytes === undefined) {
+          throw new Error(`contract asset is absent: ${assetLocator.path}`);
+        }
         assetDigest = sha256Bytes(assetBytes);
         if (assetDigest !== assetLocator.contentDigest) {
           return refusal(
@@ -740,12 +777,18 @@ export async function verifyProduct(
         ) {
           return refusal(request, "catalog_mismatch", "native typed locator is invalid");
         }
-        const declarationBytes = await readArchiveEntry(
-          request.artifactPath,
-          `package/${nativeLocator.declarationPath}`,
+        const declarationBytes = payloadFiles.get(
+          nativeLocator.declarationPath,
         );
+        if (declarationBytes === undefined) {
+          throw new Error(
+            `native declaration is absent: ${nativeLocator.declarationPath}`,
+          );
+        }
         const declarationDigest = sha256Bytes(declarationBytes);
-        const exportedSymbols = declarationExportSymbols(declarationBytes);
+        const exportedSymbols = declarationExports.get(
+          nativeLocator.declarationPath,
+        ) ?? null;
         if (
           exportedSymbols === null ||
           !exportedSymbols.has(nativeLocator.namedSymbol) ||

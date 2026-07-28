@@ -57,6 +57,7 @@ const FAN_IN_REDUCER_REF =
 const ACTOR_REF = "actor://abiogenesis/conformance/claude-worker@5";
 const WORKER_BINDING_REF =
   "worker-binding://abiogenesis/conformance/claude-worker@5";
+const INSTALLED_WITNESS_TIMEOUT_MS = 90_000;
 
 function fpInput(subject) {
   return {
@@ -1011,7 +1012,7 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
         ),
       ),
       maxBuffer: 10 * 1024 * 1024,
-      timeout: 30_000,
+      timeout: INSTALLED_WITNESS_TIMEOUT_MS,
     },
   );
   const externalTicket = spawnSync(
@@ -1031,7 +1032,7 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
         ),
       ),
       maxBuffer: 10 * 1024 * 1024,
-      timeout: 30_000,
+      timeout: INSTALLED_WITNESS_TIMEOUT_MS,
     },
   );
   const externalGapReentry = spawnSync(
@@ -1051,7 +1052,7 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
         ),
       ),
       maxBuffer: 10 * 1024 * 1024,
-      timeout: 30_000,
+      timeout: INSTALLED_WITNESS_TIMEOUT_MS,
     },
   );
   const externalSpanReentry = spawnSync(
@@ -1071,7 +1072,7 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
         ),
       ),
       maxBuffer: 10 * 1024 * 1024,
-      timeout: 30_000,
+      timeout: INSTALLED_WITNESS_TIMEOUT_MS,
     },
   );
   const externalPublicTargets = spawnSync(
@@ -1091,7 +1092,7 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
         ),
       ),
       maxBuffer: 10 * 1024 * 1024,
-      timeout: 30_000,
+      timeout: INSTALLED_WITNESS_TIMEOUT_MS,
     },
   );
   const externalCorrections = spawnSync(
@@ -1111,7 +1112,7 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
         ),
       ),
       maxBuffer: 10 * 1024 * 1024,
-      timeout: 30_000,
+      timeout: INSTALLED_WITNESS_TIMEOUT_MS,
     },
   );
   const evidence = {

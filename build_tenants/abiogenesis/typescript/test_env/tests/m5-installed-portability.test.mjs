@@ -798,6 +798,15 @@ test("S06 Product verification resolves contract authority and exact locators", 
     "@abiogenesis/typescript-tenant/product",
     `contract-locators=${Date.now()}`,
   );
+  const nativeOnlyContract = (row, native) => {
+    delete row.assetLocator;
+    return {
+      ...row,
+      contractDigest: native.nativeContractDigest,
+      contractKind: "native_typed_group",
+      nativeTypedLocator: native.nativeTypedLocator,
+    };
+  };
   const cases = [
     {
       label: "missing-version",
@@ -847,6 +856,20 @@ test("S06 Product verification resolves contract authority and exact locators", 
           declarationPath: "build/index.d.ts",
         },
       }),
+      expectedCode: "catalog_mismatch",
+    },
+    {
+      label: "invalid-native-declaration",
+      transformDeclaration: (declaration) =>
+        `${declaration}\nexport declare const Forged:;\n`,
+      transformPublicContract: nativeOnlyContract,
+      expectedCode: "catalog_mismatch",
+    },
+    {
+      label: "unresolved-native-reexport",
+      transformDeclaration: (declaration) =>
+        `${declaration}\nexport { Missing } from "./missing.js";\n`,
+      transformPublicContract: nativeOnlyContract,
       expectedCode: "catalog_mismatch",
     },
     {
@@ -905,6 +928,48 @@ test("S06 Product verification resolves contract authority and exact locators", 
     });
     assert.equal(refused.kind, "product_verification_refusal", row.label);
     assert.equal(refused.code, row.expectedCode, row.label);
+  }
+});
+
+test("S06 Product verification resolves JSON Schema array pointers", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const installedProduct = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/product",
+    `array-pointers=${Date.now()}`,
+  );
+  for (
+    const definitionRef of [
+      "#/oneOf/0",
+      "#/oneOf/0/additionalProperties",
+    ]
+  ) {
+    const flavored = await prepareFlavoredCatalogProduct(
+      harness,
+      join(
+        harness.scratch,
+        `array-pointer-${definitionRef.endsWith("0") ? "schema" : "boolean"}`,
+      ),
+      {
+        transformPublicContract: (row) => ({
+          ...row,
+          assetLocator: {
+            ...row.assetLocator,
+            definitionRef,
+          },
+        }),
+      },
+    );
+    const verified = await installedProduct.verifyProduct({
+      artifactPath: flavored.artifactPath,
+      artifactRef: flavored.artifactRef,
+      ...expectedVerificationIdentity(flavored.basis),
+    });
+    assert.equal(
+      verified.kind,
+      "verified_product_artifact",
+      `${definitionRef}: ${JSON.stringify(verified)}`,
+    );
   }
 });
 
