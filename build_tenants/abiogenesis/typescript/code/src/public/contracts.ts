@@ -85,6 +85,50 @@ export interface PublicInvocationRefusal {
 
 export type PublicInvocationResult = PublicOutcome | PublicInvocationRefusal;
 
+const RFC3339_DATE_TIME =
+  /^(\d{4})-(\d{2})-(\d{2})[Tt](\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:[Zz]|[+-](\d{2}):(\d{2}))$/u;
+
+function isRfc3339DateTime(value: string): boolean {
+  const match = RFC3339_DATE_TIME.exec(value);
+  if (match === null) return false;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const hour = Number(match[4]);
+  const minute = Number(match[5]);
+  const second = Number(match[6]);
+  const offsetHour = match[7] === undefined ? 0 : Number(match[7]);
+  const offsetMinute = match[8] === undefined ? 0 : Number(match[8]);
+  if (
+    month < 1 ||
+    month > 12 ||
+    day < 1 ||
+    hour > 23 ||
+    minute > 59 ||
+    second > 60 ||
+    offsetHour > 23 ||
+    offsetMinute > 59
+  ) {
+    return false;
+  }
+  const leapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const daysInMonth = [
+    31,
+    leapYear ? 29 : 28,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31,
+  ][month - 1]!;
+  return day <= daysInMonth;
+}
+
 function isJsonValue(value: unknown, seen = new WeakSet<object>()): value is JsonValue {
   if (
     value === null ||
@@ -150,7 +194,7 @@ export function parseRootPublicInvocation(
     typeof value.invocationRef !== "string" ||
     value.invocationRef.trim().length === 0 ||
     typeof value.eventTime !== "string" ||
-    Number.isNaN(Date.parse(value.eventTime)) ||
+    !isRfc3339DateTime(value.eventTime) ||
     typeof value.correlationId !== "string" ||
     value.correlationId.trim().length === 0 ||
     !isRecord(value.payload)

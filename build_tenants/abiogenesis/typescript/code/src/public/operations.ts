@@ -87,6 +87,35 @@ class ApplicationRefusal extends Error {
   }
 }
 
+type ProductResolutionDisposition =
+  | "unresolved"
+  | "incompatible"
+  | "ambiguous"
+  | "cyclic";
+
+type TypedPublicRefusalDisposition =
+  | ProductResolutionDisposition
+  | "unready";
+
+function productResolutionDisposition(
+  code: product.EnvironmentRefusalCode,
+): ProductResolutionDisposition | null {
+  switch (code) {
+    case "invalid_dependency":
+    case "unresolved_dependency":
+      return "unresolved";
+    case "incompatible_dependency":
+      return "incompatible";
+    case "ambiguous_dependency":
+    case "duplicate_install":
+      return "ambiguous";
+    case "cyclic_dependency":
+      return "cyclic";
+    default:
+      return null;
+  }
+}
+
 export function createRootOperationContext(): RootOperationContext {
   const context: RootOperationContext = {
     store: new abg.AbgEventStore(),
@@ -373,12 +402,19 @@ function refusalOutcome(
     readonly durableEventCount?: number;
     readonly continuationRef?: string;
     readonly continuationStatus?: "open" | "responded" | "resolved";
+    readonly resultKind?:
+      | "catalog_admission_refusal"
+      | "product_resolution_refusal";
+    readonly resultDisposition?: TypedPublicRefusalDisposition;
   } = {},
 ): PublicOutcome {
   const diagnosticRef = `diagnostic://abiogenesis/public/${code}@5`;
   const result = {
-    kind: "public_operation_refusal",
+    kind: metadata.resultKind ?? "public_operation_refusal",
     schemaVersion: "5.0.0",
+    ...(metadata.resultDisposition === undefined
+      ? {}
+      : { disposition: metadata.resultDisposition }),
     code,
     message,
   } as const;
@@ -495,9 +531,21 @@ async function applyResolve(
     verifiedStates.map((entry) => entry.verified),
   );
   if (lock.kind !== "resolved_product_lock") {
-    throw new ApplicationRefusal(
-      "owner_refusal",
+    const disposition = productResolutionDisposition(lock.code);
+    if (disposition === null) {
+      throw new ApplicationRefusal(
+        "owner_refusal",
+        `Product lock resolution refused: ${lock.message}`,
+      );
+    }
+    return refusalOutcome(
+      invocation,
+      disposition,
       `Product lock resolution refused: ${lock.message}`,
+      {
+        resultKind: "product_resolution_refusal",
+        resultDisposition: disposition,
+      },
     );
   }
   state.rememberResolution(invocation.invocationRef, {
@@ -808,6 +856,17 @@ async function applyCatalogAdmit(
     programValidations as readonly validator.ProgramValidation[],
   );
   if (candidate.kind !== "catalog_admission_candidate") {
+    if (candidate.code === "unresolved_readiness_prerequisite") {
+      return refusalOutcome(
+        invocation,
+        "unready",
+        `Catalog construction refused: ${candidate.message}`,
+        {
+          resultKind: "catalog_admission_refusal",
+          resultDisposition: "unready",
+        },
+      );
+    }
     throw new ApplicationRefusal("owner_refusal", `Catalog construction refused: ${candidate.message}`);
   }
   const catalog = abg.admitCatalog(

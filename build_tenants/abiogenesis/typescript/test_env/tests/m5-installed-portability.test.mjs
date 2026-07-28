@@ -260,7 +260,7 @@ function assertPortableOutcome(run, flavored) {
     compatibilityDisposition: "compatible",
     requiredContractRefs: [
       "abg.contract.gtl.root-declaration",
-      "abg.contract.public.root-invocation",
+      "abg.schema.public-operation-invocation",
     ],
     requiredCapabilityRefs: [
       "abg.capability.catalog.invoke-graph-function@5",
@@ -409,6 +409,7 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
   );
   const operationContext = installedPublic.createRootOperationContext();
   let sdkRefusal;
+  let timestampRefusal;
   try {
     sdkRefusal = await installedPublic.applyRootPublicInvocation(
       operationContext,
@@ -446,6 +447,16 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
       ).kind,
       "public_invocation_refusal",
     );
+    timestampRefusal = await installedPublic.applyRootPublicInvocation(
+      operationContext,
+      {
+        ...unknownInvocation,
+        operationId: "abg.operation.product.verify",
+        eventTime: "2026-07-28",
+      },
+    );
+    assert.equal(timestampRefusal.kind, "public_invocation_refusal");
+    assert.equal(timestampRefusal.code, "invalid_request");
   } finally {
     installedPublic.closeRootOperationContext(operationContext);
   }
@@ -462,6 +473,26 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
   const cliRun = await runInstalledCli(harness, { transcriptPath });
   assert.equal(cliRun.exitCode, 2);
   assert.deepEqual(cliRun.outcomes, [sdkRefusal]);
+
+  const timestampTranscriptPath = join(
+    harness.scratch,
+    "public-contract-timestamp-refusal.jsonl",
+  );
+  await writeFile(
+    timestampTranscriptPath,
+    `${JSON.stringify({
+      ...unknownInvocation,
+      operationId: "abg.operation.product.verify",
+      eventTime: "2026-07-28",
+    })}\n`,
+    "utf8",
+  );
+  const timestampCliRun = await runInstalledCli(
+    harness,
+    { transcriptPath: timestampTranscriptPath },
+  );
+  assert.equal(timestampCliRun.exitCode, 2);
+  assert.deepEqual(timestampCliRun.outcomes, [timestampRefusal]);
 
   const schema = JSON.parse(
     await readFile(
@@ -480,6 +511,7 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
       "RootPublicInvocation",
     ],
   );
+  assert.equal(schema.$id, "abg.schema.public-operation-contract");
   assert.equal(
     schema.$defs.RootPublicInvocation.properties.operationId.enum.includes(
       "abg.operation.product.resolve",
@@ -488,21 +520,34 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
   );
   const publicRows =
     harness.candidateManifest.publicContractCatalog.rows.filter((row) =>
-      row.contractId.startsWith("abg.contract.public.")
+      [
+        "abg.schema.public-operation-contract",
+        "abg.schema.public-operation-invocation",
+        "abg.schema.public-operation-outcome",
+      ].includes(row.contractId)
     );
   assert.deepEqual(
     publicRows.map((row) => row.contractId).sort(),
     [
-      "abg.contract.public.invocation-refusal",
-      "abg.contract.public.root-invocation",
-      "abg.contract.public.root-outcome",
+      "abg.schema.public-operation-contract",
+      "abg.schema.public-operation-invocation",
+      "abg.schema.public-operation-outcome",
     ],
   );
   assert.ok(publicRows.every((row) =>
     row.assetLocator.path === "contracts/schemas/public-operation.schema.json" &&
-    row.nativeTypedLocator.packageExportPath === "./public"
+    row.nativeTypedLocator.packageExportPath === "./public" &&
+    row.contractDigest === row.assetLocator.contentDigest &&
+    row.capabilityIdentities.includes(
+      "abg.capability.operator.public-contract@5",
+    )
   ));
 
+  const installedProduct = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/product",
+    `public-contract-digest=${Date.now()}`,
+  );
   const gtlRow = harness.candidateManifest.publicContractCatalog.rows.find(
     (row) => row.contractId === "abg.contract.gtl.root-declaration",
   );
@@ -513,6 +558,20 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
   assert.equal(
     gtlRow.capabilityIdentities.includes("abg.capability.gtl.declare@5"),
     true,
+  );
+  assert.equal(
+    gtlRow.contractDigest,
+    installedProduct.sha256Canonical([{
+      packageExportPath: gtlRow.nativeTypedLocator.packageExportPath,
+      declarationPath: gtlRow.nativeTypedLocator.declarationPath,
+      declarationDigest: await installedProduct.sha256File(
+        join(
+          harness.installedPackageRoot,
+          gtlRow.nativeTypedLocator.declarationPath,
+        ),
+      ),
+    }]),
+    "native contract digests must use only the constitutional declaration inventory",
   );
   for (const constructor of [
     "catalogContribution",
@@ -722,7 +781,9 @@ test("S06 unresolved dependency lock refuses before Product materialization", as
       unresolvedResolution,
     );
     assert.equal(refused.disposition, "refused");
-    assert.equal(refused.result.code, "owner_refusal");
+    assert.equal(refused.result.kind, "product_resolution_refusal");
+    assert.equal(refused.result.disposition, "unresolved");
+    assert.equal(refused.result.code, "unresolved");
     assert.match(refused.result.message, /lock resolution refused/u);
     await assert.rejects(access(scenario.flavoredConsumer));
   } finally {
@@ -730,37 +791,126 @@ test("S06 unresolved dependency lock refuses before Product materialization", as
   }
 });
 
-test("S06 Product verification rejects an incomplete public-contract row", async (context) => {
+test("S06 Product verification resolves contract authority and exact locators", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
-  const flavored = await prepareFlavoredCatalogProduct(
+  const installedProduct = await importInstalledPackageExport(
     harness,
-    harness.scratch,
+    "@abiogenesis/typescript-tenant/product",
+    `contract-locators=${Date.now()}`,
+  );
+  const cases = [
     {
+      label: "missing-version",
       transformPublicContract: (row) => {
         delete row.contractVersion;
         return row;
+      },
+      expectedCode: "catalog_mismatch",
+    },
+    {
+      label: "empty-authority",
+      transformPublicContract: (row) => ({
+        ...row,
+        requirementAuthorityRefs: [],
+      }),
+      expectedCode: "catalog_mismatch",
+    },
+    {
+      label: "empty-capability",
+      transformPublicContract: (row) => ({
+        ...row,
+        capabilityIdentities: [],
+      }),
+      expectedCode: "catalog_mismatch",
+    },
+    {
+      label: "missing-definition",
+      transformPublicContract: (row) => ({
+        ...row,
+        assetLocator: {
+          ...row.assetLocator,
+          definitionRef: "#/$defs/DoesNotExist",
+        },
+      }),
+      expectedCode: "contract_asset_mismatch",
+    },
+    {
+      label: "missing-native-symbol",
+      transformPublicContract: (row) => ({
+        ...row,
+        nativeTypedLocator: {
+          packageName:
+            "@abiogenesis-fixtures/flavored-catalog-product",
+          packageExportPath: ".",
+          namedSymbol: "ForgedNativeContract",
+          exportedSymbols: ["ForgedNativeContract"],
+          declarationPath: "build/index.d.ts",
+        },
+      }),
+      expectedCode: "catalog_mismatch",
+    },
+  ];
+  for (const row of cases) {
+    const flavored = await prepareFlavoredCatalogProduct(
+      harness,
+      join(harness.scratch, row.label),
+      { transformPublicContract: row.transformPublicContract },
+    );
+    const refused = await installedProduct.verifyProduct({
+      artifactPath: flavored.artifactPath,
+      artifactRef: flavored.artifactRef,
+      ...expectedVerificationIdentity(flavored.basis),
+    });
+    assert.equal(refused.kind, "product_verification_refusal", row.label);
+    assert.equal(refused.code, row.expectedCode, row.label);
+  }
+});
+
+test("S06 catalog readiness requires an exact admitted prerequisite", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const flavored = await prepareFlavoredCatalogProduct(
+    harness,
+    join(harness.scratch, "unresolved-readiness"),
+    {
+      transformPublication: (publication) => {
+        publication.contributions[0].readinessPrerequisiteRefs = [
+          "readiness://flavor.example/never-admitted@5",
+        ];
+        return publication;
       },
     },
   );
   const scenario = await portabilityScenario(
     harness,
     flavored,
-    "flavored-incomplete-contract",
+    "flavored-unresolved-readiness",
   );
   const installedPublic = await importInstalledPackageExport(
     harness,
     "@abiogenesis/typescript-tenant/public",
-    `incomplete-contract=${Date.now()}`,
+    `unresolved-readiness=${Date.now()}`,
   );
   const operationContext = installedPublic.createRootOperationContext();
   try {
+    for (const row of scenario.transcript.slice(0, 6)) {
+      const outcome = await installedPublic.applyRootPublicInvocation(
+        operationContext,
+        row,
+      );
+      assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+    }
     const refused = await installedPublic.applyRootPublicInvocation(
       operationContext,
-      scenario.transcript[1],
+      scenario.transcript[6],
     );
     assert.equal(refused.disposition, "refused");
-    assert.equal(refused.result.code, "owner_refusal");
-    assert.match(refused.result.message, /catalog_mismatch/u);
+    assert.equal(refused.result.kind, "catalog_admission_refusal");
+    assert.equal(refused.result.disposition, "unready");
+    assert.equal(refused.result.code, "unready");
+    assert.match(
+      refused.result.message,
+      /unresolved readiness prerequisite/u,
+    );
   } finally {
     installedPublic.closeRootOperationContext(operationContext);
   }

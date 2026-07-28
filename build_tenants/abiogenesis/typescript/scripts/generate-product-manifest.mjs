@@ -212,6 +212,14 @@ const publicNativeInventory = [
   },
 ];
 
+function nativeContractDigest(inventory) {
+  return sha256Canonical(inventory.map((entry) => ({
+    packageExportPath: entry.packageExportPath,
+    declarationPath: entry.declarationPath,
+    declarationDigest: entry.declarationDigest,
+  })));
+}
+
 const consensusContractRows = CONSENSUS_SCHEMA_ASSET_BINDINGS.map(
   ([contractId, definitionName]) => ({
   contractId,
@@ -267,38 +275,33 @@ const consensusVocabularyRows = [
   },
 }));
 
-const publicNativeDigest = sha256Canonical(publicNativeInventory);
-const publicOperationContractDigest = sha256Canonical([
-  publicOperationSchemaDigest,
-  publicNativeDigest,
-]);
 const publicOperationRows = [
   [
-    "abg.contract.public.root-invocation",
+    "abg.schema.public-operation-contract",
+    undefined,
+    "PUBLIC_OPERATION_SCHEMA",
+  ],
+  [
+    "abg.schema.public-operation-invocation",
     "RootPublicInvocation",
     "parseRootPublicInvocation",
   ],
   [
-    "abg.contract.public.root-outcome",
+    "abg.schema.public-operation-outcome",
     "PublicOutcome",
     "applyRootPublicInvocation",
-  ],
-  [
-    "abg.contract.public.invocation-refusal",
-    "PublicInvocationRefusal",
-    "parseRootPublicInvocation",
   ],
 ].map(([contractId, definitionName, namedSymbol]) => ({
   contractId,
   contractVersion: "5.0.0",
-  contractDigest: publicOperationContractDigest,
+  contractDigest: publicOperationSchemaDigest,
   contractKind: "serialized_native_contract",
   owningProduct: productId,
   requirementAuthorityRefs: [
     "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-009",
     "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-010",
   ],
-  capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
+  capabilityIdentities: ["abg.capability.operator.public-contract@5"],
   nativeTypedLocator: {
     packageName: packageJson.name,
     packageExportPath: "./public",
@@ -311,7 +314,9 @@ const publicOperationRows = [
     mediaType: "application/schema+json",
     schemaVersion: "5.0.0",
     contentDigest: publicOperationSchemaDigest,
-    definitionRef: `#/$defs/${definitionName}`,
+    ...(definitionName === undefined
+      ? {}
+      : { definitionRef: `#/$defs/${definitionName}` }),
   },
 }));
 
@@ -322,7 +327,7 @@ const rows = [
   {
     contractId: "abg.contract.product.verification",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(nativeInventory),
+    contractDigest: nativeContractDigest(nativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -341,7 +346,7 @@ const rows = [
   {
     contractId: "abg.contract.abg.environment-admission",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(abgNativeInventory),
+    contractDigest: nativeContractDigest(abgNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -360,7 +365,7 @@ const rows = [
   {
     contractId: "abg.contract.gtl.root-declaration",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(gtlNativeInventory),
+    contractDigest: nativeContractDigest(gtlNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -379,7 +384,7 @@ const rows = [
   {
     contractId: "abg.contract.abg.catalog-root-admission",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(abgNativeInventory),
+    contractDigest: nativeContractDigest(abgNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -399,7 +404,7 @@ const rows = [
   {
     contractId: "abg.contract.product.invocation-root",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(nativeInventory),
+    contractDigest: nativeContractDigest(nativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -418,7 +423,7 @@ const rows = [
   {
     contractId: "abg.contract.abg.invocation-root-admission",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(abgNativeInventory),
+    contractDigest: nativeContractDigest(abgNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -437,7 +442,7 @@ const rows = [
   {
     contractId: "abg.contract.product.implementation-resolution-root",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(nativeInventory),
+    contractDigest: nativeContractDigest(nativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -456,7 +461,7 @@ const rows = [
   {
     contractId: "abg.contract.gtl.materialization-root",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(gtlNativeInventory),
+    contractDigest: nativeContractDigest(gtlNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -475,7 +480,7 @@ const rows = [
   {
     contractId: "abg.contract.abg.execution-basis-root",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(abgNativeInventory),
+    contractDigest: nativeContractDigest(abgNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -494,7 +499,7 @@ const rows = [
   {
     contractId: "abg.contract.abg.open-call-root",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(abgNativeInventory),
+    contractDigest: nativeContractDigest(abgNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -513,7 +518,7 @@ const rows = [
   {
     contractId: "abg.contract.hog.traversal-root",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(hogNativeInventory),
+    contractDigest: nativeContractDigest(hogNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -532,7 +537,7 @@ const rows = [
   {
     contractId: "abg.contract.abg.c-call-root",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(abgNativeInventory),
+    contractDigest: nativeContractDigest(abgNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -551,7 +556,7 @@ const rows = [
   {
     contractId: "abg.contract.abg.replay-root",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(abgNativeInventory),
+    contractDigest: nativeContractDigest(abgNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -570,7 +575,7 @@ const rows = [
   {
     contractId: "abg.contract.hog.judgment-transition-root",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(hogNativeInventory),
+    contractDigest: nativeContractDigest(hogNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -589,7 +594,7 @@ const rows = [
   {
     contractId: "abg.contract.gtl.validation-root",
     contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(validatorNativeInventory),
+    contractDigest: nativeContractDigest(validatorNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [

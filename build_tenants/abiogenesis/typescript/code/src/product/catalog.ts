@@ -203,6 +203,7 @@ export interface CatalogConstructionRefusal {
     | "duplicate_allowlist_entry"
     | "invalid_validation_basis"
     | "publication_not_bound"
+    | "unresolved_readiness_prerequisite"
     | "row_not_admitted"
     | "unknown_allowlist_entry";
   readonly message: string;
@@ -354,6 +355,36 @@ export function constructCatalogAdmissionCandidate(
     )
   ) {
     return refusal("invalid_validation_basis", "catalog candidate requires exact publication and Program validations");
+  }
+  const admittedReadinessRefs = new Set([
+    publication.moduleRef,
+    publicationValidation.validationRef,
+    productLockRow.artifactDigest,
+    productLockRow.productContentDigest,
+    productLockRow.manifestDigest,
+    productLockRow.descriptorRef,
+    productLockRow.contributionManifestRef,
+    productLockRow.contributionManifestDigest,
+    productLockRow.provenanceRef,
+    ...productLockRow.compatibilityRefs,
+    ...productLockRow.publicContractRefs,
+    ...productLockRow.publicCapabilityRefs,
+    ...publication.programs.map((program) => program.programRef),
+    ...programValidations.map((validation) => validation.validationRef),
+  ]);
+  const unresolvedReadiness = publication.contributions
+    .flatMap((contribution) =>
+      contribution.readinessPrerequisiteRefs.map((prerequisiteRef) => ({
+        handle: contribution.handle,
+        prerequisiteRef,
+      }))
+    )
+    .find(({ prerequisiteRef }) => !admittedReadinessRefs.has(prerequisiteRef));
+  if (unresolvedReadiness !== undefined) {
+    return refusal(
+      "unresolved_readiness_prerequisite",
+      `catalog row ${unresolvedReadiness.handle} has unresolved readiness prerequisite ${unresolvedReadiness.prerequisiteRef}`,
+    );
   }
   const rows = publication.contributions.map((contribution): CatalogRowCandidate => {
     const body = {

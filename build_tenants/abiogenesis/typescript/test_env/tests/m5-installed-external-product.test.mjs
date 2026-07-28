@@ -730,7 +730,7 @@ function assertExternalOutcome(outcomes, harness, mini) {
     compatibilityDisposition: "compatible",
     requiredContractRefs: [
       "abg.contract.gtl.root-declaration",
-      "abg.contract.public.root-invocation",
+      "abg.schema.public-operation-invocation",
     ],
     requiredCapabilityRefs: [
       "abg.capability.catalog.invoke-graph-function@5",

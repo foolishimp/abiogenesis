@@ -64,6 +64,19 @@ interface PackageJsonView {
 
 const TAR_MAX_BUFFER = 64 * 1024 * 1024;
 
+function packageExportDeclarationPath(value: unknown): string | null {
+  if (
+    typeof value !== "object" ||
+    value === null ||
+    Array.isArray(value)
+  ) {
+    return null;
+  }
+  const types = (value as Readonly<Record<string, unknown>>).types;
+  if (typeof types !== "string" || !types.startsWith("./")) return null;
+  return posix.normalize(types.slice(2));
+}
+
 function refusal(
   request: VerifyProductRequest,
   code: ProductVerificationRefusalCode,
@@ -370,7 +383,9 @@ export function parseProductPublicContract(
     !isNonblankString(row.contractKind) ||
     row.owningProduct !== productId ||
     !isUniqueStringArray(row.requirementAuthorityRefs) ||
-    !isUniqueStringArray(row.capabilityIdentities)
+    row.requirementAuthorityRefs.length === 0 ||
+    !isUniqueStringArray(row.capabilityIdentities) ||
+    row.capabilityIdentities.length === 0
   ) {
     return null;
   }
@@ -438,6 +453,115 @@ function readArchiveEntry(artifactPath: string, entry: string): Promise<Uint8Arr
 
 function parseJsonBytes(bytes: Uint8Array): unknown {
   return JSON.parse(new TextDecoder().decode(bytes));
+}
+
+function stripDeclarationComments(source: string): string {
+  let result = "";
+  let quote: "'" | "\"" | "`" | null = null;
+  let lineComment = false;
+  let blockComment = false;
+  for (let index = 0; index < source.length; index += 1) {
+    const character = source[index]!;
+    const next = source[index + 1];
+    if (lineComment) {
+      if (character === "\n" || character === "\r") {
+        lineComment = false;
+        result += character;
+      }
+      continue;
+    }
+    if (blockComment) {
+      if (character === "*" && next === "/") {
+        blockComment = false;
+        index += 1;
+      } else if (character === "\n" || character === "\r") {
+        result += character;
+      }
+      continue;
+    }
+    if (quote !== null) {
+      result += character;
+      if (character === "\\") {
+        if (next !== undefined) {
+          result += next;
+          index += 1;
+        }
+      } else if (character === quote) {
+        quote = null;
+      }
+      continue;
+    }
+    if (character === "'" || character === "\"" || character === "`") {
+      quote = character;
+      result += character;
+      continue;
+    }
+    if (character === "/" && next === "/") {
+      lineComment = true;
+      index += 1;
+      continue;
+    }
+    if (character === "/" && next === "*") {
+      blockComment = true;
+      index += 1;
+      continue;
+    }
+    result += character;
+  }
+  return result;
+}
+
+function declarationExportSymbols(bytes: Uint8Array): ReadonlySet<string> {
+  const source = stripDeclarationComments(new TextDecoder().decode(bytes));
+  const symbols = new Set<string>();
+  for (const match of source.matchAll(
+    /\bexport\s+(?:type\s+)?\{([^}]*)\}/gu,
+  )) {
+    for (const rawEntry of match[1]!.split(",")) {
+      const entry = rawEntry.trim().replace(/^type\s+/u, "");
+      const parts = entry.split(/\s+as\s+/u);
+      const symbol = (parts[1] ?? parts[0])?.trim() ?? "";
+      if (/^[A-Za-z_$][A-Za-z0-9_$]*$/u.test(symbol)) {
+        symbols.add(symbol);
+      }
+    }
+  }
+  for (const match of source.matchAll(
+    /\bexport\s+(?:declare\s+)?(?:abstract\s+)?(?:async\s+)?(?:const|let|var|function|class|interface|type|enum|namespace)\s+([A-Za-z_$][A-Za-z0-9_$]*)/gu,
+  )) {
+    symbols.add(match[1]!);
+  }
+  return symbols;
+}
+
+function assetDefinitionExists(
+  bytes: Uint8Array,
+  definitionRef: string,
+): boolean {
+  if (!definitionRef.startsWith("#")) return false;
+  let current: unknown;
+  let pointer: string;
+  try {
+    current = parseJsonBytes(bytes);
+    pointer = decodeURIComponent(definitionRef.slice(1));
+  } catch {
+    return false;
+  }
+  if (pointer.length === 0) return true;
+  if (!pointer.startsWith("/")) return false;
+  for (const encodedSegment of pointer.slice(1).split("/")) {
+    const segment = encodedSegment.replace(/~1/gu, "/").replace(/~0/gu, "~");
+    if (
+      typeof current !== "object" ||
+      current === null ||
+      Array.isArray(current) ||
+      !Object.hasOwn(current, segment)
+    ) {
+      return false;
+    }
+    current = (current as Readonly<Record<string, unknown>>)[segment];
+  }
+  return true;
 }
 
 export async function verifyProduct(
@@ -611,15 +735,17 @@ export async function verifyProduct(
         publicCapabilityRefs.add(capabilityRef);
       }
 
-      const locatorDigests: Sha256Digest[] = [];
+      let assetDigest: Sha256Digest | null = null;
       const assetLocator = contract.assetLocator ?? null;
       if (assetLocator !== null) {
         if (!isSafeProductPath(assetLocator.path)) {
           return refusal(request, "unsafe_locator", "contract asset path is unsafe");
         }
-        const assetDigest = sha256Bytes(
-          await readArchiveEntry(request.artifactPath, `package/${assetLocator.path}`),
+        const assetBytes = await readArchiveEntry(
+          request.artifactPath,
+          `package/${assetLocator.path}`,
         );
+        assetDigest = sha256Bytes(assetBytes);
         if (assetDigest !== assetLocator.contentDigest) {
           return refusal(
             request,
@@ -627,35 +753,59 @@ export async function verifyProduct(
             `contract asset digest is invalid: ${assetLocator.path}`,
           );
         }
-        locatorDigests.push(assetDigest);
+        if (
+          assetLocator.definitionRef !== undefined &&
+          !assetDefinitionExists(assetBytes, assetLocator.definitionRef)
+        ) {
+          return refusal(
+            request,
+            "contract_asset_mismatch",
+            `contract asset definition is absent: ${assetLocator.definitionRef}`,
+          );
+        }
       }
 
+      let nativeDigest: Sha256Digest | null = null;
       const nativeLocator = contract.nativeTypedLocator ?? null;
       if (nativeLocator !== null) {
         if (
           !isSafeProductPath(nativeLocator.declarationPath) ||
           nativeLocator.packageName !== manifest.packageName ||
-          !(nativeLocator.packageExportPath in packageJson.exports)
+          !(nativeLocator.packageExportPath in packageJson.exports) ||
+          packageExportDeclarationPath(
+            packageJson.exports[nativeLocator.packageExportPath],
+          ) !== nativeLocator.declarationPath
         ) {
           return refusal(request, "catalog_mismatch", "native typed locator is invalid");
         }
-        const declarationDigest = sha256Bytes(
-          await readArchiveEntry(request.artifactPath, `package/${nativeLocator.declarationPath}`),
+        const declarationBytes = await readArchiveEntry(
+          request.artifactPath,
+          `package/${nativeLocator.declarationPath}`,
         );
-        const nativeDigest = sha256Canonical([
+        const declarationDigest = sha256Bytes(declarationBytes);
+        const exportedSymbols = declarationExportSymbols(declarationBytes);
+        if (
+          !exportedSymbols.has(nativeLocator.namedSymbol) ||
+          nativeLocator.exportedSymbols.some(
+            (symbol) => !exportedSymbols.has(symbol),
+          )
+        ) {
+          return refusal(
+            request,
+            "catalog_mismatch",
+            "native typed locator names an undeclared export",
+          );
+        }
+        nativeDigest = sha256Canonical([
           {
             packageExportPath: nativeLocator.packageExportPath,
             declarationPath: nativeLocator.declarationPath,
             declarationDigest,
-            exportedSymbols: nativeLocator.exportedSymbols,
           },
         ]);
-        locatorDigests.push(nativeDigest);
       }
 
-      const expectedContractDigest = locatorDigests.length === 1
-        ? locatorDigests[0]
-        : sha256Canonical(locatorDigests as unknown as JsonValue);
+      const expectedContractDigest = assetDigest ?? nativeDigest;
       if (expectedContractDigest !== contract.contractDigest) {
         return refusal(
           request,

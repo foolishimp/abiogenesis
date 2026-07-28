@@ -161,7 +161,7 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
       compatibilityRef: "compatibility://abiogenesis/major/5",
       requiredContractRefs: [
         "abg.contract.gtl.root-declaration",
-        "abg.contract.public.root-invocation",
+        "abg.schema.public-operation-invocation",
       ],
       requiredCapabilityRefs: [
         "abg.capability.catalog.invoke-graph-function@5",

@@ -127,6 +127,10 @@ export interface WorkspaceBinding extends Omit<WorkspaceBindingCandidate, "kind"
 export const ENVIRONMENT_REFUSAL_CODES = [
   "empty_product_set",
   "invalid_dependency",
+  "unresolved_dependency",
+  "incompatible_dependency",
+  "ambiguous_dependency",
+  "cyclic_dependency",
   "duplicate_install",
   "lock_mismatch",
   "invalid_workspace_authority",
@@ -303,16 +307,29 @@ function deriveDeclaredDependencyEdges(
       const targets = rows.filter(
         (candidate) => candidate.productId === dependency.productId,
       );
-      if (targets.length !== 1) {
+      if (targets.length === 0) {
         return refusal(
-          "invalid_dependency",
-          `declared dependency ${dependency.productId} must resolve exactly once`,
+          "unresolved_dependency",
+          `declared dependency ${dependency.productId} is unresolved`,
+        );
+      }
+      if (targets.length > 1) {
+        return refusal(
+          "ambiguous_dependency",
+          `declared dependency ${dependency.productId} is ambiguous`,
         );
       }
       const target = targets[0]!;
       if (
         target.packageVersion !== dependency.packageVersion ||
-        !target.compatibilityRefs.includes(dependency.compatibilityRef) ||
+        !target.compatibilityRefs.includes(dependency.compatibilityRef)
+      ) {
+        return refusal(
+          "incompatible_dependency",
+          `declared dependency ${dependency.productId} is incompatible`,
+        );
+      }
+      if (
         dependency.requiredContractRefs.some(
           (contractRef) => !target.publicContractRefs.includes(contractRef),
         ) ||
@@ -322,8 +339,8 @@ function deriveDeclaredDependencyEdges(
         )
       ) {
         return refusal(
-          "invalid_dependency",
-          `declared dependency ${dependency.productId} is incompatible or incomplete`,
+          "unresolved_dependency",
+          `declared dependency ${dependency.productId} lacks a required public contract or capability`,
         );
       }
       edges.push({
@@ -404,7 +421,7 @@ export function constructResolvedProductLock(
   const productIds = rows.map((row) => row.productId);
   if (new Set(productIds).size !== productIds.length) {
     return refusal(
-      "invalid_dependency",
+      "ambiguous_dependency",
       "a resolved lock cannot contain ambiguous Product identities",
     );
   }
@@ -412,7 +429,10 @@ export function constructResolvedProductLock(
   if (!Array.isArray(dependencyEdges)) return dependencyEdges;
   const productIdSet = new Set(productIds);
   if (hasProductDependencyCycle(productIdSet, dependencyEdges)) {
-    return refusal("invalid_dependency", "resolved Product dependencies must be acyclic");
+    return refusal(
+      "cyclic_dependency",
+      "resolved Product dependencies must be acyclic",
+    );
   }
   const lockDigest = sha256Canonical({
     rows,

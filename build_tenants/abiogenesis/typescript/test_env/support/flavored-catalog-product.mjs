@@ -134,8 +134,15 @@ export async function prepareFlavoredCatalogProduct(
     catalogDigest: product.sha256Canonical(catalogWithoutDigest),
   };
   const placeholderDigest = `sha256:${"0".repeat(64)}`;
-  const draftPublication =
-    publicationModule.constructFlavoredCatalogPublication({
+  const constructPublication = (artifact) => {
+    const publication = publicationModule.constructFlavoredCatalogPublication(
+      artifact,
+    );
+    return options.transformPublication === undefined
+      ? publication
+      : options.transformPublication(structuredClone(publication));
+  };
+  const draftPublication = constructPublication({
     productId,
     artifactDigest: placeholderDigest,
     productContentDigest,
@@ -193,7 +200,7 @@ export async function prepareFlavoredCatalogProduct(
       compatibilityRef: "compatibility://abiogenesis/major/5",
       requiredContractRefs: [
         "abg.contract.gtl.root-declaration",
-        "abg.contract.public.root-invocation",
+        "abg.schema.public-operation-invocation",
       ],
       requiredCapabilityRefs: [
         "abg.capability.catalog.invoke-graph-function@5",
@@ -235,7 +242,7 @@ export async function prepareFlavoredCatalogProduct(
     ids: module.FLAVORED_CATALOG_IDS,
     nodeTypeValue: module.FLAVORED_NODE_TYPE,
     overlayValue: module.FLAVORED_PROGRAM_OVERLAY,
-    publication: publicationModule.constructFlavoredCatalogPublication({
+    publication: constructPublication({
       productId,
       artifactDigest,
       productContentDigest,

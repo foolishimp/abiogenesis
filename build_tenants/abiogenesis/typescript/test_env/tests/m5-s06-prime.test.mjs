@@ -175,7 +175,7 @@ test("S06 dependency topology uses one cycle relation for construction and valid
 
   assert.equal(
     constructResolvedProductLock([left]).code,
-    "invalid_dependency",
+    "unresolved_dependency",
     "a missing declared dependency must refuse",
   );
   const wrongVersion = install("wrong-version", "c", {
@@ -185,7 +185,7 @@ test("S06 dependency topology uses one cycle relation for construction and valid
   });
   assert.equal(
     constructResolvedProductLock([wrongVersion, right]).code,
-    "invalid_dependency",
+    "incompatible_dependency",
     "an incompatible exact version must refuse",
   );
   const wrongCompatibility = install("wrong-compatibility", "d", {
@@ -197,7 +197,7 @@ test("S06 dependency topology uses one cycle relation for construction and valid
   });
   assert.equal(
     constructResolvedProductLock([wrongCompatibility, right]).code,
-    "invalid_dependency",
+    "incompatible_dependency",
     "an incompatible declared compatibility must refuse",
   );
   const wrongCapability = install("wrong-capability", "e", {
@@ -209,7 +209,7 @@ test("S06 dependency topology uses one cycle relation for construction and valid
   });
   assert.equal(
     constructResolvedProductLock([wrongCapability, right]).code,
-    "invalid_dependency",
+    "unresolved_dependency",
     "a missing required capability must refuse",
   );
   const wrongContract = install("wrong-contract", "f", {
@@ -221,8 +221,16 @@ test("S06 dependency topology uses one cycle relation for construction and valid
   });
   assert.equal(
     constructResolvedProductLock([wrongContract, right]).code,
-    "invalid_dependency",
+    "unresolved_dependency",
     "a missing required public contract must refuse",
+  );
+  const ambiguousRight = install("ambiguous-right", "9", {
+    productId: right.productId,
+  });
+  assert.equal(
+    constructResolvedProductLock([right, ambiguousRight]).code,
+    "ambiguous_dependency",
+    "two verified artifacts claiming one Product identity must refuse as ambiguous",
   );
 
   const standalone = install("standalone", "0");
@@ -273,7 +281,7 @@ test("S06 dependency topology uses one cycle relation for construction and valid
   }];
   const refused = constructResolvedProductLock([cycleLeft, cycleRight]);
   assert.equal(refused.kind, "environment_refusal");
-  assert.equal(refused.code, "invalid_dependency");
+  assert.equal(refused.code, "cyclic_dependency");
 
   const lockBody = {
     rows: cycleRows,
