@@ -52,14 +52,15 @@ export async function prepareFlavoredCatalogProduct(
     { cwd: sourceRoot, maxBuffer: 10 * 1024 * 1024 },
   );
   const nativeDeclarationPath = "build/index.d.ts";
+  const originalNativeDeclaration = await readFile(
+    join(sourceRoot, nativeDeclarationPath),
+  );
   if (options.transformDeclaration !== undefined) {
-    const declaration = await readFile(
-      join(sourceRoot, nativeDeclarationPath),
-      "utf8",
-    );
     await writeFile(
       join(sourceRoot, nativeDeclarationPath),
-      options.transformDeclaration(declaration),
+      options.transformDeclaration(
+        new TextDecoder().decode(originalNativeDeclaration),
+      ),
       "utf8",
     );
   }
@@ -83,6 +84,18 @@ export async function prepareFlavoredCatalogProduct(
     ).href}?publication-authority=${Date.now()}`
   );
   const productId = "product://flavor.example/text@5.0.0";
+  if (options.transformSchema !== undefined) {
+    const schemaPath = join(
+      sourceRoot,
+      "contracts/flavored-text.schema.json",
+    );
+    const schema = JSON.parse(await readFile(schemaPath, "utf8"));
+    await writeFile(
+      schemaPath,
+      `${JSON.stringify(options.transformSchema(schema), null, 2)}\n`,
+      "utf8",
+    );
+  }
   const productRelativeLocators = [
     "build/index.d.ts",
     "build/index.js",
@@ -108,20 +121,29 @@ export async function prepareFlavoredCatalogProduct(
   const flavoredSchemaDigest = await product.sha256File(
     join(sourceRoot, flavoredSchemaPath),
   );
+  const nativeDeclarationPaths = [
+    "build/index.d.ts",
+    "build/publication.d.ts",
+  ];
+  const declarationInventory = await Promise.all(
+    nativeDeclarationPaths.map(async (declarationPath) => ({
+      packageExportPath: ".",
+      declarationPath,
+      declarationDigest: await product.sha256File(
+        join(sourceRoot, declarationPath),
+      ),
+    })),
+  );
   const nativeTypedLocator = {
     packageName: packageJson.name,
     packageExportPath: ".",
     namedSymbol: "FLAVORED_CATALOG_IDS",
-    exportedSymbols: ["FLAVORED_CATALOG_IDS"],
     declarationPath: nativeDeclarationPath,
+    declarationInventory,
   };
-  const nativeContractDigest = product.sha256Canonical([{
-    packageExportPath: nativeTypedLocator.packageExportPath,
-    declarationPath: nativeTypedLocator.declarationPath,
-    declarationDigest: await product.sha256File(
-      join(sourceRoot, nativeTypedLocator.declarationPath),
-    ),
-  }]);
+  const nativeContractDigest = product.sha256Canonical(
+    nativeTypedLocator.declarationInventory,
+  );
   const descriptorRef = "descriptor://flavor.example/text@5";
   const contributionManifestRef =
     "contribution-manifest://flavor.example/text@5";
@@ -143,6 +165,30 @@ export async function prepareFlavoredCatalogProduct(
       contentDigest: flavoredSchemaDigest,
     },
   };
+  const nativeContractRows = [
+    {
+      contractId: "flavor.example.contract.native.ids",
+      namedSymbol: "FLAVORED_CATALOG_IDS",
+    },
+    {
+      contractId: "flavor.example.contract.native.publication",
+      namedSymbol: "FlavoredDeclarationConstructors",
+    },
+  ].map(({ contractId, namedSymbol }) => ({
+    contractId,
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest,
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "requirement://flavor.example/text/native-contract@5",
+    ],
+    capabilityIdentities: ["flavor.example.capability.native-contract@5"],
+    nativeTypedLocator: {
+      ...nativeTypedLocator,
+      namedSymbol,
+    },
+  }));
   const catalogWithoutDigest = {
     schemaVersion: "5.0.0",
     catalogId: "catalog://flavor.example/text/public-contracts@5.0.0",
@@ -156,6 +202,7 @@ export async function prepareFlavoredCatalogProduct(
           structuredClone(publicContractRow),
           { nativeContractDigest, nativeTypedLocator },
         ),
+      ...nativeContractRows,
     ],
   };
   const publicContractCatalog = {
@@ -229,6 +276,7 @@ export async function prepareFlavoredCatalogProduct(
       compatibilityRef: "compatibility://abiogenesis/major/5",
       requiredContractRefs: [
         "abg.contract.gtl.root-declaration",
+        "abg.contract.product.verification",
         "abg.schema.public-operation-invocation",
       ],
       requiredCapabilityRefs: [

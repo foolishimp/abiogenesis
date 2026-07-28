@@ -9,12 +9,14 @@ const nullableRefSchema = {
   oneOf: [refSchema, { type: "null" }],
 } as const;
 
+const digestSchema = {
+  type: "string",
+  pattern: "^sha256:[0-9a-f]{64}$",
+} as const;
+
 const nullableDigestSchema = {
   oneOf: [
-    {
-      type: "string",
-      pattern: "^sha256:[0-9a-f]{64}$",
-    },
+    digestSchema,
     { type: "null" },
   ],
 } as const;
@@ -56,6 +58,20 @@ export const PUBLIC_OPERATION_SCHEMA = {
     PublicOutcome: {
       type: "object",
       additionalProperties: false,
+      allOf: [{
+        if: {
+          required: ["operationId", "disposition"],
+          properties: {
+            operationId: { const: "abg.operation.product.resolve" },
+            disposition: { const: "succeeded" },
+          },
+        },
+        then: {
+          properties: {
+            result: { $ref: "#/$defs/ResolvedProductLockProjection" },
+          },
+        },
+      }],
       required: [
         "kind",
         "schemaVersion",
@@ -108,8 +124,7 @@ export const PUBLIC_OPERATION_SCHEMA = {
           ],
         },
         outcomeDigest: {
-          type: "string",
-          pattern: "^sha256:[0-9a-f]{64}$",
+          ...digestSchema,
         },
         result: {},
         diagnosticRef: nullableRefSchema,
@@ -149,6 +164,66 @@ export const PUBLIC_OPERATION_SCHEMA = {
         },
         continuationAuthority: {},
         projectionAuthority: {},
+      },
+    },
+    ProductDependencyEdgeProjection: {
+      type: "object",
+      additionalProperties: false,
+      required: [
+        "kind",
+        "fromProductId",
+        "toProductId",
+        "packageVersion",
+        "compatibilityRef",
+        "compatibilityDisposition",
+        "requiredContractRefs",
+        "requiredCapabilityRefs",
+      ],
+      properties: {
+        kind: { const: "requires" },
+        fromProductId: refSchema,
+        toProductId: refSchema,
+        packageVersion: refSchema,
+        compatibilityRef: refSchema,
+        compatibilityDisposition: { const: "compatible" },
+        requiredContractRefs: {
+          type: "array",
+          uniqueItems: true,
+          items: refSchema,
+        },
+        requiredCapabilityRefs: {
+          type: "array",
+          uniqueItems: true,
+          items: refSchema,
+        },
+      },
+    },
+    ResolvedProductLockProjection: {
+      type: "object",
+      additionalProperties: false,
+      required: [
+        "kind",
+        "lockId",
+        "lockDigest",
+        "nativeContractClosureDigest",
+        "productIds",
+        "dependencyEdges",
+      ],
+      properties: {
+        kind: { const: "resolved_product_lock" },
+        lockId: refSchema,
+        lockDigest: digestSchema,
+        nativeContractClosureDigest: digestSchema,
+        productIds: {
+          type: "array",
+          minItems: 1,
+          uniqueItems: true,
+          items: refSchema,
+        },
+        dependencyEdges: {
+          type: "array",
+          items: { $ref: "#/$defs/ProductDependencyEdgeProjection" },
+        },
       },
     },
     PublicInvocationRefusal: {

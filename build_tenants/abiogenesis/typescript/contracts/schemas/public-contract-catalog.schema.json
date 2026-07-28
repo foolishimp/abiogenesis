@@ -175,8 +175,8 @@
         "packageName",
         "packageExportPath",
         "namedSymbol",
-        "exportedSymbols",
-        "declarationPath"
+        "declarationPath",
+        "declarationInventory"
       ],
       "properties": {
         "packageName": {
@@ -188,11 +188,32 @@
         "namedSymbol": {
           "$ref": "#/$defs/ref"
         },
-        "exportedSymbols": {
-          "$ref": "#/$defs/refs"
-        },
         "declarationPath": {
           "$ref": "#/$defs/ref"
+        },
+        "declarationInventory": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "packageExportPath",
+              "declarationPath",
+              "declarationDigest"
+            ],
+            "properties": {
+              "packageExportPath": {
+                "$ref": "#/$defs/ref"
+              },
+              "declarationPath": {
+                "$ref": "#/$defs/ref"
+              },
+              "declarationDigest": {
+                "$ref": "#/$defs/sha256"
+              }
+            }
+          }
         }
       }
     },

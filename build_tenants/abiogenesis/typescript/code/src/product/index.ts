@@ -15,6 +15,7 @@ export {
   type ProductInstallRefusal,
   type ProductInstallRefusalCode,
   type ProductInstallResult,
+  type ProductNativeDeclarationInventoryRow,
   type ProductNativeTypedLocator,
   type ProductPublicContract,
   type ProductVerificationRefusal,

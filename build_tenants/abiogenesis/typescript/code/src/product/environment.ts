@@ -8,6 +8,7 @@ import type {
   ProductPublicContract,
   VerifiedProductArtifact,
 } from "./contracts.js";
+import { ABI5_PRODUCT_ID } from "./contracts.js";
 import {
   isSha256Digest,
   sha256Canonical,
@@ -16,8 +17,13 @@ import {
 import { deepFreeze } from "../shared/immutable.js";
 import {
   isProductContributionManifest,
+  nativeDeclarationEvidenceForVerifiedArtifact,
   parseProductPublicContract,
 } from "./verify_product.js";
+import {
+  linkNativeContractSet,
+  type NativeLinkProduct,
+} from "./declaration_exports.js";
 
 export interface ProductInstall extends Omit<ProductInstallCandidate, "kind" | "disposition"> {
   readonly kind: "product_install";
@@ -64,6 +70,7 @@ export interface ResolvedProductLock {
   readonly schemaVersion: "5.0.0";
   readonly lockId: string;
   readonly lockDigest: Sha256Digest;
+  readonly nativeContractClosureDigest: Sha256Digest;
   readonly rows: readonly ResolvedProductLockRow[];
   readonly dependencyEdges: readonly ProductDependencyEdge[];
 }
@@ -146,6 +153,8 @@ export interface EnvironmentRefusal {
   readonly code: EnvironmentRefusalCode;
   readonly message: string;
 }
+
+const resolvedProductLocks = new WeakSet<object>();
 
 function refusal(code: EnvironmentRefusalCode, message: string): EnvironmentRefusal {
   return {
@@ -241,7 +250,10 @@ function copyPublicContract(
       : {
         nativeTypedLocator: {
           ...contract.nativeTypedLocator,
-          exportedSymbols: [...contract.nativeTypedLocator.exportedSymbols],
+          declarationInventory:
+            contract.nativeTypedLocator.declarationInventory.map((entry) => ({
+              ...entry,
+            })),
         },
       }),
     ...(contract.assetLocator === undefined
@@ -434,18 +446,74 @@ export function constructResolvedProductLock(
       "resolved Product dependencies must be acyclic",
     );
   }
+  const toolchainArtifacts = artifacts.filter(
+    (artifact) => artifact.productId === ABI5_PRODUCT_ID,
+  );
+  if (toolchainArtifacts.length !== 1) {
+    return refusal(
+      toolchainArtifacts.length === 0
+        ? "unresolved_dependency"
+        : "ambiguous_dependency",
+      "resolved native meaning requires one exact ABIogenesis toolchain Product",
+    );
+  }
+  const linkProducts: NativeLinkProduct[] = [];
+  for (const artifact of artifacts) {
+    const evidence =
+      nativeDeclarationEvidenceForVerifiedArtifact(artifact) ??
+      (
+        artifact.publicContracts.every(
+          (contract) => contract.nativeTypedLocator === undefined,
+        )
+          ? {
+            productId: artifact.productId,
+            productContentDigest: artifact.productContentDigest,
+            packageName: artifact.packageName,
+            sources: [],
+            closures: [],
+            contracts: [],
+          }
+          : null
+      );
+    if (evidence === null) {
+      return refusal(
+        "lock_mismatch",
+        `verified native declaration evidence is absent for ${artifact.productId}`,
+      );
+    }
+    linkProducts.push({
+      productId: artifact.productId,
+      productContentDigest: artifact.productContentDigest,
+      packageName: artifact.packageName,
+      declaredDependencies: artifact.declaredDependencies,
+      publicContracts: artifact.publicContracts,
+      evidence,
+    });
+  }
+  const linked = linkNativeContractSet(
+    linkProducts,
+    toolchainArtifacts[0]!.productContentDigest,
+  );
+  if (linked.kind === "refused") {
+    return refusal(linked.code, linked.message);
+  }
+  const nativeContractClosureDigest = linked.nativeContractClosureDigest;
   const lockDigest = sha256Canonical({
     rows,
     dependencyEdges,
+    nativeContractClosureDigest,
   } as unknown as JsonValue);
-  return deepFreeze({
+  const lock: ResolvedProductLock = deepFreeze({
     kind: "resolved_product_lock",
     schemaVersion: "5.0.0",
     lockId: identity("product-lock://abiogenesis", lockDigest),
     lockDigest,
+    nativeContractClosureDigest,
     rows,
     dependencyEdges,
   });
+  resolvedProductLocks.add(lock);
+  return lock;
 }
 
 export function isResolvedProductLock(
@@ -458,6 +526,7 @@ export function isResolvedProductLock(
       "kind",
       "lockDigest",
       "lockId",
+      "nativeContractClosureDigest",
       "rows",
       "schemaVersion",
     ]) ||
@@ -465,6 +534,7 @@ export function isResolvedProductLock(
     value.schemaVersion !== "5.0.0" ||
     !nonEmptyString(value.lockId) ||
     !isSha256Digest(value.lockDigest) ||
+    !isSha256Digest(value.nativeContractClosureDigest) ||
     !Array.isArray(value.rows) ||
     value.rows.length === 0 ||
     !Array.isArray(value.dependencyEdges)
@@ -616,6 +686,7 @@ export function isResolvedProductLock(
   const expectedDigest = sha256Canonical({
     rows,
     dependencyEdges: edges,
+    nativeContractClosureDigest: value.nativeContractClosureDigest,
   } as unknown as JsonValue);
   return value.lockDigest === expectedDigest &&
     value.lockId === identity("product-lock://abiogenesis", expectedDigest);
@@ -625,7 +696,9 @@ export function verifiedArtifactMatchesResolvedLock(
   artifact: VerifiedProductArtifact,
   lock: ResolvedProductLock,
 ): boolean {
-  if (!isResolvedProductLock(lock)) return false;
+  if (!resolvedProductLocks.has(lock) || !isResolvedProductLock(lock)) {
+    return false;
+  }
   const matches = lock.rows.filter((row) => row.productId === artifact.productId);
   return matches.length === 1 &&
     canonicalJson(matches[0] as unknown as JsonValue) ===

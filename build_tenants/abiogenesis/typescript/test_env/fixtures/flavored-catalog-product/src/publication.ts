@@ -1,11 +1,3 @@
-import type {
-  CatalogContribution,
-  ContractDeclaration,
-  GraphFunction,
-  GtlProgram,
-  ModulePublication,
-  RootModuleArtifactBasis,
-} from "@abiogenesis/typescript-tenant/gtl";
 import {
   GTL_DECLARATION_CONSTRUCTORS,
 } from "@abiogenesis/typescript-tenant/gtl";
@@ -18,12 +10,20 @@ import {
 
 export type FlavoredDeclarationConstructors =
   typeof GTL_DECLARATION_CONSTRUCTORS;
+type FlavoredArtifactBasis = Readonly<{
+  productId: string;
+  artifactDigest: `sha256:${string}`;
+  productContentDigest: `sha256:${string}`;
+  productManifestDigest: `sha256:${string}`;
+  packageName: string;
+  packageVersion: string;
+}>;
 
 export function constructFlavoredCatalogPublication(
-  artifact: RootModuleArtifactBasis,
+  artifact: FlavoredArtifactBasis,
   declarations: FlavoredDeclarationConstructors =
     GTL_DECLARATION_CONSTRUCTORS,
-): Readonly<ModulePublication> {
+): Readonly<object> {
   if (
     artifact.packageName !== PACKAGE_NAME ||
     artifact.packageVersion !== PACKAGE_VERSION
@@ -33,13 +33,7 @@ export function constructFlavoredCatalogPublication(
     );
   }
   const ids = FLAVORED_CATALOG_IDS;
-  const contractRows: readonly (
-    readonly [
-      ContractDeclaration["contractKind"],
-      string,
-      string,
-    ]
-  )[] = [
+  const contractRows = [
     ["input", ids.inputContractRef, "flavored_text_input"],
     ["output", ids.outputContractRef, "flavored_text_output"],
     ["evidence", ids.evidenceContractRef, "deterministic_evidence_candidate"],
@@ -50,8 +44,8 @@ export function constructFlavoredCatalogPublication(
     ["closure", ids.closureContractRef, "flavored_text_closure"],
     ["input", ids.nodeTypeRef, "flavored_node_type"],
     ["input", ids.overlayRef, "flavored_overlay"],
-  ];
-  const contracts: readonly ContractDeclaration[] = contractRows.map((
+  ] as const;
+  const contracts = contractRows.map((
     [contractKind, contractRef, valueKind],
   ) => declarations.contractDeclaration({
     contractRef: contractRef!,
@@ -59,7 +53,7 @@ export function constructFlavoredCatalogPublication(
     contractKind: contractKind!,
     valueKind: valueKind!,
   }));
-  const graphFunction: GraphFunction = {
+  const graphFunction = {
     kind: "graph_function",
     name: ids.graphFunctionRef,
     version: "5.0.0",
@@ -115,8 +109,8 @@ export function constructFlavoredCatalogPublication(
       "abg.transition_contract": ids.transitionContractRef,
     },
     tags: ["external-product", "flavored-catalog", "all-fd"],
-  };
-  const program: GtlProgram = {
+  } as const;
+  const program = {
     kind: "gtl_program",
     programRef: ids.programRef,
     version: "5.0.0",
@@ -132,7 +126,7 @@ export function constructFlavoredCatalogPublication(
       "abg.default_start_ref": ids.startRef,
       "abg.root_mode": "direct",
     },
-  };
+  } as const;
   const contributionBasis = {
     owningProductId: artifact.productId,
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
@@ -140,8 +134,8 @@ export function constructFlavoredCatalogPublication(
       artifact.artifactDigest,
       artifact.productManifestDigest,
     ],
-  };
-  const contributions: readonly CatalogContribution[] = [{
+  } as const;
+  const contributions = [{
     handle: ids.graphFunctionRef,
     kind: "graph_function",
     declarationOrContractRef: ids.graphFunctionRef,
@@ -162,7 +156,7 @@ export function constructFlavoredCatalogPublication(
     programMembershipRefs: [ids.programRef],
     readinessPrerequisiteRefs: [ids.programRef],
     ...contributionBasis,
-  }];
+  }] as const;
   return declarations.modulePublication({
     kind: "module_publication",
     moduleRef: ids.moduleRef,

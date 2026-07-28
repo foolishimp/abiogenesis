@@ -556,6 +556,7 @@ async function applyResolve(
     kind: lock.kind,
     lockId: lock.lockId,
     lockDigest: lock.lockDigest,
+    nativeContractClosureDigest: lock.nativeContractClosureDigest,
     productIds: lock.rows.map((row) => row.productId),
     dependencyEdges: lock.dependencyEdges,
   } as unknown as product.JsonValue);

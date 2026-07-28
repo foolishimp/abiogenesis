@@ -73,6 +73,31 @@
     "PublicOutcome": {
       "type": "object",
       "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "operationId",
+              "disposition"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "abg.operation.product.resolve"
+              },
+              "disposition": {
+                "const": "succeeded"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "$ref": "#/$defs/ResolvedProductLockProjection"
+              }
+            }
+          }
+        }
+      ],
       "required": [
         "kind",
         "schemaVersion",
@@ -365,6 +390,104 @@
         },
         "continuationAuthority": {},
         "projectionAuthority": {}
+      }
+    },
+    "ProductDependencyEdgeProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "fromProductId",
+        "toProductId",
+        "packageVersion",
+        "compatibilityRef",
+        "compatibilityDisposition",
+        "requiredContractRefs",
+        "requiredCapabilityRefs"
+      ],
+      "properties": {
+        "kind": {
+          "const": "requires"
+        },
+        "fromProductId": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "toProductId": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "packageVersion": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "compatibilityRef": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "compatibilityDisposition": {
+          "const": "compatible"
+        },
+        "requiredContractRefs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        },
+        "requiredCapabilityRefs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        }
+      }
+    },
+    "ResolvedProductLockProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "lockId",
+        "lockDigest",
+        "nativeContractClosureDigest",
+        "productIds",
+        "dependencyEdges"
+      ],
+      "properties": {
+        "kind": {
+          "const": "resolved_product_lock"
+        },
+        "lockId": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "lockDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "nativeContractClosureDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "productIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        },
+        "dependencyEdges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ProductDependencyEdgeProjection"
+          }
+        }
       }
     },
     "PublicInvocationRefusal": {

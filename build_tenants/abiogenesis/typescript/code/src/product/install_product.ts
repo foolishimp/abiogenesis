@@ -313,9 +313,10 @@ export async function installProduct(
           : {
             nativeTypedLocator: {
               ...contract.nativeTypedLocator,
-              exportedSymbols: [
-                ...contract.nativeTypedLocator.exportedSymbols,
-              ],
+              declarationInventory:
+                contract.nativeTypedLocator.declarationInventory.map(
+                  (entry) => ({ ...entry }),
+                ),
             },
           }),
         ...(contract.assetLocator === undefined

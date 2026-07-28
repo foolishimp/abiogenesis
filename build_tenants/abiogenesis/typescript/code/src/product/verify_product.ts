@@ -3,19 +3,24 @@ import { readFile } from "node:fs/promises";
 import { isAbsolute, posix } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { declarationExportSymbolTable } from "./declaration_exports.js";
+import {
+  resolveNativeDeclarationClosures,
+  type NativeProductDeclarationEvidence,
+} from "./declaration_exports.js";
 import type {
   ProductAssetLocator,
   ProductContributionManifest,
   ProductContributionManifestRow,
   ProductDeclaredDependency,
   ProductModulePublicationBinding,
+  ProductNativeDeclarationInventoryRow,
   ProductNativeTypedLocator,
   ProductPublicContract,
   ProductPublicContractKind,
   ProductVerificationRefusal,
   ProductVerificationRefusalCode,
   ProductVerificationResult,
+  VerifiedProductArtifact,
   VerifyProductRequest,
 } from "./contracts.js";
 import {
@@ -65,18 +70,13 @@ interface PackageJsonView {
 }
 
 const TAR_MAX_BUFFER = 64 * 1024 * 1024;
+const nativeDeclarationEvidence =
+  new WeakMap<object, NativeProductDeclarationEvidence>();
 
-function packageExportDeclarationPath(value: unknown): string | null {
-  if (
-    typeof value !== "object" ||
-    value === null ||
-    Array.isArray(value)
-  ) {
-    return null;
-  }
-  const types = (value as Readonly<Record<string, unknown>>).types;
-  if (typeof types !== "string" || !types.startsWith("./")) return null;
-  return posix.normalize(types.slice(2));
+export function nativeDeclarationEvidenceForVerifiedArtifact(
+  artifact: VerifiedProductArtifact,
+): NativeProductDeclarationEvidence | null {
+  return nativeDeclarationEvidence.get(artifact) ?? null;
 }
 
 function refusal(
@@ -348,8 +348,8 @@ function readNativeLocator(
   }
   if (
     !hasExactKeys(locator, [
+      "declarationInventory",
       "declarationPath",
-      "exportedSymbols",
       "namedSymbol",
       "packageExportPath",
       "packageName",
@@ -357,9 +357,39 @@ function readNativeLocator(
     !isNonblankString(locator.packageName) ||
     !isNonblankString(locator.packageExportPath) ||
     !isNonblankString(locator.namedSymbol) ||
-    !isUniqueStringArray(locator.exportedSymbols) ||
-    !locator.exportedSymbols.includes(locator.namedSymbol) ||
-    !isNonblankString(locator.declarationPath)
+    !isNonblankString(locator.declarationPath) ||
+    !Array.isArray(locator.declarationInventory) ||
+    locator.declarationInventory.length === 0 ||
+    !locator.declarationInventory.every(
+      (entry): entry is ProductNativeDeclarationInventoryRow =>
+        isRecord(entry) &&
+        hasExactKeys(entry, [
+          "declarationDigest",
+          "declarationPath",
+          "packageExportPath",
+        ]) &&
+        isNonblankString(entry.packageExportPath) &&
+        isNonblankString(entry.declarationPath) &&
+        isSha256Digest(entry.declarationDigest),
+    )
+  ) {
+    return null;
+  }
+  const declarationInventory =
+    locator.declarationInventory as unknown as
+      ProductNativeDeclarationInventoryRow[];
+  const inventoryPaths = declarationInventory.map(
+    (entry) => entry.declarationPath,
+  );
+  if (
+    declarationInventory.some(
+      (entry) =>
+        entry.packageExportPath !== locator.packageExportPath ||
+        !isSafeProductPath(entry.declarationPath),
+    ) ||
+    new Set(inventoryPaths).size !== inventoryPaths.length ||
+    [...inventoryPaths].sort().join("\0") !== inventoryPaths.join("\0") ||
+    !inventoryPaths.includes(locator.declarationPath)
   ) {
     return null;
   }
@@ -367,8 +397,10 @@ function readNativeLocator(
     packageName: locator.packageName,
     packageExportPath: locator.packageExportPath,
     namedSymbol: locator.namedSymbol,
-    exportedSymbols: [...locator.exportedSymbols],
     declarationPath: locator.declarationPath,
+    declarationInventory: declarationInventory.map((entry) => ({
+      ...entry,
+    })),
   };
 }
 
@@ -512,6 +544,7 @@ function assetDefinitionExists(
   if (pointer.length === 0) return isJsonSchemaValue(current);
   if (!pointer.startsWith("/")) return false;
   for (const encodedSegment of pointer.slice(1).split("/")) {
+    if (/~(?:[^01]|$)/u.test(encodedSegment)) return false;
     const segment = encodedSegment.replace(/~1/gu, "/").replace(/~0/gu, "~");
     if (Array.isArray(current)) {
       if (!/^(?:0|[1-9][0-9]*)$/u.test(segment)) return false;
@@ -689,23 +722,10 @@ export async function verifyProduct(
   const publicCapabilityRefs = new Set<string>();
   const publicContracts: ProductPublicContract[] = [];
   const declarationSources = [...payloadFiles.entries()]
-    .filter(
-      ([path]) =>
-        path.startsWith("build/code/") &&
-        /\.d\.(?:c|m)?ts$/u.test(path),
-    )
+    .filter(([path]) => /\.d\.(?:c|m)?ts$/u.test(path))
     .map(([path, bytes]) => ({ path, bytes }));
+  let verifiedNativeEvidence: NativeProductDeclarationEvidence | null = null;
   try {
-    const declarationExports = await declarationExportSymbolTable(
-      declarationSources,
-    );
-    if (declarationExports === null) {
-      return refusal(
-        request,
-        "catalog_mismatch",
-        "native declaration closure does not form a valid TypeScript program",
-      );
-    }
     const schemaBytes = payloadFiles.get(
       manifest.publicContractCatalog.catalogSchemaPath,
     );
@@ -716,6 +736,7 @@ export async function verifyProduct(
       return refusal(request, "catalog_mismatch", "catalog schema digest is invalid");
     }
 
+    const assetDigestByContract = new Map<string, Sha256Digest>();
     for (const row of manifest.publicContractCatalog.rows) {
       const contract = parseProductPublicContract(row, manifest.productId);
       if (
@@ -762,39 +783,64 @@ export async function verifyProduct(
             `contract asset definition is absent: ${assetLocator.definitionRef}`,
           );
         }
+        assetDigestByContract.set(contract.contractId, assetDigest);
       }
+    }
 
-      let nativeDigest: Sha256Digest | null = null;
-      const nativeLocator = contract.nativeTypedLocator ?? null;
-      if (nativeLocator !== null) {
+    const nativeContracts = publicContracts.filter(
+      (contract) => contract.nativeTypedLocator !== undefined,
+    );
+    const nativeDigestByContract = new Map<string, Sha256Digest>();
+    if (nativeContracts.length > 0) {
+      const declarationClosures = await resolveNativeDeclarationClosures({
+        packageName: packageJson.name,
+        packageExports: packageJson.exports,
+        declarationSources,
+      });
+      if (declarationClosures === null) {
+        return refusal(
+          request,
+          "catalog_mismatch",
+          "native declaration closure does not form a valid TypeScript program",
+        );
+      }
+      const declarationClosureByExport = new Map(
+        declarationClosures.map((closure) => [
+          closure.packageExportPath,
+          closure,
+        ]),
+      );
+      const evidenceContracts: NativeProductDeclarationEvidence["contracts"][number][] =
+        [];
+      const selectedExportPaths = new Set<string>();
+      for (const contract of nativeContracts) {
+        const nativeLocator = contract.nativeTypedLocator!;
+        const declarationClosure = declarationClosureByExport.get(
+          nativeLocator.packageExportPath,
+        ) ?? null;
         if (
           !isSafeProductPath(nativeLocator.declarationPath) ||
           nativeLocator.packageName !== manifest.packageName ||
-          !(nativeLocator.packageExportPath in packageJson.exports) ||
-          packageExportDeclarationPath(
-            packageJson.exports[nativeLocator.packageExportPath],
-          ) !== nativeLocator.declarationPath
+          declarationClosure === null ||
+          declarationClosure.declarationPath !== nativeLocator.declarationPath ||
+          canonicalJson(
+            declarationClosure.declarationInventory as unknown as JsonValue,
+          ) !== canonicalJson(
+            nativeLocator.declarationInventory as unknown as JsonValue,
+          )
         ) {
           return refusal(request, "catalog_mismatch", "native typed locator is invalid");
         }
-        const declarationBytes = payloadFiles.get(
-          nativeLocator.declarationPath,
-        );
-        if (declarationBytes === undefined) {
-          throw new Error(
-            `native declaration is absent: ${nativeLocator.declarationPath}`,
+        const exportedSymbols = new Set(declarationClosure.exportedSymbols);
+        const mayBeExternallyProjected =
+          declarationClosure.externalOccurrences.some(
+            (candidate) =>
+              candidate.selectorKind === "all" ||
+              candidate.visibleName === nativeLocator.namedSymbol,
           );
-        }
-        const declarationDigest = sha256Bytes(declarationBytes);
-        const exportedSymbols = declarationExports.get(
-          nativeLocator.declarationPath,
-        ) ?? null;
         if (
-          exportedSymbols === null ||
-          !exportedSymbols.has(nativeLocator.namedSymbol) ||
-          nativeLocator.exportedSymbols.some(
-            (symbol) => !exportedSymbols.has(symbol),
-          )
+          !exportedSymbols.has(nativeLocator.namedSymbol) &&
+          !mayBeExternallyProjected
         ) {
           return refusal(
             request,
@@ -802,19 +848,74 @@ export async function verifyProduct(
             "native typed locator names an undeclared export",
           );
         }
-        nativeDigest = sha256Canonical([
-          {
-            packageExportPath: nativeLocator.packageExportPath,
-            declarationPath: nativeLocator.declarationPath,
-            declarationDigest,
-          },
-        ]);
+        nativeDigestByContract.set(
+          contract.contractId,
+          sha256Canonical(
+            declarationClosure.declarationInventory as unknown as JsonValue,
+          ),
+        );
+        selectedExportPaths.add(nativeLocator.packageExportPath);
+        evidenceContracts.push({
+          contractId: contract.contractId,
+          packageExportPath: nativeLocator.packageExportPath,
+          namedSymbol: nativeLocator.namedSymbol,
+          localDisposition:
+            declarationClosure.externalOccurrences.length === 0 &&
+              exportedSymbols.has(nativeLocator.namedSymbol)
+              ? "local"
+              : "pending_external",
+          occurrenceRefs:
+            declarationClosure.externalOccurrences.length === 0 &&
+                exportedSymbols.has(nativeLocator.namedSymbol)
+              ? []
+              : declarationClosure.externalOccurrences.map(
+                (occurrence) => occurrence.occurrenceRef,
+              ),
+        });
       }
+      const selectedClosures = declarationClosures.filter((closure) =>
+        selectedExportPaths.has(closure.packageExportPath)
+      );
+      const selectedPaths = new Set(
+        selectedClosures.flatMap((closure) =>
+          closure.declarationInventory.map((entry) => entry.declarationPath)
+        ),
+      );
+      verifiedNativeEvidence = deepFreeze({
+        productId: manifest.productId,
+        productContentDigest,
+        packageName: manifest.packageName,
+        sources: declarationSources
+          .filter((source) => selectedPaths.has(source.path))
+          .map((source) => ({
+            declarationPath: source.path,
+            declarationDigest: sha256Bytes(source.bytes),
+            sourceText: new TextDecoder().decode(source.bytes),
+          }))
+          .sort((left, right) =>
+            left.declarationPath.localeCompare(right.declarationPath)
+          ),
+        closures: selectedClosures,
+        contracts: evidenceContracts.sort((left, right) =>
+          left.contractId.localeCompare(right.contractId)
+        ),
+      });
+    } else {
+      verifiedNativeEvidence = deepFreeze({
+        productId: manifest.productId,
+        productContentDigest,
+        packageName: manifest.packageName,
+        sources: [],
+        closures: [],
+        contracts: [],
+      });
+    }
 
+    for (const contract of publicContracts) {
       const expectedContractDigest =
         contractLocatorLaw(contract.contractKind)!.digest === "native"
-          ? nativeDigest
-          : assetDigest;
+          ? nativeDigestByContract.get(contract.contractId) ?? null
+          : assetDigestByContract.get(contract.contractId) ?? null;
       if (expectedContractDigest !== contract.contractDigest) {
         return refusal(
           request,
@@ -827,7 +928,14 @@ export async function verifyProduct(
     return refusal(request, "contract_asset_mismatch", String(error));
   }
 
-  return deepFreeze({
+  if (verifiedNativeEvidence === null) {
+    return refusal(
+      request,
+      "contract_asset_mismatch",
+      "native declaration evidence was not established",
+    );
+  }
+  const verified: VerifiedProductArtifact = deepFreeze({
     kind: "verified_product_artifact",
     schemaVersion: "5.0.0",
     disposition: "verified",
@@ -871,4 +979,6 @@ export async function verifyProduct(
     publicCapabilityRefs: [...publicCapabilityRefs].sort(),
     checkedPayloadFiles: inventory.length,
   });
+  nativeDeclarationEvidence.set(verified, verifiedNativeEvidence);
+  return verified;
 }

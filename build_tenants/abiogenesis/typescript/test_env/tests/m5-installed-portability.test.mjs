@@ -260,6 +260,7 @@ function assertPortableOutcome(run, flavored) {
     compatibilityDisposition: "compatible",
     requiredContractRefs: [
       "abg.contract.gtl.root-declaration",
+      "abg.contract.product.verification",
       "abg.schema.public-operation-invocation",
     ],
     requiredCapabilityRefs: [
@@ -267,6 +268,10 @@ function assertPortableOutcome(run, flavored) {
       "abg.capability.gtl.declare@5",
     ],
   }]);
+  assert.match(
+    run.outcomes[2].result.nativeContractClosureDigest,
+    /^sha256:[0-9a-f]{64}$/u,
+  );
   assert.equal(nodeApplication.result.contributionKind, "node_type");
   assert.equal(nodeApplication.result.applicationVariant, "node_type");
   assert.equal(nodeApplication.result.appliedValueRef, flavored.ids.nodeTypeRef);
@@ -506,8 +511,10 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
   assert.deepEqual(
     Object.keys(schema.$defs).sort(),
     [
+      "ProductDependencyEdgeProjection",
       "PublicInvocationRefusal",
       "PublicOutcome",
+      "ResolvedProductLockProjection",
       "RootPublicInvocation",
     ],
   );
@@ -517,6 +524,16 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
       "abg.operation.product.resolve",
     ),
     true,
+  );
+  assert.equal(
+    schema.$defs.ResolvedProductLockProjection.required.includes(
+      "nativeContractClosureDigest",
+    ),
+    true,
+  );
+  assert.equal(
+    schema.$defs.PublicOutcome.allOf[0].then.properties.result.$ref,
+    "#/$defs/ResolvedProductLockProjection",
   );
   const publicRows =
     harness.candidateManifest.publicContractCatalog.rows.filter((row) =>
@@ -561,32 +578,35 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
   );
   assert.equal(
     gtlRow.contractDigest,
-    installedProduct.sha256Canonical([{
-      packageExportPath: gtlRow.nativeTypedLocator.packageExportPath,
-      declarationPath: gtlRow.nativeTypedLocator.declarationPath,
-      declarationDigest: await installedProduct.sha256File(
-        join(
-          harness.installedPackageRoot,
-          gtlRow.nativeTypedLocator.declarationPath,
-        ),
-      ),
-    }]),
+    installedProduct.sha256Canonical(
+      gtlRow.nativeTypedLocator.declarationInventory,
+    ),
     "native contract digests must use only the constitutional declaration inventory",
   );
-  for (const constructor of [
-    "catalogContribution",
-    "closureContract",
-    "contractDeclaration",
-    "implementationBinding",
-    "modulePublication",
-    "productSemanticsBinding",
-  ]) {
+  for (const entry of gtlRow.nativeTypedLocator.declarationInventory) {
     assert.equal(
-      gtlRow.nativeTypedLocator.exportedSymbols.includes(constructor),
-      true,
-      `${constructor} must be present in the verified GTL export roster`,
+      entry.declarationDigest,
+      await installedProduct.sha256File(
+        join(harness.installedPackageRoot, entry.declarationPath),
+      ),
+      `native declaration inventory must bind ${entry.declarationPath}`,
     );
   }
+  assert.equal(
+    Object.hasOwn(gtlRow.nativeTypedLocator, "exportedSymbols"),
+    false,
+    "a native contract must not publish complete module export authority",
+  );
+  assert.equal(
+    Object.hasOwn(gtlRow.nativeTypedLocator, "externalPackageSpecifiers"),
+    false,
+    "external declaration evidence must remain private to verification",
+  );
+  assert.equal(
+    "resolveNativeDeclarationClosures" in installedProduct,
+    false,
+    "native analysis must not become a public Product helper",
+  );
 });
 
 test("S06 verified Product and resolved lock truth are deeply immutable", async (context) => {
@@ -791,6 +811,48 @@ test("S06 unresolved dependency lock refuses before Product materialization", as
   }
 });
 
+test("S06 external side-effect declaration imports refuse during Product resolution", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const flavored = await prepareFlavoredCatalogProduct(
+    harness,
+    join(harness.scratch, "side-effect-declaration"),
+    {
+      transformDeclaration: (declaration) =>
+        `${declaration}\nimport "@abiogenesis/typescript-tenant/gtl";\n`,
+    },
+  );
+  const scenario = await portabilityScenario(
+    harness,
+    flavored,
+    "flavored-side-effect-declaration",
+  );
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `side-effect-declaration=${Date.now()}`,
+  );
+  const operationContext = installedPublic.createRootOperationContext();
+  try {
+    for (const row of scenario.transcript.slice(0, 2)) {
+      const outcome = await installedPublic.applyRootPublicInvocation(
+        operationContext,
+        row,
+      );
+      assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+    }
+    const refused = await installedPublic.applyRootPublicInvocation(
+      operationContext,
+      scenario.transcript[2],
+    );
+    assert.equal(refused.disposition, "refused");
+    assert.equal(refused.result.kind, "product_resolution_refusal");
+    assert.equal(refused.result.disposition, "incompatible");
+    assert.match(refused.result.message, /side-effect-only/u);
+  } finally {
+    installedPublic.closeRootOperationContext(operationContext);
+  }
+});
+
 test("S06 Product verification resolves contract authority and exact locators", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
   const installedProduct = await importInstalledPackageExport(
@@ -845,15 +907,11 @@ test("S06 Product verification resolves contract authority and exact locators", 
     },
     {
       label: "missing-native-symbol",
-      transformPublicContract: (row) => ({
+      transformPublicContract: (row, native) => ({
         ...row,
         nativeTypedLocator: {
-          packageName:
-            "@abiogenesis-fixtures/flavored-catalog-product",
-          packageExportPath: ".",
+          ...native.nativeTypedLocator,
           namedSymbol: "ForgedNativeContract",
-          exportedSymbols: ["ForgedNativeContract"],
-          declarationPath: "build/index.d.ts",
         },
       }),
       expectedCode: "catalog_mismatch",
@@ -884,7 +942,6 @@ test("S06 Product verification resolves contract authority and exact locators", 
           contractKind: "native_typed_group",
           nativeTypedLocator: {
             ...native.nativeTypedLocator,
-            exportedSymbols: ["MissingSymbol"],
             namedSymbol: "MissingSymbol",
           },
         };
@@ -898,6 +955,36 @@ test("S06 Product verification resolves contract authority and exact locators", 
         assetLocator: {
           ...row.assetLocator,
           definitionRef: "#/$id",
+        },
+      }),
+      expectedCode: "contract_asset_mismatch",
+    },
+    {
+      label: "malformed-pointer-escape",
+      transformSchema: (schema) => ({
+        ...schema,
+        $defs: { "~2": { type: "object" } },
+      }),
+      transformPublicContract: (row) => ({
+        ...row,
+        assetLocator: {
+          ...row.assetLocator,
+          definitionRef: "#/$defs/~2",
+        },
+      }),
+      expectedCode: "contract_asset_mismatch",
+    },
+    {
+      label: "dangling-pointer-escape",
+      transformSchema: (schema) => ({
+        ...schema,
+        $defs: { "~": { type: "object" } },
+      }),
+      transformPublicContract: (row) => ({
+        ...row,
+        assetLocator: {
+          ...row.assetLocator,
+          definitionRef: "#/$defs/~",
         },
       }),
       expectedCode: "contract_asset_mismatch",
@@ -919,6 +1006,7 @@ test("S06 Product verification resolves contract authority and exact locators", 
       {
         transformDeclaration: row.transformDeclaration,
         transformPublicContract: row.transformPublicContract,
+        transformSchema: row.transformSchema,
       },
     );
     const refused = await installedProduct.verifyProduct({
@@ -1362,10 +1450,6 @@ test("S06 Codex delegate and flavored Product keep their public boundaries", asy
   );
   const flavoredSource =
     `${flavoredRuntimeSource}\n${flavoredPublicationSource}`;
-  assert.match(
-    flavoredSource,
-    /from "@abiogenesis\/typescript-tenant\/product"/u,
-  );
   assert.match(
     flavoredSource,
     /from "@abiogenesis\/typescript-tenant\/gtl"/u,

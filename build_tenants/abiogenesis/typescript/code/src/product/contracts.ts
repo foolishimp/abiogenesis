@@ -50,12 +50,19 @@ export interface ProductContributionManifest {
   readonly rows: readonly ProductContributionManifestRow[];
 }
 
+export interface ProductNativeDeclarationInventoryRow {
+  readonly packageExportPath: string;
+  readonly declarationPath: string;
+  readonly declarationDigest: Sha256Digest;
+}
+
 export interface ProductNativeTypedLocator {
   readonly packageName: string;
   readonly packageExportPath: string;
   readonly namedSymbol: string;
-  readonly exportedSymbols: readonly string[];
   readonly declarationPath: string;
+  readonly declarationInventory:
+    readonly ProductNativeDeclarationInventoryRow[];
 }
 
 export interface ProductAssetLocator {

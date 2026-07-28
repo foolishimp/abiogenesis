@@ -1516,10 +1516,15 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
     packageRoot,
     "test_env/proof/abi5-root-r10.transcript.json",
   );
+  const outcomesPath = resolve(
+    packageRoot,
+    "test_env/proof/abi5-root-r10.outcomes.json",
+  );
   const eventLogPath = join(scratch, "abi5-root-r10.events.jsonl");
   try {
     await copyFile(sourcePath, eventLogPath);
     const transcript = JSON.parse(await readFile(transcriptPath, "utf8"));
+    const outcomes = JSON.parse(await readFile(outcomesPath, "utf8"));
     const bytes = await readFile(eventLogPath);
     const status = await stat(eventLogPath);
     const authorityBody = {
@@ -1612,11 +1617,15 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
       const installInvocation = transcript.find(
         (row) => row.operationId === "abg.operation.product.install",
       );
+      const installOutcome = outcomes.find(
+        (row) => row.operationId === "abg.operation.product.install",
+      );
       const catalogInvocation = transcript.find(
         (row) => row.operationId === "abg.operation.catalog.admit",
       );
       assert.ok(verificationInvocation);
       assert.ok(installInvocation);
+      assert.ok(installOutcome);
       assert.ok(catalogInvocation);
       const verification = verificationInvocation.payload;
       const manifest = JSON.parse(
@@ -1638,43 +1647,6 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
         ),
       ].sort();
       const publication = catalogInvocation.payload.publication;
-      const verifiedArtifact = {
-        kind: "verified_product_artifact",
-        schemaVersion: "5.0.0",
-        disposition: "verified",
-        artifactRef: verification.artifactRef,
-        artifactDigest: verification.expectedArtifactDigest,
-        artifactByteLength: 0,
-        productId: verification.expectedProductId,
-        packageName: verification.expectedPackageName,
-        packageVersion: verification.expectedPackageVersion,
-        productContentDigest: verification.expectedProductContentDigest,
-        manifestDigest: verification.expectedManifestDigest,
-        descriptorRef: manifest.descriptorRef,
-        publisherNamespace: manifest.publisherNamespace,
-        contributionManifestRef: manifest.contributionManifestRef,
-        contributionManifestDigest: manifest.contributionManifestDigest,
-        contributionManifest: manifest.contributionManifest,
-        compatibilityRefs: manifest.compatibilityRefs,
-        declaredDependencies: manifest.declaredDependencies,
-        provenanceRef: manifest.provenanceRef,
-        declaredCapabilityRefs: manifest.declaredCapabilityRefs,
-        catalogId: manifest.publicContractCatalog.catalogId,
-        catalogDigest: manifest.publicContractCatalog.catalogDigest,
-        publicContracts: manifest.publicContractCatalog.rows,
-        publicContractRefs,
-        publicCapabilityRefs,
-        checkedPayloadFiles: 0,
-      };
-      const resolvedLock = product.constructResolvedProductLock([
-        verifiedArtifact,
-      ]);
-      assert.equal(
-        resolvedLock.kind,
-        "resolved_product_lock",
-        JSON.stringify(resolvedLock),
-      );
-      if (resolvedLock.kind !== "resolved_product_lock") return;
       const install = {
         kind: "product_install",
         schemaVersion: "5.0.0",
@@ -1692,7 +1664,7 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
         artifactDigest: verification.expectedArtifactDigest,
         productContentDigest: verification.expectedProductContentDigest,
         manifestDigest: verification.expectedManifestDigest,
-        descriptorRef: verifiedArtifact.descriptorRef,
+        descriptorRef: manifest.descriptorRef,
         publisherNamespace: manifest.publisherNamespace,
         contributionManifestRef: manifest.contributionManifestRef,
         contributionManifestDigest: manifest.contributionManifestDigest,
@@ -1706,8 +1678,8 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
         publicContracts: manifest.publicContractCatalog.rows,
         publicContractRefs,
         publicCapabilityRefs,
-        resolvedLockId: resolvedLock.lockId,
-        resolvedLockDigest: resolvedLock.lockDigest,
+        resolvedLockId: installOutcome.result.resolvedLockId,
+        resolvedLockDigest: installOutcome.result.resolvedLockDigest,
         admissionEventRef: installEvent.eventId,
       };
       const productSemanticsBasis = {

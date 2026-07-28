@@ -21,12 +21,9 @@ import {
   sha256Canonical,
   sha256File,
 } from "../build/code/src/product/index.js";
-import * as productPublicApi from "../build/code/src/product/index.js";
-import * as abgPublicApi from "../build/code/src/abg/index.js";
-import * as gtlPublicApi from "../build/code/src/gtl/index.js";
-import * as hogPublicApi from "../build/code/src/hog/index.js";
-import * as publicApi from "../build/code/src/public/index.js";
-import * as validatorPublicApi from "../build/code/src/validator/index.js";
+import {
+  resolveNativeDeclarationClosures,
+} from "../build/code/src/product/declaration_exports.js";
 import {
   CONSENSUS_FH_DECISION_VALUES,
   CONSENSUS_ROUND_OUTCOME_VALUES,
@@ -200,69 +197,64 @@ const consensusRoundOutcomeVocabularyDigest = await sha256File(
 const consensusFhDecisionVocabularyDigest = await sha256File(
   join(root, consensusFhDecisionVocabularyPath),
 );
-const productDeclarationPath = "build/code/src/product/index.d.ts";
-const productDeclarationDigest = await sha256File(join(root, productDeclarationPath));
-const nativeInventory = [
-  {
-    packageExportPath: "./product",
-    declarationPath: productDeclarationPath,
-    declarationDigest: productDeclarationDigest,
-    exportedSymbols: Object.keys(productPublicApi).sort(),
-  },
-];
-const abgDeclarationPath = "build/code/src/abg/index.d.ts";
-const abgDeclarationDigest = await sha256File(join(root, abgDeclarationPath));
-const abgNativeInventory = [
-  {
-    packageExportPath: "./abg",
-    declarationPath: abgDeclarationPath,
-    declarationDigest: abgDeclarationDigest,
-    exportedSymbols: Object.keys(abgPublicApi).sort(),
-  },
-];
-const gtlDeclarationPath = "build/code/src/gtl/index.d.ts";
-const gtlNativeInventory = [
-  {
-    packageExportPath: "./gtl",
-    declarationPath: gtlDeclarationPath,
-    declarationDigest: await sha256File(join(root, gtlDeclarationPath)),
-    exportedSymbols: Object.keys(gtlPublicApi).sort(),
-  },
-];
-const validatorDeclarationPath = "build/code/src/validator/index.d.ts";
-const validatorNativeInventory = [
-  {
-    packageExportPath: "./validator",
-    declarationPath: validatorDeclarationPath,
-    declarationDigest: await sha256File(join(root, validatorDeclarationPath)),
-    exportedSymbols: Object.keys(validatorPublicApi).sort(),
-  },
-];
-const hogDeclarationPath = "build/code/src/hog/index.d.ts";
-const hogNativeInventory = [
-  {
-    packageExportPath: "./hog",
-    declarationPath: hogDeclarationPath,
-    declarationDigest: await sha256File(join(root, hogDeclarationPath)),
-    exportedSymbols: Object.keys(hogPublicApi).sort(),
-  },
-];
-const publicDeclarationPath = "build/code/src/public/index.d.ts";
-const publicNativeInventory = [
-  {
-    packageExportPath: "./public",
-    declarationPath: publicDeclarationPath,
-    declarationDigest: await sha256File(join(root, publicDeclarationPath)),
-    exportedSymbols: Object.keys(publicApi).sort(),
-  },
-];
+const declarationSources = await Promise.all(
+  productRelativeLocators
+    .filter((path) => /\.d\.(?:c|m)?ts$/u.test(path))
+    .map(async (path) => ({ path, bytes: await readFile(join(root, path)) })),
+);
+const nativeDeclarationClosures = await resolveNativeDeclarationClosures({
+  packageName: packageJson.name,
+  packageExports: packageJson.exports,
+  declarationSources,
+});
+if (nativeDeclarationClosures === null) {
+  throw new Error("packed native declaration closure is invalid");
+}
+const nativeClosureByExport = new Map(
+  nativeDeclarationClosures.map((closure) => [
+    closure.packageExportPath,
+    closure,
+  ]),
+);
+function nativeInventoryFor(packageExportPath) {
+  const closure = nativeClosureByExport.get(packageExportPath);
+  if (closure === undefined) {
+    throw new Error(`missing native declaration closure: ${packageExportPath}`);
+  }
+  return [closure];
+}
+
+const nativeInventory = nativeInventoryFor("./product");
+const abgNativeInventory = nativeInventoryFor("./abg");
+const gtlNativeInventory = nativeInventoryFor("./gtl");
+const validatorNativeInventory = nativeInventoryFor("./validator");
+const hogNativeInventory = nativeInventoryFor("./hog");
+const publicNativeInventory = nativeInventoryFor("./public");
 
 function nativeContractDigest(inventory) {
-  return sha256Canonical(inventory.map((entry) => ({
-    packageExportPath: entry.packageExportPath,
-    declarationPath: entry.declarationPath,
-    declarationDigest: entry.declarationDigest,
-  })));
+  if (inventory.length !== 1) {
+    throw new Error("native contract requires one exact package export");
+  }
+  return sha256Canonical(inventory[0].declarationInventory);
+}
+
+function nativeTypedLocator(inventory, namedSymbol) {
+  if (inventory.length !== 1) {
+    throw new Error("native locator requires one exact package export");
+  }
+  const closure = inventory[0];
+  if (!closure.exportedSymbols.includes(namedSymbol)) {
+    throw new Error(
+      `native contract symbol ${namedSymbol} is not exported by ${closure.packageExportPath}`,
+    );
+  }
+  return {
+    packageName: packageJson.name,
+    packageExportPath: closure.packageExportPath,
+    namedSymbol,
+    declarationPath: closure.declarationPath,
+    declarationInventory: closure.declarationInventory,
+  };
 }
 
 const consensusContractRows = CONSENSUS_SCHEMA_ASSET_BINDINGS.map(
@@ -347,13 +339,7 @@ const publicOperationRows = [
     "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-010",
   ],
   capabilityIdentities: ["abg.capability.operator.public-contract@5"],
-  nativeTypedLocator: {
-    packageName: packageJson.name,
-    packageExportPath: "./public",
-    namedSymbol,
-    exportedSymbols: publicNativeInventory[0].exportedSymbols,
-    declarationPath: publicDeclarationPath,
-  },
+  nativeTypedLocator: nativeTypedLocator(publicNativeInventory, namedSymbol),
   assetLocator: {
     path: publicOperationSchemaPath,
     mediaType: "application/schema+json",
@@ -380,13 +366,7 @@ const rows = [
       "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-003",
     ],
     capabilityIdentities: ["abg.capability.product.verify@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./product",
-      namedSymbol: "verifyProduct",
-      exportedSymbols: nativeInventory[0].exportedSymbols,
-      declarationPath: productDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(nativeInventory, "verifyProduct"),
   },
   {
     contractId: "abg.contract.abg.environment-admission",
@@ -399,13 +379,10 @@ const rows = [
       "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-005",
     ],
     capabilityIdentities: ["abg.capability.runtime.admit-artifact@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./abg",
-      namedSymbol: "AbgEventStore",
-      exportedSymbols: abgNativeInventory[0].exportedSymbols,
-      declarationPath: abgDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(
+      abgNativeInventory,
+      "AbgEventStore",
+    ),
   },
   {
     contractId: "abg.contract.gtl.root-declaration",
@@ -418,13 +395,10 @@ const rows = [
       "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-029",
     ],
     capabilityIdentities: ["abg.capability.gtl.declare@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./gtl",
-      namedSymbol: "GTL_DECLARATION_CONSTRUCTORS",
-      exportedSymbols: gtlNativeInventory[0].exportedSymbols,
-      declarationPath: gtlDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(
+      gtlNativeInventory,
+      "GTL_DECLARATION_CONSTRUCTORS",
+    ),
   },
   {
     contractId: "abg.contract.abg.catalog-root-admission",
@@ -438,13 +412,7 @@ const rows = [
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-053",
     ],
     capabilityIdentities: ["abg.capability.catalog.admit-root@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./abg",
-      namedSymbol: "admitCatalog",
-      exportedSymbols: abgNativeInventory[0].exportedSymbols,
-      declarationPath: abgDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "admitCatalog"),
   },
   {
     contractId: "abg.contract.product.invocation-root",
@@ -457,13 +425,10 @@ const rows = [
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-062",
     ],
     capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./product",
-      namedSymbol: "constructDirectInvocation",
-      exportedSymbols: nativeInventory[0].exportedSymbols,
-      declarationPath: productDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(
+      nativeInventory,
+      "constructDirectInvocation",
+    ),
   },
   {
     contractId: "abg.contract.abg.invocation-root-admission",
@@ -476,13 +441,10 @@ const rows = [
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
     ],
     capabilityIdentities: ["abg.capability.runtime.admit-root-invocation@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./abg",
-      namedSymbol: "admitInvocation",
-      exportedSymbols: abgNativeInventory[0].exportedSymbols,
-      declarationPath: abgDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(
+      abgNativeInventory,
+      "admitInvocation",
+    ),
   },
   {
     contractId: "abg.contract.product.implementation-resolution-root",
@@ -495,13 +457,10 @@ const rows = [
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
     ],
     capabilityIdentities: ["abg.capability.runtime.resolve-root-implementation@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./product",
-      namedSymbol: "resolveImplementation",
-      exportedSymbols: nativeInventory[0].exportedSymbols,
-      declarationPath: productDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(
+      nativeInventory,
+      "resolveImplementation",
+    ),
   },
   {
     contractId: "abg.contract.gtl.materialization-root",
@@ -514,13 +473,10 @@ const rows = [
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-006",
     ],
     capabilityIdentities: ["abg.capability.gtl.materialize-root@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./gtl",
-      namedSymbol: "materializeGraph",
-      exportedSymbols: gtlNativeInventory[0].exportedSymbols,
-      declarationPath: gtlDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(
+      gtlNativeInventory,
+      "materializeGraph",
+    ),
   },
   {
     contractId: "abg.contract.abg.execution-basis-root",
@@ -533,13 +489,10 @@ const rows = [
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-010",
     ],
     capabilityIdentities: ["abg.capability.runtime.admit-root-basis@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./abg",
-      namedSymbol: "admitExecutionBasis",
-      exportedSymbols: abgNativeInventory[0].exportedSymbols,
-      declarationPath: abgDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(
+      abgNativeInventory,
+      "admitExecutionBasis",
+    ),
   },
   {
     contractId: "abg.contract.abg.open-call-root",
@@ -552,13 +505,7 @@ const rows = [
       "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-010",
     ],
     capabilityIdentities: ["abg.capability.runtime.open-root-call@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./abg",
-      namedSymbol: "openCall",
-      exportedSymbols: abgNativeInventory[0].exportedSymbols,
-      declarationPath: abgDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "openCall"),
   },
   {
     contractId: "abg.contract.hog.traversal-root",
@@ -571,13 +518,7 @@ const rows = [
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-006",
     ],
     capabilityIdentities: ["abg.capability.hog.traverse-root@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./hog",
-      namedSymbol: "traverse",
-      exportedSymbols: hogNativeInventory[0].exportedSymbols,
-      declarationPath: hogDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(hogNativeInventory, "traverse"),
   },
   {
     contractId: "abg.contract.abg.c-call-root",
@@ -590,13 +531,7 @@ const rows = [
       "specification/requirements/abg/REQ-R-ABG3-CCALL.md#-007-shape-preservation",
     ],
     capabilityIdentities: ["abg.capability.runtime.admit-root-c-call@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./abg",
-      namedSymbol: "openCCall",
-      exportedSymbols: abgNativeInventory[0].exportedSymbols,
-      declarationPath: abgDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "openCCall"),
   },
   {
     contractId: "abg.contract.abg.replay-root",
@@ -609,13 +544,7 @@ const rows = [
       "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-018",
     ],
     capabilityIdentities: ["abg.capability.runtime.replay-root@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./abg",
-      namedSymbol: "replay",
-      exportedSymbols: abgNativeInventory[0].exportedSymbols,
-      declarationPath: abgDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "replay"),
   },
   {
     contractId: "abg.contract.hog.judgment-transition-root",
@@ -628,13 +557,10 @@ const rows = [
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-005",
     ],
     capabilityIdentities: ["abg.capability.hog.judge-transition-root@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./hog",
-      namedSymbol: "proposeJudgment",
-      exportedSymbols: hogNativeInventory[0].exportedSymbols,
-      declarationPath: hogDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(
+      hogNativeInventory,
+      "proposeJudgment",
+    ),
   },
   {
     contractId: "abg.contract.gtl.validation-root",
@@ -647,13 +573,10 @@ const rows = [
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
     ],
     capabilityIdentities: ["abg.capability.gtl.validate@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./validator",
-      namedSymbol: "rawAdmitValue",
-      exportedSymbols: validatorNativeInventory[0].exportedSymbols,
-      declarationPath: validatorDeclarationPath,
-    },
+    nativeTypedLocator: nativeTypedLocator(
+      validatorNativeInventory,
+      "rawAdmitValue",
+    ),
   },
   {
     contractId: "abg.schema.product-toolchain-manifest",

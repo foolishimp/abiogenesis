@@ -1,11 +1,13 @@
 import { createHash } from "node:crypto";
 
-import type {
-  JsonValue,
-  PackagedLeafImplementationDescriptor,
-  ProductSemanticsProvider,
-  Sha256Digest,
-} from "@abiogenesis/typescript-tenant/product";
+type JsonValue =
+  | boolean
+  | null
+  | number
+  | string
+  | readonly JsonValue[]
+  | { readonly [key: string]: JsonValue };
+type Sha256Digest = `sha256:${string}`;
 
 export const PACKAGE_NAME = "@abiogenesis-fixtures/flavored-catalog-product";
 export const PACKAGE_VERSION = "5.0.0";
@@ -177,8 +179,7 @@ const descriptorBody = {
   refusalContractRef: FLAVORED_CATALOG_IDS.refusalContractRef,
 } as const;
 
-export const FLAVORED_TEXT_IMPLEMENTATION_DESCRIPTOR:
-  Readonly<PackagedLeafImplementationDescriptor> = deepFreeze({
+export const FLAVORED_TEXT_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
   kind: "packaged_leaf_implementation_descriptor" as const,
   schemaVersion: "5.0.0" as const,
   descriptorDigest: sha256Canonical(descriptorBody),
@@ -214,8 +215,7 @@ export function realizeFlavoredText(input: unknown): Readonly<object> {
   });
 }
 
-export const FLAVORED_CATALOG_PRODUCT_SEMANTICS:
-  ProductSemanticsProvider = Object.freeze({
+export const FLAVORED_CATALOG_PRODUCT_SEMANTICS = Object.freeze({
   kind: "product_semantics_provider" as const,
   schemaVersion: "5.0.0" as const,
   bindingRef: FLAVORED_CATALOG_IDS.semanticsBindingRef,
@@ -327,3 +327,7 @@ export const FLAVORED_CATALOG_PRODUCT_SEMANTICS:
     });
   },
 });
+
+export type {
+  FlavoredDeclarationConstructors,
+} from "./publication.js";
