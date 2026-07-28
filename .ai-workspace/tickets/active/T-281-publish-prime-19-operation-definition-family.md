@@ -3,28 +3,27 @@
 > **Current disposition (2026-07-29):** S06 implementation candidate
 > `4f9bf707` and native declaration design candidate `b645595c` are returned
 > evidence. Replacement design candidate `4f80f84a`, tree `7070dca7`, is
-> frozen for one independent delta review of the three repaired relations.
-> Realization, S04, and later work remain held.
+> directly accepted after independent delta review. One bounded Section 8
+> realization pass is authorized. S04 and later work remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_native_contract_design_repair_candidate_frozen
-- review_status: pending_bounded_design_delta_review
-- proof_status: candidate_design_repair_mechanical_green_pandoc_7_mermaid_3_diff_check
+- phase_status: m5_s06_bounded_realization_authorized
+- review_status: native_contract_design_accepted_realization_in_progress
+- proof_status: accepted_native_contract_design_realization_proof_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
-- implementation_hold: native_contract_design_acceptance
+- implementation_hold: bounded_s06_section_8_realization_only
 - implementation_hold_effect: >-
-    prohibit retained realization until the bounded native-contract Ontology,
-    Prime contraction, IACS, module mapping, three views, and design verdict are
-    independently accepted; permit only design authoring, mechanical design
-    checks, one exact design handoff, independent review, and direct disposition
-    while M5 freeze, M6 qualification, M7 release, planned 5.1 observer/tuner
-    work, alternate functionality, and broad refactoring remain held
+    authorize exactly one S06 realization pass against accepted Section 8,
+    its design-derived proof, mechanical gates, one exact candidate freeze,
+    and one implementation handoff; prohibit design re-entry, S04, M5 freeze,
+    M6 qualification, M7 release, alternate functionality, and broad
+    refactoring
 - delivery_phase: M5_after_accepted_s03_and_s05
 - change_intent: >-
     Prove one Product-neutral installed public contract through the native SDK,
@@ -51,13 +50,16 @@
 - accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
 - returned_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
 - returned_s06_candidate_tree: 21ffbdaa5dfa52886a3cb29c6f2311f2d25012cc
-- current_s06_candidate: none_design_gate_active
+- current_s06_candidate: none_realization_in_progress
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
 - current_s06_design_candidate: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
 - current_s06_design_candidate_tree: 7070dca7d0f2ca90374b525faa60d5b810488763
 - current_s06_design_sha256: ab44417157853490f4a3d8f9055b5eca8c295fd16f9615020b70e327f57c09fe
+- accepted_s06_native_contract_design_commit: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
+- accepted_s06_native_contract_design_tree: 7070dca7d0f2ca90374b525faa60d5b810488763
+- accepted_s06_native_contract_design_sha256: ab44417157853490f4a3d8f9055b5eca8c295fd16f9615020b70e327f57c09fe
 - current_s06_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
@@ -279,11 +281,11 @@ because native declaration closure still allowed materially different roots,
 digest closure, and external-reference authority. Review then returned design
 candidate `b645595c16d23e98c7f65b958fcdf3e206ad3893` for three bounded choices:
 proposal versus admission, contract-to-symbol ownership, and cross-Product
-augmentation. They are repaired together at candidate
+augmentation. They are repaired together and accepted at candidate
 `4f80f84a826de86b4cfb4d9fec3baff428dcb44a`, tree
-`7070dca7d0f2ca90374b525faa60d5b810488763`. The next review is limited to
-those relations and their affected projections under the exact replacement
-handoff. Implementation remains stopped.
+`7070dca7d0f2ca90374b525faa60d5b810488763`. One bounded Section 8
+realization pass is active. Its frozen implementation candidate receives one
+exact-cut review; the worker does not recursively review or refreeze it.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active

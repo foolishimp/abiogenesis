@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_native_contract_design_repair_candidate_frozen_under_t281
-- review_status: s03_s05_accepted_s06_bounded_design_delta_review_pending
-- proof_status: s06_design_repair_mechanical_green_pandoc_7_mermaid_3_diff_check
+- phase_status: m5_s06_bounded_realization_under_t281
+- review_status: s03_s05_and_s06_native_contract_design_accepted
+- proof_status: s06_native_contract_design_accepted_realization_proof_pending
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -27,13 +27,12 @@
 - pen_holder: codex
 - build_tenant: typescript
 - current_product_outcome: ABG5-S06
-- implementation_hold: s06_realization_and_later_outcomes_held
+- implementation_hold: bounded_s06_realization_only
 - implementation_hold_effect: >-
-    authorize only the bounded S06 native-contract design, its mechanical
-    checks, one exact design handoff, independent review, and direct
-    disposition under T-281; prohibit retained S06 realization, planned 5.1
-    observer/tuner realization, M5 freeze, M6 qualification, M7 release, and
-    unrelated refactoring until the design gate closes
+    authorize one Section 8 S06 realization pass, its design-derived proof,
+    mechanical gates, exact candidate freeze, and implementation handoff under
+    T-281; prohibit design re-entry, planned 5.1 observer/tuner realization, M5
+    freeze, M6 qualification, M7 release, and unrelated refactoring
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_5_0_pre_rc_scenarios: ABG5-S01,ABG5-S02,ABG5-S03,ABG5-S05,ABG5-S06
 - release_scenario: ABG5-S07
@@ -44,13 +43,14 @@
     T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md
 - current_s06_owner: T-281
 - returned_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
-- current_s06_candidate: none_design_gate_active
+- current_s06_candidate: none_realization_in_progress
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
 - current_s06_design_candidate: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
 - current_s06_design_candidate_tree: 7070dca7d0f2ca90374b525faa60d5b810488763
 - current_s06_design_sha256: ab44417157853490f4a3d8f9055b5eca8c295fd16f9615020b70e327f57c09fe
+- accepted_s06_native_contract_design_commit: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
 - current_s06_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md

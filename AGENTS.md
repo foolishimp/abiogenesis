@@ -42,10 +42,10 @@ at `1ddc802d`. S06 implementation candidate `4f9bf707` is returned evidence.
 Native declaration design candidate `b645595c`, tree `130af566`, is also
 returned. Its three findings are repaired together at replacement candidate
 `4f80f84a`, tree `7070dca7`, under
-`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Review only that delta. Retained
-realization must not resume until that exact Ontology/design cut is directly
-accepted. Full conservation qualification, qualification, and release must
-not receive implementation while S06 remains unresolved.
+`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`, and that exact design is directly
+accepted. Perform one bounded Section 8 realization pass, freeze once, and
+stop for exact-cut review. Full conservation qualification, qualification, and
+release must not receive implementation while S06 remains unresolved.
 
 `A5-F12` and `ABG5-S04` are deferred to planned ABIogenesis 5.1. Their design
 is frozen at candidate `4897ead1`, tree `11d0ef7b`, under backlogged T-268 as
