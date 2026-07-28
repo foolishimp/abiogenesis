@@ -1,29 +1,27 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-28):** Independent review returned S06
-> candidate `ac61e080`, tree `90d16730`, for one bounded Product-authority
-> repair. Retain its verified shell, Prime-constructor, installed portability,
-> and dependency-reducer work. Repair only publisher-owned contribution truth,
-> complete public-contract rows, pre-materialization lock consumption, the
-> resolved CLI path, and focused proof.
+> **Current disposition (2026-07-28):** Replacement S06 candidate `d9794275`,
+> tree `6db6aa53`, is frozen for independent exact-cut review. The bounded
+> Product-authority repair is complete as a candidate claim. Do not edit,
+> extend, refreeze, or select later work before review and direct disposition.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_bounded_authority_repair
-- review_status: changes_requested
-- proof_status: mechanical_green_m5_167_m4_26_external_36_prime_4_portability_6
+- phase_status: m5_s06_candidate_frozen
+- review_status: pending_independent_exact_cut_review
+- proof_status: mechanical_green_m5_170_m4_26_external_36_prime_4_portability_9
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
-- implementation_hold: bounded_s06_authority_repair_only
+- implementation_hold: exact_s06_review_handoff
 - implementation_hold_effect: >-
-    permit only the consolidated contribution-manifest, public-contract,
-    pre-install lock, resolved CLI path, and focused proof repair while M5
-    freeze, M6 qualification, M7 release, planned 5.1 observer/tuner work,
-    alternate functionality, and broad refactoring remain held
+    prohibit further realization after the replacement S06 candidate freeze;
+    permit only mechanical evidence, independent review, and direct disposition
+    while M5 freeze, M6 qualification, M7 release, planned 5.1 observer/tuner
+    work, alternate functionality, and broad refactoring remain held
 - delivery_phase: M5_after_accepted_s03_and_s05
 - change_intent: >-
     Prove one Product-neutral installed public contract through the native SDK,
@@ -185,10 +183,11 @@ S06 remains open if:
 ## Handoff
 
 Independent reviewers inspected
-`ac61e0805b38f5535049bc792865daddd569e434` through the named handoff. Their
-consolidated findings authorize the bounded repair above. The worker freezes
-one replacement subject, publishes one exact handoff, and stops. Direct F_H
-acceptance closes S06.
+`ac61e0805b38f5535049bc792865daddd569e434` through the prior handoff. Their
+consolidated findings produced replacement candidate
+`d97942750a295c1c2ca47acbff947e7da5f7c3de`. Reviewers now inspect only that
+exact subject through the replacement handoff. The worker has stopped. Direct
+F_H acceptance closes S06.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active

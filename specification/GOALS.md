@@ -51,9 +51,8 @@ selection, ordered successor outcomes, and their acceptance conditions.
   `M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md`; ADR-047 records its
   existing-CLI and replay decision.
 - This Product reprice changes no S06 meaning or acceptance predicate.
-  Independent review returned candidate `ac61e080` for one bounded
-  Product-authority repair; it remains immutable evidence rather than the
-  current implementation subject.
+  Candidate `ac61e080` remains immutable returned evidence. Replacement
+  candidate `d9794275` is frozen for independent exact-cut review.
 - Exact candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b`
   is the accepted S03 base.
 - T-270 remains the M5 parent owner. Existing subordinate tickets retain their
@@ -92,7 +91,7 @@ The supported path excludes:
 
 ## Current Product Outcome
 
-The one selected unresolved outcome is in one bounded repair:
+The one selected unresolved outcome is frozen for independent review:
 
 > Close `ABG5-S06` by proving that the native SDK, native CLI, and bounded
 > Codex CLI delegate are elimination-equivalent shells over one installed
@@ -100,11 +99,9 @@ The one selected unresolved outcome is in one bounded repair:
 > publish, apply, invoke, and read through installed public exports only.
 
 T-281 owns this outcome under T-270. The S06 shell adds no Product semantics,
-runtime capability, catalog, controller, or execution path. Independent review
-of exact candidate `ac61e0805b38f5535049bc792865daddd569e434`, tree
-`90d16730524f7376c63d056a358e2c20f70da9d5`, retained its portability work and
-returned its Product contribution, contract, pre-install lock, and resolved CLI
-path relations for one consolidated repair.
+runtime capability, catalog, controller, or execution path. Replacement
+candidate `d97942750a295c1c2ca47acbff947e7da5f7c3de`, tree
+`6db6aa53a8554bae28062180aac0f584ba68c890`, is the exact review subject.
 
 Acceptance requires:
 
@@ -129,11 +126,12 @@ Acceptance requires:
 9. planned 5.1 observer/tuner work plus 5.0 qualification, release, and
    complete conservation remain held.
 
-Before a replacement candidate may freeze, publisher-authored contribution
-rows and complete public-contract rows must be verified from exact Product
-bytes, one complete dependency lock must resolve before any selected Product is
-materialized, every installation must consume that lock, and the Codex shell
-must spawn the resolved installed CLI path rather than the submitted path.
+The replacement candidate verifies publisher-authored contribution rows and
+complete public-contract rows from exact Product bytes, resolves one complete
+dependency lock before selected Products are materialized, makes every
+installation consume that lock, and makes the Codex shell spawn the resolved
+installed CLI path rather than the submitted path. These are candidate claims
+pending independent review, not accepted Product closure.
 
 ## Deferred 5.1 Design Input
 
@@ -148,7 +146,7 @@ release authority and do not participate in S06 closure.
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
-| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Candidate `ac61e080` returned; one bounded authority repair active |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Candidate `d9794275` frozen; independent review pending |
 | `4` | `T-270` | Freeze one M5 candidate | All selected pre-qualification 5.0 Product behavior and all 16 selected feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 |
 | `5` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
 | `6` | `T-248` | Release ABIogenesis 5.0.0 | Immutable RC, installed-RC qualification, governed final delta, stable tap, and fresh post-publication install preserve distinct exact subjects. | Blocked by M6 |
