@@ -66,11 +66,17 @@ export interface ProductAssetLocator {
   readonly definitionRef?: string;
 }
 
+export type ProductPublicContractKind =
+  | "native_typed_group"
+  | "schema_asset"
+  | "serialized_native_contract"
+  | "vocabulary_asset";
+
 export interface ProductPublicContract {
   readonly contractId: string;
   readonly contractVersion: string;
   readonly contractDigest: Sha256Digest;
-  readonly contractKind: string;
+  readonly contractKind: ProductPublicContractKind;
   readonly owningProduct: string;
   readonly requirementAuthorityRefs: readonly string[];
   readonly capabilityIdentities: readonly string[];

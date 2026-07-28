@@ -243,6 +243,56 @@ function identity(prefix: string, digest: Sha256Digest): string {
   return `${prefix}/${digest.slice("sha256:".length)}`;
 }
 
+function reachableSatisfiedDependencyRefs(
+  lock: ResolvedProductLock,
+  publishingProductId: string,
+): ReadonlySet<string> {
+  const reachableProductIds = new Set([publishingProductId]);
+  const pendingProductIds = [publishingProductId];
+  const satisfiedRefs = new Set<string>();
+  while (pendingProductIds.length > 0) {
+    const sourceProductId = pendingProductIds.shift()!;
+    for (
+      const edge of lock.dependencyEdges.filter(
+        (candidate) => candidate.fromProductId === sourceProductId,
+      )
+    ) {
+      const targetMatch = resolveExactMatch(
+        lock.rows,
+        (row) => row.productId === edge.toProductId,
+      );
+      if (
+        targetMatch.kind !== "one" ||
+        targetMatch.value.packageVersion !== edge.packageVersion ||
+        !targetMatch.value.compatibilityRefs.includes(
+          edge.compatibilityRef,
+        ) ||
+        edge.requiredContractRefs.some(
+          (contractRef) =>
+            !targetMatch.value.publicContractRefs.includes(contractRef),
+        ) ||
+        edge.requiredCapabilityRefs.some(
+          (capabilityRef) =>
+            !targetMatch.value.publicCapabilityRefs.includes(capabilityRef),
+        )
+      ) {
+        continue;
+      }
+      for (const contractRef of edge.requiredContractRefs) {
+        satisfiedRefs.add(contractRef);
+      }
+      for (const capabilityRef of edge.requiredCapabilityRefs) {
+        satisfiedRefs.add(capabilityRef);
+      }
+      if (!reachableProductIds.has(edge.toProductId)) {
+        reachableProductIds.add(edge.toProductId);
+        pendingProductIds.push(edge.toProductId);
+      }
+    }
+  }
+  return satisfiedRefs;
+}
+
 export function constructCatalogAdmissionCandidate(
   workspaceBinding: WorkspaceBinding,
   lock: ResolvedProductLock,
@@ -371,6 +421,7 @@ export function constructCatalogAdmissionCandidate(
     ...productLockRow.publicCapabilityRefs,
     ...publication.programs.map((program) => program.programRef),
     ...programValidations.map((validation) => validation.validationRef),
+    ...reachableSatisfiedDependencyRefs(lock, publication.owningProductId),
   ]);
   const unresolvedReadiness = publication.contributions
     .flatMap((contribution) =>

@@ -849,12 +849,54 @@ test("S06 Product verification resolves contract authority and exact locators", 
       }),
       expectedCode: "catalog_mismatch",
     },
+    {
+      label: "quoted-false-native-symbol",
+      transformDeclaration: (declaration) =>
+        `${declaration}\nexport declare const EXPORT_BAIT: "export const MissingSymbol";\n`,
+      transformPublicContract: (row, native) => {
+        delete row.assetLocator;
+        return {
+          ...row,
+          contractDigest: native.nativeContractDigest,
+          contractKind: "native_typed_group",
+          nativeTypedLocator: {
+            ...native.nativeTypedLocator,
+            exportedSymbols: ["MissingSymbol"],
+            namedSymbol: "MissingSymbol",
+          },
+        };
+      },
+      expectedCode: "catalog_mismatch",
+    },
+    {
+      label: "non-schema-definition",
+      transformPublicContract: (row) => ({
+        ...row,
+        assetLocator: {
+          ...row.assetLocator,
+          definitionRef: "#/$id",
+        },
+      }),
+      expectedCode: "contract_asset_mismatch",
+    },
+    {
+      label: "native-kind-asset-digest",
+      transformPublicContract: (row, native) => ({
+        ...row,
+        contractKind: "native_typed_group",
+        nativeTypedLocator: native.nativeTypedLocator,
+      }),
+      expectedCode: "catalog_mismatch",
+    },
   ];
   for (const row of cases) {
     const flavored = await prepareFlavoredCatalogProduct(
       harness,
       join(harness.scratch, row.label),
-      { transformPublicContract: row.transformPublicContract },
+      {
+        transformDeclaration: row.transformDeclaration,
+        transformPublicContract: row.transformPublicContract,
+      },
     );
     const refused = await installedProduct.verifyProduct({
       artifactPath: flavored.artifactPath,
@@ -863,6 +905,50 @@ test("S06 Product verification resolves contract authority and exact locators", 
     });
     assert.equal(refused.kind, "product_verification_refusal", row.label);
     assert.equal(refused.code, row.expectedCode, row.label);
+  }
+});
+
+test("S06 catalog readiness consumes an exact reachable dependency edge", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const flavored = await prepareFlavoredCatalogProduct(
+    harness,
+    join(harness.scratch, "dependency-readiness"),
+    {
+      transformPublication: (publication) => {
+        publication.contributions[0].readinessPrerequisiteRefs = [
+          "abg.capability.gtl.declare@5",
+        ];
+        return publication;
+      },
+    },
+  );
+  const scenario = await portabilityScenario(
+    harness,
+    flavored,
+    "flavored-dependency-readiness",
+  );
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `dependency-readiness=${Date.now()}`,
+  );
+  const operationContext = installedPublic.createRootOperationContext();
+  try {
+    let outcome;
+    for (const row of scenario.transcript.slice(0, 7)) {
+      outcome = await installedPublic.applyRootPublicInvocation(
+        operationContext,
+        row,
+      );
+      assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+    }
+    assert.equal(outcome.result.kind, "admitted_catalog");
+    assert.equal(
+      outcome.result.admittedRows,
+      flavored.publication.contributions.length,
+    );
+  } finally {
+    installedPublic.closeRootOperationContext(operationContext);
   }
 });
 

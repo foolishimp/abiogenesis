@@ -60,7 +60,12 @@
             "$ref": "#/$defs/sha256"
           },
           "contractKind": {
-            "$ref": "#/$defs/ref"
+            "enum": [
+              "native_typed_group",
+              "schema_asset",
+              "serialized_native_contract",
+              "vocabulary_asset"
+            ]
           },
           "owningProduct": {
             "$ref": "#/$defs/ref"
@@ -88,6 +93,59 @@
             "required": [
               "assetLocator"
             ]
+          }
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "contractKind": {
+                  "const": "native_typed_group"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "nativeTypedLocator"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "contractKind": {
+                  "enum": [
+                    "schema_asset",
+                    "vocabulary_asset"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "not": {
+                "required": [
+                  "nativeTypedLocator"
+                ]
+              },
+              "required": [
+                "assetLocator"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "contractKind": {
+                  "const": "serialized_native_contract"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "assetLocator",
+                "nativeTypedLocator"
+              ]
+            }
           }
         ]
       }

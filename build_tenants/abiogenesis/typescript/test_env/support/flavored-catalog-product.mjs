@@ -51,6 +51,18 @@ export async function prepareFlavoredCatalogProduct(
     ],
     { cwd: sourceRoot, maxBuffer: 10 * 1024 * 1024 },
   );
+  const nativeDeclarationPath = "build/index.d.ts";
+  if (options.transformDeclaration !== undefined) {
+    const declaration = await readFile(
+      join(sourceRoot, nativeDeclarationPath),
+      "utf8",
+    );
+    await writeFile(
+      join(sourceRoot, nativeDeclarationPath),
+      options.transformDeclaration(declaration),
+      "utf8",
+    );
+  }
 
   const product = await importInstalledPackageExport(
     harness,
@@ -96,6 +108,20 @@ export async function prepareFlavoredCatalogProduct(
   const flavoredSchemaDigest = await product.sha256File(
     join(sourceRoot, flavoredSchemaPath),
   );
+  const nativeTypedLocator = {
+    packageName: packageJson.name,
+    packageExportPath: ".",
+    namedSymbol: "FLAVORED_CATALOG_IDS",
+    exportedSymbols: ["FLAVORED_CATALOG_IDS"],
+    declarationPath: nativeDeclarationPath,
+  };
+  const nativeContractDigest = product.sha256Canonical([{
+    packageExportPath: nativeTypedLocator.packageExportPath,
+    declarationPath: nativeTypedLocator.declarationPath,
+    declarationDigest: await product.sha256File(
+      join(sourceRoot, nativeTypedLocator.declarationPath),
+    ),
+  }]);
   const descriptorRef = "descriptor://flavor.example/text@5";
   const contributionManifestRef =
     "contribution-manifest://flavor.example/text@5";
@@ -126,7 +152,10 @@ export async function prepareFlavoredCatalogProduct(
     rows: [
       options.transformPublicContract === undefined
         ? publicContractRow
-        : options.transformPublicContract(structuredClone(publicContractRow)),
+        : options.transformPublicContract(
+          structuredClone(publicContractRow),
+          { nativeContractDigest, nativeTypedLocator },
+        ),
     ],
   };
   const publicContractCatalog = {

@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { isAbsolute, posix } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { declarationExportSymbols } from "./declaration_exports.js";
 import type {
   ProductAssetLocator,
   ProductContributionManifest,
@@ -11,6 +12,7 @@ import type {
   ProductModulePublicationBinding,
   ProductNativeTypedLocator,
   ProductPublicContract,
+  ProductPublicContractKind,
   ProductVerificationRefusal,
   ProductVerificationRefusalCode,
   ProductVerificationResult,
@@ -370,6 +372,28 @@ function readNativeLocator(
   };
 }
 
+type ContractLocatorLaw = Readonly<{
+  asset: "required" | "optional" | "forbidden";
+  digest: "asset" | "native";
+  native: "required" | "optional" | "forbidden";
+}>;
+
+function contractLocatorLaw(
+  contractKind: string,
+): ContractLocatorLaw | null {
+  switch (contractKind) {
+    case "native_typed_group":
+      return { asset: "optional", digest: "native", native: "required" };
+    case "schema_asset":
+    case "vocabulary_asset":
+      return { asset: "required", digest: "asset", native: "forbidden" };
+    case "serialized_native_contract":
+      return { asset: "required", digest: "asset", native: "required" };
+    default:
+      return null;
+  }
+}
+
 export function parseProductPublicContract(
   value: unknown,
   productId: string,
@@ -389,9 +413,22 @@ export function parseProductPublicContract(
   ) {
     return null;
   }
+  const locatorLaw = contractLocatorLaw(row.contractKind);
+  if (locatorLaw === null) return null;
+  const hasNativeLocator = Object.hasOwn(row, "nativeTypedLocator");
+  const hasAssetLocator = Object.hasOwn(row, "assetLocator");
   const nativeTypedLocator = readNativeLocator(row);
   const assetLocator = readAssetLocator(row);
-  if (nativeTypedLocator === null && assetLocator === null) return null;
+  if (
+    hasNativeLocator !== (nativeTypedLocator !== null) ||
+    hasAssetLocator !== (assetLocator !== null) ||
+    (locatorLaw.native === "required" && nativeTypedLocator === null) ||
+    (locatorLaw.native === "forbidden" && nativeTypedLocator !== null) ||
+    (locatorLaw.asset === "required" && assetLocator === null) ||
+    (locatorLaw.asset === "forbidden" && assetLocator !== null)
+  ) {
+    return null;
+  }
   const allowedKeys = [
     "capabilityIdentities",
     "contractDigest",
@@ -408,7 +445,7 @@ export function parseProductPublicContract(
     contractId: row.contractId,
     contractVersion: row.contractVersion,
     contractDigest: row.contractDigest,
-    contractKind: row.contractKind,
+    contractKind: row.contractKind as ProductPublicContractKind,
     owningProduct: productId,
     requirementAuthorityRefs: [...row.requirementAuthorityRefs],
     capabilityIdentities: [...row.capabilityIdentities],
@@ -455,83 +492,8 @@ function parseJsonBytes(bytes: Uint8Array): unknown {
   return JSON.parse(new TextDecoder().decode(bytes));
 }
 
-function stripDeclarationComments(source: string): string {
-  let result = "";
-  let quote: "'" | "\"" | "`" | null = null;
-  let lineComment = false;
-  let blockComment = false;
-  for (let index = 0; index < source.length; index += 1) {
-    const character = source[index]!;
-    const next = source[index + 1];
-    if (lineComment) {
-      if (character === "\n" || character === "\r") {
-        lineComment = false;
-        result += character;
-      }
-      continue;
-    }
-    if (blockComment) {
-      if (character === "*" && next === "/") {
-        blockComment = false;
-        index += 1;
-      } else if (character === "\n" || character === "\r") {
-        result += character;
-      }
-      continue;
-    }
-    if (quote !== null) {
-      result += character;
-      if (character === "\\") {
-        if (next !== undefined) {
-          result += next;
-          index += 1;
-        }
-      } else if (character === quote) {
-        quote = null;
-      }
-      continue;
-    }
-    if (character === "'" || character === "\"" || character === "`") {
-      quote = character;
-      result += character;
-      continue;
-    }
-    if (character === "/" && next === "/") {
-      lineComment = true;
-      index += 1;
-      continue;
-    }
-    if (character === "/" && next === "*") {
-      blockComment = true;
-      index += 1;
-      continue;
-    }
-    result += character;
-  }
-  return result;
-}
-
-function declarationExportSymbols(bytes: Uint8Array): ReadonlySet<string> {
-  const source = stripDeclarationComments(new TextDecoder().decode(bytes));
-  const symbols = new Set<string>();
-  for (const match of source.matchAll(
-    /\bexport\s+(?:type\s+)?\{([^}]*)\}/gu,
-  )) {
-    for (const rawEntry of match[1]!.split(",")) {
-      const entry = rawEntry.trim().replace(/^type\s+/u, "");
-      const parts = entry.split(/\s+as\s+/u);
-      const symbol = (parts[1] ?? parts[0])?.trim() ?? "";
-      if (/^[A-Za-z_$][A-Za-z0-9_$]*$/u.test(symbol)) {
-        symbols.add(symbol);
-      }
-    }
-  }
-  for (const match of source.matchAll(
-    /\bexport\s+(?:declare\s+)?(?:abstract\s+)?(?:async\s+)?(?:const|let|var|function|class|interface|type|enum|namespace)\s+([A-Za-z_$][A-Za-z0-9_$]*)/gu,
-  )) {
-    symbols.add(match[1]!);
-  }
-  return symbols;
+function isJsonSchemaValue(value: unknown): boolean {
+  return typeof value === "boolean" || isRecord(value);
 }
 
 function assetDefinitionExists(
@@ -547,7 +509,7 @@ function assetDefinitionExists(
   } catch {
     return false;
   }
-  if (pointer.length === 0) return true;
+  if (pointer.length === 0) return isJsonSchemaValue(current);
   if (!pointer.startsWith("/")) return false;
   for (const encodedSegment of pointer.slice(1).split("/")) {
     const segment = encodedSegment.replace(/~1/gu, "/").replace(/~0/gu, "~");
@@ -561,7 +523,7 @@ function assetDefinitionExists(
     }
     current = (current as Readonly<Record<string, unknown>>)[segment];
   }
-  return true;
+  return isJsonSchemaValue(current);
 }
 
 export async function verifyProduct(
@@ -785,6 +747,7 @@ export async function verifyProduct(
         const declarationDigest = sha256Bytes(declarationBytes);
         const exportedSymbols = declarationExportSymbols(declarationBytes);
         if (
+          exportedSymbols === null ||
           !exportedSymbols.has(nativeLocator.namedSymbol) ||
           nativeLocator.exportedSymbols.some(
             (symbol) => !exportedSymbols.has(symbol),
@@ -805,7 +768,10 @@ export async function verifyProduct(
         ]);
       }
 
-      const expectedContractDigest = assetDigest ?? nativeDigest;
+      const expectedContractDigest =
+        contractLocatorLaw(contract.contractKind)!.digest === "native"
+          ? nativeDigest
+          : assetDigest;
       if (expectedContractDigest !== contract.contractDigest) {
         return refusal(
           request,
