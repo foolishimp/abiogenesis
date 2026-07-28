@@ -263,7 +263,10 @@ export function constructCatalogAdmissionCandidate(
     productLockRowMatch.value.productContentDigest !==
       publication.productContentDigest ||
     productLockRowMatch.value.manifestDigest !==
-      publication.productManifestDigest
+      publication.productManifestDigest ||
+    productLockRowMatch.value.descriptorRef !== publication.descriptorRef ||
+    productLockRowMatch.value.contributionManifestRef !==
+      publication.contributionManifestRef
   ) {
     return refusal("publication_not_bound", "module publication is not carried by the exact bound Product lock");
   }

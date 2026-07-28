@@ -5144,9 +5144,10 @@ export function constructConsensusModulePublication(
     artifactDigest: artifact.artifactDigest,
     productContentDigest: artifact.productContentDigest,
     productManifestDigest: artifact.productManifestDigest,
-    descriptorRef: "descriptor://abg/consensus/module@5",
+    descriptorRef:
+      `descriptor://abiogenesis/typescript-tenant/${artifact.productContentDigest.slice("sha256:".length)}`,
     contributionManifestRef:
-      "contribution-manifest://abg/consensus/module@5",
+      `contribution-manifest://abiogenesis/conformance/${artifact.productContentDigest.slice("sha256:".length)}`,
     productSemanticsBinding: productSemanticsBinding({
       kind: "product_semantics_binding" as const,
       bindingRef: CONSENSUS_IDS.productSemanticsBindingRef,

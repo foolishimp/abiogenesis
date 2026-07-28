@@ -252,5 +252,23 @@ export async function installProduct(
     artifactDigest: request.verifiedArtifact.artifactDigest,
     productContentDigest: request.verifiedArtifact.productContentDigest,
     manifestDigest: request.verifiedArtifact.manifestDigest,
+    descriptorRef: request.verifiedArtifact.descriptorRef,
+    publisherNamespace: request.verifiedArtifact.publisherNamespace,
+    contributionManifestRef:
+      request.verifiedArtifact.contributionManifestRef,
+    compatibilityRefs: [...request.verifiedArtifact.compatibilityRefs],
+    declaredDependencies: request.verifiedArtifact.declaredDependencies.map(
+      (dependency) => ({
+        ...dependency,
+        requiredContractRefs: [...dependency.requiredContractRefs],
+        requiredCapabilityRefs: [...dependency.requiredCapabilityRefs],
+      }),
+    ),
+    provenanceRef: request.verifiedArtifact.provenanceRef,
+    declaredCapabilityRefs: [
+      ...request.verifiedArtifact.declaredCapabilityRefs,
+    ],
+    publicContractRefs: [...request.verifiedArtifact.publicContractRefs],
+    publicCapabilityRefs: [...request.verifiedArtifact.publicCapabilityRefs],
   };
 }

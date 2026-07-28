@@ -52,6 +52,9 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
   const artifactPath = join(artifacts, packResult.filename);
   const packageJson = JSON.parse(await readFile(join(packageRoot, "package.json"), "utf8"));
   const candidateBasis = await readCandidateBasis(packageRoot);
+  const candidateManifest = JSON.parse(
+    await readFile(join(packageRoot, "product-toolchain-manifest.json"), "utf8"),
+  );
   const cliHost = join(scratch, "cli-host");
   await mkdir(cliHost);
   await writeFile(join(cliHost, "package.json"), `${JSON.stringify({
@@ -97,6 +100,7 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     artifactRef: basename(artifactPath),
     packageJson,
     candidateBasis,
+    candidateManifest,
     cliHost,
     installedPackageRoot,
     sourcePackageRoot: packageRoot,
@@ -272,7 +276,7 @@ export function runInstalledCodex(harness, scenario, options = {}) {
       harness.codexPath,
       [
         "--cli",
-        harness.cliPath,
+        options.cliPath ?? harness.cliPath,
         "--jsonl",
         scenario.transcriptPath,
       ],

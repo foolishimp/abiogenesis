@@ -4,6 +4,15 @@ export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-de
 export const ABI5_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
 export const ABI5_PACKAGE_VERSION = "5.0.0-dev.286";
 
+export interface ProductDeclaredDependency {
+  readonly kind: "requires";
+  readonly productId: string;
+  readonly packageVersion: string;
+  readonly compatibilityRef: string;
+  readonly requiredContractRefs: readonly string[];
+  readonly requiredCapabilityRefs: readonly string[];
+}
+
 export interface VerifyProductRequest {
   readonly artifactPath: string;
   readonly artifactRef: string;
@@ -27,8 +36,17 @@ export interface VerifiedProductArtifact {
   readonly packageVersion: string;
   readonly productContentDigest: Sha256Digest;
   readonly manifestDigest: Sha256Digest;
+  readonly descriptorRef: string;
+  readonly publisherNamespace: string;
+  readonly contributionManifestRef: string;
+  readonly compatibilityRefs: readonly string[];
+  readonly declaredDependencies: readonly ProductDeclaredDependency[];
+  readonly provenanceRef: string;
+  readonly declaredCapabilityRefs: readonly string[];
   readonly catalogId: string;
   readonly catalogDigest: Sha256Digest;
+  readonly publicContractRefs: readonly string[];
+  readonly publicCapabilityRefs: readonly string[];
   readonly checkedPayloadFiles: number;
 }
 
@@ -81,6 +99,15 @@ export interface ProductInstallCandidate {
   readonly artifactDigest: Sha256Digest;
   readonly productContentDigest: Sha256Digest;
   readonly manifestDigest: Sha256Digest;
+  readonly descriptorRef: string;
+  readonly publisherNamespace: string;
+  readonly contributionManifestRef: string;
+  readonly compatibilityRefs: readonly string[];
+  readonly declaredDependencies: readonly ProductDeclaredDependency[];
+  readonly provenanceRef: string;
+  readonly declaredCapabilityRefs: readonly string[];
+  readonly publicContractRefs: readonly string[];
+  readonly publicCapabilityRefs: readonly string[];
 }
 
 export const PRODUCT_INSTALL_REFUSAL_CODES = [

@@ -12,6 +12,13 @@
     "packageVersion",
     "productContentDigest",
     "productRelativeLocators",
+    "descriptorRef",
+    "publisherNamespace",
+    "contributionManifestRef",
+    "compatibilityRefs",
+    "declaredDependencies",
+    "provenanceRef",
+    "declaredCapabilityRefs",
     "publicContractCatalog"
   ],
   "properties": {
@@ -44,6 +51,31 @@
         "minLength": 1
       }
     },
+    "descriptorRef": {
+      "$ref": "#/$defs/ref"
+    },
+    "publisherNamespace": {
+      "$ref": "#/$defs/ref"
+    },
+    "contributionManifestRef": {
+      "$ref": "#/$defs/ref"
+    },
+    "compatibilityRefs": {
+      "$ref": "#/$defs/refs"
+    },
+    "declaredDependencies": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/dependency"
+      }
+    },
+    "provenanceRef": {
+      "$ref": "#/$defs/ref"
+    },
+    "declaredCapabilityRefs": {
+      "$ref": "#/$defs/refs"
+    },
     "publicContractCatalog": {
       "type": "object"
     }
@@ -52,6 +84,49 @@
     "sha256": {
       "type": "string",
       "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "ref": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "productId",
+        "packageVersion",
+        "compatibilityRef",
+        "requiredContractRefs",
+        "requiredCapabilityRefs"
+      ],
+      "properties": {
+        "kind": {
+          "const": "requires"
+        },
+        "productId": {
+          "$ref": "#/$defs/ref"
+        },
+        "packageVersion": {
+          "$ref": "#/$defs/ref"
+        },
+        "compatibilityRef": {
+          "$ref": "#/$defs/ref"
+        },
+        "requiredContractRefs": {
+          "$ref": "#/$defs/refs"
+        },
+        "requiredCapabilityRefs": {
+          "$ref": "#/$defs/refs"
+        }
+      }
     }
   }
 }

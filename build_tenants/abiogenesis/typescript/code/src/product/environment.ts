@@ -1,7 +1,10 @@
 import { isAbsolute } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import type { ProductInstallCandidate } from "./contracts.js";
+import type {
+  ProductDeclaredDependency,
+  ProductInstallCandidate,
+} from "./contracts.js";
 import {
   isSha256Digest,
   sha256Canonical,
@@ -21,6 +24,15 @@ export interface ResolvedProductLockRow {
   readonly artifactDigest: Sha256Digest;
   readonly productContentDigest: Sha256Digest;
   readonly manifestDigest: Sha256Digest;
+  readonly descriptorRef: string;
+  readonly publisherNamespace: string;
+  readonly contributionManifestRef: string;
+  readonly compatibilityRefs: readonly string[];
+  readonly declaredDependencies: readonly ProductDeclaredDependency[];
+  readonly provenanceRef: string;
+  readonly declaredCapabilityRefs: readonly string[];
+  readonly publicContractRefs: readonly string[];
+  readonly publicCapabilityRefs: readonly string[];
   readonly installId: string;
 }
 
@@ -28,6 +40,10 @@ export interface ProductDependencyEdge {
   readonly kind: "requires";
   readonly fromProductId: string;
   readonly toProductId: string;
+  readonly packageVersion: string;
+  readonly compatibilityRef: string;
+  readonly requiredContractRefs: readonly string[];
+  readonly requiredCapabilityRefs: readonly string[];
 }
 
 export interface ResolvedProductLock {
@@ -142,7 +158,41 @@ function hasExactKeys(
 }
 
 function nonEmptyString(value: unknown): value is string {
-  return typeof value === "string" && value.length > 0;
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function isUniqueStringArray(value: unknown): value is readonly string[] {
+  return Array.isArray(value) &&
+    value.every(nonEmptyString) &&
+    new Set(value).size === value.length;
+}
+
+function isDeclaredDependency(value: unknown): value is ProductDeclaredDependency {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "compatibilityRef",
+      "kind",
+      "packageVersion",
+      "productId",
+      "requiredCapabilityRefs",
+      "requiredContractRefs",
+    ]) &&
+    value.kind === "requires" &&
+    nonEmptyString(value.productId) &&
+    nonEmptyString(value.packageVersion) &&
+    nonEmptyString(value.compatibilityRef) &&
+    isUniqueStringArray(value.requiredContractRefs) &&
+    isUniqueStringArray(value.requiredCapabilityRefs);
+}
+
+function copyDependency(
+  dependency: ProductDeclaredDependency,
+): ProductDeclaredDependency {
+  return {
+    ...dependency,
+    requiredContractRefs: [...dependency.requiredContractRefs],
+    requiredCapabilityRefs: [...dependency.requiredCapabilityRefs],
+  };
 }
 
 function lockRowsFor(installs: readonly ProductInstall[]): readonly ResolvedProductLockRow[] {
@@ -153,8 +203,80 @@ function lockRowsFor(installs: readonly ProductInstall[]): readonly ResolvedProd
     artifactDigest: install.artifactDigest,
     productContentDigest: install.productContentDigest,
     manifestDigest: install.manifestDigest,
+    descriptorRef: install.descriptorRef,
+    publisherNamespace: install.publisherNamespace,
+    contributionManifestRef: install.contributionManifestRef,
+    compatibilityRefs: [...install.compatibilityRefs],
+    declaredDependencies: install.declaredDependencies.map(copyDependency),
+    provenanceRef: install.provenanceRef,
+    declaredCapabilityRefs: [...install.declaredCapabilityRefs],
+    publicContractRefs: [...install.publicContractRefs],
+    publicCapabilityRefs: [...install.publicCapabilityRefs],
     installId: install.installId,
   }));
+}
+
+function deriveDeclaredDependencyEdges(
+  rows: readonly ResolvedProductLockRow[],
+): EnvironmentRefusal | ProductDependencyEdge[] {
+  const edges: ProductDependencyEdge[] = [];
+  for (const source of rows) {
+    if (
+      source.declaredDependencies.some(
+        (dependency) => !isDeclaredDependency(dependency),
+      ) ||
+      new Set(
+        source.declaredDependencies.map((dependency) => dependency.productId),
+      ).size !== source.declaredDependencies.length
+    ) {
+      return refusal(
+        "invalid_dependency",
+        "Product descriptors must carry unique, well-formed dependencies",
+      );
+    }
+    for (const dependency of source.declaredDependencies) {
+      const targets = rows.filter(
+        (candidate) => candidate.productId === dependency.productId,
+      );
+      if (targets.length !== 1) {
+        return refusal(
+          "invalid_dependency",
+          `declared dependency ${dependency.productId} must resolve exactly once`,
+        );
+      }
+      const target = targets[0]!;
+      if (
+        target.packageVersion !== dependency.packageVersion ||
+        !target.compatibilityRefs.includes(dependency.compatibilityRef) ||
+        dependency.requiredContractRefs.some(
+          (contractRef) => !target.publicContractRefs.includes(contractRef),
+        ) ||
+        dependency.requiredCapabilityRefs.some(
+          (capabilityRef) =>
+            !target.publicCapabilityRefs.includes(capabilityRef),
+        )
+      ) {
+        return refusal(
+          "invalid_dependency",
+          `declared dependency ${dependency.productId} is incompatible or incomplete`,
+        );
+      }
+      edges.push({
+        kind: "requires",
+        fromProductId: source.productId,
+        toProductId: target.productId,
+        packageVersion: dependency.packageVersion,
+        compatibilityRef: dependency.compatibilityRef,
+        requiredContractRefs: [...dependency.requiredContractRefs],
+        requiredCapabilityRefs: [...dependency.requiredCapabilityRefs],
+      });
+    }
+  }
+  return edges.sort((left, right) => {
+    const leftKey = `${left.fromProductId}\0${left.toProductId}`;
+    const rightKey = `${right.fromProductId}\0${right.toProductId}`;
+    return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
+  });
 }
 
 function hasProductDependencyCycle(
@@ -186,7 +308,6 @@ function hasProductDependencyCycle(
 
 export function constructResolvedProductLock(
   installs: readonly ProductInstall[],
-  dependencyEdges: readonly ProductDependencyEdge[] = [],
 ): EnvironmentRefusal | ResolvedProductLock {
   if (installs.length === 0) {
     return refusal("empty_product_set", "a resolved lock requires at least one admitted install");
@@ -199,36 +320,22 @@ export function constructResolvedProductLock(
     return refusal("duplicate_install", "a resolved lock cannot contain duplicate install identities");
   }
   const rows = lockRowsFor(installs);
-  const productIds = new Set(rows.map((row) => row.productId));
-  const edgeKeys = dependencyEdges.map(
-    (edge) => `${edge.fromProductId}\0${edge.toProductId}`,
-  );
-  if (
-    dependencyEdges.some(
-      (edge) =>
-        edge.kind !== "requires" ||
-        edge.fromProductId === edge.toProductId ||
-        !productIds.has(edge.fromProductId) ||
-        !productIds.has(edge.toProductId),
-    ) ||
-    new Set(edgeKeys).size !== edgeKeys.length
-  ) {
+  const productIds = rows.map((row) => row.productId);
+  if (new Set(productIds).size !== productIds.length) {
     return refusal(
       "invalid_dependency",
-      "dependency edges must be unique, non-reflexive, and bind Products in the exact lock",
+      "a resolved lock cannot contain ambiguous Product identities",
     );
   }
-  if (hasProductDependencyCycle(productIds, dependencyEdges)) {
+  const dependencyEdges = deriveDeclaredDependencyEdges(rows);
+  if (!Array.isArray(dependencyEdges)) return dependencyEdges;
+  const productIdSet = new Set(productIds);
+  if (hasProductDependencyCycle(productIdSet, dependencyEdges)) {
     return refusal("invalid_dependency", "resolved Product dependencies must be acyclic");
   }
-  const orderedEdges = [...dependencyEdges].sort((left, right) => {
-    const leftKey = `${left.fromProductId}\0${left.toProductId}`;
-    const rightKey = `${right.fromProductId}\0${right.toProductId}`;
-    return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
-  });
   const lockDigest = sha256Canonical({
     rows,
-    dependencyEdges: orderedEdges,
+    dependencyEdges,
   } as unknown as JsonValue);
   return {
     kind: "resolved_product_lock",
@@ -236,7 +343,7 @@ export function constructResolvedProductLock(
     lockId: identity("product-lock://abiogenesis", lockDigest),
     lockDigest,
     rows,
-    dependencyEdges: orderedEdges,
+    dependencyEdges,
   };
 }
 
@@ -270,12 +377,21 @@ export function isResolvedProductLock(
         !isRecord(row) ||
         !hasExactKeys(row, [
           "artifactDigest",
+          "compatibilityRefs",
+          "contributionManifestRef",
+          "declaredCapabilityRefs",
+          "declaredDependencies",
+          "descriptorRef",
           "installId",
           "manifestDigest",
           "packageName",
           "packageVersion",
+          "provenanceRef",
           "productContentDigest",
           "productId",
+          "publicCapabilityRefs",
+          "publicContractRefs",
+          "publisherNamespace",
         ]) ||
         !nonEmptyString(row.productId) ||
         !nonEmptyString(row.packageName) ||
@@ -283,6 +399,16 @@ export function isResolvedProductLock(
         !isSha256Digest(row.artifactDigest) ||
         !isSha256Digest(row.productContentDigest) ||
         !isSha256Digest(row.manifestDigest) ||
+        !nonEmptyString(row.descriptorRef) ||
+        !nonEmptyString(row.publisherNamespace) ||
+        !nonEmptyString(row.contributionManifestRef) ||
+        !isUniqueStringArray(row.compatibilityRefs) ||
+        !Array.isArray(row.declaredDependencies) ||
+        !row.declaredDependencies.every(isDeclaredDependency) ||
+        !nonEmptyString(row.provenanceRef) ||
+        !isUniqueStringArray(row.declaredCapabilityRefs) ||
+        !isUniqueStringArray(row.publicContractRefs) ||
+        !isUniqueStringArray(row.publicCapabilityRefs) ||
         !nonEmptyString(row.installId),
     )
   ) {
@@ -290,7 +416,10 @@ export function isResolvedProductLock(
   }
   const productIds = rows.map((row) => row.productId as string);
   const installIds = rows.map((row) => row.installId as string);
-  if (new Set(installIds).size !== installIds.length) {
+  if (
+    new Set(installIds).size !== installIds.length ||
+    new Set(productIds).size !== productIds.length
+  ) {
     return false;
   }
   const productIdSet = new Set(productIds);
@@ -300,13 +429,21 @@ export function isResolvedProductLock(
       (edge) =>
         !isRecord(edge) ||
         !hasExactKeys(edge, [
+          "compatibilityRef",
           "fromProductId",
           "kind",
+          "packageVersion",
+          "requiredCapabilityRefs",
+          "requiredContractRefs",
           "toProductId",
         ]) ||
         edge.kind !== "requires" ||
         !nonEmptyString(edge.fromProductId) ||
         !nonEmptyString(edge.toProductId) ||
+        !nonEmptyString(edge.packageVersion) ||
+        !nonEmptyString(edge.compatibilityRef) ||
+        !isUniqueStringArray(edge.requiredContractRefs) ||
+        !isUniqueStringArray(edge.requiredCapabilityRefs) ||
         edge.fromProductId === edge.toProductId ||
         !productIdSet.has(edge.fromProductId) ||
         !productIdSet.has(edge.toProductId),
@@ -321,6 +458,16 @@ export function isResolvedProductLock(
   if (
     new Set(edgeKeys).size !== edgeKeys.length ||
     [...edgeKeys].sort().join("\0") !== edgeKeys.join("\0")
+  ) {
+    return false;
+  }
+  const expectedEdges = deriveDeclaredDependencyEdges(
+    rows as unknown as readonly ResolvedProductLockRow[],
+  );
+  if (
+    !Array.isArray(expectedEdges) ||
+    canonicalJson(expectedEdges as unknown as JsonValue) !==
+      canonicalJson(edges as unknown as JsonValue)
   ) {
     return false;
   }

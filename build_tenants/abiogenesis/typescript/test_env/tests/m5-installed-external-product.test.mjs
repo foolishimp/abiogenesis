@@ -614,11 +614,6 @@ async function externalScenario(
     }),
     invocation("abg.operation.workspace.bind", "exact_product_set", refs.bind, {
       installInvocationRefs: [refs.installAbi, refs.installMini],
-      dependencyEdges: [{
-        kind: "requires",
-        fromProductId: mini.basis.productId,
-        toProductId: harness.candidateBasis.productId,
-      }],
       workspaceId: `workspace://t270/${label}`,
       canonicalRoot: workspaceRoot,
       authorizedActorRef: "actor://developer.example/trusted-developer",
@@ -714,6 +709,16 @@ function assertExternalOutcome(outcomes, harness, mini) {
     kind: "requires",
     fromProductId: mini.basis.productId,
     toProductId: harness.candidateBasis.productId,
+    packageVersion: harness.candidateBasis.packageVersion,
+    compatibilityRef: "compatibility://abiogenesis/major/5",
+    requiredContractRefs: [
+      "abg.contract.gtl.root-declaration",
+      "abg.contract.public.root-invocation",
+    ],
+    requiredCapabilityRefs: [
+      "abg.capability.catalog.invoke-graph-function@5",
+      "abg.capability.gtl.author@5",
+    ],
   }]);
   const result = outcomes[7];
   assert.equal(result.replayAgreement, true);

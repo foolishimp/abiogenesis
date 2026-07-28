@@ -490,7 +490,6 @@ async function applyWorkspaceBind(
     "authorityManifestRef",
     "authorizedActorRef",
     "canonicalRoot",
-    "dependencyEdges",
     "installInvocationRef",
     "installInvocationRefs",
     "roots",
@@ -522,30 +521,8 @@ async function applyWorkspaceBind(
       installInvocationRef,
       "ProductInstall",
     ));
-  const dependencyEdges = invocation.payload.dependencyEdges === undefined
-    ? []
-    : recordArrayField(invocation.payload, "dependencyEdges").map((edge) => {
-      requireExactPayloadKeys(
-        edge,
-        ["fromProductId", "kind", "toProductId"],
-        "workspace.bind dependency edge",
-      );
-      const kind = stringField(edge, "kind");
-      if (kind !== "requires") {
-        throw new ApplicationRefusal(
-          "invalid_request",
-          "workspace.bind dependency edge kind must be requires",
-        );
-      }
-      return {
-        kind,
-        fromProductId: stringField(edge, "fromProductId"),
-        toProductId: stringField(edge, "toProductId"),
-      } satisfies product.ProductDependencyEdge;
-    });
   const lock = product.constructResolvedProductLock(
     installStates.map((state) => state.install),
-    dependencyEdges,
   );
   if (lock.kind !== "resolved_product_lock") {
     throw new ApplicationRefusal("owner_refusal", `Product lock construction refused: ${lock.message}`);
@@ -622,6 +599,10 @@ async function applyWorkspaceBind(
       kind: edge.kind,
       fromProductId: edge.fromProductId,
       toProductId: edge.toProductId,
+      packageVersion: edge.packageVersion,
+      compatibilityRef: edge.compatibilityRef,
+      requiredContractRefs: edge.requiredContractRefs,
+      requiredCapabilityRefs: edge.requiredCapabilityRefs,
     })),
     admissionEventRef: binding.admissionEventRef,
   });

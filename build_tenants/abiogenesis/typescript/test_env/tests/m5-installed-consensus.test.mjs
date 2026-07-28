@@ -549,9 +549,29 @@ function expectedWorkspaceBinding(basis, harness, scenario) {
     artifactDigest: harness.candidateBasis.artifactDigest,
     productContentDigest: harness.candidateBasis.productContentDigest,
     manifestDigest: harness.candidateBasis.manifestDigest,
+    descriptorRef: harness.candidateManifest.descriptorRef,
+    publisherNamespace: harness.candidateManifest.publisherNamespace,
+    contributionManifestRef:
+      harness.candidateManifest.contributionManifestRef,
+    compatibilityRefs: harness.candidateManifest.compatibilityRefs,
+    declaredDependencies: harness.candidateManifest.declaredDependencies,
+    provenanceRef: harness.candidateManifest.provenanceRef,
+    declaredCapabilityRefs:
+      harness.candidateManifest.declaredCapabilityRefs,
+    publicContractRefs:
+      harness.candidateManifest.publicContractCatalog.rows.map(
+        (row) => row.contractId,
+      ).sort(),
+    publicCapabilityRefs: [
+      ...new Set(
+        harness.candidateManifest.publicContractCatalog.rows.flatMap(
+          (row) => row.capabilityIdentities ?? [],
+        ),
+      ),
+    ].sort(),
     admissionEventRef: "event://client/derived-install-basis",
   };
-  const lock = basis.product.constructResolvedProductLock([install], []);
+  const lock = basis.product.constructResolvedProductLock([install]);
   assert.equal(lock.kind, "resolved_product_lock");
   const productSet = basis.product.constructProductSet([install], lock);
   assert.equal(productSet.kind, "product_set");

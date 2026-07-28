@@ -5,6 +5,7 @@ export {
   PRODUCT_INSTALL_REFUSAL_CODES,
   PRODUCT_VERIFICATION_REFUSAL_CODES,
   type InstallProductRequest,
+  type ProductDeclaredDependency,
   type ProductInstallCandidate,
   type ProductInstallRefusal,
   type ProductInstallRefusalCode,

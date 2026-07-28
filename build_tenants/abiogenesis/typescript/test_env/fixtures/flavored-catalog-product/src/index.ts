@@ -7,12 +7,23 @@ import type {
   Sha256Digest,
 } from "@abiogenesis/typescript-tenant/product";
 import type {
+  CatalogContribution,
   ContractDeclaration,
   GraphFunction,
   GtlProgram,
   ModulePublication,
   RootModuleArtifactBasis,
 } from "@abiogenesis/typescript-tenant/gtl";
+
+export type FlavoredDeclarationConstructors = Pick<
+  typeof import("@abiogenesis/typescript-tenant/gtl"),
+  | "catalogContribution"
+  | "closureContract"
+  | "contractDeclaration"
+  | "implementationBinding"
+  | "modulePublication"
+  | "productSemanticsBinding"
+>;
 
 const PACKAGE_NAME = "@abiogenesis-fixtures/flavored-catalog-product";
 const PACKAGE_VERSION = "5.0.0";
@@ -337,6 +348,7 @@ export const FLAVORED_CATALOG_PRODUCT_SEMANTICS:
 
 export function constructFlavoredCatalogPublication(
   artifact: RootModuleArtifactBasis,
+  declarations: FlavoredDeclarationConstructors,
 ): Readonly<ModulePublication> {
   if (
     artifact.packageName !== PACKAGE_NAME ||
@@ -367,7 +379,7 @@ export function constructFlavoredCatalogPublication(
   ];
   const contracts: readonly ContractDeclaration[] = contractRows.map((
     [contractKind, contractRef, valueKind],
-  ) => ({
+  ) => declarations.contractDeclaration({
     contractRef: contractRef!,
     contractVersion: "5.0.0",
     contractKind: contractKind!,
@@ -455,7 +467,26 @@ export function constructFlavoredCatalogPublication(
       artifact.productManifestDigest,
     ],
   };
-  const publication: ModulePublication = {
+  const contributions: readonly CatalogContribution[] = [{
+    handle: ids.graphFunctionRef,
+    kind: "graph_function",
+    declarationOrContractRef: ids.graphFunctionRef,
+    programMembershipRefs: [ids.programRef],
+    ...contributionBasis,
+  }, {
+    handle: ids.nodeTypeHandle,
+    kind: "node_type",
+    declarationOrContractRef: ids.nodeTypeRef,
+    programMembershipRefs: [],
+    ...contributionBasis,
+  }, {
+    handle: ids.overlayHandle,
+    kind: "overlay",
+    declarationOrContractRef: ids.overlayRef,
+    programMembershipRefs: [ids.programRef],
+    ...contributionBasis,
+  }];
+  return declarations.modulePublication({
     kind: "module_publication",
     moduleRef: ids.moduleRef,
     moduleVersion: "5.0.0",
@@ -466,18 +497,18 @@ export function constructFlavoredCatalogPublication(
     descriptorRef: "descriptor://flavor.example/text@5",
     contributionManifestRef:
       "contribution-manifest://flavor.example/text@5",
-    productSemanticsBinding: {
+    productSemanticsBinding: declarations.productSemanticsBinding({
       kind: "product_semantics_binding",
       bindingRef: ids.semanticsBindingRef,
       packageName: PACKAGE_NAME,
       packageVersion: PACKAGE_VERSION,
       modulePath: "build/index.js",
       namedSymbol: "FLAVORED_CATALOG_PRODUCT_SEMANTICS",
-    },
+    }),
     contracts,
     evaluators: [],
     rules: [],
-    implementationBindings: [{
+    implementationBindings: [declarations.implementationBinding({
       kind: "implementation_binding",
       bindingRef: ids.implementationBindingRef,
       implementationRef: ids.implementationRef,
@@ -490,8 +521,8 @@ export function constructFlavoredCatalogPublication(
       outputContractRef: ids.outputContractRef,
       failureContractRef: ids.failureContractRef,
       refusalContractRef: ids.refusalContractRef,
-    }],
-    closureContracts: [{
+    })],
+    closureContracts: [declarations.closureContract({
       kind: "closure_contract",
       closureContractRef: ids.closureContractRef,
       predicateRef: "predicate://flavor.example/text/terminal@5",
@@ -511,28 +542,11 @@ export function constructFlavoredCatalogPublication(
         "graph_call_closed",
         "run_closed",
       ],
-    }],
+    })],
     programs: [program],
     graphFunctions: [graphFunction],
-    contributions: [{
-      handle: ids.graphFunctionRef,
-      kind: "graph_function",
-      declarationOrContractRef: ids.graphFunctionRef,
-      programMembershipRefs: [ids.programRef],
-      ...contributionBasis,
-    }, {
-      handle: ids.nodeTypeHandle,
-      kind: "node_type",
-      declarationOrContractRef: ids.nodeTypeRef,
-      programMembershipRefs: [],
-      ...contributionBasis,
-    }, {
-      handle: ids.overlayHandle,
-      kind: "overlay",
-      declarationOrContractRef: ids.overlayRef,
-      programMembershipRefs: [ids.programRef],
-      ...contributionBasis,
-    }],
-  };
-  return deepFreeze(publication);
+    contributions: contributions.map((contribution) =>
+      declarations.catalogContribution(contribution)
+    ),
+  });
 }

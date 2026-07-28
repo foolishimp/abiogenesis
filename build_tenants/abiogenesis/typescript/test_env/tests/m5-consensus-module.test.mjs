@@ -1607,6 +1607,24 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
       assert.ok(catalogEvent);
       assert.ok(catalogViewEvent);
       const verification = transcript[0].payload;
+      const manifest = JSON.parse(
+        await readFile(
+          resolve(packageRoot, "product-toolchain-manifest.json"),
+          "utf8",
+        ),
+      );
+      const publicContractRefs = [
+        ...new Set(
+          manifest.publicContractCatalog.rows.map((row) => row.contractId),
+        ),
+      ].sort();
+      const publicCapabilityRefs = [
+        ...new Set(
+          manifest.publicContractCatalog.rows.flatMap(
+            (row) => row.capabilityIdentities,
+          ),
+        ),
+      ].sort();
       const install = {
         kind: "product_install",
         schemaVersion: "5.0.0",
@@ -1624,6 +1642,15 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
         artifactDigest: verification.expectedArtifactDigest,
         productContentDigest: verification.expectedProductContentDigest,
         manifestDigest: verification.expectedManifestDigest,
+        descriptorRef: manifest.descriptorRef,
+        publisherNamespace: manifest.publisherNamespace,
+        contributionManifestRef: manifest.contributionManifestRef,
+        compatibilityRefs: manifest.compatibilityRefs,
+        declaredDependencies: manifest.declaredDependencies,
+        provenanceRef: manifest.provenanceRef,
+        declaredCapabilityRefs: manifest.declaredCapabilityRefs,
+        publicContractRefs,
+        publicCapabilityRefs,
         admissionEventRef: installEvent.eventId,
       };
       const publication = transcript[3].payload.publication;

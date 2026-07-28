@@ -17,7 +17,7 @@ does not issue a semantic verdict.
 |---|---|
 | Candidate commit | `fd6a3f1670687fcf5e50765161a72fd769d6271b` |
 | Candidate tree | `8d3aeccf8a3e9966df31c68382ed03f6807baac8` |
-| Prime-gate parent | `8c4c78668122f7ae69626302186e10ea7ac775b6` |
+| Prime-gate parent | `8c4c78660813afc4bd5875cbc18c634d87c86fa7` |
 | Accepted S05 base | `1ddc802d3003a3d0782398f7ec7c74cfa81ab127` |
 | M05 design digest | `5e69c37af2a53b0fc1af74f44c5f014fa38332867845979182db6844e4268b4b` |
 

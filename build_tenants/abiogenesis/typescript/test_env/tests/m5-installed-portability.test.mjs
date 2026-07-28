@@ -160,11 +160,6 @@ async function portabilityScenario(harness, flavored, label) {
       refs.bind,
       {
         installInvocationRefs: [refs.installAbi, refs.installFlavored],
-        dependencyEdges: [{
-          kind: "requires",
-          fromProductId: flavored.basis.productId,
-          toProductId: harness.candidateBasis.productId,
-        }],
         workspaceId: `workspace://t281/${label}`,
         canonicalRoot: workspaceRoot,
         authorizedActorRef: "actor://flavor.example/trusted-developer",
@@ -283,6 +278,21 @@ function assertPortableOutcome(run, flavored) {
   const nodeApplication = run.outcomes[7];
   const overlayApplication = run.outcomes[8];
   const outcome = run.outcomes[9];
+  assert.deepEqual(run.outcomes[4].result.dependencyEdges, [{
+    kind: "requires",
+    fromProductId: flavored.basis.productId,
+    toProductId: run.outcomes[0].result.productId,
+    packageVersion: "5.0.0-dev.286",
+    compatibilityRef: "compatibility://abiogenesis/major/5",
+    requiredContractRefs: [
+      "abg.contract.gtl.root-declaration",
+      "abg.contract.public.root-invocation",
+    ],
+    requiredCapabilityRefs: [
+      "abg.capability.catalog.invoke-graph-function@5",
+      "abg.capability.gtl.author@5",
+    ],
+  }]);
   assert.equal(nodeApplication.result.contributionKind, "node_type");
   assert.equal(nodeApplication.result.applicationVariant, "node_type");
   assert.equal(nodeApplication.result.appliedValueRef, flavored.ids.nodeTypeRef);
@@ -409,6 +419,74 @@ test(
     assert.deepEqual(sdkOutcome.result, cliOutcome.result);
   },
 );
+
+test("S06 workspace binding rejects caller-authored dependency edges", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const flavored = await prepareFlavoredCatalogProduct(harness);
+  const scenario = await portabilityScenario(
+    harness,
+    flavored,
+    "flavored-host-dependency",
+  );
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `host-dependency=${Date.now()}`,
+  );
+  const operationContext = installedPublic.createRootOperationContext();
+  try {
+    for (const row of scenario.transcript.slice(0, 4)) {
+      const outcome = await installedPublic.applyRootPublicInvocation(
+        operationContext,
+        row,
+      );
+      assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+    }
+    const forgedBind = structuredClone(scenario.transcript[4]);
+    forgedBind.invocationRef =
+      "invocation://t281/flavored-host-dependency/forged-bind";
+    forgedBind.payload.dependencyEdges = [{
+      kind: "requires",
+      fromProductId: harness.candidateBasis.productId,
+      toProductId: flavored.basis.productId,
+    }];
+    const refused = await installedPublic.applyRootPublicInvocation(
+      operationContext,
+      forgedBind,
+    );
+    assert.equal(refused.disposition, "refused");
+    assert.equal(refused.result.code, "invalid_request");
+  } finally {
+    installedPublic.closeRootOperationContext(operationContext);
+  }
+});
+
+test("S06 Codex delegate rejects substituted and missing CLI paths", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const transcriptPath = join(harness.scratch, "codex-preflight.jsonl");
+  await writeFile(transcriptPath, "\n", "utf8");
+  const scenario = { transcriptPath };
+
+  const substituted = await runInstalledCodex(harness, scenario, {
+    cliPath: "/bin/echo",
+  });
+  assert.equal(substituted.exitCode, 2);
+  assert.equal(substituted.stdout, "");
+  assert.match(
+    substituted.stderr,
+    /requires the exact sibling installed abg\.cli/u,
+  );
+
+  const missing = await runInstalledCodex(harness, scenario, {
+    cliPath: join(harness.scratch, "missing-abg.cli"),
+  });
+  assert.equal(missing.exitCode, 2);
+  assert.equal(missing.stdout, "");
+  assert.match(
+    missing.stderr,
+    /paths must identify exact absolute files/u,
+  );
+});
 
 test(
   "S05 catalog.apply keeps concrete-value authority inside one operation context",
@@ -871,7 +949,7 @@ test("S06 Codex delegate and flavored Product keep their public boundaries", asy
   );
   assert.doesNotMatch(
     delegateSource,
-    /from\s+["'][.]{2}\/(?:abg|gtl|hog|implementation|product|public|validator)\//u,
+    /(?:from\s+["'][.]{2}\/(?:abg|gtl|hog|implementation|product|public|validator)\/|import\s*\(|require\s*\()/u,
   );
   assert.doesNotMatch(
     delegateSource,
@@ -897,8 +975,21 @@ test("S06 Codex delegate and flavored Product keep their public boundaries", asy
     flavoredSource,
     /from "@abiogenesis\/typescript-tenant\/gtl"/u,
   );
+  for (const constructor of [
+    "catalogContribution",
+    "closureContract",
+    "contractDeclaration",
+    "implementationBinding",
+    "modulePublication",
+    "productSemanticsBinding",
+  ]) {
+    assert.match(
+      flavoredSource,
+      new RegExp(`declarations\\.${constructor}\\(`, "u"),
+    );
+  }
   assert.doesNotMatch(
     flavoredSource,
-    /build\/code\/src|from\s+["'][.]{1,2}\//u,
+    /build\/code\/src|from\s+["'][.]{1,2}\/|(?:import|require)\s*\(\s*["'](?:[.]{1,2}\/|@abiogenesis\/typescript-tenant\/build\/)/u,
   );
 });

@@ -575,14 +575,28 @@ const catalogWithoutDigest = {
   rows,
 };
 
+const productContentDigest = payloadInventoryDigest(payloadInventory);
+const contentIdentity = productContentDigest.slice("sha256:".length);
 const manifest = {
   kind: "abg_product_toolchain_manifest",
   schemaVersion: "5.0.0",
   productId,
   packageName: packageJson.name,
   packageVersion: packageJson.version,
-  productContentDigest: payloadInventoryDigest(payloadInventory),
+  productContentDigest,
   productRelativeLocators,
+  descriptorRef:
+    `descriptor://abiogenesis/typescript-tenant/${contentIdentity}`,
+  publisherNamespace: "abiogenesis",
+  contributionManifestRef:
+    `contribution-manifest://abiogenesis/conformance/${contentIdentity}`,
+  compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+  declaredDependencies: [],
+  provenanceRef:
+    `provenance://abiogenesis/typescript-tenant/${contentIdentity}`,
+  declaredCapabilityRefs: [
+    ...new Set(rows.flatMap((row) => row.capabilityIdentities)),
+  ].sort(),
   publicContractCatalog: {
     ...catalogWithoutDigest,
     catalogDigest: sha256Canonical(catalogWithoutDigest),

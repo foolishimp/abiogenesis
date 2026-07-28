@@ -4,6 +4,7 @@ import { isAbsolute, posix } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type {
+  ProductDeclaredDependency,
   ProductVerificationRefusal,
   ProductVerificationRefusalCode,
   ProductVerificationResult,
@@ -28,6 +29,13 @@ export interface ProductManifestView {
   readonly packageVersion: string;
   readonly productContentDigest: Sha256Digest;
   readonly productRelativeLocators: readonly string[];
+  readonly descriptorRef: string;
+  readonly publisherNamespace: string;
+  readonly contributionManifestRef: string;
+  readonly compatibilityRefs: readonly string[];
+  readonly declaredDependencies: readonly ProductDeclaredDependency[];
+  readonly provenanceRef: string;
+  readonly declaredCapabilityRefs: readonly string[];
   readonly publicContractCatalog: JsonRecord & {
     readonly schemaVersion: string;
     readonly catalogId: string;
@@ -66,6 +74,41 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function isNonblankString(value: unknown): value is string {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function isUniqueStringArray(value: unknown): value is readonly string[] {
+  return Array.isArray(value) &&
+    value.every(isNonblankString) &&
+    new Set(value).size === value.length;
+}
+
+function hasExactKeys(
+  value: Readonly<Record<string, unknown>>,
+  keys: readonly string[],
+): boolean {
+  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
+}
+
+function isDeclaredDependency(value: unknown): value is ProductDeclaredDependency {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "compatibilityRef",
+      "kind",
+      "packageVersion",
+      "productId",
+      "requiredCapabilityRefs",
+      "requiredContractRefs",
+    ]) &&
+    value.kind === "requires" &&
+    isNonblankString(value.productId) &&
+    isNonblankString(value.packageVersion) &&
+    isNonblankString(value.compatibilityRef) &&
+    isUniqueStringArray(value.requiredContractRefs) &&
+    isUniqueStringArray(value.requiredCapabilityRefs);
+}
+
 function isSafeProductPath(value: string): boolean {
   if (value.length === 0 || isAbsolute(value) || value.includes("\\")) {
     return false;
@@ -88,6 +131,14 @@ export function parseProductManifest(value: unknown): ProductManifestView | null
     !isSha256Digest(value.productContentDigest) ||
     !Array.isArray(value.productRelativeLocators) ||
     !value.productRelativeLocators.every((entry) => typeof entry === "string") ||
+    !isNonblankString(value.descriptorRef) ||
+    !isNonblankString(value.publisherNamespace) ||
+    !isNonblankString(value.contributionManifestRef) ||
+    !isUniqueStringArray(value.compatibilityRefs) ||
+    !Array.isArray(value.declaredDependencies) ||
+    !value.declaredDependencies.every(isDeclaredDependency) ||
+    !isNonblankString(value.provenanceRef) ||
+    !isUniqueStringArray(value.declaredCapabilityRefs) ||
     typeof catalog.schemaVersion !== "string" ||
     typeof catalog.catalogId !== "string" ||
     typeof catalog.catalogVersion !== "string" ||
@@ -96,6 +147,14 @@ export function parseProductManifest(value: unknown): ProductManifestView | null
     !isSha256Digest(catalog.catalogSchemaDigest) ||
     !Array.isArray(catalog.rows) ||
     !catalog.rows.every(isRecord)
+  ) {
+    return null;
+  }
+  const dependencies = value.declaredDependencies as readonly ProductDeclaredDependency[];
+  if (
+    dependencies.some((dependency) => dependency.productId === value.productId) ||
+    new Set(dependencies.map((dependency) => dependency.productId)).size !==
+      dependencies.length
   ) {
     return null;
   }
@@ -323,6 +382,7 @@ export async function verifyProduct(
   }
 
   const contractIds = new Set<string>();
+  const publicCapabilityRefs = new Set<string>();
   try {
     const schemaBytes = await readArchiveEntry(
       request.artifactPath,
@@ -341,6 +401,15 @@ export async function verifyProduct(
         return refusal(request, "catalog_mismatch", "catalog row identity or digest is invalid");
       }
       contractIds.add(row.contractId);
+      if (
+        row.capabilityIdentities !== undefined &&
+        !isUniqueStringArray(row.capabilityIdentities)
+      ) {
+        return refusal(request, "catalog_mismatch", "catalog row capabilities are invalid");
+      }
+      for (const capabilityRef of row.capabilityIdentities ?? []) {
+        publicCapabilityRefs.add(capabilityRef as string);
+      }
 
       const assetLocator = readAssetLocator(row);
       if (assetLocator !== null) {
@@ -402,8 +471,21 @@ export async function verifyProduct(
     packageVersion: manifest.packageVersion,
     productContentDigest,
     manifestDigest,
+    descriptorRef: manifest.descriptorRef,
+    publisherNamespace: manifest.publisherNamespace,
+    contributionManifestRef: manifest.contributionManifestRef,
+    compatibilityRefs: [...manifest.compatibilityRefs],
+    declaredDependencies: manifest.declaredDependencies.map((dependency) => ({
+      ...dependency,
+      requiredContractRefs: [...dependency.requiredContractRefs],
+      requiredCapabilityRefs: [...dependency.requiredCapabilityRefs],
+    })),
+    provenanceRef: manifest.provenanceRef,
+    declaredCapabilityRefs: [...manifest.declaredCapabilityRefs],
     catalogId: manifest.publicContractCatalog.catalogId,
     catalogDigest: manifest.publicContractCatalog.catalogDigest,
+    publicContractRefs: [...contractIds].sort(),
+    publicCapabilityRefs: [...publicCapabilityRefs].sort(),
     checkedPayloadFiles: inventory.length,
   };
 }

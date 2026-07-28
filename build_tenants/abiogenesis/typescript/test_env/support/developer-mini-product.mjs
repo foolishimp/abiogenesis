@@ -37,6 +37,9 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
   const packageJson = JSON.parse(
     await readFile(join(sourceRoot, "package.json"), "utf8"),
   );
+  const abiogenesisManifest = JSON.parse(
+    await readFile(join(packageRoot, "product-toolchain-manifest.json"), "utf8"),
+  );
   const productId = "product://developer.example/greeting@5.0.0";
   const productRelativeLocators = [
     "build/index.d.ts",
@@ -83,6 +86,27 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
     packageVersion: packageJson.version,
     productContentDigest,
     productRelativeLocators,
+    descriptorRef: "descriptor://developer.example/greeting@5",
+    publisherNamespace: "developer.example",
+    contributionManifestRef:
+      "contribution-manifest://developer.example/greeting@5",
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    declaredDependencies: [{
+      kind: "requires",
+      productId: abiogenesisManifest.productId,
+      packageVersion: abiogenesisManifest.packageVersion,
+      compatibilityRef: "compatibility://abiogenesis/major/5",
+      requiredContractRefs: [
+        "abg.contract.gtl.root-declaration",
+        "abg.contract.public.root-invocation",
+      ],
+      requiredCapabilityRefs: [
+        "abg.capability.catalog.invoke-graph-function@5",
+        "abg.capability.gtl.author@5",
+      ],
+    }],
+    provenanceRef: "provenance://developer.example/greeting@5",
+    declaredCapabilityRefs: ["developer.example.capability.greeting@5"],
     publicContractCatalog: {
       ...catalogWithoutDigest,
       catalogDigest: product.sha256Canonical(catalogWithoutDigest),

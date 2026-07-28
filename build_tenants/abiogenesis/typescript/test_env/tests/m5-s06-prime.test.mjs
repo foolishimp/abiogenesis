@@ -25,7 +25,7 @@ import {
 const packageRoot = new URL("../..", import.meta.url).pathname;
 const digest = (character) => `sha256:${character.repeat(64)}`;
 
-function install(label, character) {
+function install(label, character, overrides = {}) {
   return {
     kind: "product_install",
     schemaVersion: "5.0.0",
@@ -39,6 +39,50 @@ function install(label, character) {
     artifactDigest: digest(character),
     productContentDigest: digest(character),
     manifestDigest: digest(character),
+    descriptorRef: `descriptor://s06-prime/${label}@5`,
+    publisherNamespace: "s06-prime",
+    contributionManifestRef:
+      `contribution-manifest://s06-prime/${label}@5`,
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    declaredDependencies: [],
+    provenanceRef: `provenance://s06-prime/${label}@5`,
+    declaredCapabilityRefs: [`capability://s06-prime/${label}@5`],
+    publicContractRefs: [`contract://s06-prime/${label}@5`],
+    publicCapabilityRefs: [`capability://s06-prime/${label}@5`],
+    ...overrides,
+  };
+}
+
+function dependency(target, overrides = {}) {
+  return {
+    kind: "requires",
+    productId: target.productId,
+    packageVersion: target.packageVersion,
+    compatibilityRef: target.compatibilityRefs[0],
+    requiredContractRefs: [target.publicContractRefs[0]],
+    requiredCapabilityRefs: [target.publicCapabilityRefs[0]],
+    ...overrides,
+  };
+}
+
+function lockRow(value) {
+  return {
+    productId: value.productId,
+    packageName: value.packageName,
+    packageVersion: value.packageVersion,
+    artifactDigest: value.artifactDigest,
+    productContentDigest: value.productContentDigest,
+    manifestDigest: value.manifestDigest,
+    descriptorRef: value.descriptorRef,
+    publisherNamespace: value.publisherNamespace,
+    contributionManifestRef: value.contributionManifestRef,
+    compatibilityRefs: value.compatibilityRefs,
+    declaredDependencies: value.declaredDependencies,
+    provenanceRef: value.provenanceRef,
+    declaredCapabilityRefs: value.declaredCapabilityRefs,
+    publicContractRefs: value.publicContractRefs,
+    publicCapabilityRefs: value.publicCapabilityRefs,
+    installId: value.installId,
   };
 }
 
@@ -66,42 +110,135 @@ test("S06 exact coordinate lookup distinguishes zero, one, and many", () => {
 });
 
 test("S06 dependency topology uses one cycle relation for construction and validation", () => {
-  const left = install("left", "a");
   const right = install("right", "b");
-  const acyclic = constructResolvedProductLock(
-    [left, right],
-    [{
-      kind: "requires",
-      fromProductId: left.productId,
-      toProductId: right.productId,
-    }],
-  );
+  const left = install("left", "a", {
+    declaredDependencies: [dependency(right)],
+  });
+  const acyclic = constructResolvedProductLock([left, right]);
   assert.equal(acyclic.kind, "resolved_product_lock");
   assert.equal(isResolvedProductLock(acyclic), true);
-
-  const cycleEdges = [{
+  assert.deepEqual(acyclic.dependencyEdges, [{
     kind: "requires",
     fromProductId: left.productId,
     toProductId: right.productId,
+    packageVersion: right.packageVersion,
+    compatibilityRef: right.compatibilityRefs[0],
+    requiredContractRefs: [right.publicContractRefs[0]],
+    requiredCapabilityRefs: [right.publicCapabilityRefs[0]],
+  }]);
+
+  assert.equal(
+    constructResolvedProductLock([left]).code,
+    "invalid_dependency",
+    "a missing declared dependency must refuse",
+  );
+  const wrongVersion = install("wrong-version", "c", {
+    declaredDependencies: [
+      dependency(right, { packageVersion: "6.0.0" }),
+    ],
+  });
+  assert.equal(
+    constructResolvedProductLock([wrongVersion, right]).code,
+    "invalid_dependency",
+    "an incompatible exact version must refuse",
+  );
+  const wrongCompatibility = install("wrong-compatibility", "d", {
+    declaredDependencies: [
+      dependency(right, {
+        compatibilityRef: "compatibility://abiogenesis/major/6",
+      }),
+    ],
+  });
+  assert.equal(
+    constructResolvedProductLock([wrongCompatibility, right]).code,
+    "invalid_dependency",
+    "an incompatible declared compatibility must refuse",
+  );
+  const wrongCapability = install("wrong-capability", "e", {
+    declaredDependencies: [
+      dependency(right, {
+        requiredCapabilityRefs: ["capability://s06-prime/missing@5"],
+      }),
+    ],
+  });
+  assert.equal(
+    constructResolvedProductLock([wrongCapability, right]).code,
+    "invalid_dependency",
+    "a missing required capability must refuse",
+  );
+  const wrongContract = install("wrong-contract", "f", {
+    declaredDependencies: [
+      dependency(right, {
+        requiredContractRefs: ["contract://s06-prime/missing@5"],
+      }),
+    ],
+  });
+  assert.equal(
+    constructResolvedProductLock([wrongContract, right]).code,
+    "invalid_dependency",
+    "a missing required public contract must refuse",
+  );
+
+  const standalone = install("standalone", "0");
+  const hostInjected = constructResolvedProductLock(
+    [standalone],
+    [{
+      kind: "requires",
+      fromProductId: standalone.productId,
+      toProductId: right.productId,
+    }],
+  );
+  assert.equal(hostInjected.kind, "resolved_product_lock");
+  assert.deepEqual(
+    hostInjected.dependencyEdges,
+    [],
+    "caller arguments cannot add undeclared dependency authority",
+  );
+
+  const cycleLeftBase = install("cycle-left", "1");
+  const cycleRightBase = install("cycle-right", "2");
+  const cycleLeft = {
+    ...cycleLeftBase,
+    declaredDependencies: [dependency(cycleRightBase)],
+  };
+  const cycleRight = {
+    ...cycleRightBase,
+    declaredDependencies: [dependency(cycleLeftBase)],
+  };
+  const cycleRows = [lockRow(cycleLeft), lockRow(cycleRight)];
+  const cycleEdges = [{
+    kind: "requires",
+    fromProductId: cycleLeft.productId,
+    toProductId: cycleRight.productId,
+    packageVersion: cycleRight.packageVersion,
+    compatibilityRef: cycleRight.compatibilityRefs[0],
+    requiredContractRefs: [cycleRight.publicContractRefs[0]],
+    requiredCapabilityRefs: [cycleRight.publicCapabilityRefs[0]],
   }, {
     kind: "requires",
-    fromProductId: right.productId,
-    toProductId: left.productId,
+    fromProductId: cycleRight.productId,
+    toProductId: cycleLeft.productId,
+    packageVersion: cycleLeft.packageVersion,
+    compatibilityRef: cycleLeft.compatibilityRefs[0],
+    requiredContractRefs: [cycleLeft.publicContractRefs[0]],
+    requiredCapabilityRefs: [cycleLeft.publicCapabilityRefs[0]],
   }];
-  const refused = constructResolvedProductLock([left, right], cycleEdges);
+  const refused = constructResolvedProductLock([cycleLeft, cycleRight]);
   assert.equal(refused.kind, "environment_refusal");
   assert.equal(refused.code, "invalid_dependency");
 
   const lockBody = {
-    rows: acyclic.rows,
+    rows: cycleRows,
     dependencyEdges: cycleEdges,
   };
   const lockDigest = sha256Canonical(lockBody);
   const forged = {
-    ...acyclic,
+    kind: "resolved_product_lock",
+    schemaVersion: "5.0.0",
     lockId:
       `product-lock://abiogenesis/${lockDigest.slice("sha256:".length)}`,
     lockDigest,
+    rows: cycleRows,
     dependencyEdges: cycleEdges,
   };
   assert.equal(

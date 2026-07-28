@@ -56,6 +56,11 @@ export async function prepareFlavoredCatalogProduct(
     "@abiogenesis/typescript-tenant/product",
     `flavored=${Date.now()}`,
   );
+  const gtl = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/gtl",
+    `flavored-gtl=${Date.now()}`,
+  );
   const packageJson = JSON.parse(
     await readFile(join(sourceRoot, "package.json"), "utf8"),
   );
@@ -106,6 +111,27 @@ export async function prepareFlavoredCatalogProduct(
     packageVersion: packageJson.version,
     productContentDigest,
     productRelativeLocators,
+    descriptorRef: "descriptor://flavor.example/text@5",
+    publisherNamespace: "flavor.example",
+    contributionManifestRef:
+      "contribution-manifest://flavor.example/text@5",
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    declaredDependencies: [{
+      kind: "requires",
+      productId: harness.candidateBasis.productId,
+      packageVersion: harness.candidateBasis.packageVersion,
+      compatibilityRef: "compatibility://abiogenesis/major/5",
+      requiredContractRefs: [
+        "abg.contract.gtl.root-declaration",
+        "abg.contract.public.root-invocation",
+      ],
+      requiredCapabilityRefs: [
+        "abg.capability.catalog.invoke-graph-function@5",
+        "abg.capability.gtl.author@5",
+      ],
+    }],
+    provenanceRef: "provenance://flavor.example/text@5",
+    declaredCapabilityRefs: ["flavor.example.capability.render@5"],
     publicContractCatalog: {
       ...catalogWithoutDigest,
       catalogDigest: product.sha256Canonical(catalogWithoutDigest),
@@ -154,7 +180,7 @@ export async function prepareFlavoredCatalogProduct(
       productManifestDigest: manifestDigest,
       packageName: packageJson.name,
       packageVersion: packageJson.version,
-    }),
+    }, gtl),
     sourceRoot,
   };
 }

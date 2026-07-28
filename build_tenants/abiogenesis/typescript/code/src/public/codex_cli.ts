@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 import { spawn } from "node:child_process";
-import { statSync } from "node:fs";
+import { realpathSync, statSync } from "node:fs";
 import { isAbsolute } from "node:path";
+import { fileURLToPath } from "node:url";
 
 function usage(message: string): never {
   process.stderr.write(
@@ -24,15 +25,30 @@ function exactArguments(argv: readonly string[]): {
   }
   const cliPath = argv[1];
   const transcriptPath = argv[3];
+  let resolvedCliPath: string;
+  let resolvedTranscriptPath: string;
+  let installedCliPath: string;
+  try {
+    resolvedCliPath = realpathSync(cliPath ?? "");
+    resolvedTranscriptPath = realpathSync(transcriptPath ?? "");
+    installedCliPath = realpathSync(
+      fileURLToPath(new URL("./cli.js", import.meta.url)),
+    );
+  } catch {
+    return usage("abg.codex paths must identify exact absolute files");
+  }
   if (
     cliPath === undefined ||
     transcriptPath === undefined ||
     !isAbsolute(cliPath) ||
     !isAbsolute(transcriptPath) ||
-    !statSync(cliPath).isFile() ||
-    !statSync(transcriptPath).isFile()
+    resolvedCliPath !== installedCliPath ||
+    !statSync(resolvedCliPath).isFile() ||
+    !statSync(resolvedTranscriptPath).isFile()
   ) {
-    return usage("abg.codex paths must identify exact absolute files");
+    return usage(
+      "abg.codex requires the exact sibling installed abg.cli and one transcript",
+    );
   }
   return { cliPath, transcriptPath };
 }
