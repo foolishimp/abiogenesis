@@ -1,10 +1,10 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-28):** Replacement S06 candidate `33ab384b`,
-> tree `a5b86b54`, is frozen for independent exact-cut review. The bounded
-> dependency-readiness and packed-contract verification repair is complete as
-> a candidate claim. Do not edit, extend, or refreeze it; S04 and later work
-> remain held.
+> **Current disposition (2026-07-28):** Replacement S06 candidate `4f9bf707`,
+> tree `21ffbdaa`, is frozen for independent exact-cut review. The bounded
+> direct-dependency, TypeScript export-resolution, and schema-pointer repair is
+> complete as a candidate claim. Do not edit, extend, or refreeze it; S04 and
+> later work remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
@@ -13,7 +13,7 @@
 - status: active
 - phase_status: m5_s06_candidate_frozen
 - review_status: pending_independent_exact_cut_review
-- proof_status: mechanical_green_m5_173_m4_26_external_36_prime_4_portability_12
+- proof_status: mechanical_green_m5_176_m4_26_external_36_prime_6_portability_13
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
@@ -46,13 +46,13 @@
     build_tenants/abiogenesis/typescript/code/src/public
 - accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
 - accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
-- current_s06_candidate: 33ab384b14f7feb1bbab42f16c03f1724270eafd
-- current_s06_candidate_tree: a5b86b5441666d679a86a6bc61da892883eab1ab
-- current_s06_package_digest: 6005326e627cc57ccf4a72f2bb85f1ccc7306f6b7e5a7dc6f965f5fb6f85afd3
-- current_s06_package_inventory_digest: b5ef43c73b4adf827bcee2ba214678543564e7e424808e0b8d50c5a8305a3fec
+- current_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
+- current_s06_candidate_tree: 21ffbdaa5dfa52886a3cb29c6f2311f2d25012cc
+- current_s06_package_digest: 2005527064d3ed250acb07a41c5f241bd47675488c8f2609214c2127552bc1ca
+- current_s06_package_inventory_digest: a4ed5c359a678d504e32a201259a3c06bde9255fd3909a440ab24ee25353caa5
 - current_s06_handoff: >-
     .ai-workspace/comments/codex/
-    20260728T102300Z_HANDOFF_t281_s06_readiness_contract_candidate.md
+    20260728T130324Z_HANDOFF_t281_s06_direct_dependency_typescript_candidate.md
 
 ## Selected Outcome
 
@@ -160,6 +160,14 @@ bind their exact exported symbols. Readiness prerequisites remain independent
 from Program membership. The flavored Product consumes the published GTL
 constructor contract and `abg.capability.gtl.declare@5`.
 
+The final bounded review repair constrains readiness to the publishing
+Product's direct resolved dependency edges. Native export resolution uses the
+real TypeScript Program and checker over the exact packed declaration closure;
+the pre-install verifier carries its exact compiler and declaration
+dependencies inside the Product payload and does not consult an ambient
+toolchain. JSON Schema definition pointers traverse both object properties and
+canonical array indices before requiring an object or Boolean schema value.
+
 ## Acceptance
 
 The exact candidate closes S06 only when independent review confirms:
@@ -216,9 +224,9 @@ S06 remains open if:
 ## Handoff
 
 Independent reviewers inspected
-`c0d2a3e686ed589ce35efe629a351d149025a9d3` through the prior handoff. Their
-bounded findings produced replacement candidate
-`33ab384b14f7feb1bbab42f16c03f1724270eafd`. Reviewers now inspect only that
+`33ab384b14f7feb1bbab42f16c03f1724270eafd` through the prior handoff. Their
+three bounded findings produced replacement candidate
+`4f9bf7077579469135963a73b20cac7d9d082fb3`. Reviewers now inspect only that
 exact subject through the replacement handoff. The worker has stopped. Direct
 F_H acceptance closes S06.
 
