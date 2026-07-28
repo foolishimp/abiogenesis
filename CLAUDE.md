@@ -12,8 +12,9 @@ constraint network in `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` at
 `283325aa`; S05 realization is accepted at `1ddc802d`. S06 candidate
 `4f9bf707` and design candidate `b645595c` are returned evidence. The active
 realization basis is accepted design `4f80f84a`, tree `7070dca7`, under
-`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. One bounded Section 8
-implementation pass is active; freeze once and stop for exact-cut review.
+`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Its bounded Section 8 projection
+is frozen at candidate `51664393`, tree `deec0643`, for exact-cut review; do
+not edit or refreeze it.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -55,8 +56,8 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: S03 and S05 accepted; S06 native-contract design under review;
-realization held
+**Status**: S03 and S05 accepted; S06 realization candidate `51664393` frozen
+for independent review
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower

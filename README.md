@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 design `4f80f84a` accepted with one bounded realization pass active; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 design `4f80f84a` accepted; realization candidate `51664393` frozen for review; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -57,13 +57,14 @@ feature-specific runtime is not a lawful substitute.
 ## Current Work
 
 S06 implementation candidate `4f9bf707` and design candidate `b645595c` are
-returned evidence. The active subject is replacement candidate `4f80f84a`,
-tree `7070dca7`, in `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`: exact
+returned evidence. The accepted realization basis is design `4f80f84a`, tree
+`7070dca7`, in `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`: exact
 proposal/admission stages, sole named-symbol contract authority, per-symbol
 namespace/star coverage, cross-Product augmentation refusal, and one admitted
-native-closure digest in the existing resolved lock. That design is accepted;
-one bounded Section 8 realization pass is active. The Codex delegate remains a
-convenience shell, not alternate functionality.
+native-closure digest in the existing resolved lock. Its bounded Section 8
+projection is frozen at candidate `51664393`, tree `deec0643`, for independent
+review. The Codex delegate remains a convenience shell, not alternate
+functionality.
 
 `A5-F12` and `ABG5-S04` are planned 5.1 work. Their design candidate
 `4897ead1`, tree `11d0ef7b`, remains immutable future input under backlogged

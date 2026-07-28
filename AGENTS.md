@@ -43,9 +43,10 @@ Native declaration design candidate `b645595c`, tree `130af566`, is also
 returned. Its three findings are repaired together at replacement candidate
 `4f80f84a`, tree `7070dca7`, under
 `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`, and that exact design is directly
-accepted. Perform one bounded Section 8 realization pass, freeze once, and
-stop for exact-cut review. Full conservation qualification, qualification, and
-release must not receive implementation while S06 remains unresolved.
+accepted. Its bounded Section 8 projection is frozen at candidate `51664393`,
+tree `deec0643`, for one independent exact-cut review. Do not edit or refreeze
+it. Full conservation qualification, qualification, and release must not
+receive implementation while S06 remains unresolved.
 
 `A5-F12` and `ABG5-S04` are deferred to planned ABIogenesis 5.1. Their design
 is frozen at candidate `4897ead1`, tree `11d0ef7b`, under backlogged T-268 as
@@ -146,9 +147,9 @@ from them.
 - A clean session starts from a clean tracked and untracked worktree.
 - Do not restore or implement the planned 5.1 observer/tuner design on the 5.0
   active line.
-- During the current design gate, change only the bounded native-contract
-  Ontology/design, active status carriers, and mechanical design handoff.
-  Treat all S06 code/schema/test edits as provisional and do not extend them.
+- During the current exact-cut review gate, change no candidate code, schema,
+  test, proof, or design file. Only independent review commentary and direct
+  disposition may advance the subject.
 - Do not edit the deferred S04 design or any S04 realization surface.
 - A review finding blocks its exact claim; it does not automatically authorize
   another ticket, refactor, artifact family, or review programme.

@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_bounded_realization_under_t281
-- review_status: s03_s05_and_s06_native_contract_design_accepted
-- proof_status: s06_native_contract_design_accepted_realization_proof_pending
+- phase_status: m5_s06_exact_candidate_under_review
+- review_status: s03_s05_accepted_s06_candidate_pending_independent_review
+- proof_status: s06_mechanical_proof_complete_semantic_acceptance_pending
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -27,12 +27,12 @@
 - pen_holder: codex
 - build_tenant: typescript
 - current_product_outcome: ABG5-S06
-- implementation_hold: bounded_s06_realization_only
+- implementation_hold: exact_s06_candidate_review_only
 - implementation_hold_effect: >-
-    authorize one Section 8 S06 realization pass, its design-derived proof,
-    mechanical gates, exact candidate freeze, and implementation handoff under
-    T-281; prohibit design re-entry, planned 5.1 observer/tuner realization, M5
-    freeze, M6 qualification, M7 release, and unrelated refactoring
+    hold exact S06 candidate 51664393 immutable for independent review and
+    direct disposition under T-281; prohibit further realization, design
+    re-entry, planned 5.1 observer/tuner realization, unified M5 freeze, M6
+    qualification, M7 release, and unrelated refactoring
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_5_0_pre_rc_scenarios: ABG5-S01,ABG5-S02,ABG5-S03,ABG5-S05,ABG5-S06
 - release_scenario: ABG5-S07
@@ -43,7 +43,13 @@
     T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md
 - current_s06_owner: T-281
 - returned_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
-- current_s06_candidate: none_realization_in_progress
+- current_s06_candidate: 516643930d0f909afa2d35f4243fc0231f9b4cdd
+- current_s06_candidate_tree: deec0643fd8fe33ce5e4244a8437adf99bc146d6
+- current_s06_package_sha256: 1eecdeac4aecf4be7a30fadf4642a74fe119df5a8c1009be1d1ca54df0a6204b
+- current_s06_package_inventory_sha256: f9dd4d7652acbc723cb3ff701f7a155f507343705b97751d6d99a932e79a08b7
+- current_s06_handoff: >-
+    .ai-workspace/comments/codex/
+    20260728T192730Z_HANDOFF_t281_s06_native_contract_realization_candidate.md
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
@@ -106,10 +112,10 @@ reviews, completed tickets, and backlogged 5.1 design do not select work.
 
 ## Current Boundary
 
-T-281 owns the exact S06 boundary. The returned implementation is not a review
-subject. Native declaration closure is design-gated under
-`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`; retained realization resumes only
-after independent design acceptance. S06 closes only when:
+T-281 owns the exact S06 boundary. Native declaration closure is governed by
+accepted `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Its realization is frozen
+at candidate `51664393`, tree `deec0643`, and is the sole review subject. S06
+closes only when:
 
 - native SDK and native CLI invoke one installed public operation contract;
 - `abg.codex` is a convenience process shell over the exact installed CLI and
