@@ -1606,7 +1606,19 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
       assert.ok(installEvent);
       assert.ok(catalogEvent);
       assert.ok(catalogViewEvent);
-      const verification = transcript[0].payload;
+      const verificationInvocation = transcript.find(
+        (row) => row.operationId === "abg.operation.product.verify",
+      );
+      const installInvocation = transcript.find(
+        (row) => row.operationId === "abg.operation.product.install",
+      );
+      const catalogInvocation = transcript.find(
+        (row) => row.operationId === "abg.operation.catalog.admit",
+      );
+      assert.ok(verificationInvocation);
+      assert.ok(installInvocation);
+      assert.ok(catalogInvocation);
+      const verification = verificationInvocation.payload;
       const manifest = JSON.parse(
         await readFile(
           resolve(packageRoot, "product-toolchain-manifest.json"),
@@ -1625,16 +1637,51 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
           ),
         ),
       ].sort();
-      const publication = transcript[3].payload.publication;
-      const contentIdentity =
-        verification.expectedProductContentDigest.slice("sha256:".length);
+      const publication = catalogInvocation.payload.publication;
+      const verifiedArtifact = {
+        kind: "verified_product_artifact",
+        schemaVersion: "5.0.0",
+        disposition: "verified",
+        artifactRef: verification.artifactRef,
+        artifactDigest: verification.expectedArtifactDigest,
+        artifactByteLength: 0,
+        productId: verification.expectedProductId,
+        packageName: verification.expectedPackageName,
+        packageVersion: verification.expectedPackageVersion,
+        productContentDigest: verification.expectedProductContentDigest,
+        manifestDigest: verification.expectedManifestDigest,
+        descriptorRef: manifest.descriptorRef,
+        publisherNamespace: manifest.publisherNamespace,
+        contributionManifestRef: manifest.contributionManifestRef,
+        contributionManifestDigest: manifest.contributionManifestDigest,
+        contributionManifest: manifest.contributionManifest,
+        compatibilityRefs: manifest.compatibilityRefs,
+        declaredDependencies: manifest.declaredDependencies,
+        provenanceRef: manifest.provenanceRef,
+        declaredCapabilityRefs: manifest.declaredCapabilityRefs,
+        catalogId: manifest.publicContractCatalog.catalogId,
+        catalogDigest: manifest.publicContractCatalog.catalogDigest,
+        publicContracts: manifest.publicContractCatalog.rows,
+        publicContractRefs,
+        publicCapabilityRefs,
+        checkedPayloadFiles: 0,
+      };
+      const resolvedLock = product.constructResolvedProductLock([
+        verifiedArtifact,
+      ]);
+      assert.equal(
+        resolvedLock.kind,
+        "resolved_product_lock",
+        JSON.stringify(resolvedLock),
+      );
+      if (resolvedLock.kind !== "resolved_product_lock") return;
       const install = {
         kind: "product_install",
         schemaVersion: "5.0.0",
         disposition: "admitted",
         installId: installEvent.aggregateId,
         installedRoot: join(
-          transcript[1].payload.targetRoot,
+          installInvocation.payload.targetRoot,
           "node_modules",
           "@abiogenesis",
           "typescript-tenant",
@@ -1645,16 +1692,22 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
         artifactDigest: verification.expectedArtifactDigest,
         productContentDigest: verification.expectedProductContentDigest,
         manifestDigest: verification.expectedManifestDigest,
-        descriptorRef: publication.descriptorRef,
+        descriptorRef: verifiedArtifact.descriptorRef,
         publisherNamespace: manifest.publisherNamespace,
-        contributionManifestRef: publication.contributionManifestRef,
+        contributionManifestRef: manifest.contributionManifestRef,
+        contributionManifestDigest: manifest.contributionManifestDigest,
+        contributionManifest: manifest.contributionManifest,
         compatibilityRefs: manifest.compatibilityRefs,
         declaredDependencies: manifest.declaredDependencies,
-        provenanceRef:
-          `provenance://abiogenesis/typescript-tenant/${contentIdentity}`,
+        provenanceRef: manifest.provenanceRef,
         declaredCapabilityRefs: manifest.declaredCapabilityRefs,
+        catalogId: manifest.publicContractCatalog.catalogId,
+        catalogDigest: manifest.publicContractCatalog.catalogDigest,
+        publicContracts: manifest.publicContractCatalog.rows,
         publicContractRefs,
         publicCapabilityRefs,
+        resolvedLockId: resolvedLock.lockId,
+        resolvedLockDigest: resolvedLock.lockDigest,
         admissionEventRef: installEvent.eventId,
       };
       const productSemanticsBasis = {

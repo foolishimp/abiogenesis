@@ -149,6 +149,7 @@
         "productContentDigest",
         "publicContractCatalogId",
         "publicContractCatalogDigest",
+        "publicationBindings",
         "rows"
       ],
       "properties": {
@@ -179,11 +180,35 @@
         "publicContractCatalogDigest": {
           "$ref": "#/$defs/sha256"
         },
+        "publicationBindings": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/publicationBinding"
+          }
+        },
         "rows": {
           "type": "array",
           "items": {
             "$ref": "#/$defs/contributionRow"
           }
+        }
+      }
+    },
+    "publicationBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "moduleRef",
+        "publicationDigest"
+      ],
+      "properties": {
+        "moduleRef": {
+          "$ref": "#/$defs/ref"
+        },
+        "publicationDigest": {
+          "$ref": "#/$defs/sha256"
         }
       }
     },

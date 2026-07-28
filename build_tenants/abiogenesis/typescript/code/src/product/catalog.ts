@@ -15,6 +15,7 @@ import type {
   WorkspaceBinding,
 } from "./environment.js";
 import { resolveExactMatch } from "./exact_match.js";
+import { modulePublicationSemanticDigest } from "./publication.js";
 
 export type CatalogRowDispositionKind =
   | "admitted"
@@ -31,6 +32,7 @@ export interface CatalogRowCandidate {
   readonly owningProductId: string;
   readonly moduleRef: string;
   readonly programMembershipRefs: readonly string[];
+  readonly readinessPrerequisiteRefs: readonly string[];
   readonly readiness: "ready";
   readonly eligibility: "eligible";
   readonly callability: "callable" | "non_callable";
@@ -271,6 +273,20 @@ export function constructCatalogAdmissionCandidate(
     return refusal("publication_not_bound", "module publication is not carried by the exact bound Product lock");
   }
   const productLockRow = productLockRowMatch.value;
+  const publicationBinding = resolveExactMatch(
+    productLockRow.contributionManifest.publicationBindings,
+    (binding) => binding.moduleRef === publication.moduleRef,
+  );
+  if (
+    publicationBinding.kind !== "one" ||
+    publicationBinding.value.publicationDigest !==
+      modulePublicationSemanticDigest(publication)
+  ) {
+    return refusal(
+      "publication_not_bound",
+      "complete module publication differs from publisher-authored Product truth",
+    );
+  }
   const declaredContributionRows =
     productLockRow.contributionManifest.rows.filter(
       (row) => row.moduleRef === publication.moduleRef,
@@ -301,7 +317,7 @@ export function constructCatalogAdmissionCandidate(
         canonicalJson(
           declared.readinessPrerequisiteRefs as unknown as JsonValue,
         ) !== canonicalJson(
-          contribution.programMembershipRefs as unknown as JsonValue,
+          contribution.readinessPrerequisiteRefs as unknown as JsonValue,
         ) ||
         canonicalJson(
           contribution.provenanceRefs as unknown as JsonValue,
@@ -347,6 +363,7 @@ export function constructCatalogAdmissionCandidate(
       owningProductId: contribution.owningProductId,
       moduleRef: publication.moduleRef,
       programMembershipRefs: contribution.programMembershipRefs,
+      readinessPrerequisiteRefs: contribution.readinessPrerequisiteRefs,
       readiness: "ready" as const,
       eligibility: "eligible" as const,
       callability: contribution.kind === "graph_function" ? "callable" as const : "non_callable" as const,

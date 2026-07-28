@@ -105,7 +105,7 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   });
 
   assert.equal(run.exitCode, 0, run.stdout);
-  assert.equal(run.outcomes[5].disposition, "succeeded");
+  assert.equal(run.outcomes[6].disposition, "succeeded");
   assert.equal(await readFile(counterPath, "utf8"), "2");
 
   const events = await readEvents(scenario.eventLogPath);
@@ -160,7 +160,7 @@ test("M5 installed C.retry does not reinterpret a semantic contradiction as retr
   });
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes[5].disposition, "blocked");
+  assert.equal(run.outcomes[6].disposition, "blocked");
   assert.equal(await readFile(counterPath, "utf8"), "1");
   const events = await readEvents(scenario.eventLogPath);
   assert.equal(events.filter((event) => event.kind === "retry_attempt_opened").length, 1);
@@ -198,7 +198,7 @@ test("M5 installed C.retry exhausts its declared budget without a third dispatch
   });
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes[5].disposition, "blocked");
+  assert.equal(run.outcomes[6].disposition, "blocked");
   assert.equal(await readFile(counterPath, "utf8"), "2");
   const events = await readEvents(scenario.eventLogPath);
   assert.deepEqual(

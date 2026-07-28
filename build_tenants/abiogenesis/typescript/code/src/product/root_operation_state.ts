@@ -16,9 +16,15 @@ import type {
   WorkspaceBinding,
 } from "./environment.js";
 import type { ProductInstallCandidate } from "./contracts.js";
+import { deepFreeze } from "../shared/immutable.js";
 
 export interface VerifiedOperationState {
   readonly verified: VerifiedProductArtifact;
+}
+
+export interface ResolveOperationState {
+  readonly verifiedInvocationRefs: readonly string[];
+  readonly lock: ResolvedProductLock;
 }
 
 export interface InstallOperationState {
@@ -55,6 +61,7 @@ export interface CatalogApplicationOperationState {
 export class RootOperationState {
   readonly #seenInvocations = new Set<string>();
   readonly #verified = new Map<string, VerifiedOperationState>();
+  readonly #resolutions = new Map<string, ResolveOperationState>();
   readonly #installs = new Map<string, InstallOperationState>();
   readonly #workspaces = new Map<string, WorkspaceOperationState>();
   readonly #catalogs = new Map<string, CatalogOperationState>();
@@ -69,15 +76,23 @@ export class RootOperationState {
   }
 
   rememberVerified(invocationRef: string, value: VerifiedOperationState): void {
-    this.#verified.set(invocationRef, value);
+    this.#verified.set(invocationRef, deepFreeze(value));
   }
 
   verified(invocationRef: string): VerifiedOperationState | null {
     return this.#verified.get(invocationRef) ?? null;
   }
 
+  rememberResolution(invocationRef: string, value: ResolveOperationState): void {
+    this.#resolutions.set(invocationRef, deepFreeze(value));
+  }
+
+  resolution(invocationRef: string): ResolveOperationState | null {
+    return this.#resolutions.get(invocationRef) ?? null;
+  }
+
   rememberInstall(invocationRef: string, value: InstallOperationState): void {
-    this.#installs.set(invocationRef, value);
+    this.#installs.set(invocationRef, deepFreeze(value));
   }
 
   install(invocationRef: string): InstallOperationState | null {
@@ -85,7 +100,7 @@ export class RootOperationState {
   }
 
   rememberWorkspace(invocationRef: string, value: WorkspaceOperationState): void {
-    this.#workspaces.set(invocationRef, value);
+    this.#workspaces.set(invocationRef, deepFreeze(value));
   }
 
   workspace(invocationRef: string): WorkspaceOperationState | null {
@@ -93,7 +108,7 @@ export class RootOperationState {
   }
 
   rememberCatalog(invocationRef: string, value: CatalogOperationState): void {
-    this.#catalogs.set(invocationRef, value);
+    this.#catalogs.set(invocationRef, deepFreeze(value));
   }
 
   catalog(invocationRef: string): CatalogOperationState | null {
@@ -101,7 +116,7 @@ export class RootOperationState {
   }
 
   rememberCatalogView(invocationRef: string, value: CatalogViewOperationState): void {
-    this.#catalogViews.set(invocationRef, value);
+    this.#catalogViews.set(invocationRef, deepFreeze(value));
   }
 
   catalogView(invocationRef: string): CatalogViewOperationState | null {
@@ -112,7 +127,7 @@ export class RootOperationState {
     invocationRef: string,
     value: CatalogApplicationOperationState,
   ): void {
-    this.#catalogApplications.set(invocationRef, value);
+    this.#catalogApplications.set(invocationRef, deepFreeze(value));
   }
 
   catalogApplication(

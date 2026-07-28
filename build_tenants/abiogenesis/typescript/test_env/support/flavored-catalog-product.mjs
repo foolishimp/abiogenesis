@@ -57,11 +57,6 @@ export async function prepareFlavoredCatalogProduct(
     "@abiogenesis/typescript-tenant/product",
     `flavored=${Date.now()}`,
   );
-  const gtl = await importInstalledPackageExport(
-    harness,
-    "@abiogenesis/typescript-tenant/gtl",
-    `flavored-gtl=${Date.now()}`,
-  );
   const packageJson = JSON.parse(
     await readFile(join(sourceRoot, "package.json"), "utf8"),
   );
@@ -70,10 +65,17 @@ export async function prepareFlavoredCatalogProduct(
       join(sourceRoot, "build/index.js"),
     ).href}?publication-authority=${Date.now()}`
   );
+  const publicationModule = await import(
+    `${pathToFileURL(
+      join(sourceRoot, "build/publication.js"),
+    ).href}?publication-authority=${Date.now()}`
+  );
   const productId = "product://flavor.example/text@5.0.0";
   const productRelativeLocators = [
     "build/index.d.ts",
     "build/index.js",
+    "build/publication.d.ts",
+    "build/publication.js",
     "contracts/flavored-text.schema.json",
     "contracts/public-contract-catalog.schema.json",
     "package.json",
@@ -132,14 +134,15 @@ export async function prepareFlavoredCatalogProduct(
     catalogDigest: product.sha256Canonical(catalogWithoutDigest),
   };
   const placeholderDigest = `sha256:${"0".repeat(64)}`;
-  const draftPublication = module.constructFlavoredCatalogPublication({
+  const draftPublication =
+    publicationModule.constructFlavoredCatalogPublication({
     productId,
     artifactDigest: placeholderDigest,
     productContentDigest,
     productManifestDigest: placeholderDigest,
     packageName: packageJson.name,
     packageVersion: packageJson.version,
-  }, gtl);
+  });
   const contributionManifest = {
     kind: "product_contribution_manifest",
     schemaVersion: "5.0.0",
@@ -150,6 +153,11 @@ export async function prepareFlavoredCatalogProduct(
     productContentDigest,
     publicContractCatalogId: publicContractCatalog.catalogId,
     publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+    publicationBindings: [{
+      moduleRef: draftPublication.moduleRef,
+      publicationDigest:
+        product.modulePublicationSemanticDigest(draftPublication),
+    }],
     rows: draftPublication.contributions.map((contribution) => ({
       moduleRef: draftPublication.moduleRef,
       handle: contribution.handle,
@@ -159,7 +167,9 @@ export async function prepareFlavoredCatalogProduct(
       programMembershipRefs: [...contribution.programMembershipRefs],
       compatibilityRefs: [...contribution.compatibilityRefs],
       provenanceRef,
-      readinessPrerequisiteRefs: [...contribution.programMembershipRefs],
+      readinessPrerequisiteRefs: [
+        ...contribution.readinessPrerequisiteRefs,
+      ],
     })),
   };
   const manifest = {
@@ -187,7 +197,7 @@ export async function prepareFlavoredCatalogProduct(
       ],
       requiredCapabilityRefs: [
         "abg.capability.catalog.invoke-graph-function@5",
-        "abg.capability.gtl.author@5",
+        "abg.capability.gtl.declare@5",
       ],
     }],
     provenanceRef,
@@ -225,14 +235,14 @@ export async function prepareFlavoredCatalogProduct(
     ids: module.FLAVORED_CATALOG_IDS,
     nodeTypeValue: module.FLAVORED_NODE_TYPE,
     overlayValue: module.FLAVORED_PROGRAM_OVERLAY,
-    publication: module.constructFlavoredCatalogPublication({
+    publication: publicationModule.constructFlavoredCatalogPublication({
       productId,
       artifactDigest,
       productContentDigest,
       productManifestDigest: manifestDigest,
       packageName: packageJson.name,
       packageVersion: packageJson.version,
-    }, gtl),
+    }),
     sourceRoot,
   };
 }

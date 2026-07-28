@@ -9,6 +9,7 @@ export {
   type ProductContributionKind,
   type ProductContributionManifest,
   type ProductContributionManifestRow,
+  type ProductModulePublicationBinding,
   type ProductDeclaredDependency,
   type ProductInstallCandidate,
   type ProductInstallRefusal,
@@ -22,6 +23,7 @@ export {
   type VerifiedProductArtifact,
   type VerifyProductRequest,
 } from "./contracts.js";
+export { modulePublicationSemanticDigest } from "./publication.js";
 // Compatibility projection: shared primitives are not Product-owned.
 export { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 export {
@@ -139,6 +141,7 @@ export {
   type CatalogOperationState,
   type CatalogViewOperationState,
   type InstallOperationState,
+  type ResolveOperationState,
   type VerifiedOperationState,
   type WorkspaceOperationState,
 } from "./root_operation_state.js";

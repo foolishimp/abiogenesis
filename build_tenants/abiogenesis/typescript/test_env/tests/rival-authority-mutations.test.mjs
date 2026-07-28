@@ -145,11 +145,12 @@ test("B8 explicit invocation schema refuses an injected compiled-plan carrier", 
 
 test("B8 setup operations reject undeclared payload fields", async (context) => {
   const cases = [
-    { label: "install", index: 1, mutate: (payload) => { payload.undeclaredInstall = true; } },
-    { label: "workspace", index: 2, mutate: (payload) => { payload.undeclaredWorkspace = true; } },
-    { label: "workspace-roots", index: 2, mutate: (payload) => { payload.roots.undeclaredRoot = true; } },
-    { label: "catalog", index: 3, mutate: (payload) => { payload.undeclaredCatalog = true; } },
-    { label: "view", index: 4, mutate: (payload) => { payload.undeclaredView = true; } },
+    { label: "resolve", index: 1, mutate: (payload) => { payload.undeclaredResolve = true; } },
+    { label: "install", index: 2, mutate: (payload) => { payload.undeclaredInstall = true; } },
+    { label: "workspace", index: 3, mutate: (payload) => { payload.undeclaredWorkspace = true; } },
+    { label: "workspace-roots", index: 3, mutate: (payload) => { payload.roots.undeclaredRoot = true; } },
+    { label: "catalog", index: 4, mutate: (payload) => { payload.undeclaredCatalog = true; } },
+    { label: "view", index: 5, mutate: (payload) => { payload.undeclaredView = true; } },
   ];
   for (const row of cases) {
     const harness = await setupInstalledCliHarness(context, root);
@@ -229,7 +230,7 @@ test("B8 a renamed controller can forge output but cannot satisfy the installed 
     "build/code/src/public/operations.js",
   );
   const operationsSource = await readFile(operationsPath, "utf8");
-  const marker = "export async function applyRootPublicInvocation(context, invocation) {";
+  const marker = "    const invocation = parsed;";
   assert.equal(operationsSource.includes(marker), true);
   const forgedOutcome = `
     if (invocation.operationId === "abg.operation.run.invoke") {
@@ -507,6 +508,7 @@ test("B8 post-install implementation substitution is refused before execution", 
   );
   assert.deepEqual(outcomes.map((outcome) => outcome.disposition), [
     "succeeded", "succeeded", "succeeded", "succeeded", "succeeded",
+    "succeeded",
   ]);
   const implementationPath = join(
     scenario.installedRoot,

@@ -33,8 +33,9 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
   const run = await runInstalledCli(harness, scenario);
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.stderr, "");
-  assert.equal(run.outcomes.length, 7, run.stdout);
+  assert.equal(run.outcomes.length, 8, run.stdout);
   assert.deepEqual(run.outcomes.map((outcome) => outcome.disposition), [
+    "succeeded",
     "succeeded",
     "succeeded",
     "succeeded",
@@ -138,10 +139,10 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
       result: "satisfied",
       sourceImportUsed: false,
       artifactDigest: run.outcomes[0].result.artifactDigest,
-      productInstallId: run.outcomes[1].result.installId,
-      workspaceBindingId: run.outcomes[2].result.bindingId,
-      catalogId: run.outcomes[3].result.catalogId,
-      catalogViewId: run.outcomes[4].result.viewId,
+      productInstallId: run.outcomes[2].result.installId,
+      workspaceBindingId: run.outcomes[3].result.bindingId,
+      catalogId: run.outcomes[4].result.catalogId,
+      catalogViewId: run.outcomes[5].result.viewId,
       runOutcomes: [firstOutcome, outcome].map((value) => ({
         invocationRef: value.invocationRef,
         disposition: value.disposition,

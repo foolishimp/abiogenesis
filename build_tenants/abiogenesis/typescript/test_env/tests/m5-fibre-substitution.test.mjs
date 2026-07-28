@@ -135,9 +135,9 @@ test("M5 installed fibre substitution changes the interior but preserves the C-c
   });
   assert.equal(fdRun.exitCode, 0, fdRun.stdout);
   assert.equal(fpRun.exitCode, 0, fpRun.stdout);
-  assert.deepEqual(fdRun.outcomes[5].result, fpRun.outcomes[5].result);
-  assert.equal(fdRun.outcomes[5].outputContractRef, OUTPUT_CONTRACT_REF);
-  assert.equal(fpRun.outcomes[5].outputContractRef, OUTPUT_CONTRACT_REF);
+  assert.deepEqual(fdRun.outcomes[6].result, fpRun.outcomes[6].result);
+  assert.equal(fdRun.outcomes[6].outputContractRef, OUTPUT_CONTRACT_REF);
+  assert.equal(fpRun.outcomes[6].outputContractRef, OUTPUT_CONTRACT_REF);
 
   const fdEvents = await readEvents(fdScenario.eventLogPath);
   const fpEvents = await readEvents(fpScenario.eventLogPath);
@@ -197,10 +197,10 @@ test("M5 fibre-equivalent contracts cannot substitute an unowned GraphFunction",
   const run = await runInstalledCli(harness, scenario);
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes.slice(0, 5).every(
+  assert.equal(run.outcomes.slice(0, 6).every(
     (outcome) => outcome.disposition === "succeeded",
   ), true);
-  assert.equal(run.outcomes[5].disposition, "refused");
-  assert.equal(run.outcomes[5].runId, null);
+  assert.equal(run.outcomes[6].disposition, "refused");
+  assert.equal(run.outcomes[6].runId, null);
   await assert.rejects(readFile(scenario.eventLogPath, "utf8"), { code: "ENOENT" });
 });

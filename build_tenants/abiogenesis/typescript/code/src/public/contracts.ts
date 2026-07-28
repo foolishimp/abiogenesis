@@ -2,6 +2,7 @@ import type { JsonValue, Sha256Digest } from "../product/index.js";
 
 export const ROOT_PUBLIC_OPERATION_IDS = [
   "abg.operation.product.verify",
+  "abg.operation.product.resolve",
   "abg.operation.product.install",
   "abg.operation.workspace.bind",
   "abg.operation.catalog.admit",
@@ -82,8 +83,56 @@ export interface PublicInvocationRefusal {
   readonly message: string;
 }
 
+export type PublicInvocationResult = PublicOutcome | PublicInvocationRefusal;
+
+function isJsonValue(value: unknown, seen = new WeakSet<object>()): value is JsonValue {
+  if (
+    value === null ||
+    typeof value === "string" ||
+    typeof value === "boolean"
+  ) {
+    return true;
+  }
+  if (typeof value === "number") return Number.isFinite(value);
+  if (typeof value !== "object") return false;
+  if (seen.has(value)) return false;
+  seen.add(value);
+  if (Array.isArray(value)) {
+    const valid = value.every((entry) => isJsonValue(entry, seen));
+    seen.delete(value);
+    return valid;
+  }
+  const prototype = Object.getPrototypeOf(value);
+  const valid = (
+    (prototype === Object.prototype || prototype === null) &&
+    Object.values(value).every((entry) => isJsonValue(entry, seen))
+  );
+  seen.delete(value);
+  return valid;
+}
+
 function isRecord(value: unknown): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    !Array.isArray(value) &&
+    isJsonValue(value)
+  );
+}
+
+function hasExactInvocationKeys(
+  value: Readonly<Record<string, JsonValue>>,
+): boolean {
+  return Object.keys(value).sort().join("\0") === [
+    "correlationId",
+    "eventTime",
+    "invocationRef",
+    "kind",
+    "operationId",
+    "payload",
+    "schemaVersion",
+    "variant",
+  ].join("\0");
 }
 
 export function parseRootPublicInvocation(
@@ -91,18 +140,19 @@ export function parseRootPublicInvocation(
 ): RootPublicInvocation | PublicInvocationRefusal {
   if (
     !isRecord(value) ||
+    !hasExactInvocationKeys(value) ||
     value.kind !== "public_invocation" ||
     value.schemaVersion !== "5.0.0" ||
     typeof value.operationId !== "string" ||
     !ROOT_PUBLIC_OPERATION_IDS.includes(value.operationId as RootPublicOperationId) ||
     typeof value.variant !== "string" ||
-    value.variant.length === 0 ||
+    value.variant.trim().length === 0 ||
     typeof value.invocationRef !== "string" ||
-    value.invocationRef.length === 0 ||
+    value.invocationRef.trim().length === 0 ||
     typeof value.eventTime !== "string" ||
     Number.isNaN(Date.parse(value.eventTime)) ||
     typeof value.correlationId !== "string" ||
-    value.correlationId.length === 0 ||
+    value.correlationId.trim().length === 0 ||
     !isRecord(value.payload)
   ) {
     return {

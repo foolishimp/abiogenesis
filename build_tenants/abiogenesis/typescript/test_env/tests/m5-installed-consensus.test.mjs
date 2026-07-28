@@ -618,7 +618,7 @@ function expectedWorkspaceBinding(basis, harness, scenario) {
   };
   const productSet = basis.product.constructProductSet([install], lock);
   assert.equal(productSet.kind, "product_set");
-  const payload = scenario.transcript[2].payload;
+  const payload = scenario.transcript[3].payload;
   const authorityManifest = {
     workspaceId: payload.workspaceId,
     canonicalRoot: payload.canonicalRoot,
@@ -672,7 +672,7 @@ async function selectConsensusThroughOneSurface(
     catalogViewInvocationRef: scenario.refs.view,
     catalogApplicationInvocationRefs: scenario.refs.applications,
     programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-    actorRef: scenario.transcript[2].payload.authorizedActorRef,
+    actorRef: scenario.transcript[3].payload.authorizedActorRef,
     input: observation,
     eventLogPath: scenario.eventLogPath,
     rootMode: "supervised",
@@ -1430,11 +1430,11 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
     true,
     JSON.stringify(outcomes),
   );
-  const workspaceBinding = outcomes[2].result;
+  const workspaceBinding = outcomes[3].result;
   assert.equal(
     typeof workspaceBinding.bindingId,
     "string",
-    JSON.stringify(outcomes[2]),
+    JSON.stringify(outcomes[3]),
   );
   assert.match(workspaceBinding.bindingId, /^workspace-binding:\/\//u);
   assert.match(workspaceBinding.bindingDigest, /^sha256:[a-f0-9]{64}$/u);

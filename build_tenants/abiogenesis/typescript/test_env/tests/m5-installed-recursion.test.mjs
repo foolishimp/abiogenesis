@@ -99,7 +99,7 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
 
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
-  assert.deepEqual(run.outcomes[5].result, {
+  assert.deepEqual(run.outcomes[6].result, {
     kind: "bounded_recursion_state",
     schemaVersion: "5.0.0",
     blockedChildRemaining: null,
@@ -107,7 +107,7 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
     terminal: true,
     trace: [2, 1, 0],
   });
-  assert.equal(run.outcomes[5].replayAgreement, true);
+  assert.equal(run.outcomes[6].replayAgreement, true);
 
   const parentCalls = events.filter(
     (event) =>
@@ -225,7 +225,7 @@ test("M5 installed graph recursion propagates one lawfully blocked child", async
   );
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes[5].disposition, "blocked");
+  assert.equal(run.outcomes[6].disposition, "blocked");
   const childBlockedRoute = events.find(
     (event) =>
       event.kind === "traversal_route_admitted" &&
@@ -280,7 +280,7 @@ test("M5 installed graph recursion blocks at its declared bound without another 
   );
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes[5].disposition, "blocked");
+  assert.equal(run.outcomes[6].disposition, "blocked");
   const parentCalls = events.filter(
     (event) =>
       event.kind === "c_call_opened" &&

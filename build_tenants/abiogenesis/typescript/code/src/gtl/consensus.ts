@@ -5074,6 +5074,11 @@ export function constructConsensusModulePublication(
         ? [CONSENSUS_IDS.oneSurfaceProgramRef]
         : []),
     ],
+    readinessPrerequisiteRefs: [
+      ...(oneSurfaceCallableMembership.includes(graphFunctionRef)
+        ? [CONSENSUS_IDS.oneSurfaceProgramRef]
+        : []),
+    ],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   });
@@ -5095,6 +5100,7 @@ export function constructConsensusModulePublication(
     declarationOrContractRef,
     owningProductId: artifact.productId,
     programMembershipRefs,
+    readinessPrerequisiteRefs: programMembershipRefs,
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   });

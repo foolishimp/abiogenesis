@@ -4686,6 +4686,7 @@ export function constructDeveloperMiniPublication(
     declarationOrContractRef: DEVELOPER_MINI_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [DEVELOPER_MINI_IDS.programRef],
+    readinessPrerequisiteRefs: [DEVELOPER_MINI_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [
       artifact.artifactDigest,
@@ -4698,6 +4699,7 @@ export function constructDeveloperMiniPublication(
     declarationOrContractRef: DEVELOPER_MINI_IDS.ticketGraphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [DEVELOPER_MINI_IDS.ticketProgramRef],
+    readinessPrerequisiteRefs: [DEVELOPER_MINI_IDS.ticketProgramRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [
       artifact.artifactDigest,
@@ -4711,6 +4713,7 @@ export function constructDeveloperMiniPublication(
       DEVELOPER_MINI_IDS.spanGraphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [DEVELOPER_MINI_IDS.spanProgramRef],
+    readinessPrerequisiteRefs: [DEVELOPER_MINI_IDS.spanProgramRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [
       artifact.artifactDigest,
@@ -4723,6 +4726,7 @@ export function constructDeveloperMiniPublication(
     declarationOrContractRef: DEVELOPER_MINI_IDS.mixedGraphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [DEVELOPER_MINI_IDS.mixedProgramRef],
+    readinessPrerequisiteRefs: [DEVELOPER_MINI_IDS.mixedProgramRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [
       artifact.artifactDigest,
@@ -4736,6 +4740,7 @@ export function constructDeveloperMiniPublication(
       DEVELOPER_MINI_IDS.oneSurfaceGraphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [DEVELOPER_MINI_IDS.oneSurfaceProgramRef],
+    readinessPrerequisiteRefs: [DEVELOPER_MINI_IDS.oneSurfaceProgramRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [
       artifact.artifactDigest,
@@ -4749,6 +4754,7 @@ export function constructDeveloperMiniPublication(
       DEVELOPER_MINI_IDS.identityGraphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [DEVELOPER_MINI_IDS.identityProgramRef],
+    readinessPrerequisiteRefs: [DEVELOPER_MINI_IDS.identityProgramRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [
       artifact.artifactDigest,

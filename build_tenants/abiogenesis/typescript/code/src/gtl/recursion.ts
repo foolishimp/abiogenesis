@@ -510,6 +510,7 @@ export function constructRecursionPublicationParts(
     declarationOrContractRef: graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [RECURSION_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [RECURSION_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   });

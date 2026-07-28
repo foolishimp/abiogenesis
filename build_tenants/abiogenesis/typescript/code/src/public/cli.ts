@@ -8,7 +8,6 @@ import {
   closeRootOperationContext,
   createRootOperationContext,
 } from "./operations.js";
-import { parseRootPublicInvocation } from "./contracts.js";
 
 function transportRefusal(code: string, message: string): JsonValue {
   return {
@@ -53,13 +52,7 @@ if (args.length !== 2 || args[0] !== "--jsonl" || args[1] === undefined) {
             process.exitCode = 2;
             break;
           }
-          const invocation = parseRootPublicInvocation(decoded);
-          if (invocation.kind === "public_invocation_refusal") {
-            process.stdout.write(`${canonicalJson(invocation as unknown as JsonValue)}\n`);
-            process.exitCode = 2;
-            break;
-          }
-          const outcome = await applyRootPublicInvocation(context, invocation);
+          const outcome = await applyRootPublicInvocation(context, decoded);
           process.stdout.write(`${canonicalJson(outcome as unknown as JsonValue)}\n`);
           if (
             outcome.disposition !== "succeeded" &&

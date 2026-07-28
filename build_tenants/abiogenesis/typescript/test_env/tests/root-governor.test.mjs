@@ -138,9 +138,9 @@ test("ABI5-ROOT-001 governor re-evaluates the retained installed subject", async
   );
 
   const mismatchedSetupOutcomes = structuredClone(outcomes);
-  mismatchedSetupOutcomes[1].result.admissionEventRef =
+  mismatchedSetupOutcomes[2].result.admissionEventRef =
     "event://abiogenesis/not-the-install-event";
-  mismatchedSetupOutcomes[1] = withOutcomeDigest(mismatchedSetupOutcomes[1]);
+  mismatchedSetupOutcomes[2] = withOutcomeDigest(mismatchedSetupOutcomes[2]);
   const mismatchedSetupGovernor = await evaluateAbi5Root({
     candidateBasis,
     artifactPath: join(artifacts, packResult.filename),
@@ -157,7 +157,7 @@ test("ABI5-ROOT-001 governor re-evaluates the retained installed subject", async
   );
 
   const changedSetupPayloadTranscript = structuredClone(transcript);
-  changedSetupPayloadTranscript[1].payload.targetRoot = join(scratch, "different-target");
+  changedSetupPayloadTranscript[2].payload.targetRoot = join(scratch, "different-target");
   const changedSetupPayloadGovernor = await evaluateAbi5Root({
     candidateBasis,
     artifactPath: join(artifacts, packResult.filename),
@@ -195,10 +195,10 @@ test("ABI5-ROOT-001 governor re-evaluates the retained installed subject", async
   );
 
   const broadenedViewOutcomes = structuredClone(outcomes);
-  broadenedViewOutcomes[4].result.allowlist.push(
+  broadenedViewOutcomes[5].result.allowlist.push(
     "graph-function://abiogenesis/not-the-root@5",
   );
-  broadenedViewOutcomes[4] = withOutcomeDigest(broadenedViewOutcomes[4]);
+  broadenedViewOutcomes[5] = withOutcomeDigest(broadenedViewOutcomes[5]);
   const broadenedViewGovernor = await evaluateAbi5Root({
     candidateBasis,
     artifactPath: join(artifacts, packResult.filename),

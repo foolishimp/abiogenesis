@@ -20,6 +20,7 @@ import {
   sha256File,
   type PayloadInventoryRow,
 } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import { parseProductManifest } from "./verify_product.js";
 
 function refusal(
@@ -256,7 +257,7 @@ export async function installProduct(
   }
   const contentSuffix = request.verifiedArtifact.productContentDigest.slice("sha256:".length);
   const lockSuffix = request.resolvedLock.lockDigest.slice("sha256:".length);
-  return {
+  return deepFreeze({
     kind: "product_install_candidate",
     schemaVersion: "5.0.0",
     disposition: "materialized",
@@ -277,6 +278,10 @@ export async function installProduct(
       request.verifiedArtifact.contributionManifestDigest,
     contributionManifest: {
       ...request.verifiedArtifact.contributionManifest,
+      publicationBindings:
+        request.verifiedArtifact.contributionManifest.publicationBindings.map(
+          (binding) => ({ ...binding }),
+        ),
       rows: request.verifiedArtifact.contributionManifest.rows.map((row) => ({
         ...row,
         programMembershipRefs: [...row.programMembershipRefs],
@@ -305,7 +310,14 @@ export async function installProduct(
         capabilityIdentities: [...contract.capabilityIdentities],
         ...(contract.nativeTypedLocator === undefined
           ? {}
-          : { nativeTypedLocator: { ...contract.nativeTypedLocator } }),
+          : {
+            nativeTypedLocator: {
+              ...contract.nativeTypedLocator,
+              exportedSymbols: [
+                ...contract.nativeTypedLocator.exportedSymbols,
+              ],
+            },
+          }),
         ...(contract.assetLocator === undefined
           ? {}
           : { assetLocator: { ...contract.assetLocator } }),
@@ -315,5 +327,5 @@ export async function installProduct(
     publicCapabilityRefs: [...request.verifiedArtifact.publicCapabilityRefs],
     resolvedLockId: request.resolvedLock.lockId,
     resolvedLockDigest: request.resolvedLock.lockDigest,
-  };
+  });
 }

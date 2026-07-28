@@ -461,6 +461,7 @@ export interface CatalogContribution {
   readonly declarationOrContractRef: string;
   readonly owningProductId: string;
   readonly programMembershipRefs: readonly string[];
+  readonly readinessPrerequisiteRefs: readonly string[];
   readonly compatibilityRefs: readonly string[];
   readonly provenanceRefs: readonly string[];
 }

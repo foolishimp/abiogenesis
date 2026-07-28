@@ -82,6 +82,7 @@ export {
   closureContract,
   contractDeclaration,
   evaluatorDeclaration,
+  GTL_DECLARATION_CONSTRUCTORS,
   implementationBinding,
   modulePublication,
   productSemanticsBinding,

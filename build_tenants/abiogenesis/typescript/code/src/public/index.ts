@@ -2,6 +2,7 @@ export {
   ROOT_PUBLIC_OPERATION_IDS,
   parseRootPublicInvocation,
   type PublicInvocationRefusal,
+  type PublicInvocationResult,
   type PublicOutcome,
   type RootPublicInvocation,
   type RootPublicOperationId,
@@ -23,3 +24,4 @@ export type {
   PublicRunProjectionAuthority,
 } from "./run_projection_authority.js";
 export { projectOutcome } from "./outcome.js";
+export { PUBLIC_OPERATION_SCHEMA } from "./schema.js";

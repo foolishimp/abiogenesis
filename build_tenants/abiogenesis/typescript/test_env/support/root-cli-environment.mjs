@@ -131,6 +131,7 @@ export async function buildRootCliScenario(
   const prefix = `invocation://t286/${label}`;
   const refs = {
     verify: `${prefix}/product-verify`,
+    resolve: `${prefix}/product-resolve`,
     install: `${prefix}/product-install`,
     bind: `${prefix}/workspace-bind`,
     catalog: `${prefix}/catalog-admit`,
@@ -177,9 +178,17 @@ export async function buildRootCliScenario(
       artifactRef: harness.artifactRef,
       ...expectedVerificationIdentity(harness.candidateBasis),
     }),
+    invocation(
+      "abg.operation.product.resolve",
+      "verified_product_set",
+      refs.resolve,
+      {
+        verifiedInvocationRefs: [refs.verify],
+      },
+    ),
     invocation("abg.operation.product.install", "verified_artifact", refs.install, {
       verifiedInvocationRef: refs.verify,
-      lockVerifiedInvocationRefs: [refs.verify],
+      resolvedLockInvocationRef: refs.resolve,
       artifactPath: harness.artifactPath,
       targetRoot: productConsumer,
     }),
@@ -356,7 +365,7 @@ export async function importInstalledPackageExport(
 export async function applyInstalledTranscriptPrefix(
   harness,
   scenario,
-  count = 5,
+  count = 6,
 ) {
   const publicApi = await importInstalledPackageExport(
     harness,

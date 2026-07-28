@@ -17,9 +17,11 @@ import { bindInstalledLeafInvocationPort } from "../hog/installed_product.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
+  PublicInvocationResult,
   PublicOutcome,
   RootPublicInvocation,
 } from "./contracts.js";
+import { parseRootPublicInvocation } from "./contracts.js";
 import { bindChildTraversalPreparationPort } from "./child_traversal_port.js";
 import {
   constructPublicContinuationAuthority,
@@ -48,7 +50,24 @@ import {
 export interface RootOperationContext {
   store: abg.AbgEventStore;
   pendingReopenAuthority: abg.EventStoreReopenAuthority | null;
-  readonly productState: product.RootOperationState;
+}
+
+const rootOperationStates = new WeakMap<
+  RootOperationContext,
+  product.RootOperationState
+>();
+
+function rootOperationState(
+  context: RootOperationContext,
+): product.RootOperationState {
+  const state = rootOperationStates.get(context);
+  if (state === undefined) {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      "root operation context is closed or did not originate from Public",
+    );
+  }
+  return state;
 }
 
 type RunProjectionProductBasis = abg.AdmittedProductSemanticsBasis & Readonly<{
@@ -69,17 +88,19 @@ class ApplicationRefusal extends Error {
 }
 
 export function createRootOperationContext(): RootOperationContext {
-  return {
+  const context: RootOperationContext = {
     store: new abg.AbgEventStore(),
     pendingReopenAuthority: null,
-    productState: new product.RootOperationState(),
   };
+  rootOperationStates.set(context, new product.RootOperationState());
+  return context;
 }
 
 export function closeRootOperationContext(context: RootOperationContext): void {
   abg.releaseCatalogApplicationScope(context.store);
   context.store.closeDurableLog();
   context.pendingReopenAuthority = null;
+  rootOperationStates.delete(context);
 }
 
 function closeAndRememberDurableContext(
@@ -202,8 +223,14 @@ function operationBasis(
   scopeDigest: product.Sha256Digest,
   causationEventRefs: readonly string[],
 ): abg.PublicOperationAdmissionBasis {
-  if (invocation.operationId === "abg.operation.product.verify") {
-    throw new ApplicationRefusal("invalid_request", "product.verify is a pure operation and has no ABG admission basis");
+  if (
+    invocation.operationId === "abg.operation.product.verify" ||
+    invocation.operationId === "abg.operation.product.resolve"
+  ) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "pure Product operations have no ABG admission basis",
+    );
   }
   const invocationPayloadDigest = product.sha256Canonical(invocation.payload);
   return {
@@ -419,7 +446,9 @@ async function applyVerify(
   if (verified.disposition !== "verified") {
     throw new ApplicationRefusal("owner_refusal", `Product verification refused: ${verified.code}`);
   }
-  context.productState.rememberVerified(invocation.invocationRef, { verified });
+  rootOperationState(context).rememberVerified(invocation.invocationRef, {
+    verified,
+  });
   return successOutcome(invocation, {
     kind: verified.kind,
     disposition: verified.disposition,
@@ -428,6 +457,60 @@ async function applyVerify(
     productContentDigest: verified.productContentDigest,
     manifestDigest: verified.manifestDigest,
   });
+}
+
+async function applyResolve(
+  context: RootOperationContext,
+  invocation: RootPublicInvocation,
+): Promise<PublicOutcome> {
+  if (invocation.variant !== "verified_product_set") {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "product.resolve requires variant verified_product_set",
+    );
+  }
+  requireExactPayloadKeys(
+    invocation.payload,
+    ["verifiedInvocationRefs"],
+    "product.resolve",
+  );
+  const verifiedInvocationRefs = stringArrayField(
+    invocation.payload,
+    "verifiedInvocationRefs",
+  );
+  if (
+    verifiedInvocationRefs.length === 0 ||
+    new Set(verifiedInvocationRefs).size !== verifiedInvocationRefs.length
+  ) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "product.resolve requires a non-empty unique verified Product set",
+    );
+  }
+  const state = rootOperationState(context);
+  const verifiedStates = verifiedInvocationRefs.map((reference) =>
+    required(state.verified(reference), reference, "verified Product")
+  );
+  const lock = product.constructResolvedProductLock(
+    verifiedStates.map((entry) => entry.verified),
+  );
+  if (lock.kind !== "resolved_product_lock") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `Product lock resolution refused: ${lock.message}`,
+    );
+  }
+  state.rememberResolution(invocation.invocationRef, {
+    verifiedInvocationRefs,
+    lock,
+  });
+  return successOutcome(invocation, {
+    kind: lock.kind,
+    lockId: lock.lockId,
+    lockDigest: lock.lockDigest,
+    productIds: lock.rows.map((row) => row.productId),
+    dependencyEdges: lock.dependencyEdges,
+  } as unknown as product.JsonValue);
 }
 
 async function applyInstall(
@@ -439,7 +522,7 @@ async function applyInstall(
   }
   requireExactPayloadKeys(invocation.payload, [
     "artifactPath",
-    "lockVerifiedInvocationRefs",
+    "resolvedLockInvocationRef",
     "targetRoot",
     "verifiedInvocationRef",
   ], "product.install");
@@ -448,38 +531,30 @@ async function applyInstall(
     "verifiedInvocationRef",
   );
   const verifiedState = required(
-    context.productState.verified(verifiedInvocationRef),
+    rootOperationState(context).verified(verifiedInvocationRef),
     verifiedInvocationRef,
     "verified Product",
   );
-  const lockVerifiedInvocationRefs = stringArrayField(
+  const resolvedLockInvocationRef = stringField(
     invocation.payload,
-    "lockVerifiedInvocationRefs",
+    "resolvedLockInvocationRef",
   );
-  if (
-    lockVerifiedInvocationRefs.length === 0 ||
-    new Set(lockVerifiedInvocationRefs).size !==
-      lockVerifiedInvocationRefs.length ||
-    !lockVerifiedInvocationRefs.includes(verifiedInvocationRef)
-  ) {
+  const resolution = required(
+    rootOperationState(context).resolution(resolvedLockInvocationRef),
+    resolvedLockInvocationRef,
+    "resolved Product lock",
+  );
+  if (!resolution.verifiedInvocationRefs.includes(verifiedInvocationRef)) {
     throw new ApplicationRefusal(
-      "invalid_request",
-      "product.install requires a unique lock selection containing the installed Product",
+      "target_mismatch",
+      "product.install verified Product is not a member of the selected resolved lock",
     );
   }
-  const lockVerifiedStates = lockVerifiedInvocationRefs.map((reference) =>
-    required(
-      context.productState.verified(reference),
-      reference,
-      "verified Product lock member",
-    ));
-  const lock = product.constructResolvedProductLock(
-    lockVerifiedStates.map((state) => state.verified),
-  );
-  if (lock.kind !== "resolved_product_lock") {
+  const lock = resolution.lock;
+  if (!product.verifiedArtifactMatchesResolvedLock(verifiedState.verified, lock)) {
     throw new ApplicationRefusal(
-      "owner_refusal",
-      `Product lock construction refused: ${lock.message}`,
+      "target_mismatch",
+      "product.install verified Product differs from the selected resolved lock",
     );
   }
   const candidate = await product.installProduct({
@@ -504,7 +579,7 @@ async function applyInstall(
   if (install.kind !== "product_install") {
     throw new ApplicationRefusal("owner_refusal", `ProductInstall admission refused: ${install.message}`);
   }
-  context.productState.rememberInstall(
+  rootOperationState(context).rememberInstall(
     invocation.invocationRef,
     { candidate, install, lock },
   );
@@ -558,7 +633,7 @@ async function applyWorkspaceBind(
   }
   const installStates = installInvocationRefs.map((installInvocationRef) =>
     required(
-      context.productState.install(installInvocationRef),
+      rootOperationState(context).install(installInvocationRef),
       installInvocationRef,
       "ProductInstall",
     ));
@@ -635,7 +710,11 @@ async function applyWorkspaceBind(
   if (binding.kind !== "workspace_binding") {
     throw new ApplicationRefusal("owner_refusal", `Workspace binding admission refused: ${binding.message}`);
   }
-  context.productState.rememberWorkspace(invocation.invocationRef, { lock, productSet, binding });
+  rootOperationState(context).rememberWorkspace(invocation.invocationRef, {
+    lock,
+    productSet,
+    binding,
+  });
   return successOutcome(invocation, {
     kind: binding.kind,
     bindingId: binding.bindingId,
@@ -670,12 +749,16 @@ async function applyCatalogAdmit(
     "workspaceBindingInvocationRef",
   ], "catalog.admit");
   const verifiedState = required(
-    context.productState.verified(stringField(invocation.payload, "verifiedInvocationRef")),
+    rootOperationState(context).verified(
+      stringField(invocation.payload, "verifiedInvocationRef"),
+    ),
     stringField(invocation.payload, "verifiedInvocationRef"),
     "verified Product",
   );
   const workspaceState = required(
-    context.productState.workspace(stringField(invocation.payload, "workspaceBindingInvocationRef")),
+    rootOperationState(context).workspace(
+      stringField(invocation.payload, "workspaceBindingInvocationRef"),
+    ),
     stringField(invocation.payload, "workspaceBindingInvocationRef"),
     "WorkspaceBinding",
   );
@@ -740,7 +823,7 @@ async function applyCatalogAdmit(
   if (catalog.kind !== "admitted_catalog") {
     throw new ApplicationRefusal("owner_refusal", `Catalog admission refused: ${catalog.message}`);
   }
-  context.productState.rememberCatalog(invocation.invocationRef, {
+  rootOperationState(context).rememberCatalog(invocation.invocationRef, {
     workspaceState,
     publication,
     publicationValidation,
@@ -768,7 +851,9 @@ async function applyCatalogView(
     "catalogInvocationRef",
   ], "catalog.view");
   const catalogState = required(
-    context.productState.catalog(stringField(invocation.payload, "catalogInvocationRef")),
+    rootOperationState(context).catalog(
+      stringField(invocation.payload, "catalogInvocationRef"),
+    ),
     stringField(invocation.payload, "catalogInvocationRef"),
     "AdmittedCatalog",
   );
@@ -793,7 +878,10 @@ async function applyCatalogView(
   if (view.kind !== "catalog_view") {
     throw new ApplicationRefusal("owner_refusal", `Catalog view admission refused: ${view.message}`);
   }
-  context.productState.rememberCatalogView(invocation.invocationRef, { catalogState, view });
+  rootOperationState(context).rememberCatalogView(invocation.invocationRef, {
+    catalogState,
+    view,
+  });
   return successOutcome(invocation, {
     kind: view.kind,
     viewId: view.viewId,
@@ -826,7 +914,7 @@ async function applyCatalogApplication(
     "catalogViewInvocationRef",
   );
   const viewState = required(
-    context.productState.catalogView(viewInvocationRef),
+    rootOperationState(context).catalogView(viewInvocationRef),
     viewInvocationRef,
     "CatalogView",
   );
@@ -835,7 +923,7 @@ async function applyCatalogApplication(
     "productInstallInvocationRef",
   );
   const installState = required(
-    context.productState.install(installInvocationRef),
+    rootOperationState(context).install(installInvocationRef),
     installInvocationRef,
     "ProductInstall",
   );
@@ -925,7 +1013,7 @@ async function applyCatalogApplication(
       `Catalog application admission refused: ${application.message}`,
     );
   }
-  context.productState.rememberCatalogApplication(invocation.invocationRef, {
+  rootOperationState(context).rememberCatalogApplication(invocation.invocationRef, {
     viewState,
     application,
   });
@@ -1074,7 +1162,7 @@ async function applyRunInvoke(
   }
   const installState = reentryState === null
     ? required(
-        context.productState.install(
+        rootOperationState(context).install(
           stringField(invocation.payload, "installInvocationRef"),
         ),
         stringField(invocation.payload, "installInvocationRef"),
@@ -1086,7 +1174,7 @@ async function applyRunInvoke(
       };
   const workspaceState = reentryState === null
     ? required(
-        context.productState.workspace(
+        rootOperationState(context).workspace(
           stringField(invocation.payload, "workspaceBindingInvocationRef"),
         ),
         stringField(invocation.payload, "workspaceBindingInvocationRef"),
@@ -1099,7 +1187,7 @@ async function applyRunInvoke(
       };
   const viewState = reentryState === null
     ? required(
-        context.productState.catalogView(
+        rootOperationState(context).catalogView(
           stringField(invocation.payload, "catalogViewInvocationRef"),
         ),
         stringField(invocation.payload, "catalogViewInvocationRef"),
@@ -1132,7 +1220,7 @@ async function applyRunInvoke(
   const catalogApplications = catalogApplicationInvocationRefs.map(
     (applicationInvocationRef) => {
       const applicationState = required(
-        context.productState.catalogApplication(applicationInvocationRef),
+        rootOperationState(context).catalogApplication(applicationInvocationRef),
         applicationInvocationRef,
         "CatalogApplication",
       );
@@ -3794,11 +3882,14 @@ async function applyRunContinue(
 
 export async function applyRootPublicInvocation(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
-): Promise<PublicOutcome> {
+  value: unknown,
+): Promise<PublicInvocationResult> {
+  const parsed = parseRootPublicInvocation(value);
+  if (parsed.kind === "public_invocation_refusal") return parsed;
+  const invocation = parsed;
   if (
     !usesDurableContinuationAuthority(invocation.operationId) &&
-    !context.productState.claimInvocation(invocation.invocationRef)
+    !rootOperationState(context).claimInvocation(invocation.invocationRef)
   ) {
     return refusalOutcome(invocation, "duplicate_invocation", "invocationRef already appeared in this transcript");
   }
@@ -3816,6 +3907,8 @@ export async function applyRootPublicInvocation(
     switch (invocation.operationId) {
       case "abg.operation.product.verify":
         return await applyVerify(context, invocation);
+      case "abg.operation.product.resolve":
+        return await applyResolve(context, invocation);
       case "abg.operation.product.install":
         return await applyInstall(context, invocation);
       case "abg.operation.workspace.bind":

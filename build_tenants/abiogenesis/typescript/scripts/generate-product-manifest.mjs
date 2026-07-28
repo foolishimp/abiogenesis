@@ -8,9 +8,16 @@ import {
   ABI5_PRODUCT_ID,
   canonicalJson,
   payloadInventoryDigest,
+  modulePublicationSemanticDigest,
   sha256Canonical,
   sha256File,
 } from "../build/code/src/product/index.js";
+import * as productPublicApi from "../build/code/src/product/index.js";
+import * as abgPublicApi from "../build/code/src/abg/index.js";
+import * as gtlPublicApi from "../build/code/src/gtl/index.js";
+import * as hogPublicApi from "../build/code/src/hog/index.js";
+import * as publicApi from "../build/code/src/public/index.js";
+import * as validatorPublicApi from "../build/code/src/validator/index.js";
 import {
   CONSENSUS_FH_DECISION_VALUES,
   CONSENSUS_ROUND_OUTCOME_VALUES,
@@ -22,6 +29,9 @@ import {
   constructConsensusModulePublication,
   constructHelloWorldModulePublication,
 } from "../build/code/src/gtl/index.js";
+import {
+  PUBLIC_OPERATION_SCHEMA,
+} from "../build/code/src/public/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
@@ -36,6 +46,8 @@ if (
 }
 
 const consensusSchemaPath = "contracts/schemas/consensus.schema.json";
+const publicOperationSchemaPath =
+  "contracts/schemas/public-operation.schema.json";
 const reviewRulingVocabularyPath =
   "contracts/vocabularies/review-ruling-kind.json";
 const consensusRoundOutcomeVocabularyPath =
@@ -61,6 +73,11 @@ await Promise.all([
   writeFile(
     join(root, consensusSchemaPath),
     `${JSON.stringify(CONSENSUS_PUBLIC_SCHEMA, null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, publicOperationSchemaPath),
+    `${JSON.stringify(PUBLIC_OPERATION_SCHEMA, null, 2)}\n`,
     "utf8",
   ),
   writeFile(
@@ -126,6 +143,9 @@ const manifestSchemaPath = "contracts/schemas/product-toolchain-manifest.schema.
 const catalogSchemaDigest = await sha256File(join(root, catalogSchemaPath));
 const manifestSchemaDigest = await sha256File(join(root, manifestSchemaPath));
 const consensusSchemaDigest = await sha256File(join(root, consensusSchemaPath));
+const publicOperationSchemaDigest = await sha256File(
+  join(root, publicOperationSchemaPath),
+);
 const reviewRulingVocabularyDigest = await sha256File(
   join(root, reviewRulingVocabularyPath),
 );
@@ -142,6 +162,7 @@ const nativeInventory = [
     packageExportPath: "./product",
     declarationPath: productDeclarationPath,
     declarationDigest: productDeclarationDigest,
+    exportedSymbols: Object.keys(productPublicApi).sort(),
   },
 ];
 const abgDeclarationPath = "build/code/src/abg/index.d.ts";
@@ -151,6 +172,7 @@ const abgNativeInventory = [
     packageExportPath: "./abg",
     declarationPath: abgDeclarationPath,
     declarationDigest: abgDeclarationDigest,
+    exportedSymbols: Object.keys(abgPublicApi).sort(),
   },
 ];
 const gtlDeclarationPath = "build/code/src/gtl/index.d.ts";
@@ -159,6 +181,7 @@ const gtlNativeInventory = [
     packageExportPath: "./gtl",
     declarationPath: gtlDeclarationPath,
     declarationDigest: await sha256File(join(root, gtlDeclarationPath)),
+    exportedSymbols: Object.keys(gtlPublicApi).sort(),
   },
 ];
 const validatorDeclarationPath = "build/code/src/validator/index.d.ts";
@@ -167,6 +190,7 @@ const validatorNativeInventory = [
     packageExportPath: "./validator",
     declarationPath: validatorDeclarationPath,
     declarationDigest: await sha256File(join(root, validatorDeclarationPath)),
+    exportedSymbols: Object.keys(validatorPublicApi).sort(),
   },
 ];
 const hogDeclarationPath = "build/code/src/hog/index.d.ts";
@@ -175,6 +199,7 @@ const hogNativeInventory = [
     packageExportPath: "./hog",
     declarationPath: hogDeclarationPath,
     declarationDigest: await sha256File(join(root, hogDeclarationPath)),
+    exportedSymbols: Object.keys(hogPublicApi).sort(),
   },
 ];
 const publicDeclarationPath = "build/code/src/public/index.d.ts";
@@ -183,6 +208,7 @@ const publicNativeInventory = [
     packageExportPath: "./public",
     declarationPath: publicDeclarationPath,
     declarationDigest: await sha256File(join(root, publicDeclarationPath)),
+    exportedSymbols: Object.keys(publicApi).sort(),
   },
 ];
 
@@ -241,28 +267,58 @@ const consensusVocabularyRows = [
   },
 }));
 
+const publicNativeDigest = sha256Canonical(publicNativeInventory);
+const publicOperationContractDigest = sha256Canonical([
+  publicOperationSchemaDigest,
+  publicNativeDigest,
+]);
+const publicOperationRows = [
+  [
+    "abg.contract.public.root-invocation",
+    "RootPublicInvocation",
+    "parseRootPublicInvocation",
+  ],
+  [
+    "abg.contract.public.root-outcome",
+    "PublicOutcome",
+    "applyRootPublicInvocation",
+  ],
+  [
+    "abg.contract.public.invocation-refusal",
+    "PublicInvocationRefusal",
+    "parseRootPublicInvocation",
+  ],
+].map(([contractId, definitionName, namedSymbol]) => ({
+  contractId,
+  contractVersion: "5.0.0",
+  contractDigest: publicOperationContractDigest,
+  contractKind: "serialized_native_contract",
+  owningProduct: productId,
+  requirementAuthorityRefs: [
+    "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-009",
+    "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-010",
+  ],
+  capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
+  nativeTypedLocator: {
+    packageName: packageJson.name,
+    packageExportPath: "./public",
+    namedSymbol,
+    exportedSymbols: publicNativeInventory[0].exportedSymbols,
+    declarationPath: publicDeclarationPath,
+  },
+  assetLocator: {
+    path: publicOperationSchemaPath,
+    mediaType: "application/schema+json",
+    schemaVersion: "5.0.0",
+    contentDigest: publicOperationSchemaDigest,
+    definitionRef: `#/$defs/${definitionName}`,
+  },
+}));
+
 const rows = [
   ...consensusContractRows,
   ...consensusVocabularyRows,
-  {
-    contractId: "abg.contract.public.root-invocation",
-    contractVersion: "5.0.0",
-    contractDigest: sha256Canonical(publicNativeInventory),
-    contractKind: "native_typed_group",
-    owningProduct: productId,
-    requirementAuthorityRefs: [
-      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
-      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-062",
-      "specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-008",
-    ],
-    capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
-    nativeTypedLocator: {
-      packageName: packageJson.name,
-      packageExportPath: "./public",
-      namedSymbol: "applyRootPublicInvocation",
-      declarationPath: publicDeclarationPath,
-    },
-  },
+  ...publicOperationRows,
   {
     contractId: "abg.contract.product.verification",
     contractVersion: "5.0.0",
@@ -278,6 +334,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./product",
       namedSymbol: "verifyProduct",
+      exportedSymbols: nativeInventory[0].exportedSymbols,
       declarationPath: productDeclarationPath,
     },
   },
@@ -296,6 +353,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./abg",
       namedSymbol: "AbgEventStore",
+      exportedSymbols: abgNativeInventory[0].exportedSymbols,
       declarationPath: abgDeclarationPath,
     },
   },
@@ -309,11 +367,12 @@ const rows = [
       "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
       "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-029",
     ],
-    capabilityIdentities: ["abg.capability.gtl.author@5"],
+    capabilityIdentities: ["abg.capability.gtl.declare@5"],
     nativeTypedLocator: {
       packageName: packageJson.name,
       packageExportPath: "./gtl",
-      namedSymbol: "constructHelloWorldModulePublication",
+      namedSymbol: "GTL_DECLARATION_CONSTRUCTORS",
+      exportedSymbols: gtlNativeInventory[0].exportedSymbols,
       declarationPath: gtlDeclarationPath,
     },
   },
@@ -333,6 +392,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./abg",
       namedSymbol: "admitCatalog",
+      exportedSymbols: abgNativeInventory[0].exportedSymbols,
       declarationPath: abgDeclarationPath,
     },
   },
@@ -351,6 +411,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./product",
       namedSymbol: "constructDirectInvocation",
+      exportedSymbols: nativeInventory[0].exportedSymbols,
       declarationPath: productDeclarationPath,
     },
   },
@@ -369,6 +430,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./abg",
       namedSymbol: "admitInvocation",
+      exportedSymbols: abgNativeInventory[0].exportedSymbols,
       declarationPath: abgDeclarationPath,
     },
   },
@@ -387,6 +449,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./product",
       namedSymbol: "resolveImplementation",
+      exportedSymbols: nativeInventory[0].exportedSymbols,
       declarationPath: productDeclarationPath,
     },
   },
@@ -405,6 +468,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./gtl",
       namedSymbol: "materializeGraph",
+      exportedSymbols: gtlNativeInventory[0].exportedSymbols,
       declarationPath: gtlDeclarationPath,
     },
   },
@@ -423,6 +487,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./abg",
       namedSymbol: "admitExecutionBasis",
+      exportedSymbols: abgNativeInventory[0].exportedSymbols,
       declarationPath: abgDeclarationPath,
     },
   },
@@ -441,6 +506,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./abg",
       namedSymbol: "openCall",
+      exportedSymbols: abgNativeInventory[0].exportedSymbols,
       declarationPath: abgDeclarationPath,
     },
   },
@@ -459,6 +525,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./hog",
       namedSymbol: "traverse",
+      exportedSymbols: hogNativeInventory[0].exportedSymbols,
       declarationPath: hogDeclarationPath,
     },
   },
@@ -477,6 +544,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./abg",
       namedSymbol: "openCCall",
+      exportedSymbols: abgNativeInventory[0].exportedSymbols,
       declarationPath: abgDeclarationPath,
     },
   },
@@ -495,6 +563,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./abg",
       namedSymbol: "replay",
+      exportedSymbols: abgNativeInventory[0].exportedSymbols,
       declarationPath: abgDeclarationPath,
     },
   },
@@ -513,6 +582,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./hog",
       namedSymbol: "proposeJudgment",
+      exportedSymbols: hogNativeInventory[0].exportedSymbols,
       declarationPath: hogDeclarationPath,
     },
   },
@@ -531,6 +601,7 @@ const rows = [
       packageName: packageJson.name,
       packageExportPath: "./validator",
       namedSymbol: "rawAdmitValue",
+      exportedSymbols: validatorNativeInventory[0].exportedSymbols,
       declarationPath: validatorDeclarationPath,
     },
   },
@@ -600,10 +671,15 @@ const publicationBasis = {
   packageName: packageJson.name,
   packageVersion: packageJson.version,
 };
-const contributionRows = [
+const modulePublications = [
   constructHelloWorldModulePublication(publicationBasis),
   constructConsensusModulePublication(publicationBasis),
-].flatMap((publication) =>
+];
+const publicationBindings = modulePublications.map((publication) => ({
+  moduleRef: publication.moduleRef,
+  publicationDigest: modulePublicationSemanticDigest(publication),
+})).sort((left, right) => left.moduleRef.localeCompare(right.moduleRef));
+const contributionRows = modulePublications.flatMap((publication) =>
   publication.contributions.map((contribution) => ({
     moduleRef: publication.moduleRef,
     handle: contribution.handle,
@@ -613,7 +689,7 @@ const contributionRows = [
     programMembershipRefs: [...contribution.programMembershipRefs],
     compatibilityRefs: [...contribution.compatibilityRefs],
     provenanceRef,
-    readinessPrerequisiteRefs: [...contribution.programMembershipRefs],
+    readinessPrerequisiteRefs: [...contribution.readinessPrerequisiteRefs],
   }))
 ).sort((left, right) => {
   const leftKey = `${left.moduleRef}\0${left.handle}`;
@@ -630,6 +706,7 @@ const contributionManifest = {
   productContentDigest,
   publicContractCatalogId: publicContractCatalog.catalogId,
   publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+  publicationBindings,
   rows: contributionRows,
 };
 const manifest = {

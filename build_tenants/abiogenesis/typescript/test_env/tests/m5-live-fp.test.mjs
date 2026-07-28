@@ -84,13 +84,13 @@ test("M5 installed CLI admits one genuinely live Claude F_P result", {
 
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.stderr, "");
-  assert.equal(run.outcomes.length, 6, run.stdout);
+  assert.equal(run.outcomes.length, 7, run.stdout);
   assert.equal(
     run.outcomes.every((outcome) => outcome.disposition === "succeeded"),
     true,
     run.stdout,
   );
-  const outcome = run.outcomes[5];
+  const outcome = run.outcomes[6];
   assert.deepEqual(outcome.result, {
     kind: "fp_hello_output",
     schemaVersion: "5.0.0",

@@ -1917,6 +1917,10 @@ export function constructHelloWorldModulePublication(
       HELLO_WORLD_IDS.programRef,
       WORKFLOW_HELLO_IDS.programRef,
     ],
+    readinessPrerequisiteRefs: [
+      HELLO_WORLD_IDS.programRef,
+      WORKFLOW_HELLO_IDS.programRef,
+    ],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -1926,6 +1930,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: WORKFLOW_HELLO_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [WORKFLOW_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [WORKFLOW_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -1935,6 +1940,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: GATE_HELLO_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [GATE_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [GATE_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -1944,6 +1950,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: GATE_HELLO_IDS.targetGraphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [GATE_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [GATE_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -1953,6 +1960,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: COMPOSED_HELLO_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [COMPOSED_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [COMPOSED_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -1962,6 +1970,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [GRAPH_EDGE_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [GRAPH_EDGE_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -1971,6 +1980,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: SUBSTITUTED_HELLO_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [SUBSTITUTED_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [SUBSTITUTED_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -1980,6 +1990,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [SUBSTITUTED_HELLO_IDS.innerProgramRef],
+    readinessPrerequisiteRefs: [SUBSTITUTED_HELLO_IDS.innerProgramRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -1989,6 +2000,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: GRAPH_EDGE_HELLO_IDS.normalizeGraphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [GRAPH_EDGE_HELLO_IDS.normalizeProgramRef],
+    readinessPrerequisiteRefs: [GRAPH_EDGE_HELLO_IDS.normalizeProgramRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -1998,6 +2010,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: GRAPH_EDGE_HELLO_IDS.renderGraphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [GRAPH_EDGE_HELLO_IDS.renderProgramRef],
+    readinessPrerequisiteRefs: [GRAPH_EDGE_HELLO_IDS.renderProgramRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -2007,6 +2020,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: FP_HELLO_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [FP_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [FP_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -2016,6 +2030,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: FP_RETRY_HELLO_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [FP_RETRY_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [FP_RETRY_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -2026,6 +2041,7 @@ export function constructHelloWorldModulePublication(
       FIBRE_SUBSTITUTION_HELLO_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [FIBRE_SUBSTITUTION_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [FIBRE_SUBSTITUTION_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
@@ -2035,6 +2051,7 @@ export function constructHelloWorldModulePublication(
     declarationOrContractRef: FP_FD_COMPOSED_HELLO_IDS.graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [FP_FD_COMPOSED_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [FP_FD_COMPOSED_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };

@@ -39,6 +39,7 @@
       "type": "array",
       "items": {
         "type": "object",
+        "additionalProperties": false,
         "required": [
           "contractId",
           "contractVersion",
@@ -47,14 +48,121 @@
           "owningProduct",
           "requirementAuthorityRefs",
           "capabilityIdentities"
+        ],
+        "properties": {
+          "contractId": {
+            "$ref": "#/$defs/ref"
+          },
+          "contractVersion": {
+            "$ref": "#/$defs/ref"
+          },
+          "contractDigest": {
+            "$ref": "#/$defs/sha256"
+          },
+          "contractKind": {
+            "$ref": "#/$defs/ref"
+          },
+          "owningProduct": {
+            "$ref": "#/$defs/ref"
+          },
+          "requirementAuthorityRefs": {
+            "$ref": "#/$defs/refs"
+          },
+          "capabilityIdentities": {
+            "$ref": "#/$defs/refs"
+          },
+          "nativeTypedLocator": {
+            "$ref": "#/$defs/nativeTypedLocator"
+          },
+          "assetLocator": {
+            "$ref": "#/$defs/assetLocator"
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "nativeTypedLocator"
+            ]
+          },
+          {
+            "required": [
+              "assetLocator"
+            ]
+          }
         ]
       }
     }
   },
   "$defs": {
+    "ref": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
     "sha256": {
       "type": "string",
       "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "nativeTypedLocator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packageName",
+        "packageExportPath",
+        "namedSymbol",
+        "exportedSymbols",
+        "declarationPath"
+      ],
+      "properties": {
+        "packageName": {
+          "$ref": "#/$defs/ref"
+        },
+        "packageExportPath": {
+          "$ref": "#/$defs/ref"
+        },
+        "namedSymbol": {
+          "$ref": "#/$defs/ref"
+        },
+        "exportedSymbols": {
+          "$ref": "#/$defs/refs"
+        },
+        "declarationPath": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "assetLocator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "mediaType",
+        "schemaVersion",
+        "contentDigest"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/ref"
+        },
+        "mediaType": {
+          "$ref": "#/$defs/ref"
+        },
+        "schemaVersion": {
+          "$ref": "#/$defs/ref"
+        },
+        "contentDigest": {
+          "$ref": "#/$defs/sha256"
+        },
+        "definitionRef": {
+          "$ref": "#/$defs/ref"
+        }
+      }
     }
   }
 }

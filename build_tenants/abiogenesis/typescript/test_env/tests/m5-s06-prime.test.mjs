@@ -44,6 +44,7 @@ function install(label, character, overrides = {}) {
       packageName,
       packageExportPath: "./product",
       namedSymbol: "S06PrimeContract",
+      exportedSymbols: ["S06PrimeContract"],
       declarationPath: "build/product.d.ts",
     },
   };
@@ -59,6 +60,7 @@ function install(label, character, overrides = {}) {
     productContentDigest,
     publicContractCatalogId: catalogId,
     publicContractCatalogDigest: catalogDigest,
+    publicationBindings: [],
     rows: [],
   };
   return {
@@ -395,6 +397,7 @@ test("S06 declaration builders preserve Product meaning and reject malformed mec
     declarationOrContractRef: "graph-function://s06-prime/run@5",
     owningProductId: "product://s06-prime/product@5",
     programMembershipRefs: ["program://s06-prime/run@5"],
+    readinessPrerequisiteRefs: ["program://s06-prime/run@5"],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [digest("d")],
   });

@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { access, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { pathToFileURL } from "node:url";
 import test from "node:test";
 
 import { prepareFlavoredCatalogProduct } from
@@ -39,46 +38,6 @@ function expectedVerificationIdentity(basis) {
   };
 }
 
-function catalogApplyBasis(product, view, invocationRef) {
-  const operationId = "abg.operation.catalog.apply";
-  const invocationPayloadDigest = product.sha256Canonical({
-    probe: invocationRef,
-  });
-  return {
-    operationId,
-    definitionKey: operationId,
-    definitionDigest: product.sha256Canonical({
-      operationId,
-      schemaVersion: "5.0.0",
-    }),
-    authorityScopeRef: view.viewId,
-    authorityScopeDigest: view.viewDigest,
-    invocationRef,
-    invocationPayloadDigest,
-    invocationDigest: product.sha256Canonical({
-      invocationRef,
-      operationId,
-      payloadDigest: invocationPayloadDigest,
-    }),
-    correlationId: "correlation://t270/s05-catalog-authority",
-    eventTime: "2026-07-25T00:00:00.000Z",
-    causationEventRefs: [view.admissionEventRef],
-  };
-}
-
-function mirrorEventHistory(source, target, admitRuntimeEvent) {
-  for (const event of source.readAll()) {
-    const {
-      eventId: expectedEventId,
-      admissionOrdinal: _admissionOrdinal,
-      payloadDigest: _payloadDigest,
-      ...candidate
-    } = event;
-    const admitted = admitRuntimeEvent(target, candidate);
-    assert.equal(admitted.eventId, expectedEventId);
-  }
-}
-
 async function eventsAt(path) {
   return (await readFile(path, "utf8"))
     .split("\n")
@@ -108,6 +67,7 @@ async function portabilityScenario(harness, flavored, label) {
   const prefix = `invocation://t281/${label}`;
   const refs = {
     verifyAbi: `${prefix}/verify-abiogenesis`,
+    resolve: `${prefix}/resolve-products`,
     installAbi: `${prefix}/install-abiogenesis`,
     verifyFlavored: `${prefix}/verify-flavored`,
     installFlavored: `${prefix}/install-flavored`,
@@ -135,15 +95,23 @@ async function portabilityScenario(harness, flavored, label) {
       },
     ),
     invocation(
+      "abg.operation.product.resolve",
+      "verified_product_set",
+      refs.resolve,
+      {
+        verifiedInvocationRefs: [
+          refs.verifyAbi,
+          refs.verifyFlavored,
+        ],
+      },
+    ),
+    invocation(
       "abg.operation.product.install",
       "verified_artifact",
       refs.installAbi,
       {
         verifiedInvocationRef: refs.verifyAbi,
-        lockVerifiedInvocationRefs: [
-          refs.verifyAbi,
-          refs.verifyFlavored,
-        ],
+        resolvedLockInvocationRef: refs.resolve,
         artifactPath: harness.artifactPath,
         targetRoot: abiConsumer,
       },
@@ -154,10 +122,7 @@ async function portabilityScenario(harness, flavored, label) {
       refs.installFlavored,
       {
         verifiedInvocationRef: refs.verifyFlavored,
-        lockVerifiedInvocationRefs: [
-          refs.verifyAbi,
-          refs.verifyFlavored,
-        ],
+        resolvedLockInvocationRef: refs.resolve,
         artifactPath: flavored.artifactPath,
         targetRoot: flavoredConsumer,
       },
@@ -279,14 +244,14 @@ function assertPortableOutcome(run, flavored) {
     0,
     JSON.stringify({ outcomes: run.outcomes, stderr: run.stderr }, null, 2),
   );
-  assert.equal(run.outcomes.length, 10);
+  assert.equal(run.outcomes.length, 11);
   assert.ok(run.outcomes.every((outcome) =>
     outcome.disposition === "succeeded"
   ));
-  const nodeApplication = run.outcomes[7];
-  const overlayApplication = run.outcomes[8];
-  const outcome = run.outcomes[9];
-  assert.deepEqual(run.outcomes[4].result.dependencyEdges, [{
+  const nodeApplication = run.outcomes[8];
+  const overlayApplication = run.outcomes[9];
+  const outcome = run.outcomes[10];
+  assert.deepEqual(run.outcomes[2].result.dependencyEdges, [{
     kind: "requires",
     fromProductId: flavored.basis.productId,
     toProductId: run.outcomes[0].result.productId,
@@ -299,7 +264,7 @@ function assertPortableOutcome(run, flavored) {
     ],
     requiredCapabilityRefs: [
       "abg.capability.catalog.invoke-graph-function@5",
-      "abg.capability.gtl.author@5",
+      "abg.capability.gtl.declare@5",
     ],
   }]);
   assert.equal(nodeApplication.result.contributionKind, "node_type");
@@ -429,6 +394,186 @@ test(
   },
 );
 
+test("S06 SDK and CLI consume one serialized public operation contract", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `public-contract=${Date.now()}`,
+  );
+  const unknownInvocation = invocation(
+    "abg.operation.unknown",
+    "unknown",
+    "invocation://t281/public-contract/unknown",
+    {},
+  );
+  const operationContext = installedPublic.createRootOperationContext();
+  let sdkRefusal;
+  try {
+    sdkRefusal = await installedPublic.applyRootPublicInvocation(
+      operationContext,
+      unknownInvocation,
+    );
+    assert.deepEqual(
+      sdkRefusal,
+      installedPublic.parseRootPublicInvocation(unknownInvocation),
+    );
+    assert.equal(sdkRefusal.kind, "public_invocation_refusal");
+    assert.equal(sdkRefusal.code, "invalid_request");
+    assert.equal(
+      (
+        await installedPublic.applyRootPublicInvocation(
+          operationContext,
+          {
+            ...unknownInvocation,
+            operationId: "abg.operation.product.verify",
+            surplus: true,
+          },
+        )
+      ).kind,
+      "public_invocation_refusal",
+    );
+    assert.equal(
+      (
+        await installedPublic.applyRootPublicInvocation(
+          operationContext,
+          {
+            ...unknownInvocation,
+            operationId: "abg.operation.product.verify",
+            payload: { unsupported: undefined },
+          },
+        )
+      ).kind,
+      "public_invocation_refusal",
+    );
+  } finally {
+    installedPublic.closeRootOperationContext(operationContext);
+  }
+
+  const transcriptPath = join(
+    harness.scratch,
+    "public-contract-refusal.jsonl",
+  );
+  await writeFile(
+    transcriptPath,
+    `${JSON.stringify(unknownInvocation)}\n`,
+    "utf8",
+  );
+  const cliRun = await runInstalledCli(harness, { transcriptPath });
+  assert.equal(cliRun.exitCode, 2);
+  assert.deepEqual(cliRun.outcomes, [sdkRefusal]);
+
+  const schema = JSON.parse(
+    await readFile(
+      join(
+        harness.installedPackageRoot,
+        "contracts/schemas/public-operation.schema.json",
+      ),
+      "utf8",
+    ),
+  );
+  assert.deepEqual(
+    Object.keys(schema.$defs).sort(),
+    [
+      "PublicInvocationRefusal",
+      "PublicOutcome",
+      "RootPublicInvocation",
+    ],
+  );
+  assert.equal(
+    schema.$defs.RootPublicInvocation.properties.operationId.enum.includes(
+      "abg.operation.product.resolve",
+    ),
+    true,
+  );
+  const publicRows =
+    harness.candidateManifest.publicContractCatalog.rows.filter((row) =>
+      row.contractId.startsWith("abg.contract.public.")
+    );
+  assert.deepEqual(
+    publicRows.map((row) => row.contractId).sort(),
+    [
+      "abg.contract.public.invocation-refusal",
+      "abg.contract.public.root-invocation",
+      "abg.contract.public.root-outcome",
+    ],
+  );
+  assert.ok(publicRows.every((row) =>
+    row.assetLocator.path === "contracts/schemas/public-operation.schema.json" &&
+    row.nativeTypedLocator.packageExportPath === "./public"
+  ));
+
+  const gtlRow = harness.candidateManifest.publicContractCatalog.rows.find(
+    (row) => row.contractId === "abg.contract.gtl.root-declaration",
+  );
+  assert.equal(
+    gtlRow.nativeTypedLocator.namedSymbol,
+    "GTL_DECLARATION_CONSTRUCTORS",
+  );
+  assert.equal(
+    gtlRow.capabilityIdentities.includes("abg.capability.gtl.declare@5"),
+    true,
+  );
+  for (const constructor of [
+    "catalogContribution",
+    "closureContract",
+    "contractDeclaration",
+    "implementationBinding",
+    "modulePublication",
+    "productSemanticsBinding",
+  ]) {
+    assert.equal(
+      gtlRow.nativeTypedLocator.exportedSymbols.includes(constructor),
+      true,
+      `${constructor} must be present in the verified GTL export roster`,
+    );
+  }
+});
+
+test("S06 verified Product and resolved lock truth are deeply immutable", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const installedProduct = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/product",
+    `immutable-product=${Date.now()}`,
+  );
+  const verified = await installedProduct.verifyProduct({
+    artifactPath: harness.artifactPath,
+    artifactRef: harness.artifactRef,
+    ...expectedVerificationIdentity(harness.candidateBasis),
+  });
+  assert.equal(verified.kind, "verified_product_artifact");
+  assert.equal(Object.isFrozen(verified), true);
+  assert.equal(Object.isFrozen(verified.compatibilityRefs), true);
+  assert.equal(Object.isFrozen(verified.contributionManifest), true);
+  assert.equal(Object.isFrozen(verified.contributionManifest.rows), true);
+  assert.equal(
+    Object.isFrozen(
+      verified.contributionManifest.rows[0].readinessPrerequisiteRefs,
+    ),
+    true,
+  );
+  assert.throws(
+    () => {
+      verified.compatibilityRefs[0] =
+        "compatibility://abiogenesis/major/999";
+    },
+    TypeError,
+  );
+  const lock = installedProduct.constructResolvedProductLock([verified]);
+  assert.equal(lock.kind, "resolved_product_lock");
+  assert.equal(Object.isFrozen(lock), true);
+  assert.equal(Object.isFrozen(lock.rows), true);
+  assert.equal(Object.isFrozen(lock.rows[0].publicContracts), true);
+  assert.throws(
+    () => {
+      lock.rows[0].publicContractRefs[0] =
+        "abg.contract.public.forged";
+    },
+    TypeError,
+  );
+});
+
 test("S06 workspace binding rejects caller-authored dependency edges", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
   const flavored = await prepareFlavoredCatalogProduct(harness);
@@ -444,14 +589,14 @@ test("S06 workspace binding rejects caller-authored dependency edges", async (co
   );
   const operationContext = installedPublic.createRootOperationContext();
   try {
-    for (const row of scenario.transcript.slice(0, 4)) {
+    for (const row of scenario.transcript.slice(0, 5)) {
       const outcome = await installedPublic.applyRootPublicInvocation(
         operationContext,
         row,
       );
       assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
     }
-    const forgedBind = structuredClone(scenario.transcript[4]);
+    const forgedBind = structuredClone(scenario.transcript[5]);
     forgedBind.invocationRef =
       "invocation://t281/flavored-host-dependency/forged-bind";
     forgedBind.payload.dependencyEdges = [{
@@ -485,14 +630,14 @@ test("S06 catalog admission rejects contribution truth absent from the verified 
   );
   const operationContext = installedPublic.createRootOperationContext();
   try {
-    for (const row of scenario.transcript.slice(0, 5)) {
+    for (const row of scenario.transcript.slice(0, 6)) {
       const outcome = await installedPublic.applyRootPublicInvocation(
         operationContext,
         row,
       );
       assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
     }
-    const forgedCatalog = structuredClone(scenario.transcript[5]);
+    const forgedCatalog = structuredClone(scenario.transcript[6]);
     forgedCatalog.invocationRef =
       "invocation://t281/flavored-contribution-forgery/catalog";
     forgedCatalog.payload.publication.contributions[0].compatibilityRefs = [
@@ -506,6 +651,37 @@ test("S06 catalog admission rejects contribution truth absent from the verified 
     assert.equal(refused.result.code, "owner_refusal");
     assert.match(
       refused.result.message,
+      /publisher-authored Product truth/u,
+    );
+
+    const changedEffect = structuredClone(scenario.transcript[6]);
+    changedEffect.invocationRef =
+      "invocation://t281/flavored-contribution-forgery/effect";
+    changedEffect.payload.publication.graphFunctions[0].effects = [
+      "effect://flavor.example/text/forged@5",
+    ];
+    const effectRefusal = await installedPublic.applyRootPublicInvocation(
+      operationContext,
+      changedEffect,
+    );
+    assert.equal(effectRefusal.disposition, "refused");
+    assert.match(
+      effectRefusal.result.message,
+      /complete module publication differs/u,
+    );
+
+    const changedReadiness = structuredClone(scenario.transcript[6]);
+    changedReadiness.invocationRef =
+      "invocation://t281/flavored-contribution-forgery/readiness";
+    changedReadiness.payload.publication.contributions[0]
+      .readinessPrerequisiteRefs = [];
+    const readinessRefusal = await installedPublic.applyRootPublicInvocation(
+      operationContext,
+      changedReadiness,
+    );
+    assert.equal(readinessRefusal.disposition, "refused");
+    assert.match(
+      readinessRefusal.result.message,
       /publisher-authored Product truth/u,
     );
   } finally {
@@ -535,19 +711,19 @@ test("S06 unresolved dependency lock refuses before Product materialization", as
       );
       assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
     }
-    const unresolvedInstall = structuredClone(scenario.transcript[3]);
-    unresolvedInstall.invocationRef =
-      "invocation://t281/flavored-preinstall-lock/unresolved-install";
-    unresolvedInstall.payload.lockVerifiedInvocationRefs = [
+    const unresolvedResolution = structuredClone(scenario.transcript[2]);
+    unresolvedResolution.invocationRef =
+      "invocation://t281/flavored-preinstall-lock/unresolved-resolution";
+    unresolvedResolution.payload.verifiedInvocationRefs = [
       scenario.refs.verifyFlavored,
     ];
     const refused = await installedPublic.applyRootPublicInvocation(
       operationContext,
-      unresolvedInstall,
+      unresolvedResolution,
     );
     assert.equal(refused.disposition, "refused");
     assert.equal(refused.result.code, "owner_refusal");
-    assert.match(refused.result.message, /lock construction refused/u);
+    assert.match(refused.result.message, /lock resolution refused/u);
     await assert.rejects(access(scenario.flavoredConsumer));
   } finally {
     installedPublic.closeRootOperationContext(operationContext);
@@ -637,7 +813,7 @@ test(
     const operationContext = installedPublic.createRootOperationContext();
     let operationContextClosed = false;
     try {
-      for (const row of scenario.transcript.slice(0, 7)) {
+      for (const row of scenario.transcript.slice(0, 8)) {
         const outcome = await installedPublic.applyRootPublicInvocation(
           operationContext,
           row,
@@ -793,275 +969,51 @@ test(
 
       const admittedNode = await installedPublic.applyRootPublicInvocation(
         operationContext,
-        scenario.transcript[7],
+        scenario.transcript[8],
       );
       assert.equal(admittedNode.disposition, "succeeded");
-      const application =
-        operationContext.productState.catalogApplication(
-          scenario.refs.applyNode,
-        ).application;
-      const installedPackageRoot = join(
-        harness.cliHost,
-        "node_modules",
-        "@abiogenesis",
-        "typescript-tenant",
-      );
-      const installedAbg = await import(
-        pathToFileURL(
-          join(installedPackageRoot, "build/code/src/abg/index.js"),
-        ).href
-      );
-      const installedProduct = await import(
-        pathToFileURL(
-          join(installedPackageRoot, "build/code/src/product/index.js"),
-        ).href
-      );
-      const installedEventStore = await import(
-        pathToFileURL(
-          join(
-            installedPackageRoot,
-            "build/code/src/abg/event_store.js",
-          ),
-        ).href
-      );
-      const installState = operationContext.productState.install(
-        scenario.refs.installFlavored,
-      );
-      const viewState = operationContext.productState.catalogView(
-        scenario.refs.view,
-      );
-      assert.ok(installState);
-      assert.ok(viewState);
-      const candidateScope = installedAbg.catalogApplicationCandidateScope(
-        operationContext.store,
-      );
-      const semantics = await installedProduct.loadInstalledProductSemantics({
-        install: installState.install,
-        publication: viewState.catalogState.publication,
-        verifyInstallAdmission: (install) =>
-          installedAbg.hasAdmittedProductInstall(
-            operationContext.store,
-            install,
-          ),
-      });
-      const constructNodeCandidate = (
-        scope = candidateScope,
-        provider = semantics,
-      ) => {
-        const candidate =
-          installedProduct.constructCatalogApplicationCandidate(
-            provider,
-            {
-              catalog: viewState.catalogState.catalog,
-              view: viewState.view,
-              workspaceBinding:
-                viewState.catalogState.workspaceState.binding,
-              lock: viewState.catalogState.workspaceState.lock,
-              handle: flavored.ids.nodeTypeHandle,
-              applicationVariant: "node_type",
-              value: flavored.nodeTypeValue,
-              contributorRef: flavored.basis.productId,
-              nodeTypeTarget: {
-                kind: "program",
-                programRef: flavored.ids.programRef,
-              },
-              candidateScope: scope,
-            },
-          );
-        assert.equal(
-          candidate.kind,
-          "catalog_application_candidate",
-          JSON.stringify(candidate),
-        );
-        return candidate;
-      };
       assert.equal(
-        installedAbg.hasAdmittedCatalogApplication(
-          operationContext.store,
-          application,
-        ),
-        true,
-      );
-      assert.equal(
-        application.contributorAuthorityKind,
-        "installed_product_attestation",
-      );
-      assert.equal(
-        application.contributorAuthorityRef,
-        flavored.ids.contributorAttestationRef,
-      );
-      assert.equal(
-        application.contributorProvenanceRefs.includes(
-          flavored.ids.contributorAttestationRef,
-        ),
-        true,
-      );
-      const forgedCandidate = structuredClone({
-        ...application,
-        kind: "catalog_application_candidate",
-        disposition: "candidate",
-        applicationCandidateId: application.admissionCandidateRef,
-        applicationCandidateDigest: application.applicationDigest,
-      });
-      assert.equal(
-        installedProduct.isCatalogApplicationCandidate(
-          forgedCandidate,
-          candidateScope,
-        ),
+        Object.hasOwn(operationContext, "productState"),
         false,
-        "a structural receipt clone must not acquire Product validation authority",
+        "Product operation state must remain opaque at the public boundary",
       );
-      const crossStoreCandidate = constructNodeCandidate();
+      assert.equal(admittedNode.result.kind, "catalog_application");
+      assert.equal(
+        admittedNode.result.appliedValueRef,
+        flavored.ids.nodeTypeRef,
+      );
+
       const foreignContext = installedPublic.createRootOperationContext();
       try {
-        mirrorEventHistory(
-          operationContext.store,
-          foreignContext.store,
-          installedEventStore.admitRuntimeEvent,
+        const crossContext = await installedPublic.applyRootPublicInvocation(
+          foreignContext,
+          {
+            ...structuredClone(scenario.transcript[8]),
+            invocationRef:
+              "invocation://t270/catalog-apply-cross-operation-context",
+          },
         );
-        installedAbg.catalogApplicationCandidateScope(foreignContext.store);
-        assert.equal(
-          installedAbg.hasAdmittedCatalogView(
-            foreignContext.store,
-            viewState.view,
-          ),
-          true,
-          "the foreign store must contain the exact mirrored CatalogView history",
+        assert.equal(crossContext.disposition, "refused");
+        assert.match(
+          crossContext.result.message,
+          /CatalogView invocation .* is not admitted in this transcript/u,
         );
-        assert.equal(
-          installedAbg.hasAdmittedCatalogApplication(
-            foreignContext.store,
-            application,
-          ),
-          false,
-          "an application must not cross its originating store",
-        );
-        const crossStoreAdmission = installedAbg.admitCatalogApplication(
-          foreignContext.store,
-          viewState.view,
-          crossStoreCandidate,
-          catalogApplyBasis(
-            installedProduct,
-            viewState.view,
-            "invocation://t270/catalog-apply-cross-store",
-          ),
-        );
-        assert.equal(
-          crossStoreAdmission.kind,
-          "catalog_admission_refusal",
-        );
-        assert.equal(crossStoreAdmission.code, "scope_mismatch");
       } finally {
         installedPublic.closeRootOperationContext(foreignContext);
       }
-      await context.test(
-        "direct ABG store closure revokes its genuine catalog candidate",
-        async () => {
-          const directCloseStore = new installedEventStore.AbgEventStore();
-          mirrorEventHistory(
-            operationContext.store,
-            directCloseStore,
-            installedEventStore.admitRuntimeEvent,
-          );
-          const directCloseScope =
-            installedAbg.catalogApplicationCandidateScope(directCloseStore);
-          const directCloseSemantics =
-            await installedProduct.loadInstalledProductSemantics({
-              install: installState.install,
-              publication: viewState.catalogState.publication,
-              verifyInstallAdmission: (install) =>
-                installedAbg.hasAdmittedProductInstall(
-                  directCloseStore,
-                  install,
-                ),
-            });
-          const directCloseCandidate = constructNodeCandidate(
-            directCloseScope,
-            directCloseSemantics,
-          );
-          directCloseStore.configureDurableLog(
-            join(harness.scratch, "catalog-direct-close.events.jsonl"),
-          );
-          const reopenAuthority =
-            directCloseStore.projectReopenAuthorityAndClose();
-          assert.equal(
-            reopenAuthority.kind,
-            "event_store_reopen_authority",
-          );
-          const directCloseAdmission = installedAbg.admitCatalogApplication(
-            directCloseStore,
-            viewState.view,
-            directCloseCandidate,
-            catalogApplyBasis(
-              installedProduct,
-              viewState.view,
-              "invocation://t270/catalog-apply-after-direct-store-close",
-            ),
-          );
-          assert.equal(
-            directCloseAdmission.kind,
-            "catalog_admission_refusal",
-          );
-          assert.equal(directCloseAdmission.code, "scope_mismatch");
-          assert.throws(
-            () => installedAbg.catalogApplicationCandidateScope(
-              directCloseStore,
-            ),
-            /revoked/u,
-          );
-        },
-      );
-      const oneShotCandidate = constructNodeCandidate();
-      const oneShotAdmission = installedAbg.admitCatalogApplication(
-        operationContext.store,
-        viewState.view,
-        oneShotCandidate,
-        catalogApplyBasis(
-          installedProduct,
-          viewState.view,
-          "invocation://t270/catalog-apply-one-shot",
-        ),
-      );
-      assert.equal(oneShotAdmission.kind, "catalog_application");
-      const repeatedAdmission = installedAbg.admitCatalogApplication(
-        operationContext.store,
-        viewState.view,
-        oneShotCandidate,
-        catalogApplyBasis(
-          installedProduct,
-          viewState.view,
-          "invocation://t270/catalog-apply-one-shot-repeated",
-        ),
-      );
-      assert.equal(repeatedAdmission.kind, "catalog_admission_refusal");
-      assert.equal(repeatedAdmission.code, "scope_mismatch");
-      const postCloseCandidate = constructNodeCandidate();
-      const originatingStore = operationContext.store;
+
       installedPublic.closeRootOperationContext(operationContext);
       operationContextClosed = true;
-      assert.equal(
-        installedAbg.hasAdmittedCatalogApplication(
-          originatingStore,
-          application,
+      await assert.rejects(
+        installedPublic.applyRootPublicInvocation(
+          operationContext,
+          {
+            ...structuredClone(scenario.transcript[8]),
+            invocationRef:
+              "invocation://t270/catalog-apply-after-operation-close",
+          },
         ),
-        false,
-        "closing the operation context must revoke application authority",
-      );
-      const postCloseAdmission = installedAbg.admitCatalogApplication(
-        originatingStore,
-        viewState.view,
-        postCloseCandidate,
-        catalogApplyBasis(
-          installedProduct,
-          viewState.view,
-          "invocation://t270/catalog-apply-after-close",
-        ),
-      );
-      assert.equal(postCloseAdmission.kind, "catalog_admission_refusal");
-      assert.equal(postCloseAdmission.code, "scope_mismatch");
-      assert.throws(
-        () => installedAbg.catalogApplicationCandidateScope(originatingStore),
-        /revoked/u,
+        /root operation context is closed/u,
       );
     } finally {
       if (!operationContextClosed) {
@@ -1093,13 +1045,22 @@ test("S06 Codex delegate and flavored Product keep their public boundaries", asy
     /spawn\(cliPath,/u,
   );
 
-  const flavoredSource = await readFile(
+  const flavoredRuntimeSource = await readFile(
     join(
       packageRoot,
       "test_env/fixtures/flavored-catalog-product/src/index.ts",
     ),
     "utf8",
   );
+  const flavoredPublicationSource = await readFile(
+    join(
+      packageRoot,
+      "test_env/fixtures/flavored-catalog-product/src/publication.ts",
+    ),
+    "utf8",
+  );
+  const flavoredSource =
+    `${flavoredRuntimeSource}\n${flavoredPublicationSource}`;
   assert.match(
     flavoredSource,
     /from "@abiogenesis\/typescript-tenant\/product"/u,
@@ -1107,6 +1068,11 @@ test("S06 Codex delegate and flavored Product keep their public boundaries", asy
   assert.match(
     flavoredSource,
     /from "@abiogenesis\/typescript-tenant\/gtl"/u,
+  );
+  assert.doesNotMatch(
+    flavoredRuntimeSource,
+    /from "@abiogenesis\/typescript-tenant\/gtl"/u,
+    "installed effect and semantics code must not depend on declaration-time GTL constructors",
   );
   for (const constructor of [
     "catalogContribution",
@@ -1123,6 +1089,6 @@ test("S06 Codex delegate and flavored Product keep their public boundaries", asy
   }
   assert.doesNotMatch(
     flavoredSource,
-    /build\/code\/src|from\s+["'][.]{1,2}\/|(?:import|require)\s*\(\s*["'](?:[.]{1,2}\/|@abiogenesis\/typescript-tenant\/build\/)/u,
+    /build\/code\/src|from\s+["'][.]{2}\/|(?:import|require)\s*\(\s*["'](?:[.]{2}\/|@abiogenesis\/typescript-tenant\/build\/)/u,
   );
 });

@@ -1,0 +1,406 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "abg.schema.public-operation@5",
+  "title": "ABIogenesis Public Operation Contract",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/RootPublicInvocation"
+    },
+    {
+      "$ref": "#/$defs/PublicOutcome"
+    },
+    {
+      "$ref": "#/$defs/PublicInvocationRefusal"
+    }
+  ],
+  "$defs": {
+    "RootPublicInvocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "operationId",
+        "variant",
+        "invocationRef",
+        "eventTime",
+        "correlationId",
+        "payload"
+      ],
+      "properties": {
+        "kind": {
+          "const": "public_invocation"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "operationId": {
+          "enum": [
+            "abg.operation.product.verify",
+            "abg.operation.product.resolve",
+            "abg.operation.product.install",
+            "abg.operation.workspace.bind",
+            "abg.operation.catalog.admit",
+            "abg.operation.catalog.apply",
+            "abg.operation.catalog.view",
+            "abg.operation.project.read",
+            "abg.operation.interaction.respond",
+            "abg.operation.run.continue",
+            "abg.operation.run.invoke"
+          ]
+        },
+        "variant": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "invocationRef": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "eventTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "correlationId": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "payload": {
+          "type": "object"
+        }
+      }
+    },
+    "PublicOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "operationId",
+        "variant",
+        "invocationRef",
+        "runtimeInvocationRef",
+        "disposition",
+        "outcomeDigest",
+        "result",
+        "diagnosticRef",
+        "runId",
+        "graphCallId",
+        "frameId",
+        "cCallRef",
+        "resultRef",
+        "judgmentRef",
+        "outputContractRef",
+        "admittedResultContractRef",
+        "replayRef",
+        "replayDigest",
+        "replayAgreement",
+        "eventLogPath",
+        "eventLogDigest",
+        "eventLogByteLength",
+        "durableEventCount",
+        "continuationRef",
+        "continuationStatus"
+      ],
+      "properties": {
+        "kind": {
+          "const": "public_outcome"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "operationId": {
+          "enum": [
+            "abg.operation.product.verify",
+            "abg.operation.product.resolve",
+            "abg.operation.product.install",
+            "abg.operation.workspace.bind",
+            "abg.operation.catalog.admit",
+            "abg.operation.catalog.apply",
+            "abg.operation.catalog.view",
+            "abg.operation.project.read",
+            "abg.operation.interaction.respond",
+            "abg.operation.run.continue",
+            "abg.operation.run.invoke"
+          ]
+        },
+        "variant": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "invocationRef": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "runtimeInvocationRef": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "disposition": {
+          "enum": [
+            "blocked",
+            "failed",
+            "gap_stop",
+            "held",
+            "inspect_runtime_archive",
+            "repair",
+            "reprice",
+            "reprice_required",
+            "escalate",
+            "refused",
+            "succeeded"
+          ]
+        },
+        "outcomeDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "result": {},
+        "diagnosticRef": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "runId": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "graphCallId": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "frameId": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cCallRef": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resultRef": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "judgmentRef": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "outputContractRef": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "admittedResultContractRef": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "replayRef": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "replayDigest": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "replayAgreement": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "eventLogPath": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "eventLogDigest": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "eventLogByteLength": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durableEventCount": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "continuationRef": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "continuationStatus": {
+          "oneOf": [
+            {
+              "enum": [
+                "open",
+                "responded",
+                "resolved"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "continuationAuthority": {},
+        "projectionAuthority": {}
+      }
+    },
+    "PublicInvocationRefusal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "disposition",
+        "code",
+        "message"
+      ],
+      "properties": {
+        "kind": {
+          "const": "public_invocation_refusal"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "disposition": {
+          "const": "refused"
+        },
+        "code": {
+          "enum": [
+            "duplicate_invocation",
+            "invalid_request",
+            "missing_prerequisite",
+            "owner_refusal",
+            "target_mismatch"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "pattern": "\\S"
+        }
+      }
+    }
+  }
+}

@@ -26,6 +26,7 @@
       "mutation": "setup_undeclared_payload_fields",
       "boundary": "public_ingress",
       "cases": [
+        "resolve",
         "install",
         "workspace",
         "workspace-roots",

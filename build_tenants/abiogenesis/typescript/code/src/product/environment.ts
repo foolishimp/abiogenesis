@@ -13,6 +13,7 @@ import {
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 import {
   isProductContributionManifest,
   parseProductPublicContract,
@@ -212,6 +213,9 @@ function copyContributionManifest(
 ): ProductContributionManifest {
   return {
     ...manifest,
+    publicationBindings: manifest.publicationBindings.map((binding) => ({
+      ...binding,
+    })),
     rows: manifest.rows.map((row) => ({
       ...row,
       programMembershipRefs: [...row.programMembershipRefs],
@@ -230,7 +234,12 @@ function copyPublicContract(
     capabilityIdentities: [...contract.capabilityIdentities],
     ...(contract.nativeTypedLocator === undefined
       ? {}
-      : { nativeTypedLocator: { ...contract.nativeTypedLocator } }),
+      : {
+        nativeTypedLocator: {
+          ...contract.nativeTypedLocator,
+          exportedSymbols: [...contract.nativeTypedLocator.exportedSymbols],
+        },
+      }),
     ...(contract.assetLocator === undefined
       ? {}
       : { assetLocator: { ...contract.assetLocator } }),
@@ -409,14 +418,14 @@ export function constructResolvedProductLock(
     rows,
     dependencyEdges,
   } as unknown as JsonValue);
-  return {
+  return deepFreeze({
     kind: "resolved_product_lock",
     schemaVersion: "5.0.0",
     lockId: identity("product-lock://abiogenesis", lockDigest),
     lockDigest,
     rows,
     dependencyEdges,
-  };
+  });
 }
 
 export function isResolvedProductLock(

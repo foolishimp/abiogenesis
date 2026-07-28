@@ -91,20 +91,20 @@ test("M5 installed GTL composes F_P then F_D without changing execution authorit
 
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.stderr, "");
-  assert.equal(run.outcomes.length, 6, run.stdout);
+  assert.equal(run.outcomes.length, 7, run.stdout);
   assert.equal(
     run.outcomes.every((outcome) => outcome.disposition === "succeeded"),
     true,
   );
-  assert.deepEqual(run.outcomes[5].result, {
+  assert.deepEqual(run.outcomes[6].result, {
     kind: "fp_hello_output",
     schemaVersion: "5.0.0",
     resultContractRef: OUTPUT_CONTRACT_REF,
     actorRef: ACTOR_REF,
     message: "Hello World",
   });
-  assert.equal(run.outcomes[5].outputContractRef, OUTPUT_CONTRACT_REF);
-  assert.equal(run.outcomes[5].replayAgreement, true);
+  assert.equal(run.outcomes[6].outputContractRef, OUTPUT_CONTRACT_REF);
+  assert.equal(run.outcomes[6].replayAgreement, true);
 
   const events = await readEvents(scenario.eventLogPath);
   const opened = events.filter((event) => event.kind === "c_call_opened");

@@ -175,6 +175,10 @@ export function catalogContribution(
       input.programMembershipRefs,
       "CatalogContribution.programMembershipRefs",
     ),
+    readinessPrerequisiteRefs: freezeStrings(
+      input.readinessPrerequisiteRefs,
+      "CatalogContribution.readinessPrerequisiteRefs",
+    ),
     compatibilityRefs: freezeStrings(
       input.compatibilityRefs,
       "CatalogContribution.compatibilityRefs",
@@ -218,3 +222,12 @@ export function modulePublication(
     contributions: input.contributions.map(catalogContribution),
   });
 }
+
+export const GTL_DECLARATION_CONSTRUCTORS = deepFreeze({
+  catalogContribution,
+  closureContract,
+  contractDeclaration,
+  implementationBinding,
+  modulePublication,
+  productSemanticsBinding,
+});

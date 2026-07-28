@@ -56,12 +56,12 @@ test("M5 installed gate advances from admitted evaluator truth into its named ta
 
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
-  assert.deepEqual(run.outcomes[5].result, {
+  assert.deepEqual(run.outcomes[6].result, {
     kind: "hello_world_output",
     schemaVersion: "5.0.0",
     message: "Hello World",
   });
-  assert.equal(run.outcomes[5].replayAgreement, true);
+  assert.equal(run.outcomes[6].replayAgreement, true);
 
   const calls = events.filter((event) => event.kind === "c_call_opened");
   const evaluatorCall = calls.find(
@@ -125,7 +125,7 @@ test("M5 installed gate admits a valid evaluator result and blocks before target
   const { run, events } = await runGateScenario(context, "Blocked");
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes[5].disposition, "blocked");
+  assert.equal(run.outcomes[6].disposition, "blocked");
   const calls = events.filter((event) => event.kind === "c_call_opened");
   assert.equal(calls.length, 1);
   assert.equal(calls[0].payload.stageRole, "evaluate");

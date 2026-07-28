@@ -625,6 +625,7 @@ export function constructFanOutPublicationParts(
     declarationOrContractRef: graphFunctionRef,
     owningProductId: artifact.productId,
     programMembershipRefs: [FAN_OUT_HELLO_IDS.programRef],
+    readinessPrerequisiteRefs: [FAN_OUT_HELLO_IDS.programRef],
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
     });

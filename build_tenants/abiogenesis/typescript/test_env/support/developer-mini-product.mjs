@@ -121,6 +121,11 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
     productContentDigest,
     publicContractCatalogId: publicContractCatalog.catalogId,
     publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+    publicationBindings: [{
+      moduleRef: draftPublication.moduleRef,
+      publicationDigest:
+        product.modulePublicationSemanticDigest(draftPublication),
+    }],
     rows: draftPublication.contributions.map((contribution) => ({
       moduleRef: draftPublication.moduleRef,
       handle: contribution.handle,
@@ -130,7 +135,9 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
       programMembershipRefs: [...contribution.programMembershipRefs],
       compatibilityRefs: [...contribution.compatibilityRefs],
       provenanceRef,
-      readinessPrerequisiteRefs: [...contribution.programMembershipRefs],
+      readinessPrerequisiteRefs: [
+        ...contribution.readinessPrerequisiteRefs,
+      ],
     })),
   };
   const manifest = {
@@ -158,7 +165,7 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
       ],
       requiredCapabilityRefs: [
         "abg.capability.catalog.invoke-graph-function@5",
-        "abg.capability.gtl.author@5",
+        "abg.capability.gtl.declare@5",
       ],
     }],
     provenanceRef,
@@ -189,21 +196,127 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
     packageName: packageJson.name,
     packageVersion: packageJson.version,
   };
-  return {
+  const publication = module.constructDeveloperMiniPublication({
+    productId,
+    artifactDigest,
+    productContentDigest,
+    productManifestDigest: manifestDigest,
+    packageName: packageJson.name,
+    packageVersion: packageJson.version,
+  });
+  const prepared = {
     artifactPath,
     artifactRef: basename(artifactPath),
     basis,
     ids: module.DEVELOPER_MINI_IDS,
     constructObservationSnapshot:
       module.constructDeveloperObservationSnapshot,
-    publication: module.constructDeveloperMiniPublication({
-      productId,
-      artifactDigest,
-      productContentDigest,
-      productManifestDigest: manifestDigest,
-      packageName: packageJson.name,
-      packageVersion: packageJson.version,
-    }),
+    publication,
     sourceRoot,
   };
+  prepared.materializePublicationVariant = async (
+    label,
+    candidatePublication,
+  ) => {
+    if (
+      product.modulePublicationSemanticDigest(candidatePublication) ===
+        product.modulePublicationSemanticDigest(publication)
+    ) {
+      return prepared;
+    }
+    const safeLabel = label.replace(/[^a-zA-Z0-9._-]/gu, "-");
+    const variantRoot = join(
+      scratch,
+      "developer-mini-product-variants",
+      safeLabel,
+    );
+    await rm(variantRoot, { force: true, recursive: true });
+    await mkdir(variantRoot, { recursive: true });
+    await cp(sourceRoot, variantRoot, { recursive: true });
+    const variantContributionManifest = {
+      ...contributionManifest,
+      publicationBindings: [{
+        moduleRef: candidatePublication.moduleRef,
+        publicationDigest:
+          product.modulePublicationSemanticDigest(candidatePublication),
+      }],
+      rows: candidatePublication.contributions.map((contribution) => ({
+        moduleRef: candidatePublication.moduleRef,
+        handle: contribution.handle,
+        kind: contribution.kind,
+        declarationOrContractRef: contribution.declarationOrContractRef,
+        owningProductId: contribution.owningProductId,
+        programMembershipRefs: [...contribution.programMembershipRefs],
+        compatibilityRefs: [...contribution.compatibilityRefs],
+        provenanceRef,
+        readinessPrerequisiteRefs: [
+          ...contribution.readinessPrerequisiteRefs,
+        ],
+      })),
+    };
+    const variantManifest = {
+      ...manifest,
+      contributionManifestDigest:
+        product.sha256Canonical(variantContributionManifest),
+      contributionManifest: variantContributionManifest,
+    };
+    await writeFile(
+      join(variantRoot, "product-toolchain-manifest.json"),
+      `${product.canonicalJson(variantManifest)}\n`,
+      "utf8",
+    );
+    const variantManifestDigest = product.sha256Canonical(variantManifest);
+    const variantArtifacts = join(
+      scratch,
+      "variant-artifacts",
+      safeLabel,
+    );
+    await mkdir(variantArtifacts, { recursive: true });
+    const { stdout: variantStdout } = await execFileAsync(
+      "npm",
+      [
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        variantArtifacts,
+      ],
+      { cwd: variantRoot, maxBuffer: 10 * 1024 * 1024 },
+    );
+    const [variantPackResult] = JSON.parse(variantStdout);
+    const variantArtifactPath = join(
+      variantArtifacts,
+      variantPackResult.filename,
+    );
+    const variantArtifactDigest =
+      await product.sha256File(variantArtifactPath);
+    const variantBasis = {
+      ...basis,
+      artifactDigest: variantArtifactDigest,
+      manifestDigest: variantManifestDigest,
+    };
+    return {
+      ...prepared,
+      artifactPath: variantArtifactPath,
+      artifactRef: basename(variantArtifactPath),
+      basis: variantBasis,
+      publication: {
+        ...structuredClone(candidatePublication),
+        artifactDigest: variantArtifactDigest,
+        productContentDigest,
+        productManifestDigest: variantManifestDigest,
+        contributions: candidatePublication.contributions.map(
+          (contribution) => ({
+            ...structuredClone(contribution),
+            provenanceRefs: [
+              variantArtifactDigest,
+              variantManifestDigest,
+            ],
+          }),
+        ),
+      },
+      sourceRoot: variantRoot,
+    };
+  };
+  return prepared;
 }

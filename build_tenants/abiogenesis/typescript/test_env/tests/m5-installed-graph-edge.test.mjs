@@ -37,14 +37,14 @@ test("M5 installed HoG traverses one natively composed GraphFunction", async (co
   const run = await runInstalledCli(harness, scenario);
 
   assert.equal(run.exitCode, 0, run.stdout);
-  assert.equal(run.outcomes.length, 6);
+  assert.equal(run.outcomes.length, 7);
   assert.equal(run.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
-  assert.deepEqual(run.outcomes[5].result, {
+  assert.deepEqual(run.outcomes[6].result, {
     kind: "hello_world_output",
     schemaVersion: "5.0.0",
     message: "Hello World",
   });
-  assert.equal(run.outcomes[5].replayAgreement, true);
+  assert.equal(run.outcomes[6].replayAgreement, true);
 
   const events = await readEvents(scenario.eventLogPath);
   const cCalls = events.filter((event) => event.kind === "c_call_opened");

@@ -108,9 +108,9 @@ test("M5 installed CLI admits one subprocess-backed F_P leaf through ordinary GT
 
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.stderr, "");
-  assert.equal(run.outcomes.length, 6, run.stdout);
+  assert.equal(run.outcomes.length, 7, run.stdout);
   assert.equal(run.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
-  const outcome = run.outcomes[5];
+  const outcome = run.outcomes[6];
   assert.equal(outcome.outputContractRef, OUTPUT_CONTRACT_REF);
   assert.equal(outcome.admittedResultContractRef, OUTPUT_CONTRACT_REF);
   assert.deepEqual(outcome.result, {
@@ -273,7 +273,7 @@ test("M5 admitted GTL lane overrides ambient process lane selection", async (con
   });
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes[5].disposition, "blocked");
+  assert.equal(run.outcomes[6].disposition, "blocked");
   const events = await readEvents(scenario.eventLogPath);
   const binding = events.find(
     (event) => event.kind === "actor_transport_binding_admitted",
@@ -311,7 +311,7 @@ test("M5 deterministically salvages a valid result produced before nonzero exit"
   });
 
   assert.equal(run.exitCode, 0, run.stdout);
-  assert.equal(run.outcomes[5].disposition, "succeeded");
+  assert.equal(run.outcomes[6].disposition, "succeeded");
   const events = await readEvents(scenario.eventLogPath);
   const evidence = events.find((event) =>
     event.kind === "c_call_evidenced" &&
@@ -344,7 +344,7 @@ test("M5 records unavailable worker commands as typed process failure", async (c
   });
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes[5].disposition, "blocked");
+  assert.equal(run.outcomes[6].disposition, "blocked");
   const events = await readEvents(scenario.eventLogPath);
   assert.equal(events.some((event) => event.kind === "actor_process_spawn_failed"), true);
   assert.equal(events.some((event) => event.kind === "actor_invocation_failed"), true);
@@ -363,7 +363,7 @@ test("M5 refuses post-install implementation substitution before HoG execution",
       input: fpInput("World"),
     },
   );
-  const prefix = await applyInstalledTranscriptPrefix(harness, scenario, 5);
+  const prefix = await applyInstalledTranscriptPrefix(harness, scenario, 6);
   assert.equal(prefix.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
   await appendFile(
     join(scenario.installedRoot, "build/code/src/implementation/fp_hello.js"),
@@ -373,7 +373,7 @@ test("M5 refuses post-install implementation substitution before HoG execution",
 
   const outcome = await prefix.publicApi.applyRootPublicInvocation(
     prefix.operationContext,
-    scenario.transcript[5],
+    scenario.transcript[6],
   );
   assert.notEqual(outcome.disposition, "succeeded");
   assert.equal(
@@ -405,8 +405,8 @@ test("M5 rejects misattributed F_P output before success-result admission or clo
   });
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes.slice(0, 5).every((outcome) => outcome.disposition === "succeeded"), true);
-  const outcome = run.outcomes[5];
+  assert.equal(run.outcomes.slice(0, 6).every((outcome) => outcome.disposition === "succeeded"), true);
+  const outcome = run.outcomes[6];
   assert.equal(outcome.disposition, "blocked");
   assert.equal(outcome.admittedResultContractRef, REFUSAL_CONTRACT_REF);
   assert.match(outcome.diagnosticRef, /result-contract-mismatch/u);
@@ -447,8 +447,8 @@ test("M5 rejects syntactically malformed F_P output before success-result admiss
   });
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes.slice(0, 5).every((outcome) => outcome.disposition === "succeeded"), true);
-  const outcome = run.outcomes[5];
+  assert.equal(run.outcomes.slice(0, 6).every((outcome) => outcome.disposition === "succeeded"), true);
+  const outcome = run.outcomes[6];
   assert.equal(outcome.disposition, "blocked");
   assert.equal(outcome.admittedResultContractRef, REFUSAL_CONTRACT_REF);
   assert.match(outcome.diagnosticRef, /result-contract-mismatch/u);
@@ -497,8 +497,8 @@ for (const [responseMode, scenarioLabel] of [
     });
 
     assert.equal(run.exitCode, 2, run.stdout);
-    assert.equal(run.outcomes[5].disposition, "blocked");
-    assert.equal(run.outcomes[5].admittedResultContractRef, REFUSAL_CONTRACT_REF);
+    assert.equal(run.outcomes[6].disposition, "blocked");
+    assert.equal(run.outcomes[6].admittedResultContractRef, REFUSAL_CONTRACT_REF);
     const events = await readEvents(scenario.eventLogPath);
     assert.equal(events.some((event) =>
       event.kind === "c_call_result_admitted" &&

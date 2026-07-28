@@ -8,6 +8,7 @@ import type {
   ProductContributionManifest,
   ProductContributionManifestRow,
   ProductDeclaredDependency,
+  ProductModulePublicationBinding,
   ProductNativeTypedLocator,
   ProductPublicContract,
   ProductVerificationRefusal,
@@ -23,6 +24,7 @@ import {
   type PayloadInventoryRow,
   type Sha256Digest,
 } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
 
 type JsonRecord = { readonly [key: string]: JsonValue };
 
@@ -146,6 +148,15 @@ function isContributionManifestRow(
     isUniqueStringArray(value.readinessPrerequisiteRefs);
 }
 
+function isPublicationBinding(
+  value: unknown,
+): value is ProductModulePublicationBinding {
+  return isRecord(value) &&
+    hasExactKeys(value, ["moduleRef", "publicationDigest"]) &&
+    isNonblankString(value.moduleRef) &&
+    isSha256Digest(value.publicationDigest);
+}
+
 export function isProductContributionManifest(
   value: unknown,
 ): value is ProductContributionManifest {
@@ -158,6 +169,7 @@ export function isProductContributionManifest(
       "productContentDigest",
       "productId",
       "productVersion",
+      "publicationBindings",
       "publicContractCatalogDigest",
       "publicContractCatalogId",
       "rows",
@@ -172,13 +184,22 @@ export function isProductContributionManifest(
     !isSha256Digest(value.productContentDigest) ||
     !isNonblankString(value.publicContractCatalogId) ||
     !isSha256Digest(value.publicContractCatalogDigest) ||
+    !Array.isArray(value.publicationBindings) ||
+    !value.publicationBindings.every(isPublicationBinding) ||
     !Array.isArray(value.rows) ||
     !value.rows.every(isContributionManifestRow)
   ) {
     return false;
   }
   const rowKeys = value.rows.map((row) => `${row.moduleRef}\0${row.handle}`);
-  return new Set(rowKeys).size === rowKeys.length;
+  const publicationModuleRefs = value.publicationBindings.map(
+    (binding) => binding.moduleRef,
+  );
+  const rowModuleRefs = [...new Set(value.rows.map((row) => row.moduleRef))];
+  return new Set(rowKeys).size === rowKeys.length &&
+    new Set(publicationModuleRefs).size === publicationModuleRefs.length &&
+    publicationModuleRefs.length === rowModuleRefs.length &&
+    publicationModuleRefs.every((moduleRef) => rowModuleRefs.includes(moduleRef));
 }
 
 function isSafeProductPath(value: string): boolean {
@@ -313,6 +334,7 @@ function readNativeLocator(
   if (
     !hasExactKeys(locator, [
       "declarationPath",
+      "exportedSymbols",
       "namedSymbol",
       "packageExportPath",
       "packageName",
@@ -320,6 +342,8 @@ function readNativeLocator(
     !isNonblankString(locator.packageName) ||
     !isNonblankString(locator.packageExportPath) ||
     !isNonblankString(locator.namedSymbol) ||
+    !isUniqueStringArray(locator.exportedSymbols) ||
+    !locator.exportedSymbols.includes(locator.namedSymbol) ||
     !isNonblankString(locator.declarationPath)
   ) {
     return null;
@@ -328,6 +352,7 @@ function readNativeLocator(
     packageName: locator.packageName,
     packageExportPath: locator.packageExportPath,
     namedSymbol: locator.namedSymbol,
+    exportedSymbols: [...locator.exportedSymbols],
     declarationPath: locator.declarationPath,
   };
 }
@@ -586,6 +611,7 @@ export async function verifyProduct(
         publicCapabilityRefs.add(capabilityRef);
       }
 
+      const locatorDigests: Sha256Digest[] = [];
       const assetLocator = contract.assetLocator ?? null;
       if (assetLocator !== null) {
         if (!isSafeProductPath(assetLocator.path)) {
@@ -594,16 +620,14 @@ export async function verifyProduct(
         const assetDigest = sha256Bytes(
           await readArchiveEntry(request.artifactPath, `package/${assetLocator.path}`),
         );
-        if (
-          assetDigest !== assetLocator.contentDigest ||
-          assetDigest !== contract.contractDigest
-        ) {
+        if (assetDigest !== assetLocator.contentDigest) {
           return refusal(
             request,
             "contract_asset_mismatch",
             `contract asset digest is invalid: ${assetLocator.path}`,
           );
         }
+        locatorDigests.push(assetDigest);
       }
 
       const nativeLocator = contract.nativeTypedLocator ?? null;
@@ -623,19 +647,28 @@ export async function verifyProduct(
             packageExportPath: nativeLocator.packageExportPath,
             declarationPath: nativeLocator.declarationPath,
             declarationDigest,
+            exportedSymbols: nativeLocator.exportedSymbols,
           },
         ]);
-        if (nativeDigest !== contract.contractDigest) {
-          return refusal(request, "catalog_mismatch", "native typed contract digest is invalid");
-        }
+        locatorDigests.push(nativeDigest);
       }
 
+      const expectedContractDigest = locatorDigests.length === 1
+        ? locatorDigests[0]
+        : sha256Canonical(locatorDigests as unknown as JsonValue);
+      if (expectedContractDigest !== contract.contractDigest) {
+        return refusal(
+          request,
+          "catalog_mismatch",
+          "public contract locator digest is invalid",
+        );
+      }
     }
   } catch (error) {
     return refusal(request, "contract_asset_mismatch", String(error));
   }
 
-  return {
+  return deepFreeze({
     kind: "verified_product_artifact",
     schemaVersion: "5.0.0",
     disposition: "verified",
@@ -653,6 +686,10 @@ export async function verifyProduct(
     contributionManifestDigest: manifest.contributionManifestDigest,
     contributionManifest: {
       ...manifest.contributionManifest,
+      publicationBindings:
+        manifest.contributionManifest.publicationBindings.map((binding) => ({
+          ...binding,
+        })),
       rows: manifest.contributionManifest.rows.map((row) => ({
         ...row,
         programMembershipRefs: [...row.programMembershipRefs],
@@ -674,5 +711,5 @@ export async function verifyProduct(
     publicContractRefs: [...contractIds].sort(),
     publicCapabilityRefs: [...publicCapabilityRefs].sort(),
     checkedPayloadFiles: inventory.length,
-  };
+  });
 }

@@ -149,12 +149,12 @@ async function runScenario(harness, label, options = {}, environment = {}) {
 
 function assertSuccessfulInstalled(evidence) {
   assert.equal(evidence.run.exitCode, 0, evidence.run.stdout);
-  assert.equal(evidence.run.outcomes.length, 6, evidence.run.stdout);
+  assert.equal(evidence.run.outcomes.length, 7, evidence.run.stdout);
   assert.equal(
     evidence.run.outcomes.every((outcome) => outcome.disposition === "succeeded"),
     true,
   );
-  assert.equal(evidence.run.outcomes[5].replayAgreement, true);
+  assert.equal(evidence.run.outcomes[6].replayAgreement, true);
   assert.equal(evidence.events.at(-1)?.kind, "run_closed");
 }
 
@@ -167,16 +167,16 @@ function assertNoCompiledCarrier(events) {
 
 function assertCrossWireRefuses(evidence) {
   assert.equal(evidence.run.exitCode, 2, evidence.run.stdout);
-  assert.equal(evidence.run.outcomes[5].disposition, "refused");
-  assert.equal(evidence.run.outcomes[5].runId, null);
+  assert.equal(evidence.run.outcomes[6].disposition, "refused");
+  assert.equal(evidence.run.outcomes[6].runId, null);
   assert.deepEqual(evidence.events, []);
 }
 
 function assertMalformedFpBlocks(evidence) {
   assert.equal(evidence.run.exitCode, 2, evidence.run.stdout);
-  assert.equal(evidence.run.outcomes[5].disposition, "blocked");
+  assert.equal(evidence.run.outcomes[6].disposition, "blocked");
   assert.equal(
-    evidence.run.outcomes[5].admittedResultContractRef,
+    evidence.run.outcomes[6].admittedResultContractRef,
     REFUSAL_CONTRACT_REF,
   );
   assert.equal(evidence.events.at(-1)?.kind, "run_stopped");
@@ -351,7 +351,7 @@ const matrix = [
       true,
     );
     assert.equal(gateBlocked.run.exitCode, 2, gateBlocked.run.stdout);
-    assert.equal(gateBlocked.run.outcomes[5].disposition, "blocked");
+    assert.equal(gateBlocked.run.outcomes[6].disposition, "blocked");
     assert.equal(
       gateBlocked.events.some(
         (event) =>
@@ -417,7 +417,7 @@ const matrix = [
       event.kind === "child_foldback_admitted" &&
       event.payload.applicationRef !== undefined).length, 3);
     assert.equal(recursionBound.run.exitCode, 2, recursionBound.run.stdout);
-    assert.equal(recursionBound.run.outcomes[5].disposition, "blocked");
+    assert.equal(recursionBound.run.outcomes[6].disposition, "blocked");
     assert.equal(recursionBound.events.filter((event) =>
       event.kind === "graph_call_opened" &&
       event.graphFunctionRef === RECURSION_CHILD_REF).length, 3);
@@ -765,7 +765,7 @@ const matrix = [
     invalidMutation: "GraphFunction outside Program membership refuses before Run admission",
   }, ({ fd, crossWire }) => {
     assertSuccessfulInstalled(fd);
-    assert.equal(fd.scenario.transcript[5].payload.graphFunctionRef,
+    assert.equal(fd.scenario.transcript[6].payload.graphFunctionRef,
       "graph-function://abiogenesis/conformance/hello-world@5");
     assertCrossWireRefuses(crossWire);
   }),
@@ -816,7 +816,7 @@ const matrix = [
     invalidMutation: "unowned root GraphFunction refuses without a public controller fallback",
   }, ({ fd, crossWire }) => {
     assertSuccessfulInstalled(fd);
-    assert.equal(fd.scenario.transcript[5].variant, "direct");
+    assert.equal(fd.scenario.transcript[6].variant, "direct");
     assertNoCompiledCarrier(fd.events);
     assertCrossWireRefuses(crossWire);
   }),

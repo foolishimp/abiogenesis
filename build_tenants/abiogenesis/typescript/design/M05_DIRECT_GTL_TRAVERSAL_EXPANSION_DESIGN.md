@@ -3264,8 +3264,10 @@ direct-GTL architecture:
 
 ```text
 independently packed flavored Product
-  -> installed ProductSet and non-empty lock
-  -> caller-owned ModulePublication
+  -> verified Product set
+  -> public product.resolve and one non-empty exact lock
+  -> installation under that lock
+  -> publisher-owned, manifest-bound ModulePublication carried by the caller
   -> catalog.admit -> catalog.view -> catalog.apply
   -> run.invoke through native SDK and CLI
   -> the same invocation through a bounded Codex delegate
@@ -3297,6 +3299,7 @@ The composition is ordered:
 Product-owned identities and meaning
   -> GTL mechanical declaration constructors
   -> Product-owned complete ModulePublication
+  -> Product manifest binds the complete normalized publication digest
   -> exact Product coordinate resolution
   -> verified installed-module loading
   -> existing validator and ABG admission
@@ -3310,6 +3313,19 @@ commonizing that semantic choice would erase the independent flavored Product
 boundary. Module proof directly mutates zero/one/many cardinality, dependency
 cycles, installed-content/path/load failures, closure event order, and
 nonblank declaration references.
+
+The Product author owns the complete `ModulePublication` semantic body. A
+Public caller may transport that body to `catalog.admit`, but is not its
+author. Product verification derives the exact normalized publication digest
+from publisher-authored packed manifest truth. Normalization excludes only the
+archive and generated-manifest digests that cannot be self-embedded; it retains
+the Module, Product, semantics binding, contracts, evaluators, rules,
+implementation bindings, closure contracts, Programs, GraphFunctions,
+contributions, and their ordering. Catalog construction requires one exact
+normalized digest match plus the exact installed artifact and manifest
+provenance. Changing an effect, contract, implementation, Program,
+GraphFunction, contribution, ordering, or semantics binding therefore refuses.
+No mutable publisher-authorship alternative is accepted.
 
 ### 14.1 Independent flavored Product
 
@@ -3334,12 +3350,13 @@ Product authority closes before materialization:
 
 ```text
 exact packed Product bytes
-  -> verify descriptor and complete public-contract catalog
-  -> verify exact publisher-authored contribution manifest
-  -> resolve one complete dependency and compatibility lock
+  -> product.verify descriptor, complete public-contract catalog,
+     contribution manifest, and normalized ModulePublication digests
+  -> product.resolve one complete dependency and compatibility lock
   -> materialize each selected Product under that exact lock
   -> bind the installed Product set under the same lock
-  -> match ModulePublication rows exactly to contribution-manifest rows
+  -> match the complete carried ModulePublication and every contribution to
+     verified publisher-authored manifest truth
   -> existing catalog admission
 ```
 
@@ -3347,11 +3364,14 @@ The contribution manifest is content, not a reference label. Each immutable
 row identifies its Module, handle, contribution kind, declaration or contract,
 owning Product, Program memberships, compatibility requirements, publisher
 provenance, and readiness prerequisites. Its digest and exact rows enter the
-verified Product and resolved lock. A publication contribution is ready and
-compatible only when one exact manifest row matches every field, its declared
-compatibility is resolved by the lock, and the publication preserves the
-verified artifact and manifest provenance. Missing, surplus, or changed rows
-refuse; catalog admission does not infer publisher truth.
+verified Product and resolved lock. Each Module also has one normalized
+publication digest in that manifest. A publication contribution is ready and
+compatible only when one exact manifest row matches every field, its
+independent readiness prerequisites are satisfied, its declared compatibility
+is resolved by the lock, the complete publication digest matches, and the
+publication preserves the verified artifact and manifest provenance. Missing,
+surplus, reordered, or changed publication content or rows refuse; catalog
+admission does not infer publisher truth.
 
 A public contract can satisfy a dependency only after Product verification has
 admitted its complete version, digest, kind, owning Product, requirement
@@ -3359,6 +3379,32 @@ authority, capability, and native or asset locator relation. Lock resolution
 consumes verified artifacts and finishes before any install target is written.
 Each selected installation consumes that exact lock, and workspace binding
 refuses installs carrying another lock or an incomplete lock member set.
+
+The public contract topology is singular:
+
+```text
+unknown host value
+  -> ParsePublicInvocation
+  -> PublicInvocation | PublicInvocationRefusal
+  -> product.verify
+  -> product.resolve
+  -> product.install(exact resolved-lock result)
+  -> workspace.bind
+  -> catalog and invocation operations
+  -> PublicOutcome | PublicInvocationRefusal
+```
+
+`product.resolve` is a distinct public operation. `product.install` does not
+construct or alter a lock and accepts only the exact immutable result of one
+prior resolve operation in the same opaque root-operation context. The native
+SDK owns the common parse boundary; the native CLI and Codex delegate submit
+serialized values to it and do not implement another parser or operation
+roster. Canonical JSON schemas for `PublicInvocation`, `PublicOutcome`, and
+`PublicInvocationRefusal` are Product assets and bind the same operation roster
+as the native types. Root-operation state and verified Product, lock,
+installation, binding, catalog, and application carriers are opaque and deeply
+immutable after admission. A caller cannot mutate or substitute remembered
+Product truth.
 
 `catalog.apply` consumes one exact admitted CatalogView row. Only `node_type`
 and `overlay` rows are applicable. The row-owning installed Product validates

@@ -353,13 +353,13 @@ async function oneSurfaceLifecycle(
     }
     const start = structuredClone(scenario.transcript.at(-1));
     start.payload.input = options.observation?.({
-      binding: setupOutcomes[4].result,
+      binding: setupOutcomes[5].result,
       mini,
       publication,
     }) ?? oneSurfaceObservation(
       mini,
       publication,
-      setupOutcomes[4].result,
+      setupOutcomes[5].result,
       "Margaret",
     );
     setupOutcomes.push(
@@ -525,13 +525,13 @@ async function oneSurfaceStart(
     }
     const start = structuredClone(scenario.transcript.at(-1));
     start.payload.input = options.observation?.({
-      binding: outcomes[4].result,
+      binding: outcomes[5].result,
       mini,
       publication,
     }) ?? oneSurfaceObservation(
       mini,
       publication,
-      outcomes[4].result,
+      outcomes[5].result,
       "Margaret",
     );
     outcomes.push(await publicApi.applyRootPublicInvocation(context, start));
@@ -552,6 +552,11 @@ async function externalScenario(
   publication = mini.publication,
   target = {},
 ) {
+  const selectedMini = await mini.materializePublicationVariant(
+    label,
+    publication,
+  );
+  publication = selectedMini.publication;
   const root = join(harness.scratch, label);
   const abiConsumer = join(root, "abiogenesis-product");
   const miniConsumer = join(root, "developer-product");
@@ -583,6 +588,7 @@ async function externalScenario(
   };
   const refs = {
     verifyAbi: `${prefix}/verify-abiogenesis`,
+    resolve: `${prefix}/resolve-products`,
     installAbi: `${prefix}/install-abiogenesis`,
     verifyMini: `${prefix}/verify-developer-product`,
     installMini: `${prefix}/install-developer-product`,
@@ -598,20 +604,28 @@ async function externalScenario(
       ...expectedVerificationIdentity(harness.candidateBasis),
     }),
     invocation("abg.operation.product.verify", "artifact", refs.verifyMini, {
-      artifactPath: mini.artifactPath,
-      artifactRef: mini.artifactRef,
-      ...expectedVerificationIdentity(mini.basis),
+      artifactPath: selectedMini.artifactPath,
+      artifactRef: selectedMini.artifactRef,
+      ...expectedVerificationIdentity(selectedMini.basis),
     }),
+    invocation(
+      "abg.operation.product.resolve",
+      "verified_product_set",
+      refs.resolve,
+      {
+        verifiedInvocationRefs: [refs.verifyAbi, refs.verifyMini],
+      },
+    ),
     invocation("abg.operation.product.install", "verified_artifact", refs.installAbi, {
       verifiedInvocationRef: refs.verifyAbi,
-      lockVerifiedInvocationRefs: [refs.verifyAbi, refs.verifyMini],
+      resolvedLockInvocationRef: refs.resolve,
       artifactPath: harness.artifactPath,
       targetRoot: abiConsumer,
     }),
     invocation("abg.operation.product.install", "verified_artifact", refs.installMini, {
       verifiedInvocationRef: refs.verifyMini,
-      lockVerifiedInvocationRefs: [refs.verifyAbi, refs.verifyMini],
-      artifactPath: mini.artifactPath,
+      resolvedLockInvocationRef: refs.resolve,
+      artifactPath: selectedMini.artifactPath,
       targetRoot: miniConsumer,
     }),
     invocation("abg.operation.workspace.bind", "exact_product_set", refs.bind, {
@@ -696,13 +710,13 @@ async function installMixedWorkerFixture(harness) {
 }
 
 function assertExternalOutcome(outcomes, harness, mini) {
-  assert.equal(outcomes.length, 8);
+  assert.equal(outcomes.length, 9);
   assert.equal(
     outcomes.every((outcome) => outcome.disposition === "succeeded"),
     true,
     JSON.stringify(outcomes),
   );
-  const binding = outcomes[4].result;
+  const binding = outcomes[5].result;
   assert.deepEqual(
     binding.lockedProductIds,
     [harness.candidateBasis.productId, mini.basis.productId],
@@ -720,10 +734,10 @@ function assertExternalOutcome(outcomes, harness, mini) {
     ],
     requiredCapabilityRefs: [
       "abg.capability.catalog.invoke-graph-function@5",
-      "abg.capability.gtl.author@5",
+      "abg.capability.gtl.declare@5",
     ],
   }]);
-  const result = outcomes[7];
+  const result = outcomes[8];
   assert.equal(result.replayAgreement, true);
   assert.deepEqual(result.result, {
     kind: "developer_greeting_output",
@@ -826,7 +840,7 @@ test("M5 installs and executes one independent developer-authored GTL Product th
   );
   const malformedGtlRun = await runInstalledCli(harness, malformedGtlScenario);
   assert.equal(malformedGtlRun.exitCode, 2);
-  assert.equal(malformedGtlRun.outcomes[5].disposition, "refused");
+  assert.equal(malformedGtlRun.outcomes[6].disposition, "refused");
   assert.equal(malformedGtlRun.outcomes.at(-1).runId, null);
 
   const absentSemantics = structuredClone(mini.publication);
@@ -980,7 +994,7 @@ test("M5 starts Product-declared next and asset targets without a Public control
   );
   const duplicateRun = await runInstalledCli(harness, duplicateScenario);
   assert.equal(duplicateRun.exitCode, 2);
-  assert.equal(duplicateRun.outcomes[5].disposition, "refused");
+  assert.equal(duplicateRun.outcomes[6].disposition, "refused");
   assert.equal(duplicateRun.outcomes.at(-1).runId, null);
 
   const firstTraversalScenario = await externalScenario(
@@ -1224,7 +1238,7 @@ test("M5 applies one Product-declared graph-span re-entry through the installed 
   );
   const forwardRun = await runInstalledCli(harness, forwardScenario);
   assert.equal(forwardRun.exitCode, 2);
-  assert.equal(forwardRun.outcomes[5].disposition, "refused");
+  assert.equal(forwardRun.outcomes[6].disposition, "refused");
   assert.equal(forwardRun.outcomes.at(-1).runId, null);
 
   const repeatedScenario = await externalScenario(
@@ -1763,7 +1777,7 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     start.payload.input = oneSurfaceObservation(
       mini,
       mini.publication,
-      missingActionOutcomes[4].result,
+      missingActionOutcomes[5].result,
       "Margaret",
     );
     missingActionOutcomes.push(
@@ -1804,7 +1818,7 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
     validStart.payload.input = oneSurfaceObservation(
       mini,
       mini.publication,
-      setupOutcomes[4].result,
+      setupOutcomes[5].result,
       "Margaret",
     );
     const callerSelectedGraphFunction = await publicApi.applyRootPublicInvocation(
@@ -2281,12 +2295,12 @@ test("M5 derives governed construction closure from replay truth rather than ter
         withOneSurfaceTerminal(mini, 4),
       );
       assert.equal(
-        result.outcomes[5].disposition,
+        result.outcomes[6].disposition,
         "refused",
         JSON.stringify(result.outcomes),
       );
       assert.match(
-        result.outcomes[5].result.message,
+        result.outcomes[6].result.message,
         /construction composition/u,
       );
       assert.equal(result.outcomes.at(-1).runId, null);
@@ -2326,12 +2340,12 @@ test("M5 derives governed construction closure from replay truth rather than ter
         withOneSurfaceTerminal(mini, 3),
       );
       assert.equal(
-        result.outcomes[5].disposition,
+        result.outcomes[6].disposition,
         "refused",
         JSON.stringify(result.outcomes),
       );
       assert.match(
-        result.outcomes[5].result.message,
+        result.outcomes[6].result.message,
         /construction composition/u,
       );
       assert.equal(result.outcomes.at(-1).runId, null);
@@ -2764,7 +2778,7 @@ test("M5 refuses a Product-valid F_H response bound to a different construction 
     start.payload.input = oneSurfaceObservation(
       mini,
       mini.publication,
-      setupOutcomes[4].result,
+      setupOutcomes[5].result,
       "Margaret",
     );
     setupOutcomes.push(
@@ -2868,7 +2882,7 @@ test("M5 exposes a durable gap and re-enters it through the same external Produc
       );
     }
     const start = structuredClone(scenario.transcript.at(-1));
-    const binding = setupOutcomes[4].result;
+    const binding = setupOutcomes[5].result;
     const program = mini.publication.programs.find(
       (candidate) =>
         candidate.programRef === mini.ids.oneSurfaceProgramRef,
@@ -3219,7 +3233,7 @@ test("M5 preserves a Product-required reprice as a readable non-close stop", asy
       );
     }
     const start = structuredClone(scenario.transcript.at(-1));
-    const binding = setupOutcomes[4].result;
+    const binding = setupOutcomes[5].result;
     const program = mini.publication.programs.find(
       (candidate) =>
         candidate.programRef === mini.ids.oneSurfaceProgramRef,

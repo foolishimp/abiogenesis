@@ -39,14 +39,14 @@ test("M5 installed workflow.C opens one transparent parent and folds one child r
   const run = await runInstalledCli(harness, scenario);
 
   assert.equal(run.exitCode, 0, run.stdout);
-  assert.equal(run.outcomes.length, 6);
+  assert.equal(run.outcomes.length, 7);
   assert.equal(run.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
-  assert.deepEqual(run.outcomes[5].result, {
+  assert.deepEqual(run.outcomes[6].result, {
     kind: "hello_world_output",
     schemaVersion: "5.0.0",
     message: "Hello World",
   });
-  assert.equal(run.outcomes[5].replayAgreement, true);
+  assert.equal(run.outcomes[6].replayAgreement, true);
 
   const events = await readEvents(scenario.eventLogPath);
   const cCalls = events.filter((event) => event.kind === "c_call_opened");
@@ -93,8 +93,8 @@ test("M5 installed workflow.C refuses a CatalogView that omits its declared chil
   const run = await runInstalledCli(harness, scenario);
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes.slice(0, 5).every((outcome) => outcome.disposition === "succeeded"), true);
-  assert.notEqual(run.outcomes[5].disposition, "succeeded");
+  assert.equal(run.outcomes.slice(0, 6).every((outcome) => outcome.disposition === "succeeded"), true);
+  assert.notEqual(run.outcomes[6].disposition, "succeeded");
   const events = await readEvents(scenario.eventLogPath);
   assert.equal(events.some((event) => event.kind === "run_segment_opened"), false);
   assert.equal(events.some((event) => event.kind === "c_call_opened"), false);

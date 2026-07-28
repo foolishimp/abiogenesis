@@ -31,6 +31,11 @@ export interface ProductContributionManifestRow {
   readonly readinessPrerequisiteRefs: readonly string[];
 }
 
+export interface ProductModulePublicationBinding {
+  readonly moduleRef: string;
+  readonly publicationDigest: Sha256Digest;
+}
+
 export interface ProductContributionManifest {
   readonly kind: "product_contribution_manifest";
   readonly schemaVersion: "5.0.0";
@@ -41,6 +46,7 @@ export interface ProductContributionManifest {
   readonly productContentDigest: Sha256Digest;
   readonly publicContractCatalogId: string;
   readonly publicContractCatalogDigest: Sha256Digest;
+  readonly publicationBindings: readonly ProductModulePublicationBinding[];
   readonly rows: readonly ProductContributionManifestRow[];
 }
 
@@ -48,6 +54,7 @@ export interface ProductNativeTypedLocator {
   readonly packageName: string;
   readonly packageExportPath: string;
   readonly namedSymbol: string;
+  readonly exportedSymbols: readonly string[];
   readonly declarationPath: string;
 }
 

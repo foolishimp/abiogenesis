@@ -96,7 +96,7 @@ test("M5 installed fan-out admits one ordered vector before one fan-in reducer",
 
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
-  assert.deepEqual(run.outcomes[5].result, {
+  assert.deepEqual(run.outcomes[6].result, {
     kind: "fan_out_hello_summary",
     schemaVersion: "5.0.0",
     count: 3,
@@ -185,11 +185,11 @@ test("M5 installed fan-out admits a partial stop and never enters fan-in", async
   );
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes.slice(0, 5).every((outcome) => outcome.disposition === "succeeded"), true);
+  assert.equal(run.outcomes.slice(0, 6).every((outcome) => outcome.disposition === "succeeded"), true);
   assert.equal(
-    run.outcomes[5].disposition,
+    run.outcomes[6].disposition,
     "blocked",
-    JSON.stringify(run.outcomes[5]),
+    JSON.stringify(run.outcomes[6]),
   );
   const completion = events.find(
     (event) =>
