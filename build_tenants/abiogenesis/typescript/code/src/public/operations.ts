@@ -47,6 +47,15 @@ import {
   type PublicRunProjectionAuthority,
 } from "./run_projection_authority.js";
 
+type RootInvocationFor<
+  O extends RootPublicInvocation["operationId"],
+> = Extract<RootPublicInvocation, Readonly<{ readonly operationId: O }>>;
+
+type RootInvocationVariantFor<
+  O extends RootPublicInvocation["operationId"],
+  V extends RootInvocationFor<O>["variant"],
+> = Extract<RootInvocationFor<O>, Readonly<{ readonly variant: V }>>;
+
 export interface RootOperationContext {
   store: abg.AbgEventStore;
   pendingReopenAuthority: abg.EventStoreReopenAuthority | null;
@@ -454,7 +463,7 @@ function refusalOutcome(
 
 async function applyVerify(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.product.verify">,
 ): Promise<PublicOutcome> {
   if (invocation.variant !== "artifact") {
     throw new ApplicationRefusal("invalid_request", "product.verify requires variant artifact");
@@ -497,7 +506,7 @@ async function applyVerify(
 
 async function applyResolve(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.product.resolve">,
 ): Promise<PublicOutcome> {
   if (invocation.variant !== "verified_product_set") {
     throw new ApplicationRefusal(
@@ -564,7 +573,7 @@ async function applyResolve(
 
 async function applyInstall(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.product.install">,
 ): Promise<PublicOutcome> {
   if (invocation.variant !== "verified_artifact") {
     throw new ApplicationRefusal("invalid_request", "product.install requires variant verified_artifact");
@@ -646,7 +655,7 @@ async function applyInstall(
 
 async function applyWorkspaceBind(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.workspace.bind">,
 ): Promise<PublicOutcome> {
   if (invocation.variant !== "exact_product_set") {
     throw new ApplicationRefusal("invalid_request", "workspace.bind requires variant exact_product_set");
@@ -787,7 +796,7 @@ async function applyWorkspaceBind(
 
 async function applyCatalogAdmit(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.catalog.admit">,
 ): Promise<PublicOutcome> {
   if (invocation.variant !== "module_publication") {
     throw new ApplicationRefusal("invalid_request", "catalog.admit requires variant module_publication");
@@ -901,7 +910,7 @@ async function applyCatalogAdmit(
 
 async function applyCatalogView(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.catalog.view">,
 ): Promise<PublicOutcome> {
   if (invocation.variant !== "allowlist") {
     throw new ApplicationRefusal("invalid_request", "catalog.view requires variant allowlist");
@@ -953,7 +962,7 @@ async function applyCatalogView(
 
 async function applyCatalogApplication(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.catalog.apply">,
 ): Promise<PublicOutcome> {
   if (invocation.variant !== "node_type" && invocation.variant !== "overlay") {
     throw new ApplicationRefusal(
@@ -1111,7 +1120,7 @@ async function applyCatalogApplication(
 
 async function applyRunInvoke(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.run.invoke">,
   rawRequest: validator.RawAdmittedValue<RootPublicInvocation>,
 ): Promise<PublicOutcome> {
   if (invocation.variant !== "direct" && invocation.variant !== "start") {
@@ -1156,7 +1165,9 @@ async function applyRunInvoke(
         ],
     "run.invoke",
   );
-  const suppliedReentry = invocation.payload.reentryAuthority;
+  const suppliedReentry = invocation.variant === "start"
+    ? invocation.payload.reentryAuthority
+    : undefined;
   const reentryState = suppliedReentry === undefined
     ? null
     : parsePublicGapAuthority(suppliedReentry);
@@ -2610,7 +2621,13 @@ function closeRunProjectionAuthority(
 
 async function applyRunProjectionRead(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: Exclude<
+    RootInvocationFor<"abg.operation.project.read">,
+    RootInvocationVariantFor<
+      "abg.operation.project.read",
+      "gaps" | "lawful-actions"
+    >
+  >,
 ): Promise<PublicOutcome> {
   requireExactPayloadKeys(
     invocation.payload,
@@ -2831,7 +2848,10 @@ async function applyRunProjectionRead(
 
 async function applyGapRead(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationVariantFor<
+    "abg.operation.project.read",
+    "gaps"
+  >,
 ): Promise<PublicOutcome> {
   requireExactPayloadKeys(
     invocation.payload,
@@ -2906,18 +2926,15 @@ async function applyGapRead(
 
 async function applyProjectRead(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.project.read">,
 ): Promise<PublicOutcome> {
   if (invocation.variant === "gaps") {
     return applyGapRead(context, invocation);
   }
-  if (invocation.payload.projectionAuthority !== undefined) {
-    if (invocation.variant === "lawful-actions") {
-      throw new ApplicationRefusal(
-        "invalid_request",
-        "project.read lawful-actions requires a continuation authority",
-      );
-    }
+  if (
+    invocation.variant !== "lawful-actions" &&
+    invocation.payload.projectionAuthority !== undefined
+  ) {
     return applyRunProjectionRead(context, invocation);
   }
   requireExactPayloadKeys(
@@ -3182,7 +3199,7 @@ async function applyProjectRead(
 
 async function applyInteractionRespond(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.interaction.respond">,
 ): Promise<PublicOutcome> {
   if (
     invocation.variant !== "approve" &&
@@ -3375,7 +3392,7 @@ async function applyInteractionRespond(
 
 async function applyRunContinue(
   context: RootOperationContext,
-  invocation: RootPublicInvocation,
+  invocation: RootInvocationFor<"abg.operation.run.continue">,
 ): Promise<PublicOutcome> {
   if (invocation.variant !== "current_intent") {
     throw new ApplicationRefusal(

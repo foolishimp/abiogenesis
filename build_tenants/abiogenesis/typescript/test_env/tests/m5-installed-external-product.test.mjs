@@ -1017,7 +1017,11 @@ test("M5 starts Product-declared next and asset targets without a Public control
     firstTraversalRun.outcomes.at(-1).disposition,
     "refused",
   );
-  assert.equal(firstTraversalRun.outcomes.at(-1).runId, null);
+  assert.equal(firstTraversalRun.outcomes.at(-1).code, "invalid_request");
+  assert.equal(
+    Object.hasOwn(firstTraversalRun.outcomes.at(-1), "runId"),
+    false,
+  );
 
   const supervisedFirstTraversalScenario = await externalScenario(
     harness,
@@ -1042,7 +1046,14 @@ test("M5 starts Product-declared next and asset targets without a Public control
     supervisedFirstTraversalRun.outcomes.at(-1).disposition,
     "refused",
   );
-  assert.equal(supervisedFirstTraversalRun.outcomes.at(-1).runId, null);
+  assert.equal(
+    supervisedFirstTraversalRun.outcomes.at(-1).code,
+    "invalid_request",
+  );
+  assert.equal(
+    Object.hasOwn(supervisedFirstTraversalRun.outcomes.at(-1), "runId"),
+    false,
+  );
 });
 
 test("M5 invokes external ticket work only through its owning Program and GraphFunction", async (context) => {
@@ -1833,7 +1844,7 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       },
     );
     assert.equal(callerSelectedGraphFunction.disposition, "refused");
-    assert.equal(callerSelectedGraphFunction.result.code, "invalid_request");
+    assert.equal(callerSelectedGraphFunction.code, "invalid_request");
     setupOutcomes.push(
       await publicApi.applyRootPublicInvocation(operationContext, validStart),
     );

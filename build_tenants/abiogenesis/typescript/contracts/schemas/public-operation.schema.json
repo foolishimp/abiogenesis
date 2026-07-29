@@ -15,74 +15,1973 @@
   ],
   "$defs": {
     "RootPublicInvocation": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "kind",
-        "schemaVersion",
-        "operationId",
-        "variant",
-        "invocationRef",
-        "eventTime",
-        "correlationId",
-        "payload"
-      ],
-      "properties": {
-        "kind": {
-          "const": "public_invocation"
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.product.verify"
+            },
+            "variant": {
+              "const": "artifact"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "artifactPath",
+                "artifactRef",
+                "expectedArtifactDigest",
+                "expectedManifestDigest",
+                "expectedPackageName",
+                "expectedPackageVersion",
+                "expectedProductContentDigest",
+                "expectedProductId"
+              ],
+              "properties": {
+                "artifactPath": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "artifactRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "expectedArtifactDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "expectedManifestDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "expectedPackageName": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "expectedPackageVersion": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "expectedProductContentDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "expectedProductId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              }
+            }
+          }
         },
-        "schemaVersion": {
-          "const": "5.0.0"
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.product.resolve"
+            },
+            "variant": {
+              "const": "verified_product_set"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "verifiedInvocationRefs"
+              ],
+              "properties": {
+                "verifiedInvocationRefs": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            }
+          }
         },
-        "operationId": {
-          "enum": [
-            "abg.operation.product.verify",
-            "abg.operation.product.resolve",
-            "abg.operation.product.install",
-            "abg.operation.workspace.bind",
-            "abg.operation.catalog.admit",
-            "abg.operation.catalog.apply",
-            "abg.operation.catalog.view",
-            "abg.operation.project.read",
-            "abg.operation.interaction.respond",
-            "abg.operation.run.continue",
-            "abg.operation.run.invoke"
-          ]
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.product.install"
+            },
+            "variant": {
+              "const": "verified_artifact"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "artifactPath",
+                "resolvedLockInvocationRef",
+                "targetRoot",
+                "verifiedInvocationRef"
+              ],
+              "properties": {
+                "artifactPath": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "resolvedLockInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "targetRoot": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "verifiedInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              }
+            }
+          }
         },
-        "variant": {
-          "type": "string",
-          "pattern": "\\S"
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.workspace.bind"
+            },
+            "variant": {
+              "const": "exact_product_set"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "authorityManifestRef",
+                "authorizedActorRef",
+                "canonicalRoot",
+                "roots",
+                "workspaceId"
+              ],
+              "properties": {
+                "authorityManifestRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "authorizedActorRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "canonicalRoot": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "installInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "installInvocationRefs": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  }
+                },
+                "roots": {
+                  "type": "object"
+                },
+                "workspaceId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              },
+              "allOf": [
+                {
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "required": [
+                            "installInvocationRef"
+                          ]
+                        },
+                        {
+                          "not": {
+                            "anyOf": [
+                              {
+                                "required": [
+                                  "installInvocationRefs"
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "required": [
+                            "installInvocationRefs"
+                          ]
+                        },
+                        {
+                          "not": {
+                            "anyOf": [
+                              {
+                                "required": [
+                                  "installInvocationRef"
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
         },
-        "invocationRef": {
-          "type": "string",
-          "pattern": "\\S"
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.catalog.admit"
+            },
+            "variant": {
+              "const": "module_publication"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "publication",
+                "verifiedInvocationRef",
+                "workspaceBindingInvocationRef"
+              ],
+              "properties": {
+                "publication": {
+                  "type": "object"
+                },
+                "verifiedInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "workspaceBindingInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              }
+            }
+          }
         },
-        "eventTime": {
-          "type": "string",
-          "format": "date-time"
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.catalog.apply"
+            },
+            "variant": {
+              "const": "node_type"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "catalogViewInvocationRef",
+                "contributorRef",
+                "handle",
+                "productInstallInvocationRef",
+                "target",
+                "value"
+              ],
+              "properties": {
+                "catalogViewInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "contributorRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "handle": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "productInstallInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "target": {
+                  "type": "object"
+                },
+                "value": {
+                  "type": "object"
+                }
+              }
+            }
+          }
         },
-        "correlationId": {
-          "type": "string",
-          "pattern": "\\S"
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.catalog.apply"
+            },
+            "variant": {
+              "const": "overlay"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "catalogViewInvocationRef",
+                "contributorRef",
+                "handle",
+                "productInstallInvocationRef",
+                "value"
+              ],
+              "properties": {
+                "catalogViewInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "contributorRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "handle": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "productInstallInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "value": {
+                  "type": "object"
+                }
+              }
+            }
+          }
         },
-        "payload": {
-          "type": "object"
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.catalog.view"
+            },
+            "variant": {
+              "const": "allowlist"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "allowlist",
+                "catalogInvocationRef"
+              ],
+              "properties": {
+                "allowlist": {
+                  "type": "array",
+                  "minItems": 0,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  }
+                },
+                "catalogInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.project.read"
+            },
+            "variant": {
+              "const": "gaps"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "gapAuthority",
+                "gapRef"
+              ],
+              "properties": {
+                "gapAuthority": {
+                  "type": "object"
+                },
+                "gapRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.project.read"
+            },
+            "variant": {
+              "const": "lawful-actions"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "continuationRef"
+              ],
+              "properties": {
+                "continuationAuthority": {
+                  "type": "object"
+                },
+                "continuationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.project.read"
+            },
+            "variant": {
+              "const": "replay"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [],
+              "properties": {
+                "continuationAuthority": {
+                  "type": "object"
+                },
+                "continuationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "projectionAuthority": {
+                  "type": "object"
+                },
+                "targetRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              },
+              "allOf": [
+                {
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "required": [
+                            "continuationRef"
+                          ]
+                        },
+                        {
+                          "not": {
+                            "anyOf": [
+                              {
+                                "required": [
+                                  "projectionAuthority"
+                                ]
+                              },
+                              {
+                                "required": [
+                                  "targetRef"
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "required": [
+                            "projectionAuthority",
+                            "targetRef"
+                          ]
+                        },
+                        {
+                          "not": {
+                            "anyOf": [
+                              {
+                                "required": [
+                                  "continuationRef"
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.project.read"
+            },
+            "variant": {
+              "const": "result"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [],
+              "properties": {
+                "continuationAuthority": {
+                  "type": "object"
+                },
+                "continuationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "projectionAuthority": {
+                  "type": "object"
+                },
+                "targetRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              },
+              "allOf": [
+                {
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "required": [
+                            "continuationRef"
+                          ]
+                        },
+                        {
+                          "not": {
+                            "anyOf": [
+                              {
+                                "required": [
+                                  "projectionAuthority"
+                                ]
+                              },
+                              {
+                                "required": [
+                                  "targetRef"
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "required": [
+                            "projectionAuthority",
+                            "targetRef"
+                          ]
+                        },
+                        {
+                          "not": {
+                            "anyOf": [
+                              {
+                                "required": [
+                                  "continuationRef"
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.project.read"
+            },
+            "variant": {
+              "const": "status"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [],
+              "properties": {
+                "continuationAuthority": {
+                  "type": "object"
+                },
+                "continuationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "projectionAuthority": {
+                  "type": "object"
+                },
+                "targetRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              },
+              "allOf": [
+                {
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "required": [
+                            "continuationRef"
+                          ]
+                        },
+                        {
+                          "not": {
+                            "anyOf": [
+                              {
+                                "required": [
+                                  "projectionAuthority"
+                                ]
+                              },
+                              {
+                                "required": [
+                                  "targetRef"
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "required": [
+                            "projectionAuthority",
+                            "targetRef"
+                          ]
+                        },
+                        {
+                          "not": {
+                            "anyOf": [
+                              {
+                                "required": [
+                                  "continuationRef"
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.project.read"
+            },
+            "variant": {
+              "const": "ticket.consensus"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [],
+              "properties": {
+                "continuationAuthority": {
+                  "type": "object"
+                },
+                "continuationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "projectionAuthority": {
+                  "type": "object"
+                },
+                "targetRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              },
+              "allOf": [
+                {
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "required": [
+                            "continuationRef"
+                          ]
+                        },
+                        {
+                          "not": {
+                            "anyOf": [
+                              {
+                                "required": [
+                                  "projectionAuthority"
+                                ]
+                              },
+                              {
+                                "required": [
+                                  "targetRef"
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "required": [
+                            "projectionAuthority",
+                            "targetRef"
+                          ]
+                        },
+                        {
+                          "not": {
+                            "anyOf": [
+                              {
+                                "required": [
+                                  "continuationRef"
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.interaction.respond"
+            },
+            "variant": {
+              "const": "answer_escalation"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "actorRef",
+                "capabilityRef",
+                "continuationRef",
+                "response"
+              ],
+              "properties": {
+                "actorRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "capabilityRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "continuationAuthority": {
+                  "type": "object"
+                },
+                "continuationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "response": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.interaction.respond"
+            },
+            "variant": {
+              "const": "approve"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "actorRef",
+                "capabilityRef",
+                "continuationRef",
+                "response"
+              ],
+              "properties": {
+                "actorRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "capabilityRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "continuationAuthority": {
+                  "type": "object"
+                },
+                "continuationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "response": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.run.continue"
+            },
+            "variant": {
+              "const": "current_intent"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "actorRef",
+                "capabilityRef",
+                "continuationRef"
+              ],
+              "properties": {
+                "actorRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "capabilityRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "continuationAuthority": {
+                  "type": "object"
+                },
+                "continuationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.run.invoke"
+            },
+            "variant": {
+              "const": "direct"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "actorRef",
+                "catalogViewInvocationRef",
+                "eventLogPath",
+                "graphFunctionRef",
+                "input",
+                "installInvocationRef",
+                "programRef",
+                "workspaceBindingInvocationRef"
+              ],
+              "properties": {
+                "actorRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "catalogApplicationInvocationRefs": {
+                  "type": "array",
+                  "minItems": 0,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  }
+                },
+                "catalogViewInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "eventLogPath": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "graphFunctionRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "input": {
+                  "type": "object"
+                },
+                "installInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "programRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "sourceProjectionAuthority": {
+                  "type": "object"
+                },
+                "sourceResultRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "workspaceBindingInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              },
+              "allOf": [
+                {
+                  "oneOf": [
+                    {
+                      "required": [
+                        "sourceProjectionAuthority",
+                        "sourceResultRef"
+                      ]
+                    },
+                    {
+                      "not": {
+                        "anyOf": [
+                          {
+                            "required": [
+                              "sourceProjectionAuthority"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "sourceResultRef"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "operationId",
+            "variant",
+            "invocationRef",
+            "eventTime",
+            "correlationId",
+            "payload"
+          ],
+          "properties": {
+            "kind": {
+              "const": "public_invocation"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "operationId": {
+              "const": "abg.operation.run.invoke"
+            },
+            "variant": {
+              "const": "start"
+            },
+            "invocationRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "eventTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "correlationId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "actorRef",
+                "catalogViewInvocationRef",
+                "eventLogPath",
+                "input",
+                "installInvocationRef",
+                "programRef",
+                "rootMode",
+                "scope",
+                "target",
+                "until",
+                "workspaceBindingInvocationRef"
+              ],
+              "properties": {
+                "actorRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "catalogApplicationInvocationRefs": {
+                  "type": "array",
+                  "minItems": 0,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  }
+                },
+                "catalogViewInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "eventLogPath": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "input": {
+                  "type": "object"
+                },
+                "installInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "programRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "reentryAuthority": {
+                  "type": "object"
+                },
+                "rootMode": {
+                  "enum": [
+                    "direct",
+                    "supervised"
+                  ]
+                },
+                "scope": {
+                  "enum": [
+                    "program"
+                  ]
+                },
+                "sourceProjectionAuthority": {
+                  "type": "object"
+                },
+                "sourceResultRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "startRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "target": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "until": {
+                  "enum": [
+                    "converged"
+                  ]
+                },
+                "workspaceBindingInvocationRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              },
+              "allOf": [
+                {
+                  "oneOf": [
+                    {
+                      "required": [
+                        "sourceProjectionAuthority",
+                        "sourceResultRef"
+                      ]
+                    },
+                    {
+                      "not": {
+                        "anyOf": [
+                          {
+                            "required": [
+                              "sourceProjectionAuthority"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "sourceResultRef"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
         }
-      }
+      ]
     },
     "PublicOutcome": {
       "type": "object",
       "additionalProperties": false,
       "allOf": [
         {
+          "oneOf": [
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.product.verify"
+                },
+                "variant": {
+                  "const": "artifact"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.product.resolve"
+                },
+                "variant": {
+                  "const": "verified_product_set"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.product.install"
+                },
+                "variant": {
+                  "const": "verified_artifact"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.workspace.bind"
+                },
+                "variant": {
+                  "const": "exact_product_set"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.catalog.admit"
+                },
+                "variant": {
+                  "const": "module_publication"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.catalog.apply"
+                },
+                "variant": {
+                  "const": "node_type"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.catalog.apply"
+                },
+                "variant": {
+                  "const": "overlay"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.catalog.view"
+                },
+                "variant": {
+                  "const": "allowlist"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.project.read"
+                },
+                "variant": {
+                  "const": "gaps"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.project.read"
+                },
+                "variant": {
+                  "const": "lawful-actions"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.project.read"
+                },
+                "variant": {
+                  "const": "replay"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.project.read"
+                },
+                "variant": {
+                  "const": "result"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.project.read"
+                },
+                "variant": {
+                  "const": "status"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.project.read"
+                },
+                "variant": {
+                  "const": "ticket.consensus"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.interaction.respond"
+                },
+                "variant": {
+                  "const": "answer_escalation"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.interaction.respond"
+                },
+                "variant": {
+                  "const": "approve"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.run.continue"
+                },
+                "variant": {
+                  "const": "current_intent"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.run.invoke"
+                },
+                "variant": {
+                  "const": "direct"
+                }
+              }
+            },
+            {
+              "required": [
+                "operationId",
+                "variant"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "abg.operation.run.invoke"
+                },
+                "variant": {
+                  "const": "start"
+                }
+              }
+            }
+          ]
+        },
+        {
           "if": {
             "required": [
               "operationId",
+              "variant",
               "disposition"
             ],
             "properties": {
               "operationId": {
                 "const": "abg.operation.product.resolve"
+              },
+              "variant": {
+                "const": "verified_product_set"
               },
               "disposition": {
                 "const": "succeeded"

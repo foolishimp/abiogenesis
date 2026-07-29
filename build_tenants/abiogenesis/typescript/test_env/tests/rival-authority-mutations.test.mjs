@@ -90,15 +90,16 @@ test("B8 explicit invocation schema refuses an injected compiled-plan carrier", 
   assert.equal(run.exitCode, 2, run.stdout);
   const outcome = run.outcomes.at(-1);
   assert.equal(outcome.disposition, "refused");
-  assert.equal(outcome.result.code, "invalid_request");
-  assert.match(outcome.result.message, /compiledPlan/u);
+  assert.equal(outcome.kind, "public_invocation_refusal");
+  assert.equal(outcome.code, "invalid_request");
+  assert.match(outcome.message, /operation, variant, and payload/u);
   assert.equal(await exists(scenario.eventLogPath), false);
   mutationEvidence.push({
     mutation: "undeclared_compiled_plan",
     boundary: "public_ingress",
     disposition: outcome.disposition,
-    refusalCode: outcome.result.code,
-    runtimeInvocationAbsent: outcome.runtimeInvocationRef === null,
+    refusalCode: outcome.code,
+    runtimeInvocationAbsent: !Object.hasOwn(outcome, "runtimeInvocationRef"),
     durableEventLogAbsent: !(await exists(scenario.eventLogPath)),
   });
 
@@ -126,18 +127,19 @@ test("B8 explicit invocation schema refuses an injected compiled-plan carrier", 
   assert.equal(missingTargetRun.exitCode, 2, missingTargetRun.stdout);
   const missingTargetOutcome = missingTargetRun.outcomes.at(-1);
   assert.equal(missingTargetOutcome.disposition, "refused");
-  assert.equal(missingTargetOutcome.result.code, "owner_refusal");
-  assert.match(missingTargetOutcome.result.message, /raw caller-request admission/u);
-  const missingTargetEvents = (await readFile(missingTarget.eventLogPath, "utf8"))
-    .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
-  assert.equal(missingTargetEvents.some((event) => event.kind === "invocation_admitted"), false);
-  assert.equal(missingTargetEvents.some((event) => event.kind === "run_segment_opened"), false);
+  assert.equal(missingTargetOutcome.kind, "public_invocation_refusal");
+  assert.equal(missingTargetOutcome.code, "invalid_request");
+  assert.match(
+    missingTargetOutcome.message,
+    /operation, variant, and payload/u,
+  );
+  assert.equal(await exists(missingTarget.eventLogPath), false);
   mutationEvidence.push({
     mutation: "missing_explicit_target",
-    boundary: "abg_invocation_admission",
+    boundary: "public_ingress",
     disposition: missingTargetOutcome.disposition,
-    refusalCode: missingTargetOutcome.result.code,
-    hiddenDefaultActivated: true,
+    refusalCode: missingTargetOutcome.code,
+    hiddenDefaultActivated: false,
     invocationAdmissionAbsent: true,
     runOpenAbsent: true,
   });
@@ -165,8 +167,16 @@ test("B8 setup operations reject undeclared payload fields", async (context) => 
     assert.equal(run.exitCode, 2, run.stdout);
     const outcome = run.outcomes[row.index];
     assert.equal(outcome.disposition, "refused");
-    assert.equal(outcome.result.code, "invalid_request");
-    assert.match(outcome.result.message, /undeclared fields/u);
+    const refusal = outcome.kind === "public_invocation_refusal"
+      ? outcome
+      : outcome.result;
+    assert.equal(refusal.code, "invalid_request");
+    assert.match(
+      refusal.message,
+      row.label === "workspace-roots"
+        ? /undeclared fields/u
+        : /operation, variant, and payload/u,
+    );
   }
   mutationEvidence.push({
     mutation: "setup_undeclared_payload_fields",

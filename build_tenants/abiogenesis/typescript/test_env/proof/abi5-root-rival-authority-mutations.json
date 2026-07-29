@@ -15,10 +15,10 @@
     },
     {
       "mutation": "missing_explicit_target",
-      "boundary": "abg_invocation_admission",
+      "boundary": "public_ingress",
       "disposition": "refused",
-      "refusalCode": "owner_refusal",
-      "hiddenDefaultActivated": true,
+      "refusalCode": "invalid_request",
+      "hiddenDefaultActivated": false,
       "invocationAdmissionAbsent": true,
       "runOpenAbsent": true
     },

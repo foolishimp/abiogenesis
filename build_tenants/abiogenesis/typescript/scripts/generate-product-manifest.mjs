@@ -204,6 +204,7 @@ const declarationSources = await Promise.all(
 );
 const nativeDeclarationClosures = await resolveNativeDeclarationClosures({
   packageName: packageJson.name,
+  packageType: packageJson.type === "module" ? "module" : "commonjs",
   packageExports: packageJson.exports,
   declarationSources,
 });

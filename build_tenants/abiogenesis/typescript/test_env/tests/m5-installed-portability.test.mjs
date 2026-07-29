@@ -462,6 +462,24 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
     );
     assert.equal(timestampRefusal.kind, "public_invocation_refusal");
     assert.equal(timestampRefusal.code, "invalid_request");
+    const wrongVariant = installedPublic.parseRootPublicInvocation({
+      ...unknownInvocation,
+      operationId: "abg.operation.product.resolve",
+      variant: "artifact",
+      payload: {
+        verifiedInvocationRefs: ["invocation://t281/verified/product"],
+      },
+    });
+    assert.equal(wrongVariant.kind, "public_invocation_refusal");
+    assert.equal(wrongVariant.code, "invalid_request");
+    const missingVariantField = installedPublic.parseRootPublicInvocation({
+      ...unknownInvocation,
+      operationId: "abg.operation.product.resolve",
+      variant: "verified_product_set",
+      payload: {},
+    });
+    assert.equal(missingVariantField.kind, "public_invocation_refusal");
+    assert.equal(missingVariantField.code, "invalid_request");
   } finally {
     installedPublic.closeRootOperationContext(operationContext);
   }
@@ -519,11 +537,21 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
     ],
   );
   assert.equal(schema.$id, "abg.schema.public-operation-contract");
+  const resolveInvocationSchema =
+    schema.$defs.RootPublicInvocation.oneOf.find(
+      (candidate) =>
+        candidate.properties.operationId.const ===
+          "abg.operation.product.resolve" &&
+        candidate.properties.variant.const === "verified_product_set",
+    );
+  assert.ok(resolveInvocationSchema);
+  assert.deepEqual(
+    resolveInvocationSchema.properties.payload.required,
+    ["verifiedInvocationRefs"],
+  );
   assert.equal(
-    schema.$defs.RootPublicInvocation.properties.operationId.enum.includes(
-      "abg.operation.product.resolve",
-    ),
-    true,
+    resolveInvocationSchema.properties.payload.additionalProperties,
+    false,
   );
   assert.equal(
     schema.$defs.ResolvedProductLockProjection.required.includes(
@@ -531,9 +559,20 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
     ),
     true,
   );
-  assert.equal(
-    schema.$defs.PublicOutcome.allOf[0].then.properties.result.$ref,
-    "#/$defs/ResolvedProductLockProjection",
+  assert.ok(
+    schema.$defs.PublicOutcome.allOf[0].oneOf.some(
+      (candidate) =>
+        candidate.properties.operationId.const ===
+          "abg.operation.product.resolve" &&
+        candidate.properties.variant.const === "verified_product_set",
+    ),
+  );
+  assert.ok(
+    schema.$defs.PublicOutcome.allOf.some(
+      (candidate) =>
+        candidate.then?.properties.result.$ref ===
+        "#/$defs/ResolvedProductLockProjection",
+    ),
   );
   const publicRows =
     harness.candidateManifest.publicContractCatalog.rows.filter((row) =>
@@ -688,7 +727,7 @@ test("S06 workspace binding rejects caller-authored dependency edges", async (co
       forgedBind,
     );
     assert.equal(refused.disposition, "refused");
-    assert.equal(refused.result.code, "invalid_request");
+    assert.equal(refused.code, "invalid_request");
   } finally {
     installedPublic.closeRootOperationContext(operationContext);
   }
@@ -848,6 +887,39 @@ test("S06 external side-effect declaration imports refuse during Product resolut
     assert.equal(refused.result.kind, "product_resolution_refusal");
     assert.equal(refused.result.disposition, "incompatible");
     assert.match(refused.result.message, /side-effect-only/u);
+  } finally {
+    installedPublic.closeRootOperationContext(operationContext);
+  }
+});
+
+test("S06 verified native evidence retains reachable self-package subpath roots", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const flavored = await prepareFlavoredCatalogProduct(
+    harness,
+    join(harness.scratch, "self-package-subpath"),
+    { addSelfPackageSubpath: true },
+  );
+  const scenario = await portabilityScenario(
+    harness,
+    flavored,
+    "flavored-self-package-subpath",
+  );
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `self-package-subpath=${Date.now()}`,
+  );
+  const operationContext = installedPublic.createRootOperationContext();
+  try {
+    let outcome;
+    for (const row of scenario.transcript.slice(0, 3)) {
+      outcome = await installedPublic.applyRootPublicInvocation(
+        operationContext,
+        row,
+      );
+      assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+    }
+    assert.equal(outcome.result.kind, "resolved_product_lock");
   } finally {
     installedPublic.closeRootOperationContext(operationContext);
   }
@@ -1281,7 +1353,10 @@ test(
           ),
       );
       assert.equal(fabricatedDigest.disposition, "refused");
-      assert.match(fabricatedDigest.result.message, /undeclared fields/u);
+      assert.match(
+        fabricatedDigest.message,
+        /operation, variant, and payload/u,
+      );
       const invalidContributor =
         await installedPublic.applyRootPublicInvocation(
           operationContext,
@@ -1366,7 +1441,11 @@ test(
         ),
       );
       assert.equal(missingTarget.disposition, "refused");
-      assert.match(missingTarget.result.message, /payload\.target/u);
+      assert.equal(missingTarget.code, "invalid_request");
+      assert.match(
+        missingTarget.message,
+        /operation, variant, and payload/u,
+      );
 
       const admittedNode = await installedPublic.applyRootPublicInvocation(
         operationContext,

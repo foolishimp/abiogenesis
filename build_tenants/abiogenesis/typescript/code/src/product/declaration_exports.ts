@@ -29,6 +29,8 @@ export interface NativeDeclarationRoot {
   readonly declarationPath: string;
 }
 
+export type NativePackageType = "commonjs" | "module";
+
 export type NativeExternalSelectorKind =
   | "all"
   | "module"
@@ -72,6 +74,7 @@ export interface NativeDeclarationClosure {
 
 export interface NativeDeclarationClosureRequest {
   readonly packageName: string;
+  readonly packageType: NativePackageType;
   readonly packageExports: Readonly<Record<string, unknown>>;
   readonly declarationSources: readonly DeclarationSource[];
 }
@@ -94,6 +97,7 @@ export interface NativeProductDeclarationEvidence {
   readonly productId: string;
   readonly productContentDigest: Sha256Digest;
   readonly packageName: string;
+  readonly packageType: NativePackageType;
   readonly sources: readonly NativeDeclarationEvidenceSource[];
   readonly closures: readonly NativeDeclarationClosure[];
   readonly contracts: readonly NativeContractEvidence[];
@@ -435,6 +439,9 @@ function createClosedHost(
   ts: typeof TypeScript,
   basis: CompilerBasis,
   sourceText: ReadonlyMap<string, string>,
+  impliedNodeFormatFor: (
+    fileName: string,
+  ) => TypeScript.ResolutionMode | undefined = () => undefined,
 ): TypeScript.CompilerHost {
   const { options, standardHost, compilerDependencyRoots } = basis;
   return {
@@ -465,10 +472,16 @@ function createClosedHost(
       const normalized = posix.normalize(fileName);
       const source = sourceText.get(normalized);
       if (source !== undefined) {
+        const impliedNodeFormat = impliedNodeFormatFor(normalized);
+        const target = typeof languageVersion === "number"
+          ? languageVersion
+          : languageVersion.languageVersion;
         return ts.createSourceFile(
           normalized,
           source,
-          languageVersion,
+          impliedNodeFormat === undefined
+            ? target
+            : { languageVersion: target, impliedNodeFormat },
           true,
           ts.ScriptKind.TS,
         );
@@ -491,6 +504,18 @@ function createClosedHost(
     useCaseSensitiveFileNames: () => true,
     writeFile: () => undefined,
   };
+}
+
+function productDeclarationFormat(
+  ts: typeof TypeScript,
+  packageType: NativePackageType,
+  fileName: string,
+): TypeScript.ResolutionMode {
+  if (/\.d\.mts$/u.test(fileName)) return ts.ModuleKind.ESNext;
+  if (/\.d\.cts$/u.test(fileName)) return ts.ModuleKind.CommonJS;
+  return packageType === "module"
+    ? ts.ModuleKind.ESNext
+    : ts.ModuleKind.CommonJS;
 }
 
 function occurrence(
@@ -965,7 +990,15 @@ export async function resolveNativeDeclarationClosures(
   for (const path of externalTypeDirectiveStubs.values()) {
     compilerSourceText.set(path, "export {};\n");
   }
-  const standardHost = createClosedHost(ts, basis, compilerSourceText);
+  const standardHost = createClosedHost(
+    ts,
+    basis,
+    compilerSourceText,
+    (fileName) =>
+      sourceText.has(fileName)
+        ? productDeclarationFormat(ts, request.packageType, fileName)
+        : undefined,
+  );
   const host: TypeScript.CompilerHost = {
     ...standardHost,
     resolveModuleNames: (moduleNames, containingFile) =>
@@ -1452,7 +1485,21 @@ export function linkNativeContractSet(
     }
   }
 
-  const standardHost = createClosedHost(ts, basis, sourceText);
+  const standardHost = createClosedHost(
+    ts,
+    basis,
+    sourceText,
+    (fileName) => {
+      const owner = sourceOwner.get(posix.normalize(fileName));
+      return owner === undefined
+        ? undefined
+        : productDeclarationFormat(
+          ts,
+          owner.evidence.packageType,
+          fileName,
+        );
+    },
+  );
   const host: TypeScript.CompilerHost = {
     ...standardHost,
     getCurrentDirectory: () => "/products",
@@ -1667,6 +1714,12 @@ export function linkNativeContractSet(
             contract.packageExportPath === closure.packageExportPath &&
             contract.occurrenceRefs.includes(external.occurrenceRef),
         );
+        if (sourceContracts.length === 0) {
+          return linkedRefusal(
+            "unresolved_dependency",
+            `${external.occurrenceRef} has no exact owning source contract`,
+          );
+        }
         const coordinate = packageImportCoordinate(external.moduleSpecifier);
         if (coordinate === null) {
           return linkedRefusal(
@@ -1734,7 +1787,7 @@ export function linkNativeContractSet(
               });
           }
         }
-        if (typeOnly) {
+        if (typeOnly && external.selectorKind !== "name") {
           visibleSymbols = visibleSymbols.filter(
             ([, symbol]) =>
               (unaliasedSymbol(symbol).flags & ts.SymbolFlags.Type) !== 0,
@@ -1888,6 +1941,7 @@ export async function declarationExportSymbols(
 ): Promise<ReadonlySet<string> | null> {
   const closures = await resolveNativeDeclarationClosures({
     packageName: "@abiogenesis/declaration-probe",
+    packageType: "commonjs",
     packageExports: { ".": { types: `./${rootPath}` } },
     declarationSources,
   });

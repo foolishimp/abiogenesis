@@ -361,6 +361,23 @@ test("S06 native export resolution is TypeScript-program derived", async () => {
     false,
     "TypeScript export assignment must not mint an ESM default export",
   );
+  assert.equal(
+    await resolveNativeDeclarationClosures({
+      packageName: "@s06-prime/esm-export-assignment",
+      packageType: "module",
+      packageExports: {
+        ".": { types: "./index.d.ts" },
+      },
+      declarationSources: [
+        encode(
+          "index.d.ts",
+          "declare const Foo: unique symbol;\nexport = Foo;",
+        ),
+      ],
+    }),
+    null,
+    "package type module must preserve TypeScript's TS1203 export-assignment refusal",
+  );
 });
 
 test("S06 native declaration closure binds package roots and reachable bytes", async () => {
@@ -640,6 +657,21 @@ test("S06 native external meaning requires one direct named-symbol contract", as
       (binding) => binding.kind === "symbol_admission",
     ).map((binding) => binding.namedSymbol).sort(),
     ["Source", "Target"],
+  );
+  assert.equal(
+    linkNativeContractSet(
+      [{
+        ...sourceProduct,
+        publicContracts: [],
+        evidence: {
+          ...sourceProduct.evidence,
+          contracts: [],
+        },
+      }, targetProduct],
+      toolchain.productContentDigest,
+    ).code,
+    "unresolved_dependency",
+    "an external occurrence without one owning source-contract relation must refuse",
   );
   const changedTargetIdentity = linkNativeContractSet(
     [sourceProduct, {
@@ -993,6 +1025,45 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     ).kind,
     "linked",
     "a type-only star must not demand a value-only target contract",
+  );
+
+  const typeValueSourceText = [
+    `import type { RuntimeOnly } from "${targetPackage}/product";`,
+    "export type RuntimeType = typeof RuntimeOnly;",
+  ].join("\n");
+  const typeValueClosures = await analyze(
+    sourcePackage,
+    typeValueSourceText,
+  );
+  const runtimeType = makeContract(
+    "contract://s06-prime/runtime-type@5",
+    sourceId,
+    sourcePackage,
+    "RuntimeType",
+    typeValueClosures[0],
+  );
+  const typeValueSource = {
+    ...source,
+    declaredDependencies: [
+      dependencyFor([runtimeOnly.contractId]),
+    ],
+    publicContracts: [runtimeType],
+    evidence: makeEvidence(
+      sourceId,
+      digest("5"),
+      sourcePackage,
+      typeValueSourceText,
+      typeValueClosures,
+      [runtimeType],
+    ),
+  };
+  assert.equal(
+    linkNativeContractSet(
+      [typeValueSource, target],
+      toolchain.productContentDigest,
+    ).kind,
+    "linked",
+    "a type-only exact import may lawfully select a value symbol through typeof",
   );
 
   const directivePackage = "@s06-prime/type-directive-source";

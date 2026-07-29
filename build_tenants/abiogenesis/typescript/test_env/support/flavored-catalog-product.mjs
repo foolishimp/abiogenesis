@@ -73,6 +73,32 @@ export async function prepareFlavoredCatalogProduct(
   const packageJson = JSON.parse(
     await readFile(join(sourceRoot, "package.json"), "utf8"),
   );
+  const selfPackageSubpathDeclaration =
+    options.addSelfPackageSubpath === true
+      ? "build/shared.d.ts"
+      : null;
+  if (selfPackageSubpathDeclaration !== null) {
+    await writeFile(
+      join(sourceRoot, selfPackageSubpathDeclaration),
+      "export interface SharedValue { readonly value: string; }\n",
+      "utf8",
+    );
+    await writeFile(
+      join(sourceRoot, nativeDeclarationPath),
+      `${
+        await readFile(join(sourceRoot, nativeDeclarationPath), "utf8")
+      }\nexport type { SharedValue } from "${packageJson.name}/shared";\n`,
+      "utf8",
+    );
+    packageJson.exports["./shared"] = {
+      types: `./${selfPackageSubpathDeclaration}`,
+    };
+    await writeFile(
+      join(sourceRoot, "package.json"),
+      `${JSON.stringify(packageJson, null, 2)}\n`,
+      "utf8",
+    );
+  }
   const module = await import(
     `${pathToFileURL(
       join(sourceRoot, "build/index.js"),
@@ -101,6 +127,9 @@ export async function prepareFlavoredCatalogProduct(
     "build/index.js",
     "build/publication.d.ts",
     "build/publication.js",
+    ...(selfPackageSubpathDeclaration === null
+      ? []
+      : [selfPackageSubpathDeclaration]),
     "contracts/flavored-text.schema.json",
     "contracts/public-contract-catalog.schema.json",
     "package.json",
@@ -124,6 +153,9 @@ export async function prepareFlavoredCatalogProduct(
   const nativeDeclarationPaths = [
     "build/index.d.ts",
     "build/publication.d.ts",
+    ...(selfPackageSubpathDeclaration === null
+      ? []
+      : [selfPackageSubpathDeclaration]),
   ];
   const declarationInventory = await Promise.all(
     nativeDeclarationPaths.map(async (declarationPath) => ({

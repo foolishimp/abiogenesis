@@ -66,6 +66,7 @@ export interface ProductManifestView {
 interface PackageJsonView {
   readonly name: string;
   readonly version: string;
+  readonly packageType: "commonjs" | "module";
   readonly exports: Readonly<Record<string, unknown>>;
 }
 
@@ -291,6 +292,11 @@ function parsePackageJson(value: unknown): PackageJsonView | null {
     !isRecord(value) ||
     typeof value.name !== "string" ||
     typeof value.version !== "string" ||
+    (
+      value.type !== undefined &&
+      value.type !== "commonjs" &&
+      value.type !== "module"
+    ) ||
     !isRecord(value.exports)
   ) {
     return null;
@@ -298,6 +304,7 @@ function parsePackageJson(value: unknown): PackageJsonView | null {
   return {
     name: value.name,
     version: value.version,
+    packageType: value.type === "module" ? "module" : "commonjs",
     exports: value.exports,
   };
 }
@@ -795,6 +802,7 @@ export async function verifyProduct(
     if (nativeContracts.length > 0) {
       const declarationClosures = await resolveNativeDeclarationClosures({
         packageName: packageJson.name,
+        packageType: packageJson.packageType,
         packageExports: packageJson.exports,
         declarationSources,
       });
@@ -882,18 +890,24 @@ export async function verifyProduct(
           occurrenceRefs,
         });
       }
-      const selectedClosures = declarationClosures.filter((closure) =>
-        selectedExportPaths.has(closure.packageExportPath)
-      );
       const selectedPaths = new Set(
-        selectedClosures.flatMap((closure) =>
+        declarationClosures
+          .filter((closure) =>
+            selectedExportPaths.has(closure.packageExportPath)
+          )
+          .flatMap((closure) =>
           closure.declarationInventory.map((entry) => entry.declarationPath)
-        ),
+          ),
+      );
+      const selectedClosures = declarationClosures.filter((closure) =>
+        selectedExportPaths.has(closure.packageExportPath) ||
+        selectedPaths.has(closure.declarationPath)
       );
       verifiedNativeEvidence = deepFreeze({
         productId: manifest.productId,
         productContentDigest,
         packageName: manifest.packageName,
+        packageType: packageJson.packageType,
         sources: declarationSources
           .filter((source) => selectedPaths.has(source.path))
           .map((source) => ({
@@ -914,6 +928,7 @@ export async function verifyProduct(
         productId: manifest.productId,
         productContentDigest,
         packageName: manifest.packageName,
+        packageType: packageJson.packageType,
         sources: [],
         closures: [],
         contracts: [],
