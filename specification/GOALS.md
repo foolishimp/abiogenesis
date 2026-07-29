@@ -70,6 +70,15 @@ selection, ordered successor outcomes, and their acceptance conditions.
   is the accepted S03 base.
 - T-270 remains the M5 parent owner. Existing subordinate tickets retain their
   Product boundaries; no new ticket hierarchy is selected.
+- Direct F_H instruction on 2026-07-29 selects one bounded six-class Prime
+  entropy reduction under T-270 after S06 acceptance and before the unified M5
+  freeze. Its evidence register is
+  `.ai-workspace/comments/claude/20260729T060000Z_REVIEW_prime_compression_equivalence_classes.md`.
+  This is algebraic normalization, not defect remediation: each irreducible
+  relation receives one canonical code definition and all other occurrences
+  become typed applications or compositions. Coordinate identity and sequence
+  equality require complete atomic design, an independent review pause, and
+  direct acceptance before realization.
 - S03 acceptance and S05 selection are recorded in
   `.ai-workspace/comments/codex/20260725T211500Z_DECISION_delegated_accept_s03_and_select_s05.md`.
 
@@ -163,9 +172,10 @@ release authority and do not participate in S06 closure.
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
 | `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Design `4f80f84a` accepted; one bounded realization pass active |
-| `4` | `T-270` | Freeze one M5 candidate | All selected pre-qualification 5.0 Product behavior and all 16 selected feature-family dispositions are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 |
-| `5` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
-| `6` | `T-248` | Release ABIogenesis 5.0.0 | Immutable RC, installed-RC qualification, governed final delta, stable tap, and fresh post-publication install preserve distinct exact subjects. | Blocked by M6 |
+| `4` | `T-270` | Contract six Prime entropy classes | One accepted atomic design resolves the smallest irreducible basis for coordinate identity, reference construction, digest identity, sequence equality, duplicate detection, and guard composition; one realization gives each atom one canonical definition and projects every other occurrence as application or composition without moving authority or Product meaning. | Blocked by S06 |
+| `5` | `T-270` | Freeze one M5 candidate | All selected pre-qualification 5.0 Product behavior, all 16 selected feature-family dispositions, and the accepted Prime entropy reduction are present on one exact candidate with required negatives and no silent gap. | Blocked by Prime entropy reduction |
+| `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
+| `7` | `T-248` | Release ABIogenesis 5.0.0 | Immutable RC, installed-RC qualification, governed final delta, stable tap, and fresh post-publication install preserve distinct exact subjects. | Blocked by M6 |
 
 ## Design Reconciliation Boundary
 
@@ -256,7 +266,7 @@ reconciliation is a qualification gate, not the feature-development queue.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | S03, S05, S06, all 16 selected pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S06 selected |
+| `M5` | S03, S05, S06, the accepted six-class Prime entropy reduction, all 16 selected pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S06 selected |
 | `M6` | Exact selected-method binding, self-conformance, five-scenario pre-RC qualification, and complete RC5 reconciliation accept one pre-RC candidate. | Blocked by M5 |
 | `M7` | Distinct RC, installed RC, final-tap, released Product, and post-publication install subjects produce stable `5.0.0`. | Blocked by M6 |
 

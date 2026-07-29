@@ -66,6 +66,13 @@
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
     20260728T165447Z_HANDOFF_t281_s06_native_contract_design_repair.md
+- selected_pre_m5_entropy_reduction: prime_compression_equivalence_classes
+- selected_entropy_reduction_selection_class: goal_reprice
+- selected_entropy_reduction_realization_class: realization_refactor
+- selected_entropy_reduction_review: >-
+    .ai-workspace/comments/claude/
+    20260729T060000Z_REVIEW_prime_compression_equivalence_classes.md
+- selected_entropy_reduction_state: blocked_by_s06_acceptance
 - accepted_s03_candidate: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s05_candidate: 1ddc802d3003a3d0782398f7ec7c74cfa81ab127
 - selected_method_release: STDO v2.2.0
@@ -142,16 +149,66 @@ closes only when:
 The accepted S06 design and T-281 own detailed realization and proof
 conditions. This parent ticket does not restate or expand them.
 
+## Prime Entropy Reduction Gate
+
+Direct F_H instruction on 2026-07-29 selects one bounded Prime entropy
+reduction after S06 acceptance and before the unified M5 freeze. The frozen
+S06 candidate remains an immutable review subject; this gate does not amend or
+expand S06.
+
+This is algebraic normalization, not defect remediation. Code is a projection
+of the accepted atomic design. One irreducible relation has one canonical code
+definition; typed specializations, call sites, and compositions apply that
+atom rather than reproduce it. A current behavioral divergence may reveal a
+missing contraction, but finding or removing a defect is not the acceptance
+criterion.
+
+The selected review register identifies six claimed equivalence classes:
+
+1. Product, Program, and GraphFunction coordinate identity;
+2. canonical URI/reference construction;
+3. the `Sha256Digest -> Identity` eliminator;
+4. ordered sequence equality;
+5. duplicate detection; and
+6. common structural-guard composition.
+
+Apply the Design Module Method before realization:
+
+- inventory every definition and inline spelling in each candidate class;
+- derive the smallest complete basis of irreducible typed relations,
+  preconditions, authority neutrality, and lawful owner modules;
+- place each existing spelling as a definition, typed application,
+  composition, or non-member of that basis;
+- prove that every member of one equivalence class is the same atom and that
+  every genuinely different relation has a separately named atom;
+- prove that contraction preserves Product meaning and module authority;
+- resolve coordinate identity and sequence-equality semantics before coding;
+- pause after the complete atomic design for independent review and direct
+  acceptance; and
+- realize the accepted algebra once, with focused projection and
+  non-reproduction checks plus the retained M5/M4/package gates.
+
+This gate adds no Product function, Prime family, catalog, runtime, controller,
+event, or public operation. Each class must end with one accepted definition
+for each genuinely irreducible relation. A claimed equivalence class may be
+split only when the design proves materially different semantics; local
+duplication may not survive merely because contraction is inconvenient.
+
 ## Delivery After S06
 
 1. Record direct S06 acceptance without moving its immutable candidate.
-2. Freeze one unified M5 candidate covering all 16 selected 5.0 Product
+2. Complete and directly accept one atomic design for the six selected Prime
+   entropy-reduction classes.
+3. Realize that accepted contraction once and run its focused equivalence
+   projections and non-reproduction checks plus retained M5, M4, and
+   reproducible-package gates.
+4. Freeze one unified M5 candidate covering all 16 selected 5.0 Product
    families and the five selected pre-RC scenarios.
-3. Activate T-247 and T-282 for exact-candidate self-conformance,
+5. Activate T-247 and T-282 for exact-candidate self-conformance,
    qualification, released-STDO materialization, and conservation.
-4. Activate T-248 only after M6 closes, then publish RC and stable 5.0 through
+6. Activate T-248 only after M6 closes, then publish RC and stable 5.0 through
    `ABG5-S07`.
-5. Leave T-268 in backlog until stable 5.0 and an explicit 5.1 Product re-entry.
+7. Leave T-268 in backlog until stable 5.0 and an explicit 5.1 Product re-entry.
 
 ## Non-Closure
 
@@ -164,6 +221,11 @@ T-270 remains open if:
   functionality, authority, catalog, traversal, runtime, or closure;
 - code or review expands S06 into observer/tuner, qualification, release, or
   broad recurrence cleanup;
+- unified M5 freezes before the selected six-class Prime entropy reduction is
+  designed, independently accepted, realized, and mechanically verified;
+- contraction merges semantically different coordinate, sequence, identity,
+  reference, duplicate, or guard relations without a Design Module Method
+  proof;
 - the unified M5 freeze includes `A5-F12` or `ABG5-S04`;
 - 5.0 qualification silently depends on the deferred observer/tuner Product;
   or
