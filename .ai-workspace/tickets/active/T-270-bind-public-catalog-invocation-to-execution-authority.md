@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_exact_candidate_under_review
-- review_status: s03_s05_accepted_s06_candidate_pending_independent_review
-- proof_status: s06_mechanical_proof_complete_semantic_acceptance_pending
+- phase_status: m5_s06_replacement_design_candidate_frozen
+- review_status: s03_s05_accepted_s06_design_pending_independent_review
+- proof_status: s06_design_mechanical_proof_complete_realization_returned
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -27,12 +27,12 @@
 - pen_holder: codex
 - build_tenant: typescript
 - current_product_outcome: ABG5-S06
-- implementation_hold: exact_s06_candidate_review_only
+- implementation_hold: exact_s06_design_review_only
 - implementation_hold_effect: >-
-    hold exact S06 candidate 4953508d immutable for independent review and
-    direct disposition under T-281; prohibit further realization, design
-    re-entry, planned 5.1 observer/tuner realization, unified M5 freeze, M6
-    qualification, M7 release, and unrelated refactoring
+    hold exact S06 design candidate 9fb14e68 immutable for independent review
+    and direct disposition under T-281; prohibit realization, recursive design
+    revision, Prime compression, planned 5.1 observer/tuner realization,
+    unified M5 freeze, M6 qualification, M7 release, and unrelated refactoring
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_5_0_pre_rc_scenarios: ABG5-S01,ABG5-S02,ABG5-S03,ABG5-S05,ABG5-S06
 - release_scenario: ABG5-S07
@@ -42,30 +42,29 @@
     .ai-workspace/tickets/backlog/
     T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md
 - current_s06_owner: T-281
-- returned_s06_candidate: 4c3bb239cbdcfeb2587ff06ca736c77ce84af18f
-- current_s06_candidate: 4953508de83ab6d6c65dbb81e5407ccb539e44e6
-- current_s06_candidate_tree: cd8bf69d79014e29e45bda52f9a785907eab8e74
-- current_s06_package_sha256: 287263398b31ea39b94cd140071f00b3ef372df6f4cdc6df06698ac67bb0673b
-- current_s06_package_inventory_sha256: 2cf73f22cfdd1cc7491e8e3eaaa71fd18478dc3154afeb6e4a4e59601a8dc5d7
-- current_s06_handoff: >-
+- returned_s06_candidate: 4953508de83ab6d6c65dbb81e5407ccb539e44e6
+- returned_s06_candidate_tree: cd8bf69d79014e29e45bda52f9a785907eab8e74
+- returned_s06_package_sha256: 287263398b31ea39b94cd140071f00b3ef372df6f4cdc6df06698ac67bb0673b
+- returned_s06_package_inventory_sha256: 2cf73f22cfdd1cc7491e8e3eaaa71fd18478dc3154afeb6e4a4e59601a8dc5d7
+- returned_s06_handoff: >-
     .ai-workspace/comments/codex/
     20260729T091138Z_HANDOFF_t281_s06_public_native_contract_candidate.md
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
-- current_s06_design_candidate: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
-- current_s06_design_candidate_tree: 7070dca7d0f2ca90374b525faa60d5b810488763
-- current_s06_design_sha256: ab44417157853490f4a3d8f9055b5eca8c295fd16f9615020b70e327f57c09fe
+- current_s06_design_candidate: 9fb14e6859af51e97789a599ad0fae6c367c34b3
+- current_s06_design_candidate_tree: 919e0a7b09c99a1fe7a246a6c46e729313eebb30
+- current_s06_design_sha256: d5435631cb4fcba1bec7a3e0df61eb00fddf98957e4dc1c73209086caa8e6cd3
 - accepted_s06_native_contract_design_commit: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
 - current_s06_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
-    M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
+    M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md
 - returned_s06_design_handoff: >-
     .ai-workspace/comments/codex/
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260728T165447Z_HANDOFF_t281_s06_native_contract_design_repair.md
+    20260729T111754Z_HANDOFF_t281_s06_public_function_native_occurrence_design.md
 - selected_pre_m5_entropy_reduction: prime_compression_equivalence_classes
 - selected_entropy_reduction_selection_class: goal_reprice
 - selected_entropy_reduction_realization_class: realization_refactor
@@ -121,11 +120,17 @@ reviews, completed tickets, and backlogged 5.1 design do not select work.
 
 ## Current Boundary
 
-T-281 owns the exact S06 boundary. Native declaration closure is governed by
-accepted `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Its realization is frozen
-at candidate `4953508d`, tree `cd8bf69d`, and is the sole review subject. S06
-closes only when:
+T-281 owns the exact S06 boundary. Native declaration closure remains governed
+by accepted `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Realization candidate
+`4953508d`, tree `cd8bf69d`, is returned evidence.
+`M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at
+`9fb14e68`, tree `919e0a7b`, is the sole review subject. It must close the
+complete public-function algebra and source-contract-indexed native occurrence
+relation before realization resumes. S06 closes only when:
 
+- the complete 18-operation, 56-definition-key public family is singular
+  across native types, parser, JSON Schema, SDK, CLI, runtime, publication, and
+  replay projection;
 - native SDK and native CLI invoke one installed public operation contract;
 - `abg.codex` is a convenience process shell over the exact installed CLI and
   provides no alternate Product or runtime functionality;
@@ -134,6 +139,8 @@ closes only when:
   path;
 - Product dependencies derive from verified Product declarations rather than
   caller-authored authority;
+- every checker-derived external occurrence is indexed by its exact source
+  contract and has exactly one admitted binding under checker semantics;
 - exact native declaration meaning derives from packed export roots, complete
   local inventories, publisher-proposal/local-verification/linked-resolution
   separation, sole named-symbol contract authority, per-symbol namespace/star
@@ -148,15 +155,16 @@ closes only when:
   reproducibility remain green; and
 - independent review and direct F_H acceptance bind the exact candidate.
 
-The accepted S06 design and T-281 own detailed realization and proof
+The accepted S06 design, frozen supplemental design, and T-281 own detailed
+realization and proof
 conditions. This parent ticket does not restate or expand them.
 
 ## Prime Entropy Reduction Gate
 
 Direct F_H instruction on 2026-07-29 selects one bounded Prime entropy
 reduction after S06 acceptance and before the unified M5 freeze. The frozen
-S06 candidate remains an immutable review subject; this gate does not amend or
-expand S06.
+S06 design remains an immutable review subject; this gate does not amend or
+expand S06 and authorizes no Prime implementation.
 
 Preserve lawful Product meaning while contracting equivalent definitions.
 Where current realization contradicts the selected algebra or constitutional
@@ -225,8 +233,8 @@ duplication may not survive merely because contraction is inconvenient.
 
 T-270 remains open if:
 
-- S06 realization resumes before its native-contract Ontology and design are
-  independently accepted;
+- S06 realization resumes before its complete public-function and
+  contract-indexed occurrence design is independently accepted;
 - S06 is accepted from a moving or different subject;
 - the SDK, CLI, Codex shell, or flavored Product introduces alternate
   functionality, authority, catalog, traversal, runtime, or closure;

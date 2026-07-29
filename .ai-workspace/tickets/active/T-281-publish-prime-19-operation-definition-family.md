@@ -1,29 +1,29 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-29):** S06 implementation candidates
-> `4f9bf707` and `51664393`, plus native declaration design candidate
-> `b645595c`, are returned evidence. Replacement design `4f80f84a`, tree
-> `7070dca7`, is directly accepted. Its bounded Section 8 repair is frozen at
-> exact realization candidate `4953508d`, tree `cd8bf69d`, for independent
-> review. S04 and later work remain held.
+> **Current disposition (2026-07-29):** S06 realization candidate `4953508d`,
+> tree `cd8bf69d`, is returned evidence. Accepted native-closure design
+> `4f80f84a` remains the basis. Supplemental public-function and
+> contract-indexed occurrence design `9fb14e68`, tree `919e0a7b`, is the sole
+> frozen review subject. Realization, Prime compression, S04, and later work
+> remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_exact_realization_candidate_frozen
-- review_status: s06_realization_candidate_pending_independent_review
-- proof_status: mechanical_proof_complete_semantic_acceptance_pending
+- phase_status: m5_s06_replacement_design_candidate_frozen
+- review_status: s06_replacement_design_pending_independent_review
+- proof_status: s06_design_mechanical_proof_complete_realization_returned
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
-- implementation_hold: exact_s06_candidate_review_only
+- implementation_hold: exact_s06_design_review_only
 - implementation_hold_effect: >-
-    hold candidate 4953508d immutable for one independent exact-cut review and
-    direct disposition; prohibit further realization, design re-entry, S04,
-    unified M5 freeze, M6 qualification, M7 release, alternate functionality,
-    and broad refactoring
+    hold design candidate 9fb14e68 immutable for one independent exact-cut
+    review and direct disposition; prohibit realization, recursive design
+    revision, Prime compression, S04, unified M5 freeze, M6 qualification, M7
+    release, alternate functionality, and broad refactoring
 - delivery_phase: M5_after_accepted_s03_and_s05
 - change_intent: >-
     Prove one Product-neutral installed public contract through the native SDK,
@@ -33,8 +33,7 @@
 - change_class: design_reframe
 - re_entry_point: >-
     build_tenants/abiogenesis/typescript/design/
-    M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md native declaration
-    closure and M05 Section 14 Product verification/resolution boundary
+    M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md
 - triaged_at: 2026-07-24
 - created_at: 2026-07-16
 - updated_at: 2026-07-29
@@ -48,33 +47,31 @@
     build_tenants/abiogenesis/typescript/code/src/public
 - accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
 - accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
-- returned_s06_candidate: 4c3bb239cbdcfeb2587ff06ca736c77ce84af18f
-- returned_s06_candidate_tree: fa2adf47e2bf047af3778603562b0ee71890dcb6
-- current_s06_candidate: 4953508de83ab6d6c65dbb81e5407ccb539e44e6
-- current_s06_candidate_tree: cd8bf69d79014e29e45bda52f9a785907eab8e74
-- current_s06_package_sha256: 287263398b31ea39b94cd140071f00b3ef372df6f4cdc6df06698ac67bb0673b
-- current_s06_package_inventory_sha256: 2cf73f22cfdd1cc7491e8e3eaaa71fd18478dc3154afeb6e4a4e59601a8dc5d7
-- current_s06_handoff: >-
+- returned_s06_candidate: 4953508de83ab6d6c65dbb81e5407ccb539e44e6
+- returned_s06_candidate_tree: cd8bf69d79014e29e45bda52f9a785907eab8e74
+- returned_s06_package_sha256: 287263398b31ea39b94cd140071f00b3ef372df6f4cdc6df06698ac67bb0673b
+- returned_s06_package_inventory_sha256: 2cf73f22cfdd1cc7491e8e3eaaa71fd18478dc3154afeb6e4a4e59601a8dc5d7
+- returned_s06_handoff: >-
     .ai-workspace/comments/codex/
     20260729T091138Z_HANDOFF_t281_s06_public_native_contract_candidate.md
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
-- current_s06_design_candidate: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
-- current_s06_design_candidate_tree: 7070dca7d0f2ca90374b525faa60d5b810488763
-- current_s06_design_sha256: ab44417157853490f4a3d8f9055b5eca8c295fd16f9615020b70e327f57c09fe
+- current_s06_design_candidate: 9fb14e6859af51e97789a599ad0fae6c367c34b3
+- current_s06_design_candidate_tree: 919e0a7b09c99a1fe7a246a6c46e729313eebb30
+- current_s06_design_sha256: d5435631cb4fcba1bec7a3e0df61eb00fddf98957e4dc1c73209086caa8e6cd3
 - accepted_s06_native_contract_design_commit: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
 - accepted_s06_native_contract_design_tree: 7070dca7d0f2ca90374b525faa60d5b810488763
 - accepted_s06_native_contract_design_sha256: ab44417157853490f4a3d8f9055b5eca8c295fd16f9615020b70e327f57c09fe
 - current_s06_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
-    M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
+    M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md
 - returned_s06_design_handoff: >-
     .ai-workspace/comments/codex/
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260728T165447Z_HANDOFF_t281_s06_native_contract_design_repair.md
+    20260729T111754Z_HANDOFF_t281_s06_public_function_native_occurrence_design.md
 
 ## Selected Outcome
 
@@ -125,35 +122,38 @@ The independently flavored Product must consume the shared GTL constructors.
 It may not rebuild a third local declaration family. This gate does not
 authorize repository-wide cleanup or changes to ABG/HoG authority.
 
-## Native Contract Design Gate
+## Replacement Design Gate
 
-`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md` is the sole candidate design delta
-for the returned native-contract boundary. Before code resumes it must
-establish:
+`M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` is the sole
+candidate design delta for the returned realization boundary. It supplements,
+and does not replace, accepted
+`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Before code resumes independent
+review must confirm:
 
-- package export roots from exact packed `types` exports;
-- complete local declaration inventory and native digest;
-- publisher inventory and `namedSymbol` remain proposals until independently
-  admitted by `product.verify` and `product.resolve`;
-- private local evidence for unresolved external occurrences;
-- one owner-indexed linked TypeScript declaration program at
-  `product.resolve`;
-- one contract owns only its exact `namedSymbol`; namespace and star relations
-  require exact per-symbol coverage through directly required contracts;
-- cross-Product module/global augmentation and external side-effect-only
-  declaration relations refuse;
-- direct required-contract and imported-symbol authority has no transitive or
-  ambient leakage;
-- one canonical native-closure digest inside the existing resolved-lock
-  identity;
-- the existing `EnvironmentBasis` as the only affected Prime/IACS family;
-- private analyzer and occurrence/binding evidence; and
-- exact module-owned positives and mutations.
+- the complete 5.0 family contains exactly 18 operation identities, 56
+  operation-definition keys, and the closed 24-member `project.read` family;
+- one owner-native strict schema source projects the TypeScript types, unknown
+  value parser, JSON Schema, SDK, and CLI contract;
+- request, result, refusal, authority/effect, workspace-binding, capability,
+  event, and adapter relations are operation-indexed and total;
+- all-or-none, exactly-one, and ref/digest relations are structural type
+  relations rather than runtime-only checks;
+- `product.verify` is one operation whose packed and installed request members
+  preserve the exact lock law without allowing verification to construct a
+  lock;
+- native external occurrences are checker-derived and indexed by their source
+  contract, not raw syntax or declaration-root ownership;
+- namespace, star, type-query, value, and type use follow checker meaning;
+- every contract occurrence has exactly one binding with the same occurrence
+  identity, and no physical occurrence is itself an authority key;
+- the existing `EnvironmentBasis` remains the sole affected Prime/IACS family;
+  and
+- the Ontology, Prime contraction, module mapping, three semantic views,
+  lifecycle, cross-view axioms, and falsification proof agree.
 
-The frozen realization candidate is reviewable only as a projection of this
-accepted design. It cannot select fields, functions, module exports,
-dependency semantics, or proof expectations that the accepted design does not
-require.
+Returned realization candidate `4953508d` is evidence only. No retained
+realization may select fields, functions, module exports, dependency
+semantics, or proof expectations absent from the accepted design.
 
 ## Bounded Review Repair
 
@@ -226,7 +226,8 @@ is independently accepted.
 
 ## Acceptance
 
-The exact candidate closes S06 only when independent review confirms:
+The next exact realization can close S06 only after this design is accepted
+and independent realization review confirms:
 
 - the native-contract Ontology and design verdicts were independently accepted
   before retained implementation resumed;
@@ -267,7 +268,7 @@ The exact candidate closes S06 only when independent review confirms:
 
 S06 remains open if:
 
-- realization resumes before the native-contract design gate is accepted;
+- realization resumes before the replacement design gate is accepted;
 - review examines a moving tree or another candidate;
 - the Codex shell can launch a substituted executable or interpret Product
   semantics;
@@ -290,10 +291,15 @@ candidate `b645595c16d23e98c7f65b958fcdf3e206ad3893` for three bounded choices:
 proposal versus admission, contract-to-symbol ownership, and cross-Product
 augmentation. They are repaired together and accepted at candidate
 `4f80f84a826de86b4cfb4d9fec3baff428dcb44a`, tree
-`7070dca7d0f2ca90374b525faa60d5b810488763`. The one bounded Section 8
-realization repair is frozen at `4953508de83ab6d6c65dbb81e5407ccb539e44e6`,
-tree `cd8bf69d79014e29e45bda52f9a785907eab8e74`. It receives one exact-cut
-review; the worker does not recursively review or refreeze it.
+`7070dca7d0f2ca90374b525faa60d5b810488763`. Realization candidate
+`4953508de83ab6d6c65dbb81e5407ccb539e44e6`, tree
+`cd8bf69d79014e29e45bda52f9a785907eab8e74`, is returned because the complete
+public-function family and contract-indexed native occurrence relation were
+not yet singular. They are resolved together in design candidate
+`9fb14e6859af51e97789a599ad0fae6c367c34b3`, tree
+`919e0a7b09c99a1fe7a246a6c46e729313eebb30`. That exact design receives one
+independent review; the worker does not realize, recursively review, or
+refreeze it.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active

@@ -13,9 +13,11 @@ constraint network in `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` at
 `4f9bf707` and `51664393`, plus design candidate `b645595c`, are returned
 evidence. The active
 realization basis is accepted design `4f80f84a`, tree `7070dca7`, under
-`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Its bounded Section 8 projection
-is frozen at candidate `4953508d`, tree `cd8bf69d`, for exact-cut review; do
-not edit or refreeze it.
+`M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Its bounded Section 8 realization
+at candidate `4953508d`, tree `cd8bf69d`, is returned evidence. Supplemental
+public-function and contract-indexed occurrence design `9fb14e68`, tree
+`919e0a7b`, is the sole exact-cut review subject; do not edit, implement, or
+refreeze it.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -33,6 +35,7 @@ build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DE
 build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md
 build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md
 build_tenants/abiogenesis/typescript/design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
+build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md
 .ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md
 .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
 .ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md
@@ -57,8 +60,8 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: S03 and S05 accepted; S06 realization candidate `4953508d` frozen
-for independent review
+**Status**: S03 and S05 accepted; S06 realization `4953508d` returned; design
+candidate `9fb14e68` frozen for independent review
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower

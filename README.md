@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 design `4f80f84a` accepted; realization candidate `4953508d` frozen for review; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 native design `4f80f84a` accepted; realization `4953508d` returned; supplemental design `9fb14e68` frozen for review; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -63,9 +63,13 @@ S06 implementation candidates `4f9bf707` and `51664393`, plus design candidate
 proposal/admission stages, sole named-symbol contract authority, per-symbol
 namespace/star coverage, cross-Product augmentation refusal, and one admitted
 native-closure digest in the existing resolved lock. Its bounded Section 8
-repair is frozen at candidate `4953508d`, tree `cd8bf69d`, for independent
-review. The Codex delegate remains a convenience shell, not alternate
-functionality.
+realization at candidate `4953508d`, tree `cd8bf69d`, is returned evidence.
+Supplemental design
+`M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` is frozen at
+candidate `9fb14e68`, tree `919e0a7b`, for independent review. It closes the
+complete public-function algebra and contract-indexed native occurrence
+relation before code resumes. The Codex delegate remains a convenience shell,
+not alternate functionality.
 
 `A5-F12` and `ABG5-S04` are planned 5.1 work. Their design candidate
 `4897ead1`, tree `11d0ef7b`, remains immutable future input under backlogged
@@ -84,8 +88,9 @@ Read in this order:
 6. [M5 design](build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md)
 7. [S05 design delta](build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md)
 8. [S06 native-contract design](build_tenants/abiogenesis/typescript/design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md)
-9. [T-281](.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md)
-10. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
+9. [S06 public-function and occurrence design](build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md)
+10. [T-281](.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md)
+11. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
 
 `PRODUCT.md` is the sole complete 5.0 Product-definition surface.
 Requirements decompose it. GOALS selects one current Product outcome. Design

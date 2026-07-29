@@ -44,10 +44,13 @@ Native declaration design candidate `b645595c`, tree `130af566`, is also
 returned. Its three findings are repaired together at replacement candidate
 `4f80f84a`, tree `7070dca7`, under
 `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`, and that exact design is directly
-accepted. Its bounded Section 8 repair is frozen at candidate `4953508d`,
-tree `cd8bf69d`, for one independent exact-cut review. Do not edit or refreeze
-it. Full conservation qualification, qualification, and release must not
-receive implementation while S06 remains unresolved.
+accepted. Its bounded Section 8 realization at candidate `4953508d`, tree
+`cd8bf69d`, is returned evidence. Supplemental design
+`M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` is frozen at
+`9fb14e68`, tree `919e0a7b`, as the sole independent review subject. Do not
+edit, implement, or refreeze it. Prime compression, full conservation
+qualification, qualification, and release must not receive implementation
+while S06 remains unresolved.
 
 `A5-F12` and `ABG5-S04` are deferred to planned ABIogenesis 5.1. Their design
 is frozen at candidate `4897ead1`, tree `11d0ef7b`, under backlogged T-268 as
@@ -56,6 +59,11 @@ design for 5.0.
 
 S06 closes only when:
 
+- its complete 18-operation, 56-definition-key public family projects one
+  operation-indexed contract through native types, parser, JSON Schema, SDK,
+  CLI, runtime, publication, and replay;
+- every native external occurrence is checker-derived, indexed by its exact
+  source contract, and binds exactly once;
 - its four named recurrence families are dispositioned within the accepted
   Prime carrier set before the portability path is promoted;
 - native declaration roots, complete inventories, owner-relative direct
@@ -87,8 +95,9 @@ Read:
 6. `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md`
 7. `build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`
 8. `build_tenants/abiogenesis/typescript/design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`
-9. `.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md`
-10. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
+9. `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md`
+10. `.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md`
+11. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
 
 Repository history and commentary may explain prior failure. They do not
 authorize implementation.
