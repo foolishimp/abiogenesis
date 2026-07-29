@@ -1,7 +1,8 @@
 # REQ-P-POLICY — Product and Runtime Policy
 
 **Status**: Active
-**Lineage**: T-283 Product basis; T-284 bounded owner repair
+**Lineage**: T-283 Product basis; T-284 bounded owner repair; T-281
+packed/installed verification clarification
 **Category**: Governance
 **Date**: 2026-04-19
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001 and INT-005,
@@ -340,11 +341,26 @@ product requirements.
 
 ## Catalog, Invocation, And Install-Time Operations
 
-**REQ-P-POLICY-049**: `abg.operation.product.verify` shall validate a supplied product,
-descriptor, contribution manifest, resolved lock, artifact identity, and
-compatibility inputs without installing, binding, admitting, or invoking them.
-Its result shall identify every checked identity, the verification disposition,
-typed residuals or refusals, and provenance.
+**REQ-P-POLICY-049**: `abg.operation.product.verify` shall accept one closed
+target sum:
+
+- `packed_artifact` shall validate the supplied Product, descriptor,
+  contribution manifest, artifact and content identities, declared dependency
+  and compatibility inputs, locally decidable native-contract truth, and
+  source-contract-indexed pending external selectors before dependency
+  resolution. A resolved lock, installed-Product identity, and install manifest
+  shall be forbidden for this member.
+- `installed_artifact` shall validate the same supplied Product truth together
+  with exactly one already resolved lock, installed-Product identity, and
+  install manifest. Those three fields shall be required for this member.
+
+Verification shall not construct a dependency lock, install, bind, admit,
+invoke, or treat unresolved external meaning as linked truth. Its result shall
+preserve the selected target member and identify every checked identity, the
+local or installed verification disposition, typed pending external evidence
+for the packed member, residuals or refusals, and provenance.
+`abg.operation.product.resolve` alone shall admit linked cross-Product meaning
+and construct the resolved lock.
 
 **REQ-P-POLICY-050**: `abg.operation.product.resolve` shall accept declared product and
 compatibility requirements and return one exact resolved-lock result or a typed
