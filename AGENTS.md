@@ -46,9 +46,10 @@ returned. Its three findings are repaired together at replacement candidate
 `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`, and that exact design is directly
 accepted. Its bounded Section 8 realization at candidate `4953508d`, tree
 `cd8bf69d`, is returned evidence. Supplemental design
-`M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` is frozen at
-`8eb7564c`, tree `9c753f86`, as the sole independent review subject. Do not
-edit, implement, or refreeze it. Prime compression, full conservation
+`M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at
+`8eb7564c`, tree `9c753f86`, is returned evidence. Its contracted replacement
+is frozen at `2bb7b594`, tree `c57c237e`, as the sole independent review
+subject. Do not edit, implement, or refreeze it. Prime compression, full conservation
 qualification, qualification, and release must not receive implementation
 while S06 remains unresolved.
 

@@ -1,9 +1,10 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-29):** S06 realization candidate `4953508d`,
+> **Current disposition (2026-07-30):** S06 realization candidate `4953508d`,
 > tree `cd8bf69d`, is returned evidence. Accepted native-closure design
-> `4f80f84a` remains the basis. Supplemental public-function and
-> contract-indexed occurrence design `8eb7564c`, tree `9c753f86`, is the sole
+> `4f80f84a` remains the basis. Supplemental design `8eb7564c`, tree
+> `9c753f86`, is returned evidence. Contracted public-function and
+> contract-indexed occurrence design `2bb7b594`, tree `c57c237e`, is the sole
 > frozen review subject. Realization, Prime compression, S04, and later work
 > remain held.
 
@@ -20,7 +21,7 @@
 - priority: critical
 - implementation_hold: exact_s06_design_review_only
 - implementation_hold_effect: >-
-    hold design candidate 8eb7564c immutable for one independent exact-cut
+    hold design candidate 2bb7b594 immutable for one independent exact-cut
     review and direct disposition; prohibit realization, recursive design
     revision, Prime compression, S04, unified M5 freeze, M6 qualification, M7
     release, alternate functionality, and broad refactoring
@@ -36,7 +37,7 @@
     M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md
 - triaged_at: 2026-07-24
 - created_at: 2026-07-16
-- updated_at: 2026-07-29
+- updated_at: 2026-07-30
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-278
@@ -63,11 +64,14 @@
 - returned_s06_supplemental_design_handoff: >-
     .ai-workspace/comments/codex/
     20260729T111754Z_HANDOFF_t281_s06_public_function_native_occurrence_design.md
-- current_s06_design_candidate: 8eb7564c04673cab26d938ad9bb2b026c1597d15
-- current_s06_design_candidate_tree: 9c753f86727fc1bc7fe0836f517d5157aa5de7d8
-- current_s06_design_sha256: 5c3e985c1895abd339e2ecda8c0617cc9a147caf0e3c86233f640ddde0418d35
+- returned_s06_public_native_design_candidate: 8eb7564c04673cab26d938ad9bb2b026c1597d15
+- returned_s06_public_native_design_tree: 9c753f86727fc1bc7fe0836f517d5157aa5de7d8
+- returned_s06_public_native_design_sha256: 5c3e985c1895abd339e2ecda8c0617cc9a147caf0e3c86233f640ddde0418d35
+- current_s06_design_candidate: 2bb7b594920b1b126a6d314ed7bb39dabd211823
+- current_s06_design_candidate_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
+- current_s06_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
 - current_s06_requirement_sha256: 9567539aa176ec64ced2c4200a1980197a5d1da937a69d457d5643304641f9d3
-- current_s06_design_subject_aggregate_sha256: 9005bf7d170dda679b91ec13baa1784118644ff24209026ddab224402e868f4e
+- current_s06_design_subject_aggregate_sha256: 0fcaaf99d8faadc44d3f306d9549730e68724b3a948ed3a4f9bfdee20598eda9
 - accepted_s06_native_contract_design_commit: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
 - accepted_s06_native_contract_design_tree: 7070dca7d0f2ca90374b525faa60d5b810488763
 - accepted_s06_native_contract_design_sha256: ab44417157853490f4a3d8f9055b5eca8c295fd16f9615020b70e327f57c09fe
@@ -79,7 +83,7 @@
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260729T120705Z_HANDOFF_t281_s06_public_native_design_repair.md
+    20260729T165615Z_HANDOFF_t281_s06_contracted_design_repair.md
 
 ## Selected Outcome
 
@@ -305,11 +309,16 @@ not yet singular. Design candidate
 `919e0a7b09c99a1fe7a246a6c46e729313eebb30`, was returned because its 56-key
 owner contracts, common public carriers, native phase split, occurrence/lock
 identity, and packed/installed verification relation remained incomplete.
-Those findings are repaired together at candidate
+Those findings were first repaired at candidate
 `8eb7564c04673cab26d938ad9bb2b026c1597d15`, tree
-`9c753f86727fc1bc7fe0836f517d5157aa5de7d8`. That exact design receives one
-independent delta review; the worker does not realize, recursively review, or
-refreeze it.
+`9c753f86727fc1bc7fe0836f517d5157aa5de7d8`, which review returned for
+constructable invocation authority, verified resolve basis, complete
+owner/version/authority coordinates, and three native-occurrence identity
+relations. Contracted replacement `2bb7b594920b1b126a6d314ed7bb39dabd211823`,
+tree `c57c237e8c5950fb85552d19203df4cd526cd7b7`, repairs those relations through
+owner references without reproducing all payload families. That exact design
+receives one independent delta review; the worker does not realize, recursively
+review, or refreeze it.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active

@@ -23,14 +23,14 @@
     applicability requirements
 - triaged_at: 2026-07-28
 - created_at: 2026-07-14
-- updated_at: 2026-07-29
+- updated_at: 2026-07-30
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
 - current_product_outcome: ABG5-S06
 - implementation_hold: exact_s06_design_review_only
 - implementation_hold_effect: >-
-    hold exact S06 design candidate 8eb7564c immutable for independent review
+    hold exact S06 design candidate 2bb7b594 immutable for independent review
     and direct disposition under T-281; prohibit realization, recursive design
     revision, Prime compression, planned 5.1 observer/tuner realization,
     unified M5 freeze, M6 qualification, M7 release, and unrelated refactoring
@@ -56,11 +56,14 @@
 - returned_s06_supplemental_design_candidate: 9fb14e6859af51e97789a599ad0fae6c367c34b3
 - returned_s06_supplemental_design_tree: 919e0a7b09c99a1fe7a246a6c46e729313eebb30
 - returned_s06_supplemental_design_sha256: d5435631cb4fcba1bec7a3e0df61eb00fddf98957e4dc1c73209086caa8e6cd3
-- current_s06_design_candidate: 8eb7564c04673cab26d938ad9bb2b026c1597d15
-- current_s06_design_candidate_tree: 9c753f86727fc1bc7fe0836f517d5157aa5de7d8
-- current_s06_design_sha256: 5c3e985c1895abd339e2ecda8c0617cc9a147caf0e3c86233f640ddde0418d35
+- returned_s06_public_native_design_candidate: 8eb7564c04673cab26d938ad9bb2b026c1597d15
+- returned_s06_public_native_design_tree: 9c753f86727fc1bc7fe0836f517d5157aa5de7d8
+- returned_s06_public_native_design_sha256: 5c3e985c1895abd339e2ecda8c0617cc9a147caf0e3c86233f640ddde0418d35
+- current_s06_design_candidate: 2bb7b594920b1b126a6d314ed7bb39dabd211823
+- current_s06_design_candidate_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
+- current_s06_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
 - current_s06_requirement_sha256: 9567539aa176ec64ced2c4200a1980197a5d1da937a69d457d5643304641f9d3
-- current_s06_design_subject_aggregate_sha256: 9005bf7d170dda679b91ec13baa1784118644ff24209026ddab224402e868f4e
+- current_s06_design_subject_aggregate_sha256: 0fcaaf99d8faadc44d3f306d9549730e68724b3a948ed3a4f9bfdee20598eda9
 - accepted_s06_native_contract_design_commit: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
 - current_s06_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
@@ -70,7 +73,7 @@
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260729T120705Z_HANDOFF_t281_s06_public_native_design_repair.md
+    20260729T165615Z_HANDOFF_t281_s06_contracted_design_repair.md
 - selected_pre_m5_entropy_reduction: prime_compression_equivalence_classes
 - selected_entropy_reduction_selection_class: goal_reprice
 - selected_entropy_reduction_realization_class: realization_refactor
@@ -131,7 +134,8 @@ T-281 owns the exact S06 boundary. Native declaration closure remains governed
 by accepted `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Realization candidate
 `4953508d`, tree `cd8bf69d`, is returned evidence.
 `M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at
-`8eb7564c`, tree `9c753f86`, is the sole review subject. It must close the
+`2bb7b594`, tree `c57c237e`, is the sole review subject. Returned candidate
+`8eb7564c`, tree `9c753f86`, remains evidence. The replacement must close the
 complete public-function algebra and source-contract-indexed native occurrence
 relation before realization resumes. S06 closes only when:
 

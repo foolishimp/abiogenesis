@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 native design `4f80f84a` accepted; realization `4953508d` returned; supplemental design `8eb7564c` frozen for review; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 native design `4f80f84a` accepted; realization `4953508d` and supplemental design `8eb7564c` returned; contracted replacement design `2bb7b594` frozen for review; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -66,10 +66,11 @@ native-closure digest in the existing resolved lock. Its bounded Section 8
 realization at candidate `4953508d`, tree `cd8bf69d`, is returned evidence.
 Supplemental design
 `M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` is frozen at
-candidate `8eb7564c`, tree `9c753f86`, for independent review. It closes the
-complete public-function algebra and contract-indexed native occurrence
-relation before code resumes. The Codex delegate remains a convenience shell,
-not alternate functionality.
+candidate `2bb7b594`, tree `c57c237e`, for independent review. Returned
+candidate `8eb7564c`, tree `9c753f86`, remains evidence. The replacement
+contracts the complete public-function algebra through owner references and
+closes contract-indexed native occurrence identity before code resumes. The
+Codex delegate remains a convenience shell, not alternate functionality.
 
 `A5-F12` and `ABG5-S04` are planned 5.1 work. Their design candidate
 `4897ead1`, tree `11d0ef7b`, remains immutable future input under backlogged

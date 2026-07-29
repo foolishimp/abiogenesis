@@ -16,7 +16,8 @@ realization basis is accepted design `4f80f84a`, tree `7070dca7`, under
 `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Its bounded Section 8 realization
 at candidate `4953508d`, tree `cd8bf69d`, is returned evidence. Supplemental
 public-function and contract-indexed occurrence design `8eb7564c`, tree
-`9c753f86`, is the sole exact-cut review subject; do not edit, implement, or
+`9c753f86`, is returned evidence. Contracted replacement `2bb7b594`, tree
+`c57c237e`, is the sole exact-cut review subject; do not edit, implement, or
 refreeze it.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
@@ -61,7 +62,7 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 ## GTL / HoG / ABG Bootstrap
 
 **Status**: S03 and S05 accepted; S06 realization `4953508d` returned; design
-candidate `8eb7564c` frozen for independent review
+candidate `2bb7b594` frozen for independent review
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
