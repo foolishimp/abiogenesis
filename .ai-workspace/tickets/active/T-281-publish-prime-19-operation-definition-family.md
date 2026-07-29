@@ -3,7 +3,7 @@
 > **Current disposition (2026-07-29):** S06 realization candidate `4953508d`,
 > tree `cd8bf69d`, is returned evidence. Accepted native-closure design
 > `4f80f84a` remains the basis. Supplemental public-function and
-> contract-indexed occurrence design `9fb14e68`, tree `919e0a7b`, is the sole
+> contract-indexed occurrence design `8eb7564c`, tree `9c753f86`, is the sole
 > frozen review subject. Realization, Prime compression, S04, and later work
 > remain held.
 
@@ -20,7 +20,7 @@
 - priority: critical
 - implementation_hold: exact_s06_design_review_only
 - implementation_hold_effect: >-
-    hold design candidate 9fb14e68 immutable for one independent exact-cut
+    hold design candidate 8eb7564c immutable for one independent exact-cut
     review and direct disposition; prohibit realization, recursive design
     revision, Prime compression, S04, unified M5 freeze, M6 qualification, M7
     release, alternate functionality, and broad refactoring
@@ -30,9 +30,9 @@
     native CLI, bounded Codex process shell, and one independently flavored
     downstream Product without copied runtime or core Product-specific
     behavior.
-- change_class: design_reframe
+- change_class: requirement_reprice_plus_design_reframe
 - re_entry_point: >-
-    build_tenants/abiogenesis/typescript/design/
+    REQ-P-POLICY-049 plus build_tenants/abiogenesis/typescript/design/
     M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md
 - triaged_at: 2026-07-24
 - created_at: 2026-07-16
@@ -57,9 +57,17 @@
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
-- current_s06_design_candidate: 9fb14e6859af51e97789a599ad0fae6c367c34b3
-- current_s06_design_candidate_tree: 919e0a7b09c99a1fe7a246a6c46e729313eebb30
-- current_s06_design_sha256: d5435631cb4fcba1bec7a3e0df61eb00fddf98957e4dc1c73209086caa8e6cd3
+- returned_s06_supplemental_design_candidate: 9fb14e6859af51e97789a599ad0fae6c367c34b3
+- returned_s06_supplemental_design_tree: 919e0a7b09c99a1fe7a246a6c46e729313eebb30
+- returned_s06_supplemental_design_sha256: d5435631cb4fcba1bec7a3e0df61eb00fddf98957e4dc1c73209086caa8e6cd3
+- returned_s06_supplemental_design_handoff: >-
+    .ai-workspace/comments/codex/
+    20260729T111754Z_HANDOFF_t281_s06_public_function_native_occurrence_design.md
+- current_s06_design_candidate: 8eb7564c04673cab26d938ad9bb2b026c1597d15
+- current_s06_design_candidate_tree: 9c753f86727fc1bc7fe0836f517d5157aa5de7d8
+- current_s06_design_sha256: 5c3e985c1895abd339e2ecda8c0617cc9a147caf0e3c86233f640ddde0418d35
+- current_s06_requirement_sha256: 9567539aa176ec64ced2c4200a1980197a5d1da937a69d457d5643304641f9d3
+- current_s06_design_subject_aggregate_sha256: 9005bf7d170dda679b91ec13baa1784118644ff24209026ddab224402e868f4e
 - accepted_s06_native_contract_design_commit: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
 - accepted_s06_native_contract_design_tree: 7070dca7d0f2ca90374b525faa60d5b810488763
 - accepted_s06_native_contract_design_sha256: ab44417157853490f4a3d8f9055b5eca8c295fd16f9615020b70e327f57c09fe
@@ -71,7 +79,7 @@
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260729T111754Z_HANDOFF_t281_s06_public_function_native_occurrence_design.md
+    20260729T120705Z_HANDOFF_t281_s06_public_native_design_repair.md
 
 ## Selected Outcome
 
@@ -132,20 +140,17 @@ review must confirm:
 
 - the complete 5.0 family contains exactly 18 operation identities, 56
   operation-definition keys, and the closed 24-member `project.read` family;
-- one owner-native strict schema source projects the TypeScript types, unknown
-  value parser, JSON Schema, SDK, and CLI contract;
-- request, result, refusal, authority/effect, workspace-binding, capability,
-  event, and adapter relations are operation-indexed and total;
-- all-or-none, exactly-one, and ref/digest relations are structural type
-  relations rather than runtime-only checks;
-- `product.verify` is one operation whose packed and installed request members
-  preserve the exact lock law without allowing verification to construct a
-  lock;
-- native external occurrences are checker-derived and indexed by their source
-  contract, not raw syntax or declaration-root ownership;
-- namespace, star, type-query, value, and type use follow checker meaning;
-- every contract occurrence has exactly one binding with the same occurrence
-  identity, and no physical occurrence is itself an authority key;
+- the parameterized source map fixes every key's owner schema symbol, fields,
+  domains, defaults, metadata, and exact owner port;
+- the common catalog, operation-row, invocation, outcome, and
+  projection-refusal carriers are singular and constructable;
+- F01 emits source-contract-indexed pending selectors only, while F02's linked
+  checker alone derives semantic occurrences, canonical targets, target
+  contracts, and exact bindings;
+- relation form and semantic use are orthogonal, target identity is stable,
+  and A-to-B-to-C authority re-anchors at each admitted Product contract;
+- clarified `REQ-P-POLICY-049` preserves packed verify, installed verify,
+  linked resolve, and install as distinct authority stages;
 - the existing `EnvironmentBasis` remains the sole affected Prime/IACS family;
   and
 - the Ontology, Prime contraction, module mapping, three semantic views,
@@ -295,10 +300,15 @@ augmentation. They are repaired together and accepted at candidate
 `4953508de83ab6d6c65dbb81e5407ccb539e44e6`, tree
 `cd8bf69d79014e29e45bda52f9a785907eab8e74`, is returned because the complete
 public-function family and contract-indexed native occurrence relation were
-not yet singular. They are resolved together in design candidate
+not yet singular. Design candidate
 `9fb14e6859af51e97789a599ad0fae6c367c34b3`, tree
-`919e0a7b09c99a1fe7a246a6c46e729313eebb30`. That exact design receives one
-independent review; the worker does not realize, recursively review, or
+`919e0a7b09c99a1fe7a246a6c46e729313eebb30`, was returned because its 56-key
+owner contracts, common public carriers, native phase split, occurrence/lock
+identity, and packed/installed verification relation remained incomplete.
+Those findings are repaired together at candidate
+`8eb7564c04673cab26d938ad9bb2b026c1597d15`, tree
+`9c753f86727fc1bc7fe0836f517d5157aa5de7d8`. That exact design receives one
+independent delta review; the worker does not realize, recursively review, or
 refreeze it.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint

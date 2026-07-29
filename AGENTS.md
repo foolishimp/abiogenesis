@@ -47,7 +47,7 @@ returned. Its three findings are repaired together at replacement candidate
 accepted. Its bounded Section 8 realization at candidate `4953508d`, tree
 `cd8bf69d`, is returned evidence. Supplemental design
 `M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` is frozen at
-`9fb14e68`, tree `919e0a7b`, as the sole independent review subject. Do not
+`8eb7564c`, tree `9c753f86`, as the sole independent review subject. Do not
 edit, implement, or refreeze it. Prime compression, full conservation
 qualification, qualification, and release must not receive implementation
 while S06 remains unresolved.
