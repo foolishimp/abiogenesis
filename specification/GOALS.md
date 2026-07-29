@@ -14,7 +14,7 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 candidate `51664393` frozen for review; A5-F12/S04 deferred to 5.1 |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 candidate `4c3bb239` frozen for review; A5-F12/S04 deferred to 5.1 |
 
 ## Current Basis
 
@@ -52,7 +52,8 @@ selection, ordered successor outcomes, and their acceptance conditions.
   existing-CLI and replay decision.
 - This Product reprice changes no S06 meaning or acceptance predicate.
   Candidates `ac61e080`, `d9794275`, `28122033`, `c0d2a3e6`, and `33ab384b`
-  remain immutable returned evidence. Candidate `4f9bf707` is also returned:
+  remain immutable returned evidence. Candidates `4f9bf707` and `51664393`
+  are also returned:
   native declaration closure still left root selection, complete digest
   closure, external symbol authority, and module placement for code to choose.
 - S06 is design-gated at
@@ -61,9 +62,9 @@ selection, ordered successor outcomes, and their acceptance conditions.
   bounded repair: proposal/admission separation, sole named-symbol ownership,
   and cross-Product augmentation refusal. Replacement candidate `4f80f84a`,
   tree `7070dca7`, contains those three repairs and is directly accepted after
-  independent delta review. Its one bounded Section 8 realization is frozen at
-  candidate `516643930d0f909afa2d35f4243fc0231f9b4cdd`, tree
-  `deec0643fd8fe33ce5e4244a8437adf99bc146d6`, for independent exact-cut
+  independent delta review. Its bounded Section 8 verifier repair is frozen at
+  candidate `4c3bb239cbdcfeb2587ff06ca736c77ce84af18f`, tree
+  `fa2adf47e2bf047af3778603562b0ee71890dcb6`, for independent exact-cut
   review. No further realization is selected.
 - Exact candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b`
   is the accepted S03 base.
@@ -115,8 +116,8 @@ runtime capability, catalog, controller, or execution path. The accepted
 realization basis is native-contract design
 `4f80f84a826de86b4cfb4d9fec3baff428dcb44a`, tree
 `7070dca7d0f2ca90374b525faa60d5b810488763`. Exact implementation candidate
-`516643930d0f909afa2d35f4243fc0231f9b4cdd`, tree
-`deec0643fd8fe33ce5e4244a8437adf99bc146d6`, is frozen for independent review.
+`4c3bb239cbdcfeb2587ff06ca736c77ce84af18f`, tree
+`fa2adf47e2bf047af3778603562b0ee71890dcb6`, is frozen for independent review.
 
 Acceptance requires:
 

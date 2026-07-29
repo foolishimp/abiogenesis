@@ -1,11 +1,11 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-29):** S06 implementation candidate
-> `4f9bf707` and native declaration design candidate `b645595c` are returned
-> evidence. Replacement design `4f80f84a`, tree `7070dca7`, is directly
-> accepted. Its bounded Section 8 projection is frozen at exact realization
-> candidate `51664393`, tree `deec0643`, for independent review. S04 and later
-> work remain held.
+> **Current disposition (2026-07-29):** S06 implementation candidates
+> `4f9bf707` and `51664393`, plus native declaration design candidate
+> `b645595c`, are returned evidence. Replacement design `4f80f84a`, tree
+> `7070dca7`, is directly accepted. Its bounded Section 8 repair is frozen at
+> exact realization candidate `4c3bb239`, tree `fa2adf47`, for independent
+> review. S04 and later work remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
@@ -20,7 +20,7 @@
 - priority: critical
 - implementation_hold: exact_s06_candidate_review_only
 - implementation_hold_effect: >-
-    hold candidate 51664393 immutable for one independent exact-cut review and
+    hold candidate 4c3bb239 immutable for one independent exact-cut review and
     direct disposition; prohibit further realization, design re-entry, S04,
     unified M5 freeze, M6 qualification, M7 release, alternate functionality,
     and broad refactoring
@@ -48,15 +48,15 @@
     build_tenants/abiogenesis/typescript/code/src/public
 - accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
 - accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
-- returned_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
-- returned_s06_candidate_tree: 21ffbdaa5dfa52886a3cb29c6f2311f2d25012cc
-- current_s06_candidate: 516643930d0f909afa2d35f4243fc0231f9b4cdd
-- current_s06_candidate_tree: deec0643fd8fe33ce5e4244a8437adf99bc146d6
-- current_s06_package_sha256: 1eecdeac4aecf4be7a30fadf4642a74fe119df5a8c1009be1d1ca54df0a6204b
-- current_s06_package_inventory_sha256: f9dd4d7652acbc723cb3ff701f7a155f507343705b97751d6d99a932e79a08b7
+- returned_s06_candidate: 516643930d0f909afa2d35f4243fc0231f9b4cdd
+- returned_s06_candidate_tree: deec0643fd8fe33ce5e4244a8437adf99bc146d6
+- current_s06_candidate: 4c3bb239cbdcfeb2587ff06ca736c77ce84af18f
+- current_s06_candidate_tree: fa2adf47e2bf047af3778603562b0ee71890dcb6
+- current_s06_package_sha256: ce1fa42b10d41dbb797f72932abe16b53f4916205b8377c862fefc520ead4785
+- current_s06_package_inventory_sha256: a9298643c3445f094c09e161a4e5f99a221b91b23f54a1d8b3efda5ebb8e5c9b
 - current_s06_handoff: >-
     .ai-workspace/comments/codex/
-    20260728T192730Z_HANDOFF_t281_s06_native_contract_realization_candidate.md
+    20260729T045022Z_HANDOFF_t281_s06_native_verifier_repair_candidate.md
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
@@ -291,8 +291,8 @@ proposal versus admission, contract-to-symbol ownership, and cross-Product
 augmentation. They are repaired together and accepted at candidate
 `4f80f84a826de86b4cfb4d9fec3baff428dcb44a`, tree
 `7070dca7d0f2ca90374b525faa60d5b810488763`. The one bounded Section 8
-realization pass is frozen at `516643930d0f909afa2d35f4243fc0231f9b4cdd`,
-tree `deec0643fd8fe33ce5e4244a8437adf99bc146d6`. It receives one exact-cut
+realization repair is frozen at `4c3bb239cbdcfeb2587ff06ca736c77ce84af18f`,
+tree `fa2adf47e2bf047af3778603562b0ee71890dcb6`. It receives one exact-cut
 review; the worker does not recursively review or refreeze it.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint

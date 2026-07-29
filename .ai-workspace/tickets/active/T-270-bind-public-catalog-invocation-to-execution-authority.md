@@ -29,7 +29,7 @@
 - current_product_outcome: ABG5-S06
 - implementation_hold: exact_s06_candidate_review_only
 - implementation_hold_effect: >-
-    hold exact S06 candidate 51664393 immutable for independent review and
+    hold exact S06 candidate 4c3bb239 immutable for independent review and
     direct disposition under T-281; prohibit further realization, design
     re-entry, planned 5.1 observer/tuner realization, unified M5 freeze, M6
     qualification, M7 release, and unrelated refactoring
@@ -42,14 +42,14 @@
     .ai-workspace/tickets/backlog/
     T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md
 - current_s06_owner: T-281
-- returned_s06_candidate: 4f9bf7077579469135963a73b20cac7d9d082fb3
-- current_s06_candidate: 516643930d0f909afa2d35f4243fc0231f9b4cdd
-- current_s06_candidate_tree: deec0643fd8fe33ce5e4244a8437adf99bc146d6
-- current_s06_package_sha256: 1eecdeac4aecf4be7a30fadf4642a74fe119df5a8c1009be1d1ca54df0a6204b
-- current_s06_package_inventory_sha256: f9dd4d7652acbc723cb3ff701f7a155f507343705b97751d6d99a932e79a08b7
+- returned_s06_candidate: 516643930d0f909afa2d35f4243fc0231f9b4cdd
+- current_s06_candidate: 4c3bb239cbdcfeb2587ff06ca736c77ce84af18f
+- current_s06_candidate_tree: fa2adf47e2bf047af3778603562b0ee71890dcb6
+- current_s06_package_sha256: ce1fa42b10d41dbb797f72932abe16b53f4916205b8377c862fefc520ead4785
+- current_s06_package_inventory_sha256: a9298643c3445f094c09e161a4e5f99a221b91b23f54a1d8b3efda5ebb8e5c9b
 - current_s06_handoff: >-
     .ai-workspace/comments/codex/
-    20260728T192730Z_HANDOFF_t281_s06_native_contract_realization_candidate.md
+    20260729T045022Z_HANDOFF_t281_s06_native_verifier_repair_candidate.md
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
@@ -114,7 +114,7 @@ reviews, completed tickets, and backlogged 5.1 design do not select work.
 
 T-281 owns the exact S06 boundary. Native declaration closure is governed by
 accepted `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Its realization is frozen
-at candidate `51664393`, tree `deec0643`, and is the sole review subject. S06
+at candidate `4c3bb239`, tree `fa2adf47`, and is the sole review subject. S06
 closes only when:
 
 - native SDK and native CLI invoke one installed public operation contract;

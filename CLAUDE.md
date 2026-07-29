@@ -9,11 +9,12 @@ parent and T-281 owns the exact S06 boundary.
 
 The complete S05 function is resolved as the accepted global-to-local
 constraint network in `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` at
-`283325aa`; S05 realization is accepted at `1ddc802d`. S06 candidate
-`4f9bf707` and design candidate `b645595c` are returned evidence. The active
+`283325aa`; S05 realization is accepted at `1ddc802d`. S06 candidates
+`4f9bf707` and `51664393`, plus design candidate `b645595c`, are returned
+evidence. The active
 realization basis is accepted design `4f80f84a`, tree `7070dca7`, under
 `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Its bounded Section 8 projection
-is frozen at candidate `51664393`, tree `deec0643`, for exact-cut review; do
+is frozen at candidate `4c3bb239`, tree `fa2adf47`, for exact-cut review; do
 not edit or refreeze it.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
@@ -56,7 +57,7 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 <!-- GTL_BOOTLOADER_START -->
 ## GTL / HoG / ABG Bootstrap
 
-**Status**: S03 and S05 accepted; S06 realization candidate `51664393` frozen
+**Status**: S03 and S05 accepted; S06 realization candidate `4c3bb239` frozen
 for independent review
 
 - GTL.TypeScript is the only program language.

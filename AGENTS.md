@@ -38,13 +38,14 @@ close ABG5-S06
 
 Candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b` is accepted through S03.
 The S05 design is directly accepted at `283325aa`; S05 realization is accepted
-at `1ddc802d`. S06 implementation candidate `4f9bf707` is returned evidence.
+at `1ddc802d`. S06 implementation candidates `4f9bf707` and `51664393` are
+returned evidence.
 Native declaration design candidate `b645595c`, tree `130af566`, is also
 returned. Its three findings are repaired together at replacement candidate
 `4f80f84a`, tree `7070dca7`, under
 `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`, and that exact design is directly
-accepted. Its bounded Section 8 projection is frozen at candidate `51664393`,
-tree `deec0643`, for one independent exact-cut review. Do not edit or refreeze
+accepted. Its bounded Section 8 repair is frozen at candidate `4c3bb239`,
+tree `fa2adf47`, for one independent exact-cut review. Do not edit or refreeze
 it. Full conservation qualification, qualification, and release must not
 receive implementation while S06 remains unresolved.
 
