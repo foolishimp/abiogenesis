@@ -60,6 +60,9 @@ export interface NativeDeclarationClosure {
   readonly packageExportPath: string;
   readonly declarationPath: string;
   readonly exportedSymbols: readonly string[];
+  readonly exportedSymbolOccurrenceRefs: Readonly<
+    Record<string, readonly string[]>
+  >;
   readonly declarationInventory:
     readonly ProductNativeDeclarationInventoryRow[];
   readonly externalOccurrences: readonly NativeExternalOccurrence[];
@@ -647,7 +650,8 @@ function externalRelations(
   for (const directive of preprocessed.typeReferenceDirectives) {
     if (
       directive.fileName !== "node" &&
-      packageImportCoordinate(directive.fileName) !== null
+      packageImportCoordinate(directive.fileName) !== null &&
+      selfPackageExportPath(packageName, directive.fileName) === null
     ) {
       occurrences.push(occurrence({
         packageExportPath,
@@ -666,12 +670,15 @@ function externalRelations(
     !ts.isExternalModule(sourceFile) ||
     sourceFile.statements.some(
       (statement) =>
-        ts.isModuleDeclaration(statement) &&
+        ts.isNamespaceExportDeclaration(statement) ||
         (
-          (statement.flags & ts.NodeFlags.GlobalAugmentation) !== 0 ||
+          ts.isModuleDeclaration(statement) &&
           (
-            ts.isIdentifier(statement.name) &&
-            statement.name.text === "global"
+            (statement.flags & ts.NodeFlags.GlobalAugmentation) !== 0 ||
+            (
+              ts.isIdentifier(statement.name) &&
+              statement.name.text === "global"
+            )
           )
         ),
     );
@@ -688,6 +695,214 @@ function externalRelations(
     )
   );
   return { occurrences, augmentations, contributesGlobals };
+}
+
+function ancestorOfKind<T extends TypeScript.Node>(
+  node: TypeScript.Node,
+  predicate: (candidate: TypeScript.Node) => candidate is T,
+): T | null {
+  let candidate: TypeScript.Node | undefined = node;
+  while (candidate !== undefined) {
+    if (predicate(candidate)) return candidate;
+    candidate = candidate.parent;
+  }
+  return null;
+}
+
+function relationOccurrenceRefs(
+  ts: typeof TypeScript,
+  node: TypeScript.Node,
+  declarationPath: string,
+  occurrences: readonly NativeExternalOccurrence[],
+): readonly string[] {
+  let moduleSpecifier: TypeScript.StringLiteralLike | null = null;
+  let selectorKind: NativeExternalSelectorKind | null = null;
+  let visibleName: string | null = null;
+
+  if (ts.isImportSpecifier(node)) {
+    const declaration = ancestorOfKind(node, ts.isImportDeclaration);
+    if (
+      declaration !== null &&
+      ts.isStringLiteralLike(declaration.moduleSpecifier)
+    ) {
+      moduleSpecifier = declaration.moduleSpecifier;
+      selectorKind = "name";
+      visibleName = node.name.text;
+    }
+  } else if (ts.isNamespaceImport(node)) {
+    const declaration = ancestorOfKind(node, ts.isImportDeclaration);
+    if (
+      declaration !== null &&
+      ts.isStringLiteralLike(declaration.moduleSpecifier)
+    ) {
+      moduleSpecifier = declaration.moduleSpecifier;
+      selectorKind = "namespace";
+      visibleName = node.name.text;
+    }
+  } else if (ts.isImportClause(node) && node.name !== undefined) {
+    const declaration = ancestorOfKind(node, ts.isImportDeclaration);
+    if (
+      declaration !== null &&
+      ts.isStringLiteralLike(declaration.moduleSpecifier)
+    ) {
+      moduleSpecifier = declaration.moduleSpecifier;
+      selectorKind = "name";
+      visibleName = node.name.text;
+    }
+  } else if (ts.isExportSpecifier(node)) {
+    const declaration = ancestorOfKind(node, ts.isExportDeclaration);
+    if (
+      declaration !== null &&
+      declaration.moduleSpecifier !== undefined &&
+      ts.isStringLiteralLike(declaration.moduleSpecifier)
+    ) {
+      moduleSpecifier = declaration.moduleSpecifier;
+      selectorKind = "name";
+      visibleName = node.name.text;
+    }
+  } else if (ts.isNamespaceExport(node)) {
+    const declaration = ancestorOfKind(node, ts.isExportDeclaration);
+    if (
+      declaration !== null &&
+      declaration.moduleSpecifier !== undefined &&
+      ts.isStringLiteralLike(declaration.moduleSpecifier)
+    ) {
+      moduleSpecifier = declaration.moduleSpecifier;
+      selectorKind = "namespace";
+      visibleName = node.name.text;
+    }
+  } else if (ts.isImportEqualsDeclaration(node)) {
+    if (
+      ts.isExternalModuleReference(node.moduleReference) &&
+      node.moduleReference.expression !== undefined &&
+      ts.isStringLiteralLike(node.moduleReference.expression)
+    ) {
+      moduleSpecifier = node.moduleReference.expression;
+      selectorKind = "namespace";
+      visibleName = node.name.text;
+    }
+  } else if (
+    ts.isImportTypeNode(node) &&
+    ts.isLiteralTypeNode(node.argument) &&
+    ts.isStringLiteralLike(node.argument.literal)
+  ) {
+    moduleSpecifier = node.argument.literal;
+    selectorKind = node.qualifier === undefined ? "namespace" : "name";
+    if (node.qualifier !== undefined) {
+      let qualifier: TypeScript.EntityName = node.qualifier;
+      while (ts.isQualifiedName(qualifier)) qualifier = qualifier.left;
+      visibleName = qualifier.text;
+    }
+  }
+
+  if (moduleSpecifier === null || selectorKind === null) return [];
+  const sourceOffset = moduleSpecifier.getStart(moduleSpecifier.getSourceFile());
+  return occurrences
+    .filter(
+      (candidate) =>
+        candidate.declarationPath === declarationPath &&
+        candidate.sourceOffset === sourceOffset &&
+        candidate.selectorKind === selectorKind &&
+        (
+          visibleName === null ||
+          candidate.visibleName === visibleName
+        ),
+    )
+    .map((candidate) => candidate.occurrenceRef);
+}
+
+function exportedSymbolOccurrenceRefs(
+  ts: typeof TypeScript,
+  checker: TypeScript.TypeChecker,
+  moduleSymbol: TypeScript.Symbol | undefined,
+  reachable: ReadonlySet<string>,
+  relativePaths: ReadonlyMap<string, string>,
+  occurrences: readonly NativeExternalOccurrence[],
+): Readonly<Record<string, readonly string[]>> {
+  if (moduleSymbol === undefined) return {};
+  const relationByDeclarationPath = new Map<string, NativeExternalOccurrence[]>();
+  for (const occurrence of occurrences) {
+    const existing = relationByDeclarationPath.get(occurrence.declarationPath);
+    if (existing === undefined) {
+      relationByDeclarationPath.set(occurrence.declarationPath, [occurrence]);
+    } else {
+      existing.push(occurrence);
+    }
+  }
+  const result: Record<string, readonly string[]> = {};
+  for (const exportedSymbol of checker.getExportsOfModule(moduleSymbol)) {
+    const refs = new Set<string>();
+    const pending: TypeScript.Symbol[] = [exportedSymbol];
+    const visited = new Set<TypeScript.Symbol>();
+    while (pending.length > 0) {
+      const symbol = pending.pop()!;
+      if (visited.has(symbol)) continue;
+      visited.add(symbol);
+      if ((symbol.flags & ts.SymbolFlags.Alias) !== 0) {
+        const target = checker.getAliasedSymbol(symbol);
+        if (target !== symbol) pending.push(target);
+      }
+      for (const declaration of symbol.declarations ?? []) {
+        const sourcePath = posix.normalize(
+          declaration.getSourceFile().fileName,
+        );
+        if (!reachable.has(sourcePath)) continue;
+        const declarationPath = relativePaths.get(sourcePath);
+        if (declarationPath === undefined) continue;
+        const sourceOccurrences =
+          relationByDeclarationPath.get(declarationPath) ?? [];
+        for (const occurrence of sourceOccurrences) {
+          if (
+            occurrence.selectorKind === "all" &&
+            ancestorOfKind(
+              nodeAtPosition(
+                declaration.getSourceFile(),
+                occurrence.sourceOffset,
+              ),
+              (candidate): candidate is TypeScript.ImportDeclaration |
+                TypeScript.ExportDeclaration |
+                TypeScript.ImportTypeNode =>
+                ts.isImportDeclaration(candidate) ||
+                ts.isExportDeclaration(candidate) ||
+                ts.isImportTypeNode(candidate),
+            ) === null
+          ) {
+            refs.add(occurrence.occurrenceRef);
+          }
+        }
+        const visit = (node: TypeScript.Node): void => {
+          for (
+            const occurrenceRef of relationOccurrenceRefs(
+              ts,
+              node,
+              declarationPath,
+              sourceOccurrences,
+            )
+          ) {
+            refs.add(occurrenceRef);
+          }
+          if (ts.isIdentifier(node)) {
+            const referenced = checker.getSymbolAtLocation(node);
+            if (
+              referenced !== undefined &&
+              referenced !== symbol &&
+              (referenced.declarations ?? []).some((candidate) =>
+                reachable.has(
+                  posix.normalize(candidate.getSourceFile().fileName),
+                )
+              )
+            ) {
+              pending.push(referenced);
+            }
+          }
+          node.forEachChild(visit);
+        };
+        visit(declaration);
+      }
+    }
+    result[exportedSymbol.getName()] = [...refs].sort(compareText);
+  }
+  return result;
 }
 
 export async function resolveNativeDeclarationClosures(
@@ -844,7 +1059,8 @@ export async function resolveNativeDeclarationClosures(
     for (const directive of preprocessed.typeReferenceDirectives) {
       if (
         directive.fileName !== "node" &&
-        packageImportCoordinate(directive.fileName) !== null
+        packageImportCoordinate(directive.fileName) !== null &&
+        selfPackageExportPath(request.packageName, directive.fileName) === null
       ) {
         externalSpecifiers.add(directive.fileName);
       }
@@ -878,11 +1094,17 @@ export async function resolveNativeDeclarationClosures(
     ...program.getConfigFileParsingDiagnostics(),
     ...program.getOptionsDiagnostics(),
     ...program.getSyntacticDiagnostics(),
-    ...program.getSemanticDiagnostics(),
-  ].filter((diagnostic) => {
-    const specifier = diagnosticModuleSpecifier(ts, diagnostic);
-    return specifier === null || !externalSpecifiers.has(specifier);
-  });
+    ...program.getSemanticDiagnostics().filter((diagnostic) => {
+      const specifier = diagnosticModuleSpecifier(ts, diagnostic);
+      return !(
+        (diagnostic.code === 2307 ||
+          diagnostic.code === 2664 ||
+          diagnostic.code === 2792) &&
+        specifier !== null &&
+        externalSpecifiers.has(specifier)
+      );
+    }),
+  ];
   if (diagnostics.length > 0) return null;
 
   const checker = program.getTypeChecker();
@@ -934,6 +1156,20 @@ export async function resolveNativeDeclarationClosures(
         );
         if (!sourceText.has(referencedPath)) return null;
         pending.push(referencedPath);
+      }
+      for (const directive of preprocessed.typeReferenceDirectives) {
+        if (directive.fileName === "node") continue;
+        const selfExportPath = selfPackageExportPath(
+          request.packageName,
+          directive.fileName,
+        );
+        if (selfExportPath !== null) {
+          const selfRoot = rootVirtualPaths.get(selfExportPath);
+          if (selfRoot === null || selfRoot === undefined) return null;
+          pending.push(selfRoot);
+          continue;
+        }
+        if (packageImportCoordinate(directive.fileName) === null) return null;
       }
     }
     const declarationInventory =
@@ -989,14 +1225,23 @@ export async function resolveNativeDeclarationClosures(
         `${right.declarationPath}\0${right.sourceOffset.toString().padStart(12, "0")}`,
       )
     );
+    const exportedSymbols = moduleSymbol === undefined
+      ? []
+      : checker.getExportsOfModule(moduleSymbol)
+          .map((symbol) => symbol.getName())
+          .sort();
     closures.push({
       packageExportPath: root.packageExportPath,
       declarationPath: root.declarationPath,
-      exportedSymbols: moduleSymbol === undefined
-        ? []
-        : checker.getExportsOfModule(moduleSymbol)
-            .map((symbol) => symbol.getName())
-            .sort(),
+      exportedSymbols,
+      exportedSymbolOccurrenceRefs: exportedSymbolOccurrenceRefs(
+        ts,
+        checker,
+        moduleSymbol,
+        reachable,
+        relativePaths,
+        occurrences,
+      ),
       declarationInventory:
         declarationInventory as ProductNativeDeclarationInventoryRow[],
       externalOccurrences: occurrences,
@@ -1044,6 +1289,7 @@ export function linkNativeContractSet(
   const basis = compilerBasis(ts);
   const sourceText = new Map<string, string>();
   const sourceOwner = new Map<string, NativeLinkProduct>();
+  const sourcePath = new Map<string, string>();
   const rootPath = new Map<string, string>();
 
   products.forEach((product, index) => {
@@ -1053,6 +1299,10 @@ export function linkNativeContractSet(
       if (virtualPath === null || sourceText.has(virtualPath)) continue;
       sourceText.set(virtualPath, source.sourceText);
       sourceOwner.set(virtualPath, product);
+      sourcePath.set(
+        `${product.productId}\0${source.declarationPath}`,
+        virtualPath,
+      );
     }
     for (const closure of product.evidence.closures) {
       const virtualPath = virtualDeclarationPath(
@@ -1320,10 +1570,10 @@ export function linkNativeContractSet(
     );
   }
   const checker = program.getTypeChecker();
-  const exportsFor = (
+  const exportSymbolsFor = (
     product: NativeLinkProduct,
     packageExportPath: string,
-  ): readonly string[] | null => {
+  ): ReadonlyMap<string, TypeScript.Symbol> | null => {
     const path = rootPath.get(`${product.productId}\0${packageExportPath}`);
     if (path === undefined) return null;
     const source = program.getSourceFile(path);
@@ -1332,9 +1582,80 @@ export function linkNativeContractSet(
       : checker.getSymbolAtLocation(source);
     return symbol === undefined
       ? null
-      : checker.getExportsOfModule(symbol)
-          .map((candidate) => candidate.getName())
-          .sort();
+      : new Map(
+        checker.getExportsOfModule(symbol)
+          .map((candidate) => [candidate.getName(), candidate]),
+      );
+  };
+  const unaliasedSymbol = (
+    symbol: TypeScript.Symbol,
+  ): TypeScript.Symbol => {
+    let current = symbol;
+    const visited = new Set<TypeScript.Symbol>();
+    while (
+      (current.flags & ts.SymbolFlags.Alias) !== 0 &&
+      !visited.has(current)
+    ) {
+      visited.add(current);
+      const target = checker.getAliasedSymbol(current);
+      if (target === current) break;
+      current = target;
+    }
+    return current;
+  };
+  const relationFor = (
+    product: NativeLinkProduct,
+    external: NativeExternalOccurrence,
+  ): TypeScript.Node | null => {
+    const path = sourcePath.get(
+      `${product.productId}\0${external.declarationPath}`,
+    );
+    const source = path === undefined ? undefined : program.getSourceFile(path);
+    if (source === undefined) return null;
+    return ancestorOfKind(
+      nodeAtPosition(source, external.sourceOffset),
+      (candidate): candidate is TypeScript.ImportDeclaration |
+        TypeScript.ExportDeclaration |
+        TypeScript.ImportEqualsDeclaration |
+        TypeScript.ImportTypeNode =>
+        ts.isImportDeclaration(candidate) ||
+        ts.isExportDeclaration(candidate) ||
+        ts.isImportEqualsDeclaration(candidate) ||
+        ts.isImportTypeNode(candidate),
+    );
+  };
+  const isTypeOnlyRelation = (
+    relation: TypeScript.Node | null,
+    external: NativeExternalOccurrence,
+  ): boolean => {
+    if (relation === null) return external.selectorKind === "all";
+    if (ts.isImportTypeNode(relation)) return !relation.isTypeOf;
+    if (ts.isImportEqualsDeclaration(relation)) return false;
+    if (ts.isImportDeclaration(relation)) {
+      const clause = relation.importClause;
+      if (clause?.isTypeOnly === true) return true;
+      if (
+        clause?.namedBindings !== undefined &&
+        ts.isNamedImports(clause.namedBindings)
+      ) {
+        return clause.namedBindings.elements.some(
+          (element) =>
+            element.name.text === external.visibleName &&
+            element.isTypeOnly,
+        );
+      }
+      return false;
+    }
+    if (!ts.isExportDeclaration(relation)) return false;
+    if (relation.isTypeOnly) return true;
+    return relation.exportClause !== undefined &&
+        ts.isNamedExports(relation.exportClause)
+      ? relation.exportClause.elements.some(
+        (element) =>
+          element.name.text === external.visibleName &&
+          element.isTypeOnly,
+      )
+      : false;
   };
 
   const bindings: NativeContractClosureRow[] = [];
@@ -1366,13 +1687,62 @@ export function linkNativeContractSet(
             `${external.moduleSpecifier} has no exact target declaration root`,
           );
         }
-        const visibleNames = external.selectorKind === "name"
-          ? [external.selectedName!]
-          : (exportsFor(target, coordinate.packageExportPath) ?? [])
-              .filter(
-                (name) =>
-                  external.selectorKind !== "all" || name !== "default",
-              );
+        const targetSymbols = exportSymbolsFor(
+          target,
+          coordinate.packageExportPath,
+        );
+        if (targetSymbols === null) {
+          return linkedRefusal(
+            "unresolved_dependency",
+            `${external.moduleSpecifier} exposes no checker-visible module`,
+          );
+        }
+        const relation = relationFor(source, external);
+        const typeOnly = isTypeOnlyRelation(relation, external);
+        let visibleSymbols: readonly [string, TypeScript.Symbol][];
+        if (external.selectorKind === "name") {
+          const selectedName = external.selectedName!;
+          const selectedSymbol = targetSymbols.get(selectedName);
+          visibleSymbols = selectedSymbol === undefined
+            ? []
+            : [[selectedName, selectedSymbol]];
+        } else {
+          visibleSymbols = [...targetSymbols.entries()].filter(
+            ([name, symbol]) =>
+              (external.selectorKind !== "all" || name !== "default") &&
+              (
+                !typeOnly ||
+                (unaliasedSymbol(symbol).flags & ts.SymbolFlags.Type) !== 0
+              ),
+          );
+          if (
+            external.selectorKind === "all" &&
+            relation !== null &&
+            ts.isExportDeclaration(relation)
+          ) {
+            const sourceSymbols = exportSymbolsFor(
+              source,
+              closure.packageExportPath,
+            );
+            visibleSymbols = sourceSymbols === null
+              ? []
+              : visibleSymbols.filter(([name, targetSymbol]) => {
+                const sourceSymbol = sourceSymbols.get(name);
+                return sourceSymbol !== undefined &&
+                  unaliasedSymbol(sourceSymbol) ===
+                    unaliasedSymbol(targetSymbol);
+              });
+          }
+        }
+        if (typeOnly) {
+          visibleSymbols = visibleSymbols.filter(
+            ([, symbol]) =>
+              (unaliasedSymbol(symbol).flags & ts.SymbolFlags.Type) !== 0,
+          );
+        }
+        const visibleNames = visibleSymbols.map(([name]) => name).sort(
+          compareText,
+        );
         if (visibleNames.length === 0) {
           return linkedRefusal(
             "unresolved_dependency",
@@ -1402,8 +1772,7 @@ export function linkNativeContractSet(
             );
           }
           if (
-            !(exportsFor(target, coordinate.packageExportPath) ?? [])
-              .includes(selectedName)
+            !targetSymbols.has(selectedName)
           ) {
             return linkedRefusal(
               "incompatible_dependency",
@@ -1432,8 +1801,8 @@ export function linkNativeContractSet(
       }
     }
     for (const contract of source.evidence.contracts) {
-      const symbols = exportsFor(source, contract.packageExportPath);
-      if (symbols === null || !symbols.includes(contract.namedSymbol)) {
+      const symbols = exportSymbolsFor(source, contract.packageExportPath);
+      if (symbols === null || !symbols.has(contract.namedSymbol)) {
         return linkedRefusal(
           "incompatible_dependency",
           `${contract.contractId} does not resolve its exact named symbol`,

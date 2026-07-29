@@ -790,6 +790,7 @@ export async function verifyProduct(
     const nativeContracts = publicContracts.filter(
       (contract) => contract.nativeTypedLocator !== undefined,
     );
+    const nativeContractCoordinates = new Set<string>();
     const nativeDigestByContract = new Map<string, Sha256Digest>();
     if (nativeContracts.length > 0) {
       const declarationClosures = await resolveNativeDeclarationClosures({
@@ -815,6 +816,16 @@ export async function verifyProduct(
       const selectedExportPaths = new Set<string>();
       for (const contract of nativeContracts) {
         const nativeLocator = contract.nativeTypedLocator!;
+        const nativeCoordinate =
+          `${nativeLocator.packageExportPath}\0${nativeLocator.namedSymbol}`;
+        if (nativeContractCoordinates.has(nativeCoordinate)) {
+          return refusal(
+            request,
+            "catalog_mismatch",
+            "one Product cannot assign one native symbol to multiple contracts",
+          );
+        }
+        nativeContractCoordinates.add(nativeCoordinate);
         const declarationClosure = declarationClosureByExport.get(
           nativeLocator.packageExportPath,
         ) ?? null;
@@ -832,12 +843,16 @@ export async function verifyProduct(
           return refusal(request, "catalog_mismatch", "native typed locator is invalid");
         }
         const exportedSymbols = new Set(declarationClosure.exportedSymbols);
-        const mayBeExternallyProjected =
-          declarationClosure.externalOccurrences.some(
+        const occurrenceRefs =
+          declarationClosure.exportedSymbolOccurrenceRefs[
+            nativeLocator.namedSymbol
+          ] ??
+          declarationClosure.externalOccurrences.filter(
             (candidate) =>
               candidate.selectorKind === "all" ||
               candidate.visibleName === nativeLocator.namedSymbol,
-          );
+          ).map((candidate) => candidate.occurrenceRef);
+        const mayBeExternallyProjected = occurrenceRefs.length > 0;
         if (
           !exportedSymbols.has(nativeLocator.namedSymbol) &&
           !mayBeExternallyProjected
@@ -860,17 +875,11 @@ export async function verifyProduct(
           packageExportPath: nativeLocator.packageExportPath,
           namedSymbol: nativeLocator.namedSymbol,
           localDisposition:
-            declarationClosure.externalOccurrences.length === 0 &&
+            occurrenceRefs.length === 0 &&
               exportedSymbols.has(nativeLocator.namedSymbol)
               ? "local"
               : "pending_external",
-          occurrenceRefs:
-            declarationClosure.externalOccurrences.length === 0 &&
-                exportedSymbols.has(nativeLocator.namedSymbol)
-              ? []
-              : declarationClosure.externalOccurrences.map(
-                (occurrence) => occurrence.occurrenceRef,
-              ),
+          occurrenceRefs,
         });
       }
       const selectedClosures = declarationClosures.filter((closure) =>

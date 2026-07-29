@@ -459,22 +459,7 @@ export function constructResolvedProductLock(
   }
   const linkProducts: NativeLinkProduct[] = [];
   for (const artifact of artifacts) {
-    const evidence =
-      nativeDeclarationEvidenceForVerifiedArtifact(artifact) ??
-      (
-        artifact.publicContracts.every(
-          (contract) => contract.nativeTypedLocator === undefined,
-        )
-          ? {
-            productId: artifact.productId,
-            productContentDigest: artifact.productContentDigest,
-            packageName: artifact.packageName,
-            sources: [],
-            closures: [],
-            contracts: [],
-          }
-          : null
-      );
+    const evidence = nativeDeclarationEvidenceForVerifiedArtifact(artifact);
     if (evidence === null) {
       return refusal(
         "lock_mismatch",

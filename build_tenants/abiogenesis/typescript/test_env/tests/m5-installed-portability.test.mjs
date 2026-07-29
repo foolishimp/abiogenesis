@@ -924,6 +924,13 @@ test("S06 Product verification resolves contract authority and exact locators", 
       expectedCode: "catalog_mismatch",
     },
     {
+      label: "invalid-external-import-syntax",
+      transformDeclaration: (declaration) =>
+        `${declaration}\nimport { Missing as } from "@abiogenesis/typescript-tenant/gtl";\n`,
+      transformPublicContract: nativeOnlyContract,
+      expectedCode: "catalog_mismatch",
+    },
+    {
       label: "unresolved-native-reexport",
       transformDeclaration: (declaration) =>
         `${declaration}\nexport { Missing } from "./missing.js";\n`,
@@ -996,6 +1003,11 @@ test("S06 Product verification resolves contract authority and exact locators", 
         contractKind: "native_typed_group",
         nativeTypedLocator: native.nativeTypedLocator,
       }),
+      expectedCode: "catalog_mismatch",
+    },
+    {
+      label: "duplicate-native-coordinate",
+      transformPublicContract: nativeOnlyContract,
       expectedCode: "catalog_mismatch",
     },
   ];

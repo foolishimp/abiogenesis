@@ -179,99 +179,17 @@ test("S06 exact coordinate lookup distinguishes zero, one, and many", () => {
   assert.equal(Object.isFrozen(many.values), true);
 });
 
-test("S06 dependency topology uses one cycle relation for construction and validation", () => {
+test("S06 resolved locks require verifier evidence and reject forged cycles", () => {
   const right = install("right", "b");
   const left = install("left", "a", {
     declaredDependencies: [dependency(right)],
   });
-  const acyclic = constructResolvedProductLock([left, right]);
-  assert.equal(acyclic.kind, "resolved_product_lock");
-  assert.equal(isResolvedProductLock(acyclic), true);
-  assert.deepEqual(acyclic.dependencyEdges, [{
-    kind: "requires",
-    fromProductId: left.productId,
-    toProductId: right.productId,
-    packageVersion: right.packageVersion,
-    compatibilityRef: right.compatibilityRefs[0],
-    compatibilityDisposition: "compatible",
-    requiredContractRefs: [right.publicContractRefs[0]],
-    requiredCapabilityRefs: [right.publicCapabilityRefs[0]],
-  }]);
-
+  const unauthenticated = constructResolvedProductLock([left, right]);
+  assert.equal(unauthenticated.kind, "environment_refusal");
   assert.equal(
-    constructResolvedProductLock([left]).code,
-    "unresolved_dependency",
-    "a missing declared dependency must refuse",
-  );
-  const wrongVersion = install("wrong-version", "c", {
-    declaredDependencies: [
-      dependency(right, { packageVersion: "6.0.0" }),
-    ],
-  });
-  assert.equal(
-    constructResolvedProductLock([wrongVersion, right]).code,
-    "incompatible_dependency",
-    "an incompatible exact version must refuse",
-  );
-  const wrongCompatibility = install("wrong-compatibility", "d", {
-    declaredDependencies: [
-      dependency(right, {
-        compatibilityRef: "compatibility://abiogenesis/major/6",
-      }),
-    ],
-  });
-  assert.equal(
-    constructResolvedProductLock([wrongCompatibility, right]).code,
-    "incompatible_dependency",
-    "an incompatible declared compatibility must refuse",
-  );
-  const wrongCapability = install("wrong-capability", "e", {
-    declaredDependencies: [
-      dependency(right, {
-        requiredCapabilityRefs: ["capability://s06-prime/missing@5"],
-      }),
-    ],
-  });
-  assert.equal(
-    constructResolvedProductLock([wrongCapability, right]).code,
-    "unresolved_dependency",
-    "a missing required capability must refuse",
-  );
-  const wrongContract = install("wrong-contract", "f", {
-    declaredDependencies: [
-      dependency(right, {
-        requiredContractRefs: ["contract://s06-prime/missing@5"],
-      }),
-    ],
-  });
-  assert.equal(
-    constructResolvedProductLock([wrongContract, right]).code,
-    "unresolved_dependency",
-    "a missing required public contract must refuse",
-  );
-  const ambiguousRight = install("ambiguous-right", "9", {
-    productId: right.productId,
-  });
-  assert.equal(
-    constructResolvedProductLock([right, ambiguousRight]).code,
-    "ambiguous_dependency",
-    "two verified artifacts claiming one Product identity must refuse as ambiguous",
-  );
-
-  const standalone = install("standalone", "0");
-  const hostInjected = constructResolvedProductLock(
-    [standalone],
-    [{
-      kind: "requires",
-      fromProductId: standalone.productId,
-      toProductId: right.productId,
-    }],
-  );
-  assert.equal(hostInjected.kind, "resolved_product_lock");
-  assert.deepEqual(
-    hostInjected.dependencyEdges,
-    [],
-    "caller arguments cannot add undeclared dependency authority",
+    unauthenticated.code,
+    "lock_mismatch",
+    "a structurally tagged non-native Product must not mint verifier evidence",
   );
 
   const cycleLeftBase = install("cycle-left", "1");
@@ -304,10 +222,6 @@ test("S06 dependency topology uses one cycle relation for construction and valid
     requiredContractRefs: [cycleLeft.publicContractRefs[0]],
     requiredCapabilityRefs: [cycleLeft.publicCapabilityRefs[0]],
   }];
-  const refused = constructResolvedProductLock([cycleLeft, cycleRight]);
-  assert.equal(refused.kind, "environment_refusal");
-  assert.equal(refused.code, "cyclic_dependency");
-
   const lockBody = {
     rows: cycleRows,
     dependencyEdges: cycleEdges,
@@ -342,8 +256,32 @@ test("S06 readiness authority stops at the publisher's direct dependency edges",
   const publisher = install("publisher", "1", {
     declaredDependencies: [dependency(direct)],
   });
-  const lock = constructResolvedProductLock([publisher, direct, transitive]);
-  assert.equal(lock.kind, "resolved_product_lock");
+  const lock = {
+    rows: [
+      lockRow(publisher),
+      lockRow(direct),
+      lockRow(transitive),
+    ],
+    dependencyEdges: [{
+      kind: "requires",
+      fromProductId: publisher.productId,
+      toProductId: direct.productId,
+      packageVersion: direct.packageVersion,
+      compatibilityRef: direct.compatibilityRefs[0],
+      compatibilityDisposition: "compatible",
+      requiredContractRefs: [direct.publicContractRefs[0]],
+      requiredCapabilityRefs: [direct.publicCapabilityRefs[0]],
+    }, {
+      kind: "requires",
+      fromProductId: direct.productId,
+      toProductId: transitive.productId,
+      packageVersion: transitive.packageVersion,
+      compatibilityRef: transitive.compatibilityRefs[0],
+      compatibilityDisposition: "compatible",
+      requiredContractRefs: [transitive.publicContractRefs[0]],
+      requiredCapabilityRefs: [transitive.publicCapabilityRefs[0]],
+    }],
+  };
 
   const satisfied = directSatisfiedDependencyRefs(lock, publisher.productId);
   assert.equal(satisfied.has(direct.publicContractRefs[0]), true);
@@ -399,6 +337,16 @@ test("S06 native export resolution is TypeScript-program derived", async () => {
     ]),
     null,
     "unresolved declaration re-exports must refuse",
+  );
+  assert.equal(
+    await declarationExportSymbols("index.d.ts", [
+      encode(
+        "index.d.ts",
+        "import { Missing as } from \"@s06-prime/dependency/product\";",
+      ),
+    ]),
+    null,
+    "syntax diagnostics on external relations must never be deferred",
   );
 
   const exportAssignment = await declarationExportSymbols("index.d.ts", [
@@ -466,6 +414,75 @@ test("S06 native declaration closure binds package roots and reachable bytes", a
     sha256Canonical(stringClosure[0].declarationInventory),
     sha256Canonical(numberClosure[0].declarationInventory),
     "changing one reachable re-exported declaration must change native meaning",
+  );
+
+  const resolveSelfDirective = (sharedType) =>
+    resolveNativeDeclarationClosures({
+      packageName: "@s06-prime/self-closure",
+      packageExports: {
+        ".": { types: "./build/index.d.ts" },
+        "./shared": { types: "./build/shared.d.ts" },
+      },
+      declarationSources: [
+        encode(
+          "build/index.d.ts",
+          [
+            "/// <reference types=\"@s06-prime/self-closure/shared\" />",
+            "export interface Root { readonly value: SharedValue; }",
+          ].join("\n"),
+        ),
+        encode(
+          "build/shared.d.ts",
+          [
+            "export {};",
+            `declare global { interface SharedValue { readonly value: ${sharedType}; } }`,
+          ].join("\n"),
+        ),
+      ],
+    });
+  const stringSelfDirective = await resolveSelfDirective("string");
+  const numberSelfDirective = await resolveSelfDirective("number");
+  assert.notEqual(stringSelfDirective, null);
+  assert.notEqual(numberSelfDirective, null);
+  const stringSelfRoot = stringSelfDirective.find(
+    (closure) => closure.packageExportPath === ".",
+  );
+  const numberSelfRoot = numberSelfDirective.find(
+    (closure) => closure.packageExportPath === ".",
+  );
+  assert.deepEqual(
+    stringSelfRoot.declarationInventory.map((row) => row.declarationPath),
+    ["build/index.d.ts", "build/shared.d.ts"],
+  );
+  assert.equal(stringSelfRoot.externalOccurrences.length, 0);
+  assert.notEqual(
+    sha256Canonical(stringSelfRoot.declarationInventory),
+    sha256Canonical(numberSelfRoot.declarationInventory),
+    "self-package triple-slash declarations must enter the exact inventory digest",
+  );
+
+  const perSymbol = await resolveNativeDeclarationClosures({
+    packageName: "@s06-prime/per-symbol",
+    packageExports: {
+      ".": { types: "./build/index.d.ts" },
+    },
+    declarationSources: [
+      encode(
+        "build/index.d.ts",
+        [
+          "import type { Remote } from \"@s06-prime/dependency/product\";",
+          "export interface Local { readonly value: string; }",
+          "export interface UsesRemote { readonly value: Remote; }",
+        ].join("\n"),
+      ),
+    ],
+  });
+  assert.notEqual(perSymbol, null);
+  assert.deepEqual(perSymbol[0].exportedSymbolOccurrenceRefs.Local, []);
+  assert.deepEqual(
+    perSymbol[0].exportedSymbolOccurrenceRefs.UsesRemote,
+    [perSymbol[0].externalOccurrences[0].occurrenceRef],
+    "pending evidence must follow the named symbol closure, not its whole root",
   );
 });
 
@@ -751,18 +768,27 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
       sourceText: source,
     }],
     closures,
-    contracts: contracts.map((contract) => ({
-      contractId: contract.contractId,
-      packageExportPath: "./product",
-      namedSymbol: contract.nativeTypedLocator.namedSymbol,
-      localDisposition:
-        closures[0].externalOccurrences.length === 0
-          ? "local"
-          : "pending_external",
-      occurrenceRefs: closures[0].externalOccurrences.map(
-        (occurrence) => occurrence.occurrenceRef,
-      ),
-    })),
+    contracts: contracts.map((contract) => {
+      const namedSymbol = contract.nativeTypedLocator.namedSymbol;
+      const occurrenceRefs =
+        closures[0].exportedSymbolOccurrenceRefs[namedSymbol] ??
+        closures[0].externalOccurrences.filter(
+          (occurrence) =>
+            occurrence.selectorKind === "all" ||
+            occurrence.visibleName === namedSymbol,
+        ).map((occurrence) => occurrence.occurrenceRef);
+      return {
+        contractId: contract.contractId,
+        packageExportPath: "./product",
+        namedSymbol,
+        localDisposition:
+          occurrenceRefs.length === 0 &&
+            closures[0].exportedSymbols.includes(namedSymbol)
+            ? "local"
+            : "pending_external",
+        occurrenceRefs,
+      };
+    }),
   });
 
   const targetPackage = "@s06-prime/coverage-target";
@@ -770,6 +796,8 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
   const targetSource = [
     "export interface Alpha { readonly alpha: string; }",
     "export interface Beta { readonly beta: string; }",
+    "export interface Hidden { readonly target: string; }",
+    "export declare const RuntimeOnly: unique symbol;",
   ].join("\n");
   const targetClosures = await analyze(targetPackage, targetSource);
   const alpha = makeContract(
@@ -786,19 +814,33 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     "Beta",
     targetClosures[0],
   );
+  const hidden = makeContract(
+    "contract://s06-prime/hidden@5",
+    targetId,
+    targetPackage,
+    "Hidden",
+    targetClosures[0],
+  );
+  const runtimeOnly = makeContract(
+    "contract://s06-prime/runtime-only@5",
+    targetId,
+    targetPackage,
+    "RuntimeOnly",
+    targetClosures[0],
+  );
   const target = {
     productId: targetId,
     productContentDigest: digest("4"),
     packageName: targetPackage,
     declaredDependencies: [],
-    publicContracts: [alpha, beta],
+    publicContracts: [alpha, beta, hidden, runtimeOnly],
     evidence: makeEvidence(
       targetId,
       digest("4"),
       targetPackage,
       targetSource,
       targetClosures,
-      [alpha, beta],
+      [alpha, beta, hidden, runtimeOnly],
     ),
   };
 
@@ -825,7 +867,14 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     productId: sourceId,
     productContentDigest: digest("5"),
     packageName: sourcePackage,
-    declaredDependencies: [dependencyFor([alpha.contractId, beta.contractId])],
+    declaredDependencies: [
+      dependencyFor([
+        alpha.contractId,
+        beta.contractId,
+        hidden.contractId,
+        runtimeOnly.contractId,
+      ]),
+    ],
     publicContracts: [sourceContract],
     evidence: makeEvidence(
       sourceId,
@@ -847,12 +896,103 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     linkNativeContractSet(
       [{
         ...source,
-        declaredDependencies: [dependencyFor([alpha.contractId])],
+        declaredDependencies: [
+          dependencyFor([
+            alpha.contractId,
+            hidden.contractId,
+            runtimeOnly.contractId,
+          ]),
+        ],
       }, target],
       toolchain.productContentDigest,
     ).code,
     "unresolved_dependency",
     "export-star requires direct contract coverage for every visible symbol",
+  );
+
+  const shadowSourceText = [
+    "export interface Hidden { readonly local: string; }",
+    `export * from "${targetPackage}/product";`,
+  ].join("\n");
+  const shadowClosures = await analyze(sourcePackage, shadowSourceText);
+  const shadowAlpha = makeContract(
+    "contract://s06-prime/shadow-alpha@5",
+    sourceId,
+    sourcePackage,
+    "Alpha",
+    shadowClosures[0],
+  );
+  const localHidden = makeContract(
+    "contract://s06-prime/local-hidden@5",
+    sourceId,
+    sourcePackage,
+    "Hidden",
+    shadowClosures[0],
+  );
+  const shadowSource = {
+    ...source,
+    declaredDependencies: [
+      dependencyFor([
+        alpha.contractId,
+        beta.contractId,
+        runtimeOnly.contractId,
+      ]),
+    ],
+    publicContracts: [shadowAlpha, localHidden],
+    evidence: makeEvidence(
+      sourceId,
+      digest("5"),
+      sourcePackage,
+      shadowSourceText,
+      shadowClosures,
+      [shadowAlpha, localHidden],
+    ),
+  };
+  assert.equal(
+    linkNativeContractSet(
+      [shadowSource, target],
+      toolchain.productContentDigest,
+    ).kind,
+    "linked",
+    "a local symbol shadow must not demand authority for the hidden star export",
+  );
+
+  const typeStarSourceText =
+    `export type * from "${targetPackage}/product";\n`;
+  const typeStarClosures = await analyze(sourcePackage, typeStarSourceText);
+  const typeStarAlpha = makeContract(
+    "contract://s06-prime/type-star-alpha@5",
+    sourceId,
+    sourcePackage,
+    "Alpha",
+    typeStarClosures[0],
+  );
+  const typeStarSource = {
+    ...source,
+    declaredDependencies: [
+      dependencyFor([
+        alpha.contractId,
+        beta.contractId,
+        hidden.contractId,
+      ]),
+    ],
+    publicContracts: [typeStarAlpha],
+    evidence: makeEvidence(
+      sourceId,
+      digest("5"),
+      sourcePackage,
+      typeStarSourceText,
+      typeStarClosures,
+      [typeStarAlpha],
+    ),
+  };
+  assert.equal(
+    linkNativeContractSet(
+      [typeStarSource, target],
+      toolchain.productContentDigest,
+    ).kind,
+    "linked",
+    "a type-only star must not demand a value-only target contract",
   );
 
   const directivePackage = "@s06-prime/type-directive-source";
@@ -877,7 +1017,11 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     productContentDigest: digest("6"),
     packageName: directivePackage,
     declaredDependencies: [
-      dependencyFor([alpha.contractId, beta.contractId]),
+      dependencyFor([
+        alpha.contractId,
+        beta.contractId,
+        hidden.contractId,
+      ]),
     ],
     publicContracts: [directiveContract],
     evidence: makeEvidence(
@@ -901,7 +1045,9 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     linkNativeContractSet(
       [{
         ...directiveProduct,
-        declaredDependencies: [dependencyFor([alpha.contractId])],
+        declaredDependencies: [
+          dependencyFor([alpha.contractId, hidden.contractId]),
+        ],
       }, target],
       toolchain.productContentDigest,
     ).code,
@@ -921,12 +1067,20 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
           dependencyFor([
             alpha.contractId,
             beta.contractId,
+            hidden.contractId,
+            runtimeOnly.contractId,
             duplicateBeta.contractId,
           ]),
         ],
       }, {
         ...target,
-        publicContracts: [alpha, beta, duplicateBeta],
+        publicContracts: [
+          alpha,
+          beta,
+          hidden,
+          runtimeOnly,
+          duplicateBeta,
+        ],
       }],
       toolchain.productContentDigest,
     ).code,
@@ -1035,6 +1189,40 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     ).code,
     "incompatible_dependency",
     "Product-owned globals must refuse in a multi-Product closure",
+  );
+
+  const umdSource = [
+    "export as namespace ProductGlobal;",
+    "export interface Local { readonly value: string; }",
+  ].join("\n");
+  const umdClosures = await analyze(sourcePackage, umdSource);
+  const umdContract = makeContract(
+    "contract://s06-prime/umd-local@5",
+    sourceId,
+    sourcePackage,
+    "Local",
+    umdClosures[0],
+  );
+  assert.equal(umdClosures[0].contributesGlobals, true);
+  assert.equal(
+    linkNativeContractSet(
+      [{
+        ...source,
+        declaredDependencies: [],
+        publicContracts: [umdContract],
+        evidence: makeEvidence(
+          sourceId,
+          digest("5"),
+          sourcePackage,
+          umdSource,
+          umdClosures,
+          [umdContract],
+        ),
+      }, target],
+      toolchain.productContentDigest,
+    ).code,
+    "incompatible_dependency",
+    "export-as-namespace must be treated as Product-owned global meaning",
   );
 });
 
