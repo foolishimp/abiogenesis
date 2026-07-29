@@ -4,7 +4,7 @@
 > `4f9bf707` and `51664393`, plus native declaration design candidate
 > `b645595c`, are returned evidence. Replacement design `4f80f84a`, tree
 > `7070dca7`, is directly accepted. Its bounded Section 8 repair is frozen at
-> exact realization candidate `4c3bb239`, tree `fa2adf47`, for independent
+> exact realization candidate `4953508d`, tree `cd8bf69d`, for independent
 > review. S04 and later work remain held.
 
 - id: T-281
@@ -20,7 +20,7 @@
 - priority: critical
 - implementation_hold: exact_s06_candidate_review_only
 - implementation_hold_effect: >-
-    hold candidate 4c3bb239 immutable for one independent exact-cut review and
+    hold candidate 4953508d immutable for one independent exact-cut review and
     direct disposition; prohibit further realization, design re-entry, S04,
     unified M5 freeze, M6 qualification, M7 release, alternate functionality,
     and broad refactoring
@@ -48,15 +48,15 @@
     build_tenants/abiogenesis/typescript/code/src/public
 - accepted_s06_design_commit: 6aaedf8d826f846a11291676413bd35f93df0ef4
 - accepted_s06_design_sha256: fb9e71bccf3e98972179df81a7c22ee7dbc266175d6cda1ae8bc5dff875429b3
-- returned_s06_candidate: 516643930d0f909afa2d35f4243fc0231f9b4cdd
-- returned_s06_candidate_tree: deec0643fd8fe33ce5e4244a8437adf99bc146d6
-- current_s06_candidate: 4c3bb239cbdcfeb2587ff06ca736c77ce84af18f
-- current_s06_candidate_tree: fa2adf47e2bf047af3778603562b0ee71890dcb6
-- current_s06_package_sha256: ce1fa42b10d41dbb797f72932abe16b53f4916205b8377c862fefc520ead4785
-- current_s06_package_inventory_sha256: a9298643c3445f094c09e161a4e5f99a221b91b23f54a1d8b3efda5ebb8e5c9b
+- returned_s06_candidate: 4c3bb239cbdcfeb2587ff06ca736c77ce84af18f
+- returned_s06_candidate_tree: fa2adf47e2bf047af3778603562b0ee71890dcb6
+- current_s06_candidate: 4953508de83ab6d6c65dbb81e5407ccb539e44e6
+- current_s06_candidate_tree: cd8bf69d79014e29e45bda52f9a785907eab8e74
+- current_s06_package_sha256: 287263398b31ea39b94cd140071f00b3ef372df6f4cdc6df06698ac67bb0673b
+- current_s06_package_inventory_sha256: 2cf73f22cfdd1cc7491e8e3eaaa71fd18478dc3154afeb6e4a4e59601a8dc5d7
 - current_s06_handoff: >-
     .ai-workspace/comments/codex/
-    20260729T045022Z_HANDOFF_t281_s06_native_verifier_repair_candidate.md
+    20260729T091138Z_HANDOFF_t281_s06_public_native_contract_candidate.md
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
@@ -291,8 +291,8 @@ proposal versus admission, contract-to-symbol ownership, and cross-Product
 augmentation. They are repaired together and accepted at candidate
 `4f80f84a826de86b4cfb4d9fec3baff428dcb44a`, tree
 `7070dca7d0f2ca90374b525faa60d5b810488763`. The one bounded Section 8
-realization repair is frozen at `4c3bb239cbdcfeb2587ff06ca736c77ce84af18f`,
-tree `fa2adf47e2bf047af3778603562b0ee71890dcb6`. It receives one exact-cut
+realization repair is frozen at `4953508de83ab6d6c65dbb81e5407ccb539e44e6`,
+tree `cd8bf69d79014e29e45bda52f9a785907eab8e74`. It receives one exact-cut
 review; the worker does not recursively review or refreeze it.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint

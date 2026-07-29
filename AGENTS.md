@@ -44,8 +44,8 @@ Native declaration design candidate `b645595c`, tree `130af566`, is also
 returned. Its three findings are repaired together at replacement candidate
 `4f80f84a`, tree `7070dca7`, under
 `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`, and that exact design is directly
-accepted. Its bounded Section 8 repair is frozen at candidate `4c3bb239`,
-tree `fa2adf47`, for one independent exact-cut review. Do not edit or refreeze
+accepted. Its bounded Section 8 repair is frozen at candidate `4953508d`,
+tree `cd8bf69d`, for one independent exact-cut review. Do not edit or refreeze
 it. Full conservation qualification, qualification, and release must not
 receive implementation while S06 remains unresolved.
 

@@ -29,7 +29,7 @@
 - current_product_outcome: ABG5-S06
 - implementation_hold: exact_s06_candidate_review_only
 - implementation_hold_effect: >-
-    hold exact S06 candidate 4c3bb239 immutable for independent review and
+    hold exact S06 candidate 4953508d immutable for independent review and
     direct disposition under T-281; prohibit further realization, design
     re-entry, planned 5.1 observer/tuner realization, unified M5 freeze, M6
     qualification, M7 release, and unrelated refactoring
@@ -42,14 +42,14 @@
     .ai-workspace/tickets/backlog/
     T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md
 - current_s06_owner: T-281
-- returned_s06_candidate: 516643930d0f909afa2d35f4243fc0231f9b4cdd
-- current_s06_candidate: 4c3bb239cbdcfeb2587ff06ca736c77ce84af18f
-- current_s06_candidate_tree: fa2adf47e2bf047af3778603562b0ee71890dcb6
-- current_s06_package_sha256: ce1fa42b10d41dbb797f72932abe16b53f4916205b8377c862fefc520ead4785
-- current_s06_package_inventory_sha256: a9298643c3445f094c09e161a4e5f99a221b91b23f54a1d8b3efda5ebb8e5c9b
+- returned_s06_candidate: 4c3bb239cbdcfeb2587ff06ca736c77ce84af18f
+- current_s06_candidate: 4953508de83ab6d6c65dbb81e5407ccb539e44e6
+- current_s06_candidate_tree: cd8bf69d79014e29e45bda52f9a785907eab8e74
+- current_s06_package_sha256: 287263398b31ea39b94cd140071f00b3ef372df6f4cdc6df06698ac67bb0673b
+- current_s06_package_inventory_sha256: 2cf73f22cfdd1cc7491e8e3eaaa71fd18478dc3154afeb6e4a4e59601a8dc5d7
 - current_s06_handoff: >-
     .ai-workspace/comments/codex/
-    20260729T045022Z_HANDOFF_t281_s06_native_verifier_repair_candidate.md
+    20260729T091138Z_HANDOFF_t281_s06_public_native_contract_candidate.md
 - returned_s06_design_candidate: b645595c16d23e98c7f65b958fcdf3e206ad3893
 - returned_s06_design_candidate_tree: 130af56655ec46ec26ff66dd6a4f2bbe99d8bed8
 - returned_s06_design_sha256: 815369932469eb6c833417116c63d130b0e9629b9721a0f8d429e693e0e69507
@@ -72,6 +72,8 @@
 - selected_entropy_reduction_review: >-
     .ai-workspace/comments/claude/
     20260729T060000Z_REVIEW_prime_compression_equivalence_classes.md
+- selected_entropy_reduction_review_disposition: recurrence_evidence_only
+- selected_entropy_reduction_design_basis: corrected_prime_atomic_basis_pending
 - selected_entropy_reduction_state: blocked_by_s06_acceptance
 - accepted_s03_candidate: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s05_candidate: 1ddc802d3003a3d0782398f7ec7c74cfa81ab127
@@ -121,7 +123,7 @@ reviews, completed tickets, and backlogged 5.1 design do not select work.
 
 T-281 owns the exact S06 boundary. Native declaration closure is governed by
 accepted `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Its realization is frozen
-at candidate `4c3bb239`, tree `fa2adf47`, and is the sole review subject. S06
+at candidate `4953508d`, tree `cd8bf69d`, and is the sole review subject. S06
 closes only when:
 
 - native SDK and native CLI invoke one installed public operation contract;
@@ -156,21 +158,29 @@ reduction after S06 acceptance and before the unified M5 freeze. The frozen
 S06 candidate remains an immutable review subject; this gate does not amend or
 expand S06.
 
-This is algebraic normalization, not defect remediation. Code is a projection
-of the accepted atomic design. One irreducible relation has one canonical code
-definition; typed specializations, call sites, and compositions apply that
-atom rather than reproduce it. A current behavioral divergence may reveal a
-missing contraction, but finding or removing a defect is not the acceptance
-criterion.
+Preserve lawful Product meaning while contracting equivalent definitions.
+Where current realization contradicts the selected algebra or constitutional
+identity law, repair that behavior explicitly. Code remains a projection of
+the accepted atomic design: one irreducible relation has one canonical
+definition, while typed specializations, call sites, and compositions apply
+that atom rather than reproduce it.
 
-The selected review register identifies six claimed equivalence classes:
+The recurrence register is input evidence, not a design basis. The compact
+atomic design must resolve:
 
-1. Product, Program, and GraphFunction coordinate identity;
-2. canonical URI/reference construction;
-3. the `Sha256Digest -> Identity` eliminator;
-4. ordered sequence equality;
-5. duplicate detection; and
-6. common structural-guard composition.
+1. typed entity identities and entity-owned coordinate projections, including
+   opaque `GraphFunction.id` distinct from display `name`;
+2. ordered equality as `SameSequenceBy`, with length and per-index equality;
+3. exact key sets as `HasExactKeys` or finite-set equality;
+4. `Unique`, `UniqueBy`, and diagnostic `DuplicateKeys` over structured keys;
+5. `DigestIdentity` over admitted `Sha256Digest`;
+6. distinct closed constructors for content-addressed and versioned diagnostic
+   references; and
+7. `IsRecord`, with domain guards remaining compositions.
+
+Canonical-JSON structural equality and durable `(device,inode)` file identity
+remain distinct relations. NUL-delimited sequence, key, or composite-identity
+comparisons are realization defects, not lawful variants.
 
 Apply the Design Module Method before realization:
 
@@ -181,8 +191,9 @@ Apply the Design Module Method before realization:
   composition, or non-member of that basis;
 - prove that every member of one equivalence class is the same atom and that
   every genuinely different relation has a separately named atom;
-- prove that contraction preserves Product meaning and module authority;
-- resolve coordinate identity and sequence-equality semantics before coding;
+- prove that contraction preserves lawful Product meaning and module authority;
+- resolve GraphFunction identity, NUL collisions, coordinate identity, and
+  sequence-equality semantics before coding;
 - pause after the complete atomic design for independent review and direct
   acceptance; and
 - realize the accepted algebra once, with focused projection and
@@ -197,8 +208,8 @@ duplication may not survive merely because contraction is inconvenient.
 ## Delivery After S06
 
 1. Record direct S06 acceptance without moving its immutable candidate.
-2. Complete and directly accept one atomic design for the six selected Prime
-   entropy-reduction classes.
+2. Complete and directly accept one compact atomic design for the corrected
+   Prime entropy basis.
 3. Realize that accepted contraction once and run its focused equivalence
    projections and non-reproduction checks plus retained M5, M4, and
    reproducible-package gates.
@@ -221,7 +232,7 @@ T-270 remains open if:
   functionality, authority, catalog, traversal, runtime, or closure;
 - code or review expands S06 into observer/tuner, qualification, release, or
   broad recurrence cleanup;
-- unified M5 freezes before the selected six-class Prime entropy reduction is
+- unified M5 freezes before the selected Prime entropy reduction is
   designed, independently accepted, realized, and mechanically verified;
 - contraction merges semantically different coordinate, sequence, identity,
   reference, duplicate, or guard relations without a Design Module Method
