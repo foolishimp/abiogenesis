@@ -1,15 +1,15 @@
 # M05 S06 Public Function And Native Occurrence Closure Design
 
 **Status**: Bounded replacement design repair candidate; realization held
-**Date**: 2026-07-29
+**Date**: 2026-07-30
 **Change class**: `requirement_reprice` plus `design_reframe`
 **Owner**: T-281 under T-270
-**Ontology slice**: `S06C/3` (`candidate`)
+**Ontology slice**: `S06C/4` (`candidate`)
 **Method**: `.genesis/docs/standards/DESIGN_MODULE_METHOD.md`
 **Returned realization**:
 `4953508de83ab6d6c65dbb81e5407ccb539e44e6`
 **Returned design**:
-`9fb14e6859af51e97789a599ad0fae6c367c34b3`
+`8eb7564c04673cab26d938ad9bb2b026c1597d15`
 **Accepted parent design**:
 `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md` at
 `4f80f84a826de86b4cfb4d9fec3baff428dcb44a`
@@ -28,7 +28,7 @@ It derives from:
   `ABG5-S06`;
 - `REQ-P-PUBLIC-CONTRACTS-005`, `-008..010`, `-013`;
 - `REQ-P-POLICY-022..064`;
-- `REQ-P-INSTALL-043..061`;
+- `REQ-P-INSTALL-043..060`;
 - `REQ-P-CATALOG-019..030`;
 - `REQ-P-CONSENSUS-012..015`;
 - `REQ-R-ABG3-PROJECTION-023`;
@@ -60,7 +60,7 @@ boundary.
 | Scenario scope and Product definition scope remain distinct. | S06 executes one representative installed invocation, while T-281 closes every 5.0 definition and projection. | Scenario success is used to infer absent definitions, handlers, contracts, or rows. |
 | One definition binds one owning semantic function. | `PublicFunctionDefinition<K>` references exact owner request, result, refusal, non-terminal, authority, effect, capability, binding, and adapter contracts. | A metadata-only row, common handler, adapter, schema, or runtime branch authors missing meaning. |
 | Owner contracts are singular. | One strict native schema is the source of the TypeScript type, raw parser, canonical JSON Schema, and closed domain for each slot. | A handwritten interface, parser, generated schema, or handler check independently narrows or widens the value domain. |
-| Every key has a constructable owner packet. | The closed source map fixes each schema member path, field algebra, defaults, metadata profile, and owner port. | An absent owner or implementation convention completes one of the 56 definitions. |
+| Every key has a constructable owner packet. | The closed source map fixes exact owner contract, metadata, authority, and port references; their admitted owner contracts supply fields, domains, and defaults. | The join copies 56 payload families, or an unresolved reference is completed by implementation convention. |
 | Relational request laws are structural. | Exact sums encode all-or-none, exactly-one, conditional, and ref/digest laws in both native and serialized contracts. | Optional fields type-check while parser or handler later rejects their relation. |
 | Outcomes are operation indexed. | `PublicOutcome<K>` contains only `ResultOf<K>`, `NonTerminalOf<K>`, `RefusalOf<K>`, or the common typed projection-refusal member. | `JsonValue`, `{}`, a generic result envelope, or handler-local check supplies operation meaning. |
 | Adapters are projections. | SDK, CLI, and Codex coordinates derive from the exact family and transport the same invocation/outcome. | An adapter owns a variant roster, default, parser, result shape, exit map, or semantic branch. |
@@ -101,11 +101,11 @@ Excluded:
 | `REQ-P-PUBLIC-CONTRACTS-005`, `-008` | complete public family | Section 4.1 exact 18-operation/56-key family | missing, extra, legacy, or 5.1 key |
 | `REQ-P-PUBLIC-CONTRACTS-009..010`; `REQ-P-POLICY-062..064` | one indexed request/result/refusal/non-terminal authority | Sections 4.2, 4.4, and 4.5 | native/parser/schema/runtime disagreement or generic payload/outcome |
 | `REQ-P-POLICY-022`, `-044..045` | SDK, CLI, and Codex are projections | PFC-F07 plus exact adapter exit maps | adapter-specific roster, validation, semantics, or outcome |
-| `REQ-P-POLICY-023..040`, `-049..061` | every operation binds its owning complete semantic function | Section 4.4 owner packet | metadata, handler, or prose supplies an absent relation |
+| `REQ-P-POLICY-023..040`, `-049..061` | every operation binds its owning complete semantic function | Section 4.2.1 exact owner references plus Section 4.4 owner relations | copied payload, metadata, handler, or prose supplies an absent relation |
 | clarified `REQ-P-POLICY-049..050` | packed verification precedes linked resolution; installed verification consumes an existing lock | `ProductVerifyPacket`, NCC-F01/F02, and authority-slot matrix | verify constructs a lock or F01 admits linked meaning |
 | `REQ-P-CATALOG-019..030`; `REQ-R-ABG3-PROJECTION-023` | project reads and catalog relations are closed and pure | Section 4.3 and catalog rows in Section 4.4 | free projection string, widened view, or read effect |
 | `REQ-P-CONSENSUS-012..015` | Consensus uses ordinary start/respond/continue/read members | start, interaction, continuation, result/replay, and ticket-consensus definitions | Consensus-specific operation or missing public projection |
-| `REQ-P-INSTALL-043..061` | verify, resolve, install, bind, create, and open remain distinct | operation packets and authority-slot matrix | resolve/install cycle, implicit binding, or hidden install |
+| `REQ-P-INSTALL-043..060` | verify, resolve, install, bind, create, and open remain distinct | operation packets and authority-slot matrix | resolve/install cycle, implicit binding, or hidden install |
 | accepted `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md` | compiler and direct Product dependencies own native closure | Sections 5.1..5.3 | text/flag heuristic, transitive authority, or ambient package meaning |
 | `DESIGN_MODULE_METHOD.md` | Ontology precedes IACS and realization | Sections 6..12 | code must choose an entity, function, authority, lifecycle, or module relation |
 
@@ -134,8 +134,15 @@ PFC-F03 ClosePublicFunctionFamily(
   -> PublicFunctionDefinitionFamily
    | PublicDefinitionGap
 
+PFC-F03A SelectPublicFunctionDefinition(
+  closed family,
+  unknown host operation and member identities
+)
+  -> exists K. PublicFunctionSelection<K>
+   | PublicFamilyLookupRefusal
+
 PFC-F04 AdmitPublicInvocation<K>(
-  family,
+  exact PublicFunctionSelection<K>,
   unknown host value
 )
   -> PublicInvocation<K>
@@ -176,14 +183,17 @@ owner semantic contracts
   -> PFC-F07 immutable projections
 
 unknown host value
+  -> PFC-F03A
   -> PFC-F04<K>
   -> PFC-F05<K>
   -> PFC-F06<K>
 ```
 
 `PFC-F03` and `PFC-F07` are deterministic build compositions. They are not
-runtime dispatch services. `PFC-F05` is a typed higher-order call to the
-operation's existing owner; Public does not implement owner semantics.
+runtime dispatch services. `PFC-F03A` is exact zero/one family selection;
+unknown operation or member identity fails before any `K` exists.
+`PFC-F05` is a typed higher-order call to the operation's existing owner;
+Public does not implement owner semantics.
 
 The native closure composition is:
 
@@ -262,12 +272,13 @@ Each owner supplies strict native contracts:
 OwnerContractBinding<K, Slot, S> = {
   definitionKey: K
   slot: request | result | refusal | non_terminal
+  source: ExactOwnerMemberCoordinate
   ownerAuthorityRef
   ownerAuthorityDigest
   schema: strict NativeSchema<S>
   nativeLocator
   schemaCoordinate
-  projectionWitness
+  projectionWitnessDigest
 }
 
 RequestOf<K> = InferOutput<RequestSchemaOf<K>>
@@ -305,7 +316,26 @@ PublicFunctionDefinition<K> = {
   adapterExitMap
   definitionDigest
 }
+
+OwnerDefinitionMetadata<K> = {
+  authorityClass: pure | read | write | attestation
+  effectClass
+  eventAdmission:
+    none | owning_semantic_authority | immutable_artifact_boundary
+  actorRequirement: forbidden | required
+  workspaceBindingRequirement: forbidden | exactly_one
+  capabilityRefs
+  defaults
+  closedDomains
+  sdkCoordinate
+  cliCoordinate
+  adapterExitMap
+}
 ```
+
+Every field of `PublicFunctionDefinition<K>` is projected from the exact owner
+packet below. This design references the owning contract; it does not reproduce
+the 56 request, result, refusal, or non-terminal payload families.
 
 The selected TypeScript strict lane uses one strict Valibot owner schema per
 slot. Its inferred output type is the native type, its parse is raw admission,
@@ -333,41 +363,71 @@ weaker native type.
 There is one closed build-time source relation:
 
 ```text
-OwnerContractPacket<K, Req, Res, Refusal, NonTerminal, Defaults, Metadata> = {
+ExactOwnerMemberCoordinate = {
+  abstractModule
+  exportName
+  memberPath
+  sourceModuleDigest
+  memberDigest
+}
+
+ExactOwnerContractReference<K, Slot> = {
   definitionKey: K
-  sourceCoordinate: {
-    abstractModule
-    exportName
-    memberPath
-    sourceModuleDigest
-  }
-  requestSchema: StrictNativeSchema<Req>
-  resultSchema: StrictNativeSchema<Res>
-  refusalSchema: StrictNativeSchema<Refusal>
-  nonTerminalSchema:
-    NonTerminal is never ? null : StrictNativeSchema<NonTerminal>
-  defaults: Defaults
-  metadata: Metadata
+  slot: request | result | refusal | non_terminal
+  source: ExactOwnerMemberCoordinate
+  ownerAuthorityRef
+  ownerAuthorityDigest
+  nativeLocator
+  schemaCoordinate
+  projectionWitnessDigest
+}
+
+ExactOwnerMetadataReference<K> = {
+  definitionKey: K
+  source: ExactOwnerMemberCoordinate
+  metadataDigest
+}
+
+OwnerContractPacket<K> = {
+  definitionKey: K
+  requestContract: ExactOwnerContractReference<K, request>
+  resultContract: ExactOwnerContractReference<K, result>
+  refusalContract: ExactOwnerContractReference<K, refusal>
+  nonTerminalContract: ExactOwnerContractReference<K, non_terminal> | null
+  metadata: ExactOwnerMetadataReference<K>
   ownerPort: {
-    abstractModule
-    exportName
-    memberPath
+    source: ExactOwnerMemberCoordinate
     ownerPortDigest
   }
 }
 
 OWNER_CONTRACT_SOURCE_MAP = exact nested object below
 
-source schema member for (K, slot) =
-  OWNER_CONTRACT_SOURCE_MAP[K.operationId][K.memberKey][slot + "Schema"]
+packet(K) =
+  OWNER_CONTRACT_SOURCE_MAP[K.operationId][K.memberKey]
 
-owner port for K =
-  OWNER_CONTRACT_SOURCE_MAP[K.operationId][K.memberKey].ownerPort
+RequestSchemaOf<K> =
+  ResolveStrictNativeSchema(packet(K).requestContract)
+ResultSchemaOf<K> =
+  ResolveStrictNativeSchema(packet(K).resultContract)
+RefusalSchemaOf<K> =
+  ResolveStrictNativeSchema(packet(K).refusalContract)
+NonTerminalSchemaOf<K> =
+  packet(K).nonTerminalContract is null
+    ? absent
+    : ResolveStrictNativeSchema(packet(K).nonTerminalContract)
+MetadataOf<K> =
+  ResolveExactOwnerMember<OwnerDefinitionMetadata<K>>(packet(K).metadata)
+OwnerPortOf<K> =
+  ResolveExactOwnerPort(packet(K).ownerPort)
 ```
 
-The source coordinate names an abstract module interface and exact exported
-symbol. File placement inside that module is a realization choice. Export and
-member paths are not. The final public projection is always:
+Each resolver checks the referenced module digest, member digest, exact
+definition key, owner authority, and expected slot before returning a value.
+An unresolved, duplicated, cross-key, stale, or wrong-authority reference is a
+`PublicDefinitionGap`. The source coordinate names an abstract module interface
+and exact exported symbol. File placement inside that module is a realization
+choice. Export and member paths are not. The final public projection is always:
 
 ```text
 package: "@abiogenesis/typescript-tenant"
@@ -400,11 +460,28 @@ The closed source map is:
 | `abg.operation.product.materialize(context_bootstrap|configuration)` | `Product.Materialization` | `MATERIALIZATION_OPERATION_CONTRACTS[member]` | `ProductMaterializationPort[member]` | `ProductMaterializePacket<member>` |
 | `abg.operation.release.snapshot(published_rc|tapped_release)` | `Product.ReleaseSnapshot` | `RELEASE_OPERATION_CONTRACTS.snapshot[member]` | `ReleaseSnapshotPort[member]` | `ReleaseSnapshotPacket<member>` |
 
-`member` and `C` are literal closed parameters, never runtime strings. Expanding
-the table yields 32 non-read packet members plus the 24 read packets. Exact-set
-admission requires one packet for every key and no extra packet. An absent
-source export, schema member, metadata member, or owner port is
-`PublicDefinitionGap`; implementation cannot create its meaning at the join.
+`member` and `C` are literal closed parameters, never runtime strings. The
+table indexes 32 non-read packet references plus the 24 read packet references.
+Exact-set admission requires one reference packet for every key and no extra
+packet. The referenced owner contract remains authoritative for payload
+structure; this join neither copies nor redefines it. An absent source export,
+contract member, metadata member, or owner port is `PublicDefinitionGap`;
+implementation cannot create its meaning at the join.
+
+PFC-F01 resolves each `ExactOwnerContractReference` into the corresponding
+`OwnerContractBinding`; PFC-F02 then projects:
+
+```text
+request/result/refusal/nonTerminal contracts = packet(K) contract references
+ownerPort = OwnerPortOf<K>
+semantic authority = exact authority shared by those references
+authority/effect/admission/binding/capability/default/domain metadata =
+  MetadataOf<K>
+```
+
+The four contract references, metadata reference, and owner-port reference must
+agree on `K`, owner authority, version, and source module digest. No payload
+field is authored by this join.
 
 #### 4.2.2 Closed Packet Grammar
 
@@ -545,7 +622,7 @@ defaults above.
 The complete public request is `PublicInvocation<K>`. Actor, capability grant,
 workspace binding, Product set, dependency lock, catalog scope, execution
 Program, policy, and steering fields occur only in its
-`InvocationAuthority<K>` slot as authority. `RequestOf<K>` contains
+`InvocationAuthorityOf<K, RequestOf<K>>` slot as authority. `RequestOf<K>` contains
 owner-semantic payload. Where the field grammar also carries a domain selector
 such as a Program, lock, binding, or view, PFC-F04 requires it to equal the
 corresponding authority slot; it contributes no independent authority.
@@ -607,6 +684,12 @@ PublicContractCoordinate = {
   contractRef
   contractVersion: "5.0.0"
   contractDigest
+  owningProduct: {
+    productId
+    productContentDigest
+  }
+  requirementAuthorityRefs: NonEmptyUnique<RequirementAuthorityRef>
+  capabilityIdentities: Unique<CapabilityIdentity>
   nativeLocator: {
     packageName: "@abiogenesis/typescript-tenant"
     packageExport: "./public"
@@ -625,6 +708,11 @@ PublicContractCatalogCoordinate = {
   catalogRef
   catalogVersion: "5.0.0"
   catalogDigest
+  owningProduct: {
+    productId
+    productContentDigest
+  }
+  requirementAuthorityRefs: NonEmptyUnique<RequirementAuthorityRef>
   familyRef
   familyVersion: "5.0.0"
   familyDigest
@@ -652,6 +740,11 @@ PublicOperationContractRow = {
   rowKind: "public_operation_contract"
   rowRef
   rowDigest
+  owningProduct: {
+    productId
+    productContentDigest
+  }
+  requirementAuthorityRefs: NonEmptyUnique<RequirementAuthorityRef>
   operationId
   operationVersion: "5.0.0"
   contractCatalog: PublicContractCatalogCoordinate
@@ -665,8 +758,8 @@ PublicOperationContractRow = {
     nonTerminalContract: PublicContractCoordinate | null
     ownerPort: OwnerPortCoordinate
   }>
-  invocationContract: PublicContractCoordinate
-  outcomeContract: PublicContractCoordinate
+  invocationContract: PublicInvocationContractCoordinate
+  outcomeContract: PublicOutcomeContractCoordinate
   projectionRefusalContract: PublicContractCoordinate
   authorityClassByDefinition
   effectClassByDefinition
@@ -680,8 +773,10 @@ PublicOperationContractRow = {
 exactly the operation's closed member set. `rowDigest` hashes the row with only
 `rowRef` and `rowDigest` omitted; `rowRef` is content addressed from that
 digest. The three common rows and all 18 operation rows bind the same
-`PublicContractCatalogCoordinate`. A row that omits a member contract, native
-symbol, schema definition, owner port, or metadata map cannot publish.
+`PublicContractCatalogCoordinate`, owning Product, and applicable requirement
+authority. A row that omits a member contract, native symbol, schema
+definition, owner port, owner/version/authority coordinate, or metadata
+reference cannot publish.
 
 ### 4.3 Closed Project Read Relation
 
@@ -888,9 +983,21 @@ ProductVerifyResult =
       installedProduct: RD<InstalledProduct>,
       residuals: Unique<TypedResidual>, provenance: RDSet<Provenance> }
 
+K_verify = ("abg.operation.product.verify", "verify")
+
+SuccessfulPackedVerificationReference = {
+  invocation: RD<PublicInvocation<K_verify>>
+  outcome: RD<
+    PublicOutcome<K_verify> where
+      outcomeKind = "result"
+      and value.targetKind = "packed_artifact"
+      and value.disposition = "locally_verified"
+  >
+}
+
 ProductResolveRequest = {
   requirements: NonEmptyUnique<ProductRequirement>
-  candidates: NonEmptyUnique<ProductCoordinate>
+  verifiedCandidates: NonEmptyUnique<SuccessfulPackedVerificationReference>
 }
 ProductResolveResult = {
   resolvedLock: RD<ResolvedProductLock>
@@ -1135,6 +1242,12 @@ ReleaseSnapshotResult<M> = {
 }
 ```
 
+`product.resolve` derives candidate coordinates, locally admitted native
+evidence, pending selectors, descriptors, contribution manifests, and
+dependency declarations only from `verifiedCandidates`. Its invocation
+authority carries the same canonical verification-reference set. The resolved
+lock binds that set and cannot cite a bare or ambient Product coordinate.
+
 `InteractionRespondRequest/Result/NonTerminal` and
 `WitnessAdmitRequest/Result` are defined in Section 4.2.2. Every packet not
 declaring defaults has `defaults: {}`. Refusal codes and exact terminal versus
@@ -1146,7 +1259,7 @@ non-terminal classification are the closed sets in the table below.
 | `workspace.create(imported)` | target root, imported authority ref/digest, preservation policy | imported workspace identity and preserved-state manifest | clean refusals plus invalid import authority or preservation failure | none |
 | `workspace.open(open)` | target root and expected authority ref/digest | ready, unbound, stale, malformed, or incompatible WorkspaceOpenProjection | invalid target, missing workspace, authority mismatch | none |
 | `product.verify(verify)` | exact `packed_artifact` or `installed_artifact` target sum; both carry artifact/content, descriptor, contribution manifest, expected contracts, and declared dependency/compatibility inputs; installed target alone carries its resolved lock and install coordinates | verified artifact, every checked identity, locally admitted native truth plus explicit pending external selectors, typed residuals, provenance | artifact/content/identity/descriptor/contribution mismatch, invalid declared dependency, unsupported contract; installed target also admits lock mismatch or stale installed state | none |
-| `product.resolve(resolve)` | non-empty unique Product requirements and candidate coordinates | exact resolved lock and one selection per required Product | invalid, unresolved, incompatible, ambiguous, cyclic | none |
+| `product.resolve(resolve)` | non-empty unique Product requirements and successful packed-verification invocation/outcome references | exact resolved lock and one selection per required Product, bound to the same verification set | invalid, unverified, unresolved, incompatible, ambiguous, cyclic | none |
 | `product.install(install)` | verified artifact, descriptor, contribution manifest, exact resolved lock, target, install policy | installed Product and install/installer manifests with provenance | verification, target, identity/content/descriptor/contribution/lock/contract/filesystem failure | none |
 | `workspace.bind(bind)` | workspace authority, non-empty installed set, resolved lock, complete declared roots | immutable binding and manifest | workspace/product/lock/content/root/binding/incompatibility refusal | none |
 | `catalog.admit(admit)` | exact binding, lock, descriptors, contribution manifests | catalog plus exactly one `admitted`, `rejected`, `incompatible`, `conflicting`, `unready`, or `unresolved` disposition row per submitted contribution row | malformed descriptor/contribution, binding or lock mismatch, or input/output conservation failure | none |
@@ -1168,14 +1281,16 @@ non-terminal classification are the closed sets in the table below.
 Admission refusal is derived per `K`:
 
 ```text
-unknown_definition
-| unknown_variant
-| invalid_request
+invalid_request
 | contract_catalog_mismatch
 | authority_mismatch
 | binding_missing | binding_forbidden | binding_mismatch when applicable
 | actor_missing | capability_missing | catalog_scope_mismatch when applicable
 ```
+
+`unknown_definition` and `unknown_variant` are PFC-F03A
+`PublicFamilyLookupRefusal` classes. They cannot enter the indexed set above
+because no `K` exists.
 
 Classification is total:
 
@@ -1198,16 +1313,49 @@ typed refusal exist before M5 freeze; a placeholder success or
 ### 4.5 Common Invocation And Outcome
 
 ```text
+PublicFunctionDefinitionVersion = "5.0.0"
+
+PublicInvocationContractCoordinate =
+  exact PublicContractCoordinate where
+    contractRef = "abg.schema.public-operation-invocation"
+
+PublicOutcomeContractCoordinate =
+  exact PublicContractCoordinate where
+    contractRef = "abg.schema.public-operation-outcome"
+
+PublicFunctionSelection<K> = {
+  familyRef
+  familyDigest
+  definitionKey: K
+  definitionRef
+  definitionVersion: PublicFunctionDefinitionVersion
+  definitionDigest
+}
+
+PublicFamilyLookupRefusal = {
+  kind: "public_family_lookup_refusal"
+  schemaVersion: "5.0.0"
+  invocationContract: PublicInvocationContractCoordinate
+  failureClass: "unknown_definition" | "unknown_variant"
+  suppliedOperationIdentity
+  suppliedMemberIdentity
+  familyRef
+  familyDigest
+  issuePaths: Unique<JsonPointer>
+}
+
 PublicInvocation<K> = {
   kind: "public_invocation"
   schemaVersion: "5.0.0"
+  invocationContract: PublicInvocationContractCoordinate
   invocationRef
   invocationDigest
   definitionRef
+  definitionVersion: PublicFunctionDefinitionVersion
   definitionDigest
   definitionKey: K
   contractCatalog: PublicContractCatalogCoordinate
-  invocationAuthority: InvocationAuthority<K>
+  invocationAuthority: InvocationAuthorityOf<K, RequestOf<K>>
   requestContract: PublicContractCoordinate
   requestRef
   requestDigest
@@ -1223,11 +1371,13 @@ PublicInvocation<K> = {
 PublicOutcomeCommon<K> = {
   kind: "public_outcome"
   schemaVersion: "5.0.0"
+  outcomeContract: PublicOutcomeContractCoordinate
   outcomeRef
   outcomeDigest
   invocationRef
   invocationDigest
   definitionKey: K
+  definitionVersion: PublicFunctionDefinitionVersion
   definitionDigest
   contractCatalog: PublicContractCatalogCoordinate
   correlationRef
@@ -1280,13 +1430,26 @@ PublicOutcome<K> =
     }
 ```
 
-`invocationDigest` hashes every admitted invocation field except itself.
+`invocationDigest` hashes every admitted invocation field except
+`invocationRef` and `invocationDigest`; `invocationRef` is content addressed
+from that digest.
 `requestDigest` hashes the canonical default-applied request. Every catalog,
 definition, request, and expected-output coordinate must equal the selected
-definition. `definitionKey` is the sole stored operation/member discriminator;
-operation identity and member key are typed projections of it. `outcomeDigest`
-hashes every outcome field except itself.
+definition. `invocationContract` and `outcomeContract` equal the common
+coordinates in the same catalog and owning Product as that definition.
+`definitionKey` is the sole stored operation/member discriminator; operation
+identity and member key are typed projections of it. `outcomeDigest` hashes
+every outcome field except `outcomeRef` and `outcomeDigest`; `outcomeRef` is
+content addressed from that digest.
 `payloadDigest` hashes the contract-admitted payload.
+
+`PublicFamilyLookupRefusal` is a family-level pre-index result of PFC-F03A. It
+is not `PublicOutcome<K>` because no `K`, admitted invocation, or semantic owner
+exists. SDK and CLI project it through the common invocation contract with
+`invalidInvocation = 2`; an adapter cannot reinterpret it as an indexed owner
+refusal. PFC-F03A runs after the common invocation envelope has admitted the
+operation and member identities as strings; malformed envelopes remain common
+parse failures rather than lookup results.
 
 `OutcomeProjectionRefusal<K>` is the final member above. It carries no owner
 result truth and cannot be reclassified as `RefusalOf<K>`. It is published in
@@ -1295,30 +1458,85 @@ and has adapter exit class `adapterFailure = 70`. Result, semantic/admission
 refusal, and non-terminal exits remain `0`, `1`, and `3`; malformed host input
 before invocation admission remains `2`.
 
-`InvocationAuthority<K>` is an exact conditional object. It requires or
-forbids Product set, dependency lock, catalog scope, execution Program,
-GraphFunction, input contract, session policy, capability grants, actor
-attribution, and transport steering according to `K`. An absent required slot
-and a present forbidden slot are unrepresentable natively and refuse raw
-admission.
+Invocation authority is a dependent structural sum, not an optional bag:
 
-The authority-slot relation is:
+```text
+AuthoritySlot =
+  workspace_binding | product_set | dependency_lock | catalog_scope
+  | execution_program | graph_function | input_contract | session_policy
+  | capability_grants | actor | transport_steering
+  | verification_references | execution_basis
 
-| Definition keys | Product set | Dependency lock | Catalog scope | Execution Program/GraphFunction | Session policy/grants/steering |
-|---|---|---|---|---|---|
-| `workspace.create(*)`, `workspace.open(open)`, `product.resolve(resolve)` | forbidden | forbidden | forbidden | forbidden | forbidden |
-| `product.verify(verify, packed_artifact)` | forbidden | forbidden | forbidden | forbidden | forbidden |
-| `product.verify(verify, installed_artifact)` | forbidden | exactly one | forbidden | forbidden | forbidden |
-| `product.install(install)` | forbidden | exactly one | forbidden | forbidden | forbidden |
-| `workspace.bind(bind)` | exactly one | exactly one | forbidden | forbidden | forbidden |
-| `project.read(install_evidence|release_evidence)` | forbidden | forbidden | forbidden | forbidden | forbidden |
-| `project.read(catalog_list|catalog_describe)` | exactly one | exactly one | workspace catalog or exactly one matching session view, selected by the request | forbidden | forbidden |
-| every other bound `project.read` case | exactly one | exactly one | forbidden | forbidden | forbidden |
-| `catalog.admit(admit)` | exactly one | exactly one | forbidden because it creates catalog truth | forbidden | forbidden |
-| `catalog.view(allowlist)` | exactly one | exactly one | forbidden because it creates the narrowed view; request carries the source catalog | forbidden | forbidden |
-| `catalog.apply(node_type|overlay)` | exactly one | exactly one | exactly one | forbidden | forbidden |
-| `run.invoke(*)`, `run.continue(*)` | exactly one | exactly one | exactly one | exactly one | exactly one |
-| `interaction.respond(*)`, `result.assess(assess)`, `witness.admit(*)`, `conformance.evaluate(gtl_program)`, `product.materialize(*)`, `release.snapshot(*)` | exactly one | exactly one | forbidden | forbidden | forbidden |
+AuthorityValueOf<K, R, S> =
+  S is workspace_binding ? RD<WorkspaceBinding>
+  : S is product_set ? NonEmptyUnique<RD<InstalledProduct>>
+  : S is dependency_lock ? RD<ResolvedProductLock>
+  : S is catalog_scope
+      ? RD<AdmittedCatalog>
+        | { catalog: RD<AdmittedCatalog>, view: RD<CatalogView>,
+            allowlist: Unique<CanonicalCatalogHandle> }
+  : S is execution_program ? RD<GtlProgram>
+  : S is graph_function
+      ? { graphFunction: RD<GraphFunction>,
+          membership: RD<ProgramGraphFunctionMembership> }
+  : S is input_contract ? ContractBoundValue
+  : S is session_policy ? RD<InvocationPolicy>
+  : S is capability_grants
+      ? { requiredCapabilityRefs: MetadataOf<K>.capabilityRefs,
+          grants: NonEmptyUnique<RD<CapabilityGrant>> }
+  : S is actor
+      ? { actor: RD<Actor>, attribution: RD<ActorAttribution> }
+  : S is transport_steering ? RD<TransportSteering>
+  : S is verification_references
+      ? NonEmptyUnique<SuccessfulPackedVerificationReference>
+  : RD<ExecutionBasis>
+
+AuthorityField<K, R, S> =
+  AuthorityPolicy<K, R, S> is required
+    ? AuthorityValueOf<K, R, S>
+    : null
+
+InvocationAuthorityOf<K, R> = {
+  kind: "invocation_authority"
+  definitionKey: K
+  authorityDigest
+  slots: { [S in AuthoritySlot]: AuthorityField<K, R, S> }
+}
+
+authorityDigest =
+  sha256(RFC8785(InvocationAuthorityOf<K,R> without authorityDigest))
+```
+
+`capability_grants` is required for every definition and equals the selected
+definition's exact capability set. Every slot not listed below is forbidden:
+
+| Definition keys | Additional required authority slots |
+|---|---|
+| `workspace.create(*)` | `actor` |
+| `workspace.open(open)` | none |
+| `product.verify(verify)` with `R.targetKind = packed_artifact` | none |
+| `product.verify(verify)` with `R.targetKind = installed_artifact` | `dependency_lock` |
+| `product.resolve(resolve)` | `verification_references` |
+| `product.install(install)` | `dependency_lock`, `verification_references`, `actor` |
+| `workspace.bind(bind)` | `product_set`, `dependency_lock`, `actor` |
+| `project.read(install_evidence|release_evidence)` | none |
+| `project.read(catalog_list|catalog_describe)` | `workspace_binding`, `product_set`, `dependency_lock`, `catalog_scope` |
+| every other `project.read` case | `workspace_binding`, `product_set`, `dependency_lock` |
+| `catalog.admit(admit)`, `catalog.view(allowlist)` | `workspace_binding`, `product_set`, `dependency_lock`, `actor` |
+| `catalog.apply(*)` | `workspace_binding`, `product_set`, `dependency_lock`, `catalog_scope`, `actor` |
+| `run.invoke(invoke)` | `workspace_binding`, `product_set`, `dependency_lock`, `catalog_scope`, `execution_program`, `graph_function`, `input_contract`, `session_policy`, `actor`, `transport_steering` |
+| `run.invoke(start)` | the `invoke` set, except `graph_function` is required exactly when `R.target.kind = graph_function` |
+| `run.continue(*)` | the `invoke` set plus `execution_basis` |
+| `interaction.respond(*)`, `result.assess(assess)` | `workspace_binding`, `product_set`, `dependency_lock`, `actor`, `execution_basis` |
+| `witness.admit(*)` | `workspace_binding`, `product_set`, `dependency_lock`, `actor`; also `execution_basis` exactly for a `run` or `segment` context |
+| `conformance.evaluate(gtl_program)`, `product.materialize(*)`, `release.snapshot(*)` | `workspace_binding`, `product_set`, `dependency_lock`, `actor` |
+
+Request-carried Program, GraphFunction, input contract, workspace binding,
+lock, catalog view, verification reference, actor, or execution basis must
+equal its required authority slot. A required slot cannot be absent; a
+forbidden slot cannot be present. Grants must cover exactly
+`MetadataOf<K>.capabilityRefs` and carry the actor attribution when the actor
+slot is required.
 
 `product.verify` uses one structural target sum inside the exact `verify`
 member. The packed member is the pre-resolution path used by S06; it admits
@@ -1398,18 +1616,67 @@ Project-read capability selection is exact:
 A physical declaration relation is subordinate checker evidence:
 
 ```text
+ExternalRelationOrigin =
+  | { kind: "import_declaration",
+      clause: "side_effect" | "default" | "named" | "namespace",
+      declarationTypeOnly: boolean, specifierTypeOnly: boolean }
+  | { kind: "export_declaration",
+      clause: "named" | "star" | "namespace",
+      declarationTypeOnly: boolean, specifierTypeOnly: boolean }
+  | { kind: "import_type_expression", operator: "type" | "typeof" }
+  | { kind: "import_equals_declaration" }
+  | { kind: "type_reference_directive" }
+  | { kind: "module_augmentation" }
+
+ExternalSelection =
+  | { kind: "module" }
+  | { kind: "name",
+      targetName: IdentifierText | "default",
+      exposedName: IdentifierText | "default" }
+  | { kind: "namespace", exposedName: IdentifierText }
+  | { kind: "all" }
+
 PhysicalDeclarationRelation = {
+  physicalRelationRef
+  physicalRelationDigest
   sourceProductContentDigest
   declarationPath
   declarationDigest
   sourceStart
   sourceEnd
   moduleSpecifier
-  syntaxKind
+  origin: ExternalRelationOrigin
+  selection: ExternalSelection
 }
+
+physicalRelationDigest =
+  sha256(RFC8785(PhysicalDeclarationRelation without
+    physicalRelationRef and physicalRelationDigest))
+
+physicalRelationRef =
+  contentAddress("ts-relation", physicalRelationDigest)
 ```
 
-It has no contract authority and is never a binding key.
+It has no contract authority and is never a binding key. Parser normalization
+is total over the accepted declaration forms:
+
+| TypeScript form | Origin | Selection |
+|---|---|---|
+| `import "m"` | import side-effect | module |
+| default or named import, including `import type` | matching import clause with exact type-only flags | exact target/exposed name |
+| namespace import | import namespace | namespace alias |
+| `import q = require("m")` | import equals | namespace alias |
+| named/default re-export, including `export type` | export named with exact type-only flags | exact target/exposed name |
+| `export *` or `export type *` | export star with exact type-only flag | all |
+| `export * as ns`, including type-only | export namespace with exact type-only flag | namespace alias |
+| `import("m").X` or `typeof import("m").X` | import-type expression with exact operator | exact name |
+| unqualified `import("m")` or `typeof import("m")` | import-type expression with exact operator | module |
+| `/// <reference types="m" />` | type-reference directive | module |
+| external `declare module "m"` | module augmentation | module |
+
+Aliases change only `exposedName`; they never change `targetName`. The literal
+target `default` remains `"default"`. The linked checker, not this syntax
+relation, determines which selected symbols contribute semantic meaning.
 
 F01 uses one Product-local checker. For every proposed native contract `C`, it
 begins at C's `(packageExportPath, namedSymbol)`, follows only the Product's
@@ -1423,13 +1690,11 @@ ContractIndexedPendingExternalSelector = {
   sourceContractDigest
   sourcePackageExportPath
   sourceNamedSymbol
-  sourceDeclarationPath
-  sourceDeclarationDigest
   physicalRelationRef
   externalPackageName
   externalModuleSpecifier
-  relationForm:
-    named_import | namespace_import | star_export | import_equals
+  origin: ExternalRelationOrigin
+  selection: ExternalSelection
   localAccessPath: NonEmptyReadonly<IdentifierText>
 }
 
@@ -1476,6 +1741,27 @@ Only the first member creates occurrences. A refused member refuses linked
 resolution. A no-contribution member remains private checker evidence and
 creates no lock authority.
 
+The linked checker expands each admitted selector into exact semantic
+selections:
+
+```text
+ResolvedSemanticSelection = {
+  derivation:
+    named | namespace_member | star_member
+    | import_equals_member | import_type_member
+  targetExportedSymbol: IdentifierText | "default"
+  exposedMemberPath: NonEmptyReadonly<IdentifierText>
+  semanticUse:
+    type_reference | value_reference | type_query | namespace_reference
+  requiredSymbolSpace: type | value | namespace
+}
+```
+
+`derivation` records checker expansion, while `semanticUse` records how the
+source contract consumes the resolved symbol. They are independent dimensions.
+A namespace or star selector produces one selection per checker-visible
+contributing member after shadowing and type-only visibility.
+
 The linked checker derives a process-independent target identity:
 
 ```text
@@ -1491,7 +1777,6 @@ CanonicalCheckerTargetIdentity = {
     declarationKind
     exportedName
   }>
-  targetContractClosureDigest
   targetIdentityDigest
 }
 
@@ -1505,7 +1790,10 @@ declarations owned by that direct target Product which expose the selected
 symbol. A checker alias may reach a declaration owned by a dependency of the
 target Product, but that transitive declaration does not replace the boundary
 Product, export, symbol, or contract in this identity. Its meaning is already
-covered by the target Product's admitted `targetContractClosureDigest`.
+validated under the target Product's independently admitted contract and
+dependency authority. The target contract is selected by the binding relation;
+the whole-set native closure digest is constructed only after every occurrence
+binds.
 
 No TypeScript `Symbol`, object identity, compiler-internal ID, source pointer,
 alias destination, or traversal order enters this identity.
@@ -1515,6 +1803,21 @@ resulting expression contributes type meaning.
 For every exact externally contributing target, F02 derives:
 
 ```text
+CanonicalSourceWitness = {
+  witnessDigest
+  selectorRef
+  physicalRelationRef
+  declarationPath
+  declarationDigest
+  sourceStart
+  sourceEnd
+  origin: ExternalRelationOrigin
+  selection: ExternalSelection
+}
+
+witnessDigest =
+  sha256(RFC8785(CanonicalSourceWitness without witnessDigest))
+
 ContractExternalOccurrence = {
   occurrenceRef
   sourceProductContentDigest
@@ -1522,14 +1825,9 @@ ContractExternalOccurrence = {
   sourceContractDigest
   sourcePackageExportPath
   sourceNamedSymbol
-  sourceDeclarationPath
-  sourceDeclarationDigest
-  selectorRefs: NonEmptyUnique<ContractIndexedPendingExternalSelectorRef>
-  relationForm:
-    named_import | namespace_import | star_export | import_equals
-  semanticUse:
-    type_reference | value_reference | type_query
-  selectedMemberPath: NonEmptyReadonly<IdentifierText>
+  sourceWitnesses:
+    CanonicallyOrderedNonEmptyUnique<CanonicalSourceWitness>
+  semanticSelection: ResolvedSemanticSelection
   checkerTarget: CanonicalCheckerTargetIdentity
 }
 
@@ -1540,9 +1838,8 @@ occurrenceRef =
     sourceContractDigest,
     sourcePackageExportPath,
     sourceNamedSymbol,
-    relationForm,
-    semanticUse,
-    selectedMemberPath,
+    sourceWitnesses,
+    semanticSelection,
     checkerTarget
   }))
 ```
@@ -1552,8 +1849,9 @@ semantic occurrences because `sourceContractRef` differs. An external relation
 inside a retained self-package root creates no occurrence merely because the
 file exists; it creates occurrences only for exact source contracts whose
 linked checker-derived public meaning reaches that relation. Multiple physical
-selectors may support one semantic occurrence; `selectorRefs` carry that
-evidence but do not make source positions semantic identity.
+selectors may support one semantic occurrence. Their complete canonical
+witness set enters occurrence identity, so an implementation cannot choose one
+arbitrary declaration path or selector.
 
 ### 5.2 Checker Rules
 
@@ -1562,7 +1860,8 @@ The bundled linked TypeScript Program and checker in F02 own:
 - syntax and module-format validity;
 - declaration and alias closure;
 - local shadowing;
-- named, namespace, star, and import-equals resolution;
+- default, named, namespace, star, import-type, type-reference, and
+  import-equals resolution;
 - value symbols used in type queries;
 - type-only visibility; and
 - the exact exported symbol selected by each source contract.
@@ -1575,11 +1874,12 @@ import type * as ns from "@dependency/export"
 export type Local = typeof ns.value
 ```
 
-derives an occurrence with `relationForm: namespace_import`,
-`semanticUse: type_query`, and target `requiredSymbolSpace: value` when the
-checker accepts it. These dimensions are orthogonal and closed. A star relation
-uses `relationForm: star_export` and emits only checker-visible symbols that
-contribute to the source contract after shadowing and type-only semantics.
+derives `semanticSelection.derivation: namespace_member`,
+`semanticSelection.semanticUse: type_query`, and target
+`requiredSymbolSpace: value` when the checker accepts it. These dimensions are
+orthogonal and closed. A star relation derives `star_member` selections only
+for checker-visible symbols that contribute to the source contract after
+shadowing and type-only semantics.
 
 An external side-effect-only relation has no target symbol and refuses if it
 is reachable from a source contract's declaration closure. Cross-Product
@@ -1610,10 +1910,12 @@ BindContractOccurrence(A, occurrence)
 The direct outgoing dependency edge of `A` must require the target contract.
 The target contract's exact package export and `namedSymbol` must equal the
 checker boundary target, its content digest must equal the directly selected
-Product, and its admitted native-closure digest must equal
-`targetContractClosureDigest` and cover the boundary declaration witnesses.
-The checker's transitive alias destination cannot substitute for any of those
-coordinates. Transitive reachability authorizes nothing.
+Product, and its locally admitted declaration inventory must contain every
+boundary declaration witness. The checker's transitive alias destination
+cannot substitute for any of those coordinates. No per-contract closure digest
+is invented. The accepted whole-set `nativeContractClosureDigest` is computed
+only after the complete selector-disposition, occurrence, and binding sets
+close. Transitive reachability authorizes nothing.
 
 Dependency authority re-anchors at each admitted contract:
 
@@ -1668,9 +1970,10 @@ enter the accepted native-closure digest and resolved-lock identity.
 | `S06C-E10` | `NativeContractBinding` | private resolver evidence | exact-one direct dependency and target contract relation |
 | `S06C-E11` | `NativeContractBindingSet` | private resolver evidence | complete occurrence-to-binding conservation set |
 | `S06C-E12` | `ResolvedProductLock` | authoritative `EnvironmentBasis` member | existing lock plus native closure digest |
+| `S06C-E13` | `PublicFamilyLookupRefusal` | downstream pre-index carrier | exact closed family plus supplied operation/member identities; no `K` or owner authority |
 | `S06C-R01` | owner-contract-to-definition | Product public-contract relation | E01 -> E02 |
 | `S06C-R02` | definition-family closure | Product publication relation | exact E02 set -> E03 |
-| `S06C-R03` | invocation admission | Public admission relation | E03 + unknown input -> E04 or refusal |
+| `S06C-R03` | family selection and invocation admission | Public admission relation | E03 + unknown input -> E13 or exact K -> E04 or indexed refusal |
 | `S06C-R04` | owner execution and outcome projection | owner then Public relation | E04 -> owner output -> E05 |
 | `S06C-R05` | pending-selector derivation | Product verifier relation | source contract plus local checker -> E08 |
 | `S06C-R06` | linked occurrence and binding | Product resolver relation | E08 plus linked checker/direct dependencies -> E09/E10/E11 -> E12 |
@@ -1682,6 +1985,7 @@ enter the accepted native-closure digest and resolved-lock identity.
   or one non-terminal binding.
 - Every E02 maps to exactly one semantic owner port.
 - Every E04 and E05 carries the same exact definition key and invocation ref.
+- E13 carries no definition key, invocation ref, or owner-semantic refusal.
 - Every E06 member derives from exactly one E02 or the exact E03 family.
 - Every E08 has exactly one source contract and no final checker target.
 - Every E08 has exactly one linked selector disposition.
@@ -1698,6 +2002,7 @@ enter the accepted native-closure digest and resolved-lock identity.
 |---|---|---|---|---|---|
 | owner contract | semantic owner | owner schema plus public family join | Product publication | none | PFC-F07 |
 | public definition/family | owner packets | Product public-contract closure | immutable Product publication | none | PFC-F07 |
+| family selection | host operation/member identities | PFC-F03A exact family lookup | none | none | family lookup refusal or exact K |
 | invocation | caller/adapter | PFC-F04 | Public operation admission | exact semantic owner | PFC-F06 |
 | semantic result/refusal | semantic owner | owner contract | owning Product/ABG/artifact boundary | semantic owner | PFC-F06 |
 | physical declaration relation | compiler | bundled TypeScript | none | none | private evidence only |
@@ -1717,10 +2022,11 @@ Adapters, generated schemas, and tests have no semantic authority.
 | request parsing by SDK, CLI, handler | `PFC-F04<K>` | exact raw admission and authority relation | one admission atom |
 | handler, SDK, and CLI outcome shaping | `PFC-F06<K>` | owner output remains exact and operation indexed | one projection atom |
 | schema, catalog, SDK, CLI, docs rosters | `PFC-F07` | distinct addresses remain deterministic projections | subordinate composition |
+| operation/member lookup | `PFC-F03A` exact family selection | unknown identities fail before indexed admission | subordinate composition |
 | 18 semantic owner functions | no contraction | different Product/ABG meanings, effects, and authorities | preserve separately |
 | physical syntax relation and semantic occurrence | no merge | syntax evidence and contract authority are different algebras | preserve separately |
 | per-root external relation collection | `NCC-F01` contract-indexed pending-selector derivation | exact source contract and locally decidable selector only | corrected subordinate relation |
-| linked target, occurrence, and binding derivation | `NCC-F02` linked checker plus exact binding | canonical target, orthogonal relation/use dimensions, owner-relative direct dependency, and re-anchoring law | corrected subordinate relation |
+| linked target, occurrence, and binding derivation | `NCC-F02` linked checker plus exact binding | canonical target, separate syntax origin/selection and semantic-selection dimensions, owner-relative direct dependency, and re-anchoring law | corrected subordinate relation |
 | generic public handler/controller | none | no required meaning | excluded |
 
 Prime is complete because removing:
@@ -1752,6 +2058,7 @@ new runtime/event authority = none
 |---|---|---|---|
 | owner contract definition | each semantic owner | owner-local `OperationContractSource<K>` | strict request/result/refusal/non-terminal schemas |
 | PFC-F02/F03 | Product public-contract authority | `Public.ContractDefinition` | definition and family |
+| PFC-F03A | Public ingress | `Public.InvocationAdmission` | exact definition selection or family lookup refusal |
 | PFC-F04 | Public ingress | `Public.InvocationAdmission` | indexed invocation or refusal |
 | PFC-F05 | operation semantic owner | existing Product, GTL validator, HoG/ABG, or release interface | indexed owner output |
 | PFC-F06 | Public projection | `Public.OutcomeProjection` | indexed public outcome |
@@ -1811,6 +2118,7 @@ classDiagram
     <<authoritative subordinate>>
     +definitionKey
     +slot
+    +exactOwnerReference
     +strictSchema
   }
   class PublicFunctionDefinition {
@@ -1831,6 +2139,11 @@ classDiagram
     +definitionKey
     +request
     +authority
+  }
+  class PublicFamilyLookupRefusal {
+    <<downstream pre-index>>
+    +suppliedOperationIdentity
+    +suppliedMemberIdentity
   }
   class OwnerSemanticFunction {
     <<existing authority>>
@@ -1864,8 +2177,8 @@ classDiagram
     <<private linked evidence>>
     +sourceContract
     +canonicalTarget
-    +relationForm
-    +semanticUse
+    +sourceWitnesses
+    +semanticSelection
   }
   class NativeBinding {
     <<private downstream>>
@@ -1882,6 +2195,7 @@ classDiagram
   OwnerContractBinding --> PublicFunctionDefinition : binds
   PublicFunctionDefinition --> PublicFunctionFamily : exact membership
   PublicFunctionFamily --> PublicProjectionAssets : derives
+  PublicFunctionFamily --> PublicFamilyLookupRefusal : rejects unknown identity
   PublicFunctionFamily --> PublicInvocation : admits
   PublicInvocation --> OwnerSemanticFunction : typed call
   OwnerSemanticFunction --> PublicOutcome : owner output projected
@@ -1919,21 +2233,26 @@ sequenceDiagram
     Projection-->>Caller: schemas, catalog rows, SDK, CLI
   end
 
-  Caller->>Admission: unknown host value
-  Admission->>Admission: PFC-F04 exact K and authority
-  alt malformed or unauthorized
-    Admission-->>Caller: indexed admission refusal
-  else invocation admitted
-    Admission->>Semantic: PFC-F05 typed invocation
-    Semantic->>Outcome: exact owner result/non-terminal/refusal
-    Outcome->>Outcome: PFC-F06 indexed contract check
-    Outcome-->>Caller: PublicOutcome<K>
+  Caller->>Admission: unknown host operation, member, and value
+  Admission->>Admission: PFC-F03A exact family selection
+  alt unknown operation or member
+    Admission-->>Caller: PublicFamilyLookupRefusal
+  else exact K selected
+    Admission->>Admission: PFC-F04 exact K and authority
+    alt malformed or unauthorized
+      Admission-->>Caller: indexed admission refusal
+    else invocation admitted
+      Admission->>Semantic: PFC-F05 typed invocation
+      Semantic->>Outcome: exact owner result/non-terminal/refusal
+      Outcome->>Outcome: PFC-F06 indexed contract check
+      Outcome-->>Caller: PublicOutcome<K>
+    end
   end
 
   Verify->>LocalChecker: each source contract and exact named symbol
   LocalChecker->>LocalChecker: derive pending external selectors only
   LocalChecker-->>Verify: local truth and exact pending selector set
-  Verify->>Resolve: pending selectors plus verified Product set
+  Verify->>Resolve: successful verification refs and pending selectors
   Resolve->>LinkedChecker: exact direct dependency graph and declarations
   LinkedChecker->>LinkedChecker: resolve canonical targets and occurrences
   LinkedChecker-->>Resolve: selector dispositions and unique occurrence set
@@ -1958,8 +2277,11 @@ stateDiagram-v2
   FamilyClosed --> ProjectionsDerived: PFC-F07
 
   ProjectionsDerived --> InvocationSubmitted: caller or adapter
-  InvocationSubmitted --> InvocationRefused: PFC-F04
-  InvocationSubmitted --> InvocationAdmitted: PFC-F04
+  InvocationSubmitted --> FamilyLookupRefused: PFC-F03A
+  InvocationSubmitted --> DefinitionSelected: PFC-F03A
+  DefinitionSelected --> InvocationRefused: PFC-F04
+  DefinitionSelected --> InvocationAdmitted: PFC-F04
+  FamilyLookupRefused --> [*]
   InvocationAdmitted --> OwnerEvaluating: PFC-F05
   OwnerEvaluating --> OutcomeRefused: owner refusal through PFC-F06
   OwnerEvaluating --> OutcomeNonTerminal: owner non-terminal through PFC-F06
@@ -1990,20 +2312,22 @@ stateDiagram-v2
 
 | Axiom | Ontology evidence | Authority | Domain | Sequence | State | Native enforcement | Admission/compiler enforcement | Verdict | Gap |
 |---|---|---|---|---|---|---|---|---|---|
-| every element derives from S06C/3 | E01..E12, R01..R06 | named in Section 6.3 | every class maps one entity | every message maps one function | every transition names function | exact generic types | exact family/checker gates | pass | none |
+| every element derives from S06C/4 | E01..E13, R01..R06 | named in Section 6.3 | every class maps one entity | every message maps one function | every transition names function | exact generic types | exact family/checker gates | pass | none |
 | full 5.0 family is singular | E02/E03, R01/R02 | Product public-contract owner | 18 operations, 56 keys | F03 before projection | no projection before FamilyClosed | exact nested object, no string index | missing/extra/duplicate refusal | pass | none |
 | S06 subset cannot become authority | E03/E06 | Product | scenario absent from definition identity | projection uses E03 only | scenario success changes no state | no fixture key | family census mutation | pass | none |
 | owner meaning is not public metadata | E01/E02, R01 | semantic owner | owner schema distinct from definition binding | F01 precedes F02 | gap returns to owner source | inferred exact types | owner authority/digest check | pass | none |
 | native/parser/schema domains agree | E01/E02/E06 | owner plus Product projector | one strict schema | one schema drives all projections | divergence cannot transition closed | inferred type plus parse | schema projection parity | pass | none |
 | every definition resolves one exact source and port | E01/E02, R01 | semantic owner | closed 56-key source map | F01/F02 refuse any absent member | no FamilyClosed with a gap | exact nested source map | source/schema/port member-path census | pass | none |
 | common invocation/outcome/row contracts are closed | E02..E06, R02..R04 | Product/Public | catalog coordinate, operation row, invocation and four-way outcome union | same catalog/key/digests cross every message | projection failure is explicit terminal public truth | strict indexed carriers | cross-catalog/key/contract/output mutations | pass | none |
+| family lookup precedes indexed authority | E03/E04/E13, R03 | Public | E13 has no K; E04 has exact K | PFC-F03A precedes PFC-F04 | unknown identity terminates before invocation | disjoint carrier sum | unknown operation/member mutations | pass | none |
+| invocation and resolve authority are constructable | E02/E04/E12, R03/R06 | Public then Product resolver | dependent authority slots and verification references | verification -> resolve -> lock | missing/extra/mismatched slot or reference refuses | mapped structural sum | capability/actor/verification mutations | pass | none |
 | relational fields are structural | E01 | owner | exact sums | admission before owner call | invalid relation refused | discriminated unions | raw/schema mutation | pass | none |
 | outcomes remain operation indexed | E02/E04/E05, R03/R04 | semantic owner then Public | no generic result carrier | same K through call | no cross-K transition | conditional exact type | result/refusal/non-terminal schema check | pass | none |
 | adapters own no semantics | E06 | Public/Product | assets are downstream | adapter enters only F04 | no adapter state | generated coordinates | SDK/CLI/Codex equality | pass | none |
 | project.read is pure and closed | E02 plus ReplayProjectionFamily | projection owners | 24 exact cases | no event participant | terminal projection only | indexed case types | source/basis/read mutation tests | pass | none |
 | physical syntax is not semantic identity | E07..E09, R05/R06 | local and linked checkers | physical, pending, and semantic classes separate | local selector precedes linked occurrence | E07 never directly reaches lock | private distinct types | selector/occurrence provenance check | pass | none |
 | occurrences are contract indexed in F02 | E08/E09, R05/R06 | Product resolver linked checker | source contract mandatory in selector and occurrence | F01 selector then F02 occurrence | no occurrence before linked resolution | occurrence identity includes source contract | two-contract shared-import mutation | pass | none |
-| relation form and semantic use are orthogonal | E09/R06 | bundled linked TypeScript | two closed fields plus canonical target | checker derives both dimensions | no ambiguous combined state | discriminated enums | namespace type-query/star mutations | pass | none |
+| syntax origin/selection and semantic selection remain distinct | E07..E09/R05/R06 | bundled local and linked TypeScript | syntax evidence, checker derivation, semantic use, and target space are separate fields | F01 preserves syntax; F02 derives meaning | no syntax form selects semantic authority | closed sums | default/named/namespace/star/import-type mutations | pass | none |
 | every occurrence binds exactly once | E09..E11, R06 | Product resolver | complete equal-cardinality sets | binding follows linked derivation | zero/many refuses | structured exact refs | set conservation gate | pass | none |
 | dependencies remain owner relative and re-anchored | E09/E10/R06 | Product resolver | direct edge and target contract retained | A stops at B; B evaluates B-to-C separately | transitive path refuses | owner-indexed map | A-to-B-to-C mutation | pass | none |
 | lock identity covers semantic meaning | E08..E12 | Product resolver | selector dispositions plus complete occurrence/binding digest | F02 before F03 | only NativeLinked resolves | canonical projection without compiler objects | stale-lock mutation | pass | none |
@@ -2057,21 +2381,27 @@ Algorithmic constraints:
 After direct design acceptance, one implementation pass shall:
 
 1. replace the partial public metadata object with the exact owner-schema-based
-   18-operation/56-key family;
+   18-operation/56-key reference family without copying owner payloads;
 2. derive TypeScript types, parser, canonical schemas, operation rows, SDK
    members, CLI grammar, and exit maps from that family;
-3. bind every key to one exact owner port without a generic semantic handler;
-4. project every source-map member and owner port named in Section 4.2.1;
+3. bind every key to one exact owner port and construct its dependent
+   invocation authority without a generic semantic handler;
+4. project every source-map member, owner/version/authority coordinate, and
+   owner port named in Section 4.2.1;
    absence is a build gap and does not authorize implementation-defined
    semantics;
-5. preserve release snapshot as a real authority-checking function whose
+5. make `product.resolve` consume and bind exact successful packed-verification
+   references rather than caller-authored Product coordinates;
+6. preserve release snapshot as a real authority-checking function whose
    success remains unavailable until M7 supplies the exact basis;
-6. make F01 emit only contract-indexed pending external selectors;
-7. make F02 derive canonical checker targets, semantic occurrences, direct
-   target contracts, re-anchored dependency bindings, and exact selector
-   dispositions;
-8. bind every semantic occurrence exactly once before lock construction; and
-9. remove the returned partial family and any parallel parser/schema/runtime
+7. make F01 preserve exact syntax origin and selection in contract-indexed
+   pending external selectors;
+8. make F02 derive semantic selections, canonical source-witness sets,
+   canonical checker targets, direct target contracts, re-anchored dependency
+   bindings, and exact selector dispositions without a per-contract closure
+   digest;
+9. bind every semantic occurrence exactly once before lock construction; and
+10. remove the returned partial family and any parallel parser/schema/runtime
    meaning.
 
 Affected abstract modules are only those in Section 7.2. No broader Prime
@@ -2082,6 +2412,12 @@ primitive is implemented.
 - exact family census: 18 operations, 56 keys, no 5.1 or legacy member;
 - every definition resolves its exact source-map member, four contract slots,
   defaults, metadata, common catalog coordinate, and owner port;
+- unknown operation/member identities refuse before indexed invocation
+  admission;
+- every admitted invocation carries the exact structural authority selected by
+  its definition and request, including capability and actor provenance;
+- `product.resolve` and its lock bind the exact successful packed-verification
+  reference set;
 - native inference, raw parser, JSON Schema, SDK, CLI, and owner port admit the
   same generated corpus for every key;
 - every operation has an addressable catalog row and request/result/refusal/
@@ -2091,8 +2427,11 @@ primitive is implemented.
 - retained S03/S05 invocation, continuation, Consensus, and reads remain
   indexed members of the family;
 - self-package subordinate roots resolve without invented contracts;
-- exact named, namespace, star, type-query, shadowing, and import-equals
-  relations link under direct dependency authority; and
+- exact default, named, namespace, star, import-type, type-query, shadowing,
+  type-reference, and import-equals relations link under direct dependency
+  authority;
+- every occurrence carries its complete canonical source-witness set and no
+  per-contract closure digest;
 - every pending selector has exactly one linked disposition;
 - every successful lock satisfies occurrence/binding set equality; and
 - A-to-B binding stops at B's admitted contract while B-to-C is evaluated only
@@ -2105,6 +2444,11 @@ primitive is implemented.
   `JsonValue` outcome;
 - missing owner-source member, owner port, catalog coordinate, operation-row
   locator, or projection-refusal carrier;
+- copied owner payload meaning, stale owner member digest, missing common
+  owner/version/authority coordinate, or unknown identity classified as an
+  indexed owner refusal;
+- missing, forbidden, extra, or request-divergent invocation-authority slot;
+- bare, stale, or mismatched Product candidate supplied to `product.resolve`;
 - TypeScript-only value accepted while parser/schema refuses, and every
   converse;
 - all-or-none, exactly-one, ref/digest, binding, actor, capability, and
@@ -2115,10 +2459,14 @@ primitive is implemented.
 - uncontracted subordinate root manufactures an occurrence owner;
 - F01 emits a final target, semantic occurrence, target contract, or binding;
 - one physical import used by two contracts collapses to one occurrence ref;
-- namespace type query collapses relation form and semantic use or is rejected
+- one of several source witnesses is arbitrarily selected as occurrence
+  identity;
+- namespace type query collapses syntax origin into semantic use or is rejected
   by a manual type-space filter;
 - star shadowing or type-only visibility differs from checker truth;
 - a process-local TypeScript Symbol or traversal order changes target identity;
+- a per-contract or final lock closure digest is used while constructing target
+  or occurrence identity;
 - A obtains C authority through A-to-B-to-C without a direct A-to-C contract
   requirement;
 - a checker alias destination in C replaces the direct B contract coordinate;
@@ -2146,23 +2494,27 @@ Independent review answers:
 
 1. Does one complete, exact public-function algebra cover every active 5.0
    operation without importing 5.1?
-2. Does the closed source map locate every key's exact schemas, fields,
-   defaults, metadata, and owner port without an implementation-defined gap?
-3. Are the common catalog, operation-row, invocation, outcome, and
-   projection-refusal carriers singular and constructable?
-4. Can native type, parser, schema, SDK, CLI, or owner runtime still lawfully
+2. Does the closed source map resolve every key's exact owner contracts,
+   metadata, authority, and port without copying payload meaning?
+3. Are family lookup, dependent invocation authority, common contract
+   coordinates, operation rows, invocation, outcome, and projection refusal
+   singular and constructable?
+4. Does `product.resolve` consume the exact successful packed-verification
+   references later bound by its resolved lock?
+5. Can native type, parser, schema, SDK, CLI, or owner runtime still lawfully
    disagree?
-5. Is S06 representative proof clearly separated from full Product-definition
+6. Is S06 representative proof clearly separated from full Product-definition
    closure?
-6. Does F01 stop at source-contract-indexed pending selectors and F02 alone
+7. Does F01 stop at source-contract-indexed pending selectors and F02 alone
    derive canonical targets, semantic occurrences, target contracts, and
    bindings?
-7. Are relation form and semantic use orthogonal, target identity stable, and
-   A-to-B-to-C authority re-anchored at each admitted contract?
-8. Can one physical relation lawfully project zero, one, or many distinct
+8. Are syntax origin/selection and linked semantic selection distinct, target
+   identity stable, and A-to-B-to-C authority re-anchored at each admitted
+   contract?
+9. Can one physical relation lawfully project zero, one, or many distinct
    semantic occurrences without losing exact-once binding?
-9. Do Prime, IACS, module direction, lifecycle, and all three views agree?
-10. Can realization proceed from Section 11 without choosing Product meaning?
+10. Do Prime, IACS, module direction, lifecycle, and all three views agree?
+11. Can realization proceed from Section 11 without choosing Product meaning?
 
 No realization resumes until independent review and direct F_H acceptance make
 both verdicts accepted.
