@@ -65,7 +65,7 @@ boundary.
 | Outcomes are operation indexed. | `PublicOutcome<K>` contains only `ResultOf<K>`, `NonTerminalOf<K>`, `RefusalOf<K>`, or the common typed projection-refusal member. | `JsonValue`, `{}`, a generic result envelope, or handler-local check supplies operation meaning. |
 | Adapters are projections. | SDK, CLI, and Codex coordinates derive from the exact family and transport the same invocation/outcome. | An adapter owns a variant roster, default, parser, result shape, exit map, or semantic branch. |
 | Publication is a read model. | Native symbols, schemas, operation rows, capability rows, SDK members, CLI grammar, and docs derive from one family digest. | Aggregate schemas exist without addressable operation rows or parallel registers disagree. |
-| Public identity is staged and acyclic. | Pre-family owner identity and definition digests close first, then the intrinsic family and package projections, then Product content identity, and only then the complete existing flat manifest catalog. | A definition preimage contains a generated asset, family digest, or Product content digest, or generation uses a seed, zero digest, loader-order fallback, post-hoc reevaluation, or replacement catalog. |
+| Public identity is staged and acyclic. | Pre-family owner identity and definition digests close first, then the intrinsic family and package projections, then Product content identity, and only then the S06-bound flat manifest catalog plus mandatory-gap residual. T-270 closes the mandatory roster before unified M5 freeze. | A definition preimage contains a generated asset, family digest, or Product content digest, or generation uses a seed, zero digest, loader-order fallback, post-hoc reevaluation, replacement catalog, or S06-synthesized missing row. |
 | Physical TypeScript syntax is not a semantic occurrence. | Parser/checker relations remain subordinate evidence. | One raw import/re-export identity becomes the unit of contract authority or binding cardinality. |
 | Native phases are singular. | F01 derives source-contract pending selectors; F02's linked checker alone derives final occurrences and bindings. | Local verification assigns a final target, contract, occurrence, or lock identity. |
 | Native occurrences are source-contract indexed. | The linked checker derives one occurrence per exact source contract and externally contributing target symbol. | An uncontracted subordinate root creates a false owner, or two source contracts share one occurrence identity. |
@@ -100,7 +100,7 @@ Excluded:
 | Constitutional source | Global decision | Local design projection | Falsification |
 |---|---|---|---|
 | `REQ-P-PUBLIC-CONTRACTS-005`, `-008` | complete public family | Section 4.1 exact 18-operation/56-key family | missing, extra, legacy, or 5.1 key |
-| `REQ-P-PUBLIC-CONTRACTS-001..002A`, `-004` | public identity is exact and acyclic | pre-family owner/definition identity, family identity, PFC-F07 payload projection, Product-content digest, then PFC-F08 complete existing flat manifest catalog | self-reference, later-stage input, replacement carrier, placeholder digest, or generated/runtime divergence |
+| `REQ-P-PUBLIC-CONTRACTS-001..002A`, `-004` | public identity is exact and acyclic | pre-family owner/definition identity, family identity, PFC-F07 payload projection, Product-content digest, then PFC-F08 S06 flat catalog; T-270 closes mandatory rows before M5 | self-reference, later-stage input, replacement carrier, placeholder digest, generated/runtime divergence, or opportunistic missing-row authorship |
 | `REQ-P-PUBLIC-CONTRACTS-009..010`; `REQ-P-POLICY-062..064` | one indexed request/result/refusal/non-terminal authority | Sections 4.2, 4.4, and 4.5 | native/parser/schema/runtime disagreement or generic payload/outcome |
 | `REQ-P-POLICY-022`, `-044..045` | SDK, CLI, and Codex are projections | PFC-F07 plus exact adapter exit maps | adapter-specific roster, validation, semantics, or outcome |
 | `REQ-P-POLICY-023..040`, `-049..061` | every operation binds its owning complete semantic function | Section 4.2.1 exact owner references plus Section 4.4 owner relations | copied payload, metadata, handler, or prose supplies an absent relation |
@@ -138,7 +138,8 @@ PFC-F03 ClosePublicFunctionFamily(
 
 PFC-F03A SelectPublicFunctionDefinition(
   closed intrinsic family,
-  exact verified Product manifest and complete flat catalog,
+  complete definition-contract coordinate map,
+  exact verified development-Product manifest and S06-bound flat catalog,
   unknown host operation and member identities
 )
   -> exists K. PublicFunctionSelection<K>
@@ -176,23 +177,25 @@ PFC-F07 DerivePublicProjections(
    + CLI grammar and exit maps
    + documentation inventory
 
-PFC-F08 BindProductPublicContractCatalog(
-  exact complete existing flat catalog basis,
+PFC-F08 BindS06PublicFunctionCatalog(
+  exact extant flat catalog basis,
   exact PFC-F07 catalog-row proposal set,
   exact Product identity and content identity
 )
   -> existing PublicContractCatalog carrier
+   + MandatoryCatalogGapSet
    | PublicCatalogBindingRefusal
 
-PFC-F08A JoinExpectedOwnerContract(
-  exact OwnerContractIdentityProjection,
-  exact verified Product manifest and flat catalog
+PFC-F08A JoinExpectedOwnerContractSet(
+  exact family-derived expected owner-contract set,
+  exact PFC-F07 operation-contract projection set,
+  exact verified development-Product manifest and flat catalog
 )
-  -> PublicContractCoordinate
+  -> CompleteDefinitionContractCoordinateMap
    | ProductContractBindingRefusal
 ```
 
-The complete public composition is:
+The complete S06 public-function composition is:
 
 ```text
 owner semantic contracts
@@ -201,10 +204,12 @@ owner semantic contracts
   -> PFC-F03 exact family closure
   -> PFC-F07 immutable projections
   -> existing Product content identity
-  -> PFC-F08 merge into the complete existing manifest catalog
+  -> PFC-F08 merge into the extant development-Product manifest catalog
+  -> PFC-F08A complete nested definition-contract coordinate map
 
 unknown host value
-  + verified Product manifest and complete flat catalog
+  + verified development-Product manifest, S06-bound flat catalog,
+    and complete definition-contract coordinate map
   -> PFC-F03A
   -> PFC-F04<K>
   -> PFC-F05<K>
@@ -213,10 +218,11 @@ unknown host value
 
 `PFC-F03` and `PFC-F07` are deterministic build compositions. `PFC-F08` is
 the existing Product-publication authority binding the already-closed
-intrinsic family projections into the existing complete flat catalog after
-Product content identity exists. It neither replaces that catalog nor changes
-its serialized carrier. `PFC-F08A` is the exact-one Product-verification join
-from one pre-family owner identity to one verified flat row.
+intrinsic family projections into the extant flat catalog after Product
+content identity exists. It neither replaces that catalog nor claims that
+unrelated mandatory rows are complete. `PFC-F08A` derives the complete
+expected owner-contract set from the admitted family and joins each nested
+definition/slot coordinate through its exact operation row.
 None is a runtime dispatch service. `PFC-F03A` is exact zero/one family selection;
 unknown operation or member identity fails before any `K` exists.
 `PFC-F05` is a typed higher-order call to the operation's existing owner;
@@ -306,7 +312,6 @@ OwnerContractBinding<K, Slot, S> = {
   ownerAuthorityDigest
   schema: strict NativeSchema<S>
   nativeSchemaIdentity: OwnerNativeSchemaIdentity
-  projectionWitnessDigest
 }
 
 OwnerNativeSchemaIdentity = {
@@ -323,7 +328,6 @@ OwnerContractIdentityProjection<K, Slot> = {
   ownerAuthorityRef
   ownerAuthorityDigest
   nativeSchemaIdentity
-  ownerWitnessDigest: projectionWitnessDigest
 }
 
 RequestOf<K> = InferOutput<RequestSchemaOf<K>>
@@ -424,7 +428,6 @@ ExactOwnerContractReference<K, Slot> = {
   ownerAuthorityRef
   ownerAuthorityDigest
   nativeSchemaIdentity: OwnerNativeSchemaIdentity
-  projectionWitnessDigest
 }
 
 ExactOwnerMetadataReference<K> = {
@@ -476,11 +479,11 @@ choice. Export and member paths are not. The final public projection is always:
 
 `OwnerContractIdentityProjection` is the exact pre-family projection of the
 resolved binding. Its native schema identity is the owner member coordinate,
-whose module and member digests already bind the strict owner schema, plus the
-separate owner projection witness. It contains no generated package locator,
-JSON Schema asset path, asset digest, family digest, catalog coordinate,
-Product identity, or Product-content digest. PFC-F07 derives those downstream
-coordinates only after the family closes.
+whose module and member digests already bind the strict owner schema. No
+separate projection-witness digest exists. It contains no generated package
+locator, JSON Schema asset path, asset digest, family digest, catalog
+coordinate, Product identity, or Product-content digest. PFC-F07 derives those
+downstream coordinates only after the family closes.
 
 ```text
 package: "@abiogenesis/typescript-tenant"
@@ -714,7 +717,7 @@ familyDigest =
   sha256(RFC8785(IntrinsicFamilyDigestProjection))
 
 CatalogDigestProjection =
-  final existing PublicContractCatalog carrier
+  resulting S06 PublicContractCatalog carrier
   with only catalogDigest omitted
 
 catalogDigest =
@@ -729,10 +732,11 @@ declaration asset digests may not. The family closes before PFC-F07 emits its
 package assets and flat catalog-row proposals. The existing Product-content
 algorithm then hashes those fixed payload bytes while excluding
 `product-toolchain-manifest.json`, as required by
-`REQ-P-PUBLIC-CONTRACTS-002A`. PFC-F08 adds the proposed rows to the complete
-existing flat catalog under the exact Product identity. The catalog digest
-covers that completed existing carrier with only its own field omitted; the
-complete manifest digest remains external to the manifest.
+`REQ-P-PUBLIC-CONTRACTS-002A`. PFC-F08 adds the proposed rows to the extant flat
+catalog under the exact Product identity and computes the mandatory gap
+residual. The catalog digest covers that resulting S06 carrier with only its
+own field omitted; the complete manifest digest remains external to the
+manifest.
 
 No projection includes its own digest, schema function, object identity,
 function source text, loader order, seed digest, zero digest, or value supplied
@@ -783,16 +787,30 @@ PublicOperationContractProjection = {
     definitionKey
     definitionRef
     definitionDigest
-    requestContract: OwnerContractIdentityProjection
-    resultContract: OwnerContractIdentityProjection
-    refusalContract: OwnerContractIdentityProjection
-    nonTerminalContract: OwnerContractIdentityProjection | null
+    requestContract: {
+      identity: OwnerContractIdentityProjection
+      definitionRef: JsonPointer
+    }
+    resultContract: {
+      identity: OwnerContractIdentityProjection
+      definitionRef: JsonPointer
+    }
+    refusalContract: {
+      identity: OwnerContractIdentityProjection
+      definitionRef: JsonPointer
+    }
+    nonTerminalContract: {
+      identity: OwnerContractIdentityProjection
+      definitionRef: JsonPointer
+    } | null
     ownerPort: OwnerPortCoordinate
   }>
   invocationContractId: "abg.schema.public-operation-invocation"
   outcomeContractId: "abg.schema.public-operation-outcome"
-  projectionRefusalContractId:
-    "abg.schema.public-operation-outcome#/$defs/OutcomeProjectionRefusal"
+  projectionRefusalContract: {
+    contractId: "abg.schema.public-operation-outcome"
+    definitionRef: "#/$defs/OutcomeProjectionRefusal"
+  }
   authorityClassByDefinition
   effectClassByDefinition
   workspaceBindingRequirementByDefinition
@@ -856,17 +874,96 @@ PublicContractCatalogCoordinate =
     catalogDigest
   }
 
+PublicFunctionDefinitionKey = {
+  operationId
+  memberKey
+} where the pair is one exact K in the closed Section 4.1 family
+
+PublicContractNestedSelector =
+  | {
+      selectorKind: "flat_contract"
+      definitionKey: null
+      slot: null
+      definitionRef: null
+    }
+  | {
+      selectorKind: "operation_definition_slot"
+      definitionKey: PublicFunctionDefinitionKey
+      slot: request | result | refusal | non_terminal
+      definitionRef: JsonPointer
+    }
+  | {
+      selectorKind: "schema_definition"
+      definitionKey: null
+      slot: null
+      definitionRef: JsonPointer
+    }
+
 PublicContractCoordinate = {
   contractCatalog: PublicContractCatalogCoordinate
-  contractId
-  contractVersion
-  contractDigest
+  flatRow: {
+    contractId
+    contractVersion
+    contractDigest
+  }
+  nestedSelector: PublicContractNestedSelector
 }
 
 ProjectionRefusalContractCoordinate =
   PublicContractCoordinate where
-    contractId =
-      "abg.schema.public-operation-outcome#/$defs/OutcomeProjectionRefusal"
+    flatRow.contractId = "abg.schema.public-operation-outcome"
+    and nestedSelector = {
+      selectorKind: "schema_definition"
+      definitionKey: null
+      slot: null
+      definitionRef: "#/$defs/OutcomeProjectionRefusal"
+    }
+
+DefinitionContractCoordinateSet<K> = {
+  request: PublicContractCoordinate where
+    flatRow.contractId = K.operationId
+    and nestedSelector.selectorKind = "operation_definition_slot"
+    and nestedSelector.definitionKey = K
+    and nestedSelector.slot = request
+  result: PublicContractCoordinate where
+    flatRow.contractId = K.operationId
+    and nestedSelector.selectorKind = "operation_definition_slot"
+    and nestedSelector.definitionKey = K
+    and nestedSelector.slot = result
+  refusal: PublicContractCoordinate where
+    flatRow.contractId = K.operationId
+    and nestedSelector.selectorKind = "operation_definition_slot"
+    and nestedSelector.definitionKey = K
+    and nestedSelector.slot = refusal
+  nonTerminal:
+    NonTerminalOf<K> is never
+      ? null
+      : PublicContractCoordinate where
+          flatRow.contractId = K.operationId
+          and nestedSelector.selectorKind = "operation_definition_slot"
+          and nestedSelector.definitionKey = K
+          and nestedSelector.slot = non_terminal
+}
+
+CompleteDefinitionContractCoordinateMap =
+  exact map from every K in IntrinsicPublicFunctionDefinitionFamily
+  to DefinitionContractCoordinateSet<K>
+
+RequestContractOf<K> =
+  CompleteDefinitionContractCoordinateMap[K].request
+ResultContractOf<K> =
+  CompleteDefinitionContractCoordinateMap[K].result
+RefusalContractOf<K> =
+  CompleteDefinitionContractCoordinateMap[K].refusal
+NonTerminalContractOf<K> =
+  CompleteDefinitionContractCoordinateMap[K].nonTerminal
+
+ExpectedOwnerContractSet(family) =
+  exact flatten, for every K in family, of:
+    family[K].requestContract identity projection
+    family[K].resultContract identity projection
+    family[K].refusalContract identity projection
+    plus family[K].nonTerminalContract identity projection when non-null
 ```
 
 The locator presence relation remains exactly the current closed catalog
@@ -895,36 +992,80 @@ operationContractIds =
   union exact 18 operation identities
 
 retainedRows =
-  completeExistingCatalog.rows
+  extantCatalogBasis.rows
   excluding rows whose contractId is in operationContractIds
 
 boundOperationRows =
   PFC-F07 catalog-row proposals
   with owningProduct = exact containing manifest.productId
 
-finalCatalog.rows =
+s06Catalog.rows =
   canonicalSortByContractId(retainedRows union boundOperationRows)
+
+MandatoryCatalogGapSet =
+  exact REQ-P-PUBLIC-CONTRACTS-006A mandatory identity set
+  minus Set(s06Catalog.rows.contractId)
 ```
 
 The proposal set contains exactly one row for every
 `operationContractIds` member and no other identity. The retained set preserves
-every required GTL, ABG, runtime, installer, Consensus, qualification,
-vocabulary, schema, and corpus row. Any duplicate identity, missing projected
-identity, changed retained row, wrong owning Product, unresolved locator,
-content-digest mismatch, or incomplete required row is
-`PublicCatalogBindingRefusal`. PFC-F08 computes `catalogDigest` over this final
-existing carrier and does not rewrite intrinsic definition or family identity.
+every extant non-operation row byte-for-byte; it does not assert that absent
+mandatory rows already exist. Any duplicate identity, missing projected
+identity, changed retained row, wrong owning Product, unresolved locator, or
+content-digest mismatch is `PublicCatalogBindingRefusal`. PFC-F08 computes
+`catalogDigest` over this S06 development-Product carrier, emits the exact
+`MandatoryCatalogGapSet` as a verification residual, and does not rewrite
+intrinsic definition or family identity.
 
-PFC-F08A recomputes the deterministic PFC-F07 row proposal for each
-`OwnerContractIdentityProjection` supplied to Product verification and
-requires exactly one flat row with the same contract identity, version,
-authority, capability, native locator and schema-definition locator. That row
-must belong to the exact containing Product, resolve within its verified
-payload inventory, and participate in the exact catalog digest. Zero matches,
-multiple matches, a changed locator or authority, wrong Product identity, or
-wrong content identity is `ProductContractBindingRefusal`. The result is the
-`PublicContractCoordinate` above; no registry, receipt carrier, or second
-catalog is introduced.
+PFC-F08A derives `ExpectedOwnerContractSet` from the exact admitted artifact
+family. The caller supplies no expected-contract set. For each operation
+identity it requires exactly one flat operation row, resolves that row's exact
+`PublicOperationContractProjection`, selects exactly one `definitionKey`, then
+selects exactly one slot and nested definition pointer. The selected nested
+identity must equal the expected owner identity. Many nested contracts may
+share one flat operation row; one nested definition/slot coordinate may
+satisfy only its one expected identity.
+
+Successful joining requires:
+
+```text
+Set(ExpectedOwnerContractSet) =
+  Set(all selected nested owner-contract identities)
+
+Unique(expected definitionKey, slot)
+Unique(selected definitionKey, slot, definitionRef)
+```
+
+Zero or multiple flat rows, definitions, slots, or pointers; missing or extra
+nested identities; changed owner authority; wrong Product/content/catalog
+identity; or unresolved payload bytes is `ProductContractBindingRefusal`.
+Success returns the complete coordinate map above. No registry, caller claim,
+receipt carrier, fragment contract ID, or second catalog is introduced.
+
+The S06 output is a development-Product portability catalog, not a claim of
+complete ABIogenesis 5.0 public-contract conformance. `MandatoryCatalogGapSet`
+therefore remains visible in `ProductVerifyResult.residuals`. While that set
+is non-empty, any ABIogenesis 5.0 public-contract conformance claim refuses
+under `REQ-P-PUBLIC-CONTRACTS-001`; ordinary development-Product verification
+and the bounded S06 portability path may proceed without such a claim. T-270
+owns one later unified-M5 composition:
+
+```text
+CompleteMandatoryPublicContractCatalog(
+  accepted S06 catalog and operation projections,
+  exact REQ-P-PUBLIC-CONTRACTS-005..007A owner publications,
+  exact 44-identity mandatory roster
+)
+  -> PublicContractCatalog where MandatoryCatalogGapSet = empty
+   | PublicContractCompletionGap
+```
+
+That composition is designed and realized under T-270 before unified M5 freeze
+and before any ABIogenesis 5.0 conformance claim, M6 qualification, or M7
+release. It consumes exact owner-local publications; it cannot synthesize the
+currently absent rows from operation metadata or S06 implementation
+convention. It is a deferred Product-publication composition, not a new Prime,
+catalog, operation, runtime, or S06 realization obligation.
 
 ### 4.3 Closed Project Read Relation
 
@@ -1101,7 +1242,6 @@ ProductVerifyRequest =
       productContent: RD<ProductContent>
       descriptor: RD<ProductDescriptor>
       contributionManifest: RD<ContributionManifest>
-      expectedContracts: Unique<OwnerContractIdentityProjection>
       declaredDependencies: Unique<ProductDependencyRequirement>
       compatibilityInputs: Unique<ProductCompatibilityRequirement>
     }
@@ -1111,7 +1251,6 @@ ProductVerifyRequest =
       productContent: RD<ProductContent>
       descriptor: RD<ProductDescriptor>
       contributionManifest: RD<ContributionManifest>
-      expectedContracts: Unique<OwnerContractIdentityProjection>
       declaredDependencies: Unique<ProductDependencyRequirement>
       compatibilityInputs: Unique<ProductCompatibilityRequirement>
       resolvedLock: RD<ResolvedProductLock>
@@ -1124,23 +1263,46 @@ ProductVerifyResult =
       localNativeEvidence: RD<LocalNativeContractEvidence>,
       pendingExternalSelectors:
         Unique<ContractIndexedPendingExternalSelector>,
+      definitionContractCoordinates:
+        CompleteDefinitionContractCoordinateMap | null,
+      mandatoryCatalogGaps: MandatoryCatalogGapSet,
       residuals: Unique<TypedResidual>, provenance: RDSet<Provenance> }
   | { targetKind: "installed_artifact", disposition: "installed_verified",
       verifiedArtifact: RD<VerifiedProductArtifact>,
       resolvedLock: RD<ResolvedProductLock>,
       installedProduct: RD<InstalledProduct>,
+      definitionContractCoordinates:
+        CompleteDefinitionContractCoordinateMap | null,
+      mandatoryCatalogGaps: MandatoryCatalogGapSet,
       residuals: Unique<TypedResidual>, provenance: RDSet<Provenance> }
 
 ProductVerifyContractJoin =
-  for every expectedContracts member:
-    PFC-F08A(expected owner identity, verified manifest and flat catalog)
-    -> exactly one PublicContractCoordinate
+  declaredFamily =
+    DeriveDeclaredPublicFunctionFamily(content-verified artifact payload)
+  declaredFamily is absent
+    ? require complete omission of the public-function-family claim
+      -> null
+    : PFC-F08A(
+        ExpectedOwnerContractSet(declaredFamily),
+        exact operation projections,
+        verified manifest and flat catalog
+      )
+        -> CompleteDefinitionContractCoordinateMap
 ```
 
-The join is total before `VerifiedProductArtifact` construction. No flat row
-may satisfy two distinct expected identities. A missing, duplicate,
-cross-Product, locator-divergent, authority-divergent, or payload-incoherent
-match is `ProductContractBindingRefusal`.
+The family is derived from content-verified artifact bytes and its declared
+public operator capability; the caller cannot omit or narrow it. ABIogenesis
+S06 must derive the exact 18-operation/56-key family. A Product that declares
+no public function family derives `null`, not an empty claim for a declared
+family. The join is total before `VerifiedProductArtifact` construction. A missing,
+duplicate, cross-Product, locator-divergent, authority-divergent, or
+payload-incoherent nested match is `ProductContractBindingRefusal`.
+
+`DeriveDeclaredPublicFunctionFamily` returns `null` only when the descriptor,
+capability set, common public-operation rows, and native exports all omit a
+public-function-family claim. Presence of any one claim requires the others
+and exact family loading from the content-verified package export; a partial
+claim refuses rather than projecting `null`.
 
 ```text
 K_verify = ("abg.operation.product.verify", "verify")
@@ -1418,7 +1580,7 @@ non-terminal classification are the closed sets in the table below.
 | `workspace.create(clean)` | target root, literal clean policy, explicit scaffold policy | workspace identity, authority mode, scaffold/bootstrap state, creation manifest, provenance | invalid target, exists, identity conflict, invalid scaffold, filesystem failure | none |
 | `workspace.create(imported)` | target root, imported authority ref/digest, preservation policy | imported workspace identity and preserved-state manifest | clean refusals plus invalid import authority or preservation failure | none |
 | `workspace.open(open)` | target root and expected authority ref/digest | ready, unbound, stale, malformed, or incompatible WorkspaceOpenProjection | invalid target, missing workspace, authority mismatch | none |
-| `product.verify(verify)` | exact `packed_artifact` or `installed_artifact` target sum; both carry artifact/content, descriptor, contribution manifest, expected contracts, and declared dependency/compatibility inputs; installed target alone carries its resolved lock and install coordinates | verified artifact, every checked identity, locally admitted native truth plus explicit pending external selectors, typed residuals, provenance | artifact/content/identity/descriptor/contribution mismatch, invalid declared dependency, unsupported contract; installed target also admits lock mismatch or stale installed state | none |
+| `product.verify(verify)` | exact `packed_artifact` or `installed_artifact` target sum; both carry artifact/content, descriptor, contribution manifest, and declared dependency/compatibility inputs; the verifier derives any public-function family and its complete expected contract set from content-verified bytes; installed target alone carries its resolved lock and install coordinates | verified artifact, every checked identity, locally admitted native truth plus explicit pending external selectors, typed residuals, provenance | artifact/content/identity/descriptor/contribution mismatch, invalid declared dependency, unsupported contract; installed target also admits lock mismatch or stale installed state | none |
 | `product.resolve(resolve)` | non-empty unique Product requirements and successful packed-verification invocation/outcome references | exact resolved lock and one selection per required Product, bound to the same verification set | invalid, unverified, unresolved, incompatible, ambiguous, cyclic | none |
 | `product.install(install)` | verified artifact, descriptor, contribution manifest, exact resolved lock, target, install policy | installed Product and install/installer manifests with provenance | verification, target, identity/content/descriptor/contribution/lock/contract/filesystem failure | none |
 | `workspace.bind(bind)` | workspace authority, non-empty installed set, resolved lock, complete declared roots | immutable binding and manifest | workspace/product/lock/content/root/binding/incompatibility refusal | none |
@@ -1475,21 +1637,15 @@ typed refusal exist before M5 freeze; a placeholder success or
 ```text
 PublicFunctionDefinitionVersion = "5.0.0"
 
-IntrinsicPublicInvocationContractIdentity =
-  exact OwnerContractIdentityProjection where
-    contractId = "abg.schema.public-operation-invocation"
-
-IntrinsicPublicOutcomeContractIdentity =
-  exact OwnerContractIdentityProjection where
-    contractId = "abg.schema.public-operation-outcome"
-
 PublicInvocationContractCoordinate =
   exact PublicContractCoordinate where
-    contractId = "abg.schema.public-operation-invocation"
+    flatRow.contractId = "abg.schema.public-operation-invocation"
+    and nestedSelector.selectorKind = "flat_contract"
 
 PublicOutcomeContractCoordinate =
   exact PublicContractCoordinate where
-    contractId = "abg.schema.public-operation-outcome"
+    flatRow.contractId = "abg.schema.public-operation-outcome"
+    and nestedSelector.selectorKind = "flat_contract"
 
 PublicFunctionSelection<K> = {
   familyRef
@@ -1499,6 +1655,7 @@ PublicFunctionSelection<K> = {
   definitionRef
   definitionVersion: PublicFunctionDefinitionVersion
   definitionDigest
+  definitionContracts: DefinitionContractCoordinateSet<K>
 }
 
 PublicFamilyLookupRefusal = {
@@ -1526,13 +1683,13 @@ PublicInvocation<K> = {
   definitionKey: K
   contractCatalog: PublicContractCatalogCoordinate
   invocationAuthority: InvocationAuthorityOf<K, RequestOf<K>>
-  requestContract: PublicContractCoordinate
+  requestContract: RequestContractOf<K>
   requestRef
   requestDigest
   request: RequestOf<K>
-  expectedResultContract: PublicContractCoordinate
-  expectedRefusalContract: PublicContractCoordinate
-  expectedNonTerminalContract: PublicContractCoordinate | null
+  expectedResultContract: ResultContractOf<K>
+  expectedRefusalContract: RefusalContractOf<K>
+  expectedNonTerminalContract: NonTerminalContractOf<K>
   correlationRef
   eventTime: RFC3339Instant
   provenanceRefs: Unique<Ref<Provenance>>
@@ -2128,7 +2285,7 @@ enter the accepted native-closure digest and resolved-lock identity.
 
 | ID | Entity or relation | Classification | Identity and authority |
 |---|---|---|---|
-| `S06C-E01` | `OwnerContractBinding<K,Slot>` | authoritative subordinate | owner requirement/design plus exact native schema and projection witness |
+| `S06C-E01` | `OwnerContractBinding<K,Slot>` | authoritative subordinate | owner requirement/design plus exact native schema member identity |
 | `S06C-E02` | `IntrinsicPublicFunctionDefinition<K>` | authoritative `InvocationBasis` member | exact definition key, owner contracts, authority/effect/binding/capability/adapter law; no family or Product-content input |
 | `S06C-E03` | `IntrinsicPublicFunctionDefinitionFamily` | authoritative Product contract | exact 18-operation/56-key intrinsic family and digest |
 | `S06C-E04` | `PublicInvocation<K>` | authoritative `InvocationBasis` member | exact admitted host request under E02 |
@@ -2141,15 +2298,17 @@ enter the accepted native-closure digest and resolved-lock identity.
 | `S06C-E11` | `NativeContractBindingSet` | private resolver evidence | complete occurrence-to-binding conservation set |
 | `S06C-E12` | `ResolvedProductLock` | authoritative `EnvironmentBasis` member | existing lock plus native closure digest |
 | `S06C-E13` | `PublicFamilyLookupRefusal` | downstream pre-index carrier | exact closed family plus supplied operation/member identities; no `K` or owner authority |
-| `S06C-E14` | existing `PublicContractCatalog` in a verified Product manifest | authoritative Product manifest catalog | complete retained flat row set plus exact E06 rows under the containing Product identity/content |
+| `S06C-E14` | existing `PublicContractCatalog` in a verified development-Product manifest | authoritative Product manifest catalog for S06 | extant retained flat rows plus exact E06 rows under the containing Product identity/content |
+| `S06C-E15` | `MandatoryCatalogGapSet` | typed Product-verification residual | exact mandatory identity roster minus E14 row identities |
 | `S06C-R01` | owner-contract-to-definition | Product public-contract relation | E01 -> E02 |
 | `S06C-R02` | definition-family closure | Product publication relation | exact E02 set -> E03 |
 | `S06C-R03` | family selection and invocation admission | Public admission relation | E03 + E14 + unknown input -> E13 or exact K -> E04 or indexed refusal |
 | `S06C-R04` | owner execution and outcome projection | owner then Public relation | E04 -> owner output -> E05 |
 | `S06C-R05` | pending-selector derivation | Product verifier relation | source contract plus local checker -> E08 |
 | `S06C-R06` | linked occurrence and binding | Product resolver relation | E08 plus linked checker/direct dependencies -> E09/E10/E11 -> E12 |
-| `S06C-R07` | complete flat-catalog merge | Product publication relation | retained catalog basis plus E03/E06 and Product identity/content -> E14 |
-| `S06C-R08` | expected-owner-contract join | Product verification relation | each E01 identity projection -> exactly one E14 flat row |
+| `S06C-R07` | S06 flat-catalog merge | Product publication relation | extant catalog basis plus E03/E06 and Product identity/content -> E14/E15 |
+| `S06C-R08` | expected-owner-contract join | Product verification relation | family-derived complete E01 set -> E14 operation row -> definition key -> slot -> nested coordinate |
+| `S06C-R09` | mandatory-catalog completion | deferred T-270 Product publication composition | E14/E15 plus exact owner publications -> E14 where E15 is empty before unified M5 freeze |
 
 ### 6.2 Cardinality
 
@@ -2161,11 +2320,14 @@ enter the accepted native-closure digest and resolved-lock identity.
   E14 binding.
 - E13 carries no definition key, invocation ref, or owner-semantic refusal.
 - Every E06 member derives from exactly one E02 or the exact E03 family.
-- Every E14 preserves every required retained flat row and contains exactly one
-  flat row for each PFC-F07 operation-contract identity under one verified
+- Every E14 preserves every extant non-operation flat row and contains exactly
+  one flat row for each PFC-F07 operation-contract identity under one verified
   containing Product and Product-content identity.
-- Every expected E01 identity projection joins exactly one E14 row; zero,
-  multiple, cross-Product, or locator-divergent matches refuse verification.
+- E15 is exact and may be non-empty for the S06 development Product. It must be
+  empty before unified M5 freeze or any 5.0 conformance claim.
+- The family-derived expected E01 set equals the selected nested identity set.
+  Many nested identities may share one E14 operation row; every
+  `(definitionKey, slot, definitionRef)` coordinate is unique.
 - Every E08 has exactly one source contract and no final checker target.
 - Every E08 has exactly one linked selector disposition.
 - Every E09 has exactly one source contract and one canonical checker target.
@@ -2181,8 +2343,9 @@ enter the accepted native-closure digest and resolved-lock identity.
 |---|---|---|---|---|---|
 | owner contract | semantic owner | owner schema plus public family join | Product publication | none | PFC-F07 |
 | public definition/family | owner packets | Product public-contract closure | immutable Product publication | none | PFC-F07 |
-| complete public catalog | retained flat catalog plus intrinsic family projections and Product content | Product publication | PFC-F08 | none | Product verification and Public invocation admission |
-| expected owner contract | Product verification request | PFC-F08A exact-one flat-row join | product.verify | none | verified contract coordinate |
+| S06 public-function catalog | extant flat catalog plus intrinsic family projections and Product content | Product publication | PFC-F08 | none | Product verification, residual projection, and Public invocation admission |
+| expected owner contract set | content-verified artifact family | PFC-F08A row/definition/slot nested join | product.verify | none | complete definition-contract coordinate map |
+| mandatory catalog completion | exact owner-local publications | T-270 unified M5 publication closure | Product publication | none | release-complete catalog with empty gap set |
 | family selection | host operation/member identities | PFC-F03A exact family lookup | none | none | family lookup refusal or exact K |
 | invocation | caller/adapter | PFC-F04 | Public operation admission | exact semantic owner | PFC-F06 |
 | semantic result/refusal | semantic owner | owner contract | owning Product/ABG/artifact boundary | semantic owner | PFC-F06 |
@@ -2202,8 +2365,9 @@ Adapters, generated schemas, and tests have no semantic authority.
 | 56 operation-specific definition objects | parameterized `PFC-F02<K>` | exact owner contracts and metadata remain indexed by K | one atom applied 56 times |
 | request parsing by SDK, CLI, handler | `PFC-F04<K>` | exact raw admission and authority relation | one admission atom |
 | handler, SDK, and CLI outcome shaping | `PFC-F06<K>` | owner output remains exact and operation indexed | one projection atom |
-| schema, catalog rows, SDK, CLI, docs rosters and Product binding | staged `PFC-F07` then `PFC-F08` | intrinsic addresses remain deterministic projections; the complete existing flat catalog is preserved and Product content remains outside their payload preimage | subordinate compositions |
-| expected owner contract to verified flat row | `PFC-F08A` exact-one join | Product verification cannot trust an unbound intrinsic claim | subordinate composition |
+| schema, catalog rows, SDK, CLI, docs rosters and Product binding | staged `PFC-F07` then `PFC-F08` | intrinsic addresses remain deterministic projections; extant flat rows are preserved and Product content remains outside their payload preimage | subordinate compositions |
+| family-derived owner contracts to nested coordinates | `PFC-F08A` complete join | Product verification cannot trust a caller-supplied or partial expected set | subordinate composition |
+| mandatory catalog completion | deferred `CompleteMandatoryPublicContractCatalog` under T-270 | all 44 identities require owner-local publication before unified M5 freeze | composed, not S06 or Prime |
 | operation/member lookup | `PFC-F03A` exact family selection | unknown identities fail before indexed admission | subordinate composition |
 | 18 semantic owner functions | no contraction | different Product/ABG meanings, effects, and authorities | preserve separately |
 | physical syntax relation and semantic occurrence | no merge | syntax evidence and contract authority are different algebras | preserve separately |
@@ -2245,8 +2409,9 @@ new runtime/event authority = none
 | PFC-F05 | operation semantic owner | existing Product, GTL validator, HoG/ABG, or release interface | indexed owner output |
 | PFC-F06 | Public projection | `Public.OutcomeProjection` | indexed public outcome |
 | PFC-F07 | Product publication | `Public.ContractProjection` | schemas, flat catalog-row proposals, SDK, CLI, docs |
-| PFC-F08 | Product publication authority | existing Product manifest/public-contract interface | complete existing flat manifest catalog |
-| PFC-F08A | Product verifier | existing Product manifest/public-contract interface | exact verified contract coordinate or binding refusal |
+| PFC-F08 | Product publication authority | existing Product manifest/public-contract interface | S06-bound flat catalog plus mandatory gap set |
+| PFC-F08A | Product verifier | existing Product manifest/public-contract interface | complete nested definition-contract coordinate map or binding refusal |
+| deferred M5 catalog completion | T-270 Product publication authority | existing Product manifest/public-contract interface plus owner-local publications | same flat carrier with empty mandatory gap set |
 | NCC-F01 | Product verifier | private `Product.NativeContractAnalysis` | local truth and contract-indexed pending selectors |
 | NCC-F02/NCC-F03 | Product resolver | private linked analysis plus existing `Product.EnvironmentResolution` | selector dispositions, canonical occurrences, binding set, and resolved lock |
 
@@ -2257,7 +2422,11 @@ owner contract sources
   -> Public.ContractDefinition
   -> Public.ContractProjection
   -> Product content identity
-  -> complete existing flat manifest catalog
+  -> S06-bound flat manifest catalog plus mandatory residual
+
+T-270 unified M5 publication
+  -> exact owner-local mandatory-row publications
+  -> same flat manifest catalog with empty mandatory residual
 
 adapter
   -> Public.InvocationAdmission
@@ -2321,10 +2490,25 @@ classDiagram
     +56 keys
   }
   class PublicContractCatalog {
-    <<authoritative manifest catalog>>
+    <<authoritative development manifest catalog>>
     +catalogId
-    +completeFlatRows
+    +extantRows
+    +exactS06Rows
     +catalogDigest
+  }
+  class DefinitionContractCoordinateMap {
+    <<verified nested projection>>
+    +definitionKey
+    +slot
+    +definitionRef
+  }
+  class MandatoryCatalogGapSet {
+    <<typed residual>>
+    +missingContractIds
+  }
+  class M5OwnerPublications {
+    <<deferred T-270 input>>
+    +exactMandatoryRows
   }
   class PublicInvocation {
     <<authoritative>>
@@ -2388,7 +2572,10 @@ classDiagram
   IntrinsicPublicFunctionDefinition --> IntrinsicPublicFunctionFamily : exact membership
   IntrinsicPublicFunctionFamily --> PublicProjectionAssets : derives
   IntrinsicPublicFunctionFamily --> PublicContractCatalog : merges rows after Product content
-  OwnerContractBinding --> PublicContractCatalog : exact-one verified join
+  OwnerContractBinding --> DefinitionContractCoordinateMap : family-derived nested join
+  PublicContractCatalog --> DefinitionContractCoordinateMap : row and definition lookup
+  PublicContractCatalog --> MandatoryCatalogGapSet : mandatory roster difference
+  M5OwnerPublications --> PublicContractCatalog : closes gaps before M5 freeze
   PublicContractCatalog --> PublicFamilyLookupRefusal : rejects unknown identity
   PublicContractCatalog --> PublicInvocation : admits
   PublicInvocation --> OwnerSemanticFunction : typed call
@@ -2426,8 +2613,8 @@ sequenceDiagram
   else family is closed
     Def->>Projection: exact intrinsic family and digest
     Projection->>Binding: fixed payload assets and flat row proposals
-    Binding->>Binding: Product content identity then PFC-F08 flat-catalog merge
-    Binding-->>Caller: verified catalog, schemas, rows, SDK, CLI
+    Binding->>Binding: Product content identity then PFC-F08 S06 row merge
+    Binding-->>Caller: development catalog, mandatory residuals, schemas, SDK, CLI
   end
 
   Caller->>Admission: verified catalog plus unknown operation, member, and value
@@ -2446,9 +2633,10 @@ sequenceDiagram
     end
   end
 
-  Verify->>Binding: expected owner identities plus verified manifest/catalog
-  Binding->>Binding: PFC-F08A exact-one flat-row join
-  Binding-->>Verify: exact coordinates or ProductContractBindingRefusal
+  Verify->>Verify: derive complete expected set from content-verified family
+  Verify->>Binding: family-derived set plus verified manifest/catalog
+  Binding->>Binding: PFC-F08A row then definition then slot join
+  Binding-->>Verify: complete coordinate map or ProductContractBindingRefusal
   Verify->>LocalChecker: each successfully bound source contract and exact named symbol
   LocalChecker->>LocalChecker: derive pending external selectors only
   LocalChecker-->>Verify: local truth and exact pending selector set
@@ -2476,9 +2664,13 @@ stateDiagram-v2
   FamilyClosing --> FamilyClosed: PFC-F03 exact 18 and 56
   FamilyClosed --> IntrinsicProjectionsDerived: PFC-F07
   IntrinsicProjectionsDerived --> ProductContentIdentified: existing Product content algorithm
-  ProductContentIdentified --> CompleteCatalogBound: PFC-F08 flat-row merge
+  ProductContentIdentified --> S06CatalogBound: PFC-F08 flat-row merge
+  S06CatalogBound --> MandatoryCatalogPending: non-empty mandatory gap set
+  MandatoryCatalogPending --> M5CatalogComplete: T-270 owner publications
+  S06CatalogBound --> M5CatalogComplete: gap set already empty
+  M5CatalogComplete --> [*]: unified M5 catalog gate
 
-  CompleteCatalogBound --> InvocationSubmitted: caller or adapter
+  S06CatalogBound --> InvocationSubmitted: S06 caller or adapter
   InvocationSubmitted --> FamilyLookupRefused: PFC-F03A
   InvocationSubmitted --> DefinitionSelected: PFC-F03A
   DefinitionSelected --> InvocationRefused: PFC-F04
@@ -2495,9 +2687,10 @@ stateDiagram-v2
   OutcomeProjectionRefused --> [*]
 
   [*] --> NativeContractsSupplied
-  NativeContractsSupplied --> ExpectedContractsJoining: PFC-F08A
-  ExpectedContractsJoining --> NativeVerificationRefused: zero many or divergent row
-  ExpectedContractsJoining --> NativeVerifying: every expected contract binds once
+  NativeContractsSupplied --> ExpectedContractsDeriving: content-verified family
+  ExpectedContractsDeriving --> ExpectedContractsJoining: PFC-F08A
+  ExpectedContractsJoining --> NativeVerificationRefused: zero many or divergent nested coordinate
+  ExpectedContractsJoining --> NativeVerifying: complete nested set equality
   NativeVerifying --> NativeVerificationRefused: invalid local meaning
   NativeVerifying --> PendingSelectorsDerived: local checker selectors
   PendingSelectorsDerived --> NativeResolving: NCC-F02 linked checker
@@ -2516,15 +2709,16 @@ stateDiagram-v2
 
 | Axiom | Ontology evidence | Authority | Domain | Sequence | State | Native enforcement | Admission/compiler enforcement | Verdict | Gap |
 |---|---|---|---|---|---|---|---|---|---|
-| every element derives from S06C/4 | E01..E14, R01..R08 | named in Section 6.3 | every class maps one entity | every message maps one function | every transition names function | exact generic types | exact family/checker gates | pass | none |
+| every element derives from S06C/4 | E01..E15, R01..R09 | named in Section 6.3 | every class maps one entity | every message maps one function | every transition names function | exact generic types | exact family/checker gates | pass | none |
 | full 5.0 family is singular | E02/E03, R01/R02 | Product public-contract owner | 18 operations, 56 keys | F03 before projection | no projection before FamilyClosed | exact nested object, no string index | missing/extra/duplicate refusal | pass | none |
-| public identity staging is acyclic | E01/E02/E03/E06/E14, R01/R02/R07 | staged Product publication | definition uses only pre-family owner identities; family and payload precede Product content; complete flat catalog follows | F02 -> F03 -> F07 -> Product content -> F08 | no final catalog digest before content identity | owner identity projection plus unchanged flat catalog carrier | changed-byte, generated-asset, seed, zero-digest, generated/runtime equality mutations | pass | none |
+| public identity staging is acyclic | E01/E02/E03/E06/E14/E15, R01/R02/R07/R09 | staged Product publication | definition uses only owner member identity; family and payload precede Product content; S06 catalog and residual follow; M5 completion consumes owner publications | F02 -> F03 -> F07 -> Product content -> F08; R09 later | no catalog digest before content identity and no S06-synthesized mandatory row | owner identity projection plus unchanged flat carrier | changed-byte, generated-asset, seed, zero-digest, generated/runtime and synthesized-row mutations | pass | none |
 | S06 subset cannot become authority | E03/E06 | Product | scenario absent from definition identity | projection uses E03 only | scenario success changes no state | no fixture key | family census mutation | pass | none |
 | owner meaning is not public metadata | E01/E02, R01 | semantic owner | owner schema distinct from definition binding | F01 precedes F02 | gap returns to owner source | inferred exact types | owner authority/digest check | pass | none |
 | native/parser/schema domains agree | E01/E02/E06 | owner plus Product projector | one strict schema | one schema drives all projections | divergence cannot transition closed | inferred type plus parse | schema projection parity | pass | none |
 | every definition resolves one exact source and port | E01/E02, R01 | semantic owner | closed 56-key source map | F01/F02 refuse any absent member | no FamilyClosed with a gap | exact nested source map | source/schema/port member-path census | pass | none |
-| complete catalog carrier is preserved | E06/E14, R07 | Product publication | operation projections and flat manifest rows remain distinct | F07 proposals merge through F08 | no second or replacement catalog state | existing catalogId/flat-row carrier | retained-row, extra-field, duplicate-ID and wrong-Product mutations | pass | none |
-| expected owner contracts bind exactly once | E01/E14, R08 | Product verifier | pre-family owner identity joins one verified flat row | F08A precedes verified artifact | zero/many/divergent join refuses | exact structured join | missing, duplicate, cross-Product and changed-locator mutations | pass | none |
+| flat catalog carrier is preserved | E06/E14/E15, R07 | Product publication | operation projections and flat manifest rows remain distinct | F07 proposals merge through F08 and emit residuals | no second or replacement catalog state | existing catalogId/flat-row carrier | retained-row, extra-field, duplicate-ID, wrong-Product and hidden-gap mutations | pass | none |
+| expected owner contracts bind exactly once at nested coordinates | E01/E03/E14, R08 | Product verifier | family-derived set joins row then definition then slot | F08A precedes verified artifact | zero/many/divergent nested join refuses | complete structural map | partial caller-set, shared-row, missing slot, duplicate pointer and fragment-ID mutations | pass | none |
+| mandatory catalog completion is not S06 authorship | E14/E15, R09 | T-270 Product publication | exact gap set and owner publications remain explicit | completion follows accepted S06 and precedes M5 freeze | non-empty gap blocks M5/M6/M7 | same flat carrier | absent owner publication and opportunistic-row mutations | pass | none |
 | common invocation/outcome/row contracts are closed | E02..E06/E14, R02..R04/R07 | Product/Public | catalog coordinate, operation projection, invocation and four-way outcome union | same catalog/key/digests cross every message | projection failure is explicit terminal public truth | strict indexed carriers | cross-catalog/key/contract/output mutations | pass | none |
 | family lookup precedes indexed authority | E03/E04/E13, R03 | Public | E13 has no K; E04 has exact K | PFC-F03A precedes PFC-F04 | unknown identity terminates before invocation | disjoint carrier sum | unknown operation/member mutations | pass | none |
 | invocation and resolve authority are constructable | E02/E04/E12, R03/R06 | Public then Product resolver | dependent authority slots and verification references | verification -> resolve -> lock | missing/extra/mismatched slot or reference refuses | mapped structural sum | capability/actor/verification mutations | pass | none |
@@ -2554,9 +2748,9 @@ Both require independent acceptance before realization.
 | intent | one source-independent SDK and thin CLI | exact source-independent Product contract linking |
 | requirement | 18 operations and owner semantics | source-contract and direct-dependency authority |
 | design | exact 56-key source map, common carriers, and definition family | local pending selector then linked contract occurrence |
-| build | exact owner source/port -> intrinsic family -> payload projections and row proposals -> Product content -> complete flat manifest catalog | local checker selectors -> linked checker occurrences -> bindings |
+| build | exact owner source/port -> intrinsic family -> payload projections and row proposals -> Product content -> S06 flat catalog plus mandatory residual | local checker selectors -> linked checker occurrences -> bindings |
 | assurance | source/port census, type/parser/schema/runtime parity, adapter equality | selector disposition plus occurrence/binding conservation and adversarial TS programs |
-| release | immutable intrinsic family/schema, Product-content, catalog, and manifest digests | exact compiler/Product/lock digests |
+| release | T-270 completes owner-published mandatory rows before unified M5 freeze; immutable family/schema/Product/catalog/manifest digests then close | exact compiler/Product/lock digests |
 | deploy | installed SDK/CLI/Codex use the exact verified manifest catalog | verify and resolve before install |
 | live use | owner functions construct typed outcomes | resolved lock constrains installed Product meaning |
 | observe | public outcomes and replay only | private evidence projects only closure digest |
@@ -2571,10 +2765,14 @@ Algorithmic constraints:
 - definition, family, payload projections, Product content, and manifest
   catalog form that exact acyclic order; no later digest enters an earlier
   preimage;
-- PFC-F08 preserves every retained required flat row and replaces only the
-  exact operation-contract identity set with the PFC-F07 proposals;
-- PFC-F08A joins every expected owner identity to exactly one verified flat
-  catalog row before Product verification succeeds;
+- PFC-F08 preserves every extant non-operation flat row, replaces only the
+  exact operation-contract identity set, and emits the exact mandatory gap set;
+- PFC-F08A derives the complete expected set from artifact bytes and joins each
+  identity through one operation row, one definition key, one slot, and one
+  nested definition pointer before Product verification succeeds;
+- no projection-witness digest or caller-supplied expected set participates;
+- T-270 closes mandatory catalog gaps from exact owner publications before
+  unified M5 freeze; S06 cannot synthesize those rows;
 - public dispatch is exact definition-key lookup with zero/one cardinality;
 - F01 local analysis emits no final occurrence or target identity;
 - F02 occurrence derivation uses the linked TypeScript checker over the exact
@@ -2600,9 +2798,10 @@ After direct design acceptance, one implementation pass shall:
    projections, flat catalog-row proposals, SDK members, CLI grammar, and exit
    maps from that family;
 3. compute intrinsic definition, family, and projection digests before Product
-   content identity, then merge the PFC-F07 rows into the complete existing
-   flat PFC-F08 manifest catalog outside the payload-content preimage and make
-   product verification enforce the exact-one PFC-F08A join;
+   content identity, then merge the PFC-F07 rows into the extant flat PFC-F08
+   development manifest catalog outside the payload-content preimage, emit the
+   exact mandatory gap set, and make product verification derive and enforce
+   the complete nested PFC-F08A join;
 4. bind every key to one exact owner port and construct its dependent
    invocation authority without a generic semantic handler;
 5. project every source-map member, owner/version/authority coordinate, and
@@ -2619,9 +2818,11 @@ After direct design acceptance, one implementation pass shall:
    canonical checker targets, direct target contracts, re-anchored dependency
    bindings, and exact selector dispositions without a per-contract closure
    digest;
-10. bind every semantic occurrence exactly once before lock construction; and
+10. bind every semantic occurrence exactly once before lock construction;
 11. remove the returned partial family and any parallel parser/schema/runtime
-   meaning.
+   meaning; and
+12. preserve missing non-S06 mandatory rows as typed residuals; do not
+   implement T-270's deferred unified-M5 catalog-completion composition.
 
 Affected abstract modules are only those in Section 7.2. No broader Prime
 primitive is implemented.
@@ -2633,8 +2834,10 @@ primitive is implemented.
   manifest digests reproduce in that order with no placeholder input;
 - every definition resolves its exact source-map member, four pre-family owner
   contract identities, defaults, metadata, and owner port;
-- every expected owner contract joins exactly one verified flat catalog row
-  under the exact Product/content/catalog coordinate;
+- the expected owner-contract set derives from the exact artifact family and
+  equals the selected nested `(definitionKey, slot, definitionRef)` set;
+- many nested contracts may share one operation row while every nested
+  coordinate remains unique;
 - unknown operation/member identities refuse before indexed invocation
   admission;
 - every admitted invocation carries the exact structural authority selected by
@@ -2645,8 +2848,9 @@ primitive is implemented.
   same generated corpus for every key;
 - every operation has an addressable flat catalog row and
   request/result/refusal/non-terminal schema coordinates plus the common
-  projection-refusal contract, while every required non-operation row is
-  retained unchanged;
+  projection-refusal definition under the unsuffixed outcome row;
+- every extant non-operation row is retained unchanged and every absent
+  mandatory identity appears in `MandatoryCatalogGapSet`;
 - all 24 read cases derive from admitted owner truth and append no event;
 - native SDK, CLI, and Codex produce the same deterministic S06 outcome;
 - retained S03/S05 invocation, continuation, Consensus, and reads remain
@@ -2668,17 +2872,24 @@ primitive is implemented.
 - absent request/result/refusal contract, generic `{}` result schema, or
   `JsonValue` outcome;
 - missing owner-source member, owner port, flat catalog coordinate,
-  operation-row locator, exact-one owner-to-row join, or projection-refusal
-  carrier;
+  operation-row locator, row/definition/slot nested join, or
+  projection-refusal definition;
+- caller-supplied, empty, partial, duplicate, or family-divergent expected
+  contract set; one-flat-row-per-slot cardinality; missing definition key or
+  slot; duplicate nested pointer; or fragment-valued flat contract ID;
 - copied owner payload meaning, stale owner member digest, missing common
   owner/version/authority coordinate, or unknown identity classified as an
   indexed owner refusal;
 - family/Product identity or generated aggregate asset digest in a definition
   preimage, Product identity in a payload projection, seed or zero digest,
-  loader-order fallback, or generated/runtime manifest-catalog disagreement;
+  projection-witness digest, loader-order fallback, or generated/runtime
+  manifest-catalog disagreement;
 - deleted or changed retained catalog row, nested operation-row wrapper,
   `catalogRef`, per-row `bindingDigest`, duplicate flat identity, wrong owning
   Product, or second/replacement catalog;
+- hidden mandatory gap, S06-synthesized missing mandatory row, non-empty gap
+  set at unified M5 freeze, 5.0 conformance claim while the set is non-empty,
+  or M6/M7 entry before T-270 catalog completion;
 - missing, forbidden, extra, or request-divergent invocation-authority slot;
 - bare, stale, or mismatched Product candidate supplied to `product.resolve`;
 - TypeScript-only value accepted while parser/schema refuses, and every
@@ -2718,7 +2929,7 @@ checks are:
 - exact 18-operation and 56-key arithmetic;
 - exact 24-case project-read arithmetic;
 - acyclic intrinsic-definition -> family -> payload -> Product-content ->
-  complete flat manifest-catalog identity trace;
+  S06 flat manifest-catalog plus mandatory-residual identity trace;
 - requirement-to-decision traceability;
 - no 5.1 operation in the active family;
 - no realization file change; and
@@ -2730,26 +2941,29 @@ Independent review answers:
    operation without importing 5.1?
 2. Does the closed source map resolve every key's exact owner contracts,
    metadata, authority, and port without copying payload meaning?
-3. Are intrinsic definition/family identity, complete existing flat manifest
-   catalog, exact-one owner-to-row join, family lookup, dependent invocation
-   authority, common contract coordinates, operation projections, invocation,
-   outcome, and projection refusal singular, acyclic, and constructable?
-4. Does `product.resolve` consume the exact successful packed-verification
+3. Are intrinsic definition/family identity, the S06 flat manifest catalog,
+   family-derived row/definition/slot join, family lookup, dependent invocation
+   authority, common and nested contract coordinates, operation projections,
+   invocation, outcome, and projection refusal singular, acyclic, and
+   constructable?
+4. Does S06 expose every mandatory catalog gap while T-270 alone owns exact
+   owner-published completion before unified M5 freeze?
+5. Does `product.resolve` consume the exact successful packed-verification
    references later bound by its resolved lock?
-5. Can native type, parser, schema, SDK, CLI, or owner runtime still lawfully
+6. Can native type, parser, schema, SDK, CLI, or owner runtime still lawfully
    disagree?
-6. Is S06 representative proof clearly separated from full Product-definition
+7. Is S06 representative proof clearly separated from full Product-definition
    closure?
-7. Does F01 stop at source-contract-indexed pending selectors and F02 alone
+8. Does F01 stop at source-contract-indexed pending selectors and F02 alone
    derive canonical targets, semantic occurrences, target contracts, and
    bindings?
-8. Are syntax origin/selection and linked semantic selection distinct, target
+9. Are syntax origin/selection and linked semantic selection distinct, target
    identity stable, and A-to-B-to-C authority re-anchored at each admitted
    contract?
-9. Can one physical relation lawfully project zero, one, or many distinct
+10. Can one physical relation lawfully project zero, one, or many distinct
    semantic occurrences without losing exact-once binding?
-10. Do Prime, IACS, module direction, lifecycle, and all three views agree?
-11. Can realization proceed from Section 11 without choosing Product meaning?
+11. Do Prime, IACS, module direction, lifecycle, and all three views agree?
+12. Can realization proceed from Section 11 without choosing Product meaning?
 
 No realization resumes until independent review and direct F_H acceptance make
 both verdicts accepted.
