@@ -14,7 +14,7 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 realization `4953508d` returned; digest-algebra design repair `5770755a` frozen for review; realization held; A5-F12/S04 deferred to 5.1 |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 realization `4953508d` returned; catalog-preserving design repair `458ce3c2` frozen for review; realization held; A5-F12/S04 deferred to 5.1 |
 
 ## Current Basis
 
@@ -70,14 +70,17 @@ selection, ordered successor outcomes, and their acceptance conditions.
   at candidate `2bb7b594920b1b126a6d314ed7bb39dabd211823`, tree
   `c57c237e8c5950fb85552d19203df4cd526cd7b7`, design digest
   `ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876`,
-  is the accepted parent. Its circular definition/family/Product catalog
-  digest relation blocks realization. Replacement design candidate
-  `5770755af7cc19c55d1f526c4e34e482f0ba7df5`, tree
-  `77842794bdafb25b48f3ef1554fd6d47e002a456`, design digest
-  `163da0eaa3b91505d896dfeac745ff31474484585fe3f2d78d185073a2d98a0f`,
-  stages intrinsic identity, Product payload identity, and final manifest
-  catalog identity and is frozen for independent delta review. Returned
-  designs `9fb14e68` and `8eb7564c` are evidence only. Realization is held.
+  is the accepted parent. Candidate `5770755a` repairs the digest cycle but
+  incorrectly replaces the existing catalog carrier and is returned evidence.
+  Replacement design candidate
+  `458ce3c285ab9161e90a9d6cefb3eeb9b94f4257`, tree
+  `b5c7a1ebc5385f5b0af68bd28fd80b806b36860f`, design digest
+  `beab3ee572c665c8f63ec7c3a8f8d44fba31cf513f7b966fde891d64b6dad1d7`,
+  preserves acyclic identity staging, defines pre-family owner identity,
+  merges operation rows into the complete existing flat catalog, and requires
+  an exact-one verification join. It is frozen for independent delta review.
+  Returned designs `9fb14e68` and `8eb7564c` are evidence only. Realization is
+  held.
 - Exact candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b`
   is the accepted S03 base.
 - T-270 remains the M5 parent owner. Existing subordinate tickets retain their
@@ -145,10 +148,11 @@ realization basis is native-contract design
 `4953508de83ab6d6c65dbb81e5407ccb539e44e6`, tree
 `cd8bf69d79014e29e45bda52f9a785907eab8e74`, is returned evidence.
 Supplemental design candidate
-`5770755af7cc19c55d1f526c4e34e482f0ba7df5`, tree
-`77842794bdafb25b48f3ef1554fd6d47e002a456`, is frozen for review over
+`458ce3c285ab9161e90a9d6cefb3eeb9b94f4257`, tree
+`b5c7a1ebc5385f5b0af68bd28fd80b806b36860f`, is frozen for review over
 accepted parent `2bb7b594920b1b126a6d314ed7bb39dabd211823`.
-Candidate `8eb7564c`, tree `9c753f86`, is returned evidence.
+Candidates `8eb7564c`, tree `9c753f86`, and `5770755a`, tree `77842794`,
+are returned evidence.
 
 Acceptance requires:
 
@@ -203,7 +207,7 @@ release authority and do not participate in S06 closure.
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
-| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Native design `4f80f84a` accepted; digest-algebra replacement `5770755a` frozen for review; realization held |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Native design `4f80f84a` accepted; catalog-preserving replacement `458ce3c2` frozen for review; realization held |
 | `4` | `T-270` | Contract the Prime entropy basis | One accepted atomic design resolves the smallest irreducible basis for typed identity, ordered sequence equality, exact key sets, uniqueness, digest elimination, reference construction, and structural guards; it preserves distinct equalities and repairs contradictions to the selected laws before one realization projects every other occurrence as application or composition. | Blocked by S06 |
 | `5` | `T-270` | Freeze one M5 candidate | All selected pre-qualification 5.0 Product behavior, all 16 selected feature-family dispositions, and the accepted Prime entropy reduction are present on one exact candidate with required negatives and no silent gap. | Blocked by Prime entropy reduction |
 | `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |

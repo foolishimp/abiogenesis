@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_bounded_realization_active
-- review_status: s03_s05_and_s06_design_accepted
-- proof_status: s06_design_accepted_realization_returned
+- phase_status: m5_s06_catalog_binding_design_review
+- review_status: s03_s05_accepted_s06_design_repair_pending
+- proof_status: s06_catalog_binding_design_candidate_frozen
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -28,12 +28,12 @@
 - pen_holder: codex
 - build_tenant: typescript
 - current_product_outcome: ABG5-S06
-- implementation_hold: exact_s06_single_realization_only
+- implementation_hold: s06_catalog_binding_design_delta_review
 - implementation_hold_effect: >-
-    preserve accepted S06 design 2bb7b594 immutable; authorize one bounded
-    Section 11 realization under T-281 and prohibit recursive design revision,
-    Prime compression, planned 5.1 observer/tuner realization, unified M5
-    freeze, M6 qualification, M7 release, and unrelated refactoring
+    review exact S06 design candidate 458ce3c2 under T-281; prohibit
+    realization, recursive design revision, Prime compression, planned 5.1
+    observer/tuner realization, unified M5 freeze, M6 qualification, M7
+    release, and unrelated refactoring
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_5_0_pre_rc_scenarios: ABG5-S01,ABG5-S02,ABG5-S03,ABG5-S05,ABG5-S06
 - release_scenario: ABG5-S07
@@ -59,11 +59,13 @@
 - returned_s06_public_native_design_candidate: 8eb7564c04673cab26d938ad9bb2b026c1597d15
 - returned_s06_public_native_design_tree: 9c753f86727fc1bc7fe0836f517d5157aa5de7d8
 - returned_s06_public_native_design_sha256: 5c3e985c1895abd339e2ecda8c0617cc9a147caf0e3c86233f640ddde0418d35
-- current_s06_design_candidate: 2bb7b594920b1b126a6d314ed7bb39dabd211823
-- current_s06_design_candidate_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
-- current_s06_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
-- current_s06_requirement_sha256: 9567539aa176ec64ced2c4200a1980197a5d1da937a69d457d5643304641f9d3
-- current_s06_design_subject_aggregate_sha256: 0fcaaf99d8faadc44d3f306d9549730e68724b3a948ed3a4f9bfdee20598eda9
+- returned_s06_digest_design_candidate: 5770755af7cc19c55d1f526c4e34e482f0ba7df5
+- returned_s06_digest_design_tree: 77842794bdafb25b48f3ef1554fd6d47e002a456
+- current_s06_design_candidate: 458ce3c285ab9161e90a9d6cefb3eeb9b94f4257
+- current_s06_design_candidate_tree: b5c7a1ebc5385f5b0af68bd28fd80b806b36860f
+- current_s06_design_sha256: beab3ee572c665c8f63ec7c3a8f8d44fba31cf513f7b966fde891d64b6dad1d7
+- current_s06_requirement_sha256: 26eb36ca6701ac9970b2e4d63b1125a48353cf553c37addbb85c9586e9204ad7
+- current_s06_design_subject_aggregate_sha256: 81c25e0d951f7f5f240b9072b19f6d17f94b95e8730bbb427e879a223273cd03
 - accepted_s06_public_native_design_commit: 2bb7b594920b1b126a6d314ed7bb39dabd211823
 - accepted_s06_public_native_design_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
 - accepted_s06_public_native_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
@@ -79,7 +81,7 @@
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260729T165615Z_HANDOFF_t281_s06_contracted_design_repair.md
+    20260730T101649Z_HANDOFF_t281_s06_catalog_preserving_design_repair.md
 - selected_pre_m5_entropy_reduction: prime_compression_equivalence_classes
 - selected_entropy_reduction_selection_class: goal_reprice
 - selected_entropy_reduction_realization_class: realization_refactor
@@ -140,10 +142,11 @@ T-281 owns the exact S06 boundary. Native declaration closure remains governed
 by accepted `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Realization candidate
 `4953508d`, tree `cd8bf69d`, is returned evidence.
 `M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at
-`2bb7b594`, tree `c57c237e`, is directly accepted. Returned candidate
-`8eb7564c`, tree `9c753f86`, remains evidence. The active realization must close the
-complete public-function algebra and source-contract-indexed native occurrence
-relation before realization resumes. S06 closes only when:
+`2bb7b594`, tree `c57c237e`, is the accepted parent. Candidates `8eb7564c`,
+tree `9c753f86`, and `5770755a`, tree `77842794`, remain returned evidence.
+Catalog-preserving replacement `458ce3c2`, tree `b5c7a1eb`, is frozen for one
+independent delta review. Realization remains held until direct acceptance.
+S06 closes only when:
 
 - the complete 18-operation, 56-definition-key public family is singular
   across native types, parser, JSON Schema, SDK, CLI, runtime, publication, and

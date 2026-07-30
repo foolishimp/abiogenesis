@@ -3,24 +3,26 @@
 > **Current disposition (2026-07-30):** S06 realization candidate `4953508d`
 > remains returned evidence. Accepted native-closure design `4f80f84a` remains
 > the basis. Accepted supplemental parent `2bb7b594` contains a circular
-> definition/family/Product-catalog digest relation. Bounded replacement
-> `5770755a`, tree `77842794`, is frozen for independent delta review.
-> Realization, Prime compression, S04, and later work remain held.
+> definition/family/Product-catalog digest relation. Candidate `5770755a`
+> repairs the cycle but incorrectly replaces the existing catalog and is
+> returned evidence. Bounded replacement `458ce3c2`, tree `b5c7a1eb`, is
+> frozen for independent delta review. Realization, Prime compression, S04,
+> and later work remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_digest_design_repair_review
-- review_status: s06_digest_design_repair_pending
-- proof_status: s06_digest_design_candidate_frozen
+- phase_status: m5_s06_catalog_binding_design_review
+- review_status: s06_catalog_binding_design_repair_pending
+- proof_status: s06_catalog_binding_design_candidate_frozen
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
-- implementation_hold: s06_digest_design_delta_review
+- implementation_hold: s06_catalog_binding_design_delta_review
 - implementation_hold_effect: >-
-    review exact candidate 5770755a only; prohibit realization, recursive
+    review exact candidate 458ce3c2 only; prohibit realization, recursive
     design revision, Prime compression, S04, unified M5 freeze, M6
     qualification, M7 release, alternate functionality, and broad refactoring
 - delivery_phase: M5_after_accepted_s03_and_s05
@@ -65,11 +67,14 @@
 - returned_s06_public_native_design_candidate: 8eb7564c04673cab26d938ad9bb2b026c1597d15
 - returned_s06_public_native_design_tree: 9c753f86727fc1bc7fe0836f517d5157aa5de7d8
 - returned_s06_public_native_design_sha256: 5c3e985c1895abd339e2ecda8c0617cc9a147caf0e3c86233f640ddde0418d35
-- current_s06_design_candidate: 5770755af7cc19c55d1f526c4e34e482f0ba7df5
-- current_s06_design_candidate_tree: 77842794bdafb25b48f3ef1554fd6d47e002a456
-- current_s06_design_sha256: 163da0eaa3b91505d896dfeac745ff31474484585fe3f2d78d185073a2d98a0f
+- returned_s06_digest_design_candidate: 5770755af7cc19c55d1f526c4e34e482f0ba7df5
+- returned_s06_digest_design_tree: 77842794bdafb25b48f3ef1554fd6d47e002a456
+- returned_s06_digest_design_sha256: 163da0eaa3b91505d896dfeac745ff31474484585fe3f2d78d185073a2d98a0f
+- current_s06_design_candidate: 458ce3c285ab9161e90a9d6cefb3eeb9b94f4257
+- current_s06_design_candidate_tree: b5c7a1ebc5385f5b0af68bd28fd80b806b36860f
+- current_s06_design_sha256: beab3ee572c665c8f63ec7c3a8f8d44fba31cf513f7b966fde891d64b6dad1d7
 - current_s06_requirement_sha256: 26eb36ca6701ac9970b2e4d63b1125a48353cf553c37addbb85c9586e9204ad7
-- current_s06_design_subject_aggregate_sha256: 63ac778fca780047734d43086bd41742650287f43c2d857422aa308a5e0555e8
+- current_s06_design_subject_aggregate_sha256: 81c25e0d951f7f5f240b9072b19f6d17f94b95e8730bbb427e879a223273cd03
 - accepted_s06_public_native_design_commit: 2bb7b594920b1b126a6d314ed7bb39dabd211823
 - accepted_s06_public_native_design_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
 - accepted_s06_public_native_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
@@ -87,7 +92,7 @@
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260730T074915Z_HANDOFF_t281_s06_digest_algebra_design_repair.md
+    20260730T101649Z_HANDOFF_t281_s06_catalog_preserving_design_repair.md
 
 ## Selected Outcome
 
@@ -322,11 +327,14 @@ relations. Contracted replacement `2bb7b594920b1b126a6d314ed7bb39dabd211823`,
 tree `c57c237e8c5950fb85552d19203df4cd526cd7b7`, repairs those relations through
 owner references without reproducing all payload families. Exact realization
 then exposed one circular digest relation in that accepted design. Candidate
-`5770755af7cc19c55d1f526c4e34e482f0ba7df5`, tree
-`77842794bdafb25b48f3ef1554fd6d47e002a456`, repairs only that relation through
-intrinsic definition/family identity, Product payload identity, and the final
-Product-bound manifest catalog. That exact delta receives one independent
-review; the worker does not realize, recursively review, or refreeze it.
+`5770755a`, tree `77842794`, repairs the cycle but replaces the complete flat
+catalog and is returned evidence. Candidate
+`458ce3c285ab9161e90a9d6cefb3eeb9b94f4257`, tree
+`b5c7a1ebc5385f5b0af68bd28fd80b806b36860f`, preserves the acyclic order,
+defines pre-family owner identity, merges operation rows into the existing
+catalog carrier, and adds the exact-one verification join. That exact delta
+receives one independent review; the worker does not realize, recursively
+review, or refreeze it.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active
