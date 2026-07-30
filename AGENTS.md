@@ -48,8 +48,10 @@ accepted. Its bounded Section 8 realization at candidate `4953508d`, tree
 `cd8bf69d`, is returned evidence. Supplemental design
 `M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at
 `8eb7564c`, tree `9c753f86`, is returned evidence. Its contracted replacement
-at `2bb7b594`, tree `c57c237e`, is directly accepted. One bounded realization
-pass against its Section 11 is active; do not edit or refreeze the design.
+at `2bb7b594`, tree `c57c237e`, is the accepted parent. Its digest cycle is
+repaired at frozen candidate `5770755a`, tree `77842794`, pending one
+independent delta review and direct disposition. Do not edit or refreeze that
+candidate, and do not resume realization before acceptance.
 Prime compression, full conservation
 qualification, qualification, and release must not receive implementation
 while S06 remains unresolved.

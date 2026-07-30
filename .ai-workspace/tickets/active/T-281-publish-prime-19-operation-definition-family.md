@@ -1,30 +1,28 @@
 # T-281 - Publish The Product-Neutral Installed Public Path
 
-> **Current disposition (2026-07-30):** S06 realization candidate `4953508d`,
-> tree `cd8bf69d`, is returned evidence. Accepted native-closure design
-> `4f80f84a` remains the basis. Supplemental design `8eb7564c`, tree
-> `9c753f86`, is returned evidence. Contracted public-function and
-> contract-indexed occurrence design `2bb7b594`, tree `c57c237e`, is directly
-> accepted. One bounded Section 11 realization is active. Prime compression,
-> S04, and later work remain held.
+> **Current disposition (2026-07-30):** S06 realization candidate `4953508d`
+> remains returned evidence. Accepted native-closure design `4f80f84a` remains
+> the basis. Accepted supplemental parent `2bb7b594` contains a circular
+> definition/family/Product-catalog digest relation. Bounded replacement
+> `5770755a`, tree `77842794`, is frozen for independent delta review.
+> Realization, Prime compression, S04, and later work remain held.
 
 - id: T-281
 - title: Publish the Product-neutral installed public path
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_bounded_realization_active
-- review_status: s06_replacement_design_directly_accepted
-- proof_status: s06_design_accepted_realization_returned
+- phase_status: m5_s06_digest_design_repair_review
+- review_status: s06_digest_design_repair_pending
+- proof_status: s06_digest_design_candidate_frozen
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
-- implementation_hold: exact_s06_single_realization_only
+- implementation_hold: s06_digest_design_delta_review
 - implementation_hold_effect: >-
-    preserve accepted design 2bb7b594 immutable; authorize one bounded Section
-    11 realization and prohibit recursive design revision, Prime compression,
-    S04, unified M5 freeze, M6 qualification, M7 release, alternate
-    functionality, and broad refactoring
+    review exact candidate 5770755a only; prohibit realization, recursive
+    design revision, Prime compression, S04, unified M5 freeze, M6
+    qualification, M7 release, alternate functionality, and broad refactoring
 - delivery_phase: M5_after_accepted_s03_and_s05
 - change_intent: >-
     Prove one Product-neutral installed public contract through the native SDK,
@@ -67,11 +65,11 @@
 - returned_s06_public_native_design_candidate: 8eb7564c04673cab26d938ad9bb2b026c1597d15
 - returned_s06_public_native_design_tree: 9c753f86727fc1bc7fe0836f517d5157aa5de7d8
 - returned_s06_public_native_design_sha256: 5c3e985c1895abd339e2ecda8c0617cc9a147caf0e3c86233f640ddde0418d35
-- current_s06_design_candidate: 2bb7b594920b1b126a6d314ed7bb39dabd211823
-- current_s06_design_candidate_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
-- current_s06_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
-- current_s06_requirement_sha256: 9567539aa176ec64ced2c4200a1980197a5d1da937a69d457d5643304641f9d3
-- current_s06_design_subject_aggregate_sha256: 0fcaaf99d8faadc44d3f306d9549730e68724b3a948ed3a4f9bfdee20598eda9
+- current_s06_design_candidate: 5770755af7cc19c55d1f526c4e34e482f0ba7df5
+- current_s06_design_candidate_tree: 77842794bdafb25b48f3ef1554fd6d47e002a456
+- current_s06_design_sha256: 163da0eaa3b91505d896dfeac745ff31474484585fe3f2d78d185073a2d98a0f
+- current_s06_requirement_sha256: 26eb36ca6701ac9970b2e4d63b1125a48353cf553c37addbb85c9586e9204ad7
+- current_s06_design_subject_aggregate_sha256: 63ac778fca780047734d43086bd41742650287f43c2d857422aa308a5e0555e8
 - accepted_s06_public_native_design_commit: 2bb7b594920b1b126a6d314ed7bb39dabd211823
 - accepted_s06_public_native_design_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
 - accepted_s06_public_native_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
@@ -89,7 +87,7 @@
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260729T165615Z_HANDOFF_t281_s06_contracted_design_repair.md
+    20260730T074915Z_HANDOFF_t281_s06_digest_algebra_design_repair.md
 
 ## Selected Outcome
 
@@ -322,9 +320,13 @@ constructable invocation authority, verified resolve basis, complete
 owner/version/authority coordinates, and three native-occurrence identity
 relations. Contracted replacement `2bb7b594920b1b126a6d314ed7bb39dabd211823`,
 tree `c57c237e8c5950fb85552d19203df4cd526cd7b7`, repairs those relations through
-owner references without reproducing all payload families. That exact design
-receives one independent delta review; the worker does not realize, recursively
-review, or refreeze it.
+owner references without reproducing all payload families. Exact realization
+then exposed one circular digest relation in that accepted design. Candidate
+`5770755af7cc19c55d1f526c4e34e482f0ba7df5`, tree
+`77842794bdafb25b48f3ef1554fd6d47e002a456`, repairs only that relation through
+intrinsic definition/family identity, Product payload identity, and the final
+Product-bound manifest catalog. That exact delta receives one independent
+review; the worker does not realize, recursively review, or refreeze it.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active
