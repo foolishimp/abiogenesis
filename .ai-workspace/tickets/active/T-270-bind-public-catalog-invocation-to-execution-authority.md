@@ -5,17 +5,18 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_catalog_binding_design_review
-- review_status: s03_s05_accepted_s06_design_repair_pending
-- proof_status: s06_catalog_binding_design_candidate_frozen
+- phase_status: m5_s06_nested_catalog_authority_design_review
+- review_status: s03_s05_accepted_s06_nested_design_review_pending
+- proof_status: s06_nested_catalog_design_candidate_frozen
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
     Preserve accepted S03 and S05 while T-281 closes the Product-neutral
     installed SDK, CLI, bounded Codex shell, and independent flavored Product
     path required by ABG5-S06. After S06 acceptance, complete the selected
-    Prime entropy reduction, then freeze one unified M5 candidate over the 16
-    selected 5.0 Product families.
+    Prime entropy reduction, complete the mandatory public-contract catalog
+    from exact owner-local publications, then freeze one unified M5 candidate
+    over the 16 selected 5.0 Product families.
 - change_class: product_reprice
 - re_entry_point: >-
     specification/PRODUCT.md selected feature family, required scenario, and
@@ -28,9 +29,9 @@
 - pen_holder: codex
 - build_tenant: typescript
 - current_product_outcome: ABG5-S06
-- implementation_hold: s06_catalog_binding_design_delta_review
+- implementation_hold: s06_nested_catalog_authority_design_delta_review
 - implementation_hold_effect: >-
-    review exact S06 design candidate 458ce3c2 under T-281; prohibit
+    review exact S06 design candidate 356aa6a2 under T-281; prohibit
     realization, recursive design revision, Prime compression, planned 5.1
     observer/tuner realization, unified M5 freeze, M6 qualification, M7
     release, and unrelated refactoring
@@ -61,11 +62,14 @@
 - returned_s06_public_native_design_sha256: 5c3e985c1895abd339e2ecda8c0617cc9a147caf0e3c86233f640ddde0418d35
 - returned_s06_digest_design_candidate: 5770755af7cc19c55d1f526c4e34e482f0ba7df5
 - returned_s06_digest_design_tree: 77842794bdafb25b48f3ef1554fd6d47e002a456
-- current_s06_design_candidate: 458ce3c285ab9161e90a9d6cefb3eeb9b94f4257
-- current_s06_design_candidate_tree: b5c7a1ebc5385f5b0af68bd28fd80b806b36860f
-- current_s06_design_sha256: beab3ee572c665c8f63ec7c3a8f8d44fba31cf513f7b966fde891d64b6dad1d7
+- returned_s06_catalog_design_candidate: 458ce3c285ab9161e90a9d6cefb3eeb9b94f4257
+- returned_s06_catalog_design_tree: b5c7a1ebc5385f5b0af68bd28fd80b806b36860f
+- returned_s06_catalog_design_sha256: beab3ee572c665c8f63ec7c3a8f8d44fba31cf513f7b966fde891d64b6dad1d7
+- current_s06_design_candidate: 356aa6a24fbfaac32c9ce2bb4fbc8b78f59bcd92
+- current_s06_design_candidate_tree: 4af5ada4d1487d4e63b5ae55b4f55be522f3ae3c
+- current_s06_design_sha256: 3a65c0f1b8e5c15011197f48fb61e730c16dac45ec160077139eb42fc758e49c
 - current_s06_requirement_sha256: 26eb36ca6701ac9970b2e4d63b1125a48353cf553c37addbb85c9586e9204ad7
-- current_s06_design_subject_aggregate_sha256: 81c25e0d951f7f5f240b9072b19f6d17f94b95e8730bbb427e879a223273cd03
+- current_s06_design_subject_aggregate_sha256: fdf998b0303ab194ac9a2354323ec205f192a7a20c1e608cc15d938923b5b0fe
 - accepted_s06_public_native_design_commit: 2bb7b594920b1b126a6d314ed7bb39dabd211823
 - accepted_s06_public_native_design_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
 - accepted_s06_public_native_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
@@ -81,7 +85,10 @@
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260730T101649Z_HANDOFF_t281_s06_catalog_preserving_design_repair.md
+    20260730T114918Z_HANDOFF_t281_s06_nested_catalog_authority_design.md
+- selected_m5_mandatory_catalog_owner: T-270
+- selected_m5_mandatory_catalog_roster_size: 44
+- selected_m5_mandatory_catalog_state: blocked_by_s06_and_prime_entropy_reduction
 - selected_pre_m5_entropy_reduction: prime_compression_equivalence_classes
 - selected_entropy_reduction_selection_class: goal_reprice
 - selected_entropy_reduction_realization_class: realization_refactor
@@ -143,9 +150,17 @@ by accepted `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Realization candidate
 `4953508d`, tree `cd8bf69d`, is returned evidence.
 `M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at
 `2bb7b594`, tree `c57c237e`, is the accepted parent. Candidates `8eb7564c`,
-tree `9c753f86`, and `5770755a`, tree `77842794`, remain returned evidence.
-Catalog-preserving replacement `458ce3c2`, tree `b5c7a1eb`, is frozen for one
-independent delta review. Realization remains held until direct acceptance.
+tree `9c753f86`, `5770755a`, tree `77842794`, and `458ce3c2`, tree
+`b5c7a1eb`, remain returned evidence. Nested catalog-authority replacement
+`356aa6a2`, tree `4af5ada4`, is frozen for one independent delta review.
+Realization remains held until direct acceptance.
+
+S06 binds its exact public-function rows into the extant flat development
+catalog and emits the mandatory-roster difference as a typed residual. T-270,
+not T-281 or S06 implementation, owns later completion from exact owner-local
+publications before unified M5 freeze. A non-empty residual forbids a 5.0
+conformance claim, M6, and M7.
+
 S06 closes only when:
 
 - the complete 18-operation, 56-definition-key public family is singular
@@ -241,8 +256,10 @@ duplication may not survive merely because contraction is inconvenient.
 3. Realize that accepted contraction once and run its focused equivalence
    projections and non-reproduction checks plus retained M5, M4, and
    reproducible-package gates.
-4. Freeze one unified M5 candidate covering all 16 selected 5.0 Product
-   families and the five selected pre-RC scenarios.
+4. Complete the mandatory 44-row public-contract catalog from exact
+   owner-local publications, require an empty gap residual, and freeze one
+   unified M5 candidate covering all 16 selected 5.0 Product families and the
+   five selected pre-RC scenarios.
 5. Activate T-247 and T-282 for exact-candidate self-conformance,
    qualification, released-STDO materialization, and conservation.
 6. Activate T-248 only after M6 closes, then publish RC and stable 5.0 through
@@ -262,6 +279,8 @@ T-270 remains open if:
   broad recurrence cleanup;
 - unified M5 freezes before the selected Prime entropy reduction is
   designed, independently accepted, realized, and mechanically verified;
+- unified M5 freezes with a non-empty mandatory public-contract catalog gap or
+  with rows synthesized outside their exact owner publications;
 - contraction merges semantically different coordinate, sequence, identity,
   reference, duplicate, or guard relations without a Design Module Method
   proof;

@@ -18,9 +18,10 @@ at candidate `4953508d`, tree `cd8bf69d`, is returned evidence. Supplemental
 public-function and contract-indexed occurrence design `8eb7564c`, tree
 `9c753f86`, is returned evidence. Contracted replacement `2bb7b594`, tree
 `c57c237e`, is the accepted parent. Digest repair `5770755a`, tree
-`77842794`, is returned evidence. Catalog-preserving replacement `458ce3c2`,
-tree `b5c7a1eb`, is frozen for one independent delta review. Realization is
-held; do not edit or refreeze the design candidate.
+`77842794`, and catalog-preserving repair `458ce3c2`, tree `b5c7a1eb`, are
+returned evidence. Nested catalog-authority replacement `356aa6a2`, tree
+`4af5ada4`, is frozen for one independent delta review. Realization is held;
+do not edit or refreeze the design candidate.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -64,8 +65,8 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 ## GTL / HoG / ABG Bootstrap
 
 **Status**: S03 and S05 accepted; S06 realization `4953508d` returned;
-catalog-preserving design candidate `458ce3c2` frozen for review; realization
-held
+nested catalog-authority design candidate `356aa6a2` frozen for review;
+realization held
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower

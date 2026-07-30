@@ -50,9 +50,12 @@ accepted. Its bounded Section 8 realization at candidate `4953508d`, tree
 `8eb7564c`, tree `9c753f86`, is returned evidence. Its contracted replacement
 at `2bb7b594`, tree `c57c237e`, is the accepted parent. Its digest cycle is
 partially repaired at returned candidate `5770755a`, tree `77842794`.
-Replacement candidate `458ce3c2`, tree `b5c7a1eb`, preserves the complete
-existing flat catalog and is frozen pending one independent delta review and
-direct disposition. Do not edit or refreeze that candidate, and do not resume
+Catalog-preserving candidate `458ce3c2`, tree `b5c7a1eb`, is returned.
+Replacement candidate `356aa6a2`, tree `4af5ada4`, defines the family-derived
+nested contract join, exposes mandatory catalog gaps, assigns their later
+completion to T-270 before unified M5, and removes the undefined pre-family
+witness digest. It is frozen pending one independent delta review and direct
+disposition. Do not edit or refreeze that candidate, and do not resume
 realization before acceptance.
 Prime compression, full conservation
 qualification, qualification, and release must not receive implementation
