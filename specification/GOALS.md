@@ -14,7 +14,7 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 realization `4953508d` returned; nested catalog-authority design `356aa6a2` frozen for review; realization held; A5-F12/S04 deferred to 5.1 |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 realization `4953508d` returned; full-closure design `844df3fc` frozen for review; realization held; A5-F12/S04 deferred to 5.1 |
 
 ## Current Basis
 
@@ -82,16 +82,28 @@ selection, ordered successor outcomes, and their acceptance conditions.
   derives the complete nested contract join from content-verified family
   truth, preserves the extant flat carrier, exposes the mandatory 44-row gap,
   assigns exact owner-published completion to T-270 before unified M5, and
-  removes the undefined witness digest. It is frozen for independent delta
-  review. Returned designs `9fb14e68` and `8eb7564c` are evidence only.
-  Realization is held.
+  removes the undefined witness digest. It is returned because that 44-row
+  residual covers only the schema, vocabulary, and corpus subset. Replacement
+  design candidate
+  `844df3fcbccaef97e27cc27264ad2622cea6e889`, tree
+  `c48e9df90bf125ac08d2c4b9183a7622d966859a`, design digest
+  `5da0de37d0eba0143f3562eaa7dfcb5caa323ab17f075c4b0fdc2aa88349adba`,
+  retains that exact subset and adds the full REQ-P-PUBLIC-CONTRACTS-005..011
+  closure residual over groups, rows, locators, rosters, operations,
+  capabilities, and the accepted capability graph. It is frozen for one
+  independent delta review. Returned designs `9fb14e68` and `8eb7564c` are
+  evidence only. Realization is held.
 - Exact candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b`
   is the accepted S03 base.
 - T-270 remains the M5 parent owner. It owns exact owner-published completion
-  of the mandatory 44-row public-contract catalog before unified M5 freeze;
-  S06 emits the typed gap residual and does not author absent rows. Existing
-  subordinate tickets retain their Product boundaries; no new ticket hierarchy
-  is selected.
+  of the full REQ-P-PUBLIC-CONTRACTS-005..011 publication basis before unified
+  M5 freeze. The 44 schema, vocabulary, and corpus rows are one diagnostic
+  subset; full closure also requires the nine groups and locators, 18 operation
+  identities and projections, 16 capability identities, and the accepted
+  capability graph with its owning-contract and dependency relations. S06
+  emits both typed residuals and does not author absent publication truth.
+  Existing subordinate tickets retain their Product boundaries; no new ticket
+  hierarchy is selected.
 - Direct F_H instruction on 2026-07-29 selects one bounded Prime entropy
   reduction under T-270 after S06 acceptance and before the unified M5 freeze.
   The recurrence register is
@@ -155,11 +167,13 @@ realization basis is native-contract design
 `4953508de83ab6d6c65dbb81e5407ccb539e44e6`, tree
 `cd8bf69d79014e29e45bda52f9a785907eab8e74`, is returned evidence.
 Supplemental design candidate
-`356aa6a24fbfaac32c9ce2bb4fbc8b78f59bcd92`, tree
-`4af5ada4d1487d4e63b5ae55b4f55be522f3ae3c`, is frozen for review over
-accepted parent `2bb7b594920b1b126a6d314ed7bb39dabd211823`.
+`844df3fcbccaef97e27cc27264ad2622cea6e889`, tree
+`c48e9df90bf125ac08d2c4b9183a7622d966859a`, is frozen for review over
+returned predecessor `356aa6a24fbfaac32c9ce2bb4fbc8b78f59bcd92` and accepted
+parent `2bb7b594920b1b126a6d314ed7bb39dabd211823`.
 Candidates `8eb7564c`, tree `9c753f86`, `5770755a`, tree `77842794`, and
-`458ce3c2`, tree `b5c7a1eb`, are returned evidence.
+`458ce3c2`, tree `b5c7a1eb`, plus `356aa6a2`, tree `4af5ada4`, are returned
+evidence.
 
 Acceptance requires:
 
@@ -214,9 +228,9 @@ release authority and do not participate in S06 closure.
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
-| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Native design `4f80f84a` accepted; nested catalog-authority replacement `356aa6a2` frozen for review; realization held |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Native design `4f80f84a` accepted; full-closure replacement `844df3fc` frozen for review; realization held |
 | `4` | `T-270` | Contract the Prime entropy basis | One accepted atomic design resolves the smallest irreducible basis for typed identity, ordered sequence equality, exact key sets, uniqueness, digest elimination, reference construction, and structural guards; it preserves distinct equalities and repairs contradictions to the selected laws before one realization projects every other occurrence as application or composition. | Blocked by S06 |
-| `5` | `T-270` | Complete public-contract publication and freeze one M5 candidate | The mandatory 44-row catalog is complete from exact owner-local publications with no gap residual; all selected pre-qualification 5.0 Product behavior, all 16 selected feature-family dispositions, and the accepted Prime entropy reduction are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 and Prime entropy reduction |
+| `5` | `T-270` | Complete public-contract publication and freeze one M5 candidate | The full REQ-P-PUBLIC-CONTRACTS-005..011 residual is empty: nine group identities and locators, 44 schema/vocabulary/corpus rows, 18 operation identities and complete projections, 16 capability identities, and the accepted capability graph with exact owning-contract and dependency relations are present from owner-local publication truth; all selected pre-qualification 5.0 Product behavior, all 16 selected feature-family dispositions, and the accepted Prime entropy reduction are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 and Prime entropy reduction |
 | `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
 | `7` | `T-248` | Release ABIogenesis 5.0.0 | Immutable RC, installed-RC qualification, governed final delta, stable tap, and fresh post-publication install preserve distinct exact subjects. | Blocked by M6 |
 

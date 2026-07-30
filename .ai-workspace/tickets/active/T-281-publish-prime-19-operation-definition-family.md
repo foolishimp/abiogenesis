@@ -7,7 +7,9 @@
 > repairs the cycle but incorrectly replaces the existing catalog and is
 > returned evidence. Catalog-preserving candidate `458ce3c2`, tree
 > `b5c7a1eb`, is also returned. Nested catalog-authority replacement
-> `356aa6a2`, tree `4af5ada4`, is frozen for independent delta review.
+> `356aa6a2`, tree `4af5ada4`, is returned because its 44-row residual is
+> only one required publication subset. Full-closure replacement `844df3fc`,
+> tree `c48e9df9`, is frozen for independent delta review.
 > Realization, Prime compression, S04, and later work remain held.
 
 - id: T-281
@@ -15,15 +17,15 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_nested_catalog_authority_design_review
-- review_status: s06_nested_catalog_design_delta_review_pending
-- proof_status: s06_nested_catalog_design_candidate_frozen
+- phase_status: m5_s06_full_public_contract_closure_design_review
+- review_status: s06_full_closure_design_delta_review_pending
+- proof_status: s06_full_closure_design_candidate_frozen
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
-- implementation_hold: s06_nested_catalog_authority_design_delta_review
+- implementation_hold: s06_full_public_contract_closure_design_delta_review
 - implementation_hold_effect: >-
-    review exact candidate 356aa6a2 only; prohibit realization, recursive
+    review exact candidate 844df3fc only; prohibit realization, recursive
     design revision, Prime compression, S04, unified M5 freeze, M6
     qualification, M7 release, alternate functionality, and broad refactoring
 - delivery_phase: M5_after_accepted_s03_and_s05
@@ -74,11 +76,14 @@
 - returned_s06_catalog_design_candidate: 458ce3c285ab9161e90a9d6cefb3eeb9b94f4257
 - returned_s06_catalog_design_tree: b5c7a1ebc5385f5b0af68bd28fd80b806b36860f
 - returned_s06_catalog_design_sha256: beab3ee572c665c8f63ec7c3a8f8d44fba31cf513f7b966fde891d64b6dad1d7
-- current_s06_design_candidate: 356aa6a24fbfaac32c9ce2bb4fbc8b78f59bcd92
-- current_s06_design_candidate_tree: 4af5ada4d1487d4e63b5ae55b4f55be522f3ae3c
-- current_s06_design_sha256: 3a65c0f1b8e5c15011197f48fb61e730c16dac45ec160077139eb42fc758e49c
+- returned_s06_nested_catalog_design_candidate: 356aa6a24fbfaac32c9ce2bb4fbc8b78f59bcd92
+- returned_s06_nested_catalog_design_tree: 4af5ada4d1487d4e63b5ae55b4f55be522f3ae3c
+- returned_s06_nested_catalog_design_sha256: 3a65c0f1b8e5c15011197f48fb61e730c16dac45ec160077139eb42fc758e49c
+- current_s06_design_candidate: 844df3fcbccaef97e27cc27264ad2622cea6e889
+- current_s06_design_candidate_tree: c48e9df90bf125ac08d2c4b9183a7622d966859a
+- current_s06_design_sha256: 5da0de37d0eba0143f3562eaa7dfcb5caa323ab17f075c4b0fdc2aa88349adba
 - current_s06_requirement_sha256: 26eb36ca6701ac9970b2e4d63b1125a48353cf553c37addbb85c9586e9204ad7
-- current_s06_design_subject_aggregate_sha256: fdf998b0303ab194ac9a2354323ec205f192a7a20c1e608cc15d938923b5b0fe
+- current_s06_design_subject_aggregate_sha256: 7fb350cd962342278f06d043d602af17bba6b9f51aee8cc9321dcd9eecf4d05d
 - accepted_s06_public_native_design_commit: 2bb7b594920b1b126a6d314ed7bb39dabd211823
 - accepted_s06_public_native_design_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
 - accepted_s06_public_native_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
@@ -96,7 +101,7 @@
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260730T114918Z_HANDOFF_t281_s06_nested_catalog_authority_design.md
+    20260730T123101Z_HANDOFF_t281_s06_full_public_contract_closure_design.md
 
 ## Selected Outcome
 
@@ -341,9 +346,15 @@ Replacement candidate
 `356aa6a24fbfaac32c9ce2bb4fbc8b78f59bcd92`, tree
 `4af5ada4d1487d4e63b5ae55b4f55be522f3ae3c`, derives the complete nested join
 from family truth, exposes the mandatory catalog gap for T-270 completion
-before unified M5, and removes that witness digest. That exact delta receives
-one independent review; the worker does not realize, recursively review, or
-refreeze it.
+before unified M5, and removes that witness digest. It is returned because the
+44-row residual covers only the schema, vocabulary, and corpus subset.
+Full-closure replacement
+`844df3fcbccaef97e27cc27264ad2622cea6e889`, tree
+`c48e9df90bf125ac08d2c4b9183a7622d966859a`, retains that subset and adds the
+complete REQ-P-PUBLIC-CONTRACTS-005..011 residual over groups, rows, locators,
+rosters, operations, capabilities, and the accepted capability graph. That
+exact delta receives one independent review; the worker does not realize,
+recursively review, or refreeze it.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active
