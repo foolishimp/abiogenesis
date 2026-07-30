@@ -61,9 +61,9 @@ into S06 without a complete satisfaction relation. Bounded replacement
 `8dc59264`, tree `77a7ee37`, is returned because catalog-binding refusal and
 common pre-index parse refusal remain underconstrained. Replacement
 `aa0daa62`, tree `9fa25663`, closes those two refusal relations and corrects
-the PFC-F05 aliases. It is frozen pending one independent bounded delta review
-and direct disposition. Do not edit or refreeze that candidate, and do not
-resume realization before acceptance.
+the PFC-F05 aliases. Direct human authority accepts that exact design and
+authorizes one bounded Section 11 realization pass. Do not edit or refreeze the
+accepted design; freeze one installed S06 candidate and stop.
 Prime compression, full conservation
 qualification, qualification, and release must not receive implementation
 while S06 remains unresolved.

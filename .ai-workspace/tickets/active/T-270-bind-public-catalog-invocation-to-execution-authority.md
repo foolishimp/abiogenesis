@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_closed_refusal_relations_design_review
-- review_status: s03_s05_accepted_s06_closed_refusal_relations_review_pending
-- proof_status: s06_closed_refusal_relations_candidate_frozen
+- phase_status: m5_s06_realization
+- review_status: s03_s05_accepted_s06_design_accepted_realization_active
+- proof_status: s06_realization_pending
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -29,10 +29,10 @@
 - pen_holder: codex
 - build_tenant: typescript
 - current_product_outcome: ABG5-S06
-- implementation_hold: s06_closed_refusal_relations_design_delta_review
+- implementation_hold: none_s06_realization_authorized
 - implementation_hold_effect: >-
-    review exact S06 design candidate aa0daa62 under T-281; prohibit
-    realization, recursive design revision, Prime compression, planned 5.1
+    realize accepted S06 design candidate aa0daa62 once under T-281; prohibit
+    recursive design revision, Prime compression, planned 5.1
     observer/tuner realization, unified M5 freeze, M6 qualification, M7
     release, and unrelated refactoring
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
@@ -79,6 +79,12 @@
 - current_s06_design_sha256: 236d1d3394b987fd9aeaa5676f72b6ec08941b895d873b6c4d879cbe9cd379ce
 - current_s06_requirement_sha256: 26eb36ca6701ac9970b2e4d63b1125a48353cf553c37addbb85c9586e9204ad7
 - current_s06_design_subject_aggregate_sha256: 297e324af627857ad5ce90a3987cf34a96b0bb2696cb9e368766d97a97df8488
+- accepted_s06_closed_refusal_design_commit: aa0daa626b0f4ea05058d7ef7541afc8eaf350b5
+- accepted_s06_closed_refusal_design_tree: 9fa256630bc3d40d31f0bb7d6a70fd303e29c923
+- accepted_s06_closed_refusal_design_sha256: 236d1d3394b987fd9aeaa5676f72b6ec08941b895d873b6c4d879cbe9cd379ce
+- accepted_s06_closed_refusal_design_decision: >-
+    .ai-workspace/comments/codex/
+    20260730T153208Z_DECISION_accept_s06_closed_refusal_design.md
 - accepted_s06_public_native_design_commit: 2bb7b594920b1b126a6d314ed7bb39dabd211823
 - accepted_s06_public_native_design_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
 - accepted_s06_public_native_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
@@ -170,9 +176,9 @@ one required publication subset. Full-closure replacement `844df3fc`, tree
 without a complete satisfaction relation. Bounded replacement `8dc59264`, tree
 `77a7ee37`, is returned because catalog-binding refusal and common pre-index
 parse refusal remain underconstrained. Replacement `aa0daa62`, tree
-`9fa25663`, closes those two relations and corrects the PFC-F05 aliases. It is
-frozen for one independent bounded delta review. Realization remains held
-until direct acceptance.
+`9fa25663`, closes those two relations and corrects the PFC-F05 aliases. Direct
+human authority accepts that exact design and authorizes one bounded Section
+11 realization pass.
 
 S06 binds its exact public-function rows into the extant flat development
 catalog and emits only the exact 44-row schema/vocabulary/corpus diagnostic.

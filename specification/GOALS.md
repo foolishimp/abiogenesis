@@ -14,7 +14,7 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 realization `4953508d` returned; bounded design `aa0daa62` frozen for review; realization held; A5-F12/S04 deferred to 5.1 |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 realization `4953508d` returned; bounded design `aa0daa62` accepted; one realization pass active; A5-F12/S04 deferred to 5.1 |
 
 ## Current Basis
 
@@ -95,8 +95,9 @@ selection, ordered successor outcomes, and their acceptance conditions.
   `aa0daa626b0f4ea05058d7ef7541afc8eaf350b5`, tree
   `9fa256630bc3d40d31f0bb7d6a70fd303e29c923`, design digest
   `236d1d3394b987fd9aeaa5676f72b6ec08941b895d873b6c4d879cbe9cd379ce`,
-  closes those two refusal relations and corrects the PFC-F05 aliases. It is
-  frozen for one independent bounded delta review. Returned designs
+  closes those two refusal relations and corrects the PFC-F05 aliases. Direct
+  human authority accepts that exact design and authorizes one bounded Section
+  11 realization pass. Returned designs
   `9fb14e68` and `8eb7564c` are evidence only.
   Realization is held.
 - Exact candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b`
@@ -175,8 +176,8 @@ realization basis is native-contract design
 `cd8bf69d79014e29e45bda52f9a785907eab8e74`, is returned evidence.
 Supplemental design candidate
 `aa0daa626b0f4ea05058d7ef7541afc8eaf350b5`, tree
-`9fa256630bc3d40d31f0bb7d6a70fd303e29c923`, is frozen for one bounded
-delta review over returned predecessor
+`9fa256630bc3d40d31f0bb7d6a70fd303e29c923`, is directly accepted over
+returned predecessor
 `8dc59264e8aa32e606c925f6a933ba3131e41bde` and accepted parent
 `2bb7b594920b1b126a6d314ed7bb39dabd211823`.
 Candidates `8eb7564c`, tree `9c753f86`, `5770755a`, tree `77842794`, and
@@ -236,7 +237,7 @@ release authority and do not participate in S06 closure.
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
-| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Native design `4f80f84a` accepted; bounded replacement `aa0daa62` frozen for review; realization held |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Native design `4f80f84a` and bounded replacement `aa0daa62` accepted; one realization pass active |
 | `4` | `T-270` | Contract the Prime entropy basis | One accepted atomic design resolves the smallest irreducible basis for typed identity, ordered sequence equality, exact key sets, uniqueness, digest elimination, reference construction, and structural guards; it preserves distinct equalities and repairs contradictions to the selected laws before one realization projects every other occurrence as application or composition. | Blocked by S06 |
 | `5` | `T-270` | Complete public-contract publication and freeze one M5 candidate | The full REQ-P-PUBLIC-CONTRACTS-005..011 residual is empty: nine group identities and locators, 44 schema/vocabulary/corpus rows, 18 operation identities and complete projections, 16 capability identities, and the accepted capability graph with exact owning-contract and dependency relations are present from owner-local publication truth; all selected pre-qualification 5.0 Product behavior, all 16 selected feature-family dispositions, and the accepted Prime entropy reduction are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 and Prime entropy reduction |
 | `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
