@@ -11,7 +11,10 @@
 > only one required publication subset. Candidate `844df3fc`, tree `c48e9df9`,
 > is returned because it pulls later T-270 publication assurance into S06
 > without a complete satisfaction relation. Bounded replacement `8dc59264`,
-> tree `77a7ee37`, is frozen for independent delta review.
+> tree `77a7ee37`, is returned because catalog-binding refusal and common
+> pre-index parse refusal remain underconstrained. Replacement `aa0daa62`, tree
+> `9fa25663`, closes those two refusal relations and is frozen for one
+> independent bounded delta review.
 > Realization, Prime compression, S04, and later work remain held.
 
 - id: T-281
@@ -19,15 +22,15 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: m5_s06_bounded_public_refusal_design_review
-- review_status: s06_bounded_design_delta_review_pending
-- proof_status: s06_bounded_design_candidate_frozen
+- phase_status: m5_s06_closed_refusal_relations_design_review
+- review_status: s06_closed_refusal_relations_delta_review_pending
+- proof_status: s06_closed_refusal_relations_candidate_frozen
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
-- implementation_hold: s06_bounded_public_refusal_design_delta_review
+- implementation_hold: s06_closed_refusal_relations_design_delta_review
 - implementation_hold_effect: >-
-    review exact candidate 8dc59264 only; prohibit realization, recursive
+    review exact candidate aa0daa62 only; prohibit realization, recursive
     design revision, Prime compression, S04, unified M5 freeze, M6
     qualification, M7 release, alternate functionality, and broad refactoring
 - delivery_phase: M5_after_accepted_s03_and_s05
@@ -84,11 +87,14 @@
 - returned_s06_full_closure_design_candidate: 844df3fcbccaef97e27cc27264ad2622cea6e889
 - returned_s06_full_closure_design_tree: c48e9df90bf125ac08d2c4b9183a7622d966859a
 - returned_s06_full_closure_design_sha256: 5da0de37d0eba0143f3562eaa7dfcb5caa323ab17f075c4b0fdc2aa88349adba
-- current_s06_design_candidate: 8dc59264e8aa32e606c925f6a933ba3131e41bde
-- current_s06_design_candidate_tree: 77a7ee374be4375c1b67d6cd9730dab6f04007e2
-- current_s06_design_sha256: 25c5578552e0f4b47bf6f1711f579de3ca9ed7cd04b17b01c0bcaccba1dd710d
+- returned_s06_bounded_refusal_design_candidate: 8dc59264e8aa32e606c925f6a933ba3131e41bde
+- returned_s06_bounded_refusal_design_tree: 77a7ee374be4375c1b67d6cd9730dab6f04007e2
+- returned_s06_bounded_refusal_design_sha256: 25c5578552e0f4b47bf6f1711f579de3ca9ed7cd04b17b01c0bcaccba1dd710d
+- current_s06_design_candidate: aa0daa626b0f4ea05058d7ef7541afc8eaf350b5
+- current_s06_design_candidate_tree: 9fa256630bc3d40d31f0bb7d6a70fd303e29c923
+- current_s06_design_sha256: 236d1d3394b987fd9aeaa5676f72b6ec08941b895d873b6c4d879cbe9cd379ce
 - current_s06_requirement_sha256: 26eb36ca6701ac9970b2e4d63b1125a48353cf553c37addbb85c9586e9204ad7
-- current_s06_design_subject_aggregate_sha256: d79fe1d8db6649b7ae414a98b7e5d1532fd2405515839dd7508f15c68f57f132
+- current_s06_design_subject_aggregate_sha256: 297e324af627857ad5ce90a3987cf34a96b0bb2696cb9e368766d97a97df8488
 - accepted_s06_public_native_design_commit: 2bb7b594920b1b126a6d314ed7bb39dabd211823
 - accepted_s06_public_native_design_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
 - accepted_s06_public_native_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
@@ -106,7 +112,7 @@
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260730T141754Z_HANDOFF_t281_s06_bounded_public_refusal_design.md
+    20260730T151455Z_HANDOFF_t281_s06_closed_refusal_relations_design.md
 
 ## Selected Outcome
 
@@ -362,10 +368,13 @@ Full-closure replacement
 `c48e9df90bf125ac08d2c4b9183a7622d966859a`, is returned because its later
 publication-closure evaluator is both outside S06 and underdefined. Bounded
 replacement `8dc59264e8aa32e606c925f6a933ba3131e41bde`, tree
-`77a7ee374be4375c1b67d6cd9730dab6f04007e2`, retains only the 44-row S06
-diagnostic and repairs the affected refusal projections. That exact delta
-receives one independent review; the worker does not realize, recursively
-review, or refreeze it.
+`77a7ee374be4375c1b67d6cd9730dab6f04007e2`, is returned because its
+catalog-binding refusal and common pre-index parse refusal remain
+underconstrained. Replacement
+`aa0daa626b0f4ea05058d7ef7541afc8eaf350b5`, tree
+`9fa256630bc3d40d31f0bb7d6a70fd303e29c923`, closes those two relations and
+corrects the PFC-F05 aliases. That exact delta receives one independent bounded
+review; the worker does not realize, recursively review, or refreeze it.
 
 Prior X-era operation rosters, intermediate candidates, and checkpoint
 narratives remain in repository history and commentary. They carry no active

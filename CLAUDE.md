@@ -23,10 +23,12 @@ returned evidence. Nested catalog-authority replacement `356aa6a2`, tree
 `4af5ada4`, is returned because its 44-row residual is only one required
 publication subset. Candidate `844df3fc`, tree `c48e9df9`, is returned because
 it pulls later T-270 publication assurance into S06 without a complete
-satisfaction relation. Bounded replacement `8dc59264`, tree `77a7ee37`, keeps
-the exact 44-row S06 diagnostic and closes indexed admission, owner, and
-catalog-binding refusal projection. It is frozen for one independent delta
-review. Realization is held; do not edit or refreeze the design candidate.
+satisfaction relation. Bounded replacement `8dc59264`, tree `77a7ee37`, is
+returned because catalog-binding refusal and common pre-index parse refusal
+remain underconstrained. Replacement `aa0daa62`, tree `9fa25663`, closes those
+two refusal relations and corrects the PFC-F05 aliases. It is frozen for one
+independent bounded delta review. Realization is held; do not edit or refreeze
+the design candidate.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -70,7 +72,7 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 ## GTL / HoG / ABG Bootstrap
 
 **Status**: S03 and S05 accepted; S06 realization `4953508d` returned;
-bounded S06 design candidate `8dc59264` frozen for review; realization held
+bounded S06 design candidate `aa0daa62` frozen for review; realization held
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower

@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 native design `4f80f84a` accepted; supplemental parent `2bb7b594` accepted; bounded replacement `8dc59264` frozen for review; realization held; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 native design `4f80f84a` accepted; supplemental parent `2bb7b594` accepted; bounded replacement `aa0daa62` frozen for review; realization held; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -75,9 +75,10 @@ witness digest, but is returned because its 44-row residual is not the complete
 publication predicate. Candidate `844df3fc`, tree `c48e9df9`, is returned
 because it pulls that later T-270 completion predicate into S06 without a
 complete satisfaction relation. Bounded replacement `8dc59264`, tree
-`77a7ee37`, retains only the exact 44-row S06 diagnostic, leaves later
-publication completion to T-270, and separates indexed admission, owner, and
-catalog-binding refusals. It is frozen for one independent delta review.
+`77a7ee37`, is returned because catalog-binding refusal and common pre-index
+parse refusal remain underconstrained. Replacement `aa0daa62`, tree
+`9fa25663`, closes those two refusal relations and corrects the PFC-F05 aliases.
+It is frozen for one independent bounded delta review.
 Realization remains held. The Codex delegate remains a convenience shell, not
 alternate functionality.
 

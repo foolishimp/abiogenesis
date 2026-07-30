@@ -58,11 +58,12 @@ witness digest. It is returned because its 44-row residual does not cover the
 complete public-contract publication predicate. Candidate `844df3fc`, tree
 `c48e9df9`, is returned because it pulls later T-270 publication assurance
 into S06 without a complete satisfaction relation. Bounded replacement
-`8dc59264`, tree `77a7ee37`, keeps only the exact 44-row S06 diagnostic,
-leaves later publication completion outside S06, and separates indexed
-admission, owner, and catalog-binding refusals. It is frozen pending one
-independent delta review and direct disposition. Do not edit or refreeze that
-candidate, and do not resume realization before acceptance.
+`8dc59264`, tree `77a7ee37`, is returned because catalog-binding refusal and
+common pre-index parse refusal remain underconstrained. Replacement
+`aa0daa62`, tree `9fa25663`, closes those two refusal relations and corrects
+the PFC-F05 aliases. It is frozen pending one independent bounded delta review
+and direct disposition. Do not edit or refreeze that candidate, and do not
+resume realization before acceptance.
 Prime compression, full conservation
 qualification, qualification, and release must not receive implementation
 while S06 remains unresolved.
