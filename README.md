@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 native design `4f80f84a` accepted; supplemental parent `2bb7b594` accepted; full-closure replacement `844df3fc` frozen for review; realization held; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 native design `4f80f84a` accepted; supplemental parent `2bb7b594` accepted; bounded replacement `8dc59264` frozen for review; realization held; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
 
@@ -72,12 +72,14 @@ remain returned evidence. Catalog-preserving candidate `458ce3c2`, tree
 preserves acyclic digest staging and the extant flat carrier, derives the
 complete nested contract join from the family, and removes the undefined
 witness digest, but is returned because its 44-row residual is not the complete
-publication predicate. Full-closure replacement `844df3fc`, tree `c48e9df9`,
-keeps that roster as a diagnostic subset and makes the complete group, row,
-locator, roster, operation, capability, and accepted capability-graph residual
-the T-270 gate before unified M5. It is frozen for one independent delta
-review. Realization remains held. The Codex delegate remains a convenience
-shell, not alternate functionality.
+publication predicate. Candidate `844df3fc`, tree `c48e9df9`, is returned
+because it pulls that later T-270 completion predicate into S06 without a
+complete satisfaction relation. Bounded replacement `8dc59264`, tree
+`77a7ee37`, retains only the exact 44-row S06 diagnostic, leaves later
+publication completion to T-270, and separates indexed admission, owner, and
+catalog-binding refusals. It is frozen for one independent delta review.
+Realization remains held. The Codex delegate remains a convenience shell, not
+alternate functionality.
 
 `A5-F12` and `ABG5-S04` are planned 5.1 work. Their design candidate
 `4897ead1`, tree `11d0ef7b`, remains immutable future input under backlogged

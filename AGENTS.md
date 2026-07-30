@@ -55,12 +55,14 @@ Replacement candidate `356aa6a2`, tree `4af5ada4`, defines the family-derived
 nested contract join, exposes mandatory catalog gaps, assigns their later
 completion to T-270 before unified M5, and removes the undefined pre-family
 witness digest. It is returned because its 44-row residual does not cover the
-complete public-contract publication predicate. Full-closure replacement
-`844df3fc`, tree `c48e9df9`, keeps the 44-row roster as a diagnostic subset
-and defines the complete group, row, locator, roster, operation, capability,
-and accepted capability-graph residual. It is frozen pending one independent
-delta review and direct disposition. Do not edit or refreeze that candidate,
-and do not resume realization before acceptance.
+complete public-contract publication predicate. Candidate `844df3fc`, tree
+`c48e9df9`, is returned because it pulls later T-270 publication assurance
+into S06 without a complete satisfaction relation. Bounded replacement
+`8dc59264`, tree `77a7ee37`, keeps only the exact 44-row S06 diagnostic,
+leaves later publication completion outside S06, and separates indexed
+admission, owner, and catalog-binding refusals. It is frozen pending one
+independent delta review and direct disposition. Do not edit or refreeze that
+candidate, and do not resume realization before acceptance.
 Prime compression, full conservation
 qualification, qualification, and release must not receive implementation
 while S06 remains unresolved.

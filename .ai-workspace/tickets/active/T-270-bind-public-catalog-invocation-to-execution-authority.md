@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_full_public_contract_closure_design_review
-- review_status: s03_s05_accepted_s06_full_closure_design_review_pending
-- proof_status: s06_full_closure_design_candidate_frozen
+- phase_status: m5_s06_bounded_public_refusal_design_review
+- review_status: s03_s05_accepted_s06_bounded_design_review_pending
+- proof_status: s06_bounded_design_candidate_frozen
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -24,14 +24,14 @@
     applicability requirements
 - triaged_at: 2026-07-28
 - created_at: 2026-07-14
-- updated_at: 2026-07-30
+- updated_at: 2026-07-31
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
 - current_product_outcome: ABG5-S06
-- implementation_hold: s06_full_public_contract_closure_design_delta_review
+- implementation_hold: s06_bounded_public_refusal_design_delta_review
 - implementation_hold_effect: >-
-    review exact S06 design candidate 844df3fc under T-281; prohibit
+    review exact S06 design candidate 8dc59264 under T-281; prohibit
     realization, recursive design revision, Prime compression, planned 5.1
     observer/tuner realization, unified M5 freeze, M6 qualification, M7
     release, and unrelated refactoring
@@ -68,11 +68,14 @@
 - returned_s06_nested_catalog_design_candidate: 356aa6a24fbfaac32c9ce2bb4fbc8b78f59bcd92
 - returned_s06_nested_catalog_design_tree: 4af5ada4d1487d4e63b5ae55b4f55be522f3ae3c
 - returned_s06_nested_catalog_design_sha256: 3a65c0f1b8e5c15011197f48fb61e730c16dac45ec160077139eb42fc758e49c
-- current_s06_design_candidate: 844df3fcbccaef97e27cc27264ad2622cea6e889
-- current_s06_design_candidate_tree: c48e9df90bf125ac08d2c4b9183a7622d966859a
-- current_s06_design_sha256: 5da0de37d0eba0143f3562eaa7dfcb5caa323ab17f075c4b0fdc2aa88349adba
+- returned_s06_full_closure_design_candidate: 844df3fcbccaef97e27cc27264ad2622cea6e889
+- returned_s06_full_closure_design_tree: c48e9df90bf125ac08d2c4b9183a7622d966859a
+- returned_s06_full_closure_design_sha256: 5da0de37d0eba0143f3562eaa7dfcb5caa323ab17f075c4b0fdc2aa88349adba
+- current_s06_design_candidate: 8dc59264e8aa32e606c925f6a933ba3131e41bde
+- current_s06_design_candidate_tree: 77a7ee374be4375c1b67d6cd9730dab6f04007e2
+- current_s06_design_sha256: 25c5578552e0f4b47bf6f1711f579de3ca9ed7cd04b17b01c0bcaccba1dd710d
 - current_s06_requirement_sha256: 26eb36ca6701ac9970b2e4d63b1125a48353cf553c37addbb85c9586e9204ad7
-- current_s06_design_subject_aggregate_sha256: 7fb350cd962342278f06d043d602af17bba6b9f51aee8cc9321dcd9eecf4d05d
+- current_s06_design_subject_aggregate_sha256: d79fe1d8db6649b7ae414a98b7e5d1532fd2405515839dd7508f15c68f57f132
 - accepted_s06_public_native_design_commit: 2bb7b594920b1b126a6d314ed7bb39dabd211823
 - accepted_s06_public_native_design_tree: c57c237e8c5950fb85552d19203df4cd526cd7b7
 - accepted_s06_public_native_design_sha256: ae3a775af039bcc95b99b6f27dabe8c166e78405d3d42b1cd58f3629a9e55876
@@ -88,7 +91,7 @@
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
 - current_s06_design_handoff: >-
     .ai-workspace/comments/codex/
-    20260730T123101Z_HANDOFF_t281_s06_full_public_contract_closure_design.md
+    20260730T141754Z_HANDOFF_t281_s06_bounded_public_refusal_design.md
 - selected_m5_public_contract_closure_owner: T-270
 - selected_m5_schema_vocabulary_corpus_roster_size: 44
 - selected_m5_contract_group_count: 9
@@ -160,15 +163,18 @@ tree `9c753f86`, `5770755a`, tree `77842794`, and `458ce3c2`, tree
 `b5c7a1eb`, remain returned evidence. Nested catalog-authority replacement
 `356aa6a2`, tree `4af5ada4`, is returned because its 44-row residual is only
 one required publication subset. Full-closure replacement `844df3fc`, tree
-`c48e9df9`, is frozen for one independent delta review. Realization remains
-held until direct acceptance.
+`c48e9df9`, is returned because it pulls later publication assurance into S06
+without a complete satisfaction relation. Bounded replacement `8dc59264`, tree
+`77a7ee37`, retains the exact 44-row diagnostic, leaves later publication
+completion outside S06, and closes indexed admission, owner, and catalog-binding
+refusal projection. It is frozen for one independent delta review. Realization
+remains held until direct acceptance.
 
 S06 binds its exact public-function rows into the extant flat development
-catalog and emits both the 44-row schema/vocabulary/corpus subset and the full
-REQ-P-PUBLIC-CONTRACTS-005..011 closure residual. T-270, not T-281 or S06
-implementation, owns later completion from exact owner-local publications and
-the accepted capability graph before unified M5 freeze. A non-empty full
-residual forbids a 5.0 conformance claim, unified M5 freeze, M6, and M7.
+catalog and emits only the exact 44-row schema/vocabulary/corpus diagnostic.
+T-270, not T-281 or S06 implementation, owns later completion from exact
+owner-local publications and the accepted capability graph before unified M5
+freeze. The S06 design defines no release-closure satisfaction algebra.
 
 S06 closes only when:
 
