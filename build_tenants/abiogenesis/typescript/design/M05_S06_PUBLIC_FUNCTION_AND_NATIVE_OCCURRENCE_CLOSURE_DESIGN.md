@@ -137,19 +137,25 @@ PFC-F03 ClosePublicFunctionFamily(
   -> IntrinsicPublicFunctionDefinitionFamily
    | PublicDefinitionGap
 
-PFC-F03A SelectPublicFunctionDefinition(
+PFC-F03A AdmitPublicInvocationEnvelope(
+  exact common invocation contract,
+  native unknown value or exact JSONL line bytes
+)
+  -> PublicInvocationEnvelope
+   | PublicEnvelopeAdmissionRefusal
+
+PFC-F03B SelectPublicFunctionDefinition(
   closed intrinsic family,
   complete definition-contract coordinate map,
   exact verified development-Product manifest and S06-bound flat catalog,
-  unknown host operation and member identities
+  admitted PublicInvocationEnvelope
 )
   -> exists K. PublicFunctionSelection<K>
    | PublicFamilyLookupRefusal
 
 PFC-F04 AdmitPublicInvocation<K>(
   exact PublicFunctionSelection<K>,
-  canonical I-JSON host candidate,
-  exact correlation ref
+  admitted PublicInvocationEnvelope
 )
   -> PublicInvocation<K>
    | IndexedInvocationAdmissionRefusal<K>
@@ -158,8 +164,8 @@ PFC-F05 InvokeOwningSemanticFunction<K>(
   admitted invocation,
   exact owner port
 )
-  -> OwnerResultOf<K>
-   | OwnerNonTerminalOf<K>
+  -> ResultOf<K>
+   | NonTerminalOf<K>
    | RefusalOf<K>
 
 PFC-F06 ProjectPublicOutcome<K>(
@@ -213,6 +219,7 @@ unknown host value
   + verified development-Product manifest, S06-bound flat catalog,
     and complete definition-contract coordinate map
   -> PFC-F03A
+  -> PFC-F03B
   -> PFC-F04<K>
   -> PFC-F05<K>
   -> PFC-F06<K>
@@ -225,8 +232,9 @@ content identity exists. It neither replaces that catalog nor claims full
 public-contract publication closure. `PFC-F08A` derives the complete expected
 owner-contract set from the admitted family and joins each nested
 definition/slot coordinate through its exact operation row.
-None is a runtime dispatch service. `PFC-F03A` is exact zero/one family selection;
-unknown operation or member identity fails before any `K` exists.
+None is a runtime dispatch service. `PFC-F03A` performs only common-envelope
+admission. `PFC-F03B` is exact zero/one family selection; unknown operation or
+member identity fails before any `K` exists.
 `PFC-F05` is a typed higher-order call to the operation's existing owner;
 Public does not implement owner semantics.
 
@@ -557,6 +565,7 @@ RD<T> = { ref: Ref<T>, digest: Sha256Digest }
 RDSet<T> = NonEmptyUnique<RD<T>>
 Residuals = NonEmptyUnique<TypedResidual>
 NoResiduals = readonly []
+CanonicalIJsonObject = canonical I-JSON value whose outer value is an object
 CanonicalValue<C> = canonical I-JSON admitted by contract RD<C>
 ContractBoundValue = {
   contract: RD<PublicContract>
@@ -762,6 +771,10 @@ The contract payloads located by the common rows
 `abg.schema.public-operation-contract`,
 `abg.schema.public-operation-invocation`, and
 `abg.schema.public-operation-outcome` bind the same family version and digest.
+The invocation payload has addressable definitions for
+`PublicInvocationEnvelope`, `PublicEnvelopeAdmissionRefusal`, and
+`IndexedInvocationAdmissionRefusal`. Their native schemas are the exact
+`Public.InvocationAdmission` members named in Section 4.5.
 The flat rows retain only the existing locator fields. Generated member
 definitions may be addressable JSON Schema `$defs`; they do not become
 separately authored contracts.
@@ -986,6 +999,77 @@ contracts and each of the 18 operation identities. Each proposal uses the
 existing row fields and locates its exact native symbol, schema asset or schema
 definition. It contains no `catalogRef`, top-level Product wrapper,
 `intrinsicRow`, or `bindingDigest`.
+
+PFC-F08 refusal is one closed Product-publication contract:
+
+```text
+PublicCatalogBindingFailureClass =
+  forbidden_operation_identity
+  | duplicate_contract_identity
+  | missing_projected_identity
+  | unexpected_projected_identity
+  | retained_row_changed
+  | owning_product_mismatch
+  | unresolved_locator
+  | content_digest_mismatch
+
+PublicCatalogBindingAttempt = {
+  schemaVersion: "5.0.0"
+  extantCatalog: PublicContractCatalogCoordinate
+  family: IntrinsicPublicFunctionFamilyCoordinate
+  proposalSetRef
+  proposalSetDigest
+  productId
+  productContentDigest
+  attemptRef
+  attemptDigest
+}
+
+PublicCatalogBindingRefusalNativeSource =
+  ExactOwnerMemberCoordinate where
+    abstractModule = "Product.PublicContractPublication"
+    exportName = "PUBLIC_CATALOG_BINDING_CONTRACTS"
+    memberPath = ["refusal"]
+
+PublicCatalogBindingRefusalContractCoordinate =
+  exact PublicContractCoordinate resolved through
+    PublicCatalogBindingAttempt.extantCatalog where
+      flatRow.contractId = "abg.schema.public-contract-catalog"
+      and nestedSelector = {
+        selectorKind: "schema_definition"
+        definitionKey: null
+        slot: null
+        definitionRef: "#/$defs/PublicCatalogBindingRefusal"
+      }
+
+PublicCatalogBindingRefusal = {
+  kind: "public_catalog_binding_refusal"
+  schemaVersion: "5.0.0"
+  refusalContract: PublicCatalogBindingRefusalContractCoordinate
+  nativeContractSource: PublicCatalogBindingRefusalNativeSource
+  attempt: PublicCatalogBindingAttempt
+  refusalRef
+  refusalDigest
+  failureClass: PublicCatalogBindingFailureClass
+  issuePaths: NonEmptyUnique<JsonPointer>
+}
+```
+
+`proposalSetDigest` hashes the exact supplied proposal sequence sorted by
+`(contractId, canonical row bytes)`, preserving duplicate rows;
+`proposalSetRef` is content addressed from that digest and resolves that exact
+sequence. `attemptDigest` hashes every `PublicCatalogBindingAttempt` field
+except `attemptRef` and `attemptDigest`; `attemptRef` is content addressed from
+that digest. PFC-F08 succeeds only when the attempt's Product identity/content
+equals its extant-catalog coordinate and its proposal sequence equals the exact
+PFC-F07 family projection. Every mismatch instead selects one closed failure
+class. `refusalDigest` hashes every refusal field except `refusalRef` and
+`refusalDigest`; `refusalRef` is content addressed from that digest. The
+Product-owned strict native schema at `PublicCatalogBindingRefusalNativeSource`
+and its canonical JSON Schema definition at
+`PublicCatalogBindingRefusalContractCoordinate` have identical domains.
+PFC-F08 admits no runtime event. A refusal carries no output catalog or
+diagnostic.
 
 PFC-F08 applies this exact merge:
 
@@ -1614,14 +1698,16 @@ AdmissionRefusalCodeOf<K> =
       : never)
 ```
 
-`unknown_definition` and `unknown_variant` are PFC-F03A
+`unknown_definition` and `unknown_variant` are PFC-F03B
 `PublicFamilyLookupRefusal` classes. They cannot enter the indexed set above
 because no `K` exists.
 
 Classification is total:
 
-- a malformed common invocation envelope is a common parse failure before
-  family selection;
+- a malformed native value or JSONL candidate is a
+  `PublicEnvelopeAdmissionRefusal` from PFC-F03A before family selection;
+- an admitted common envelope reaches PFC-F03B, where an unknown operation or
+  member is `PublicFamilyLookupRefusal`;
 - after exact `K` selection, an invalid, unauthorized, or mismatched host
   candidate is `IndexedInvocationAdmissionRefusal<K>` and has no admitted
   invocation identity;
@@ -1651,6 +1737,26 @@ PublicInvocationContractCoordinate =
     flatRow.contractId = "abg.schema.public-operation-invocation"
     and nestedSelector.selectorKind = "flat_contract"
 
+PublicInvocationEnvelopeContractCoordinate =
+  exact PublicContractCoordinate where
+    flatRow.contractId = "abg.schema.public-operation-invocation"
+    and nestedSelector = {
+      selectorKind: "schema_definition"
+      definitionKey: null
+      slot: null
+      definitionRef: "#/$defs/PublicInvocationEnvelope"
+    }
+
+PublicEnvelopeAdmissionRefusalContractCoordinate =
+  exact PublicContractCoordinate where
+    flatRow.contractId = "abg.schema.public-operation-invocation"
+    and nestedSelector = {
+      selectorKind: "schema_definition"
+      definitionKey: null
+      slot: null
+      definitionRef: "#/$defs/PublicEnvelopeAdmissionRefusal"
+    }
+
 IndexedAdmissionRefusalContractCoordinate =
   exact PublicContractCoordinate where
     flatRow.contractId = "abg.schema.public-operation-invocation"
@@ -1665,6 +1771,54 @@ PublicOutcomeContractCoordinate =
   exact PublicContractCoordinate where
     flatRow.contractId = "abg.schema.public-operation-outcome"
     and nestedSelector.selectorKind = "flat_contract"
+
+PublicInvocationEnvelopeNativeSource =
+  ExactOwnerMemberCoordinate where
+    abstractModule = "Public.InvocationAdmission"
+    exportName = "PUBLIC_INVOCATION_ADMISSION_CONTRACTS"
+    memberPath = ["envelope"]
+
+PublicEnvelopeAdmissionRefusalNativeSource =
+  ExactOwnerMemberCoordinate where
+    abstractModule = "Public.InvocationAdmission"
+    exportName = "PUBLIC_INVOCATION_ADMISSION_CONTRACTS"
+    memberPath = ["envelopeRefusal"]
+
+PublicInvocationEnvelope = {
+  kind: "public_invocation_candidate"
+  schemaVersion: "5.0.0"
+  envelopeContract: PublicInvocationEnvelopeContractCoordinate
+  operationIdentity
+  memberIdentity
+  correlationRef
+  eventTime: RFC3339Instant
+  requestCandidate: CanonicalIJsonObject
+}
+
+PublicEnvelopeAdmissionFailureClass =
+  invalid_utf8
+  | invalid_json_text
+  | not_i_json_object
+  | missing_common_field
+  | unexpected_common_field
+  | invalid_kind
+  | invalid_schema_version
+  | invalid_operation_identity
+  | invalid_member_identity
+  | invalid_correlation_ref
+  | invalid_event_time
+  | invalid_request_candidate
+
+PublicEnvelopeAdmissionRefusal = {
+  kind: "public_envelope_admission_refusal"
+  schemaVersion: "5.0.0"
+  refusalContract: PublicEnvelopeAdmissionRefusalContractCoordinate
+  nativeContractSource: PublicEnvelopeAdmissionRefusalNativeSource
+  candidateDigest: Sha256Digest | null
+  correlationRef: null | exact structurally valid supplied correlationRef
+  failureClass: PublicEnvelopeAdmissionFailureClass
+  issuePaths: NonEmptyUnique<JsonPointer>
+}
 
 PublicFunctionSelection<K> = {
   familyRef
@@ -1793,12 +1947,28 @@ PublicOutcome<K> =
         candidateDigest
         evidenceRefs: Unique<Ref<Evidence>>
       }
-    }
+}
 ```
 
-For PFC-F04, `candidateDigest` hashes the canonical I-JSON host candidate.
+PFC-F03A is the sole common-envelope parser. Native SDK input enters as
+`unknown`; CLI input enters as exact JSONL line bytes; Codex forwards those
+same bytes to CLI. Successful admission normalizes both forms to the exact
+`PublicInvocationEnvelope` domain and does not retain adapter identity.
+`operationIdentity` and `memberIdentity` are nonblank strings at this phase;
+PFC-F03B alone decides exact family membership. For JSONL input,
+`candidateDigest` hashes canonical I-JSON whenever the candidate can be
+normalized to I-JSON. An invalid JSONL byte sequence hashes its exact bytes; a
+native value with no canonical I-JSON form uses null. An issue that cannot
+identify a parsed member uses the root JSON Pointer. A common refusal is a
+deterministic non-admitted transport carrier: it has no invocation, owner,
+runtime event, or durable truth identity. The strict native schemas at the two
+`Public.InvocationAdmission` source members and their canonical JSON Schema
+definitions at the two common invocation coordinates have identical domains.
+
+For PFC-F04, `candidateDigest` hashes the admitted envelope's canonical I-JSON
+`requestCandidate`.
 `attemptDigest` hashes the exact selected definition ref/version/digest/key,
-catalog coordinate, candidate digest, and correlation ref.
+catalog coordinate, candidate digest, and envelope correlation ref.
 `attemptRef` is content addressed from `attemptDigest`. `refusalDigest` hashes
 every `IndexedInvocationAdmissionRefusal<K>` field except `refusalRef` and
 `refusalDigest`; `refusalRef` is content addressed from that digest. This
@@ -1818,13 +1988,12 @@ every outcome field except `outcomeRef` and `outcomeDigest`; `outcomeRef` is
 content addressed from that digest.
 `payloadDigest` hashes the contract-admitted payload.
 
-`PublicFamilyLookupRefusal` is a family-level pre-index result of PFC-F03A. It
+`PublicFamilyLookupRefusal` is a family-level pre-index result of PFC-F03B. It
 is not `PublicOutcome<K>` because no `K`, admitted invocation, or semantic owner
 exists. SDK and CLI project it through the common invocation contract with
 `invalidInvocation = 2`; an adapter cannot reinterpret it as an indexed owner
-admission refusal or owner refusal. PFC-F03A runs after the common invocation
-envelope has admitted the operation and member identities as strings; malformed
-envelopes remain common parse failures rather than lookup results.
+admission refusal or owner refusal. PFC-F03B runs only after PFC-F03A has
+admitted the operation and member identities as strings.
 
 `IndexedInvocationAdmissionRefusal<K>` is the only PFC-F04 refusal. Exact `K`
 exists, but no public invocation has been admitted. SDK and CLI project it
@@ -1836,7 +2005,7 @@ returned by the invoked owner may occupy the `PublicOutcome<K>` refusal member.
 result truth and cannot be reclassified as `RefusalOf<K>`. It is published in
 the common outcome native symbol and schema, appears in every operation row,
 and has adapter exit class `adapterFailure = 70`. Result, owner-semantic
-refusal, and non-terminal exits remain `0`, `1`, and `3`; common parse,
+refusal, and non-terminal exits remain `0`, `1`, and `3`; common-envelope,
 family-lookup, and indexed admission refusals remain `2`.
 
 Invocation authority is a dependent structural sum, not an optional bag:
@@ -2356,13 +2525,16 @@ enter the accepted native-closure digest and resolved-lock identity.
 | `S06C-E15` | `MandatorySchemaVocabularyCorpusGapSet` | S06 publication diagnostic | exact 44 REQ-P-PUBLIC-CONTRACTS-006A identities minus E14 row identities; no generic Product-verification or release-closure meaning |
 | `S06C-E16` | `PublicCatalogBindingRefusal` | Product-publication refusal | exact PFC-F08 input basis plus one closed merge-failure class; no E14 catalog output |
 | `S06C-E17` | `IndexedInvocationAdmissionRefusal<K>` | downstream indexed pre-invocation carrier | exact K and stable attempt identity; no admitted invocation or owner-refusal authority |
+| `S06C-E18` | `PublicCatalogBindingAttempt` | authoritative subordinate Product-publication basis | exact extant catalog, intrinsic family, proposal-set ref/digest, Product identity/content, and attempt identity |
+| `S06C-E19` | `PublicInvocationEnvelope` | subordinate admitted common envelope | exact common contract, operation/member strings, correlation, event time, and canonical I-JSON request candidate; no K or owner authority |
+| `S06C-E20` | `PublicEnvelopeAdmissionRefusal` | downstream common-ingress carrier | one closed common failure class under the common invocation contract; no K, invocation, owner, event, or durable truth identity |
 | `S06C-R01` | owner-contract-to-definition | Product public-contract relation | E01 -> E02 |
 | `S06C-R02` | definition-family closure | Product publication relation | exact E02 set -> E03 |
-| `S06C-R03` | family selection and invocation admission | Public admission relation | E03 + E14 + common candidate -> E13 or exact K -> E04 or E17 |
+| `S06C-R03` | common-envelope, family-selection, and invocation admission | Public admission relation | unknown host candidate -> E19 or E20; E19 + E03/E14 -> E13 or exact K -> E04 or E17 |
 | `S06C-R04` | owner execution and outcome projection | owner then Public relation | E04 -> owner output -> E05 |
 | `S06C-R05` | pending-selector derivation | Product verifier relation | source contract plus local checker -> E08 |
 | `S06C-R06` | linked occurrence and binding | Product resolver relation | E08 plus linked checker/direct dependencies -> E09/E10/E11 -> E12 |
-| `S06C-R07` | S06 flat-catalog merge and diagnostic projection | Product publication relation | extant catalog plus E03/E06 and Product identity/content -> E14/E15 or E16 |
+| `S06C-R07` | S06 flat-catalog merge and diagnostic projection | Product publication relation | extant catalog plus E03/E06 and Product identity/content -> E18 -> E14/E15 or E16 |
 | `S06C-R08` | expected-owner-contract join | Product verification relation | family-derived complete E01 set -> E14 operation row -> definition key -> slot -> nested coordinate |
 
 ### 6.2 Cardinality
@@ -2381,10 +2553,19 @@ enter the accepted native-closure digest and resolved-lock identity.
 - E15 is the exact 44-row S06 diagnostic. Empty E15 has no full-publication
   meaning.
 - Every E16 identifies exactly one failed PFC-F08 attempt and one closed
-  failure class. E16 and successful E14/E15 output are disjoint.
+  failure class. Its refusal and attempt digests bind the exact E18 basis. E16
+  and successful E14/E15 output are disjoint.
 - Every E17 carries exactly one definition key, attempt ref/digest, candidate
   digest, catalog coordinate, correlation ref, and K-derived admission code.
   E17 carries no invocation ref/digest and cannot enter E05.
+- Every E18 carries exactly one extant catalog coordinate, intrinsic family
+  coordinate, canonical proposal-set ref/digest, Product identity/content
+  pair, and attempt ref/digest.
+- Every E19 carries one structurally admitted operation string, member string,
+  correlation ref, event time, and canonical I-JSON request candidate.
+- Every E20 carries one closed common-envelope failure class and non-empty
+  issue-path set. It carries no definition key, invocation identity, owner
+  refusal contract, or runtime-event authority.
 - The family-derived expected E01 set equals the selected nested identity set.
   Many nested identities may share one E14 operation row; every
   `(definitionKey, slot, definitionRef)` coordinate is unique.
@@ -2403,9 +2584,10 @@ enter the accepted native-closure digest and resolved-lock identity.
 |---|---|---|---|---|---|
 | owner contract | semantic owner | owner schema plus public family join | Product publication | none | PFC-F07 |
 | public definition/family | owner packets | Product family verifier | immutable Product publication | none | PFC-F07 |
-| S06 public-function catalog | extant flat catalog plus intrinsic family projections and Product content | Product publication | PFC-F08 or E16 refusal | none | E14 catalog plus E15 diagnostic |
+| S06 public-function catalog | E18 from extant flat catalog, intrinsic family projections, and Product content | Product publication | PFC-F08 or E16 refusal | none | E14 catalog plus E15 diagnostic |
 | expected owner contract set | content-verified artifact family | PFC-F08A row/definition/slot nested join | product.verify | none | complete definition-contract coordinate map |
-| family selection | host operation/member identities | PFC-F03A exact family lookup | none | none | family lookup refusal or exact K |
+| common envelope | native unknown value or exact JSONL bytes | PFC-F03A common contract admission | E19 or E20 refusal | none | SDK/CLI common ingress result |
+| family selection | E19 operation/member identities | PFC-F03B exact family lookup | none | none | family lookup refusal or exact K |
 | invocation attempt | caller/adapter | PFC-F04 | E17 refusal or E04 admission | none before E04 | SDK/CLI admission result |
 | admitted invocation | E04 | exact semantic owner contract | owning semantic boundary | exact semantic owner | PFC-F06 |
 | semantic result/refusal | semantic owner | owner contract | owning Product/ABG/artifact boundary | semantic owner | PFC-F06 |
@@ -2423,11 +2605,12 @@ Adapters, generated schemas, and tests have no semantic authority.
 | Candidate family | Contraction | Retained meaning | Disposition |
 |---|---|---|---|
 | 56 operation-specific definition objects | parameterized `PFC-F02<K>` | exact owner contracts and metadata remain indexed by K | one atom applied 56 times |
+| SDK/CLI common-envelope parsing | `PFC-F03A` common contract admission | adapter source disappears after one envelope or typed refusal | subordinate composition |
 | request parsing by SDK, CLI, handler | `PFC-F04<K>` | exact raw admission and authority relation | one admission atom |
 | handler, SDK, and CLI outcome shaping | `PFC-F06<K>` | owner output remains exact and operation indexed | one projection atom |
 | schema, catalog rows, SDK, CLI, docs rosters and Product binding | staged `PFC-F07` then `PFC-F08` | intrinsic addresses remain deterministic projections; extant flat rows are preserved and Product content remains outside their payload preimage | subordinate compositions |
 | family-derived owner contracts to nested coordinates | `PFC-F08A` complete join | Product verification cannot trust a caller-supplied or partial expected set | subordinate composition |
-| operation/member lookup | `PFC-F03A` exact family selection | unknown identities fail before indexed admission | subordinate composition |
+| operation/member lookup | `PFC-F03B` exact family selection | unknown identities fail before indexed admission | subordinate composition |
 | 18 semantic owner functions | no contraction | different Product/ABG meanings, effects, and authorities | preserve separately |
 | physical syntax relation and semantic occurrence | no merge | syntax evidence and contract authority are different algebras | preserve separately |
 | per-root external relation collection | `NCC-F01` contract-indexed pending-selector derivation | exact source contract and locally decidable selector only | corrected subordinate relation |
@@ -2437,6 +2620,8 @@ Adapters, generated schemas, and tests have no semantic authority.
 Prime is complete because removing:
 
 - `PFC-F02` loses the singular operation-to-owner contract relation;
+- `PFC-F03A` lets SDK or CLI own common-envelope parsing;
+- `PFC-F03B` loses exact family selection before indexed admission;
 - `PFC-F04` loses host-input admission;
 - `PFC-F06` lets adapters or handlers author outcome envelopes;
 - source-contract pending-selector and linked-occurrence identity loses exact
@@ -2463,12 +2648,13 @@ new runtime/event authority = none
 |---|---|---|---|
 | owner contract definition | each semantic owner | owner-local `OperationContractSource<K>` | strict request/result/refusal/non-terminal schemas |
 | PFC-F02/F03 | Product public-contract authority | `Public.ContractDefinition` | definition and family |
-| PFC-F03A | Public ingress | `Public.InvocationAdmission` | exact definition selection or family lookup refusal |
+| PFC-F03A | Public ingress | `Public.InvocationAdmission` | E19 common envelope or E20 common admission refusal |
+| PFC-F03B | Public ingress | `Public.InvocationAdmission` | exact definition selection or family lookup refusal |
 | PFC-F04 | Public ingress | `Public.InvocationAdmission` | E04 indexed invocation or E17 indexed admission refusal |
 | PFC-F05 | operation semantic owner | existing Product, GTL validator, HoG/ABG, or release interface | indexed owner output |
 | PFC-F06 | Public projection | `Public.OutcomeProjection` | indexed public outcome |
 | PFC-F07 | Product publication | `Public.ContractProjection` | schemas, flat catalog-row proposals, SDK, CLI, docs |
-| PFC-F08 | Product publication authority | existing Product manifest/public-contract interface | E14 S06-bound flat catalog plus E15 diagnostic, or E16 refusal |
+| PFC-F08 | Product publication authority | existing `Product.PublicContractPublication` manifest/public-contract interface | E14 S06-bound flat catalog plus E15 diagnostic, or E16 refusal |
 | PFC-F08A | Product verifier | existing Product manifest/public-contract interface | complete nested definition-contract coordinate map or binding refusal |
 | NCC-F01 | Product verifier | private `Product.NativeContractAnalysis` | local truth and contract-indexed pending selectors |
 | NCC-F02/NCC-F03 | Product resolver | private linked analysis plus existing `Product.EnvironmentResolution` | selector dispositions, canonical occurrences, binding set, and resolved lock |
@@ -2560,8 +2746,30 @@ classDiagram
     <<S06 publication diagnostic>>
     +missingContractIds
   }
+  class PublicCatalogBindingAttempt {
+    <<authoritative subordinate>>
+    +extantCatalog
+    +family
+    +proposalSetRef
+    +proposalSetDigest
+    +productContentDigest
+    +attemptRef
+  }
   class PublicCatalogBindingRefusal {
     <<Product publication refusal>>
+    +attempt
+    +failureClass
+    +issuePaths
+  }
+  class PublicInvocationEnvelope {
+    <<subordinate admitted common envelope>>
+    +operationIdentity
+    +memberIdentity
+    +correlationRef
+    +requestCandidate
+  }
+  class PublicEnvelopeAdmissionRefusal {
+    <<downstream common-ingress refusal>>
     +failureClass
     +issuePaths
   }
@@ -2633,14 +2841,19 @@ classDiagram
   OwnerContractBinding --> IntrinsicPublicFunctionDefinition : binds
   IntrinsicPublicFunctionDefinition --> IntrinsicPublicFunctionFamily : exact membership
   IntrinsicPublicFunctionFamily --> PublicProjectionAssets : derives
-  IntrinsicPublicFunctionFamily --> PublicContractCatalog : merges rows after Product content
-  PublicProjectionAssets --> PublicCatalogBindingRefusal : PFC-F08 may refuse merge
+  IntrinsicPublicFunctionFamily --> PublicCatalogBindingAttempt : exact family
+  PublicProjectionAssets --> PublicCatalogBindingAttempt : exact proposal set
+  PublicContractCatalog --> PublicCatalogBindingAttempt : extant catalog and Product content
+  PublicCatalogBindingAttempt --> PublicCatalogBindingRefusal : PFC-F08 may refuse merge
+  PublicCatalogBindingAttempt --> PublicContractCatalog : PFC-F08 successful merge
   OwnerContractBinding --> DefinitionContractCoordinateMap : family-derived nested join
   PublicContractCatalog --> DefinitionContractCoordinateMap : row and definition lookup
   PublicContractCatalog --> MandatorySchemaVocabularyCorpusGapSet : 44-row diagnostic difference
-  PublicContractCatalog --> PublicFamilyLookupRefusal : rejects unknown identity
-  PublicContractCatalog --> IndexedInvocationAdmissionRefusal : rejects selected attempt
-  PublicContractCatalog --> PublicInvocation : admits
+  PublicContractCatalog --> PublicInvocationEnvelope : common contract admits
+  PublicContractCatalog --> PublicEnvelopeAdmissionRefusal : common contract refuses
+  PublicInvocationEnvelope --> PublicFamilyLookupRefusal : rejects unknown identity
+  PublicInvocationEnvelope --> IndexedInvocationAdmissionRefusal : rejects selected attempt
+  PublicInvocationEnvelope --> PublicInvocation : admits
   PublicInvocation --> OwnerSemanticFunction : typed call
   OwnerSemanticFunction --> PublicOutcome : owner output projected
   EnvironmentBasis *-- ResolvedLock
@@ -2676,7 +2889,8 @@ sequenceDiagram
   else family is closed
     Def->>Projection: exact intrinsic family and digest
     Projection->>Binding: fixed payload assets and flat row proposals
-    Binding->>Binding: Product content identity then PFC-F08 S06 row merge
+    Binding->>Binding: Product content identity then exact E18 attempt basis
+    Binding->>Binding: PFC-F08 S06 row merge
     alt catalog merge refuses
       Binding-->>Projection: PublicCatalogBindingRefusal
     else catalog merge succeeds
@@ -2684,19 +2898,24 @@ sequenceDiagram
     end
   end
 
-  Caller->>Admission: verified catalog plus unknown operation, member, and value
-  Admission->>Admission: PFC-F03A exact family selection
-  alt unknown operation or member
-    Admission-->>Caller: PublicFamilyLookupRefusal
-  else exact K selected
-    Admission->>Admission: PFC-F04 exact K and authority
-    alt malformed or unauthorized
-      Admission-->>Caller: IndexedInvocationAdmissionRefusal<K>
-    else invocation admitted
-      Admission->>Semantic: PFC-F05 typed invocation
-      Semantic->>Outcome: exact owner result/non-terminal/refusal
-      Outcome->>Outcome: PFC-F06 indexed contract check
-      Outcome-->>Caller: PublicOutcome<K>
+  Caller->>Admission: verified catalog plus native value or exact JSONL bytes
+  Admission->>Admission: PFC-F03A common-envelope admission
+  alt common envelope malformed
+    Admission-->>Caller: PublicEnvelopeAdmissionRefusal
+  else common envelope admitted
+    Admission->>Admission: PFC-F03B exact family selection
+    alt unknown operation or member
+      Admission-->>Caller: PublicFamilyLookupRefusal
+    else exact K selected
+      Admission->>Admission: PFC-F04 exact K and authority
+      alt request malformed or unauthorized
+        Admission-->>Caller: IndexedInvocationAdmissionRefusal<K>
+      else invocation admitted
+        Admission->>Semantic: PFC-F05 typed invocation
+        Semantic->>Outcome: exact owner result/non-terminal/refusal
+        Outcome->>Outcome: PFC-F06 indexed contract check
+        Outcome-->>Caller: PublicOutcome<K>
+      end
     end
   end
 
@@ -2731,13 +2950,17 @@ stateDiagram-v2
   FamilyClosing --> FamilyClosed: PFC-F03 exact 18 and 56
   FamilyClosed --> IntrinsicProjectionsDerived: PFC-F07
   IntrinsicProjectionsDerived --> ProductContentIdentified: existing Product content algorithm
-  ProductContentIdentified --> CatalogBindingRefused: PFC-F08 refusal
-  ProductContentIdentified --> S06CatalogBound: PFC-F08 flat-row merge
+  ProductContentIdentified --> CatalogBindingAttempted: exact E18 basis
+  CatalogBindingAttempted --> CatalogBindingRefused: PFC-F08 refusal
+  CatalogBindingAttempted --> S06CatalogBound: PFC-F08 flat-row merge
   CatalogBindingRefused --> [*]
 
   S06CatalogBound --> InvocationSubmitted: S06 caller or adapter
-  InvocationSubmitted --> FamilyLookupRefused: PFC-F03A
-  InvocationSubmitted --> DefinitionSelected: PFC-F03A
+  InvocationSubmitted --> EnvelopeRefused: PFC-F03A
+  InvocationSubmitted --> EnvelopeAdmitted: PFC-F03A
+  EnvelopeAdmitted --> FamilyLookupRefused: PFC-F03B
+  EnvelopeAdmitted --> DefinitionSelected: PFC-F03B
+  EnvelopeRefused --> [*]
   DefinitionSelected --> InvocationRefused: PFC-F04
   DefinitionSelected --> InvocationAdmitted: PFC-F04
   FamilyLookupRefused --> [*]
@@ -2775,23 +2998,25 @@ stateDiagram-v2
 
 | Axiom | Ontology evidence | Authority | Domain | Sequence | State | Native enforcement | Admission/compiler enforcement | Verdict | Gap |
 |---|---|---|---|---|---|---|---|---|---|
-| changed refusal and diagnostic relations are cross-view complete | E13..E17, R03/R07 | named in Section 6.3 | E13/E16/E17 are explicit classes | F03A/F04/F08 refusal paths are explicit | lookup, admission, and catalog refusals terminate | disjoint generic carriers | exact refusal gates | pass | none |
+| changed refusal and diagnostic relations are cross-view complete | E13..E20, R03/R07 | named in Section 6.3 | E13/E16/E17/E20 are explicit classes | F03A/F03B/F04/F08 refusal paths are explicit | envelope, lookup, indexed, and catalog refusals terminate | disjoint generic carriers | exact refusal gates | pass | none |
 | full 5.0 family is singular | E02/E03, R01/R02 | Product public-contract owner | 18 operations, 56 keys | F03 before projection | no projection before FamilyClosed | exact nested object, no string index | missing/extra/duplicate refusal | pass | none |
-| public identity staging is acyclic | E01/E02/E03/E06/E14/E15/E16, R01/R02/R07 | staged Product publication | definition uses only owner member identity; family and payload precede Product content; S06 catalog and diagnostic follow | F02 -> F03 -> F07 -> Product content -> F08 | no catalog digest before content identity | owner identity projection plus unchanged flat carrier | changed-byte, generated-asset, seed, zero-digest and generated/runtime mutations | pass | none |
+| public identity staging is acyclic | E01/E02/E03/E06/E14/E15/E16/E18, R01/R02/R07 | staged Product publication | definition uses only owner member identity; family and payload precede Product content; E18 attempt then S06 catalog/diagnostic follow | F02 -> F03 -> F07 -> Product content -> E18 -> F08 | no catalog digest before content identity | owner identity projection plus unchanged flat carrier | changed-byte, generated-asset, seed, zero-digest and generated/runtime mutations | pass | none |
 | S06 subset cannot become authority | E03/E06 | Product | scenario absent from definition identity | projection uses E03 only | scenario success changes no state | no fixture key | family census mutation | pass | none |
 | owner meaning is not public metadata | E01/E02, R01 | semantic owner | owner schema distinct from definition binding | F01 precedes F02 | gap returns to owner source | inferred exact types | owner authority/digest check | pass | none |
 | native/parser/schema domains agree | E01/E02/E06 | owner plus Product projector | one strict schema | one schema drives all projections | divergence cannot transition closed | inferred type plus parse | schema projection parity | pass | none |
 | every definition resolves one exact source and port | E01/E02, R01 | semantic owner | closed 56-key source map | F01/F02 refuse any absent member | no FamilyClosed with a gap | exact nested source map | source/schema/port member-path census | pass | none |
-| flat catalog carrier is preserved | E06/E14/E15/E16, R07 | Product publication | operation projections and flat manifest rows remain distinct | F07 proposals merge through F08 and emit E14/E15 or E16 | no second or replacement catalog state | existing catalogId/flat-row carrier | retained-row, forbidden-operation, extra-field, duplicate-ID, wrong-Product and hidden-gap mutations | pass | none |
+| flat catalog carrier is preserved | E06/E14/E15/E16/E18, R07 | Product publication | operation projections, exact attempt basis, and flat manifest rows remain distinct | F07 proposals plus extant catalog and Product content form E18 before F08 emits E14/E15 or E16 | no second or replacement catalog state | existing catalogId/flat-row carrier | retained-row, forbidden-operation, extra-field, duplicate-ID, wrong-Product and hidden-gap mutations | pass | none |
+| catalog refusal binds one exact failed attempt | E16/E18, R07 | Product publication | closed eight-class refusal carries exact basis and attempt/refusal digests | F08 consumes E18 once and returns success or E16 | refusal and successful catalog states are disjoint | native/schema refusal domains agree | basis, digest, class, and output-catalog mutations | pass | none |
 | expected owner contracts bind exactly once at nested coordinates | E01/E03/E14, R08 | Product verifier | family-derived set joins row then definition then slot | F08A precedes verified artifact | zero/many/divergent nested join refuses | complete structural map | partial caller-set, shared-row, missing slot, duplicate pointer and fragment-ID mutations | pass | none |
 | 44-row diagnostic is not release proof | E15, R07 | S06 Product publication | exact ID difference only | diagnostic follows successful S06 catalog binding | empty E15 changes no M5/M6/M7 state | one bounded set | empty diagnostic with other publication gaps | pass | none |
-| common invocation/outcome/row contracts are closed | E02..E06/E14/E17, R02..R04/R07 | Product/Public | catalog coordinate, attempt, invocation and four-way owner-outcome union | same catalog/key/digests cross every admitted message | admission and projection failures are distinct terminal truth | strict disjoint carriers | cross-catalog/key/contract/output mutations | pass | none |
-| family lookup precedes indexed authority | E03/E04/E13/E17, R03 | Public | E13 has no K; E17/E04 have exact K | PFC-F03A precedes PFC-F04 | unknown identity and refused attempt terminate before invocation | disjoint carrier sum | unknown operation/member and invalid-attempt mutations | pass | none |
+| common invocation/outcome/row contracts are closed | E02..E06/E14/E17/E19/E20, R02..R04/R07 | Product/Public | common envelope/refusal, catalog coordinate, indexed attempt, invocation and four-way owner-outcome union | same common contract, catalog, key, and digests cross each applicable message | envelope, admission, and projection failures are distinct terminal truth | strict disjoint carriers | cross-catalog/key/contract/output mutations | pass | none |
+| common envelope admission is singular | E19/E20, R03 | Public ingress | one native/schema contract admits native unknown or exact JSONL bytes | PFC-F03A precedes family lookup | E20 terminates; only E19 reaches PFC-F03B | identical SDK/CLI envelope domain | malformed UTF-8/JSON, common-field, and adapter-divergence mutations | pass | none |
+| family lookup precedes indexed authority | E03/E04/E13/E17/E19/E20, R03 | Public | E20/E13 have no K; E17/E04 have exact K | PFC-F03A then PFC-F03B precede PFC-F04 | malformed envelope, unknown identity, and refused attempt terminate before invocation | disjoint carrier sum | malformed envelope, unknown operation/member, and invalid-attempt mutations | pass | none |
 | admission refusal is not owner refusal | E04/E05/E17, R03/R04 | Public then semantic owner | E17 has attempt identity; E05 requires invocation identity | PFC-F04 refusal bypasses F05/F06 | only E04 reaches owner evaluation | `IndexedInvocationAdmissionRefusal<K>` is disjoint from `RefusalOf<K>` | attempt/invocation and refusal-contract mutations | pass | none |
 | invocation and resolve authority are constructable | E02/E04/E12, R03/R06 | Public then Product resolver | dependent authority slots and verification references | verification -> resolve -> lock | missing/extra/mismatched slot or reference refuses | mapped structural sum | capability/actor/verification mutations | pass | none |
 | relational fields are structural | E01 | owner | exact sums | admission before owner call | invalid relation refused | discriminated unions | raw/schema mutation | pass | none |
 | outcomes remain operation indexed | E02/E04/E05, R03/R04 | semantic owner then Public | no generic result carrier | same K through call | no cross-K transition | conditional exact type | result/refusal/non-terminal schema check | pass | none |
-| adapters own no semantics | E06 | Public/Product | assets are downstream | adapter enters only F04 | no adapter state | generated coordinates | SDK/CLI/Codex equality | pass | none |
+| adapters own no semantics | E06/E19/E20 | Public/Product | assets and common carriers are downstream | adapter enters only F03A then F04 | no adapter-authored state | generated coordinates | SDK/CLI/Codex equality | pass | none |
 | project.read is pure and closed | E02 plus ReplayProjectionFamily | projection owners | 24 exact cases | no event participant | terminal projection only | indexed case types | source/basis/read mutation tests | pass | none |
 | physical syntax is not semantic identity | E07..E09, R05/R06 | local and linked checkers | physical, pending, and semantic classes separate | local selector precedes linked occurrence | E07 never directly reaches lock | private distinct types | selector/occurrence provenance check | pass | none |
 | occurrences are contract indexed in F02 | E08/E09, R05/R06 | Product resolver linked checker | source contract mandatory in selector and occurrence | F01 selector then F02 occurrence | no occurrence before linked resolution | occurrence identity includes source contract | two-contract shared-import mutation | pass | none |
@@ -2835,13 +3060,16 @@ Algorithmic constraints:
 - PFC-F08 preserves every extant non-operation flat row, replaces only the
   exact operation-contract identity set, and emits the exact 44-row diagnostic
   or `PublicCatalogBindingRefusal`;
+- every PFC-F08 execution consumes one exact catalog-binding attempt basis;
+  refusal identity binds that basis and one closed failure class;
 - PFC-F08A derives the complete expected set from artifact bytes and joins each
   identity through one operation row, one definition key, one slot, and one
   nested definition pointer before Product verification succeeds;
 - no projection-witness digest or caller-supplied expected set participates;
 - later T-270 public-contract publication is outside this design; the 44-row
   diagnostic is not a release-closure predicate;
-- public dispatch is exact definition-key lookup with zero/one cardinality;
+- PFC-F03A is the only native/JSONL common-envelope admission relation;
+- PFC-F03B is exact definition-key lookup with zero/one cardinality;
 - F01 local analysis emits no final occurrence or target identity;
 - F02 occurrence derivation uses the linked TypeScript checker over the exact
   resolved Product declaration Program;
@@ -2869,34 +3097,38 @@ patch. Required work is:
    maps from that family;
 3. compute intrinsic definition, family, and projection digests before Product
    content identity, then merge the PFC-F07 rows into the extant flat PFC-F08
-   development manifest catalog outside the payload-content preimage, emit the
-   exact 44-row diagnostic or `PublicCatalogBindingRefusal`, and make Product
+   development manifest catalog outside the payload-content preimage through
+   one exact `PublicCatalogBindingAttempt`, emit the exact 44-row
+   diagnostic or closed `PublicCatalogBindingRefusal`, and make Product
    verification derive and enforce the complete nested PFC-F08A join;
 4. bind every key to one exact owner port and construct its dependent
    invocation authority without a generic semantic handler;
-5. emit `IndexedInvocationAdmissionRefusal<K>` with stable attempt identity
+5. derive native and JSONL common-envelope admission plus
+   `PublicEnvelopeAdmissionRefusal` from the exact common invocation contract
+   before family lookup;
+6. emit `IndexedInvocationAdmissionRefusal<K>` with stable attempt identity
    before invocation admission, and project `RefusalOf<K>` only after an
    admitted invocation reaches its owner port;
-6. project every failed PFC-F08 attempt as
+7. project every failed PFC-F08 attempt as
    `PublicCatalogBindingRefusal`;
-7. project every source-map member, owner/version/authority coordinate, and
+8. project every source-map member, owner/version/authority coordinate, and
    owner port named in Section 4.2.1;
    absence is a build gap and does not authorize implementation-defined
    semantics;
-8. make `product.resolve` consume and bind exact successful packed-verification
+9. make `product.resolve` consume and bind exact successful packed-verification
    references rather than caller-authored Product coordinates;
-9. preserve release snapshot as a real authority-checking function whose
+10. preserve release snapshot as a real authority-checking function whose
    success remains unavailable until M7 supplies the exact basis;
-10. make F01 preserve exact syntax origin and selection in contract-indexed
+11. make F01 preserve exact syntax origin and selection in contract-indexed
    pending external selectors;
-11. make F02 derive semantic selections, canonical source-witness sets,
+12. make F02 derive semantic selections, canonical source-witness sets,
    canonical checker targets, direct target contracts, re-anchored dependency
    bindings, and exact selector dispositions without a per-contract closure
    digest;
-12. bind every semantic occurrence exactly once before lock construction;
-13. remove the returned partial family and any parallel parser/schema/runtime
+13. bind every semantic occurrence exactly once before lock construction;
+14. remove the returned partial family and any parallel parser/schema/runtime
    meaning; and
-14. leave T-270's later public-contract publication composition outside S06.
+15. leave T-270's later public-contract publication composition outside S06.
 
 Affected abstract modules are only those in Section 7.2. No broader Prime
 primitive is implemented.
@@ -2912,6 +3144,8 @@ primitive is implemented.
   equals the selected nested `(definitionKey, slot, definitionRef)` set;
 - many nested contracts may share one operation row while every nested
   coordinate remains unique;
+- native unknown values and exact JSONL bytes admit one common envelope or the
+  same typed common refusal and adapter exit class;
 - unknown operation/member identities refuse before indexed invocation
   admission;
 - every indexed admission refusal carries one stable attempt identity and no
@@ -2931,7 +3165,8 @@ primitive is implemented.
   REQ-P-PUBLIC-CONTRACTS-006A identity appears in
   `MandatorySchemaVocabularyCorpusGapSet`;
 - every failed PFC-F08 catalog merge emits one
-  `PublicCatalogBindingRefusal`;
+  `PublicCatalogBindingRefusal` whose exact attempt basis, closed failure
+  class, native/schema contract, attempt digest, and refusal digest reproduce;
 - all 24 read cases derive from admitted owner truth and append no event;
 - native SDK, CLI, and Codex produce the same deterministic S06 outcome;
 - retained S03/S05 invocation, continuation, Consensus, and reads remain
@@ -2961,6 +3196,9 @@ primitive is implemented.
 - copied owner payload meaning, stale owner member digest, missing common
   owner/version/authority coordinate, or unknown identity classified as an
   indexed admission refusal or owner refusal;
+- thrown common parse error, raw stack, adapter-local common refusal, divergent
+  native/JSONL envelope domain, family lookup before envelope admission, or
+  common refusal carrying K, invocation, owner, event, or durable truth;
 - indexed admission refusal carrying an invocation identity or owner refusal
   contract; owner refusal emitted before invocation admission; or changed
   candidate, definition, catalog, or correlation under the same attempt
@@ -2972,6 +3210,9 @@ primitive is implemented.
 - deleted or changed retained catalog row, nested operation-row wrapper,
   `catalogRef`, per-row `bindingDigest`, duplicate flat identity, wrong owning
   Product, or second/replacement catalog;
+- catalog-binding refusal with a missing or changed extant-catalog, family,
+  proposal-set, Product-content, attempt, native/schema, failure-class, or
+  digest basis; or refusal carrying an output catalog or diagnostic;
 - hidden 44-row diagnostic gap; treating an empty
   `MandatorySchemaVocabularyCorpusGapSet` as release closure or conformance;
   S06-synthesized non-S06 publication truth; forbidden extant operation row
@@ -3016,7 +3257,8 @@ checks are:
 - exact 24-case project-read arithmetic;
 - exact 44 schema/vocabulary/corpus-row diagnostic arithmetic;
 - acyclic intrinsic-definition -> family -> payload -> Product-content ->
-  S06 flat manifest-catalog plus diagnostic/refusal identity trace;
+  catalog-binding attempt -> S06 flat manifest-catalog plus
+  diagnostic/refusal identity trace;
 - requirement-to-decision traceability;
 - no 5.1 operation in the active family;
 - no realization file change; and
@@ -3028,8 +3270,9 @@ Independent review answers:
    operation without importing 5.1?
 2. Does the closed source map resolve every key's exact owner contracts,
    metadata, authority, and port without copying payload meaning?
-3. Are intrinsic definition/family identity, the S06 flat manifest catalog,
-   family-derived row/definition/slot join, family lookup, dependent invocation
+3. Are intrinsic definition/family identity, the catalog-binding attempt and
+   refusal, the S06 flat manifest catalog, family-derived row/definition/slot
+   join, common-envelope admission, family lookup, dependent invocation
    authority, common and nested contract coordinates, operation projections,
    invocation, outcome, and projection refusal singular, acyclic, and
    constructable?
@@ -3049,8 +3292,9 @@ Independent review answers:
    contract?
 10. Can one physical relation lawfully project zero, one, or many distinct
    semantic occurrences without losing exact-once binding?
-11. Are indexed admission refusal, owner refusal, and catalog-binding refusal
-    distinct and complete across Ontology, lifecycle, and all three views?
+11. Are common-envelope refusal, family-lookup refusal, indexed admission
+    refusal, owner refusal, and catalog-binding refusal distinct and complete
+    across Ontology, lifecycle, and all three views?
 12. Do Prime, IACS, module direction, lifecycle, and all three views agree?
 13. Can realization proceed from Section 11 without choosing Product meaning?
 
