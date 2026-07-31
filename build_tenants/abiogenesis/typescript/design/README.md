@@ -17,7 +17,8 @@ owner-internal HOW to the worker. Complete candidate `2a60c2b7`, tree
 `fc19ebdf`, removes the Public retry ingress and binds installed ABG projection
 to HoG resume. Constructability review passed; authority review found one local
 omission of the complete prior-attempt retry frontier. The one permitted
-bounded repair is consumed and frozen for delta review.
+bounded repair is consumed at `3f80ba23`, tree `04906b1c`. Both delta reviews
+pass; the exact candidate awaits direct Gate 1 acceptance or rejection.
 `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
 remains non-operative future input under backlogged T-268.
 
@@ -71,7 +72,8 @@ projection; Git and the T-284 correction vector preserve that inventory.
 T-281 owns the proposed Gate 1 subject under T-270. Candidates `ba2e39a4` and
 `29aea26d` remain rejected evidence. Complete candidate `2a60c2b7` has both
 required reviews; one authority counterexample consumes the sole bounded
-repair allowance. The full-retry-frontier repair is frozen for delta review.
+repair allowance. The full-retry-frontier repair is frozen and both delta
+reviews pass at exact candidate `3f80ba23`, tree `04906b1c`.
 Production, falsifier, schema, generator, semantic-test, donor, deletion, and
 Gate 2 work remain held pending direct acceptance. Planned 5.1 observer/tuner
 realization, post-S06 Prime, complete conservation, qualification, and release

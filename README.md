@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 designs `4f80f84a`, `2bb7b594`, and `aa0daa62` retained as predecessor evidence; authority baseline `8a4630e8` frozen and verified; exact census blob `efe88cac` accepted; Gate 1 candidates `ba2e39a4` and `29aea26d` rejected; direct F_H authorized outcome-level Gate 1 completion; complete candidate `2a60c2b7` passed constructability and received one local authority finding; the one permitted full-retry-frontier repair is frozen for delta review; semantic realization held; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 designs `4f80f84a`, `2bb7b594`, and `aa0daa62` retained as predecessor evidence; authority baseline `8a4630e8` frozen and verified; exact census blob `efe88cac` accepted; Gate 1 candidates `ba2e39a4` and `29aea26d` rejected; direct F_H authorized outcome-level Gate 1 completion; complete candidate `2a60c2b7` received one local authority finding; its one bounded repair is frozen at `3f80ba23`, tree `04906b1c`, with both delta reviews passing; direct Gate 1 acceptance pending; semantic realization held; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.2` at `0519129d63de10822ae6353fa0c5ce05d56f13e9` |
 
@@ -91,7 +91,8 @@ C.retry frontier. Direct F_H then authorized completion of Gate 1 inside the
     `fc19ebdf`, removes that Public ingress and passed constructability review.
     Authority review found one local full-retry-frontier omission. The one
     permitted bounded repair preserves the installed owner-internal ABG
-    projection to HoG execution relation and is frozen for delta review.
+    projection to HoG execution relation at exact candidate `3f80ba23`, tree
+    `04906b1c`. Both delta reviews pass; direct Gate 1 acceptance is pending.
 Production, falsifiers, donor adoption, legacy deletion, and Gate 2 remain
 held pending direct Gate 1 acceptance. The Codex delegate remains a
 convenience shell, not alternate functionality.

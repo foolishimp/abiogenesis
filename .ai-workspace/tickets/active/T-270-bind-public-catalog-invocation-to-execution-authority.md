@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_gate_1_bounded_repair_candidate_frozen_for_delta_review
-- review_status: s03_s05_accepted_full_retry_frontier_delta_reviews_pending
-- proof_status: s06_census_accepted
+- phase_status: m5_s06_gate_1_reviewed_candidate_awaiting_direct_acceptance
+- review_status: s03_s05_accepted_s06_gate_1_reviews_pass
+- proof_status: s06_gate_1_reviews_pass_candidate_unaccepted
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -90,12 +90,18 @@
     accepted; Gate 1 candidates ba2e39a4 and 29aea26d rejected; direct F_H
     outcome-level completion envelope recorded; complete candidate 2a60c2b7
     passed constructability and received one local authority finding; the one
-    permitted full-retry-frontier repair is frozen for delta review; semantic
+    permitted full-retry-frontier repair is candidate 3f80ba23 / 04906b1c and
+    both delta reviews pass; direct Gate 1 acceptance pending; semantic
     realization held; aa0daa62 retained as accepted predecessor evidence
 - s06_construction_census_state: accepted_blob_efe88cac
 - s06_construction_census_blob: efe88cac85bd3bb071d4b5dd451dfadaec893c4f
 - s06_construction_census_sha256: 0c0339689c21154c46148f033c7472b9d55a0fd771fc34a1c41d41c52d28a0c6
-- s06_gate_1_state: bounded_full_retry_frontier_repair_frozen_delta_reviews_pending
+- s06_gate_1_state: reviewed_candidate_3f80ba23_awaiting_direct_f_h_acceptance
+- s06_gate_1_candidate: 3f80ba2393a9dbe31e8379a3dbbde00a961b8e23
+- s06_gate_1_candidate_tree: 04906b1c29c5d66163c62d1fffcb8bc069096244
+- s06_gate_1_final_disposition: >-
+    .ai-workspace/comments/codex/
+    20260731T165000Z_HANDOFF_s06_gate_1_final_disposition.md
 - s06_gate_2_state: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - s06_gate_3_state: blocked_by_gate_2_acceptance
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
@@ -167,8 +173,8 @@
 - current_s06_gate_1_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md;
-    bounded full-retry-frontier repair candidate; not operative realization
-    authority
+    exact reviewed candidate 3f80ba23 / 04906b1c; not operative realization
+    authority pending direct F_H acceptance
 - current_s06_gate_1_subject_manifest: >-
     .ai-workspace/comments/codex/
     20260731T164500Z_HANDOFF_s06_gate_1_full_retry_frontier_repair_candidate.md

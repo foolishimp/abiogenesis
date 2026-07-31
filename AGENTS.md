@@ -38,7 +38,8 @@ close ABG5-S06
   -> rejected replacement 29aea26d / 057e4d5f on AX-F09 ingress
   -> direct F_H outcome-level Gate 1 completion envelope
   -> reviewed complete candidate 2a60c2b7 / fc19ebdf
-  -> current: one bounded full-retry-frontier repair frozen for delta reviews
+  -> reviewed bounded repair 3f80ba23 / 04906b1c
+  -> current: direct Gate 1 accept-or-reject decision
   -> held Gate 1 acceptance and all semantic implementation
   -> held falsifier, realization, projection, and installed Product proof
   -> under T-281 and parent T-270
@@ -83,9 +84,10 @@ owner-internal HOW that adds no Public operation, rival authority, controller,
 runtime, catalog, or Product meaning. Complete candidate `2a60c2b7`, tree
 `fc19ebdf`, passed constructability review; authority review found one local
 omission of the complete prior-attempt retry frontier. The one permitted
-bounded repair is consumed and frozen for delta review. Return only the final
-Gate 1 disposition. Escalate only for a Product, requirement, 18/56-family, or
-materially different authority choice.
+bounded repair is consumed at `3f80ba23`, tree `04906b1c`; both delta reviews
+pass. The exact candidate now awaits direct Gate 1 acceptance or rejection.
+Escalate only for a Product, requirement, 18/56-family, or materially different
+authority choice.
 Production, falsifiers, schemas, generators, semantic tests, donor adoption,
 and legacy deletion remain held pending direct acceptance.
 Post-S06 Prime entropy

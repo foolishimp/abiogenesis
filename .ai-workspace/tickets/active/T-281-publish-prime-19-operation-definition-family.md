@@ -13,7 +13,9 @@
 > owner-internal HOW to the worker. Complete candidate `2a60c2b7`, tree
 > `fc19ebdf`, passed constructability review. Authority review found one local
 > full-retry-frontier omission. The one permitted bounded repair preserves the
-> architecture and is frozen for delta review. Gate 1 is not yet accepted.
+> architecture. Both delta reviews pass. Exact candidate `3f80ba23`, tree
+> `04906b1c`, awaits one direct Gate 1 accept-or-reject decision. Gate 1 is not
+> yet accepted.
 > Tracked falsifier, production, schema, generator, and semantic-test work
 > remains held until one content-addressed Gate 1 subject receives both
 > required independent reviews and direct acceptance. Accepted design
@@ -26,9 +28,9 @@
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
 - status: active
-- phase_status: m5_s06_gate_1_bounded_repair_candidate_frozen_for_delta_review
-- review_status: full_retry_frontier_delta_reviews_pending
-- proof_status: census_accepted
+- phase_status: m5_s06_gate_1_reviewed_candidate_awaiting_direct_acceptance
+- review_status: constructability_and_authority_pass
+- proof_status: gate_1_reviews_pass_candidate_unaccepted
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
@@ -218,12 +220,23 @@
     .ai-workspace/comments/codex/
     20260731T163300Z_DECISION_apply_s06_gate_1_full_retry_frontier_repair.md
 - bounded_gate_1_repair_allowance: consumed
-- gate_1_status: bounded_full_retry_frontier_repair_frozen_delta_reviews_pending
+- bounded_gate_1_repair_candidate: 3f80ba2393a9dbe31e8379a3dbbde00a961b8e23
+- bounded_gate_1_repair_candidate_tree: 04906b1c29c5d66163c62d1fffcb8bc069096244
+- bounded_gate_1_authority_delta_review: >-
+    .ai-workspace/comments/codex/
+    20260731T164600Z_REVIEW_s06_gate_1_authority_delta_3f80ba23.md
+- bounded_gate_1_constructability_delta_review: >-
+    .ai-workspace/comments/codex/
+    20260731T164700Z_REVIEW_s06_gate_1_constructability_delta_3f80ba23.md
+- gate_1_final_disposition: >-
+    .ai-workspace/comments/codex/
+    20260731T165000Z_HANDOFF_s06_gate_1_final_disposition.md
+- gate_1_status: reviewed_candidate_awaiting_direct_f_h_acceptance
 - current_gate_1_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md;
-    bounded full-retry-frontier repair candidate; not operative realization
-    authority
+    exact reviewed candidate 3f80ba23 / 04906b1c; not operative realization
+    authority pending direct F_H acceptance
 - current_gate_1_subject_manifest: >-
     .ai-workspace/comments/codex/
     20260731T164500Z_HANDOFF_s06_gate_1_full_retry_frontier_repair_candidate.md
