@@ -14,7 +14,7 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - STDO 2.2.2 authority baseline frozen and verified at `8a4630e8`; read-only construction census authorized but not started; current execution stops at the baseline receipt; tracked requirement, design, falsifier, and semantic realization work held; A5-F12/S04 deferred to 5.1 |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - STDO 2.2.2 authority baseline frozen at `8a4630e8`; exact construction census blob `efe88cac` accepted; bounded Gate 1 authority/design/map construction authorized; falsifier and semantic realization work held pending two independent reviews and direct acceptance; A5-F12/S04 deferred to 5.1 |
 
 ## Current Basis
 
@@ -107,28 +107,29 @@ selection, ordered successor outcomes, and their acceptance conditions.
   goals and tickets”. The bounded current-wave interpretation approves the
   single-surface ABIogenesis 5.0 release route recorded as evidence in
   `.ai-workspace/comments/codex/20260731T063131Z_STRATEGY_abiogenesis_5_0_mvp_release_plan_corrected.md`.
-  It selects no Intent or Product shrink. It holds the prior Section 11
-  realization permission and currently authorizes only:
+  It selected no Intent or Product shrink. It held the prior Section 11
+  realization permission and at that boundary authorized only:
   - GOALS, T-270, and T-281 setup for the approved route;
   - one exact clean freeze of the STDO 2.2.2 and authority-setup cut;
   - from that baseline, the read-only exact 56-key construction census; and
   - return of the frozen census to direct F_H.
 
-  After the census freezes, only a new direct F_H instruction may authorize
+  After the census froze, only a new direct F_H instruction could authorize
   construction of the proposed requirement/design/map Gate 1 cut. This
-  approval does not accept a Gate 1 subject and does not authorize tracked
+  earlier approval did not accept a Gate 1 subject and did not authorize tracked
   requirement, design, falsifier, production, schema, generator, or
   semantic-test edits. Only the later content-addressed Gate 1 acceptance
   receipt unlocks falsifier work.
-- Direct F_H source wording for the present execution boundary is: “freeze
-  STDO 2.2.2 authority baseline -> produce read-only 56-key census -> freeze
-  census evidence -> return it to direct F_H -> obtain new Gate 1 construction
-  authorization” and “The next authorized action is exclusively freezing and
-  verifying the authority-setup baseline.” The bounded execution interpretation
-  is that this cut ends after the baseline receipt. The census is authorized
-  next but has not started. No semantic implementation, falsifier
-  implementation, donor adoption, legacy deletion, Gate 2 work, or new ticket
-  hierarchy is authorized before the later direct F_H ruling.
+- The authority-setup instruction to freeze STDO 2.2.2, produce the read-only
+  census, and return it to direct F_H is satisfied. Direct F_H accepted census
+  Git blob `efe88cac85bd3bb071d4b5dd451dfadaec893c4f` and authorized “bounded
+  Phase 2/Gate 1 authority/design/map construction only.” The ruling is
+  recorded in
+  `.ai-workspace/comments/codex/20260731T123812Z_DECISION_accept_s06_census_authorize_gate_1_construction.md`.
+  This authorizes one targeted conflicting-requirement correction, one
+  corrective authority design, the reconciled map, and a frozen review
+  subject. It does not authorize semantic or falsifier implementation, donor
+  adoption, legacy deletion, Gate 2, or a new ticket hierarchy.
 - The exact frozen authority baseline is commit
   `8a4630e8f7a05ec4f6783957c029a76eb593ee2f`, tree
   `0e5281c2c8da6501500b88a02a79d12e2aa5f365`, on
@@ -311,7 +312,7 @@ release authority and do not participate in S06 closure.
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
-| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | The active gate sequence accepts the corrective authority cut before implementation, freezes falsifiers, proves the installed 18-operation/56-key callable closure and atomic legacy deletion at Gate 2, and proves projections and downstream installed Product behavior at Gate 3 before direct acceptance. | Authority baseline frozen and verified at `8a4630e8`; read-only census authorized but not started; current execution stopped at the receipt; tracked requirement, design, and implementation held |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | The active gate sequence accepts the corrective authority cut before implementation, freezes falsifiers, proves the installed 18-operation/56-key callable closure and atomic legacy deletion at Gate 2, and proves projections and downstream installed Product behavior at Gate 3 before direct acceptance. | Authority baseline frozen at `8a4630e8`; exact census blob `efe88cac` accepted; bounded Gate 1 construction authorized; semantic implementation held pending two reviews and direct acceptance |
 | `4` | `T-270` | Contract the Prime entropy basis | One accepted atomic design resolves the smallest irreducible basis for typed identity, ordered sequence equality, exact key sets, uniqueness, digest elimination, reference construction, and structural guards; it preserves distinct equalities and repairs contradictions to the selected laws before one realization projects every other occurrence as application or composition. | Blocked by S06 |
 | `5` | `T-270` | Complete public-contract publication and freeze one M5 candidate | The full REQ-P-PUBLIC-CONTRACTS-005..011 residual is empty: nine group identities and locators, 44 schema/vocabulary/corpus rows, 18 operation identities and complete projections, 16 capability identities, and the accepted capability graph with exact owning-contract and dependency relations are present from owner-local publication truth; all selected pre-qualification 5.0 Product behavior, all 16 selected feature-family dispositions, and the accepted Prime entropy reduction are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 and Prime entropy reduction |
 | `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
@@ -324,25 +325,20 @@ The bounded S05 `requirement_reprice`, accepted design, and realization at
 and same-Run F_H closure. Accepted S03 and S05 are regression bases. S06 is the
 current Product boundary. Direct F_H currently selected:
 
-- `goal_reprice` for the authority setup, exact clean baseline, read-only
-  census, and return to direct F_H.
+- the completed `goal_reprice` through exact baseline and accepted census;
+- targeted `requirement_reprice` only for the catalog-application admission
+  conflict; and
+- bounded `design_reframe` for one Gate 1 authority/design/map subject.
 
-The approved route identifies the prospective later first missing layers as:
-
-- targeted `requirement_reprice` only where live requirements directly
-  conflict with explicit authority carriers, scoped Event Calculus truth,
-  retry reconstruction and currentness, and exact owner ports;
-- bounded `design_reframe` for those accepted relations; and
-- `realization_refactor` only after direct Gate 1 acceptance.
-
-Those later classes are not authorized until the frozen census receives a new
-direct F_H ruling.
+The approved route retains `realization_refactor` only after direct Gate 1
+acceptance. It is not authorized by the current construction ruling.
 
 Candidate `aa0daa62` remains accepted predecessor authority and evidence, not
 the operative realization authority. The exact clean authority baseline is
-frozen and verified at `8a4630e8`. The read-only construction census is the
-next authorized action but has not started; this execution stops at the
-baseline receipt. Gate 1 construction is not yet authorized.
+frozen and verified at `8a4630e8`. Exact census blob `efe88cac` is accepted.
+The current execution constructs and freezes one Gate 1 subject, then stops
+editing for one constructability and one authority review. Gate 1 is not
+accepted and no realization authority exists yet.
 
 The deferred S04 design subject is preserved byte-for-byte as planned 5.1
 input. It leaves S06 portability and all 5.0 realization untouched and carries
@@ -428,7 +424,7 @@ reconciliation is a qualification gate, not the feature-development queue.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | S03, S05, S06, the accepted Prime entropy reduction, all 16 selected pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S06 authority baseline frozen at `8a4630e8`; read-only census authorized but not started; current execution stopped at the receipt; tracked realization held |
+| `M5` | S03, S05, S06, the accepted Prime entropy reduction, all 16 selected pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S06 authority baseline frozen at `8a4630e8`; exact census blob `efe88cac` accepted; bounded Gate 1 construction authorized; realization held pending reviews and direct acceptance |
 | `M6` | Exact selected-method binding, self-conformance, five-scenario pre-RC qualification, and complete RC5 reconciliation accept one pre-RC candidate. | Blocked by M5 |
 | `M7` | Distinct RC, installed RC, final-tap, released Product, and post-publication install subjects produce stable `5.0.0`. | Blocked by M6 |
 

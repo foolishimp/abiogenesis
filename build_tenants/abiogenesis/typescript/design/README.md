@@ -4,9 +4,13 @@
 
 The ABIogenesis 5.0 Product and direct-GTL M3 architecture are accepted.
 S03 and S05 are accepted. GOALS selects S06 as the sole unresolved 5.0 Product
-outcome; its candidate `ac61e080`, tree `90d16730`, is frozen for independent
-review. `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen
-design remains non-operative future input under backlogged T-268.
+outcome. Direct F_H accepted exact census blob `efe88cac` and authorized one
+bounded Gate 1 authority/design/map construction. The proposed
+[S06 Axiomatic Authority And Exact Public Construction Design](./M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md)
+is not operative realization authority until one constructability review, one
+authority review, and direct acceptance identify its exact frozen subject.
+`A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
+remains non-operative future input under backlogged T-268.
 
 The current design basis is:
 
@@ -15,8 +19,8 @@ The current design basis is:
   the accepted S05 realization basis;
 - [ADR-045 Global Design Constraints Survive Local Projection](./adrs/ADR-045-global-design-constraints-survive-local-projection.md)
   as global-to-local rationale; and
-- M05 Sections 14.1 and 14.2 as the accepted S06 portability design at
-  `6aaedf8d`.
+- accepted S06 predecessor designs `4f80f84a`, `2bb7b594`, and `aa0daa62` as
+  immutable evidence refined only by the proposed corrective Gate 1 subject.
 
 M05 Section 13 remains superseded by the accepted S05 design. The frozen
 [S04 observer/tuner design](./M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md)
@@ -33,8 +37,10 @@ Read in this order:
 3. specification/PRODUCT.md
 4. specification/requirements/
 5. the current design basis above
-6. .ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md
-7. .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
+6. M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md while
+   reviewing the proposed frozen Gate 1 subject
+7. .ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md
+8. .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
 
 Specification defines WHAT. Accepted design defines HOW for S06. The deferred
 S04 subject defines no 5.0 implementation or review authority.
@@ -53,7 +59,9 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-T-281 owns the frozen S06 candidate under T-270. S06 authoring does not resume
-until findings are consolidated or F_H directs the next step. Planned 5.1
-observer/tuner realization, complete conservation, qualification, and release
-remain held.
+T-281 owns the proposed Gate 1 subject under T-270. Freeze one exact commit and
+tree, then stop editing while one constructability reviewer and one authority
+reviewer inspect it. Production, falsifier, schema, generator, semantic-test,
+donor, deletion, and Gate 2 work remain held until direct F_H accepts that
+exact reviewed subject. Planned 5.1 observer/tuner realization, post-S06 Prime,
+complete conservation, qualification, and release remain held.

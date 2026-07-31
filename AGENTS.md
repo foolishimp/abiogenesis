@@ -32,9 +32,10 @@ The sole current Product implementation outcome is:
 ```text
 close ABG5-S06
   -> frozen exact STDO 2.2.2 authority baseline 8a4630e8 / 0e5281c2
-  -> next: read-only exact 56-key construction census, not started
-  -> return frozen census to direct F_H
-  -> held Gate 1 authority construction and acceptance
+  -> accepted exact census blob efe88cac
+  -> current: construct and freeze one bounded Gate 1 authority/design/map cut
+  -> next: one constructability and one authority review over that exact cut
+  -> held direct Gate 1 acceptance and all semantic implementation
   -> held falsifier, realization, projection, and installed Product proof
   -> under T-281 and parent T-270
 ```
@@ -67,12 +68,13 @@ common pre-index parse refusal remain underconstrained. Replacement
 the PFC-F05 aliases. Direct human authority accepted that exact design as
 predecessor evidence. Its former Section 11 realization permission is held.
 The STDO 2.2.2 authority baseline is frozen and verified at `8a4630e8`, tree
-`0e5281c2`. The read-only census is authorized next but has not started; the
-current execution stops at the baseline receipt. Do not edit requirements,
-design, production, schemas, generators, or semantic tests. Return the later
-frozen census to direct F_H before constructing a corrective Gate 1 subject.
-The bounded pre-S06 recurrence disposition may enter only a later authorized
-Gate 1 subject. Post-S06 Prime entropy reduction, full
+`0e5281c2`. Direct F_H accepted exact census blob `efe88cac` and authorized
+bounded Gate 1 authority/design/map construction only. The current worker may
+freeze one corrective design subject and then must stop editing for one
+constructability and one authority review. Production, falsifiers, schemas,
+generators, semantic tests, donor adoption, and legacy deletion remain held
+until direct F_H accepts that exact reviewed subject. Post-S06 Prime entropy
+reduction, full
 public-contract publication closure, unified M5, conservation qualification,
 M6, and M7 remain held.
 
@@ -120,8 +122,9 @@ Read:
 7. `build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`
 8. `build_tenants/abiogenesis/typescript/design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`
 9. `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md`
-10. `.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md`
-11. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
+10. `build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md`
+11. `.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md`
+12. `.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md`
 
 Repository history and commentary may explain prior failure. They do not
 authorize implementation.

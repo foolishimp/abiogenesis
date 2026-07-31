@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_authority_baseline_frozen_census_not_started
-- review_status: s03_s05_accepted_s06_authority_baseline_verified
-- proof_status: s06_authority_baseline_verified
+- phase_status: m5_s06_gate_1_subject_frozen_pending_reviews
+- review_status: s03_s05_accepted_gate_1_subject_frozen_pending_reviews
+- proof_status: s06_census_accepted
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -21,10 +21,10 @@
 - change_class: goal_reprice
 - historical_change_class: product_reprice_2026_07_28
 - re_entry_point: >-
-    specification/GOALS.md prerequisite and work-selection surfaces; T-281
-    may own a targeted conflicting-requirement reprice, bounded design
-    reframe, and post-acceptance realization refactor only after the frozen
-    census returns and direct F_H authorizes that next re-entry
+    accepted census blob efe88cac plus direct F_H Gate 1 construction ruling;
+    T-281 owns the targeted catalog-application requirement correction and
+    bounded corrective design reframe; realization refactor remains behind
+    direct acceptance of the exact reviewed Gate 1 subject
 - triaged_at: 2026-07-28
 - created_at: 2026-07-14
 - updated_at: 2026-07-31
@@ -34,14 +34,12 @@
 - current_product_outcome: ABG5-S06
 - implementation_hold: s06_semantic_realization_held_until_gate_1_acceptance
 - implementation_hold_effect: >-
-    authorize GOALS/T-270/T-281 setup, one exact clean freeze of the STDO 2.2.2
-    and authority-setup cut, then a read-only exact 56-key census; after the
-    census freezes require new direct F_H authorization before constructing
-    the conflicting-requirement,
-    corrective-design, and reconciled-map Gate 1 subject; prohibit tracked
-    requirement, design, falsifier, production, schema, generator,
-    and semantic-test work; allow the bounded S06 recurrence disposition only
-    if later Gate 1 authority selects it; hold post-S06 Prime entropy
+    authorize tracking the accepted census, status reconciliation, the
+    targeted catalog-application requirement correction, one corrective S06
+    authority design, one reconciled construction map and frozen Gate 1 review
+    subject; prohibit falsifier, production, schema, generator, package,
+    semantic-test, donor, legacy-deletion, and Gate 2 work until direct F_H
+    accepts that exact reviewed subject; hold post-S06 Prime entropy
     reduction, full public-contract publication closure, unified M5, S04, M6,
     M7, and unrelated changes until their exact predecessor boundaries
 - approved_release_plan_evidence: >-
@@ -57,16 +55,14 @@
     only; the frozen census must return to direct F_H before
     requirement/design/map Gate 1 construction
 - direct_f_h_current_boundary_source: >-
-    user instruction in the current session: "freeze STDO 2.2.2 authority
-    baseline -> produce read-only 56-key census -> freeze census evidence ->
-    return it to direct F_H -> obtain new Gate 1 construction authorization";
-    "The next authorized action is exclusively freezing and verifying the
-    authority-setup baseline."
+    user instruction in the current session: "I accept census blob
+    efe88cac85bd3bb071d4b5dd451dfadaec893c4f and authorize bounded Phase 2/
+    Gate 1 authority/design/map construction only."
 - direct_f_h_current_boundary_interpretation: >-
-    freeze and verify only the exact authority-setup baseline in this
-    execution; do not start the read-only census; stop after recording the
-    baseline receipt; keep Gate 1, falsifiers, realization, and later
-    milestones held
+    track the unchanged accepted census; construct and freeze one bounded Gate
+    1 authority/design/map subject; obtain the two required independent
+    reviews; keep falsifiers, realization, donor use, deletion, Gate 2, and
+    later milestones held pending direct acceptance
 - authority_baseline_commit: 8a4630e8f7a05ec4f6783957c029a76eb593ee2f
 - authority_baseline_tree: 0e5281c2c8da6501500b88a02a79d12e2aa5f365
 - authority_baseline_branch: codex/t286-abi5-root
@@ -78,12 +74,14 @@
     no design, production, schema, generator, or test path changed; original
     eight untracked commentary posts preserved
 - current_s06_authority_state: >-
-    authority baseline frozen and verified; read-only census authorized next
-    but not started; current execution stopped at the receipt; proposed
-    bounded corrective re-entry awaits the frozen census and direct
-    authorization; aa0daa62 retained as accepted predecessor evidence
-- s06_construction_census_state: authorized_read_only_not_started
-- s06_gate_1_state: blocked_by_frozen_construction_census_and_direct_authorization
+    authority baseline frozen and verified; exact census blob efe88cac
+    accepted; bounded Gate 1 authority/design/map construction authorized;
+    semantic realization held; aa0daa62 retained as accepted predecessor
+    evidence
+- s06_construction_census_state: accepted_blob_efe88cac
+- s06_construction_census_blob: efe88cac85bd3bb071d4b5dd451dfadaec893c4f
+- s06_construction_census_sha256: 0c0339689c21154c46148f033c7472b9d55a0fd771fc34a1c41d41c52d28a0c6
+- s06_gate_1_state: subject_frozen_pending_reviews_and_direct_acceptance
 - s06_gate_2_state: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - s06_gate_3_state: blocked_by_gate_2_acceptance
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
@@ -152,7 +150,13 @@
 - accepted_predecessor_s06_design_handoff: >-
     .ai-workspace/comments/codex/
     20260730T151455Z_HANDOFF_t281_s06_closed_refusal_relations_design.md
-- current_s06_gate_1_subject: pending
+- current_s06_gate_1_subject: >-
+    build_tenants/abiogenesis/typescript/design/
+    M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md;
+    frozen subject pending reviews and direct acceptance
+- current_s06_gate_1_subject_manifest: >-
+    .ai-workspace/comments/codex/
+    20260731T124731Z_HANDOFF_s06_gate_1_authority_construction_subject.md
 - selected_m5_public_contract_closure_owner: T-270
 - selected_m5_schema_vocabulary_corpus_roster_size: 44
 - selected_m5_contract_group_count: 9

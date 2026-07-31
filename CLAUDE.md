@@ -29,12 +29,13 @@ remain underconstrained. Replacement `aa0daa62`, tree `9fa25663`, closes those
 two refusal relations and corrects the PFC-F05 aliases. Direct human authority
 accepted that exact design. Its former bounded Section 11 realization
 permission is held. The STDO 2.2.2 authority baseline is frozen and verified
-at `8a4630e8`, tree `0e5281c2`. The read-only construction census is authorized
-next but has not started; the current execution stops at the baseline receipt.
-Make no tracked requirement, design, production, schema, generator, or
-semantic-test edits. Return the later frozen census to direct F_H before
-constructing the corrective Gate 1 authority subject. No operative realization
-basis exists until that exact subject is later accepted.
+at `8a4630e8`, tree `0e5281c2`. Direct F_H accepted exact construction census
+blob `efe88cac` and authorized bounded Gate 1 authority/design/map construction
+only. The current worker freezes one corrective subject, then stops editing for
+one constructability and one authority review over that same subject. No
+production, falsifier, schema, generator, semantic-test, donor, legacy-deletion,
+or Gate 2 work is authorized. No operative realization basis exists until the
+exact reviewed Gate 1 subject is directly accepted.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -53,6 +54,7 @@ build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_D
 build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md
 build_tenants/abiogenesis/typescript/design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md
 build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md
+build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md
 .ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md
 .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
 .ai-workspace/tickets/completed/T-286-establish-installed-abi5-root.md
@@ -79,9 +81,9 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 
 **Status**: S03 and S05 accepted; S06 realization `4953508d` returned;
 bounded S06 design `aa0daa62` retained as predecessor evidence; authority
-baseline `8a4630e8` frozen and verified; read-only census authorized but not
-started; current execution stopped at the receipt; Gate 1 and semantic
-realization held
+baseline `8a4630e8` frozen and verified; exact census blob `efe88cac` accepted;
+bounded Gate 1 construction authorized; semantic realization held pending two
+independent reviews and direct acceptance
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower

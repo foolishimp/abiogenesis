@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 designs `4f80f84a`, `2bb7b594`, and `aa0daa62` retained as predecessor evidence; authority baseline `8a4630e8` frozen and verified; read-only census authorized but not started; current execution stopped at the receipt; Gate 1 and semantic realization held; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 designs `4f80f84a`, `2bb7b594`, and `aa0daa62` retained as predecessor evidence; authority baseline `8a4630e8` frozen and verified; exact census blob `efe88cac` accepted; bounded Gate 1 authority/design/map construction authorized; semantic realization held; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.2` at `0519129d63de10822ae6353fa0c5ce05d56f13e9` |
 
@@ -81,12 +81,13 @@ parse refusal remain underconstrained. Replacement `aa0daa62`, tree
 Direct human authority accepted that exact design. The approved release route
 holds its former realization permission. The exact STDO 2.2.2 and
 authority-setup baseline is frozen and verified at `8a4630e8`, tree
-`0e5281c2`. The read-only 56-key census is authorized next but has not started;
-the current execution stops at the baseline receipt. Its later frozen result
-must return to direct F_H before any corrective Gate 1 authority construction.
-No operative S06 realization basis exists until that exact Gate 1 subject is
-later accepted. The Codex delegate remains a convenience shell, not alternate
-functionality.
+`0e5281c2`. Direct F_H accepted exact 56-key census blob `efe88cac` and
+authorized bounded Gate 1 authority/design/map construction only. The current
+worker freezes one corrective subject for one constructability and one
+authority review. Production, falsifiers, donor adoption, legacy deletion, and
+Gate 2 remain held. No operative S06 realization basis exists until the exact
+reviewed Gate 1 subject is directly accepted. The Codex delegate remains a
+convenience shell, not alternate functionality.
 
 `A5-F12` and `ABG5-S04` are planned 5.1 work. Their design candidate
 `4897ead1`, tree `11d0ef7b`, remains immutable future input under backlogged
@@ -113,8 +114,9 @@ Read in this order:
 7. [S05 design delta](build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md)
 8. [S06 native-contract design](build_tenants/abiogenesis/typescript/design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md)
 9. [S06 public-function and occurrence design](build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md)
-10. [T-281](.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md)
-11. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
+10. [proposed S06 axiomatic authority design](build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md)
+11. [T-281](.ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md)
+12. [T-270](.ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md)
 
 `PRODUCT.md` is the sole complete 5.0 Product-definition surface.
 Requirements decompose it. GOALS selects one current Product outcome. Design

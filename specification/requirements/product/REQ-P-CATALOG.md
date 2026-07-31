@@ -68,8 +68,14 @@ were a GraphFunction.
 **REQ-P-CATALOG-008**: Public presence of `node_type` and `overlay` rows shall
 provide list and describe semantics. Presence alone shall not authorize
 application, traversal, worker dispatch, event emission, continuation, or
-closure. Any non-callable application contract shall be separately admitted
-and shall preserve ABG runtime authority.
+closure. A non-callable application contract shall be a complete canonical
+deterministic construction from an admitted immutable install, deterministic
+catalog view, exact declaration, and explicit durable-prefix coordinate. Equal
+independently reconstructed inputs shall produce an acceptable equal carrier.
+Construction shall not admit an event, change runtime truth, or depend on an
+originating object, store, context, constructor brand, ambient capability, or
+actor identity. The invoking owner shall revalidate the carrier and its inputs
+against ABG truth and record its exact use in the owning invocation event.
 
 **REQ-P-CATALOG-009**: A contribution manifest shall not republish generic ABG
 catalog truth as product-owned content. A publisher may publish its own domain
@@ -211,11 +217,16 @@ application contracts for admitted `node_type` and `overlay` rows. Node-type
 application shall bind a published reusable type to admitted node or program
 truth. Overlay application shall bind a published program composition over
 admitted GraphFunctions, vectors, node types, starts, roles, policies, proof
-obligations, and contracts. ABG shall own both admission/application boundaries;
-neither kind shall invoke a worker, open a GraphCall, emit a runtime event, or
-control traversal merely by being present or applied. Both behaviors shall be
-closed variants of `abg.operation.catalog.apply`; neither shall receive a
-separate operation identity.
+obligations, and contracts. Product shall own application as the total
+deterministic construction defined by REQ-P-CATALOG-008; it is not an
+admission boundary. ABG shall remain the sole owner of runtime Product-catalog
+admission and runtime truth. Neither kind shall invoke a worker, open a
+GraphCall, emit a runtime event, or control traversal merely by being present
+or applied. `run.invoke` shall revalidate the exact application against its
+admitted inputs and durable prefix, and the owning invocation event shall
+record the application ref and digest used. Both behaviors shall be closed
+variants of `abg.operation.catalog.apply`; neither shall receive a separate
+operation identity.
 
 ## Acceptance
 

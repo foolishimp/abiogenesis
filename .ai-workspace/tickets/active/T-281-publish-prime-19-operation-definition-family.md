@@ -3,10 +3,10 @@
 > **Current disposition (2026-07-31):** Direct F_H approved the bounded
 > ABIogenesis 5.0 release route and selected its pre-Gate-1 authority setup.
 > Exact authority baseline `8a4630e8`, tree `0e5281c2`, is frozen and
-> verified. The read-only construction census is authorized next but has not
-> started; the current execution stops at this receipt. The proposed S06
-> corrective authority re-entry remains behind return of that frozen census.
-> Gate 1 is neither authorized nor accepted.
+> verified. Direct F_H accepted exact construction census blob `efe88cac` and
+> authorized bounded Phase 2/Gate 1 authority/design/map construction only.
+> The current worker freezes one proposed corrective subject for one
+> constructability and one authority review. Gate 1 is not accepted.
 > Tracked falsifier, production, schema, generator, and semantic-test work
 > remains held until one content-addressed Gate 1 subject receives both
 > required independent reviews and direct acceptance. Accepted design
@@ -19,21 +19,20 @@
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
 - status: active
-- phase_status: m5_s06_authority_baseline_frozen_census_not_started
-- review_status: authority_baseline_verified_census_not_started
-- proof_status: authority_baseline_verified
+- phase_status: m5_s06_gate_1_subject_frozen_pending_reviews
+- review_status: gate_1_subject_frozen_pending_constructability_and_authority_reviews
+- proof_status: census_accepted
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
 - implementation_hold: semantic_realization_held_until_gate_1_direct_acceptance
 - implementation_hold_effect: >-
-    authorize GOALS/T-270/T-281 setup, one exact clean STDO 2.2.2 and
-    authority-setup baseline, then the read-only exact construction census;
-    return the frozen census to direct F_H before any requirement, design, or
-    reconciled-map Gate 1 construction; prohibit
-    tracked requirement, design, falsifier, production, schema, generator, and
-    semantic-test work; allow the bounded S06 recurrence disposition only if a
-    later Gate 1 authorization selects it; hold post-S06 Prime entropy
+    authorize tracking the accepted exact census, status reconciliation, the
+    targeted catalog-application requirement correction, one corrective S06
+    authority design, one reconciled construction map and frozen Gate 1 review
+    subject; prohibit falsifier, production, schema, generator, package,
+    semantic-test, donor, legacy-deletion, and Gate 2 work until direct F_H
+    accepts that exact reviewed subject; hold post-S06 Prime entropy
     reduction, full public-contract publication closure, unified M5, S04, M6,
     and M7 until their exact predecessor boundaries
 - delivery_phase: M5_after_accepted_s03_and_s05
@@ -49,10 +48,9 @@
 - prospective_gate_1_first_missing_layer: requirement_reprice
 - prospective_downstream_change_classes: design_reframe,realization_refactor
 - re_entry_point: >-
-    specification/GOALS.md and T-270/T-281 execution surfaces select the
-    read-only construction census; the frozen evidence must return to direct
-    F_H before any proposed conflicting-requirement reprice, corrective design
-    reframe, or later realization refactor
+    accepted census blob efe88cac plus direct F_H Gate 1 construction ruling;
+    targeted REQ-P-CATALOG correction and bounded corrective design reframe
+    only; realization refactor remains behind direct Gate 1 acceptance
 - triaged_at: 2026-07-24
 - current_reentry_selected_at: 2026-07-31
 - created_at: 2026-07-16
@@ -131,16 +129,14 @@
     only; the frozen census must return to direct F_H before
     requirement/design/map Gate 1 construction
 - direct_f_h_current_boundary_source: >-
-    user instruction in the current session: "freeze STDO 2.2.2 authority
-    baseline -> produce read-only 56-key census -> freeze census evidence ->
-    return it to direct F_H -> obtain new Gate 1 construction authorization";
-    "The next authorized action is exclusively freezing and verifying the
-    authority-setup baseline."
+    user instruction in the current session: "I accept census blob
+    efe88cac85bd3bb071d4b5dd451dfadaec893c4f and authorize bounded Phase 2/
+    Gate 1 authority/design/map construction only."
 - direct_f_h_current_boundary_interpretation: >-
-    freeze and verify only the exact authority-setup baseline in this
-    execution; do not start the read-only census; stop after recording the
-    baseline receipt; keep Gate 1, falsifiers, realization, and later
-    milestones held
+    track the unchanged accepted census; construct and freeze one bounded Gate
+    1 authority/design/map subject; obtain the two required independent
+    reviews; keep falsifiers, realization, donor use, deletion, Gate 2, and
+    later milestones held pending direct acceptance
 - confirmed_code_review: >-
     .ai-workspace/comments/codex/
     20260731T051841Z_REVIEW_abiogenesis_5_0_function_to_axiom_gate_1.md
@@ -172,8 +168,17 @@
 - accepted_pre_reset_public_design_commit: 2bb7b594920b1b126a6d314ed7bb39dabd211823
 - accepted_pre_reset_closed_refusal_design_commit: aa0daa626b0f4ea05058d7ef7541afc8eaf350b5
 - returned_realization_candidate: 4953508de83ab6d6c65dbb81e5407ccb539e44e6
-- construction_census_status: authorized_read_only_not_started
-- gate_1_status: blocked_by_frozen_census_and_direct_authorization
+- construction_census_status: accepted_blob_efe88cac
+- construction_census_blob: efe88cac85bd3bb071d4b5dd451dfadaec893c4f
+- construction_census_sha256: 0c0339689c21154c46148f033c7472b9d55a0fd771fc34a1c41d41c52d28a0c6
+- gate_1_status: subject_frozen_pending_reviews_and_direct_acceptance
+- current_gate_1_design_subject: >-
+    build_tenants/abiogenesis/typescript/design/
+    M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md;
+    frozen subject pending reviews and direct acceptance
+- current_gate_1_subject_manifest: >-
+    .ai-workspace/comments/codex/
+    20260731T124731Z_HANDOFF_s06_gate_1_authority_construction_subject.md
 - gate_2_status: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - gate_3_status: blocked_by_gate_2_acceptance
 
