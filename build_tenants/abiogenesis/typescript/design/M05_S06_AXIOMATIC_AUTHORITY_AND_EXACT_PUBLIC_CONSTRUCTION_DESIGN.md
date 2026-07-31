@@ -1,7 +1,7 @@
 # M05 S06 Axiomatic Authority And Exact Public Construction Design
 
-**Status:** proposed Gate 1 subject; not operative realization authority until
-direct F_H accepts the exact reviewed commit and tree
+**Status:** proposed Gate 1 bounded-repair subject; not operative realization
+authority until direct F_H accepts the exact reviewed commit and tree
 
 **Scope:** ABG5-S06 corrective authority, exact 18-operation/56-key
 construction map, and hard-break realization boundary
@@ -44,6 +44,15 @@ CatalogView admission mechanism named in Section 3; it does not change the S03
 narrowing or invocation meaning. S04, post-S06 Prime realization, complete M5
 publication closure, M6, and M7 remain outside this subject. Donor adoption is
 empty.
+
+Cold constructability review of complete candidate `2a60c2b7`, tree
+`fc19ebdf`, passed. Cold authority review found one local counterexample:
+Section 7.3 selected one current retry attempt without preserving the complete
+prior-attempt frontier required by `REQ-R-ABG3-PROJECTION-009..010`. This
+bounded replacement adds the exact full-frontier relation and strengthens
+AX-F09 to exercise two prior failures before restart. It consumes the one
+repair permitted by the completion envelope and changes no Product,
+requirement, Public-family, or authority structure.
 
 ## 2. Constitutional Construction
 
@@ -365,6 +374,87 @@ All three fluents are scoped by the event's run, graph call, frame, and retry
 boundary. They are not unkeyed strings, and a global latest event cannot
 initiate, terminate, or select another scope's retry truth.
 
+The held progress fluent selects the current retry point; it is not the whole
+retry frontier. ABG also projects one canonical full-attempt carrier over every
+admitted attempt from `1` through the selected progress attempt:
+
+```text
+RetryFrontierSource = {
+  eventRef,
+  admissionOrdinal,
+  payloadDigest,
+  eventKind:
+    "retry_attempt_opened"
+    | "c_call_opened"
+    | "c_call_fibre_selected"
+    | "c_call_evidenced"
+    | "c_call_result_admitted"
+    | "c_call_judged"
+    | "retry_progress_recorded",
+  ownerSurface: "abg_retry" | "abg_c_call"
+}
+
+RetryAttemptFrontierRow = {
+  kind: "retry_attempt_frontier_row",
+  schemaVersion: "5.0.0",
+  rowRef,
+  rowDigest,
+  retryBoundaryRef,
+  attempt,
+  retryPath,
+  attemptRef,
+  attemptDigest,
+  cCallRef,
+  cCallDigest,
+  progressRef,
+  progressDigest,
+  reasonClass: RetryableRuntimeFailureClass,
+  failureSignalRef,
+  inputContractRef,
+  inputRef,
+  inputDigest,
+  sources: {
+    attempt,
+    cCallOpened,
+    fibreSelected,
+    evidence: RetryFrontierSource | null,
+    result,
+    judgment,
+    progress
+  }
+}
+
+RetryAttemptFrontier = {
+  kind: "retry_attempt_frontier",
+  schemaVersion: "5.0.0",
+  isFullFrontier: true,
+  frontierRef,
+  frontierDigest,
+  retryBoundaryRef,
+  runId,
+  graphCallId,
+  frameId,
+  rows: readonly RetryAttemptFrontierRow[],
+  attemptCoverage: readonly number[],
+  reasonClasses: readonly RetryableRuntimeFailureClass[],
+  ownerSurfaces: readonly ("abg_retry" | "abg_c_call")[],
+  sourceEventKinds: readonly RetryFrontierSource["eventKind"][]
+}
+```
+
+Rows are ordered by attempt ordinal and cover exactly
+`[1..selectedProgress.attempt]`; zero, duplicate, or missing attempt relations
+refuse. Each row joins exactly one attempt event, opened C call and fibre,
+optional admitted evidence, result, retry judgment, and progress event. Its
+reason class comes from the admitted result/progress relation, not prose. Its
+owner surfaces and source event kinds come from the closed source slots above,
+not caller labels. Row and frontier digests cover every field except their own
+ref/digest pair; refs derive from the corresponding digest. The three summary
+arrays are code-unit-sorted unique projections of the rows. A structural
+`assertFullRetryAttemptFrontier` rederives row identities, source-slot kinds and
+owners, reason-class coverage, exact ordinal coverage, summaries, and frontier
+identity. `isFullFrontier: true` without those equalities is a refusal.
+
 The installed ABG owner-internal export is
 `@abiogenesis/typescript-tenant/abg::projectExecutableRetryInput`, implemented
 at `src/abg/retry.ts`. It accepts the ABG-verified reopening of one explicit
@@ -393,12 +483,15 @@ RetryFrontierSelector = {
 ```
 
 The projector scopes the Event Calculus result first, requires exactly one
-matching held `retry_progress_available` fluent, and joins that progress event
-through exact refs and causal edges to its attempt, rejected C call, judgment,
-source cursor, ExecutionBasis, opened traversal scope, and declared `C.retry`
-context. It never selects a latest row. It returns either one canonical
-`ExecutableRetryInput` or one closed owner-internal refusal. The success
-carrier is exactly:
+matching held `retry_progress_available` fluent, constructs and structurally
+asserts the complete `RetryAttemptFrontier` through that progress attempt, and
+then selects its final row. Every prior row is joined through exact refs and
+causal edges to its attempt, rejected C call, result, judgment, and progress;
+the selected row is additionally joined to the source cursor, ExecutionBasis,
+opened traversal scope, and declared `C.retry` context. It never selects a
+global latest row or substitutes `completedAttempts` for the full frontier. It
+returns either one canonical `ExecutableRetryInput` or one closed
+owner-internal refusal. The success carrier is exactly:
 
 ```text
 ExecutableRetryInput = {
@@ -420,6 +513,8 @@ ExecutableRetryInput = {
   graphFunctionDigest,
   graphRef,
   graphDigest,
+  retryFrontier,
+  selectedFrontierRowRef,
   progressEventRef,
   progress,
   sourceAttemptEventRef,
@@ -437,11 +532,13 @@ ExecutableRetryInput = {
 
 `projectionDigest` covers the complete carrier body except `projectionRef`
 and `projectionDigest`; `projectionRef` is derived from that digest.
-`sourceAttempt`, `progress`, `sourceCursor`, and
-`cCall` are rehydrated from the cited events. Their authority is the verified
-event relation, not a `WeakSet` brand. `nextAttempt` is exactly the current
-attempt plus one, remains inside the declared budget, and
-`nextRetryPath` replaces only the selected boundary's final attempt ordinal.
+`retryFrontier` is the asserted full carrier above;
+`selectedFrontierRowRef` is exactly its final row. `sourceAttempt`, `progress`,
+`sourceCursor`, and `cCall` are rehydrated from that row's cited events and are
+object-equal to its selected facts. Their authority is the verified event
+relation, not a `WeakSet` brand. `nextAttempt` is exactly the selected row's
+attempt plus one, remains inside the declared budget, and `nextRetryPath`
+replaces only the selected boundary's final attempt ordinal.
 
 The ABG projection refusal codes are exactly:
 
@@ -474,9 +571,10 @@ The installed HoG owner-internal export is
 `src/hog/graph_execute.ts`. Its request contains the same verified reopened
 prefix, the `ExecutableRetryInput`, and the ordinary immutable
 `ExecuteGraphTraversalInput` dependencies except `store`, `input`,
-`inputDigest`, and generic `resume`. It fresh-projects and compares the ABG
-basis before effects, derives the one retry step, and transactionally admits
-the retry route plus fresh attempt before the next leaf effect. It then
+`inputDigest`, and generic `resume`. It fresh-projects and compares the complete
+ABG carrier, including the asserted frontier ref/digest and every row, before
+effects, derives the one retry step, and transactionally admits the retry route
+plus fresh attempt before the next leaf effect. It then
 continues ordinary direct HoG traversal. Its success carrier preserves the
 projection ref/digest, route ref/digest, next cursor, fresh attempt ref/digest,
 next attempt, ordinary `ExecutableTraversalCompletion`, and explicit successor
@@ -668,7 +766,7 @@ even when the Gate 2 sentinel does not execute that row.
 | `D14` | `product/materialization_operations.ts`: `MATERIALIZATION_OPERATION_CONTRACTS`, `ProductMaterializationPort` | Product filesystem/configuration construction, ABG artifact admission/event store/calculus, shared canonical JSON/digests/references |
 | `D15` | `product/release_snapshot_operations.ts`: `RELEASE_OPERATION_CONTRACTS`, `ReleaseSnapshotPort` | closed release request/refusal contracts and shared canonical JSON/digests/references; no M6/M7 success authority |
 | `D16` | `product/publication.ts`: `PUBLIC_CATALOG_BINDING_CONTRACTS`, `bindS06PublicFunctionCatalog` | extant Product publication/catalog carriers and shared canonical JSON/digests/references; consumes an explicit PFC-F07 proposal input and never imports Public runtime modules |
-| `D17` | `abg/retry.ts`: `projectExecutableRetryInput`, `ExecutableRetryInput`, `RetryFrontierSelector`, exact projection refusal | `abg/event_store.ts`, `abg/event_calculus.ts`, replay, execution-basis/scope/cursor/C-call rehydration, GTL retry source-path resolution, and shared canonical JSON/digests/references; installed through existing `./abg`, with no HoG or Public import |
+| `D17` | `abg/retry.ts`: `projectExecutableRetryInput`, `ExecutableRetryInput`, `RetryFrontierSelector`, `RetryAttemptFrontier`, `RetryAttemptFrontierRow`, exact structural full-frontier assertion, and exact projection refusal | `abg/event_store.ts`, `abg/event_calculus.ts`, replay, execution-basis/scope/cursor/C-call/result/judgment/progress rehydration, GTL retry source-path resolution, and shared canonical JSON/digests/references; installed through existing `./abg`, with no HoG or Public import |
 | `D18` | `hog/graph_execute.ts`: `resumeProjectedRetry`, exact resume success/refusal | `D17`, `hog/execute.ts`, traversal and route construction, ABG route/attempt transaction, ordinary direct graph execution, admitted implementation/interaction sets, and shared canonical JSON/digests/references; installed through existing `./hog`, with no Product or Public semantic branch |
 
 This ledger is prospective package closure, not a claim that the files or
@@ -846,30 +944,37 @@ port, catalog row, or continuation. In particular,
 `run.continue/current_intent` has no role in this relation. Ordinary same-
 process HoG execution and post-restart execution use this same two-call suffix.
 
-The fixture source is the exact `C.retry` Program and installed malformed-
-first-attempt worker from `test_env/tests/m5-installed-retry.test.mjs`, with
-budget two and deterministic event time and correlation inputs. P1 creates a
-nonce-bearing contract-valid input unknown to the parent and P2, then uses
-only installed production owner APIs to construct the authentic first
-attempt:
+The fixture source is the exact `C.retry` Program and installed worker from
+`test_env/tests/m5-installed-retry.test.mjs`, extended to a declared budget of
+three and one deterministic sequence: attempt one produces `no_output`,
+attempt two produces `contract_failure`, and attempt three succeeds. Event
+time and correlation inputs are deterministic. P1 creates a nonce-bearing
+contract-valid input unknown to the parent and P2, then uses only installed
+production owner APIs to construct two authentic failed attempts:
 
 ```text
-admitted Program, Graph, ExecutionBasis, scope, cursor, retry route and attempt
+admitted Program, Graph, ExecutionBasis, scope, cursor, retry route and attempt 1
   -> open C call
+  -> installed no-output result and exact rejection
+  -> completeRejectedCCall(..., "retry")
+  -> admitRetryProgress for attempt 1
+  -> deriveRetryTraversalStep
+  -> proposeRetryRoute
+  -> admitRoute + applyRoute + admitRetryAttempt for attempt 2
   -> installed malformed result and exact contract rejection
   -> completeRejectedCCall(..., "retry")
-  -> admitRetryProgress
+  -> admitRetryProgress for attempt 2
   -> project exact successor DurablePrefixCoordinate and close
   -> process exit
 ```
 
 The target `admitRetryAttempt` relation writes the canonical input value and
-source cursor into the attempt event before the first leaf effect. Returning
-from `admitRetryProgress` is the deterministic frontier boundary: its append
-is durable before the function returns. P1 asserts that the progress event is
-the durable tail and that no attempt-two route, attempt, C call, or effect
-exists, projects the reopen coordinate, closes cleanly, writes the following
-handoff, and exits:
+source cursor into each attempt event before that attempt's leaf effect.
+Returning from the second `admitRetryProgress` is the deterministic frontier
+boundary: its append is durable before the function returns. P1 asserts that
+the attempt-two progress event is the durable tail and that no attempt-three
+route, attempt, C call, or effect exists, projects the reopen coordinate,
+closes cleanly, writes the following handoff, and exits:
 
 ```text
 {
@@ -893,36 +998,46 @@ Graph, contracts, and execution dependencies from their installed refs, calls
 `projectExecutableRetryInput`, and passes only that result to
 `resumeProjectedRetry`.
 
-The frozen current baseline is exact. P1 can produce a valid durable progress
-tail through the current installed owner admissions, but the cited
-`retry_attempt_opened` payload has no executable input value and the two target
-exports are absent. P2 can verify the frontier refs and digest but cannot
-reconstruct or resume the input. No lawful current installed post-restart
-ingress reaches `retry-input-basis-absent`, so that diagnostic is not the
-baseline signature. Increment 0A records the missing attempt-preimage field
-and missing exports without implementing a projector, copying the input, or
-constructing raw event JSON in the test.
+The frozen current baseline is exact. P1 can produce a valid two-row durable
+progress history through the current installed owner admissions, but the cited
+`retry_attempt_opened` payloads have no executable input value, current
+`RetryProgressAdmission` preserves only numeric completed-attempt coverage,
+and the two target exports are absent. P2 can verify the selected frontier refs
+and digest but cannot reconstruct either the full frontier or the executable
+input and cannot resume. No lawful current installed post-restart ingress
+reaches `retry-input-basis-absent`, so that diagnostic is not the baseline
+signature. Increment 0A records the missing attempt-preimage field, missing
+full-frontier carrier, and missing exports without implementing a projector,
+copying the input, or constructing raw event JSON in the test.
 
 The retained-process control lane reopens the same durable frontier without
 exiting and invokes the same `D17 -> D18` suffix. The restarted lane's target
 oracle is exact canonical equality with that control for:
 
-- the complete `ExecutableRetryInput`, including prefix, scope, basis,
-  progress, attempt, cursor, C call, input contract/ref/digest/value,
-  projection ref/digest, next attempt `2`, and retry path `[2]`;
+- the complete `ExecutableRetryInput`, including prefix, scope, basis, the
+  structurally asserted `RetryAttemptFrontier`, selected progress, attempt,
+  cursor, C call, input contract/ref/digest/value, projection ref/digest, next
+  attempt `3`, and retry path `[3]`;
+- full-frontier rows exactly `[1, 2]`, with distinct admitted `no_output` and
+  `contract_failure` reason classes, exact `abg_retry` and `abg_c_call` owner
+  surfaces, every required source-event kind/ref/digest/ordinal, complete
+  attempt coverage `[1, 2]`, and equal row/frontier identities after restart;
 - retry-route ref/digest, next-cursor ref/digest, fresh-attempt ref/digest, and
-  the canonical input observed by effect two;
-- exactly one consumed progress frontier, attempts `[1, 2]`, one first-attempt
-  progress row, and exactly two total leaf effects; and
+  the canonical input observed by effect three;
+- exactly one consumed current progress fluent, attempts `[1, 2, 3]`, progress
+  rows `[1, 2]`, and exactly three total leaf effects; and
 - final completion plus run-scoped Event Calculus and replay projection.
 
-Before P1 exit, attempts and effects are exactly `[1]`, progress attempts are
-exactly `[1]`, and the attempt preimage hashes to its recorded input digest.
+Before P1 exit, attempts and effects are exactly `[1, 2]`, progress attempts
+are exactly `[1, 2]`, both attempt preimages hash to their recorded input
+digests, and the second progress event is the sole held current retry fluent.
 Prefix reopen failure, declaration mismatch, failure before admitted progress,
-P2 possession of the nonce input, or an invalid owner admission is fixture
-failure and cannot satisfy `AX-F09`. A timeout is only a hang failure. No
-Public invocation, continuation carrier, hard kill, raw-event fixture, local
-Map, caller-selected latest event, or test-only pause participates.
+missing/duplicate prior-attempt coverage, P2 possession of the nonce input, or
+an invalid owner admission is fixture failure and cannot satisfy `AX-F09`. A
+timeout is only a hang failure. A latest-only dossier fails even if it can
+resume attempt three. No Public invocation, continuation carrier, hard kill,
+raw-event fixture, local Map, caller-selected latest event, or test-only pause
+participates.
 
 The Gate 2 sentinel remains ten invocations across nine operation identities:
 
@@ -1003,3 +1118,8 @@ direct F_H with its alternatives and consequences.
 Absence of a counterexample returns the unchanged exact candidate to direct
 F_H for the Gate 1 acceptance decision. It does not itself authorize
 implementation; direct F_H acceptance unlocks only Increment 0A.
+
+For this bounded replacement, the one repair allowance is consumed. Delta
+review is limited to the Section 7.3 full-frontier carrier/projection,
+`D17` closure, the strengthened AX-F09 fixture/oracle, and mechanical tracking
+of that repair. No second repair follows a new hard counterexample.

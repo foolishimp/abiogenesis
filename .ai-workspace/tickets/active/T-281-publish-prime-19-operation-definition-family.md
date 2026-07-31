@@ -10,9 +10,10 @@
 > rejected because its selected installed owner port cannot consume the cited
 > AX-F09 retry frontier. Direct F_H then authorized completion of Gate 1
 > inside the accepted Product and STDO 2.2.2, delegating missing
-> owner-internal HOW to the worker. One complete candidate removes the Public
-> retry ingress and is frozen for constructability and authority review. Gate
-> 1 is not yet accepted.
+> owner-internal HOW to the worker. Complete candidate `2a60c2b7`, tree
+> `fc19ebdf`, passed constructability review. Authority review found one local
+> full-retry-frontier omission. The one permitted bounded repair preserves the
+> architecture and is frozen for delta review. Gate 1 is not yet accepted.
 > Tracked falsifier, production, schema, generator, and semantic-test work
 > remains held until one content-addressed Gate 1 subject receives both
 > required independent reviews and direct acceptance. Accepted design
@@ -25,8 +26,8 @@
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
 - status: active
-- phase_status: m5_s06_gate_1_complete_candidate_frozen_for_review
-- review_status: constructability_and_authority_review_pending
+- phase_status: m5_s06_gate_1_bounded_repair_candidate_frozen_for_delta_review
+- review_status: full_retry_frontier_delta_reviews_pending
 - proof_status: census_accepted
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
@@ -205,14 +206,27 @@
 - gate_1_constructability_delta_review: >-
     .ai-workspace/comments/codex/
     20260731T132222Z_REVIEW_s06_gate_1_constructability_delta_29aea26d.md
-- gate_1_status: complete_candidate_frozen_constructability_and_authority_review_pending
+- reviewed_gate_1_candidate: 2a60c2b704ce431804f26238ea0dd0718a4c456a
+- reviewed_gate_1_candidate_tree: fc19ebdf0766050e53b6bc673a4c761ff6ad77c4
+- reviewed_gate_1_constructability_review: >-
+    .ai-workspace/comments/codex/
+    20260731T162500Z_REVIEW_s06_gate_1_constructability_2a60c2b7.md
+- reviewed_gate_1_authority_review: >-
+    .ai-workspace/comments/codex/
+    20260731T162700Z_REVIEW_s06_gate_1_authority_2a60c2b7.md
+- bounded_gate_1_repair_decision: >-
+    .ai-workspace/comments/codex/
+    20260731T163300Z_DECISION_apply_s06_gate_1_full_retry_frontier_repair.md
+- bounded_gate_1_repair_allowance: consumed
+- gate_1_status: bounded_full_retry_frontier_repair_frozen_delta_reviews_pending
 - current_gate_1_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md;
-    complete frozen review candidate; not operative realization authority
+    bounded full-retry-frontier repair candidate; not operative realization
+    authority
 - current_gate_1_subject_manifest: >-
     .ai-workspace/comments/codex/
-    20260731T161500Z_HANDOFF_s06_gate_1_complete_candidate.md
+    20260731T164500Z_HANDOFF_s06_gate_1_full_retry_frontier_repair_candidate.md
 - gate_2_status: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - gate_3_status: blocked_by_gate_2_acceptance
 
@@ -425,7 +439,8 @@ revalidates it, and the invocation event records its exact use.
 
 ABG owns scope-keyed artifact fluents, same-scope collision refusal,
 ordinal-ordered projection, latest-applicable-event selection within declared
-run/frame/aggregate scope, retry executable input, invocation identity,
+run/frame/aggregate scope, full prior-attempt retry frontier and executable
+input, invocation identity,
 continuation, result, and closure. Unrelated valid events in another scope do
 not change those truths. Replay and reads consume the same projection; raw
 event scans cannot override it.

@@ -37,7 +37,8 @@ close ABG5-S06
   -> rejected frozen Gate 1 candidate ba2e39a4 / 3d5686d4
   -> rejected replacement 29aea26d / 057e4d5f on AX-F09 ingress
   -> direct F_H outcome-level Gate 1 completion envelope
-  -> current: one complete Gate 1 candidate frozen for two reviews
+  -> reviewed complete candidate 2a60c2b7 / fc19ebdf
+  -> current: one bounded full-retry-frontier repair frozen for delta reviews
   -> held Gate 1 acceptance and all semantic implementation
   -> held falsifier, realization, projection, and installed Product proof
   -> under T-281 and parent T-270
@@ -79,10 +80,12 @@ was rejected because its selected `run.continue/current_intent` ingress cannot
 consume the cited retry frontier. Direct F_H then authorized completion of
 Gate 1 inside the accepted Product and STDO 2.2.2. The worker owns missing
 owner-internal HOW that adds no Public operation, rival authority, controller,
-runtime, catalog, or Product meaning. Freeze one complete candidate, obtain
-the two required reviews, apply at most one consolidated bounded repair, and
-return only the final Gate 1 disposition. Escalate only for a Product,
-requirement, 18/56-family, or materially different authority choice.
+runtime, catalog, or Product meaning. Complete candidate `2a60c2b7`, tree
+`fc19ebdf`, passed constructability review; authority review found one local
+omission of the complete prior-attempt retry frontier. The one permitted
+bounded repair is consumed and frozen for delta review. Return only the final
+Gate 1 disposition. Escalate only for a Product, requirement, 18/56-family, or
+materially different authority choice.
 Production, falsifiers, schemas, generators, semantic tests, donor adoption,
 and legacy deletion remain held pending direct acceptance.
 Post-S06 Prime entropy

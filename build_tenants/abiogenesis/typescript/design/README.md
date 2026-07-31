@@ -13,9 +13,11 @@ tree `057e4d5f`, repaired four but was rejected because its selected installed
 owner port cannot consume the cited AX-F09 retry frontier. The bounded repair
 pass was returned to direct F_H. Direct F_H then authorized completion of
 Gate 1 inside the accepted Product and STDO 2.2.2, delegating missing
-owner-internal HOW to the worker. One complete candidate removes the Public
-retry ingress, binds installed ABG projection to HoG resume, and is frozen for
-the required constructability and authority reviews.
+owner-internal HOW to the worker. Complete candidate `2a60c2b7`, tree
+`fc19ebdf`, removes the Public retry ingress and binds installed ABG projection
+to HoG resume. Constructability review passed; authority review found one local
+omission of the complete prior-attempt retry frontier. The one permitted
+bounded repair is consumed and frozen for delta review.
 `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
 remains non-operative future input under backlogged T-268.
 
@@ -67,9 +69,10 @@ projection; Git and the T-284 correction vector preserve that inventory.
 ## Implementation Gate
 
 T-281 owns the proposed Gate 1 subject under T-270. Candidates `ba2e39a4` and
-`29aea26d` remain rejected evidence. The current complete candidate is frozen
-under the outcome-level F_H envelope for one constructability and one authority
-review, with at most one consolidated bounded repair. Production, falsifier,
-schema, generator, semantic-test, donor, deletion, and Gate 2 work remain held
-pending direct acceptance. Planned 5.1 observer/tuner realization, post-S06
-Prime, complete conservation, qualification, and release remain held.
+`29aea26d` remain rejected evidence. Complete candidate `2a60c2b7` has both
+required reviews; one authority counterexample consumes the sole bounded
+repair allowance. The full-retry-frontier repair is frozen for delta review.
+Production, falsifier, schema, generator, semantic-test, donor, deletion, and
+Gate 2 work remain held pending direct acceptance. Planned 5.1 observer/tuner
+realization, post-S06 Prime, complete conservation, qualification, and release
+remain held.
