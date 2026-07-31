@@ -34,10 +34,13 @@ blob `efe88cac` and authorized bounded Gate 1 authority/design/map construction
 only. Frozen candidate `ba2e39a4`, tree `3d5686d4`, was rejected on five
 bounded relations. Replacement `29aea26d`, tree `057e4d5f`, repaired four but
 was rejected because the selected `run.continue/current_intent` ingress cannot
-consume the cited retry frontier. The bounded repair pass is exhausted and the
-counterexample is returned to direct F_H. No further repair, production,
-falsifier, schema, generator, semantic-test, donor, legacy-deletion, or Gate 2
-work is authorized.
+consume the cited retry frontier. Direct F_H authorized completion of Gate 1
+inside the accepted Product and STDO 2.2.2, with missing owner-internal HOW
+delegated to the worker. One complete candidate is frozen for the required
+constructability and authority reviews; at most one consolidated bounded
+repair is permitted. Production, falsifier, schema, generator, semantic-test,
+donor, legacy-deletion, and Gate 2 work remain held pending direct Gate 1
+acceptance.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -84,8 +87,8 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 **Status**: S03 and S05 accepted; S06 realization `4953508d` returned;
 bounded S06 design `aa0daa62` retained as predecessor evidence; authority
 baseline `8a4630e8` frozen and verified; exact census blob `efe88cac` accepted;
-candidates `ba2e39a4` and `29aea26d` rejected; bounded repair exhausted;
-AX-F09 installed-ingress counterexample returned to direct F_H; semantic
+candidates `ba2e39a4` and `29aea26d` rejected; direct F_H completion envelope
+recorded; one complete Gate 1 candidate frozen for two reviews; semantic
 realization held
 
 - GTL.TypeScript is the only program language.
@@ -129,9 +132,9 @@ law. Qualification and release record this same selected basis.
 No substantive change skips intake triage or the smallest lawful re-entry.
 M5 work stays inside T-270/T-281, preserves accepted S03/S05 and both root
 regression bindings, and changes only the selected S06 boundary. Retained S06
-implementation does not resume before the frozen census returns to direct F_H,
-one corrective Gate 1 subject is authorized, independently reviewed, and
-directly accepted. Planned 5.1 observer/tuner work, post-S06 Prime and
+implementation does not resume before one complete Gate 1 subject is
+independently reviewed and directly accepted. Planned 5.1 observer/tuner work,
+post-S06 Prime and
 publication closure, unified M5, M6 qualification, and M7 release remain held.
 No new ticket is required where missing detail belongs to the active owners.
 <!-- SDLC_BOOTLOADER_END -->

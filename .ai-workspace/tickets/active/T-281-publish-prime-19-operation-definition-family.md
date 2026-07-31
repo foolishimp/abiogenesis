@@ -8,8 +8,11 @@
 > Frozen candidate `ba2e39a4`, tree `3d5686d4`, was rejected on five bounded
 > relations. Replacement `29aea26d`, tree `057e4d5f`, repaired four but was
 > rejected because its selected installed owner port cannot consume the cited
-> AX-F09 retry frontier. The bounded repair pass is exhausted and the
-> counterexample is returned to direct F_H. Gate 1 is not accepted.
+> AX-F09 retry frontier. Direct F_H then authorized completion of Gate 1
+> inside the accepted Product and STDO 2.2.2, delegating missing
+> owner-internal HOW to the worker. One complete candidate removes the Public
+> retry ingress and is frozen for constructability and authority review. Gate
+> 1 is not yet accepted.
 > Tracked falsifier, production, schema, generator, and semantic-test work
 > remains held until one content-addressed Gate 1 subject receives both
 > required independent reviews and direct acceptance. Accepted design
@@ -22,8 +25,8 @@
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
 - status: active
-- phase_status: m5_s06_gate_1_rejected_returned_to_direct_f_h
-- review_status: authority_delta_accept_constructability_delta_reject_c02
+- phase_status: m5_s06_gate_1_complete_candidate_frozen_for_review
+- review_status: constructability_and_authority_review_pending
 - proof_status: census_accepted
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
@@ -140,6 +143,18 @@
     1 authority/design/map subject; obtain the two required independent
     reviews; keep falsifiers, realization, donor use, deletion, Gate 2, and
     later milestones held pending direct acceptance
+- direct_f_h_gate_1_completion_source: >-
+    user instruction in the current session: authorize completion of Gate 1
+    within the accepted Product and STDO 2.2.2; let the worker construct
+    missing owner-internal relations; freeze one candidate, obtain two
+    reviews, apply at most one bounded repair, and return only the final
+    disposition
+- direct_f_h_gate_1_completion_interpretation: >-
+    owner-internal names, carriers, refusal codes, placement, and signatures
+    are worker-owned HOW; escalation is required only for Product,
+    requirement, 18/56-family, materially different authority, or post-repair
+    hard-blocker changes; no Public operation, rival authority, controller,
+    runtime, catalog, or Product meaning may enter
 - confirmed_code_review: >-
     .ai-workspace/comments/codex/
     20260731T051841Z_REVIEW_abiogenesis_5_0_function_to_axiom_gate_1.md
@@ -190,14 +205,14 @@
 - gate_1_constructability_delta_review: >-
     .ai-workspace/comments/codex/
     20260731T132222Z_REVIEW_s06_gate_1_constructability_delta_29aea26d.md
-- gate_1_status: replacement_29aea26d_rejected_bounded_repair_exhausted_returned_to_direct_f_h
+- gate_1_status: complete_candidate_frozen_constructability_and_authority_review_pending
 - current_gate_1_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md;
-    rejected replacement evidence; not operative authority
+    complete frozen review candidate; not operative realization authority
 - current_gate_1_subject_manifest: >-
     .ai-workspace/comments/codex/
-    20260731T132538Z_HANDOFF_s06_gate_1_rejected_return_to_f_h.md
+    20260731T161500Z_HANDOFF_s06_gate_1_complete_candidate.md
 - gate_2_status: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - gate_3_status: blocked_by_gate_2_acceptance
 
@@ -456,8 +471,12 @@ current-code ingress
 One constructability reviewer tries to disprove all 56 rows and every
 falsifier's implementability. One authority reviewer seeks only Product,
 ticket, accepted-design, catalog, Event Calculus, donor, and milestone
-counterexamples. Both review the same frozen content-addressed subject. Direct
-F_H acceptance of that unchanged subject unlocks only the falsifier baseline.
+counterexamples. Both review the same frozen content-addressed subject.
+Reviewer-local counterexamples permit at most one consolidated bounded repair
+and delta review of only those relations. Product, requirement, 18/56-family,
+or materially different authority changes return to direct F_H. Direct F_H
+acceptance of the unchanged or once-repaired reviewed subject unlocks only the
+falsifier baseline.
 
 ### Increment 0A - Frozen Falsifier Baseline
 
@@ -536,8 +555,9 @@ remain a preserved-green relation rather than a repaired-red relation. One
 cold reviewer checks only singular authority, installed constructability, and
 forbidden bridges. That cold reviewer issues the Gate 2 acceptance or rejection
 receipt against the accepted Gate 1 invariants. Acceptance unlocks completion;
-a counterexample rejects the subject and returns the violated authority
-relation to direct F_H without authoring a replacement.
+a local counterexample permits one bounded repair of the violated relation
+without authoring a replacement feature. Product, requirement, Public-family,
+or materially different authority changes return to direct F_H.
 
 ### Gate 3 - Frozen S06 Candidate
 
@@ -663,9 +683,10 @@ acceptance closes S06.
 2. From that baseline, complete and freeze the read-only construction census.
 3. Return the frozen census to direct F_H and obtain an explicit ruling that
    authorizes or refuses Gate 1 requirement/design/map construction.
-4. If authorized, construct and freeze one Gate 1 authority subject without
-   semantic implementation edits.
-5. Obtain both Gate 1 reviews and direct acceptance of that unchanged subject.
+4. Under the outcome-level completion envelope, construct and freeze one
+   complete Gate 1 authority subject without semantic implementation edits.
+5. Obtain both Gate 1 reviews, apply at most one consolidated bounded repair
+   when required, and return the final reviewed subject for direct acceptance.
 6. Encode and freeze the accepted falsifier baseline without semantic repair.
 7. `B1`: replace caller-order and incomplete topology interpretation with one
    canonical normalized Program consumed by Validator and HoG.

@@ -30,6 +30,14 @@ supplies the previously absent target source paths, runtime value bindings,
 dependency closures, and singular authority relations. It does not implement
 them.
 
+After rejection of replacement `29aea26d` on its inapplicable AX-F09 Public
+ingress, direct F_H authorized completion of Gate 1 inside the already
+accepted Product and STDO 2.2.2. Owner-internal names, carriers, refusal codes,
+module placement, and signatures are worker-owned HOW while they add no
+Public operation, rival authority, controller, runtime, catalog, or Product
+meaning. Section 7.3 and `D17..D18` exercise that bounded decision envelope;
+they change no requirement or 18/56 member.
+
 Product and Intent are unchanged. S03 and S05 Product and scenario outcomes
 are unchanged. This design explicitly supersedes only the obsolete M03
 CatalogView admission mechanism named in Section 3; it does not change the S03
@@ -329,13 +337,198 @@ event. Repeatability is metadata in the owner packet, not a Set bypass.
 
 ### 7.3 Retry input
 
-The existing retry event family is extended in place, not replaced. The event
-that durably opens an executable retry attempt preserves the exact input
-contract coordinate, canonical input ref and digest, and either canonical
-input bytes or an exact durable content-addressed locator whose bytes are
-verified before projection. One ABG Event Calculus projector yields
-`ExecutableRetryInput` for the next attempt. HoG consumes only that projector.
-No executor Map or retained object is required.
+The existing retry event family is extended in place, not replaced. Each
+`retry_attempt_opened` event preserves the complete admitted source cursor and
+canonical `inputValue` in the attempt-digest preimage beside the exact input
+contract coordinate, input ref, and input digest. Attempt admission proves
+that the cursor is admitted, the input coordinate is the cursor's coordinate,
+the input contract is the exact enclosing declared `C.retry` carrier, and
+`sha256Canonical(inputValue) = inputDigest`. The admitted attempt is therefore
+the verified executable-input preimage; no test memory, executor Map, content
+store, or retained object is required.
+
+The Event Calculus retry effects are exact keyed effects:
+
+```text
+retry_attempt_opened(attemptRef)
+  -> Initiates retry_attempt_active(attemptRef)
+
+retry_progress_recorded(progressRef, attemptRef)
+  -> Terminates retry_attempt_active(attemptRef)
+  -> Initiates retry_progress_available(progressRef)
+
+traversal_route_admitted(routeKind = retry, progressRef)
+  -> Terminates retry_progress_available(progressRef)
+```
+
+All three fluents are scoped by the event's run, graph call, frame, and retry
+boundary. They are not unkeyed strings, and a global latest event cannot
+initiate, terminate, or select another scope's retry truth.
+
+The installed ABG owner-internal export is
+`@abiogenesis/typescript-tenant/abg::projectExecutableRetryInput`, implemented
+at `src/abg/retry.ts`. It accepts the ABG-verified reopening of one explicit
+`DurablePrefixCoordinate`, the immutable declared Program, GraphFunction, and
+Graph, and exactly one selector:
+
+```text
+ProjectExecutableRetryInputRequest = {
+  prefix: DurablePrefixCoordinate,
+  reopenedStore: ReopenedEventStoreContext,
+  selector: RetryFrontierSelector,
+  program: Readonly<GtlProgram>,
+  graphFunction: Readonly<GraphFunction>,
+  graph: Readonly<GtlGraph>
+}
+
+RetryFrontierSelector = {
+  kind: "retry_frontier_selector",
+  schemaVersion: "5.0.0",
+  runId,
+  graphCallId,
+  frameId,
+  retryBoundaryRef,
+  retryProgressRef
+}
+```
+
+The projector scopes the Event Calculus result first, requires exactly one
+matching held `retry_progress_available` fluent, and joins that progress event
+through exact refs and causal edges to its attempt, rejected C call, judgment,
+source cursor, ExecutionBasis, opened traversal scope, and declared `C.retry`
+context. It never selects a latest row. It returns either one canonical
+`ExecutableRetryInput` or one closed owner-internal refusal. The success
+carrier is exactly:
+
+```text
+ExecutableRetryInput = {
+  kind: "executable_retry_input",
+  schemaVersion: "5.0.0",
+  disposition: "projected",
+  projectionRef,
+  projectionDigest,
+  durablePrefixDigest,
+  lastAdmissionOrdinal,
+  selector,
+  executionBasisRef,
+  executionBasisDigest,
+  traversalScopeRef,
+  traversalScopeDigest,
+  programRef,
+  programDigest,
+  graphFunctionRef,
+  graphFunctionDigest,
+  graphRef,
+  graphDigest,
+  progressEventRef,
+  progress,
+  sourceAttemptEventRef,
+  sourceAttempt,
+  sourceCursor,
+  cCall,
+  inputContractRef,
+  inputRef,
+  inputDigest,
+  inputValue,
+  nextAttempt,
+  nextRetryPath
+}
+```
+
+`projectionDigest` covers the complete carrier body except `projectionRef`
+and `projectionDigest`; `projectionRef` is derived from that digest.
+`sourceAttempt`, `progress`, `sourceCursor`, and
+`cCall` are rehydrated from the cited events. Their authority is the verified
+event relation, not a `WeakSet` brand. `nextAttempt` is exactly the current
+attempt plus one, remains inside the declared budget, and
+`nextRetryPath` replaces only the selected boundary's final attempt ordinal.
+
+The ABG projection refusal codes are exactly:
+
+```text
+prefix_mismatch
+basis_mismatch
+frontier_absent
+frontier_ambiguous
+frontier_stale
+frontier_lineage_mismatch
+retry_declaration_mismatch
+preimage_absent
+preimage_digest_mismatch
+preimage_contract_mismatch
+retry_not_permitted
+```
+
+Every refusal has exactly `kind: "executable_retry_input_refusal"`,
+`schemaVersion: "5.0.0"`, `disposition: "refused"`, one code, a non-empty
+message, the complete selector, the supplied prefix digest when structurally
+available, and the exact cited source event refs. It contains no executable
+input value or next-attempt carrier.
+
+The projector emits no event. These are owner-internal retry-projection
+refusals; they neither extend the five common Public refusal codes nor the six
+`OutcomeProjectionRefusal` classes.
+
+The installed HoG owner-internal export is
+`@abiogenesis/typescript-tenant/hog::resumeProjectedRetry`, implemented at
+`src/hog/graph_execute.ts`. Its request contains the same verified reopened
+prefix, the `ExecutableRetryInput`, and the ordinary immutable
+`ExecuteGraphTraversalInput` dependencies except `store`, `input`,
+`inputDigest`, and generic `resume`. It fresh-projects and compares the ABG
+basis before effects, derives the one retry step, and transactionally admits
+the retry route plus fresh attempt before the next leaf effect. It then
+continues ordinary direct HoG traversal. Its success carrier preserves the
+projection ref/digest, route ref/digest, next cursor, fresh attempt ref/digest,
+next attempt, ordinary `ExecutableTraversalCompletion`, and explicit successor
+prefix.
+
+```text
+ResumeProjectedRetryRequest = {
+  prefix: DurablePrefixCoordinate,
+  reopenedStore: ReopenedEventStoreContext,
+  retry: ExecutableRetryInput,
+  runtime: Omit<
+    ExecuteGraphTraversalInput,
+    "store" | "input" | "inputDigest" | "resume"
+  >
+}
+
+ProjectedRetryResumeSuccess = {
+  kind: "projected_retry_resume",
+  schemaVersion: "5.0.0",
+  disposition: "resumed",
+  executableRetryInputRef,
+  executableRetryInputDigest,
+  routeRef,
+  routeDigest,
+  nextCursor,
+  retryAttemptRef,
+  retryAttemptDigest,
+  nextAttempt,
+  completion,
+  successorPrefix
+}
+```
+
+The HoG refusal codes are exactly:
+
+```text
+projection_mismatch
+prefix_mismatch
+runtime_basis_mismatch
+retry_step_refused
+retry_route_refused
+retry_attempt_refused
+```
+
+Every refusal has exactly `kind: "projected_retry_resume_refusal"`,
+`schemaVersion: "5.0.0"`, `disposition: "refused"`, one code, a non-empty
+message, the executable-retry-input ref/digest when structurally available,
+and its exact lower typed cause. All pure checks precede effects. Route and
+attempt admission are one ABG event transaction, so both are durable before
+the next effect or neither is admitted. The uninterrupted executor uses this
+same projector/resume suffix after retry progress; there is no map-driven
+continuation, generic cursor bypass, or second retry path.
 
 Continuation, source-result, closure, cursor, causation, and run projection
 bases are rehydrated through the same scoped truth. Current
@@ -438,11 +631,18 @@ refusal truth and does not append a runtime event.
 
 ### 10.1 Installed coordinate
 
-All definitions are loaded from package `@abiogenesis/typescript-tenant`,
-export `./public`, runtime value `PUBLIC_FUNCTION_DEFINITION_FAMILY`, member
-path `[operationId][definitionKey].ownerPort`. `PUBLIC_OPERATION_SCHEMAS` is
-the later generated schema projection. No second package export or private
-source import is required by a consumer or the all-port probe.
+All 56 Public definitions are loaded from package
+`@abiogenesis/typescript-tenant`, export `./public`, runtime value
+`PUBLIC_FUNCTION_DEFINITION_FAMILY`, member path
+`[operationId][definitionKey].ownerPort`. `PUBLIC_OPERATION_SCHEMAS` is the
+later generated schema projection. No second Public family, package export,
+or private source import is required by a consumer or the all-port probe.
+
+The existing installed `./abg` and `./hog` exports also carry the
+owner-internal retry projector and resume relations in `D17` and `D18`. They
+are dependencies of ordinary HoG execution, not Public definitions, Public
+operations, catalog rows, alternate invocation paths, or members of the
+18/56 all-port probe.
 
 The package must include the compiled transitive closure of every row below,
 even when the Gate 2 sentinel does not execute that row.
@@ -459,8 +659,8 @@ even when the Gate 2 sentinel does not execute that row.
 | `D05` | `product/environment_operations.ts`: `PRODUCT_ENVIRONMENT_CONTRACTS`, `ProductEnvironmentPort` | `product/environment.ts`, `product/exact_match.ts`, `D04` carrier contracts, ABG environment/artifact admission, event store/calculus, shared canonical JSON/digests/references |
 | `D06` | `product/install_operation.ts`: `PRODUCT_INSTALL_CONTRACTS`, `ProductInstallPort` | `product/install_product.ts`, `D04`, `D05`, ABG environment/artifact admission, event store/calculus, shared canonical JSON/digests/references |
 | `D07` | `product/catalog_operations.ts`: `CATALOG_OPERATION_CONTRACTS`, `CatalogOperationPort` | `product/catalog.ts`, `D05`, `D06`, ABG catalog/artifact admission, event store/calculus, shared canonical JSON/digests/references |
-| `D08` | `product/run_invocation_operation.ts`: `RUN_OPERATION_CONTRACTS.invoke`, `RunInvocationPort` | Product invocation/catalog/application, `D07`, `D13`, HoG direct execute, ABG invocation admission/event store/calculus/replay/`retry.ts::projectExecutableRetryInput`/closure, shared canonical JSON/digests/references |
-| `D09` | `product/run_continuation_operation.ts`: `RUN_OPERATION_CONTRACTS.continue`, `RunContinuationPort` | Product continuation meaning, `D08`, ABG continuation/event store/calculus/replay/`retry.ts::projectExecutableRetryInput`/closure, HoG `execute.ts::resumeProjectedRetry` plus direct execute, shared canonical JSON/digests/references |
+| `D08` | `product/run_invocation_operation.ts`: `RUN_OPERATION_CONTRACTS.invoke`, `RunInvocationPort` | Product invocation/catalog/application, `D07`, `D13`, HoG direct execute, `D17`, `D18`, ABG invocation admission/event store/calculus/replay/closure, shared canonical JSON/digests/references |
+| `D09` | `product/run_continuation_operation.ts`: `RUN_OPERATION_CONTRACTS.continue`, `RunContinuationPort` | Product continuation meaning, `D08`, ABG continuation/event store/calculus/replay/closure, ordinary HoG direct execute, shared canonical JSON/digests/references; it never treats C.retry as a Public continuation ingress |
 | `D10` | `product/interaction_response_operation.ts`: `INTERACTION_OPERATION_CONTRACTS`, `InteractionResponsePort` | Product response evaluation, ABG continuation/event admission/calculus/replay, shared canonical JSON/digests/references |
 | `D11` | `product/result_assessment_operation.ts`: `RESULT_OPERATION_CONTRACTS`, `ResultAssessmentPort` | Product result/assessment contracts, ABG result/event admission/calculus/replay, shared canonical JSON/digests/references |
 | `D12` | `abg/witness_admission_operation.ts`: `WITNESS_OPERATION_CONTRACTS`, `WitnessAdmissionPort` | ABG witness/event store/calculus/replay and shared canonical JSON/digests/references |
@@ -468,6 +668,8 @@ even when the Gate 2 sentinel does not execute that row.
 | `D14` | `product/materialization_operations.ts`: `MATERIALIZATION_OPERATION_CONTRACTS`, `ProductMaterializationPort` | Product filesystem/configuration construction, ABG artifact admission/event store/calculus, shared canonical JSON/digests/references |
 | `D15` | `product/release_snapshot_operations.ts`: `RELEASE_OPERATION_CONTRACTS`, `ReleaseSnapshotPort` | closed release request/refusal contracts and shared canonical JSON/digests/references; no M6/M7 success authority |
 | `D16` | `product/publication.ts`: `PUBLIC_CATALOG_BINDING_CONTRACTS`, `bindS06PublicFunctionCatalog` | extant Product publication/catalog carriers and shared canonical JSON/digests/references; consumes an explicit PFC-F07 proposal input and never imports Public runtime modules |
+| `D17` | `abg/retry.ts`: `projectExecutableRetryInput`, `ExecutableRetryInput`, `RetryFrontierSelector`, exact projection refusal | `abg/event_store.ts`, `abg/event_calculus.ts`, replay, execution-basis/scope/cursor/C-call rehydration, GTL retry source-path resolution, and shared canonical JSON/digests/references; installed through existing `./abg`, with no HoG or Public import |
+| `D18` | `hog/graph_execute.ts`: `resumeProjectedRetry`, exact resume success/refusal | `D17`, `hog/execute.ts`, traversal and route construction, ABG route/attempt transaction, ordinary direct graph execution, admitted implementation/interaction sets, and shared canonical JSON/digests/references; installed through existing `./hog`, with no Product or Public semantic branch |
 
 This ledger is prospective package closure, not a claim that the files or
 values already exist. Each `Dxx` closure is the complete transitive import
@@ -475,7 +677,8 @@ fixed point rooted at the exact files in its row. The package includes the
 whole compiled `dist` graph and generated family assets; it has no
 sentinel-specific file allowlist. Gate 2 records that fixed point and proves it
 by loading every selected function from the packed `./public` export after
-removing source-tree resolution.
+removing source-tree resolution. It separately loads the `D17` and `D18`
+owner-internal exports from the same installed tarball.
 
 ### 10.3 Exact non-read definitions
 
@@ -625,48 +828,101 @@ as the baseline signature.
 
 ### 13.2 `AX-F09` decision completion
 
-The current executable ingress is
-`src/hog/graph_execute.ts::executeGraphTraversal`. The target owner-internal
-callables are exactly:
+The current behavior ingress is
+`src/hog/graph_execute.ts::executeGraphTraversal`. Its current retry suffix
+selects an executable value from the process-local
+`Map<string, RetainedRetryInput>` and proceeds from progress to route and next
+attempt without a durable owner boundary.
 
-- `src/abg/retry.ts::projectExecutableRetryInput`;
-- `src/hog/execute.ts::resumeProjectedRetry`.
+The target installed owner-internal coordinates are exactly:
 
-The installed exact-family ingress is package
-`@abiogenesis/typescript-tenant`, export `./public`, callable
-`PUBLIC_FUNCTION_DEFINITION_FAMILY["abg.operation.run.continue"]["current_intent"].ownerPort`.
-That Product owner port rehydrates the explicit prefix, calls
-`projectExecutableRetryInput`, and supplies only its admitted result to
-`resumeProjectedRetry`; neither Public nor the owner port reconstructs retry
-meaning.
+- package `@abiogenesis/typescript-tenant`, export `./abg`, callable
+  `projectExecutableRetryInput` from `src/abg/retry.ts` (`D17`); and
+- the same package, export `./hog`, callable `resumeProjectedRetry` from
+  `src/hog/graph_execute.ts` (`D18`).
 
-The fixture source is the exact C.retry Program, contract-admitted input, and
-first-attempt malformed-result worker from
-`test_env/tests/m5-installed-retry.test.mjs`. Process P1 is terminated only
-after its event-log writer acknowledges the exact `retry_progress_recorded`
-frontier and the corresponding admitted attempt, input-contract coordinate,
-input ref/digest, and verified input preimage are durable. Process P2 receives
-only the serialized `DurablePrefixCoordinate` plus the exact indexed
-`run.continue/current_intent` request; no JavaScript object or test-memory copy
-of the input crosses the process boundary.
+Neither coordinate is a Public definition, Public operation, Product owner
+port, catalog row, or continuation. In particular,
+`run.continue/current_intent` has no role in this relation. Ordinary same-
+process HoG execution and post-restart execution use this same two-call suffix.
 
-The frozen current baseline is that the durable log identifies the retry
-frontier and digest, while the executable input exists only in
-`executeGraphTraversal`'s process-local `Map<string, RetainedRetryInput>`.
-After P1 termination there is no callable that can recover that value; a
-current HoG completion without the retained entry reaches
-`diagnostic://abiogenesis/hog/retry-input-basis-absent@5`. Increment 0A may use
-a dynamic-import absence assertion for the two target exports, but it may not
-implement a projector in the test.
+The fixture source is the exact `C.retry` Program and installed malformed-
+first-attempt worker from `test_env/tests/m5-installed-retry.test.mjs`, with
+budget two and deterministic event time and correlation inputs. P1 creates a
+nonce-bearing contract-valid input unknown to the parent and P2, then uses
+only installed production owner APIs to construct the authentic first
+attempt:
 
-The target oracle is one canonical `ExecutableRetryInput` with the same input
-contract, ref, digest, canonical value, retry boundary, and next attempt
-identity in P2, followed by one successful call through the installed owner
-port. As an isolated masking check, the source test may call
-`projectExecutableRetryInput` directly and then
-`resumeProjectedRetry`; both results must equal the installed owner-port
-result. A missing/invalid prefix, unavailable verified preimage, or failure
-before the projector is fixture failure rather than evidence for `AX-F09`.
+```text
+admitted Program, Graph, ExecutionBasis, scope, cursor, retry route and attempt
+  -> open C call
+  -> installed malformed result and exact contract rejection
+  -> completeRejectedCCall(..., "retry")
+  -> admitRetryProgress
+  -> project exact successor DurablePrefixCoordinate and close
+  -> process exit
+```
+
+The target `admitRetryAttempt` relation writes the canonical input value and
+source cursor into the attempt event before the first leaf effect. Returning
+from `admitRetryProgress` is the deterministic frontier boundary: its append
+is durable before the function returns. P1 asserts that the progress event is
+the durable tail and that no attempt-two route, attempt, C call, or effect
+exists, projects the reopen coordinate, closes cleanly, writes the following
+handoff, and exits:
+
+```text
+{
+  prefix: DurablePrefixCoordinate,
+  retry: {
+    runId,
+    graphCallId,
+    frameId,
+    retryBoundaryRef,
+    retryProgressRef
+  }
+}
+```
+
+No input value, Program, Graph, cursor, C call, admission object, JavaScript
+capability, environment field, shared module, sleep, poll, or test hook crosses
+the process boundary. P2 starts only after P1 exits. It imports the installed
+`./abg` and `./hog` exports by package specifier, verifies and reopens the exact
+prefix, independently loads the immutable declared Program, GraphFunction,
+Graph, contracts, and execution dependencies from their installed refs, calls
+`projectExecutableRetryInput`, and passes only that result to
+`resumeProjectedRetry`.
+
+The frozen current baseline is exact. P1 can produce a valid durable progress
+tail through the current installed owner admissions, but the cited
+`retry_attempt_opened` payload has no executable input value and the two target
+exports are absent. P2 can verify the frontier refs and digest but cannot
+reconstruct or resume the input. No lawful current installed post-restart
+ingress reaches `retry-input-basis-absent`, so that diagnostic is not the
+baseline signature. Increment 0A records the missing attempt-preimage field
+and missing exports without implementing a projector, copying the input, or
+constructing raw event JSON in the test.
+
+The retained-process control lane reopens the same durable frontier without
+exiting and invokes the same `D17 -> D18` suffix. The restarted lane's target
+oracle is exact canonical equality with that control for:
+
+- the complete `ExecutableRetryInput`, including prefix, scope, basis,
+  progress, attempt, cursor, C call, input contract/ref/digest/value,
+  projection ref/digest, next attempt `2`, and retry path `[2]`;
+- retry-route ref/digest, next-cursor ref/digest, fresh-attempt ref/digest, and
+  the canonical input observed by effect two;
+- exactly one consumed progress frontier, attempts `[1, 2]`, one first-attempt
+  progress row, and exactly two total leaf effects; and
+- final completion plus run-scoped Event Calculus and replay projection.
+
+Before P1 exit, attempts and effects are exactly `[1]`, progress attempts are
+exactly `[1]`, and the attempt preimage hashes to its recorded input digest.
+Prefix reopen failure, declaration mismatch, failure before admitted progress,
+P2 possession of the nonce input, or an invalid owner admission is fixture
+failure and cannot satisfy `AX-F09`. A timeout is only a hang failure. No
+Public invocation, continuation carrier, hard kill, raw-event fixture, local
+Map, caller-selected latest event, or test-only pause participates.
 
 The Gate 2 sentinel remains ten invocations across nine operation identities:
 
@@ -735,7 +991,15 @@ accepted-design, or STDO counterexample to:
 - milestone boundaries.
 
 Both reviewers inspect the same frozen commit and tree. They do not edit this
-subject or author replacement features. A cited counterexample rejects the
-subject and returns it to direct F_H. Absence of a counterexample does not
-itself authorize implementation; direct F_H acceptance of the exact reviewed
-subject unlocks only Increment 0A.
+subject or author replacement features. Findings must cite one accepted
+Product, ticket, requirement, design, or STDO invariant. Local
+counterexamples are consolidated once and permit at most one bounded repair;
+the reviewers then inspect only the repaired relations. The worker escalates
+before repair only if completion would change Product meaning, requirements,
+the 18/56 family, or choose between materially different lawful authority
+architectures. A hard counterexample after that one repair returns once to
+direct F_H with its alternatives and consequences.
+
+Absence of a counterexample returns the unchanged exact candidate to direct
+F_H for the Gate 1 acceptance decision. It does not itself authorize
+implementation; direct F_H acceptance unlocks only Increment 0A.

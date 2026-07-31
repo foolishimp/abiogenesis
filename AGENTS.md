@@ -22,7 +22,8 @@
 - Freeze one exact subject, produce one handoff, and stop editing.
 - Independent reviewers assess that subject. Consolidate their findings into
   at most one bounded repair pass.
-- A further architectural finding returns to design or F_H; it does not
+- A finding that changes Product meaning, requirements, the 18/56 family, or
+  materially different authority structure returns to F_H; it does not
   authorize another autonomous patch-review loop.
 
 ## Current Gate
@@ -35,7 +36,8 @@ close ABG5-S06
   -> accepted exact census blob efe88cac
   -> rejected frozen Gate 1 candidate ba2e39a4 / 3d5686d4
   -> rejected replacement 29aea26d / 057e4d5f on AX-F09 ingress
-  -> current: returned to direct F_H; no further repair authorized
+  -> direct F_H outcome-level Gate 1 completion envelope
+  -> current: one complete Gate 1 candidate frozen for two reviews
   -> held Gate 1 acceptance and all semantic implementation
   -> held falsifier, realization, projection, and installed Product proof
   -> under T-281 and parent T-270
@@ -74,10 +76,15 @@ bounded Gate 1 authority/design/map construction only. Frozen candidate
 `ba2e39a4`, tree `3d5686d4`, was rejected by the required reviews on five
 bounded relations. Replacement `29aea26d`, tree `057e4d5f`, repaired four but
 was rejected because its selected `run.continue/current_intent` ingress cannot
-consume the cited retry frontier. The bounded repair pass is exhausted. Stop
-and return that missing-owner-meaning counterexample to direct F_H; no further
-repair or implementation is authorized. Production, falsifiers, schemas,
-generators, semantic tests, donor adoption, and legacy deletion remain held.
+consume the cited retry frontier. Direct F_H then authorized completion of
+Gate 1 inside the accepted Product and STDO 2.2.2. The worker owns missing
+owner-internal HOW that adds no Public operation, rival authority, controller,
+runtime, catalog, or Product meaning. Freeze one complete candidate, obtain
+the two required reviews, apply at most one consolidated bounded repair, and
+return only the final Gate 1 disposition. Escalate only for a Product,
+requirement, 18/56-family, or materially different authority choice.
+Production, falsifiers, schemas, generators, semantic tests, donor adoption,
+and legacy deletion remain held pending direct acceptance.
 Post-S06 Prime entropy
 reduction, full
 public-contract publication closure, unified M5, conservation qualification,
@@ -189,9 +196,11 @@ from them.
 - A clean session starts from a clean tracked and untracked worktree.
 - Do not restore or implement the planned 5.1 observer/tuner design on the 5.0
   active line.
-- During the current exact-cut review gate, change no candidate code, schema,
-  test, proof, or design file. Only independent review commentary and direct
-  disposition may advance the subject.
+- Once the current Gate 1 candidate freezes, change no candidate code, schema,
+  test, proof, or design file while its two independent reviews run. Only
+  review commentary and direct disposition may advance the exact subject;
+  one consolidated bounded repair is permitted only for cited local
+  counterexamples.
 - Do not edit the deferred S04 design or any S04 realization surface.
 - A review finding blocks its exact claim; it does not automatically authorize
   another ticket, refactor, artifact family, or review programme.

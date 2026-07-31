@@ -5,8 +5,8 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_gate_1_rejected_returned_to_direct_f_h
-- review_status: s03_s05_accepted_authority_delta_accept_constructability_delta_reject_c02
+- phase_status: m5_s06_gate_1_complete_candidate_frozen_for_review
+- review_status: s03_s05_accepted_gate_1_constructability_and_authority_review_pending
 - proof_status: s06_census_accepted
 - goal: GOAL-035 M5
 - priority: critical
@@ -63,6 +63,18 @@
     1 authority/design/map subject; obtain the two required independent
     reviews; keep falsifiers, realization, donor use, deletion, Gate 2, and
     later milestones held pending direct acceptance
+- direct_f_h_gate_1_completion_source: >-
+    user instruction in the current session: authorize completion of Gate 1
+    within the accepted Product and STDO 2.2.2; let the worker construct
+    missing owner-internal relations; freeze one candidate, obtain two
+    reviews, apply at most one bounded repair, and return only the final
+    disposition
+- direct_f_h_gate_1_completion_interpretation: >-
+    owner-internal names, carriers, refusal codes, placement, and signatures
+    are worker-owned HOW; escalation is required only for Product,
+    requirement, 18/56-family, materially different authority, or post-repair
+    hard-blocker changes; no Public operation, rival authority, controller,
+    runtime, catalog, or Product meaning may enter
 - authority_baseline_commit: 8a4630e8f7a05ec4f6783957c029a76eb593ee2f
 - authority_baseline_tree: 0e5281c2c8da6501500b88a02a79d12e2aa5f365
 - authority_baseline_branch: codex/t286-abi5-root
@@ -75,14 +87,14 @@
     eight untracked commentary posts preserved
 - current_s06_authority_state: >-
     authority baseline frozen and verified; exact census blob efe88cac
-    accepted; Gate 1 candidates ba2e39a4 and 29aea26d rejected; bounded repair
-    exhausted on the AX-F09 installed-ingress counterexample and returned to
-    direct F_H; semantic realization held; aa0daa62 retained as accepted
-    predecessor evidence
+    accepted; Gate 1 candidates ba2e39a4 and 29aea26d rejected; direct F_H
+    outcome-level completion envelope recorded; one complete Gate 1 candidate
+    frozen for constructability and authority review; semantic realization
+    held; aa0daa62 retained as accepted predecessor evidence
 - s06_construction_census_state: accepted_blob_efe88cac
 - s06_construction_census_blob: efe88cac85bd3bb071d4b5dd451dfadaec893c4f
 - s06_construction_census_sha256: 0c0339689c21154c46148f033c7472b9d55a0fd771fc34a1c41d41c52d28a0c6
-- s06_gate_1_state: replacement_29aea26d_rejected_bounded_repair_exhausted_returned_to_direct_f_h
+- s06_gate_1_state: complete_candidate_frozen_constructability_and_authority_review_pending
 - s06_gate_2_state: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - s06_gate_3_state: blocked_by_gate_2_acceptance
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
@@ -190,6 +202,7 @@ accepted S03 + accepted S05
   -> read-only exact S06 construction census
   -> frozen census returned to direct F_H
   -> new Gate 1 construction authorization
+  -> outcome-level Gate 1 completion envelope
   -> frozen Gate 1 authority subject
   -> accepted falsifier baseline
   -> frozen Gate 2 installed architecture sentinel
@@ -285,11 +298,10 @@ S06 closes only when:
 - independent review and direct F_H acceptance bind the exact candidate.
 
 The accepted predecessor designs retain their reviewed constraints. They do
-not currently own operative realization permission. After the frozen census,
-new direct F_H authorization may permit T-281 to construct one corrective Gate
-1 subject; only direct acceptance of that exact subject establishes the
-operative realization conditions. This parent ticket does not restate or
-expand them.
+not currently own operative realization permission. Direct F_H has authorized
+completion and review of one complete Gate 1 subject; only direct acceptance
+of that exact reviewed subject establishes the operative realization
+conditions. This parent ticket does not restate or expand them.
 
 ## Active S06 Gates
 
@@ -298,8 +310,8 @@ selected.
 
 | Gate | State | Frozen subject | Independent review and exit |
 |---|---|---|---|
-| Gate 1 - construction map and authority cut | Blocked by the frozen read-only census and new direct F_H construction ruling; exact clean authority baseline `8a4630e8` is satisfied | Exact 56-key owner/export map, deletion set, projection graph, installed vertical path, decision-complete falsifiers, directly conflicting requirement edits, and corrective design | One constructability reviewer and one authority reviewer inspect the same subject; direct F_H acceptance unlocks only the falsifier baseline |
-| Gate 2 - architecture sentinel | Blocked by Gate 1 acceptance and frozen falsifier baseline | Complete installed 18-operation/56-key family, all owner closures and package dependencies, atomic legacy deletion, all-port load/resolve probe, one executed nine-operation fresh-process sentinel, and a row-addressed frozen-baseline-to-green ledger for every accepted `AX-*` relation | The cold reviewer issues the acceptance or rejection receipt against accepted Gate 1 invariants; acceptance unlocks completion, while a counterexample returns the violated relation to direct F_H |
+| Gate 1 - construction map and authority cut | Complete candidate frozen under the direct F_H outcome-level completion envelope; exact clean authority baseline `8a4630e8` and accepted census `efe88cac` remain fixed | Exact 56-key owner/export map, deletion set, projection graph, installed vertical path, decision-complete falsifiers, directly conflicting requirement disposition, and corrective design | One constructability reviewer and one authority reviewer inspect the same subject; at most one consolidated local repair is permitted; direct F_H acceptance unlocks only the falsifier baseline |
+| Gate 2 - architecture sentinel | Blocked by Gate 1 acceptance and frozen falsifier baseline | Complete installed 18-operation/56-key family, all owner closures and package dependencies, atomic legacy deletion, all-port load/resolve probe, one executed nine-operation fresh-process sentinel, and a row-addressed frozen-baseline-to-green ledger for every accepted `AX-*` relation | The cold reviewer issues the acceptance or rejection receipt against accepted Gate 1 invariants; acceptance unlocks completion; one local counterexample permits one bounded relation repair, while Product, requirement, Public-family, or materially different authority change returns to direct F_H |
 | Gate 3 - frozen S06 candidate | Blocked by Gate 2 acceptance | Complete projections, lawful rewritten scenarios, installed downstream Product behavior, reproducible package, and exact S06 evidence | One architecture/authority reviewer and one installed-Product behavior reviewer inspect the same candidate; direct F_H acceptance closes S06 |
 
 Gate 1 selects, and the atomic swap installs, this production relation:
