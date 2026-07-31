@@ -13,12 +13,10 @@
 > owner-internal HOW to the worker. Complete candidate `2a60c2b7`, tree
 > `fc19ebdf`, passed constructability review. Authority review found one local
 > full-retry-frontier omission. The one permitted bounded repair preserves the
-> architecture. Both delta reviews pass. Exact candidate `3f80ba23`, tree
-> `04906b1c`, awaits one direct Gate 1 accept-or-reject decision. Gate 1 is not
-> yet accepted.
-> Tracked falsifier, production, schema, generator, and semantic-test work
-> remains held until one content-addressed Gate 1 subject receives both
-> required independent reviews and direct acceptance. Accepted design
+> architecture. Both delta reviews pass. Direct F_H accepted exact candidate
+> `3f80ba23`, tree `04906b1c`, and authorized only Increment 0A falsifier
+> implementation under its frozen relations. Production semantic repair,
+> schema, generator, donor, legacy deletion, and Gate 2 remain held. Accepted design
 > `aa0daa62` is immutable predecessor evidence, not current realization
 > authority.
 
@@ -28,20 +26,18 @@
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
 - status: active
-- phase_status: m5_s06_gate_1_reviewed_candidate_awaiting_direct_acceptance
+- phase_status: m5_s06_increment_0a_falsifier_baseline
 - review_status: constructability_and_authority_pass
-- proof_status: gate_1_reviews_pass_candidate_unaccepted
+- proof_status: gate_1_accepted_increment_0a_baseline_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
-- implementation_hold: semantic_realization_held_until_gate_1_direct_acceptance
+- implementation_hold: semantic_realization_held_during_increment_0a
 - implementation_hold_effect: >-
-    authorize tracking the accepted exact census, status reconciliation, the
-    targeted catalog-application requirement correction, one corrective S06
-    authority design, one reconciled construction map and frozen Gate 1 review
-    subject; prohibit falsifier, production, schema, generator, package,
-    semantic-test, donor, legacy-deletion, and Gate 2 work until direct F_H
-    accepts that exact reviewed subject; hold post-S06 Prime entropy
+    authorize only the frozen Increment 0A characterization harness,
+    test-only process fixtures, command wiring, tracking, and baseline
+    evidence; prohibit production semantic repair, schema, generator, donor,
+    legacy-deletion, and Gate 2 work; hold post-S06 Prime entropy
     reduction, full public-contract publication closure, unified M5, S04, M6,
     and M7 until their exact predecessor boundaries
 - delivery_phase: M5_after_accepted_s03_and_s05
@@ -57,9 +53,9 @@
 - prospective_gate_1_first_missing_layer: requirement_reprice
 - prospective_downstream_change_classes: design_reframe,realization_refactor
 - re_entry_point: >-
-    accepted census blob efe88cac plus direct F_H Gate 1 construction ruling;
-    targeted REQ-P-CATALOG correction and bounded corrective design reframe
-    only; realization refactor remains behind direct Gate 1 acceptance
+    accepted census blob efe88cac plus direct F_H acceptance of the exact Gate
+    1 candidate; only the frozen Increment 0A falsifier baseline is
+    authorized; semantic realization refactor remains held
 - triaged_at: 2026-07-24
 - current_reentry_selected_at: 2026-07-31
 - created_at: 2026-07-16
@@ -158,6 +154,16 @@
     requirement, 18/56-family, materially different authority, or post-repair
     hard-blocker changes; no Public operation, rival authority, controller,
     runtime, catalog, or Product meaning may enter
+- direct_f_h_gate_1_acceptance_source: >-
+    user instruction in the current session: "I accept S06 Gate 1 candidate
+    3f80ba2393a9dbe31e8379a3dbbde00a961b8e23, tree
+    04906b1c29c5d66163c62d1fffcb8bc069096244, and authorize Increment 0A
+    falsifier implementation only under the frozen Gate 1 relations."
+- direct_f_h_gate_1_acceptance_interpretation: >-
+    the exact reviewed architecture and construction map are accepted;
+    Increment 0A may encode and execute only the frozen falsifiers and record
+    their baseline evidence; semantic repair and every later boundary remain
+    held
 - confirmed_code_review: >-
     .ai-workspace/comments/codex/
     20260731T051841Z_REVIEW_abiogenesis_5_0_function_to_axiom_gate_1.md
@@ -231,16 +237,20 @@
 - gate_1_final_disposition: >-
     .ai-workspace/comments/codex/
     20260731T165000Z_HANDOFF_s06_gate_1_final_disposition.md
-- gate_1_status: reviewed_candidate_awaiting_direct_f_h_acceptance
+- gate_1_status: accepted_candidate_3f80ba23
+- gate_1_acceptance_decision: >-
+    .ai-workspace/comments/codex/
+    20260731T171805Z_DECISION_accept_s06_gate_1_authorize_increment_0a.md
+- increment_0a_status: authorized_falsifier_baseline_pending
 - current_gate_1_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md;
-    exact reviewed candidate 3f80ba23 / 04906b1c; not operative realization
-    authority pending direct F_H acceptance
+    accepted exact candidate 3f80ba23 / 04906b1c; operative Gate 1 design
+    authority; only Increment 0A falsifier implementation currently authorized
 - current_gate_1_subject_manifest: >-
     .ai-workspace/comments/codex/
     20260731T164500Z_HANDOFF_s06_gate_1_full_retry_frontier_repair_candidate.md
-- gate_2_status: blocked_by_gate_1_acceptance_and_falsifier_baseline
+- gate_2_status: blocked_by_falsifier_baseline
 - gate_3_status: blocked_by_gate_2_acceptance
 
 ## Target Truth
@@ -675,15 +685,15 @@ acceptance closes S06.
   build-tenant proof substitutes for it.
 - [ ] Ticket wording, Product wording, and proof claims are reconciled before
   closure.
-- [ ] Gate 1 freezes the exact 56-row owner/export/dependency map.
-- [ ] Gate 1 freezes the complete legacy deletion and lawful-test rewrite set.
-- [ ] Gate 1 binds every directly conflicting requirement and corrective
+- [x] Gate 1 freezes the exact 56-row owner/export/dependency map.
+- [x] Gate 1 freezes the complete legacy deletion and lawful-test rewrite set.
+- [x] Gate 1 binds every directly conflicting requirement and corrective
   design relation.
-- [ ] Every falsifier record is decision-complete and independently
+- [x] Every falsifier record is decision-complete and independently
   constructability-reviewed.
-- [ ] One authority reviewer finds no counterexample in the same Gate 1
+- [x] One authority reviewer finds no counterexample in the same Gate 1
   subject.
-- [ ] Direct F_H accepts the exact Gate 1 subject.
+- [x] Direct F_H accepts the exact Gate 1 subject.
 - [ ] Increment 0A freezes expected-red and preservation evidence before
   repairs.
 - [ ] One scoped Event Calculus replaces process-local and raw/global runtime

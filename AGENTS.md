@@ -39,9 +39,9 @@ close ABG5-S06
   -> direct F_H outcome-level Gate 1 completion envelope
   -> reviewed complete candidate 2a60c2b7 / fc19ebdf
   -> reviewed bounded repair 3f80ba23 / 04906b1c
-  -> current: direct Gate 1 accept-or-reject decision
-  -> held Gate 1 acceptance and all semantic implementation
-  -> held falsifier, realization, projection, and installed Product proof
+  -> direct F_H Gate 1 acceptance
+  -> current: Increment 0A frozen falsifier baseline only
+  -> held semantic realization, projection, and installed Product proof
   -> under T-281 and parent T-270
 ```
 
@@ -85,11 +85,14 @@ runtime, catalog, or Product meaning. Complete candidate `2a60c2b7`, tree
 `fc19ebdf`, passed constructability review; authority review found one local
 omission of the complete prior-attempt retry frontier. The one permitted
 bounded repair is consumed at `3f80ba23`, tree `04906b1c`; both delta reviews
-pass. The exact candidate now awaits direct Gate 1 acceptance or rejection.
+pass. Direct F_H accepted that exact Gate 1 candidate and authorized only
+Increment 0A falsifier implementation under its frozen relations.
 Escalate only for a Product, requirement, 18/56-family, or materially different
 authority choice.
-Production, falsifiers, schemas, generators, semantic tests, donor adoption,
-and legacy deletion remain held pending direct acceptance.
+Production semantic repair, schemas, generators, donor adoption, legacy
+deletion, and Gate 2 remain held. Increment 0A may change only its dedicated
+characterization harness, test-only process fixtures, command wiring,
+tracking, and frozen expected-red/preservation evidence.
 Post-S06 Prime entropy
 reduction, full
 public-contract publication closure, unified M5, conservation qualification,

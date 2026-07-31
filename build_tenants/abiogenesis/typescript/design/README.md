@@ -18,7 +18,8 @@ owner-internal HOW to the worker. Complete candidate `2a60c2b7`, tree
 to HoG resume. Constructability review passed; authority review found one local
 omission of the complete prior-attempt retry frontier. The one permitted
 bounded repair is consumed at `3f80ba23`, tree `04906b1c`. Both delta reviews
-pass; the exact candidate awaits direct Gate 1 acceptance or rejection.
+pass. Direct F_H accepted that exact Gate 1 subject and authorized only
+Increment 0A falsifier implementation under its frozen relations.
 `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
 remains non-operative future input under backlogged T-268.
 
@@ -72,9 +73,10 @@ projection; Git and the T-284 correction vector preserve that inventory.
 T-281 owns the proposed Gate 1 subject under T-270. Candidates `ba2e39a4` and
 `29aea26d` remain rejected evidence. Complete candidate `2a60c2b7` has both
 required reviews; one authority counterexample consumes the sole bounded
-repair allowance. The full-retry-frontier repair is frozen and both delta
-reviews pass at exact candidate `3f80ba23`, tree `04906b1c`.
-Production, falsifier, schema, generator, semantic-test, donor, deletion, and
-Gate 2 work remain held pending direct acceptance. Planned 5.1 observer/tuner
+repair allowance. The full-retry-frontier repair is frozen, both delta reviews
+pass, and Direct F_H accepted exact candidate `3f80ba23`, tree `04906b1c`.
+Increment 0A may implement only the frozen falsifier baseline. Production
+semantic repair, schema, generator, donor, deletion, and Gate 2 work remain
+held. Planned 5.1 observer/tuner
 realization, post-S06 Prime, complete conservation, qualification, and release
 remain held.

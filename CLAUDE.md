@@ -39,9 +39,10 @@ inside the accepted Product and STDO 2.2.2, with missing owner-internal HOW
 delegated to the worker. Complete candidate `2a60c2b7`, tree `fc19ebdf`, passed
 constructability review; authority review found one local omission of the full
 prior-attempt retry frontier. The one permitted bounded repair is consumed and
-frozen at `3f80ba23`, tree `04906b1c`; both delta reviews pass. Direct Gate 1
-acceptance is pending. Production, falsifier, schema, generator, semantic-test,
-donor, legacy-deletion, and Gate 2 work remain held pending that decision.
+frozen at `3f80ba23`, tree `04906b1c`; both delta reviews pass. Direct F_H
+accepted that exact Gate 1 subject and authorized only Increment 0A falsifier
+implementation under its frozen relations. Production semantic repair,
+schema, generator, donor, legacy-deletion, and Gate 2 work remain held.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -91,7 +92,8 @@ baseline `8a4630e8` frozen and verified; exact census blob `efe88cac` accepted;
 candidates `ba2e39a4` and `29aea26d` rejected; direct F_H completion envelope
 recorded; complete candidate `2a60c2b7` reviewed; one bounded full-frontier
 repair frozen at `3f80ba23` / `04906b1c`, both delta reviews pass; direct Gate
-1 acceptance pending; semantic realization held
+1 acceptance recorded; Increment 0A falsifier baseline active; semantic
+realization held
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
