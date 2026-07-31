@@ -31,11 +31,12 @@ accepted that exact design. Its former bounded Section 11 realization
 permission is held. The STDO 2.2.2 authority baseline is frozen and verified
 at `8a4630e8`, tree `0e5281c2`. Direct F_H accepted exact construction census
 blob `efe88cac` and authorized bounded Gate 1 authority/design/map construction
-only. The current worker freezes one corrective subject, then stops editing for
-one constructability and one authority review over that same subject. No
-production, falsifier, schema, generator, semantic-test, donor, legacy-deletion,
-or Gate 2 work is authorized. No operative realization basis exists until the
-exact reviewed Gate 1 subject is directly accepted.
+only. Frozen candidate `ba2e39a4`, tree `3d5686d4`, was rejected on five
+bounded relations. The current worker repairs only those relations, freezes
+one replacement, then stops editing for constructability and authority delta
+reviews. No production, falsifier, schema, generator, semantic-test, donor,
+legacy-deletion, or Gate 2 work is authorized. No operative realization basis
+exists until the exact reviewed Gate 1 subject is directly accepted.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -82,8 +83,9 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 **Status**: S03 and S05 accepted; S06 realization `4953508d` returned;
 bounded S06 design `aa0daa62` retained as predecessor evidence; authority
 baseline `8a4630e8` frozen and verified; exact census blob `efe88cac` accepted;
-bounded Gate 1 construction authorized; semantic realization held pending two
-independent reviews and direct acceptance
+candidate `ba2e39a4` rejected; bounded five-relation Gate 1 repair authorized
+by the review rule; semantic realization held pending delta reviews and direct
+acceptance
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower

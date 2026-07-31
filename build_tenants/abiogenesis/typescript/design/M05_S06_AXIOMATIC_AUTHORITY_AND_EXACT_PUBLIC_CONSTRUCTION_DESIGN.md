@@ -30,9 +30,12 @@ supplies the previously absent target source paths, runtime value bindings,
 dependency closures, and singular authority relations. It does not implement
 them.
 
-Product and Intent are unchanged. S03 and S05 meaning is unchanged. S04,
-post-S06 Prime realization, complete M5 publication closure, M6, and M7 remain
-outside this subject. Donor adoption is empty.
+Product and Intent are unchanged. S03 and S05 Product and scenario outcomes
+are unchanged. This design explicitly supersedes only the obsolete M03
+CatalogView admission mechanism named in Section 3; it does not change the S03
+narrowing or invocation meaning. S04, post-S06 Prime realization, complete M5
+publication closure, M6, and M7 remain outside this subject. Donor adoption is
+empty.
 
 ## 2. Constitutional Construction
 
@@ -94,6 +97,7 @@ supersedes only these realization relations:
 |---|---|
 | `M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md` store-local branded application exception | deterministic reconstructable Product application in Section 6 |
 | `M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md` application event and unkeyed artifact fluent | no application event; scoped artifact fluent only for genuinely effectful artifacts |
+| `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md` `CatalogView` admitted-projection ontology, ABG-owned `narrowCatalogView`, view-admission event, catalog-view sequence admission, and ABI5-ROOT-001 R4 admission mapping | total deterministic eventless Product `CatalogOperationPort.constructView` over an ABG-admitted catalog projection plus exact allowlist; `run.invoke` revalidates the equal view against the explicit-prefix Event Calculus catalog and its invocation event records the view use |
 | `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` one-shot store/context application lifecycle | equal carrier reconstruction and invocation-time revalidation |
 | `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` branded source-result and remembered context coordinates | ABG-backed rehydration from explicit prefix |
 | `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md` root-context-held verification/resolution/install relations | complete serializable carriers and explicit preimages |
@@ -238,6 +242,23 @@ Three non-substitutable relations exist:
 3. `CatalogOperationPort.constructView` and `.apply` are total deterministic
    Product constructions. They emit no event and change no runtime truth.
 
+The CatalogView equation is exact:
+
+```text
+constructCatalogView(
+  admitted immutable runtime-catalog projection at an explicit prefix,
+  exact allowlist
+) -> canonical CatalogView
+```
+
+Anyone with equal inputs may reconstruct the equal view. No originating
+object, context, constructor brand, capability, retained process, or view
+admission event is part of validity. `RunInvocationPort` rehydrates the
+runtime catalog at the explicit prefix and revalidates the complete equal view
+before admitting invocation use. The invocation event records the exact view
+ref and digest; it does not retroactively turn view construction into an
+admission.
+
 The CatalogApplication equation is exact:
 
 ```text
@@ -353,9 +374,9 @@ bytes, preserves duplicates until duplicate rejection, and never uses
 Permuting equal semantic membership preserves ProgramValidation,
 GraphValidation, ExecutionBasis, invocation, and replay identities.
 
-## 9. Common Refusal Projection
+## 9. Common Refusal And Outcome Projection
 
-The common outer refusal code is exactly one of:
+The common admitted-envelope refusal code is exactly one of:
 
 ```text
 duplicate_invocation
@@ -380,6 +401,38 @@ nested Product refusals under `owner_refusal`; they cannot collapse to prose.
 Unknown extra common codes, free strings, `JsonValue`, and owner-refusal
 flattening are invalid projections. SDK, CLI, Codex, schemas, and replay expose
 the same outer code and nested value.
+
+Outcome projection failure is a distinct structural adapter disposition. It
+is not owner truth, cannot be nested under `owner_refusal`, and is not a sixth
+common refusal code. `projectPublicOutcome` returns this exact indexed member
+when the selected owner callable returns a value that cannot lawfully occupy
+its indexed result, refusal, or non-terminal slot:
+
+```text
+OutcomeProjectionRefusal<K> = {
+  outcomeKind: "projection_refusal"
+  payloadContract: ProjectionRefusalContractCoordinate
+  value: {
+    failureClass:
+      "malformed_owner_output"
+      | "cross_definition"
+      | "wrong_contract"
+      | "digest_mismatch"
+      | "unexpected_nonterminal"
+      | "relation_mismatch"
+    issuePaths: Unique<JsonPointer>
+    candidateDigest
+    evidenceRefs: Unique<Ref<Evidence>>
+  }
+}
+```
+
+This member appears in the common outcome native symbol and schema and in
+every indexed operation row. Its adapter exit class is exactly
+`adapterFailure = 70`. Result, common `owner_refusal`, and non-terminal exits
+are `0`, `1`, and `3`; pre-index common-envelope, family-lookup, and indexed
+admission refusals exit `2`. A projection refusal contains no owner result or
+refusal truth and does not append a runtime event.
 
 ## 10. Exact Source And Dependency Construction Map
 
@@ -406,8 +459,8 @@ even when the Gate 2 sentinel does not execute that row.
 | `D05` | `product/environment_operations.ts`: `PRODUCT_ENVIRONMENT_CONTRACTS`, `ProductEnvironmentPort` | `product/environment.ts`, `product/exact_match.ts`, `D04` carrier contracts, ABG environment/artifact admission, event store/calculus, shared canonical JSON/digests/references |
 | `D06` | `product/install_operation.ts`: `PRODUCT_INSTALL_CONTRACTS`, `ProductInstallPort` | `product/install_product.ts`, `D04`, `D05`, ABG environment/artifact admission, event store/calculus, shared canonical JSON/digests/references |
 | `D07` | `product/catalog_operations.ts`: `CATALOG_OPERATION_CONTRACTS`, `CatalogOperationPort` | `product/catalog.ts`, `D05`, `D06`, ABG catalog/artifact admission, event store/calculus, shared canonical JSON/digests/references |
-| `D08` | `product/run_invocation_operation.ts`: `RUN_OPERATION_CONTRACTS.invoke`, `RunInvocationPort` | Product invocation/catalog/application, `D07`, `D13`, HoG direct execute, ABG invocation admission/event store/calculus/replay/retry/closure, shared canonical JSON/digests/references |
-| `D09` | `product/run_continuation_operation.ts`: `RUN_OPERATION_CONTRACTS.continue`, `RunContinuationPort` | Product continuation meaning, `D08`, ABG continuation/event store/calculus/replay/retry/closure, HoG direct execute, shared canonical JSON/digests/references |
+| `D08` | `product/run_invocation_operation.ts`: `RUN_OPERATION_CONTRACTS.invoke`, `RunInvocationPort` | Product invocation/catalog/application, `D07`, `D13`, HoG direct execute, ABG invocation admission/event store/calculus/replay/`retry.ts::projectExecutableRetryInput`/closure, shared canonical JSON/digests/references |
+| `D09` | `product/run_continuation_operation.ts`: `RUN_OPERATION_CONTRACTS.continue`, `RunContinuationPort` | Product continuation meaning, `D08`, ABG continuation/event store/calculus/replay/`retry.ts::projectExecutableRetryInput`/closure, HoG `execute.ts::resumeProjectedRetry` plus direct execute, shared canonical JSON/digests/references |
 | `D10` | `product/interaction_response_operation.ts`: `INTERACTION_OPERATION_CONTRACTS`, `InteractionResponsePort` | Product response evaluation, ABG continuation/event admission/calculus/replay, shared canonical JSON/digests/references |
 | `D11` | `product/result_assessment_operation.ts`: `RESULT_OPERATION_CONTRACTS`, `ResultAssessmentPort` | Product result/assessment contracts, ABG result/event admission/calculus/replay, shared canonical JSON/digests/references |
 | `D12` | `abg/witness_admission_operation.ts`: `WITNESS_OPERATION_CONTRACTS`, `WitnessAdmissionPort` | ABG witness/event store/calculus/replay and shared canonical JSON/digests/references |
@@ -453,35 +506,37 @@ file/export/blob, slots, effect, and deletion impact.
 
 `src/public/project_read_contracts.ts` exports the accepted
 `PROJECT_READ_CONTRACTS` and `PROJECT_READ_OWNER_PORTS` names as frozen exact
-joins. Each member is the identical owner-local contract and callable value
-listed below; Public creates no schema, result, default, or semantic branch.
+joins. For every key, `PROJECT_READ_CONTRACTS[key]` is object-identical to the
+listed owner-local contract member and `PROJECT_READ_OWNER_PORTS[key].project`
+is object-identical to the listed owner callable. Public creates no schema,
+result, default, wrapper callable, or semantic branch.
 
-| Census row | Key | Actual owner-local port | Target / closure |
-|---:|---|---|---|
-| 4 | `catalog_list` | `Product.CatalogProjectionPort.list` | `product/project_read_ports.ts` / `D02` |
-| 5 | `catalog_describe` | `Product.CatalogProjectionPort.describe` | `product/project_read_ports.ts` / `D02` |
-| 6 | `workspace_status` | `Product.WorkspaceProjectionPort.status` | `product/project_read_ports.ts` / `D02` |
-| 7 | `run_status` | `ABG.RunProjectionPort.run_status` | `abg/project_read_ports.ts` / `D03` |
-| 8 | `graph_call_status` | `ABG.GraphCallProjectionPort.graph_call_status` | `abg/project_read_ports.ts` / `D03` |
-| 9 | `run_result` | `ABG.RunProjectionPort.run_result` | `abg/project_read_ports.ts` / `D03` |
-| 10 | `graph_call_result` | `ABG.GraphCallProjectionPort.graph_call_result` | `abg/project_read_ports.ts` / `D03` |
-| 11 | `run_evidence` | `ABG.RunProjectionPort.run_evidence` | `abg/project_read_ports.ts` / `D03` |
-| 12 | `graph_call_evidence` | `ABG.GraphCallProjectionPort.graph_call_evidence` | `abg/project_read_ports.ts` / `D03` |
-| 13 | `result_evidence` | `ABG.ResultProjectionPort.evidence` | `abg/project_read_ports.ts` / `D03` |
-| 14 | `assessment_evidence` | `ABG.AssessmentProjectionPort.evidence` | `abg/project_read_ports.ts` / `D03` |
-| 15 | `witness_evidence` | `ABG.WitnessProjectionPort.evidence` | `abg/project_read_ports.ts` / `D03` |
-| 16 | `install_evidence` | `Product.InstallProjectionPort.evidence` | `product/project_read_ports.ts` / `D02` |
-| 17 | `release_evidence` | `Product.ReleaseProjectionPort.evidence` | `product/project_read_ports.ts` / `D02` |
-| 18 | `workspace_replay` | `ABG.WorkspaceProjectionPort.workspace_replay` | `abg/project_read_ports.ts` / `D03` |
-| 19 | `run_replay` | `ABG.RunProjectionPort.run_replay` | `abg/project_read_ports.ts` / `D03` |
-| 20 | `graph_call_replay` | `ABG.GraphCallProjectionPort.graph_call_replay` | `abg/project_read_ports.ts` / `D03` |
-| 21 | `interaction_replay` | `ABG.InteractionProjectionPort.replay` | `abg/project_read_ports.ts` / `D03` |
-| 22 | `continuation_replay` | `ABG.ContinuationProjectionPort.replay` | `abg/project_read_ports.ts` / `D03` |
-| 23 | `c_call_replay` | `ABG.CCallProjectionPort.replay` | `abg/project_read_ports.ts` / `D03` |
-| 24 | `workspace_gaps` | `ABG.WorkspaceProjectionPort.workspace_gaps` | `abg/project_read_ports.ts` / `D03` |
-| 25 | `run_gaps` | `ABG.RunProjectionPort.run_gaps` | `abg/project_read_ports.ts` / `D03` |
-| 26 | `run_lawful_actions` | `ABG.RunProjectionPort.run_lawful_actions` | `abg/project_read_ports.ts` / `D03` |
-| 27 | `ticket_consensus` | `Product.ConsensusProjectionPort.ticketConsensus` | `product/project_read_ports.ts` / `D02` |
+| Census row | Key | Exact owner-local contract member | Actual owner callable | Target / closure |
+|---:|---|---|---|---|
+| 4 | `catalog_list` | `PRODUCT_PROJECT_READ_CONTRACTS.catalog_list` | `Product.CatalogProjectionPort.list` | `product/project_read_ports.ts` / `D02` |
+| 5 | `catalog_describe` | `PRODUCT_PROJECT_READ_CONTRACTS.catalog_describe` | `Product.CatalogProjectionPort.describe` | `product/project_read_ports.ts` / `D02` |
+| 6 | `workspace_status` | `PRODUCT_PROJECT_READ_CONTRACTS.workspace_status` | `Product.WorkspaceProjectionPort.status` | `product/project_read_ports.ts` / `D02` |
+| 7 | `run_status` | `ABG_PROJECT_READ_CONTRACTS.run_status` | `ABG.RunProjectionPort.run_status` | `abg/project_read_ports.ts` / `D03` |
+| 8 | `graph_call_status` | `ABG_PROJECT_READ_CONTRACTS.graph_call_status` | `ABG.GraphCallProjectionPort.graph_call_status` | `abg/project_read_ports.ts` / `D03` |
+| 9 | `run_result` | `ABG_PROJECT_READ_CONTRACTS.run_result` | `ABG.RunProjectionPort.run_result` | `abg/project_read_ports.ts` / `D03` |
+| 10 | `graph_call_result` | `ABG_PROJECT_READ_CONTRACTS.graph_call_result` | `ABG.GraphCallProjectionPort.graph_call_result` | `abg/project_read_ports.ts` / `D03` |
+| 11 | `run_evidence` | `ABG_PROJECT_READ_CONTRACTS.run_evidence` | `ABG.RunProjectionPort.run_evidence` | `abg/project_read_ports.ts` / `D03` |
+| 12 | `graph_call_evidence` | `ABG_PROJECT_READ_CONTRACTS.graph_call_evidence` | `ABG.GraphCallProjectionPort.graph_call_evidence` | `abg/project_read_ports.ts` / `D03` |
+| 13 | `result_evidence` | `ABG_PROJECT_READ_CONTRACTS.result_evidence` | `ABG.ResultProjectionPort.evidence` | `abg/project_read_ports.ts` / `D03` |
+| 14 | `assessment_evidence` | `ABG_PROJECT_READ_CONTRACTS.assessment_evidence` | `ABG.AssessmentProjectionPort.evidence` | `abg/project_read_ports.ts` / `D03` |
+| 15 | `witness_evidence` | `ABG_PROJECT_READ_CONTRACTS.witness_evidence` | `ABG.WitnessProjectionPort.evidence` | `abg/project_read_ports.ts` / `D03` |
+| 16 | `install_evidence` | `PRODUCT_PROJECT_READ_CONTRACTS.install_evidence` | `Product.InstallProjectionPort.evidence` | `product/project_read_ports.ts` / `D02` |
+| 17 | `release_evidence` | `PRODUCT_PROJECT_READ_CONTRACTS.release_evidence` | `Product.ReleaseProjectionPort.evidence` | `product/project_read_ports.ts` / `D02` |
+| 18 | `workspace_replay` | `ABG_PROJECT_READ_CONTRACTS.workspace_replay` | `ABG.WorkspaceProjectionPort.workspace_replay` | `abg/project_read_ports.ts` / `D03` |
+| 19 | `run_replay` | `ABG_PROJECT_READ_CONTRACTS.run_replay` | `ABG.RunProjectionPort.run_replay` | `abg/project_read_ports.ts` / `D03` |
+| 20 | `graph_call_replay` | `ABG_PROJECT_READ_CONTRACTS.graph_call_replay` | `ABG.GraphCallProjectionPort.graph_call_replay` | `abg/project_read_ports.ts` / `D03` |
+| 21 | `interaction_replay` | `ABG_PROJECT_READ_CONTRACTS.interaction_replay` | `ABG.InteractionProjectionPort.replay` | `abg/project_read_ports.ts` / `D03` |
+| 22 | `continuation_replay` | `ABG_PROJECT_READ_CONTRACTS.continuation_replay` | `ABG.ContinuationProjectionPort.replay` | `abg/project_read_ports.ts` / `D03` |
+| 23 | `c_call_replay` | `ABG_PROJECT_READ_CONTRACTS.c_call_replay` | `ABG.CCallProjectionPort.replay` | `abg/project_read_ports.ts` / `D03` |
+| 24 | `workspace_gaps` | `ABG_PROJECT_READ_CONTRACTS.workspace_gaps` | `ABG.WorkspaceProjectionPort.workspace_gaps` | `abg/project_read_ports.ts` / `D03` |
+| 25 | `run_gaps` | `ABG_PROJECT_READ_CONTRACTS.run_gaps` | `ABG.RunProjectionPort.run_gaps` | `abg/project_read_ports.ts` / `D03` |
+| 26 | `run_lawful_actions` | `ABG_PROJECT_READ_CONTRACTS.run_lawful_actions` | `ABG.RunProjectionPort.run_lawful_actions` | `abg/project_read_ports.ts` / `D03` |
+| 27 | `ticket_consensus` | `PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus` | `Product.ConsensusProjectionPort.ticketConsensus` | `product/project_read_ports.ts` / `D02` |
 
 All 24 are pure, explicitly repeatable, and eventless. ABG-owned rows consume
 only `RuntimeTruth(P)` from the Event Calculus. Product-owned rows consume
@@ -531,16 +586,87 @@ post-S06 Prime entropy-reduction milestone remains blocked.
 ## 13. Falsifiers And Gate 2 Sentinel
 
 The accepted census's `AX-F01..F14` and `AX-PFC-F08` records are the immutable
-falsifier specifications for this design. Each already fixes current ingress,
-target ingress, process boundary, fixture source, mutation, oracle, baseline
-signature, and masking control. This design binds their proposed callable
-names to Sections 10.2 through 10.4.
+base falsifier specifications for this design. This section binds their target
+callables to Sections 10.2 through 10.4 and makes the `AX-F08` and `AX-F09`
+records decision-complete. These completions do not change either mutation or
+green oracle.
 
 For `AX-F03` and `AX-PFC-F08`, absence of the target export is the expected
 baseline red signature. Increment 0A may record that absence but may not build
 a test-side reference implementation or change the final per-mutation oracle.
 `AX-F07` remains a preservation probe unless its exact second-process consumer
 demonstrates brand-only failure.
+
+### 13.1 `AX-F08` decision completion
+
+Each row is an independent paired fixture. The control store contains the
+exact valid run-R prefix. The interleaved store contains the same prefix plus
+one valid event for disjoint run S immediately before the target call. Before
+the call, the fixture proves that `replay(store, { runId: R })` and every
+run-R input ref, digest, scope, and admission basis equal the control. The S
+event is the only mutation.
+
+| Fixture | Exact current ingress | Frozen current baseline signature after S |
+|---|---|---|
+| initial cursor | `src/abg/traversal_cursor.ts::admitInitialTraversalCursor` | `traversal_cursor_admission_refusal`, code `scope_mismatch`, message `initial cursor must immediately extend the opened frame truth`; no R cursor event appended |
+| continuation reconstruction | `src/abg/continuation.ts::rehydrateFhContinuation` | returns `null` because the admitted `run.continue` operation ordinal is not the global tail |
+| F_H response | `src/abg/continuation.ts::admitFhInteractionResponse` | throws `TypeError("F_H response requires one exact open continuation and admitted response operation")`; no R response event appended |
+| F_H resume | `src/abg/continuation.ts::admitFhInteractionResume` | throws `TypeError("F_H resume requires one exact responded continuation and successor cursor")`; no R resume event appended |
+| normal closure | `src/abg/closure.ts::admitClosure` with otherwise valid R terminal route | throws `TypeError("runtime event causation cannot cross a run scope")` while attempting the erroneous refusal; no R closure or failure event appended |
+| interaction closure | `src/abg/closure.ts::admitInteractionClosure` with otherwise valid R response/resume/terminal route | throws `TypeError("runtime event causation cannot cross a run scope")` while attempting the erroneous refusal; no R closure or failure event appended |
+| child closure | `src/abg/closure.ts::admitChildClosure` with otherwise valid R child terminal route | `child_closure_admission_refusal`, code `replay_mismatch`, message `child closure basis is not current replay truth`; no R child-closure event appended |
+| refusal causation | `src/abg/closure.ts::admitClosure` with one predeclared R-local `runtime_basis_mismatch` mutation in both paired stores | control returns `closure_admission_refusal` with one R-scoped failure event; interleaved call throws `TypeError("runtime event causation cannot cross a run scope")` and appends no failure event because `refuseClosure` selects S as cause |
+
+The target oracle for every row is exact control/interleaved equality for the
+run-R typed disposition, emitted run-R event bodies and refs, and run-R replay.
+No returned or emitted causal reference may name S. A prerequisite failure,
+invalid envelope, or unequal run-R replay is fixture failure and cannot count
+as the baseline signature.
+
+### 13.2 `AX-F09` decision completion
+
+The current executable ingress is
+`src/hog/graph_execute.ts::executeGraphTraversal`. The target owner-internal
+callables are exactly:
+
+- `src/abg/retry.ts::projectExecutableRetryInput`;
+- `src/hog/execute.ts::resumeProjectedRetry`.
+
+The installed exact-family ingress is package
+`@abiogenesis/typescript-tenant`, export `./public`, callable
+`PUBLIC_FUNCTION_DEFINITION_FAMILY["abg.operation.run.continue"]["current_intent"].ownerPort`.
+That Product owner port rehydrates the explicit prefix, calls
+`projectExecutableRetryInput`, and supplies only its admitted result to
+`resumeProjectedRetry`; neither Public nor the owner port reconstructs retry
+meaning.
+
+The fixture source is the exact C.retry Program, contract-admitted input, and
+first-attempt malformed-result worker from
+`test_env/tests/m5-installed-retry.test.mjs`. Process P1 is terminated only
+after its event-log writer acknowledges the exact `retry_progress_recorded`
+frontier and the corresponding admitted attempt, input-contract coordinate,
+input ref/digest, and verified input preimage are durable. Process P2 receives
+only the serialized `DurablePrefixCoordinate` plus the exact indexed
+`run.continue/current_intent` request; no JavaScript object or test-memory copy
+of the input crosses the process boundary.
+
+The frozen current baseline is that the durable log identifies the retry
+frontier and digest, while the executable input exists only in
+`executeGraphTraversal`'s process-local `Map<string, RetainedRetryInput>`.
+After P1 termination there is no callable that can recover that value; a
+current HoG completion without the retained entry reaches
+`diagnostic://abiogenesis/hog/retry-input-basis-absent@5`. Increment 0A may use
+a dynamic-import absence assertion for the two target exports, but it may not
+implement a projector in the test.
+
+The target oracle is one canonical `ExecutableRetryInput` with the same input
+contract, ref, digest, canonical value, retry boundary, and next attempt
+identity in P2, followed by one successful call through the installed owner
+port. As an isolated masking check, the source test may call
+`projectExecutableRetryInput` directly and then
+`resumeProjectedRetry`; both results must equal the installed owner-port
+result. A missing/invalid prefix, unavailable verified preimage, or failure
+before the projector is fixture failure rather than evidence for `AX-F09`.
 
 The Gate 2 sentinel remains ten invocations across nine operation identities:
 

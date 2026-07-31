@@ -7,8 +7,10 @@ S03 and S05 are accepted. GOALS selects S06 as the sole unresolved 5.0 Product
 outcome. Direct F_H accepted exact census blob `efe88cac` and authorized one
 bounded Gate 1 authority/design/map construction. The proposed
 [S06 Axiomatic Authority And Exact Public Construction Design](./M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md)
-is not operative realization authority until one constructability review, one
-authority review, and direct acceptance identify its exact frozen subject.
+is not operative realization authority. Frozen candidate `ba2e39a4`, tree
+`3d5686d4`, was rejected on five bounded relations; one replacement may repair
+only those relations before constructability and authority delta reviews and
+direct acceptance identify the exact Gate 1 subject.
 `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
 remains non-operative future input under backlogged T-268.
 
@@ -59,9 +61,10 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-T-281 owns the proposed Gate 1 subject under T-270. Freeze one exact commit and
-tree, then stop editing while one constructability reviewer and one authority
-reviewer inspect it. Production, falsifier, schema, generator, semantic-test,
-donor, deletion, and Gate 2 work remain held until direct F_H accepts that
-exact reviewed subject. Planned 5.1 observer/tuner realization, post-S06 Prime,
-complete conservation, qualification, and release remain held.
+T-281 owns the proposed Gate 1 subject under T-270. Repair only the five cited
+relations in rejected candidate `ba2e39a4`, freeze one replacement commit and
+tree, then stop editing while the same review roles inspect only that delta.
+Production, falsifier, schema, generator, semantic-test, donor, deletion, and
+Gate 2 work remain held until direct F_H accepts that exact reviewed subject.
+Planned 5.1 observer/tuner realization, post-S06 Prime, complete conservation,
+qualification, and release remain held.

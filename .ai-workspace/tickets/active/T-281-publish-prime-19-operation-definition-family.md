@@ -5,8 +5,10 @@
 > Exact authority baseline `8a4630e8`, tree `0e5281c2`, is frozen and
 > verified. Direct F_H accepted exact construction census blob `efe88cac` and
 > authorized bounded Phase 2/Gate 1 authority/design/map construction only.
-> The current worker freezes one proposed corrective subject for one
-> constructability and one authority review. Gate 1 is not accepted.
+> Frozen candidate `ba2e39a4`, tree `3d5686d4`, was rejected on five bounded
+> relations. The current worker may repair only those relations, freeze one
+> replacement, and obtain constructability and authority delta reviews. Gate
+> 1 is not accepted.
 > Tracked falsifier, production, schema, generator, and semantic-test work
 > remains held until one content-addressed Gate 1 subject receives both
 > required independent reviews and direct acceptance. Accepted design
@@ -19,8 +21,8 @@
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
 - status: active
-- phase_status: m5_s06_gate_1_subject_frozen_pending_reviews
-- review_status: gate_1_subject_frozen_pending_constructability_and_authority_reviews
+- phase_status: m5_s06_gate_1_bounded_repair_pending_delta_reviews
+- review_status: gate_1_candidate_ba2e39a4_rejected_five_relation_repair_in_progress
 - proof_status: census_accepted
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
@@ -171,14 +173,23 @@
 - construction_census_status: accepted_blob_efe88cac
 - construction_census_blob: efe88cac85bd3bb071d4b5dd451dfadaec893c4f
 - construction_census_sha256: 0c0339689c21154c46148f033c7472b9d55a0fd771fc34a1c41d41c52d28a0c6
-- gate_1_status: subject_frozen_pending_reviews_and_direct_acceptance
+- rejected_gate_1_candidate: ba2e39a4b51f2192d88089294edeef364cf53043
+- rejected_gate_1_candidate_tree: 3d5686d4c845c050c38b9f4c12e05f53014910bf
+- rejected_gate_1_constructability_review: >-
+    .ai-workspace/comments/codex/
+    20260731T130201Z_REVIEW_s06_gate_1_constructability_ba2e39a4.md
+- rejected_gate_1_authority_review: >-
+    .ai-workspace/comments/codex/
+    20260731T130244Z_REVIEW_s06_gate_1_authority_ba2e39a4.md
+- gate_1_status: candidate_ba2e39a4_rejected_bounded_repair_pending_delta_reviews
 - current_gate_1_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md;
-    frozen subject pending reviews and direct acceptance
+    bounded five-relation repair pending replacement freeze, delta reviews,
+    and direct acceptance
 - current_gate_1_subject_manifest: >-
     .ai-workspace/comments/codex/
-    20260731T124731Z_HANDOFF_s06_gate_1_authority_construction_subject.md
+    20260731T131417Z_HANDOFF_s06_gate_1_bounded_repair_subject.md
 - gate_2_status: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - gate_3_status: blocked_by_gate_2_acceptance
 
