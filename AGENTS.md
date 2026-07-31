@@ -31,8 +31,8 @@ The sole current Product implementation outcome is:
 
 ```text
 close ABG5-S06
-  -> freeze exact clean STDO 2.2.2 and authority-setup baseline
-  -> read-only exact 56-key construction census
+  -> frozen exact STDO 2.2.2 authority baseline 8a4630e8 / 0e5281c2
+  -> next: read-only exact 56-key construction census, not started
   -> return frozen census to direct F_H
   -> held Gate 1 authority construction and acceptance
   -> held falsifier, realization, projection, and installed Product proof
@@ -66,12 +66,13 @@ common pre-index parse refusal remain underconstrained. Replacement
 `aa0daa62`, tree `9fa25663`, closes those two refusal relations and corrects
 the PFC-F05 aliases. Direct human authority accepted that exact design as
 predecessor evidence. Its former Section 11 realization permission is held.
-Current work is the STDO 2.2.2 and authority-setup cut only: do not edit
-requirements, design, production, schemas, generators, or semantic tests.
-Freeze one exact clean baseline before beginning the read-only census. Return
-the frozen census to direct F_H before constructing a corrective Gate 1
-subject. The bounded pre-S06 recurrence disposition may enter only a later
-authorized Gate 1 subject. Post-S06 Prime entropy reduction, full
+The STDO 2.2.2 authority baseline is frozen and verified at `8a4630e8`, tree
+`0e5281c2`. The read-only census is authorized next but has not started; the
+current execution stops at the baseline receipt. Do not edit requirements,
+design, production, schemas, generators, or semantic tests. Return the later
+frozen census to direct F_H before constructing a corrective Gate 1 subject.
+The bounded pre-S06 recurrence disposition may enter only a later authorized
+Gate 1 subject. Post-S06 Prime entropy reduction, full
 public-contract publication closure, unified M5, conservation qualification,
 M6, and M7 remain held.
 

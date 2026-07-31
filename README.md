@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 designs `4f80f84a`, `2bb7b594`, and `aa0daa62` retained as predecessor evidence; authority setup awaiting one exact clean baseline; read-only census next; Gate 1 and semantic realization held; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 designs `4f80f84a`, `2bb7b594`, and `aa0daa62` retained as predecessor evidence; authority baseline `8a4630e8` frozen and verified; read-only census authorized but not started; current execution stopped at the receipt; Gate 1 and semantic realization held; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.2` at `0519129d63de10822ae6353fa0c5ce05d56f13e9` |
 
@@ -79,12 +79,13 @@ complete satisfaction relation. Bounded replacement `8dc59264`, tree
 parse refusal remain underconstrained. Replacement `aa0daa62`, tree
 `9fa25663`, closes those two refusal relations and corrects the PFC-F05 aliases.
 Direct human authority accepted that exact design. The approved release route
-holds its former realization permission. Current work is the STDO 2.2.2 and
-authority-setup cut with no semantic edits. After one exact clean baseline
-freezes, the read-only 56-key census may begin; its frozen result returns to
-direct F_H before any corrective Gate 1 authority construction. No operative
-S06 realization basis exists until that exact Gate 1 subject is later
-accepted. The Codex delegate remains a convenience shell, not alternate
+holds its former realization permission. The exact STDO 2.2.2 and
+authority-setup baseline is frozen and verified at `8a4630e8`, tree
+`0e5281c2`. The read-only 56-key census is authorized next but has not started;
+the current execution stops at the baseline receipt. Its later frozen result
+must return to direct F_H before any corrective Gate 1 authority construction.
+No operative S06 realization basis exists until that exact Gate 1 subject is
+later accepted. The Codex delegate remains a convenience shell, not alternate
 functionality.
 
 `A5-F12` and `ABG5-S04` are planned 5.1 work. Their design candidate

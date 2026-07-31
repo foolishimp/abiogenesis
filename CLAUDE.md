@@ -28,10 +28,11 @@ returned because catalog-binding refusal and common pre-index parse refusal
 remain underconstrained. Replacement `aa0daa62`, tree `9fa25663`, closes those
 two refusal relations and corrects the PFC-F05 aliases. Direct human authority
 accepted that exact design. Its former bounded Section 11 realization
-permission is held. Current work is the STDO 2.2.2 and authority-setup cut
-with no tracked requirement, design, production, schema, generator, or
-semantic-test edits. Freeze one exact clean baseline before the read-only
-construction census begins. Return the frozen census to direct F_H before
+permission is held. The STDO 2.2.2 authority baseline is frozen and verified
+at `8a4630e8`, tree `0e5281c2`. The read-only construction census is authorized
+next but has not started; the current execution stops at the baseline receipt.
+Make no tracked requirement, design, production, schema, generator, or
+semantic-test edits. Return the later frozen census to direct F_H before
 constructing the corrective Gate 1 authority subject. No operative realization
 basis exists until that exact subject is later accepted.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
@@ -78,8 +79,9 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 
 **Status**: S03 and S05 accepted; S06 realization `4953508d` returned;
 bounded S06 design `aa0daa62` retained as predecessor evidence; authority
-setup awaiting an exact clean baseline; read-only census next; Gate 1 and
-semantic realization held
+baseline `8a4630e8` frozen and verified; read-only census authorized but not
+started; current execution stopped at the receipt; Gate 1 and semantic
+realization held
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower

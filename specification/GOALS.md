@@ -14,7 +14,7 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - STDO 2.2.2 and S06 authority setup selected; exact clean authority baseline pending; read-only construction census next; tracked requirement, design, falsifier, and semantic realization work held; A5-F12/S04 deferred to 5.1 |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - STDO 2.2.2 authority baseline frozen and verified at `8a4630e8`; read-only construction census authorized but not started; current execution stops at the baseline receipt; tracked requirement, design, falsifier, and semantic realization work held; A5-F12/S04 deferred to 5.1 |
 
 ## Current Basis
 
@@ -120,6 +120,25 @@ selection, ordered successor outcomes, and their acceptance conditions.
   requirement, design, falsifier, production, schema, generator, or
   semantic-test edits. Only the later content-addressed Gate 1 acceptance
   receipt unlocks falsifier work.
+- Direct F_H source wording for the present execution boundary is: “freeze
+  STDO 2.2.2 authority baseline -> produce read-only 56-key census -> freeze
+  census evidence -> return it to direct F_H -> obtain new Gate 1 construction
+  authorization” and “The next authorized action is exclusively freezing and
+  verifying the authority-setup baseline.” The bounded execution interpretation
+  is that this cut ends after the baseline receipt. The census is authorized
+  next but has not started. No semantic implementation, falsifier
+  implementation, donor adoption, legacy deletion, Gate 2 work, or new ticket
+  hierarchy is authorized before the later direct F_H ruling.
+- The exact frozen authority baseline is commit
+  `8a4630e8f7a05ec4f6783957c029a76eb593ee2f`, tree
+  `0e5281c2c8da6501500b88a02a79d12e2aa5f365`, on
+  `codex/t286-abi5-root`. It preserves the implementation origin
+  `08cd748515d3776bc6637412ceb2f99b27fc8a98`. Verification reproduced the
+  STDO `v2.2.2` annotated tag, release commit, release tree, 41-member count,
+  and member-set digest; the ignored local standards projection matched all 41
+  members byte-for-byte. The baseline changes no design, production, schema,
+  generator, or test path and preserves the original eight commentary posts
+  untracked.
 - Exact candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b`
   is the accepted S03 base.
 - T-270 remains the M5 parent owner. It owns exact owner-published completion
@@ -292,7 +311,7 @@ release authority and do not participate in S06 closure.
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
-| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | The active gate sequence accepts the corrective authority cut before implementation, freezes falsifiers, proves the installed 18-operation/56-key callable closure and atomic legacy deletion at Gate 2, and proves projections and downstream installed Product behavior at Gate 3 before direct acceptance. | Authority setup active; exact clean baseline pending; read-only census next; tracked requirement, design, and implementation held |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | The active gate sequence accepts the corrective authority cut before implementation, freezes falsifiers, proves the installed 18-operation/56-key callable closure and atomic legacy deletion at Gate 2, and proves projections and downstream installed Product behavior at Gate 3 before direct acceptance. | Authority baseline frozen and verified at `8a4630e8`; read-only census authorized but not started; current execution stopped at the receipt; tracked requirement, design, and implementation held |
 | `4` | `T-270` | Contract the Prime entropy basis | One accepted atomic design resolves the smallest irreducible basis for typed identity, ordered sequence equality, exact key sets, uniqueness, digest elimination, reference construction, and structural guards; it preserves distinct equalities and repairs contradictions to the selected laws before one realization projects every other occurrence as application or composition. | Blocked by S06 |
 | `5` | `T-270` | Complete public-contract publication and freeze one M5 candidate | The full REQ-P-PUBLIC-CONTRACTS-005..011 residual is empty: nine group identities and locators, 44 schema/vocabulary/corpus rows, 18 operation identities and complete projections, 16 capability identities, and the accepted capability graph with exact owning-contract and dependency relations are present from owner-local publication truth; all selected pre-qualification 5.0 Product behavior, all 16 selected feature-family dispositions, and the accepted Prime entropy reduction are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 and Prime entropy reduction |
 | `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
@@ -320,9 +339,10 @@ Those later classes are not authorized until the frozen census receives a new
 direct F_H ruling.
 
 Candidate `aa0daa62` remains accepted predecessor authority and evidence, not
-the operative realization authority. Current work is the exact clean authority
-baseline, followed by the read-only construction census and its return to
-direct F_H. Gate 1 construction is not yet authorized.
+the operative realization authority. The exact clean authority baseline is
+frozen and verified at `8a4630e8`. The read-only construction census is the
+next authorized action but has not started; this execution stops at the
+baseline receipt. Gate 1 construction is not yet authorized.
 
 The deferred S04 design subject is preserved byte-for-byte as planned 5.1
 input. It leaves S06 portability and all 5.0 realization untouched and carries
@@ -408,7 +428,7 @@ reconciliation is a qualification gate, not the feature-development queue.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | S03, S05, S06, the accepted Prime entropy reduction, all 16 selected pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S06 authority setup selected; exact clean baseline pending; census next; tracked realization held |
+| `M5` | S03, S05, S06, the accepted Prime entropy reduction, all 16 selected pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S06 authority baseline frozen at `8a4630e8`; read-only census authorized but not started; current execution stopped at the receipt; tracked realization held |
 | `M6` | Exact selected-method binding, self-conformance, five-scenario pre-RC qualification, and complete RC5 reconciliation accept one pre-RC candidate. | Blocked by M5 |
 | `M7` | Distinct RC, installed RC, final-tap, released Product, and post-publication install subjects produce stable `5.0.0`. | Blocked by M6 |
 

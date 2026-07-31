@@ -5,9 +5,9 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_authority_setup_pending_clean_freeze
-- review_status: s03_s05_accepted_s06_release_plan_approved_setup_active
-- proof_status: s06_clean_authority_baseline_pending
+- phase_status: m5_s06_authority_baseline_frozen_census_not_started
+- review_status: s03_s05_accepted_s06_authority_baseline_verified
+- proof_status: s06_authority_baseline_verified
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
@@ -56,11 +56,33 @@
     one exact clean authority baseline, and the subsequent read-only census
     only; the frozen census must return to direct F_H before
     requirement/design/map Gate 1 construction
+- direct_f_h_current_boundary_source: >-
+    user instruction in the current session: "freeze STDO 2.2.2 authority
+    baseline -> produce read-only 56-key census -> freeze census evidence ->
+    return it to direct F_H -> obtain new Gate 1 construction authorization";
+    "The next authorized action is exclusively freezing and verifying the
+    authority-setup baseline."
+- direct_f_h_current_boundary_interpretation: >-
+    freeze and verify only the exact authority-setup baseline in this
+    execution; do not start the read-only census; stop after recording the
+    baseline receipt; keep Gate 1, falsifiers, realization, and later
+    milestones held
+- authority_baseline_commit: 8a4630e8f7a05ec4f6783957c029a76eb593ee2f
+- authority_baseline_tree: 0e5281c2c8da6501500b88a02a79d12e2aa5f365
+- authority_baseline_branch: codex/t286-abi5-root
+- authority_baseline_origin: 08cd748515d3776bc6637412ceb2f99b27fc8a98
+- authority_baseline_verification: >-
+    STDO v2.2.2 tag, release commit, release tree, 41-member count, and
+    4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21
+    digest reproduced; ignored local projection matched every member;
+    no design, production, schema, generator, or test path changed; original
+    eight untracked commentary posts preserved
 - current_s06_authority_state: >-
-    authority setup selected; proposed bounded corrective re-entry awaits the
-    frozen census and direct authorization; aa0daa62 retained as accepted
-    predecessor evidence
-- s06_construction_census_state: blocked_by_clean_authority_baseline
+    authority baseline frozen and verified; read-only census authorized next
+    but not started; current execution stopped at the receipt; proposed
+    bounded corrective re-entry awaits the frozen census and direct
+    authorization; aa0daa62 retained as accepted predecessor evidence
+- s06_construction_census_state: authorized_read_only_not_started
 - s06_gate_1_state: blocked_by_frozen_construction_census_and_direct_authorization
 - s06_gate_2_state: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - s06_gate_3_state: blocked_by_gate_2_acceptance
@@ -271,7 +293,7 @@ selected.
 
 | Gate | State | Frozen subject | Independent review and exit |
 |---|---|---|---|
-| Gate 1 - construction map and authority cut | Blocked by the exact clean authority baseline, frozen read-only census, and new direct F_H construction ruling | Exact 56-key owner/export map, deletion set, projection graph, installed vertical path, decision-complete falsifiers, directly conflicting requirement edits, and corrective design | One constructability reviewer and one authority reviewer inspect the same subject; direct F_H acceptance unlocks only the falsifier baseline |
+| Gate 1 - construction map and authority cut | Blocked by the frozen read-only census and new direct F_H construction ruling; exact clean authority baseline `8a4630e8` is satisfied | Exact 56-key owner/export map, deletion set, projection graph, installed vertical path, decision-complete falsifiers, directly conflicting requirement edits, and corrective design | One constructability reviewer and one authority reviewer inspect the same subject; direct F_H acceptance unlocks only the falsifier baseline |
 | Gate 2 - architecture sentinel | Blocked by Gate 1 acceptance and frozen falsifier baseline | Complete installed 18-operation/56-key family, all owner closures and package dependencies, atomic legacy deletion, all-port load/resolve probe, one executed nine-operation fresh-process sentinel, and a row-addressed frozen-baseline-to-green ledger for every accepted `AX-*` relation | The cold reviewer issues the acceptance or rejection receipt against accepted Gate 1 invariants; acceptance unlocks completion, while a counterexample returns the violated relation to direct F_H |
 | Gate 3 - frozen S06 candidate | Blocked by Gate 2 acceptance | Complete projections, lawful rewritten scenarios, installed downstream Product behavior, reproducible package, and exact S06 evidence | One architecture/authority reviewer and one installed-Product behavior reviewer inspect the same candidate; direct F_H acceptance closes S06 |
 

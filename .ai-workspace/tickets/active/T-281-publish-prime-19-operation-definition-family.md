@@ -2,10 +2,11 @@
 
 > **Current disposition (2026-07-31):** Direct F_H approved the bounded
 > ABIogenesis 5.0 release route and selected its pre-Gate-1 authority setup.
-> An exact clean authority baseline must freeze before the read-only
-> construction census begins. The proposed S06 corrective authority re-entry
-> remains behind return of that frozen census. Gate 1 is neither authorized
-> nor accepted.
+> Exact authority baseline `8a4630e8`, tree `0e5281c2`, is frozen and
+> verified. The read-only construction census is authorized next but has not
+> started; the current execution stops at this receipt. The proposed S06
+> corrective authority re-entry remains behind return of that frozen census.
+> Gate 1 is neither authorized nor accepted.
 > Tracked falsifier, production, schema, generator, and semantic-test work
 > remains held until one content-addressed Gate 1 subject receives both
 > required independent reviews and direct acceptance. Accepted design
@@ -18,9 +19,9 @@
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
 - status: active
-- phase_status: m5_s06_authority_setup_pending_clean_freeze
-- review_status: release_plan_approved_setup_active
-- proof_status: clean_authority_baseline_pending
+- phase_status: m5_s06_authority_baseline_frozen_census_not_started
+- review_status: authority_baseline_verified_census_not_started
+- proof_status: authority_baseline_verified
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
 - priority: critical
@@ -129,6 +130,17 @@
     one exact clean authority baseline, and the subsequent read-only census
     only; the frozen census must return to direct F_H before
     requirement/design/map Gate 1 construction
+- direct_f_h_current_boundary_source: >-
+    user instruction in the current session: "freeze STDO 2.2.2 authority
+    baseline -> produce read-only 56-key census -> freeze census evidence ->
+    return it to direct F_H -> obtain new Gate 1 construction authorization";
+    "The next authorized action is exclusively freezing and verifying the
+    authority-setup baseline."
+- direct_f_h_current_boundary_interpretation: >-
+    freeze and verify only the exact authority-setup baseline in this
+    execution; do not start the read-only census; stop after recording the
+    baseline receipt; keep Gate 1, falsifiers, realization, and later
+    milestones held
 - confirmed_code_review: >-
     .ai-workspace/comments/codex/
     20260731T051841Z_REVIEW_abiogenesis_5_0_function_to_axiom_gate_1.md
@@ -140,6 +152,15 @@
 - selected_method_member_set_digest: 4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21
 - construction_origin_commit: 08cd748515d3776bc6637412ceb2f99b27fc8a98
 - implementation_branch: codex/t286-abi5-root
+- authority_baseline_commit: 8a4630e8f7a05ec4f6783957c029a76eb593ee2f
+- authority_baseline_tree: 0e5281c2c8da6501500b88a02a79d12e2aa5f365
+- authority_baseline_branch: codex/t286-abi5-root
+- authority_baseline_verification: >-
+    STDO v2.2.2 tag, release commit, release tree, 41-member count, and
+    4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21
+    digest reproduced; ignored local projection matched every member;
+    no design, production, schema, generator, or test path changed; original
+    eight untracked commentary posts preserved
 - construction_origin_note: >-
     completed T-286 root-establishment provenance only; do not reopen T-286
     or treat the branch name as a new ticket
@@ -151,7 +172,7 @@
 - accepted_pre_reset_public_design_commit: 2bb7b594920b1b126a6d314ed7bb39dabd211823
 - accepted_pre_reset_closed_refusal_design_commit: aa0daa626b0f4ea05058d7ef7541afc8eaf350b5
 - returned_realization_candidate: 4953508de83ab6d6c65dbb81e5407ccb539e44e6
-- construction_census_status: blocked_by_clean_authority_baseline
+- construction_census_status: authorized_read_only_not_started
 - gate_1_status: blocked_by_frozen_census_and_direct_authorization
 - gate_2_status: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - gate_3_status: blocked_by_gate_2_acceptance
@@ -613,7 +634,8 @@ acceptance closes S06.
 
 ## Required Break Order
 
-1. Freeze the STDO 2.2.2 and authority-setup cut as one exact clean baseline.
+1. Frozen and verified: STDO 2.2.2 and authority-setup baseline `8a4630e8`,
+   tree `0e5281c2`.
 2. From that baseline, complete and freeze the read-only construction census.
 3. Return the frozen census to direct F_H and obtain an explicit ruling that
    authorizes or refuses Gate 1 requirement/design/map construction.
