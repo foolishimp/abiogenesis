@@ -14,9 +14,11 @@ export {
 export {
   STATIC_DIAGNOSTIC_CODE_VALUES,
   validateProgram,
+  normalizedModulePublicationDigest,
   validatePublication,
   type ContributionValidationDisposition,
   type ProgramValidation,
+  type AdmittedNormalizedProgram,
   type ProgramValidationInput,
   type ProgramValidationResult,
   type PublicationValidation,

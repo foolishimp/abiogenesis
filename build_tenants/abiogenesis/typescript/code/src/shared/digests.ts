@@ -10,6 +10,15 @@ export interface PayloadInventoryRow {
   readonly sha256: Sha256Digest;
 }
 
+export function compareCodeUnits(left: string, right: string): number {
+  const length = Math.min(left.length, right.length);
+  for (let index = 0; index < length; index += 1) {
+    const difference = left.charCodeAt(index) - right.charCodeAt(index);
+    if (difference !== 0) return difference;
+  }
+  return left.length - right.length;
+}
+
 export function sha256Bytes(value: Uint8Array | string): Sha256Digest {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
@@ -26,7 +35,7 @@ export function payloadInventoryDigest(
   rows: readonly PayloadInventoryRow[],
 ): Sha256Digest {
   const canonicalRows = [...rows]
-    .sort((left, right) => left.path.localeCompare(right.path))
+    .sort((left, right) => compareCodeUnits(left.path, right.path))
     .map(({ path, sha256 }) => ({ path, sha256 }));
   return sha256Canonical(canonicalRows);
 }

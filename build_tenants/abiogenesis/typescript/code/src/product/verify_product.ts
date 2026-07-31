@@ -24,6 +24,7 @@ import type {
   VerifyProductRequest,
 } from "./contracts.js";
 import {
+  compareCodeUnits,
   isSha256Digest,
   payloadInventoryDigest,
   sha256Bytes,
@@ -916,11 +917,11 @@ export async function verifyProduct(
             sourceText: new TextDecoder().decode(source.bytes),
           }))
           .sort((left, right) =>
-            left.declarationPath.localeCompare(right.declarationPath)
+            compareCodeUnits(left.declarationPath, right.declarationPath)
           ),
         closures: selectedClosures,
         contracts: evidenceContracts.sort((left, right) =>
-          left.contractId.localeCompare(right.contractId)
+          compareCodeUnits(left.contractId, right.contractId)
         ),
       });
     } else {

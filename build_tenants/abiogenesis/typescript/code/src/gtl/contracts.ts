@@ -1,5 +1,6 @@
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
+import { compareCodeUnits } from "../shared/digests.js";
 import type { CProgramNode, ComputeRegime } from "./c_algebra.js";
 
 export type { ComputeRegime } from "./c_algebra.js";
@@ -451,6 +452,25 @@ export interface GtlProgram {
   readonly publicAssetTargets?: readonly ProgramPublicAssetTarget[];
   readonly actionCatalog?: GtlActionCatalog;
   readonly constructionComposition?: GtlConstructionComposition;
+}
+
+export function normalizeGtlProgram(program: Readonly<GtlProgram>): Readonly<GtlProgram> {
+  const compareIdentity = <T>(identity: (value: T) => string) =>
+    (left: T, right: T): number => compareCodeUnits(identity(left), identity(right));
+  return {
+    ...program,
+    starts: [...program.starts].sort(compareIdentity((value) => `${value.startRef}\0${value.graphFunctionRef}`)),
+    callableMembership: [...program.callableMembership].sort(compareCodeUnits),
+    ...(program.publicAssetTargets === undefined ? {} : {
+      publicAssetTargets: [...program.publicAssetTargets].sort(compareIdentity((value) => `${value.handle}\0${value.assetRef}\0${value.startRef}`)),
+    }),
+    ...(program.actionCatalog === undefined ? {} : {
+      actionCatalog: {
+        ...program.actionCatalog,
+        rows: [...program.actionCatalog.rows].sort(compareIdentity((value) => value.actionRef)),
+      },
+    }),
+  };
 }
 
 export type CatalogContributionKind = "graph_function" | "node_type" | "overlay";

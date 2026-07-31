@@ -5,6 +5,7 @@ import {
 } from "../validator/graph.js";
 import {
   isProgramValidation,
+  normalizedModulePublicationDigest,
   type ProgramValidation,
   type ValidatedExecutableLeaf,
 } from "../validator/validation.js";
@@ -425,7 +426,7 @@ export function resolveImplementationSet(
 ): ImplementationResolutionSetResult {
   if (
     !isProgramValidation(programValidation) ||
-    programValidation.publicationDigest !== sha256Canonical(publication as unknown as JsonValue)
+    programValidation.publicationDigest !== normalizedModulePublicationDigest(publication)
   ) {
     return setRefusal(
       "invalid_program_validation",
@@ -496,7 +497,7 @@ export function resolveImplementation(
 ): ImplementationResolutionResult {
   if (
     !isProgramValidation(programValidation) ||
-    programValidation.publicationDigest !== sha256Canonical(publication as unknown as JsonValue) ||
+    programValidation.publicationDigest !== normalizedModulePublicationDigest(publication) ||
     !isGraphValidation(graphValidation) ||
     graphValidation.programValidationRef !== programValidation.validationRef ||
     graphValidation.graphFunctionRef !== graphFunctionRef

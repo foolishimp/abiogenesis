@@ -1,5 +1,5 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { compareCodeUnits, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
   CatalogContribution,
@@ -14,7 +14,9 @@ import type {
   ImplementationBinding,
   ModulePublication,
   RuleDeclaration,
+  ReenterApplication,
 } from "../gtl/index.js";
+import { normalizeGtlProgram } from "../gtl/contracts.js";
 import {
   foldbackRef,
   graphEdgeRef,
@@ -23,6 +25,7 @@ import {
 } from "../gtl/graph_applications.js";
 import {
   cLeafTerms,
+  cTermResultCardinality,
   isExecutableCLeaf,
   isInteractionCLeaf,
   type CProgramNode,
@@ -341,6 +344,15 @@ export interface ProgramValidation {
   readonly transitiveReachableExecutableLeafKeys: readonly string[];
   readonly transitiveReachableInteractionLeafKeys: readonly string[];
   readonly diagnostics: readonly [];
+  readonly normalizedProgram: AdmittedNormalizedProgram;
+}
+
+export interface AdmittedNormalizedProgram {
+  readonly kind: "admitted_normalized_program";
+  readonly schemaVersion: "5.0.0";
+  readonly program: Readonly<GtlProgram>;
+  readonly graphFunctions: readonly Readonly<GraphFunction>[];
+  readonly digest: Sha256Digest;
 }
 
 interface ValidatedLeafBase {
@@ -405,7 +417,108 @@ function duplicates(values: readonly string[]): readonly string[] {
     if (seen.has(value)) duplicateValues.add(value);
     seen.add(value);
   }
-  return [...duplicateValues].sort();
+  return [...duplicateValues].sort(compareCodeUnits);
+}
+
+function compareByIdentity<T>(identity: (value: T) => string) {
+  return (left: T, right: T): number => compareCodeUnits(identity(left), identity(right));
+}
+
+function admitNormalizedProgram(
+  program: Readonly<GtlProgram>,
+  graphFunctions: readonly Readonly<GraphFunction>[],
+): AdmittedNormalizedProgram {
+  const normalizedProgram = normalizeGtlProgram(program);
+  const normalizedGraphFunctions = [...graphFunctions].sort(
+    compareByIdentity((value) => value.name),
+  );
+  const digest = sha256Canonical({
+    program: normalizedProgram,
+    graphFunctions: normalizedGraphFunctions,
+  } as unknown as JsonValue);
+  return deepFreeze({
+    kind: "admitted_normalized_program" as const,
+    schemaVersion: "5.0.0" as const,
+    program: normalizedProgram,
+    graphFunctions: normalizedGraphFunctions,
+    digest,
+  });
+}
+
+export function normalizedModulePublicationDigest(
+  publication: Readonly<ModulePublication>,
+): Sha256Digest {
+  const graphFunctions = [...publication.graphFunctions].sort(
+    compareByIdentity((value) => value.name),
+  );
+  return sha256Canonical({
+    ...publication,
+    programs: publication.programs
+      .map((program) => normalizeGtlProgram(program))
+      .sort(compareByIdentity((value) => value.programRef)),
+    graphFunctions,
+  } as unknown as JsonValue);
+}
+
+function validateGraphTopology(graphFunction: Readonly<GraphFunction>): readonly StaticDiagnostic[] {
+  const path = `$.graphFunctions[${graphFunction.name}].template`;
+  const { nodes, edges, startNodeRef, terminalNodeRefs } = graphFunction.template;
+  const diagnostics: StaticDiagnostic[] = [];
+  const nodeRefs = nodes.map((node) => node.nodeRef);
+  const duplicateNodeRefs = duplicates(nodeRefs);
+  if (duplicateNodeRefs.length !== 0) {
+    diagnostics.push({ code: "duplicate_identity", path: `${path}.nodes`, message: `duplicate graph node identity ${duplicateNodeRefs.join(",")}` });
+  }
+  const declared = new Set(nodeRefs);
+  const terminals = new Set(terminalNodeRefs);
+  if (startNodeRef.length === 0 || !declared.has(startNodeRef) || terminalNodeRefs.length === 0 || terminals.size !== terminalNodeRefs.length || terminalNodeRefs.some((ref) => !declared.has(ref))) {
+    diagnostics.push({ code: "topology_mismatch", path, message: "graph requires one exact declared start and a non-empty unique declared terminal set" });
+  }
+  if (edges.some((edge) => !declared.has(edge.fromNodeRef) || !declared.has(edge.toNodeRef))) {
+    diagnostics.push({ code: "topology_mismatch", path: `${path}.edges`, message: "edge endpoint is absent from graph template" });
+  }
+  const outgoing = new Map<string, string[]>();
+  for (const ref of declared) outgoing.set(ref, []);
+  for (const edge of edges) outgoing.get(edge.fromNodeRef)?.push(edge.toNodeRef);
+  for (const node of nodes) {
+    const ref = node.nodeRef;
+    const outdegree = outgoing.get(ref)?.length ?? 0;
+    const cardinality = cTermResultCardinality(node.term);
+    const expectedOutdegree = cardinality === "zero" ? 1 : cardinality === "one" ? 0 : null;
+    if (expectedOutdegree === null || outdegree !== expectedOutdegree || terminals.has(ref) !== (expectedOutdegree === 0)) {
+      diagnostics.push({ code: "topology_mismatch", path: `${path}.nodes[${ref}]`, message: expectedOutdegree === null ? "graph node term has non-finite result cardinality" : `${node.term.kind} requires graph outdegree ${expectedOutdegree}` });
+    }
+  }
+  const reached = new Set<string>();
+  const active = new Set<string>();
+  const cycleEdges: Array<readonly [string, string]> = [];
+  const visit = (ref: string): void => {
+    if (active.has(ref)) return;
+    if (reached.has(ref)) return;
+    reached.add(ref); active.add(ref);
+    for (const next of outgoing.get(ref) ?? []) {
+      if (active.has(next)) cycleEdges.push([ref, next]);
+      else visit(next);
+    }
+    active.delete(ref);
+  };
+  if (declared.has(startNodeRef)) visit(startNodeRef);
+  if (nodeRefs.some((ref) => !reached.has(ref)) || terminalNodeRefs.some((ref) => !reached.has(ref))) {
+    diagnostics.push({ code: "topology_mismatch", path, message: "every executable node and terminal must be reachable from the exact start" });
+  }
+  const governedReentries = graphFunction.template.applications.filter(
+    (application): application is ReenterApplication => application.relationKind === "re_enter" &&
+      Number.isSafeInteger(application.maxApplications) &&
+      application.maxApplications > 0,
+  );
+  const governedCycles = cycleEdges.every(([from, to]) =>
+    governedReentries.some((application) =>
+      application.sourceProgramLocusRef === from &&
+      application.targetProgramLocusRef === to));
+  if (!governedCycles) {
+    diagnostics.push({ code: "topology_mismatch", path: `${path}.edges`, message: "graph topology cycle lacks a declared governed recursion edge" });
+  }
+  return diagnostics;
 }
 
 function invalid(
@@ -577,15 +690,16 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     return invalid("program", input.program.subjectDigest, diagnostics);
   }
   const publication = input.publication.value;
-  const program = input.program.value;
   const graphFunctions = input.graphFunctions.map((raw) => raw.value);
+  const normalizedProgram = admitNormalizedProgram(input.program.value, graphFunctions);
+  const program = normalizedProgram.program;
   const contracts = input.contracts.map((raw) => raw.value);
   const bindings = input.implementationBindings.map((raw) => raw.value);
   const closureContracts = input.closureContracts.map((raw) => raw.value);
   diagnostics.push(...validatePublishedDeclarations(publication));
 
   const publishedProgram = publication.programs.find((candidate) => candidate.programRef === program.programRef);
-  if (publishedProgram === undefined || !sameValue(publishedProgram, program)) {
+  if (publishedProgram === undefined || !sameValue(publishedProgram, input.program.value)) {
     diagnostics.push({ code: "raw_subject_mismatch", path: "$.program", message: "Program is not the exact published declaration" });
   }
   if (program.moduleRef !== publication.moduleRef) {
@@ -700,6 +814,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const interactionLeafRows: ValidatedInteractionLeaf[] = [];
   for (const graphFunction of graphFunctions) {
     const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
+    diagnostics.push(...validateGraphTopology(graphFunction));
     const nodes = new Map(graphFunction.template.nodes.map((node) => [node.nodeRef, node]));
     if (!nodes.has(graphFunction.template.startNodeRef) || graphFunction.template.terminalNodeRefs.some((ref) => !nodes.has(ref))) {
       diagnostics.push({ code: "topology_mismatch", path: `$.graphFunctions[${graphFunction.name}].template`, message: "start and terminal nodes must belong to the original graph template" });
@@ -1552,17 +1667,19 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   }
   if (diagnostics.length !== 0) return invalid("program", input.program.subjectDigest, diagnostics);
 
-  const graphFunctionDigests = input.graphFunctions.map((value) => value.subjectDigest);
-  const contractDigests = input.contracts.map((value) => value.subjectDigest);
-  const implementationBindingDigests = input.implementationBindings.map((value) => value.subjectDigest);
-  const closureContractDigests = input.closureContracts.map((value) => value.subjectDigest);
-  executableLeafRows.sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
-  interactionLeafRows.sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+  const graphFunctionDigests = input.graphFunctions.map((value) => value.subjectDigest).sort(compareCodeUnits);
+  const contractDigests = input.contracts.map((value) => value.subjectDigest).sort(compareCodeUnits);
+  const implementationBindingDigests = input.implementationBindings.map((value) => value.subjectDigest).sort(compareCodeUnits);
+  const closureContractDigests = input.closureContracts.map((value) => value.subjectDigest).sort(compareCodeUnits);
+  executableLeafRows.sort((left, right) => compareCodeUnits(left.requirementKey, right.requirementKey));
+  interactionLeafRows.sort((left, right) => compareCodeUnits(left.requirementKey, right.requirementKey));
   const transitiveReachableExecutableLeafKeys = executableLeafRows.map((row) => row.requirementKey);
   const transitiveReachableInteractionLeafKeys = interactionLeafRows.map((row) => row.requirementKey);
+  const publicationDigest = normalizedModulePublicationDigest(publication);
+  const programDigest = sha256Canonical(program as unknown as JsonValue);
   const sourceDigest = sha256Canonical({
-    publicationDigest: input.publication.subjectDigest,
-    programDigest: input.program.subjectDigest,
+    publicationDigest,
+    programDigest,
     graphFunctionDigests,
     contractDigests,
     implementationBindingDigests,
@@ -1576,9 +1693,9 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     disposition: "valid",
     validationRef: `program-validation://abiogenesis/${sourceDigest.slice("sha256:".length)}`,
     sourceDigest,
-    publicationDigest: input.publication.subjectDigest,
+    publicationDigest,
     programRef: program.programRef,
-    programDigest: input.program.subjectDigest,
+    programDigest,
     graphFunctionDigests,
     contractDigests,
     implementationBindingDigests,
@@ -1588,6 +1705,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     transitiveReachableExecutableLeafKeys,
     transitiveReachableInteractionLeafKeys,
     diagnostics: [],
+    normalizedProgram,
   }) as ProgramValidation;
   programValidations.add(validation);
   return validation;

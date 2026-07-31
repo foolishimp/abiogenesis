@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
+  compareCodeUnits,
   sha256Bytes,
   sha256Canonical,
   type Sha256Digest,
@@ -484,7 +485,7 @@ function exactEnvironment(
   return Object.freeze(Object.fromEntries(
     Object.entries(environment)
       .filter((entry): entry is [string, string] => entry[1] !== undefined)
-      .sort(([left], [right]) => left.localeCompare(right)),
+      .sort(([left], [right]) => compareCodeUnits(left, right)),
   ));
 }
 

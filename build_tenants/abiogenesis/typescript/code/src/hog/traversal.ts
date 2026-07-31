@@ -19,6 +19,7 @@ import type {
   ReenterApplication,
   RecurseApplication,
 } from "../gtl/contracts.js";
+import { normalizeGtlProgram } from "../gtl/contracts.js";
 import {
   isExecutableCLeaf,
   isInteractionCLeaf,
@@ -667,7 +668,7 @@ function validateTraverseInput(input: TraverseInput): TraversalRefusal | null {
   }
   if (
     input.program.programRef !== input.executionBasis.programRef ||
-    sha256Canonical(input.program as unknown as JsonValue) !== input.executionBasis.programDigest ||
+    sha256Canonical(normalizeGtlProgram(input.program) as unknown as JsonValue) !== input.executionBasis.programDigest ||
     !input.program.callableMembership.includes(input.executionBasis.graphFunctionRef)
   ) {
     return refusal("program_mismatch", "HoG Program differs from the admitted execution basis");

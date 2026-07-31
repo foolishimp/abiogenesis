@@ -55,7 +55,7 @@ async function gitObject(path) {
 }
 
 async function main() {
-  await rm(evidencePath, { force: true });
+  if (!development) await rm(evidencePath, { force: true });
   if (!development) await requireCleanTrackedTree("before build");
 
   await execFileAsync("npm", ["run", "build"], {
@@ -112,12 +112,12 @@ async function main() {
     "the characterization must cover the exact frozen relation set",
   );
   const preserved = records.filter(
-    (record) => record.disposition === "preserved_green",
+    (record) => record.disposition !== "confirmed_red",
   );
   assert.deepEqual(
     preserved.map((record) => record.relationId),
-    ["AX-F07"],
-    "AX-F07 is the sole accepted preservation lane",
+    ["AX-F05", "AX-F07", "AX-F10", "AX-F14"],
+    "Increment 1 repairs only the three authorized relations and preserves AX-F07",
   );
 
   const evidence = {

@@ -24,7 +24,8 @@ export function normalizeRelation(record) {
   assert.match(record.relationId, /^AX-(?:F(?:0[1-9]|1[0-4])|PFC-F08)$/u);
   assert.ok(
     record.disposition === "confirmed_red" ||
-      record.disposition === "preserved_green",
+      record.disposition === "preserved_green" ||
+      record.disposition === "repaired_green",
   );
   for (const field of ["claim", "ingress"]) {
     assert.equal(typeof record[field], "string", `${record.relationId}.${field}`);

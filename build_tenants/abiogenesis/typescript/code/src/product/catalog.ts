@@ -6,6 +6,7 @@ import type {
 import {
   isProgramValidation,
   isPublicationValidation,
+  normalizedModulePublicationDigest,
 } from "../validator/validation.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
@@ -390,7 +391,7 @@ export function constructCatalogAdmissionCandidate(
     validationMatches.some(
       (match) =>
         match.kind !== "one" ||
-        match.value.publicationDigest !== publicationDigest,
+        match.value.publicationDigest !== normalizedModulePublicationDigest(publication),
     )
   ) {
     return refusal("invalid_validation_basis", "catalog candidate requires exact publication and Program validations");

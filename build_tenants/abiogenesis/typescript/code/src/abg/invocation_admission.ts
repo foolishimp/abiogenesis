@@ -3,6 +3,7 @@ import type {
   GtlProgram,
   ModulePublication,
 } from "../gtl/contracts.js";
+import { normalizeGtlProgram } from "../gtl/contracts.js";
 import { resolveProgramStart } from "../gtl/public_start.js";
 import {
   DIRECT_INVOKE_CAPABILITY,
@@ -24,11 +25,12 @@ import {
   isPublicInvocationCandidate,
 } from "../product/invocation.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { compareCodeUnits, sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   isProgramValidation,
+  normalizedModulePublicationDigest,
   type ProgramValidation,
 } from "../validator/validation.js";
 import {
@@ -334,7 +336,7 @@ function validatedInteractionCapabilities(
       requirementKeyDigest: row.requirementKeyDigest,
       actorCapabilityRef: row.requirement.actorCapabilityRef,
     }))
-    .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+    .sort((left, right) => compareCodeUnits(left.requirementKey, right.requirementKey));
 }
 
 export function validateInvocationCapabilityBasis(input: Readonly<{
@@ -352,7 +354,7 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
   );
   const exactCatalogApplications = [...(input.catalogApplications ?? [])]
     .sort((left, right) =>
-      left.applicationId.localeCompare(right.applicationId)
+      compareCodeUnits(left.applicationId, right.applicationId)
     );
   if (
     !isInvocationPolicyBasis(input.policy) ||
@@ -367,7 +369,7 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
     input.policy.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||
     input.policy.programRef !== input.program.programRef ||
     input.policy.programDigest !==
-      sha256Canonical(input.program as unknown as JsonValue) ||
+      sha256Canonical(normalizeGtlProgram(input.program) as unknown as JsonValue) ||
     input.policy.allowedComputeRegimes.join("\0") !== exactComputeRegimes.join("\0") ||
     sha256Canonical(
       input.policy.interactionCapabilities as unknown as JsonValue,
@@ -650,7 +652,7 @@ export function admitInvocation(
     !isProgramValidation(input.programValidation) ||
     input.programValidation.programRef !== input.program.programRef ||
     input.programValidation.programDigest !== input.invocation.programDigest ||
-    input.programValidation.publicationDigest !== sha256Canonical(input.modulePublication as unknown as JsonValue) ||
+    input.programValidation.publicationDigest !== normalizedModulePublicationDigest(input.modulePublication) ||
     !input.programValidation.graphFunctionDigests.includes(input.invocation.graphFunctionDigest)
   ) {
     return refusal("validation_mismatch", "Invocation requires the exact non-lowering ProgramValidation");
@@ -665,7 +667,7 @@ export function admitInvocation(
   );
   if (
     input.invocation.programRef !== input.program.programRef ||
-    input.invocation.programDigest !== sha256Canonical(input.program as unknown as JsonValue) ||
+    input.invocation.programDigest !== sha256Canonical(normalizeGtlProgram(input.program) as unknown as JsonValue) ||
     input.invocation.graphFunctionRef !== input.graphFunction.name ||
     input.invocation.graphFunctionDigest !== sha256Canonical(input.graphFunction as unknown as JsonValue) ||
     !input.program.callableMembership.includes(input.graphFunction.name) ||
@@ -981,12 +983,12 @@ export function admitInvocation(
     catalogViewDigest: input.catalogView.viewDigest,
     catalogApplicationRefs: [...catalogApplications]
       .sort((left, right) =>
-        left.applicationId.localeCompare(right.applicationId)
+        compareCodeUnits(left.applicationId, right.applicationId)
       )
       .map((application) => application.applicationId),
     catalogApplicationDigests: [...catalogApplications]
       .sort((left, right) =>
-        left.applicationId.localeCompare(right.applicationId)
+        compareCodeUnits(left.applicationId, right.applicationId)
       )
       .map((application) => application.applicationDigest),
     programRef: input.program.programRef,

@@ -271,6 +271,18 @@ function materializedInputAtCursor(
 export async function executeGraphTraversal(
   input: ExecuteGraphTraversalInput,
 ): Promise<ExecutableTraversalCompletion> {
+  const admittedProgram = input.graphValidation.normalizedProgram.program;
+  const admittedGraphFunction = input.graphValidation.normalizedProgram.graphFunctions.find(
+    (candidate) => candidate.name === input.graph.graphFunctionRef,
+  );
+  if (admittedGraphFunction === undefined) {
+    throw new TypeError("HoG requires the exact admitted normalized Program and GraphFunction");
+  }
+  input = {
+    ...input,
+    program: admittedProgram,
+    graphFunction: admittedGraphFunction,
+  };
   if (
     !isAdmittedLeafInvocationPort(input.leafPort) ||
     input.leafPort.implementationSetRef !== input.implementationSet.implementationSetRef ||

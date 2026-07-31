@@ -3,13 +3,14 @@ import type {
   GraphFunction,
   GtlProgram,
 } from "../gtl/contracts.js";
+import { normalizeGtlProgram } from "../gtl/contracts.js";
 import {
   isRawAdmittedValue,
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { CatalogApplication, CatalogView } from "./catalog.js";
-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { compareCodeUnits, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { WorkspaceBinding } from "./environment.js";
 import { deepFreeze } from "../shared/immutable.js";
 
@@ -175,10 +176,10 @@ export function constructRootInvocationPolicy(
     allowedComputeRegimes.includes(regime)
   );
   const canonicalInteractions = [...interactionCapabilities].sort((left, right) =>
-    left.requirementKey.localeCompare(right.requirementKey)
+    compareCodeUnits(left.requirementKey, right.requirementKey)
   );
   const canonicalApplications = [...catalogApplications].sort((left, right) =>
-    left.applicationId.localeCompare(right.applicationId)
+    compareCodeUnits(left.applicationId, right.applicationId)
   );
   if (
     canonicalRegimes.length === 0 ||
@@ -213,7 +214,7 @@ export function constructRootInvocationPolicy(
     workspaceBindingId: workspaceBinding.bindingId,
     workspaceBindingDigest: workspaceBinding.bindingDigest,
     programRef: program.programRef,
-    programDigest: sha256Canonical(program as unknown as JsonValue),
+    programDigest: sha256Canonical(normalizeGtlProgram(program) as unknown as JsonValue),
     allowedComputeRegimes: canonicalRegimes,
     interactionCapabilities: canonicalInteractions,
     catalogApplicationRefs: canonicalApplications.map(
@@ -470,7 +471,7 @@ function constructInvocation(
     catalogViewId: catalogView.viewId,
     catalogViewDigest: catalogView.viewDigest,
     programRef: program.programRef,
-    programDigest: sha256Canonical(program as unknown as JsonValue),
+    programDigest: sha256Canonical(normalizeGtlProgram(program) as unknown as JsonValue),
     graphFunctionRef: graphFunction.name,
     graphFunctionDigest: sha256Canonical(graphFunction as unknown as JsonValue),
     inputContractRef,

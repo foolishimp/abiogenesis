@@ -20,6 +20,7 @@ import {
 } from "./graph.js";
 import {
   isProgramValidation,
+  normalizedModulePublicationDigest,
   type ProgramValidation,
   type StaticDiagnostic,
   type StaticValidationRefusal,
@@ -137,7 +138,7 @@ export function validateImplementationResolution(
     !isGraphValidation(graphValidation) ||
     !isPackagedLeafImplementationDescriptor(descriptor) ||
     candidate.resolutionCandidateDigest !== sha256Canonical(candidateBody as unknown as JsonValue) ||
-    candidate.publicationDigest !== sha256Canonical(publication as unknown as JsonValue) ||
+    candidate.publicationDigest !== normalizedModulePublicationDigest(publication) ||
     candidate.programValidationRef !== programValidation.validationRef ||
     candidate.graphValidationRef !== graphValidation.validationRef ||
     candidate.graphValidationDigest !== graphValidation.validationDigest ||
@@ -265,7 +266,7 @@ export function validateImplementationResolutionSet(
   if (
     !isProgramValidation(programValidation) ||
     candidate.setCandidateDigest !== sha256Canonical(setBody as unknown as JsonValue) ||
-    candidate.publicationDigest !== sha256Canonical(publication as unknown as JsonValue) ||
+    candidate.publicationDigest !== normalizedModulePublicationDigest(publication) ||
     candidate.publicationDigest !== programValidation.publicationDigest ||
     candidate.programValidationRef !== programValidation.validationRef ||
     candidate.catalogViewId !== catalogView.viewId ||

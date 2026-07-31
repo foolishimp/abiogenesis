@@ -8,6 +8,7 @@ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   isProgramValidation,
+  type AdmittedNormalizedProgram,
   type ProgramValidation,
   type StaticValidationRefusal,
 } from "./validation.js";
@@ -34,6 +35,7 @@ export interface GraphValidation {
   readonly admittedInputRef: string;
   readonly admittedInputDigest: Sha256Digest;
   readonly diagnostics: readonly [];
+  readonly normalizedProgram: AdmittedNormalizedProgram;
 }
 
 export type GraphValidationResult = GraphValidation | StaticValidationRefusal;
@@ -64,9 +66,19 @@ export function validateGraph(
   if (!isMaterializedGtlGraph(graph) || !isProgramValidation(programValidation)) {
     return invalid(graph.materializationDigest, "Graph or ProgramValidation lacks package construction identity");
   }
+  const admittedGraphFunction = programValidation.normalizedProgram.graphFunctions.find(
+    (candidate) => candidate.name === graphFunction.name,
+  );
+  if (
+    admittedGraphFunction === undefined ||
+    sha256Canonical(admittedGraphFunction as unknown as JsonValue) !==
+      sha256Canonical(graphFunction as unknown as JsonValue)
+  ) {
+    return invalid(graph.materializationDigest, "GraphFunction differs from the admitted normalized Program");
+  }
   let expectedShape;
   try {
-    expectedShape = deriveMaterializedGraphShape(graphFunction, basis);
+    expectedShape = deriveMaterializedGraphShape(admittedGraphFunction, basis);
   } catch (error) {
     return invalid(
       graph.materializationDigest,
@@ -84,7 +96,7 @@ export function validateGraph(
     fanOutMaterializations: graph.fanOutMaterializations,
     template: graph.template,
   };
-  const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
+  const graphFunctionDigest = sha256Canonical(admittedGraphFunction as unknown as JsonValue);
   if (
     graph.materializationDigest !== sha256Canonical(graphBody as unknown as JsonValue) ||
     graph.graphFunctionRef !== graphFunction.name ||
@@ -119,6 +131,7 @@ export function validateGraph(
     validationDigest,
     ...body,
     diagnostics: [] as const,
+    normalizedProgram: programValidation.normalizedProgram,
   }) as GraphValidation;
   graphValidations.add(validation);
   return validation;

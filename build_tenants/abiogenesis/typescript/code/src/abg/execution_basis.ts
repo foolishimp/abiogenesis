@@ -6,6 +6,7 @@ import type {
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
+import { normalizeGtlProgram } from "../gtl/contracts.js";
 import {
   type ImplementationResolutionCandidate,
   type ImplementationResolutionSetCandidate,
@@ -16,7 +17,7 @@ import {
   isImplementationResolutionSetCandidate,
 } from "../product/implementation_resolution.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { compareCodeUnits, sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
@@ -786,7 +787,7 @@ export function admitExecutionBasis(
   }
   if (
     input.program.programRef !== input.invocationAdmission.programRef ||
-    sha256Canonical(input.program as unknown as JsonValue) !== input.invocationAdmission.programDigest ||
+    sha256Canonical(normalizeGtlProgram(input.program) as unknown as JsonValue) !== input.invocationAdmission.programDigest ||
     input.program.closureContractRef !== input.closureContract.closureContractRef ||
     input.closureContract.resultContractRef !== input.invocationAdmission.outputContractRef
   ) {
@@ -1111,7 +1112,7 @@ export function admitChildExecutionBasis(
     !isProgramValidation(input.programValidation) ||
     input.programValidation.validationRef !== parent.programValidationRef ||
     input.program.programRef !== parent.programRef ||
-    sha256Canonical(input.program as unknown as JsonValue) !== parent.programDigest ||
+    sha256Canonical(normalizeGtlProgram(input.program) as unknown as JsonValue) !== parent.programDigest ||
     !input.program.callableMembership.includes(input.graphFunction.name)
   ) {
     return childRefusal(
@@ -1164,19 +1165,19 @@ export function admitChildExecutionBasis(
     .filter((row) => row.graphFunctionRef === input.graphFunction.name);
   const localExecutableLeafKeys = localExecutableRows
     .map((row) => row.requirementKey)
-    .sort((left, right) => left.localeCompare(right));
+    .sort(compareCodeUnits);
   const admittedExecutableRows = input.rootImplementationSet.rows
     .filter((row) => row.graphFunctionRef === input.graphFunction.name)
-    .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+    .sort((left, right) => compareCodeUnits(left.requirementKey, right.requirementKey));
   const admittedExecutableKeys = admittedExecutableRows.map((row) => row.requirementKey);
   const localInteractionRows = input.programValidation.interactionLeafRows
     .filter((row) => row.graphFunctionRef === input.graphFunction.name);
   const localInteractionLeafKeys = localInteractionRows
     .map((row) => row.requirementKey)
-    .sort((left, right) => left.localeCompare(right));
+    .sort(compareCodeUnits);
   const admittedInteractionRows = input.rootInteractionSet.rows
     .filter((row) => row.graphFunctionRef === input.graphFunction.name)
-    .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+    .sort((left, right) => compareCodeUnits(left.requirementKey, right.requirementKey));
   const admittedInteractionKeys = admittedInteractionRows.map((row) => row.requirementKey);
   if (
     !sameOrderedValues(localExecutableLeafKeys, admittedExecutableKeys) ||
