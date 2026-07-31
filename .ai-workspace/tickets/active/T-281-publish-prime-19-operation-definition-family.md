@@ -6,9 +6,10 @@
 > verified. Direct F_H accepted exact construction census blob `efe88cac` and
 > authorized bounded Phase 2/Gate 1 authority/design/map construction only.
 > Frozen candidate `ba2e39a4`, tree `3d5686d4`, was rejected on five bounded
-> relations. The current worker may repair only those relations, freeze one
-> replacement, and obtain constructability and authority delta reviews. Gate
-> 1 is not accepted.
+> relations. Replacement `29aea26d`, tree `057e4d5f`, repaired four but was
+> rejected because its selected installed owner port cannot consume the cited
+> AX-F09 retry frontier. The bounded repair pass is exhausted and the
+> counterexample is returned to direct F_H. Gate 1 is not accepted.
 > Tracked falsifier, production, schema, generator, and semantic-test work
 > remains held until one content-addressed Gate 1 subject receives both
 > required independent reviews and direct acceptance. Accepted design
@@ -21,8 +22,8 @@
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
 - status: active
-- phase_status: m5_s06_gate_1_bounded_repair_pending_delta_reviews
-- review_status: gate_1_candidate_ba2e39a4_rejected_five_relation_repair_in_progress
+- phase_status: m5_s06_gate_1_rejected_returned_to_direct_f_h
+- review_status: authority_delta_accept_constructability_delta_reject_c02
 - proof_status: census_accepted
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - parent_owner: T-270
@@ -181,15 +182,22 @@
 - rejected_gate_1_authority_review: >-
     .ai-workspace/comments/codex/
     20260731T130244Z_REVIEW_s06_gate_1_authority_ba2e39a4.md
-- gate_1_status: candidate_ba2e39a4_rejected_bounded_repair_pending_delta_reviews
+- rejected_gate_1_replacement: 29aea26dbb8dc500e3c0c932a465b6385cdefa79
+- rejected_gate_1_replacement_tree: 057e4d5f4534be6f22521265a3cc0aff9fa01c10
+- gate_1_authority_delta_review: >-
+    .ai-workspace/comments/codex/
+    20260731T131955Z_REVIEW_s06_gate_1_authority_delta_29aea26d.md
+- gate_1_constructability_delta_review: >-
+    .ai-workspace/comments/codex/
+    20260731T132222Z_REVIEW_s06_gate_1_constructability_delta_29aea26d.md
+- gate_1_status: replacement_29aea26d_rejected_bounded_repair_exhausted_returned_to_direct_f_h
 - current_gate_1_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md;
-    bounded five-relation repair pending replacement freeze, delta reviews,
-    and direct acceptance
+    rejected replacement evidence; not operative authority
 - current_gate_1_subject_manifest: >-
     .ai-workspace/comments/codex/
-    20260731T131417Z_HANDOFF_s06_gate_1_bounded_repair_subject.md
+    20260731T132538Z_HANDOFF_s06_gate_1_rejected_return_to_f_h.md
 - gate_2_status: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - gate_3_status: blocked_by_gate_2_acceptance
 

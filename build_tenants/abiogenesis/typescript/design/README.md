@@ -8,9 +8,10 @@ outcome. Direct F_H accepted exact census blob `efe88cac` and authorized one
 bounded Gate 1 authority/design/map construction. The proposed
 [S06 Axiomatic Authority And Exact Public Construction Design](./M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md)
 is not operative realization authority. Frozen candidate `ba2e39a4`, tree
-`3d5686d4`, was rejected on five bounded relations; one replacement may repair
-only those relations before constructability and authority delta reviews and
-direct acceptance identify the exact Gate 1 subject.
+`3d5686d4`, was rejected on five bounded relations. Replacement `29aea26d`,
+tree `057e4d5f`, repaired four but was rejected because its selected installed
+owner port cannot consume the cited AX-F09 retry frontier. The bounded repair
+pass is exhausted and the counterexample is returned to direct F_H.
 `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
 remains non-operative future input under backlogged T-268.
 
@@ -61,10 +62,9 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-T-281 owns the proposed Gate 1 subject under T-270. Repair only the five cited
-relations in rejected candidate `ba2e39a4`, freeze one replacement commit and
-tree, then stop editing while the same review roles inspect only that delta.
-Production, falsifier, schema, generator, semantic-test, donor, deletion, and
-Gate 2 work remain held until direct F_H accepts that exact reviewed subject.
-Planned 5.1 observer/tuner realization, post-S06 Prime, complete conservation,
-qualification, and release remain held.
+T-281 owns the proposed Gate 1 subject under T-270. Both frozen candidates are
+rejected and the one bounded repair pass is exhausted. Stop at the AX-F09
+installed-ingress counterexample and await direct F_H disposition. Production,
+falsifier, schema, generator, semantic-test, donor, deletion, and Gate 2 work
+remain held. Planned 5.1 observer/tuner realization, post-S06 Prime, complete
+conservation, qualification, and release remain held.

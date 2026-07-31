@@ -34,9 +34,9 @@ close ABG5-S06
   -> frozen exact STDO 2.2.2 authority baseline 8a4630e8 / 0e5281c2
   -> accepted exact census blob efe88cac
   -> rejected frozen Gate 1 candidate ba2e39a4 / 3d5686d4
-  -> current: one bounded five-relation repair and replacement freeze
-  -> next: constructability and authority delta reviews over only that repair
-  -> held direct Gate 1 acceptance and all semantic implementation
+  -> rejected replacement 29aea26d / 057e4d5f on AX-F09 ingress
+  -> current: returned to direct F_H; no further repair authorized
+  -> held Gate 1 acceptance and all semantic implementation
   -> held falsifier, realization, projection, and installed Product proof
   -> under T-281 and parent T-270
 ```
@@ -72,11 +72,13 @@ The STDO 2.2.2 authority baseline is frozen and verified at `8a4630e8`, tree
 `0e5281c2`. Direct F_H accepted exact census blob `efe88cac` and authorized
 bounded Gate 1 authority/design/map construction only. Frozen candidate
 `ba2e39a4`, tree `3d5686d4`, was rejected by the required reviews on five
-bounded relations. The current worker may repair only those relations, freeze
-one replacement, and then stop editing for constructability and authority
-delta reviews. Production, falsifiers, schemas, generators, semantic tests,
-donor adoption, and legacy deletion remain held until direct F_H accepts that
-exact reviewed subject. Post-S06 Prime entropy
+bounded relations. Replacement `29aea26d`, tree `057e4d5f`, repaired four but
+was rejected because its selected `run.continue/current_intent` ingress cannot
+consume the cited retry frontier. The bounded repair pass is exhausted. Stop
+and return that missing-owner-meaning counterexample to direct F_H; no further
+repair or implementation is authorized. Production, falsifiers, schemas,
+generators, semantic tests, donor adoption, and legacy deletion remain held.
+Post-S06 Prime entropy
 reduction, full
 public-contract publication closure, unified M5, conservation qualification,
 M6, and M7 remain held.

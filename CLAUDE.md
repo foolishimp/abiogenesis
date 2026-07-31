@@ -32,11 +32,12 @@ permission is held. The STDO 2.2.2 authority baseline is frozen and verified
 at `8a4630e8`, tree `0e5281c2`. Direct F_H accepted exact construction census
 blob `efe88cac` and authorized bounded Gate 1 authority/design/map construction
 only. Frozen candidate `ba2e39a4`, tree `3d5686d4`, was rejected on five
-bounded relations. The current worker repairs only those relations, freezes
-one replacement, then stops editing for constructability and authority delta
-reviews. No production, falsifier, schema, generator, semantic-test, donor,
-legacy-deletion, or Gate 2 work is authorized. No operative realization basis
-exists until the exact reviewed Gate 1 subject is directly accepted.
+bounded relations. Replacement `29aea26d`, tree `057e4d5f`, repaired four but
+was rejected because the selected `run.continue/current_intent` ingress cannot
+consume the cited retry frontier. The bounded repair pass is exhausted and the
+counterexample is returned to direct F_H. No further repair, production,
+falsifier, schema, generator, semantic-test, donor, legacy-deletion, or Gate 2
+work is authorized.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -83,9 +84,9 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 **Status**: S03 and S05 accepted; S06 realization `4953508d` returned;
 bounded S06 design `aa0daa62` retained as predecessor evidence; authority
 baseline `8a4630e8` frozen and verified; exact census blob `efe88cac` accepted;
-candidate `ba2e39a4` rejected; bounded five-relation Gate 1 repair authorized
-by the review rule; semantic realization held pending delta reviews and direct
-acceptance
+candidates `ba2e39a4` and `29aea26d` rejected; bounded repair exhausted;
+AX-F09 installed-ingress counterexample returned to direct F_H; semantic
+realization held
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower

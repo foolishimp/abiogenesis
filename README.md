@@ -17,7 +17,7 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 designs `4f80f84a`, `2bb7b594`, and `aa0daa62` retained as predecessor evidence; authority baseline `8a4630e8` frozen and verified; exact census blob `efe88cac` accepted; Gate 1 candidate `ba2e39a4` rejected on five bounded relations; one replacement repair and delta review in progress; semantic realization held; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 designs `4f80f84a`, `2bb7b594`, and `aa0daa62` retained as predecessor evidence; authority baseline `8a4630e8` frozen and verified; exact census blob `efe88cac` accepted; Gate 1 candidates `ba2e39a4` and `29aea26d` rejected; bounded repair exhausted on the AX-F09 installed-ingress counterexample and returned to direct F_H; semantic realization held; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
 | method | Released STDO `v2.2.2` at `0519129d63de10822ae6353fa0c5ce05d56f13e9` |
 
@@ -84,11 +84,11 @@ authority-setup baseline is frozen and verified at `8a4630e8`, tree
 `0e5281c2`. Direct F_H accepted exact 56-key census blob `efe88cac` and
 authorized bounded Gate 1 authority/design/map construction only. Frozen
 candidate `ba2e39a4`, tree `3d5686d4`, was rejected on five bounded relations.
-The current worker repairs only those relations, freezes one replacement, and
-returns only the repair delta for constructability and authority review.
-Production, falsifiers, donor adoption, legacy deletion, and Gate 2 remain
-held. No operative S06 realization basis exists until the exact reviewed Gate
-1 subject is directly accepted. The Codex delegate remains a convenience
+Replacement `29aea26d`, tree `057e4d5f`, repaired four but was rejected because
+the selected `run.continue/current_intent` owner port cannot consume the cited
+C.retry frontier. The bounded repair pass is exhausted and the counterexample
+is returned to direct F_H. Production, falsifiers, donor adoption, legacy
+deletion, and Gate 2 remain held. The Codex delegate remains a convenience
 shell, not alternate functionality.
 
 `A5-F12` and `ABG5-S04` are planned 5.1 work. Their design candidate

@@ -5,8 +5,8 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_gate_1_bounded_repair_pending_delta_reviews
-- review_status: s03_s05_accepted_gate_1_candidate_ba2e39a4_rejected_repair_in_progress
+- phase_status: m5_s06_gate_1_rejected_returned_to_direct_f_h
+- review_status: s03_s05_accepted_authority_delta_accept_constructability_delta_reject_c02
 - proof_status: s06_census_accepted
 - goal: GOAL-035 M5
 - priority: critical
@@ -75,13 +75,14 @@
     eight untracked commentary posts preserved
 - current_s06_authority_state: >-
     authority baseline frozen and verified; exact census blob efe88cac
-    accepted; Gate 1 candidate ba2e39a4 rejected on five bounded relations;
-    one replacement repair and delta review in progress; semantic realization
-    held; aa0daa62 retained as accepted predecessor evidence
+    accepted; Gate 1 candidates ba2e39a4 and 29aea26d rejected; bounded repair
+    exhausted on the AX-F09 installed-ingress counterexample and returned to
+    direct F_H; semantic realization held; aa0daa62 retained as accepted
+    predecessor evidence
 - s06_construction_census_state: accepted_blob_efe88cac
 - s06_construction_census_blob: efe88cac85bd3bb071d4b5dd451dfadaec893c4f
 - s06_construction_census_sha256: 0c0339689c21154c46148f033c7472b9d55a0fd771fc34a1c41d41c52d28a0c6
-- s06_gate_1_state: candidate_ba2e39a4_rejected_bounded_repair_pending_delta_reviews
+- s06_gate_1_state: replacement_29aea26d_rejected_bounded_repair_exhausted_returned_to_direct_f_h
 - s06_gate_2_state: blocked_by_gate_1_acceptance_and_falsifier_baseline
 - s06_gate_3_state: blocked_by_gate_2_acceptance
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
@@ -153,11 +154,10 @@
 - current_s06_gate_1_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md;
-    bounded five-relation repair pending replacement freeze, delta reviews,
-    and direct acceptance
+    rejected replacement evidence; not operative authority
 - current_s06_gate_1_subject_manifest: >-
     .ai-workspace/comments/codex/
-    20260731T131417Z_HANDOFF_s06_gate_1_bounded_repair_subject.md
+    20260731T132538Z_HANDOFF_s06_gate_1_rejected_return_to_f_h.md
 - selected_m5_public_contract_closure_owner: T-270
 - selected_m5_schema_vocabulary_corpus_roster_size: 44
 - selected_m5_contract_group_count: 9
