@@ -5,23 +5,26 @@
 - type: correction
 - ticket_category: product_delivery
 - status: active
-- phase_status: m5_s06_realization
-- review_status: s03_s05_accepted_s06_design_accepted_realization_active
-- proof_status: s06_realization_pending
+- phase_status: m5_s06_authority_setup_pending_clean_freeze
+- review_status: s03_s05_accepted_s06_release_plan_approved_setup_active
+- proof_status: s06_clean_authority_baseline_pending
 - goal: GOAL-035 M5
 - priority: critical
 - change_intent: >-
     Preserve accepted S03 and S05 while T-281 closes the Product-neutral
-    installed SDK, CLI, bounded Codex shell, and independent flavored Product
-    path required by ABG5-S06. After S06 acceptance, complete the selected
-    Prime entropy reduction, complete the full REQ-P-PUBLIC-CONTRACTS-005..011
-    publication basis from exact owner-local truth, then freeze one unified M5
-    candidate over the 16 selected 5.0 Product families.
-- change_class: product_reprice
+    installed public path required by ABG5-S06 through a bounded corrective
+    authority re-entry, three frozen review gates, and an atomic hard break.
+    After S06 acceptance, complete the selected Prime entropy reduction,
+    complete the full REQ-P-PUBLIC-CONTRACTS-005..011 publication basis from
+    exact owner-local truth, then freeze one unified M5 candidate over the 16
+    selected 5.0 Product families.
+- change_class: goal_reprice
+- historical_change_class: product_reprice_2026_07_28
 - re_entry_point: >-
-    specification/PRODUCT.md selected feature family, required scenario, and
-    completion-predicate surfaces, with matching GOALS and release
-    applicability requirements
+    specification/GOALS.md prerequisite and work-selection surfaces; T-281
+    may own a targeted conflicting-requirement reprice, bounded design
+    reframe, and post-acceptance realization refactor only after the frozen
+    census returns and direct F_H authorizes that next re-entry
 - triaged_at: 2026-07-28
 - created_at: 2026-07-14
 - updated_at: 2026-07-31
@@ -29,12 +32,38 @@
 - pen_holder: codex
 - build_tenant: typescript
 - current_product_outcome: ABG5-S06
-- implementation_hold: none_s06_realization_authorized
+- implementation_hold: s06_semantic_realization_held_until_gate_1_acceptance
 - implementation_hold_effect: >-
-    realize accepted S06 design candidate aa0daa62 once under T-281; prohibit
-    recursive design revision, Prime compression, planned 5.1
-    observer/tuner realization, unified M5 freeze, M6 qualification, M7
-    release, and unrelated refactoring
+    authorize GOALS/T-270/T-281 setup, one exact clean freeze of the STDO 2.2.2
+    and authority-setup cut, then a read-only exact 56-key census; after the
+    census freezes require new direct F_H authorization before constructing
+    the conflicting-requirement,
+    corrective-design, and reconciled-map Gate 1 subject; prohibit tracked
+    requirement, design, falsifier, production, schema, generator,
+    and semantic-test work; allow the bounded S06 recurrence disposition only
+    if later Gate 1 authority selects it; hold post-S06 Prime entropy
+    reduction, full public-contract publication closure, unified M5, S04, M6,
+    M7, and unrelated changes until their exact predecessor boundaries
+- approved_release_plan_evidence: >-
+    .ai-workspace/comments/codex/
+    20260731T063131Z_STRATEGY_abiogenesis_5_0_mvp_release_plan_corrected.md
+- approved_release_plan_selected_at: 2026-07-31
+- direct_f_h_ruling_source: >-
+    user instruction in the current session: "ok plan is approved, setup the
+    goals and tickets"
+- direct_f_h_ruling_interpretation: >-
+    approve the recorded release route and authorize GOALS/T-270/T-281 setup,
+    one exact clean authority baseline, and the subsequent read-only census
+    only; the frozen census must return to direct F_H before
+    requirement/design/map Gate 1 construction
+- current_s06_authority_state: >-
+    authority setup selected; proposed bounded corrective re-entry awaits the
+    frozen census and direct authorization; aa0daa62 retained as accepted
+    predecessor evidence
+- s06_construction_census_state: blocked_by_clean_authority_baseline
+- s06_gate_1_state: blocked_by_frozen_construction_census_and_direct_authorization
+- s06_gate_2_state: blocked_by_gate_1_acceptance_and_falsifier_baseline
+- s06_gate_3_state: blocked_by_gate_2_acceptance
 - selected_5_0_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_5_0_pre_rc_scenarios: ABG5-S01,ABG5-S02,ABG5-S03,ABG5-S05,ABG5-S06
 - release_scenario: ABG5-S07
@@ -74,11 +103,11 @@
 - returned_s06_bounded_refusal_design_candidate: 8dc59264e8aa32e606c925f6a933ba3131e41bde
 - returned_s06_bounded_refusal_design_tree: 77a7ee374be4375c1b67d6cd9730dab6f04007e2
 - returned_s06_bounded_refusal_design_sha256: 25c5578552e0f4b47bf6f1711f579de3ca9ed7cd04b17b01c0bcaccba1dd710d
-- current_s06_design_candidate: aa0daa626b0f4ea05058d7ef7541afc8eaf350b5
-- current_s06_design_candidate_tree: 9fa256630bc3d40d31f0bb7d6a70fd303e29c923
-- current_s06_design_sha256: 236d1d3394b987fd9aeaa5676f72b6ec08941b895d873b6c4d879cbe9cd379ce
-- current_s06_requirement_sha256: 26eb36ca6701ac9970b2e4d63b1125a48353cf553c37addbb85c9586e9204ad7
-- current_s06_design_subject_aggregate_sha256: 297e324af627857ad5ce90a3987cf34a96b0bb2696cb9e368766d97a97df8488
+- accepted_predecessor_s06_design_candidate: aa0daa626b0f4ea05058d7ef7541afc8eaf350b5
+- accepted_predecessor_s06_design_candidate_tree: 9fa256630bc3d40d31f0bb7d6a70fd303e29c923
+- accepted_predecessor_s06_design_sha256: 236d1d3394b987fd9aeaa5676f72b6ec08941b895d873b6c4d879cbe9cd379ce
+- accepted_predecessor_s06_requirement_sha256: 26eb36ca6701ac9970b2e4d63b1125a48353cf553c37addbb85c9586e9204ad7
+- accepted_predecessor_s06_design_subject_aggregate_sha256: 297e324af627857ad5ce90a3987cf34a96b0bb2696cb9e368766d97a97df8488
 - accepted_s06_closed_refusal_design_commit: aa0daa626b0f4ea05058d7ef7541afc8eaf350b5
 - accepted_s06_closed_refusal_design_tree: 9fa256630bc3d40d31f0bb7d6a70fd303e29c923
 - accepted_s06_closed_refusal_design_sha256: 236d1d3394b987fd9aeaa5676f72b6ec08941b895d873b6c4d879cbe9cd379ce
@@ -92,15 +121,16 @@
     .ai-workspace/comments/codex/
     20260729T171254Z_DECISION_accept_s06_contracted_design.md
 - accepted_s06_native_contract_design_commit: 4f80f84a826de86b4cfb4d9fec3baff428dcb44a
-- current_s06_design_subject: >-
+- accepted_predecessor_s06_design_subject: >-
     build_tenants/abiogenesis/typescript/design/
     M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md
 - returned_s06_design_handoff: >-
     .ai-workspace/comments/codex/
     20260728T161212Z_HANDOFF_t281_s06_native_contract_design_candidate.md
-- current_s06_design_handoff: >-
+- accepted_predecessor_s06_design_handoff: >-
     .ai-workspace/comments/codex/
     20260730T151455Z_HANDOFF_t281_s06_closed_refusal_relations_design.md
+- current_s06_gate_1_subject: pending
 - selected_m5_public_contract_closure_owner: T-270
 - selected_m5_schema_vocabulary_corpus_roster_size: 44
 - selected_m5_contract_group_count: 9
@@ -118,9 +148,9 @@
 - selected_entropy_reduction_state: blocked_by_s06_acceptance
 - accepted_s03_candidate: 8865ccff844d06f4f97765f014ae2b59c1e7d84b
 - accepted_s05_candidate: 1ddc802d3003a3d0782398f7ec7c74cfa81ab127
-- selected_method_release: STDO v2.2.0
-- selected_method_commit: 5326562f075d60052806d0d2c79d3db49671a8ea
-- selected_method_member_set_digest: ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c
+- selected_method_release: STDO v2.2.2
+- selected_method_commit: 0519129d63de10822ae6353fa0c5ce05d56f13e9
+- selected_method_member_set_digest: 4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21
 
 ## Purpose
 
@@ -129,8 +159,15 @@ outcome:
 
 ```text
 accepted S03 + accepted S05
-  -> exact ABG5-S06 installed portability subject
-  -> independent review and direct acceptance
+  -> exact clean STDO 2.2.2 and authority-setup baseline
+  -> read-only exact S06 construction census
+  -> frozen census returned to direct F_H
+  -> new Gate 1 construction authorization
+  -> frozen Gate 1 authority subject
+  -> accepted falsifier baseline
+  -> frozen Gate 2 installed architecture sentinel
+  -> frozen Gate 3 complete S06 candidate
+  -> direct S06 acceptance
   -> accepted Prime entropy reduction
   -> one unified M5 freeze
   -> M6 qualification
@@ -143,8 +180,10 @@ meaning, design, code, acceptance predicate, candidate bytes, or evidence.
 The frozen S04 design remains non-operative future input.
 
 Historical candidates, rejected findings, and prior milestone narratives
-remain in repository history and commentary. They do not occupy this active
-execution surface.
+remain in repository history and commentary. Candidate `aa0daa62` is accepted
+predecessor authority and evidence, but its former one-pass realization
+permission is held by the current `goal_reprice`. It does not occupy the
+operative realization boundary.
 
 ## Governing Authority
 
@@ -177,8 +216,11 @@ without a complete satisfaction relation. Bounded replacement `8dc59264`, tree
 `77a7ee37`, is returned because catalog-binding refusal and common pre-index
 parse refusal remain underconstrained. Replacement `aa0daa62`, tree
 `9fa25663`, closes those two relations and corrects the PFC-F05 aliases. Direct
-human authority accepts that exact design and authorizes one bounded Section
-11 realization pass.
+human authority accepted that exact design. The 2026-07-31 `goal_reprice`
+retains it as immutable predecessor authority while holding its former bounded
+Section 11 realization permission. The code-confirmed authority
+counterexamples require one corrective Gate 1 cut before semantic
+implementation can resume.
 
 S06 binds its exact public-function rows into the extant flat development
 catalog and emits only the exact 44-row schema/vocabulary/corpus diagnostic.
@@ -215,9 +257,39 @@ S06 closes only when:
   reproducibility remain green; and
 - independent review and direct F_H acceptance bind the exact candidate.
 
-The accepted S06 design, frozen supplemental design, and T-281 own detailed
-realization and proof
-conditions. This parent ticket does not restate or expand them.
+The accepted predecessor designs retain their reviewed constraints. They do
+not currently own operative realization permission. After the frozen census,
+new direct F_H authorization may permit T-281 to construct one corrective Gate
+1 subject; only direct acceptance of that exact subject establishes the
+operative realization conditions. This parent ticket does not restate or
+expand them.
+
+## Active S06 Gates
+
+T-281 owns one hard-break migration. No new ticket or alternate hierarchy is
+selected.
+
+| Gate | State | Frozen subject | Independent review and exit |
+|---|---|---|---|
+| Gate 1 - construction map and authority cut | Blocked by the exact clean authority baseline, frozen read-only census, and new direct F_H construction ruling | Exact 56-key owner/export map, deletion set, projection graph, installed vertical path, decision-complete falsifiers, directly conflicting requirement edits, and corrective design | One constructability reviewer and one authority reviewer inspect the same subject; direct F_H acceptance unlocks only the falsifier baseline |
+| Gate 2 - architecture sentinel | Blocked by Gate 1 acceptance and frozen falsifier baseline | Complete installed 18-operation/56-key family, all owner closures and package dependencies, atomic legacy deletion, all-port load/resolve probe, one executed nine-operation fresh-process sentinel, and a row-addressed frozen-baseline-to-green ledger for every accepted `AX-*` relation | The cold reviewer issues the acceptance or rejection receipt against accepted Gate 1 invariants; acceptance unlocks completion, while a counterexample returns the violated relation to direct F_H |
+| Gate 3 - frozen S06 candidate | Blocked by Gate 2 acceptance | Complete projections, lawful rewritten scenarios, installed downstream Product behavior, reproducible package, and exact S06 evidence | One architecture/authority reviewer and one installed-Product behavior reviewer inspect the same candidate; direct F_H acceptance closes S06 |
+
+Gate 1 selects, and the atomic swap installs, this production relation:
+
+```text
+admit common envelope
+  -> select exact definition
+  -> call concrete owner-local port
+  -> project exact outcome
+```
+
+ABG-admitted events and the Event Calculus exclusively derive runtime truth.
+Replay reconstructs and projects that truth. Before the swap, the legacy
+family remains the sole reachable Public path and the replacement remains
+unexported and uninstalled. A compatibility facade, second reachable Public
+family, Public semantic switch, rival catalog admission, process-local runtime
+authority, or post-S06 work invalidates the subject immediately.
 
 ## Prime Entropy Reduction Gate
 
@@ -298,8 +370,12 @@ duplication may not survive merely because contraction is inconvenient.
 
 T-270 remains open if:
 
-- S06 realization resumes before its complete public-function and
-  contract-indexed occurrence design is independently accepted;
+- tracked falsifier or semantic realization work resumes before the exact Gate
+  1 subject is independently reviewed and directly accepted;
+- any gate review examines a moving tree or a subject different from the
+  content-addressed candidate under disposition;
+- Gate 2 omits an owner module, schema, catalog row, or runtime dependency
+  required to load and resolve any of the 56 installed ports;
 - S06 is accepted from a moving or different subject;
 - the SDK, CLI, Codex shell, or flavored Product introduces alternate
   functionality, authority, catalog, traversal, runtime, or closure;

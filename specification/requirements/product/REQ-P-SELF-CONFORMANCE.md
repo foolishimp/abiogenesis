@@ -1,6 +1,6 @@
 # REQ-P-SELF-CONFORMANCE - ABIogenesis Product Self-Conformance
 
-**Status**: Active - T-283 base; STDO `v2.2.0` qualification identity amended by direct F_H adoption
+**Status**: Active - T-283 base; STDO `v2.2.2` qualification identity amended by direct F_H adoption
 **Category**: Constraint / Verification
 **Date**: 2026-07-25
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001,
@@ -30,7 +30,7 @@ and workspace-binding truth when applicable, tenant-conformance manifest, and
 frozen gate inventory. The law basis shall identify the specification-method
 version, applicable rule-catalog version, exact source references, and content
 digests used to decide the run. ABIogenesis 5.0 release qualification shall
-bind the exact tapped and installed STDO `v2.2.0` release identity and digest.
+bind the exact tapped and installed STDO `v2.2.2` release identity and digest.
 
 **REQ-P-SELF-CONFORMANCE-001A**: Missing, stale, conflicting, unreadable, or
 cross-subject basis truth shall produce a typed non-green result. A release cut,

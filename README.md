@@ -17,9 +17,9 @@ successor to the immutable 4.6 RC5 Product origin.
 | planned 5.1 input | S04 design frozen at `4897ead1` under backlogged T-268 |
 | active owners | T-281 for S06 under T-270 |
 | accepted implementation base | `8865ccff844d06f4f97765f014ae2b59c1e7d84b` through S03 |
-| closure state | S03 and S05 accepted; S06 native design `4f80f84a` accepted; supplemental parent `2bb7b594` accepted; bounded replacement `aa0daa62` accepted; one realization pass active; A5-F12/S04 deferred to 5.1 |
+| closure state | S03 and S05 accepted; S06 designs `4f80f84a`, `2bb7b594`, and `aa0daa62` retained as predecessor evidence; authority setup awaiting one exact clean baseline; read-only census next; Gate 1 and semantic realization held; A5-F12/S04 deferred to 5.1 |
 | conservation | implementation coverage exists; exact RC5 witness reconciliation remains qualification work |
-| method | Released STDO `v2.2.0` at `5326562f075d60052806d0d2c79d3db49671a8ea` |
+| method | Released STDO `v2.2.2` at `0519129d63de10822ae6353fa0c5ce05d56f13e9` |
 
 `specification/GOALS.md` is the current work-selection surface. Repository
 history, comments, completed tickets, reviews, and archived branches explain
@@ -57,7 +57,7 @@ feature-specific runtime is not a lawful substitute.
 ## Current Work
 
 S06 implementation candidates `4f9bf707` and `51664393`, plus design candidate
-`b645595c`, are returned evidence. The accepted realization basis is design
+`b645595c`, are returned evidence. Accepted predecessor design evidence includes
 `4f80f84a`, tree
 `7070dca7`, in `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`: exact
 proposal/admission stages, sole named-symbol contract authority, per-symbol
@@ -78,14 +78,26 @@ complete satisfaction relation. Bounded replacement `8dc59264`, tree
 `77a7ee37`, is returned because catalog-binding refusal and common pre-index
 parse refusal remain underconstrained. Replacement `aa0daa62`, tree
 `9fa25663`, closes those two refusal relations and corrects the PFC-F05 aliases.
-Direct human authority accepts that exact design and authorizes one bounded
-Section 11 realization pass. The Codex delegate remains a convenience shell,
-not alternate functionality.
+Direct human authority accepted that exact design. The approved release route
+holds its former realization permission. Current work is the STDO 2.2.2 and
+authority-setup cut with no semantic edits. After one exact clean baseline
+freezes, the read-only 56-key census may begin; its frozen result returns to
+direct F_H before any corrective Gate 1 authority construction. No operative
+S06 realization basis exists until that exact Gate 1 subject is later
+accepted. The Codex delegate remains a convenience shell, not alternate
+functionality.
 
 `A5-F12` and `ABG5-S04` are planned 5.1 work. Their design candidate
 `4897ead1`, tree `11d0ef7b`, remains immutable future input under backlogged
-T-268. Complete conservation, qualification, and release remain held until S06
-closes.
+T-268. Successor work remains held in this order:
+
+```text
+S06 acceptance
+  -> accepted post-S06 Prime realization
+  -> complete publication closure and accepted unified M5
+  -> M6 qualification
+  -> M7 release
+```
 
 ## Authority
 

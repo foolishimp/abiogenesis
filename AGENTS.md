@@ -31,8 +31,11 @@ The sole current Product implementation outcome is:
 
 ```text
 close ABG5-S06
-  -> native SDK + native CLI + bounded Codex CLI shell
-  -> independent flavored Product through installed public exports
+  -> freeze exact clean STDO 2.2.2 and authority-setup baseline
+  -> read-only exact 56-key construction census
+  -> return frozen census to direct F_H
+  -> held Gate 1 authority construction and acceptance
+  -> held falsifier, realization, projection, and installed Product proof
   -> under T-281 and parent T-270
 ```
 
@@ -61,12 +64,16 @@ into S06 without a complete satisfaction relation. Bounded replacement
 `8dc59264`, tree `77a7ee37`, is returned because catalog-binding refusal and
 common pre-index parse refusal remain underconstrained. Replacement
 `aa0daa62`, tree `9fa25663`, closes those two refusal relations and corrects
-the PFC-F05 aliases. Direct human authority accepts that exact design and
-authorizes one bounded Section 11 realization pass. Do not edit or refreeze the
-accepted design; freeze one installed S06 candidate and stop.
-Prime compression, full conservation
-qualification, qualification, and release must not receive implementation
-while S06 remains unresolved.
+the PFC-F05 aliases. Direct human authority accepted that exact design as
+predecessor evidence. Its former Section 11 realization permission is held.
+Current work is the STDO 2.2.2 and authority-setup cut only: do not edit
+requirements, design, production, schemas, generators, or semantic tests.
+Freeze one exact clean baseline before beginning the read-only census. Return
+the frozen census to direct F_H before constructing a corrective Gate 1
+subject. The bounded pre-S06 recurrence disposition may enter only a later
+authorized Gate 1 subject. Post-S06 Prime entropy reduction, full
+public-contract publication closure, unified M5, conservation qualification,
+M6, and M7 remain held.
 
 `A5-F12` and `ABG5-S04` are deferred to planned ABIogenesis 5.1. Their design
 is frozen at candidate `4897ead1`, tree `11d0ef7b`, under backlogged T-268 as
@@ -123,10 +130,10 @@ authorize implementation.
 
 ABIogenesis 5.0 development is governed by the selected immutable STDO release:
 
-- version and tag: `2.2.0` / `v2.2.0`;
-- release commit: `5326562f075d60052806d0d2c79d3db49671a8ea`;
+- version and tag: `2.2.2` / `v2.2.2`;
+- release commit: `0519129d63de10822ae6353fa0c5ce05d56f13e9`;
 - standards member-set digest:
-  `ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c`;
+  `4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21`;
 - operative local projection: `.genesis/docs/standards/`.
 
 Mutable methodology source and candidate releases do not govern this

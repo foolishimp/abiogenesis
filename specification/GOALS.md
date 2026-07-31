@@ -14,17 +14,22 @@ selection, ordered successor outcomes, and their acceptance conditions.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - S05 accepted at `1ddc802d`; S06 realization `4953508d` returned; bounded design `aa0daa62` accepted; one realization pass active; A5-F12/S04 deferred to 5.1 |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The repriced `PRODUCT.md` completion predicate holds: all 16 selected 5.0 Product outcomes, the five selected pre-RC scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - STDO 2.2.2 and S06 authority setup selected; exact clean authority baseline pending; read-only construction census next; tracked requirement, design, falsifier, and semantic realization work held; A5-F12/S04 deferred to 5.1 |
 
 ## Current Basis
 
 - `specification/INTENT.md` and `specification/PRODUCT.md` remain the accepted
   destination.
-- The selected method is immutable STDO `v2.2.0` at
-  `5326562f075d60052806d0d2c79d3db49671a8ea`, member-set digest
-  `ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c`.
-- Direct F_H adoption is recorded in
-  `.ai-workspace/comments/codex/20260725T060521Z_DECISION_adopt_stdo_2_2_for_abiogenesis_5.md`.
+- Direct F_H selected immutable STDO `v2.2.2` on 2026-07-31 at
+  `0519129d63de10822ae6353fa0c5ce05d56f13e9`, member-set digest
+  `4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21`.
+- Earlier accepted design subjects remain byte-preserved evidence of the basis
+  on which they were reviewed. Their embedded predecessor method references do
+  not select a second current consumer method or alter their accepted
+  realization relations.
+- Direct F_H selection is recorded in
+  `.ai-workspace/comments/codex/20260731T062823Z_DECISION_select_stdo_2_2_2_for_abiogenesis_5.md`.
+  The earlier `v2.2.0` adoption receipt remains predecessor history.
 - `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`, including its narrow
   Product-owned leaf-verifier relation, is accepted at candidate `8865ccff`.
 - `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` Sections 1 through 12 are
@@ -96,10 +101,25 @@ selection, ordered successor outcomes, and their acceptance conditions.
   `9fa256630bc3d40d31f0bb7d6a70fd303e29c923`, design digest
   `236d1d3394b987fd9aeaa5676f72b6ec08941b895d873b6c4d879cbe9cd379ce`,
   closes those two refusal relations and corrects the PFC-F05 aliases. Direct
-  human authority accepts that exact design and authorizes one bounded Section
-  11 realization pass. Returned designs
-  `9fb14e68` and `8eb7564c` are evidence only.
-  Realization is held.
+  human authority accepted that exact design as immutable predecessor evidence.
+  Returned designs `9fb14e68` and `8eb7564c` are evidence only.
+- Direct F_H source wording on 2026-07-31 is: “ok plan is approved, setup the
+  goals and tickets”. The bounded current-wave interpretation approves the
+  single-surface ABIogenesis 5.0 release route recorded as evidence in
+  `.ai-workspace/comments/codex/20260731T063131Z_STRATEGY_abiogenesis_5_0_mvp_release_plan_corrected.md`.
+  It selects no Intent or Product shrink. It holds the prior Section 11
+  realization permission and currently authorizes only:
+  - GOALS, T-270, and T-281 setup for the approved route;
+  - one exact clean freeze of the STDO 2.2.2 and authority-setup cut;
+  - from that baseline, the read-only exact 56-key construction census; and
+  - return of the frozen census to direct F_H.
+
+  After the census freezes, only a new direct F_H instruction may authorize
+  construction of the proposed requirement/design/map Gate 1 cut. This
+  approval does not accept a Gate 1 subject and does not authorize tracked
+  requirement, design, falsifier, production, schema, generator, or
+  semantic-test edits. Only the later content-addressed Gate 1 acceptance
+  receipt unlocks falsifier work.
 - Exact candidate `8865ccff844d06f4f97765f014ae2b59c1e7d84b`
   is the accepted S03 base.
 - T-270 remains the M5 parent owner. It owns exact owner-published completion
@@ -160,7 +180,8 @@ The supported path excludes:
 
 ## Current Product Outcome
 
-The one selected unresolved outcome is in bounded design:
+The one selected unresolved outcome is at bounded corrective authority
+re-entry:
 
 > Close `ABG5-S06` by proving that the native SDK, native CLI, and bounded
 > Codex CLI delegate are elimination-equivalent shells over one installed
@@ -168,8 +189,8 @@ The one selected unresolved outcome is in bounded design:
 > publish, apply, invoke, and read through installed public exports only.
 
 T-281 owns this outcome under T-270. The S06 shell adds no Product semantics,
-runtime capability, catalog, controller, or execution path. The accepted
-realization basis is native-contract design
+runtime capability, catalog, controller, or execution path. Accepted
+predecessor bases include native-contract design
 `4f80f84a826de86b4cfb4d9fec3baff428dcb44a`, tree
 `7070dca7d0f2ca90374b525faa60d5b810488763`. Exact implementation candidate
 `4953508de83ab6d6c65dbb81e5407ccb539e44e6`, tree
@@ -182,7 +203,8 @@ returned predecessor
 `2bb7b594920b1b126a6d314ed7bb39dabd211823`.
 Candidates `8eb7564c`, tree `9c753f86`, `5770755a`, tree `77842794`, and
 `458ce3c2`, tree `b5c7a1eb`, plus `356aa6a2`, tree `4af5ada4`, are returned
-evidence.
+evidence. No operative S06 realization basis exists until direct F_H accepts
+the exact corrective Gate 1 subject.
 
 Acceptance requires:
 
@@ -224,6 +246,39 @@ The current design gate additionally requires:
 - successful linkage entering the existing resolved-lock identity without a
   new Prime carrier or public analyzer.
 
+### Active S06 Gate Sequence
+
+Gate 1 selects, and every post-swap stage preserves, this target relation:
+
+```text
+admit common envelope
+  -> select exact operation-and-definition-key contract
+  -> call concrete owner-local port
+  -> project exact outcome
+```
+
+ABG-admitted events plus the Event Calculus exclusively derive runtime truth.
+Replay reconstructs and projects that truth; it does not own or supplement it.
+Before the atomic swap, the unchanged legacy family remains the sole reachable
+Public path and the replacement dispatcher remains unexported and uninstalled.
+
+| Stage | Subject | Exit |
+|---|---|---|
+| Authority baseline | STDO 2.2.2 identity and the GOALS/T-270/T-281 setup cut, with no semantic code. | One exact clean commit/tree and tracked-state receipt. |
+| Read-only construction census | Exact 56-row current implementation/export/owner map, legacy deletion manifest, projection graph, PFC-F08 oracle, installed sentinel path, donor admissibility proofs, and decision-complete falsifier specifications. No tracked edits. | One content-addressed Gate 1 input. Missing concrete owner meaning stops the cut. |
+| Gate 1 | One proposed corrective authority cut and reconciled construction map. One constructability reviewer and one authority reviewer inspect the same frozen subject. | Direct F_H accepts the exact reviewed subject, unlocking only the falsifier baseline increment. |
+| Falsifier baseline | Encode the accepted row-addressed probes against the otherwise unchanged semantic implementation and freeze expected-red or preservation signatures before repair. | Every falsifier has a concrete ingress, process boundary, fixture, mutation, oracle, baseline signature, and masking control. |
+| Gate 2 | Prerequisite repair, complete 18-operation/56-key realization, atomic legacy removal, and an installed package containing every owner module, schema, catalog row, and runtime dependency needed by all 56 ports. Mechanically load and resolve every installed port; execute the nine-operation fresh-process sentinel; bind every accepted `AX-*` relation from its frozen baseline to exact-family green evidence. | One frozen installed subject, row-addressed baseline-to-green ledger, and cold architecture-sentinel review receipt. |
+| Gate 3 | Complete projections, lawful scenario rewrites, installed Product behavior, downstream proof, reproducible package, and one frozen S06 candidate. | Two heterogeneous independent reviews and direct F_H acceptance close S06 and unlock Ordered Delivery 4. |
+
+The Gate 2 cold reviewer issues the acceptance or rejection receipt against the
+already accepted Gate 1 invariants. A counterexample rejects the subject and
+returns the violated authority relation to direct F_H; the reviewer does not
+author a replacement.
+
+No stage may introduce a compatibility facade, dual Public family, Public
+semantic switch, rival catalog, process-local runtime truth, or post-S06 work.
+
 ## Deferred 5.1 Design Input
 
 S04 design candidate `4897ead1`, tree `11d0ef7b`, and core aggregate
@@ -237,7 +292,7 @@ release authority and do not participate in S06 closure.
 |---:|---|---|---|---|
 | `1` | `T-270` | Reconcile and reclose `ABG5-S03` | Durable continuation is explicit; invalid F_H choice refuses; direct-control law is singular; bounded design and module proof agree with installed behavior. | Accepted at `8865ccff` |
 | `2` | `T-270`; completed `T-274`, `T-275`, and `T-276` are evidence only | Reconcile and reclose `ABG5-S05` | One exact global-to-local design is directly accepted before implementation; every promoted scenario then enters through One Surface; exact ticket bytes and reviewer instructions reach attributed workers; each admitted findings vector reaches the canonical submitter F_P contract under the exact subject-bound submitter profile, and its ABG-admitted response gates the next round; required negatives refuse round-two truth; result, typed contract failure, replay, schemas, and vocabularies remain public; direct human authority affirms same-Run F_H continuation; bounded Consensus design and module proof agree with all three workspace outcomes. | Accepted at `1ddc802d` |
-| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | Native SDK, CLI, and bounded Codex projection agree; the independent flavored Product authors, publishes, applies, and invokes through installed package exports and public contracts only; no copied runtime or private path participates. | Native design `4f80f84a` and bounded replacement `aa0daa62` accepted; one realization pass active |
+| `3` | `T-281`, under `T-270` | Close `ABG5-S06` | The active gate sequence accepts the corrective authority cut before implementation, freezes falsifiers, proves the installed 18-operation/56-key callable closure and atomic legacy deletion at Gate 2, and proves projections and downstream installed Product behavior at Gate 3 before direct acceptance. | Authority setup active; exact clean baseline pending; read-only census next; tracked requirement, design, and implementation held |
 | `4` | `T-270` | Contract the Prime entropy basis | One accepted atomic design resolves the smallest irreducible basis for typed identity, ordered sequence equality, exact key sets, uniqueness, digest elimination, reference construction, and structural guards; it preserves distinct equalities and repairs contradictions to the selected laws before one realization projects every other occurrence as application or composition. | Blocked by S06 |
 | `5` | `T-270` | Complete public-contract publication and freeze one M5 candidate | The full REQ-P-PUBLIC-CONTRACTS-005..011 residual is empty: nine group identities and locators, 44 schema/vocabulary/corpus rows, 18 operation identities and complete projections, 16 capability identities, and the accepted capability graph with exact owning-contract and dependency relations are present from owner-local publication truth; all selected pre-qualification 5.0 Product behavior, all 16 selected feature-family dispositions, and the accepted Prime entropy reduction are present on one exact candidate with required negatives and no silent gap. | Blocked by S06 and Prime entropy reduction |
 | `6` | `T-247` | Complete M6 qualification | The exact selected STDO basis, self-conformance, five selected pre-RC scenarios, and complete RC5 semantic reconciliation pass against one exact pre-RC candidate. | Blocked by M5 |
@@ -248,8 +303,26 @@ release authority and do not participate in S06 closure.
 The bounded S05 `requirement_reprice`, accepted design, and realization at
 `1ddc802d` establish the findings-to-submitter-response-to-next-round relation
 and same-Run F_H closure. Accepted S03 and S05 are regression bases. S06 is the
-current Product boundary. Its native-contract relation has re-entered design;
-it is not currently a realization boundary.
+current Product boundary. Direct F_H currently selected:
+
+- `goal_reprice` for the authority setup, exact clean baseline, read-only
+  census, and return to direct F_H.
+
+The approved route identifies the prospective later first missing layers as:
+
+- targeted `requirement_reprice` only where live requirements directly
+  conflict with explicit authority carriers, scoped Event Calculus truth,
+  retry reconstruction and currentness, and exact owner ports;
+- bounded `design_reframe` for those accepted relations; and
+- `realization_refactor` only after direct Gate 1 acceptance.
+
+Those later classes are not authorized until the frozen census receives a new
+direct F_H ruling.
+
+Candidate `aa0daa62` remains accepted predecessor authority and evidence, not
+the operative realization authority. Current work is the exact clean authority
+baseline, followed by the read-only construction census and its return to
+direct F_H. Gate 1 construction is not yet authorized.
 
 The deferred S04 design subject is preserved byte-for-byte as planned 5.1
 input. It leaves S06 portability and all 5.0 realization untouched and carries
@@ -279,6 +352,9 @@ will exercise: exact catalog coordinate lookup, Product-local verified
 installed-module loading, Product dependency topology, and GTL
 declaration/publication construction. This is S06's first realization step and
 does not authorize broad ABG or HoG refactoring.
+
+This bounded pre-S06 recurrence disposition is distinct from Ordered Delivery
+4, the post-S06 Prime entropy-reduction design and realization.
 
 ## Product Scope And Conservation
 
@@ -332,7 +408,7 @@ reconciliation is a qualification gate, not the feature-development queue.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | S03, S05, S06, the accepted Prime entropy reduction, all 16 selected pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S06 selected |
+| `M5` | S03, S05, S06, the accepted Prime entropy reduction, all 16 selected pre-qualification feature dispositions, and required installed negatives close on one candidate. | Active - S06 authority setup selected; exact clean baseline pending; census next; tracked realization held |
 | `M6` | Exact selected-method binding, self-conformance, five-scenario pre-RC qualification, and complete RC5 reconciliation accept one pre-RC candidate. | Blocked by M5 |
 | `M7` | Distinct RC, installed RC, final-tap, released Product, and post-publication install subjects produce stable `5.0.0`. | Blocked by M6 |
 

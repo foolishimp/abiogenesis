@@ -11,8 +11,8 @@ The complete S05 function is resolved as the accepted global-to-local
 constraint network in `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` at
 `283325aa`; S05 realization is accepted at `1ddc802d`. S06 candidates
 `4f9bf707` and `51664393`, plus design candidate `b645595c`, are returned
-evidence. The active
-realization basis is accepted design `4f80f84a`, tree `7070dca7`, under
+evidence. Accepted predecessor design evidence includes `4f80f84a`, tree
+`7070dca7`, under
 `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`. Its bounded Section 8 realization
 at candidate `4953508d`, tree `cd8bf69d`, is returned evidence. Supplemental
 public-function and contract-indexed occurrence design `8eb7564c`, tree
@@ -27,8 +27,13 @@ satisfaction relation. Bounded replacement `8dc59264`, tree `77a7ee37`, is
 returned because catalog-binding refusal and common pre-index parse refusal
 remain underconstrained. Replacement `aa0daa62`, tree `9fa25663`, closes those
 two refusal relations and corrects the PFC-F05 aliases. Direct human authority
-accepts that exact design and authorizes one bounded Section 11 realization
-pass. Do not edit or refreeze the accepted design.
+accepted that exact design. Its former bounded Section 11 realization
+permission is held. Current work is the STDO 2.2.2 and authority-setup cut
+with no tracked requirement, design, production, schema, generator, or
+semantic-test edits. Freeze one exact clean baseline before the read-only
+construction census begins. Return the frozen census to direct F_H before
+constructing the corrective Gate 1 authority subject. No operative realization
+basis exists until that exact subject is later accepted.
 `A5-F12` and `ABG5-S04` are planned 5.1 work under backlogged T-268.
 Conservation qualification, qualification, and release remain held.
 
@@ -72,7 +77,9 @@ build_tenants/abiogenesis/typescript/test_env/ M4 proof and historical donor lan
 ## GTL / HoG / ABG Bootstrap
 
 **Status**: S03 and S05 accepted; S06 realization `4953508d` returned;
-bounded S06 design `aa0daa62` accepted; one S06 realization pass active
+bounded S06 design `aa0daa62` retained as predecessor evidence; authority
+setup awaiting an exact clean baseline; read-only census next; Gate 1 and
+semantic realization held
 
 - GTL.TypeScript is the only program language.
 - The GTL validator is a linter and whole-program validator. It does not lower
@@ -105,9 +112,9 @@ Product. Existing X tickets do not resume without in-place reprice.
 <!-- SDLC_BOOTLOADER_START -->
 ## Method Bootstrap
 
-ABIogenesis 5.0 development is governed by released STDO `v2.2.0`, commit
-`5326562f075d60052806d0d2c79d3db49671a8ea`, with standards member-set digest
-`ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c`.
+ABIogenesis 5.0 development is governed by released STDO `v2.2.2`, commit
+`0519129d63de10822ae6353fa0c5ce05d56f13e9`, with standards member-set digest
+`4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21`.
 The operative local projection is `.genesis/docs/standards/`. Mutable
 `specification_methodology` source is future-candidate authoring, not consumer
 law. Qualification and release record this same selected basis.
@@ -115,8 +122,9 @@ law. Qualification and release record this same selected basis.
 No substantive change skips intake triage or the smallest lawful re-entry.
 M5 work stays inside T-270/T-281, preserves accepted S03/S05 and both root
 regression bindings, and changes only the selected S06 boundary. Retained S06
-implementation does not resume before the candidate Ontology and design are
-independently accepted. Planned 5.1 observer/tuner work, M6 qualification, and
-M7 release remain unselected. No new ticket is required where missing detail
-belongs to the active owners.
+implementation does not resume before the frozen census returns to direct F_H,
+one corrective Gate 1 subject is authorized, independently reviewed, and
+directly accepted. Planned 5.1 observer/tuner work, post-S06 Prime and
+publication closure, unified M5, M6 qualification, and M7 release remain held.
+No new ticket is required where missing detail belongs to the active owners.
 <!-- SDLC_BOOTLOADER_END -->

@@ -875,9 +875,9 @@ deeper GLC dogfooding begin there and cannot retroactively qualify 5.0.
 ## Governance And Release Boundary
 
 There is one lawful STDO identity. ABIogenesis 5.0 development is governed by
-the selected and installed release `v2.2.0`, commit
-`5326562f075d60052806d0d2c79d3db49671a8ea`, with standards member-set digest
-`ca6dc3d5094fc5473380df45d76da3c52263c5c21c52a3af62f542c97db2f86c`.
+the selected and installed release `v2.2.2`, commit
+`0519129d63de10822ae6353fa0c5ce05d56f13e9`, with standards member-set digest
+`4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21`.
 Self-conformance, qualification, and release must bind that same exact basis.
 Another STDO version cannot substitute without lawful Product re-entry and an
 F_H disposition. Mutable methodology source and candidate work are authoring
@@ -931,7 +931,7 @@ satisfies all of the following:
 11. No rival compiler, executable program representation, controller, registry,
     event stream, or closure path remains public or reachable.
 12. Every qualification subject passes self-conformance and its owning gates
-    under the exact selected and installed STDO `v2.2.0` basis with no mixed
+    under the exact selected and installed STDO `v2.2.2` basis with no mixed
     subject or substituted property.
 13. Any delta between immutable RC and final-tap candidate is limited to the
     admitted `FinalTapDelta`; every affected gate is rerun before final
