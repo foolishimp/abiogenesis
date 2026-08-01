@@ -4,7 +4,12 @@
 - title: Reconcile M5 Product outcomes through installed public paths
 - type: correction
 - ticket_category: product_delivery
-- status: active
+- status: superseded
+- superseded_by: T-287
+- retirement_reason: >-
+    GOAL-035 now selects feature-family steel-thread waves rather than the
+    scenario-first S06 gate sequence; valid Product, design, authority,
+    construction, and proof constraints are carried by T-287
 - phase_status: m5_s06_increment_0a_falsifier_baseline
 - review_status: s03_s05_and_s06_gate_1_accepted
 - proof_status: s06_increment_0a_baseline_pending
@@ -27,7 +32,7 @@
     authorized; semantic realization refactor remains held
 - triaged_at: 2026-07-28
 - created_at: 2026-07-14
-- updated_at: 2026-07-31
+- updated_at: 2026-08-01
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript

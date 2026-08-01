@@ -1,6 +1,13 @@
 # T-281 - Realize The Exact Product-Neutral Installed Public Family
 
-> **Current disposition (2026-07-31):** Direct F_H approved the bounded
+> **Superseded disposition (2026-08-01):** T-287 replaces this ticket's
+> scenario-first sequencing with the GOAL-035 feature-wave delivery order.
+> The exact 18/56 census, accepted Gate 1 construction relations, authority
+> constraints, donor exclusions, and installed proof requirements remain
+> evidence carried into T-287. The former implementation hold and three-gate
+> sequence no longer select work.
+>
+> **Prior disposition (2026-07-31):** Direct F_H approved the bounded
 > ABIogenesis 5.0 release route and selected its pre-Gate-1 authority setup.
 > Exact authority baseline `8a4630e8`, tree `0e5281c2`, is frozen and
 > verified. Direct F_H accepted exact construction census blob `efe88cac` and
@@ -25,7 +32,12 @@
 - type: feature
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
-- status: active
+- status: superseded
+- superseded_by: T-287
+- retirement_reason: >-
+    redundant scenario-first execution surface replaced by the single
+    feature-wave delivery ticket; its correct 18/56 construction and
+    migration constraints are retained by reference and restatement
 - phase_status: m5_s06_increment_0a_falsifier_baseline
 - review_status: constructability_and_authority_pass
 - proof_status: gate_1_accepted_increment_0a_baseline_pending
@@ -59,7 +71,7 @@
 - triaged_at: 2026-07-24
 - current_reentry_selected_at: 2026-07-31
 - created_at: 2026-07-16
-- updated_at: 2026-07-31
+- updated_at: 2026-08-01
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
