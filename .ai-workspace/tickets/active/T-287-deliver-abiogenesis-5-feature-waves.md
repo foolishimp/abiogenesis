@@ -11,7 +11,7 @@
     immutable 4.6, accepted 5.0 commits, and rejected branches are selective
     donor evidence rather than a separate governing library
 - status: active
-- phase_status: w1_1a_coding_plan_pending
+- phase_status: w1_1a_build_pending
 - review_status: wave_1_not_frozen
 - proof_status: increment_0a_accepted_wave_1_green_evidence_pending
 - goal: GOAL-035
@@ -41,7 +41,7 @@
 - selected_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_product_outcome: A5-F10
 - selected_product_slice: W1.1a_scoped_artifact_truth
-- selected_slice_cycle_stage: coding_plan
+- selected_slice_cycle_stage: build
 - selected_slice_acceptance_interval: >-
     artifact event admission through installed fresh-process Event Calculus
     projection for one exact artifact authority scope
@@ -352,6 +352,59 @@ migration is required.
 
 This receipt authorizes one replacement coding plan only. Production, tests,
 packages, fixtures, candidate basis, and implementation commits remain held.
+
+### W1.1a Coding-Plan Approval Receipt
+
+The replacement coding plan at authority baseline `75f81f27` is accepted with
+the constraints below.
+
+Approved production surface:
+
+- add narrow store-free `abg/artifact_truth.ts` transition types and reducer;
+- add `abg/artifact_projection.ts` as the sole exact-prefix Event Calculus
+  artifact fold and projection;
+- add only generic non-closing current-prefix verification and coordinate
+  mechanics to `abg/event_store.ts`;
+- replace the unscoped artifact effect and extend the existing replay loop
+  without a second raw-event pass;
+- thread predecessor, successor, typed result, and projection through the
+  three current artifact owners;
+- add only the closed catalog-operation scope-evidence payload variant;
+- migrate all 18 named `hasAdmittedProductInstall` readers atomically; and
+- export only accepted carriers and projection functions through `./abg`.
+
+Approved proof surface:
+
+- AX-F04 adapter wiring only, with its relation identity, mutation, oracle,
+  two-scope topology, conflicting values, and masking controls preserved
+  exactly;
+- one focused installed proof for two-scope coexistence, pre-append refusal,
+  paired unrelated-run equality, fresh-process canonical equality,
+  replay idempotence/duplicate refusal, and catalog scope reconstruction; and
+- proportional existing reopen, workspace, catalog, portability, installed,
+  HoG, continuation, invocation, M4/M5, and Increment 0A regression lanes.
+
+Approval constraints:
+
+1. The catalog owner returns a successor prefix projected after its complete
+   preserved artifact-first and registry-row sequence, not the intermediate
+   artifact-event prefix.
+2. AX-F04 semantic evidence is exact; “where practicable” does not permit any
+   oracle, mutation, mask, relation, or scenario change.
+3. BUILD performs implementation plus mechanical build, syntax, diff, export,
+   and package-shape checks only. Semantic, installed, falsifier, and regression
+   tests remain held until the frozen candidate passes CODE REVIEW.
+4. Candidate-basis values refresh exactly once after stable production and
+   package bytes exist; they carry no semantic precedent.
+
+Raw-event or mutable-store projection, Event Store artifact policy, duplicate
+folds, operation-partitioned collision, metadata bags, leases, batch/framing
+redesign, reconciliation, runtime-catalog projection, catalog view/application
+migration, new event kinds, compatibility paths, and unrelated semantics remain
+prohibited.
+
+This approval admits one coherent BUILD candidate. It does not authorize test
+execution or semantic acceptance.
 
 ### 4. Approval
 
