@@ -11,7 +11,7 @@
     immutable 4.6, accepted 5.0 commits, and rejected branches are selective
     donor evidence rather than a separate governing library
 - status: active
-- phase_status: w1_1a_build_pending
+- phase_status: w1_1a_bootstrap_design_reentry_pending
 - review_status: wave_1_not_frozen
 - proof_status: increment_0a_accepted_wave_1_green_evidence_pending
 - goal: GOAL-035
@@ -41,7 +41,7 @@
 - selected_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_product_outcome: A5-F10
 - selected_product_slice: W1.1a_scoped_artifact_truth
-- selected_slice_cycle_stage: build
+- selected_slice_cycle_stage: design
 - selected_slice_acceptance_interval: >-
     artifact event admission through installed fresh-process Event Calculus
     projection for one exact artifact authority scope
@@ -405,6 +405,36 @@ prohibited.
 
 This approval admits one coherent BUILD candidate. It does not authorize test
 execution or semantic acceptance.
+
+### W1.1a BUILD Block And Prefix-Bootstrap Re-Entry
+
+BUILD stopped before edits at `3b0c7181`. Live code creates an in-memory
+`AbgEventStore` in `createRootOperationContext`; product install, workspace
+binding, and catalog admission execute before `applyRunInvoke` first configures
+a durable log. No exact durable predecessor therefore exists for the first
+artifact owner, and retrospective persistence cannot prove its pre-admission
+prefix.
+
+The bounded design re-entry may decide only the missing bootstrap relation:
+
+```text
+explicit caller-supplied event-log path
+  -> ABG owner-internal empty durable-store initialization
+  -> verified empty DurablePrefixCoordinate
+  -> first effectful owner request
+```
+
+The initializer admits no event and mints no runtime, artifact, Product, or
+Public truth. It must fail closed on an existing, aliased, non-file,
+unavailable, or non-exclusive target and return one closed typed result. The
+caller, not `RootOperationContext`, an environment default, temporary path, or
+install target, owns path selection. No new Public operation is added. The
+already accepted explicit-prefix field enters the first effectful operation
+and successor coordinates thread through later owners.
+
+This re-entry does not authorize production, tests, packages, fixtures,
+candidate basis, a hidden path policy, context-owned durable truth, lifecycle
+repricing, or any previously excluded relation.
 
 ### 4. Approval
 
