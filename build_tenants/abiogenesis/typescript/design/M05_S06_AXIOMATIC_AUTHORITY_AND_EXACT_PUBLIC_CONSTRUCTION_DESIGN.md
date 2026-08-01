@@ -196,7 +196,7 @@ Product, ABG, and HoG owner ports.
 | `ReopenExactAppendSinkRequest` | closed acquisition input | concrete effectful owner/caller | `EventStoreReopenAuthority` plus equal `DurablePrefixCoordinate` | reacquires append capability for exactly that prefix; cannot create or select a later tail |
 | `ProductInstallPort.install` | existing concrete callable owner | Product install | exact install request/result contract | directly constructs and admits install artifact candidate; no dispatcher |
 | `ProductEnvironmentPort.bindWorkspace` | existing concrete callable owner | Product environment | exact workspace-binding request/result contract | directly constructs and admits binding artifact candidate; no dispatcher |
-| `CatalogOperationPort.admit` | existing concrete callable owner, blocked in W1.1a | Product catalog | exact catalog-admission request/result contract | direct catalog candidate owner; artifact-scope branch unavailable until AX-W1A-06 closes |
+| `CatalogOperationPort.admit` | existing concrete callable owner | Product catalog | exact catalog-admission request/result contract | directly constructs and admits canonical catalog-row candidates; no dispatcher |
 | `projectExactPrefixArtifactTruth` | pure Event Calculus callable | ABG Event Calculus projector | explicit coordinate to immutable projection/refusal | sole artifact read/projection relation; eventless and owner-free |
 | `appendAdmittedRuntimeEvent` | narrow effect callable | ABG Event Store | append sink, expected predecessor, initiated event | compares coordinate and admits one event; owns no semantic decision |
 | `ArtifactAdmissionCandidate` | proposed semantic value | `ProductInstallPort.install`, `ProductEnvironmentPort.bindWorkspace`, or `CatalogOperationPort.admit` | operation, definition, stable scope, artifact, digest, and causation fields | exists before runtime admission; not runtime truth |
@@ -206,7 +206,8 @@ Product, ABG, and HoG owner ports.
 | `ExactPrefixArtifactTruthProjection` | immutable read carrier | Event Calculus projector | verified coordinate, ordered held rows, projection ref/digest | pure eventless reconstruction from exact durable bytes; no append sink or reopen authority |
 | `ArtifactAdmissionBasis` | owner request component | each of `ProductInstallPort.install`, `ProductEnvironmentPort.bindWorkspace`, and `CatalogOperationPort.admit` supplies; ABG verifies | exact predecessor `DurablePrefixCoordinate` | binds one proposed admission to the durable prefix evaluated by Event Calculus |
 | `ArtifactOwnerResult` | owner result extension | those same three named boundaries | admitted/idempotent/semantic-refusal result with explicit successor, or coordinate refusal with no claimed successor | admitted returns appended successor; idempotent/semantic refusal returns verified predecessor unchanged; stale/unverified coordinate returns no successor |
-| `CatalogStableAuthorityScope` | unresolved required identity | Product/requirement authority | stable catalog collision locus not selected by accepted authority | blocks catalog-scope admission only; Section 5.5 owns the gap |
+| `CatalogStableAuthorityScope` | canonical catalog-row collision identity | Product contribution law plus stable workspace authority | `workspaceId + kind + handle`, where kind is the existing contribution kind | same locus equal content is idempotent; unequal required content conflicts; distinct locus coexists |
+| `CatalogAdmissionAuthorityScopeEvidence` | closed candidate/event evidence | `CatalogOperationPort.admit` constructs; Event Calculus consumes initiated subset | sorted canonical row scope refs/digests plus exact Product/binding/lock/publication/row comparison content | complete candidate evidence is preflighted; only initiated subset enters admitted boundary event |
 
 Authority is singular:
 
@@ -220,7 +221,7 @@ read:
 write:
   ProductInstallPort.install
     | ProductEnvironmentPort.bindWorkspace
-    | authorized CatalogOperationPort.admit
+    | CatalogOperationPort.admit
     constructs ArtifactAdmissionCandidate
     + predecessor DurablePrefixCoordinate
     + already-held EventStoreAppendSink
@@ -247,7 +248,7 @@ or closure question.
 | `ReopenExactAppendSinkRequest` | concrete effect caller constructs | existing-prefix-only acquisition | exhausted on result | authority/coordinate/file mismatch refuses | canonical fresh-process write reacquisition | request discarded |
 | `ProductInstallPort.install` | accepted Product family declares | existing direct call | project, construct install candidate, decide, optionally append | typed Product/coordinate refusal | caller may reuse durable result in fresh process | call returns; no retained controller state |
 | `ProductEnvironmentPort.bindWorkspace` | accepted Product family declares | existing direct call | project, construct binding candidate, decide, optionally append | typed Product/coordinate refusal | caller may reuse durable result in fresh process | call returns; no retained controller state |
-| `CatalogOperationPort.admit` | accepted Product family declares | existing direct call | blocked before artifact-scope construction | AX-W1A-06 refusal/block | no catalog scope handoff yet | Product/requirement re-entry required |
+| `CatalogOperationPort.admit` | accepted Product family declares | existing direct call | project, construct sorted row candidates, decide all, append initiated subset | any same-locus unequal row refuses before append | caller may reuse durable result in fresh process | call returns; no retained controller state |
 | `projectExactPrefixArtifactTruth` | Section 5.4 declares | no effect acquisition | verify bytes and apply EC | typed coordinate/history refusal | equal prefix reconstructs equal result | closes read descriptor on return |
 | `appendAdmittedRuntimeEvent` | existing Event Store admission seam narrows | requires held append sink | compare, stamp, append, project successor | stale/unverifiable predecessor refuses without successor | successor coordinate is durable | sink remains under existing context until existing close |
 | `ArtifactAdmissionCandidate` | selected named port constructs | no acquisition | pure transition consumes value | invalid/conflict returns typed owner refusal | may be reconstructed from caller inputs, but is not a handoff | discarded after decision |
@@ -257,7 +258,8 @@ or closure question.
 | `ExactPrefixArtifactTruthProjection` | pure projector declares closed carrier | direct coordinate read, no sink acquisition | read-only consumer input | typed exact-prefix/history refusal | fresh process reproduces canonical equal carrier | discardable read model |
 | `ArtifactAdmissionBasis` | selected named port binds predecessor | no separate acquisition | verified before transition and immediately before initiated append | stale/mismatch refuses | durable value may cross process with owning request | exhausted by that named port call |
 | `ArtifactOwnerResult` | selected named port returns it | none | caller threads explicit successor to the next named port only when non-null | idempotent/semantic refusal returns unchanged verified predecessor; prefix or stale-preappend refusal returns no successor | non-null successor may be serialized for read or paired with close authority for later write | result discarded after threading or refusal stops the write chain |
-| `CatalogStableAuthorityScope` | unresolved | blocked | blocked | AX-W1A-06 fail | no evidence field admitted | Product/requirement re-entry must define supersession/retirement |
+| `CatalogStableAuthorityScope` | contribution row declares handle/kind under workspace | EC reconstructs from admitted catalog boundary evidence | exact equal row idempotent; initiated distinct row coexists | unequal same workspace/kind/handle refuses before append | durable event evidence reconstructs in fresh process | immutable initial-admission locus; no supersession transition |
+| `CatalogAdmissionAuthorityScopeEvidence` | catalog port constructs from verified carriers | no effect acquisition | sorted row preflight; initiated subset admitted | malformed/duplicate/unequal evidence refuses before append | initiated evidence reconstructs equal rows from event | candidate discarded; admitted evidence retained in history |
 
 #### 5.0.2 Domain view
 
@@ -284,9 +286,8 @@ classDiagram
   class ExactPrefixArtifactTruthProjection
   class ArtifactAdmissionBasis
   class ArtifactOwnerResult
-  class CatalogStableAuthorityScope {
-    <<unresolved>>
-  }
+  class CatalogStableAuthorityScope
+  class CatalogAdmissionAuthorityScopeEvidence
 
   NewEmptyAppendSinkRequest --> EventStoreAppendSink : creates empty
   ReopenExactAppendSinkRequest --> EventStoreReopenAuthority : verifies
@@ -296,7 +297,11 @@ classDiagram
   ArtifactAdmissionBasis *-- DurablePrefixCoordinate : predecessor
   ProductInstallPort_install --> ArtifactAdmissionCandidate : constructs
   ProductEnvironmentPort_bindWorkspace --> ArtifactAdmissionCandidate : constructs
-  CatalogOperationPort_admit --> ArtifactAdmissionCandidate : blocked by AX-W1A-06
+  CatalogOperationPort_admit --> ArtifactAdmissionCandidate : one per canonical row
+  CatalogOperationPort_admit --> CatalogAdmissionAuthorityScopeEvidence : constructs
+  CatalogAdmissionAuthorityScopeEvidence --> CatalogStableAuthorityScope : reconstructs
+  CatalogAdmissionAuthorityScopeEvidence --> RuntimeEvent : initiated subset only
+  CatalogStableAuthorityScope --> ArtifactTruthTransition : global row key
   projectExactPrefixArtifactTruth --> ExactPrefixArtifactTruthProjection : returns
   projectExactPrefixArtifactTruth --> DurablePrefixCoordinate : verifies
   appendAdmittedRuntimeEvent --> EventStoreAppendSink : requires
@@ -331,10 +336,11 @@ sequenceDiagram
     Bind->>EC: projectExactPrefixArtifactTruth(predecessor)
     EC-->>Bind: held projection or typed refusal
     Bind->>Law: evaluate(held rows, binding candidate)
-  else CatalogOperationPort.admit after AX-W1A-06 closes
+  else CatalogOperationPort.admit
     Catalog->>EC: projectExactPrefixArtifactTruth(predecessor)
     EC-->>Catalog: held projection or typed refusal
-    Catalog->>Law: evaluate(held rows, catalog candidate)
+    Catalog->>Catalog: construct sorted scope evidence and row candidates
+    Catalog->>Law: evaluate every sorted workspace kind handle row candidate
   end
   alt initiated
     Law-->>Store: initiated event, sink, expected predecessor
@@ -344,7 +350,7 @@ sequenceDiagram
         Store-->>Install: coordinate refusal; no successor
       else binding selected
         Store-->>Bind: coordinate refusal; no successor
-      else authorized catalog selected
+      else catalog selected
         Store-->>Catalog: coordinate refusal; no successor
       end
     else exact predecessor
@@ -353,7 +359,7 @@ sequenceDiagram
         EC-->>Install: admitted-event successor projection and coordinate
       else binding selected
         EC-->>Bind: admitted-event successor projection and coordinate
-      else authorized catalog selected
+      else catalog selected
         EC-->>Catalog: admitted-event successor projection and coordinate
       end
     end
@@ -362,7 +368,7 @@ sequenceDiagram
       Law-->>Install: held row plus unchanged predecessor
     else binding selected
       Law-->>Bind: held row plus unchanged predecessor
-    else authorized catalog selected
+    else catalog selected
       Law-->>Catalog: held row plus unchanged predecessor
     end
     Note over Install,Store: no append
@@ -371,7 +377,7 @@ sequenceDiagram
       Law-->>Install: typed conflict plus unchanged predecessor
     else binding selected
       Law-->>Bind: typed conflict plus unchanged predecessor
-    else authorized catalog selected
+    else catalog selected
       Law-->>Catalog: typed conflict plus unchanged predecessor
     end
     Note over Install,Store: no append
@@ -398,9 +404,14 @@ stateDiagram-v2
   PrefixAvailable --> PureProjection : read exact durable bytes
   PureProjection --> PrefixAvailable : projection or typed refusal; no event
   PrefixAvailable --> SinkAcquired : new-empty or exact reopen for write
-  SinkAcquired --> Deciding : selected install bind or authorized catalog port applies pure transition
+  SinkAcquired --> Deciding : install or bind port applies pure transition
+  SinkAcquired --> CatalogRowPreflight : catalog port sorts and evaluates every canonical row
   Deciding --> PrefixUnchanged : idempotent or refused
   Deciding --> PreappendCheck : initiated only
+  CatalogRowPreflight --> PrefixUnchanged : all idempotent; no append
+  CatalogRowPreflight --> CatalogConflictRefused : unequal same workspace kind handle
+  CatalogConflictRefused --> PrefixUnchanged : typed refusal; no append
+  CatalogRowPreflight --> PreappendCheck : initiated subset after all rows pass
   PreappendCheck --> WriteRefusedNoSuccessor : stale coordinate refusal; no append
   PreappendCheck --> SuccessorAvailable : admitted append returns successor
   PrefixUnchanged --> SinkAcquired : caller threads unchanged predecessor
@@ -527,7 +538,7 @@ not import ArtifactTruthTransition, select an artifact disposition, query
 catalog/run truth, or expose its cached events as read authority.
 
 Each request to `ProductInstallPort.install`,
-`ProductEnvironmentPort.bindWorkspace`, or the eventually authorized
+`ProductEnvironmentPort.bindWorkspace`, or
 `CatalogOperationPort.admit` carries:
 
     {
@@ -607,9 +618,12 @@ Different keys/scopes coexist. Reuse of the same scope reference with a
 different scope digest, definition digest, artifact reference, or artifact
 digest refuses before append. No Public layer emits this event.
 
-The catalog instance of this relation remains blocked by Section 5.5 because
-its stable scope reference cannot yet be constructed. This general artifact
-law does not authorize a catalog evidence field or catalog artifact append.
+For catalog admission, Section 5.5 specializes this relation to the accepted
+workspace/kind/handle row identity and its initiated-row event evidence. The
+catalog payload variant carries its authorityScopeRef/digest values inside the
+closed row evidence array; the singular top-level authorityScopeRef/digest
+fields are forbidden for that variant and cannot preserve the old aggregate
+workspace-binding scope.
 
 ### 5.4 CP-F01 exact-prefix artifact truth and threading
 
@@ -783,12 +797,10 @@ The domain
 contract; this wrapper does not alter its content identity. No other producer
 or result contract changes.
 
-After Section 5.5's authority gap closes, catalog idempotence must use the
-following already bounded relation. It is not currently constructable or
-authorized. The preserved catalog admission relation selects
+For catalog idempotence, the preserved catalog admission relation selects
 the already-admitted catalog caused by the held artifact event and joins its
 existing `registry_entry_admitted` events. The candidate catalog identity,
-digest, complete handle/row-digest set, and dispositions must be exactly equal.
+digest, complete kind/handle/row-digest set, and dispositions must be exactly equal.
 The owner returns the equal `AdmittedCatalog` with the original catalog and row
 admission refs, unchanged predecessor/successor, and no append. Missing,
 duplicate, unequal, or non-admitted preserved rows return exactly:
@@ -801,6 +813,7 @@ CatalogIdempotenceHistoryRefusal = {
   code: "catalog_idempotence_history_mismatch",
   catalogAdmissionEventRef,
   issues: readonly {
+    kind: "graph_function" | "node_type" | "overlay",
     handle,
     code:
       | "registry_row_missing"
@@ -813,7 +826,8 @@ CatalogIdempotenceHistoryRefusal = {
 }
 ```
 
-Issues are non-empty, unique, and code-unit sorted by handle then code; event refs are
+Issues are non-empty, unique by kind/handle/code, and code-unit sorted by kind,
+handle, then code; event refs are
 unique and code-unit sorted. This refusal is included only in the
 `CatalogOperationPort.admit` instantiation's `Refusal` parameter. It does not
 reinterpret `candidate_not_constructed`, `candidate_digest_mismatch`, or
@@ -849,74 +863,199 @@ Those rows account for all 18 callers. Projection refusal follows each
 caller's existing typed owner-refusal path; no caller answers admission without
 a successful projection.
 
-### 5.5 CP-F02 catalog authority scope — unresolved authority
+### 5.5 CP-F02 canonical catalog-row authority scope
 
-The accepted authority does not supply a stable catalog collision locus.
-Therefore CP-F02 and AX-W1A-06 remain failed. No catalog authority-scope
-reference, digest preimage, evidence field, or artifact admission may be
-constructed from the previously proposed binding, lock, Product, or module
-identities.
+Accepted Product authority already selects the stable collision locus.
+REQ-P-INSTALL-008 and REQ-P-INSTALL-049 supply the stable workspace identity.
+REQ-P-CATALOG-005 supplies canonical contribution handle and kind.
+REQ-P-CATALOG-016 and REQ-P-CATALOG-017 define conflict and exact
+idempotence for that canonical row identity.
 
-The source-addressed authority audit is:
+The live carrier equation is exact:
 
-| Source authority | Exact law | Consequence |
-|---|---|---|
-| specification/requirements/product/REQ-P-INSTALL.md, REQ-P-INSTALL-049 | workspace binding is admitted over one stable workspace-authority basis | workspace identity is stable within one binding locus, but this does not identify one logical catalog publication family |
-| specification/requirements/product/REQ-P-CATALOG.md, REQ-P-CATALOG-001..002 | Product descriptor is immutable and versioned; different descriptor/contribution/artifact content cannot reuse one product/version identity | owning Product identity is version/content-bound, not a stable family locus |
-| specification/requirements/product/REQ-P-CATALOG.md, REQ-P-CATALOG-005 | each contribution row carries owning Product and exact declaration/contract identity | contribution content is evidence under a locus, not the locus itself |
-| specification/requirements/product/REQ-P-CATALOG.md, REQ-P-CATALOG-011..013 | resolved lock is immutable and different resolution creates a new lock identity | lock ID/digest is content-derived and cannot define stable collision identity |
-| specification/requirements/product/REQ-P-CATALOG.md, REQ-P-CATALOG-016..017 | same canonical row with different owning/declaration/content identity conflicts; exact re-admission is idempotent | row conflict law exists, but no module/catalog-family stable scope or lifecycle is selected |
-| build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md, ModulePublication lifecycle row | changed Module publication version or digest creates a new identity and supersedes the prior publication | moduleRef is version/content-derived and cannot silently be treated as invariant |
-| specification/PRODUCT.md, excluded lifecycle | installed-product update, unbind, retirement, revocation, and supersession beyond initial installation/binding are excluded | design cannot invent a catalog replacement transition to repair the missing stable locus |
+- WorkspaceBinding.workspaceId is the stable workspace identity
+  (product/environment.ts:88-101,113-130).
+- CatalogContribution and ProductContributionManifestRow carry handle, kind,
+  declarationOrContractRef, and owningProductId
+  (gtl/contracts.ts:458-466; product/contracts.ts:20-31).
+- CatalogRowCandidate carries those fields plus moduleRef, membership,
+  readiness, compatibility, provenance, and rowDigest
+  (product/catalog.ts:27-45).
+- constructCatalogAdmissionCandidate proves the publication against the bound
+  lock and manifest, matches declared rows by handle, and constructs rowDigest
+  over the complete row body (product/catalog.ts:285-360,418-449).
+- publication validation rejects duplicate contribution handles and validates
+  kind-specific declaration/contract membership
+  (validator/validation.ts:430-520).
+- current catalog admission incorrectly compares the artifact basis to the
+  aggregate workspaceBindingId/workspaceBindingDigest before admitting one
+  catalog boundary event (abg/catalog_admission.ts:188-210); this is the exact
+  aggregate-scope path CP-F02 replaces.
+- existing registry_entry_admitted events already carry handle and rowDigest
+  for every admitted row (abg/catalog_admission.ts:213-244); they remain the
+  row catalog projection evidence caused by the corrected boundary event.
 
-The former candidate preimage
-workspaceBindingId + owningProductId + lockId + moduleRef is invalid because
-every member except the underlying workspace basis can change with admitted
-content. Moving any of those members between reference and digest does not
-supply the missing logical identity.
+The stable preimage is therefore exactly:
 
-The smallest exact requirement_reprice proposal is:
+    CatalogContributionAuthorityScopeRefPreimage = {
+      workspaceId,
+      kind,
+      handle
+    }
 
-1. Add one Product catalog requirement declaring
-   CatalogPublicationSlotId as the stable logical publication-family identity
-   within a stable workspace authority. Its canonical preimage is exactly
-   workspaceId + publisherNamespace + productName + moduleLogicalName, where
-   publisherNamespace, productName, and moduleLogicalName are explicit
-   publisher-authored identity fields independent of Product version,
-   descriptor/content digest, lock, binding, and moduleRef.
-2. Require every ModulePublication and catalog admission candidate to bind one
-   such slot ID. The content digest separately binds workspaceBindingId/digest,
-   exact owning Product identity/version, lock ID/digest, moduleRef, descriptor,
-   contribution manifest, and publication digest.
-3. For ABIogenesis 5.0 initial admission, an unclaimed slot may initiate, exact
-   equal content is idempotent, and unequal content in the same slot refuses
-   before append. Slot supersession and retirement are not available in 5.0;
-   a later Product version may replace a claimed slot only after a separately
-   admitted requirement and event transition defines supersession. History is
-   retained.
-4. Add the corresponding ModulePublication field and lifecycle law to Product
-   and M03 design before returning to this CP-F02 construction.
+where kind and handle are exactly CatalogRowCandidate.kind and
+CatalogRowCandidate.handle. No carrier discriminator or schema version enters
+the canonical catalog identity. authorityScopeRef is the canonical
+digest-derived reference of that preimage. Kind is part of the identity because
+REQ-P-CATALOG-005 names both handle and contribution kind, and the public
+catalog law distinguishes graph_function, node_type, and overlay. A different
+workspaceId, kind, or handle is a distinct lawful row, not
+supersession.
 
-This is a proposal only. It is not current authority and authorizes no edit
-outside this design.
+The exact comparison preimage is:
 
-Blocked W1.1a relations:
+    CatalogContributionAuthorityScopeDigestPreimage = {
+      kind: "catalog_contribution_authority_scope",
+      schemaVersion: "5.0.0",
 
-- construction of catalog authorityScopeRef and authorityScopeDigest;
-- CatalogAdmissionAuthorityScopeEvidence and its event payload field;
-- catalog-specific same-scope conflict/idempotence decision;
-- CatalogOperationPort.admit artifact-truth admission; and
-- AX-W1A-06 acceptance.
+      workspaceId,
+      authorityBasisId,
+      authorityBasisDigest,
+      workspaceBindingId,
+      workspaceBindingDigest,
 
-Independently design-closed relations:
+      publisherNamespace,
+      owningProductId,
+      packageVersion,
+      descriptorRef,
+      contributionManifestRef,
+      contributionManifestDigest,
+      artifactDigest,
+      productContentDigest,
+      manifestDigest,
+      productManifestDigest,
 
-- exact-prefix pure Event Calculus projection for all artifact events already
-  having lawful scope identities;
-- product-install and workspace-binding artifact admission;
-- the store-free ArtifactTruthTransition;
-- initiated-only Event Store append and explicit successor-coordinate
-  threading; and
-- fresh-process, eventless artifact reads.
+      lockId,
+      lockDigest,
+
+      moduleRef,
+      publicationDigest,
+      publicationValidationRef,
+      programValidationRefs,
+
+      row: {
+        handle,
+        kind,
+        declarationOrContractRef,
+        owningProductId,
+        moduleRef,
+        rowDigest,
+        programMembershipRefs,
+        readinessPrerequisiteRefs,
+        readiness,
+        eligibility,
+        callability,
+        sessionVisibility,
+        compatibilityDisposition,
+        compatibilityRefs,
+        provenanceRefs
+      }
+    }
+
+authorityScopeDigest is the canonical digest of this preimage. Every field is
+already present in WorkspaceBinding, ResolvedProductLockRow,
+ModulePublication, CatalogAdmissionCandidate, or CatalogRowCandidate. No new
+identity class or publisher-authored field is introduced.
+
+The comparison members are deliberately not stable-ref members:
+
+- authorityBasis, binding, and lock fields prove the exact admitted workspace
+  content under the stable workspaceId;
+- publisher, Product/version, descriptor, contribution manifest, artifact,
+  product-content, and manifest fields prove REQ-P-CATALOG-014..017 Product
+  identity and bytes;
+- moduleRef, publicationDigest, publicationValidationRef, and
+  programValidationRefs prove the exact publication and its validation;
+- declaration/contract, rowDigest, membership, readiness, compatibility, and
+  provenance prove the exact contribution row.
+
+CatalogAdmissionCandidate.candidateId and candidateDigest are excluded from the
+row comparison. They digest the aggregate catalog candidate, so including them
+would make an unrelated distinct handle change collide with an unchanged row.
+
+The Product candidate carries a closed, code-unit-sorted row evidence array:
+
+    CatalogAdmissionAuthorityScopeEvidence = {
+      kind: "catalog_admission_authority_scope_evidence",
+      schemaVersion: "5.0.0",
+      rows: readonly CatalogContributionAuthorityScopeEvidence[]
+    }
+
+    CatalogContributionAuthorityScopeEvidence = {
+      ...CatalogContributionAuthorityScopeDigestPreimage,
+      authorityScopeRef,
+      authorityScopeDigest
+    }
+
+Rows are unique and sorted by row.kind then row.handle. Before any catalog
+artifact append, CatalogOperationPort.admit constructs one proposed
+ArtifactAdmissionCandidate per evidence row with:
+
+    authorityScopeRef    = evidence.authorityScopeRef
+    authorityScopeDigest = evidence.authorityScopeDigest
+    artifactRef          = evidence.row.handle
+    artifactDigest       = evidence.row.rowDigest
+
+It projects held Event Calculus truth at the explicit predecessor and applies
+the one Section 5.6 ArtifactTruthTransition to every proposed row in sorted
+order before the first append:
+
+- any refused row returns typed ArtifactTruthConflictRefusal and appends
+  nothing;
+- all idempotent rows select the preserved exact catalog and registry-row
+  history and append nothing;
+- initiated rows permit the existing single catalog boundary event and existing
+  registry_entry_admitted row events; the boundary event carries only the
+  initiated row evidence, and Event Calculus applies the same admitted
+  transition to those rows;
+- a mixture of idempotent and initiated distinct rows is lawful only when every
+  idempotent row joins its exact admitted registry event and every initiated row
+  is a previously unclaimed workspace/kind/handle locus.
+
+The existing public_operation_artifact_admitted catalog payload is
+exact-contract-rewritten only at its scope carrier:
+
+    catalogAdmissionInitiatedScopeEvidence:
+      readonly CatalogContributionAuthorityScopeEvidence[]
+
+This array is non-empty, unique, and code-unit sorted by row.kind then
+row.handle, and is exactly the initiated subset of the verified candidate
+evidence. It is required for an appended abg.operation.catalog.admit boundary
+event and forbidden for every other operation. In this catalog payload variant,
+the singular top-level authorityScopeRef and authorityScopeDigest fields are
+forbidden; artifactRef/artifactDigest retain the catalog candidate ID/digest
+only as catalog carrier identity and do not key artifact truth. Event Calculus
+combines the admitted event's common operation/definition/causation fields with
+each initiated evidence row to form the admitted Section 5.6 candidate. It
+therefore derives one held ArtifactTruthRow per initiated canonical catalog
+row. Idempotent rows never re-enter Event Calculus as a new admitted fact. This
+is no new event kind, metadata bag, catalog view, batch, lease, or supersession
+protocol.
+
+The comparison law is total:
+
+- same authorityScopeRef plus exact equal authorityScopeDigest and row evidence
+  is idempotent;
+- same authorityScopeRef plus any unequal required identity/content field is a
+  typed conflict before append;
+- distinct workspaceId, kind, or handle is a distinct row and may
+  coexist;
+- catalog order, install order, module order, and aggregate candidate identity
+  cannot shadow or merge rows.
+
+No update, retirement, or supersession law is needed: this is initial
+workspace-local row admission and conflict law already required by
+REQ-P-CATALOG-016..017.
 
 
 ### 5.6 CP-F03 single artifact-truth transition
@@ -996,7 +1135,7 @@ write:
     -> Event Calculus held projection
     -> ProductInstallPort.install candidate
        | ProductEnvironmentPort.bindWorkspace candidate
-       | authorized CatalogOperationPort.admit candidate
+       | CatalogOperationPort.admit candidate
     -> ArtifactTruthTransition proposed branch
     -> initiated only -> Event Store append ingress
 
@@ -1024,7 +1163,7 @@ Store append nor Event Calculus as a new fact.
 This amendment changes only the read/write authority split, disjoint new-empty
 and exact-reopen write acquisition, bypass deletion, exact artifact projection
 and its 18 reader threads, explicit predecessor/successor threading for the
-current artifact owners, the blocked catalog-scope disposition, and the single
+current artifact owners, canonical catalog-row scope evidence, and the single
 pure transition. It preserves the current single-event append implementation,
 event batching/durability semantics, event-kind census, catalog admission
 sequencing, catalog runtime projection, catalog view/application code and
@@ -1033,8 +1172,10 @@ owner/Public contracts and direct named owner invocation. It adds no
 semantic owner, controller, router, episode family, lease, batch frame, atomic catalog batch,
 fsync reconciliation, indeterminate result, full candidate embedding, or new
 event kind, poison state, retry-close, or recovery protocol. Existing schemas
-remain unchanged. Section 5.5 authorizes no catalog evidence field. Any concern
-outside these relations is deferred rather than solved here.
+remain unchanged except for the catalog-only scope-carrier rewrite in Section
+5.5: singular aggregate scope fields retire for that variant and the closed
+initiated-row evidence array replaces them. Any concern outside these relations
+is deferred rather than solved here.
 
 ### 5.8 AX-W1A-01..11 cross-view evaluation
 
@@ -1045,17 +1186,16 @@ outside these relations is deferred rather than solved here.
 | `AX-W1A-03 complete episode lifecycle` | no new episode entity; 5.0.1 covers existing sink and coordinate create/reopen/use/handoff/close | 5.0.4 covers existing write acquisition and handoff plus independent read | existing create/reopen/project-close functions only | no semantic lifecycle event invented | `pass` | none; satisfied by existing Event Store resource lifecycle, not a second runtime |
 | `AX-W1A-04 new versus existing-prefix disjointness` | distinct request entities | state has distinct new-empty and exact-reopen entrances | 5.2.1 closed disjoint functions with no fallback | neither acquisition admits truth | `pass` | none |
 | `AX-W1A-05 owner continuity and replacement prohibition` | one narrow append sink, never read authority | sink held through compare/append/close | configure/create/store replacement bypasses deleted | Event Store guards append only | `pass` | none |
-| `AX-W1A-06 stable catalog collision identity` | stable locus explicitly unresolved | catalog write sequence cannot lawfully instantiate scope | no scope/evidence schema authorized | catalog artifact admission blocked | `fail` | Product/requirement re-entry in 5.5 |
+| `AX-W1A-06 stable catalog collision identity` | 5.0/5.5 exact `workspaceId + kind + handle` locus | catalog branch preflights every sorted row before append; state uses ordinary initiated/idempotent/refused path | existing WorkspaceBinding, CatalogRowCandidate, lock/publication carriers; one closed initiated-row evidence field | equal same-locus content idempotent; any unequal required content conflicts before append; distinct locus coexists | `pass` | none |
 | `AX-W1A-07 refusal before artifact append` | pure transition distinct from sink/event | idempotent/refused branches bypass append | 5.6 proposed branch precedes append ingress | initiated only reaches Event Store | `pass` | none |
 | `AX-W1A-08 fresh-process reconstruction equality` | coordinate-owned projection needs no sink | separate pure-read sequence | read-only exact-byte projector | EC consumes same admitted prefix in fresh process | `pass` | none |
-| `AX-W1A-09 producer/consumer lifecycle closure` | three producers and 18 readers remain concrete | direct owner write and pure read paths close, but catalog producer scope does not | Product install/workspace/read threading closed; catalog signature blocked | catalog admission cannot append lawfully | `fail` | inherits AX-W1A-06 only |
+| `AX-W1A-09 producer/consumer lifecycle closure` | three named producers and 18 readers remain concrete | direct install/bind/catalog write branches and pure read path close | all three owner requests/results thread exact predecessor/successor; readers take projection only | catalog row evidence closes producer admission and fresh-process EC reconstruction | `pass` | none |
 | `AX-W1A-10 alternate creation/reopen bypass closure` | only two disjoint write-acquisition inputs | no replacement/default state | 5.2.1 deletion list removes configure/raw/store paths | reads never acquire sink; writes cannot bypass predecessor compare | `pass` | none |
 | `AX-W1A-11 scope and feature conservation` | only W1.1a carriers and existing owners | no new semantic sequence | 5.7 prohibits controller/protocol/schema growth | no Public operation or event kind added | `pass` | none |
 
-AX-W1A-06 and its dependent catalog-producer portion of AX-W1A-09 remain
-failed. The independently closed rows authorize no implementation while either
-applicable row remains failed. These verdicts are construction claims for
-independent review, not self-approval.
+All eleven rows now have candidate pass evidence across ontology, lifecycle,
+domain, sequence, state, native, and admission views. These are construction
+claims for independent review, not self-approval or implementation authority.
 
 ## 6. Catalog Authority
 
