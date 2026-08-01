@@ -11,8 +11,8 @@
     immutable 4.6, accepted 5.0 commits, and rejected branches are selective
     donor evidence rather than a separate governing library
 - status: active
-- phase_status: w1_1a_bootstrap_donor_review_pending
-- review_status: wave_1_not_frozen
+- phase_status: w1_1a_axiom_review_failed_design_reentry_pending
+- review_status: w1_1a_design_rejected_axiom_matrix_required
 - proof_status: increment_0a_accepted_wave_1_green_evidence_pending
 - goal: GOAL-035
 - priority: critical
@@ -41,7 +41,7 @@
 - selected_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_product_outcome: A5-F10
 - selected_product_slice: W1.1a_scoped_artifact_truth
-- selected_slice_cycle_stage: donor_review
+- selected_slice_cycle_stage: design
 - selected_slice_acceptance_interval: >-
     artifact event admission through installed fresh-process Event Calculus
     projection for one exact artifact authority scope
@@ -459,6 +459,66 @@ The next stage is a targeted donor and call-site audit covering the Event Store
 creation primitive, CLI transport, context constructor, all current constructor
 callers, and successor threading. It authorizes no coding plan, implementation,
 tests, package changes, fixtures, or candidate refresh.
+
+### W1.1a STDO 2.2.2 Axiom Review Reset
+
+The prior W1.1a design PASS receipts are invalid for promotion. They remain
+historical evidence only. They were issued without the accepted boundary
+Ontology, entity-lifecycle completeness matrix, distinct domain/sequence/state
+views, and cross-view axiom evaluation required by selected STDO v2.2.2.
+The exhausted coding-plan and BUILD approvals do not revive.
+
+The current design is rejected by this candidate-specific matrix:
+
+| Axiom | Ontology evidence | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission enforcement | Verdict | Gap owner |
+|---|---|---|---|---|---|---|---|---|---|
+| `AX-W1A-01 Event Calculus sole runtime truth` | ABG event/prefix/truth entities named | ABG | artifact truth row and prefix projection named | event -> EC -> projection named | admitted/projected states partial | typed transition proposed | replay fold proposed | `fail` | W1.1a cross-view design |
+| `AX-W1A-02 exact durable-prefix conservation` | predecessor/successor identities named | ABG Event Store | durable coordinate named | verify -> transition -> append named | new-prefix path only | coordinate mapping named | prefix verification named | `fail` | W1.1a design |
+| `AX-W1A-03 complete episode lifecycle` | episode entity absent | unassigned for re-entry | create carrier only | new bootstrap only | create exists; reopen/use/close/re-enter incomplete | none complete | none complete | `fail` | W1.1a design |
+| `AX-W1A-04 new versus existing-prefix disjointness` | lifecycle variants absent | bootstrap owner only | no closed create/reopen sum | every context routed through create | fresh-process read/response/continue/retry have no lawful reopen transition | none | none | `fail` | W1.1a design |
+| `AX-W1A-05 owner continuity and replacement prohibition` | effect owner named, handoff incomplete | ABG | process owner plus prefix named | owner replacement remains implicit | replacement/leak/close states incomplete | existing lock only | no lifecycle admission | `fail` | W1.1a design |
+| `AX-W1A-06 stable catalog collision identity` | catalog scope named | Product owner + ABG | ref preimage includes content-derived `bindingId` and `lockId` | derive/check sequence named | changed binding/lock lifecycle unresolved | canonical digest only | collision transition cannot prove stable domain | `fail` | W1.1a design |
+| `AX-W1A-07 refusal before artifact append` | conflict transition named | ABG owner | candidate/held rows named | predecessor -> transition -> append named | refusal state named but no accepted cross-view mapping | typed refusal proposed | pre-append transition proposed | `fail` | W1.1a cross-view design |
+| `AX-W1A-08 fresh-process reconstruction equality` | projection carrier named | ABG | exact-prefix projection named | reopen sequence incomplete | fresh-process equality state unreachable for current design | digest/ref fields named | no complete re-entry path | `fail` | W1.1a design |
+| `AX-W1A-09 producer/consumer lifecycle closure` | three producers and 18 readers named | mixed owners | call-site census exists | create-only injection reaches wrong lifecycle branches | read/response/continue/retry branches incomplete | signatures proposed | no total lifecycle routing | `fail` | W1.1a design |
+| `AX-W1A-10 alternate creation/reopen bypass closure` | Event Store creation surfaces discovered | ABG | bootstrap and `configureDurableLog` coexist | alternate creation remains reachable | bypass state remains | existing public method | no singular ingress | `fail` | W1.1a design |
+| `AX-W1A-11 scope and feature conservation` | W1.1a boundary named | Product/ABG | exclusions named | no new Public operation/event | enclosing migration remains open but cross-view evidence is absent | n/a | n/a | `fail` | W1.1a cross-view design |
+
+No row may move to `pass` from prose assertion alone. Evidence must bind the
+same accepted Ontology to all three views and the exact realization projection.
+
+The required entity-lifecycle completeness surface covers exactly:
+
+```text
+declare/select path
+  -> create new empty episode | reopen existing exact prefix
+  -> acquire one effect owner
+  -> admit or project
+  -> return successor or unchanged prefix
+  -> same-process use | fresh-process handoff
+  -> response | continuation | retry | read projection
+  -> close owner
+  -> retirement or supersession
+```
+
+The replacement design must contain distinct Mermaid domain, sequence, and
+state-machine views. The sequence view must show both new-episode and
+existing-prefix paths. The state view must cover creation, reopen, use,
+handoff, continuation, retry, read, refusal, close, and owner-loss prevention.
+Every participant, message, state, authority, and carrier must derive from the
+same boundary Ontology.
+
+Catalog identity review must classify every scope-ref preimage member as
+stable, content-derived, observation-derived, or episode-local. A
+content-derived member cannot silently define the stable collision domain.
+The design must state whether changed immutable binding or lock content is a
+new lawful scope, a same-scope collision, or an explicitly governed
+supersession transition.
+
+Promotion requires every applicable row above to be `pass`, or a reasoned
+`not_applicable` compatible with Product and requirement authority. Any
+`fail`, unnamed lifecycle phase, unresolved authority, or missing cross-view
+mapping holds donor review, coding plan, BUILD, and tests.
 
 ### 4. Approval
 
