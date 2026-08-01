@@ -11,7 +11,7 @@
     immutable 4.6, accepted 5.0 commits, and rejected branches are selective
     donor evidence rather than a separate governing library
 - status: active
-- phase_status: w1_1a_bootstrap_design_reentry_pending
+- phase_status: w1_1a_bootstrap_donor_review_pending
 - review_status: wave_1_not_frozen
 - proof_status: increment_0a_accepted_wave_1_green_evidence_pending
 - goal: GOAL-035
@@ -41,7 +41,7 @@
 - selected_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_product_outcome: A5-F10
 - selected_product_slice: W1.1a_scoped_artifact_truth
-- selected_slice_cycle_stage: design
+- selected_slice_cycle_stage: donor_review
 - selected_slice_acceptance_interval: >-
     artifact event admission through installed fresh-process Event Calculus
     projection for one exact artifact authority scope
@@ -435,6 +435,30 @@ and successor coordinates thread through later owners.
 This re-entry does not authorize production, tests, packages, fixtures,
 candidate basis, a hidden path policy, context-owned durable truth, lifecycle
 repricing, or any previously excluded relation.
+
+### W1.1a Durable-Prefix Bootstrap Design Receipt
+
+The bounded bootstrap design at
+`f6a64b51f8effc48337fb22e6c0d7a90e56e4e13`, tree
+`c48149222bd2dc51326ea49fb3a9677dbb7797ee`, is accepted.
+
+It selects one installed `./abg` owner-internal callable that exclusively
+creates a caller-selected canonical absolute event-log path and returns the
+existing nonserializable append owner plus one verified empty
+`DurablePrefixCoordinate`. It admits no event or runtime truth. The installed
+CLI requires `--event-log`; programmatic callers invoke the same bootstrap and
+inject its closed result into `createRootOperationContext`. The zero-argument
+context constructor is deleted with no compatibility fallback.
+
+The first artifact owner consumes the empty prefix and each successor threads
+to the next owner. Root context, environment, current directory, install root,
+workspace root, temporary naming, PID, clock, and implicit conventions cannot
+select or derive the path.
+
+The next stage is a targeted donor and call-site audit covering the Event Store
+creation primitive, CLI transport, context constructor, all current constructor
+callers, and successor threading. It authorizes no coding plan, implementation,
+tests, package changes, fixtures, or candidate refresh.
 
 ### 4. Approval
 
