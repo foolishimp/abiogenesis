@@ -218,6 +218,171 @@ module singleton, or remembered reopen authority cannot supply it. An owner
 may append only through the store selected by that verified coordinate and
 returns the successor coordinate explicitly.
 
+#### 5.2.1 Installed durable-prefix bootstrap
+
+The installed ABG owner exports one owner-internal callable:
+
+```text
+InstalledAbgDurablePrefixBootstrapPort.create(
+  request: InstalledAbgDurablePrefixBootstrapRequest
+) -> InstalledAbgDurablePrefixBootstrapResult
+   | InstalledAbgDurablePrefixBootstrapRefusal
+```
+
+It is an installed `./abg` owner callable, not a Public operation, Product
+operation, graph function, event, or projection. Its only effect is exclusive
+creation and ownership of one new empty durable event log.
+
+The request is closed:
+
+```text
+InstalledAbgDurablePrefixBootstrapRequest = {
+  kind: "installed_abg_durable_prefix_bootstrap_request",
+  schemaVersion: "5.0.0",
+  eventLogPath: string
+}
+```
+
+`eventLogPath` is supplied by the installed owner caller. It must be an
+absolute, normalized, canonical filesystem path. Its parent must already
+exist, be a readable and writable directory, and resolve byte-for-byte to the
+requested parent path. No path component may be a symbolic link or another
+filesystem alias. The target must not exist in any form before the call.
+
+The result is:
+
+```text
+InstalledAbgDurablePrefixBootstrapResult = {
+  kind: "installed_abg_durable_prefix_bootstrap_result",
+  schemaVersion: "5.0.0",
+  disposition: "created",
+  eventLogPath,
+  owner: OpaqueInstalledAbgEventStoreOwner,
+  prefix: DurablePrefixCoordinate
+}
+```
+
+`owner` is the existing nonserializable, process-local ABG append owner for the
+new file. It is effect authority, not durable truth. `prefix` is the complete
+serializable durable truth carrier and is exactly:
+
+```text
+prefix.eventLogRef                        = eventLogPath
+prefix.prefixLength                      = 0
+prefix.prefixDigest                      = sha256(empty bytes)
+prefix.storeIdentity.device              = created file device
+prefix.storeIdentity.inode               = created file inode
+prefix.storeIdentity.eventContractDigest = ROOT_EVENT_CONTRACT_DIGEST
+```
+
+Before returning, ABG verifies the target through both its owned descriptor and
+canonical path: both identify the same newly created regular file, its byte
+length is zero, its digest is the empty-byte digest, the event-contract digest
+is current, and exclusive append ownership remains held. The result exposes no
+event array, mutable admission answer, ambient path source, or alternate prefix.
+
+The refusal is closed:
+
+```text
+InstalledAbgDurablePrefixBootstrapRefusal = {
+  kind: "installed_abg_durable_prefix_bootstrap_refusal",
+  schemaVersion: "5.0.0",
+  disposition: "refused",
+  code:
+    | "invalid_request"
+    | "event_log_path_not_absolute"
+    | "event_log_path_not_canonical"
+    | "parent_unavailable"
+    | "parent_not_directory"
+    | "parent_alias_or_symlink"
+    | "target_exists"
+    | "target_alias_or_symlink"
+    | "target_not_regular_file"
+    | "target_unavailable"
+    | "exclusive_creation_failed"
+    | "exclusive_ownership_failed",
+  eventLogPath: string | null,
+  message: string
+}
+```
+
+Validation precedence is request shape, absolute path, canonical path, parent
+availability/type/alias, target nonexistence, exclusive creation, created-target
+identity/type, then exclusive ownership. Any pre-existing regular file,
+directory, socket, device, FIFO, hard-link alias, or symbolic link refuses; it
+is never opened, truncated, reused, or adopted. A target replaced or aliased
+during creation refuses. Unavailable parent/target inspection or ownership
+also refuses closed.
+
+The callable uses one narrowly hardened Event Store creation primitive. That
+primitive opens the target once with `O_CREAT | O_EXCL | O_RDWR`, retains that
+descriptor, and records its initial device and inode. It requires descriptor
+and path to name the same regular file with link count one, acquires the
+existing append lock for that identity, then repeats the identity, regular-file,
+link-count, empty-length, and path-equality checks before returning. It never
+closes and reopens the target between creation and ownership.
+
+On creation failure it closes its descriptor and releases any acquired existing
+append lock. It unlinks the target only if a fresh non-following path identity
+check proves that the path still names the exact device and inode created by
+this call; otherwise it leaves the path untouched and refuses. This
+identity-guarded cleanup replaces the current unconditional creation-failure
+unlink only for this primitive. It adds no retry, alternate path, rename,
+trash, suffix recovery, append recovery, or general cleanup law. A refusal
+returns no owner and no prefix.
+
+The exact production call site is `public/cli.ts` before
+`createRootOperationContext`. The installed CLI transport becomes:
+
+```text
+abg.cli --event-log <absolute-event-log-path> --jsonl <request-file>
+```
+
+`--event-log` is required exactly once and its value is copied without
+normalization or derivation into
+`InstalledAbgDurablePrefixBootstrapRequest.eventLogPath`. The CLI calls
+`InstalledAbgDurablePrefixBootstrapPort.create` directly, then calls the
+existing context constructor with this closed injection carrier:
+
+```text
+RootOperationContextCreationRequest = {
+  kind: "root_operation_context_creation_request",
+  schemaVersion: "5.0.0",
+  durablePrefixBootstrap: InstalledAbgDurablePrefixBootstrapResult
+}
+```
+
+`public/operations.ts::createRootOperationContext(request)` accepts that
+already-created owner and prefix; it does not accept a path and does not call
+the bootstrap. Programmatic installed callers use the same sequence: call the
+installed `./abg` bootstrap with their explicit path, then inject its result
+through `RootOperationContextCreationRequest.durablePrefixBootstrap`. The
+zero-argument context constructor is deleted; there is no fallback.
+
+The caller invokes this bootstrap before the first effectful owner. It passes
+`result.owner` as the already-existing ABG store owner argument and
+`result.prefix` as `ArtifactAdmissionBasis.predecessorPrefix` to
+`admitProductInstall`. The returned install successor becomes the predecessor
+for `admitWorkspaceBinding`; the binding successor becomes the predecessor for
+`CatalogOperationPort.admit`; every later owner continues the already accepted
+successor chain. The installed execution setup may inject the returned owner
+and coordinate into its existing operation context, but that context does not
+select, default, normalize, derive, or persist the path independently.
+
+The path cannot come from `RootOperationContext`, the JSONL Public invocation
+file, an environment variable,
+current working directory, install target, workspace roots, a temporary path,
+package root, process ID, clock, or implicit convention. No Public request or
+operation is added. The owner caller that creates the installed execution
+episode must supply the exact absolute path directly to this installed ABG
+callable.
+
+All accepted CP-F01..CP-F03 relations and the Section 5.7 preservation boundary
+remain unchanged. In particular, bootstrap admits no event or runtime truth
+and authorizes no append lease, batch/frame change, reconciliation law,
+runtime-catalog projection, catalog view/application migration, new event kind,
+proof-oracle change, or additional producer.
+
 Parsing a continuation, run projection, application, or source-result carrier
 yields an unverified candidate. Only its owner can rehydrate an admitted basis
 by joining it to the exact durable prefix and Event Calculus result. Public
