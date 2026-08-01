@@ -11,7 +11,7 @@
     immutable 4.6, accepted 5.0 commits, and rejected branches are selective
     donor evidence rather than a separate governing library
 - status: active
-- phase_status: wave_1_runtime_kernel_selected
+- phase_status: w1_1a_donor_review_pending
 - review_status: wave_1_not_frozen
 - proof_status: increment_0a_accepted_wave_1_green_evidence_pending
 - goal: GOAL-035
@@ -39,6 +39,16 @@
 - selected_method_commit: 0519129d63de10822ae6353fa0c5ce05d56f13e9
 - selected_method_member_set_digest: 4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21
 - selected_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
+- selected_product_outcome: A5-F10
+- selected_product_slice: W1.1a_scoped_artifact_truth
+- selected_slice_cycle_stage: donor_review
+- selected_slice_acceptance_interval: >-
+    artifact event admission through installed fresh-process Event Calculus
+    projection for one exact artifact authority scope
+- selected_slice_exhaustion: >-
+    acceptance, rejection, withdrawal, supersession, or falsification of the
+    four W1.1a proof cases exhausts this slice basis; acceptance does not close
+    A5-F10, W1, or the enclosing migration
 - deferred_feature_family: A5-F12
 - deferred_scenario: ABG5-S04
 - accepted_increment_0a_commit: 1242df2a26922cc59b817a9fa253191e49a18f52
@@ -177,6 +187,89 @@ Every slice ends with one working installed behavior. Feature-family closure
 is the accumulation of its accepted slices, not a prerequisite for accepting
 the first useful behavior.
 
+## Slice Delivery Cycle
+
+Every slice follows this exact cycle:
+
+```text
+design
+  -> donor review
+  -> coding plan
+  -> approval
+  -> build
+  -> code review
+  -> test
+  -> next slice
+```
+
+### 1. Design
+
+Identify the exact Product outcome, requirements, accepted design relations,
+acceptance interval, affected authority path, and prohibited substitutes. This
+stage normally confirms existing design. It creates or changes design only when
+the first missing constitutional layer is genuinely design.
+
+### 2. Donor Review
+
+Inspect the current implementation, accepted commits, rejected candidates, and
+named donor branches. Classify reusable code by exact relation:
+
+- retain unchanged;
+- transplant with bounded correction;
+- rewrite because authority wiring is invalid; or
+- exclude.
+
+The donor review names producers, consumers, dependencies, tests, and forbidden
+authority that must not cross. It makes no production edit.
+
+### 3. Coding Plan
+
+Produce one file- and relation-addressed implementation plan containing:
+
+- exact retained and changed production paths;
+- complete affected producer/consumer closure;
+- deletion or retirement work;
+- proportional positive, negative, fresh-process, and regression proof;
+- expected package or manifest effects; and
+- explicit non-goals.
+
+### 4. Approval
+
+Product control accepts, rejects, or narrows the coding plan. Approval admits
+only that slice and exhausts when the slice is accepted, rejected, withdrawn,
+superseded, or falsified. No production edit begins before approval.
+
+### 5. Build
+
+The worker implements the approved plan as one coherent production slice,
+performs mechanical checks, and freezes one exact candidate. It does not issue
+its own semantic acceptance verdict.
+
+### 6. Code Review
+
+Assurance reviews the frozen diff from function level through module and global
+authority closure. It checks design conformance, donor leakage, complete
+producer/consumer migration, prohibited paths, and whether the code delivers
+the approved behavior. A rejection may authorize at most one consolidated
+local repair; a different construction returns to coding-plan approval.
+
+### 7. Test
+
+After code review passes, execute the approved proportional tests against the
+exact reviewed candidate. Tests prove the installed behavior and nearest
+invalid substitutes; they do not author semantics or compensate for failed
+code review. Deterministic tests reproduce on the exact subject.
+
+### 8. Next Slice
+
+Record the accepted slice identity and evidence, keep the enclosing feature and
+migration open unless their own closure laws are satisfied, then select the
+next unresolved Product slice through the same cycle.
+
+Exploratory code produced before coding-plan approval is unapproved donor
+material. It may inform donor review but cannot be promoted, committed, or
+treated as the selected implementation.
+
 ## W1 - Runtime Kernel
 
 ### W1 Outcome
@@ -253,6 +346,18 @@ Production change:
 - introduce no new event family, Public operation, process-local registry, or
   downstream normalization helper.
 
+Affected-path migration:
+
+- change the authoritative artifact fluent relation first;
+- audit every event producer, Event Calculus consumer, resolver, projection,
+  fallback, cache, and proof surface that can admit, interpret, or close
+  artifact truth within this scope;
+- migrate that complete affected path to the scoped relation;
+- prohibit the former unscoped fluent from remaining authoritative anywhere
+  on the W1.1a acceptance path; and
+- keep unrelated, deterministically routed Product scopes outside W1.1a
+  unchanged.
+
 Proportional proof:
 
 - one positive installed case for two distinct scopes;
@@ -263,7 +368,9 @@ Proportional proof:
 The slice closes when those four cases pass through production admission,
 events, Event Calculus, and installed projection while the relevant existing
 artifact/install/catalog regressions remain green. No other A5-F10 repair is
-required for W1.1a acceptance.
+required for W1.1a acceptance. W1.1a acceptance is bounded Product-slice
+promotion only: T-287 remains active, the A5-F10 milestone remains open, and
+complete migration closure remains pending.
 
 ### W1.2 - A5-F02 Complete GTL Authoring And Validation
 

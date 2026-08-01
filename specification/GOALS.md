@@ -81,7 +81,17 @@ end-to-end behavior.
 
 ## Current Selection
 
-Wave 1 is the sole selected implementation wave:
+Wave 1 is the active delivery wave. Within it, `A5-F10` is the sole selected
+unresolved Product outcome. `A5-F02`, `A5-F03`, and `A5-F04` are ordered
+successor outcomes and do not yet authorize material Product growth.
+
+The current bounded Product slice is T-287 `W1.1a`, scoped artifact truth. Its
+acceptance interval begins at artifact event admission and ends at the
+installed fresh-process Event Calculus projection for that artifact authority
+scope. Acceptance of W1.1a advances A5-F10 but does not close A5-F10, Wave 1,
+or the enclosing implementation migration.
+
+Wave 1 order is:
 
 ```text
 A5-F10 event-sourced runtime truth
@@ -90,8 +100,9 @@ A5-F10 event-sourced runtime truth
   -> A5-F04 probabilistic result integrity
 ```
 
-T-287 defines the Wave 1 increments, baseline, recovery rules, required proof,
-installed candidate boundary, worker authority, and assurance conditions.
+T-287 defines the selected slice, Wave 1 increments, baseline, recovery rules,
+required proof, installed candidate boundary, worker authority, and assurance
+conditions.
 
 Later waves may be inspected for dependency planning. Their implementation is
 not selected until the preceding wave is accepted.
