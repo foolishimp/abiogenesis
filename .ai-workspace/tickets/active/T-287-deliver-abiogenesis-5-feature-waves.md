@@ -11,7 +11,7 @@
     immutable 4.6, accepted 5.0 commits, and rejected branches are selective
     donor evidence rather than a separate governing library
 - status: active
-- phase_status: w1_1a_coding_plan_pending
+- phase_status: w1_1a_design_reentry_pending
 - review_status: wave_1_not_frozen
 - proof_status: increment_0a_accepted_wave_1_green_evidence_pending
 - goal: GOAL-035
@@ -41,7 +41,7 @@
 - selected_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_product_outcome: A5-F10
 - selected_product_slice: W1.1a_scoped_artifact_truth
-- selected_slice_cycle_stage: coding_plan
+- selected_slice_cycle_stage: design
 - selected_slice_acceptance_interval: >-
     artifact event admission through installed fresh-process Event Calculus
     projection for one exact artifact authority scope
@@ -268,6 +268,37 @@ Event Calculus, and never query mutable live-store truth.
 
 This receipt authorizes the coding-plan stage only. It authorizes no production
 edit, test edit, test execution, candidate refresh, or implementation commit.
+
+### W1.1a Coding-Plan Rejection And Design Re-Entry
+
+The first coding plan was rejected before implementation. A replacement plan
+could not lawfully close three missing realization relations:
+
+1. `hasAdmittedProductInstall` has 18 mutable-store callers. Accepted design
+   does not yet name the immutable projection carrier threaded through every
+   HoG, Public, continuation, catalog, support, and falsifier caller.
+2. Current catalog admission reuses the workspace-binding scope, which
+   conflicts with global stable-scope collision law. `candidateId` is already
+   the artifact reference; no accepted surface selects it or another identity
+   as the distinct catalog authority scope.
+3. Accepted design does not yet freeze one typed Event Calculus artifact
+   transition shared by owner admission, replay, and historical validation.
+   Without it, a coding plan can recreate independent raw-history folds.
+
+The bounded `design_reframe` may decide only:
+
+- the immutable exact-prefix artifact projection carrier and its atomic
+  migration across all 18 callers;
+- the distinct catalog-admission authority-scope ref, digest preimage, owner,
+  artifact relationship, causation, collision, and reconstruction law; and
+- one store-free typed artifact transition over Event Calculus-held state,
+  including inputs, outputs, refusal fields, and dependency direction for
+  admission, replay, and historical validation.
+
+All donor exclusions, W1.1a proof obligations, Product scope, requirements,
+event-kind census, Public family, and non-goals remain frozen. This re-entry
+authorizes design construction only. Production, test, package, fixture,
+candidate-basis, and semantic tracking edits remain prohibited.
 
 ### 4. Approval
 
