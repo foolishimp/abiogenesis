@@ -11,7 +11,7 @@
     immutable 4.6, accepted 5.0 commits, and rejected branches are selective
     donor evidence rather than a separate governing library
 - status: active
-- phase_status: w1_1a_donor_delta_review_pending
+- phase_status: w1_1a_coding_plan_pending
 - review_status: wave_1_not_frozen
 - proof_status: increment_0a_accepted_wave_1_green_evidence_pending
 - goal: GOAL-035
@@ -41,7 +41,7 @@
 - selected_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_product_outcome: A5-F10
 - selected_product_slice: W1.1a_scoped_artifact_truth
-- selected_slice_cycle_stage: donor_review
+- selected_slice_cycle_stage: coding_plan
 - selected_slice_acceptance_interval: >-
     artifact event admission through installed fresh-process Event Calculus
     projection for one exact artifact authority scope
@@ -326,6 +326,32 @@ excluded.
 The next stage is a targeted donor-delta review against this accepted design.
 It authorizes no coding plan, production edit, test edit, test execution,
 package change, or candidate refresh.
+
+### W1.1a Donor-Delta Receipt
+
+The targeted donor-delta review against accepted design `f5d5c0c0` passes.
+
+Retain the baseline Event Store envelope validation, exclusive durable lock,
+non-closing sink verification, synchronous append, reopen authority, history
+validation, replay order, and Event Calculus dispatch. Transplant only the
+typed fluent and held-map reducer patterns from 4.6. Rewrite rejected donor
+shapes only into the accepted global-scope transition and exact-prefix
+projection.
+
+The exact constructability seam is a non-closing helper over the currently
+owned Event Store. It verifies the supplied predecessor against path,
+device/inode, byte length, digest, event contract, and the frozen current event
+prefix while retaining exclusive append ownership. `projectReopenAuthorityAndClose`
+and `reopenEventStore` cannot be used between transition and append because
+they release or attempt to reacquire that ownership.
+
+No excluded mutable-store projection, raw-history fold, Event Store collision
+policy, generic metadata, operation-partitioned scope, lease, batch framing,
+reconciliation, runtime-catalog projection, or catalog view/application
+migration is required.
+
+This receipt authorizes one replacement coding plan only. Production, tests,
+packages, fixtures, candidate basis, and implementation commits remain held.
 
 ### 4. Approval
 
