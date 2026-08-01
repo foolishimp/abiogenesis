@@ -180,6 +180,225 @@ They are deleted in the atomic swap defined by Section 10.
 
 ## 5. Explicit Carriers And Durable Ingress
 
+### 5.0 W1.1a boundary Ontology
+
+This Ontology is the sole vocabulary for W1.1a. The domain, sequence, state,
+lifecycle, axiom, and realization projections below may not introduce another
+entity or owner by synonym.
+
+| Entity | Kind | Exact identity/content | Owner | Lifecycle role |
+|---|---|---|---|---|
+| `InstalledEpisodeCaller` | actor | installed caller identity outside runtime truth | installed CLI or programmatic host | selects exactly one ingress variant and supplies its closed request |
+| `CanonicalEventLogPath` | stable filesystem locator | caller-supplied canonical absolute path | caller selects; Event Store verifies | new-episode creation target only |
+| `NewEmptyEpisodeRequest` | closed request | kind, schema version, `CanonicalEventLogPath` | installed ABG episode port | requests exclusive creation of a new empty episode |
+| `ReopenExactPrefixRequest` | closed request | kind, schema version, `EventStoreReopenAuthority`, exact `DurablePrefixCoordinate` | installed ABG episode port | requests acquisition of one existing exact prefix |
+| `EpisodeIngressRequest` | disjoint sum | `NewEmptyEpisodeRequest | ReopenExactPrefixRequest` | caller constructs; ABG validates | exhaustive episode entry |
+| `OpaqueEpisodeEffectOwner` | nonserializable effect authority | one held descriptor, device/inode identity, existing append lock, owner generation | ABG Event Store | sole same-process append/project owner; never durable truth |
+| `DurablePrefixCoordinate` | durable value | log ref, byte length, byte digest, device/inode, event-contract digest | ABG Event Store projects; ABG verifies | immutable truth coordinate before/after every effect |
+| `EventStoreReopenAuthority` | durable handoff value | canonical path, device/inode, byte length/digest, event-contract digest, authority digest | ABG Event Store | authorizes fresh-process acquisition of the equal prefix |
+| `AcquiredEpisode` | closed process carrier | ingress kind, opaque owner, current prefix | installed ABG episode port | unique open state for admission or projection |
+| `ClosedEpisodeHandoff` | closed durable carrier | final prefix plus equal reopen authority | ABG Event Store | owner-free same/fresh-process handoff |
+| `RuntimeEvent` | admitted durable fact | canonical event envelope, event ID, ordinal, payload digest | semantic owner proposes; ABG admits | sole write-side runtime fact |
+| `ArtifactAdmissionCandidate` | proposed value | operation/definition/scope/artifact identities and digests | Product owner constructs | proposed input to artifact transition |
+| `ArtifactTruthRow` | replay-held fluent value | admitted candidate plus event ref, ordinal, causation | Event Calculus | sole held artifact truth for one stable scope ref |
+| `ArtifactTruthTransition` | pure law | held rows plus proposed/admitted candidate | ABG | singular admission/replay conflict and idempotence law |
+| `ExactPrefixArtifactTruthProjection` | immutable read model | verified prefix, ordered held rows, projection ref/digest | ABG Event Calculus projector | only artifact-truth consumer carrier |
+| `ArtifactAdmissionBasis` | owner request component | operation basis plus predecessor prefix | Product owner supplies; ABG verifies | binds admission to exact predecessor |
+| `ArtifactOwnerResult` | closed result sum | admitted/idempotent value and successor projection, or typed refusal | ABG owner boundary | returns conserved successor or no successor |
+| `CatalogStableAuthorityScope` | stable collision identity | workspace stable ID, owning Product ID, module ref | Product catalog owner defines; ABG verifies | global catalog collision domain |
+| `CatalogAdmissionAuthorityScopeEvidence` | durable content evidence | stable members plus binding/lock/publication content identities | Product owner constructs; boundary event preserves | reconstructs stable ref and content digest |
+| `ReadProjectionRequest` | consumer request | exact durable prefix plus requested projection identity | Public/Product read owner | projects without authoring truth |
+| `ResponseRequest` | consumer request | prior handoff/continuation plus response input | interaction owner | reopens exact episode before response admission |
+| `ContinuationRequest` | consumer request | prior handoff plus continuation authority | continuation owner | reopens exact episode before continuation |
+| `RetryRequest` | consumer request | prior handoff plus retry frontier and verified preimage | ABG retry owner | reopens exact episode before retry |
+
+Authority is exact:
+
+```text
+InstalledEpisodeCaller selects ingress
+  -> ABG Episode Port acquires/releases OpaqueEpisodeEffectOwner
+  -> Event Store verifies prefix and performs envelope/order/durability effects
+  -> Product owner constructs semantic candidate and scope evidence
+  -> ArtifactTruthTransition decides proposed/admitted truth
+  -> ABG admits RuntimeEvent
+  -> Event Calculus derives ArtifactTruthRow
+  -> ExactPrefixArtifactTruthProjection supplies all consumers
+```
+
+The Event Store never owns artifact or catalog meaning. Product/Public/HoG
+never own runtime truth. The opaque effect owner permits effects but proves no
+fluent. Only admitted events plus Event Calculus produce runtime truth.
+
+#### 5.0.1 Entity-lifecycle completeness matrix
+
+| Entity | Declare/select | Create or reopen | Acquire/use | Success/refusal | Handoff/fresh process | Close | Retire/supersede |
+|---|---|---|---|---|---|---|---|
+| `InstalledEpisodeCaller` | installed entry identifies itself and selects request | calls Episode Port only | holds result, never mints owner | propagates closed ingress refusal | transfers only handoff | requests close | may retire closed episode |
+| `CanonicalEventLogPath` | caller supplies | new-only path verified | bound to created owner | refusal yields no owner/prefix | preserved in prefix/authority | no path mutation | file remains durable; deletion is outside W1.1a |
+| `EpisodeIngressRequest` | caller selects one variant | exact one branch | consumed once | closed refusal on mismatch | request itself is not authority after acquisition | exhausted on result | cannot be reused as replacement authority |
+| `NewEmptyEpisodeRequest` | caller selects explicit path | creates only absent target | yields empty acquired episode | existing/alias/unavailable refuses | never used for fresh-process history | exhausted | cannot reopen or replace |
+| `ReopenExactPrefixRequest` | caller constructs from handoff | opens only equal existing prefix | yields reopened acquired episode | any authority/prefix mismatch refuses | canonical fresh-process ingress | exhausted | cannot create or select later tail |
+| `OpaqueEpisodeEffectOwner` | never caller-minted | created or reopened by ABG | continuous exclusive ownership | loss/duplicate acquisition refuses | absent from handoff; fresh process obtains a new generation | explicitly released once | cannot be superseded while open |
+| `DurablePrefixCoordinate` | projected by ABG | empty on new; verified supplied on reopen | predecessor to admission/projection | successor on effect; unchanged on idempotence/refusal | serialized in handoff | remains valid immutable value | successor coordinate supersedes only currentness, never history |
+| `EventStoreReopenAuthority` | projected at close | never used for new creation | consumed only by reopen branch | mismatch refuses | crosses process boundary | owner-free | later authority for successor supersedes earlier currentness |
+| `AcquiredEpisode` | result of ingress | new or reopen | admits or projects under one owner | typed operation result/refusal | must close before process handoff | becomes `ClosedEpisodeHandoff` | replacement forbidden |
+| `ClosedEpisodeHandoff` | projected only by close | never exists while owner remains open | input to later reopen request | close refusal produces none | sole fresh-process carrier | already owner-free | later successor handoff supersedes currentness |
+| `RuntimeEvent` | semantic owner proposes | ABG admits only after transition | Event Calculus consumes | append or no append | durable prefix preserves | immutable | never overwritten; later events may change other fluents |
+| `ArtifactAdmissionCandidate` | Product owner constructs | no independent lifecycle | transition consumes once | initiated/idempotent/conflict | not a handoff carrier | exhausted | cannot overwrite held row |
+| `ArtifactTruthRow` | transition schema declares | first admitted event initiates | replay/projection holds | equal idempotent; conflict/duplicate refuses | deterministically reconstructed | projection carrier may be discarded | same stable scope cannot be silently replaced |
+| `ArtifactTruthTransition` | design declares one pure law | instantiated by admission/replay | consumes held rows/candidate | closed result sum | same inputs equal result in fresh process | stateless | cannot be replaced by owner/store fold |
+| `ExactPrefixArtifactTruthProjection` | projector contract declares | derived from exact prefix | read-only consumers use | typed projection/refusal | equal prefix produces canonical equality | discardable read model | successor projection supersedes current view only |
+| `ArtifactAdmissionBasis` | Product owner constructs | binds current predecessor | ABG verifies before transition | mismatch/refusal yields no append | serialized only through owning request where declared | exhausted by owner call | successor basis must name returned prefix |
+| `ArtifactOwnerResult` | ABG owner constructs | follows transition/append | consumer threads value/projection | admitted/idempotent/refused disjoint | successor may enter later handoff | no effect owner inside result | later result advances current prefix only |
+| `CatalogStableAuthorityScope` | Product owner constructs | first catalog admission claims | transition keys globally by ref | equal idempotent; changed content collides | event evidence reconstructs | immutable identity | binding/lock content change is collision until governed supersession exists |
+| `CatalogAdmissionAuthorityScopeEvidence` | Product owner constructs | preserved in catalog boundary event | ABG validates/replay reconstructs | mismatch refuses before append | durable event crosses process | immutable | later unequal evidence conflicts in same stable scope |
+| `ReadProjectionRequest` | read owner constructs | current or reopen exact | projects without append | projection/refusal | may close to equal handoff | owner closes | later read chooses explicit handoff |
+| `ResponseRequest` | interaction owner constructs | reopen exact | may admit response event | result/refusal | successor handoff | owner closes | next continuation uses successor |
+| `ContinuationRequest` | continuation owner constructs | reopen exact | may admit continuation events | result/refusal | successor handoff | owner closes | next continuation uses successor |
+| `RetryRequest` | retry owner constructs | reopen exact | may admit retry events | result/refusal | successor handoff | owner closes | later retry uses successor frontier |
+
+No lifecycle cell is supplied by object reachability, a module singleton,
+current process memory, default path, current store tail, or compatibility
+fallback.
+
+#### 5.0.2 Domain view
+
+```mermaid
+classDiagram
+  class InstalledEpisodeCaller
+  class EpisodeIngressRequest {
+    <<sealed>>
+  }
+  class NewEmptyEpisodeRequest
+  class ReopenExactPrefixRequest
+  class CanonicalEventLogPath
+  class EventStoreReopenAuthority
+  class OpaqueEpisodeEffectOwner
+  class DurablePrefixCoordinate
+  class AcquiredEpisode
+  class ClosedEpisodeHandoff
+  class RuntimeEvent
+  class ArtifactAdmissionCandidate
+  class ArtifactTruthTransition
+  class ArtifactTruthRow
+  class ExactPrefixArtifactTruthProjection
+  class CatalogStableAuthorityScope
+  class CatalogAdmissionAuthorityScopeEvidence
+  class ReadProjectionRequest
+  class ResponseRequest
+  class ContinuationRequest
+  class RetryRequest
+
+  EpisodeIngressRequest <|-- NewEmptyEpisodeRequest
+  EpisodeIngressRequest <|-- ReopenExactPrefixRequest
+  InstalledEpisodeCaller --> EpisodeIngressRequest : selects exactly one
+  NewEmptyEpisodeRequest --> CanonicalEventLogPath : creates
+  ReopenExactPrefixRequest --> EventStoreReopenAuthority : consumes
+  ReopenExactPrefixRequest --> DurablePrefixCoordinate : verifies
+  EpisodeIngressRequest --> AcquiredEpisode : ABG acquires
+  AcquiredEpisode *-- OpaqueEpisodeEffectOwner : exactly one
+  AcquiredEpisode *-- DurablePrefixCoordinate : current
+  AcquiredEpisode --> RuntimeEvent : admits
+  AcquiredEpisode --> ClosedEpisodeHandoff : closes
+  ClosedEpisodeHandoff *-- EventStoreReopenAuthority
+  ClosedEpisodeHandoff *-- DurablePrefixCoordinate
+  ArtifactAdmissionCandidate --> ArtifactTruthTransition
+  ArtifactTruthTransition --> RuntimeEvent : authorizes append
+  RuntimeEvent --> ArtifactTruthRow : Event Calculus
+  ArtifactTruthRow --> ExactPrefixArtifactTruthProjection
+  CatalogAdmissionAuthorityScopeEvidence --> CatalogStableAuthorityScope : reconstructs
+  ReadProjectionRequest --> ReopenExactPrefixRequest
+  ResponseRequest --> ReopenExactPrefixRequest
+  ContinuationRequest --> ReopenExactPrefixRequest
+  RetryRequest --> ReopenExactPrefixRequest
+  ExactPrefixArtifactTruthProjection --> ReadProjectionRequest : supplies
+```
+
+#### 5.0.3 Sequence view
+
+```mermaid
+sequenceDiagram
+  actor Caller as InstalledEpisodeCaller
+  participant Episode as ABG Episode Port
+  participant Store as ABG Event Store
+  participant Owner as Product Semantic Owner
+  participant EC as ArtifactTruthTransition and Event Calculus
+  participant Consumer as Read Response Continuation Retry Owner
+
+  alt NewEmptyEpisodeRequest
+    Caller->>Episode: open(NewEmptyEpisodeRequest(path))
+    Episode->>Store: createExclusiveEmpty(path)
+    Store-->>Episode: owner plus empty prefix
+  else ReopenExactPrefixRequest
+    Caller->>Episode: open(ReopenExactPrefixRequest(authority, prefix))
+    Episode->>Store: reopenExact(authority, prefix)
+    Store-->>Episode: new owner generation plus equal prefix
+  end
+  Episode-->>Caller: AcquiredEpisode(owner, currentPrefix)
+
+  alt effectful artifact admission
+    Caller->>Owner: request(candidate, predecessorPrefix)
+    Owner->>EC: project predecessor and transition(candidate)
+    alt initiated
+      EC-->>Owner: initiated
+      Owner->>Store: append existing artifact event
+      Store-->>Owner: successorPrefix
+      Owner->>EC: project successor
+      EC-->>Caller: ArtifactOwnerResult(admitted, projection)
+    else idempotent
+      EC-->>Caller: ArtifactOwnerResult(idempotent, unchanged prefix)
+    else conflict or invalid history
+      EC-->>Caller: typed refusal, no append, no successor
+    end
+  else read projection
+    Caller->>EC: project exact current prefix
+    EC-->>Caller: immutable projection or typed refusal
+  end
+
+  Caller->>Episode: close(AcquiredEpisode)
+  Episode->>Store: project authority and release owner
+  Store-->>Caller: ClosedEpisodeHandoff(prefix, reopenAuthority)
+  Caller->>Consumer: transfer handoff across same or fresh process
+  Consumer->>Episode: open(ReopenExactPrefixRequest)
+  Note over Consumer,Episode: response continuation retry and later reads never create empty replacement episodes
+```
+
+#### 5.0.4 State view
+
+```mermaid
+stateDiagram-v2
+  [*] --> IngressSelected
+  IngressSelected --> CreatingEmpty : NewEmptyEpisodeRequest
+  IngressSelected --> ReopeningExact : ReopenExactPrefixRequest
+  IngressSelected --> Refused : invalid or ambiguous variant
+  CreatingEmpty --> OwnerAcquired : exclusive empty creation verified
+  CreatingEmpty --> Refused : target or ownership refusal
+  ReopeningExact --> OwnerAcquired : authority and prefix equal
+  ReopeningExact --> Refused : identity digest length contract or lock refusal
+  OwnerAcquired --> Projecting : read projection
+  OwnerAcquired --> Admitting : artifact candidate
+  Projecting --> OwnerAcquired : projection returned
+  Projecting --> RefusedOpen : projection refusal
+  Admitting --> OwnerAcquired : admitted successor
+  Admitting --> OwnerAcquired : idempotent unchanged
+  Admitting --> RefusedOpen : conflict no append
+  OwnerAcquired --> Closing : close requested
+  RefusedOpen --> Closing : caller closes after refusal
+  Closing --> HandoffReady : authority projected owner released
+  HandoffReady --> FreshProcess : carrier transferred
+  HandoffReady --> ReopeningExact : same-process continuation
+  FreshProcess --> ReopeningExact : read response continuation retry
+  OwnerAcquired --> ReplacementForbidden : second owner or store replacement attempted
+  ReplacementForbidden --> RefusedOpen : original owner remains sole owner
+  HandoffReady --> Retired : caller retires episode without deletion
+  Refused --> [*]
+  Retired --> [*]
+```
+
+`RefusedOpen` retains the original acquired owner solely so it can close; it
+does not admit or project after refusal. `ReplacementForbidden` never changes
+the owner, prefix, or durable file.
+
 ### 5.1 Verification and resolution
 
 `ProductVerificationPort.verify` is deterministic and eventless. It returns a
@@ -218,26 +437,35 @@ module singleton, or remembered reopen authority cannot supply it. An owner
 may append only through the store selected by that verified coordinate and
 returns the successor coordinate explicitly.
 
-#### 5.2.1 Installed durable-prefix bootstrap
+#### 5.2.1 Installed episode ingress
 
 The installed ABG owner exports one owner-internal callable:
 
 ```text
-InstalledAbgDurablePrefixBootstrapPort.create(
-  request: InstalledAbgDurablePrefixBootstrapRequest
-) -> InstalledAbgDurablePrefixBootstrapResult
-   | InstalledAbgDurablePrefixBootstrapRefusal
+InstalledAbgEpisodePort.open(
+  request: EpisodeIngressRequest
+) -> AcquiredEpisode
+   | EpisodeIngressRefusal
 ```
 
 It is an installed `./abg` owner callable, not a Public operation, Product
-operation, graph function, event, or projection. Its only effect is exclusive
-creation and ownership of one new empty durable event log.
+operation, graph function, event, or projection. It is the only route to an
+effect owner. The request is the closed disjoint lifecycle sum:
+
+```text
+EpisodeIngressRequest =
+  | NewEmptyEpisodeRequest
+  | ReopenExactPrefixRequest
+```
+
+Unknown, mixed, or surplus variants refuse. New creation and reopen are never
+fallbacks for one another.
 
 The request is closed:
 
 ```text
-InstalledAbgDurablePrefixBootstrapRequest = {
-  kind: "installed_abg_durable_prefix_bootstrap_request",
+NewEmptyEpisodeRequest = {
+  kind: "new_empty_episode_request",
   schemaVersion: "5.0.0",
   eventLogPath: string
 }
@@ -249,30 +477,30 @@ exist, be a readable and writable directory, and resolve byte-for-byte to the
 requested parent path. No path component may be a symbolic link or another
 filesystem alias. The target must not exist in any form before the call.
 
-The result is:
+The new branch returns the common acquired result:
 
 ```text
-InstalledAbgDurablePrefixBootstrapResult = {
-  kind: "installed_abg_durable_prefix_bootstrap_result",
+AcquiredEpisode = {
+  kind: "acquired_abg_episode",
   schemaVersion: "5.0.0",
-  disposition: "created",
-  eventLogPath,
-  owner: OpaqueInstalledAbgEventStoreOwner,
-  prefix: DurablePrefixCoordinate
+  disposition: "acquired",
+  ingress: "new_empty" | "reopen_exact",
+  owner: OpaqueEpisodeEffectOwner,
+  currentPrefix: DurablePrefixCoordinate
 }
 ```
 
-`owner` is the existing nonserializable, process-local ABG append owner for the
-new file. It is effect authority, not durable truth. `prefix` is the complete
+`owner` is the existing nonserializable, process-local ABG append owner. It is
+effect authority, not durable truth. `currentPrefix` is the complete
 serializable durable truth carrier and is exactly:
 
 ```text
-prefix.eventLogRef                        = eventLogPath
-prefix.prefixLength                      = 0
-prefix.prefixDigest                      = sha256(empty bytes)
-prefix.storeIdentity.device              = created file device
-prefix.storeIdentity.inode               = created file inode
-prefix.storeIdentity.eventContractDigest = ROOT_EVENT_CONTRACT_DIGEST
+currentPrefix.eventLogRef                        = eventLogPath
+currentPrefix.prefixLength                      = 0
+currentPrefix.prefixDigest                      = sha256(empty bytes)
+currentPrefix.storeIdentity.device              = created file device
+currentPrefix.storeIdentity.inode               = created file inode
+currentPrefix.storeIdentity.eventContractDigest = ROOT_EVENT_CONTRACT_DIGEST
 ```
 
 Before returning, ABG verifies the target through both its owned descriptor and
@@ -284,8 +512,8 @@ event array, mutable admission answer, ambient path source, or alternate prefix.
 The refusal is closed:
 
 ```text
-InstalledAbgDurablePrefixBootstrapRefusal = {
-  kind: "installed_abg_durable_prefix_bootstrap_refusal",
+EpisodeIngressRefusal = {
+  kind: "abg_episode_ingress_refusal",
   schemaVersion: "5.0.0",
   disposition: "refused",
   code:
@@ -300,7 +528,12 @@ InstalledAbgDurablePrefixBootstrapRefusal = {
     | "target_not_regular_file"
     | "target_unavailable"
     | "exclusive_creation_failed"
-    | "exclusive_ownership_failed",
+    | "exclusive_ownership_failed"
+    | "reopen_authority_invalid"
+    | "reopen_authority_mismatch"
+    | "reopen_prefix_mismatch"
+    | "reopen_contract_mismatch"
+    | "reopen_sink_unavailable",
   eventLogPath: string | null,
   message: string
 }
@@ -331,57 +564,143 @@ unlink only for this primitive. It adds no retry, alternate path, rename,
 trash, suffix recovery, append recovery, or general cleanup law. A refusal
 returns no owner and no prefix.
 
+The reopen branch is exact:
+
+```text
+ReopenExactPrefixRequest = {
+  kind: "reopen_exact_prefix_request",
+  schemaVersion: "5.0.0",
+  reopenAuthority: EventStoreReopenAuthority,
+  prefix: DurablePrefixCoordinate
+}
+```
+
+ABG validates both carriers independently, requires their path, device, inode,
+byte length, byte digest, and event-contract digest to be equal, acquires the
+existing exclusive append lock for that file identity, rereads and validates
+exactly the named byte prefix, and returns `AcquiredEpisode` with
+`ingress: "reopen_exact"` and `currentPrefix` byte-equal to the request prefix.
+It never truncates, creates, appends, selects a later prefix, or falls back to
+new creation. Reopen refusal returns no owner.
+
+Closing is the inverse owner boundary:
+
+```text
+InstalledAbgEpisodePort.close(
+  episode: AcquiredEpisode
+) -> ClosedEpisodeHandoff
+   | EpisodeCloseRefusal
+
+ClosedEpisodeHandoff = {
+  kind: "closed_abg_episode_handoff",
+  schemaVersion: "5.0.0",
+  prefix: DurablePrefixCoordinate,
+  reopenAuthority: EventStoreReopenAuthority
+}
+```
+
+Close verifies current file identity and bytes, projects equal prefix and
+authority carriers, then releases the one effect owner. It is single-use. A
+failed close poisons/releases the process owner according to existing Event
+Store closure law and returns a typed refusal; it never publishes a handoff it
+could not verify. A fresh process receives only `ClosedEpisodeHandoff`, builds
+`ReopenExactPrefixRequest`, and acquires a new owner generation. It never
+receives or serializes the old opaque owner.
+
 The exact production call site is `public/cli.ts` before
 `createRootOperationContext`. The installed CLI transport becomes:
 
 ```text
-abg.cli --event-log <absolute-event-log-path> --jsonl <request-file>
+abg.cli --episode <absolute-episode-ingress-file> --jsonl <request-file>
 ```
 
-`--event-log` is required exactly once and its value is copied without
-normalization or derivation into
-`InstalledAbgDurablePrefixBootstrapRequest.eventLogPath`. The CLI calls
-`InstalledAbgDurablePrefixBootstrapPort.create` directly, then calls the
-existing context constructor with this closed injection carrier:
+`--episode` is required exactly once. The named file contains exactly one
+canonical JSON encoding of `EpisodeIngressRequest`; the CLI neither supplies
+nor rewrites a variant. For a new episode, the caller places its explicit path
+in `NewEmptyEpisodeRequest.eventLogPath`. For response, continuation, retry,
+or fresh-process read, the caller places the prior handoff's authority and
+prefix in `ReopenExactPrefixRequest`. The CLI calls
+`InstalledAbgEpisodePort.open` directly, then calls the existing context
+constructor with this closed injection carrier:
 
 ```text
 RootOperationContextCreationRequest = {
   kind: "root_operation_context_creation_request",
   schemaVersion: "5.0.0",
-  durablePrefixBootstrap: InstalledAbgDurablePrefixBootstrapResult
+  episode: AcquiredEpisode
 }
 ```
 
 `public/operations.ts::createRootOperationContext(request)` accepts that
-already-created owner and prefix; it does not accept a path and does not call
-the bootstrap. Programmatic installed callers use the same sequence: call the
-installed `./abg` bootstrap with their explicit path, then inject its result
-through `RootOperationContextCreationRequest.durablePrefixBootstrap`. The
-zero-argument context constructor is deleted; there is no fallback.
+already-acquired episode; it does not accept a path, authority, prefix, or
+variant and does not call the episode port. Programmatic installed callers use
+the same sequence: construct exactly one ingress request, call installed
+`./abg`, then inject its result through
+`RootOperationContextCreationRequest.episode`. The zero-argument context
+constructor is deleted; there is no fallback.
 
-The caller invokes this bootstrap before the first effectful owner. It passes
-`result.owner` as the already-existing ABG store owner argument and
-`result.prefix` as `ArtifactAdmissionBasis.predecessorPrefix` to
-`admitProductInstall`. The returned install successor becomes the predecessor
+For a new setup episode, the caller passes `episode.owner` as the already-
+existing ABG store owner argument and `episode.currentPrefix` as
+`ArtifactAdmissionBasis.predecessorPrefix` to `admitProductInstall`. The
+returned install successor becomes the predecessor
 for `admitWorkspaceBinding`; the binding successor becomes the predecessor for
 `CatalogOperationPort.admit`; every later owner continues the already accepted
-successor chain. The installed execution setup may inject the returned owner
-and coordinate into its existing operation context, but that context does not
+successor chain. For reopened response, continuation, retry, and read, the
+reopened current prefix enters that owner directly; setup producers are not
+replayed as new effects. The installed execution setup injects the returned
+owner and coordinate into its existing operation context, but that context does not
 select, default, normalize, derive, or persist the path independently.
 
-The path cannot come from `RootOperationContext`, the JSONL Public invocation
-file, an environment variable,
+The new path cannot come from `RootOperationContext`, the JSONL Public
+invocation file, an environment variable,
 current working directory, install target, workspace roots, a temporary path,
 package root, process ID, clock, or implicit convention. No Public request or
 operation is added. The owner caller that creates the installed execution
 episode must supply the exact absolute path directly to this installed ABG
-callable.
+callable. Reopen cannot receive a path without its exact authority and prefix.
 
 All accepted CP-F01..CP-F03 relations and the Section 5.7 preservation boundary
-remain unchanged. In particular, bootstrap admits no event or runtime truth
+remain unchanged. In particular, episode ingress admits no event or runtime truth
 and authorizes no append lease, batch/frame change, reconciliation law,
 runtime-catalog projection, catalog view/application migration, new event kind,
 proof-oracle change, or additional producer.
+
+#### 5.2.2 Owner continuity and bypass deletion
+
+One `AcquiredEpisode` owns one Event Store instance and one append lock from
+successful ingress until `InstalledAbgEpisodePort.close`. Admission,
+projection, response, continuation, and retry receive that same owner plus its
+current prefix. A successor prefix updates `AcquiredEpisode.currentPrefix`
+only through a successful owner result. No operation may replace `owner`, swap
+its store, reopen over it, or attach another path while it remains open.
+
+An operation that needs another process or another existing prefix first
+closes the current episode and transfers `ClosedEpisodeHandoff`. New-empty
+creation is never used as a disposable prelude to reopen. Read-only projection
+may acquire an existing prefix, project, and close without append, but still
+uses the same lifecycle and exclusive owner boundary.
+
+The hard break deletes or internalizes every bypass in the same realization
+cut:
+
+- zero-argument `createRootOperationContext()` and every zero-argument caller;
+- public/external `new AbgEventStore()` construction;
+- `AbgEventStore.configureDurableLog` as a reachable create/adopt path;
+- `event_log.persistEventLog` creation/configuration behavior;
+- `applyRunInvoke` late durable-log configuration;
+- context store replacement in continuation, gap, run-projection, response,
+  and retry paths; and
+- any overload accepting a raw path, raw store, current event tail, or absent
+  episode request.
+
+`persistEventLog` may verify/read the already-owned exact sink only. A later
+run request may require its declared event-log path to equal the episode path,
+but cannot configure or replace it. Reopen functions consume
+`RootOperationContextCreationRequest.episode` already acquired from the reopen
+variant; they never create/discard a new-empty owner or acquire a second one.
+
+No compatibility alias, deprecated overload, test-only constructor, raw writer
+export, environment fallback, or implicit in-memory episode survives.
 
 Parsing a continuation, run projection, application, or source-result carrier
 yields an unverified candidate. Only its owner can rehydrate an admitted basis
@@ -615,6 +934,27 @@ Those rows account for all 18 callers. Projection refusal follows each
 caller's existing typed owner-refusal path; no caller answers admission without
 a successful projection.
 
+#### 5.4.1 Producer/consumer lifecycle coverage
+
+| Path | Producer | Required ingress | Consumed carrier | Output and next lifecycle |
+|---|---|---|---|---|
+| product install admission | `ProductEnvironmentPort` plus ABG artifact owner | `new_empty` for first setup, otherwise current acquired episode | empty/current predecessor plus install candidate | admitted/idempotent install result, successor projection |
+| workspace binding admission | Product workspace owner plus ABG artifact owner | same acquired setup episode | install successor plus binding candidate | binding successor projection |
+| catalog admission | `CatalogOperationPort.admit` plus ABG artifact owner | same acquired setup episode | binding successor, catalog candidate, stable scope evidence | operation-final successor after preserved registry rows |
+| artifact read projection | ABG projector | `reopen_exact` for a closed/fresh-process episode; current owner for same-process read | exact prefix | immutable projection; unchanged prefix; close/handoff |
+| Product semantic read | catalog/Product read owner | same as artifact read | projection plus install/catalog carrier | deterministic read or typed refusal; no event |
+| public run projection/read | `applyRunProjectionRead`, `applyProjectRead` | `reopen_exact` from run projection handoff | exact run/artifact prefix | read outcome then close to equal handoff |
+| interaction response | `applyInteractionRespond` | `reopen_exact` from continuation handoff | response request plus exact projection | admitted response successor then close/handoff |
+| continuation | `applyRunContinue`, continuation owner | `reopen_exact` from continuation authority/handoff | continuation request plus exact projection | continuation successor or typed refusal then close |
+| retry | installed AX-F09 ABG retry projector and HoG resume | `reopen_exact` from retry handoff | retry request, durable frontier, verified executable preimage | retry successor or refusal then close |
+| HoG invocation consumer | `constructAdmittedLeafInvocationPort` constructor/invoke | current acquired or reopened episode selected by its owner | immutable install/artifact projection | invoke admission successor; HoG never opens store |
+| fresh-process falsifier/support consumers | F06/F08/F09 workers and installed support | `reopen_exact`; never `new_empty` replacement | serialized handoff | canonical equal projection or typed refusal |
+
+The 18-reader census in Section 5.4 is the install-admission subprojection of
+this table. Every consumer is reached through either the current acquired
+episode or `ReopenExactPrefixRequest`; no response, continuation, retry, read,
+or fresh-process branch creates an empty episode as a substitute for history.
+
 ### 5.5 CP-F02 catalog authority scope
 
 Catalog admission has a scope distinct from workspace binding and artifact
@@ -624,9 +964,8 @@ identity. Its stable ref preimage is:
 {
   kind: "catalog_admission_authority_scope_ref",
   schemaVersion: "5.0.0",
-  workspaceBindingId,
+  workspaceId,
   owningProductId,
-  lockId,
   moduleRef
 }
 ```
@@ -637,6 +976,7 @@ Its scope-digest preimage is:
 {
   kind: "catalog_admission_authority_scope",
   schemaVersion: "5.0.0",
+  workspaceId,
   workspaceBindingId,
   workspaceBindingDigest,
   owningProductId,
@@ -655,6 +995,7 @@ only the evidence required to reproduce both:
 CatalogAdmissionAuthorityScopeEvidence = {
   kind: "catalog_admission_authority_scope_evidence",
   schemaVersion: "5.0.0",
+  workspaceId,
   workspaceBindingId,
   workspaceBindingDigest,
   owningProductId,
@@ -665,10 +1006,39 @@ CatalogAdmissionAuthorityScopeEvidence = {
 }
 ```
 
+Every preimage/evidence member is classified before use:
+
+| Member | Classification | Scope decision |
+|---|---|---|
+| `kind`, `schemaVersion` | stable identity discriminator | included in both canonical preimages |
+| `workspaceId` | stable identity | included in stable ref and content digest |
+| `owningProductId` | stable identity | included in stable ref and content digest |
+| `moduleRef` | stable identity | included in stable ref and content digest |
+| `workspaceBindingId` | content-derived identity | excluded from stable ref; included in content digest/evidence |
+| `workspaceBindingDigest` | content-derived | excluded from stable ref; included in content digest/evidence |
+| `lockId` | content-derived identity | excluded from stable ref; included in content digest/evidence |
+| `lockDigest` | content-derived | excluded from stable ref; included in content digest/evidence |
+| `publicationDigest` | content-derived | excluded from stable ref; included in content digest/evidence |
+
+No observation-derived or episode-local member participates in either catalog
+preimage. Invocation ref, event ref, admission ordinal, process owner, prefix,
+current time, current store tail, and retry/continuation identity are therefore
+forbidden catalog-scope inputs.
+
+`workspaceBindingId` and `lockId` are immutable content identities, not stable
+collision identities. A changed binding or lock under the same `workspaceId`,
+`owningProductId`, and `moduleRef` retains the same `authorityScopeRef` and
+changes `authorityScopeDigest`; it is a same-scope conflict before append.
+W1.1a defines no catalog supersession transition. Such content becomes lawful
+only under a later explicitly governed supersession design, or under a truly
+different stable workspace, owning Product, or module locus. It cannot escape
+collision by minting a new binding or lock digest.
+
 The Product owner verifies these fields against the existing binding, lock,
 and candidate. ABG derives both scope identities before admission; replay
-derives them from the event evidence alone. `workspaceBindingId` remains the
-owning environment identity and cause. `candidateId` remains the catalog
+derives them from the event evidence alone. `workspaceId` is the stable owning
+environment identity; `workspaceBindingId` remains the exact admitted binding
+content identity and cause. `candidateId` remains the catalog
 artifact ref. Neither is the catalog authority scope. The evidence embeds no
 candidate, rows, module bytes, validation carriers, or runtime-catalog view.
 The existing `public_operation_artifact_admitted` payload contract and its
@@ -762,18 +1132,46 @@ implements another artifact fold.
 
 ### 5.7 CP-F01..03 preservation boundary
 
-This amendment changes only the exact artifact projection and its 18 reader
-threads, the explicit predecessor/successor threading for the three current
-artifact owners, minimal catalog scope evidence, and the single pure
-transition. It preserves the current single-event append implementation,
+This W1.1a design changes only the disjoint episode ingress/owner/handoff
+lifecycle and required bypass deletions in Sections 5.0 and 5.2, the exact
+artifact projection and its 18 reader threads, predecessor/successor threading
+for the three current artifact owners, minimal catalog scope evidence, and the
+single pure transition. It preserves the current single-event append implementation,
 event batching/durability semantics, event-kind census, catalog admission
 sequencing, catalog runtime projection, catalog view/application code and
 design, proof oracles, packaging, all other producers, and all other
-owner/Public contracts. It adds no lease, batch frame, atomic catalog batch,
+owner/Public contracts. The CLI/context transport change is lifecycle ingress,
+not a Public operation or semantic expansion. It adds no lease, batch frame, atomic catalog batch,
 fsync reconciliation, indeterminate result, full candidate embedding, or new
 event kind. Existing schemas remain unchanged except for the one closed
 catalog-evidence field/variant explicitly authorized in Section 5.5. Any
 concern outside these relations is deferred rather than solved here.
+
+### 5.8 AX-W1A-01..11 cross-view evaluation
+
+Evidence addresses below are normative locations in this design. A `pass`
+means the same Section 5.0 Ontology entity and owner is present in every
+applicable domain, sequence, state, native, and admission projection. `NA`
+cannot hide a lifecycle gap.
+
+| Axiom | Ontology/domain evidence | Sequence/state evidence | Native enforcement | Admission enforcement | Verdict | Gap owner |
+|---|---|---|---|---|---|---|
+| `AX-W1A-01 Event Calculus sole runtime truth` | 5.0 authority chain; 5.0.2 event/row/projection; 5.6 transition | 5.0.3 transition then append/EC; 5.0.4 admitting/projecting | 5.6 pure transition and Event Store exclusion | 5.4/5.6 boundary event then EC projection | `pass` | none |
+| `AX-W1A-02 exact durable-prefix conservation` | 5.0 coordinate/acquired episode/result; 5.0.1 lifecycle | 5.0.3 predecessor/successor/refusal; 5.0.4 both ingress branches | 5.2.1 exact create/reopen/close | 5.4 prefix verification and pre-append equality | `pass` | none |
+| `AX-W1A-03 complete episode lifecycle` | 5.0.1 covers select through retire | 5.0.4 covers create, reopen, use, handoff, close, retire | 5.2.1 episode open/close | 5.4.1 owner lifecycle routing | `pass` | none |
+| `AX-W1A-04 new versus existing-prefix disjointness` | 5.0/5.2.1 sealed ingress sum | 5.0.3 `alt` branches; 5.0.4 disjoint states | 5.2.1 mixed/unknown refusal | 5.4.1 response/continue/retry/read require reopen | `pass` | none |
+| `AX-W1A-05 owner continuity and replacement prohibition` | 5.0 opaque owner/acquired episode/handoff | 5.0.4 replacement-forbidden and close/handoff | 5.2.2 continuity and bypass deletion | 5.4/5.4.1 same owner and current prefix | `pass` | none |
+| `AX-W1A-06 stable catalog collision identity` | 5.5 member classification and preimages | 5.0.3 catalog admission through transition; 5.0.4 refusal | 5.5 canonical construction/evidence validation | 5.5 changed binding/lock is same-scope pre-append conflict | `pass` | none |
+| `AX-W1A-07 refusal before artifact append` | 5.0 candidate/row/transition/refusal; 5.6 result | 5.0.3 refusal precedes Store append; 5.0.4 no-append refusal | 5.6 transition sum | 5.4 predecessor projection and ingress precondition | `pass` | none |
+| `AX-W1A-08 fresh-process reconstruction equality` | 5.0 handoff/reopen/projection | 5.0.3 close-transfer-reopen; 5.0.4 FreshProcess | 5.2.1 close/reopen inverse | 5.4/5.6 same transition and projection | `pass` | none |
+| `AX-W1A-09 producer/consumer lifecycle closure` | 5.0 owners/requests; 5.4 18 readers | 5.4.1 admission/read/response/continue/retry coverage | 5.2.1/5.4 closed ingress/results | 5.4.1 every consumer uses current or reopened exact prefix | `pass` | none |
+| `AX-W1A-10 alternate creation/reopen bypass closure` | 5.0/5.2.1 singular Episode Port | 5.0.4 no bypass state and replacement forbidden | 5.2.2 deletion list | 5.2.2 zero-arg/configure/raw-store alternatives removed | `pass` | none |
+| `AX-W1A-11 scope and feature conservation` | 5.0 W1.1a-only entities; 5.7 boundary | 5.0.2-5.0.4 use only Ontology entities | 5.7 prohibited additions | 5.4.1 bounded consumers; no new Public operation/event | `pass` | none |
+
+No applicable axiom remains failed or unowned. No row is `NA`: every axiom
+has both a native carrier/law consequence and an admission/lifecycle
+consequence inside W1.1a. This evaluation does not accept implementation,
+tests, A5-F10, Wave 1, or the enclosing migration.
 
 ## 6. Catalog Authority
 
