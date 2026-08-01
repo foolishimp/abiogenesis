@@ -11,7 +11,7 @@
     immutable 4.6, accepted 5.0 commits, and rejected branches are selective
     donor evidence rather than a separate governing library
 - status: active
-- phase_status: w1_1a_design_reentry_pending
+- phase_status: w1_1a_donor_delta_review_pending
 - review_status: wave_1_not_frozen
 - proof_status: increment_0a_accepted_wave_1_green_evidence_pending
 - goal: GOAL-035
@@ -41,7 +41,7 @@
 - selected_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_product_outcome: A5-F10
 - selected_product_slice: W1.1a_scoped_artifact_truth
-- selected_slice_cycle_stage: design
+- selected_slice_cycle_stage: donor_review
 - selected_slice_acceptance_interval: >-
     artifact event admission through installed fresh-process Event Calculus
     projection for one exact artifact authority scope
@@ -299,6 +299,33 @@ All donor exclusions, W1.1a proof obligations, Product scope, requirements,
 event-kind census, Public family, and non-goals remain frozen. This re-entry
 authorizes design construction only. Production, test, package, fixture,
 candidate-basis, and semantic tracking edits remain prohibited.
+
+### W1.1a Design Re-Entry Receipt
+
+The bounded design candidate at `f5d5c0c0a18b631115a0a38c6462ee02c206654a`,
+tree `2d0c5f4a86794ca9aabed5fdfda61e10f38f3889`, is accepted for W1.1a
+planning authority.
+
+It closes exactly:
+
+- `ExactPrefixArtifactTruthProjection` and immutable threading across all 18
+  current `hasAdmittedProductInstall` callers;
+- explicit predecessor/successor-prefix threading for the three current
+  artifact owners and pre-append use of the same artifact transition;
+- a distinct catalog-admission authority scope with closed minimal evidence;
+  and
+- one store-free `ArtifactTruthTransition` shared by owner admission, Event
+  Calculus projection, replay, and historical validation.
+
+Existing synchronous single-event append ownership remains the append
+mechanism. Batch framing, append leases, indeterminate reconciliation, runtime
+catalog projection, full candidate embedding, catalog view/application
+migration, new event kinds, and unrelated producer/result redesign remain
+excluded.
+
+The next stage is a targeted donor-delta review against this accepted design.
+It authorizes no coding plan, production edit, test edit, test execution,
+package change, or candidate refresh.
 
 ### 4. Approval
 
