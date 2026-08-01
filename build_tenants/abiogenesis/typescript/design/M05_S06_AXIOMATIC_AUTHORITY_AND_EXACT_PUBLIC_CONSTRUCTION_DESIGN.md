@@ -245,6 +245,371 @@ Different keys/scopes coexist. Reuse of the same scope reference with a
 different scope digest, definition digest, artifact reference, or artifact
 digest refuses before append. No Public layer emits this event.
 
+### 5.4 CP-F01 exact-prefix artifact truth and threading
+
+ABG owns one closed immutable projection:
+
+```text
+ExactPrefixArtifactTruthProjection = {
+  kind: "exact_prefix_artifact_truth_projection",
+  schemaVersion: "5.0.0",
+  prefix: DurablePrefixCoordinate,
+  prefixEventCount,
+  lastAdmissionOrdinal,
+  rows: readonly ArtifactTruthRow[],
+  projectionRef,
+  projectionDigest
+}
+
+ArtifactTruthRow = {
+  operationId,
+  definitionKey,
+  definitionDigest,
+  authorityScopeRef,
+  authorityScopeDigest,
+  artifactRef,
+  artifactDigest,
+  admissionEventRef,
+  admissionOrdinal,
+  causationEventRefs
+}
+
+ExactPrefixArtifactTruthProjectionRefusal = {
+  kind: "exact_prefix_artifact_truth_projection_refusal",
+  schemaVersion: "5.0.0",
+  disposition: "refused",
+  code:
+    | "file_identity_mismatch"
+    | "prefix_length_mismatch"
+    | "prefix_digest_mismatch"
+    | "event_contract_digest_mismatch"
+    | "event_envelope_invalid"
+    | "admission_ordinal_invalid"
+    | "artifact_truth_history_conflict"
+    | "duplicate_artifact_admission",
+  prefix: DurablePrefixCoordinate,
+  eventRefs: readonly string[],
+  authorityScopeRef: string | null,
+  conflictingFields: readonly ArtifactTruthConflictField[]
+}
+```
+
+`rows` are code-unit sorted by `authorityScopeRef`. `projectionDigest` is the
+canonical digest of every preceding projection field except `projectionRef`;
+`projectionRef` is
+`artifact-truth-projection://abiogenesis/<projectionDigest>`.
+Refusal event refs are unique and code-unit sorted. Scope and conflicting
+fields are populated only for an artifact-history conflict.
+
+The existing `EventStoreReopenAuthority` maps to the prefix without a second
+durable coordinate:
+
+```text
+eventLogRef                        = eventLogPath
+prefixLength                      = durableByteLength
+prefixDigest                      = eventLogDigest
+storeIdentity.device              = device
+storeIdentity.inode               = inode
+storeIdentity.eventContractDigest = eventContractDigest
+```
+
+The total ABG projector is:
+
+```text
+projectExactPrefixArtifactTruth(prefix: DurablePrefixCoordinate)
+  -> ExactPrefixArtifactTruthProjection
+   | ExactPrefixArtifactTruthProjectionRefusal
+```
+
+It verifies the exact prefix and applies Section 5.6 to admitted artifact
+events in admission-ordinal order. It does not throw for a declared refusal.
+A mutable store, `readAll()` result, current global tail, event array, retained
+context, or remembered reopen object is not the projection.
+
+`ArtifactAdmissionBasis` adds exactly one field:
+
+```text
+predecessorPrefix: DurablePrefixCoordinate
+```
+
+The three current artifact-owner requests—`admitProductInstall`,
+`admitWorkspaceBinding`, and `CatalogOperationPort.admit`—carry that basis
+unchanged to ABG. ABG projects the exact predecessor and applies the same
+Section 5.6 transition to the proposed artifact before the existing
+single-event `public_operation_artifact_admitted` append path:
+
+```text
+initiated  -> append the existing artifact event once
+idempotent -> return the held admissionEventRef; append no artifact event
+refused    -> return ArtifactTruthConflictRefusal; append no artifact event
+```
+
+Prefix-projection refusal propagates through the same owner result and permits
+no append. Immediately before the existing append, the event-store ingress
+must verify that the selected store still equals `predecessorPrefix`; mismatch
+uses the existing prefix refusal and appends nothing. This is a precondition
+on the existing synchronous single-event append, not a new lease, transaction,
+batch, recovery, or durability protocol. The selected durable store already
+holds its existing exclusive append ownership from open/reopen through this
+synchronous projection-transition-append sequence; CP-F01 adds no second
+ownership mechanism.
+
+The only result threading added to those three owners is:
+
+```text
+ArtifactOwnerResult<Value, Refusal> =
+  | {
+      kind: "artifact_owner_result",
+      schemaVersion: "5.0.0",
+      disposition: "admitted" | "idempotent",
+      value: Value,
+      admissionEventRef,
+      successorPrefix: DurablePrefixCoordinate,
+      artifactTruth: ExactPrefixArtifactTruthProjection
+    }
+  | {
+      kind: "artifact_owner_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      refusal:
+        | Refusal
+        | ArtifactTruthConflictRefusal
+        | ExactPrefixArtifactTruthProjectionRefusal
+    }
+```
+
+On initiated admission, `successorPrefix` is the existing owner operation's
+final durable prefix and `artifactTruth` is projected from it before return.
+On idempotence, the predecessor is unchanged, becomes the successor, and its
+existing projection is returned. Refusal claims no successor. The domain
+`value` remains the owner's existing value constructed under its current
+contract; this wrapper does not alter its content identity. No other producer
+or result contract changes.
+
+For catalog idempotence only, the preserved catalog admission relation selects
+the already-admitted catalog caused by the held artifact event and joins its
+existing `registry_entry_admitted` events. The candidate catalog identity,
+digest, complete handle/row-digest set, and dispositions must be exactly equal.
+The owner returns the equal `AdmittedCatalog` with the original catalog and row
+admission refs, unchanged predecessor/successor, and no append. Missing,
+duplicate, unequal, or non-admitted preserved rows return exactly:
+
+```text
+CatalogIdempotenceHistoryRefusal = {
+  kind: "catalog_idempotence_history_refusal",
+  schemaVersion: "5.0.0",
+  disposition: "refused",
+  code: "catalog_idempotence_history_mismatch",
+  catalogAdmissionEventRef,
+  issues: readonly {
+    handle,
+    code:
+      | "registry_row_missing"
+      | "registry_row_duplicate"
+      | "registry_row_extra"
+      | "registry_row_digest_mismatch"
+      | "registry_row_not_admitted",
+    eventRefs: readonly string[]
+  }[]
+}
+```
+
+Issues are non-empty, unique, and code-unit sorted by handle then code; event refs are
+unique and code-unit sorted. This refusal is included only in the
+`CatalogOperationPort.admit` instantiation's `Refusal` parameter. It does not
+reinterpret `candidate_not_constructed`, `candidate_digest_mismatch`, or
+`scope_mismatch`. This is an idempotence lookup within the current catalog
+admission relation; it does not define a new runtime catalog projection,
+sequence, event, or durability mechanism.
+
+`hasAdmittedProductInstall` becomes exactly:
+
+```text
+hasAdmittedProductInstall(
+  projection: ExactPrefixArtifactTruthProjection,
+  install: ProductInstall
+) -> boolean
+```
+
+It has no store overload or fallback. Its 18 callers receive the projection as
+follows:
+
+| Caller class | Ownership/threading disposition |
+|---|---|
+| `abg/catalog_admission.ts` | receives it beside the install from the artifact-owner result |
+| `abg/continuation.ts` | projects the continuation's explicit durable prefix |
+| `hog/leaf_invocation_port.ts` constructor and `invoke` | receives the immutable projection through install-bound HoG authority |
+| eight `public/operations.ts` callers | the owning Product operation projects its explicit prefix; Public only passes the carrier |
+| `test_env/falsifiers/contract-lanes.mjs` | installed-owner setup supplies it |
+| two `runtime-f06-worker.mjs` callers | the fresh worker projects its persisted prefix |
+| `runtime-f08.mjs` | the installed runtime basis supplies it |
+| `runtime-f09-worker.mjs` | retry rehydration projects its verified retry prefix |
+| `test_env/support/root-installed-environment.mjs` | setup exposes the ABG projection |
+
+Those rows account for all 18 callers. Projection refusal follows each
+caller's existing typed owner-refusal path; no caller answers admission without
+a successful projection.
+
+### 5.5 CP-F02 catalog authority scope
+
+Catalog admission has a scope distinct from workspace binding and artifact
+identity. Its stable ref preimage is:
+
+```text
+{
+  kind: "catalog_admission_authority_scope_ref",
+  schemaVersion: "5.0.0",
+  workspaceBindingId,
+  owningProductId,
+  lockId,
+  moduleRef
+}
+```
+
+Its scope-digest preimage is:
+
+```text
+{
+  kind: "catalog_admission_authority_scope",
+  schemaVersion: "5.0.0",
+  workspaceBindingId,
+  workspaceBindingDigest,
+  owningProductId,
+  lockId,
+  lockDigest,
+  moduleRef,
+  publicationDigest
+}
+```
+
+`authorityScopeRef` is the canonical digest-derived reference of the first;
+`authorityScopeDigest` is the canonical digest of the second. The event carries
+only the evidence required to reproduce both:
+
+```text
+CatalogAdmissionAuthorityScopeEvidence = {
+  kind: "catalog_admission_authority_scope_evidence",
+  schemaVersion: "5.0.0",
+  workspaceBindingId,
+  workspaceBindingDigest,
+  owningProductId,
+  lockId,
+  lockDigest,
+  moduleRef,
+  publicationDigest
+}
+```
+
+The Product owner verifies these fields against the existing binding, lock,
+and candidate. ABG derives both scope identities before admission; replay
+derives them from the event evidence alone. `workspaceBindingId` remains the
+owning environment identity and cause. `candidateId` remains the catalog
+artifact ref. Neither is the catalog authority scope. The evidence embeds no
+candidate, rows, module bytes, validation carriers, or runtime-catalog view.
+The existing `public_operation_artifact_admitted` payload contract and its
+validator/types gain exactly one additive, catalog-operation-only
+`catalogAdmissionAuthorityScopeEvidence` field containing this closed value.
+It is required for `abg.operation.catalog.admit` and forbidden for other
+operation variants. This is no new event kind and no general metadata bag.
+
+### 5.6 CP-F03 single artifact-truth transition
+
+```text
+ArtifactTruthConflictField =
+  | "operationId"
+  | "definitionKey"
+  | "definitionDigest"
+  | "authorityScopeDigest"
+  | "artifactRef"
+  | "artifactDigest"
+
+ArtifactTruthConflictRefusal = {
+  kind: "artifact_truth_conflict_refusal",
+  schemaVersion: "5.0.0",
+  disposition: "refused",
+  code: "artifact_truth_conflict",
+  authorityScopeRef,
+  conflictingFields: readonly ArtifactTruthConflictField[],
+  heldArtifactRef,
+  heldArtifactDigest,
+  candidateArtifactRef,
+  candidateArtifactDigest
+}
+
+ArtifactTruthTransitionInput = {
+  held: readonly ArtifactTruthRow[],
+  candidate: {
+    operationId,
+    definitionKey,
+    definitionDigest,
+    authorityScopeRef,
+    authorityScopeDigest,
+    artifactRef,
+    artifactDigest,
+    causationEventRefs,
+    admission:
+      | { kind: "proposed" }
+      | { kind: "admitted", admissionEventRef, admissionOrdinal }
+  }
+}
+
+ArtifactTruthTransitionResult =
+  | { disposition: "initiated", candidate }
+  | { disposition: "idempotent", held: ArtifactTruthRow }
+  | {
+      disposition: "refused",
+      code: "artifact_truth_conflict",
+      authorityScopeRef,
+      conflictingFields: readonly ArtifactTruthConflictField[],
+      held: ArtifactTruthRow,
+      candidate
+    }
+  | {
+      disposition: "invalid_history",
+      code: "duplicate_artifact_admission",
+      authorityScopeRef,
+      heldAdmissionEventRef,
+      duplicateAdmissionEventRef
+    }
+```
+
+The pure store-free transition selects held truth solely by global
+`authorityScopeRef`. No row initiates. Exact proposed equality is idempotent.
+An equal admitted candidate with the same event ref and ordinal is replay-stable
+idempotence; a distinct admitted event for the same semantic identity is
+duplicate history. Unequal fields in `ArtifactTruthConflictField` refuse;
+the returned list is unique, non-empty, and code-unit sorted. Prefix-envelope
+and admission-ordinal validity precede the transition.
+
+The dependency direction is exact:
+
+```text
+ArtifactTruthTransition (pure, store-free)
+  -> artifact Event Calculus axiom
+  -> owner predecessor check | exact-prefix projection | replay validation
+```
+
+`event_store.ts` remains envelope/order/stamping/durability only. It receives
+the predecessor-coordinate precondition but imports no artifact transition and
+performs no artifact collision scan. Owner admission, projection, replay,
+historical validation, validators, and tests call the same transition; none
+implements another artifact fold.
+
+### 5.7 CP-F01..03 preservation boundary
+
+This amendment changes only the exact artifact projection and its 18 reader
+threads, the explicit predecessor/successor threading for the three current
+artifact owners, minimal catalog scope evidence, and the single pure
+transition. It preserves the current single-event append implementation,
+event batching/durability semantics, event-kind census, catalog admission
+sequencing, catalog runtime projection, catalog view/application code and
+design, proof oracles, packaging, all other producers, and all other
+owner/Public contracts. It adds no lease, batch frame, atomic catalog batch,
+fsync reconciliation, indeterminate result, full candidate embedding, or new
+event kind. Existing schemas remain unchanged except for the one closed
+catalog-evidence field/variant explicitly authorized in Section 5.5. Any
+concern outside these relations is deferred rather than solved here.
+
 ## 6. Catalog Authority
 
 Three non-substitutable relations exist:
