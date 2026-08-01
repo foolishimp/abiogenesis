@@ -11,7 +11,7 @@
     immutable 4.6, accepted 5.0 commits, and rejected branches are selective
     donor evidence rather than a separate governing library
 - status: active
-- phase_status: w1_1a_donor_review_pending
+- phase_status: w1_1a_coding_plan_pending
 - review_status: wave_1_not_frozen
 - proof_status: increment_0a_accepted_wave_1_green_evidence_pending
 - goal: GOAL-035
@@ -41,7 +41,7 @@
 - selected_feature_families: A5-F01..A5-F11,A5-F13..A5-F17
 - selected_product_outcome: A5-F10
 - selected_product_slice: W1.1a_scoped_artifact_truth
-- selected_slice_cycle_stage: donor_review
+- selected_slice_cycle_stage: coding_plan
 - selected_slice_acceptance_interval: >-
     artifact event admission through installed fresh-process Event Calculus
     projection for one exact artifact authority scope
@@ -232,6 +232,42 @@ Produce one file- and relation-addressed implementation plan containing:
 - proportional positive, negative, fresh-process, and regression proof;
 - expected package or manifest effects; and
 - explicit non-goals.
+
+### W1.1a Donor-Review Receipt
+
+Donor review completed read-only against baseline `50e8a5c7`, immutable
+`v4.6.0-rc.3`, accepted Increment 0A `1242df2a`, rejected donor `935b11dd`,
+and rejected donor-only subject `96b131c1`.
+
+Disposition:
+
+- no donor contains a promotable W1.1a implementation;
+- retain the baseline event envelope, effectful owner boundaries, append-only
+  store, durable reopen verification, replay fold, and indirect consumer call
+  sites;
+- transplant only the typed composite-fluent and ordered Event Calculus
+  projection pattern from 4.6, corrected to the accepted 5.0 coordinates;
+- preserve AX-F04 relation, mutation, oracle, and masking controls unchanged;
+- exclude `96b131c1` raw-event folding, mutable-store projection, generic
+  metadata, catalog view/application expansion, weakened proof, and refreshed
+  candidate values; and
+- exclude `935b11dd` dual-Public and compatibility authority.
+
+The collision domain is the stable `authorityScopeRef`. Reuse of that scope
+reference with another authority-scope digest, definition digest, artifact
+reference, or artifact digest refuses before append. Operation or definition
+partitioning cannot mask the conflict. Distinct stable scope references may
+coexist.
+
+The accepted `DurablePrefixCoordinate` is decision-complete for the coding
+plan: `eventLogRef`, `prefixLength`, `prefixDigest`, and `storeIdentity` name
+one immutable append-only prefix and ABG verifies all four before projection.
+The plan must map these fields explicitly onto the existing durable reopen
+authority and reopened context, project only that verified prefix through
+Event Calculus, and never query mutable live-store truth.
+
+This receipt authorizes the coding-plan stage only. It authorizes no production
+edit, test edit, test execution, candidate refresh, or implementation commit.
 
 ### 4. Approval
 
