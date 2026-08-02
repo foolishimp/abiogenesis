@@ -22,14 +22,18 @@ construction, donor, proof, review, and non-closure detail.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 runtime kernel selected under T-287. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - first A5-F10 Run `HoldsAt` slice accepted; stopped-Run projection assessment selected under T-287. |
 
 ## Current Basis
 
 - Intent and Product are accepted and unchanged.
 - Immutable STDO `v2.2.2` governs ABIogenesis 5.0.
 - The immutable 4.6 Product is the conserved runtime foundation.
-- Accepted M03 and M05 design surfaces govern realization.
+- `build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md`
+  is the sole local STDO 2.2.2 realization and AI-review disambiguation.
+- The accepted M03 and M05 TypeScript design basis indexed by
+  `build_tenants/abiogenesis/typescript/design/README.md` governs realization;
+  held `build_tenants/common/design/` surfaces remain prior-basis evidence.
 - S03 realization is accepted at `8865ccff`; S05 realization is accepted at
   `1ddc802d`.
 - Increment 0A is accepted at `1242df2a`, tree `7a52912d`.
@@ -73,7 +77,7 @@ end-to-end behavior.
 
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
-| `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Active |
+| `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Active - first Run `HoldsAt` slice accepted; stopped-Run projection selected |
 | `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06` | One exact installed Product/catalog boundary exposes the atomic 18-operation/56-key Public family through a thin SDK and CLI with no reachable legacy family. | Pending Wave 1 |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path without feature-specific runtimes. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and its Public contracts. | Pending Wave 3 |
@@ -81,15 +85,15 @@ end-to-end behavior.
 
 ## Current Selection
 
-Wave 1 is the active delivery wave. Within it, `A5-F10` is the sole selected
-unresolved Product outcome. `A5-F02`, `A5-F03`, and `A5-F04` are ordered
-successor outcomes and do not yet authorize material Product growth.
+Wave 1 is the active delivery wave. Within it, `A5-F10` is the first feature
+composition. `A5-F02`, `A5-F03`, and `A5-F04` remain its ordered successors.
 
-The current bounded Product slice is T-287 `W1.1a`, scoped artifact truth. Its
-acceptance interval begins at artifact event admission and ends at the
-installed fresh-process Event Calculus projection for that artifact authority
-scope. Acceptance of W1.1a advances A5-F10 but does not close A5-F10, Wave 1,
-or the enclosing implementation migration.
+Phase 0 and the first A5-F10 Run-lifecycle `HoldsAt` slice are accepted. The
+current bounded selection remains on the registered Run entity: assess and
+plan stopped-Run truth from `run_stopped` through typed Event Calculus, replay,
+and the durable gap-reopen Public consumer. T-287 carries the exact accepted
+subject and the next assessment boundary under the sole local realization
+constitution.
 
 Wave 1 order is:
 

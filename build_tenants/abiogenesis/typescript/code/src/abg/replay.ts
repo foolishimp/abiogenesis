@@ -2,7 +2,16 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { eventCalculusEffect } from "./event_calculus.js";
+import {
+  constructRunActiveFluent,
+  deriveRuntimeEventCalculusProjection,
+  holdsAt,
+  runtimeFluentKey,
+} from "./event_calculus.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
 import type {
   AbgEventStore,
   RootEventKind,
@@ -473,20 +482,9 @@ function validateCCallOrder(events: readonly RuntimeEvent[]): void {
 }
 
 export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayState {
-  const admittedEvents = store.readAll();
-  for (const [index, event] of admittedEvents.entries()) {
-    if (event.admissionOrdinal !== index + 1) {
-      throw new TypeError("ABG replay requires a total, gap-free admission-ordinal order");
-    }
-  }
-  const events = scope === undefined ? admittedEvents : store.readScope(scope);
-
-  const activeFluents = new Set<string>();
-  for (const event of events) {
-    const effect = eventCalculusEffect(event);
-    for (const fluent of effect.terminates) activeFluents.delete(fluent);
-    for (const fluent of effect.initiates) activeFluents.add(fluent);
-  }
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), scope);
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
 
   const cCallIds = [...new Set(
     events
@@ -1008,7 +1006,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
     fanOutCompletions,
     continuations,
     actorProcesses,
-    activeFluents: [...activeFluents].sort(),
+    activeFluents: eventCalculus.holds.map(runtimeFluentKey),
     terminalReachedEventRef: terminal?.eventId ?? null,
     frameClosedEventRef: frameClosed?.eventId ?? null,
     graphCallClosedEventRef: graphCallClosed?.eventId ?? null,
@@ -1026,6 +1024,8 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
             ? "gap_stopped" as const
             : runStoppedDisposition === "blocked"
               ? "blocked" as const
+              : runStoppedDisposition === "failed"
+                ? "failed" as const
               : "stopped" as const
           : invocationRefused !== undefined
             ? "refused" as const
@@ -1035,7 +1035,10 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
                   continuation.status === "responded",
               )
               ? "held" as const
-            : runOpen !== undefined
+            : runOpen?.runId !== undefined && holdsAt(
+                eventCalculus,
+                constructRunActiveFluent(runOpen.runId),
+              )
               ? "active" as const
               : "workspace" as const,
   };

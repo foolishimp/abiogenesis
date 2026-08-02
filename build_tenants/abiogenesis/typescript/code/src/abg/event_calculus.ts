@@ -1,11 +1,63 @@
-import type { JsonValue } from "../shared/canonical_json.js";
+import {
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
+import { deepFreeze } from "../shared/immutable.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
 import type { RootEventKind, RuntimeEvent } from "./event_store.js";
 
-export interface EventCalculusEffect {
+interface EventCalculusEffectRefs {
   readonly initiates: readonly string[];
   readonly terminates: readonly string[];
   readonly clips: readonly string[];
   readonly declips: readonly string[];
+}
+
+export interface RuntimeFluent {
+  readonly kind: "runtime_fluent";
+  readonly name: string;
+  readonly identity: string | null;
+  readonly fluentRef: string;
+}
+
+export interface RuntimeFluentPattern {
+  readonly kind: "runtime_fluent_pattern";
+  readonly name: string | null;
+  readonly identity: string | null;
+}
+
+export interface RuntimeFluentInput {
+  readonly name: string;
+  readonly identity?: string | null;
+}
+
+export interface RuntimeFluentPatternInput {
+  readonly name?: string | null;
+  readonly identity?: string | null;
+}
+
+export interface EventCalculusEffect {
+  readonly initiates: readonly RuntimeFluent[];
+  readonly terminates: readonly RuntimeFluent[];
+  readonly clips: readonly RuntimeFluentPattern[];
+  readonly declips: readonly RuntimeFluentPattern[];
+}
+
+export interface RuntimeEventCalculusEffectRow extends EventCalculusEffect {
+  readonly kind: "event_calculus_effect_row";
+  readonly eventKind: RootEventKind;
+  readonly sourceEvent: RuntimeEvent;
+}
+
+export interface RuntimeEventCalculusProjection {
+  readonly kind: "event_calculus_projection";
+  readonly holds: readonly RuntimeFluent[];
+  readonly effectRows: readonly RuntimeEventCalculusEffectRow[];
+  readonly clippedFluentRefs: readonly string[];
+  readonly declippedPatternRefs: readonly string[];
 }
 
 export const ROOT_EVENT_CALCULUS = Object.freeze({
@@ -207,7 +259,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: ["run_closed"],
     terminates: ["locus_active", "run_active"], clips: [], declips: [],
   },
-} as const satisfies Readonly<Record<RootEventKind, EventCalculusEffect>>);
+} as const satisfies Readonly<Record<RootEventKind, EventCalculusEffectRefs>>);
 
 function isRecord(
   value: JsonValue,
@@ -262,9 +314,9 @@ function consumedAvailabilityFluents(ref: string): readonly string[] {
   return [];
 }
 
-export function eventCalculusEffect(
+function eventCalculusEffectRefs(
   eventOrKind: RootEventKind | Pick<RuntimeEvent, "kind" | "payload">,
-): EventCalculusEffect {
+): EventCalculusEffectRefs {
   if (typeof eventOrKind === "string") return ROOT_EVENT_CALCULUS[eventOrKind];
   const event = eventOrKind as RuntimeEvent;
   switch (event.kind) {
@@ -765,4 +817,242 @@ export function eventCalculusEffect(
     default:
       throw new TypeError("traversal route event carries an unknown route kind");
   }
+}
+
+function assertFluentName(name: string): void {
+  if (name.length === 0 || name.includes("(") || name.includes(")")) {
+    throw new TypeError("Runtime fluent name must be non-empty and cannot contain parentheses");
+  }
+}
+
+export function constructRuntimeFluent(
+  input: RuntimeFluentInput,
+): RuntimeFluent {
+  assertFluentName(input.name);
+  const identity = input.identity ?? null;
+  if (identity !== null && identity.length === 0) {
+    throw new TypeError("Runtime fluent identity must be non-empty when present");
+  }
+  return deepFreeze({
+    kind: "runtime_fluent" as const,
+    name: input.name,
+    identity,
+    fluentRef: identity === null ? input.name : `${input.name}(${identity})`,
+  }) as RuntimeFluent;
+}
+
+export function constructRuntimeFluentPattern(
+  input: RuntimeFluentPatternInput,
+): RuntimeFluentPattern {
+  const name = input.name ?? null;
+  const identity = input.identity ?? null;
+  if (name !== null) assertFluentName(name);
+  if (identity !== null && identity.length === 0) {
+    throw new TypeError("Runtime fluent-pattern identity must be non-empty when present");
+  }
+  if (name === null && identity === null) {
+    throw new TypeError("Runtime fluent pattern must constrain name or identity");
+  }
+  return deepFreeze({
+    kind: "runtime_fluent_pattern" as const,
+    name,
+    identity,
+  }) as RuntimeFluentPattern;
+}
+
+function validateRuntimeFluent(fluent: RuntimeFluent): void {
+  if (fluent.kind !== "runtime_fluent") {
+    throw new TypeError("Runtime fluent must carry runtime_fluent kind");
+  }
+  const constructed = constructRuntimeFluent({
+    name: fluent.name,
+    identity: fluent.identity,
+  });
+  if (constructed.fluentRef !== fluent.fluentRef) {
+    throw new TypeError("Runtime fluent reference is not canonical");
+  }
+}
+
+function validateRuntimeFluentPattern(pattern: RuntimeFluentPattern): void {
+  if (pattern.kind !== "runtime_fluent_pattern") {
+    throw new TypeError("Runtime fluent pattern must carry runtime_fluent_pattern kind");
+  }
+  constructRuntimeFluentPattern({
+    name: pattern.name,
+    identity: pattern.identity,
+  });
+}
+
+export function runtimeFluentKey(fluent: RuntimeFluent): string {
+  validateRuntimeFluent(fluent);
+  return fluent.fluentRef;
+}
+
+export function runtimeFluentPatternKey(
+  pattern: RuntimeFluentPattern,
+): string {
+  validateRuntimeFluentPattern(pattern);
+  return JSON.stringify([pattern.name, pattern.identity]);
+}
+
+export function runtimeFluentMatchesPattern(
+  fluent: RuntimeFluent,
+  pattern: RuntimeFluentPattern,
+): boolean {
+  validateRuntimeFluent(fluent);
+  validateRuntimeFluentPattern(pattern);
+  return (pattern.name === null || pattern.name === fluent.name) &&
+    (pattern.identity === null || pattern.identity === fluent.identity);
+}
+
+function runtimeFluentFromRef(fluentRef: string): RuntimeFluent {
+  const separator = fluentRef.indexOf("(");
+  if (separator === -1) {
+    return constructRuntimeFluent({ name: fluentRef });
+  }
+  if (!fluentRef.endsWith(")")) {
+    throw new TypeError("Runtime fluent reference is malformed");
+  }
+  return constructRuntimeFluent({
+    name: fluentRef.slice(0, separator),
+    identity: fluentRef.slice(separator + 1, -1),
+  });
+}
+
+function runtimeFluentPatternFromRef(
+  fluentRef: string,
+): RuntimeFluentPattern {
+  const fluent = runtimeFluentFromRef(fluentRef);
+  return constructRuntimeFluentPattern({
+    name: fluent.name,
+    identity: fluent.identity,
+  });
+}
+
+function completeEffect(effect: EventCalculusEffect): EventCalculusEffect {
+  for (const fluent of [...effect.initiates, ...effect.terminates]) {
+    validateRuntimeFluent(fluent);
+  }
+  for (const pattern of [...effect.clips, ...effect.declips]) {
+    validateRuntimeFluentPattern(pattern);
+  }
+  const initiated = new Map(
+    effect.initiates.map((fluent) => [runtimeFluentKey(fluent), fluent]),
+  );
+  const terminated = new Map(
+    effect.terminates.map((fluent) => [runtimeFluentKey(fluent), fluent]),
+  );
+  if ([...initiated.keys()].some((key) => terminated.has(key))) {
+    throw new TypeError("Event Calculus effect cannot both initiate and terminate one fluent");
+  }
+  return deepFreeze({
+    initiates: [...initiated.values()],
+    terminates: [...terminated.values()],
+    clips: [...effect.clips],
+    declips: [...effect.declips],
+  }) as EventCalculusEffect;
+}
+
+export function validateRuntimeEventCalculusEffectForModuleTest(
+  effect: EventCalculusEffect,
+): EventCalculusEffect {
+  return completeEffect(effect);
+}
+
+export function validateRuntimeEventCalculusAxiomKindsForModuleTest(
+  eventKinds: readonly RootEventKind[],
+): void {
+  const unique = new Set<RootEventKind>();
+  for (const eventKind of eventKinds) {
+    if (!Object.hasOwn(ROOT_EVENT_CALCULUS, eventKind)) {
+      throw new TypeError(`Unknown Event Calculus event kind ${String(eventKind)}`);
+    }
+    if (unique.has(eventKind)) {
+      throw new TypeError(`Duplicate Event Calculus axiom for ${eventKind}`);
+    }
+    unique.add(eventKind);
+  }
+  const missing = (Object.keys(ROOT_EVENT_CALCULUS) as RootEventKind[])
+    .filter((eventKind) => !unique.has(eventKind));
+  if (missing.length !== 0) {
+    throw new TypeError(`Missing Event Calculus axiom for ${missing.join(",")}`);
+  }
+}
+
+validateRuntimeEventCalculusAxiomKindsForModuleTest(
+  Object.freeze(Object.keys(ROOT_EVENT_CALCULUS) as RootEventKind[]),
+);
+
+export function eventCalculusEffect(
+  eventOrKind: RootEventKind | Pick<RuntimeEvent, "kind" | "payload">,
+): EventCalculusEffect {
+  const effect = eventCalculusEffectRefs(eventOrKind);
+  return completeEffect({
+    initiates: effect.initiates.map(runtimeFluentFromRef),
+    terminates: effect.terminates.map(runtimeFluentFromRef),
+    clips: effect.clips.map(runtimeFluentPatternFromRef),
+    declips: effect.declips.map(runtimeFluentPatternFromRef),
+  });
+}
+
+export function constructRunActiveFluent(runId: string): RuntimeFluent {
+  return constructRuntimeFluent({ name: "run_active", identity: runId });
+}
+
+export function constructRunClosedFluent(runId: string): RuntimeFluent {
+  return constructRuntimeFluent({ name: "run_closed", identity: runId });
+}
+
+export function deriveRuntimeEventCalculusProjection(
+  prefix: ValidatedRuntimeEventPrefix,
+): RuntimeEventCalculusProjection {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const holds = new Map<string, RuntimeFluent>();
+  const effectRows: RuntimeEventCalculusEffectRow[] = [];
+  const clippedFluentRefs: string[] = [];
+  const declippedPatternRefs: string[] = [];
+  for (const event of events) {
+    const effect = eventCalculusEffect(event);
+    for (const fluent of effect.terminates) {
+      holds.delete(runtimeFluentKey(fluent));
+    }
+    for (const pattern of effect.clips) {
+      for (const [key, fluent] of [...holds.entries()]) {
+        if (runtimeFluentMatchesPattern(fluent, pattern)) {
+          holds.delete(key);
+          clippedFluentRefs.push(key);
+        }
+      }
+    }
+    for (const pattern of effect.declips) {
+      declippedPatternRefs.push(runtimeFluentPatternKey(pattern));
+    }
+    for (const fluent of effect.initiates) {
+      holds.set(runtimeFluentKey(fluent), fluent);
+    }
+    effectRows.push(deepFreeze({
+      kind: "event_calculus_effect_row" as const,
+      eventKind: event.kind,
+      sourceEvent: event,
+      ...effect,
+    }) as RuntimeEventCalculusEffectRow);
+  }
+  return deepFreeze({
+    kind: "event_calculus_projection" as const,
+    holds: [...holds.values()].sort((left, right) => compareUnicodeCodeUnits(
+      runtimeFluentKey(left),
+      runtimeFluentKey(right),
+    )),
+    effectRows,
+    clippedFluentRefs,
+    declippedPatternRefs,
+  }) as RuntimeEventCalculusProjection;
+}
+
+export function holdsAt(
+  projection: RuntimeEventCalculusProjection,
+  fluent: RuntimeFluent,
+): boolean {
+  const key = runtimeFluentKey(fluent);
+  return projection.holds.some((candidate) => runtimeFluentKey(candidate) === key);
 }

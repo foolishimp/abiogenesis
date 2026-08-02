@@ -2624,6 +2624,47 @@ function hasBlockedRouteEvidence(
     judgmentEvent.payload.reasonRef === evidence.reasonRef;
 }
 
+function hasFailedRouteEvidence(
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  sourceCursor: TraversalCursorCandidate,
+  candidate: RouteCandidate,
+  evidence: RouteAdmissionEvidence | null,
+): evidence is RouteAdmissionEvidence {
+  if (
+    evidence === null ||
+    !hasOpenedCCall(store, evidence.cCall) ||
+    !isAdmittedCCallResult(evidence.result) ||
+    !isAdmittedCCallJudgment(evidence.judgment) ||
+    evidence.cCall.basisId !== executionBasis.basisRef ||
+    evidence.cCall.frameId !== sourceCursor.frameId ||
+    evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
+    evidence.cCall.taskOrdinal !== sourceCursor.taskOrdinal ||
+    evidence.cCall.attempt !== sourceCursor.attempt ||
+    evidence.result.cCallRef !== evidence.cCall.cCallRef ||
+    evidence.result.resultClass !== "failure" ||
+    evidence.judgment.cCallRef !== evidence.cCall.cCallRef ||
+    evidence.judgment.resultRef !== evidence.result.resultRef ||
+    evidence.judgment.resultDigest !== evidence.result.resultDigest ||
+    evidence.judgment.judgment !== "blocked" ||
+    candidate.cCallRef !== evidence.cCall.cCallRef ||
+    candidate.judgmentRef !== evidence.judgment.judgmentRef ||
+    candidate.targetCursorRef !== null ||
+    candidate.targetCursorDigest !== null ||
+    candidate.consumedAvailabilityRefs.length !== 1 ||
+    candidate.consumedAvailabilityRefs[0] !== evidence.judgment.judgmentRef ||
+    candidate.contractRef !== evidence.cCall.transitionContractRef
+  ) return false;
+  const resultEvent = store.readAll().find(
+    (event) => event.eventId === evidence.result.admissionEventRef,
+  );
+  const judgmentEvent = store.readAll().find(
+    (event) => event.eventId === evidence.judgment.admissionEventRef,
+  );
+  return resultEvent?.kind === "c_call_result_admitted" &&
+    judgmentEvent?.kind === "c_call_judged";
+}
+
 function hasHoldRouteEvidence(
   store: AbgEventStore,
   executionBasis: ExecutionBasis,
@@ -3550,6 +3591,23 @@ export function admitRoute(
       }
       causationEventRef = blockedEvidence.judgmentEventRef;
     }
+  } else if (candidate.routeKind === "failed") {
+    const failedEvidence = evidence !== null && "result" in evidence
+      ? evidence
+      : null;
+    if (!hasFailedRouteEvidence(
+      store,
+      executionBasis,
+      sourceCursor,
+      candidate,
+      failedEvidence,
+    )) {
+      return refusal(
+        "judgment_mismatch",
+        "failed route requires this cursor's admitted failure result and judgment",
+      );
+    }
+    causationEventRef = failedEvidence.judgment.admissionEventRef;
   } else {
     return refusal(
       "route_kind_not_supported",
@@ -3709,6 +3767,7 @@ export function admitRoute(
       ])
     : (
         candidate.routeKind === "blocked" ||
+        candidate.routeKind === "failed" ||
         candidate.routeKind === "gap_stop"
       ) && options.terminalizeRun !== false
     ? admitRuntimeEventBatch(store, [
@@ -3738,7 +3797,9 @@ export function admitRoute(
             judgmentRef: candidate.judgmentRef,
             reasonRef: admittedNoActionStop?.projection.reasonRef ??
               (
-                evidence !== null && "reasonRef" in evidence
+                evidence !== null && "judgment" in evidence
+                  ? evidence.judgment.reasonRef
+                  : evidence !== null && "reasonRef" in evidence
                   ? evidence.reasonRef
                   : evidence !== null && "completion" in evidence &&
                       evidence.completion.completionKind === "partial_stop"
@@ -3768,6 +3829,7 @@ export function admitRoute(
     runStoppedEventRef:
       (
         candidate.routeKind === "blocked" ||
+        candidate.routeKind === "failed" ||
         candidate.routeKind === "gap_stop"
       ) &&
         options.terminalizeRun !== false

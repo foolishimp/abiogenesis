@@ -730,6 +730,37 @@ function diagnosticSummary(events) {
   };
 }
 
+function assertFailedRunTopology(events, failureResult) {
+  const failureJudgment = events.find(
+    (event) =>
+      event.kind === "c_call_judged" &&
+      event.payload?.resultRef === failureResult.payload.resultRef,
+  );
+  assert.ok(failureJudgment, JSON.stringify(diagnosticTail(events)));
+  const failedRoutes = events.filter(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload?.routeKind === "failed",
+  );
+  const leafFailedRoute = failedRoutes.find(
+    (event) => event.payload?.judgmentRef === failureJudgment.payload.judgmentRef,
+  );
+  assert.ok(leafFailedRoute, JSON.stringify(diagnosticTail(events)));
+  assert.deepEqual(leafFailedRoute.causationEventRefs, [failureJudgment.eventId]);
+  const runStops = events.filter((event) => event.kind === "run_stopped");
+  assert.equal(runStops.length, 1, JSON.stringify(diagnosticTail(events)));
+  assert.equal(runStops[0].payload?.disposition, "failed");
+  const terminalFailedRoute = failedRoutes.find(
+    (event) => runStops[0].causationEventRefs.includes(event.eventId),
+  );
+  assert.ok(terminalFailedRoute, JSON.stringify(diagnosticTail(events)));
+  assert.deepEqual(runStops[0].causationEventRefs, [terminalFailedRoute.eventId]);
+  assert.equal(
+    events.some((event) => event.kind === "runtime_failure_observed"),
+    false,
+  );
+}
+
 function assertTicketConsensusProjection(gtl, projection, result) {
   assert.equal(gtl.isTicketConsensusProjection(projection), true);
   assert.equal(projection.ticketRef, "ticket://abiogenesis/T-276");
@@ -2161,7 +2192,7 @@ test("M5 Consensus refuses malformed submitter output before reviewer reconsider
   });
   const events = await eventsAt(scenario.eventLogPath);
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes.at(-1).disposition, "failed");
+  assert.equal(run.outcomes.at(-1).disposition, "failed", run.stdout);
   const roundOneFindings = events
     .filter(
       (event) =>
@@ -2233,7 +2264,7 @@ test("M5 Consensus refuses malformed submitter output before reviewer reconsider
     false,
   );
   assert.equal(events.some((event) => event.kind === "run_closed"), false);
-  assert.equal(events.some((event) => event.kind === "run_stopped"), true);
+  assertFailedRunTopology(events, submitterFailure);
 });
 
 for (const transportCase of [{
@@ -2295,7 +2326,11 @@ for (const transportCase of [{
     });
     const events = await eventsAt(scenario.eventLogPath);
     assert.equal(run.exitCode, 2, run.stdout);
-    assert.equal(run.outcomes.at(-1).disposition, "failed");
+    assert.equal(
+      run.outcomes.at(-1).disposition,
+      "failed",
+      JSON.stringify(diagnosticTail(events)),
+    );
     const actorFailure = events.find(
       (event) => event.kind === "actor_invocation_failed",
     );
@@ -2327,11 +2362,7 @@ for (const transportCase of [{
       false,
       "transport failure must not become a semantic Consensus result",
     );
-    assert.equal(
-      events.some((event) => event.kind === "run_stopped"),
-      true,
-      JSON.stringify(diagnosticTail(events)),
-    );
+    assertFailedRunTopology(events, failureResult);
   });
 }
 

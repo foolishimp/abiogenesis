@@ -1452,7 +1452,12 @@ async function produceFrontier(input) {
   assert.equal(new Set(cCallEvents.map((event) => event.aggregateId)).size, 2);
   assert.equal(completeCCallHistories, true);
   assert.equal(retryRoutes.length, 2);
-  assert.equal(firstRouteEffect.terminates.includes(firstProgressFluent), true);
+  assert.equal(
+    firstRouteEffect.terminates
+      .map(environment.abg.runtimeFluentKey)
+      .includes(firstProgressFluent),
+    true,
+  );
   assert.deepEqual(heldRetryProgressRefs, [second.progress.progressRef]);
   assert.equal(actorStarts.length, 2);
   assert.equal(beforeCloseEvents.at(-1).eventId, second.progress.admissionEventRef);

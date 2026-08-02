@@ -47,6 +47,7 @@ export {
 } from "./judgment.js";
 export {
   proposeBlockedRoute,
+  proposeFailedRoute,
   proposeGapStopRoute,
   proposeGraphSpanReentryRoute,
   proposeWorkflowBlockedRoute,

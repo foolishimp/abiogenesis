@@ -1,0 +1,157 @@
+# T-287 Wave 1 First Run HoldsAt Correction Transition
+
+Status: frozen worker correction subject for independent assessment. This post
+is commentary evidence. It does not accept the slice, `A5-F10`, Phase 1, Wave
+1, or any Product outcome.
+
+Transition time: `2026-08-02T06:19:46Z`
+
+## Re-entry And Prior Freeze
+
+The correction re-entered at `realization_refactor`. Run lifecycle law, Product
+shape, requirements, and ratified design remained fixed. The correction stayed
+inside the approved first `HoldsAt` dependency cone plus the assessor-approved
+Consensus, standing-falsifier, fan-out-fixture, and deterministic-proof repairs.
+
+The prior frozen implementation post remains unchanged:
+
+```text
+.ai-workspace/comments/codex/20260802T042647Z_IMPLEMENTATION_t287_wave1_first_holdsat.md
+blob: ec2561778df774ca7374fd6941a7f24a8d64e454
+```
+
+No mutable `specification_methodology` or T-005 surface was consumed. The
+worker did not edit Product-control changes already present in GOALS, T-287,
+the design index, the realization constitution, or pre-existing commentary.
+
+## Exact Corrected Subject
+
+```text
+repository: /Users/jim/src/apps/abiogenesis-5-root-build
+branch: codex/t287-wave1
+HEAD: c0859be7fb0c779bf8a95be5b5b3c19e06c046c9
+commit created: no
+whole tracked worktree diff object: a6c3718c9033fd00a026066037c0902dd7639046
+authorized tracked implementation/proof diff object: 87541dd5d7206a51e1e5d3f4ff7168db2af48008
+event_prefix.ts blob: 07ba16653d770c0a417d8cfb9f094b1d399cf384
+m5-event-calculus-runtime.test.mjs blob: e41d55567d14e53ca0afd99155d566879fbb2705
+candidate-basis fixture blob: 48c16c3ba6f25907ef2c9c2539d788916678765c
+R10 event proof blob: 7cd282a8bc659aa001b54ba19bd9df0acf03266a
+HoG execute blob: 49399de3fca2d5e41eec3dba4ff4d8edb32a9c63
+fan-out implementation blob: 64ac75b8604b24568d491217400da4dadd7cce65
+```
+
+The whole tracked diff identity includes preserved Product-control edits. The
+authorized tracked identity excludes those surfaces and binds the corrected
+implementation, migrated tests/falsifiers, derived candidate fixture, and
+deterministically regenerated R10 proof family. The two untracked
+implementation files are bound separately above.
+
+## Correction Transitions
+
+### Canonical ordering
+
+Canonical JSON and Event Calculus projection ordering now share one exported
+Unicode code-unit comparator. Locale-sensitive ordering is absent from the
+projection path.
+
+### Nominal immutable prefix
+
+`ValidatedRuntimeEventPrefix` is now a nominal carrier created only by
+`selectValidatedRuntimeEventPrefix`. The selector rejects mutable nested event
+data, validates the total ordinal and causal Run-local prefix, and returns a
+deeply frozen carrier. The projector accepts only that carrier. A frozen array
+or structurally forged object cannot bypass selection.
+
+### Typed falsifier consumers
+
+The standing AX-F04 and AX-F09 consumers now map typed fluent values through
+`runtimeFluentKey`. They no longer compare the typed effect carrier as if its
+members were raw strings.
+
+### Failure ordering and single terminal fact
+
+An admitted leaf failure is judged first, then admits exactly one
+`runtime_failure_observed` caused by that exact judgment event. The traversal
+returns `failed` from the resulting replay. No `run_stopped` event is appended
+before or after that failure.
+
+The Public catch path may admit a runtime failure only while replay says the
+Run is `active`; it cannot append a second terminal fact to a held, closed,
+stopped, or failed Run. Consensus proof now requires one failure event, exact
+judgment causation, and absence of `run_stopped` for malformed submitter and
+all transport-failure cases.
+
+There is no admitted-leaf failure exception for workflow, fan-out, or
+`implementation_exception`.
+
+### Fan-out semantic stop
+
+The conformance fan-out element implementation no longer throws for the
+fixture's `block` member. Its valid output carrier is admitted, and the
+declared `evaluateElement` judgment law produces the semantic rejection.
+
+Workflow foldback now keeps output-contract validation distinct from judgment
+evaluation. For fan-out, a blocked child output remains an output carrier;
+the blocked judgment produces the canonical `partial_stop` completion and one
+`run_stopped`, without entering fan-in. This preserves the declared GTL law as
+the semantic owner and introduces no leaf-failure compatibility branch.
+
+### AX-F08 lawful S topology
+
+AX-F08 no longer uses a stopped recursive Run as S. Each affected source opens
+one real F_H-held disjoint Run S before root Run R in one admitted event
+history. The fixture asserts `HoldsAt(Run(S))` before appending the disjoint S
+failure. The eight oracle rows and their expected red signatures are unchanged.
+
+### Deterministic proof and candidate refresh
+
+The R10 proof family was regenerated only by its deterministic installed CLI
+test. The candidate-basis fixture was regenerated by the repository refresh
+script and reproduced the same values on the final source:
+
+```text
+artifactDigest: sha256:93bf9a609681065aa876239caa1eef1b34cf705b3fb705f0ce416d98a8e80203
+productContentDigest: sha256:5a501b5c107f200e550a3a8a60242f49f038ab103622ff8a7f62fef0ea9fe568
+manifestDigest: sha256:30e55e162f3ff64c96c8fbe7a27ed613debed4e28030219807b0f00e174cd07a
+```
+
+No proof file was hand edited.
+
+## Verification Results
+
+Final corrected subject:
+
+| Command or lane | Result |
+|---|---|
+| `npm run build` | pass |
+| focused Event Calculus | pass, 5/5 |
+| focused fan-out | pass, 2/2 |
+| recursion, workflow, and retry | pass, 8/8 |
+| corrected Consensus failure cases | pass, 5/5 |
+| deterministic R10 installed CLI proof | pass, 1/1 |
+| standing runtime falsifiers | pass: AX-F04 red, AX-F06 red, AX-F07 green, AX-F08 red, AX-F09 red |
+| `npm run test:m5` | pass, 186/186 |
+| `git diff --check` | pass |
+
+The final full M5 run completed in `1499772.975625ms` with zero failures,
+cancelled tests, skips, or todos.
+
+## Self-review Verdicts
+
+- Design: not reopened. The corrected implementation remains inside the
+  accepted Run lifecycle row and approved dependency cone.
+- Authority: pass. Prefix selection, Event Calculus projection, Product
+  judgment, runtime-failure admission, and fan-out completion each retain one
+  distinct owner.
+- Terminal ordering: pass. Runtime failures and semantic stops are mutually
+  exclusive terminal paths for the exercised Runs.
+- Fixture integrity: pass. AX-F08 uses an actually held S; fan-out blocking is
+  declared semantic law rather than an implementation exception.
+- Proof: pass. Focused, standing-falsifier, deterministic R10, and full M5
+  evidence are green on the exact corrected source.
+- Advancement: held for independent assessment.
+
+## Assessor Disposition
+
+Pending /root independent review.

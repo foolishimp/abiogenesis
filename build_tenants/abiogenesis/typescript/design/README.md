@@ -25,6 +25,10 @@ remains non-operative future input under backlogged T-268.
 
 The current design basis is:
 
+- [ABIogenesis 5.0 Realization Constitution](./ABI5_REALIZATION_CONSTITUTION.md),
+  the sole local STDO 2.2.2 disambiguation for AI-authored design, coding,
+  review, proof, lawful technology, common libraries, and entity lifecycle
+  truth;
 - accepted M03 and M05 Sections 1 through 12 at S03 candidate `8865ccff`;
 - [M05 S05 Consensus Global-To-Local Design](./M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md);
   the accepted S05 realization basis;
@@ -47,11 +51,11 @@ Read in this order:
 2. specification/INTENT.md
 3. specification/PRODUCT.md
 4. specification/requirements/
-5. the current design basis above
-6. M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md while
+5. accepted functional designs in the current design basis above
+6. ABI5_REALIZATION_CONSTITUTION.md for local realization and review
+7. M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md while
    reviewing the proposed frozen Gate 1 subject
-7. .ai-workspace/tickets/active/T-281-publish-prime-19-operation-definition-family.md
-8. .ai-workspace/tickets/active/T-270-bind-public-catalog-invocation-to-execution-authority.md
+8. the active ticket selected by GOALS
 
 Specification defines WHAT. Accepted design defines HOW for S06. The deferred
 S04 subject defines no 5.0 implementation or review authority.

@@ -80,6 +80,7 @@ export interface ExecuteGraphTraversalInput {
   readonly childTraversalPreparationPort?: ChildTraversalPreparationPort;
   readonly closureContract: Readonly<ClosureContract>;
   readonly actorRuntimeBinding: ActorRuntimeBinding;
+  readonly deferFailedRunStop?: boolean;
   readonly input: Readonly<Record<string, JsonValue>>;
   readonly inputDigest: `sha256:${string}`;
   readonly eventTime: string;
@@ -573,6 +574,10 @@ export async function executeGraphTraversal(
           childTraversalPreparationPort: input.childTraversalPreparationPort,
           closureContract: prepared.closureContract,
           actorRuntimeBinding: input.actorRuntimeBinding,
+          deferFailedRunStop:
+            input.deferFailedRunStop === true ||
+            fanOutApplication?.elementGraphFunctionRef ===
+              directStep.graphFunctionRef,
           input: prepared.input,
           inputDigest: prepared.inputDigest,
           eventTime: input.eventTime,
@@ -598,6 +603,12 @@ export async function executeGraphTraversal(
             childCompletion,
             terminalMode: input.terminalMode ?? "close_run",
           });
+        }
+        if (
+          childCompletion.disposition === "failed" &&
+          childCompletion.replayState.runtimeStatus === "failed"
+        ) {
+          return childCompletion;
         }
         const selectedActionEvaluationBasis =
           constructionIntent?.actionKind === "invoke_graph_function" &&
@@ -821,6 +832,9 @@ export async function executeGraphTraversal(
         ...(retryInput === undefined ? {} : { retryInput }),
         closureContract: input.closureContract,
         actorRuntimeBinding: input.actorRuntimeBinding,
+        ...(input.deferFailedRunStop === true
+          ? { deferFailedRunStop: true }
+          : {}),
         terminalMode: recursionApplication === null
           ? input.terminalMode ?? "close_run"
           : "return_to_application",
@@ -945,6 +959,9 @@ export async function executeGraphTraversal(
                 input.childTraversalPreparationPort,
               closureContract: prepared.closureContract,
               actorRuntimeBinding: input.actorRuntimeBinding,
+              ...(input.deferFailedRunStop === true
+                ? { deferFailedRunStop: true }
+                : {}),
               input: prepared.input,
               inputDigest: prepared.inputDigest,
               eventTime: input.eventTime,
@@ -965,6 +982,12 @@ export async function executeGraphTraversal(
                 childCompletion,
                 terminalMode: input.terminalMode ?? "close_run",
               });
+            }
+            if (
+              childCompletion.disposition === "failed" &&
+              childCompletion.replayState.runtimeStatus === "failed"
+            ) {
+              return childCompletion;
             }
             completion = advanceDeferredRecursion({
               completion,
@@ -1424,6 +1447,9 @@ export async function resumeHeldRecursionTraversal(
       inputDigest: input.suspension.evaluatorInputDigest,
       closureContract: parent.closureContract,
       actorRuntimeBinding: parent.actorRuntimeBinding,
+      ...(parent.deferFailedRunStop === true
+        ? { deferFailedRunStop: true }
+        : {}),
       terminalMode: "return_to_application",
       applicationCompletionMode: input.suspension.terminalMode,
       clock: {

@@ -1,4 +1,8 @@
-export { canonicalJson, type JsonValue } from "./canonical_json.js";
+export {
+  canonicalJson,
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "./canonical_json.js";
 export {
   isSha256Digest,
   payloadInventoryDigest,

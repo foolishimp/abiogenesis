@@ -30,6 +30,14 @@ async function readEvents(path) {
     .map((line) => JSON.parse(line));
 }
 
+function deepFreezeJson(value) {
+  if (typeof value !== "object" || value === null || Object.isFrozen(value)) {
+    return value;
+  }
+  for (const child of Object.values(value)) deepFreezeJson(child);
+  return Object.freeze(value);
+}
+
 function input(subjects, blockedOrdinal = null) {
   return {
     kind: "fan_out_hello_vector_input",
@@ -78,13 +86,13 @@ async function runFanOut(context, label, subjects, blockedOrdinal = null) {
 }
 
 function activeFluents(events) {
-  const active = new Set();
-  for (const event of events) {
-    const effect = abg.eventCalculusEffect(event);
-    effect.terminates.forEach((fluent) => active.delete(fluent));
-    effect.initiates.forEach((fluent) => active.add(fluent));
-  }
-  return [...active].sort();
+  const prefix = abg.selectValidatedRuntimeEventPrefix(
+    deepFreezeJson([...events]),
+  );
+  return abg
+    .deriveRuntimeEventCalculusProjection(prefix)
+    .holds
+    .map(abg.runtimeFluentKey);
 }
 
 test("M5 installed fan-out admits one ordered vector before one fan-in reducer", async (context) => {

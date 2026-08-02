@@ -12,6 +12,10 @@ export {
   type RuntimeEventScope,
 } from "./event_store.js";
 export {
+  selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
+export {
   admitProductInstall,
   admitWorkspaceBinding,
   hasAdmittedProductInstall,
@@ -119,9 +123,24 @@ export {
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
 export {
+  constructRunActiveFluent,
+  constructRunClosedFluent,
+  constructRuntimeFluent,
+  constructRuntimeFluentPattern,
+  deriveRuntimeEventCalculusProjection,
   eventCalculusEffect,
+  holdsAt,
   ROOT_EVENT_CALCULUS,
+  runtimeFluentKey,
+  runtimeFluentMatchesPattern,
+  runtimeFluentPatternKey,
   type EventCalculusEffect,
+  type RuntimeEventCalculusEffectRow,
+  type RuntimeEventCalculusProjection,
+  type RuntimeFluent,
+  type RuntimeFluentInput,
+  type RuntimeFluentPattern,
+  type RuntimeFluentPatternInput,
 } from "./event_calculus.js";
 export {
   admitApplicationChildPreparationRefusal,

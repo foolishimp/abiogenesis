@@ -7,6 +7,12 @@ import {
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
+import {
+  constructRunActiveFluent,
+  deriveRuntimeEventCalculusProjection,
+  holdsAt,
+} from "./event_calculus.js";
+import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 import {
   hasOpenedTraversalScope,
@@ -49,9 +55,14 @@ export function admitRuntimeFailure(
     !hasOpenedTraversalScope(store, scope) ||
     scope.executionBasisRef !== executionBasis.basisRef ||
     diagnosticRef.length === 0 ||
-    store.readAll().some((event) =>
-      event.runId === scope.runId &&
-      (event.kind === "runtime_failure_observed" || event.kind === "run_closed"))
+    !holdsAt(
+      deriveRuntimeEventCalculusProjection(
+        selectValidatedRuntimeEventPrefix(store.readAll(), {
+          runId: scope.runId,
+        }),
+      ),
+      constructRunActiveFluent(scope.runId),
+    )
   ) {
     throw new TypeError("runtime failure requires one exact active admitted traversal scope");
   }

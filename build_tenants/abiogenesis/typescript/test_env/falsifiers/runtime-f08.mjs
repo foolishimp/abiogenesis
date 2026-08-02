@@ -668,7 +668,12 @@ function recursionInput(remaining) {
   };
 }
 
-async function rootRunSource(harness, modules, label, target) {
+async function rootRunSource(harness, modules, packageRoot, label, target) {
+  const miniScenario = await prepareMiniInteractionScenario(
+    harness,
+    packageRoot,
+    label,
+  );
   const scenario = await buildRootCliScenario(
     harness,
     label,
@@ -684,30 +689,52 @@ async function rootRunSource(harness, modules, label, target) {
       input: target.input,
     },
   );
-  const setup = scenario.transcript.slice(0, -1);
+  const setup = structuredClone(scenario.transcript.slice(0, -1));
   const targetRun = structuredClone(scenario.transcript.at(-1));
   targetRun.invocationRef = `invocation://s06/ax-f08/${label}/run-r`;
-  const disjointRun = structuredClone(targetRun);
-  disjointRun.invocationRef = `invocation://s06/ax-f08/${label}/run-s`;
-  disjointRun.payload.programRef = RECURSION_PROGRAM_REF;
-  disjointRun.payload.graphFunctionRef = RECURSION_GRAPH_REF;
-  disjointRun.payload.input = recursionInput(5);
+  const binding = setup.find(
+    (row) => row.operationId === "abg.operation.workspace.bind",
+  );
+  assert.ok(binding);
+  binding.payload.canonicalRoot = harness.scratch;
+  binding.payload.roots.eventLogRoot = miniScenario.eventLogRoot;
+  targetRun.payload.eventLogPath = miniScenario.eventLogPath;
+  const rows = [
+    ...miniScenario.setup,
+    miniScenario.run("s"),
+    ...setup,
+    targetRun,
+  ];
   const applied = await applyTranscript(
     modules.publicApi,
-    [...setup, disjointRun, targetRun],
+    rows,
   );
+  const s = applied.outcomes.at(miniScenario.setup.length);
+  const r = applied.outcomes.at(-1);
   assert.equal(
-    applied.outcomes.slice(0, -2).every(
-      (outcome) => outcome.disposition === "succeeded",
+    applied.outcomes.every(
+      (outcome, index) =>
+        index === miniScenario.setup.length
+          ? outcome.disposition === "held"
+          : outcome.disposition === "succeeded",
     ),
     true,
     JSON.stringify(applied.outcomes),
   );
-  const s = applied.outcomes.at(-2);
-  const r = applied.outcomes.at(-1);
-  assert.equal(s.disposition, "blocked", JSON.stringify(s));
-  assert.equal(r.disposition, "succeeded", JSON.stringify(r));
   assert.notEqual(s.runId, r.runId);
+  const activePrefix = cloneStore(modules, applied.events);
+  assert.equal(
+    modules.abg.holdsAt(
+      modules.abg.deriveRuntimeEventCalculusProjection(
+        modules.abg.selectValidatedRuntimeEventPrefix(
+          activePrefix.readAll(),
+          { runId: s.runId },
+        ),
+      ),
+      modules.abg.constructRunActiveFluent(s.runId),
+    ),
+    true,
+  );
   return {
     events: applied.events,
     publication: harness.rootPublication,
@@ -746,15 +773,21 @@ function terminalInteractionPublication(mini) {
   return publication;
 }
 
-async function miniInteractionSource(harness, modules, packageRoot) {
-  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+async function prepareMiniInteractionScenario(
+  harness,
+  packageRoot,
+  sourceLabel,
+) {
+  const sourceScratch = join(harness.scratch, `ax-f08-${sourceLabel}`);
+  await mkdir(sourceScratch, { recursive: true });
+  const mini = await prepareDeveloperMiniProduct(packageRoot, sourceScratch);
   const publication = terminalInteractionPublication(mini);
   const installedMini = await mini.materializePublicationVariant(
-    "s06-ax-f08-terminal-interaction",
+    `s06-ax-f08-terminal-interaction-${sourceLabel}`,
     publication,
   );
-  const label = "s06-ax-f08-terminal-interaction";
-  const root = join(harness.scratch, label);
+  const label = `s06-ax-f08-terminal-interaction-${sourceLabel}`;
+  const root = join(sourceScratch, label);
   const abiConsumer = join(root, "abiogenesis-product");
   const miniConsumer = join(root, "developer-product");
   const workspaceRoot = join(root, "workspace");
@@ -860,9 +893,25 @@ async function miniInteractionSource(harness, modules, packageRoot) {
       eventLogPath,
     },
   );
+  return {
+    eventLogPath,
+    eventLogRoot,
+    installedMini,
+    mini,
+    run,
+    setup,
+  };
+}
+
+async function miniInteractionSource(harness, modules, packageRoot) {
+  const scenario = await prepareMiniInteractionScenario(
+    harness,
+    packageRoot,
+    "interaction",
+  );
   const applied = await applyTranscript(
     modules.publicApi,
-    [...setup, run("s"), run("r")],
+    [...scenario.setup, scenario.run("s"), scenario.run("r")],
   );
   assert.equal(
     applied.outcomes.slice(0, -2).every(
@@ -878,8 +927,8 @@ async function miniInteractionSource(harness, modules, packageRoot) {
   assert.notEqual(s.runId, r.runId);
   return {
     events: applied.events,
-    mini,
-    publication: installedMini.publication,
+    mini: scenario.mini,
+    publication: scenario.installedMini.publication,
     rAuthority: r.result.continuationAuthority,
     rContinuationRef: r.continuationRef,
     runR: r.runId,
@@ -1742,7 +1791,7 @@ function observedSignature(cases) {
 export async function runAxF08({ packageRoot, harness }) {
   const modules = await installedModules(harness);
   const [helloSource, childSource, interactionSource] = await Promise.all([
-    rootRunSource(harness, modules, "s06-ax-f08-hello", {
+    rootRunSource(harness, modules, packageRoot, "s06-ax-f08-hello", {
       programRef: HELLO_PROGRAM_REF,
       graphFunctionRef: HELLO_GRAPH_REF,
       input: {
@@ -1751,7 +1800,7 @@ export async function runAxF08({ packageRoot, harness }) {
         subject: "R",
       },
     }),
-    rootRunSource(harness, modules, "s06-ax-f08-child", {
+    rootRunSource(harness, modules, packageRoot, "s06-ax-f08-child", {
       programRef: RECURSION_PROGRAM_REF,
       graphFunctionRef: RECURSION_GRAPH_REF,
       input: recursionInput(3),

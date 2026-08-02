@@ -915,7 +915,11 @@ export function admitChildFoldback(
       event.frameId === childScope.frameId &&
       isJsonRecord(event.payload) &&
       event.payload.judgmentRef === input.childJudgmentRef &&
-      (event.payload.routeKind === "terminal" || event.payload.routeKind === "blocked"),
+      (
+        event.payload.routeKind === "terminal" ||
+        event.payload.routeKind === "blocked" ||
+        event.payload.routeKind === "failed"
+      ),
   );
   const routePayload = routeEvent !== undefined && isJsonRecord(routeEvent.payload)
     ? routeEvent.payload
@@ -982,7 +986,11 @@ export function admitChildFoldback(
     !/^sha256:[a-f0-9]{64}$/u.test(resultDigest) ||
     typeof outputDigest !== "string" ||
     !/^sha256:[a-f0-9]{64}$/u.test(outputDigest) ||
-    (routeKind !== "terminal" && routeKind !== "blocked") ||
+    (
+      routeKind !== "terminal" &&
+      routeKind !== "blocked" &&
+      routeKind !== "failed"
+    ) ||
     childLifecycleEvent === undefined ||
     (routeKind === "terminal" &&
       (
@@ -991,7 +999,7 @@ export function admitChildFoldback(
         frameClosedEvent === undefined ||
         graphCallClosedEvent === undefined
       )) ||
-    (routeKind === "blocked" &&
+    ((routeKind === "blocked" || routeKind === "failed") &&
       (input.childClosureRef !== null || childReasonRef === null))
   ) {
     return {
@@ -1002,7 +1010,11 @@ export function admitChildFoldback(
       message: "child foldback result or route payload is incomplete",
     };
   }
-  const childDisposition = routeKind === "terminal" ? "closed" as const : "blocked" as const;
+  const childDisposition = routeKind === "terminal"
+    ? "closed" as const
+    : routeKind === "failed"
+      ? "failed" as const
+      : "blocked" as const;
   const body = {
     parentCCallRef: parentCCall.cCallRef,
     childExecutionBasisRef: childExecutionBasis.basisRef,

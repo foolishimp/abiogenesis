@@ -155,7 +155,8 @@ async function axF04(harness) {
     eventCountAfterCollision: rows.length,
     admittedScopes: rows.map((event) => event.payload.authorityScopeRef),
     admittedDigests: rows.map((event) => event.payload.artifactDigest),
-    initiatedFluents: effects.map((effect) => effect.initiates),
+    initiatedFluents: effects.map((effect) =>
+      effect.initiates.map(abg.runtimeFluentKey)),
   };
   const expected = {
     crossScopeAdmissions: "both return event references",
@@ -177,7 +178,8 @@ async function axF04(harness) {
     effects.every(
       (effect) =>
         effect.initiates.length === 1 &&
-        effect.initiates[0] === "public_operation_artifact_available",
+        abg.runtimeFluentKey(effect.initiates[0]) ===
+          "public_operation_artifact_available",
     );
   assert.equal(passed, true, JSON.stringify(observed));
   return {

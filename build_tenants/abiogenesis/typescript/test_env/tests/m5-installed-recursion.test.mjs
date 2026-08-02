@@ -28,6 +28,14 @@ async function readEvents(path) {
   }
 }
 
+function deepFreezeJson(value) {
+  if (typeof value !== "object" || value === null || Object.isFrozen(value)) {
+    return value;
+  }
+  for (const child of Object.values(value)) deepFreezeJson(child);
+  return Object.freeze(value);
+}
+
 async function activeLifecycleFluents(installedRoot, events, label) {
   const abg = await import(
     `${pathToFileURL(resolve(
@@ -35,13 +43,14 @@ async function activeLifecycleFluents(installedRoot, events, label) {
       "build/code/src/abg/index.js",
     )).href}?lifecycle=${encodeURIComponent(label)}`
   );
-  const active = new Set();
-  for (const event of events) {
-    const effect = abg.eventCalculusEffect(event);
-    for (const fluent of effect.terminates) active.delete(fluent);
-    for (const fluent of effect.initiates) active.add(fluent);
-  }
-  return [...active].filter((fluent) =>
+  const prefix = abg.selectValidatedRuntimeEventPrefix(
+    deepFreezeJson([...events]),
+  );
+  return abg
+    .deriveRuntimeEventCalculusProjection(prefix)
+    .holds
+    .map(abg.runtimeFluentKey)
+    .filter((fluent) =>
     [
       "run_active(",
       "graph_call_active(",
@@ -192,14 +201,15 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
       true,
     );
     assert.deepEqual(
-      abg.eventCalculusEffect(childGraphCall).initiates.filter((fluent) =>
-        fluent.startsWith("parent_waiting_on_child(")
-      ),
+      abg.eventCalculusEffect(childGraphCall).initiates
+        .map(abg.runtimeFluentKey)
+        .filter((fluent) => fluent.startsWith("parent_waiting_on_child(")),
       [`parent_waiting_on_child(${childGraphCall.graphCallId})`],
     );
     assert.equal(
-      abg.eventCalculusEffect(foldback).terminates.includes(
-        `parent_waiting_on_child(${childGraphCall.graphCallId})`,
+      abg.eventCalculusEffect(foldback).terminates.some((fluent) =>
+        abg.runtimeFluentKey(fluent) ===
+          `parent_waiting_on_child(${childGraphCall.graphCallId})`
       ),
       true,
     );

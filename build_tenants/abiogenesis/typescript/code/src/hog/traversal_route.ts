@@ -500,6 +500,61 @@ export function proposeBlockedRoute(
   }) as RouteCandidate;
 }
 
+export function proposeFailedRoute(
+  graph: Readonly<GtlGraph>,
+  stop: TraversalStopRef,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  replayState: ReplayState,
+  contractRef: string,
+): RouteCandidate | RouteProposalRefusal {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    stop.cursor.graphRef !== graph.materializationRef ||
+    stop.cursor.frameId !== cCall.frameId ||
+    stop.programLocusRef !== cCall.programLocusRef ||
+    result.cCallRef !== cCall.cCallRef ||
+    result.resultClass !== "failure" ||
+    judgment.cCallRef !== cCall.cCallRef ||
+    judgment.resultRef !== result.resultRef ||
+    judgment.resultDigest !== result.resultDigest ||
+    judgment.judgment !== "blocked"
+  ) {
+    return {
+      kind: "traversal_route_proposal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "structural_step_missing",
+      message:
+        "failed route requires the exact admitted failure result, judgment, and source cursor",
+    };
+  }
+  const body = {
+    routeKind: "failed" as const,
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: stop.cursor.cursorRef,
+    sourceCursorDigest: stop.cursor.cursorDigest,
+    targetCursorRef: null,
+    targetCursorDigest: null,
+    cCallRef: cCall.cCallRef,
+    judgmentRef: judgment.judgmentRef,
+    consumedAvailabilityRefs: [judgment.judgmentRef] as const,
+    contractRef,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "traversal_route_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef:
+      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as RouteCandidate;
+}
+
 export function proposeHoldRoute(
   graph: Readonly<GtlGraph>,
   stop: TraversalStopRef,

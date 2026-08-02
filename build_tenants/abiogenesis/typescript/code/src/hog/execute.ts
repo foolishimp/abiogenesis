@@ -82,6 +82,7 @@ import {
 } from "./judgment.js";
 import {
   proposeBlockedRoute,
+  proposeFailedRoute,
   proposeFanOutRoute,
   proposeGapStopRoute,
   proposeGraphSpanReentryRoute,
@@ -285,6 +286,7 @@ export interface CompleteExecutableTraversalInput<
   readonly retryInput?: RetainedRetryInput;
   readonly closureContract: Readonly<ClosureContract>;
   readonly actorRuntimeBinding?: ActorRuntimeBinding;
+  readonly deferFailedRunStop?: boolean;
   readonly terminalMode?:
     | "close_run"
     | "return_to_application"
@@ -957,6 +959,97 @@ function completeBlockedTraversal<Input, Output>(
   });
 }
 
+function completeFailedTraversal<Input, Output>(
+  input: CompleteExecutableTraversalInput<Input, Output>,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  reasonRef: string,
+): ExecutableTraversalCompletion {
+  const deferDeclaredFanOutStop =
+    input.deferFailedRunStop === true &&
+    input.traversalStop.computeRegime === "F_D" &&
+    isRecord(result.value) &&
+    result.value.failureClass === "implementation_exception";
+  const currentReplay = replayRun(input);
+  const proposal = proposeFailedRoute(
+    input.graph,
+    input.traversalStop,
+    cCall,
+    result,
+    judgment,
+    currentReplay,
+    cCall.transitionContractRef,
+  );
+  if (proposal.kind !== "traversal_route_candidate") {
+    const diagnosticRef = `diagnostic://abiogenesis/hog/${proposal.code}@5`;
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "route",
+      proposal as unknown as JsonValue,
+      diagnosticRef,
+      {
+        ...basis(input.clock, "failed-route-proposal-refusal"),
+        causationEventRefs: [judgment.admissionEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      diagnosticRef,
+    });
+  }
+  const route = admitRoute(
+    input.store,
+    input.executionBasis,
+    input.graph,
+    input.traversalStop.cursor,
+    null,
+    currentReplay,
+    proposal,
+    basis(input.clock, "failed-route"),
+    { cCall, result, judgment },
+    { terminalizeRun: !deferDeclaredFanOutStop },
+  );
+  if (
+    route.kind !== "admitted_traversal_route" ||
+    route.routeKind !== "failed" ||
+    (!deferDeclaredFanOutStop && route.runStoppedEventRef === null)
+  ) {
+    const diagnosticRef = route.kind === "admitted_traversal_route"
+      ? "diagnostic://abiogenesis/hog/failed-run-stop-absent@5"
+      : `diagnostic://abiogenesis/hog/${route.code}@5`;
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "route",
+      route as unknown as JsonValue,
+      diagnosticRef,
+      {
+        ...basis(input.clock, "failed-route-admission-refusal"),
+        causationEventRefs: [judgment.admissionEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      diagnosticRef,
+    });
+  }
+  return completion("failed", replayRun(input), {
+    cCallRef: cCall.cCallRef,
+    resultRef: result.resultRef,
+    judgmentRef: judgment.judgmentRef,
+    resultValue: result.value,
+    diagnosticRef: reasonRef,
+  });
+}
+
 function completeRetryTraversal<Input, Output>(
   input: CompleteExecutableTraversalInput<Input, Output>,
   cCall: CCall,
@@ -1555,6 +1648,15 @@ export async function completeExecutableTraversal<
       judgmentEventRef: rejected.judgmentEventRef,
       reasonRef: judgment.diagnosticRef,
     });
+  }
+  if (leaf.disposition === "failure") {
+    return completeFailedTraversal(
+      input,
+      cCall,
+      result,
+      judgment,
+      leaf.diagnosticRef,
+    );
   }
   if (judgment.judgment !== "advance") {
     return completeBlockedTraversal(input, cCall, {
@@ -2984,6 +3086,10 @@ export function completeWorkflowPreparationRefusal(
 export function completeWorkflowTraversal(
   input: CompleteWorkflowTraversalInput,
 ): ExecutableTraversalCompletion {
+  const failedFanOutTask =
+    input.childCompletion.disposition === "failed" &&
+    input.fanOutApplication !== undefined &&
+    input.validateFanOutVector !== undefined;
   if (
     input.parentCCall.callClass !== "workflow" ||
     input.workflowStep.directStep.stepKind !== "enter_child" ||
@@ -2991,7 +3097,8 @@ export function completeWorkflowTraversal(
     input.childCompletion.judgmentRef === null ||
     input.childCompletion.resultValue === null ||
     (input.childCompletion.disposition !== "closed" &&
-      input.childCompletion.disposition !== "blocked")
+      input.childCompletion.disposition !== "blocked" &&
+      !failedFanOutTask)
   ) {
     return failWorkflowTraversal(
       input,

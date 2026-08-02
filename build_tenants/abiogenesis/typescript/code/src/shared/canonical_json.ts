@@ -6,6 +6,10 @@ export type JsonValue =
   | readonly JsonValue[]
   | { readonly [key: string]: JsonValue };
 
+export function compareUnicodeCodeUnits(left: string, right: string): number {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
 export function canonicalJson(value: JsonValue): string {
   if (value === null || typeof value === "boolean" || typeof value === "string") {
     return JSON.stringify(value);
@@ -23,7 +27,7 @@ export function canonicalJson(value: JsonValue): string {
   }
 
   const entries = Object.entries(value).sort(([left], [right]) =>
-    left < right ? -1 : left > right ? 1 : 0,
+    compareUnicodeCodeUnits(left, right)
   );
   return `{${entries
     .map(([key, entry]) => `${JSON.stringify(key)}:${canonicalJson(entry)}`)
