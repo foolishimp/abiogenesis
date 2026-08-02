@@ -2987,6 +2987,18 @@ test("M5 exposes a durable gap and re-enters it through the same external Produc
   assert.equal(gapRead.result.constructionStatus, "construction_stalled");
   assert.equal(gapRead.durableEventCount, stopped.durableEventCount);
   assert.equal(gapRead.eventLogDigest, stopped.eventLogDigest);
+  assert.equal(
+    gapRead.result.gapAuthority.source.sourceRunStoppedEventRef,
+    initialGapAuthority.source.sourceRunStoppedEventRef,
+  );
+  assert.equal(
+    initialEvents.find(
+      (event) =>
+        event.eventId ===
+          gapRead.result.gapAuthority.source.sourceRunStoppedEventRef,
+    )?.payload?.disposition,
+    "gap_stop",
+  );
   const gapAuthority = JSON.parse(
     JSON.stringify(gapRead.result.gapAuthority),
   );

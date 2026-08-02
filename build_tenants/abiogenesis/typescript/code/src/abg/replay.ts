@@ -4,6 +4,8 @@ import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   constructRunActiveFluent,
+  constructRunClosedFluent,
+  constructRunTerminalFluent,
   deriveRuntimeEventCalculusProjection,
   holdsAt,
   runtimeFluentKey,
@@ -976,15 +978,59 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
           event.graphCallId === graphCallOpen.graphCallId,
       );
   const runClosed = events.find((event) => event.kind === "run_closed");
-  const runStopped = events.find((event) => event.kind === "run_stopped");
-  const runStoppedDisposition =
-    runStopped !== undefined &&
-      isRecord(runStopped.payload) &&
-      typeof runStopped.payload.disposition === "string"
-      ? runStopped.payload.disposition
-      : null;
+  const runStoppedRows = events.filter((event) => event.kind === "run_stopped");
   const invocationRefused = events.find((event) => event.kind === "invocation_refused");
   const runtimeFailure = events.find((event) => event.kind === "runtime_failure_observed");
+  if (runStoppedRows.length > 1) {
+    throw new TypeError("replay requires zero or one exact run_stopped event");
+  }
+  const runStopped = runStoppedRows[0];
+  const runId = runOpen?.runId ?? null;
+  const runTerminalHeld = runId !== null && holdsAt(
+    eventCalculus,
+    constructRunTerminalFluent(runId),
+  );
+  if ((runStopped === undefined) !== !runTerminalHeld) {
+    throw new TypeError(
+      "replay run_stopped event and run_terminal HoldsAt truth disagree",
+    );
+  }
+  if (
+    runStopped !== undefined &&
+    (
+      runId === null ||
+      runStopped.runId !== runId ||
+      runStopped.aggregateId !== runId
+    )
+  ) {
+    throw new TypeError("replay run_stopped event differs from the selected Run");
+  }
+  const runStoppedDisposition = runStopped === undefined
+    ? null
+    : stringField(runStopped, "disposition");
+  const runStoppedRouteRef = runStopped === undefined
+    ? null
+    : stringField(runStopped, "routeRef");
+  const runStoppedRoutes = runStoppedRouteRef === null
+    ? []
+    : routes.filter((route) => route.routeRef === runStoppedRouteRef);
+  if (
+    runStopped !== undefined &&
+    (
+      runStoppedDisposition === null ||
+      runStoppedRoutes.length !== 1 ||
+      !runStopped.causationEventRefs.includes(
+        runStoppedRoutes[0]!.admissionEventRef,
+      ) ||
+      runClosed !== undefined ||
+      runtimeFailure !== undefined ||
+      holdsAt(eventCalculus, constructRunClosedFluent(runId!))
+    )
+  ) {
+    throw new TypeError(
+      "replay run_stopped history has contradictory route, causation, disposition, or terminal truth",
+    );
+  }
   const eventStoreDigest = store.digest(scope);
   const body = {
     eventStoreDigest,
@@ -1019,7 +1065,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       ? "failed" as const
       : runClosed !== undefined
         ? "closed" as const
-        : runStopped !== undefined
+        : runTerminalHeld
           ? runStoppedDisposition === "gap_stop"
             ? "gap_stopped" as const
             : runStoppedDisposition === "blocked"

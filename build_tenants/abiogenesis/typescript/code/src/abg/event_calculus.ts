@@ -1003,6 +1003,10 @@ export function constructRunClosedFluent(runId: string): RuntimeFluent {
   return constructRuntimeFluent({ name: "run_closed", identity: runId });
 }
 
+export function constructRunTerminalFluent(runId: string): RuntimeFluent {
+  return constructRuntimeFluent({ name: "run_terminal", identity: runId });
+}
+
 export function deriveRuntimeEventCalculusProjection(
   prefix: ValidatedRuntimeEventPrefix,
 ): RuntimeEventCalculusProjection {

@@ -2386,12 +2386,6 @@ function reopenGapAuthority(
       candidate.routeDigest === state.source.sourceRouteDigest &&
       candidate.admissionEventRef === state.source.sourceRouteEventRef,
   );
-  const stopEvent = reopened.store.readAll().find(
-    (event) =>
-      event.eventId === state.source.sourceRunStoppedEventRef &&
-      event.kind === "run_stopped" &&
-      event.runId === state.source.sourceRunId,
-  );
   const selectedLockRowMatch = resolveExactMatch(
     state.resolvedProductLock.rows,
     (row) => row.productId === state.install.productId,
@@ -2399,12 +2393,6 @@ function reopenGapAuthority(
   const noActionDisposition =
     route?.nextActionProjection?.disposition === "no_action"
       ? route.nextActionProjection.noActionDisposition
-      : null;
-  const stoppedDisposition =
-    stopEvent !== undefined &&
-      isJsonRecord(stopEvent.payload) &&
-      typeof stopEvent.payload.disposition === "string"
-      ? stopEvent.payload.disposition
       : null;
   const expectedRuntimeStatus = noActionDisposition === "gap_stop"
     ? "gap_stopped"
@@ -2463,13 +2451,8 @@ function reopenGapAuthority(
     ) !== product.sha256Canonical(
       state.source.nextActionProjection as unknown as product.JsonValue,
     ) ||
-    stopEvent === undefined ||
     noActionDisposition === null ||
-    stoppedDisposition !== noActionDisposition ||
     replayState.runStoppedDisposition !== noActionDisposition ||
-    !stopEvent.causationEventRefs.includes(
-      state.source.sourceRouteEventRef,
-    ) ||
     replayState.runtimeStatus !== expectedRuntimeStatus ||
     replayState.runStoppedEventRef !==
       state.source.sourceRunStoppedEventRef

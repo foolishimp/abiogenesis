@@ -406,13 +406,41 @@ test("run_stopped makes runtime failure throw before memory or durable append", 
     "event_store",
     false,
   );
-  eventStore.admitRuntimeEvent(environment.store, {
+  const routeRef = "traversal-route://t287/stopped";
+  const route = eventStore.admitRuntimeEvent(environment.store, {
+    kind: "traversal_route_admitted",
+    eventTime: "2026-07-21T00:00:00.000Z",
+    aggregateType: "frame",
+    aggregateId: opened.scope.frameId,
+    parentAggregateId: opened.scope.graphCallId,
+    causationEventRefs: [opened.scope.frameOpenEventRef],
+    correlationId: "correlation://t287/event-calculus/stopped/route",
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: executionBasis.basisRef,
+    runId: opened.scope.runId,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    materializationRef: executionBasis.graphRef,
+    graphCallId: opened.scope.graphCallId,
+    frameId: opened.scope.frameId,
+    frameLineageId: opened.scope.frameLineageId,
+    payload: {
+      routeRef,
+      routeDigest: `sha256:${"1".repeat(64)}`,
+      routeKind: "blocked",
+      declarationRef: "declaration://t287/stopped",
+      declarationDigest: `sha256:${"2".repeat(64)}`,
+      sourceCursorRef: "cursor://t287/stopped",
+      sourceCursorDigest: `sha256:${"3".repeat(64)}`,
+    },
+  });
+  const stopped = eventStore.admitRuntimeEvent(environment.store, {
     kind: "run_stopped",
     eventTime: "2026-07-21T00:00:00.000Z",
     aggregateType: "run",
     aggregateId: opened.scope.runId,
     parentAggregateId: opened.scope.frameId,
-    causationEventRefs: [opened.scope.frameOpenEventRef],
+    causationEventRefs: [route.eventId],
     correlationId: "correlation://t287/event-calculus/stopped",
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -425,7 +453,7 @@ test("run_stopped makes runtime failure throw before memory or durable append", 
     frameLineageId: opened.scope.frameLineageId,
     payload: {
       disposition: "blocked",
-      routeRef: "traversal-route://t287/stopped",
+      routeRef,
       reasonRef: "reason://t287/stopped",
     },
   });
@@ -445,5 +473,72 @@ test("run_stopped makes runtime failure throw before memory or durable append", 
   );
   assert.equal(environment.store.readAll().length, countBeforeCall);
   assert.deepEqual(await readFile(eventLogPath), bytesBeforeCall);
-  environment.store.closeDurableLog();
+  const prefixModule = await installedInternal(environment.installedRoot, "event_prefix");
+  const stoppedProjection = runProjection(
+    abg,
+    prefixModule,
+    environment.store,
+    opened.scope.runId,
+  );
+  assert.equal(
+    abg.holdsAt(
+      stoppedProjection,
+      abg.constructRunTerminalFluent(opened.scope.runId),
+    ),
+    true,
+  );
+  assert.equal(
+    abg.holdsAt(
+      stoppedProjection,
+      abg.constructRunActiveFluent(opened.scope.runId),
+    ),
+    false,
+  );
+  const replayBeforeReopen = abg.replay(environment.store, {
+    runId: opened.scope.runId,
+  });
+  assert.equal(replayBeforeReopen.runtimeStatus, "blocked");
+  assert.equal(replayBeforeReopen.runStoppedEventRef, stopped.eventId);
+  assert.equal(replayBeforeReopen.runStoppedDisposition, "blocked");
+
+  const reopenAuthority = environment.store.projectReopenAuthorityAndClose();
+  const reopened = abg.reopenEventStore(reopenAuthority);
+  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+  assert.deepEqual(
+    runProjection(abg, prefixModule, reopened.store, opened.scope.runId),
+    stoppedProjection,
+  );
+  assert.deepEqual(
+    abg.replay(reopened.store, { runId: opened.scope.runId }),
+    replayBeforeReopen,
+  );
+
+  eventStore.admitRuntimeEvent(reopened.store, {
+    kind: "run_stopped",
+    eventTime: "2026-07-21T00:00:01.000Z",
+    aggregateType: "run",
+    aggregateId: opened.scope.runId,
+    parentAggregateId: opened.scope.frameId,
+    causationEventRefs: [route.eventId],
+    correlationId: "correlation://t287/event-calculus/stopped/duplicate",
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: executionBasis.basisRef,
+    runId: opened.scope.runId,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    materializationRef: executionBasis.graphRef,
+    graphCallId: opened.scope.graphCallId,
+    frameId: opened.scope.frameId,
+    frameLineageId: opened.scope.frameLineageId,
+    payload: {
+      disposition: "blocked",
+      routeRef,
+      reasonRef: "reason://t287/stopped/duplicate",
+    },
+  });
+  assert.throws(
+    () => abg.replay(reopened.store, { runId: opened.scope.runId }),
+    /replay requires zero or one exact run_stopped event/,
+  );
+  reopened.store.closeDurableLog();
 });

@@ -125,6 +125,7 @@ export {
 export {
   constructRunActiveFluent,
   constructRunClosedFluent,
+  constructRunTerminalFluent,
   constructRuntimeFluent,
   constructRuntimeFluentPattern,
   deriveRuntimeEventCalculusProjection,
