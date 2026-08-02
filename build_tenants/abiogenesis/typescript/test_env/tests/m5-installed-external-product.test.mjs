@@ -3221,6 +3221,22 @@ test("M5 exposes a durable gap and re-enters it through the same external Produc
     source.sourceRouteRef,
   );
   assert.equal(
+    admissions[1].payload.reentryBasis.sourceRouteEventRef,
+    source.sourceRouteEventRef,
+  );
+  assert.equal(
+    admissions[1].payload.reentryBasis.sourceRunStoppedEventRef,
+    source.sourceRunStoppedEventRef,
+  );
+  assert.equal(
+    admissions[1].payload.reentryBasis.nextActionProjectionRef,
+    source.nextActionProjectionRef,
+  );
+  assert.equal(
+    admissions[1].payload.reentryBasis.nextActionProjectionDigest,
+    source.nextActionProjectionDigest,
+  );
+  assert.equal(
     finalEvents.filter((event) => event.kind === "run_closed").length,
     1,
   );

@@ -800,25 +800,17 @@ export function admitInvocation(
       store,
       reentry.sourceInvocationAdmissionRef,
     );
-    const sourceRouteEvent = store.readAll().find(
-      (event) => event.eventId === reentry.sourceRouteEventRef,
+    const sourceReplay = (() => {
+      try {
+        return replay(store, { runId: reentry.sourceRunId });
+      } catch {
+        return null;
+      }
+    })();
+    const sourceRoute = sourceReplay?.routes.find(
+      (route) => route.admissionEventRef === reentry.sourceRouteEventRef,
     );
-    const sourceStopEvent = store.readAll().find(
-      (event) => event.eventId === reentry.sourceRunStoppedEventRef,
-    );
-    const sourceRoutePayload =
-      sourceRouteEvent !== undefined && isRecord(sourceRouteEvent.payload)
-        ? sourceRouteEvent.payload
-        : null;
-    const sourceStopPayload =
-      sourceStopEvent !== undefined && isRecord(sourceStopEvent.payload)
-        ? sourceStopEvent.payload
-        : null;
-    const sourceProjection =
-      sourceRoutePayload !== null &&
-        isRecord(sourceRoutePayload.nextActionProjection)
-        ? sourceRoutePayload.nextActionProjection
-        : null;
+    const sourceProjection = sourceRoute?.nextActionProjection ?? null;
     const sourceAlreadyConsumed = store.readAll().some(
       (event) =>
         event.kind === "invocation_admitted" &&
@@ -869,23 +861,19 @@ export function admitInvocation(
       reentry.lockId !== input.workspaceBinding.lockId ||
       reentry.lockDigest !== input.workspaceBinding.lockDigest ||
       sourceAlreadyConsumed ||
-      sourceRouteEvent?.kind !== "traversal_route_admitted" ||
-      sourceRouteEvent.runId !== reentry.sourceRunId ||
-      sourceRoutePayload?.routeKind !== "gap_stop" ||
-      sourceRoutePayload.routeRef !== reentry.sourceRouteRef ||
-      sourceRoutePayload.routeDigest !== reentry.sourceRouteDigest ||
-      sourceRoutePayload.nextActionProjectionRef !==
+      sourceReplay?.runId !== reentry.sourceRunId ||
+      sourceRoute?.routeKind !== "gap_stop" ||
+      sourceRoute.routeRef !== reentry.sourceRouteRef ||
+      sourceRoute.routeDigest !== reentry.sourceRouteDigest ||
+      sourceRoute.nextActionProjectionRef !==
         reentry.nextActionProjectionRef ||
-      sourceRoutePayload.nextActionProjectionDigest !==
+      sourceRoute.nextActionProjectionDigest !==
         reentry.nextActionProjectionDigest ||
       sourceProjection?.gapRef !== reentry.gapRef ||
-      sourceStopEvent?.kind !== "run_stopped" ||
-      sourceStopEvent.runId !== reentry.sourceRunId ||
-      !sourceStopEvent.causationEventRefs.includes(
-        reentry.sourceRouteEventRef,
-      ) ||
-      sourceStopPayload?.disposition !== "gap_stop" ||
-      sourceStopPayload.routeRef !== reentry.sourceRouteRef ||
+      sourceReplay.runStoppedEventRef !==
+        reentry.sourceRunStoppedEventRef ||
+      sourceReplay.runStoppedDisposition !== "gap_stop" ||
+      sourceReplay.runtimeStatus !== "gap_stopped" ||
       priorGap?.sourceRunId !== reentry.sourceRunId ||
       priorGap.sourceRouteRef !== reentry.sourceRouteRef ||
       priorGap.gapRef !== reentry.gapRef ||
