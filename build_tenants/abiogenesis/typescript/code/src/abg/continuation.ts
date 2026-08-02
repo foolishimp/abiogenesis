@@ -46,6 +46,15 @@ import {
   type RuntimeEvent,
 } from "./event_store.js";
 import {
+  constructRuntimeFluent,
+  holdsAt,
+  type RuntimeEventCalculusProjection,
+} from "./event_calculus.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
+import {
   hasAdmittedInvocation,
   rehydrateInvocationAdmission,
   type InvocationAdmission,
@@ -261,13 +270,11 @@ function digestField(event: RuntimeEvent, key: string): Sha256Digest | null {
 }
 
 export function projectFhContinuations(
-  store: AbgEventStore,
-  runId?: string,
+  prefix: ValidatedRuntimeEventPrefix,
+  eventCalculus: RuntimeEventCalculusProjection,
 ): readonly ReplayContinuationState[] {
-  const events = store.readAll().filter(
-    (event) =>
-      event.aggregateType === "continuation" &&
-      (runId === undefined || event.runId === runId),
+  const events = runtimeEventsFromValidatedPrefix(prefix).filter(
+    (event) => event.aggregateType === "continuation",
   );
   const refs = [...new Set(events.map((event) => event.aggregateId))];
   return refs.map((continuationRef) => {
@@ -330,6 +337,39 @@ export function projectFhContinuations(
       resumed !== undefined && isRecord(resumed.payload)
         ? resumed.payload.successorInputValue ?? null
         : null;
+    const open = holdsAt(
+      eventCalculus,
+      constructRuntimeFluent({
+        name: "continuation_open",
+        identity: continuationRef,
+      }),
+    );
+    const responseAvailable = holdsAt(
+      eventCalculus,
+      constructRuntimeFluent({
+        name: "continuation_response_available",
+        identity: continuationRef,
+      }),
+    );
+    const terminated = holdsAt(
+      eventCalculus,
+      constructRuntimeFluent({
+        name: "continuation_terminated",
+        identity: continuationRef,
+      }),
+    );
+    if (
+      (terminated && (open || responseAvailable || resumed === undefined)) ||
+      (
+        !terminated && responded !== undefined &&
+        (!open || !responseAvailable || resumed !== undefined)
+      ) ||
+      (!terminated && responded === undefined && (!open || responseAvailable))
+    ) {
+      throw new TypeError(
+        `continuation ${continuationRef} differs from Event Calculus lifecycle truth`,
+      );
+    }
     return deepFreeze({
       continuationRef,
       continuationDigest,
@@ -373,9 +413,9 @@ export function projectFhContinuations(
       openedEventRef: opened.eventId,
       respondedEventRef: responded?.eventId ?? null,
       resumedEventRef: resumed?.eventId ?? null,
-      status: resumed !== undefined
+      status: terminated
         ? "resolved" as const
-        : responded !== undefined
+        : responseAvailable
           ? "responded" as const
           : "open" as const,
     });
@@ -384,7 +424,7 @@ export function projectFhContinuations(
 
 export function projectFhInteractionSemanticBasis(
   store: AbgEventStore,
-  continuationRef: string,
+  continuation: ReplayContinuationState,
 ): Readonly<{
   readonly requestContractRef: string;
   readonly responseContractRef: string;
@@ -392,24 +432,18 @@ export function projectFhInteractionSemanticBasis(
   readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
   readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
 }> | null {
-  const continuations = projectFhContinuations(store).filter(
-    (row) => row.continuationRef === continuationRef,
-  );
-  const openedRows = store.readAll().filter(
-    (event) =>
-      event.kind === "fh_interaction_opened" &&
-      event.aggregateType === "continuation" &&
-      event.aggregateId === continuationRef,
+  const continuationRef = continuation.continuationRef;
+  const opened = store.readAll().find(
+    (event) => event.eventId === continuation.openedEventRef,
   );
   if (
-    continuations.length !== 1 ||
-    continuations[0]!.status !== "open" ||
-    openedRows.length !== 1
+    continuation.status !== "open" ||
+    opened?.kind !== "fh_interaction_opened" ||
+    opened.aggregateType !== "continuation" ||
+    opened.aggregateId !== continuationRef
   ) {
     return null;
   }
-  const continuation = continuations[0]!;
-  const opened = openedRows[0]!;
   if (!isRecord(opened.payload) || !isRecord(opened.payload.inputValue)) {
     return null;
   }
@@ -501,27 +535,22 @@ export function projectFhInteractionSemanticBasis(
 
 export function rehydrateFhContinuation(
   store: AbgEventStore,
-  continuationRef: string,
+  continuation: ReplayContinuationState,
   expected: FhContinuationRehydrationBasis,
   operation: ContinuationPublicOperationAdmission,
 ): RehydratedFhContinuationScope | null {
-  const openedRows = store.readAll().filter(
-    (event) =>
-      event.kind === "fh_interaction_opened" &&
-      event.aggregateType === "continuation" &&
-      event.aggregateId === continuationRef,
-  );
-  const [continuation] = projectFhContinuations(store).filter(
-    (row) => row.continuationRef === continuationRef,
+  const continuationRef = continuation.continuationRef;
+  const opened = store.readAll().find(
+    (event) => event.eventId === continuation.openedEventRef,
   );
   if (
-    openedRows.length !== 1 ||
-    continuation === undefined ||
-    continuation.status !== "responded"
+    continuation.status !== "responded" ||
+    opened?.kind !== "fh_interaction_opened" ||
+    opened.aggregateType !== "continuation" ||
+    opened.aggregateId !== continuationRef
   ) {
     return null;
   }
-  const opened = openedRows[0]!;
   if (!isRecord(opened.payload)) return null;
   const executionBasisRef = stringField(opened, "executionBasisRef");
   if (executionBasisRef === null) return null;
@@ -711,37 +740,32 @@ export function admitContinuationPublicOperation(
   operation:
     | "abg.operation.interaction.respond"
     | "abg.operation.run.continue",
-  continuationRef: string,
+  continuation: ReplayContinuationState,
   variant: string,
   actorRef: string,
   capabilityRef: string,
   basis: PublicOperationAdmissionBasis,
 ): ContinuationPublicOperationAdmission {
-  const [continuation] = projectFhContinuations(store).filter(
-    (row) => row.continuationRef === continuationRef,
-  );
+  const continuationRef = continuation.continuationRef;
   const duplicateInvocation = store.readAll().some(
     (event) =>
       event.kind === "public_operation_admitted" &&
       isRecord(event.payload) &&
       event.payload.invocationRef === basis.invocationRef,
   );
-  const grant = continuation === undefined
-    ? null
-    : resolveContinuationPublicOperationGrant({
-        rootInvocation,
-        continuation,
-        operation,
-        variant,
-        actorRef,
-        capabilityRef,
-        basis,
-        duplicateInvocation,
-      });
+  const grant = resolveContinuationPublicOperationGrant({
+    rootInvocation,
+    continuation,
+    operation,
+    variant,
+    actorRef,
+    capabilityRef,
+    basis,
+    duplicateInvocation,
+  });
   if (
     grant === null ||
-    !hasAdmittedInvocation(store, rootInvocation) ||
-    continuation === undefined
+    !hasAdmittedInvocation(store, rootInvocation)
   ) {
     throw new TypeError(
       "continuation public operation requires the exact admitted run authority",
@@ -1051,15 +1075,13 @@ export function admitFhInteractionOpen(
 
 export function admitFhInteractionResponse(
   store: AbgEventStore,
-  continuationRef: string,
+  continuation: ReplayContinuationState,
   operation: ContinuationPublicOperationAdmission,
   responseContractRef: string,
   responseValue: Readonly<Record<string, JsonValue>>,
   basis: RuntimeAdmissionBasis,
 ): FhInteractionResponseAdmission {
-  const [continuation] = projectFhContinuations(store).filter(
-    (row) => row.continuationRef === continuationRef,
-  );
+  const continuationRef = continuation.continuationRef;
   const publicEvent = store.readAll().find(
     (event) => event.eventId === operation.admissionEventRef,
   );
@@ -1068,7 +1090,6 @@ export function admitFhInteractionResponse(
       ? publicEvent.payload
       : null;
   if (
-    continuation === undefined ||
     continuation.status !== "open" ||
     operation.operationId !== "abg.operation.interaction.respond" ||
     operation.capabilityRef !== continuation.actorCapabilityRef ||
@@ -1137,16 +1158,13 @@ export function admitFhInteractionResponse(
 
 export function deriveFhResumeSuccessorInput(
   store: AbgEventStore,
-  continuationRef: string,
+  continuation: ReplayContinuationState,
   operation: ContinuationPublicOperationAdmission,
   executionBasis: ExecutionBasis,
   closureContract: Readonly<ClosureContract>,
 ): FhResumeSuccessorInput {
-  const [continuation] = projectFhContinuations(store).filter(
-    (row) => row.continuationRef === continuationRef,
-  );
+  const continuationRef = continuation.continuationRef;
   if (
-    continuation === undefined ||
     continuation.status !== "responded" ||
     continuation.responseRef === null ||
     continuation.responseDigest === null ||
@@ -1305,7 +1323,7 @@ export function deriveFhResumeSuccessorInput(
 
 export function admitFhInteractionResume(
   store: AbgEventStore,
-  continuationRef: string,
+  continuation: ReplayContinuationState,
   operation: ContinuationPublicOperationAdmission,
   executionBasis: ExecutionBasis,
   closureContract: Readonly<ClosureContract>,
@@ -1314,9 +1332,7 @@ export function admitFhInteractionResume(
   durablePrefixDigest: Sha256Digest,
   basis: RuntimeAdmissionBasis,
 ): FhInteractionResumeAdmission {
-  const [continuation] = projectFhContinuations(store).filter(
-    (row) => row.continuationRef === continuationRef,
-  );
+  const continuationRef = continuation.continuationRef;
   const publicEvent = store.readAll().find(
     (event) => event.eventId === operation.admissionEventRef,
   );
@@ -1326,13 +1342,12 @@ export function admitFhInteractionResume(
       : null;
   const expectedSuccessorInput = deriveFhResumeSuccessorInput(
     store,
-    continuationRef,
+    continuation,
     operation,
     executionBasis,
     closureContract,
   );
   if (
-    continuation === undefined ||
     continuation.status !== "responded" ||
     continuation.responseRef === null ||
     continuation.responseDigest === null ||

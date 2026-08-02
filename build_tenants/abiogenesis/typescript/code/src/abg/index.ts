@@ -208,7 +208,6 @@ export {
   admitFhInteractionResponse,
   admitFhInteractionResume,
   deriveFhResumeSuccessorInput,
-  projectFhContinuations,
   projectFhInteractionSemanticBasis,
   rehydrateFhContinuation,
   resolveContinuationPublicOperationGrant,

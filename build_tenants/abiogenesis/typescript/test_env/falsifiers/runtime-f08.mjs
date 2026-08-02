@@ -952,10 +952,11 @@ async function validInteractionResponse(
   store,
   source,
   operation,
+  continuation,
 ) {
   const semanticBasis = modules.abg.projectFhInteractionSemanticBasis(
     store,
-    source.rContinuationRef,
+    continuation,
   );
   assert.ok(semanticBasis, "R interaction semantic basis must project");
   const semantics = await modules.product.loadInstalledProductSemantics({
@@ -987,7 +988,9 @@ async function prepareResponseOperation(modules, source, label) {
     source.rAuthority.invocationAdmissionRef,
   );
   assert.ok(rootInvocation, "R root invocation must rehydrate");
-  const continuation = modules.abg.projectFhContinuations(store).find(
+  const continuation = modules.abg.replay(store, {
+    runId: source.runR,
+  }).continuations.find(
     (candidate) => candidate.continuationRef === source.rContinuationRef,
   );
   assert.equal(continuation?.status, "open");
@@ -995,7 +998,7 @@ async function prepareResponseOperation(modules, source, label) {
     store,
     rootInvocation,
     "abg.operation.interaction.respond",
-    source.rContinuationRef,
+    continuation,
     "approve",
     rootInvocation.actorRef,
     continuation.actorCapabilityRef,
@@ -1011,6 +1014,7 @@ async function prepareResponseOperation(modules, source, label) {
     store,
     source,
     operation,
+    continuation,
   );
   return { continuation, operation, response, rootInvocation, store };
 }
@@ -1019,14 +1023,20 @@ async function prepareRespondedPrefix(modules, source, label) {
   const prepared = await prepareResponseOperation(modules, source, label);
   const admitted = modules.abg.admitFhInteractionResponse(
     prepared.store,
-    source.rContinuationRef,
+    prepared.continuation,
     prepared.operation,
     prepared.continuation.responseContractRef,
     prepared.response,
     runtimeBasis(`${label}/response`),
   );
   assert.equal(admitted.kind, "fh_interaction_response_admission");
-  return { ...prepared, responseAdmission: admitted };
+  const respondedContinuation = modules.abg.replay(prepared.store, {
+    runId: source.runR,
+  }).continuations.find(
+    (candidate) => candidate.continuationRef === source.rContinuationRef,
+  );
+  assert.equal(respondedContinuation?.status, "responded");
+  return { ...prepared, respondedContinuation, responseAdmission: admitted };
 }
 
 async function prepareContinueOperation(modules, source, label) {
@@ -1035,7 +1045,7 @@ async function prepareContinueOperation(modules, source, label) {
     prepared.store,
     prepared.rootInvocation,
     "abg.operation.run.continue",
-    source.rContinuationRef,
+    prepared.respondedContinuation,
     "current_intent",
     prepared.rootInvocation.actorRef,
     prepared.continuation.actorCapabilityRef,
@@ -1063,7 +1073,7 @@ function expectedContinuationBasis(source) {
 function prepareResumeInputs(modules, source, prepared) {
   const rehydrated = modules.abg.rehydrateFhContinuation(
     prepared.store,
-    source.rContinuationRef,
+    prepared.respondedContinuation,
     expectedContinuationBasis(source),
     prepared.continueOperation,
   );
@@ -1075,7 +1085,7 @@ function prepareResumeInputs(modules, source, prepared) {
   assert.ok(heldCursor, "R held cursor must rehydrate");
   const successorInput = modules.abg.deriveFhResumeSuccessorInput(
     prepared.store,
-    source.rContinuationRef,
+    prepared.respondedContinuation,
     prepared.continueOperation,
     rehydrated.executionBasis,
     source.rAuthority.heldClosureContract,
@@ -1094,7 +1104,7 @@ function prepareResumeInputs(modules, source, prepared) {
 function admitResume(modules, source, prepared, inputs, label) {
   const resume = modules.abg.admitFhInteractionResume(
     prepared.store,
-    source.rContinuationRef,
+    prepared.respondedContinuation,
     prepared.continueOperation,
     inputs.rehydrated.executionBasis,
     source.rAuthority.heldClosureContract,
@@ -1428,7 +1438,7 @@ async function responseFixture(modules, source) {
   const targetBasis = runtimeBasis("fh-response/target");
   const control = modules.abg.admitFhInteractionResponse(
     pair.control,
-    source.rContinuationRef,
+    prepared.continuation,
     prepared.operation,
     prepared.continuation.responseContractRef,
     prepared.response,
@@ -1439,7 +1449,7 @@ async function responseFixture(modules, source) {
   try {
     interleaved = modules.abg.admitFhInteractionResponse(
       pair.interleaved,
-      source.rContinuationRef,
+      prepared.continuation,
       prepared.operation,
       prepared.continuation.responseContractRef,
       prepared.response,
@@ -1501,13 +1511,13 @@ async function continuationReconstructionFixture(modules, source) {
   );
   const control = modules.abg.rehydrateFhContinuation(
     pair.control,
-    source.rContinuationRef,
+    prepared.respondedContinuation,
     expectedContinuationBasis(source),
     prepared.continueOperation,
   );
   const interleaved = modules.abg.rehydrateFhContinuation(
     pair.interleaved,
-    source.rContinuationRef,
+    prepared.respondedContinuation,
     expectedContinuationBasis(source),
     prepared.continueOperation,
   );
@@ -1559,7 +1569,7 @@ async function resumeFixture(modules, source) {
   );
   const control = modules.abg.admitFhInteractionResume(
     pair.control,
-    source.rContinuationRef,
+    prepared.respondedContinuation,
     prepared.continueOperation,
     inputs.rehydrated.executionBasis,
     source.rAuthority.heldClosureContract,
@@ -1573,7 +1583,7 @@ async function resumeFixture(modules, source) {
   try {
     interleaved = modules.abg.admitFhInteractionResume(
       pair.interleaved,
-      source.rContinuationRef,
+      prepared.respondedContinuation,
       prepared.continueOperation,
       inputs.rehydrated.executionBasis,
       source.rAuthority.heldClosureContract,

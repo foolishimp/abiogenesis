@@ -3238,7 +3238,7 @@ async function applyInteractionRespond(
       context.store,
       rootInvocation,
       "abg.operation.interaction.respond",
-      continuationRef,
+      continuation,
       invocation.variant,
       stringField(invocation.payload, "actorRef"),
       stringField(invocation.payload, "capabilityRef"),
@@ -3252,7 +3252,7 @@ async function applyInteractionRespond(
     const responseCandidate = recordField(invocation.payload, "response");
     const interactionBasis = abg.projectFhInteractionSemanticBasis(
       context.store,
-      continuationRef,
+      continuation,
     );
     if (interactionBasis === null) {
       throw new ApplicationRefusal(
@@ -3302,7 +3302,7 @@ async function applyInteractionRespond(
     }
     const admitted = abg.admitFhInteractionResponse(
       context.store,
-      continuationRef,
+      continuation,
       operation,
       continuation.responseContractRef,
       response,
@@ -3437,7 +3437,7 @@ async function applyRunContinue(
       context.store,
       rootInvocation,
       "abg.operation.run.continue",
-      continuationRef,
+      continuation,
       invocation.variant,
       stringField(invocation.payload, "actorRef"),
       stringField(invocation.payload, "capabilityRef"),
@@ -3450,7 +3450,7 @@ async function applyRunContinue(
     );
     const rehydrated = abg.rehydrateFhContinuation(
       context.store,
-      continuationRef,
+      continuation,
       {
         install: state.install,
         workspaceBinding: state.workspaceBinding,
@@ -3479,7 +3479,7 @@ async function applyRunContinue(
     }
     const successorInput = abg.deriveFhResumeSuccessorInput(
       context.store,
-      continuationRef,
+      continuation,
       operation,
       rehydrated.executionBasis,
       state.heldClosureContract,
@@ -3499,7 +3499,7 @@ async function applyRunContinue(
     }
     const resume = abg.admitFhInteractionResume(
       context.store,
-      continuationRef,
+      continuation,
       operation,
       rehydrated.executionBasis,
       state.heldClosureContract,

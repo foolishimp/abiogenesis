@@ -940,7 +940,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
   );
 
   const runOpen = events.find((event) => event.kind === "run_segment_opened");
-  const continuations = projectFhContinuations(store, runOpen?.runId);
+  const continuations = projectFhContinuations(prefix, eventCalculus);
   const graphCallOpen = events.find(
     (event) =>
       event.kind === "graph_call_opened" &&
