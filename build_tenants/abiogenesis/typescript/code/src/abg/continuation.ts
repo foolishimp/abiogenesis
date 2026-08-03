@@ -52,6 +52,7 @@ import {
 } from "./event_calculus.js";
 import {
   runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
@@ -267,6 +268,60 @@ function stringField(event: RuntimeEvent, key: string): string | null {
 function digestField(event: RuntimeEvent, key: string): Sha256Digest | null {
   const value = stringField(event, key);
   return value?.startsWith("sha256:") ? value as Sha256Digest : null;
+}
+
+function resolveCurrentContinuationOperationCoordinate(
+  store: AbgEventStore,
+  continuationRef: string,
+  operation: ContinuationPublicOperationAdmission,
+  predecessor: Readonly<{
+    readonly eventRef: string | null;
+    readonly kind: "fh_interaction_opened" | "fh_interaction_responded";
+  }>,
+): Readonly<{
+  readonly event: RuntimeEvent;
+  readonly payload: Readonly<Record<string, JsonValue>>;
+}> | null {
+  if (predecessor.eventRef === null) return null;
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
+  const applicable = runtimeEventsFromValidatedPrefix(prefix).filter(
+    (event) =>
+      (
+        event.aggregateType === "continuation" &&
+        event.aggregateId === continuationRef
+      ) ||
+      (
+        event.kind === "public_operation_admitted" &&
+        isRecord(event.payload) &&
+        event.payload.continuationRef === continuationRef &&
+        event.payload.operationId === operation.operationId
+      ),
+  );
+  const operationEvent = applicable.at(-1);
+  const predecessorEvent = [...applicable].reverse().find(
+    (event) => event.aggregateType === "continuation",
+  );
+  const operationPayload =
+    operationEvent !== undefined && isRecord(operationEvent.payload)
+      ? operationEvent.payload
+      : null;
+  if (
+    operationEvent?.eventId !== operation.admissionEventRef ||
+    operationEvent.kind !== "public_operation_admitted" ||
+    operationEvent.parentAggregateId !== operation.invocationRef ||
+    operationPayload === null ||
+    operationPayload.operationId !== operation.operationId ||
+    operationPayload.continuationRef !== continuationRef ||
+    operationPayload.invocationRef !== operation.invocationRef ||
+    predecessorEvent?.eventId !== predecessor.eventRef ||
+    predecessorEvent.kind !== predecessor.kind ||
+    predecessorEvent.aggregateType !== "continuation" ||
+    predecessorEvent.aggregateId !== continuationRef ||
+    predecessorEvent.admissionOrdinal >= operationEvent.admissionOrdinal
+  ) {
+    return null;
+  }
+  return { event: operationEvent, payload: operationPayload };
 }
 
 export function projectFhContinuations(
@@ -540,6 +595,15 @@ export function rehydrateFhContinuation(
   operation: ContinuationPublicOperationAdmission,
 ): RehydratedFhContinuationScope | null {
   const continuationRef = continuation.continuationRef;
+  const operationCoordinate = resolveCurrentContinuationOperationCoordinate(
+    store,
+    continuationRef,
+    operation,
+    {
+      eventRef: continuation.respondedEventRef,
+      kind: "fh_interaction_responded",
+    },
+  );
   const opened = store.readAll().find(
     (event) => event.eventId === continuation.openedEventRef,
   );
@@ -596,13 +660,8 @@ export function rehydrateFhContinuation(
   const closureContractDigest = sha256Canonical(
     expected.closureContract as unknown as JsonValue,
   );
-  const operationEvent = store.readAll().find(
-    (event) => event.eventId === operation.admissionEventRef,
-  );
-  const operationPayload =
-    operationEvent !== undefined && isRecord(operationEvent.payload)
-      ? operationEvent.payload
-      : null;
+  const operationEvent = operationCoordinate?.event;
+  const operationPayload = operationCoordinate?.payload ?? null;
   const operationCapabilityRefs =
     operationPayload !== null &&
       Array.isArray(operationPayload.capabilityGrantRefs)
@@ -706,8 +765,7 @@ export function rehydrateFhContinuation(
     operationPayload === null ||
     operationPayload.continuationRef !== continuationRef ||
     operationPayload.actorRef !== operation.actorRef ||
-    operationCapabilityRefs?.[0] !== operation.capabilityGrantRef ||
-    operationEvent.admissionOrdinal !== store.readAll().at(-1)?.admissionOrdinal
+    operationCapabilityRefs?.[0] !== operation.capabilityGrantRef
   ) {
     return null;
   }
@@ -1082,13 +1140,17 @@ export function admitFhInteractionResponse(
   basis: RuntimeAdmissionBasis,
 ): FhInteractionResponseAdmission {
   const continuationRef = continuation.continuationRef;
-  const publicEvent = store.readAll().find(
-    (event) => event.eventId === operation.admissionEventRef,
+  const operationCoordinate = resolveCurrentContinuationOperationCoordinate(
+    store,
+    continuationRef,
+    operation,
+    {
+      eventRef: continuation.openedEventRef,
+      kind: "fh_interaction_opened",
+    },
   );
-  const publicPayload =
-    publicEvent !== undefined && isRecord(publicEvent.payload)
-      ? publicEvent.payload
-      : null;
+  const publicEvent = operationCoordinate?.event;
+  const publicPayload = operationCoordinate?.payload ?? null;
   if (
     continuation.status !== "open" ||
     operation.operationId !== "abg.operation.interaction.respond" ||
@@ -1102,8 +1164,7 @@ export function admitFhInteractionResponse(
     publicEvent?.kind !== "public_operation_admitted" ||
     publicPayload?.capabilityRef !== operation.capabilityRef ||
     !Array.isArray(publicPayload.capabilityGrantRefs) ||
-    publicPayload.capabilityGrantRefs[0] !== operation.capabilityGrantRef ||
-    publicEvent.admissionOrdinal !== store.readAll().at(-1)?.admissionOrdinal
+    publicPayload.capabilityGrantRefs[0] !== operation.capabilityGrantRef
   ) {
     throw new TypeError(
       "F_H response requires one exact open continuation and admitted response operation",
@@ -1333,13 +1394,17 @@ export function admitFhInteractionResume(
   basis: RuntimeAdmissionBasis,
 ): FhInteractionResumeAdmission {
   const continuationRef = continuation.continuationRef;
-  const publicEvent = store.readAll().find(
-    (event) => event.eventId === operation.admissionEventRef,
+  const operationCoordinate = resolveCurrentContinuationOperationCoordinate(
+    store,
+    continuationRef,
+    operation,
+    {
+      eventRef: continuation.respondedEventRef,
+      kind: "fh_interaction_responded",
+    },
   );
-  const publicPayload =
-    publicEvent !== undefined && isRecord(publicEvent.payload)
-      ? publicEvent.payload
-      : null;
+  const publicEvent = operationCoordinate?.event;
+  const publicPayload = operationCoordinate?.payload ?? null;
   const expectedSuccessorInput = deriveFhResumeSuccessorInput(
     store,
     continuation,
@@ -1358,7 +1423,6 @@ export function admitFhInteractionResume(
     publicPayload?.capabilityRef !== operation.capabilityRef ||
     !Array.isArray(publicPayload.capabilityGrantRefs) ||
     publicPayload.capabilityGrantRefs[0] !== operation.capabilityGrantRef ||
-    publicEvent.admissionOrdinal !== store.readAll().at(-1)?.admissionOrdinal ||
     successorInput.kind !== "fh_resume_successor_input" ||
     successorInput.disposition !== "admitted" ||
     successorInput.inputRef !== expectedSuccessorInput.inputRef ||

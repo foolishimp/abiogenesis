@@ -307,6 +307,53 @@ function pairedInputProof(modules, coordinates) {
   return { controlDigest, interleavedDigest, coordinates: control };
 }
 
+function withoutAdmissionCoordinate(event) {
+  const { admissionOrdinal, eventId, ...body } = event;
+  void admissionOrdinal;
+  void eventId;
+  return body;
+}
+
+function withoutAdmissionEventRef(admission) {
+  const { admissionEventRef, ...body } = admission;
+  void admissionEventRef;
+  return body;
+}
+
+function assertPairedAdmissionEquality(
+  controlStore,
+  interleavedStore,
+  controlAdmission,
+  interleavedAdmission,
+) {
+  const controlEvent = eventById(
+    controlStore,
+    controlAdmission.admissionEventRef,
+  );
+  const interleavedEvent = eventById(
+    interleavedStore,
+    interleavedAdmission.admissionEventRef,
+  );
+  assert.deepEqual(
+    withoutAdmissionEventRef(interleavedAdmission),
+    withoutAdmissionEventRef(controlAdmission),
+  );
+  assert.deepEqual(
+    withoutAdmissionCoordinate(interleavedEvent),
+    withoutAdmissionCoordinate(controlEvent),
+  );
+  assert.equal(
+    interleavedEvent.admissionOrdinal,
+    controlEvent.admissionOrdinal + 1,
+  );
+  return {
+    equalAdmissionBody: true,
+    equalEventBody: true,
+    controlAdmissionOrdinal: controlEvent.admissionOrdinal,
+    interleavedAdmissionOrdinal: interleavedEvent.admissionOrdinal,
+  };
+}
+
 function disjointEventEvidence(pair) {
   return {
     sEventRef: pair.s.event.eventId,
@@ -1444,37 +1491,31 @@ async function responseFixture(modules, source) {
     prepared.response,
     targetBasis,
   );
-  let interleaved;
-  let error = null;
-  try {
-    interleaved = modules.abg.admitFhInteractionResponse(
-      pair.interleaved,
-      prepared.continuation,
-      prepared.operation,
-      prepared.continuation.responseContractRef,
-      prepared.response,
-      targetBasis,
-    );
-  } catch (caught) {
-    error = caught;
-  }
-  assert.equal(control.kind, "fh_interaction_response_admission");
-  assert.equal(interleaved, undefined);
-  assert.equal(error?.constructor, TypeError);
-  assert.equal(
-    error?.message,
-    "F_H response requires one exact open continuation and admitted response operation",
+  const interleaved = modules.abg.admitFhInteractionResponse(
+    pair.interleaved,
+    prepared.continuation,
+    prepared.operation,
+    prepared.continuation.responseContractRef,
+    prepared.response,
+    targetBasis,
   );
-  assert.equal(pair.interleaved.readAll().length, beforeInterleaved);
+  assert.equal(control.kind, "fh_interaction_response_admission");
+  assert.equal(interleaved.kind, control.kind);
+  const pairedTargetEquality = assertPairedAdmissionEquality(
+    pair.control,
+    pair.interleaved,
+    control,
+    interleaved,
+  );
   assertNoSReferences(
-    { interleaved: interleaved ?? null },
+    interleaved,
     pair.s.event.eventId,
     "F_H response result",
   );
   return {
     caseId: "fh_response",
     control: control.kind,
-    interleaved: `TypeError:${error.message}`,
+    interleaved: interleaved.kind,
     controlREventDelta: runEventsSince(
       pair.control,
       source.runR,
@@ -1492,6 +1533,7 @@ async function responseFixture(modules, source) {
       responseDigest: modules.product.sha256Canonical(prepared.response),
       targetBasis,
     }),
+    pairedTargetEquality,
     ...disjointEventEvidence(pair),
   };
 }
@@ -1522,12 +1564,12 @@ async function continuationReconstructionFixture(modules, source) {
     prepared.continueOperation,
   );
   assert.ok(control);
-  assert.equal(interleaved, null);
+  assert.deepEqual(interleaved, control);
   assertNoSReferences(interleaved, pair.s.event.eventId, "continuation result");
   return {
     caseId: "continuation_reconstruction",
     control: "rehydrated",
-    interleaved: "null",
+    interleaved: "rehydrated",
     controlREventDelta: 0,
     interleavedREventDelta: 0,
     inputProof: pairedInputProof(modules, {
@@ -1545,6 +1587,9 @@ async function continuationReconstructionFixture(modules, source) {
         source.rAuthority.heldClosureContract,
       ),
     }),
+    pairedTargetEquality: {
+      equalRehydration: true,
+    },
     ...disjointEventEvidence(pair),
   };
 }
@@ -1578,40 +1623,34 @@ async function resumeFixture(modules, source) {
     durablePrefixDigest,
     targetBasis,
   );
-  let interleaved;
-  let error = null;
-  try {
-    interleaved = modules.abg.admitFhInteractionResume(
-      pair.interleaved,
-      prepared.respondedContinuation,
-      prepared.continueOperation,
-      inputs.rehydrated.executionBasis,
-      source.rAuthority.heldClosureContract,
-      inputs.successorInput,
-      inputs.successorCursor,
-      durablePrefixDigest,
-      targetBasis,
-    );
-  } catch (caught) {
-    error = caught;
-  }
-  assert.equal(control.kind, "fh_interaction_resume_admission");
-  assert.equal(interleaved, undefined);
-  assert.equal(error?.constructor, TypeError);
-  assert.equal(
-    error?.message,
-    "F_H resume requires one exact responded continuation and successor cursor",
+  const interleaved = modules.abg.admitFhInteractionResume(
+    pair.interleaved,
+    prepared.respondedContinuation,
+    prepared.continueOperation,
+    inputs.rehydrated.executionBasis,
+    source.rAuthority.heldClosureContract,
+    inputs.successorInput,
+    inputs.successorCursor,
+    durablePrefixDigest,
+    targetBasis,
   );
-  assert.equal(pair.interleaved.readAll().length, beforeInterleaved);
+  assert.equal(control.kind, "fh_interaction_resume_admission");
+  assert.equal(interleaved.kind, control.kind);
+  const pairedTargetEquality = assertPairedAdmissionEquality(
+    pair.control,
+    pair.interleaved,
+    control,
+    interleaved,
+  );
   assertNoSReferences(
-    { interleaved: interleaved ?? null },
+    interleaved,
     pair.s.event.eventId,
     "F_H resume result",
   );
   return {
     caseId: "fh_resume",
     control: control.kind,
-    interleaved: `TypeError:${error.message}`,
+    interleaved: interleaved.kind,
     controlREventDelta: runEventsSince(
       pair.control,
       source.runR,
@@ -1637,6 +1676,7 @@ async function resumeFixture(modules, source) {
       durablePrefixDigest,
       targetBasis,
     }),
+    pairedTargetEquality,
     ...disjointEventEvidence(pair),
   };
 }
@@ -1794,6 +1834,7 @@ function observedSignature(cases) {
       interleaved: entry.interleaved,
       controlREventDelta: entry.controlREventDelta,
       interleavedREventDelta: entry.interleavedREventDelta,
+      pairedTargetEquality: entry.pairedTargetEquality ?? null,
     }]),
   );
 }
@@ -1834,11 +1875,9 @@ export async function runAxF08({ packageRoot, harness }) {
   const expected = {
     initial_cursor:
       "traversal_cursor_admission_refusal:scope_mismatch:initial cursor must immediately extend the opened frame truth",
-    continuation_reconstruction: "null",
-    fh_response:
-      "TypeError:F_H response requires one exact open continuation and admitted response operation",
-    fh_resume:
-      "TypeError:F_H resume requires one exact responded continuation and successor cursor",
+    continuation_reconstruction: "rehydrated",
+    fh_response: "fh_interaction_response_admission",
+    fh_resume: "fh_interaction_resume_admission",
     normal_closure:
       "TypeError:runtime event causation cannot cross a run scope",
     interaction_closure:
@@ -1848,9 +1887,17 @@ export async function runAxF08({ packageRoot, harness }) {
     refusal_causation:
       "TypeError:runtime event causation cannot cross a run scope",
   };
+  const expectedREventDeltas = {
+    ...Object.fromEntries(F08_ROWS.map((caseId) => [caseId, 0])),
+    fh_response: 1,
+    fh_resume: 1,
+  };
   for (const entry of cases) {
     assert.equal(entry.interleaved, expected[entry.caseId]);
-    assert.equal(entry.interleavedREventDelta, 0);
+    assert.equal(
+      entry.interleavedREventDelta,
+      expectedREventDeltas[entry.caseId],
+    );
   }
   assert.equal(cases[7].control.startsWith(
     "closure_admission_refusal:runtime_basis_mismatch:failure=true",
@@ -1882,7 +1929,8 @@ export async function runAxF08({ packageRoot, harness }) {
     },
     oracle: {
       exactRunRDispositionEquality: true,
-      exactRunREventBodyAndReferenceEquality: true,
+      exactRunRApplicableEventBodyEquality: true,
+      globalAdmissionCoordinateShiftIsExplicit: true,
       exactRunRReplayEquality: true,
       noRunRCausalReferenceMayNameS: true,
       invalidEnvelopeOrPrerequisiteFailureIsFixtureFailure: true,
@@ -1894,7 +1942,7 @@ export async function runAxF08({ packageRoot, harness }) {
       expected[entry.caseId],
       entry.interleaved,
       entry.interleaved === expected[entry.caseId] &&
-        entry.interleavedREventDelta === 0,
+        entry.interleavedREventDelta === expectedREventDeltas[entry.caseId],
     )),
     maskControls: [
       passedControl("exact_eight_fixture_set", cases.map((entry) => entry.caseId)),
@@ -1929,10 +1977,11 @@ export async function runAxF08({ packageRoot, harness }) {
         })),
       ),
       passedControl(
-        "no_interleaved_target_appends_run_r_truth",
+        "interleaved_target_matches_control_at_its_applicable_coordinate",
         cases.map((entry) => ({
           caseId: entry.caseId,
           delta: entry.interleavedREventDelta,
+          pairedTargetEquality: entry.pairedTargetEquality ?? null,
         })),
       ),
     ],
