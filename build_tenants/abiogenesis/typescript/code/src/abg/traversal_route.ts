@@ -4120,7 +4120,7 @@ export function admitRecursionRoute(
   } else if (candidate.routeKind === "blocked") {
     const blockedByPreparation =
       preparationRefusal !== null &&
-      isAdmittedApplicationChildPreparationRefusal(preparationRefusal) &&
+      isAdmittedApplicationChildPreparationRefusal(store, preparationRefusal) &&
       preparationRefusal.applicationRef === application.applicationRef &&
       preparationRefusal.parentCCallRef === cCall.cCallRef &&
       preparationRefusal.parentJudgmentRef === judgment.judgmentRef &&

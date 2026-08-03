@@ -1,12 +1,55 @@
 import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import test from "node:test";
 
+import {
+  AbgEventStore,
+  admitRuntimeEvent,
+} from "../../build/code/src/abg/event_store.js";
+import {
+  projectCurrentApplicationChildPreparationRefusal,
+} from "../../build/code/src/abg/graph_application.js";
+import { sha256Canonical } from "../../build/code/src/shared/digests.js";
+
 import { setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+
+async function runPreparationRefusalWorker(input) {
+  const worker = resolve(
+    root,
+    "test_env/falsifiers/runtime-preparation-refusal-worker.mjs",
+  );
+  return await new Promise((resolveResult, reject) => {
+    const child = spawn(process.execPath, [worker], {
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+    let stdout = "";
+    let stderr = "";
+    child.stdout.setEncoding("utf8");
+    child.stderr.setEncoding("utf8");
+    child.stdout.on("data", (chunk) => {
+      stdout += chunk;
+    });
+    child.stderr.on("data", (chunk) => {
+      stderr += chunk;
+    });
+    child.on("error", reject);
+    child.on("close", (code) => {
+      if (code !== 0) {
+        reject(new Error(
+          `preparation-refusal projection worker failed ${code}: ${stderr}`,
+        ));
+        return;
+      }
+      resolveResult(JSON.parse(stdout));
+    });
+    child.stdin.end(JSON.stringify(input));
+  });
+}
 
 function runtimeBasis(correlationId) {
   return {
@@ -646,4 +689,137 @@ test("run_stopped makes runtime failure throw before memory or durable append", 
     /replay requires zero or one exact run_stopped event/,
   );
   reopened.store.closeDurableLog();
+});
+
+test("M5 application preparation refusal is exact across fresh processes until its route consumes it", async () => {
+  const store = new AbgEventStore();
+  const runId = "run://abiogenesis/m5/preparation-refusal";
+  const graphCallId = "graph-call://abiogenesis/m5/preparation-refusal";
+  const frameId = "frame://abiogenesis/m5/preparation-refusal";
+  const basisId = "basis://abiogenesis/m5/preparation-refusal";
+  const graphFunctionRef =
+    "graph-function://abiogenesis/m5/preparation-refusal-parent@5";
+  const applicationRef =
+    "graph-function-application://abiogenesis/m5/preparation-refusal@5";
+  const parentCCallRef = "c-call://abiogenesis/m5/preparation-refusal";
+  const parentJudgmentRef = "judgment://abiogenesis/m5/preparation-refusal";
+  const sourceCursorRef =
+    "traversal-cursor://abiogenesis/m5/preparation-refusal";
+  const refusalBody = {
+    applicationRef,
+    parentCCallRef,
+    parentJudgmentRef,
+    sourceCursorRef,
+    childGraphFunctionRef:
+      "graph-function://abiogenesis/m5/preparation-refusal-child@5",
+    inputRef: "result://abiogenesis/m5/preparation-refusal",
+    inputDigest: sha256Canonical({ input: "preparation-refusal" }),
+    stage: "membership",
+    diagnosticRef:
+      "diagnostic://abiogenesis/m5/preparation-refusal-membership@5",
+    message: "declared child is absent from the admitted preparation basis",
+  };
+  const refusalDigest = sha256Canonical(refusalBody);
+  const refusalRef =
+    `child-preparation-refusal://abiogenesis/${refusalDigest.slice("sha256:".length)}`;
+  const refusalEvent = admitRuntimeEvent(store, {
+    kind: "child_preparation_refused",
+    eventTime: "2026-08-04T00:00:00.000Z",
+    aggregateType: "frame",
+    aggregateId: frameId,
+    parentAggregateId: graphCallId,
+    causationEventRefs: [],
+    correlationId: "correlation://abiogenesis/m5/preparation-refusal",
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId,
+    runId,
+    graphFunctionRef,
+    materializationRef:
+      "materialization://abiogenesis/m5/preparation-refusal",
+    graphCallId,
+    frameId,
+    payload: { refusalRef, refusalDigest, ...refusalBody },
+  });
+  const refusalPrefix = store.readAll();
+  const projected = projectCurrentApplicationChildPreparationRefusal(store, {
+    runId,
+    refusalRef,
+  });
+  assert.deepEqual(projected, {
+    kind: "application_child_preparation_refusal_admission",
+    schemaVersion: "5.0.0",
+    disposition: "admitted",
+    refusalRef,
+    refusalDigest,
+    ...refusalBody,
+    admissionEventRef: refusalEvent.eventId,
+  });
+
+  const routeBody = {
+    routeKind: "blocked",
+    declarationRef: applicationRef,
+    declarationDigest: sha256Canonical({ applicationRef }),
+    sourceCursorRef,
+    sourceCursorDigest: sha256Canonical({ sourceCursorRef }),
+    targetCursorRef: null,
+    targetCursorDigest: null,
+    cCallRef: parentCCallRef,
+    judgmentRef: parentJudgmentRef,
+    consumedAvailabilityRefs: [parentJudgmentRef, refusalRef],
+    contractRef: "contract://abiogenesis/m5/preparation-refusal@5",
+    replayStateDigest: sha256Canonical({ state: "preparation-refused" }),
+  };
+  const routeDigest = sha256Canonical(routeBody);
+  const routeRef =
+    `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}`;
+  admitRuntimeEvent(store, {
+    kind: "traversal_route_admitted",
+    eventTime: "2026-08-04T00:00:01.000Z",
+    aggregateType: "frame",
+    aggregateId: frameId,
+    parentAggregateId: graphCallId,
+    causationEventRefs: [refusalEvent.eventId],
+    correlationId:
+      "correlation://abiogenesis/m5/preparation-refusal/blocked-route",
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId,
+    runId,
+    graphFunctionRef,
+    materializationRef:
+      "materialization://abiogenesis/m5/preparation-refusal",
+    graphCallId,
+    frameId,
+    payload: { routeRef, routeDigest, ...routeBody },
+  });
+  assert.equal(
+    projectCurrentApplicationChildPreparationRefusal(store, {
+      runId,
+      refusalRef,
+    }),
+    null,
+  );
+
+  const workerInput = {
+    installedPackageRoot: root,
+    runId,
+    refusalRef,
+    refusalPrefix,
+    consumedPrefix: store.readAll(),
+  };
+  const [firstProjection, secondProjection] = await Promise.all([
+    runPreparationRefusalWorker(workerInput),
+    runPreparationRefusalWorker(workerInput),
+  ]);
+  assert.notEqual(firstProjection.processId, process.pid);
+  assert.notEqual(secondProjection.processId, process.pid);
+  assert.notEqual(firstProjection.processId, secondProjection.processId);
+  const { processId: _firstProcessId, ...firstTruth } = firstProjection;
+  const { processId: _secondProcessId, ...secondTruth } = secondProjection;
+  assert.deepEqual(secondTruth, firstTruth);
+  assert.deepEqual(firstTruth.refusal, projected);
+  assert.equal(firstTruth.consumedRefusal, null);
+  assert.equal(firstTruth.currentBeforeRoute, true);
+  assert.equal(firstTruth.currentAfterRoute, false);
 });

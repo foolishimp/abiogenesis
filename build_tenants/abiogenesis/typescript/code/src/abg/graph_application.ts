@@ -107,6 +107,7 @@ export interface ApplicationChildPreparationRefusalAdmission {
     | "membership"
     | "scope_open";
   readonly diagnosticRef: string;
+  readonly message: string;
   readonly admissionEventRef: string;
 }
 
@@ -121,8 +122,6 @@ export interface ApplicationChildPreparationRefusalRefusal {
 export type ApplicationChildPreparationRefusalResult =
   | ApplicationChildPreparationRefusalAdmission
   | ApplicationChildPreparationRefusalRefusal;
-
-const admittedApplicationPreparationRefusals = new WeakSet<object>();
 
 function isRecord(
   value: JsonValue,
@@ -162,9 +161,87 @@ export function isAdmittedApplicationChildFoldback(
 }
 
 export function isAdmittedApplicationChildPreparationRefusal(
-  value: object,
+  store: AbgEventStore,
+  value: ApplicationChildPreparationRefusalAdmission,
 ): value is ApplicationChildPreparationRefusalAdmission {
-  return admittedApplicationPreparationRefusals.has(value);
+  const events = runtimeEventsFromValidatedPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+  );
+  const projected = projectCurrentApplicationChildPreparationRefusal(store, {
+    runId: events.find(
+      (event) => event.eventId === value.admissionEventRef,
+    )?.runId ?? "",
+    refusalRef: value.refusalRef,
+  });
+  return projected !== null &&
+    sha256Canonical(projected as unknown as JsonValue) ===
+      sha256Canonical(value as unknown as JsonValue);
+}
+
+export function projectCurrentApplicationChildPreparationRefusal(
+  store: AbgEventStore,
+  coordinates: Readonly<{ runId: string; refusalRef: string }>,
+): ApplicationChildPreparationRefusalAdmission | null {
+  if (coordinates.runId.length === 0 || coordinates.refusalRef.length === 0) {
+    return null;
+  }
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: coordinates.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const event = events.find(
+    (candidate) =>
+      candidate.kind === "child_preparation_refused" &&
+      isRecord(candidate.payload) &&
+      candidate.payload.refusalRef === coordinates.refusalRef &&
+      typeof candidate.payload.applicationRef === "string",
+  );
+  if (event === undefined || !isRecord(event.payload)) return null;
+  const { refusalRef, refusalDigest, ...body } = event.payload;
+  if (
+    typeof refusalRef !== "string" ||
+    typeof refusalDigest !== "string" ||
+    refusalRef !== coordinates.refusalRef ||
+    refusalDigest !== sha256Canonical(body as unknown as JsonValue) ||
+    refusalRef !==
+      `child-preparation-refusal://abiogenesis/${refusalDigest.slice("sha256:".length)}` ||
+    typeof body.applicationRef !== "string" ||
+    typeof body.parentCCallRef !== "string" ||
+    typeof body.parentJudgmentRef !== "string" ||
+    typeof body.sourceCursorRef !== "string" ||
+    typeof body.childGraphFunctionRef !== "string" ||
+    typeof body.inputRef !== "string" ||
+    typeof body.inputDigest !== "string" ||
+    !body.inputDigest.startsWith("sha256:") ||
+    ![
+      "basis_admission",
+      "graph_materialization",
+      "graph_validation",
+      "membership",
+      "scope_open",
+    ].includes(body.stage as string) ||
+    typeof body.diagnosticRef !== "string" ||
+    typeof body.message !== "string" ||
+    body.message.length === 0 ||
+    !holdsAt(
+      deriveRuntimeEventCalculusProjection(prefix),
+      constructRuntimeFluent({
+        name: "child_preparation_refused",
+        identity: refusalRef,
+      }),
+    )
+  ) {
+    return null;
+  }
+  return deepFreeze({
+    kind: "application_child_preparation_refusal_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    refusalRef,
+    refusalDigest,
+    ...body,
+    admissionEventRef: event.eventId,
+  }) as unknown as ApplicationChildPreparationRefusalAdmission;
 }
 
 export function projectCurrentApplicationChildFoldback(
@@ -326,8 +403,20 @@ export function admitApplicationChildPreparationRefusal(
     ...body,
     admissionEventRef: event.eventId,
   }) as ApplicationChildPreparationRefusalAdmission;
-  admittedApplicationPreparationRefusals.add(admitted);
-  return admitted;
+  const projected = projectCurrentApplicationChildPreparationRefusal(store, {
+    runId: sourceCursor.runId,
+    refusalRef,
+  });
+  if (
+    projected === null ||
+    sha256Canonical(projected as unknown as JsonValue) !==
+      sha256Canonical(admitted as unknown as JsonValue)
+  ) {
+    throw new TypeError(
+      "application child preparation refusal admission must equal its validated Event Calculus projection",
+    );
+  }
+  return projected;
 }
 
 export function admitApplicationChildFoldback(
