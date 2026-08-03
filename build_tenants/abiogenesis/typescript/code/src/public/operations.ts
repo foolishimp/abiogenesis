@@ -3784,30 +3784,9 @@ async function applyRunContinue(
           childCompletion: completion,
         });
       } else {
-        const evaluator = abg.rehydrateAdmittedCCallState(
-          context.store,
-          suspension.evaluatorCCall as unknown as Readonly<
-            Record<string, product.JsonValue>
-          >,
-          suspension.evaluatorResult as unknown as Readonly<
-            Record<string, product.JsonValue>
-          >,
-          suspension.evaluatorJudgment as unknown as Readonly<
-            Record<string, product.JsonValue>
-          >,
-        );
-        if (evaluator === null) {
-          throw new ApplicationRefusal(
-            "owner_refusal",
-            "continued run could not rehydrate its deferred application call",
-          );
-        }
         completion = await hog.resumeHeldRecursionTraversal({
           parent: parentRuntime,
           suspension,
-          evaluatorCCall: evaluator.cCall,
-          evaluatorResult: evaluator.result,
-          evaluatorJudgment: evaluator.judgment,
           sourceCursor,
           childExecutionBasis,
           childTraversalScope,

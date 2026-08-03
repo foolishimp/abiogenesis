@@ -1471,6 +1471,225 @@ export interface RehydratedAdmittedCCallState {
   readonly judgment: AdmittedCCallJudgment;
 }
 
+export interface AdmittedLeafCCallOutcomeProjectionInput {
+  readonly executionBasis: ExecutionBasis;
+  readonly implementationSet: AdmittedImplementationSet;
+  readonly openedTraversalScope: OpenedTraversalScope;
+  readonly graph: Readonly<GtlGraph>;
+  readonly traversalStop: CCallLocusProposal;
+  readonly implementationResolution: AdmittedImplementationResolutionRow;
+  readonly cCallRef: string;
+  readonly resultRef: string;
+  readonly judgmentRef: string;
+}
+
+/**
+ * Reconstructs one admitted leaf outcome from its validated Run prefix and the
+ * exact installed owner surfaces that declared the C locus.
+ */
+export function projectAdmittedLeafCCallOutcome(
+  store: AbgEventStore,
+  input: AdmittedLeafCCallOutcomeProjectionInput,
+): RehydratedAdmittedCCallState | null {
+  const basis = input.executionBasis;
+  const implementationSet = input.implementationSet;
+  const scope = input.openedTraversalScope;
+  const stop = input.traversalStop;
+  const resolution = input.implementationResolution;
+  if (
+    !hasAdmittedExecutionBasis(store, basis) ||
+    !hasAdmittedImplementationSet(store, implementationSet) ||
+    !hasOpenedTraversalScope(store, scope) ||
+    !hasAdmittedTraversalCursor(store, stop.cursor) ||
+    scope.executionBasisRef !== basis.basisRef ||
+    scope.runId !== stop.runId ||
+    scope.graphCallId !== stop.graphCallId ||
+    scope.frameId !== stop.frameId ||
+    stop.traversalScopeRef !== scope.scopeRef ||
+    stop.cursor.executionBasisRef !== basis.basisRef ||
+    stop.cursor.traversalScopeRef !== scope.scopeRef ||
+    stop.cursor.frameId !== scope.frameId ||
+    input.graph.materializationRef !== basis.graphRef ||
+    input.graph.graphFunctionRef !== basis.graphFunctionRef ||
+    implementationSet.implementationSetRef !== basis.implementationSetRef ||
+    implementationSet.implementationSetDigest !== basis.implementationSetDigest ||
+    !implementationSet.rows.includes(resolution) ||
+    resolution.graphFunctionRef !== basis.graphFunctionRef ||
+    resolution.nodeRef !== stop.nodeRef ||
+    resolution.programLocusRef !== stop.programLocusRef ||
+    resolution.implementationBindingRef !== stop.implementationBindingRef ||
+    resolution.computeRegime !== stop.computeRegime ||
+    resolution.inputContractRef !== stop.inputContractRef ||
+    resolution.outputContractRef !== stop.outputContractRef ||
+    resolution.failureContractRef !== stop.failureContractRef ||
+    resolution.refusalContractRef !== stop.refusalContractRef
+  ) {
+    return null;
+  }
+  const identity = {
+    basisId: basis.basisRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    vectorIndex: stop.vectorIndex,
+    stageRole: stop.stageRole,
+    taskOrdinal: stop.taskOrdinal,
+    attempt: stop.attempt,
+    programLocusRef: stop.programLocusRef,
+    retryPath: stop.retryPath,
+  };
+  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallRef = `c-call:${cCallDigest}`;
+  if (input.cCallRef !== cCallRef) return null;
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: scope.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const cCallEvents = events.filter(
+    (event) =>
+      event.aggregateType === "c_call" && event.aggregateId === cCallRef,
+  );
+  const openedEvent = cCallEvents[0];
+  const fibreEvent = cCallEvents[1];
+  const resultEvent = cCallEvents.find(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      isJsonRecord(event.payload) &&
+      event.payload.resultRef === input.resultRef,
+  );
+  const judgmentEvent = cCallEvents.find(
+    (event) =>
+      event.kind === "c_call_judged" &&
+      isJsonRecord(event.payload) &&
+      event.payload.judgmentRef === input.judgmentRef,
+  );
+  if (
+    openedEvent?.kind !== "c_call_opened" ||
+    fibreEvent?.kind !== "c_call_fibre_selected" ||
+    resultEvent === undefined ||
+    judgmentEvent === undefined ||
+    !isJsonRecord(resultEvent.payload) ||
+    !isJsonRecord(judgmentEvent.payload)
+  ) {
+    return null;
+  }
+  const locusBody = {
+    cCallRef,
+    cCallDigest,
+    callClass: "leaf" as const,
+    basisId: basis.basisRef,
+    graphFunctionRef: basis.graphFunctionRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    edgeRef: stop.edgeRef,
+    vectorIndex: stop.vectorIndex,
+    stageRole: stop.stageRole,
+    batchRef: stop.batchRef,
+    taskOrdinal: stop.taskOrdinal,
+    attempt: stop.attempt,
+    programLocusRef: stop.programLocusRef,
+    retryPath: stop.retryPath,
+  };
+  const fibreBody = {
+    cCallRef,
+    callClass: "leaf" as const,
+    regime: stop.computeRegime,
+    armId: stop.armId,
+    compositionRef: stop.compositionRef,
+    implementationSetRef: implementationSet.implementationSetRef,
+    implementationRequirementKey: resolution.requirementKey,
+    implementationBindingRef: resolution.implementationBindingRef,
+    implementationRef: resolution.implementationRef,
+  };
+  if (
+    openedEvent.parentAggregateId !== scope.frameId ||
+    openedEvent.basisId !== basis.basisRef ||
+    openedEvent.runId !== scope.runId ||
+    openedEvent.graphCallId !== scope.graphCallId ||
+    openedEvent.frameId !== scope.frameId ||
+    !exactEventBody(openedEvent, "c_call_opened", locusBody) ||
+    fibreEvent.parentAggregateId !== scope.frameId ||
+    fibreEvent.basisId !== basis.basisRef ||
+    fibreEvent.runId !== scope.runId ||
+    fibreEvent.graphCallId !== scope.graphCallId ||
+    fibreEvent.frameId !== scope.frameId ||
+    !fibreEvent.causationEventRefs.includes(openedEvent.eventId) ||
+    !exactEventBody(fibreEvent, "c_call_fibre_selected", fibreBody)
+  ) {
+    return null;
+  }
+  const cCall = deepFreeze({
+    kind: "c_call" as const,
+    schemaVersion: "5.0.0" as const,
+    cCallRef,
+    cCallDigest,
+    callClass: "leaf" as const,
+    basisId: basis.basisRef,
+    runId: scope.runId,
+    graphFunctionRef: basis.graphFunctionRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    edgeRef: stop.edgeRef,
+    vectorIndex: stop.vectorIndex,
+    stageRole: stop.stageRole,
+    batchRef: stop.batchRef,
+    taskOrdinal: stop.taskOrdinal,
+    attempt: stop.attempt,
+    programLocusRef: stop.programLocusRef,
+    retryPath: stop.retryPath,
+    regime: stop.computeRegime,
+    armId: stop.armId,
+    compositionRef: stop.compositionRef,
+    implementationSetRef: implementationSet.implementationSetRef,
+    implementationRequirementKey: resolution.requirementKey,
+    implementationBindingRef: resolution.implementationBindingRef,
+    implementationRef: resolution.implementationRef,
+    interactionSetRef: basis.interactionSetRef,
+    interactionRequirementKey: null,
+    interactionKind: null,
+    actorCapabilityRef: null,
+    responseContractRef: null,
+    continuationContractRef: null,
+    childGraphFunctionRef: null,
+    inputContractRef: resolution.inputContractRef,
+    outputContractRef: resolution.outputContractRef,
+    failureContractRef: resolution.failureContractRef,
+    refusalContractRef: resolution.refusalContractRef,
+    refusalValueKind: basis.refusalValueKind,
+    evidenceContractRef: stop.evidenceContractRef,
+    judgmentContractRef: stop.judgmentContractRef,
+    rejectionContractRef: stop.refusalContractRef,
+    transitionContractRef: basis.transitionContractRef,
+    closureContractRef: basis.closureContractRef,
+    closureContractDigest: basis.closureContractDigest,
+    judgmentPredicateRef: stop.judgmentPredicateRef,
+    terminalPredicateRef: basis.terminalPredicateRef,
+    replayProjectionRef: basis.replayProjectionRef,
+    terminalKind: basis.terminalKind,
+    openedEventRef: openedEvent.eventId,
+    fibreSelectedEventRef: fibreEvent.eventId,
+  }) as CCall;
+  const result = deepFreeze({
+    ...resultEvent.payload,
+    kind: "admitted_c_call_result" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    admissionEventRef: resultEvent.eventId,
+  }) as unknown as AdmittedCCallResult;
+  const judgment = deepFreeze({
+    ...judgmentEvent.payload,
+    kind: "admitted_c_call_judgment" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    admissionEventRef: judgmentEvent.eventId,
+  }) as unknown as AdmittedCCallJudgment;
+  return rehydrateAdmittedCCallState(
+    store,
+    cCall as unknown as Readonly<Record<string, JsonValue>>,
+    result as unknown as Readonly<Record<string, JsonValue>>,
+    judgment as unknown as Readonly<Record<string, JsonValue>>,
+  );
+}
+
 export function rehydrateAdmittedCCallState(
   store: AbgEventStore,
   cCallValue: Readonly<Record<string, JsonValue>>,

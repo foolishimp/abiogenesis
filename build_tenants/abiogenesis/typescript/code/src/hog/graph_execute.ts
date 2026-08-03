@@ -10,11 +10,8 @@ import {
   traversalCursorAdmissionEventRef,
   type AbgEventStore,
   type ActorRuntimeBinding,
-  type AdmittedCCallJudgment,
-  type AdmittedCCallResult,
   type AdmittedImplementationSet,
   type AdmittedInteractionSet,
-  type CCall,
   type ContinuationProductBasis,
   type ExecutionBasis,
   type OpenedTraversalScope,
@@ -47,9 +44,11 @@ import {
   suspendHeldRecursionTraversal,
   suspendHeldWorkflowTraversal,
   type ExecutableTraversalCompletion,
+  type CompleteExecutableTraversalInput,
   type HeldRecursionSuspension,
   type HeldWorkflowSuspension,
   type RetainedRetryInput,
+  type RestoreDeferredRecursionInput,
 } from "./execute.js";
 import {
   isChildTraversalPreparationPort,
@@ -106,9 +105,6 @@ export interface ResumeHeldWorkflowTraversalInput {
 export interface ResumeHeldRecursionTraversalInput {
   readonly parent: ExecuteGraphTraversalInput;
   readonly suspension: HeldRecursionSuspension;
-  readonly evaluatorCCall: CCall;
-  readonly evaluatorResult: AdmittedCCallResult;
-  readonly evaluatorJudgment: AdmittedCCallJudgment;
   readonly sourceCursor: TraversalCursor;
   readonly childExecutionBasis: ExecutionBasis;
   readonly childTraversalScope: OpenedTraversalScope;
@@ -817,7 +813,10 @@ export async function executeGraphTraversal(
         input.graph,
         exactStop.compositionRef,
       );
-      completion = await completeExecutableTraversal({
+      const traversalInput: CompleteExecutableTraversalInput<
+        Readonly<Record<string, JsonValue>>,
+        Readonly<Record<string, JsonValue>>
+      > = {
         store: input.store,
         executionBasis: input.executionBasis,
         openedTraversalScope: input.openedTraversalScope,
@@ -848,11 +847,45 @@ export async function executeGraphTraversal(
           eventTime: input.eventTime,
           correlationId: `${input.correlationId}/leaf/${leafOrdinal}`,
         },
-      });
+      };
+      completion = await completeExecutableTraversal(traversalInput);
       if (
         recursionApplication !== null &&
         completion.disposition === "application_ready"
       ) {
+        if (
+          completion.cCallRef === null ||
+          completion.resultRef === null ||
+          completion.judgmentRef === null
+        ) {
+          return fail(
+            input,
+            `recursion-restoration-coordinates-${leafOrdinal}`,
+            "diagnostic://abiogenesis/hog/recursion-restoration-coordinates-absent@5",
+            completion as unknown as JsonValue,
+          );
+        }
+        const restoration: RestoreDeferredRecursionInput = {
+          traversalInput,
+          application: recursionApplication,
+          cCallRef: completion.cCallRef,
+          resultRef: completion.resultRef,
+          judgmentRef: completion.judgmentRef,
+        };
+        const reconstructed = restoreDeferredRecursion(restoration);
+        if (
+          reconstructed === null ||
+          sha256Canonical(reconstructed as unknown as JsonValue) !==
+            sha256Canonical(completion as unknown as JsonValue)
+        ) {
+          return fail(
+            input,
+            `recursion-restoration-${leafOrdinal}`,
+            "diagnostic://abiogenesis/hog/recursion-restoration-mismatch@5",
+            completion as unknown as JsonValue,
+          );
+        }
+        completion = reconstructed;
         const termination = completion.resultValue === null
           ? null
           : recursionTerminationDecision(
@@ -873,6 +906,7 @@ export async function executeGraphTraversal(
         if (termination) {
           completion = completeDeferredApplicationTerminal({
             completion,
+            restoration,
             application: recursionApplication,
             clock: {
               eventTime: input.eventTime,
@@ -883,6 +917,7 @@ export async function executeGraphTraversal(
         } else if (exactStop.cursor.attempt >= recursionApplication.bound) {
           completion = blockDeferredRecursion({
             completion,
+            restoration,
             application: recursionApplication,
             clock: {
               eventTime: input.eventTime,
@@ -926,6 +961,7 @@ export async function executeGraphTraversal(
           if (prepared.kind !== "prepared_child_traversal") {
             completion = blockDeferredRecursionPreparation({
               completion,
+              restoration,
               application: recursionApplication,
               preparationRefusal: prepared,
               clock: {
@@ -975,6 +1011,7 @@ export async function executeGraphTraversal(
                 parentGraphInputDigest: input.inputDigest,
                 application: recursionApplication,
                 deferredCompletion: completion,
+                restoration,
                 childExecutionBasis: prepared.executionBasis,
                 childTraversalScope: prepared.openedTraversalScope,
                 childInput: prepared.input,
@@ -991,6 +1028,7 @@ export async function executeGraphTraversal(
             }
             completion = advanceDeferredRecursion({
               completion,
+              restoration,
               application: recursionApplication,
               childExecutionBasis: prepared.executionBasis,
               childTraversalScope: prepared.openedTraversalScope,
@@ -1356,12 +1394,6 @@ export async function resumeHeldRecursionTraversal(
       parent.graph.materializationRef ||
     input.suspension.sourceCursor.cursorRef !==
       input.sourceCursor.cursorRef ||
-    input.suspension.evaluatorCCall.cCallRef !==
-      input.evaluatorCCall.cCallRef ||
-    input.suspension.evaluatorResult.resultRef !==
-      input.evaluatorResult.resultRef ||
-    input.suspension.evaluatorJudgment.judgmentRef !==
-      input.evaluatorJudgment.judgmentRef ||
     input.suspension.childExecutionBasisRef !==
       input.childExecutionBasis.basisRef ||
     input.suspension.childTraversalScopeRef !==
@@ -1432,7 +1464,7 @@ export async function resumeHeldRecursionTraversal(
       traversalStop as unknown as JsonValue,
     );
   }
-  const deferred = restoreDeferredRecursion({
+  const restoration: RestoreDeferredRecursionInput = {
     traversalInput: {
       store: parent.store,
       executionBasis: parent.executionBasis,
@@ -1458,11 +1490,20 @@ export async function resumeHeldRecursionTraversal(
       },
     },
     application,
-    cCall: input.evaluatorCCall,
-    result: input.evaluatorResult,
-    judgment: input.evaluatorJudgment,
-  });
-  if (deferred === null) {
+    cCallRef: input.suspension.evaluatorCCall.cCallRef,
+    resultRef: input.suspension.evaluatorResult.resultRef,
+    judgmentRef: input.suspension.evaluatorJudgment.judgmentRef,
+  };
+  const deferred = restoreDeferredRecursion(restoration);
+  if (
+    deferred === null ||
+    deferred.cCallRef !== input.suspension.evaluatorCCall.cCallRef ||
+    deferred.resultRef !== input.suspension.evaluatorResult.resultRef ||
+    deferred.judgmentRef !==
+      input.suspension.evaluatorJudgment.judgmentRef ||
+    sha256Canonical(deferred.resultValue as JsonValue) !==
+      input.suspension.evaluatorResult.valueDigest
+  ) {
     return fail(
       parent,
       "recursion-resume-deferred",
@@ -1472,6 +1513,7 @@ export async function resumeHeldRecursionTraversal(
   }
   let completion = advanceDeferredRecursion({
     completion: deferred,
+    restoration,
     application,
     childExecutionBasis: input.childExecutionBasis,
     childTraversalScope: input.childTraversalScope,

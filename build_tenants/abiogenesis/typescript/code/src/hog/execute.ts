@@ -23,11 +23,12 @@ import {
   deriveSubTraversalEvidence,
   openCCall,
   openInteractionCCall,
-  hasCurrentAdmittedCCallOutcome,
-  isCCall,
+  projectAdmittedLeafCCallOutcome,
   projectedCCallResultValue,
   projectRetryEligibility,
   replay,
+  replayValidatedRuntimeEventPrefix,
+  selectValidatedRuntimeEventPrefix,
   traversalCursorAdmissionEventRef,
   type AbgEventStore,
   type ActorRuntimeBinding,
@@ -297,6 +298,7 @@ export interface CompleteExecutableTraversalInput<
 
 export interface CompleteDeferredRecursionInput {
   readonly completion: ExecutableTraversalCompletion;
+  readonly restoration: RestoreDeferredRecursionInput;
   readonly application: Readonly<RecurseApplication>;
   readonly clock: ExecutableTraversalClock;
 }
@@ -394,15 +396,10 @@ export interface RestoreDeferredRecursionInput {
     Readonly<Record<string, JsonValue>>
   >;
   readonly application: Readonly<RecurseApplication>;
-  readonly cCall: CCall;
-  readonly result: AdmittedCCallResult;
-  readonly judgment: AdmittedCCallJudgment;
+  readonly cCallRef: string;
+  readonly resultRef: string;
+  readonly judgmentRef: string;
 }
-
-const deferredApplicationStates = new WeakMap<
-  object,
-  DeferredApplicationState
->();
 
 function basis(
   clock: ExecutableTraversalClock,
@@ -560,6 +557,7 @@ export function suspendHeldRecursionTraversal(input: Readonly<{
   parentGraphInputDigest: `sha256:${string}`;
   application: Readonly<RecurseApplication>;
   deferredCompletion: ExecutableTraversalCompletion;
+  restoration: RestoreDeferredRecursionInput;
   childExecutionBasis: ExecutionBasis;
   childTraversalScope: OpenedTraversalScope;
   childInput: Readonly<Record<string, JsonValue>>;
@@ -567,7 +565,10 @@ export function suspendHeldRecursionTraversal(input: Readonly<{
   childCompletion: ExecutableTraversalCompletion;
   terminalMode: "close_run" | "return_to_parent";
 }>): ExecutableTraversalCompletion {
-  const state = requireDeferredApplicationState(input.deferredCompletion);
+  const state = requireDeferredApplicationState(
+    input.deferredCompletion,
+    input.restoration,
+  );
   if (
     input.childCompletion.disposition !== "held" ||
     input.childCompletion.continuationRef === null ||
@@ -620,7 +621,6 @@ export function suspendHeldRecursionTraversal(input: Readonly<{
     childInputDigest: input.childInputDigest,
     terminalMode: input.terminalMode,
   }) as HeldRecursionSuspension;
-  deferredApplicationStates.delete(input.deferredCompletion);
   return deepFreeze({
     ...input.childCompletion,
     parentSuspensions: [
@@ -1937,20 +1937,12 @@ export async function completeExecutableTraversal<
     });
   }
   if (input.terminalMode === "return_to_application") {
-    const ready = completion("application_ready", replayRun(input), {
+    return completion("application_ready", replayRun(input), {
       cCallRef: cCall.cCallRef,
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
       resultValue: result.value,
     });
-    deferredApplicationStates.set(ready, {
-      input: input as CompleteExecutableTraversalInput<unknown, unknown>,
-      cCall,
-      result,
-      judgment,
-      continuationStep,
-    });
-    return ready;
   }
   const proposal = proposeJudgedRoute(
     input.graph,
@@ -2111,13 +2103,96 @@ export async function completeExecutableTraversal<
   });
 }
 
+function reconstructDeferredApplicationState(
+  input: RestoreDeferredRecursionInput,
+): DeferredApplicationState | null {
+  const traversal = input.traversalInput;
+  const outcome = projectAdmittedLeafCCallOutcome(traversal.store, {
+    executionBasis: traversal.executionBasis,
+    implementationSet: traversal.implementationSet,
+    openedTraversalScope: traversal.openedTraversalScope,
+    graph: traversal.graph,
+    traversalStop: traversal.traversalStop,
+    implementationResolution: traversal.implementationResolution,
+    cCallRef: input.cCallRef,
+    resultRef: input.resultRef,
+    judgmentRef: input.judgmentRef,
+  });
+  if (outcome === null) return null;
+  const continuationStep = deriveCompletedTraversalStep(
+    traversal.graph,
+    traversal.traversalStop.cursor,
+    {
+      inputRef: outcome.result.resultRef,
+      inputDigest: outcome.result.valueDigest,
+    },
+  );
+  if (
+    continuationStep.kind !== "traversal_step" ||
+    traversal.terminalMode !== "return_to_application" ||
+    traversal.graph.template.applications.find(
+      (candidate) =>
+        candidate.applicationRef === input.application.applicationRef,
+    ) !== input.application ||
+    outcome.cCall.compositionRef !== input.application.applicationRef ||
+    outcome.cCall.basisId !== traversal.executionBasis.basisRef ||
+    outcome.cCall.graphCallId !== traversal.openedTraversalScope.graphCallId ||
+    outcome.cCall.frameId !== traversal.openedTraversalScope.frameId ||
+    outcome.cCall.programLocusRef !== traversal.traversalStop.programLocusRef ||
+    sha256Canonical(traversal.input as unknown as JsonValue) !==
+      traversal.inputDigest ||
+    traversal.inputDigest !== traversal.traversalStop.cursor.inputDigest
+  ) {
+    return null;
+  }
+  return {
+    input: traversal,
+    cCall: outcome.cCall,
+    result: outcome.result,
+    judgment: outcome.judgment,
+    continuationStep,
+  };
+}
+
+function applicationReadyCompletion(
+  state: DeferredApplicationState,
+): ExecutableTraversalCompletion | null {
+  const events = state.input.store.readAll();
+  const judgmentIndex = events.findIndex(
+    (event) => event.eventId === state.judgment.admissionEventRef,
+  );
+  if (judgmentIndex < 0) return null;
+  const admittedPrefix = Object.freeze(events.slice(0, judgmentIndex + 1));
+  const prefix = selectValidatedRuntimeEventPrefix(admittedPrefix, {
+    runId: state.cCall.runId,
+  });
+  return completion(
+    "application_ready",
+    replayValidatedRuntimeEventPrefix(prefix),
+    {
+      cCallRef: state.cCall.cCallRef,
+      resultRef: state.result.resultRef,
+      judgmentRef: state.judgment.judgmentRef,
+      resultValue: state.result.value,
+    },
+  );
+}
+
 function requireDeferredApplicationState(
   value: ExecutableTraversalCompletion,
+  restoration: RestoreDeferredRecursionInput,
 ): DeferredApplicationState {
-  const state = deferredApplicationStates.get(value);
-  if (value.disposition !== "application_ready" || state === undefined) {
+  const state = reconstructDeferredApplicationState(restoration);
+  const reconstructed = state === null ? null : applicationReadyCompletion(state);
+  if (
+    value.disposition !== "application_ready" ||
+    state === null ||
+    reconstructed === null ||
+    sha256Canonical(value as unknown as JsonValue) !==
+      sha256Canonical(reconstructed as unknown as JsonValue)
+  ) {
     throw new TypeError(
-      "application completion requires the exact HoG-issued deferred capability",
+      "application completion requires the exact event-reconstructed deferred fact",
     );
   }
   return state;
@@ -2131,7 +2206,6 @@ function failDeferredApplication(
   diagnosticRef: string,
   candidate: JsonValue,
 ): ExecutableTraversalCompletion {
-  deferredApplicationStates.delete(value);
   admitRuntimeFailure(
     state.input.store,
     state.input.executionBasis,
@@ -2167,66 +2241,17 @@ function exactDeferredApplication(
 export function restoreDeferredRecursion(
   input: RestoreDeferredRecursionInput,
 ): ExecutableTraversalCompletion | null {
-  const traversal = input.traversalInput;
-  const continuationStep = deriveCompletedTraversalStep(
-    traversal.graph,
-    traversal.traversalStop.cursor,
-    {
-      inputRef: input.result.resultRef,
-      inputDigest: input.result.valueDigest,
-    },
-  );
-  if (
-    !isCCall(input.cCall) ||
-    !hasCurrentAdmittedCCallOutcome(
-      traversal.store,
-      input.cCall,
-      input.result,
-      input.judgment,
-    ) ||
-    continuationStep.kind !== "traversal_step" ||
-    traversal.terminalMode !== "return_to_application" ||
-    recursionTerminationDecision(input.application, input.result.value) !==
-      false ||
-    traversal.graph.template.applications.find(
-      (candidate) =>
-        candidate.applicationRef === input.application.applicationRef,
-    ) !== input.application ||
-    input.cCall.compositionRef !== input.application.applicationRef ||
-    input.cCall.basisId !== traversal.executionBasis.basisRef ||
-    input.cCall.graphCallId !== traversal.openedTraversalScope.graphCallId ||
-    input.cCall.frameId !== traversal.openedTraversalScope.frameId ||
-    input.cCall.programLocusRef !==
-      traversal.traversalStop.programLocusRef ||
-    input.result.cCallRef !== input.cCall.cCallRef ||
-    input.judgment.cCallRef !== input.cCall.cCallRef ||
-    input.judgment.resultRef !== input.result.resultRef ||
-    sha256Canonical(traversal.input as unknown as JsonValue) !==
-      traversal.inputDigest ||
-    traversal.inputDigest !== traversal.traversalStop.cursor.inputDigest
-  ) {
-    return null;
-  }
-  const ready = completion("application_ready", replayRun(traversal), {
-    cCallRef: input.cCall.cCallRef,
-    resultRef: input.result.resultRef,
-    judgmentRef: input.judgment.judgmentRef,
-    resultValue: input.result.value,
-  });
-  deferredApplicationStates.set(ready, {
-    input: traversal,
-    cCall: input.cCall,
-    result: input.result,
-    judgment: input.judgment,
-    continuationStep,
-  });
-  return ready;
+  const state = reconstructDeferredApplicationState(input);
+  return state === null ? null : applicationReadyCompletion(state);
 }
 
 export function completeDeferredApplicationTerminal(
   input: CompleteDeferredRecursionInput,
 ): ExecutableTraversalCompletion {
-  const state = requireDeferredApplicationState(input.completion);
+  const state = requireDeferredApplicationState(
+    input.completion,
+    input.restoration,
+  );
   if (
     !exactDeferredApplication(state, input.application) ||
     recursionTerminationDecision(input.application, state.result.value) !== true
@@ -2294,7 +2319,6 @@ export function completeDeferredApplicationTerminal(
       route as unknown as JsonValue,
     );
   }
-  deferredApplicationStates.delete(input.completion);
   if (route.routeKind === "advance") {
     const nextCursor = applyRoute(state.continuationStep, route);
     if (nextCursor.kind === "traversal_refusal") {
@@ -2385,7 +2409,10 @@ export function completeDeferredApplicationTerminal(
 export function advanceDeferredRecursion(
   input: AdvanceDeferredRecursionInput,
 ): ExecutableTraversalCompletion {
-  const state = requireDeferredApplicationState(input.completion);
+  const state = requireDeferredApplicationState(
+    input.completion,
+    input.restoration,
+  );
   const childValue = input.childCompletion.resultValue;
   if (
     !exactDeferredApplication(state, input.application) ||
@@ -2492,7 +2519,6 @@ export function advanceDeferredRecursion(
         foldback,
       },
     );
-    deferredApplicationStates.delete(input.completion);
     if (
       route.kind !== "admitted_traversal_route" ||
       route.routeKind !== "blocked" ||
@@ -2604,7 +2630,6 @@ export function advanceDeferredRecursion(
       nextCursor as unknown as JsonValue,
     );
   }
-  deferredApplicationStates.delete(input.completion);
   return completion("advanced", replayRun(state.input), {
     cCallRef: state.cCall.cCallRef,
     resultRef: foldback.childResultRef,
@@ -2619,7 +2644,10 @@ export function advanceDeferredRecursion(
 export function blockDeferredRecursion(
   input: CompleteDeferredRecursionInput,
 ): ExecutableTraversalCompletion {
-  const state = requireDeferredApplicationState(input.completion);
+  const state = requireDeferredApplicationState(
+    input.completion,
+    input.restoration,
+  );
   if (
     !exactDeferredApplication(state, input.application) ||
     recursionTerminationDecision(input.application, state.result.value) !== false
@@ -2677,7 +2705,6 @@ export function blockDeferredRecursion(
       foldback: null,
     },
   );
-  deferredApplicationStates.delete(input.completion);
   if (
     route.kind !== "admitted_traversal_route" ||
     route.routeKind !== "blocked" ||
@@ -2704,7 +2731,10 @@ export function blockDeferredRecursion(
 export function blockDeferredRecursionPreparation(
   input: BlockDeferredRecursionPreparationInput,
 ): ExecutableTraversalCompletion {
-  const state = requireDeferredApplicationState(input.completion);
+  const state = requireDeferredApplicationState(
+    input.completion,
+    input.restoration,
+  );
   if (
     !exactDeferredApplication(state, input.application) ||
     recursionTerminationDecision(input.application, state.result.value) !== false
@@ -2799,7 +2829,6 @@ export function blockDeferredRecursionPreparation(
       preparationRefusal: refusalAdmission,
     },
   );
-  deferredApplicationStates.delete(input.completion);
   if (
     route.kind !== "admitted_traversal_route" ||
     route.routeKind !== "blocked" ||

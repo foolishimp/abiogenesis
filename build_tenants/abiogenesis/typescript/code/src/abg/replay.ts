@@ -13,6 +13,7 @@ import {
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type {
   AbgEventStore,
@@ -485,6 +486,12 @@ function validateCCallOrder(events: readonly RuntimeEvent[]): void {
 
 export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayState {
   const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), scope);
+  return replayValidatedRuntimeEventPrefix(prefix);
+}
+
+export function replayValidatedRuntimeEventPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+): ReplayState {
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
 
@@ -1031,7 +1038,7 @@ export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayS
       "replay run_stopped history has contradictory route, causation, disposition, or terminal truth",
     );
   }
-  const eventStoreDigest = store.digest(scope);
+  const eventStoreDigest = sha256Canonical(events as unknown as JsonValue);
   const body = {
     eventStoreDigest,
     eventCount: events.length,

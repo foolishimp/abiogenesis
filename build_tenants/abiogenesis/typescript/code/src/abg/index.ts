@@ -174,6 +174,7 @@ export {
   openCCall,
   openInteractionCCall,
   openWorkflowCCall,
+  projectAdmittedLeafCCallOutcome,
   projectedCCallResultValue,
   rehydrateAdmittedCCallState,
   rehydrateWorkflowCCall,
@@ -189,6 +190,7 @@ export {
   type CCallJudgmentAdmissionResult,
   type CCallLocusProposal,
   type CCallOpenRefusal,
+  type AdmittedLeafCCallOutcomeProjectionInput,
   type ChildFoldbackAdmission,
   type ChildPreparationRefusalAdmission,
   type ChildPreparationRefusalCandidate,
@@ -226,6 +228,7 @@ export {
 } from "./continuation.js";
 export {
   replay,
+  replayValidatedRuntimeEventPrefix,
   type ReplayActorProcessState,
   type ReplayCCallState,
   type ReplayRouteState,
