@@ -314,10 +314,47 @@ function withoutAdmissionCoordinate(event) {
   return body;
 }
 
+function withoutDerivedEventCoordinate(event) {
+  const { payloadDigest, ...body } = withoutAdmissionCoordinate(event);
+  void payloadDigest;
+  return body;
+}
+
 function withoutAdmissionEventRef(admission) {
   const { admissionEventRef, ...body } = admission;
   void admissionEventRef;
   return body;
+}
+
+function withoutClosureEventRefs(admission) {
+  const {
+    terminalReachedEventRef,
+    frameClosedEventRef,
+    graphCallClosedEventRef,
+    runClosedEventRef,
+    failureEventRef,
+    ...body
+  } = admission;
+  void terminalReachedEventRef;
+  void frameClosedEventRef;
+  void graphCallClosedEventRef;
+  void runClosedEventRef;
+  void failureEventRef;
+  return body;
+}
+
+function replaceEventRefs(value, replacements) {
+  if (typeof value === "string") return replacements.get(value) ?? value;
+  if (Array.isArray(value)) {
+    return value.map((entry) => replaceEventRefs(entry, replacements));
+  }
+  if (typeof value !== "object" || value === null) return value;
+  return Object.fromEntries(
+    Object.entries(value).map(([key, entry]) => [
+      key,
+      replaceEventRefs(entry, replacements),
+    ]),
+  );
 }
 
 function assertPairedAdmissionEquality(
@@ -351,6 +388,39 @@ function assertPairedAdmissionEquality(
     equalEventBody: true,
     controlAdmissionOrdinal: controlEvent.admissionOrdinal,
     interleavedAdmissionOrdinal: interleavedEvent.admissionOrdinal,
+  };
+}
+
+function assertPairedRunEventEquality(
+  pair,
+  runId,
+  beforeControl,
+  beforeInterleaved,
+) {
+  const control = runEventsSince(pair.control, runId, beforeControl);
+  const interleaved = runEventsSince(
+    pair.interleaved,
+    runId,
+    beforeInterleaved,
+  );
+  assert.equal(interleaved.length, control.length);
+  const replacements = new Map(
+    interleaved.map((event, index) => [event.eventId, control[index].eventId]),
+  );
+  for (const [index, event] of interleaved.entries()) {
+    assert.deepEqual(
+      replaceEventRefs(withoutDerivedEventCoordinate(event), replacements),
+      withoutDerivedEventCoordinate(control[index]),
+    );
+    assert.equal(event.admissionOrdinal, control[index].admissionOrdinal + 1);
+  }
+  return {
+    equalRunEventBodies: true,
+    runEventCount: control.length,
+    eventRefPairs: interleaved.map((event, index) => ({
+      control: control[index].eventId,
+      interleaved: event.eventId,
+    })),
   };
 }
 
@@ -1283,7 +1353,10 @@ function normalClosureFixture(modules, source, mutation = false) {
   );
   const beforeControl = pair.control.readAll().length;
   const beforeInterleaved = pair.interleaved.readAll().length;
-  const route = mutation ? structuredClone(prepared.route) : prepared.route;
+  const result = structuredClone(prepared.result);
+  const judgment = structuredClone(prepared.judgment);
+  const route = structuredClone(prepared.route);
+  if (mutation) route.cCallRef = "c-call://s06/ax-f08/substituted";
   let control;
   let interleaved;
   let interleavedError = null;
@@ -1298,8 +1371,8 @@ function normalClosureFixture(modules, source, mutation = false) {
   control = modules.abg.admitClosure(
     pair.control,
     prepared.cCall,
-    prepared.result,
-    prepared.judgment,
+    result,
+    judgment,
     route,
     targetReplay,
     prepared.closureContract,
@@ -1309,8 +1382,8 @@ function normalClosureFixture(modules, source, mutation = false) {
     interleaved = modules.abg.admitClosure(
       pair.interleaved,
       prepared.cCall,
-      prepared.result,
-      prepared.judgment,
+      result,
+      judgment,
       route,
       targetReplay,
       prepared.closureContract,
@@ -1326,19 +1399,22 @@ function normalClosureFixture(modules, source, mutation = false) {
   } else {
     assert.equal(control.kind, "closure_admission");
   }
-  assert.equal(interleaved, undefined);
-  assert.equal(interleavedError?.constructor, TypeError);
-  assert.equal(
-    interleavedError?.message,
-    "runtime event causation cannot cross a run scope",
+  assert.equal(interleavedError, null);
+  const pairedTargetEquality = assertPairedRunEventEquality(
+    pair,
+    source.runR,
+    beforeControl,
+    beforeInterleaved,
   );
-  assert.equal(pair.interleaved.readAll().length, beforeInterleaved);
+  assert.deepEqual(
+    withoutClosureEventRefs(interleaved),
+    withoutClosureEventRefs(control),
+  );
   const interleavedR = runEventsSince(
     pair.interleaved,
     source.runR,
     beforeInterleaved,
   );
-  assert.deepEqual(interleavedR, []);
   assertNoSReferences(
     { interleaved: interleaved ?? null, interleavedR },
     pair.s.event.eventId,
@@ -1349,7 +1425,9 @@ function normalClosureFixture(modules, source, mutation = false) {
     control: mutation
       ? `${control.kind}:${control.code}:failure=${control.failureEventRef !== null}`
       : control.kind,
-    interleaved: `TypeError:${interleavedError.message}`,
+    interleaved: mutation
+      ? `${interleaved.kind}:${interleaved.code}:failure=${interleaved.failureEventRef !== null}`
+      : interleaved.kind,
     controlREventDelta: runEventsSince(
       pair.control,
       source.runR,
@@ -1369,6 +1447,7 @@ function normalClosureFixture(modules, source, mutation = false) {
       ),
       targetBasis,
     }),
+    pairedTargetEquality,
     ...disjointEventEvidence(pair),
   };
 }
@@ -1406,13 +1485,16 @@ function childClosureFixture(modules, source) {
     modules.abg.replay(pair.interleaved, { runId: source.runR }),
     targetReplay,
   );
+  const result = structuredClone(prepared.result);
+  const judgment = structuredClone(prepared.judgment);
+  const route = structuredClone(prepared.route);
   const control = modules.abg.admitChildClosure(
     pair.control,
     prepared.scope,
     prepared.cCall,
-    prepared.result,
-    prepared.judgment,
-    prepared.route,
+    result,
+    judgment,
+    route,
     targetReplay,
     prepared.closureContract,
     targetBasis,
@@ -1421,27 +1503,29 @@ function childClosureFixture(modules, source) {
     pair.interleaved,
     prepared.scope,
     prepared.cCall,
-    prepared.result,
-    prepared.judgment,
-    prepared.route,
+    result,
+    judgment,
+    route,
     targetReplay,
     prepared.closureContract,
     targetBasis,
   );
   assert.equal(control.kind, "child_closure_admission");
-  assert.deepEqual(interleaved, {
-    kind: "child_closure_admission_refusal",
-    schemaVersion: "5.0.0",
-    disposition: "refused",
-    code: "replay_mismatch",
-    message: "child closure basis is not current replay truth",
-  });
-  assert.equal(pair.interleaved.readAll().length, beforeInterleaved);
+  const pairedTargetEquality = assertPairedRunEventEquality(
+    pair,
+    source.runR,
+    beforeControl,
+    beforeInterleaved,
+  );
+  assert.deepEqual(
+    withoutClosureEventRefs(interleaved),
+    withoutClosureEventRefs(control),
+  );
   assertNoSReferences(interleaved, pair.s.event.eventId, "child closure result");
   return {
     caseId: "child_closure",
     control: control.kind,
-    interleaved: `${interleaved.kind}:${interleaved.code}:${interleaved.message}`,
+    interleaved: interleaved.kind,
     controlREventDelta: runEventsSince(
       pair.control,
       source.runR,
@@ -1467,6 +1551,7 @@ function childClosureFixture(modules, source) {
       ),
       targetBasis,
     }),
+    pairedTargetEquality,
     ...disjointEventEvidence(pair),
   };
 }
@@ -1754,13 +1839,16 @@ async function interactionClosureFixture(modules, source) {
     modules.abg.replay(pair.interleaved, { runId: source.runR }),
     targetReplay,
   );
+  const result = structuredClone(inputs.rehydrated.heldInteraction.result);
+  const judgment = structuredClone(inputs.rehydrated.heldInteraction.judgment);
+  const reconstructedRoute = structuredClone(route);
   const control = modules.abg.admitInteractionClosure(
     pair.control,
     inputs.rehydrated.heldInteraction.cCall,
-    inputs.rehydrated.heldInteraction.result,
-    inputs.rehydrated.heldInteraction.judgment,
+    result,
+    judgment,
     resume,
-    route,
+    reconstructedRoute,
     targetReplay,
     source.rAuthority.heldClosureContract,
     targetBasis,
@@ -1771,10 +1859,10 @@ async function interactionClosureFixture(modules, source) {
     interleaved = modules.abg.admitInteractionClosure(
       pair.interleaved,
       inputs.rehydrated.heldInteraction.cCall,
-      inputs.rehydrated.heldInteraction.result,
-      inputs.rehydrated.heldInteraction.judgment,
+      result,
+      judgment,
       resume,
-      route,
+      reconstructedRoute,
       targetReplay,
       source.rAuthority.heldClosureContract,
       targetBasis,
@@ -1783,13 +1871,17 @@ async function interactionClosureFixture(modules, source) {
     error = caught;
   }
   assert.equal(control.kind, "closure_admission", JSON.stringify(control));
-  assert.equal(interleaved, undefined);
-  assert.equal(error?.constructor, TypeError);
-  assert.equal(
-    error?.message,
-    "runtime event causation cannot cross a run scope",
+  assert.equal(error, null);
+  const pairedTargetEquality = assertPairedRunEventEquality(
+    pair,
+    source.runR,
+    beforeControl,
+    beforeInterleaved,
   );
-  assert.equal(pair.interleaved.readAll().length, beforeInterleaved);
+  assert.deepEqual(
+    withoutClosureEventRefs(interleaved),
+    withoutClosureEventRefs(control),
+  );
   assertNoSReferences(
     { interleaved: interleaved ?? null },
     pair.s.event.eventId,
@@ -1798,7 +1890,7 @@ async function interactionClosureFixture(modules, source) {
   return {
     caseId: "interaction_closure",
     control: control.kind,
-    interleaved: `TypeError:${error.message}`,
+    interleaved: interleaved.kind,
     controlREventDelta: runEventsSince(
       pair.control,
       source.runR,
@@ -1823,6 +1915,7 @@ async function interactionClosureFixture(modules, source) {
       ),
       targetBasis,
     }),
+    pairedTargetEquality,
     ...disjointEventEvidence(pair),
   };
 }
@@ -1878,19 +1971,20 @@ export async function runAxF08({ packageRoot, harness }) {
     continuation_reconstruction: "rehydrated",
     fh_response: "fh_interaction_response_admission",
     fh_resume: "fh_interaction_resume_admission",
-    normal_closure:
-      "TypeError:runtime event causation cannot cross a run scope",
-    interaction_closure:
-      "TypeError:runtime event causation cannot cross a run scope",
-    child_closure:
-      "child_closure_admission_refusal:replay_mismatch:child closure basis is not current replay truth",
+    normal_closure: "closure_admission",
+    interaction_closure: "closure_admission",
+    child_closure: "child_closure_admission",
     refusal_causation:
-      "TypeError:runtime event causation cannot cross a run scope",
+      "closure_admission_refusal:runtime_basis_mismatch:failure=true",
   };
   const expectedREventDeltas = {
     ...Object.fromEntries(F08_ROWS.map((caseId) => [caseId, 0])),
     fh_response: 1,
     fh_resume: 1,
+    normal_closure: 4,
+    interaction_closure: 4,
+    child_closure: 3,
+    refusal_causation: 1,
   };
   for (const entry of cases) {
     assert.equal(entry.interleaved, expected[entry.caseId]);
@@ -1905,9 +1999,9 @@ export async function runAxF08({ packageRoot, harness }) {
 
   return {
     relationId: "AX-F08",
-    disposition: "confirmed_red",
+    disposition: "confirmed_green",
     claim:
-      "a valid event for disjoint run S must not alter admission, reconstruction, closure, or refusal truth for run R",
+      "a valid event for disjoint run S does not alter admission, reconstruction, closure, or refusal truth for run R",
     ingress:
       "installed ABG traversal cursor, continuation, closure, Event Calculus, replay, and owner admission ports",
     fixtureSource: {

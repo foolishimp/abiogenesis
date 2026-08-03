@@ -5,8 +5,6 @@ import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   hasOpenedCCall,
-  isAdmittedCCallJudgment,
-  isAdmittedCCallResult,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type CCall,
@@ -18,12 +16,15 @@ import {
   admitRuntimeEventBatch,
 } from "./event_store.js";
 import {
+  runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
+import {
   hasOpenedTraversalScope,
   type OpenedTraversalScope,
 } from "./open_call.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
-  isAdmittedRoute,
   type AdmittedRoute,
 } from "./traversal_route.js";
 import type { FhInteractionResumeAdmission } from "./continuation.js";
@@ -92,6 +93,174 @@ export type ChildClosureAdmissionResult =
   | ChildClosureAdmission
   | ChildClosureAdmissionRefusal;
 
+interface CurrentClosureTruth {
+  readonly events: ReturnType<typeof runtimeEventsFromValidatedPrefix>;
+  readonly replay: ReplayState;
+}
+
+function isRecord(
+  value: JsonValue,
+): value is Readonly<Record<string, JsonValue>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function exactAdmissionPayload(
+  event: CurrentClosureTruth["events"][number] | undefined,
+  eventKind: "c_call_result_admitted" | "c_call_judged",
+  admission: AdmittedCCallResult | AdmittedCCallJudgment,
+): boolean {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    admissionEventRef,
+    ...payload
+  } = admission;
+  return event?.kind === eventKind &&
+    event.eventId === admissionEventRef &&
+    isRecord(event.payload) &&
+    sha256Canonical(event.payload) ===
+      sha256Canonical(payload as unknown as JsonValue);
+}
+
+function routeBody(route: AdmittedRoute): Readonly<Record<string, JsonValue>> {
+  return {
+    routeKind: route.routeKind,
+    declarationRef: route.declarationRef,
+    declarationDigest: route.declarationDigest,
+    sourceCursorRef: route.sourceCursorRef,
+    sourceCursorDigest: route.sourceCursorDigest,
+    targetCursorRef: route.targetCursorRef,
+    targetCursorDigest: route.targetCursorDigest,
+    cCallRef: route.cCallRef,
+    judgmentRef: route.judgmentRef,
+    consumedAvailabilityRefs: route.consumedAvailabilityRefs,
+    contractRef: route.contractRef,
+    replayStateDigest: route.replayStateDigest,
+  };
+}
+
+function projectCurrentClosureTruth(
+  store: AbgEventStore,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  route: AdmittedRoute,
+  replayState: ReplayState,
+  resume: FhInteractionResumeAdmission | null = null,
+): CurrentClosureTruth | null {
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: cCall.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const currentReplay = replay(store, { runId: cCall.runId });
+  const cCallTruth = currentReplay.cCalls.find(
+    (candidate) => candidate.cCallRef === cCall.cCallRef,
+  );
+  const scopedRouteEvents = events.filter((event) =>
+    event.kind === "traversal_route_admitted" &&
+    event.runId === cCall.runId &&
+    event.graphCallId === cCall.graphCallId &&
+    event.frameId === cCall.frameId
+  );
+  const currentRouteEvent = scopedRouteEvents.at(-1);
+  const currentRoute = currentRouteEvent === undefined
+    ? undefined
+    : currentReplay.routes.find(
+        (candidate) =>
+          candidate.admissionEventRef === currentRouteEvent.eventId,
+      );
+  const resultEvent = events.find(
+    (event) => event.eventId === result.admissionEventRef,
+  );
+  const judgmentEvent = events.find(
+    (event) => event.eventId === judgment.admissionEventRef,
+  );
+  const routeEvent = events.find(
+    (event) => event.eventId === route.admissionEventRef,
+  );
+  const resultBody = {
+    cCallRef: result.cCallRef,
+    resultClass: result.resultClass,
+    contractRef: result.contractRef,
+    valueKind: result.valueKind,
+    valueDigest: result.valueDigest,
+    value: result.value,
+    evidenceRefs: result.evidenceRefs,
+  };
+  const judgmentBody = {
+    cCallRef: judgment.cCallRef,
+    resultRef: judgment.resultRef,
+    resultDigest: judgment.resultDigest,
+    judgment: judgment.judgment,
+    reasonRef: judgment.reasonRef,
+    contractRef: judgment.contractRef,
+    predicateRef: judgment.predicateRef,
+    replayStateDigest: judgment.replayStateDigest,
+  };
+  const exactRouteBody = routeBody(route);
+  const resumeTruth = resume === null
+    ? null
+    : currentReplay.continuations.find(
+        (candidate) =>
+          candidate.continuationRef === resume.continuationRef &&
+          candidate.status === "resolved" &&
+          candidate.resumedEventRef === resume.admissionEventRef &&
+          candidate.responseRef === resume.responseRef &&
+          candidate.responseDigest === resume.responseDigest &&
+          candidate.successorCursorRef === resume.successorCursorRef &&
+          candidate.successorCursorDigest === resume.successorCursorDigest,
+      );
+  if (
+    currentReplay.replayDigest !== replayState.replayDigest ||
+    cCallTruth?.status !== "judged" ||
+    cCallTruth.resultRef !== result.resultRef ||
+    cCallTruth.resultDigest !== result.resultDigest ||
+    cCallTruth.judgmentRef !== judgment.judgmentRef ||
+    cCallTruth.judgment !== judgment.judgment ||
+    result.resultDigest !== sha256Canonical(resultBody as unknown as JsonValue) ||
+    result.resultRef !==
+      `result://abiogenesis/${result.resultDigest.slice("sha256:".length)}` ||
+    result.valueDigest !== sha256Canonical(result.value) ||
+    judgment.judgmentDigest !==
+      sha256Canonical(judgmentBody as unknown as JsonValue) ||
+    judgment.judgmentRef !==
+      `judgment://abiogenesis/${judgment.judgmentDigest.slice("sha256:".length)}` ||
+    !exactAdmissionPayload(resultEvent, "c_call_result_admitted", result) ||
+    !exactAdmissionPayload(judgmentEvent, "c_call_judged", judgment) ||
+    route.routeDigest !== sha256Canonical(exactRouteBody as unknown as JsonValue) ||
+    route.routeRef !==
+      `traversal-route://abiogenesis/${route.routeDigest.slice("sha256:".length)}` ||
+    routeEvent?.kind !== "traversal_route_admitted" ||
+    routeEvent.runId !== cCall.runId ||
+    routeEvent.graphCallId !== cCall.graphCallId ||
+    routeEvent.frameId !== cCall.frameId ||
+    !isRecord(routeEvent.payload) ||
+    sha256Canonical(routeEvent.payload) !== sha256Canonical({
+      routeRef: route.routeRef,
+      routeDigest: route.routeDigest,
+      ...exactRouteBody,
+    } as unknown as JsonValue) ||
+    currentRoute?.routeRef !== route.routeRef ||
+    currentRoute.routeDigest !== route.routeDigest ||
+    currentRoute.admissionEventRef !== route.admissionEventRef ||
+    currentRoute.routeKind !== route.routeKind ||
+    currentRoute.declarationRef !== route.declarationRef ||
+    currentRoute.declarationDigest !== route.declarationDigest ||
+    currentRoute.sourceCursorRef !== route.sourceCursorRef ||
+    currentRoute.sourceCursorDigest !== route.sourceCursorDigest ||
+    currentRoute.targetCursorRef !== route.targetCursorRef ||
+    currentRoute.targetCursorDigest !== route.targetCursorDigest ||
+    currentRoute.cCallRef !== route.cCallRef ||
+    currentRoute.judgmentRef !== route.judgmentRef ||
+    !currentReplay.activeFluents.includes(
+      `terminal_route_available(${route.routeRef})`,
+    ) ||
+    (resume !== null && resumeTruth === null)
+  ) return null;
+  return { events, replay: currentReplay };
+}
+
 function refuseClosure(
   store: AbgEventStore,
   cCall: CCall,
@@ -100,9 +269,13 @@ function refuseClosure(
   subjectDigest: Sha256Digest,
   basis: RuntimeAdmissionBasis,
 ): ClosureAdmissionRefusal {
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: cCall.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
   if (
     !hasOpenedCCall(store, cCall) ||
-    store.readAll().some((event) =>
+    events.some((event) =>
       event.runId === cCall.runId &&
       (event.kind === "run_closed" || event.kind === "runtime_failure_observed"))
   ) {
@@ -115,7 +288,7 @@ function refuseClosure(
       failureEventRef: null,
     };
   }
-  const prior = store.readAll().at(-1)!;
+  const prior = events.at(-1)!;
   const event = admitRuntimeEvent(store, {
     kind: "runtime_failure_observed",
     eventTime: basis.eventTime,
@@ -161,9 +334,6 @@ export function admitClosure(
   const closureContractDigest = sha256Canonical(closureContract as unknown as JsonValue);
   if (
     !hasOpenedCCall(store, cCall) ||
-    !isAdmittedCCallResult(result) ||
-    !isAdmittedCCallJudgment(judgment) ||
-    !isAdmittedRoute(route) ||
     result.cCallRef !== cCall.cCallRef ||
     judgment.cCallRef !== cCall.cCallRef ||
     route.cCallRef !== cCall.cCallRef ||
@@ -181,14 +351,15 @@ export function admitClosure(
       basis,
     );
   }
-  const currentReplay = replay(store, { runId: cCall.runId });
-  const currentRoute = currentReplay.routes.at(-1);
-  if (
-    currentReplay.replayDigest !== replayState.replayDigest ||
-    currentRoute?.routeRef !== route.routeRef ||
-    currentRoute?.admissionEventRef !== route.admissionEventRef ||
-    store.readAll().at(-1)?.eventId !== route.admissionEventRef
-  ) {
+  const currentTruth = projectCurrentClosureTruth(
+    store,
+    cCall,
+    result,
+    judgment,
+    route,
+    replayState,
+  );
+  if (currentTruth === null) {
     return refuseClosure(
       store,
       cCall,
@@ -213,11 +384,8 @@ export function admitClosure(
     closureContract.closureScope !== "run" ||
     closureContract.eventKindRefs.join("\0") !==
       ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"].join("\0") ||
-    store.readAll().some(
-      (event) =>
-        event.kind === "terminal_reached" &&
-        event.runId === cCall.runId &&
-        event.frameId === cCall.frameId,
+    currentTruth.replay.activeFluents.includes(
+      `terminal_admitted(${cCall.frameId})`,
     )
   ) {
     return refuseClosure(
@@ -353,9 +521,6 @@ export function admitInteractionClosure(
   );
   if (
     !hasOpenedCCall(store, cCall) ||
-    !isAdmittedCCallResult(pendingResult) ||
-    !isAdmittedCCallJudgment(pendingJudgment) ||
-    !isAdmittedRoute(route) ||
     cCall.regime !== "F_H" ||
     cCall.responseContractRef === null ||
     cCall.continuationContractRef === null ||
@@ -382,21 +547,16 @@ export function admitInteractionClosure(
       basis,
     );
   }
-  const resumeEvent = store.readAll().find(
-    (event) => event.eventId === resume.admissionEventRef,
+  const currentTruth = projectCurrentClosureTruth(
+    store,
+    cCall,
+    pendingResult,
+    pendingJudgment,
+    route,
+    replayState,
+    resume,
   );
-  const currentReplay = replay(store, { runId: cCall.runId });
-  const currentRoute = currentReplay.routes.at(-1);
-  if (
-    resumeEvent?.kind !== "fh_interaction_resume_admitted" ||
-    resumeEvent.runId !== cCall.runId ||
-    resumeEvent.graphCallId !== cCall.graphCallId ||
-    resumeEvent.frameId !== cCall.frameId ||
-    route.admissionEventRef !== store.readAll().at(-1)?.eventId ||
-    currentReplay.replayDigest !== replayState.replayDigest ||
-    currentRoute?.routeRef !== route.routeRef ||
-    currentRoute?.admissionEventRef !== route.admissionEventRef
-  ) {
+  if (currentTruth === null) {
     return refuseClosure(
       store,
       cCall,
@@ -422,11 +582,8 @@ export function admitInteractionClosure(
     closureContract.eventKindRefs.join("\0") !==
       ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"]
         .join("\0") ||
-    store.readAll().some(
-      (event) =>
-        event.kind === "terminal_reached" &&
-        event.runId === cCall.runId &&
-        event.frameId === cCall.frameId,
+    currentTruth.replay.activeFluents.includes(
+      `terminal_admitted(${cCall.frameId})`,
     )
   ) {
     return refuseClosure(
@@ -561,7 +718,11 @@ export function admitChildClosure(
   const closureContractDigest = sha256Canonical(
     closureContract as unknown as JsonValue,
   );
-  const childGraphCallOpen = store.readAll().find(
+  const childPrefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: childScope.runId,
+  });
+  const childEvents = runtimeEventsFromValidatedPrefix(childPrefix);
+  const childGraphCallOpen = childEvents.find(
     (event) =>
       event.kind === "graph_call_opened" &&
       event.eventId === childScope.graphCallOpenEventRef &&
@@ -578,9 +739,6 @@ export function admitChildClosure(
     !hasOpenedTraversalScope(store, childScope) ||
     typeof childGraphCallPayload?.parentFrameId !== "string" ||
     !hasOpenedCCall(store, cCall) ||
-    !isAdmittedCCallResult(result) ||
-    !isAdmittedCCallJudgment(judgment) ||
-    !isAdmittedRoute(route) ||
     cCall.runId !== childScope.runId ||
     cCall.graphCallId !== childScope.graphCallId ||
     cCall.frameId !== childScope.frameId ||
@@ -601,14 +759,15 @@ export function admitChildClosure(
         "child closure requires one exact child scope, judged CCall, and terminal route",
     };
   }
-  const currentReplay = replay(store, { runId: childScope.runId });
-  const currentRoute = currentReplay.routes.at(-1);
-  if (
-    currentReplay.replayDigest !== replayState.replayDigest ||
-    currentRoute?.routeRef !== route.routeRef ||
-    currentRoute?.admissionEventRef !== route.admissionEventRef ||
-    store.readAll().at(-1)?.eventId !== route.admissionEventRef
-  ) {
+  const currentTruth = projectCurrentClosureTruth(
+    store,
+    cCall,
+    result,
+    judgment,
+    route,
+    replayState,
+  );
+  if (currentTruth === null) {
     return {
       kind: "child_closure_admission_refusal",
       schemaVersion: "5.0.0",
@@ -632,18 +791,11 @@ export function admitChildClosure(
     closureContract.eventKindRefs.join("\0") !==
       ["terminal_reached", "frame_closed", "graph_call_closed"]
         .join("\0") ||
-    store.readAll().some(
-      (event) =>
-        event.runId === childScope.runId &&
-        (
-          (event.kind === "terminal_reached" &&
-            event.frameId === childScope.frameId) ||
-          (event.kind === "frame_closed" &&
-            event.frameId === childScope.frameId) ||
-          (event.kind === "graph_call_closed" &&
-            event.graphCallId === childScope.graphCallId)
-        ),
-    )
+    [
+      `terminal_admitted(${childScope.frameId})`,
+      `frame_closed(${childScope.frameId})`,
+      `graph_call_closed(${childScope.graphCallId})`,
+    ].some((fluent) => currentTruth.replay.activeFluents.includes(fluent))
   ) {
     return {
       kind: "child_closure_admission_refusal",
