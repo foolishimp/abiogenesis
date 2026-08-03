@@ -22,9 +22,8 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  hasCurrentAdmittedCCallOutcome,
   hasOpenedCCall,
-  isAdmittedCCallJudgment,
-  isAdmittedCCallResult,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type CCall,
@@ -52,6 +51,10 @@ import {
   admitRuntimeEventBatch,
   type RuntimeEvent,
 } from "./event_store.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
   hasAdmittedRetryProgress,
@@ -2572,8 +2575,7 @@ function hasJudgedRouteEvidence(
     judgment !== undefined &&
     locusMatches &&
     hasOpenedCCall(store, cCall) &&
-    isAdmittedCCallResult(result) &&
-    isAdmittedCCallJudgment(judgment) &&
+    hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment) &&
     result.cCallRef === cCall.cCallRef &&
     judgment.cCallRef === cCall.cCallRef &&
     judgment.resultRef === result.resultRef &&
@@ -2613,10 +2615,19 @@ function hasBlockedRouteEvidence(
     candidate.consumedAvailabilityRefs[0] !== evidence.judgmentRef ||
     candidate.contractRef !== evidence.cCall.transitionContractRef
   ) return false;
-  const judgmentEvent = store.readAll().find(
+  const projected = replay(store, { runId: sourceCursor.runId }).cCalls.find(
+    (row) => row.cCallRef === evidence.cCall.cCallRef,
+  );
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: sourceCursor.runId,
+  });
+  const judgmentEvent = runtimeEventsFromValidatedPrefix(prefix).find(
     (event) => event.eventId === evidence.judgmentEventRef,
   );
-  return judgmentEvent?.kind === "c_call_judged" &&
+  return projected?.status === "judged" &&
+    projected.judgmentRef === evidence.judgmentRef &&
+    projected.judgment === "blocked" &&
+    judgmentEvent?.kind === "c_call_judged" &&
     judgmentEvent.aggregateId === evidence.cCall.cCallRef &&
     isJsonRecord(judgmentEvent.payload) &&
     judgmentEvent.payload.judgmentRef === evidence.judgmentRef &&
@@ -2634,8 +2645,12 @@ function hasFailedRouteEvidence(
   if (
     evidence === null ||
     !hasOpenedCCall(store, evidence.cCall) ||
-    !isAdmittedCCallResult(evidence.result) ||
-    !isAdmittedCCallJudgment(evidence.judgment) ||
+    !hasCurrentAdmittedCCallOutcome(
+      store,
+      evidence.cCall,
+      evidence.result,
+      evidence.judgment,
+    ) ||
     evidence.cCall.basisId !== executionBasis.basisRef ||
     evidence.cCall.frameId !== sourceCursor.frameId ||
     evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
@@ -2655,14 +2670,7 @@ function hasFailedRouteEvidence(
     candidate.consumedAvailabilityRefs[0] !== evidence.judgment.judgmentRef ||
     candidate.contractRef !== evidence.cCall.transitionContractRef
   ) return false;
-  const resultEvent = store.readAll().find(
-    (event) => event.eventId === evidence.result.admissionEventRef,
-  );
-  const judgmentEvent = store.readAll().find(
-    (event) => event.eventId === evidence.judgment.admissionEventRef,
-  );
-  return resultEvent?.kind === "c_call_result_admitted" &&
-    judgmentEvent?.kind === "c_call_judged";
+  return true;
 }
 
 function hasHoldRouteEvidence(
@@ -2682,8 +2690,12 @@ function hasHoldRouteEvidence(
   return term.kind !== "c_source_path_refusal" &&
     isInteractionCLeaf(term) &&
     hasOpenedCCall(store, evidence.cCall) &&
-    isAdmittedCCallResult(evidence.result) &&
-    isAdmittedCCallJudgment(evidence.judgment) &&
+    hasCurrentAdmittedCCallOutcome(
+      store,
+      evidence.cCall,
+      evidence.result,
+      evidence.judgment,
+    ) &&
     evidence.cCall.basisId === executionBasis.basisRef &&
     evidence.cCall.regime === "F_H" &&
     evidence.cCall.frameId === sourceCursor.frameId &&
@@ -2731,8 +2743,12 @@ function hasInteractionResumeRouteEvidence(
   return term.kind !== "c_source_path_refusal" &&
     isInteractionCLeaf(term) &&
     hasOpenedCCall(store, evidence.cCall) &&
-    isAdmittedCCallResult(evidence.result) &&
-    isAdmittedCCallJudgment(evidence.judgment) &&
+    hasCurrentAdmittedCCallOutcome(
+      store,
+      evidence.cCall,
+      evidence.result,
+      evidence.judgment,
+    ) &&
     evidence.cCall.basisId === executionBasis.basisRef &&
     evidence.cCall.regime === "F_H" &&
     evidence.cCall.frameId === sourceCursor.frameId &&
@@ -3209,7 +3225,10 @@ export function admitRoute(
     );
   }
   const currentReplay = replay(store, { runId: sourceCursor.runId });
-  const frameEvents = store.readAll().filter(
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: sourceCursor.runId,
+  });
+  const frameEvents = runtimeEventsFromValidatedPrefix(prefix).filter(
     (event) => event.runId === sourceCursor.runId && event.frameId === sourceCursor.frameId,
   );
   const latestCursorEvent = frameEvents.slice().reverse().find(
@@ -3255,11 +3274,8 @@ export function admitRoute(
     );
   }
   if (
-    store.readAll().some(
-      (event) =>
-        event.kind === "traversal_route_admitted" &&
-        isJsonRecord(event.payload) &&
-        event.payload.sourceCursorRef === sourceCursor.cursorRef,
+    currentReplay.routes.some(
+      (route) => route.sourceCursorRef === sourceCursor.cursorRef,
     )
   ) {
     return refusal(
@@ -3956,8 +3972,7 @@ export function admitRecursionRoute(
     sourceTerm.kind !== "c_of" ||
     sourceTerm.compositionRef !== application.applicationRef ||
     !hasOpenedCCall(store, cCall) ||
-    !isAdmittedCCallResult(result) ||
-    !isAdmittedCCallJudgment(judgment) ||
+    !hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment) ||
     cCall.basisId !== executionBasis.basisRef ||
     cCall.frameId !== sourceCursor.frameId ||
     cCall.graphCallId !== sourceCursor.graphCallId ||

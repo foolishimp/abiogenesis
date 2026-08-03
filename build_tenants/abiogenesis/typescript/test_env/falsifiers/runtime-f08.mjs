@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
 import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -36,6 +37,38 @@ const F08_ROWS = Object.freeze([
   "child_closure",
   "refusal_causation",
 ]);
+
+function runJsonWorker(workerPath, cwd, input) {
+  return new Promise((resolve, reject) => {
+    const child = execFile(
+      process.execPath,
+      [workerPath],
+      {
+        cwd,
+        env: { ...process.env, NODE_OPTIONS: "" },
+        encoding: "utf8",
+        maxBuffer: 20 * 1024 * 1024,
+        timeout: 120_000,
+      },
+      (error, stdout, stderr) => {
+        if (error !== null) {
+          reject(new Error(
+            `runtime F10 worker failed (${String(error.code)}): ${stderr}\n${stdout}`,
+          ));
+          return;
+        }
+        try {
+          resolve(JSON.parse(stdout));
+        } catch (parseError) {
+          reject(new Error(
+            `runtime F10 worker returned invalid JSON: ${String(parseError)}\n${stdout}\n${stderr}`,
+          ));
+        }
+      },
+    );
+    child.stdin.end(JSON.stringify(input));
+  });
+}
 
 function runtimeBasis(label, causationEventRefs = []) {
   return {
@@ -698,7 +731,11 @@ function prepareAdmittedLeafRoute(
         (ref) => ref !== state.judgment.admissionEventRef,
       ),
     },
-    state,
+    {
+      cCall: state.cCall,
+      result: structuredClone(state.result),
+      judgment: structuredClone(state.judgment),
+    },
   );
   assert.equal(route.kind, "admitted_traversal_route", JSON.stringify(route));
   assert.deepEqual(eventById(store, route.admissionEventRef), routeEvent);
@@ -713,6 +750,68 @@ function prepareAdmittedLeafRoute(
     route,
     scope,
     ...state,
+  };
+}
+
+async function freshProcessOutcomeEquality(
+  modules,
+  source,
+  packageRoot,
+  harness,
+) {
+  const routeEvent = source.events.find(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.runId === source.runR &&
+      event.graphFunctionRef === HELLO_GRAPH_REF &&
+      event.payload.routeKind === "terminal",
+  );
+  assert.ok(routeEvent);
+  const prepared = prepareAdmittedLeafRoute(
+    modules,
+    source.events,
+    source.publication,
+    source.runR,
+    routeEvent,
+  );
+  const workerPath = join(
+    packageRoot,
+    "test_env/falsifiers/runtime-f10-worker.mjs",
+  );
+  const input = {
+    installedPackageRoot: harness.installedPackageRoot,
+    events: prepared.events,
+    cCall: prepared.cCall,
+    result: prepared.result,
+    judgment: prepared.judgment,
+  };
+  const [first, second] = await Promise.all([
+    runJsonWorker(workerPath, packageRoot, input),
+    runJsonWorker(workerPath, packageRoot, input),
+  ]);
+  assert.notEqual(first.processId, process.pid);
+  assert.notEqual(second.processId, process.pid);
+  assert.notEqual(first.processId, second.processId);
+  const { processId: _firstProcessId, ...firstTruth } = first;
+  const { processId: _secondProcessId, ...secondTruth } = second;
+  assert.deepEqual(secondTruth, firstTruth);
+  assert.equal(first.accepted, true);
+  assert.equal(first.substitutedAccepted, false);
+  assert.equal(
+    first.replayDigest,
+    modules.abg.replay(cloneStore(modules, prepared.events), {
+      runId: source.runR,
+    }).replayDigest,
+  );
+  return {
+    firstProcessId: first.processId,
+    secondProcessId: second.processId,
+    exactProjectionEquality: true,
+    accepted: first.accepted,
+    substitutedAccepted: first.substitutedAccepted,
+    replayDigest: first.replayDigest,
+    cCallRef: first.cCallProjection.cCallRef,
+    routeRef: first.routeProjection.routeRef,
   };
 }
 
@@ -1951,6 +2050,12 @@ export async function runAxF08({ packageRoot, harness }) {
     }),
     miniInteractionSource(harness, modules, packageRoot),
   ]);
+  const freshProcessOutcome = await freshProcessOutcomeEquality(
+    modules,
+    helloSource,
+    packageRoot,
+    harness,
+  );
 
   const cases = [
     initialCursorFixture(modules, helloSource),
@@ -2013,7 +2118,7 @@ export async function runAxF08({ packageRoot, harness }) {
         "installed developer mini-Product with its declared deterministic lead-in, terminal F_H contract, and Product response semantics",
     },
     processBoundary:
-      "one installed package instance; independent in-memory ABG stores reconstructed from exact owner-admitted prefixes",
+      "independent in-memory stores plus two fresh installed Node processes reconstruct the exact owner-admitted prefix and derive equal CCall and route projections",
     mutation: {
       kind: "single_disjoint_run_event_interleave",
       pairedFixtureCount: 8,
@@ -2077,6 +2182,10 @@ export async function runAxF08({ packageRoot, harness }) {
           delta: entry.interleavedREventDelta,
           pairedTargetEquality: entry.pairedTargetEquality ?? null,
         })),
+      ),
+      passedControl(
+        "fresh_process_result_judgment_route_projection_equality",
+        freshProcessOutcome,
       ),
     ],
   };

@@ -23,9 +23,9 @@ import {
   deriveSubTraversalEvidence,
   openCCall,
   openInteractionCCall,
-  isAdmittedCCallJudgment,
-  isAdmittedCCallResult,
+  hasCurrentAdmittedCCallOutcome,
   isCCall,
+  projectedCCallResultValue,
   projectRetryEligibility,
   replay,
   traversalCursorAdmissionEventRef,
@@ -865,18 +865,11 @@ function completeBlockedTraversal<Input, Output>(
     readonly resultRef: string;
   },
 ): ExecutableTraversalCompletion {
-  const resultEvent = input.store.readAll().find(
-    (event) =>
-      event.kind === "c_call_result_admitted" &&
-      isRecord(event.payload) &&
-      event.payload.resultRef === values.resultRef,
-  );
-  const resultValue =
-    resultEvent !== undefined &&
-      isRecord(resultEvent.payload) &&
-      Object.hasOwn(resultEvent.payload, "value")
-      ? resultEvent.payload.value as JsonValue
-      : null;
+  const resultValue = projectedCCallResultValue(input.store, {
+    runId: cCall.runId,
+    cCallRef: cCall.cCallRef,
+    resultRef: values.resultRef,
+  });
   const currentReplay = replayRun(input);
   const proposal = proposeBlockedRoute(
     input.graph,
@@ -2185,8 +2178,12 @@ export function restoreDeferredRecursion(
   );
   if (
     !isCCall(input.cCall) ||
-    !isAdmittedCCallResult(input.result) ||
-    !isAdmittedCCallJudgment(input.judgment) ||
+    !hasCurrentAdmittedCCallOutcome(
+      traversal.store,
+      input.cCall,
+      input.result,
+      input.judgment,
+    ) ||
     continuationStep.kind !== "traversal_step" ||
     traversal.terminalMode !== "return_to_application" ||
     recursionTerminationDecision(input.application, input.result.value) !==

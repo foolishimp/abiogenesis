@@ -23,6 +23,10 @@ import {
   admitRuntimeEvent,
   admitRuntimeEventBatch,
 } from "./event_store.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
   hasOpenedTraversalScope,
@@ -1329,6 +1333,138 @@ function exactEventBody(
       sha256Canonical(expected as unknown as JsonValue);
 }
 
+function admittedResultBody(
+  result: AdmittedCCallResult,
+): Readonly<Record<string, JsonValue>> {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    resultRef: _resultRef,
+    resultDigest: _resultDigest,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = result;
+  return body as unknown as Readonly<Record<string, JsonValue>>;
+}
+
+function admittedJudgmentBody(
+  judgment: AdmittedCCallJudgment,
+): Readonly<Record<string, JsonValue>> {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    judgmentRef: _judgmentRef,
+    judgmentDigest: _judgmentDigest,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = judgment;
+  return body as unknown as Readonly<Record<string, JsonValue>>;
+}
+
+/**
+ * Validates a result carrier against the current event-authoritative CCall
+ * projection. Object provenance is deliberately irrelevant.
+ */
+export function hasCurrentAdmittedCCallResult(
+  store: AbgEventStore,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+): boolean {
+  if (!hasOpenedCCall(store, cCall)) return false;
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: cCall.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const projected = replay(store, { runId: cCall.runId }).cCalls.find(
+    (candidate) => candidate.cCallRef === cCall.cCallRef,
+  );
+  const resultBody = admittedResultBody(result);
+  const resultEvent = events.find(
+    (event) => event.eventId === result.admissionEventRef,
+  );
+  return (projected?.status === "result_admitted" || projected?.status === "judged") &&
+    projected.resultRef === result.resultRef &&
+    projected.resultDigest === result.resultDigest &&
+    projected.resultClass === result.resultClass &&
+    projected.resultContractRef === result.contractRef &&
+    projected.resultValueKind === result.valueKind &&
+    sha256Canonical(projected.resultValue) === result.valueDigest &&
+    result.kind === "admitted_c_call_result" &&
+    result.schemaVersion === "5.0.0" &&
+    result.disposition === "admitted" &&
+    result.cCallRef === cCall.cCallRef &&
+    result.resultDigest === sha256Canonical(resultBody as unknown as JsonValue) &&
+    result.resultRef ===
+      `result://abiogenesis/${result.resultDigest.slice("sha256:".length)}` &&
+    result.valueDigest === sha256Canonical(result.value) &&
+    exactEventBody(resultEvent, "c_call_result_admitted", {
+      resultRef: result.resultRef,
+      resultDigest: result.resultDigest,
+      ...resultBody,
+    });
+}
+
+/**
+ * Joins an exact result/judgment carrier pair to the validated immutable Run
+ * prefix and its typed replay projection.
+ */
+export function hasCurrentAdmittedCCallOutcome(
+  store: AbgEventStore,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+): boolean {
+  if (!hasCurrentAdmittedCCallResult(store, cCall, result)) return false;
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: cCall.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const projected = replay(store, { runId: cCall.runId }).cCalls.find(
+    (candidate) => candidate.cCallRef === cCall.cCallRef,
+  );
+  const judgmentBody = admittedJudgmentBody(judgment);
+  const judgmentEvent = events.find(
+    (event) => event.eventId === judgment.admissionEventRef,
+  );
+  return projected?.status === "judged" &&
+    projected.judgmentRef === judgment.judgmentRef &&
+    projected.judgment === judgment.judgment &&
+    judgment.kind === "admitted_c_call_judgment" &&
+    judgment.schemaVersion === "5.0.0" &&
+    judgment.disposition === "admitted" &&
+    judgment.cCallRef === cCall.cCallRef &&
+    judgment.resultRef === result.resultRef &&
+    judgment.resultDigest === result.resultDigest &&
+    judgment.judgmentDigest ===
+      sha256Canonical(judgmentBody as unknown as JsonValue) &&
+    judgment.judgmentRef ===
+      `judgment://abiogenesis/${judgment.judgmentDigest.slice("sha256:".length)}` &&
+    exactEventBody(judgmentEvent, "c_call_judged", {
+      judgmentRef: judgment.judgmentRef,
+      judgmentDigest: judgment.judgmentDigest,
+      ...judgmentBody,
+    }) &&
+    judgmentEvent!.causationEventRefs.includes(result.admissionEventRef);
+}
+
+export function projectedCCallResultValue(
+  store: AbgEventStore,
+  coordinates: {
+    readonly runId: string;
+    readonly cCallRef: string;
+    readonly resultRef: string;
+  },
+): JsonValue | null {
+  const projected = replay(store, { runId: coordinates.runId }).cCalls.find(
+    (candidate) =>
+      candidate.cCallRef === coordinates.cCallRef &&
+      candidate.resultRef === coordinates.resultRef,
+  );
+  return projected?.resultValue ?? null;
+}
+
 export interface RehydratedAdmittedCCallState {
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
@@ -1386,11 +1522,17 @@ export function rehydrateAdmittedCCallState(
     admissionEventRef: _judgmentEventRef,
     ...judgmentBody
   } = judgment;
-  const cCallEvents = eventsFor(store, cCall.cCallRef);
-  const resultEvent = store.readAll().find(
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: cCall.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const cCallEvents = events.filter(
+    (event) => event.aggregateType === "c_call" && event.aggregateId === cCall.cCallRef,
+  );
+  const resultEvent = events.find(
     (event) => event.eventId === result.admissionEventRef,
   );
-  const judgmentEvent = store.readAll().find(
+  const judgmentEvent = events.find(
     (event) => event.eventId === judgment.admissionEventRef,
   );
   if (
@@ -1435,9 +1577,7 @@ export function rehydrateAdmittedCCallState(
   admittedResults.add(result);
   admittedJudgments.add(judgment);
   if (
-    !hasOpenedCCall(store, cCall) ||
-    !isAdmittedCCallResult(result) ||
-    !isAdmittedCCallJudgment(judgment)
+    !hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment)
   ) {
     return null;
   }
@@ -1498,11 +1638,17 @@ export function rehydratePendingInteraction(
     admissionEventRef: _judgmentEventRef,
     ...judgmentBody
   } = judgment;
-  const cCallEvents = eventsFor(store, cCall.cCallRef);
-  const resultEvent = store.readAll().find(
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: cCall.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const cCallEvents = events.filter(
+    (event) => event.aggregateType === "c_call" && event.aggregateId === cCall.cCallRef,
+  );
+  const resultEvent = events.find(
     (event) => event.eventId === result.admissionEventRef,
   );
-  const judgmentEvent = store.readAll().find(
+  const judgmentEvent = events.find(
     (event) => event.eventId === judgment.admissionEventRef,
   );
   if (
@@ -1543,9 +1689,7 @@ export function rehydratePendingInteraction(
   admittedResults.add(result);
   admittedJudgments.add(judgment);
   if (
-    !hasOpenedCCall(store, cCall) ||
-    !isAdmittedCCallResult(result) ||
-    !isAdmittedCCallJudgment(judgment)
+    !hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment)
   ) {
     return null;
   }
@@ -2737,7 +2881,13 @@ export function admitResult(
   };
   const resultDigest = sha256Canonical(body as unknown as JsonValue);
   const resultRef = `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
-  const prior = eventsFor(store, cCall.cCallRef).at(-1)!;
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: cCall.runId,
+  });
+  const prior = runtimeEventsFromValidatedPrefix(prefix).filter(
+    (event) =>
+      event.aggregateType === "c_call" && event.aggregateId === cCall.cCallRef,
+  ).at(-1)!;
   const event = admitRuntimeEvent(store, {
     kind: "c_call_result_admitted",
     eventTime: basis.eventTime,
@@ -2787,9 +2937,14 @@ export function admitJudgment(
     replayStateDigest: candidate.replayStateDigest,
   };
   const candidateValue = candidateBody as unknown as JsonValue;
+  const currentReplay = replay(store, { runId: cCall.runId });
+  const currentCCall = currentReplay.cCalls.find(
+    (row) => row.cCallRef === cCall.cCallRef,
+  );
   if (
     !hasOpenedCCall(store, cCall) ||
-    !isAdmittedCCallResult(result) ||
+    !hasCurrentAdmittedCCallResult(store, cCall, result) ||
+    currentCCall?.status !== "result_admitted" ||
     candidate.candidateDigest !== sha256Canonical(candidateValue) ||
     candidate.candidateRef !==
       `judgment-candidate://abiogenesis/${candidate.candidateDigest.slice("sha256:".length)}` ||
@@ -2799,8 +2954,7 @@ export function admitJudgment(
     candidate.contractRef !== cCall.judgmentContractRef ||
     candidate.predicateRef !== cCall.judgmentPredicateRef ||
     candidate.replayStateDigest !== replayState.replayDigest ||
-    replay(store, { runId: cCall.runId }).replayDigest !== replayState.replayDigest ||
-    eventsFor(store, cCall.cCallRef).at(-1)?.eventId !== result.admissionEventRef
+    currentReplay.replayDigest !== replayState.replayDigest
   ) {
     return rejection(
       cCall,
