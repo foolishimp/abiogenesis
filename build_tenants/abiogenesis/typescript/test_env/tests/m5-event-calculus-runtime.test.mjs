@@ -36,6 +36,42 @@ function fakeEvent(eventId, admissionOrdinal, runId, causationEventRefs = []) {
   });
 }
 
+function deeplyFreeze(value) {
+  if (typeof value !== "object" || value === null || Object.isFrozen(value)) {
+    return value;
+  }
+  for (const child of Object.values(value)) deeplyFreeze(child);
+  return Object.freeze(value);
+}
+
+function retryEvent({
+  kind,
+  eventId,
+  admissionOrdinal,
+  runId,
+  attemptRef,
+  progressRef,
+  causationEventRefs = [],
+  consumedAvailabilityRefs = [],
+}) {
+  return deeplyFreeze({
+    ...fakeEvent(eventId, admissionOrdinal, runId, causationEventRefs),
+    kind,
+    aggregateType: "frame",
+    aggregateId: `frame://${runId}`,
+    graphCallId: `graph-call://${runId}`,
+    frameId: `frame://${runId}`,
+    payload: kind === "retry_attempt_opened"
+      ? { attemptRef }
+      : kind === "retry_progress_recorded"
+        ? { attemptRef, progressRef }
+        : {
+            routeKind: "retry",
+            consumedAvailabilityRefs,
+          },
+  });
+}
+
 async function installedInternal(installedRoot, moduleName, cacheBust = true) {
   const moduleUrl = pathToFileURL(
     join(installedRoot, `build/code/src/abg/${moduleName}.js`),
@@ -286,6 +322,75 @@ test("closed typed Event Calculus law refuses missing, duplicate, malformed, and
     ])),
   );
   assert.equal(Object.isFrozen(pureProjection.effectRows[0].sourceEvent), true);
+});
+
+test("retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruction-stable", async () => {
+  const eventCalculus = await import(
+    `${pathToFileURL(join(root, "build/code/src/abg/event_calculus.js")).href}?t287-retry-law=${Date.now()}`
+  );
+  const prefixModule = await import(
+    pathToFileURL(join(root, "build/code/src/abg/event_prefix.js")).href
+  );
+  const runR = fakeEvent("event://retry/run-r", 1, "run://retry/r");
+  const attemptR = retryEvent({
+    kind: "retry_attempt_opened",
+    eventId: "event://retry/r/attempt-1",
+    admissionOrdinal: 2,
+    runId: "run://retry/r",
+    attemptRef: "retry-attempt://r/1",
+    causationEventRefs: [runR.eventId],
+  });
+  const runS = fakeEvent("event://retry/run-s", 3, "run://retry/s");
+  const attemptS = retryEvent({
+    kind: "retry_attempt_opened",
+    eventId: "event://retry/s/attempt-1",
+    admissionOrdinal: 4,
+    runId: "run://retry/s",
+    attemptRef: "retry-attempt://s/1",
+    causationEventRefs: [runS.eventId],
+  });
+  const progressS = retryEvent({
+    kind: "retry_progress_recorded",
+    eventId: "event://retry/s/progress-1",
+    admissionOrdinal: 5,
+    runId: "run://retry/s",
+    attemptRef: "retry-attempt://s/1",
+    progressRef: "retry-progress://s/1",
+    causationEventRefs: [attemptS.eventId],
+  });
+  const routeS = retryEvent({
+    kind: "traversal_route_admitted",
+    eventId: "event://retry/s/route-1",
+    admissionOrdinal: 6,
+    runId: "run://retry/s",
+    causationEventRefs: [progressS.eventId],
+    consumedAvailabilityRefs: ["retry-progress://s/1"],
+  });
+  const events = Object.freeze([runR, attemptR, runS, attemptS, progressS, routeS]);
+  const project = (rows) => eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(rows, {
+      runId: "run://retry/r",
+    }),
+  ).holds.map((fluent) => fluent.fluentRef);
+  const expected = [
+    "retry_attempt_active(retry-attempt://r/1)",
+    "run_active(run://retry/r)",
+  ];
+
+  assert.deepEqual(project(events), expected);
+  assert.deepEqual(
+    project(Object.freeze([runR, attemptR])),
+    expected,
+  );
+  const reconstructed = deeplyFreeze(JSON.parse(JSON.stringify(events)));
+  assert.deepEqual(project(reconstructed), expected);
+
+  const global = eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(events),
+  ).holds.map((fluent) => fluent.fluentRef);
+  assert.equal(global.includes("retry_attempt_active(retry-attempt://r/1)"), true);
+  assert.equal(global.includes("retry_attempt_active(retry-attempt://s/1)"), false);
+  assert.equal(global.includes("retry_progress_available(retry-progress://s/1)"), false);
 });
 
 test("run HoldsAt truth survives durable reopen and a lawful closure", async (context) => {

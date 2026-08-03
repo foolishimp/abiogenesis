@@ -409,6 +409,31 @@ function eventCalculusEffectRefs(
         declips: [],
       };
     }
+    case "retry_attempt_opened": {
+      const attemptRef = stringField(event, "attemptRef");
+      return {
+        initiates: attemptRef === null
+          ? []
+          : [fluent("retry_attempt_active", attemptRef)],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "retry_progress_recorded": {
+      const attemptRef = stringField(event, "attemptRef");
+      const progressRef = stringField(event, "progressRef");
+      return {
+        initiates: progressRef === null
+          ? []
+          : [fluent("retry_progress_available", progressRef)],
+        terminates: attemptRef === null
+          ? []
+          : [fluent("retry_attempt_active", attemptRef)],
+        clips: [],
+        declips: [],
+      };
+    }
     case "child_foldback_admitted": {
       const foldbackRef = stringField(event, "foldbackRef");
       const childGraphCallId = stringField(event, "childGraphCallId");

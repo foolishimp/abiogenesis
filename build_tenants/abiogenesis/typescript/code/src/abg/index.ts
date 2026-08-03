@@ -244,6 +244,7 @@ export {
   RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES,
   admitRetryAttempt,
   admitRetryProgress,
+  hasAdmittedRetryProgress,
   isAdmittedRetryAttempt,
   isAdmittedRetryProgress,
   projectRetryEligibility,

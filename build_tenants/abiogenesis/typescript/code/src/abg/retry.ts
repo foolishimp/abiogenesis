@@ -21,6 +21,16 @@ import {
   type RuntimeEvent,
 } from "./event_store.js";
 import {
+  constructRuntimeFluent,
+  deriveRuntimeEventCalculusProjection,
+  holdsAt,
+  type RuntimeEventCalculusProjection,
+} from "./event_calculus.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
+import {
   hasAdmittedTraversalCursor,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
@@ -203,19 +213,37 @@ function retryBoundaryRef(
   return `retry-boundary://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 
-function retryEvents(
+interface RetryLifecycleProjection {
+  readonly eventCalculus: RuntimeEventCalculusProjection;
+  readonly events: readonly RuntimeEvent[];
+  readonly attempts: readonly RuntimeEvent[];
+  readonly progress: readonly RuntimeEvent[];
+}
+
+function projectRetryLifecycle(
   store: AbgEventStore,
+  runId: string,
+  graphCallId: string,
   frameId: string,
-  kind: "retry_attempt_opened" | "retry_progress_recorded",
   boundaryRef: string,
-): readonly RuntimeEvent[] {
-  return store.readAll().filter((event) =>
-    event.kind === kind &&
+): RetryLifecycleProjection {
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), { runId });
+  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
+  const events = runtimeEventsFromValidatedPrefix(prefix).filter((event) =>
     event.aggregateType === "frame" &&
+    event.runId === runId &&
+    event.graphCallId === graphCallId &&
+    event.frameId === frameId &&
     event.aggregateId === frameId &&
     isRecord(event.payload) &&
     event.payload.retryBoundaryRef === boundaryRef
   );
+  return {
+    eventCalculus,
+    events: runtimeEventsFromValidatedPrefix(prefix),
+    attempts: events.filter((event) => event.kind === "retry_attempt_opened"),
+    progress: events.filter((event) => event.kind === "retry_progress_recorded"),
+  };
 }
 
 function positiveNumberArray(value: JsonValue | undefined): readonly number[] {
@@ -235,6 +263,63 @@ export function isAdmittedRetryProgress(
   value: object,
 ): value is RetryProgressAdmission {
   return admittedProgress.has(value);
+}
+
+export function hasAdmittedRetryProgress(
+  store: AbgEventStore,
+  value: RetryProgressAdmission,
+): boolean {
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
+  const event = runtimeEventsFromValidatedPrefix(prefix).find(
+    (candidate) => candidate.eventId === value.admissionEventRef,
+  );
+  if (
+    event?.kind !== "retry_progress_recorded" ||
+    event.runId === undefined ||
+    event.graphCallId === undefined ||
+    event.frameId === undefined ||
+    !isRecord(event.payload) ||
+    event.payload.progressRef !== value.progressRef ||
+    event.payload.retryBoundaryRef !== value.retryBoundaryRef
+  ) return false;
+  const lifecycle = projectRetryLifecycle(
+    store,
+    event.runId,
+    event.graphCallId,
+    event.frameId,
+    value.retryBoundaryRef,
+  );
+  const reconstructed = {
+    kind: "retry_progress_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    progressRef: event.payload.progressRef,
+    progressDigest: event.payload.progressDigest,
+    retryBoundaryRef: event.payload.retryBoundaryRef,
+    attemptRef: event.payload.attemptRef,
+    attempt: event.payload.attempt,
+    budget: event.payload.budget,
+    failureClass: event.payload.failureClass,
+    failureSignalRef: event.payload.failureSignalRef,
+    completedAttempts: event.payload.completedAttempts,
+    remainingBudget: event.payload.remainingBudget,
+    cCallRef: event.payload.cCallRef,
+    resultRef: event.payload.resultRef,
+    judgmentRef: event.payload.judgmentRef,
+    inputRef: event.payload.inputRef,
+    inputDigest: event.payload.inputDigest,
+    inputContractRef: event.payload.inputContractRef,
+    admissionEventRef: event.eventId,
+  };
+  return sha256Canonical(reconstructed as unknown as JsonValue) ===
+      sha256Canonical(value as unknown as JsonValue) &&
+    holdsAt(
+      lifecycle.eventCalculus,
+      constructRuntimeFluent({
+        name: "retry_progress_available",
+        identity: value.progressRef,
+      }),
+    );
 }
 
 export function admitRetryAttempt(
@@ -266,10 +351,21 @@ export function admitRetryAttempt(
     return context ??
       refusal("retry_not_declared", "cursor has no enclosing declared C.retry term");
   }
-  const routeEvent = store.readAll().find(
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: cursor.runId,
+  });
+  const applicableRoutes = runtimeEventsFromValidatedPrefix(prefix).filter(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.runId === cursor.runId &&
+      event.graphCallId === cursor.graphCallId &&
+      event.frameId === cursor.frameId,
+  );
+  const routeEvent = applicableRoutes.find(
     (event) => event.eventId === routeAdmissionEventRef,
   );
   if (
+    applicableRoutes.at(-1)?.eventId !== routeAdmissionEventRef ||
     routeEvent?.kind !== "traversal_route_admitted" ||
     !isRecord(routeEvent.payload) ||
     routeEvent.payload.routeKind !== "retry" ||
@@ -310,10 +406,21 @@ export function admitRetryAttempt(
   const attemptDigest = sha256Canonical(body as unknown as JsonValue);
   const attemptRef =
     `retry-attempt://abiogenesis/${attemptDigest.slice("sha256:".length)}`;
+  const lifecycle = projectRetryLifecycle(
+    store,
+    cursor.runId,
+    cursor.graphCallId,
+    cursor.frameId,
+    boundaryRef,
+  );
   if (
-    retryEvents(store, cursor.frameId, "retry_attempt_opened", boundaryRef)
-      .some((event) =>
-        isRecord(event.payload) && event.payload.attemptRef === attemptRef)
+    lifecycle.attempts.some((event) =>
+      isRecord(event.payload) &&
+      (
+        event.payload.attemptRef === attemptRef ||
+        event.payload.attempt === cursor.attempt
+      )
+    )
   ) {
     return refusal(
       "attempt_mismatch",
@@ -380,12 +487,14 @@ export function projectRetryEligibility(
     }) as RetryEligibility;
   }
   const boundaryRef = retryBoundaryRef(graph, cursor, context);
-  const rows = retryEvents(
+  const lifecycle = projectRetryLifecycle(
     store,
+    cursor.runId,
+    cursor.graphCallId,
     cursor.frameId,
-    "retry_progress_recorded",
     boundaryRef,
   );
+  const rows = lifecycle.progress;
   const attempts = rows
     .map((event) =>
       isRecord(event.payload) &&
@@ -399,13 +508,39 @@ export function projectRetryEligibility(
     { length: Math.max(0, cursor.attempt - 1) },
     (_, index) => index + 1,
   );
+  const admittedAttemptCoverage = lifecycle.attempts
+    .map((event) =>
+      isRecord(event.payload) && Number.isSafeInteger(event.payload.attempt)
+        ? Number(event.payload.attempt)
+        : 0
+    );
+  const expectedAttemptCoverage = [...expectedPrior, cursor.attempt];
+  const currentAttemptEvents = lifecycle.attempts.filter((event) =>
+    isRecord(event.payload) &&
+    event.payload.attempt === cursor.attempt &&
+    sameNumbers(positiveNumberArray(event.payload.retryPath), cursor.retryPath)
+  );
+  const currentAttemptRef = currentAttemptEvents.length === 1 &&
+      isRecord(currentAttemptEvents[0]!.payload) &&
+      typeof currentAttemptEvents[0]!.payload.attemptRef === "string"
+    ? currentAttemptEvents[0]!.payload.attemptRef
+    : null;
+  const currentAttemptIsActive = currentAttemptRef !== null && holdsAt(
+    lifecycle.eventCalculus,
+    constructRuntimeFluent({
+      name: "retry_attempt_active",
+      identity: currentAttemptRef,
+    }),
+  );
   const stationary = rows.some((event) =>
     isRecord(event.payload) &&
     event.payload.failureSignalRef === failureSignalRef
   );
   const retryable = RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES.includes(failureClass);
   const disposition: RetryEligibility["disposition"] =
-    !sameNumbers(attempts, expectedPrior)
+    !sameNumbers(admittedAttemptCoverage, expectedAttemptCoverage) ||
+      !sameNumbers(attempts, expectedPrior) ||
+      !currentAttemptIsActive
       ? "replay_gap"
       : !retryable
         ? "not_retryable"
@@ -475,12 +610,14 @@ export function admitRetryProgress(
       "retry progress CCall differs from the current attempt coordinate",
     );
   }
-  const attemptEvent = retryEvents(
+  const lifecycle = projectRetryLifecycle(
     store,
+    cursor.runId,
+    cursor.graphCallId,
     cursor.frameId,
-    "retry_attempt_opened",
     eligibility.retryBoundaryRef,
-  ).find((event) =>
+  );
+  const attemptRows = lifecycle.attempts.filter((event) =>
     isRecord(event.payload) &&
     event.payload.attempt === cursor.attempt &&
     sameNumbers(
@@ -488,7 +625,8 @@ export function admitRetryProgress(
       cursor.retryPath,
     )
   );
-  const judgmentEvent = store.readAll().find(
+  const attemptEvent = attemptRows.length === 1 ? attemptRows[0] : undefined;
+  const judgmentEvent = lifecycle.events.find(
     (event) => event.eventId === rejected.judgmentEventRef,
   );
   if (

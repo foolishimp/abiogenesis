@@ -54,7 +54,7 @@ import {
 } from "./event_store.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
-  isAdmittedRetryProgress,
+  hasAdmittedRetryProgress,
   type RetryProgressAdmission,
 } from "./retry.js";
 import {
@@ -2786,7 +2786,7 @@ function hasRetryRouteEvidence(
   if (
     evidence === null ||
     !hasOpenedCCall(store, evidence.cCall) ||
-    !isAdmittedRetryProgress(evidence.progress) ||
+    !hasAdmittedRetryProgress(store, evidence.progress) ||
     evidence.cCall.basisId !== executionBasis.basisRef ||
     evidence.cCall.frameId !== sourceCursor.frameId ||
     evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
