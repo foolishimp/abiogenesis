@@ -2616,6 +2616,7 @@ export function advanceDeferredRecursion(
     );
   }
   const nextCursor = applyRecursionRoute(
+    state.input.store,
     state.input.traversalStop.cursor,
     targetCursor,
     route,

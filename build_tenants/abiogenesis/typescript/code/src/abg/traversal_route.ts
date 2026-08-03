@@ -428,6 +428,114 @@ export function isAdmittedRoute(value: object): boolean {
   return admittedRoutes.has(value);
 }
 
+export function projectAdmittedRecursionRoute(
+  store: AbgEventStore,
+  coordinates: Readonly<{ runId: string; routeRef: string }>,
+): AdmittedRoute | null {
+  if (coordinates.runId.length === 0 || coordinates.routeRef.length === 0) {
+    return null;
+  }
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: coordinates.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const projectedReplay = replay(store, { runId: coordinates.runId });
+  const projected = projectedReplay.routes.find(
+    (candidate) => candidate.routeRef === coordinates.routeRef,
+  );
+  const event = events.find(
+    (candidate) =>
+      candidate.kind === "traversal_route_admitted" &&
+      isJsonRecord(candidate.payload) &&
+      candidate.payload.routeRef === coordinates.routeRef,
+  );
+  if (
+    projected === undefined ||
+    event === undefined ||
+    !isJsonRecord(event.payload) ||
+    (projected.routeKind !== "advance" && projected.routeKind !== "blocked") ||
+    !projected.declarationRef.startsWith(
+      "graph-function-application://abiogenesis/",
+    ) ||
+    projected.cCallRef === null ||
+    projected.judgmentRef === null ||
+    projected.contractRef === null ||
+    projected.consumedAvailabilityRefs === null ||
+    projected.replayStateDigest === null
+  ) {
+    return null;
+  }
+  const { routeRef, routeDigest, ...body } = event.payload;
+  if (
+    routeRef !== coordinates.routeRef ||
+    typeof routeDigest !== "string" ||
+    routeDigest !== sha256Canonical(body as unknown as JsonValue) ||
+    routeRef !==
+      `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}` ||
+    projected.routeDigest !== routeDigest ||
+    projected.routeKind !== body.routeKind ||
+    projected.declarationRef !== body.declarationRef ||
+    projected.declarationDigest !== body.declarationDigest ||
+    projected.sourceCursorRef !== body.sourceCursorRef ||
+    projected.sourceCursorDigest !== body.sourceCursorDigest ||
+    projected.targetCursorRef !== body.targetCursorRef ||
+    projected.targetCursorDigest !== body.targetCursorDigest ||
+    projected.cCallRef !== body.cCallRef ||
+    projected.judgmentRef !== body.judgmentRef ||
+    sha256Canonical(
+      projected.consumedAvailabilityRefs as unknown as JsonValue,
+    ) !== sha256Canonical(body.consumedAvailabilityRefs ?? null) ||
+    projected.contractRef !== body.contractRef ||
+    projected.replayStateDigest !== body.replayStateDigest
+  ) {
+    return null;
+  }
+  const runStoppedEventRef = projected.routeKind === "blocked"
+    ? events.find(
+        (candidate) =>
+          candidate.kind === "run_stopped" &&
+          candidate.causationEventRefs.includes(event.eventId) &&
+          isJsonRecord(candidate.payload) &&
+          candidate.payload.routeRef === routeRef,
+      )?.eventId ?? null
+    : null;
+  if (projected.routeKind === "blocked" && runStoppedEventRef === null) {
+    return null;
+  }
+  return deepFreeze({
+    kind: "admitted_traversal_route" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    routeRef,
+    routeDigest,
+    ...body,
+    constructionIntentRef: null,
+    constructionIntentDigest: null,
+    constructionIntentAdmissionEventRef: null,
+    admissionEventRef: event.eventId,
+    runStoppedEventRef,
+  }) as unknown as AdmittedRoute;
+}
+
+export function isCurrentAdmittedRecursionRoute(
+  store: AbgEventStore,
+  route: AdmittedRoute,
+): boolean {
+  const events = runtimeEventsFromValidatedPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+  );
+  const event = events.find(
+    (candidate) => candidate.eventId === route.admissionEventRef,
+  );
+  const projected = projectAdmittedRecursionRoute(store, {
+    runId: event?.runId ?? "",
+    routeRef: route.routeRef,
+  });
+  return projected !== null &&
+    sha256Canonical(projected as unknown as JsonValue) ===
+      sha256Canonical(route as unknown as JsonValue);
+}
+
 function refusal(
   code: RouteAdmissionRefusal["code"],
   message: string,
@@ -3903,34 +4011,12 @@ export function admitRecursionRoute(
       "recursion route source is not the admitted application cursor",
     );
   }
-  const events = store.readAll();
-  const frameEvents = events.filter(
-    (event) =>
-      event.runId === sourceCursor.runId &&
-      event.frameId === sourceCursor.frameId,
-  );
-  const latestRouteEvent = frameEvents.slice().reverse().find(
-    (event) => event.kind === "traversal_route_admitted",
-  );
-  const initialCursorEvent = frameEvents.slice().reverse().find(
-    (event) => event.kind === "traversal_cursor_entered",
-  );
-  const currentCursorRef = latestRouteEvent !== undefined &&
-      isJsonRecord(latestRouteEvent.payload)
-    ? latestRouteEvent.payload.targetCursorRef
-    : initialCursorEvent !== undefined && isJsonRecord(initialCursorEvent.payload)
-      ? initialCursorEvent.payload.cursorRef
-      : null;
+  const currentReplay = replay(store, { runId: sourceCursor.runId });
   if (
-    replay(store, { runId: sourceCursor.runId }).replayDigest !==
-      replayState.replayDigest ||
+    currentReplay.replayDigest !== replayState.replayDigest ||
     candidate.replayStateDigest !== replayState.replayDigest ||
-    currentCursorRef !== sourceCursor.cursorRef ||
-    events.some(
-      (event) =>
-        event.kind === "traversal_route_admitted" &&
-        isJsonRecord(event.payload) &&
-        event.payload.sourceCursorRef === sourceCursor.cursorRef,
+    currentReplay.routes.some(
+      (route) => route.sourceCursorRef === sourceCursor.cursorRef,
     )
   ) {
     return refusal(
@@ -4000,7 +4086,7 @@ export function admitRecursionRoute(
       hasAdmittedTraversalCursor(store, targetCursor) ||
       foldback === null ||
       preparationRefusal !== null ||
-      !isAdmittedApplicationChildFoldback(foldback) ||
+      !isAdmittedApplicationChildFoldback(store, foldback) ||
       foldback.applicationRef !== application.applicationRef ||
       foldback.parentCCallRef !== cCall.cCallRef ||
       foldback.parentJudgmentRef !== judgment.judgmentRef ||
@@ -4041,7 +4127,7 @@ export function admitRecursionRoute(
       preparationRefusal.sourceCursorRef === sourceCursor.cursorRef;
     const blockedByChild =
       foldback !== null &&
-      isAdmittedApplicationChildFoldback(foldback) &&
+      isAdmittedApplicationChildFoldback(store, foldback) &&
       foldback.applicationRef === application.applicationRef &&
       foldback.parentCCallRef === cCall.cCallRef &&
       foldback.parentJudgmentRef === judgment.judgmentRef &&
@@ -4152,6 +4238,18 @@ export function admitRecursionRoute(
     admissionEventRef: event.eventId,
     runStoppedEventRef: admittedEvents[1]?.eventId ?? null,
   }) as AdmittedRoute;
-  admittedRoutes.add(admitted);
-  return admitted;
+  const projected = projectAdmittedRecursionRoute(store, {
+    runId: sourceCursor.runId,
+    routeRef,
+  });
+  if (
+    projected === null ||
+    sha256Canonical(projected as unknown as JsonValue) !==
+      sha256Canonical(admitted as unknown as JsonValue)
+  ) {
+    throw new TypeError(
+      "recursion route admission must equal its validated replay projection",
+    );
+  }
+  return projected;
 }

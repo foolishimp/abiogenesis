@@ -148,6 +148,7 @@ export {
   admitApplicationChildFoldback,
   isAdmittedApplicationChildPreparationRefusal,
   isAdmittedApplicationChildFoldback,
+  projectCurrentApplicationChildFoldback,
   type ApplicationChildPreparationRefusalAdmission,
   type ApplicationChildPreparationRefusalRefusal,
   type ApplicationChildPreparationRefusalResult,
@@ -270,6 +271,8 @@ export {
 export {
   admitRoute,
   admitRecursionRoute,
+  isCurrentAdmittedRecursionRoute,
+  projectAdmittedRecursionRoute,
   deriveGraphFunctionActionEvaluationBasis,
   isAdmittedRoute,
   rehydrateConstructionIntentForCursor,

@@ -19,6 +19,15 @@ import {
   admitRuntimeEvent,
 } from "./event_store.js";
 import {
+  runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
+import {
+  constructRuntimeFluent,
+  deriveRuntimeEventCalculusProjection,
+  holdsAt,
+} from "./event_calculus.js";
+import {
   hasOpenedTraversalScope,
   type OpenedTraversalScope,
 } from "./open_call.js";
@@ -113,7 +122,6 @@ export type ApplicationChildPreparationRefusalResult =
   | ApplicationChildPreparationRefusalAdmission
   | ApplicationChildPreparationRefusalRefusal;
 
-const admittedApplicationFoldbacks = new WeakSet<object>();
 const admittedApplicationPreparationRefusals = new WeakSet<object>();
 
 function isRecord(
@@ -136,15 +144,74 @@ function refusal(
 }
 
 export function isAdmittedApplicationChildFoldback(
-  value: object,
+  store: AbgEventStore,
+  value: ApplicationChildFoldbackAdmission,
 ): value is ApplicationChildFoldbackAdmission {
-  return admittedApplicationFoldbacks.has(value);
+  const events = runtimeEventsFromValidatedPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+  );
+  const projected = projectCurrentApplicationChildFoldback(store, {
+    runId: events.find(
+      (event) => event.eventId === value.admissionEventRef,
+    )?.runId ?? "",
+    foldbackRef: value.foldbackRef,
+  });
+  return projected !== null &&
+    sha256Canonical(projected as unknown as JsonValue) ===
+      sha256Canonical(value as unknown as JsonValue);
 }
 
 export function isAdmittedApplicationChildPreparationRefusal(
   value: object,
 ): value is ApplicationChildPreparationRefusalAdmission {
   return admittedApplicationPreparationRefusals.has(value);
+}
+
+export function projectCurrentApplicationChildFoldback(
+  store: AbgEventStore,
+  coordinates: Readonly<{ runId: string; foldbackRef: string }>,
+): ApplicationChildFoldbackAdmission | null {
+  if (coordinates.runId.length === 0 || coordinates.foldbackRef.length === 0) {
+    return null;
+  }
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: coordinates.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const event = events.find(
+    (candidate) =>
+      candidate.kind === "child_foldback_admitted" &&
+      isRecord(candidate.payload) &&
+      candidate.payload.foldbackRef === coordinates.foldbackRef,
+  );
+  if (event === undefined || !isRecord(event.payload)) return null;
+  const { foldbackRef, foldbackDigest, ...body } = event.payload;
+  if (
+    typeof foldbackRef !== "string" ||
+    typeof foldbackDigest !== "string" ||
+    foldbackRef !== coordinates.foldbackRef ||
+    foldbackDigest !== sha256Canonical(body as unknown as JsonValue) ||
+    foldbackRef !==
+      `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}` ||
+    !holdsAt(
+      deriveRuntimeEventCalculusProjection(prefix),
+      constructRuntimeFluent({
+        name: "child_foldback_available",
+        identity: foldbackRef,
+      }),
+    )
+  ) {
+    return null;
+  }
+  return deepFreeze({
+    kind: "application_child_foldback_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    foldbackRef,
+    foldbackDigest,
+    ...body,
+    admissionEventRef: event.eventId,
+  }) as unknown as ApplicationChildFoldbackAdmission;
 }
 
 export function admitApplicationChildPreparationRefusal(
@@ -310,7 +377,11 @@ export function admitApplicationChildFoldback(
       "application foldback requires the exact evaluated parent cursor and CCall",
     );
   }
-  const events = store.readAll();
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: sourceCursor.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
   const parentJudgmentEvent = events.find(
     (event) =>
       event.kind === "c_call_judged" &&
@@ -319,7 +390,16 @@ export function admitApplicationChildFoldback(
       event.payload.judgmentRef === parentJudgmentRef &&
       event.payload.judgment === "advance",
   );
-  if (parentJudgmentEvent === undefined) {
+  if (
+    parentJudgmentEvent === undefined ||
+    !holdsAt(
+      eventCalculus,
+      constructRuntimeFluent({
+        name: "c_call_judgment_available",
+        identity: parentJudgmentRef,
+      }),
+    )
+  ) {
     return refusal(
       "parent_truth_mismatch",
       "application foldback requires admitted parent re-evaluation truth",
@@ -501,6 +581,5 @@ export function admitApplicationChildFoldback(
     ...body,
     admissionEventRef: event.eventId,
   }) as ApplicationChildFoldbackAdmission;
-  admittedApplicationFoldbacks.add(admitted);
   return admitted;
 }

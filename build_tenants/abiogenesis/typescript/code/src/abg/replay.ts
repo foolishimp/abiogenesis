@@ -65,6 +65,9 @@ export interface ReplayRouteState {
   readonly targetCursorDigest: Sha256Digest | null;
   readonly cCallRef: string | null;
   readonly judgmentRef: string | null;
+  readonly consumedAvailabilityRefs: readonly string[] | null;
+  readonly contractRef: string | null;
+  readonly replayStateDigest: Sha256Digest | null;
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: Sha256Digest;
   readonly nextActionProjection?: NextActionProjection;
@@ -590,6 +593,11 @@ export function replayValidatedRuntimeEventPrefix(
       const declarationDigest = stringField(event, "declarationDigest");
       const sourceCursorRef = stringField(event, "sourceCursorRef");
       const sourceCursorDigest = stringField(event, "sourceCursorDigest");
+      const consumedAvailabilityRefs = stringArrayField(
+        event,
+        "consumedAvailabilityRefs",
+      );
+      const replayStateDigest = stringField(event, "replayStateDigest");
       const intentEvent = events.find(
         (candidate) =>
           candidate.kind === "construction_intent_selected" &&
@@ -712,6 +720,9 @@ export function replayValidatedRuntimeEventPrefix(
         targetCursorDigest: stringField(event, "targetCursorDigest") as Sha256Digest | null,
         cCallRef: stringField(event, "cCallRef"),
         judgmentRef: stringField(event, "judgmentRef"),
+        consumedAvailabilityRefs,
+        contractRef: stringField(event, "contractRef"),
+        replayStateDigest: replayStateDigest as Sha256Digest | null,
         ...(nextActionProjectionRef === null
           ? {}
           : {

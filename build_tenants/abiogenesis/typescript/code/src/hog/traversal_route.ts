@@ -12,7 +12,6 @@ import type {
   RouteCandidate,
 } from "../abg/traversal_route.js";
 import {
-  isAdmittedApplicationChildPreparationRefusal,
   type ApplicationChildFoldbackAdmission,
   type ApplicationChildPreparationRefusalAdmission,
 } from "../abg/graph_application.js";
@@ -926,10 +925,7 @@ export function proposeRecursionRoute(
                 foldback.childDisposition !== "blocked"
               : preparationRefusal === null
                 ? sourceCursor.attempt < application.bound
-                : !isAdmittedApplicationChildPreparationRefusal(
-                    preparationRefusal,
-                  ) ||
-                  preparationRefusal.applicationRef !==
+                : preparationRefusal.applicationRef !==
                     application.applicationRef ||
                   preparationRefusal.parentCCallRef !== cCall.cCallRef ||
                   preparationRefusal.parentJudgmentRef !== judgment.judgmentRef

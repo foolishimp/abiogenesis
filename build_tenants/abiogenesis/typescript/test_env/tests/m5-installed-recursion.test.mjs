@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -64,6 +65,37 @@ async function activeLifecycleFluents(installedRoot, events, label) {
       "terminal_route_available(",
     ].some((prefix) => fluent.startsWith(prefix))
   );
+}
+
+async function runRecursionProjectionWorker(input) {
+  const worker = resolve(
+    root,
+    "test_env/falsifiers/runtime-recursion-route-worker.mjs",
+  );
+  return await new Promise((resolveResult, reject) => {
+    const child = spawn(process.execPath, [worker], {
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+    let stdout = "";
+    let stderr = "";
+    child.stdout.setEncoding("utf8");
+    child.stderr.setEncoding("utf8");
+    child.stdout.on("data", (chunk) => {
+      stdout += chunk;
+    });
+    child.stderr.on("data", (chunk) => {
+      stderr += chunk;
+    });
+    child.on("error", reject);
+    child.on("close", (code) => {
+      if (code !== 0) {
+        reject(new Error(`recursion projection worker failed ${code}: ${stderr}`));
+        return;
+      }
+      resolveResult(JSON.parse(stdout));
+    });
+    child.stdin.end(JSON.stringify(input));
+  });
 }
 
 async function runRecursion(
@@ -151,6 +183,37 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
   assert.equal(foldbacks.length, 3);
   assert.equal(applicationRoutes.length, 3);
   assert.equal(applicationRoutes.every((event) => event.payload.routeKind === "advance"), true);
+  const exactFoldback = foldbacks[0];
+  const exactRoute = applicationRoutes.find(
+    (event) =>
+      event.payload.consumedAvailabilityRefs.includes(
+        exactFoldback.payload.foldbackRef,
+      ),
+  );
+  assert.ok(exactRoute);
+  const projectionInput = {
+    installedPackageRoot: installedRoot,
+    runId: exactFoldback.runId,
+    foldbackRef: exactFoldback.payload.foldbackRef,
+    routeRef: exactRoute.payload.routeRef,
+    foldbackPrefix: events.slice(0, exactFoldback.admissionOrdinal),
+    routePrefix: events.slice(0, exactRoute.admissionOrdinal),
+  };
+  const [firstProjection, secondProjection] = await Promise.all([
+    runRecursionProjectionWorker(projectionInput),
+    runRecursionProjectionWorker(projectionInput),
+  ]);
+  assert.notEqual(firstProjection.processId, process.pid);
+  assert.notEqual(secondProjection.processId, process.pid);
+  assert.notEqual(firstProjection.processId, secondProjection.processId);
+  const { processId: _firstProcessId, ...firstTruth } = firstProjection;
+  const { processId: _secondProcessId, ...secondTruth } = secondProjection;
+  assert.deepEqual(secondTruth, firstTruth);
+  assert.equal(firstTruth.foldback.foldbackRef, exactFoldback.payload.foldbackRef);
+  assert.equal(firstTruth.foldback.admissionEventRef, exactFoldback.eventId);
+  assert.equal(firstTruth.route.routeRef, exactRoute.payload.routeRef);
+  assert.equal(firstTruth.route.admissionEventRef, exactRoute.eventId);
+  assert.equal(firstTruth.consumedFoldback, null);
   assert.equal(events.filter((event) => event.kind === "terminal_reached").length, 4);
   assert.equal(events.filter((event) => event.kind === "frame_closed").length, 4);
   assert.equal(events.filter((event) => event.kind === "graph_call_closed").length, 4);

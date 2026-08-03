@@ -5,10 +5,12 @@ import {
 } from "../abg/open_call.js";
 import {
   isAdmittedRoute,
+  isCurrentAdmittedRecursionRoute,
   type AdmittedRoute,
 } from "../abg/traversal_route.js";
 import {
   hasAdmittedTraversalCursor,
+  isTraversalCursorCandidate,
   type TraversalCursorCandidate,
 } from "../abg/traversal_cursor.js";
 import type { AbgEventStore } from "../abg/event_store.js";
@@ -626,14 +628,17 @@ export function deriveRecursionReentryCursor(
 }
 
 export function applyRecursionRoute(
+  store: AbgEventStore,
   sourceCursor: TraversalCursor,
   targetCursor: TraversalCursor,
   route: AdmittedRoute,
 ): TraversalCursor | TraversalRefusal {
   if (
-    !traversalCursors.has(sourceCursor) ||
-    !traversalCursors.has(targetCursor) ||
-    !isAdmittedRoute(route) ||
+    !isTraversalCursorCandidate(sourceCursor) ||
+    !isTraversalCursorCandidate(targetCursor) ||
+    !hasAdmittedTraversalCursor(store, sourceCursor) ||
+    !hasAdmittedTraversalCursor(store, targetCursor) ||
+    !isCurrentAdmittedRecursionRoute(store, route) ||
     route.routeKind !== "advance" ||
     route.sourceCursorRef !== sourceCursor.cursorRef ||
     route.sourceCursorDigest !== sourceCursor.cursorDigest ||

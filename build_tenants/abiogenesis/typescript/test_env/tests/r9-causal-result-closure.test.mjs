@@ -248,6 +248,9 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     targetCursorDigest: null,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
+    consumedAvailabilityRefs: route.consumedAvailabilityRefs,
+    contractRef: route.contractRef,
+    replayStateDigest: route.replayStateDigest,
     admissionEventRef: route.admissionEventRef,
   });
   const closure = abg.admitClosure(
