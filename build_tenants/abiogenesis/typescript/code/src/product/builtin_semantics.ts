@@ -154,27 +154,24 @@ function hasExactConsensusCatalogApplications(
         : binding.handle === CONSENSUS_IDS.policyCatalogHandle
         ? CONSENSUS_IDS.policyContractRef
         : CONSENSUS_IDS.rulingOverlayContractRef;
+    const expectedTargetDigest = binding.nodeTypeTarget === null
+      ? null
+      : sha256Canonical(binding.nodeTypeTarget as unknown as JsonValue);
     const matching = applications.filter(
       (application) =>
-        application.rowHandle === binding.handle &&
-        application.appliedHandle ===
-          `${binding.handle}/${
-            binding.valueDigest.slice("sha256:".length)
-          }` &&
-        application.appliedValueRef === binding.valueRef &&
+        application.kind === "declaration_application" &&
+        application.declaration !== undefined &&
+        application.declaration.handle === binding.handle &&
         application.appliedValueDigest === binding.valueDigest &&
-        sha256Canonical(application.appliedValue) ===
-          binding.valueDigest &&
-        application.applicationVariant === binding.applicationVariant &&
-        application.contributionKind === expectedKind &&
-        application.declarationOrContractRef === expectedContractRef &&
+        application.declaration.declarationKind === expectedKind &&
+        application.declaration.declarationOrContractRef ===
+          expectedContractRef &&
         (
           binding.nodeTypeTarget === null
-            ? application.nodeTypeTarget === null
-            : application.nodeTypeTarget?.kind ===
-                binding.nodeTypeTarget.kind &&
-              application.nodeTypeTarget.programRef ===
-                binding.nodeTypeTarget.programRef
+            ? true
+            : application.targetDigest === expectedTargetDigest &&
+              application.targetRef ===
+                `catalog-target://abiogenesis/${expectedTargetDigest.slice("sha256:".length)}`
         ),
     );
     return matching.length === 1;

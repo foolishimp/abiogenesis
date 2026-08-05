@@ -32,9 +32,12 @@ import {
   type OpenedTraversalScope,
 } from "./open_call.js";
 import {
+  replayValidatedRuntimeEventPrefix,
+  type ReplayRouteState,
+} from "./replay.js";
+import {
+  hasCurrentAdmittedCCallOutcome,
   hasOpenedCCall,
-  isAdmittedCCallJudgment,
-  isAdmittedCCallResult,
   isCCall,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
@@ -127,6 +130,68 @@ function isRecord(
   value: JsonValue,
 ): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+const APPLICATION_CHILD_FOLDBACK_BODY_KEYS = Object.freeze([
+  "applicationRef",
+  "applicationFoldbackRef",
+  "parentCCallRef",
+  "parentJudgmentRef",
+  "sourceCursorRef",
+  "sourceCursorDigest",
+  "childExecutionBasisRef",
+  "childExecutionBasisDigest",
+  "childGraphCallId",
+  "childFrameId",
+  "childDisposition",
+  "childResultRef",
+  "childResultDigest",
+  "childJudgmentRef",
+  "childClosureRef",
+  "childReasonRef",
+  "childTerminalEventRef",
+  "outputDigest",
+] as const);
+
+function hasExactKeys(
+  value: Readonly<Record<string, JsonValue>>,
+  keys: readonly string[],
+): boolean {
+  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
+}
+
+function isSha256Digest(value: JsonValue | undefined): value is Sha256Digest {
+  return typeof value === "string" && /^sha256:[a-f0-9]{64}$/u.test(value);
+}
+
+function isNonEmptyString(value: JsonValue | undefined): value is string {
+  return typeof value === "string" && value.length > 0;
+}
+
+function isApplicationChildFoldbackBody(
+  value: Readonly<Record<string, JsonValue>>,
+): boolean {
+  return hasExactKeys(value, APPLICATION_CHILD_FOLDBACK_BODY_KEYS) &&
+    isNonEmptyString(value.applicationRef) &&
+    isNonEmptyString(value.applicationFoldbackRef) &&
+    isNonEmptyString(value.parentCCallRef) &&
+    isNonEmptyString(value.parentJudgmentRef) &&
+    isNonEmptyString(value.sourceCursorRef) &&
+    isSha256Digest(value.sourceCursorDigest) &&
+    isNonEmptyString(value.childExecutionBasisRef) &&
+    isSha256Digest(value.childExecutionBasisDigest) &&
+    isNonEmptyString(value.childGraphCallId) &&
+    isNonEmptyString(value.childFrameId) &&
+    (value.childDisposition === "blocked" || value.childDisposition === "closed") &&
+    isNonEmptyString(value.childResultRef) &&
+    isSha256Digest(value.childResultDigest) &&
+    isNonEmptyString(value.childJudgmentRef) &&
+    isNonEmptyString(value.childTerminalEventRef) &&
+    isSha256Digest(value.outputDigest) &&
+    (value.childDisposition === "closed"
+      ? isNonEmptyString(value.childClosureRef) &&
+        (value.childReasonRef === null || isNonEmptyString(value.childReasonRef))
+      : value.childClosureRef === null && isNonEmptyString(value.childReasonRef));
 }
 
 function refusal(
@@ -265,8 +330,9 @@ export function projectCurrentApplicationChildFoldback(
   const { foldbackRef, foldbackDigest, ...body } = event.payload;
   if (
     typeof foldbackRef !== "string" ||
-    typeof foldbackDigest !== "string" ||
+    !isSha256Digest(foldbackDigest) ||
     foldbackRef !== coordinates.foldbackRef ||
+    !isApplicationChildFoldbackBody(body) ||
     foldbackDigest !== sha256Canonical(body as unknown as JsonValue) ||
     foldbackRef !==
       `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}` ||
@@ -289,6 +355,81 @@ export function projectCurrentApplicationChildFoldback(
     ...body,
     admissionEventRef: event.eventId,
   }) as unknown as ApplicationChildFoldbackAdmission;
+}
+
+export function projectCurrentApplicationChildRoute(
+  store: AbgEventStore,
+  coordinates: Readonly<{
+    runId: string;
+    graphCallId: string;
+    frameId: string;
+    cCallRef: string;
+    judgmentRef: string;
+  }>,
+): ReplayRouteState | null {
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: coordinates.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
+  const route = replayValidatedRuntimeEventPrefix(prefix).routes.find(
+    (candidate) =>
+      candidate.cCallRef === coordinates.cCallRef &&
+      candidate.judgmentRef === coordinates.judgmentRef &&
+      (candidate.routeKind === "terminal" || candidate.routeKind === "blocked"),
+  );
+  if (route === undefined) return null;
+  const routeEvent = events.find(
+    (event) =>
+      event.eventId === route.admissionEventRef &&
+      event.kind === "traversal_route_admitted" &&
+      event.runId === coordinates.runId &&
+      event.graphCallId === coordinates.graphCallId &&
+      event.frameId === coordinates.frameId,
+  );
+  const matchingRunStopped = routeEvent === undefined
+    ? undefined
+    : events.find(
+        (event) =>
+          event.kind === "run_stopped" &&
+          event.runId === coordinates.runId &&
+          event.graphCallId === coordinates.graphCallId &&
+          event.frameId === coordinates.frameId &&
+          event.causationEventRefs.includes(routeEvent.eventId) &&
+          isRecord(event.payload) &&
+          event.payload.routeRef === route.routeRef,
+      );
+  const lifecycleCurrent = route.routeKind === "terminal"
+    ? holdsAt(
+        eventCalculus,
+        constructRuntimeFluent({
+          name: "graph_call_closed",
+          identity: coordinates.graphCallId,
+        }),
+      )
+    : matchingRunStopped === undefined
+    ? holdsAt(
+        eventCalculus,
+        constructRuntimeFluent({
+          name: "frame_blocked",
+          identity: coordinates.frameId,
+        }),
+      )
+    : holdsAt(
+        eventCalculus,
+        constructRuntimeFluent({
+          name: "run_terminal",
+          identity: coordinates.runId,
+        }),
+      ) &&
+      !holdsAt(
+        eventCalculus,
+        constructRuntimeFluent({
+          name: "run_active",
+          identity: coordinates.runId,
+        }),
+      );
+  return routeEvent === undefined || !lifecycleCurrent ? null : route;
 }
 
 export function admitApplicationChildPreparationRefusal(
@@ -320,8 +461,12 @@ export function admitApplicationChildPreparationRefusal(
     application.relationKind !== "recurse" ||
     application.applicationRef !== graphFunctionApplicationRef(application) ||
     !hasOpenedCCall(store, parentCCall) ||
-    !isAdmittedCCallResult(parentResult) ||
-    !isAdmittedCCallJudgment(parentJudgment) ||
+    !hasCurrentAdmittedCCallOutcome(
+      store,
+      parentCCall,
+      parentResult,
+      parentJudgment,
+    ) ||
     !hasAdmittedTraversalCursor(store, sourceCursor) ||
     parentCCall.basisId !== executionBasis.basisRef ||
     parentCCall.frameId !== sourceCursor.frameId ||
@@ -532,19 +677,29 @@ export function admitApplicationChildFoldback(
       event.payload.judgmentRef === child.judgmentRef &&
       event.payload.resultRef === child.resultRef,
   );
-  const routeEvent = events.slice().reverse().find(
-    (event) =>
-      event.kind === "traversal_route_admitted" &&
-      event.runId === childScope.runId &&
-      event.frameId === childScope.frameId &&
-      isRecord(event.payload) &&
-      event.payload.judgmentRef === child.judgmentRef &&
-      (event.payload.routeKind === "terminal" ||
-        event.payload.routeKind === "blocked"),
-  );
-  const routeKind = routeEvent !== undefined && isRecord(routeEvent.payload)
-    ? routeEvent.payload.routeKind
+  const childCCallRef = resultEvent !== undefined && isRecord(resultEvent.payload) &&
+      typeof resultEvent.payload.cCallRef === "string"
+    ? resultEvent.payload.cCallRef
     : null;
+  const routeProjection = childCCallRef === null
+    ? undefined
+    : projectCurrentApplicationChildRoute(store, {
+        runId: childScope.runId,
+        graphCallId: childScope.graphCallId,
+        frameId: childScope.frameId,
+        cCallRef: childCCallRef,
+        judgmentRef: child.judgmentRef,
+      }) ?? undefined;
+  const routeEvent = routeProjection === undefined
+    ? undefined
+    : events.find(
+        (event) =>
+          event.eventId === routeProjection.admissionEventRef &&
+          event.kind === "traversal_route_admitted" &&
+          event.runId === childScope.runId &&
+          event.frameId === childScope.frameId,
+      );
+  const routeKind = routeProjection?.routeKind ?? null;
   const terminalReachedEvent = routeKind === "terminal"
     ? events.find(
         (event) =>

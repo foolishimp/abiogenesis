@@ -105,49 +105,39 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
   "abg.operation.catalog.admit": {
     module_publication: {
       fields: {
-        publication: FIELD.record,
-        verifiedInvocationRef: FIELD.ref,
-        workspaceBindingInvocationRef: FIELD.ref,
+        readinessBasis: FIELD.record,
       },
-      required: [
-        "publication",
-        "verifiedInvocationRef",
-        "workspaceBindingInvocationRef",
-      ],
+      required: ["readinessBasis"],
     },
   },
   "abg.operation.catalog.apply": {
     node_type: {
       fields: {
-        catalogViewInvocationRef: FIELD.ref,
+        catalogBasis: FIELD.record,
         contributorRef: FIELD.ref,
         handle: FIELD.ref,
-        productInstallInvocationRef: FIELD.ref,
         target: FIELD.record,
         value: FIELD.record,
       },
       required: [
-        "catalogViewInvocationRef",
+        "catalogBasis",
         "contributorRef",
         "handle",
-        "productInstallInvocationRef",
         "target",
         "value",
       ],
     },
     overlay: {
       fields: {
-        catalogViewInvocationRef: FIELD.ref,
+        catalogBasis: FIELD.record,
         contributorRef: FIELD.ref,
         handle: FIELD.ref,
-        productInstallInvocationRef: FIELD.ref,
         value: FIELD.record,
       },
       required: [
-        "catalogViewInvocationRef",
+        "catalogBasis",
         "contributorRef",
         "handle",
-        "productInstallInvocationRef",
         "value",
       ],
     },
@@ -155,10 +145,9 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
   "abg.operation.catalog.view": {
     allowlist: {
       fields: {
-        allowlist: FIELD.refs,
-        catalogInvocationRef: FIELD.ref,
+        catalogBasis: FIELD.record,
       },
-      required: ["allowlist", "catalogInvocationRef"],
+      required: ["catalogBasis"],
     },
   },
   "abg.operation.project.read": {
@@ -280,8 +269,7 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
     direct: {
       fields: {
         actorRef: FIELD.ref,
-        catalogApplicationInvocationRefs: FIELD.refs,
-        catalogViewInvocationRef: FIELD.ref,
+        catalogBasis: FIELD.record,
         eventLogPath: FIELD.ref,
         graphFunctionRef: FIELD.ref,
         input: FIELD.record,
@@ -293,7 +281,7 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
       },
       required: [
         "actorRef",
-        "catalogViewInvocationRef",
+        "catalogBasis",
         "eventLogPath",
         "graphFunctionRef",
         "input",
@@ -306,8 +294,7 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
     start: {
       fields: {
         actorRef: FIELD.ref,
-        catalogApplicationInvocationRefs: FIELD.refs,
-        catalogViewInvocationRef: FIELD.ref,
+        catalogBasis: FIELD.record,
         eventLogPath: FIELD.ref,
         input: FIELD.record,
         installInvocationRef: FIELD.ref,
@@ -327,7 +314,7 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
       },
       required: [
         "actorRef",
-        "catalogViewInvocationRef",
+        "catalogBasis",
         "eventLogPath",
         "input",
         "installInvocationRef",

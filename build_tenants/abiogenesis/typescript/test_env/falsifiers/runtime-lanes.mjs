@@ -385,15 +385,7 @@ async function axF07(harness, packageRoot) {
   const sourceEventLog = join(proofRoot, "abi5-root-r10.events.jsonl");
   const eventLogPath = join(harness.scratch, "ax-f07.events.jsonl");
   await copyFile(sourceEventLog, eventLogPath);
-  const [bytes, transcript, outcomes, manifest] = await Promise.all([
-    readFile(eventLogPath),
-    readFile(join(proofRoot, "abi5-root-r10.transcript.json"), "utf8")
-      .then(JSON.parse),
-    readFile(join(proofRoot, "abi5-root-r10.outcomes.json"), "utf8")
-      .then(JSON.parse),
-    readFile(join(packageRoot, "product-toolchain-manifest.json"), "utf8")
-      .then(JSON.parse),
-  ]);
+  const bytes = await readFile(eventLogPath);
   const nonce = `ax-f07=${Date.now()}`;
   const [product, eventStore] = await Promise.all([
     importInstalledPackageExport(
@@ -440,101 +432,6 @@ async function axF07(harness, packageRoot) {
       event.runId === runOpen.runId,
   );
   assert.notEqual(resultEvent, undefined);
-  const installEvent = events.find(
-    (event) =>
-      event.kind === "public_operation_artifact_admitted" &&
-      event.payload.operationId === "abg.operation.product.install",
-  );
-  const catalogEvent = events.find(
-    (event) =>
-      event.kind === "public_operation_artifact_admitted" &&
-      event.payload.operationId === "abg.operation.catalog.admit",
-  );
-  const catalogViewEvent = events.find(
-    (event) =>
-      event.kind === "public_operation_artifact_admitted" &&
-      event.payload.operationId === "abg.operation.catalog.view",
-  );
-  assert.notEqual(installEvent, undefined);
-  assert.notEqual(catalogEvent, undefined);
-  assert.notEqual(catalogViewEvent, undefined);
-  const verificationInvocation = transcript.find(
-    (row) => row.operationId === "abg.operation.product.verify",
-  );
-  const installInvocation = transcript.find(
-    (row) => row.operationId === "abg.operation.product.install",
-  );
-  const installOutcome = outcomes.find(
-    (row) => row.operationId === "abg.operation.product.install",
-  );
-  const catalogInvocation = transcript.find(
-    (row) => row.operationId === "abg.operation.catalog.admit",
-  );
-  assert.notEqual(verificationInvocation, undefined);
-  assert.notEqual(installInvocation, undefined);
-  assert.notEqual(installOutcome, undefined);
-  assert.notEqual(catalogInvocation, undefined);
-  const verification = verificationInvocation.payload;
-  const publicContractRefs = [
-    ...new Set(manifest.publicContractCatalog.rows.map((row) => row.contractId)),
-  ].sort();
-  const publicCapabilityRefs = [
-    ...new Set(
-      manifest.publicContractCatalog.rows.flatMap(
-        (row) => row.capabilityIdentities,
-      ),
-    ),
-  ].sort();
-  const publication = catalogInvocation.payload.publication;
-  const install = {
-    kind: "product_install",
-    schemaVersion: "5.0.0",
-    disposition: "admitted",
-    installId: installEvent.aggregateId,
-    installedRoot: join(
-      installInvocation.payload.targetRoot,
-      "node_modules",
-      "@abiogenesis",
-      "typescript-tenant",
-    ),
-    productId: verification.expectedProductId,
-    packageName: verification.expectedPackageName,
-    packageVersion: verification.expectedPackageVersion,
-    artifactDigest: verification.expectedArtifactDigest,
-    productContentDigest: verification.expectedProductContentDigest,
-    manifestDigest: verification.expectedManifestDigest,
-    descriptorRef: manifest.descriptorRef,
-    publisherNamespace: manifest.publisherNamespace,
-    contributionManifestRef: manifest.contributionManifestRef,
-    contributionManifestDigest: manifest.contributionManifestDigest,
-    contributionManifest: manifest.contributionManifest,
-    compatibilityRefs: manifest.compatibilityRefs,
-    declaredDependencies: manifest.declaredDependencies,
-    provenanceRef: manifest.provenanceRef,
-    declaredCapabilityRefs: manifest.declaredCapabilityRefs,
-    catalogId: manifest.publicContractCatalog.catalogId,
-    catalogDigest: manifest.publicContractCatalog.catalogDigest,
-    publicContracts: manifest.publicContractCatalog.rows,
-    publicContractRefs,
-    publicCapabilityRefs,
-    resolvedLockId: installOutcome.result.resolvedLockId,
-    resolvedLockDigest: installOutcome.result.resolvedLockDigest,
-    admissionEventRef: installEvent.eventId,
-  };
-  const productSemanticsBasis = {
-    install,
-    workspaceBindingId: catalogEvent.payload.authorityScopeRef,
-    workspaceBindingDigest: catalogEvent.payload.authorityScopeDigest,
-    catalogId: catalogViewEvent.payload.authorityScopeRef,
-    catalogDigest: catalogEvent.payload.artifactDigest,
-    catalogAdmissionEventRef: catalogEvent.eventId,
-    catalogViewId:
-      `catalog-view://abiogenesis/${catalogViewEvent.payload.artifactDigest.slice("sha256:".length)}`,
-    catalogViewDigest: catalogViewEvent.payload.artifactDigest,
-    catalogViewAdmissionEventRef: catalogViewEvent.eventId,
-    publicationDigest: catalogEvent.payload.publicationDigest,
-    productSemanticsBinding: publication.productSemanticsBinding,
-  };
   const derivation = {
     publicAuthorityDigest: product.sha256Canonical({
       relationId: "AX-F07",
@@ -553,7 +450,6 @@ async function axF07(harness, packageRoot) {
   const input = {
     action: "derive_source_result",
     reopenAuthority,
-    productSemanticsBasis,
     derivation,
   };
   const first = await runJsonWorker(workerPath, harness.cliHost, input);
@@ -562,10 +458,6 @@ async function axF07(harness, packageRoot) {
     product.canonicalJson(first.basis) === product.canonicalJson(second.basis);
   const observed = {
     processIdsDistinct: first.pid !== second.pid,
-    firstProductSemanticsBasisAdmitted:
-      first.admittedProductSemanticsBasis,
-    secondProductSemanticsBasisAdmitted:
-      second.admittedProductSemanticsBasis,
     firstConsumerAccepted: first.acceptedByBasisConsumer,
     secondConsumerAccepted: second.acceptedByBasisConsumer,
     sameBasis,
@@ -581,8 +473,6 @@ async function axF07(harness, packageRoot) {
     first.pid !== second.pid &&
     first.basis !== null &&
     second.basis !== null &&
-    first.admittedProductSemanticsBasis === true &&
-    second.admittedProductSemanticsBasis === true &&
     first.acceptedByBasisConsumer === true &&
     second.acceptedByBasisConsumer === true &&
     sameBasis &&

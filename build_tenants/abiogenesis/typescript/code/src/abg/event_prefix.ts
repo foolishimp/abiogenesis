@@ -42,6 +42,29 @@ export function runtimeEventsFromValidatedPrefix(
   return prefix.events;
 }
 
+export function validatedRuntimeEventPrefixThroughEvent(
+  prefix: ValidatedRuntimeEventPrefix,
+  eventId: string,
+): ValidatedRuntimeEventPrefix {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const boundary = events.find((event) => event.eventId === eventId);
+  if (boundary === undefined) {
+    throw new TypeError(
+      "historical event-prefix boundary requires one exact admitted event",
+    );
+  }
+  const historicalEvents = Object.freeze(
+    events.filter(
+      (event) => event.admissionOrdinal <= boundary.admissionOrdinal,
+    ),
+  );
+  return Object.freeze({
+    kind: "validated_runtime_event_prefix" as const,
+    events: historicalEvents,
+    [VALIDATED_RUNTIME_EVENT_PREFIX]: true as const,
+  });
+}
+
 export function selectValidatedRuntimeEventPrefix(
   admittedEvents: readonly RuntimeEvent[],
   scope?: RuntimeEventScope,

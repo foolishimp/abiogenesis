@@ -213,14 +213,14 @@ function retryBoundaryRef(
   return `retry-boundary://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 
-interface RetryLifecycleProjection {
+export interface RetryLifecycleProjection {
   readonly eventCalculus: RuntimeEventCalculusProjection;
   readonly events: readonly RuntimeEvent[];
   readonly attempts: readonly RuntimeEvent[];
   readonly progress: readonly RuntimeEvent[];
 }
 
-function projectRetryLifecycle(
+export function projectRetryLifecycle(
   store: AbgEventStore,
   runId: string,
   graphCallId: string,
@@ -244,6 +244,22 @@ function projectRetryLifecycle(
     attempts: events.filter((event) => event.kind === "retry_attempt_opened"),
     progress: events.filter((event) => event.kind === "retry_progress_recorded"),
   };
+}
+
+export function projectDeclaredCRetryFrontier(
+  store: AbgEventStore,
+  runId: string,
+  graphCallId: string,
+  frameId: string,
+  boundaryRef: string,
+): RetryLifecycleProjection {
+  return projectRetryLifecycle(
+    store,
+    runId,
+    graphCallId,
+    frameId,
+    boundaryRef,
+  );
 }
 
 function positiveNumberArray(value: JsonValue | undefined): readonly number[] {

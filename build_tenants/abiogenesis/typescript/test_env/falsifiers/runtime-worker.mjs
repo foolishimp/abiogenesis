@@ -15,24 +15,13 @@ function deriveSourceResult(input) {
     throw new TypeError(JSON.stringify(reopened));
   }
   try {
-    const admittedProductSemanticsBasis =
-      abg.hasAdmittedProductSemanticsBasis(
-        reopened.store,
-        input.productSemanticsBasis,
-      );
-    const basis = admittedProductSemanticsBasis
-      ? abg.deriveInvocationSourceResultBasis(
-          reopened.store,
-          {
-            ...input.derivation,
-            productSemanticsBasis: input.productSemanticsBasis,
-          },
-        )
-      : null;
+    const basis = abg.deriveInvocationSourceResultBasis(
+      reopened.store,
+      input.derivation,
+    );
     return {
       action: input.action,
       pid: process.pid,
-      admittedProductSemanticsBasis,
       basis,
       acceptedByBasisConsumer:
         basis !== null && abg.isInvocationSourceResultBasis(basis),

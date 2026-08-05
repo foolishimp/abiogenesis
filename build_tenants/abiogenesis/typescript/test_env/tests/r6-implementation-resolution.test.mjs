@@ -101,7 +101,7 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
   assert.equal(absentPackageImplementation.code, "implementation_absent");
 
   const changedView = product.resolveImplementation(
-    { ...catalogView, selectedRows: [] },
+    { ...catalogView, entries: [] },
     publication,
     programValidation,
     graphValidation,

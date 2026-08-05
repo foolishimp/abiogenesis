@@ -1,13 +1,3 @@
-import type { ModulePublication } from "../gtl/contracts.js";
-import type {
-  ProgramValidation,
-  PublicationValidation,
-} from "../validator/validation.js";
-import type {
-  AdmittedCatalog,
-  CatalogApplication,
-  CatalogView,
-} from "./catalog.js";
 import type { VerifiedProductArtifact } from "./contracts.js";
 import type {
   ProductInstall,
@@ -39,24 +29,6 @@ export interface WorkspaceOperationState {
   readonly binding: WorkspaceBinding;
 }
 
-export interface CatalogOperationState {
-  readonly workspaceState: WorkspaceOperationState;
-  readonly publication: Readonly<ModulePublication>;
-  readonly publicationValidation: PublicationValidation;
-  readonly programValidations: readonly ProgramValidation[];
-  readonly catalog: AdmittedCatalog;
-}
-
-export interface CatalogViewOperationState {
-  readonly catalogState: CatalogOperationState;
-  readonly view: CatalogView;
-}
-
-export interface CatalogApplicationOperationState {
-  readonly viewState: CatalogViewOperationState;
-  readonly application: CatalogApplication;
-}
-
 /** Product-owned carrier registry for one explicit public-operation transcript. */
 export class RootOperationState {
   readonly #seenInvocations = new Set<string>();
@@ -64,10 +36,6 @@ export class RootOperationState {
   readonly #resolutions = new Map<string, ResolveOperationState>();
   readonly #installs = new Map<string, InstallOperationState>();
   readonly #workspaces = new Map<string, WorkspaceOperationState>();
-  readonly #catalogs = new Map<string, CatalogOperationState>();
-  readonly #catalogViews = new Map<string, CatalogViewOperationState>();
-  readonly #catalogApplications =
-    new Map<string, CatalogApplicationOperationState>();
 
   claimInvocation(invocationRef: string): boolean {
     if (this.#seenInvocations.has(invocationRef)) return false;
@@ -107,32 +75,4 @@ export class RootOperationState {
     return this.#workspaces.get(invocationRef) ?? null;
   }
 
-  rememberCatalog(invocationRef: string, value: CatalogOperationState): void {
-    this.#catalogs.set(invocationRef, deepFreeze(value));
-  }
-
-  catalog(invocationRef: string): CatalogOperationState | null {
-    return this.#catalogs.get(invocationRef) ?? null;
-  }
-
-  rememberCatalogView(invocationRef: string, value: CatalogViewOperationState): void {
-    this.#catalogViews.set(invocationRef, deepFreeze(value));
-  }
-
-  catalogView(invocationRef: string): CatalogViewOperationState | null {
-    return this.#catalogViews.get(invocationRef) ?? null;
-  }
-
-  rememberCatalogApplication(
-    invocationRef: string,
-    value: CatalogApplicationOperationState,
-  ): void {
-    this.#catalogApplications.set(invocationRef, deepFreeze(value));
-  }
-
-  catalogApplication(
-    invocationRef: string,
-  ): CatalogApplicationOperationState | null {
-    return this.#catalogApplications.get(invocationRef) ?? null;
-  }
 }

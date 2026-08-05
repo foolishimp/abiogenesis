@@ -20,6 +20,11 @@ import {
   selectValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
+  constructRuntimeFluent,
+  deriveRuntimeEventCalculusProjection,
+  holdsAt,
+} from "./event_calculus.js";
+import {
   hasOpenedTraversalScope,
   type OpenedTraversalScope,
 } from "./open_call.js";
@@ -154,22 +159,17 @@ function projectCurrentClosureTruth(
   });
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const currentReplay = replay(store, { runId: cCall.runId });
+  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
   const cCallTruth = currentReplay.cCalls.find(
     (candidate) => candidate.cCallRef === cCall.cCallRef,
   );
-  const scopedRouteEvents = events.filter((event) =>
-    event.kind === "traversal_route_admitted" &&
-    event.runId === cCall.runId &&
-    event.graphCallId === cCall.graphCallId &&
-    event.frameId === cCall.frameId
+  const currentRoute = currentReplay.routes.find(
+    (candidate) =>
+      candidate.routeRef === route.routeRef &&
+      candidate.cCallRef === cCall.cCallRef &&
+      candidate.judgmentRef === judgment.judgmentRef &&
+      candidate.sourceCursorRef === route.sourceCursorRef,
   );
-  const currentRouteEvent = scopedRouteEvents.at(-1);
-  const currentRoute = currentRouteEvent === undefined
-    ? undefined
-    : currentReplay.routes.find(
-        (candidate) =>
-          candidate.admissionEventRef === currentRouteEvent.eventId,
-      );
   const resultEvent = events.find(
     (event) => event.eventId === result.admissionEventRef,
   );
@@ -253,8 +253,12 @@ function projectCurrentClosureTruth(
     currentRoute.targetCursorDigest !== route.targetCursorDigest ||
     currentRoute.cCallRef !== route.cCallRef ||
     currentRoute.judgmentRef !== route.judgmentRef ||
-    !currentReplay.activeFluents.includes(
-      `terminal_route_available(${route.routeRef})`,
+    !holdsAt(
+      eventCalculus,
+      constructRuntimeFluent({
+        name: "terminal_route_available",
+        identity: route.routeRef,
+      }),
     ) ||
     (resume !== null && resumeTruth === null)
   ) return null;

@@ -75,54 +75,9 @@ function canonicalPolicy(acceptedFindingRulingKind = "decision_row") {
   });
 }
 
-function consensusCatalogApplications(invocation) {
-  return gtl.consensusCatalogApplicationBindings(invocation).map(
-    (binding, index) => ({
-      applicationId: `catalog-application://module-proof/${index}`,
-      applicationDigest: product.sha256Canonical(binding),
-      rowHandle: binding.handle,
-      appliedHandle:
-        `${binding.handle}/${binding.valueDigest.slice("sha256:".length)}`,
-      appliedValueRef: binding.valueRef,
-      appliedValueDigest: binding.valueDigest,
-      appliedValue: binding.value,
-      applicationVariant: binding.applicationVariant,
-      nodeTypeTarget: binding.nodeTypeTarget === null
-        ? null
-        : {
-            ...binding.nodeTypeTarget,
-            targetRef: binding.nodeTypeTarget.programRef,
-            targetDigest: DIGEST,
-          },
-      contributionKind:
-        binding.handle === gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle
-          ? "overlay"
-          : "node_type",
-      declarationOrContractRef:
-        binding.handle === gtl.CONSENSUS_IDS.subjectCatalogHandle
-          ? gtl.CONSENSUS_IDS.subjectContractRef
-          : binding.handle ===
-              gtl.CONSENSUS_IDS.reviewerProfileCatalogHandle
-          ? gtl.CONSENSUS_IDS.profileContractRef
-          : binding.handle ===
-              gtl.CONSENSUS_IDS.reviewerInstructionCatalogHandle
-          ? gtl.CONSENSUS_IDS.reviewerInstructionContractRef
-          : binding.handle ===
-              gtl.CONSENSUS_IDS.submitterProfileCatalogHandle
-          ? gtl.CONSENSUS_IDS.submitterProfileContractRef
-          : binding.handle ===
-              gtl.CONSENSUS_IDS.submitterInstructionCatalogHandle
-          ? gtl.CONSENSUS_IDS.submitterInstructionContractRef
-          : binding.handle === gtl.CONSENSUS_IDS.policyCatalogHandle
-          ? gtl.CONSENSUS_IDS.policyContractRef
-          : gtl.CONSENSUS_IDS.rulingOverlayContractRef,
-    }),
-  );
-}
-
-function consensusCatalogView() {
+function consensusCatalogBasis(invocation) {
   const publication = gtl.constructConsensusModulePublication(artifactBasis());
-  const handles = [
+  const allowlist = [
     gtl.CONSENSUS_IDS.subjectCatalogHandle,
     gtl.CONSENSUS_IDS.reviewerProfileCatalogHandle,
     gtl.CONSENSUS_IDS.reviewerInstructionCatalogHandle,
@@ -131,17 +86,36 @@ function consensusCatalogView() {
     gtl.CONSENSUS_IDS.policyCatalogHandle,
     gtl.CONSENSUS_IDS.rulingOverlayCatalogHandle,
   ];
-  return {
-    selectedRows: handles.map((handle) => {
-      const contribution = publication.contributions.find(
-        (row) => row.handle === handle,
-      );
-      assert.ok(contribution, `missing catalog contribution ${handle}`);
-      return {
-        ...contribution,
-        disposition: "admitted",
+  const catalog = product.buildGraphFunctionCatalog([publication]);
+  assert.equal(catalog.kind, "graph_function_catalog");
+  const view = product.narrowGraphFunctionCatalog(catalog, allowlist);
+  assert.equal(view.kind, "graph_function_catalog_view");
+  const applications = gtl.consensusCatalogApplicationBindings(invocation).map(
+    (binding) => {
+      const target = binding.nodeTypeTarget ?? {
+        contributorRef: artifactBasis().productId,
       };
-    }),
+      const targetDigest = product.sha256Canonical(target);
+      const application = product.applyCatalogDeclaration(view, {
+        applicationKind: binding.applicationVariant,
+        handle: binding.handle,
+        targetRef:
+          `catalog-target://abiogenesis/${targetDigest.slice("sha256:".length)}`,
+        targetDigest,
+        appliedValueRef:
+          `catalog-value://abiogenesis/${binding.valueDigest.slice("sha256:".length)}`,
+        appliedValueDigest: binding.valueDigest,
+      });
+      assert.equal(application.kind, "declaration_application");
+      return application;
+    },
+  );
+  return {
+    publications: [publication],
+    allowlist,
+    applications,
+    catalog,
+    view,
   };
 }
 
@@ -894,14 +868,15 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
       candidate.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
   );
   const input = invocationFor();
+  const catalogBasis = consensusCatalogBasis(input);
   const basis = {
     input,
     workspaceBindingId: "workspace-binding://developer/module-proof",
     workspaceBindingDigest: DIGEST,
     workspaceId: WORKSPACE,
     actionCatalog: program.actionCatalog,
-    catalogView: consensusCatalogView(),
-    catalogApplications: consensusCatalogApplications(input),
+    catalogView: catalogBasis.view,
+    catalogApplications: catalogBasis.applications,
     sourceResultBasis: null,
   };
   assert.equal(
@@ -919,14 +894,16 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
   );
   for (
     const missingHandle of new Set(
-      basis.catalogApplications.map((application) => application.rowHandle),
+      basis.catalogApplications.map(
+        (application) => application.declaration.handle,
+      ),
     )
   ) {
     assert.equal(
       ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
         ...basis,
         catalogApplications: basis.catalogApplications.filter(
-          (application) => application.rowHandle !== missingHandle,
+          (application) => application.declaration.handle !== missingHandle,
         ),
       }),
       false,
@@ -986,6 +963,7 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     policy: substitutedPolicy,
   });
   assert.equal(gtl.isConsensusInvocation(substitutedOverlay), true);
+  const substitutedCatalogBasis = consensusCatalogBasis(substitutedOverlay);
   assert.equal(
     ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
       ...basis,
@@ -998,8 +976,8 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
     ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis({
       ...basis,
       input: substitutedOverlay,
-      catalogApplications:
-        consensusCatalogApplications(substitutedOverlay),
+      catalogView: substitutedCatalogBasis.view,
+      catalogApplications: substitutedCatalogBasis.applications,
     }),
     true,
     "the exact applied overlay value selects the admitted ruling behavior",
@@ -1362,6 +1340,7 @@ test("S05 round reduction and same-Run human finalization form one total Product
 
 test("S05 Product semantics own invocation-basis validation and replay projection", () => {
   const invocation = invocationFor();
+  const catalogBasis = consensusCatalogBasis(invocation);
   const validateInvocationBasis =
     ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis;
   assert.equal(
@@ -1371,8 +1350,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
-      catalogView: consensusCatalogView(),
-      catalogApplications: consensusCatalogApplications(invocation),
+      catalogView: catalogBasis.view,
+      catalogApplications: catalogBasis.applications,
       sourceResultBasis: null,
     }),
     true,
@@ -1384,8 +1363,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: `${WORKSPACE}/other`,
       actionCatalog: null,
-      catalogView: consensusCatalogView(),
-      catalogApplications: consensusCatalogApplications(invocation),
+      catalogView: catalogBasis.view,
+      catalogApplications: catalogBasis.applications,
       sourceResultBasis: null,
     }),
     false,
@@ -1449,7 +1428,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
-      catalogView: consensusCatalogView(),
+      catalogView: catalogBasis.view,
+      catalogApplications: catalogBasis.applications,
       sourceResultBasis,
     }),
     false,
@@ -1462,7 +1442,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
-      catalogView: consensusCatalogView(),
+      catalogView: catalogBasis.view,
+      catalogApplications: catalogBasis.applications,
       sourceResultBasis: null,
     }),
     true,
@@ -1483,7 +1464,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: `${WORKSPACE}/substituted`,
       actionCatalog: null,
-      catalogView: consensusCatalogView(),
+      catalogView: catalogBasis.view,
+      catalogApplications: catalogBasis.applications,
       sourceResultBasis,
     }),
     false,
@@ -1495,7 +1477,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
-      catalogView: consensusCatalogView(),
+      catalogView: catalogBasis.view,
+      catalogApplications: catalogBasis.applications,
       sourceResultBasis: {
         ...sourceResultBasis,
         sourceGraphFunctionRef:
@@ -1516,15 +1499,10 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
     packageRoot,
     "test_env/proof/abi5-root-r10.transcript.json",
   );
-  const outcomesPath = resolve(
-    packageRoot,
-    "test_env/proof/abi5-root-r10.outcomes.json",
-  );
   const eventLogPath = join(scratch, "abi5-root-r10.events.jsonl");
   try {
     await copyFile(sourcePath, eventLogPath);
     const transcript = JSON.parse(await readFile(transcriptPath, "utf8"));
-    const outcomes = JSON.parse(await readFile(outcomesPath, "utf8"));
     const bytes = await readFile(eventLogPath);
     const status = await stat(eventLogPath);
     const authorityBody = {
@@ -1593,116 +1571,6 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
         ),
         true,
       );
-      const installEvent = reopened.store.readAll().find(
-        (event) =>
-          event.kind === "public_operation_artifact_admitted" &&
-          event.payload.operationId === "abg.operation.product.install",
-      );
-      const catalogEvent = reopened.store.readAll().find(
-        (event) =>
-          event.kind === "public_operation_artifact_admitted" &&
-          event.payload.operationId === "abg.operation.catalog.admit",
-      );
-      const catalogViewEvent = reopened.store.readAll().find(
-        (event) =>
-          event.kind === "public_operation_artifact_admitted" &&
-          event.payload.operationId === "abg.operation.catalog.view",
-      );
-      assert.ok(installEvent);
-      assert.ok(catalogEvent);
-      assert.ok(catalogViewEvent);
-      const verificationInvocation = transcript.find(
-        (row) => row.operationId === "abg.operation.product.verify",
-      );
-      const installInvocation = transcript.find(
-        (row) => row.operationId === "abg.operation.product.install",
-      );
-      const installOutcome = outcomes.find(
-        (row) => row.operationId === "abg.operation.product.install",
-      );
-      const catalogInvocation = transcript.find(
-        (row) => row.operationId === "abg.operation.catalog.admit",
-      );
-      assert.ok(verificationInvocation);
-      assert.ok(installInvocation);
-      assert.ok(installOutcome);
-      assert.ok(catalogInvocation);
-      const verification = verificationInvocation.payload;
-      const manifest = JSON.parse(
-        await readFile(
-          resolve(packageRoot, "product-toolchain-manifest.json"),
-          "utf8",
-        ),
-      );
-      const publicContractRefs = [
-        ...new Set(
-          manifest.publicContractCatalog.rows.map((row) => row.contractId),
-        ),
-      ].sort();
-      const publicCapabilityRefs = [
-        ...new Set(
-          manifest.publicContractCatalog.rows.flatMap(
-            (row) => row.capabilityIdentities,
-          ),
-        ),
-      ].sort();
-      const publication = catalogInvocation.payload.publication;
-      const install = {
-        kind: "product_install",
-        schemaVersion: "5.0.0",
-        disposition: "admitted",
-        installId: installEvent.aggregateId,
-        installedRoot: join(
-          installInvocation.payload.targetRoot,
-          "node_modules",
-          "@abiogenesis",
-          "typescript-tenant",
-        ),
-        productId: verification.expectedProductId,
-        packageName: verification.expectedPackageName,
-        packageVersion: verification.expectedPackageVersion,
-        artifactDigest: verification.expectedArtifactDigest,
-        productContentDigest: verification.expectedProductContentDigest,
-        manifestDigest: verification.expectedManifestDigest,
-        descriptorRef: manifest.descriptorRef,
-        publisherNamespace: manifest.publisherNamespace,
-        contributionManifestRef: manifest.contributionManifestRef,
-        contributionManifestDigest: manifest.contributionManifestDigest,
-        contributionManifest: manifest.contributionManifest,
-        compatibilityRefs: manifest.compatibilityRefs,
-        declaredDependencies: manifest.declaredDependencies,
-        provenanceRef: manifest.provenanceRef,
-        declaredCapabilityRefs: manifest.declaredCapabilityRefs,
-        catalogId: manifest.publicContractCatalog.catalogId,
-        catalogDigest: manifest.publicContractCatalog.catalogDigest,
-        publicContracts: manifest.publicContractCatalog.rows,
-        publicContractRefs,
-        publicCapabilityRefs,
-        resolvedLockId: installOutcome.result.resolvedLockId,
-        resolvedLockDigest: installOutcome.result.resolvedLockDigest,
-        admissionEventRef: installEvent.eventId,
-      };
-      const productSemanticsBasis = {
-        install,
-        workspaceBindingId: catalogEvent.payload.authorityScopeRef,
-        workspaceBindingDigest: catalogEvent.payload.authorityScopeDigest,
-        catalogId: catalogViewEvent.payload.authorityScopeRef,
-        catalogDigest: catalogEvent.payload.artifactDigest,
-        catalogAdmissionEventRef: catalogEvent.eventId,
-        catalogViewId:
-          `catalog-view://abiogenesis/${catalogViewEvent.payload.artifactDigest.slice("sha256:".length)}`,
-        catalogViewDigest: catalogViewEvent.payload.artifactDigest,
-        catalogViewAdmissionEventRef: catalogViewEvent.eventId,
-        publicationDigest: catalogEvent.payload.publicationDigest,
-        productSemanticsBinding: publication.productSemanticsBinding,
-      };
-      assert.equal(
-        abg.hasAdmittedProductSemanticsBasis(
-          reopened.store,
-          productSemanticsBasis,
-        ),
-        true,
-      );
       const replays = runOpens.map((event) =>
         abg.replay(reopened.store, { runId: event.runId })
       );
@@ -1721,7 +1589,6 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
             runOpens[0].payload.invocationAdmissionRef,
           runId: runOpens[0].runId,
           resultRef: resultRefs[0],
-          productSemanticsBasis,
         },
       );
       assert.ok(ownRunBasis);
@@ -1735,7 +1602,6 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
             runOpens[0].payload.invocationAdmissionRef,
           runId: runOpens[1].runId,
           resultRef: resultRefs[1],
-          productSemanticsBasis,
         },
       );
       assert.equal(
@@ -2265,6 +2131,13 @@ test("S05 public result binds real replay while its authority rejects digest tam
     gtl.projectTicketConsensus(result).replayRef,
     result.replayRef,
   );
+  const publication = gtl.constructConsensusModulePublication(artifactBasis());
+  const catalog = product.buildGraphFunctionCatalog([publication]);
+  assert.equal(catalog.kind, "graph_function_catalog");
+  const catalogView = product.narrowGraphFunctionCatalog(catalog, [
+    ...catalog.entries.map((entry) => entry.handle),
+  ]);
+  assert.equal(catalogView.kind, "graph_function_catalog_view");
 
   const reopenBody = {
     kind: "event_store_reopen_authority",
@@ -2304,21 +2177,11 @@ test("S05 public result binds real replay while its authority rejects digest tam
     workspaceId: WORKSPACE,
     workspaceBindingId: "workspace-binding://developer/module-proof",
     workspaceBindingDigest: DIGEST,
-    catalogId: "catalog://abiogenesis/module-proof",
-    catalogDigest: DIGEST,
-    catalogAdmissionEventRef: "event://developer/catalog-admitted",
-    catalogViewId: "catalog-view://abiogenesis/module-proof",
-    catalogViewDigest: DIGEST,
-    catalogViewAdmissionEventRef: "event://developer/catalog-view-admitted",
-    publicationDigest: DIGEST,
-    productSemanticsBinding: {
-      kind: "product_semantics_binding",
-      bindingRef: gtl.CONSENSUS_IDS.productSemanticsBindingRef,
-      packageName: artifactBasis().packageName,
-      packageVersion: artifactBasis().packageVersion,
-      modulePath: "build/code/src/product/builtin_semantics.js",
-      namedSymbol: "ABI5_SYSTEM_PRODUCT_SEMANTICS",
-    },
+    catalogBasisDigest: catalog.basisDigest,
+    catalogReadinessBasis: { kind: "module-proof-readiness-basis" },
+    catalogViewDigest: catalogView.viewDigest,
+    publicationDigests: catalog.publicationDigests,
+    publications: [publication],
   });
   assert.notEqual(parsePublicRunProjectionAuthority(authority), null);
   assert.equal(Object.hasOwn(authority, "catalog"), false);

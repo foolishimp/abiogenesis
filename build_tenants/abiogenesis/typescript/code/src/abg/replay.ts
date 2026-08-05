@@ -119,6 +119,67 @@ export interface ReplayActorProcessState {
   readonly status: "active" | "closed" | "failed";
 }
 
+export interface RunQuiescenceProjection {
+  readonly kind: "run_quiescence_projection";
+  readonly runId: string;
+  readonly prefixDigest: Sha256Digest;
+  readonly disposition: "active" | "invalid" | "non_quiescent" | "quiescent_for_close";
+  readonly blockingFluents: readonly string[];
+}
+
+const RUN_QUIESCENCE_BLOCKING_FLUENTS = new Set([
+  "actor_cleanup_live",
+  "actor_cleanup_pending",
+  "actor_invocation_active",
+  "actor_process_active",
+  "actor_process_live",
+  "c_call_active",
+  "continuation_open",
+  "continuation_response_available",
+  "frame_active",
+  "frame_held",
+  "graph_call_active",
+  "interaction_pending",
+  "locus_active",
+  "parent_waiting_on_child",
+  "retry_attempt_active",
+  "retry_progress_available",
+]);
+
+export function projectRunQuiescence(
+  prefix: ValidatedRuntimeEventPrefix,
+): RunQuiescenceProjection {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const runIds = [...new Set(events.flatMap((event) =>
+    event.runId === undefined ? [] : [event.runId]
+  ))];
+  if (runIds.length !== 1) {
+    throw new TypeError("Run quiescence requires one exact Run-scoped prefix");
+  }
+  const projection = deriveRuntimeEventCalculusProjection(prefix);
+  const blockingFluents = projection.holds
+    .filter((fluent) => RUN_QUIESCENCE_BLOCKING_FLUENTS.has(fluent.name))
+    .map(runtimeFluentKey)
+    .sort();
+  const runId = runIds[0]!;
+  const terminal = holdsAt(projection, constructRunTerminalFluent(runId)) ||
+    holdsAt(projection, constructRunClosedFluent(runId));
+  const active = holdsAt(projection, constructRunActiveFluent(runId));
+  return deepFreeze({
+    kind: "run_quiescence_projection" as const,
+    runId,
+    prefixDigest: sha256Canonical(events as unknown as JsonValue),
+    disposition: terminal
+      ? blockingFluents.length === 0
+        ? "quiescent_for_close" as const
+        : "non_quiescent" as const
+      : active
+        ? "active" as const
+        : "invalid" as const,
+    blockingFluents: Object.freeze(blockingFluents),
+  });
+}
+
 export interface ReplayState {
   readonly kind: "replay_state";
   readonly schemaVersion: "5.0.0";

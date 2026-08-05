@@ -26,7 +26,13 @@ import {
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
+import {
+  constructRuntimeFluent,
+  deriveRuntimeEventCalculusProjection,
+  holdsAt,
+} from "./event_calculus.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
   hasOpenedTraversalScope,
@@ -500,6 +506,75 @@ export type CCallResultAdmissionResult =
 export type CCallJudgmentAdmissionResult =
   | AdmittedCCallJudgment
   | CCallAdmissionRejection;
+
+export interface CCallPhaseProjection {
+  readonly kind: "c_call_phase_projection";
+  readonly cCallRef: string;
+  readonly phase:
+    | "opened"
+    | "fibre_selected"
+    | "evidenced"
+    | "result_admitted"
+    | "judged"
+    | "rejected";
+  readonly openedEventRef: string;
+  readonly fibreEventRef: string | null;
+  readonly evidenceEventRefs: readonly string[];
+  readonly resultEventRef: string | null;
+  readonly judgmentEventRef: string | null;
+  readonly rejectionEventRef: string | null;
+}
+
+export function projectCCallPhase(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCallRef: string,
+): CCallPhaseProjection {
+  const rows = runtimeEventsFromValidatedPrefix(prefix).filter((event) =>
+    event.aggregateType === "c_call" && event.aggregateId === cCallRef
+  );
+  const opened = rows.filter((event) => event.kind === "c_call_opened");
+  const fibre = rows.filter((event) => event.kind === "c_call_fibre_selected");
+  const evidence = rows.filter((event) => event.kind === "c_call_evidenced");
+  const results = rows.filter((event) => event.kind === "c_call_result_admitted");
+  const judgments = rows.filter((event) => event.kind === "c_call_judged");
+  const rejections = rows.filter((event) => event.kind === "child_preparation_refused");
+  if (
+    opened.length !== 1 || fibre.length > 1 || results.length > 1 ||
+    judgments.length > 1 || rejections.length > 1 ||
+    ((evidence.length > 0 || results.length > 0 || judgments.length > 0) &&
+      fibre.length !== 1) ||
+    (judgments.length === 1 && results.length !== 1) ||
+    (rejections.length === 1 && (results.length !== 0 || judgments.length !== 0)) ||
+    (fibre.length === 1 &&
+      fibre[0]!.admissionOrdinal <= opened[0]!.admissionOrdinal) ||
+    rows.some((row, index) => index > 0 &&
+      row.admissionOrdinal <= rows[index - 1]!.admissionOrdinal)
+  ) {
+    throw new TypeError(`CCall ${cCallRef} has invalid exact phase cardinality`);
+  }
+  const phase = rejections.length === 1
+    ? "rejected" as const
+    : judgments.length === 1
+      ? "judged" as const
+      : results.length === 1
+        ? "result_admitted" as const
+        : evidence.length > 0
+          ? "evidenced" as const
+          : fibre.length === 1
+            ? "fibre_selected" as const
+            : "opened" as const;
+  return deepFreeze({
+    kind: "c_call_phase_projection" as const,
+    cCallRef,
+    phase,
+    openedEventRef: opened[0]!.eventId,
+    fibreEventRef: fibre[0]?.eventId ?? null,
+    evidenceEventRefs: Object.freeze(evidence.map((event) => event.eventId)),
+    resultEventRef: results[0]?.eventId ?? null,
+    judgmentEventRef: judgments[0]?.eventId ?? null,
+    rejectionEventRef: rejections[0]?.eventId ?? null,
+  });
+}
 
 const cCalls = new WeakSet<object>();
 const admittedEvidence = new WeakSet<object>();
@@ -1795,11 +1870,6 @@ export function rehydrateAdmittedCCallState(
   cCalls.add(cCall);
   admittedResults.add(result);
   admittedJudgments.add(judgment);
-  if (
-    !hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment)
-  ) {
-    return null;
-  }
   return deepFreeze({ cCall, result, judgment });
 }
 
@@ -1904,14 +1974,6 @@ export function rehydratePendingInteraction(
   ) {
     return null;
   }
-  cCalls.add(cCall);
-  admittedResults.add(result);
-  admittedJudgments.add(judgment);
-  if (
-    !hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment)
-  ) {
-    return null;
-  }
   const requestRef =
     isJsonRecord(result.value) && typeof result.value.requestRef === "string"
       ? result.value.requestRef
@@ -1923,6 +1985,27 @@ export function rehydratePendingInteraction(
       ? result.value.requestDigest as Sha256Digest
       : null;
   if (requestRef === null || requestDigest === null) return null;
+  const continuationEvent = events.find(
+    (event) =>
+      event.kind === "fh_interaction_opened" &&
+      isJsonRecord(event.payload) &&
+      event.payload.cCallRef === cCall.cCallRef,
+  );
+  if (
+    continuationEvent === undefined ||
+    !holdsAt(
+      deriveRuntimeEventCalculusProjection(prefix),
+      constructRuntimeFluent({
+        name: "interaction_pending",
+        identity: continuationEvent.aggregateId,
+      }),
+    )
+  ) {
+    return null;
+  }
+  cCalls.add(cCall);
+  admittedResults.add(result);
+  admittedJudgments.add(judgment);
   return deepFreeze({
     cCall,
     result,

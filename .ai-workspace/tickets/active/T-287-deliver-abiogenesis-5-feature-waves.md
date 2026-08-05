@@ -17,8 +17,8 @@
 - immutable_reference_product: v4.6.0-rc.3
 - selected_wave: W1
 - selected_feature: A5-F10
-- selected_slice: invocation_reentry_projection
-- selected_slice_stage: code_assessment_and_implementation
+- selected_slice: graph_catalog_contraction_and_runtime_recovery
+- selected_slice_stage: implementation
 - accepted_checkpoint: 1f6a86074bf995763b4caff286422b5b1501374b
 - deferred_feature: A5-F12
 
@@ -47,6 +47,59 @@ does not restate either.
 
 T-270 and T-281 are superseded. Commentary and rejected branches are evidence,
 not active instruction.
+
+## Mandatory Review Preamble
+
+Every worker handoff and independent review starts by stating this Product
+frame before discussing design or code:
+
+```text
+fixed 5.0 features:
+  A5-F01..A5-F11 and A5-F13..A5-F17
+active wave:
+  W1 = A5-F10, A5-F02, A5-F03, A5-F04
+selected feature and slice:
+  A5-F10 / graph_catalog_contraction_and_runtime_recovery
+  = pure catalog readiness and construction + event-authoritative runtime
+    recovery + installed terminal quiescence
+Product outcome:
+  exact GTL definitions drive HoG execution; ABG events and Event Calculus
+  explain execution and workspace transformation
+source/tool/runtime split:
+  GTL definition = semantic source
+  catalog.admit = pure exact-basis readiness validation and construction
+  GraphFunctionCatalog = reconstructible HoG tool/result
+  HoG = traversal and selection
+  ABG event = admitted execution/transformation fact
+  Event Calculus/replay = derived execution state and explanation
+prohibited in this slice:
+  catalog lifecycle/event/fluent/replay authority, rival registry or ledger,
+  RootOperationState catalog authority, object-identity semantic admission,
+  generated/lowered Program, controller, or compatibility dual path
+```
+
+The reviewer then cites the exact Product and requirement clauses that grant or
+forbid each semantic relation under review. A design receipt does not satisfy
+that obligation and cannot override an upstream contradiction.
+
+### 5.0 Review Proportionality
+
+Block 5.0 for:
+
+- two reachable paths deciding the same semantic authority;
+- process-local state changing admission, identity, currentness, replay, or
+  fresh-process results;
+- any 5.0 registry, ledger, store, runtime, controller, or equivalent algorithm
+  redundancy beyond the conserved 4.6 baseline;
+- code that cannot explain an admitted workspace mutation through its exact
+  GTL definition and owning execution facts; or
+- a missing selected 5.0 capability or installed proof.
+
+Do not block 5.0 solely for deeper contraction of pure helpers, internal
+validator placement, test-runner mechanics, non-semantic caches, or module
+layout after one authority and behavior are proven. Record those items as 5.1
+realization compression without adding a compatibility path or weakening a
+5.0 negative test.
 
 ## Product Path
 
@@ -83,7 +136,7 @@ GTL.TypeScript
 - [x] remove affected copied fluent folds
 - [x] derive stopped-Run truth and provenance through replay only
 - [x] remove Public gap-reopen raw-event projection
-- [ ] migrate catalog truth to one event/replay projection
+- [ ] bind runtime use to exact GTL definitions selected through one reconstructible HoG GraphFunction catalog
 - [ ] migrate artifact truth to one event/replay projection
 - [ ] migrate invocation, continuation, and retry truth
 - [ ] migrate result, judgment, route, and closure truth
@@ -124,42 +177,67 @@ GTL.TypeScript
 
 ## Current Slice
 
-Next, replace invocation re-entry's direct source-route/source-stop scans with
-the already accepted scoped replay projection. Preserve its separate
-duplicate-consumption admission guard for the later Invocation entity slice.
-
-Accepted immediately before this slice:
+Recover directly from accepted checkpoint
+`1f6a86074bf995763b4caff286422b5b1501374b`. The current dirty lineage and
+rejected 42-file candidate are donor evidence only. Implement the accepted
+[Graph Catalog Contraction](../../../build_tenants/abiogenesis/typescript/design/T287_GRAPH_CATALOG_CONTRACTION_ACCEPTED_DESIGN.md)
+without another design cycle.
 
 ```text
-one admitted run_stopped
-  -> HoldsAt(run_terminal(runId))
-  -> replay validates exact Run, route, causation, disposition, and uniqueness
-  -> Public gap reopen consumes replay without scanning raw events
+exact published GTL GraphFunctions
+  -> one deterministic HoG GraphFunctionCatalog dictionary
+  -> pure lookup, narrowing, refresh, and application
+  -> HoG selects exact definition, fibre, and plan
+  -> owning ABG invocation records that exact basis
+  -> admitted effects explain workspace transformation
 ```
 
-Expected production scope:
+Implementation must:
 
-- `code/src/abg/invocation_admission.ts`
-- existing replay projection types only if the required route provenance is
-  not already exposed
+- replace catalog candidate/admission/view/application lifecycles with one
+  reconstructible handle-keyed GraphFunction dictionary returned by the one
+  pure `catalog.admit` readiness operation;
+- require that operation to validate the exact workspace binding, resolved
+  lock, installed/verified Product set, descriptors, contribution manifests,
+  direct dependency edges, compatibility, provenance, and publication basis;
+- delete catalog and view event/EC/replay authority, registry-entry membership
+  truth, catalog semantic WeakMaps/WeakSets, and RootOperationState catalog,
+  view, and application maps;
+- preserve deterministic collision refusal, canonical ordering, dynamic
+  refresh from an exact changed publication set, pure views, and pure
+  declaration application;
+- bind invocation to the exact catalog basis, GTL definition, selected fibre,
+  selected plan, and application refs/digests;
+- retain ABG/Event Calculus only for execution, observation, evidence, and
+  workspace transformation;
+- recover terminal, CCall, actor/process, retry, traversal, continuation,
+  result, closure, durable-prefix, and fresh-process code only where it remains
+  valid after this contraction;
+- leave no compatibility adapter or reachable old registry/catalog authority.
 
-Expected proof scope:
+Proof must cover shuffled-order equality, dynamic add/refresh, equal duplicate
+idempotence, unequal collision refusal, cache-loss reconstruction, pure view
+and application, cross-workspace and unrelated-basis refusal, missing direct-
+dependency and incompatibility refusal, exact row provenance, exact invocation
+basis, execution replay, workspace-delta
+explanation, zero catalog lifecycle events/fluents, and zero reachable
+RootOperationState or object-identity catalog authority. Then run build,
+conservation, R1-R10, full M5, installed package, and `git diff --check` before
+freezing one exact candidate.
 
-- existing invocation re-entry and installed external scenarios
-- deterministic candidate and R10 proof regeneration
-
-Acceptance:
-
-- invocation re-entry consumes one scoped replay projection
-- no direct source-route or source-stop raw-event scan remains on that path
-- exact Run, route, stop, causation, disposition, and authority remain enforced
-- duplicate-consumption admission remains unchanged
-- build, focused Event Calculus, installed external, R10, standing falsifiers,
-  full M5, and `git diff --check` pass
+Scope guard: finish this catalog hard break, remove every stale executable and
+proof consumer of its deleted authority, and return to the Wave 1 feature
+sequence. Other audit findings enter this slice only when they are competing
+semantic authority, fresh-process correctness defects, or redundancy beyond
+the 4.6 baseline. Purely structural deeper compression is recorded for 5.1 and
+does not extend this implementation cut.
 
 ## Hard Invariants
 
 - ABG-admitted events are the sole runtime transformation truth.
+- Published GTL definitions are the sole GraphFunction semantic truth.
+- The GraphFunction catalog is one reconstructible HoG tool, not an admitted
+  runtime entity, registry authority, event family, or replay projection.
 - Event Calculus over an explicit validated immutable prefix is the sole
   runtime-currentness relation.
 - Replay and Public are reconstructive projections; they do not author truth.

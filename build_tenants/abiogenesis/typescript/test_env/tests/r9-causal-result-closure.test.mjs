@@ -16,6 +16,19 @@ function runtimeBasis(correlationId) {
   };
 }
 
+function cloneEventStore(eventStore, events) {
+  const clone = new eventStore.AbgEventStore();
+  for (const expected of events) {
+    const candidate = structuredClone(expected);
+    delete candidate.eventId;
+    delete candidate.admissionOrdinal;
+    delete candidate.payloadDigest;
+    const admitted = eventStore.admitRuntimeEvent(clone, candidate);
+    assert.equal(admitted.eventId, expected.eventId);
+  }
+  return clone;
+}
+
 function admitInitialCursor(environment, opened, traversalStop, correlationId) {
   const admission = environment.abg.admitInitialTraversalCursor(
     environment.store,
@@ -49,7 +62,14 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     implementationResolution,
     executionBasis,
     closureContract,
+    product,
   } = environment;
+  const eventStore = await import(
+    pathToFileURL(join(
+      installedRoot,
+      "build/code/src/abg/event_store.js",
+    )).href
+  );
   const opened = abg.openCall(
     store,
     executionBasis,
@@ -253,6 +273,70 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     replayStateDigest: route.replayStateDigest,
     admissionEventRef: route.admissionEventRef,
   });
+  const controlStore = cloneEventStore(eventStore, store.readAll());
+  const unrelatedRouteStore = cloneEventStore(eventStore, store.readAll());
+  const unrelatedRouteBody = {
+    routeKind: "advance",
+    declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: "cursor://abiogenesis/r9/unrelated-r2-source",
+    sourceCursorDigest: product.sha256Canonical({ cursor: "r2-source" }),
+    targetCursorRef: "cursor://abiogenesis/r9/unrelated-r2-target",
+    targetCursorDigest: product.sha256Canonical({ cursor: "r2-target" }),
+    cCallRef: "c-call:sha256:unrelated-r2",
+    judgmentRef: "judgment://abiogenesis/r9/unrelated-r2",
+    consumedAvailabilityRefs: [],
+    contractRef: route.contractRef,
+    replayStateDigest: routeReplay.replayDigest,
+  };
+  const unrelatedRouteDigest = product.sha256Canonical(unrelatedRouteBody);
+  const unrelatedRouteRef =
+    `traversal-route://abiogenesis/${unrelatedRouteDigest.slice("sha256:".length)}`;
+  eventStore.admitRuntimeEvent(unrelatedRouteStore, {
+    kind: "traversal_route_admitted",
+    eventTime: "2026-07-21T00:00:00.000Z",
+    aggregateType: "frame",
+    aggregateId: cCall.frameId,
+    parentAggregateId: cCall.graphCallId,
+    causationEventRefs: [route.admissionEventRef],
+    correlationId: "correlation://t286/r9/unrelated-r2",
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: cCall.basisId,
+    runId: cCall.runId,
+    graphFunctionRef: cCall.graphFunctionRef,
+    graphCallId: cCall.graphCallId,
+    frameId: cCall.frameId,
+    payload: {
+      routeRef: unrelatedRouteRef,
+      routeDigest: unrelatedRouteDigest,
+      ...unrelatedRouteBody,
+    },
+  });
+  const controlClosure = abg.admitClosure(
+    controlStore,
+    cCall,
+    result,
+    judgment,
+    route,
+    abg.replay(controlStore, replayScope),
+    closureContract,
+    runtimeBasis("correlation://t286/r9/route-selection-control"),
+  );
+  const unrelatedRouteClosure = abg.admitClosure(
+    unrelatedRouteStore,
+    cCall,
+    result,
+    judgment,
+    route,
+    abg.replay(unrelatedRouteStore, replayScope),
+    closureContract,
+    runtimeBasis("correlation://t286/r9/route-selection-counterexample"),
+  );
+  assert.equal(controlClosure.kind, "closure_admission");
+  assert.equal(unrelatedRouteClosure.kind, "closure_admission");
+  assert.equal(controlClosure.routeRef, route.routeRef);
+  assert.equal(unrelatedRouteClosure.routeRef, route.routeRef);
   const closure = abg.admitClosure(
     store,
     cCall,

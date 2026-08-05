@@ -654,8 +654,7 @@ async function selectConsensusThroughOneSurface(
   start.payload = {
     installInvocationRef: scenario.refs.install,
     workspaceBindingInvocationRef: scenario.refs.bind,
-    catalogViewInvocationRef: scenario.refs.view,
-    catalogApplicationInvocationRefs: scenario.refs.applications,
+    catalogBasis: scenario.transcript.at(-1).payload.catalogBasis,
     programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
     actorRef: scenario.transcript[3].payload.authorizedActorRef,
     input: observation,
@@ -886,7 +885,15 @@ for (const workspace of workspaceApplications) {
     assert.equal(
       run.exitCode,
       0,
-      `${JSON.stringify(run.outcomes.at(-1))}\n${run.stderr}\n${JSON.stringify(diagnosticSummary(events))}\n${JSON.stringify(diagnosticTail(events))}`,
+      JSON.stringify({
+        outcome: {
+          diagnosticRef: run.outcomes.at(-1)?.diagnosticRef,
+          disposition: run.outcomes.at(-1)?.disposition,
+        },
+        stderr: run.stderr,
+        diagnosticSummary: diagnosticSummary(events),
+        diagnosticTail: diagnosticTail(events),
+      }),
     );
     let outcome = run.outcomes.at(-1);
     let childResultEvent;
@@ -1002,7 +1009,14 @@ for (const workspace of workspaceApplications) {
       const substitutedSemanticsAuthority = structuredClone(
         outcome.projectionAuthority,
       );
-      substitutedSemanticsAuthority.productSemanticsBinding.modulePath =
+      const semanticsPublication =
+        substitutedSemanticsAuthority.publications.find(
+          (publication) =>
+            publication.productSemanticsBinding?.bindingRef ===
+              basis.gtl.CONSENSUS_IDS.productSemanticsBindingRef,
+        );
+      assert.ok(semanticsPublication);
+      semanticsPublication.productSemanticsBinding.modulePath =
         "build/code/src/product/forged_semantics.js";
       const {
         authorityDigest: _semanticsAuthorityDigest,
@@ -1030,8 +1044,8 @@ for (const workspace of workspaceApplications) {
       const substitutedCatalogAuthority = structuredClone(
         outcome.projectionAuthority,
       );
-      substitutedCatalogAuthority.catalogAdmissionEventRef =
-        `${substitutedCatalogAuthority.catalogAdmissionEventRef}/substituted`;
+      substitutedCatalogAuthority.catalogBasisDigest =
+        `sha256:${"0".repeat(64)}`;
       const {
         authorityDigest: _catalogAuthorityDigest,
         ...substitutedCatalogAuthorityBody
@@ -1053,7 +1067,7 @@ for (const workspace of workspaceApplications) {
       assert.equal(
         (await eventsAt(installed.eventLogPath)).length,
         eventCountBeforeRead,
-        "substituted catalog admission reference must append no runtime truth",
+        "substituted catalog basis digest must append no runtime truth",
       );
       const refusedUnknownRead = await readRunProjection(
         harness,
@@ -1476,8 +1490,7 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
   start.payload = {
     installInvocationRef: scenario.refs.install,
     workspaceBindingInvocationRef: scenario.refs.bind,
-    catalogViewInvocationRef: scenario.refs.view,
-    catalogApplicationInvocationRefs: scenario.refs.applications,
+    catalogBasis: scenario.transcript.at(-1).payload.catalogBasis,
     programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
     actorRef: "actor://abiogenesis/t276/trusted-developer",
     input: observation,

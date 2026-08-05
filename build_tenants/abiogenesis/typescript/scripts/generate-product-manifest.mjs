@@ -402,9 +402,9 @@ const rows = [
     ),
   },
   {
-    contractId: "abg.contract.abg.catalog-root-admission",
+    contractId: "abg.contract.hog.graph-function-catalog",
     contractVersion: "5.0.0",
-    contractDigest: nativeContractDigest(abgNativeInventory),
+    contractDigest: nativeContractDigest(nativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
@@ -412,8 +412,8 @@ const rows = [
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-051A",
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-053",
     ],
-    capabilityIdentities: ["abg.capability.catalog.admit-root@5"],
-    nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "admitCatalog"),
+    capabilityIdentities: ["abg.capability.catalog.index-graph-function@5"],
+    nativeTypedLocator: nativeTypedLocator(nativeInventory, "buildGraphFunctionCatalog"),
   },
   {
     contractId: "abg.contract.product.invocation-root",

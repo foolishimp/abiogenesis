@@ -15,6 +15,7 @@ export interface InstalledLeafInvocationAuthority {
   readonly install: LeafInvocationInstall;
   readonly publication: Readonly<ModulePublication>;
   readonly semanticsProjection: InstalledLeafSemanticsProjection;
+  readonly verifyInstallAuthority?: (install: LeafInvocationInstall) => boolean;
 }
 
 export async function bindInstalledLeafInvocationPort(

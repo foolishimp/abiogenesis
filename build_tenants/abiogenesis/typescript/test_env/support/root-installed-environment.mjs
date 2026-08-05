@@ -199,43 +199,13 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
   assert.equal(publicationValidation.kind, "publication_validation", JSON.stringify(publicationValidation));
   assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
   assert.equal(programValidations.every((value) => value.kind === "program_validation"), true);
-  const catalogCandidate = product.constructCatalogAdmissionCandidate(
-    workspaceBinding,
-    lock,
-    publicationAdmission.value,
-    publicationValidation,
-    programValidations,
-  );
-  const catalog = abg.admitCatalog(
-    store,
-    catalogCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.catalog.admit",
-      workspaceBinding.bindingId,
-      workspaceBinding.bindingDigest,
-      "invocation://t286/root/catalog-admit",
-      [workspaceBinding.admissionEventRef],
-    ),
-  );
-  const viewCandidate = product.constructCatalogViewCandidate(
+  const catalog = product.buildGraphFunctionCatalog([publication]);
+  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
+  const catalogView = product.narrowGraphFunctionCatalog(
     catalog,
     [gtl.HELLO_WORLD_IDS.graphFunctionRef],
   );
-  const catalogView = abg.narrowCatalogView(
-    store,
-    catalog,
-    viewCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.catalog.view",
-      catalog.catalogId,
-      catalog.catalogDigest,
-      "invocation://t286/root/catalog-view",
-      [catalog.admissionEventRef],
-    ),
-  );
-  assert.equal(catalogView.kind, "catalog_view", JSON.stringify(catalogView));
+  assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
 
   return {
     scratch,
@@ -252,10 +222,12 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     validator,
     store,
     verified,
+    installCandidate,
     admittedInstall,
     lock,
     productSet,
     workspaceAuthority,
+    bindingCandidate,
     workspaceBinding,
     publication,
     publicationAdmission,
@@ -356,7 +328,7 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
       invocation.invocationRef,
-      [catalogView.admissionEventRef],
+      [workspaceBinding.admissionEventRef],
     ),
   );
   assert.equal(invocationAdmission.kind, "invocation_admission", JSON.stringify(invocationAdmission));

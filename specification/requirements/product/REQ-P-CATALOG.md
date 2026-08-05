@@ -10,13 +10,19 @@
 
 ## Purpose
 
-Abiogenesis admits immutable product contributions into one ABG-owned catalog.
+Abiogenesis constructs one immutable Product-owned catalog from an explicit
+readiness basis.
 Publishing a catalog product supplies declarations and policy; it does not give
 the publisher runtime, traversal, event, continuation, or closure authority.
 
 This family defines the product descriptor, contribution, dependency, lock,
 provenance, conflict, visibility, callability, and session-allowlist contract
 required by the ABG 5.0 product line.
+
+**Authority boundary**: Product owns pure, eventless readiness validation,
+catalog construction, narrowing, and declaration application. ABG owns the
+runtime invocation and workspace-transformation facts that consume those
+values, plus Event Calculus, replay, continuation, and closure truth.
 
 ## Catalog Product Identity
 
@@ -80,9 +86,9 @@ against ABG truth and record its exact use in the owning invocation event.
 **REQ-P-CATALOG-009**: A contribution manifest shall not republish generic ABG
 catalog truth as product-owned content. A publisher may publish its own domain
 vocabulary, overlays, policy, schemas, and specialization-owned GraphFunctions;
-HoG owns direct traversal. ABG owns admission, readiness, selection truth,
-GraphCall, replay, and
-closure.
+HoG owns direct traversal. Product owns catalog readiness and construction.
+ABG owns invocation selection facts, GraphCall, workspace transformation,
+replay, and closure.
 
 **REQ-P-CATALOG-009A**: The ABIogenesis product may publish SYSTEM-owned reusable
 GraphFunctions in its own native catalog when PRODUCT names them as product
@@ -117,7 +123,7 @@ supersession lifecycle behavior.
 
 ## Admission, Provenance, And Conflicts
 
-**REQ-P-CATALOG-014**: Catalog admission shall verify coherence among the
+**REQ-P-CATALOG-014**: Pure catalog readiness validation shall verify coherence among the
 workspace lock, installed artifact identity, product descriptor, contribution
 manifest, declared dependencies, and compatibility results before any
 contribution becomes ready or callable.
@@ -204,12 +210,13 @@ bind respectively to `abg.operation.product.resolve`,
 lifecycle mutation and registry-entry lifecycle are outside this family until
 separately admitted.
 
-**REQ-P-CATALOG-029**: Public catalog admission shall consume one exact
+**REQ-P-CATALOG-029**: Public catalog readiness construction shall consume one exact
 workspace binding, resolved lock, verified product descriptors, and verified
-contribution manifests and shall produce one admitted catalog identity plus a
+contribution manifests and shall produce one immutable catalog identity plus a
 typed disposition for every submitted row. Binding shall not imply admission,
-and admission shall not imply session visibility, eligibility, callability, or
-invocation. This is the `abg.operation.catalog.admit` definition; no catalog
+and catalog construction shall not imply runtime admission, session visibility,
+eligibility, callability, or invocation. This is the pure, eventless
+`abg.operation.catalog.admit` definition; no catalog
 store method or adapter path may publish a second admission operation identity.
 
 **REQ-P-CATALOG-030**: ABIogenesis 5.0 shall publish typed non-callable

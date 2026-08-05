@@ -21,14 +21,14 @@ import {
   completeRejectedCCall,
   deriveProbabilisticTransportEvidence,
   deriveSubTraversalEvidence,
+  hasCurrentDeferredApplicationAuthority,
   openCCall,
   openInteractionCCall,
   projectAdmittedLeafCCallOutcome,
+  projectCurrentDeferredApplication,
   projectedCCallResultValue,
   projectRetryEligibility,
   replay,
-  replayValidatedRuntimeEventPrefix,
-  selectValidatedRuntimeEventPrefix,
   traversalCursorAdmissionEventRef,
   type AbgEventStore,
   type ActorRuntimeBinding,
@@ -2157,23 +2157,28 @@ function reconstructDeferredApplicationState(
 function applicationReadyCompletion(
   state: DeferredApplicationState,
 ): ExecutableTraversalCompletion | null {
-  const events = state.input.store.readAll();
-  const judgmentIndex = events.findIndex(
-    (event) => event.eventId === state.judgment.admissionEventRef,
-  );
-  if (judgmentIndex < 0) return null;
-  const admittedPrefix = Object.freeze(events.slice(0, judgmentIndex + 1));
-  const prefix = selectValidatedRuntimeEventPrefix(admittedPrefix, {
+  if (!hasCurrentDeferredApplicationAuthority(state.input.store, {
     runId: state.cCall.runId,
+    frameId: state.cCall.frameId,
+    sourceCursorRef: state.input.traversalStop.cursor.cursorRef,
+    judgmentRef: state.judgment.judgmentRef,
+  })) {
+    return null;
+  }
+  const projected = projectCurrentDeferredApplication(state.input.store, {
+    runId: state.cCall.runId,
+    cCallRef: state.cCall.cCallRef,
+    resultRef: state.result.resultRef,
+    judgmentRef: state.judgment.judgmentRef,
   });
-  return completion(
+  return projected === null ? null : completion(
     "application_ready",
-    replayValidatedRuntimeEventPrefix(prefix),
+    projected.replayState,
     {
-      cCallRef: state.cCall.cCallRef,
-      resultRef: state.result.resultRef,
-      judgmentRef: state.judgment.judgmentRef,
-      resultValue: state.result.value,
+      cCallRef: projected.cCallRef,
+      resultRef: projected.resultRef,
+      judgmentRef: projected.judgmentRef,
+      resultValue: projected.resultValue,
     },
   );
 }

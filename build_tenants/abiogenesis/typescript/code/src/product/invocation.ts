@@ -8,7 +8,7 @@ import {
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import type { CatalogApplication, CatalogView } from "./catalog.js";
+import type { DeclarationApplication, GraphFunctionCatalogView } from "./catalog.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { WorkspaceBinding } from "./environment.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -70,7 +70,7 @@ export interface InvocationAuthority {
   readonly operationId: "abg.operation.run.invoke";
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
-  readonly catalogViewId: string;
+  readonly catalogBasisDigest: string;
   readonly catalogViewDigest: Sha256Digest;
   readonly programRef: string;
   readonly graphFunctionRef: string;
@@ -91,7 +91,7 @@ export interface PublicInvocationCandidate {
   readonly publicFunctionDefinitionDigest: Sha256Digest;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
-  readonly catalogViewId: string;
+  readonly catalogBasisDigest: string;
   readonly catalogViewDigest: Sha256Digest;
   readonly programRef: string;
   readonly programDigest: Sha256Digest;
@@ -168,7 +168,7 @@ export function constructRootInvocationPolicy(
   program: Readonly<GtlProgram>,
   interactionCapabilities: readonly InvocationInteractionCapability[],
   allowedComputeRegimes: readonly ComputeRegime[] = ["F_D"],
-  catalogApplications: readonly CatalogApplication[] = [],
+  catalogApplications: readonly DeclarationApplication[] = [],
 ): InvocationPolicyBasis {
   const canonicalOrder: readonly ComputeRegime[] = ["F_D", "F_P", "F_H"];
   const canonicalRegimes = canonicalOrder.filter((regime) =>
@@ -178,7 +178,7 @@ export function constructRootInvocationPolicy(
     left.requirementKey.localeCompare(right.requirementKey)
   );
   const canonicalApplications = [...catalogApplications].sort((left, right) =>
-    left.applicationId.localeCompare(right.applicationId)
+    left.applicationRef.localeCompare(right.applicationRef)
   );
   if (
     canonicalRegimes.length === 0 ||
@@ -198,7 +198,7 @@ export function constructRootInvocationPolicy(
         row.requirementKeyDigest.length === 0 ||
         row.actorCapabilityRef.length === 0,
     ) ||
-    new Set(canonicalApplications.map((row) => row.applicationId)).size !==
+    new Set(canonicalApplications.map((row) => row.applicationRef)).size !==
       canonicalApplications.length
   ) {
     throw new TypeError(
@@ -217,7 +217,7 @@ export function constructRootInvocationPolicy(
     allowedComputeRegimes: canonicalRegimes,
     interactionCapabilities: canonicalInteractions,
     catalogApplicationRefs: canonicalApplications.map(
-      (application) => application.applicationId,
+      (application) => application.applicationRef,
     ),
     catalogApplicationDigests: canonicalApplications.map(
       (application) => application.applicationDigest,
@@ -332,7 +332,7 @@ export function constructCapabilityGrant(
 export function constructInvocationAuthority(
   actorRef: string,
   workspaceBinding: WorkspaceBinding,
-  catalogView: CatalogView,
+  catalogView: GraphFunctionCatalogView,
   programRef: string,
   graphFunctionRef: string,
   policy: InvocationPolicyBasis,
@@ -365,7 +365,7 @@ export function constructInvocationAuthority(
     operationId: "abg.operation.run.invoke" as const,
     workspaceBindingId: workspaceBinding.bindingId,
     workspaceBindingDigest: workspaceBinding.bindingDigest,
-    catalogViewId: catalogView.viewId,
+    catalogBasisDigest: catalogView.catalogBasisDigest,
     catalogViewDigest: catalogView.viewDigest,
     programRef,
     graphFunctionRef,
@@ -388,7 +388,7 @@ export function constructInvocationAuthority(
 function constructInvocation(
   variant: RunInvocationVariant,
   workspaceBinding: WorkspaceBinding,
-  catalogView: CatalogView,
+  catalogView: GraphFunctionCatalogView,
   program: Readonly<GtlProgram>,
   graphFunction: Readonly<GraphFunction>,
   rawRequest: RawAdmittedValue<unknown>,
@@ -416,7 +416,7 @@ function constructInvocation(
     !isInvocationAuthority(authority) ||
     authority.workspaceBindingId !== workspaceBinding.bindingId ||
     authority.workspaceBindingDigest !== workspaceBinding.bindingDigest ||
-    authority.catalogViewId !== catalogView.viewId ||
+    authority.catalogBasisDigest !== catalogView.catalogBasisDigest ||
     authority.catalogViewDigest !== catalogView.viewDigest ||
     authority.programRef !== program.programRef ||
     authority.graphFunctionRef !== graphFunction.name ||
@@ -467,7 +467,7 @@ function constructInvocation(
     publicFunctionDefinitionDigest,
     workspaceBindingId: workspaceBinding.bindingId,
     workspaceBindingDigest: workspaceBinding.bindingDigest,
-    catalogViewId: catalogView.viewId,
+    catalogBasisDigest: catalogView.catalogBasisDigest,
     catalogViewDigest: catalogView.viewDigest,
     programRef: program.programRef,
     programDigest: sha256Canonical(program as unknown as JsonValue),
@@ -503,7 +503,7 @@ function constructInvocation(
 
 export function constructDirectInvocation(
   workspaceBinding: WorkspaceBinding,
-  catalogView: CatalogView,
+  catalogView: GraphFunctionCatalogView,
   program: Readonly<GtlProgram>,
   graphFunction: Readonly<GraphFunction>,
   rawRequest: RawAdmittedValue<unknown>,
@@ -528,7 +528,7 @@ export function constructDirectInvocation(
 
 export function constructStartInvocation(
   workspaceBinding: WorkspaceBinding,
-  catalogView: CatalogView,
+  catalogView: GraphFunctionCatalogView,
   program: Readonly<GtlProgram>,
   graphFunction: Readonly<GraphFunction>,
   rawRequest: RawAdmittedValue<unknown>,

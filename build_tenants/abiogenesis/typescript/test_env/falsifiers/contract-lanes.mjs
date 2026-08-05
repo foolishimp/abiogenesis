@@ -300,51 +300,10 @@ function constructRuntimeBaseline(environment, label, allowlist) {
     "workspace_binding",
     JSON.stringify(workspaceBinding),
   );
-  const catalogCandidate = product.constructCatalogAdmissionCandidate(
-    workspaceBinding,
-    environment.lock,
-    environment.publication,
-    environment.publicationValidation,
-    environment.programValidations,
-  );
-  assert.equal(
-    catalogCandidate.kind,
-    "catalog_admission_candidate",
-    JSON.stringify(catalogCandidate),
-  );
-  const catalog = abg.admitCatalog(
-    store,
-    catalogCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.catalog.admit",
-      workspaceBinding.bindingId,
-      workspaceBinding.bindingDigest,
-      `invocation://increment-0a/${label}/catalog-admit`,
-      [workspaceBinding.admissionEventRef],
-    ),
-  );
-  assert.equal(catalog.kind, "admitted_catalog", JSON.stringify(catalog));
-  const viewCandidate = product.constructCatalogViewCandidate(catalog, allowlist);
-  assert.equal(
-    viewCandidate.kind,
-    "catalog_view_candidate",
-    JSON.stringify(viewCandidate),
-  );
-  const catalogView = abg.narrowCatalogView(
-    store,
-    catalog,
-    viewCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.catalog.view",
-      catalog.catalogId,
-      catalog.catalogDigest,
-      `invocation://increment-0a/${label}/catalog-view`,
-      [catalog.admissionEventRef],
-    ),
-  );
-  assert.equal(catalogView.kind, "catalog_view", JSON.stringify(catalogView));
+  const catalog = product.buildGraphFunctionCatalog([environment.publication]);
+  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
+  const catalogView = product.narrowGraphFunctionCatalog(catalog, allowlist);
+  assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
   return {
     store,
     admittedInstall,
@@ -470,7 +429,7 @@ async function openRuntimePrefix({
       baseline.workspaceBinding.bindingId,
       baseline.workspaceBinding.bindingDigest,
       invocation.invocationRef,
-      [baseline.catalogView.admissionEventRef],
+      [baseline.workspaceBinding.admissionEventRef],
     ),
   );
   assert.equal(

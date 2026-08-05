@@ -79,10 +79,6 @@ function rootOperationState(
   return state;
 }
 
-type RunProjectionProductBasis = abg.AdmittedProductSemanticsBasis & Readonly<{
-  workspaceId: string;
-}>;
-
 class ApplicationRefusal extends Error {
   constructor(
     readonly code:
@@ -135,7 +131,6 @@ export function createRootOperationContext(): RootOperationContext {
 }
 
 export function closeRootOperationContext(context: RootOperationContext): void {
-  abg.releaseCatalogApplicationScope(context.store);
   context.store.closeDurableLog();
   context.pendingReopenAuthority = null;
   rootOperationStates.delete(context);
@@ -144,7 +139,6 @@ export function closeRootOperationContext(context: RootOperationContext): void {
 function closeAndRememberDurableContext(
   context: RootOperationContext,
 ): abg.EventStoreReopenAuthority {
-  abg.releaseCatalogApplicationScope(context.store);
   const authority = context.store.projectReopenAuthorityAndClose();
   context.pendingReopenAuthority = authority;
   return authority;
@@ -174,6 +168,20 @@ function usesDurableContinuationAuthority(
     operationId === "abg.operation.interaction.respond" ||
     operationId === "abg.operation.run.continue"
   );
+}
+
+function isPureCatalogRequest(
+  operationId: RootPublicInvocation["operationId"],
+): boolean {
+  return operationId === "abg.operation.catalog.admit" ||
+    operationId === "abg.operation.catalog.view" ||
+    operationId === "abg.operation.catalog.apply";
+}
+
+function isRuntimeIngress(
+  operationId: RootPublicInvocation["operationId"],
+): boolean {
+  return operationId === "abg.operation.run.invoke";
 }
 
 function isCoreRunProjectionVariant(variant: string): boolean {
@@ -225,6 +233,115 @@ function recordArrayField(
     throw new ApplicationRefusal("invalid_request", `payload.${key} must be an explicit object array`);
   }
   return value as readonly Readonly<Record<string, product.JsonValue>>[];
+}
+
+interface ReconstructedCatalogBasis {
+  readonly publications: readonly Readonly<ModulePublication>[];
+  readonly catalog: product.ReadyGraphFunctionCatalog;
+  readonly view: product.GraphFunctionCatalogView;
+  readonly applications: readonly product.DeclarationApplication[];
+}
+
+function publicationForProgram(
+  publications: readonly Readonly<ModulePublication>[],
+  programRef: string,
+): Readonly<ModulePublication> {
+  const matches = publications.filter((publication) =>
+    publication.programs.some((program) => program.programRef === programRef)
+  );
+  if (matches.length !== 1) {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      "durable authority does not carry one exact publication for its Program",
+    );
+  }
+  return matches[0]!;
+}
+
+type RunProjectionProductBasis = Readonly<{
+  install: product.ProductInstall;
+  workspaceId: string;
+  workspaceBindingId: string;
+  workspaceBindingDigest: product.Sha256Digest;
+  catalogBasisDigest: product.Sha256Digest;
+  catalogReadinessBasis: product.CatalogReadinessBasis;
+  catalogViewDigest: product.Sha256Digest;
+  publicationDigests: readonly product.Sha256Digest[];
+  publications: readonly Readonly<ModulePublication>[];
+}>;
+
+function reconstructCatalogBasis(
+  payload: Readonly<Record<string, product.JsonValue>>,
+  applicationsDisposition: "empty" | "exact",
+): ReconstructedCatalogBasis {
+  const basis = recordField(payload, "catalogBasis");
+  requireExactPayloadKeys(
+    basis,
+    ["applications", "allowlist", "readinessBasis"],
+    "catalogBasis",
+  );
+  const readinessBasis = recordField(basis, "readinessBasis") as unknown as
+    product.CatalogReadinessBasis;
+  const catalog = product.admitGraphFunctionCatalog(readinessBasis);
+  if (catalog.kind !== "graph_function_catalog") {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      `catalogBasis catalog construction refused: ${catalog.message}`,
+    );
+  }
+  const publications = catalog.readinessBasis.publications;
+  const view = product.narrowGraphFunctionCatalog(
+    catalog,
+    stringArrayField(basis, "allowlist"),
+  );
+  if (view.kind !== "graph_function_catalog_view") {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      `catalogBasis view construction refused: ${view.message}`,
+    );
+  }
+  const suppliedApplications = recordArrayField(
+    basis,
+    "applications",
+  ) as unknown as readonly product.DeclarationApplication[];
+  if (applicationsDisposition === "empty" && suppliedApplications.length !== 0) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      "catalog view construction requires an empty applications array",
+    );
+  }
+  const applications = suppliedApplications.map((application) => {
+    if (
+      application.kind !== "declaration_application" ||
+      application.catalogBasisDigest !== catalog.basisDigest ||
+      application.viewDigest !== view.viewDigest
+    ) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "catalogBasis application differs from its exact catalog view",
+      );
+    }
+    const reconstructed = product.applyCatalogDeclaration(view, {
+      applicationKind: application.declaration.declarationKind,
+      handle: application.declaration.handle,
+      targetRef: application.targetRef,
+      targetDigest: application.targetDigest,
+      appliedValueRef: application.appliedValueRef,
+      appliedValueDigest: application.appliedValueDigest,
+    });
+    if (
+      reconstructed.kind !== "declaration_application" ||
+      product.sha256Canonical(reconstructed as unknown as product.JsonValue) !==
+        product.sha256Canonical(application as unknown as product.JsonValue)
+    ) {
+      throw new ApplicationRefusal(
+        "target_mismatch",
+        "catalogBasis application is not the exact Product reconstruction",
+      );
+    }
+    return reconstructed;
+  });
+  return { publications, catalog, view, applications };
 }
 
 function isJsonRecord(
@@ -357,7 +474,7 @@ function successOutcome(
     readonly eventLogByteLength?: number;
     readonly durableEventCount?: number;
     readonly continuationRef?: string;
-    readonly continuationStatus?: "open" | "responded" | "resolved";
+    readonly continuationStatus?: "abandoned" | "open" | "responded" | "resolved" | "superseded";
   } = {},
 ): PublicOutcome {
   const body = {
@@ -410,7 +527,7 @@ function refusalOutcome(
     readonly eventLogByteLength?: number;
     readonly durableEventCount?: number;
     readonly continuationRef?: string;
-    readonly continuationStatus?: "open" | "responded" | "resolved";
+    readonly continuationStatus?: "abandoned" | "open" | "responded" | "resolved" | "superseded";
     readonly resultKind?:
       | "catalog_admission_refusal"
       | "product_resolution_refusal";
@@ -791,7 +908,7 @@ async function applyWorkspaceBind(
       requiredCapabilityRefs: edge.requiredCapabilityRefs,
     })),
     admissionEventRef: binding.admissionEventRef,
-  });
+  } as unknown as product.JsonValue);
 }
 
 async function applyCatalogAdmit(
@@ -801,111 +918,61 @@ async function applyCatalogAdmit(
   if (invocation.variant !== "module_publication") {
     throw new ApplicationRefusal("invalid_request", "catalog.admit requires variant module_publication");
   }
-  requireExactPayloadKeys(invocation.payload, [
-    "publication",
-    "verifiedInvocationRef",
-    "workspaceBindingInvocationRef",
-  ], "catalog.admit");
-  const verifiedState = required(
-    rootOperationState(context).verified(
-      stringField(invocation.payload, "verifiedInvocationRef"),
-    ),
-    stringField(invocation.payload, "verifiedInvocationRef"),
-    "verified Product",
-  );
-  const workspaceState = required(
-    rootOperationState(context).workspace(
-      stringField(invocation.payload, "workspaceBindingInvocationRef"),
-    ),
-    stringField(invocation.payload, "workspaceBindingInvocationRef"),
-    "WorkspaceBinding",
-  );
-  const publicationValue = recordField(invocation.payload, "publication");
-  const publication = publicationValue as unknown as Readonly<ModulePublication>;
-  if (
-    publication.owningProductId !== verifiedState.verified.productId ||
-    publication.artifactDigest !== verifiedState.verified.artifactDigest ||
-    publication.productContentDigest !== verifiedState.verified.productContentDigest ||
-    publication.productManifestDigest !== verifiedState.verified.manifestDigest
-  ) {
+  requireExactPayloadKeys(invocation.payload, ["readinessBasis"], "catalog.admit");
+  const readinessBasis = recordField(
+    invocation.payload,
+    "readinessBasis",
+  ) as unknown as product.CatalogReadinessBasis;
+  for (const publication of readinessBasis.publications ?? []) {
+    const publicationAdmission = rawAdmission<ModulePublication>(
+      publication,
+      "module_publication",
+      "contract://abiogenesis/gtl/module-publication@5",
+    );
+    const contributionAdmissions = publication.contributions.map((value) =>
+      rawAdmission<CatalogContribution>(
+        value,
+        "catalog_contribution",
+        "contract://abiogenesis/gtl/catalog-contribution@5",
+      ));
+    const publicationValidation = validator.validatePublication(
+      publicationAdmission,
+      contributionAdmissions,
+    );
+    if (publicationValidation.kind !== "publication_validation") {
+      throw new ApplicationRefusal("owner_refusal", `Publication validation refused: ${JSON.stringify(publicationValidation)}`);
+    }
+    const invalidProgram = publication.programs
+      .map((program) => validator.validateProgram(
+        rawProgramInput(publicationAdmission, program),
+      ))
+      .find((validation) => validation.kind !== "program_validation");
+    if (invalidProgram !== undefined) {
+      throw new ApplicationRefusal("owner_refusal", `Program validation refused: ${JSON.stringify(invalidProgram)}`);
+    }
+  }
+  const catalog = product.admitGraphFunctionCatalog(readinessBasis);
+  if (catalog.kind !== "graph_function_catalog") {
     throw new ApplicationRefusal(
-      "target_mismatch",
-      "catalog.admit publication differs from the exact verified Product basis",
+      "owner_refusal",
+      `Catalog construction refused: ${catalog.message}`,
     );
   }
-  const publicationAdmission = rawAdmission<ModulePublication>(
-    publication,
-    "module_publication",
-    "contract://abiogenesis/gtl/module-publication@5",
-  );
-  const contributionAdmissions = publication.contributions.map((value) => rawAdmission<CatalogContribution>(
-    value,
-    "catalog_contribution",
-    "contract://abiogenesis/gtl/catalog-contribution@5",
-  ));
-  const publicationValidation = validator.validatePublication(
-    publicationAdmission,
-    contributionAdmissions,
-  );
-  if (publicationValidation.kind !== "publication_validation") {
-    throw new ApplicationRefusal("owner_refusal", `Publication validation refused: ${JSON.stringify(publicationValidation)}`);
-  }
-  const programValidations = publication.programs.map((program) =>
-    validator.validateProgram(rawProgramInput(publicationAdmission, program)));
-  const invalidProgram = programValidations.find(
-    (programValidation) => programValidation.kind !== "program_validation",
-  );
-  if (invalidProgram !== undefined) {
-    throw new ApplicationRefusal("owner_refusal", `Program validation refused: ${JSON.stringify(invalidProgram)}`);
-  }
-  const candidate = product.constructCatalogAdmissionCandidate(
-    workspaceState.binding,
-    workspaceState.lock,
-    publication,
-    publicationValidation,
-    programValidations as readonly validator.ProgramValidation[],
-  );
-  if (candidate.kind !== "catalog_admission_candidate") {
-    if (candidate.code === "unresolved_readiness_prerequisite") {
-      return refusalOutcome(
-        invocation,
-        "unready",
-        `Catalog construction refused: ${candidate.message}`,
-        {
-          resultKind: "catalog_admission_refusal",
-          resultDisposition: "unready",
-        },
-      );
-    }
-    throw new ApplicationRefusal("owner_refusal", `Catalog construction refused: ${candidate.message}`);
-  }
-  const catalog = abg.admitCatalog(
-    context.store,
-    candidate,
-    operationBasis(
-      invocation,
-      workspaceState.binding.bindingId,
-      workspaceState.binding.bindingDigest,
-      [workspaceState.binding.admissionEventRef],
-    ),
-  );
-  if (catalog.kind !== "admitted_catalog") {
-    throw new ApplicationRefusal("owner_refusal", `Catalog admission refused: ${catalog.message}`);
-  }
-  rootOperationState(context).rememberCatalog(invocation.invocationRef, {
-    workspaceState,
-    publication,
-    publicationValidation,
-    programValidations: programValidations as readonly validator.ProgramValidation[],
-    catalog,
-  });
   return successOutcome(invocation, {
     kind: catalog.kind,
-    catalogId: catalog.catalogId,
-    catalogDigest: catalog.catalogDigest,
-    admittedRows: catalog.rows.length,
-    admissionEventRef: catalog.admissionEventRef,
-  });
+    catalogBasisDigest: catalog.basisDigest,
+    readinessBasisDigest: catalog.readinessBasisDigest,
+    workspaceBindingId: catalog.workspaceBindingId,
+    workspaceBindingDigest: catalog.workspaceBindingDigest,
+    lockId: catalog.lockId,
+    lockDigest: catalog.lockDigest,
+    productSetId: catalog.productSetId,
+    productSetDigest: catalog.productSetDigest,
+    publicationDigests: catalog.publicationDigests,
+    rowDispositions: catalog.rowDispositions,
+    graphFunctionEntries: catalog.entries,
+    declarationEntries: catalog.declarationEntries,
+  } as unknown as product.JsonValue);
 }
 
 async function applyCatalogView(
@@ -915,49 +982,16 @@ async function applyCatalogView(
   if (invocation.variant !== "allowlist") {
     throw new ApplicationRefusal("invalid_request", "catalog.view requires variant allowlist");
   }
-  requireExactPayloadKeys(invocation.payload, [
-    "allowlist",
-    "catalogInvocationRef",
-  ], "catalog.view");
-  const catalogState = required(
-    rootOperationState(context).catalog(
-      stringField(invocation.payload, "catalogInvocationRef"),
-    ),
-    stringField(invocation.payload, "catalogInvocationRef"),
-    "AdmittedCatalog",
-  );
-  const candidate = product.constructCatalogViewCandidate(
-    catalogState.catalog,
-    stringArrayField(invocation.payload, "allowlist"),
-  );
-  if (candidate.kind !== "catalog_view_candidate") {
-    throw new ApplicationRefusal("owner_refusal", `Catalog view construction refused: ${candidate.message}`);
-  }
-  const view = abg.narrowCatalogView(
-    context.store,
-    catalogState.catalog,
-    candidate,
-    operationBasis(
-      invocation,
-      catalogState.catalog.catalogId,
-      catalogState.catalog.catalogDigest,
-      [catalogState.catalog.admissionEventRef],
-    ),
-  );
-  if (view.kind !== "catalog_view") {
-    throw new ApplicationRefusal("owner_refusal", `Catalog view admission refused: ${view.message}`);
-  }
-  rootOperationState(context).rememberCatalogView(invocation.invocationRef, {
-    catalogState,
-    view,
-  });
+  requireExactPayloadKeys(invocation.payload, ["catalogBasis"], "catalog.view");
+  const { catalog, view } = reconstructCatalogBasis(invocation.payload, "empty");
   return successOutcome(invocation, {
     kind: view.kind,
-    viewId: view.viewId,
+    catalogBasisDigest: catalog.basisDigest,
     viewDigest: view.viewDigest,
     allowlist: view.allowlist,
-    admissionEventRef: view.admissionEventRef,
-  });
+    graphFunctionEntries: view.entries,
+    declarationEntries: view.declarationEntries,
+  } as unknown as product.JsonValue);
 }
 
 async function applyCatalogApplication(
@@ -971,151 +1005,117 @@ async function applyCatalogApplication(
     );
   }
   requireExactPayloadKeys(invocation.payload, [
-    "catalogViewInvocationRef",
+    "catalogBasis",
     "contributorRef",
     "handle",
-    "productInstallInvocationRef",
     ...(invocation.variant === "node_type" ? ["target"] : []),
     "value",
   ], "catalog.apply");
-  const viewInvocationRef = stringField(
-    invocation.payload,
-    "catalogViewInvocationRef",
+  const { catalog, publications, view } = reconstructCatalogBasis(invocation.payload, "empty");
+  const handle = stringField(invocation.payload, "handle");
+  const target = invocation.variant === "node_type"
+    ? recordField(invocation.payload, "target")
+    : { contributorRef: stringField(invocation.payload, "contributorRef") };
+  const value = recordField(invocation.payload, "value");
+  const declaration = view.declarationEntries.find((entry) => entry.handle === handle);
+  if (declaration === undefined) {
+    throw new ApplicationRefusal("target_mismatch", "catalog.apply handle is absent from its exact view");
+  }
+  const publication = publications.find(
+    (candidate) => candidate.owningProductId === declaration.owningProductId,
   );
-  const viewState = required(
-    rootOperationState(context).catalogView(viewInvocationRef),
-    viewInvocationRef,
-    "CatalogView",
+  if (publication === undefined) {
+    throw new ApplicationRefusal("target_mismatch", "catalog.apply row owner has no exact publication");
+  }
+  const installs = catalog.readinessBasis.installedProducts.filter(
+    (candidate) => candidate.productId === declaration.owningProductId,
   );
-  const installInvocationRef = stringField(
-    invocation.payload,
-    "productInstallInvocationRef",
-  );
-  const installState = required(
-    rootOperationState(context).install(installInvocationRef),
-    installInvocationRef,
-    "ProductInstall",
-  );
+  if (installs.length !== 1) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "catalog.apply row owner has no unique exact installed Product",
+    );
+  }
+  const install = installs[0]! as unknown as product.ProductInstall;
+  let resolvedValue: ReturnType<NonNullable<product.ProductSemanticsProvider["resolveCatalogApplicationValue"]>>;
+  try {
+    const semantics = await product.loadInstalledProductSemantics({
+      install,
+      publication,
+      verifyInstallAdmission: (candidate) =>
+        product.sha256Canonical(candidate as unknown as product.JsonValue) ===
+          product.sha256Canonical(install as unknown as product.JsonValue),
+    });
+    resolvedValue = semantics.resolveCatalogApplicationValue?.({
+      contractRef: declaration.declarationOrContractRef,
+      value,
+    }) ?? null;
+  } catch (error) {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `catalog.apply Product semantics resolution refused: ${String(error)}`,
+    );
+  }
   if (
-    installState.install.productId !==
-      viewState.catalogState.publication.owningProductId ||
-    !viewState.catalogState.workspaceState.productSet.orderedInstallRefs
-      .includes(installState.install.installId)
+    resolvedValue === null ||
+    product.sha256Canonical(resolvedValue.programMembershipRefs as unknown as product.JsonValue) !==
+      product.sha256Canonical(declaration.programMembershipRefs as unknown as product.JsonValue) ||
+    (
+      resolvedValue.productContributorAttestation !== undefined &&
+      resolvedValue.productContributorAttestation.contributorRef !==
+        stringField(invocation.payload, "contributorRef")
+    )
   ) {
     throw new ApplicationRefusal(
       "target_mismatch",
-      "catalog.apply Product semantics install differs from the row-owning admitted Product",
+      "catalog.apply value or contributor differs from Product-owned declaration semantics",
     );
   }
-  const handle = stringField(invocation.payload, "handle");
-  const rowMatch = resolveExactMatch(
-    viewState.view.selectedRows,
-    (candidate) => candidate.handle === handle,
-  );
-  if (rowMatch.kind !== "one") {
-    throw new ApplicationRefusal(
-      "target_mismatch",
-      rowMatch.kind === "absent"
-        ? "catalog.apply handle is absent from the admitted CatalogView"
-        : "catalog.apply handle is ambiguous in the admitted CatalogView",
-    );
+  if (
+    invocation.variant === "overlay" &&
+    resolvedValue.productContributorAttestation !== undefined &&
+    target.contributorRef !== resolvedValue.productContributorAttestation.contributorRef
+  ) {
+    throw new ApplicationRefusal("target_mismatch", "catalog.apply overlay target differs from Product contributor");
   }
-  const row = rowMatch.value;
-  if (row.kind === "graph_function") {
-    throw new ApplicationRefusal(
-      "owner_refusal",
-      "GraphFunction rows remain callable through run.invoke and cannot be applied",
-    );
+  if (
+    invocation.variant === "node_type" &&
+    (
+      target.kind !== "program" ||
+      typeof target.programRef !== "string" ||
+      !publication.programs.some((program) => program.programRef === target.programRef)
+    )
+  ) {
+    throw new ApplicationRefusal("target_mismatch", "catalog.apply node target is not a Program in the owning publication");
   }
-  const nodeTypeTarget = invocation.variant === "node_type"
-    ? recordField(invocation.payload, "target")
-    : null;
-  let candidate: product.CatalogApplicationCandidateResult;
-  try {
-    const semantics = await product.loadInstalledProductSemantics({
-      install: installState.install,
-      publication: viewState.catalogState.publication,
-      verifyInstallAdmission: (install) =>
-        abg.hasAdmittedProductInstall(context.store, install),
-    });
-    candidate = product.constructCatalogApplicationCandidate(
-      semantics,
-      {
-        catalog: viewState.catalogState.catalog,
-        view: viewState.view,
-        workspaceBinding: viewState.catalogState.workspaceState.binding,
-        lock: viewState.catalogState.workspaceState.lock,
-        handle,
-        applicationVariant: invocation.variant,
-        value: recordField(invocation.payload, "value"),
-        contributorRef: stringField(invocation.payload, "contributorRef"),
-        nodeTypeTarget,
-        candidateScope: abg.catalogApplicationCandidateScope(context.store),
-      },
-    );
-  } catch {
-    throw new ApplicationRefusal(
-      "target_mismatch",
-      "catalog.apply value cannot be validated by the exact installed Product",
-    );
-  }
-  if (candidate.kind !== "catalog_application_candidate") {
-    throw new ApplicationRefusal(
-      "owner_refusal",
-      `Catalog application construction refused: ${candidate.message}`,
-    );
-  }
-  const application = abg.admitCatalogApplication(
-    context.store,
-    viewState.view,
-    candidate,
-    operationBasis(
-      invocation,
-      viewState.view.viewId,
-      viewState.view.viewDigest,
-      [viewState.view.admissionEventRef],
-    ),
-  );
-  if (application.kind !== "catalog_application") {
-    throw new ApplicationRefusal(
-      "owner_refusal",
-      `Catalog application admission refused: ${application.message}`,
-    );
-  }
-  rootOperationState(context).rememberCatalogApplication(invocation.invocationRef, {
-    viewState,
-    application,
+  const targetDigest = product.sha256Canonical(target as product.JsonValue);
+  const valueDigest = product.sha256Canonical(value as product.JsonValue);
+  const application = product.applyCatalogDeclaration(view, {
+    applicationKind: invocation.variant,
+    handle,
+    targetRef: `catalog-target://abiogenesis/${targetDigest.slice("sha256:".length)}`,
+    targetDigest,
+    appliedValueRef: resolvedValue.valueRef,
+    appliedValueDigest: valueDigest,
   });
+  if (application.kind !== "declaration_application") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `Catalog application refused: ${application.message}`,
+    );
+  }
   return successOutcome(invocation, {
     kind: application.kind,
-    applicationId: application.applicationId,
+    applicationRef: application.applicationRef,
     applicationDigest: application.applicationDigest,
-    catalogId: application.catalogId,
-    viewId: application.viewId,
-    rowHandle: application.rowHandle,
-    rowDigest: application.rowDigest,
-    applicationVariant: application.applicationVariant,
-    validationReceiptRef: application.validationReceiptRef,
-    validationReceiptDigest: application.validationReceiptDigest,
-    appliedHandle: application.appliedHandle,
+    catalogBasisDigest: application.catalogBasisDigest,
+    viewDigest: application.viewDigest,
+    declaration: application.declaration,
+    targetRef: application.targetRef,
+    targetDigest: application.targetDigest,
     appliedValueRef: application.appliedValueRef,
     appliedValueDigest: application.appliedValueDigest,
-    contributorKind: application.contributorKind,
-    contributorRef: application.contributorRef,
-    contributorAuthorityKind: application.contributorAuthorityKind,
-    contributorAuthorityRef: application.contributorAuthorityRef,
-    contributorProvenanceRefs: application.contributorProvenanceRefs,
-    contributionKind: application.contributionKind,
-    declarationOrContractRef: application.declarationOrContractRef,
-    owningProductId: application.owningProductId,
-    moduleRef: application.moduleRef,
-    programMembershipRefs: application.programMembershipRefs,
-    nodeTypeTarget: application.nodeTypeTarget,
-    compatibilityDisposition: application.compatibilityDisposition,
-    compatibilityRefs: application.compatibilityRefs,
-    provenanceRefs: application.provenanceRefs,
-    admissionEventRef: application.admissionEventRef,
-  });
+  } as unknown as product.JsonValue);
 }
 
 async function applyRunInvoke(
@@ -1134,8 +1134,7 @@ async function applyRunInvoke(
     invocation.variant === "direct"
       ? [
           "actorRef",
-          "catalogApplicationInvocationRefs",
-          "catalogViewInvocationRef",
+          "catalogBasis",
           "eventLogPath",
           "graphFunctionRef",
           "input",
@@ -1147,8 +1146,7 @@ async function applyRunInvoke(
         ]
       : [
           "actorRef",
-          "catalogApplicationInvocationRefs",
-          "catalogViewInvocationRef",
+          "catalogBasis",
           "eventLogPath",
           "input",
           "installInvocationRef",
@@ -1218,9 +1216,7 @@ async function applyRunInvoke(
       stringField(invocation.payload, "installInvocationRef") !==
         reentryState.installInvocationRef ||
       stringField(invocation.payload, "workspaceBindingInvocationRef") !==
-        reentryState.workspaceBindingInvocationRef ||
-      stringField(invocation.payload, "catalogViewInvocationRef") !==
-        reentryState.catalogViewInvocationRef
+        reentryState.workspaceBindingInvocationRef
     )
   ) {
     throw new ApplicationRefusal(
@@ -1231,113 +1227,131 @@ async function applyRunInvoke(
   if (reentryState !== null) {
     reopenGapAuthority(context, reentryState);
   }
+  const reconstructedCatalog = reconstructCatalogBasis(
+    invocation.payload,
+    "exact",
+  );
+  if (
+    reentryState !== null &&
+    (
+      reentryState.catalog.basisDigest !==
+        reconstructedCatalog.catalog.basisDigest ||
+      reentryState.catalogView.viewDigest !==
+        reconstructedCatalog.view.viewDigest
+    )
+  ) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke catalogBasis differs from the durable gap authority",
+    );
+  }
+  const programRef = stringField(invocation.payload, "programRef");
+  const publicationMatches = reconstructedCatalog.publications.filter(
+    (publication) => publication.programs.some(
+      (program) => program.programRef === programRef,
+    ),
+  );
+  if (publicationMatches.length !== 1) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke program must belong to one exact catalogBasis publication",
+    );
+  }
+  const publication = publicationMatches[0]!;
+  const readinessBasis = reconstructedCatalog.catalog.readinessBasis;
+  const readinessInstallMatches = readinessBasis.installedProducts.filter(
+    (candidate) => candidate.productId === publication.owningProductId,
+  );
+  if (reentryState === null && readinessInstallMatches.length !== 1) {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      "run.invoke publication must resolve one exact ProductInstall from catalog readiness",
+    );
+  }
+  const readinessInstalls = readinessBasis.installedProducts as unknown as
+    readonly product.ProductInstall[];
+  const readinessProductSet = product.constructProductSet(
+    readinessInstalls,
+    readinessBasis.resolvedLock,
+  );
+  if (readinessProductSet.kind !== "product_set") {
+    throw new ApplicationRefusal(
+      "target_mismatch",
+      `run.invoke catalog readiness ProductSet refused: ${readinessProductSet.message}`,
+    );
+  }
   const installState = reentryState === null
-    ? required(
-        rootOperationState(context).install(
-          stringField(invocation.payload, "installInvocationRef"),
-        ),
-        stringField(invocation.payload, "installInvocationRef"),
-        "ProductInstall",
-      )
+    ? {
+        candidate: readinessInstallMatches[0]!,
+        install: abg.projectAdmittedProductInstall(
+          context.store,
+          readinessInstallMatches[0]!,
+        ) ?? readinessInstallMatches[0] as unknown as product.ProductInstall,
+      }
     : {
         candidate: { installedRoot: reentryState.install.installedRoot },
         install: reentryState.install,
       };
   const workspaceState = reentryState === null
-    ? required(
-        rootOperationState(context).workspace(
-          stringField(invocation.payload, "workspaceBindingInvocationRef"),
-        ),
-        stringField(invocation.payload, "workspaceBindingInvocationRef"),
-        "WorkspaceBinding",
-      )
+    ? {
+        lock: readinessBasis.resolvedLock,
+        productSet: readinessProductSet,
+        binding: abg.projectAdmittedWorkspaceBinding(
+          context.store,
+          readinessBasis.workspaceBinding,
+        ) ?? readinessBasis.workspaceBinding as unknown as product.WorkspaceBinding,
+      }
     : {
         lock: reentryState.resolvedProductLock,
         productSet: reentryState.productSet,
         binding: reentryState.workspaceBinding,
       };
-  const viewState = reentryState === null
-    ? required(
-        rootOperationState(context).catalogView(
-          stringField(invocation.payload, "catalogViewInvocationRef"),
-        ),
-        stringField(invocation.payload, "catalogViewInvocationRef"),
-        "CatalogView",
-      )
-    : {
-        catalogState: {
-          publication: reentryState.catalog.modulePublication,
-          programValidations: reentryState.catalog.programValidations,
-          catalog: reentryState.catalog,
-        },
-        view: reentryState.catalogView,
-      };
-  const catalogApplicationInvocationRefs =
-    invocation.payload.catalogApplicationInvocationRefs === undefined
-      ? []
-      : stringArrayField(
-          invocation.payload,
-          "catalogApplicationInvocationRefs",
-        );
-  if (
-    new Set(catalogApplicationInvocationRefs).size !==
-      catalogApplicationInvocationRefs.length
-  ) {
+  const publicationAdmission = rawAdmission<ModulePublication>(
+    publication,
+    "module_publication",
+    "contract://abiogenesis/gtl/module-publication@5",
+  );
+  const programValidations = publication.programs.map((program) =>
+    validator.validateProgram(rawProgramInput(publicationAdmission, program))
+  );
+  if (programValidations.some((row) => row.kind !== "program_validation")) {
     throw new ApplicationRefusal(
-      "invalid_request",
-      "run.invoke catalog application references must be unique",
+      "target_mismatch",
+      "run.invoke catalogBasis contains an invalid Program",
     );
   }
-  const catalogApplications = catalogApplicationInvocationRefs.map(
-    (applicationInvocationRef) => {
-      const applicationState = required(
-        rootOperationState(context).catalogApplication(applicationInvocationRef),
-        applicationInvocationRef,
-        "CatalogApplication",
-      );
-      if (
-        applicationState.viewState.view.viewId !== viewState.view.viewId ||
-        applicationState.viewState.view.viewDigest !== viewState.view.viewDigest
-      ) {
-        throw new ApplicationRefusal(
-          "target_mismatch",
-          "run.invoke catalog application differs from the exact selected CatalogView",
-        );
-      }
-      return applicationState.application;
+  const viewState = {
+    catalogState: {
+      publication,
+      programValidations: programValidations as readonly validator.ProgramValidation[],
+      catalog: reconstructedCatalog.catalog,
     },
-  );
-  const runProjectionProductBasis: RunProjectionProductBasis = {
+    view: reconstructedCatalog.view,
+  };
+  const catalogApplications = reconstructedCatalog.applications;
+  const runProjectionProductBasis = {
     install: installState.install,
     workspaceId: workspaceState.binding.workspaceId,
-    workspaceBindingId:
-      viewState.catalogState.catalog.workspaceBindingId,
-    workspaceBindingDigest:
-      viewState.catalogState.catalog.workspaceBindingDigest,
-    catalogId: viewState.catalogState.catalog.catalogId,
-    catalogDigest: viewState.catalogState.catalog.catalogDigest,
-    catalogAdmissionEventRef:
-      viewState.catalogState.catalog.admissionEventRef,
-    catalogViewId: viewState.view.viewId,
+    workspaceBindingId: workspaceState.binding.bindingId,
+    workspaceBindingDigest: workspaceState.binding.bindingDigest,
+    catalogBasisDigest: viewState.catalogState.catalog.basisDigest,
+    catalogReadinessBasis: viewState.catalogState.catalog.readinessBasis,
     catalogViewDigest: viewState.view.viewDigest,
-    catalogViewAdmissionEventRef: viewState.view.admissionEventRef,
-    publicationDigest:
-      viewState.catalogState.catalog.publicationDigest,
-    productSemanticsBinding:
-      viewState.catalogState.publication.productSemanticsBinding,
+    publicationDigests: viewState.catalogState.catalog.publicationDigests,
+    publications: reconstructedCatalog.publications,
   };
   if (
     !workspaceState.productSet.orderedInstallRefs.includes(installState.install.installId) ||
     workspaceState.binding.roots.productRoot !== installState.candidate.installedRoot ||
-    viewState.catalogState.catalog.workspaceBindingId !== workspaceState.binding.bindingId ||
-    viewState.catalogState.catalog.workspaceBindingDigest !== workspaceState.binding.bindingDigest
+    !viewState.catalogState.catalog.publicationDigests.includes(
+      product.modulePublicationSemanticDigest(publication),
+    )
   ) {
     throw new ApplicationRefusal(
       "target_mismatch",
       "run.invoke ProductInstall, WorkspaceBinding, and CatalogView do not share one exact environment",
     );
   }
-  const programRef = stringField(invocation.payload, "programRef");
   const programMatch = resolveExactMatch(
     viewState.catalogState.publication.programs,
     (value) => value.programRef === programRef,
@@ -1418,14 +1432,12 @@ async function applyRunInvoke(
   }
   const graphFunction = graphFunctionMatch.value;
   const selectedRowMatch = resolveExactMatch(
-    viewState.view.selectedRows,
+    viewState.view.entries,
     (row) =>
       (
         row.handle === graphFunctionRef ||
-        row.declarationOrContractRef === graphFunctionRef
+        row.definitionRef === graphFunctionRef
       ) &&
-      row.disposition === "admitted" &&
-      row.callability === "callable" &&
       row.programMembershipRefs.includes(programRef),
   );
   const programValidationMatch = resolveExactMatch(
@@ -1486,7 +1498,16 @@ async function applyRunInvoke(
         install: installState.install,
         publication: viewState.catalogState.publication,
         verifyInstallAdmission: (install) =>
-          abg.hasAdmittedProductInstall(context.store, install),
+          reentryState === null
+            ? abg.hasAdmittedProductInstall(context.store, install) ||
+              readinessBasis.installedProducts.some(
+                (candidate) => product.sha256Canonical(
+                  candidate as unknown as product.JsonValue,
+                ) === product.sha256Canonical(
+                  install as unknown as product.JsonValue,
+                ),
+              )
+            : abg.hasAdmittedProductInstall(context.store, install),
       },
     );
     admittedInput = product.admitInstalledProductInput(
@@ -1644,6 +1665,7 @@ async function applyRunInvoke(
       graphFunction,
       programValidation,
       workspaceBinding: workspaceState.binding,
+      ...(reentryState === null ? { catalogReadinessBasis: readinessBasis } : {}),
       catalogView: viewState.view,
       catalogApplications,
       policy,
@@ -1685,9 +1707,9 @@ async function applyRunInvoke(
       { ...invocation, invocationRef: candidate.invocationRef },
       workspaceState.binding.bindingId,
       workspaceState.binding.bindingDigest,
-      [
-        viewState.view.admissionEventRef,
-      ],
+      reentryState === null
+        ? []
+        : [workspaceState.binding.admissionEventRef],
     ),
   );
   if (invocationAdmission.kind !== "invocation_admission") {
@@ -1919,6 +1941,12 @@ async function applyRunInvoke(
     publication: viewState.catalogState.publication,
     semanticsProjection:
       product.projectInstalledLeafSemantics(productSemantics),
+    verifyInstallAuthority: (install) => reentryState === null &&
+      (abg.hasAdmittedProductInstall(context.store, install) ||
+      readinessBasis.installedProducts.some((candidate) =>
+        product.sha256Canonical(candidate as unknown as product.JsonValue) ===
+          product.sha256Canonical(install as unknown as product.JsonValue)
+      )),
   });
   const childTraversalPreparationPort = bindChildTraversalPreparationPort({
     store: context.store,
@@ -2014,14 +2042,13 @@ async function applyRunInvoke(
         stringField(invocation.payload, "installInvocationRef"),
       workspaceBindingInvocationRef:
         stringField(invocation.payload, "workspaceBindingInvocationRef"),
-      catalogViewInvocationRef:
-        stringField(invocation.payload, "catalogViewInvocationRef"),
       install: installState.install,
       resolvedProductLock: workspaceState.lock,
       productSet: workspaceState.productSet,
       workspaceBinding: workspaceState.binding,
       catalog: viewState.catalogState.catalog,
       catalogView: viewState.view,
+      publications: reconstructedCatalog.publications,
       publicStart: {
         kind: "public_start_identity",
         schemaVersion: "5.0.0",
@@ -2088,6 +2115,7 @@ async function applyRunInvoke(
       workspaceBinding: workspaceState.binding,
       catalog: viewState.catalogState.catalog,
       catalogView: viewState.view,
+      publications: reconstructedCatalog.publications,
       program: programValue,
       graph,
       heldGraph: traversalCompletion.heldGraph,
@@ -2293,18 +2321,13 @@ function reopenContinuation(
     rootInvocation.workspaceBindingId !== state.workspaceBinding.bindingId ||
     rootInvocation.workspaceBindingDigest !==
       state.workspaceBinding.bindingDigest ||
-    rootInvocation.catalogViewId !== state.catalogView.viewId ||
-    rootInvocation.catalogViewDigest !== state.catalogView.viewDigest ||
     rootInvocation.programRef !== state.program.programRef ||
     rootInvocation.graphFunctionRef !== state.graph.graphFunctionRef ||
-    state.catalog.catalogId !== state.catalogView.catalogId ||
-    state.catalog.catalogDigest !== state.catalogView.catalogDigest ||
+    state.catalog.basisDigest !== state.catalogView.catalogBasisDigest ||
     state.graph.admittedInputDigest !==
       product.sha256Canonical(state.invocationInput) ||
     !abg.hasAdmittedProductInstall(reopened.store, state.install) ||
     !abg.hasAdmittedWorkspaceBinding(reopened.store, state.workspaceBinding) ||
-    !abg.hasAdmittedCatalog(reopened.store, state.catalog) ||
-    !abg.hasAdmittedCatalogView(reopened.store, state.catalogView) ||
     gtl.rehydrateMaterializedGtlGraph(state.graph) === null ||
     gtl.rehydrateMaterializedGtlGraph(state.heldGraph) === null ||
     state.parentSuspensions.some(
@@ -2336,7 +2359,7 @@ function continuationMetadata(
   state: PublicContinuationAuthority,
   replayState: abg.ReplayState,
   eventLog: abg.PersistedEventLog,
-  status: "open" | "responded" | "resolved",
+  status: "abandoned" | "open" | "responded" | "resolved" | "superseded",
 ) {
   return {
     runtimeInvocationRef: state.runtimeInvocationRef,
@@ -2427,18 +2450,10 @@ function reopenGapAuthority(
     rootInvocation.workspaceBindingId !== state.workspaceBinding.bindingId ||
     rootInvocation.workspaceBindingDigest !==
       state.workspaceBinding.bindingDigest ||
-    rootInvocation.catalogViewId !== state.catalogView.viewId ||
-    rootInvocation.catalogViewDigest !== state.catalogView.viewDigest ||
     state.install.installedRoot !== state.workspaceBinding.roots.productRoot ||
-    state.catalog.workspaceBindingId !== state.workspaceBinding.bindingId ||
-    state.catalog.workspaceBindingDigest !==
-      state.workspaceBinding.bindingDigest ||
-    state.catalog.catalogId !== state.catalogView.catalogId ||
-    state.catalog.catalogDigest !== state.catalogView.catalogDigest ||
+    state.catalog.basisDigest !== state.catalogView.catalogBasisDigest ||
     !abg.hasAdmittedProductInstall(reopened.store, state.install) ||
     !abg.hasAdmittedWorkspaceBinding(reopened.store, state.workspaceBinding) ||
-    !abg.hasAdmittedCatalog(reopened.store, state.catalog) ||
-    !abg.hasAdmittedCatalogView(reopened.store, state.catalogView) ||
     route === undefined ||
     route.nextActionProjectionRef !==
       state.source.nextActionProjectionRef ||
@@ -2496,6 +2511,9 @@ function openRunProjectionAuthority(
     state.invocationAdmissionRef,
   );
   const replayState = abg.replay(reopened.store, { runId: state.runId });
+  const reconstructedCatalog = product.admitGraphFunctionCatalog(
+    state.catalogReadinessBasis,
+  );
   const resultExists = state.resultRef === null ||
     replayState.cCalls.some((cCall) => cCall.resultRef === state.resultRef);
   if (
@@ -2503,17 +2521,23 @@ function openRunProjectionAuthority(
     state.workspaceId !== rootInvocation.workspaceId ||
     rootInvocation.invocationRef !== state.runtimeInvocationRef ||
     rootInvocation.outputContractRef !== state.outputContractRef ||
-    rootInvocation.catalogViewId !== state.catalogViewId ||
-    rootInvocation.catalogViewDigest !== state.catalogViewDigest ||
     rootInvocation.workspaceBindingId !== state.workspaceBindingId ||
     rootInvocation.workspaceBindingDigest !==
       state.workspaceBindingDigest ||
+    rootInvocation.catalogBasisDigest !== state.catalogBasisDigest ||
+    rootInvocation.catalogViewDigest !== state.catalogViewDigest ||
+    reconstructedCatalog.kind !== "graph_function_catalog" ||
+    reconstructedCatalog.basisDigest !== state.catalogBasisDigest ||
+    product.sha256Canonical(
+      reconstructedCatalog.publicationDigests as unknown as product.JsonValue,
+    ) !== product.sha256Canonical(
+      state.publicationDigests as unknown as product.JsonValue,
+    ) ||
     !abg.hasInvocationRunBinding(
       reopened.store,
       rootInvocation,
       state.runId,
     ) ||
-    !abg.hasAdmittedProductSemanticsBasis(reopened.store, state) ||
     replayState.runId !== state.runId ||
     replayState.graphCallId !== state.graphCallId ||
     !resultExists
@@ -2554,13 +2578,10 @@ function deriveInvocationSourceResultBasis(
     state.install.productContentDigest !==
       currentProductBasis.install.productContentDigest ||
     state.install.manifestDigest !== currentProductBasis.install.manifestDigest ||
-    state.publicationDigest !== currentProductBasis.publicationDigest ||
-    product.sha256Canonical(
-      state.productSemanticsBinding as unknown as product.JsonValue,
-    ) !==
-      product.sha256Canonical(
-        currentProductBasis.productSemanticsBinding as unknown as product.JsonValue,
-      )
+    product.sha256Canonical(state.publicationDigests as unknown as product.JsonValue) !==
+      product.sha256Canonical(currentProductBasis.publicationDigests as unknown as product.JsonValue) ||
+    state.catalogBasisDigest !== currentProductBasis.catalogBasisDigest ||
+    state.catalogViewDigest !== currentProductBasis.catalogViewDigest
   ) {
     throw new ApplicationRefusal(
       "target_mismatch",
@@ -2577,7 +2598,6 @@ function deriveInvocationSourceResultBasis(
         invocationAdmissionRef: state.invocationAdmissionRef,
         runId: state.runId,
         resultRef,
-        productSemanticsBasis: state,
       },
     );
     if (basis === null) {
@@ -2627,7 +2647,7 @@ async function applyRunProjectionRead(
     );
   }
   const targetRef = stringField(invocation.payload, "targetRef");
-  reopenRunProjectionAuthority(context, state);
+  const openedAuthority = reopenRunProjectionAuthority(context, state);
   let closed = false;
   try {
     const replayState = abg.replay(context.store, { runId: state.runId });
@@ -2637,8 +2657,10 @@ async function applyRunProjectionRead(
       try {
         productSemantics = await product.loadInstalledProductSemantics({
           install: state.install,
-          publicationDigest: state.publicationDigest,
-          productSemanticsBinding: state.productSemanticsBinding,
+          publication: publicationForProgram(
+            state.publications,
+            openedAuthority.rootInvocation.programRef,
+          ),
           verifyInstallAdmission: (install) =>
             abg.hasAdmittedProductInstall(context.store, install),
         });
@@ -3005,7 +3027,10 @@ async function applyProjectRead(
       try {
         productSemantics = await product.loadInstalledProductSemantics({
           install: state.install,
-          publication: state.catalog.modulePublication,
+          publication: publicationForProgram(
+            state.publications,
+            state.program.programRef,
+          ),
           verifyInstallAdmission: (install) =>
             abg.hasAdmittedProductInstall(context.store, install),
         });
@@ -3262,7 +3287,7 @@ async function applyInteractionRespond(
     }
     const productSemantics = await product.loadInstalledProductSemantics({
       install: state.install,
-      publication: state.catalog.modulePublication,
+      publication: publicationForProgram(state.publications, state.program.programRef),
       verifyInstallAdmission: (install) =>
         abg.hasAdmittedProductInstall(context.store, install),
     });
@@ -3533,7 +3558,10 @@ async function applyRunContinue(
         correlationId: `${invocation.correlationId}/hog`,
       },
     });
-    const publication = state.catalog.modulePublication;
+    const publication = publicationForProgram(
+      state.publications,
+      state.program.programRef,
+    );
     const publicationAdmission = rawAdmission<ModulePublication>(
       publication,
       "module_publication",
@@ -3840,15 +3868,11 @@ async function applyRunContinue(
         workspaceId: state.workspaceBinding.workspaceId,
         workspaceBindingId: state.workspaceBinding.bindingId,
         workspaceBindingDigest: state.workspaceBinding.bindingDigest,
-        catalogId: state.catalog.catalogId,
-        catalogDigest: state.catalog.catalogDigest,
-        catalogAdmissionEventRef: state.catalog.admissionEventRef,
-        catalogViewId: state.catalogView.viewId,
+        catalogBasisDigest: state.catalog.basisDigest,
+        catalogReadinessBasis: state.catalog.readinessBasis,
         catalogViewDigest: state.catalogView.viewDigest,
-        catalogViewAdmissionEventRef: state.catalogView.admissionEventRef,
-        publicationDigest: state.catalog.publicationDigest,
-        productSemanticsBinding:
-          state.catalog.modulePublication.productSemanticsBinding,
+        publicationDigests: state.catalog.publicationDigests,
+        publications: state.publications,
       });
       completedOutcome = attachProjectionAuthority(
         completedOutcome,
@@ -3928,6 +3952,8 @@ export async function applyRootPublicInvocation(
   const invocation = parsed;
   if (
     !usesDurableContinuationAuthority(invocation.operationId) &&
+    !isPureCatalogRequest(invocation.operationId) &&
+    !isRuntimeIngress(invocation.operationId) &&
     !rootOperationState(context).claimInvocation(invocation.invocationRef)
   ) {
     return refusalOutcome(invocation, "duplicate_invocation", "invocationRef already appeared in this transcript");
@@ -3940,7 +3966,11 @@ export async function applyRootPublicInvocation(
       : `contract://abiogenesis/public/${invocation.operationId}@5`,
   );
   try {
-    if (!usesDurableContinuationAuthority(invocation.operationId)) {
+    if (
+      !usesDurableContinuationAuthority(invocation.operationId) &&
+      !isPureCatalogRequest(invocation.operationId) &&
+      !isRuntimeIngress(invocation.operationId)
+    ) {
       reopenRememberedDurableContext(context);
     }
     switch (invocation.operationId) {

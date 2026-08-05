@@ -6,6 +6,7 @@ import test from "node:test";
 
 import { prepareDeveloperMiniProduct } from "../support/developer-mini-product.mjs";
 import {
+  constructClosedCatalogReadinessBasis,
   runInstalledCli,
   setupInstalledCliHarness,
 } from "../support/root-cli-environment.mjs";
@@ -118,6 +119,15 @@ function oneSurfaceObservation(mini, publication, binding, name) {
     actionCatalog: program.actionCatalog,
     name,
   });
+}
+
+function actionCatalogFromGapAuthority(authority, programRef) {
+  const programs = authority.publications.flatMap(
+    (publication) => publication.programs,
+  ).filter((program) => program.programRef === programRef);
+  assert.equal(programs.length, 1);
+  assert.ok(programs[0].actionCatalog);
+  return programs[0].actionCatalog;
 }
 
 function oneSurfaceGraph(publication, mini) {
@@ -597,6 +607,46 @@ async function externalScenario(
     view: `${prefix}/catalog-view`,
     run: `${prefix}/run-invoke`,
   };
+  const verifiedAbi = await harness.product.verifyProduct({
+    artifactPath: harness.artifactPath,
+    artifactRef: harness.artifactRef,
+    ...expectedVerificationIdentity(harness.candidateBasis),
+  });
+  const verifiedMini = await harness.product.verifyProduct({
+    artifactPath: selectedMini.artifactPath,
+    artifactRef: selectedMini.artifactRef,
+    ...expectedVerificationIdentity(selectedMini.basis),
+  });
+  assert.equal(verifiedAbi.kind, "verified_product_artifact");
+  assert.equal(verifiedMini.kind, "verified_product_artifact");
+  const resolvedLock = harness.product.constructResolvedProductLock([
+    verifiedAbi,
+    verifiedMini,
+  ]);
+  assert.equal(resolvedLock.kind, "resolved_product_lock");
+  const workspaceId = `workspace://t270/${label}`;
+  const authorizedActorRef = "actor://developer.example/trusted-developer";
+  const authorityManifestRef = `manifest://t270/${label}/workspace-authority`;
+  const roots = {
+    toolchainRoot: abiInstalledRoot,
+    productRoot: miniInstalledRoot,
+    eventLogRoot,
+    runtimeStateRoot: join(workspaceRoot, ".ai-workspace/runtime"),
+    projectionRoot: join(workspaceRoot, ".ai-workspace/projections"),
+    archiveRoot: join(workspaceRoot, ".ai-workspace/archive"),
+  };
+  const readinessBasis = constructClosedCatalogReadinessBasis({
+    product: harness.product,
+    verifiedProducts: [verifiedAbi, verifiedMini],
+    resolvedLock,
+    installedRoots: [abiInstalledRoot, miniInstalledRoot],
+    workspaceId,
+    canonicalRoot: workspaceRoot,
+    authorizedActorRef,
+    authorityManifestRef,
+    roots,
+    publications: [publication],
+  });
   const transcript = [
     invocation("abg.operation.product.verify", "artifact", refs.verifyAbi, {
       artifactPath: harness.artifactPath,
@@ -630,32 +680,30 @@ async function externalScenario(
     }),
     invocation("abg.operation.workspace.bind", "exact_product_set", refs.bind, {
       installInvocationRefs: [refs.installAbi, refs.installMini],
-      workspaceId: `workspace://t270/${label}`,
+      workspaceId,
       canonicalRoot: workspaceRoot,
-      authorizedActorRef: "actor://developer.example/trusted-developer",
-      authorityManifestRef: `manifest://t270/${label}/workspace-authority`,
-      roots: {
-        toolchainRoot: abiInstalledRoot,
-        productRoot: miniInstalledRoot,
-        eventLogRoot,
-        runtimeStateRoot: join(workspaceRoot, ".ai-workspace/runtime"),
-        projectionRoot: join(workspaceRoot, ".ai-workspace/projections"),
-        archiveRoot: join(workspaceRoot, ".ai-workspace/archive"),
-      },
+      authorizedActorRef,
+      authorityManifestRef,
+      roots,
     }),
     invocation("abg.operation.catalog.admit", "module_publication", refs.catalog, {
-      publication,
-      verifiedInvocationRef: refs.verifyMini,
-      workspaceBindingInvocationRef: refs.bind,
+      readinessBasis,
     }),
     invocation("abg.operation.catalog.view", "allowlist", refs.view, {
-      catalogInvocationRef: refs.catalog,
-      allowlist: [graphFunctionRef],
+      catalogBasis: {
+        readinessBasis,
+        allowlist: [graphFunctionRef],
+        applications: [],
+      },
     }),
     invocation("abg.operation.run.invoke", runVariant, refs.run, {
       installInvocationRef: refs.installMini,
       workspaceBindingInvocationRef: refs.bind,
-      catalogViewInvocationRef: refs.view,
+      catalogBasis: {
+        readinessBasis,
+        allowlist: [graphFunctionRef],
+        applications: [],
+      },
       programRef,
       actorRef: "actor://developer.example/trusted-developer",
       input,
@@ -3012,10 +3060,10 @@ test("M5 exposes a durable gap and re-enters it through the same external Produc
   reentry.payload.input = mini.constructObservationSnapshot({
     workspaceBindingId: gapAuthority.workspaceBinding.bindingId,
     workspaceBindingDigest: gapAuthority.workspaceBinding.bindingDigest,
-    actionCatalog: gapAuthority.catalog.modulePublication.programs.find(
-      (candidate) =>
-        candidate.programRef === mini.ids.oneSurfaceProgramRef,
-    ).actionCatalog,
+    actionCatalog: actionCatalogFromGapAuthority(
+      gapAuthority,
+      mini.ids.oneSurfaceProgramRef,
+    ),
     availableActionRefs: [mini.ids.approvalActionRef],
     name: "Margaret",
     priorGap: {
@@ -3106,10 +3154,10 @@ test("M5 exposes a durable gap and re-enters it through the same external Produc
   wrongGapReentry.payload.input = mini.constructObservationSnapshot({
     workspaceBindingId: gapAuthority.workspaceBinding.bindingId,
     workspaceBindingDigest: gapAuthority.workspaceBinding.bindingDigest,
-    actionCatalog: gapAuthority.catalog.modulePublication.programs.find(
-      (candidate) =>
-        candidate.programRef === mini.ids.oneSurfaceProgramRef,
-    ).actionCatalog,
+    actionCatalog: actionCatalogFromGapAuthority(
+      gapAuthority,
+      mini.ids.oneSurfaceProgramRef,
+    ),
     availableActionRefs: [mini.ids.approvalActionRef],
     name: "Margaret",
     priorGap: {

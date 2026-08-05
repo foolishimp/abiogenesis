@@ -297,14 +297,11 @@ export async function evaluateAbi5Root({
     outcomes[3]?.result?.bindingId ===
       `workspace-binding://abiogenesis/${outcomes[3]?.result?.bindingDigest?.slice("sha256:".length)}`;
   obligationResults.R4 = obligationResults.R3 &&
-    outcomes[4]?.result?.kind === "admitted_catalog" &&
-    Number.isSafeInteger(outcomes[4]?.result?.admittedRows) &&
-    outcomes[4]?.result?.admittedRows >= 1 &&
-    outcomes[4]?.result?.catalogId ===
-      `catalog://abiogenesis/${outcomes[4]?.result?.catalogDigest?.slice("sha256:".length)}` &&
-    outcomes[5]?.result?.kind === "catalog_view" &&
-    outcomes[5]?.result?.viewId ===
-      `catalog-view://abiogenesis/${outcomes[5]?.result?.viewDigest?.slice("sha256:".length)}` &&
+    outcomes[4]?.result?.kind === "graph_function_catalog" &&
+    typeof outcomes[4]?.result?.catalogBasisDigest === "string" &&
+    outcomes[4]?.result?.graphFunctionEntries?.length >= 1 &&
+    outcomes[5]?.result?.kind === "graph_function_catalog_view" &&
+    outcomes[5]?.result?.catalogBasisDigest === outcomes[4]?.result?.catalogBasisDigest &&
     equalJson(outcomes[5]?.result?.allowlist, [
       "graph-function://abiogenesis/conformance/hello-world@5",
     ]);
@@ -318,39 +315,17 @@ export async function evaluateAbi5Root({
     failures.push("durable ABG event log is absent or malformed");
   }
 
-  const admittedCatalogRows = Number.isSafeInteger(outcomes[4]?.result?.admittedRows)
-    ? outcomes[4].result.admittedRows
-    : 0;
   const expectedSetupRows = [
     ["public_operation_artifact_admitted", "abg.operation.product.install", 2],
     ["public_operation_artifact_admitted", "abg.operation.workspace.bind", 3],
-    ["public_operation_artifact_admitted", "abg.operation.catalog.admit", 4],
-    ...Array.from(
-      { length: admittedCatalogRows },
-      () => ["registry_entry_admitted", "abg.operation.catalog.admit", null],
-    ),
-    ["public_operation_artifact_admitted", "abg.operation.catalog.view", 5],
   ];
   const setupEventCount = expectedSetupRows.length;
   const setupEvents = events.slice(0, setupEventCount);
   const installEvent = setupEvents[0];
   const workspaceEvent = setupEvents[1];
-  const catalogArtifactEvent = setupEvents[2];
-  const catalogRegistryEvents = setupEvents.slice(3, 3 + admittedCatalogRows);
-  const catalogViewEvent = setupEvents[3 + admittedCatalogRows];
   const installOutcome = outcomes[2];
   const workspaceOutcome = outcomes[3];
-  const catalogOutcome = outcomes[4];
-  const catalogViewOutcome = outcomes[5];
-  const catalogCandidateRef = typeof catalogOutcome?.result?.catalogDigest === "string"
-    ? `catalog-candidate://abiogenesis/${catalogOutcome.result.catalogDigest.slice("sha256:".length)}`
-    : null;
-  const catalogViewCandidateRef = typeof catalogViewOutcome?.result?.viewDigest === "string"
-    ? `catalog-view-candidate://abiogenesis/${catalogViewOutcome.result.viewDigest.slice("sha256:".length)}`
-    : null;
-  const registryHandles = catalogRegistryEvents.map((event) => event.payload?.handle);
-  const setupEventsValid = admittedCatalogRows >= 1 &&
-    setupEvents.length === setupEventCount &&
+  const setupEventsValid = setupEvents.length === setupEventCount &&
     expectedSetupRows.every(([kind, operationId, requestIndex], index) =>
       setupEvents[index]?.kind === kind &&
       setupEvents[index]?.payload?.operationId === operationId &&
@@ -376,28 +351,9 @@ export async function evaluateAbi5Root({
     workspaceEvent?.payload?.artifactRef === workspaceOutcome?.result?.bindingId &&
     workspaceEvent?.payload?.invocationRef === transcript[3]?.invocationRef &&
     equalJson(workspaceEvent?.causationEventRefs, [installEvent?.eventId]) &&
-    catalogArtifactEvent?.eventId === catalogOutcome?.result?.admissionEventRef &&
-    catalogArtifactEvent?.aggregateId === workspaceOutcome?.result?.bindingId &&
-    catalogArtifactEvent?.basisId === workspaceOutcome?.result?.bindingId &&
-    catalogArtifactEvent?.payload?.authorityScopeRef === workspaceOutcome?.result?.bindingId &&
-    catalogArtifactEvent?.payload?.artifactRef === catalogCandidateRef &&
-    catalogArtifactEvent?.payload?.invocationRef === transcript[4]?.invocationRef &&
-    equalJson(catalogArtifactEvent?.causationEventRefs, [workspaceEvent?.eventId]) &&
-    new Set(registryHandles).size === admittedCatalogRows &&
-    registryHandles.includes("graph-function://abiogenesis/conformance/hello-world@5") &&
-    catalogRegistryEvents.every((event) =>
-      event.parentAggregateId === catalogOutcome?.result?.catalogId &&
-      event.basisId === catalogCandidateRef &&
-      event.payload?.candidateId === catalogCandidateRef &&
-      event.payload?.catalogId === catalogOutcome?.result?.catalogId &&
-      equalJson(event.causationEventRefs, [catalogArtifactEvent?.eventId])) &&
-    catalogViewEvent?.eventId === catalogViewOutcome?.result?.admissionEventRef &&
-    catalogViewEvent?.aggregateId === catalogOutcome?.result?.catalogId &&
-    catalogViewEvent?.basisId === catalogOutcome?.result?.catalogId &&
-    catalogViewEvent?.payload?.authorityScopeRef === catalogOutcome?.result?.catalogId &&
-    catalogViewEvent?.payload?.artifactRef === catalogViewCandidateRef &&
-    catalogViewEvent?.payload?.invocationRef === transcript[5]?.invocationRef &&
-    equalJson(catalogViewEvent?.causationEventRefs, [catalogArtifactEvent?.eventId]);
+    events.every((event) =>
+      !event.kind.includes("catalog") &&
+      event.kind !== ["registry", "entry", "admitted"].join("_"));
   if (!setupEventsValid) {
     failures.push("installed setup events differ from the exact admitted path");
   }
@@ -472,7 +428,7 @@ export async function evaluateAbi5Root({
       event.payload?.rawInputDigest === sha256Canonical(runRequests[index]?.payload?.input) &&
       event.payload?.workspaceBindingId === outcomes[3]?.result?.bindingId &&
       event.payload?.workspaceBindingDigest === outcomes[3]?.result?.bindingDigest &&
-      event.payload?.catalogViewId === outcomes[5]?.result?.viewId &&
+      event.payload?.catalogBasisDigest === outcomes[5]?.result?.catalogBasisDigest &&
       event.payload?.catalogViewDigest === outcomes[5]?.result?.viewDigest &&
       event.payload?.programRef === "program://abiogenesis/conformance/hello-world@5" &&
       event.payload?.graphFunctionRef === "graph-function://abiogenesis/conformance/hello-world@5" &&

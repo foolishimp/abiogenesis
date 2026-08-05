@@ -22,7 +22,7 @@ construction, donor, proof, review, and non-closure detail.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - first A5-F10 Run `HoldsAt` slice accepted; stopped-Run projection assessment selected under T-287. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - first A5-F10 Run `HoldsAt` slice accepted; terminal-quiescence owner-network implementation selected under T-287. |
 
 ## Current Basis
 
@@ -77,7 +77,7 @@ end-to-end behavior.
 
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
-| `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Active - first Run `HoldsAt` slice accepted; stopped-Run projection selected |
+| `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Active - A5-F10 graph catalog contraction, runtime recovery, and terminal quiescence selected |
 | `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06` | One exact installed Product/catalog boundary exposes the atomic 18-operation/56-key Public family through a thin SDK and CLI with no reachable legacy family. | Pending Wave 1 |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path without feature-specific runtimes. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and its Public contracts. | Pending Wave 3 |
@@ -88,11 +88,11 @@ end-to-end behavior.
 Wave 1 is the active delivery wave. Within it, `A5-F10` is the first feature
 composition. `A5-F02`, `A5-F03`, and `A5-F04` remain its ordered successors.
 
-Phase 0 and the first A5-F10 Run-lifecycle `HoldsAt` slice are accepted. The
-current bounded selection remains on the registered Run entity: assess and
-plan stopped-Run truth from `run_stopped` through typed Event Calculus, replay,
-and the durable gap-reopen Public consumer. T-287 carries the exact accepted
-subject and the next assessment boundary under the sole local realization
+The current bounded selection is A5-F10
+`graph_catalog_contraction_and_runtime_recovery`: pure catalog readiness and
+construction, event-authoritative runtime recovery, and terminal quiescence on
+one installed Public path. T-287 carries the exact composition, function trace,
+migration order, and proof boundary under the sole local realization
 constitution.
 
 Wave 1 order is:

@@ -76,18 +76,15 @@ test("ABI5-ROOT-001 governor re-evaluates the retained installed subject", async
   const retainedEventLogPath = join(proofRoot, "abi5-root-r10.events.jsonl");
   const retainedEvents = (await readFile(retainedEventLogPath, "utf8"))
     .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+  const {
+    eventId: _retainedEventId,
+    admissionOrdinal: _retainedAdmissionOrdinal,
+    payloadDigest: _retainedPayloadDigest,
+    ...retainedTail
+  } = retainedEvents.at(-1);
   const extraCandidate = {
-    kind: "registry_entry_admitted",
-    eventTime: "2026-07-21T00:00:00.000Z",
-    aggregateType: "workspace",
-    aggregateId: "catalog://abiogenesis/governor-mutation",
-    parentAggregateId: null,
-    causationEventRefs: [],
+    ...retainedTail,
     correlationId: "correlation://t286/governor/extra-event",
-    workflowVersion: "5.0.0",
-    scopeClass: "workspace",
-    basisId: "basis://abiogenesis/governor-mutation",
-    payload: { operationId: "abg.operation.governor.mutation" },
   };
   const payloadDigest = sha256Canonical(extraCandidate.payload);
   const admissionOrdinal = retainedEvents.length + 1;

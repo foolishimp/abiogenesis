@@ -9,7 +9,7 @@ import {
   type ValidatedExecutableLeaf,
 } from "../validator/validation.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { catalogViewContentDigest, type CatalogView } from "./catalog.js";
+import type { GraphFunctionCatalogView } from "./catalog.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { ProductInstall } from "./environment.js";
@@ -39,7 +39,7 @@ export interface ImplementationResolutionCandidate {
   readonly disposition: "candidate";
   readonly resolutionCandidateRef: string;
   readonly resolutionCandidateDigest: Sha256Digest;
-  readonly catalogViewId: string;
+  readonly catalogBasisDigest: string;
   readonly catalogViewDigest: Sha256Digest;
   readonly publicationDigest: Sha256Digest;
   readonly programValidationRef: string;
@@ -84,7 +84,7 @@ export interface LeafImplementationResolutionCandidate {
   readonly leafResolutionCandidateDigest: Sha256Digest;
   readonly requirementKey: string;
   readonly requirementKeyDigest: Sha256Digest;
-  readonly catalogViewId: string;
+  readonly catalogBasisDigest: string;
   readonly catalogViewDigest: Sha256Digest;
   readonly publicationDigest: Sha256Digest;
   readonly programValidationRef: string;
@@ -113,7 +113,7 @@ export interface ImplementationResolutionSetCandidate {
   readonly disposition: "candidate";
   readonly setCandidateRef: string;
   readonly setCandidateDigest: Sha256Digest;
-  readonly catalogViewId: string;
+  readonly catalogBasisDigest: string;
   readonly catalogViewDigest: Sha256Digest;
   readonly publicationDigest: Sha256Digest;
   readonly programValidationRef: string;
@@ -268,18 +268,18 @@ function setRefusal(
 }
 
 function resolveValidatedLeaf(
-  catalogView: CatalogView,
+  catalogView: GraphFunctionCatalogView,
   publication: Readonly<ModulePublication>,
   programValidation: ProgramValidation,
   declaration: ValidatedExecutableLeaf,
   packagedImplementations: readonly Readonly<PackagedLeafImplementationDescriptor>[],
 ): LeafImplementationResolutionCandidate | ImplementationResolutionSetRefusal {
   const selectedRowMatch = resolveExactMatch(
-    catalogView.selectedRows,
+    catalogView.entries,
     (row) =>
       (
         row.handle === declaration.graphFunctionRef ||
-        row.declarationOrContractRef === declaration.graphFunctionRef
+        row.definitionRef === declaration.graphFunctionRef
       ) &&
       row.programMembershipRefs.includes(programValidation.programRef),
   );
@@ -290,9 +290,8 @@ function resolveValidatedLeaf(
   if (
     selectedRowMatch.kind !== "one" ||
     graphFunctionMatch.kind !== "one" ||
-    selectedRowMatch.value.kind !== "graph_function" ||
-    selectedRowMatch.value.disposition !== "admitted" ||
-    selectedRowMatch.value.declarationOrContractRef !==
+    selectedRowMatch.value.kind !== "graph_function_catalog_entry" ||
+    selectedRowMatch.value.definitionRef !==
       declaration.graphFunctionRef ||
     !selectedRowMatch.value.programMembershipRefs.includes(
       programValidation.programRef,
@@ -382,7 +381,7 @@ function resolveValidatedLeaf(
   const body = {
     requirementKey: declaration.requirementKey,
     requirementKeyDigest: declaration.requirementKeyDigest,
-    catalogViewId: catalogView.viewId,
+    catalogBasisDigest: catalogView.catalogBasisDigest,
     catalogViewDigest: catalogView.viewDigest,
     publicationDigest: programValidation.publicationDigest,
     programValidationRef: programValidation.validationRef,
@@ -418,7 +417,7 @@ function resolveValidatedLeaf(
 }
 
 export function resolveImplementationSet(
-  catalogView: CatalogView,
+  catalogView: GraphFunctionCatalogView,
   publication: Readonly<ModulePublication>,
   programValidation: ProgramValidation,
   packagedImplementations: readonly Readonly<PackagedLeafImplementationDescriptor>[],
@@ -431,13 +430,6 @@ export function resolveImplementationSet(
       "invalid_program_validation",
       null,
       "implementation-set resolution requires exact ProgramValidation and publication",
-    );
-  }
-  if (catalogViewContentDigest(catalogView) !== catalogView.viewDigest) {
-    return setRefusal(
-      "selection_mismatch",
-      null,
-      "implementation-set resolution requires the exact admitted CatalogView",
     );
   }
   if (
@@ -465,7 +457,7 @@ export function resolveImplementationSet(
     rows.push(resolved);
   }
   const body = {
-    catalogViewId: catalogView.viewId,
+    catalogBasisDigest: catalogView.catalogBasisDigest,
     catalogViewDigest: catalogView.viewDigest,
     publicationDigest: programValidation.publicationDigest,
     programValidationRef: programValidation.validationRef,
@@ -486,7 +478,7 @@ export function resolveImplementationSet(
 }
 
 export function resolveImplementation(
-  catalogView: CatalogView,
+  catalogView: GraphFunctionCatalogView,
   publication: Readonly<ModulePublication>,
   programValidation: ProgramValidation,
   graphValidation: GraphValidation,
@@ -538,7 +530,7 @@ export function resolveImplementation(
   }
   const leaf = match.value;
   const body = {
-    catalogViewId: leaf.catalogViewId,
+    catalogBasisDigest: leaf.catalogBasisDigest,
     catalogViewDigest: leaf.catalogViewDigest,
     publicationDigest: leaf.publicationDigest,
     programValidationRef: leaf.programValidationRef,

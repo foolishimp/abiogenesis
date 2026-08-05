@@ -36,9 +36,31 @@ test("M5 installed CLI traverses ordered C.batch, successful C.retry, and C.edge
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.stderr, "");
   assert.equal(run.outcomes.length, 7, run.stdout);
-  assert.equal(run.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
-  assert.equal(run.outcomes[4].result.admittedRows >= 1, true);
-  assert.deepEqual(run.outcomes[5].result.allowlist, [GRAPH_FUNCTION_REF]);
+  assert.equal(
+    run.outcomes.every((outcome) => outcome.disposition === "succeeded"),
+    true,
+    run.stdout,
+  );
+  assert.equal(
+    run.outcomes[4].result.kind,
+    "graph_function_catalog",
+    run.stdout,
+  );
+  assert.equal(
+    run.outcomes[4].result.graphFunctionEntries.length >= 1,
+    true,
+    run.stdout,
+  );
+  assert.equal(
+    run.outcomes[5].result.kind,
+    "graph_function_catalog_view",
+    run.stdout,
+  );
+  assert.deepEqual(
+    run.outcomes[5].result.allowlist,
+    [GRAPH_FUNCTION_REF],
+    run.stdout,
+  );
 
   const outcome = run.outcomes[6];
   assert.equal(outcome.outputContractRef, OUTPUT_CONTRACT_REF);

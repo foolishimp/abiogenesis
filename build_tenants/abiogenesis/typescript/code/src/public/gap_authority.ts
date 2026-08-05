@@ -1,7 +1,8 @@
 import type { EventStoreReopenAuthority } from "../abg/event_store.js";
+import type { ModulePublication } from "../gtl/contracts.js";
 import type {
-  AdmittedCatalog,
-  CatalogView,
+  ReadyGraphFunctionCatalog,
+  GraphFunctionCatalogView,
   ProductInstall,
   ProductSet,
   ResolvedProductLock,
@@ -54,13 +55,13 @@ export interface PublicGapAuthority {
   readonly reopenAuthority: EventStoreReopenAuthority;
   readonly installInvocationRef: string;
   readonly workspaceBindingInvocationRef: string;
-  readonly catalogViewInvocationRef: string;
   readonly install: ProductInstall;
   readonly resolvedProductLock: ResolvedProductLock;
   readonly productSet: ProductSet;
   readonly workspaceBinding: WorkspaceBinding;
-  readonly catalog: AdmittedCatalog;
-  readonly catalogView: CatalogView;
+  readonly catalog: ReadyGraphFunctionCatalog;
+  readonly catalogView: GraphFunctionCatalogView;
+  readonly publications: readonly Readonly<ModulePublication>[];
   readonly publicStart: PublicStartIdentity;
   readonly source: PublicGapSource;
   readonly authorityDigest: Sha256Digest;
@@ -75,11 +76,11 @@ const AUTHORITY_KEYS = Object.freeze([
   "authorityDigest",
   "catalog",
   "catalogView",
-  "catalogViewInvocationRef",
   "install",
   "installInvocationRef",
   "kind",
   "productSet",
+  "publications",
   "publicStart",
   "reopenAuthority",
   "resolvedProductLock",
@@ -181,7 +182,6 @@ export function parsePublicGapAuthority(
     value.reopenAuthority.kind !== "event_store_reopen_authority" ||
     !nonEmptyString(value.installInvocationRef) ||
     !nonEmptyString(value.workspaceBindingInvocationRef) ||
-    !nonEmptyString(value.catalogViewInvocationRef) ||
     !isRecord(value.install) ||
     value.install.kind !== "product_install" ||
     !isResolvedProductLock(value.resolvedProductLock) ||
@@ -189,9 +189,14 @@ export function parsePublicGapAuthority(
     !isRecord(value.workspaceBinding) ||
     value.workspaceBinding.kind !== "workspace_binding" ||
     !isRecord(value.catalog) ||
-    value.catalog.kind !== "admitted_catalog" ||
+    value.catalog.kind !== "graph_function_catalog" ||
     !isRecord(value.catalogView) ||
-    value.catalogView.kind !== "catalog_view" ||
+    value.catalogView.kind !== "graph_function_catalog_view" ||
+    !Array.isArray(value.publications) ||
+    value.publications.length === 0 ||
+    !value.publications.every(
+      (publication) => isRecord(publication) && publication.kind === "module_publication",
+    ) ||
     !isRecord(value.publicStart) ||
     !hasExactKeys(value.publicStart, PUBLIC_START_KEYS) ||
     value.publicStart.kind !== "public_start_identity" ||

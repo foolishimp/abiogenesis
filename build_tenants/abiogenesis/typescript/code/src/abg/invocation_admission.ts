@@ -7,8 +7,8 @@ import { resolveProgramStart } from "../gtl/public_start.js";
 import {
   DIRECT_INVOKE_CAPABILITY,
   type CapabilityGrant,
-  type CatalogApplication,
-  type CatalogView,
+  type DeclarationApplication,
+  type GraphFunctionCatalogView,
   type InvocationAuthority,
   type InvocationInteractionCapability,
   type InvocationPolicyBasis,
@@ -23,7 +23,7 @@ import {
   isInvocationPolicyBasis,
   isPublicInvocationCandidate,
 } from "../product/invocation.js";
-import type { JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -36,17 +36,12 @@ import {
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
 import {
-  hasAdmittedCatalogApplication,
-  hasAdmittedCatalogView,
-  hasAdmittedProductSemanticsBasis,
-  type AdmittedProductSemanticsBasis,
-} from "./catalog_admission.js";
-import {
   hasAdmittedWorkspaceBinding,
   validatePublicOperationBasis,
   type AbgAdmissionRefusal,
   type PublicOperationAdmissionBasis,
 } from "./environment_admission.js";
+import type { CatalogReadinessBasis } from "../product/catalog.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 import { replay } from "./replay.js";
 
@@ -59,8 +54,9 @@ export interface InvocationAdmissionInput {
   readonly graphFunction: Readonly<GraphFunction>;
   readonly programValidation: ProgramValidation;
   readonly workspaceBinding: WorkspaceBinding;
-  readonly catalogView: CatalogView;
-  readonly catalogApplications?: readonly CatalogApplication[];
+  readonly catalogReadinessBasis?: CatalogReadinessBasis;
+  readonly catalogView: GraphFunctionCatalogView;
+  readonly catalogApplications?: readonly DeclarationApplication[];
   readonly policy: InvocationPolicyBasis;
   readonly capabilityGrants: readonly CapabilityGrant[];
   readonly authority: InvocationAuthority;
@@ -117,6 +113,8 @@ export interface InvocationAdmission {
   readonly workspaceId: string;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
+  readonly catalogBasisRef: string;
+  readonly catalogBasisDigest: Sha256Digest;
   readonly catalogViewId: string;
   readonly catalogViewDigest: Sha256Digest;
   readonly catalogApplicationRefs: readonly string[];
@@ -125,6 +123,12 @@ export interface InvocationAdmission {
   readonly programDigest: Sha256Digest;
   readonly graphFunctionRef: string;
   readonly graphFunctionDigest: Sha256Digest;
+  readonly selectedDefinitionRef: string;
+  readonly selectedDefinitionDigest: Sha256Digest;
+  readonly selectedFibreRef: string;
+  readonly selectedFibreDigest: Sha256Digest;
+  readonly selectedPlanRef: string;
+  readonly selectedPlanDigest: Sha256Digest;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
   readonly programValidationRef: string;
@@ -181,6 +185,10 @@ function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function catalogViewRef(view: GraphFunctionCatalogView): string {
+  return `graph-function-catalog-view://abiogenesis/${view.viewDigest.slice("sha256:".length)}`;
+}
+
 const sourceResultBases = new WeakSet<object>();
 
 export interface InvocationSourceResultDerivationInput {
@@ -189,7 +197,6 @@ export interface InvocationSourceResultDerivationInput {
   readonly invocationAdmissionRef: string;
   readonly runId: string;
   readonly resultRef: string;
-  readonly productSemanticsBasis: AdmittedProductSemanticsBasis;
 }
 
 export function isInvocationSourceResultBasis(
@@ -273,11 +280,7 @@ export function deriveInvocationSourceResultBasis(
     sourceResultValueDigest !==
       sha256Canonical(sourceCall.resultValue) ||
     sourceResultAdmissionDigest !== sourceCall.resultDigest ||
-    !sourceJudgmentMatches ||
-    !hasAdmittedProductSemanticsBasis(
-      store,
-      input.productSemanticsBasis,
-    )
+    !sourceJudgmentMatches
   ) {
     return null;
   }
@@ -340,7 +343,7 @@ function validatedInteractionCapabilities(
 export function validateInvocationCapabilityBasis(input: Readonly<{
   actorRef: string;
   capabilityGrants: readonly CapabilityGrant[];
-  catalogApplications?: readonly CatalogApplication[];
+  catalogApplications?: readonly DeclarationApplication[];
   policy: InvocationPolicyBasis;
   program: Readonly<GtlProgram>;
   programValidation: ProgramValidation;
@@ -352,7 +355,7 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
   );
   const exactCatalogApplications = [...(input.catalogApplications ?? [])]
     .sort((left, right) =>
-      left.applicationId.localeCompare(right.applicationId)
+      left.applicationRef.localeCompare(right.applicationRef)
     );
   if (
     !isInvocationPolicyBasis(input.policy) ||
@@ -376,7 +379,7 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
     ) ||
     input.policy.catalogApplicationRefs.join("\0") !==
       exactCatalogApplications.map(
-        (application) => application.applicationId,
+        (application) => application.applicationRef,
       ).join("\0") ||
     input.policy.catalogApplicationDigests.join("\0") !==
       exactCatalogApplications.map(
@@ -467,6 +470,8 @@ export function hasAdmittedInvocation(
     workspaceId: admission.workspaceId,
     workspaceBindingId: admission.workspaceBindingId,
     workspaceBindingDigest: admission.workspaceBindingDigest,
+    catalogBasisRef: admission.catalogBasisRef,
+    catalogBasisDigest: admission.catalogBasisDigest,
     catalogViewId: admission.catalogViewId,
     catalogViewDigest: admission.catalogViewDigest,
     ...(carriesCatalogApplications
@@ -479,6 +484,12 @@ export function hasAdmittedInvocation(
     programDigest: admission.programDigest,
     graphFunctionRef: admission.graphFunctionRef,
     graphFunctionDigest: admission.graphFunctionDigest,
+    selectedDefinitionRef: admission.selectedDefinitionRef,
+    selectedDefinitionDigest: admission.selectedDefinitionDigest,
+    selectedFibreRef: admission.selectedFibreRef,
+    selectedFibreDigest: admission.selectedFibreDigest,
+    selectedPlanRef: admission.selectedPlanRef,
+    selectedPlanDigest: admission.selectedPlanDigest,
     inputContractRef: admission.inputContractRef,
     outputContractRef: admission.outputContractRef,
     programValidationRef: admission.programValidationRef,
@@ -507,6 +518,14 @@ export function hasAdmittedInvocation(
     publicEvent.payload.invocationRef === admission.invocationRef &&
     publicEvent.payload.invocationDigest === admission.invocationDigest &&
     publicEvent.payload.authorityRef === admission.authorityRef &&
+    publicEvent.payload.catalogBasisRef === admission.catalogBasisRef &&
+    publicEvent.payload.catalogBasisDigest === admission.catalogBasisDigest &&
+    publicEvent.payload.selectedDefinitionRef === admission.selectedDefinitionRef &&
+    publicEvent.payload.selectedDefinitionDigest === admission.selectedDefinitionDigest &&
+    publicEvent.payload.selectedFibreRef === admission.selectedFibreRef &&
+    publicEvent.payload.selectedFibreDigest === admission.selectedFibreDigest &&
+    publicEvent.payload.selectedPlanRef === admission.selectedPlanRef &&
+    publicEvent.payload.selectedPlanDigest === admission.selectedPlanDigest &&
     (
       !carriesCatalogApplications ||
       (
@@ -616,20 +635,25 @@ export function admitInvocation(
   ) {
     return refusal("authority_mismatch", "public operation basis differs from invocation or workspace authority");
   }
-  if (!hasAdmittedWorkspaceBinding(store, input.workspaceBinding)) {
+  const workspaceCarriedByReadiness = input.catalogReadinessBasis !== undefined &&
+    sha256Canonical(input.catalogReadinessBasis as unknown as JsonValue) ===
+      input.catalogView.catalogBasisDigest &&
+    canonicalJson(
+      input.catalogReadinessBasis.workspaceBinding as unknown as JsonValue,
+    ) === canonicalJson(input.workspaceBinding as unknown as JsonValue);
+  if (
+    !hasAdmittedWorkspaceBinding(store, input.workspaceBinding) &&
+    !workspaceCarriedByReadiness
+  ) {
     return refusal("workspace_not_admitted", "invocation workspace binding lacks ABG admission truth");
   }
-  if (!hasAdmittedCatalogView(store, input.catalogView)) {
-    return refusal("catalog_view_not_admitted", "invocation CatalogView lacks ABG admission truth");
-  }
   if (
-    new Set(catalogApplications.map((row) => row.applicationId)).size !==
+    new Set(catalogApplications.map((row) => row.applicationRef)).size !==
       catalogApplications.length ||
     catalogApplications.some(
       (application) =>
-        application.viewId !== input.catalogView.viewId ||
         application.viewDigest !== input.catalogView.viewDigest ||
-        !hasAdmittedCatalogApplication(store, application),
+        application.catalogBasisDigest !== input.catalogView.catalogBasisDigest,
     )
   ) {
     return refusal(
@@ -655,11 +679,11 @@ export function admitInvocation(
   ) {
     return refusal("validation_mismatch", "Invocation requires the exact non-lowering ProgramValidation");
   }
-  const selectedRow = input.catalogView.selectedRows.find(
+  const selectedRow = input.catalogView.entries.find(
     (row) =>
       (
         row.handle === input.graphFunction.name ||
-        row.declarationOrContractRef === input.graphFunction.name
+        row.definitionRef === input.graphFunction.name
       ) &&
       row.programMembershipRefs.includes(input.program.programRef),
   );
@@ -669,8 +693,8 @@ export function admitInvocation(
     input.invocation.graphFunctionRef !== input.graphFunction.name ||
     input.invocation.graphFunctionDigest !== sha256Canonical(input.graphFunction as unknown as JsonValue) ||
     !input.program.callableMembership.includes(input.graphFunction.name) ||
-    selectedRow?.kind !== "graph_function" ||
-    selectedRow.disposition !== "admitted" ||
+    selectedRow?.kind !== "graph_function_catalog_entry" ||
+    selectedRow.definitionDigest !== input.invocation.graphFunctionDigest ||
     !selectedRow.programMembershipRefs.includes(input.program.programRef)
   ) {
     return refusal("selection_mismatch", "selected Program and GraphFunction lack exact admitted membership");
@@ -851,7 +875,7 @@ export function admitInvocation(
         input.workspaceBinding.bindingId ||
       sourceInvocation.workspaceBindingDigest !==
         input.workspaceBinding.bindingDigest ||
-      sourceInvocation.catalogViewId !== input.catalogView.viewId ||
+      sourceInvocation.catalogViewId !== catalogViewRef(input.catalogView) ||
       sourceInvocation.catalogViewDigest !== input.catalogView.viewDigest ||
       sourceInvocation.programRef !== input.program.programRef ||
       sourceInvocation.graphFunctionRef !== input.graphFunction.name ||
@@ -941,7 +965,8 @@ export function admitInvocation(
     input.authority.workspaceBindingId !== input.workspaceBinding.bindingId ||
     input.authority.workspaceBindingDigest !==
       input.workspaceBinding.bindingDigest ||
-    input.authority.catalogViewId !== input.catalogView.viewId ||
+    input.authority.catalogBasisDigest !== input.catalogView.catalogBasisDigest ||
+    input.authority.catalogViewDigest !== input.catalogView.viewDigest ||
     input.authority.catalogViewDigest !== input.catalogView.viewDigest ||
     input.authority.programRef !== input.program.programRef ||
     input.authority.graphFunctionRef !== input.graphFunction.name ||
@@ -953,6 +978,23 @@ export function admitInvocation(
   }
 
   const programValidationDigest = sha256Canonical(input.programValidation as unknown as JsonValue);
+  const selectedFibreDigest = sha256Canonical({
+    executable: input.programValidation.executableLeafRows.map((row) => ({
+      nodeRef: row.nodeRef,
+      fibre: row.fibre,
+    })),
+    interaction: input.programValidation.interactionLeafRows.map((row) => ({
+      nodeRef: row.nodeRef,
+      fibre: row.fibre,
+    })),
+  } as unknown as JsonValue);
+  const selectedPlanDigest = sha256Canonical({
+    catalogBasisDigest: input.catalogView.catalogBasisDigest,
+    catalogViewDigest: input.catalogView.viewDigest,
+    definitionDigest: selectedRow.definitionDigest,
+    programRef: input.program.programRef,
+    programValidationRef: input.programValidation.validationRef,
+  } as unknown as JsonValue);
   const admissionBody = {
     invocationRef: input.invocation.invocationRef,
     invocationDigest: input.invocation.invocationDigest,
@@ -965,22 +1007,30 @@ export function admitInvocation(
     workspaceId: input.workspaceBinding.workspaceId,
     workspaceBindingId: input.workspaceBinding.bindingId,
     workspaceBindingDigest: input.workspaceBinding.bindingDigest,
-    catalogViewId: input.catalogView.viewId,
+    catalogBasisRef: `graph-function-catalog://abiogenesis/${input.catalogView.catalogBasisDigest.slice("sha256:".length)}`,
+    catalogBasisDigest: input.catalogView.catalogBasisDigest,
+    catalogViewId: catalogViewRef(input.catalogView),
     catalogViewDigest: input.catalogView.viewDigest,
     catalogApplicationRefs: [...catalogApplications]
       .sort((left, right) =>
-        left.applicationId.localeCompare(right.applicationId)
+        left.applicationRef.localeCompare(right.applicationRef)
       )
-      .map((application) => application.applicationId),
+      .map((application) => application.applicationRef),
     catalogApplicationDigests: [...catalogApplications]
       .sort((left, right) =>
-        left.applicationId.localeCompare(right.applicationId)
+        left.applicationRef.localeCompare(right.applicationRef)
       )
       .map((application) => application.applicationDigest),
     programRef: input.program.programRef,
     programDigest: input.invocation.programDigest,
     graphFunctionRef: input.graphFunction.name,
     graphFunctionDigest: input.invocation.graphFunctionDigest,
+    selectedDefinitionRef: selectedRow.definitionRef,
+    selectedDefinitionDigest: selectedRow.definitionDigest,
+    selectedFibreRef: `fibre-selection://abiogenesis/${selectedFibreDigest.slice("sha256:".length)}`,
+    selectedFibreDigest,
+    selectedPlanRef: `execution-plan://abiogenesis/${selectedPlanDigest.slice("sha256:".length)}`,
+    selectedPlanDigest,
     inputContractRef: input.invocation.inputContractRef,
     outputContractRef: input.invocation.outputContractRef,
     programValidationRef: input.programValidation.validationRef,
@@ -1030,9 +1080,17 @@ export function admitInvocation(
       policyRef: input.policy.policyRef,
       policyDigest: input.policy.policyDigest,
       workspaceBindingId: input.workspaceBinding.bindingId,
-      catalogViewId: input.catalogView.viewId,
+      catalogBasisRef: admissionBody.catalogBasisRef,
+      catalogBasisDigest: admissionBody.catalogBasisDigest,
+      catalogViewId: catalogViewRef(input.catalogView),
       programRef: input.program.programRef,
       graphFunctionRef: input.graphFunction.name,
+      selectedDefinitionRef: admissionBody.selectedDefinitionRef,
+      selectedDefinitionDigest: admissionBody.selectedDefinitionDigest,
+      selectedFibreRef: admissionBody.selectedFibreRef,
+      selectedFibreDigest: admissionBody.selectedFibreDigest,
+      selectedPlanRef: admissionBody.selectedPlanRef,
+      selectedPlanDigest: admissionBody.selectedPlanDigest,
     },
   });
   const admissionEvent = admitRuntimeEvent(store, {

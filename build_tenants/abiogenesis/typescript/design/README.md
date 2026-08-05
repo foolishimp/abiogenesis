@@ -25,6 +25,12 @@ remains non-operative future input under backlogged T-268.
 
 The current design basis is:
 
+- [T-287 Graph Catalog Contraction Accepted Design](./T287_GRAPH_CATALOG_CONTRACTION_ACCEPTED_DESIGN.md),
+  which supersedes every catalog, catalog-view, catalog-application,
+  registry-entry, and catalog Event Calculus relation in the terminal-
+  quiescence design while preserving its conforming execution relations;
+- [T-287 Terminal-Quiescence Owner Network Accepted Design](./T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md),
+  the exact accepted A5-F10 runtime-truth implementation composition;
 - [ABIogenesis 5.0 Realization Constitution](./ABI5_REALIZATION_CONSTITUTION.md),
   the sole local STDO 2.2.2 disambiguation for AI-authored design, coding,
   review, proof, lawful technology, common libraries, and entity lifecycle
@@ -74,13 +80,7 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-T-281 owns the proposed Gate 1 subject under T-270. Candidates `ba2e39a4` and
-`29aea26d` remain rejected evidence. Complete candidate `2a60c2b7` has both
-required reviews; one authority counterexample consumes the sole bounded
-repair allowance. The full-retry-frontier repair is frozen, both delta reviews
-pass, and Direct F_H accepted exact candidate `3f80ba23`, tree `04906b1c`.
-Increment 0A may implement only the frozen falsifier baseline. Production
-semantic repair, schema, generator, donor, deletion, and Gate 2 work remain
-held. Planned 5.1 observer/tuner
-realization, post-S06 Prime, complete conservation, qualification, and release
-remain held.
+T-287 selects A5-F10 `graph_catalog_contraction_and_runtime_recovery`: pure
+catalog readiness and construction, event-authoritative runtime recovery, and
+installed terminal quiescence. The accepted T-287 design surfaces in this
+directory govern that implementation slice.

@@ -1,191 +1,106 @@
-import type { ModulePublication } from "../gtl/contracts.js";
 import type {
-  ProgramValidation,
-  PublicationValidation,
-} from "../validator/validation.js";
+  CatalogContribution,
+  GraphFunction,
+  ModulePublication,
+} from "../gtl/contracts.js";
 import {
-  isProgramValidation,
-  isPublicationValidation,
-} from "../validator/validation.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+  canonicalJson,
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type {
-  ResolvedProductLock,
-  WorkspaceBinding,
-} from "./environment.js";
-import { resolveExactMatch } from "./exact_match.js";
+import type { ProductInstall, ResolvedProductLock, WorkspaceBindingCandidate } from "./environment.js";
+import { constructProductSet, isResolvedProductLock } from "./environment.js";
+import type { ProductInstallCandidate, VerifiedProductArtifact } from "./contracts.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
 
-export type CatalogRowDispositionKind =
-  | "admitted"
-  | "rejected"
-  | "incompatible"
-  | "conflicting"
-  | "unready"
-  | "unresolved";
-
-export interface CatalogRowCandidate {
+export interface GraphFunctionCatalogEntry {
+  readonly kind: "graph_function_catalog_entry";
   readonly handle: string;
-  readonly kind: "graph_function" | "node_type" | "overlay";
+  readonly definitionRef: string;
+  readonly definitionDigest: Sha256Digest;
+  readonly definition: Readonly<GraphFunction>;
+  readonly owningProductId: string;
+  readonly moduleRef: string;
+  readonly publicationDigest: Sha256Digest;
+  readonly programMembershipRefs: readonly string[];
+  readonly compatibilityRefs: readonly string[];
+  readonly provenanceRefs: readonly string[];
+  readonly entryDigest: Sha256Digest;
+}
+
+export interface DeclarationCatalogEntry {
+  readonly kind: "declaration_catalog_entry";
+  readonly handle: string;
+  readonly declarationKind: "node_type" | "overlay";
   readonly declarationOrContractRef: string;
   readonly owningProductId: string;
   readonly moduleRef: string;
+  readonly publicationDigest: Sha256Digest;
   readonly programMembershipRefs: readonly string[];
-  readonly readinessPrerequisiteRefs: readonly string[];
-  readonly readiness: "ready";
-  readonly eligibility: "eligible";
-  readonly callability: "callable" | "non_callable";
-  readonly sessionVisibility: "workspace";
-  readonly compatibilityDisposition: "compatible";
   readonly compatibilityRefs: readonly string[];
   readonly provenanceRefs: readonly string[];
+  readonly entryDigest: Sha256Digest;
+}
+
+export interface GraphFunctionCatalog {
+  readonly kind: "graph_function_catalog";
+  readonly schemaVersion: "5.0.0";
+  readonly basisDigest: Sha256Digest;
+  readonly publicationDigests: readonly Sha256Digest[];
+  readonly entries: readonly GraphFunctionCatalogEntry[];
+  readonly byHandle: Readonly<Record<string, GraphFunctionCatalogEntry>>;
+  readonly declarationEntries: readonly DeclarationCatalogEntry[];
+  readonly declarationsByHandle: Readonly<Record<string, DeclarationCatalogEntry>>;
+}
+
+export interface CatalogReadinessBasis {
+  readonly workspaceBinding: WorkspaceBindingCandidate;
+  readonly resolvedLock: ResolvedProductLock;
+  readonly verifiedProducts: readonly VerifiedProductArtifact[];
+  readonly installedProducts: readonly ProductInstallCandidate[];
+  readonly publications: readonly Readonly<ModulePublication>[];
+}
+
+export interface CatalogReadinessRowDisposition {
+  readonly handle: string;
+  readonly owningProductId: string;
+  readonly moduleRef: string;
+  readonly disposition:
+    | "admitted"
+    | "rejected"
+    | "incompatible"
+    | "conflicting"
+    | "unready"
+    | "unresolved";
+  readonly readiness: "ready" | "not_ready";
+  readonly reason: string | null;
+  readonly readinessPrerequisiteRefs: readonly string[];
   readonly rowDigest: Sha256Digest;
 }
 
-export interface CatalogAdmissionCandidate {
-  readonly kind: "catalog_admission_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "candidate";
-  readonly candidateId: string;
-  readonly candidateDigest: Sha256Digest;
+export interface ReadyGraphFunctionCatalog extends GraphFunctionCatalog {
+  readonly readinessBasisDigest: Sha256Digest;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
   readonly lockId: string;
   readonly lockDigest: Sha256Digest;
-  readonly publicationDigest: Sha256Digest;
-  readonly publicationValidationRef: string;
-  readonly programValidationRefs: readonly string[];
-  readonly modulePublication: Readonly<ModulePublication>;
-  readonly programValidations: readonly ProgramValidation[];
-  readonly rows: readonly CatalogRowCandidate[];
+  readonly productSetId: string;
+  readonly productSetDigest: Sha256Digest;
+  readonly readinessBasis: CatalogReadinessBasis;
+  readonly rowDispositions: readonly CatalogReadinessRowDisposition[];
 }
 
-export interface CatalogRowDisposition extends CatalogRowCandidate {
-  readonly disposition: CatalogRowDispositionKind;
-  readonly admissionEventRef: string;
-}
-
-export interface AdmittedCatalog
-  extends Omit<CatalogAdmissionCandidate, "candidateId" | "candidateDigest" | "disposition" | "kind" | "rows"> {
-  readonly kind: "admitted_catalog";
-  readonly disposition: "admitted";
-  readonly catalogId: string;
-  readonly catalogDigest: Sha256Digest;
-  readonly admissionCandidateRef: string;
-  readonly admissionEventRef: string;
-  readonly rows: readonly CatalogRowDisposition[];
-}
-
-export interface CatalogViewCandidate {
-  readonly kind: "catalog_view_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "candidate";
-  readonly viewCandidateId: string;
-  readonly viewCandidateDigest: Sha256Digest;
-  readonly catalogId: string;
-  readonly catalogDigest: Sha256Digest;
+export interface GraphFunctionCatalogView {
+  readonly kind: "graph_function_catalog_view";
+  readonly catalogBasisDigest: Sha256Digest;
   readonly allowlist: readonly string[];
-  readonly selectedRows: readonly CatalogRowDisposition[];
-}
-
-export interface CatalogView extends Omit<CatalogViewCandidate, "kind" | "disposition" | "viewCandidateId" | "viewCandidateDigest"> {
-  readonly kind: "catalog_view";
-  readonly disposition: "admitted";
-  readonly viewId: string;
+  readonly entries: readonly GraphFunctionCatalogEntry[];
+  readonly byHandle: Readonly<Record<string, GraphFunctionCatalogEntry>>;
+  readonly declarationEntries: readonly DeclarationCatalogEntry[];
+  readonly declarationsByHandle: Readonly<Record<string, DeclarationCatalogEntry>>;
   readonly viewDigest: Sha256Digest;
-  readonly admissionCandidateRef: string;
-  readonly admissionEventRef: string;
-}
-
-export type CatalogApplicationVariant = "node_type" | "overlay";
-
-export interface CatalogApplicationCandidateScope {
-  readonly kind: "catalog_application_candidate_scope";
-}
-
-export type CatalogNodeTypeTargetInput =
-  | Readonly<{
-      readonly kind: "program";
-      readonly programRef: string;
-    }>
-  | Readonly<{
-      readonly kind: "node";
-      readonly programRef: string;
-      readonly graphFunctionRef: string;
-      readonly nodeRef: string;
-    }>;
-
-export type CatalogNodeTypeTarget =
-  | Readonly<{
-      readonly kind: "program";
-      readonly targetRef: string;
-      readonly targetDigest: Sha256Digest;
-      readonly programRef: string;
-    }>
-  | Readonly<{
-      readonly kind: "node";
-      readonly targetRef: string;
-      readonly targetDigest: Sha256Digest;
-      readonly programRef: string;
-      readonly graphFunctionRef: string;
-      readonly nodeRef: string;
-    }>;
-
-export interface CatalogApplicationCandidate {
-  readonly kind: "catalog_application_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "candidate";
-  readonly applicationCandidateId: string;
-  readonly applicationCandidateDigest: Sha256Digest;
-  readonly catalogId: string;
-  readonly catalogDigest: Sha256Digest;
-  readonly viewId: string;
-  readonly viewDigest: Sha256Digest;
-  readonly rowHandle: string;
-  readonly rowDigest: Sha256Digest;
-  readonly applicationVariant: CatalogApplicationVariant;
-  readonly validationReceiptRef: string;
-  readonly validationReceiptDigest: Sha256Digest;
-  readonly validatingInstallId: string;
-  readonly validatingProductId: string;
-  readonly validatingArtifactDigest: Sha256Digest;
-  readonly validatingProductContentDigest: Sha256Digest;
-  readonly validatingManifestDigest: Sha256Digest;
-  readonly validatingPublicationDigest: Sha256Digest;
-  readonly appliedHandle: string;
-  readonly appliedValueRef: string;
-  readonly appliedValueDigest: Sha256Digest;
-  readonly appliedValue: JsonValue;
-  readonly contributorKind: "host" | "product";
-  readonly contributorRef: string;
-  readonly contributorAuthorityKind:
-    | "installed_product_attestation"
-    | "trusted_developer_attribution";
-  readonly contributorAuthorityRef: string;
-  readonly contributorProvenanceRefs: readonly string[];
-  readonly contributionKind: "node_type" | "overlay";
-  readonly declarationOrContractRef: string;
-  readonly owningProductId: string;
-  readonly moduleRef: string;
-  readonly programMembershipRefs: readonly string[];
-  readonly nodeTypeTarget: CatalogNodeTypeTarget | null;
-  readonly compatibilityDisposition: "compatible";
-  readonly compatibilityRefs: readonly string[];
-  readonly provenanceRefs: readonly string[];
-}
-
-export interface CatalogApplication
-  extends Omit<
-    CatalogApplicationCandidate,
-    "kind" | "disposition" | "applicationCandidateId" | "applicationCandidateDigest"
-  > {
-  readonly kind: "catalog_application";
-  readonly disposition: "admitted";
-  readonly applicationId: string;
-  readonly applicationDigest: Sha256Digest;
-  readonly admissionCandidateRef: string;
-  readonly admissionEventRef: null;
 }
 
 export interface CatalogConstructionRefusal {
@@ -193,354 +108,708 @@ export interface CatalogConstructionRefusal {
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code:
-    | "application_not_supported"
-    | "invalid_application_binding"
-    | "invalid_application_contributor"
-    | "invalid_application_receipt"
-    | "invalid_application_target"
-    | "invalid_application_variant"
-    | "binding_lock_mismatch"
+    | "canonical_handle_collision"
     | "duplicate_allowlist_entry"
-    | "invalid_validation_basis"
+    | "graph_function_definition_missing"
+    | "invalid_program_membership"
+    | "binding_lock_mismatch"
+    | "verified_product_mismatch"
+    | "installed_product_mismatch"
     | "publication_not_bound"
     | "unresolved_readiness_prerequisite"
-    | "row_not_admitted"
+    | "publication_identity_collision"
+    | "publication_owner_mismatch"
     | "unknown_allowlist_entry";
   readonly message: string;
 }
 
-export type CatalogAdmissionCandidateResult = CatalogAdmissionCandidate | CatalogConstructionRefusal;
-export type CatalogViewCandidateResult = CatalogViewCandidate | CatalogConstructionRefusal;
-export type CatalogApplicationCandidateResult =
-  | CatalogApplicationCandidate
+export type GraphFunctionCatalogResult =
+  | GraphFunctionCatalog
+  | CatalogConstructionRefusal;
+export type ReadyGraphFunctionCatalogResult =
+  | ReadyGraphFunctionCatalog
+  | CatalogConstructionRefusal;
+export type GraphFunctionCatalogViewResult =
+  | GraphFunctionCatalogView
   | CatalogConstructionRefusal;
 
-const catalogAdmissionCandidates = new WeakSet<object>();
-const catalogViewCandidates = new WeakSet<object>();
-
-export function isCatalogAdmissionCandidate(value: object): boolean {
-  return catalogAdmissionCandidates.has(value);
+export interface DeclarationApplicationInput {
+  readonly applicationKind: "node_type" | "overlay";
+  readonly handle: string;
+  readonly targetRef: string;
+  readonly targetDigest: Sha256Digest;
+  readonly appliedValueRef: string;
+  readonly appliedValueDigest: Sha256Digest;
 }
 
-export function isCatalogViewCandidate(value: object): boolean {
-  return catalogViewCandidates.has(value);
+export interface DeclarationApplication {
+  readonly kind: "declaration_application";
+  readonly catalogBasisDigest: Sha256Digest;
+  readonly viewDigest: Sha256Digest;
+  readonly declaration: DeclarationCatalogEntry;
+  readonly targetRef: string;
+  readonly targetDigest: Sha256Digest;
+  readonly appliedValueRef: string;
+  readonly appliedValueDigest: Sha256Digest;
+  readonly applicationRef: string;
+  readonly applicationDigest: Sha256Digest;
 }
+
+export interface DeclarationApplicationRefusal {
+  readonly kind: "declaration_application_refusal";
+  readonly code: "kind_mismatch" | "outside_view";
+  readonly message: string;
+}
+
+export type DeclarationApplicationResult =
+  | DeclarationApplication
+  | DeclarationApplicationRefusal;
 
 function refusal(
   code: CatalogConstructionRefusal["code"],
   message: string,
 ): CatalogConstructionRefusal {
-  return {
-    kind: "catalog_construction_refusal",
-    schemaVersion: "5.0.0",
-    disposition: "refused",
+  return deepFreeze({
+    kind: "catalog_construction_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
     code,
     message,
-  };
+  }) as CatalogConstructionRefusal;
 }
 
-function identity(prefix: string, digest: Sha256Digest): string {
-  return `${prefix}/${digest.slice("sha256:".length)}`;
+function orderedUniqueStrings(values: readonly string[]): readonly string[] {
+  return Object.freeze(
+    [...new Set(values)].sort(compareUnicodeCodeUnits),
+  );
+}
+
+function frozenIndex<T extends Readonly<{ readonly handle: string }>>(
+  entries: readonly T[],
+): Readonly<Record<string, T>> {
+  return deepFreeze(Object.fromEntries(
+    entries.map((entry) => [entry.handle, entry]),
+  )) as Readonly<Record<string, T>>;
+}
+
+function exactDefinition(
+  publication: Readonly<ModulePublication>,
+  contribution: Readonly<CatalogContribution>,
+): Readonly<GraphFunction> | null {
+  const matches = publication.graphFunctions.filter(
+    (definition) => definition.name === contribution.declarationOrContractRef,
+  );
+  return matches.length === 1 ? matches[0]! : null;
+}
+
+function graphFunctionEntry(
+  publication: Readonly<ModulePublication>,
+  publicationDigest: Sha256Digest,
+  contribution: Readonly<CatalogContribution>,
+  definition: Readonly<GraphFunction>,
+): GraphFunctionCatalogEntry {
+  const body = {
+    handle: contribution.handle,
+    definitionRef: contribution.declarationOrContractRef,
+    definitionDigest: sha256Canonical(definition as unknown as JsonValue),
+    definition,
+    owningProductId: contribution.owningProductId,
+    moduleRef: publication.moduleRef,
+    publicationDigest,
+    programMembershipRefs: orderedUniqueStrings(
+      contribution.programMembershipRefs,
+    ),
+    compatibilityRefs: orderedUniqueStrings(contribution.compatibilityRefs),
+    provenanceRefs: orderedUniqueStrings(contribution.provenanceRefs),
+  };
+  return deepFreeze({
+    kind: "graph_function_catalog_entry" as const,
+    ...body,
+    entryDigest: sha256Canonical(body as unknown as JsonValue),
+  }) as GraphFunctionCatalogEntry;
+}
+
+function declarationEntry(
+  publication: Readonly<ModulePublication>,
+  publicationDigest: Sha256Digest,
+  contribution: Readonly<CatalogContribution> & Readonly<{
+    readonly kind: "node_type" | "overlay";
+  }>,
+): DeclarationCatalogEntry {
+  const body = {
+    handle: contribution.handle,
+    declarationKind: contribution.kind,
+    declarationOrContractRef: contribution.declarationOrContractRef,
+    owningProductId: contribution.owningProductId,
+    moduleRef: publication.moduleRef,
+    publicationDigest,
+    programMembershipRefs: orderedUniqueStrings(
+      contribution.programMembershipRefs,
+    ),
+    compatibilityRefs: orderedUniqueStrings(contribution.compatibilityRefs),
+    provenanceRefs: orderedUniqueStrings(contribution.provenanceRefs),
+  };
+  return deepFreeze({
+    kind: "declaration_catalog_entry" as const,
+    ...body,
+    entryDigest: sha256Canonical(body as unknown as JsonValue),
+  }) as DeclarationCatalogEntry;
+}
+
+function lockComparableProduct(
+  value: VerifiedProductArtifact | ProductInstallCandidate,
+): JsonValue {
+  return {
+    productId: value.productId,
+    packageName: value.packageName,
+    packageVersion: value.packageVersion,
+    artifactDigest: value.artifactDigest,
+    productContentDigest: value.productContentDigest,
+    manifestDigest: value.manifestDigest,
+    descriptorRef: value.descriptorRef,
+    publisherNamespace: value.publisherNamespace,
+    catalogId: value.catalogId,
+    catalogDigest: value.catalogDigest,
+    contributionManifestRef: value.contributionManifestRef,
+    contributionManifestDigest: value.contributionManifestDigest,
+    contributionManifest: value.contributionManifest,
+    compatibilityRefs: value.compatibilityRefs,
+    declaredDependencies: value.declaredDependencies,
+    provenanceRef: value.provenanceRef,
+    declaredCapabilityRefs: value.declaredCapabilityRefs,
+    publicContracts: value.publicContracts,
+    publicContractRefs: value.publicContractRefs,
+    publicCapabilityRefs: value.publicCapabilityRefs,
+  } as unknown as JsonValue;
 }
 
 export function directSatisfiedDependencyRefs(
   lock: ResolvedProductLock,
   publishingProductId: string,
 ): ReadonlySet<string> {
-  const satisfiedRefs = new Set<string>();
-  for (
-    const edge of lock.dependencyEdges.filter(
-      (candidate) => candidate.fromProductId === publishingProductId,
-    )
-  ) {
-    const targetMatch = resolveExactMatch(
-      lock.rows,
-      (row) => row.productId === edge.toProductId,
-    );
+  const satisfied = new Set<string>();
+  for (const edge of lock.dependencyEdges) {
+    if (edge.fromProductId !== publishingProductId) continue;
+    const targets = lock.rows.filter((row) => row.productId === edge.toProductId);
+    if (targets.length !== 1) continue;
+    const target = targets[0]!;
     if (
-      targetMatch.kind !== "one" ||
-      targetMatch.value.packageVersion !== edge.packageVersion ||
-      !targetMatch.value.compatibilityRefs.includes(edge.compatibilityRef) ||
+      target.packageVersion !== edge.packageVersion ||
+      !target.compatibilityRefs.includes(edge.compatibilityRef) ||
       edge.requiredContractRefs.some(
-        (contractRef) =>
-          !targetMatch.value.publicContractRefs.includes(contractRef),
+        (contractRef) => !target.publicContractRefs.includes(contractRef),
       ) ||
       edge.requiredCapabilityRefs.some(
-        (capabilityRef) =>
-          !targetMatch.value.publicCapabilityRefs.includes(capabilityRef),
+        (capabilityRef) => !target.publicCapabilityRefs.includes(capabilityRef),
       )
-    ) {
-      continue;
-    }
-    for (const contractRef of edge.requiredContractRefs) {
-      satisfiedRefs.add(contractRef);
-    }
-    for (const capabilityRef of edge.requiredCapabilityRefs) {
-      satisfiedRefs.add(capabilityRef);
-    }
+    ) continue;
+    edge.requiredContractRefs.forEach((ref) => satisfied.add(ref));
+    edge.requiredCapabilityRefs.forEach((ref) => satisfied.add(ref));
   }
-  return satisfiedRefs;
+  return satisfied;
 }
 
-export function constructCatalogAdmissionCandidate(
-  workspaceBinding: WorkspaceBinding,
-  lock: ResolvedProductLock,
-  publication: Readonly<ModulePublication>,
-  publicationValidation: PublicationValidation,
-  programValidations: readonly ProgramValidation[],
-): CatalogAdmissionCandidateResult {
-  if (
-    workspaceBinding.lockId !== lock.lockId ||
-    workspaceBinding.lockDigest !== lock.lockDigest
-  ) {
-    return refusal("binding_lock_mismatch", "workspace binding and resolved lock disagree");
-  }
-  const productLockRowMatch = resolveExactMatch(
-    lock.rows,
-    (row) => row.productId === publication.owningProductId,
+export function admitGraphFunctionCatalog(
+  basis: CatalogReadinessBasis,
+): ReadyGraphFunctionCatalogResult {
+  const canonicalBasis: CatalogReadinessBasis = {
+    workspaceBinding: basis.workspaceBinding,
+    resolvedLock: basis.resolvedLock,
+    verifiedProducts: [...basis.verifiedProducts].sort((left, right) =>
+      compareUnicodeCodeUnits(left.productId, right.productId)),
+    installedProducts: [...basis.installedProducts].sort((left, right) =>
+      compareUnicodeCodeUnits(left.productId, right.productId)),
+    publications: [...basis.publications].sort((left, right) =>
+      compareUnicodeCodeUnits(
+        modulePublicationSemanticDigest(left),
+        modulePublicationSemanticDigest(right),
+      )),
+  };
+  const { workspaceBinding, resolvedLock, verifiedProducts, installedProducts, publications } = canonicalBasis;
+  const workspaceBindingBody = {
+    workspaceId: workspaceBinding.workspaceId,
+    authorityBasisId: workspaceBinding.authorityBasisId,
+    authorityBasisDigest: workspaceBinding.authorityBasisDigest,
+    authorizedActorRef: workspaceBinding.authorizedActorRef,
+    productSetId: workspaceBinding.productSetId,
+    productSetDigest: workspaceBinding.productSetDigest,
+    lockId: workspaceBinding.lockId,
+    lockDigest: workspaceBinding.lockDigest,
+    roots: workspaceBinding.roots,
+  };
+  const expectedWorkspaceBindingDigest = sha256Canonical(
+    workspaceBindingBody as unknown as JsonValue,
   );
   if (
-    productLockRowMatch.kind !== "one" ||
-    productLockRowMatch.value.artifactDigest !== publication.artifactDigest ||
-    productLockRowMatch.value.productContentDigest !==
-      publication.productContentDigest ||
-    productLockRowMatch.value.manifestDigest !==
-      publication.productManifestDigest ||
-    productLockRowMatch.value.descriptorRef !== publication.descriptorRef ||
-    productLockRowMatch.value.contributionManifestRef !==
-      publication.contributionManifestRef
-  ) {
-    return refusal("publication_not_bound", "module publication is not carried by the exact bound Product lock");
-  }
-  const productLockRow = productLockRowMatch.value;
-  const publicationBinding = resolveExactMatch(
-    productLockRow.contributionManifest.publicationBindings,
-    (binding) => binding.moduleRef === publication.moduleRef,
-  );
-  if (
-    publicationBinding.kind !== "one" ||
-    publicationBinding.value.publicationDigest !==
-      modulePublicationSemanticDigest(publication)
+    !isResolvedProductLock(resolvedLock) ||
+    workspaceBinding.kind !== "workspace_binding_candidate" ||
+    workspaceBinding.schemaVersion !== "5.0.0" ||
+    workspaceBinding.bindingDigest !== expectedWorkspaceBindingDigest ||
+    workspaceBinding.bindingId !==
+      `workspace-binding://abiogenesis/${expectedWorkspaceBindingDigest.slice("sha256:".length)}` ||
+    workspaceBinding.lockId !== resolvedLock.lockId ||
+    workspaceBinding.lockDigest !== resolvedLock.lockDigest
   ) {
     return refusal(
-      "publication_not_bound",
-      "complete module publication differs from publisher-authored Product truth",
+      "binding_lock_mismatch",
+      "catalog readiness workspace binding and resolved lock disagree",
     );
   }
-  const declaredContributionRows =
-    productLockRow.contributionManifest.rows.filter(
-      (row) => row.moduleRef === publication.moduleRef,
-    );
   if (
-    declaredContributionRows.length !== publication.contributions.length ||
-    publication.contributions.some((contribution) => {
-      const matches = declaredContributionRows.filter(
-        (row) => row.handle === contribution.handle,
-      );
-      if (matches.length !== 1) return true;
-      const declared = matches[0]!;
-      return declared.kind !== contribution.kind ||
-        declared.declarationOrContractRef !==
-          contribution.declarationOrContractRef ||
-        declared.owningProductId !== contribution.owningProductId ||
-        declared.provenanceRef !== productLockRow.provenanceRef ||
-        canonicalJson(declared.programMembershipRefs as unknown as JsonValue) !==
-          canonicalJson(
-            contribution.programMembershipRefs as unknown as JsonValue,
-          ) ||
-        canonicalJson(declared.compatibilityRefs as unknown as JsonValue) !==
-          canonicalJson(contribution.compatibilityRefs as unknown as JsonValue) ||
-        declared.compatibilityRefs.some(
-          (compatibilityRef) =>
-            !productLockRow.compatibilityRefs.includes(compatibilityRef),
-        ) ||
-        canonicalJson(
-          declared.readinessPrerequisiteRefs as unknown as JsonValue,
-        ) !== canonicalJson(
-          contribution.readinessPrerequisiteRefs as unknown as JsonValue,
-        ) ||
-        canonicalJson(
-          contribution.provenanceRefs as unknown as JsonValue,
-        ) !== canonicalJson([
-          productLockRow.artifactDigest,
-          productLockRow.manifestDigest,
-        ]);
+    verifiedProducts.length !== resolvedLock.rows.length ||
+    verifiedProducts.some((verified) => {
+      if (
+        verified.kind !== "verified_product_artifact" ||
+        verified.disposition !== "verified"
+      ) return true;
+      const rows = resolvedLock.rows.filter((row) => row.productId === verified.productId);
+      return rows.length !== 1 || canonicalJson(
+        lockComparableProduct(verified),
+      ) !== canonicalJson(rows[0] as unknown as JsonValue);
     })
   ) {
     return refusal(
-      "publication_not_bound",
-      "module publication contributions differ from publisher-authored Product truth",
+      "verified_product_mismatch",
+      "catalog readiness verified Products differ from the exact resolved lock",
     );
   }
-  const publicationDigest = sha256Canonical(publication as unknown as JsonValue);
-  const validationMatches = publication.programs.map((program) =>
-    resolveExactMatch(
-      programValidations,
-      (validation) => validation.programRef === program.programRef,
-    )
+  if (
+    installedProducts.length !== verifiedProducts.length ||
+    installedProducts.some((install) => {
+      const verified = verifiedProducts.filter(
+        (candidate) => candidate.productId === install.productId,
+      );
+      return install.kind !== "product_install_candidate" ||
+        install.disposition !== "materialized" ||
+        install.resolvedLockId !== resolvedLock.lockId ||
+        install.resolvedLockDigest !== resolvedLock.lockDigest ||
+        verified.length !== 1 ||
+        canonicalJson(lockComparableProduct(install)) !==
+          canonicalJson(lockComparableProduct(verified[0]!));
+    })
+  ) {
+    return refusal(
+      "installed_product_mismatch",
+      "catalog readiness installed Products differ from verified Product truth",
+    );
+  }
+  const productSet = constructProductSet(
+    installedProducts as unknown as readonly ProductInstall[],
+    resolvedLock,
   );
   if (
-    !isPublicationValidation(publicationValidation) ||
-    programValidations.some((validation) => !isProgramValidation(validation)) ||
-    new Set(programValidations.map((validation) => validation.programRef)).size !== programValidations.length ||
-    publicationValidation.disposition !== "valid" ||
-    publicationValidation.publicationDigest !== publicationDigest ||
-    publicationValidation.moduleRef !== publication.moduleRef ||
-    publication.programs.length !== programValidations.length ||
-    validationMatches.some(
-      (match) =>
-        match.kind !== "one" ||
-        match.value.publicationDigest !== publicationDigest,
-    )
+    productSet.kind !== "product_set" ||
+    workspaceBinding.productSetId !== productSet.productSetId ||
+    workspaceBinding.productSetDigest !== productSet.productSetDigest
   ) {
-    return refusal("invalid_validation_basis", "catalog candidate requires exact publication and Program validations");
-  }
-  const admittedReadinessRefs = new Set([
-    publication.moduleRef,
-    publicationValidation.validationRef,
-    productLockRow.artifactDigest,
-    productLockRow.productContentDigest,
-    productLockRow.manifestDigest,
-    productLockRow.descriptorRef,
-    productLockRow.contributionManifestRef,
-    productLockRow.contributionManifestDigest,
-    productLockRow.provenanceRef,
-    ...productLockRow.compatibilityRefs,
-    ...productLockRow.publicContractRefs,
-    ...productLockRow.publicCapabilityRefs,
-    ...publication.programs.map((program) => program.programRef),
-    ...programValidations.map((validation) => validation.validationRef),
-    ...directSatisfiedDependencyRefs(lock, publication.owningProductId),
-  ]);
-  const unresolvedReadiness = publication.contributions
-    .flatMap((contribution) =>
-      contribution.readinessPrerequisiteRefs.map((prerequisiteRef) => ({
-        handle: contribution.handle,
-        prerequisiteRef,
-      }))
-    )
-    .find(({ prerequisiteRef }) => !admittedReadinessRefs.has(prerequisiteRef));
-  if (unresolvedReadiness !== undefined) {
     return refusal(
-      "unresolved_readiness_prerequisite",
-      `catalog row ${unresolvedReadiness.handle} has unresolved readiness prerequisite ${unresolvedReadiness.prerequisiteRef}`,
+      "binding_lock_mismatch",
+      "catalog readiness workspace is unrelated to the exact installed Product set",
     );
   }
-  const rows = publication.contributions.map((contribution): CatalogRowCandidate => {
-    const body = {
+  const rowDispositions: CatalogReadinessRowDisposition[] = [];
+  const admittedPublications: ModulePublication[] = [];
+  const submittedContributions = publications.flatMap((publication) =>
+    publication.contributions.map((contribution) => ({ publication, contribution }))
+  );
+  const pushDisposition = (
+    publication: Readonly<ModulePublication>,
+    contribution: CatalogContribution,
+    disposition: CatalogReadinessRowDisposition["disposition"],
+    reason: string | null,
+  ): void => {
+    const rowBody = {
       handle: contribution.handle,
-      kind: contribution.kind,
-      declarationOrContractRef: contribution.declarationOrContractRef,
       owningProductId: contribution.owningProductId,
       moduleRef: publication.moduleRef,
-      programMembershipRefs: contribution.programMembershipRefs,
-      readinessPrerequisiteRefs: contribution.readinessPrerequisiteRefs,
-      readiness: "ready" as const,
-      eligibility: "eligible" as const,
-      callability: contribution.kind === "graph_function" ? "callable" as const : "non_callable" as const,
-      sessionVisibility: "workspace" as const,
-      compatibilityDisposition: "compatible" as const,
-      compatibilityRefs: contribution.compatibilityRefs,
-      provenanceRefs: [
-        productLockRow.provenanceRef,
-        productLockRow.descriptorRef,
-        productLockRow.contributionManifestRef,
-        productLockRow.contributionManifestDigest,
-        productLockRow.artifactDigest,
-        productLockRow.manifestDigest,
-      ],
+      disposition,
+      readiness: disposition === "admitted" ? "ready" as const : "not_ready" as const,
+      reason,
+      readinessPrerequisiteRefs: [...contribution.readinessPrerequisiteRefs],
     };
-    return { ...body, rowDigest: sha256Canonical(body as unknown as JsonValue) };
-  });
-  const body = {
+    rowDispositions.push({
+      ...rowBody,
+      rowDigest: sha256Canonical(rowBody as unknown as JsonValue),
+    });
+  };
+  for (const publication of publications) {
+    const lockRows = resolvedLock.rows.filter(
+      (row) => row.productId === publication.owningProductId,
+    );
+    if (lockRows.length !== 1) {
+      publication.contributions.forEach((contribution) =>
+        pushDisposition(publication, contribution, "unresolved", "publication_owner_unresolved"));
+      admittedPublications.push({ ...publication, contributions: [] });
+      continue;
+    }
+    const lockRow = lockRows[0]!;
+    const publicationBindings = lockRow.contributionManifest.publicationBindings.filter(
+      (binding) => binding.moduleRef === publication.moduleRef,
+    );
+    const declaredRows = lockRow.contributionManifest.rows.filter(
+      (row) => row.moduleRef === publication.moduleRef,
+    );
+    const publicationIdentityMismatch =
+      publication.artifactDigest !== lockRow.artifactDigest ||
+      publication.productContentDigest !== lockRow.productContentDigest ||
+      publication.productManifestDigest !== lockRow.manifestDigest ||
+      publication.descriptorRef !== lockRow.descriptorRef ||
+      publication.contributionManifestRef !== lockRow.contributionManifestRef ||
+      publicationBindings.length !== 1;
+    const admittedReadinessRefs = new Set([
+      publication.moduleRef,
+      lockRow.artifactDigest,
+      lockRow.productContentDigest,
+      lockRow.manifestDigest,
+      lockRow.descriptorRef,
+      lockRow.contributionManifestRef,
+      lockRow.contributionManifestDigest,
+      lockRow.provenanceRef,
+      ...lockRow.compatibilityRefs,
+      ...lockRow.publicContractRefs,
+      ...lockRow.publicCapabilityRefs,
+      ...publication.programs.map((program) => program.programRef),
+      ...directSatisfiedDependencyRefs(resolvedLock, publication.owningProductId),
+    ]);
+    const admittedContributions: CatalogContribution[] = [];
+    for (const contribution of publication.contributions) {
+      if (publicationIdentityMismatch) {
+        pushDisposition(publication, contribution, "rejected", "publication_identity_mismatch");
+        continue;
+      }
+      const collisions = submittedContributions.filter(
+        (candidate) => candidate.contribution.handle === contribution.handle,
+      );
+      if (
+        collisions.length > 1 &&
+        new Set(collisions.map((candidate) => canonicalJson(candidate.contribution as unknown as JsonValue))).size > 1
+      ) {
+        pushDisposition(publication, contribution, "conflicting", "canonical_handle_conflict");
+        continue;
+      }
+      const matches = declaredRows.filter((row) => row.handle === contribution.handle);
+      if (matches.length !== 1) {
+        pushDisposition(
+          publication,
+          contribution,
+          matches.length === 0 ? "rejected" : "conflicting",
+          matches.length === 0 ? "manifest_row_absent" : "manifest_row_ambiguous",
+        );
+        continue;
+      }
+      const declared = matches[0]!;
+      if (
+        declared.kind !== contribution.kind ||
+        declared.declarationOrContractRef !== contribution.declarationOrContractRef ||
+        declared.owningProductId !== contribution.owningProductId ||
+        declared.provenanceRef !== lockRow.provenanceRef ||
+        canonicalJson(declared.programMembershipRefs as unknown as JsonValue) !==
+          canonicalJson(contribution.programMembershipRefs as unknown as JsonValue) ||
+        canonicalJson(contribution.provenanceRefs as unknown as JsonValue) !==
+          canonicalJson([lockRow.artifactDigest, lockRow.manifestDigest])
+      ) {
+        pushDisposition(publication, contribution, "rejected", "manifest_or_provenance_mismatch");
+        continue;
+      }
+      if (
+        canonicalJson(declared.compatibilityRefs as unknown as JsonValue) !==
+          canonicalJson(contribution.compatibilityRefs as unknown as JsonValue) ||
+        declared.compatibilityRefs.some((ref) => !lockRow.compatibilityRefs.includes(ref))
+      ) {
+        pushDisposition(publication, contribution, "incompatible", "compatibility_mismatch");
+        continue;
+      }
+      if (
+        canonicalJson(declared.readinessPrerequisiteRefs as unknown as JsonValue) !==
+          canonicalJson(contribution.readinessPrerequisiteRefs as unknown as JsonValue)
+      ) {
+        pushDisposition(publication, contribution, "unready", "readiness_declaration_mismatch");
+        continue;
+      }
+      const unresolved = contribution.readinessPrerequisiteRefs.find(
+        (ref) => !admittedReadinessRefs.has(ref),
+      );
+      if (unresolved !== undefined) {
+        pushDisposition(publication, contribution, "unready", `missing_readiness_prerequisite:${unresolved}`);
+        continue;
+      }
+      pushDisposition(publication, contribution, "admitted", null);
+      admittedContributions.push(contribution);
+    }
+    admittedPublications.push({ ...publication, contributions: admittedContributions });
+  }
+  const catalog = buildGraphFunctionCatalog(admittedPublications);
+  if (catalog.kind !== "graph_function_catalog") return catalog;
+  const readinessBasisDigest = sha256Canonical(canonicalBasis as unknown as JsonValue);
+  return deepFreeze({
+    ...catalog,
+    basisDigest: readinessBasisDigest,
+    readinessBasisDigest,
     workspaceBindingId: workspaceBinding.bindingId,
     workspaceBindingDigest: workspaceBinding.bindingDigest,
-    lockId: lock.lockId,
-    lockDigest: lock.lockDigest,
-    publicationDigest,
-    publicationValidationRef: publicationValidation.validationRef,
-    programValidationRefs: programValidations.map((validation) => validation.validationRef),
-    modulePublication: publication,
-    programValidations,
-    rows,
-  };
-  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
-  const candidate = deepFreeze({
-    kind: "catalog_admission_candidate",
-    schemaVersion: "5.0.0",
-    disposition: "candidate",
-    candidateId: identity("catalog-candidate://abiogenesis", candidateDigest),
-    candidateDigest,
-    ...body,
-  }) as CatalogAdmissionCandidate;
-  catalogAdmissionCandidates.add(candidate);
-  return candidate;
+    lockId: resolvedLock.lockId,
+    lockDigest: resolvedLock.lockDigest,
+    productSetId: productSet.productSetId,
+    productSetDigest: productSet.productSetDigest,
+    readinessBasis: canonicalBasis,
+    rowDispositions: rowDispositions.sort((left, right) =>
+      compareUnicodeCodeUnits(left.handle, right.handle) ||
+      compareUnicodeCodeUnits(left.rowDigest, right.rowDigest)),
+  }) as ReadyGraphFunctionCatalog;
 }
 
-export function constructCatalogViewCandidate(
-  catalog: AdmittedCatalog,
-  allowlist: readonly string[],
-): CatalogViewCandidateResult {
-  if (new Set(allowlist).size !== allowlist.length) {
-    return refusal("duplicate_allowlist_entry", "catalog allowlist cannot contain duplicate handles");
+export function buildGraphFunctionCatalog(
+  exactPublications: readonly Readonly<ModulePublication>[],
+): GraphFunctionCatalogResult {
+  const publications = exactPublications.map((publication) => ({
+    publication,
+    digest: modulePublicationSemanticDigest(publication),
+  })).sort((left, right) =>
+    compareUnicodeCodeUnits(left.publication.moduleRef, right.publication.moduleRef) ||
+    compareUnicodeCodeUnits(left.digest, right.digest)
+  );
+  const publicationByModule = new Map<string, Sha256Digest>();
+  const callableByHandle = new Map<string, GraphFunctionCatalogEntry>();
+  const declarationByHandle = new Map<string, DeclarationCatalogEntry>();
+
+  for (const { publication, digest } of publications) {
+    const priorDigest = publicationByModule.get(publication.moduleRef);
+    if (priorDigest !== undefined) {
+      if (priorDigest === digest) continue;
+      return refusal(
+        "publication_identity_collision",
+        `module ${publication.moduleRef} has unequal exact publications`,
+      );
+    }
+    publicationByModule.set(publication.moduleRef, digest);
+
+    for (const contribution of publication.contributions) {
+      if (contribution.owningProductId !== publication.owningProductId) {
+        return refusal(
+          "publication_owner_mismatch",
+          `catalog handle ${contribution.handle} differs from its publication owner`,
+        );
+      }
+      if (contribution.kind === "graph_function") {
+        const definition = exactDefinition(publication, contribution);
+        if (definition === null) {
+          return refusal(
+            "graph_function_definition_missing",
+            `catalog handle ${contribution.handle} has no exact published GraphFunction`,
+          );
+        }
+        const membershipIsExact = contribution.programMembershipRefs.every(
+          (programRef) => publication.programs.some((program) =>
+            program.programRef === programRef &&
+            program.callableMembership.includes(definition.name)
+          ),
+        );
+        if (!membershipIsExact) {
+          return refusal(
+            "invalid_program_membership",
+            `catalog handle ${contribution.handle} claims absent Program membership`,
+          );
+        }
+        const entry = graphFunctionEntry(
+          publication,
+          digest,
+          contribution,
+          definition,
+        );
+        if (declarationByHandle.has(entry.handle)) {
+          return refusal(
+            "canonical_handle_collision",
+            `catalog handle ${entry.handle} names callable and non-callable declarations`,
+          );
+        }
+        const prior = callableByHandle.get(entry.handle);
+        if (prior !== undefined && prior.entryDigest !== entry.entryDigest) {
+          return refusal(
+            "canonical_handle_collision",
+            `catalog handle ${entry.handle} names unequal GraphFunctions`,
+          );
+        }
+        callableByHandle.set(entry.handle, prior ?? entry);
+        continue;
+      }
+
+      const entry = declarationEntry(
+        publication,
+        digest,
+        contribution as Readonly<CatalogContribution> & Readonly<{
+          readonly kind: "node_type" | "overlay";
+        }>,
+      );
+      if (callableByHandle.has(entry.handle)) {
+        return refusal(
+          "canonical_handle_collision",
+          `catalog handle ${entry.handle} names callable and non-callable declarations`,
+        );
+      }
+      const prior = declarationByHandle.get(entry.handle);
+      if (prior !== undefined && prior.entryDigest !== entry.entryDigest) {
+        return refusal(
+          "canonical_handle_collision",
+          `catalog handle ${entry.handle} names unequal declarations`,
+        );
+      }
+      declarationByHandle.set(entry.handle, prior ?? entry);
+    }
   }
-  const rowMatches = allowlist.map((handle) => ({
-    handle,
-    match: resolveExactMatch(
-      catalog.rows,
-      (row) => row.handle === handle,
+
+  const entries = [...callableByHandle.values()].sort((left, right) =>
+    compareUnicodeCodeUnits(left.handle, right.handle)
+  );
+  const declarationEntries = [...declarationByHandle.values()].sort(
+    (left, right) => compareUnicodeCodeUnits(left.handle, right.handle),
+  );
+  const publicationDigests = orderedUniqueStrings(
+    [...publicationByModule.entries()].map(([moduleRef, digest]) =>
+      `${moduleRef}\u0000${digest}`
     ),
-  }));
-  const unresolved = rowMatches.find(({ match }) => match.kind !== "one");
-  if (unresolved !== undefined) {
+  ).map((row) => row.slice(row.indexOf("\u0000") + 1) as Sha256Digest);
+  const basisDigest = sha256Canonical({
+    publicationDigests,
+    entries: entries.map((entry) => entry.entryDigest),
+    declarationEntries: declarationEntries.map((entry) => entry.entryDigest),
+  });
+  return deepFreeze({
+    kind: "graph_function_catalog" as const,
+    schemaVersion: "5.0.0" as const,
+    basisDigest,
+    publicationDigests,
+    entries,
+    byHandle: frozenIndex(entries),
+    declarationEntries,
+    declarationsByHandle: frozenIndex(declarationEntries),
+  }) as GraphFunctionCatalog;
+}
+
+export function refreshGraphFunctionCatalog(
+  exactPublications: readonly Readonly<ModulePublication>[],
+): GraphFunctionCatalogResult {
+  return buildGraphFunctionCatalog(exactPublications);
+}
+
+export function lookupGraphFunction(
+  catalog: GraphFunctionCatalog | GraphFunctionCatalogView,
+  handle: string,
+): GraphFunctionCatalogEntry | null {
+  return Object.hasOwn(catalog.byHandle, handle)
+    ? catalog.byHandle[handle] ?? null
+    : null;
+}
+
+export function lookupGraphFunctionDefinition(
+  catalog: GraphFunctionCatalog | GraphFunctionCatalogView,
+  definitionRef: string,
+): GraphFunctionCatalogEntry | null {
+  const matches = catalog.entries.filter(
+    (entry) => entry.definitionRef === definitionRef,
+  );
+  return matches.length === 1 ? matches[0]! : null;
+}
+
+export function narrowGraphFunctionCatalog(
+  catalog: GraphFunctionCatalog,
+  allowlist: readonly string[],
+): GraphFunctionCatalogViewResult {
+  if (new Set(allowlist).size !== allowlist.length) {
     return refusal(
-      "unknown_allowlist_entry",
-      unresolved.match.kind === "absent"
-        ? `unknown catalog allowlist handle ${unresolved.handle}`
-        : `ambiguous catalog allowlist handle ${unresolved.handle}`,
+      "duplicate_allowlist_entry",
+      "catalog allowlist cannot contain duplicate handles",
     );
   }
-  const selectedRows = rowMatches.map(({ match }) => {
-    if (match.kind !== "one") {
-      throw new TypeError("catalog allowlist resolution changed during construction");
-    }
-    return match.value;
+  const orderedAllowlist = [...allowlist].sort(compareUnicodeCodeUnits);
+  const unknown = orderedAllowlist.find((handle) =>
+    !Object.hasOwn(catalog.byHandle, handle) &&
+    !Object.hasOwn(catalog.declarationsByHandle, handle)
+  );
+  if (unknown !== undefined) {
+    return refusal(
+      "unknown_allowlist_entry",
+      `unknown catalog allowlist handle ${unknown}`,
+    );
+  }
+  const entries = orderedAllowlist.flatMap((handle) => {
+    const entry = catalog.byHandle[handle];
+    return entry === undefined ? [] : [entry];
+  });
+  const declarationEntries = orderedAllowlist.flatMap((handle) => {
+    const entry = catalog.declarationsByHandle[handle];
+    return entry === undefined ? [] : [entry];
   });
   const body = {
-    catalogId: catalog.catalogId,
-    catalogDigest: catalog.catalogDigest,
-    allowlist: [...allowlist],
-    selectedRows,
+    catalogBasisDigest: catalog.basisDigest,
+    allowlist: orderedAllowlist,
+    entries: entries.map((entry) => entry.entryDigest),
+    declarationEntries: declarationEntries.map((entry) => entry.entryDigest),
   };
-  const viewCandidateDigest = sha256Canonical(body as unknown as JsonValue);
-  const candidate = deepFreeze({
-    kind: "catalog_view_candidate",
-    schemaVersion: "5.0.0",
-    disposition: "candidate",
-    viewCandidateId: identity("catalog-view-candidate://abiogenesis", viewCandidateDigest),
-    viewCandidateDigest,
-    ...body,
-  }) as CatalogViewCandidate;
-  catalogViewCandidates.add(candidate);
-  return candidate;
+  return deepFreeze({
+    kind: "graph_function_catalog_view" as const,
+    catalogBasisDigest: catalog.basisDigest,
+    allowlist: orderedAllowlist,
+    entries,
+    byHandle: frozenIndex(entries),
+    declarationEntries,
+    declarationsByHandle: frozenIndex(declarationEntries),
+    viewDigest: sha256Canonical(body as unknown as JsonValue),
+  }) as GraphFunctionCatalogView;
 }
 
-export function catalogViewContentDigest(
-  view: Pick<CatalogView, "catalogId" | "catalogDigest" | "allowlist" | "selectedRows">,
-): Sha256Digest {
-  return sha256Canonical({
-    catalogId: view.catalogId,
-    catalogDigest: view.catalogDigest,
-    allowlist: view.allowlist,
-    selectedRows: view.selectedRows,
+export function applyCatalogDeclaration(
+  view: GraphFunctionCatalogView,
+  input: DeclarationApplicationInput,
+): DeclarationApplicationResult {
+  const declaration = view.declarationsByHandle[input.handle];
+  if (declaration === undefined) {
+    return deepFreeze({
+      kind: "declaration_application_refusal" as const,
+      code: "outside_view" as const,
+      message: `declaration ${input.handle} is absent from the catalog view`,
+    });
+  }
+  if (declaration.declarationKind !== input.applicationKind) {
+    return deepFreeze({
+      kind: "declaration_application_refusal" as const,
+      code: "kind_mismatch" as const,
+      message: `declaration ${input.handle} is not ${input.applicationKind}`,
+    });
+  }
+  const body = {
+    catalogBasisDigest: view.catalogBasisDigest,
+    viewDigest: view.viewDigest,
+    declarationDigest: declaration.entryDigest,
+    targetRef: input.targetRef,
+    targetDigest: input.targetDigest,
+    appliedValueRef: input.appliedValueRef,
+    appliedValueDigest: input.appliedValueDigest,
+  };
+  const applicationDigest = sha256Canonical(body);
+  return deepFreeze({
+    kind: "declaration_application" as const,
+    catalogBasisDigest: view.catalogBasisDigest,
+    viewDigest: view.viewDigest,
+    declaration,
+    targetRef: input.targetRef,
+    targetDigest: input.targetDigest,
+    appliedValueRef: input.appliedValueRef,
+    appliedValueDigest: input.appliedValueDigest,
+    applicationRef:
+      `catalog-application://abiogenesis/${applicationDigest.slice("sha256:".length)}`,
+    applicationDigest,
+  }) as DeclarationApplication;
+}
+
+export function graphFunctionCatalogCanonicalSnapshot(
+  catalog: GraphFunctionCatalog,
+): string {
+  return canonicalJson({
+    kind: catalog.kind,
+    schemaVersion: catalog.schemaVersion,
+    basisDigest: catalog.basisDigest,
+    publicationDigests: catalog.publicationDigests,
+    entries: catalog.entries,
+    declarationEntries: catalog.declarationEntries,
   } as unknown as JsonValue);
-}
-
-export function catalogApplicationContentDigest(
-  application: Omit<
-    CatalogApplicationCandidate,
-    "kind" | "schemaVersion" | "disposition" | "applicationCandidateId" | "applicationCandidateDigest"
-  >,
-): Sha256Digest {
-  return sha256Canonical(application as unknown as JsonValue);
 }

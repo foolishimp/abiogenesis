@@ -1,4 +1,5 @@
 export {
+  compareAndAppendExpectedPrefix,
   AbgEventStore,
   admitRuntimeEventTransaction,
   ROOT_EVENT_KIND_VALUES,
@@ -16,31 +17,22 @@ export {
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 export {
+  projectArtifactTruth,
+  type AdmittedArtifactTruth,
+  type ArtifactTruthProjection,
+} from "./artifact_truth.js";
+export {
   admitProductInstall,
   admitWorkspaceBinding,
   hasAdmittedProductInstall,
   hasAdmittedWorkspaceBinding,
+  projectAdmittedProductInstall,
+  projectAdmittedWorkspaceBinding,
   type AbgAdmissionRefusal,
   type ArtifactAdmissionBasis,
   type PublicOperationAdmissionBasis,
   type PublicOperationId,
 } from "./environment_admission.js";
-export {
-  admitCatalogApplication,
-  admitCatalog,
-  catalogApplicationCandidateScope,
-  hasAdmittedCatalog,
-  hasAdmittedCatalogApplication,
-  hasAdmittedProductSemanticsBasis,
-  hasAdmittedCatalogView,
-  narrowCatalogView,
-  releaseCatalogApplicationScope,
-  type CatalogApplicationAdmissionResult,
-  type CatalogAdmissionRefusal,
-  type CatalogAdmissionResult,
-  type AdmittedProductSemanticsBasis,
-  type CatalogViewAdmissionResult,
-} from "./catalog_admission.js";
 export {
   admitInvocation,
   deriveInvocationSourceResultBasis,
@@ -144,11 +136,18 @@ export {
   type RuntimeFluentPatternInput,
 } from "./event_calculus.js";
 export {
+  hasCurrentDeferredApplicationAuthority,
+  isCurrentDeferredApplicationProjection,
+  projectCurrentDeferredApplication,
+  type DeferredApplicationProjection,
+} from "./deferred_application.js";
+export {
   admitApplicationChildPreparationRefusal,
   admitApplicationChildFoldback,
   isAdmittedApplicationChildPreparationRefusal,
   isAdmittedApplicationChildFoldback,
   projectCurrentApplicationChildPreparationRefusal,
+  projectCurrentApplicationChildRoute,
   projectCurrentApplicationChildFoldback,
   type ApplicationChildPreparationRefusalAdmission,
   type ApplicationChildPreparationRefusalRefusal,
@@ -176,6 +175,7 @@ export {
   openCCall,
   openInteractionCCall,
   openWorkflowCCall,
+  projectCCallPhase,
   projectAdmittedLeafCCallOutcome,
   projectedCCallResultValue,
   rehydrateAdmittedCCallState,
@@ -184,6 +184,7 @@ export {
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type CCall,
+  type CCallPhaseProjection,
   type CCallAdmission,
   type CCallAdmissionRejection,
   type CCallEvidenceCandidate,
@@ -211,6 +212,7 @@ export {
 } from "./c_call.js";
 export {
   admitContinuationPublicOperation,
+  admitContinuationTerminal,
   admitFhInteractionOpen,
   admitFhInteractionResponse,
   admitFhInteractionResume,
@@ -229,12 +231,14 @@ export {
   type ReplayContinuationState,
 } from "./continuation.js";
 export {
+  projectRunQuiescence,
   replay,
   replayValidatedRuntimeEventPrefix,
   type ReplayActorProcessState,
   type ReplayCCallState,
   type ReplayRouteState,
   type ReplayState,
+  type RunQuiescenceProjection,
 } from "./replay.js";
 export {
   admitFanOutCompletion,
@@ -252,6 +256,8 @@ export {
   RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES,
   admitRetryAttempt,
   admitRetryProgress,
+  projectDeclaredCRetryFrontier,
+  projectRetryLifecycle,
   hasAdmittedRetryProgress,
   isAdmittedRetryAttempt,
   isAdmittedRetryProgress,
@@ -261,6 +267,7 @@ export {
   type RetryAttemptAdmissionResult,
   type RetryEligibility,
   type RetryInputBasis,
+  type RetryLifecycleProjection,
   type RetryProgressAdmission,
   type RetryProgressAdmissionResult,
   type RetryableRuntimeFailureClass,
@@ -272,6 +279,7 @@ export {
 export {
   admitRoute,
   admitRecursionRoute,
+  isCurrentRecursionRouteSource,
   isCurrentAdmittedRecursionRoute,
   projectAdmittedRecursionRoute,
   deriveGraphFunctionActionEvaluationBasis,
@@ -313,6 +321,8 @@ export {
 export {
   isActorProcessObservation,
   invokeActorProcess,
+  projectActorProcessLifecycle,
+  type ActorProcessLifecycleProjection,
   type ActorProcessObservation,
   type ActorProcessRequest,
   type ActorRuntimeBinding,

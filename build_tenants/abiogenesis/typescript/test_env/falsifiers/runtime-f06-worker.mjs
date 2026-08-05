@@ -173,31 +173,8 @@ async function produce(input) {
     publicationValidation,
     programValidations,
   } = validatePublicationAndPrograms(validator, publication);
-  const catalogCandidate = product.constructCatalogAdmissionCandidate(
-    workspaceBinding,
-    lock,
-    publicationAdmission.value,
-    publicationValidation,
-    programValidations,
-  );
-  assert.equal(
-    catalogCandidate.kind,
-    "catalog_admission_candidate",
-    JSON.stringify(catalogCandidate),
-  );
-  const catalog = abg.admitCatalog(
-    store,
-    catalogCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.catalog.admit",
-      workspaceBinding.bindingId,
-      workspaceBinding.bindingDigest,
-      "invocation://s06/ax-f06/catalog-admit",
-      [workspaceBinding.admissionEventRef],
-    ),
-  );
-  assert.equal(catalog.kind, "admitted_catalog", JSON.stringify(catalog));
+  const catalog = product.buildGraphFunctionCatalog([publication]);
+  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   const program = publication.programs.find((candidate) =>
     candidate.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef);
   assert.notEqual(program, undefined);
@@ -205,29 +182,11 @@ async function produce(input) {
     candidate.name === program.starts[0]?.graphFunctionRef);
   assert.notEqual(graphFunction, undefined);
   const subjectHandle = gtl.CONSENSUS_IDS.subjectCatalogHandle;
-  const viewCandidate = product.constructCatalogViewCandidate(catalog, [
+  const view = product.narrowGraphFunctionCatalog(catalog, [
     graphFunction.name,
     subjectHandle,
   ]);
-  assert.equal(
-    viewCandidate.kind,
-    "catalog_view_candidate",
-    JSON.stringify(viewCandidate),
-  );
-  const view = abg.narrowCatalogView(
-    store,
-    catalog,
-    viewCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.catalog.view",
-      catalog.catalogId,
-      catalog.catalogDigest,
-      "invocation://s06/ax-f06/catalog-view",
-      [catalog.admissionEventRef],
-    ),
-  );
-  assert.equal(view.kind, "catalog_view", JSON.stringify(view));
+  assert.equal(view.kind, "graph_function_catalog_view", JSON.stringify(view));
   const subjectMaterialization = gtl.constructConsensusSubjectMaterialization({
     subjectContractRef: "contract://stdo/ticket@2.2.2",
     subjectRef: "ticket://abiogenesis/T-281",
@@ -244,47 +203,18 @@ async function produce(input) {
     ticketRef: "ticket://abiogenesis/T-281",
     ticketDigest: subjectMaterialization.contentDigest,
   });
-  const semantics = await product.loadInstalledProductSemantics({
-    install: admittedInstall,
-    publication,
-    verifyInstallAdmission: (install) =>
-      abg.hasAdmittedProductInstall(store, install),
+  const target = { kind: "program", programRef: program.programRef };
+  const targetDigest = product.sha256Canonical(target);
+  const valueDigest = product.sha256Canonical(subject);
+  const application = product.applyCatalogDeclaration(view, {
+    applicationKind: "node_type",
+    handle: subjectHandle,
+    targetRef: `catalog-target://abiogenesis/${targetDigest.slice("sha256:".length)}`,
+    targetDigest,
+    appliedValueRef: `catalog-value://abiogenesis/${valueDigest.slice("sha256:".length)}`,
+    appliedValueDigest: valueDigest,
   });
-  const applicationCandidate = product.constructCatalogApplicationCandidate(
-    semantics,
-    {
-      catalog,
-      view,
-      workspaceBinding,
-      lock,
-      handle: subjectHandle,
-      applicationVariant: "node_type",
-      value: subject,
-      contributorRef: workspaceBinding.authorizedActorRef,
-      nodeTypeTarget: { kind: "program", programRef: program.programRef },
-      candidateScope: abg.catalogApplicationCandidateScope(store),
-    },
-  );
-  assert.equal(
-    applicationCandidate.kind,
-    "catalog_application_candidate",
-    JSON.stringify(applicationCandidate),
-  );
-  const application = abg.admitCatalogApplication(
-    store,
-    view,
-    applicationCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.catalog.apply",
-      view.viewId,
-      view.viewDigest,
-      "invocation://s06/ax-f06/catalog-apply",
-      [view.admissionEventRef],
-    ),
-  );
-  assert.equal(application.kind, "catalog_application", JSON.stringify(application));
-  assert.equal(abg.hasAdmittedCatalogApplication(store, application), true);
+  assert.equal(application.kind, "declaration_application", JSON.stringify(application));
   const eventLogPath = join(scratch, "ax-f06.events.jsonl");
   store.configureDurableLog(eventLogPath);
   const prefix = store.projectReopenAuthorityAndClose();
@@ -305,7 +235,7 @@ async function produce(input) {
     cleanupRoot: scratch,
     handoff,
     audit: {
-      originatingApplicationAdmitted: true,
+      originatingApplicationPure: true,
       exactHandoffKeys:
         Object.keys(handoff).sort().join("\0") === [
           "application",
@@ -320,27 +250,23 @@ async function produce(input) {
         ].join("\0"),
       publicationMatchesInstalledIdentity:
         verified.productId === admittedInstall.productId &&
-        product.sha256Canonical(publication) ===
-          product.sha256Canonical(catalog.modulePublication),
+        catalog.publicationDigests.includes(
+          product.modulePublicationSemanticDigest(publication),
+        ),
       applicationDigestSelfConsistent:
-        application.applicationDigest ===
-          product.catalogApplicationContentDigest(applicationBody(application)),
+        application.applicationDigest === product.sha256Canonical({
+          kind: application.kind,
+          schemaVersion: application.schemaVersion,
+          catalogBasisDigest: application.catalogBasisDigest,
+          viewDigest: application.viewDigest,
+          declaration: application.declaration,
+          targetRef: application.targetRef,
+          targetDigest: application.targetDigest,
+          appliedValueRef: application.appliedValueRef,
+          appliedValueDigest: application.appliedValueDigest,
+        }),
     },
   };
-}
-
-function applicationBody(application) {
-  const {
-    kind: _kind,
-    schemaVersion: _schemaVersion,
-    disposition: _disposition,
-    applicationId: _applicationId,
-    applicationDigest: _applicationDigest,
-    admissionCandidateRef: _admissionCandidateRef,
-    admissionEventRef: _admissionEventRef,
-    ...body
-  } = application;
-  return body;
 }
 
 async function consume(input) {
@@ -372,8 +298,9 @@ async function consume(input) {
     } = input.handoff;
     const publication = constructPublication(installedGtl, install);
     const publicationMatchesP1 =
-      installedProduct.canonicalJson(publication) ===
-        installedProduct.canonicalJson(catalog.modulePublication);
+      catalog.publicationDigests.includes(
+        installedProduct.modulePublicationSemanticDigest(publication),
+      );
     assert.equal(publicationMatchesP1, true);
     const { programValidations } = validatePublicationAndPrograms(
       installedValidator,
@@ -385,25 +312,25 @@ async function consume(input) {
       candidate.name === graphFunctionRef);
     assert.notEqual(program, undefined);
     assert.notEqual(graphFunction, undefined);
+    const reconstructedApplication = installedProduct.applyCatalogDeclaration(view, {
+      applicationKind: application.declaration.declarationKind,
+      handle: application.declaration.handle,
+      targetRef: application.targetRef,
+      targetDigest: application.targetDigest,
+      appliedValueRef: application.appliedValueRef,
+      appliedValueDigest: application.appliedValueDigest,
+    });
     const applicationStructurallyExact =
-      installedProduct.catalogApplicationContentDigest(
-        applicationBody(application),
-      ) === application.applicationDigest;
+      installedProduct.canonicalJson(reconstructedApplication) ===
+        installedProduct.canonicalJson(application);
     const installAdmitted = installedAbg.hasAdmittedProductInstall(store, install);
     const workspaceAdmitted = installedAbg.hasAdmittedWorkspaceBinding(
       store,
       workspaceBinding,
     );
-    const catalogAdmitted = installedAbg.hasAdmittedCatalog(store, catalog);
-    const viewAdmitted = installedAbg.hasAdmittedCatalogView(store, view);
-    const reconstructedApplicationAdmitted =
-      installedAbg.hasAdmittedCatalogApplication(store, application);
     assert.equal(installAdmitted, true);
     assert.equal(workspaceAdmitted, true);
-    assert.equal(catalogAdmitted, true);
-    assert.equal(viewAdmitted, true);
     assert.equal(applicationStructurallyExact, true);
-    assert.equal(reconstructedApplicationAdmitted, false);
     const inputContractRef = graphFunction.inputs[0];
     const inputContract = publication.contracts.find((candidate) =>
       candidate.contractRef === inputContractRef);
@@ -498,7 +425,7 @@ async function consume(input) {
         workspaceBinding.bindingId,
         workspaceBinding.bindingDigest,
         invocation.invocationRef,
-        [view.admissionEventRef],
+        [workspaceBinding.admissionEventRef],
       ),
     );
     return {
@@ -511,11 +438,11 @@ async function consume(input) {
         prefixReopened: true,
         installAdmitted,
         workspaceAdmitted,
-        catalogAdmitted,
-        viewAdmitted,
+        catalogPure: true,
+        viewPure: true,
         publicationMatchesP1,
         applicationStructurallyExact,
-        reconstructedApplicationAdmitted,
+        reconstructedApplicationPure: true,
         eventDelta: store.readAll().length - eventCountBefore,
       },
     };

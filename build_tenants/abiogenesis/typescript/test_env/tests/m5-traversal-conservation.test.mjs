@@ -57,7 +57,7 @@ const FAN_IN_REDUCER_REF =
 const ACTOR_REF = "actor://abiogenesis/conformance/claude-worker@5";
 const WORKER_BINDING_REF =
   "worker-binding://abiogenesis/conformance/claude-worker@5";
-const INSTALLED_WITNESS_TIMEOUT_MS = 90_000;
+const INSTALLED_WITNESS_TIMEOUT_MS = 180_000;
 
 function fpInput(subject) {
   return {

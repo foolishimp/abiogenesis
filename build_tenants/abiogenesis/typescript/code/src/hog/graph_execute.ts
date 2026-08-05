@@ -28,6 +28,7 @@ import { recursionTerminationDecision } from "../gtl/graph_applications.js";
 import { resolveEnclosingCRetryContexts } from "../gtl/source_path.js";
 import { isAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
+import { lookupGraphFunctionDefinition } from "../product/catalog.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { GraphValidation } from "../validator/graph.js";
@@ -279,6 +280,25 @@ export async function executeGraphTraversal(
       "diagnostic://abiogenesis/implementation/admitted-leaf-port-mismatch@5",
       { implementationSetRef: input.implementationSet.implementationSetRef },
     );
+  }
+  if (input.continuationProductBasis !== undefined) {
+    const selected = lookupGraphFunctionDefinition(
+      input.continuationProductBasis.catalogView,
+      input.graphFunction.name,
+    );
+    if (
+      selected === null ||
+      selected.definitionDigest !==
+        sha256Canonical(input.graphFunction as unknown as JsonValue) ||
+      !selected.programMembershipRefs.includes(input.program.programRef)
+    ) {
+      return fail(
+        input,
+        "catalog-selection",
+        "diagnostic://abiogenesis/hog/catalog-selection-mismatch@5",
+        { graphFunctionRef: input.graphFunction.name },
+      );
+    }
   }
   let stop: StructuralTraversalResult;
   const resumedCursor = input.resume?.cursor;

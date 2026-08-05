@@ -32,6 +32,68 @@ function invocation(operationId, variant, invocationRef, payload) {
   };
 }
 
+export function constructClosedCatalogReadinessBasis({
+  product,
+  verifiedProducts,
+  resolvedLock,
+  installedRoots,
+  workspaceId,
+  canonicalRoot,
+  authorizedActorRef,
+  authorityManifestRef,
+  roots,
+  publications,
+}) {
+  const installedProducts = verifiedProducts.map((verifiedProduct, index) => {
+    const {
+      artifactRef: _artifactRef,
+      artifactByteLength: _artifactByteLength,
+      checkedPayloadFiles: _checkedPayloadFiles,
+      kind: _verifiedKind,
+      disposition: _verifiedDisposition,
+      ...installedProductFields
+    } = verifiedProduct;
+    return {
+      kind: "product_install_candidate",
+      schemaVersion: "5.0.0",
+      disposition: "materialized",
+      installId: `product-install://${verifiedProduct.packageName}/${verifiedProduct.packageVersion}/${verifiedProduct.productContentDigest.slice("sha256:".length)}/${resolvedLock.lockDigest.slice("sha256:".length)}`,
+      installedRoot: installedRoots[index],
+      ...installedProductFields,
+      resolvedLockId: resolvedLock.lockId,
+      resolvedLockDigest: resolvedLock.lockDigest,
+    };
+  });
+  const productSet = product.constructProductSet(installedProducts, resolvedLock);
+  if (productSet.kind !== "product_set") throw new Error(JSON.stringify(productSet));
+  const authorityManifest = {
+    workspaceId,
+    canonicalRoot,
+    authorityMode: "trusted_developer",
+    authorizedActorRef,
+  };
+  const authority = product.constructWorkspaceAuthorityBasis({
+    ...authorityManifest,
+    authorityManifestRef,
+    authorityManifestDigest: product.sha256Canonical(authorityManifest),
+  });
+  if (authority.kind !== "workspace_authority_basis") throw new Error(JSON.stringify(authority));
+  const workspaceBinding = product.constructWorkspaceBinding(
+    authority,
+    productSet,
+    resolvedLock,
+    roots,
+  );
+  if (workspaceBinding.kind !== "workspace_binding_candidate") throw new Error(JSON.stringify(workspaceBinding));
+  return {
+    workspaceBinding,
+    resolvedLock,
+    verifiedProducts,
+    installedProducts,
+    publications,
+  };
+}
+
 export async function setupInstalledCliHarness(context, packageRoot, options = {}) {
   const scratch = options.scratchPath === undefined
     ? await mkdtemp(join(tmpdir(), "abi5-root-cli-"))
@@ -86,6 +148,11 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     "@abiogenesis/typescript-tenant/gtl",
     `harness=${Date.now()}`,
   );
+  const product = await importInstalledPackageExport(
+    { cliHost },
+    "@abiogenesis/typescript-tenant/product",
+    `harness=${Date.now()}`,
+  );
   const rootPublication = gtl.constructHelloWorldModulePublication({
     productId: candidateBasis.productId,
     artifactDigest: candidateBasis.artifactDigest,
@@ -107,6 +174,7 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     cliPath: join(cliHost, "node_modules/.bin/abg.cli"),
     codexPath: join(cliHost, "node_modules/.bin/abg.codex"),
     rootPublication,
+    product,
   };
 }
 
@@ -153,18 +221,124 @@ export async function buildRootCliScenario(
     "graph-function://abiogenesis/conformance/hello-world@5";
   const authorizedActorRef = options.authorizedActorRef ??
     "actor://abiogenesis/t286/trusted-developer";
+  const workspaceId = options.workspaceId ?? `workspace://t286/${label}`;
+  const authorityManifestRef = options.authorityManifestRef ??
+    `manifest://t286/${label}/workspace-authority`;
+  const roots = {
+    toolchainRoot: productConsumer,
+    productRoot: installedRoot,
+    eventLogRoot,
+    runtimeStateRoot: join(workspaceRoot, ".ai-workspace/runtime"),
+    projectionRoot: join(workspaceRoot, ".ai-workspace/projections"),
+    archiveRoot: join(workspaceRoot, ".ai-workspace/archive"),
+  };
+  const verifiedProduct = await harness.product.verifyProduct({
+    artifactPath: harness.artifactPath,
+    artifactRef: harness.artifactRef,
+    ...expectedVerificationIdentity(harness.candidateBasis),
+  });
+  if (verifiedProduct.kind !== "verified_product_artifact") {
+    throw new Error(`root CLI readiness verification refused: ${JSON.stringify(verifiedProduct)}`);
+  }
+  const resolvedLock = harness.product.constructResolvedProductLock([verifiedProduct]);
+  if (resolvedLock.kind !== "resolved_product_lock") {
+    throw new Error(`root CLI readiness lock refused: ${JSON.stringify(resolvedLock)}`);
+  }
+  const {
+    artifactRef: _artifactRef,
+    artifactByteLength: _artifactByteLength,
+    checkedPayloadFiles: _checkedPayloadFiles,
+    kind: _verifiedKind,
+    disposition: _verifiedDisposition,
+    ...installedProductFields
+  } = verifiedProduct;
+  const installedProduct = {
+    kind: "product_install_candidate",
+    schemaVersion: "5.0.0",
+    disposition: "materialized",
+    installId: `product-install://${verifiedProduct.packageName}/${verifiedProduct.packageVersion}/${verifiedProduct.productContentDigest.slice("sha256:".length)}/${resolvedLock.lockDigest.slice("sha256:".length)}`,
+    installedRoot,
+    ...installedProductFields,
+    resolvedLockId: resolvedLock.lockId,
+    resolvedLockDigest: resolvedLock.lockDigest,
+  };
+  const productSet = harness.product.constructProductSet(
+    [installedProduct],
+    resolvedLock,
+  );
+  if (productSet.kind !== "product_set") {
+    throw new Error(`root CLI readiness ProductSet refused: ${JSON.stringify(productSet)}`);
+  }
+  const authorityManifest = {
+    workspaceId,
+    canonicalRoot: workspaceRoot,
+    authorityMode: "trusted_developer",
+    authorizedActorRef,
+  };
+  const authority = harness.product.constructWorkspaceAuthorityBasis({
+    ...authorityManifest,
+    authorityManifestRef,
+    authorityManifestDigest: harness.product.sha256Canonical(authorityManifest),
+  });
+  if (authority.kind !== "workspace_authority_basis") {
+    throw new Error(`root CLI readiness authority refused: ${JSON.stringify(authority)}`);
+  }
+  const workspaceBinding = harness.product.constructWorkspaceBinding(
+    authority,
+    productSet,
+    resolvedLock,
+    roots,
+  );
+  if (workspaceBinding.kind !== "workspace_binding_candidate") {
+    throw new Error(`root CLI readiness binding refused: ${JSON.stringify(workspaceBinding)}`);
+  }
+  const readinessBasis = {
+    workspaceBinding,
+    resolvedLock,
+    verifiedProducts: [verifiedProduct],
+    installedProducts: [installedProduct],
+    publications: [harness.rootPublication],
+  };
+  const allowlist = options.allowlist ?? [graphFunctionRef];
+  const catalog = harness.product.admitGraphFunctionCatalog(readinessBasis);
+  if (catalog.kind !== "graph_function_catalog") {
+    throw new Error(`root CLI catalog construction refused: ${JSON.stringify(catalog)}`);
+  }
+  const view = harness.product.narrowGraphFunctionCatalog(catalog, allowlist);
+  if (view.kind !== "graph_function_catalog_view") {
+    throw new Error(`root CLI catalog view construction refused: ${JSON.stringify(view)}`);
+  }
+  const applications = (options.catalogApplications ?? []).map((application) => {
+    const target = application.applicationVariant === "node_type"
+      ? application.nodeTypeTarget
+      : { contributorRef: authorizedActorRef };
+    const targetDigest = harness.product.sha256Canonical(target);
+    const valueDigest = harness.product.sha256Canonical(application.value);
+    const result = harness.product.applyCatalogDeclaration(view, {
+      applicationKind: application.applicationVariant,
+      handle: application.handle,
+      targetRef: `catalog-target://abiogenesis/${targetDigest.slice("sha256:".length)}`,
+      targetDigest,
+      appliedValueRef: `catalog-value://abiogenesis/${valueDigest.slice("sha256:".length)}`,
+      appliedValueDigest: valueDigest,
+    });
+    if (result.kind !== "declaration_application") {
+      throw new Error(`root CLI catalog application refused: ${JSON.stringify(result)}`);
+    }
+    return result;
+  });
+  const catalogBasis = {
+    readinessBasis,
+    allowlist,
+    applications,
+  };
   const runPayload = transformRunPayload({
     installInvocationRef: refs.install,
     workspaceBindingInvocationRef: refs.bind,
-    catalogViewInvocationRef: refs.view,
+    catalogBasis,
     programRef,
     graphFunctionRef,
     actorRef: authorizedActorRef,
-    ...(refs.applications.length === 0
-      ? {}
-      : {
-          catalogApplicationInvocationRefs: refs.applications,
-        }),
     input: options.input ?? {
       kind: "hello_world_input",
       schemaVersion: "5.0.0",
@@ -194,28 +368,17 @@ export async function buildRootCliScenario(
     }),
     invocation("abg.operation.workspace.bind", "exact_product_set", refs.bind, {
       installInvocationRef: refs.install,
-      workspaceId: options.workspaceId ?? `workspace://t286/${label}`,
+      workspaceId,
       canonicalRoot: workspaceRoot,
       authorizedActorRef,
-      authorityManifestRef: options.authorityManifestRef ??
-        `manifest://t286/${label}/workspace-authority`,
-      roots: {
-        toolchainRoot: productConsumer,
-        productRoot: installedRoot,
-        eventLogRoot,
-        runtimeStateRoot: join(workspaceRoot, ".ai-workspace/runtime"),
-        projectionRoot: join(workspaceRoot, ".ai-workspace/projections"),
-        archiveRoot: join(workspaceRoot, ".ai-workspace/archive"),
-      },
+      authorityManifestRef,
+      roots,
     }),
     invocation("abg.operation.catalog.admit", "module_publication", refs.catalog, {
-      publication: harness.rootPublication,
-      verifiedInvocationRef: refs.verify,
-      workspaceBindingInvocationRef: refs.bind,
+      readinessBasis,
     }),
     invocation("abg.operation.catalog.view", "allowlist", refs.view, {
-      catalogInvocationRef: refs.catalog,
-      allowlist: options.allowlist ?? [graphFunctionRef],
+      catalogBasis: { ...catalogBasis, applications: [] },
     }),
     ...(options.catalogApplications ?? []).map((application, index) =>
       invocation(
@@ -223,10 +386,9 @@ export async function buildRootCliScenario(
         application.applicationVariant,
         refs.applications[index],
         {
-          catalogViewInvocationRef: refs.view,
+          catalogBasis: { ...catalogBasis, applications: [] },
           contributorRef: authorizedActorRef,
           handle: application.handle,
-          productInstallInvocationRef: refs.install,
           ...(application.applicationVariant === "node_type"
             ? { target: application.nodeTypeTarget }
             : {}),

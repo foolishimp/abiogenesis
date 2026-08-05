@@ -8,6 +8,10 @@ import type { CCall } from "./c_call.js";
 import { hasAdmittedWorkspaceBinding } from "./environment_admission.js";
 import type { ExecutionBasis, RuntimeAdmissionBasis } from "./execution_basis.js";
 import { admitRuntimeEvent, type AbgEventStore, type RootEventKind } from "./event_store.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
 import type { OpenedTraversalScope } from "./open_call.js";
 import { constructKnownWorkerTransportContract } from "./transport_contracts.js";
 import {
@@ -76,6 +80,92 @@ export interface ActorProcessObservation {
     stdout: Sha256Digest;
     transport: Sha256Digest;
   }>;
+}
+
+export interface ActorProcessLifecycleProjection {
+  readonly kind: "actor_process_lifecycle_projection";
+  readonly actorInvocationRef: string;
+  readonly processRef: string | null;
+  readonly processTerminalEventRef: string | null;
+  readonly processTerminalKind:
+    | "actor_process_exited"
+    | "actor_process_spawn_failed"
+    | null;
+  readonly actorTerminalEventRef: string | null;
+  readonly processLive: boolean;
+  readonly cleanupPending: boolean;
+  readonly terminationUnconfirmed: boolean;
+  readonly cleanupDisposition:
+    | "complete"
+    | "not_required"
+    | "pending"
+    | "termination_unconfirmed";
+}
+
+export function projectActorProcessLifecycle(
+  prefix: ValidatedRuntimeEventPrefix,
+  actorInvocationRef: string,
+): ActorProcessLifecycleProjection {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const rows = events.filter((event) =>
+    event.aggregateId === actorInvocationRef ||
+    event.parentAggregateId === actorInvocationRef
+  );
+  const started = rows.filter((event) => event.kind === "actor_process_started");
+  const processTerminals = rows.filter((event) =>
+    event.kind === "actor_process_exited" ||
+    event.kind === "actor_process_spawn_failed"
+  );
+  const actorTerminals = rows.filter((event) =>
+    event.kind === "actor_invocation_closed" ||
+    event.kind === "actor_invocation_failed"
+  );
+  if (started.length > 1 || processTerminals.length > 1 || actorTerminals.length > 1) {
+    throw new TypeError("actor/process lifecycle requires exact single terminal cardinality");
+  }
+  const processTerminal = processTerminals[0];
+  const actorTerminal = actorTerminals[0];
+  if (processTerminal?.kind === "actor_process_spawn_failed" && started.length !== 0) {
+    throw new TypeError("spawn-failed Process terminal cannot follow process start");
+  }
+  if (processTerminal?.kind === "actor_process_exited" && started.length !== 1) {
+    throw new TypeError("exited Process terminal requires one process start");
+  }
+  if (actorTerminal !== undefined && processTerminal === undefined) {
+    throw new TypeError("ActorInvocation cleanup terminal requires confirmed Process terminality");
+  }
+  const terminationUnconfirmed = rows.some((event) =>
+    event.kind === "actor_process_termination_unconfirmed"
+  );
+  const processLive = started.length === 1 && processTerminal === undefined;
+  const runTerminal = events.some((event) =>
+    event.kind === "run_stopped" ||
+    (event.kind === "runtime_failure_observed" && event.aggregateType === "run")
+  );
+  const cleanupPending = actorTerminal === undefined &&
+    (processTerminal !== undefined || (runTerminal && started.length === 1));
+  return deepFreeze({
+    kind: "actor_process_lifecycle_projection" as const,
+    actorInvocationRef,
+    processRef: rows.find((event) => event.aggregateType === "process")?.aggregateId ?? null,
+    processTerminalEventRef: processTerminal?.eventId ?? null,
+    processTerminalKind: processTerminal === undefined
+      ? null
+      : processTerminal.kind === "actor_process_exited"
+        ? "actor_process_exited" as const
+        : "actor_process_spawn_failed" as const,
+    actorTerminalEventRef: actorTerminal?.eventId ?? null,
+    processLive,
+    cleanupPending,
+    terminationUnconfirmed,
+    cleanupDisposition: actorTerminal !== undefined
+      ? "complete" as const
+      : terminationUnconfirmed && processTerminal === undefined
+        ? "termination_unconfirmed" as const
+        : cleanupPending || processLive
+          ? "pending" as const
+          : "not_required" as const,
+  });
 }
 
 interface ActorProcessInvocationInput {
@@ -253,6 +343,7 @@ export async function invokeActorProcess(
   let streamOrdinal = 0;
   let stdoutByteLength = 0;
   let stderrByteLength = 0;
+  let processTerminalConfirmed = false;
   const signalSequence: string[] = [];
   const append = (
     kind: RootEventKind,
@@ -352,20 +443,26 @@ export async function invokeActorProcess(
           { actorInvocationRef, processRef, signal },
         );
       },
-      onSpawnFailed: (message) => append(
-        "actor_process_spawn_failed",
-        "process",
-        processRef,
-        actorInvocationRef,
-        { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(message) },
-      ),
-      onProcessExited: (status, signal) => append(
-        "actor_process_exited",
-        "process",
-        processRef,
-        actorInvocationRef,
-        { actorInvocationRef, processRef, status, signal },
-      ),
+      onSpawnFailed: (message) => {
+        processTerminalConfirmed = true;
+        append(
+          "actor_process_spawn_failed",
+          "process",
+          processRef,
+          actorInvocationRef,
+          { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(message) },
+        );
+      },
+      onProcessExited: (status, signal) => {
+        processTerminalConfirmed = true;
+        append(
+          "actor_process_exited",
+          "process",
+          processRef,
+          actorInvocationRef,
+          { actorInvocationRef, processRef, status, signal },
+        );
+      },
       onTerminationUnconfirmed: () => append(
         "actor_process_termination_unconfirmed",
         "process",
@@ -423,46 +520,50 @@ export async function invokeActorProcess(
       input.cCall.cCallRef,
       { cCallRef: input.cCall.cCallRef, ...observationBody },
     );
-    append(
-      transport.disposition === "success"
-        ? "actor_invocation_closed"
-        : "actor_invocation_failed",
-      "actor_invocation",
-      actorInvocationRef,
-      input.cCall.cCallRef,
-      {
+    if (processTerminalConfirmed) {
+      append(
+        transport.disposition === "success"
+          ? "actor_invocation_closed"
+          : "actor_invocation_failed",
+        "actor_invocation",
         actorInvocationRef,
-        processRef,
-        cCallRef: input.cCall.cCallRef,
-        disposition: transport.disposition,
-        failureClass: transport.failureClass,
-        transportBindingRef,
-        transportBindingDigest,
-        transportDigest: transport.artifacts.transport.digest,
-      },
-    );
+        input.cCall.cCallRef,
+        {
+          actorInvocationRef,
+          processRef,
+          cCallRef: input.cCall.cCallRef,
+          disposition: transport.disposition,
+          failureClass: transport.failureClass,
+          transportBindingRef,
+          transportBindingDigest,
+          transportDigest: transport.artifacts.transport.digest,
+        },
+      );
+    }
     const observation = deepFreeze(observationBody) as ActorProcessObservation;
     actorProcessObservations.add(observation);
     return observation;
   } catch (error) {
-    append(
-      "actor_invocation_failed",
-      "actor_invocation",
-      actorInvocationRef,
-      input.cCall.cCallRef,
-      {
+    if (processTerminalConfirmed) {
+      append(
+        "actor_invocation_failed",
+        "actor_invocation",
         actorInvocationRef,
-        processRef,
-        cCallRef: input.cCall.cCallRef,
-        disposition: "failure",
-        failureClass: "transport_exception",
-        transportBindingRef,
-        transportBindingDigest,
-        diagnosticDigest: sha256Canonical(
-          error instanceof Error ? error.message : String(error),
-        ),
-      },
-    );
+        input.cCall.cCallRef,
+        {
+          actorInvocationRef,
+          processRef,
+          cCallRef: input.cCall.cCallRef,
+          disposition: "failure",
+          failureClass: "transport_exception",
+          transportBindingRef,
+          transportBindingDigest,
+          diagnosticDigest: sha256Canonical(
+            error instanceof Error ? error.message : String(error),
+          ),
+        },
+      );
+    }
     throw error;
   }
 }

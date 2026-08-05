@@ -1,6 +1,6 @@
 import type { EventStoreReopenAuthority } from "../abg/event_store.js";
-import type { ProductSemanticsBinding } from "../gtl/index.js";
-import type { ProductInstall } from "../product/index.js";
+import type { ModulePublication } from "../gtl/index.js";
+import type { CatalogReadinessBasis, ProductInstall } from "../product/index.js";
 import {
   canonicalJson,
   type JsonValue,
@@ -26,14 +26,11 @@ export interface PublicRunProjectionAuthority {
   readonly workspaceId: string;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
-  readonly catalogId: string;
-  readonly catalogDigest: Sha256Digest;
-  readonly catalogAdmissionEventRef: string;
-  readonly catalogViewId: string;
+  readonly catalogBasisDigest: Sha256Digest;
+  readonly catalogReadinessBasis: CatalogReadinessBasis;
   readonly catalogViewDigest: Sha256Digest;
-  readonly catalogViewAdmissionEventRef: string;
-  readonly publicationDigest: Sha256Digest;
-  readonly productSemanticsBinding: Readonly<ProductSemanticsBinding>;
+  readonly publicationDigests: readonly Sha256Digest[];
+  readonly publications: readonly Readonly<ModulePublication>[];
   readonly authorityDigest: Sha256Digest;
 }
 
@@ -44,19 +41,16 @@ type PublicRunProjectionAuthorityInput = Omit<
 
 const AUTHORITY_KEYS = Object.freeze([
   "authorityDigest",
-  "catalogAdmissionEventRef",
-  "catalogDigest",
-  "catalogId",
-  "catalogViewAdmissionEventRef",
+  "catalogBasisDigest",
+  "catalogReadinessBasis",
   "catalogViewDigest",
-  "catalogViewId",
   "graphCallId",
   "install",
   "invocationAdmissionRef",
   "kind",
   "outputContractRef",
-  "productSemanticsBinding",
-  "publicationDigest",
+  "publicationDigests",
+  "publications",
   "reopenAuthority",
   "resultRef",
   "runId",
@@ -65,15 +59,6 @@ const AUTHORITY_KEYS = Object.freeze([
   "workspaceId",
   "workspaceBindingDigest",
   "workspaceBindingId",
-]);
-
-const PRODUCT_SEMANTICS_BINDING_KEYS = Object.freeze([
-  "bindingRef",
-  "kind",
-  "modulePath",
-  "namedSymbol",
-  "packageName",
-  "packageVersion",
 ]);
 
 function isRecord(
@@ -159,33 +144,17 @@ export function parsePublicRunProjectionAuthority(
     typeof value.workspaceBindingId !== "string" ||
     value.workspaceBindingId.length === 0 ||
     !isSha256Digest(value.workspaceBindingDigest) ||
-    typeof value.catalogId !== "string" ||
-    value.catalogId.length === 0 ||
-    !isSha256Digest(value.catalogDigest) ||
-    typeof value.catalogAdmissionEventRef !== "string" ||
-    value.catalogAdmissionEventRef.length === 0 ||
-    typeof value.catalogViewId !== "string" ||
-    value.catalogViewId.length === 0 ||
+    !isSha256Digest(value.catalogBasisDigest) ||
+    !isRecord(value.catalogReadinessBasis) ||
     !isSha256Digest(value.catalogViewDigest) ||
-    typeof value.catalogViewAdmissionEventRef !== "string" ||
-    value.catalogViewAdmissionEventRef.length === 0 ||
-    !isSha256Digest(value.publicationDigest) ||
-    !isRecord(value.productSemanticsBinding) ||
-    !hasExactKeys(
-      value.productSemanticsBinding,
-      PRODUCT_SEMANTICS_BINDING_KEYS,
+    !Array.isArray(value.publicationDigests) ||
+    value.publicationDigests.length === 0 ||
+    !value.publicationDigests.every(isSha256Digest) ||
+    !Array.isArray(value.publications) ||
+    value.publications.length === 0 ||
+    !value.publications.every(
+      (publication) => isRecord(publication) && publication.kind === "module_publication",
     ) ||
-    value.productSemanticsBinding.kind !== "product_semantics_binding" ||
-    typeof value.productSemanticsBinding.bindingRef !== "string" ||
-    value.productSemanticsBinding.bindingRef.length === 0 ||
-    typeof value.productSemanticsBinding.packageName !== "string" ||
-    value.productSemanticsBinding.packageName.length === 0 ||
-    typeof value.productSemanticsBinding.packageVersion !== "string" ||
-    value.productSemanticsBinding.packageVersion.length === 0 ||
-    typeof value.productSemanticsBinding.modulePath !== "string" ||
-    value.productSemanticsBinding.modulePath.length === 0 ||
-    typeof value.productSemanticsBinding.namedSymbol !== "string" ||
-    value.productSemanticsBinding.namedSymbol.length === 0 ||
     !isRecord(value.reopenAuthority) ||
     value.reopenAuthority.kind !== "event_store_reopen_authority" ||
     !isSha256Digest(value.authorityDigest)

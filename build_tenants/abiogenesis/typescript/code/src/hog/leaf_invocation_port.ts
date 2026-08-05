@@ -77,6 +77,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
   readonly implementationSet: AdmittedImplementationSet;
   readonly publication: Readonly<ModulePublication>;
   readonly semanticsProjection: InstalledLeafSemanticsProjection;
+  readonly verifyInstallAuthority?: (install: LeafInvocationInstall) => boolean;
 }): Promise<LeafInvocationPort> {
   const publicationDigest = sha256Canonical(authority.publication as unknown as JsonValue);
   const inspected = inspectProductLeafSemanticsProjection(
@@ -84,7 +85,10 @@ export async function constructAdmittedLeafInvocationPort(authority: {
   );
   if (
     inspected === null ||
-    !hasAdmittedProductInstall(authority.store, authority.install) ||
+    !(
+      hasAdmittedProductInstall(authority.store, authority.install) ||
+      authority.verifyInstallAuthority?.(authority.install) === true
+    ) ||
     !hasAdmittedImplementationSet(authority.store, authority.implementationSet) ||
     !leafInvocationBindingMatches(authority) ||
     !(await inspected.runtime.verifyInstalledContent())
@@ -176,7 +180,10 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     ): Promise<unknown> {
       if (
         !admittedPorts.has(port) ||
-        !hasAdmittedProductInstall(authority.store, authority.install) ||
+        !(
+          hasAdmittedProductInstall(authority.store, authority.install) ||
+          authority.verifyInstallAuthority?.(authority.install) === true
+        ) ||
         !hasAdmittedImplementationSet(authority.store, authority.implementationSet) ||
         !(await semantics.verifyInstalledContent()) ||
         !authority.implementationSet.rows.some((row) => row === resolution)

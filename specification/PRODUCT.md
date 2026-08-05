@@ -659,13 +659,57 @@ or product feature family.
 
 ## Complete 5.0 Feature Set
 
+## Definition, Tool, And Runtime Authority
+
+ABIogenesis preserves this fixed separation:
+
+| Subject | Role | Source of truth | Runtime lifecycle |
+|---|---|---|---|
+| GTL Program and GraphFunction definitions | executable meaning | exact published GTL | none; immutable Product definitions |
+| GraphFunction catalog | verified readiness boundary plus HoG discovery, lookup, dynamic refresh, and optimization tool | deterministic validation/index over one exact workspace binding, resolved lock, installed/verified Product set, and supplied GTL publications | none; discardable and reconstructible |
+| catalog view and declaration application | pure narrowing and deterministic Product construction | catalog snapshot plus exact immutable inputs | none; neither authors runtime truth nor emits a runtime event |
+| HoG execution selection | traversal, fibre, and plan selection | exact GTL definition plus catalog query | the owning invocation records the selected basis |
+| ABG events | execution, observation, evidence, and workspace-transformation history | typed owner admission | durable causal runtime truth |
+| Event Calculus and replay | execution currentness and explanation of workspace change | fold and projection over ABG events | derived; they do not author definitions or tool state |
+
+Only execution, observation, evidence, and workspace-transformation facts enter
+ABG runtime authority. A definition, dictionary, index, registry, cache, view,
+or deterministic construction does not acquire an event lifecycle because
+execution consumes it. Every workspace mutation must trace through an admitted
+effect to its owning invocation and exact GTL definition.
+
+`abg.operation.catalog.admit` remains the single public readiness operation. It
+validates the exact workspace binding, resolved lock, installed artifacts,
+verified descriptors and contribution manifests, dependency edges,
+compatibility, provenance, and supplied GTL publications before returning one
+immutable catalog snapshot and a typed disposition for every submitted row.
+Here `admitted` means validated for that exact construction basis; it does not
+create a catalog runtime event, Event Calculus fluent, replay lifecycle, or
+persistent registry. A different workspace or basis must be validated again.
+
+### 5.0 Compression Boundary
+
+ABIogenesis 5.0 shall not contain more reachable semantic authorities,
+registries, ledgers, stores, runtimes, controllers, or materially equivalent
+algorithm realizations than the conserved 4.6 foundation. A new 5.0 path that
+duplicates an existing authority is deleted before release. An inherited or
+new redundancy that changes admission, identity, currentness, replay, or
+fresh-process behavior is a 5.0 correctness defect and cannot be deferred.
+
+After those correctness and authority conditions hold, further contraction of
+semantically equivalent pure helpers, internal validator placement, test
+harness mechanics, cache implementations, module layout, or other non-
+authoritative structure may proceed as a 5.1 realization compression. That
+successor compression does not gate delivery of the fixed 5.0 capabilities and
+does not authorize a 5.0 compatibility path or rival truth source.
+
 These 16 selected families define the repriced 5.0 product scope. They are
 product outcomes, not implementation modules, operation counts, or ticket
 counts.
 
 | ID | Product outcome |
 |---|---|
-| `A5-F01` | **Exact product, install, workspace, and catalog.** A source-blind consumer resolves, verifies, installs, binds, and opens one exact product set and admitted catalog with typed conflict and dependency handling. |
+| `A5-F01` | **Exact product, install, workspace, and catalog.** A source-blind consumer resolves, verifies, installs, binds, and deterministically builds one exact GraphFunction catalog from the supplied published GTL set with typed conflict and dependency handling. |
 | `A5-F02` | **Complete GTL authoring and validation.** Typed TypeScript APIs, raw admission, canonical serialization, whole-program validation, module publication, and malformed-program refusal cover the complete retained language. |
 | `A5-F03` | **Complete graph, C, and traversal execution.** HoG traverses every retained graph relation, all seven C constructors, and the complete 4.6 traversal conservation matrix without lowering or feature-specific runners. Every C call preserves its locus, selected fibre, evidence, admitted result, judgment, parent/child relation, C-call conservation basis, and lawful runtime join. |
 | `A5-F04` | **Probabilistic result integrity.** Every `F_P` call receives declared instructions and contracts; malformed, incomplete, contradictory, or unattributed output refuses before effect or closure. |
@@ -673,8 +717,8 @@ counts.
 | `A5-F06` | **Thin public SDK and CLI.** Native consumers inspect, validate, publish, invoke, start, read, respond, and continue without a public adapter becoming a controller. |
 | `A5-F07` | **Complete One Surface loop.** The standard system program orders the four distinct semantic authorities `synthesizeModel`, `evalGap`, `evaluateNext`, and `evaluateAction`; ABG separately owns intent admission, invocation, evidence admission, and continuation. Fresh evidence refreshes model, gap, next-action, and action-result truth before the next step. |
 | `A5-F08` | **Consensus free construction.** HoG traverses the bounded Consensus GraphFunction through ordinary public GTL composition, while ABG admits its runtime facts through ordinary ABG atoms; no special engine path exists. |
-| `A5-F09` | **Catalog semantics.** Consumers inspect and narrow catalog views, apply non-callable declarations, call only admitted GraphFunctions, and start only admitted programs. |
-| `A5-F10` | **Event-sourced runtime truth.** Invocation, result, evidence, consequence, correction, retry, repair, recursive child traversal, re-entry, yield, human hold, escalation, continuation, typed failure, block, non-admission, closure, and every public projection form one causal ABG episode. One transition authority resolves competing pressure; replay, not caller memory, derives the result and next state. |
+| `A5-F09` | **Catalog semantics.** Consumers inspect and purely narrow the one reconstructible GraphFunction catalog, apply non-callable declarations deterministically, call only exact published GraphFunctions, and start only exact published programs. |
+| `A5-F10` | **Event-sourced runtime truth.** Invocation, result, evidence, consequence, correction, retry, recursive child traversal, yield, human hold, escalation, continuation, typed failure, block, non-admission, closure, workspace transformation, and their runtime projections form one causal ABG episode. One transition authority resolves competing execution pressure; replay, not caller memory, derives the result, next execution state, and explanation of workspace change. |
 | `A5-F11` | **Self-conformance.** The exact 5.0 candidate evaluates its own applicable specification, design, contract, realization, proof, qualification, and release obligations without exemption or self-minted assurance. |
 | `A5-F13` | **Native and bounded host projection.** The product works without a marketplace host; one Codex projection may delegate to the same public contract without copied semantics. |
 | `A5-F14` | **Packed Hello World and live probabilistic proof.** A clean source-blind install executes a minimal deterministic path and one live `F_P` path with typed result, evidence, events, and replay. |

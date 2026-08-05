@@ -47,7 +47,7 @@ LLM-first graph programming model. It shall:
    closure;
 7. preserve `F_D`, `F_P`, and `F_H` as distinct compute and authority
    regimes inside one traversal model;
-8. publish one admitted module and catalog boundary for programs,
+8. publish one pure, eventless readiness and catalog tool for programs,
    GraphFunctions, contracts, types, and compatible implementation bindings;
 9. expose one source-independent SDK and thin `abg.cli` shell for inspection,
    validation, program start, GraphFunction invocation, runtime reads, human
@@ -107,12 +107,19 @@ HoG may derive invocation-local frames, cursors, queues, resolved bindings, and
 caches. Those values are subordinate to one admitted program and invocation.
 They cannot be published, resumed, or selected as a rival executable program.
 
+### Product owns readiness and catalog construction
+
+Product deterministically validates one explicit immutable workspace, lock,
+install, descriptor, and publication basis and constructs the catalog, narrowed
+views, and declaration applications as discardable values. These operations
+emit no runtime event and retain no lifecycle authority.
+
 ### ABG owns admitted runtime truth
 
 ABG owns:
 
-- product, workspace, catalog, program, invocation, graph-call, frame, attempt,
-  and continuation admission;
+- invocation, graph-call, frame, attempt, continuation, and workspace
+  transformation admission;
 - worker and capability binding at declared seams;
 - event and payload admission;
 - replay-derived state and projection;

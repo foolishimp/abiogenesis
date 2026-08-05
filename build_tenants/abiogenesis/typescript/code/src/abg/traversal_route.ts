@@ -55,6 +55,11 @@ import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
+import {
+  constructRuntimeFluent,
+  deriveRuntimeEventCalculusProjection,
+  holdsAt,
+} from "./event_calculus.js";
 import { replay, type ReplayState } from "./replay.js";
 import {
   hasAdmittedRetryProgress,
@@ -428,6 +433,46 @@ export function isAdmittedRoute(value: object): boolean {
   return admittedRoutes.has(value);
 }
 
+export function isCurrentRecursionRouteSource(
+  store: AbgEventStore,
+  coordinates: Readonly<{
+    runId: string;
+    frameId: string;
+    sourceCursorRef: string;
+  }>,
+): boolean {
+  if (
+    coordinates.runId.length === 0 ||
+    coordinates.frameId.length === 0 ||
+    coordinates.sourceCursorRef.length === 0
+  ) {
+    return false;
+  }
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: coordinates.runId,
+  });
+  const projection = deriveRuntimeEventCalculusProjection(prefix);
+  return holdsAt(
+    projection,
+    constructRuntimeFluent({
+      name: "run_active",
+      identity: coordinates.runId,
+    }),
+  ) && holdsAt(
+    projection,
+    constructRuntimeFluent({
+      name: "frame_active",
+      identity: coordinates.frameId,
+    }),
+  ) && holdsAt(
+    projection,
+    constructRuntimeFluent({
+      name: "locus_active",
+      identity: coordinates.sourceCursorRef,
+    }),
+  );
+}
+
 export function projectAdmittedRecursionRoute(
   store: AbgEventStore,
   coordinates: Readonly<{ runId: string; routeRef: string }>,
@@ -439,6 +484,7 @@ export function projectAdmittedRecursionRoute(
     runId: coordinates.runId,
   });
   const events = runtimeEventsFromValidatedPrefix(prefix);
+  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
   const projectedReplay = replay(store, { runId: coordinates.runId });
   const projected = projectedReplay.routes.find(
     (candidate) => candidate.routeRef === coordinates.routeRef,
@@ -486,7 +532,62 @@ export function projectAdmittedRecursionRoute(
       projected.consumedAvailabilityRefs as unknown as JsonValue,
     ) !== sha256Canonical(body.consumedAvailabilityRefs ?? null) ||
     projected.contractRef !== body.contractRef ||
-    projected.replayStateDigest !== body.replayStateDigest
+    projected.replayStateDigest !== body.replayStateDigest ||
+    holdsAt(
+      eventCalculus,
+      constructRuntimeFluent({
+        name: "locus_active",
+        identity: projected.sourceCursorRef,
+      }),
+    ) ||
+    (
+      projected.routeKind === "advance" &&
+      (
+        !holdsAt(
+          eventCalculus,
+          constructRuntimeFluent({
+            name: "run_active",
+            identity: coordinates.runId,
+          }),
+        ) ||
+        typeof event.frameId !== "string" ||
+        event.frameId.length === 0 ||
+        !holdsAt(
+          eventCalculus,
+          constructRuntimeFluent({
+            name: "frame_active",
+            identity: event.frameId,
+          }),
+        ) ||
+        projected.targetCursorRef === null ||
+        !holdsAt(
+          eventCalculus,
+          constructRuntimeFluent({
+            name: "locus_active",
+            identity: projected.targetCursorRef,
+          }),
+        )
+      )
+    ) ||
+    (
+      projected.routeKind === "blocked" &&
+      (
+        !holdsAt(
+          eventCalculus,
+          constructRuntimeFluent({
+            name: "run_terminal",
+            identity: coordinates.runId,
+          }),
+        ) ||
+        holdsAt(
+          eventCalculus,
+          constructRuntimeFluent({
+            name: "run_active",
+            identity: coordinates.runId,
+          }),
+        )
+      )
+    )
   ) {
     return null;
   }
@@ -4004,11 +4105,16 @@ export function admitRecursionRoute(
   if (
     !hasAdmittedTraversalCursor(store, sourceCursor) ||
     sourceCursor.graphRef !== graph.materializationRef ||
-    sourceCursor.executionBasisRef !== executionBasis.basisRef
+    sourceCursor.executionBasisRef !== executionBasis.basisRef ||
+    !isCurrentRecursionRouteSource(store, {
+      runId: sourceCursor.runId,
+      frameId: sourceCursor.frameId,
+      sourceCursorRef: sourceCursor.cursorRef,
+    })
   ) {
     return refusal(
       "cursor_mismatch",
-      "recursion route source is not the admitted application cursor",
+      "recursion route source is not the active admitted application cursor in one active Run and frame",
     );
   }
   const currentReplay = replay(store, { runId: sourceCursor.runId });

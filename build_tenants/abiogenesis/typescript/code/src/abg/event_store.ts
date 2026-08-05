@@ -29,7 +29,6 @@ import { deepFreeze } from "../shared/immutable.js";
 export const ROOT_EVENT_KIND_VALUES = [
   "public_operation_artifact_admitted",
   "public_operation_admitted",
-  "registry_entry_admitted",
   "invocation_admitted",
   "invocation_refused",
   "implementation_admitted",
@@ -67,6 +66,9 @@ export const ROOT_EVENT_KIND_VALUES = [
   "fh_interaction_opened",
   "fh_interaction_responded",
   "fh_interaction_resume_admitted",
+  "continuation_abandoned",
+  "continuation_superseded",
+  "continuation_reentry_link_admitted",
   "runtime_failure_observed",
   "run_stopped",
   "terminal_reached",
@@ -230,7 +232,7 @@ const LEGACY_IMPLEMENTATION_PAYLOAD = payloadKeys(
   "catalogViewDigest catalogViewId computeRegime failureContractRef graphFunctionDigest graphFunctionRef graphValidationDigest graphValidationRef implementationBindingDigest implementationBindingRef implementationDescriptorDigest implementationRef inputContractRef modulePath namedSymbol nodeRef outputContractRef packageName packageVersion programValidationRef publicationDigest refusalContractRef resolutionCandidateDigest resolutionCandidateRef resolutionDigest resolutionRef resolutionValidationDigest resolutionValidationRef",
 );
 const BASIS_PAYLOAD = payloadKeys(
-  "actionCatalogDigest actionCatalogRef actionCatalogRows actorRef basisClass basisDigest basisRef catalogViewDigest catalogViewId closureContractDigest closureContractRef constructionComposition constructionCompositionDigest constructionCompositionRef entryRef evidenceContractRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef implementationResolutionRef implementationSetDigest implementationSetRef interactionSetDigest interactionSetRef invocationAdmissionRef invocationDigest invocationRef judgmentContractRef localExecutableLeafKeys localImplementationSubsetDigest localInteractionLeafKeys localInteractionSubsetDigest parentExecutionBasisRef parentTraversalScopeRef programDigest programRef programValidationRef rawInputAdmissionRef rawInputDigest refusalContractRef refusalValueKind rejectionContractRef replayProjectionRef resultContractRef rootImplementationSetDigest rootImplementationSetRef rootInteractionSetDigest rootInteractionSetRef terminalKind terminalPredicateRef transitionContractRef workspaceBindingDigest workspaceBindingId",
+  "actionCatalogDigest actionCatalogRef actionCatalogRows actorRef basisClass basisDigest basisRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId closureContractDigest closureContractRef constructionComposition constructionCompositionDigest constructionCompositionRef entryRef evidenceContractRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef implementationResolutionRef implementationSetDigest implementationSetRef interactionSetDigest interactionSetRef invocationAdmissionRef invocationDigest invocationRef judgmentContractRef localExecutableLeafKeys localImplementationSubsetDigest localInteractionLeafKeys localInteractionSubsetDigest parentExecutionBasisRef parentTraversalScopeRef programDigest programRef programValidationRef rawInputAdmissionRef rawInputDigest refusalContractRef refusalValueKind rejectionContractRef replayProjectionRef resultContractRef rootImplementationSetDigest rootImplementationSetRef rootInteractionSetDigest rootInteractionSetRef terminalKind terminalPredicateRef transitionContractRef workspaceBindingDigest workspaceBindingId",
 );
 const GRAPH_OPEN_PAYLOAD = payloadKeys(
   "executionBasisRef graphCallDigest graphCallId graphDigest graphFunctionDigest graphFunctionRef graphRef invocationRef runId",
@@ -288,7 +290,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     payloadVariants: [
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogApplicationDigests catalogApplicationRefs catalogViewId definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef variant workspaceBindingId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogApplicationDigests catalogApplicationRefs catalogBasisDigest catalogBasisRef catalogViewId definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef selectedDefinitionDigest selectedDefinitionRef selectedFibreDigest selectedFibreRef selectedPlanDigest selectedPlanRef variant workspaceBindingId",
         ),
         payloadKeys(
           "catalogApplicationDigests catalogApplicationRefs operationId invocationRef invocationDigest variant",
@@ -296,7 +298,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ),
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogViewId definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef variant workspaceBindingId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogBasisDigest catalogBasisRef catalogViewId definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef selectedDefinitionDigest selectedDefinitionRef selectedFibreDigest selectedFibreRef selectedPlanDigest selectedPlanRef variant workspaceBindingId",
         ),
         payloadKeys(
           "operationId invocationRef invocationDigest variant",
@@ -311,15 +313,6 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
         ),
       ),
     ],
-  },
-  registry_entry_admitted: {
-    variants: [WORKSPACE_EVENT],
-    payloadVariants: [payloadVariant(
-      payloadKeys(
-        "candidateId catalogId handle operationId rowDigest rowDisposition",
-      ),
-      payloadKeys("operationId handle rowDigest rowDisposition"),
-    )],
   },
   invocation_admitted: {
     variants: [WORKSPACE_EVENT],
@@ -336,10 +329,10 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ),
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityGrants catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis sourceResultBasis workspaceBindingDigest workspaceBindingId workspaceId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityGrants catalogApplicationDigests catalogApplicationRefs catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis selectedDefinitionDigest selectedDefinitionRef selectedFibreDigest selectedFibreRef selectedPlanDigest selectedPlanRef sourceResultBasis workspaceBindingDigest workspaceBindingId workspaceId",
         ),
         payloadKeys(
-          "invocationAdmissionRef invocationAdmissionDigest invocationRef reentryBasis sourceResultBasis",
+          "catalogApplicationDigests catalogApplicationRefs invocationAdmissionRef invocationAdmissionDigest invocationRef reentryBasis sourceResultBasis",
         ),
         undefined,
         payloadKeys("publicStart reentryBasis sourceResultBasis"),
@@ -765,11 +758,13 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [CONTINUATION_EVENT],
     payloadVariants: [
       payloadVariant(payloadKeys(
+        "actorCapabilityRef cCall cCallRef causedByEventRef continuationDigest continuationKind continuationRef executionBasisDigest executionBasisRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef heldCursor heldCursorDigest heldCursorRef holdRouteRef implementationSetDigest implementationSetRef inputDigest inputRef inputValue installId interactionSetDigest interactionSetRef linkDigest linkRef manifestDigest openedTraversalScope pendingJudgment pendingResult productContentDigest productId programDigest programRef programValidationRef requestContractRef requestDigest requestRef responseContractRef scopeDigest scopeRef workspaceBindingDigest workspaceBindingId catalogViewDigest catalogViewId",
+      ), payloadKeys(
         "actorCapabilityRef cCall cCallRef causedByEventRef continuationDigest continuationKind continuationRef executionBasisDigest executionBasisRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef heldCursor heldCursorDigest heldCursorRef holdRouteRef implementationSetDigest implementationSetRef inputDigest inputRef inputValue installId interactionSetDigest interactionSetRef manifestDigest openedTraversalScope pendingJudgment pendingResult productContentDigest productId programDigest programRef programValidationRef requestContractRef requestDigest requestRef responseContractRef scopeDigest scopeRef workspaceBindingDigest workspaceBindingId catalogViewDigest catalogViewId",
       )),
       payloadVariant(
         payloadKeys(
-          "actorCapabilityRef cCall cCallRef causedByEventRef constructionIntentDigest constructionIntentRef continuationDigest continuationKind continuationRef executionBasisDigest executionBasisRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef heldCursor heldCursorDigest heldCursorRef holdRouteRef implementationSetDigest implementationSetRef inputDigest inputRef inputValue installId interactionSetDigest interactionSetRef manifestDigest openedTraversalScope pendingJudgment pendingResult productContentDigest productId programDigest programRef programValidationRef requestContractRef requestDigest requestRef responseContractRef scopeDigest scopeRef workspaceBindingDigest workspaceBindingId catalogViewDigest catalogViewId",
+          "actorCapabilityRef cCall cCallRef causedByEventRef constructionIntentDigest constructionIntentRef continuationDigest continuationKind continuationRef executionBasisDigest executionBasisRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef heldCursor heldCursorDigest heldCursorRef holdRouteRef implementationSetDigest implementationSetRef inputDigest inputRef inputValue installId interactionSetDigest interactionSetRef linkDigest linkRef manifestDigest openedTraversalScope pendingJudgment pendingResult productContentDigest productId programDigest programRef programValidationRef requestContractRef requestDigest requestRef responseContractRef scopeDigest scopeRef workspaceBindingDigest workspaceBindingId catalogViewDigest catalogViewId",
         ),
         payloadKeys(
           "continuationRef continuationDigest constructionIntentRef constructionIntentDigest",
@@ -788,6 +783,33 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     payloadVariants: [payloadVariant(payloadKeys(
       "actorRef capabilityRef continuationRef durablePrefixDigest openedEventRef publicOperationEventRef respondedEventRef responseDigest responseRef responseValue successorCursorDigest successorCursorRef successorInputDigest successorInputRef successorInputValue",
     ))],
+  },
+  continuation_abandoned: {
+    variants: [CONTINUATION_EVENT],
+    payloadVariants: [payloadVariant(payloadKeys(
+      "candidateDigest candidateRef causedByEventRef continuationDigest continuationKind continuationRef terminalDisposition",
+    ))],
+  },
+  continuation_superseded: {
+    variants: [CONTINUATION_EVENT],
+    payloadVariants: [payloadVariant(payloadKeys(
+      "candidateDigest candidateRef causedByEventRef continuationDigest continuationKind continuationRef terminalDisposition",
+    ))],
+  },
+  continuation_reentry_link_admitted: {
+    variants: [WORKSPACE_EVENT],
+    payloadVariants: [
+      payloadVariant(
+        payloadKeys("linkDigest linkRef predecessorContinuationId predecessorDisposition predecessorRunId successorKind successorRunId workspaceBindingDigest workspaceBindingId"),
+        undefined,
+        { successorKind: "none" },
+      ),
+      payloadVariant(
+        payloadKeys("continuationKind linkDigest linkRef plannedContinuationId plannedOpeningBasisDigest plannedOpeningBasisRef predecessorContinuationId predecessorDisposition predecessorRunId successorKind successorRunId workspaceBindingDigest workspaceBindingId"),
+        undefined,
+        { successorKind: "some" },
+      ),
+    ],
   },
   runtime_failure_observed: {
     variants: [
@@ -2093,4 +2115,17 @@ export function admitRuntimeEventTransaction<T>(
   } finally {
     state.transactionStartIndex = null;
   }
+}
+
+export function compareAndAppendExpectedPrefix(
+  store: AbgEventStore,
+  expectedPrefixDigest: Sha256Digest,
+  factories: readonly RuntimeEventCandidateFactory[],
+): readonly RuntimeEvent[] {
+  if (store.digest() !== expectedPrefixDigest) {
+    throw new TypeError(
+      "runtime event append requires the exact expected immutable prefix",
+    );
+  }
+  return admitRuntimeEventBatch(store, factories);
 }

@@ -81,48 +81,13 @@ function validatePublishedProgram(publication) {
 }
 
 function catalogViewFor(publication) {
-  const program = publication.programs[0];
   const contribution = publication.contributions.find((row) => row.kind === "graph_function");
   assert.notEqual(contribution, undefined);
-  const rowBody = {
-    handle: contribution.handle,
-    kind: contribution.kind,
-    declarationOrContractRef: contribution.declarationOrContractRef,
-    owningProductId: contribution.owningProductId,
-    moduleRef: publication.moduleRef,
-    programMembershipRefs: contribution.programMembershipRefs,
-    readiness: "ready",
-    eligibility: "eligible",
-    callability: "callable",
-    sessionVisibility: "workspace",
-    compatibilityDisposition: "compatible",
-    compatibilityRefs: contribution.compatibilityRefs,
-    provenanceRefs: contribution.provenanceRefs,
-  };
-  const selectedRow = {
-    ...rowBody,
-    rowDigest: product.sha256Canonical(rowBody),
-    disposition: "admitted",
-    admissionEventRef: "event://m5/catalog-admitted/1",
-  };
-  assert.equal(selectedRow.programMembershipRefs.includes(program.programRef), true);
-  const viewBody = {
-    catalogId: "catalog://m5/root",
-    catalogDigest: DIGEST,
-    allowlist: [selectedRow.handle],
-    selectedRows: [selectedRow],
-  };
-  const viewDigest = product.sha256Canonical(viewBody);
-  return {
-    kind: "catalog_view",
-    schemaVersion: "5.0.0",
-    disposition: "admitted",
-    viewId: `catalog-view://m5/${viewDigest.slice("sha256:".length)}`,
-    viewDigest,
-    admissionCandidateRef: "catalog-view-candidate://m5/root",
-    admissionEventRef: "event://m5/catalog-view-admitted/1",
-    ...viewBody,
-  };
+  const catalog = product.buildGraphFunctionCatalog([publication]);
+  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
+  const view = product.narrowGraphFunctionCatalog(catalog, [contribution.handle]);
+  assert.equal(view.kind, "graph_function_catalog_view", JSON.stringify(view));
+  return view;
 }
 
 function descriptorFor(binding) {

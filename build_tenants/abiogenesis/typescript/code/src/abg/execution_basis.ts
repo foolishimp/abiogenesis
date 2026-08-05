@@ -166,6 +166,8 @@ export interface ExecutionBasis {
   readonly rawInputDigest: Sha256Digest;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
+  readonly catalogBasisRef: string;
+  readonly catalogBasisDigest: Sha256Digest;
   readonly catalogViewId: string;
   readonly catalogViewDigest: Sha256Digest;
   readonly actionCatalogRef: string | null;
@@ -726,7 +728,7 @@ export function admitExecutionBasis(
     !isImplementationResolutionSetCandidate(input.resolutionSetCandidate) ||
     !isImplementationResolutionSetValidation(input.resolutionSetValidation) ||
     input.resolutionSetCandidate.programValidationRef !== input.programValidation.validationRef ||
-    input.resolutionSetCandidate.catalogViewId !== input.invocationAdmission.catalogViewId ||
+    input.resolutionSetCandidate.catalogBasisDigest !== input.invocationAdmission.catalogBasisDigest ||
     input.resolutionSetCandidate.catalogViewDigest !== input.invocationAdmission.catalogViewDigest ||
     input.resolutionSetValidation.setCandidateRef !== input.resolutionSetCandidate.setCandidateRef ||
     input.resolutionSetValidation.setCandidateDigest !== input.resolutionSetCandidate.setCandidateDigest ||
@@ -768,7 +770,7 @@ export function admitExecutionBasis(
       legacyCandidate.graphValidationRef !== input.graphValidation.validationRef ||
       legacyCandidate.graphValidationDigest !== input.graphValidation.validationDigest ||
       legacyCandidate.graphFunctionRef !== input.invocationAdmission.graphFunctionRef ||
-      legacyCandidate.catalogViewId !== input.invocationAdmission.catalogViewId ||
+      legacyCandidate.catalogBasisDigest !== input.invocationAdmission.catalogBasisDigest ||
       legacyCandidate.inputContractRef !== input.invocationAdmission.inputContractRef ||
       legacyCandidate.outputContractRef !== input.invocationAdmission.outputContractRef ||
       input.resolutionSetCandidate.rows.filter((row) =>
@@ -813,7 +815,7 @@ export function admitExecutionBasis(
     resolutionSetCandidateDigest: input.resolutionSetCandidate.setCandidateDigest,
     resolutionSetValidationRef: input.resolutionSetValidation.validationRef,
     resolutionSetValidationDigest: input.resolutionSetValidation.validationDigest,
-    catalogViewId: input.resolutionSetCandidate.catalogViewId,
+    catalogViewId: input.invocationAdmission.catalogViewId,
     catalogViewDigest: input.resolutionSetCandidate.catalogViewDigest,
     publicationDigest: input.resolutionSetCandidate.publicationDigest,
     programValidationRef: input.programValidation.validationRef,
@@ -850,7 +852,7 @@ export function admitExecutionBasis(
       resolutionCandidateDigest: legacyCandidate.resolutionCandidateDigest,
       resolutionValidationRef: legacyValidation.validationRef,
       resolutionValidationDigest: legacyValidation.validationDigest,
-      catalogViewId: legacyCandidate.catalogViewId,
+      catalogViewId: input.invocationAdmission.catalogViewId,
       catalogViewDigest: legacyCandidate.catalogViewDigest,
       publicationDigest: legacyCandidate.publicationDigest,
       programValidationRef: legacyCandidate.programValidationRef,
@@ -977,6 +979,8 @@ export function admitExecutionBasis(
     rawInputDigest: input.invocationAdmission.rawInputDigest,
     workspaceBindingId: input.invocationAdmission.workspaceBindingId,
     workspaceBindingDigest: input.invocationAdmission.workspaceBindingDigest,
+    catalogBasisRef: input.invocationAdmission.catalogBasisRef,
+    catalogBasisDigest: input.invocationAdmission.catalogBasisDigest,
     catalogViewId: input.invocationAdmission.catalogViewId,
     catalogViewDigest: input.invocationAdmission.catalogViewDigest,
     actionCatalogRef: input.program.actionCatalog?.catalogRef ?? null,
@@ -1218,6 +1222,8 @@ export function admitChildExecutionBasis(
     rawInputDigest: input.admittedInputDigest,
     workspaceBindingId: parent.workspaceBindingId,
     workspaceBindingDigest: parent.workspaceBindingDigest,
+    catalogBasisRef: parent.catalogBasisRef,
+    catalogBasisDigest: parent.catalogBasisDigest,
     catalogViewId: parent.catalogViewId,
     catalogViewDigest: parent.catalogViewDigest,
     actionCatalogRef: parent.actionCatalogRef,

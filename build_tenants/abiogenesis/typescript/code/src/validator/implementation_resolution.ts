@@ -10,7 +10,7 @@ import {
   type LeafImplementationResolutionCandidate,
   type PackagedLeafImplementationDescriptor,
 } from "../product/implementation_resolution.js";
-import type { CatalogView } from "../product/catalog.js";
+import type { GraphFunctionCatalogView } from "../product/catalog.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -109,7 +109,7 @@ export function validateImplementationResolution(
   const node = graphFunction.template.nodes.find((value) => value.nodeRef === candidate.nodeRef);
   const term = node?.term;
   const candidateBody = {
-    catalogViewId: candidate.catalogViewId,
+    catalogBasisDigest: candidate.catalogBasisDigest,
     catalogViewDigest: candidate.catalogViewDigest,
     publicationDigest: candidate.publicationDigest,
     programValidationRef: candidate.programValidationRef,
@@ -206,7 +206,7 @@ function leafCandidateBody(candidate: LeafImplementationResolutionCandidate): Re
   return {
     requirementKey: candidate.requirementKey,
     requirementKeyDigest: candidate.requirementKeyDigest,
-    catalogViewId: candidate.catalogViewId,
+    catalogBasisDigest: candidate.catalogBasisDigest,
     catalogViewDigest: candidate.catalogViewDigest,
     publicationDigest: candidate.publicationDigest,
     programValidationRef: candidate.programValidationRef,
@@ -232,7 +232,7 @@ function leafCandidateBody(candidate: LeafImplementationResolutionCandidate): Re
 
 export function validateImplementationResolutionSet(
   candidate: ImplementationResolutionSetCandidate,
-  catalogView: CatalogView,
+  catalogView: GraphFunctionCatalogView,
   publication: Readonly<ModulePublication>,
   programValidation: ProgramValidation,
   descriptors: readonly Readonly<PackagedLeafImplementationDescriptor>[],
@@ -249,7 +249,7 @@ export function validateImplementationResolutionSet(
     });
   }
   const setBody = {
-    catalogViewId: candidate.catalogViewId,
+    catalogBasisDigest: candidate.catalogBasisDigest,
     catalogViewDigest: candidate.catalogViewDigest,
     publicationDigest: candidate.publicationDigest,
     programValidationRef: candidate.programValidationRef,
@@ -257,10 +257,12 @@ export function validateImplementationResolutionSet(
     rows: candidate.rows,
   };
   const catalogViewDigest = sha256Canonical({
-    catalogId: catalogView.catalogId,
-    catalogDigest: catalogView.catalogDigest,
+    catalogBasisDigest: catalogView.catalogBasisDigest,
     allowlist: catalogView.allowlist,
-    selectedRows: catalogView.selectedRows,
+    entries: catalogView.entries.map((entry) => entry.entryDigest),
+    declarationEntries: catalogView.declarationEntries.map(
+      (entry) => entry.entryDigest,
+    ),
   } as unknown as JsonValue);
   if (
     !isProgramValidation(programValidation) ||
@@ -268,7 +270,7 @@ export function validateImplementationResolutionSet(
     candidate.publicationDigest !== sha256Canonical(publication as unknown as JsonValue) ||
     candidate.publicationDigest !== programValidation.publicationDigest ||
     candidate.programValidationRef !== programValidation.validationRef ||
-    candidate.catalogViewId !== catalogView.viewId ||
+    candidate.catalogBasisDigest !== catalogView.catalogBasisDigest ||
     candidate.catalogViewDigest !== catalogView.viewDigest ||
     catalogViewDigest !== catalogView.viewDigest ||
     canonicalJson(candidate.executableLeafKeys as unknown as JsonValue) !==
@@ -311,7 +313,7 @@ export function validateImplementationResolutionSet(
       row.requirementKey !== declaration.requirementKey ||
       row.requirementKeyDigest !== declaration.requirementKeyDigest ||
       row.programValidationRef !== programValidation.validationRef ||
-      row.catalogViewId !== catalogView.viewId ||
+      row.catalogBasisDigest !== catalogView.catalogBasisDigest ||
       row.catalogViewDigest !== catalogView.viewDigest ||
       row.publicationDigest !== candidate.publicationDigest ||
       row.leafResolutionCandidateDigest !==
@@ -350,10 +352,9 @@ export function validateImplementationResolutionSet(
         declaration.requirement.refusalContractRef,
         declaration.requirement.judgmentContractRef,
       ].some((contractRef) => !contractRefs.has(contractRef)) ||
-      catalogView.selectedRows.filter((selected) =>
-        selected.kind === "graph_function" &&
-        selected.disposition === "admitted" &&
-        selected.declarationOrContractRef === declaration.graphFunctionRef &&
+      catalogView.entries.filter((selected) =>
+        selected.kind === "graph_function_catalog_entry" &&
+        selected.definitionRef === declaration.graphFunctionRef &&
         selected.programMembershipRefs.includes(programValidation.programRef)).length !== 1
     ) {
       return invalid(subjectDigest, {

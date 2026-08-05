@@ -69,10 +69,6 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: ["public_operation_ingress_admitted"],
     terminates: [], clips: [], declips: [],
   },
-  registry_entry_admitted: {
-    initiates: ["catalog_entry_available"],
-    terminates: [], clips: [], declips: [],
-  },
   invocation_admitted: {
     initiates: ["invocation_admitted"],
     terminates: [], clips: [], declips: [],
@@ -139,7 +135,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   actor_process_timeout_observed: {
     initiates: ["actor_process_timed_out"],
-    terminates: ["actor_process_live"], clips: [], declips: [],
+    terminates: [], clips: [], declips: [],
   },
   actor_process_signal_requested: {
     initiates: ["actor_process_signal_requested"],
@@ -151,7 +147,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   actor_process_termination_unconfirmed: {
     initiates: ["actor_process_termination_unconfirmed"],
-    terminates: ["actor_process_live"], clips: [], declips: [],
+    terminates: [], clips: [], declips: [],
   },
   actor_result_artifact_observed: {
     initiates: ["actor_result_artifact_available"],
@@ -163,7 +159,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   actor_invocation_failed: {
     initiates: ["actor_invocation_failed"],
-    terminates: ["actor_invocation_active", "actor_process_active", "actor_process_live"], clips: [], declips: [],
+    terminates: ["actor_invocation_active", "actor_process_active"], clips: [], declips: [],
   },
   c_call_evidenced: {
     initiates: ["c_call_evidence_available"],
@@ -226,9 +222,21 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
       "frame_held",
     ], clips: [], declips: [],
   },
+  continuation_abandoned: {
+    initiates: ["continuation_abandoned"],
+    terminates: ["continuation_open", "interaction_pending", "continuation_response_available"], clips: [], declips: [],
+  },
+  continuation_superseded: {
+    initiates: ["continuation_superseded"],
+    terminates: ["continuation_open", "interaction_pending", "continuation_response_available"], clips: [], declips: [],
+  },
+  continuation_reentry_link_admitted: {
+    initiates: ["continuation_reentry_link_available"],
+    terminates: [], clips: [], declips: [],
+  },
   runtime_failure_observed: {
     initiates: ["runtime_failure"],
-    terminates: ["locus_active", "frame_active", "graph_call_active", "run_active"], clips: [], declips: [],
+    terminates: ["locus_active", "frame_active"], clips: [], declips: [],
   },
   run_stopped: {
     initiates: ["run_terminal"],
@@ -375,6 +383,75 @@ function eventCalculusEffectRefs(
         terminates: [],
         clips: [],
         declips: [],
+      };
+    case "actor_invocation_started":
+      return {
+        initiates: [fluent("actor_invocation_active", event.aggregateId)],
+        terminates: [], clips: [], declips: [],
+      };
+    case "actor_process_started":
+      return {
+        initiates: [
+          fluent("actor_process_active", event.aggregateId),
+          fluent("actor_process_live", event.aggregateId),
+        ],
+        terminates: [], clips: [], declips: [],
+      };
+    case "actor_process_stdout_observed":
+    case "actor_process_stderr_observed":
+      return {
+        initiates: [fluent(
+          event.kind === "actor_process_stdout_observed"
+            ? "actor_stdout_available"
+            : "actor_stderr_available",
+          event.eventId,
+        )],
+        terminates: [], clips: [], declips: [],
+      };
+    case "actor_process_timeout_observed":
+      return {
+        initiates: [fluent("actor_process_timed_out", event.aggregateId)],
+        terminates: [], clips: [], declips: [],
+      };
+    case "actor_process_signal_requested":
+      return {
+        initiates: [fluent("actor_process_signal_requested", event.eventId)],
+        terminates: [], clips: [], declips: [],
+      };
+    case "actor_process_termination_unconfirmed":
+      return {
+        initiates: [fluent(
+          "actor_process_termination_unconfirmed",
+          event.aggregateId,
+        )],
+        terminates: [], clips: [], declips: [],
+      };
+    case "actor_process_spawn_failed":
+    case "actor_process_exited":
+      return {
+        initiates: [fluent(
+          event.kind === "actor_process_exited"
+            ? "actor_process_exited"
+            : "actor_process_spawn_failed",
+          event.aggregateId,
+        )],
+        terminates: [
+          fluent("actor_process_active", event.aggregateId),
+          fluent("actor_process_live", event.aggregateId),
+        ],
+        clips: [], declips: [],
+      };
+    case "actor_invocation_closed":
+    case "actor_invocation_failed":
+      return {
+        initiates: [fluent(
+          event.kind === "actor_invocation_closed"
+            ? "actor_invocation_closed"
+            : "actor_invocation_failed",
+          event.aggregateId,
+        )],
+        terminates: [fluent("actor_invocation_active", event.aggregateId)],
+        clips: [], declips: [],
       };
     case "c_call_evidenced": {
       const evidenceRef = stringField(event, "evidenceRef");
@@ -605,6 +682,37 @@ function eventCalculusEffectRefs(
         declips: [],
       };
     }
+    case "continuation_abandoned":
+    case "continuation_superseded": {
+      const continuationRef = stringField(event, "continuationRef");
+      return {
+        initiates: continuationRef === null
+          ? []
+          : [fluent(
+              event.kind === "continuation_abandoned"
+                ? "continuation_abandoned"
+                : "continuation_superseded",
+              continuationRef,
+            )],
+        terminates: continuationRef === null
+          ? []
+          : [
+              fluent("continuation_open", continuationRef),
+              fluent("interaction_pending", continuationRef),
+              fluent("continuation_response_available", continuationRef),
+            ],
+        clips: [], declips: [],
+      };
+    }
+    case "continuation_reentry_link_admitted": {
+      const linkRef = stringField(event, "linkRef");
+      return {
+        initiates: linkRef === null
+          ? []
+          : [fluent("continuation_reentry_link_available", linkRef)],
+        terminates: [], clips: [], declips: [],
+      };
+    }
     case "traversal_route_admitted":
       break;
     case "runtime_failure_observed":
@@ -616,10 +724,10 @@ function eventCalculusEffectRefs(
             : [
                 fluent("frame_active", event.frameId),
               ]),
-          ...(event.graphCallId === undefined
+          ...(event.aggregateType !== "run" || event.graphCallId === undefined
             ? []
             : [fluent("graph_call_active", event.graphCallId)]),
-          ...(event.runId === undefined
+          ...(event.aggregateType !== "run" || event.runId === undefined
             ? []
             : [fluent("run_active", event.runId)]),
         ],
@@ -1040,10 +1148,88 @@ export function deriveRuntimeEventCalculusProjection(
   const effectRows: RuntimeEventCalculusEffectRow[] = [];
   const clippedFluentRefs: string[] = [];
   const declippedPatternRefs: string[] = [];
+  const contextualFluentRunIds = new Map<string, string>();
   for (const event of events) {
-    const effect = eventCalculusEffect(event);
+    const baseEffect = eventCalculusEffect(event);
+    const terminalLocusEvent =
+      event.kind === "runtime_failure_observed" ||
+      event.kind === "run_stopped" ||
+      event.kind === "run_closed";
+    const cleanupTerminalEvent = event.kind === "run_stopped" ||
+      (event.kind === "runtime_failure_observed" &&
+        event.aggregateType === "run");
+    const processRef = stringField(event, "processRef");
+    const liveProcesses = cleanupTerminalEvent
+      ? [...holds.values()].filter((candidate) =>
+          candidate.name === "actor_process_live" && candidate.identity !== null
+        )
+      : [];
+    const effect = terminalLocusEvent
+      ? completeEffect({
+          ...baseEffect,
+          initiates: [
+            ...baseEffect.initiates,
+            ...liveProcesses.flatMap((candidate) => [
+              constructRuntimeFluent({
+                name: "actor_cleanup_live",
+                identity: candidate.identity!,
+              }),
+              constructRuntimeFluent({
+                name: "actor_cleanup_pending",
+                identity: candidate.identity!,
+              }),
+            ]),
+          ],
+          terminates: [
+            ...baseEffect.terminates,
+            ...[...holds.values()].filter((candidate) =>
+              (
+                (
+                  cleanupTerminalEvent &&
+                  (
+                    candidate.name === "actor_invocation_active" ||
+                    candidate.name === "actor_process_active" ||
+                    candidate.name === "c_call_active" ||
+                    candidate.name === "continuation_open" ||
+                    candidate.name === "continuation_response_available" ||
+                    candidate.name === "frame_held" ||
+                    candidate.name === "interaction_pending" ||
+                    candidate.name === "parent_waiting_on_child" ||
+                    candidate.name === "retry_attempt_active" ||
+                    candidate.name === "retry_progress_available"
+                  )
+                ) || candidate.name === "locus_active"
+              ) &&
+              contextualFluentRunIds.get(runtimeFluentKey(candidate)) ===
+                event.runId
+            ),
+          ],
+        })
+      : processRef !== null &&
+          (event.kind === "actor_process_exited" ||
+            event.kind === "actor_process_spawn_failed" ||
+            event.kind === "actor_invocation_closed" ||
+            event.kind === "actor_invocation_failed")
+        ? completeEffect({
+            ...baseEffect,
+            terminates: [
+              ...baseEffect.terminates,
+              ...(event.kind === "actor_process_exited" ||
+                  event.kind === "actor_process_spawn_failed"
+                ? [constructRuntimeFluent({
+                    name: "actor_cleanup_live",
+                    identity: processRef,
+                  })]
+                : [constructRuntimeFluent({
+                    name: "actor_cleanup_pending",
+                    identity: processRef,
+                  })]),
+            ],
+          })
+        : baseEffect;
     for (const fluent of effect.terminates) {
       holds.delete(runtimeFluentKey(fluent));
+      contextualFluentRunIds.delete(runtimeFluentKey(fluent));
     }
     for (const pattern of effect.clips) {
       for (const [key, fluent] of [...holds.entries()]) {
@@ -1058,6 +1244,9 @@ export function deriveRuntimeEventCalculusProjection(
     }
     for (const fluent of effect.initiates) {
       holds.set(runtimeFluentKey(fluent), fluent);
+      if (event.runId !== undefined) {
+        contextualFluentRunIds.set(runtimeFluentKey(fluent), event.runId);
+      }
     }
     effectRows.push(deepFreeze({
       kind: "event_calculus_effect_row" as const,

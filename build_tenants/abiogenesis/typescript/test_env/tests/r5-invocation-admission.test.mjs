@@ -105,7 +105,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
       invocation.invocationRef,
-      [catalogView.admissionEventRef],
+      [workspaceBinding.admissionEventRef],
     ),
   );
   assert.equal(invocationAdmission.kind, "invocation_admission", JSON.stringify(invocationAdmission));
@@ -203,7 +203,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
 
   const changedViewRefusal = abg.admitInvocation(
     store,
-    { ...admissionInput, catalogView: { ...catalogView, selectedRows: [] } },
+    { ...admissionInput, catalogView: { ...catalogView, entries: [] } },
     publicOperationBasis(
       product,
       "abg.operation.run.invoke",
@@ -212,7 +212,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
       invocation.invocationRef,
     ),
   );
-  assert.equal(changedViewRefusal.code, "catalog_view_not_admitted");
+  assert.equal(changedViewRefusal.code, "selection_mismatch");
 
   const changedWorkspaceRefusal = abg.admitInvocation(
     store,

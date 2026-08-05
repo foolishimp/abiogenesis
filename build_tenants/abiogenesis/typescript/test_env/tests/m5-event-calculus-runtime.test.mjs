@@ -10,6 +10,7 @@ import {
   admitRuntimeEvent,
 } from "../../build/code/src/abg/event_store.js";
 import {
+  projectCurrentApplicationChildFoldback,
   projectCurrentApplicationChildPreparationRefusal,
 } from "../../build/code/src/abg/graph_application.js";
 import { sha256Canonical } from "../../build/code/src/shared/digests.js";
@@ -112,6 +113,24 @@ function retryEvent({
             routeKind: "retry",
             consumedAvailabilityRefs,
           },
+  });
+}
+
+function cursorEvent({
+  eventId,
+  admissionOrdinal,
+  runId,
+  cursorRef,
+  causationEventRefs = [],
+}) {
+  return deeplyFreeze({
+    ...fakeEvent(eventId, admissionOrdinal, runId, causationEventRefs),
+    kind: "traversal_cursor_entered",
+    aggregateType: "frame",
+    aggregateId: `frame://${runId}`,
+    graphCallId: `graph-call://${runId}`,
+    frameId: `frame://${runId}`,
+    payload: { cursorRef },
   });
 }
 
@@ -434,6 +453,274 @@ test("retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruc
   assert.equal(global.includes("retry_attempt_active(retry-attempt://r/1)"), true);
   assert.equal(global.includes("retry_attempt_active(retry-attempt://s/1)"), false);
   assert.equal(global.includes("retry_progress_available(retry-progress://s/1)"), false);
+});
+
+test("run_stopped terminates every exact active retry attempt and available retry progress", async () => {
+  const eventCalculus = await import(
+    `${pathToFileURL(join(root, "build/code/src/abg/event_calculus.js")).href}?t287-retry-stop=${Date.now()}`
+  );
+  const prefixModule = await import(
+    pathToFileURL(join(root, "build/code/src/abg/event_prefix.js")).href
+  );
+  const runId = "run://retry/stopped";
+  const otherRunId = "run://retry/still-active";
+  const otherRun = fakeEvent("event://retry/still-active/run", 1, otherRunId);
+  const otherAttempt = retryEvent({
+    kind: "retry_attempt_opened",
+    eventId: "event://retry/still-active/attempt-1",
+    admissionOrdinal: 2,
+    runId: otherRunId,
+    attemptRef: "retry-attempt://still-active/1",
+    causationEventRefs: [otherRun.eventId],
+  });
+  const run = fakeEvent("event://retry/stopped/run", 3, runId);
+  const firstAttempt = retryEvent({
+    kind: "retry_attempt_opened",
+    eventId: "event://retry/stopped/attempt-1",
+    admissionOrdinal: 4,
+    runId,
+    attemptRef: "retry-attempt://stopped/1",
+    causationEventRefs: [run.eventId],
+  });
+  const progress = retryEvent({
+    kind: "retry_progress_recorded",
+    eventId: "event://retry/stopped/progress-1",
+    admissionOrdinal: 5,
+    runId,
+    attemptRef: "retry-attempt://stopped/1",
+    progressRef: "retry-progress://stopped/1",
+    causationEventRefs: [firstAttempt.eventId],
+  });
+  const secondAttempt = retryEvent({
+    kind: "retry_attempt_opened",
+    eventId: "event://retry/stopped/attempt-2",
+    admissionOrdinal: 6,
+    runId,
+    attemptRef: "retry-attempt://stopped/2",
+    causationEventRefs: [progress.eventId],
+  });
+  const stopped = deeplyFreeze({
+    ...fakeEvent(
+      "event://retry/stopped/terminal",
+      7,
+      runId,
+      [progress.eventId, secondAttempt.eventId],
+    ),
+    kind: "run_stopped",
+    aggregateType: "run",
+    aggregateId: runId,
+    graphCallId: `graph-call://${runId}`,
+    frameId: `frame://${runId}`,
+    payload: {
+      routeRef: "traversal-route://retry/stopped",
+      reasonRef: "reason://retry/stopped",
+      disposition: "blocked",
+    },
+  });
+  const before = eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(
+      Object.freeze([otherRun, otherAttempt, run, firstAttempt, progress, secondAttempt]),
+      { runId },
+    ),
+  );
+  const beforeRefs = before.holds.map((fluent) => fluent.fluentRef);
+  assert.equal(beforeRefs.includes("retry_attempt_active(retry-attempt://stopped/2)"), true);
+  assert.equal(beforeRefs.includes("retry_progress_available(retry-progress://stopped/1)"), true);
+
+  const after = eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(
+      Object.freeze([otherRun, otherAttempt, run, firstAttempt, progress, secondAttempt, stopped]),
+      { runId },
+    ),
+  );
+  assert.deepEqual(
+    after.holds.filter((fluent) =>
+      fluent.name === "retry_attempt_active" ||
+      fluent.name === "retry_progress_available"
+    ),
+    [],
+  );
+  const globalAfter = eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(
+      Object.freeze([otherRun, otherAttempt, run, firstAttempt, progress, secondAttempt, stopped]),
+    ),
+  );
+  assert.equal(
+    globalAfter.holds.some((fluent) =>
+      fluent.fluentRef === "retry_attempt_active(retry-attempt://still-active/1)"
+    ),
+    true,
+  );
+  const terminalEffect = after.effectRows.at(-1);
+  assert.equal(terminalEffect.eventKind, "run_stopped");
+  assert.deepEqual(
+    terminalEffect.terminates
+      .filter((fluent) =>
+        fluent.name === "retry_attempt_active" ||
+        fluent.name === "retry_progress_available"
+      )
+      .map((fluent) => fluent.fluentRef)
+      .sort(),
+    [
+      "retry_attempt_active(retry-attempt://stopped/2)",
+      "retry_progress_available(retry-progress://stopped/1)",
+    ],
+  );
+});
+
+test("terminal projection rows realize static locus law for the exact Run and preserve unrelated loci", async () => {
+  const eventCalculus = await import(
+    `${pathToFileURL(join(root, "build/code/src/abg/event_calculus.js")).href}?t287-terminal-locus=${Date.now()}`
+  );
+  const prefixModule = await import(
+    pathToFileURL(join(root, "build/code/src/abg/event_prefix.js")).href
+  );
+  for (const terminalKind of [
+    "runtime_failure_observed",
+    "run_stopped",
+    "run_closed",
+  ]) {
+    const targetRunId = `run://terminal-locus/${terminalKind}/target`;
+    const unrelatedRunId = `run://terminal-locus/${terminalKind}/unrelated`;
+    const unrelatedRun = fakeEvent(
+      `event://terminal-locus/${terminalKind}/unrelated-run`,
+      1,
+      unrelatedRunId,
+    );
+    const unrelatedCursor = cursorEvent({
+      eventId: `event://terminal-locus/${terminalKind}/unrelated-cursor`,
+      admissionOrdinal: 2,
+      runId: unrelatedRunId,
+      cursorRef: `cursor://terminal-locus/${terminalKind}/unrelated`,
+      causationEventRefs: [unrelatedRun.eventId],
+    });
+    const targetRun = fakeEvent(
+      `event://terminal-locus/${terminalKind}/target-run`,
+      3,
+      targetRunId,
+    );
+    const targetCursorA = cursorEvent({
+      eventId: `event://terminal-locus/${terminalKind}/target-cursor-a`,
+      admissionOrdinal: 4,
+      runId: targetRunId,
+      cursorRef: `cursor://terminal-locus/${terminalKind}/target-a`,
+      causationEventRefs: [targetRun.eventId],
+    });
+    const targetCursorB = cursorEvent({
+      eventId: `event://terminal-locus/${terminalKind}/target-cursor-b`,
+      admissionOrdinal: 5,
+      runId: targetRunId,
+      cursorRef: `cursor://terminal-locus/${terminalKind}/target-b`,
+      causationEventRefs: [targetCursorA.eventId],
+    });
+    const rows = [
+      unrelatedRun,
+      unrelatedCursor,
+      targetRun,
+      targetCursorA,
+      targetCursorB,
+    ];
+    if (terminalKind === "run_stopped") {
+      const attempt = retryEvent({
+        kind: "retry_attempt_opened",
+        eventId: "event://terminal-locus/run-stopped/attempt-1",
+        admissionOrdinal: 6,
+        runId: targetRunId,
+        attemptRef: "retry-attempt://terminal-locus/run-stopped/1",
+        causationEventRefs: [targetCursorB.eventId],
+      });
+      const progress = retryEvent({
+        kind: "retry_progress_recorded",
+        eventId: "event://terminal-locus/run-stopped/progress-1",
+        admissionOrdinal: 7,
+        runId: targetRunId,
+        attemptRef: "retry-attempt://terminal-locus/run-stopped/1",
+        progressRef: "retry-progress://terminal-locus/run-stopped/1",
+        causationEventRefs: [attempt.eventId],
+      });
+      const nextAttempt = retryEvent({
+        kind: "retry_attempt_opened",
+        eventId: "event://terminal-locus/run-stopped/attempt-2",
+        admissionOrdinal: 8,
+        runId: targetRunId,
+        attemptRef: "retry-attempt://terminal-locus/run-stopped/2",
+        causationEventRefs: [progress.eventId],
+      });
+      rows.push(attempt, progress, nextAttempt);
+    }
+    const terminalOrdinal = rows.length + 1;
+    const terminal = deeplyFreeze({
+      ...fakeEvent(
+        `event://terminal-locus/${terminalKind}/terminal`,
+        terminalOrdinal,
+        targetRunId,
+        [rows.at(-1).eventId],
+      ),
+      kind: terminalKind,
+      aggregateType: terminalKind === "runtime_failure_observed"
+        ? "frame"
+        : "run",
+      aggregateId: terminalKind === "runtime_failure_observed"
+        ? `frame://${targetRunId}`
+        : targetRunId,
+      graphCallId: `graph-call://${targetRunId}`,
+      frameId: `frame://${targetRunId}`,
+      payload: terminalKind === "run_stopped"
+        ? {
+            disposition: "blocked",
+            routeRef: "traversal-route://terminal-locus/run-stopped",
+            reasonRef: "reason://terminal-locus/run-stopped",
+          }
+        : {},
+    });
+    rows.push(terminal);
+    const projection = eventCalculus.deriveRuntimeEventCalculusProjection(
+      prefixModule.selectValidatedRuntimeEventPrefix(deeplyFreeze(rows)),
+    );
+    const heldRefs = projection.holds.map((fluent) => fluent.fluentRef);
+    assert.equal(
+      heldRefs.includes(
+        `locus_active(cursor://terminal-locus/${terminalKind}/target-a)`,
+      ) || heldRefs.includes(
+        `locus_active(cursor://terminal-locus/${terminalKind}/target-b)`,
+      ),
+      false,
+      terminalKind,
+    );
+    assert.equal(
+      heldRefs.includes(
+        `locus_active(cursor://terminal-locus/${terminalKind}/unrelated)`,
+      ),
+      true,
+      terminalKind,
+    );
+    assert.equal(
+      heldRefs.includes(`run_active(${unrelatedRunId})`),
+      true,
+      terminalKind,
+    );
+    const terminalEffect = projection.effectRows.at(-1);
+    const dynamicTerminationNames = new Set(
+      terminalEffect.terminates.map((fluent) => fluent.name),
+    );
+    for (const staticName of eventCalculus.ROOT_EVENT_CALCULUS[terminalKind]
+      .terminates) {
+      assert.equal(
+        dynamicTerminationNames.has(staticName),
+        true,
+        `${terminalKind}/${staticName}`,
+      );
+    }
+    if (terminalKind === "run_stopped") {
+      assert.equal(
+        projection.holds.some((fluent) =>
+          fluent.name === "retry_attempt_active" ||
+          fluent.name === "retry_progress_available"
+        ),
+        false,
+      );
+    }
+  }
 });
 
 test("run HoldsAt truth survives durable reopen and a lawful closure", async (context) => {
@@ -822,4 +1109,191 @@ test("M5 application preparation refusal is exact across fresh processes until i
   assert.equal(firstTruth.consumedRefusal, null);
   assert.equal(firstTruth.currentBeforeRoute, true);
   assert.equal(firstTruth.currentAfterRoute, false);
+});
+
+test("M5 generic CCall child foldback cannot project as application foldback", () => {
+  const store = new AbgEventStore();
+  const runId = "run://abiogenesis/m5/generic-child-foldback";
+  const body = {
+    parentCCallRef: "c-call://abiogenesis/m5/generic-child-foldback",
+    childExecutionBasisRef:
+      "basis://abiogenesis/m5/generic-child-foldback-child",
+    childExecutionBasisDigest: sha256Canonical({ childBasis: true }),
+    childGraphCallId:
+      "graph-call://abiogenesis/m5/generic-child-foldback-child",
+    childFrameId: "frame://abiogenesis/m5/generic-child-foldback-child",
+    childDisposition: "closed",
+    childResultRef: "result://abiogenesis/m5/generic-child-foldback",
+    childResultDigest: sha256Canonical({ result: true }),
+    childJudgmentRef: "judgment://abiogenesis/m5/generic-child-foldback",
+    childClosureRef: "closure://abiogenesis/m5/generic-child-foldback",
+    childReasonRef: null,
+    childTerminalEventRef:
+      "event://abiogenesis/m5/generic-child-foldback-terminal",
+    outputDigest: sha256Canonical({ output: true }),
+  };
+  const foldbackDigest = sha256Canonical(body);
+  const foldbackRef =
+    `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}`;
+  admitRuntimeEvent(store, {
+    kind: "child_foldback_admitted",
+    eventTime: "2026-08-04T00:00:00.000Z",
+    aggregateType: "frame",
+    aggregateId: "frame://abiogenesis/m5/generic-child-foldback",
+    parentAggregateId:
+      "graph-call://abiogenesis/m5/generic-child-foldback",
+    causationEventRefs: [],
+    correlationId: "correlation://abiogenesis/m5/generic-child-foldback",
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: "basis://abiogenesis/m5/generic-child-foldback",
+    runId,
+    graphFunctionRef:
+      "graph-function://abiogenesis/m5/generic-child-foldback@5",
+    graphCallId: "graph-call://abiogenesis/m5/generic-child-foldback",
+    frameId: "frame://abiogenesis/m5/generic-child-foldback",
+    payload: { foldbackRef, foldbackDigest, ...body },
+  });
+  assert.equal(
+    projectCurrentApplicationChildFoldback(store, { runId, foldbackRef }),
+    null,
+  );
+});
+
+test("M5 incomplete application child foldback cannot project through an open payload cast", () => {
+  const store = new AbgEventStore();
+  const runId = "run://abiogenesis/m5/incomplete-application-foldback";
+  const body = {
+    applicationRef:
+      "graph-function-application://abiogenesis/m5/incomplete-foldback",
+    parentCCallRef: "c-call://abiogenesis/m5/incomplete-foldback",
+    childExecutionBasisRef:
+      "basis://abiogenesis/m5/incomplete-foldback-child",
+    childExecutionBasisDigest: sha256Canonical({ childBasis: true }),
+    childGraphCallId:
+      "graph-call://abiogenesis/m5/incomplete-foldback-child",
+    childFrameId: "frame://abiogenesis/m5/incomplete-foldback-child",
+    childDisposition: "closed",
+    childResultRef: "result://abiogenesis/m5/incomplete-foldback",
+    childResultDigest: sha256Canonical({ result: true }),
+    childJudgmentRef: "judgment://abiogenesis/m5/incomplete-foldback",
+    childClosureRef: "closure://abiogenesis/m5/incomplete-foldback",
+    childReasonRef: null,
+    childTerminalEventRef:
+      "event://abiogenesis/m5/incomplete-foldback-terminal",
+    outputDigest: sha256Canonical({ output: true }),
+  };
+  const foldbackDigest = sha256Canonical(body);
+  const foldbackRef =
+    `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}`;
+  admitRuntimeEvent(store, {
+    kind: "child_foldback_admitted",
+    eventTime: "2026-08-04T00:00:00.000Z",
+    aggregateType: "frame",
+    aggregateId: "frame://abiogenesis/m5/incomplete-foldback",
+    parentAggregateId: "graph-call://abiogenesis/m5/incomplete-foldback",
+    causationEventRefs: [],
+    correlationId: "correlation://abiogenesis/m5/incomplete-foldback",
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: "basis://abiogenesis/m5/incomplete-foldback",
+    runId,
+    graphFunctionRef:
+      "graph-function://abiogenesis/m5/incomplete-foldback@5",
+    graphCallId: "graph-call://abiogenesis/m5/incomplete-foldback",
+    frameId: "frame://abiogenesis/m5/incomplete-foldback",
+    payload: { foldbackRef, foldbackDigest, ...body },
+  });
+  assert.equal(
+    projectCurrentApplicationChildFoldback(store, { runId, foldbackRef }),
+    null,
+  );
+});
+
+test("M5 application foldback projection rejects every empty semantic reference and malformed digest", () => {
+  const baseBody = {
+    applicationRef: "graph-function-application://abiogenesis/m5/closed-foldback",
+    applicationFoldbackRef: "application-foldback://abiogenesis/m5/closed-foldback",
+    parentCCallRef: "c-call://abiogenesis/m5/closed-foldback",
+    parentJudgmentRef: "judgment://abiogenesis/m5/closed-foldback/parent",
+    sourceCursorRef: "cursor://abiogenesis/m5/closed-foldback/source",
+    sourceCursorDigest: sha256Canonical({ source: true }),
+    childExecutionBasisRef: "basis://abiogenesis/m5/closed-foldback/child",
+    childExecutionBasisDigest: sha256Canonical({ basis: true }),
+    childGraphCallId: "graph-call://abiogenesis/m5/closed-foldback/child",
+    childFrameId: "frame://abiogenesis/m5/closed-foldback/child",
+    childDisposition: "closed",
+    childResultRef: "result://abiogenesis/m5/closed-foldback/child",
+    childResultDigest: sha256Canonical({ result: true }),
+    childJudgmentRef: "judgment://abiogenesis/m5/closed-foldback/child",
+    childClosureRef: "closure://abiogenesis/m5/closed-foldback/child",
+    childReasonRef: "reason://abiogenesis/m5/closed-foldback/child",
+    childTerminalEventRef: "event://abiogenesis/m5/closed-foldback/terminal",
+    outputDigest: sha256Canonical({ output: true }),
+  };
+  const projectBody = (body, suffix) => {
+    const store = new AbgEventStore();
+    const runId = `run://abiogenesis/m5/closed-foldback/${suffix}`;
+    const foldbackDigest = sha256Canonical(body);
+    const foldbackRef =
+      `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}`;
+    try {
+      admitRuntimeEvent(store, {
+        kind: "child_foldback_admitted",
+        eventTime: "2026-08-04T00:00:00.000Z",
+        aggregateType: "frame",
+        aggregateId: `frame://abiogenesis/m5/closed-foldback/${suffix}`,
+        parentAggregateId: `graph-call://abiogenesis/m5/closed-foldback/${suffix}`,
+        causationEventRefs: [],
+        correlationId: `correlation://abiogenesis/m5/closed-foldback/${suffix}`,
+        workflowVersion: "5.0.0",
+        scopeClass: "run",
+        basisId: "basis://abiogenesis/m5/closed-foldback",
+        runId,
+        graphFunctionRef: "graph-function://abiogenesis/m5/closed-foldback@5",
+        graphCallId: `graph-call://abiogenesis/m5/closed-foldback/${suffix}`,
+        frameId: `frame://abiogenesis/m5/closed-foldback/${suffix}`,
+        payload: { foldbackRef, foldbackDigest, ...body },
+      });
+    } catch (error) {
+      assert.match(error.message, /invalid required identity|invalid required digest/);
+      return null;
+    }
+    return projectCurrentApplicationChildFoldback(store, { runId, foldbackRef });
+  };
+
+  assert.ok(projectBody(baseBody, "valid"));
+  for (const field of [
+    "applicationRef",
+    "applicationFoldbackRef",
+    "parentCCallRef",
+    "parentJudgmentRef",
+    "sourceCursorRef",
+    "childExecutionBasisRef",
+    "childGraphCallId",
+    "childFrameId",
+    "childResultRef",
+    "childJudgmentRef",
+    "childClosureRef",
+    "childReasonRef",
+    "childTerminalEventRef",
+  ]) {
+    assert.equal(
+      projectBody({ ...baseBody, [field]: "" }, `empty-${field}`),
+      null,
+      field,
+    );
+  }
+  for (const field of [
+    "sourceCursorDigest",
+    "childExecutionBasisDigest",
+    "childResultDigest",
+    "outputDigest",
+  ]) {
+    assert.equal(
+      projectBody({ ...baseBody, [field]: "sha256:not-a-digest" }, `digest-${field}`),
+      null,
+      field,
+    );
+  }
 });

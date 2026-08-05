@@ -53,6 +53,9 @@ const substitutedAccepted = abg.hasCurrentAdmittedCCallOutcome(
 const replay = abg.replay(store, { runId: state.cCall.runId });
 process.stdout.write(JSON.stringify({
   processId: process.pid,
+  historicalCCallBranded: abg.isCCall(state.cCall),
+  historicalResultBranded: abg.isAdmittedCCallResult(state.result),
+  historicalJudgmentBranded: abg.isAdmittedCCallJudgment(state.judgment),
   accepted,
   substitutedAccepted,
   replayDigest: replay.replayDigest,

@@ -403,21 +403,11 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "publication",
-                "verifiedInvocationRef",
-                "workspaceBindingInvocationRef"
+                "readinessBasis"
               ],
               "properties": {
-                "publication": {
+                "readinessBasis": {
                   "type": "object"
-                },
-                "verifiedInvocationRef": {
-                  "type": "string",
-                  "pattern": "\\S"
-                },
-                "workspaceBindingInvocationRef": {
-                  "type": "string",
-                  "pattern": "\\S"
                 }
               }
             }
@@ -465,27 +455,21 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "catalogViewInvocationRef",
+                "catalogBasis",
                 "contributorRef",
                 "handle",
-                "productInstallInvocationRef",
                 "target",
                 "value"
               ],
               "properties": {
-                "catalogViewInvocationRef": {
-                  "type": "string",
-                  "pattern": "\\S"
+                "catalogBasis": {
+                  "type": "object"
                 },
                 "contributorRef": {
                   "type": "string",
                   "pattern": "\\S"
                 },
                 "handle": {
-                  "type": "string",
-                  "pattern": "\\S"
-                },
-                "productInstallInvocationRef": {
                   "type": "string",
                   "pattern": "\\S"
                 },
@@ -541,26 +525,20 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "catalogViewInvocationRef",
+                "catalogBasis",
                 "contributorRef",
                 "handle",
-                "productInstallInvocationRef",
                 "value"
               ],
               "properties": {
-                "catalogViewInvocationRef": {
-                  "type": "string",
-                  "pattern": "\\S"
+                "catalogBasis": {
+                  "type": "object"
                 },
                 "contributorRef": {
                   "type": "string",
                   "pattern": "\\S"
                 },
                 "handle": {
-                  "type": "string",
-                  "pattern": "\\S"
-                },
-                "productInstallInvocationRef": {
                   "type": "string",
                   "pattern": "\\S"
                 },
@@ -613,22 +591,11 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "allowlist",
-                "catalogInvocationRef"
+                "catalogBasis"
               ],
               "properties": {
-                "allowlist": {
-                  "type": "array",
-                  "minItems": 0,
-                  "uniqueItems": true,
-                  "items": {
-                    "type": "string",
-                    "pattern": "\\S"
-                  }
-                },
-                "catalogInvocationRef": {
-                  "type": "string",
-                  "pattern": "\\S"
+                "catalogBasis": {
+                  "type": "object"
                 }
               }
             }
@@ -1448,7 +1415,7 @@
               "additionalProperties": false,
               "required": [
                 "actorRef",
-                "catalogViewInvocationRef",
+                "catalogBasis",
                 "eventLogPath",
                 "graphFunctionRef",
                 "input",
@@ -1461,18 +1428,8 @@
                   "type": "string",
                   "pattern": "\\S"
                 },
-                "catalogApplicationInvocationRefs": {
-                  "type": "array",
-                  "minItems": 0,
-                  "uniqueItems": true,
-                  "items": {
-                    "type": "string",
-                    "pattern": "\\S"
-                  }
-                },
-                "catalogViewInvocationRef": {
-                  "type": "string",
-                  "pattern": "\\S"
+                "catalogBasis": {
+                  "type": "object"
                 },
                 "eventLogPath": {
                   "type": "string",
@@ -1579,7 +1536,7 @@
               "additionalProperties": false,
               "required": [
                 "actorRef",
-                "catalogViewInvocationRef",
+                "catalogBasis",
                 "eventLogPath",
                 "input",
                 "installInvocationRef",
@@ -1595,18 +1552,8 @@
                   "type": "string",
                   "pattern": "\\S"
                 },
-                "catalogApplicationInvocationRefs": {
-                  "type": "array",
-                  "minItems": 0,
-                  "uniqueItems": true,
-                  "items": {
-                    "type": "string",
-                    "pattern": "\\S"
-                  }
-                },
-                "catalogViewInvocationRef": {
-                  "type": "string",
-                  "pattern": "\\S"
+                "catalogBasis": {
+                  "type": "object"
                 },
                 "eventLogPath": {
                   "type": "string",

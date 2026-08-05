@@ -8,6 +8,7 @@ import { expectedVerificationIdentity } from "../support/candidate-basis.mjs";
 import { prepareDeveloperMiniProduct } from "../support/developer-mini-product.mjs";
 import {
   buildRootCliScenario,
+  constructClosedCatalogReadinessBasis,
   importInstalledPackageExport,
 } from "../support/root-cli-environment.mjs";
 import {
@@ -795,6 +796,9 @@ async function freshProcessOutcomeEquality(
   const { processId: _firstProcessId, ...firstTruth } = first;
   const { processId: _secondProcessId, ...secondTruth } = second;
   assert.deepEqual(secondTruth, firstTruth);
+  assert.equal(first.historicalCCallBranded, true);
+  assert.equal(first.historicalResultBranded, true);
+  assert.equal(first.historicalJudgmentBranded, true);
   assert.equal(first.accepted, true);
   assert.equal(first.substitutedAccepted, false);
   assert.equal(
@@ -1020,6 +1024,49 @@ async function prepareMiniInteractionScenario(
     catalog: `invocation://s06/ax-f08/mini/catalog`,
     view: `invocation://s06/ax-f08/mini/view`,
   };
+  const verifiedAbi = await harness.product.verifyProduct({
+    artifactPath: harness.artifactPath,
+    artifactRef: harness.artifactRef,
+    ...expectedVerificationIdentity(harness.candidateBasis),
+  });
+  const verifiedMini = await harness.product.verifyProduct({
+    artifactPath: installedMini.artifactPath,
+    artifactRef: installedMini.artifactRef,
+    ...expectedVerificationIdentity(installedMini.basis),
+  });
+  assert.equal(verifiedAbi.kind, "verified_product_artifact");
+  assert.equal(verifiedMini.kind, "verified_product_artifact");
+  const resolvedLock = harness.product.constructResolvedProductLock([
+    verifiedAbi,
+    verifiedMini,
+  ]);
+  assert.equal(resolvedLock.kind, "resolved_product_lock");
+  const roots = {
+    toolchainRoot: join(
+      abiConsumer,
+      "node_modules/@abiogenesis/typescript-tenant",
+    ),
+    productRoot: join(
+      miniConsumer,
+      "node_modules/@abiogenesis-fixtures/developer-mini-product",
+    ),
+    eventLogRoot,
+    runtimeStateRoot: join(workspaceRoot, ".ai-workspace/runtime"),
+    projectionRoot: join(workspaceRoot, ".ai-workspace/projections"),
+    archiveRoot: join(workspaceRoot, ".ai-workspace/archive"),
+  };
+  const readinessBasis = constructClosedCatalogReadinessBasis({
+    product: harness.product,
+    verifiedProducts: [verifiedAbi, verifiedMini],
+    resolvedLock,
+    installedRoots: [roots.toolchainRoot, roots.productRoot],
+    workspaceId: "workspace://s06/ax-f08/mini",
+    canonicalRoot: workspaceRoot,
+    authorizedActorRef: "actor://developer.example/trusted-developer",
+    authorityManifestRef: "manifest://s06/ax-f08/mini",
+    roots,
+    publications: [installedMini.publication],
+  });
   const setup = [
     publicInvocation("abg.operation.product.verify", "artifact", refs.verifyAbi, {
       artifactPath: harness.artifactPath,
@@ -1065,29 +1112,17 @@ async function prepareMiniInteractionScenario(
       canonicalRoot: workspaceRoot,
       authorizedActorRef: "actor://developer.example/trusted-developer",
       authorityManifestRef: "manifest://s06/ax-f08/mini",
-      roots: {
-        toolchainRoot: join(
-          abiConsumer,
-          "node_modules/@abiogenesis/typescript-tenant",
-        ),
-        productRoot: join(
-          miniConsumer,
-          "node_modules/@abiogenesis-fixtures/developer-mini-product",
-        ),
-        eventLogRoot,
-        runtimeStateRoot: join(workspaceRoot, ".ai-workspace/runtime"),
-        projectionRoot: join(workspaceRoot, ".ai-workspace/projections"),
-        archiveRoot: join(workspaceRoot, ".ai-workspace/archive"),
-      },
+      roots,
     }),
     publicInvocation("abg.operation.catalog.admit", "module_publication", refs.catalog, {
-      publication: installedMini.publication,
-      verifiedInvocationRef: refs.verifyMini,
-      workspaceBindingInvocationRef: refs.bind,
+      readinessBasis,
     }),
     publicInvocation("abg.operation.catalog.view", "allowlist", refs.view, {
-      catalogInvocationRef: refs.catalog,
-      allowlist: [mini.ids.mixedGraphFunctionRef],
+      catalogBasis: {
+        readinessBasis,
+        allowlist: [mini.ids.mixedGraphFunctionRef],
+        applications: [],
+      },
     }),
   ];
   const run = (runLabel) => publicInvocation(
@@ -1097,7 +1132,11 @@ async function prepareMiniInteractionScenario(
     {
       installInvocationRef: refs.installMini,
       workspaceBindingInvocationRef: refs.bind,
-      catalogViewInvocationRef: refs.view,
+      catalogBasis: {
+        readinessBasis,
+        allowlist: [mini.ids.mixedGraphFunctionRef],
+        applications: [],
+      },
       programRef: mini.ids.mixedProgramRef,
       graphFunctionRef: mini.ids.mixedGraphFunctionRef,
       actorRef: "actor://developer.example/trusted-developer",
@@ -1210,6 +1249,26 @@ async function prepareResponseOperation(modules, source, label) {
     (candidate) => candidate.continuationRef === source.rContinuationRef,
   );
   assert.equal(continuation?.status, "open");
+  const beforeStaleAdmission = store.readAll().length;
+  assert.throws(
+    () => modules.abg.admitContinuationPublicOperation(
+      store,
+      rootInvocation,
+      "abg.operation.interaction.respond",
+      { ...continuation, status: "responded" },
+      "approve",
+      rootInvocation.actorRef,
+      continuation.actorCapabilityRef,
+      operationBasis(
+        modules,
+        source.rAuthority,
+        "abg.operation.interaction.respond",
+        `invocation://s06/ax-f08/${label}/stale-respond`,
+      ),
+    ),
+    /exact current durable continuation lifecycle/,
+  );
+  assert.equal(store.readAll().length, beforeStaleAdmission);
   const operation = modules.abg.admitContinuationPublicOperation(
     store,
     rootInvocation,

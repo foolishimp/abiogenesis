@@ -4,7 +4,7 @@ import type {
   GtlProgram,
 } from "../gtl/contracts.js";
 import type { ProductInstall, WorkspaceBinding } from "../product/environment.js";
-import type { CatalogView } from "../product/catalog.js";
+import type { GraphFunctionCatalogView } from "../product/catalog.js";
 import {
   isCapabilityGrantValue,
   type CapabilityGrant,
@@ -23,7 +23,10 @@ import {
   type CCall,
   type PendingInteractionAdmission,
 } from "./c_call.js";
-import { hasAdmittedCatalogView } from "./catalog_admission.js";
+
+function graphFunctionCatalogViewRef(view: GraphFunctionCatalogView): string {
+  return `graph-function-catalog-view://abiogenesis/${view.viewDigest.slice("sha256:".length)}`;
+}
 import {
   admittedConstructionComposition,
   hasAdmittedExecutionBasis,
@@ -43,10 +46,70 @@ import {
 import {
   AbgEventStore,
   admitRuntimeEvent,
+  compareAndAppendExpectedPrefix,
   type RuntimeEvent,
 } from "./event_store.js";
+
+export function admitContinuationTerminal(
+  store: AbgEventStore,
+  continuationRef: string,
+  disposition: "abandoned" | "superseded",
+  candidateRef: string,
+  candidateDigest: Sha256Digest,
+  basis: RuntimeAdmissionBasis,
+): RuntimeEvent {
+  const snapshot = store.readAll();
+  const prefix = selectValidatedRuntimeEventPrefix(snapshot);
+  const calculus = deriveRuntimeEventCalculusProjection(prefix);
+  const current = projectFhContinuations(prefix, calculus).find((row) =>
+    row.continuationRef === continuationRef
+  );
+  if (current === undefined ||
+      (current.status !== "open" && current.status !== "responded")) {
+    throw new TypeError("continuation terminal admission requires one exact current continuation");
+  }
+  const predecessorRef = current.respondedEventRef ?? current.openedEventRef;
+  const predecessor = snapshot.find((event) => event.eventId === predecessorRef);
+  if (predecessor === undefined) {
+    throw new TypeError("continuation terminal admission requires its exact predecessor event");
+  }
+  const admitted = compareAndAppendExpectedPrefix(store, store.digest(), [() => ({
+    kind: disposition === "abandoned"
+      ? "continuation_abandoned" as const
+      : "continuation_superseded" as const,
+    eventTime: basis.eventTime,
+    aggregateType: "continuation",
+    aggregateId: continuationRef,
+    parentAggregateId: current.cCallRef,
+    causationEventRefs: [predecessor.eventId],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: predecessor.basisId,
+    runId: current.runId,
+    ...(predecessor.graphFunctionRef === undefined
+      ? {}
+      : { graphFunctionRef: predecessor.graphFunctionRef }),
+    ...(predecessor.materializationRef === undefined
+      ? {}
+      : { materializationRef: predecessor.materializationRef }),
+    graphCallId: current.graphCallId,
+    frameId: current.frameId,
+    payload: {
+      continuationRef,
+      continuationDigest: current.continuationDigest,
+      continuationKind: current.continuationKind,
+      terminalDisposition: disposition,
+      candidateRef,
+      candidateDigest,
+      causedByEventRef: predecessor.eventId,
+    },
+  })]);
+  return admitted[0]!;
+}
 import {
   constructRuntimeFluent,
+  deriveRuntimeEventCalculusProjection,
   holdsAt,
   type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
@@ -80,7 +143,7 @@ import {
 export interface ContinuationProductBasis {
   readonly install: ProductInstall;
   readonly workspaceBinding: WorkspaceBinding;
-  readonly catalogView: CatalogView;
+  readonly catalogView: GraphFunctionCatalogView;
   readonly programValidation: ProgramValidation;
   readonly graphValidation: GraphValidation;
 }
@@ -191,13 +254,14 @@ export interface ReplayContinuationState {
   readonly openedEventRef: string;
   readonly respondedEventRef: string | null;
   readonly resumedEventRef: string | null;
-  readonly status: "open" | "responded" | "resolved";
+  readonly terminalEventRef: string | null;
+  readonly status: "abandoned" | "open" | "responded" | "resolved" | "superseded";
 }
 
 export interface FhContinuationRehydrationBasis {
   readonly install: ProductInstall;
   readonly workspaceBinding: WorkspaceBinding;
-  readonly catalogView: CatalogView;
+  readonly catalogView: GraphFunctionCatalogView;
   readonly program: Readonly<GtlProgram>;
   readonly graph: Readonly<GtlGraph>;
   readonly closureContract: Readonly<ClosureContract>;
@@ -341,6 +405,12 @@ export function projectFhContinuations(
     const resumed = rows.find(
       (event) => event.kind === "fh_interaction_resume_admitted",
     );
+    const abandoned = rows.find((event) => event.kind === "continuation_abandoned");
+    const superseded = rows.find((event) => event.kind === "continuation_superseded");
+    const dispositionRows = rows.filter((event) =>
+      event.kind === "continuation_abandoned" ||
+      event.kind === "continuation_superseded"
+    );
     if (
       opened === undefined ||
       rows.filter((event) => event.kind === "fh_interaction_opened").length !== 1 ||
@@ -348,6 +418,8 @@ export function projectFhContinuations(
       rows.filter(
         (event) => event.kind === "fh_interaction_resume_admitted",
       ).length > 1 ||
+      dispositionRows.length > 1 ||
+      (resumed !== undefined && dispositionRows.length !== 0) ||
       (resumed !== undefined && responded === undefined) ||
       (responded !== undefined &&
         responded.admissionOrdinal <= opened.admissionOrdinal) ||
@@ -413,13 +485,15 @@ export function projectFhContinuations(
         identity: continuationRef,
       }),
     );
+    const disposed = abandoned !== undefined || superseded !== undefined;
     if (
       (terminated && (open || responseAvailable || resumed === undefined)) ||
+      (disposed && (open || responseAvailable)) ||
       (
-        !terminated && responded !== undefined &&
+        !terminated && !disposed && responded !== undefined &&
         (!open || !responseAvailable || resumed !== undefined)
       ) ||
-      (!terminated && responded === undefined && (!open || responseAvailable))
+      (!terminated && !disposed && responded === undefined && (!open || responseAvailable))
     ) {
       throw new TypeError(
         `continuation ${continuationRef} differs from Event Calculus lifecycle truth`,
@@ -468,7 +542,12 @@ export function projectFhContinuations(
       openedEventRef: opened.eventId,
       respondedEventRef: responded?.eventId ?? null,
       resumedEventRef: resumed?.eventId ?? null,
-      status: terminated
+      terminalEventRef: dispositionRows[0]?.eventId ?? resumed?.eventId ?? null,
+      status: abandoned !== undefined
+        ? "abandoned" as const
+        : superseded !== undefined
+          ? "superseded" as const
+          : terminated
         ? "resolved" as const
         : responseAvailable
           ? "responded" as const
@@ -683,7 +762,7 @@ export function rehydrateFhContinuation(
       expected.workspaceBinding.bindingId ||
     digestField(opened, "workspaceBindingDigest") !==
       expected.workspaceBinding.bindingDigest ||
-    stringField(opened, "catalogViewId") !== expected.catalogView.viewId ||
+    stringField(opened, "catalogViewId") !== graphFunctionCatalogViewRef(expected.catalogView) ||
     digestField(opened, "catalogViewDigest") !== expected.catalogView.viewDigest ||
     stringField(opened, "programRef") !== expected.program.programRef ||
     digestField(opened, "programDigest") !==
@@ -708,7 +787,7 @@ export function rehydrateFhContinuation(
     executionBasis.workspaceBindingId !== expected.workspaceBinding.bindingId ||
     executionBasis.workspaceBindingDigest !==
       expected.workspaceBinding.bindingDigest ||
-    executionBasis.catalogViewId !== expected.catalogView.viewId ||
+    executionBasis.catalogViewId !== graphFunctionCatalogViewRef(expected.catalogView) ||
     executionBasis.catalogViewDigest !== expected.catalogView.viewDigest ||
     executionBasis.programRef !== expected.program.programRef ||
     executionBasis.programDigest !==
@@ -719,7 +798,7 @@ export function rehydrateFhContinuation(
       expected.closureContract.closureContractRef ||
     executionBasis.closureContractDigest !== closureContractDigest ||
     rootInvocation.workspaceBindingId !== expected.workspaceBinding.bindingId ||
-    rootInvocation.catalogViewId !== expected.catalogView.viewId ||
+    rootInvocation.catalogViewId !== graphFunctionCatalogViewRef(expected.catalogView) ||
     rootInvocation.programRef !== expected.program.programRef ||
     !executionBasisDescendsFromRootInvocation(
       store,
@@ -804,16 +883,37 @@ export function admitContinuationPublicOperation(
   capabilityRef: string,
   basis: PublicOperationAdmissionBasis,
 ): ContinuationPublicOperationAdmission {
-  const continuationRef = continuation.continuationRef;
-  const duplicateInvocation = store.readAll().some(
+  const runPrefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: continuation.runId,
+  });
+  const reconstructedContinuation = projectFhContinuations(
+    runPrefix,
+    deriveRuntimeEventCalculusProjection(runPrefix),
+  ).find((candidate) =>
+    candidate.continuationRef === continuation.continuationRef
+  );
+  const allEvents = runtimeEventsFromValidatedPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+  );
+  const duplicateInvocation = allEvents.some(
     (event) =>
       event.kind === "public_operation_admitted" &&
       isRecord(event.payload) &&
       event.payload.invocationRef === basis.invocationRef,
   );
+  if (
+    reconstructedContinuation === undefined ||
+    sha256Canonical(reconstructedContinuation as unknown as JsonValue) !==
+      sha256Canonical(continuation as unknown as JsonValue)
+  ) {
+    throw new TypeError(
+      "continuation public operation requires the exact current durable continuation lifecycle",
+    );
+  }
+  const continuationRef = reconstructedContinuation.continuationRef;
   const grant = resolveContinuationPublicOperationGrant({
     rootInvocation,
-    continuation,
+    continuation: reconstructedContinuation,
     operation,
     variant,
     actorRef,
@@ -962,7 +1062,7 @@ export function admitFhInteractionOpen(
     !isAdmittedRoute(route) ||
     !hasAdmittedProductInstall(store, productBasis.install) ||
     !hasAdmittedWorkspaceBinding(store, productBasis.workspaceBinding) ||
-    !hasAdmittedCatalogView(store, productBasis.catalogView) ||
+    productBasis.catalogView.kind !== "graph_function_catalog_view" ||
     cCall.regime !== "F_H" ||
     cCall.actorCapabilityRef === null ||
     cCall.responseContractRef === null ||
@@ -978,7 +1078,7 @@ export function admitFhInteractionOpen(
     productBasis.workspaceBinding.bindingId !== executionBasis.workspaceBindingId ||
     productBasis.workspaceBinding.bindingDigest !==
       executionBasis.workspaceBindingDigest ||
-    productBasis.catalogView.viewId !== executionBasis.catalogViewId ||
+    graphFunctionCatalogViewRef(productBasis.catalogView) !== executionBasis.catalogViewId ||
     productBasis.catalogView.viewDigest !== executionBasis.catalogViewDigest ||
     productBasis.programValidation.validationRef !==
       executionBasis.programValidationRef ||
@@ -1094,7 +1194,7 @@ export function admitFhInteractionOpen(
       installId: productBasis.install.installId,
       workspaceBindingId: productBasis.workspaceBinding.bindingId,
       workspaceBindingDigest: productBasis.workspaceBinding.bindingDigest,
-      catalogViewId: productBasis.catalogView.viewId,
+      catalogViewId: graphFunctionCatalogViewRef(productBasis.catalogView),
       catalogViewDigest: productBasis.catalogView.viewDigest,
       ...(constructionIntent === null
         ? {}

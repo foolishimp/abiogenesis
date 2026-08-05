@@ -91,6 +91,48 @@ export function hasAdmittedProductInstall(
     event.payload.artifactDigest === sha256Canonical(candidate as unknown as JsonValue);
 }
 
+export function projectAdmittedProductInstall(
+  store: AbgEventStore,
+  candidate: ProductInstallCandidate,
+): ProductInstall | null {
+  const candidateDigest = sha256Canonical(candidate as unknown as JsonValue);
+  const event = store.readAll().find((row) =>
+    row.kind === "public_operation_artifact_admitted" &&
+    isJsonRecord(row.payload) &&
+    row.payload.operationId === "abg.operation.product.install" &&
+    row.payload.artifactRef === candidate.installId &&
+    row.payload.artifactDigest === candidateDigest
+  );
+  if (event === undefined) return null;
+  const { kind: _kind, disposition: _disposition, ...body } = candidate;
+  return deepFreeze({
+    kind: "product_install" as const,
+    disposition: "admitted" as const,
+    ...body,
+    admissionEventRef: event.eventId,
+  }) as ProductInstall;
+}
+
+export function projectAdmittedWorkspaceBinding(
+  store: AbgEventStore,
+  candidate: WorkspaceBindingCandidate,
+): WorkspaceBinding | null {
+  const event = store.readAll().find((row) =>
+    row.kind === "public_operation_artifact_admitted" &&
+    isJsonRecord(row.payload) &&
+    row.payload.operationId === "abg.operation.workspace.bind" &&
+    row.payload.artifactRef === candidate.bindingId &&
+    row.payload.artifactDigest === candidate.bindingDigest
+  );
+  if (event === undefined) return null;
+  const { kind: _kind, ...body } = candidate;
+  return deepFreeze({
+    kind: "workspace_binding" as const,
+    ...body,
+    admissionEventRef: event.eventId,
+  }) as WorkspaceBinding;
+}
+
 export function validatePublicOperationBasis(
   basis: PublicOperationAdmissionBasis,
   expectedOperation: PublicOperationId,

@@ -13,13 +13,11 @@ import {
 import {
   ABI5_PACKAGE_NAME,
   ABI5_PRODUCT_ID,
+  buildGraphFunctionCatalog,
   constructResolvedProductLock as constructProductLock,
   isResolvedProductLock,
   sha256Canonical,
 } from "../../build/code/src/product/index.js";
-import {
-  directSatisfiedDependencyRefs,
-} from "../../build/code/src/product/catalog.js";
 import {
   declarationExportSymbols,
   linkNativeContractSet,
@@ -248,54 +246,25 @@ test("S06 resolved locks require verifier evidence and reject forged cycles", ()
   );
 });
 
-test("S06 readiness authority stops at the publisher's direct dependency edges", () => {
-  const transitive = install("transitive", "3");
-  const direct = install("direct", "2", {
-    declaredDependencies: [dependency(transitive)],
+test("S06 catalog construction is a pure projection of exact publications", () => {
+  const publication = constructHelloWorldModulePublication({
+    productId: ABI5_PRODUCT_ID,
+    artifactDigest: digest("4"),
+    productContentDigest: digest("5"),
+    productManifestDigest: digest("6"),
+    packageName: ABI5_PACKAGE_NAME,
+    packageVersion: "5.0.0-dev.286",
   });
-  const publisher = install("publisher", "1", {
-    declaredDependencies: [dependency(direct)],
-  });
-  const lock = {
-    rows: [
-      lockRow(publisher),
-      lockRow(direct),
-      lockRow(transitive),
-    ],
-    dependencyEdges: [{
-      kind: "requires",
-      fromProductId: publisher.productId,
-      toProductId: direct.productId,
-      packageVersion: direct.packageVersion,
-      compatibilityRef: direct.compatibilityRefs[0],
-      compatibilityDisposition: "compatible",
-      requiredContractRefs: [direct.publicContractRefs[0]],
-      requiredCapabilityRefs: [direct.publicCapabilityRefs[0]],
-    }, {
-      kind: "requires",
-      fromProductId: direct.productId,
-      toProductId: transitive.productId,
-      packageVersion: transitive.packageVersion,
-      compatibilityRef: transitive.compatibilityRefs[0],
-      compatibilityDisposition: "compatible",
-      requiredContractRefs: [transitive.publicContractRefs[0]],
-      requiredCapabilityRefs: [transitive.publicCapabilityRefs[0]],
-    }],
-  };
-
-  const satisfied = directSatisfiedDependencyRefs(lock, publisher.productId);
-  assert.equal(satisfied.has(direct.publicContractRefs[0]), true);
-  assert.equal(satisfied.has(direct.publicCapabilityRefs[0]), true);
-  assert.equal(
-    satisfied.has(transitive.publicContractRefs[0]),
-    false,
-    "A -> B -> C must not let A consume C's contract without an A -> C edge",
-  );
-  assert.equal(
-    satisfied.has(transitive.publicCapabilityRefs[0]),
-    false,
-    "A -> B -> C must not let A consume C's capability without an A -> C edge",
-  );
+  const first = buildGraphFunctionCatalog([publication]);
+  const reconstructed = buildGraphFunctionCatalog([
+    structuredClone(publication),
+  ]);
+  assert.equal(first.kind, "graph_function_catalog");
+  assert.deepEqual(reconstructed, first);
+  assert.ok(first.entries.length > 0);
+  assert.equal(Object.isFrozen(first), true);
+  assert.equal(Object.hasOwn(first, "admissionEventRef"), false);
+  assert.equal(Object.hasOwn(first, "satisfiedDependencyRefs"), false);
 });
 
 test("S06 native export resolution is TypeScript-program derived", async () => {

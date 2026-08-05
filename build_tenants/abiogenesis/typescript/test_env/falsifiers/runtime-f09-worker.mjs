@@ -778,31 +778,8 @@ async function constructP1Environment(input) {
     true,
     JSON.stringify(programValidations.filter((value) => value.kind !== "program_validation")),
   );
-  const catalogCandidate = product.constructCatalogAdmissionCandidate(
-    workspaceBinding,
-    lock,
-    publicationAdmission.value,
-    publicationValidation,
-    programValidations,
-  );
-  assert.equal(
-    catalogCandidate.kind,
-    "catalog_admission_candidate",
-    JSON.stringify(catalogCandidate),
-  );
-  const catalog = abg.admitCatalog(
-    store,
-    catalogCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.catalog.admit",
-      workspaceBinding.bindingId,
-      workspaceBinding.bindingDigest,
-      "invocation://s06/ax-f09/catalog-admit",
-      [workspaceBinding.admissionEventRef],
-    ),
-  );
-  assert.equal(catalog.kind, "admitted_catalog", JSON.stringify(catalog));
+  const catalog = product.buildGraphFunctionCatalog([publication]);
+  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   const program = publication.programs.find(
     (candidate) =>
       candidate.programRef === retryProduct.AX_F09_RETRY_IDS.programRef,
@@ -817,29 +794,8 @@ async function constructP1Environment(input) {
     graphFunction.template.nodes[0].term.budget,
     RETRY_BUDGET,
   );
-  const viewCandidate = product.constructCatalogViewCandidate(
-    catalog,
-    [graphFunction.name],
-  );
-  assert.equal(
-    viewCandidate.kind,
-    "catalog_view_candidate",
-    JSON.stringify(viewCandidate),
-  );
-  const catalogView = abg.narrowCatalogView(
-    store,
-    catalog,
-    viewCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.catalog.view",
-      catalog.catalogId,
-      catalog.catalogDigest,
-      "invocation://s06/ax-f09/catalog-view",
-      [catalog.admissionEventRef],
-    ),
-  );
-  assert.equal(catalogView.kind, "catalog_view", JSON.stringify(catalogView));
+  const catalogView = product.narrowGraphFunctionCatalog(catalog, [graphFunction.name]);
+  assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
   const nonceSubject = `restart-private-${randomUUID()}`;
   const invocationInput = {
     kind: "developer_greeting_output",
@@ -934,7 +890,7 @@ async function constructP1Environment(input) {
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
       invocation.invocationRef,
-      [catalogView.admissionEventRef],
+      [workspaceBinding.admissionEventRef],
     ),
   );
   assert.equal(
