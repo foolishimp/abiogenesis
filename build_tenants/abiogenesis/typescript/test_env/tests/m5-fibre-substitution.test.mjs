@@ -202,5 +202,10 @@ test("M5 fibre-equivalent contracts cannot substitute an unowned GraphFunction",
   ), true);
   assert.equal(run.outcomes[6].disposition, "refused");
   assert.equal(run.outcomes[6].runId, null);
-  await assert.rejects(readFile(scenario.eventLogPath, "utf8"), { code: "ENOENT" });
+  const events = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+  assert.deepEqual(
+    events.map((event) => event.kind),
+    ["public_operation_artifact_admitted", "public_operation_artifact_admitted"],
+  );
 });

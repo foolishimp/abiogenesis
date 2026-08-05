@@ -7,6 +7,7 @@ import test from "node:test";
 import {
   applyInstalledTranscriptPrefix,
   buildRootCliScenario,
+  importInstalledPackageExport,
   runInstalledCli,
   setupInstalledCliHarness,
 } from "../support/root-cli-environment.mjs";
@@ -89,6 +90,14 @@ async function readEvents(path) {
     .map((line) => JSON.parse(line));
 }
 
+function immutableSnapshot(value) {
+  if (value !== null && typeof value === "object" && !Object.isFrozen(value)) {
+    for (const nested of Object.values(value)) immutableSnapshot(nested);
+    Object.freeze(value);
+  }
+  return value;
+}
+
 test("M5 installed CLI admits one subprocess-backed F_P leaf through ordinary GTL, HoG, and ABG", async (context) => {
   const harness = await setupInstalledCliHarness(context, root);
   const command = await installWorkerFixture(harness);
@@ -123,6 +132,18 @@ test("M5 installed CLI admits one subprocess-backed F_P leaf through ordinary GT
   assert.equal(outcome.replayAgreement, true);
 
   const events = await readEvents(scenario.eventLogPath);
+  const installedAbg = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/abg",
+    `fp-terminal=${Date.now()}`,
+  );
+  const prefix = installedAbg.selectValidatedRuntimeEventPrefix(
+    immutableSnapshot(events),
+    { runId: outcome.runId },
+  );
+  const quiescence = installedAbg.projectRunQuiescence(prefix);
+  assert.equal(quiescence.disposition, "quiescent_for_close");
+  assert.deepEqual(quiescence.blockingFluents, []);
   const fibre = events.find((event) => event.kind === "c_call_fibre_selected");
   const transportBinding = events.find(
     (event) => event.kind === "actor_transport_binding_admitted",

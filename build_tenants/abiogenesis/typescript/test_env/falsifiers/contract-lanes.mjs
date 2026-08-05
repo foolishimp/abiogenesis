@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { access, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { basename, join, relative } from "node:path";
 import { pathToFileURL } from "node:url";
+import { tmpdir } from "node:os";
 
 import { expectedVerificationIdentity } from "../support/candidate-basis.mjs";
 import {
@@ -1543,7 +1544,9 @@ function refusalSignature(outcome, pathTokens) {
 }
 
 async function runSdk(publicApi, invocation) {
-  const context = publicApi.createRootOperationContext();
+  const context = publicApi.createRootOperationContext(
+    join(tmpdir(), `abi5-contract-${process.pid}-${Date.now()}-${Math.random()}.events.jsonl`),
+  );
   try {
     return await publicApi.applyRootPublicInvocation(context, invocation);
   } finally {

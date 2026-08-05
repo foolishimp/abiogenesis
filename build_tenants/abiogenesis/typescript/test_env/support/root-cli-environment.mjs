@@ -332,6 +332,51 @@ export async function buildRootCliScenario(
     allowlist,
     applications,
   };
+  const installRequest = invocation("abg.operation.product.install", "verified_artifact", refs.install, {
+    verifiedInvocationRef: refs.verify,
+    resolvedLockInvocationRef: refs.resolve,
+    artifactPath: harness.artifactPath,
+    targetRoot: productConsumer,
+  });
+  const workspaceRequest = invocation("abg.operation.workspace.bind", "exact_product_set", refs.bind, {
+    installInvocationRef: refs.install,
+    workspaceId,
+    canonicalRoot: workspaceRoot,
+    authorizedActorRef,
+    authorityManifestRef,
+    roots,
+  });
+  const setupTranscript = [
+    invocation("abg.operation.product.verify", "artifact", refs.verify, {
+      artifactPath: harness.artifactPath,
+      artifactRef: harness.artifactRef,
+      ...expectedVerificationIdentity(harness.candidateBasis),
+    }),
+    invocation(
+      "abg.operation.product.resolve",
+      "verified_product_set",
+      refs.resolve,
+      { verifiedInvocationRefs: [refs.verify] },
+    ),
+    installRequest,
+    workspaceRequest,
+  ];
+  const publicApi = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `setup-episode=${Date.now()}-${Math.random()}`,
+  );
+  const setupContext = publicApi.createRootOperationContext(eventLogPath);
+  const setupOutcomes = [];
+  for (const request of setupTranscript) {
+    const outcome = await publicApi.applyRootPublicInvocation(setupContext, request);
+    if (outcome.disposition !== "succeeded") throw new Error(JSON.stringify(outcome));
+    setupOutcomes.push(outcome);
+  }
+  const runtimePrefixAuthority = publicApi.projectRootOperationContextAuthority(
+    setupContext,
+  );
+  publicApi.closeRootOperationContext(setupContext);
   const runPayload = transformRunPayload({
     installInvocationRef: refs.install,
     workspaceBindingInvocationRef: refs.bind,
@@ -345,35 +390,9 @@ export async function buildRootCliScenario(
       subject: options.subject ?? "World",
     },
     eventLogPath,
+    runtimePrefixAuthority,
   });
-  const transcript = [
-    invocation("abg.operation.product.verify", "artifact", refs.verify, {
-      artifactPath: harness.artifactPath,
-      artifactRef: harness.artifactRef,
-      ...expectedVerificationIdentity(harness.candidateBasis),
-    }),
-    invocation(
-      "abg.operation.product.resolve",
-      "verified_product_set",
-      refs.resolve,
-      {
-        verifiedInvocationRefs: [refs.verify],
-      },
-    ),
-    invocation("abg.operation.product.install", "verified_artifact", refs.install, {
-      verifiedInvocationRef: refs.verify,
-      resolvedLockInvocationRef: refs.resolve,
-      artifactPath: harness.artifactPath,
-      targetRoot: productConsumer,
-    }),
-    invocation("abg.operation.workspace.bind", "exact_product_set", refs.bind, {
-      installInvocationRef: refs.install,
-      workspaceId,
-      canonicalRoot: workspaceRoot,
-      authorizedActorRef,
-      authorityManifestRef,
-      roots,
-    }),
+  const executionTranscript = [
     invocation("abg.operation.catalog.admit", "module_publication", refs.catalog, {
       readinessBasis,
     }),
@@ -397,10 +416,11 @@ export async function buildRootCliScenario(
       )),
     invocation("abg.operation.run.invoke", "direct", refs.run, runPayload),
   ];
+  const transcript = [...setupTranscript, ...executionTranscript];
   const transcriptPath = join(scenarioRoot, "root-transcript.jsonl");
   await writeFile(
     transcriptPath,
-    `${transcript.map((row) => JSON.stringify(row)).join("\n")}\n`,
+    `${executionTranscript.map((row) => JSON.stringify(row)).join("\n")}\n`,
     "utf8",
   );
   return {
@@ -412,6 +432,8 @@ export async function buildRootCliScenario(
     eventLogPath,
     installedRoot,
     transcript,
+    executionTranscript,
+    setupOutcomes,
     transcriptPath,
   };
 }
@@ -428,12 +450,16 @@ export function runInstalledCli(harness, scenario, options = {}) {
         maxBuffer: 20 * 1024 * 1024,
       },
       (error, stdout, stderr) => {
-        const outcomes = stdout.trim().length === 0
+        const childOutcomes = stdout.trim().length === 0
           ? []
           : stdout.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+        const outcomes = [...(scenario.setupOutcomes ?? []), ...childOutcomes];
+        const combinedStdout = scenario.setupOutcomes === undefined
+          ? stdout
+          : `${outcomes.map((outcome) => JSON.stringify(outcome)).join("\n")}\n`;
         resolveRun({
           exitCode: error === null ? 0 : Number(error.code ?? 1),
-          stdout,
+          stdout: combinedStdout,
           stderr,
           outcomes,
         });
@@ -459,12 +485,16 @@ export function runInstalledCodex(harness, scenario, options = {}) {
         maxBuffer: 20 * 1024 * 1024,
       },
       (error, stdout, stderr) => {
-        const outcomes = stdout.trim().length === 0
+        const childOutcomes = stdout.trim().length === 0
           ? []
           : stdout.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+        const outcomes = [...(scenario.setupOutcomes ?? []), ...childOutcomes];
+        const combinedStdout = scenario.setupOutcomes === undefined
+          ? stdout
+          : `${outcomes.map((outcome) => JSON.stringify(outcome)).join("\n")}\n`;
         resolveRun({
           exitCode: error === null ? 0 : Number(error.code ?? 1),
-          stdout,
+          stdout: combinedStdout,
           stderr,
           outcomes,
         });
@@ -534,9 +564,10 @@ export async function applyInstalledTranscriptPrefix(
     "@abiogenesis/typescript-tenant/public",
     `scenario=${encodeURIComponent(scenario.label)}`,
   );
-  const operationContext = publicApi.createRootOperationContext();
-  const outcomes = [];
-  for (const invocation of scenario.transcript.slice(0, count)) {
+  const authority = scenario.transcript.at(-1).payload.runtimePrefixAuthority;
+  const operationContext = publicApi.reopenRootOperationContext(authority);
+  const outcomes = [...(scenario.setupOutcomes ?? []).slice(0, Math.min(count, 4))];
+  for (const invocation of scenario.transcript.slice(4, count)) {
     outcomes.push(await publicApi.applyRootPublicInvocation(operationContext, invocation));
   }
   return { operationContext, outcomes, publicApi };

@@ -59,6 +59,8 @@ type RootInvocationVariantFor<
 export interface RootOperationContext {
   store: abg.AbgEventStore;
   pendingReopenAuthority: abg.EventStoreReopenAuthority | null;
+  readonly episodeEventLogPath: string;
+  readonly openedPrefixAuthorityDigest: product.Sha256Digest | null;
 }
 
 const rootOperationStates = new WeakMap<
@@ -121,13 +123,71 @@ function productResolutionDisposition(
   }
 }
 
-export function createRootOperationContext(): RootOperationContext {
+export function createRootOperationContext(
+  eventLogPath: string,
+): RootOperationContext {
+  if (typeof eventLogPath !== "string" || eventLogPath.length === 0) {
+    throw new TypeError("new Public episode requires one explicit durable event-log coordinate");
+  }
+  const store = new abg.AbgEventStore();
+  store.configureDurableLog(eventLogPath);
   const context: RootOperationContext = {
-    store: new abg.AbgEventStore(),
+    store,
     pendingReopenAuthority: null,
+    episodeEventLogPath: resolve(eventLogPath),
+    openedPrefixAuthorityDigest: null,
   };
   rootOperationStates.set(context, new product.RootOperationState());
   return context;
+}
+
+export function reopenRootOperationContext(
+  authority: abg.EventStoreReopenAuthority,
+): RootOperationContext {
+  const reopened = abg.reopenEventStore(authority);
+  if (reopened.kind !== "reopened_event_store_context") {
+    throw new TypeError(
+      `Public episode reopen refused: ${reopened.code}: ${reopened.message}`,
+    );
+  }
+  const context: RootOperationContext = {
+    store: reopened.store,
+    pendingReopenAuthority: null,
+    episodeEventLogPath: reopened.eventLogPath,
+    openedPrefixAuthorityDigest: authority.authorityDigest,
+  };
+  rootOperationStates.set(context, new product.RootOperationState());
+  return context;
+}
+
+export function projectRootOperationContextAuthority(
+  context: RootOperationContext,
+): abg.EventStoreReopenAuthority {
+  return context.store.projectReopenAuthorityAndClose();
+}
+
+function openAuthorityForContext(
+  context: RootOperationContext,
+  authority: abg.EventStoreReopenAuthority,
+): abg.ReopenedEventStoreContext | abg.EventStoreReopenRefusal {
+  if (
+    context.openedPrefixAuthorityDigest === authority.authorityDigest &&
+    context.episodeEventLogPath === authority.eventLogPath
+  ) {
+    const count = context.store.readAll().length;
+    return {
+      kind: "reopened_event_store_context",
+      schemaVersion: "5.0.0",
+      eventLogPath: authority.eventLogPath,
+      eventLogDigest: authority.eventLogDigest,
+      eventContractDigest: authority.eventContractDigest,
+      historicalEventCount: count,
+      maxAdmissionOrdinal: count,
+      nextAdmissionOrdinal: count + 1,
+      store: context.store,
+    };
+  }
+  return abg.reopenEventStore(authority);
 }
 
 export function closeRootOperationContext(context: RootOperationContext): void {
@@ -149,7 +209,7 @@ function reopenRememberedDurableContext(
 ): void {
   const authority = context.pendingReopenAuthority;
   if (authority === null) return;
-  const reopened = abg.reopenEventStore(authority);
+  const reopened = openAuthorityForContext(context, authority);
   if (reopened.kind !== "reopened_event_store_context") {
     throw new ApplicationRefusal(
       "owner_refusal",
@@ -182,6 +242,29 @@ function isRuntimeIngress(
   operationId: RootPublicInvocation["operationId"],
 ): boolean {
   return operationId === "abg.operation.run.invoke";
+}
+
+function isEventfulSetupOperation(
+  operationId: RootPublicInvocation["operationId"],
+): boolean {
+  return operationId === "abg.operation.product.install" ||
+    operationId === "abg.operation.workspace.bind";
+}
+
+function hasAdmittedEventfulRequestIdentity(
+  context: RootOperationContext,
+  invocation: RootPublicInvocation,
+): boolean {
+  return context.store.readAll().some((event) => {
+    if (
+      event.kind !== "public_operation_artifact_admitted" ||
+      typeof event.payload !== "object" || event.payload === null ||
+      Array.isArray(event.payload)
+    ) return false;
+    const payload = event.payload as Readonly<Record<string, product.JsonValue>>;
+    return payload.operationId === invocation.operationId &&
+      payload.invocationRef === invocation.invocationRef;
+  });
 }
 
 function isCoreRunProjectionVariant(variant: string): boolean {
@@ -750,6 +833,7 @@ async function applyInstall(
       candidate.productContentDigest,
       [],
     ),
+    lock as unknown as product.JsonValue,
   );
   if (install.kind !== "product_install") {
     throw new ApplicationRefusal("owner_refusal", `ProductInstall admission refused: ${install.message}`);
@@ -806,12 +890,39 @@ async function applyWorkspaceBind(
       "workspace.bind installInvocationRefs must be non-empty and unique",
     );
   }
-  const installStates = installInvocationRefs.map((installInvocationRef) =>
-    required(
-      rootOperationState(context).install(installInvocationRef),
+  const installStates = installInvocationRefs.map((installInvocationRef) => {
+    const event = context.store.readAll().find((candidate) => {
+      if (
+        candidate.kind !== "public_operation_artifact_admitted" ||
+        typeof candidate.payload !== "object" || candidate.payload === null ||
+        Array.isArray(candidate.payload)
+      ) return false;
+      const payload = candidate.payload as Readonly<Record<string, product.JsonValue>>;
+      return payload.operationId === "abg.operation.product.install" &&
+        payload.invocationRef === installInvocationRef;
+    });
+    const payload = event?.payload as Readonly<Record<string, product.JsonValue>> | undefined;
+    const candidate = payload?.artifact as unknown as product.ProductInstallCandidate | undefined;
+    const lock = payload?.resolvedLock as unknown as product.ResolvedProductLock | undefined;
+    if (candidate === undefined || lock === undefined) {
+      throw new ApplicationRefusal(
+        "missing_prerequisite",
+        `ProductInstall invocation ${installInvocationRef} is not admitted in this durable prefix`,
+      );
+    }
+    const install = abg.projectAdmittedProductInstall(
+      context.store,
+      candidate,
       installInvocationRef,
-      "ProductInstall",
-    ));
+    );
+    if (install === null) {
+      throw new ApplicationRefusal(
+        "missing_prerequisite",
+        `ProductInstall invocation ${installInvocationRef} has no exact ABG projection`,
+      );
+    }
+    return { candidate, install, lock };
+  });
   const lock = installStates[0]!.lock;
   if (
     installStates.some(
@@ -1140,6 +1251,7 @@ async function applyRunInvoke(
           "input",
           "installInvocationRef",
           "programRef",
+          "runtimePrefixAuthority",
           "sourceProjectionAuthority",
           "sourceResultRef",
           "workspaceBindingInvocationRef",
@@ -1151,6 +1263,7 @@ async function applyRunInvoke(
           "input",
           "installInvocationRef",
           "programRef",
+          "runtimePrefixAuthority",
           "reentryAuthority",
           "rootMode",
           "scope",
@@ -1226,6 +1339,20 @@ async function applyRunInvoke(
   }
   if (reentryState !== null) {
     reopenGapAuthority(context, reentryState);
+  } else {
+    const runtimePrefixAuthority = recordField(
+      invocation.payload,
+      "runtimePrefixAuthority",
+    ) as unknown as abg.EventStoreReopenAuthority;
+    if (
+      context.openedPrefixAuthorityDigest !== runtimePrefixAuthority.authorityDigest ||
+      context.episodeEventLogPath !== runtimePrefixAuthority.eventLogPath
+    ) {
+      throw new ApplicationRefusal(
+        "missing_prerequisite",
+        "run.invoke runtimePrefixAuthority differs from the explicitly reopened Public episode",
+      );
+    }
   }
   const reconstructedCatalog = reconstructCatalogBasis(
     invocation.payload,
@@ -1268,10 +1395,29 @@ async function applyRunInvoke(
       "run.invoke publication must resolve one exact ProductInstall from catalog readiness",
     );
   }
-  const readinessInstalls = readinessBasis.installedProducts as unknown as
-    readonly product.ProductInstall[];
+  const installInvocationRef = stringField(
+    invocation.payload,
+    "installInvocationRef",
+  );
+  const workspaceBindingInvocationRef = stringField(
+    invocation.payload,
+    "workspaceBindingInvocationRef",
+  );
+  const admittedInstalls = readinessBasis.installedProducts.map((candidate) =>
+    abg.projectAdmittedProductInstall(
+      context.store,
+      candidate,
+      candidate === readinessInstallMatches[0] ? installInvocationRef : undefined,
+    )
+  );
+  if (admittedInstalls.some((install) => install === null)) {
+    throw new ApplicationRefusal(
+      "missing_prerequisite",
+      "run.invoke readiness ProductSet lacks durable ABG ProductInstall admission",
+    );
+  }
   const readinessProductSet = product.constructProductSet(
-    readinessInstalls,
+    admittedInstalls as readonly product.ProductInstall[],
     readinessBasis.resolvedLock,
   );
   if (readinessProductSet.kind !== "product_set") {
@@ -1286,7 +1432,8 @@ async function applyRunInvoke(
         install: abg.projectAdmittedProductInstall(
           context.store,
           readinessInstallMatches[0]!,
-        ) ?? readinessInstallMatches[0] as unknown as product.ProductInstall,
+          installInvocationRef,
+        )!,
       }
     : {
         candidate: { installedRoot: reentryState.install.installedRoot },
@@ -1299,13 +1446,20 @@ async function applyRunInvoke(
         binding: abg.projectAdmittedWorkspaceBinding(
           context.store,
           readinessBasis.workspaceBinding,
-        ) ?? readinessBasis.workspaceBinding as unknown as product.WorkspaceBinding,
+          workspaceBindingInvocationRef,
+        ),
       }
     : {
         lock: reentryState.resolvedProductLock,
         productSet: reentryState.productSet,
         binding: reentryState.workspaceBinding,
       };
+  if (workspaceState.binding === null) {
+    throw new ApplicationRefusal(
+      "missing_prerequisite",
+      "run.invoke workspace lacks durable ABG admission at workspaceBindingInvocationRef",
+    );
+  }
   const publicationAdmission = rawAdmission<ModulePublication>(
     publication,
     "module_publication",
@@ -1498,16 +1652,7 @@ async function applyRunInvoke(
         install: installState.install,
         publication: viewState.catalogState.publication,
         verifyInstallAdmission: (install) =>
-          reentryState === null
-            ? abg.hasAdmittedProductInstall(context.store, install) ||
-              readinessBasis.installedProducts.some(
-                (candidate) => product.sha256Canonical(
-                  candidate as unknown as product.JsonValue,
-                ) === product.sha256Canonical(
-                  install as unknown as product.JsonValue,
-                ),
-              )
-            : abg.hasAdmittedProductInstall(context.store, install),
+          abg.hasAdmittedProductInstall(context.store, install),
       },
     );
     admittedInput = product.admitInstalledProductInput(
@@ -1665,7 +1810,6 @@ async function applyRunInvoke(
       graphFunction,
       programValidation,
       workspaceBinding: workspaceState.binding,
-      ...(reentryState === null ? { catalogReadinessBasis: readinessBasis } : {}),
       catalogView: viewState.view,
       catalogApplications,
       policy,
@@ -2303,7 +2447,7 @@ function reopenContinuation(
   state: PublicContinuationAuthority,
 ): abg.ReopenedEventStoreContext {
   context.pendingReopenAuthority = null;
-  const reopened = abg.reopenEventStore(state.reopenAuthority);
+  const reopened = openAuthorityForContext(context, state.reopenAuthority);
   if (reopened.kind !== "reopened_event_store_context") {
     throw new ApplicationRefusal(
       "owner_refusal",
@@ -2388,7 +2532,7 @@ function reopenGapAuthority(
   readonly route: abg.ReplayRouteState;
 } {
   context.pendingReopenAuthority = null;
-  const reopened = abg.reopenEventStore(state.reopenAuthority);
+  const reopened = openAuthorityForContext(context, state.reopenAuthority);
   if (reopened.kind !== "reopened_event_store_context") {
     throw new ApplicationRefusal(
       "owner_refusal",
@@ -2494,12 +2638,15 @@ function closeGapAuthority(
 
 function openRunProjectionAuthority(
   state: PublicRunProjectionAuthority,
+  context?: RootOperationContext,
 ): {
   readonly reopened: abg.ReopenedEventStoreContext;
   readonly rootInvocation: abg.InvocationAdmission;
   readonly replayState: abg.ReplayState;
 } {
-  const reopened = abg.reopenEventStore(state.reopenAuthority);
+  const reopened = context === undefined
+    ? abg.reopenEventStore(state.reopenAuthority)
+    : openAuthorityForContext(context, state.reopenAuthority);
   if (reopened.kind !== "reopened_event_store_context") {
     throw new ApplicationRefusal(
       "owner_refusal",
@@ -2559,7 +2706,7 @@ function reopenRunProjectionAuthority(
   readonly replayState: abg.ReplayState;
 } {
   context.pendingReopenAuthority = null;
-  const opened = openRunProjectionAuthority(state);
+  const opened = openRunProjectionAuthority(state, context);
   context.store = opened.reopened.store;
   return {
     rootInvocation: opened.rootInvocation,
@@ -3951,9 +4098,20 @@ export async function applyRootPublicInvocation(
   if (parsed.kind === "public_invocation_refusal") return parsed;
   const invocation = parsed;
   if (
+    isEventfulSetupOperation(invocation.operationId) &&
+    hasAdmittedEventfulRequestIdentity(context, invocation)
+  ) {
+    return refusalOutcome(
+      invocation,
+      "duplicate_invocation",
+      "eventful invocationRef already has ABG admission truth in this durable prefix",
+    );
+  }
+  if (
     !usesDurableContinuationAuthority(invocation.operationId) &&
     !isPureCatalogRequest(invocation.operationId) &&
     !isRuntimeIngress(invocation.operationId) &&
+    !isEventfulSetupOperation(invocation.operationId) &&
     !rootOperationState(context).claimInvocation(invocation.invocationRef)
   ) {
     return refusalOutcome(invocation, "duplicate_invocation", "invocationRef already appeared in this transcript");

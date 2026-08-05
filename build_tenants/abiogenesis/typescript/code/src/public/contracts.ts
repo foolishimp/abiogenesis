@@ -275,6 +275,7 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
         input: FIELD.record,
         installInvocationRef: FIELD.ref,
         programRef: FIELD.ref,
+        runtimePrefixAuthority: FIELD.record,
         sourceProjectionAuthority: FIELD.record,
         sourceResultRef: FIELD.ref,
         workspaceBindingInvocationRef: FIELD.ref,
@@ -287,6 +288,7 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
         "input",
         "installInvocationRef",
         "programRef",
+        "runtimePrefixAuthority",
         "workspaceBindingInvocationRef",
       ],
       allOrNone: [["sourceProjectionAuthority", "sourceResultRef"]],
@@ -299,6 +301,7 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
         input: FIELD.record,
         installInvocationRef: FIELD.ref,
         programRef: FIELD.ref,
+        runtimePrefixAuthority: FIELD.record,
         reentryAuthority: FIELD.record,
         rootMode: {
           kind: "enum",

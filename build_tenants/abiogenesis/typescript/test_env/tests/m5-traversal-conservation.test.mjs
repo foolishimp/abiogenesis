@@ -170,7 +170,10 @@ function assertCrossWireRefuses(evidence) {
   assert.equal(evidence.run.exitCode, 2, evidence.run.stdout);
   assert.equal(evidence.run.outcomes[6].disposition, "refused");
   assert.equal(evidence.run.outcomes[6].runId, null);
-  assert.deepEqual(evidence.events, []);
+  assert.deepEqual(
+    evidence.events.map((event) => event.kind),
+    ["public_operation_artifact_admitted", "public_operation_artifact_admitted"],
+  );
 }
 
 function assertMalformedFpBlocks(evidence) {

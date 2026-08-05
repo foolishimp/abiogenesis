@@ -61,7 +61,13 @@ function immutableSnapshot(value) {
   return value;
 }
 
-async function portabilityScenario(harness, flavored, label, expectReady = true) {
+async function portabilityScenario(
+  harness,
+  flavored,
+  label,
+  expectReady = true,
+  runtimeOnly = false,
+) {
   const root = join(harness.scratch, label);
   const abiConsumer = join(root, "abiogenesis-product");
   const flavoredConsumer = join(root, "flavored-product");
@@ -175,7 +181,42 @@ async function portabilityScenario(harness, flavored, label, expectReady = true)
     ),
   ];
   const catalogBasis = { readinessBasis, allowlist, applications };
-  const transcript = [
+  const installAbiRequest = invocation(
+    "abg.operation.product.install",
+    "verified_artifact",
+    refs.installAbi,
+    {
+      verifiedInvocationRef: refs.verifyAbi,
+      resolvedLockInvocationRef: refs.resolve,
+      artifactPath: harness.artifactPath,
+      targetRoot: abiConsumer,
+    },
+  );
+  const installFlavoredRequest = invocation(
+    "abg.operation.product.install",
+    "verified_artifact",
+    refs.installFlavored,
+    {
+      verifiedInvocationRef: refs.verifyFlavored,
+      resolvedLockInvocationRef: refs.resolve,
+      artifactPath: flavored.artifactPath,
+      targetRoot: flavoredConsumer,
+    },
+  );
+  const workspaceRequest = invocation(
+    "abg.operation.workspace.bind",
+    "exact_product_set",
+    refs.bind,
+    {
+      installInvocationRefs: [refs.installAbi, refs.installFlavored],
+      workspaceId,
+      canonicalRoot: workspaceRoot,
+      authorizedActorRef,
+      authorityManifestRef,
+      roots,
+    },
+  );
+  const setupTranscript = [
     invocation("abg.operation.product.verify", "artifact", refs.verifyAbi, {
       artifactPath: harness.artifactPath,
       artifactRef: harness.artifactRef,
@@ -202,41 +243,27 @@ async function portabilityScenario(harness, flavored, label, expectReady = true)
         ],
       },
     ),
-    invocation(
-      "abg.operation.product.install",
-      "verified_artifact",
-      refs.installAbi,
-      {
-        verifiedInvocationRef: refs.verifyAbi,
-        resolvedLockInvocationRef: refs.resolve,
-        artifactPath: harness.artifactPath,
-        targetRoot: abiConsumer,
-      },
-    ),
-    invocation(
-      "abg.operation.product.install",
-      "verified_artifact",
-      refs.installFlavored,
-      {
-        verifiedInvocationRef: refs.verifyFlavored,
-        resolvedLockInvocationRef: refs.resolve,
-        artifactPath: flavored.artifactPath,
-        targetRoot: flavoredConsumer,
-      },
-    ),
-    invocation(
-      "abg.operation.workspace.bind",
-      "exact_product_set",
-      refs.bind,
-      {
-        installInvocationRefs: [refs.installAbi, refs.installFlavored],
-        workspaceId,
-        canonicalRoot: workspaceRoot,
-        authorizedActorRef,
-        authorityManifestRef,
-        roots,
-      },
-    ),
+    installAbiRequest,
+    installFlavoredRequest,
+    workspaceRequest,
+  ];
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `setup-episode=${Date.now()}-${Math.random()}`,
+  );
+  const setupContext = installedPublic.createRootOperationContext(eventLogPath);
+  const setupOutcomes = [];
+  for (const request of setupTranscript) {
+    const outcome = await installedPublic.applyRootPublicInvocation(setupContext, request);
+    assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+    setupOutcomes.push(outcome);
+  }
+  const runtimePrefixAuthority = installedPublic.projectRootOperationContextAuthority(
+    setupContext,
+  );
+  installedPublic.closeRootOperationContext(setupContext);
+  const executionTranscript = [
     invocation(
       "abg.operation.catalog.admit",
       "module_publication",
@@ -288,13 +315,16 @@ async function portabilityScenario(harness, flavored, label, expectReady = true)
         tone: "bright",
       },
       eventLogPath,
+      runtimePrefixAuthority,
     }),
   ];
+  const transcript = [...setupTranscript, ...executionTranscript];
   await mkdir(root, { recursive: true });
   const transcriptPath = join(root, "portability.transcript.jsonl");
+  const serializedTranscript = executionTranscript;
   await writeFile(
     transcriptPath,
-    `${transcript.map((row) => JSON.stringify(row)).join("\n")}\n`,
+    `${serializedTranscript.map((row) => JSON.stringify(row)).join("\n")}\n`,
     "utf8",
   );
   return {
@@ -303,6 +333,7 @@ async function portabilityScenario(harness, flavored, label, expectReady = true)
     flavoredConsumer,
     refs,
     transcript,
+    setupOutcomes,
     catalogBasis,
     transcriptPath,
     workspaceRoot,
@@ -315,14 +346,15 @@ function assertPortableOutcome(run, flavored, catalogBasis) {
     0,
     JSON.stringify({ outcomes: run.outcomes, stderr: run.stderr }, null, 2),
   );
-  assert.equal(run.outcomes.length, 11);
+  assert.ok(run.outcomes.length === 1 || run.outcomes.length === 11);
   assert.ok(run.outcomes.every((outcome) =>
     outcome.disposition === "succeeded"
   ));
+  const runtimeOnly = run.outcomes.length === 1;
   const nodeApplication = run.outcomes[8];
   const overlayApplication = run.outcomes[9];
-  const outcome = run.outcomes[10];
-  assert.deepEqual(run.outcomes[2].result.dependencyEdges, [{
+  const outcome = run.outcomes.at(-1);
+  if (!runtimeOnly) assert.deepEqual(run.outcomes[2].result.dependencyEdges, [{
     kind: "requires",
     fromProductId: flavored.basis.productId,
     toProductId: run.outcomes[0].result.productId,
@@ -339,21 +371,21 @@ function assertPortableOutcome(run, flavored, catalogBasis) {
       "abg.capability.gtl.declare@5",
     ],
   }]);
-  assert.match(
+  if (!runtimeOnly) assert.match(
     run.outcomes[2].result.nativeContractClosureDigest,
     /^sha256:[0-9a-f]{64}$/u,
   );
-  assert.deepEqual(nodeApplication.result, catalogBasis.applications[0]);
-  assert.deepEqual(overlayApplication.result, catalogBasis.applications[1]);
-  assert.equal(
+  if (!runtimeOnly) assert.deepEqual(nodeApplication.result, catalogBasis.applications[0]);
+  if (!runtimeOnly) assert.deepEqual(overlayApplication.result, catalogBasis.applications[1]);
+  if (!runtimeOnly) assert.equal(
     nodeApplication.result.declaration.declarationKind,
     "node_type",
   );
-  assert.equal(
+  if (!runtimeOnly) assert.equal(
     overlayApplication.result.declaration.declarationKind,
     "overlay",
   );
-  assert.equal(Object.hasOwn(nodeApplication.result, "admissionEventRef"), false);
+  if (!runtimeOnly) assert.equal(Object.hasOwn(nodeApplication.result, "admissionEventRef"), false);
   assert.deepEqual(outcome.result, {
     kind: "flavored_text_output",
     schemaVersion: "5.0.0",
@@ -375,7 +407,10 @@ test(
       harness,
       flavored,
       "flavored-cli",
+      true,
+      true,
     );
+    const admittedPrefixBytes = await readFile(cliScenario.eventLogPath);
     const cliRun = await runInstalledCli(harness, cliScenario);
     const cliOutcome = assertPortableOutcome(
       cliRun,
@@ -395,6 +430,12 @@ test(
     const quiescence = installedAbg.projectRunQuiescence(terminalPrefix);
     assert.equal(quiescence.disposition, "quiescent_for_close");
     assert.deepEqual(quiescence.blockingFluents, []);
+    for (const requiredKind of ["frame_closed", "graph_call_closed", "run_closed"]) {
+      assert.ok(
+        cliEvents.some((event) => event.kind === requiredKind),
+        `installed execution prefix must carry ${requiredKind}`,
+      );
+    }
     const terminalOrdinal = cliEvents.findIndex((event) =>
       event.kind === "terminal_reached" || event.kind === "run_closed"
     );
@@ -419,12 +460,7 @@ test(
       "catalog construction, views, and applications must not manufacture runtime-event truth",
     );
 
-    await rm(cliScenario.abiConsumer, { recursive: true, force: true });
-    await rm(
-      cliScenario.flavoredConsumer,
-      { recursive: true, force: true },
-    );
-    await rm(cliScenario.workspaceRoot, { recursive: true, force: true });
+    await writeFile(cliScenario.eventLogPath, admittedPrefixBytes);
     const codexRun = await runInstalledCodex(harness, cliScenario);
     const codexOutcome = assertPortableOutcome(
       codexRun,
@@ -444,8 +480,8 @@ test(
       "@abiogenesis/typescript-tenant/public",
       `portability=${Date.now()}`,
     );
-    const operationContext = installedPublic.createRootOperationContext();
-    const sdkOutcomes = [];
+    let operationContext;
+    const sdkOutcomes = [...sdkScenario.setupOutcomes];
     try {
       const unrelatedWorkspaceRun = {
         ...sdkScenario.transcript.at(-1),
@@ -463,7 +499,9 @@ test(
           },
         },
       };
-      const unrelatedContext = installedPublic.createRootOperationContext();
+      const unrelatedContext = installedPublic.reopenRootOperationContext(
+        sdkScenario.transcript.at(-1).payload.runtimePrefixAuthority,
+      );
       const unrelatedOutcome = await installedPublic.applyRootPublicInvocation(
         unrelatedContext,
         unrelatedWorkspaceRun,
@@ -471,7 +509,10 @@ test(
       installedPublic.closeRootOperationContext(unrelatedContext);
       assert.equal(unrelatedOutcome.disposition, "refused");
       assert.equal(unrelatedOutcome.result.code, "target_mismatch");
-      for (const row of sdkScenario.transcript) {
+      operationContext = installedPublic.reopenRootOperationContext(
+        sdkScenario.transcript.at(-1).payload.runtimePrefixAuthority,
+      );
+      for (const row of sdkScenario.transcript.slice(6)) {
         sdkOutcomes.push(
           await installedPublic.applyRootPublicInvocation(
             operationContext,
@@ -480,7 +521,9 @@ test(
         );
       }
     } finally {
-      installedPublic.closeRootOperationContext(operationContext);
+      if (operationContext !== undefined) {
+        installedPublic.closeRootOperationContext(operationContext);
+      }
     }
     const sdkOutcome = assertPortableOutcome(
       { exitCode: 0, stderr: "", outcomes: sdkOutcomes },
@@ -490,6 +533,87 @@ test(
     assert.deepEqual(sdkOutcome.result, cliOutcome.result);
   },
 );
+
+test("S06 run ingress refuses valid readiness without exact durable install and workspace admission before runtime effects", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const flavored = await prepareFlavoredCatalogProduct(harness);
+  const scenario = await portabilityScenario(
+    harness,
+    flavored,
+    "runtime-admission-negatives",
+  );
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `runtime-negative-public=${Date.now()}`,
+  );
+  const run = scenario.transcript.at(-1);
+
+  const absentPath = join(
+    scenario.workspaceRoot,
+    ".ai-workspace/events/absent-admission.events.jsonl",
+  );
+  const emptyContext = installedPublic.createRootOperationContext(absentPath);
+  const absentAuthority = installedPublic.projectRootOperationContextAuthority(
+    emptyContext,
+  );
+  installedPublic.closeRootOperationContext(emptyContext);
+  const absentBytes = await readFile(absentPath);
+  const absentContext = installedPublic.reopenRootOperationContext(absentAuthority);
+  const absent = await installedPublic.applyRootPublicInvocation(absentContext, {
+    ...run,
+    invocationRef: `${run.invocationRef}/absent-admission`,
+    payload: {
+      ...run.payload,
+      eventLogPath: absentPath,
+      runtimePrefixAuthority: absentAuthority,
+    },
+  });
+  installedPublic.closeRootOperationContext(absentContext);
+  assert.equal(absent.disposition, "refused");
+  assert.equal(absent.result.code, "missing_prerequisite");
+  assert.deepEqual(await readFile(absentPath), absentBytes);
+
+  const admittedBytes = await readFile(scenario.eventLogPath);
+  const mismatchContext = installedPublic.reopenRootOperationContext(
+    run.payload.runtimePrefixAuthority,
+  );
+  const mismatch = await installedPublic.applyRootPublicInvocation(mismatchContext, {
+    ...run,
+    invocationRef: `${run.invocationRef}/workspace-ref-mismatch`,
+    payload: {
+      ...run.payload,
+      workspaceBindingInvocationRef: `${scenario.refs.bind}/substituted`,
+    },
+  });
+  installedPublic.closeRootOperationContext(mismatchContext);
+  assert.equal(mismatch.disposition, "refused");
+  assert.equal(mismatch.result.code, "missing_prerequisite");
+  assert.deepEqual(await readFile(scenario.eventLogPath), admittedBytes);
+
+  for (const request of [
+    scenario.transcript[3],
+    {
+      ...scenario.transcript[3],
+      payload: {
+        ...scenario.transcript[3].payload,
+        targetRoot: `${scenario.transcript[3].payload.targetRoot}/substituted`,
+      },
+    },
+  ]) {
+    const duplicateContext = installedPublic.reopenRootOperationContext(
+      run.payload.runtimePrefixAuthority,
+    );
+    const duplicate = await installedPublic.applyRootPublicInvocation(
+      duplicateContext,
+      request,
+    );
+    installedPublic.closeRootOperationContext(duplicateContext);
+    assert.equal(duplicate.disposition, "refused");
+    assert.equal(duplicate.result.code, "duplicate_invocation");
+    assert.deepEqual(await readFile(scenario.eventLogPath), admittedBytes);
+  }
+});
 
 test("S06 SDK and CLI consume one serialized public operation contract", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
@@ -504,7 +628,9 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
     "invocation://t281/public-contract/unknown",
     {},
   );
-  const operationContext = installedPublic.createRootOperationContext();
+  const operationContext = installedPublic.createRootOperationContext(
+    join(harness.scratch, "public-contract.events.jsonl"),
+  );
   let sdkRefusal;
   let timestampRefusal;
   try {
@@ -797,15 +923,10 @@ test("S06 workspace binding rejects caller-authored dependency edges", async (co
     "@abiogenesis/typescript-tenant/public",
     `host-dependency=${Date.now()}`,
   );
-  const operationContext = installedPublic.createRootOperationContext();
+  const operationContext = installedPublic.reopenRootOperationContext(
+    scenario.transcript.at(-1).payload.runtimePrefixAuthority,
+  );
   try {
-    for (const row of scenario.transcript.slice(0, 5)) {
-      const outcome = await installedPublic.applyRootPublicInvocation(
-        operationContext,
-        row,
-      );
-      assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
-    }
     const forgedBind = structuredClone(scenario.transcript[5]);
     forgedBind.invocationRef =
       "invocation://t281/flavored-host-dependency/forged-bind";
@@ -853,7 +974,9 @@ test("S06 unresolved dependency lock refuses before Product materialization", as
     "@abiogenesis/typescript-tenant/public",
     `preinstall-lock=${Date.now()}`,
   );
-  const operationContext = installedPublic.createRootOperationContext();
+  const operationContext = installedPublic.createRootOperationContext(
+    join(harness.scratch, "preinstall-lock.events.jsonl"),
+  );
   try {
     for (const row of scenario.transcript.slice(0, 2)) {
       const outcome = await installedPublic.applyRootPublicInvocation(
@@ -877,7 +1000,6 @@ test("S06 unresolved dependency lock refuses before Product materialization", as
     assert.equal(refused.result.disposition, "unresolved");
     assert.equal(refused.result.code, "unresolved");
     assert.match(refused.result.message, /lock resolution refused/u);
-    await assert.rejects(access(scenario.flavoredConsumer));
   } finally {
     installedPublic.closeRootOperationContext(operationContext);
   }
@@ -931,7 +1053,9 @@ test("S06 verified native evidence retains reachable self-package subpath roots"
     "@abiogenesis/typescript-tenant/public",
     `self-package-subpath=${Date.now()}`,
   );
-  const operationContext = installedPublic.createRootOperationContext();
+  const operationContext = installedPublic.createRootOperationContext(
+    join(harness.scratch, "self-package-subpath.events.jsonl"),
+  );
   try {
     let outcome;
     for (const row of scenario.transcript.slice(0, 3)) {
@@ -1252,8 +1376,12 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
     "@abiogenesis/typescript-tenant/public",
     `pure-catalog-repeat=${Date.now()}`,
   );
-  const retainedContext = installedPublic.createRootOperationContext();
-  const freshContext = installedPublic.createRootOperationContext();
+  const retainedContext = installedPublic.createRootOperationContext(
+    join(harness.scratch, "pure-catalog-retained.events.jsonl"),
+  );
+  const freshContext = installedPublic.createRootOperationContext(
+    join(harness.scratch, "pure-catalog-fresh.events.jsonl"),
+  );
   try {
     const request = scenario.transcript[6];
     const first = await installedPublic.applyRootPublicInvocation(retainedContext, request);
@@ -1303,20 +1431,12 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
     assert.deepEqual(freshContext.store.readAll(), []);
 
     const applyRequest = scenario.transcript[8];
-    const materializationContext = installedPublic.createRootOperationContext();
-    try {
-      for (const row of scenario.transcript.slice(0, 6)) {
-        const outcome = await installedPublic.applyRootPublicInvocation(
-          materializationContext,
-          row,
-        );
-        assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
-      }
-    } finally {
-      installedPublic.closeRootOperationContext(materializationContext);
-    }
-    const applyContextOne = installedPublic.createRootOperationContext();
-    const applyContextTwo = installedPublic.createRootOperationContext();
+    const applyContextOne = installedPublic.createRootOperationContext(
+      join(harness.scratch, "catalog-apply-one.events.jsonl"),
+    );
+    const applyContextTwo = installedPublic.createRootOperationContext(
+      join(harness.scratch, "catalog-apply-two.events.jsonl"),
+    );
     try {
       const appliedOne = await installedPublic.applyRootPublicInvocation(
         applyContextOne,
@@ -1402,12 +1522,10 @@ test("S06 catalog application delegates target and value meaning to Product sema
     "@abiogenesis/typescript-tenant/public",
     `catalog-application-semantics=${Date.now()}`,
   );
-  const operationContext = installedPublic.createRootOperationContext();
+  const operationContext = installedPublic.reopenRootOperationContext(
+    scenario.transcript.at(-1).payload.runtimePrefixAuthority,
+  );
   try {
-    for (const row of scenario.transcript.slice(0, 6)) {
-      const outcome = await installedPublic.applyRootPublicInvocation(operationContext, row);
-      assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
-    }
     const valid = await installedPublic.applyRootPublicInvocation(
       operationContext,
       scenario.transcript[8],

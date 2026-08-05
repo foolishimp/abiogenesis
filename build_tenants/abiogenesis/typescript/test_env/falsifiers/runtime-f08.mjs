@@ -862,7 +862,11 @@ async function installedModules(harness) {
 }
 
 async function applyTranscript(publicApi, rows) {
-  const context = publicApi.createRootOperationContext();
+  const runRow = rows.find((row) => row.operationId === "abg.operation.run.invoke");
+  const context = publicApi.createRootOperationContext(
+    runRow?.payload?.eventLogPath ??
+      join("/tmp", `runtime-f08-${process.pid}-${Date.now()}-${Math.random()}.events.jsonl`),
+  );
   const outcomes = [];
   try {
     for (const row of rows) {

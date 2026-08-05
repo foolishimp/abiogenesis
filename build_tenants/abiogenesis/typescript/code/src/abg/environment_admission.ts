@@ -39,6 +39,8 @@ export type ArtifactAdmissionBasis = PublicOperationAdmissionBasis;
 export interface ArtifactAdmissionMetadata {
   readonly productSemanticsBasisDigest?: Sha256Digest;
   readonly publicationDigest?: Sha256Digest;
+  readonly artifact?: JsonValue;
+  readonly resolvedLock?: JsonValue;
 }
 
 export interface AbgAdmissionRefusal {
@@ -94,12 +96,14 @@ export function hasAdmittedProductInstall(
 export function projectAdmittedProductInstall(
   store: AbgEventStore,
   candidate: ProductInstallCandidate,
+  invocationRef?: string,
 ): ProductInstall | null {
   const candidateDigest = sha256Canonical(candidate as unknown as JsonValue);
   const event = store.readAll().find((row) =>
     row.kind === "public_operation_artifact_admitted" &&
     isJsonRecord(row.payload) &&
     row.payload.operationId === "abg.operation.product.install" &&
+    (invocationRef === undefined || row.payload.invocationRef === invocationRef) &&
     row.payload.artifactRef === candidate.installId &&
     row.payload.artifactDigest === candidateDigest
   );
@@ -116,11 +120,13 @@ export function projectAdmittedProductInstall(
 export function projectAdmittedWorkspaceBinding(
   store: AbgEventStore,
   candidate: WorkspaceBindingCandidate,
+  invocationRef: string,
 ): WorkspaceBinding | null {
   const event = store.readAll().find((row) =>
     row.kind === "public_operation_artifact_admitted" &&
     isJsonRecord(row.payload) &&
     row.payload.operationId === "abg.operation.workspace.bind" &&
+    row.payload.invocationRef === invocationRef &&
     row.payload.artifactRef === candidate.bindingId &&
     row.payload.artifactDigest === candidate.bindingDigest
   );
@@ -231,6 +237,7 @@ export function admitProductInstall(
   store: AbgEventStore,
   candidate: ProductInstallCandidate,
   basis: ArtifactAdmissionBasis,
+  resolvedLock?: JsonValue,
 ): AbgAdmissionRefusal | ProductInstall {
   if (
     basis.authorityScopeRef !== candidate.installId ||
@@ -245,6 +252,10 @@ export function admitProductInstall(
     "abg.operation.product.install",
     candidate.installId,
     candidateDigest,
+    {
+      artifact: candidate as unknown as JsonValue,
+      ...(resolvedLock === undefined ? {} : { resolvedLock }),
+    },
   );
   if (typeof admissionEventRef !== "string") {
     return admissionEventRef;
@@ -276,6 +287,7 @@ export function admitWorkspaceBinding(
     "abg.operation.workspace.bind",
     candidate.bindingId,
     candidate.bindingDigest,
+    { artifact: candidate as unknown as JsonValue },
   );
   if (typeof admissionEventRef !== "string") {
     return admissionEventRef;

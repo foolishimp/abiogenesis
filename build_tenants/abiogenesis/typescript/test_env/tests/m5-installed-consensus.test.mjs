@@ -659,6 +659,8 @@ async function selectConsensusThroughOneSurface(
     actorRef: scenario.transcript[3].payload.authorizedActorRef,
     input: observation,
     eventLogPath: scenario.eventLogPath,
+    runtimePrefixAuthority:
+      scenario.transcript.at(-1).payload.runtimePrefixAuthority,
     rootMode: "supervised",
     scope: "program",
     target: basis.gtl.CONSENSUS_IDS.oneSurfaceStartRef,
@@ -667,7 +669,7 @@ async function selectConsensusThroughOneSurface(
   };
   await writeFile(
     scenario.transcriptPath,
-    `${scenario.transcript.map((row) => JSON.stringify(row)).join("\n")}\n`,
+    `${scenario.transcript.slice(4).map((row) => JSON.stringify(row)).join("\n")}\n`,
     "utf8",
   );
   return observation;
@@ -1495,6 +1497,8 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
     actorRef: "actor://abiogenesis/t276/trusted-developer",
     input: observation,
     eventLogPath: scenario.eventLogPath,
+    runtimePrefixAuthority:
+      scenario.transcript.at(-1).payload.runtimePrefixAuthority,
     rootMode: "supervised",
     scope: "program",
     target: basis.gtl.CONSENSUS_IDS.oneSurfaceStartRef,
@@ -1746,7 +1750,7 @@ test("M5 Consensus refuses malformed and cross-basis Product values before a Run
     scenario.transcript.at(-1).payload.input = malformedObservation;
     await writeFile(
       scenario.transcriptPath,
-      `${scenario.transcript.map((row) => JSON.stringify(row)).join("\n")}\n`,
+      `${scenario.transcript.slice(4).map((row) => JSON.stringify(row)).join("\n")}\n`,
       "utf8",
     );
     const run = await runInstalledCli(harness, scenario, {

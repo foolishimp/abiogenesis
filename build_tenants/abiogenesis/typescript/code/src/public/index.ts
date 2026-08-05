@@ -10,6 +10,8 @@ export {
 export {
   closeRootOperationContext,
   createRootOperationContext,
+  reopenRootOperationContext,
+  projectRootOperationContextAuthority,
   applyRootPublicInvocation,
   type RootOperationContext,
 } from "./operations.js";

@@ -183,9 +183,8 @@ async function runF12Retained(request) {
     request.cliHost,
     "@abiogenesis/typescript-tenant/product",
   );
-  const context = publicApi.createRootOperationContext();
+  const context = publicApi.createRootOperationContext(request.prefixA.eventLogPath);
   try {
-    context.store.configureDurableLog(request.prefixA.eventLogPath);
     const setupOutcomes = [];
     for (const row of request.prefixA.setupRows) {
       setupOutcomes.push(summarizeOutcome(
@@ -242,18 +241,7 @@ async function runF12Fresh(request) {
     request.cliHost,
     "@abiogenesis/typescript-tenant/product",
   );
-  const abg = await importInstalled(
-    request.cliHost,
-    "@abiogenesis/typescript-tenant/abg",
-  );
-  const reopened = abg.reopenEventStore(request.authority);
-  requireCondition(
-    reopened.kind === "reopened_event_store_context",
-    `fresh AX-F12 prefix reopen refused: ${reopened.code ?? "unknown"}`,
-  );
-  reopened.store.closeDurableLog();
-  const context = publicApi.createRootOperationContext();
-  context.pendingReopenAuthority = request.authority;
+  const context = publicApi.reopenRootOperationContext(request.authority);
   try {
     return {
       pid: process.pid,
@@ -299,7 +287,7 @@ async function inspectF12Prefix(request) {
       workspaceBindingAdmissionCount: binding.length,
     };
   } finally {
-    reopened.store.closeDurableLog();
+    publicApi.closeRootOperationContext(context);
   }
 }
 
@@ -312,30 +300,13 @@ async function runPublicTranscript(request) {
     request.cliHost,
     "@abiogenesis/typescript-tenant/product",
   );
-  const abg = await importInstalled(
-    request.cliHost,
-    "@abiogenesis/typescript-tenant/abg",
-  );
-  const context = publicApi.createRootOperationContext();
-  let startHistoricalEventCount = null;
+  const context = request.durableStart?.kind === "reopen"
+    ? publicApi.reopenRootOperationContext(request.durableStart.authority)
+    : publicApi.createRootOperationContext(request.durableStart.eventLogPath);
+  let startHistoricalEventCount = context.store.readAll().length;
   let projectedAuthority = null;
   const phases = [];
   try {
-    if (request.durableStart?.kind === "configure") {
-      context.store.configureDurableLog(request.durableStart.eventLogPath);
-      startHistoricalEventCount = 0;
-    } else if (request.durableStart?.kind === "reopen") {
-      const reopened = abg.reopenEventStore(request.durableStart.authority);
-      if (reopened.kind !== "reopened_event_store_context") {
-        throw new TypeError(
-          `test prefix reopen refused: ${reopened.code}: ${reopened.message}`,
-        );
-      }
-      context.store = reopened.store;
-      context.pendingReopenAuthority = null;
-      startHistoricalEventCount = reopened.historicalEventCount;
-    }
-
     for (const phase of request.phases) {
       const outcomes = [];
       const outcomeProjectionDigests = [];

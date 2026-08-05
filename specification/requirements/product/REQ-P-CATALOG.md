@@ -218,6 +218,10 @@ and catalog construction shall not imply runtime admission, session visibility,
 eligibility, callability, or invocation. This is the pure, eventless
 `abg.operation.catalog.admit` definition; no catalog
 store method or adapter path may publish a second admission operation identity.
+At runtime, a readiness basis shall not substitute for ABG-admitted
+`ProductInstall` or `WorkspaceBinding` truth. `run.invoke` shall consume one
+explicit validated durable prefix coordinate and resolve its declared install
+and workspace-binding invocation refs from that prefix before runtime effects.
 
 **REQ-P-CATALOG-030**: ABIogenesis 5.0 shall publish typed non-callable
 application contracts for admitted `node_type` and `overlay` rows. Node-type

@@ -1,18 +1,34 @@
 import assert from "node:assert/strict";
 import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
 import test from "node:test";
 
 import { prepareDeveloperMiniProduct } from "../support/developer-mini-product.mjs";
 import {
   constructClosedCatalogReadinessBasis,
+  importInstalledPackageExport,
   runInstalledCli,
   setupInstalledCliHarness,
 } from "../support/root-cli-environment.mjs";
 import { sha256Canonical } from "../../build/code/src/product/index.js";
 
 const packageRoot = new URL("../..", import.meta.url).pathname;
+let publicEpisodeOrdinal = 0;
+
+function newEpisode(publicApi) {
+  publicEpisodeOrdinal += 1;
+  return publicApi.createRootOperationContext(
+    join(tmpdir(), `abi5-external-${process.pid}-${publicEpisodeOrdinal}.events.jsonl`),
+  );
+}
+
+function reopenScenario(publicApi, scenario) {
+  return publicApi.reopenRootOperationContext(
+    scenario.transcript.at(-1).payload.runtimePrefixAuthority,
+  );
+}
 
 function invocation(operationId, variant, invocationRef, payload) {
   return {
@@ -28,7 +44,7 @@ function invocation(operationId, variant, invocationRef, payload) {
 }
 
 async function applyInFreshContext(publicApi, row) {
-  const context = publicApi.createRootOperationContext();
+  const context = newEpisode(publicApi);
   try {
     return await publicApi.applyRootPublicInvocation(context, row);
   } finally {
@@ -353,10 +369,10 @@ async function oneSurfaceLifecycle(
       },
     },
   );
-  const context = publicApi.createRootOperationContext();
-  const setupOutcomes = [];
+  const context = reopenScenario(publicApi, scenario);
+  const setupOutcomes = [...scenario.setupOutcomes];
   try {
-    for (const row of scenario.transcript.slice(0, -1)) {
+    for (const row of scenario.transcript.slice(6, -1)) {
       setupOutcomes.push(
         await publicApi.applyRootPublicInvocation(context, row),
       );
@@ -495,10 +511,10 @@ async function oneSurfaceAdmissionRefusal(
       graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
     },
   );
-  const context = publicApi.createRootOperationContext();
-  const outcomes = [];
+  const context = reopenScenario(publicApi, scenario);
+  const outcomes = [...scenario.setupOutcomes];
   try {
-    for (const row of scenario.transcript) {
+    for (const row of scenario.transcript.slice(6)) {
       outcomes.push(await publicApi.applyRootPublicInvocation(context, row));
     }
   } finally {
@@ -527,10 +543,10 @@ async function oneSurfaceStart(
       graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
     },
   );
-  const context = publicApi.createRootOperationContext();
-  const outcomes = [];
+  const context = reopenScenario(publicApi, scenario);
+  const outcomes = [...scenario.setupOutcomes];
   try {
-    for (const row of scenario.transcript.slice(0, -1)) {
+    for (const row of scenario.transcript.slice(6, -1)) {
       outcomes.push(await publicApi.applyRootPublicInvocation(context, row));
     }
     const start = structuredClone(scenario.transcript.at(-1));
@@ -647,7 +663,7 @@ async function externalScenario(
     roots,
     publications: [publication],
   });
-  const transcript = [
+  const setupTranscript = [
     invocation("abg.operation.product.verify", "artifact", refs.verifyAbi, {
       artifactPath: harness.artifactPath,
       artifactRef: harness.artifactRef,
@@ -686,6 +702,25 @@ async function externalScenario(
       authorityManifestRef,
       roots,
     }),
+  ];
+  const eventLogPath = join(eventLogRoot, "developer-product.events.jsonl");
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `external-setup=${Date.now()}-${Math.random()}`,
+  );
+  const setupContext = installedPublic.createRootOperationContext(eventLogPath);
+  const setupOutcomes = [];
+  for (const request of setupTranscript) {
+    const outcome = await installedPublic.applyRootPublicInvocation(setupContext, request);
+    assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+    setupOutcomes.push(outcome);
+  }
+  const runtimePrefixAuthority = installedPublic.projectRootOperationContextAuthority(
+    setupContext,
+  );
+  installedPublic.closeRootOperationContext(setupContext);
+  const executionTranscript = [
     invocation("abg.operation.catalog.admit", "module_publication", refs.catalog, {
       readinessBasis,
     }),
@@ -707,7 +742,8 @@ async function externalScenario(
       programRef,
       actorRef: "actor://developer.example/trusted-developer",
       input,
-      eventLogPath: join(eventLogRoot, "developer-product.events.jsonl"),
+      eventLogPath,
+      runtimePrefixAuthority,
       ...(runVariant === "start"
         ? {
             rootMode:
@@ -721,17 +757,19 @@ async function externalScenario(
         : { graphFunctionRef }),
     }),
   ];
+  const transcript = [...setupTranscript, ...executionTranscript];
   const transcriptPath = join(root, "external-product.transcript.jsonl");
   await mkdir(root, { recursive: true });
   await writeFile(
     transcriptPath,
-    `${transcript.map((row) => JSON.stringify(row)).join("\n")}\n`,
+    `${executionTranscript.map((row) => JSON.stringify(row)).join("\n")}\n`,
     "utf8",
   );
   return {
-    eventLogPath: transcript.at(-1).payload.eventLogPath,
+    eventLogPath,
     miniInstalledRoot,
     transcript,
+    setupOutcomes,
     transcriptPath,
   };
 }
@@ -816,9 +854,9 @@ test("M5 installs and executes one independent developer-authored GTL Product th
     )).href}?external-sdk=${Date.now()}`
   );
   const sdkScenario = await externalScenario(harness, mini, "external-sdk");
-  const operationContext = publicApi.createRootOperationContext();
-  const sdkOutcomes = [];
-  for (const row of sdkScenario.transcript) {
+  const operationContext = reopenScenario(publicApi, sdkScenario);
+  const sdkOutcomes = [...sdkScenario.setupOutcomes];
+  for (const row of sdkScenario.transcript.slice(6)) {
     sdkOutcomes.push(await publicApi.applyRootPublicInvocation(operationContext, row));
   }
   publicApi.closeRootOperationContext(operationContext);
@@ -1367,11 +1405,11 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
   const priorCommand = process.env.ABG_TS_CLAUDE_COMMAND;
   process.env.ABG_TS_CLAUDE_COMMAND = command;
   try {
-    const operationContext = publicApi.createRootOperationContext();
-    const setupOutcomes = [];
+    const operationContext = reopenScenario(publicApi, scenario);
+    const setupOutcomes = [...scenario.setupOutcomes];
     const missingAuthorityOutcomes = [];
     try {
-      for (const row of scenario.transcript) {
+      for (const row of scenario.transcript.slice(6)) {
         setupOutcomes.push(
           await publicApi.applyRootPublicInvocation(operationContext, row),
         );
@@ -1500,7 +1538,7 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
         continuationRef,
       },
     );
-    const retainedReadContext = publicApi.createRootOperationContext();
+    const retainedReadContext = newEpisode(publicApi);
     let readOpen;
     let readOpenDuplicate;
     try {
@@ -1641,7 +1679,7 @@ test("M5 reopens and completes an external mixed F_D/F_P/F_H program through sep
         response,
       },
     );
-    const retainedDuplicateContext = publicApi.createRootOperationContext();
+    const retainedDuplicateContext = newEpisode(publicApi);
     let duplicateRespondRetained;
     let duplicateRespondRetainedAgain;
     try {
@@ -1821,10 +1859,10 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       },
     },
   );
-  const missingActionContext = publicApi.createRootOperationContext();
-  const missingActionOutcomes = [];
+  const missingActionContext = reopenScenario(publicApi, missingActionScenario);
+  const missingActionOutcomes = [...missingActionScenario.setupOutcomes];
   try {
-    for (const row of missingActionScenario.transcript.slice(0, -1)) {
+    for (const row of missingActionScenario.transcript.slice(6, -1)) {
       missingActionOutcomes.push(
         await publicApi.applyRootPublicInvocation(
           missingActionContext,
@@ -1865,10 +1903,10 @@ test("M5 starts an external supervised GTL Program whose One Surface order survi
       },
     },
   );
-  const operationContext = publicApi.createRootOperationContext();
-  const setupOutcomes = [];
+  const operationContext = reopenScenario(publicApi, scenario);
+  const setupOutcomes = [...scenario.setupOutcomes];
   try {
-    for (const row of scenario.transcript.slice(0, -1)) {
+    for (const row of scenario.transcript.slice(6, -1)) {
       setupOutcomes.push(
         await publicApi.applyRootPublicInvocation(operationContext, row),
       );
@@ -2656,7 +2694,7 @@ test("M5 admits construction truth only against the exact Product and runtime ba
           continuationRef: result.held.continuationRef,
         },
       );
-      const retainedContext = publicApi.createRootOperationContext();
+      const retainedContext = newEpisode(publicApi);
       let retainedDuplicate;
       let retainedDuplicateAgain;
       try {
@@ -2825,10 +2863,10 @@ test("M5 refuses a Product-valid F_H response bound to a different construction 
       "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
     )).href}?external-one-surface-wrong-intent=${Date.now()}`
   );
-  const operationContext = publicApi.createRootOperationContext();
-  const setupOutcomes = [];
+  const operationContext = reopenScenario(publicApi, scenario);
+  const setupOutcomes = [...scenario.setupOutcomes];
   try {
-    for (const row of scenario.transcript.slice(0, -1)) {
+    for (const row of scenario.transcript.slice(6, -1)) {
       setupOutcomes.push(
         await publicApi.applyRootPublicInvocation(operationContext, row),
       );
@@ -2932,10 +2970,10 @@ test("M5 exposes a durable gap and re-enters it through the same external Produc
       graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
     },
   );
-  const setupContext = installedPublic.createRootOperationContext();
-  const setupOutcomes = [];
+  const setupContext = reopenScenario(installedPublic, scenario);
+  const setupOutcomes = [...scenario.setupOutcomes];
   try {
-    for (const row of scenario.transcript.slice(0, -1)) {
+    for (const row of scenario.transcript.slice(6, -1)) {
       setupOutcomes.push(
         await installedPublic.applyRootPublicInvocation(setupContext, row),
       );
@@ -3311,10 +3349,10 @@ test("M5 preserves a Product-required reprice as a readable non-close stop", asy
       graphFunctionRef: mini.ids.oneSurfaceGraphFunctionRef,
     },
   );
-  const setupContext = installedPublic.createRootOperationContext();
-  const setupOutcomes = [];
+  const setupContext = reopenScenario(installedPublic, scenario);
+  const setupOutcomes = [...scenario.setupOutcomes];
   try {
-    for (const row of scenario.transcript.slice(0, -1)) {
+    for (const row of scenario.transcript.slice(6, -1)) {
       setupOutcomes.push(
         await installedPublic.applyRootPublicInvocation(setupContext, row),
       );

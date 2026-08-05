@@ -20,14 +20,15 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
     scratchPath: join(tmpdir(), "abi5-root-r10-proof"),
   });
   const scenario = await buildRootCliScenario(harness, "r10");
-  const secondRun = structuredClone(scenario.transcript.at(-1));
+  const secondRun = structuredClone(scenario.executionTranscript.at(-1));
   secondRun.invocationRef = `${scenario.refs.run}-second`;
   secondRun.correlationId = `${secondRun.correlationId}/second`;
   secondRun.payload.input.subject = "Universe";
+  const executionTranscript = [...scenario.executionTranscript, secondRun];
   const transcript = [...scenario.transcript, secondRun];
   await writeFile(
     scenario.transcriptPath,
-    `${transcript.map((row) => JSON.stringify(row)).join("\n")}\n`,
+    `${executionTranscript.map((row) => JSON.stringify(row)).join("\n")}\n`,
     "utf8",
   );
   const run = await runInstalledCli(harness, scenario);

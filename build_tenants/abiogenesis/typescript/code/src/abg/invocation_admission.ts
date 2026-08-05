@@ -41,7 +41,6 @@ import {
   type AbgAdmissionRefusal,
   type PublicOperationAdmissionBasis,
 } from "./environment_admission.js";
-import type { CatalogReadinessBasis } from "../product/catalog.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 import { replay } from "./replay.js";
 
@@ -54,7 +53,6 @@ export interface InvocationAdmissionInput {
   readonly graphFunction: Readonly<GraphFunction>;
   readonly programValidation: ProgramValidation;
   readonly workspaceBinding: WorkspaceBinding;
-  readonly catalogReadinessBasis?: CatalogReadinessBasis;
   readonly catalogView: GraphFunctionCatalogView;
   readonly catalogApplications?: readonly DeclarationApplication[];
   readonly policy: InvocationPolicyBasis;
@@ -635,16 +633,7 @@ export function admitInvocation(
   ) {
     return refusal("authority_mismatch", "public operation basis differs from invocation or workspace authority");
   }
-  const workspaceCarriedByReadiness = input.catalogReadinessBasis !== undefined &&
-    sha256Canonical(input.catalogReadinessBasis as unknown as JsonValue) ===
-      input.catalogView.catalogBasisDigest &&
-    canonicalJson(
-      input.catalogReadinessBasis.workspaceBinding as unknown as JsonValue,
-    ) === canonicalJson(input.workspaceBinding as unknown as JsonValue);
-  if (
-    !hasAdmittedWorkspaceBinding(store, input.workspaceBinding) &&
-    !workspaceCarriedByReadiness
-  ) {
+  if (!hasAdmittedWorkspaceBinding(store, input.workspaceBinding)) {
     return refusal("workspace_not_admitted", "invocation workspace binding lacks ABG admission truth");
   }
   if (
