@@ -80,6 +80,8 @@ test("M5 installed CLI traverses ordered C.batch, successful C.retry, and C.edge
   const resultEvents = events.filter((event) => event.kind === "c_call_result_admitted");
   const judgmentEvents = events.filter((event) => event.kind === "c_call_judged");
   const routes = events.filter((event) => event.kind === "traversal_route_admitted");
+  const retryProgress = events.filter((event) =>
+    event.kind === "retry_progress_recorded");
 
   assert.equal(cCallOpened.length, 6);
   assert.equal(resultEvents.length, 6);
@@ -128,6 +130,26 @@ test("M5 installed CLI traverses ordered C.batch, successful C.retry, and C.edge
   }
   assert.equal(routes[7].payload.cCallRef, cCallOpened[3].aggregateId);
   assert.equal(routes[8].payload.cCallRef, cCallOpened[4].aggregateId);
+  const completedProgress = retryProgress.find((event) =>
+    event.payload.progressClass === "completed");
+  assert.ok(completedProgress);
+  assert.equal(Object.hasOwn(completedProgress.payload, "targetCursorRef"), false);
+  assert.equal(Object.hasOwn(completedProgress.payload, "targetCursorDigest"), false);
+  assert.equal(completedProgress.payload.predecessorProgressRef, null);
+  const completionRoute = routes.find((event) =>
+    event.payload.consumedAvailabilityRefs.includes(
+      completedProgress.payload.progressRef,
+    ));
+  assert.ok(completionRoute);
+  assert.equal(completionRoute.payload.sourceCursorRef,
+    completedProgress.payload.sourceCursorRef);
+  assert.equal(completionRoute.payload.sourceCursorDigest,
+    completedProgress.payload.sourceCursorDigest);
+  assert.equal(completionRoute.payload.targetCursorRef, null);
+  assert.equal(completionRoute.payload.targetCursorDigest, null);
+  assert.equal(completionRoute.causationEventRefs.includes(
+    completedProgress.eventId,
+  ), true);
   assert.equal(
     cCallOpened[5].causationEventRefs.includes(routes[8].eventId),
     true,

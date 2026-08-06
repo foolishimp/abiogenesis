@@ -669,10 +669,19 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ),
       payloadVariant(
         payloadKeys(
-          "attempt attemptRef cCallRef completedRetryDepth judgmentRef progressClass progressDigest progressRef resultRef retryBoundaryRef retryPath",
+          "attempt attemptRef cCallRef completedRetryDepth judgmentRef predecessorProgressRef progressClass progressDigest progressRef resultRef retryBoundaryRef retryPath sourceCursorDigest sourceCursorRef",
         ),
-        payloadKeys("progressRef progressDigest progressClass attemptRef retryBoundaryRef retryPath completedRetryDepth cCallRef resultRef judgmentRef"),
+        payloadKeys("progressRef progressDigest progressClass attemptRef retryBoundaryRef retryPath completedRetryDepth cCallRef resultRef judgmentRef sourceCursorRef sourceCursorDigest predecessorProgressRef"),
         { progressClass: "completed" },
+        payloadKeys("predecessorProgressRef"),
+      ),
+      payloadVariant(
+        payloadKeys(
+          "attempt attemptRef cCallRef completedRetryDepth judgmentRef predecessorProgressRef progressClass progressDigest progressRef resultRef retryBoundaryRef retryPath sourceCursorDigest sourceCursorRef targetCursorDigest targetCursorRef",
+        ),
+        payloadKeys("progressRef progressDigest progressClass attemptRef retryBoundaryRef retryPath completedRetryDepth cCallRef resultRef judgmentRef sourceCursorRef sourceCursorDigest targetCursorRef targetCursorDigest predecessorProgressRef"),
+        { progressClass: "completed" },
+        payloadKeys("predecessorProgressRef"),
       ),
     ],
   },

@@ -2784,6 +2784,12 @@ function hasJudgedRouteEvidence(
       progress.cCallRef === cCall?.cCallRef &&
       progress.resultRef === result?.resultRef &&
       progress.judgmentRef === judgment?.judgmentRef &&
+      progress.sourceCursorRef === sourceCursor.cursorRef &&
+      progress.sourceCursorDigest === sourceCursor.cursorDigest &&
+      progress.targetCursorRef === (targetCursor?.cursorRef ?? null) &&
+      progress.targetCursorDigest === (targetCursor?.cursorDigest ?? null) &&
+      progress.predecessorProgressRef ===
+        (index === 0 ? null : completedProgresses[index - 1]!.progressRef) &&
       sameValues(
         progress.retryPath.map(String),
         sourceCursor.retryPath.slice(0, exitedRetryDepths[index]).map(String),
@@ -3593,7 +3599,7 @@ export function admitRoute(
           "terminal construction closure requires an admitted evidence fold and refreshed convergence projection",
         );
       }
-      causationEventRef = judgedEvidence.completedProgresses?.at(0)?.admissionEventRef ??
+      causationEventRef = judgedEvidence.completedProgresses?.at(-1)?.admissionEventRef ??
         judgedEvidence.judgment.admissionEventRef;
     }
     if (
@@ -3722,7 +3728,7 @@ export function admitRoute(
           "post-judgment route is not the exact declared GTL continuation",
         );
       }
-      causationEventRef = evidence.completedProgresses?.at(0)?.admissionEventRef ??
+      causationEventRef = evidence.completedProgresses?.at(-1)?.admissionEventRef ??
         evidence.judgment.admissionEventRef;
     } else if (
       "progress" in evidence &&

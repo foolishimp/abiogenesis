@@ -2011,7 +2011,7 @@ export async function completeExecutableTraversal<
     proposal,
     {
       ...basis(input.clock, "route"),
-      causationEventRefs: completedProgresses.slice(1).map((progress) =>
+      causationEventRefs: completedProgresses.slice(0, -1).map((progress) =>
         progress.admissionEventRef
       ),
     },
