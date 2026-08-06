@@ -18,6 +18,7 @@ import {
   proposeStructuralRoute,
   type RouteProposalRefusal,
 } from "./traversal_route.js";
+import type { JsonValue } from "../shared/canonical_json.js";
 
 export interface StructuralTraversalClock {
   readonly eventTime: string;
@@ -27,6 +28,7 @@ export interface StructuralTraversalClock {
 export interface AdvanceStructuralTraversalInput extends TraverseInput {
   readonly store: AbgEventStore;
   readonly initial: TraversalStep;
+  readonly inputValue: Readonly<Record<string, JsonValue>>;
   readonly clock: StructuralTraversalClock;
 }
 
@@ -89,6 +91,7 @@ export function advanceStructuralTraversal(
         input.executionBasis,
         input.graph,
         current.targetCursor,
+        input.inputValue,
         route.admissionEventRef,
         {
           eventTime: input.clock.eventTime,

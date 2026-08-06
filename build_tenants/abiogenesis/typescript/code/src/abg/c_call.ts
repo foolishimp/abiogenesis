@@ -22,6 +22,7 @@ import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventBatch,
+  type RuntimeEvent,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
@@ -45,11 +46,17 @@ import {
 } from "./traversal_cursor.js";
 import {
   isActorProcessObservation,
+  projectActorProcessLifecycle,
   type ActorProcessObservation,
 } from "./actor_process.js";
 import {
   selectExactRetryAttemptEvent,
 } from "./retry_lifecycle.js";
+import {
+  WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
+  classifyWorkerTransportFailure,
+  type WorkerTransportFailureClass,
+} from "./transport_contracts.js";
 
 export interface CCall {
   readonly kind: "c_call";
@@ -426,6 +433,57 @@ export interface CCallAdmissionRejection {
   readonly diagnosticRef: string;
 }
 
+export interface CCallRuntimeFailureSignal {
+  readonly kind: "c_call_runtime_failure_signal";
+  readonly schemaVersion: "5.0.0";
+  readonly failureClass: WorkerTransportFailureClass;
+  readonly sourceClass:
+    | "deterministic_output_rejection"
+    | "probabilistic_transport";
+  readonly sourceDigest: Sha256Digest;
+  readonly failureSignalDigest: Sha256Digest;
+  readonly failureSignalRef: string;
+}
+
+export interface CCallRuntimeFailureClosePlan {
+  readonly kind: "c_call_runtime_failure_close_plan";
+  readonly schemaVersion: "5.0.0";
+  readonly planRef: string;
+  readonly planDigest: Sha256Digest;
+  readonly expectedPrefixDigest: Sha256Digest;
+  readonly cCallRef: string;
+  readonly sourceRef: string;
+  readonly sourceEventRef: string | null;
+  readonly failureValueKind: string;
+  readonly failureCandidateDigest: Sha256Digest;
+  readonly signal: CCallRuntimeFailureSignal;
+}
+
+export interface CCallRuntimeFailureCloseRefusal {
+  readonly kind: "c_call_runtime_failure_close_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code:
+    | "call_mismatch"
+    | "plan_mismatch"
+    | "source_mismatch";
+  readonly message: string;
+}
+
+export interface AdmittedCCallRuntimeFailureClose {
+  readonly kind: "admitted_c_call_runtime_failure_close";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "blocked" | "retry";
+  readonly cCallRef: string;
+  readonly signal: CCallRuntimeFailureSignal;
+  readonly result: AdmittedCCallResult;
+  readonly judgment: AdmittedCCallJudgment;
+}
+
+export type CCallRuntimeFailureSource =
+  | AdmittedCCallEvidence
+  | CCallAdmissionRejection;
+
 export interface RejectedCCallCompletion {
   readonly kind: "rejected_c_call_completion";
   readonly schemaVersion: "5.0.0";
@@ -589,7 +647,9 @@ const derivedProbabilisticEvidence = new WeakSet<object>();
 const admittedChildFoldbacks = new WeakSet<object>();
 const derivedSubTraversalEvidence = new WeakSet<object>();
 
-function isJsonRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
+function isJsonRecord(
+  value: JsonValue | undefined,
+): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
@@ -639,6 +699,19 @@ function rejection(
   return value;
 }
 
+function runtimeFailureCloseRefusal(
+  code: CCallRuntimeFailureCloseRefusal["code"],
+  message: string,
+): CCallRuntimeFailureCloseRefusal {
+  return {
+    kind: "c_call_runtime_failure_close_refusal",
+    schemaVersion: "5.0.0",
+    disposition: "refused",
+    code,
+    message,
+  };
+}
+
 function eventsFor(store: AbgEventStore, cCallRef: string) {
   return store.readAll().filter(
     (event) =>
@@ -669,148 +742,877 @@ function exactRetryAttemptRef(
     : null;
 }
 
+interface AdmittedProbabilisticTransportProjection {
+  readonly kind: "admitted_probabilistic_transport_projection";
+  readonly cCallRef: string;
+  readonly failureClass: WorkerTransportFailureClass | null;
+  readonly stableFailureSource: Readonly<Record<string, JsonValue>> | null;
+}
+
+function projectAdmittedProbabilisticTransport(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCallRef: string,
+  source: Readonly<Record<string, JsonValue>>,
+): AdmittedProbabilisticTransportProjection | null {
+  if (
+    typeof source.actorInvocationRef !== "string" ||
+    typeof source.actorRef !== "string" ||
+    typeof source.workerBindingRef !== "string" ||
+    typeof source.implementationRef !== "string" ||
+    typeof source.inputDigest !== "string" ||
+    typeof source.observedOutputDigest !== "string" ||
+    typeof source.outputDigest !== "string" ||
+    typeof source.processRef !== "string" ||
+    typeof source.transportBindingRef !== "string" ||
+    typeof source.transportBindingDigest !== "string" ||
+    typeof source.materializationPlanRef !== "string" ||
+    typeof source.rendererRef !== "string" ||
+    typeof source.instructionContractRef !== "string" ||
+    typeof source.resultContractRef !== "string" ||
+    typeof source.promptDigest !== "string" ||
+    typeof source.transportDigest !== "string" ||
+    (source.transportLane !== "closed_prompt_proof" &&
+      source.transportLane !== "worker_executes") ||
+    (source.transportDisposition !== "failure" &&
+      source.transportDisposition !== "success") ||
+    (source.transportFailureClass !== null &&
+      !isWorkerTransportFailureClass(source.transportFailureClass)) ||
+    (typeof source.processStatus !== "number" && source.processStatus !== null) ||
+    (typeof source.processSignal !== "string" && source.processSignal !== null) ||
+    typeof source.timedOut !== "boolean" ||
+    typeof source.exitObserved !== "boolean" ||
+    typeof source.terminationConfirmed !== "boolean" ||
+    !Array.isArray(source.signalSequence) ||
+    !source.signalSequence.every((value) => typeof value === "string") ||
+    !Number.isSafeInteger(source.structuredEventCount) ||
+    !Number.isSafeInteger(source.progressEventCount) ||
+    !Number.isSafeInteger(source.toolCallCount) ||
+    !Number.isSafeInteger(source.apiRetryCount) ||
+    !Number.isSafeInteger(source.stdoutByteLength) ||
+    !Number.isSafeInteger(source.stderrByteLength) ||
+    !isJsonRecord(source.artifactDigests) ||
+    typeof source.artifactDigests.output !== "string" ||
+    typeof source.artifactDigests.stdout !== "string" ||
+    typeof source.artifactDigests.stderr !== "string"
+  ) return null;
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const lifecycle = (() => {
+    try {
+      return projectActorProcessLifecycle(prefix, source.actorInvocationRef as string);
+    } catch {
+      return null;
+    }
+  })();
+  if (
+    lifecycle === null || lifecycle.actorTerminalEventRef === null ||
+    lifecycle.processTerminalEventRef === null ||
+    lifecycle.cleanupDisposition !== "complete"
+  ) return null;
+  const bindingRows = events.filter((event) =>
+    event.kind === "actor_transport_binding_admitted" &&
+    event.aggregateId === source.transportBindingRef
+  );
+  const actorStartedRows = events.filter((event) =>
+    event.kind === "actor_invocation_started" &&
+    event.aggregateId === source.actorInvocationRef
+  );
+  const processStartedRows = events.filter((event) =>
+    event.kind === "actor_process_started" &&
+    event.aggregateId === source.processRef &&
+    event.parentAggregateId === source.actorInvocationRef
+  );
+  const terminal = events.find((event) =>
+    event.eventId === lifecycle.actorTerminalEventRef
+  );
+  const processTerminal = events.find((event) =>
+    event.eventId === lifecycle.processTerminalEventRef
+  );
+  const artifactEventRef = terminal !== undefined && isJsonRecord(terminal.payload) &&
+      typeof terminal.payload.consumedArtifactEventRef === "string"
+    ? terminal.payload.consumedArtifactEventRef
+    : null;
+  const artifact = artifactEventRef === null
+    ? undefined
+    : events.find((event) => event.eventId === artifactEventRef);
+  const fibreRows = events.filter((event) =>
+    event.kind === "c_call_fibre_selected" && event.aggregateId === cCallRef
+  );
+  const binding = bindingRows[0];
+  const actorStarted = actorStartedRows[0];
+  const fibre = fibreRows[0];
+  if (
+    bindingRows.length !== 1 || actorStartedRows.length !== 1 ||
+    fibreRows.length !== 1 || binding === undefined || actorStarted === undefined ||
+    fibre === undefined || terminal === undefined || processTerminal === undefined ||
+    artifact?.kind !== "actor_result_artifact_observed" ||
+    !isJsonRecord(binding.payload) || !isJsonRecord(actorStarted.payload) ||
+    !isJsonRecord(fibre.payload) || !isJsonRecord(terminal.payload) ||
+    !isJsonRecord(processTerminal.payload) || !isJsonRecord(artifact.payload)
+  ) return null;
+  const { transportBindingRef: _bindingRef, transportBindingDigest, ...bindingBody } =
+    binding.payload;
+  const bindingIdentityValid = transportBindingDigest ===
+      sha256Canonical(bindingBody as unknown as JsonValue) &&
+    source.transportBindingDigest === transportBindingDigest &&
+    source.transportBindingRef ===
+      `transport-binding://abiogenesis/${String(transportBindingDigest).slice("sha256:".length)}`;
+  const joined = bindingIdentityValid &&
+    binding.parentAggregateId === cCallRef &&
+    binding.payload.cCallRef === cCallRef &&
+    binding.payload.workerBindingRef === source.workerBindingRef &&
+    binding.payload.implementationBindingRef === fibre.payload.implementationBindingRef &&
+    binding.payload.implementationRef === source.implementationRef &&
+    actorStarted.parentAggregateId === cCallRef &&
+    actorStarted.payload.cCallRef === cCallRef &&
+    actorStarted.payload.actorInvocationRef === source.actorInvocationRef &&
+    actorStarted.payload.actorRef === source.actorRef &&
+    actorStarted.payload.workerBindingRef === source.workerBindingRef &&
+    actorStarted.payload.implementationRef === source.implementationRef &&
+    actorStarted.payload.inputDigest === source.inputDigest &&
+    actorStarted.payload.promptDigest === source.promptDigest &&
+    actorStarted.payload.transportBindingRef === source.transportBindingRef &&
+    actorStarted.payload.transportBindingDigest === source.transportBindingDigest &&
+    actorStarted.causationEventRefs.length === 1 &&
+    actorStarted.causationEventRefs[0] === binding.eventId &&
+    terminal.aggregateId === source.actorInvocationRef &&
+    terminal.parentAggregateId === cCallRef && terminal.payload.cCallRef === cCallRef &&
+    terminal.payload.actorInvocationRef === source.actorInvocationRef &&
+    terminal.payload.processRef === source.processRef &&
+    terminal.payload.transportBindingRef === source.transportBindingRef &&
+    terminal.payload.transportBindingDigest === source.transportBindingDigest &&
+    terminal.payload.disposition === source.transportDisposition &&
+    terminal.payload.failureClass === source.transportFailureClass &&
+    terminal.causationEventRefs.length === 1 &&
+    terminal.causationEventRefs[0] === artifact.eventId &&
+    processTerminal.aggregateId === source.processRef &&
+    processTerminal.parentAggregateId === source.actorInvocationRef &&
+    processTerminal.payload.actorInvocationRef === source.actorInvocationRef &&
+    processTerminal.payload.processRef === source.processRef &&
+    artifact.aggregateId === source.actorInvocationRef &&
+    artifact.parentAggregateId === cCallRef && artifact.payload.cCallRef === cCallRef &&
+    artifact.payload.actorInvocationRef === source.actorInvocationRef &&
+    artifact.payload.actorRef === source.actorRef &&
+    artifact.payload.workerBindingRef === source.workerBindingRef &&
+    artifact.payload.implementationRef === source.implementationRef &&
+    artifact.payload.inputDigest === source.inputDigest &&
+    artifact.payload.materializationPlanRef === source.materializationPlanRef &&
+    artifact.payload.rendererRef === source.rendererRef &&
+    artifact.payload.instructionContractRef === source.instructionContractRef &&
+    artifact.payload.resultContractRef === source.resultContractRef &&
+    artifact.payload.processRef === source.processRef &&
+    artifact.payload.transportBindingRef === source.transportBindingRef &&
+    artifact.payload.transportBindingDigest === source.transportBindingDigest &&
+    artifact.payload.observedOutputDigest === source.observedOutputDigest &&
+    artifact.payload.promptDigest === source.promptDigest &&
+    artifact.payload.transportDigest === source.transportDigest &&
+    artifact.payload.transportLane === source.transportLane &&
+    artifact.payload.disposition === source.transportDisposition &&
+    artifact.payload.failureClass === source.transportFailureClass &&
+    artifact.payload.processStatus === source.processStatus &&
+    artifact.payload.processSignal === source.processSignal &&
+    artifact.payload.timedOut === source.timedOut &&
+    artifact.payload.exitObserved === source.exitObserved &&
+    artifact.payload.terminationConfirmed === source.terminationConfirmed &&
+    artifact.payload.structuredEventCount === source.structuredEventCount &&
+    artifact.payload.progressEventCount === source.progressEventCount &&
+    artifact.payload.toolCallCount === source.toolCallCount &&
+    artifact.payload.apiRetryCount === source.apiRetryCount &&
+    artifact.payload.stdoutByteLength === source.stdoutByteLength &&
+    artifact.payload.stderrByteLength === source.stderrByteLength &&
+    sha256Canonical(artifact.payload.signalSequence as JsonValue) ===
+      sha256Canonical(source.signalSequence as JsonValue) &&
+    sha256Canonical(artifact.payload.artifactDigests as JsonValue) ===
+      sha256Canonical(source.artifactDigests as JsonValue);
+  if (!joined || typeof binding.payload.parser !== "string" ||
+    typeof artifact.payload.finalOutput !== "string") return null;
+  const actorRows = events.filter((event) =>
+    event.aggregateId === source.actorInvocationRef ||
+    event.parentAggregateId === source.actorInvocationRef
+  );
+  const timeoutObserved = actorRows.some((event) =>
+    event.kind === "actor_process_timeout_observed"
+  );
+  const signals = actorRows.filter((event) =>
+    event.kind === "actor_process_signal_requested" && isJsonRecord(event.payload)
+  ).map((event) => (event.payload as Readonly<Record<string, JsonValue>>).signal);
+  const streamBytes = (kind: RuntimeEvent["kind"]): number =>
+    actorRows.filter((event) => event.kind === kind && isJsonRecord(event.payload))
+      .reduce((sum, event) =>
+        sum + Number(
+          (event.payload as Readonly<Record<string, JsonValue>>).byteLength,
+        ), 0);
+  const classified = classifyWorkerTransportFailure({
+    parser: binding.payload.parser as "claude_stream_json" | "plain_text",
+    lane: source.transportLane,
+    processStatus: source.processStatus as number | null,
+    timedOut: source.timedOut,
+    terminationConfirmed: source.terminationConfirmed,
+    processSpawnFailed:
+      lifecycle.processTerminalKind === "actor_process_spawn_failed",
+    structuredEventCount: Number(source.structuredEventCount),
+    toolCallCount: Number(source.toolCallCount),
+    apiRetryCount: Number(source.apiRetryCount),
+    finalOutput: artifact.payload.finalOutput,
+  });
+  if (
+    classified !== source.transportFailureClass ||
+    source.transportDisposition !== (classified === null ? "success" : "failure") ||
+    source.timedOut !== timeoutObserved ||
+    sha256Canonical(signals as unknown as JsonValue) !==
+      sha256Canonical(source.signalSequence as JsonValue) ||
+    streamBytes("actor_process_stdout_observed") !== source.stdoutByteLength ||
+    streamBytes("actor_process_stderr_observed") !== source.stderrByteLength ||
+    (lifecycle.processTerminalKind === "actor_process_exited" &&
+      (processStartedRows.length !== 1 ||
+        processTerminal.payload.status !== source.processStatus ||
+        processTerminal.payload.signal !== source.processSignal)) ||
+    (lifecycle.processTerminalKind === "actor_process_spawn_failed" &&
+      processStartedRows.length !== 0)
+  ) return null;
+  const stableFailureSource = classified === null ? null : deepFreeze({
+    failureClass: classified,
+    sourceClass: "probabilistic_transport",
+    transportDisposition: "failure",
+    transportClass: classified,
+    transportLane: source.transportLane,
+    status: source.processStatus,
+    signal: source.processSignal,
+    timedOut: source.timedOut,
+    exitObserved: source.exitObserved,
+    terminationConfirmed: source.terminationConfirmed,
+    signalSequence: source.signalSequence,
+    structuredEventCount: source.structuredEventCount,
+    progressEventCount: source.progressEventCount,
+    toolCallCount: source.toolCallCount,
+    apiRetryCount: source.apiRetryCount,
+    stdoutByteLength: source.stdoutByteLength,
+    stderrByteLength: source.stderrByteLength,
+    observedOutputDigest: source.observedOutputDigest,
+    outputDigest: source.outputDigest,
+    artifactOutputDigest: source.artifactDigests.output,
+    artifactStdoutDigest: source.artifactDigests.stdout,
+    artifactStderrDigest: source.artifactDigests.stderr,
+  } as unknown as Readonly<Record<string, JsonValue>>);
+  return deepFreeze({
+    kind: "admitted_probabilistic_transport_projection" as const,
+    cCallRef,
+    failureClass: classified,
+    stableFailureSource,
+  });
+}
+
 function hasAdmittedActorEvidence(
   store: AbgEventStore,
   cCall: CCall,
   candidate: ProbabilisticTransportEvidenceCandidate,
 ): boolean {
-  const binding = store.readAll().find(
-    (event) => event.aggregateId === candidate.transportBindingRef,
+  if (!derivedProbabilisticEvidence.has(candidate)) return false;
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
+  return projectAdmittedProbabilisticTransport(
+    prefix,
+    cCall.cCallRef,
+    candidate as unknown as Readonly<Record<string, JsonValue>>,
+  ) !== null;
+}
+
+interface ExactCCallRuntimeFailureSource {
+  readonly sourceRef: string;
+  readonly sourceEventRef: string | null;
+  readonly signal: CCallRuntimeFailureSignal;
+}
+
+function isWorkerTransportFailureClass(
+  value: JsonValue | undefined,
+): value is WorkerTransportFailureClass {
+  return typeof value === "string" &&
+    WORKER_TRANSPORT_FAILURE_CLASS_VALUES.includes(
+      value as WorkerTransportFailureClass,
+    );
+}
+
+function deriveRuntimeFailureSignal(
+  failureClass: WorkerTransportFailureClass,
+  sourceClass: CCallRuntimeFailureSignal["sourceClass"],
+  stableSource: Readonly<Record<string, JsonValue>>,
+): ExactCCallRuntimeFailureSource {
+  const sourceDigest = sha256Canonical(stableSource as unknown as JsonValue);
+  const sourceRef =
+    `runtime-failure-source://abiogenesis/${sourceDigest.slice("sha256:".length)}`;
+  const failureSignalDigest = sha256Canonical({
+    schemaVersion: "5.0.0",
+    failureClass,
+    sourceClass,
+    sourceDigest,
+  });
+  const failureSignalRef =
+    `retry-failure-signal://abiogenesis/${failureSignalDigest.slice("sha256:".length)}`;
+  return deepFreeze({
+    sourceRef,
+    sourceEventRef: null,
+    signal: {
+      kind: "c_call_runtime_failure_signal" as const,
+      schemaVersion: "5.0.0" as const,
+      failureClass,
+      sourceClass,
+      sourceDigest,
+      failureSignalDigest,
+      failureSignalRef,
+    },
+  });
+}
+
+function deriveContractRejectionFailureSource(
+  rejectionSource: Pick<
+    CCallAdmissionRejection,
+    "candidateDigest" | "contractRef" | "diagnosticRef" | "stage"
+  >,
+): ExactCCallRuntimeFailureSource {
+  return deriveRuntimeFailureSignal(
+    "contract_failure",
+    "deterministic_output_rejection",
+    {
+      failureClass: "contract_failure",
+      sourceClass: "deterministic_output_rejection",
+      stage: rejectionSource.stage,
+      candidateDigest: rejectionSource.candidateDigest,
+      contractRef: rejectionSource.contractRef,
+      diagnosticRef: rejectionSource.diagnosticRef,
+    },
   );
-  const actorRows = store.readAll().filter(
-    (event) =>
-      event.aggregateId === candidate.actorInvocationRef ||
-      event.parentAggregateId === candidate.actorInvocationRef,
-  );
-  const opened = actorRows.find((event) => event.kind === "actor_invocation_started");
-  const processStarted = actorRows.find(
-    (event) => event.kind === "actor_process_started",
-  );
-  const artifact = actorRows.find(
-    (event) => event.kind === "actor_result_artifact_observed",
-  );
-  const terminal = actorRows.find(
-    (event) => event.kind === "actor_invocation_closed" ||
-      event.kind === "actor_invocation_failed",
-  );
-  const processExit = actorRows.find((event) => event.kind === "actor_process_exited");
-  const terminationUnconfirmed = actorRows.find(
-    (event) => event.kind === "actor_process_termination_unconfirmed",
-  );
-  const timeout = actorRows.some(
-    (event) => event.kind === "actor_process_timeout_observed",
-  );
-  const signals = actorRows
-    .filter((event) => event.kind === "actor_process_signal_requested")
-    .map((event) => isJsonRecord(event.payload) ? event.payload.signal : null);
-  let stdoutByteLength = 0;
-  let stderrByteLength = 0;
-  for (const event of actorRows) {
-    if (!isJsonRecord(event.payload) || typeof event.payload.byteLength !== "number") {
-      continue;
-    }
-    if (event.kind === "actor_process_stdout_observed") {
-      stdoutByteLength += event.payload.byteLength;
-    } else if (event.kind === "actor_process_stderr_observed") {
-      stderrByteLength += event.payload.byteLength;
-    }
+}
+
+function exactCCallEvidenceIdentity(event: RuntimeEvent): boolean {
+  if (event.kind !== "c_call_evidenced" || !isJsonRecord(event.payload)) {
+    return false;
   }
-  const bindingDigestValid = binding !== undefined && isJsonRecord(binding.payload)
-    ? (() => {
-        const {
-          transportBindingRef: _transportBindingRef,
-          transportBindingDigest: _transportBindingDigest,
-          ...body
-        } = binding.payload;
-        return sha256Canonical(body as unknown as JsonValue) ===
-            candidate.transportBindingDigest &&
-          candidate.transportBindingRef ===
-            `transport-binding://abiogenesis/${candidate.transportBindingDigest.slice("sha256:".length)}`;
-      })()
-    : false;
-  return derivedProbabilisticEvidence.has(candidate) &&
-    bindingDigestValid &&
-    binding?.kind === "actor_transport_binding_admitted" &&
-    binding.parentAggregateId === cCall.cCallRef &&
-    isJsonRecord(binding.payload) &&
-    binding.payload.transportBindingRef === candidate.transportBindingRef &&
-    binding.payload.transportBindingDigest === candidate.transportBindingDigest &&
-    binding.payload.workerBindingRef === candidate.workerBindingRef &&
-    binding.payload.implementationBindingRef === cCall.implementationBindingRef &&
-    binding.payload.implementationRef === candidate.implementationRef &&
-    opened !== undefined &&
-    artifact !== undefined &&
-    terminal !== undefined &&
-    opened.runId === cCall.runId &&
-    opened.parentAggregateId === cCall.cCallRef &&
-    opened.causationEventRefs.includes(binding.eventId) &&
-    isJsonRecord(opened.payload) &&
-    opened.payload.actorRef === candidate.actorRef &&
-    opened.payload.workerBindingRef === candidate.workerBindingRef &&
-    opened.payload.transportBindingRef === candidate.transportBindingRef &&
-    opened.payload.transportBindingDigest === candidate.transportBindingDigest &&
-    opened.payload.cCallRef === cCall.cCallRef &&
-    opened.payload.implementationRef === candidate.implementationRef &&
-    opened.payload.inputDigest === candidate.inputDigest &&
-    opened.payload.promptDigest === candidate.promptDigest &&
-    processStarted !== undefined &&
-    isJsonRecord(processStarted.payload) &&
-    processStarted.payload.actorInvocationRef === candidate.actorInvocationRef &&
-    processStarted.payload.processRef === candidate.processRef &&
-    artifact.parentAggregateId === cCall.cCallRef &&
-    isJsonRecord(artifact.payload) &&
-    artifact.payload.cCallRef === cCall.cCallRef &&
-    artifact.payload.actorRef === candidate.actorRef &&
-    artifact.payload.workerBindingRef === candidate.workerBindingRef &&
-    artifact.payload.implementationRef === candidate.implementationRef &&
-    artifact.payload.inputDigest === candidate.inputDigest &&
-    artifact.payload.materializationPlanRef === candidate.materializationPlanRef &&
-    artifact.payload.rendererRef === candidate.rendererRef &&
-    artifact.payload.instructionContractRef === candidate.instructionContractRef &&
-    artifact.payload.resultContractRef === candidate.resultContractRef &&
-    artifact.payload.transportBindingRef === candidate.transportBindingRef &&
-    artifact.payload.transportBindingDigest === candidate.transportBindingDigest &&
-    artifact.payload.observedOutputDigest === candidate.observedOutputDigest &&
-    artifact.payload.transportDigest === candidate.transportDigest &&
-    artifact.payload.processRef === candidate.processRef &&
-    artifact.payload.promptDigest === candidate.promptDigest &&
-    artifact.payload.transportLane === candidate.transportLane &&
-    artifact.payload.disposition === candidate.transportDisposition &&
-    artifact.payload.failureClass === candidate.transportFailureClass &&
-    artifact.payload.processStatus === candidate.processStatus &&
-    artifact.payload.processSignal === candidate.processSignal &&
-    artifact.payload.timedOut === candidate.timedOut &&
-    artifact.payload.exitObserved === candidate.exitObserved &&
-    artifact.payload.terminationConfirmed === candidate.terminationConfirmed &&
-    artifact.payload.structuredEventCount === candidate.structuredEventCount &&
-    artifact.payload.progressEventCount === candidate.progressEventCount &&
-    artifact.payload.toolCallCount === candidate.toolCallCount &&
-    artifact.payload.apiRetryCount === candidate.apiRetryCount &&
-    artifact.payload.stdoutByteLength === candidate.stdoutByteLength &&
-    artifact.payload.stderrByteLength === candidate.stderrByteLength &&
-    artifact.payload.signalSequence !== undefined &&
-    sha256Canonical(artifact.payload.signalSequence) ===
-      sha256Canonical(candidate.signalSequence as unknown as JsonValue) &&
-    artifact.payload.artifactDigests !== undefined &&
-    sha256Canonical(artifact.payload.artifactDigests) ===
-      sha256Canonical(candidate.artifactDigests as unknown as JsonValue) &&
-    candidate.timedOut === timeout &&
-    sha256Canonical(signals as unknown as JsonValue) ===
-      sha256Canonical(candidate.signalSequence as unknown as JsonValue) &&
-    stdoutByteLength === candidate.stdoutByteLength &&
-    stderrByteLength === candidate.stderrByteLength &&
-    (candidate.exitObserved
-      ? processExit !== undefined &&
-        isJsonRecord(processExit.payload) &&
-        processExit.payload.status === candidate.processStatus &&
-        processExit.payload.signal === candidate.processSignal &&
-        terminationUnconfirmed === undefined
-      : processExit === undefined && terminationUnconfirmed !== undefined) &&
-    terminal.causationEventRefs.includes(artifact.eventId) &&
-    ((candidate.transportDisposition === "success" &&
-      terminal.kind === "actor_invocation_closed") ||
-      (candidate.transportDisposition === "failure" &&
-        terminal.kind === "actor_invocation_failed"));
+  const {
+    evidenceRef,
+    evidenceDigest,
+    ...body
+  } = event.payload;
+  return typeof evidenceRef === "string" &&
+    typeof evidenceDigest === "string" &&
+    evidenceDigest === sha256Canonical(body as unknown as JsonValue) &&
+    evidenceRef ===
+      `evidence://abiogenesis/${evidenceDigest.slice("sha256:".length)}`;
+}
+
+function exactProbabilisticFailureSource(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCallRef: string,
+  sourceEventRef: string,
+): ExactCCallRuntimeFailureSource | null {
+  const evidence = runtimeEventsFromValidatedPrefix(prefix).find((event) =>
+    event.eventId === sourceEventRef
+  );
+  if (
+    evidence?.aggregateType !== "c_call" || evidence.aggregateId !== cCallRef ||
+    evidence.parentAggregateId === null || !exactCCallEvidenceIdentity(evidence) ||
+    !isJsonRecord(evidence.payload) || evidence.payload.cCallRef !== cCallRef ||
+    evidence.payload.evidenceClass !== "probabilistic_transport"
+  ) return null;
+  const projection = projectAdmittedProbabilisticTransport(
+    prefix,
+    cCallRef,
+    evidence.payload,
+  );
+  if (
+    projection?.failureClass === null ||
+    projection?.failureClass === undefined ||
+    projection.stableFailureSource === null
+  ) return null;
+  const resolved = deriveRuntimeFailureSignal(
+    projection.failureClass,
+    "probabilistic_transport",
+    projection.stableFailureSource,
+  );
+  return deepFreeze({ ...resolved, sourceEventRef: evidence.eventId });
+}
+function exactContractRejectionFailureSource(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCallRef: string,
+  sourceEventRef: string,
+): ExactCCallRuntimeFailureSource | null {
+  const event = runtimeEventsFromValidatedPrefix(prefix).find((candidate) =>
+    candidate.eventId === sourceEventRef
+  );
+  if (
+    event?.aggregateType !== "c_call" || event.aggregateId !== cCallRef ||
+    !exactCCallEvidenceIdentity(event) || !isJsonRecord(event.payload) ||
+    event.payload.cCallRef !== cCallRef ||
+    event.payload.evidenceClass !== "admission_rejection" ||
+    event.payload.rejectedStage !== "result" ||
+    typeof event.payload.candidateDigest !== "string" ||
+    typeof event.payload.rejectedContractRef !== "string" ||
+    typeof event.payload.diagnosticRef !== "string"
+  ) return null;
+  const resolved = deriveContractRejectionFailureSource({
+    stage: "result",
+    candidateDigest: event.payload.candidateDigest as Sha256Digest,
+    contractRef: event.payload.rejectedContractRef,
+    diagnosticRef: event.payload.diagnosticRef,
+  });
+  return deepFreeze({ ...resolved, sourceEventRef: event.eventId });
+}
+
+function admittedEvidencePayload(
+  evidence: AdmittedCCallEvidence,
+): Readonly<Record<string, JsonValue>> {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    evidenceRef: _evidenceRef,
+    evidenceDigest: _evidenceDigest,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = evidence;
+  return body as unknown as Readonly<Record<string, JsonValue>>;
+}
+
+function exactRuntimeFailureSource(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCall: CCall,
+  source: CCallRuntimeFailureSource,
+): ExactCCallRuntimeFailureSource | null {
+  if (source.kind === "c_call_admission_rejection") {
+    if (
+      !admissionRejections.has(source) || source.cCallRef !== cCall.cCallRef ||
+      source.stage !== "result" || source.contractRef.length === 0 ||
+      source.diagnosticRef.length === 0
+    ) return null;
+    return deriveContractRejectionFailureSource(source);
+  }
+  if (
+    !admittedEvidence.has(source) || source.cCallRef !== cCall.cCallRef ||
+    source.evidenceClass !== "probabilistic_transport"
+  ) return null;
+  const event = runtimeEventsFromValidatedPrefix(prefix).find((candidate) =>
+    candidate.eventId === source.admissionEventRef
+  );
+  if (
+    event === undefined || !isJsonRecord(event.payload) ||
+    sha256Canonical(event.payload) !== sha256Canonical({
+      evidenceRef: source.evidenceRef,
+      evidenceDigest: source.evidenceDigest,
+      ...admittedEvidencePayload(source),
+    } as unknown as JsonValue)
+  ) return null;
+  return exactProbabilisticFailureSource(
+    prefix,
+    cCall.cCallRef,
+    source.admissionEventRef,
+  );
+}
+
+function runtimeFailurePlanBody(
+  plan: CCallRuntimeFailureClosePlan,
+): Readonly<Record<string, JsonValue>> {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    planRef: _planRef,
+    planDigest: _planDigest,
+    ...body
+  } = plan;
+  return body as unknown as Readonly<Record<string, JsonValue>>;
+}
+
+export function planCCallRuntimeFailureClose(
+  store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
+  cCall: CCall,
+  source: CCallRuntimeFailureSource,
+  failureCandidate: JsonValue,
+  failureValueKind: string,
+): CCallRuntimeFailureClosePlan | CCallRuntimeFailureCloseRefusal {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const expectedPrefixDigest = sha256Canonical(events as unknown as JsonValue);
+  let phase: CCallPhaseProjection;
+  try {
+    phase = projectCCallPhase(prefix, cCall.cCallRef);
+  } catch {
+    return runtimeFailureCloseRefusal(
+      "call_mismatch",
+      "runtime failure close requires one exact open CCall phase",
+    );
+  }
+  if (
+    store.digest() !== expectedPrefixDigest ||
+    store.readAll().length !== events.length ||
+    !hasOpenedCCall(store, cCall) || cCall.callClass !== "leaf" ||
+    cCall.retryPath.length === 0 || phase.phase !== "evidenced" ||
+    failureValueKind.length === 0 || exactRetryAttemptRef(store, cCall) === null
+  ) {
+    return runtimeFailureCloseRefusal(
+      "call_mismatch",
+      "runtime failure close differs from the exact active retry CCall prefix",
+    );
+  }
+  const resolved = exactRuntimeFailureSource(prefix, cCall, source);
+  if (resolved === null) {
+    return runtimeFailureCloseRefusal(
+      "source_mismatch",
+      "runtime failure close requires one exact admitted failure source",
+    );
+  }
+  const failureCandidateDigest = sha256Canonical(failureCandidate);
+  const probabilisticCandidateValid = source.kind ===
+      "admitted_c_call_evidence" &&
+    source.outputDigest === failureCandidateDigest &&
+    isJsonRecord(failureCandidate) &&
+    failureCandidate.kind === failureValueKind &&
+    failureCandidate.schemaVersion === "5.0.0" &&
+    failureCandidate.failureClass === resolved.signal.failureClass &&
+    typeof failureCandidate.diagnosticRef === "string" &&
+    !Object.hasOwn(failureCandidate, "failureSignalRef") &&
+    !Object.hasOwn(failureCandidate, "failureSourceRef") &&
+    !Object.hasOwn(failureCandidate, "failureCandidateDigest");
+  const rejectedCandidateValid = source.kind === "c_call_admission_rejection" &&
+    source.candidateDigest === failureCandidateDigest;
+  if (!probabilisticCandidateValid && !rejectedCandidateValid) {
+    return runtimeFailureCloseRefusal(
+      "source_mismatch",
+      "runtime failure candidate differs from the exact failure source digest",
+    );
+  }
+  const body = {
+    expectedPrefixDigest,
+    cCallRef: cCall.cCallRef,
+    sourceRef: resolved.sourceRef,
+    sourceEventRef: resolved.sourceEventRef,
+    failureValueKind,
+    failureCandidateDigest,
+    signal: resolved.signal,
+  };
+  const planDigest = sha256Canonical(body as unknown as JsonValue);
+  const planRef =
+    `c-call-runtime-failure-plan://abiogenesis/${planDigest.slice("sha256:".length)}`;
+  return deepFreeze({
+    kind: "c_call_runtime_failure_close_plan" as const,
+    schemaVersion: "5.0.0" as const,
+    planRef,
+    planDigest,
+    ...body,
+  });
+}
+
+function runtimeFailureCloseError(message: string): TypeError {
+  return new TypeError(`CCall runtime failure close refusal: ${message}`);
+}
+
+export function isCCallRuntimeFailureCloseError(error: unknown): boolean {
+  return error instanceof TypeError &&
+    error.message.startsWith("CCall runtime failure close refusal: ");
+}
+
+export function admitPlannedCCallRuntimeFailureClose(
+  store: AbgEventStore,
+  cCall: CCall,
+  source: CCallRuntimeFailureSource,
+  failureCandidate: JsonValue,
+  plan: CCallRuntimeFailureClosePlan,
+  disposition: "blocked" | "retry",
+  basis: RuntimeAdmissionBasis,
+): AdmittedCCallRuntimeFailureClose {
+  if (
+    plan.kind !== "c_call_runtime_failure_close_plan" ||
+    plan.schemaVersion !== "5.0.0" || plan.cCallRef !== cCall.cCallRef ||
+    plan.planDigest !== sha256Canonical(runtimeFailurePlanBody(plan) as JsonValue) ||
+    plan.planRef !==
+      `c-call-runtime-failure-plan://abiogenesis/${plan.planDigest.slice("sha256:".length)}` ||
+    store.digest() !== plan.expectedPrefixDigest ||
+    (disposition !== "blocked" && disposition !== "retry")
+  ) throw runtimeFailureCloseError("plan identity or expected prefix differs");
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
+  const rederived = planCCallRuntimeFailureClose(
+    store,
+    prefix,
+    cCall,
+    source,
+    failureCandidate,
+    plan.failureValueKind,
+  );
+  if (
+    rederived.kind !== "c_call_runtime_failure_close_plan" ||
+    sha256Canonical(rederived as unknown as JsonValue) !==
+      sha256Canonical(plan as unknown as JsonValue)
+  ) throw runtimeFailureCloseError("source or plan no longer reprojects exactly");
+  const activeRetryAttemptRef = exactRetryAttemptRef(store, cCall);
+  if (activeRetryAttemptRef === null) {
+    throw runtimeFailureCloseError("active retry attempt is absent");
+  }
+  const sourceProjection = exactRuntimeFailureSource(prefix, cCall, source);
+  if (
+    sourceProjection === null ||
+    sourceProjection.sourceRef !== plan.sourceRef ||
+    sourceProjection.sourceEventRef !== plan.sourceEventRef ||
+    sha256Canonical(sourceProjection.signal as unknown as JsonValue) !==
+      sha256Canonical(plan.signal as unknown as JsonValue)
+  ) throw runtimeFailureCloseError("exact source refs or signal differ");
+
+  let sourceEventRef = sourceProjection.sourceEventRef;
+  if (source.kind === "c_call_admission_rejection") {
+    const rejectionEvidenceBody = {
+      cCallRef: cCall.cCallRef,
+      evidenceClass: "admission_rejection" as const,
+      contractRef: cCall.evidenceContractRef,
+      rejectedStage: source.stage,
+      candidateDigest: source.candidateDigest,
+      rejectedContractRef: source.contractRef,
+      diagnosticRef: source.diagnosticRef,
+    };
+    const rejectionEvidenceDigest = sha256Canonical(
+      rejectionEvidenceBody as unknown as JsonValue,
+    );
+    const rejectionEvidenceRef =
+      `evidence://abiogenesis/${rejectionEvidenceDigest.slice("sha256:".length)}`;
+    const rows = eventsFor(store, cCall.cCallRef);
+    const evidenceEvent = admitRuntimeEvent(store, {
+      kind: "c_call_evidenced",
+      eventTime: basis.eventTime,
+      aggregateType: "c_call",
+      aggregateId: cCall.cCallRef,
+      parentAggregateId: cCall.frameId,
+      causationEventRefs: [rows.at(-1)!.eventId],
+      correlationId: basis.correlationId,
+      workflowVersion: "5.0.0",
+      scopeClass: "run",
+      basisId: cCall.basisId,
+      runId: cCall.runId,
+      graphFunctionRef: cCall.graphFunctionRef,
+      graphCallId: cCall.graphCallId,
+      frameId: cCall.frameId,
+      payload: {
+        evidenceRef: rejectionEvidenceRef,
+        evidenceDigest: rejectionEvidenceDigest,
+        ...rejectionEvidenceBody,
+      },
+    });
+    sourceEventRef = evidenceEvent.eventId;
+  }
+  if (sourceEventRef === null) {
+    throw runtimeFailureCloseError("runtime failure source event is absent");
+  }
+  const evidenceRefs = eventsFor(store, cCall.cCallRef).flatMap((event) =>
+    event.kind === "c_call_evidenced" && isJsonRecord(event.payload) &&
+      typeof event.payload.evidenceRef === "string"
+      ? [event.payload.evidenceRef]
+      : []
+  );
+  const immutableCandidate = deepFreeze(
+    JSON.parse(canonicalJson(failureCandidate)) as JsonValue,
+  );
+  const failureValue = source.kind === "admitted_c_call_evidence"
+    ? deepFreeze({
+        ...(immutableCandidate as Readonly<Record<string, JsonValue>>),
+        failureClass: plan.signal.failureClass,
+        failureSignalRef: plan.signal.failureSignalRef,
+        failureSourceRef: plan.sourceRef,
+        failureCandidateDigest: plan.failureCandidateDigest,
+      }) as JsonValue
+    : deepFreeze({
+        kind: plan.failureValueKind,
+        schemaVersion: "5.0.0" as const,
+        failureClass: plan.signal.failureClass,
+        diagnosticRef: source.diagnosticRef,
+        failureSignalRef: plan.signal.failureSignalRef,
+        failureSourceRef: plan.sourceRef,
+        failureCandidateDigest: plan.failureCandidateDigest,
+        rejectedStage: source.stage,
+      }) as JsonValue;
+  const valueDigest = sha256Canonical(failureValue);
+  const resultBody = {
+    cCallRef: cCall.cCallRef,
+    resultClass: "failure" as const,
+    contractRef: cCall.failureContractRef,
+    valueKind: plan.failureValueKind,
+    valueDigest,
+    value: failureValue,
+    evidenceRefs,
+  };
+  const resultDigest = sha256Canonical(resultBody as unknown as JsonValue);
+  const resultRef =
+    `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
+  const resultEvent = admitRuntimeEvent(store, {
+    kind: "c_call_result_admitted",
+    eventTime: basis.eventTime,
+    aggregateType: "c_call",
+    aggregateId: cCall.cCallRef,
+    parentAggregateId: cCall.frameId,
+    causationEventRefs: [sourceEventRef],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: cCall.basisId,
+    runId: cCall.runId,
+    graphFunctionRef: cCall.graphFunctionRef,
+    graphCallId: cCall.graphCallId,
+    frameId: cCall.frameId,
+    payload: { resultRef, resultDigest, ...resultBody },
+  });
+  const result = deepFreeze({
+    kind: "admitted_c_call_result" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    resultRef,
+    resultDigest,
+    ...resultBody,
+    admissionEventRef: resultEvent.eventId,
+  }) as AdmittedCCallResult;
+  admittedResults.add(result);
+
+  const replayState = replay(store, { runId: cCall.runId });
+  const judgmentBody = {
+    cCallRef: cCall.cCallRef,
+    resultRef,
+    resultDigest,
+    judgment: disposition,
+    reasonRef: plan.signal.failureSignalRef,
+    contractRef: cCall.judgmentContractRef,
+    predicateRef: cCall.judgmentPredicateRef,
+    replayStateDigest: replayState.replayDigest,
+    retryAttemptRef: activeRetryAttemptRef,
+  };
+  const judgmentDigest = sha256Canonical(judgmentBody as unknown as JsonValue);
+  const judgmentRef =
+    `judgment://abiogenesis/${judgmentDigest.slice("sha256:".length)}`;
+  const judgmentEvent = admitRuntimeEvent(store, {
+    kind: "c_call_judged",
+    eventTime: basis.eventTime,
+    aggregateType: "c_call",
+    aggregateId: cCall.cCallRef,
+    parentAggregateId: cCall.frameId,
+    causationEventRefs: [resultEvent.eventId],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: cCall.basisId,
+    runId: cCall.runId,
+    graphFunctionRef: cCall.graphFunctionRef,
+    graphCallId: cCall.graphCallId,
+    frameId: cCall.frameId,
+    payload: { judgmentRef, judgmentDigest, ...judgmentBody },
+  });
+  const judgment = deepFreeze({
+    kind: "admitted_c_call_judgment" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    judgmentRef,
+    judgmentDigest,
+    ...judgmentBody,
+    admissionEventRef: judgmentEvent.eventId,
+  }) as AdmittedCCallJudgment;
+  admittedJudgments.add(judgment);
+  return deepFreeze({
+    kind: "admitted_c_call_runtime_failure_close" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition,
+    cCallRef: cCall.cCallRef,
+    signal: plan.signal,
+    result,
+    judgment,
+  });
+}
+
+export function projectCCallRuntimeFailureSignal(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCallRef: string,
+  resultRef: string,
+  judgmentRef: string,
+): CCallRuntimeFailureSignal | null {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  let phase: CCallPhaseProjection;
+  try {
+    phase = projectCCallPhase(prefix, cCallRef);
+  } catch {
+    return null;
+  }
+  if (
+    phase.phase !== "judged" || phase.resultEventRef === null ||
+    phase.judgmentEventRef === null
+  ) return null;
+  const result = events.find((event) => event.eventId === phase.resultEventRef);
+  const judgment = events.find((event) =>
+    event.eventId === phase.judgmentEventRef
+  );
+  if (
+    result?.kind !== "c_call_result_admitted" ||
+    judgment?.kind !== "c_call_judged" ||
+    !isJsonRecord(result.payload) || !isJsonRecord(judgment.payload) ||
+    result.aggregateId !== cCallRef || judgment.aggregateId !== cCallRef ||
+    result.payload.cCallRef !== cCallRef || judgment.payload.cCallRef !== cCallRef ||
+    result.payload.resultRef !== resultRef || judgment.payload.resultRef !== resultRef ||
+    judgment.payload.judgmentRef !== judgmentRef ||
+    result.payload.resultClass !== "failure" ||
+    !isJsonRecord(result.payload.value) ||
+    !isWorkerTransportFailureClass(result.payload.value.failureClass) ||
+    typeof result.payload.value.diagnosticRef !== "string" ||
+    typeof result.payload.value.failureSignalRef !== "string" ||
+    typeof result.payload.value.failureSourceRef !== "string" ||
+    typeof result.payload.value.failureCandidateDigest !== "string" ||
+    !Array.isArray(result.payload.evidenceRefs) ||
+    !result.payload.evidenceRefs.every((value) => typeof value === "string") ||
+    judgment.payload.resultDigest !== result.payload.resultDigest ||
+    judgment.payload.reasonRef !== result.payload.value.failureSignalRef ||
+    (judgment.payload.judgment !== "retry" &&
+      judgment.payload.judgment !== "blocked") ||
+    typeof judgment.payload.retryAttemptRef !== "string" ||
+    judgment.causationEventRefs.length !== 1 ||
+    judgment.causationEventRefs[0] !== result.eventId
+  ) return null;
+  const resultPayload = result.payload;
+  const judgmentPayload = judgment.payload;
+  const resultValue = resultPayload.value as Readonly<Record<string, JsonValue>>;
+  const evidenceRefs = resultPayload.evidenceRefs as readonly JsonValue[];
+  const { resultRef: _resultRef, resultDigest, ...resultBody } = resultPayload;
+  const { judgmentRef: _judgmentRef, judgmentDigest, ...judgmentBody } =
+    judgmentPayload;
+  if (
+    resultDigest !== sha256Canonical(resultBody as unknown as JsonValue) ||
+    resultRef !==
+      `result://abiogenesis/${String(resultDigest).slice("sha256:".length)}` ||
+    judgmentDigest !== sha256Canonical(judgmentBody as unknown as JsonValue) ||
+    judgmentRef !==
+      `judgment://abiogenesis/${String(judgmentDigest).slice("sha256:".length)}`
+  ) return null;
+  const sourceEvents = events.filter((event) =>
+    event.kind === "c_call_evidenced" && event.aggregateId === cCallRef &&
+    isJsonRecord(event.payload) && typeof event.payload.evidenceRef === "string" &&
+    evidenceRefs.includes(event.payload.evidenceRef) &&
+    result.causationEventRefs.includes(event.eventId)
+  );
+  if (sourceEvents.length !== 1) return null;
+  const source = isJsonRecord(sourceEvents[0]!.payload) &&
+      sourceEvents[0]!.payload.evidenceClass === "admission_rejection"
+    ? exactContractRejectionFailureSource(prefix, cCallRef, sourceEvents[0]!.eventId)
+    : exactProbabilisticFailureSource(prefix, cCallRef, sourceEvents[0]!.eventId);
+  if (
+    source === null ||
+    source.signal.failureClass !== resultValue.failureClass ||
+    source.sourceRef !== resultValue.failureSourceRef ||
+    source.signal.failureSignalRef !== resultValue.failureSignalRef ||
+    source.signal.failureSignalRef !== judgmentPayload.reasonRef
+  ) return null;
+  const {
+    failureSignalRef: _failureSignalRef,
+    failureSourceRef: _failureSourceRef,
+    failureCandidateDigest: _failureCandidateDigest,
+    ...baseFailureCandidate
+  } = resultValue;
+  const sourcePayload = sourceEvents[0]!.payload as Readonly<
+    Record<string, JsonValue>
+  >;
+  const candidateMatches = source.signal.sourceClass === "probabilistic_transport"
+    ? sourcePayload.outputDigest === resultValue.failureCandidateDigest &&
+      sha256Canonical(baseFailureCandidate as unknown as JsonValue) ===
+        resultValue.failureCandidateDigest &&
+      baseFailureCandidate.diagnosticRef === resultValue.diagnosticRef
+    : sourcePayload.candidateDigest === resultValue.failureCandidateDigest &&
+      sourcePayload.rejectedStage === resultValue.rejectedStage &&
+      sourcePayload.diagnosticRef === resultValue.diagnosticRef;
+  if (!candidateMatches) return null;
+  return source.signal;
 }
 
 export function deriveProbabilisticTransportEvidence(

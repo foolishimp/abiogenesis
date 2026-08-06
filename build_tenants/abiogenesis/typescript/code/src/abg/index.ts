@@ -254,13 +254,14 @@ export {
 export {
   RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES,
   admitRetryAttempt,
-  admitRetryProgress,
+  admitRetryRuntimeFailureTransition,
   admitCompletedRetryProgress,
+  projectActiveRetryAttempt,
+  projectRetryAttempt,
   projectDeclaredCRetryFrontier,
   projectRetryLifecycle,
+  projectAdmittedRetryProgress,
   hasAdmittedRetryProgress,
-  isAdmittedRetryAttempt,
-  isAdmittedRetryProgress,
   projectRetryEligibility,
   type RetryAdmissionRefusal,
   type RetryAttemptAdmission,
@@ -271,7 +272,9 @@ export {
   type RetryProgressAdmission,
   type RetryCompletedProgressAdmission,
   type RetryContinuationProgressAdmission,
-  type RetryProgressAdmissionResult,
+  type RetryRuntimeFailureTransitionAdmission,
+  type RetryRuntimeFailureTransitionResult,
+  type RetryStoppedProgressAdmission,
   type RetryableRuntimeFailureClass,
 } from "./retry.js";
 export {
@@ -331,6 +334,8 @@ export {
 } from "./actor_process.js";
 export {
   TRANSPORT_PROTOCOL_OWNED_FLAGS,
+  WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
+  classifyWorkerTransportFailure,
   admitTransportAppendArgs,
   admitWorkerSandboxDeclaration,
   composeWorkerTransportArgs,
@@ -343,6 +348,8 @@ export {
   type WorkerSandboxDeclaration,
   type WorkerTransportContract,
   type WorkerTransportContractOptions,
+  type WorkerTransportFailureClass,
+  type WorkerTransportFailureObservation,
 } from "./transport_contracts.js";
 export {
   prepareWorkerTransport,
@@ -351,7 +358,6 @@ export {
   type PreparedWorkerTransport,
   type WorkerProcessObserver,
   type WorkerTransportArtifact,
-  type WorkerTransportFailureClass,
   type WorkerTransportRequest,
   type WorkerTransportResult,
 } from "./worker_transport.js";

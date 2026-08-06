@@ -66,10 +66,14 @@ async function installRetryWorker(harness) {
     `    actorRef: '${ACTOR_REF}',`,
     "    message: mode === 'contradictory' ? `Goodbye ${subject}` : `Hello ${subject}`,",
     "  };",
-    "  const malformed = mode === 'always_malformed' || (mode !== 'contradictory' && attempt === 1);",
+    "  const malformed = mode === 'always_malformed' || mode === 'changed_malformed' || mode === 'transport_failure' || mode === 'changed_transport_failure' || (mode === undefined && attempt === 1);",
+    "  const stableFailure = mode !== undefined && mode !== 'contradictory';",
+    "  const resultText = mode === 'no_output' ? '' : malformed ? (mode === 'changed_malformed' ? `{not-json-${attempt}` : '{not-json') : JSON.stringify(result);",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
-    "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: `attempt ${attempt}` }] } }));",
-    "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: malformed ? '{not-json' : JSON.stringify(result) }));",
+    "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: stableFailure ? 'stable failure' : `attempt ${attempt}` }] } }));",
+    "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: resultText }));",
+    "  if (mode === 'transport_failure') process.exitCode = 17;",
+    "  if (mode === 'changed_transport_failure') process.exitCode = attempt === 1 ? 17 : 18;",
     "});",
     "",
   ].join("\n"), "utf8");
@@ -118,6 +122,12 @@ function eventCandidate(event, overrides = {}) {
 
 test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt truth", async (context) => {
   const harness = await setupInstalledCliHarness(context, root);
+  const installedAbg = await import(pathToFileURL(join(
+    harness.installedPackageRoot,
+    "build/code/src/abg/index.js",
+  )).href);
+  assert.equal(Object.hasOwn(installedAbg, "admitRetryProgress"), false,
+    "the installed ABG surface exposes only the atomic retry close/progress owner");
   const command = await installRetryWorker(harness);
   const counterPath = join(harness.scratch, "retry-success.count");
   const scenario = await buildRootCliScenario(
@@ -148,10 +158,15 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   const judgments = events.filter((event) => event.kind === "c_call_judged");
   const routes = events.filter((event) => event.kind === "traversal_route_admitted");
 
-  assert.deepEqual(attempts.map((event) => event.payload.attempt), [1, 2]);
-  assert.deepEqual(attempts.map((event) => event.payload.retryPath), [[1], [2]]);
+  assert.deepEqual(attempts.map((event) => event.payload.attempt), [1, 1, 2]);
+  assert.deepEqual(attempts.map((event) => event.payload.retryPath), [
+    [1],
+    [1, 1],
+    [1, 2],
+  ]);
   assert.deepEqual(progress.map((event) => event.payload.progressClass), [
     "retry",
+    "completed",
     "completed",
   ]);
   assert.equal(progress[0].payload.failureClass, "contract_failure");
@@ -163,57 +178,92 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     "retry",
     "advance",
   ]);
+  assert.deepEqual(judgments.map((event) => event.payload.retryAttemptRef), [
+    attempts[1].payload.attemptRef,
+    attempts[2].payload.attemptRef,
+  ]);
+  assert.equal(progress[0].payload.attemptRef, attempts[1].payload.attemptRef);
+  assert.equal(progress[1].payload.attemptRef, attempts[2].payload.attemptRef);
+  assert.equal(progress[2].payload.attemptRef, attempts[0].payload.attemptRef);
   assert.deepEqual(
-    judgments.map((event) => event.payload.retryAttemptRef),
-    attempts.map((event) => event.payload.attemptRef),
+    progress.slice(1).map((event) => event.payload.completedRetryDepth),
+    [2, 1],
   );
-  assert.equal(progress[0].payload.attemptRef, attempts[0].payload.attemptRef);
-  assert.equal(progress[1].payload.attemptRef, attempts[1].payload.attemptRef);
-  assert.equal(progress[1].payload.completedRetryDepth, 1);
   assert.equal(progress[1].payload.judgmentRef, judgments[1].payload.judgmentRef);
+  assert.equal(progress[2].payload.judgmentRef, judgments[1].payload.judgmentRef);
   assert.deepEqual(routes.map((event) => event.payload.routeKind), [
+    "retry",
     "retry",
     "retry",
     "terminal",
   ]);
-  assert.ok(routes[2].payload.consumedAvailabilityRefs.includes(
-    progress[1].payload.progressRef,
-  ));
-  assert.equal(Object.hasOwn(progress[1].payload, "targetCursorRef"), false);
-  assert.equal(Object.hasOwn(progress[1].payload, "targetCursorDigest"), false);
+  const terminalRoute = routes.at(-1);
+  for (const completed of progress.slice(1)) {
+    assert.ok(terminalRoute.payload.consumedAvailabilityRefs.includes(
+      completed.payload.progressRef,
+    ));
+    assert.equal(Object.hasOwn(completed.payload, "targetCursorRef"), false);
+    assert.equal(Object.hasOwn(completed.payload, "targetCursorDigest"), false);
+  }
   assert.equal(progress[1].payload.predecessorProgressRef, null);
+  assert.equal(progress[2].payload.predecessorProgressRef,
+    progress[1].payload.progressRef);
   assert.deepEqual(progress[1].causationEventRefs, [
-    attempts[1].eventId,
+    attempts[2].eventId,
     judgments[1].eventId,
   ]);
-  assert.equal(routes[2].causationEventRefs.includes(progress[1].eventId), true);
+  assert.deepEqual(progress[2].causationEventRefs, [
+    attempts[0].eventId,
+    progress[1].eventId,
+  ]);
+  assert.deepEqual(terminalRoute.causationEventRefs, [
+    progress[2].eventId,
+    progress[1].eventId,
+  ], "the outermost completion is the primary terminal-route cause");
 
-  const completedIndex = events.findIndex((event) =>
+  const firstCompletedIndex = events.findIndex((event) =>
     event.eventId === progress[1].eventId);
+  const completedIndex = events.findIndex((event) =>
+    event.eventId === progress[2].eventId);
   const durablePrefix = events.slice(0, completedIndex + 1);
   const reopened = await reopenPrefix(
     durablePrefix,
     join(harness.scratch, "retry-completed-prefix.events.jsonl"),
   );
   assert.equal(reopened.kind, "reopened_event_store_context");
-  const { hasAdmittedRetryProgress } = await import(pathToFileURL(join(
+  const {
+    admitRetryAttempt,
+    hasAdmittedRetryProgress,
+    projectAdmittedRetryProgress,
+  } = await import(pathToFileURL(join(
     root,
     "build/code/src/abg/retry.js",
   )).href);
-  const completedAdmission = {
+  const { selectValidatedRuntimeEventPrefix } = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/event_prefix.js",
+  )).href);
+  const completedAdmissions = progress.slice(1).map((event) => ({
     kind: "retry_progress_admission",
     schemaVersion: "5.0.0",
     disposition: "admitted",
-    ...progress[1].payload,
+    ...event.payload,
     targetCursorRef: null,
     targetCursorDigest: null,
-    admissionEventRef: progress[1].eventId,
-  };
-  assert.equal(hasAdmittedRetryProgress(reopened.store, completedAdmission), true);
+    admissionEventRef: event.eventId,
+  }));
+  const completedPrefix = selectValidatedRuntimeEventPrefix(reopened.store.readAll());
+  for (const admission of completedAdmissions) {
+    assert.deepEqual(
+      projectAdmittedRetryProgress(completedPrefix, admission.admissionEventRef),
+      admission,
+    );
+    assert.equal(hasAdmittedRetryProgress(completedPrefix, admission), true);
+  }
   reopened.store.closeDurableLog();
 
   const beforeCompleted = await reopenPrefix(
-    events.slice(0, completedIndex),
+    events.slice(0, firstCompletedIndex),
     join(harness.scratch, "retry-before-completed.events.jsonl"),
   );
   assert.equal(beforeCompleted.kind, "reopened_event_store_context");
@@ -225,10 +275,10 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   assert.throws(() => admitRuntimeEventBatch(beforeCompleted.store, [
     () => eventCandidate(progress[1]),
     (admitted) => {
-      const { attemptRef: _attemptRef, ...malformedPayload } = progress[1].payload;
-      return eventCandidate(progress[1], {
+      const { attemptRef: _attemptRef, ...malformedPayload } = progress[2].payload;
+      return eventCandidate(progress[2], {
         causationEventRefs: [attempts[0].eventId, admitted[0].eventId],
-        correlationId: `${progress[1].correlationId}/outer-malformed`,
+        correlationId: `${progress[2].correlationId}/outer-malformed`,
         payload: {
           ...malformedPayload,
           completedRetryDepth: 0,
@@ -239,10 +289,28 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   ]), /payload matches no admitted event-contract variant/u);
   assert.equal(beforeCompleted.store.readAll().length, beforeCount,
     "a malformed planned outer completion appends no partial inner event");
+  for (const [label, payload] of [
+    ["empty completed attempts", { ...progress[0].payload, completedAttempts: [] }],
+    ["zero completed attempt", { ...progress[0].payload, completedAttempts: [0] }],
+    ["unknown failure class", { ...progress[0].payload, failureClass: "unknown_failure" }],
+    ["attempt/path mismatch", { ...progress[0].payload, attempt: 2 }],
+  ]) {
+    assert.throws(
+      () => admitRuntimeEventBatch(beforeCompleted.store, [
+        () => eventCandidate(progress[0], {
+          correlationId: `${progress[0].correlationId}/${label.replaceAll(" ", "-")}`,
+          payload,
+        }),
+      ]),
+      /retry progress payload carries invalid required value types/u,
+      label,
+    );
+    assert.equal(beforeCompleted.store.readAll().length, beforeCount, label);
+  }
   beforeCompleted.store.closeDurableLog();
 
   const ownerStore = await reopenPrefix(
-    events.slice(0, completedIndex),
+    events.slice(0, firstCompletedIndex),
     join(harness.scratch, "retry-owner-prefix.events.jsonl"),
   );
   assert.equal(ownerStore.kind, "reopened_event_store_context");
@@ -271,7 +339,7 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     inputDigest: entered.payload.inputDigest,
     currentNodeRef: "node://abiogenesis/conformance/fp-retry-hello@5",
     position: "at_term",
-    termPath: [...entered.payload.termPath, "term"],
+    termPath: [...entered.payload.termPath, "term", "term"],
     taskOrdinal: secondCall.payload.taskOrdinal,
     attempt: secondCall.payload.attempt,
     retryPath: secondCall.payload.retryPath,
@@ -316,13 +384,24 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   assert.ok(rehydratedOutcome);
   const catalogEntry = run.outcomes[4].result.graphFunctionEntries.find((entry) =>
     entry.handle === GRAPH_FUNCTION_REF);
-  const graph = {
-    graphFunctionRef: GRAPH_FUNCTION_REF,
-    graphFunctionDigest: entered.payload.graphFunctionDigest,
-    materializationRef: entered.payload.materializationRef,
-    materializationDigest: entered.payload.materializationDigest,
-    template: catalogEntry.definition.template,
-  };
+  const basisEvent = events.find((event) =>
+    event.kind === "basis_admitted" && event.basisId === secondCall.basisId);
+  const { materializeGraph } = await import(pathToFileURL(join(
+    root,
+    "build/code/src/gtl/materialize.js",
+  )).href);
+  const graph = materializeGraph(catalogEntry.definition, {
+    invocationAdmissionRef: basisEvent.payload.invocationAdmissionRef,
+    admittedInputRef: basisEvent.payload.rawInputAdmissionRef,
+    admittedInputDigest: basisEvent.payload.rawInputDigest,
+    admittedInput: fpInput("World"),
+  });
+  assert.equal(graph.materializationRef, entered.payload.materializationRef);
+  assert.equal(graph.materializationDigest, entered.payload.materializationDigest);
+  const { rehydrateExecutionBasis } = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/execution_basis.js",
+  )).href);
   const { admitCompletedRetryProgress } = await import(pathToFileURL(join(
     root,
     "build/code/src/abg/retry.js",
@@ -334,6 +413,51 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   assert.equal(cursorApi.isTraversalCursorCandidate(sourceCursor), true,
     JSON.stringify(sourceCursor));
   assert.equal(cursorApi.hasAdmittedTraversalCursor(ownerStore.store, sourceCursor), true);
+
+  const thirdAttemptIndex = events.findIndex((event) =>
+    event.eventId === attempts[2].eventId);
+  const attemptStore = await reopenPrefix(
+    events.slice(0, thirdAttemptIndex),
+    join(harness.scratch, "retry-attempt-owner-prefix.events.jsonl"),
+  );
+  assert.equal(attemptStore.kind, "reopened_event_store_context");
+  const attemptBasis = rehydrateExecutionBasis(
+    attemptStore.store,
+    secondCall.basisId,
+  );
+  assert.ok(attemptBasis);
+  const attemptBefore = attemptStore.store.readAll().length;
+  const attemptDigestMethod = attemptStore.store.digest;
+  attemptStore.store.digest = () => `sha256:${"0".repeat(64)}`;
+  const staleAttempt = admitRetryAttempt(
+    attemptStore.store,
+    attemptBasis,
+    graph,
+    sourceCursor,
+    attempts[2].payload.inputValue,
+    routes[2].eventId,
+    { eventTime: attempts[2].eventTime, correlationId: "test://retry-attempt-stale", causationEventRefs: [routes[0].eventId] },
+  );
+  attemptStore.store.digest = attemptDigestMethod;
+  assert.equal(staleAttempt.kind, "retry_admission_refusal");
+  assert.equal(staleAttempt.code, "attempt_mismatch");
+  assert.equal(attemptStore.store.readAll().length, attemptBefore);
+  const admittedAttempt = admitRetryAttempt(
+    attemptStore.store,
+    attemptBasis,
+    graph,
+    sourceCursor,
+    attempts[2].payload.inputValue,
+    routes[2].eventId,
+    { eventTime: attempts[2].eventTime, correlationId: "test://retry-attempt-nonempty-basis", causationEventRefs: [routes[0].eventId] },
+  );
+  assert.equal(admittedAttempt.kind, "retry_attempt_admission");
+  assert.equal(admittedAttempt.attemptRef, attempts[2].payload.attemptRef);
+  assert.deepEqual(attemptStore.store.readAll().at(-1).causationEventRefs, [
+    routes[2].eventId,
+  ], "caller basis causes cannot enter retry-attempt authority");
+  attemptStore.store.closeDurableLog();
+
   const ownerBefore = ownerStore.store.readAll().length;
   const fabricatedTarget = admitCompletedRetryProgress(
     ownerStore.store,
@@ -353,7 +477,7 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     { frameId: "frame://forged" },
     { taskOrdinal: 7 },
     { attempt: 7 },
-    { retryPath: [7] },
+    { retryPath: [1, 7] },
     { currentNodeRef: "node://forged" },
     { termPath: [...sourceCursor.termPath, "forged"] },
   ]) {
@@ -370,6 +494,66 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     assert.equal(refused.kind, "retry_admission_refusal");
     assert.equal(ownerStore.store.readAll().length, ownerBefore);
   }
+  for (const [label, graphValue, cCall, result, judgment] of [
+    [
+      "forged-graph",
+      { ...graph, materializationRef: "graph-materialization://abiogenesis/forged" },
+      rehydratedOutcome.cCall,
+      rehydratedOutcome.result,
+      rehydratedOutcome.judgment,
+    ],
+    [
+      "stale-attempt",
+      graph,
+      { ...rehydratedOutcome.cCall, attempt: 1 },
+      rehydratedOutcome.result,
+      rehydratedOutcome.judgment,
+    ],
+    [
+      "forged-result",
+      graph,
+      rehydratedOutcome.cCall,
+      { ...rehydratedOutcome.result, valueDigest: `sha256:${"1".repeat(64)}` },
+      rehydratedOutcome.judgment,
+    ],
+    [
+      "forged-judgment",
+      graph,
+      rehydratedOutcome.cCall,
+      rehydratedOutcome.result,
+      { ...rehydratedOutcome.judgment, judgmentRef: "judgment://abiogenesis/forged" },
+    ],
+  ]) {
+    const refused = admitCompletedRetryProgress(
+      ownerStore.store,
+      graphValue,
+      sourceCursor,
+      null,
+      cCall,
+      result,
+      judgment,
+      { eventTime: progress[1].eventTime, correlationId: `test://retry-${label}`, causationEventRefs: [] },
+    );
+    assert.equal(refused.kind, "retry_admission_refusal", label);
+    assert.equal(ownerStore.store.readAll().length, ownerBefore, label);
+  }
+  const originalDigest = ownerStore.store.digest;
+  ownerStore.store.digest = () => `sha256:${"0".repeat(64)}`;
+  const staleCompletion = admitCompletedRetryProgress(
+    ownerStore.store,
+    graph,
+    sourceCursor,
+    null,
+    rehydratedOutcome.cCall,
+    rehydratedOutcome.result,
+    rehydratedOutcome.judgment,
+    { eventTime: progress[1].eventTime, correlationId: "test://retry-stale-prefix", causationEventRefs: [] },
+  );
+  ownerStore.store.digest = originalDigest;
+  assert.equal(staleCompletion.kind, "retry_admission_refusal");
+  assert.equal(staleCompletion.code, "progress_mismatch");
+  assert.equal(ownerStore.store.readAll().length, ownerBefore,
+    "stale expected prefix appends neither nested completion row");
   const admittedCompletion = admitCompletedRetryProgress(
     ownerStore.store,
     graph,
@@ -382,294 +566,21 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   );
   assert.equal(Array.isArray(admittedCompletion), true,
     JSON.stringify(admittedCompletion));
-  assert.equal(admittedCompletion.length, 1);
-  assert.equal(ownerStore.store.readAll().length, ownerBefore + 1);
+  assert.deepEqual(
+    admittedCompletion.map((row) => row.completedRetryDepth),
+    [2, 1],
+  );
+  assert.equal(admittedCompletion[1].predecessorProgressRef,
+    admittedCompletion[0].progressRef);
+  assert.deepEqual(
+    admittedCompletion.map((row) => [row.progressRef, row.progressDigest]),
+    progress.slice(1).map((event) => [
+      event.payload.progressRef,
+      event.payload.progressDigest,
+    ]),
+  );
+  assert.equal(ownerStore.store.readAll().length, ownerBefore + 2);
   ownerStore.store.closeDurableLog();
-
-  const { sha256Canonical } = await import(pathToFileURL(join(
-    root,
-    "build/code/src/shared/digests.js",
-  )).href);
-  const originalRetryTerm = catalogEntry.definition.template.nodes[0].term;
-  const nestedTemplate = {
-    ...graph.template,
-    nodes: [{
-      ...graph.template.nodes[0],
-      term: {
-        ...originalRetryTerm,
-        term: { ...originalRetryTerm },
-      },
-    }],
-  };
-  const nestedMaterializationDigest = sha256Canonical(nestedTemplate);
-  const nestedGraph = {
-    ...graph,
-    materializationRef:
-      `graph-materialization://abiogenesis/${nestedMaterializationDigest.slice("sha256:".length)}`,
-    materializationDigest: nestedMaterializationDigest,
-    template: nestedTemplate,
-  };
-  const firstAttemptEvent = attempts[0];
-  async function prepareNestedOwner(label, mutateOuter = false) {
-    const context = await reopenPrefix(
-      events.slice(0, completedIndex),
-      join(harness.scratch, `${label}.events.jsonl`),
-    );
-    assert.equal(context.kind, "reopened_event_store_context");
-    const nestedCursorBody = {
-      programRef: entered.payload.programRef,
-      executionBasisRef: entered.payload.executionBasisRef,
-      traversalScopeRef: entered.payload.traversalScopeRef,
-      runId: secondCall.runId,
-      graphCallId: secondCall.graphCallId,
-      frameId: secondCall.frameId,
-      graphRef: nestedGraph.materializationRef,
-      inputRef: entered.payload.inputRef,
-      inputDigest: entered.payload.inputDigest,
-      currentNodeRef: "node://abiogenesis/conformance/fp-retry-hello@5",
-      position: "at_term",
-      termPath: [...entered.payload.termPath, "term", "term"],
-      taskOrdinal: null,
-      attempt: 1,
-      retryPath: [1, 1],
-    };
-    const nestedCursorDigest = sha256Canonical(nestedCursorBody);
-    const nestedCursorRef =
-      `traversal-cursor://abiogenesis/${nestedCursorDigest.slice("sha256:".length)}`;
-    const nestedCursor = {
-      kind: "traversal_cursor",
-      schemaVersion: "5.0.0",
-      cursorRef: nestedCursorRef,
-      cursorDigest: nestedCursorDigest,
-      ...nestedCursorBody,
-    };
-    const boundary = (retryTermPath) => {
-      const digest = sha256Canonical({
-        graphRef: nestedGraph.materializationRef,
-        frameId: nestedCursor.frameId,
-        nodeRef: nestedCursor.currentNodeRef,
-        retryTermPath,
-      });
-      return `retry-boundary://abiogenesis/${digest.slice("sha256:".length)}`;
-    };
-    const attemptIdentity = (retryTermPath, wrappedTermPath, retryPath) => {
-      const body = {
-        retryBoundaryRef: boundary(retryTermPath),
-        retryTermPath,
-        wrappedTermPath,
-        taskOrdinal: null,
-        attempt: 1,
-        retryPath,
-        budget: 2,
-        retryableFailureClasses: firstAttemptEvent.payload.retryableFailureClasses,
-        priorJudgmentRef: null,
-        priorRouteRef: firstAttemptEvent.payload.priorRouteRef,
-        inputRef: nestedCursor.inputRef,
-        inputDigest: nestedCursor.inputDigest,
-        inputContractRef: firstAttemptEvent.payload.inputContractRef,
-      };
-      const attemptDigest = sha256Canonical(body);
-      return {
-        body,
-        attemptDigest,
-        attemptRef:
-          `retry-attempt://abiogenesis/${attemptDigest.slice("sha256:".length)}`,
-      };
-    };
-    const outer = attemptIdentity(
-      entered.payload.termPath,
-      [...entered.payload.termPath, "term"],
-      [1],
-    );
-    if (mutateOuter) {
-      outer.body.retryBoundaryRef = "retry-boundary://abiogenesis/forged-outer";
-      outer.attemptDigest = sha256Canonical(outer.body);
-      outer.attemptRef =
-        `retry-attempt://abiogenesis/${outer.attemptDigest.slice("sha256:".length)}`;
-    }
-    const inner = attemptIdentity(
-      [...entered.payload.termPath, "term"],
-      [...entered.payload.termPath, "term", "term"],
-      [1, 1],
-    );
-    const cCallIdentity = {
-      basisId: secondCall.basisId,
-      graphCallId: secondCall.graphCallId,
-      frameId: secondCall.frameId,
-      vectorIndex: secondCall.payload.vectorIndex,
-      stageRole: secondCall.payload.stageRole,
-      taskOrdinal: null,
-      attempt: 1,
-      programLocusRef: secondCall.payload.programLocusRef,
-      retryPath: [1, 1],
-    };
-    const cCallDigest = sha256Canonical(cCallIdentity);
-    const cCallRef = `c-call:${cCallDigest}`;
-    const { resultRef: _oldResultRef, resultDigest: _oldResultDigest,
-      ...resultBodyBase } = secondResult.payload;
-    const resultBody = { ...resultBodyBase, cCallRef };
-    const resultDigest = sha256Canonical(resultBody);
-    const resultRef =
-      `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
-    const { judgmentRef: _oldJudgmentRef, judgmentDigest: _oldJudgmentDigest,
-      ...judgmentBodyBase } = secondJudgment.payload;
-    const judgmentBody = {
-      ...judgmentBodyBase,
-      cCallRef,
-      resultRef,
-      resultDigest,
-      judgment: "advance",
-      retryAttemptRef: inner.attemptRef,
-    };
-    const judgmentDigest = sha256Canonical(judgmentBody);
-    const judgmentRef =
-      `judgment://abiogenesis/${judgmentDigest.slice("sha256:".length)}`;
-    const appended = admitRuntimeEventBatch(context.store, [
-      () => eventCandidate(entered, {
-        materializationRef: nestedGraph.materializationRef,
-        causationEventRefs: [secondJudgment.eventId],
-        correlationId: `${entered.correlationId}/${label}/cursor`,
-        payload: {
-          ...entered.payload,
-          materializationRef: nestedGraph.materializationRef,
-          materializationDigest: nestedGraph.materializationDigest,
-          cursorRef: nestedCursorRef,
-          cursorDigest: nestedCursorDigest,
-          attempt: 1,
-          retryPath: [1, 1],
-          termPath: nestedCursor.termPath,
-        },
-      }),
-      (prior) => eventCandidate(firstAttemptEvent, {
-        materializationRef: nestedGraph.materializationRef,
-        causationEventRefs: [prior[0].eventId],
-        correlationId: `${firstAttemptEvent.correlationId}/${label}/outer`,
-        payload: { attemptRef: outer.attemptRef, attemptDigest: outer.attemptDigest, ...outer.body },
-      }),
-      (prior) => eventCandidate(firstAttemptEvent, {
-        materializationRef: nestedGraph.materializationRef,
-        causationEventRefs: [prior[1].eventId],
-        correlationId: `${firstAttemptEvent.correlationId}/${label}/inner`,
-        payload: { attemptRef: inner.attemptRef, attemptDigest: inner.attemptDigest, ...inner.body },
-      }),
-      (prior) => eventCandidate(secondCall, {
-        materializationRef: nestedGraph.materializationRef,
-        aggregateId: cCallRef,
-        causationEventRefs: [prior[2].eventId],
-        correlationId: `${secondCall.correlationId}/${label}`,
-        payload: {
-          ...secondCall.payload,
-          cCallRef,
-          cCallDigest,
-          cursorRef: nestedCursorRef,
-          cursorDigest: nestedCursorDigest,
-          attempt: 1,
-          retryPath: [1, 1],
-        },
-      }),
-      (prior) => eventCandidate(secondFibre, {
-        materializationRef: nestedGraph.materializationRef,
-        aggregateId: cCallRef,
-        causationEventRefs: [prior[3].eventId],
-        correlationId: `${secondFibre.correlationId}/${label}`,
-        payload: { ...secondFibre.payload, cCallRef },
-      }),
-      (prior) => eventCandidate(secondResult, {
-        materializationRef: nestedGraph.materializationRef,
-        aggregateId: cCallRef,
-        causationEventRefs: [prior[4].eventId],
-        correlationId: `${secondResult.correlationId}/${label}`,
-        payload: { resultRef, resultDigest, ...resultBody },
-      }),
-      (prior) => eventCandidate(secondJudgment, {
-        materializationRef: nestedGraph.materializationRef,
-        aggregateId: cCallRef,
-        causationEventRefs: [prior[5].eventId],
-        correlationId: `${secondJudgment.correlationId}/${label}`,
-        payload: { judgmentRef, judgmentDigest, ...judgmentBody },
-      }),
-    ]);
-    const nestedCCallValue = {
-      kind: "c_call",
-      schemaVersion: "5.0.0",
-      ...appended[3].payload,
-      basisId: appended[3].basisId,
-      runId: appended[3].runId,
-      graphFunctionRef: appended[3].graphFunctionRef,
-      graphCallId: appended[3].graphCallId,
-      frameId: appended[3].frameId,
-      childGraphFunctionRef: null,
-      openedEventRef: appended[3].eventId,
-      fibreSelectedEventRef: appended[4].eventId,
-    };
-    const nestedResultValue = {
-      kind: "admitted_c_call_result",
-      schemaVersion: "5.0.0",
-      disposition: "admitted",
-      ...appended[5].payload,
-      admissionEventRef: appended[5].eventId,
-    };
-    const nestedJudgmentValue = {
-      kind: "admitted_c_call_judgment",
-      schemaVersion: "5.0.0",
-      disposition: "admitted",
-      ...appended[6].payload,
-      admissionEventRef: appended[6].eventId,
-    };
-    const outcome = rehydrateAdmittedCCallState(
-      context.store,
-      nestedCCallValue,
-      nestedResultValue,
-      nestedJudgmentValue,
-    );
-    assert.ok(outcome);
-    return { context, nestedCursor, outcome, inner, outer, appended };
-  }
-
-  const nested = await prepareNestedOwner("nested-honest");
-  const nestedBefore = nested.context.store.readAll().length;
-  const nestedCompletion = admitCompletedRetryProgress(
-    nested.context.store,
-    nestedGraph,
-    nested.nestedCursor,
-    null,
-    nested.outcome.cCall,
-    nested.outcome.result,
-    nested.outcome.judgment,
-    { eventTime: progress[1].eventTime, correlationId: "test://nested-completed", causationEventRefs: [] },
-  );
-  assert.equal(Array.isArray(nestedCompletion), true, JSON.stringify(nestedCompletion));
-  assert.deepEqual(nestedCompletion.map((row) => row.completedRetryDepth), [2, 1]);
-  assert.equal(nestedCompletion[1].predecessorProgressRef,
-    nestedCompletion[0].progressRef);
-  const nestedRows = nested.context.store.readAll().slice(nestedBefore);
-  assert.equal(nestedRows.length, 2);
-  assert.deepEqual(nestedRows[0].causationEventRefs, [
-    nested.appended[2].eventId,
-    nested.outcome.judgment.admissionEventRef,
-  ]);
-  assert.deepEqual(nestedRows[1].causationEventRefs, [
-    nested.appended[1].eventId,
-    nestedRows[0].eventId,
-  ]);
-  nested.context.store.closeDurableLog();
-
-  const nestedMutation = await prepareNestedOwner("nested-outer-mutation", true);
-  const mutationBefore = nestedMutation.context.store.readAll().length;
-  const nestedRefusal = admitCompletedRetryProgress(
-    nestedMutation.context.store,
-    nestedGraph,
-    nestedMutation.nestedCursor,
-    null,
-    nestedMutation.outcome.cCall,
-    nestedMutation.outcome.result,
-    nestedMutation.outcome.judgment,
-    { eventTime: progress[1].eventTime, correlationId: "test://nested-refusal", causationEventRefs: [] },
-  );
-  assert.equal(nestedRefusal.kind, "retry_admission_refusal");
-  assert.equal(nestedMutation.context.store.readAll().length, mutationBefore,
-    "outer owner mutation appends zero inner or outer completion rows");
-  nestedMutation.context.store.closeDurableLog();
 
   for (const [label, mutate] of [
     ["malformed-terminal-pair", (event) => ({
@@ -686,7 +597,7 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     })],
   ]) {
     const forged = durablePrefix.map((event) =>
-      event.eventId === progress[1].eventId ? mutate(event) : event);
+      event.eventId === progress[2].eventId ? mutate(event) : event);
     const refusal = await reopenPrefix(
       forged,
       join(harness.scratch, `${label}.events.jsonl`),
@@ -699,8 +610,43 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     join(harness.scratch, "retry-closed-prefix.events.jsonl"),
   );
   assert.equal(closedReopen.kind, "reopened_event_store_context");
-  assert.equal(hasAdmittedRetryProgress(closedReopen.store, completedAdmission), false,
-    "terminal route consumption is reconstructed as unavailable after durable reopen");
+  const closedPrefix = selectValidatedRuntimeEventPrefix(
+    closedReopen.store.readAll(),
+  );
+  for (const admission of completedAdmissions) {
+    assert.deepEqual(
+      projectAdmittedRetryProgress(closedPrefix, admission.admissionEventRef),
+      projectAdmittedRetryProgress(completedPrefix, admission.admissionEventRef),
+      "lawful later suffix does not reprice a historical retry-progress carrier",
+    );
+    assert.equal(hasAdmittedRetryProgress(closedPrefix, admission), false,
+      "terminal route consumption is reconstructed as unavailable after durable reopen");
+  }
+  const eventCalculus = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/event_calculus.js",
+  )).href);
+  const closedCalculus = eventCalculus.deriveRuntimeEventCalculusProjection(
+    closedPrefix,
+  );
+  for (const attempt of attempts) {
+    assert.equal(eventCalculus.holdsAt(
+      closedCalculus,
+      eventCalculus.constructRuntimeFluent({
+        name: "retry_attempt_active",
+        identity: attempt.payload.attemptRef,
+      }),
+    ), false);
+  }
+  for (const row of progress) {
+    assert.equal(eventCalculus.holdsAt(
+      closedCalculus,
+      eventCalculus.constructRuntimeFluent({
+        name: "retry_progress_available",
+        identity: row.payload.progressRef,
+      }),
+    ), false);
+  }
   closedReopen.store.closeDurableLog();
   assert.equal(events.filter((event) => event.kind === "actor_invocation_started").length, 2);
   assert.equal(events.some((event) => event.kind === "run_stopped"), false);
@@ -733,59 +679,375 @@ test("M5 installed C.retry does not reinterpret a semantic contradiction as retr
   assert.equal(run.outcomes[6].disposition, "blocked");
   assert.equal(await readFile(counterPath, "utf8"), "1");
   const events = await readEvents(scenario.eventLogPath);
-  assert.equal(events.filter((event) => event.kind === "retry_attempt_opened").length, 1);
+  assert.deepEqual(
+    events
+      .filter((event) => event.kind === "retry_attempt_opened")
+      .map((event) => event.payload.retryPath),
+    [[1], [1, 1]],
+  );
   assert.equal(events.some((event) => event.kind === "retry_progress_recorded"), false);
   assert.equal(events.filter((event) => event.kind === "actor_invocation_started").length, 1);
   assert.deepEqual(
     events
       .filter((event) => event.kind === "traversal_route_admitted")
       .map((event) => event.payload.routeKind),
-    ["retry", "blocked"],
+    ["retry", "retry", "blocked"],
   );
   assert.equal(events.at(-1).kind, "run_stopped");
 });
 
-test("M5 installed C.retry exhausts its declared budget without a third dispatch", async (context) => {
+test("M5 installed C.retry closes stationary and budget-stopped runtime failures without a third dispatch", async (context) => {
   const harness = await setupInstalledCliHarness(context, root);
   const command = await installRetryWorker(harness);
-  const counterPath = join(harness.scratch, "retry-exhausted.count");
-  const scenario = await buildRootCliScenario(
-    harness,
-    "m5-fp-retry-exhausted",
-    (payload) => payload,
+  const { selectValidatedRuntimeEventPrefix } = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/event_prefix.js",
+  )).href);
+  const eventCalculus = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/event_calculus.js",
+  )).href);
+  const { deepFreeze } = await import(pathToFileURL(join(
+    root,
+    "build/code/src/shared/immutable.js",
+  )).href);
+  for (const row of [
     {
-      programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
-      input: fpInput("World"),
+      mode: "always_malformed",
+      label: "stationary-contract-failure",
+      failureClass: "contract_failure",
+      sameSignal: true,
+      diagnosticRef: null,
     },
-  );
-  const run = await runInstalledCli(harness, scenario, {
-    environment: {
-      ABG_TS_CLAUDE_COMMAND: command,
-      ABG_FP_RETRY_COUNTER: counterPath,
-      ABG_FP_RETRY_MODE: "always_malformed",
+    {
+      mode: "changed_malformed",
+      label: "budget-contract-failure",
+      failureClass: "contract_failure",
+      sameSignal: false,
+      diagnosticRef: null,
     },
-  });
+    {
+      mode: "no_output",
+      label: "stationary-no-output",
+      failureClass: "no_output",
+      sameSignal: true,
+      diagnosticRef: "diagnostic://abiogenesis/transport/no-output@5",
+    },
+    {
+      mode: "transport_failure",
+      label: "stationary-transport-failure",
+      failureClass: "transport_failure",
+      sameSignal: true,
+      diagnosticRef: "diagnostic://abiogenesis/transport/transport-failure@5",
+    },
+    {
+      mode: "changed_transport_failure",
+      label: "budget-transport-failure",
+      failureClass: "transport_failure",
+      sameSignal: false,
+      diagnosticRef: "diagnostic://abiogenesis/transport/transport-failure@5",
+    },
+  ]) {
+    const counterPath = join(harness.scratch, `${row.label}.count`);
+    const scenario = await buildRootCliScenario(
+      harness,
+      `m5-fp-retry-${row.label}`,
+      (payload) => payload,
+      {
+        programRef: PROGRAM_REF,
+        graphFunctionRef: GRAPH_FUNCTION_REF,
+        input: fpInput("World"),
+      },
+    );
+    const run = await runInstalledCli(harness, scenario, {
+      environment: {
+        ABG_TS_CLAUDE_COMMAND: command,
+        ABG_FP_RETRY_COUNTER: counterPath,
+        ABG_FP_RETRY_MODE: row.mode,
+      },
+    });
 
-  assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes[6].disposition, "blocked");
-  assert.equal(await readFile(counterPath, "utf8"), "2");
-  const events = await readEvents(scenario.eventLogPath);
-  assert.deepEqual(
-    events
-      .filter((event) => event.kind === "retry_attempt_opened")
-      .map((event) => event.payload.attempt),
-    [1, 2],
-  );
-  assert.equal(events.filter((event) =>
-    event.kind === "retry_progress_recorded").length, 1);
-  assert.equal(events.filter((event) =>
-    event.kind === "actor_invocation_started").length, 2);
-  assert.deepEqual(
-    events
-      .filter((event) => event.kind === "c_call_judged")
-      .map((event) => event.payload.judgment),
-    ["retry", "blocked"],
-  );
-  assert.equal(events.at(-1).kind, "run_stopped");
+    assert.equal(run.exitCode, 2, `${row.label}: ${run.stdout}`);
+    assert.equal(run.outcomes[6].disposition, "blocked", row.label);
+    assert.equal(await readFile(counterPath, "utf8"), "2", row.label);
+    const events = await readEvents(scenario.eventLogPath);
+    const attempts = events.filter((event) =>
+      event.kind === "retry_attempt_opened");
+    const progress = events.filter((event) =>
+      event.kind === "retry_progress_recorded");
+    const judgments = events.filter((event) => event.kind === "c_call_judged");
+    const results = events.filter((event) =>
+      event.kind === "c_call_result_admitted");
+    const routes = events.filter((event) =>
+      event.kind === "traversal_route_admitted");
+    const blockedRoute = routes.at(-1);
+
+    assert.deepEqual(attempts.map((event) => event.payload.retryPath),
+      [[1], [1, 1], [1, 2]], row.label);
+    assert.deepEqual(progress.map((event) => event.payload.progressClass),
+      ["retry", "stopped"], row.label);
+    assert.deepEqual(progress.map((event) => event.payload.failureClass),
+      [row.failureClass, row.failureClass], row.label);
+    assert.deepEqual(progress.map((event) => event.payload.remainingBudget),
+      [1, 0], row.label);
+    assert.equal(
+      progress[0].payload.failureSignalRef ===
+        progress[1].payload.failureSignalRef,
+      row.sameSignal,
+      row.label,
+    );
+    assert.deepEqual(judgments.map((event) => event.payload.judgment),
+      ["retry", "blocked"], row.label);
+    assert.deepEqual(results.map((event) => event.payload.resultClass),
+      ["failure", "failure"], row.label);
+    assert.equal(events.filter((event) =>
+      event.kind === "actor_invocation_started").length, 2, row.label);
+    assert.equal(attempts.some((event) =>
+      event.payload.retryPath.at(-1) === 3), false, row.label);
+    assert.equal(blockedRoute.payload.routeKind, "blocked", row.label);
+    assert.deepEqual(blockedRoute.payload.consumedAvailabilityRefs, [
+      judgments[1].payload.judgmentRef,
+      progress[1].payload.progressRef,
+    ], row.label);
+    assert.deepEqual(blockedRoute.causationEventRefs, [progress[1].eventId],
+      row.label);
+    assert.equal(events.at(-1).kind, "run_stopped", row.label);
+
+    for (const [index, result] of results.entries()) {
+      assert.equal(result.payload.value.failureSignalRef,
+        progress[index].payload.failureSignalRef, row.label);
+      assert.equal(judgments[index].payload.reasonRef,
+        result.payload.value.failureSignalRef, row.label);
+      assert.notEqual(result.payload.value.diagnosticRef,
+        result.payload.value.failureSignalRef, row.label);
+      if (row.diagnosticRef !== null) {
+        assert.equal(result.payload.value.diagnosticRef, row.diagnosticRef,
+          row.label);
+      }
+    }
+
+    const blockedRouteIndex = events.findIndex((event) =>
+      event.eventId === blockedRoute.eventId);
+    const routePrefix = selectValidatedRuntimeEventPrefix(
+      deepFreeze(events.slice(0, blockedRouteIndex + 1)),
+    );
+    const routeCalculus = eventCalculus.deriveRuntimeEventCalculusProjection(
+      routePrefix,
+    );
+    assert.equal(eventCalculus.holdsAt(
+      routeCalculus,
+      eventCalculus.constructRuntimeFluent({
+        name: "retry_attempt_active",
+        identity: attempts[2].payload.attemptRef,
+      }),
+    ), false, row.label);
+    assert.equal(eventCalculus.holdsAt(
+      routeCalculus,
+      eventCalculus.constructRuntimeFluent({
+        name: "retry_progress_available",
+        identity: progress[1].payload.progressRef,
+      }),
+    ), false, row.label);
+
+    if (row.label === "stationary-contract-failure") {
+      await context.test(
+        "M5 installed C.retry closes stationary and budget-stopped return_to_parent child prefix",
+        async () => {
+          const childStore = await reopenPrefix(
+            events.slice(0, blockedRouteIndex),
+            join(harness.scratch, "retry-return-to-parent-prefix.events.jsonl"),
+          );
+          assert.equal(childStore.kind, "reopened_event_store_context");
+          const childPrefix = selectValidatedRuntimeEventPrefix(
+            childStore.store.readAll(),
+          );
+          const calls = events.filter((event) => event.kind === "c_call_opened");
+          const childCall = calls.at(-1);
+          const childResult = results.at(-1);
+          const childJudgment = judgments.at(-1);
+          const childFibre = events.find((event) =>
+            event.kind === "c_call_fibre_selected" &&
+            event.aggregateId === childCall.aggregateId);
+          const entered = events.find((event) =>
+            event.kind === "traversal_cursor_entered");
+          const childCursor = {
+            kind: "traversal_cursor",
+            schemaVersion: "5.0.0",
+            cursorRef: childCall.payload.cursorRef,
+            cursorDigest: childCall.payload.cursorDigest,
+            programRef: entered.payload.programRef,
+            executionBasisRef: entered.payload.executionBasisRef,
+            traversalScopeRef: entered.payload.traversalScopeRef,
+            runId: childCall.runId,
+            graphCallId: childCall.graphCallId,
+            frameId: childCall.frameId,
+            graphRef: entered.payload.materializationRef,
+            inputRef: entered.payload.inputRef,
+            inputDigest: entered.payload.inputDigest,
+            currentNodeRef: "node://abiogenesis/conformance/fp-retry-hello@5",
+            position: "at_term",
+            termPath: [...entered.payload.termPath, "term", "term"],
+            taskOrdinal: childCall.payload.taskOrdinal,
+            attempt: childCall.payload.attempt,
+            retryPath: childCall.payload.retryPath,
+          };
+          const resultValue = {
+            kind: "admitted_c_call_result",
+            schemaVersion: "5.0.0",
+            disposition: "admitted",
+            ...childResult.payload,
+            admissionEventRef: childResult.eventId,
+          };
+          const judgmentValue = {
+            kind: "admitted_c_call_judgment",
+            schemaVersion: "5.0.0",
+            disposition: "admitted",
+            ...childJudgment.payload,
+            admissionEventRef: childJudgment.eventId,
+          };
+          const [{ rehydrateAdmittedCCallState }, { rehydrateExecutionBasis },
+            { materializeGraph }, retryApi, routeApi, replayApi, hogRouteApi] =
+            await Promise.all([
+              import(pathToFileURL(join(root,
+                "build/code/src/abg/c_call.js")).href),
+              import(pathToFileURL(join(root,
+                "build/code/src/abg/execution_basis.js")).href),
+              import(pathToFileURL(join(root,
+                "build/code/src/gtl/materialize.js")).href),
+              import(pathToFileURL(join(root,
+                "build/code/src/abg/retry.js")).href),
+              import(pathToFileURL(join(root,
+                "build/code/src/abg/traversal_route.js")).href),
+              import(pathToFileURL(join(root,
+                "build/code/src/abg/replay.js")).href),
+              import(pathToFileURL(join(root,
+                "build/code/src/hog/traversal_route.js")).href),
+            ]);
+          const executionBasis = rehydrateExecutionBasis(
+            childStore.store,
+            childCall.basisId,
+          );
+          assert.ok(executionBasis);
+          const cCallValue = {
+            kind: "c_call",
+            schemaVersion: "5.0.0",
+            ...childCall.payload,
+            basisId: childCall.basisId,
+            runId: childCall.runId,
+            graphFunctionRef: childCall.graphFunctionRef,
+            graphCallId: childCall.graphCallId,
+            frameId: childCall.frameId,
+            childGraphFunctionRef: null,
+            transitionContractRef: executionBasis.transitionContractRef,
+            openedEventRef: childCall.eventId,
+            fibreSelectedEventRef: childFibre.eventId,
+          };
+          const outcome = rehydrateAdmittedCCallState(
+            childStore.store,
+            cCallValue,
+            resultValue,
+            judgmentValue,
+          );
+          assert.ok(outcome);
+          const catalogEntry = run.outcomes[4].result.graphFunctionEntries
+            .find((entry) => entry.handle === GRAPH_FUNCTION_REF);
+          const basisEvent = events.find((event) =>
+            event.kind === "basis_admitted" &&
+            event.basisId === childCall.basisId);
+          const graph = materializeGraph(catalogEntry.definition, {
+            invocationAdmissionRef: basisEvent.payload.invocationAdmissionRef,
+            admittedInputRef: basisEvent.payload.rawInputAdmissionRef,
+            admittedInputDigest: basisEvent.payload.rawInputDigest,
+            admittedInput: fpInput("World"),
+          });
+          const stoppedProgress = retryApi.projectAdmittedRetryProgress(
+            childPrefix,
+            progress[1].eventId,
+          );
+          assert.equal(stoppedProgress?.progressClass, "stopped");
+          assert.equal(retryApi.hasAdmittedRetryProgress(
+            childPrefix,
+            stoppedProgress,
+          ), true);
+          const childReplay = replayApi.replay(childStore.store, {
+            runId: childCall.runId,
+          });
+          const proposal = hogRouteApi.proposeBlockedRoute(
+            graph,
+            {
+              cursor: childCursor,
+              programLocusRef: childCall.payload.programLocusRef,
+            },
+            outcome.cCall,
+            outcome.judgment.judgmentRef,
+            childReplay,
+            outcome.cCall.transitionContractRef,
+            stoppedProgress.progressRef,
+          );
+          assert.equal(proposal.kind, "traversal_route_candidate",
+            JSON.stringify(proposal));
+          const route = routeApi.admitRoute(
+            childStore.store,
+            executionBasis,
+            graph,
+            childCursor,
+            null,
+            childReplay,
+            proposal,
+            {
+              eventTime: blockedRoute.eventTime,
+              correlationId: "test://retry-return-to-parent/blocked-route",
+              causationEventRefs: [],
+            },
+            {
+              cCall: outcome.cCall,
+              resultRef: outcome.result.resultRef,
+              judgmentRef: outcome.judgment.judgmentRef,
+              judgmentEventRef: outcome.judgment.admissionEventRef,
+              reasonRef: outcome.judgment.reasonRef,
+              stoppedProgress,
+            },
+            { terminalizeRun: false },
+          );
+          assert.equal(route.kind, "admitted_traversal_route",
+            JSON.stringify(route));
+          assert.equal(route.runStoppedEventRef, null);
+          assert.deepEqual(route.consumedAvailabilityRefs, [
+            outcome.judgment.judgmentRef,
+            stoppedProgress.progressRef,
+          ]);
+          assert.deepEqual(
+            childStore.store.readAll().at(-1).causationEventRefs,
+            [stoppedProgress.admissionEventRef],
+          );
+          assert.equal(childStore.store.readAll().some((event) =>
+            event.kind === "run_stopped"), false);
+          assert.equal(retryApi.hasAdmittedRetryProgress(
+            selectValidatedRuntimeEventPrefix(childStore.store.readAll()),
+            stoppedProgress,
+          ), false);
+          childStore.store.closeDurableLog();
+        },
+      );
+    }
+
+    const closedPrefix = selectValidatedRuntimeEventPrefix(deepFreeze(events));
+    const closedCalculus = eventCalculus.deriveRuntimeEventCalculusProjection(
+      closedPrefix,
+    );
+    assert.equal(attempts.every((attempt) => !eventCalculus.holdsAt(
+      closedCalculus,
+      eventCalculus.constructRuntimeFluent({
+        name: "retry_attempt_active",
+        identity: attempt.payload.attemptRef,
+      }),
+    )), true, row.label);
+    assert.equal(progress.every((entry) => !eventCalculus.holdsAt(
+      closedCalculus,
+      eventCalculus.constructRuntimeFluent({
+        name: "retry_progress_available",
+        identity: entry.payload.progressRef,
+      }),
+    )), true, row.label);
+  }
 });

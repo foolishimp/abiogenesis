@@ -1,5 +1,6 @@
 import type { COfNode, CProgramNode } from "./c_algebra.js";
-import type { GraphTemplate } from "./contracts.js";
+import type { GraphTemplate, GtlGraph } from "./contracts.js";
+import type { Sha256Digest } from "../shared/digests.js";
 
 export type CSourcePath = readonly string[];
 
@@ -24,6 +25,38 @@ export interface CSourceContinuation {
   readonly targetPath: CSourcePath | null;
   readonly targetTaskOrdinal: number | null;
   readonly targetRetryDepth: number;
+}
+
+export interface CContinuationTarget {
+  readonly kind: "c_continuation_target";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "advance" | "terminal";
+  readonly relation: CSourceContinuation["relation"];
+  readonly nodeRef: string | null;
+  readonly termPath: CSourcePath | null;
+  readonly taskOrdinal: number | null;
+  readonly attempt: number | null;
+  readonly retryPath: readonly number[];
+  readonly inputRef: string | null;
+  readonly inputDigest: Sha256Digest | null;
+}
+
+export interface CBatchTaskInput {
+  readonly kind: "c_batch_task_input";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "shared_batch_input" | "fan_out_member";
+  readonly batchRef: string;
+  readonly taskOrdinal: number;
+  readonly inputRef: string;
+  readonly inputDigest: Sha256Digest;
+}
+
+interface CBatchInputSource {
+  readonly nodeRef: string;
+  readonly termPath: CSourcePath;
+  readonly taskOrdinal: number | null;
+  readonly inputRef: string;
+  readonly inputDigest: Sha256Digest;
 }
 
 export interface CEnclosingRetryContext {
@@ -305,6 +338,20 @@ export function resolveEnclosingCBatchRef(
   nodeRef: string,
   sourcePath: CSourcePath,
 ): string | null | CSourcePathRefusal {
+  const context = enclosingCBatchContext(template, nodeRef, sourcePath);
+  return context === null || "kind" in context ? context : context.batchRef;
+}
+
+function enclosingCBatchContext(
+  template: Readonly<GraphTemplate>,
+  nodeRef: string,
+  sourcePath: CSourcePath,
+): Readonly<{
+  batchRef: string;
+  batchTermPath: CSourcePath;
+  sourceTaskOrdinal: number;
+  taskCount: number;
+}> | null | CSourcePathRefusal {
   const source = resolveCProgramTermAtSourcePath(template, nodeRef, sourcePath);
   if (source.kind === "c_source_path_refusal") return source;
 
@@ -313,10 +360,17 @@ export function resolveEnclosingCBatchRef(
     const last = currentPath.at(-1);
     const penultimate = currentPath.at(-2);
     let parentPath: string[];
+    let childRole: string;
+    let childOrdinal: number | null = null;
     if (penultimate === "terms" || penultimate === "tasks") {
-      if (safeOrdinal(last) === null) {
-        return refusal("invalid_source_path", "ordered C child path has an invalid ordinal");
+      childOrdinal = safeOrdinal(last);
+      if (childOrdinal === null) {
+        return refusal(
+          "invalid_source_path",
+          "ordered C child path has an invalid ordinal",
+        );
       }
+      childRole = penultimate;
       parentPath = currentPath.slice(0, -2);
     } else if (
       last === "transform" ||
@@ -324,16 +378,168 @@ export function resolveEnclosingCBatchRef(
       last === "consequence" ||
       last === "term"
     ) {
+      childRole = last;
       parentPath = currentPath.slice(0, -1);
     } else {
-      return refusal("invalid_source_path", "C term has no declared parent relation");
+      return refusal(
+        "invalid_source_path",
+        "C term has no declared parent relation",
+      );
     }
     const parent = resolveCProgramTermAtSourcePath(template, nodeRef, parentPath);
     if (parent.kind === "c_source_path_refusal") return parent;
-    if (parent.kind === "c_batch") return parent.batchRef;
+    if (parent.kind === "c_batch") {
+      if (childRole !== "tasks" || childOrdinal === null) {
+        return refusal(
+          "invalid_source_path",
+          "C.batch child path is malformed",
+        );
+      }
+      return Object.freeze({
+        batchRef: parent.batchRef,
+        batchTermPath: Object.freeze([...parentPath]),
+        sourceTaskOrdinal: childOrdinal,
+        taskCount: parent.tasks.length,
+      });
+    }
     currentPath = parentPath;
   }
   return null;
+}
+
+export function deriveCBatchTaskInput(
+  graph: Readonly<GtlGraph>,
+  source: Readonly<CBatchInputSource>,
+  relation: "enter_batch" | "advance_member",
+  batchRef: string,
+  targetTaskOrdinal: number,
+): CBatchTaskInput | CSourcePathRefusal {
+  if (
+    batchRef.length === 0 ||
+    !Number.isSafeInteger(targetTaskOrdinal) ||
+    targetTaskOrdinal < 0 ||
+    source.inputRef.length === 0 ||
+    !source.inputDigest.startsWith("sha256:")
+  ) {
+    return refusal(
+      "invalid_source_path",
+      "C.batch task input requires exact batch, ordinal, and authenticated input identities",
+    );
+  }
+
+  const sourceTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    source.nodeRef,
+    source.termPath,
+  );
+  if (sourceTerm.kind === "c_source_path_refusal") return sourceTerm;
+  let taskCount: number;
+  if (relation === "enter_batch") {
+    if (
+      sourceTerm.kind !== "c_batch" ||
+      sourceTerm.batchRef !== batchRef ||
+      targetTaskOrdinal !== 0
+    ) {
+      return refusal(
+        "invalid_source_path",
+        "C.batch entry must select task zero of the exact declared batch",
+      );
+    }
+    taskCount = sourceTerm.tasks.length;
+  } else {
+    const enclosing = enclosingCBatchContext(
+      graph.template,
+      source.nodeRef,
+      source.termPath,
+    );
+    const declared = deriveCSourceContinuation(
+      graph.template,
+      source.nodeRef,
+      source.termPath,
+    );
+    if (
+      enclosing === null ||
+      (typeof enclosing === "object" && "kind" in enclosing) ||
+      declared.kind === "c_source_path_refusal"
+    ) {
+      return typeof enclosing === "object" && enclosing !== null &&
+          "kind" in enclosing
+        ? enclosing
+        : declared.kind === "c_source_path_refusal"
+          ? declared
+          : refusal(
+            "term_path_missing",
+            "C.batch advancement has no exact enclosing batch",
+          );
+    }
+    if (
+      enclosing.batchRef !== batchRef ||
+      source.taskOrdinal !== enclosing.sourceTaskOrdinal ||
+      declared.relation !== "batch_next" ||
+      declared.targetTaskOrdinal !== targetTaskOrdinal ||
+      targetTaskOrdinal !== enclosing.sourceTaskOrdinal + 1
+    ) {
+      return refusal(
+        "invalid_source_path",
+        "C.batch advancement differs from the declared batch identity or ordinal",
+      );
+    }
+    taskCount = enclosing.taskCount;
+  }
+  if (targetTaskOrdinal >= taskCount) {
+    return refusal(
+      "term_path_missing",
+      "C.batch target task ordinal is absent",
+    );
+  }
+
+  const bindings = graph.template.applications.filter(
+    (application) =>
+      application.relationKind === "fan_out" &&
+      application.batchRef === batchRef,
+  );
+  const materializations = graph.fanOutMaterializations.filter(
+    (candidate) => candidate.batchRef === batchRef,
+  );
+  if (bindings.length === 0 && materializations.length === 0) {
+    return Object.freeze({
+      kind: "c_batch_task_input" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "shared_batch_input" as const,
+      batchRef,
+      taskOrdinal: targetTaskOrdinal,
+      inputRef: source.inputRef,
+      inputDigest: source.inputDigest,
+    });
+  }
+  if (
+    bindings.length !== 1 ||
+    materializations.length !== 1 ||
+    bindings[0]!.applicationRef !== materializations[0]!.applicationRef
+  ) {
+    return refusal(
+      "invalid_source_path",
+      "C.batch fan_out binding and materialization must resolve exactly once",
+    );
+  }
+  const members = materializations[0]!.members.filter(
+    (candidate) => candidate.ordinal === targetTaskOrdinal,
+  );
+  if (members.length !== 1) {
+    return refusal(
+      "term_path_missing",
+      "C.batch fan_out continuation lacks its exact materialized member",
+    );
+  }
+  return Object.freeze({
+    kind: "c_batch_task_input" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "fan_out_member" as const,
+    batchRef,
+    taskOrdinal: targetTaskOrdinal,
+    inputRef: members[0]!.memberRef,
+    inputDigest: members[0]!.memberDigest,
+  });
 }
 
 export function resolveEnclosingCRetryContexts(
@@ -505,4 +711,90 @@ export function deriveCSourceContinuation(
   return targetNode === undefined
     ? refusal("term_path_missing", "declared graph edge target is absent")
     : continuation(sourcePath, "graph_edge", rootCSourcePath(targetNode.nodeRef));
+}
+
+export function deriveCContinuationTarget(
+  graph: Readonly<GtlGraph>,
+  source: Readonly<{
+    nodeRef: string;
+    termPath: CSourcePath;
+    taskOrdinal: number | null;
+    attempt: number;
+    retryPath: readonly number[];
+    inputRef: string;
+    inputDigest: Sha256Digest;
+  }>,
+  completed: Readonly<{ inputRef: string; inputDigest: Sha256Digest }>,
+): CContinuationTarget | CSourcePathRefusal {
+  const declared = deriveCSourceContinuation(
+    graph.template,
+    source.nodeRef,
+    source.termPath,
+  );
+  if (declared.kind === "c_source_path_refusal") return declared;
+  if (declared.disposition === "terminal" || declared.targetPath === null) {
+    return Object.freeze({
+      kind: "c_continuation_target" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "terminal" as const,
+      relation: declared.relation,
+      nodeRef: null,
+      termPath: null,
+      taskOrdinal: null,
+      attempt: null,
+      retryPath: Object.freeze([]),
+      inputRef: null,
+      inputDigest: null,
+    });
+  }
+  if (declared.targetRetryDepth > source.retryPath.length) {
+    return refusal(
+      "invalid_source_path",
+      "GTL continuation cannot invent a retry coordinate outside its source path",
+    );
+  }
+  const nodeRef = declared.targetPath[0] === "node"
+    ? declared.targetPath[1]
+    : undefined;
+  if (nodeRef === undefined || nodeRef.length === 0) {
+    return refusal("invalid_source_path", "GTL continuation target has no node root");
+  }
+  const retryPath = source.retryPath.slice(0, declared.targetRetryDepth);
+  let inputRef = completed.inputRef;
+  let inputDigest = completed.inputDigest;
+  if (declared.relation === "batch_next") {
+    const batchRef = resolveEnclosingCBatchRef(
+      graph.template,
+      source.nodeRef,
+      source.termPath,
+    );
+    if (typeof batchRef !== "string" || declared.targetTaskOrdinal === null) {
+      return refusal("term_path_missing", "C.batch continuation lacks its exact member");
+    }
+    const batchInput = deriveCBatchTaskInput(
+      graph,
+      source,
+      "advance_member",
+      batchRef,
+      declared.targetTaskOrdinal,
+    );
+    if (batchInput.kind === "c_source_path_refusal") return batchInput;
+    inputRef = batchInput.inputRef;
+    inputDigest = batchInput.inputDigest;
+  }
+  return Object.freeze({
+    kind: "c_continuation_target" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "advance" as const,
+    relation: declared.relation,
+    nodeRef,
+    termPath: Object.freeze([...declared.targetPath]),
+    taskOrdinal: declared.targetTaskOrdinal,
+    attempt: declared.relation === "graph_edge"
+      ? 1
+      : retryPath.at(-1) ?? (source.retryPath.length === 0 ? source.attempt : 1),
+    retryPath: Object.freeze([...retryPath]),
+    inputRef,
+    inputDigest,
+  });
 }

@@ -25,6 +25,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { WORKER_TRANSPORT_FAILURE_CLASS_VALUES } from "./transport_contracts.js";
 
 export const ROOT_EVENT_KIND_VALUES = [
   "public_operation_artifact_admitted",
@@ -273,6 +274,9 @@ const ROUTE_PAYLOAD = payloadKeys(
 );
 const TERMINAL_PAYLOAD = payloadKeys(
   "cCallRef closureContractDigest closureContractRef closureDigest closureRef judgmentRef resultRef routeRef terminalKind",
+);
+const RETRY_FAILURE_PROGRESS_PAYLOAD = payloadKeys(
+  "attempt attemptRef budget cCallRef completedAttempts failureClass failureSignalRef inputContractRef inputDigest inputRef judgmentRef progressClass progressDigest progressRef remainingBudget resultRef retryBoundaryRef retryPath",
 );
 
 const ROOT_EVENT_CONTRACTS = Object.freeze({
@@ -652,7 +656,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [FRAME_EVENT],
     payloadVariants: [payloadVariant(
       payloadKeys(
-        "attempt attemptDigest attemptRef budget inputContractRef inputDigest inputRef priorJudgmentRef priorRouteRef retryBoundaryRef retryPath retryTermPath retryableFailureClasses taskOrdinal wrappedTermPath",
+        "attempt attemptDigest attemptRef budget inputContractRef inputDigest inputRef inputValue priorJudgmentRef priorRouteRef retryBoundaryRef retryPath retryTermPath retryableFailureClasses taskOrdinal wrappedTermPath",
       ),
       payloadKeys("attemptRef attemptDigest retryBoundaryRef attempt"),
     )],
@@ -661,11 +665,14 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [FRAME_EVENT],
     payloadVariants: [
       payloadVariant(
-        payloadKeys(
-          "attempt attemptRef budget cCallRef completedAttempts failureClass failureSignalRef inputContractRef inputDigest inputRef judgmentRef progressClass progressDigest progressRef remainingBudget resultRef retryBoundaryRef retryPath",
-        ),
-        payloadKeys("progressRef progressDigest progressClass attemptRef failureClass"),
+        RETRY_FAILURE_PROGRESS_PAYLOAD,
+        RETRY_FAILURE_PROGRESS_PAYLOAD,
         { progressClass: "retry" },
+      ),
+      payloadVariant(
+        RETRY_FAILURE_PROGRESS_PAYLOAD,
+        RETRY_FAILURE_PROGRESS_PAYLOAD,
+        { progressClass: "stopped" },
       ),
       payloadVariant(
         payloadKeys(
@@ -1645,6 +1652,34 @@ function assertRuntimeEventContract(
       throw new TypeError("runtime event payload carries an invalid required identity");
     }
   }
+  if (candidate.kind === "retry_progress_recorded") {
+    const positiveInteger = (value: JsonValue | undefined): boolean =>
+      Number.isSafeInteger(value) && Number(value) > 0;
+    const positiveIntegerArray = (value: JsonValue | undefined): boolean =>
+      Array.isArray(value) && value.length > 0 && value.every(positiveInteger);
+    const retryPath = Array.isArray(payload.retryPath) ? payload.retryPath : [];
+    if (
+      !positiveInteger(payload.attempt) ||
+      !positiveIntegerArray(payload.retryPath) ||
+      payload.attempt !== retryPath.at(-1) ||
+      ((payload.progressClass === "retry" ||
+        payload.progressClass === "stopped") && (
+        !positiveInteger(payload.budget) ||
+        !positiveIntegerArray(payload.completedAttempts) ||
+        !Number.isSafeInteger(payload.remainingBudget) ||
+        Number(payload.remainingBudget) < 0 ||
+        !WORKER_TRANSPORT_FAILURE_CLASS_VALUES.includes(
+          String(payload.failureClass) as
+            (typeof WORKER_TRANSPORT_FAILURE_CLASS_VALUES)[number],
+        )
+      )) ||
+      (payload.progressClass === "completed" &&
+        (!positiveInteger(payload.completedRetryDepth) ||
+          payload.completedRetryDepth !== retryPath.length))
+    ) {
+      throw new TypeError("retry progress payload carries invalid required value types");
+    }
+  }
   for (const [payloadKey, envelopeValue] of [
     ["runId", candidate.runId],
     ["graphCallId", candidate.graphCallId],
@@ -2136,6 +2171,19 @@ export function admitRuntimeEventTransaction<T>(
   } finally {
     state.transactionStartIndex = null;
   }
+}
+
+export function admitRuntimeEventTransactionAtExpectedPrefix<T>(
+  store: AbgEventStore,
+  expectedPrefixDigest: Sha256Digest,
+  action: () => T,
+): T {
+  if (store.digest() !== expectedPrefixDigest) {
+    throw new TypeError(
+      "runtime event append requires the exact expected immutable prefix",
+    );
+  }
+  return admitRuntimeEventTransaction(store, action);
 }
 
 export function compareAndAppendExpectedPrefix(

@@ -313,12 +313,16 @@ export {
   type ReviewRulingKind,
 } from "./consensus.js";
 export {
+  deriveCBatchTaskInput,
+  deriveCContinuationTarget,
   deriveCSourceContinuation,
   resolveCProgramLocus,
   resolveCProgramTermAtSourcePath,
   resolveEnclosingCBatchRef,
   rootCSourcePath,
   type CSourceContinuation,
+  type CBatchTaskInput,
+  type CContinuationTarget,
   type CProgramLocus,
   type CSourcePath,
   type CSourcePathRefusal,

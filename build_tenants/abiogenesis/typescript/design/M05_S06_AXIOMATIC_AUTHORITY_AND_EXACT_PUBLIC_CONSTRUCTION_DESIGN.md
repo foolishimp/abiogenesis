@@ -1496,9 +1496,10 @@ event. Repeatability is metadata in the owner packet, not a Set bypass.
 ### 7.3 Retry input
 
 The existing retry event family is extended in place, not replaced. Each
-`retry_attempt_opened` event preserves the complete admitted source cursor and
-canonical `inputValue` in the attempt-digest preimage beside the exact input
-contract coordinate, input ref, and input digest. Attempt admission proves
+`retry_attempt_opened` event preserves canonical `inputValue` in the
+attempt-digest preimage beside the exact input contract coordinate, input ref,
+and input digest, and binds the exact source cursor through its cited retry
+route. Attempt admission proves
 that the cursor is admitted, the input coordinate is the cursor's coordinate,
 the input contract is the exact enclosing declared `C.retry` carrier, and
 `sha256Canonical(inputValue) = inputDigest`. The admitted attempt is therefore
@@ -2104,26 +2105,30 @@ production owner APIs to construct two authentic failed attempts:
 ```text
 admitted Program, Graph, ExecutionBasis, scope, cursor, retry route and attempt 1
   -> open C call
-  -> installed no-output result and exact rejection
-  -> completeRejectedCCall(..., "retry")
-  -> admitRetryProgress for attempt 1
+  -> installed no-output candidate and exact admitted transport evidence
+  -> admitRetryRuntimeFailureTransition for attempt 1
+     (atomic failure result, retry judgment, and retry progress)
   -> deriveRetryTraversalStep
   -> proposeRetryRoute
   -> admitRoute + applyRoute + admitRetryAttempt for attempt 2
-  -> installed malformed result and exact contract rejection
-  -> completeRejectedCCall(..., "retry")
-  -> admitRetryProgress for attempt 2
+  -> installed malformed candidate and exact result admission rejection
+  -> admitRetryRuntimeFailureTransition for attempt 2
+     (atomic failure result, retry judgment, and retry progress)
   -> project exact successor DurablePrefixCoordinate and close
   -> process exit
 ```
 
 The target `admitRetryAttempt` relation writes the canonical input value and
-source cursor into each attempt event before that attempt's leaf effect.
-Returning from the second `admitRetryProgress` is the deterministic frontier
-boundary: its append is durable before the function returns. P1 asserts that
-the attempt-two progress event is the durable tail and that no attempt-three
-route, attempt, C call, or effect exists, projects the reopen coordinate,
-closes cleanly, writes the following handoff, and exits:
+binds the exact source cursor through its cited retry route before that
+attempt's leaf effect.
+The failure result, retry judgment, and retry progress are one expected-prefix
+owner transaction; no separately callable close-then-progress suffix may
+expose a closed attempt without its progress row. Returning from the second
+`admitRetryRuntimeFailureTransition` committed admission is the deterministic
+frontier boundary: its append is durable before the function returns. P1
+asserts that the attempt-two progress event is the durable tail and that no
+attempt-three route, attempt, C call, or effect exists, projects the reopen
+coordinate, closes cleanly, writes the following handoff, and exits:
 
 ```text
 {

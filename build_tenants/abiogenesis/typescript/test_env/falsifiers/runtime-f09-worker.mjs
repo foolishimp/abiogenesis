@@ -1031,7 +1031,13 @@ async function constructP1Environment(input) {
   };
 }
 
-async function rejectAttempt(environment, stop, inputValue, failureClass) {
+async function rejectAttempt(
+  environment,
+  stop,
+  retryInput,
+  inputValue,
+  failureClass,
+) {
   const {
     abg,
     graph,
@@ -1150,41 +1156,39 @@ async function rejectAttempt(environment, stop, inputValue, failureClass) {
     JSON.stringify(resultRejection),
   );
   assert.equal(resultRejection.stage, "result");
-  const rejected = abg.completeRejectedCCall(
-    store,
-    cCall,
-    resultRejection,
-    basis(`attempt-${stop.cursor.attempt}/retry-judgment`),
-    "retry",
+  const failureValueKind = leafPort.contractValueKind(
+    cCall.failureContractRef,
+    "failure",
   );
-  assert.equal(rejected.disposition, "retry");
-  const failureSignalRef = failureClass === "no_output"
-    ? realized.resultCandidate.diagnosticRef
-    : resultRejection.diagnosticRef;
-  assert.equal(typeof failureSignalRef, "string");
-  const progress = abg.admitRetryProgress(
+  assert.notEqual(failureValueKind, null);
+  const transition = abg.admitRetryRuntimeFailureTransition(
     store,
+    executionBasis,
     graph,
     stop.cursor,
+    retryInput,
     cCall,
-    rejected,
-    failureClass,
-    failureSignalRef,
-    basis(`attempt-${stop.cursor.attempt}/retry-progress`),
+    failureClass === "no_output" ? evidence : resultRejection,
+    realized.resultCandidate,
+    failureValueKind,
+    basis(`attempt-${stop.cursor.attempt}/retry-transition`),
   );
   assert.equal(
-    progress.kind,
-    "retry_progress_admission",
-    JSON.stringify(progress),
+    transition.kind,
+    "retry_runtime_failure_transition_admission",
+    JSON.stringify(transition),
   );
+  assert.equal(transition.disposition, "retry");
+  assert.equal(transition.progress.progressClass, "retry");
+  const failureSignalRef = transition.close.signal.failureSignalRef;
   return {
     cCall,
     observation,
     realized,
     resultRejection,
-    rejected,
+    transition,
     failureSignalRef,
-    progress,
+    progress: transition.progress,
   };
 }
 
@@ -1230,6 +1234,7 @@ function advanceRetry(environment, stop, attemptResult, retryInput) {
     executionBasis,
     graph,
     cursor,
+    retryInput.inputValue,
     route.admissionEventRef,
     basis(`attempt-${cursor.attempt}/retry-attempt`),
   );
@@ -1313,33 +1318,46 @@ async function produceFrontier(input) {
     executionBasis: environment.executionBasis,
     openedTraversalScope: opened.scope,
     initial: traversal,
+    inputValue: environment.invocationInput,
     clock: {
       eventTime: EVENT_TIME,
       correlationId: "correlation://s06/ax-f09/structural",
     },
   });
   assert.equal(stop.kind, "traversal_stop_ref", JSON.stringify(stop));
-  const retryInput = {
-    value: environment.invocationInput,
-    inputRef: stop.cursor.inputRef,
-    inputDigest: stop.cursor.inputDigest,
-    inputContractRef: environment.graphFunction.inputs[0],
-  };
+  let retryInput = environment.abg.projectActiveRetryAttempt(
+    environment.abg.selectValidatedRuntimeEventPrefix(
+      environment.store.readAll(),
+    ),
+    environment.graph,
+    stop.cursor,
+  );
+  assert.notEqual(retryInput, null);
   assert.equal(
-    environment.product.sha256Canonical(retryInput.value),
+    environment.product.sha256Canonical(retryInput.inputValue),
     retryInput.inputDigest,
   );
   const first = await rejectAttempt(
     environment,
     stop,
+    retryInput,
     environment.invocationInput,
     "no_output",
   );
   stop = advanceRetry(environment, stop, first, retryInput);
   assert.equal(stop.cursor.attempt, 2);
+  retryInput = environment.abg.projectActiveRetryAttempt(
+    environment.abg.selectValidatedRuntimeEventPrefix(
+      environment.store.readAll(),
+    ),
+    environment.graph,
+    stop.cursor,
+  );
+  assert.notEqual(retryInput, null);
   const second = await rejectAttempt(
     environment,
     stop,
+    retryInput,
     environment.invocationInput,
     "contract_failure",
   );

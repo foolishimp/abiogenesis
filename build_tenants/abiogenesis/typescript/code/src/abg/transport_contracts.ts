@@ -5,6 +5,43 @@ import { deepFreeze } from "../shared/immutable.js";
 export type KnownTransportAgentKey = "claude" | "codex" | "gemini" | "generic";
 export type TransportCapabilityLane = "closed_prompt_proof" | "worker_executes";
 export type WorkerSandboxDeclaration = "agent_default" | "external";
+export const WORKER_TRANSPORT_FAILURE_CLASS_VALUES = Object.freeze([
+  "contract_failure",
+  "no_output",
+  "transport_failure",
+] as const);
+export type WorkerTransportFailureClass =
+  (typeof WORKER_TRANSPORT_FAILURE_CLASS_VALUES)[number];
+
+export interface WorkerTransportFailureObservation {
+  readonly parser: WorkerTransportContract["parser"];
+  readonly lane: TransportCapabilityLane;
+  readonly processStatus: number | null;
+  readonly timedOut: boolean;
+  readonly terminationConfirmed: boolean;
+  readonly processSpawnFailed: boolean;
+  readonly structuredEventCount: number;
+  readonly toolCallCount: number;
+  readonly apiRetryCount: number;
+  readonly finalOutput: string;
+}
+
+export function classifyWorkerTransportFailure(
+  observation: WorkerTransportFailureObservation,
+): WorkerTransportFailureClass | null {
+  if (
+    observation.timedOut || !observation.terminationConfirmed ||
+    observation.processSpawnFailed || observation.processStatus !== 0 ||
+    observation.apiRetryCount > 0 ||
+    (observation.parser === "claude_stream_json" &&
+      observation.structuredEventCount === 0)
+  ) return "transport_failure";
+  if (
+    observation.lane === "closed_prompt_proof" &&
+    observation.toolCallCount > 0
+  ) return "contract_failure";
+  return observation.finalOutput.trim().length === 0 ? "no_output" : null;
+}
 
 export interface WorkerTransportContract {
   readonly kind: "worker_transport_contract";

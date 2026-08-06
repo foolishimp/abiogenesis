@@ -27,6 +27,8 @@ import {
 } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import {
+  deriveCBatchTaskInput,
+  deriveCContinuationTarget,
   resolveCProgramLocus,
   resolveCProgramTermAtSourcePath,
   resolveEnclosingCBatchRef,
@@ -354,23 +356,6 @@ function createTraversalStep(
   return step;
 }
 
-function fanOutTaskInput(
-  graph: Readonly<GtlGraph>,
-  batchRef: string,
-  taskOrdinal: number,
-): TraversalInputBasis | null {
-  const materialization = graph.fanOutMaterializations.find(
-    (candidate) => candidate.batchRef === batchRef,
-  );
-  const member = materialization?.members[taskOrdinal];
-  return member === undefined
-    ? null
-    : {
-        inputRef: member.memberRef,
-        inputDigest: member.memberDigest,
-      };
-}
-
 export function deriveTraversalStep(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursor,
@@ -406,13 +391,26 @@ export function deriveTraversalStep(
       return refusal("locus_missing", directStep.message);
     }
   }
-  const targetInput = directStep.stepKind === "start_task"
-    ? fanOutTaskInput(
-        graph,
-        directStep.batchRef,
-        directStep.target.taskOrdinal ?? -1,
-      ) ?? sourceCursor
-    : sourceCursor;
+  let targetInput: TraversalInputBasis = sourceCursor;
+  if (directStep.stepKind === "start_task") {
+    const batchInput = deriveCBatchTaskInput(
+      graph,
+      {
+        nodeRef: sourceCursor.currentNodeRef,
+        termPath: sourceCursor.termPath,
+        taskOrdinal: sourceCursor.taskOrdinal,
+        inputRef: sourceCursor.inputRef,
+        inputDigest: sourceCursor.inputDigest,
+      },
+      "enter_batch",
+      directStep.batchRef,
+      directStep.target.taskOrdinal ?? -1,
+    );
+    if (batchInput.kind === "c_source_path_refusal") {
+      return refusal("locus_missing", batchInput.message);
+    }
+    targetInput = batchInput;
+  }
   return createTraversalStep(sourceCursor, directStep, targetInput);
 }
 
@@ -442,24 +440,24 @@ export function deriveCompletedTraversalStep(
   if (directStep.kind === "direct_c_traversal_refusal") {
     return refusal("locus_missing", directStep.message);
   }
-  let targetInput = completedInput;
-  if (
-    directStep.stepKind === "continue_term" &&
-    directStep.relation === "batch_next"
-  ) {
-    const batchRef = resolveEnclosingCBatchRef(
-      graph.template,
-      sourceCursor.currentNodeRef,
-      sourceCursor.termPath,
-    );
-    targetInput = typeof batchRef !== "string"
-      ? sourceCursor
-      : fanOutTaskInput(
-          graph,
-          batchRef,
-          directStep.target.taskOrdinal ?? -1,
-        ) ?? sourceCursor;
+  const declaredTarget = deriveCContinuationTarget(graph, {
+    nodeRef: sourceCursor.currentNodeRef,
+    termPath: sourceCursor.termPath,
+    taskOrdinal: sourceCursor.taskOrdinal,
+    attempt: sourceCursor.attempt,
+    retryPath: sourceCursor.retryPath,
+    inputRef: sourceCursor.inputRef,
+    inputDigest: sourceCursor.inputDigest,
+  }, completedInput);
+  if (declaredTarget.kind === "c_source_path_refusal") {
+    return refusal("locus_missing", declaredTarget.message);
   }
+  const targetInput = declaredTarget.disposition === "terminal"
+    ? completedInput
+    : {
+        inputRef: declaredTarget.inputRef!,
+        inputDigest: declaredTarget.inputDigest!,
+      };
   return createTraversalStep(sourceCursor, directStep, targetInput);
 }
 

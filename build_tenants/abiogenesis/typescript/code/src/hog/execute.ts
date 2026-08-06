@@ -14,7 +14,6 @@ import {
   admitResult,
   admitRetryAttempt,
   admitCompletedRetryProgress,
-  admitRetryProgress,
   admitRecursionRoute,
   admitRuntimeFailure,
   admitRuntimeEventTransaction,
@@ -28,9 +27,9 @@ import {
   projectAdmittedLeafCCallOutcome,
   projectCurrentDeferredApplication,
   projectedCCallResultValue,
-  projectRetryEligibility,
   replay,
   traversalCursorAdmissionEventRef,
+  WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
   type AbgEventStore,
   type ActorRuntimeBinding,
   type ActorProcessObservation,
@@ -42,7 +41,6 @@ import {
   type AdmittedInteractionContractRow,
   type AdmittedInteractionSet,
   type CCallEvidenceCandidate,
-  type CCallAdmissionRejection,
   type CCall,
   type ExecutionBasis,
   type GraphSpanReentryProjection,
@@ -55,6 +53,18 @@ import {
   type RuntimeAdmissionBasis,
   invokeActorProcess,
 } from "../abg/index.js";
+import {
+  admitRetryRuntimeFailureTransition,
+  hasAdmittedRetryProgress,
+  type RetryContinuationProgressAdmission,
+  type RetryRuntimeFailureTransitionAdmission,
+  type RetryStoppedProgressAdmission,
+} from "../abg/retry.js";
+import {
+  selectValidatedRuntimeEventPrefix,
+  validatedRuntimeEventPrefixThroughEvent,
+} from "../abg/event_prefix.js";
+import type { CCallRuntimeFailureSource } from "../abg/c_call.js";
 import type {
   LeafInvocationPort,
   ProbabilisticLeafEffectPort,
@@ -239,9 +249,7 @@ export type HeldParentTraversalSuspension =
   | HeldRecursionSuspension
   | HeldWorkflowSuspension;
 
-export interface RetainedRetryInput extends RetryInputBasis {
-  readonly value: Readonly<Record<string, JsonValue>>;
-}
+export type RetainedRetryInput = RetryInputBasis;
 
 export interface CompleteInteractionTraversalInput {
   readonly store: AbgEventStore;
@@ -864,6 +872,7 @@ function completeBlockedTraversal<Input, Output>(
     readonly judgmentEventRef: string;
     readonly reasonRef: string;
     readonly resultRef: string;
+    readonly stoppedProgress?: RetryStoppedProgressAdmission;
   },
 ): ExecutableTraversalCompletion {
   const resultValue = projectedCCallResultValue(input.store, {
@@ -879,6 +888,7 @@ function completeBlockedTraversal<Input, Output>(
     values.judgmentRef,
     currentReplay,
     cCall.transitionContractRef,
+    values.stoppedProgress?.progressRef ?? null,
   );
   if (proposal.kind !== "traversal_route_candidate") {
     const diagnosticRef = `diagnostic://abiogenesis/hog/${proposal.code}@5`;
@@ -891,7 +901,9 @@ function completeBlockedTraversal<Input, Output>(
       diagnosticRef,
       {
         ...basis(input.clock, "blocked-route-proposal-refusal"),
-        causationEventRefs: [values.judgmentEventRef],
+        causationEventRefs: [
+          values.stoppedProgress?.admissionEventRef ?? values.judgmentEventRef,
+        ],
       },
     );
     return completion("failed", replayRun(input), {
@@ -912,14 +924,29 @@ function completeBlockedTraversal<Input, Output>(
     basis(input.clock, "blocked-route"),
     {
       cCall,
+      resultRef: values.resultRef,
       judgmentRef: values.judgmentRef,
       judgmentEventRef: values.judgmentEventRef,
       reasonRef: values.reasonRef,
+      ...(values.stoppedProgress === undefined
+        ? {}
+        : { stoppedProgress: values.stoppedProgress }),
     },
     { terminalizeRun: input.terminalMode !== "return_to_parent" },
   );
+  const stoppedProgressConsumed = route.kind === "admitted_traversal_route" &&
+      values.stoppedProgress !== undefined
+    ? !hasAdmittedRetryProgress(
+        validatedRuntimeEventPrefixThroughEvent(
+          selectValidatedRuntimeEventPrefix(input.store.readAll()),
+          route.admissionEventRef,
+        ),
+        values.stoppedProgress,
+      )
+    : values.stoppedProgress === undefined;
   if (
     route.kind !== "admitted_traversal_route" ||
+    !stoppedProgressConsumed ||
     (input.terminalMode !== "return_to_parent" && route.runStoppedEventRef === null)
   ) {
     const diagnosticRef = route.kind === "admitted_traversal_route"
@@ -934,7 +961,9 @@ function completeBlockedTraversal<Input, Output>(
       diagnosticRef,
       {
         ...basis(input.clock, "blocked-route-admission-refusal"),
-        causationEventRefs: [values.judgmentEventRef],
+        causationEventRefs: [
+          values.stoppedProgress?.admissionEventRef ?? values.judgmentEventRef,
+        ],
       },
     );
     return completion("failed", replayRun(input), {
@@ -1044,25 +1073,17 @@ function completeFailedTraversal<Input, Output>(
   });
 }
 
-function completeRetryTraversal<Input, Output>(
+function completeRuntimeFailureTransition<Input, Output>(
   input: CompleteExecutableTraversalInput<Input, Output>,
   cCall: CCall,
-  rejection: CCallAdmissionRejection,
-  failureClass: "contract_failure" | "no_output" | "transport_failure",
-): ExecutableTraversalCompletion | null {
-  const eligibility = projectRetryEligibility(
-    input.store,
-    input.graph,
-    input.traversalStop.cursor,
-    failureClass,
-    rejection.diagnosticRef,
-  );
-  if (eligibility.disposition !== "retry") return null;
+  source: CCallRuntimeFailureSource,
+  failureCandidate: JsonValue,
+  failureValueKind: string,
+): ExecutableTraversalCompletion {
   const retryInput = input.retryInput;
   if (
-    retryInput === undefined ||
-    retryInput.inputContractRef.length === 0 ||
-    sha256Canonical(retryInput.value as unknown as JsonValue) !==
+    retryInput === undefined || retryInput.inputContractRef.length === 0 ||
+    sha256Canonical(retryInput.inputValue as unknown as JsonValue) !==
       retryInput.inputDigest
   ) {
     const diagnosticRef =
@@ -1072,7 +1093,7 @@ function completeRetryTraversal<Input, Output>(
       input.executionBasis,
       input.openedTraversalScope,
       "route",
-      eligibility as unknown as JsonValue,
+      { cCallRef: cCall.cCallRef },
       diagnosticRef,
       cursorBasis(input, "retry-input-refusal"),
     );
@@ -1081,45 +1102,66 @@ function completeRetryTraversal<Input, Output>(
       diagnosticRef,
     });
   }
-  const rejected = completeRejectedCCall(
+  const transition = admitRetryRuntimeFailureTransition(
     input.store,
-    cCall,
-    rejection,
-    basis(input.clock, "retry-judgment"),
-    "retry",
-  );
-  const progress = admitRetryProgress(
-    input.store,
+    input.executionBasis,
     input.graph,
     input.traversalStop.cursor,
+    retryInput,
     cCall,
-    rejected,
-    failureClass,
-    rejection.diagnosticRef,
-    basis(input.clock, "retry-progress"),
+    source,
+    failureCandidate,
+    failureValueKind,
+    basis(input.clock, "retry-runtime-failure-transition"),
   );
-  if (progress.kind !== "retry_progress_admission") {
+  if (transition.kind !== "retry_runtime_failure_transition_admission") {
     const diagnosticRef =
-      `diagnostic://abiogenesis/hog/${progress.code}@5`;
+      `diagnostic://abiogenesis/hog/${transition.code}@5`;
     admitRuntimeFailure(
       input.store,
       input.executionBasis,
       input.openedTraversalScope,
       "route",
-      progress as unknown as JsonValue,
+      transition as unknown as JsonValue,
       diagnosticRef,
-      {
-        ...basis(input.clock, "retry-progress-refusal"),
-        causationEventRefs: [rejected.judgmentEventRef],
-      },
+      cursorBasis(input, "retry-runtime-failure-refusal"),
     );
     return completion("failed", replayRun(input), {
       cCallRef: cCall.cCallRef,
-      resultRef: rejected.refusalResultRef,
-      judgmentRef: rejected.rejectionJudgmentRef,
       diagnosticRef,
     });
   }
+  if (transition.disposition === "retry") {
+    if (transition.progress.progressClass !== "retry") {
+      throw new TypeError("admitted retry transition has non-retry progress");
+    }
+    return completeRetryTraversal(
+      input,
+      cCall,
+      retryInput,
+      transition,
+      transition.progress,
+    );
+  }
+  if (transition.progress.progressClass !== "stopped") {
+    throw new TypeError("admitted blocked transition has non-stopped progress");
+  }
+  return completeBlockedTraversal(input, cCall, {
+    resultRef: transition.close.result.resultRef,
+    judgmentRef: transition.close.judgment.judgmentRef,
+    judgmentEventRef: transition.close.judgment.admissionEventRef,
+    reasonRef: transition.close.judgment.reasonRef,
+    stoppedProgress: transition.progress,
+  });
+}
+
+function completeRetryTraversal<Input, Output>(
+  input: CompleteExecutableTraversalInput<Input, Output>,
+  cCall: CCall,
+  retryInput: RetainedRetryInput,
+  transition: RetryRuntimeFailureTransitionAdmission,
+  progress: RetryContinuationProgressAdmission,
+): ExecutableTraversalCompletion {
   const retryStep = deriveRetryTraversalStep(
     input.graph,
     input.traversalStop.cursor,
@@ -1143,8 +1185,8 @@ function completeRetryTraversal<Input, Output>(
     );
     return completion("failed", replayRun(input), {
       cCallRef: cCall.cCallRef,
-      resultRef: rejected.refusalResultRef,
-      judgmentRef: rejected.rejectionJudgmentRef,
+      resultRef: transition.close.result.resultRef,
+      judgmentRef: transition.close.judgment.judgmentRef,
       diagnosticRef,
     });
   }
@@ -1174,8 +1216,8 @@ function completeRetryTraversal<Input, Output>(
     );
     return completion("failed", replayRun(input), {
       cCallRef: cCall.cCallRef,
-      resultRef: rejected.refusalResultRef,
-      judgmentRef: rejected.rejectionJudgmentRef,
+      resultRef: transition.close.result.resultRef,
+      judgmentRef: transition.close.judgment.judgmentRef,
       diagnosticRef,
     });
   }
@@ -1207,8 +1249,8 @@ function completeRetryTraversal<Input, Output>(
     );
     return completion("failed", replayRun(input), {
       cCallRef: cCall.cCallRef,
-      resultRef: rejected.refusalResultRef,
-      judgmentRef: rejected.rejectionJudgmentRef,
+      resultRef: transition.close.result.resultRef,
+      judgmentRef: transition.close.judgment.judgmentRef,
       diagnosticRef,
     });
   }
@@ -1216,8 +1258,8 @@ function completeRetryTraversal<Input, Output>(
   if (nextCursor.kind === "traversal_refusal") {
     return completion("failed", replayRun(input), {
       cCallRef: cCall.cCallRef,
-      resultRef: rejected.refusalResultRef,
-      judgmentRef: rejected.rejectionJudgmentRef,
+      resultRef: transition.close.result.resultRef,
+      judgmentRef: transition.close.judgment.judgmentRef,
       diagnosticRef: `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
     });
   }
@@ -1226,28 +1268,28 @@ function completeRetryTraversal<Input, Output>(
     input.executionBasis,
     input.graph,
     nextCursor,
+    retryInput.inputValue,
     route.admissionEventRef,
     basis(input.clock, "retry-attempt"),
   );
   if (attempt.kind !== "retry_attempt_admission") {
     return completion("failed", replayRun(input), {
       cCallRef: cCall.cCallRef,
-      resultRef: rejected.refusalResultRef,
-      judgmentRef: rejected.rejectionJudgmentRef,
+      resultRef: transition.close.result.resultRef,
+      judgmentRef: transition.close.judgment.judgmentRef,
       diagnosticRef: `diagnostic://abiogenesis/hog/${attempt.code}@5`,
     });
   }
   return completion("advanced", replayRun(input), {
     cCallRef: cCall.cCallRef,
-    resultRef: rejected.refusalResultRef,
-    judgmentRef: rejected.rejectionJudgmentRef,
+    resultRef: transition.close.result.resultRef,
+    judgmentRef: transition.close.judgment.judgmentRef,
     nextCursor,
-    resultValue: retryInput.value as unknown as JsonValue,
+    resultValue: retryInput.inputValue as unknown as JsonValue,
     continuationKind: "retry",
     nextInputContractRef: retryInput.inputContractRef,
   });
 }
-
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -1540,6 +1582,27 @@ export async function completeExecutableTraversal<
     }
     evidence.push(admitted);
   }
+  const probabilisticFailureSource = evidence.length === 1 &&
+      evidence[0]!.evidenceClass === "probabilistic_transport" &&
+      evidence[0]!.transportDisposition === "failure" &&
+      typeof evidence[0]!.transportFailureClass === "string" &&
+      WORKER_TRANSPORT_FAILURE_CLASS_VALUES.some((failureClass) =>
+        failureClass === evidence[0]!.transportFailureClass
+      )
+    ? evidence[0]!
+    : null;
+  if (
+    leaf.disposition === "failure" && cCall.retryPath.length > 0 &&
+    probabilisticFailureSource !== null
+  ) {
+    return completeRuntimeFailureTransition(
+      input,
+      cCall,
+      probabilisticFailureSource,
+      leaf.resultCandidate as unknown as JsonValue,
+      failureValueKind,
+    );
+  }
   const result = admitResult(
     input.store,
     cCall,
@@ -1581,15 +1644,16 @@ export async function completeExecutableTraversal<
   if (result.kind === "c_call_admission_rejection") {
     if (
       leaf.disposition === "success" &&
-      !validateSuccessCandidate(leaf.resultCandidate)
+      !validateSuccessCandidate(leaf.resultCandidate) &&
+      cCall.retryPath.length > 0
     ) {
-      const retry = completeRetryTraversal(
+      return completeRuntimeFailureTransition(
         input,
         cCall,
         result,
-        "contract_failure",
+        leaf.resultCandidate as unknown as JsonValue,
+        failureValueKind,
       );
-      if (retry !== null) return retry;
     }
     const rejected = completeRejectedCCall(
       input.store,
@@ -2950,6 +3014,7 @@ function completeBlockedWorkflowTraversal(
     basis(input.clock, "workflow-blocked-route"),
     {
       cCall: input.parentCCall,
+      resultRef,
       judgmentRef,
       judgmentEventRef,
       reasonRef,

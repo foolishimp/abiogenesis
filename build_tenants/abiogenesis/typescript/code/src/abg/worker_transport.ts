@@ -10,16 +10,15 @@ import {
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  classifyWorkerTransportFailure,
   composeWorkerTransportArgs,
   sanitizeWorkerTransportEnvironment,
   type TransportCapabilityLane,
   type WorkerTransportContract,
+  type WorkerTransportFailureClass,
 } from "./transport_contracts.js";
 
-export type WorkerTransportFailureClass =
-  | "contract_failure"
-  | "no_output"
-  | "transport_failure";
+export type { WorkerTransportFailureClass } from "./transport_contracts.js";
 
 export interface WorkerTransportArtifact {
   readonly path: string;
@@ -301,30 +300,6 @@ function runProcess(input: {
   });
 }
 
-function classifyFailure(input: {
-  readonly process: ProcessObservation;
-  readonly parser: WorkerTransportContract["parser"];
-  readonly lane: TransportCapabilityLane;
-  readonly observation: StructuredObservation;
-  readonly finalOutput: string;
-}): WorkerTransportFailureClass | null {
-  if (
-    input.process.timedOut ||
-    !input.process.terminationConfirmed ||
-    input.process.launchError !== null ||
-    input.process.status !== 0 ||
-    input.observation.apiRetryCount > 0 ||
-    (input.parser === "claude_stream_json" &&
-      input.observation.structuredEventCount === 0)
-  ) {
-    return "transport_failure";
-  }
-  if (input.lane === "closed_prompt_proof" && input.observation.toolCallCount > 0) {
-    return "contract_failure";
-  }
-  return input.finalOutput.trim().length === 0 ? "no_output" : null;
-}
-
 async function executeWorkerTransport(
   input: WorkerTransportRequest,
 ): Promise<WorkerTransportResult> {
@@ -383,11 +358,16 @@ async function executeWorkerTransport(
       finalOutput: processObservation.resultBearingStdout,
     };
   const finalOutput = observation.finalOutput;
-  const failureClass = classifyFailure({
-    process: processObservation,
+  const failureClass = classifyWorkerTransportFailure({
     parser: input.contract.parser,
     lane: input.lane,
-    observation,
+    processStatus: processObservation.status,
+    timedOut: processObservation.timedOut,
+    terminationConfirmed: processObservation.terminationConfirmed,
+    processSpawnFailed: processObservation.launchError !== null,
+    structuredEventCount: observation.structuredEventCount,
+    toolCallCount: observation.toolCallCount,
+    apiRetryCount: observation.apiRetryCount,
     finalOutput,
   });
   const promptBytes = Buffer.from(input.prompt, "utf8");

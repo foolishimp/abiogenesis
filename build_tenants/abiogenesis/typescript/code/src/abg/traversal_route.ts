@@ -9,9 +9,10 @@ import {
   recursionTerminationDecision,
 } from "../gtl/graph_applications.js";
 import {
+  deriveCBatchTaskInput,
+  deriveCContinuationTarget,
   deriveCSourceContinuation,
   resolveCProgramLocus,
-  resolveEnclosingCBatchRef,
   resolveEnclosingCRetryContexts,
   resolveCProgramTermAtSourcePath,
 } from "../gtl/source_path.js";
@@ -54,6 +55,7 @@ import {
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
   constructRuntimeFluent,
@@ -63,8 +65,10 @@ import {
 import { replay, type ReplayState } from "./replay.js";
 import {
   hasAdmittedRetryProgress,
+  projectAdmittedRetryProgress,
   type RetryCompletedProgressAdmission,
   type RetryProgressAdmission,
+  type RetryStoppedProgressAdmission,
 } from "./retry.js";
 import {
   hasAdmittedTraversalCursor,
@@ -386,9 +390,11 @@ export interface RouteAdmissionEvidence {
 
 export interface BlockedRouteAdmissionEvidence {
   readonly cCall: CCall;
+  readonly resultRef: string;
   readonly judgmentRef: string;
   readonly judgmentEventRef: string;
   readonly reasonRef: string;
+  readonly stoppedProgress?: RetryStoppedProgressAdmission;
 }
 
 export interface HoldRouteAdmissionEvidence {
@@ -2651,23 +2657,6 @@ function hasSameCursorLineage(
     target.position === "at_term";
 }
 
-function materializedMemberInput(
-  graph: Readonly<GtlGraph>,
-  batchRef: string,
-  taskOrdinal: number | null,
-): { readonly inputRef: string; readonly inputDigest: Sha256Digest } | null {
-  if (taskOrdinal === null) return null;
-  const member = graph.fanOutMaterializations.find(
-    (candidate) => candidate.batchRef === batchRef,
-  )?.members[taskOrdinal];
-  return member === undefined
-    ? null
-    : {
-        inputRef: member.memberRef,
-        inputDigest: member.memberDigest,
-      };
-}
-
 function isDeclaredStructuralTarget(
   graph: Readonly<GtlGraph>,
   source: TraversalCursorCandidate,
@@ -2681,9 +2670,27 @@ function isDeclaredStructuralTarget(
     source.termPath,
   );
   if (term.kind === "c_source_path_refusal") return false;
-  const structuralInput = term.kind === "c_batch"
-    ? materializedMemberInput(graph, term.batchRef, target.taskOrdinal) ?? source
-    : source;
+  let structuralInput: Readonly<{
+    inputRef: string;
+    inputDigest: Sha256Digest;
+  }> = source;
+  if (term.kind === "c_batch") {
+    const batchInput = deriveCBatchTaskInput(
+      graph,
+      {
+        nodeRef: source.currentNodeRef,
+        termPath: source.termPath,
+        taskOrdinal: source.taskOrdinal,
+        inputRef: source.inputRef,
+        inputDigest: source.inputDigest,
+      },
+      "enter_batch",
+      term.batchRef,
+      target.taskOrdinal ?? -1,
+    );
+    if (batchInput.kind === "c_source_path_refusal") return false;
+    structuralInput = batchInput;
+  }
   if (
     target.inputRef !== structuralInput.inputRef ||
     target.inputDigest !== structuralInput.inputDigest
@@ -2759,6 +2766,7 @@ function isDeclaredStructuralTarget(
 
 function hasJudgedRouteEvidence(
   store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
@@ -2779,7 +2787,7 @@ function hasJudgedRouteEvidence(
     completedProgresses.length === exitedRetryDepths.length &&
     completedProgresses.every((progress, index) =>
       progress.progressClass === "completed" &&
-      hasAdmittedRetryProgress(store, progress) &&
+      hasAdmittedRetryProgress(prefix, progress) &&
       progress.completedRetryDepth === exitedRetryDepths[index] &&
       progress.cCallRef === cCall?.cCallRef &&
       progress.resultRef === result?.resultRef &&
@@ -2838,6 +2846,7 @@ function hasJudgedRouteEvidence(
 function hasBlockedRouteEvidence(
   store: AbgEventStore,
   executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
   candidate: RouteCandidate,
   evidence: BlockedRouteAdmissionEvidence | null,
@@ -2852,8 +2861,10 @@ function hasBlockedRouteEvidence(
     candidate.judgmentRef !== evidence.judgmentRef ||
     candidate.targetCursorRef !== null ||
     candidate.targetCursorDigest !== null ||
-    candidate.consumedAvailabilityRefs.length !== 1 ||
-    candidate.consumedAvailabilityRefs[0] !== evidence.judgmentRef ||
+    !sameValues(candidate.consumedAvailabilityRefs,
+      evidence.stoppedProgress === undefined
+        ? [evidence.judgmentRef]
+        : [evidence.judgmentRef, evidence.stoppedProgress.progressRef]) ||
     candidate.contractRef !== evidence.cCall.transitionContractRef
   ) return false;
   const projected = replay(store, { runId: sourceCursor.runId }).cCalls.find(
@@ -2865,13 +2876,67 @@ function hasBlockedRouteEvidence(
   const judgmentEvent = runtimeEventsFromValidatedPrefix(prefix).find(
     (event) => event.eventId === evidence.judgmentEventRef,
   );
-  return projected?.status === "judged" &&
+  const contexts = resolveEnclosingCRetryContexts(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  const context = "kind" in contexts ? undefined : contexts.at(-1);
+  const expectedBoundaryRef = context === undefined
+    ? null
+    : `retry-boundary://abiogenesis/${sha256Canonical({
+        graphRef: graph.materializationRef,
+        frameId: sourceCursor.frameId,
+        nodeRef: sourceCursor.currentNodeRef,
+        retryTermPath: context.retryTermPath,
+      }).slice("sha256:".length)}`;
+  const exactStoppedProgresses = runtimeEventsFromValidatedPrefix(prefix)
+    .filter((event) =>
+      event.kind === "retry_progress_recorded" &&
+      event.runId === sourceCursor.runId &&
+      event.graphCallId === sourceCursor.graphCallId &&
+      event.frameId === sourceCursor.frameId &&
+      isJsonRecord(event.payload) &&
+      event.payload.progressClass === "stopped"
+    )
+    .map((event) => projectAdmittedRetryProgress(prefix, event.eventId))
+    .filter((progress): progress is RetryStoppedProgressAdmission =>
+      progress !== null &&
+      progress.progressClass === "stopped" &&
+      context !== undefined &&
+      context.retryDepth === sourceCursor.retryPath.length &&
+      progress.retryBoundaryRef === expectedBoundaryRef &&
+      progress.cCallRef === evidence.cCall.cCallRef &&
+      progress.resultRef === evidence.resultRef &&
+      progress.judgmentRef === evidence.judgmentRef &&
+      progress.failureSignalRef === evidence.reasonRef &&
+      progress.attempt === sourceCursor.attempt &&
+      sameValues(
+        progress.retryPath.map(String),
+        sourceCursor.retryPath.map(String),
+      ) &&
+      progress.inputRef === sourceCursor.inputRef &&
+      progress.inputDigest === sourceCursor.inputDigest &&
+      hasAdmittedRetryProgress(prefix, progress)
+    );
+  const stoppedProgressMatches = exactStoppedProgresses.length === 0
+    ? evidence.stoppedProgress === undefined
+    : exactStoppedProgresses.length === 1 &&
+      evidence.stoppedProgress !== undefined &&
+      sha256Canonical(
+        exactStoppedProgresses[0] as unknown as JsonValue,
+      ) === sha256Canonical(
+        evidence.stoppedProgress as unknown as JsonValue,
+      );
+  return stoppedProgressMatches && projected?.status === "judged" &&
+    projected.resultRef === evidence.resultRef &&
     projected.judgmentRef === evidence.judgmentRef &&
     projected.judgment === "blocked" &&
     judgmentEvent?.kind === "c_call_judged" &&
     judgmentEvent.aggregateId === evidence.cCall.cCallRef &&
     isJsonRecord(judgmentEvent.payload) &&
     judgmentEvent.payload.judgmentRef === evidence.judgmentRef &&
+    judgmentEvent.payload.resultRef === evidence.resultRef &&
     judgmentEvent.payload.judgment === "blocked" &&
     judgmentEvent.payload.reasonRef === evidence.reasonRef;
 }
@@ -3033,6 +3098,7 @@ function hasInteractionResumeRouteEvidence(
 
 function hasRetryRouteEvidence(
   store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
@@ -3044,7 +3110,7 @@ function hasRetryRouteEvidence(
     evidence === null ||
     evidence.progress.progressClass !== "retry" ||
     !hasOpenedCCall(store, evidence.cCall) ||
-    !hasAdmittedRetryProgress(store, evidence.progress) ||
+    !hasAdmittedRetryProgress(prefix, evidence.progress) ||
     evidence.cCall.basisId !== executionBasis.basisRef ||
     evidence.cCall.frameId !== sourceCursor.frameId ||
     evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
@@ -3204,51 +3270,34 @@ function isDeclaredJudgedTarget(
   result: AdmittedCCallResult,
 ): boolean {
   if (!hasSameCursorLineage(source, target)) return false;
-  const continuation = deriveCSourceContinuation(
-    graph.template,
-    source.currentNodeRef,
-    source.termPath,
-  );
+  const continuation = deriveCContinuationTarget(graph, {
+    nodeRef: source.currentNodeRef,
+    termPath: source.termPath,
+    taskOrdinal: source.taskOrdinal,
+    attempt: source.attempt,
+    retryPath: source.retryPath,
+    inputRef: source.inputRef,
+    inputDigest: source.inputDigest,
+  }, { inputRef: result.resultRef, inputDigest: result.valueDigest });
   if (
     continuation.kind === "c_source_path_refusal" ||
     continuation.disposition !== "advance" ||
-    continuation.targetPath === null ||
-    continuation.targetRetryDepth > source.retryPath.length
+    continuation.termPath === null
   ) {
     return false;
   }
-  const retryPath = source.retryPath.slice(0, continuation.targetRetryDepth);
-  let inputRef = result.resultRef;
-  let inputDigest = result.valueDigest;
-  if (continuation.relation === "batch_next") {
-    const batchRef = resolveEnclosingCBatchRef(
-      graph.template,
-      source.currentNodeRef,
-      source.termPath,
-    );
-    const memberInput = typeof batchRef === "string"
-      ? materializedMemberInput(graph, batchRef, continuation.targetTaskOrdinal)
-      : null;
-    inputRef = memberInput?.inputRef ?? source.inputRef;
-    inputDigest = memberInput?.inputDigest ?? source.inputDigest;
-  }
-  return target.currentNodeRef === continuation.targetPath[1] &&
-    sameValues(target.termPath, continuation.targetPath) &&
-    target.inputRef === inputRef &&
-    target.inputDigest === inputDigest &&
-    target.taskOrdinal === continuation.targetTaskOrdinal &&
-    target.attempt ===
-      (
-        continuation.relation === "graph_edge"
-          ? 1
-          : retryPath.at(-1) ??
-            (source.retryPath.length === 0 ? source.attempt : 1)
-      ) &&
-    sameValues(target.retryPath.map(String), retryPath.map(String));
+  return target.currentNodeRef === continuation.nodeRef &&
+    sameValues(target.termPath, continuation.termPath) &&
+    target.inputRef === continuation.inputRef &&
+    target.inputDigest === continuation.inputDigest &&
+    target.taskOrdinal === continuation.taskOrdinal &&
+    target.attempt === continuation.attempt &&
+    sameValues(target.retryPath.map(String), continuation.retryPath.map(String));
 }
 
 function hasGraphSpanReentryRouteEvidence(
   store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   source: TraversalCursorCandidate,
@@ -3261,6 +3310,7 @@ function hasGraphSpanReentryRouteEvidence(
     candidate.routeKind !== "re_enter" ||
     !hasJudgedRouteEvidence(
       store,
+      prefix,
       executionBasis,
       graph,
       source,
@@ -3367,11 +3417,18 @@ function isDeclaredInteractionResumeTarget(
   candidate: RouteCandidate,
   resume: FhInteractionResumeAdmission,
 ): boolean {
-  const continuation = deriveCSourceContinuation(
-    graph.template,
-    source.currentNodeRef,
-    source.termPath,
-  );
+  const continuation = deriveCContinuationTarget(graph, {
+    nodeRef: source.currentNodeRef,
+    termPath: source.termPath,
+    taskOrdinal: source.taskOrdinal,
+    attempt: source.attempt,
+    retryPath: source.retryPath,
+    inputRef: source.inputRef,
+    inputDigest: source.inputDigest,
+  }, {
+    inputRef: resume.successorInputRef,
+    inputDigest: resume.successorInputDigest,
+  });
   if (continuation.kind === "c_source_path_refusal") return false;
   if (continuation.disposition === "terminal") {
     return candidate.routeKind === "terminal" &&
@@ -3383,45 +3440,25 @@ function isDeclaredInteractionResumeTarget(
   if (
     candidate.routeKind !== "advance" ||
     continuation.disposition !== "advance" ||
-    continuation.targetPath === null ||
+    continuation.termPath === null ||
     target === null ||
     !hasSameCursorLineage(source, target) ||
     candidate.targetCursorRef !== target.cursorRef ||
     candidate.targetCursorDigest !== target.cursorDigest ||
-    continuation.targetRetryDepth > source.retryPath.length
+    continuation.nodeRef === null
   ) {
     return false;
   }
-  const retryPath = source.retryPath.slice(0, continuation.targetRetryDepth);
-  let inputRef = resume.successorInputRef;
-  let inputDigest = resume.successorInputDigest;
-  if (continuation.relation === "batch_next") {
-    const batchRef = resolveEnclosingCBatchRef(
-      graph.template,
-      source.currentNodeRef,
-      source.termPath,
+  return target.currentNodeRef === continuation.nodeRef &&
+    sameValues(target.termPath, continuation.termPath) &&
+    target.inputRef === continuation.inputRef &&
+    target.inputDigest === continuation.inputDigest &&
+    target.taskOrdinal === continuation.taskOrdinal &&
+    target.attempt === continuation.attempt &&
+    sameValues(
+      target.retryPath.map(String),
+      continuation.retryPath.map(String),
     );
-    const memberInput = typeof batchRef === "string"
-      ? materializedMemberInput(
-          graph,
-          batchRef,
-          continuation.targetTaskOrdinal,
-        )
-      : null;
-    inputRef = memberInput?.inputRef ?? source.inputRef;
-    inputDigest = memberInput?.inputDigest ?? source.inputDigest;
-  }
-  const targetNodeRef = continuation.targetPath[0] === "node"
-    ? continuation.targetPath[1]
-    : null;
-  return targetNodeRef !== null &&
-    target.currentNodeRef === targetNodeRef &&
-    sameValues(target.termPath, continuation.targetPath) &&
-    target.inputRef === inputRef &&
-    target.inputDigest === inputDigest &&
-    target.taskOrdinal === continuation.targetTaskOrdinal &&
-    target.attempt === (retryPath.at(-1) ?? 1) &&
-    sameValues(target.retryPath.map(String), retryPath.map(String));
 }
 
 export function admitRoute(
@@ -3573,6 +3610,7 @@ export function admitRoute(
     } else {
       if (!hasJudgedRouteEvidence(
         store,
+        prefix,
         executionBasis,
         graph,
         sourceCursor,
@@ -3639,6 +3677,7 @@ export function admitRoute(
         targetCursor === null ||
         !hasGraphSpanReentryRouteEvidence(
           store,
+          prefix,
           executionBasis,
           graph,
           sourceCursor,
@@ -3714,6 +3753,7 @@ export function admitRoute(
         candidate.routeKind !== "advance" ||
         !hasJudgedRouteEvidence(
           store,
+          prefix,
           executionBasis,
           graph,
           sourceCursor,
@@ -3735,6 +3775,7 @@ export function admitRoute(
       candidate.routeKind === "retry" &&
       hasRetryRouteEvidence(
         store,
+        prefix,
         executionBasis,
         graph,
         sourceCursor,
@@ -3781,6 +3822,7 @@ export function admitRoute(
       candidate.targetCursorDigest !== null ||
       !hasJudgedRouteEvidence(
         store,
+        prefix,
         executionBasis,
         graph,
         sourceCursor,
@@ -3844,6 +3886,7 @@ export function admitRoute(
       if (!hasBlockedRouteEvidence(
         store,
         executionBasis,
+        graph,
         sourceCursor,
         candidate,
         blockedEvidence,
@@ -3853,7 +3896,8 @@ export function admitRoute(
           "blocked route requires this cursor's admitted blocked CCall judgment",
         );
       }
-      causationEventRef = blockedEvidence.judgmentEventRef;
+      causationEventRef = blockedEvidence.stoppedProgress?.admissionEventRef ??
+        blockedEvidence.judgmentEventRef;
     }
   } else if (candidate.routeKind === "failed") {
     const failedEvidence = evidence !== null && "result" in evidence

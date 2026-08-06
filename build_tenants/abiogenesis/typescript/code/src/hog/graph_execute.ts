@@ -16,6 +16,8 @@ import {
   type ExecutionBasis,
   type OpenedTraversalScope,
 } from "../abg/index.js";
+import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+import { projectActiveRetryAttempt } from "../abg/retry.js";
 import type {
   ClosureContract,
   FanOutApplication,
@@ -25,7 +27,6 @@ import type {
   RecurseApplication,
 } from "../gtl/contracts.js";
 import { recursionTerminationDecision } from "../gtl/graph_applications.js";
-import { resolveEnclosingCRetryContexts } from "../gtl/source_path.js";
 import { isAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { lookupGraphFunctionDefinition } from "../product/catalog.js";
@@ -138,6 +139,7 @@ function advanceStructural(
   input: ExecuteGraphTraversalInput,
   value: StructuralTraversalResult,
   ordinal: number,
+  inputValue: Readonly<Record<string, JsonValue>>,
 ): StructuralTraversalResult {
   if (value.kind !== "traversal_step") return value;
   return advanceStructuralTraversal({
@@ -148,6 +150,7 @@ function advanceStructural(
     executionBasis: input.executionBasis,
     openedTraversalScope: input.openedTraversalScope,
     initial: value,
+    inputValue,
     clock: {
       eventTime: input.eventTime,
       correlationId: `${input.correlationId}/structural/${ordinal}`,
@@ -162,59 +165,19 @@ function activeCursor(
   return value.kind === "traversal_step" ? value.sourceCursor : null;
 }
 
-function retryInputKey(
-  nodeRef: string,
-  retryTermPath: readonly string[],
-): string {
-  return JSON.stringify([nodeRef, retryTermPath]);
-}
-
-function captureRetryInputs(
-  graph: Readonly<GtlGraph>,
-  value: StructuralTraversalResult,
-  currentInput: Readonly<Record<string, JsonValue>>,
-  inputs: Map<string, RetainedRetryInput>,
-): boolean {
-  const cursor = activeCursor(value);
-  if (cursor === null) return true;
-  const contexts = resolveEnclosingCRetryContexts(
-    graph.template,
-    cursor.currentNodeRef,
-    cursor.termPath,
-  );
-  if ("kind" in contexts || contexts.length !== cursor.retryPath.length) {
-    return false;
-  }
-  for (const context of contexts) {
-    const key = retryInputKey(cursor.currentNodeRef, context.retryTermPath);
-    if (inputs.has(key)) continue;
-    inputs.set(key, {
-      value: currentInput,
-      inputRef: cursor.inputRef,
-      inputDigest: cursor.inputDigest,
-      inputContractRef: context.inputCarrierRef,
-    });
-  }
-  return true;
-}
-
 function selectRetryInput(
+  store: AbgEventStore,
   graph: Readonly<GtlGraph>,
   value: StructuralTraversalResult,
-  inputs: ReadonlyMap<string, RetainedRetryInput>,
-): RetainedRetryInput | undefined {
+): RetainedRetryInput | null | undefined {
   const cursor = activeCursor(value);
   if (cursor === null) return undefined;
-  const contexts = resolveEnclosingCRetryContexts(
-    graph.template,
-    cursor.currentNodeRef,
-    cursor.termPath,
+  if (cursor.retryPath.length === 0) return undefined;
+  return projectActiveRetryAttempt(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    graph,
+    cursor,
   );
-  if ("kind" in contexts) return undefined;
-  const context = contexts.at(-1);
-  return context === undefined
-    ? undefined
-    : inputs.get(retryInputKey(cursor.currentNodeRef, context.retryTermPath));
 }
 
 function recurseApplicationAtStop(
@@ -385,7 +348,11 @@ export async function executeGraphTraversal(
     }
   }
 
-  stop = advanceStructural(input, stop, 0);
+  let currentInput =
+    materializedInputAtCursor(input.graph, activeCursor(stop))?.value ??
+      input.resume?.input ??
+      input.input;
+  stop = advanceStructural(input, stop, 0, currentInput);
   if (
     stop.kind !== "traversal_stop_ref" &&
     !(stop.kind === "traversal_step" && stop.directStep.stepKind === "enter_child")
@@ -398,19 +365,6 @@ export async function executeGraphTraversal(
     );
   }
 
-  let currentInput =
-    materializedInputAtCursor(input.graph, activeCursor(stop))?.value ??
-      input.resume?.input ??
-      input.input;
-  const retryInputs = new Map<string, RetainedRetryInput>();
-  if (!captureRetryInputs(input.graph, stop, currentInput, retryInputs)) {
-    return fail(
-      input,
-      "retry-input-capture",
-      "diagnostic://abiogenesis/hog/retry-input-basis-absent@5",
-      stop as unknown as JsonValue,
-    );
-  }
   let completion: ExecutableTraversalCompletion | null = null;
   let leafOrdinal = 0;
   while (
@@ -828,7 +782,15 @@ export async function executeGraphTraversal(
       }
       completionValueKind = outputValueKind;
       completionContractRef = exactStop.outputContractRef;
-      const retryInput = selectRetryInput(input.graph, stop, retryInputs);
+      const retryInput = selectRetryInput(input.store, input.graph, stop);
+      if (retryInput === null) {
+        return fail(
+          input,
+          `retry-input-projection-${leafOrdinal}`,
+          "diagnostic://abiogenesis/hog/retry-input-basis-absent@5",
+          stop as unknown as JsonValue,
+        );
+      }
       const recursionApplication = recurseApplicationAtStop(
         input.graph,
         exactStop.compositionRef,
@@ -1115,15 +1077,7 @@ export async function executeGraphTraversal(
       },
       completion.nextCursor,
     );
-    stop = advanceStructural(input, stop, leafOrdinal + 1);
-    if (!captureRetryInputs(input.graph, stop, currentInput, retryInputs)) {
-      return fail(
-        input,
-        `retry-input-capture-${leafOrdinal}`,
-        "diagnostic://abiogenesis/hog/retry-input-basis-absent@5",
-        stop as unknown as JsonValue,
-      );
-    }
+    stop = advanceStructural(input, stop, leafOrdinal + 1, currentInput);
     if (
       stop.kind !== "traversal_stop_ref" &&
       !(stop.kind === "traversal_step" && stop.directStep.stepKind === "enter_child")

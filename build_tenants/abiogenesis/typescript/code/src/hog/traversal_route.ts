@@ -467,6 +467,7 @@ export function proposeBlockedRoute(
   judgmentRef: string,
   replayState: ReplayState,
   contractRef: string,
+  stoppedProgressRef: string | null = null,
 ): RouteCandidate | RouteProposalRefusal {
   if (
     !isMaterializedGtlGraph(graph) ||
@@ -492,7 +493,9 @@ export function proposeBlockedRoute(
     targetCursorDigest: null,
     cCallRef: cCall.cCallRef,
     judgmentRef,
-    consumedAvailabilityRefs: [judgmentRef] as const,
+    consumedAvailabilityRefs: stoppedProgressRef === null
+      ? [judgmentRef]
+      : [judgmentRef, stoppedProgressRef],
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };
