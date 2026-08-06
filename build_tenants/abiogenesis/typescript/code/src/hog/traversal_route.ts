@@ -5,7 +5,10 @@ import type {
 } from "../abg/c_call.js";
 import type { FanOutCompletionAdmission } from "../abg/fan_out.js";
 import type { FhInteractionResumeAdmission } from "../abg/continuation.js";
-import type { RetryProgressAdmission } from "../abg/retry.js";
+import type {
+  RetryCompletedProgressAdmission,
+  RetryProgressAdmission,
+} from "../abg/retry.js";
 import type { ReplayState } from "../abg/replay.js";
 import type {
   GraphSpanReentryProjection,
@@ -114,6 +117,7 @@ export function proposeRetryRoute(
   contractRef: string,
 ): RouteCandidate | RouteProposalRefusal {
   if (
+    progress.progressClass !== "retry" ||
     !isMaterializedGtlGraph(graph) ||
     !isTraversalStep(step) ||
     step.directStep.stepKind !== "continue_term" ||
@@ -228,6 +232,7 @@ export function proposeJudgedRoute(
   judgment: AdmittedCCallJudgment,
   replayState: ReplayState,
   contractRef: string,
+  completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
 ): RouteCandidate | RouteProposalRefusal {
   if (judgment.judgment !== "advance") {
     return {
@@ -274,7 +279,10 @@ export function proposeJudgedRoute(
     targetCursorDigest: targetCursor?.cursorDigest ?? null,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
-    consumedAvailabilityRefs: [judgment.judgmentRef] as const,
+    consumedAvailabilityRefs: [
+      judgment.judgmentRef,
+      ...completedProgresses.map((progress) => progress.progressRef),
+    ],
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };

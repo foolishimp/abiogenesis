@@ -435,14 +435,32 @@ const matrix = [
     invalidMutation: "semantic contradiction blocks without retry progress",
   }, ({ retry, retryContradiction, retryExhausted }) => {
     assertSuccessfulInstalled(retry);
-    assert.deepEqual(
-      retry.events
-        .filter((event) => event.kind === "retry_attempt_opened")
-        .map((event) => event.payload.attempt),
-      [1, 2],
-    );
-    assert.equal(retry.events.filter((event) =>
-      event.kind === "retry_progress_recorded").length, 1);
+    const attempts = retry.events.filter((event) =>
+      event.kind === "retry_attempt_opened");
+    const calls = retry.events.filter((event) => event.kind === "c_call_opened");
+    const judgments = retry.events.filter((event) => event.kind === "c_call_judged");
+    const progress = retry.events.filter((event) =>
+      event.kind === "retry_progress_recorded");
+    const terminalRoutes = retry.events.filter((event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.routeKind === "terminal");
+    assert.deepEqual(attempts.map((event) => event.payload.attempt), [1, 2]);
+    assert.notEqual(attempts[0].payload.attemptRef, attempts[1].payload.attemptRef);
+    assert.deepEqual(progress.map((event) => event.payload.progressClass), [
+      "retry",
+      "completed",
+    ]);
+    assert.deepEqual(progress.map((event) => event.payload.attempt), [1, 2]);
+    assert.deepEqual(progress.map((event) => event.payload.attemptRef),
+      attempts.map((event) => event.payload.attemptRef));
+    assert.deepEqual(progress.map((event) => event.payload.cCallRef),
+      calls.map((event) => event.payload.cCallRef));
+    assert.deepEqual(progress.map((event) => event.payload.judgmentRef),
+      judgments.map((event) => event.payload.judgmentRef));
+    assert.equal(terminalRoutes.length, 1);
+    assert.ok(terminalRoutes[0].payload.consumedAvailabilityRefs.includes(
+      progress[1].payload.progressRef,
+    ));
     assert.equal(retryContradiction.run.exitCode, 2, retryContradiction.run.stdout);
     assert.equal(retryContradiction.events.some((event) =>
       event.kind === "retry_progress_recorded"), false);

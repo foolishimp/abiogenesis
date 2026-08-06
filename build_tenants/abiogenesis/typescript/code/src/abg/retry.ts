@@ -7,9 +7,12 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
+  AdmittedCCallJudgment,
+  AdmittedCCallResult,
   CCall,
   RejectedCCallCompletion,
 } from "./c_call.js";
+import { hasCurrentAdmittedCCallOutcome } from "./c_call.js";
 import {
   hasAdmittedExecutionBasis,
   type ExecutionBasis,
@@ -26,7 +29,10 @@ import {
   holdsAt,
   type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
-import { hasExactRetryProgressOwnership } from "./retry_lifecycle.js";
+import {
+  hasExactRetryCompletionOwnership,
+  hasExactRetryContinuationProgressOwnership,
+} from "./retry_lifecycle.js";
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
@@ -92,28 +98,45 @@ export interface RetryAttemptAdmission {
   readonly admissionEventRef: string;
 }
 
-export interface RetryProgressAdmission {
+interface RetryProgressAdmissionBase {
   readonly kind: "retry_progress_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
   readonly progressRef: string;
   readonly progressDigest: Sha256Digest;
+  readonly progressClass: "retry" | "completed";
   readonly retryBoundaryRef: string;
   readonly attemptRef: string;
   readonly attempt: number;
+  readonly retryPath: readonly number[];
+  readonly cCallRef: string;
+  readonly resultRef: string;
+  readonly judgmentRef: string;
+  readonly admissionEventRef: string;
+}
+
+export interface RetryContinuationProgressAdmission
+  extends RetryProgressAdmissionBase {
+  readonly progressClass: "retry";
   readonly budget: number;
   readonly failureClass: RetryableRuntimeFailureClass;
   readonly failureSignalRef: string;
   readonly completedAttempts: readonly number[];
   readonly remainingBudget: number;
-  readonly cCallRef: string;
-  readonly resultRef: string;
-  readonly judgmentRef: string;
   readonly inputRef: string;
   readonly inputDigest: Sha256Digest;
   readonly inputContractRef: string;
-  readonly admissionEventRef: string;
 }
+
+export interface RetryCompletedProgressAdmission
+  extends RetryProgressAdmissionBase {
+  readonly progressClass: "completed";
+  readonly completedRetryDepth: number;
+}
+
+export type RetryProgressAdmission =
+  | RetryContinuationProgressAdmission
+  | RetryCompletedProgressAdmission;
 
 export interface RetryAdmissionRefusal {
   readonly kind: "retry_admission_refusal";
@@ -312,20 +335,24 @@ export function hasAdmittedRetryProgress(
     disposition: "admitted" as const,
     progressRef: event.payload.progressRef,
     progressDigest: event.payload.progressDigest,
+    progressClass: event.payload.progressClass,
     retryBoundaryRef: event.payload.retryBoundaryRef,
     attemptRef: event.payload.attemptRef,
     attempt: event.payload.attempt,
+    retryPath: event.payload.retryPath,
+    cCallRef: event.payload.cCallRef,
+    resultRef: event.payload.resultRef,
+    judgmentRef: event.payload.judgmentRef,
+    ...(event.payload.progressClass === "retry" ? {
     budget: event.payload.budget,
     failureClass: event.payload.failureClass,
     failureSignalRef: event.payload.failureSignalRef,
     completedAttempts: event.payload.completedAttempts,
     remainingBudget: event.payload.remainingBudget,
-    cCallRef: event.payload.cCallRef,
-    resultRef: event.payload.resultRef,
-    judgmentRef: event.payload.judgmentRef,
     inputRef: event.payload.inputRef,
     inputDigest: event.payload.inputDigest,
     inputContractRef: event.payload.inputContractRef,
+    } : { completedRetryDepth: event.payload.completedRetryDepth }),
     admissionEventRef: event.eventId,
   };
   return sha256Canonical(reconstructed as unknown as JsonValue) ===
@@ -652,7 +679,7 @@ export function admitRetryProgress(
     judgmentEvent?.kind !== "c_call_judged" ||
     !isRecord(judgmentEvent.payload) ||
     judgmentEvent.aggregateId !== cCall.cCallRef ||
-    !hasExactRetryProgressOwnership(
+    !hasExactRetryContinuationProgressOwnership(
       attemptEvent,
       judgmentEvent,
       eligibility.retryBoundaryRef,
@@ -669,9 +696,11 @@ export function admitRetryProgress(
     );
   }
   const body = {
+    progressClass: "retry" as const,
     retryBoundaryRef: eligibility.retryBoundaryRef,
     attemptRef: attemptEvent.payload.attemptRef as string,
     attempt: cursor.attempt,
+    retryPath: cursor.retryPath,
     budget: eligibility.budget,
     failureClass,
     failureSignalRef,
@@ -720,4 +749,116 @@ export function admitRetryProgress(
   }) as RetryProgressAdmission;
   admittedProgress.add(admission);
   return admission;
+}
+
+export function admitCompletedRetryProgress(
+  store: AbgEventStore,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  targetCursor: TraversalCursorCandidate | null,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+  basis: RuntimeAdmissionBasis,
+): readonly RetryCompletedProgressAdmission[] | RetryAdmissionRefusal {
+  const sourceContexts = resolveEnclosingCRetryContexts(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  const targetContexts = targetCursor === null
+    ? []
+    : resolveEnclosingCRetryContexts(
+      graph.template,
+      targetCursor.currentNodeRef,
+      targetCursor.termPath,
+    );
+  if (
+    "kind" in sourceContexts || "kind" in targetContexts ||
+    targetContexts.length >= sourceContexts.length ||
+    !hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment) ||
+    judgment.judgment !== "advance" ||
+    cCall.cCallRef !== result.cCallRef || cCall.cCallRef !== judgment.cCallRef ||
+    cCall.retryPath.length !== sourceContexts.length
+  ) return refusal("attempt_mismatch", "completed retry progress requires one exact GTL retry-depth exit");
+
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: sourceCursor.runId,
+  });
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const projection = deriveRuntimeEventCalculusProjection(prefix);
+  const exited = sourceContexts.slice(targetContexts.length).reverse();
+  const admissions: RetryCompletedProgressAdmission[] = [];
+  for (const context of exited) {
+    const boundaryRef = retryBoundaryRef(graph, sourceCursor, context);
+    const retryPath = sourceCursor.retryPath.slice(0, context.retryDepth);
+    const attempts = events.filter((event) =>
+      event.kind === "retry_attempt_opened" &&
+      event.runId === sourceCursor.runId &&
+      event.graphCallId === sourceCursor.graphCallId &&
+      event.frameId === sourceCursor.frameId &&
+      isRecord(event.payload) &&
+      event.payload.retryBoundaryRef === boundaryRef &&
+      sha256Canonical(event.payload.retryPath as JsonValue) ===
+        sha256Canonical(retryPath as unknown as JsonValue)
+    );
+    const attemptEvent = attempts.length === 1 ? attempts[0]! : null;
+    const attemptRef = attemptEvent !== null && isRecord(attemptEvent.payload) &&
+        typeof attemptEvent.payload.attemptRef === "string"
+      ? attemptEvent.payload.attemptRef
+      : null;
+    const judgmentEvent = events.find((event) =>
+      event.eventId === judgment.admissionEventRef
+    );
+    if (attemptRef === null || judgmentEvent === undefined ||
+      !hasExactRetryCompletionOwnership(
+        attemptEvent!, judgmentEvent, boundaryRef, retryPath,
+      ) || !holdsAt(projection, constructRuntimeFluent({
+      name: "retry_attempt_active",
+      identity: attemptRef,
+    }))) return refusal("attempt_mismatch", "completed retry progress requires one exact active attempt");
+    const body = {
+      progressClass: "completed" as const,
+      retryBoundaryRef: boundaryRef,
+      attemptRef,
+      attempt: retryPath.at(-1)!,
+      retryPath,
+      completedRetryDepth: context.retryDepth,
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+    };
+    const progressDigest = sha256Canonical(body as unknown as JsonValue);
+    const progressRef = `retry-progress://abiogenesis/${progressDigest.slice("sha256:".length)}`;
+    const event = admitRuntimeEvent(store, {
+      kind: "retry_progress_recorded",
+      eventTime: basis.eventTime,
+      aggregateType: "frame",
+      aggregateId: sourceCursor.frameId,
+      parentAggregateId: sourceCursor.graphCallId,
+      causationEventRefs: [attemptEvent!.eventId, judgment.admissionEventRef, ...basis.causationEventRefs],
+      correlationId: `${basis.correlationId}/completed-${context.retryDepth}`,
+      workflowVersion: "5.0.0",
+      scopeClass: "run",
+      basisId: cCall.basisId,
+      runId: cCall.runId,
+      graphFunctionRef: cCall.graphFunctionRef,
+      materializationRef: graph.materializationRef,
+      graphCallId: cCall.graphCallId,
+      frameId: cCall.frameId,
+      payload: { progressRef, progressDigest, ...body },
+    });
+    const admission = deepFreeze({
+      kind: "retry_progress_admission" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      progressRef,
+      progressDigest,
+      ...body,
+      admissionEventRef: event.eventId,
+    }) as RetryCompletedProgressAdmission;
+    admittedProgress.add(admission);
+    admissions.push(admission);
+  }
+  return Object.freeze(admissions);
 }

@@ -117,7 +117,10 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
 
   assert.deepEqual(attempts.map((event) => event.payload.attempt), [1, 2]);
   assert.deepEqual(attempts.map((event) => event.payload.retryPath), [[1], [2]]);
-  assert.equal(progress.length, 1);
+  assert.deepEqual(progress.map((event) => event.payload.progressClass), [
+    "retry",
+    "completed",
+  ]);
   assert.equal(progress[0].payload.failureClass, "contract_failure");
   assert.deepEqual(progress[0].payload.completedAttempts, [1]);
   assert.equal(progress[0].payload.remainingBudget, 1);
@@ -132,11 +135,17 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     attempts.map((event) => event.payload.attemptRef),
   );
   assert.equal(progress[0].payload.attemptRef, attempts[0].payload.attemptRef);
+  assert.equal(progress[1].payload.attemptRef, attempts[1].payload.attemptRef);
+  assert.equal(progress[1].payload.completedRetryDepth, 1);
+  assert.equal(progress[1].payload.judgmentRef, judgments[1].payload.judgmentRef);
   assert.deepEqual(routes.map((event) => event.payload.routeKind), [
     "retry",
     "retry",
     "terminal",
   ]);
+  assert.ok(routes[2].payload.consumedAvailabilityRefs.includes(
+    progress[1].payload.progressRef,
+  ));
   assert.equal(events.filter((event) => event.kind === "actor_invocation_started").length, 2);
   assert.equal(events.some((event) => event.kind === "run_stopped"), false);
   assert.equal(events.at(-1).kind, "run_closed");

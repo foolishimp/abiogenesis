@@ -255,6 +255,7 @@ export {
   RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES,
   admitRetryAttempt,
   admitRetryProgress,
+  admitCompletedRetryProgress,
   projectDeclaredCRetryFrontier,
   projectRetryLifecycle,
   hasAdmittedRetryProgress,
@@ -268,6 +269,8 @@ export {
   type RetryInputBasis,
   type RetryLifecycleProjection,
   type RetryProgressAdmission,
+  type RetryCompletedProgressAdmission,
+  type RetryContinuationProgressAdmission,
   type RetryProgressAdmissionResult,
   type RetryableRuntimeFailureClass,
 } from "./retry.js";

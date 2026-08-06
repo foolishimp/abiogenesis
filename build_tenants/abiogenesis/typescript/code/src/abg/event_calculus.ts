@@ -177,11 +177,6 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   c_call_judged: {
     initiates: ["c_call_judgment_available"],
     terminates: ["c_call_active", "c_call_result_available"],
-    conditionalTerminates: Object.freeze([Object.freeze({
-      name: "retry_attempt_active",
-      identityPayloadKey: "retryAttemptRef",
-      unlessPayload: Object.freeze({ judgment: "retry" }),
-    })]),
     clips: [], declips: [],
   },
   retry_attempt_opened: {
@@ -518,11 +513,6 @@ function eventCalculusEffectRefs(
     case "c_call_judged": {
       const judgmentRef = stringField(event, "judgmentRef");
       const resultRef = stringField(event, "resultRef");
-      const retryAttemptRef = stringField(event, "retryAttemptRef");
-      const judgment = stringField(event, "judgment");
-      const declaredTerminationNames = declaredRuntimeEventCalculusTerminationNames(
-        event,
-      );
       return {
         initiates: judgmentRef === null
           ? []
@@ -532,10 +522,6 @@ function eventCalculusEffectRefs(
           ...(resultRef === null
             ? []
             : [fluent("c_call_result_available", resultRef)]),
-          ...(retryAttemptRef === null ||
-              !declaredTerminationNames.includes("retry_attempt_active")
-            ? []
-            : [fluent("retry_attempt_active", retryAttemptRef)]),
         ],
         clips: [],
         declips: [],

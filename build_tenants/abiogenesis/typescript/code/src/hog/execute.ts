@@ -13,6 +13,7 @@ import {
   admitPendingInteraction,
   admitResult,
   admitRetryAttempt,
+  admitCompletedRetryProgress,
   admitRetryProgress,
   admitRecursionRoute,
   admitRuntimeFailure,
@@ -1944,14 +1945,41 @@ export async function completeExecutableTraversal<
       resultValue: result.value,
     });
   }
+  const exitsRetryDepth =
+    (continuationStep.targetCursor?.retryPath.length ?? 0) <
+      input.traversalStop.cursor.retryPath.length;
+  const completedProgresses = exitsRetryDepth
+    ? admitCompletedRetryProgress(
+      input.store,
+      input.graph,
+      input.traversalStop.cursor,
+      continuationStep.targetCursor,
+      cCall,
+      result,
+      judgment,
+      basis(input.clock, "retry-completed"),
+    )
+    : [];
+  if ("kind" in completedProgresses) {
+    return completion("failed", replayRun(input), {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      diagnosticRef: `diagnostic://abiogenesis/hog/${completedProgresses.code}@5`,
+    });
+  }
+  const refreshedRouteReplay = completedProgresses.length === 0
+    ? judgedReplay
+    : replayRun(input);
   const proposal = proposeJudgedRoute(
     input.graph,
     continuationStep,
     cCall,
     result,
     judgment,
-    judgedReplay,
+    refreshedRouteReplay,
     input.closureContract.transitionContractRef,
+    completedProgresses,
   );
   if (proposal.kind !== "traversal_route_candidate") {
     admitRuntimeFailure(
@@ -1979,10 +2007,15 @@ export async function completeExecutableTraversal<
     input.graph,
     input.traversalStop.cursor,
     continuationStep.targetCursor,
-    judgedReplay,
+    refreshedRouteReplay,
     proposal,
-    basis(input.clock, "route"),
-    { cCall, result, judgment },
+    {
+      ...basis(input.clock, "route"),
+      causationEventRefs: completedProgresses.slice(1).map((progress) =>
+        progress.admissionEventRef
+      ),
+    },
+    { cCall, result, judgment, completedProgresses },
   );
   if (route.kind !== "admitted_traversal_route") {
     admitRuntimeFailure(

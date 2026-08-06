@@ -455,7 +455,7 @@ test("retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruc
   assert.equal(global.includes("retry_progress_available(retry-progress://s/1)"), false);
 });
 
-test("retry judgment identity and executable Event Calculus agree on exact attempt consumption", async () => {
+test("retry judgment preserves attempt activity until exact progress consumption", async () => {
   const eventCalculus = await import(
     `${pathToFileURL(join(root, "build/code/src/abg/event_calculus.js")).href}?t287-retry-consumption=${Date.now()}`
   );
@@ -501,7 +501,7 @@ test("retry judgment identity and executable Event Calculus agree on exact attem
     advanceProjection.holds.some((fluent) =>
       fluent.name === "retry_attempt_active" && fluent.identity === attemptRef
     ),
-    false,
+    true,
   );
   assert.deepEqual(
     [...new Set(advanceProjection.effectRows.at(-1).terminates.map((row) => row.name))]

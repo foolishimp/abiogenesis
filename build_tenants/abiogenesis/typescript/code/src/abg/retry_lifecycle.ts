@@ -17,6 +17,24 @@ export interface RetryOwnedCCallCoordinates {
   readonly programLocusRef: string;
 }
 
+function hasCausalAncestor(
+  eventsById: ReadonlyMap<string, RuntimeEvent>,
+  descendant: RuntimeEvent,
+  ancestorEventId: string,
+): boolean {
+  const pending = [...descendant.causationEventRefs];
+  const visited = new Set<string>();
+  while (pending.length !== 0) {
+    const eventId = pending.pop()!;
+    if (eventId === ancestorEventId) return true;
+    if (visited.has(eventId)) continue;
+    visited.add(eventId);
+    const event = eventsById.get(eventId);
+    if (event !== undefined) pending.push(...event.causationEventRefs);
+  }
+  return false;
+}
+
 export function selectExactRetryAttemptEvent(
   events: readonly RuntimeEvent[],
   coordinates: RetryOwnedCCallCoordinates,
@@ -27,32 +45,26 @@ export function selectExactRetryAttemptEvent(
   );
   if (openedRows.length !== 1) return null;
   const opened = openedRows[0]!;
-  const routeEvents = events.filter((event) =>
+  if (!isRecord(opened.payload)) return null;
+  const openedPayload = opened.payload;
+  const immediateRoutes = events.filter((event) =>
     event.kind === "traversal_route_admitted" &&
     opened.causationEventRefs.includes(event.eventId) &&
     event.runId === coordinates.runId &&
     event.graphCallId === coordinates.graphCallId &&
     event.frameId === coordinates.frameId &&
-    isRecord(event.payload) && event.payload.routeKind === "retry"
+    isRecord(event.payload) &&
+    event.payload.targetCursorRef === openedPayload.cursorRef &&
+    event.payload.targetCursorDigest === openedPayload.cursorDigest
   );
-  if (routeEvents.length !== 1) return null;
-  const route = routeEvents[0]!;
-  const routePayload = route.payload as Readonly<Record<string, JsonValue>>;
-  const openedPayload = opened.payload as Readonly<Record<string, JsonValue>>;
-  if (openedPayload.cursorRef !== routePayload.targetCursorRef ||
-    openedPayload.cursorDigest !== routePayload.targetCursorDigest ||
-    openedPayload.taskOrdinal !== coordinates.taskOrdinal ||
+  if (immediateRoutes.length !== 1) return null;
+  const immediateRoute = immediateRoutes[0]!;
+  if (openedPayload.taskOrdinal !== coordinates.taskOrdinal ||
     openedPayload.attempt !== coordinates.attempt ||
     openedPayload.programLocusRef !== coordinates.programLocusRef ||
     sha256Canonical(openedPayload.retryPath as JsonValue) !==
       sha256Canonical(coordinates.retryPath as unknown as JsonValue)) return null;
-  const sourceCursors = events.filter((event) =>
-    event.kind === "traversal_cursor_entered" &&
-    route.causationEventRefs.includes(event.eventId) &&
-    isRecord(event.payload) &&
-    event.payload.cursorRef === routePayload.sourceCursorRef &&
-    event.payload.cursorDigest === routePayload.sourceCursorDigest
-  );
+  const eventsById = new Map(events.map((event) => [event.eventId, event]));
   const matches = events.filter((attemptEvent) => {
     if (
       attemptEvent.kind !== "retry_attempt_opened" ||
@@ -68,23 +80,50 @@ export function selectExactRetryAttemptEvent(
         sha256Canonical(coordinates.retryPath as unknown as JsonValue)
     ) return false;
     const attemptPayload = attemptEvent.payload;
-    if (!attemptEvent.causationEventRefs.includes(route.eventId) ||
-      routePayload.routeRef !== attemptPayload.priorRouteRef) return false;
+    const priorRoutes = events.filter((event) =>
+      event.kind === "traversal_route_admitted" &&
+      attemptEvent.causationEventRefs.includes(event.eventId) &&
+      event.runId === coordinates.runId &&
+      event.graphCallId === coordinates.graphCallId &&
+      event.frameId === coordinates.frameId &&
+      isRecord(event.payload) && event.payload.routeKind === "retry" &&
+      event.payload.routeRef === attemptPayload.priorRouteRef &&
+      (immediateRoute.eventId === event.eventId ||
+        hasCausalAncestor(eventsById, immediateRoute, event.eventId))
+    );
+    if (priorRoutes.length !== 1) return false;
+    const route = priorRoutes[0]!;
+    const routePayload = route.payload as Readonly<Record<string, JsonValue>>;
+    const sourceBases = events.filter((event) =>
+      route.causationEventRefs.includes(event.eventId) &&
+      isRecord(event.payload) &&
+      (
+        (event.kind === "traversal_cursor_entered" &&
+          event.payload.cursorRef === routePayload.sourceCursorRef &&
+          event.payload.cursorDigest === routePayload.sourceCursorDigest) ||
+        (event.kind === "traversal_route_admitted" &&
+          event.payload.targetCursorRef === routePayload.sourceCursorRef &&
+          event.payload.targetCursorDigest === routePayload.sourceCursorDigest)
+      )
+    );
     const causedProgress = events.filter((progressEvent) =>
       progressEvent.kind === "retry_progress_recorded" &&
       route.causationEventRefs.includes(progressEvent.eventId) &&
       isRecord(progressEvent.payload)
     );
     if (attemptPayload.priorJudgmentRef === null) {
-      const sourceCursorPayload = sourceCursors.length === 1 &&
-          isRecord(sourceCursors[0]!.payload)
-        ? sourceCursors[0]!.payload
+      const sourceBasis = sourceBases.length === 1 ? sourceBases[0]! : null;
+      const sourcePayload = sourceBasis !== null && isRecord(sourceBasis.payload)
+        ? sourceBasis.payload
         : null;
-      return sourceCursorPayload !== null &&
-        Array.isArray(attemptPayload.retryTermPath) &&
-        Array.isArray(sourceCursorPayload.termPath) &&
-        sha256Canonical(attemptPayload.retryTermPath) ===
-          sha256Canonical(sourceCursorPayload.termPath) &&
+      const exactRetryBoundary = sourceBasis?.kind === "traversal_cursor_entered"
+        ? sourcePayload !== null &&
+          Array.isArray(attemptPayload.retryTermPath) &&
+          Array.isArray(sourcePayload.termPath) &&
+          sha256Canonical(attemptPayload.retryTermPath) ===
+            sha256Canonical(sourcePayload.termPath)
+        : sourceBasis?.kind === "traversal_route_admitted";
+      return exactRetryBoundary &&
         causedProgress.length === 0 &&
         routePayload.judgmentRef === null && routePayload.cCallRef === null &&
         Array.isArray(routePayload.consumedAvailabilityRefs) &&
@@ -97,7 +136,7 @@ export function selectExactRetryAttemptEvent(
   return matches.length === 1 ? matches[0]! : null;
 }
 
-export function hasExactRetryProgressOwnership(
+export function hasExactRetryContinuationProgressOwnership(
   attemptEvent: RuntimeEvent,
   judgmentEvent: RuntimeEvent,
   currentBoundaryRef: string,
@@ -107,4 +146,20 @@ export function hasExactRetryProgressOwnership(
     judgmentEvent.payload.judgment === "retry" &&
     judgmentEvent.payload.retryAttemptRef === attemptEvent.payload.attemptRef &&
     attemptEvent.payload.retryBoundaryRef === currentBoundaryRef;
+}
+
+export function hasExactRetryCompletionOwnership(
+  attemptEvent: RuntimeEvent,
+  judgmentEvent: RuntimeEvent,
+  currentBoundaryRef: string,
+  retryPath: readonly number[],
+): boolean {
+  return isRecord(attemptEvent.payload) && isRecord(judgmentEvent.payload) &&
+    typeof attemptEvent.payload.attemptRef === "string" &&
+    judgmentEvent.payload.judgment === "advance" &&
+    judgmentEvent.payload.retryAttemptRef === attemptEvent.payload.attemptRef &&
+    attemptEvent.payload.retryBoundaryRef === currentBoundaryRef &&
+    Array.isArray(attemptEvent.payload.retryPath) &&
+    sha256Canonical(attemptEvent.payload.retryPath) ===
+      sha256Canonical(retryPath as unknown as JsonValue);
 }

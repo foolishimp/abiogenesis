@@ -63,6 +63,7 @@ import {
 import { replay, type ReplayState } from "./replay.js";
 import {
   hasAdmittedRetryProgress,
+  type RetryCompletedProgressAdmission,
   type RetryProgressAdmission,
 } from "./retry.js";
 import {
@@ -380,6 +381,7 @@ export interface RouteAdmissionEvidence {
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
+  readonly completedProgresses?: readonly RetryCompletedProgressAdmission[];
 }
 
 export interface BlockedRouteAdmissionEvidence {
@@ -2760,12 +2762,33 @@ function hasJudgedRouteEvidence(
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
+  targetCursor: TraversalCursorCandidate | null,
   candidate: RouteCandidate,
   evidence: RouteAdmissionEvidence | null,
 ): evidence is RouteAdmissionEvidence {
   const cCall = evidence?.cCall;
   const result = evidence?.result;
   const judgment = evidence?.judgment;
+  const completedProgresses = evidence?.completedProgresses ?? [];
+  const targetRetryDepth = targetCursor?.retryPath.length ?? 0;
+  const exitedRetryDepths = Array.from(
+    { length: Math.max(0, sourceCursor.retryPath.length - targetRetryDepth) },
+    (_, index) => sourceCursor.retryPath.length - index,
+  );
+  const completedProgressMatches =
+    completedProgresses.length === exitedRetryDepths.length &&
+    completedProgresses.every((progress, index) =>
+      progress.progressClass === "completed" &&
+      hasAdmittedRetryProgress(store, progress) &&
+      progress.completedRetryDepth === exitedRetryDepths[index] &&
+      progress.cCallRef === cCall?.cCallRef &&
+      progress.resultRef === result?.resultRef &&
+      progress.judgmentRef === judgment?.judgmentRef &&
+      sameValues(
+        progress.retryPath.map(String),
+        sourceCursor.retryPath.slice(0, exitedRetryDepths[index]).map(String),
+      )
+    );
   const term = resolveCProgramTermAtSourcePath(
     graph.template,
     sourceCursor.currentNodeRef,
@@ -2790,6 +2813,7 @@ function hasJudgedRouteEvidence(
     judgment.resultRef === result.resultRef &&
     judgment.resultDigest === result.resultDigest &&
     judgment.judgment === "advance" &&
+    completedProgressMatches &&
     cCall.basisId === executionBasis.basisRef &&
     cCall.frameId === sourceCursor.frameId &&
     cCall.graphCallId === sourceCursor.graphCallId &&
@@ -2798,8 +2822,10 @@ function hasJudgedRouteEvidence(
     sameValues(cCall.retryPath.map(String), sourceCursor.retryPath.map(String)) &&
     candidate.cCallRef === cCall.cCallRef &&
     candidate.judgmentRef === judgment.judgmentRef &&
-    candidate.consumedAvailabilityRefs.length === 1 &&
-    candidate.consumedAvailabilityRefs[0] === judgment.judgmentRef &&
+    sameValues(candidate.consumedAvailabilityRefs, [
+      judgment.judgmentRef,
+      ...completedProgresses.map((progress) => progress.progressRef),
+    ]) &&
     candidate.contractRef === cCall.transitionContractRef;
 }
 
@@ -3010,6 +3036,7 @@ function hasRetryRouteEvidence(
 ): evidence is RetryRouteAdmissionEvidence {
   if (
     evidence === null ||
+    evidence.progress.progressClass !== "retry" ||
     !hasOpenedCCall(store, evidence.cCall) ||
     !hasAdmittedRetryProgress(store, evidence.progress) ||
     evidence.cCall.basisId !== executionBasis.basisRef ||
@@ -3231,6 +3258,7 @@ function hasGraphSpanReentryRouteEvidence(
       executionBasis,
       graph,
       source,
+      target,
       candidate,
       evidence,
     ) ||
@@ -3542,6 +3570,7 @@ export function admitRoute(
         executionBasis,
         graph,
         sourceCursor,
+        null,
         candidate,
         judgedEvidence,
       )) {
@@ -3564,7 +3593,8 @@ export function admitRoute(
           "terminal construction closure requires an admitted evidence fold and refreshed convergence projection",
         );
       }
-      causationEventRef = judgedEvidence.judgment.admissionEventRef;
+      causationEventRef = judgedEvidence.completedProgresses?.at(0)?.admissionEventRef ??
+        judgedEvidence.judgment.admissionEventRef;
     }
     if (
       targetCursor !== null ||
@@ -3681,6 +3711,7 @@ export function admitRoute(
           executionBasis,
           graph,
           sourceCursor,
+          targetCursor,
           candidate,
           evidence,
         ) ||
@@ -3691,7 +3722,8 @@ export function admitRoute(
           "post-judgment route is not the exact declared GTL continuation",
         );
       }
-      causationEventRef = evidence.judgment.admissionEventRef;
+      causationEventRef = evidence.completedProgresses?.at(0)?.admissionEventRef ??
+        evidence.judgment.admissionEventRef;
     } else if (
       "progress" in evidence &&
       candidate.routeKind === "retry" &&
@@ -3746,6 +3778,7 @@ export function admitRoute(
         executionBasis,
         graph,
         sourceCursor,
+        targetCursor,
         candidate,
         gapEvidence,
       )
@@ -4287,7 +4320,10 @@ export function admitRecursionRoute(
     aggregateType: "frame",
     aggregateId: sourceCursor.frameId,
     parentAggregateId: sourceCursor.graphCallId,
-    causationEventRefs: [causationEventRef, ...basis.causationEventRefs],
+    causationEventRefs: [
+      causationEventRef,
+      ...basis.causationEventRefs,
+    ],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",

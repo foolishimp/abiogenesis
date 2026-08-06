@@ -659,12 +659,22 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   },
   retry_progress_recorded: {
     variants: [FRAME_EVENT],
-    payloadVariants: [payloadVariant(
-      payloadKeys(
-        "attempt attemptRef budget cCallRef completedAttempts failureClass failureSignalRef inputContractRef inputDigest inputRef judgmentRef progressDigest progressRef remainingBudget resultRef retryBoundaryRef",
+    payloadVariants: [
+      payloadVariant(
+        payloadKeys(
+          "attempt attemptRef budget cCallRef completedAttempts failureClass failureSignalRef inputContractRef inputDigest inputRef judgmentRef progressClass progressDigest progressRef remainingBudget resultRef retryBoundaryRef retryPath",
+        ),
+        payloadKeys("progressRef progressDigest progressClass attemptRef failureClass"),
+        { progressClass: "retry" },
       ),
-      payloadKeys("progressRef progressDigest attemptRef failureClass"),
-    )],
+      payloadVariant(
+        payloadKeys(
+          "attempt attemptRef cCallRef completedRetryDepth judgmentRef progressClass progressDigest progressRef resultRef retryBoundaryRef retryPath",
+        ),
+        payloadKeys("progressRef progressDigest progressClass attemptRef retryBoundaryRef retryPath completedRetryDepth cCallRef resultRef judgmentRef"),
+        { progressClass: "completed" },
+      ),
+    ],
   },
   child_foldback_admitted: {
     variants: [FRAME_EVENT],
