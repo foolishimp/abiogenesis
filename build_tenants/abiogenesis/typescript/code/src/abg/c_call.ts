@@ -47,6 +47,9 @@ import {
   isActorProcessObservation,
   type ActorProcessObservation,
 } from "./actor_process.js";
+import {
+  selectExactRetryAttemptEvent,
+} from "./retry_lifecycle.js";
 
 export interface CCall {
   readonly kind: "c_call";
@@ -652,20 +655,11 @@ function exactRetryAttemptRef(
   const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
     runId: cCall.runId,
   });
-  const matches = runtimeEventsFromValidatedPrefix(prefix).filter((event) =>
-    event.kind === "retry_attempt_opened" &&
-    event.runId === cCall.runId &&
-    event.graphCallId === cCall.graphCallId &&
-    event.frameId === cCall.frameId &&
-    isJsonRecord(event.payload) &&
-    event.payload.attempt === cCall.attempt &&
-    Array.isArray(event.payload.retryPath) &&
-    sha256Canonical(event.payload.retryPath) ===
-      sha256Canonical(cCall.retryPath as unknown as JsonValue) &&
-    typeof event.payload.attemptRef === "string"
-  );
-  if (matches.length !== 1 || !isJsonRecord(matches[0]!.payload)) return null;
-  const attemptRef = matches[0]!.payload.attemptRef as string;
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const match = selectExactRetryAttemptEvent(events, cCall);
+  if (match === null || !isJsonRecord(match.payload) ||
+    typeof match.payload.attemptRef !== "string") return null;
+  const attemptRef = match.payload.attemptRef;
   const projection = deriveRuntimeEventCalculusProjection(prefix);
   return holdsAt(projection, constructRuntimeFluent({
       name: "retry_attempt_active",
@@ -1380,6 +1374,8 @@ export function rehydrateWorkflowCCall(
     attempt: sourceCursor.attempt,
     programLocusRef,
     retryPath: sourceCursor.retryPath,
+    cursorRef: sourceCursor.cursorRef,
+    cursorDigest: sourceCursor.cursorDigest,
     childGraphFunctionRef: declaredTerm.graphFunctionRef,
     failureContractRef,
   };
@@ -1695,6 +1691,8 @@ export function projectAdmittedLeafCCallOutcome(
     attempt: stop.attempt,
     programLocusRef: stop.programLocusRef,
     retryPath: stop.retryPath,
+    cursorRef: stop.cursor.cursorRef,
+    cursorDigest: stop.cursor.cursorDigest,
   };
   const fibreBody = {
     cCallRef,
@@ -2170,6 +2168,8 @@ export function openCCall(
     attempt: stop.attempt,
     programLocusRef: stop.programLocusRef,
     retryPath: stop.retryPath,
+    cursorRef: stop.cursor.cursorRef,
+    cursorDigest: stop.cursor.cursorDigest,
   };
   const fibreBody = {
     cCallRef,
@@ -2429,6 +2429,8 @@ export function openInteractionCCall(
     attempt: stop.attempt,
     programLocusRef: stop.programLocusRef,
     retryPath: stop.retryPath,
+    cursorRef: stop.cursor.cursorRef,
+    cursorDigest: stop.cursor.cursorDigest,
   };
   const fibreBody = {
     cCallRef,
@@ -2667,6 +2669,8 @@ export function openWorkflowCCall(
     attempt: cursor.attempt,
     programLocusRef,
     retryPath: cursor.retryPath,
+    cursorRef: cursor.cursorRef,
+    cursorDigest: cursor.cursorDigest,
     childGraphFunctionRef: proposal.childGraphFunctionRef,
     failureContractRef: proposal.failureContractRef,
   };

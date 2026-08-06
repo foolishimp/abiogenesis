@@ -212,6 +212,30 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   );
   assert.equal(judgment.kind, "admitted_c_call_judgment", JSON.stringify(judgment));
   assert.equal(judgment.judgment, "advance");
+  const admittedJudgmentEvent = store.readAll().at(-1);
+  assert.equal(admittedJudgmentEvent.kind, "c_call_judged");
+  const judgmentPrefix = store.readAll().slice(0, -1);
+  for (const [label, mutate] of [
+    ["missing", (payload) => delete payload.retryAttemptRef],
+    ["numeric", (payload) => { payload.retryAttemptRef = 1; }],
+    ["wrong-ownership", (payload) => {
+      payload.retryAttemptRef = "retry-attempt://abiogenesis/forged-non-retry-owner";
+    }],
+  ]) {
+    const refusalStore = cloneEventStore(eventStore, judgmentPrefix);
+    const candidate = structuredClone(admittedJudgmentEvent);
+    delete candidate.eventId;
+    delete candidate.admissionOrdinal;
+    delete candidate.payloadDigest;
+    mutate(candidate.payload);
+    const before = refusalStore.readAll();
+    assert.throws(
+      () => eventStore.admitRuntimeEvent(refusalStore, candidate),
+      /retry attempt|event-contract variant|invalid required identity/u,
+      label,
+    );
+    assert.deepEqual(refusalStore.readAll(), before, label);
+  }
 
   const judgedReplay = abg.replay(store, replayScope);
   const routeCandidate = hog.proposeTerminalRoute(

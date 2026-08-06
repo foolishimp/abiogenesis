@@ -26,6 +26,7 @@ import {
   holdsAt,
   type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
+import { hasExactRetryProgressOwnership } from "./retry_lifecycle.js";
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
@@ -651,7 +652,14 @@ export function admitRetryProgress(
     judgmentEvent?.kind !== "c_call_judged" ||
     !isRecord(judgmentEvent.payload) ||
     judgmentEvent.aggregateId !== cCall.cCallRef ||
-    judgmentEvent.payload.judgment !== "retry" ||
+    !hasExactRetryProgressOwnership(
+      attemptEvent,
+      judgmentEvent,
+      eligibility.retryBoundaryRef,
+    ) || !holdsAt(lifecycle.eventCalculus, constructRuntimeFluent({
+      name: "retry_attempt_active",
+      identity: attemptEvent.payload.attemptRef as string,
+    })) ||
     judgmentEvent.payload.judgmentRef !== rejected.rejectionJudgmentRef ||
     judgmentEvent.payload.resultRef !== rejected.refusalResultRef
   ) {

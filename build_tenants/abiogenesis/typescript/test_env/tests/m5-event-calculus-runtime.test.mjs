@@ -506,7 +506,7 @@ test("retry judgment identity and executable Event Calculus agree on exact attem
   assert.deepEqual(
     [...new Set(advanceProjection.effectRows.at(-1).terminates.map((row) => row.name))]
       .sort(),
-    [...eventCalculus.ROOT_EVENT_CALCULUS.c_call_judged.terminates].sort(),
+    [...eventCalculus.declaredRuntimeEventCalculusTerminationNames(advance)].sort(),
   );
 
   const retry = judgmentEvent(
@@ -523,6 +523,11 @@ test("retry judgment identity and executable Event Calculus agree on exact attem
       fluent.name === "retry_attempt_active" && fluent.identity === attemptRef
     ),
     true,
+  );
+  assert.deepEqual(
+    [...new Set(retryProjection.effectRows.at(-1).terminates.map((row) => row.name))]
+      .sort(),
+    [...eventCalculus.declaredRuntimeEventCalculusTerminationNames(retry)].sort(),
   );
   const progress = retryEvent({
     kind: "retry_progress_recorded",
@@ -547,13 +552,11 @@ test("retry judgment identity and executable Event Calculus agree on exact attem
     ),
     false,
   );
-  const retrySpineTerminationNames = new Set([
-    ...retryProjection.effectRows.at(-1).terminates.map((row) => row.name),
-    ...progressedProjection.effectRows.at(-1).terminates.map((row) => row.name),
-  ]);
   assert.deepEqual(
-    [...retrySpineTerminationNames].sort(),
-    [...eventCalculus.ROOT_EVENT_CALCULUS.c_call_judged.terminates].sort(),
+    [...new Set(progressedProjection.effectRows.at(-1).terminates.map((row) => row.name))]
+      .sort(),
+    [...eventCalculus.ROOT_EVENT_CALCULUS.retry_progress_recorded.terminates]
+      .sort(),
   );
 
   const staleTerminal = judgmentEvent(

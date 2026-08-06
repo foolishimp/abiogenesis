@@ -14,6 +14,11 @@ interface EventCalculusEffectRefs {
   readonly terminates: readonly string[];
   readonly clips: readonly string[];
   readonly declips: readonly string[];
+  readonly conditionalTerminates?: readonly {
+    readonly name: string;
+    readonly identityPayloadKey: string;
+    readonly unlessPayload: Readonly<Record<string, string>>;
+  }[];
 }
 
 export interface RuntimeFluent {
@@ -171,7 +176,13 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   c_call_judged: {
     initiates: ["c_call_judgment_available"],
-    terminates: ["c_call_active", "c_call_result_available", "retry_attempt_active"], clips: [], declips: [],
+    terminates: ["c_call_active", "c_call_result_available"],
+    conditionalTerminates: Object.freeze([Object.freeze({
+      name: "retry_attempt_active",
+      identityPayloadKey: "retryAttemptRef",
+      unlessPayload: Object.freeze({ judgment: "retry" }),
+    })]),
+    clips: [], declips: [],
   },
   retry_attempt_opened: {
     initiates: ["retry_attempt_active"],
@@ -509,6 +520,9 @@ function eventCalculusEffectRefs(
       const resultRef = stringField(event, "resultRef");
       const retryAttemptRef = stringField(event, "retryAttemptRef");
       const judgment = stringField(event, "judgment");
+      const declaredTerminationNames = declaredRuntimeEventCalculusTerminationNames(
+        event,
+      );
       return {
         initiates: judgmentRef === null
           ? []
@@ -518,7 +532,8 @@ function eventCalculusEffectRefs(
           ...(resultRef === null
             ? []
             : [fluent("c_call_result_available", resultRef)]),
-          ...(retryAttemptRef === null || judgment === "retry"
+          ...(retryAttemptRef === null ||
+              !declaredTerminationNames.includes("retry_attempt_active")
             ? []
             : [fluent("retry_attempt_active", retryAttemptRef)]),
         ],
@@ -990,6 +1005,30 @@ function eventCalculusEffectRefs(
     default:
       throw new TypeError("traversal route event carries an unknown route kind");
   }
+}
+
+export function declaredRuntimeEventCalculusTerminationNames(
+  event: Pick<RuntimeEvent, "kind" | "payload">,
+): readonly string[] {
+  const declaration = ROOT_EVENT_CALCULUS[event.kind] as EventCalculusEffectRefs & {
+    readonly conditionalTerminates?: readonly {
+      readonly name: string;
+      readonly identityPayloadKey: string;
+      readonly unlessPayload: Readonly<Record<string, string>>;
+    }[];
+  };
+  const payload = isRecord(event.payload) ? event.payload : {};
+  return Object.freeze([
+    ...declaration.terminates,
+    ...(declaration.conditionalTerminates ?? []).flatMap((conditional) =>
+      typeof payload[conditional.identityPayloadKey] === "string" &&
+          !Object.entries(conditional.unlessPayload).every(([key, value]) =>
+            payload[key] === value
+          )
+        ? [conditional.name]
+        : []
+    ),
+  ]);
 }
 
 function assertFluentName(name: string): void {
