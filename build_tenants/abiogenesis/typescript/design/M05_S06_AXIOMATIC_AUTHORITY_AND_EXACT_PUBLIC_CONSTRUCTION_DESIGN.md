@@ -1981,15 +1981,38 @@ resume law. Its raw `resume.cursor.retryPath` must remain empty; a caller cannot
 use it to author retry cursor or input truth. The projected branch accepts no
 raw `input`, `inputDigest`, or `resume` field.
 
-Inside the existing `executeGraphTraversal` body, the projected branch first
-validates the closed D18 carrier and every ref/digest/value relation. Immediately
-before entering traversal, it verifies `projectedRetryResume.successorPrefix`
-is the held store's exact physical tail. Without `await` or interleaving, it
-pure-reprojects from that successor the admitted retry route, route-applied
-cursor, active retry attempt, attempt input contract/ref/digest/value, and the
-scoped Event Calculus `retry_attempt_active` truth. Every value must equal the
-D18 carrier. Any structural, physical, or projected mismatch rejects the call
-eventlessly before leaf resolution.
+Branch discrimination occurs at the start of the existing
+`executeGraphTraversal`. When the projected branch is selected, every check in
+this paragraph and the traversal check below occurs before any call to the
+existing eventful `fail()`, any admission, or any leaf effect. A mismatch never
+calls `fail()` and throws `TypeError` with exactly the diagnostic assigned
+here. Checks occur in table order, and the first failed relation owns the
+diagnostic:
+
+| Projected-branch mismatch | Exact `TypeError` message |
+|---|---|
+| closed D18 carrier shape or any locally checkable ref/digest/value relation | `diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5` |
+| `successorPrefix` is not the held store's exact physical tail | `diagnostic://abiogenesis/hog/projected-retry-prefix-mismatch@5` |
+| successor-prefix route, applied cursor, active attempt, input, or Event Calculus truth differs from the D18 carrier | `diagnostic://abiogenesis/hog/projected-retry-projection-mismatch@5` |
+| `traverseFromCursor` refuses or does not return the exact stop/cursor/input relation | `diagnostic://abiogenesis/hog/projected-retry-traversal-mismatch@5` |
+
+These are exceptions from the existing callable, not a new return family.
+Because `executeGraphTraversal` is async, the synchronous throw rejects its
+Promise with that `TypeError`; its successful declared result remains exactly
+`Promise<ExecutableTraversalCompletion>`. The rejection appends no
+`runtime_failure` or other event and performs no leaf effect.
+Any lower pure-check exception is caught and mapped to the assigned exact
+`TypeError`; no lower message escapes this boundary. D18's existing
+`ProjectedRetryResumeRefusal` remains local to `resumeProjectedRetry` and is
+never returned by `executeGraphTraversal`.
+
+The projected branch first validates the closed D18 carrier and every locally
+checkable ref/digest/value relation. Immediately before entering traversal, it
+verifies `projectedRetryResume.successorPrefix` is the held store's exact
+physical tail. Without `await` or interleaving, it pure-reprojects from that
+successor the admitted retry route, route-applied cursor, active retry attempt,
+attempt input contract/ref/digest/value, and the scoped Event Calculus
+`retry_attempt_active` truth. Every value must equal the D18 carrier.
 
 After equality, the branch calls the existing `traverseFromCursor` relation
 with the verified runtime `program`, `graph`, `graphValidation`,
@@ -2001,7 +2024,10 @@ input ref/digest equal the carrier, its executable input contract equals
 that digest. Only then does it set `currentInput` to
 `projectedRetryResume.inputValue` and join the same existing traversal loop at
 the point immediately before leaf resolution. No new stop-derivation helper is
-introduced. The complete existing implementation set, interaction set, leaf
+introduced. `traverseFromCursor` remains the owner of final
+validation-to-graph and cursor-to-stop compatibility; its refusal maps to the
+exact traversal-mismatch diagnostic above. The complete existing
+implementation set, interaction set, leaf
 port, closure contract, actor binding, child-preparation port, and other common
 dependencies remain on `executeGraphTraversal` and are not transferred to
 D18. There is no caller-authored retry cursor/input, generic completion
@@ -2381,6 +2407,7 @@ P2 on the same durable file:
   authority-only reopen returns the exact same prefix plus store
   -> D17 over that unchanged prefix; require P1 ref/digest equality
   -> D18 atomic route/cursor/attempt-3 re-entry
+  -> four projected-branch negative mutations; each rejects eventlessly
   -> executeGraphTraversal({ ...commonExistingDependencies,
        projectedRetryResume: d18Success })
      with input/inputDigest/resume absent
@@ -2440,8 +2467,9 @@ the handoff prefix. P2 calls D17 with that prefix and the handoff selector,
 structurally asserts the reconstructed carrier, and requires exact
 `projectionRef` and `projectionDigest` equality to P1. It then passes that full
 P2-reconstructed carrier, the same predecessor, and returned store to
-`resumeProjectedRetry`. On D18 success, P2 calls the exact existing
-`executeGraphTraversal` with every ordinary common dependency and
+`resumeProjectedRetry`. After the four eventless negative-oracle calls defined
+below, P2 calls the exact existing `executeGraphTraversal` with every ordinary
+common dependency and
 `projectedRetryResume: d18Success`; it supplies no raw `input`, `inputDigest`,
 or `resume`. The projected branch revalidates the carrier and successor tail,
 reprojects its route, applied cursor, active attempt, input, and Event Calculus
@@ -2485,6 +2513,25 @@ The target oracle requires:
   exactly three total leaf effects occur, and final completion plus run-scoped
   Event Calculus and replay are closed and equal to the same process's admitted
   final history.
+
+P2 also binds each projected-branch rejection to one exact negative mutation.
+The mutation is call-local and never becomes runtime authority. Immediately
+before and after each rejected invocation, P2 requires exact event-array,
+durable-prefix, `runtime_failure` count, and leaf-effect-count equality:
+
+| Negative mutation | Exact rejected-Promise diagnostic |
+|---|---|
+| omit one required field from a copy of the D18 success carrier | `TypeError("diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5")` |
+| replace only `successorPrefix` with the authentic same-file D17/D18 predecessor coordinate, which is no longer the tail after D18 commits | `TypeError("diagnostic://abiogenesis/hog/projected-retry-prefix-mismatch@5")` |
+| replace `routeAdmissionEventRef` with another well-formed event ref while preserving every locally checkable carrier relation | `TypeError("diagnostic://abiogenesis/hog/projected-retry-projection-mismatch@5")` |
+| retain the authentic carrier and exact successor but supply a structurally valid `graphValidation` for a different graph so `traverseFromCursor` refuses | `TypeError("diagnostic://abiogenesis/hog/projected-retry-traversal-mismatch@5")` |
+
+Each rejection appends zero events, including zero `runtime_failure` events,
+and causes zero leaf effects. The four eventless calls can therefore run
+serially against the same authentic frontier; P2 then supplies the untouched
+D18 carrier and verified common dependencies to the one successful existing
+`executeGraphTraversal` invocation. No negative case adds a callable, event
+kind, typed return, second log, or caller-authored retry cursor/input path.
 
 This is deterministic reconstruction of one admitted frontier across a fresh
 process boundary. It neither compares independent executions nor normalizes
