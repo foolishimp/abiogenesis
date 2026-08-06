@@ -1,5 +1,4 @@
 export {
-  compareAndAppendExpectedPrefix,
   AbgEventStore,
   admitRuntimeEventTransaction,
   ROOT_EVENT_KIND_VALUES,

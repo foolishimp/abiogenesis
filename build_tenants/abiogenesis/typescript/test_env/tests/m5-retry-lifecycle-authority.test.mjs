@@ -157,3 +157,20 @@ test("production judgment writers remain closed behind the CCall owner", async (
   assert.equal(/\badmitRuntimeEvent(?:Batch)?\b/u.test(abgExports), false);
   assert.match(abgExports, /\badmitRuntimeEventTransaction\b/u);
 });
+
+test("runtime package exports expose no raw or candidate-factory event writer", async () => {
+  const abg = await import(pathToFileURL(join(root, "build/code/src/abg/index.js")).href);
+  const rootApi = await import(pathToFileURL(join(root, "build/code/src/index.js")).href);
+  for (const api of [abg, rootApi]) {
+    assert.equal("compareAndAppendExpectedPrefix" in api, false);
+    assert.equal("admitRuntimeEvent" in api, false);
+    assert.equal("admitRuntimeEventBatch" in api, false);
+    assert.equal("AbgEventStore" in api, true);
+    assert.equal("admitRuntimeEventTransaction" in api, true);
+    assert.equal("admitJudgment" in api, true);
+  }
+  await assert.rejects(
+    import("@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js"),
+    /not defined by "exports"|Package subpath/u,
+  );
+});
