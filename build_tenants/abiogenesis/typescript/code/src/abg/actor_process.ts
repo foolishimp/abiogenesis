@@ -343,6 +343,8 @@ export async function invokeActorProcess(
   let streamOrdinal = 0;
   let stdoutByteLength = 0;
   let stderrByteLength = 0;
+  const stdoutEventRefs: string[] = [];
+  const stderrEventRefs: string[] = [];
   let processTerminalConfirmed = false;
   const signalSequence: string[] = [];
   const append = (
@@ -351,7 +353,7 @@ export async function invokeActorProcess(
     aggregateId: string,
     parentAggregateId: string,
     payload: Readonly<Record<string, JsonValue>>,
-  ): void => {
+  ) => {
     const event = admitRuntimeEvent(input.store, {
       kind,
       ...common,
@@ -362,6 +364,7 @@ export async function invokeActorProcess(
       payload,
     });
     previousEventRef = event.eventId;
+    return event;
   };
 
   append(
@@ -395,7 +398,7 @@ export async function invokeActorProcess(
       onStdoutObserved: (chunk) => {
         const byteLength = Buffer.byteLength(chunk);
         stdoutByteLength += byteLength;
-        append(
+        const event = append(
           "actor_process_stdout_observed",
           "process",
           processRef,
@@ -408,11 +411,12 @@ export async function invokeActorProcess(
             chunkDigest: sha256Canonical(chunk),
           },
         );
+        stdoutEventRefs.push(event.eventId);
       },
       onStderrObserved: (chunk) => {
         const byteLength = Buffer.byteLength(chunk);
         stderrByteLength += byteLength;
-        append(
+        const event = append(
           "actor_process_stderr_observed",
           "process",
           processRef,
@@ -425,6 +429,7 @@ export async function invokeActorProcess(
             chunkDigest: sha256Canonical(chunk),
           },
         );
+        stderrEventRefs.push(event.eventId);
       },
       onTimeoutObserved: () => append(
         "actor_process_timeout_observed",
@@ -513,7 +518,7 @@ export async function invokeActorProcess(
       stderrByteLength,
       artifactDigests,
     };
-    append(
+    const artifactEvent = append(
       "actor_result_artifact_observed",
       "actor_invocation",
       actorInvocationRef,
@@ -537,6 +542,10 @@ export async function invokeActorProcess(
           transportBindingRef,
           transportBindingDigest,
           transportDigest: transport.artifacts.transport.digest,
+          consumedTransportBindingRef: transportBindingRef,
+          consumedStdoutEventRefs: Object.freeze([...stdoutEventRefs]),
+          consumedStderrEventRefs: Object.freeze([...stderrEventRefs]),
+          consumedArtifactEventRef: artifactEvent.eventId,
         },
       );
     }

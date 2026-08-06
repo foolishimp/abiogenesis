@@ -14,6 +14,7 @@ import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventBatch,
+  compareAndAppendExpectedPrefix,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
@@ -28,7 +29,7 @@ import {
   hasOpenedTraversalScope,
   type OpenedTraversalScope,
 } from "./open_call.js";
-import { replay, type ReplayState } from "./replay.js";
+import { projectRunQuiescence, replay, type ReplayState } from "./replay.js";
 import {
   type AdmittedRoute,
 } from "./traversal_route.js";
@@ -64,6 +65,47 @@ export interface ClosureAdmissionRefusal {
 }
 
 export type ClosureAdmissionResult = ClosureAdmission | ClosureAdmissionRefusal;
+
+function refuseClosureWithoutEffects(
+  code: ClosureAdmissionRefusal["code"],
+  message: string,
+): ClosureAdmissionRefusal {
+  return deepFreeze({
+    kind: "closure_admission_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code,
+    message,
+    failureEventRef: null,
+  });
+}
+
+function projectExactPreClosureQuiescence(
+  store: AbgEventStore,
+  cCall: CCall,
+  route: AdmittedRoute,
+) {
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: cCall.runId,
+  });
+  return deepFreeze({
+    ...projectRunQuiescence(prefix),
+    expectedStorePrefixDigest: store.digest(),
+  });
+}
+
+function isExactPreClosureQuiescence(
+  quiescence: ReturnType<typeof projectExactPreClosureQuiescence>,
+  cCall: CCall,
+  route: AdmittedRoute,
+): boolean {
+  return quiescence.disposition === "quiescent_for_close" &&
+    quiescence.runId === cCall.runId &&
+    quiescence.rootGraphCallId === cCall.graphCallId &&
+    quiescence.rootFrameId === cCall.frameId &&
+    quiescence.terminalRouteRef === route.routeRef &&
+    quiescence.terminalCCallRef === cCall.cCallRef;
+}
 
 export interface ChildClosureAdmission {
   readonly kind: "child_closure_admission";
@@ -402,6 +444,14 @@ export function admitClosure(
     );
   }
 
+  const quiescence = projectExactPreClosureQuiescence(store, cCall, route);
+  if (!isExactPreClosureQuiescence(quiescence, cCall, route)) {
+    return refuseClosureWithoutEffects(
+      "runtime_basis_mismatch",
+      `closure requires the exact immutable quiescent pre-closure Run prefix: ${quiescence.disposition}; ${quiescence.blockingFluents.join(",")}`,
+    );
+  }
+
   const closureBody = {
     cCallRef: cCall.cCallRef,
     resultRef: result.resultRef,
@@ -413,7 +463,8 @@ export function admitClosure(
   };
   const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
   const closureRef = `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
-  const terminalEvent = admitRuntimeEvent(store, {
+  const events = compareAndAppendExpectedPrefix(store, quiescence.expectedStorePrefixDigest, [
+    () => ({
     kind: "terminal_reached",
     eventTime: basis.eventTime,
     aggregateType: "frame",
@@ -429,14 +480,14 @@ export function admitClosure(
     graphCallId: cCall.graphCallId,
     frameId: cCall.frameId,
     payload: { closureRef, closureDigest, ...closureBody },
-  });
-  const frameEvent = admitRuntimeEvent(store, {
+    }),
+    (batch) => ({
     kind: "frame_closed",
     eventTime: basis.eventTime,
     aggregateType: "frame",
     aggregateId: cCall.frameId,
     parentAggregateId: cCall.graphCallId,
-    causationEventRefs: [terminalEvent.eventId],
+    causationEventRefs: [batch[0]!.eventId],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -447,17 +498,17 @@ export function admitClosure(
     frameId: cCall.frameId,
     payload: {
       frameId: cCall.frameId,
-      terminalReachedEventRef: terminalEvent.eventId,
+      terminalReachedEventRef: batch[0]!.eventId,
       closureContractRef: closureContract.closureContractRef,
     },
-  });
-  const graphCallEvent = admitRuntimeEvent(store, {
+    }),
+    (batch) => ({
     kind: "graph_call_closed",
     eventTime: basis.eventTime,
     aggregateType: "graph_call",
     aggregateId: cCall.graphCallId,
     parentAggregateId: cCall.runId,
-    causationEventRefs: [frameEvent.eventId],
+    causationEventRefs: [batch[1]!.eventId],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -467,17 +518,17 @@ export function admitClosure(
     graphCallId: cCall.graphCallId,
     payload: {
       graphCallId: cCall.graphCallId,
-      frameClosedEventRef: frameEvent.eventId,
+      frameClosedEventRef: batch[1]!.eventId,
       closureContractRef: closureContract.closureContractRef,
     },
-  });
-  const runEvent = admitRuntimeEvent(store, {
+    }),
+    (batch) => ({
     kind: "run_closed",
     eventTime: basis.eventTime,
     aggregateType: "run",
     aggregateId: cCall.runId,
     parentAggregateId: null,
-    causationEventRefs: [graphCallEvent.eventId],
+    causationEventRefs: [batch[2]!.eventId],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -487,10 +538,11 @@ export function admitClosure(
     graphCallId: cCall.graphCallId,
     payload: {
       runId: cCall.runId,
-      graphCallClosedEventRef: graphCallEvent.eventId,
+      graphCallClosedEventRef: batch[2]!.eventId,
       closureContractRef: closureContract.closureContractRef,
     },
-  });
+    }),
+  ]);
   return deepFreeze({
     kind: "closure_admission" as const,
     schemaVersion: "5.0.0" as const,
@@ -502,10 +554,10 @@ export function admitClosure(
     judgmentRef: judgment.judgmentRef,
     routeRef: route.routeRef,
     closureContractRef: closureContract.closureContractRef,
-    terminalReachedEventRef: terminalEvent.eventId,
-    frameClosedEventRef: frameEvent.eventId,
-    graphCallClosedEventRef: graphCallEvent.eventId,
-    runClosedEventRef: runEvent.eventId,
+    terminalReachedEventRef: events[0]!.eventId,
+    frameClosedEventRef: events[1]!.eventId,
+    graphCallClosedEventRef: events[2]!.eventId,
+    runClosedEventRef: events[3]!.eventId,
   }) as ClosureAdmission;
 }
 
@@ -600,6 +652,14 @@ export function admitInteractionClosure(
     );
   }
 
+  const quiescence = projectExactPreClosureQuiescence(store, cCall, route);
+  if (!isExactPreClosureQuiescence(quiescence, cCall, route)) {
+    return refuseClosureWithoutEffects(
+      "runtime_basis_mismatch",
+      `F_H closure requires the exact immutable quiescent pre-closure Run prefix: ${quiescence.disposition}; ${quiescence.blockingFluents.join(",")}`,
+    );
+  }
+
   const closureBody = {
     cCallRef: cCall.cCallRef,
     resultRef: resume.responseRef,
@@ -612,7 +672,8 @@ export function admitInteractionClosure(
   const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
   const closureRef =
     `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
-  const terminalEvent = admitRuntimeEvent(store, {
+  const events = compareAndAppendExpectedPrefix(store, quiescence.expectedStorePrefixDigest, [
+    () => ({
     kind: "terminal_reached",
     eventTime: basis.eventTime,
     aggregateType: "frame",
@@ -628,14 +689,14 @@ export function admitInteractionClosure(
     graphCallId: cCall.graphCallId,
     frameId: cCall.frameId,
     payload: { closureRef, closureDigest, ...closureBody },
-  });
-  const frameEvent = admitRuntimeEvent(store, {
+    }),
+    (batch) => ({
     kind: "frame_closed",
     eventTime: basis.eventTime,
     aggregateType: "frame",
     aggregateId: cCall.frameId,
     parentAggregateId: cCall.graphCallId,
-    causationEventRefs: [terminalEvent.eventId],
+    causationEventRefs: [batch[0]!.eventId],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -646,17 +707,17 @@ export function admitInteractionClosure(
     frameId: cCall.frameId,
     payload: {
       frameId: cCall.frameId,
-      terminalReachedEventRef: terminalEvent.eventId,
+      terminalReachedEventRef: batch[0]!.eventId,
       closureContractRef: closureContract.closureContractRef,
     },
-  });
-  const graphCallEvent = admitRuntimeEvent(store, {
+    }),
+    (batch) => ({
     kind: "graph_call_closed",
     eventTime: basis.eventTime,
     aggregateType: "graph_call",
     aggregateId: cCall.graphCallId,
     parentAggregateId: cCall.runId,
-    causationEventRefs: [frameEvent.eventId],
+    causationEventRefs: [batch[1]!.eventId],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -666,17 +727,17 @@ export function admitInteractionClosure(
     graphCallId: cCall.graphCallId,
     payload: {
       graphCallId: cCall.graphCallId,
-      frameClosedEventRef: frameEvent.eventId,
+      frameClosedEventRef: batch[1]!.eventId,
       closureContractRef: closureContract.closureContractRef,
     },
-  });
-  const runEvent = admitRuntimeEvent(store, {
+    }),
+    (batch) => ({
     kind: "run_closed",
     eventTime: basis.eventTime,
     aggregateType: "run",
     aggregateId: cCall.runId,
     parentAggregateId: null,
-    causationEventRefs: [graphCallEvent.eventId],
+    causationEventRefs: [batch[2]!.eventId],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -686,10 +747,11 @@ export function admitInteractionClosure(
     graphCallId: cCall.graphCallId,
     payload: {
       runId: cCall.runId,
-      graphCallClosedEventRef: graphCallEvent.eventId,
+      graphCallClosedEventRef: batch[2]!.eventId,
       closureContractRef: closureContract.closureContractRef,
     },
-  });
+    }),
+  ]);
   return deepFreeze({
     kind: "closure_admission" as const,
     schemaVersion: "5.0.0" as const,
@@ -701,10 +763,10 @@ export function admitInteractionClosure(
     judgmentRef: pendingJudgment.judgmentRef,
     routeRef: route.routeRef,
     closureContractRef: closureContract.closureContractRef,
-    terminalReachedEventRef: terminalEvent.eventId,
-    frameClosedEventRef: frameEvent.eventId,
-    graphCallClosedEventRef: graphCallEvent.eventId,
-    runClosedEventRef: runEvent.eventId,
+    terminalReachedEventRef: events[0]!.eventId,
+    frameClosedEventRef: events[1]!.eventId,
+    graphCallClosedEventRef: events[2]!.eventId,
+    runClosedEventRef: events[3]!.eventId,
   }) as ClosureAdmission;
 }
 

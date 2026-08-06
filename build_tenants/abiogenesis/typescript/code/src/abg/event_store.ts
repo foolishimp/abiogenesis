@@ -551,7 +551,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   actor_invocation_closed: {
     variants: [ACTOR_INVOCATION_EVENT],
     payloadVariants: [payloadVariant(
-      combinePayloadKeys(ACTOR_TERMINAL_PAYLOAD, payloadKeys("transportDigest")),
+      combinePayloadKeys(ACTOR_TERMINAL_PAYLOAD, payloadKeys("transportDigest consumedTransportBindingRef consumedStdoutEventRefs consumedStderrEventRefs consumedArtifactEventRef")),
       payloadKeys("actorInvocationRef processRef cCallRef disposition"),
     )],
   },
@@ -559,7 +559,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [ACTOR_INVOCATION_EVENT],
     payloadVariants: [
       payloadVariant(
-        combinePayloadKeys(ACTOR_TERMINAL_PAYLOAD, payloadKeys("transportDigest")),
+        combinePayloadKeys(ACTOR_TERMINAL_PAYLOAD, payloadKeys("transportDigest consumedTransportBindingRef consumedStdoutEventRefs consumedStderrEventRefs consumedArtifactEventRef")),
         payloadKeys(
           "actorInvocationRef processRef cCallRef disposition failureClass transportDigest",
         ),

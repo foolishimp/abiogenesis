@@ -155,23 +155,23 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   actor_invocation_closed: {
     initiates: ["actor_invocation_closed"],
-    terminates: ["actor_invocation_active"], clips: [], declips: [],
+    terminates: ["actor_invocation_active", "actor_transport_binding_admitted", "actor_stdout_available", "actor_stderr_available", "actor_result_artifact_available"], clips: [], declips: [],
   },
   actor_invocation_failed: {
     initiates: ["actor_invocation_failed"],
-    terminates: ["actor_invocation_active", "actor_process_active"], clips: [], declips: [],
+    terminates: ["actor_invocation_active", "actor_process_active", "actor_transport_binding_admitted", "actor_stdout_available", "actor_stderr_available", "actor_result_artifact_available"], clips: [], declips: [],
   },
   c_call_evidenced: {
     initiates: ["c_call_evidence_available"],
-    terminates: [], clips: [], declips: [],
+    terminates: ["c_call_fibre_admitted"], clips: [], declips: [],
   },
   c_call_result_admitted: {
     initiates: ["c_call_result_available"],
-    terminates: [], clips: [], declips: [],
+    terminates: ["c_call_evidence_available"], clips: [], declips: [],
   },
   c_call_judged: {
     initiates: ["c_call_judgment_available"],
-    terminates: ["c_call_active", "retry_attempt_active"], clips: [], declips: [],
+    terminates: ["c_call_active", "c_call_result_available", "retry_attempt_active"], clips: [], declips: [],
   },
   retry_attempt_opened: {
     initiates: ["retry_attempt_active"],
@@ -384,6 +384,16 @@ function eventCalculusEffectRefs(
         clips: [],
         declips: [],
       };
+    case "actor_transport_binding_admitted":
+      return {
+        initiates: [fluent("actor_transport_binding_admitted", event.aggregateId)],
+        terminates: [], clips: [], declips: [],
+      };
+    case "actor_result_artifact_observed":
+      return {
+        initiates: [fluent("actor_result_artifact_available", event.eventId)],
+        terminates: [], clips: [], declips: [],
+      };
     case "actor_invocation_started":
       return {
         initiates: [fluent("actor_invocation_active", event.aggregateId)],
@@ -443,6 +453,11 @@ function eventCalculusEffectRefs(
       };
     case "actor_invocation_closed":
     case "actor_invocation_failed":
+      {
+      const transportBindingRef = stringField(event, "consumedTransportBindingRef");
+      const stdoutEventRefs = stringArrayField(event, "consumedStdoutEventRefs");
+      const stderrEventRefs = stringArrayField(event, "consumedStderrEventRefs");
+      const artifactEventRef = stringField(event, "consumedArtifactEventRef");
       return {
         initiates: [fluent(
           event.kind === "actor_invocation_closed"
@@ -450,38 +465,58 @@ function eventCalculusEffectRefs(
             : "actor_invocation_failed",
           event.aggregateId,
         )],
-        terminates: [fluent("actor_invocation_active", event.aggregateId)],
+        terminates: [
+          fluent("actor_invocation_active", event.aggregateId),
+          ...(transportBindingRef === null
+            ? []
+            : [fluent("actor_transport_binding_admitted", transportBindingRef)]),
+          ...stdoutEventRefs.map((ref) => fluent("actor_stdout_available", ref)),
+          ...stderrEventRefs.map((ref) => fluent("actor_stderr_available", ref)),
+          ...(artifactEventRef === null
+            ? []
+            : [fluent("actor_result_artifact_available", artifactEventRef)]),
+        ],
         clips: [], declips: [],
       };
+      }
     case "c_call_evidenced": {
       const evidenceRef = stringField(event, "evidenceRef");
       return {
         initiates: evidenceRef === null
           ? []
           : [fluent("c_call_evidence_available", evidenceRef)],
-        terminates: [],
+        terminates: [fluent("c_call_fibre_admitted", event.aggregateId)],
         clips: [],
         declips: [],
       };
     }
     case "c_call_result_admitted": {
       const resultRef = stringField(event, "resultRef");
+      const evidenceRefs = stringArrayField(event, "evidenceRefs");
       return {
         initiates: resultRef === null
           ? []
           : [fluent("c_call_result_available", resultRef)],
-        terminates: [],
+        terminates: evidenceRefs.map((evidenceRef) =>
+          fluent("c_call_evidence_available", evidenceRef)
+        ),
         clips: [],
         declips: [],
       };
     }
     case "c_call_judged": {
       const judgmentRef = stringField(event, "judgmentRef");
+      const resultRef = stringField(event, "resultRef");
       return {
         initiates: judgmentRef === null
           ? []
           : [fluent("c_call_judgment_available", judgmentRef)],
-        terminates: [fluent("c_call_active", event.aggregateId)],
+        terminates: [
+          fluent("c_call_active", event.aggregateId),
+          ...(resultRef === null
+            ? []
+            : [fluent("c_call_result_available", resultRef)]),
+        ],
         clips: [],
         declips: [],
       };

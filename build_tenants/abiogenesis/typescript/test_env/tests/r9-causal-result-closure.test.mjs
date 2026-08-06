@@ -275,6 +275,30 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   });
   const controlStore = cloneEventStore(eventStore, store.readAll());
   const unrelatedRouteStore = cloneEventStore(eventStore, store.readAll());
+  const blockingStore = cloneEventStore(eventStore, store.readAll());
+  const blockingAttemptRef = "retry-attempt://abiogenesis/r9/live-closure-blocker";
+  eventStore.admitRuntimeEvent(blockingStore, {
+    kind: "retry_attempt_opened",
+    eventTime: "2026-07-21T00:00:00.000Z",
+    aggregateType: "frame",
+    aggregateId: cCall.frameId,
+    parentAggregateId: cCall.graphCallId,
+    causationEventRefs: [route.admissionEventRef],
+    correlationId: "correlation://t286/r9/live-closure-blocker",
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: cCall.basisId,
+    runId: cCall.runId,
+    graphFunctionRef: cCall.graphFunctionRef,
+    graphCallId: cCall.graphCallId,
+    frameId: cCall.frameId,
+    payload: {
+      attemptRef: blockingAttemptRef,
+      attemptDigest: product.sha256Canonical({ attemptRef: blockingAttemptRef }),
+      retryBoundaryRef: "retry-boundary://abiogenesis/r9/live-closure-blocker",
+      attempt: 1,
+    },
+  });
   const unrelatedRouteBody = {
     routeKind: "advance",
     declarationRef: graph.materializationRef,
@@ -323,6 +347,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     closureContract,
     runtimeBasis("correlation://t286/r9/route-selection-control"),
   );
+  const unrelatedRoutePrefix = unrelatedRouteStore.readAll();
   const unrelatedRouteClosure = abg.admitClosure(
     unrelatedRouteStore,
     cCall,
@@ -333,10 +358,32 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     closureContract,
     runtimeBasis("correlation://t286/r9/route-selection-counterexample"),
   );
-  assert.equal(controlClosure.kind, "closure_admission");
-  assert.equal(unrelatedRouteClosure.kind, "closure_admission");
+  const blockingPrefix = blockingStore.readAll();
+  const blockingClosure = abg.admitClosure(
+    blockingStore,
+    cCall,
+    result,
+    judgment,
+    route,
+    abg.replay(blockingStore, replayScope),
+    closureContract,
+    runtimeBasis("correlation://t286/r9/live-closure-blocker"),
+  );
+  assert.equal(controlClosure.kind, "closure_admission", JSON.stringify(controlClosure));
+  assert.equal(unrelatedRouteClosure.kind, "closure_admission_refusal");
+  assert.equal(unrelatedRouteClosure.failureEventRef, null);
+  assert.deepEqual(unrelatedRouteStore.readAll(), unrelatedRoutePrefix);
+  assert.equal(blockingClosure.kind, "closure_admission_refusal");
+  assert.equal(blockingClosure.failureEventRef, null);
+  assert.deepEqual(blockingStore.readAll(), blockingPrefix);
+  assert.equal(
+    blockingStore.readAll().some((event) =>
+      ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"]
+        .includes(event.kind)
+    ),
+    false,
+  );
   assert.equal(controlClosure.routeRef, route.routeRef);
-  assert.equal(unrelatedRouteClosure.routeRef, route.routeRef);
   const closure = abg.admitClosure(
     store,
     cCall,

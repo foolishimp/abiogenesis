@@ -123,14 +123,22 @@ export interface RunQuiescenceProjection {
   readonly kind: "run_quiescence_projection";
   readonly runId: string;
   readonly prefixDigest: Sha256Digest;
+  readonly rootGraphCallId: string | null;
+  readonly rootFrameId: string | null;
+  readonly terminalRouteRef: string | null;
+  readonly terminalCCallRef: string | null;
   readonly disposition: "active" | "invalid" | "non_quiescent" | "quiescent_for_close";
   readonly blockingFluents: readonly string[];
 }
 
-const RUN_QUIESCENCE_BLOCKING_FLUENTS = new Set([
+const RUN_QUIESCENCE_LIVE_OR_CONSUMABLE_FLUENTS = new Set([
   "actor_cleanup_live",
   "actor_cleanup_pending",
   "actor_invocation_active",
+  "actor_result_artifact_available",
+  "actor_stderr_available",
+  "actor_stdout_available",
+  "actor_transport_binding_admitted",
   "actor_process_active",
   "actor_process_live",
   "c_call_active",
@@ -146,6 +154,35 @@ const RUN_QUIESCENCE_BLOCKING_FLUENTS = new Set([
   "retry_progress_available",
 ]);
 
+const RUN_QUIESCENCE_ALLOWED_HISTORICAL_FLUENTS = new Set([
+  "actor_invocation_closed",
+  "actor_invocation_failed",
+  "actor_process_exited",
+  "actor_process_signal_requested",
+  "actor_process_spawn_failed",
+  "actor_process_termination_unconfirmed",
+  "actor_process_timed_out",
+  "continuation_terminated",
+  "frame_blocked",
+  "frame_closed",
+  "frame_failed",
+  "graph_call_closed",
+  "run_closed",
+  "run_terminal",
+  "runtime_failure",
+  "terminal_admitted",
+]);
+
+const RUN_QUIESCENCE_RUN_INDEPENDENT_FLUENTS = new Set([
+  "basis_admitted",
+  "continuation_reentry_link_available",
+  "implementation_admitted",
+  "invocation_admitted",
+  "invocation_refused",
+  "public_operation_artifact_available",
+  "public_operation_ingress_admitted",
+]);
+
 export function projectRunQuiescence(
   prefix: ValidatedRuntimeEventPrefix,
 ): RunQuiescenceProjection {
@@ -157,11 +194,87 @@ export function projectRunQuiescence(
     throw new TypeError("Run quiescence requires one exact Run-scoped prefix");
   }
   const projection = deriveRuntimeEventCalculusProjection(prefix);
+  const runId = runIds[0]!;
+  const activeRun = projection.holds.filter((fluent) =>
+    fluent.name === "run_active" && fluent.identity === runId
+  );
+  const activeGraphCalls = projection.holds.filter((fluent) =>
+    fluent.name === "graph_call_active"
+  );
+  const activeFrames = projection.holds.filter((fluent) =>
+    fluent.name === "frame_active"
+  );
+  const terminalRoutes = projection.holds.filter((fluent) =>
+    fluent.name === "terminal_route_available"
+  );
+  const rootGraphCallId = activeGraphCalls.length === 1
+    ? activeGraphCalls[0]!.identity
+    : null;
+  const rootFrameId = activeFrames.length === 1
+    ? activeFrames[0]!.identity
+    : null;
+  const terminalRouteRef = terminalRoutes.length === 1
+    ? terminalRoutes[0]!.identity
+    : null;
+  const terminalRouteEvent = terminalRouteRef === null
+    ? undefined
+    : events.find((event) =>
+      event.kind === "traversal_route_admitted" &&
+      isRecord(event.payload) && event.payload.routeRef === terminalRouteRef
+    );
+  const terminalCCallRef = terminalRouteEvent !== undefined &&
+      isRecord(terminalRouteEvent.payload) &&
+      typeof terminalRouteEvent.payload.cCallRef === "string"
+    ? terminalRouteEvent.payload.cCallRef
+    : null;
+  const terminalCCallEvent = terminalCCallRef === null
+    ? undefined
+    : events.find((event) =>
+      event.kind === "c_call_opened" && event.aggregateId === terminalCCallRef
+    );
+  const closedGraphCallIds = new Set(projection.holds
+    .filter((fluent) => fluent.name === "graph_call_closed")
+    .map((fluent) => fluent.identity));
+  const selectedRetryAttemptKeys = new Set(events.flatMap((event) => {
+    if (
+      event.kind !== "retry_attempt_opened" ||
+      !isRecord(event.payload) ||
+      typeof event.payload.attemptRef !== "string"
+    ) return [];
+    const consumedByClosedChild = event.graphCallId !== undefined &&
+      closedGraphCallIds.has(event.graphCallId);
+    const consumedByRootTerminal = terminalCCallEvent !== undefined &&
+      isRecord(terminalCCallEvent.payload) &&
+      event.frameId === rootFrameId && event.graphCallId === rootGraphCallId &&
+      event.payload.attempt === terminalCCallEvent.payload.attempt &&
+      Array.isArray(event.payload.retryPath) &&
+      Array.isArray(terminalCCallEvent.payload.retryPath) &&
+      sha256Canonical(event.payload.retryPath as JsonValue) ===
+        sha256Canonical(terminalCCallEvent.payload.retryPath as JsonValue);
+    if (!consumedByClosedChild && !consumedByRootTerminal) return [];
+    return [`retry_attempt_active(${event.payload.attemptRef})`];
+  }));
+  const closureSpineKeys = new Set([
+    ...(activeRun.length === 1 ? [runtimeFluentKey(activeRun[0]!)] : []),
+    ...(rootGraphCallId === null ? [] : [runtimeFluentKey(activeGraphCalls[0]!)]),
+    ...(rootFrameId === null ? [] : [runtimeFluentKey(activeFrames[0]!)]),
+    ...(terminalRouteRef === null ? [] : [runtimeFluentKey(terminalRoutes[0]!)]),
+  ]);
+  const unknownFluents = projection.holds.filter((fluent) =>
+    !closureSpineKeys.has(runtimeFluentKey(fluent)) &&
+    !RUN_QUIESCENCE_LIVE_OR_CONSUMABLE_FLUENTS.has(fluent.name) &&
+    !RUN_QUIESCENCE_ALLOWED_HISTORICAL_FLUENTS.has(fluent.name) &&
+    !RUN_QUIESCENCE_RUN_INDEPENDENT_FLUENTS.has(fluent.name)
+  );
   const blockingFluents = projection.holds
-    .filter((fluent) => RUN_QUIESCENCE_BLOCKING_FLUENTS.has(fluent.name))
+    .filter((fluent) =>
+      (!closureSpineKeys.has(runtimeFluentKey(fluent)) &&
+        !selectedRetryAttemptKeys.has(runtimeFluentKey(fluent)) &&
+        RUN_QUIESCENCE_LIVE_OR_CONSUMABLE_FLUENTS.has(fluent.name)) ||
+      unknownFluents.includes(fluent)
+    )
     .map(runtimeFluentKey)
     .sort();
-  const runId = runIds[0]!;
   const terminal = holdsAt(projection, constructRunTerminalFluent(runId)) ||
     holdsAt(projection, constructRunClosedFluent(runId));
   const active = holdsAt(projection, constructRunActiveFluent(runId));
@@ -169,12 +282,21 @@ export function projectRunQuiescence(
     kind: "run_quiescence_projection" as const,
     runId,
     prefixDigest: sha256Canonical(events as unknown as JsonValue),
+    rootGraphCallId,
+    rootFrameId,
+    terminalRouteRef,
+    terminalCCallRef,
     disposition: terminal
       ? blockingFluents.length === 0
         ? "quiescent_for_close" as const
         : "non_quiescent" as const
-      : active
-        ? "active" as const
+      : active && activeRun.length === 1 && activeGraphCalls.length === 1 &&
+          activeFrames.length === 1 && terminalRoutes.length === 1
+        ? blockingFluents.length === 0
+          ? "quiescent_for_close" as const
+          : "non_quiescent" as const
+        : active
+          ? "active" as const
         : "invalid" as const,
     blockingFluents: Object.freeze(blockingFluents),
   });

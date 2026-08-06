@@ -14,6 +14,7 @@ import test from "node:test";
 import {
   AbgEventStore,
   admitRuntimeEvent,
+  admitRuntimeEventBatch,
   admitRuntimeEventTransaction,
   reopenEventStore,
   validateHistoricalEvents,
@@ -61,6 +62,25 @@ function workspaceEvent({
     },
   };
 }
+
+test("M5 EventStore batch factory interruption leaves the exact prefix unchanged", () => {
+  const store = new AbgEventStore();
+  const before = store.readAll();
+  assert.throws(
+    () => admitRuntimeEventBatch(store, [
+      () => workspaceEvent({
+        correlationId: "correlation://m5/atomic-batch/first",
+        eventTime: "2026-08-06T00:00:00.000Z",
+        invocationRef: "invocation://m5/atomic-batch/first",
+      }),
+      () => {
+        throw new Error("injected closure batch interruption");
+      },
+    ]),
+    /injected closure batch interruption/u,
+  );
+  assert.deepEqual(store.readAll(), before);
+});
 
 function runScopedEvent(kind, aggregateType, aggregateId, payload) {
   return {

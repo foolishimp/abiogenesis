@@ -3394,7 +3394,15 @@ export function completeRejectedCCall(
       valueKind: cCall.refusalValueKind,
       valueDigest,
       value: refusalValue,
-      evidenceRefs: [rejectionEvidenceRef],
+      evidenceRefs: [
+        ...rows.flatMap((event) =>
+          event.kind === "c_call_evidenced" && isJsonRecord(event.payload) &&
+            typeof event.payload.evidenceRef === "string"
+            ? [event.payload.evidenceRef]
+            : []
+        ),
+        rejectionEvidenceRef,
+      ],
     };
     resultDigest = sha256Canonical(refusalResultBody as unknown as JsonValue);
     resultRef = `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
