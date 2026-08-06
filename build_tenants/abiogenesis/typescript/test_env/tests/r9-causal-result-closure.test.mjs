@@ -202,6 +202,34 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     },
     closureContract.judgmentContractRef,
   );
+  const forgedOwnerCandidate = {
+    ...judgmentCandidate,
+    retryAttemptRef: "retry-attempt://abiogenesis/forged-owner-bypass",
+  };
+  forgedOwnerCandidate.candidateDigest = product.sha256Canonical({
+    cCallRef: forgedOwnerCandidate.cCallRef,
+    resultRef: forgedOwnerCandidate.resultRef,
+    resultDigest: forgedOwnerCandidate.resultDigest,
+    judgment: forgedOwnerCandidate.judgment,
+    reasonRef: forgedOwnerCandidate.reasonRef,
+    contractRef: forgedOwnerCandidate.contractRef,
+    predicateRef: forgedOwnerCandidate.predicateRef,
+    replayStateDigest: forgedOwnerCandidate.replayStateDigest,
+    retryAttemptRef: forgedOwnerCandidate.retryAttemptRef,
+  });
+  forgedOwnerCandidate.candidateRef =
+    `judgment-candidate://abiogenesis/${forgedOwnerCandidate.candidateDigest.slice("sha256:".length)}`;
+  const ownerPrefix = store.readAll();
+  const forgedOwnerJudgment = abg.admitJudgment(
+    store,
+    cCall,
+    result,
+    forgedOwnerCandidate,
+    resultReplay,
+    runtimeBasis("correlation://t286/r9/forged-retry-owner"),
+  );
+  assert.equal(forgedOwnerJudgment.kind, "c_call_admission_rejection");
+  assert.deepEqual(store.readAll(), ownerPrefix);
   const judgment = abg.admitJudgment(
     store,
     cCall,
@@ -212,15 +240,23 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   );
   assert.equal(judgment.kind, "admitted_c_call_judgment", JSON.stringify(judgment));
   assert.equal(judgment.judgment, "advance");
+  const postJudgmentPrefix = store.readAll();
+  const duplicateOwnerJudgment = abg.admitJudgment(
+    store,
+    cCall,
+    result,
+    judgmentCandidate,
+    resultReplay,
+    runtimeBasis("correlation://t286/r9/post-judgment-owner-refusal"),
+  );
+  assert.equal(duplicateOwnerJudgment.kind, "c_call_admission_rejection");
+  assert.deepEqual(store.readAll(), postJudgmentPrefix);
   const admittedJudgmentEvent = store.readAll().at(-1);
   assert.equal(admittedJudgmentEvent.kind, "c_call_judged");
   const judgmentPrefix = store.readAll().slice(0, -1);
   for (const [label, mutate] of [
     ["missing", (payload) => delete payload.retryAttemptRef],
     ["numeric", (payload) => { payload.retryAttemptRef = 1; }],
-    ["wrong-ownership", (payload) => {
-      payload.retryAttemptRef = "retry-attempt://abiogenesis/forged-non-retry-owner";
-    }],
   ]) {
     const refusalStore = cloneEventStore(eventStore, judgmentPrefix);
     const candidate = structuredClone(admittedJudgmentEvent);

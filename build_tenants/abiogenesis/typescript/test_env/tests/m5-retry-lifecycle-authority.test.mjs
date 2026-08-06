@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import { join, resolve } from "node:path";
 import test from "node:test";
@@ -90,6 +91,32 @@ test("retry lifecycle selects only the exact route target and boundary site", as
   );
   assert.equal(selected?.payload.attemptRef, attemptA.payload.attemptRef);
   assert.notEqual(selected?.payload.retryBoundaryRef, attemptB.payload.retryBoundaryRef);
+  const coordinates = {
+    cCallRef: opened.payload.cCallRef,
+    runId,
+    graphCallId,
+    frameId,
+    taskOrdinal: 3,
+    attempt: 1,
+    retryPath: [1],
+    programLocusRef: "locus://exact-target",
+  };
+  const prefix = [source, routeA, routeB, attemptA, attemptB, opened];
+  const before = structuredClone(prefix);
+  assert.equal(lifecycle.selectExactRetryAttemptEvent(prefix, {
+    ...coordinates,
+    programLocusRef: "locus://other",
+  }), null, "locus mismatch refuses");
+  assert.equal(lifecycle.selectExactRetryAttemptEvent([
+    ...prefix,
+    { ...attemptA, eventId: "event://attempt/a-duplicate" },
+  ], coordinates), null, "duplicate attempt cardinality refuses");
+  assert.equal(lifecycle.selectExactRetryAttemptEvent([
+    ...prefix,
+    { ...routeA, eventId: "event://route/a-duplicate" },
+    { ...opened, causationEventRefs: [routeA.eventId, "event://route/a-duplicate"] },
+  ], coordinates), null, "duplicate route cardinality refuses");
+  assert.deepEqual(prefix, before, "selector refusals append zero events");
 });
 
 test("retry progress ownership refuses mismatched and stale boundary identity", async () => {
@@ -118,4 +145,15 @@ test("retry progress ownership refuses mismatched and stale boundary identity", 
   assert.equal(lifecycle.hasExactRetryProgressOwnership(
     attempt, judgment, "retry-boundary://stale",
   ), false);
+});
+
+test("production judgment writers remain closed behind the CCall owner", async () => {
+  const cCallSource = await readFile(join(root, "code/src/abg/c_call.ts"), "utf8");
+  const abgExports = await readFile(join(root, "code/src/abg/index.ts"), "utf8");
+  assert.equal([...cCallSource.matchAll(/kind: "c_call_judged"/gu)].length, 3);
+  assert.equal(/kind: "c_call_judged"/u.test(await readFile(
+    join(root, "code/src/abg/event_store.ts"), "utf8",
+  )), false);
+  assert.equal(/\badmitRuntimeEvent(?:Batch)?\b/u.test(abgExports), false);
+  assert.match(abgExports, /\badmitRuntimeEventTransaction\b/u);
 });

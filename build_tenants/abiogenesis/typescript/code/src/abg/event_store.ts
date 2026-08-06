@@ -25,9 +25,6 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import {
-  selectExactRetryAttemptEvent,
-} from "./retry_lifecycle.js";
 
 export const ROOT_EVENT_KIND_VALUES = [
   "public_operation_artifact_admitted",
@@ -1395,50 +1392,6 @@ function constructRuntimeEvent(
     throw new TypeError("runtime event candidate has an invalid envelope");
   }
   assertRuntimeEventContract(candidate);
-  if (candidate.kind === "c_call_judged") {
-    const openedRows = events.filter((event) =>
-      event.kind === "c_call_opened" && event.aggregateId === candidate.aggregateId
-    );
-    if (openedRows.length !== 1 || !isRecord(openedRows[0]!.payload) ||
-      !Array.isArray(openedRows[0]!.payload.retryPath)) {
-      throw new TypeError("C-call judgment requires its exact admitted C-call opening");
-    }
-    const opened = openedRows[0]!;
-    if (!isRecord(opened.payload) ||
-      !Array.isArray(opened.payload.retryPath)) {
-      throw new TypeError("C-call judgment requires its exact admitted C-call opening");
-    }
-    const retryOwned = opened.payload.retryPath.length !== 0;
-    if (!retryOwned) {
-      if ((candidate.payload as Readonly<Record<string, JsonValue>>).retryAttemptRef !== null) {
-        throw new TypeError("non-retry C-call judgment requires exact null retry attempt identity");
-      }
-    } else {
-      const coordinates = {
-        cCallRef: candidate.aggregateId,
-        runId: candidate.runId!,
-        graphCallId: candidate.graphCallId!,
-        frameId: candidate.frameId!,
-        taskOrdinal: typeof opened.payload.taskOrdinal === "number"
-          ? opened.payload.taskOrdinal
-          : null,
-        attempt: Number(opened.payload.attempt),
-        retryPath: opened.payload.retryPath.filter((value): value is number =>
-          typeof value === "number"
-        ),
-        programLocusRef: String(opened.payload.programLocusRef),
-      };
-      const attempt = selectExactRetryAttemptEvent(events, coordinates);
-      const attemptRef = attempt !== null && isRecord(attempt.payload) &&
-          typeof attempt.payload.attemptRef === "string"
-        ? attempt.payload.attemptRef
-        : null;
-      if (attemptRef === null ||
-        (candidate.payload as Readonly<Record<string, JsonValue>>).retryAttemptRef !== attemptRef) {
-        throw new TypeError("retry-owned C-call judgment requires its exact active retry attempt identity");
-      }
-    }
-  }
   if (
     new Set(candidate.causationEventRefs).size !== candidate.causationEventRefs.length ||
     candidate.causationEventRefs.some(
