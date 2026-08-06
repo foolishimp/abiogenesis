@@ -507,6 +507,8 @@ function eventCalculusEffectRefs(
     case "c_call_judged": {
       const judgmentRef = stringField(event, "judgmentRef");
       const resultRef = stringField(event, "resultRef");
+      const retryAttemptRef = stringField(event, "retryAttemptRef");
+      const judgment = stringField(event, "judgment");
       return {
         initiates: judgmentRef === null
           ? []
@@ -516,6 +518,9 @@ function eventCalculusEffectRefs(
           ...(resultRef === null
             ? []
             : [fluent("c_call_result_available", resultRef)]),
+          ...(retryAttemptRef === null || judgment === "retry"
+            ? []
+            : [fluent("retry_attempt_active", retryAttemptRef)]),
         ],
         clips: [],
         declips: [],

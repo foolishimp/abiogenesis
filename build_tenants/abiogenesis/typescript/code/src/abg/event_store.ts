@@ -639,7 +639,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [C_CALL_EVENT],
     payloadVariants: [payloadVariant(
       payloadKeys(
-        "cCallRef contractRef judgment judgmentDigest judgmentRef predicateRef reasonRef replayStateDigest resultDigest resultRef",
+        "cCallRef contractRef judgment judgmentDigest judgmentRef predicateRef reasonRef replayStateDigest resultDigest resultRef retryAttemptRef",
       ),
       payloadKeys(
         "judgmentRef judgmentDigest cCallRef resultRef judgment",

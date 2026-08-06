@@ -296,7 +296,8 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
       attemptRef: blockingAttemptRef,
       attemptDigest: product.sha256Canonical({ attemptRef: blockingAttemptRef }),
       retryBoundaryRef: "retry-boundary://abiogenesis/r9/live-closure-blocker",
-      attempt: 1,
+      attempt: cCall.attempt,
+      retryPath: cCall.retryPath,
     },
   });
   const unrelatedRouteBody = {
@@ -375,6 +376,10 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   assert.deepEqual(unrelatedRouteStore.readAll(), unrelatedRoutePrefix);
   assert.equal(blockingClosure.kind, "closure_admission_refusal");
   assert.equal(blockingClosure.failureEventRef, null);
+  assert.match(
+    blockingClosure.message,
+    new RegExp(`retry_attempt_active\\(${blockingAttemptRef}\\)`, "u"),
+  );
   assert.deepEqual(blockingStore.readAll(), blockingPrefix);
   assert.equal(
     blockingStore.readAll().some((event) =>

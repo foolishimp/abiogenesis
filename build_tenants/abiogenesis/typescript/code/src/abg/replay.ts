@@ -227,33 +227,6 @@ export function projectRunQuiescence(
       typeof terminalRouteEvent.payload.cCallRef === "string"
     ? terminalRouteEvent.payload.cCallRef
     : null;
-  const terminalCCallEvent = terminalCCallRef === null
-    ? undefined
-    : events.find((event) =>
-      event.kind === "c_call_opened" && event.aggregateId === terminalCCallRef
-    );
-  const closedGraphCallIds = new Set(projection.holds
-    .filter((fluent) => fluent.name === "graph_call_closed")
-    .map((fluent) => fluent.identity));
-  const selectedRetryAttemptKeys = new Set(events.flatMap((event) => {
-    if (
-      event.kind !== "retry_attempt_opened" ||
-      !isRecord(event.payload) ||
-      typeof event.payload.attemptRef !== "string"
-    ) return [];
-    const consumedByClosedChild = event.graphCallId !== undefined &&
-      closedGraphCallIds.has(event.graphCallId);
-    const consumedByRootTerminal = terminalCCallEvent !== undefined &&
-      isRecord(terminalCCallEvent.payload) &&
-      event.frameId === rootFrameId && event.graphCallId === rootGraphCallId &&
-      event.payload.attempt === terminalCCallEvent.payload.attempt &&
-      Array.isArray(event.payload.retryPath) &&
-      Array.isArray(terminalCCallEvent.payload.retryPath) &&
-      sha256Canonical(event.payload.retryPath as JsonValue) ===
-        sha256Canonical(terminalCCallEvent.payload.retryPath as JsonValue);
-    if (!consumedByClosedChild && !consumedByRootTerminal) return [];
-    return [`retry_attempt_active(${event.payload.attemptRef})`];
-  }));
   const closureSpineKeys = new Set([
     ...(activeRun.length === 1 ? [runtimeFluentKey(activeRun[0]!)] : []),
     ...(rootGraphCallId === null ? [] : [runtimeFluentKey(activeGraphCalls[0]!)]),
@@ -269,7 +242,6 @@ export function projectRunQuiescence(
   const blockingFluents = projection.holds
     .filter((fluent) =>
       (!closureSpineKeys.has(runtimeFluentKey(fluent)) &&
-        !selectedRetryAttemptKeys.has(runtimeFluentKey(fluent)) &&
         RUN_QUIESCENCE_LIVE_OR_CONSUMABLE_FLUENTS.has(fluent.name)) ||
       unknownFluents.includes(fluent)
     )

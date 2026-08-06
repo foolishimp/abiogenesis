@@ -239,6 +239,7 @@ function projectCurrentClosureTruth(
     contractRef: judgment.contractRef,
     predicateRef: judgment.predicateRef,
     replayStateDigest: judgment.replayStateDigest,
+    retryAttemptRef: judgment.retryAttemptRef,
   };
   const exactRouteBody = routeBody(route);
   const resumeTruth = resume === null

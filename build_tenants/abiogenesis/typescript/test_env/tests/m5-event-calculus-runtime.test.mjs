@@ -455,6 +455,131 @@ test("retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruc
   assert.equal(global.includes("retry_progress_available(retry-progress://s/1)"), false);
 });
 
+test("retry judgment identity and executable Event Calculus agree on exact attempt consumption", async () => {
+  const eventCalculus = await import(
+    `${pathToFileURL(join(root, "build/code/src/abg/event_calculus.js")).href}?t287-retry-consumption=${Date.now()}`
+  );
+  const prefixModule = await import(
+    pathToFileURL(join(root, "build/code/src/abg/event_prefix.js")).href
+  );
+  const runId = "run://retry/consumption";
+  const attemptRef = "retry-attempt://retry/consumption/1";
+  const run = fakeEvent("event://retry/consumption/run", 1, runId);
+  const opened = retryEvent({
+    kind: "retry_attempt_opened",
+    eventId: "event://retry/consumption/opened",
+    admissionOrdinal: 2,
+    runId,
+    attemptRef,
+    causationEventRefs: [run.eventId],
+  });
+  const judgmentEvent = (judgment, eventId, admissionOrdinal, cause) => deeplyFreeze({
+    ...fakeEvent(eventId, admissionOrdinal, runId, [cause]),
+    kind: "c_call_judged",
+    aggregateType: "c_call",
+    aggregateId: "c-call:sha256:retry-consumption",
+    parentAggregateId: `frame://${runId}`,
+    graphCallId: `graph-call://${runId}`,
+    frameId: `frame://${runId}`,
+    payload: {
+      judgment,
+      judgmentRef: `judgment://retry/consumption/${judgment}`,
+      resultRef: "result://retry/consumption",
+      retryAttemptRef: attemptRef,
+    },
+  });
+  const advance = judgmentEvent(
+    "advance",
+    "event://retry/consumption/advance",
+    3,
+    opened.eventId,
+  );
+  const advanceProjection = eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(Object.freeze([run, opened, advance])),
+  );
+  assert.equal(
+    advanceProjection.holds.some((fluent) =>
+      fluent.name === "retry_attempt_active" && fluent.identity === attemptRef
+    ),
+    false,
+  );
+  assert.deepEqual(
+    [...new Set(advanceProjection.effectRows.at(-1).terminates.map((row) => row.name))]
+      .sort(),
+    [...eventCalculus.ROOT_EVENT_CALCULUS.c_call_judged.terminates].sort(),
+  );
+
+  const retry = judgmentEvent(
+    "retry",
+    "event://retry/consumption/retry",
+    3,
+    opened.eventId,
+  );
+  const retryProjection = eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(Object.freeze([run, opened, retry])),
+  );
+  assert.equal(
+    retryProjection.holds.some((fluent) =>
+      fluent.name === "retry_attempt_active" && fluent.identity === attemptRef
+    ),
+    true,
+  );
+  const progress = retryEvent({
+    kind: "retry_progress_recorded",
+    eventId: "event://retry/consumption/progress",
+    admissionOrdinal: 4,
+    runId,
+    attemptRef,
+    progressRef: "retry-progress://retry/consumption/1",
+    causationEventRefs: [retry.eventId],
+  });
+  const progressedProjection = eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(Object.freeze([
+      run,
+      opened,
+      retry,
+      progress,
+    ])),
+  );
+  assert.equal(
+    progressedProjection.holds.some((fluent) =>
+      fluent.name === "retry_attempt_active" && fluent.identity === attemptRef
+    ),
+    false,
+  );
+  const retrySpineTerminationNames = new Set([
+    ...retryProjection.effectRows.at(-1).terminates.map((row) => row.name),
+    ...progressedProjection.effectRows.at(-1).terminates.map((row) => row.name),
+  ]);
+  assert.deepEqual(
+    [...retrySpineTerminationNames].sort(),
+    [...eventCalculus.ROOT_EVENT_CALCULUS.c_call_judged.terminates].sort(),
+  );
+
+  const staleTerminal = judgmentEvent(
+    "advance",
+    "event://retry/consumption/stale-terminal",
+    5,
+    progress.eventId,
+  );
+  const staleProjection = eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(Object.freeze([
+      run,
+      opened,
+      retry,
+      progress,
+      staleTerminal,
+    ])),
+  );
+  assert.equal(
+    staleProjection.holds.some((fluent) =>
+      fluent.name === "retry_attempt_active" && fluent.identity === attemptRef
+    ),
+    false,
+    "a consumed attempt cannot be rebound by a later judgment",
+  );
+});
+
 test("run_stopped terminates every exact active retry attempt and available retry progress", async () => {
   const eventCalculus = await import(
     `${pathToFileURL(join(root, "build/code/src/abg/event_calculus.js")).href}?t287-retry-stop=${Date.now()}`

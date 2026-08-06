@@ -408,6 +408,7 @@ export interface AdmittedCCallJudgment {
   readonly contractRef: string;
   readonly predicateRef: string;
   readonly replayStateDigest: Sha256Digest;
+  readonly retryAttemptRef: string | null;
   readonly admissionEventRef: string;
 }
 
@@ -641,6 +642,37 @@ function eventsFor(store: AbgEventStore, cCallRef: string) {
       event.aggregateType === "c_call" &&
       event.aggregateId === cCallRef,
   );
+}
+
+function exactRetryAttemptRef(
+  store: AbgEventStore,
+  cCall: CCall,
+): string | null {
+  if (cCall.retryPath.length === 0) return null;
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: cCall.runId,
+  });
+  const matches = runtimeEventsFromValidatedPrefix(prefix).filter((event) =>
+    event.kind === "retry_attempt_opened" &&
+    event.runId === cCall.runId &&
+    event.graphCallId === cCall.graphCallId &&
+    event.frameId === cCall.frameId &&
+    isJsonRecord(event.payload) &&
+    event.payload.attempt === cCall.attempt &&
+    Array.isArray(event.payload.retryPath) &&
+    sha256Canonical(event.payload.retryPath) ===
+      sha256Canonical(cCall.retryPath as unknown as JsonValue) &&
+    typeof event.payload.attemptRef === "string"
+  );
+  if (matches.length !== 1 || !isJsonRecord(matches[0]!.payload)) return null;
+  const attemptRef = matches[0]!.payload.attemptRef as string;
+  const projection = deriveRuntimeEventCalculusProjection(prefix);
+  return holdsAt(projection, constructRuntimeFluent({
+      name: "retry_attempt_active",
+      identity: attemptRef,
+    }))
+    ? attemptRef
+    : null;
 }
 
 function hasAdmittedActorEvidence(
@@ -2757,6 +2789,7 @@ export function admitPendingInteraction(
   expectedInputDigest: Sha256Digest,
   basis: RuntimeAdmissionBasis,
 ): PendingInteractionAdmission {
+  const retryAttemptRef = exactRetryAttemptRef(store, cCall);
   if (
     !hasOpenedCCall(store, cCall) ||
     cCall.callClass !== "leaf" ||
@@ -2766,7 +2799,8 @@ export function admitPendingInteraction(
     cCall.responseContractRef === null ||
     cCall.continuationContractRef === null ||
     sha256Canonical(request as unknown as JsonValue) !== expectedInputDigest ||
-    eventsFor(store, cCall.cCallRef).length !== 2
+    eventsFor(store, cCall.cCallRef).length !== 2 ||
+    (cCall.retryPath.length !== 0 && retryAttemptRef === null)
   ) {
     throw new TypeError(
       "pending F_H admission requires one exact open interaction CCall and request",
@@ -2881,6 +2915,7 @@ export function admitPendingInteraction(
     contractRef: cCall.judgmentContractRef,
     predicateRef: cCall.judgmentPredicateRef,
     replayStateDigest: replayState.replayDigest,
+    retryAttemptRef,
   };
   const judgmentDigest = sha256Canonical(
     judgmentBody as unknown as JsonValue,
@@ -3228,6 +3263,7 @@ export function admitJudgment(
   replayState: ReplayState,
   basis: RuntimeAdmissionBasis,
 ): CCallJudgmentAdmissionResult {
+  const activeRetryAttemptRef = exactRetryAttemptRef(store, cCall);
   const candidateBody = {
     cCallRef: candidate.cCallRef,
     resultRef: candidate.resultRef,
@@ -3256,7 +3292,8 @@ export function admitJudgment(
     candidate.contractRef !== cCall.judgmentContractRef ||
     candidate.predicateRef !== cCall.judgmentPredicateRef ||
     candidate.replayStateDigest !== replayState.replayDigest ||
-    currentReplay.replayDigest !== replayState.replayDigest
+    currentReplay.replayDigest !== replayState.replayDigest ||
+    (cCall.retryPath.length !== 0 && activeRetryAttemptRef === null)
   ) {
     return rejection(
       cCall,
@@ -3266,7 +3303,11 @@ export function admitJudgment(
       "diagnostic://abiogenesis/c-call/judgment-contract-mismatch@5",
     );
   }
-  const judgmentDigest = sha256Canonical(candidateValue);
+  const judgmentBody = {
+    ...candidateBody,
+    retryAttemptRef: activeRetryAttemptRef,
+  };
+  const judgmentDigest = sha256Canonical(judgmentBody as unknown as JsonValue);
   const judgmentRef = `judgment://abiogenesis/${judgmentDigest.slice("sha256:".length)}`;
   const event = admitRuntimeEvent(store, {
     kind: "c_call_judged",
@@ -3283,7 +3324,7 @@ export function admitJudgment(
     graphFunctionRef: cCall.graphFunctionRef,
     graphCallId: cCall.graphCallId,
     frameId: cCall.frameId,
-    payload: { judgmentRef, judgmentDigest, ...candidateBody },
+    payload: { judgmentRef, judgmentDigest, ...judgmentBody },
   });
   const admitted = deepFreeze({
     kind: "admitted_c_call_judgment" as const,
@@ -3291,7 +3332,7 @@ export function admitJudgment(
     disposition: "admitted" as const,
     judgmentRef,
     judgmentDigest,
-    ...candidateBody,
+    ...judgmentBody,
     admissionEventRef: event.eventId,
   }) as AdmittedCCallJudgment;
   admittedJudgments.add(admitted);
@@ -3305,9 +3346,11 @@ export function completeRejectedCCall(
   basis: RuntimeAdmissionBasis,
   disposition: RejectedCCallCompletion["disposition"] = "blocked",
 ): RejectedCCallCompletion {
+  const activeRetryAttemptRef = exactRetryAttemptRef(store, cCall);
   if (
     !hasOpenedCCall(store, cCall) ||
     !admissionRejections.has(admissionRejection) ||
+    (cCall.retryPath.length !== 0 && activeRetryAttemptRef === null) ||
     admissionRejection.cCallRef !== cCall.cCallRef ||
     eventsFor(store, cCall.cCallRef).some((event) => event.kind === "c_call_judged")
   ) {
@@ -3427,6 +3470,7 @@ export function completeRejectedCCall(
   }
 
   const rejectionReplay = replay(store, { runId: cCall.runId });
+  const retryAttemptRef = activeRetryAttemptRef;
   const rejectionJudgmentBody = {
     cCallRef: cCall.cCallRef,
     resultRef,
@@ -3436,6 +3480,7 @@ export function completeRejectedCCall(
     contractRef: cCall.rejectionContractRef,
     predicateRef: cCall.judgmentPredicateRef,
     replayStateDigest: rejectionReplay.replayDigest,
+    retryAttemptRef,
   };
   const rejectionJudgmentDigest = sha256Canonical(
     rejectionJudgmentBody as unknown as JsonValue,

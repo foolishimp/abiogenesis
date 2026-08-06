@@ -127,6 +127,11 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     "retry",
     "advance",
   ]);
+  assert.deepEqual(
+    judgments.map((event) => event.payload.retryAttemptRef),
+    attempts.map((event) => event.payload.attemptRef),
+  );
+  assert.equal(progress[0].payload.attemptRef, attempts[0].payload.attemptRef);
   assert.deepEqual(routes.map((event) => event.payload.routeKind), [
     "retry",
     "retry",
