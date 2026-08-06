@@ -80,7 +80,7 @@ export function admitContinuationTerminal(
     eventTime: basis.eventTime,
     aggregateType: "continuation",
     aggregateId: continuationRef,
-    parentAggregateId: current.cCallRef,
+    parentAggregateId: current.frameId,
     causationEventRefs: [predecessor.eventId],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
@@ -139,6 +139,15 @@ import {
   isTraversalCursorCandidate,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
+import {
+  projectFhContinuations,
+  type ReplayContinuationState,
+} from "./fh_continuation_projection.js";
+
+export {
+  projectFhContinuations,
+  type ReplayContinuationState,
+} from "./fh_continuation_projection.js";
 
 export interface ContinuationProductBasis {
   readonly install: ProductInstall;
@@ -224,38 +233,6 @@ export interface FhResumeSuccessorInput {
   readonly inputRef: string;
   readonly inputDigest: Sha256Digest;
   readonly inputValue: Readonly<Record<string, JsonValue>>;
-}
-
-export interface ReplayContinuationState {
-  readonly continuationRef: string;
-  readonly continuationDigest: Sha256Digest;
-  readonly continuationKind: "fh_interaction";
-  readonly runId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly cCallRef: string;
-  readonly actorCapabilityRef: string;
-  readonly requestContractRef: string;
-  readonly responseContractRef: string;
-  readonly requestRef: string;
-  readonly requestDigest: Sha256Digest;
-  readonly heldCursorRef: string;
-  readonly heldCursorDigest: Sha256Digest;
-  readonly constructionIntentRef: string | null;
-  readonly constructionIntentDigest: Sha256Digest | null;
-  readonly responseRef: string | null;
-  readonly responseDigest: Sha256Digest | null;
-  readonly responseValue: JsonValue | null;
-  readonly successorInputRef: string | null;
-  readonly successorInputDigest: Sha256Digest | null;
-  readonly successorInputValue: JsonValue | null;
-  readonly successorCursorRef: string | null;
-  readonly successorCursorDigest: Sha256Digest | null;
-  readonly openedEventRef: string;
-  readonly respondedEventRef: string | null;
-  readonly resumedEventRef: string | null;
-  readonly terminalEventRef: string | null;
-  readonly status: "abandoned" | "open" | "responded" | "resolved" | "superseded";
 }
 
 export interface FhContinuationRehydrationBasis {
@@ -386,174 +363,6 @@ function resolveCurrentContinuationOperationCoordinate(
     return null;
   }
   return { event: operationEvent, payload: operationPayload };
-}
-
-export function projectFhContinuations(
-  prefix: ValidatedRuntimeEventPrefix,
-  eventCalculus: RuntimeEventCalculusProjection,
-): readonly ReplayContinuationState[] {
-  const events = runtimeEventsFromValidatedPrefix(prefix).filter(
-    (event) => event.aggregateType === "continuation",
-  );
-  const refs = [...new Set(events.map((event) => event.aggregateId))];
-  return refs.map((continuationRef) => {
-    const rows = events.filter((event) => event.aggregateId === continuationRef);
-    const opened = rows.find((event) => event.kind === "fh_interaction_opened");
-    const responded = rows.find(
-      (event) => event.kind === "fh_interaction_responded",
-    );
-    const resumed = rows.find(
-      (event) => event.kind === "fh_interaction_resume_admitted",
-    );
-    const abandoned = rows.find((event) => event.kind === "continuation_abandoned");
-    const superseded = rows.find((event) => event.kind === "continuation_superseded");
-    const dispositionRows = rows.filter((event) =>
-      event.kind === "continuation_abandoned" ||
-      event.kind === "continuation_superseded"
-    );
-    if (
-      opened === undefined ||
-      rows.filter((event) => event.kind === "fh_interaction_opened").length !== 1 ||
-      rows.filter((event) => event.kind === "fh_interaction_responded").length > 1 ||
-      rows.filter(
-        (event) => event.kind === "fh_interaction_resume_admitted",
-      ).length > 1 ||
-      dispositionRows.length > 1 ||
-      (resumed !== undefined && dispositionRows.length !== 0) ||
-      (resumed !== undefined && responded === undefined) ||
-      (responded !== undefined &&
-        responded.admissionOrdinal <= opened.admissionOrdinal) ||
-      (resumed !== undefined &&
-        resumed.admissionOrdinal <= (responded?.admissionOrdinal ?? 0))
-    ) {
-      throw new TypeError(
-        `continuation ${continuationRef} has an invalid event lifecycle`,
-      );
-    }
-    const continuationDigest = digestField(opened, "continuationDigest");
-    const cCallRef = stringField(opened, "cCallRef");
-    const actorCapabilityRef = stringField(opened, "actorCapabilityRef");
-    const requestContractRef = stringField(opened, "requestContractRef");
-    const responseContractRef = stringField(opened, "responseContractRef");
-    const requestRef = stringField(opened, "requestRef");
-    const requestDigest = digestField(opened, "requestDigest");
-    const heldCursorRef = stringField(opened, "heldCursorRef");
-    const heldCursorDigest = digestField(opened, "heldCursorDigest");
-    if (
-      continuationDigest === null ||
-      opened.runId === undefined ||
-      opened.graphCallId === undefined ||
-      opened.frameId === undefined ||
-      cCallRef === null ||
-      actorCapabilityRef === null ||
-      requestContractRef === null ||
-      responseContractRef === null ||
-      requestRef === null ||
-      requestDigest === null ||
-      heldCursorRef === null ||
-      heldCursorDigest === null
-    ) {
-      throw new TypeError(
-        `continuation ${continuationRef} has incomplete opening truth`,
-      );
-    }
-    const responseValue = responded !== undefined && isRecord(responded.payload)
-      ? responded.payload.responseValue ?? null
-      : null;
-    const successorInputValue =
-      resumed !== undefined && isRecord(resumed.payload)
-        ? resumed.payload.successorInputValue ?? null
-        : null;
-    const open = holdsAt(
-      eventCalculus,
-      constructRuntimeFluent({
-        name: "continuation_open",
-        identity: continuationRef,
-      }),
-    );
-    const responseAvailable = holdsAt(
-      eventCalculus,
-      constructRuntimeFluent({
-        name: "continuation_response_available",
-        identity: continuationRef,
-      }),
-    );
-    const terminated = holdsAt(
-      eventCalculus,
-      constructRuntimeFluent({
-        name: "continuation_terminated",
-        identity: continuationRef,
-      }),
-    );
-    const disposed = abandoned !== undefined || superseded !== undefined;
-    if (
-      (terminated && (open || responseAvailable || resumed === undefined)) ||
-      (disposed && (open || responseAvailable)) ||
-      (
-        !terminated && !disposed && responded !== undefined &&
-        (!open || !responseAvailable || resumed !== undefined)
-      ) ||
-      (!terminated && !disposed && responded === undefined && (!open || responseAvailable))
-    ) {
-      throw new TypeError(
-        `continuation ${continuationRef} differs from Event Calculus lifecycle truth`,
-      );
-    }
-    return deepFreeze({
-      continuationRef,
-      continuationDigest,
-      continuationKind: "fh_interaction" as const,
-      runId: opened.runId,
-      graphCallId: opened.graphCallId,
-      frameId: opened.frameId,
-      cCallRef,
-      actorCapabilityRef,
-      requestContractRef,
-      responseContractRef,
-      requestRef,
-      requestDigest,
-      heldCursorRef,
-      heldCursorDigest,
-      constructionIntentRef: stringField(opened, "constructionIntentRef"),
-      constructionIntentDigest: digestField(
-        opened,
-        "constructionIntentDigest",
-      ),
-      responseRef: responded === undefined
-        ? null
-        : stringField(responded, "responseRef"),
-      responseDigest: responded === undefined
-        ? null
-        : digestField(responded, "responseDigest"),
-      responseValue,
-      successorInputRef: resumed === undefined
-        ? null
-        : stringField(resumed, "successorInputRef"),
-      successorInputDigest: resumed === undefined
-        ? null
-        : digestField(resumed, "successorInputDigest"),
-      successorInputValue,
-      successorCursorRef: resumed === undefined
-        ? null
-        : stringField(resumed, "successorCursorRef"),
-      successorCursorDigest: resumed === undefined
-        ? null
-        : digestField(resumed, "successorCursorDigest"),
-      openedEventRef: opened.eventId,
-      respondedEventRef: responded?.eventId ?? null,
-      resumedEventRef: resumed?.eventId ?? null,
-      terminalEventRef: dispositionRows[0]?.eventId ?? resumed?.eventId ?? null,
-      status: abandoned !== undefined
-        ? "abandoned" as const
-        : superseded !== undefined
-          ? "superseded" as const
-          : terminated
-        ? "resolved" as const
-        : responseAvailable
-          ? "responded" as const
-          : "open" as const,
-    });
-  });
 }
 
 export function projectFhInteractionSemanticBasis(

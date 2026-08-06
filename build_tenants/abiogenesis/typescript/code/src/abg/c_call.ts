@@ -734,11 +734,11 @@ function exactRetryAttemptRef(
     runId: cCall.runId,
   });
   const events = runtimeEventsFromValidatedPrefix(prefix);
-  const match = selectExactRetryAttemptEvent(events, cCall);
+  const projection = deriveRuntimeEventCalculusProjection(prefix);
+  const match = selectExactRetryAttemptEvent(events, cCall, projection);
   if (match === null || !isJsonRecord(match.payload) ||
     typeof match.payload.attemptRef !== "string") return null;
   const attemptRef = match.payload.attemptRef;
-  const projection = deriveRuntimeEventCalculusProjection(prefix);
   return holdsAt(projection, constructRuntimeFluent({
       name: "retry_attempt_active",
       identity: attemptRef,
@@ -2856,8 +2856,8 @@ export function projectAdmittedLeafCCallOutcome(
   );
 }
 
-export function rehydrateAdmittedCCallState(
-  store: AbgEventStore,
+function projectAdmittedCCallState(
+  prefix: ValidatedRuntimeEventPrefix,
   cCallValue: Readonly<Record<string, JsonValue>>,
   resultValue: Readonly<Record<string, JsonValue>>,
   judgmentValue: Readonly<Record<string, JsonValue>>,
@@ -2907,9 +2907,6 @@ export function rehydrateAdmittedCCallState(
     admissionEventRef: _judgmentEventRef,
     ...judgmentBody
   } = judgment;
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
-    runId: cCall.runId,
-  });
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const cCallEvents = events.filter(
     (event) => event.aggregateType === "c_call" && event.aggregateId === cCall.cCallRef,
@@ -2958,110 +2955,61 @@ export function rehydrateAdmittedCCallState(
   ) {
     return null;
   }
-  cCalls.add(cCall);
-  admittedResults.add(result);
-  admittedJudgments.add(judgment);
   return deepFreeze({ cCall, result, judgment });
 }
 
-export function rehydratePendingInteraction(
+export function rehydrateAdmittedCCallState(
   store: AbgEventStore,
   cCallValue: Readonly<Record<string, JsonValue>>,
   resultValue: Readonly<Record<string, JsonValue>>,
   judgmentValue: Readonly<Record<string, JsonValue>>,
+): RehydratedAdmittedCCallState | null {
+  const cCallRef = typeof cCallValue.cCallRef === "string"
+    ? cCallValue.cCallRef
+    : null;
+  const opened = cCallRef === null
+    ? undefined
+    : store.readAll().find((event) =>
+        event.kind === "c_call_opened" && event.aggregateId === cCallRef
+      );
+  const prefix = opened?.runId === undefined
+    ? null
+    : selectValidatedRuntimeEventPrefix(store.readAll(), {
+        runId: opened.runId,
+      });
+  const projected = prefix === null
+    ? null
+    : projectAdmittedCCallState(
+        prefix,
+        cCallValue,
+        resultValue,
+        judgmentValue,
+      );
+  if (projected === null) return null;
+  cCalls.add(projected.cCall);
+  admittedResults.add(projected.result);
+  admittedJudgments.add(projected.judgment);
+  return projected;
+}
+
+export function projectPendingInteractionCarrier(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCallValue: Readonly<Record<string, JsonValue>>,
+  resultValue: Readonly<Record<string, JsonValue>>,
+  judgmentValue: Readonly<Record<string, JsonValue>>,
 ): RehydratedPendingInteraction | null {
-  const cCall = deepFreeze(cCallValue) as unknown as CCall;
-  const result = deepFreeze(resultValue) as unknown as AdmittedCCallResult;
-  const judgment = deepFreeze(judgmentValue) as unknown as AdmittedCCallJudgment;
+  const projected = projectAdmittedCCallState(
+    prefix,
+    cCallValue,
+    resultValue,
+    judgmentValue,
+  );
+  if (projected === null) return null;
+  const { cCall, result, judgment } = projected;
   if (
-    cCall.kind !== "c_call" ||
-    cCall.schemaVersion !== "5.0.0" ||
     cCall.regime !== "F_H" ||
-    cCall.callClass !== "leaf" ||
-    result.kind !== "admitted_c_call_result" ||
-    result.schemaVersion !== "5.0.0" ||
-    result.disposition !== "admitted" ||
     result.resultClass !== "pending" ||
-    judgment.kind !== "admitted_c_call_judgment" ||
-    judgment.schemaVersion !== "5.0.0" ||
-    judgment.disposition !== "admitted" ||
     judgment.judgment !== "pending"
-  ) {
-    return null;
-  }
-  const identity = {
-    basisId: cCall.basisId,
-    graphCallId: cCall.graphCallId,
-    frameId: cCall.frameId,
-    vectorIndex: cCall.vectorIndex,
-    stageRole: cCall.stageRole,
-    taskOrdinal: cCall.taskOrdinal,
-    attempt: cCall.attempt,
-    programLocusRef: cCall.programLocusRef,
-    retryPath: cCall.retryPath,
-  };
-  const {
-    kind: _resultKind,
-    schemaVersion: _resultSchemaVersion,
-    disposition: _resultDisposition,
-    resultRef: _resultRef,
-    resultDigest: _resultDigest,
-    admissionEventRef: _resultEventRef,
-    ...resultBody
-  } = result;
-  const {
-    kind: _judgmentKind,
-    schemaVersion: _judgmentSchemaVersion,
-    disposition: _judgmentDisposition,
-    judgmentRef: _judgmentRef,
-    judgmentDigest: _judgmentDigest,
-    admissionEventRef: _judgmentEventRef,
-    ...judgmentBody
-  } = judgment;
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
-    runId: cCall.runId,
-  });
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const cCallEvents = events.filter(
-    (event) => event.aggregateType === "c_call" && event.aggregateId === cCall.cCallRef,
-  );
-  const resultEvent = events.find(
-    (event) => event.eventId === result.admissionEventRef,
-  );
-  const judgmentEvent = events.find(
-    (event) => event.eventId === judgment.admissionEventRef,
-  );
-  if (
-    cCall.cCallDigest !== sha256Canonical(identity as unknown as JsonValue) ||
-    cCall.cCallRef !== `c-call:${cCall.cCallDigest}` ||
-    cCallEvents[0]?.eventId !== cCall.openedEventRef ||
-    cCallEvents[1]?.eventId !== cCall.fibreSelectedEventRef ||
-    result.resultDigest !== sha256Canonical(resultBody as unknown as JsonValue) ||
-    result.resultRef !==
-      `result://abiogenesis/${result.resultDigest.slice("sha256:".length)}` ||
-    result.cCallRef !== cCall.cCallRef ||
-    result.valueDigest !== sha256Canonical(result.value) ||
-    judgment.judgmentDigest !==
-      sha256Canonical(judgmentBody as unknown as JsonValue) ||
-    judgment.judgmentRef !==
-      `judgment://abiogenesis/${judgment.judgmentDigest.slice("sha256:".length)}` ||
-    judgment.cCallRef !== cCall.cCallRef ||
-    judgment.resultRef !== result.resultRef ||
-    judgment.resultDigest !== result.resultDigest ||
-    !exactEventBody(
-      resultEvent,
-      "c_call_result_admitted",
-      { resultRef: result.resultRef, resultDigest: result.resultDigest, ...resultBody },
-    ) ||
-    !exactEventBody(
-      judgmentEvent,
-      "c_call_judged",
-      {
-        judgmentRef: judgment.judgmentRef,
-        judgmentDigest: judgment.judgmentDigest,
-        ...judgmentBody,
-      },
-    )
   ) {
     return null;
   }
@@ -3075,17 +3023,50 @@ export function rehydratePendingInteraction(
       result.value.requestDigest.startsWith("sha256:")
       ? result.value.requestDigest as Sha256Digest
       : null;
-  if (requestRef === null || requestDigest === null) return null;
+  return requestRef === null || requestDigest === null
+    ? null
+    : deepFreeze({ cCall, result, judgment, requestRef, requestDigest });
+}
+
+export function rehydratePendingInteraction(
+  store: AbgEventStore,
+  cCallValue: Readonly<Record<string, JsonValue>>,
+  resultValue: Readonly<Record<string, JsonValue>>,
+  judgmentValue: Readonly<Record<string, JsonValue>>,
+): RehydratedPendingInteraction | null {
+  const cCallRef = typeof cCallValue.cCallRef === "string"
+    ? cCallValue.cCallRef
+    : null;
+  const openedCCall = cCallRef === null
+    ? undefined
+    : store.readAll().find((event) =>
+        event.kind === "c_call_opened" && event.aggregateId === cCallRef
+      );
+  const prefix = openedCCall?.runId === undefined
+    ? null
+    : selectValidatedRuntimeEventPrefix(store.readAll(), {
+        runId: openedCCall.runId,
+      });
+  const projected = prefix === null
+    ? null
+    : projectPendingInteractionCarrier(
+        prefix,
+        cCallValue,
+        resultValue,
+        judgmentValue,
+      );
+  if (projected === null) return null;
+  const events = runtimeEventsFromValidatedPrefix(prefix!);
   const continuationEvent = events.find(
     (event) =>
       event.kind === "fh_interaction_opened" &&
       isJsonRecord(event.payload) &&
-      event.payload.cCallRef === cCall.cCallRef,
+      event.payload.cCallRef === projected.cCall.cCallRef,
   );
   if (
     continuationEvent === undefined ||
     !holdsAt(
-      deriveRuntimeEventCalculusProjection(prefix),
+      deriveRuntimeEventCalculusProjection(prefix!),
       constructRuntimeFluent({
         name: "interaction_pending",
         identity: continuationEvent.aggregateId,
@@ -3094,16 +3075,10 @@ export function rehydratePendingInteraction(
   ) {
     return null;
   }
-  cCalls.add(cCall);
-  admittedResults.add(result);
-  admittedJudgments.add(judgment);
-  return deepFreeze({
-    cCall,
-    result,
-    judgment,
-    requestRef,
-    requestDigest,
-  });
+  cCalls.add(projected.cCall);
+  admittedResults.add(projected.result);
+  admittedJudgments.add(projected.judgment);
+  return projected;
 }
 
 export function openCCall(

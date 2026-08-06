@@ -1,5 +1,10 @@
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
+import {
+  constructRuntimeFluent,
+  holdsAt,
+  type RuntimeEventCalculusProjection,
+} from "./event_calculus.js";
 import type { RuntimeEvent } from "./event_store.js";
 
 function isRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
@@ -38,6 +43,7 @@ function hasCausalAncestor(
 export function selectExactRetryAttemptEvent(
   events: readonly RuntimeEvent[],
   coordinates: RetryOwnedCCallCoordinates,
+  projection: RuntimeEventCalculusProjection,
 ): RuntimeEvent | null {
   if (coordinates.retryPath.length === 0) return null;
   const openedRows = events.filter((event) =>
@@ -72,14 +78,18 @@ export function selectExactRetryAttemptEvent(
       attemptEvent.graphCallId !== coordinates.graphCallId ||
       attemptEvent.frameId !== coordinates.frameId ||
       !isRecord(attemptEvent.payload) ||
-      attemptEvent.payload.taskOrdinal !== coordinates.taskOrdinal ||
       attemptEvent.payload.attempt !== coordinates.attempt ||
+      typeof attemptEvent.payload.attemptRef !== "string" ||
       !Array.isArray(attemptEvent.payload.retryPath) ||
       !Array.isArray(attemptEvent.payload.wrappedTermPath) ||
       sha256Canonical(attemptEvent.payload.retryPath) !==
         sha256Canonical(coordinates.retryPath as unknown as JsonValue)
     ) return false;
     const attemptPayload = attemptEvent.payload;
+    if (!holdsAt(projection, constructRuntimeFluent({
+      name: "retry_attempt_active",
+      identity: attemptPayload.attemptRef as string,
+    }))) return false;
     const priorRoutes = events.filter((event) =>
       event.kind === "traversal_route_admitted" &&
       attemptEvent.causationEventRefs.includes(event.eventId) &&

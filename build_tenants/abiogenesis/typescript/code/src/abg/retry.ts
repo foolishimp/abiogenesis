@@ -1,7 +1,8 @@
-import type { GtlGraph } from "../gtl/contracts.js";
+import type { FanOutApplication, GtlGraph } from "../gtl/contracts.js";
 import { isExecutableCLeaf } from "../gtl/c_algebra.js";
 import {
   deriveCContinuationTarget,
+  deriveCSourceContinuation,
   resolveEnclosingCRetryContexts,
   resolveCProgramTermAtSourcePath,
   type CEnclosingRetryContext,
@@ -17,6 +18,9 @@ import type {
   CCall,
   CCallRuntimeFailureSource,
 } from "./c_call.js";
+import type { FhInteractionResumeAdmission } from "./continuation.js";
+import type { CompleteFanOutAdmission } from "./fan_out.js";
+import { projectExactFanOutCompletion } from "./fan_out_projection.js";
 import {
   admitPlannedCCallRuntimeFailureClose,
   hasCurrentAdmittedCCallOutcome,
@@ -44,6 +48,7 @@ import {
   holdsAt,
   type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
+import { projectFhContinuations } from "./fh_continuation_projection.js";
 import {
   hasExactRetryCompletionOwnership,
   selectExactRetryAttemptEvent,
@@ -57,6 +62,7 @@ import {
 import {
   hasAdmittedTraversalCursor,
   isTraversalCursorCandidate,
+  traversalCursorAdmissionEventRef,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
 import {
@@ -132,14 +138,14 @@ interface RetryProgressAdmissionBase {
   readonly attemptRef: string;
   readonly attempt: number;
   readonly retryPath: readonly number[];
-  readonly cCallRef: string;
-  readonly resultRef: string;
-  readonly judgmentRef: string;
   readonly admissionEventRef: string;
 }
 
 interface RetryFailureProgressAdmissionBase
   extends RetryProgressAdmissionBase {
+  readonly cCallRef: string;
+  readonly resultRef: string;
+  readonly judgmentRef: string;
   readonly budget: number;
   readonly failureClass: WorkerTransportFailureClass;
   readonly failureSignalRef: string;
@@ -162,16 +168,70 @@ export interface RetryStoppedProgressAdmission
   readonly predecessorProgressRef: string | null;
 }
 
-export interface RetryCompletedProgressAdmission
+interface RetryCompletedProgressAdmissionBase
   extends RetryProgressAdmissionBase {
   readonly progressClass: "completed";
   readonly completedRetryDepth: number;
+  readonly completionClass: RetrySuccessCompletionClass;
+  readonly completionWitnessEventRef: string;
   readonly sourceCursorRef: string;
   readonly sourceCursorDigest: Sha256Digest;
   readonly targetCursorRef: string | null;
   readonly targetCursorDigest: Sha256Digest | null;
   readonly predecessorProgressRef: string | null;
 }
+
+export type RetrySuccessCompletionClass =
+  | "judged_success"
+  | "fan_out_success"
+  | "fh_resume_success"
+  | "structural_identity_success";
+
+export interface RetryCCallCompletedProgressAdmission
+  extends RetryCompletedProgressAdmissionBase {
+  readonly completionClass:
+    | "judged_success"
+    | "fan_out_success"
+    | "fh_resume_success";
+  readonly cCallRef: string;
+  readonly resultRef: string;
+  readonly judgmentRef: string;
+}
+
+export interface RetryStructuralCompletedProgressAdmission
+  extends RetryCompletedProgressAdmissionBase {
+  readonly completionClass: "structural_identity_success";
+}
+
+export type RetryCompletedProgressAdmission =
+  | RetryCCallCompletedProgressAdmission
+  | RetryStructuralCompletedProgressAdmission;
+
+export type RetrySuccessfulExitEvidence =
+  | Readonly<{
+    completionClass: "judged_success";
+    cCall: CCall;
+    result: AdmittedCCallResult;
+    judgment: AdmittedCCallJudgment;
+  }>
+  | Readonly<{
+    completionClass: "fan_out_success";
+    cCall: CCall;
+    result: AdmittedCCallResult;
+    judgment: AdmittedCCallJudgment;
+    completion: CompleteFanOutAdmission;
+  }>
+  | Readonly<{
+    completionClass: "fh_resume_success";
+    cCall: CCall;
+    result: AdmittedCCallResult;
+    judgment: AdmittedCCallJudgment;
+    resume: FhInteractionResumeAdmission;
+  }>
+  | Readonly<{
+    completionClass: "structural_identity_success";
+    completionWitnessEventRef: string;
+  }>;
 
 export type RetryProgressAdmission =
   | RetryContinuationProgressAdmission
@@ -546,13 +606,21 @@ const RETRY_STOPPED_PROGRESS_KEYS = Object.freeze([
   "predecessorProgressRef", "stopReason",
 ].sort());
 const COMPLETED_PROGRESS_TERMINAL_KEYS = Object.freeze([
-  "attempt", "attemptRef", "cCallRef", "completedRetryDepth", "judgmentRef",
+  "attempt", "attemptRef", "cCallRef", "completedRetryDepth",
+  "completionClass", "completionWitnessEventRef", "judgmentRef",
   "predecessorProgressRef", "progressClass", "progressDigest", "progressRef",
   "resultRef", "retryBoundaryRef", "retryPath", "sourceCursorDigest",
   "sourceCursorRef",
 ].sort());
 const COMPLETED_PROGRESS_ADVANCE_KEYS = Object.freeze([
   ...COMPLETED_PROGRESS_TERMINAL_KEYS, "targetCursorDigest", "targetCursorRef",
+].sort());
+const STRUCTURAL_COMPLETED_PROGRESS_ADVANCE_KEYS = Object.freeze([
+  "attempt", "attemptRef", "completedRetryDepth", "completionClass",
+  "completionWitnessEventRef", "predecessorProgressRef", "progressClass",
+  "progressDigest", "progressRef", "retryBoundaryRef", "retryPath",
+  "sourceCursorDigest", "sourceCursorRef", "targetCursorDigest",
+  "targetCursorRef",
 ].sort());
 function exactPayloadKeys(
   payload: Readonly<Record<string, JsonValue>>,
@@ -575,6 +643,18 @@ function progressBody(
     return body;
   }
   if (payload.progressClass !== "completed") return null;
+  if (payload.completionClass === "structural_identity_success") {
+    if (!exactPayloadKeys(payload, STRUCTURAL_COMPLETED_PROGRESS_ADVANCE_KEYS)) {
+      return null;
+    }
+    const { progressRef: _ref, progressDigest: _digest, ...body } = payload;
+    return body;
+  }
+  if (
+    payload.completionClass !== "judged_success" &&
+    payload.completionClass !== "fan_out_success" &&
+    payload.completionClass !== "fh_resume_success"
+  ) return null;
   const terminal = !Object.hasOwn(payload, "targetCursorRef") &&
     !Object.hasOwn(payload, "targetCursorDigest");
   if (!exactPayloadKeys(
@@ -699,6 +779,7 @@ function exactCCallPhaseEvents(
   judgmentRef: string,
 ): Readonly<{
   opened: RuntimeEvent;
+  fibre: RuntimeEvent;
   result: RuntimeEvent;
   judgment: RuntimeEvent;
 }> | null {
@@ -709,11 +790,16 @@ function exactCCallPhaseEvents(
     return null;
   }
   if (
-    phase.phase !== "judged" || phase.resultEventRef === null ||
+    phase.phase !== "judged" || phase.fibreEventRef === null ||
+    phase.resultEventRef === null ||
     phase.judgmentEventRef === null
   ) return null;
   const opened = events.find((candidate) =>
     candidate.eventId === phase.openedEventRef && candidate.kind === "c_call_opened"
+  );
+  const fibre = events.find((candidate) =>
+    candidate.eventId === phase.fibreEventRef &&
+    candidate.kind === "c_call_fibre_selected"
   );
   const result = events.find((candidate) =>
     candidate.eventId === phase.resultEventRef &&
@@ -723,19 +809,27 @@ function exactCCallPhaseEvents(
     candidate.eventId === phase.judgmentEventRef && candidate.kind === "c_call_judged"
   );
   if (
-    opened === undefined || result === undefined || judgment === undefined ||
-    !isRecord(opened.payload) || !isRecord(result.payload) ||
+    opened === undefined || fibre === undefined || result === undefined ||
+    judgment === undefined || !isRecord(opened.payload) ||
+    !isRecord(fibre.payload) || !isRecord(result.payload) ||
     !isRecord(judgment.payload)
   ) return null;
   const resultPayload = result.payload as Readonly<Record<string, JsonValue>>;
   const judgmentPayload = judgment.payload as Readonly<Record<string, JsonValue>>;
   if (
     !sharesProgressScope(opened, progress) ||
+    !sharesProgressScope(fibre, progress) ||
     !sharesProgressScope(result, progress) ||
     !sharesProgressScope(judgment, progress) ||
     opened.aggregateType !== "c_call" || opened.aggregateId !== cCallRef ||
     opened.materializationRef !== progress.materializationRef ||
     opened.payload.cCallRef !== cCallRef ||
+    fibre.aggregateType !== "c_call" || fibre.aggregateId !== cCallRef ||
+    fibre.parentAggregateId !== opened.parentAggregateId ||
+    fibre.materializationRef !== progress.materializationRef ||
+    fibre.payload.cCallRef !== cCallRef ||
+    fibre.causationEventRefs.length !== 1 ||
+    fibre.causationEventRefs[0] !== opened.eventId ||
     result.aggregateType !== "c_call" || result.aggregateId !== cCallRef ||
     resultPayload.cCallRef !== cCallRef || resultPayload.resultRef !== resultRef ||
     judgment.aggregateType !== "c_call" || judgment.aggregateId !== cCallRef ||
@@ -745,7 +839,7 @@ function exactCCallPhaseEvents(
     judgmentPayload.resultDigest !== resultPayload.resultDigest ||
     !judgment.causationEventRefs.includes(result.eventId)
   ) return null;
-  return Object.freeze({ opened, result, judgment });
+  return Object.freeze({ opened, fibre, result, judgment });
 }
 
 function hasExactRetryFailureProvenance(
@@ -805,6 +899,119 @@ function exactSourceCursorEvent(
     : null;
 }
 
+function exactCursorCarrierEvent(
+  prior: readonly RuntimeEvent[],
+  progress: RuntimeEvent,
+  sourceCursorRef: JsonValue | undefined,
+  sourceCursorDigest: JsonValue | undefined,
+  witnessEventRef: JsonValue | undefined,
+): RuntimeEvent | null {
+  if (
+    !nonEmptyString(sourceCursorRef) || !digestValue(sourceCursorDigest) ||
+    !nonEmptyString(witnessEventRef)
+  ) return null;
+  const candidate = prior.find((event) => event.eventId === witnessEventRef);
+  if (candidate === undefined || !isRecord(candidate.payload)) return null;
+  const candidatePayload = candidate.payload;
+  const materializationRef = candidate.kind === "fh_interaction_resume_admitted"
+    ? prior.find((event) =>
+        event.kind === "fh_interaction_opened" &&
+        event.aggregateId === candidate.aggregateId &&
+        event.eventId === candidatePayload.openedEventRef
+      )?.materializationRef
+    : candidate.materializationRef;
+  if (
+    candidate.workflowVersion !== "5.0.0" ||
+    candidate.scopeClass !== "run" || candidate.runId !== progress.runId ||
+    candidate.graphCallId !== progress.graphCallId ||
+    candidate.frameId !== progress.frameId ||
+    materializationRef !== progress.materializationRef
+  ) return null;
+  const matches = (candidate.kind === "traversal_cursor_entered" &&
+      candidate.payload.cursorRef === sourceCursorRef &&
+      candidate.payload.cursorDigest === sourceCursorDigest) ||
+    (candidate.kind === "traversal_route_admitted" &&
+      candidate.payload.targetCursorRef === sourceCursorRef &&
+      candidate.payload.targetCursorDigest === sourceCursorDigest) ||
+    (candidate.kind === "fh_interaction_resume_admitted" &&
+      candidate.payload.successorCursorRef === sourceCursorRef &&
+      candidate.payload.successorCursorDigest === sourceCursorDigest);
+  return matches ? candidate : null;
+}
+
+function exactFanOutCompletionWitness(
+  prefix: ValidatedRuntimeEventPrefix,
+  prior: readonly RuntimeEvent[],
+  progress: RuntimeEvent,
+  body: Readonly<Record<string, JsonValue>>,
+  cCallEvent: RuntimeEvent,
+  resultEvent: RuntimeEvent,
+  judgmentEvent: RuntimeEvent,
+): RuntimeEvent | null {
+  const witness = prior.find((candidate) =>
+    candidate.eventId === body.completionWitnessEventRef &&
+    candidate.kind === "fan_out_completion_admitted"
+  );
+  const projected = typeof body.completionWitnessEventRef === "string"
+    ? projectExactFanOutCompletion(prefix, {
+        mode: "event_canonical",
+        admissionEventRef: body.completionWitnessEventRef,
+      })
+    : null;
+  if (
+    witness === undefined || !sharesProgressScope(witness, progress) ||
+    !isRecord(witness.payload) || !isRecord(cCallEvent.payload) ||
+    !isRecord(resultEvent.payload) || !isRecord(judgmentEvent.payload) ||
+    projected?.kind !== "fan_out_completion_admission" ||
+    projected.completionKind !== "complete_vector" ||
+    projected.taskRows.length === 0
+  ) return null;
+  const lastRow = projected.taskRows.at(-1)!;
+  return lastRow.cCallRef === body.cCallRef &&
+      lastRow.resultRef === body.resultRef &&
+      lastRow.judgmentRef === body.judgmentRef &&
+      cCallEvent.payload.batchRef === projected.batchRef &&
+      resultEvent.payload.resultClass === "success" &&
+      judgmentEvent.payload.judgment === "advance" &&
+      witness.causationEventRefs.includes(judgmentEvent.eventId)
+    ? witness
+    : null;
+}
+
+function exactFhResumeCompletionWitness(
+  prefix: ValidatedRuntimeEventPrefix,
+  calculus: RuntimeEventCalculusProjection,
+  body: Readonly<Record<string, JsonValue>>,
+  cCallEvent: RuntimeEvent,
+  fibreEvent: RuntimeEvent,
+  resultEvent: RuntimeEvent,
+  judgmentEvent: RuntimeEvent,
+): RuntimeEvent | null {
+  if (
+    !isRecord(cCallEvent.payload) || !isRecord(fibreEvent.payload) ||
+    !isRecord(resultEvent.payload) || !isRecord(judgmentEvent.payload) ||
+    fibreEvent.payload.cCallRef !== body.cCallRef ||
+    fibreEvent.payload.callClass !== "leaf" ||
+    fibreEvent.payload.regime !== "F_H" ||
+    resultEvent.payload.resultClass !== "pending" ||
+    judgmentEvent.payload.judgment !== "pending"
+  ) return null;
+  const continuation = projectFhContinuations(prefix, calculus).find((row) =>
+    row.status === "resolved" &&
+    row.cCallRef === body.cCallRef &&
+    row.resumedEventRef === body.completionWitnessEventRef &&
+    row.successorCursorRef === body.sourceCursorRef &&
+    row.successorCursorDigest === body.sourceCursorDigest
+  );
+  if (continuation === undefined || continuation.resumedEventRef === null) {
+    return null;
+  }
+  return runtimeEventsFromValidatedPrefix(prefix).find((event) =>
+    event.kind === "fh_interaction_resume_admitted" &&
+    event.eventId === continuation.resumedEventRef
+  ) ?? null;
+}
+
 function projectRetryProgressAt(
   prefix: ValidatedRuntimeEventPrefix,
   events: readonly RuntimeEvent[],
@@ -833,13 +1040,18 @@ function projectRetryProgressAt(
     return null;
   }
   const attemptRef = body.attemptRef;
-  const cCallRef = body.cCallRef;
-  const resultRef = body.resultRef;
-  const judgmentRef = body.judgmentRef;
+  const structuralCompletion =
+    body.completionClass === "structural_identity_success";
+  const cCallRef = nonEmptyString(body.cCallRef) ? body.cCallRef : null;
+  const resultRef = nonEmptyString(body.resultRef) ? body.resultRef : null;
+  const judgmentRef = nonEmptyString(body.judgmentRef)
+    ? body.judgmentRef
+    : null;
   const retryPath = positiveIntegerValues(body.retryPath);
   if (
-    !nonEmptyString(attemptRef) || !nonEmptyString(cCallRef) ||
-    !nonEmptyString(resultRef) || !nonEmptyString(judgmentRef) ||
+    !nonEmptyString(attemptRef) ||
+    (!structuralCompletion &&
+      (cCallRef === null || resultRef === null || judgmentRef === null)) ||
     !nonEmptyString(body.retryBoundaryRef) ||
     !positiveInteger(body.attempt) ||
     retryPath === null || body.attempt !== retryPath.at(-1) || eventIndex === 0
@@ -851,15 +1063,19 @@ function projectRetryProgressAt(
   );
   const priorCalculus = deriveRuntimeEventCalculusProjection(priorPrefix);
   const attemptEvent = exactAttemptEvent(prior, event, body);
-  const phase = exactCCallPhaseEvents(
-    priorPrefix,
-    prior,
-    event,
-    cCallRef,
-    resultRef,
-    judgmentRef,
-  );
+  const phase = structuralCompletion || cCallRef === null ||
+      resultRef === null || judgmentRef === null
+    ? null
+    : exactCCallPhaseEvents(
+        priorPrefix,
+        prior,
+        event,
+        cCallRef,
+        resultRef,
+        judgmentRef,
+      );
   const cCallEvent = phase?.opened ?? null;
+  const fibreEvent = phase?.fibre ?? null;
   const resultEvent = phase?.result ?? null;
   const judgmentEvent = phase?.judgment ?? null;
   const cCallPayload = cCallEvent !== null && isRecord(cCallEvent.payload)
@@ -872,14 +1088,17 @@ function projectRetryProgressAt(
     ? judgmentEvent.payload
     : null;
   if (
-    attemptEvent === null || cCallEvent === null ||
-    resultEvent === null || judgmentEvent === null ||
-    cCallPayload === null || resultPayload === null || judgmentPayload === null ||
+    attemptEvent === null ||
     event.causationEventRefs.length !== 2 ||
     event.causationEventRefs[0] !== attemptEvent.eventId ||
-    cCallPayload.cCallRef !== cCallRef ||
-    resultPayload.resultRef !== resultRef ||
-    judgmentPayload.judgmentRef !== judgmentRef ||
+    (!structuralCompletion && (
+      cCallEvent === null || fibreEvent === null || resultEvent === null ||
+      judgmentEvent === null || cCallPayload === null || resultPayload === null ||
+      judgmentPayload === null ||
+      cCallPayload.cCallRef !== cCallRef ||
+      resultPayload.resultRef !== resultRef ||
+      judgmentPayload.judgmentRef !== judgmentRef
+    )) ||
     !holdsAt(
       priorCalculus,
       constructRuntimeFluent({ name: "retry_attempt_active", identity: attemptRef }),
@@ -891,9 +1110,13 @@ function projectRetryProgressAt(
   const propagatedStop = event.payload.progressClass === "stopped" &&
     body.stopReason === "propagated_inner_stop";
   const directCCallOwnership = !propagatedStop &&
+    !structuralCompletion &&
     (failureProgress || body.predecessorProgressRef === null);
-  const callRetryPath = positiveIntegerValues(cCallPayload.retryPath);
+  const callRetryPath = cCallPayload === null
+    ? null
+    : positiveIntegerValues(cCallPayload.retryPath);
   if (directCCallOwnership) {
+    if (cCallPayload === null || cCallRef === null) return null;
     const exactOwnedAttempt = callRetryPath === null ||
         (cCallPayload.taskOrdinal !== null &&
           !nonNegativeInteger(cCallPayload.taskOrdinal)) ||
@@ -901,7 +1124,7 @@ function projectRetryProgressAt(
         !nonEmptyString(cCallPayload.programLocusRef)
       ? null
       : selectExactRetryAttemptEvent(prior, {
-          cCallRef,
+          cCallRef: cCallRef!,
           runId: event.runId,
           graphCallId: event.graphCallId,
           frameId: event.frameId,
@@ -909,7 +1132,7 @@ function projectRetryProgressAt(
           attempt: Number(cCallPayload.attempt),
           retryPath: callRetryPath,
           programLocusRef: cCallPayload.programLocusRef,
-        });
+        }, priorCalculus);
     if (
       cCallPayload.attempt !== body.attempt ||
       callRetryPath === null ||
@@ -919,6 +1142,12 @@ function projectRetryProgressAt(
   }
 
   if (failureProgress) {
+    if (
+      cCallPayload === null || resultPayload === null ||
+      judgmentPayload === null || cCallRef === null ||
+      resultRef === null || judgmentRef === null ||
+      resultEvent === null || judgmentEvent === null
+    ) return null;
     const completedAttempts = positiveIntegerValues(body.completedAttempts);
     const expectedAttempts = Array.from(
       { length: Number(body.attempt) },
@@ -1016,21 +1245,76 @@ function projectRetryProgressAt(
       ) return null;
     }
   } else {
-    const sourceCursorEvent = exactSourceCursorEvent(
-      prior,
-      cCallEvent,
-      body.sourceCursorRef,
-      body.sourceCursorDigest,
-    );
+    const completionClass = body.completionClass;
+    if (
+      completionClass !== "judged_success" &&
+      completionClass !== "fan_out_success" &&
+      completionClass !== "fh_resume_success" &&
+      completionClass !== "structural_identity_success"
+    ) return null;
+    let sourceCursorEvent: RuntimeEvent | null = null;
+    let completionWitness: RuntimeEvent | null = null;
+    if (completionClass === "structural_identity_success") {
+      sourceCursorEvent = exactCursorCarrierEvent(
+        prior,
+        event,
+        body.sourceCursorRef,
+        body.sourceCursorDigest,
+        body.completionWitnessEventRef,
+      );
+      completionWitness = sourceCursorEvent;
+    } else {
+      if (
+        cCallEvent === null || fibreEvent === null || resultEvent === null ||
+        judgmentEvent === null || cCallPayload === null || resultPayload === null ||
+        judgmentPayload === null || cCallRef === null || resultRef === null ||
+        judgmentRef === null
+      ) return null;
+      if (completionClass === "fh_resume_success") {
+        completionWitness = exactFhResumeCompletionWitness(
+          priorPrefix,
+          priorCalculus,
+          body,
+          cCallEvent,
+          fibreEvent,
+          resultEvent,
+          judgmentEvent,
+        );
+        sourceCursorEvent = completionWitness;
+      } else {
+        sourceCursorEvent = exactSourceCursorEvent(
+          prior,
+          cCallEvent,
+          body.sourceCursorRef,
+          body.sourceCursorDigest,
+        );
+        completionWitness = completionClass === "fan_out_success"
+          ? exactFanOutCompletionWitness(
+              priorPrefix,
+              prior,
+              event,
+              body,
+              cCallEvent,
+              resultEvent,
+              judgmentEvent,
+            )
+          : body.completionWitnessEventRef === judgmentEvent.eventId &&
+              resultPayload.resultClass === "success" &&
+              judgmentPayload.judgment === "advance"
+            ? judgmentEvent
+            : null;
+      }
+    }
     const targetPairValid =
       (body.targetCursorRef === null && body.targetCursorDigest === null) ||
       (nonEmptyString(body.targetCursorRef) && digestValue(body.targetCursorDigest));
     if (
-      judgmentPayload.judgment !== "advance" ||
-      resultPayload.resultClass !== "success" ||
       !positiveInteger(body.completedRetryDepth) ||
       body.completedRetryDepth !== retryPath.length ||
-      sourceCursorEvent === null || !targetPairValid ||
+      sourceCursorEvent === null || completionWitness === null ||
+      !targetPairValid ||
+      (completionClass === "structural_identity_success" &&
+        (body.targetCursorRef === null || body.targetCursorDigest === null)) ||
       !holdsAt(
         priorCalculus,
         constructRuntimeFluent({
@@ -1043,8 +1327,9 @@ function projectRetryProgressAt(
     ) return null;
     if (body.predecessorProgressRef === null) {
       if (
-        judgmentPayload.retryAttemptRef !== attemptRef ||
-        event.causationEventRefs[1] !== judgmentEvent.eventId
+        (completionClass !== "structural_identity_success" &&
+          judgmentPayload?.retryAttemptRef !== attemptRef) ||
+        event.causationEventRefs[1] !== completionWitness.eventId
       ) return null;
     } else {
       const predecessorIndex = prior.findIndex((candidate) =>
@@ -1062,8 +1347,15 @@ function projectRetryProgressAt(
         predecessor.progressRef !== body.predecessorProgressRef ||
         predecessor.completedRetryDepth !== Number(body.completedRetryDepth) + 1 ||
         predecessor.retryBoundaryRef === body.retryBoundaryRef ||
-        predecessor.cCallRef !== cCallRef || predecessor.resultRef !== resultRef ||
-        predecessor.judgmentRef !== judgmentRef ||
+        predecessor.completionClass !== completionClass ||
+        predecessor.completionWitnessEventRef !==
+          body.completionWitnessEventRef ||
+        (completionClass === "structural_identity_success"
+          ? "cCallRef" in predecessor
+          : !("cCallRef" in predecessor) ||
+            predecessor.cCallRef !== cCallRef ||
+            predecessor.resultRef !== resultRef ||
+            predecessor.judgmentRef !== judgmentRef) ||
         predecessor.sourceCursorRef !== body.sourceCursorRef ||
         predecessor.sourceCursorDigest !== body.sourceCursorDigest ||
         predecessor.targetCursorRef !== body.targetCursorRef ||
@@ -1800,13 +2092,41 @@ export function admitCompletedRetryProgress(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
   targetCursor: TraversalCursorCandidate | null,
-  cCall: CCall,
-  result: AdmittedCCallResult,
-  judgment: AdmittedCCallJudgment,
+  completion: RetrySuccessfulExitEvidence,
   basis: RuntimeAdmissionBasis,
 ): readonly RetryCompletedProgressAdmission[] | RetryAdmissionRefusal {
   const snapshot = store.readAll();
   const prefix = selectValidatedRuntimeEventPrefix(snapshot);
+  const cCall = "cCall" in completion ? completion.cCall : null;
+  const result = "result" in completion ? completion.result : null;
+  const judgment = "judgment" in completion ? completion.judgment : null;
+  const completionWitnessEventRef = completion.completionClass ===
+      "structural_identity_success"
+    ? completion.completionWitnessEventRef
+    : completion.completionClass === "fan_out_success"
+      ? completion.completion.admissionEventRef
+      : completion.completionClass === "fh_resume_success"
+        ? completion.resume.admissionEventRef
+        : completion.judgment.admissionEventRef;
+  const completedInput = completion.completionClass === "fan_out_success"
+    ? {
+        inputRef: completion.completion.outputVectorRef,
+        inputDigest: completion.completion.outputVectorDigest,
+      }
+    : completion.completionClass === "fh_resume_success"
+      ? {
+          inputRef: completion.resume.successorInputRef,
+          inputDigest: completion.resume.successorInputDigest,
+        }
+      : completion.completionClass === "structural_identity_success"
+        ? {
+            inputRef: sourceCursor.inputRef,
+            inputDigest: sourceCursor.inputDigest,
+          }
+        : {
+            inputRef: completion.result.resultRef,
+            inputDigest: completion.result.valueDigest,
+          };
   const continuation = deriveCContinuationTarget(graph, {
     nodeRef: sourceCursor.currentNodeRef,
     termPath: sourceCursor.termPath,
@@ -1815,7 +2135,7 @@ export function admitCompletedRetryProgress(
     retryPath: sourceCursor.retryPath,
     inputRef: sourceCursor.inputRef,
     inputDigest: sourceCursor.inputDigest,
-  }, { inputRef: result.resultRef, inputDigest: result.valueDigest });
+  }, completedInput);
   const sourceContexts = resolveEnclosingCRetryContexts(
     graph.template,
     sourceCursor.currentNodeRef,
@@ -1833,6 +2153,9 @@ export function admitCompletedRetryProgress(
     sourceCursor.currentNodeRef,
     sourceCursor.termPath,
   );
+  const sourceContextCount = "kind" in sourceContexts
+    ? null
+    : sourceContexts.length;
   const targetSemanticsMatch = continuation.kind === "c_source_path_refusal"
     ? false
     : continuation.disposition === "terminal"
@@ -1855,12 +2178,71 @@ export function admitCompletedRetryProgress(
         targetCursor.taskOrdinal === continuation.taskOrdinal &&
         targetCursor.attempt === continuation.attempt &&
         sameNumbers(targetCursor.retryPath, continuation.retryPath);
-  const sourceLocusMatches = sourceTerm.kind === "c_of"
-    ? cCall.callClass === "leaf" &&
-      cCall.programLocusRef === sourceTerm.programLocusRef
-    : sourceTerm.kind === "c_workflow" &&
-      cCall.callClass === "workflow" &&
-      cCall.childGraphFunctionRef === sourceTerm.graphFunctionRef;
+  const sourceLocusMatches = completion.completionClass ===
+      "structural_identity_success"
+    ? sourceTerm.kind === "c_identity"
+    : cCall !== null && (sourceTerm.kind === "c_of"
+      ? cCall.callClass === "leaf" &&
+        cCall.programLocusRef === sourceTerm.programLocusRef
+      : sourceTerm.kind === "c_workflow" &&
+        cCall.callClass === "workflow" &&
+        cCall.childGraphFunctionRef === sourceTerm.graphFunctionRef);
+  const cCallCompletionMatches = cCall === null || result === null ||
+      judgment === null
+    ? completion.completionClass === "structural_identity_success"
+    : hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment) &&
+      cCall.cCallRef === result.cCallRef &&
+      cCall.cCallRef === judgment.cCallRef &&
+      cCall.runId === sourceCursor.runId &&
+      cCall.graphCallId === sourceCursor.graphCallId &&
+      cCall.frameId === sourceCursor.frameId &&
+      cCall.taskOrdinal === sourceCursor.taskOrdinal &&
+      cCall.attempt === sourceCursor.attempt &&
+      sameNumbers(cCall.retryPath, sourceCursor.retryPath) &&
+      sourceContextCount !== null &&
+      cCall.retryPath.length === sourceContextCount &&
+      (completion.completionClass === "fh_resume_success"
+        ? cCall.regime === "F_H" && result.resultClass === "pending" &&
+          judgment.judgment === "pending"
+        : result.resultClass === "success" && judgment.judgment === "advance");
+  const fanOutApplication = completion.completionClass === "fan_out_success"
+    ? graph.template.applications.find(
+        (application): application is Readonly<FanOutApplication> =>
+          application.relationKind === "fan_out" &&
+          application.applicationRef === completion.completion.applicationRef,
+      ) ?? null
+    : null;
+  const projectedFanOutCompletion = completion.completionClass ===
+        "fan_out_success" && fanOutApplication !== null
+    ? projectExactFanOutCompletion(prefix, {
+        mode: "graph_bound",
+        admissionEventRef: completion.completion.admissionEventRef,
+        authority: {
+          graph,
+          application: fanOutApplication,
+          basisId: sourceCursor.executionBasisRef,
+          runId: sourceCursor.runId,
+          graphCallId: sourceCursor.graphCallId,
+          frameId: sourceCursor.frameId,
+        },
+      })
+    : null;
+  const completionVariantMatches = completion.completionClass ===
+      "fan_out_success"
+    ? projectedFanOutCompletion?.kind === "fan_out_completion_admission" &&
+      projectedFanOutCompletion.completionKind === "complete_vector" &&
+      sha256Canonical(projectedFanOutCompletion as unknown as JsonValue) ===
+        sha256Canonical(completion.completion as unknown as JsonValue) &&
+      projectedFanOutCompletion.taskRows.at(-1)?.cCallRef === cCall?.cCallRef &&
+      projectedFanOutCompletion.taskRows.at(-1)?.resultRef === result?.resultRef &&
+      projectedFanOutCompletion.taskRows.at(-1)?.judgmentRef === judgment?.judgmentRef
+    : completion.completionClass === "fh_resume_success"
+      ? completion.resume.successorCursorRef === sourceCursor.cursorRef &&
+        completion.resume.successorCursorDigest === sourceCursor.cursorDigest
+      : completion.completionClass === "structural_identity_success"
+        ? traversalCursorAdmissionEventRef(store, sourceCursor) ===
+          completionWitnessEventRef
+        : completionWitnessEventRef === judgment?.admissionEventRef;
   if (
     "kind" in sourceContexts || "kind" in targetContexts ||
     !isMaterializedGtlGraph(graph) ||
@@ -1869,22 +2251,14 @@ export function admitCompletedRetryProgress(
     sourceCursor.graphRef !== graph.materializationRef ||
     !targetSemanticsMatch ||
     !sourceLocusMatches ||
-    !hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment) ||
-    judgment.judgment !== "advance" ||
-    cCall.cCallRef !== result.cCallRef || cCall.cCallRef !== judgment.cCallRef ||
-    cCall.runId !== sourceCursor.runId ||
-    cCall.graphCallId !== sourceCursor.graphCallId ||
-    cCall.frameId !== sourceCursor.frameId ||
-    cCall.taskOrdinal !== sourceCursor.taskOrdinal ||
-    cCall.attempt !== sourceCursor.attempt ||
-    !sameNumbers(cCall.retryPath, sourceCursor.retryPath) ||
-    cCall.retryPath.length !== sourceContexts.length
+    !cCallCompletionMatches || !completionVariantMatches
   ) return refusal("attempt_mismatch", "completed retry progress requires one exact GTL retry-depth exit");
 
   const events = runtimeEventsFromValidatedPrefix(prefix);
+  const executionBasisRef = cCall?.basisId ?? sourceCursor.executionBasisRef;
   const basisEvents = events.filter((event) =>
-    event.kind === "basis_admitted" && event.basisId === cCall.basisId &&
-    isRecord(event.payload) && event.payload.basisRef === cCall.basisId
+    event.kind === "basis_admitted" && event.basisId === executionBasisRef &&
+    isRecord(event.payload) && event.payload.basisRef === executionBasisRef
   );
   const basisEvent = basisEvents.length === 1 ? basisEvents[0] : undefined;
   if (
@@ -1892,15 +2266,28 @@ export function admitCompletedRetryProgress(
     basisEvent.payload.graphRef !== graph.materializationRef ||
     basisEvent.payload.graphDigest !== graph.materializationDigest
   ) return refusal("basis_mismatch", "completed retry progress requires the exact materialized execution-basis Graph");
+  const progressGraphFunctionRef = cCall?.graphFunctionRef ??
+    (typeof basisEvent.payload.graphFunctionRef === "string"
+      ? basisEvent.payload.graphFunctionRef
+      : null);
+  if (progressGraphFunctionRef === null) {
+    return refusal(
+      "basis_mismatch",
+      "completed retry progress requires one exact graph-function basis",
+    );
+  }
   const projection = deriveRuntimeEventCalculusProjection(prefix);
   if (!holdsAt(projection, constructRuntimeFluent({
     name: "locus_active",
     identity: sourceCursor.cursorRef,
   }))) return refusal("cursor_mismatch", "completed retry progress requires the exact current source cursor");
   const exited = sourceContexts.slice(targetContexts.length).reverse();
-  const judgmentEvent = events.find((event) =>
-    event.eventId === judgment.admissionEventRef
+  const completionWitnessEvent = events.find((event) =>
+    event.eventId === completionWitnessEventRef
   );
+  const judgmentEvent = judgment === null
+    ? undefined
+    : events.find((event) => event.eventId === judgment.admissionEventRef);
   const plannedAttempts: Array<{
     readonly context: CEnclosingRetryContext;
     readonly retryPath: readonly number[];
@@ -1926,10 +2313,19 @@ export function admitCompletedRetryProgress(
         typeof attemptEvent.payload.attemptRef === "string"
       ? attemptEvent.payload.attemptRef
       : null;
-    if (attemptRef === null || judgmentEvent === undefined ||
-      (index === 0 && !hasExactRetryCompletionOwnership(
-        attemptEvent!, judgmentEvent, boundaryRef, retryPath,
-      )) ||
+    const innerOwnership = index !== 0 || (
+      completion.completionClass === "structural_identity_success"
+        ? completionWitnessEvent !== undefined
+        : completion.completionClass === "fh_resume_success"
+          ? judgmentEvent !== undefined && isRecord(judgmentEvent.payload) &&
+            judgmentEvent.payload.judgment === "pending" &&
+            judgmentEvent.payload.retryAttemptRef === attemptRef
+          : judgmentEvent !== undefined && hasExactRetryCompletionOwnership(
+              attemptEvent!, judgmentEvent, boundaryRef, retryPath,
+            )
+    );
+    if (attemptRef === null || completionWitnessEvent === undefined ||
+      !innerOwnership ||
       (index > 0 && (
         exited[index - 1]!.retryDepth !== context.retryDepth + 1 ||
         !sameNumbers(
@@ -1943,24 +2339,39 @@ export function admitCompletedRetryProgress(
     }))) return refusal("attempt_mismatch", "completed retry progress requires one exact active attempt chain");
     plannedAttempts.push({ context, retryPath, boundaryRef, attemptEvent: attemptEvent!, attemptRef });
   }
-  const planned = plannedAttempts.map((attempt, index) => {
-    const body = {
+  const planned: Array<Omit<
+    RetryCompletedProgressAdmission,
+    | "kind"
+    | "schemaVersion"
+    | "disposition"
+    | "progressRef"
+    | "progressDigest"
+    | "admissionEventRef"
+  >> = plannedAttempts.map((attempt, index) => {
+    const common = {
       progressClass: "completed" as const,
       retryBoundaryRef: attempt.boundaryRef,
       attemptRef: attempt.attemptRef,
       attempt: attempt.retryPath.at(-1)!,
       retryPath: attempt.retryPath,
       completedRetryDepth: attempt.context.retryDepth,
-      cCallRef: cCall.cCallRef,
-      resultRef: result.resultRef,
-      judgmentRef: judgment.judgmentRef,
+      completionClass: completion.completionClass,
+      completionWitnessEventRef,
       sourceCursorRef: sourceCursor.cursorRef,
       sourceCursorDigest: sourceCursor.cursorDigest,
       targetCursorRef: targetCursor?.cursorRef ?? null,
       targetCursorDigest: targetCursor?.cursorDigest ?? null,
       predecessorProgressRef: index === 0 ? null : "",
     };
-    return body;
+    return completion.completionClass === "structural_identity_success"
+      ? common
+      : {
+          ...common,
+          completionClass: completion.completionClass,
+          cCallRef: completion.cCall.cCallRef,
+          resultRef: completion.result.resultRef,
+          judgmentRef: completion.judgment.judgmentRef,
+        };
   });
   for (let index = 1; index < planned.length; index += 1) {
     const predecessorDigest = sha256Canonical(planned[index - 1] as unknown as JsonValue);
@@ -1991,17 +2402,19 @@ export function admitCompletedRetryProgress(
       parentAggregateId: sourceCursor.graphCallId,
       causationEventRefs: [
         plannedAttempts[index]!.attemptEvent.eventId,
-        index === 0 ? judgment.admissionEventRef : priorEvents[index - 1]!.eventId,
+        index === 0
+          ? completionWitnessEventRef
+          : priorEvents[index - 1]!.eventId,
       ],
       correlationId: `${basis.correlationId}/completed-${identity.body.completedRetryDepth}`,
       workflowVersion: "5.0.0",
       scopeClass: "run",
-      basisId: cCall.basisId,
-      runId: cCall.runId,
-      graphFunctionRef: cCall.graphFunctionRef,
+      basisId: executionBasisRef,
+      runId: sourceCursor.runId,
+      graphFunctionRef: progressGraphFunctionRef,
       materializationRef: graph.materializationRef,
-      graphCallId: cCall.graphCallId,
-      frameId: cCall.frameId,
+      graphCallId: sourceCursor.graphCallId,
+      frameId: sourceCursor.frameId,
       payload: targetCursorRef === null
         ? {
           progressRef: identity.progressRef,

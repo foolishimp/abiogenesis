@@ -353,6 +353,10 @@ export async function executeGraphTraversal(
       input.resume?.input ??
       input.input;
   stop = advanceStructural(input, stop, 0, currentInput);
+  currentInput = materializedInputAtCursor(
+    input.graph,
+    activeCursor(stop),
+  )?.value ?? currentInput;
   if (
     stop.kind !== "traversal_stop_ref" &&
     !(stop.kind === "traversal_step" && stop.directStep.stepKind === "enter_child")
@@ -1078,6 +1082,10 @@ export async function executeGraphTraversal(
       completion.nextCursor,
     );
     stop = advanceStructural(input, stop, leafOrdinal + 1, currentInput);
+    currentInput = materializedInputAtCursor(
+      input.graph,
+      activeCursor(stop),
+    )?.value ?? currentInput;
     if (
       stop.kind !== "traversal_stop_ref" &&
       !(stop.kind === "traversal_step" && stop.directStep.stepKind === "enter_child")

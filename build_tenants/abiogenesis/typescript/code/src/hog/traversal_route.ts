@@ -55,6 +55,7 @@ export function proposeStructuralRoute(
   graph: Readonly<GtlGraph>,
   step: TraversalStep,
   replayState: ReplayState,
+  completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
 ): RouteCandidate | RouteProposalRefusal {
   const targetCursor = step.targetCursor;
   const routeKind = step.directStep.stepKind === "retry"
@@ -74,6 +75,10 @@ export function proposeStructuralRoute(
     targetCursor === null ||
     step.sourceCursor.graphRef !== graph.materializationRef ||
     targetCursor.graphRef !== graph.materializationRef
+    || (completedProgresses.length !== 0 && !(
+      step.directStep.stepKind === "continue_term" &&
+      step.directStep.termKind === "c_identity"
+    ))
   ) {
     return {
       kind: "traversal_route_proposal_refusal",
@@ -93,7 +98,9 @@ export function proposeStructuralRoute(
     targetCursorDigest: targetCursor.cursorDigest,
     cCallRef: null,
     judgmentRef: null,
-    consumedAvailabilityRefs: [] as const,
+    consumedAvailabilityRefs: completedProgresses.map((progress) =>
+      progress.progressRef
+    ),
     contractRef: null,
     replayStateDigest: replayState.replayDigest,
   };
@@ -692,6 +699,7 @@ export function proposeInteractionResumeRoute(
   resume: FhInteractionResumeAdmission,
   replayState: ReplayState,
   contractRef: string,
+  completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
 ): RouteCandidate | RouteProposalRefusal {
   const cursor = step.sourceCursor;
   const continuation = deriveCSourceContinuation(
@@ -750,7 +758,8 @@ export function proposeInteractionResumeRoute(
     consumedAvailabilityRefs: [
       judgment.judgmentRef,
       resume.admissionEventRef,
-    ] as const,
+      ...completedProgresses.map((progress) => progress.progressRef),
+    ],
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };
@@ -824,6 +833,7 @@ export function proposeFanOutRoute(
   completion: FanOutCompletionAdmission,
   replayState: ReplayState,
   contractRef: string,
+  completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
 ): RouteCandidate | RouteProposalRefusal {
   const complete = completion.completionKind === "complete_vector";
   const taskRow = complete
@@ -844,6 +854,7 @@ export function proposeFanOutRoute(
     taskRow.cCallRef !== cCall.cCallRef ||
     taskRow.ordinal !== step.sourceCursor.taskOrdinal ||
     completion.applicationRef !== application.applicationRef ||
+    (!complete && completedProgresses.length !== 0) ||
     (
       complete
         ? step.directStep.stepKind !== "continue_term" ||
@@ -876,7 +887,8 @@ export function proposeFanOutRoute(
     consumedAvailabilityRefs: [
       taskRow.judgmentRef,
       application.applicationRef,
-    ] as const,
+      ...completedProgresses.map((progress) => progress.progressRef),
+    ],
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };

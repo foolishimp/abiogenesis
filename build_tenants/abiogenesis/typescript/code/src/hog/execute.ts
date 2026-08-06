@@ -53,7 +53,6 @@ import {
   invokeActorProcess,
 } from "../abg/index.js";
 import {
-  admitCompletedRetryProgress,
   admitRetryRuntimeFailureTransition,
   hasAdmittedRetryProgress,
   type RetryContinuationProgressAdmission,
@@ -100,7 +99,6 @@ import {
   proposeGraphSpanReentryRoute,
   proposeHoldRoute,
   proposeInteractionResumeRoute,
-  proposeJudgedRoute,
   proposeRecursionRoute,
   proposeRetryRoute,
   proposeWorkflowBlockedRoute,
@@ -117,6 +115,7 @@ import {
   type TraversalCursor,
   type TraversalStep,
 } from "./traversal.js";
+import { admitSuccessfulRetryExitRoute } from "./retry_exit.js";
 
 export interface DeterministicLeafSuccessCandidate<Output> {
   readonly kind: "leaf_realization_candidate";
@@ -755,7 +754,6 @@ export function completeInteractionResume(
   input: CompleteInteractionResumeInput,
 ): ExecutableTraversalCompletion {
   const { cCall, result, judgment } = input.heldInteraction;
-  const beforeRoute = replay(input.store, { runId: cCall.runId });
   const continuationStep = deriveCompletedTraversalStep(
     input.graph,
     input.successorCursor,
@@ -769,41 +767,29 @@ export function completeInteractionResume(
       `F_H resume continuation refused: ${continuationStep.code}: ${continuationStep.message}`,
     );
   }
-  const routeCandidate = proposeInteractionResumeRoute(
-    input.graph,
+  const successfulRoute = admitSuccessfulRetryExitRoute({
+    store: input.store,
+    executionBasis: input.executionBasis,
+    graph: input.graph,
+    sourceCursor: input.successorCursor,
     continuationStep,
-    cCall,
-    judgment,
-    input.resume,
-    beforeRoute,
-    cCall.transitionContractRef,
-  );
-  if (routeCandidate.kind !== "traversal_route_candidate") {
-    throw new TypeError(
-      `F_H resume route refused: ${routeCandidate.code}: ${routeCandidate.message}`,
-    );
-  }
-  const route = admitRoute(
-    input.store,
-    input.executionBasis,
-    input.graph,
-    input.successorCursor,
-    continuationStep.targetCursor,
-    beforeRoute,
-    routeCandidate,
-    basis(input.clock, "fh-resume-route"),
-    {
+    targetCursor: continuationStep.targetCursor,
+    variant: {
+      completionClass: "fh_resume_success",
       cCall,
       result,
       judgment,
       resume: input.resume,
+      transitionContractRef: cCall.transitionContractRef,
     },
-  );
-  if (route.kind !== "admitted_traversal_route") {
+    basis: basis(input.clock, "fh-resume-successful-retry-exit"),
+  });
+  if (successfulRoute.kind !== "successful_retry_exit_route_admission") {
     throw new TypeError(
-      `F_H resume route admission refused: ${route.code}: ${route.message}`,
+      `F_H resume route admission refused: ${successfulRoute.code}`,
     );
   }
+  const route = successfulRoute.route;
   if (route.routeKind === "advance") {
     const nextCursor = applyRoute(continuationStep, route);
     if (nextCursor.kind === "traversal_refusal") {
@@ -862,111 +848,6 @@ export function completeInteractionResume(
 
 function replayRun(input: Pick<CompleteExecutableTraversalInput<unknown, unknown>, "store" | "openedTraversalScope">): ReplayState {
   return replay(input.store, { runId: input.openedTraversalScope.runId });
-}
-
-class SuccessfulRetryExitRouteError extends TypeError {
-  constructor(
-    readonly code: string,
-    readonly candidate: JsonValue,
-  ) {
-    super(`successful retry-exit route refusal: ${code}`);
-  }
-}
-
-function admitSuccessfulRetryExitRoute(
-  store: AbgEventStore,
-  executionBasis: ExecutionBasis,
-  graph: Readonly<GtlGraph>,
-  sourceCursor: TraversalCursor,
-  continuationStep: TraversalStep,
-  targetCursor: TraversalCursor | null,
-  cCall: CCall,
-  result: AdmittedCCallResult,
-  judgment: AdmittedCCallJudgment,
-  transitionContractRef: string,
-  admissionBasis: RuntimeAdmissionBasis,
-) {
-  try {
-    return admitRuntimeEventTransaction(store, () => {
-      const completedProgresses =
-        (targetCursor?.retryPath.length ?? 0) < sourceCursor.retryPath.length
-          ? admitCompletedRetryProgress(
-              store,
-              graph,
-              sourceCursor,
-              targetCursor,
-              cCall,
-              result,
-              judgment,
-              {
-                ...admissionBasis,
-                correlationId: `${admissionBasis.correlationId}/progress`,
-              },
-            )
-          : [];
-      if ("kind" in completedProgresses) {
-        throw new SuccessfulRetryExitRouteError(
-          completedProgresses.code,
-          completedProgresses as unknown as JsonValue,
-        );
-      }
-      const routeReplay = replay(store, { runId: sourceCursor.runId });
-      const proposal = proposeJudgedRoute(
-        graph,
-        continuationStep,
-        cCall,
-        result,
-        judgment,
-        routeReplay,
-        transitionContractRef,
-        completedProgresses,
-      );
-      if (proposal.kind !== "traversal_route_candidate") {
-        throw new SuccessfulRetryExitRouteError(
-          proposal.code,
-          proposal as unknown as JsonValue,
-        );
-      }
-      const route = admitRoute(
-        store,
-        executionBasis,
-        graph,
-        sourceCursor,
-        targetCursor,
-        routeReplay,
-        proposal,
-        {
-          ...admissionBasis,
-          correlationId: `${admissionBasis.correlationId}/route`,
-          causationEventRefs: [
-            ...completedProgresses.slice(0, -1).map((progress) =>
-              progress.admissionEventRef
-            ),
-            ...admissionBasis.causationEventRefs,
-          ],
-        },
-        { cCall, result, judgment, completedProgresses },
-      );
-      if (route.kind !== "admitted_traversal_route") {
-        throw new SuccessfulRetryExitRouteError(
-          route.code,
-          route as unknown as JsonValue,
-        );
-      }
-      return deepFreeze({
-        kind: "successful_retry_exit_route_admission" as const,
-        completedProgresses,
-        route,
-      });
-    });
-  } catch (error) {
-    if (!(error instanceof SuccessfulRetryExitRouteError)) throw error;
-    return deepFreeze({
-      kind: "successful_retry_exit_route_refusal" as const,
-      code: error.code,
-      candidate: error.candidate,
-    });
-  }
 }
 
 function completeBlockedTraversal<Input, Output>(
@@ -2141,19 +2022,22 @@ export async function completeExecutableTraversal<
       resultValue: result.value,
     });
   }
-  const successfulRoute = admitSuccessfulRetryExitRoute(
-    input.store,
-    input.executionBasis,
-    input.graph,
-    input.traversalStop.cursor,
+  const successfulRoute = admitSuccessfulRetryExitRoute({
+    store: input.store,
+    executionBasis: input.executionBasis,
+    graph: input.graph,
+    sourceCursor: input.traversalStop.cursor,
     continuationStep,
-    continuationStep.targetCursor,
-    cCall,
-    result,
-    judgment,
-    input.closureContract.transitionContractRef,
-    basis(input.clock, "successful-retry-exit"),
-  );
+    targetCursor: continuationStep.targetCursor,
+    variant: {
+      completionClass: "judged_success",
+      cCall,
+      result,
+      judgment,
+      transitionContractRef: input.closureContract.transitionContractRef,
+    },
+    basis: basis(input.clock, "successful-retry-exit"),
+  });
   if (successfulRoute.kind !== "successful_retry_exit_route_admission") {
     admitRuntimeFailure(
       input.store,
@@ -2441,24 +2325,28 @@ export function completeDeferredApplicationTerminal(
       input.application as unknown as JsonValue,
     );
   }
-  const successfulRoute = admitSuccessfulRetryExitRoute(
-    state.input.store,
-    state.input.executionBasis,
-    state.input.graph,
-    state.input.traversalStop.cursor,
-    state.continuationStep,
-    state.continuationStep.targetCursor,
-    state.cCall,
-    state.result,
-    state.judgment,
-    state.input.closureContract.transitionContractRef,
-    {
+  const successfulRoute = admitSuccessfulRetryExitRoute({
+    store: state.input.store,
+    executionBasis: state.input.executionBasis,
+    graph: state.input.graph,
+    sourceCursor: state.input.traversalStop.cursor,
+    continuationStep: state.continuationStep,
+    targetCursor: state.continuationStep.targetCursor,
+    variant: {
+      completionClass: "judged_success",
+      cCall: state.cCall,
+      result: state.result,
+      judgment: state.judgment,
+      transitionContractRef:
+        state.input.closureContract.transitionContractRef,
+    },
+    basis: {
       eventTime: input.clock.eventTime,
       correlationId:
         `${input.clock.correlationId}/application-successful-retry-exit`,
       causationEventRefs: [],
     },
-  );
+  });
   if (successfulRoute.kind !== "successful_retry_exit_route_admission") {
     return failDeferredApplication(
       state,
@@ -3134,38 +3022,71 @@ function completeFanOutWorkflowRoute(
       fanOutCompletion as unknown as JsonValue,
     );
   }
-  const proposal = proposeFanOutRoute(
-    input.graph,
-    application,
-    continuationStep,
-    input.parentCCall,
-    replayedCompletion,
-    completionReplay,
-    input.closureContract.transitionContractRef,
-  );
-  if (proposal.kind !== "traversal_route_candidate") {
-    return failWorkflowTraversal(
-      input,
-      "fan-out-route-proposal",
-      `diagnostic://abiogenesis/hog/${proposal.code}@5`,
-      proposal as unknown as JsonValue,
+  let route: ReturnType<typeof admitRoute>;
+  if (replayedCompletion.completionKind === "complete_vector") {
+    const successfulRoute = admitSuccessfulRetryExitRoute({
+      store: input.store,
+      executionBasis: input.executionBasis,
+      graph: input.graph,
+      sourceCursor: continuationStep.sourceCursor,
+      continuationStep,
+      targetCursor: continuationStep.targetCursor,
+      variant: {
+        completionClass: "fan_out_success",
+        cCall: input.parentCCall,
+        result,
+        judgment,
+        application,
+        completion: replayedCompletion,
+        transitionContractRef: input.closureContract.transitionContractRef,
+      },
+      basis: basis(input.clock, "fan-out-successful-retry-exit"),
+    });
+    if (successfulRoute.kind !== "successful_retry_exit_route_admission") {
+      return failWorkflowTraversal(
+        input,
+        "fan-out-route-admission",
+        `diagnostic://abiogenesis/hog/${successfulRoute.code}@5`,
+        successfulRoute.candidate,
+      );
+    }
+    route = successfulRoute.route;
+  } else {
+    const proposal = proposeFanOutRoute(
+      input.graph,
+      application,
+      continuationStep,
+      input.parentCCall,
+      replayedCompletion,
+      completionReplay,
+      input.closureContract.transitionContractRef,
+    );
+    if (proposal.kind !== "traversal_route_candidate") {
+      return failWorkflowTraversal(
+        input,
+        "fan-out-route-proposal",
+        `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+        proposal as unknown as JsonValue,
+      );
+    }
+    route = admitRoute(
+      input.store,
+      input.executionBasis,
+      input.graph,
+      continuationStep.sourceCursor,
+      continuationStep.targetCursor,
+      completionReplay,
+      proposal,
+      basis(input.clock, "fan-out-route"),
+      {
+        cCall: input.parentCCall,
+        result,
+        judgment,
+        application,
+        completion: replayedCompletion,
+      },
     );
   }
-  const route = admitRoute(
-    input.store,
-    input.executionBasis,
-    input.graph,
-    continuationStep.sourceCursor,
-    continuationStep.targetCursor,
-    completionReplay,
-    proposal,
-    basis(input.clock, "fan-out-route"),
-    {
-      cCall: input.parentCCall,
-      application,
-      completion: replayedCompletion,
-    },
-  );
   if (route.kind !== "admitted_traversal_route") {
     return failWorkflowTraversal(
       input,
@@ -3544,19 +3465,22 @@ export function completeWorkflowTraversal(
       fanInStep,
     );
   }
-  const successfulRoute = admitSuccessfulRetryExitRoute(
-    input.store,
-    input.executionBasis,
-    input.graph,
-    input.workflowStep.sourceCursor,
+  const successfulRoute = admitSuccessfulRetryExitRoute({
+    store: input.store,
+    executionBasis: input.executionBasis,
+    graph: input.graph,
+    sourceCursor: input.workflowStep.sourceCursor,
     continuationStep,
-    continuationStep.targetCursor,
-    input.parentCCall,
-    result,
-    judgment,
-    input.closureContract.transitionContractRef,
-    basis(input.clock, "workflow-successful-retry-exit"),
-  );
+    targetCursor: continuationStep.targetCursor,
+    variant: {
+      completionClass: "judged_success",
+      cCall: input.parentCCall,
+      result,
+      judgment,
+      transitionContractRef: input.closureContract.transitionContractRef,
+    },
+    basis: basis(input.clock, "workflow-successful-retry-exit"),
+  });
   if (successfulRoute.kind !== "successful_retry_exit_route_admission") {
     return failWorkflowTraversal(
       input,

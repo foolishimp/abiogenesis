@@ -1022,49 +1022,84 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
             admittedInputDigest: basisEvent.payload.rawInputDigest,
             admittedInput: fpInput("World"),
           });
-          const freshPrefixPath = join(
-            harness.scratch,
-            "retry-r3-fresh-process-prefix.events.jsonl",
-          );
-          await writeFile(
-            freshPrefixPath,
+          const immutablePrefixText =
             `${events.slice(0, blockedRouteIndex).map((event) =>
-              JSON.stringify(event)).join("\n")}\n`,
-            "utf8",
-          );
-          const freshHandoffPath = join(
-            harness.scratch,
-            "retry-r3-fresh-process-handoff.json",
-          );
-          await writeFile(freshHandoffPath, JSON.stringify({
-            packageRoot: harness.installedPackageRoot,
-            eventLogPath: freshPrefixPath,
-            graphFunction: catalogEntry.definition,
-            inputValue: fpInput("World"),
-            cCallRef: childCall.aggregateId,
-            stoppedProgressEventRefs: progress.slice(1).map((event) =>
-              event.eventId),
-            eventTime: blockedRoute.eventTime,
-          }), "utf8");
-          const freshWorker = await execFileAsync(
-            process.execPath,
-            [
-              join(root,
-                "test_env/falsifiers/t287-r3-reopen-route-worker.mjs"),
-              freshHandoffPath,
-            ],
-            { encoding: "utf8", maxBuffer: 20 * 1024 * 1024 },
+              JSON.stringify(event)).join("\n")}\n`;
+          const workerPath = join(root,
+            "test_env/falsifiers/t287-r3-reopen-route-worker.mjs");
+          const runOwnerInternalWorker = async (label, cCallRef) => {
+            const eventLogPath = join(
+              harness.scratch,
+              `retry-r3-${label}-prefix.events.jsonl`,
+            );
+            const handoffPath = join(
+              harness.scratch,
+              `retry-r3-${label}-handoff.json`,
+            );
+            await writeFile(eventLogPath, immutablePrefixText, "utf8");
+            await writeFile(handoffPath, JSON.stringify({
+              packageRoot: harness.installedPackageRoot,
+              eventLogPath,
+              graphFunction: catalogEntry.definition,
+              cCallRef,
+              eventTime: blockedRoute.eventTime,
+            }), "utf8");
+            return execFileAsync(
+              process.execPath,
+              [workerPath, handoffPath],
+              { encoding: "utf8", maxBuffer: 20 * 1024 * 1024 },
+            );
+          };
+          const freshWorker = await runOwnerInternalWorker(
+            "owner-internal",
+            childCall.aggregateId,
           );
           const freshRoute = JSON.parse(freshWorker.stdout);
           assert.notEqual(freshRoute.pid, process.pid,
-            "T-287 R3 route admission executes in a fresh process");
-          assert.equal(freshRoute.cCallProjectionEqual, true);
+            "T-287 R3 owner-internal reconstruction executes in PID 2");
+          assert.equal(freshRoute.reconstructionKind,
+            "owner_internal_retry_frontier");
+          assert.equal(freshRoute.ownerInternalProjectionEqual, true);
           assert.deepEqual(freshRoute.consumedAvailabilityRefs, [
             outcome.judgment.judgmentRef,
             ...progress.slice(1).map((event) => event.payload.progressRef),
           ]);
           assert.deepEqual(freshRoute.causationEventRefs,
             progress.slice(1).toReversed().map((event) => event.eventId));
+          await assert.rejects(
+            () => runOwnerInternalWorker(
+              "forged-selector",
+              `${childCall.aggregateId}/forged`,
+            ),
+            (error) => {
+              assert.match(error.stderr,
+                /owner-internal selector resolves one exact CCall/u);
+              return true;
+            },
+            "a forged CCall selector is refused before reconstruction",
+          );
+          assert.equal(await readFile(join(
+            harness.scratch,
+            "retry-r3-forged-selector-prefix.events.jsonl",
+          ), "utf8"), immutablePrefixText);
+          const staleCall = calls.at(-2);
+          assert.ok(staleCall);
+          await assert.rejects(
+            () => runOwnerInternalWorker(
+              "stale-selector",
+              staleCall.aggregateId,
+            ),
+            (error) => {
+              assert.match(error.stderr,
+                /stopped suffix cardinality equals the selected nested retry depth/u);
+              return true;
+            },
+            "a stale CCall selector cannot select the current stopped suffix",
+          );
+          assert.equal(await readFile(join(
+            harness.scratch,
+            "retry-r3-stale-selector-prefix.events.jsonl",
+          ), "utf8"), immutablePrefixText);
           const stoppedProgresses = progress.slice(1).map((event) =>
             retryApi.projectAdmittedRetryProgress(childPrefix, event.eventId)
           );
@@ -1088,6 +1123,24 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
             childCall.aggregateId,
           );
           assert.ok(eventDerivedCCall);
+          const eventDerivedAttempt = retryApi.projectRetryAttempt(
+            childPrefix,
+            graph,
+            attempts[2].eventId,
+          );
+          assert.ok(eventDerivedAttempt);
+          assert.deepEqual(freshRoute.ownerInternalProjection, {
+            cCallRef: eventDerivedCCall.cCallRef,
+            attemptRef: eventDerivedAttempt.attemptRef,
+            attemptDigest: eventDerivedAttempt.attemptDigest,
+            inputRef: eventDerivedAttempt.inputRef,
+            inputDigest: eventDerivedAttempt.inputDigest,
+            inputContractRef: eventDerivedAttempt.inputContractRef,
+            stoppedProgressRefs: stoppedProgresses.map((stopped) =>
+              stopped.progressRef),
+            stoppedProgressDigests: stoppedProgresses.map((stopped) =>
+              stopped.progressDigest),
+          }, "PID-2 owner projection equals the source-process projection");
           const clonedCCall = structuredClone(eventDerivedCCall);
           const proposal = hogRouteApi.proposeBlockedRoute(
             graph,

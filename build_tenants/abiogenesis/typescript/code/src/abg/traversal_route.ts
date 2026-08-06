@@ -33,6 +33,7 @@ import {
 import {
   type FanOutCompletionAdmission,
 } from "./fan_out.js";
+import { projectExactFanOutCompletion } from "./fan_out_projection.js";
 import type { FhInteractionResumeAdmission } from "./continuation.js";
 import {
   isAdmittedApplicationChildFoldback,
@@ -409,6 +410,7 @@ export interface InteractionResumeRouteAdmissionEvidence {
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
   readonly resume: FhInteractionResumeAdmission;
+  readonly completedProgresses?: readonly RetryCompletedProgressAdmission[];
 }
 
 export interface RetryRouteAdmissionEvidence {
@@ -418,8 +420,17 @@ export interface RetryRouteAdmissionEvidence {
 
 export interface FanOutRouteAdmissionEvidence {
   readonly cCall: CCall;
+  readonly result: AdmittedCCallResult;
+  readonly judgment: AdmittedCCallJudgment;
   readonly application: Readonly<FanOutApplication>;
   readonly completion: FanOutCompletionAdmission;
+  readonly completedProgresses?: readonly RetryCompletedProgressAdmission[];
+}
+
+export interface StructuralIdentityRouteAdmissionEvidence {
+  readonly completionClass: "structural_identity_success";
+  readonly completionWitnessEventRef: string;
+  readonly completedProgresses: readonly RetryCompletedProgressAdmission[];
 }
 
 export interface RouteAdmissionOptions {
@@ -2765,6 +2776,101 @@ function isDeclaredStructuralTarget(
   }
 }
 
+type CompletedRetryProgressExpectation =
+  | Readonly<{
+    completionClass: "judged_success" | "fan_out_success" | "fh_resume_success";
+    completionWitnessEventRef: string;
+    cCallRef: string;
+    resultRef: string;
+    judgmentRef: string;
+  }>
+  | Readonly<{
+    completionClass: "structural_identity_success";
+    completionWitnessEventRef: string;
+  }>;
+
+function hasCompletedRetryProgressChain(
+  prefix: ValidatedRuntimeEventPrefix,
+  sourceCursor: TraversalCursorCandidate,
+  targetCursor: TraversalCursorCandidate | null,
+  completedProgresses: readonly RetryCompletedProgressAdmission[],
+  expected: CompletedRetryProgressExpectation,
+): boolean {
+  const targetRetryDepth = targetCursor?.retryPath.length ?? 0;
+  const exitedRetryDepths = Array.from(
+    { length: Math.max(0, sourceCursor.retryPath.length - targetRetryDepth) },
+    (_, index) => sourceCursor.retryPath.length - index,
+  );
+  return completedProgresses.length === exitedRetryDepths.length &&
+    completedProgresses.every((progress, index) =>
+      progress.progressClass === "completed" &&
+      progress.completionClass === expected.completionClass &&
+      progress.completionWitnessEventRef ===
+        expected.completionWitnessEventRef &&
+      hasAdmittedRetryProgress(prefix, progress) &&
+      progress.completedRetryDepth === exitedRetryDepths[index] &&
+      (expected.completionClass === "structural_identity_success"
+        ? !("cCallRef" in progress)
+        : "cCallRef" in progress &&
+          progress.cCallRef === expected.cCallRef &&
+          progress.resultRef === expected.resultRef &&
+          progress.judgmentRef === expected.judgmentRef) &&
+      progress.sourceCursorRef === sourceCursor.cursorRef &&
+      progress.sourceCursorDigest === sourceCursor.cursorDigest &&
+      progress.targetCursorRef === (targetCursor?.cursorRef ?? null) &&
+      progress.targetCursorDigest === (targetCursor?.cursorDigest ?? null) &&
+      progress.predecessorProgressRef ===
+        (index === 0 ? null : completedProgresses[index - 1]!.progressRef) &&
+      sameValues(
+        progress.retryPath.map(String),
+        sourceCursor.retryPath.slice(0, exitedRetryDepths[index]).map(String),
+      )
+    );
+}
+
+function hasStructuralIdentityRouteEvidence(
+  store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursorCandidate,
+  targetCursor: TraversalCursorCandidate,
+  candidate: RouteCandidate,
+  evidence: StructuralIdentityRouteAdmissionEvidence | null,
+): evidence is StructuralIdentityRouteAdmissionEvidence {
+  if (evidence === null) return false;
+  const sourceTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    sourceCursor.currentNodeRef,
+    sourceCursor.termPath,
+  );
+  return sourceTerm.kind === "c_identity" &&
+    candidate.routeKind === "advance" &&
+    evidence.completionWitnessEventRef ===
+      traversalCursorAdmissionEventRef(store, sourceCursor) &&
+    hasCompletedRetryProgressChain(
+      prefix,
+      sourceCursor,
+      targetCursor,
+      evidence.completedProgresses,
+      {
+        completionClass: "structural_identity_success",
+        completionWitnessEventRef: evidence.completionWitnessEventRef,
+      },
+    ) &&
+    candidate.cCallRef === null && candidate.judgmentRef === null &&
+    candidate.contractRef === null &&
+    sameValues(
+      candidate.consumedAvailabilityRefs,
+      evidence.completedProgresses.map((progress) => progress.progressRef),
+    ) &&
+    isDeclaredStructuralTarget(
+      graph,
+      sourceCursor,
+      targetCursor,
+      candidate.routeKind,
+    );
+}
+
 function hasJudgedRouteEvidence(
   store: AbgEventStore,
   prefix: ValidatedRuntimeEventPrefix,
@@ -2779,30 +2885,20 @@ function hasJudgedRouteEvidence(
   const result = evidence?.result;
   const judgment = evidence?.judgment;
   const completedProgresses = evidence?.completedProgresses ?? [];
-  const targetRetryDepth = targetCursor?.retryPath.length ?? 0;
-  const exitedRetryDepths = Array.from(
-    { length: Math.max(0, sourceCursor.retryPath.length - targetRetryDepth) },
-    (_, index) => sourceCursor.retryPath.length - index,
-  );
-  const completedProgressMatches =
-    completedProgresses.length === exitedRetryDepths.length &&
-    completedProgresses.every((progress, index) =>
-      progress.progressClass === "completed" &&
-      hasAdmittedRetryProgress(prefix, progress) &&
-      progress.completedRetryDepth === exitedRetryDepths[index] &&
-      progress.cCallRef === cCall?.cCallRef &&
-      progress.resultRef === result?.resultRef &&
-      progress.judgmentRef === judgment?.judgmentRef &&
-      progress.sourceCursorRef === sourceCursor.cursorRef &&
-      progress.sourceCursorDigest === sourceCursor.cursorDigest &&
-      progress.targetCursorRef === (targetCursor?.cursorRef ?? null) &&
-      progress.targetCursorDigest === (targetCursor?.cursorDigest ?? null) &&
-      progress.predecessorProgressRef ===
-        (index === 0 ? null : completedProgresses[index - 1]!.progressRef) &&
-      sameValues(
-        progress.retryPath.map(String),
-        sourceCursor.retryPath.slice(0, exitedRetryDepths[index]).map(String),
-      )
+  const completedProgressMatches = cCall !== undefined &&
+    result !== undefined && judgment !== undefined &&
+    hasCompletedRetryProgressChain(
+      prefix,
+      sourceCursor,
+      targetCursor,
+      completedProgresses,
+      {
+        completionClass: "judged_success",
+        completionWitnessEventRef: judgment.admissionEventRef,
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+      },
     );
   const term = resolveCProgramTermAtSourcePath(
     graph.template,
@@ -3072,6 +3168,7 @@ function hasHoldRouteEvidence(
 
 function hasInteractionResumeRouteEvidence(
   store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
@@ -3080,6 +3177,7 @@ function hasInteractionResumeRouteEvidence(
   evidence: InteractionResumeRouteAdmissionEvidence | null,
 ): evidence is InteractionResumeRouteAdmissionEvidence {
   if (evidence === null) return false;
+  const completedProgresses = evidence.completedProgresses ?? [];
   const term = resolveCProgramTermAtSourcePath(
     graph.template,
     sourceCursor.currentNodeRef,
@@ -3127,11 +3225,25 @@ function hasInteractionResumeRouteEvidence(
     sourceCursor.cursorDigest === evidence.resume.successorCursorDigest &&
     sourceCursor.inputRef === evidence.resume.successorInputRef &&
     sourceCursor.inputDigest === evidence.resume.successorInputDigest &&
+    hasCompletedRetryProgressChain(
+      prefix,
+      sourceCursor,
+      targetCursor,
+      completedProgresses,
+      {
+        completionClass: "fh_resume_success",
+        completionWitnessEventRef: evidence.resume.admissionEventRef,
+        cCallRef: evidence.cCall.cCallRef,
+        resultRef: evidence.result.resultRef,
+        judgmentRef: evidence.judgment.judgmentRef,
+      },
+    ) &&
     candidate.cCallRef === evidence.cCall.cCallRef &&
     candidate.judgmentRef === evidence.judgment.judgmentRef &&
     sameValues(candidate.consumedAvailabilityRefs, [
       evidence.judgment.judgmentRef,
       evidence.resume.admissionEventRef,
+      ...completedProgresses.map((progress) => progress.progressRef),
     ]) &&
     candidate.contractRef === evidence.cCall.transitionContractRef &&
     isDeclaredInteractionResumeTarget(
@@ -3207,6 +3319,7 @@ function hasRetryRouteEvidence(
 
 function hasFanOutRouteEvidence(
   store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
@@ -3214,22 +3327,31 @@ function hasFanOutRouteEvidence(
   candidate: RouteCandidate,
   evidence: FanOutRouteAdmissionEvidence | null,
 ): evidence is FanOutRouteAdmissionEvidence {
-  const replayedCompletion = evidence === null
-    ? undefined
-    : replay(store, {
-        runId: sourceCursor.runId,
-      }).fanOutCompletions.find(
-        (completion) =>
-          completion.completionRef === evidence.completion.completionRef &&
-          completion.admissionEventRef ===
-            evidence.completion.admissionEventRef,
-      );
+  if (evidence === null) return false;
+  const completedProgresses = evidence?.completedProgresses ?? [];
+  const projectedCompletion = projectExactFanOutCompletion(prefix, {
+    mode: "graph_bound",
+    admissionEventRef: evidence.completion.admissionEventRef,
+    authority: {
+      graph,
+      application: evidence.application,
+      basisId: executionBasis.basisRef,
+      runId: sourceCursor.runId,
+      graphCallId: sourceCursor.graphCallId,
+      frameId: sourceCursor.frameId,
+    },
+  });
   if (
-    evidence === null ||
     !hasOpenedCCall(store, evidence.cCall) ||
-    replayedCompletion === undefined ||
+    !hasCurrentAdmittedCCallOutcome(
+      store,
+      evidence.cCall,
+      evidence.result,
+      evidence.judgment,
+    ) ||
+    projectedCompletion?.kind !== "fan_out_completion_admission" ||
     sha256Canonical(evidence.completion as unknown as JsonValue) !==
-      sha256Canonical(replayedCompletion as unknown as JsonValue) ||
+      sha256Canonical(projectedCompletion as unknown as JsonValue) ||
     graph.template.applications.find(
       (application) =>
         application.applicationRef === evidence.application.applicationRef,
@@ -3242,6 +3364,10 @@ function hasFanOutRouteEvidence(
     evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
     evidence.cCall.batchRef !== evidence.application.batchRef ||
     evidence.cCall.taskOrdinal !== sourceCursor.taskOrdinal ||
+    evidence.result.cCallRef !== evidence.cCall.cCallRef ||
+    evidence.judgment.cCallRef !== evidence.cCall.cCallRef ||
+    evidence.judgment.resultRef !== evidence.result.resultRef ||
+    evidence.judgment.resultDigest !== evidence.result.resultDigest ||
     evidence.completion.applicationRef !== evidence.application.applicationRef ||
     evidence.completion.batchRef !== evidence.application.batchRef ||
     candidate.cCallRef !== evidence.cCall.cCallRef ||
@@ -3250,22 +3376,20 @@ function hasFanOutRouteEvidence(
         ? evidence.completion.taskRows.at(-1)?.judgmentRef ?? ""
         : evidence.completion.stoppingRow.judgmentRef,
       evidence.application.applicationRef,
+      ...completedProgresses.map((progress) => progress.progressRef),
     ]) ||
     candidate.contractRef !== evidence.cCall.transitionContractRef
   ) return false;
-  const completionEvent = store.readAll().find(
-    (event) =>
-      event.kind === "fan_out_completion_admitted" &&
-      event.eventId === evidence.completion.admissionEventRef &&
-      event.frameId === sourceCursor.frameId,
-  );
-  if (completionEvent === undefined) return false;
   if (evidence.completion.completionKind === "partial_stop") {
-    return candidate.routeKind === "blocked" &&
+    return completedProgresses.length === 0 &&
+      candidate.routeKind === "blocked" &&
       targetCursor === null &&
       candidate.targetCursorRef === null &&
       candidate.targetCursorDigest === null &&
       candidate.judgmentRef === evidence.completion.stoppingRow.judgmentRef &&
+      evidence.result.resultRef === evidence.completion.stoppingRow.resultRef &&
+      evidence.judgment.judgmentRef ===
+        evidence.completion.stoppingRow.judgmentRef &&
       evidence.completion.stoppingRow.cCallRef === evidence.cCall.cCallRef &&
       evidence.completion.stoppingRow.ordinal === sourceCursor.taskOrdinal;
   }
@@ -3275,6 +3399,10 @@ function hasFanOutRouteEvidence(
     targetCursor === null ||
     lastRow === undefined ||
     lastRow.cCallRef !== evidence.cCall.cCallRef ||
+    lastRow.resultRef !== evidence.result.resultRef ||
+    lastRow.judgmentRef !== evidence.judgment.judgmentRef ||
+    evidence.result.resultClass !== "success" ||
+    evidence.judgment.judgment !== "advance" ||
     lastRow.ordinal !== sourceCursor.taskOrdinal ||
     candidate.judgmentRef !== lastRow.judgmentRef ||
     candidate.targetCursorRef !== targetCursor.cursorRef ||
@@ -3283,6 +3411,19 @@ function hasFanOutRouteEvidence(
     targetCursor.inputRef !== evidence.completion.outputVectorRef ||
     targetCursor.inputDigest !== evidence.completion.outputVectorDigest
   ) return false;
+  if (!hasCompletedRetryProgressChain(
+    prefix,
+    sourceCursor,
+    targetCursor,
+    completedProgresses,
+    {
+      completionClass: "fan_out_success",
+      completionWitnessEventRef: evidence.completion.admissionEventRef,
+      cCallRef: evidence.cCall.cCallRef,
+      resultRef: evidence.result.resultRef,
+      judgmentRef: evidence.judgment.judgmentRef,
+    },
+  )) return false;
   const continuation = deriveCSourceContinuation(
     graph.template,
     sourceCursor.currentNodeRef,
@@ -3524,6 +3665,7 @@ export function admitRoute(
     | HoldRouteAdmissionEvidence
     | InteractionResumeRouteAdmissionEvidence
     | RetryRouteAdmissionEvidence
+    | StructuralIdentityRouteAdmissionEvidence
     | null = null,
   options: RouteAdmissionOptions = {},
 ): RouteAdmissionResult {
@@ -3628,6 +3770,7 @@ export function admitRoute(
     if (resumeEvidence !== null) {
       if (!hasInteractionResumeRouteEvidence(
         store,
+        prefix,
         executionBasis,
         graph,
         sourceCursor,
@@ -3654,7 +3797,11 @@ export function admitRoute(
           "terminal construction closure requires an admitted evidence fold and refreshed convergence projection",
         );
       }
-      causationEventRef = resumeEvidence.resume.admissionEventRef;
+      causationEventRef = resumeEvidence.completedProgresses?.at(-1)
+        ?.admissionEventRef ?? resumeEvidence.resume.admissionEventRef;
+      additionalCausationEventRefs = (resumeEvidence.completedProgresses ?? [])
+        .slice(0, -1)
+        .map((progress) => progress.admissionEventRef);
     } else {
       if (!hasJudgedRouteEvidence(
         store,
@@ -3742,6 +3889,7 @@ export function admitRoute(
       causationEventRef = reentryEvidence.judgment.admissionEventRef;
     } else if (evidence === null) {
       if (
+        targetCursor.retryPath.length < sourceCursor.retryPath.length ||
         candidate.cCallRef !== null ||
         candidate.judgmentRef !== null ||
         candidate.consumedAvailabilityRefs.length !== 0 ||
@@ -3758,11 +3906,32 @@ export function admitRoute(
           "structural route is not the exact next cursor declared by the original GTL term",
         );
       }
+    } else if ("completionClass" in evidence) {
+      if (!hasStructuralIdentityRouteEvidence(
+        store,
+        prefix,
+        graph,
+        sourceCursor,
+        targetCursor,
+        candidate,
+        evidence,
+      )) {
+        return refusal(
+          "candidate_mismatch",
+          "structural identity retry exit requires its exact completed-progress chain",
+        );
+      }
+      causationEventRef = evidence.completedProgresses.at(-1)?.admissionEventRef ??
+        evidence.completionWitnessEventRef;
+      additionalCausationEventRefs = evidence.completedProgresses
+        .slice(0, -1)
+        .map((progress) => progress.admissionEventRef);
     } else if ("resume" in evidence) {
       if (
         candidate.routeKind !== "advance" ||
         !hasInteractionResumeRouteEvidence(
           store,
+          prefix,
           executionBasis,
           graph,
           sourceCursor,
@@ -3776,12 +3945,17 @@ export function admitRoute(
           "F_H advance route requires the exact admitted response and declared target",
         );
       }
-      causationEventRef = evidence.resume.admissionEventRef;
+      causationEventRef = evidence.completedProgresses?.at(-1)?.admissionEventRef ??
+        evidence.resume.admissionEventRef;
+      additionalCausationEventRefs = (evidence.completedProgresses ?? [])
+        .slice(0, -1)
+        .map((progress) => progress.admissionEventRef);
     } else if ("completion" in evidence) {
       if (
         candidate.routeKind !== "advance" ||
         !hasFanOutRouteEvidence(
           store,
+          prefix,
           executionBasis,
           graph,
           sourceCursor,
@@ -3795,7 +3969,11 @@ export function admitRoute(
           "fan-out route requires exact admitted complete-vector truth",
         );
       }
-      causationEventRef = evidence.completion.admissionEventRef;
+      causationEventRef = evidence.completedProgresses?.at(-1)?.admissionEventRef ??
+        evidence.completion.admissionEventRef;
+      additionalCausationEventRefs = (evidence.completedProgresses ?? [])
+        .slice(0, -1)
+        .map((progress) => progress.admissionEventRef);
     } else if ("result" in evidence) {
       if (
         candidate.routeKind !== "advance" ||
@@ -3914,6 +4092,7 @@ export function admitRoute(
     if (evidence !== null && "completion" in evidence) {
       if (!hasFanOutRouteEvidence(
         store,
+        prefix,
         executionBasis,
         graph,
         sourceCursor,
@@ -3986,7 +4165,8 @@ export function admitRoute(
     candidate.routeKind === "advance" &&
       evidence !== null &&
       "result" in evidence &&
-      !("resume" in evidence)
+      !("resume" in evidence) &&
+      !("completion" in evidence)
       ? evidence
       : null;
   const constructionIntent = judgedEvidence === null
@@ -4166,8 +4346,9 @@ export function admitRoute(
                   ? evidence.judgment.reasonRef
                   : evidence !== null && "reasonRef" in evidence
                   ? evidence.reasonRef
-                  : evidence !== null && "completion" in evidence &&
-                      evidence.completion.completionKind === "partial_stop"
+                  : evidence !== null && "application" in evidence &&
+                      (evidence as unknown as FanOutRouteAdmissionEvidence).completion
+                          .completionKind === "partial_stop"
                     ? "reason://abiogenesis/fan-out-partial-stop@5"
                     : "reason://abiogenesis/blocked@5"
               ),

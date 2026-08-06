@@ -22,6 +22,40 @@ function event(kind, eventId, payload, causationEventRefs = []) {
   };
 }
 
+function activeRetryProjection(events, activeAttemptRefs = events.flatMap(
+  (candidate) =>
+    candidate.kind === "retry_attempt_opened" &&
+      typeof candidate.payload.attemptRef === "string"
+      ? [candidate.payload.attemptRef]
+      : [],
+)) {
+  return {
+    kind: "event_calculus_projection",
+    holds: activeAttemptRefs.map((attemptRef) => ({
+      kind: "runtime_fluent",
+      name: "retry_attempt_active",
+      identity: attemptRef,
+      fluentRef: `retry_attempt_active(${attemptRef})`,
+    })),
+    effectRows: [],
+    clippedFluentRefs: [],
+    declippedPatternRefs: [],
+  };
+}
+
+function selectRetryAttempt(
+  lifecycle,
+  events,
+  coordinates,
+  activeAttemptRefs,
+) {
+  return lifecycle.selectExactRetryAttemptEvent(
+    events,
+    coordinates,
+    activeRetryProjection(events, activeAttemptRefs),
+  );
+}
+
 test("retry lifecycle follows retry attempt ancestry through structural advance", async () => {
   const lifecycle = await import(pathToFileURL(join(
     root,
@@ -92,7 +126,8 @@ test("retry lifecycle follows retry attempt ancestry through structural advance"
     retryPath: [1],
     programLocusRef: "locus://exact-target",
   }, [advanceA.eventId]);
-  const selected = lifecycle.selectExactRetryAttemptEvent(
+  const selected = selectRetryAttempt(
+    lifecycle,
     [source, predecessorA, routeA, routeB, attemptA, attemptB, advanceA, opened],
     {
       cCallRef: opened.payload.cCallRef,
@@ -107,6 +142,63 @@ test("retry lifecycle follows retry attempt ancestry through structural advance"
   );
   assert.equal(selected?.payload.attemptRef, attemptA.payload.attemptRef);
   assert.notEqual(selected?.payload.retryBoundaryRef, attemptB.payload.retryBoundaryRef);
+  const wholeBatchAttempt = {
+    ...attemptA,
+    eventId: "event://attempt/whole-batch",
+    payload: {
+      ...attemptA.payload,
+      attemptRef: "retry-attempt://whole-batch",
+      retryBoundaryRef: "retry-boundary://whole-batch",
+      taskOrdinal: null,
+    },
+  };
+  const wholeBatchPrefix = [
+    source,
+    predecessorA,
+    routeA,
+    wholeBatchAttempt,
+    advanceA,
+    opened,
+  ];
+  assert.equal(selectRetryAttempt(
+    lifecycle,
+    wholeBatchPrefix,
+    {
+      cCallRef: opened.payload.cCallRef,
+      runId,
+      graphCallId,
+      frameId,
+      taskOrdinal: 3,
+      attempt: 1,
+      retryPath: [1],
+      programLocusRef: "locus://exact-target",
+    },
+  )?.eventId, wholeBatchAttempt.eventId,
+  "a whole-batch retry attempt owns its causally descended task CCall");
+  const terminatedWholeBatchAttempt = event(
+    "retry_progress_recorded",
+    "event://progress/whole-batch",
+    {
+      attemptRef: wholeBatchAttempt.payload.attemptRef,
+      progressRef: "retry-progress://whole-batch",
+    },
+    [wholeBatchAttempt.eventId],
+  );
+  assert.equal(selectRetryAttempt(
+    lifecycle,
+    [...wholeBatchPrefix, terminatedWholeBatchAttempt],
+    {
+      cCallRef: opened.payload.cCallRef,
+      runId,
+      graphCallId,
+      frameId,
+      taskOrdinal: 3,
+      attempt: 1,
+      retryPath: [1],
+      programLocusRef: "locus://exact-target",
+    },
+    [],
+  ), null, "a progress-terminated retry attempt no longer owns descendant calls");
   const coordinates = {
     cCallRef: opened.payload.cCallRef,
     runId,
@@ -142,7 +234,7 @@ test("retry lifecycle follows retry attempt ancestry through structural advance"
     },
     causationEventRefs: [directRoute.eventId],
   };
-  assert.equal(lifecycle.selectExactRetryAttemptEvent([
+  assert.equal(selectRetryAttempt(lifecycle, [
     source, predecessorA, directRoute, directAttempt, directOpened,
   ], {
     ...coordinates,
@@ -153,13 +245,13 @@ test("retry lifecycle follows retry attempt ancestry through structural advance"
     eventId: "event://route/direct-sibling",
   };
   const siblingAttempt = attempt("direct-sibling", siblingRoute, "retry-boundary://direct-sibling");
-  assert.equal(lifecycle.selectExactRetryAttemptEvent([
+  assert.equal(selectRetryAttempt(lifecycle, [
     source, predecessorA, directRoute, siblingRoute, siblingAttempt, directOpened,
   ], {
     ...coordinates,
     cCallRef: directOpened.payload.cCallRef,
   }), null, "same-shaped sibling route does not own the direct opening");
-  assert.equal(lifecycle.selectExactRetryAttemptEvent([
+  assert.equal(selectRetryAttempt(lifecycle, [
     source, predecessorA, directRoute, {
       ...directAttempt,
       causationEventRefs: ["event://route/missing-direct"],
@@ -168,11 +260,11 @@ test("retry lifecycle follows retry attempt ancestry through structural advance"
     ...coordinates,
     cCallRef: directOpened.payload.cCallRef,
   }), null, "broken direct retry cause refuses");
-  assert.equal(lifecycle.selectExactRetryAttemptEvent(prefix, {
+  assert.equal(selectRetryAttempt(lifecycle, prefix, {
     ...coordinates,
     programLocusRef: "locus://other",
   }), null, "locus mismatch refuses");
-  assert.equal(lifecycle.selectExactRetryAttemptEvent([
+  assert.equal(selectRetryAttempt(lifecycle, [
     ...prefix,
     { ...advanceA, eventId: "event://route/advance-duplicate" },
     { ...opened, causationEventRefs: [
@@ -180,11 +272,11 @@ test("retry lifecycle follows retry attempt ancestry through structural advance"
       "event://route/advance-duplicate",
     ] },
   ], coordinates), null, "ambiguous immediate structural route refuses");
-  assert.equal(lifecycle.selectExactRetryAttemptEvent([
+  assert.equal(selectRetryAttempt(lifecycle, [
     ...prefix.filter((candidate) => candidate.eventId !== advanceA.eventId),
     { ...advanceA, causationEventRefs: ["event://route/missing"] },
   ], coordinates), null, "broken attempt ancestry refuses");
-  assert.equal(lifecycle.selectExactRetryAttemptEvent([
+  assert.equal(selectRetryAttempt(lifecycle, [
     ...prefix.filter((candidate) => candidate.eventId !== routeA.eventId),
     { ...routeA, causationEventRefs: ["event://route/missing-predecessor"] },
   ], coordinates), null, "broken retry source predecessor refuses");
@@ -192,7 +284,7 @@ test("retry lifecycle follows retry attempt ancestry through structural advance"
     ...predecessorA,
     eventId: "event://route/predecessor-duplicate",
   };
-  assert.equal(lifecycle.selectExactRetryAttemptEvent([
+  assert.equal(selectRetryAttempt(lifecycle, [
     ...prefix.filter((candidate) => candidate.eventId !== routeA.eventId),
     duplicatePredecessor,
     { ...routeA, causationEventRefs: [
@@ -264,7 +356,8 @@ test("retry lifecycle refuses multiple exact attempts in the opening ancestry", 
     retryPath: [1],
     programLocusRef: "locus://ambiguous",
   }, [advance.eventId]);
-  assert.equal(lifecycle.selectExactRetryAttemptEvent(
+  assert.equal(selectRetryAttempt(
+    lifecycle,
     [source, routeA, routeB, attemptA, attemptB, advance, opened],
     {
       cCallRef: opened.payload.cCallRef,
@@ -316,7 +409,10 @@ test("CCall retry ownership requires the exact attempt to remain active in Event
     )),
   );
   assert.match(helper, /selectValidatedRuntimeEventPrefix\(store\.readAll\(\),/u);
-  assert.match(helper, /selectExactRetryAttemptEvent\(events, cCall\)/u);
+  assert.match(
+    helper,
+    /selectExactRetryAttemptEvent\(events, cCall, projection\)/u,
+  );
   assert.match(helper, /holdsAt\(projection, constructRuntimeFluent\(\{/u);
   assert.match(helper, /name: "retry_attempt_active"/u);
   assert.doesNotMatch(helper, /\.at\(-1\)|findLast|retryAttemptRef:\s*null/u);

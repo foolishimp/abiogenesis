@@ -2,6 +2,7 @@ import {
   admitRetryAttempt,
   admitRoute,
   replay,
+  traversalCursorAdmissionEventRef,
   type AbgEventStore,
   type RetryAdmissionRefusal,
   type RouteAdmissionRefusal,
@@ -19,6 +20,7 @@ import {
   type RouteProposalRefusal,
 } from "./traversal_route.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { admitSuccessfulRetryExitRoute } from "./retry_exit.js";
 
 export interface StructuralTraversalClock {
   readonly eventTime: string;
@@ -56,25 +58,75 @@ export function advanceStructuralTraversal(
   let current: StructuralTraversalResult = input.initial;
   let routeOrdinal = 0;
   while (current.kind === "traversal_step" && isDescendingStructuralStep(current)) {
+    const structuralIdentityRetryExit =
+      current.directStep.stepKind === "continue_term" &&
+      current.directStep.termKind === "c_identity" &&
+      current.targetCursor !== null &&
+      current.targetCursor.retryPath.length < current.sourceCursor.retryPath.length;
+    const completionWitnessEventRef = structuralIdentityRetryExit
+      ? traversalCursorAdmissionEventRef(input.store, current.sourceCursor)
+      : null;
+    if (structuralIdentityRetryExit && completionWitnessEventRef === null) {
+      return {
+        kind: "traversal_route_admission_refusal",
+        schemaVersion: "5.0.0",
+        disposition: "refused",
+        code: "cursor_mismatch",
+        message: "structural identity retry exit has no exact source-cursor witness",
+      };
+    }
     const replayState = replay(input.store, {
       runId: input.openedTraversalScope.runId,
     });
-    const candidate = proposeStructuralRoute(input.graph, current, replayState);
-    if (candidate.kind !== "traversal_route_candidate") return candidate;
-    const route = admitRoute(
-      input.store,
-      input.executionBasis,
-      input.graph,
-      current.sourceCursor,
-      current.targetCursor,
-      replayState,
-      candidate,
-      {
-        eventTime: input.clock.eventTime,
-        correlationId: `${input.clock.correlationId}/route/${routeOrdinal}`,
-        causationEventRefs: [],
-      },
-    );
+    let route: ReturnType<typeof admitRoute>;
+    if (structuralIdentityRetryExit) {
+      const successfulRoute = admitSuccessfulRetryExitRoute({
+        store: input.store,
+        executionBasis: input.executionBasis,
+        graph: input.graph,
+        sourceCursor: current.sourceCursor,
+        continuationStep: current,
+        targetCursor: current.targetCursor,
+        variant: {
+          completionClass: "structural_identity_success",
+          completionWitnessEventRef: completionWitnessEventRef!,
+        },
+        basis: {
+          eventTime: input.clock.eventTime,
+          correlationId:
+            `${input.clock.correlationId}/route/${routeOrdinal}/successful-retry-exit`,
+          causationEventRefs: [],
+        },
+      });
+      if (successfulRoute.kind !== "successful_retry_exit_route_admission") {
+        return {
+          kind: "traversal_route_admission_refusal",
+          schemaVersion: "5.0.0",
+          disposition: "refused",
+          code: "candidate_mismatch",
+          message:
+            `structural identity retry exit refused: ${successfulRoute.code}`,
+        };
+      }
+      route = successfulRoute.route;
+    } else {
+      const candidate = proposeStructuralRoute(input.graph, current, replayState);
+      if (candidate.kind !== "traversal_route_candidate") return candidate;
+      route = admitRoute(
+        input.store,
+        input.executionBasis,
+        input.graph,
+        current.sourceCursor,
+        current.targetCursor,
+        replayState,
+        candidate,
+        {
+          eventTime: input.clock.eventTime,
+          correlationId: `${input.clock.correlationId}/route/${routeOrdinal}`,
+          causationEventRefs: [],
+        },
+      );
+    }
     if (route.kind !== "admitted_traversal_route") return route;
     if (current.directStep.stepKind === "retry") {
       if (current.targetCursor === null) {

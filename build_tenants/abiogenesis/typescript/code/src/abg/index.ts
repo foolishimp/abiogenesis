@@ -241,7 +241,6 @@ export {
 } from "./replay.js";
 export {
   admitFanOutCompletion,
-  isAdmittedFanOutCompletion,
   type AdmitFanOutCompletionInput,
   type CompleteFanOutAdmission,
   type FanOutCompletedTaskRow,

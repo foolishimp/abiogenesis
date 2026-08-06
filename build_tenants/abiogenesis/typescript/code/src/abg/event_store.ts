@@ -680,18 +680,29 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ),
       payloadVariant(
         payloadKeys(
-          "attempt attemptRef cCallRef completedRetryDepth judgmentRef predecessorProgressRef progressClass progressDigest progressRef resultRef retryBoundaryRef retryPath sourceCursorDigest sourceCursorRef",
+          "attempt attemptRef cCallRef completedRetryDepth completionClass completionWitnessEventRef judgmentRef predecessorProgressRef progressClass progressDigest progressRef resultRef retryBoundaryRef retryPath sourceCursorDigest sourceCursorRef",
         ),
-        payloadKeys("progressRef progressDigest progressClass attemptRef retryBoundaryRef retryPath completedRetryDepth cCallRef resultRef judgmentRef sourceCursorRef sourceCursorDigest predecessorProgressRef"),
+        payloadKeys("progressRef progressDigest progressClass attemptRef retryBoundaryRef retryPath completedRetryDepth completionClass completionWitnessEventRef cCallRef resultRef judgmentRef sourceCursorRef sourceCursorDigest predecessorProgressRef"),
         { progressClass: "completed" },
         payloadKeys("predecessorProgressRef"),
       ),
       payloadVariant(
         payloadKeys(
-          "attempt attemptRef cCallRef completedRetryDepth judgmentRef predecessorProgressRef progressClass progressDigest progressRef resultRef retryBoundaryRef retryPath sourceCursorDigest sourceCursorRef targetCursorDigest targetCursorRef",
+          "attempt attemptRef cCallRef completedRetryDepth completionClass completionWitnessEventRef judgmentRef predecessorProgressRef progressClass progressDigest progressRef resultRef retryBoundaryRef retryPath sourceCursorDigest sourceCursorRef targetCursorDigest targetCursorRef",
         ),
-        payloadKeys("progressRef progressDigest progressClass attemptRef retryBoundaryRef retryPath completedRetryDepth cCallRef resultRef judgmentRef sourceCursorRef sourceCursorDigest targetCursorRef targetCursorDigest predecessorProgressRef"),
+        payloadKeys("progressRef progressDigest progressClass attemptRef retryBoundaryRef retryPath completedRetryDepth completionClass completionWitnessEventRef cCallRef resultRef judgmentRef sourceCursorRef sourceCursorDigest targetCursorRef targetCursorDigest predecessorProgressRef"),
         { progressClass: "completed" },
+        payloadKeys("predecessorProgressRef"),
+      ),
+      payloadVariant(
+        payloadKeys(
+          "attempt attemptRef completedRetryDepth completionClass completionWitnessEventRef predecessorProgressRef progressClass progressDigest progressRef retryBoundaryRef retryPath sourceCursorDigest sourceCursorRef targetCursorDigest targetCursorRef",
+        ),
+        payloadKeys("progressRef progressDigest progressClass attemptRef retryBoundaryRef retryPath completedRetryDepth completionClass completionWitnessEventRef sourceCursorRef sourceCursorDigest targetCursorRef targetCursorDigest predecessorProgressRef"),
+        {
+          progressClass: "completed",
+          completionClass: "structural_identity_success",
+        },
         payloadKeys("predecessorProgressRef"),
       ),
     ],
@@ -1687,7 +1698,21 @@ function assertRuntimeEventContract(
         )) ||
       (payload.progressClass === "completed" &&
         (!positiveInteger(payload.completedRetryDepth) ||
-          payload.completedRetryDepth !== retryPath.length))
+          payload.completedRetryDepth !== retryPath.length ||
+          ![
+            "judged_success",
+            "fan_out_success",
+            "fh_resume_success",
+            "structural_identity_success",
+          ].includes(String(payload.completionClass)) ||
+          (payload.completionClass === "structural_identity_success" &&
+            (Object.hasOwn(payload, "cCallRef") ||
+              Object.hasOwn(payload, "resultRef") ||
+              Object.hasOwn(payload, "judgmentRef"))) ||
+          (payload.completionClass !== "structural_identity_success" &&
+            (!Object.hasOwn(payload, "cCallRef") ||
+              !Object.hasOwn(payload, "resultRef") ||
+              !Object.hasOwn(payload, "judgmentRef")))))
     ) {
       throw new TypeError("retry progress payload carries invalid required value types");
     }
