@@ -1607,14 +1607,14 @@ identity. `isFullFrontier: true` without those equalities is a refusal.
 
 The installed ABG owner-internal export is
 `@abiogenesis/typescript-tenant/abg::projectExecutableRetryInput`, implemented
-at `src/abg/retry.ts`. It accepts the ABG-verified reopening of one explicit
-`DurablePrefixCoordinate`, the immutable declared Program, GraphFunction, and
-Graph, and exactly one selector:
+at `src/abg/retry.ts`. It accepts one explicit `DurablePrefixCoordinate`, the
+immutable declared Program, GraphFunction, and Graph, and exactly one selector.
+It uses the Section 5.2 pure exact-prefix read and does not acquire or require
+an append sink:
 
 ```text
 ProjectExecutableRetryInputRequest = {
   prefix: DurablePrefixCoordinate,
-  reopenedStore: ReopenedEventStoreContext,
   selector: RetryFrontierSelector,
   program: Readonly<GtlProgram>,
   graphFunction: Readonly<GraphFunction>,
@@ -1718,8 +1718,9 @@ refusals; they neither extend the five common Public refusal codes nor the six
 
 The installed HoG owner-internal export is
 `@abiogenesis/typescript-tenant/hog::resumeProjectedRetry`, implemented at
-`src/hog/graph_execute.ts`. Its request contains the same verified reopened
-prefix, the `ExecutableRetryInput`, and the ordinary immutable
+`src/hog/graph_execute.ts`. Its request contains the exact predecessor prefix,
+the append sink acquired for that prefix, the `ExecutableRetryInput`, and the
+ordinary immutable
 `ExecuteGraphTraversalInput` dependencies except `store`, `input`,
 `inputDigest`, and generic `resume`. It fresh-projects and compares the complete
 ABG carrier, including the asserted frontier ref/digest and every row, before
@@ -1732,8 +1733,8 @@ prefix.
 
 ```text
 ResumeProjectedRetryRequest = {
-  prefix: DurablePrefixCoordinate,
-  reopenedStore: ReopenedEventStoreContext,
+  predecessorPrefix: DurablePrefixCoordinate,
+  appendSink: EventStoreAppendSink,
   retry: ExecutableRetryInput,
   runtime: Omit<
     ExecuteGraphTraversalInput,
@@ -1773,10 +1774,14 @@ Every refusal has exactly `kind: "projected_retry_resume_refusal"`,
 `schemaVersion: "5.0.0"`, `disposition: "refused"`, one code, a non-empty
 message, the executable-retry-input ref/digest when structurally available,
 and its exact lower typed cause. All pure checks precede effects. Route and
-attempt admission are one ABG event transaction, so both are durable before
-the next effect or neither is admitted. The uninterrupted executor uses this
-same projector/resume suffix after retry progress; there is no map-driven
-continuation, generic cursor bypass, or second retry path.
+attempt admission validate the exact predecessor inside one ABG event
+transaction, so both are durable before the next effect or neither is admitted,
+and the result carries the explicit successor prefix. The uninterrupted
+executor uses the append sink retained from new-empty acquisition plus its
+current successor prefix; restarted execution uses the append sink and equal
+prefix returned by exact reopen. Both invoke this same projector/resume suffix
+after retry progress; there is no map-driven continuation, generic cursor
+bypass, or second retry path.
 
 Continuation, source-result, closure, cursor, causation, and run projection
 bases are rehydrated through the same scoped truth. Current
@@ -2092,7 +2097,10 @@ The target installed owner-internal coordinates are exactly:
 Neither coordinate is a Public definition, Public operation, Product owner
 port, catalog row, or continuation. In particular,
 `run.continue/current_intent` has no role in this relation. Ordinary same-
-process HoG execution and post-restart execution use this same two-call suffix.
+process HoG execution supplies the append sink retained from new-empty
+acquisition and its current successor prefix. Post-restart execution supplies
+the append sink and equal prefix returned by exact reopen. Both use the same
+two-call suffix.
 
 The fixture source is the exact `C.retry` Program and installed worker from
 `test_env/tests/m5-installed-retry.test.mjs`, extended to a declared budget of
@@ -2127,12 +2135,14 @@ expose a closed attempt without its progress row. Returning from the second
 `admitRetryRuntimeFailureTransition` committed admission is the deterministic
 frontier boundary: its append is durable before the function returns. P1
 asserts that the attempt-two progress event is the durable tail and that no
-attempt-three route, attempt, C call, or effect exists, projects the reopen
-coordinate, closes cleanly, writes the following handoff, and exits:
+attempt-three route, attempt, C call, or effect exists, calls the existing
+`projectReopenAuthorityAndClose(prefix)`, writes the following handoff, and
+exits:
 
 ```text
 {
   prefix: DurablePrefixCoordinate,
+  reopenAuthority: EventStoreReopenAuthority,
   retry: {
     runId,
     graphCallId,
@@ -2145,11 +2155,14 @@ coordinate, closes cleanly, writes the following handoff, and exits:
 
 No input value, Program, Graph, cursor, C call, admission object, JavaScript
 capability, environment field, shared module, sleep, poll, or test hook crosses
-the process boundary. P2 starts only after P1 exits. It imports the installed
-`./abg` and `./hog` exports by package specifier, verifies and reopens the exact
-prefix, independently loads the immutable declared Program, GraphFunction,
+the process boundary. `reopenAuthority` is serializable write-reacquisition
+evidence, not a JavaScript capability or semantic carrier. P2 starts only after
+P1 exits. It imports the installed `./abg` and `./hog` exports by package
+specifier, independently loads the immutable declared Program, GraphFunction,
 Graph, contracts, and execution dependencies from their installed refs, calls
-`projectExecutableRetryInput`, and passes only that result to
+`projectExecutableRetryInput` with the exact prefix, consumes
+`reopenAuthority` and the equal prefix in `reopenExactAppendSink`, and passes
+the projected result, predecessor prefix, and returned append sink to
 `resumeProjectedRetry`.
 
 The frozen current baseline is exact. P1 can produce a valid two-row durable
@@ -2164,9 +2177,11 @@ signature. Increment 0A records the missing attempt-preimage field, missing
 full-frontier carrier, and missing exports without implementing a projector,
 copying the input, or constructing raw event JSON in the test.
 
-The retained-process control lane reopens the same durable frontier without
-exiting and invokes the same `D17 -> D18` suffix. The restarted lane's target
-oracle is exact canonical equality with that control for:
+The retained-process control lane keeps the append sink acquired through
+new-empty creation and the exact successor prefix at the durable frontier. The
+restarted lane reacquires an append sink and equal prefix through exact reopen.
+Both invoke the same `D17 -> D18` suffix. The restarted lane's target oracle is
+exact canonical equality with that control for:
 
 - the complete `ExecutableRetryInput`, including prefix, scope, basis, the
   structurally asserted `RetryAttemptFrontier`, selected progress, attempt,
