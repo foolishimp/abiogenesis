@@ -190,6 +190,164 @@ function exactOne(values, predicate, label) {
   return matches[0];
 }
 
+function isRecord(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function inspectAttemptInputCoverage(
+  attempts,
+  {
+    expectedInputRef,
+    expectedInputDigest,
+    expectedInputContractRef,
+  },
+) {
+  const rows = attempts.map((event) => {
+    const payload = event.payload;
+    const inputValueIsRecord = isRecord(payload.inputValue);
+    const canonicalInputDigestExact = inputValueIsRecord &&
+      installedProduct.sha256Canonical(payload.inputValue) ===
+        payload.inputDigest &&
+      payload.inputDigest === expectedInputDigest;
+    const exactInputRefRelation = payload.inputRef === expectedInputRef;
+    const exactInputContractRelation =
+      payload.inputContractRef === expectedInputContractRef;
+    const {
+      attemptRef: _attemptRef,
+      attemptDigest: _attemptDigest,
+      ...attemptBody
+    } = payload;
+    const computedAttemptDigest = installedProduct.sha256Canonical(
+      attemptBody,
+    );
+    const attemptDigestCoversInputValue = inputValueIsRecord &&
+      payload.attemptDigest === computedAttemptDigest &&
+      payload.attemptRef ===
+        `retry-attempt://abiogenesis/${computedAttemptDigest.slice("sha256:".length)}`;
+    return {
+      attempt: payload.attempt,
+      inputValueIsRecord,
+      canonicalInputDigestExact,
+      exactInputRefRelation,
+      exactInputContractRelation,
+      attemptDigestCoversInputValue,
+    };
+  });
+  const attemptOrdinalsExact =
+    JSON.stringify(rows.map((row) => row.attempt)) === "[1,2]";
+  const everyAttemptInputPreimageExact = attemptOrdinalsExact &&
+    rows.every((row) =>
+      row.inputValueIsRecord &&
+      row.canonicalInputDigestExact &&
+      row.exactInputRefRelation &&
+      row.exactInputContractRelation &&
+      row.attemptDigestCoversInputValue
+    );
+  return {
+    attemptOrdinalsExact,
+    everyAttemptHasRecordInputValue:
+      rows.every((row) => row.inputValueIsRecord),
+    everyCanonicalInputDigestExact:
+      rows.every((row) => row.canonicalInputDigestExact),
+    everyInputRefRelationExact:
+      rows.every((row) => row.exactInputRefRelation),
+    everyInputContractRelationExact:
+      rows.every((row) => row.exactInputContractRelation),
+    everyAttemptDigestCoversInputValue:
+      rows.every((row) => row.attemptDigestCoversInputValue),
+    everyAttemptInputPreimageExact,
+  };
+}
+
+function inspectAttemptRouteCursorBindings(events, attempts) {
+  const rows = attempts.map((attemptEvent) => {
+    const routes = events.filter((event) =>
+      attemptEvent.causationEventRefs.length === 1 &&
+      event.eventId === attemptEvent.causationEventRefs[0] &&
+      event.kind === "traversal_route_admitted" &&
+      event.runId === attemptEvent.runId &&
+      event.graphCallId === attemptEvent.graphCallId &&
+      event.frameId === attemptEvent.frameId &&
+      event.payload.routeKind === "retry" &&
+      event.payload.routeRef === attemptEvent.payload.priorRouteRef &&
+      event.payload.judgmentRef === attemptEvent.payload.priorJudgmentRef
+    );
+    const route = routes[0];
+    const calls = events.filter((event) =>
+      route !== undefined &&
+      event.kind === "c_call_opened" &&
+      event.runId === attemptEvent.runId &&
+      event.graphCallId === attemptEvent.graphCallId &&
+      event.frameId === attemptEvent.frameId &&
+      event.causationEventRefs.includes(route.eventId) &&
+      event.payload.cursorRef === route.payload.targetCursorRef &&
+      event.payload.cursorDigest === route.payload.targetCursorDigest &&
+      event.payload.attempt === attemptEvent.payload.attempt &&
+      JSON.stringify(event.payload.retryPath) ===
+        JSON.stringify(attemptEvent.payload.retryPath)
+    );
+    const call = calls[0];
+    return {
+      attempt: attemptEvent.payload.attempt,
+      exactCitedRetryRoute: routes.length === 1,
+      exactAttemptCCall: calls.length === 1,
+      cCallCursorMatchesCitedRoute:
+        route !== undefined && call !== undefined &&
+        call.payload.cursorRef === route.payload.targetCursorRef &&
+        call.payload.cursorDigest === route.payload.targetCursorDigest,
+    };
+  });
+  const duplicateCursorPayloadAbsent = attempts.every((event) =>
+    !Object.hasOwn(event.payload, "sourceCursor") &&
+    !Object.hasOwn(event.payload, "sourceCursorRef") &&
+    !Object.hasOwn(event.payload, "sourceCursorDigest")
+  );
+  const sourceCursorBoundThroughCitedRetryRoute =
+    JSON.stringify(rows.map((row) => row.attempt)) === "[1,2]" &&
+    rows.every((row) =>
+      row.exactCitedRetryRoute &&
+      row.exactAttemptCCall &&
+      row.cCallCursorMatchesCitedRoute
+    );
+  return {
+    everyAttemptHasExactCitedRetryRoute:
+      rows.every((row) => row.exactCitedRetryRoute),
+    everyAttemptHasExactRouteCausedCCall:
+      rows.every((row) => row.exactAttemptCCall),
+    everyRouteCausedCCallMatchesTargetCursor:
+      rows.every((row) => row.cCallCursorMatchesCitedRoute),
+    sourceCursorBoundThroughCitedRetryRoute,
+    duplicateCursorPayloadAbsent,
+  };
+}
+
+function inspectCompactRetryProgress(progress) {
+  const compactProgressCoverageLawful =
+    JSON.stringify(progress.map((event) => event.payload.attempt)) ===
+      "[1,2]" &&
+    JSON.stringify(progress.map((event) =>
+      event.payload.completedAttempts)) === "[[1],[1,2]]" &&
+    progress.every((event) =>
+      !Object.hasOwn(event.payload, "retryFrontier") &&
+      !Object.hasOwn(event.payload, "attemptFrontier") &&
+      !Object.hasOwn(event.payload, "rows") &&
+      !Object.hasOwn(event.payload, "reasonClasses") &&
+      !Object.hasOwn(event.payload, "ownerSurfaces") &&
+      !Object.hasOwn(event.payload, "sourceEventKinds")
+    );
+  return {
+    compactProgressCoverageLawful,
+    storedFullFrontierCarrierPresent: progress.some((event) =>
+      Object.hasOwn(event.payload, "retryFrontier") ||
+      Object.hasOwn(event.payload, "attemptFrontier") ||
+      Object.hasOwn(event.payload, "rows") ||
+      Object.hasOwn(event.payload, "reasonClasses") ||
+      Object.hasOwn(event.payload, "ownerSurfaces") ||
+      Object.hasOwn(event.payload, "sourceEventKinds")
+    ),
+  };
+}
+
 function scopeValueFromEvents(events, selector, executionBasis) {
   const run = exactOne(
     events,
@@ -512,9 +670,23 @@ async function loadInstalledRetryDependencies(
   };
 }
 
-function inspectInstalledTargetSuffix(dependencies) {
+async function inspectInstalledTargetSuffix(dependencies) {
+  const abgEntryPath = fileURLToPath(import.meta.resolve(
+    "@abiogenesis/typescript-tenant/abg",
+  ));
+  const abgDeclarationSource = await readFile(
+    join(dirname(abgEntryPath), "index.d.ts"),
+    "utf8",
+  );
   const projectorExportPresent =
     typeof installedAbg.projectExecutableRetryInput === "function";
+  const retryAttemptFrontierTypeExportPresent =
+    /\bRetryAttemptFrontier\b/u.test(abgDeclarationSource);
+  const executableRetryInputTypeExportPresent =
+    /\bExecutableRetryInput\b/u.test(abgDeclarationSource);
+  const fullFrontierAssertionExportPresent =
+    typeof installedAbg.assertFullRetryAttemptFrontier === "function" ||
+    /\bassertFullRetryAttemptFrontier\b/u.test(abgDeclarationSource);
   const resumeExportPresent =
     typeof installedHog.resumeProjectedRetry === "function";
   return {
@@ -524,6 +696,9 @@ function inspectInstalledTargetSuffix(dependencies) {
       dependencies.declarationsMatchBasis &&
       dependencies.executionDependenciesVerified,
     projectorExportPresent,
+    retryAttemptFrontierTypeExportPresent,
+    executableRetryInputTypeExportPresent,
+    fullFrontierAssertionExportPresent,
     resumeExportPresent,
     disposition:
       projectorExportPresent && resumeExportPresent
@@ -548,17 +723,19 @@ async function installAttemptWorker(root) {
       "  const prior = existsSync(counterPath) ? Number(readFileSync(counterPath, 'utf8')) : 0;",
       "  const attempt = prior + 1;",
       "  writeFileSync(counterPath, String(attempt));",
+      "  const mode = process.env.ABG_AX_F09_MODE;",
       "  const inputLine = prompt.split(/\\r?\\n/).find((line) => line.startsWith('{'));",
       "  const input = inputLine === undefined ? null : JSON.parse(inputLine);",
       "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
       "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: `attempt ${attempt}` }] } }));",
-      "  if (attempt === 1) return;",
+      "  if (mode !== 'aba' && attempt === 1) return;",
       "  const result = {",
       "    kind: 'developer_greeting_output',",
       "    schemaVersion: '5.0.0',",
       "    message: input?.message ?? 'unavailable'",
       "  };",
-      "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: attempt === 2 ? '{not-json' : JSON.stringify(result) }));",
+      "  const rendered = mode === 'aba' && attempt <= 3 ? (attempt === 2 ? '{not-json-b' : '{not-json-a') : mode !== 'aba' && attempt === 2 ? '{not-json' : JSON.stringify(result);",
+      "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: rendered }));",
       "});",
       "",
     ].join("\n"),
@@ -574,6 +751,13 @@ async function constructP1Environment(input) {
     { after() {} },
     input.packageRoot,
   );
+  // Fixture-only access to the same installed owner-internal module imported
+  // by this environment's HoG. The package barrel intentionally exposes no
+  // split transition ingress.
+  const retryOwner = await import(pathToFileURL(join(
+    environment.installedRoot,
+    "build/code/src/abg/retry.js",
+  )).href);
   const {
     abg,
     gtl,
@@ -792,7 +976,7 @@ async function constructP1Environment(input) {
   assert.notEqual(graphFunction, undefined);
   assert.equal(
     graphFunction.template.nodes[0].term.budget,
-    RETRY_BUDGET,
+    input.retryBudget ?? RETRY_BUDGET,
   );
   const catalogView = product.narrowGraphFunctionCatalog(catalog, [graphFunction.name]);
   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
@@ -1024,8 +1208,10 @@ async function constructP1Environment(input) {
     closureContract,
     executionBasis: executionBasisAdmission.executionBasis,
     implementationSet: executionBasisAdmission.implementationSet,
+    interactionSet: executionBasisAdmission.interactionSet,
     implementationResolution,
     leafPort,
+    retryOwner,
     actorRuntimeBinding: { workspaceBinding },
     nonceSubject,
   };
@@ -1046,6 +1232,7 @@ async function rejectAttempt(
     implementationSet,
     implementationResolution,
     leafPort,
+    retryOwner,
     actorRuntimeBinding,
     opened,
     store,
@@ -1161,7 +1348,7 @@ async function rejectAttempt(
     "failure",
   );
   assert.notEqual(failureValueKind, null);
-  const transition = abg.admitRetryRuntimeFailureTransition(
+  const transition = retryOwner.admitRetryRuntimeFailureTransition(
     store,
     executionBasis,
     graph,
@@ -1409,6 +1596,16 @@ async function produceFrontier(input) {
   const firstRouteEffect = environment.abg.eventCalculusEffect(
     firstProgressConsumptionRoute,
   );
+  const attemptInputCoverage = inspectAttemptInputCoverage(attempts, {
+    expectedInputRef: environment.rawInput.admissionRef,
+    expectedInputDigest: environment.rawInput.subjectDigest,
+    expectedInputContractRef: environment.graphFunction.inputs[0],
+  });
+  const attemptRouteCursorBinding = inspectAttemptRouteCursorBindings(
+    beforeCloseEvents,
+    attempts,
+  );
+  const compactRetryProgress = inspectCompactRetryProgress(progress);
   assert.deepEqual(attempts.map((event) => event.payload.attempt), [1, 2]);
   assert.deepEqual(progress.map((event) => event.payload.attempt), [1, 2]);
   assert.deepEqual(
@@ -1519,20 +1716,9 @@ async function produceFrontier(input) {
       attemptThreeEffectAbsent:
         actorStarts.length === 2 &&
         Number(await readFile(worker.counterPath, "utf8")) === 2,
-      preimagesHashToAttemptDigests: attempts.every(
-        (event) =>
-          event.payload.inputDigest ===
-            environment.product.sha256Canonical(environment.invocationInput),
-      ),
-      attemptPayloadHasInputValue: attempts.some(
-        (event) => Object.hasOwn(event.payload, "inputValue"),
-      ),
-      attemptPayloadHasSourceCursor: attempts.some(
-        (event) =>
-          Object.hasOwn(event.payload, "sourceCursor") ||
-          Object.hasOwn(event.payload, "sourceCursorRef") ||
-          Object.hasOwn(event.payload, "sourceCursorDigest"),
-      ),
+      attemptInputCoverage,
+      attemptRouteCursorBinding,
+      compactRetryProgress,
       durableRowsEqualClosedStore: true,
       completeDurablePrefixScanned: durableEvents.length === beforeCloseEvents.length,
       durablePrefixContainsNonce,
@@ -1585,23 +1771,7 @@ async function inspectHandoff(handoff) {
         event.frameId === selector.frameId &&
         event.payload.retryBoundaryRef === selector.retryBoundaryRef,
     );
-    const progressCarriesFullFrontier = progress.some((event) =>
-      Object.hasOwn(event.payload, "retryFrontier") ||
-      Object.hasOwn(event.payload, "attemptFrontier") ||
-      (
-        Array.isArray(event.payload.rows) &&
-        Array.isArray(event.payload.reasonClasses) &&
-        Array.isArray(event.payload.ownerSurfaces) &&
-        Array.isArray(event.payload.sourceEventKinds)
-      ));
-    const currentProgressIsNumericCoverageOnly = progress.every((event) =>
-      Array.isArray(event.payload.completedAttempts) &&
-      !Object.hasOwn(event.payload, "retryFrontier") &&
-      !Object.hasOwn(event.payload, "attemptFrontier") &&
-      !Object.hasOwn(event.payload, "rows") &&
-      !Object.hasOwn(event.payload, "reasonClasses") &&
-      !Object.hasOwn(event.payload, "ownerSurfaces") &&
-      !Object.hasOwn(event.payload, "sourceEventKinds"));
+    const compactRetryProgress = inspectCompactRetryProgress(progress);
     const basisEvent = exactOne(
       events,
       (event) =>
@@ -1623,7 +1793,16 @@ async function inspectHandoff(handoff) {
       basisEvent,
       invocation,
     );
-    const targetSuffix = inspectInstalledTargetSuffix(dependencies);
+    const targetSuffix = await inspectInstalledTargetSuffix(dependencies);
+    const attemptInputCoverage = inspectAttemptInputCoverage(attempts, {
+      expectedInputRef: invocation.rawInputAdmissionRef,
+      expectedInputDigest: invocation.rawInputDigest,
+      expectedInputContractRef: dependencies.graphFunction.inputs[0],
+    });
+    const attemptRouteCursorBinding = inspectAttemptRouteCursorBindings(
+      events,
+      attempts,
+    );
     const inputDigests = [
       ...new Set(attempts.map((event) => event.payload.inputDigest)),
     ];
@@ -1651,16 +1830,9 @@ async function inspectHandoff(handoff) {
       attemptOrdinals: attempts.map((event) => event.payload.attempt),
       progressOrdinals: progress.map((event) => event.payload.attempt),
       failureClasses: progress.map((event) => event.payload.failureClass),
-      attemptPayloadHasInputValue: attempts.some((event) =>
-        Object.hasOwn(event.payload, "inputValue")),
-      attemptPayloadHasSourceCursor: attempts.some(
-        (event) =>
-          Object.hasOwn(event.payload, "sourceCursor") ||
-          Object.hasOwn(event.payload, "sourceCursorRef") ||
-          Object.hasOwn(event.payload, "sourceCursorDigest"),
-      ),
-      progressCarriesFullFrontier,
-      currentProgressIsNumericCoverageOnly,
+      attemptInputCoverage,
+      attemptRouteCursorBinding,
+      compactRetryProgress,
       dependenciesMatchBasis:
         dependencies.declarationsMatchBasis &&
         dependencies.executionDependenciesVerified,
@@ -1690,10 +1862,14 @@ async function inspectHandoff(handoff) {
       targetSuffixDisposition: targetSuffix.disposition,
       targetSuffixDependenciesReady: targetSuffix.dependenciesReady,
       projectorExportPresent: targetSuffix.projectorExportPresent,
+      retryAttemptFrontierTypeExportPresent:
+        targetSuffix.retryAttemptFrontierTypeExportPresent,
+      executableRetryInputTypeExportPresent:
+        targetSuffix.executableRetryInputTypeExportPresent,
+      fullFrontierAssertionExportPresent:
+        targetSuffix.fullFrontierAssertionExportPresent,
       resumeExportPresent: targetSuffix.resumeExportPresent,
       completeDurablePrefixContainsCanonicalInputPreimage,
-      completeDurablePrefixHasNoExecutablePreimage:
-        !completeDurablePrefixContainsCanonicalInputPreimage,
     };
   } finally {
     reopened.store.closeDurableLog();
@@ -1708,9 +1884,105 @@ async function inspectFrontier(input) {
     audit: await inspectHandoff(input.handoff),
   };
 }
+
+async function produceAba(input) {
+  assert.deepEqual(
+    Object.keys(input).sort(),
+    [
+      "action",
+      "fixtureArtifactPath",
+      "fixtureArtifactRef",
+      "fixtureBasis",
+      "packageRoot",
+      "retryBudget",
+      "supportPath",
+    ],
+  );
+  const environment = await constructP1Environment(input);
+  const worker = await installAttemptWorker(environment.scratch);
+  process.env.ABG_TS_CLAUDE_COMMAND = worker.command;
+  process.env.ABG_AX_F09_COUNTER = worker.counterPath;
+  process.env.ABG_AX_F09_MODE = "aba";
+  process.env.ABG_TS_FP_TIMEOUT_MS = "10000";
+  const opened = environment.abg.openCall(
+    environment.store,
+    environment.executionBasis,
+    basis("aba-open"),
+  );
+  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  const completion = await environment.hog.executeGraphTraversal({
+    store: environment.store,
+    executionBasis: environment.executionBasis,
+    openedTraversalScope: opened.scope,
+    program: environment.program,
+    graphFunction: environment.graphFunction,
+    graph: environment.graph,
+    graphValidation: environment.graphValidation,
+    implementationSet: environment.implementationSet,
+    interactionSet: environment.interactionSet,
+    leafPort: environment.leafPort,
+    closureContract: environment.closureContract,
+    actorRuntimeBinding: environment.actorRuntimeBinding,
+    input: environment.invocationInput,
+    inputDigest: environment.rawInput.subjectDigest,
+    eventTime: EVENT_TIME,
+    correlationId: "correlation://s06/ax-f09/aba",
+  });
+  const events = environment.store.readAll();
+  const attempts = events.filter((event) =>
+    event.kind === "retry_attempt_opened");
+  const failureProgress = events.filter((event) =>
+    event.kind === "retry_progress_recorded" &&
+    event.payload.progressClass === "retry");
+  const signals = failureProgress.map((event) =>
+    event.payload.failureSignalRef);
+  const workerCount = Number(await readFile(worker.counterPath, "utf8"));
+  const attemptFourCall = events.find((event) =>
+    event.kind === "c_call_opened" && event.payload.attempt === 4);
+  const attemptFourResult = attemptFourCall === undefined
+    ? undefined
+    : events.find((event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.aggregateId === attemptFourCall.aggregateId &&
+      event.payload.resultClass === "success");
+  const attemptFourTerminalRoute = attemptFourCall === undefined
+    ? undefined
+    : events.find((event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.routeKind === "terminal" &&
+      event.payload.cCallRef === attemptFourCall.aggregateId);
+  assert.deepEqual(attempts.map((event) => event.payload.attempt), [1, 2, 3, 4]);
+  assert.equal(failureProgress.length, 3);
+  assert.equal(signals[0], signals[2]);
+  assert.notEqual(signals[0], signals[1]);
+  assert.equal(workerCount, 4);
+  assert.ok(attemptFourCall);
+  assert.ok(attemptFourResult);
+  assert.ok(attemptFourTerminalRoute);
+  return {
+    action: "produce_aba",
+    cleanupRoot: environment.scratch,
+    audit: {
+      disposition: completion.disposition,
+      attemptOrdinals: attempts.map((event) => event.payload.attempt),
+      failureSignals: signals,
+      failureClasses: failureProgress.map((event) =>
+        event.payload.failureClass),
+      workerCount,
+      attemptFourDispatchReached: attemptFourCall !== undefined,
+      attemptFourResultReached: attemptFourResult !== undefined,
+      attemptFourTerminalRouteReached: attemptFourTerminalRoute !== undefined,
+      stoppedProgressCount: events.filter((event) =>
+        event.kind === "retry_progress_recorded" &&
+        event.payload.progressClass === "stopped").length,
+    },
+  };
+}
 const input = await readInput();
 const output = input.action === "produce_frontier"
   ? await produceFrontier(input)
+  : input.action === "produce_aba"
+    ? await produceAba(input)
   : input.action === "inspect_frontier"
     ? await inspectFrontier(input)
     : (() => {

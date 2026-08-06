@@ -278,6 +278,9 @@ const TERMINAL_PAYLOAD = payloadKeys(
 const RETRY_FAILURE_PROGRESS_PAYLOAD = payloadKeys(
   "attempt attemptRef budget cCallRef completedAttempts failureClass failureSignalRef inputContractRef inputDigest inputRef judgmentRef progressClass progressDigest progressRef remainingBudget resultRef retryBoundaryRef retryPath",
 );
+const RETRY_STOPPED_PROGRESS_PAYLOAD = payloadKeys(
+  "attempt attemptRef budget cCallRef completedAttempts failureClass failureSignalRef inputContractRef inputDigest inputRef judgmentRef predecessorProgressRef progressClass progressDigest progressRef remainingBudget resultRef retryBoundaryRef retryPath stopReason",
+);
 
 const ROOT_EVENT_CONTRACTS = Object.freeze({
   public_operation_artifact_admitted: {
@@ -670,9 +673,10 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
         { progressClass: "retry" },
       ),
       payloadVariant(
-        RETRY_FAILURE_PROGRESS_PAYLOAD,
-        RETRY_FAILURE_PROGRESS_PAYLOAD,
+        RETRY_STOPPED_PROGRESS_PAYLOAD,
+        RETRY_STOPPED_PROGRESS_PAYLOAD,
         { progressClass: "stopped" },
+        payloadKeys("predecessorProgressRef"),
       ),
       payloadVariant(
         payloadKeys(
@@ -1673,6 +1677,14 @@ function assertRuntimeEventContract(
             (typeof WORKER_TRANSPORT_FAILURE_CLASS_VALUES)[number],
         )
       )) ||
+      (payload.progressClass === "stopped" &&
+        !(
+          (payload.stopReason === "boundary_terminal" &&
+            payload.predecessorProgressRef === null) ||
+          (payload.stopReason === "propagated_inner_stop" &&
+            typeof payload.predecessorProgressRef === "string" &&
+            payload.predecessorProgressRef.length > 0)
+        )) ||
       (payload.progressClass === "completed" &&
         (!positiveInteger(payload.completedRetryDepth) ||
           payload.completedRetryDepth !== retryPath.length))

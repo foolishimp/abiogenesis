@@ -60,16 +60,30 @@ export async function realizeAxF09ProbabilisticPass(input, effects) {
     transport.disposition === "success" &&
     isGreetingOutput(resultCandidate) &&
     resultCandidate.message === input.message;
+  const abaContractFailure =
+    process.env.ABG_AX_F09_MODE === "aba" && !success;
+  const selectedCandidate = abaContractFailure
+    ? {
+        kind: "developer_greeting_failure",
+        schemaVersion: "5.0.0",
+        diagnosticRef:
+          "diagnostic://developer.example/greeting/aba/" +
+          sha256Canonical(transport.finalOutput),
+      }
+    : resultCandidate;
   return deepFreeze({
     kind: "leaf_realization_candidate",
     schemaVersion: "5.0.0",
-    disposition: success ? "success" : "failure",
+    disposition: success || abaContractFailure ? "success" : "failure",
     evidenceCandidates: [],
-    resultCandidate: success
-      ? resultCandidate
+    resultCandidate: success || abaContractFailure
+      ? selectedCandidate
       : {
           kind: "developer_greeting_failure",
           schemaVersion: "5.0.0",
+          ...(transport.failureClass === null
+            ? {}
+            : { failureClass: transport.failureClass }),
           diagnosticRef:
             transport.failureClass === null
               ? "diagnostic://developer.example/greeting/worker-output-refused@5"
@@ -280,14 +294,21 @@ export declare function constructAxF09Publication(
 ): Readonly<Record<string, unknown>>;
 `;
 
-export async function prepareAxF09RetryProduct(packageRoot, scratch) {
+export async function prepareAxF09RetryProduct(
+  packageRoot,
+  scratch,
+  { retryBudget = 3 } = {},
+) {
   const mini = await prepareDeveloperMiniProduct(packageRoot, scratch);
   const indexPath = join(mini.sourceRoot, "build/index.js");
   const declarationPath = join(mini.sourceRoot, "build/index.d.ts");
   await Promise.all([
     writeFile(
       indexPath,
-      `${await readFile(indexPath, "utf8")}${authoredRetryDeclaration}`,
+      `${await readFile(indexPath, "utf8")}${authoredRetryDeclaration.replace(
+        "budget: 3,",
+        `budget: ${retryBudget},`,
+      )}`,
       "utf8",
     ),
     writeFile(

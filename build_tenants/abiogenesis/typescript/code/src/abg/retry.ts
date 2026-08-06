@@ -1,4 +1,5 @@
 import type { GtlGraph } from "../gtl/contracts.js";
+import { isExecutableCLeaf } from "../gtl/c_algebra.js";
 import {
   deriveCContinuationTarget,
   resolveEnclosingCRetryContexts,
@@ -26,6 +27,7 @@ import {
 } from "./c_call.js";
 import {
   hasAdmittedExecutionBasis,
+  rehydrateExecutionBasis,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
@@ -156,6 +158,8 @@ export interface RetryContinuationProgressAdmission
 export interface RetryStoppedProgressAdmission
   extends RetryFailureProgressAdmissionBase {
   readonly progressClass: "stopped";
+  readonly stopReason: "boundary_terminal" | "propagated_inner_stop";
+  readonly predecessorProgressRef: string | null;
 }
 
 export interface RetryCompletedProgressAdmission
@@ -201,6 +205,7 @@ export interface RetryRuntimeFailureTransitionAdmission {
   readonly progress:
     | RetryContinuationProgressAdmission
     | RetryStoppedProgressAdmission;
+  readonly stoppedProgresses: readonly RetryStoppedProgressAdmission[];
   readonly eligibility: RetryEligibility;
 }
 
@@ -336,110 +341,145 @@ export function projectDeclaredCRetryFrontier(
   );
 }
 
+function deriveRetryAttemptCursor(
+  prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  event: RuntimeEvent,
+): TraversalCursorCandidate | null {
+  if (
+    event.kind !== "retry_attempt_opened" ||
+    event.aggregateType !== "frame" ||
+    event.runId === undefined || event.graphCallId === undefined ||
+    event.frameId === undefined || event.basisId === undefined ||
+    event.materializationRef !== graph.materializationRef ||
+    event.graphFunctionRef !== graph.graphFunctionRef ||
+    event.causationEventRefs.length !== 1 || !isRecord(event.payload)
+  ) return null;
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const payload = event.payload;
+  const wrappedTermPath = stringValues(payload.wrappedTermPath);
+  const retryPath = positiveIntegerValues(payload.retryPath);
+  if (
+    wrappedTermPath === null || wrappedTermPath[0] !== "node" ||
+    !nonEmptyString(wrappedTermPath[1]) || retryPath === null ||
+    !positiveInteger(payload.attempt) ||
+    payload.attempt !== retryPath.at(-1) ||
+    !nonEmptyString(payload.inputRef) || !digestValue(payload.inputDigest) ||
+    (payload.taskOrdinal !== null && !nonNegativeInteger(payload.taskOrdinal))
+  ) return null;
+  const routeRows = events.filter((candidate) =>
+    candidate.eventId === event.causationEventRefs[0] &&
+    candidate.kind === "traversal_route_admitted" &&
+    candidate.admissionOrdinal < event.admissionOrdinal &&
+    candidate.runId === event.runId &&
+    candidate.graphCallId === event.graphCallId &&
+    candidate.frameId === event.frameId &&
+    candidate.materializationRef === graph.materializationRef &&
+    isRecord(candidate.payload) &&
+    candidate.payload.routeKind === "retry" &&
+    candidate.payload.routeRef === payload.priorRouteRef &&
+    candidate.payload.judgmentRef === payload.priorJudgmentRef
+  );
+  const initialRows = events.filter((candidate) =>
+    candidate.kind === "traversal_cursor_entered" &&
+    candidate.admissionOrdinal < event.admissionOrdinal &&
+    candidate.runId === event.runId &&
+    candidate.graphCallId === event.graphCallId &&
+    candidate.frameId === event.frameId &&
+    candidate.basisId === event.basisId && isRecord(candidate.payload) &&
+    nonEmptyString(candidate.payload.programRef) &&
+    nonEmptyString(candidate.payload.traversalScopeRef)
+  );
+  if (routeRows.length !== 1 || initialRows.length !== 1) return null;
+  const route = routeRows[0]!;
+  const initial = initialRows[0]!.payload as Readonly<Record<string, JsonValue>>;
+  const body = {
+    programRef: initial.programRef as string,
+    executionBasisRef: event.basisId,
+    traversalScopeRef: initial.traversalScopeRef as string,
+    runId: event.runId,
+    graphCallId: event.graphCallId,
+    frameId: event.frameId,
+    graphRef: graph.materializationRef,
+    inputRef: payload.inputRef as string,
+    inputDigest: payload.inputDigest as Sha256Digest,
+    currentNodeRef: wrappedTermPath[1]!,
+    position: "at_term" as const,
+    termPath: wrappedTermPath,
+    taskOrdinal: payload.taskOrdinal as number | null,
+    attempt: Number(payload.attempt),
+    retryPath,
+  };
+  const cursorDigest = sha256Canonical(body as unknown as JsonValue);
+  const cursor = deepFreeze({
+    kind: "traversal_cursor" as const,
+    schemaVersion: "5.0.0" as const,
+    cursorRef:
+      `traversal-cursor://abiogenesis/${cursorDigest.slice("sha256:".length)}`,
+    cursorDigest,
+    ...body,
+  });
+  return isRecord(route.payload) &&
+      route.payload.targetCursorRef === cursor.cursorRef &&
+      route.payload.targetCursorDigest === cursor.cursorDigest &&
+      isTraversalCursorCandidate(cursor)
+    ? cursor
+    : null;
+}
+
 export function projectRetryAttempt(
   prefix: ValidatedRuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
-  cursor: TraversalCursorCandidate,
-  admissionEventRef: string,
+  attemptIdentity: string,
 ): RetryAttemptAdmission | null {
-  if (
-    !isMaterializedGtlGraph(graph) ||
-    !isTraversalCursorCandidate(cursor) ||
-    admissionEventRef.length === 0
-  ) {
-    return null;
-  }
-  const context = contextForCursor(graph, cursor);
-  if (
-    context === null ||
-    (typeof context === "object" && "kind" in context)
-  ) {
-    return null;
-  }
-  const boundaryRef = retryBoundaryRef(graph, cursor, context);
-  const lifecycle = projectRetryLifecycle(
-    prefix,
-    cursor.runId,
-    cursor.graphCallId,
-    cursor.frameId,
-    boundaryRef,
+  if (!isMaterializedGtlGraph(graph) || attemptIdentity.length === 0) return null;
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const matches = events.filter((event) =>
+    event.kind === "retry_attempt_opened" && isRecord(event.payload) &&
+    (event.eventId === attemptIdentity ||
+      event.payload.attemptRef === attemptIdentity)
   );
-  const matches = lifecycle.attempts.filter((event) => {
-    if (
-      event.eventId !== admissionEventRef ||
-      event.aggregateType !== "frame" ||
-      event.aggregateId !== cursor.frameId ||
-      event.parentAggregateId !== cursor.graphCallId ||
-      event.basisId !== cursor.executionBasisRef ||
-      event.graphFunctionRef !== graph.graphFunctionRef ||
-      event.materializationRef !== graph.materializationRef ||
-      event.causationEventRefs.length !== 1 ||
-      !isRecord(event.payload)
-    ) {
-      return false;
-    }
-    const payload = event.payload;
-    const retryPath = positiveIntegerValues(payload.retryPath);
-    const retryTermPath = stringValues(payload.retryTermPath);
-    const wrappedTermPath = stringValues(payload.wrappedTermPath);
-    const retryable = stringValues(payload.retryableFailureClasses);
-    if (
-      !nonEmptyString(payload.attemptRef) ||
-      !digestValue(payload.attemptDigest) ||
-      payload.retryBoundaryRef !== boundaryRef ||
-      payload.attempt !== cursor.attempt ||
-      retryPath === null || !sameNumbers(retryPath, cursor.retryPath) ||
-      payload.taskOrdinal !== cursor.taskOrdinal ||
-      payload.budget !== context.budget ||
-      retryTermPath === null ||
-      !sameStrings(retryTermPath, context.retryTermPath) ||
-      wrappedTermPath === null ||
-      !sameStrings(wrappedTermPath, context.wrappedTermPath) ||
-      retryable === null ||
-      !sameStrings(retryable, WORKER_TRANSPORT_FAILURE_CLASS_VALUES) ||
-      !nonEmptyString(payload.priorRouteRef) ||
-      (payload.priorJudgmentRef !== null &&
-        !nonEmptyString(payload.priorJudgmentRef)) ||
-      payload.inputRef !== cursor.inputRef ||
-      payload.inputDigest !== cursor.inputDigest ||
-      payload.inputContractRef !== context.inputCarrierRef ||
-      !isRecord(payload.inputValue) ||
-      sha256Canonical(payload.inputValue) !== payload.inputDigest
-    ) {
-      return false;
-    }
-    const {
-      attemptRef: _attemptRef,
-      attemptDigest: _attemptDigest,
-      ...attemptBody
-    } = payload;
-    const attemptDigest = sha256Canonical(attemptBody as unknown as JsonValue);
-    if (
-      payload.attemptDigest !== attemptDigest ||
-      payload.attemptRef !==
-        `retry-attempt://abiogenesis/${attemptDigest.slice("sha256:".length)}`
-    ) {
-      return false;
-    }
-    const routeRows = lifecycle.events.filter((candidate) =>
-      candidate.kind === "traversal_route_admitted" &&
-      candidate.eventId === event.causationEventRefs[0] &&
-      candidate.runId === cursor.runId &&
-      candidate.graphCallId === cursor.graphCallId &&
-      candidate.frameId === cursor.frameId &&
-      candidate.materializationRef === graph.materializationRef &&
-      isRecord(candidate.payload) &&
-      candidate.payload.routeKind === "retry" &&
-      candidate.payload.routeRef === payload.priorRouteRef &&
-      candidate.payload.judgmentRef === payload.priorJudgmentRef &&
-      candidate.payload.targetCursorRef === cursor.cursorRef &&
-      candidate.payload.targetCursorDigest === cursor.cursorDigest
-    );
-    return routeRows.length === 1;
-  });
   if (matches.length !== 1) return null;
   const event = matches[0]!;
-  const payload = event.payload as Readonly<Record<string, JsonValue>>;
+  const cursor = deriveRetryAttemptCursor(prefix, graph, event);
+  if (cursor === null || !isRecord(event.payload)) return null;
+  const context = contextForCursor(graph, cursor);
+  if (context === null || (typeof context === "object" && "kind" in context)) {
+    return null;
+  }
+  const payload = event.payload;
+  const retryTermPath = stringValues(payload.retryTermPath);
+  const wrappedTermPath = stringValues(payload.wrappedTermPath);
+  const retryable = stringValues(payload.retryableFailureClasses);
+  if (
+    event.aggregateId !== cursor.frameId ||
+    event.parentAggregateId !== cursor.graphCallId ||
+    event.basisId !== cursor.executionBasisRef ||
+    !nonEmptyString(payload.attemptRef) || !digestValue(payload.attemptDigest) ||
+    payload.retryBoundaryRef !== retryBoundaryRef(graph, cursor, context) ||
+    payload.attempt !== cursor.attempt ||
+    payload.taskOrdinal !== cursor.taskOrdinal || payload.budget !== context.budget ||
+    retryTermPath === null || !sameStrings(retryTermPath, context.retryTermPath) ||
+    wrappedTermPath === null || !sameStrings(wrappedTermPath, context.wrappedTermPath) ||
+    retryable === null ||
+    !sameStrings(retryable, WORKER_TRANSPORT_FAILURE_CLASS_VALUES) ||
+    !nonEmptyString(payload.priorRouteRef) ||
+    (payload.priorJudgmentRef !== null && !nonEmptyString(payload.priorJudgmentRef)) ||
+    payload.inputRef !== cursor.inputRef || payload.inputDigest !== cursor.inputDigest ||
+    payload.inputContractRef !== context.inputCarrierRef ||
+    !isRecord(payload.inputValue) ||
+    sha256Canonical(payload.inputValue) !== payload.inputDigest
+  ) return null;
+  const { attemptRef: _attemptRef, attemptDigest: _attemptDigest, ...attemptBody } =
+    payload;
+  const computedAttemptDigest = sha256Canonical(
+    attemptBody as unknown as JsonValue,
+  );
+  if (
+    payload.attemptDigest !== computedAttemptDigest ||
+    payload.attemptRef !==
+      `retry-attempt://abiogenesis/${computedAttemptDigest.slice("sha256:".length)}`
+  ) return null;
   const { attemptRef, attemptDigest, ...body } = payload;
   return deepFreeze({
     kind: "retry_attempt_admission" as const,
@@ -457,29 +497,26 @@ export function projectActiveRetryAttempt(
   graph: Readonly<GtlGraph>,
   cursor: TraversalCursorCandidate,
 ): RetryAttemptAdmission | null {
-  const context = contextForCursor(graph, cursor);
   if (
     !isMaterializedGtlGraph(graph) ||
-    !isTraversalCursorCandidate(cursor) ||
-    context === null ||
-    (typeof context === "object" && "kind" in context)
+    !isTraversalCursorCandidate(cursor)
   ) {
     return null;
   }
-  const lifecycle = projectRetryLifecycle(
-    prefix,
-    cursor.runId,
-    cursor.graphCallId,
-    cursor.frameId,
-    retryBoundaryRef(graph, cursor, context),
-  );
-  const projected = lifecycle.attempts
-    .map((event) => projectRetryAttempt(prefix, graph, cursor, event.eventId))
+  const lifecycle = deriveRuntimeEventCalculusProjection(prefix);
+  const projected = runtimeEventsFromValidatedPrefix(prefix)
+    .filter((event) => event.kind === "retry_attempt_opened")
+    .filter((event) => {
+      const derived = deriveRetryAttemptCursor(prefix, graph, event);
+      return derived?.cursorRef === cursor.cursorRef &&
+        derived.cursorDigest === cursor.cursorDigest;
+    })
+    .map((event) => projectRetryAttempt(prefix, graph, event.eventId))
     .filter((value): value is RetryAttemptAdmission => value !== null);
   if (
     projected.length !== 1 ||
     !holdsAt(
-      lifecycle.eventCalculus,
+      lifecycle,
       constructRuntimeFluent({
         name: "retry_attempt_active",
         identity: projected[0]!.attemptRef,
@@ -498,11 +535,15 @@ function positiveNumberArray(value: JsonValue | undefined): readonly number[] {
     : [];
 }
 
-const RETRY_PROGRESS_KEYS = Object.freeze([
+const RETRY_CONTINUATION_PROGRESS_KEYS = Object.freeze([
   "attempt", "attemptRef", "budget", "cCallRef", "completedAttempts",
   "failureClass", "failureSignalRef", "inputContractRef", "inputDigest",
   "inputRef", "judgmentRef", "progressClass", "progressDigest", "progressRef",
   "remainingBudget", "resultRef", "retryBoundaryRef", "retryPath",
+].sort());
+const RETRY_STOPPED_PROGRESS_KEYS = Object.freeze([
+  ...RETRY_CONTINUATION_PROGRESS_KEYS,
+  "predecessorProgressRef", "stopReason",
 ].sort());
 const COMPLETED_PROGRESS_TERMINAL_KEYS = Object.freeze([
   "attempt", "attemptRef", "cCallRef", "completedRetryDepth", "judgmentRef",
@@ -523,11 +564,13 @@ function exactPayloadKeys(
 function progressBody(
   payload: Readonly<Record<string, JsonValue>>,
 ): Readonly<Record<string, JsonValue>> | null {
-  if (
-    payload.progressClass === "retry" ||
-    payload.progressClass === "stopped"
-  ) {
-    if (!exactPayloadKeys(payload, RETRY_PROGRESS_KEYS)) return null;
+  if (payload.progressClass === "retry") {
+    if (!exactPayloadKeys(payload, RETRY_CONTINUATION_PROGRESS_KEYS)) return null;
+    const { progressRef: _ref, progressDigest: _digest, ...body } = payload;
+    return body;
+  }
+  if (payload.progressClass === "stopped") {
+    if (!exactPayloadKeys(payload, RETRY_STOPPED_PROGRESS_KEYS)) return null;
     const { progressRef: _ref, progressDigest: _digest, ...body } = payload;
     return body;
   }
@@ -845,10 +888,12 @@ function projectRetryProgressAt(
 
   const failureProgress = event.payload.progressClass === "retry" ||
     event.payload.progressClass === "stopped";
-  const directCCallOwnership = failureProgress ||
-    body.predecessorProgressRef === null;
+  const propagatedStop = event.payload.progressClass === "stopped" &&
+    body.stopReason === "propagated_inner_stop";
+  const directCCallOwnership = !propagatedStop &&
+    (failureProgress || body.predecessorProgressRef === null);
+  const callRetryPath = positiveIntegerValues(cCallPayload.retryPath);
   if (directCCallOwnership) {
-    const callRetryPath = positiveIntegerValues(cCallPayload.retryPath);
     const exactOwnedAttempt = callRetryPath === null ||
         (cCallPayload.taskOrdinal !== null &&
           !nonNegativeInteger(cCallPayload.taskOrdinal)) ||
@@ -894,9 +939,9 @@ function projectRetryProgressAt(
       );
       return projected?.progressClass === "retry" ? [projected] : [];
     });
-    const stationary = priorFailureProgresses.some((candidate) =>
-      candidate.failureSignalRef === body.failureSignalRef
-    );
+    const immediatelyPrecedingFailure = priorFailureProgresses.at(-1);
+    const stationary = immediatelyPrecedingFailure?.failureSignalRef ===
+      body.failureSignalRef;
     const budgetExhausted = Number(body.attempt) >= Number(body.budget);
     const stopped = event.payload.progressClass === "stopped";
     if (
@@ -925,11 +970,51 @@ function projectRetryProgressAt(
         body.failureClass,
         body.failureSignalRef,
       ) ||
-      judgmentPayload.judgment !== (stopped ? "blocked" : "retry") ||
-      judgmentPayload.retryAttemptRef !== attemptRef ||
-      event.causationEventRefs[1] !== judgmentEvent.eventId ||
-      (stopped ? !budgetExhausted && !stationary : budgetExhausted || stationary)
+      callRetryPath === null ||
+      (stopped
+        ? body.stopReason !== "boundary_terminal" &&
+          body.stopReason !== "propagated_inner_stop"
+        : Object.hasOwn(body, "stopReason") ||
+          Object.hasOwn(body, "predecessorProgressRef"))
     ) return null;
+    if (!propagatedStop) {
+      if (
+        judgmentPayload.judgment !== (stopped ? "blocked" : "retry") ||
+        judgmentPayload.retryAttemptRef !== attemptRef ||
+        event.causationEventRefs[1] !== judgmentEvent.eventId ||
+        (stopped
+          ? body.stopReason !== "boundary_terminal" ||
+            body.predecessorProgressRef !== null ||
+            (!budgetExhausted && !stationary)
+          : budgetExhausted || stationary)
+      ) return null;
+    } else {
+      const predecessorIndex = prior.findIndex((candidate) =>
+        candidate.eventId === event.causationEventRefs[1]
+      );
+      const predecessor = predecessorIndex < 0 ? null : projectRetryProgressAt(
+        prefix,
+        events,
+        predecessorIndex,
+        new Set([...visiting, event.eventId]),
+      );
+      if (
+        judgmentPayload.judgment !== "blocked" ||
+        !nonEmptyString(body.predecessorProgressRef) ||
+        predecessorIndex !== eventIndex - 1 ||
+        predecessor?.progressClass !== "stopped" ||
+        predecessor.progressRef !== body.predecessorProgressRef ||
+        predecessor.retryBoundaryRef === body.retryBoundaryRef ||
+        predecessor.cCallRef !== cCallRef ||
+        predecessor.resultRef !== resultRef ||
+        predecessor.judgmentRef !== judgmentRef ||
+        predecessor.failureClass !== body.failureClass ||
+        predecessor.failureSignalRef !== body.failureSignalRef ||
+        !sameNumbers(predecessor.retryPath.slice(0, -1), retryPath) ||
+        !sameNumbers(callRetryPath.slice(0, retryPath.length), retryPath) ||
+        callRetryPath.length <= retryPath.length
+      ) return null;
+    }
   } else {
     const sourceCursorEvent = exactSourceCursorEvent(
       prior,
@@ -1222,36 +1307,31 @@ export function projectRetryEligibility(
     cursor.frameId,
     boundaryRef,
   );
-  const rows = lifecycle.progress;
+  const rows = lifecycle.progress
+    .map((event) => projectAdmittedRetryProgress(prefix, event.eventId))
+    .filter((progress): progress is RetryProgressAdmission =>
+      progress !== null && progress.retryBoundaryRef === boundaryRef
+    );
   const attempts = rows
-    .map((event) =>
-      isRecord(event.payload) &&
-        Number.isSafeInteger(event.payload.attempt) &&
-        Number(event.payload.attempt) > 0
-        ? Number(event.payload.attempt)
-        : null)
-    .filter((value): value is number => value !== null)
+    .map((progress) => progress.attempt)
     .sort((left, right) => left - right);
   const expectedPrior = Array.from(
     { length: Math.max(0, cursor.attempt - 1) },
     (_, index) => index + 1,
   );
-  const admittedAttemptCoverage = lifecycle.attempts
-    .map((event) =>
-      isRecord(event.payload) && Number.isSafeInteger(event.payload.attempt)
-        ? Number(event.payload.attempt)
-        : 0
-    );
-  const expectedAttemptCoverage = [...expectedPrior, cursor.attempt];
-  const currentAttemptEvents = lifecycle.attempts.filter((event) =>
-    isRecord(event.payload) &&
-    event.payload.attempt === cursor.attempt &&
-    sameNumbers(positiveNumberArray(event.payload.retryPath), cursor.retryPath)
+  const projectedAttempts = lifecycle.attempts
+    .map((event) => projectRetryAttempt(prefix, graph, event.eventId))
+    .filter((attempt): attempt is RetryAttemptAdmission => attempt !== null);
+  const admittedAttemptCoverage = projectedAttempts.map((attempt) =>
+    attempt.attempt
   );
-  const currentAttemptRef = currentAttemptEvents.length === 1 &&
-      isRecord(currentAttemptEvents[0]!.payload) &&
-      typeof currentAttemptEvents[0]!.payload.attemptRef === "string"
-    ? currentAttemptEvents[0]!.payload.attemptRef
+  const expectedAttemptCoverage = [...expectedPrior, cursor.attempt];
+  const currentAttempts = projectedAttempts.filter((attempt) =>
+    attempt.attempt === cursor.attempt &&
+    sameNumbers(attempt.retryPath, cursor.retryPath)
+  );
+  const currentAttemptRef = currentAttempts.length === 1
+    ? currentAttempts[0]!.attemptRef
     : null;
   const currentAttemptIsActive = currentAttemptRef !== null && holdsAt(
     lifecycle.eventCalculus,
@@ -1260,10 +1340,9 @@ export function projectRetryEligibility(
       identity: currentAttemptRef,
     }),
   );
-  const stationary = rows.some((event) =>
-    isRecord(event.payload) &&
-    event.payload.failureSignalRef === failureSignalRef
-  );
+  const immediatelyPrecedingFailure = rows.at(-1);
+  const stationary = immediatelyPrecedingFailure?.progressClass === "retry" &&
+    immediatelyPrecedingFailure.failureSignalRef === failureSignalRef;
   const retryable = WORKER_TRANSPORT_FAILURE_CLASS_VALUES.includes(failureClass);
   const disposition: RetryEligibility["disposition"] =
     !sameNumbers(admittedAttemptCoverage, expectedAttemptCoverage) ||
@@ -1290,12 +1369,7 @@ export function projectRetryEligibility(
     failureClass,
     failureSignalRef,
     completedAttempts: [...attempts, cursor.attempt],
-    priorProgressRefs: rows
-      .map((event) =>
-        isRecord(event.payload) && typeof event.payload.progressRef === "string"
-          ? event.payload.progressRef
-          : null)
-      .filter((value): value is string => value !== null),
+    priorProgressRefs: rows.map((progress) => progress.progressRef),
   }) as RetryEligibility;
 }
 
@@ -1318,16 +1392,45 @@ export function admitRetryRuntimeFailureTransition(
   const snapshot = store.readAll();
   const expectedPrefixDigest = sha256Canonical(snapshot as unknown as JsonValue);
   const prefix = selectValidatedRuntimeEventPrefix(snapshot);
+  const projectedBasis = rehydrateExecutionBasis(
+    store,
+    executionBasis.basisRef,
+  );
+  const projectedAttempt = projectActiveRetryAttempt(prefix, graph, cursor);
+  const declaredTerm = resolveCProgramTermAtSourcePath(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
   if (
     !isMaterializedGtlGraph(graph) ||
-    !hasAdmittedExecutionBasis(store, executionBasis) ||
-    !hasAdmittedTraversalCursor(store, cursor) ||
+    projectedBasis === null ||
+    sha256Canonical(projectedBasis as unknown as JsonValue) !==
+      sha256Canonical(executionBasis as unknown as JsonValue) ||
+    projectedAttempt === null ||
+    declaredTerm.kind === "c_source_path_refusal" ||
+    !isExecutableCLeaf(declaredTerm) ||
     executionBasis.basisRef !== cursor.executionBasisRef ||
     executionBasis.basisRef !== cCall.basisId ||
     executionBasis.graphRef !== graph.materializationRef ||
     executionBasis.graphDigest !== graph.materializationDigest ||
     cursor.graphRef !== graph.materializationRef ||
-    cCall.graphFunctionRef !== executionBasis.graphFunctionRef
+    cCall.graphFunctionRef !== executionBasis.graphFunctionRef ||
+    cCall.programLocusRef !== declaredTerm.programLocusRef ||
+    cCall.stageRole !== declaredTerm.stageRole ||
+    cCall.regime !== declaredTerm.fibre ||
+    cCall.armId !== declaredTerm.armId ||
+    cCall.compositionRef !== declaredTerm.compositionRef ||
+    cCall.vectorIndex !== declaredTerm.vectorIndex ||
+    cCall.implementationBindingRef !==
+      declaredTerm.requirement.implementationBindingRef ||
+    cCall.inputContractRef !== declaredTerm.requirement.inputContractRef ||
+    cCall.outputContractRef !== declaredTerm.requirement.outputContractRef ||
+    cCall.evidenceContractRef !== declaredTerm.requirement.evidenceContractRef ||
+    cCall.failureContractRef !== declaredTerm.requirement.failureContractRef ||
+    cCall.refusalContractRef !== declaredTerm.requirement.refusalContractRef ||
+    cCall.judgmentContractRef !== declaredTerm.requirement.judgmentContractRef ||
+    cCall.judgmentPredicateRef !== declaredTerm.judgmentPredicateRef
   ) {
     return refusal(
       "basis_mismatch",
@@ -1337,6 +1440,7 @@ export function admitRetryRuntimeFailureTransition(
   const plan = planCCallRuntimeFailureClose(
     store,
     prefix,
+    graph,
     cCall,
     source,
     failureCandidate,
@@ -1410,10 +1514,50 @@ export function admitRetryRuntimeFailureTransition(
       "runtime failure transition requires the exact active retry attempt",
     );
   }
+  const enclosingContexts = resolveEnclosingCRetryContexts(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  if ("kind" in enclosingContexts) {
+    return refusal("attempt_mismatch", enclosingContexts.message);
+  }
+  const stoppedCascadeAttempts = disposition === "blocked"
+    ? enclosingContexts.slice(0, -1).reverse().map((context) => {
+        const path = cursor.retryPath.slice(0, context.retryDepth);
+        const boundaryRef = retryBoundaryRef(graph, cursor, context);
+        const rows = projectRetryLifecycle(
+          prefix,
+          cursor.runId,
+          cursor.graphCallId,
+          cursor.frameId,
+          boundaryRef,
+        ).attempts.filter((event) =>
+          isRecord(event.payload) &&
+          event.payload.attempt === path.at(-1) &&
+          sameNumbers(positiveNumberArray(event.payload.retryPath), path)
+        );
+        return rows.length === 1 && isRecord(rows[0]!.payload)
+          ? { context, event: rows[0]!, path }
+          : null;
+      })
+    : [];
+  if (stoppedCascadeAttempts.some((value) => value === null)) {
+    return refusal(
+      "attempt_mismatch",
+      "blocked retry transition requires every exited enclosing retry attempt",
+    );
+  }
   const body = {
     progressClass: disposition === "retry"
       ? "retry" as const
       : "stopped" as const,
+    ...(disposition === "blocked"
+      ? {
+          stopReason: "boundary_terminal" as const,
+          predecessorProgressRef: null,
+        }
+      : {}),
     retryBoundaryRef: eligibility.retryBoundaryRef,
     attemptRef: attemptEvent.payload.attemptRef,
     attempt: cursor.attempt,
@@ -1435,6 +1579,7 @@ export function admitRetryRuntimeFailureTransition(
       () => {
         const close = admitPlannedCCallRuntimeFailureClose(
           store,
+          graph,
           cCall,
           source,
           failureCandidate,
@@ -1481,7 +1626,87 @@ export function admitRetryRuntimeFailureTransition(
           progressDigest,
           ...progressBody,
           admissionEventRef: progressEvent.eventId,
-        });
+        }) as RetryContinuationProgressAdmission | RetryStoppedProgressAdmission;
+        const stoppedProgresses: RetryStoppedProgressAdmission[] = [];
+        if (disposition === "blocked") {
+          stoppedProgresses.push(progress as RetryStoppedProgressAdmission);
+          let predecessorEvent = progressEvent;
+          for (const cascade of stoppedCascadeAttempts) {
+            if (cascade === null || !isRecord(cascade.event.payload)) {
+              throw retryRuntimeFailureTransitionError(
+                "stopped cascade attempt disappeared",
+              );
+            }
+            const attempt = cascade.path.at(-1)!;
+            const cascadeBody = {
+              progressClass: "stopped" as const,
+              stopReason: "propagated_inner_stop" as const,
+              predecessorProgressRef: stoppedProgresses.at(-1)!.progressRef,
+              retryBoundaryRef: retryBoundaryRef(
+                graph,
+                cursor,
+                cascade.context,
+              ),
+              attemptRef: cascade.event.payload.attemptRef as string,
+              attempt,
+              retryPath: cascade.path,
+              budget: cascade.context.budget,
+              failureClass: plan.signal.failureClass,
+              failureSignalRef: plan.signal.failureSignalRef,
+              completedAttempts: Array.from(
+                { length: attempt },
+                (_, index) => index + 1,
+              ),
+              remainingBudget: Math.max(0, cascade.context.budget - attempt),
+              cCallRef: cCall.cCallRef,
+              inputRef: cascade.event.payload.inputRef as string,
+              inputDigest: cascade.event.payload.inputDigest as Sha256Digest,
+              inputContractRef: cascade.event.payload.inputContractRef as string,
+              resultRef: close.result.resultRef,
+              judgmentRef: close.judgment.judgmentRef,
+            };
+            const cascadeDigest = sha256Canonical(
+              cascadeBody as unknown as JsonValue,
+            );
+            const cascadeRef =
+              `retry-progress://abiogenesis/${cascadeDigest.slice("sha256:".length)}`;
+            const cascadeEvent = admitRuntimeEvent(store, {
+              kind: "retry_progress_recorded",
+              eventTime: basis.eventTime,
+              aggregateType: "frame",
+              aggregateId: cursor.frameId,
+              parentAggregateId: cursor.graphCallId,
+              causationEventRefs: [
+                cascade.event.eventId,
+                predecessorEvent.eventId,
+              ],
+              correlationId: basis.correlationId,
+              workflowVersion: "5.0.0",
+              scopeClass: "run",
+              basisId: cCall.basisId,
+              runId: cCall.runId,
+              graphFunctionRef: cCall.graphFunctionRef,
+              materializationRef: graph.materializationRef,
+              graphCallId: cCall.graphCallId,
+              frameId: cCall.frameId,
+              payload: {
+                progressRef: cascadeRef,
+                progressDigest: cascadeDigest,
+                ...cascadeBody,
+              },
+            });
+            stoppedProgresses.push(deepFreeze({
+              kind: "retry_progress_admission" as const,
+              schemaVersion: "5.0.0" as const,
+              disposition: "admitted" as const,
+              progressRef: cascadeRef,
+              progressDigest: cascadeDigest,
+              ...cascadeBody,
+              admissionEventRef: cascadeEvent.eventId,
+            }));
+            predecessorEvent = cascadeEvent;
+          }
+        }
         const admittedPrefix = selectValidatedRuntimeEventPrefix(store.readAll());
         const projectedSignal = projectCCallRuntimeFailureSignal(
           admittedPrefix,
@@ -1493,6 +1718,12 @@ export function admitRetryRuntimeFailureTransition(
           admittedPrefix,
           progress.admissionEventRef,
         );
+        const projectedStoppedProgresses = stoppedProgresses.map((stopped) =>
+          projectAdmittedRetryProgress(
+            admittedPrefix,
+            stopped.admissionEventRef,
+          )
+        );
         const admittedCalculus = deriveRuntimeEventCalculusProjection(
           admittedPrefix,
         );
@@ -1500,14 +1731,39 @@ export function admitRetryRuntimeFailureTransition(
           projectedSignal?.failureSignalRef !== plan.signal.failureSignalRef ||
           projectedSignal.failureClass !== plan.signal.failureClass ||
           projectedProgress === null ||
-          holdsAt(admittedCalculus, constructRuntimeFluent({
-            name: "retry_attempt_active",
-            identity: body.attemptRef,
-          })) ||
-          !holdsAt(admittedCalculus, constructRuntimeFluent({
-            name: "retry_progress_available",
-            identity: progress.progressRef,
-          }))
+          sha256Canonical(projectedProgress as unknown as JsonValue) !==
+            sha256Canonical(progress as unknown as JsonValue) ||
+          projectedStoppedProgresses.some((projected, index) =>
+            projected?.progressClass !== "stopped" ||
+            sha256Canonical(projected as unknown as JsonValue) !==
+              sha256Canonical(
+                stoppedProgresses[index] as unknown as JsonValue,
+              )
+          ) ||
+          (disposition === "retry" && stoppedProgresses.length !== 0) ||
+          (disposition === "blocked" &&
+            stoppedProgresses.length !== enclosingContexts.length) ||
+          (disposition === "blocked" && stoppedProgresses[0] !== progress) ||
+          (disposition === "retry" && (
+            holdsAt(admittedCalculus, constructRuntimeFluent({
+              name: "retry_attempt_active",
+              identity: body.attemptRef,
+            })) ||
+            !holdsAt(admittedCalculus, constructRuntimeFluent({
+              name: "retry_progress_available",
+              identity: progress.progressRef,
+            }))
+          )) ||
+          (disposition === "blocked" && stoppedProgresses.some((stopped) =>
+            holdsAt(admittedCalculus, constructRuntimeFluent({
+              name: "retry_attempt_active",
+              identity: stopped.attemptRef,
+            })) ||
+            !holdsAt(admittedCalculus, constructRuntimeFluent({
+              name: "retry_progress_available",
+              identity: stopped.progressRef,
+            }))
+          ))
         ) throw retryRuntimeFailureTransitionError(
           "atomic close or progress does not reproject exactly",
         );
@@ -1517,6 +1773,7 @@ export function admitRetryRuntimeFailureTransition(
           disposition,
           close,
           progress,
+          stoppedProgresses,
           eligibility,
         });
       },

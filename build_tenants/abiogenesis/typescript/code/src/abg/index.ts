@@ -254,8 +254,6 @@ export {
 export {
   RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES,
   admitRetryAttempt,
-  admitRetryRuntimeFailureTransition,
-  admitCompletedRetryProgress,
   projectActiveRetryAttempt,
   projectRetryAttempt,
   projectDeclaredCRetryFrontier,

@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
 import { chmod, mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
+import { promisify } from "node:util";
 
 import {
   buildRootCliScenario,
@@ -12,6 +14,7 @@ import {
 } from "../support/root-cli-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+const execFileAsync = promisify(execFile);
 const PROGRAM_REF = "program://abiogenesis/conformance/fp-retry-hello@5";
 const GRAPH_FUNCTION_REF =
   "graph-function://abiogenesis/conformance/fp-retry-hello@5";
@@ -66,14 +69,14 @@ async function installRetryWorker(harness) {
     `    actorRef: '${ACTOR_REF}',`,
     "    message: mode === 'contradictory' ? `Goodbye ${subject}` : `Hello ${subject}`,",
     "  };",
-    "  const malformed = mode === 'always_malformed' || mode === 'changed_malformed' || mode === 'transport_failure' || mode === 'changed_transport_failure' || (mode === undefined && attempt === 1);",
+    "  const malformed = mode === 'always_malformed' || mode === 'changed_malformed' || mode === 'transport_failure' || mode === 'changed_transport_failure' || (mode === 'aba_malformed' && attempt <= 3) || (mode === undefined && attempt === 1);",
     "  const stableFailure = mode !== undefined && mode !== 'contradictory';",
-    "  const resultText = mode === 'no_output' ? '' : malformed ? (mode === 'changed_malformed' ? `{not-json-${attempt}` : '{not-json') : JSON.stringify(result);",
+    "  const resultText = mode === 'no_output' ? '' : malformed ? (mode === 'changed_malformed' ? `{not-json-${attempt}` : mode === 'aba_malformed' ? (attempt === 2 ? '{not-json-b' : '{not-json-a') : '{not-json') : JSON.stringify(result);",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
     "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: stableFailure ? 'stable failure' : `attempt ${attempt}` }] } }));",
     "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: resultText }));",
     "  if (mode === 'transport_failure') process.exitCode = 17;",
-    "  if (mode === 'changed_transport_failure') process.exitCode = attempt === 1 ? 17 : 18;",
+    "  if (mode === 'changed_transport_failure') process.exitCode = 16 + attempt;",
     "});",
     "",
   ].join("\n"), "utf8");
@@ -127,7 +130,39 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     "build/code/src/abg/index.js",
   )).href);
   assert.equal(Object.hasOwn(installedAbg, "admitRetryProgress"), false,
-    "the installed ABG surface exposes only the atomic retry close/progress owner");
+    "the installed ABG surface has no split retry-progress writer");
+  assert.equal(
+    Object.hasOwn(installedAbg, "admitRetryRuntimeFailureTransition"),
+    false,
+    "the atomic retry close/progress primitive is owned by installed HoG",
+  );
+  assert.equal(
+    Object.hasOwn(installedAbg, "admitCompletedRetryProgress"),
+    false,
+    "successful retry progress cannot be split from the installed HoG route owner",
+  );
+  const installedCCallDeclaration = await readFile(join(
+    harness.installedPackageRoot,
+    "build/code/src/abg/c_call.d.ts",
+  ), "utf8");
+  const rejectedCompletionDeclaration = installedCCallDeclaration.match(
+    /export interface RejectedCCallCompletion\s*\{[^}]*\}/u,
+  )?.[0] ?? "";
+  assert.doesNotMatch(
+    installedCCallDeclaration,
+    /completeRejectedCCall[^;]*disposition/u,
+    "the installed direct rejection close has no caller-selected retry disposition",
+  );
+  assert.doesNotMatch(
+    rejectedCompletionDeclaration,
+    /disposition:\s*(?:"blocked"\s*\|\s*"retry"|"retry"\s*\|\s*"blocked")/u,
+    "the installed direct rejection completion cannot represent retry",
+  );
+  assert.doesNotMatch(
+    String(installedAbg.completeRejectedCCall),
+    /disposition\s*=/u,
+    "the installed callable has no rival retry-close argument",
+  );
   const command = await installRetryWorker(harness);
   const counterPath = join(harness.scratch, "retry-success.count");
   const scenario = await buildRootCliScenario(
@@ -235,6 +270,7 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     admitRetryAttempt,
     hasAdmittedRetryProgress,
     projectAdmittedRetryProgress,
+    projectRetryAttempt,
   } = await import(pathToFileURL(join(
     root,
     "build/code/src/abg/retry.js",
@@ -398,6 +434,19 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   });
   assert.equal(graph.materializationRef, entered.payload.materializationRef);
   assert.equal(graph.materializationDigest, entered.payload.materializationDigest);
+  const projectedAttempt = projectRetryAttempt(
+    completedPrefix,
+    graph,
+    attempts[2].payload.attemptRef,
+  );
+  assert.equal(projectedAttempt?.attemptRef, attempts[2].payload.attemptRef,
+    "T-287 R5 reconstructs the attempt cursor from its admitted retry route");
+  assert.deepEqual(projectedAttempt?.retryPath, [1, 2]);
+  assert.equal(projectRetryAttempt(
+    completedPrefix,
+    graph,
+    sourceCursor.cursorRef,
+  ), null, "a traversal cursor ref is not an attempt identity");
   const { rehydrateExecutionBasis } = await import(pathToFileURL(join(
     root,
     "build/code/src/abg/execution_basis.js",
@@ -785,17 +834,24 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
     assert.deepEqual(attempts.map((event) => event.payload.retryPath),
       [[1], [1, 1], [1, 2]], row.label);
     assert.deepEqual(progress.map((event) => event.payload.progressClass),
-      ["retry", "stopped"], row.label);
+      ["retry", "stopped", "stopped"], row.label);
     assert.deepEqual(progress.map((event) => event.payload.failureClass),
-      [row.failureClass, row.failureClass], row.label);
+      [row.failureClass, row.failureClass, row.failureClass], row.label);
     assert.deepEqual(progress.map((event) => event.payload.remainingBudget),
-      [1, 0], row.label);
+      [1, 0, 1], row.label);
     assert.equal(
       progress[0].payload.failureSignalRef ===
         progress[1].payload.failureSignalRef,
       row.sameSignal,
       row.label,
     );
+    assert.equal(progress[2].payload.failureSignalRef,
+      progress[1].payload.failureSignalRef, row.label);
+    assert.deepEqual(progress.slice(1).map((event) => event.payload.stopReason),
+      ["boundary_terminal", "propagated_inner_stop"], row.label);
+    assert.equal(progress[1].payload.predecessorProgressRef, null, row.label);
+    assert.equal(progress[2].payload.predecessorProgressRef,
+      progress[1].payload.progressRef, row.label);
     assert.deepEqual(judgments.map((event) => event.payload.judgment),
       ["retry", "blocked"], row.label);
     assert.deepEqual(results.map((event) => event.payload.resultClass),
@@ -808,9 +864,12 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
     assert.deepEqual(blockedRoute.payload.consumedAvailabilityRefs, [
       judgments[1].payload.judgmentRef,
       progress[1].payload.progressRef,
+      progress[2].payload.progressRef,
     ], row.label);
-    assert.deepEqual(blockedRoute.causationEventRefs, [progress[1].eventId],
-      row.label);
+    assert.deepEqual(blockedRoute.causationEventRefs, [
+      progress[2].eventId,
+      progress[1].eventId,
+    ], row.label);
     assert.equal(events.at(-1).kind, "run_stopped", row.label);
 
     for (const [index, result] of results.entries()) {
@@ -841,17 +900,19 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
         identity: attempts[2].payload.attemptRef,
       }),
     ), false, row.label);
-    assert.equal(eventCalculus.holdsAt(
-      routeCalculus,
-      eventCalculus.constructRuntimeFluent({
-        name: "retry_progress_available",
-        identity: progress[1].payload.progressRef,
-      }),
-    ), false, row.label);
+    for (const stopped of progress.slice(1)) {
+      assert.equal(eventCalculus.holdsAt(
+        routeCalculus,
+        eventCalculus.constructRuntimeFluent({
+          name: "retry_progress_available",
+          identity: stopped.payload.progressRef,
+        }),
+      ), false, row.label);
+    }
 
     if (row.label === "stationary-contract-failure") {
       await context.test(
-        "M5 installed C.retry closes stationary and budget-stopped return_to_parent child prefix",
+        "T-287 R1 nested blocked return_to_parent consumes the full stopped suffix",
         async () => {
           const childStore = await reopenPrefix(
             events.slice(0, blockedRouteIndex),
@@ -905,7 +966,8 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
             ...childJudgment.payload,
             admissionEventRef: childJudgment.eventId,
           };
-          const [{ rehydrateAdmittedCCallState }, { rehydrateExecutionBasis },
+          const [{ rehydrateAdmittedCCallState, projectOpenedCCallCarrier },
+            { rehydrateExecutionBasis },
             { materializeGraph }, retryApi, routeApi, replayApi, hogRouteApi] =
             await Promise.all([
               import(pathToFileURL(join(root,
@@ -960,32 +1022,129 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
             admittedInputDigest: basisEvent.payload.rawInputDigest,
             admittedInput: fpInput("World"),
           });
-          const stoppedProgress = retryApi.projectAdmittedRetryProgress(
-            childPrefix,
-            progress[1].eventId,
+          const freshPrefixPath = join(
+            harness.scratch,
+            "retry-r3-fresh-process-prefix.events.jsonl",
           );
-          assert.equal(stoppedProgress?.progressClass, "stopped");
-          assert.equal(retryApi.hasAdmittedRetryProgress(
-            childPrefix,
-            stoppedProgress,
-          ), true);
+          await writeFile(
+            freshPrefixPath,
+            `${events.slice(0, blockedRouteIndex).map((event) =>
+              JSON.stringify(event)).join("\n")}\n`,
+            "utf8",
+          );
+          const freshHandoffPath = join(
+            harness.scratch,
+            "retry-r3-fresh-process-handoff.json",
+          );
+          await writeFile(freshHandoffPath, JSON.stringify({
+            packageRoot: harness.installedPackageRoot,
+            eventLogPath: freshPrefixPath,
+            graphFunction: catalogEntry.definition,
+            inputValue: fpInput("World"),
+            cCallRef: childCall.aggregateId,
+            stoppedProgressEventRefs: progress.slice(1).map((event) =>
+              event.eventId),
+            eventTime: blockedRoute.eventTime,
+          }), "utf8");
+          const freshWorker = await execFileAsync(
+            process.execPath,
+            [
+              join(root,
+                "test_env/falsifiers/t287-r3-reopen-route-worker.mjs"),
+              freshHandoffPath,
+            ],
+            { encoding: "utf8", maxBuffer: 20 * 1024 * 1024 },
+          );
+          const freshRoute = JSON.parse(freshWorker.stdout);
+          assert.notEqual(freshRoute.pid, process.pid,
+            "T-287 R3 route admission executes in a fresh process");
+          assert.equal(freshRoute.cCallProjectionEqual, true);
+          assert.deepEqual(freshRoute.consumedAvailabilityRefs, [
+            outcome.judgment.judgmentRef,
+            ...progress.slice(1).map((event) => event.payload.progressRef),
+          ]);
+          assert.deepEqual(freshRoute.causationEventRefs,
+            progress.slice(1).toReversed().map((event) => event.eventId));
+          const stoppedProgresses = progress.slice(1).map((event) =>
+            retryApi.projectAdmittedRetryProgress(childPrefix, event.eventId)
+          );
+          assert.deepEqual(
+            stoppedProgresses.map((stopped) => stopped?.progressClass),
+            ["stopped", "stopped"],
+          );
+          for (const stopped of stoppedProgresses) {
+            assert.equal(retryApi.hasAdmittedRetryProgress(
+              childPrefix,
+              stopped,
+            ), true);
+          }
           const childReplay = replayApi.replay(childStore.store, {
             runId: childCall.runId,
           });
+          const eventDerivedCCall = projectOpenedCCallCarrier(
+            childStore.store,
+            childPrefix,
+            graph,
+            childCall.aggregateId,
+          );
+          assert.ok(eventDerivedCCall);
+          const clonedCCall = structuredClone(eventDerivedCCall);
           const proposal = hogRouteApi.proposeBlockedRoute(
             graph,
             {
               cursor: childCursor,
               programLocusRef: childCall.payload.programLocusRef,
             },
-            outcome.cCall,
+            clonedCCall,
             outcome.judgment.judgmentRef,
             childReplay,
-            outcome.cCall.transitionContractRef,
-            stoppedProgress.progressRef,
+            clonedCCall.transitionContractRef,
+            stoppedProgresses.map((stopped) => stopped.progressRef),
           );
           assert.equal(proposal.kind, "traversal_route_candidate",
             JSON.stringify(proposal));
+          const forgedStore = await reopenPrefix(
+            events.slice(0, blockedRouteIndex),
+            join(harness.scratch, "retry-forged-c-call-prefix.events.jsonl"),
+          );
+          assert.equal(forgedStore.kind, "reopened_event_store_context");
+          const forgedBasis = rehydrateExecutionBasis(
+            forgedStore.store,
+            childCall.basisId,
+          );
+          assert.ok(forgedBasis);
+          const forgedCCall = {
+            ...structuredClone(clonedCCall),
+            implementationRef: `${clonedCCall.implementationRef}/forged`,
+          };
+          const forgedBefore = forgedStore.store.readAll().length;
+          const forgedRoute = routeApi.admitRoute(
+            forgedStore.store,
+            forgedBasis,
+            graph,
+            childCursor,
+            null,
+            replayApi.replay(forgedStore.store, { runId: childCall.runId }),
+            proposal,
+            {
+              eventTime: blockedRoute.eventTime,
+              correlationId: "test://retry-forged-c-call/blocked-route",
+              causationEventRefs: [],
+            },
+            {
+              cCall: forgedCCall,
+              resultRef: outcome.result.resultRef,
+              judgmentRef: outcome.judgment.judgmentRef,
+              judgmentEventRef: outcome.judgment.admissionEventRef,
+              reasonRef: outcome.judgment.reasonRef,
+              stoppedProgresses: structuredClone(stoppedProgresses),
+            },
+            { terminalizeRun: false },
+          );
+          assert.equal(forgedRoute.kind, "traversal_route_admission_refusal",
+            "T-287 R3 rejects a shaped carrier that differs from event-derived CCall truth");
+          assert.equal(forgedStore.store.readAll().length, forgedBefore);
+          forgedStore.store.closeDurableLog();
           const route = routeApi.admitRoute(
             childStore.store,
             executionBasis,
@@ -1000,12 +1159,12 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
               causationEventRefs: [],
             },
             {
-              cCall: outcome.cCall,
+              cCall: clonedCCall,
               resultRef: outcome.result.resultRef,
               judgmentRef: outcome.judgment.judgmentRef,
               judgmentEventRef: outcome.judgment.admissionEventRef,
               reasonRef: outcome.judgment.reasonRef,
-              stoppedProgress,
+              stoppedProgresses: structuredClone(stoppedProgresses),
             },
             { terminalizeRun: false },
           );
@@ -1014,18 +1173,25 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
           assert.equal(route.runStoppedEventRef, null);
           assert.deepEqual(route.consumedAvailabilityRefs, [
             outcome.judgment.judgmentRef,
-            stoppedProgress.progressRef,
+            ...stoppedProgresses.map((stopped) => stopped.progressRef),
           ]);
           assert.deepEqual(
             childStore.store.readAll().at(-1).causationEventRefs,
-            [stoppedProgress.admissionEventRef],
+            stoppedProgresses.toReversed().map((stopped) =>
+              stopped.admissionEventRef
+            ),
           );
           assert.equal(childStore.store.readAll().some((event) =>
             event.kind === "run_stopped"), false);
-          assert.equal(retryApi.hasAdmittedRetryProgress(
-            selectValidatedRuntimeEventPrefix(childStore.store.readAll()),
-            stoppedProgress,
-          ), false);
+          const routedPrefix = selectValidatedRuntimeEventPrefix(
+            childStore.store.readAll(),
+          );
+          for (const stopped of stoppedProgresses) {
+            assert.equal(retryApi.hasAdmittedRetryProgress(
+              routedPrefix,
+              stopped,
+            ), false);
+          }
           childStore.store.closeDurableLog();
         },
       );

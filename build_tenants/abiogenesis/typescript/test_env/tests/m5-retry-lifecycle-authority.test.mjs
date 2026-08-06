@@ -325,7 +325,19 @@ test("CCall retry ownership requires the exact attempt to remain active in Event
 test("production judgment writers remain closed behind the CCall owner", async () => {
   const cCallSource = await readFile(join(root, "code/src/abg/c_call.ts"), "utf8");
   const abgExports = await readFile(join(root, "code/src/abg/index.ts"), "utf8");
-  assert.equal([...cCallSource.matchAll(/kind: "c_call_judged"/gu)].length, 3);
+  const exportedFunctions = [...cCallSource.matchAll(
+    /^export function (?<name>[A-Za-z0-9_]+)\(/gmu,
+  )];
+  const judgmentOwners = [...cCallSource.matchAll(/kind: "c_call_judged"/gu)]
+    .map((writer) => exportedFunctions.findLast(
+      (candidate) => candidate.index < writer.index,
+    )?.groups?.name);
+  assert.deepEqual(judgmentOwners, [
+    "admitPlannedCCallRuntimeFailureClose",
+    "admitPendingInteraction",
+    "admitJudgment",
+    "completeRejectedCCall",
+  ]);
   assert.equal(/kind: "c_call_judged"/u.test(await readFile(
     join(root, "code/src/abg/event_store.ts"), "utf8",
   )), false);

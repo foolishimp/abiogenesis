@@ -1,9 +1,11 @@
 import type { GraphFunction, GtlGraph, GtlProgram } from "../gtl/contracts.js";
 import { isExecutableCLeaf, isInteractionCLeaf } from "../gtl/c_algebra.js";
 import {
+  resolveCProgramLocus,
   resolveCProgramTermAtSourcePath,
   resolveEnclosingCBatchRef,
 } from "../gtl/source_path.js";
+import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -11,6 +13,9 @@ import {
   hasAdmittedExecutionBasis,
   hasAdmittedImplementationSet,
   hasAdmittedInteractionSet,
+  rehydrateAdmittedImplementationSet,
+  rehydrateExecutionBasis,
+  selectAdmittedImplementationResolution,
   type AdmittedInteractionContractRow,
   type AdmittedInteractionSet,
   type AdmittedImplementationResolutionRow,
@@ -487,7 +492,7 @@ export type CCallRuntimeFailureSource =
 export interface RejectedCCallCompletion {
   readonly kind: "rejected_c_call_completion";
   readonly schemaVersion: "5.0.0";
-  readonly disposition: "blocked" | "retry";
+  readonly disposition: "blocked";
   readonly cCallRef: string;
   readonly rejectionEvidenceRef: string | null;
   readonly refusalResultRef: string;
@@ -1170,6 +1175,242 @@ function admittedEvidencePayload(
   return body as unknown as Readonly<Record<string, JsonValue>>;
 }
 
+function projectOpenedExecutableLeafCCallCarrier(
+  store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  cCallRef: string,
+): CCall | null {
+  if (!isMaterializedGtlGraph(graph) || cCallRef.length === 0) return null;
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const rows = events.filter((event) =>
+    event.aggregateType === "c_call" && event.aggregateId === cCallRef
+  );
+  const opened = rows[0];
+  const fibre = rows[1];
+  if (
+    opened?.kind !== "c_call_opened" ||
+    fibre?.kind !== "c_call_fibre_selected" ||
+    !isJsonRecord(opened.payload) || !isJsonRecord(fibre.payload) ||
+    opened.runId === undefined || opened.graphCallId === undefined ||
+    opened.frameId === undefined || opened.basisId === undefined ||
+    opened.graphFunctionRef !== graph.graphFunctionRef ||
+    opened.materializationRef !== graph.materializationRef ||
+    fibre.parentAggregateId !== opened.parentAggregateId ||
+    fibre.basisId !== opened.basisId || fibre.runId !== opened.runId ||
+    fibre.graphFunctionRef !== opened.graphFunctionRef ||
+    fibre.materializationRef !== opened.materializationRef ||
+    fibre.graphCallId !== opened.graphCallId || fibre.frameId !== opened.frameId ||
+    fibre.causationEventRefs.length !== 1 ||
+    fibre.causationEventRefs[0] !== opened.eventId ||
+    typeof opened.payload.programLocusRef !== "string" ||
+    typeof opened.payload.cursorRef !== "string" ||
+    typeof opened.payload.cursorDigest !== "string" ||
+    !Array.isArray(opened.payload.retryPath) ||
+    !opened.payload.retryPath.every((value) =>
+      Number.isSafeInteger(value) && Number(value) > 0
+    ) ||
+    opened.payload.retryPath.length === 0 ||
+    !Number.isSafeInteger(opened.payload.attempt) ||
+    Number(opened.payload.attempt) <= 0 ||
+    opened.payload.attempt !== opened.payload.retryPath.at(-1) ||
+    (opened.payload.taskOrdinal !== null &&
+      (!Number.isSafeInteger(opened.payload.taskOrdinal) ||
+        Number(opened.payload.taskOrdinal) < 0))
+  ) return null;
+  const locus = resolveCProgramLocus(
+    graph.template,
+    opened.payload.programLocusRef,
+  );
+  if (
+    locus.kind === "c_source_path_refusal" ||
+    !isExecutableCLeaf(locus.leaf)
+  ) return null;
+  const declaredTerm = locus.leaf;
+  const declaredBatchRef = resolveEnclosingCBatchRef(
+    graph.template,
+    locus.nodeRef,
+    locus.termPath,
+  );
+  if (declaredBatchRef !== null && typeof declaredBatchRef !== "string") {
+    return null;
+  }
+  const basis = rehydrateExecutionBasis(store, opened.basisId);
+  if (
+    basis === null || basis.graphRef !== graph.materializationRef ||
+    basis.graphDigest !== graph.materializationDigest ||
+    basis.graphFunctionRef !== graph.graphFunctionRef ||
+    basis.graphFunctionDigest !== graph.graphFunctionDigest
+  ) return null;
+  const implementationSet = rehydrateAdmittedImplementationSet(
+    store,
+    basis.implementationSetRef,
+  );
+  if (implementationSet === null) return null;
+  const resolution = selectAdmittedImplementationResolution(
+    implementationSet,
+    {
+      graphFunctionRef: graph.graphFunctionRef,
+      nodeRef: locus.nodeRef,
+      programLocusRef: declaredTerm.programLocusRef,
+      implementationBindingRef:
+        declaredTerm.requirement.implementationBindingRef,
+    },
+  );
+  if (
+    resolution === null ||
+    resolution.requirementKey !== fibre.payload.implementationRequirementKey ||
+    resolution.implementationRef !== fibre.payload.implementationRef ||
+    resolution.computeRegime !== declaredTerm.fibre ||
+    resolution.inputContractRef !== declaredTerm.requirement.inputContractRef ||
+    resolution.outputContractRef !== declaredTerm.requirement.outputContractRef ||
+    resolution.failureContractRef !== declaredTerm.requirement.failureContractRef ||
+    resolution.refusalContractRef !== declaredTerm.requirement.refusalContractRef
+  ) return null;
+  const retryPath = Object.freeze(
+    opened.payload.retryPath.map(Number),
+  );
+  const identity = {
+    basisId: basis.basisRef,
+    graphCallId: opened.graphCallId,
+    frameId: opened.frameId,
+    vectorIndex: declaredTerm.vectorIndex,
+    stageRole: declaredTerm.stageRole,
+    taskOrdinal: opened.payload.taskOrdinal as number | null,
+    attempt: Number(opened.payload.attempt),
+    programLocusRef: declaredTerm.programLocusRef,
+    retryPath,
+  };
+  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  if (cCallRef !== `c-call:${cCallDigest}`) return null;
+  const locusBody = {
+    cCallRef,
+    cCallDigest,
+    callClass: "leaf" as const,
+    basisId: basis.basisRef,
+    graphFunctionRef: graph.graphFunctionRef,
+    graphCallId: opened.graphCallId,
+    frameId: opened.frameId,
+    edgeRef: basis.entryRef,
+    vectorIndex: declaredTerm.vectorIndex,
+    stageRole: declaredTerm.stageRole,
+    batchRef: declaredBatchRef,
+    taskOrdinal: opened.payload.taskOrdinal as number | null,
+    attempt: Number(opened.payload.attempt),
+    programLocusRef: declaredTerm.programLocusRef,
+    retryPath,
+    cursorRef: opened.payload.cursorRef,
+    cursorDigest: opened.payload.cursorDigest,
+  };
+  const fibreBody = {
+    cCallRef,
+    callClass: "leaf" as const,
+    regime: declaredTerm.fibre,
+    armId: declaredTerm.armId,
+    compositionRef: declaredTerm.compositionRef,
+    implementationSetRef: implementationSet.implementationSetRef,
+    implementationRequirementKey: resolution.requirementKey,
+    implementationBindingRef: resolution.implementationBindingRef,
+    implementationRef: resolution.implementationRef,
+  };
+  const openedCursorRef = opened.payload.cursorRef;
+  const openedCursorDigest = opened.payload.cursorDigest;
+  const cursorCause = events.find((event) =>
+    event.eventId === opened.causationEventRefs[0] &&
+    event.admissionOrdinal < opened.admissionOrdinal &&
+    isJsonRecord(event.payload) &&
+    ((event.kind === "traversal_cursor_entered" &&
+      event.payload.cursorRef === openedCursorRef &&
+      event.payload.cursorDigest === openedCursorDigest) ||
+      (event.kind === "traversal_route_admitted" &&
+        event.payload.targetCursorRef === openedCursorRef &&
+        event.payload.targetCursorDigest === openedCursorDigest) ||
+      (event.kind === "fh_interaction_resume_admitted" &&
+        event.payload.successorCursorRef === openedCursorRef &&
+        event.payload.successorCursorDigest === openedCursorDigest))
+  );
+  if (
+    cursorCause === undefined || opened.parentAggregateId !== opened.frameId ||
+    !exactEventBody(opened, "c_call_opened", locusBody) ||
+    !exactEventBody(fibre, "c_call_fibre_selected", fibreBody)
+  ) return null;
+  return deepFreeze({
+    kind: "c_call" as const,
+    schemaVersion: "5.0.0" as const,
+    cCallRef,
+    cCallDigest,
+    callClass: "leaf" as const,
+    basisId: basis.basisRef,
+    runId: opened.runId,
+    graphFunctionRef: graph.graphFunctionRef,
+    graphCallId: opened.graphCallId,
+    frameId: opened.frameId,
+    edgeRef: basis.entryRef,
+    vectorIndex: declaredTerm.vectorIndex,
+    stageRole: declaredTerm.stageRole,
+    batchRef: declaredBatchRef,
+    taskOrdinal: opened.payload.taskOrdinal as number | null,
+    attempt: Number(opened.payload.attempt),
+    programLocusRef: declaredTerm.programLocusRef,
+    retryPath,
+    regime: declaredTerm.fibre,
+    armId: declaredTerm.armId,
+    compositionRef: declaredTerm.compositionRef,
+    implementationSetRef: implementationSet.implementationSetRef,
+    implementationRequirementKey: resolution.requirementKey,
+    implementationBindingRef: resolution.implementationBindingRef,
+    implementationRef: resolution.implementationRef,
+    interactionSetRef: basis.interactionSetRef,
+    interactionRequirementKey: null,
+    interactionKind: null,
+    actorCapabilityRef: null,
+    responseContractRef: null,
+    continuationContractRef: null,
+    childGraphFunctionRef: null,
+    inputContractRef: resolution.inputContractRef,
+    outputContractRef: resolution.outputContractRef,
+    failureContractRef: resolution.failureContractRef,
+    refusalContractRef: resolution.refusalContractRef,
+    refusalValueKind: basis.refusalValueKind,
+    evidenceContractRef: declaredTerm.requirement.evidenceContractRef,
+    judgmentContractRef: declaredTerm.requirement.judgmentContractRef,
+    rejectionContractRef: resolution.refusalContractRef,
+    transitionContractRef: basis.transitionContractRef,
+    closureContractRef: basis.closureContractRef,
+    closureContractDigest: basis.closureContractDigest,
+    judgmentPredicateRef: declaredTerm.judgmentPredicateRef,
+    terminalPredicateRef: basis.terminalPredicateRef,
+    replayProjectionRef: basis.replayProjectionRef,
+    terminalKind: basis.terminalKind,
+    openedEventRef: opened.eventId,
+    fibreSelectedEventRef: fibre.eventId,
+  }) as CCall;
+}
+
+/**
+ * Reconstructs the exact opened executable CCall used by the retry close and
+ * blocked-route relations from one complete validated store prefix.
+ */
+export function projectOpenedCCallCarrier(
+  store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  cCallRef: string,
+): CCall | null {
+  const prefixEvents = runtimeEventsFromValidatedPrefix(prefix);
+  if (
+    store.readAll().length !== prefixEvents.length ||
+    store.digest() !==
+      sha256Canonical(prefixEvents as unknown as JsonValue)
+  ) return null;
+  return projectOpenedExecutableLeafCCallCarrier(
+    store,
+    prefix,
+    graph,
+    cCallRef,
+  );
+}
+
 function exactRuntimeFailureSource(
   prefix: ValidatedRuntimeEventPrefix,
   cCall: CCall,
@@ -1177,14 +1418,18 @@ function exactRuntimeFailureSource(
 ): ExactCCallRuntimeFailureSource | null {
   if (source.kind === "c_call_admission_rejection") {
     if (
-      !admissionRejections.has(source) || source.cCallRef !== cCall.cCallRef ||
-      source.stage !== "result" || source.contractRef.length === 0 ||
-      source.diagnosticRef.length === 0
+      source.schemaVersion !== "5.0.0" || source.disposition !== "rejected" ||
+      source.cCallRef !== cCall.cCallRef || source.stage !== "result" ||
+      source.contractRef !== cCall.outputContractRef ||
+      source.diagnosticRef !==
+        "diagnostic://abiogenesis/c-call/result-contract-mismatch@5" ||
+      source.candidateDigest.length === 0
     ) return null;
     return deriveContractRejectionFailureSource(source);
   }
   if (
-    !admittedEvidence.has(source) || source.cCallRef !== cCall.cCallRef ||
+    source.schemaVersion !== "5.0.0" || source.disposition !== "admitted" ||
+    source.cCallRef !== cCall.cCallRef ||
     source.evidenceClass !== "probabilistic_transport"
   ) return null;
   const event = runtimeEventsFromValidatedPrefix(prefix).find((candidate) =>
@@ -1221,6 +1466,7 @@ function runtimeFailurePlanBody(
 export function planCCallRuntimeFailureClose(
   store: AbgEventStore,
   prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
   cCall: CCall,
   source: CCallRuntimeFailureSource,
   failureCandidate: JsonValue,
@@ -1240,7 +1486,18 @@ export function planCCallRuntimeFailureClose(
   if (
     store.digest() !== expectedPrefixDigest ||
     store.readAll().length !== events.length ||
-    !hasOpenedCCall(store, cCall) || cCall.callClass !== "leaf" ||
+    (() => {
+      const projected = projectOpenedCCallCarrier(
+        store,
+        prefix,
+        graph,
+        cCall.cCallRef,
+      );
+      return projected !== null &&
+        sha256Canonical(projected as unknown as JsonValue) ===
+          sha256Canonical(cCall as unknown as JsonValue);
+    })() === false ||
+    cCall.callClass !== "leaf" ||
     cCall.retryPath.length === 0 || phase.phase !== "evidenced" ||
     failureValueKind.length === 0 || exactRetryAttemptRef(store, cCall) === null
   ) {
@@ -1308,6 +1565,7 @@ export function isCCallRuntimeFailureCloseError(error: unknown): boolean {
 
 export function admitPlannedCCallRuntimeFailureClose(
   store: AbgEventStore,
+  graph: Readonly<GtlGraph>,
   cCall: CCall,
   source: CCallRuntimeFailureSource,
   failureCandidate: JsonValue,
@@ -1328,6 +1586,7 @@ export function admitPlannedCCallRuntimeFailureClose(
   const rederived = planCCallRuntimeFailureClose(
     store,
     prefix,
+    graph,
     cCall,
     source,
     failureCandidate,
@@ -4150,7 +4409,6 @@ export function completeRejectedCCall(
   cCall: CCall,
   admissionRejection: CCallAdmissionRejection,
   basis: RuntimeAdmissionBasis,
-  disposition: RejectedCCallCompletion["disposition"] = "blocked",
 ): RejectedCCallCompletion {
   const activeRetryAttemptRef = exactRetryAttemptRef(store, cCall);
   if (
@@ -4281,7 +4539,7 @@ export function completeRejectedCCall(
     cCallRef: cCall.cCallRef,
     resultRef,
     resultDigest,
-    judgment: disposition,
+    judgment: "blocked" as const,
     reasonRef: admissionRejection.diagnosticRef,
     contractRef: cCall.rejectionContractRef,
     predicateRef: cCall.judgmentPredicateRef,
@@ -4317,7 +4575,7 @@ export function completeRejectedCCall(
   return deepFreeze({
     kind: "rejected_c_call_completion" as const,
     schemaVersion: "5.0.0" as const,
-    disposition,
+    disposition: "blocked" as const,
     cCallRef: cCall.cCallRef,
     rejectionEvidenceRef,
     refusalResultRef: resultRef,
