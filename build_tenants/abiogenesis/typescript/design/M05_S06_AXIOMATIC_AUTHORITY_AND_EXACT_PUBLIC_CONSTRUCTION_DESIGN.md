@@ -807,17 +807,18 @@ batch `compareAndAppendExpectedPrefix`, generic transaction, and
 expected-prefix transaction. The CAS-batch consumers are exactly
 `abg/closure.ts:467,676`, `abg/continuation.ts:76`, and
 `abg/retry.ts:1523,2391`. The expected-prefix transaction consumers are
-exactly `abg/fan_out.ts` and `abg/retry.ts`. The generic transaction consumers
-are exactly `hog/execute.ts` and `hog/retry_exit.ts`. This census is the
-migration boundary; the correction does not move a caller between these
-ingresses or add another consumer.
+exactly `abg/fan_out.ts` and `abg/retry.ts`. The generic transaction has two
+direct cross-module consumers, `hog/execute.ts` and `hog/retry_exit.ts`, plus
+the same-module delegation from the expected-prefix helper in
+`abg/event_store.ts`. This census is the migration boundary; the correction
+does not move a caller between these ingresses or add another consumer.
 
 | Surface | Affected-kind disposition | Unaffected-kind disposition |
 |---|---|---|
 | raw single `admitRuntimeEvent` | reject `public_operation_artifact_admitted` and `registry_entry_admitted`; those kinds are reachable only through their owner-internal checked ingress | retain existing envelope/ordinal/durable behavior |
 | raw batch `admitRuntimeEventBatch` | reject either affected kind anywhere in the batch | retain for existing C-call, traversal, closure, actor/process, and other runtime families |
 | source-internal CAS batch `compareAndAppendExpectedPrefix` | inherits raw-batch rejection for either affected kind | remain internal and uninstalled; preserve the mechanical digest comparison and unchanged behavior for its exact closure, continuation, and retry consumers |
-| generic transaction helper | raw/installed form rejects affected kinds; remove it from installed `./abg` because no accepted installed consumer exists | retain unchanged source-internal transaction law for `hog/execute.ts`, `hog/retry_exit.ts`, and the catalog checked specialization |
+| generic transaction helper | raw/installed form rejects affected kinds; remove it from installed `./abg` because no accepted installed consumer exists | retain unchanged source-internal transaction law for direct consumers `hog/execute.ts` and `hog/retry_exit.ts` plus same-module expected-prefix-helper delegation |
 | expected-prefix transaction helper | affected kinds remain unreachable through its two current consumers | retain `expectedPrefixDigest`; extend only the result; fan-out unwraps `.value`, retry failure also consumes its non-null durable successor |
 | `appendCheckedArtifactEvent` | sole owner-internal ingress for non-catalog install/binding artifact events; requires expected predecessor | not applicable |
 | `admitCheckedCatalogTransaction` | sole owner-internal ingress for one catalog aggregate artifact boundary plus its complete `registry_entry_admitted` set; requires expected predecessor | not applicable |
@@ -1857,7 +1858,7 @@ ResumeProjectedRetryRequest = {
   store: AbgEventStore,
   retry: ExecutableRetryInput,
   runtime: Pick<
-    ExecuteGraphTraversalInput,
+    ExecuteGraphTraversalCommonInput,
     | "executionBasis"
     | "openedTraversalScope"
     | "program"
@@ -1925,25 +1926,94 @@ the next effect or neither is admitted, and the transaction commit
 mechanically returns its committed coordinate without making that coordinate
 semantic currentness.
 
-Existing ordinary HoG alone owns eventual
-`ExecutableTraversalCompletion`. It has one source-internal typed
-retry-reentry ingress that consumes `ProjectedRetryResumeSuccess`. Immediately
-before the next leaf effect, that ingress reads the exact successor prefix and
-reprojects the admitted retry route, its applied cursor, the active retry
-attempt, the attempt input contract/ref/digest/value, and the scoped Event
-Calculus `retry_attempt_active` truth. It requires exact equality with the D18
-carrier. Prefix or projection mismatch refuses before the effect and emits no
-replacement event. Equality joins the existing ordinary direct traversal loop;
-the ordinary executor constructs the completion by its existing HoG relations.
-There is no generic completion projector, post-hoc completion equality law,
-new event kind, installed third retry callable, map-driven continuation,
-generic cursor bypass, Public/catalog branch, or second retry path.
+Existing installed `executeGraphTraversal` remains the only ordinary-HoG
+ingress and sole owner of eventual `ExecutableTraversalCompletion`. D18 owns
+no leaf effect and returns only `ProjectedRetryResumeSuccess`; no third retry
+callable is added. Its input closes as an exact XOR over the existing common
+HoG dependencies:
 
-The uninterrupted executor uses the `AbgEventStore` retained from new-empty
-acquisition plus the selected frontier successor returned by retry-failure
-commit. Restarted execution uses the existing store and equal prefix returned
-by authority-only reopen. Both invoke the same D17 -> D18 -> ordinary-HoG
-chain after retry progress.
+```text
+ExecuteGraphTraversalCommonInput = {
+  store: AbgEventStore,
+  executionBasis: ExecutionBasis,
+  openedTraversalScope: OpenedTraversalScope,
+  program: Readonly<GtlProgram>,
+  graphFunction: Readonly<GraphFunction>,
+  graph: Readonly<GtlGraph>,
+  graphValidation: GraphValidation,
+  implementationSet: AdmittedImplementationSet,
+  interactionSet: AdmittedInteractionSet,
+  continuationProductBasis?: ContinuationProductBasis,
+  leafPort: LeafInvocationPort,
+  childTraversalPreparationPort?: ChildTraversalPreparationPort,
+  closureContract: Readonly<ClosureContract>,
+  actorRuntimeBinding: ActorRuntimeBinding,
+  deferFailedRunStop?: boolean,
+  eventTime: string,
+  correlationId: string,
+  terminalMode?: "close_run" | "return_to_parent"
+}
+
+InitialOrNonRetryResumeEntry = {
+  input: Readonly<Record<string, JsonValue>>,
+  inputDigest: Sha256Digest,
+  resume?: {
+    cursor: TraversalCursor,
+    input: Readonly<Record<string, JsonValue>>,
+    inputDigest: Sha256Digest
+  },
+  projectedRetryResume?: never
+}
+
+ProjectedRetryResumeEntry = {
+  projectedRetryResume: ProjectedRetryResumeSuccess,
+  input?: never,
+  inputDigest?: never,
+  resume?: never
+}
+
+ExecuteGraphTraversalInput = ExecuteGraphTraversalCommonInput &
+  (InitialOrNonRetryResumeEntry | ProjectedRetryResumeEntry)
+```
+
+The initial/non-retry branch preserves the existing input and optional raw
+resume law. Its raw `resume.cursor.retryPath` must remain empty; a caller cannot
+use it to author retry cursor or input truth. The projected branch accepts no
+raw `input`, `inputDigest`, or `resume` field.
+
+Inside the existing `executeGraphTraversal` body, the projected branch first
+validates the closed D18 carrier and every ref/digest/value relation. Immediately
+before entering traversal, it verifies `projectedRetryResume.successorPrefix`
+is the held store's exact physical tail. Without `await` or interleaving, it
+pure-reprojects from that successor the admitted retry route, route-applied
+cursor, active retry attempt, attempt input contract/ref/digest/value, and the
+scoped Event Calculus `retry_attempt_active` truth. Every value must equal the
+D18 carrier. Any structural, physical, or projected mismatch rejects the call
+eventlessly before leaf resolution.
+
+After equality, the branch calls the existing `traverseFromCursor` relation
+with the verified runtime `program`, `graph`, `graphValidation`,
+`executionBasis`, and `openedTraversalScope`, plus
+`projectedRetryResume.nextCursor`. It requires the exact non-refusal stop for
+that cursor: the returned stop cursor is canonically equal to `nextCursor`, its
+input ref/digest equal the carrier, its executable input contract equals
+`projectedRetryResume.inputContractRef`, and the carrier input value hashes to
+that digest. Only then does it set `currentInput` to
+`projectedRetryResume.inputValue` and join the same existing traversal loop at
+the point immediately before leaf resolution. No new stop-derivation helper is
+introduced. The complete existing implementation set, interaction set, leaf
+port, closure contract, actor binding, child-preparation port, and other common
+dependencies remain on `executeGraphTraversal` and are not transferred to
+D18. There is no caller-authored retry cursor/input, generic completion
+projector, post-hoc completion equality law, new event kind, installed third
+retry callable, map-driven continuation, Public/catalog branch, or second
+retry path.
+
+The uninterrupted executor retains its new-empty-acquisition store and the
+frontier successor returned by retry-failure commit. Restarted execution uses
+the store and equal prefix returned by authority-only reopen. Both follow the
+same `D17 -> D18 -> executeGraphTraversal(projectedRetryResume)` relation after
+retry progress.
 
 Continuation, source-result, closure, cursor, causation, and run projection
 bases are rehydrated through the same scoped truth. Current
@@ -2084,7 +2154,7 @@ even when the Gate 2 sentinel does not execute that row.
 | `D15` | `product/release_snapshot_operations.ts`: `RELEASE_OPERATION_CONTRACTS`, `ReleaseSnapshotPort` | closed release request/refusal contracts and shared canonical JSON/digests/references; no M6/M7 success authority |
 | `D16` | `product/publication.ts`: `PUBLIC_CATALOG_BINDING_CONTRACTS`, `bindS06PublicFunctionCatalog` | extant Product publication/catalog carriers and shared canonical JSON/digests/references; consumes an explicit PFC-F07 proposal input and never imports Public runtime modules |
 | `D17` | `abg/retry.ts`: `projectExecutableRetryInput`, `ExecutableRetryInput`, `RetryFrontierSelector`, `RetryAttemptFrontier`, `RetryAttemptFrontierRow`, exact structural full-frontier assertion, and exact projection refusal | `abg/event_store.ts`, `abg/event_calculus.ts`, replay, execution-basis/scope/cursor/C-call/result/judgment/progress rehydration, GTL retry source-path resolution, and shared canonical JSON/digests/references; installed through existing `./abg`, with no HoG or Public import |
-| `D18` | `hog/graph_execute.ts`: `resumeProjectedRetry`, atomic retry-reentry success/refusal, and the one source-internal ordinary-HoG retry-reentry ingress | `D17`, traversal/route/cursor construction, ABG expected-prefix route/attempt transaction, Event Calculus/replay reprojectors, and ordinary direct graph execution; installed through existing `./hog`, with no completion projector, retained retry input, Product, Public, or catalog semantic branch |
+| `D18` | `hog/graph_execute.ts`: `resumeProjectedRetry` atomic retry-reentry success/refusal plus the closed projected-retry branch of existing installed `executeGraphTraversal` | `D17`, traversal/route/cursor construction, ABG expected-prefix route/attempt transaction, successor-prefix Event Calculus/replay reprojectors, existing `traverseFromCursor`, and the full existing ordinary direct graph-execution dependencies (`implementationSet`, `interactionSet`, `leafPort`, closure, actor, and child preparation); installed through existing `./hog`, with no third callable, completion projector, retained retry input, Product, Public, or catalog semantic branch |
 
 This ledger is prospective package closure, not a claim that the files or
 values already exist. Each `Dxx` closure is the complete transitive import
@@ -2273,7 +2343,9 @@ port, catalog row, or continuation. In particular,
 HoG execution and its current tests continue to cover same-process behavior;
 AX-F09 adds no second control log. Its fresh-process proof uses one authentic
 durable frontier on one file: P1 projects D17 and closes, then P2 reopens the
-same prefix, reprojects D17, and invokes `D18 -> ordinary HoG`.
+same prefix, reprojects D17, invokes D18, and passes D18's closed success
+carrier to the projected-retry branch of the existing
+`executeGraphTraversal` ingress.
 
 The fixture source is the exact `C.retry` Program and installed worker from
 `test_env/tests/m5-installed-retry.test.mjs`, extended to a declared budget of
@@ -2309,6 +2381,9 @@ P2 on the same durable file:
   authority-only reopen returns the exact same prefix plus store
   -> D17 over that unchanged prefix; require P1 ref/digest equality
   -> D18 atomic route/cursor/attempt-3 re-entry
+  -> executeGraphTraversal({ ...commonExistingDependencies,
+       projectedRetryResume: d18Success })
+     with input/inputDigest/resume absent
   -> ordinary HoG attempt 3 and final completion
 ```
 
@@ -2365,8 +2440,15 @@ the handoff prefix. P2 calls D17 with that prefix and the handoff selector,
 structurally asserts the reconstructed carrier, and requires exact
 `projectionRef` and `projectionDigest` equality to P1. It then passes that full
 P2-reconstructed carrier, the same predecessor, and returned store to
-`resumeProjectedRetry`, followed by the single ordinary-HoG retry-reentry
-ingress.
+`resumeProjectedRetry`. On D18 success, P2 calls the exact existing
+`executeGraphTraversal` with every ordinary common dependency and
+`projectedRetryResume: d18Success`; it supplies no raw `input`, `inputDigest`,
+or `resume`. The projected branch revalidates the carrier and successor tail,
+reprojects its route, applied cursor, active attempt, input, and Event Calculus
+truth, calls existing `traverseFromCursor` with the verified runtime basis and
+carrier-derived next cursor, requires the exact stop/cursor/input relation, and
+uses only the carrier-derived input value to enter the existing loop
+immediately before leaf resolution.
 
 The frozen current baseline is exact. P1 can produce one valid two-row durable
 progress history through current installed owner admissions.
@@ -2396,11 +2478,13 @@ The target oracle requires:
 - before P2 D18, attempts and effects are exactly `[1, 2]`, progress attempts
   are exactly `[1, 2]`, both attempt preimages hash to their recorded input
   digests, and the second progress event is the sole held current retry fluent;
-- D18 admits the attempt-three route/cursor/attempt atomically, ordinary HoG's
-  third effect observes the projected input, attempts are `[1, 2, 3]`, progress
-  rows remain `[1, 2]`, exactly three total leaf effects occur, and final
-  completion plus run-scoped Event Calculus and replay are closed and equal to
-  the same process's admitted final history.
+- D18 admits the attempt-three route/cursor/attempt atomically; the projected
+  branch of the existing `executeGraphTraversal` revalidates the D18 carrier
+  and exact successor tail before its leaf; ordinary HoG's third effect observes
+  the projected input, attempts are `[1, 2, 3]`, progress rows remain `[1, 2]`,
+  exactly three total leaf effects occur, and final completion plus run-scoped
+  Event Calculus and replay are closed and equal to the same process's admitted
+  final history.
 
 This is deterministic reconstruction of one admitted frontier across a fresh
 process boundary. It neither compares independent executions nor normalizes
