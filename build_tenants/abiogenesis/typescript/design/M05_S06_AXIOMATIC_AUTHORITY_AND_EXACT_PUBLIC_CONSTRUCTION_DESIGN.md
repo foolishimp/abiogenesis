@@ -290,7 +290,7 @@ framework rewrite.
 
 | Entity | Kind | Owner | Identity/content | Authority and lifecycle |
 |---|---|---|---|---|
-| `DurablePrefixCoordinate` | durable truth coordinate | ABG Event Store projects; Event Calculus verifies | event-log ref, byte length/digest, device/inode, event-contract digest | names one immutable prefix; independently serializable and fresh-process readable; append returns another coordinate |
+| `DurablePrefixCoordinate` | durable truth coordinate | ABG Event Store projects; Event Calculus verifies | event-log ref, byte length/digest, device/inode, event-contract digest | names one immutable prefix; independently serializable and fresh-process readable; a verified transaction commit or named enclosing completion may return another coordinate |
 | `EventStoreReopenAuthority` | durable write-reacquisition evidence | ABG Event Store | existing canonical path, device/inode, byte length/digest, contract digest, authority digest | projected only by coordinate-verified close; permits exact append-sink reacquisition but is not required for read projection |
 | `EventStoreAppendSink` | opaque non-durable write capability | ABG Event Store | held descriptor, exact file identity, exclusive append lock | guards envelope/order/durability effects only; never supplies semantic truth or read authority; released by existing close behavior |
 | `NewEmptyAppendSinkRequest` | closed acquisition input | concrete installed setup owner | canonical absent event-log path | exclusively creates one empty durable sink and zero prefix; cannot reopen |
@@ -348,9 +348,9 @@ or closure question.
 
 | Entity | Declare/create | Acquire or reconstruct | Use/transition | Refusal | Handoff/fresh process | Close/retire |
 |---|---|---|---|---|
-| `DurablePrefixCoordinate` | zero coordinate from exclusive new-empty creation; successor from append | read requires only coordinate; write reacquisition verifies coordinate against reopen authority | immutable predecessor; append returns distinct successor; no in-place currentness | mismatch refuses before append/read result | serializable coordinate alone crosses to fresh-process reads; pairs with reopen authority only for later writes | never deleted by W1.1a; later coordinates supersede only current caller position |
+| `DurablePrefixCoordinate` | zero coordinate from exclusive new-empty creation; successor from verified committed bytes at a named boundary | read requires only coordinate; write reacquisition verifies coordinate against reopen authority | immutable predecessor; a checked transaction or named enclosing completion returns a distinct successor; no in-place currentness | mismatch refuses before append/read result | serializable coordinate alone crosses to fresh-process reads; pairs with reopen authority only for later writes | never deleted by W1.1a; later coordinates supersede only current caller position |
 | `EventStoreReopenAuthority` | `projectReopenAuthorityAndClose(expectedPrefix)` derives it only after verifying the caller-supplied coordinate under the held lock | existing `reopenEventStore` consumes it only for writes | no semantic transition | mismatch returns typed coordinate/effect refusal and no handoff | serializable write handoff equal to the accepted prefix | retired as current write basis when a later sink closes with an explicitly verified successor |
-| `EventStoreAppendSink` | `createNewEmptyAppendSink` or existing exact reopen acquires it | exclusive descriptor/lock only | compare current durable coordinate, append admitted event, return successor | stale predecessor refuses without append | never serialized or used for read | existing close projects authority and releases; no retry/recovery protocol added |
+| `EventStoreAppendSink` | `createNewEmptyAppendSink` or existing exact reopen acquires it | exclusive descriptor/lock only | guards ordered durable internal admissions; compares and returns coordinates only at the named checked transaction or enclosing completion boundaries | stale named predecessor refuses without append; internal admission failure cannot mint a coordinate | never serialized or used for read | existing close projects authority and releases; no retry/recovery protocol added |
 | `NewEmptyAppendSinkRequest` | concrete setup caller constructs | new-only acquisition | exhausted on result | existing/alias/noncanonical target refuses | never used to recover history | request discarded |
 | `ReopenExactAppendSinkRequest` | concrete effect caller constructs | existing-prefix-only acquisition | exhausted on result | authority/coordinate/file mismatch refuses | canonical fresh-process write reacquisition | request discarded |
 | `ProductInstallPort.install` | accepted Product family declares | existing direct call | project, construct install candidate, decide, optionally append | typed Product/coordinate refusal | caller may reuse durable result in fresh process | call returns; no retained controller state |
@@ -568,7 +568,9 @@ admit their own artifact/runtime truth where required.
 
 ### 5.2 Durable prefix
 
-Every effectful owner request carries one closed `DurablePrefixCoordinate`:
+One closed `DurablePrefixCoordinate` is explicit at each Public, artifact,
+pure-read, write-reacquisition, checked-transaction, and named enclosing
+completion boundary fixed by this design:
 
 ```text
 {
@@ -581,9 +583,21 @@ Every effectful owner request carries one closed `DurablePrefixCoordinate`:
 
 ABG verifies all four fields before use. The coordinate identifies an exact
 append-only prefix; a retained context, latest log, environment variable,
-module singleton, or remembered reopen authority cannot supply it. An owner
-may append only through the store selected by that verified coordinate and
-returns the successor coordinate explicitly.
+module singleton, or remembered reopen authority cannot supply it. At a named
+checked boundary, an owner may append only through the store selected by that
+verified coordinate and must return the successor coordinate explicitly.
+
+This law does not expose a prefix parameter or result on every internal ABG
+admission callable. Internal admissions within one named transaction or
+enclosing operation use the one already-held append sink, remain subject to
+ordered durable append-before-next-effect, and do not independently author
+semantic currentness. Event Store may mechanically project a coordinate only
+from verified committed durable bytes while it holds the exact descriptor and
+exclusive append lock, and only as the return of a transaction commit or a
+named enclosing completion. Event Calculus over that exact prefix, not the
+sink or the projection mechanic, proves the semantic meaning. There is no
+generic installed `projectCurrentPrefix`, optional prefix overload, wrapper,
+or second write path.
 
 #### 5.2.1 Disjoint Event Store write acquisition and bypass deletion
 
@@ -1724,12 +1738,20 @@ ordinary immutable
 `ExecuteGraphTraversalInput` dependencies except `store`, `input`,
 `inputDigest`, and generic `resume`. It fresh-projects and compares the complete
 ABG carrier, including the asserted frontier ref/digest and every row, before
-effects, derives the one retry step, and transactionally admits the retry route
-plus fresh attempt before the next leaf effect. It then
-continues ordinary direct HoG traversal. Its success carrier preserves the
-projection ref/digest, route ref/digest, next cursor, fresh attempt ref/digest,
-next attempt, ordinary `ExecutableTraversalCompletion`, and explicit successor
-prefix.
+effects. Any append after that projection and before the route/attempt
+transaction makes the supplied predecessor unequal and refuses. Equality
+derives the one retry step and transactionally admits the retry route plus
+fresh attempt before the next leaf effect. D18 retains the one held sink and
+continues ordinary direct HoG traversal; those internal admissions obey
+durable append-before-next-effect and do not each expose or select a prefix.
+At the named D18 completion return, Event Store synchronously projects a final
+coordinate from the committed durable bytes under the held descriptor and
+lock. D18 then uses that exact prefix to reproject the scoped Event Calculus
+completion and requires equality with the ordinary
+`ExecutableTraversalCompletion` before returning. Its success carrier
+preserves the projection ref/digest, route ref/digest, next cursor, fresh
+attempt ref/digest, next attempt, equal reprojected completion, and that final
+successor prefix.
 
 ```text
 ResumeProjectedRetryRequest = {
@@ -1776,12 +1798,16 @@ message, the executable-retry-input ref/digest when structurally available,
 and its exact lower typed cause. All pure checks precede effects. Route and
 attempt admission validate the exact predecessor inside one ABG event
 transaction, so both are durable before the next effect or neither is admitted,
-and the result carries the explicit successor prefix. The uninterrupted
-executor uses the append sink retained from new-empty acquisition plus its
-current successor prefix; restarted execution uses the append sink and equal
-prefix returned by exact reopen. Both invoke this same projector/resume suffix
-after retry progress; there is no map-driven continuation, generic cursor
-bypass, or second retry path.
+and the transaction commit may mechanically project its committed coordinate
+without making that coordinate semantic currentness. The success result
+carries the later final coordinate projected at the named D18 completion and
+verified by the equal scoped Event Calculus completion. The uninterrupted
+executor uses the append sink retained from new-empty acquisition plus the
+selected frontier successor returned by retry-failure commit; restarted
+execution uses the append sink and equal prefix returned by exact reopen. Both
+invoke this same projector/resume suffix after retry progress; any changed
+physical prefix before the D18 transaction causes typed refusal, and there is
+no map-driven continuation, generic cursor bypass, or second retry path.
 
 Continuation, source-result, closure, cursor, causation, and run projection
 bases are rehydrated through the same scoped truth. Current
@@ -2098,9 +2124,9 @@ Neither coordinate is a Public definition, Public operation, Product owner
 port, catalog row, or continuation. In particular,
 `run.continue/current_intent` has no role in this relation. Ordinary same-
 process HoG execution supplies the append sink retained from new-empty
-acquisition and its current successor prefix. Post-restart execution supplies
-the append sink and equal prefix returned by exact reopen. Both use the same
-two-call suffix.
+acquisition and the selected frontier successor returned by retry-failure
+commit. Post-restart execution supplies the append sink and equal prefix
+returned by exact reopen. Both use the same two-call suffix.
 
 The fixture source is the exact `C.retry` Program and installed worker from
 `test_env/tests/m5-installed-retry.test.mjs`, extended to a declared budget of
@@ -2121,8 +2147,9 @@ admitted Program, Graph, ExecutionBasis, scope, cursor, retry route and attempt 
   -> admitRoute + applyRoute + admitRetryAttempt for attempt 2
   -> installed malformed candidate and exact result admission rejection
   -> admitRetryRuntimeFailureTransition for attempt 2
-     (atomic failure result, retry judgment, and retry progress)
-  -> project exact successor DurablePrefixCoordinate and close
+     (atomic failure result, retry judgment, and retry progress;
+      return selected frontier successor: DurablePrefixCoordinate)
+  -> project exact reopen authority from that prefix and close
   -> process exit
 ```
 
@@ -2133,8 +2160,12 @@ The failure result, retry judgment, and retry progress are one expected-prefix
 owner transaction; no separately callable close-then-progress suffix may
 expose a closed attempt without its progress row. Returning from the second
 `admitRetryRuntimeFailureTransition` committed admission is the deterministic
-frontier boundary: its append is durable before the function returns. P1
-asserts that the attempt-two progress event is the durable tail and that no
+frontier boundary: after the complete transaction is durable, Event Store
+verifies its committed bytes under the held descriptor and lock and returns
+the selected frontier successor. The pre-effect optimistic-concurrency digest
+remains mechanical and is never represented as a coordinate; the returned
+coordinate derives only from verified postcommit durable bytes. P1 asserts
+that the attempt-two progress event is the durable tail and that no
 attempt-three route, attempt, C call, or effect exists, calls the existing
 `projectReopenAuthorityAndClose(prefix)`, writes the following handoff, and
 exits:
