@@ -802,17 +802,21 @@ durable input/output class.
 
 #### 5.2.3 Affected-kind ingress closure
 
-The live Event Store surfaces are raw single, raw batch, generic transaction,
-and expected-prefix transaction. The expected-prefix transaction consumers
-are exactly `abg/fan_out.ts` and `abg/retry.ts`. The generic transaction
-consumers are exactly `hog/execute.ts` and `hog/retry_exit.ts`. This census is
-the migration boundary; the correction does not move either generic consumer
-to the expected-prefix helper or add another transaction consumer.
+The live Event Store surfaces are raw single, raw batch, source-internal CAS
+batch `compareAndAppendExpectedPrefix`, generic transaction, and
+expected-prefix transaction. The CAS-batch consumers are exactly
+`abg/closure.ts:467,676`, `abg/continuation.ts:76`, and
+`abg/retry.ts:1523,2391`. The expected-prefix transaction consumers are
+exactly `abg/fan_out.ts` and `abg/retry.ts`. The generic transaction consumers
+are exactly `hog/execute.ts` and `hog/retry_exit.ts`. This census is the
+migration boundary; the correction does not move a caller between these
+ingresses or add another consumer.
 
 | Surface | Affected-kind disposition | Unaffected-kind disposition |
 |---|---|---|
 | raw single `admitRuntimeEvent` | reject `public_operation_artifact_admitted` and `registry_entry_admitted`; those kinds are reachable only through their owner-internal checked ingress | retain existing envelope/ordinal/durable behavior |
 | raw batch `admitRuntimeEventBatch` | reject either affected kind anywhere in the batch | retain for existing C-call, traversal, closure, actor/process, and other runtime families |
+| source-internal CAS batch `compareAndAppendExpectedPrefix` | inherits raw-batch rejection for either affected kind | remain internal and uninstalled; preserve the mechanical digest comparison and unchanged behavior for its exact closure, continuation, and retry consumers |
 | generic transaction helper | raw/installed form rejects affected kinds; remove it from installed `./abg` because no accepted installed consumer exists | retain unchanged source-internal transaction law for `hog/execute.ts`, `hog/retry_exit.ts`, and the catalog checked specialization |
 | expected-prefix transaction helper | affected kinds remain unreachable through its two current consumers | retain `expectedPrefixDigest`; extend only the result; fan-out unwraps `.value`, retry failure also consumes its non-null durable successor |
 | `appendCheckedArtifactEvent` | sole owner-internal ingress for non-catalog install/binding artifact events; requires expected predecessor | not applicable |
@@ -1770,8 +1774,10 @@ and `projectionDigest`; `projectionRef` is derived from that digest.
 independently. Byte-identical admitted prefixes on distinct files therefore
 produce equal D17 semantic projection identities even though their
 `eventLogRef`, device, inode, reopen authority, and `coordinateDigest` differ.
-D18 separately receives and physically validates its lane's complete
-predecessor coordinate.
+This conditional identity law does not assert that independent runtime
+executions produce byte-identical prefixes.
+D18 separately receives and physically validates its complete predecessor
+coordinate.
 `retryFrontier` is the asserted full carrier above;
 `selectedFrontierRowRef` is exactly its final row. `sourceAttempt`, `progress`,
 `sourceCursor`, and `cCall` are rehydrated from that row's cited events and are
@@ -2263,103 +2269,107 @@ The target installed owner-internal coordinates are exactly:
 
 Neither coordinate is a Public definition, Public operation, Product owner
 port, catalog row, or continuation. In particular,
-`run.continue/current_intent` has no role in this relation. Ordinary same-
-process HoG execution supplies the `AbgEventStore` retained from new-empty
-acquisition and the selected frontier successor returned by retry-failure
-commit. Post-restart execution supplies the existing store and mechanically
-equal prefix returned by authority-only reopen. Both use the same
-`D17 -> D18 -> ordinary HoG` chain.
+`run.continue/current_intent` has no role in this relation. Existing ordinary
+HoG execution and its current tests continue to cover same-process behavior;
+AX-F09 adds no second control log. Its fresh-process proof uses one authentic
+durable frontier on one file: P1 projects D17 and closes, then P2 reopens the
+same prefix, reprojects D17, and invokes `D18 -> ordinary HoG`.
 
 The fixture source is the exact `C.retry` Program and installed worker from
 `test_env/tests/m5-installed-retry.test.mjs`, extended to a declared budget of
 three and one deterministic sequence: attempt one produces `no_output`,
 attempt two produces `contract_failure`, and attempt three succeeds. Event
-time and correlation inputs are deterministic. P1 creates one nonce-bearing
-contract-valid input unknown to the parent and P2. On two distinct canonical
-event-log files, P1 runs the same installed owner sequence with that same
-hidden input, immutable Program/Graph, and clocks to construct two authentic,
-byte-identical retry frontiers. Device, inode, file URL, coordinate digest, and
-reopen authority are lane-local and differ; admitted event bytes do not.
+time and correlation inputs are deterministic, but installed worker events
+also carry the actual OS child PID. Independent executions therefore cannot be
+assumed byte-identical and no volatile fact is normalized, omitted, or
+compared across runs. P1 creates one nonce-bearing contract-valid input unknown
+to the parent and P2, then uses only installed production owner APIs to build
+one authentic durable frontier on one canonical event-log file.
 
 ```text
-for each of control and restart lanes on distinct files:
+P1 on one durable file:
   admitted Program, Graph, ExecutionBasis, scope, cursor,
   retry route and attempt 1
-    -> open C call
-    -> installed no-output candidate and exact admitted transport evidence
-    -> admitRetryRuntimeFailureTransition for attempt 1
-       (atomic failure result, retry judgment, and retry progress)
-    -> deriveRetryTraversalStep
-    -> proposeRetryRoute
-    -> admitRoute + applyRoute + admitRetryAttempt for attempt 2
-    -> installed malformed candidate and exact result admission rejection
-    -> admitRetryRuntimeFailureTransition for attempt 2
-       (atomic failure result, retry judgment, and retry progress;
-        return lane-local frontier successor: DurablePrefixCoordinate)
+  -> open C call
+  -> installed no-output candidate and exact admitted transport evidence
+  -> admitRetryRuntimeFailureTransition for attempt 1
+     (atomic failure result, retry judgment, and retry progress)
+  -> deriveRetryTraversalStep
+  -> proposeRetryRoute
+  -> admitRoute + applyRoute + admitRetryAttempt for attempt 2
+  -> installed malformed candidate and exact result admission rejection
+  -> admitRetryRuntimeFailureTransition for attempt 2
+     (atomic failure result, retry judgment, and retry progress;
+      return frontier successor: DurablePrefixCoordinate)
+  -> D17 over that unchanged frontier
+  -> no-arg close returns atomic { prefix, reopenAuthority }
+  -> process exit
 
-control lane: retain store and successor
-restart lane: no-arg close returns atomic { prefix, reopenAuthority }
-P1: execute control D17 -> D18 -> ordinary HoG, close final control, then exit
-P2: reopen restart authority, execute restart D17 -> D18 -> ordinary HoG,
-    close final restart
+P2 on the same durable file:
+  authority-only reopen returns the exact same prefix plus store
+  -> D17 over that unchanged prefix; require P1 ref/digest equality
+  -> D18 atomic route/cursor/attempt-3 re-entry
+  -> ordinary HoG attempt 3 and final completion
 ```
 
 The target `admitRetryAttempt` relation writes the canonical input value and
 binds the exact source cursor through its cited retry route before that
 attempt's leaf effect.
-In each lane the failure result, retry judgment, and retry progress are one
-expected-prefix owner transaction; no separately callable close-then-progress
-suffix may expose a closed attempt without its progress row. Returning from
-the second `admitRetryRuntimeFailureTransition` committed admission is the
-deterministic frontier boundary: after the complete transaction is durable,
-Event Store returns that lane's non-null frontier successor. The transaction's
+The failure result, retry judgment, and retry progress are one expected-prefix
+owner transaction; no separately callable close-then-progress suffix may
+expose a closed attempt without its progress row. Returning from the second
+`admitRetryRuntimeFailureTransition` committed admission is the deterministic
+frontier boundary: after the complete transaction is durable, Event Store
+returns its non-null frontier successor. The transaction's
 optimistic-concurrency digest remains the mechanical in-memory snapshot digest
 and is never represented as a coordinate; the returned coordinate derives
 only from verified postcommit durable bytes.
 
-P1 asserts in both lanes that the attempt-two progress event is the durable
-tail and no attempt-three route, attempt, C call, or effect exists. It retains
-the control store. It calls the restart lane's existing no-argument
-`projectReopenAuthorityAndClose()`, requires the returned prefix to equal that
-same lane's second failure-transaction successor, and writes the returned
-atomic pair in the following handoff:
+P1 asserts that the attempt-two progress event is the durable tail and no
+attempt-three route, attempt, C call, or effect exists. It calls D17 with the
+frontier successor and selector, structurally asserts the complete projected
+carrier, and records only `projectionRef` and `projectionDigest`. D17 is
+eventless, so the frontier remains unchanged. P1 then calls the existing
+no-argument `projectReopenAuthorityAndClose()`, requires the returned prefix to
+equal the same failure-transaction successor used by D17, and writes exactly:
 
 ```text
 {
   prefix: DurablePrefixCoordinate,
   reopenAuthority: EventStoreReopenAuthority,
-  retry: {
+  selector: {
     runId,
     graphCallId,
     frameId,
     retryBoundaryRef,
     retryProgressRef
-  }
+  },
+  expectedExecutableRetryInputRef,
+  expectedExecutableRetryInputDigest
 }
 ```
 
-The hidden input is admitted independently into each lane's retry-attempt
-events. It is absent from the handoff and every out-of-band comparison carrier;
-lane-local assertions obtain it only by projecting that lane's admitted log,
-and only refs/digests cross for comparison. No input crosses from P1 to P2
-except through P2's admitted durable log. No Program, Graph,
-cursor, C call, admission object, JavaScript capability, environment field,
-shared module, sleep, poll, or test hook crosses the process boundary.
-`reopenAuthority` is serializable write-reacquisition evidence, not a
-JavaScript capability or semantic carrier.
+The hidden input is admitted in the retry-attempt events and is absent from the
+handoff; no input value, Program, Graph, cursor, C call, admission object,
+JavaScript capability, environment field, shared module, sleep, poll, or test
+hook crosses the process boundary. P2 obtains the input only by D17 projection
+from the reopened admitted log. `reopenAuthority` is serializable
+write-reacquisition evidence, not a JavaScript capability or semantic carrier.
 
-P2 starts only after P1 completes the control chain and exits. It imports the
-installed `./abg` and `./hog` exports by package specifier, independently loads
-the immutable declared Program, GraphFunction, Graph, contracts, and execution
-dependencies from their installed refs, calls authority-only
+P2 starts only after P1 exits. It imports the installed `./abg` and `./hog`
+exports by package specifier, independently loads the immutable declared
+Program, GraphFunction, Graph, contracts, and execution dependencies from
+their installed refs, calls authority-only
 `reopenEventStore(reopenAuthority)`, and requires the returned prefix to equal
-the restart lane's handoff prefix. That lane-local equal prefix is the D17
-physical input. P2 calls `projectExecutableRetryInput`, passes its result, the
-same predecessor, and returned store to `resumeProjectedRetry`, then passes the
-D18 success carrier to the single ordinary-HoG retry-reentry ingress.
+the handoff prefix. P2 calls D17 with that prefix and the handoff selector,
+structurally asserts the reconstructed carrier, and requires exact
+`projectionRef` and `projectionDigest` equality to P1. It then passes that full
+P2-reconstructed carrier, the same predecessor, and returned store to
+`resumeProjectedRetry`, followed by the single ordinary-HoG retry-reentry
+ingress.
 
-The frozen current baseline is exact. P1 can produce byte-identical valid
-two-row durable progress histories through current installed owner admissions.
+The frozen current baseline is exact. P1 can produce one valid two-row durable
+progress history through current installed owner admissions.
 Each `retry_attempt_opened` already contains and hashes the executable input
 value, and installed ABG can reproject individual and active attempts. Current
 `RetryProgressAdmission` still preserves only numeric completed-attempt
@@ -2374,52 +2384,34 @@ full-frontier relation, mutable-store/retained-input deletion seam, and missing
 installed exports without implementing D17/D18 or constructing raw event JSON
 in the test.
 
-The retained-process control lane keeps the `AbgEventStore` acquired through
-new-empty creation and its exact successor prefix at the durable frontier. The
-restarted lane reacquires its existing store and equal lane-local prefix
-through authority-only reopen. Both invoke the same
-`D17 -> D18 -> ordinary HoG` chain. The target oracle compares semantic
-equality, not physical coordinate equality, for:
+The target oracle requires:
 
-- the complete D17 `ExecutableRetryInput`, asserted locally in each lane,
-  including semantic `durablePrefixDigest`, scope, basis, the structurally
-  asserted `RetryAttemptFrontier`, selected progress, attempt, cursor, C call,
-  input contract/ref/digest/value, next attempt `3`, and retry path `[3]`; the
-  out-of-band equality subjects are its `projectionRef`/`projectionDigest`, not
-  its raw input value;
-- full-frontier rows exactly `[1, 2]`; this fixture uses distinct admitted
-  `no_output` and `contract_failure` reason classes, without imposing that
-  distinction on lawful retry frontiers; exact `abg_retry` and `abg_c_call` owner
-  surfaces, every required source-event kind/ref/digest/ordinal, complete
-  attempt coverage `[1, 2]`, and equal row/frontier identities after restart;
-- every admitted event byte sequence read through its own log, event
-  ref/ordinal, retry-route event/ref/digest, exact next cursor, fresh-attempt
-  event/ref/digest, and the exact input contract/ref/digest/value observed by
-  effect three;
-- run-scoped Event Calculus and replay projections, ordinary-HoG final
-  completion, and D18 successor `prefixDigest`/`prefixLength`;
-- exactly one consumed current progress fluent, attempts `[1, 2, 3]`, progress
-  rows `[1, 2]`, and exactly three total leaf effects.
+- P1 close prefix and P2 reopen prefix are exactly the same complete physical
+  coordinate and equal the successor supplied to P1 D17;
+- P1 and P2 D17 `projectionRef`/`projectionDigest` are exactly equal over the
+  unchanged bytes, and P2 locally asserts the complete `ExecutableRetryInput`,
+  full-frontier rows `[1, 2]`, distinct fixture reason classes `no_output` and
+  `contract_failure`, exact owner surfaces/source-event relations, selected
+  input contract/ref/digest/value, next attempt `3`, and retry path `[3]`;
+- before P2 D18, attempts and effects are exactly `[1, 2]`, progress attempts
+  are exactly `[1, 2]`, both attempt preimages hash to their recorded input
+  digests, and the second progress event is the sole held current retry fluent;
+- D18 admits the attempt-three route/cursor/attempt atomically, ordinary HoG's
+  third effect observes the projected input, attempts are `[1, 2, 3]`, progress
+  rows remain `[1, 2]`, exactly three total leaf effects occur, and final
+  completion plus run-scoped Event Calculus and replay are closed and equal to
+  the same process's admitted final history.
 
-Each lane separately validates its frontier, D18 successor, and final-close
-coordinates against its own canonical `eventLogRef`, device, inode, and
-`coordinateDigest`. Those physical fields and the two final reopen authorities
-must differ across lanes and are never canonical-equality subjects. Equal
-event-byte digests and lengths do not erase physical file identity. The
-semantic final-completion equality remains a fixture comparison across lanes,
-not a generic runtime completion projector.
-
-At the dual-frontier checkpoint, before either lane invokes D17, attempts and
-effects are exactly `[1, 2]` in each log, progress attempts are exactly
-`[1, 2]`, both attempt preimages hash to their recorded input digests, and the
-second progress event is the sole held current retry fluent. Prefix reopen
-failure, declaration mismatch, failure before admitted progress,
+This is deterministic reconstruction of one admitted frontier across a fresh
+process boundary. It neither compares independent executions nor normalizes
+the admitted child PID or any other volatile fact. Prefix reopen failure, D17
+ref/digest inequality, declaration mismatch, failure before admitted progress,
 missing/duplicate prior-attempt coverage, P2 receiving the nonce outside its
 admitted log, or an invalid owner admission is fixture failure and cannot
 satisfy `AX-F09`. A timeout is only a hang failure. A latest-only dossier fails
 even if it can resume attempt three. No Public invocation, continuation
-carrier, hard kill, raw-event fixture, newly introduced local map,
-caller-selected latest event, or test-only pause participates.
+carrier, hard kill, raw-event fixture, second AX-F09 log, newly introduced
+local map, caller-selected latest event, or test-only pause participates.
 
 The Gate 2 sentinel remains ten invocations across nine operation identities:
 
