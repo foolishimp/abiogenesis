@@ -247,7 +247,7 @@ export async function executeGraphTraversal(
   if (input.continuationProductBasis !== undefined) {
     const selected = lookupGraphFunctionDefinition(
       input.continuationProductBasis.catalogView,
-      input.graphFunction.name,
+      input.graphFunction.id,
     );
     if (
       selected === null ||
@@ -259,7 +259,7 @@ export async function executeGraphTraversal(
         input,
         "catalog-selection",
         "diagnostic://abiogenesis/hog/catalog-selection-mismatch@5",
-        { graphFunctionRef: input.graphFunction.name },
+        { graphFunctionRef: input.graphFunction.id },
       );
     }
   }

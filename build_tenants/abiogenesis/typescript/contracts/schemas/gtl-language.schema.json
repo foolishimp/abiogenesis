@@ -1,0 +1,2452 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "abg.schema.gtl-language",
+  "title": "ABIogenesis 5.0 direct GTL language carriers",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/GtlGraphFunction"
+    },
+    {
+      "$ref": "#/$defs/GtlModule"
+    },
+    {
+      "$ref": "#/$defs/GtlCProgram"
+    },
+    {
+      "$ref": "#/$defs/GtlProgramConformanceInput"
+    },
+    {
+      "$ref": "#/$defs/GtlLanguageConformanceCorpus"
+    }
+  ],
+  "$defs": {
+    "COf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "inputCarrierRef",
+        "outputCarrierRef",
+        "programLocusRef",
+        "stageRole",
+        "fibre",
+        "armId",
+        "compositionRef",
+        "vectorIndex",
+        "judgmentPredicateRef",
+        "resultBearing",
+        "requirement"
+      ],
+      "properties": {
+        "kind": {
+          "const": "c_of"
+        },
+        "inputCarrierRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "outputCarrierRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "programLocusRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "stageRole": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "fibre": {
+          "enum": [
+            "F_D",
+            "F_P",
+            "F_H"
+          ]
+        },
+        "armId": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "compositionRef": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "vectorIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "judgmentPredicateRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "resultBearing": {
+          "type": "boolean"
+        },
+        "requirement": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "implementationBindingRef",
+                "inputContractRef",
+                "outputContractRef",
+                "evidenceContractRef",
+                "failureContractRef",
+                "refusalContractRef",
+                "judgmentContractRef"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "executable_leaf_requirement"
+                },
+                "implementationBindingRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "inputContractRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "outputContractRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "evidenceContractRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "failureContractRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "refusalContractRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "judgmentContractRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "interactionKind",
+                "actorCapabilityRef",
+                "requestContractRef",
+                "responseContractRef",
+                "continuationContractRef"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "interaction_leaf_requirement"
+                },
+                "interactionKind": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "actorCapabilityRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "requestContractRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "responseContractRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "continuationContractRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "GtlCProgram": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "inputCarrierRef",
+            "outputCarrierRef",
+            "programLocusRef",
+            "stageRole",
+            "fibre",
+            "armId",
+            "compositionRef",
+            "vectorIndex",
+            "judgmentPredicateRef",
+            "resultBearing",
+            "requirement"
+          ],
+          "properties": {
+            "kind": {
+              "const": "c_of"
+            },
+            "inputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "programLocusRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "stageRole": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "fibre": {
+              "enum": [
+                "F_D",
+                "F_P",
+                "F_H"
+              ]
+            },
+            "armId": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "compositionRef": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "vectorIndex": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "judgmentPredicateRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "resultBearing": {
+              "type": "boolean"
+            },
+            "requirement": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "kind",
+                    "implementationBindingRef",
+                    "inputContractRef",
+                    "outputContractRef",
+                    "evidenceContractRef",
+                    "failureContractRef",
+                    "refusalContractRef",
+                    "judgmentContractRef"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "executable_leaf_requirement"
+                    },
+                    "implementationBindingRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "inputContractRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "outputContractRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "evidenceContractRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "failureContractRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "refusalContractRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "judgmentContractRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "kind",
+                    "interactionKind",
+                    "actorCapabilityRef",
+                    "requestContractRef",
+                    "responseContractRef",
+                    "continuationContractRef"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "interaction_leaf_requirement"
+                    },
+                    "interactionKind": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "actorCapabilityRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "requestContractRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "responseContractRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "continuationContractRef": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "inputCarrierRef",
+            "outputCarrierRef"
+          ],
+          "properties": {
+            "kind": {
+              "const": "c_identity"
+            },
+            "inputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "inputCarrierRef",
+            "outputCarrierRef",
+            "terms"
+          ],
+          "properties": {
+            "kind": {
+              "const": "c_compose"
+            },
+            "inputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "terms": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/GtlCProgram"
+              },
+              "minItems": 2
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "inputCarrierRef",
+            "outputCarrierRef",
+            "transform",
+            "evaluate",
+            "consequence"
+          ],
+          "properties": {
+            "kind": {
+              "const": "c_edge"
+            },
+            "inputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "transform": {
+              "$ref": "#/$defs/COf"
+            },
+            "evaluate": {
+              "$ref": "#/$defs/COf"
+            },
+            "consequence": {
+              "$ref": "#/$defs/COf"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "inputCarrierRef",
+            "outputCarrierRef",
+            "graphFunctionRef"
+          ],
+          "properties": {
+            "kind": {
+              "const": "c_workflow"
+            },
+            "inputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "graphFunctionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "inputCarrierRef",
+            "outputCarrierRef",
+            "taskInputCarrierRef",
+            "taskOutputCarrierRef",
+            "batchRef",
+            "tasks"
+          ],
+          "properties": {
+            "kind": {
+              "const": "c_batch"
+            },
+            "inputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "taskInputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "taskOutputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "batchRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/GtlCProgram"
+              },
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "inputCarrierRef",
+            "outputCarrierRef",
+            "budget",
+            "term"
+          ],
+          "properties": {
+            "kind": {
+              "const": "c_retry"
+            },
+            "inputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputCarrierRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "budget": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "term": {
+              "$ref": "#/$defs/GtlCProgram"
+            }
+          }
+        }
+      ]
+    },
+    "GraphFunctionApplication": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "applicationRef",
+            "inputContractRef",
+            "outputContractRef",
+            "relationKind",
+            "leftGraphFunctionRef",
+            "rightGraphFunctionRef"
+          ],
+          "properties": {
+            "kind": {
+              "const": "graph_function_application"
+            },
+            "applicationRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "relationKind": {
+              "const": "compose"
+            },
+            "leftGraphFunctionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "rightGraphFunctionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "applicationRef",
+            "inputContractRef",
+            "outputContractRef",
+            "relationKind",
+            "outerGraphFunctionRef",
+            "targetVectorRef",
+            "innerGraphFunctionRef"
+          ],
+          "properties": {
+            "kind": {
+              "const": "graph_function_application"
+            },
+            "applicationRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "relationKind": {
+              "const": "substitute"
+            },
+            "outerGraphFunctionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "targetVectorRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "innerGraphFunctionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "applicationRef",
+            "inputContractRef",
+            "outputContractRef",
+            "relationKind",
+            "graphFunctionRef",
+            "terminationRuleRef",
+            "terminationEvaluatorRefs",
+            "terminationFieldRef",
+            "foldbackRef",
+            "foldback",
+            "bound"
+          ],
+          "properties": {
+            "kind": {
+              "const": "graph_function_application"
+            },
+            "applicationRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "relationKind": {
+              "const": "recurse"
+            },
+            "graphFunctionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "terminationRuleRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "terminationEvaluatorRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "terminationFieldRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "foldbackRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "foldback": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mode",
+                "binding",
+                "requiresParentEvaluation"
+              ],
+              "properties": {
+                "mode": {
+                  "const": "rebind"
+                },
+                "binding": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "requiresParentEvaluation": {
+                  "const": true
+                }
+              }
+            },
+            "bound": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "applicationRef",
+            "inputContractRef",
+            "outputContractRef",
+            "relationKind",
+            "batchRef",
+            "elementGraphFunctionRef",
+            "inputVectorRef",
+            "outputVectorRef",
+            "inputMemberContractRef",
+            "outputMemberContractRef"
+          ],
+          "properties": {
+            "kind": {
+              "const": "graph_function_application"
+            },
+            "applicationRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "relationKind": {
+              "const": "fan_out"
+            },
+            "batchRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "elementGraphFunctionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputVectorRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputVectorRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputMemberContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputMemberContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "applicationRef",
+            "inputContractRef",
+            "outputContractRef",
+            "relationKind",
+            "reducerGraphFunctionRef",
+            "inputVectorRef"
+          ],
+          "properties": {
+            "kind": {
+              "const": "graph_function_application"
+            },
+            "applicationRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "relationKind": {
+              "const": "fan_in"
+            },
+            "reducerGraphFunctionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputVectorRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "applicationRef",
+            "inputContractRef",
+            "outputContractRef",
+            "relationKind",
+            "targetRef",
+            "ruleRef",
+            "evaluatorRefs"
+          ],
+          "properties": {
+            "kind": {
+              "const": "graph_function_application"
+            },
+            "applicationRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "relationKind": {
+              "const": "gate"
+            },
+            "targetRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "ruleRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "evaluatorRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "applicationRef",
+            "inputContractRef",
+            "outputContractRef",
+            "relationKind",
+            "graphFunctionRef",
+            "sourceProgramLocusRef",
+            "targetProgramLocusRef",
+            "maxApplications"
+          ],
+          "properties": {
+            "kind": {
+              "const": "graph_function_application"
+            },
+            "applicationRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "relationKind": {
+              "const": "re_enter"
+            },
+            "graphFunctionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "sourceProgramLocusRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "targetProgramLocusRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "maxApplications": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "applicationRef",
+            "inputContractRef",
+            "outputContractRef",
+            "relationKind",
+            "sourceRef",
+            "targetRef"
+          ],
+          "properties": {
+            "kind": {
+              "const": "graph_function_application"
+            },
+            "applicationRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "relationKind": {
+              "const": "promote"
+            },
+            "sourceRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "targetRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "applicationRef",
+            "inputContractRef",
+            "outputContractRef",
+            "relationKind",
+            "targetRef"
+          ],
+          "properties": {
+            "kind": {
+              "const": "graph_function_application"
+            },
+            "applicationRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "relationKind": {
+              "const": "identity"
+            },
+            "targetRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "applicationRef",
+            "inputContractRef",
+            "outputContractRef",
+            "relationKind",
+            "leftRef",
+            "rightRef",
+            "witnessRef"
+          ],
+          "properties": {
+            "kind": {
+              "const": "graph_function_application"
+            },
+            "applicationRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "inputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "outputContractRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "relationKind": {
+              "const": "same_object"
+            },
+            "leftRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "rightRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "witnessRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        }
+      ]
+    },
+    "GtlGraphFunction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "name",
+        "version",
+        "environment",
+        "inputs",
+        "outputs",
+        "template",
+        "effects",
+        "declarations",
+        "tags"
+      ],
+      "properties": {
+        "kind": {
+          "const": "graph_function"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "version": {
+          "const": "5.0.0"
+        },
+        "environment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "requires",
+            "provides",
+            "carries"
+          ],
+          "properties": {
+            "requires": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "uniqueItems": true
+            },
+            "provides": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "uniqueItems": true
+            },
+            "carries": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 1
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 1
+        },
+        "template": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "graphRef",
+            "startNodeRef",
+            "terminalNodeRefs",
+            "nodes",
+            "edges",
+            "applications"
+          ],
+          "properties": {
+            "kind": {
+              "const": "inline_graph"
+            },
+            "graphRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "startNodeRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "terminalNodeRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "nodes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "nodeRef",
+                  "nodeKind",
+                  "term"
+                ],
+                "properties": {
+                  "nodeRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "nodeKind": {
+                    "const": "c_locus"
+                  },
+                  "term": {
+                    "$ref": "#/$defs/GtlCProgram"
+                  }
+                }
+              },
+              "minItems": 1
+            },
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "edgeRef",
+                  "fromNodeRef",
+                  "toNodeRef"
+                ],
+                "properties": {
+                  "edgeRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "fromNodeRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "toNodeRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            },
+            "applications": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/GraphFunctionApplication"
+              }
+            }
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true
+        },
+        "declarations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "GtlProgram": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "programRef",
+        "version",
+        "moduleRef",
+        "starts",
+        "callableMembership",
+        "closureContractRef",
+        "policies"
+      ],
+      "properties": {
+        "kind": {
+          "const": "gtl_program"
+        },
+        "programRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "version": {
+          "const": "5.0.0"
+        },
+        "moduleRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "starts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "startRef",
+              "graphFunctionRef"
+            ],
+            "properties": {
+              "startRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "graphFunctionRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "callableMembership": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 1
+        },
+        "closureContractRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "policies": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        },
+        "publicAssetTargets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "handle",
+              "assetRef",
+              "startRef"
+            ],
+            "properties": {
+              "kind": {
+                "const": "program_public_asset_target"
+              },
+              "handle": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "assetRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "startRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          }
+        },
+        "actionCatalog": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "catalogRef",
+            "catalogDigest",
+            "rows"
+          ],
+          "properties": {
+            "kind": {
+              "const": "action_catalog"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "catalogRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "catalogDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "kind",
+                  "actionRef",
+                  "actionKind",
+                  "programRef",
+                  "graphFunctionRef",
+                  "targetProgramLocusRef",
+                  "targetObligationRefs",
+                  "inputAssetRefs",
+                  "outputAssetRefs",
+                  "expectedDeltaRef",
+                  "progressConditionRef",
+                  "stopConditionRef"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "action_catalog_row"
+                  },
+                  "actionRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "actionKind": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "programRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "graphFunctionRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "targetProgramLocusRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "targetObligationRefs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "uniqueItems": true
+                  },
+                  "inputAssetRefs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "uniqueItems": true
+                  },
+                  "outputAssetRefs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    "uniqueItems": true
+                  },
+                  "expectedDeltaRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "progressConditionRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "stopConditionRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "constructionComposition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "schemaVersion",
+            "compositionRef",
+            "compositionDigest",
+            "graphFunctionRef",
+            "authorities",
+            "interactionProgramLocusRef",
+            "closurePolicy"
+          ],
+          "properties": {
+            "kind": {
+              "const": "construction_composition"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "compositionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "compositionDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "graphFunctionRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "authorities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "kind",
+                  "semanticAuthority",
+                  "authorityRef",
+                  "initialProgramLocusRef",
+                  "refreshProgramLocusRef"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "construction_authority_binding"
+                  },
+                  "semanticAuthority": {
+                    "enum": [
+                      "synthesizeModel",
+                      "evalGap",
+                      "evaluateNext",
+                      "evaluateAction"
+                    ]
+                  },
+                  "authorityRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "initialProgramLocusRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "refreshProgramLocusRef": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "\\S"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                }
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "interactionProgramLocusRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "closurePolicy": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "policyRef",
+                "requireCompleteEvidence",
+                "requirePostEvidenceRefresh"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "construction_policy"
+                },
+                "policyRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "requireCompleteEvidence": {
+                  "type": "boolean"
+                },
+                "requirePostEvidenceRefresh": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "GtlModule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "moduleRef",
+        "moduleVersion",
+        "owningProductId",
+        "artifactDigest",
+        "productContentDigest",
+        "productManifestDigest",
+        "descriptorRef",
+        "contributionManifestRef",
+        "productSemanticsBinding",
+        "contracts",
+        "evaluators",
+        "rules",
+        "implementationBindings",
+        "closureContracts",
+        "programs",
+        "graphFunctions",
+        "contributions"
+      ],
+      "properties": {
+        "kind": {
+          "const": "module_publication"
+        },
+        "moduleRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "moduleVersion": {
+          "const": "5.0.0"
+        },
+        "owningProductId": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "artifactDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "productContentDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "productManifestDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "descriptorRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "contributionManifestRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "productSemanticsBinding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "bindingRef",
+            "packageName",
+            "packageVersion",
+            "modulePath",
+            "namedSymbol"
+          ],
+          "properties": {
+            "kind": {
+              "const": "product_semantics_binding"
+            },
+            "bindingRef": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "packageName": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "packageVersion": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "modulePath": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "namedSymbol": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        "contracts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "contractRef",
+              "contractVersion",
+              "contractKind",
+              "valueKind"
+            ],
+            "properties": {
+              "contractRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "contractVersion": {
+                "const": "5.0.0"
+              },
+              "contractKind": {
+                "enum": [
+                  "closure",
+                  "evidence",
+                  "failure",
+                  "input",
+                  "judgment",
+                  "output",
+                  "refusal",
+                  "transition"
+                ]
+              },
+              "valueKind": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          }
+        },
+        "evaluators": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "regime",
+              "description",
+              "binding",
+              "consumedFieldRefs",
+              "tags"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "regime": {
+                "enum": [
+                  "F_D",
+                  "F_P",
+                  "F_H"
+                ]
+              },
+              "description": {
+                "type": "string"
+              },
+              "binding": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "consumedFieldRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "uniqueItems": true
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "uniqueItems": true
+              }
+            }
+          }
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "kind",
+              "config",
+              "tags"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "kind": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "config": {
+                "type": "object"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "uniqueItems": true
+              }
+            }
+          }
+        },
+        "implementationBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "bindingRef",
+              "implementationRef",
+              "packageName",
+              "packageVersion",
+              "modulePath",
+              "namedSymbol",
+              "computeRegime",
+              "inputContractRef",
+              "outputContractRef",
+              "failureContractRef",
+              "refusalContractRef"
+            ],
+            "properties": {
+              "kind": {
+                "const": "implementation_binding"
+              },
+              "bindingRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "implementationRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "packageName": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "packageVersion": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "modulePath": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "namedSymbol": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "computeRegime": {
+                "enum": [
+                  "F_D",
+                  "F_P"
+                ]
+              },
+              "inputContractRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "outputContractRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "failureContractRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "refusalContractRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          }
+        },
+        "closureContracts": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "kind",
+                  "closureContractRef",
+                  "predicateRef",
+                  "evidenceContractRef",
+                  "resultContractRef",
+                  "refusalContractRef",
+                  "refusalValueKind",
+                  "judgmentContractRef",
+                  "rejectionContractRef",
+                  "transitionContractRef",
+                  "replayProjectionRef",
+                  "terminalKind",
+                  "closureScope",
+                  "eventKindRefs"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "closure_contract"
+                  },
+                  "closureContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "predicateRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "evidenceContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "resultContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "refusalContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "refusalValueKind": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "judgmentContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "rejectionContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "transitionContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "replayProjectionRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "terminalKind": {
+                    "const": "completed"
+                  },
+                  "closureScope": {
+                    "const": "run"
+                  },
+                  "eventKindRefs": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "const": "terminal_reached"
+                      },
+                      {
+                        "const": "frame_closed"
+                      },
+                      {
+                        "const": "graph_call_closed"
+                      },
+                      {
+                        "const": "run_closed"
+                      }
+                    ],
+                    "minItems": 4,
+                    "maxItems": 4
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "kind",
+                  "closureContractRef",
+                  "predicateRef",
+                  "evidenceContractRef",
+                  "resultContractRef",
+                  "refusalContractRef",
+                  "refusalValueKind",
+                  "judgmentContractRef",
+                  "rejectionContractRef",
+                  "transitionContractRef",
+                  "replayProjectionRef",
+                  "terminalKind",
+                  "closureScope",
+                  "eventKindRefs"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "closure_contract"
+                  },
+                  "closureContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "predicateRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "evidenceContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "resultContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "refusalContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "refusalValueKind": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "judgmentContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "rejectionContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "transitionContractRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "replayProjectionRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "terminalKind": {
+                    "const": "completed"
+                  },
+                  "closureScope": {
+                    "const": "graph_call"
+                  },
+                  "eventKindRefs": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "const": "terminal_reached"
+                      },
+                      {
+                        "const": "frame_closed"
+                      },
+                      {
+                        "const": "graph_call_closed"
+                      }
+                    ],
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "programs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GtlProgram"
+          },
+          "minItems": 1
+        },
+        "graphFunctions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GtlGraphFunction"
+          },
+          "minItems": 1
+        },
+        "contributions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "handle",
+              "kind",
+              "declarationOrContractRef",
+              "owningProductId",
+              "programMembershipRefs",
+              "readinessPrerequisiteRefs",
+              "compatibilityRefs",
+              "provenanceRefs"
+            ],
+            "properties": {
+              "handle": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "kind": {
+                "enum": [
+                  "graph_function",
+                  "node_type",
+                  "overlay"
+                ]
+              },
+              "declarationOrContractRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "owningProductId": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "programMembershipRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "uniqueItems": true
+              },
+              "readinessPrerequisiteRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "uniqueItems": true
+              },
+              "compatibilityRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "uniqueItems": true
+              },
+              "provenanceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "uniqueItems": true
+              }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "GtlProgramConformanceInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "subjectRef",
+        "programRef",
+        "module"
+      ],
+      "properties": {
+        "kind": {
+          "const": "gtl_program_conformance_input"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "subjectRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "programRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "module": {
+          "$ref": "#/$defs/GtlModule"
+        }
+      }
+    },
+    "GtlLanguageConformanceCorpus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "corpusRef",
+        "entriesDigest",
+        "diagnosticVocabularyContractId",
+        "entries"
+      ],
+      "properties": {
+        "kind": {
+          "const": "gtl_language_conformance_corpus"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "corpusRef": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "entriesDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "diagnosticVocabularyContractId": {
+          "const": "abg.vocabulary.gtl-program-diagnostic-id"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "caseRef",
+              "input",
+              "expectedDiagnosticIds"
+            ],
+            "properties": {
+              "caseRef": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "input": {
+                "$ref": "#/$defs/GtlProgramConformanceInput"
+              },
+              "expectedDiagnosticIds": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "abg://gtl-program/input/object",
+                    "abg://gtl-program/input/module",
+                    "abg://gtl-program/input/graph-function",
+                    "abg://gtl-program/input/string-field",
+                    "abg://gtl-program/declaration/duplicate-key",
+                    "abg://gtl-program/execution-declaration/invalid",
+                    "abg://gtl-program/graph-function/inputs-equal-environment-requires",
+                    "abg://gtl-program/graph-function/materializable-template",
+                    "abg://gtl-program/graph-function/outputs-provided",
+                    "abg://gtl-program/graph-function/unique-publication",
+                    "abg://gtl-program/graph-function-application/invalid-program",
+                    "abg://gtl-program/graph/input-node-declared",
+                    "abg://gtl-program/graph/node-reachable-or-bound",
+                    "abg://gtl-program/graph/output-derivable",
+                    "abg://gtl-program/c-algebra/invalid-program",
+                    "abg://gtl-program/c-algebra/unresolved-graph-function",
+                    "abg://gtl-program/module/no-untracked-graph-function"
+                  ]
+                },
+                "uniqueItems": true
+              }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}

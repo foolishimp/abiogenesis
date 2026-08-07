@@ -64,7 +64,7 @@ export function bindChildTraversalPreparationPort(
       );
     }
     const graphFunction = binding.publication.graphFunctions.find(
-      (candidate) => candidate.name === request.childGraphFunctionRef,
+      (candidate) => candidate.id === request.childGraphFunctionRef,
     );
     if (graphFunction === undefined) {
       return refusal(

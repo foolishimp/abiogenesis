@@ -1,5 +1,6 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { admitModule } from "./admission.js";
 import { requireRef } from "../shared/references.js";
 import { COMPUTE_REGIME_VALUES } from "./c_algebra.js";
 import type {
@@ -206,7 +207,7 @@ export function modulePublication(
   ) {
     throw new TypeError("ModulePublication requires the 5.0.0 carrier");
   }
-  return deepFreeze({
+  return admitModule({
     ...input,
     productSemanticsBinding: productSemanticsBinding(
       input.productSemanticsBinding,

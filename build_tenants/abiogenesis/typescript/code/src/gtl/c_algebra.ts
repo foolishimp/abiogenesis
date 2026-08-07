@@ -227,17 +227,58 @@ function witness<Input, Output, Role extends string, Cardinality>(): CTermWitnes
 
 function freezeTerm<Term extends CProgramNode, Input, Output, Role extends string, Cardinality extends CResultCardinality>(
   term: Term,
-  termWitness: CTermWitness<Input, Output, Role, Cardinality>,
+  _termWitness: CTermWitness<Input, Output, Role, Cardinality>,
 ): Readonly<Term> & CProgramTerm<Input, Output, Role, Cardinality> {
-  Object.defineProperty(term, C_TERM_TYPE, {
-    configurable: false,
-    enumerable: false,
-    value: termWitness,
-    writable: false,
-  });
   const frozen = deepFreeze(term) as Readonly<Term> & CProgramTerm<Input, Output, Role, Cardinality>;
   nativeTerms.add(frozen);
   return frozen;
+}
+
+// Admission calls this only after the complete C carrier has passed the exact
+// structural parser. The witness therefore records the same authority as a
+// native constructor without making serialized carrier provenance authoritative.
+export function witnessAdmittedCProgramTerm(
+  term: Readonly<CProgramNode>,
+): Readonly<CProgramNode> {
+  const clone: CProgramNode = (() => {
+    switch (term.kind) {
+      case "c_of":
+        return {
+          ...term,
+          requirement: { ...term.requirement },
+        };
+      case "c_identity":
+        return { ...term };
+      case "c_compose":
+        return {
+          ...term,
+          terms: term.terms.map(witnessAdmittedCProgramTerm),
+        };
+      case "c_edge":
+        return {
+          ...term,
+          transform: witnessAdmittedCProgramTerm(term.transform) as Readonly<COfNode>,
+          evaluate: witnessAdmittedCProgramTerm(term.evaluate) as Readonly<COfNode>,
+          consequence: witnessAdmittedCProgramTerm(term.consequence) as Readonly<COfNode>,
+        };
+      case "c_workflow":
+        return { ...term };
+      case "c_batch":
+        return {
+          ...term,
+          tasks: term.tasks.map(witnessAdmittedCProgramTerm),
+        };
+      case "c_retry":
+        return {
+          ...term,
+          term: witnessAdmittedCProgramTerm(term.term),
+        };
+    }
+  })();
+  return freezeTerm(
+    clone,
+    witness<unknown, unknown, string, CResultCardinality>(),
+  );
 }
 
 function combineCardinality(

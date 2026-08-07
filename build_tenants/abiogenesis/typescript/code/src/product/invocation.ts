@@ -419,7 +419,7 @@ function constructInvocation(
     authority.catalogBasisDigest !== catalogView.catalogBasisDigest ||
     authority.catalogViewDigest !== catalogView.viewDigest ||
     authority.programRef !== program.programRef ||
-    authority.graphFunctionRef !== graphFunction.name ||
+    authority.graphFunctionRef !== graphFunction.id ||
     authority.policyRef !== policy.policyRef ||
     authority.policyDigest !== policy.policyDigest ||
     authority.capabilityGrantRefs.join("\0") !== capabilityGrants.map((grant) => grant.grantRef).join("\0")
@@ -471,7 +471,7 @@ function constructInvocation(
     catalogViewDigest: catalogView.viewDigest,
     programRef: program.programRef,
     programDigest: sha256Canonical(program as unknown as JsonValue),
-    graphFunctionRef: graphFunction.name,
+    graphFunctionRef: graphFunction.id,
     graphFunctionDigest: sha256Canonical(graphFunction as unknown as JsonValue),
     inputContractRef,
     outputContractRef,

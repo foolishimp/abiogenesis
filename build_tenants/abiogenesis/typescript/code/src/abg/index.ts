@@ -1,4 +1,20 @@
 export {
+  GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS,
+  GTL_PROGRAM_DIAGNOSTIC_ID_VALUES,
+  GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES,
+  admitGtlProgramConformanceInput,
+  assertGtlProgramDiagnosticId,
+  isGtlProgramDiagnosticId,
+  typecheckGtlProgram,
+  type GtlProgramAdmissibleRepair,
+  type GtlProgramConformanceInput,
+  type GtlProgramConformanceInputAdmission,
+  type GtlProgramConformanceIssue,
+  type GtlProgramConformanceReport,
+  type GtlProgramDiagnosticId,
+  type GtlProgramRepairEditClass,
+} from "../validator/conformance.js";
+export {
   AbgEventStore,
   admitRuntimeEventTransaction,
   ROOT_EVENT_KIND_VALUES,

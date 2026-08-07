@@ -80,8 +80,8 @@ function publicationWithRootVariant(base, input) {
       ...childContributions,
       {
         ...structuredClone(sourceContribution),
-        handle: input.graphFunction.name,
-        declarationOrContractRef: input.graphFunction.name,
+        handle: input.graphFunction.id,
+        declarationOrContractRef: input.graphFunction.id,
         programMembershipRefs: [input.program.programRef],
         readinessPrerequisiteRefs: [input.program.programRef],
       },
@@ -91,7 +91,7 @@ function publicationWithRootVariant(base, input) {
 
 function retryWorkflowPublication(gtl, base) {
   const workflow = base.graphFunctions.find((candidate) =>
-    candidate.name ===
+    candidate.id ===
       "graph-function://abiogenesis/conformance/hello-workflow@5");
   const childRef = workflow.template.nodes[0].term.graphFunctionRef;
   const sourceProgram = base.programs.find((candidate) =>
@@ -106,7 +106,7 @@ function retryWorkflowPublication(gtl, base) {
   }));
   const graphFunction = Object.freeze({
     ...structuredClone(workflow),
-    name: GRAPH_FUNCTION_REF,
+    id: GRAPH_FUNCTION_REF,
     template: {
       ...structuredClone(workflow.template),
       graphRef: GRAPH_REF,
@@ -130,7 +130,7 @@ function retryWorkflowPublication(gtl, base) {
     callableMembership: [GRAPH_FUNCTION_REF, childRef],
   });
   const sourceContribution = base.contributions.find((candidate) =>
-    candidate.handle === workflow.name);
+    candidate.handle === workflow.id);
   const childContribution = base.contributions.find((candidate) =>
     candidate.handle === childRef);
   assert.ok(sourceContribution);
@@ -172,7 +172,7 @@ function retryWorkflowPublication(gtl, base) {
 
 function retryDeferredApplicationPublication(gtl, base) {
   const source = base.graphFunctions.find((candidate) =>
-    candidate.name ===
+    candidate.id ===
       "graph-function://abiogenesis/conformance/bounded-recursion@5");
   const sourceProgram = base.programs.find((candidate) =>
     candidate.programRef ===
@@ -207,7 +207,7 @@ function retryDeferredApplicationPublication(gtl, base) {
   });
   const graphFunction = Object.freeze({
     ...structuredClone(source),
-    name: RECURSION_GRAPH_FUNCTION_REF,
+    id: RECURSION_GRAPH_FUNCTION_REF,
     template: {
       ...structuredClone(source.template),
       graphRef: RECURSION_GRAPH_REF,
@@ -232,7 +232,7 @@ function retryDeferredApplicationPublication(gtl, base) {
     callableMembership: [RECURSION_GRAPH_FUNCTION_REF, childRef],
   });
   const sourceContribution = base.contributions.find((candidate) =>
-    candidate.handle === source.name);
+    candidate.handle === source.id);
   const childContribution = base.contributions.find((candidate) =>
     candidate.handle === childRef);
   assert.ok(sourceContribution);
@@ -282,7 +282,7 @@ function retryDeferredApplicationPublication(gtl, base) {
 
 function retryFanOutPublication(gtl, base) {
   const source = base.graphFunctions.find((candidate) =>
-    candidate.name === gtl.FAN_OUT_HELLO_IDS.graphFunctionRef);
+    candidate.id === gtl.FAN_OUT_HELLO_IDS.graphFunctionRef);
   const sourceProgram = base.programs.find((candidate) =>
     candidate.programRef === gtl.FAN_OUT_HELLO_IDS.programRef);
   assert.ok(source);
@@ -296,7 +296,7 @@ function retryFanOutPublication(gtl, base) {
   ];
   const graphFunction = Object.freeze({
     ...structuredClone(source),
-    name: FAN_OUT_GRAPH_FUNCTION_REF,
+    id: FAN_OUT_GRAPH_FUNCTION_REF,
     template: {
       ...structuredClone(source.template),
       graphRef: FAN_OUT_GRAPH_REF,
@@ -324,13 +324,13 @@ function retryFanOutPublication(gtl, base) {
   });
   return {
     publication: publicationWithRootVariant(base, {
-      sourceGraphFunctionRef: source.name,
+      sourceGraphFunctionRef: source.id,
       graphFunction,
       program,
       childRefs,
     }),
     programRef: program.programRef,
-    graphFunctionRef: graphFunction.name,
+    graphFunctionRef: graphFunction.id,
     childRefs,
     input: gtl.constructFanOutHelloInput(["Ada", "Grace", "Margaret"]),
   };
@@ -338,7 +338,7 @@ function retryFanOutPublication(gtl, base) {
 
 function retryIdentityPublication(gtl, base) {
   const source = base.graphFunctions.find((candidate) =>
-    candidate.name === gtl.HELLO_WORLD_IDS.graphFunctionRef);
+    candidate.id === gtl.HELLO_WORLD_IDS.graphFunctionRef);
   const sourceProgram = base.programs.find((candidate) =>
     candidate.programRef === gtl.HELLO_WORLD_IDS.programRef);
   assert.ok(source);
@@ -346,7 +346,7 @@ function retryIdentityPublication(gtl, base) {
   const next = source.template.nodes[0].term;
   const graphFunction = Object.freeze({
     ...structuredClone(source),
-    name: IDENTITY_GRAPH_FUNCTION_REF,
+    id: IDENTITY_GRAPH_FUNCTION_REF,
     template: {
       ...structuredClone(source.template),
       graphRef: IDENTITY_GRAPH_REF,
@@ -380,13 +380,13 @@ function retryIdentityPublication(gtl, base) {
   });
   return {
     publication: publicationWithRootVariant(base, {
-      sourceGraphFunctionRef: source.name,
+      sourceGraphFunctionRef: source.id,
       graphFunction,
       program,
       childRefs: [],
     }),
     programRef: program.programRef,
-    graphFunctionRef: graphFunction.name,
+    graphFunctionRef: graphFunction.id,
     childRefs: [],
     input: gtl.constructHelloWorldInput("Identity"),
   };
@@ -452,9 +452,9 @@ function retryFhPublication(gtl, _base, environment) {
     packageVersion: environment.verified.packageVersion,
   });
   const source = base.graphFunctions.find((candidate) =>
-    candidate.name === gtl.CONSENSUS_IDS.escalationGraphFunctionRef);
+    candidate.id === gtl.CONSENSUS_IDS.escalationGraphFunctionRef);
   const sourceProgram = base.programs.find((candidate) =>
-    candidate.callableMembership.includes(source?.name));
+    candidate.callableMembership.includes(source?.id));
   const sourceInputContract = base.contracts.find((candidate) =>
     candidate.contractRef === gtl.CONSENSUS_IDS.resolutionContractRef);
   const sourceClosureContract = base.closureContracts.find((candidate) =>
@@ -488,7 +488,7 @@ function retryFhPublication(gtl, _base, environment) {
   const startRef = "start://t287/test/retry-fh@5";
   const graphFunction = Object.freeze({
     ...structuredClone(source),
-    name: FH_GRAPH_FUNCTION_REF,
+    id: FH_GRAPH_FUNCTION_REF,
     environment: {
       ...structuredClone(source.environment),
       requires: source.environment.requires.map((contractRef) =>
@@ -596,13 +596,13 @@ function retryFhPublication(gtl, _base, environment) {
         },
       ],
     }, {
-      sourceGraphFunctionRef: source.name,
+      sourceGraphFunctionRef: source.id,
       graphFunction,
       program,
       childRefs,
     }),
     programRef: program.programRef,
-    graphFunctionRef: graphFunction.name,
+    graphFunctionRef: graphFunction.id,
     childRefs,
     input: unresolvedConsensusResolution(environment.product),
     interaction: {
@@ -625,19 +625,19 @@ async function executeTestGraph(context, constructFixture, options = {}) {
   } = environment;
   const fixture = constructFixture(gtl, environment.publication, environment);
   await options.prepareStore?.({ environment, fixture });
-  const publication = fixture.publication;
-  const program = publication.programs.find((candidate) =>
-    candidate.programRef === fixture.programRef);
-  const graphFunction = publication.graphFunctions.find((candidate) =>
-    candidate.name === fixture.graphFunctionRef);
-  assert.ok(program);
-  assert.ok(graphFunction);
   const publicationAdmission = requireRawAdmission(
     validator,
-    publication,
+    fixture.publication,
     "module_publication",
     "contract://abiogenesis/gtl/module-publication@5",
   );
+  const publication = publicationAdmission.value;
+  const program = publication.programs.find((candidate) =>
+    candidate.programRef === fixture.programRef);
+  const graphFunction = publication.graphFunctions.find((candidate) =>
+    candidate.id === fixture.graphFunctionRef);
+  assert.ok(program);
+  assert.ok(graphFunction);
   const contributionAdmissions = publication.contributions.map((value) =>
     requireRawAdmission(
       validator,
@@ -684,7 +684,7 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     correlationId: "correlation://t287/r6/retry-workflow",
     payload: {
       programRef: program.programRef,
-      graphFunctionRef: graphFunction.name,
+      graphFunctionRef: graphFunction.id,
     },
   };
   const rawRequest = requireRawAdmission(
@@ -730,7 +730,7 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     workspaceBinding,
     catalogView,
     program.programRef,
-    graphFunction.name,
+    graphFunction.id,
     policy,
     grants,
   );

@@ -285,7 +285,7 @@ function resolveValidatedLeaf(
   );
   const graphFunctionMatch = resolveExactMatch(
     publication.graphFunctions,
-    (value) => value.name === declaration.graphFunctionRef,
+    (value) => value.id === declaration.graphFunctionRef,
   );
   if (
     selectedRowMatch.kind !== "one" ||
@@ -497,7 +497,7 @@ export function resolveImplementation(
   }
   const graphFunctionMatch = resolveExactMatch(
     publication.graphFunctions,
-    (value) => value.name === graphFunctionRef,
+    (value) => value.id === graphFunctionRef,
   );
   if (
     graphFunctionMatch.kind !== "one" ||

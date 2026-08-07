@@ -32,9 +32,19 @@ import {
   REVIEW_RULING_KIND_VALUES,
 } from "../build/code/src/gtl/consensus_schema.js";
 import {
+  HELLO_WORLD_IDS,
+  RECURSION_HELLO_IDS,
   constructConsensusModulePublication,
   constructHelloWorldModulePublication,
 } from "../build/code/src/gtl/index.js";
+import {
+  GTL_PROGRAM_DIAGNOSTIC_ID_VALUES,
+  GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES,
+  typecheckGtlProgram,
+} from "../build/code/src/validator/conformance.js";
+import {
+  GTL_PUBLIC_SCHEMA,
+} from "../build/code/src/validator/public_schema.js";
 import {
   PUBLIC_OPERATION_SCHEMA,
 } from "../build/code/src/public/index.js";
@@ -61,6 +71,13 @@ const consensusRoundOutcomeVocabularyPath =
   "contracts/vocabularies/consensus-round-outcome.json";
 const consensusFhDecisionVocabularyPath =
   "contracts/vocabularies/consensus-fh-decision.json";
+const gtlSchemaPath = "contracts/schemas/gtl-language.schema.json";
+const gtlDiagnosticVocabularyPath =
+  "contracts/vocabularies/gtl-program-diagnostic-id.json";
+const gtlRepairVocabularyPath =
+  "contracts/vocabularies/gtl-program-repair-edit-class.json";
+const gtlConformanceCorpusPath =
+  "contracts/corpus/gtl-language-conformance-corpus.json";
 
 function closedVocabulary(vocabularyId, values) {
   return {
@@ -74,7 +91,147 @@ function closedVocabulary(vocabularyId, values) {
 await Promise.all([
   mkdir(dirname(join(root, consensusSchemaPath)), { recursive: true }),
   mkdir(dirname(join(root, reviewRulingVocabularyPath)), { recursive: true }),
+  mkdir(dirname(join(root, gtlConformanceCorpusPath)), { recursive: true }),
 ]);
+
+function compareText(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function constructGtlCorpusInput(module, programRef, caseName) {
+  return {
+    kind: "gtl_program_conformance_input",
+    schemaVersion: "5.0.0",
+    subjectRef: `subject://abiogenesis/gtl-conformance-corpus/${caseName}`,
+    programRef,
+    module,
+  };
+}
+
+function constructGtlConformanceCorpus() {
+  const placeholderDigest = `sha256:${"0".repeat(64)}`;
+  const corpusModule = constructHelloWorldModulePublication({
+    productId,
+    artifactDigest: placeholderDigest,
+    productContentDigest: placeholderDigest,
+    productManifestDigest: placeholderDigest,
+    packageName: packageJson.name,
+    packageVersion: packageJson.version,
+  });
+  const cases = [];
+  const add = (caseName, module, programRef, expectedDiagnosticIds) => {
+    cases.push({
+      caseRef: `gtl-conformance-case://abiogenesis/${caseName}@5`,
+      input: constructGtlCorpusInput(module, programRef, caseName),
+      expectedDiagnosticIds: [...expectedDiagnosticIds].sort(compareText),
+    });
+  };
+
+  for (const program of corpusModule.programs) {
+    const caseName = program.programRef
+      .replace("program://abiogenesis/conformance/", "")
+      .replace(/@5$/u, "");
+    if (!/^[a-z0-9-]+$/u.test(caseName)) {
+      throw new Error(`GTL corpus cannot derive a stable case name for ${program.programRef}`);
+    }
+    add(`valid-${caseName}`, corpusModule, program.programRef, []);
+  }
+
+  const conflictingIdentity = structuredClone(corpusModule);
+  const conflictingGraphFunction = structuredClone(
+    conflictingIdentity.graphFunctions.find(
+      (candidate) => candidate.id === HELLO_WORLD_IDS.graphFunctionRef,
+    ),
+  );
+  if (conflictingGraphFunction === undefined) {
+    throw new Error("GTL corpus cannot locate Hello World GraphFunction");
+  }
+  conflictingGraphFunction.name = "Conflicting human label";
+  conflictingIdentity.graphFunctions.push(conflictingGraphFunction);
+  add(
+    "same-id-different-carrier",
+    conflictingIdentity,
+    HELLO_WORLD_IDS.programRef,
+    [
+      "abg://gtl-program/graph-function/unique-publication",
+    ],
+  );
+
+  add(
+    "unresolved-program-reference",
+    corpusModule,
+    "program://abiogenesis/conformance/not-published@5",
+    ["abg://gtl-program/module/no-untracked-graph-function"],
+  );
+
+  const unauthorizedCycle = structuredClone(corpusModule);
+  const cyclicGraphFunction = unauthorizedCycle.graphFunctions.find(
+    (candidate) => candidate.id === HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  if (cyclicGraphFunction === undefined) {
+    throw new Error("GTL corpus cannot construct unauthorized cycle");
+  }
+  cyclicGraphFunction.template.nodes[0].term = {
+    kind: "c_workflow",
+    inputCarrierRef: cyclicGraphFunction.inputs[0],
+    outputCarrierRef: cyclicGraphFunction.outputs[0],
+    graphFunctionRef: cyclicGraphFunction.id,
+  };
+  add(
+    "unauthorized-call-cycle",
+    unauthorizedCycle,
+    HELLO_WORLD_IDS.programRef,
+    ["abg://gtl-program/graph/node-reachable-or-bound"],
+  );
+
+  const emptyTerminal = structuredClone(corpusModule);
+  const identityGraphFunction = emptyTerminal.graphFunctions.find(
+    (candidate) => candidate.id === HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  if (identityGraphFunction === undefined) {
+    throw new Error("GTL corpus cannot construct terminal identity");
+  }
+  const identityTerminal = identityGraphFunction.template.nodes[0];
+  identityTerminal.term = {
+    kind: "c_identity",
+    inputCarrierRef: identityTerminal.term.inputCarrierRef,
+    outputCarrierRef: identityTerminal.term.inputCarrierRef,
+  };
+  add(
+    "standalone-terminal-identity",
+    emptyTerminal,
+    HELLO_WORLD_IDS.programRef,
+    [
+      "abg://gtl-program/graph/node-reachable-or-bound",
+      "abg://gtl-program/graph/output-derivable",
+    ],
+  );
+
+  for (const entry of cases) {
+    const report = typecheckGtlProgram(entry.input);
+    const observed = [...new Set(
+      report.issues.map((issue) => issue.diagnosticId),
+    )].sort(compareText);
+    if (canonicalJson(observed) !== canonicalJson(entry.expectedDiagnosticIds)) {
+      throw new Error(
+        `GTL corpus expectation drift for ${entry.caseRef}: ${canonicalJson(observed)}`,
+      );
+    }
+  }
+  const entriesDigest = sha256Canonical(cases);
+  return {
+    kind: "gtl_language_conformance_corpus",
+    schemaVersion: "5.0.0",
+    corpusRef:
+      `gtl-language-conformance-corpus://abiogenesis/${entriesDigest.slice("sha256:".length)}`,
+    entriesDigest,
+    diagnosticVocabularyContractId:
+      "abg.vocabulary.gtl-program-diagnostic-id",
+    entries: cases,
+  };
+}
+
+const gtlConformanceCorpus = constructGtlConformanceCorpus();
 
 const toolchainRoot = join(root, "build/toolchain");
 const typescriptRoot = dirname(require.resolve("typescript/package.json"));
@@ -120,6 +277,32 @@ await Promise.all([
   writeFile(
     join(root, publicOperationSchemaPath),
     `${JSON.stringify(PUBLIC_OPERATION_SCHEMA, null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, gtlSchemaPath),
+    `${JSON.stringify(GTL_PUBLIC_SCHEMA, null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, gtlDiagnosticVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.gtl-program-diagnostic-id",
+      GTL_PROGRAM_DIAGNOSTIC_ID_VALUES,
+    ), null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, gtlRepairVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.gtl-program-repair-edit-class",
+      GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES,
+    ), null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, gtlConformanceCorpusPath),
+    `${canonicalJson(gtlConformanceCorpus)}\n`,
     "utf8",
   ),
   writeFile(
@@ -197,6 +380,16 @@ const consensusRoundOutcomeVocabularyDigest = await sha256File(
 const consensusFhDecisionVocabularyDigest = await sha256File(
   join(root, consensusFhDecisionVocabularyPath),
 );
+const gtlSchemaDigest = await sha256File(join(root, gtlSchemaPath));
+const gtlDiagnosticVocabularyDigest = await sha256File(
+  join(root, gtlDiagnosticVocabularyPath),
+);
+const gtlRepairVocabularyDigest = await sha256File(
+  join(root, gtlRepairVocabularyPath),
+);
+const gtlConformanceCorpusDigest = await sha256File(
+  join(root, gtlConformanceCorpusPath),
+);
 const declarationSources = await Promise.all(
   productRelativeLocators
     .filter((path) => /\.d\.(?:c|m)?ts$/u.test(path))
@@ -228,6 +421,9 @@ function nativeInventoryFor(packageExportPath) {
 const nativeInventory = nativeInventoryFor("./product");
 const abgNativeInventory = nativeInventoryFor("./abg");
 const gtlNativeInventory = nativeInventoryFor("./gtl");
+const gtlM01NativeInventory = nativeInventoryFor("./gtl/m01");
+const gtlM02NativeInventory = nativeInventoryFor("./gtl/m02");
+const abgM03NativeInventory = nativeInventoryFor("./abg/m03");
 const validatorNativeInventory = nativeInventoryFor("./validator");
 const hogNativeInventory = nativeInventoryFor("./hog");
 const publicNativeInventory = nativeInventoryFor("./public");
@@ -352,10 +548,262 @@ const publicOperationRows = [
   },
 }));
 
+const gtlDeclareCapabilityIdentities = [
+  "abg.capability.gtl.declare@5",
+  "abg.capability.gtl.admit@5",
+  "abg.capability.gtl.serialize@5",
+];
+const gtlModuleCapabilityIdentities = [
+  "abg.capability.gtl.admit@5",
+  "abg.capability.gtl.serialize@5",
+  "abg.capability.module.publish@5",
+];
+const gtlAdmitCapabilityIdentities = ["abg.capability.gtl.admit@5"];
+const gtlSerializeCapabilityIdentities = ["abg.capability.gtl.serialize@5"];
+const gtlTypecheckCapabilityIdentities = ["abg.capability.gtl.typecheck@5"];
+const gtlAuthorityRefs = [
+  "specification/requirements/gtl/REQ-L-GTL3-LAWS.md#REQ-L-GTL3-LAWS-019",
+  "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-006A",
+  "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-007A",
+];
+
+function serializedGtlRow(
+  contractId,
+  definitionName,
+  inventory,
+  namedSymbol,
+  capabilityIdentities,
+) {
+  return {
+    contractId,
+    contractVersion: "5.0.0",
+    contractDigest: gtlSchemaDigest,
+    contractKind: "serialized_native_contract",
+    owningProduct: productId,
+    requirementAuthorityRefs: gtlAuthorityRefs,
+    capabilityIdentities,
+    nativeTypedLocator: nativeTypedLocator(inventory, namedSymbol),
+    assetLocator: {
+      path: gtlSchemaPath,
+      mediaType: "application/schema+json",
+      schemaVersion: "5.0.0",
+      contentDigest: gtlSchemaDigest,
+      definitionRef: `#/$defs/${definitionName}`,
+    },
+  };
+}
+
+const gtlContractRows = [
+  {
+    contractId: "abg.contract.gtl.m01",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(gtlM01NativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-005",
+    ],
+    capabilityIdentities: gtlDeclareCapabilityIdentities,
+    nativeTypedLocator: nativeTypedLocator(
+      gtlM01NativeInventory,
+      "constructGraphFunction",
+    ),
+  },
+  {
+    contractId: "abg.contract.gtl.m02",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(gtlM02NativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-005",
+    ],
+    capabilityIdentities: gtlModuleCapabilityIdentities,
+    nativeTypedLocator: nativeTypedLocator(
+      gtlM02NativeInventory,
+      "modulePublication",
+    ),
+  },
+  {
+    contractId: "abg.contract.abg.m03",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(abgM03NativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-005",
+      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-006",
+    ],
+    capabilityIdentities: gtlTypecheckCapabilityIdentities,
+    nativeTypedLocator: nativeTypedLocator(
+      abgM03NativeInventory,
+      "isGtlProgramDiagnosticId",
+    ),
+  },
+  serializedGtlRow(
+    "abg.schema.gtl-graph-function",
+    "GtlGraphFunction",
+    gtlM01NativeInventory,
+    "admitGraphFunction",
+    gtlAdmitCapabilityIdentities,
+  ),
+  serializedGtlRow(
+    "abg.contract.gtl.graph-function-canonical-serialization",
+    "GtlGraphFunction",
+    gtlM01NativeInventory,
+    "serializeGraphFunction",
+    gtlSerializeCapabilityIdentities,
+  ),
+  serializedGtlRow(
+    "abg.schema.gtl-module",
+    "GtlModule",
+    gtlM02NativeInventory,
+    "admitModule",
+    gtlAdmitCapabilityIdentities,
+  ),
+  serializedGtlRow(
+    "abg.contract.gtl.module-canonical-serialization",
+    "GtlModule",
+    gtlM02NativeInventory,
+    "serializeModule",
+    gtlSerializeCapabilityIdentities,
+  ),
+  serializedGtlRow(
+    "abg.schema.gtl-c-program",
+    "GtlCProgram",
+    gtlM01NativeInventory,
+    "admitCProgramSyntax",
+    gtlAdmitCapabilityIdentities,
+  ),
+  serializedGtlRow(
+    "abg.contract.gtl.c-program-canonical-serialization",
+    "GtlCProgram",
+    gtlM01NativeInventory,
+    "serializeCProgramCanonical",
+    gtlSerializeCapabilityIdentities,
+  ),
+  serializedGtlRow(
+    "abg.schema.gtl-program-conformance-input",
+    "GtlProgramConformanceInput",
+    abgM03NativeInventory,
+    "GtlProgramConformanceInput",
+    gtlTypecheckCapabilityIdentities,
+  ),
+  {
+    contractId: "abg.schema.gtl-language-conformance-corpus",
+    contractVersion: "5.0.0",
+    contractDigest: gtlSchemaDigest,
+    contractKind: "schema_asset",
+    owningProduct: productId,
+    requirementAuthorityRefs: gtlAuthorityRefs,
+    capabilityIdentities: gtlTypecheckCapabilityIdentities,
+    assetLocator: {
+      path: gtlSchemaPath,
+      mediaType: "application/schema+json",
+      schemaVersion: "5.0.0",
+      contentDigest: gtlSchemaDigest,
+      definitionRef: "#/$defs/GtlLanguageConformanceCorpus",
+    },
+  },
+  serializedGtlRow(
+    "abg.contract.abg.gtl-program-conformance-admission",
+    "GtlProgramConformanceInput",
+    abgM03NativeInventory,
+    "admitGtlProgramConformanceInput",
+    gtlAdmitCapabilityIdentities,
+  ),
+  {
+    contractId: "abg.contract.abg.gtl-program-typecheck",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(abgM03NativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: gtlAuthorityRefs,
+    capabilityIdentities: gtlTypecheckCapabilityIdentities,
+    nativeTypedLocator: nativeTypedLocator(
+      abgM03NativeInventory,
+      "typecheckGtlProgram",
+    ),
+  },
+  {
+    contractId: "abg.vocabulary.gtl-program-diagnostic-id",
+    contractVersion: "5.0.0",
+    contractDigest: gtlDiagnosticVocabularyDigest,
+    contractKind: "serialized_native_contract",
+    owningProduct: productId,
+    requirementAuthorityRefs: gtlAuthorityRefs,
+    capabilityIdentities: gtlTypecheckCapabilityIdentities,
+    nativeTypedLocator: nativeTypedLocator(
+      abgM03NativeInventory,
+      "GTL_PROGRAM_DIAGNOSTIC_ID_VALUES",
+    ),
+    assetLocator: {
+      path: gtlDiagnosticVocabularyPath,
+      mediaType: "application/json",
+      schemaVersion: "5.0.0",
+      contentDigest: gtlDiagnosticVocabularyDigest,
+    },
+  },
+  {
+    contractId: "abg.vocabulary.gtl-program-repair-edit-class",
+    contractVersion: "5.0.0",
+    contractDigest: gtlRepairVocabularyDigest,
+    contractKind: "serialized_native_contract",
+    owningProduct: productId,
+    requirementAuthorityRefs: gtlAuthorityRefs,
+    capabilityIdentities: gtlTypecheckCapabilityIdentities,
+    nativeTypedLocator: nativeTypedLocator(
+      abgM03NativeInventory,
+      "GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES",
+    ),
+    assetLocator: {
+      path: gtlRepairVocabularyPath,
+      mediaType: "application/json",
+      schemaVersion: "5.0.0",
+      contentDigest: gtlRepairVocabularyDigest,
+    },
+  },
+  {
+    contractId: "abg.contract.abg.gtl-program-default-admissible-repairs",
+    contractVersion: "5.0.0",
+    contractDigest: nativeContractDigest(abgM03NativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: gtlAuthorityRefs,
+    capabilityIdentities: gtlTypecheckCapabilityIdentities,
+    nativeTypedLocator: nativeTypedLocator(
+      abgM03NativeInventory,
+      "GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS",
+    ),
+  },
+  {
+    contractId: "abg.asset.gtl.language-conformance-corpus",
+    contractVersion: "5.0.0",
+    contractDigest: gtlConformanceCorpusDigest,
+    contractKind: "corpus_asset",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/gtl/REQ-L-GTL3-LAWS.md#REQ-L-GTL3-LAWS-027",
+      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-007",
+    ],
+    capabilityIdentities: gtlTypecheckCapabilityIdentities,
+    assetLocator: {
+      path: gtlConformanceCorpusPath,
+      mediaType: "application/json",
+      schemaVersion: "5.0.0",
+      contentDigest: gtlConformanceCorpusDigest,
+      schemaContractId: "abg.schema.gtl-language-conformance-corpus",
+      diagnosticVocabularyContractId:
+        "abg.vocabulary.gtl-program-diagnostic-id",
+    },
+  },
+];
+
 const rows = [
   ...consensusContractRows,
   ...consensusVocabularyRows,
   ...publicOperationRows,
+  ...gtlContractRows,
   {
     contractId: "abg.contract.product.verification",
     contractVersion: "5.0.0",
@@ -573,7 +1021,7 @@ const rows = [
       "specification/PRODUCT.md#validation-contract",
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
     ],
-    capabilityIdentities: ["abg.capability.gtl.validate@5"],
+    capabilityIdentities: gtlAdmitCapabilityIdentities,
     nativeTypedLocator: nativeTypedLocator(
       validatorNativeInventory,
       "rawAdmitValue",

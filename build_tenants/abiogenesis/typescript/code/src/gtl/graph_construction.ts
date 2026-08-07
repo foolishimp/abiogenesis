@@ -21,15 +21,21 @@ import {
   promoteApplication,
   substituteApplication,
 } from "./graph_applications.js";
+import {
+  constructGraphFunction,
+  resolveGraphFunctionId,
+} from "./graph_function.js";
 
 export interface ComposeGraphFunctionsInput {
   readonly name: string;
+  readonly id?: string;
   readonly left: Readonly<GraphFunction>;
   readonly right: Readonly<GraphFunction>;
 }
 
 export interface SubstituteGraphFunctionInput {
   readonly name: string;
+  readonly id?: string;
   readonly outer: Readonly<GraphFunction>;
   readonly targetVectorRef: string;
   readonly inner: Readonly<GraphFunction>;
@@ -37,11 +43,13 @@ export interface SubstituteGraphFunctionInput {
 
 export interface IdentityGraphFunctionInput {
   readonly name: string;
+  readonly id?: string;
   readonly contractRef: string;
 }
 
 export interface PromoteGraphFunctionInput {
   readonly name: string;
+  readonly id?: string;
   readonly source: Readonly<GraphFunction>;
   readonly sourceRef: string;
   readonly targetRef: string;
@@ -79,7 +87,7 @@ function graphNodeRefs(
   label: string,
   relation: "compose" | "promote" | "substitute",
 ): ReadonlySet<string> {
-  requireRef(graphFunction.name, `${label} GraphFunction name`);
+  requireRef(graphFunction.id, `${label} GraphFunction id`);
   const refs = graphFunction.template.nodes.map((node) => node.nodeRef);
   const refSet = new Set(refs);
   if (refSet.size !== refs.length) {
@@ -249,7 +257,7 @@ function isIdentityGraphFunction(
   ) return false;
   return graphFunction.template.applications.some((application) =>
     application.relationKind === "identity" &&
-    application.targetRef === graphFunction.name &&
+    application.targetRef === graphFunction.id &&
     application.inputContractRef === contractRef &&
     application.outputContractRef === contractRef &&
     application.applicationRef === graphFunctionApplicationRef(application));
@@ -260,23 +268,27 @@ export function identityGraphFunction(
 ): Readonly<GraphFunction> {
   const name = requireRef(input.name, "identity GraphFunction name");
   const contractRef = requireRef(input.contractRef, "identity contractRef");
+  const id = resolveGraphFunctionId({
+    ...(input.id === undefined ? {} : { id: input.id }),
+    name,
+    canonicalBasis: { relationKind: "identity", name, contractRef },
+  });
   const application = identityApplication({
     inputContractRef: contractRef,
     outputContractRef: contractRef,
-    targetRef: name,
+    targetRef: id,
   });
   const identity = {
-    name,
+    id,
     contractRef,
     applicationRef: application.applicationRef,
   };
   const digest = sha256Canonical(identity as unknown as JsonValue);
   const nodeRef =
     `node://abiogenesis/identity/${digest.slice("sha256:".length)}`;
-  return deepFreeze({
-    kind: "graph_function" as const,
+  return constructGraphFunction({
+    id,
     name,
-    version: "5.0.0" as const,
     environment: { requires: [], provides: [], carries: [] },
     inputs: [contractRef],
     outputs: [contractRef],
@@ -296,7 +308,7 @@ export function identityGraphFunction(
     effects: [],
     declarations: {},
     tags: [],
-  }) as Readonly<GraphFunction>;
+  });
 }
 
 export function promoteGraphFunction(
@@ -306,9 +318,6 @@ export function promoteGraphFunction(
   const sourceRef = requireRef(input.sourceRef, "promotion sourceRef");
   const targetRef = requireRef(input.targetRef, "promotion targetRef");
   const { source } = input;
-  if (name === source.name) {
-    throw new TypeError("promoted GraphFunction requires a distinct identity");
-  }
   graphNodeRefs(source, "source", "promote");
   if (
     source.inputs.length !== 1 ||
@@ -326,15 +335,28 @@ export function promoteGraphFunction(
     sourceRef,
     targetRef,
   });
-  const graphDigest = sha256Canonical({
+  const id = resolveGraphFunctionId({
+    ...(input.id === undefined ? {} : { id: input.id }),
     name,
+    canonicalBasis: {
+      relationKind: "promote",
+      name,
+      sourceRef,
+      targetRef,
+      applicationRef: application.applicationRef,
+    },
+  });
+  if (id === source.id) {
+    throw new TypeError("promoted GraphFunction requires a distinct identity");
+  }
+  const graphDigest = sha256Canonical({
+    id,
     sourceGraphRef: source.template.graphRef,
     applicationRef: application.applicationRef,
   });
-  return deepFreeze({
-    kind: "graph_function" as const,
+  return constructGraphFunction({
+    id,
     name,
-    version: "5.0.0" as const,
     environment: {
       requires: [...source.environment.requires],
       provides: [...source.environment.provides],
@@ -354,7 +376,7 @@ export function promoteGraphFunction(
     effects: [...source.effects],
     declarations: { ...source.declarations },
     tags: [...source.tags],
-  }) as Readonly<GraphFunction>;
+  });
 }
 
 export function composeGraphFunctions(
@@ -362,9 +384,6 @@ export function composeGraphFunctions(
 ): Readonly<GraphFunction> {
   const name = requireRef(input.name, "composed GraphFunction name");
   const { left, right } = input;
-  if (name === left.name || name === right.name) {
-    throw new TypeError("composed GraphFunction requires a distinct identity");
-  }
   const leftNodeRefs = graphNodeRefs(left, "left", "compose");
   graphNodeRefs(right, "right", "compose");
   if (
@@ -398,9 +417,23 @@ export function composeGraphFunctions(
   const application = composeApplication({
     inputContractRef: left.inputs[0]!,
     outputContractRef: right.outputs[0]!,
-    leftGraphFunctionRef: left.name,
-    rightGraphFunctionRef: right.name,
+    leftGraphFunctionRef: left.id,
+    rightGraphFunctionRef: right.id,
   });
+  const id = resolveGraphFunctionId({
+    ...(input.id === undefined ? {} : { id: input.id }),
+    name,
+    canonicalBasis: {
+      relationKind: "compose",
+      name,
+      leftGraphFunctionId: left.id,
+      rightGraphFunctionId: right.id,
+      applicationRef: application.applicationRef,
+    },
+  });
+  if (id === left.id || id === right.id) {
+    throw new TypeError("composed GraphFunction requires a distinct identity");
+  }
   const bridgeEdges = leftIsIdentity || rightIsIdentity
     ? []
     : left.template.terminalNodeRefs.map((fromNodeRef) =>
@@ -414,14 +447,14 @@ export function composeGraphFunctions(
     throw new TypeError("compose operands produce a duplicate graph edge identity");
   }
   const graphIdentity = {
-    name,
+    id,
     leftGraphRef: left.template.graphRef,
     rightGraphRef: right.template.graphRef,
     applicationRef: application.applicationRef,
   };
   const graphDigest = sha256Canonical(graphIdentity as unknown as JsonValue);
   if (leftIsIdentity && rightIsIdentity) {
-    const base = identityGraphFunction({ name, contractRef: left.inputs[0]! });
+    const base = identityGraphFunction({ id, name, contractRef: left.inputs[0]! });
     return deepFreeze({
       ...base,
       template: {
@@ -436,10 +469,9 @@ export function composeGraphFunctions(
       },
     }) as Readonly<GraphFunction>;
   }
-  const graphFunction = {
-    kind: "graph_function" as const,
+  const graphFunction = constructGraphFunction({
+    id,
     name,
-    version: "5.0.0" as const,
     environment: {
       requires: [...left.environment.requires],
       provides: stableUnion([
@@ -478,8 +510,8 @@ export function composeGraphFunctions(
     effects: stableUnion([left.effects, right.effects]),
     declarations: mergeDeclarations(left.declarations, right.declarations, "compose"),
     tags: stableUnion([left.tags, right.tags]),
-  };
-  return deepFreeze(graphFunction) as Readonly<GraphFunction>;
+  });
+  return graphFunction;
 }
 
 export function substituteGraphFunction(
@@ -488,9 +520,6 @@ export function substituteGraphFunction(
   const name = requireRef(input.name, "substituted GraphFunction name");
   const targetVectorRef = requireRef(input.targetVectorRef, "targetVectorRef");
   const { outer, inner } = input;
-  if (name === outer.name || name === inner.name) {
-    throw new TypeError("substituted GraphFunction requires a distinct identity");
-  }
   const outerNodeRefs = graphNodeRefs(outer, "outer", "substitute");
   graphNodeRefs(inner, "inner", "substitute");
   if (
@@ -555,10 +584,25 @@ export function substituteGraphFunction(
   const application = substituteApplication({
     inputContractRef: outer.inputs[0]!,
     outputContractRef: outer.outputs[0]!,
-    outerGraphFunctionRef: outer.name,
+    outerGraphFunctionRef: outer.id,
     targetVectorRef,
-    innerGraphFunctionRef: inner.name,
+    innerGraphFunctionRef: inner.id,
   });
+  const id = resolveGraphFunctionId({
+    ...(input.id === undefined ? {} : { id: input.id }),
+    name,
+    canonicalBasis: {
+      relationKind: "substitute",
+      name,
+      outerGraphFunctionId: outer.id,
+      targetVectorRef,
+      innerGraphFunctionId: inner.id,
+      applicationRef: application.applicationRef,
+    },
+  });
+  if (id === outer.id || id === inner.id) {
+    throw new TypeError("substituted GraphFunction requires a distinct identity");
+  }
   const replacementEdges = [
     graphEdge({
       fromNodeRef: targetEdge.fromNodeRef,
@@ -576,17 +620,16 @@ export function substituteGraphFunction(
     throw new TypeError("substitute operands produce a duplicate graph edge identity");
   }
   const graphIdentity = {
-    name,
+    id,
     outerGraphRef: outer.template.graphRef,
     targetVectorRef,
     innerGraphRef: inner.template.graphRef,
     applicationRef: application.applicationRef,
   };
   const graphDigest = sha256Canonical(graphIdentity as unknown as JsonValue);
-  const graphFunction = {
-    kind: "graph_function" as const,
+  const graphFunction = constructGraphFunction({
+    id,
     name,
-    version: "5.0.0" as const,
     environment: {
       requires: [...outer.environment.requires],
       provides: stableUnion([
@@ -624,6 +667,6 @@ export function substituteGraphFunction(
       "substitute",
     ),
     tags: stableUnion([outer.tags, inner.tags]),
-  };
-  return deepFreeze(graphFunction) as Readonly<GraphFunction>;
+  });
+  return graphFunction;
 }

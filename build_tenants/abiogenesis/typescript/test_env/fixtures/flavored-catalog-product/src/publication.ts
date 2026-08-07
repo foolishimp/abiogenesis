@@ -1,4 +1,5 @@
 import {
+  constructGraphFunction,
   GTL_DECLARATION_CONSTRUCTORS,
 } from "@abiogenesis/typescript-tenant/gtl";
 
@@ -53,10 +54,9 @@ export function constructFlavoredCatalogPublication(
     contractKind: contractKind!,
     valueKind: valueKind!,
   }));
-  const graphFunction = {
-    kind: "graph_function",
-    name: ids.graphFunctionRef,
-    version: "5.0.0",
+  const graphFunction = constructGraphFunction({
+    id: ids.graphFunctionRef,
+    name: "Flavor text renderer",
     environment: {
       requires: [ids.inputContractRef],
       provides: [ids.outputContractRef],
@@ -109,7 +109,7 @@ export function constructFlavoredCatalogPublication(
       "abg.transition_contract": ids.transitionContractRef,
     },
     tags: ["external-product", "flavored-catalog", "all-fd"],
-  } as const;
+  });
   const program = {
     kind: "gtl_program",
     programRef: ids.programRef,

@@ -71,13 +71,16 @@ export interface ProductAssetLocator {
   readonly schemaVersion: string;
   readonly contentDigest: Sha256Digest;
   readonly definitionRef?: string;
+  readonly schemaContractId?: string;
+  readonly diagnosticVocabularyContractId?: string;
 }
 
 export type ProductPublicContractKind =
   | "native_typed_group"
   | "schema_asset"
   | "serialized_native_contract"
-  | "vocabulary_asset";
+  | "vocabulary_asset"
+  | "corpus_asset";
 
 export interface ProductPublicContract {
   readonly contractId: string;

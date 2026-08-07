@@ -1,4 +1,8 @@
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import {
+  canonicalJson,
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
@@ -23,6 +27,7 @@ import {
 } from "../gtl/graph_applications.js";
 import {
   cLeafTerms,
+  cTermResultCardinality,
   isExecutableCLeaf,
   isInteractionCLeaf,
   type CProgramNode,
@@ -183,20 +188,6 @@ function validatePublishedDeclarations(
       path: "$.productSemanticsBinding",
       message:
         "publication requires one exact Product-owned semantics binding carried by its implementation package",
-    });
-  }
-  for (const name of duplicates(publication.evaluators.map((row) => row.name))) {
-    diagnostics.push({
-      code: "duplicate_identity",
-      path: "$.evaluators",
-      message: `duplicate Evaluator declaration ${name}`,
-    });
-  }
-  for (const name of duplicates(publication.rules.map((row) => row.name))) {
-    diagnostics.push({
-      code: "duplicate_identity",
-      path: "$.rules",
-      message: `duplicate Rule declaration ${name}`,
     });
   }
   publication.evaluators.forEach((evaluator, index) => {
@@ -383,19 +374,35 @@ export interface ProgramValidationInput {
 export type PublicationValidationResult = PublicationValidation | StaticValidationRefusal;
 export type ProgramValidationResult = ProgramValidation | StaticValidationRefusal;
 
-const publicationValidations = new WeakSet<object>();
-const programValidations = new WeakSet<object>();
+const PUBLICATION_VALIDATION: unique symbol = Symbol(
+  "abiogenesis.validator.publication-validation",
+);
+const PROGRAM_VALIDATION: unique symbol = Symbol(
+  "abiogenesis.validator.program-validation",
+);
 
 export function isPublicationValidation(value: object): boolean {
-  return publicationValidations.has(value);
+  return Object.hasOwn(value, PUBLICATION_VALIDATION);
 }
 
 export function isProgramValidation(value: object): boolean {
-  return programValidations.has(value);
+  return Object.hasOwn(value, PROGRAM_VALIDATION);
 }
 
 function sameValue(left: unknown, right: unknown): boolean {
   return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
+}
+
+function sameCanonicalMembers(
+  left: readonly unknown[],
+  right: readonly unknown[],
+): boolean {
+  if (left.length !== right.length) return false;
+  const canonical = (values: readonly unknown[]): readonly string[] =>
+    values.map((value) => canonicalJson(value as JsonValue)).sort(compareUnicodeCodeUnits);
+  const leftMembers = canonical(left);
+  const rightMembers = canonical(right);
+  return leftMembers.every((value, index) => value === rightMembers[index]);
 }
 
 function duplicates(values: readonly string[]): readonly string[] {
@@ -405,7 +412,409 @@ function duplicates(values: readonly string[]): readonly string[] {
     if (seen.has(value)) duplicateValues.add(value);
     seen.add(value);
   }
-  return [...duplicateValues].sort();
+  return [...duplicateValues].sort(compareUnicodeCodeUnits);
+}
+
+function identityFamilyDiagnostics<Value>(
+  values: readonly Value[],
+  identityOf: (value: Value) => string,
+  path: string,
+  label: string,
+): readonly StaticDiagnostic[] {
+  return duplicates(values.map(identityOf)).map((identity) => {
+    const carriers = values.filter((value) => identityOf(value) === identity);
+    const distinctCarriers = new Set(
+      carriers.map((value) => canonicalJson(value as unknown as JsonValue)),
+    );
+    const equal = distinctCarriers.size === 1;
+    return {
+      code: equal ? "duplicate_identity" : "identity_mismatch",
+      path,
+      message: equal
+        ? `duplicate ${label} identity ${identity}`
+        : `${label} identity ${identity} is claimed by different carriers`,
+    };
+  });
+}
+
+function validateModuleIdentityClosure(
+  publication: Readonly<ModulePublication>,
+): readonly StaticDiagnostic[] {
+  const diagnostics: StaticDiagnostic[] = [
+    ...identityFamilyDiagnostics(
+      publication.contracts,
+      (value) => value.contractRef,
+      "$.contracts",
+      "Contract",
+    ),
+    ...identityFamilyDiagnostics(
+      publication.evaluators,
+      (value) => value.name,
+      "$.evaluators",
+      "Evaluator",
+    ),
+    ...identityFamilyDiagnostics(
+      publication.rules,
+      (value) => value.name,
+      "$.rules",
+      "Rule",
+    ),
+    ...identityFamilyDiagnostics(
+      publication.implementationBindings,
+      (value) => value.bindingRef,
+      "$.implementationBindings",
+      "ImplementationBinding",
+    ),
+    ...identityFamilyDiagnostics(
+      publication.closureContracts,
+      (value) => value.closureContractRef,
+      "$.closureContracts",
+      "ClosureContract",
+    ),
+    ...identityFamilyDiagnostics(
+      publication.programs,
+      (value) => value.programRef,
+      "$.programs",
+      "Program",
+    ),
+    ...identityFamilyDiagnostics(
+      publication.graphFunctions,
+      (value) => value.id,
+      "$.graphFunctions",
+      "GraphFunction",
+    ),
+    ...identityFamilyDiagnostics(
+      publication.contributions,
+      (value) => value.handle,
+      "$.contributions",
+      "contribution",
+    ),
+  ];
+
+  for (const program of publication.programs) {
+    const path = `$.programs[${program.programRef}]`;
+    diagnostics.push(
+      ...identityFamilyDiagnostics(
+        program.starts,
+        (value) => value.startRef,
+        `${path}.starts`,
+        "Program start",
+      ),
+    );
+    if (program.publicAssetTargets !== undefined) {
+      diagnostics.push(
+        ...identityFamilyDiagnostics(
+          program.publicAssetTargets,
+          (value) => value.handle,
+          `${path}.publicAssetTargets`,
+          "public asset handle",
+        ),
+        ...identityFamilyDiagnostics(
+          program.publicAssetTargets,
+          (value) => value.assetRef,
+          `${path}.publicAssetTargets`,
+          "public asset ownership",
+        ),
+      );
+    }
+    if (program.actionCatalog !== undefined) {
+      diagnostics.push(
+        ...identityFamilyDiagnostics(
+          program.actionCatalog.rows,
+          (value) => value.actionRef,
+          `${path}.actionCatalog.rows`,
+          "action",
+        ),
+      );
+    }
+  }
+
+  for (const graphFunction of publication.graphFunctions) {
+    const path = `$.graphFunctions[${graphFunction.id}].template`;
+    diagnostics.push(
+      ...identityFamilyDiagnostics(
+        graphFunction.template.nodes,
+        (value) => value.nodeRef,
+        `${path}.nodes`,
+        "graph node",
+      ),
+      ...identityFamilyDiagnostics(
+        graphFunction.template.edges,
+        (value) => value.edgeRef,
+        `${path}.edges`,
+        "graph edge",
+      ),
+      ...identityFamilyDiagnostics(
+        graphFunction.template.applications,
+        (value) => value.applicationRef,
+        `${path}.applications`,
+        "GraphFunction application",
+      ),
+    );
+  }
+
+  return diagnostics;
+}
+
+function validateGraphTopology(
+  graphFunction: Readonly<GraphFunction>,
+): readonly StaticDiagnostic[] {
+  const path = `$.graphFunctions[${graphFunction.id}].template`;
+  const { nodes, edges, startNodeRef, terminalNodeRefs } = graphFunction.template;
+  const diagnostics: StaticDiagnostic[] = [];
+  const nodeRefs = nodes.map((node) => node.nodeRef);
+  for (const ref of duplicates(nodeRefs)) {
+    diagnostics.push({
+      code: "duplicate_identity",
+      path: `${path}.nodes`,
+      message: `duplicate graph node identity ${ref}`,
+    });
+  }
+  for (const ref of duplicates(edges.map((edge) => edge.edgeRef))) {
+    diagnostics.push({
+      code: "duplicate_identity",
+      path: `${path}.edges`,
+      message: `duplicate graph edge identity ${ref}`,
+    });
+  }
+  const declared = new Set(nodeRefs);
+  const terminals = new Set(terminalNodeRefs);
+  if (
+    startNodeRef.length === 0 ||
+    !declared.has(startNodeRef) ||
+    terminalNodeRefs.length === 0 ||
+    terminals.size !== terminalNodeRefs.length ||
+    terminalNodeRefs.some((ref) => !declared.has(ref))
+  ) {
+    diagnostics.push({
+      code: "topology_mismatch",
+      path,
+      message: "graph requires one exact declared start and a non-empty unique declared terminal set",
+    });
+  }
+  if (edges.some((edge) => !declared.has(edge.fromNodeRef) || !declared.has(edge.toNodeRef))) {
+    diagnostics.push({
+      code: "topology_mismatch",
+      path: `${path}.edges`,
+      message: "edge endpoint is absent from graph template",
+    });
+  }
+
+  const outgoing = new Map<string, string[]>();
+  for (const ref of declared) outgoing.set(ref, []);
+  for (const edge of edges) outgoing.get(edge.fromNodeRef)?.push(edge.toNodeRef);
+  for (const node of nodes) {
+    const outdegree = outgoing.get(node.nodeRef)?.length ?? 0;
+    const cardinality = cTermResultCardinality(node.term);
+    const expectedOutdegree = cardinality === "zero" ? 1 : cardinality === "one" ? 0 : null;
+    if (
+      expectedOutdegree === null ||
+      outdegree !== expectedOutdegree ||
+      terminals.has(node.nodeRef) !== (expectedOutdegree === 0)
+    ) {
+      diagnostics.push({
+        code: "topology_mismatch",
+        path: `${path}.nodes[${node.nodeRef}]`,
+        message: expectedOutdegree === null
+          ? "graph node term has non-finite result cardinality"
+          : `${node.term.kind} requires graph outdegree ${expectedOutdegree}`,
+      });
+    }
+  }
+
+  const reached = new Set<string>();
+  const active = new Set<string>();
+  let hasGraphEdgeCycle = false;
+  const visit = (ref: string): void => {
+    if (active.has(ref)) {
+      hasGraphEdgeCycle = true;
+      return;
+    }
+    if (reached.has(ref)) return;
+    reached.add(ref);
+    active.add(ref);
+    for (const next of outgoing.get(ref) ?? []) visit(next);
+    active.delete(ref);
+  };
+  if (declared.has(startNodeRef)) visit(startNodeRef);
+  if (
+    nodeRefs.some((ref) => !reached.has(ref)) ||
+    terminalNodeRefs.some((ref) => !reached.has(ref))
+  ) {
+    diagnostics.push({
+      code: "topology_mismatch",
+      path,
+      message: "every executable node and terminal must be reachable from the exact start",
+    });
+  }
+  if (hasGraphEdgeCycle) {
+    diagnostics.push({
+      code: "topology_mismatch",
+      path: `${path}.edges`,
+      message: "graph-vector cycles cannot substitute for a declared GraphFunction recursion constructor",
+    });
+  }
+  return diagnostics;
+}
+
+interface GraphFunctionCallEdge {
+  readonly from: string;
+  readonly to: string;
+  readonly governedRecursion: boolean;
+}
+
+function isGovernedRecursionApplication(
+  application: Readonly<GraphFunctionApplication>,
+  graphFunctionByRef: ReadonlyMap<string, Readonly<GraphFunction>>,
+  publishedRuleRefs: ReadonlySet<string>,
+  publishedEvaluatorByRef: ReadonlyMap<string, Readonly<EvaluatorDeclaration>>,
+): boolean {
+  if (application.relationKind !== "recurse") return false;
+  const target = graphFunctionByRef.get(application.graphFunctionRef);
+  return hasExactApplicationShape(application) &&
+    application.applicationRef === graphFunctionApplicationRef(application) &&
+    Number.isSafeInteger(application.bound) &&
+    application.bound > 0 &&
+    application.foldback.mode === "rebind" &&
+    application.foldback.binding.length > 0 &&
+    application.foldback.requiresParentEvaluation === true &&
+    application.foldbackRef === foldbackRef(application.foldback) &&
+    /^\$\.[A-Za-z_][A-Za-z0-9_.]*$/u.test(application.terminationFieldRef) &&
+    publishedRuleRefs.has(application.terminationRuleRef) &&
+    application.terminationEvaluatorRefs.length > 0 &&
+    new Set(application.terminationEvaluatorRefs).size ===
+      application.terminationEvaluatorRefs.length &&
+    application.terminationEvaluatorRefs.every((ref) =>
+      publishedEvaluatorByRef.get(ref)?.consumedFieldRefs.includes(
+        application.terminationFieldRef,
+      ) === true
+    ) &&
+    target !== undefined &&
+    target.inputs.includes(application.inputContractRef) &&
+    target.outputs.includes(application.outputContractRef);
+}
+
+function graphFunctionCallEdges(
+  graphFunctions: readonly Readonly<GraphFunction>[],
+  publishedRuleRefs: ReadonlySet<string>,
+  publishedEvaluatorByRef: ReadonlyMap<string, Readonly<EvaluatorDeclaration>>,
+): readonly GraphFunctionCallEdge[] {
+  const graphFunctionByRef = new Map(
+    graphFunctions.map((graphFunction) => [graphFunction.id, graphFunction]),
+  );
+  return graphFunctions.flatMap((graphFunction) => {
+    const edges: GraphFunctionCallEdge[] = [];
+    for (const node of graphFunction.template.nodes) {
+      for (const ref of workflowGraphFunctionRefs(node.term)) {
+        edges.push({ from: graphFunction.id, to: ref, governedRecursion: false });
+      }
+    }
+    for (const application of graphFunction.template.applications) {
+      switch (application.relationKind) {
+        case "compose":
+          edges.push(
+            { from: graphFunction.id, to: application.leftGraphFunctionRef, governedRecursion: false },
+            { from: graphFunction.id, to: application.rightGraphFunctionRef, governedRecursion: false },
+          );
+          break;
+        case "substitute":
+          edges.push(
+            { from: graphFunction.id, to: application.outerGraphFunctionRef, governedRecursion: false },
+            { from: graphFunction.id, to: application.innerGraphFunctionRef, governedRecursion: false },
+          );
+          break;
+        case "recurse":
+          edges.push({
+            from: graphFunction.id,
+            to: application.graphFunctionRef,
+            governedRecursion: isGovernedRecursionApplication(
+              application,
+              graphFunctionByRef,
+              publishedRuleRefs,
+              publishedEvaluatorByRef,
+            ),
+          });
+          break;
+        case "fan_out":
+          edges.push({ from: graphFunction.id, to: application.elementGraphFunctionRef, governedRecursion: false });
+          break;
+        case "fan_in":
+          edges.push({ from: graphFunction.id, to: application.reducerGraphFunctionRef, governedRecursion: false });
+          break;
+        case "re_enter":
+        case "gate":
+        case "promote":
+        case "identity":
+        case "same_object":
+          break;
+      }
+    }
+    return edges;
+  });
+}
+
+function validateGraphFunctionCallTopology(
+  graphFunctions: readonly Readonly<GraphFunction>[],
+  publishedRuleRefs: ReadonlySet<string>,
+  publishedEvaluatorByRef: ReadonlyMap<string, Readonly<EvaluatorDeclaration>>,
+): readonly StaticDiagnostic[] {
+  const diagnostics: StaticDiagnostic[] = [];
+  const declared = new Set(graphFunctions.map((graphFunction) => graphFunction.id));
+  // A governed recurse edge is the only edge allowed to close a cycle. Remove
+  // each independently validated recurse edge and require the residual graph
+  // to be acyclic. Merely sharing an SCC with one recurse edge is insufficient:
+  // every possible cycle must cross governed recursion law.
+  const edges = graphFunctionCallEdges(
+    graphFunctions,
+    publishedRuleRefs,
+    publishedEvaluatorByRef,
+  )
+    .filter((edge) => declared.has(edge.to) && !edge.governedRecursion);
+  const adjacency = new Map<string, GraphFunctionCallEdge[]>();
+  for (const id of declared) adjacency.set(id, []);
+  for (const edge of edges) adjacency.get(edge.from)?.push(edge);
+
+  let nextIndex = 0;
+  const indices = new Map<string, number>();
+  const lowLinks = new Map<string, number>();
+  const stack: string[] = [];
+  const onStack = new Set<string>();
+  const visit = (id: string): void => {
+    const index = nextIndex;
+    nextIndex += 1;
+    indices.set(id, index);
+    lowLinks.set(id, index);
+    stack.push(id);
+    onStack.add(id);
+    for (const edge of adjacency.get(id) ?? []) {
+      if (!indices.has(edge.to)) {
+        visit(edge.to);
+        lowLinks.set(id, Math.min(lowLinks.get(id)!, lowLinks.get(edge.to)!));
+      } else if (onStack.has(edge.to)) {
+        lowLinks.set(id, Math.min(lowLinks.get(id)!, indices.get(edge.to)!));
+      }
+    }
+    if (lowLinks.get(id) !== indices.get(id)) return;
+    const component: string[] = [];
+    while (stack.length !== 0) {
+      const member = stack.pop()!;
+      onStack.delete(member);
+      component.push(member);
+      if (member === id) break;
+    }
+    const members = new Set(component);
+    const internalEdges = edges.filter((edge) => members.has(edge.from) && members.has(edge.to));
+    const cyclic = component.length > 1 || internalEdges.some((edge) => edge.from === edge.to);
+    if (cyclic) {
+      diagnostics.push({
+        code: "topology_mismatch",
+        path: "$.graphFunctions",
+        message: `GraphFunction call cycle ${component.sort().join(" -> ")} remains after exact bounded recurse/foldback edges are removed`,
+      });
+    }
+  };
+  for (const id of declared) if (!indices.has(id)) visit(id);
+  return diagnostics;
 }
 
 function invalid(
@@ -431,19 +840,51 @@ function validatePublicationSubject(
   const value = publication.value;
   if (!isRawAdmittedValue(publication) || publication.subjectKind !== "module_publication") {
     diagnostics.push({ code: "raw_subject_mismatch", path: "$", message: "expected raw-admitted ModulePublication" });
+    return invalid("publication", publication.subjectDigest, diagnostics);
+  }
+  if (
+    contributions.some(
+      (row) =>
+        !isRawAdmittedValue(row) || row.subjectKind !== "catalog_contribution",
+    )
+  ) {
+    diagnostics.push({
+      code: "raw_subject_mismatch",
+      path: "$.contributions",
+      message: "expected raw-admitted catalog contributions",
+    });
+    return invalid("publication", publication.subjectDigest, diagnostics);
+  }
+  const identityDiagnostics = validateModuleIdentityClosure(value);
+  const rawContributionIdentityDiagnostics = identityFamilyDiagnostics(
+    contributions.map((row) => row.value),
+    (row) => row.handle,
+    "$.contributions",
+    "raw contribution",
+  );
+  if (
+    identityDiagnostics.length !== 0 ||
+    rawContributionIdentityDiagnostics.length !== 0
+  ) {
+    return invalid("publication", publication.subjectDigest, [
+      ...identityDiagnostics,
+      ...rawContributionIdentityDiagnostics,
+    ]);
+  }
+  if (!sameCanonicalMembers(value.contributions, contributions.map((row) => row.value))) {
+    diagnostics.push({
+      code: "raw_subject_mismatch",
+      path: "$.contributions",
+      message: "raw contribution set differs from publication",
+    });
+    return invalid("publication", publication.subjectDigest, diagnostics);
   }
   if (value.contributions.length === 0) {
     diagnostics.push({ code: "invalid_contribution", path: "$.contributions", message: "publication requires at least one contribution" });
   }
   diagnostics.push(...validatePublishedDeclarations(value));
-  for (const handle of duplicates(value.contributions.map((row) => row.handle))) {
-    diagnostics.push({ code: "duplicate_identity", path: "$.contributions", message: `duplicate contribution handle ${handle}` });
-  }
-  if (contributions.length !== value.contributions.length) {
-    diagnostics.push({ code: "raw_subject_mismatch", path: "$.contributions", message: "raw contribution set differs from publication" });
-  }
   const rawByHandle = new Map(contributions.map((row) => [row.value.handle, row]));
-  const graphFunctionRefs = new Set(value.graphFunctions.map((graphFunction) => graphFunction.name));
+  const graphFunctionRefs = new Set(value.graphFunctions.map((graphFunction) => graphFunction.id));
   const contractRefs = new Set(value.contracts.map((contract) => contract.contractRef));
   const programByRef = new Map(value.programs.map((program) => [program.programRef, program]));
   for (const row of value.contributions) {
@@ -526,12 +967,12 @@ function validatePublicationSubject(
     kind: row.value.kind,
     disposition: "valid" as const,
     contributionDigest: row.subjectDigest,
-  }));
+  })).sort((left, right) => compareUnicodeCodeUnits(left.handle, right.handle));
   const validationDigest = sha256Canonical({
     publicationDigest: publication.subjectDigest,
     contributionDispositions,
   } as unknown as JsonValue);
-  const validation = deepFreeze({
+  const validation = {
     kind: "publication_validation",
     schemaVersion: "5.0.0",
     disposition: "valid",
@@ -541,9 +982,14 @@ function validatePublicationSubject(
     rawAdmissionRef: publication.admissionRef,
     contributionDispositions,
     diagnostics: [],
-  }) as PublicationValidation;
-  publicationValidations.add(validation);
-  return validation;
+  } as PublicationValidation;
+  Object.defineProperty(validation, PUBLICATION_VALIDATION, {
+    configurable: false,
+    enumerable: false,
+    value: true,
+    writable: false,
+  });
+  return deepFreeze(validation) as PublicationValidation;
 }
 
 export function validatePublication(
@@ -582,17 +1028,68 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const contracts = input.contracts.map((raw) => raw.value);
   const bindings = input.implementationBindings.map((raw) => raw.value);
   const closureContracts = input.closureContracts.map((raw) => raw.value);
-  diagnostics.push(...validatePublishedDeclarations(publication));
-
-  const publishedProgram = publication.programs.find((candidate) => candidate.programRef === program.programRef);
-  if (publishedProgram === undefined || !sameValue(publishedProgram, program)) {
-    diagnostics.push({ code: "raw_subject_mismatch", path: "$.program", message: "Program is not the exact published declaration" });
+  const identityDiagnostics = [
+    ...validateModuleIdentityClosure(publication),
+    ...identityFamilyDiagnostics(
+      graphFunctions,
+      (value) => value.id,
+      "$.graphFunctions",
+      "raw GraphFunction",
+    ),
+    ...identityFamilyDiagnostics(
+      contracts,
+      (value) => value.contractRef,
+      "$.contracts",
+      "raw Contract",
+    ),
+    ...identityFamilyDiagnostics(
+      bindings,
+      (value) => value.bindingRef,
+      "$.implementationBindings",
+      "raw ImplementationBinding",
+    ),
+    ...identityFamilyDiagnostics(
+      closureContracts,
+      (value) => value.closureContractRef,
+      "$.closureContracts",
+      "raw ClosureContract",
+    ),
+  ];
+  if (identityDiagnostics.length !== 0) {
+    return invalid("program", input.program.subjectDigest, identityDiagnostics);
   }
+
+  const publishedPrograms = publication.programs.filter(
+    (candidate) => candidate.programRef === program.programRef,
+  );
+  if (publishedPrograms.length !== 1 || !sameValue(publishedPrograms[0], program)) {
+    diagnostics.push({ code: "raw_subject_mismatch", path: "$.program", message: "Program is not the exact published declaration" });
+    return invalid("program", input.program.subjectDigest, diagnostics);
+  }
+  const expectedGraphFunctions = publication.graphFunctions.filter(
+    (value) => program.callableMembership.includes(value.id),
+  );
+  const expectedRawValues: readonly [readonly unknown[], readonly unknown[], string][] = [
+    [expectedGraphFunctions, graphFunctions, "graphFunctions"],
+    [publication.contracts, contracts, "contracts"],
+    [publication.implementationBindings, bindings, "implementationBindings"],
+    [publication.closureContracts, closureContracts, "closureContracts"],
+  ];
+  for (const [published, raw, path] of expectedRawValues) {
+    if (!sameCanonicalMembers(published, raw)) {
+      diagnostics.push({ code: "raw_subject_mismatch", path: `$.${path}`, message: `raw ${path} differ from publication` });
+    }
+  }
+  if (diagnostics.length !== 0) {
+    return invalid("program", input.program.subjectDigest, diagnostics);
+  }
+
+  diagnostics.push(...validatePublishedDeclarations(publication));
   if (program.moduleRef !== publication.moduleRef) {
     diagnostics.push({ code: "identity_mismatch", path: "$.program.moduleRef", message: "Program module differs from publication" });
   }
-  const publishedGraphByRef = new Map(publication.graphFunctions.map((value) => [value.name, value]));
-  const rawGraphByRef = new Map(graphFunctions.map((value) => [value.name, value]));
+  const publishedGraphByRef = new Map(publication.graphFunctions.map((value) => [value.id, value]));
+  const rawGraphByRef = new Map(graphFunctions.map((value) => [value.id, value]));
   for (const graphFunctionRef of program.callableMembership) {
     const published = publishedGraphByRef.get(graphFunctionRef);
     const raw = rawGraphByRef.get(graphFunctionRef);
@@ -602,7 +1099,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   }
   if (
     graphFunctions.length !== program.callableMembership.length ||
-    graphFunctions.some((graphFunction) => !program.callableMembership.includes(graphFunction.name))
+    graphFunctions.some((graphFunction) => !program.callableMembership.includes(graphFunction.id))
   ) {
     diagnostics.push({
       code: "missing_membership",
@@ -688,7 +1185,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   }
   const contractRefs = new Set(contracts.map((contract) => contract.contractRef));
   const bindingByRef = new Map(bindings.map((binding) => [binding.bindingRef, binding]));
-  const availableGraphFunctionRefs = new Set(graphFunctions.map((value) => value.name));
+  const availableGraphFunctionRefs = new Set(graphFunctions.map((value) => value.id));
   const publishedEvaluatorByRef = new Map(
     publication.evaluators.map((value) => [value.name, value]),
   );
@@ -700,33 +1197,28 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const interactionLeafRows: ValidatedInteractionLeaf[] = [];
   for (const graphFunction of graphFunctions) {
     const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
+    diagnostics.push(...validateGraphTopology(graphFunction));
     const nodes = new Map(graphFunction.template.nodes.map((node) => [node.nodeRef, node]));
-    if (!nodes.has(graphFunction.template.startNodeRef) || graphFunction.template.terminalNodeRefs.some((ref) => !nodes.has(ref))) {
-      diagnostics.push({ code: "topology_mismatch", path: `$.graphFunctions[${graphFunction.name}].template`, message: "start and terminal nodes must belong to the original graph template" });
-    }
-    if (graphFunction.template.edges.some((edge) => !nodes.has(edge.fromNodeRef) || !nodes.has(edge.toNodeRef))) {
-      diagnostics.push({ code: "topology_mismatch", path: `$.graphFunctions[${graphFunction.name}].template.edges`, message: "edge endpoint is absent from graph template" });
-    }
     if (graphFunction.template.edges.some((edge) => !hasExactGraphEdgeShape(edge))) {
       diagnostics.push({
         code: "identity_mismatch",
-        path: `$.graphFunctions[${graphFunction.name}].template.edges`,
+        path: `$.graphFunctions[${graphFunction.id}].template.edges`,
         message: "graph edge must have one exact derived identity and no undeclared fields",
       });
     }
     for (const contractRef of [...graphFunction.inputs, ...graphFunction.outputs]) {
-      if (!contractRefs.has(contractRef)) diagnostics.push({ code: "missing_contract", path: `$.graphFunctions[${graphFunction.name}]`, message: `missing contract ${contractRef}` });
+      if (!contractRefs.has(contractRef)) diagnostics.push({ code: "missing_contract", path: `$.graphFunctions[${graphFunction.id}]`, message: `missing contract ${contractRef}` });
     }
     for (const node of graphFunction.template.nodes) {
       if (node.nodeRef.length === 0 || node.nodeKind !== "c_locus") {
         diagnostics.push({
           code: "invalid_reference",
-          path: `$.graphFunctions[${graphFunction.name}].template.nodes`,
+          path: `$.graphFunctions[${graphFunction.id}].template.nodes`,
           message: "Graph node requires one non-empty c_locus identity",
         });
       }
       const inspection = inspectCProgramTerm(node.term, {
-        path: `$.graphFunctions[${graphFunction.name}].template.nodes[${node.nodeRef}].term`,
+        path: `$.graphFunctions[${graphFunction.id}].template.nodes[${node.nodeRef}].term`,
         availableGraphFunctionRefs,
         callableGraphFunctionRefs,
         contractRefs,
@@ -742,7 +1234,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           programLocusRefs.push(leaf.programLocusRef);
           const commonKeyBody = {
             programRef: program.programRef,
-            graphFunctionRef: graphFunction.name,
+            graphFunctionRef: graphFunction.id,
             graphFunctionDigest,
             programLocusRef: leaf.programLocusRef,
             stageRole: leaf.stageRole,
@@ -764,7 +1256,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
               kind: "validated_executable_leaf",
               requirementKey: `executable-leaf://abiogenesis/${requirementKeyDigest.slice("sha256:".length)}`,
               requirementKeyDigest,
-              graphFunctionRef: graphFunction.name,
+              graphFunctionRef: graphFunction.id,
               graphFunctionDigest,
               nodeRef: node.nodeRef,
               programLocusRef: leaf.programLocusRef,
@@ -791,7 +1283,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
               kind: "validated_interaction_leaf",
               requirementKey: `interaction-leaf://abiogenesis/${requirementKeyDigest.slice("sha256:".length)}`,
               requirementKeyDigest,
-              graphFunctionRef: graphFunction.name,
+              graphFunctionRef: graphFunction.id,
               graphFunctionDigest,
               nodeRef: node.nodeRef,
               programLocusRef: leaf.programLocusRef,
@@ -814,7 +1306,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     )) {
       diagnostics.push({
         code: "duplicate_identity",
-        path: `$.graphFunctions[${graphFunction.name}].template.applications`,
+        path: `$.graphFunctions[${graphFunction.id}].template.applications`,
         message: `duplicate GraphFunction application ${applicationRef}`,
       });
     }
@@ -834,7 +1326,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       ) {
         diagnostics.push({
           code: "invalid_application",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
           message: "GraphFunction application has an empty reference or unpublished outer contract",
         });
       }
@@ -848,7 +1340,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       if (!canonicalIdentity) {
         diagnostics.push({
           code: "invalid_application",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].applicationRef`,
+          path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}].applicationRef`,
           message: "GraphFunction application identity must derive from its complete declaration",
         });
       }
@@ -883,7 +1375,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       if (referencedGraphFunctions.some((ref) => !applicationGraphByRef.has(ref))) {
         diagnostics.push({
           code: "invalid_application",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
           message: staticallyResolvedApplication
             ? "statically resolved GraphFunction application references an unpublished function"
             : "runtime-visible GraphFunction application references a function outside complete Program membership",
@@ -903,7 +1395,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         )) {
         diagnostics.push({
           code: "invalid_application",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].foldback`,
+          path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}].foldback`,
           message: "recurse application requires a positive bound and exact rebind foldback with parent re-evaluation",
         });
       }
@@ -912,6 +1404,8 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         (
           !publishedRuleRefs.has(application.terminationRuleRef) ||
           application.terminationEvaluatorRefs.length === 0 ||
+          new Set(application.terminationEvaluatorRefs).size !==
+            application.terminationEvaluatorRefs.length ||
           application.terminationEvaluatorRefs.some(
             (ref) => !publishedEvaluatorRefs.has(ref),
           ) ||
@@ -925,7 +1419,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       ) {
         diagnostics.push({
           code: "invalid_application",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
           message: "recurse application requires published termination Rule and Evaluator declarations over its exact decision field",
         });
       }
@@ -934,12 +1428,14 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         (
           !publishedRuleRefs.has(application.ruleRef) ||
           application.evaluatorRefs.length === 0 ||
+          new Set(application.evaluatorRefs).size !==
+            application.evaluatorRefs.length ||
           application.evaluatorRefs.some((ref) => !publishedEvaluatorRefs.has(ref))
         )
       ) {
         diagnostics.push({
           code: "invalid_application",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].evaluatorRefs`,
+          path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}].evaluatorRefs`,
           message: "gate application requires published Rule and Evaluator declarations",
         });
       }
@@ -986,7 +1482,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           diagnostics.push({
             code: "invalid_application",
             path:
-              `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+              `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
             message:
               "gate application requires exact evaluator loci and one matching workflow target",
           });
@@ -1020,7 +1516,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
             )
           : -1;
         if (
-          application.graphFunctionRef !== graphFunction.name ||
+          application.graphFunctionRef !== graphFunction.id ||
           !Number.isSafeInteger(application.maxApplications) ||
           application.maxApplications < 1 ||
           source.kind !== "c_program_locus" ||
@@ -1040,7 +1536,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           diagnostics.push({
             code: "invalid_application",
             path:
-              `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+              `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
             message:
               "re-enter application requires one bounded earlier locus in the same static graph span with exact source-output and target-input contracts",
           });
@@ -1068,7 +1564,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       ) {
         diagnostics.push({
           code: "carrier_mismatch",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
           message: "GraphFunction application does not preserve its declared outer interface",
         });
       }
@@ -1084,7 +1580,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         ) {
           diagnostics.push({
             code: "carrier_mismatch",
-            path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+            path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
             message: "compose application requires one typed left-to-right interface join",
           });
         }
@@ -1149,7 +1645,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         ) {
           diagnostics.push({
             code: "carrier_mismatch",
-            path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+            path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
             message:
               "substitute application requires one exact target vector and a visible typed inner graph replacement",
           });
@@ -1195,7 +1691,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         ) {
           diagnostics.push({
             code: "carrier_mismatch",
-            path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+            path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
             message:
               "fan-out must bind one exact vector/member C.batch seed and declared element GraphFunction",
           });
@@ -1211,7 +1707,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         ) {
           diagnostics.push({
             code: "carrier_mismatch",
-            path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+            path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
             message: "fan-in output contract must match the declared reducer GraphFunction",
           });
         }
@@ -1222,7 +1718,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       ) {
         diagnostics.push({
           code: "carrier_mismatch",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
           message: "identity application must preserve one exact interface",
         });
       }
@@ -1235,7 +1731,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       ) {
         diagnostics.push({
           code: "carrier_mismatch",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
           message: "promote application must bind its declared source and target contracts",
         });
       }
@@ -1248,12 +1744,17 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       ) {
         diagnostics.push({
           code: "identity_mismatch",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          path: `$.graphFunctions[${graphFunction.id}].template.applications[${application.applicationRef}]`,
           message: "same-object application requires one canonical witness over one exact opaque identity",
         });
       }
     }
   }
+  diagnostics.push(...validateGraphFunctionCallTopology(
+    graphFunctions,
+    publishedRuleRefs,
+    publishedEvaluatorByRef,
+  ));
   for (const programLocusRef of duplicates(programLocusRefs)) {
     diagnostics.push({
       code: "duplicate_identity",
@@ -1296,7 +1797,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     const orderedTerms = compositionTerms(
       graphFunctions.find(
         (graphFunction) =>
-          graphFunction.name === composition.graphFunctionRef,
+          graphFunction.id === composition.graphFunctionRef,
       ),
     );
     const authorityShapeIsExact =
@@ -1436,11 +1937,11 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         "targetProgramLocusRef",
       ];
       const graphFunction = graphFunctions.find(
-        (candidate) => candidate.name === row.graphFunctionRef,
+        (candidate) => candidate.id === row.graphFunctionRef,
       );
       const targetExists = row.actionKind === "invoke_graph_function"
         ? graphFunction !== undefined &&
-          row.targetProgramLocusRef === graphFunction.name
+          row.targetProgramLocusRef === graphFunction.id
         : graphFunction?.template.nodes.some((node) =>
           cLeafTerms(node.term).some(
             (leaf) => leaf.programLocusRef === row.targetProgramLocusRef,
@@ -1534,30 +2035,30 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     ) {
       diagnostics.push({
         code: "missing_contract",
-        path: `$.graphFunctions[${graphFunction.name}].declarations[abg.child_closure_contract]`,
+        path: `$.graphFunctions[${graphFunction.id}].declarations[abg.child_closure_contract]`,
         message:
           "child GraphFunction closure must name one published GraphCall-scope contract over its output",
       });
     }
   }
-  const expectedRawValues: readonly [readonly unknown[], readonly unknown[], string][] = [
-    [publication.contracts, contracts, "contracts"],
-    [publication.implementationBindings, bindings, "implementationBindings"],
-    [publication.closureContracts, closureContracts, "closureContracts"],
-  ];
-  for (const [published, raw, path] of expectedRawValues) {
-    if (published.length !== raw.length || published.some((value, index) => !sameValue(value, raw[index]))) {
-      diagnostics.push({ code: "raw_subject_mismatch", path: `$.${path}`, message: `raw ${path} differ from publication` });
-    }
-  }
   if (diagnostics.length !== 0) return invalid("program", input.program.subjectDigest, diagnostics);
 
-  const graphFunctionDigests = input.graphFunctions.map((value) => value.subjectDigest);
-  const contractDigests = input.contracts.map((value) => value.subjectDigest);
-  const implementationBindingDigests = input.implementationBindings.map((value) => value.subjectDigest);
-  const closureContractDigests = input.closureContracts.map((value) => value.subjectDigest);
-  executableLeafRows.sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
-  interactionLeafRows.sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+  const graphFunctionDigests = input.graphFunctions
+    .map((value) => value.subjectDigest)
+    .sort(compareUnicodeCodeUnits);
+  const contractDigests = input.contracts
+    .map((value) => value.subjectDigest)
+    .sort(compareUnicodeCodeUnits);
+  const implementationBindingDigests = input.implementationBindings
+    .map((value) => value.subjectDigest)
+    .sort(compareUnicodeCodeUnits);
+  const closureContractDigests = input.closureContracts
+    .map((value) => value.subjectDigest)
+    .sort(compareUnicodeCodeUnits);
+  executableLeafRows.sort((left, right) =>
+    compareUnicodeCodeUnits(left.requirementKey, right.requirementKey));
+  interactionLeafRows.sort((left, right) =>
+    compareUnicodeCodeUnits(left.requirementKey, right.requirementKey));
   const transitiveReachableExecutableLeafKeys = executableLeafRows.map((row) => row.requirementKey);
   const transitiveReachableInteractionLeafKeys = interactionLeafRows.map((row) => row.requirementKey);
   const sourceDigest = sha256Canonical({
@@ -1570,7 +2071,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     executableLeafRows,
     interactionLeafRows,
   } as unknown as JsonValue);
-  const validation = deepFreeze({
+  const validation = {
     kind: "program_validation",
     schemaVersion: "5.0.0",
     disposition: "valid",
@@ -1588,9 +2089,14 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     transitiveReachableExecutableLeafKeys,
     transitiveReachableInteractionLeafKeys,
     diagnostics: [],
-  }) as ProgramValidation;
-  programValidations.add(validation);
-  return validation;
+  } as ProgramValidation;
+  Object.defineProperty(validation, PROGRAM_VALIDATION, {
+    configurable: false,
+    enumerable: false,
+    value: true,
+    writable: false,
+  });
+  return deepFreeze(validation) as ProgramValidation;
 }
 
 export function validateProgram(input: ProgramValidationInput): ProgramValidationResult {

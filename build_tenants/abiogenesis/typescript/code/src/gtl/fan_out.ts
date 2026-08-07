@@ -337,7 +337,8 @@ export function constructFanOutPublicationParts(
   });
   const rootGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: FAN_OUT_HELLO_IDS.graphFunctionRef,
+    id: FAN_OUT_HELLO_IDS.graphFunctionRef,
+    name: "Fan-out hello",
     version: "5.0.0",
     environment: {
       requires: [FAN_OUT_HELLO_IDS.inputVectorRef],
@@ -397,7 +398,8 @@ export function constructFanOutPublicationParts(
     judgmentContractRef: FAN_OUT_HELLO_IDS.judgmentContractRef,
   });
   const leafGraphFunction = <Input, Output>(
-    name: string,
+    graphFunctionId: string,
+    graphFunctionName: string,
     graphRef: string,
     nodeRef: string,
     inputContractRef: string,
@@ -412,7 +414,8 @@ export function constructFanOutPublicationParts(
   ): GraphFunction => {
     return {
       kind: "graph_function",
-      name,
+      id: graphFunctionId,
+      name: graphFunctionName,
       version: "5.0.0",
       environment: {
         requires: [inputContractRef],
@@ -465,6 +468,7 @@ export function constructFanOutPublicationParts(
   };
   const elementGraphFunction = leafGraphFunction(
     FAN_OUT_HELLO_IDS.elementGraphFunctionRef,
+    "Fan-out hello element",
     FAN_OUT_HELLO_IDS.elementGraphRef,
     FAN_OUT_HELLO_IDS.elementNodeRef,
     FAN_OUT_HELLO_IDS.inputMemberContractRef,
@@ -479,6 +483,7 @@ export function constructFanOutPublicationParts(
   );
   const reducerGraphFunction = leafGraphFunction(
     FAN_OUT_HELLO_IDS.reducerGraphFunctionRef,
+    "Fan-in hello reducer",
     FAN_OUT_HELLO_IDS.reducerGraphRef,
     FAN_OUT_HELLO_IDS.reducerNodeRef,
     FAN_OUT_HELLO_IDS.outputVectorRef,

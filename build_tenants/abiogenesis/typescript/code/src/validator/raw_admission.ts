@@ -1,7 +1,14 @@
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { C_TERM_KIND_VALUES } from "../gtl/c_algebra.js";
+import {
+  admitCProgramSyntax,
+  admitGraphFunction,
+  admitModule,
+  admitProgram,
+} from "../gtl/admission.js";
+import { admitIJsonText, admitIJsonValue } from "../gtl/canonical_ingest.js";
 
 export const RAW_SUBJECT_KIND_VALUES = [
   "module_publication",
@@ -77,10 +84,36 @@ function hasExpectedKind(
   }
 }
 
-const admittedValues = new WeakSet<object>();
+const RAW_ADMISSION: unique symbol = Symbol("abiogenesis.validator.raw-admission");
 
 export function isRawAdmittedValue(value: object): boolean {
-  return admittedValues.has(value);
+  return Object.hasOwn(value, RAW_ADMISSION);
+}
+
+function admitSubject(value: unknown, expectedKind: RawSubjectKind): unknown {
+  switch (expectedKind) {
+    case "module_publication":
+      return admitModule(value);
+    case "gtl_program":
+      return admitProgram(value);
+    case "graph_function":
+      return admitGraphFunction(value);
+    case "c_program_term": {
+      const admission = admitCProgramSyntax(value);
+      if (!admission.accepted) throw new TypeError(admission.diagnostics[0].message);
+      return admission.program;
+    }
+    case "catalog_contribution":
+    case "contract_declaration":
+    case "implementation_binding":
+    case "closure_contract":
+    case "gtl_graph":
+    case "invocation_input":
+    case "public_operation_request":
+      return typeof value === "string"
+        ? admitIJsonText(value)
+        : admitIJsonValue(value);
+  }
 }
 
 export function rawAdmitValue<S>(
@@ -107,15 +140,17 @@ export function rawAdmitValue<S>(
     };
   }
   try {
-    const canonical = canonicalJson(value as JsonValue);
-    const admittedValue = deepFreeze(JSON.parse(canonical) as S);
+    const admittedValue = admitSubject(value, expectedKind) as Readonly<S>;
+    if (!isRecord(admittedValue) || !hasExpectedKind(admittedValue, expectedKind)) {
+      throw new TypeError(`admitted value does not satisfy expected kind ${expectedKind}`);
+    }
     const subjectDigest = sha256Canonical(admittedValue as unknown as JsonValue);
     const admissionDigest = sha256Canonical({
       contractRef,
       expectedKind,
       subjectDigest,
     });
-    const admitted = deepFreeze({
+    const admitted = {
       kind: "raw_admitted_value",
       schemaVersion: "5.0.0",
       admissionRef: `raw-admission://abiogenesis/${admissionDigest.slice("sha256:".length)}`,
@@ -123,16 +158,23 @@ export function rawAdmitValue<S>(
       contractRef,
       subjectDigest,
       value: admittedValue,
-    }) as RawAdmittedValue<S>;
-    admittedValues.add(admitted);
-    return admitted;
-  } catch {
+    } as RawAdmittedValue<S>;
+    Object.defineProperty(admitted, RAW_ADMISSION, {
+      configurable: false,
+      enumerable: false,
+      value: true,
+      writable: false,
+    });
+    return deepFreeze(admitted) as RawAdmittedValue<S>;
+  } catch (error) {
     return {
       kind: "raw_admission_refusal",
       schemaVersion: "5.0.0",
       disposition: "refused",
       code: "non_canonical_value",
-      message: "raw value is not representable as canonical JSON",
+      message: error instanceof Error
+        ? error.message
+        : "raw value is not representable as canonical JSON",
     };
   }
 }

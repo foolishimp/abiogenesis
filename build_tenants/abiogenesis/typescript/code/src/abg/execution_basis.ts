@@ -1116,7 +1116,7 @@ export function admitChildExecutionBasis(
     input.programValidation.validationRef !== parent.programValidationRef ||
     input.program.programRef !== parent.programRef ||
     sha256Canonical(input.program as unknown as JsonValue) !== parent.programDigest ||
-    !input.program.callableMembership.includes(input.graphFunction.name)
+    !input.program.callableMembership.includes(input.graphFunction.id)
   ) {
     return childRefusal(
       "child_membership_mismatch",
@@ -1127,10 +1127,10 @@ export function admitChildExecutionBasis(
     !isGraphValidation(input.graphValidation) ||
     input.graphValidation.graphRef !== input.graph.materializationRef ||
     input.graphValidation.graphDigest !== input.graph.materializationDigest ||
-    input.graphValidation.graphFunctionRef !== input.graphFunction.name ||
+    input.graphValidation.graphFunctionRef !== input.graphFunction.id ||
     input.graphValidation.graphFunctionDigest !== graphFunctionDigest ||
     input.graphValidation.programValidationRef !== input.programValidation.validationRef ||
-    input.graph.graphFunctionRef !== input.graphFunction.name ||
+    input.graph.graphFunctionRef !== input.graphFunction.id ||
     input.graph.graphFunctionDigest !== graphFunctionDigest
   ) {
     return childRefusal(
@@ -1165,21 +1165,21 @@ export function admitChildExecutionBasis(
   }
 
   const localExecutableRows = input.programValidation.executableLeafRows
-    .filter((row) => row.graphFunctionRef === input.graphFunction.name);
+    .filter((row) => row.graphFunctionRef === input.graphFunction.id);
   const localExecutableLeafKeys = localExecutableRows
     .map((row) => row.requirementKey)
     .sort((left, right) => left.localeCompare(right));
   const admittedExecutableRows = input.rootImplementationSet.rows
-    .filter((row) => row.graphFunctionRef === input.graphFunction.name)
+    .filter((row) => row.graphFunctionRef === input.graphFunction.id)
     .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
   const admittedExecutableKeys = admittedExecutableRows.map((row) => row.requirementKey);
   const localInteractionRows = input.programValidation.interactionLeafRows
-    .filter((row) => row.graphFunctionRef === input.graphFunction.name);
+    .filter((row) => row.graphFunctionRef === input.graphFunction.id);
   const localInteractionLeafKeys = localInteractionRows
     .map((row) => row.requirementKey)
     .sort((left, right) => left.localeCompare(right));
   const admittedInteractionRows = input.rootInteractionSet.rows
-    .filter((row) => row.graphFunctionRef === input.graphFunction.name)
+    .filter((row) => row.graphFunctionRef === input.graphFunction.id)
     .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
   const admittedInteractionKeys = admittedInteractionRows.map((row) => row.requirementKey);
   if (
@@ -1207,7 +1207,7 @@ export function admitChildExecutionBasis(
   const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
   const entryDigest = sha256Canonical({
     parentTraversalScopeRef: parentScope.scopeRef,
-    graphFunctionRef: input.graphFunction.name,
+    graphFunctionRef: input.graphFunction.id,
     graphRef: input.graph.materializationRef,
     admittedInputRef: input.admittedInputRef,
     admittedInputDigest: input.admittedInputDigest,
@@ -1234,7 +1234,7 @@ export function admitChildExecutionBasis(
     constructionComposition: parent.constructionComposition,
     programRef: parent.programRef,
     programDigest: parent.programDigest,
-    graphFunctionRef: input.graphFunction.name,
+    graphFunctionRef: input.graphFunction.id,
     graphFunctionDigest,
     actorRef: parent.actorRef,
     parentExecutionBasisRef: parent.basisRef,
@@ -1284,7 +1284,7 @@ export function admitChildExecutionBasis(
     scopeClass: "run",
     basisId: basisRef,
     runId: parentScope.runId,
-    graphFunctionRef: input.graphFunction.name,
+    graphFunctionRef: input.graphFunction.id,
     materializationRef: input.graph.materializationRef,
     graphCallId: parentScope.graphCallId,
     frameId: parentScope.frameId,

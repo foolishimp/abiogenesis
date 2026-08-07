@@ -3859,6 +3859,7 @@ function executableRequirement(
 }
 
 function leafGraphFunction(input: {
+  readonly id: string;
   readonly name: string;
   readonly graphRef: string;
   readonly nodeRef: string;
@@ -3894,6 +3895,7 @@ function leafGraphFunction(input: {
   });
   return {
     kind: "graph_function",
+    id: input.id,
     name: input.name,
     version: "5.0.0",
     environment: {
@@ -4262,7 +4264,8 @@ export function constructConsensusModulePublication(
   });
   const rootGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: CONSENSUS_IDS.graphFunctionRef,
+    id: CONSENSUS_IDS.graphFunctionRef,
+    name: "Consensus supervision",
     version: "5.0.0",
     environment: {
       requires: [CONSENSUS_IDS.invocationContractRef],
@@ -4348,7 +4351,8 @@ export function constructConsensusModulePublication(
   };
   const roundGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: CONSENSUS_IDS.roundGraphFunctionRef,
+    id: CONSENSUS_IDS.roundGraphFunctionRef,
+    name: "Consensus round",
     version: "5.0.0",
     environment: {
       requires: [CONSENSUS_IDS.stateContractRef],
@@ -4399,7 +4403,8 @@ export function constructConsensusModulePublication(
     tags: ["abiogenesis", "consensus", "round", "fan-out", "fan-in"],
   };
   const reviewerGraphFunction = leafGraphFunction({
-    name: CONSENSUS_IDS.reviewerGraphFunctionRef,
+    id: CONSENSUS_IDS.reviewerGraphFunctionRef,
+    name: "Consensus reviewer",
     graphRef: CONSENSUS_IDS.reviewerGraphRef,
     nodeRef: CONSENSUS_IDS.reviewerNodeRef,
     inputContractRef: CONSENSUS_IDS.reviewerTaskContractRef,
@@ -4430,7 +4435,8 @@ export function constructConsensusModulePublication(
     ),
   });
   const submitterGraphFunction = leafGraphFunction({
-    name: CONSENSUS_IDS.submitterGraphFunctionRef,
+    id: CONSENSUS_IDS.submitterGraphFunctionRef,
+    name: "Consensus submitter",
     graphRef: CONSENSUS_IDS.submitterGraphRef,
     nodeRef: CONSENSUS_IDS.submitterNodeRef,
     inputContractRef: CONSENSUS_IDS.submitterTaskContractRef,
@@ -4461,7 +4467,8 @@ export function constructConsensusModulePublication(
   });
   const roundReducerGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: CONSENSUS_IDS.roundReducerGraphFunctionRef,
+    id: CONSENSUS_IDS.roundReducerGraphFunctionRef,
+    name: "Consensus round reducer",
     version: "5.0.0",
     environment: {
       requires: [CONSENSUS_IDS.findingsVectorContractRef],
@@ -4526,7 +4533,8 @@ export function constructConsensusModulePublication(
   });
   const escalationGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: CONSENSUS_IDS.escalationGraphFunctionRef,
+    id: CONSENSUS_IDS.escalationGraphFunctionRef,
+    name: "Consensus escalation",
     version: "5.0.0",
     environment: {
       requires: [CONSENSUS_IDS.resolutionContractRef],
@@ -4590,7 +4598,8 @@ export function constructConsensusModulePublication(
     tags: ["abiogenesis", "consensus", "fh-escalation"],
   };
   const escalationFinalizerGraphFunction = leafGraphFunction({
-    name: CONSENSUS_IDS.escalationFinalizerGraphFunctionRef,
+    id: CONSENSUS_IDS.escalationFinalizerGraphFunctionRef,
+    name: "Consensus escalation finalizer",
     graphRef: CONSENSUS_IDS.escalationFinalizerGraphRef,
     nodeRef: CONSENSUS_IDS.escalationFinalizerNodeRef,
     inputContractRef: CONSENSUS_IDS.escalationDecisionContractRef,
@@ -4704,7 +4713,8 @@ export function constructConsensusModulePublication(
   );
   const oneSurfaceGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+    id: CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+    name: "Consensus one-surface composition",
     version: "5.0.0",
     environment: {
       requires: [CONSENSUS_IDS.observationContractRef],
@@ -5084,10 +5094,10 @@ export function constructConsensusModulePublication(
   });
   const contributions = graphFunctions.map((graphFunction) =>
     contribution(
-      graphFunction.name,
-      graphFunction.name === CONSENSUS_IDS.graphFunctionRef
+      graphFunction.id,
+      graphFunction.id === CONSENSUS_IDS.graphFunctionRef
         ? CONSENSUS_IDS.handle
-        : graphFunction.name,
+        : graphFunction.id,
     ));
   const catalogSurface = (
     handle: string,

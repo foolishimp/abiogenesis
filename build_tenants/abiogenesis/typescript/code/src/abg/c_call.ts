@@ -2313,7 +2313,7 @@ export function rehydrateWorkflowCCall(
     sourceCursor.executionBasisRef !== executionBasis.basisRef ||
     sourceCursor.traversalScopeRef !== scope.scopeRef ||
     sourceCursor.graphRef !== graph.materializationRef ||
-    graphFunction.name !== graph.graphFunctionRef ||
+    graphFunction.id !== graph.graphFunctionRef ||
     sha256Canonical(graphFunction as unknown as JsonValue) !==
       graph.graphFunctionDigest ||
     implementationSet.implementationSetRef !==
@@ -3644,7 +3644,7 @@ export function openWorkflowCCall(
     cursor.executionBasisRef !== executionBasis.basisRef ||
     cursor.traversalScopeRef !== scope.scopeRef ||
     cursor.graphRef !== graph.materializationRef ||
-    graphFunction.name !== graph.graphFunctionRef ||
+    graphFunction.id !== graph.graphFunctionRef ||
     sha256Canonical(graphFunction as unknown as JsonValue) !== graph.graphFunctionDigest ||
     program.programRef !== executionBasis.programRef ||
     !program.callableMembership.includes(proposal.childGraphFunctionRef) ||

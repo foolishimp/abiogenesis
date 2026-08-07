@@ -26,8 +26,14 @@ test("R5 selects and admits the exact validated direct invocation target", async
     programValidation,
     catalogView,
   } = environment;
-  const program = publication.programs[0];
-  const graphFunction = publication.graphFunctions[0];
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === gtl.HELLO_WORLD_IDS.programRef,
+  );
+  const graphFunction = publication.graphFunctions.find(
+    (candidate) => candidate.id === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  assert.ok(program);
+  assert.ok(graphFunction);
   const input = gtl.constructHelloWorldInput("World");
   const rawInput = requireRawAdmission(
     validator,
@@ -47,7 +53,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
       correlationId: "correlation://t286/r5/run-invoke",
       payload: {
         programRef: program.programRef,
-        graphFunctionRef: graphFunction.name,
+        graphFunctionRef: graphFunction.id,
       },
     },
     "public_operation_request",
@@ -65,7 +71,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
     workspaceBinding,
     catalogView,
     program.programRef,
-    graphFunction.name,
+    graphFunction.id,
     policy,
     [capabilityGrant],
   );

@@ -1,0 +1,14 @@
+{
+  "kind": "closed_vocabulary",
+  "schemaVersion": "5.0.0",
+  "vocabularyId": "abg.vocabulary.gtl-program-repair-edit-class",
+  "values": [
+    "add_missing_declaration",
+    "correct_reference",
+    "correct_field_shape",
+    "remove_duplicate_declaration",
+    "align_digest_or_version",
+    "realize_declared_semantics",
+    "constitutional_reprice"
+  ]
+}

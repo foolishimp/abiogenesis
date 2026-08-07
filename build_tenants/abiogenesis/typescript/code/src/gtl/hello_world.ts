@@ -866,7 +866,8 @@ export function constructHelloWorldModulePublication(
   };
   const graphFunction: GraphFunction = {
     kind: "graph_function",
-    name: HELLO_WORLD_IDS.graphFunctionRef,
+    id: HELLO_WORLD_IDS.graphFunctionRef,
+    name: "Hello world",
     version: "5.0.0",
     environment: {
       requires: [HELLO_WORLD_IDS.inputContractRef],
@@ -943,7 +944,8 @@ export function constructHelloWorldModulePublication(
   };
   const workflowGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: WORKFLOW_HELLO_IDS.graphFunctionRef,
+    id: WORKFLOW_HELLO_IDS.graphFunctionRef,
+    name: "Workflow hello",
     version: "5.0.0",
     environment: {
       requires: [HELLO_WORLD_IDS.inputContractRef],
@@ -1001,7 +1003,8 @@ export function constructHelloWorldModulePublication(
   };
   const gateTargetGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: GATE_HELLO_IDS.targetGraphFunctionRef,
+    id: GATE_HELLO_IDS.targetGraphFunctionRef,
+    name: "Gate target hello",
     version: "5.0.0",
     environment: {
       requires: [GATE_HELLO_IDS.admittedInputContractRef],
@@ -1062,7 +1065,8 @@ export function constructHelloWorldModulePublication(
   };
   const gateGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: GATE_HELLO_IDS.graphFunctionRef,
+    id: GATE_HELLO_IDS.graphFunctionRef,
+    name: "Gated hello",
     version: "5.0.0",
     environment: {
       requires: [HELLO_WORLD_IDS.inputContractRef],
@@ -1150,7 +1154,8 @@ export function constructHelloWorldModulePublication(
   };
   const composedGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: COMPOSED_HELLO_IDS.graphFunctionRef,
+    id: COMPOSED_HELLO_IDS.graphFunctionRef,
+    name: "Composed hello",
     version: "5.0.0",
     environment: {
       requires: [HELLO_WORLD_IDS.inputContractRef],
@@ -1358,7 +1363,8 @@ export function constructHelloWorldModulePublication(
   };
   const graphNormalizeGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: GRAPH_EDGE_HELLO_IDS.normalizeGraphFunctionRef,
+    id: GRAPH_EDGE_HELLO_IDS.normalizeGraphFunctionRef,
+    name: "Graph edge normalization",
     version: "5.0.0",
     environment: {
       requires: [HELLO_WORLD_IDS.inputContractRef],
@@ -1427,7 +1433,8 @@ export function constructHelloWorldModulePublication(
   };
   const graphRenderGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: GRAPH_EDGE_HELLO_IDS.renderGraphFunctionRef,
+    id: GRAPH_EDGE_HELLO_IDS.renderGraphFunctionRef,
+    name: "Graph edge rendering",
     version: "5.0.0",
     environment: {
       requires: [COMPOSED_HELLO_IDS.normalizedInputContractRef],
@@ -1496,7 +1503,8 @@ export function constructHelloWorldModulePublication(
   };
   const graphSubstituteInnerGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef,
+    id: SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef,
+    name: "Substituted hello inner",
     version: "5.0.0",
     environment: {
       requires: [COMPOSED_HELLO_IDS.normalizedInputContractRef],
@@ -1564,7 +1572,8 @@ export function constructHelloWorldModulePublication(
     },
   };
   const graphEdgeGraphFunction = composeGraphFunctions({
-    name: GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
+    id: GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
+    name: "Graph edge hello",
     left: graphNormalizeGraphFunction,
     right: graphRenderGraphFunction,
   });
@@ -1585,7 +1594,8 @@ export function constructHelloWorldModulePublication(
     },
   };
   const graphSubstituteGraphFunction = substituteGraphFunction({
-    name: SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+    id: SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+    name: "Substituted hello",
     outer: graphEdgeGraphFunction,
     targetVectorRef: graphEdgeGraphFunction.template.edges[0]!.edgeRef,
     inner: graphSubstituteInnerGraphFunction,
@@ -1608,7 +1618,8 @@ export function constructHelloWorldModulePublication(
   };
   const fpGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: FP_HELLO_IDS.graphFunctionRef,
+    id: FP_HELLO_IDS.graphFunctionRef,
+    name: "Probabilistic hello",
     version: "5.0.0",
     environment: {
       requires: [FP_HELLO_IDS.inputContractRef],
@@ -1683,7 +1694,8 @@ export function constructHelloWorldModulePublication(
   };
   const fpRetryGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: FP_RETRY_HELLO_IDS.graphFunctionRef,
+    id: FP_RETRY_HELLO_IDS.graphFunctionRef,
+    name: "Probabilistic retry hello",
     version: "5.0.0",
     environment: {
       requires: [FP_HELLO_IDS.inputContractRef],
@@ -1764,7 +1776,8 @@ export function constructHelloWorldModulePublication(
   };
   const deterministicFpGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: FIBRE_SUBSTITUTION_HELLO_IDS.graphFunctionRef,
+    id: FIBRE_SUBSTITUTION_HELLO_IDS.graphFunctionRef,
+    name: "Deterministic fibre substitution hello",
     version: "5.0.0",
     environment: {
       requires: [FP_HELLO_IDS.inputContractRef],
@@ -1840,7 +1853,8 @@ export function constructHelloWorldModulePublication(
   };
   const fpFdPassGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: FP_FD_COMPOSED_HELLO_IDS.passGraphFunctionRef,
+    id: FP_FD_COMPOSED_HELLO_IDS.passGraphFunctionRef,
+    name: "Deterministic pass hello",
     version: "5.0.0",
     environment: {
       requires: [FP_HELLO_IDS.outputContractRef],
@@ -1891,7 +1905,8 @@ export function constructHelloWorldModulePublication(
     tags: ["abiogenesis", "conformance", "fp-output-pass", "fd"],
   };
   const fpFdComposedGraphFunction = composeGraphFunctions({
-    name: FP_FD_COMPOSED_HELLO_IDS.graphFunctionRef,
+    id: FP_FD_COMPOSED_HELLO_IDS.graphFunctionRef,
+    name: "Probabilistic deterministic composed hello",
     left: fpGraphFunction,
     right: fpFdPassGraphFunction,
   });

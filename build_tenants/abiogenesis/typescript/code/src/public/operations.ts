@@ -518,7 +518,7 @@ function rawProgramInput(
       "contract://abiogenesis/gtl/program@5",
     ),
     graphFunctions: publication.graphFunctions
-      .filter((value) => program.callableMembership.includes(value.name))
+      .filter((value) => program.callableMembership.includes(value.id))
       .map((value) => rawAdmission(
         value,
         "graph_function",
@@ -1034,13 +1034,16 @@ async function applyCatalogAdmit(
     invocation.payload,
     "readinessBasis",
   ) as unknown as product.CatalogReadinessBasis;
+  const admittedPublications: Readonly<ModulePublication>[] = [];
   for (const publication of readinessBasis.publications ?? []) {
     const publicationAdmission = rawAdmission<ModulePublication>(
       publication,
       "module_publication",
       "contract://abiogenesis/gtl/module-publication@5",
     );
-    const contributionAdmissions = publication.contributions.map((value) =>
+    const admittedPublication = publicationAdmission.value;
+    admittedPublications.push(admittedPublication);
+    const contributionAdmissions = admittedPublication.contributions.map((value) =>
       rawAdmission<CatalogContribution>(
         value,
         "catalog_contribution",
@@ -1053,7 +1056,7 @@ async function applyCatalogAdmit(
     if (publicationValidation.kind !== "publication_validation") {
       throw new ApplicationRefusal("owner_refusal", `Publication validation refused: ${JSON.stringify(publicationValidation)}`);
     }
-    const invalidProgram = publication.programs
+    const invalidProgram = admittedPublication.programs
       .map((program) => validator.validateProgram(
         rawProgramInput(publicationAdmission, program),
       ))
@@ -1062,7 +1065,10 @@ async function applyCatalogAdmit(
       throw new ApplicationRefusal("owner_refusal", `Program validation refused: ${JSON.stringify(invalidProgram)}`);
     }
   }
-  const catalog = product.admitGraphFunctionCatalog(readinessBasis);
+  const catalog = product.admitGraphFunctionCatalog({
+    ...readinessBasis,
+    publications: admittedPublications,
+  });
   if (catalog.kind !== "graph_function_catalog") {
     throw new ApplicationRefusal(
       "owner_refusal",
@@ -1574,7 +1580,7 @@ async function applyRunInvoke(
     : start!.graphFunctionRef;
   const graphFunctionMatch = resolveExactMatch(
     viewState.catalogState.publication.graphFunctions,
-    (value) => value.name === graphFunctionRef,
+    (value) => value.id === graphFunctionRef,
   );
   if (graphFunctionMatch.kind !== "one") {
     throw new ApplicationRefusal(
@@ -1767,7 +1773,7 @@ async function applyRunInvoke(
     workspaceState.binding,
     viewState.view,
     programValue.programRef,
-    graphFunction.name,
+    graphFunction.id,
     policy,
     grants,
   );
@@ -2197,7 +2203,7 @@ async function applyRunInvoke(
         kind: "public_start_identity",
         schemaVersion: "5.0.0",
         programRef: programValue.programRef,
-        graphFunctionRef: graphFunction.name,
+        graphFunctionRef: graphFunction.id,
         startRef: start!.startRef,
         scope: "program",
         target: start!.startRef,
@@ -3770,7 +3776,7 @@ async function applyRunContinue(
     ): hog.ExecuteGraphTraversalInput => {
       const graphFunctionMatch = resolveExactMatch(
         publication.graphFunctions,
-        (value) => value.name === graph.graphFunctionRef,
+        (value) => value.id === graph.graphFunctionRef,
       );
       const graphValidation = graphFunctionMatch.kind !== "one"
         ? null

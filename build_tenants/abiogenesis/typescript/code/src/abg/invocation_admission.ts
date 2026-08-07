@@ -671,17 +671,17 @@ export function admitInvocation(
   const selectedRow = input.catalogView.entries.find(
     (row) =>
       (
-        row.handle === input.graphFunction.name ||
-        row.definitionRef === input.graphFunction.name
+        row.handle === input.graphFunction.id ||
+        row.definitionRef === input.graphFunction.id
       ) &&
       row.programMembershipRefs.includes(input.program.programRef),
   );
   if (
     input.invocation.programRef !== input.program.programRef ||
     input.invocation.programDigest !== sha256Canonical(input.program as unknown as JsonValue) ||
-    input.invocation.graphFunctionRef !== input.graphFunction.name ||
+    input.invocation.graphFunctionRef !== input.graphFunction.id ||
     input.invocation.graphFunctionDigest !== sha256Canonical(input.graphFunction as unknown as JsonValue) ||
-    !input.program.callableMembership.includes(input.graphFunction.name) ||
+    !input.program.callableMembership.includes(input.graphFunction.id) ||
     selectedRow?.kind !== "graph_function_catalog_entry" ||
     selectedRow.definitionDigest !== input.invocation.graphFunctionDigest ||
     !selectedRow.programMembershipRefs.includes(input.program.programRef)
@@ -792,7 +792,7 @@ export function admitInvocation(
           kind: "public_start_identity",
           schemaVersion: "5.0.0",
           programRef: requestPayload.programRef,
-          graphFunctionRef: input.graphFunction.name,
+          graphFunctionRef: input.graphFunction.id,
           startRef: resolvedPublicStart.start.startRef,
           scope: requestPayload.scope as "program",
           target: requestPayload.target,
@@ -867,7 +867,7 @@ export function admitInvocation(
       sourceInvocation.catalogViewId !== catalogViewRef(input.catalogView) ||
       sourceInvocation.catalogViewDigest !== input.catalogView.viewDigest ||
       sourceInvocation.programRef !== input.program.programRef ||
-      sourceInvocation.graphFunctionRef !== input.graphFunction.name ||
+      sourceInvocation.graphFunctionRef !== input.graphFunction.id ||
       reentry.productSetId !== input.workspaceBinding.productSetId ||
       reentry.productSetDigest !==
         input.workspaceBinding.productSetDigest ||
@@ -958,7 +958,7 @@ export function admitInvocation(
     input.authority.catalogViewDigest !== input.catalogView.viewDigest ||
     input.authority.catalogViewDigest !== input.catalogView.viewDigest ||
     input.authority.programRef !== input.program.programRef ||
-    input.authority.graphFunctionRef !== input.graphFunction.name ||
+    input.authority.graphFunctionRef !== input.graphFunction.id ||
     input.authority.policyRef !== input.policy.policyRef ||
     input.authority.policyDigest !== input.policy.policyDigest ||
     input.authority.capabilityGrantRefs.join("\0") !== input.capabilityGrants.map((grant) => grant.grantRef).join("\0")
@@ -1012,7 +1012,7 @@ export function admitInvocation(
       .map((application) => application.applicationDigest),
     programRef: input.program.programRef,
     programDigest: input.invocation.programDigest,
-    graphFunctionRef: input.graphFunction.name,
+    graphFunctionRef: input.graphFunction.id,
     graphFunctionDigest: input.invocation.graphFunctionDigest,
     selectedDefinitionRef: selectedRow.definitionRef,
     selectedDefinitionDigest: selectedRow.definitionDigest,
@@ -1073,7 +1073,7 @@ export function admitInvocation(
       catalogBasisDigest: admissionBody.catalogBasisDigest,
       catalogViewId: catalogViewRef(input.catalogView),
       programRef: input.program.programRef,
-      graphFunctionRef: input.graphFunction.name,
+      graphFunctionRef: input.graphFunction.id,
       selectedDefinitionRef: admissionBody.selectedDefinitionRef,
       selectedDefinitionDigest: admissionBody.selectedDefinitionDigest,
       selectedFibreRef: admissionBody.selectedFibreRef,

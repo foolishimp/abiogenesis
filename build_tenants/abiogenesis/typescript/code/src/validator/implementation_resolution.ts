@@ -141,9 +141,9 @@ export function validateImplementationResolution(
     candidate.programValidationRef !== programValidation.validationRef ||
     candidate.graphValidationRef !== graphValidation.validationRef ||
     candidate.graphValidationDigest !== graphValidation.validationDigest ||
-    candidate.graphFunctionRef !== graphFunction.name ||
+    candidate.graphFunctionRef !== graphFunction.id ||
     candidate.graphFunctionDigest !== sha256Canonical(graphFunction as unknown as JsonValue) ||
-    graphValidation.graphFunctionRef !== graphFunction.name ||
+    graphValidation.graphFunctionRef !== graphFunction.id ||
     graphValidation.graphFunctionDigest !== candidate.graphFunctionDigest ||
     binding === undefined ||
     term === undefined ||
@@ -184,7 +184,7 @@ export function validateImplementationResolution(
     resolutionCandidateDigest: candidate.resolutionCandidateDigest,
     programValidationRef: programValidation.validationRef,
     graphValidationRef: graphValidation.validationRef,
-    graphFunctionRef: graphFunction.name,
+    graphFunctionRef: graphFunction.id,
     implementationBindingRef: candidate.implementationBindingRef,
     implementationRef: candidate.implementationRef,
   };
@@ -288,7 +288,7 @@ export function validateImplementationResolutionSet(
   for (const [index, row] of candidate.rows.entries()) {
     const declaration = programValidation.executableLeafRows[index];
     const graphFunction = publication.graphFunctions.find(
-      (value) => value.name === row.graphFunctionRef,
+      (value) => value.id === row.graphFunctionRef,
     );
     const bindings = publication.implementationBindings.filter(
       (value) => value.bindingRef === row.implementationBindingRef,

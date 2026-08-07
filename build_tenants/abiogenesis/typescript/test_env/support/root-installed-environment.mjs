@@ -58,7 +58,7 @@ export function rawProgramInput(validator, publicationAdmission, program = publi
       "contract://abiogenesis/gtl/program@5",
     ),
     graphFunctions: publication.graphFunctions
-      .filter((value) => program.callableMembership.includes(value.name))
+      .filter((value) => program.callableMembership.includes(value.id))
       .map((value) =>
         requireRawAdmission(validator, value, "graph_function", "contract://abiogenesis/gtl/graph-function@5")),
     contracts: publication.contracts.map((value) =>
@@ -252,8 +252,14 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
     programValidation,
     catalogView,
   } = environment;
-  const program = publication.programs[0];
-  const graphFunction = publication.graphFunctions[0];
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === gtl.HELLO_WORLD_IDS.programRef,
+  );
+  const graphFunction = publication.graphFunctions.find(
+    (candidate) => candidate.id === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  assert.notEqual(program, undefined);
+  assert.notEqual(graphFunction, undefined);
   const input = gtl.constructHelloWorldInput("World");
   const rawInput = requireRawAdmission(
     validator,
@@ -273,7 +279,7 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
       correlationId: "correlation://t286/support/run-invoke",
       payload: {
         programRef: program.programRef,
-        graphFunctionRef: graphFunction.name,
+        graphFunctionRef: graphFunction.id,
       },
     },
     "public_operation_request",
@@ -291,7 +297,7 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
     workspaceBinding,
     catalogView,
     program.programRef,
-    graphFunction.name,
+    graphFunction.id,
     policy,
     [capabilityGrant],
   );
@@ -379,12 +385,24 @@ export async function setupInstalledRootResolution(context, packageRoot) {
     },
   );
   assert.equal(graphValidation.kind, "graph_validation", JSON.stringify(graphValidation));
-  const implementationModule = await import(
-    `${pathToFileURL(join(installedRoot, publication.implementationBindings[0].modulePath)).href}?resolution=${Date.now()}`
+  const requiredBindingRefs = new Set(
+    programValidation.executableLeafRows.map(
+      (row) => row.requirement.implementationBindingRef,
+    ),
   );
-  const packagedImplementations = Object.values(implementationModule).filter(
-    product.isPackagedLeafImplementationDescriptor,
+  const requiredModulePaths = [...new Set(
+    publication.implementationBindings
+      .filter((binding) => requiredBindingRefs.has(binding.bindingRef))
+      .map((binding) => binding.modulePath),
+  )];
+  const implementationModules = await Promise.all(
+    requiredModulePaths.map((modulePath, index) => import(
+      `${pathToFileURL(join(installedRoot, modulePath)).href}?resolution=${Date.now()}-${index}`
+    )),
   );
+  const packagedImplementations = implementationModules
+    .flatMap((implementationModule) => Object.values(implementationModule))
+    .filter(product.isPackagedLeafImplementationDescriptor);
   const resolutionSetCandidate = product.resolveImplementationSet(
     catalogView,
     publication,
@@ -413,7 +431,7 @@ export async function setupInstalledRootResolution(context, packageRoot) {
     publication,
     programValidation,
     graphValidation,
-    graphFunction.name,
+    graphFunction.id,
     node.nodeRef,
     packagedImplementations,
   );

@@ -21,6 +21,16 @@ import {
 } from "../support/root-cli-environment.mjs";
 
 const packageRoot = new URL("../..", import.meta.url).pathname;
+const FLAVORED_GRAPH_FUNCTION_HANDLE =
+  "graph-function://flavor.example/text/render@5";
+const FLAVORED_NODE_TYPE_HANDLE = "node-type://flavor.example/title@5";
+const FLAVORED_OVERLAY_HANDLE = "overlay://flavor.example/emphasis@5";
+
+function contributionByHandle(publication, handle) {
+  const matches = publication.contributions.filter((row) => row.handle === handle);
+  assert.equal(matches.length, 1, `expected one contribution for ${handle}`);
+  return matches[0];
+}
 
 function invocation(operationId, variant, invocationRef, payload) {
   return {
@@ -1298,7 +1308,10 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
     join(harness.scratch, "dependency-readiness"),
     {
       transformPublication: (publication) => {
-        publication.contributions[0].readinessPrerequisiteRefs = [
+        contributionByHandle(
+          publication,
+          FLAVORED_GRAPH_FUNCTION_HANDLE,
+        ).readinessPrerequisiteRefs = [
           "abg.capability.gtl.declare@5",
         ];
         return publication;
@@ -1330,12 +1343,18 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
       candidate.publications[0].descriptorRef = "descriptor://unrelated/product";
     }, "rejected"],
     ["provenance", (candidate) => {
-      candidate.publications[0].contributions[0].provenanceRefs = [
+      contributionByHandle(
+        candidate.publications[0],
+        FLAVORED_GRAPH_FUNCTION_HANDLE,
+      ).provenanceRefs = [
         `sha256:${"9".repeat(64)}`,
       ];
     }, "rejected"],
     ["compatibility", (candidate) => {
-      candidate.publications[0].contributions[0].compatibilityRefs = [
+      contributionByHandle(
+        candidate.publications[0],
+        FLAVORED_GRAPH_FUNCTION_HANDLE,
+      ).compatibilityRefs = [
         "compatibility://unrelated/major/99",
       ];
     }, "incompatible"],
@@ -1344,7 +1363,7 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
     mutate(substituted);
     const result = harness.product.admitGraphFunctionCatalog(substituted);
     assert.equal(result.kind, "graph_function_catalog", label);
-    const mutatedHandle = substituted.publications[0].contributions[0].handle;
+    const mutatedHandle = FLAVORED_GRAPH_FUNCTION_HANDLE;
     assert.equal(
       result.rowDispositions.find((row) => row.handle === mutatedHandle)?.disposition,
       disposition,
@@ -1394,9 +1413,21 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
     const mixedRequest = structuredClone(request);
     mixedRequest.invocationRef += "/mixed-row-dispositions";
     const mixedRows = mixedRequest.payload.readinessBasis.publications[0].contributions;
-    mixedRows[0].provenanceRefs = [`sha256:${"8".repeat(64)}`];
-    mixedRows[1].compatibilityRefs = ["compatibility://unrelated/major/99"];
-    mixedRows[2].readinessPrerequisiteRefs = [
+    const mixedGraphFunction = contributionByHandle(
+      { contributions: mixedRows },
+      FLAVORED_GRAPH_FUNCTION_HANDLE,
+    );
+    const mixedNodeType = contributionByHandle(
+      { contributions: mixedRows },
+      FLAVORED_NODE_TYPE_HANDLE,
+    );
+    const mixedOverlay = contributionByHandle(
+      { contributions: mixedRows },
+      FLAVORED_OVERLAY_HANDLE,
+    );
+    mixedGraphFunction.provenanceRefs = [`sha256:${"8".repeat(64)}`];
+    mixedNodeType.compatibilityRefs = ["compatibility://unrelated/major/99"];
+    mixedOverlay.readinessPrerequisiteRefs = [
       "abg.capability.unpublished-direct-edge@5",
     ];
     const mixedOutcome = await installedPublic.applyRootPublicInvocation(
@@ -1407,9 +1438,9 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
     const dispositions = new Map(
       mixedOutcome.result.rowDispositions.map((row) => [row.handle, row.disposition]),
     );
-    assert.equal(dispositions.get(mixedRows[0].handle), "rejected");
-    assert.equal(dispositions.get(mixedRows[1].handle), "incompatible");
-    assert.equal(dispositions.get(mixedRows[2].handle), "unready");
+    assert.equal(dispositions.get(mixedGraphFunction.handle), "rejected");
+    assert.equal(dispositions.get(mixedNodeType.handle), "incompatible");
+    assert.equal(dispositions.get(mixedOverlay.handle), "unready");
     assert.equal(
       mixedOutcome.result.rowDispositions.length,
       mixedRows.length,
@@ -1487,7 +1518,10 @@ test("S06 catalog readiness refuses a prerequisite absent from every direct depe
     join(harness.scratch, "missing-direct-edge"),
     {
       transformPublication: (publication) => {
-        publication.contributions[0].readinessPrerequisiteRefs = [missingRef];
+        contributionByHandle(
+          publication,
+          FLAVORED_GRAPH_FUNCTION_HANDLE,
+        ).readinessPrerequisiteRefs = [missingRef];
         return publication;
       },
     },
@@ -1502,8 +1536,11 @@ test("S06 catalog readiness refuses a prerequisite absent from every direct depe
     scenario.readinessBasis,
   );
   assert.equal(refused.kind, "graph_function_catalog");
-  assert.equal(refused.rowDispositions[0].disposition, "unready");
-  assert.match(refused.rowDispositions[0].reason, new RegExp(missingRef.replaceAll(".", "\\."), "u"));
+  const graphFunctionDisposition = refused.rowDispositions.find(
+    (row) => row.handle === FLAVORED_GRAPH_FUNCTION_HANDLE,
+  );
+  assert.equal(graphFunctionDisposition?.disposition, "unready");
+  assert.match(graphFunctionDisposition?.reason ?? "", new RegExp(missingRef.replaceAll(".", "\\."), "u"));
 });
 
 test("S06 catalog application delegates target and value meaning to Product semantics", async (context) => {

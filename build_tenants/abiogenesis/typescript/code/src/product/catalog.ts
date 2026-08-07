@@ -3,6 +3,7 @@ import type {
   GraphFunction,
   ModulePublication,
 } from "../gtl/contracts.js";
+import { admitModule } from "../gtl/admission.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -118,6 +119,7 @@ export interface CatalogConstructionRefusal {
     | "publication_not_bound"
     | "unresolved_readiness_prerequisite"
     | "publication_identity_collision"
+    | "invalid_module_publication"
     | "publication_owner_mismatch"
     | "unknown_allowlist_entry";
   readonly message: string;
@@ -197,7 +199,7 @@ function exactDefinition(
   contribution: Readonly<CatalogContribution>,
 ): Readonly<GraphFunction> | null {
   const matches = publication.graphFunctions.filter(
-    (definition) => definition.name === contribution.declarationOrContractRef,
+    (definition) => definition.id === contribution.declarationOrContractRef,
   );
   return matches.length === 1 ? matches[0]! : null;
 }
@@ -312,6 +314,19 @@ export function directSatisfiedDependencyRefs(
 export function admitGraphFunctionCatalog(
   basis: CatalogReadinessBasis,
 ): ReadyGraphFunctionCatalogResult {
+  let canonicalModulePublications: readonly Readonly<ModulePublication>[];
+  try {
+    canonicalModulePublications = basis.publications.map((publication) =>
+      admitModule(publication)
+    );
+  } catch (error) {
+    return refusal(
+      "invalid_module_publication",
+      `catalog readiness contains a non-admissible Module: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
+  }
   const canonicalBasis: CatalogReadinessBasis = {
     workspaceBinding: basis.workspaceBinding,
     resolvedLock: basis.resolvedLock,
@@ -319,7 +334,7 @@ export function admitGraphFunctionCatalog(
       compareUnicodeCodeUnits(left.productId, right.productId)),
     installedProducts: [...basis.installedProducts].sort((left, right) =>
       compareUnicodeCodeUnits(left.productId, right.productId)),
-    publications: [...basis.publications].sort((left, right) =>
+    publications: [...canonicalModulePublications].sort((left, right) =>
       compareUnicodeCodeUnits(
         modulePublicationSemanticDigest(left),
         modulePublicationSemanticDigest(right),
@@ -506,7 +521,10 @@ export function admitGraphFunctionCatalog(
         canonicalJson(declared.programMembershipRefs as unknown as JsonValue) !==
           canonicalJson(contribution.programMembershipRefs as unknown as JsonValue) ||
         canonicalJson(contribution.provenanceRefs as unknown as JsonValue) !==
-          canonicalJson([lockRow.artifactDigest, lockRow.manifestDigest])
+          canonicalJson(orderedUniqueStrings([
+            lockRow.artifactDigest,
+            lockRow.manifestDigest,
+          ]) as unknown as JsonValue)
       ) {
         pushDisposition(publication, contribution, "rejected", "manifest_or_provenance_mismatch");
         continue;
@@ -601,7 +619,7 @@ export function buildGraphFunctionCatalog(
         const membershipIsExact = contribution.programMembershipRefs.every(
           (programRef) => publication.programs.some((program) =>
             program.programRef === programRef &&
-            program.callableMembership.includes(definition.name)
+            program.callableMembership.includes(definition.id)
           ),
         );
         if (!membershipIsExact) {

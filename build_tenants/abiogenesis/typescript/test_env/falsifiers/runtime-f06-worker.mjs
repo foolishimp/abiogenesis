@@ -66,7 +66,7 @@ function rawProgramInput(validator, publicationAdmission, program) {
       "contract://abiogenesis/gtl/program@5",
     ),
     graphFunctions: publication.graphFunctions
-      .filter((value) => program.callableMembership.includes(value.name))
+      .filter((value) => program.callableMembership.includes(value.id))
       .map((value) => requireRawAdmission(
         validator,
         value,
@@ -179,11 +179,11 @@ async function produce(input) {
     candidate.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef);
   assert.notEqual(program, undefined);
   const graphFunction = publication.graphFunctions.find((candidate) =>
-    candidate.name === program.starts[0]?.graphFunctionRef);
+    candidate.id === program.starts[0]?.graphFunctionRef);
   assert.notEqual(graphFunction, undefined);
   const subjectHandle = gtl.CONSENSUS_IDS.subjectCatalogHandle;
   const view = product.narrowGraphFunctionCatalog(catalog, [
-    graphFunction.name,
+    graphFunction.id,
     subjectHandle,
   ]);
   assert.equal(view.kind, "graph_function_catalog_view", JSON.stringify(view));
@@ -227,7 +227,7 @@ async function produce(input) {
     view,
     application,
     programRef: program.programRef,
-    graphFunctionRef: graphFunction.name,
+    graphFunctionRef: graphFunction.id,
   };
   return {
     action: "produce",
@@ -309,7 +309,7 @@ async function consume(input) {
     const program = publication.programs.find((candidate) =>
       candidate.programRef === programRef);
     const graphFunction = publication.graphFunctions.find((candidate) =>
-      candidate.name === graphFunctionRef);
+      candidate.id === graphFunctionRef);
     assert.notEqual(program, undefined);
     assert.notEqual(graphFunction, undefined);
     const reconstructedApplication = installedProduct.applyCatalogDeclaration(view, {
@@ -379,7 +379,7 @@ async function consume(input) {
       workspaceBinding,
       view,
       program.programRef,
-      graphFunction.name,
+      graphFunction.id,
       policy,
       [grant],
     );

@@ -1,0 +1,24 @@
+{
+  "kind": "closed_vocabulary",
+  "schemaVersion": "5.0.0",
+  "vocabularyId": "abg.vocabulary.gtl-program-diagnostic-id",
+  "values": [
+    "abg://gtl-program/input/object",
+    "abg://gtl-program/input/module",
+    "abg://gtl-program/input/graph-function",
+    "abg://gtl-program/input/string-field",
+    "abg://gtl-program/declaration/duplicate-key",
+    "abg://gtl-program/execution-declaration/invalid",
+    "abg://gtl-program/graph-function/inputs-equal-environment-requires",
+    "abg://gtl-program/graph-function/materializable-template",
+    "abg://gtl-program/graph-function/outputs-provided",
+    "abg://gtl-program/graph-function/unique-publication",
+    "abg://gtl-program/graph-function-application/invalid-program",
+    "abg://gtl-program/graph/input-node-declared",
+    "abg://gtl-program/graph/node-reachable-or-bound",
+    "abg://gtl-program/graph/output-derivable",
+    "abg://gtl-program/c-algebra/invalid-program",
+    "abg://gtl-program/c-algebra/unresolved-graph-function",
+    "abg://gtl-program/module/no-untracked-graph-function"
+  ]
+}

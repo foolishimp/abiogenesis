@@ -24,9 +24,21 @@
       "types": "./build/code/src/abg/index.d.ts",
       "import": "./build/code/src/abg/index.js"
     },
+    "./abg/m03": {
+      "types": "./build/code/src/abg/m03.d.ts",
+      "import": "./build/code/src/abg/m03.js"
+    },
     "./gtl": {
       "types": "./build/code/src/gtl/index.d.ts",
       "import": "./build/code/src/gtl/index.js"
+    },
+    "./gtl/m01": {
+      "types": "./build/code/src/gtl/m01.d.ts",
+      "import": "./build/code/src/gtl/m01.js"
+    },
+    "./gtl/m02": {
+      "types": "./build/code/src/gtl/m02.d.ts",
+      "import": "./build/code/src/gtl/m02.js"
     },
     "./hog": {
       "types": "./build/code/src/hog/index.d.ts",
@@ -50,6 +62,7 @@
     "clean": "node scripts/clean.mjs",
     "build": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",
     "prepack": "npm run build",
+    "test:a5:f02": "npm run build && node --test --test-concurrency=1 test_env/tests/a5-f02-graph-function-identity.test.mjs test_env/tests/a5-f02-canonical-admission.test.mjs test_env/tests/a5-f02-conformance-topology.test.mjs test_env/tests/a5-f02-installed-contracts.test.mjs",
     "test:r1": "npm run build && node --test test_env/tests/r1-packed-artifact.test.mjs",
     "test:r2": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs",
     "test:r3": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs",

@@ -369,7 +369,7 @@ async function openRuntimePrefix({
       correlationId: `correlation://increment-0a/${label}/run`,
       payload: {
         programRef: program.programRef,
-        graphFunctionRef: graphFunction.name,
+        graphFunctionRef: graphFunction.id,
       },
     },
     "public_operation_request",
@@ -387,7 +387,7 @@ async function openRuntimePrefix({
     baseline.workspaceBinding,
     baseline.catalogView,
     program.programRef,
-    graphFunction.name,
+    graphFunction.id,
     policy,
     [grant],
   );
@@ -812,7 +812,7 @@ function replaceGraphFunction(publication, graphFunction) {
   return {
     ...jsonClone(publication),
     graphFunctions: publication.graphFunctions.map((candidate) =>
-      candidate.name === graphFunction.name
+      candidate.id === graphFunction.id
         ? jsonClone(graphFunction)
         : jsonClone(candidate)
     ),
@@ -922,7 +922,7 @@ async function executeTopologyFixture(
 async function runF05(environment, packagedImplementations) {
   const { gtl, validator } = environment;
   const baseGraphFunction = environment.publication.graphFunctions.find(
-    (candidate) => candidate.name === gtl.GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
+    (candidate) => candidate.id === gtl.GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
   );
   const program = environment.publication.programs.find(
     (candidate) => candidate.programRef === gtl.GRAPH_EDGE_HELLO_IDS.programRef,
@@ -950,7 +950,7 @@ async function runF05(environment, packagedImplementations) {
       (candidate) => candidate.programRef === program.programRef,
     );
     const admittedGraphFunction = publicationAdmission.value.graphFunctions.find(
-      (candidate) => candidate.name === fixture.graphFunction.name,
+      (candidate) => candidate.id === fixture.graphFunction.id,
     );
     assert.notEqual(admittedProgram, undefined);
     assert.notEqual(admittedGraphFunction, undefined);
@@ -1173,7 +1173,7 @@ function validateProgramVariant(
   assert.notEqual(program, undefined);
   const graphFunctions = graphFunctionOrder.map((graphFunctionRef) => {
     const graphFunction = publicationAdmission.value.graphFunctions.find(
-      (candidate) => candidate.name === graphFunctionRef,
+      (candidate) => candidate.id === graphFunctionRef,
     );
     assert.notEqual(graphFunction, undefined);
     return graphFunction;
@@ -1229,10 +1229,10 @@ async function runF10Pair(
   packagedImplementations,
 ) {
   const forwardGraphFunction = forward.publication.graphFunctions.find(
-    (candidate) => candidate.name === graphFunctionRef,
+    (candidate) => candidate.id === graphFunctionRef,
   );
   const reverseGraphFunction = reverse.publication.graphFunctions.find(
-    (candidate) => candidate.name === graphFunctionRef,
+    (candidate) => candidate.id === graphFunctionRef,
   );
   assert.notEqual(forwardGraphFunction, undefined);
   assert.notEqual(reverseGraphFunction, undefined);

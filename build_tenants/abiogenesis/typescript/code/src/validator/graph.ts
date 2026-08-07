@@ -87,7 +87,7 @@ export function validateGraph(
   const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
   if (
     graph.materializationDigest !== sha256Canonical(graphBody as unknown as JsonValue) ||
-    graph.graphFunctionRef !== graphFunction.name ||
+    graph.graphFunctionRef !== graphFunction.id ||
     graph.graphFunctionDigest !== graphFunctionDigest ||
     !programValidation.graphFunctionDigests.includes(graphFunctionDigest) ||
     graph.invocationAdmissionRef !== basis.invocationAdmissionRef ||

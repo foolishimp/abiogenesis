@@ -281,7 +281,7 @@ export function materializeGraph(
   const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
   const shape = deriveMaterializedGraphShape(graphFunction, basis);
   const body = {
-    graphFunctionRef: graphFunction.name,
+    graphFunctionRef: graphFunction.id,
     graphFunctionDigest,
     invocationAdmissionRef: basis.invocationAdmissionRef,
     admittedInputRef: basis.admittedInputRef,

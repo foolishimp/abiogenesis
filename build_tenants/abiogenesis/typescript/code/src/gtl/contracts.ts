@@ -297,6 +297,7 @@ export interface GtlGraph {
 
 export interface GraphFunction {
   readonly kind: "graph_function";
+  readonly id: string;
   readonly name: string;
   readonly version: "5.0.0";
   readonly environment: GtlEnvironment;

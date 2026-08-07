@@ -138,7 +138,7 @@ function constructAxF09Declarations() {
     packageVersion: "5.0.0",
   });
   const mixed = base.graphFunctions.find(
-    (candidate) => candidate.name === DEVELOPER_MINI_IDS.mixedGraphFunctionRef,
+    (candidate) => candidate.id === DEVELOPER_MINI_IDS.mixedGraphFunctionRef,
   );
   const probabilistic = mixed?.template?.nodes?.[0]?.term?.terms?.find(
     (candidate) => candidate.kind === "c_of" && candidate.fibre === "F_P",

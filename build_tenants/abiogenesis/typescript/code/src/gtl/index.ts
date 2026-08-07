@@ -107,6 +107,36 @@ export {
   type SubstituteGraphFunctionInput,
 } from "./graph_construction.js";
 export {
+  constructGraphFunction,
+  type GraphFunctionInit,
+} from "./graph_function.js";
+export {
+  GTL_C_ADMISSION_DIAGNOSTIC_ID_VALUES,
+  admitCProgramSyntax,
+  admitGraphFunction,
+  admitModule,
+  admitProgram,
+  type CProgramAdmission,
+  type CProgramAdmissionDiagnostic,
+} from "./admission.js";
+export {
+  admitIJsonText,
+  admitIJsonValue,
+  serializeIJsonCanonical,
+  type IJsonValue,
+} from "./canonical_ingest.js";
+export {
+  serializeCProgramCanonical,
+  serializeCProgramNode,
+  serializeGraphFunction,
+  serializeGraphTemplate,
+  serializeModule,
+  serializeModuleCanonical,
+  serializeProgram,
+  serializeProgramCanonical,
+  type Module,
+} from "./serialization.js";
+export {
   composeApplication,
   fanInApplication,
   fanOutApplication,

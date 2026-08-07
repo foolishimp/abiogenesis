@@ -264,7 +264,8 @@ export function constructRecursionPublicationParts(
   });
   const graphFunction: GraphFunction = {
     kind: "graph_function",
-    name: RECURSION_HELLO_IDS.graphFunctionRef,
+    id: RECURSION_HELLO_IDS.graphFunctionRef,
+    name: "Bounded recursion hello",
     version: "5.0.0",
     environment: {
       requires: [RECURSION_HELLO_IDS.inputContractRef],
@@ -319,7 +320,8 @@ export function constructRecursionPublicationParts(
   };
   const childGraphFunction: GraphFunction = {
     kind: "graph_function",
-    name: RECURSION_HELLO_IDS.childGraphFunctionRef,
+    id: RECURSION_HELLO_IDS.childGraphFunctionRef,
+    name: "Bounded recursion child step",
     version: "5.0.0",
     environment: {
       requires: [RECURSION_HELLO_IDS.inputContractRef],

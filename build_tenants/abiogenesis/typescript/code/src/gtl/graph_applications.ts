@@ -1,4 +1,7 @@
-import type { JsonValue } from "../shared/canonical_json.js";
+import {
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { requireRef } from "../shared/references.js";
@@ -29,10 +32,14 @@ export type RecurseApplicationInput = Omit<
 >;
 
 function requireRefs(values: readonly string[], label: string): readonly string[] {
-  if (values.length === 0 || values.some((value) => value.trim().length === 0)) {
+  if (
+    values.length === 0 ||
+    values.some((value) => value.trim().length === 0) ||
+    new Set(values).size !== values.length
+  ) {
     throw new TypeError(`${label} must contain at least one non-empty reference`);
   }
-  return values;
+  return [...values].sort(compareUnicodeCodeUnits);
 }
 
 function validateBase(input: {
@@ -119,7 +126,10 @@ export function recurseApplication(
 ): RecurseApplication {
   requireRef(input.graphFunctionRef, "graphFunctionRef");
   requireRef(input.terminationRuleRef, "terminationRuleRef");
-  requireRefs(input.terminationEvaluatorRefs, "terminationEvaluatorRefs");
+  const terminationEvaluatorRefs = requireRefs(
+    input.terminationEvaluatorRefs,
+    "terminationEvaluatorRefs",
+  );
   if (!/^\$\.[A-Za-z_][A-Za-z0-9_.]*$/u.test(input.terminationFieldRef)) {
     throw new TypeError("terminationFieldRef must be one declared JSON field path");
   }
@@ -138,7 +148,7 @@ export function recurseApplication(
   const canonicalFoldback = deepFreeze({ ...input.foldback });
   return constructApplication("recurse", {
     ...input,
-    terminationEvaluatorRefs: [...input.terminationEvaluatorRefs],
+    terminationEvaluatorRefs,
     foldbackRef: foldbackRef(canonicalFoldback),
     foldback: canonicalFoldback,
   });
@@ -207,10 +217,10 @@ export function gateApplication(
 ): GateApplication {
   requireRef(input.targetRef, "targetRef");
   requireRef(input.ruleRef, "ruleRef");
-  requireRefs(input.evaluatorRefs, "evaluatorRefs");
+  const evaluatorRefs = requireRefs(input.evaluatorRefs, "evaluatorRefs");
   return constructApplication("gate", {
     ...input,
-    evaluatorRefs: [...input.evaluatorRefs],
+    evaluatorRefs,
   });
 }
 

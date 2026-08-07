@@ -148,7 +148,7 @@ function actionCatalogFromGapAuthority(authority, programRef) {
 
 function oneSurfaceGraph(publication, mini) {
   const graph = publication.graphFunctions.find(
-    (candidate) => candidate.name === mini.ids.oneSurfaceGraphFunctionRef,
+    (candidate) => candidate.id === mini.ids.oneSurfaceGraphFunctionRef,
   );
   assert.ok(graph);
   return graph;
@@ -173,7 +173,7 @@ function oneSurfaceTerms(publication, mini) {
 
 function spanGraph(publication, mini) {
   const graph = publication.graphFunctions.find(
-    (candidate) => candidate.name === mini.ids.spanGraphFunctionRef,
+    (candidate) => candidate.id === mini.ids.spanGraphFunctionRef,
   );
   assert.ok(graph);
   return graph;

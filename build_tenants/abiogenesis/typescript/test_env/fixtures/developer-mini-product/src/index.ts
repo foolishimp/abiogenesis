@@ -3676,7 +3676,8 @@ export function constructDeveloperMiniPublication(
   }));
   const graphFunction = {
     kind: "graph_function",
-    name: DEVELOPER_MINI_IDS.graphFunctionRef,
+    id: DEVELOPER_MINI_IDS.graphFunctionRef,
+    name: "Developer greeting renderer",
     version: "5.0.0",
     environment: {
       requires: [DEVELOPER_MINI_IDS.inputContractRef],
@@ -3760,7 +3761,8 @@ export function constructDeveloperMiniPublication(
   };
   const ticketGraphFunction = {
     kind: "graph_function",
-    name: DEVELOPER_MINI_IDS.ticketGraphFunctionRef,
+    id: DEVELOPER_MINI_IDS.ticketGraphFunctionRef,
+    name: "Developer ticket worker",
     version: "5.0.0",
     environment: {
       requires: [DEVELOPER_MINI_IDS.ticketInputContractRef],
@@ -3843,7 +3845,8 @@ export function constructDeveloperMiniPublication(
   };
   const spanGraphFunction = {
     kind: "graph_function",
-    name: DEVELOPER_MINI_IDS.spanGraphFunctionRef,
+    id: DEVELOPER_MINI_IDS.spanGraphFunctionRef,
+    name: "Developer graph-span selector",
     version: "5.0.0",
     environment: {
       requires: [DEVELOPER_MINI_IDS.inputContractRef],
@@ -4043,7 +4046,8 @@ export function constructDeveloperMiniPublication(
   };
   const identityGraphFunction = {
     kind: "graph_function",
-    name: DEVELOPER_MINI_IDS.identityGraphFunctionRef,
+    id: DEVELOPER_MINI_IDS.identityGraphFunctionRef,
+    name: "Developer greeting identity",
     version: "5.0.0",
     environment: {
       requires: [DEVELOPER_MINI_IDS.inputContractRef],
@@ -4141,7 +4145,8 @@ export function constructDeveloperMiniPublication(
   };
   const mixedGraphFunction = {
     kind: "graph_function",
-    name: DEVELOPER_MINI_IDS.mixedGraphFunctionRef,
+    id: DEVELOPER_MINI_IDS.mixedGraphFunctionRef,
+    name: "Developer mixed-regime greeting",
     version: "5.0.0",
     environment: {
       requires: [DEVELOPER_MINI_IDS.inputContractRef],
@@ -4315,7 +4320,8 @@ export function constructDeveloperMiniPublication(
   };
   const oneSurfaceGraphFunction = {
     kind: "graph_function",
-    name: DEVELOPER_MINI_IDS.oneSurfaceGraphFunctionRef,
+    id: DEVELOPER_MINI_IDS.oneSurfaceGraphFunctionRef,
+    name: "Developer one-surface construction",
     version: "5.0.0",
     environment: {
       requires: [DEVELOPER_MINI_IDS.observationContractRef],

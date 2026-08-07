@@ -104,7 +104,7 @@ function rawProgramInput(validator, publicationAdmission, program) {
       "contract://abiogenesis/gtl/program@5",
     ),
     graphFunctions: publication.graphFunctions
-      .filter((value) => program.callableMembership.includes(value.name))
+      .filter((value) => program.callableMembership.includes(value.id))
       .map((value) =>
         requireRawAdmission(
           validator,
@@ -461,7 +461,7 @@ async function loadInstalledRetryDependencies(
   const graphFunction = exactOne(
     publication.graphFunctions,
     (candidate) =>
-      candidate.name === retryProduct.AX_F09_RETRY_IDS.graphFunctionRef,
+      candidate.id === retryProduct.AX_F09_RETRY_IDS.graphFunctionRef,
     "AX-F09 installed GraphFunction",
   );
   const installedDeclarationsImmutable =
@@ -611,7 +611,7 @@ async function loadInstalledRetryDependencies(
   const declarationsMatchBasis =
     program.programRef === executionBasis.programRef &&
     installedProduct.sha256Canonical(program) === executionBasis.programDigest &&
-    graphFunction.name === executionBasis.graphFunctionRef &&
+    graphFunction.id === executionBasis.graphFunctionRef &&
     installedProduct.sha256Canonical(graphFunction) ===
       executionBasis.graphFunctionDigest &&
     graph.materializationRef === executionBasis.graphRef &&
@@ -970,7 +970,7 @@ async function constructP1Environment(input) {
   );
   const graphFunction = publication.graphFunctions.find(
     (candidate) =>
-      candidate.name === retryProduct.AX_F09_RETRY_IDS.graphFunctionRef,
+      candidate.id === retryProduct.AX_F09_RETRY_IDS.graphFunctionRef,
   );
   assert.notEqual(program, undefined);
   assert.notEqual(graphFunction, undefined);
@@ -978,7 +978,7 @@ async function constructP1Environment(input) {
     graphFunction.template.nodes[0].term.budget,
     input.retryBudget ?? RETRY_BUDGET,
   );
-  const catalogView = product.narrowGraphFunctionCatalog(catalog, [graphFunction.name]);
+  const catalogView = product.narrowGraphFunctionCatalog(catalog, [graphFunction.id]);
   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
   const nonceSubject = `restart-private-${randomUUID()}`;
   const invocationInput = {
@@ -1004,7 +1004,7 @@ async function constructP1Environment(input) {
       correlationId: "correlation://s06/ax-f09/run-invoke",
       payload: {
         programRef: program.programRef,
-        graphFunctionRef: graphFunction.name,
+        graphFunctionRef: graphFunction.id,
       },
     },
     "public_operation_request",
@@ -1023,7 +1023,7 @@ async function constructP1Environment(input) {
     workspaceBinding,
     catalogView,
     program.programRef,
-    graphFunction.name,
+    graphFunction.id,
     policy,
     [capabilityGrant],
   );
@@ -1855,7 +1855,7 @@ async function inspectHandoff(handoff) {
         typeof retryProduct.constructAxF09Publication === "function" &&
         dependencies.program.programRef ===
           retryProduct.AX_F09_RETRY_IDS.programRef &&
-        dependencies.graphFunction.name ===
+        dependencies.graphFunction.id ===
           retryProduct.AX_F09_RETRY_IDS.graphFunctionRef,
       retryBudget: dependencies.graphFunction.template.nodes[0].term.budget,
       targetSuffixCoordinatesExact,

@@ -319,9 +319,17 @@ function readAssetLocator(row: JsonRecord): ProductAssetLocator | null {
   if (!isRecord(locator)) {
     return null;
   }
-  const allowedKeys = locator.definitionRef === undefined
-    ? ["contentDigest", "mediaType", "path", "schemaVersion"]
-    : ["contentDigest", "definitionRef", "mediaType", "path", "schemaVersion"];
+  const allowedKeys = [
+    "contentDigest",
+    "mediaType",
+    "path",
+    "schemaVersion",
+    ...(locator.definitionRef === undefined ? [] : ["definitionRef"]),
+    ...(locator.schemaContractId === undefined ? [] : ["schemaContractId"]),
+    ...(locator.diagnosticVocabularyContractId === undefined
+      ? []
+      : ["diagnosticVocabularyContractId"]),
+  ];
   if (
     !hasExactKeys(locator, allowedKeys) ||
     !isNonblankString(locator.path) ||
@@ -331,6 +339,14 @@ function readAssetLocator(row: JsonRecord): ProductAssetLocator | null {
     (
       locator.definitionRef !== undefined &&
       !isNonblankString(locator.definitionRef)
+    ) ||
+    (
+      locator.schemaContractId !== undefined &&
+      !isNonblankString(locator.schemaContractId)
+    ) ||
+    (
+      locator.diagnosticVocabularyContractId !== undefined &&
+      !isNonblankString(locator.diagnosticVocabularyContractId)
     )
   ) {
     return null;
@@ -343,6 +359,15 @@ function readAssetLocator(row: JsonRecord): ProductAssetLocator | null {
     ...(locator.definitionRef === undefined
       ? {}
       : { definitionRef: locator.definitionRef }),
+    ...(locator.schemaContractId === undefined
+      ? {}
+      : { schemaContractId: locator.schemaContractId }),
+    ...(locator.diagnosticVocabularyContractId === undefined
+      ? {}
+      : {
+        diagnosticVocabularyContractId:
+          locator.diagnosticVocabularyContractId,
+      }),
   };
 }
 
@@ -425,6 +450,7 @@ function contractLocatorLaw(
       return { asset: "optional", digest: "native", native: "required" };
     case "schema_asset":
     case "vocabulary_asset":
+    case "corpus_asset":
       return { asset: "required", digest: "asset", native: "forbidden" };
     case "serialized_native_contract":
       return { asset: "required", digest: "asset", native: "required" };

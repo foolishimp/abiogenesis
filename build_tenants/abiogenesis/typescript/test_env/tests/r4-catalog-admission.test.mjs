@@ -85,8 +85,12 @@ test("R4 refresh adds and replaces exact publication sets", () => {
   );
 
   const changed = structuredClone(hello);
-  changed.graphFunctions[0].tags = [
-    ...changed.graphFunctions[0].tags,
+  const changedHello = changed.graphFunctions.find(
+    (graphFunction) => graphFunction.id === HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  assert.ok(changedHello);
+  changedHello.tags = [
+    ...changedHello.tags,
     "dynamic-refresh-proof",
   ];
   const replaced = requireCatalog(refreshGraphFunctionCatalog([changed]));

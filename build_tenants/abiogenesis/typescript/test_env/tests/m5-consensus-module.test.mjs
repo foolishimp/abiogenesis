@@ -545,6 +545,12 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
     publication.contracts,
     gtl.CONSENSUS_NATIVE_CONTRACT_DEFINITIONS.map(
       ({ validate: _validate, ...declaration }) => declaration,
+    ).sort((left, right) =>
+      left.contractRef < right.contractRef
+        ? -1
+        : left.contractRef > right.contractRef
+          ? 1
+          : 0
     ),
     "publication contracts must project the single native contract registry",
   );
@@ -559,7 +565,7 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
   assert.ok(
     publication.graphFunctions.some(
       (graphFunction) =>
-        graphFunction.name === gtl.CONSENSUS_IDS.submitterGraphFunctionRef,
+        graphFunction.id === gtl.CONSENSUS_IDS.submitterGraphFunctionRef,
     ),
     "the canonical submitter GraphFunction must be published",
   );

@@ -472,7 +472,7 @@ function graphBasis(modules, store, publication, executionBasis) {
     (candidate) => candidate.programRef === executionBasis.programRef,
   );
   const graphFunction = publication.graphFunctions.find(
-    (candidate) => candidate.name === executionBasis.graphFunctionRef,
+    (candidate) => candidate.id === executionBasis.graphFunctionRef,
   );
   assert.ok(program, `${executionBasis.programRef}: Program absent`);
   assert.ok(graphFunction, `${executionBasis.graphFunctionRef}: GraphFunction absent`);
@@ -970,7 +970,7 @@ async function rootRunSource(harness, modules, packageRoot, label, target) {
 function terminalInteractionPublication(mini) {
   const publication = structuredClone(mini.publication);
   const graph = publication.graphFunctions.find(
-    (candidate) => candidate.name === mini.ids.mixedGraphFunctionRef,
+    (candidate) => candidate.id === mini.ids.mixedGraphFunctionRef,
   );
   const closure = publication.closureContracts.find(
     (candidate) =>

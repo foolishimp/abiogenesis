@@ -31,7 +31,11 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
   const node = graphFunction.template.nodes[0];
   const eventCountBeforeResolution = store.readAll().length;
   assert.equal(resolution.kind, "implementation_resolution_candidate", JSON.stringify(resolution));
-  const binding = publication.implementationBindings[0];
+  const binding = publication.implementationBindings.find(
+    (candidate) =>
+      candidate.bindingRef === node.term.requirement.implementationBindingRef,
+  );
+  assert.notEqual(binding, undefined);
   assert.equal(validation.kind, "implementation_resolution_validation", JSON.stringify(validation));
   assert.equal(resolution.computeRegime, "F_D");
   assert.equal(
@@ -83,7 +87,7 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
     publication,
     programValidation,
     graphValidation,
-    graphFunction.name,
+    graphFunction.id,
     "node://abiogenesis/conformance/missing@5",
     [implementationDescriptor],
   );
@@ -94,7 +98,7 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
     publication,
     programValidation,
     graphValidation,
-    graphFunction.name,
+    graphFunction.id,
     node.nodeRef,
     [],
   );
@@ -105,20 +109,22 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
     publication,
     programValidation,
     graphValidation,
-    graphFunction.name,
+    graphFunction.id,
     node.nodeRef,
     [implementationDescriptor],
   );
   assert.equal(changedView.code, "selection_mismatch");
 
   const alteredPublication = structuredClone(publication);
-  alteredPublication.implementationBindings[0].modulePath = "build/code/src/implementation/other.js";
+  alteredPublication.implementationBindings.find(
+    (candidate) => candidate.bindingRef === binding.bindingRef,
+  ).modulePath = "build/code/src/implementation/other.js";
   const alteredBinding = product.resolveImplementation(
     catalogView,
     alteredPublication,
     programValidation,
     graphValidation,
-    graphFunction.name,
+    graphFunction.id,
     node.nodeRef,
     [implementationDescriptor],
   );
@@ -135,7 +141,9 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
   assert.equal(forgedResolution.kind, "static_validation_refusal");
   assert.equal(forgedResolution.diagnostics[0].code, "raw_subject_mismatch");
   const changedBindingPublication = structuredClone(publication);
-  changedBindingPublication.implementationBindings[0].modulePath =
+  changedBindingPublication.implementationBindings.find(
+    (candidate) => candidate.bindingRef === binding.bindingRef,
+  ).modulePath =
     "build/code/src/implementation/other.js";
   const changedBindingValidation = validator.validateImplementationResolution(
     resolution,
