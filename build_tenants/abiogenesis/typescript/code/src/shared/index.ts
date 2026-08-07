@@ -13,4 +13,10 @@ export {
   type Sha256Digest,
 } from "./digests.js";
 export { deepFreeze } from "./immutable.js";
+export {
+  admitIJsonText,
+  admitIJsonValue,
+  type IJsonObject,
+  type IJsonValue,
+} from "./i_json.js";
 export { isNonBlankRef, requireRef } from "./references.js";

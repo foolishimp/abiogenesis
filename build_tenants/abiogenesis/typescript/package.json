@@ -68,6 +68,7 @@
     "test:m5:substitute": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-substitute.test.mjs",
     "test:m5:fp": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-fp.test.mjs",
     "test:m5:live-fp": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-live-fp.test.mjs",
+    "test:t287:f04-safe": "npm run build && node --test --test-concurrency=1 test_env/tests/t287-f04-probabilistic-result-admission.test.mjs",
     "test:m5:workflow": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-workflow.test.mjs",
     "test:m5:retry": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-retry.test.mjs",
     "test:m5:gate": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-gate.test.mjs",
@@ -88,5 +89,8 @@
   "devDependencies": {
     "@types/node": "24.3.0",
     "typescript": "5.9.2"
+  },
+  "dependencies": {
+    "jsonc-parser": "3.3.1"
   }
 }

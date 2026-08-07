@@ -358,3 +358,22 @@ export {
   type WorkerTransportRequest,
   type WorkerTransportResult,
 } from "./worker_transport.js";
+export {
+  FP_RESULT_WIRE_PROFILE_VALUES,
+  admitFpResultContractEnvelope,
+  admitFpResultContractText,
+  fpResultLocusContractDefinition,
+  type AdmittedFpResultContractEnvelope,
+  type AdmittedFpReviewResultContractEnvelope,
+  type AdmittedFpTransformResultContractEnvelope,
+  type FpResultCompositionStageRole,
+  type FpResultContractAdmissionAccepted,
+  type FpResultContractAdmissionInput,
+  type FpResultContractAdmissionOutcome,
+  type FpResultContractAdmissionRejected,
+  type FpResultContractFailure,
+  type FpResultContractFailureClass,
+  type FpResultContractTextAdmissionInput,
+  type FpResultLocusContractDefinition,
+  type FpResultWireProfile,
+} from "./fp_result_contract_admission.js";
