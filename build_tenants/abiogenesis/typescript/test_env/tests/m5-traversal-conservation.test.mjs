@@ -201,6 +201,33 @@ function rc5Witness(sourceClass, witness46) {
   return Object.freeze({ sourceClass, witness46 });
 }
 
+const CURRENT_DEPENDENCY_RED = Object.freeze({
+  "structural_form/flat_composition": Object.freeze({
+    owner: "A5-F10",
+    reason: "retry-input-basis-absent",
+  }),
+  "structural_form/edge_program": Object.freeze({
+    owner: "A5-F10",
+    reason: "retry-input-basis-absent",
+  }),
+  "structural_form/batch": Object.freeze({
+    owner: "A5-F10",
+    reason: "retry-input-basis-absent",
+  }),
+  "structural_form/retry": Object.freeze({
+    owner: "A5-F10",
+    reason: "retry-input-basis-absent",
+  }),
+  "consequence_route/same_edge_retry": Object.freeze({
+    owner: "A5-F10",
+    reason: "retry-input-basis-absent",
+  }),
+  "runtime_disposition/advance_vector": Object.freeze({
+    owner: "A5-F10",
+    reason: "retry-input-basis-absent",
+  }),
+});
+
 const RC5_WITNESS_SOURCE = Object.freeze({
   basis: Object.freeze({
     tag: "v4.6.0-rc.5",
@@ -370,16 +397,19 @@ const RC5_WITNESS_SOURCE = Object.freeze({
   }),
 });
 
-function proven(axis, behavior, proof, verify) {
+function mappedRow(axis, behavior, proof, verify) {
   const key = `${axis}/${behavior}`;
   const rc5 = RC5_WITNESS_SOURCE.rows[key];
   if (rc5 === undefined) {
     throw new Error(`missing immutable RC5 witness for ${key}`);
   }
+  const dependency = CURRENT_DEPENDENCY_RED[key] ?? null;
   return {
     axis,
     behavior,
-    status: "proven",
+    currentStatus: dependency === null ? "proven" : "dependency_red",
+    dependencyOwner: dependency?.owner ?? null,
+    dependencyReason: dependency?.reason ?? null,
     rc5SourceClass: rc5.sourceClass,
     witness46: rc5.witness46,
     ...proof,
@@ -388,7 +418,7 @@ function proven(axis, behavior, proof, verify) {
 }
 
 const matrix = [
-  proven("compute_fibre", "F_D", {
+  mappedRow("compute_fibre", "F_D", {
     gtlExpression: "C.of leaf with fibre F_D",
     hogPath: "direct C-call through the admitted deterministic leaf port",
     abgEvidence: "F_D fibre, deterministic evidence, result, judgment, terminal route",
@@ -402,7 +432,7 @@ const matrix = [
       event.kind === "actor_invocation_started"), false);
     assertCrossWireRefuses(crossWire);
   }),
-  proven("compute_fibre", "F_P", {
+  mappedRow("compute_fibre", "F_P", {
     gtlExpression: "C.of leaf with fibre F_P and one admitted worker binding",
     hogPath: "direct C-call through one-shot probabilistic effect port",
     abgEvidence: "transport, actor, process, artifact, probabilistic evidence, result, judgment",
@@ -419,7 +449,7 @@ const matrix = [
       event.payload.evidenceClass === "probabilistic_transport"), true);
     assertMalformedFpBlocks(malformedFp);
   }),
-  proven("compute_fibre", "F_H", {
+  mappedRow("compute_fibre", "F_H", {
     gtlExpression: "terminal C.of F_H locus in an independently published GTL Program",
     hogPath: "hold at the exact term cursor, then owner-rehydrate and resume after response admission",
     abgEvidence: "pending C-call, continuation open/respond/resume, same-run closure and replay",
@@ -436,7 +466,7 @@ const matrix = [
       /M5 reopens and completes an external mixed F_D\/F_P\/F_H program/u,
     );
   }),
-  proven("compute_fibre", "mixed", {
+  mappedRow("compute_fibre", "mixed", {
     gtlExpression: "one independent GTL C.compose containing F_D, F_P, and terminal F_H loci",
     hogPath: "one direct HoG fold crosses all three fibres without a product-specific controller",
     abgEvidence: "exactly three fibre selections and three complete C-call spines in one Run",
@@ -450,7 +480,7 @@ const matrix = [
     );
   }),
 
-  proven("structural_form", "atomic_call", {
+  mappedRow("structural_form", "atomic_call", {
     gtlExpression: "one C.of leaf",
     hogPath: "one cursor and one admitted leaf invocation",
     abgEvidence: "one complete C-call spine in one Frame",
@@ -462,7 +492,7 @@ const matrix = [
     assert.equal(fd.events.filter((event) => event.kind === "c_call_judged").length, 1);
     assertCrossWireRefuses(crossWire);
   }),
-  proven("structural_form", "flat_composition", {
+  mappedRow("structural_form", "flat_composition", {
     gtlExpression: "canonical identity-eliding C.compose",
     hogPath: "ordered C-term cursors without an anonymous child Frame",
     abgEvidence: "six ordered C-call spines under one GraphCall and Frame",
@@ -474,7 +504,7 @@ const matrix = [
     assert.equal(compose.events.filter((event) => event.kind === "frame_opened").length, 1);
     assert.equal(compose.events.filter((event) => event.kind === "c_call_opened").length, 6);
   }),
-  proven("structural_form", "edge_program", {
+  mappedRow("structural_form", "edge_program", {
     gtlExpression: "C.edge transform/evaluate/consequence inside C.retry",
     hogPath: "declared transform, evaluate, and consequence cursors",
     abgEvidence: "three role-bearing C-call spines and admitted routes",
@@ -487,7 +517,7 @@ const matrix = [
       .map((event) => event.payload.stageRole);
     assert.deepEqual(roles.slice(-3), ["transform", "evaluate", "consequence"]);
   }),
-  proven("structural_form", "adaptive_declared_selection", {
+  mappedRow("structural_form", "adaptive_declared_selection", {
     gtlExpression: "GateApplication bound to one F_D evaluator and one named admitted target",
     hogPath: "evaluator judgment either advances into the named child or blocks before child entry",
     abgEvidence: "evaluator result, judgment, caused route, and selected child GraphCall are replay truth",
@@ -543,7 +573,7 @@ const matrix = [
       false,
     );
   }),
-  proven("structural_form", "batch", {
+  mappedRow("structural_form", "batch", {
     gtlExpression: "C.batch with two ordered C.of tasks",
     hogPath: "two task cursors retaining batch identity and task ordinal",
     abgEvidence: "two independently evidenced and judged C-call spines",
@@ -563,7 +593,7 @@ const matrix = [
       { batchRef: "batch://abiogenesis/conformance/hello-compose/checks@5", taskOrdinal: 1 },
     ]);
   }),
-  proven("structural_form", "transparent_child_traversal", {
+  mappedRow("structural_form", "transparent_child_traversal", {
     gtlExpression: "workflow.C targeting one published child GraphFunction",
     hogPath: "transparent parent C-call, child GraphCall/Frame, then parent foldback",
     abgEvidence: "child lineage, sub_traversal evidence, and child_foldback_admitted",
@@ -579,7 +609,7 @@ const matrix = [
     assert.equal(omittedChild.events.some((event) =>
       event.kind === "run_segment_opened"), false);
   }),
-  proven("structural_form", "graph_recursion", {
+  mappedRow("structural_form", "graph_recursion", {
     gtlExpression: "recurse application with a Boolean termination evaluator, identity foldback, and bound four",
     hogPath: "three child GraphCalls re-enter one parent locus through increasing attempts",
     abgEvidence: "three admitted child foldbacks and application routes precede one terminal parent route",
@@ -605,7 +635,7 @@ const matrix = [
       event.graphFunctionRef === RECURSION_CHILD_REF).length, 3);
     assert.equal(recursionBound.events.at(-1)?.kind, "run_stopped");
   }),
-  proven("structural_form", "retry", {
+  mappedRow("structural_form", "retry", {
     gtlExpression: "C.retry over one F_P C.of call with budget two",
     hogPath: "same declared term is re-entered with attempt two and a fresh cursor",
     abgEvidence: "two retry attempts and C-calls separated by admitted retry progress",
@@ -647,7 +677,7 @@ const matrix = [
       event.kind === "actor_invocation_started").length, 2);
   }),
 
-  proven("consequence_route", "same_edge_retry", {
+  mappedRow("consequence_route", "same_edge_retry", {
     gtlExpression: "declared C.retry route over the current wrapped term",
     hogPath: "retry_same_edge targets the same program locus with incremented retry path",
     abgEvidence: "retry judgment and progress causally admit the retry route",
@@ -667,7 +697,7 @@ const matrix = [
       event.kind === "traversal_route_admitted" &&
       event.payload.routeKind === "retry").length, 2);
   }),
-  proven("consequence_route", "depth_traversal", {
+  mappedRow("consequence_route", "depth_traversal", {
     gtlExpression: "workflow.C child GraphFunction declaration",
     hogPath: "enter child GraphCall/Frame and return to parent cursor",
     abgEvidence: "parent-child basis lineage and child foldback event",
@@ -682,7 +712,7 @@ const matrix = [
       event.kind === "c_call_opened" ||
       event.kind === "child_foldback_admitted"), false);
   }),
-  proven("consequence_route", "graph_span_reentry", {
+  mappedRow("consequence_route", "graph_span_reentry", {
     gtlExpression: "Product-owned bounded re_enter application from one selector locus to one earlier locus",
     hogPath: "Product projection selects the target; HoG derives and applies the exact re-entry cursor",
     abgEvidence: "judged selector C-call causes one bounded re_enter route carrying the exact Product projection",
@@ -695,7 +725,7 @@ const matrix = [
       `${externalSpanReentry.stdout}\n${externalSpanReentry.stderr}`,
     );
   }),
-  proven("consequence_route", "public_start_reentry", {
+  mappedRow("consequence_route", "public_start_reentry", {
     gtlExpression: "published start re-entering the same Product-owned One Surface Program after an admitted gap_stop",
     hogPath: "fresh successor Run traverses the unchanged Program after exact single-use source-gap admission",
     abgEvidence: "second invocation_admitted binds the consumed source gap before the successor Run opens",
@@ -712,7 +742,7 @@ const matrix = [
       /M5 exposes a durable gap and re-enters it through the same external Product/u,
     );
   }),
-  proven("consequence_route", "ticket_traversal", {
+  mappedRow("consequence_route", "ticket_traversal", {
     gtlExpression: "developer-owned ticket Program and GraphFunction with one declared C.of work leaf",
     hogPath: "installed direct traversal enters only the ticket Program's admitted callable",
     abgEvidence: "ticket C-call evidence, result, judgment, terminal route, and closure remain one replayed Run",
@@ -729,7 +759,7 @@ const matrix = [
       /M5 invokes external ticket work only through its owning Program and GraphFunction/u,
     );
   }),
-  proven("consequence_route", "fh_input_required", {
+  mappedRow("consequence_route", "fh_input_required", {
     gtlExpression: "Product-selected F_H C.of action under the admitted One Surface composition",
     hogPath: "exact cursor yields at the human-input locus and resumes only after owner rehydration",
     abgEvidence: "atomic pending judgment, hold route, continuation, attributed response, and resume truth",
@@ -742,7 +772,7 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  proven("consequence_route", "escalation_or_reprice", {
+  mappedRow("consequence_route", "escalation_or_reprice", {
     gtlExpression: "Product-observed correction pressure followed by one typed F_H correction response",
     hogPath: "the resumed One Surface traversal evaluates evidence, refreshes, and stops on the Product's exact correction",
     abgEvidence: "construction delta, correction route, and run stop retain reprice or escalation truth without closure",
@@ -755,7 +785,7 @@ const matrix = [
       `${externalCorrections.stdout}\n${externalCorrections.stderr}`,
     );
   }),
-  proven("consequence_route", "gap_stop", {
+  mappedRow("consequence_route", "gap_stop", {
     gtlExpression: "Product-owned evaluateNext emits a no-action gap_stop projection",
     hogPath: "admitted no-action judgment stops before target traversal, F_H interaction, or closure",
     abgEvidence: "gap_stop traversal route and run_stopped preserve the exact Product gap basis",
@@ -768,7 +798,7 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  proven("consequence_route", "non_admit", {
+  mappedRow("consequence_route", "non_admit", {
     gtlExpression: "Program/GraphFunction membership admission",
     hogPath: "no HoG entry when declaration or basis admission fails",
     abgEvidence: "no Run or event stream is minted",
@@ -776,7 +806,7 @@ const matrix = [
     invalidMutation: "cross-wire an equivalent but unowned GraphFunction",
   }, ({ crossWire }) => assertCrossWireRefuses(crossWire)),
 
-  proven("runtime_disposition", "advance_vector", {
+  mappedRow("runtime_disposition", "advance_vector", {
     gtlExpression: "next declared C-term cursor",
     hogPath: "apply admitted advance route to the current cursor",
     abgEvidence: "traversal_route_admitted with a non-null target cursor",
@@ -789,7 +819,7 @@ const matrix = [
       event.payload.routeKind === "advance" &&
       event.payload.targetCursorRef !== null), true);
   }),
-  proven("runtime_disposition", "close", {
+  mappedRow("runtime_disposition", "close", {
     gtlExpression: "declared terminal C-call",
     hogPath: "terminal route after admitted result and judgment",
     abgEvidence: "terminal_reached followed by run_closed",
@@ -800,7 +830,7 @@ const matrix = [
     assert.equal(fd.events.some((event) => event.kind === "terminal_reached"), true);
     assertMalformedFpBlocks(malformedFp);
   }),
-  proven("runtime_disposition", "retry_same_edge", {
+  mappedRow("runtime_disposition", "retry_same_edge", {
     gtlExpression: "bounded C.retry with retained input basis",
     hogPath: "failed structural output advances to one fresh same-edge attempt",
     abgEvidence: "retry judgment, progress, route, and new attempt are append-only truth",
@@ -825,7 +855,7 @@ const matrix = [
       ["retry", "blocked"],
     );
   }),
-  proven("runtime_disposition", "repair", {
+  mappedRow("runtime_disposition", "repair", {
     gtlExpression: "post-evidence evaluateNext emits one typed repair no-action projection",
     hogPath: "HoG applies the admitted gap-stop route without terminal traversal",
     abgEvidence: "runtime archive inspection, construction delta, repair route, and run_stopped remain causal",
@@ -838,7 +868,7 @@ const matrix = [
       `${externalCorrections.stdout}\n${externalCorrections.stderr}`,
     );
   }),
-  proven("runtime_disposition", "re_enter", {
+  mappedRow("runtime_disposition", "re_enter", {
     gtlExpression: "public start under one exact Product-owned single-use gap re-entry basis",
     hogPath: "successor Run enters the unchanged One Surface Program after source-gap consumption",
     abgEvidence: "invocation_admitted records exact prior Run, route, stop, projection, and gap lineage",
@@ -851,7 +881,7 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  proven("runtime_disposition", "yield_continuation", {
+  mappedRow("runtime_disposition", "yield_continuation", {
     gtlExpression: "declared F_H interaction locus under the selected Product action",
     hogPath: "traversal yields at the exact cursor and later resumes from durable owner-rehydrated state",
     abgEvidence: "continuation open, response, and resume events preserve one append-only Run lineage",
@@ -864,7 +894,7 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  proven("runtime_disposition", "inspect_runtime_archive", {
+  mappedRow("runtime_disposition", "inspect_runtime_archive", {
     gtlExpression: "post-evidence evaluateNext emits one typed runtime-archive inspection projection",
     hogPath: "HoG stops after the Product evaluator consumes the admitted runtime evidence basis",
     abgEvidence: "the inspected archive projection binds four real causal event references before run_stopped",
@@ -877,7 +907,7 @@ const matrix = [
       `${externalCorrections.stdout}\n${externalCorrections.stderr}`,
     );
   }),
-  proven("runtime_disposition", "reprice", {
+  mappedRow("runtime_disposition", "reprice", {
     gtlExpression: "Product-observed authority state plus typed human response yields a reprice projection",
     hogPath: "the same One Surface refresh reaches reprice without target traversal or closure",
     abgEvidence: "continue_candidate decision, construction delta, reprice route, and run_stopped are replayed",
@@ -890,7 +920,7 @@ const matrix = [
       `${externalCorrections.stdout}\n${externalCorrections.stderr}`,
     );
   }),
-  proven("runtime_disposition", "human_assurance_required", {
+  mappedRow("runtime_disposition", "human_assurance_required", {
     gtlExpression: "Product-owned approval action selects one typed F_H assurance contract",
     hogPath: "HoG stops at the declared F_H locus until the exact actor and capability respond",
     abgEvidence: "pending judgment and assurance continuation precede attributed response admission",
@@ -903,7 +933,7 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  proven("runtime_disposition", "escalate", {
+  mappedRow("runtime_disposition", "escalate", {
     gtlExpression: "Product-observed escalation pressure plus typed F_H response yields an escalate projection",
     hogPath: "HoG applies the admitted nonterminal escalation route after post-evidence refresh",
     abgEvidence: "continue_candidate decision, archive inspection, escalation route, and stop remain append-only",
@@ -916,7 +946,7 @@ const matrix = [
       `${externalCorrections.stdout}\n${externalCorrections.stderr}`,
     );
   }),
-  proven("runtime_disposition", "gap_stop", {
+  mappedRow("runtime_disposition", "gap_stop", {
     gtlExpression: "typed Product no-action result with gap_stop disposition",
     hogPath: "current traversal stops without selecting a target, retrying, or closing",
     abgEvidence: "admitted gap route and run_stopped retain the exact no-action projection",
@@ -929,14 +959,14 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  proven("runtime_disposition", "block", {
+  mappedRow("runtime_disposition", "block", {
     gtlExpression: "failure/refusal contract after rejected F_P result",
     hogPath: "blocked route after refusal result and judgment",
     abgEvidence: "blocked judgment, blocked route, and run_stopped",
     publicOutcome: "typed blocked outcome with no closure",
     invalidMutation: "malformed output cannot be projected as success",
   }, ({ malformedFp }) => assertMalformedFpBlocks(malformedFp)),
-  proven("runtime_disposition", "non_admit", {
+  mappedRow("runtime_disposition", "non_admit", {
     gtlExpression: "failed Program/GraphFunction invocation admission",
     hogPath: "HoG is not entered",
     abgEvidence: "no Run/event authority is created",
@@ -944,7 +974,7 @@ const matrix = [
     invalidMutation: "equivalent contracts do not authorize cross-wired identity",
   }, ({ crossWire }) => assertCrossWireRefuses(crossWire)),
 
-  proven("public_control", "advance_next", {
+  mappedRow("public_control", "advance_next", {
     gtlExpression: "Product-declared default Program start selected by target=next",
     hogPath: "one admitted start enters one bounded direct GraphFunction traversal",
     abgEvidence: "invocation admission binds next, converged, and the resolved start identity",
@@ -957,7 +987,7 @@ const matrix = [
       `${externalPublicTargets.stdout}\n${externalPublicTargets.stderr}`,
     );
   }),
-  proven("public_control", "graph_function_target", {
+  mappedRow("public_control", "graph_function_target", {
     gtlExpression: "published GraphFunction named by one direct invocation",
     hogPath: "admitted root GraphFunction enters direct HoG traversal",
     abgEvidence: "GraphCall and Frame identities retain the selected GraphFunction",
@@ -969,7 +999,7 @@ const matrix = [
       "graph-function://abiogenesis/conformance/hello-world@5");
     assertCrossWireRefuses(crossWire);
   }),
-  proven("public_control", "asset_target", {
+  mappedRow("public_control", "asset_target", {
     gtlExpression: "Product-published asset handle maps to one declared Program start",
     hogPath: "HoG traverses the owning GraphFunction; the asset never becomes callable",
     abgEvidence: "invocation admission binds the requested asset handle and resolved start identity",
@@ -982,7 +1012,7 @@ const matrix = [
       `${externalPublicTargets.stdout}\n${externalPublicTargets.stderr}`,
     );
   }),
-  proven("public_control", "bounded_until", {
+  mappedRow("public_control", "bounded_until", {
     gtlExpression: "published start with until=converged and Product-owned no-action stop",
     hogPath: "the same public start either stops at admitted gap pressure or reaches governed convergence",
     abgEvidence: "gap_stop/run_stopped and terminal/run_closed remain distinct replayed outcomes",
@@ -995,7 +1025,7 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  proven("public_control", "fh_control", {
+  mappedRow("public_control", "fh_control", {
     gtlExpression: "Product-declared F_H action selected inside a public start traversal",
     hogPath: "public control delegates traversal to HoG and waits at the exact declared interaction cursor",
     abgEvidence: "actor, capability, response, continuation, and resumed traversal are admitted runtime truth",
@@ -1008,7 +1038,7 @@ const matrix = [
       `${externalGapReentry.stdout}\n${externalGapReentry.stderr}`,
     );
   }),
-  proven("public_control", "root_control", {
+  mappedRow("public_control", "root_control", {
     gtlExpression: "direct root Program and GraphFunction selection",
     hogPath: "one public call enters one admitted HoG root",
     abgEvidence: "one Run, root GraphCall, Frame, and replay lineage",
@@ -1022,7 +1052,7 @@ const matrix = [
   }),
 ];
 
-test("M5 proves the reconciled 40-row traversal conservation matrix", async (context) => {
+test("M5 establishes the RC5 source census and maps current 5.0 traversal evidence", async (context) => {
   assert.deepEqual(RC5_WITNESS_SOURCE.basis, {
     tag: "v4.6.0-rc.5",
     commit: "8d43dc8968e3df16029e6201680a0301eda035f1",
@@ -1040,12 +1070,64 @@ test("M5 proves the reconciled 40-row traversal conservation matrix", async (con
   });
   assert.equal(matrix.length, 40);
   assert.equal(new Set(matrix.map((row) => `${row.axis}/${row.behavior}`)).size, 40);
-  assert.equal(matrix.filter((row) => row.status === "proven").length, 40);
-  assert.equal(
-    matrix.filter((row) => row.status === "provisional").length,
-    0,
+  const currentStatusCounts = Object.fromEntries(
+    ["proven", "dependency_red"].map((status) => [
+      status,
+      matrix.filter((row) => row.currentStatus === status).length,
+    ]),
   );
-  assert.equal(matrix.filter((row) => row.status === "open").length, 0);
+  assert.deepEqual(currentStatusCounts, { proven: 34, dependency_red: 6 });
+  assert.deepEqual(
+    matrix
+      .filter((row) => row.currentStatus === "dependency_red")
+      .map((row) => ({
+        key: `${row.axis}/${row.behavior}`,
+        owner: row.dependencyOwner,
+        reason: row.dependencyReason,
+      })),
+    [
+      {
+        key: "structural_form/flat_composition",
+        owner: "A5-F10",
+        reason: "retry-input-basis-absent",
+      },
+      {
+        key: "structural_form/edge_program",
+        owner: "A5-F10",
+        reason: "retry-input-basis-absent",
+      },
+      {
+        key: "structural_form/batch",
+        owner: "A5-F10",
+        reason: "retry-input-basis-absent",
+      },
+      {
+        key: "structural_form/retry",
+        owner: "A5-F10",
+        reason: "retry-input-basis-absent",
+      },
+      {
+        key: "consequence_route/same_edge_retry",
+        owner: "A5-F10",
+        reason: "retry-input-basis-absent",
+      },
+      {
+        key: "runtime_disposition/advance_vector",
+        owner: "A5-F10",
+        reason: "retry-input-basis-absent",
+      },
+    ],
+  );
+  assert.deepEqual(
+    Object.keys(CURRENT_DEPENDENCY_RED),
+    matrix
+      .filter((row) => row.currentStatus === "dependency_red")
+      .map((row) => `${row.axis}/${row.behavior}`),
+  );
+  for (const row of matrix.filter((entry) => entry.currentStatus === "proven")) {
+    assert.equal(row.dependencyOwner, null);
+    assert.equal(row.dependencyReason, null);
+  }
   const sourceCounts = Object.fromEntries(
     ["D", "E", "A"].map((sourceClass) => [
       sourceClass,
@@ -1381,10 +1463,6 @@ test("M5 proves the reconciled 40-row traversal conservation matrix", async (con
 
   for (const row of matrix) {
     const name = `${row.axis}/${row.behavior}`;
-    if (row.status === "open") {
-      await context.test(name, { todo: row.gap }, () => {});
-    } else {
-      await context.test(name, () => row.verify(evidence));
-    }
+    await context.test(name, () => row.verify(evidence));
   }
 });
