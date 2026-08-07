@@ -197,13 +197,191 @@ function assertMalformedFpBlocks(evidence) {
   );
 }
 
+function rc5Witness(sourceClass, witness46) {
+  return Object.freeze({ sourceClass, witness46 });
+}
+
+const RC5_WITNESS_SOURCE = Object.freeze({
+  basis: Object.freeze({
+    tag: "v4.6.0-rc.5",
+    commit: "8d43dc8968e3df16029e6201680a0301eda035f1",
+  }),
+  rows: Object.freeze({
+  "compute_fibre/F_D": rc5Witness(
+    "D",
+    "D direct: test_m03_engine_kernel_integration.test.mjs:212",
+  ),
+  "compute_fibre/F_P": rc5Witness(
+    "D",
+    "D direct: test_m03_engine_kernel_integration.test.mjs:344",
+  ),
+  "compute_fibre/F_H": rc5Witness(
+    "A",
+    "A absence/weaker precursor: test_t200_c_call_envelope.test.mjs:813 and test_m04_control_loop_integration.test.mjs:178 only escalate or preserve the gate seam; neither proves RC5 F_H compute execution",
+  ),
+  "compute_fibre/mixed": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t192_temporal_properties.test.mjs:850; RC5 F_H escalates or stops",
+  ),
+  "structural_form/atomic_call": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t200_c_call_envelope.test.mjs:248 proves the predecessor stage carrier",
+  ),
+  "structural_form/flat_composition": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t220_c_algebra.test.mjs:135 and test_m03_graph_function_iteration_integration.test.mjs:21 prove predecessor lowering",
+  ),
+  "structural_form/edge_program": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t220_c_algebra.test.mjs:103 proves normalized HoG lowering",
+  ),
+  "structural_form/adaptive_declared_selection": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t200_c_call_envelope.test.mjs:501,590,928 proves the predecessor catalog and ladder",
+  ),
+  "structural_form/batch": rc5Witness(
+    "A",
+    "A absence/weaker precursor: test_t220_c_algebra.test.mjs:216-245 declares gtl-c-unrealized-batch rather than RC5 batch execution",
+  ),
+  "structural_form/transparent_child_traversal": rc5Witness(
+    "A",
+    "A absence/weaker precursor: test_t220_c_algebra.test.mjs:216-245 declares gtl-c-unrealized-workflow-lift rather than RC5 transparent-child execution",
+  ),
+  "structural_form/graph_recursion": rc5Witness(
+    "A",
+    "A absence/weaker precursor: test_m01_gtl_core_integration.test.mjs:868,958 authors and inspects recursion only; it does not prove RC5 graph-recursion execution",
+  ),
+  "structural_form/retry": rc5Witness(
+    "A",
+    "A absence/weaker precursor: test_t220_c_algebra.test.mjs:216-245 declares gtl-c-unrealized-retry rather than RC5 retry execution",
+  ),
+  "consequence_route/same_edge_retry": rc5Witness(
+    "D",
+    "D direct: test_t106_traversal_non_progress_continuation.test.mjs:679 and test_t156_consequence_allowed_traversal_catalog.test.mjs:223",
+  ),
+  "consequence_route/depth_traversal": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t155_graph_function_zoom_plan.test.mjs:42,78 and test_t156_consequence_allowed_traversal_catalog.test.mjs:166",
+  ),
+  "consequence_route/graph_span_reentry": rc5Witness(
+    "D",
+    "D direct: test_t103_graph_span_reentry_unit.test.mjs:93,191 and test_t154_runtime_authoring_routes.test.mjs:110",
+  ),
+  "consequence_route/public_start_reentry": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_m04_engine_start_integration.test.mjs:241 proves predecessor closed-F_P re-entry",
+  ),
+  "consequence_route/ticket_traversal": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t156_consequence_ticket_traversal_bridge.test.mjs:84 proves Product route admission only",
+  ),
+  "consequence_route/fh_input_required": rc5Witness(
+    "A",
+    "A absence/weaker precursor: test_t127_fp_consciousness_loop_unit.test.mjs:914 and test_t200_c_call_envelope.test.mjs:813 prove escalation only, not RC5 F_H input execution",
+  ),
+  "consequence_route/escalation_or_reprice": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t127_fp_consciousness_loop_unit.test.mjs:914,1937 and test_t103_graph_span_reentry_unit.test.mjs:281",
+  ),
+  "consequence_route/gap_stop": rc5Witness(
+    "D",
+    "D direct: test_m03_graph_function_iteration_unit.test.mjs:145 and test_t156_consequence_allowed_traversal_catalog.test.mjs:223",
+  ),
+  "consequence_route/non_admit": rc5Witness(
+    "D",
+    "D direct: test_t156_consequence_allowed_traversal_catalog.test.mjs:200,223",
+  ),
+  "runtime_disposition/advance_vector": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_m03_graph_function_iteration_integration.test.mjs:21 proves predecessor vector vocabulary",
+  ),
+  "runtime_disposition/close": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t149_iteration_state_action_algebra.test.mjs:475 proves the predecessor terminal carrier",
+  ),
+  "runtime_disposition/retry_same_edge": rc5Witness(
+    "D",
+    "D direct: test_t148_runtime_continuation_transition.test.mjs:96,134",
+  ),
+  "runtime_disposition/repair": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t103_graph_span_reentry_semantic_deep.test.mjs:311 and test_t127_fp_consciousness_loop_unit.test.mjs:1186",
+  ),
+  "runtime_disposition/re_enter": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t149_iteration_state_action_algebra.test.mjs:534 and test_t103_graph_span_reentry_unit.test.mjs:191",
+  ),
+  "runtime_disposition/yield_continuation": rc5Witness(
+    "D",
+    "D direct: test_t148_runtime_continuation_transition.test.mjs:134",
+  ),
+  "runtime_disposition/inspect_runtime_archive": rc5Witness(
+    "D",
+    "D direct: test_t106_traversal_non_progress_continuation.test.mjs:407,734 and test_t148_runtime_continuation_transition.test.mjs:134",
+  ),
+  "runtime_disposition/reprice": rc5Witness(
+    "D",
+    "D direct: test_t148_runtime_continuation_transition.test.mjs:134,155",
+  ),
+  "runtime_disposition/human_assurance_required": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t127_fp_consciousness_loop_unit.test.mjs:914 and test_t131_edge_assurance_contract.test.mjs:427",
+  ),
+  "runtime_disposition/escalate": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_t135_vector_local_runtime_regime.test.mjs:178 and test_t127_fp_consciousness_loop_unit.test.mjs:914",
+  ),
+  "runtime_disposition/gap_stop": rc5Witness(
+    "D",
+    "D direct: test_m03_graph_function_iteration_unit.test.mjs:145",
+  ),
+  "runtime_disposition/block": rc5Witness(
+    "D",
+    "D direct: test_t148_runtime_continuation_transition.test.mjs:134,155",
+  ),
+  "runtime_disposition/non_admit": rc5Witness(
+    "D",
+    "D direct: test_t156_consequence_allowed_traversal_catalog.test.mjs:223",
+  ),
+  "public_control/advance_next": rc5Witness(
+    "D",
+    "D direct: test_m04_cli_binary_integration.test.mjs:410",
+  ),
+  "public_control/graph_function_target": rc5Witness(
+    "D",
+    "D direct: test_m04_cli_binary_integration.test.mjs:354",
+  ),
+  "public_control/asset_target": rc5Witness(
+    "D",
+    "D direct: test_m04_cli_binary_integration.test.mjs:433",
+  ),
+  "public_control/bounded_until": rc5Witness(
+    "D",
+    "D direct: test_m04_app_bootstrap_unit.test.mjs:28,51 and test_m03_internal_control_loop_sufficiency.test.mjs:20",
+  ),
+  "public_control/fh_control": rc5Witness(
+    "E",
+    "E equivalent predecessor: test_m04_control_loop_integration.test.mjs:178; RC5 has no durable respond or resume proof",
+  ),
+  "public_control/root_control": rc5Witness(
+    "D",
+    "D direct: test_m04_control_loop_integration.test.mjs:28 and test_m04_complete_start_surface_unit.test.mjs:28",
+  ),
+  }),
+});
+
 function proven(axis, behavior, proof, verify) {
+  const key = `${axis}/${behavior}`;
+  const rc5 = RC5_WITNESS_SOURCE.rows[key];
+  if (rc5 === undefined) {
+    throw new Error(`missing immutable RC5 witness for ${key}`);
+  }
   return {
     axis,
     behavior,
     status: "proven",
-    witness46:
-      `PENDING immutable RC5 witness reconciliation for ${behavior}`,
+    rc5SourceClass: rc5.sourceClass,
+    witness46: rc5.witness46,
     ...proof,
     verify,
   };
@@ -844,7 +1022,11 @@ const matrix = [
   }),
 ];
 
-test("M5 projects fixed 40-row implementation coverage without claiming RC5 reconciliation", async (context) => {
+test("M5 proves the reconciled 40-row traversal conservation matrix", async (context) => {
+  assert.deepEqual(RC5_WITNESS_SOURCE.basis, {
+    tag: "v4.6.0-rc.5",
+    commit: "8d43dc8968e3df16029e6201680a0301eda035f1",
+  });
   const counts = Object.fromEntries(
     [...new Set(matrix.map((row) => row.axis))]
       .map((axis) => [axis, matrix.filter((row) => row.axis === axis).length]),
@@ -864,6 +1046,30 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
     0,
   );
   assert.equal(matrix.filter((row) => row.status === "open").length, 0);
+  const sourceCounts = Object.fromEntries(
+    ["D", "E", "A"].map((sourceClass) => [
+      sourceClass,
+      matrix.filter((row) => row.rc5SourceClass === sourceClass).length,
+    ]),
+  );
+  assert.deepEqual(sourceCounts, { D: 18, E: 16, A: 6 });
+  assert.deepEqual(
+    matrix
+      .filter((row) => row.rc5SourceClass === "A")
+      .map((row) => `${row.axis}/${row.behavior}`),
+    [
+      "compute_fibre/F_H",
+      "structural_form/batch",
+      "structural_form/transparent_child_traversal",
+      "structural_form/graph_recursion",
+      "structural_form/retry",
+      "consequence_route/fh_input_required",
+    ],
+  );
+  assert.deepEqual(
+    Object.keys(RC5_WITNESS_SOURCE.rows),
+    matrix.map((row) => `${row.axis}/${row.behavior}`),
+  );
   for (const row of matrix) {
     for (const field of [
       "witness46",
@@ -876,6 +1082,18 @@ test("M5 projects fixed 40-row implementation coverage without claiming RC5 reco
       assert.equal(typeof row[field], "string", `${row.axis}/${row.behavior} ${field}`);
       assert.notEqual(row[field].length, 0, `${row.axis}/${row.behavior} ${field}`);
     }
+    assert.equal(
+      row.witness46.startsWith(`${row.rc5SourceClass} ${
+        row.rc5SourceClass === "D"
+          ? "direct"
+          : row.rc5SourceClass === "E"
+            ? "equivalent predecessor"
+            : "absence/weaker precursor"
+      }:`),
+      true,
+      `${row.axis}/${row.behavior} explicit RC5 source class`,
+    );
+    assert.equal(/pending|placeholder/iu.test(row.witness46), false);
   }
 
   const harness = await setupInstalledCliHarness(context, root);
