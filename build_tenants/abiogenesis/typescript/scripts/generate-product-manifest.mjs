@@ -114,12 +114,14 @@ function constructGtlCorpusInput(module, programRef, caseName) {
 }
 
 function constructGtlConformanceCorpus() {
-  const placeholderDigest = `sha256:${"0".repeat(64)}`;
+  const placeholderArtifactDigest = `sha256:${"0".repeat(64)}`;
+  const placeholderContentDigest = `sha256:${"1".repeat(64)}`;
+  const placeholderManifestDigest = `sha256:${"2".repeat(64)}`;
   const corpusModule = constructHelloWorldModulePublication({
     productId,
-    artifactDigest: placeholderDigest,
-    productContentDigest: placeholderDigest,
-    productManifestDigest: placeholderDigest,
+    artifactDigest: placeholderArtifactDigest,
+    productContentDigest: placeholderContentDigest,
+    productManifestDigest: placeholderManifestDigest,
     packageName: packageJson.name,
     packageVersion: packageJson.version,
   });
@@ -130,12 +132,14 @@ function constructGtlConformanceCorpus() {
     programRef,
     expectedDiagnosticIds,
     serializedInput = false,
+    runtimeExpectation = undefined,
   ) => {
     const input = constructGtlCorpusInput(module, programRef, caseName);
     cases.push({
       caseRef: `gtl-conformance-case://abiogenesis/${caseName}@5`,
       input: serializedInput ? canonicalJson(input) : input,
       expectedDiagnosticIds: [...expectedDiagnosticIds].sort(compareText),
+      ...(runtimeExpectation === undefined ? {} : { runtimeExpectation }),
     });
   };
 
@@ -148,6 +152,28 @@ function constructGtlConformanceCorpus() {
     }
     add(`valid-${caseName}`, corpusModule, program.programRef, []);
   }
+
+  add(
+    "lawful-unrealized-executable-leaf-runtime",
+    corpusModule,
+    HELLO_WORLD_IDS.programRef,
+    [],
+    false,
+    {
+      kind: "gtl_runtime_disposition_expectation",
+      selectedGraphFunctionRef: HELLO_WORLD_IDS.graphFunctionRef,
+      selectedProgramLocusRef: HELLO_WORLD_IDS.nodeRef,
+      unavailableImplementationBindingRef:
+        HELLO_WORLD_IDS.implementationBindingRef,
+      expectedDisposition: "semantic_not_realized",
+      verificationDisposition: "dependency_red",
+      dependencyFeatureRef: "A5-F03",
+      semanticRequirementRef:
+        "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014",
+      corpusRequirementRef:
+        "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-017",
+    },
+  );
 
   const conflictingIdentity = structuredClone(corpusModule);
   const conflictingGraphFunction = structuredClone(
@@ -281,9 +307,15 @@ function constructGtlConformanceCorpus() {
     "implementation-mismatch",
     HELLO_WORLD_IDS.programRef,
     HELLO_WORLD_IDS.graphFunctionRef,
-    (graphFunction) => {
-      graphFunction.template.nodes[0].term.requirement.outputContractRef =
-        HELLO_WORLD_IDS.inputContractRef;
+    (_graphFunction, module) => {
+      const binding = module.implementationBindings.find(
+        (candidate) =>
+          candidate.bindingRef === HELLO_WORLD_IDS.implementationBindingRef,
+      );
+      if (binding === undefined) {
+        throw new Error("GTL corpus cannot locate Hello World implementation binding");
+      }
+      binding.outputContractRef = HELLO_WORLD_IDS.inputContractRef;
     },
     ["abg://gtl-program/c-algebra/invalid-program"],
   );
@@ -1313,12 +1345,13 @@ const publicContractCatalog = {
   ...catalogWithoutDigest,
   catalogDigest: sha256Canonical(catalogWithoutDigest),
 };
-const placeholderDigest = `sha256:${"0".repeat(64)}`;
+const placeholderArtifactDigest = `sha256:${"0".repeat(64)}`;
+const placeholderManifestDigest = `sha256:${"1".repeat(64)}`;
 const publicationBasis = {
   productId,
-  artifactDigest: placeholderDigest,
+  artifactDigest: placeholderArtifactDigest,
   productContentDigest,
-  productManifestDigest: placeholderDigest,
+  productManifestDigest: placeholderManifestDigest,
   packageName: packageJson.name,
   packageVersion: packageJson.version,
 };

@@ -102,12 +102,13 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
     ...catalogWithoutDigest,
     catalogDigest: product.sha256Canonical(catalogWithoutDigest),
   };
-  const placeholderDigest = `sha256:${"0".repeat(64)}`;
+  const placeholderArtifactDigest = `sha256:${"0".repeat(64)}`;
+  const placeholderManifestDigest = `sha256:${"1".repeat(64)}`;
   const draftPublication = module.constructDeveloperMiniPublication({
     productId,
-    artifactDigest: placeholderDigest,
+    artifactDigest: placeholderArtifactDigest,
     productContentDigest,
-    productManifestDigest: placeholderDigest,
+    productManifestDigest: placeholderManifestDigest,
     packageName: packageJson.name,
     packageVersion: packageJson.version,
   });

@@ -41,6 +41,7 @@ import { inspectCProgramTerm } from "./c_algebra.js";
 export const STATIC_DIAGNOSTIC_CODE_VALUES = [
   "duplicate_identity",
   "carrier_mismatch",
+  "enclosing_carrier_mismatch",
   "environment_input_mismatch",
   "environment_output_mismatch",
   "identity_mismatch",

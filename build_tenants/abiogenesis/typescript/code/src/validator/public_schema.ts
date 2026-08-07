@@ -443,6 +443,24 @@ const conformanceInput = exactObject({
   module: { $ref: "#/$defs/GtlModule" },
 });
 
+const runtimeDispositionExpectation = exactObject({
+  kind: { const: "gtl_runtime_disposition_expectation" },
+  selectedGraphFunctionRef: ref,
+  selectedProgramLocusRef: ref,
+  unavailableImplementationBindingRef: ref,
+  expectedDisposition: { const: "semantic_not_realized" },
+  verificationDisposition: { const: "dependency_red" },
+  dependencyFeatureRef: { const: "A5-F03" },
+  semanticRequirementRef: {
+    const:
+      "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014",
+  },
+  corpusRequirementRef: {
+    const:
+      "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-017",
+  },
+});
+
 const corpus = exactObject({
   kind: { const: "gtl_language_conformance_corpus" },
   schemaVersion: { const: "5.0.0" },
@@ -462,7 +480,8 @@ const corpus = exactObject({
     expectedDiagnosticIds: arrayOf({
       enum: [...GTL_PROGRAM_DIAGNOSTIC_ID_VALUES],
     }, { uniqueItems: true }),
-  }), { minItems: 1 }),
+    runtimeExpectation: runtimeDispositionExpectation,
+  }, ["caseRef", "input", "expectedDiagnosticIds"]), { minItems: 1 }),
 });
 
 export const GTL_PUBLIC_SCHEMA = deepFreeze({

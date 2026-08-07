@@ -5,6 +5,38 @@ import * as gtl from "../../build/code/src/gtl/index.js";
 import * as validator from "../../build/code/src/validator/index.js";
 
 const contractRef = "contract://test/a5-f02/canonical@5";
+const ARTIFACT_DIGEST = `sha256:${"4".repeat(64)}`;
+const CONTENT_DIGEST = `sha256:${"5".repeat(64)}`;
+const MANIFEST_DIGEST = `sha256:${"6".repeat(64)}`;
+
+function artifactBasis() {
+  return {
+    productId: "product://abiogenesis/a5-f02-canonical-proof@5",
+    artifactDigest: ARTIFACT_DIGEST,
+    productContentDigest: CONTENT_DIGEST,
+    productManifestDigest: MANIFEST_DIGEST,
+    packageName: "@abiogenesis/typescript-tenant",
+    packageVersion: "5.0.0-dev.286",
+  };
+}
+
+function helloPublication() {
+  return gtl.constructHelloWorldModulePublication(artifactBasis());
+}
+
+function consensusPublication() {
+  return gtl.constructConsensusModulePublication(artifactBasis());
+}
+
+function thrownMessage(operation) {
+  try {
+    operation();
+  } catch (error) {
+    assert.equal(error instanceof Error, true);
+    return error.message;
+  }
+  assert.fail("expected operation to throw");
+}
 
 function identity() {
   return gtl.identityGraphFunction({
@@ -116,6 +148,207 @@ test("raw object and text ingress share one I-JSON admission before kind checks"
   );
   assert.equal(wrongKind.kind, "raw_admission_refusal");
   assert.equal(wrongKind.code, "invalid_kind");
+});
+
+test("schema unique sets reject duplicates identically at every native object and text ingress", () => {
+  const graphFunction = helloPublication().graphFunctions.find(
+    (candidate) => candidate.id === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  assert.notEqual(graphFunction, undefined);
+  const oneSurfaceProgram = consensusPublication().programs.find(
+    (candidate) => candidate.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+  );
+  assert.notEqual(oneSurfaceProgram, undefined);
+  const module = helloPublication();
+
+  const cases = [
+    {
+      name: "GraphFunction.effects",
+      value: graphFunction,
+      admit: gtl.admitGraphFunction,
+      mutate(value) {
+        value.effects.push(value.effects[0]);
+      },
+    },
+    {
+      name: "GraphFunction.tags",
+      value: graphFunction,
+      admit: gtl.admitGraphFunction,
+      mutate(value) {
+        value.tags.push(value.tags[0]);
+      },
+    },
+    ...["targetObligationRefs", "inputAssetRefs", "outputAssetRefs"].map(
+      (field) => ({
+        name: `Program.actionCatalog.rows[0].${field}`,
+        value: oneSurfaceProgram,
+        admit: gtl.admitProgram,
+        mutate(value) {
+          const values = value.actionCatalog.rows[0][field];
+          values.push(values[0]);
+        },
+      }),
+    ),
+    ...["consumedFieldRefs", "tags"].map((field) => ({
+      name: `Module.evaluators[0].${field}`,
+      value: module,
+      admit: gtl.admitModule,
+      mutate(value) {
+        const values = value.evaluators[0][field];
+        values.push(values[0]);
+      },
+    })),
+    {
+      name: "Module.rules[0].tags",
+      value: module,
+      admit: gtl.admitModule,
+      mutate(value) {
+        value.rules[0].tags.push(value.rules[0].tags[0]);
+      },
+    },
+    ...[
+      "programMembershipRefs",
+      "readinessPrerequisiteRefs",
+      "compatibilityRefs",
+      "provenanceRefs",
+    ].map((field) => ({
+      name: `Module.contributions[0].${field}`,
+      value: module,
+      admit: gtl.admitModule,
+      mutate(value) {
+        const values = value.contributions[0][field];
+        values.push(values[0]);
+      },
+    })),
+  ];
+  assert.equal(cases.length, 12);
+
+  for (const row of cases) {
+    const candidate = structuredClone(row.value);
+    row.mutate(candidate);
+    const objectMessage = thrownMessage(() => row.admit(candidate));
+    const textMessage = thrownMessage(() => row.admit(JSON.stringify(candidate)));
+    assert.equal(objectMessage, textMessage, row.name);
+    assert.match(objectMessage, /contains duplicate value/u, row.name);
+  }
+});
+
+test("published native declaration constructors reject duplicate unique sets", () => {
+  const graphFunction = helloPublication().graphFunctions.find(
+    (candidate) => candidate.id === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  assert.notEqual(graphFunction, undefined);
+  const {
+    id: _id,
+    kind: _kind,
+    version: _version,
+    ...graphFunctionBasis
+  } = structuredClone(graphFunction);
+  for (const field of ["effects", "tags"]) {
+    const candidate = structuredClone(graphFunctionBasis);
+    candidate[field].push(candidate[field][0]);
+    assert.throws(
+      () => gtl.constructGraphFunction(candidate),
+      /contains duplicate value/u,
+      `GraphFunction.${field}`,
+    );
+  }
+
+  for (const field of [
+    "targetObligationRefs",
+    "inputAssetRefs",
+    "outputAssetRefs",
+  ]) {
+    const candidate = structuredClone(consensusPublication());
+    const program = candidate.programs.find(
+      (row) => row.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+    );
+    assert.notEqual(program, undefined);
+    const values = program.actionCatalog.rows[0][field];
+    values.push(values[0]);
+    assert.throws(
+      () => gtl.modulePublication(candidate),
+      /contains duplicate value/u,
+      `ActionCatalog.rows[0].${field}`,
+    );
+  }
+
+  const module = helloPublication();
+  for (const field of ["consumedFieldRefs", "tags"]) {
+    const candidate = structuredClone(module.evaluators[0]);
+    candidate[field].push(candidate[field][0]);
+    assert.throws(
+      () => gtl.evaluatorDeclaration(candidate),
+      /contains duplicate value/u,
+      `Evaluator.${field}`,
+    );
+  }
+  const rule = structuredClone(module.rules[0]);
+  rule.tags.push(rule.tags[0]);
+  assert.throws(
+    () => gtl.ruleDeclaration(rule),
+    /contains duplicate value/u,
+  );
+  for (const field of [
+    "programMembershipRefs",
+    "readinessPrerequisiteRefs",
+    "compatibilityRefs",
+    "provenanceRefs",
+  ]) {
+    const candidate = structuredClone(module.contributions[0]);
+    candidate[field].push(candidate[field][0]);
+    assert.throws(
+      () => gtl.catalogContribution(candidate),
+      /contains duplicate value/u,
+      `CatalogContribution.${field}`,
+    );
+  }
+});
+
+test("I-JSON refuses unsafe integer values and tokens before subject identity", () => {
+  const unsafe = Number.MAX_SAFE_INTEGER + 1;
+  assert.equal(Number.isSafeInteger(unsafe), false);
+  assert.throws(
+    () => gtl.admitIJsonValue(unsafe),
+    /unsafe I-JSON integer/u,
+  );
+  assert.throws(
+    () => gtl.admitIJsonValue(JSON.parse("9007199254740993")),
+    /unsafe I-JSON integer/u,
+  );
+  assert.throws(
+    () => gtl.admitIJsonText("9007199254740993"),
+    /unsafe I-JSON integer/u,
+  );
+
+  const graphFunction = structuredClone(
+    helloPublication().graphFunctions.find(
+      (candidate) => candidate.id === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+    ),
+  );
+  assert.notEqual(graphFunction, undefined);
+  graphFunction.template.nodes[0].term.vectorIndex = unsafe;
+  const objectRefusal = validator.rawAdmitValue(
+    graphFunction,
+    "graph_function",
+    "contract://test/a5-f02/unsafe-integer@5",
+  );
+  const text = JSON.stringify(graphFunction).replace(
+    '"vectorIndex":9007199254740992',
+    '"vectorIndex":9007199254740993',
+  );
+  const textRefusal = validator.rawAdmitValue(
+    text,
+    "graph_function",
+    "contract://test/a5-f02/unsafe-integer@5",
+  );
+  for (const refusal of [objectRefusal, textRefusal]) {
+    assert.equal(refusal.kind, "raw_admission_refusal", JSON.stringify(refusal));
+    assert.equal(refusal.code, "non_canonical_value");
+    assert.match(refusal.message, /unsafe I-JSON integer/u);
+    assert.equal("subjectDigest" in refusal, false);
+  }
+  assert.equal(objectRefusal.message, textRefusal.message);
 });
 
 test("canonical GraphFunction id tampering and recursive unknown fields are refused", () => {

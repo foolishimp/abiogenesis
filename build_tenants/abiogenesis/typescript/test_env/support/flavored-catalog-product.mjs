@@ -241,7 +241,8 @@ export async function prepareFlavoredCatalogProduct(
     ...catalogWithoutDigest,
     catalogDigest: product.sha256Canonical(catalogWithoutDigest),
   };
-  const placeholderDigest = `sha256:${"0".repeat(64)}`;
+  const placeholderArtifactDigest = `sha256:${"0".repeat(64)}`;
+  const placeholderManifestDigest = `sha256:${"1".repeat(64)}`;
   const constructPublication = (artifact) => {
     const publication = publicationModule.constructFlavoredCatalogPublication(
       artifact,
@@ -252,9 +253,9 @@ export async function prepareFlavoredCatalogProduct(
   };
   const draftPublication = constructPublication({
     productId,
-    artifactDigest: placeholderDigest,
+    artifactDigest: placeholderArtifactDigest,
     productContentDigest,
-    productManifestDigest: placeholderDigest,
+    productManifestDigest: placeholderManifestDigest,
     packageName: packageJson.name,
     packageVersion: packageJson.version,
   });

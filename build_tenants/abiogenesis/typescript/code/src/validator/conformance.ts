@@ -43,6 +43,7 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/graph/node-reachable-or-bound",
   "abg://gtl-program/graph/output-derivable",
   "abg://gtl-program/c-algebra/invalid-program",
+  "abg://gtl-program/c-algebra/enclosing-carrier-mismatch",
   "abg://gtl-program/c-algebra/unresolved-graph-function",
   "abg://gtl-program/module/no-untracked-graph-function",
 ] as const);
@@ -113,6 +114,8 @@ export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
     "realize_declared_semantics",
   "abg://gtl-program/graph/output-derivable": "correct_reference",
   "abg://gtl-program/c-algebra/invalid-program": "correct_field_shape",
+  "abg://gtl-program/c-algebra/enclosing-carrier-mismatch":
+    "correct_reference",
   "abg://gtl-program/c-algebra/unresolved-graph-function":
     "correct_reference",
   "abg://gtl-program/module/no-untracked-graph-function":
@@ -127,6 +130,8 @@ export interface GtlProgramConformanceIssue {
   readonly path: string;
   readonly axiomRef: string;
   readonly requirementRef: string;
+  readonly designRef: string;
+  readonly localConstitutionRef: string;
   readonly evidenceRefs: readonly string[];
   readonly message: string;
   readonly admissibleRepairs: readonly GtlProgramAdmissibleRepair[];
@@ -178,46 +183,149 @@ function compareText(left: string, right: string): number {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
-const GTL_PROGRAM_CONFORMANCE_AXIOM_REF =
-  "build_tenants/abiogenesis/typescript/design/M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md#axiom-evaluation";
+export interface GtlProgramDiagnosticAuthorityRefs {
+  readonly axiomRef: string;
+  readonly requirementRef: string;
+  readonly designRef: string;
+  readonly localConstitutionRef: string;
+}
 
-const GTL_PROGRAM_DIAGNOSTIC_REQUIREMENT_REFS: Readonly<
-  Record<GtlProgramDiagnosticId, string>
-> = Object.freeze({
-  "abg://gtl-program/input/object":
-    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-013",
-  "abg://gtl-program/input/module":
-    "specification/requirements/gtl/REQ-L-GTL3-MODULE.md#REQ-L-GTL3-MODULE-001",
-  "abg://gtl-program/input/graph-function":
-    "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-001",
-  "abg://gtl-program/input/string-field":
-    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-013",
-  "abg://gtl-program/declaration/duplicate-key":
-    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-011",
-  "abg://gtl-program/execution-declaration/invalid":
-    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-010",
-  "abg://gtl-program/graph-function/inputs-equal-environment-requires":
-    "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-017",
-  "abg://gtl-program/graph-function/materializable-template":
-    "specification/requirements/gtl/REQ-L-GTL3-INTERFACE.md#REQ-L-GTL3-INTERFACE-006",
-  "abg://gtl-program/graph-function/outputs-provided":
-    "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-018",
-  "abg://gtl-program/graph-function/unique-publication":
-    "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-010",
-  "abg://gtl-program/graph-function-application/invalid-program":
-    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-011",
-  "abg://gtl-program/graph/input-node-declared":
-    "specification/requirements/gtl/REQ-L-GTL3-GRAPH.md#REQ-L-GTL3-GRAPH-001",
-  "abg://gtl-program/graph/node-reachable-or-bound":
-    "specification/requirements/gtl/REQ-L-GTL3-GRAPH.md#REQ-L-GTL3-GRAPH-002",
-  "abg://gtl-program/graph/output-derivable":
-    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-009",
-  "abg://gtl-program/c-algebra/invalid-program":
-    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014",
-  "abg://gtl-program/c-algebra/unresolved-graph-function":
-    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014",
-  "abg://gtl-program/module/no-untracked-graph-function":
-    "specification/requirements/gtl/REQ-L-GTL3-MODULE.md#REQ-L-GTL3-MODULE-003",
+const PRODUCT_AUTHORITY = "specification/PRODUCT.md";
+const GTL_REQUIREMENTS = "specification/requirements/gtl";
+const M03_DESIGN_AUTHORITY =
+  "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md";
+const LOCAL_CONSTITUTION =
+  "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md";
+
+export const GTL_PROGRAM_DIAGNOSTIC_AUTHORITY_REFS: Readonly<
+  Record<GtlProgramDiagnosticId, GtlProgramDiagnosticAuthorityRefs>
+> = deepFreeze({
+  "abg://gtl-program/input/object": {
+    axiomRef: `${PRODUCT_AUTHORITY}#validation-contract`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-013`,
+    designRef: `${M03_DESIGN_AUTHORITY}#51-atomic-function-families`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#9-lawful-technology-stack`,
+  },
+  "abg://gtl-program/input/module": {
+    axiomRef: `${PRODUCT_AUTHORITY}#validation-contract`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-013`,
+    designRef: `${M03_DESIGN_AUTHORITY}#51-atomic-function-families`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#9-lawful-technology-stack`,
+  },
+  "abg://gtl-program/input/graph-function": {
+    axiomRef: `${PRODUCT_AUTHORITY}#graphfunction`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-001`,
+    designRef: `${M03_DESIGN_AUTHORITY}#41-entities-and-relationships`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/input/string-field": {
+    axiomRef: `${PRODUCT_AUTHORITY}#validation-contract`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-013`,
+    designRef: `${M03_DESIGN_AUTHORITY}#51-atomic-function-families`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#9-lawful-technology-stack`,
+  },
+  "abg://gtl-program/declaration/duplicate-key": {
+    axiomRef: `${PRODUCT_AUTHORITY}#validation-contract`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-LAWS.md#REQ-L-GTL3-LAWS-014`,
+    designRef: `${M03_DESIGN_AUTHORITY}#51-atomic-function-families`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#121-one-truth`,
+  },
+  "abg://gtl-program/execution-declaration/invalid": {
+    axiomRef: `${PRODUCT_AUTHORITY}#compute-and-authority`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-010`,
+    designRef: `${M03_DESIGN_AUTHORITY}#51-atomic-function-families`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph-function/inputs-equal-environment-requires": {
+    axiomRef: `${PRODUCT_AUTHORITY}#graphfunction`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-017`,
+    designRef: `${M03_DESIGN_AUTHORITY}#41-entities-and-relationships`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph-function/materializable-template": {
+    axiomRef: `${PRODUCT_AUTHORITY}#graphfunction`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-INTERFACE.md#REQ-L-GTL3-INTERFACE-006`,
+    designRef: `${M03_DESIGN_AUTHORITY}#41-entities-and-relationships`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph-function/outputs-provided": {
+    axiomRef: `${PRODUCT_AUTHORITY}#graphfunction`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-017`,
+    designRef: `${M03_DESIGN_AUTHORITY}#41-entities-and-relationships`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph-function/unique-publication": {
+    axiomRef: `${PRODUCT_AUTHORITY}#graphfunction`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-LAWS.md#REQ-L-GTL3-LAWS-014`,
+    designRef: `${M03_DESIGN_AUTHORITY}#41-entities-and-relationships`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#121-one-truth`,
+  },
+  "abg://gtl-program/graph-function-application/invalid-program": {
+    axiomRef: `${PRODUCT_AUTHORITY}#graph-algebra`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-007`,
+    designRef: `${M03_DESIGN_AUTHORITY}#41-entities-and-relationships`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph/input-node-declared": {
+    axiomRef: `${PRODUCT_AUTHORITY}#graph-algebra`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-GRAPH.md#REQ-L-GTL3-GRAPH-004`,
+    designRef: `${M03_DESIGN_AUTHORITY}#41-entities-and-relationships`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph/node-reachable-or-bound": {
+    axiomRef: `${PRODUCT_AUTHORITY}#graph-algebra`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014`,
+    designRef: `${M03_DESIGN_AUTHORITY}#51-atomic-function-families`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph/output-derivable": {
+    axiomRef: `${PRODUCT_AUTHORITY}#compute-algebra`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014`,
+    designRef: `${M03_DESIGN_AUTHORITY}#51-atomic-function-families`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/c-algebra/invalid-program": {
+    axiomRef: `${PRODUCT_AUTHORITY}#compute-algebra`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014`,
+    designRef: `${M03_DESIGN_AUTHORITY}#51-atomic-function-families`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/c-algebra/enclosing-carrier-mismatch": {
+    axiomRef: `${PRODUCT_AUTHORITY}#compute-algebra`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-010`,
+    designRef: `${M03_DESIGN_AUTHORITY}#51-atomic-function-families`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/c-algebra/unresolved-graph-function": {
+    axiomRef: `${PRODUCT_AUTHORITY}#validation-contract`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014`,
+    designRef: `${M03_DESIGN_AUTHORITY}#51-atomic-function-families`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/module/no-untracked-graph-function": {
+    axiomRef: `${PRODUCT_AUTHORITY}#module-catalog-and-implementation`,
+    requirementRef:
+      `${GTL_REQUIREMENTS}/REQ-L-GTL3-MODULE.md#REQ-L-GTL3-MODULE-001`,
+    designRef: `${M03_DESIGN_AUTHORITY}#41-entities-and-relationships`,
+    localConstitutionRef: `${LOCAL_CONSTITUTION}#121-one-truth`,
+  },
 });
 
 function issue(
@@ -228,14 +336,17 @@ function issue(
 ): GtlProgramConformanceIssue {
   assertGtlProgramDiagnosticId(diagnosticId);
   const defaultRepair = GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS[diagnosticId];
+  const authority = GTL_PROGRAM_DIAGNOSTIC_AUTHORITY_REFS[diagnosticId];
   return {
     kind: "gtl_program_conformance_issue",
     severity: "error",
     diagnosticId,
     surfaceRef,
     path,
-    axiomRef: GTL_PROGRAM_CONFORMANCE_AXIOM_REF,
-    requirementRef: GTL_PROGRAM_DIAGNOSTIC_REQUIREMENT_REFS[diagnosticId],
+    axiomRef: authority.axiomRef,
+    requirementRef: authority.requirementRef,
+    designRef: authority.designRef,
+    localConstitutionRef: authority.localConstitutionRef,
     evidenceRefs: [surfaceRef],
     message,
     admissibleRepairs: defaultRepair === undefined
@@ -254,6 +365,8 @@ const STATIC_DIAGNOSTIC_IDS: Readonly<
 > = Object.freeze({
   duplicate_identity: "abg://gtl-program/declaration/duplicate-key",
   carrier_mismatch: "abg://gtl-program/graph-function/outputs-provided",
+  enclosing_carrier_mismatch:
+    "abg://gtl-program/c-algebra/enclosing-carrier-mismatch",
   environment_input_mismatch:
     "abg://gtl-program/graph-function/inputs-equal-environment-requires",
   environment_output_mismatch:

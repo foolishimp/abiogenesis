@@ -8,6 +8,7 @@ import { requireRef } from "../shared/references.js";
 import type { GraphFunction } from "./contracts.js";
 import { graphFunctionApplicationRef } from "./graph_applications.js";
 import { serializeGraphFunction } from "./serialization.js";
+import { assertUniqueStringValues } from "./unique_strings.js";
 
 const GENERATED_GRAPH_FUNCTION_PREFIX =
   "graph-function://abiogenesis/canonical/";
@@ -31,6 +32,8 @@ function completeGraphFunction(
   name: string,
   body: Readonly<GraphFunctionBody>,
 ): Readonly<GraphFunction> {
+  assertUniqueStringValues(body.effects, "GraphFunction.effects");
+  assertUniqueStringValues(body.tags, "GraphFunction.tags");
   return serializeGraphFunction({
     kind: "graph_function",
     id,

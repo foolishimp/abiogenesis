@@ -251,7 +251,39 @@ function inspectLeaf(
   const requirementValid = fibre === "F_H"
     ? inspectInteractionRequirement(value.requirement, `${path}.requirement`, context, diagnostics)
     : inspectExecutableRequirement(value.requirement, `${path}.requirement`, fibre, context, diagnostics);
-  return valid && requirementValid ? value as unknown as COfNode : null;
+  let enclosingCarriersValid = true;
+  if (requirementValid) {
+    const requirement = value.requirement as unknown as
+      | ExecutableLeafRequirement
+      | InteractionLeafRequirement;
+    if (
+      requirement.kind === "interaction_leaf_requirement" &&
+      value.inputCarrierRef !== requirement.requestContractRef
+    ) {
+      diagnostics.push(diagnostic(
+        "enclosing_carrier_mismatch",
+        path,
+        `C.of F_H input carrier must exactly equal the selected interaction request contract: expected ${requirement.requestContractRef}; received ${String(value.inputCarrierRef)}. The continued output carrier remains independent of the raw response contract`,
+      ));
+      enclosingCarriersValid = false;
+    } else if (
+      requirement.kind === "executable_leaf_requirement" &&
+      (
+        value.inputCarrierRef !== requirement.inputContractRef ||
+        value.outputCarrierRef !== requirement.outputContractRef
+      )
+    ) {
+      diagnostics.push(diagnostic(
+        "enclosing_carrier_mismatch",
+        path,
+        `C.of outer carriers must exactly equal the selected ${fibre} executable leaf contracts: expected ${requirement.inputContractRef} -> ${requirement.outputContractRef}; received ${String(value.inputCarrierRef)} -> ${String(value.outputCarrierRef)}`,
+      ));
+      enclosingCarriersValid = false;
+    }
+  }
+  return valid && requirementValid && enclosingCarriersValid
+    ? value as unknown as COfNode
+    : null;
 }
 
 function inspectTerm(

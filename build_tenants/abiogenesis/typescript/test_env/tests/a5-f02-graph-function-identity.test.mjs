@@ -20,13 +20,14 @@ import {
 
 const contractRef = "contract://test/a5-f02/identity@5";
 const DIGEST = `sha256:${"3".repeat(64)}`;
+const MANIFEST_DIGEST = `sha256:${"4".repeat(64)}`;
 
 function publication() {
   return constructHelloWorldModulePublication({
     productId: "product://abiogenesis/a5-f02-identity-proof@5",
     artifactDigest: DIGEST,
     productContentDigest: DIGEST,
-    productManifestDigest: DIGEST,
+    productManifestDigest: MANIFEST_DIGEST,
     packageName: "@abiogenesis/typescript-tenant",
     packageVersion: "5.0.0-dev.286",
   });

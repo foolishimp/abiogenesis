@@ -2444,11 +2444,62 @@
                     "abg://gtl-program/graph/node-reachable-or-bound",
                     "abg://gtl-program/graph/output-derivable",
                     "abg://gtl-program/c-algebra/invalid-program",
+                    "abg://gtl-program/c-algebra/enclosing-carrier-mismatch",
                     "abg://gtl-program/c-algebra/unresolved-graph-function",
                     "abg://gtl-program/module/no-untracked-graph-function"
                   ]
                 },
                 "uniqueItems": true
+              },
+              "runtimeExpectation": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "kind",
+                  "selectedGraphFunctionRef",
+                  "selectedProgramLocusRef",
+                  "unavailableImplementationBindingRef",
+                  "expectedDisposition",
+                  "verificationDisposition",
+                  "dependencyFeatureRef",
+                  "semanticRequirementRef",
+                  "corpusRequirementRef"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "gtl_runtime_disposition_expectation"
+                  },
+                  "selectedGraphFunctionRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "selectedProgramLocusRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "unavailableImplementationBindingRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S"
+                  },
+                  "expectedDisposition": {
+                    "const": "semantic_not_realized"
+                  },
+                  "verificationDisposition": {
+                    "const": "dependency_red"
+                  },
+                  "dependencyFeatureRef": {
+                    "const": "A5-F03"
+                  },
+                  "semanticRequirementRef": {
+                    "const": "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014"
+                  },
+                  "corpusRequirementRef": {
+                    "const": "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-017"
+                  }
+                }
               }
             }
           },

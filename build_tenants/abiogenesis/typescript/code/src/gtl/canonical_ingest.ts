@@ -6,6 +6,16 @@ import { deepFreeze } from "../shared/immutable.js";
 
 export type IJsonValue = JsonValue;
 
+function admitIJsonNumber(value: number, path: string): number {
+  if (!Number.isFinite(value)) {
+    throw new TypeError(`${path} contains a non-finite number`);
+  }
+  if (Number.isInteger(value) && !Number.isSafeInteger(value)) {
+    throw new TypeError(`${path} contains an unsafe I-JSON integer`);
+  }
+  return Object.is(value, -0) ? 0 : value;
+}
+
 function assertUnicodeScalarString(value: string, path: string): void {
   for (let index = 0; index < value.length; index += 1) {
     const unit = value.charCodeAt(index);
@@ -34,10 +44,7 @@ function copyIJson(
     return value;
   }
   if (typeof value === "number") {
-    if (!Number.isFinite(value)) {
-      throw new TypeError(`${path} contains a non-finite number`);
-    }
-    return Object.is(value, -0) ? 0 : value;
+    return admitIJsonNumber(value, path);
   }
   if (typeof value !== "object") {
     throw new TypeError(`${path} is not an I-JSON value`);
@@ -233,11 +240,7 @@ class StrictJsonParser {
       throw new TypeError(`expected JSON value at byte ${this.offset}`);
     }
     this.offset += match[0].length;
-    const value = Number(match[0]);
-    if (!Number.isFinite(value)) {
-      throw new TypeError(`${path} contains a non-finite number`);
-    }
-    return Object.is(value, -0) ? 0 : value;
+    return admitIJsonNumber(Number(match[0]), path);
   }
 
   private expectKeyword(keyword: string): void {

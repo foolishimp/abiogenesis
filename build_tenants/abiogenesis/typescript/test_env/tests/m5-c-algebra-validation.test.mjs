@@ -6,13 +6,14 @@ import * as product from "../../build/code/src/product/index.js";
 import * as validator from "../../build/code/src/validator/index.js";
 
 const DIGEST = `sha256:${"1".repeat(64)}`;
+const MANIFEST_DIGEST = `sha256:${"2".repeat(64)}`;
 
 function artifactBasis() {
   return {
     productId: "product://abiogenesis/m5-c-algebra-test@5",
     artifactDigest: DIGEST,
     productContentDigest: DIGEST,
-    productManifestDigest: DIGEST,
+    productManifestDigest: MANIFEST_DIGEST,
     packageName: "@abiogenesis/typescript-tenant",
     packageVersion: "5.0.0-dev.286",
   };

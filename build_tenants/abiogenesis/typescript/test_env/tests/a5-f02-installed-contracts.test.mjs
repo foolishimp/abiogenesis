@@ -156,6 +156,54 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
           { minLength: 1, type: "string" },
         ],
       );
+      assert.deepEqual(
+        schema.$defs.GtlLanguageConformanceCorpus.properties.entries.items
+          .properties.runtimeExpectation,
+        {
+          additionalProperties: false,
+          properties: {
+            corpusRequirementRef: {
+              const:
+                "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-017",
+            },
+            dependencyFeatureRef: { const: "A5-F03" },
+            expectedDisposition: { const: "semantic_not_realized" },
+            kind: { const: "gtl_runtime_disposition_expectation" },
+            semanticRequirementRef: {
+              const:
+                "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014",
+            },
+            selectedGraphFunctionRef: {
+              minLength: 1,
+              pattern: "\\S",
+              type: "string",
+            },
+            selectedProgramLocusRef: {
+              minLength: 1,
+              pattern: "\\S",
+              type: "string",
+            },
+            unavailableImplementationBindingRef: {
+              minLength: 1,
+              pattern: "\\S",
+              type: "string",
+            },
+            verificationDisposition: { const: "dependency_red" },
+          },
+          required: [
+            "kind",
+            "selectedGraphFunctionRef",
+            "selectedProgramLocusRef",
+            "unavailableImplementationBindingRef",
+            "expectedDisposition",
+            "verificationDisposition",
+            "dependencyFeatureRef",
+            "semanticRequirementRef",
+            "corpusRequirementRef",
+          ],
+          type: "object",
+        },
+      );
 
       const diagnosticContract = row(
         corpusContract.assetLocator.diagnosticVocabularyContractId,
@@ -187,6 +235,7 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
         "law-c-workflow",
         "law-c-batch",
         "law-c-retry",
+        "lawful-unrealized-executable-leaf-runtime",
       ]) {
         assert.equal(
           corpusCaseRefs.has(
@@ -202,6 +251,43 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
         ).input,
         "string",
       );
+      const lawfulUnrealized = corpus.entries.find((entry) =>
+        entry.caseRef.endsWith("/lawful-unrealized-executable-leaf-runtime@5")
+      );
+      assert.notEqual(lawfulUnrealized, undefined);
+      assert.deepEqual(lawfulUnrealized.expectedDiagnosticIds, []);
+      assert.deepEqual(lawfulUnrealized.runtimeExpectation, {
+        corpusRequirementRef:
+          "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-017",
+        dependencyFeatureRef: "A5-F03",
+        expectedDisposition: "semantic_not_realized",
+        kind: "gtl_runtime_disposition_expectation",
+        semanticRequirementRef:
+          "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014",
+        selectedGraphFunctionRef: gtl.HELLO_WORLD_IDS.graphFunctionRef,
+        selectedProgramLocusRef: gtl.HELLO_WORLD_IDS.nodeRef,
+        unavailableImplementationBindingRef:
+          gtl.HELLO_WORLD_IDS.implementationBindingRef,
+        verificationDisposition: "dependency_red",
+      });
+      assert.equal(
+        m03.GTL_PROGRAM_DIAGNOSTIC_ID_VALUES.includes("semantic_not_realized"),
+        false,
+      );
+      const selectedGraphFunction = lawfulUnrealized.input.module.graphFunctions
+        .find((row) =>
+          row.id ===
+            lawfulUnrealized.runtimeExpectation.selectedGraphFunctionRef
+        );
+      assert.notEqual(selectedGraphFunction, undefined);
+      const selectedLocus = selectedGraphFunction.template.nodes.find((row) =>
+        row.nodeRef === lawfulUnrealized.runtimeExpectation.selectedProgramLocusRef
+      );
+      assert.equal(selectedLocus?.term.kind, "c_of");
+      assert.equal(
+        selectedLocus.term.requirement.implementationBindingRef,
+        lawfulUnrealized.runtimeExpectation.unavailableImplementationBindingRef,
+      );
       for (const entry of corpus.entries) {
         const report = m03.typecheckGtlProgram(entry.input);
         const observed = [...new Set(
@@ -210,8 +296,15 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
         assert.deepEqual(observed, [...entry.expectedDiagnosticIds].sort(), entry.caseRef);
         assert.equal(report.passed, entry.expectedDiagnosticIds.length === 0, entry.caseRef);
         for (const issue of report.issues) {
-          assert.equal(issue.axiomRef.endsWith("#axiom-evaluation"), true);
-          assert.match(issue.requirementRef, /^specification\/requirements\//u);
+          const authority =
+            m03.GTL_PROGRAM_DIAGNOSTIC_AUTHORITY_REFS[issue.diagnosticId];
+          assert.notEqual(authority, undefined, issue.diagnosticId);
+          assert.deepEqual({
+            axiomRef: issue.axiomRef,
+            requirementRef: issue.requirementRef,
+            designRef: issue.designRef,
+            localConstitutionRef: issue.localConstitutionRef,
+          }, authority);
           assert.deepEqual(issue.evidenceRefs, [issue.surfaceRef]);
         }
       }
@@ -349,6 +442,8 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
         corpusCaseCount: corpus.entries.length,
         installedRoot,
         nativeContractCount: nativeContracts.length,
+        runtimeCorpusDisposition:
+          lawfulUnrealized.runtimeExpectation.verificationDisposition,
       }));
     `,
     "utf8",
@@ -361,6 +456,7 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
   const result = JSON.parse(probe.stdout);
   assert.equal(result.nativeContractCount, 3);
   assert.equal(result.corpusCaseCount >= 6, true);
+  assert.equal(result.runtimeCorpusDisposition, "dependency_red");
   const canonicalConsumer = await realpath(consumer);
   assert.equal(
     result.installedRoot.startsWith(canonicalConsumer),

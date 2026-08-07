@@ -18,6 +18,7 @@
     "abg://gtl-program/graph/node-reachable-or-bound",
     "abg://gtl-program/graph/output-derivable",
     "abg://gtl-program/c-algebra/invalid-program",
+    "abg://gtl-program/c-algebra/enclosing-carrier-mismatch",
     "abg://gtl-program/c-algebra/unresolved-graph-function",
     "abg://gtl-program/module/no-untracked-graph-function"
   ]

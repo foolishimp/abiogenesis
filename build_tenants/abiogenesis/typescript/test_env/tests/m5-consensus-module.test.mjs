@@ -33,6 +33,7 @@ import {
 
 const packageRoot = resolve(new URL("../..", import.meta.url).pathname);
 const DIGEST = `sha256:${"1".repeat(64)}`;
+const MANIFEST_DIGEST = `sha256:${"2".repeat(64)}`;
 const WORKSPACE = "workspace://developer/consensus/module-proof";
 const ACTOR = "actor://developer/consensus/module-proof";
 
@@ -41,7 +42,7 @@ function artifactBasis() {
     productId: "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
     artifactDigest: DIGEST,
     productContentDigest: DIGEST,
-    productManifestDigest: DIGEST,
+    productManifestDigest: MANIFEST_DIGEST,
     packageName: "@abiogenesis/typescript-tenant",
     packageVersion: "5.0.0-dev.286",
   };

@@ -128,12 +128,14 @@ export const AX_F09_PRODUCT_SEMANTICS = Object.freeze({
 });
 
 function constructAxF09Declarations() {
-  const placeholder = "sha256:" + "0".repeat(64);
+  const placeholderArtifactDigest = "sha256:" + "0".repeat(64);
+  const placeholderContentDigest = "sha256:" + "1".repeat(64);
+  const placeholderManifestDigest = "sha256:" + "2".repeat(64);
   const base = constructDeveloperMiniPublication({
     productId: "product://developer.example/greeting@5.0.0",
-    artifactDigest: placeholder,
-    productContentDigest: placeholder,
-    productManifestDigest: placeholder,
+    artifactDigest: placeholderArtifactDigest,
+    productContentDigest: placeholderContentDigest,
+    productManifestDigest: placeholderManifestDigest,
     packageName: "@abiogenesis-fixtures/developer-mini-product",
     packageVersion: "5.0.0",
   });
@@ -344,7 +346,7 @@ export async function prepareAxF09RetryProduct(
     productId: priorManifest.productId,
     artifactDigest: PLACEHOLDER_DIGEST,
     productContentDigest,
-    productManifestDigest: PLACEHOLDER_DIGEST,
+    productManifestDigest: "sha256:" + "1".repeat(64),
     packageName: packageJson.name,
     packageVersion: packageJson.version,
   });

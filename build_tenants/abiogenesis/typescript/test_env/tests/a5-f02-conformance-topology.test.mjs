@@ -8,6 +8,7 @@ import * as abg from "../../build/code/src/abg/m03.js";
 import * as gtl from "../../build/code/src/gtl/m01.js";
 import * as publicApi from "../../build/code/src/public/index.js";
 import {
+  FP_HELLO_IDS,
   GRAPH_EDGE_HELLO_IDS,
   HELLO_WORLD_IDS,
   RECURSION_HELLO_IDS,
@@ -15,14 +16,152 @@ import {
   constructHelloWorldModulePublication,
 } from "../../build/code/src/gtl/index.js";
 
-const DIGEST = `sha256:${"2".repeat(64)}`;
+const ARTIFACT_DIGEST = `sha256:${"2".repeat(64)}`;
+const CONTENT_DIGEST = `sha256:${"3".repeat(64)}`;
+const MANIFEST_DIGEST = `sha256:${"4".repeat(64)}`;
+
+const PRODUCT = "specification/PRODUCT.md";
+const DESIGN =
+  "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md";
+const CONSTITUTION =
+  "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md";
+const REQUIREMENTS = "specification/requirements/gtl";
+
+const EXPECTED_DIAGNOSTIC_AUTHORITY_REFS = Object.freeze({
+  "abg://gtl-program/input/object": {
+    axiomRef: `${PRODUCT}#validation-contract`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-013`,
+    designRef: `${DESIGN}#51-atomic-function-families`,
+    localConstitutionRef: `${CONSTITUTION}#9-lawful-technology-stack`,
+  },
+  "abg://gtl-program/input/module": {
+    axiomRef: `${PRODUCT}#validation-contract`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-013`,
+    designRef: `${DESIGN}#51-atomic-function-families`,
+    localConstitutionRef: `${CONSTITUTION}#9-lawful-technology-stack`,
+  },
+  "abg://gtl-program/input/graph-function": {
+    axiomRef: `${PRODUCT}#graphfunction`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-001`,
+    designRef: `${DESIGN}#41-entities-and-relationships`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/input/string-field": {
+    axiomRef: `${PRODUCT}#validation-contract`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-013`,
+    designRef: `${DESIGN}#51-atomic-function-families`,
+    localConstitutionRef: `${CONSTITUTION}#9-lawful-technology-stack`,
+  },
+  "abg://gtl-program/declaration/duplicate-key": {
+    axiomRef: `${PRODUCT}#validation-contract`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-LAWS.md#REQ-L-GTL3-LAWS-014`,
+    designRef: `${DESIGN}#51-atomic-function-families`,
+    localConstitutionRef: `${CONSTITUTION}#121-one-truth`,
+  },
+  "abg://gtl-program/execution-declaration/invalid": {
+    axiomRef: `${PRODUCT}#compute-and-authority`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-010`,
+    designRef: `${DESIGN}#51-atomic-function-families`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph-function/inputs-equal-environment-requires": {
+    axiomRef: `${PRODUCT}#graphfunction`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-017`,
+    designRef: `${DESIGN}#41-entities-and-relationships`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph-function/materializable-template": {
+    axiomRef: `${PRODUCT}#graphfunction`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-INTERFACE.md#REQ-L-GTL3-INTERFACE-006`,
+    designRef: `${DESIGN}#41-entities-and-relationships`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph-function/outputs-provided": {
+    axiomRef: `${PRODUCT}#graphfunction`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-017`,
+    designRef: `${DESIGN}#41-entities-and-relationships`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph-function/unique-publication": {
+    axiomRef: `${PRODUCT}#graphfunction`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-LAWS.md#REQ-L-GTL3-LAWS-014`,
+    designRef: `${DESIGN}#41-entities-and-relationships`,
+    localConstitutionRef: `${CONSTITUTION}#121-one-truth`,
+  },
+  "abg://gtl-program/graph-function-application/invalid-program": {
+    axiomRef: `${PRODUCT}#graph-algebra`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-007`,
+    designRef: `${DESIGN}#41-entities-and-relationships`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph/input-node-declared": {
+    axiomRef: `${PRODUCT}#graph-algebra`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-GRAPH.md#REQ-L-GTL3-GRAPH-004`,
+    designRef: `${DESIGN}#41-entities-and-relationships`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph/node-reachable-or-bound": {
+    axiomRef: `${PRODUCT}#graph-algebra`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014`,
+    designRef: `${DESIGN}#51-atomic-function-families`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/graph/output-derivable": {
+    axiomRef: `${PRODUCT}#compute-algebra`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014`,
+    designRef: `${DESIGN}#51-atomic-function-families`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/c-algebra/invalid-program": {
+    axiomRef: `${PRODUCT}#compute-algebra`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014`,
+    designRef: `${DESIGN}#51-atomic-function-families`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/c-algebra/enclosing-carrier-mismatch": {
+    axiomRef: `${PRODUCT}#compute-algebra`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-010`,
+    designRef: `${DESIGN}#51-atomic-function-families`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/c-algebra/unresolved-graph-function": {
+    axiomRef: `${PRODUCT}#validation-contract`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014`,
+    designRef: `${DESIGN}#51-atomic-function-families`,
+    localConstitutionRef: `${CONSTITUTION}#4-programming-model`,
+  },
+  "abg://gtl-program/module/no-untracked-graph-function": {
+    axiomRef: `${PRODUCT}#module-catalog-and-implementation`,
+    requirementRef:
+      `${REQUIREMENTS}/REQ-L-GTL3-MODULE.md#REQ-L-GTL3-MODULE-001`,
+    designRef: `${DESIGN}#41-entities-and-relationships`,
+    localConstitutionRef: `${CONSTITUTION}#121-one-truth`,
+  },
+});
 
 function publication() {
   return constructHelloWorldModulePublication({
     productId: "product://abiogenesis/a5-f02-proof@5",
-    artifactDigest: DIGEST,
-    productContentDigest: DIGEST,
-    productManifestDigest: DIGEST,
+    artifactDigest: ARTIFACT_DIGEST,
+    productContentDigest: CONTENT_DIGEST,
+    productManifestDigest: MANIFEST_DIGEST,
     packageName: "@abiogenesis/typescript-tenant",
     packageVersion: "5.0.0-dev.286",
   });
@@ -46,6 +185,53 @@ function graphFunctionFor(module, id = HELLO_WORLD_IDS.graphFunctionRef) {
   const graphFunction = module.graphFunctions.find((candidate) => candidate.id === id);
   assert.notEqual(graphFunction, undefined);
   return graphFunction;
+}
+
+function leafTerms(term, rows = []) {
+  if (term.kind === "c_of") rows.push(term);
+  if (term.kind === "c_compose") term.terms.forEach((child) => leafTerms(child, rows));
+  if (term.kind === "c_edge") {
+    leafTerms(term.transform, rows);
+    leafTerms(term.evaluate, rows);
+    leafTerms(term.consequence, rows);
+  }
+  if (term.kind === "c_batch") term.tasks.forEach((child) => leafTerms(child, rows));
+  if (term.kind === "c_retry") leafTerms(term.term, rows);
+  return rows;
+}
+
+function leafFor(module, graphFunctionRef, fibre) {
+  const rows = graphFunctionFor(module, graphFunctionRef).template.nodes
+    .flatMap((node) => leafTerms(node.term))
+    .filter((leaf) => leaf.fibre === fibre);
+  assert.equal(rows.length, 1, `${graphFunctionRef}/${fibre}`);
+  return rows[0];
+}
+
+function fhPublication() {
+  const module = structuredClone(publication());
+  const leaf = leafFor(module, HELLO_WORLD_IDS.graphFunctionRef, "F_D");
+  graphFunctionFor(module).template.nodes[0].term = gtl.C.of({
+    input: gtl.cCarrier(leaf.inputCarrierRef),
+    output: gtl.cCarrier(leaf.outputCarrierRef),
+    programLocusRef: leaf.programLocusRef,
+    stageRole: leaf.stageRole,
+    fibre: "F_H",
+    armId: leaf.armId,
+    compositionRef: leaf.compositionRef,
+    vectorIndex: leaf.vectorIndex,
+    judgmentPredicateRef: leaf.judgmentPredicateRef,
+    resultBearing: leaf.resultBearing,
+    requirement: {
+      kind: "interaction_leaf_requirement",
+      interactionKind: "a5_f02_carrier_relation_proof",
+      actorCapabilityRef: "capability://abiogenesis/a5-f02/human@5",
+      requestContractRef: leaf.inputCarrierRef,
+      responseContractRef: HELLO_WORLD_IDS.judgmentContractRef,
+      continuationContractRef: HELLO_WORLD_IDS.transitionContractRef,
+    },
+  });
+  return module;
 }
 
 function diagnosticIds(report) {
@@ -384,6 +570,193 @@ test("environment and outer template wires are exact before effects", () => {
   }
 });
 
+test("C.of carriers equal executable contracts while F_H keeps response and continued output distinct", () => {
+  const controls = [
+    [publication(), HELLO_WORLD_IDS.programRef],
+    [publication(), FP_HELLO_IDS.programRef],
+  ];
+  for (const [module, programRef] of controls) {
+    const report = typecheck(module, programRef);
+    assert.equal(report.passed, true, `${programRef}: ${JSON.stringify(report)}`);
+  }
+
+  const interactionModule = fhPublication();
+  const interactionLeaf = leafFor(
+    interactionModule,
+    HELLO_WORLD_IDS.graphFunctionRef,
+    "F_H",
+  );
+  assert.notEqual(
+    interactionLeaf.outputCarrierRef,
+    interactionLeaf.requirement.responseContractRef,
+  );
+  const nativeReport = typecheck(interactionModule);
+  const rawReport = abg.typecheckGtlProgram(
+    JSON.stringify(input(interactionModule)),
+  );
+  assert.equal(nativeReport.passed, true, JSON.stringify(nativeReport));
+  assert.equal(rawReport.passed, true, JSON.stringify(rawReport));
+  assert.deepEqual(
+    nativeReport.issues.map(({ diagnosticId, path, message }) => ({
+      diagnosticId,
+      path,
+      message,
+    })),
+    rawReport.issues.map(({ diagnosticId, path, message }) => ({
+      diagnosticId,
+      path,
+      message,
+    })),
+  );
+
+  const cases = [
+    {
+      name: "F_D input",
+      module: publication,
+      programRef: HELLO_WORLD_IDS.programRef,
+      graphFunctionRef: HELLO_WORLD_IDS.graphFunctionRef,
+      fibre: "F_D",
+      mutate(leaf, module) {
+        leaf.requirement.inputContractRef = leaf.outputCarrierRef;
+        const binding = module.implementationBindings.find(
+          (row) => row.bindingRef === leaf.requirement.implementationBindingRef,
+        );
+        assert.notEqual(binding, undefined);
+        binding.inputContractRef = leaf.outputCarrierRef;
+      },
+    },
+    {
+      name: "F_D output",
+      module: publication,
+      programRef: HELLO_WORLD_IDS.programRef,
+      graphFunctionRef: HELLO_WORLD_IDS.graphFunctionRef,
+      fibre: "F_D",
+      mutate(leaf, module) {
+        leaf.requirement.outputContractRef = leaf.inputCarrierRef;
+        const binding = module.implementationBindings.find(
+          (row) => row.bindingRef === leaf.requirement.implementationBindingRef,
+        );
+        assert.notEqual(binding, undefined);
+        binding.outputContractRef = leaf.inputCarrierRef;
+      },
+    },
+    {
+      name: "F_P input",
+      module: publication,
+      programRef: FP_HELLO_IDS.programRef,
+      graphFunctionRef: FP_HELLO_IDS.graphFunctionRef,
+      fibre: "F_P",
+      mutate(leaf, module) {
+        leaf.requirement.inputContractRef = leaf.outputCarrierRef;
+        const binding = module.implementationBindings.find(
+          (row) => row.bindingRef === leaf.requirement.implementationBindingRef,
+        );
+        assert.notEqual(binding, undefined);
+        binding.inputContractRef = leaf.outputCarrierRef;
+      },
+    },
+    {
+      name: "F_P output",
+      module: publication,
+      programRef: FP_HELLO_IDS.programRef,
+      graphFunctionRef: FP_HELLO_IDS.graphFunctionRef,
+      fibre: "F_P",
+      mutate(leaf, module) {
+        leaf.requirement.outputContractRef = leaf.inputCarrierRef;
+        const binding = module.implementationBindings.find(
+          (row) => row.bindingRef === leaf.requirement.implementationBindingRef,
+        );
+        assert.notEqual(binding, undefined);
+        binding.outputContractRef = leaf.inputCarrierRef;
+      },
+    },
+    {
+      name: "F_H request",
+      module: fhPublication,
+      programRef: HELLO_WORLD_IDS.programRef,
+      graphFunctionRef: HELLO_WORLD_IDS.graphFunctionRef,
+      fibre: "F_H",
+      mutate(leaf) {
+        leaf.requirement.requestContractRef = leaf.outputCarrierRef;
+      },
+    },
+  ];
+
+  for (const row of cases) {
+    const module = structuredClone(row.module());
+    row.mutate(leafFor(module, row.graphFunctionRef, row.fibre), module);
+    const objectReport = typecheck(module, row.programRef);
+    const textReport = abg.typecheckGtlProgram(
+      JSON.stringify(input(module, row.programRef)),
+    );
+    for (const report of [objectReport, textReport]) {
+      assert.equal(report.passed, false, `${row.name}: ${JSON.stringify(report)}`);
+      assert.equal(
+        report.issues.some((issue) =>
+          issue.diagnosticId ===
+            "abg://gtl-program/c-algebra/enclosing-carrier-mismatch" &&
+          /C\.of (?:outer carriers|F_H input carrier) must exactly equal/u
+            .test(issue.message)
+        ),
+        true,
+        `${row.name}: ${JSON.stringify(report)}`,
+      );
+    }
+    assert.deepEqual(
+      objectReport.issues.map(({ diagnosticId, path, message }) => ({
+        diagnosticId,
+        path,
+        message,
+      })),
+      textReport.issues.map(({ diagnosticId, path, message }) => ({
+        diagnosticId,
+        path,
+        message,
+      })),
+      row.name,
+    );
+  }
+});
+
+test("Public catalog admission refuses a C.of enclosing-carrier mismatch with zero events", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-a5-f02-public-c-of-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const operationContext = publicApi.createRootOperationContext(
+    join(scratch, "events.jsonl"),
+  );
+  context.after(() => publicApi.closeRootOperationContext(operationContext));
+  const module = structuredClone(publication());
+  const leaf = leafFor(module, HELLO_WORLD_IDS.graphFunctionRef, "F_D");
+  leaf.requirement.inputContractRef = leaf.outputCarrierRef;
+  const binding = module.implementationBindings.find(
+    (row) => row.bindingRef === leaf.requirement.implementationBindingRef,
+  );
+  assert.notEqual(binding, undefined);
+  binding.inputContractRef = leaf.outputCarrierRef;
+
+  const outcome = await publicApi.applyRootPublicInvocation(operationContext, {
+    kind: "public_invocation",
+    schemaVersion: "5.0.0",
+    operationId: "abg.operation.catalog.admit",
+    variant: "module_publication",
+    invocationRef: "invocation://a5-f02/invalid-c-of-carriers",
+    eventTime: "2026-08-07T00:00:00.000Z",
+    correlationId: "correlation://a5-f02/invalid-c-of-carriers",
+    payload: { readinessBasis: { publications: [module] } },
+  });
+  assert.equal(outcome.disposition, "refused", JSON.stringify(outcome));
+  const refusal = outcome.kind === "public_invocation_refusal"
+    ? outcome
+    : outcome.result;
+  assert.match(
+    refusal.message,
+    /Program validation refused: \{"kind":"static_validation_refusal"/u,
+  );
+  assert.match(refusal.message, /"code":"enclosing_carrier_mismatch"/u);
+  assert.match(refusal.message, /C\.of outer carriers must exactly equal/u);
+  assert.deepEqual(operationContext.store.readAll(), []);
+});
+
 test("workflow.C wires equal the selected child published interface", () => {
   const module = structuredClone(publication());
   const program = module.programs.find(
@@ -590,14 +963,31 @@ test("diagnostic and repair identities are closed machine-readable rosters", () 
     [...new Set(abg.GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES)],
     abg.GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES,
   );
+  assert.deepEqual(
+    Object.keys(EXPECTED_DIAGNOSTIC_AUTHORITY_REFS),
+    [...abg.GTL_PROGRAM_DIAGNOSTIC_ID_VALUES],
+  );
+  assert.deepEqual(
+    abg.GTL_PROGRAM_DIAGNOSTIC_AUTHORITY_REFS,
+    EXPECTED_DIAGNOSTIC_AUTHORITY_REFS,
+  );
 
   const invalid = structuredClone(publication());
   graphFunctionFor(invalid).environment.requires = [];
   const report = typecheck(invalid);
   assert.equal(report.passed, false);
   for (const issue of report.issues) {
-    assert.equal(issue.axiomRef.endsWith("#axiom-evaluation"), true);
-    assert.match(issue.requirementRef, /^specification\/requirements\//u);
+    const expected = EXPECTED_DIAGNOSTIC_AUTHORITY_REFS[issue.diagnosticId];
+    assert.notEqual(expected, undefined, issue.diagnosticId);
+    assert.deepEqual(
+      {
+        axiomRef: issue.axiomRef,
+        requirementRef: issue.requirementRef,
+        designRef: issue.designRef,
+        localConstitutionRef: issue.localConstitutionRef,
+      },
+      expected,
+    );
     assert.deepEqual(issue.evidenceRefs, [issue.surfaceRef]);
     assert.equal(issue.admissibleRepairs.length > 0, true);
   }

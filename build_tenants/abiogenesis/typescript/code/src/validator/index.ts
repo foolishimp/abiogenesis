@@ -44,6 +44,7 @@ export {
 } from "./graph.js";
 export {
   GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS,
+  GTL_PROGRAM_DIAGNOSTIC_AUTHORITY_REFS,
   GTL_PROGRAM_DIAGNOSTIC_ID_VALUES,
   GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES,
   admitGtlProgramConformanceInput,
@@ -56,5 +57,6 @@ export {
   type GtlProgramConformanceIssue,
   type GtlProgramConformanceReport,
   type GtlProgramDiagnosticId,
+  type GtlProgramDiagnosticAuthorityRefs,
   type GtlProgramRepairEditClass,
 } from "./conformance.js";

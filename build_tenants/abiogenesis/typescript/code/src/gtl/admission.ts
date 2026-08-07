@@ -33,6 +33,7 @@ import type {
   RuleDeclaration,
 } from "./contracts.js";
 import { hasCanonicalGraphFunctionId } from "./graph_function.js";
+import { assertUniqueStringValues } from "./unique_strings.js";
 import {
   serializeCProgramNode,
   serializeGraphFunction,
@@ -155,6 +156,12 @@ function safeInteger(value: unknown, path: string, minimum = 0): number {
 
 function stringArray(value: unknown, path: string): readonly string[] {
   return array(value, path).map((entry, index) => string(entry, `${path}[${index}]`));
+}
+
+function uniqueStringArray(value: unknown, path: string): readonly string[] {
+  const values = stringArray(value, path);
+  assertUniqueStringValues(values, path);
+  return values;
 }
 
 function stringRecord(value: unknown, path: string): Readonly<Record<string, string>> {
@@ -393,9 +400,9 @@ export function admitGraphFunction(input: unknown): Readonly<GraphFunction> {
     inputs: stringArray(row.inputs, "GraphFunction.inputs"),
     outputs: stringArray(row.outputs, "GraphFunction.outputs"),
     template: parseGraphTemplate(row.template, "GraphFunction.template"),
-    effects: stringArray(row.effects, "GraphFunction.effects"),
+    effects: uniqueStringArray(row.effects, "GraphFunction.effects"),
     declarations: stringRecord(row.declarations, "GraphFunction.declarations"),
-    tags: stringArray(row.tags, "GraphFunction.tags"),
+    tags: uniqueStringArray(row.tags, "GraphFunction.tags"),
   });
   if (graphFunction.id === graphFunction.name) {
     throw new TypeError("GraphFunction.id must be distinct from GraphFunction.name");
@@ -418,7 +425,7 @@ function parsePublicAssetTarget(value: unknown, path: string): ProgramPublicAsse
 
 function parseActionRow(value: unknown, path: string): GtlActionCatalogRow {
   const row = record(value, path, ["kind", "actionRef", "actionKind", "programRef", "graphFunctionRef", "targetProgramLocusRef", "targetObligationRefs", "inputAssetRefs", "outputAssetRefs", "expectedDeltaRef", "progressConditionRef", "stopConditionRef"]);
-  return { kind: exactString(row.kind, "action_catalog_row", `${path}.kind`), actionRef: string(row.actionRef, `${path}.actionRef`), actionKind: string(row.actionKind, `${path}.actionKind`), programRef: string(row.programRef, `${path}.programRef`), graphFunctionRef: string(row.graphFunctionRef, `${path}.graphFunctionRef`), targetProgramLocusRef: string(row.targetProgramLocusRef, `${path}.targetProgramLocusRef`), targetObligationRefs: stringArray(row.targetObligationRefs, `${path}.targetObligationRefs`), inputAssetRefs: stringArray(row.inputAssetRefs, `${path}.inputAssetRefs`), outputAssetRefs: stringArray(row.outputAssetRefs, `${path}.outputAssetRefs`), expectedDeltaRef: string(row.expectedDeltaRef, `${path}.expectedDeltaRef`), progressConditionRef: string(row.progressConditionRef, `${path}.progressConditionRef`), stopConditionRef: string(row.stopConditionRef, `${path}.stopConditionRef`) };
+  return { kind: exactString(row.kind, "action_catalog_row", `${path}.kind`), actionRef: string(row.actionRef, `${path}.actionRef`), actionKind: string(row.actionKind, `${path}.actionKind`), programRef: string(row.programRef, `${path}.programRef`), graphFunctionRef: string(row.graphFunctionRef, `${path}.graphFunctionRef`), targetProgramLocusRef: string(row.targetProgramLocusRef, `${path}.targetProgramLocusRef`), targetObligationRefs: uniqueStringArray(row.targetObligationRefs, `${path}.targetObligationRefs`), inputAssetRefs: uniqueStringArray(row.inputAssetRefs, `${path}.inputAssetRefs`), outputAssetRefs: uniqueStringArray(row.outputAssetRefs, `${path}.outputAssetRefs`), expectedDeltaRef: string(row.expectedDeltaRef, `${path}.expectedDeltaRef`), progressConditionRef: string(row.progressConditionRef, `${path}.progressConditionRef`), stopConditionRef: string(row.stopConditionRef, `${path}.stopConditionRef`) };
 }
 
 function parseActionCatalog(value: unknown, path: string): GtlActionCatalog {
@@ -468,12 +475,12 @@ function parseContract(value: unknown, path: string): ContractDeclaration {
 
 function parseEvaluator(value: unknown, path: string): EvaluatorDeclaration {
   const row = record(value, path, ["name", "regime", "description", "binding", "consumedFieldRefs", "tags"]);
-  return { name: string(row.name, `${path}.name`), regime: oneOf(row.regime, COMPUTE_REGIME_VALUES, `${path}.regime`), description: string(row.description, `${path}.description`), binding: string(row.binding, `${path}.binding`), consumedFieldRefs: stringArray(row.consumedFieldRefs, `${path}.consumedFieldRefs`), tags: stringArray(row.tags, `${path}.tags`) };
+  return { name: string(row.name, `${path}.name`), regime: oneOf(row.regime, COMPUTE_REGIME_VALUES, `${path}.regime`), description: string(row.description, `${path}.description`), binding: string(row.binding, `${path}.binding`), consumedFieldRefs: uniqueStringArray(row.consumedFieldRefs, `${path}.consumedFieldRefs`), tags: uniqueStringArray(row.tags, `${path}.tags`) };
 }
 
 function parseRule(value: unknown, path: string): RuleDeclaration {
   const row = record(value, path, ["name", "kind", "config", "tags"]);
-  return { name: string(row.name, `${path}.name`), kind: string(row.kind, `${path}.kind`), config: jsonRecord(row.config, `${path}.config`), tags: stringArray(row.tags, `${path}.tags`) };
+  return { name: string(row.name, `${path}.name`), kind: string(row.kind, `${path}.kind`), config: jsonRecord(row.config, `${path}.config`), tags: uniqueStringArray(row.tags, `${path}.tags`) };
 }
 
 function parseImplementationBinding(value: unknown, path: string): ImplementationBinding {
@@ -497,7 +504,7 @@ function parseProductSemanticsBinding(value: unknown, path: string): ProductSema
 
 function parseContribution(value: unknown, path: string): CatalogContribution {
   const row = record(value, path, ["handle", "kind", "declarationOrContractRef", "owningProductId", "programMembershipRefs", "readinessPrerequisiteRefs", "compatibilityRefs", "provenanceRefs"]);
-  return { handle: string(row.handle, `${path}.handle`), kind: oneOf(row.kind, ["graph_function", "node_type", "overlay"] as const, `${path}.kind`), declarationOrContractRef: string(row.declarationOrContractRef, `${path}.declarationOrContractRef`), owningProductId: string(row.owningProductId, `${path}.owningProductId`), programMembershipRefs: stringArray(row.programMembershipRefs, `${path}.programMembershipRefs`), readinessPrerequisiteRefs: stringArray(row.readinessPrerequisiteRefs, `${path}.readinessPrerequisiteRefs`), compatibilityRefs: stringArray(row.compatibilityRefs, `${path}.compatibilityRefs`), provenanceRefs: stringArray(row.provenanceRefs, `${path}.provenanceRefs`) };
+  return { handle: string(row.handle, `${path}.handle`), kind: oneOf(row.kind, ["graph_function", "node_type", "overlay"] as const, `${path}.kind`), declarationOrContractRef: string(row.declarationOrContractRef, `${path}.declarationOrContractRef`), owningProductId: string(row.owningProductId, `${path}.owningProductId`), programMembershipRefs: uniqueStringArray(row.programMembershipRefs, `${path}.programMembershipRefs`), readinessPrerequisiteRefs: uniqueStringArray(row.readinessPrerequisiteRefs, `${path}.readinessPrerequisiteRefs`), compatibilityRefs: uniqueStringArray(row.compatibilityRefs, `${path}.compatibilityRefs`), provenanceRefs: uniqueStringArray(row.provenanceRefs, `${path}.provenanceRefs`) };
 }
 
 export function admitModule(input: unknown): Readonly<Module> {

@@ -3,6 +3,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { admitModule } from "./admission.js";
 import { requireRef } from "../shared/references.js";
 import { COMPUTE_REGIME_VALUES } from "./c_algebra.js";
+import { assertUniqueStringValues } from "./unique_strings.js";
 import type {
   CatalogContribution,
   ClosureContract,
@@ -32,6 +33,7 @@ function freezeStrings(
   if (values.some((value) => value.trim().length === 0)) {
     throw new TypeError(`${label} cannot contain an empty reference`);
   }
+  assertUniqueStringValues(values, label);
   return Object.freeze([...values]);
 }
 
