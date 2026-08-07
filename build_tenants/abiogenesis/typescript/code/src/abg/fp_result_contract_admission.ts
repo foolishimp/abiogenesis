@@ -1,7 +1,10 @@
 // Implements: REQ-L-GTL3-C-ALGEBRA-018.
 // Implements: REQ-R-ABG3-PAYLOAD-006, -012, -021, -024, -028.
 
-import type { JsonValue } from "../shared/canonical_json.js";
+import {
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import {
   admitIJsonText,
@@ -12,7 +15,7 @@ import {
 import { deepFreeze } from "../shared/immutable.js";
 import { isNonBlankRef } from "../shared/references.js";
 
-export const FP_RESULT_WIRE_PROFILE_VALUES = Object.freeze([
+const FP_RESULT_WIRE_PROFILE_VALUES = Object.freeze([
   "attached_transform_result",
   "standard_live_review",
 ] as const);
@@ -26,7 +29,7 @@ export type FpResultCompositionStageRole =
   | "consequence"
   | "human_callout";
 
-export interface FpResultLocusContractDefinition {
+interface FpResultLocusContractDefinition {
   readonly compositionStageRole: "transform" | "evaluate";
   readonly wireProfile: FpResultWireProfile;
 }
@@ -41,7 +44,7 @@ const EVALUATE_LOCUS: FpResultLocusContractDefinition = deepFreeze({
   wireProfile: "standard_live_review",
 });
 
-export function fpResultLocusContractDefinition(
+function fpResultLocusContractDefinition(
   compositionStageRole: FpResultCompositionStageRole,
 ): FpResultLocusContractDefinition | null {
   switch (compositionStageRole) {
@@ -74,6 +77,7 @@ interface AdmittedFpResultContractEnvelopeBase {
   readonly kind: "admitted_fp_result_contract_envelope";
   readonly profile: FpResultWireProfile;
   readonly resultContractRef: string;
+  readonly actorRef: string;
   readonly payloadDigest: Sha256Digest;
 }
 
@@ -244,6 +248,16 @@ function isPlainObject(
   return prototype === Object.prototype || prototype === null;
 }
 
+function isEnumerableDataDescriptor(
+  descriptor: PropertyDescriptor | undefined,
+): descriptor is PropertyDescriptor & { readonly value: unknown } {
+  return descriptor !== undefined &&
+    descriptor.enumerable === true &&
+    Object.hasOwn(descriptor, "value") &&
+    !Object.hasOwn(descriptor, "get") &&
+    !Object.hasOwn(descriptor, "set");
+}
+
 function isIJsonObject(value: IJsonValue): value is IJsonObject {
   return isPlainObject(value);
 }
@@ -343,7 +357,7 @@ function expectedAssessmentRefs(value: unknown): readonly string[] {
     seen.add(entry);
     refs.push(entry);
   }
-  return Object.freeze(refs);
+  return Object.freeze(refs.sort(compareUnicodeCodeUnits));
 }
 
 function assertExactRoster(
@@ -443,7 +457,7 @@ function admitTransformEnvelope(input: {
   readonly selectedResultContractRef: string;
   readonly payloadDigest: Sha256Digest;
   readonly expectedEdge: string | null;
-  readonly expectedActorRef: string | null;
+  readonly expectedActorRef: string;
   readonly expectedAssessmentRefs: readonly string[];
 }): AdmittedFpTransformResultContractEnvelope {
   if (!isExactRef(input.expectedEdge)) {
@@ -452,9 +466,6 @@ function admitTransformEnvelope(input: {
   const edge = required(input.payload, "edge");
   if (!isExactRef(edge) || edge !== input.expectedEdge) {
     refuse("edge_mismatch", "transform result edge does not match its request");
-  }
-  if (!isExactRef(input.expectedActorRef)) {
-    refuse("actor_mismatch", "transform admission requires a request-owned actor");
   }
   const actor = required(input.payload, "actor");
   if (!isExactRef(actor) || actor !== input.expectedActorRef) {
@@ -480,11 +491,12 @@ function admitTransformEnvelope(input: {
     kind: "admitted_fp_result_contract_envelope",
     profile: "attached_transform_result",
     resultContractRef: input.selectedResultContractRef,
+    actorRef: input.expectedActorRef,
     payloadDigest: input.payloadDigest,
     resultArtifactCandidate: {
       result_contract_ref: input.selectedResultContractRef,
       edge,
-      actor,
+      actor: input.expectedActorRef,
       fulfillment_assessments: assessments,
     },
     targetValueCandidate: required(input.payload, "target_value"),
@@ -495,6 +507,7 @@ function admitReviewEnvelope(input: {
   readonly payload: IJsonObject;
   readonly selectedResultContractRef: string;
   readonly payloadDigest: Sha256Digest;
+  readonly expectedActorRef: string;
   readonly expectedAssessmentRefs: readonly string[];
 }): AdmittedFpReviewResultContractEnvelope {
   const accepted = required(input.payload, "accepted");
@@ -532,6 +545,7 @@ function admitReviewEnvelope(input: {
     kind: "admitted_fp_result_contract_envelope",
     profile: "standard_live_review",
     resultContractRef: input.selectedResultContractRef,
+    actorRef: input.expectedActorRef,
     payloadDigest: input.payloadDigest,
     reviewCandidate: {
       resultContractRef: input.selectedResultContractRef,
@@ -568,6 +582,18 @@ export function admitFpResultContractEnvelope(
       selectedResultContractRef: null,
     });
   }
+  const expectedActorRef = isExactRef(input.expectedActorRef)
+    ? input.expectedActorRef
+    : null;
+  if (expectedActorRef === null) {
+    return rejected({
+      compositionStageRole: input.compositionStageRole,
+      profile: locus.wireProfile,
+      failureClass: "actor_mismatch",
+      detail: "F_P result admission requires one request-owned actor ref",
+      selectedResultContractRef,
+    });
+  }
 
   let submittedResultContractRef: string | null = null;
   try {
@@ -586,10 +612,10 @@ export function admitFpResultContractEnvelope(
       input.rawResult,
       contractField,
     );
-    if (descriptor?.get !== undefined || descriptor?.set !== undefined) {
+    if (descriptor !== undefined && !isEnumerableDataDescriptor(descriptor)) {
       refuse("malformed_result", `${contractField} must be an I-JSON data member`);
     }
-    if (!isExactRef(descriptor?.value)) {
+    if (descriptor === undefined || !isExactRef(descriptor.value)) {
       refuse("missing_contract_identity", `F_P result requires ${contractField}`);
     }
     submittedResultContractRef = descriptor.value;
@@ -624,13 +650,14 @@ export function admitFpResultContractEnvelope(
             selectedResultContractRef,
             payloadDigest,
             expectedEdge: input.expectedEdge,
-            expectedActorRef: input.expectedActorRef,
+            expectedActorRef,
             expectedAssessmentRefs: expectedRefs,
           })
         : admitReviewEnvelope({
             payload: admittedValue,
             selectedResultContractRef,
             payloadDigest,
+            expectedActorRef,
             expectedAssessmentRefs: expectedRefs,
           });
     return accepted(envelope);

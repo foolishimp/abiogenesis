@@ -38,6 +38,59 @@ function isJsonObject(input: object): boolean {
   return prototype === Object.prototype || prototype === null;
 }
 
+function isDataDescriptor(
+  descriptor: PropertyDescriptor | undefined,
+): descriptor is PropertyDescriptor & { readonly value: unknown } {
+  return descriptor !== undefined &&
+    Object.hasOwn(descriptor, "value") &&
+    !Object.hasOwn(descriptor, "get") &&
+    !Object.hasOwn(descriptor, "set");
+}
+
+function admitIJsonArray(input: unknown[], label: string): IJsonValue {
+  if (Object.getPrototypeOf(input) !== Array.prototype) {
+    throw new TypeError(`${label}: custom-prototype arrays are not I-JSON`);
+  }
+
+  const ownKeys = Reflect.ownKeys(input);
+  if (ownKeys.some((key) => typeof key === "symbol")) {
+    throw new TypeError(`${label}: symbol array members are not I-JSON`);
+  }
+  const lengthDescriptor = Object.getOwnPropertyDescriptor(input, "length");
+  if (
+    !isDataDescriptor(lengthDescriptor) ||
+    lengthDescriptor.enumerable !== false ||
+    lengthDescriptor.configurable !== false ||
+    typeof lengthDescriptor.value !== "number" ||
+    !Number.isInteger(lengthDescriptor.value) ||
+    lengthDescriptor.value < 0 ||
+    lengthDescriptor.value > 0xffff_ffff
+  ) {
+    throw new TypeError(`${label}: array length is not an ordinary data member`);
+  }
+
+  const length = lengthDescriptor.value;
+  if (ownKeys.length !== length + 1) {
+    throw new TypeError(
+      `${label}: arrays must contain exactly dense indices and length`,
+    );
+  }
+
+  const admitted: IJsonValue[] = [];
+  for (let index = 0; index < length; index += 1) {
+    const descriptor = Object.getOwnPropertyDescriptor(input, String(index));
+    if (!isDataDescriptor(descriptor) || descriptor.enumerable !== true) {
+      throw new TypeError(
+        `${label}[${String(index)}]: array indices must be enumerable data members`,
+      );
+    }
+    admitted.push(
+      admitIJsonValue(descriptor.value, `${label}[${String(index)}]`),
+    );
+  }
+  return deepFreeze(admitted);
+}
+
 function defineIJsonMember(
   target: Record<string, IJsonValue>,
   key: string,
@@ -71,32 +124,28 @@ export function admitIJsonValue(
     return Object.is(input, -0) ? 0 : input;
   }
   if (Array.isArray(input)) {
-    const admitted: IJsonValue[] = [];
-    for (let index = 0; index < input.length; index += 1) {
-      if (!Object.hasOwn(input, index)) {
-        throw new TypeError(
-          `${label}[${String(index)}]: sparse arrays are not I-JSON`,
-        );
-      }
-      admitted.push(admitIJsonValue(input[index], `${label}[${String(index)}]`));
-    }
-    return deepFreeze(admitted);
+    return admitIJsonArray(input, label);
   }
   if (typeof input !== "object" || !isJsonObject(input)) {
     throw new TypeError(`${label}: expected an I-JSON value`);
   }
 
   const admitted: Record<string, IJsonValue> = {};
-  for (const key of Object.keys(input)) {
+  for (const key of Reflect.ownKeys(input)) {
+    if (typeof key !== "string") {
+      throw new TypeError(`${label}: symbol object members are not I-JSON`);
+    }
     assertUnicodeScalarString(key, `${label} key`);
     const descriptor = Object.getOwnPropertyDescriptor(input, key);
-    if (descriptor?.get !== undefined || descriptor?.set !== undefined) {
-      throw new TypeError(`${label}.${key}: accessors are not I-JSON members`);
+    if (!isDataDescriptor(descriptor) || descriptor.enumerable !== true) {
+      throw new TypeError(
+        `${label}.${key}: object members must be enumerable data properties`,
+      );
     }
     defineIJsonMember(
       admitted,
       key,
-      admitIJsonValue(descriptor?.value, `${label}.${key}`),
+      admitIJsonValue(descriptor.value, `${label}.${key}`),
     );
   }
   return deepFreeze(admitted);
