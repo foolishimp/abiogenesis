@@ -148,6 +148,14 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
         "#/$defs/GtlLanguageConformanceCorpus",
       );
       assert.ok(schema.$defs.GtlLanguageConformanceCorpus);
+      assert.deepEqual(
+        schema.$defs.GtlLanguageConformanceCorpus.properties.entries.items
+          .properties.input.oneOf,
+        [
+          { "$ref": "#/$defs/GtlProgramConformanceInput" },
+          { minLength: 1, type: "string" },
+        ],
+      );
 
       const diagnosticContract = row(
         corpusContract.assetLocator.diagnosticVocabularyContractId,
@@ -161,6 +169,39 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
 
       const corpus = await readJson(corpusPath);
       assert.match(corpus.corpusRef, /^gtl-language-conformance-corpus:\/\/abiogenesis\/[a-f0-9]{64}$/u);
+      const corpusCaseRefs = new Set(corpus.entries.map((entry) => entry.caseRef));
+      for (const caseName of [
+        "sort-coercion",
+        "interface-mismatch",
+        "role-fibre-confusion",
+        "implementation-mismatch",
+        "illegal-declaration-host",
+        "duplicate-authority",
+        "malformed-serialized-data",
+        "missing-required-declaration",
+        "inferred-undeclared-term",
+        "law-c-of",
+        "law-c-identity",
+        "law-c-compose",
+        "law-c-edge",
+        "law-c-workflow",
+        "law-c-batch",
+        "law-c-retry",
+      ]) {
+        assert.equal(
+          corpusCaseRefs.has(
+            "gtl-conformance-case://abiogenesis/" + caseName + "@5",
+          ),
+          true,
+          caseName,
+        );
+      }
+      assert.equal(
+        typeof corpus.entries.find((entry) =>
+          entry.caseRef.endsWith("/sort-coercion@5")
+        ).input,
+        "string",
+      );
       for (const entry of corpus.entries) {
         const report = m03.typecheckGtlProgram(entry.input);
         const observed = [...new Set(
@@ -168,6 +209,11 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
         )].sort();
         assert.deepEqual(observed, [...entry.expectedDiagnosticIds].sort(), entry.caseRef);
         assert.equal(report.passed, entry.expectedDiagnosticIds.length === 0, entry.caseRef);
+        for (const issue of report.issues) {
+          assert.equal(issue.axiomRef.endsWith("#axiom-evaluation"), true);
+          assert.match(issue.requirementRef, /^specification\/requirements\//u);
+          assert.deepEqual(issue.evidenceRefs, [issue.surfaceRef]);
+        }
       }
 
       const sampleModule = corpus.entries.find(
@@ -178,6 +224,111 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
         m02.serializeModuleCanonical(admittedModule),
         m02.serializeModuleCanonical(sampleModule),
       );
+      const graphFunctionFor = (id) => {
+        const value = admittedModule.graphFunctions.find(
+          (candidate) => candidate.id === id,
+        );
+        assert.notEqual(value, undefined, id);
+        return value;
+      };
+      const hello = graphFunctionFor(gtl.HELLO_WORLD_IDS.graphFunctionRef);
+      const ordinaryBasis = structuredClone(hello);
+      ordinaryBasis.name = "Installed generated ordinary GraphFunction";
+      delete ordinaryBasis.id;
+      delete ordinaryBasis.kind;
+      delete ordinaryBasis.version;
+      const leftIdentity = m01.identityGraphFunction({
+        name: "Installed generated left identity",
+        contractRef: hello.inputs[0],
+      });
+      const rightIdentity = m01.identityGraphFunction({
+        name: "Installed generated right identity",
+        contractRef: hello.inputs[0],
+      });
+      const outer = graphFunctionFor(
+        gtl.GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
+      );
+      const inner = graphFunctionFor(
+        gtl.SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef,
+      );
+      const generatedVariants = {
+        generic: m01.constructGraphFunction(ordinaryBasis),
+        identity: m01.identityGraphFunction({
+          name: "Installed generated identity",
+          contractRef: hello.inputs[0],
+        }),
+        compose: m01.composeGraphFunctions({
+          name: "Installed generated compose",
+          left: leftIdentity,
+          right: rightIdentity,
+        }),
+        substitute: m01.substituteGraphFunction({
+          name: "Installed generated substitute",
+          outer,
+          targetVectorRef: outer.template.edges[0].edgeRef,
+          inner,
+        }),
+        promote: m01.promoteGraphFunction({
+          name: "Installed generated promote",
+          source: hello,
+          sourceRef: hello.inputs[0],
+          targetRef: hello.outputs[0],
+        }),
+      };
+      const fullBodyMutations = [
+        (value) => { value.name += " changed"; },
+        (value) => {
+          value.environment.carries.push(
+            "contract://test/a5-f02/installed-mutated-carry@5",
+          );
+        },
+        (value) => {
+          value.inputs[0] =
+            "contract://test/a5-f02/installed-mutated-input@5";
+        },
+        (value) => {
+          value.outputs[0] =
+            "contract://test/a5-f02/installed-mutated-output@5";
+        },
+        (value) => { value.template.graphRef += "/mutated"; },
+        (value) => {
+          value.template.nodes[0].term.inputCarrierRef =
+            "contract://test/a5-f02/installed-mutated-node@5";
+        },
+        (value) => {
+          value.effects.push("effect://test/a5-f02/installed-mutated@5");
+        },
+        (value) => {
+          value.declarations["test.a5_f02.installed_mutated"] = "true";
+        },
+        (value) => { value.tags.push("installed-mutated"); },
+      ];
+      for (const [variant, graphFunction] of Object.entries(generatedVariants)) {
+        assert.deepEqual(
+          m01.admitGraphFunction(structuredClone(graphFunction)),
+          graphFunction,
+          variant + "/object",
+        );
+        assert.deepEqual(
+          m01.admitGraphFunction(JSON.stringify(graphFunction)),
+          graphFunction,
+          variant + "/text",
+        );
+        for (const mutate of fullBodyMutations) {
+          const changed = structuredClone(graphFunction);
+          mutate(changed);
+          assert.throws(
+            () => m01.admitGraphFunction(changed),
+            /canonical authoring identity/u,
+            variant + "/mutated-object",
+          );
+          assert.throws(
+            () => m01.admitGraphFunction(JSON.stringify(changed)),
+            /canonical authoring identity/u,
+            variant + "/mutated-text",
+          );
+        }
+      }
       const sampleGraphFunction = admittedModule.graphFunctions[0];
       const { kind: _kind, id, version: _version, ...graphFunctionBasis } =
         sampleGraphFunction;
@@ -191,6 +342,8 @@ test("packed source-blind install exposes one relative M01/M02/M03 contract fami
       );
       assert.equal("resolveGraphFunctionId" in m01, false);
       assert.equal("resolveGraphFunctionId" in gtl, false);
+      assert.equal("finalizeGraphFunction" in m01, false);
+      assert.equal("finalizeGraphFunction" in gtl, false);
 
       process.stdout.write(JSON.stringify({
         corpusCaseCount: corpus.entries.length,

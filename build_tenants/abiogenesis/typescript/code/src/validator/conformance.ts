@@ -125,6 +125,9 @@ export interface GtlProgramConformanceIssue {
   readonly diagnosticId: GtlProgramDiagnosticId;
   readonly surfaceRef: string;
   readonly path: string;
+  readonly axiomRef: string;
+  readonly requirementRef: string;
+  readonly evidenceRefs: readonly string[];
   readonly message: string;
   readonly admissibleRepairs: readonly GtlProgramAdmissibleRepair[];
 }
@@ -175,6 +178,48 @@ function compareText(left: string, right: string): number {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
+const GTL_PROGRAM_CONFORMANCE_AXIOM_REF =
+  "build_tenants/abiogenesis/typescript/design/M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md#axiom-evaluation";
+
+const GTL_PROGRAM_DIAGNOSTIC_REQUIREMENT_REFS: Readonly<
+  Record<GtlProgramDiagnosticId, string>
+> = Object.freeze({
+  "abg://gtl-program/input/object":
+    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-013",
+  "abg://gtl-program/input/module":
+    "specification/requirements/gtl/REQ-L-GTL3-MODULE.md#REQ-L-GTL3-MODULE-001",
+  "abg://gtl-program/input/graph-function":
+    "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-001",
+  "abg://gtl-program/input/string-field":
+    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-013",
+  "abg://gtl-program/declaration/duplicate-key":
+    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-011",
+  "abg://gtl-program/execution-declaration/invalid":
+    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-010",
+  "abg://gtl-program/graph-function/inputs-equal-environment-requires":
+    "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-017",
+  "abg://gtl-program/graph-function/materializable-template":
+    "specification/requirements/gtl/REQ-L-GTL3-INTERFACE.md#REQ-L-GTL3-INTERFACE-006",
+  "abg://gtl-program/graph-function/outputs-provided":
+    "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-018",
+  "abg://gtl-program/graph-function/unique-publication":
+    "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md#REQ-L-GTL3-GRAPHFUNCTION-010",
+  "abg://gtl-program/graph-function-application/invalid-program":
+    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-011",
+  "abg://gtl-program/graph/input-node-declared":
+    "specification/requirements/gtl/REQ-L-GTL3-GRAPH.md#REQ-L-GTL3-GRAPH-001",
+  "abg://gtl-program/graph/node-reachable-or-bound":
+    "specification/requirements/gtl/REQ-L-GTL3-GRAPH.md#REQ-L-GTL3-GRAPH-002",
+  "abg://gtl-program/graph/output-derivable":
+    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-009",
+  "abg://gtl-program/c-algebra/invalid-program":
+    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014",
+  "abg://gtl-program/c-algebra/unresolved-graph-function":
+    "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md#REQ-L-GTL3-C-ALGEBRA-014",
+  "abg://gtl-program/module/no-untracked-graph-function":
+    "specification/requirements/gtl/REQ-L-GTL3-MODULE.md#REQ-L-GTL3-MODULE-003",
+});
+
 function issue(
   diagnosticId: GtlProgramDiagnosticId,
   surfaceRef: string,
@@ -189,6 +234,9 @@ function issue(
     diagnosticId,
     surfaceRef,
     path,
+    axiomRef: GTL_PROGRAM_CONFORMANCE_AXIOM_REF,
+    requirementRef: GTL_PROGRAM_DIAGNOSTIC_REQUIREMENT_REFS[diagnosticId],
+    evidenceRefs: [surfaceRef],
     message,
     admissibleRepairs: defaultRepair === undefined
       ? []
@@ -206,6 +254,10 @@ const STATIC_DIAGNOSTIC_IDS: Readonly<
 > = Object.freeze({
   duplicate_identity: "abg://gtl-program/declaration/duplicate-key",
   carrier_mismatch: "abg://gtl-program/graph-function/outputs-provided",
+  environment_input_mismatch:
+    "abg://gtl-program/graph-function/inputs-equal-environment-requires",
+  environment_output_mismatch:
+    "abg://gtl-program/graph-function/outputs-provided",
   identity_mismatch: "abg://gtl-program/graph-function/unique-publication",
   invalid_application:
     "abg://gtl-program/graph-function-application/invalid-program",
@@ -224,6 +276,9 @@ const STATIC_DIAGNOSTIC_IDS: Readonly<
     "abg://gtl-program/module/no-untracked-graph-function",
   raw_subject_mismatch: "abg://gtl-program/input/object",
   topology_mismatch: "abg://gtl-program/graph/node-reachable-or-bound",
+  outer_interface_mismatch:
+    "abg://gtl-program/graph-function/materializable-template",
+  workflow_interface_mismatch: "abg://gtl-program/c-algebra/invalid-program",
 });
 
 function exactTopLevelRecord(value: unknown): Readonly<Record<string, unknown>> {
@@ -279,7 +334,7 @@ export function admitGtlProgramConformanceInput(
   try {
     const parsed = typeof inputCandidate === "string"
       ? admitIJsonText(inputCandidate)
-      : inputCandidate;
+      : admitIJsonValue(inputCandidate);
     const row = exactTopLevelRecord(parsed);
     if (
       row.kind !== "gtl_program_conformance_input" ||

@@ -7,13 +7,17 @@ import {
   type ExecutableLeafRequirement,
   type InteractionLeafRequirement,
 } from "../gtl/c_algebra.js";
-import type { ImplementationBinding } from "../gtl/contracts.js";
+import type {
+  GraphFunction,
+  ImplementationBinding,
+} from "../gtl/contracts.js";
 import type { StaticDiagnostic } from "./validation.js";
 
 export interface CProgramValidationContext {
   readonly path: string;
   readonly availableGraphFunctionRefs: ReadonlySet<string>;
   readonly callableGraphFunctionRefs: ReadonlySet<string>;
+  readonly graphFunctionByRef: ReadonlyMap<string, Readonly<GraphFunction>>;
   readonly contractRefs: ReadonlySet<string>;
   readonly bindingByRef: ReadonlyMap<string, Readonly<ImplementationBinding>>;
   readonly expectedRootResultCardinality?: "one" | "zero";
@@ -379,6 +383,21 @@ function inspectTerm(
           `${path}.graphFunctionRef`,
           `workflow.C GraphFunction ${graphFunctionRef} is not in the admitted Program root`,
         ));
+      } else {
+        const child = context.graphFunctionByRef.get(graphFunctionRef);
+        if (
+          child === undefined ||
+          child.inputs.length !== 1 ||
+          child.outputs.length !== 1 ||
+          value.inputCarrierRef !== child.inputs[0] ||
+          value.outputCarrierRef !== child.outputs[0]
+        ) {
+          diagnostics.push(diagnostic(
+            "workflow_interface_mismatch",
+            path,
+            "workflow.C carriers must equal the selected child GraphFunction interface",
+          ));
+        }
       }
       return value as unknown as CProgramNode;
     }

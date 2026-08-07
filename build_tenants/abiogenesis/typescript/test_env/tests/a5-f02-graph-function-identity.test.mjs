@@ -2,13 +2,88 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  GRAPH_EDGE_HELLO_IDS,
+  HELLO_WORLD_IDS,
+  SUBSTITUTED_HELLO_IDS,
+  admitGraphFunction,
+  composeGraphFunctions,
   constructGraphFunction,
+  constructHelloWorldModulePublication,
   gateApplication,
+  identityApplication,
   identityGraphFunction,
+  promoteGraphFunction,
   recurseApplication,
+  serializeGraphFunction,
+  substituteGraphFunction,
 } from "../../build/code/src/gtl/index.js";
 
 const contractRef = "contract://test/a5-f02/identity@5";
+const DIGEST = `sha256:${"3".repeat(64)}`;
+
+function publication() {
+  return constructHelloWorldModulePublication({
+    productId: "product://abiogenesis/a5-f02-identity-proof@5",
+    artifactDigest: DIGEST,
+    productContentDigest: DIGEST,
+    productManifestDigest: DIGEST,
+    packageName: "@abiogenesis/typescript-tenant",
+    packageVersion: "5.0.0-dev.286",
+  });
+}
+
+function graphFunctionFor(module, id) {
+  const graphFunction = module.graphFunctions.find((candidate) => candidate.id === id);
+  assert.notEqual(graphFunction, undefined, id);
+  return graphFunction;
+}
+
+function generatedVariants() {
+  const module = publication();
+  const hello = graphFunctionFor(module, HELLO_WORLD_IDS.graphFunctionRef);
+  const ordinaryBasis = structuredClone(hello);
+  ordinaryBasis.name = "Generated ordinary GraphFunction";
+  delete ordinaryBasis.id;
+  delete ordinaryBasis.kind;
+  delete ordinaryBasis.version;
+  const leftIdentity = identityGraphFunction({
+    name: "Generated compose left identity",
+    contractRef,
+  });
+  const rightIdentity = identityGraphFunction({
+    name: "Generated compose right identity",
+    contractRef,
+  });
+  const outer = graphFunctionFor(module, GRAPH_EDGE_HELLO_IDS.graphFunctionRef);
+  const inner = graphFunctionFor(
+    module,
+    SUBSTITUTED_HELLO_IDS.innerGraphFunctionRef,
+  );
+  return {
+    generic: constructGraphFunction(ordinaryBasis),
+    identity: identityGraphFunction({
+      name: "Generated identity mutation target",
+      contractRef,
+    }),
+    compose: composeGraphFunctions({
+      name: "Generated composed identity",
+      left: leftIdentity,
+      right: rightIdentity,
+    }),
+    substitute: substituteGraphFunction({
+      name: "Generated substituted GraphFunction",
+      outer,
+      targetVectorRef: outer.template.edges[0].edgeRef,
+      inner,
+    }),
+    promote: promoteGraphFunction({
+      name: "Generated promoted GraphFunction",
+      source: hello,
+      sourceRef: hello.inputs[0],
+      targetRef: hello.outputs[0],
+    }),
+  };
+}
 
 test("omitted GraphFunction id is minted deterministically", () => {
   const left = identityGraphFunction({
@@ -67,6 +142,79 @@ test("lawful explicit GraphFunction id is preserved", () => {
 
   assert.equal(graphFunction.id, id);
   assert.equal(graphFunction.name, "Explicit identity label");
+});
+
+test("reserved generated ids cover the complete normalized GraphFunction body", () => {
+  const mutations = [
+    ["name", (value) => { value.name = `${value.name} changed`; }],
+    ["environment", (value) => {
+      value.environment.carries.push("contract://test/a5-f02/mutated-carry@5");
+    }],
+    ["inputs", (value) => {
+      value.inputs[0] = "contract://test/a5-f02/mutated-input@5";
+    }],
+    ["outputs", (value) => {
+      value.outputs[0] = "contract://test/a5-f02/mutated-output@5";
+    }],
+    ["template", (value) => {
+      value.template.graphRef = `${value.template.graphRef}/mutated`;
+    }],
+    ["node term", (value) => {
+      value.template.nodes[0].term.inputCarrierRef =
+        "contract://test/a5-f02/mutated-node-input@5";
+    }],
+    ["effects", (value) => {
+      value.effects.push("effect://test/a5-f02/mutated@5");
+    }],
+    ["declarations", (value) => {
+      value.declarations["test.a5_f02.mutated"] = "true";
+    }],
+    ["tags", (value) => { value.tags.push("mutated"); }],
+  ];
+
+  for (const [variant, graphFunction] of Object.entries(generatedVariants())) {
+    assert.match(
+      graphFunction.id,
+      /^graph-function:\/\/abiogenesis\/canonical\/[0-9a-f]{64}$/u,
+      variant,
+    );
+    assert.deepEqual(admitGraphFunction(graphFunction), graphFunction, variant);
+    for (const [surface, mutate] of mutations) {
+      const changed = structuredClone(serializeGraphFunction(graphFunction));
+      mutate(changed);
+      assert.throws(
+        () => admitGraphFunction(changed),
+        /canonical authoring identity/u,
+        `${variant}/${surface}/object`,
+      );
+      assert.throws(
+        () => admitGraphFunction(JSON.stringify(changed)),
+        /canonical authoring identity/u,
+        `${variant}/${surface}/text`,
+      );
+    }
+  }
+});
+
+test("an authored ref string cannot impersonate the generated self equation", () => {
+  const graphFunction = structuredClone(identityGraphFunction({
+    name: "Generated self-equation collision target",
+    contractRef,
+  }));
+  graphFunction.template.applications[0] = identityApplication({
+    inputContractRef: contractRef,
+    outputContractRef: contractRef,
+    targetRef: "graph-function://abiogenesis/canonical/self",
+  });
+
+  assert.throws(
+    () => admitGraphFunction(graphFunction),
+    /canonical authoring identity/u,
+  );
+  assert.throws(
+    () => admitGraphFunction(JSON.stringify(graphFunction)),
+    /canonical authoring identity/u,
+  );
 });
 
 test("human label is never the identity-application target", () => {

@@ -44,7 +44,9 @@ import {
 type UnknownRecord = Readonly<Record<string, unknown>>;
 
 function parseInput(input: unknown): unknown {
-  return typeof input === "string" ? admitIJsonText(input) : input;
+  return typeof input === "string"
+    ? admitIJsonText(input)
+    : admitIJsonValue(input);
 }
 
 function record(

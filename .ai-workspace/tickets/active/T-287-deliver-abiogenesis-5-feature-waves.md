@@ -153,6 +153,7 @@ GTL.TypeScript
 ### A5-F03 - Complete Graph, C, and direct HoG traversal
 
 - [ ] admitted Program selection and graph materialization
+- [ ] lawful unrealized-constructor runtime disposition and stable `semantic_not_realized` projection after exact HoG selection
 - [ ] direct structural traversal without compiled or controller authority
 - [ ] implementation and interaction resolution
 - [ ] invocation admission

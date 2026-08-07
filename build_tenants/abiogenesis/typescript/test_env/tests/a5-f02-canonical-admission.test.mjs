@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import * as gtl from "../../build/code/src/gtl/index.js";
+import * as validator from "../../build/code/src/validator/index.js";
 
 const contractRef = "contract://test/a5-f02/canonical@5";
 
@@ -48,7 +49,10 @@ test("strict object admission refuses accessors, sparse arrays, non-plain values
       throw new Error("accessor must not run");
     },
   });
-  assert.throws(() => gtl.admitGraphFunction(accessor), /data property/u);
+  assert.throws(
+    () => gtl.admitGraphFunction(accessor),
+    /accessor-backed|data property/u,
+  );
 
   const sparse = structuredClone(serialized);
   sparse.inputs = new Array(1);
@@ -60,6 +64,58 @@ test("strict object admission refuses accessors, sparse arrays, non-plain values
   const invalidUnicode = structuredClone(serialized);
   invalidUnicode.name = "bad\ud800label";
   assert.throws(() => gtl.admitGraphFunction(invalidUnicode), /unpaired high surrogate/u);
+});
+
+test("every object ingress refuses symbol and invalid Unicode property keys", () => {
+  const symbolKeyed = structuredClone(gtl.serializeGraphFunction(identity()));
+  Object.defineProperty(symbolKeyed, Symbol("hidden-authority"), {
+    enumerable: false,
+    value: "must-not-disappear",
+  });
+  assert.throws(
+    () => gtl.admitGraphFunction(symbolKeyed),
+    /symbol-keyed property/u,
+  );
+
+  const invalidUnicodeKey = structuredClone(
+    gtl.serializeGraphFunction(identity()),
+  );
+  invalidUnicodeKey.declarations["bad\ud800key"] = "value";
+  assert.throws(
+    () => gtl.admitGraphFunction(invalidUnicodeKey),
+    /unpaired high surrogate/u,
+  );
+  assert.throws(
+    () => gtl.admitGraphFunction(JSON.stringify(invalidUnicodeKey)),
+    /unpaired high surrogate/u,
+  );
+});
+
+test("raw object and text ingress share one I-JSON admission before kind checks", () => {
+  const graphFunction = gtl.serializeGraphFunction(identity());
+  const contract = "contract://test/a5-f02/raw-graph-function@5";
+  const fromObject = validator.rawAdmitValue(
+    structuredClone(graphFunction),
+    "graph_function",
+    contract,
+  );
+  const fromText = validator.rawAdmitValue(
+    JSON.stringify(graphFunction),
+    "graph_function",
+    contract,
+  );
+  assert.equal(fromObject.kind, "raw_admitted_value", JSON.stringify(fromObject));
+  assert.equal(fromText.kind, "raw_admitted_value", JSON.stringify(fromText));
+  assert.equal(fromObject.subjectDigest, fromText.subjectDigest);
+  assert.deepEqual(fromObject.value, fromText.value);
+
+  const wrongKind = validator.rawAdmitValue(
+    JSON.stringify({ kind: "gtl_program" }),
+    "graph_function",
+    contract,
+  );
+  assert.equal(wrongKind.kind, "raw_admission_refusal");
+  assert.equal(wrongKind.code, "invalid_kind");
 });
 
 test("canonical GraphFunction id tampering and recursive unknown fields are refused", () => {

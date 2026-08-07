@@ -41,6 +41,8 @@ import { inspectCProgramTerm } from "./c_algebra.js";
 export const STATIC_DIAGNOSTIC_CODE_VALUES = [
   "duplicate_identity",
   "carrier_mismatch",
+  "environment_input_mismatch",
+  "environment_output_mismatch",
   "identity_mismatch",
   "invalid_application",
   "invalid_constructor",
@@ -54,6 +56,8 @@ export const STATIC_DIAGNOSTIC_CODE_VALUES = [
   "missing_membership",
   "raw_subject_mismatch",
   "topology_mismatch",
+  "outer_interface_mismatch",
+  "workflow_interface_mismatch",
 ] as const;
 
 export type StaticDiagnosticCode = (typeof STATIC_DIAGNOSTIC_CODE_VALUES)[number];
@@ -1186,6 +1190,9 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const contractRefs = new Set(contracts.map((contract) => contract.contractRef));
   const bindingByRef = new Map(bindings.map((binding) => [binding.bindingRef, binding]));
   const availableGraphFunctionRefs = new Set(graphFunctions.map((value) => value.id));
+  const graphFunctionByRef = new Map(
+    graphFunctions.map((value) => [value.id, value]),
+  );
   const publishedEvaluatorByRef = new Map(
     publication.evaluators.map((value) => [value.name, value]),
   );
@@ -1199,6 +1206,81 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
     diagnostics.push(...validateGraphTopology(graphFunction));
     const nodes = new Map(graphFunction.template.nodes.map((node) => [node.nodeRef, node]));
+    for (const [surface, values] of [
+      ["requires", graphFunction.environment.requires],
+      ["provides", graphFunction.environment.provides],
+      ["carries", graphFunction.environment.carries],
+    ] as const) {
+      for (const ref of duplicates(values)) {
+        diagnostics.push({
+          code: "duplicate_identity",
+          path: `$.graphFunctions[${graphFunction.id}].environment.${surface}`,
+          message: `environment ${surface} contains duplicate binding ${ref}`,
+        });
+      }
+    }
+    if (!sameCanonicalMembers(
+      graphFunction.inputs,
+      graphFunction.environment.requires,
+    )) {
+      diagnostics.push({
+        code: "environment_input_mismatch",
+        path: `$.graphFunctions[${graphFunction.id}].environment.requires`,
+        message: "GraphFunction inputs must exactly equal environment requires",
+      });
+    }
+    if (graphFunction.outputs.some(
+      (ref) => !graphFunction.environment.provides.includes(ref),
+    )) {
+      diagnostics.push({
+        code: "environment_output_mismatch",
+        path: `$.graphFunctions[${graphFunction.id}].environment.provides`,
+        message: "GraphFunction outputs must be present in environment provides",
+      });
+    }
+    const cumulativeBindings = new Set(graphFunction.environment.carries);
+    if ([
+      ...graphFunction.environment.requires,
+      ...graphFunction.environment.provides,
+    ].some((ref) => !cumulativeBindings.has(ref))) {
+      diagnostics.push({
+        code: "environment_output_mismatch",
+        path: `$.graphFunctions[${graphFunction.id}].environment.carries`,
+        message:
+          "GraphFunction environment carries must contain every required and provided binding",
+      });
+    }
+    const startNode = nodes.get(graphFunction.template.startNodeRef);
+    if (
+      graphFunction.inputs.length !== 1 ||
+      startNode === undefined ||
+      startNode.term.inputCarrierRef !== graphFunction.inputs[0]
+    ) {
+      diagnostics.push({
+        code: "outer_interface_mismatch",
+        path: `$.graphFunctions[${graphFunction.id}].template.startNodeRef`,
+        message:
+          "GraphFunction start term input must equal the GraphFunction input",
+      });
+    }
+    const terminalNodes = graphFunction.template.terminalNodeRefs
+      .map((ref) => nodes.get(ref));
+    if (
+      graphFunction.outputs.length !== 1 ||
+      terminalNodes.length === 0 ||
+      terminalNodes.some(
+        (node) =>
+          node === undefined ||
+          node.term.outputCarrierRef !== graphFunction.outputs[0],
+      )
+    ) {
+      diagnostics.push({
+        code: "outer_interface_mismatch",
+        path: `$.graphFunctions[${graphFunction.id}].template.terminalNodeRefs`,
+        message:
+          "GraphFunction terminal term output must equal the GraphFunction output",
+      });
+    }
     if (graphFunction.template.edges.some((edge) => !hasExactGraphEdgeShape(edge))) {
       diagnostics.push({
         code: "identity_mismatch",
@@ -1221,6 +1303,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         path: `$.graphFunctions[${graphFunction.id}].template.nodes[${node.nodeRef}].term`,
         availableGraphFunctionRefs,
         callableGraphFunctionRefs,
+        graphFunctionByRef,
         contractRefs,
         bindingByRef,
         expectedRootResultCardinality:

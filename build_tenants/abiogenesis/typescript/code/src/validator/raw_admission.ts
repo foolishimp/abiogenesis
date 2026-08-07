@@ -130,7 +130,23 @@ export function rawAdmitValue<S>(
       message: "raw admission requires one exact non-empty contract reference",
     };
   }
-  if (!isRecord(value) || !hasExpectedKind(value, expectedKind)) {
+  let parsed: unknown;
+  try {
+    parsed = typeof value === "string"
+      ? admitIJsonText(value)
+      : admitIJsonValue(value);
+  } catch (error) {
+    return {
+      kind: "raw_admission_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "non_canonical_value",
+      message: error instanceof Error
+        ? error.message
+        : "raw value is not representable as canonical JSON",
+    };
+  }
+  if (!isRecord(parsed) || !hasExpectedKind(parsed, expectedKind)) {
     return {
       kind: "raw_admission_refusal",
       schemaVersion: "5.0.0",
@@ -140,7 +156,7 @@ export function rawAdmitValue<S>(
     };
   }
   try {
-    const admittedValue = admitSubject(value, expectedKind) as Readonly<S>;
+    const admittedValue = admitSubject(parsed, expectedKind) as Readonly<S>;
     if (!isRecord(admittedValue) || !hasExpectedKind(admittedValue, expectedKind)) {
       throw new TypeError(`admitted value does not satisfy expected kind ${expectedKind}`);
     }

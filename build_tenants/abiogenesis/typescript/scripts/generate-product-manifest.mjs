@@ -32,8 +32,13 @@ import {
   REVIEW_RULING_KIND_VALUES,
 } from "../build/code/src/gtl/consensus_schema.js";
 import {
+  COMPOSED_HELLO_IDS,
+  FAN_OUT_HELLO_IDS,
+  FP_RETRY_HELLO_IDS,
+  GATE_HELLO_IDS,
   HELLO_WORLD_IDS,
   RECURSION_HELLO_IDS,
+  WORKFLOW_HELLO_IDS,
   constructConsensusModulePublication,
   constructHelloWorldModulePublication,
 } from "../build/code/src/gtl/index.js";
@@ -119,10 +124,17 @@ function constructGtlConformanceCorpus() {
     packageVersion: packageJson.version,
   });
   const cases = [];
-  const add = (caseName, module, programRef, expectedDiagnosticIds) => {
+  const add = (
+    caseName,
+    module,
+    programRef,
+    expectedDiagnosticIds,
+    serializedInput = false,
+  ) => {
+    const input = constructGtlCorpusInput(module, programRef, caseName);
     cases.push({
       caseRef: `gtl-conformance-case://abiogenesis/${caseName}@5`,
-      input: constructGtlCorpusInput(module, programRef, caseName),
+      input: serializedInput ? canonicalJson(input) : input,
       expectedDiagnosticIds: [...expectedDiagnosticIds].sort(compareText),
     });
   };
@@ -202,9 +214,226 @@ function constructGtlConformanceCorpus() {
     emptyTerminal,
     HELLO_WORLD_IDS.programRef,
     [
+      "abg://gtl-program/graph-function/materializable-template",
       "abg://gtl-program/graph/node-reachable-or-bound",
       "abg://gtl-program/graph/output-derivable",
     ],
+  );
+
+  const graphFunctionIn = (module, graphFunctionRef) => {
+    const graphFunction = module.graphFunctions.find(
+      (candidate) => candidate.id === graphFunctionRef,
+    );
+    if (graphFunction === undefined) {
+      throw new Error(`GTL corpus cannot locate GraphFunction ${graphFunctionRef}`);
+    }
+    return graphFunction;
+  };
+  const addGraphMutation = (
+    caseName,
+    programRef,
+    graphFunctionRef,
+    mutate,
+    expectedDiagnosticIds,
+    serializedInput = false,
+  ) => {
+    const module = structuredClone(corpusModule);
+    mutate(graphFunctionIn(module, graphFunctionRef), module);
+    add(
+      caseName,
+      module,
+      programRef,
+      expectedDiagnosticIds,
+      serializedInput,
+    );
+  };
+
+  addGraphMutation(
+    "sort-coercion",
+    HELLO_WORLD_IDS.programRef,
+    HELLO_WORLD_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.nodes[0].term.vectorIndex = "0";
+    },
+    ["abg://gtl-program/input/object"],
+    true,
+  );
+  addGraphMutation(
+    "interface-mismatch",
+    HELLO_WORLD_IDS.programRef,
+    HELLO_WORLD_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.environment.requires = [];
+    },
+    ["abg://gtl-program/graph-function/inputs-equal-environment-requires"],
+  );
+  addGraphMutation(
+    "role-fibre-confusion",
+    HELLO_WORLD_IDS.programRef,
+    HELLO_WORLD_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.nodes[0].term.fibre = "F_H";
+    },
+    ["abg://gtl-program/input/object"],
+    true,
+  );
+  addGraphMutation(
+    "implementation-mismatch",
+    HELLO_WORLD_IDS.programRef,
+    HELLO_WORLD_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.nodes[0].term.requirement.outputContractRef =
+        HELLO_WORLD_IDS.inputContractRef;
+    },
+    ["abg://gtl-program/c-algebra/invalid-program"],
+  );
+  addGraphMutation(
+    "illegal-declaration-host",
+    HELLO_WORLD_IDS.programRef,
+    HELLO_WORLD_IDS.graphFunctionRef,
+    (graphFunction, module) => {
+      const foreignApplication = graphFunctionIn(
+        module,
+        GATE_HELLO_IDS.graphFunctionRef,
+      ).template.applications[0];
+      graphFunction.template.applications.push(
+        structuredClone(foreignApplication),
+      );
+    },
+    [
+      "abg://gtl-program/graph-function-application/invalid-program",
+      "abg://gtl-program/graph-function/outputs-provided",
+    ],
+  );
+  addGraphMutation(
+    "duplicate-authority",
+    GATE_HELLO_IDS.programRef,
+    GATE_HELLO_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.applications.push(
+        structuredClone(graphFunction.template.applications[0]),
+      );
+    },
+    ["abg://gtl-program/declaration/duplicate-key"],
+  );
+  addGraphMutation(
+    "malformed-serialized-data",
+    GATE_HELLO_IDS.programRef,
+    GATE_HELLO_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.applications[0].applicationRef =
+        "graph-function-application://abiogenesis/malformed";
+    },
+    ["abg://gtl-program/graph-function-application/invalid-program"],
+  );
+
+  const missingRequiredDeclaration = structuredClone(corpusModule);
+  missingRequiredDeclaration.implementationBindings =
+    missingRequiredDeclaration.implementationBindings.filter(
+      (binding) =>
+        binding.bindingRef !== HELLO_WORLD_IDS.implementationBindingRef,
+    );
+  add(
+    "missing-required-declaration",
+    missingRequiredDeclaration,
+    HELLO_WORLD_IDS.programRef,
+    ["abg://gtl-program/execution-declaration/invalid"],
+  );
+
+  addGraphMutation(
+    "inferred-undeclared-term",
+    HELLO_WORLD_IDS.programRef,
+    HELLO_WORLD_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.nodes[0].term.kind = "c_controller";
+    },
+    ["abg://gtl-program/input/object"],
+    true,
+  );
+  addGraphMutation(
+    "law-c-of",
+    HELLO_WORLD_IDS.programRef,
+    HELLO_WORLD_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.nodes[0].term.resultBearing = false;
+    },
+    [
+      "abg://gtl-program/graph/node-reachable-or-bound",
+      "abg://gtl-program/graph/output-derivable",
+    ],
+  );
+  addGraphMutation(
+    "law-c-identity",
+    HELLO_WORLD_IDS.programRef,
+    HELLO_WORLD_IDS.graphFunctionRef,
+    (graphFunction) => {
+      const term = graphFunction.template.nodes[0].term;
+      graphFunction.template.nodes[0].term = {
+        kind: "c_identity",
+        inputCarrierRef: term.inputCarrierRef,
+        outputCarrierRef: term.outputCarrierRef,
+      };
+    },
+    [
+      "abg://gtl-program/graph-function/outputs-provided",
+      "abg://gtl-program/graph/node-reachable-or-bound",
+    ],
+  );
+  addGraphMutation(
+    "law-c-compose",
+    COMPOSED_HELLO_IDS.programRef,
+    COMPOSED_HELLO_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.nodes[0].term.terms[1].inputCarrierRef =
+        HELLO_WORLD_IDS.inputContractRef;
+    },
+    ["abg://gtl-program/graph-function/outputs-provided"],
+  );
+  addGraphMutation(
+    "law-c-edge",
+    COMPOSED_HELLO_IDS.programRef,
+    COMPOSED_HELLO_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.nodes[0].term.terms[2].term.evaluate.stageRole =
+        "result";
+    },
+    ["abg://gtl-program/c-algebra/invalid-program"],
+  );
+  addGraphMutation(
+    "law-c-workflow",
+    WORKFLOW_HELLO_IDS.programRef,
+    WORKFLOW_HELLO_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.nodes[0].term.outputCarrierRef =
+        HELLO_WORLD_IDS.inputContractRef;
+    },
+    [
+      "abg://gtl-program/c-algebra/invalid-program",
+      "abg://gtl-program/graph-function/materializable-template",
+    ],
+  );
+  addGraphMutation(
+    "law-c-batch",
+    FAN_OUT_HELLO_IDS.programRef,
+    FAN_OUT_HELLO_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.nodes[0].term.terms[0].tasks[0].inputCarrierRef =
+        FAN_OUT_HELLO_IDS.summaryContractRef;
+    },
+    [
+      "abg://gtl-program/c-algebra/invalid-program",
+      "abg://gtl-program/graph/output-derivable",
+    ],
+  );
+  addGraphMutation(
+    "law-c-retry",
+    FP_RETRY_HELLO_IDS.programRef,
+    FP_RETRY_HELLO_IDS.graphFunctionRef,
+    (graphFunction) => {
+      graphFunction.template.nodes[0].term.budget = 0;
+    },
+    ["abg://gtl-program/input/object"],
+    true,
   );
 
   for (const entry of cases) {

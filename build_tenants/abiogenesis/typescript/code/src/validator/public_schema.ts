@@ -453,7 +453,12 @@ const corpus = exactObject({
   },
   entries: arrayOf(exactObject({
     caseRef: ref,
-    input: { $ref: "#/$defs/GtlProgramConformanceInput" },
+    input: {
+      oneOf: [
+        { $ref: "#/$defs/GtlProgramConformanceInput" },
+        { type: "string", minLength: 1 },
+      ],
+    },
     expectedDiagnosticIds: arrayOf({
       enum: [...GTL_PROGRAM_DIAGNOSTIC_ID_VALUES],
     }, { uniqueItems: true }),

@@ -1,11 +1,17 @@
 import assert from "node:assert/strict";
+import { mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import test from "node:test";
 
 import * as abg from "../../build/code/src/abg/m03.js";
 import * as gtl from "../../build/code/src/gtl/m01.js";
+import * as publicApi from "../../build/code/src/public/index.js";
 import {
+  GRAPH_EDGE_HELLO_IDS,
   HELLO_WORLD_IDS,
   RECURSION_HELLO_IDS,
+  WORKFLOW_HELLO_IDS,
   constructHelloWorldModulePublication,
 } from "../../build/code/src/gtl/index.js";
 
@@ -306,6 +312,137 @@ test("whole-Program topology refuses each finite structural falsifier", () => {
   }
 });
 
+test("environment and outer template wires are exact before effects", () => {
+  const mutations = [
+    {
+      name: "inputs differ from environment requires",
+      diagnosticId:
+        "abg://gtl-program/graph-function/inputs-equal-environment-requires",
+      message: /inputs must exactly equal environment requires/u,
+      mutate(graphFunction) {
+        graphFunction.environment.requires = [graphFunction.outputs[0]];
+      },
+    },
+    {
+      name: "duplicate environment requires",
+      diagnosticId: "abg://gtl-program/declaration/duplicate-key",
+      message: /environment requires contains duplicate/u,
+      mutate(graphFunction) {
+        graphFunction.environment.requires.push(graphFunction.inputs[0]);
+      },
+    },
+    {
+      name: "output absent from provides",
+      diagnosticId: "abg://gtl-program/graph-function/outputs-provided",
+      message: /outputs must be present in environment provides/u,
+      mutate(graphFunction) {
+        graphFunction.environment.provides = [];
+      },
+    },
+    {
+      name: "required binding absent from carries",
+      diagnosticId: "abg://gtl-program/graph-function/outputs-provided",
+      message: /carries must contain every required and provided binding/u,
+      mutate(graphFunction) {
+        graphFunction.environment.carries = [graphFunction.outputs[0]];
+      },
+    },
+    {
+      name: "start term differs from outer input",
+      diagnosticId:
+        "abg://gtl-program/graph-function/materializable-template",
+      message: /start term input must equal the GraphFunction input/u,
+      mutate(graphFunction) {
+        graphFunction.template.nodes[0].term.inputCarrierRef =
+          graphFunction.outputs[0];
+      },
+    },
+    {
+      name: "terminal term differs from outer output",
+      diagnosticId:
+        "abg://gtl-program/graph-function/materializable-template",
+      message: /terminal term output must equal the GraphFunction output/u,
+      mutate(graphFunction) {
+        graphFunction.template.nodes[0].term.outputCarrierRef =
+          graphFunction.inputs[0];
+      },
+    },
+  ];
+
+  for (const { name, diagnosticId, message, mutate } of mutations) {
+    const module = structuredClone(publication());
+    mutate(graphFunctionFor(module));
+    const report = typecheck(module);
+    assert.equal(report.passed, false, `${name}: ${JSON.stringify(report)}`);
+    assert.equal(
+      report.issues.some((issue) =>
+        issue.diagnosticId === diagnosticId && message.test(issue.message)
+      ),
+      true,
+      `${name}: ${JSON.stringify(report)}`,
+    );
+  }
+});
+
+test("workflow.C wires equal the selected child published interface", () => {
+  const module = structuredClone(publication());
+  const program = module.programs.find(
+    (candidate) => candidate.programRef === WORKFLOW_HELLO_IDS.programRef,
+  );
+  assert.notEqual(program, undefined);
+  program.callableMembership.push(GRAPH_EDGE_HELLO_IDS.normalizeGraphFunctionRef);
+  const contribution = module.contributions.find(
+    (candidate) =>
+      candidate.declarationOrContractRef ===
+        GRAPH_EDGE_HELLO_IDS.normalizeGraphFunctionRef,
+  );
+  assert.notEqual(contribution, undefined);
+  contribution.programMembershipRefs.push(WORKFLOW_HELLO_IDS.programRef);
+  const workflow = graphFunctionFor(module, WORKFLOW_HELLO_IDS.graphFunctionRef);
+  workflow.template.nodes[0].term.graphFunctionRef =
+    GRAPH_EDGE_HELLO_IDS.normalizeGraphFunctionRef;
+
+  const report = typecheck(module, WORKFLOW_HELLO_IDS.programRef);
+  assert.equal(report.passed, false, JSON.stringify(report));
+  assert.equal(
+    report.issues.some((issue) =>
+      issue.diagnosticId === "abg://gtl-program/c-algebra/invalid-program" &&
+      /workflow\.C carriers must equal the selected child GraphFunction interface/u
+        .test(issue.message)
+    ),
+    true,
+    JSON.stringify(report),
+  );
+});
+
+test("Public catalog admission refuses invalid static wires with zero events", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-a5-f02-public-wire-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const operationContext = publicApi.createRootOperationContext(
+    join(scratch, "events.jsonl"),
+  );
+  context.after(() => publicApi.closeRootOperationContext(operationContext));
+  const module = structuredClone(publication());
+  const graphFunction = graphFunctionFor(module);
+  graphFunction.environment.requires = [graphFunction.outputs[0]];
+  const outcome = await publicApi.applyRootPublicInvocation(operationContext, {
+    kind: "public_invocation",
+    schemaVersion: "5.0.0",
+    operationId: "abg.operation.catalog.admit",
+    variant: "module_publication",
+    invocationRef: "invocation://a5-f02/invalid-static-wire",
+    eventTime: "2026-08-07T00:00:00.000Z",
+    correlationId: "correlation://a5-f02/invalid-static-wire",
+    payload: { readinessBasis: { publications: [module] } },
+  });
+  assert.equal(outcome.disposition, "refused", JSON.stringify(outcome));
+  const refusal = outcome.kind === "public_invocation_refusal"
+    ? outcome
+    : outcome.result;
+  assert.match(refusal.message, /Program validation refused/u);
+  assert.deepEqual(operationContext.store.readAll(), []);
+});
+
 test("a GraphFunction call cycle requires the exact bounded recursion constructor", () => {
   const unauthorized = structuredClone(publication());
   const graphFunction = graphFunctionFor(unauthorized);
@@ -453,4 +590,15 @@ test("diagnostic and repair identities are closed machine-readable rosters", () 
     [...new Set(abg.GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES)],
     abg.GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES,
   );
+
+  const invalid = structuredClone(publication());
+  graphFunctionFor(invalid).environment.requires = [];
+  const report = typecheck(invalid);
+  assert.equal(report.passed, false);
+  for (const issue of report.issues) {
+    assert.equal(issue.axiomRef.endsWith("#axiom-evaluation"), true);
+    assert.match(issue.requirementRef, /^specification\/requirements\//u);
+    assert.deepEqual(issue.evidenceRefs, [issue.surfaceRef]);
+    assert.equal(issue.admissibleRepairs.length > 0, true);
+  }
 });

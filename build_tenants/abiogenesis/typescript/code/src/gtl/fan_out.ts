@@ -344,9 +344,11 @@ export function constructFanOutPublicationParts(
       requires: [FAN_OUT_HELLO_IDS.inputVectorRef],
       provides: [FAN_OUT_HELLO_IDS.summaryContractRef],
       carries: [
+        FAN_OUT_HELLO_IDS.inputVectorRef,
         FAN_OUT_HELLO_IDS.inputMemberContractRef,
         FAN_OUT_HELLO_IDS.outputMemberContractRef,
         FAN_OUT_HELLO_IDS.outputVectorRef,
+        FAN_OUT_HELLO_IDS.summaryContractRef,
       ],
     },
     inputs: [FAN_OUT_HELLO_IDS.inputVectorRef],

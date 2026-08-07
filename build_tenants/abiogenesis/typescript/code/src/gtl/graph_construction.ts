@@ -1,6 +1,5 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
 import { requireRef } from "../shared/references.js";
 import {
   cCarrier,
@@ -23,7 +22,7 @@ import {
 } from "./graph_applications.js";
 import {
   constructGraphFunction,
-  resolveGraphFunctionId,
+  finalizeGraphFunction,
 } from "./graph_function.js";
 
 export interface ComposeGraphFunctionsInput {
@@ -210,10 +209,19 @@ function mergeApplications(
   sources: readonly Readonly<GraphFunction>[],
   relation: "compose" | "promote" | "substitute",
 ): readonly GraphFunctionApplication[] {
-  const merged = [
-    ...sources.flatMap((source) => source.template.applications),
+  return mergeApplicationRows(
     application,
-  ];
+    sources.flatMap((source) => source.template.applications),
+    relation,
+  );
+}
+
+function mergeApplicationRows(
+  application: GraphFunctionApplication,
+  inherited: readonly GraphFunctionApplication[],
+  relation: "compose" | "promote" | "substitute",
+): readonly GraphFunctionApplication[] {
+  const merged = [...inherited, application];
   const byRef = new Map<string, GraphFunctionApplication>();
   for (const candidate of merged) {
     const existing = byRef.get(candidate.applicationRef);
@@ -238,9 +246,12 @@ function isIdentityGraphFunction(
     graphFunction.inputs.length !== 1 ||
     graphFunction.outputs.length !== 1 ||
     graphFunction.inputs[0] !== graphFunction.outputs[0] ||
-    graphFunction.environment.requires.length !== 0 ||
-    graphFunction.environment.provides.length !== 0 ||
-    graphFunction.environment.carries.length !== 0 ||
+    graphFunction.environment.requires.length !== 1 ||
+    graphFunction.environment.requires[0] !== graphFunction.inputs[0] ||
+    graphFunction.environment.provides.length !== 1 ||
+    graphFunction.environment.provides[0] !== graphFunction.outputs[0] ||
+    graphFunction.environment.carries.length !== 1 ||
+    graphFunction.environment.carries[0] !== graphFunction.inputs[0] ||
     graphFunction.effects.length !== 0 ||
     graphFunction.template.nodes.length !== 1 ||
     graphFunction.template.edges.length !== 0 ||
@@ -268,46 +279,47 @@ export function identityGraphFunction(
 ): Readonly<GraphFunction> {
   const name = requireRef(input.name, "identity GraphFunction name");
   const contractRef = requireRef(input.contractRef, "identity contractRef");
-  const id = resolveGraphFunctionId({
-    ...(input.id === undefined ? {} : { id: input.id }),
-    name,
-    canonicalBasis: { relationKind: "identity", name, contractRef },
-  });
-  const application = identityApplication({
-    inputContractRef: contractRef,
-    outputContractRef: contractRef,
-    targetRef: id,
-  });
   const identity = {
-    id,
+    relationKind: "identity",
+    name,
     contractRef,
-    applicationRef: application.applicationRef,
   };
   const digest = sha256Canonical(identity as unknown as JsonValue);
   const nodeRef =
     `node://abiogenesis/identity/${digest.slice("sha256:".length)}`;
-  return constructGraphFunction({
-    id,
+  return finalizeGraphFunction({
+    ...(input.id === undefined ? {} : { id: input.id }),
     name,
-    environment: { requires: [], provides: [], carries: [] },
-    inputs: [contractRef],
-    outputs: [contractRef],
-    template: {
-      kind: "inline_graph" as const,
-      graphRef: `graph://abiogenesis/identity/${digest.slice("sha256:".length)}`,
-      startNodeRef: nodeRef,
-      terminalNodeRefs: [nodeRef],
-      nodes: [{
-        nodeRef,
-        nodeKind: "c_locus" as const,
-        term: cIdentity(cCarrier(contractRef)),
-      }],
-      edges: [],
-      applications: [application],
-    },
-    effects: [],
-    declarations: {},
-    tags: [],
+    assemble: (hostRef) => ({
+      environment: {
+        requires: [contractRef],
+        provides: [contractRef],
+        carries: [contractRef],
+      },
+      inputs: [contractRef],
+      outputs: [contractRef],
+      template: {
+        kind: "inline_graph" as const,
+        graphRef:
+          `graph://abiogenesis/identity/${digest.slice("sha256:".length)}`,
+        startNodeRef: nodeRef,
+        terminalNodeRefs: [nodeRef],
+        nodes: [{
+          nodeRef,
+          nodeKind: "c_locus" as const,
+          term: cIdentity(cCarrier(contractRef)),
+        }],
+        edges: [],
+        applications: [identityApplication({
+          inputContractRef: contractRef,
+          outputContractRef: contractRef,
+          targetRef: hostRef,
+        })],
+      },
+      effects: [],
+      declarations: {},
+      tags: [],
+    }),
   });
 }
 
@@ -335,27 +347,17 @@ export function promoteGraphFunction(
     sourceRef,
     targetRef,
   });
-  const id = resolveGraphFunctionId({
-    ...(input.id === undefined ? {} : { id: input.id }),
-    name,
-    canonicalBasis: {
-      relationKind: "promote",
-      name,
-      sourceRef,
-      targetRef,
-      applicationRef: application.applicationRef,
-    },
-  });
-  if (id === source.id) {
+  if (input.id === source.id) {
     throw new TypeError("promoted GraphFunction requires a distinct identity");
   }
   const graphDigest = sha256Canonical({
-    id,
+    relationKind: "promote",
+    name,
     sourceGraphRef: source.template.graphRef,
     applicationRef: application.applicationRef,
   });
   return constructGraphFunction({
-    id,
+    ...(input.id === undefined ? {} : { id: input.id }),
     name,
     environment: {
       requires: [...source.environment.requires],
@@ -420,18 +422,7 @@ export function composeGraphFunctions(
     leftGraphFunctionRef: left.id,
     rightGraphFunctionRef: right.id,
   });
-  const id = resolveGraphFunctionId({
-    ...(input.id === undefined ? {} : { id: input.id }),
-    name,
-    canonicalBasis: {
-      relationKind: "compose",
-      name,
-      leftGraphFunctionId: left.id,
-      rightGraphFunctionId: right.id,
-      applicationRef: application.applicationRef,
-    },
-  });
-  if (id === left.id || id === right.id) {
+  if (input.id === left.id || input.id === right.id) {
     throw new TypeError("composed GraphFunction requires a distinct identity");
   }
   const bridgeEdges = leftIsIdentity || rightIsIdentity
@@ -447,30 +438,67 @@ export function composeGraphFunctions(
     throw new TypeError("compose operands produce a duplicate graph edge identity");
   }
   const graphIdentity = {
-    id,
+    relationKind: "compose",
+    name,
     leftGraphRef: left.template.graphRef,
     rightGraphRef: right.template.graphRef,
     applicationRef: application.applicationRef,
   };
   const graphDigest = sha256Canonical(graphIdentity as unknown as JsonValue);
   if (leftIsIdentity && rightIsIdentity) {
-    const base = identityGraphFunction({ id, name, contractRef: left.inputs[0]! });
-    return deepFreeze({
-      ...base,
-      template: {
-        ...base.template,
-        graphRef:
-          `graph://abiogenesis/composed/${graphDigest.slice("sha256:".length)}`,
-        applications: mergeApplications(
-          application,
-          [left, right, base],
-          "compose",
-        ),
+    const contractRef = left.inputs[0]!;
+    const graphRef =
+      `graph://abiogenesis/composed/${graphDigest.slice("sha256:".length)}`;
+    const nodeDigest = sha256Canonical({ graphRef, contractRef });
+    const nodeRef =
+      `node://abiogenesis/composed/${nodeDigest.slice("sha256:".length)}`;
+    return finalizeGraphFunction({
+      ...(input.id === undefined ? {} : { id: input.id }),
+      name,
+      assemble: (hostRef) => {
+        const selfApplication = identityApplication({
+          inputContractRef: contractRef,
+          outputContractRef: contractRef,
+          targetRef: hostRef,
+        });
+        return {
+          environment: {
+            requires: [contractRef],
+            provides: [contractRef],
+            carries: [contractRef],
+          },
+          inputs: [contractRef],
+          outputs: [contractRef],
+          template: {
+            kind: "inline_graph" as const,
+            graphRef,
+            startNodeRef: nodeRef,
+            terminalNodeRefs: [nodeRef],
+            nodes: [{
+              nodeRef,
+              nodeKind: "c_locus" as const,
+              term: cIdentity(cCarrier(contractRef)),
+            }],
+            edges: [],
+            applications: mergeApplicationRows(
+              application,
+              [
+                ...left.template.applications,
+                ...right.template.applications,
+                selfApplication,
+              ],
+              "compose",
+            ),
+          },
+          effects: [],
+          declarations: {},
+          tags: [],
+        };
       },
-    }) as Readonly<GraphFunction>;
+    });
   }
   const graphFunction = constructGraphFunction({
-    id,
+    ...(input.id === undefined ? {} : { id: input.id }),
     name,
     environment: {
       requires: [...left.environment.requires],
@@ -588,19 +616,7 @@ export function substituteGraphFunction(
     targetVectorRef,
     innerGraphFunctionRef: inner.id,
   });
-  const id = resolveGraphFunctionId({
-    ...(input.id === undefined ? {} : { id: input.id }),
-    name,
-    canonicalBasis: {
-      relationKind: "substitute",
-      name,
-      outerGraphFunctionId: outer.id,
-      targetVectorRef,
-      innerGraphFunctionId: inner.id,
-      applicationRef: application.applicationRef,
-    },
-  });
-  if (id === outer.id || id === inner.id) {
+  if (input.id === outer.id || input.id === inner.id) {
     throw new TypeError("substituted GraphFunction requires a distinct identity");
   }
   const replacementEdges = [
@@ -620,7 +636,8 @@ export function substituteGraphFunction(
     throw new TypeError("substitute operands produce a duplicate graph edge identity");
   }
   const graphIdentity = {
-    id,
+    relationKind: "substitute",
+    name,
     outerGraphRef: outer.template.graphRef,
     targetVectorRef,
     innerGraphRef: inner.template.graphRef,
@@ -628,7 +645,7 @@ export function substituteGraphFunction(
   };
   const graphDigest = sha256Canonical(graphIdentity as unknown as JsonValue);
   const graphFunction = constructGraphFunction({
-    id,
+    ...(input.id === undefined ? {} : { id: input.id }),
     name,
     environment: {
       requires: [...outer.environment.requires],
