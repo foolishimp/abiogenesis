@@ -1820,7 +1820,6 @@ function graphTraversalEffect(
         exactStop.compositionRef,
       );
       const traversalInput: CompleteExecutableTraversalInput<
-        Readonly<Record<string, JsonValue>>,
         Readonly<Record<string, JsonValue>>
       > = {
         store: input.store,

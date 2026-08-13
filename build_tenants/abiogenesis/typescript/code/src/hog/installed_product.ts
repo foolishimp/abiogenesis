@@ -11,7 +11,7 @@ import {
   type LeafInvocationInstall,
 } from "./leaf_invocation_port.js";
 
-export interface InstalledLeafInvocationAuthority {
+interface InstalledLeafInvocationAuthority {
   readonly prefix: ValidatedRuntimeEventPrefix;
   readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly install: LeafInvocationInstall;

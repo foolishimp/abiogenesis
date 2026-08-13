@@ -57,7 +57,7 @@ export function isAdmittedLeafInvocationResolution(
   );
 }
 
-export function leafInvocationBindingMatches(authority: Readonly<{
+function leafInvocationBindingMatches(authority: Readonly<{
   install: Pick<
     LeafInvocationInstall,
     | "installId"

@@ -106,7 +106,6 @@ import {
   proposeGapStopRoute,
   proposeGraphSpanReentryRoute,
   proposeHoldRoute,
-  proposeInteractionResumeRoute,
   proposeRecursionRoute,
   proposeWorkflowBlockedRoute,
 } from "./traversal_route.js";
@@ -124,28 +123,7 @@ import {
 import { admitSuccessfulRetryExitRoute } from "./retry_exit.js";
 import { admitProbabilisticResultCandidate } from "./probabilistic_result_admission.js";
 
-export interface DeterministicLeafSuccessCandidate<Output> {
-  readonly kind: "leaf_realization_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "success";
-  readonly evidenceCandidates: readonly DeterministicEvidenceCandidate[];
-  readonly resultCandidate: Output;
-}
-
-export interface DeterministicLeafFailureCandidate {
-  readonly kind: "leaf_realization_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "failure";
-  readonly evidenceCandidates: readonly DeterministicEvidenceCandidate[];
-  readonly resultCandidate: Readonly<Record<string, JsonValue>>;
-  readonly diagnosticRef: string;
-}
-
-export type DeterministicLeafCandidate<Output> =
-  | DeterministicLeafFailureCandidate
-  | DeterministicLeafSuccessCandidate<Output>;
-
-export interface ExecutableLeafSuccessCandidate<Output> {
+interface ExecutableLeafSuccessCandidate<Output> {
   readonly kind: "leaf_realization_candidate";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "success";
@@ -153,7 +131,7 @@ export interface ExecutableLeafSuccessCandidate<Output> {
   readonly resultCandidate: Output;
 }
 
-export interface ExecutableLeafFailureCandidate {
+interface ExecutableLeafFailureCandidate {
   readonly kind: "leaf_realization_candidate";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "failure";
@@ -291,10 +269,7 @@ export interface CompleteInteractionResumeInput {
   readonly clock: ExecutableTraversalClock;
 }
 
-export interface CompleteExecutableTraversalInput<
-  Input,
-  Output,
-> {
+export interface CompleteExecutableTraversalInput<Input> {
   readonly store: AbgEventStore;
   readonly executionBasis: ExecutionBasis;
   readonly openedTraversalScope: OpenedTraversalScope;
@@ -401,13 +376,8 @@ export interface CompleteWorkflowTraversalInput
   ) => value is Readonly<Record<string, JsonValue>>;
 }
 
-export type DeterministicTraversalClock = ExecutableTraversalClock;
-export type DeterministicTraversalCompletion = ExecutableTraversalCompletion;
-export type CompleteDeterministicTraversalInput<Input, Output> =
-  CompleteExecutableTraversalInput<Input, Output>;
-
 interface DeferredApplicationState {
-  readonly input: CompleteExecutableTraversalInput<unknown, unknown>;
+  readonly input: CompleteExecutableTraversalInput<unknown>;
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
@@ -416,7 +386,6 @@ interface DeferredApplicationState {
 
 export interface RestoreDeferredRecursionInput {
   readonly traversalInput: CompleteExecutableTraversalInput<
-    Readonly<Record<string, JsonValue>>,
     Readonly<Record<string, JsonValue>>
   >;
   readonly application: Readonly<RecurseApplication>;
@@ -914,12 +883,12 @@ export function completeInteractionResume(
   );
 }
 
-function replayRun(input: Pick<CompleteExecutableTraversalInput<unknown, unknown>, "store" | "openedTraversalScope">): ReplayState {
+function replayRun(input: Pick<CompleteExecutableTraversalInput<unknown>, "store" | "openedTraversalScope">): ReplayState {
   return replay(input.store, { runId: input.openedTraversalScope.runId });
 }
 
 function completeBlockedTraversal<Input, Output>(
-  input: CompleteExecutableTraversalInput<Input, Output>,
+  input: CompleteExecutableTraversalInput<Input>,
   cCall: CCall,
   values: {
     readonly judgmentRef: string;
@@ -1050,7 +1019,7 @@ function completeBlockedTraversal<Input, Output>(
 }
 
 function completeFailedTraversal<Input, Output>(
-  input: CompleteExecutableTraversalInput<Input, Output>,
+  input: CompleteExecutableTraversalInput<Input>,
   cCall: CCall,
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
@@ -1150,7 +1119,7 @@ class ExecutableTransitionRefusal extends TypeError {
 }
 
 function completeRuntimeFailureTransition<Input, Output>(
-  input: CompleteExecutableTraversalInput<Input, Output>,
+  input: CompleteExecutableTraversalInput<Input>,
   cCall: CCall,
   source: CCallRuntimeFailureSource,
   failureCandidate: JsonValue,
@@ -1250,7 +1219,7 @@ function isEvidenceCandidate(
     : value.kind === "probabilistic_transport_evidence_candidate";
 }
 
-export function isLeafCandidate<Output>(
+function isLeafCandidate<Output>(
   value: unknown,
   regime: "F_D" | "F_P",
   validateSuccessResult: (candidate: unknown) => candidate is Readonly<Output>,
@@ -1273,10 +1242,10 @@ export function isLeafCandidate<Output>(
 }
 
 function totalizedFailureCandidate<Input, Output>(
-  input: CompleteExecutableTraversalInput<Input, Output>,
+  input: CompleteExecutableTraversalInput<Input>,
   failureClass: "implementation_exception" | "malformed_return",
   failureValueKind: string,
-): DeterministicLeafFailureCandidate {
+): ExecutableLeafFailureCandidate {
   const diagnosticRef = `diagnostic://abiogenesis/implementation/${failureClass.replaceAll("_", "-")}@5`;
   const resultCandidate = deepFreeze({
     kind: failureValueKind,
@@ -1298,14 +1267,14 @@ function totalizedFailureCandidate<Input, Output>(
     }],
     resultCandidate,
     diagnosticRef,
-  }) as DeterministicLeafFailureCandidate;
+  }) as ExecutableLeafFailureCandidate;
 }
 
 export async function completeExecutableTraversal<
   Input,
   Output,
 >(
-  input: CompleteExecutableTraversalInput<Input, Output>,
+  input: CompleteExecutableTraversalInput<Input>,
 ): Promise<CompleteExecutableTraversalResult> {
   const computeRegime = input.traversalStop.computeRegime;
   if (
