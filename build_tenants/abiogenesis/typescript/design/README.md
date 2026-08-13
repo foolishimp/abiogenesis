@@ -5,7 +5,8 @@
 The ABIogenesis 5.0 Product and direct-GTL M3 architecture are accepted.
 S03 and S05 are accepted. Wave 1 functional interface closure is accepted at
 artifact `ab6dd512...c878` and receipt `c8c26047...a0d7d`. GOALS and T-287 now
-select Wave 2 exact Public construction at C0. Direct F_H
+select Wave 2 C1F final execution-carrier/topology-arm correction; C2/D6 is
+held. Direct F_H
 accepted exact census blob `efe88cac` and the exact S06 Gate 1 construction
 subject at commit `3f80ba23`, tree `04906b1c`. That Git object is the retained
 18-operation/56-key structural owner map for Wave 2. Its Public algebra,
@@ -21,6 +22,12 @@ exact catalog use in ABG runtime truth. T-287 carries the bounded Wave 2
 reconciliation and execution plan. The mutable S06 design file is historical
 working text; the accepted Git object plus these explicit supersessions are the
 selected construction basis.
+
+The prior C1F candidate `f82805ec`, tree `308aa2ae`, is held and rejected only
+for the incomplete relations recorded in constitution Section 16.6. The exact
+18/56 map, Effect `3.22.1` selection, owners, indexed outcomes, and accepted
+D2-D5 HoG translation/deletion remain fixed. One accepted Section 16.6
+candidate atomically closes C1F and advances C2/D6.
 
 `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
 remains non-operative future input under backlogged T-268.
@@ -83,8 +90,10 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-T-287 currently selects Wave 2 `exact_public_family_construction` at `W2-C0`:
-consume the accepted Wave 1 owner/carrier/event/handoff/projection receipt and
-freeze the reconciled exact 56-row owner/dependency/deletion join. Subsequent
-construction follows the existing T-287 C1-C7 sequence and may consume but not
-alter the accepted Wave 1 interfaces without explicit re-entry.
+T-287 currently selects Wave 2 `exact_public_family_construction` at
+`W2-C1F`: freeze the final design-only correction for one serializable
+execution ingress, closed nonempty resource-topology arm families, exact
+grant/receipt/load identity, private Effect Layer closure, and the recursive
+initial-to-final ABG prefix relation. No production/schema/test/deletion work
+is active. After independent acceptance, the existing C2/D6 construction
+sequence resumes without altering accepted Wave 1 interfaces.

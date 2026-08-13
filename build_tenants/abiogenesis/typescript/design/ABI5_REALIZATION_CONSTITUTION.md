@@ -518,58 +518,170 @@ The S06 semantic relation remains `PublicInvocation<K> -> indexed owner
 output`. `PublicInvocation<K>` is the common semantic descriptor required by
 `REQ-P-PUBLIC-CONTRACTS-010`; it is not a physical-resource, artifact-locator,
 or durable-store carrier. The former unary installed-call assumption was
-therefore incomplete. One common type-indexed `DefinitionCall` joins the
-admitted invocation to its explicit resource state without changing any of the
-18 operation identities, 56 definition keys, owner requests, or owner outcomes.
-The exact installed definition binding returns a closed Effect; it does not
-return a plain value or Promise:
+therefore incomplete. The repair does not add resource fields to
+`PublicInvocationEnvelope.requestCandidate` and does not add another Public
+operation or API. It defines one serializable host/Public execution carrier
+used without semantic variation by SDK, CLI JSONL, Codex, and the internal
+host:
+
+```text
+PublicExecutionCandidate = {
+  kind: "public_execution_candidate",
+  schemaVersion: "5.0.0",
+  invocationEnvelopeCandidate: PublicInvocationEnvelope,
+  resourceStateCandidate: CanonicalResourceStateCandidate
+}
+
+PublicExecutionAdmissionRefusal = {
+  kind: "public_execution_admission_refusal",
+  schemaVersion: "5.0.0",
+  disposition: "refused",
+  code: "invalid_i_json" | "invalid_execution_candidate" |
+        "invalid_invocation_envelope_candidate" |
+        "invalid_resource_state_candidate",
+  candidateDigest: Sha256Digest | null,
+  issuePaths: NonEmptyUnique<JsonPointer>
+}
+
+ResourceStateAdmissionRefusal<K, A> = {
+  kind: "resource_state_admission_refusal",
+  schemaVersion: "5.0.0",
+  disposition: "refused",
+  definitionKey: K,
+  resourceTopologyArm: SelectedIntrinsicResourceTopologyArm<K, A>,
+  code: "family_identity_mismatch" | "arm_identity_mismatch" |
+        "slot_set_mismatch" | "duplicate_resource_identity" |
+        "binding_digest_mismatch" | "grant_basis_mismatch" |
+        "prestate_assertion_malformed",
+  issuePaths: NonEmptyUnique<JsonPointer>
+}
+
+PublicExecutionDisposition<K, A, I, O> =
+  | {
+      kind: "public_outcome",
+      outcome: PublicOutcome<K>
+    }
+  | {
+      kind: "definition_execution_fault",
+      adapterExit: 70,
+      fault: DefinitionExecutionFault<K, A, I, O>
+    }
+  | {
+      kind: "definition_defect",
+      adapterExit: 70,
+      causeDigest: Sha256Digest,
+      diagnosticRef
+    }
+  | {
+      kind: "definition_interrupted",
+      adapterExit: 70,
+      causeDigest: Sha256Digest,
+      diagnosticRef
+    }
+
+PublicExecutionReceipt<K, A, I, O> = {
+  kind: "public_execution_receipt",
+  schemaVersion: "5.0.0",
+  invocationRef,
+  definitionRef, definitionDigest,
+  resourceTopologyFamilyRef, resourceTopologyFamilyDigest,
+  resourceTopologyArmRef, resourceTopologyArmDigest,
+  disposition: PublicExecutionDisposition<K, A, I, O>,
+  resourceReceipts,
+  finalBindings,
+  finalHandoffs,
+  residueEvidence
+}
+```
+
+The nested `PublicInvocationEnvelope` is byte-for-byte the accepted S06
+candidate family, including its unchanged semantic `requestCandidate`. The
+sibling `resourceStateCandidate` is an assertion about physical or durable
+pre-state, never semantic request meaning or authority. A successor receipt or
+handoff emitted by this relation is the only lawful resource-state input to a
+later dependent call; a host cannot reconstruct, predict, or replace it.
+No host, SDK, CLI, Codex, or internal runner accepts a standalone
+`PublicInvocationEnvelope`; nesting it here replaces the former transport
+ingress while retaining its semantic admission contract.
+
+There is one ingress and one order:
+
+```text
+admit outer PublicExecutionCandidate I-JSON
+  -> select exact definition K from the admitted nested envelope
+  -> admit K's semantic request as PublicInvocation<K>
+  -> derive exactly one topology arm from that admitted request
+  -> validate and admit the resource-state assertion against that arm
+  -> construct one DefinitionCall<K, A, I, O>
+  -> invoke one already-loaded binding once
+  -> project the indexed Public outcome and canonical resource receipt
+```
+
+Outer admission validates the common execution carrier and the unchanged S06
+envelope structure. It does not pre-admit K's request or physical truth.
+Resource-state admission proves only that the asserted carrier is structurally
+complete, digest coherent, grant bound, and equal to the selected arm. Every
+provider must re-identify the resource and revalidate its version, grant,
+scope, and observed state immediately before effects. No candidate field,
+object identity, retained process, current directory, ambient credential, or
+prior constructor call can substitute for that check.
+
+One common type-indexed `DefinitionCall` joins the admitted invocation, its
+selected closed topology arm, and admitted resource assertion without changing
+any of the 18 operation identities, 56 definition keys, owner requests, or
+owner outcomes. The exact installed definition binding returns a closed
+Effect; it does not return a plain value or Promise:
 
 ```text
 OwnerTruth<K> =
   owner terminal truth
   | owner nonterminal truth
 
-OwnerProgram<K> =
+OwnerProgram<K, A, I, O> =
   Effect.Effect<
     OwnerTruth<K>,
-    OwnerExpectedRefusalCause<K> | DefinitionExecutionFault<K>,
-    DefinitionRuntime<K>
+    OwnerExpectedRefusalCause<K> | DefinitionExecutionFault<K, A, I, O>,
+    DefinitionRuntime<K, A>
   >
 
 CloseOwnerOutput<K> =
   OwnerTruth<K> | OwnerExpectedRefusalCause<K>
     -> OwnerSemanticOutput<OwnerContractPacket<K>>
 
-DefinitionCall<K, I, O> = {
+DefinitionCall<K, A, I, O> = {
   invocation: PublicInvocation<K>,
-  resources: ResourceTransitionInput<I, O>
+  topologyArm: SelectedIntrinsicResourceTopologyArm<K, A>,
+  resources: AdmittedResourceTransitionInput<K, A, I, O>
 }
 
-DefinitionReturn<K, I, O> = {
+DefinitionReturn<K, A, I, O> = {
   ownerOutput: OwnerSemanticOutput<OwnerContractPacket<K>>,
-  resources: DefinitionResourceSuccess<I, O>
+  resources: DefinitionResourceSuccess<K, A, I, O>
 }
 
-DefinitionExecutionFault<K> = {
-  fault: TypedDefinitionSubstrateFault<K>,
-  resourceReceipts: OrderedResourceTransitionReceiptSet,
-  latestBindings: CanonicalResourceBindingSet,
-  residueEvidence: CanonicalResourceResidueEvidenceSet
+DefinitionExecutionFault<K, A, I, O> = {
+  definitionKey: K,
+  resourceTopologyArm: SelectedIntrinsicResourceTopologyArm<K, A>,
+  fault: TypedDefinitionSubstrateFault<K, A>,
+  resourceReceipts: OrderedResourceTransitionReceiptSet<K, A>,
+  latestBindings: CanonicalResourceBindingSet<I | O>,
+  residueEvidence: CanonicalResourceResidueEvidenceSet<K, A>
 }
 
-ExactDefinitionProgram<K, I, O> =
+ExactDefinitionProgram<K, A, I, O> =
   Effect.Effect<
-    DefinitionReturn<K, I, O>,
-    DefinitionExecutionFault<K>,
+    DefinitionReturn<K, A, I, O>,
+    DefinitionExecutionFault<K, A, I, O>,
     never
   >
 
-ExactDefinitionCallable<K, I, O> =
-  (call: DefinitionCall<K, I, O>)
-    -> ExactDefinitionProgram<K, I, O>
+ExactDefinitionCallable<K, A, I, O> =
+  (call: DefinitionCall<K, A, I, O>)
+    -> ExactDefinitionProgram<K, A, I, O>
 ```
 
-`I` and `O` are the definition-owned, canonically ordered input- and
+`A` is the selected member of K's closed nonempty topology-arm family. `I` and
+`O` are that arm's definition-owned, canonically ordered input- and
 output-resource slot sets. Their runtime values carry exact resource
 identities. They are not an endpoint roster, executable plan, access-mode flag,
 or caller-selected topology. `DefinitionReturn.ownerOutput` preserves the
@@ -595,7 +707,7 @@ never runs before a classified effect and is never followed by one generic
 definition-level commit. `Rnn` remains semantic-owner construction, not Public
 mapping and not generic error handling.
 
-`DefinitionExecutionFault<K>` contains only exact substrate, physical,
+`DefinitionExecutionFault<K, A, I, O>` contains only exact substrate, physical,
 loading, or execution faults that the owner contract does not define as a
 semantic refusal. It preserves the complete ordered mechanical receipt prefix,
 latest exact bindings, and any residue or compensation evidence, including
@@ -604,7 +716,7 @@ at the installed binding boundary. Unexpected defects remain in `Cause`.
 Neither a typed execution fault nor a defect may be caught by `Rnn`, `O_K`,
 Public, CLI, SDK, or Codex and relabeled as an owner refusal.
 
-`DefinitionRuntime<K>` is the exact intersection of stateless callable or
+`DefinitionRuntime<K, A>` is the exact intersection of stateless callable or
 physical capabilities used by the selected owner expression. An unbound owner
 program may request those capabilities through typed Effect `Context` tags.
 The statically installed owner binding provides its exact `Layer` from the
@@ -619,7 +731,7 @@ binding is direct only when the existing owner callable already realizes the
 required relation. Otherwise the installed owner boundary supplies one
 statically composed Effect callable that:
 
-1. consumes one admitted `DefinitionCall<K, I, O>`;
+1. consumes one admitted `DefinitionCall<K, A, I, O>`;
 2. structurally extracts its already admitted invocation, request, required
    authority slots, causal coordinates, and exact resource bindings;
 3. preflights and reads the supplied exact resource pre-state through the
@@ -630,21 +742,25 @@ statically composed Effect callable that:
    consumes the current exact binding, and returns one typed mechanical receipt;
 5. has the exact semantic owner consume that receipt and either continue with
    its reissued successor binding, produce an already-frozen owner cause, or
-   raise a receipt-preserving `DefinitionExecutionFault<K>`;
+   raise a receipt-preserving `DefinitionExecutionFault<K, A, I, O>`;
 6. applies the exact `Rnn` owner-output relation only after all receipts and
    owner truth required by that relation exist, then returns the ordered receipt
    journal and exact final successor handoffs with the indexed owner output; and
 7. provides the exact installed stateless capabilities so the returned Effect
    is closed.
 
-For `E29-E35`, each existing ABG expected-prefix append is one independently
-durable ABG-owner leaf. It consumes the exact predecessor prefix/reopen
-authority and returns its exact successor prefix and close handoff before a
-dependent replay, another append, or any next effect starts. The enclosing
-definition is an ordered Effect composition or HoG fold over those receipts.
-It is never a late generic transaction, and a later refusal or fault does not
-roll back or hide an earlier admitted ABG fact. Existing owner transaction,
-event, Event Calculus, replay, and fresh-process boundaries are conserved.
+For fixed ABG-owner append definitions `E33-E35`, each existing expected-prefix
+append is one independently durable owner leaf. For recursive runtime
+definitions `E29-E32`, the Public binding declares only one fixed initial-to-
+final runtime-prefix arm. HoG and ABG own the invocation-dependent child leaf
+sequence inside that recursive frame. Every child append consumes the prior
+receipt, commits its own expected-prefix transaction, and emits a journaled
+successor prefix and close handoff before another child starts. The final
+resource result carries the complete child journal and latest handoff. The
+child sequence is neither intrinsic Public topology nor one enclosing
+transaction. A later refusal or fault does not roll back or hide an earlier
+admitted ABG fact. Existing owner transaction, event, Event Calculus, replay,
+and fresh-process boundaries are conserved.
 
 The structural extraction is generic and lossless. It may be generated at
 build time from the closed owner contracts. Semantic factor ordering remains
@@ -657,24 +773,29 @@ call Public recursively.
 Public itself constructs one closed Effect program and remains exactly:
 
 ```text
-admit common envelope and common resource-binding carrier
+admit one common PublicExecutionCandidate carrier
   -> select exact definition K
   -> admit PublicInvocation<K>
-  -> structurally admit DefinitionCall<K, I, O> against K's fixed topology
-  -> call its installed ExactDefinitionCallable<K, I, O> once
+  -> derive exactly one arm from K's closed topology family
+  -> structurally admit DefinitionCall<K, A, I, O> against that arm
+  -> call its installed ExactDefinitionCallable<K, A, I, O> once
   -> structurally project PublicOutcome<K>
-  -> preserve the resource result in the common host receipt
+  -> preserve the resource result in one PublicExecutionReceipt
 ```
 
-Expected common-envelope, family-selection, and invocation-admission refusals
-remain their existing typed Public outcomes. The selected binding's successful
+Outer-carrier and resource-state structural failures use the two closed refusal
+types above. Common-envelope, family-selection, semantic-request admission, and
+owner refusals remain their existing typed Public outcomes. The selected binding's successful
 Effect value already contains the complete indexed owner output and exact
 resource-transition result. `O_K` validates and projects only the unchanged
-indexed owner output; the common host receipt preserves the resource result
-orthogonally for the next call. Public does not select resource topology, infer
-access mode, resolve locators, read or write resources, extract owner inputs,
-sequence owner factors, rehydrate domain state, map owner refusals, interpret
-`Cause`, build Layers, or execute the Effect.
+indexed owner output; `PublicExecutionReceipt` preserves the resource result
+orthogonally for the next call. Public does not author topology or accept a
+caller-selected arm. It applies the definition's total owner-authored arm
+selector to the already admitted request, then performs only exact equality
+and carrier admission against that result. It does not infer access mode,
+resolve locators, read or write resources, extract owner inputs, sequence owner
+factors, rehydrate domain state, map owner refusals, interpret `Cause`, build
+Layers, or execute the Effect.
 
 Exactly one package-internal host/SDK membrane executes a closed Public Effect
 program with `Effect.runPromiseExit` and applies the one canonical
@@ -697,9 +818,12 @@ interface does not create dual semantics.
 
 #### 5.6.2A Canonical resource-transition algebra
 
-Every definition in the exact 18-operation/56-key family declares one
-canonical resource-topology projection as part of its intrinsic definition
-contract. This common law is intentionally bounded to those definition
+Every definition in the exact 18-operation/56-key family declares one closed,
+nonempty canonical resource-topology arm family as part of its intrinsic
+definition contract. A single-arm family is still explicit; a definition whose
+admitted semantic request has more than one lawful resource shape declares
+every arm in the same family. This common law is intentionally bounded to
+those definition
 bindings. It does not impose a universal resource carrier on every executable
 GraphFunction leaf. A selected GraphFunction implementation retains its own
 already-declared Product/GTL effect, write-territory, and owner-transition law;
@@ -741,88 +865,417 @@ ProviderScopedResourceIdentity<R, P, N> = {
   identityDigest: sha256({ provider, namespaceRef, ownerResourceKey })
 }
 
-ResourceBinding<R, V, P, G, S> = {
+AbgEventLogLocator = {
+  kind: "abg_event_log_locator",
+  eventLogPath,
+  device,
+  inode,
+  eventContractDigest,
+  locatorDigest
+}
+
+ImmutableOwnerCarrierLocator = {
+  kind: "immutable_owner_carrier_locator",
+  ownerContractRef,
+  carrierRef,
+  carrierDigest,
+  locatorDigest
+}
+
+CanonicalResourceLocator<R> =
+  NodeFilesystemLocator
+  | AbgEventLogLocator
+  | ImmutableOwnerCarrierLocator
+
+CapabilityGrantCoordinate = {
+  kind: "capability_grant",
+  grantRef, grantDigest,
+  capabilityId, capabilityDefinitionRef, capabilityDefinitionDigest,
+  actorRef, approvalRef, policyRef,
+  scopeRef, scopeDigest,
+  authorityBasisRef, authorityBasisDigest
+}
+
+ResourceGrantUseBasis<K, A, S, R, P> = {
+  kind: "resource_grant_use_basis",
+  invocationAuthorityRef, invocationAuthorityDigest,
+  definitionKey: K,
+  definitionRef, definitionDigest,
+  resourceTopologyFamilyRef, resourceTopologyFamilyDigest,
+  resourceTopologyArmRef, resourceTopologyArmDigest,
+  slotRef: S,
+  provider: ReferenceDigest<P>,
+  resource: ProviderScopedResourceIdentity<R, P, string>,
+  actions: NonEmptyCanonicalResourceActionSet,
+  grant: CapabilityGrantCoordinate,
+  grantUseBasisDigest
+}
+
+ResourceBinding<K, A, S, R, V, P, OS> = {
   resource: ProviderScopedResourceIdentity<R, P, string>,
   locator: CanonicalResourceLocator<R>,
   expectedVersion: ExpectedResourceVersion<V>,
   provider: ReferenceDigest<P>,
-  capabilityGrant: ReferenceDigest<G>,
-  expectedOwnerState: S
+  grantUse: ResourceGrantUseBasis<K, A, S, R, P>,
+  expectedOwnerState: OS
 }
 
-ResourceState<R, V, P, G, S> = {
-  binding: ResourceBinding<R, V, P, G, S>,
-  observedVersion: V,
-  observedDigest: Sha256Digest,
-  observedOwnerState: S
+ResourceStateAssertion<K, A, S, R, V, P, OS> = {
+  binding: ResourceBinding<K, A, S, R, V, P, OS>,
+  claimedVersion: V,
+  claimedDigest: Sha256Digest,
+  claimedOwnerState: OS
 }
 
-ResourceTransitionInput<I, O> = {
-  inputs: CanonicalResourceStateSet<I>,
+CanonicalResourceStateCandidate = {
+  kind: "resource_state_candidate",
+  schemaVersion: "5.0.0",
+  claimedResourceTopologyFamilyRef,
+  claimedResourceTopologyFamilyDigest,
+  claimedResourceTopologyArmRef,
+  claimedResourceTopologyArmDigest,
+  inputAssertions: CanonicalIJsonArray,
+  outputAssertions: CanonicalIJsonArray,
+  candidateDigest
+}
+
+AdmittedResourceTransitionInput<K, A, I, O> = {
+  kind: "admitted_resource_transition_input",
+  definitionKey: K,
+  resourceTopologyArm: SelectedIntrinsicResourceTopologyArm<K, A>,
+  inputs: CanonicalResourceStateAssertionSet<I>,
   outputs: CanonicalResourceBindingSet<O>
 }
 
-ResourceTransitionReceipt<L> =
+ResourceOccurrenceCoordinate = {
+  occurrenceRef,
+  occurrenceDigest,
+  ordinal: PositiveInteger
+}
+
+ResourceTransitionScope<S> =
+  | { kind: "slot", slotRef: S }
+  | { kind: "atomic_slot_set", slotRefs: NonEmptyCanonicalRefSet<S>,
+      atomicSetRef, atomicSetDigest }
+
+ResourceTransitionPredecessor =
+  | { kind: "execution_candidate", candidateRef, candidateDigest }
+  | { kind: "resource_receipt", receiptRef, receiptDigest }
+  | { kind: "durable_prefix", prefix: DurablePrefixCoordinate,
+      closeHandoff: EventStoreCloseHandoff }
+
+ResourceOwnerLeafCoordinate =
   | {
-      ownerLeafRef: L,
+      kind: "intrinsic_owner_leaf",
+      ownerLeafRef, ownerLeafDigest,
+      ownerContractRef, ownerContractDigest
+    }
+  | {
+      kind: "abg_recursive_child_owner",
+      ownerLeafRef, ownerLeafDigest,
+      ownerContractRef, ownerContractDigest,
+      admittedGraphFunctionRef, admittedGraphFunctionDigest,
+      executionBasisRef, executionBasisDigest,
+      eventContractRef, eventContractDigest
+    }
+
+ResourceTransitionCoordinate<
+  K, A, L extends ResourceOwnerLeafCoordinate, N, S
+> = {
+  definitionKey: K,
+  definitionRef, definitionDigest,
+  resourceTopologyFamilyRef, resourceTopologyFamilyDigest,
+  resourceTopologyArmRef, resourceTopologyArmDigest,
+  ownerLeaf: L,
+  occurrence: ResourceOccurrenceCoordinate & { ordinal: N },
+  resourceScope: ResourceTransitionScope<S>,
+  predecessor: ResourceTransitionPredecessor
+}
+
+ResourceTransitionReceipt<K, A, L, N, S> = {
+  receiptRef,
+  receiptDigest
+} & (
+  | {
+      coordinate: ResourceTransitionCoordinate<K, A, L, N, S>,
       transitionDisposition: "observed_unchanged",
       before: CanonicalResourceStateSet,
       successorBindings: CanonicalResourceBindingSet,
+      ownerEvidence: ExactOwnerResourceEvidence<K, A, L>,
       commitEvidence: null,
       compensationEvidence: null
     }
   | {
-      ownerLeafRef: L,
+      coordinate: ResourceTransitionCoordinate<K, A, L, N, S>,
       transitionDisposition: "committed",
       before: CanonicalResourceStateSet,
       successorBindings: NonEmptyCanonicalResourceBindingSet,
       newCommit: true,
-      commitEvidence: CanonicalResourceCommitEvidence,
+      ownerEvidence: ExactOwnerResourceEvidence<K, A, L>,
+      commitEvidence: ClosedResourceCommitEvidence<K, A, L>,
       compensationEvidence: null
     }
   | {
-      ownerLeafRef: L,
+      coordinate: ResourceTransitionCoordinate<K, A, L, N, S>,
       transitionDisposition: "idempotent_no_new_commit",
       before: CanonicalResourceStateSet,
       successorBindings: NonEmptyCanonicalResourceBindingSet,
       newCommit: false,
-      existingStateEvidence: CanonicalResourceCommitEvidence,
+      ownerEvidence: ExactOwnerResourceEvidence<K, A, L>,
+      existingStateEvidence: ClosedResourceObservedState<K, A, L>,
       compensationEvidence: null
     }
   | {
-      ownerLeafRef: L,
+      coordinate: ResourceTransitionCoordinate<K, A, L, N, S>,
       transitionDisposition: "residue_or_compensation_recorded",
       before: CanonicalResourceStateSet,
       visibleBindings: CanonicalResourceBindingSet,
-      commitEvidence: CanonicalResourceCommitEvidence | null,
-      compensationEvidence: CanonicalResourceCompensationEvidence
+      ownerEvidence: ExactOwnerResourceEvidence<K, A, L>,
+      commitEvidence: ClosedResourceCommitEvidence<K, A, L> | null,
+      compensationEvidence: ClosedResourceCompensationEvidence
     }
   | {
-      ownerLeafRef: L,
+      coordinate: ResourceTransitionCoordinate<K, A, L, N, S>,
       transitionDisposition: "substrate_fault",
       before: CanonicalResourceStateSet,
       visibleBindings: CanonicalResourceBindingSet,
-      fault: TypedResourceSubstrateFault,
-      commitEvidence: CanonicalResourceCommitEvidence | null,
-      compensationEvidence: CanonicalResourceCompensationEvidence | null
+      ownerEvidence: ExactOwnerResourceEvidence<K, A, L> | null,
+      fault: ClosedResourceSubstrateFault,
+      commitEvidence: ClosedResourceCommitEvidence<K, A, L> | null,
+      compensationEvidence: ClosedResourceCompensationEvidence | null
     }
+)
 
-DefinitionResourceSuccess<I, O> = {
-  resourceReceipts: OrderedResourceTransitionReceiptSet,
+OrderedResourceTransitionReceiptSet<K, A> =
+  duplicate-free readonly ResourceTransitionReceipt<K, A, *, *, *>[]
+  ordered by occurrence.ordinal with every predecessor equal to the preceding
+  receipt or the admitted initial execution/prefix coordinate
+
+OwnerTransportSubstrateFault<K, A> = {
+  kind: "owner_transport_substrate_fault",
+  definitionKey: K,
+  resourceTopologyArmRef,
+  ownerContractRef,
+  code: "promise_rejected" | "subprocess_exit" | "package_io",
+  diagnosticRef,
+  faultDigest
+}
+
+TypedDefinitionSubstrateFault<K, A> =
+  | {
+      kind: "resource_substrate_fault",
+      definitionKey: K,
+      resourceTopologyArmRef,
+      transitionCoordinate,
+      fault: ClosedResourceSubstrateFault
+    }
+  | OwnerTransportSubstrateFault<K, A>
+
+CanonicalResourceResidueEvidenceSet<K, A> =
+  canonical projection of every receipt in
+  OrderedResourceTransitionReceiptSet<K, A> whose disposition is
+  "residue_or_compensation_recorded" or "substrate_fault";
+  no independently authored residue row is admitted
+
+DefinitionResourceSuccess<K, A, I, O> = {
+  definitionKey: K,
+  resourceTopologyArm: SelectedIntrinsicResourceTopologyArm<K, A>,
+  resourceReceipts: OrderedResourceTransitionReceiptSet<K, A>,
   observedInputs: CanonicalResourceStateSet<I>,
   successorBindings: CanonicalResourceBindingSet<O>,
   finalHandoffs: CanonicalResourceHandoffSet<O>
 }
 ```
 
+`receiptDigest` is SHA-256 over the RFC-8785 receipt row with `receiptRef` and
+`receiptDigest` omitted; `receiptRef` is
+`resource-transition-receipt:sha256:<receiptDigest>`. Occurrence ordinal is
+local to the definition call and cannot be inferred from array position.
+
+The grant preimage is complete. `CapabilityGrantCoordinate.grantDigest` is the
+SHA-256 digest of its canonical row with `grantRef` and `grantDigest` omitted,
+and `grantRef` is `capability-grant:sha256:<grantDigest>`, exactly as fixed by
+the accepted S06 owner contract. `grantUseBasisDigest` covers every other field
+of `ResourceGrantUseBasis` with the digest omitted. Admission proves that the
+coordinate occurs in the admitted invocation authority's
+`slots.capability_grants`, that actor and authority basis match that invocation,
+that capability and definition match K, and that its scope covers exactly the
+selected arm, provider, resource identity, slot, and actions. The provider
+repeats that equality check before access. There is no grant lookup, credential
+lookup, environment-variable authority, or process-local capability registry.
+
+The mechanical carrier tags are closed rather than placeholders:
+
+```text
+NodeFilesystemLocator = {
+  kind: "node_filesystem_locator",
+  canonicalAbsolutePath,
+  locatorDigest
+}
+
+NodeFilesystemObservation = {
+  kind: "node_filesystem_observation",
+  existence: "absent" | "file" | "directory",
+  device: integer | null,
+  inode: integer | null,
+  mode: integer | null,
+  byteLength: nonnegative_integer | null,
+  contentDigest: Sha256Digest | null,
+  canonicalTreeDigest: Sha256Digest | null,
+  observationDigest
+}
+
+NodeFilesystemCommitEvidence = {
+  kind: "node_filesystem_commit_evidence",
+  operation: "create_file" | "create_directory" | "write_file" |
+             "atomic_replace",
+  before: NodeFilesystemObservation,
+  after: NodeFilesystemObservation,
+  writtenContentDigest: Sha256Digest | null,
+  commitDigest
+}
+
+NodeFilesystemCompensationEvidence = {
+  kind: "node_filesystem_compensation_evidence",
+  attempted: "remove_created_path" | "restore_prior_bytes" |
+             "remove_staging_path",
+  disposition: "completed" | "refused",
+  beforeCompensation: NodeFilesystemObservation,
+  afterCompensation: NodeFilesystemObservation,
+  fault: NodeFilesystemSubstrateFault | null,
+  compensationDigest
+}
+
+NodeFilesystemSubstrateFault = {
+  kind: "node_filesystem_substrate_fault",
+  code: "not_found" | "already_exists" | "not_directory" |
+        "permission_denied" | "read_only" | "no_space" |
+        "io" | "unclassified_node_error",
+  operation,
+  locator: NodeFilesystemLocator,
+  message,
+  visibleState: NodeFilesystemObservation | null,
+  faultDigest
+}
+
+FilesystemResourceHandoff = {
+  kind: "filesystem_resource_handoff",
+  successorBinding,
+  successorObservation: NodeFilesystemObservation,
+  handoffDigest
+}
+
+ImmutableResourceObservation = {
+  kind: "immutable_resource_observation",
+  ownerContractRef,
+  carrierRef,
+  carrierDigest,
+  exactVersion,
+  observationDigest
+}
+
+ImmutableResourceHandoff = {
+  kind: "immutable_resource_handoff",
+  successorBinding,
+  carrierRef,
+  carrierDigest,
+  exactVersion,
+  handoffDigest
+}
+
+OwnerResourceContractByCoordinate =
+  closed generated map [DefinitionKey][TopologyArmKey][OwnerLeafRef] -> {
+    ownerPackageExport,
+    ownerTypeScriptSymbol,
+    observedState,
+    ownerEvidence,
+    admissionValue,
+    ownerRefusal
+  }
+
+AbgRecursiveChildOwnerContract<L> =
+  exact installed ABG owner contract selected by
+  L.ownerContractRef/L.ownerContractDigest and the admitted ExecutionBasis;
+  it exposes the existing typed ABG admission value/refusal and no Public field
+
+ExactOwnerResourceEvidence<K, A, L> =
+  L.kind == "abg_recursive_child_owner"
+    ? AbgRecursiveChildOwnerContract<L>["ownerEvidence"]
+    : OwnerResourceContractByCoordinate[K][A][L.ownerLeafRef]["ownerEvidence"]
+
+ClosedResourceObservedState<K, A, L> =
+  NodeFilesystemObservation
+  | ImmutableResourceObservation
+  | DurablePrefixCoordinate
+  | (L.kind == "abg_recursive_child_owner"
+      ? DurablePrefixCoordinate
+      : OwnerResourceContractByCoordinate[K][A][L.ownerLeafRef]["observedState"])
+
+ClosedResourceCommitEvidence<K, A, L> =
+  NodeFilesystemCommitEvidence
+  | RuntimeEventTransactionResult<
+      L.kind == "abg_recursive_child_owner"
+        ? AbgRecursiveChildOwnerContract<L>["admissionValue"]
+        : OwnerResourceContractByCoordinate[K][A][L.ownerLeafRef]["admissionValue"]
+    >
+  | ArtifactOwnerResult<ProductInstall>
+
+ClosedResourceCompensationEvidence =
+  NodeFilesystemCompensationEvidence
+
+ClosedResourceSubstrateFault =
+  NodeFilesystemSubstrateFault
+  | EventStoreAppendRefusal
+
+CanonicalResourceHandoff =
+  FilesystemResourceHandoff
+  | EventStoreCloseHandoff
+  | ImmutableResourceHandoff
+```
+
+`OwnerResourceContractByCoordinate` is generated from the accepted 56-key
+definition family and Table 5.6.3-B/B2/D; it is a closed compile-time map, not
+a runtime registry or string dispatch. Every cell names one exact TypeScript
+symbol and package export, and construction fails for a missing or additional
+cell. It is generated as a type projection of the one intrinsic definition
+family and cannot be authored, loaded, or admitted as another catalog. The
+present owner binding families are:
+
+| Resource boundary | Exact owner carrier/refusal/evidence binding |
+|---|---|
+| workspace create/open filesystem | `product/workspace_operations.ts`: `WorkspaceCreateResult`, `WorkspaceOpenProjection`, and `WorkspaceOperationRefusal`; locator comes only from the admitted owner packet's `targetRoot` and the minimal Node observation above records physical mechanics |
+| Product verification | `product/contracts.ts`: `VerifyProductRequest.artifactPath`, `VerifiedProductArtifact`, and `ProductVerificationRefusal` |
+| Product resolve | `product/environment.ts`: `ResolvedProductLock` and `EnvironmentRefusal`; every consumed artifact remains the exact verified carrier above |
+| Product installation | `product/contracts.ts`: `InstallProductRequest.artifactPath`, `InstallProductRequest.targetRoot`, `ProductInstallCandidate`, and `ProductInstallRefusal`; durable install truth is the exact `abg/environment_admission.ts` `ArtifactOwnerResult<ProductInstall>` |
+| Product materialization | `product/materialization_operations.ts`: `ProductMaterializationResult`, `ProductMaterializationRefusal`, `MaterializationRow`, `MaterializationManifestCoordinate`, and `MaterializationContentCoordinate`; the minimal Node observation supplies only physical before/after/residue evidence absent from those semantic carriers |
+| ABG durable reads/appends | `abg/event_store.ts`: `DurablePrefixCoordinate`, `EventStoreReopenAuthority`, `EventStoreCloseHandoff`, `EventStoreAppendRefusal`, and `RuntimeEventTransactionResult<T>`; artifact admission additionally uses `abg/environment_admission.ts` `ArtifactOwnerResult<T>` |
+| immutable Product, GTL, Validator, catalog, view, application, result, assessment, and contract reads | the exact native carrier named by the selected `Lnn`/`Jnn` row plus its already-defined ref/digest; no generic physical observation or new owner result is introduced |
+
+The `abg_recursive_child_owner` alternative is not a Public-family cell. HoG
+selects its already-loaded GraphFunction implementation under the admitted
+ExecutionBasis; ABG resolves the exact existing child-owner contract and emits
+its typed admission result. The journal preserves that concrete contract,
+GraphFunction, basis, and event-contract identity. Public receives the final
+journal but cannot enumerate, select, or execute its children.
+
+`ExactOwnerResourceEvidence<K, A, L>` is the closed type-level lookup from K,
+the selected arm A, and owner leaf L to this table and the exact Table
+5.6.3-B/B2 owner symbol. A load receipt must resolve that type. `JsonValue`, an
+interface-only port, a string owner name, or a caller-authored evidence object
+cannot satisfy it. The Node filesystem observation/commit/compensation/fault
+and successor-handoff rows are the irreducible mechanical carrier selected by
+the foundation ledger in Section 10.1.3; they acquire no Product or ABG
+meaning.
+
 The type indexes name owner-declared slots; the values carry the dynamic exact
 identities and versions. Input and output sets are duplicate-free and
 canonically ordered. Every input requires `ExactVersion`. At preflight the
-provider's observed identity and version must equal the binding identity and
-exact expected version; `ResourceBinding.provider` must equal
+provider re-identifies the resource and its observed identity and version must
+equal the binding identity and exact expected version;
+`ResourceBinding.provider` must equal
 `ResourceBinding.resource.provider`; `Absent` must observe absence. An
-`I intersect O` row must carry the same resource, locator, provider, grant, and
-expected pre-state on both sides. A definition cannot recover a missing locator
+`I intersect O` row must carry the same resource, locator, provider, grant-use
+basis, and expected pre-state on both sides. A definition cannot recover a missing locator
 or state from a logical ref, path convention, current process, ambient
 workspace, registry, fixture, or store tail.
 
@@ -834,7 +1287,10 @@ resource identities or silently redirect a write.
 
 `transitionDisposition` reports mechanics, not semantic success or refusal.
 `idempotent_no_new_commit` truthfully identifies equal existing state and never
-claims a new commit. Every `committed` or idempotent receipt reissues an exact
+claims a new commit. Whether an exact existing state is an idempotent success,
+collision, or semantic refusal is an owner allocation/pre-state law fixed by
+the selected arm's owner contract; it is never a separate topology arm and is
+never chosen by a caller mode. Every `committed` or idempotent receipt reissues an exact
 successor binding, version, and handoff consumable by the next owner leaf or a
 later call. Residue, compensation, and substrate-fault receipts preserve every
 visible binding and all evidence even when no successful `DefinitionReturn`
@@ -858,10 +1314,16 @@ The transition laws are:
 1. **Read-only** — identify and read the declared exact version, return an
    `observed_unchanged` receipt, and perform no write.
 2. **Same-resource mutation** — validate the exact pre-state, default to one
-   writer, transform, compare-and-swap the expected version at the owner leaf's
-   atomicity boundary, and reissue the successor. A mutable workspace defaults
-   to a Git-backed before/after state carrying exact commit and complete tree
-   identities. A different concurrency law requires an existing owner
+   writer, transform, re-identify immediately before the owner commit, apply
+   the exact owner-selected conditional commit, and reissue the successor. ABG
+   expected-prefix admission is a true atomic compare-and-append. The current
+   Product filesystem owners use only the atomicity actually supplied by their
+   exact create/write/stage/rename operation; they do not claim a generic
+   multi-file CAS and preserve residue if a later file step fails. Product
+   selects Node filesystem identity/content/tree observations for workspace
+   mechanics; it does not presently define a Git commit as workspace state.
+   Git may refine that state only when an exact Product owner contract selects
+   and types it. A different concurrency law requires an existing owner
    requirement and ABG-admitted safety basis; the generic provider cannot
    select it.
 3. **Distinct-output creation** — preserve every input and apply exactly one
@@ -894,7 +1356,7 @@ carrier:
 
 | Resource owner/refinement | Required exact pre-state | Required successor or read evidence |
 |---|---|---|
-| Git-backed mutable worksite | provider-scoped repository/worktree identity, expected commit, complete before-tree digest, provider and grant | committed successor commit and complete after-tree digest; exact no-new-commit equality; or visible residue/compensation/fault evidence |
+| Product mutable worksite | provider-scoped canonical root identity, exact `NodeFilesystemObservation`, provider and complete grant-use basis; a Git commit/tree is added only by an exact Product refinement that types it | committed successor filesystem observation and handoff; exact no-new-commit equality; or visible residue/compensation/fault evidence |
 | ABG durable event resource | provider-scoped store identity, `DurablePrefixCoordinate`, and matching `EventStoreReopenAuthority`/prior close handoff | one independently durable expected-prefix owner result plus successor prefix and owner-issued close handoff |
 | immutable carrier/file/object/artifact | provider-scoped identity, credential-free canonical locator, and exact object version/content digest | exact bytes/value and digest read; or owner-allocated output identity/version, equality/collision disposition, and reissued binding |
 | database/API transactional resource when an exact 18/56 owner selects it | provider-scoped resource identity plus owner-selected transaction/version token | owner transaction result and successor token/version, idempotent equality, or exact residue/compensation/fault evidence |
@@ -911,12 +1373,12 @@ Calculus truth.
 
 Effect providers are stateless capabilities only. Their closed mechanical
 surface for the exact 18/56 topology forms is `identify`, `read`, `create`,
-`write`, `compareAndSwap`, `commit`, and `compensate`; each installed definition
-receives only the subset named by its intrinsic topology projection.
+`write`, `commit`, and `compensate`; each installed definition
+receives only the subset named by its selected intrinsic topology arm.
 Providers cannot carry a current resource, selected version, semantic input,
 actor, Run, cursor, or event prefix in `Context` or `Layer`. The installed host
-provides the verified provider Layer and returns the existing `R = never`
-definition program.
+loads the verified binding whose private closure has already provisioned the
+Layer once and exposes only an `R = never` definition program.
 
 This common algebra does not claim publication, subprocess execution, external
 side effects, deletion, remote allocation, or arbitrary GraphFunction effects.
@@ -929,12 +1391,13 @@ semantics.
 
 OS permissions, Git access, IAM, database grants, and remote API security
 authenticate and enforce physical access outside ABIogenesis. A
-`ResourceBinding` carries the resolved capability-grant reference, never a
+`ResourceBinding` carries the complete digest-bound `ResourceGrantUseBasis`
+and accepted grant coordinate, never a
 credential, token, private key, or secret; its canonical locator is likewise
 credential-free. ABIogenesis validates that the declared capability, provider,
 actor, and resource scope match the admitted
-definition. The resolved grant reference must equal one admitted invocation-
-authority grant and cover that exact provider/resource/action scope; a provider
+definition. The resolved grant must equal one admitted invocation-authority
+grant and cover that exact provider/resource/action scope; a provider
 cannot widen it. ABIogenesis records only the required actor, resource pre/post
 identity, GraphFunction, invocation, provider, causation, and provenance facts.
 Secrets and credentials never enter Public identity, ABG events, replay,
@@ -949,116 +1412,228 @@ The exact reusable topology forms are closed for the 18/56 family:
 |---|---|---|---|
 | `T0 value_only` | no physical or durable resource slot; all required values are complete immutable admitted inputs | none | no resource receipt or allocation; owner relation is pure |
 | `T1 carrier_read<S>` | named immutable carrier/file/object/package slots `S`, each with provider-scoped identity, locator, exact version and digest | stateless `identify/read`; exact immutable-carrier, filesystem-object, installed-package, or load-receipt refinement selected by the intrinsic contract | one independently validated `observed_unchanged` receipt per slot; no allocation |
-| `T2 worksite_read<W>` | named worksite `W` at exact version; Git refinement carries repository/worktree identity, commit, and complete tree | stateless `identify/read` | unchanged observation; no allocation or write |
-| `T3 caller_target_create<W>` | named output `W` with caller-bound provider identity/locator and `Absent` | stateless `identify/create/commit/compensate`; Product filesystem/Git refinement | exclusive caller-target creation; exact successor binding/tree/handoff or residue/fault receipt; owner-leaf atomicity |
+| `T2 worksite_read<W>` | named worksite `W` at exact Product-selected filesystem version/observation; an exact future Git refinement may additionally carry repository/worktree identity, commit, and complete tree | stateless `identify/read` | unchanged observation; no allocation or write |
+| `T3 caller_target_create<W>` | named output `W` with caller-bound provider identity/locator and `Absent` | stateless `identify/create/commit/compensate`; Product filesystem refinement | exclusive caller-target creation; exact successor binding/tree/handoff or residue/fault receipt; owner-leaf atomicity |
 | `T4 caller_target_create_or_idempotent<W>` | named output `W` with `Absent` for creation or exact existing version for the owner-declared idempotent case | `T3` capabilities plus exact equality read | caller-target or owner-versioned allocation as fixed by the class row; equal existing state yields `idempotent_no_new_commit`, unequal state collides; owner-leaf atomicity |
-| `T5 worksite_mutation<W>` | the same provider-scoped worksite identity occurs in input and output at exact expected version | stateless `identify/read/write/compareAndSwap/commit/compensate`; Git commit/tree by default | single-writer CAS; exact successor commit/tree/handoff or visible residue/compensation/fault; one owner-leaf boundary |
+| `T5 worksite_mutation<W>` | the same provider-scoped worksite identity occurs in input and output at exact expected version | stateless `identify/read/write/commit/compensate`; exact Product filesystem refinement | single-writer expected-version revalidation plus only the per-operation filesystem atomicity selected by Product; exact successor observation/handoff or visible residue/compensation/fault; no generic multi-file CAS |
 | `T6 content_derivation<S,O>` | immutable inputs `S` plus distinct output slots `O` with identities derived from exact bytes and expected `Absent` or exact equal existing version | stateless `identify/read/create/commit/compensate`; immutable object/file refinement | content-addressed allocation only; inputs preserved; each output independently receipts created/idempotent/collision/residue under the owner staging law |
 | `T7 abg_prefix_read<A>` | provider-scoped ABG store `A`, exact `DurablePrefixCoordinate`, and matching reopen/prior-close handoff | stateless exact-store open/read mechanics plus ABG prefix validator; no generic event interpretation | unchanged exact-prefix receipt; no append or successor event truth |
 | `T8 abg_prefix_append<A>` | the same ABG store is input/output with exact predecessor prefix/reopen authority | existing ABG owner candidate/admission callable over stateless exact-store mechanics | one independently durable expected-prefix transaction; successor prefix and owner-issued close handoff reissued before the next leaf |
-| `T9 held_owner_effect` | no Wave 2 resource slot or provider | exact owner validation/refusal only | transition not applicable in Wave 2; any later effect requires its owning release/Product re-entry |
+| `T9 recursive_abg_prefix_frame<A>` | one provider-scoped ABG store and exact initial `DurablePrefixCoordinate` plus reopen/prior-close handoff; one final slot names the same store at its latest successor | existing HoG/ABG recursive owner execution over stateless exact-store mechanics | one fixed initial-to-final resource relation whose result is the complete ordered child receipt journal and latest close handoff; every child append is separately durable and no enclosing atomic commit is implied |
 
 `server_allocated` remains a lawful allocation tag in the common carrier, but
 no current Wave 2 definition selects it. Publication, subprocess, deletion,
-and arbitrary external effects are not smuggled into `T0-T8`; their exact owner
+and arbitrary external effects are not smuggled into `T0-T9`; their exact owner
 relations remain outside the shared provider surface.
+
+A `T9` arm's `ownerLeafAtomicityRefs` names the existing closed ABG recursive-
+child owner-contract family, not an invocation-specific child list. Each
+journal receipt then names the concrete admitted GraphFunction, ExecutionBasis,
+owner contract, event contract, occurrence, predecessor, and successor. This
+keeps the intrinsic family fixed while making every realized child transition
+exact.
 
 The intrinsic topology is identity-bearing and source independent:
 
 ```text
-IntrinsicResourceTopologyProjection<K> = {
+IntrinsicResourceTopologyArm<K, A> = {
+  kind: "intrinsic_resource_topology_arm",
   definitionKey: K,
   expressionClass: E01 | ... | E40,
+  armKey: A,
+  armRef,
   inputSlots: CanonicalResourceSlotSpecificationSet,
   outputSlots: CanonicalResourceSlotSpecificationSet,
   orderedTransitionForms: readonly (T0 | ... | T9)[],
   requiredProviderCapabilityRefs: CanonicalRefSet,
   ownerLeafAtomicityRefs: CanonicalRefSet,
-  outputAllocationBySlot: CanonicalAllocationMap
+  ownerResourceBindingContractRefs: CanonicalRefSet,
+  outputAllocationBySlot: CanonicalAllocationMap,
+  armDigest
 }
 
-resourceTopologyDigest(K) =
-  sha256(RFC8785(IntrinsicResourceTopologyProjection<K>))
+topologyArmDigest(K, A) =
+  sha256(RFC8785(IntrinsicResourceTopologyArm<K, A>
+    with armRef and armDigest omitted))
+
+topologyArmRef(K, A) =
+  resource-topology-arm:sha256:<topologyArmDigest(K, A)>
+
+IntrinsicResourceTopologyFamily<K, A> = {
+  kind: "intrinsic_resource_topology_family",
+  definitionKey: K,
+  expressionClass: E01 | ... | E40,
+  resourceTopologyFamilyRef,
+  arms: NonEmptyCanonicalMap<A, IntrinsicResourceTopologyArm<K, A>>,
+  armSelection: {
+    kind: "owner_request_discriminant",
+    selectorContractRef,
+    selectorContractDigest,
+    totality: "exactly_one_for_every_admitted_request",
+    cases: NonEmptyCanonicalArmDiscriminantMap<A>
+  },
+  requiredProviderCapabilityRefs: CanonicalRefSet,
+  resourceTopologyFamilyDigest
+}
+
+resourceTopologyFamilyDigest(K) =
+  sha256(RFC8785(IntrinsicResourceTopologyFamily<K, A>
+    with resourceTopologyFamilyRef and resourceTopologyFamilyDigest omitted))
+
+resourceTopologyFamilyRef(K) =
+  resource-topology-family:sha256:<resourceTopologyFamilyDigest(K)>
+
+SelectedIntrinsicResourceTopologyArm<K, A> = {
+  definitionKey: K,
+  resourceTopologyFamilyRef, resourceTopologyFamilyDigest,
+  resourceTopologyArmRef, resourceTopologyArmDigest,
+  armKey: A,
+  inputSlots,
+  outputSlots,
+  ownerResourceBindingContractRefs
+}
+
+selectTopologyArm<K, A>(
+  IntrinsicResourceTopologyFamily<K, A>,
+  PublicInvocation<K>
+) -> exactly one SelectedIntrinsicResourceTopologyArm<K, A>
 
 IntrinsicDefinitionDigestProjection<K> includes {
-  resourceTopologyRef,
-  resourceTopologyDigest,
+  resourceTopologyFamilyRef,
+  resourceTopologyFamilyDigest,
+  completeTopologyArmRefsAndDigests,
+  armSelectorContractRef,
+  armSelectorContractDigest,
   requiredProviderCapabilityRefs
 }
 
-CallableContractProjection<K> = {
+CallableContractProjection<K, A> = {
   definitionRef,
   definitionDigest,
   executionBindingSpecificationDigest,
-  resourceTopologyRef,
-  resourceTopologyDigest,
+  resourceTopologyFamilyRef,
+  resourceTopologyFamilyDigest,
+  completeTopologyArmRefsAndDigests,
   requiredProviderCapabilityRefs,
-  callContract: DefinitionCall<K, I, O>,
-  returnContract: DefinitionReturn<K, I, O>,
-  executionFaultContract: DefinitionExecutionFault<K>,
+  callContract: DefinitionCall<K, A, I[A], O[A]>,
+  returnContract: DefinitionReturn<K, A, I[A], O[A]>,
+  executionFaultContract: DefinitionExecutionFault<K, A, I[A], O[A]>,
   effectRuntime: "effect@3.22.1"
 }
 
 callableContractDigest(K) =
-  sha256(RFC8785(CallableContractProjection<K>))
+  sha256(RFC8785(CallableContractProjection<K, A>))
 
-DefinitionBindingLoadReceipt<K> = {
+DefinitionBindingLoadReceipt<K, A> = {
   installedProduct, productSet, dependencyLock,
   resolvedExport, resolvedExportDigest,
   definitionRef, definitionDigest,
   callableContractRef, callableContractDigest,
-  resourceTopologyRef, resourceTopologyDigest,
+  resourceTopologyFamilyRef, resourceTopologyFamilyDigest,
+  completeTopologyArmRefsAndDigests,
   requiredProviderCapabilityRefs,
   resolvedProviderIdentities,
+  resolvedOwnerResourceBindingContracts,
+  layerProvisionEvidence,
   providerCapabilityEqualityDisposition: "exact"
 }
 
-LoadedDefinitionBinding<K, I, O> = {
-  callableContractRef,
-  callableContractDigest,
-  resourceTopologyRef,
-  resourceTopologyDigest,
-  providerLayer,
-  invoke: ExactDefinitionCallable<K, I, O>,
-  loadReceipt: DefinitionBindingLoadReceipt<K>
-}
-
-DefinitionHostReceipt<K, I, O> = {
-  invocationRef,
+LoadedDefinitionBinding<K, A> = {
+  kind: "loaded_definition_binding",
   definitionRef, definitionDigest,
   callableContractRef, callableContractDigest,
-  resourceTopologyRef, resourceTopologyDigest,
+  resourceTopologyFamilyRef, resourceTopologyFamilyDigest,
+  completeTopologyArmRefsAndDigests,
   resolvedProviderIdentities,
-  publicOutcomeOrExit,
-  resourceReceipts,
-  finalBindings,
-  finalHandoffs,
-  residueEvidence
+  loadReceipt: DefinitionBindingLoadReceipt<K, A>,
+  invoke: <Arm extends A>(
+    DefinitionCall<K, Arm, I[Arm], O[Arm]>
+  ) -> ExactDefinitionProgram<K, Arm, I[Arm], O[Arm]>
 }
+
+DefinitionBindingLoadFault<K, A> = {
+  kind: "definition_binding_load_fault",
+  definitionKey: K,
+  resourceTopologyFamilyRef,
+  code: "installed_product_mismatch" | "dependency_lock_mismatch" |
+        "export_absent" | "export_digest_mismatch" |
+        "callable_contract_mismatch" | "topology_family_mismatch" |
+        "owner_resource_contract_mismatch" |
+        "provider_capability_mismatch" | "provider_load_fault",
+  evidenceRefs: CanonicalRefSet
+}
+
+LoadInstalledDefinitionBinding<K, A> =
+  (verified installed Product, ProductSet, dependency lock,
+   intrinsic definition and callable contract)
+    -> Effect.Effect<
+         LoadedDefinitionBinding<K, A>,
+         DefinitionBindingLoadFault<K, A>,
+         Scope.Scope
+       >
 ```
 
-The topology projection and required provider-capability set participate in the
-intrinsic definition and callable-contract digests. Concrete provider identity
-is selected only by the admitted installed Product/lock and is proven equal to
-the intrinsic capability set by the load receipt. The receipt itself remains
-downstream evidence and does not enter intrinsic, family, Product-content,
-invocation, event, or replay identity.
+Every family is nonempty and its digest covers the complete arm map and total
+selector. The selector reads only an already admitted semantic request
+discriminant or exact owner-contract coordinate. It is deterministic and total:
+zero or multiple matching arms is an intrinsic construction defect before any
+resource access, not a caller-visible fallback. A `resourceStateCandidate`
+cannot select an arm, and absent versus exact-existing idempotent pre-state is
+an owner allocation law within one arm.
+
+The complete conditional-arm audit is closed:
+
+| Definition class | Closed arm keys | Total selector source |
+|---|---|---|
+| `E03 catalog_list` | `workspace_catalog`, `session_view` | the admitted visibility basis plus the matching invocation-authority catalog-scope state fixed by the Product catalog owner contract |
+| `E04 catalog_describe` | `workspace_catalog`, `session_view` | the admitted visibility basis plus the matching invocation-authority catalog-scope state fixed by the Product catalog owner contract |
+| `E22 product_verify` | `packed_artifact`, `installed_artifact` | the admitted verification-source variant |
+| `E36 validator_attest` | `program_only`, `declared_inventory` | the admitted Validator conformance variant |
+
+Every other exact definition key has one arm. `E01` clean/imported and the
+`E35` witness cases are already distinct definition keys, so their member key
+selects a single family rather than hiding a conditional arm. Runtime start,
+continuation, retry, and semantic result variants do not change the `E29-E32`
+initial-to-final prefix arm. No other request-dependent resource shape was
+found in the exhaustive `E01-E40` audit. Adding one later requires a
+requirement/design re-entry and changes the family digest; it cannot appear as
+an optional slot.
+
+The topology family, complete arm set, selected arm, and required provider-
+capability set participate in the intrinsic definition, callable-contract,
+call, transition-receipt, load-receipt, and host-receipt identities. Concrete
+provider identity is selected only by the admitted installed Product/lock and
+is proven equal to the intrinsic capability set by the load receipt. The load
+receipt itself remains downstream evidence and does not enter intrinsic,
+family, Product-content, invocation, event, or replay identity.
+
+`LoadedDefinitionBinding` exposes only immutable identity/load evidence and the
+closed `invoke`. The installed loader resolves provider implementations,
+constructs and provides the exact Effect `Layer` once inside its load `Scope`,
+and returns an invocation with `R = never` valid only for that scope. Closing
+the scope releases the mechanical providers. No `providerLayer`, `Context`,
+mutable provider state, or provider-construction hook escapes the loader.
+Public cannot provide, replace, or inspect the Layer.
 
 This explicitly supersedes the accepted unary PFC-F05 call/load relation. Its
 conserved replacement is:
 
 ```text
-PFC-F05 InvokeInstalledDefinitionBinding<K, I, O>(
-  admitted DefinitionCall<K, I, O>,
-  exact LoadedDefinitionBinding<K, I, O>
+PFC-F05 InvokeInstalledDefinitionBinding<K, A, I, O>(
+  admitted DefinitionCall<K, A, I, O>,
+  exact LoadedDefinitionBinding<K, A>
 )
-  -> Effect<DefinitionReturn<K, I, O>, DefinitionExecutionFault<K>, never>
+  -> Effect<
+       DefinitionReturn<K, A, I, O>,
+       DefinitionExecutionFault<K, A, I, O>,
+       never
+     >
 ```
 
 Public still selects one already loaded binding and calls it once. It neither
 constructs the topology, selects or builds providers, interprets receipts,
 sequences owner leaves, nor applies `Rnn`. One package-internal host membrane
-runs the closed Effect and emits the canonical host receipt.
+runs the closed Effect and emits the canonical `PublicExecutionReceipt`.
 
 #### 5.6.3 Orthogonal factorization evidence
 
@@ -1524,56 +2099,61 @@ ordered input set; it is not a queue or controller.
 | `E39` | `L64 -> [Wave 2 refusal or future X04 publication success] -> R39`; Wave 2 must refuse before `X04` |
 | `E40` | `L65 -> [Wave 2 refusal or future X04 publication success] -> R40`; Wave 2 must refuse before `X04` |
 
-##### Table 5.6.3-D - exact 56-key resource-topology projection
+##### Table 5.6.3-D - exact 56-key resource-topology family projection
 
 This table is the reusable resource projection for the exact membership in
 Table 5.6.3-A. It is not a second endpoint map: `E01-E40` parameterize the
 shared `T0-T9` forms, and Table 5.6.3-A supplies the exhaustive 56-key member
 sets. `V = T0`, `C[S] = T1`, `WR[W] = T2`, `WC[W] = T3`, `WI[W] = T4`,
-`WM[W] = T5`, `CD[S;O] = T6`, `AR[A] = T7`, `AA[A] = T8`, and `H = T9`.
-Every named input binding has an exact version; every output binding states
-`Absent` or the exact owner-authorized existing version. `AA*` is a fold over
-the admitted GTL/HoG path's existing ABG owner leaves, not a dynamic operation
-or a single enclosing transaction.
+`WM[W] = T5`, `CD[S;O] = T6`, `AR[A] = T7`, `AA[A] = T8`, and
+`RF[A] = T9`. Every named input binding has an exact version; every output
+binding states `Absent` or the exact owner-authorized existing version. `RF`
+is one fixed initial-to-final Public resource relation. Its invocation-
+dependent child append journal belongs to the nested HoG/ABG execution frame,
+not this intrinsic topology and not one enclosing transaction.
 
 | Class and exact member scope | Canonical slot program | Provider/refinement, successor/allocation, and exact atomicity boundary |
 |---|---|---|
 | `E01 workspace.create/clean` | `WC[workspaceTarget]` | Product filesystem/Git provider; `workspaceTarget = Absent`; `caller_target_create`; `X01` returns the created workspace binding/tree/handoff or residue/fault receipt. |
 | `E01 workspace.create/imported` | `WM[workspaceTarget]` | Product filesystem/Git provider; exact imported root version and complete pre-tree; single-writer CAS; `X01` returns successor commit/tree/handoff. The import-authority coordinate is semantic input, not a locator. |
 | `E02` | `WR[workspaceTarget]` | Product filesystem/Git read at exact manifest/worksite version; `N08/L03` unchanged receipt; no allocation. |
-| `E03` | `C[catalogSource,workspaceBinding,productSet,resolvedLock] + AR[environmentPrefix]` | Explicit immutable-carrier readers plus ABG exact-prefix read reconstruct and validate the catalog basis; no output resource or append. |
-| `E04` | `C[catalogSource,workspaceBinding,productSet,resolvedLock,selectedView?] + AR[environmentPrefix]` | Same as `E03`; optional view slot is selected only by the request's closed visibility variant; no allocation. |
+| `E03 workspace_catalog` | `C[catalogSource,workspaceBinding,productSet,resolvedLock] + AR[environmentPrefix]` | Closed `workspace_catalog` arm selected from the admitted Product visibility basis and matching invocation-authority catalog-scope state; exact carriers reconstruct the catalog basis, with no output or append. |
+| `E03 session_view` | `C[catalogSource,workspaceBinding,productSet,resolvedLock,selectedView] + AR[environmentPrefix]` | Closed `session_view` arm selected from the admitted visibility basis plus exact admitted catalog-scope view coordinate; the view binding is mandatory and unchanged. |
+| `E04 workspace_catalog` | `C[catalogSource,workspaceBinding,productSet,resolvedLock] + AR[environmentPrefix]` | Closed `workspace_catalog` arm selected from admitted Product visibility basis and matching invocation-authority catalog-scope state; no optional slot and no allocation. |
+| `E04 session_view` | `C[catalogSource,workspaceBinding,productSet,resolvedLock,selectedView] + AR[environmentPrefix]` | Closed `session_view` arm selected from the admitted visibility basis plus exact admitted catalog-scope view coordinate; exact view binding is mandatory and unchanged; no allocation. |
 | `E05` | `C[workspaceBinding,productSet,resolvedLock] + AR[environmentPrefix]` | Immutable carrier reads plus exact admitted-binding prefix read; no mutation or successor event truth. |
 | `E06-E10` | `AR[runtimePrefix]` | ABG store/prefix/reopen read; `J05/L11` validates the exact version, Event Calculus/replay consumes that value, and no append occurs. This one row covers the exact nine keys in the five classes. |
 | `E11` | `C[installManifest] + AR[environmentPrefix]` | Immutable installed-manifest read plus exact admitted-install prefix read; no mutation. |
 | `E12` | `C[releaseOwnerResult,snapshotManifest]` | Exact immutable release-carrier reads; in Wave 2 only the owner refusal carrier is available; no publication or allocation. |
 | `E13-E20` | `AR[runtimePrefix]` | ABG exact-prefix read followed by the class-specific pure range/replay/gap/action projection; no append. This row covers the exact nine keys in the eight classes. |
 | `E21` | `C[consensusResult] + AR[runtimePrefix]` | Exact Consensus-result preimage plus admitted result/replay prefix; unchanged receipts only. |
-| `E22 packed_artifact` | `C[packedArtifact]` | Product filesystem/object read at the exact artifact version/digest; archive/subprocess inspection remains `L20/N10` owner mechanics; no resource output. |
-| `E22 installed_artifact` | `C[installedArtifact,resolvedLock,installedProduct,installManifest]` | Exact installed tree/object and immutable owner-carrier reads; no write. The request discriminant fixes this topology arm. |
+| `E22 packed_artifact` | `C[packedArtifact]` | Closed `packed_artifact` arm selected by the admitted verification-source variant. Product filesystem/object read occurs at the exact artifact version/digest; archive/subprocess inspection remains `L20/N10` owner mechanics; no resource output. |
+| `E22 installed_artifact` | `C[installedArtifact,resolvedLock,installedProduct,installManifest]` | Closed `installed_artifact` arm selected by the same admitted discriminant. Exact installed tree/object and immutable owner-carrier reads; no write. |
 | `E23` | `C[verifiedArtifactSet]` | Canonically ordered complete verification-carrier preimages at exact outcome digests; pure `L21`; no allocation. |
 | `E24` | `C[packedArtifact,verifiedArtifact,resolvedLock] -> WI[installTarget] -> AA[environmentPrefix:L22]` | `X02` owns install/subprocess behavior. `installTarget` uses caller-target allocation while installed Product identity is owner-versioned; clean requires `Absent`, exact equal owner state may yield no-new-commit idempotence, unequal state collides. Only after its receipt does `L22` independently append and reissue the ABG prefix/handoff; an append refusal preserves physical residue. |
 | `E25` | `C[workspaceAuthority,installedProductSet,resolvedLock] -> AA[environmentPrefix:L27]` | Immutable carrier reconstruction precedes one independently durable WorkspaceBinding admission; no worksite mutation. |
 | `E26` | `C[workspaceBinding,productSet,resolvedLock,descriptorSet,contributionManifestSet,publishedGtlSet] + AR[environmentPrefix]` | Exact Product/GTL preimages plus admitted environment-prefix read construct one eventless immutable catalog; no output resource. |
 | `E27` | `C[catalog]` | Exact immutable catalog carrier read; allowlist remains complete semantic input; eventless pure view result. |
 | `E28` | `C[catalogRow,catalogView,applicationBasis,validationReceipt,contributor]` | Exact immutable carrier reads; declaration/target value remains complete semantic input; eventless pure application result. |
-| `E29` | `C[workspaceBinding,productSet,resolvedLock,catalogView,program,installedImplementationSet] -> AA[runtimePrefix:L38] -> AA[runtimePrefix:L42] -> AA[runtimePrefix:L44] -> AA*[runtimePrefix:L45-selected ABG owner leaves] -> AR[latestRuntimePrefix:L13]` | Each ABG append is independently durable and reissues the prefix/handoff before the next leaf; final replay reads the latest receipt. Selected GraphFunction leaf effects retain their own declared bindings and are not generalized by this table. |
-| `E30` | same resource slots and append/read program as `E29` | GTL `L36` changes semantic start selection only; it does not change resource mechanics or merge ABG transactions. |
-| `E31` | `C[executionProgram,executionBasis,installedImplementationSet] -> AA[runtimePrefix:L49] -> AA*[runtimePrefix:L45-selected ABG owner leaves] -> AR[latestRuntimePrefix:L13]` | Continuation projection reads the supplied predecessor; resume admission and later traversal admissions are separate durable transitions with successor threading. |
-| `E32` | `C[workspaceBinding,productSet,resolvedLock,catalogView,program,executionBasis,installedImplementationSet] -> AA[runtimePrefix:L52] -> AA[runtimePrefix:L38] -> AA[runtimePrefix:L42] -> AA[runtimePrefix:L44] -> AA*[runtimePrefix:L45-selected ABG owner leaves] -> AR[latestRuntimePrefix:L13]` | Selected-action, invocation, basis, open, and traversal admissions remain their existing ordered ABG owner boundaries. |
+| `E29` | `C[workspaceBinding,productSet,resolvedLock,catalogView,program,installedImplementationSet] -> RF[runtimePrefix]` | Public fixes one exact initial prefix and one final prefix result. HoG/ABG derives the invocation-dependent child sequence, journals every separately durable successor prefix/close handoff, and returns the latest handoff plus final replay. Selected GraphFunction leaf effects retain their own declared bindings. |
+| `E30` | same fixed resource arm as `E29` | GTL `L36` changes semantic start selection only. The nested owner frame, not Public topology, owns its dynamic children and independent transactions. |
+| `E31` | `C[executionProgram,executionBasis,installedImplementationSet] -> RF[runtimePrefix]` | Continuation consumes one exact initial prefix; HoG/ABG owns resume and later child admissions, each with a separately durable journaled successor; final result exposes the latest handoff. |
+| `E32` | `C[workspaceBinding,productSet,resolvedLock,catalogView,program,executionBasis,installedImplementationSet] -> RF[runtimePrefix]` | Selected-action, invocation, basis, open, and traversal remain existing ordered child-owner boundaries inside the recursive frame; the Public arm declares no dynamic leaf list or enclosing transaction. |
 | `E33` | `C[responseContract,executionBasis] -> AA[runtimePrefix:L56]` | Installed Product semantic callable is an exact immutable loaded-carrier read; one ABG response admission returns the successor prefix/handoff before `R33`. This covers all five response keys. |
 | `E34` | `C[assessmentContract,executionBasis] -> AA[runtimePrefix:L59]` | Exact Product assessment carrier read plus one independently durable ABG assessment admission; receipt precedes `R34`. |
 | `E35 reprice,attest,hygiene-stamp` | `AA[runtimePrefix:L61]` | One exact ABG witness admission per selected member; successor prefix/handoff precedes `R35`. |
 | `E35 intake,run-resumed,run-stopped` | `C[executionBasis] -> AA[runtimePrefix:L61]` | The three closed members additionally require the exact execution-basis carrier already required by their authority slots; otherwise identical ABG boundary. Together the two `E35` rows cover all six keys. |
-| `E36` | `C[program,conformanceLaw,declaredInventory?]` | Exact immutable Validator/GTL preimages; optional inventory slot exists only for the closed declared-inventory arm; pure attestation, no resource output. |
-| `E37` | `C[workspaceBinding] + AR[environmentPrefix] -> WM[worksite] -> CD[contextInputs;contentAssets,manifest]` | Binding admission is read-only. `X03` owns ordered staging. Worksite mutation uses exact Git commit/tree CAS; output assets/manifests use content-addressed allocation, exact equality idempotence, and visible residue/compensation receipts. No generic transaction joins their owner leaf commits. |
+| `E36 program_only` | `C[program,conformanceLaw]` | Closed `program_only` arm selected by the admitted Validator variant; pure attestation, no resource output. |
+| `E36 declared_inventory` | `C[program,conformanceLaw,declaredInventory]` | Closed `declared_inventory` arm selected by the same admitted variant; inventory is mandatory in this arm, pure and unchanged. |
+| `E37` | `C[workspaceBinding] + AR[environmentPrefix] -> WM[worksite] -> CD[contextInputs;contentAssets,manifest]` | Binding admission is read-only. `X03` owns ordered staging. Worksite mutation uses the exact Product filesystem observation/version law; output assets/manifests use content-addressed allocation, exact equality idempotence, and visible residue/compensation receipts. No generic transaction joins their owner leaf commits. |
 | `E38` | `C[configurationContract,workspaceBinding] + AR[environmentPrefix] -> WM[worksite] -> CD[configurationInput;contentAsset,manifest]` | Same owner boundaries as `E37`; the Product configuration contract fixes the semantic content while physical writes remain receipt-bearing owner effects. |
-| `E39-E40` | `V -> H[X04]` | Request qualification values are complete immutable semantic inputs. Wave 2 `L64/L65` must return the frozen owner refusal before any resource transition; no publication provider or output allocation is installed. Future `X04` requires release-owner re-entry. |
+| `E39-E40` | `V` | Request qualification values are complete immutable semantic inputs. Wave 2 `L64/L65` returns the frozen semantic owner refusal; held future `X04` is not resource topology and no publication provider or allocation is installed. Future `X04` requires release-owner re-entry. |
 
 The projection covers exactly the 56 Table 5.6.3-A members and introduces no
 new semantic owner, operation, key, wrapper, runtime lookup, or executable map.
-Every `C`, `WR`, `WC`, `WI`, `WM`, `CD`, `AR`, and `AA` slot is included in the
-matching intrinsic topology digest and required-provider capability set. D6
+Every `C`, `WR`, `WC`, `WI`, `WM`, `CD`, `AR`, `AA`, and `RF` slot is included
+in the matching intrinsic arm digest; every arm, selector, and combined
+provider capability set is included in the family digest. D6
 must fail construction if a loaded binding omits or adds a slot, capability,
 owner atomicity reference, allocation, or successor handoff.
 
@@ -1770,10 +2350,11 @@ records all of the following decision-completely:
    owner inputs, indexed result/nonterminal/refusal algebra, effect regime,
    exact closed Effect binding boundary, and result/event/projection/replay
    conservation obligation;
-4. every key has one owner-declared canonical input/output resource topology in
-   Table 5.6.3-D, and its topology-derived read-only, same-resource mutable, and
-   owner-allocated distinct-output sets close through the single
-   `DefinitionCall<K, I, O>` / `DefinitionReturn<K, I, O>` relation without an
+4. every key has one closed nonempty owner-declared resource-topology family in
+   Table 5.6.3-D, every request-dependent shape is a digest-bound arm selected
+   totally from the admitted semantic request, and each arm's read-only,
+   same-resource mutable, and owner-allocated distinct-output sets close through
+   `DefinitionCall<K, A, I, O>` / `DefinitionReturn<K, A, I, O>` without an
    enclosing definition transaction;
 5. every absent executable value, schema/executable join, carrier rehydration,
    projector, admission join, physical locator, expected version, provider,
@@ -1791,14 +2372,15 @@ records all of the following decision-completely:
 8. `shared/public_invocation.ts::AdditionalRequiredAuthoritySlot` is fixed as
    a C2 deletion/owner-contract-derivation locus, not a second conditional
    authority roster; and
-9. intrinsic definition and callable-contract identity bind the exact topology
-   digest and stateless provider-capability set, while loaded binding and host
-   receipts prove and preserve the same relation; and
+9. intrinsic definition and callable-contract identity bind the complete
+   topology-family/arm/selector digests and stateless provider-capability set,
+   while call, transition, loaded-binding, and host receipts prove and preserve
+   the selected arm and same relation; and
 10. Public contains no owner sequencing, semantic switch, carrier rehydration,
    event interpretation, catalog aggregation, compatibility translation, or
    process-local run/read authority.
 
-C2, not C1F, realizes missing `ExactDefinitionCallable<K, I, O>` closed Effect
+C2, not C1F, realizes missing `ExactDefinitionCallable<K, A, I, O>` closed Effect
 values, joins each owner schema packet and resource topology to its executable
 binding, and implements owner-local carrier reconstruction from the explicit
 resource states in `DefinitionCall`. It closes the specified admission,
@@ -1854,9 +2436,9 @@ from its C2 realization:
 | schema packets and lower packet callables are parallel representations | C1F fixes one coordinate and ABI per key; C2 joins schema and executable and deletes callable rosters masquerading as contracts. |
 | raw owner functions do not consume `PublicInvocation<K>` | C1F fixes their minimal inputs and expression order; C2 lifts them without semantic rewriting and adds only one installed Effect composition for each distinct expression. It does not create a wrapper for every key where one closed parameterized expression suffices. |
 | raw owner carriers do not implement the indexed result/nonterminal/refusal algebra | C1F fixes `R01-R40`, including exact fields, source conservation, and closed refusal causes. C2 implements `R01-R38` inside the owner bindings; `R39-R40` already close every Wave 2 reachable refusal by carrying the live thirteen-field `ReleaseSnapshotRefusal` object-identically, not by translating it to the shared schema. Public and `O_K` may not manufacture or remap owner meaning. |
-| `PublicInvocation<K>` and owner request packets carry semantic refs/digests but cannot lawfully supply physical locators, artifact paths, expected versions, or durable reopen authority | C1F preserves the common invocation and all 56 owner request schemas, then joins them orthogonally to one `DefinitionCall<K, I, O>` resource-state carrier. C2 reconstructs immutable Product carriers or validated ABG prefixes only from those explicit bindings and exact pre-states. It may not infer a path from an artifact ref, a store from a source ref, or a prefix from process history. |
-| prior binding text assumed a unary invocation could name an owner source from which the binding rehydrated state | Sections 5.6.2A-B supersede that assumption and accepted unary PFC-F05 load/call grammar. The intrinsic definition fixes canonical input/output resource slots, topology digest, and required provider capabilities; the call supplies exact identity, locator, expected version, provider identity, resolved grant, and owner refinement; leaf receipts and the return preserve exact successor state and handoff. Public validates structure and calls one already loaded binding only. |
-| prior correction applied `Rnn` and then one generic definition commit | Each resource-using owner leaf now returns a typed mechanical receipt before dependent work. The exact semantic owner consumes it, and `Rnn` occurs only after the transition/replay truth it classifies. Compound runtime definitions thread independently durable ABG successor prefixes; no outer resource transaction exists. |
+| `PublicInvocation<K>` and owner request packets carry semantic refs/digests but cannot lawfully supply physical locators, artifact paths, expected versions, or durable reopen authority | C1F preserves the unchanged common envelope/request schemas and wraps them once in `PublicExecutionCandidate` with one sibling resource-state assertion. After semantic admission, the closed owner selector derives A and `DefinitionCall<K, A, I, O>` joins only the matching explicit bindings/pre-state. C2 may not infer a path, store, prefix, or successor from process history. |
+| prior binding text assumed a unary invocation could name an owner source from which the binding rehydrated state | Sections 5.6.2A-B supersede that assumption and accepted unary PFC-F05 load/call grammar. The intrinsic definition fixes the complete topology family, arms, selector, slots, grant-use basis, and required provider capabilities; call and receipts preserve exact family/arm/owner-leaf/occurrence/scope/predecessor identity plus successor state and handoff. Public admits one outer carrier and calls one already loaded binding only. |
+| prior correction applied `Rnn` and then one generic definition commit | Each fixed resource-using owner leaf returns a typed mechanical receipt before dependent work. `E29-E32` instead expose one fixed initial-to-final prefix arm while HoG/ABG owns the dynamic child journal; each child append is independently durable and reissues its successor. The exact semantic owner consumes those receipts, and `Rnn` occurs only after the transition/replay truth it classifies. No outer resource transaction exists. |
 | invoke/start/current-intent sequencing remains in legacy Public | C1F fixes the owner-local Effect expression; C2 installs it, routes the singular host runner to it, and deletes the Public semantic branches atomically. |
 | selected-action and three F_H response members have no complete path | C1F fixes the accepted variant expressions; C2 composes only the existing action, Product-response, continuation, and ABG admission leaves. |
 | Product install/bind wrappers stop before ABG admission | C1F fixes the expected-prefix admission suffix; C2 closes each static cross-owner callable. |
@@ -1989,7 +2571,7 @@ Every technology has one bounded role.
 
 | Technology | Lawful function | Prohibited authority or coupling |
 |---|---|---|
-| Node `node:fs` | file, descriptor, stat, fsync, truncate, and lock-file mechanics behind the event-store owner | event meaning, projection, lifecycle, or identity |
+| Node `node:fs` and `node:fs/promises` | file, directory, descriptor, stat, fsync, truncate, rename, and lock-file mechanics behind exact Product filesystem owners or the ABG Event Store | Product or event meaning, projection, lifecycle, canonical identity, grant, or currentness |
 | Node `node:crypto` | SHA-256 over already selected canonical bytes | selecting semantic preimages or re-minting identity |
 | current canonical JSON/digest helpers | canonical byte and digest mechanics for typed owner-selected values | domain identity ownership or downstream normalization |
 | current `AbgEventStore` | sole runtime-event admission, ordered durable append, exact reopen, and immutable snapshot production | projection law, `HoldsAt`, domain lookup meaning, or semantic currentness |
@@ -2006,8 +2588,9 @@ demonstrated requirement counterexample and lawful re-entry.
 Effect subpath imports are required in production (`effect/Effect`,
 `effect/Context`, `effect/Layer`, `effect/Exit`, `effect/Cause`, and
 `effect/Scope` only where selected) so the used capability surface remains
-explicit. `@effect/platform` is not selected and cannot enter without a new
-proven generic mechanical gap and FS-19 comparison. Effect Schema is not
+explicit. `@effect/platform` was evaluated for the exact resource capability
+in Section 10.1.3 and is not selected; it can re-enter only on that ledger's
+exact falsifier and a fresh FS-19 comparison. Effect Schema is not
 selected because Valibot remains the singular schema owner.
 
 Effect `retry`, `Schedule`, `Clock`, `Fiber`, `Queue`, `Ref`, `FiberRef`,
@@ -2036,7 +2619,7 @@ seams.
 | typed Event Calculus projection | `deriveRuntimeEventCalculusProjection`, `holdsAt`, typed fluent/pattern helpers | validated immutable prefix plus closed module law to immutable projection/query | store access, prefix selection, admission, actors, or caller axioms | accepted first-slice addition |
 | replay projection composition | `abg/replay.ts` | compose typed reconstructive read models from one selected prefix | events, effects, identity, or rival fluent folds | retained and incrementally tightened |
 | common execution composition | exact-pinned Effect `3.22.1`, through subpath imports | singular installed definition and HoG-shell substrate for typed sequential composition, stack-safe suspension, stateless dependencies, typed failure/Cause separation, and physical resource scoping | GTL topology, owner semantics, retry/workflow/Saga policy, ABG events/lifecycle/transactions/currentness/persistence, clocks/schedulers/concurrency/state, replay meaning, schema, another traversal, or an executable factorization plan | selected for the complete internal definition family and HoG execution shell. The direct-scalar and installed E29 prototypes are conservation evidence and active C2 deletion targets. Event Calculus/replay remain pure folds. |
-| canonical typed resource transition | Sections 5.6.2A-B and Table 5.6.3-D; C2-pending shared carrier/algebra over stateless installed Effect providers | for the exact 18/56 family only, derive read, same-resource mutation, and owner-allocated distinct-output creation from provider-scoped input/output identity topology; emit one typed receipt and exact successor binding/handoff at each owner-leaf boundary; preserve committed, no-new-commit idempotent, residue/compensation, and substrate-fault truth | semantic access policy, owner result/refusal, topology selection, scheduling, concurrency admission, credentials, ABG events/currentness, enclosing transactions, arbitrary GraphFunction effects, publication/subprocess/deletion semantics, generic distributed transactions, or a resource registry/controller | bounded correction repaired; exact class projection and PFC-F05/load identity specified; production/schema/proof realization remains held for C2 after independent acceptance |
+| canonical typed resource transition | Sections 5.6.2A-B and Table 5.6.3-D; C2-pending shared carrier/algebra over the Section 10.1.3 selected foundation composition | for the exact 18/56 family only, admit one sibling resource assertion, derive one closed arm from the admitted semantic request, and preserve exact identity/version/grant, owner-leaf or recursive-child receipts, residue/fault, successor binding, and handoff | semantic request fields, caller-selected modes/arms, semantic access policy, owner result/refusal, scheduling, concurrency admission, credentials, ABG events/currentness, enclosing child transaction, arbitrary GraphFunction effects, publication/subprocess/deletion semantics, generic distributed transactions, or a resource registry/controller | final C1F correction pending acceptance; production/schema/proof realization remains held for C2/D6 |
 | canonical rooted-topology partition | `shared/rooted_topology_partition.ts` | owner-derived same-basis canonical topology witnesses to one deterministic preserved/exited/entered partition or closed structural refusal | carried domain values, evidence transformation, candidate/refusal construction, topology selection, Product meaning, GTL interpretation, HoG route choice, ABG admission/events/currentness/replay, causal-DAG search, effects, callbacks, registries, controllers, or universal frame carriers | implemented and interface-accepted through TV5; integrated qualification pending |
 
 ### 10.1 Recursive Foundation Admission And Cost Law
@@ -2176,7 +2759,51 @@ equal. No Promise compatibility binding, alternate runner, or Effect wrapper
 over the old coordinator may remain. The accepted Wave 1 Promise host symbol
 may remain only as the outward adapter defined in Section 5.6.2.
 
-#### 10.1.3 HoG target and preserved atoms
+#### 10.1.3 Exact 18/56 resource-capability foundation ledger
+
+FS-18 and FS-19 apply here to one generic capability, not to an imagined
+resource framework:
+
+```text
+open an explicitly identified/versioned filesystem or durable-log resource
+  -> use it through a scoped stateless capability
+  -> release handles deterministically
+  -> preserve exact before/after or prefix/successor evidence
+```
+
+ABIogenesis separately owns canonical identity, definition/arm selection,
+grant use, Product transition meaning, ABG admission, semantic refusal, and the
+serialized receipt. The comparison is limited to the actual 18/56 mechanics;
+there is no broad database, event-sourcing, workflow, or framework search.
+
+| Candidate or composition | Exact supplied capability and local evidence | Authority and lifecycle cost | Integration, package, maintenance, and proof cost | Disposition |
+|---|---|---|---|---|
+| current Node filesystem calls, optional system Git, and current ABG Event Store lifted through core Effect Scope | `node:fs/promises` is already used by `product/workspace_operations.ts`, `product/verify_product.ts`, `product/install_product.ts`, and `product/materialization_operations.ts`; `node:fs` is already used by `abg/event_store.ts`. `AbgEventStore` already supplies expected-prefix transactions, durable reopen, `DurablePrefixCoordinate`, and `EventStoreCloseHandoff`. Exact-pinned Effect `3.22.1` supplies `Effect.tryPromise`, `Effect.acquireRelease`, `Effect.acquireUseRelease`, and `Effect.scoped`. System Git is a credible native tree/version mechanic, but no current Product owner type or production adapter selects a Git commit as workspace truth. | Node and Effect Scope own handle mechanics only; Product retains filesystem meaning and ABG retains event/prefix meaning. Git cannot enter merely as a default because that would invent owner state. Scope cannot persist currentness or merge child ABG transactions. | Lowest migration: lift the existing owner functions, reuse the installed dependency, add one common private Layer/Scope closure, and delete duplicate cleanup/error glue. No new runtime package. Proof is exact result/refusal, physical receipt, expected-prefix, release, pack, and restart conservation. | **Selected composition**, excluding Git unless an exact later Product contract selects it. |
+| Effect `Resource` from installed `effect@3.22.1` | Local primary source `node_modules/effect/src/Resource.ts` exposes refreshable `Resource.auto`, `Resource.manual`, `Resource.get`, and `Resource.refresh` over `ScopedRef`; it can scope an in-memory refreshable value. | A `Resource` value is process-local and refreshable. Treating it as the current artifact, worksite, store prefix, or successor would create a second authority and fail restart. It adds nothing to explicit per-call binding/receipt threading. | No added package, but it adds a cache lifecycle and proof surface while the required durable/current truth remains Product/ABG-owned. It is lawful only as a disposable cache proven irrelevant to behavior; this cut needs no such cache. | **Not selected.** Falsifier for adoption: a measured repeated acquisition cost must require a non-authoritative cache and show lower total cost without changing any receipt or restart result. |
+| `@effect/platform` `0.97.1` plus `@effect/platform-node` `0.108.1` | Official package/API metadata inspected `2026-08-14`: `@effect/platform/FileSystem` supplies typed access, copy, chmod/chown, exists, link, mkdir/temp, scoped open, read, realPath, remove, rename, stat, streams, symlink, truncate, utimes, watch, and write; the Node adapter supplies the platform service. Peer ranges accept Effect `^3.22.1`. Both are MIT. Published unpacked sizes are approximately `19,891,689` and `403,202` bytes respectively; the platform package also brings `msgpackr`, `multipasta`, and `find-my-way-ts`. | The service is authority-neutral when restricted to filesystem mechanics, but supplies no Git comparison/CAS law, ABG expected-prefix admission, canonical ABIogenesis identity/version, capability-grant law, owner result/refusal, or durable receipt. It cannot replace the local remainder. | Adds two packages and transitive closure, converts already-thin owner calls, and expands pack/license/upgrade proof. Its richer filesystem surface is mostly unused by the exact 18/56 rows. The current Node calls already satisfy the selected mechanics once lifted through core Effect. | **Not selected for 5.0.** Exact falsifier: an implemented 18/56 row must need a platform capability absent from current Node/ABG mechanics, and measured adoption plus deletion must be cheaper than the bounded adapter. |
+| minimal local identity/version/grant/topology-arm/receipt carrier | Sections 5.6.2A-B define the missing serializable fields and digests: provider-scoped identity, credential-free locator, exact version/absence, complete accepted grant preimage/use basis, closed arm, owner-leaf occurrence/scope/predecessor, before/after, owner evidence, disposition, residue/compensation/fault, and successor handoff. | This is the irreducible ABIogenesis seam. It carries owner-selected meaning but performs no I/O, caching, admission, topology choice, scheduling, retry, or currentness. Libraries cannot define these Product/ABG identities without acquiring authority. | One shared carrier/schema/generator family replaces per-path wrappers. It must bind exact existing Product and ABG owner result types and the minimal Node mechanical observation types; all 56 load probes prove the same ABI. | **Selected local remainder**, composed with the first row. |
+
+The lowest-total-cost lawful composition is therefore:
+
+```text
+existing Product Node/fs atoms
+  + existing ABG Event Store atoms
+  + core Effect 3.22.1 tryPromise/Scope/Layer closure
+  + one minimal serialized identity/version/grant/arm/receipt ABI
+```
+
+Effect `Resource` is not durable truth and `@effect/platform` supplies no
+Product or ABG meaning. Neither is installed in the production path. No local
+filesystem, resource-lifetime, or event-store framework is built. The reused
+code is the existing Product/ABG owner implementation and core Effect scope;
+the minimal local remainder is only the carrier, digest, strict schema,
+provider tag/adaptor, and receipt projection described above. Primary evidence
+is the pinned local package/lock and source APIs, Node's supported built-ins,
+the live owner modules named in the table, the Effect project
+<https://github.com/Effect-TS/effect>, and the official platform package
+surface <https://github.com/Effect-TS/effect/tree/main/packages/platform>.
+
+#### 10.1.4 HoG target and preserved atoms
 
 The target is one Effect-native HoG execution shell over the exact admitted GTL
 value. It composes, but does not replace:
@@ -2525,26 +3152,25 @@ Wave 1 is the accepted functional runtime substrate. Its frozen artifact is
 accepted interface receipt is
 `c8c26047d36b930a820559d276daa17a51c4589605767463a51be2eb2eba0d7d`.
 
-Wave 2 `exact_public_family_construction` is in a bounded C1F resource-binding
-design correction after accepted C2 HoG translation/deletion work reached the
-D6 owner-binding boundary. The exact 56-key external map, semantic owners,
-ordered factorization, indexed output relations, and Effect `3.22.1`
-composition foundation remain fixed. Section 5.6.2A replaces only the
-incomplete unary-call/source-rehydration assumption, and Section 5.6.2B plus
-Table 5.6.3-D bind its exact topology/provider identity and leaf-local receipt
-law to all 56 definitions. The rejected enclosing-transaction interpretation
-is superseded: existing ABG appends and physical owner transitions remain
-separate durable leaves whose successor handoffs are threaded by Effect.
+Wave 2 `exact_public_family_construction` is in the final bounded C1F execution-
+carrier/topology-arm correction after accepted C2 HoG translation/deletion work
+reached the D6 owner-binding boundary. Candidate `f82805ec4d5d5e05c65b4966b55b8bd2cc2e8a17`,
+tree `308aa2ae5c8ac0d1e648d2fe6da208f77a6c6ada`, is held and rejected only for
+the incomplete relations recorded in Section 16.6. The exact 56-key map,
+semantic owners, factorization, indexed outputs, and Effect `3.22.1` foundation
+remain fixed. Sections 5.6.2A-B now bind one outer execution carrier, closed
+topology-arm families, exact grant/receipt/load identity, and one recursive
+initial-to-final ABG prefix frame to all 56 definitions.
 
-C2 production, schema, generator, and test work is held until this correction
-passes independent review. On acceptance, C2 resumes at D6: realize the common
-`DefinitionCall`/`DefinitionReturn` carrier and stateless providers, bind all
-56 definitions without changing owner meaning, emit the exact leaf receipts,
-and prove source and packed load/resolve/callability plus topology/provider
-digest equality. The already accepted HoG algebra, Event Calculus,
-replay, and deletion boundary do not reopen. Package footprint remains
-optimization evidence only. This section adds no second map, coding plan,
-catalog, or authorization.
+C2 production, schema, generator, test, and deletion work is held until this
+correction passes independent review. On acceptance, C1F closes and C2/D6
+advances atomically: realize the one `PublicExecutionCandidate` ingress,
+arm-indexed `DefinitionCall`/`DefinitionReturn` family, private provider closure,
+exact owner evidence, child-prefix journal, and all-56 source/packed load and
+callability proof. The already accepted HoG algebra, Event Calculus, replay,
+and deletion boundary do not reopen. Package footprint remains optimization
+evidence only. This section adds no second map, coding plan, catalog, or
+authorization.
 
 ## 16. Amendment Rule
 
@@ -2583,8 +3209,8 @@ Amend this single surface.
 | **local-method status** | Sections 1 and 2 make the STDO `2.2.2` plus explicit ABIogenesis-local-axiom relation operative. A validated subset may later be proposed to a future STDO `2.4` line, but no later or mutable STDO surface governs this cut. |
 | **clauses corrected** | Sections 3 and 4 no longer require every transformation to become a runtime event. They distinguish pure immutable, ABG runtime-mutation, and physical artifact regimes. |
 | **clauses extended** | Section 5.3 adds Product, Public, Entity, Operator, Owner, Effect, Reuse, Install, and Proof frames. Section 5.6 adds the closed operator algebra, installed binding ABI law, orthogonal factorization evidence, exact 56-key map, exact indexed output-closure catalog, current gap register, release law, and C1F closure criteria. |
-| **external coverage** | Fixed at 18 operation identities and 56 exact definition keys. The exact 41 literal-insensitive structural schema shapes remain orthogonal structural evidence. Table 5.6.3-A supplies the exact 40-class membership relation; Tables 5.6.3-B/B2/C/D supply its selected semantic leaves, joins, `R01-R40` output relations, physical boundaries, neutral mechanics, ordered traces, and exact reusable resource-topology projection. The unsupported preliminary `22` semantic-relation and `71` reusable-callable estimates are withdrawn rather than constitutionalized. No count is a primitive or implementation budget. |
-| **binding decision** | The semantic relation `PublicInvocation<K> -> indexed owner output` remains operative. The unary execution-carrier sentence formerly in this row is superseded by Section 16.5: the installed ABI now consumes `DefinitionCall<K, I, O>` and returns the closed `DefinitionReturn<K, I, O>` Effect while preserving that semantic projection and ordered leaf receipts. Do not force owner semantic atoms to consume unrelated Public fields. A direct atom is lifted only when it naturally matches its owner relation; otherwise one owner-local statically composed Effect binding performs structural extraction, explicit resource-state consumption, closed factor composition, receipt-aware `Rnn` indexed closure at its lawful locus, and exact Layer provision. Public calls it once and never runs it. |
+| **external coverage** | Fixed at 18 operation identities and 56 exact definition keys. The exact 41 literal-insensitive structural schema shapes remain orthogonal structural evidence. Table 5.6.3-A supplies the exact 40-class membership relation; Tables 5.6.3-B/B2/C/D supply its selected semantic leaves, joins, `R01-R40` output relations, physical boundaries, neutral mechanics, ordered traces, and exact reusable resource-topology families. The unsupported preliminary `22` semantic-relation and `71` reusable-callable estimates are withdrawn rather than constitutionalized. No count is a primitive or implementation budget. |
+| **binding decision** | The semantic relation `PublicInvocation<K> -> indexed owner output` remains operative. Section 16.6 supersedes the incomplete execution-carrier relations: one `PublicExecutionCandidate` carries the unchanged envelope plus a sibling resource assertion; the admitted request selects exactly one closed arm; and the installed ABI consumes `DefinitionCall<K, A, I, O>` and returns the closed `DefinitionReturn<K, A, I, O>` Effect. Do not force owner semantic atoms to consume unrelated Public fields. A direct atom is lifted only when it naturally matches its owner relation; otherwise one owner-local statically composed binding performs structural extraction, explicit resource-state consumption, closed factor composition, receipt-aware `Rnn` indexed closure at its lawful locus, and private one-time Layer provision. Public calls it once and never runs it. |
 | **output decision** | Every expression ends in one exact semantic-owner output relation `R01-R40` before structural `O_K`. `R01-R38` are C2 binding work; `R39-R40` already close the Wave 2 reachable refusal algebra by preserving the live thirteen-field `ReleaseSnapshotRefusal` and its closed twelve-code set object-identically. The shared `{code, issuePaths, evidenceRefs}` schema applies only where the selected owner packet declares it; it is not a universal carrier. Public never invents a result, classifies a nonterminal, translates an exception, or maps an owner refusal. The accepted ticket-Consensus path is AF-03 through current `projectTicketConsensus`; no Product re-entry is selected. |
 | **Effect decision** | Superseded and replaced by Sections 5.6.2, 9, 10.1, and 16.3. Exact-pinned Effect `3.22.1` is the selected common execution-composition foundation for the complete internal installed definition family and one HoG shell. The scalar and installed E29 prototypes remain evidence-only deletion targets. Effect owns no topology, semantic retry/workflow/Saga, runtime currentness, admission, transaction, event, replay, schema, state, clock, scheduler, or concurrency truth. No Event Calculus refactor is selected. |
 | **release decision** | Freeze future-capable `published_rc` and `tapped_release` success result schemas in the 5.0 family now. Wave 2 behavior remains refusal-only through the existing exact `ReleaseSnapshotRefusal`; Wave 5 supplies qualification authority and publication mechanics without changing definition or family identity. |
@@ -2604,14 +3230,14 @@ Amend this single surface.
 | **local-method status** | FS-18 through FS-20 and Sections 7 through 10 are ABIogenesis-local law closing a gap in the selected immutable method. They may become evidence for a later STDO `2.4` methodology re-entry. STDO `2.4`, mutable methodology source, and any candidate release do not govern this cut. |
 | **clauses superseded** | The former FS-18 ordered incumbent-first ladder; the former Section 9/10 optional scalar-only Effect treatment; the former plain-value/Promise-capable internal `ExactDefinitionCallable<K>` carrier; and any interpretation that Phase 0 was the only required open-source-foundation review. Section 16.2's binding and Effect rows are updated to the replacement law and are not co-operative alternatives. |
 | **foundation decision** | Exact-pinned Effect `3.22.1` is the selected common TypeScript execution-composition foundation for the complete internal installed definition family and one HoG execution shell. It supplies typed sequential composition, stack-safe suspension, stateless Context/Layer provision, typed failure/Cause separation, and physical Scope only. Ordinary owner atoms, Valibot schemas, GTL topology, HoG decisions, ABG transactions/events/currentness, Event Calculus, replay, and owner refusal meaning remain independently owned. |
-| **binding decision** | An unbound owner program may have `Effect<A,E,R>` requirements over exact stateless capabilities. Section 16.5 supersedes only this row's former unary call carrier: the installed definition provides the exact Layer and exposes `ExactDefinitionCallable<K, I, O>: DefinitionCall<K, I, O> -> Effect<DefinitionReturn<K, I, O>, DefinitionExecutionFault<K>, never>`. Expected owner refusal may short-circuit in `E` internally, but the exact semantic owner consumes completed leaf receipts and applies `Rnn` at the first lawful locus inside the program. Only receipt-preserving execution faults remain typed failures at the binding boundary; defects remain Cause. Public calls and projects once but does not run or interpret either. |
+| **binding decision** | An unbound owner program may have `Effect<A,E,R>` requirements over exact stateless capabilities. Section 16.6 supersedes only this row's former unary/incomplete call carrier: the installed loader privately provides the exact Layer once and exposes `ExactDefinitionCallable<K, Arm, I, O>: DefinitionCall<K, Arm, I, O> -> Effect<DefinitionReturn<K, Arm, I, O>, DefinitionExecutionFault<K, Arm, I, O>, never>`. Expected owner refusal may short-circuit in `E` internally, but the exact semantic owner consumes completed receipts and applies `Rnn` at the first lawful locus. Only receipt-preserving execution faults remain typed failures; defects remain Cause. Public calls and projects once but does not run or interpret either. |
 | **runner decision** | One canonical package-internal host/SDK membrane invokes `runPromiseExit` and owns the sole Exit/Cause-to-host-receipt and exit-`70` relation. CLI, Codex, SDK conveniences, and hosts reuse it. JavaScript Promise is outward transport only. The accepted Wave 1 Promise host symbol remains lawful only as an adapter over the same internal Effect HoG program; new Wave 2 bindings call that program directly. |
 | **HoG decision** | One Effect-native HoG shell composes existing pure GTL topology, pure HoG traversal/route decisions, exact ABG owner admissions, and pure Event Calculus/replay. No Effect retry, Schedule, Clock, Fiber, Queue, Ref, FiberRef, Stream, STM, semantic Context state, executable trace, or alternate traversal/runtime is selected. |
 | **cost decision** | The Section 10.1 ledger compares all eight credible candidates across functional coverage, authority leakage, migration, deletion/avoidance, license/health/upgrade, package/runtime/startup, determinism/replay, failure/concurrency, proof, exit, and falsifier. Hard-boundary eliminations mark unmeasured downstream economics `not incurred / not decision-driving`; they do not invent favorable costs. Current directional evidence estimates `0.4-0.8k` common production substrate plus proof against `2.3-4.1k` Effect-specific deletion/avoidance; the independently mandatory approximately `4.47k` legacy Public deletion is excluded from the benefit. Footprint and line estimates are prototype-validated inputs, not acceptance claims. |
 | **map effect** | External membership remains exactly 18 operations and 56 keys; `E01-E40`, `L01-L65`, `J01-J08`, `R01-R40`, `X01-X04`, semantic owners, indexed outcomes/refusals, effect partition, joins, and ordered owner traces are unchanged. `N13` adds the selected authority-neutral composition foundation and is applied uniformly at the installed boundary without becoming an executable trace or semantic leaf. |
 | **prototype disposition** | The direct-scalar and source-blind installed `E29` prototypes have demonstrated the selected foundation's conservation boundary. They remain evidence/oracles only and are deletion targets in C2; neither may be generalized into wrappers or retained as a production path. |
-| **package decision** | The clean packed Product must contain or resolve the exact Effect runtime dependency closure and applicable license material. Local `node_modules`, source imports, and a development lockfile do not prove installed availability. `@effect/platform` and Effect Schema remain unselected. |
-| **migration consequence** | The C1F factorization and Effect selection remain fixed. Section 16.5 repairs only the resource-state binding relation and holds D6 until acceptance. The accepted HoG translation/deletion remains intact. C2 then realizes the remaining exact bindings through the corrected call carrier and owner-leaf receipts; C3/C4 construct the projections and atomically delete legacy Public sequencing and every rival Promise/runner path. No stage may expose two production authorities. |
+| **package decision** | The clean packed Product must contain or resolve the exact Effect runtime dependency closure and applicable license material. Local `node_modules`, source imports, and a development lockfile do not prove installed availability. Section 10.1.3 evaluated and rejected `Effect.Resource` and `@effect/platform` for this cut; Effect Schema remains unselected. |
+| **migration consequence** | The C1F factorization and Effect selection remain fixed. Section 16.6 supplies the final resource-state ingress/arm/recursive-frame repair and holds D6 until acceptance. The accepted HoG translation/deletion remains intact. Acceptance atomically advances C2/D6 to realize the remaining exact bindings; C3/C4 construct projections and delete legacy Public sequencing and every rival Promise/runner path. No stage may expose two production authorities. |
 | **promotion status** | ABIogenesis-local constitutional law only. Later promotion to STDO `2.4` requires a separate methodology re-entry, representative cross-product evidence, compression, independent review, and release authority. This amendment does not update or select STDO. |
 
 ### 16.4 T-287 C1F Resource-State Binding Correction Record
@@ -2639,6 +3265,7 @@ Amend this single surface.
 |---|---|
 | **reason** | Cold review of the exact Section 16.4 candidate proved six constructability defects: one false outer commit after `Rnn`; no total mechanical-disposition/semantic-outcome relation; no exact reusable topology projection over all 56 keys; accepted unary PFC-F05 identity/load grammar left unsuperseded; provider identity/version/allocation/idempotence under-specified; and a universal resource claim that exceeded the 18/56 family. |
 | **change class and scope** | One bounded ABIogenesis-local `design_reframe` repair authorized by F_H. It retains the selected common topology algebra, Effect `3.22.1`, exact 18/56 family, owners, indexed semantics, D2-D5 HoG translation/deletion, one Public path, and all Wave 1 runtime interfaces. It changes no Product, requirement, operation/key membership, HoG, ABG event kind, Event Calculus, replay, schema, generator, test, or legacy-deletion decision. |
+| **review disposition** | **Held and rejected as the exact candidate** at commit `f82805ec4d5d5e05c65b4966b55b8bd2cc2e8a17`, tree `308aa2ae5c8ac0d1e648d2fe6da208f77a6c6ada`. It preserved the foundation and leaf-local durability direction but left six incomplete realization relations: no singular transport/Public resource ingress; one projection with optional arms rather than a closed family; dynamic HoG child leaves inside Public topology; an under-indexed/unbound receipt and grant ABI with exposed `providerLayer`; no exact resource-foundation cost ledger; and stage text that advanced C2 before acceptance. Section 16.6 supersedes only those relations. |
 | **superseded clauses** | Supersedes Section 16.4's outer `Rnn -> generic commit` interpretation, universal content-addressing language, incomplete three-way disposition, unscoped identity/disjointness claims, and failure to bind topology/provider capability to intrinsic/callable/load/host identity. It also explicitly supersedes the accepted S06 unary PFC-F05 call/load relation while conserving its singular exact-binding invocation. |
 | **owner-leaf transition decision** | Every resource-using `L`, `J`, or `X` leaf consumes one exact current binding and returns one typed mechanical receipt before dependent work. Existing ABG expected-prefix appends remain independently durable ABG-owner transactions and reissue exact successor prefixes/close handoffs. `E29-E35` are ordered Effect/HoG folds over those receipts, never one late transaction. Existing transaction, event, Event Calculus, replay, and fresh-process boundaries are conserved. |
 | **outcome/disposition decision** | Mechanical receipts distinguish observed unchanged, committed, idempotent with no new commit, residue/compensation, and substrate fault. The exact semantic owner consumes the receipt and applies the already-frozen `Rnn` only after the transition/replay truth it classifies. Generic providers cannot create owner meaning. Receipt prefixes, visible bindings, and residue/compensation evidence survive a typed execution fault and appear in the canonical host receipt. |
@@ -2646,5 +3273,22 @@ Amend this single surface.
 | **PFC-F05 and identity decision** | Intrinsic definition identity now includes the source-independent topology ref/digest and required stateless provider-capability set. Callable-contract identity, loaded-binding grammar, source-blind load receipt, and canonical host receipt preserve that exact relation and resolved provider equality. Public receives one loaded binding, calls it once, and never constructs topology/providers, sequences leaves, reads resources, interprets receipts, or applies `Rnn`. |
 | **resource identity/allocation decision** | Canonical identity is provider scoped and distinct from credential-free locator. Preflight proves observed identity/version equals expected identity/version, absence where required, alias/write overlap, collision, and disjointness before effects. Owner allocation is exactly caller-target create, content-addressed derivation, owner-versioned, or server-allocated; no form assumes content addressing. Committed and truthful no-new-commit idempotent receipts both reissue exact successor bindings and handoffs. Mutable worksites default to single-writer expected-version/CAS with Git commit and complete tree before/after. |
 | **bounded common-algebra decision** | The common provider surface is limited to the exact `T0-T8` resource mechanics used by the 18/56 family. ABG append is an ABG-owner refinement. `X02` retains Product install/subprocess meaning; `X04` publication is not applicable in Wave 2; publication, subprocess, external side effects, deletion, and arbitrary GraphFunction effects remain exact owner laws. No generic distributed transaction, Saga, scheduler, runtime, catalog, registry, credential path, or provider-owned semantics is added. |
-| **implementation consequence** | C2/D6 remains held until this repaired design candidate passes independent review. On acceptance, D6 may implement only the shared carriers/receipts, intrinsic topology/callable/load/host identity joins, stateless provider closure, exact Table 5.6.3-D bindings, and all-56 source/packed callability proof. C3 Public-family generation and C4 deletion remain separately gated. |
+| **implementation consequence** | This exact candidate earned no implementation authority. C2/D6 remains held pending acceptance of Section 16.6. C3 Public-family generation and C4 deletion remain separately gated. |
 | **promotion status** | ABIogenesis-local constitutional law only under immutable STDO `2.2.2`. Later STDO promotion requires separate methodology re-entry and representative evidence. |
+
+### 16.6 T-287 C1F Final Execution-Carrier And Topology-Arm Repair Record
+
+| Field | Record |
+|---|---|
+| **reason** | Cold constructability review of `f82805ec` proved that the resource model was directionally lawful but not decision-complete at transport ingress, conditional topology, recursive execution, exact ABI, provider closure, or foundation selection. Those gaps could recreate a second host API, caller-selected modes, a giant transaction, ambient grant/state lookup, or duplicate library mechanics during D6. |
+| **change class and authority** | Final bounded ABIogenesis-local C1F `design_reframe` repair under F_H. It retains exact-pinned Effect `3.22.1`, explicit resource state, leaf-local ABG durability, the exact 18/56 family and 40-class map, Product/requirement/owner meaning, accepted D2-D5 HoG translation/deletion, Event Calculus, replay, and every Wave 1 interface. No production, schema, generator, test, HoG, ABG, membership, or deletion edit is authorized by this record. |
+| **single-ingress decision** | `PublicExecutionCandidate` is the sole serializable SDK/CLI-JSONL/Codex/internal-host carrier. It contains the unchanged accepted `PublicInvocationEnvelope` candidate and one sibling `CanonicalResourceStateCandidate`; resource fields never enter semantic `requestCandidate`. The exact order is outer I-JSON admission, K selection, K semantic-request admission, total arm derivation, resource-assertion admission, one `DefinitionCall`, one already-loaded invoke, and projection of indexed outcome plus `PublicExecutionReceipt`. A provider re-identifies/revalidates identity, version, grant, scope, and state before effects. Only an emitted successor receipt/handoff can feed a later call. |
+| **closed-arm decision** | Each K owns one digest-bound nonempty `IntrinsicResourceTopologyFamily<K,A>` covering every arm and one total owner-request selector. Family, arm, selector, call, receipt, load, and host identities agree. `E03` and `E04` each close `workspace_catalog` and `session_view`; `E22` closes `packed_artifact` and `installed_artifact`; `E36` closes `program_only` and `declared_inventory`; the exhaustive audit proves every other K single-arm. Absent versus exact-existing idempotence remains owner allocation/pre-state law within one arm. |
+| **recursive-frame decision** | Dynamic `AA*` children are removed from intrinsic Public topology. `E29-E32` each expose one fixed initial-to-final `T9 recursive_abg_prefix_frame`; HoG/ABG owns the invocation-dependent child sequence. Every child append is separately durable, journals its successor prefix and close handoff, and supplies the next child. The final result carries the full journal and latest handoff. A `T9` self-edge never means one atomic commit. Fixed single appends `E33-E35` retain `T8`. |
+| **exact ABI and grant decision** | `DefinitionCall`, `DefinitionReturn`, and `DefinitionExecutionFault` are indexed by K, arm A, and I/O slots. Every receipt binds definition, full family, selected arm, exact owner leaf, occurrence, slot or atomic set, and predecessor coordinate. Locator, observed state, commit/idempotence, residue/compensation, substrate fault, and handoff are either fully closed minimal Node mechanical carriers or exact existing Product/ABG owner types. `ResourceGrantUseBasis` carries the complete accepted S06 `CapabilityGrantCoordinate` preimage, invocation basis, definition/arm/slot/provider/resource/actions, and digest relation; no lookup or credential can complete it. |
+| **load decision** | `LoadedDefinitionBinding` exposes only immutable definition/family/arm-set/provider/load evidence and one closed generic `invoke`. The installed loader resolves providers, constructs and provides the exact Layer once inside the private closure, and returns `R = never`. `providerLayer`, provider factories, mutable resources, and semantic state cannot escape or enter Public. |
+| **foundation decision** | Section 10.1.3 applies FS-18/FS-19 to the actual generic resource capability. The lowest-cost lawful composition is current Product Node filesystem atoms plus current ABG Event Store atoms, lifted with core Effect `tryPromise` and Scope/Layer closure, plus the minimal local serialized identity/version/grant/arm/receipt remainder. Effect `Resource` is rejected as process-local refreshable state; `@effect/platform` is not selected because it adds package/proof cost while supplying neither Git/ABG admission nor ABIogenesis identity/receipt meaning. System Git remains unselected unless an exact Product contract types it. No local resource or event-store framework is built. |
+| **S06 effect** | The accepted unary PFC-F05 carrier is superseded because it lacked physical/durable pre-state. The accepted singular relation remains: admit, select one exact definition, call one exact already-loaded binding, project one indexed outcome. This repair adds no Public operation, semantic switch, catalog, controller, runtime, or compatibility path. |
+| **recorded D6 obligations, not implementation** | First, when a structural retry route is already admitted and later retry-attempt admission refuses, D6 must return the already-admitted route receipt and successor prefix rather than erase that durable fact. Second, the hard-coded `/private/tmp/abi5-wave1-freeze.yIRMJu/wave1-interface-receipt-v2.json` in `test_env/support/t287-wave2-owner-chain-worker.mjs` must be replaced in D6 by the current exact candidate receipt or a deliberately compatible immutable fixture while retaining the incompatible-dependency negative. These are bounded realization/proof obligations and do not reopen HoG/ABG or Wave 1 design. |
+| **advancement rule** | C2/D6 remains held while this final repair is pending. Independent acceptance of one frozen Section 16.6 candidate atomically closes C1F and advances C2/D6; no separate restatement or new design gate is required. Rejection may repair only a cited incomplete relation here. A missing owner meaning, Product alternative, new operation/key, rival authority, or different event lifecycle is a stop and returns to F_H. |
+| **promotion status** | ABIogenesis-local constitutional law only under immutable STDO `2.2.2`. It is evidence for a later STDO `2.4` re-entry, not selected upstream law. |

@@ -19,7 +19,7 @@
 - selected_feature: A5-F01
 - selected_slice: exact_public_family_construction
 - selected_slice_stage: design_reframe
-- selected_increment: w2_c1f_leaf_local_resource_binding_repair
+- selected_increment: w2_c1f_final_execution_carrier_topology_arm_repair
 - selected_increment_stage: design
 - accepted_checkpoint: 1f6a86074bf995763b4caff286422b5b1501374b
 - deferred_feature: A5-F12
@@ -73,11 +73,11 @@ selected feature and slice:
   = exact installed Product/catalog basis consumed by one 18-operation/56-key
     Public family, SDK, and CLI
 active increment:
-  w2_c1f_leaf_local_resource_binding_repair
+  w2_c1f_final_execution_carrier_topology_arm_repair
   = retain the common type-indexed DefinitionCall/DefinitionReturn relation,
-    bind exact topology/provider identity for all 56 keys, and make every
-    physical or ABG transition an owner-leaf receipt boundary;
-    preserve the accepted HoG translation/deletion and hold D6 production
+    close one serializable execution ingress, every conditional topology arm,
+    exact grant/receipt/load identity, and E29-E32 recursive prefix journaling;
+    preserve the accepted HoG translation/deletion and hold C2/D6 production
 Product outcome:
   declared recursive GTL frames/material relations
     -> one algebraic HoG evaluation and exact-owner transformation path
@@ -149,7 +149,7 @@ GTL.TypeScript
 | Wave | Feature families | Exit | State |
 |---:|---|---|---|
 | W1 | A5-F10, A5-F02, A5-F03, A5-F04 | One event-authoritative installed runtime kernel | Accepted; integrated M5 deferred |
-| W2 | A5-F01, A5-F09, A5-F05, A5-F06 | One exact 18-operation/56-key Public family over a closed installed execution basis | Active at C2 HoG algebra translation/deletion cut |
+| W2 | A5-F01, A5-F09, A5-F05, A5-F06 | One exact 18-operation/56-key Public family over a closed installed execution basis | Active at C1F final design repair; C2/D6 held |
 | W3 | A5-F14, A5-F07, A5-F08 | Packed Hello World, probabilistic proof, One Surface, and Consensus on the same path | Pending W2 |
 | W4 | A5-F13, A5-F17, A5-F11 | Native/host projections, downstream Product, and self-conformance | Pending W3 |
 | W5 | A5-F15, A5-F16 | Qualified immutable 5.0 release | Pending W4 |
@@ -361,10 +361,13 @@ function:
 source-blind Product bytes and workspace target
   -> verify -> resolve -> install -> bind
   -> construct exact eventless catalog, view, and application
-  -> admit one common Public envelope
+  -> admit one PublicExecutionCandidate containing the unchanged envelope
+     plus one sibling resource-state assertion
   -> select one exact { operationId, memberKey } definition
+  -> admit its semantic request and derive one exact closed topology arm
+  -> admit the matching resource assertion
   -> call its already loaded direct, statically composed, or projection binding once
-  -> structurally project its indexed outcome
+  -> structurally project its indexed outcome plus resource receipt/handoff
   -> expose the same family through installed SDK and CLI
 ```
 
@@ -521,7 +524,7 @@ primitive basis; it may not manufacture a bespoke callable merely to fill a
 row. Missing owner meaning is a stop, not permission for Public, SDK, CLI, a
 fixture, or a donor to invent it.
 
-### Bounded C1F leaf-local resource-state binding repair
+### Bounded C1F final execution-carrier and topology-arm repair
 
 D6 proved one construction defect in the C1F installed-binding relation. The
 unchanged common `PublicInvocation<K>` and owner request packets carry semantic
@@ -539,44 +542,77 @@ provider identity, idempotence, residue, and ABG successor threading. F_H
 authorized one bounded repair while retaining the common topology relation and
 Effect `3.22.1` foundation.
 
-Sections 5.6.2A-B, Table 5.6.3-D, and amendment 16.5 in the local constitution
-are the sole repaired relation. This ticket does not restate their algebra. For
-C1F/D6 accounting:
+The second candidate at commit `f82805ec`, tree `308aa2ae`, is also held and
+rejected as an exact candidate. It retained the selected foundation and leaf-
+local durability but left one ingress undefined, optional/conditional topology
+outside a closed family, dynamic HoG children inside Public topology, an
+under-indexed receipt/grant/load ABI, an exposed provider Layer, and no exact
+resource-foundation cost ledger. No implementation authority arose.
+
+Sections 5.6.2A-B, Table 5.6.3-D, foundation ledger 10.1.3, and amendment 16.6
+in the local constitution are the sole final repair. This ticket does not
+restate their algebra. For C1F/D6 accounting:
 
 - all 56 definition keys retain their exact owner, request, indexed outcome,
   effect regime, installed coordinate, and ordered factor trace;
 - the existing `5 + 24 + 1 + 4 + 14 = 48` incomplete rows are carrier/binding
   gaps, not another family or a request for 48 wrappers;
-- one common `DefinitionCall<K, I, O>` joins `PublicInvocation<K>` to exact
-  resource bindings and pre-state; one `DefinitionReturn<K, I, O>` joins the
-  owner output to ordered leaf receipts, successor resource state, and handoff;
-- Table 5.6.3-D projects all 56 exact keys through the existing `E01-E40`
-  classes and shared `T0-T9` forms; it creates no 56/48 wrapper roster;
+- one serializable `PublicExecutionCandidate` used by SDK, CLI JSONL, Codex,
+  and the internal host carries the unchanged semantic envelope plus one
+  sibling resource-state assertion; it is not another API and never adds
+  resource fields to `requestCandidate`;
+- after outer admission and K semantic-request admission, a total owner
+  selector derives one arm A; `DefinitionCall<K, A, I, O>` and
+  `DefinitionReturn<K, A, I, O>` preserve that exact arm and resource relation;
+- Table 5.6.3-D projects all 56 exact keys through closed nonempty topology
+  families over the existing `E01-E40` classes and shared `T0-T9` forms;
+  `E03`, `E04`, `E22`, and `E36` have the only multi-arm families and there is no
+  56/48 wrapper roster;
 - canonical provider-scoped input/output resource identity topology derives
   read, same-resource mutation, and owner-allocated distinct-output creation;
   no mode flag selects access or commit behavior;
-- every physical or ABG resource transition is owned by its exact `L`, `J`, or
-  `X` leaf and returns a typed mechanical receipt before dependent work;
-  existing expected-prefix appends remain independently durable and reissue
-  the exact successor prefix/close handoff;
+- every fixed physical or ABG resource transition is owned by its exact `L`,
+  `J`, or `X` leaf and returns a typed mechanical receipt before dependent
+  work; `E29-E32` instead expose one fixed initial-to-final prefix relation
+  while HoG/ABG owns and journals the dynamic separately durable children;
 - the exact semantic owner consumes committed, no-new-commit idempotent,
   residue/compensation, or substrate-fault evidence and applies the frozen
   `Rnn` only at the lawful post-transition/replay locus; no generic provider
   invents owner meaning;
-- intrinsic definition and callable-contract identity bind the topology
-  ref/digest and required stateless provider capabilities; loaded binding,
+- intrinsic definition and callable-contract identity bind the complete family,
+  every arm, total selector, exact owner binding types, grant-use basis, and
+  required stateless provider capabilities; calls, receipts, loaded binding,
   load receipt, and host receipt preserve the exact same relation;
-- the installed Effect Layer closes stateless provider mechanics only, and the
-  resulting callable remains `R = never`; and
+- the installed loader privately constructs/provides the Effect Layer once,
+  exposes no `providerLayer`, and returns one callable with `R = never`; and
 - logical refs never substitute for canonical locators, expected versions,
-  provider identities, grants, Git commit/tree state, ABG prefix/reopen
+  provider identities, complete admitted grants, ABG prefix/reopen
   handoff, object digest/version, or transaction/version tokens.
+
+The exact foundation choice is current Product Node/filesystem atoms plus the
+current ABG Event Store, lifted with core Effect `3.22.1` Scope/Layer closure,
+plus only the irreducible serialized identity/version/grant/arm/receipt carrier.
+Effect `Resource` is not durable truth; `@effect/platform` is not selected on
+total cost; Git is not inferred as Product state.
 
 This design correction authorizes no production, schema, generator, test,
 Public-family, legacy-deletion, HoG, Event Calculus, replay, or release work.
 The accepted D2-D5 HoG translation, contraction, deletion, and proportional
-proof remain intact. D6 resumes only after one frozen correction passes cold
-review. A requirement conflict or missing owner meaning remains a stop.
+proof remain intact. One independently accepted frozen Section 16.6 candidate
+atomically closes C1F and resumes C2/D6. A requirement conflict or missing
+owner meaning remains a stop.
+
+D6 carries two already-observed bounded obligations; neither is implemented in
+C1F:
+
+- if a structural retry route is durably admitted and the subsequent retry-
+  attempt admission refuses, return the already-admitted route receipt and
+  successor prefix instead of erasing the admitted fact; and
+- replace the hard-coded
+  `/private/tmp/abi5-wave1-freeze.yIRMJu/wave1-interface-receipt-v2.json` in
+  `test_env/support/t287-wave2-owner-chain-worker.mjs` with the current exact
+  candidate receipt or a deliberately compatible immutable fixture, while
+  retaining the incompatible-dependency negative.
 
 ### Reuse and library decision
 
@@ -616,10 +652,14 @@ Product lifecycle, ABG event admission/currentness/persistence, clock or
 scheduler truth, concurrency truth, or replay meaning. Its current direct-HoG
 and installed E29 prototypes are conservation evidence and disposable
 scaffolding, not production architecture. Effect `3.22.1` is selected; no
-further technology decision remains. The current refactor translates the
-established HoG functions into the small algebra and one fold, then deletes or
-makes unreachable the prototypes and displaced imperative coordinators. Event
-Calculus and replay are unchanged and no reduction redesign is selected.
+further technology decision remains. The resource-specific FS-18/FS-19 ledger
+selects the current Node/filesystem and ABG Event Store atoms through core
+Effect Scope plus the irreducible local carrier; it rejects Effect `Resource`
+as durable truth and does not select `@effect/platform`. After C1F acceptance,
+C2/D6 resumes translating the established HoG functions into the small algebra
+and one fold, then deletes or makes unreachable the prototypes and displaced
+imperative coordinators. Event Calculus and replay are unchanged and no
+reduction redesign is selected.
 
 The frozen seven-path PoC aggregate
 `sha256:18e2a602cbe7000b56aec8e1e92eed52dce5ce4af50bd94bf301cf5dd95df241`
@@ -633,17 +673,18 @@ retained as wrappers around the imperative HoG path.
 |---:|---|---|---|
 | `W2-C0` | Consume the accepted W1 interface receipt; refresh the exact 56-row endpoint/contract/dependency/deletion join; apply only the catalog/workspace/definition-coordinate reconciliation above. | Exact W1 receipt; refreshed 56-row join; zero key diff; explicit construction dependencies; clean reconciliation diff. | Complete - frozen external-contract/deletion evidence; not a primitive-basis decision |
 | `W2-C1` | Prove one unexported vertical function chain through existing owner relations: create/open -> verify -> resolve -> install -> bind -> catalog admit/view/apply -> invoke -> result/replay. | Direct installed chain proof; JSON round-trip at every boundary; no new Public export or adapter. | Complete as construction evidence at the maximal pre-admission boundary; prior owner-port interpretation superseded |
-| `W2-C1F` | Recursively classify all 56 external definitions as direct primitive, statically composed callable, projection, duplicate, or invalid; close the minimal installed primitive basis; retain the bounded Effect 3.22.1 composition foundation; specify source-independent callable and leaf-local type-indexed resource-state bindings plus install-derived load receipts. | Exact 56-row classification; primitive input/output/refusal/effect/owner/frame/nonfactorability map; non-executable factorization map and ordered primitive trace; Table 5.6.3-D exact class-to-topology projection; one `DefinitionCall`/`DefinitionReturn` family with ordered mechanical receipts and successor handoffs; intrinsic/callable/load/host topology/provider identity equality; conservation oracle for results, refusals, owner-leaf commits, ordered events, projections, replay, resource pre/post state, residue, and handoff; no executable plan, Public composition, outer transaction, or authority amplification. | One bounded repair active - factorization and Effect selection retained; unary PFC-F05 and rejected late-commit interpretation superseded; cold acceptance pending |
-| `W2-C2` | Translate the established 4.6 and accepted 5.0 HoG functions into small carrier/sum types, one primitive algebra and laws, derived combinators, one Effect fold/interpreter, and exact owner ports; complete the D01-D15 source-independent bindings on that basis; delete or make unreachable displaced imperative coordinators and prototype scaffolding. | Exact behavioral conservation for results, refusals, ordered events, projections, Event Calculus, replay, and exact resource pre/post state; source and packed load/resolve/callability probe for all 56 bindings and dependencies; zero wrapper over the old HoG path; superseded coordinators and prototypes unreachable or deleted. | D2-D5 accepted; D6 held pending C1F resource-state correction acceptance |
+| `W2-C1F` | Recursively classify all 56 external definitions; close the minimal installed basis; retain Effect 3.22.1; specify one serializable execution ingress, closed topology-arm families, exact grant/receipt/load identity, private provider closure, and fixed recursive initial-to-final prefix relations. | Exact 56-row classification and ordered trace; Table 5.6.3-D closed family/arm projection; one outer candidate and arm-indexed `DefinitionCall`/`DefinitionReturn` family; exact definition/family/arm/owner-leaf/occurrence/scope/predecessor identity; complete grant basis; child receipt journals and successor handoffs; Section 10.1.3 foundation ledger; no executable plan, Public composition, outer child transaction, `providerLayer`, or authority amplification. | Final bounded repair active - `f82805ec` held/rejected; factorization, Effect selection, 18/56, owners, and D2-D5 retained; cold acceptance pending |
+| `W2-C2` | Translate the established 4.6 and accepted 5.0 HoG functions into small carrier/sum types, one primitive algebra and laws, derived combinators, one Effect fold/interpreter, and exact owner ports; complete the D01-D15 source-independent bindings on that basis; delete or make unreachable displaced imperative coordinators and prototype scaffolding. | Exact behavioral conservation for results, refusals, ordered events, projections, Event Calculus, replay, and exact resource pre/post state; source and packed load/resolve/callability probe for all 56 bindings and dependencies; zero wrapper over the old HoG path; superseded coordinators and prototypes unreachable or deleted. | D2-D5 accepted; D6 held pending final C1F acceptance and then advances atomically |
 | `W2-C3` | Construct the structural envelope, intrinsic definition family, indexed admission, exact one-binding invocation, indexed outcome projection, schemas, SDK, CLI grammar, Codex sibling transport, PFC-F07 proposals, Product PFC-F08 binding, contract-group exports, and manifest rows from that family. | Exact-set equality and new candidate digest; generator idempotence; projection equality; package dependency closure. | Pending C2 |
 | `W2-C4` | Atomically export the replacement family and delete the legacy carrier, parser, semantic controller, schema synthesis, parallel manifest roster, aliases, compatibility tests, and legacy proof projections. | One installed 18/56 family over the closed primitive basis; zero reachable legacy or new-to-old translation; `git diff --check`. | Pending C3 |
 | `W2-C5` | Pack once and execute the two installed sunny paths and compact changed-boundary guards below through both SDK and CLI. | One exact artifact, interface receipt, scenario receipts, event/replay receipts, and guard vector. | Pending C4 |
 | `W2-C6` | Freeze one exact candidate for independent review and Executive disposition. | HEAD/tree or synthetic tree, status hash, patch hash, tarball/package/manifest/family digests, no moving files. | Pending C5 |
 | `W2-C7` | Accept the exact Product/Public interface substrate and unlock final Wave 3 Public binding and Wave 4 host projection. | Accepted frozen interface handoff; no M5 or release claim. | Pending C6 review |
 
-The C1F factorization and Effect selection remain fixed; only the resource-
-state call/load relation is in one bounded design repair. C2 is held at D6
-until this frozen repair passes cold review. After acceptance, C2 returns to pure
+The C1F factorization and Effect selection remain fixed; only the execution-
+carrier/topology-arm/resource call-load relation is in one final bounded design
+repair. C2 is held at D6 until this frozen repair passes cold review. Acceptance
+atomically closes C1F and returns C2/D6 to pure
 `realization_refactor` and has no semantic-review interruption before C6.
 Mechanical checks run continuously. One cold review at the current correction
 boundary and one cold review of the frozen C6 candidate are sufficient. A
@@ -666,6 +707,7 @@ The replacement production path consists only of:
 public/envelope.ts
   -> public/definition_family.ts
   -> public/invocation_admission.ts
+  -> public/resource_state_admission.ts
   -> selection.loadedDefinitionBinding.invoke(...)
   -> public/outcome_projection.ts
 ```
@@ -677,15 +719,17 @@ family. CLI parses one generated grammar and invokes the same SDK/Public path.
 host-specific behavior is Wave 4 proof, not a second Wave 2 operation family.
 
 Intrinsic definitions contain declarative source-independent execution-binding
-specifications, canonical input/output resource-slot topology ref/digest, exact
-owner-leaf atomicity references, output allocations, and the required stateless
-provider-capability set, never loaded callables or resource values. Those fields
+specifications, one complete closed topology family and total arm selector,
+exact owner-resource contract/atomicity references, output allocations, and the
+required stateless provider-capability set, never loaded callables or resource
+values. Those fields
 enter intrinsic definition and callable-contract identity. The installed
 binding loader resolves each specification under the admitted lock and Product
-set, freezes one real direct, statically composed, or projection callable plus
-its exact stateless provider Layer, and emits a minimal source-blind evidence
-receipt. The receipt proves exact specification/callable/module/contract,
-topology, provider-capability, and resolved-provider equality. The receipt
+set, constructs/provides its exact stateless Layer once inside a private
+closure, freezes one real direct, statically composed, or projection callable,
+and emits a minimal source-blind evidence receipt. No Layer escapes. The receipt
+proves exact specification/callable/module/contract, complete family/arms,
+provider-capability, owner-binding types, and resolved-provider equality. It
 itself never enters intrinsic definition, family, Product-content, invocation,
 event, or replay identity.
 Factorization maps and ordered primitive traces are non-executable assurance
@@ -693,14 +737,19 @@ evidence and are never loaded. Public receives the already loaded binding and
 does not resolve modules, sequence factors, interpret a plan, construct owner
 contexts, choose owner dependencies, open a semantic runtime, scan events, or
 switch on operation identity. GTL.TypeScript remains the sole Product program
-language. Pure relations consume immutable inputs. The one common call carrier
-supplies exact resource identity, locator, expected version, provider, resolved
-grant, and owner refinement. Resource access/commit derives from the
-definition's canonical input/output topology, not an operation mode. Effectful
+language. Pure relations consume immutable inputs. The one
+`PublicExecutionCandidate` carries the unchanged semantic envelope plus one
+sibling resource assertion. After semantic admission, the definition's total
+selector derives one arm and the call supplies exact resource identity,
+locator, expected version, provider, complete grant-use basis, and owner
+refinement. Resource access/commit derives from that arm, not an operation
+mode or resource candidate. Effectful
 owner leaves consume the exact explicit state, including acquisition/handoff or
 durable prefix where applicable, and each returns its typed mechanical receipt,
-successor state, and handoff before dependent work. Each physical or ABG leaf
-owns its existing atomicity boundary; no definition-wide transaction is added.
+successor state, and handoff before dependent work. Each fixed physical or ABG
+leaf owns its existing atomicity boundary; `E29-E32` thread the separately
+durable dynamic child journal inside HoG/ABG and expose only fixed initial/final
+prefixes to Public. No definition-wide transaction is added.
 The exact semantic owner consumes the receipt and applies its frozen `Rnn` only
 after the transition or replay truth that `Rnn` classifies. Public validates
 the call and loaded-binding relation structurally; it neither resolves nor
@@ -806,20 +855,31 @@ Stop the Wave 2 cut immediately if it introduces or retains:
   composed installed TypeScript callable and non-executable factorization
   evidence;
 - Public resolution, sequencing, plan interpretation, or composition;
+- resource fields inside semantic `requestCandidate`, a second resource API,
+  adapter-specific execution carrier, caller-selected arm/mode, optional slot
+  standing in for a closed arm, or a later call without the exact prior
+  successor receipt/handoff;
 - a second executable plan, DSL, interpreter, generated HoG Program, factor
   registry, runtime-loaded factor trace, invocation adapter, or new-to-old
   translation carrier;
 - an Effect workflow, retry, persistence, state, clock, scheduler, concurrency,
   event, currentness, or replay authority;
 - a definition-wide or provider-created transaction that groups independently
-  durable owner leaves, ABG appends, physical effects, or replay;
+  durable owner leaves, ABG appends, physical effects, or replay; or an
+  `E29-E32` dynamic HoG/ABG child list encoded as intrinsic Public topology;
 - `Rnn` applied before the mechanical transition/replay truth it classifies,
   or a transition whose committed, idempotent-no-new-commit, residue,
   compensation, or substrate-fault evidence is discarded;
-- an intrinsic definition, callable contract, loaded binding, load receipt, or
-  host receipt that omits or disagrees on the exact resource-topology digest,
-  required provider-capability set, resolved provider identities, owner-leaf
-  atomicity refs, allocation law, or successor handoff;
+- an intrinsic definition, callable contract, call, transition receipt, loaded
+  binding, load receipt, or host receipt that omits or disagrees on the exact
+  topology-family/complete-arm/selected-arm/selector digest, definition,
+  owner-leaf occurrence/scope/predecessor, required provider-capability set,
+  complete grant-use basis, resolved provider identities, allocation law, or
+  successor handoff;
+- an exposed `providerLayer`, Layer construction in Public, Effect `Resource`
+  used as durable/current truth, `@effect/platform` added without satisfying
+  its recorded falsifier, or local reconstruction of filesystem/Event Store
+  mechanics already supplied by the selected foundation composition;
 - a logical owner ref used as a physical resource identity, an unscoped
   provider identity, an observed version that differs from the expected
   version, an alias/collision check performed after effects, or a successor
@@ -845,14 +905,21 @@ worker decides those HOW relations.
 
 ### Review and acceptance boundary
 
+The current frozen C1F review asks only whether Section 16.6 closes one shared
+outer carrier, a total complete arm family for every K, exact grant/receipt/
+load identity, private one-time Layer provision, `E29-E32` child journaling
+without an outer transaction, and the selected foundation ledger without
+changing Product or owner meaning. Acceptance atomically resumes C2/D6.
+
 The frozen C6 review asks only:
 
 - Is there exactly one 18/56 external definition family, one loaded binding per
   row, and one closed minimal primitive basis rather than 56 presumed atoms?
-- Does Table 5.6.3-D cover every exact definition key with its canonical slots,
-  pre-state, provider capabilities, owner-leaf atomicity, allocation law,
-  successor state, and handoff, with exact equality preserved through the
-  intrinsic definition, callable contract, load receipt, and host receipt?
+- Does Table 5.6.3-D cover every exact definition key and every closed arm with
+  its canonical slots, pre-state, provider capabilities, owner leaf or nested
+  child journal, allocation law, successor state, and handoff, with exact
+  family/arm equality preserved through call, receipt, callable contract, load
+  receipt, and host receipt?
 - Does Public perform only admit -> select -> call -> project?
 - Are catalog readiness/view/application and workspace open eventless?
 - Do runtime mutation outcomes and runtime reads derive from ABG events and
